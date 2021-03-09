@@ -63,8 +63,8 @@
 
 ## POST - 할일 등록
 
-- Path: /todo
-- HTTP Status Code
+- `Path`: /todo
+- `HTTP Status Code`
     - Success: 201
     - Error: 400, 404, 500
 
@@ -80,8 +80,8 @@
 
 ## PATCH - 할일 수정
 
-- Path: /todo/:id
-- HTTP Status Code
+- `Path`: /todo/:id
+- `HTTP Status Code`
     - Success: 200
     - Error: 400, 404, 500
 
@@ -97,8 +97,8 @@
 
 ## DELETE - 할일 삭제
 
-- Path: /todo/:id
-- HTTP Status Code
+- `Path`: /todo/:id
+- `HTTP Status Code`
     - Success: 200
     - Error: 400, 404, 500
 
