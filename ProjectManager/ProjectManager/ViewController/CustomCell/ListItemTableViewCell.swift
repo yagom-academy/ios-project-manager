@@ -26,6 +26,7 @@ class ListItemTableViewCell: UITableViewCell {
         let descriptionLabel = UILabel()
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.font = .preferredFont(forTextStyle: .caption1)
+        descriptionLabel.numberOfLines = 0
         descriptionLabel.textColor = .gray
         return descriptionLabel
     }()
@@ -38,6 +39,9 @@ class ListItemTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        titleLabel.text = "title"
+        descriptionLabel.text = "descriptionLabel descriptionLabel descriptionLabel descriptionLabel descriptionLabel descriptionLabel descriptionLabel descriptionLabel descriptionLabel descriptionLabel descriptionLabel descriptionLabel descriptionLabel descriptionLabel descriptionLabel descriptionLabel"
+        deadLineLabel.text = "deadLine"
         configureContentsContainerView()
         configureAutoLayout()
     }
@@ -56,18 +60,18 @@ class ListItemTableViewCell: UITableViewCell {
             contentsContainerView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.95),
             contentsContainerView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.95),
             
-            titleLabel.topAnchor.constraint(equalTo: contentsContainerView.topAnchor),
+            titleLabel.topAnchor.constraint(equalTo: contentsContainerView.topAnchor, constant: 10),
             titleLabel.trailingAnchor.constraint(equalTo: contentsContainerView.trailingAnchor),
             titleLabel.leadingAnchor.constraint(equalTo: contentsContainerView.leadingAnchor),
             
-            descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
+            descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor),
             descriptionLabel.trailingAnchor.constraint(equalTo: contentsContainerView.trailingAnchor),
             descriptionLabel.leadingAnchor.constraint(equalTo: contentsContainerView.leadingAnchor),
             
-            deadLineLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 10),
+            deadLineLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor),
             deadLineLabel.trailingAnchor.constraint(equalTo: contentsContainerView.trailingAnchor),
             deadLineLabel.leadingAnchor.constraint(equalTo: contentsContainerView.leadingAnchor),
-            deadLineLabel.bottomAnchor.constraint(equalTo: contentsContainerView.bottomAnchor)
+            deadLineLabel.bottomAnchor.constraint(equalTo: contentsContainerView.bottomAnchor, constant: -10)
         ])
         
         titleLabel.setContentCompressionResistancePriority(.defaultLow, for: .vertical)

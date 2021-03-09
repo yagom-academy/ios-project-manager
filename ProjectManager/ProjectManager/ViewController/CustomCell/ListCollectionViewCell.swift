@@ -11,11 +11,15 @@ class ListCollectionViewCell: UICollectionViewCell {
     static var identifier: String {
         return "\(self)"
     }
-    private let tableView = UITableView()
+    private let tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.register(ListItemTableViewCell.self, forCellReuseIdentifier: ListItemTableViewCell.identifier)
+        return tableView
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.dataSource = self
         contentView.addSubview(tableView)
         configureAutoLayout()

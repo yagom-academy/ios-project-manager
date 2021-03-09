@@ -21,6 +21,8 @@ class ProjectManagerCollectionViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         view.addSubview(collectionView)
+        collectionView.dataSource = self
+        collectionView.delegate = self
         configureAutoLayout()
         configureNavigationBar()
     }
@@ -46,3 +48,26 @@ class ProjectManagerCollectionViewController: UIViewController {
     }
 }
 
+// MARK: - CollectionView Delegate FlowLayout
+extension ProjectManagerCollectionViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let itemSpacing: CGFloat = 8
+        let width: CGFloat = (collectionView.frame.width - itemSpacing * 2) / 3
+        let height: CGFloat = collectionView.frame.height
+        return CGSize(width: width, height: height)
+    }
+}
+
+// MARK: - CollectionView DataSource
+extension ProjectManagerCollectionViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 3
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ListCollectionViewCell.identifier, for: indexPath) as? ListCollectionViewCell else {
+            return UICollectionViewCell()
+        }
+        return cell
+    }
+}
