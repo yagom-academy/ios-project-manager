@@ -64,7 +64,7 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
-				FD4D22FC25F710E100FA6E6A /* Mdel */,
+				FD4D22FC25F710E100FA6E6A /* Model */,
 				FD4D22FD25F710EC00FA6E6A /* ViewController */,
 				FD4D230E25F7136700FA6E6A /* Extension */,
 				FD4D230225F7113000FA6E6A /* SupportingFiles */,
@@ -72,12 +72,12 @@
 			path = ProjectManager;
 			sourceTree = "<group>";
 		};
-		FD4D22FC25F710E100FA6E6A /* Mdel */ = {
+		FD4D22FC25F710E100FA6E6A /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				FD4D22FE25F7112200FA6E6A /* Todo.swift */,
 			);
-			path = Mdel;
+			path = Model;
 			sourceTree = "<group>";
 		};
 		FD4D22FD25F710EC00FA6E6A /* ViewController */ = {
