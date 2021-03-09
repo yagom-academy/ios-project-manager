@@ -5,6 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -28,17 +29,47 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="7Pi-0Z-K0O">
+                                <rect key="frame" x="0.0" y="50" width="1080" height="710"/>
+                                <color key="backgroundColor" systemColor="systemGray2Color"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="nWk-zw-9oV">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="collectionViewCell" id="J7u-u0-CoX" customClass="CollectionViewCell" customModule="ProjectManager" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="q4F-OI-JXJ">
+                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionViewCellContentView>
+                                        <color key="backgroundColor" systemColor="systemGray5Color"/>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="5Tf-8I-NzN"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="F16-e5-uts"/>
+                                </connections>
+                            </collectionView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="7Pi-0Z-K0O" firstAttribute="top" secondItem="I8o-w3-vQ7" secondAttribute="bottom" id="2Vm-RY-zOO"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="7Pi-0Z-K0O" secondAttribute="bottom" constant="50" id="5ok-kT-A0W"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="7Pi-0Z-K0O" secondAttribute="trailing" id="9OP-Ze-uq7"/>
                             <constraint firstItem="I8o-w3-vQ7" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="NGj-g1-qnt"/>
                             <constraint firstItem="I8o-w3-vQ7" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Pe2-1J-kpv"/>
+                            <constraint firstItem="7Pi-0Z-K0O" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="QIT-oV-yH6"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="I8o-w3-vQ7" secondAttribute="trailing" id="avX-CS-ndJ"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="addButton" destination="0Tp-Ac-3jF" id="IWd-AZ-ePM"/>
+                        <outlet property="collectionView" destination="7Pi-0Z-K0O" id="Uip-Kj-bfW"/>
                         <outlet property="titleNavigationBar" destination="I8o-w3-vQ7" id="7h7-n4-495"/>
                     </connections>
                 </viewController>
@@ -60,7 +91,7 @@
                                     <navigationItem title="TODO" id="8tB-ho-ekQ">
                                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="keU-l8-vF1">
                                             <connections>
-                                                <action selector="tappedCancelButton:" destination="1lc-iC-9Yb" id="Ini-Zx-T7m"/>
+                                                <action selector="tappedModeButton:" destination="1lc-iC-9Yb" id="Ini-Zx-T7m"/>
                                             </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" title="Done" id="1Iz-ek-qSt">
@@ -113,6 +144,7 @@
                     <connections>
                         <outlet property="deadlineDatePicker" destination="UZ8-Wj-04q" id="UYX-as-Bys"/>
                         <outlet property="descriptionTextView" destination="nM4-H0-glM" id="a75-ys-ie5"/>
+                        <outlet property="modeButtonItem" destination="keU-l8-vF1" id="Dty-Ed-CZy"/>
                         <outlet property="titleTextField" destination="Ne9-CO-XbT" id="ZuV-ct-TMK"/>
                     </connections>
                 </viewController>
@@ -127,6 +159,12 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray2Color">
+            <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGray5Color">
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
