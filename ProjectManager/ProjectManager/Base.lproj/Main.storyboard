@@ -110,12 +110,12 @@
                                     <navigationItem title="TODO" id="8tB-ho-ekQ">
                                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="keU-l8-vF1">
                                             <connections>
-                                                <action selector="tappedModeButton:" destination="1lc-iC-9Yb" id="Ini-Zx-T7m"/>
+                                                <action selector="tappedModeButton:" destination="1lc-iC-9Yb" id="8LC-d3-l0f"/>
                                             </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" title="Done" id="1Iz-ek-qSt">
                                             <connections>
-                                                <action selector="tappedDoneButton:" destination="1lc-iC-9Yb" id="EqG-QI-Za6"/>
+                                                <action selector="tappedDoneButton:" destination="1lc-iC-9Yb" id="Ilf-Pa-Bcz"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -161,10 +161,10 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="deadlineDatePicker" destination="UZ8-Wj-04q" id="UYX-as-Bys"/>
-                        <outlet property="descriptionTextView" destination="nM4-H0-glM" id="a75-ys-ie5"/>
-                        <outlet property="modeButtonItem" destination="keU-l8-vF1" id="Dty-Ed-CZy"/>
-                        <outlet property="titleTextField" destination="Ne9-CO-XbT" id="ZuV-ct-TMK"/>
+                        <outlet property="deadlineDatePicker" destination="UZ8-Wj-04q" id="VQ5-SJ-8P7"/>
+                        <outlet property="descriptionTextView" destination="nM4-H0-glM" id="idm-Cs-2b6"/>
+                        <outlet property="modeButtonItem" destination="keU-l8-vF1" id="43X-vh-6vH"/>
+                        <outlet property="titleTextField" destination="Ne9-CO-XbT" id="NlT-eq-dJw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7UO-pU-flp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
