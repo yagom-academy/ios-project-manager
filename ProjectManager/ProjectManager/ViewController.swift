@@ -11,7 +11,18 @@ class ViewController: UIViewController {
     @IBOutlet weak var addButton: UIBarButtonItem!
     @IBOutlet weak var collectionView: UICollectionView!
     
-    private let listTableViews = [UITableView(), UITableView(), UITableView()]
+    private var todoBoard = Board()
+    private var doingBoard = Board()
+    private var doneBoard = Board()
+    private lazy var boards: [Board] = {
+        var boards = [Board]()
+        
+        boards.append(todoBoard)
+        boards.append(doingBoard)
+        boards.append(doneBoard)
+        
+        return boards
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,13 +43,14 @@ extension ViewController: UICollectionViewDelegate {
 }
 extension ViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return listTableViews.count
+        return boards.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionViewCell", for: indexPath) as? CollectionViewCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewCell.identifier , for: indexPath) as? CollectionViewCell else {
             return UICollectionViewCell()
         }
+        cell.boardTableView = boards[indexPath.row]
         
         return cell
     }
@@ -56,7 +68,25 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
 }
 
 class CollectionViewCell: UICollectionViewCell {
+    fileprivate static let identifier = "CollectionViewCell"
+    @IBOutlet weak var boardTableView: UITableView!
     
+}
+extension CollectionViewCell: UITableViewDelegate {
+    
+}
+extension CollectionViewCell: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 5
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return UITableViewCell()
+    }
+}
+
+class Board: UITableView {
+
 }
 
 class SheetViewController: UIViewController {

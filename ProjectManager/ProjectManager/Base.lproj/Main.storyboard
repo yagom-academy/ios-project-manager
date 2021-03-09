@@ -39,14 +39,33 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="collectionViewCell" id="J7u-u0-CoX" customClass="CollectionViewCell" customModule="ProjectManager" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CollectionViewCell" id="J7u-u0-CoX" customClass="CollectionViewCell" customModule="ProjectManager" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="q4F-OI-JXJ">
                                             <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="r93-ie-rsO">
+                                                    <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                    <connections>
+                                                        <outlet property="dataSource" destination="J7u-u0-CoX" id="V5d-cl-JrH"/>
+                                                        <outlet property="delegate" destination="J7u-u0-CoX" id="ult-eM-Hj4"/>
+                                                    </connections>
+                                                </tableView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="r93-ie-rsO" firstAttribute="top" secondItem="q4F-OI-JXJ" secondAttribute="top" id="45z-Mm-cw7"/>
+                                                <constraint firstItem="r93-ie-rsO" firstAttribute="leading" secondItem="q4F-OI-JXJ" secondAttribute="leading" id="NZ3-Qc-dmb"/>
+                                                <constraint firstAttribute="bottom" secondItem="r93-ie-rsO" secondAttribute="bottom" id="kIs-2D-R8w"/>
+                                                <constraint firstAttribute="trailing" secondItem="r93-ie-rsO" secondAttribute="trailing" id="lWa-2z-e51"/>
+                                            </constraints>
                                         </collectionViewCellContentView>
                                         <color key="backgroundColor" systemColor="systemGray5Color"/>
+                                        <connections>
+                                            <outlet property="boardTableView" destination="r93-ie-rsO" id="rLy-7E-DAc"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                                 <connections>
