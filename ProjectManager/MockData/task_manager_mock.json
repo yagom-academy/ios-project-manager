@@ -1,0 +1,28 @@
+{
+    "todoList": [
+        {
+            "id": 1,
+            "title": "태태의 볼펜 똥 채우기",
+            "description": "볼펜 똥이 다 떨어져서 볼펜 똥을 오픈마켓에서 사오자",
+            "deadline": 20210310,
+            "status": 0,
+            "statusIndex": 0
+        },
+        {
+            "id": 2,
+            "title": "오동나무 물주기",
+            "description": "오동나무 물은 일주일에 3번씩 화요일날 주어야한다!",
+            "deadline": 20210316,
+            "status": 1,
+            "statusIndex": 0
+        },
+        {
+            "id": 3,
+            "title": "라자냐 먹기",
+            "description": "오늘 저녁은 라자냐를 먹어야겠다,,",
+            "deadline": 20210309,
+            "status": 2,
+            "statusIndex": 0
+        }
+    ]
+}
