@@ -2,8 +2,8 @@
 
 ## GET - 할일 목록 조회
 
-- Path: /todoList
-- HTTP Status Code
+- `Path`: /todoList
+- `HTTP Status Code`
     - Success: 200
     - Error: 400, 404, 500
 
