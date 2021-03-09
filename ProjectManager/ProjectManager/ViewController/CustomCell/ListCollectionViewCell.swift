@@ -5,5 +5,10 @@
 //  Created by sole on 2021/03/09.
 //
 
-import Foundation
+import UIKit
 
+class ListCollectionViewCell: UICollectionViewCell {
+    static var identifier: String {
+        return "\(self)"
+    }
+}
