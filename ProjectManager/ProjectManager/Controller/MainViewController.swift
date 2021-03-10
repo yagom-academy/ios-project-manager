@@ -20,6 +20,7 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         configureNavigationBar()
         configureConstratins()
+        registerNotificationCentor()
     }
     
     // MARK: - UI
@@ -57,18 +58,31 @@ class MainViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(touchUpAddButton))
     }
     
+    // MARK: - DetailView
+    
     @objc private func touchUpAddButton() {
         showDetailView(isNew: true)
     }
     
-    private func showDetailView(isNew: Bool = false, tableViewType: TableViewType = .todo, index: Int? = nil) {
+    private func showDetailView(isNew: Bool = false, tableViewType: TableViewType = .todo, index: Int? = nil, thing: Thing? = nil) {
         let detailView = DetailViewController()
         let navigationController = UINavigationController(rootViewController: detailView)
         detailView.isNew = isNew
         detailView.title = tableViewType.rawValue
         detailView.tableViewType = tableViewType
         detailView.index = index
+        detailView.thing = thing
         present(navigationController, animated: true, completion: nil)
+    }
+    
+    private func registerNotificationCentor() {
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadTableView), name: Strings.reloadNotification, object: nil)
+    }
+    
+    @objc func reloadTableView() {
+        todoTableView.reloadData()
+        doingTableView.reloadData()
+        doneTableView.reloadData()
     }
     
     // MARK: - TableView
@@ -127,11 +141,14 @@ extension MainViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView == todoTableView {
-            showDetailView(index: indexPath.row)
+            let thing = Things.shared.todoList[indexPath.row]
+            showDetailView(index: indexPath.row, thing: thing)
         } else if tableView == doingTableView {
-            showDetailView(tableViewType: .doing, index: indexPath.row)
+            let thing = Things.shared.doingList[indexPath.row]
+            showDetailView(tableViewType: .doing, index: indexPath.row, thing: thing)
         } else {
-            showDetailView(tableViewType: .done, index: indexPath.row)
+            let thing = Things.shared.doneList[indexPath.row]
+            showDetailView(tableViewType: .done, index: indexPath.row, thing: thing)
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -145,9 +162,9 @@ extension MainViewController: UITableViewDelegate {
             if tableView == todoTableView {
                 Things.shared.todoList.remove(at: indexPath.row)
             } else if tableView == doingTableView {
-               Things.shared.doingList.remove(at: indexPath.row)
+                Things.shared.doingList.remove(at: indexPath.row)
             } else {
-               Things.shared.doneList.remove(at: indexPath.row)
+                Things.shared.doneList.remove(at: indexPath.row)
             }
             tableView.reloadData()
         }

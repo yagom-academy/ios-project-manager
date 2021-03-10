@@ -14,6 +14,7 @@ class DetailViewController: UIViewController {
     var isNew: Bool = false
     var tableViewType: TableViewType? = nil
     var index: Int? = nil
+    var thing: Thing? = nil
     
     // MARK: - Outlet
     
@@ -49,6 +50,7 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         configureConstraints()
         configureNavigationBar()
+        fillData()
     }
     
     // MARK: - UI
@@ -84,6 +86,15 @@ class DetailViewController: UIViewController {
         view.layer.masksToBounds = false
     }
     
+    private func fillData() {
+        guard let thing = thing else {
+            return
+        }
+        titleTextField.text = thing.title
+        bodyTextView.text = thing.body
+        datePicker.date = thing.date
+    }
+    
     private func configureNavigationBar() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(touchUpDoneButton))
         if isNew {
@@ -111,6 +122,7 @@ class DetailViewController: UIViewController {
                 Things.shared.doneList[index] = thing
             }
         }
+        NotificationCenter.default.post(name: Strings.reloadNotification, object: nil)
         dismiss(animated: true, completion: nil)
     }
     
