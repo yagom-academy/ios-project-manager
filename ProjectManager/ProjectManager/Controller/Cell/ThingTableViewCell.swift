@@ -8,19 +8,31 @@
 import UIKit
 
 class ThingTableViewCell: UITableViewCell {
-
+    
     // MARK: - Property
     
     static var identifier: String {
         return "\(self)"
     }
     var isDone: Bool = false
-
+    
     // MARK: - Outlet
     
     private let titleLabel: UILabel = makeLabel()
     private let bodyLabel: UILabel = makeLabel()
     private let dateLabel: UILabel = makeLabel()
+    
+    // MARK: - init
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        configuerConstraints()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        configuerConstraints()
+    }
     
     // MARK: - UI
     

@@ -10,7 +10,7 @@ import Foundation
 struct Thing {
     let title: String
     let body: String
-    private let date: Date
+    let date: Date
     var dateString: String {
         return DateFormatter().convertToUserLocaleString(date: date)
     }

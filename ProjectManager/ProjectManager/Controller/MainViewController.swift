@@ -7,13 +7,13 @@
 import UIKit
 
 class MainViewController: UIViewController {
-
+    
     // MARK: - Outlet
     
     lazy var todoTableView = makeTableView()
     lazy var doingTableView = makeTableView()
     lazy var doneTableView = makeTableView()
-
+    
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
@@ -21,7 +21,7 @@ class MainViewController: UIViewController {
         configureNavigationBar()
         configureConstratins()
     }
-
+    
     // MARK: - UI
     
     private func makeTableView() -> UITableView {
