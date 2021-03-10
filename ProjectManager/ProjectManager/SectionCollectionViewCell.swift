@@ -57,7 +57,7 @@ extension SectionCollectionViewCell: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            print("delete 관련 작업 수행")
+            // 데이터 삭제 관련 기능 구현
         }
     }
 }
@@ -75,6 +75,30 @@ extension SectionCollectionViewCell: UITableViewDataSource {
         cell.updateUI(with: todoItem)
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView()
+        headerView.backgroundColor = .systemGray5
+        
+        let titleLabel = UILabel()
+        titleLabel.text = "TODO"
+        titleLabel.font = .preferredFont(forTextStyle: .largeTitle)
+        
+        headerView.addSubview(titleLabel)
+        
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            titleLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 15),
+            titleLabel.trailingAnchor.constraint(equalTo: headerView.trailingAnchor),
+            titleLabel.centerYAnchor.constraint(equalTo: headerView.centerYAnchor)
+        ])
+        
+        return headerView
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 100
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
