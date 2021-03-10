@@ -15,6 +15,11 @@ class ListItemTableViewCell: UITableViewCell {
         let contentsContainerView = UIView()
         contentsContainerView.translatesAutoresizingMaskIntoConstraints = false
         contentsContainerView.backgroundColor = .white
+        contentsContainerView.layer.shadowColor = UIColor.systemGray4.cgColor
+        contentsContainerView.layer.masksToBounds = false
+        contentsContainerView.layer.shadowOffset = CGSize(width: 0, height: 1)
+        contentsContainerView.layer.shadowRadius = 1
+        contentsContainerView.layer.shadowOpacity = 1
         return contentsContainerView
     }()
     private let titleLabel: UILabel = {

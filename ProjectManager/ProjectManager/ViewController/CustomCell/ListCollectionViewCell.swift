@@ -16,7 +16,7 @@ class ListCollectionViewCell: UICollectionViewCell {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(ListItemTableViewCell.self, forCellReuseIdentifier: ListItemTableViewCell.identifier)
-        tableView.backgroundColor = .lightGray
+        tableView.backgroundColor = .systemGray6
         tableView.separatorStyle = .none
         return tableView
     }()
