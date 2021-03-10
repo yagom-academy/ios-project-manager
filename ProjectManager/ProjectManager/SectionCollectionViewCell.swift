@@ -11,15 +11,31 @@ protocol BoardTableViewCellDelegate: AnyObject {
     func tableViewCell(_ boardTableViewCell: BoardTableViewCell, didSelectAt index: Int, tappedCollectionViewCell: SectionCollectionViewCell)
 }
 
+enum ProgressStatus {
+    case todo
+    case doing
+    case done
+}
+
+struct TodoItem {
+    var title: String
+    var description: String
+    var dueDate: String
+    var progressStatus: ProgressStatus
+}
+
+
 class SectionCollectionViewCell: UICollectionViewCell {
     static let identifier = "SectionCollectionViewCell"
     @IBOutlet weak var boardTableView: UITableView!
-   
+    
     weak var delegate: BoardTableViewCellDelegate?
     
-    let titles = ["title1","title2","title3","title4","title5"]
-    let descriptions = [" storyboard file instead.UIKit separates the content of your view controllers from the way that content is presented and displayed onscreen. Presented view controllers are managed by an underlying presentation controller object, which manages the visual style used to display the view controller’s view. A presentation controller may do the following:Set the size of the presented view controller.Add custom views to change the visual appearance of the presented content.Supply transition animations for any of its custom views.Adapt the visual appearance of the presentation when changes occur in the app’s environment.UIKit provides presentation controllers for the standard presentation styles. When you set the presentation style of a view controller to UIModalPresentationCustom and provide an appropriate transitioning delegate, UIKit uses your custom presentation controller instead.", "storyboard file", "storyboard filestoryboard filestoryboard file"," storyboard file instead.UIKit separates the content of your view controllers from the way that content is presented and displayed onscreen. Presented view controllers are managed by an underlying presentation controller object, which manages ","Project Manager"]
-    let dueDates = ["2020.12.12" , "2020.12.13", "2020.12.14", "2020.12.22", "2020.12.31"]
+    let todoList = [TodoItem(title: "title1", description: "storyboard file instead.UIKit separates the content of your view controllers from the way that content is presented and displayed onscreen. Presented view controllers are managed by an underlying presentation controller object, which manages the visual style used to display the view controller’s view. A presentation controller may do the following:Set the size of the presented view controller.Add custom views to change the visual appearance of the presented content.Supply transition animations for any of its custom views.Adapt the visual appearance of the presentation when changes occur in the app’s environment.UIKit provides presentation controllers for the standard presentation styles. When you set the presentation style of a view controller to UIModalPresentationCustom and provide an appropriate transitioning delegate, UIKit uses your custom presentation controller instead.", dueDate: "2020.12.12", progressStatus: .doing),
+                    TodoItem(title: "title2", description: "storyboard file", dueDate: "2020.12.13", progressStatus: .done),
+                    TodoItem(title: "title3", description: "storyboard filestoryboard filestoryboard file", dueDate: "2020.12.14", progressStatus: .todo),
+                    TodoItem(title: "title4", description: " storyboard file instead.UIKit separates the content of your view controllers from the way that content is presented and displayed onscreen. Presented view controllers are managed by an underlying presentation controller object, which manages ", dueDate: "2020.12.22", progressStatus: .todo),
+                    TodoItem(title: "title5", description: "Project Manager", dueDate: "2020.12.31", progressStatus: .doing)]
     
     override func awakeFromNib() {
         registerXib()
@@ -35,24 +51,23 @@ extension SectionCollectionViewCell: UITableViewDelegate {
         guard let selectedCell = tableView.cellForRow(at: indexPath) as? BoardTableViewCell else {
             return
         }
-
+        
         self.delegate?.tableViewCell(selectedCell, didSelectAt: indexPath.row, tappedCollectionViewCell: self)
     }
 }
 extension SectionCollectionViewCell: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return titles.count
+        return todoList.count
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: BoardTableViewCell.identifier) as? BoardTableViewCell else {
             return UITableViewCell()
         }
         
-        cell.titleLabel.text = titles[indexPath.row]
-        cell.descriptionLabel.text = descriptions[indexPath.row]
-        cell.dueDateLabel.text = dueDates[indexPath.row]
-       
+        let todoItem = todoList[indexPath.row]
+        cell.updateUI(with: todoItem)
+        
         return cell
     }
 }

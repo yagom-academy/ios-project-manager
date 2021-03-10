@@ -17,4 +17,10 @@ class BoardTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
     }
+    
+    func updateUI(with todoItem: TodoItem) {
+        self.titleLabel.text = todoItem.title
+        self.descriptionLabel.text = todoItem.description
+        self.dueDateLabel.text = todoItem.dueDate
+    }
 }
