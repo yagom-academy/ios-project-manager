@@ -46,15 +46,11 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureNavigationBar()
         configureConstraints()
+        configureNavigationBar()
     }
     
     // MARK: - UI
-    
-    private func configureNavigationBar() {
-        
-    }
     
     private func configureConstraints() {
         let safeArea = view.safeAreaLayoutGuide
@@ -85,5 +81,34 @@ class DetailViewController: UIViewController {
         view.layer.shadowRadius = 2
         view.layer.shadowOpacity = 0.5
         view.layer.masksToBounds = false
+    }
+    
+    private func configureNavigationBar() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(touchUpDoneButton))
+        if isNew {
+            toggleEditMode()
+        } else {
+            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(touchUpEditButton))
+        }
+    }
+
+    @objc private func touchUpDoneButton() {
+        // 저장, 수정 기능
+        dismiss(animated: true, completion: nil)
+    }
+
+    @objc private func touchUpCancelButton() {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @objc private func touchUpEditButton() {
+        toggleEditMode()
+    }
+    
+    private func toggleEditMode() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(touchUpCancelButton))
+        titleTextField.isUserInteractionEnabled = true
+        datePicker.isUserInteractionEnabled = true
+        bodyTextView.isEditable = true
     }
 }
