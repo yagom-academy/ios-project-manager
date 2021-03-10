@@ -54,6 +54,12 @@ extension SectionCollectionViewCell: UITableViewDelegate {
         
         self.delegate?.tableViewCell(selectedCell, didSelectAt: indexPath.row, tappedCollectionViewCell: self)
     }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            print("delete 관련 작업 수행")
+        }
+    }
 }
 extension SectionCollectionViewCell: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -69,5 +75,9 @@ extension SectionCollectionViewCell: UITableViewDataSource {
         cell.updateUI(with: todoItem)
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
     }
 }
