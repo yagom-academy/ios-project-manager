@@ -25,6 +25,7 @@ class ProjectManagerCollectionViewController: UIViewController {
         collectionView.delegate = self
         configureAutoLayout()
         configureNavigationBar()
+        configureToolBar()
     }
     
     private func configureAutoLayout() {
@@ -43,8 +44,28 @@ class ProjectManagerCollectionViewController: UIViewController {
         self.navigationItem.rightBarButtonItem = addButton
     }
     
-    @objc func touchUpAddButton() {
+    @objc private func touchUpAddButton() {
 
+    }
+    
+    private func configureToolBar() {
+        self.navigationController?.isToolbarHidden = false
+        var barButtonItems = [UIBarButtonItem]()
+        let flexibleSpaceBarButtonItem: UIBarButtonItem = .init(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let undoButton: UIBarButtonItem = .init(barButtonSystemItem: .undo, target: self, action: #selector(touchUpUndoButton))
+        let redoButton: UIBarButtonItem = .init(barButtonSystemItem: .redo, target: self, action: #selector(touchUpRedoButton))
+        barButtonItems.append(flexibleSpaceBarButtonItem)
+        barButtonItems.append(undoButton)
+        barButtonItems.append(redoButton)
+        toolbarItems = barButtonItems
+    }
+    
+    @objc private func touchUpUndoButton() {
+        
+    }
+    
+    @objc private func touchUpRedoButton() {
+        
     }
 }
 
