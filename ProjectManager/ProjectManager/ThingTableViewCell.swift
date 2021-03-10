@@ -52,4 +52,10 @@ class ThingTableViewCell: UITableViewCell {
             dateLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
         ])
     }
+    
+    func configureCell(_ thing: Thing) {
+        titleLabel.text = thing.title
+        bodyLabel.text = thing.body
+        dateLabel.text = thing.dateString
+    }
 }

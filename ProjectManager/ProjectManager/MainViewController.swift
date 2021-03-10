@@ -26,6 +26,7 @@ class MainViewController: UIViewController {
     
     private func makeTableView() -> UITableView {
         let tableView = UITableView()
+        tableView.dataSource = self
         tableView.register(ThingTableViewCell.self, forCellReuseIdentifier: ThingTableViewCell.identifier)
         return tableView
     }
@@ -57,5 +58,31 @@ class MainViewController: UIViewController {
     
     @objc private func touchUpAddButton() {
         
+    }
+}
+
+extension MainViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if tableView == todoTableView {
+            return Things.shared.todoList.count
+        } else if tableView == doingTableView {
+            return Things.shared.doingList.count
+        } else {
+            return Things.shared.doneList.count
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ThingTableViewCell.identifier) as? ThingTableViewCell else {
+            return UITableViewCell()
+        }
+        if tableView == todoTableView {
+            cell.configureCell(Things.shared.todoList[indexPath.row])
+        } else if tableView == doingTableView {
+            cell.configureCell(Things.shared.doingList[indexPath.row])
+        } else {
+            cell.configureCell(Things.shared.doneList[indexPath.row])
+        }
+        return cell
     }
 }
