@@ -45,6 +45,7 @@ extension ViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         
+        cell.delegate = self
         return cell
     }
 }
@@ -55,5 +56,19 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
         let collectionViewCellHeight = collectionView.frame.height
         
         return CGSize(width: collectionViewCellWidth, height: collectionViewCellHeight)
+    }
+}
+extension ViewController: BoardTableViewCellDelegate {
+    func tableViewCell(_ boardTableViewCell: BoardTableViewCell, didSelectAt index: Int, tappedCollectionViewCell: SectionCollectionViewCell) {
+        print("\(boardTableViewCell.titleLabel.text)")
+        print("\(boardTableViewCell.descriptionLabel.text)")
+        print("\(boardTableViewCell.dueDateLabel.text)")
+        
+        guard let sheetViewController = self.storyboard?.instantiateViewController(identifier: SheetViewController.identifier) else {
+            return
+        }
+        
+        sheetViewController.modalPresentationStyle = .formSheet
+        self.present(sheetViewController, animated: true, completion: nil)
     }
 }
