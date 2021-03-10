@@ -68,6 +68,7 @@ class ThingTableViewCell: UITableViewCell {
     func configureCell(_ thing: Thing) {
         titleLabel.text = thing.title
         bodyLabel.text = thing.body
+        bodyLabel.numberOfLines = 3
         dateLabel.text = thing.dateString
         changeDateColor(date: thing.date)
     }
