@@ -24,12 +24,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func tappedAddButton(_ sender: Any) {
-        guard let sheetViewController = self.storyboard?.instantiateViewController(identifier: SheetViewController.identifier) else {
-            return
-        }
-        
-        sheetViewController.modalPresentationStyle = .formSheet
-        self.present(sheetViewController, animated: true, completion: nil)
+        presentSheetViewController()
     }
 }
 extension ViewController: UICollectionViewDelegate {
@@ -60,10 +55,11 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
 }
 extension ViewController: BoardTableViewCellDelegate {
     func tableViewCell(_ boardTableViewCell: BoardTableViewCell, didSelectAt index: Int, tappedCollectionViewCell: SectionCollectionViewCell) {
-        print("\(boardTableViewCell.titleLabel.text)")
-        print("\(boardTableViewCell.descriptionLabel.text)")
-        print("\(boardTableViewCell.dueDateLabel.text)")
-        
+        presentSheetViewController()
+    }
+}
+extension ViewController {
+    private func presentSheetViewController() {
         guard let sheetViewController = self.storyboard?.instantiateViewController(identifier: SheetViewController.identifier) else {
             return
         }
