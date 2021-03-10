@@ -7,4 +7,7 @@
 
 enum Strings {
     static let navigationTitle = "Project Manager"
+    static let numberCirclerImage = "%d.circle.fill"
+    static let fiftyNumberCircle = "50.circle.fill"
+    static let plusImage = "plus"
 }

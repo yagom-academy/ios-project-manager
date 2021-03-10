@@ -73,6 +73,7 @@ class MainViewController: UIViewController {
         let detailView = DetailViewController()
         let navigationController = UINavigationController(rootViewController: detailView)
         detailView.isNew = isNew
+        detailView.title = tableViewType.rawValue
         present(navigationController, animated: true, completion: nil)
     }
     
@@ -99,13 +100,14 @@ class MainViewController: UIViewController {
         let numberCircle = NSTextAttachment()
         
         if thingCount <= 50 {
-            numberCircle.image = UIImage(systemName: "\(thingCount).circle.fill")
+            let imageName = String(format: Strings.numberCirclerImage, thingCount)
+            numberCircle.image = UIImage(systemName: imageName)
             attributedString.append(NSAttributedString(attachment: numberCircle))
         } else {
             let plusImage = NSTextAttachment()
-            numberCircle.image = UIImage(systemName: "50.circle.fill")
+            numberCircle.image = UIImage(systemName: Strings.fiftyNumberCircle)
             attributedString.append(NSAttributedString(attachment: numberCircle))
-            plusImage.image = UIImage(systemName: "plus")
+            plusImage.image = UIImage(systemName: Strings.plusImage)
             attributedString.append(NSAttributedString(attachment: plusImage))
         }
         
