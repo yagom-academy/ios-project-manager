@@ -50,7 +50,7 @@ class MainViewController: UIViewController {
     }
     
     private func configureNavigationBar() {
-        navigationItem.title = "Project Manager"
+        navigationItem.title = Strings.navigationTitle
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(touchUpAddButton))
     }
     
