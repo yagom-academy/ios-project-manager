@@ -61,6 +61,8 @@ class MainViewController: UIViewController {
         
     }
     
+    // MARK: - TableView
+    
     private func makeHeaderView(tableViewName: String, thingCount: Int) -> UIView {
         let headerView = UIView()
         let titleLabel = makeHeaderText(tableViewName: tableViewName, thingCount: thingCount)
@@ -99,6 +101,8 @@ class MainViewController: UIViewController {
     }
 }
 
+// MARK: - Delegate
+
 extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if tableView == todoTableView {
@@ -109,7 +113,27 @@ extension MainViewController: UITableViewDelegate {
             return makeHeaderView(tableViewName: "DONE ", thingCount: Things.shared.doneList.count)
         }
     }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            if tableView == todoTableView {
+                Things.shared.todoList.remove(at: indexPath.row)
+            } else if tableView == doingTableView {
+               Things.shared.doingList.remove(at: indexPath.row)
+            } else {
+               Things.shared.doneList.remove(at: indexPath.row)
+            }
+            tableView.reloadData()
+        }
+    }
 }
+
+
+// MARK: - DataSoure
 
 extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
