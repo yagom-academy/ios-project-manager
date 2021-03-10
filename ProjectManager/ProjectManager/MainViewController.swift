@@ -18,6 +18,7 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureNavigationBar()
         configureConstratins()
     }
 
@@ -46,6 +47,15 @@ class MainViewController: UIViewController {
             stackView.topAnchor.constraint(equalTo: safeArea.topAnchor),
             stackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
         ])
+    }
+    
+    private func configureNavigationBar() {
+        navigationItem.title = "Project Manager"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(touchUpAddButton))
+    }
+    
+    @objc private func touchUpAddButton() {
+        
     }
 }
 
