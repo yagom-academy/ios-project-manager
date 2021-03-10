@@ -8,11 +8,13 @@
 import UIKit
 
 class DetailViewController: UIViewController {
-
+    
     // MARK: - Property
     
     var isNew: Bool = false
-
+    var tableViewType: TableViewType? = nil
+    var index: Int? = nil
+    
     // MARK: - Outlet
     
     let titleTextField: UITextField = {
@@ -25,7 +27,7 @@ class DetailViewController: UIViewController {
         return textField
     }()
     let datePicker: UIDatePicker = {
-       let datePicker = UIDatePicker()
+        let datePicker = UIDatePicker()
         datePicker.datePickerMode = .date
         datePicker.preferredDatePickerStyle = .wheels
         datePicker.isUserInteractionEnabled = false
@@ -33,14 +35,13 @@ class DetailViewController: UIViewController {
         return datePicker
     }()
     let bodyTextView: UITextView = {
-       let textView = UITextView()
+        let textView = UITextView()
         makeShadow(view: textView)
         textView.text = "이곳에 내용을 입력하세요."
         textView.isEditable = false
         textView.translatesAutoresizingMaskIntoConstraints = false
         return textView
     }()
-    
     
     // MARK: - LifeCycle
     
@@ -91,12 +92,28 @@ class DetailViewController: UIViewController {
             navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(touchUpEditButton))
         }
     }
-
+    
     @objc private func touchUpDoneButton() {
-        // 저장, 수정 기능
+        guard let title = titleTextField.text, let body = bodyTextView.text else {
+            return
+        }
+        let date = datePicker.date
+        let thing = Thing(title: title, body: body, date: date)
+        
+        if isNew {
+            Things.shared.todoList.insert(thing, at: 0)
+        } else if let index = index {
+            if tableViewType == .todo {
+                Things.shared.todoList[index] = thing
+            } else if tableViewType == .doing {
+                Things.shared.doingList[index] = thing
+            } else {
+                Things.shared.doneList[index] = thing
+            }
+        }
         dismiss(animated: true, completion: nil)
     }
-
+    
     @objc private func touchUpCancelButton() {
         dismiss(animated: true, completion: nil)
     }

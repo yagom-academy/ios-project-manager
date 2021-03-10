@@ -8,14 +8,6 @@ import UIKit
 
 class MainViewController: UIViewController {
     
-    // MARK: - TableViewType
-    
-    enum TableViewType: String {
-        case todo = "TODO "
-        case doing = "DOING "
-        case done = "DONE "
-    }
-    
     // MARK: - Outlet
     
     lazy var todoTableView = makeTableView()
@@ -69,11 +61,13 @@ class MainViewController: UIViewController {
         showDetailView(isNew: true)
     }
     
-    private func showDetailView(isNew: Bool = false, tableViewType: TableViewType = .todo) {
+    private func showDetailView(isNew: Bool = false, tableViewType: TableViewType = .todo, index: Int? = nil) {
         let detailView = DetailViewController()
         let navigationController = UINavigationController(rootViewController: detailView)
         detailView.isNew = isNew
         detailView.title = tableViewType.rawValue
+        detailView.tableViewType = tableViewType
+        detailView.index = index
         present(navigationController, animated: true, completion: nil)
     }
     
@@ -133,11 +127,11 @@ extension MainViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView == todoTableView {
-            showDetailView()
+            showDetailView(index: indexPath.row)
         } else if tableView == doingTableView {
-            showDetailView(tableViewType: .doing)
+            showDetailView(tableViewType: .doing, index: indexPath.row)
         } else {
-            showDetailView(tableViewType: .done)
+            showDetailView(tableViewType: .done, index: indexPath.row)
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }
