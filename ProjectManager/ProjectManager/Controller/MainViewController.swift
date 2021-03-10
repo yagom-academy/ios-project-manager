@@ -8,6 +8,14 @@ import UIKit
 
 class MainViewController: UIViewController {
     
+    // MARK: - TableViewType
+    
+    enum TableViewType: String {
+        case todo = "TODO "
+        case doing = "DOING "
+        case done = "DONE "
+    }
+    
     // MARK: - Outlet
     
     lazy var todoTableView = makeTableView()
@@ -58,14 +66,21 @@ class MainViewController: UIViewController {
     }
     
     @objc private func touchUpAddButton() {
-        
+        showDetailView(isNew: true)
+    }
+    
+    private func showDetailView(isNew: Bool = false, tableViewType: TableViewType = .todo) {
+        let detailView = DetailViewController()
+        let navigationController = UINavigationController(rootViewController: detailView)
+        detailView.isNew = isNew
+        present(navigationController, animated: true, completion: nil)
     }
     
     // MARK: - TableView
     
-    private func makeHeaderView(tableViewName: String, thingCount: Int) -> UIView {
+    private func makeHeaderView(tableViewType: TableViewType, thingCount: Int) -> UIView {
         let headerView = UIView()
-        let titleLabel = makeHeaderText(tableViewName: tableViewName, thingCount: thingCount)
+        let titleLabel = makeHeaderText(tableViewType: tableViewType, thingCount: thingCount)
         
         headerView.backgroundColor = .systemGroupedBackground
         headerView.addSubview(titleLabel)
@@ -78,9 +93,9 @@ class MainViewController: UIViewController {
         return headerView
     }
     
-    private func makeHeaderText(tableViewName: String, thingCount: Int) -> UILabel {
+    private func makeHeaderText(tableViewType: TableViewType, thingCount: Int) -> UILabel {
         let titleLabel = UILabel()
-        let attributedString = NSMutableAttributedString(string: tableViewName)
+        let attributedString = NSMutableAttributedString(string: tableViewType.rawValue)
         let numberCircle = NSTextAttachment()
         
         if thingCount <= 50 {
@@ -106,12 +121,23 @@ class MainViewController: UIViewController {
 extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if tableView == todoTableView {
-            return makeHeaderView(tableViewName: "TODO ", thingCount: Things.shared.todoList.count)
+            return makeHeaderView(tableViewType: .todo, thingCount: Things.shared.todoList.count)
         } else if tableView == doingTableView {
-            return makeHeaderView(tableViewName: "DOING ", thingCount: Things.shared.doingList.count)
+            return makeHeaderView(tableViewType: .doing, thingCount: Things.shared.doingList.count)
         } else {
-            return makeHeaderView(tableViewName: "DONE ", thingCount: Things.shared.doneList.count)
+            return makeHeaderView(tableViewType: .done, thingCount: Things.shared.doneList.count)
         }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if tableView == todoTableView {
+            showDetailView()
+        } else if tableView == doingTableView {
+            showDetailView(tableViewType: .doing)
+        } else {
+            showDetailView(tableViewType: .done)
+        }
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

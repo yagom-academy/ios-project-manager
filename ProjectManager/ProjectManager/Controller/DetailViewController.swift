@@ -28,5 +28,4 @@ class DetailViewController: UIViewController {
        let datePicker = UIDatePicker()
         return datePicker
     }()
-    
 }
