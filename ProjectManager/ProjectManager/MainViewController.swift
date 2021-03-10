@@ -26,6 +26,7 @@ class MainViewController: UIViewController {
     
     private func makeTableView() -> UITableView {
         let tableView = UITableView()
+        tableView.register(ThingTableViewCell.self, forCellReuseIdentifier: ThingTableViewCell.identifier)
         return tableView
     }
     
@@ -58,4 +59,3 @@ class MainViewController: UIViewController {
         
     }
 }
-
