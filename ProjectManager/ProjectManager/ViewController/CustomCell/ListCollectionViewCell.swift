@@ -11,6 +11,7 @@ class ListCollectionViewCell: UICollectionViewCell {
     static var identifier: String {
         return "\(self)"
     }
+    private let tableViewHeaderHeight: CGFloat = 40
     private let tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -19,10 +20,28 @@ class ListCollectionViewCell: UICollectionViewCell {
         tableView.separatorStyle = .none
         return tableView
     }()
+    private let headerTitleLabel: UILabel = {
+        let headerTitleLabel = UILabel()
+        headerTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        headerTitleLabel.font = .preferredFont(forTextStyle: .largeTitle)
+        headerTitleLabel.text = "TODO"
+        return headerTitleLabel
+    }()
+    private let cellCountLabel: UILabel = {
+        let cellCountLabel = UILabel()
+        cellCountLabel.translatesAutoresizingMaskIntoConstraints = false
+        cellCountLabel.backgroundColor = .black
+        cellCountLabel.textColor = .white
+        cellCountLabel.textAlignment = .center
+        cellCountLabel.font = .preferredFont(forTextStyle: .headline)
+        cellCountLabel.text = "1"
+        return cellCountLabel
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         tableView.dataSource = self
+        tableView.delegate = self
         contentView.addSubview(tableView)
         configureAutoLayout()
     }
@@ -30,9 +49,9 @@ class ListCollectionViewCell: UICollectionViewCell {
     private func configureAutoLayout() {
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            tableView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            tableView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             tableView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+            tableView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
     
@@ -52,5 +71,35 @@ extension ListCollectionViewCell: UITableViewDataSource {
             return UITableViewCell()
         }
         return cell
+    }
+}
+
+// MARK: - TableView Delegate
+extension ListCollectionViewCell: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: tableViewHeaderHeight))
+        headerView.backgroundColor = .white
+        configureAboutHeaderViewAutoLayout(headerView: headerView)
+        return headerView
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return tableViewHeaderHeight
+    }
+    
+    func configureAboutHeaderViewAutoLayout(headerView: UIView) {
+        headerView.addSubview(headerTitleLabel)
+        headerView.addSubview(cellCountLabel)
+        
+        NSLayoutConstraint.activate([
+            headerTitleLabel.topAnchor.constraint(equalTo: headerView.topAnchor),
+            headerTitleLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor),
+            headerTitleLabel.bottomAnchor.constraint(equalTo: headerView.bottomAnchor),
+
+            cellCountLabel.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
+            cellCountLabel.leadingAnchor.constraint(equalTo: headerTitleLabel.trailingAnchor, constant: 10),
+            cellCountLabel.widthAnchor.constraint(equalToConstant: 30),
+            cellCountLabel.heightAnchor.constraint(equalToConstant: 30)
+        ])
     }
 }
