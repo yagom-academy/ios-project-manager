@@ -14,6 +14,7 @@ class ListItemTableViewCell: UITableViewCell {
     private let contentsContainerView: UIView = {
         let contentsContainerView = UIView()
         contentsContainerView.translatesAutoresizingMaskIntoConstraints = false
+        contentsContainerView.backgroundColor = .white
         return contentsContainerView
     }()
     private let titleLabel: UILabel = {
@@ -39,6 +40,8 @@ class ListItemTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        backgroundColor = .clear
+        contentView.backgroundColor = .clear
         titleLabel.text = "title"
         descriptionLabel.text = "descriptionLabel descriptionLabel descriptionLabel descriptionLabel descriptionLabel descriptionLabel descriptionLabel descriptionLabel descriptionLabel descriptionLabel descriptionLabel descriptionLabel descriptionLabel descriptionLabel descriptionLabel descriptionLabel"
         deadLineLabel.text = "deadLine"
@@ -57,7 +60,7 @@ class ListItemTableViewCell: UITableViewCell {
         NSLayoutConstraint.activate([
             contentsContainerView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             contentsContainerView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            contentsContainerView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.95),
+            contentsContainerView.widthAnchor.constraint(equalTo: contentView.widthAnchor),
             contentsContainerView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.95),
             
             titleLabel.topAnchor.constraint(equalTo: contentsContainerView.topAnchor, constant: 10),

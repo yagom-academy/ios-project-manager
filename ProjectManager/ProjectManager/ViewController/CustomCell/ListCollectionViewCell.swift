@@ -15,6 +15,8 @@ class ListCollectionViewCell: UICollectionViewCell {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(ListItemTableViewCell.self, forCellReuseIdentifier: ListItemTableViewCell.identifier)
+        tableView.backgroundColor = .lightGray
+        tableView.separatorStyle = .none
         return tableView
     }()
     
@@ -42,7 +44,7 @@ class ListCollectionViewCell: UICollectionViewCell {
 // MARK: - TableView DataSource
 extension ListCollectionViewCell: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 7
+        return 3
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
