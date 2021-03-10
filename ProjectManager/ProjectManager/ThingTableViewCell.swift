@@ -57,5 +57,12 @@ class ThingTableViewCell: UITableViewCell {
         titleLabel.text = thing.title
         bodyLabel.text = thing.body
         dateLabel.text = thing.dateString
+        changeDateColor(date: thing.date)
+    }
+    
+    private func changeDateColor(date: Date) {
+        if isDone == false, date < Date() {
+            dateLabel.textColor = .red
+        }
     }
 }

@@ -81,6 +81,7 @@ extension MainViewController: UITableViewDataSource {
         } else if tableView == doingTableView {
             cell.configureCell(Things.shared.doingList[indexPath.row])
         } else {
+            cell.isDone = true
             cell.configureCell(Things.shared.doneList[indexPath.row])
         }
         return cell
