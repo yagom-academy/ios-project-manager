@@ -39,7 +39,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CollectionViewCell" id="J7u-u0-CoX" customClass="CollectionViewCell" customModule="ProjectManager" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SectionCollectionViewCell" id="J7u-u0-CoX" customClass="SectionCollectionViewCell" customModule="ProjectManager" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="q4F-OI-JXJ">
@@ -50,8 +50,8 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <connections>
-                                                        <outlet property="dataSource" destination="J7u-u0-CoX" id="V5d-cl-JrH"/>
-                                                        <outlet property="delegate" destination="J7u-u0-CoX" id="ult-eM-Hj4"/>
+                                                        <outlet property="dataSource" destination="J7u-u0-CoX" id="idx-iW-CdA"/>
+                                                        <outlet property="delegate" destination="J7u-u0-CoX" id="KP0-KU-ubg"/>
                                                     </connections>
                                                 </tableView>
                                             </subviews>
@@ -64,7 +64,7 @@
                                         </collectionViewCellContentView>
                                         <color key="backgroundColor" systemColor="systemGray5Color"/>
                                         <connections>
-                                            <outlet property="boardTableView" destination="r93-ie-rsO" id="rLy-7E-DAc"/>
+                                            <outlet property="boardTableView" destination="r93-ie-rsO" id="3Nu-Ue-RY9"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -88,7 +88,7 @@
                     </view>
                     <connections>
                         <outlet property="addButton" destination="0Tp-Ac-3jF" id="IWd-AZ-ePM"/>
-                        <outlet property="collectionView" destination="7Pi-0Z-K0O" id="Uip-Kj-bfW"/>
+                        <outlet property="sectionCollectionView" destination="7Pi-0Z-K0O" id="Uip-Kj-bfW"/>
                         <outlet property="titleNavigationBar" destination="I8o-w3-vQ7" id="7h7-n4-495"/>
                     </connections>
                 </viewController>
