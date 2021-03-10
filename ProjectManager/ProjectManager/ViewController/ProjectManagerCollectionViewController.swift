@@ -45,7 +45,8 @@ class ProjectManagerCollectionViewController: UIViewController {
     }
     
     @objc private func touchUpAddButton() {
-
+        let listItemDetailViewController = ListItemDetailViewController()
+        present(listItemDetailViewController, animated: true, completion: nil)
     }
     
     private func configureToolBar() {
