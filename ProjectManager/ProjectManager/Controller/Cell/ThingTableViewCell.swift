@@ -18,9 +18,9 @@ class ThingTableViewCell: UITableViewCell {
     
     // MARK: - Outlet
     
-    private let titleLabel: UILabel = makeLabel()
-    private let bodyLabel: UILabel = makeLabel()
-    private let dateLabel: UILabel = makeLabel()
+    private let titleLabel: UILabel = makeLabel(textSize: .title3)
+    private let bodyLabel: UILabel = makeLabel(textColor: .gray)
+    private let dateLabel: UILabel = makeLabel(textSize: .caption1)
     
     // MARK: - init
     
