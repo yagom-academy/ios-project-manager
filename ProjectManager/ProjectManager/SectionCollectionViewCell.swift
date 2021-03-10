@@ -21,7 +21,7 @@ class SectionCollectionViewCell: UICollectionViewCell {
     }
 }
 extension SectionCollectionViewCell: UITableViewDelegate {
-
+    
 }
 extension SectionCollectionViewCell: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
