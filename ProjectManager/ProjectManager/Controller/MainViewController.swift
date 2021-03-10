@@ -61,12 +61,9 @@ class MainViewController: UIViewController {
         
     }
     
-    private func makeHeaderView(tableViewName: String) -> UIView {
+    private func makeHeaderView(tableViewName: String, thingCount: Int) -> UIView {
         let headerView = UIView()
-        let titleLabel = UILabel()
-        titleLabel.text = tableViewName
-        titleLabel.font = .preferredFont(forTextStyle: .title1)
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        let titleLabel = makeHeaderText(tableViewName: tableViewName, thingCount: thingCount)
         
         headerView.backgroundColor = .systemGroupedBackground
         headerView.addSubview(titleLabel)
@@ -78,16 +75,38 @@ class MainViewController: UIViewController {
         ])
         return headerView
     }
+    
+    private func makeHeaderText(tableViewName: String, thingCount: Int) -> UILabel {
+        let titleLabel = UILabel()
+        let attributedString = NSMutableAttributedString(string: tableViewName)
+        let numberCircle = NSTextAttachment()
+        
+        if thingCount <= 50 {
+            numberCircle.image = UIImage(systemName: "\(thingCount).circle.fill")
+            attributedString.append(NSAttributedString(attachment: numberCircle))
+        } else {
+            let plusImage = NSTextAttachment()
+            numberCircle.image = UIImage(systemName: "50.circle.fill")
+            attributedString.append(NSAttributedString(attachment: numberCircle))
+            plusImage.image = UIImage(systemName: "plus")
+            attributedString.append(NSAttributedString(attachment: plusImage))
+        }
+        
+        titleLabel.attributedText = attributedString
+        titleLabel.font = .preferredFont(forTextStyle: .title1)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        return titleLabel
+    }
 }
 
 extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if tableView == todoTableView {
-            return makeHeaderView(tableViewName: "TODO ")
+            return makeHeaderView(tableViewName: "TODO ", thingCount: Things.shared.todoList.count)
         } else if tableView == doingTableView {
-            return makeHeaderView(tableViewName: "DOING ")
+            return makeHeaderView(tableViewName: "DOING ", thingCount: Things.shared.doingList.count)
         } else {
-            return makeHeaderView(tableViewName: "DONE ")
+            return makeHeaderView(tableViewName: "DONE ", thingCount: Things.shared.doneList.count)
         }
     }
 }
