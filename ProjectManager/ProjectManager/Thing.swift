@@ -12,6 +12,6 @@ struct Thing {
     let body: String
     private let date: Date
     var dateString: String {
-        return DateFormatter().string(from: date)
+        return DateFormatter().convertToUserLocaleString(date: date)
     }
 }
