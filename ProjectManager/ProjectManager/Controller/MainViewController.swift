@@ -27,6 +27,7 @@ class MainViewController: UIViewController {
     private func makeTableView() -> UITableView {
         let tableView = UITableView()
         tableView.dataSource = self
+        tableView.delegate = self
         tableView.register(ThingTableViewCell.self, forCellReuseIdentifier: ThingTableViewCell.identifier)
         return tableView
     }
@@ -58,6 +59,36 @@ class MainViewController: UIViewController {
     
     @objc private func touchUpAddButton() {
         
+    }
+    
+    private func makeHeaderView(tableViewName: String) -> UIView {
+        let headerView = UIView()
+        let titleLabel = UILabel()
+        titleLabel.text = tableViewName
+        titleLabel.font = .preferredFont(forTextStyle: .title1)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        headerView.backgroundColor = .systemGroupedBackground
+        headerView.addSubview(titleLabel)
+        NSLayoutConstraint.activate([
+            titleLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 20),
+            titleLabel.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 10),
+            titleLabel.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -20),
+            titleLabel.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: -10),
+        ])
+        return headerView
+    }
+}
+
+extension MainViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if tableView == todoTableView {
+            return makeHeaderView(tableViewName: "TODO ")
+        } else if tableView == doingTableView {
+            return makeHeaderView(tableViewName: "DOING ")
+        } else {
+            return makeHeaderView(tableViewName: "DONE ")
+        }
     }
 }
 
