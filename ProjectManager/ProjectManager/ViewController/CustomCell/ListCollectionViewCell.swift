@@ -28,12 +28,14 @@ class ListCollectionViewCell: UICollectionViewCell {
         return headerTitleLabel
     }()
     private let cellCountLabel: UILabel = {
-        let cellCountLabel = UILabel()
+        let cellCountLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
         cellCountLabel.translatesAutoresizingMaskIntoConstraints = false
         cellCountLabel.backgroundColor = .black
         cellCountLabel.textColor = .white
         cellCountLabel.textAlignment = .center
         cellCountLabel.font = .preferredFont(forTextStyle: .headline)
+        cellCountLabel.layer.masksToBounds = true
+        cellCountLabel.layer.cornerRadius = cellCountLabel.frame.width * 0.5
         cellCountLabel.text = "1"
         return cellCountLabel
     }()
