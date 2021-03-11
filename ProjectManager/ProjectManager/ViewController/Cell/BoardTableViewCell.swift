@@ -7,9 +7,21 @@ class BoardTableViewCell: UITableViewCell {
     
     static let identifier = "BoardTableViewCell"
     
-    func updateUI(with todoItem: Item) {
-        self.titleLabel.text = todoItem.title
-        self.descriptionLabel.text = todoItem.description
-        self.dueDateLabel.text = todoItem.dateToString
+    func updateUI(with item: Item) {
+        self.titleLabel.text = item.title
+        self.descriptionLabel.text = item.description
+        self.dueDateLabel.text = item.dateToString
+        
+        checkDueDate(with: item)
+    }
+
+    func checkDueDate(with item: Item) {
+        let nowDate = Date()
+        let nowTimeInterval = nowDate.timeIntervalSince1970
+        let nowDateToInt = Int(nowTimeInterval)
+        
+        if nowDateToInt > item.dueDate {
+            self.dueDateLabel.textColor = .red
+        }
     }
 }
