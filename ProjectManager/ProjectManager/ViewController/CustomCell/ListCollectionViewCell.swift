@@ -11,6 +11,7 @@ class ListCollectionViewCell: UICollectionViewCell {
     static var identifier: String {
         return "\(self)"
     }
+    
     private let tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -22,9 +23,21 @@ class ListCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        tableView.dataSource = self
-        contentView.addSubview(tableView)
+        delegateDelegate()
+        setUpContentView()
         configureAutoLayout()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    private func delegateDelegate() {
+        tableView.dataSource = self
+    }
+    
+    private func setUpContentView() {
+        contentView.addSubview(tableView)
     }
     
     private func configureAutoLayout() {
@@ -41,10 +54,6 @@ class ListCollectionViewCell: UICollectionViewCell {
         headerView.backgroundColor = .systemGray6
         headerView.fillHeaderViewText(itemStatus: itemStatus)
         tableView.tableHeaderView = headerView
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }
 
