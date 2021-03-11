@@ -65,6 +65,28 @@ class ListItemDetailViewController: UIViewController {
         configureAutoLayout()
     }
     
+    func configureNavigationBar(itemStatus: ItemStatus, type: DetailViewType) {
+        let leftBarButton: UIBarButtonItem = {
+            let barButtonItem = UIBarButtonItem()
+            barButtonItem.title = type.leftButtonName
+            barButtonItem.style = .plain
+            barButtonItem.target = self
+            
+            switch type {
+            case .create:
+                barButtonItem.action = #selector(edit)
+            case .edit:
+                barButtonItem.action = #selector(cancel)
+            }
+            return barButtonItem
+        }()
+        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(done))
+        
+        navigationItem.title = itemStatus.title
+        navigationItem.leftBarButtonItem = leftBarButton
+        navigationItem.rightBarButtonItem = doneButton
+    }
+    
     private func configureAutoLayout() {
         let safeArea = view.safeAreaLayoutGuide
         NSLayoutConstraint.activate([
@@ -90,6 +112,18 @@ class ListItemDetailViewController: UIViewController {
     @objc private func touchUpCheckboxButton(_ sender: UIButton) {
         sender.isSelected.toggle()
         deadLineDatePicker.isEnabled.toggle()
+    }
+    
+    @objc func edit() {
+        
+    }
+    
+    @objc func cancel() {
+        
+    }
+    
+    @objc func done() {
+        
     }
 }
 
