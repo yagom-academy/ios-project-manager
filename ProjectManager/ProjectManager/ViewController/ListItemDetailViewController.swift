@@ -56,35 +56,21 @@ class ListItemDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        delegateDelegate()
+        setUpView()
+        configureAutoLayout()
+    }
+    
+    private func delegateDelegate() {
+        descriptionTextView.delegate = self
+    }
+    
+    private func setUpView() {
         view.backgroundColor = .white
         view.addSubview(titleTextField)
         view.addSubview(deadLineDatePicker)
         view.addSubview(deadLineDatePickerEnableToggleButton)
         view.addSubview(descriptionTextView)
-        descriptionTextView.delegate = self
-        configureAutoLayout()
-    }
-    
-    func configureNavigationBar(itemStatus: ItemStatus, type: DetailViewType) {
-        let leftBarButton: UIBarButtonItem = {
-            let barButtonItem = UIBarButtonItem()
-            barButtonItem.title = type.leftButtonName
-            barButtonItem.style = .plain
-            barButtonItem.target = self
-            
-            switch type {
-            case .create:
-                barButtonItem.action = #selector(edit)
-            case .edit:
-                barButtonItem.action = #selector(cancel)
-            }
-            return barButtonItem
-        }()
-        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(done))
-        
-        navigationItem.title = itemStatus.title
-        navigationItem.leftBarButtonItem = leftBarButton
-        navigationItem.rightBarButtonItem = doneButton
     }
     
     private func configureAutoLayout() {
@@ -107,6 +93,28 @@ class ListItemDetailViewController: UIViewController {
             descriptionTextView.widthAnchor.constraint(equalTo: titleTextField.widthAnchor),
             descriptionTextView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -30)
         ])
+    }
+    
+    func configureNavigationBar(itemStatus: ItemStatus, type: DetailViewType) {
+        let leftBarButton: UIBarButtonItem = {
+            let barButtonItem = UIBarButtonItem()
+            barButtonItem.title = type.leftButtonName
+            barButtonItem.style = .plain
+            barButtonItem.target = self
+            
+            switch type {
+            case .create:
+                barButtonItem.action = #selector(edit)
+            case .edit:
+                barButtonItem.action = #selector(cancel)
+            }
+            return barButtonItem
+        }()
+        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(done))
+        
+        navigationItem.title = itemStatus.title
+        navigationItem.leftBarButtonItem = leftBarButton
+        navigationItem.rightBarButtonItem = doneButton
     }
     
     @objc private func touchUpCheckboxButton(_ sender: UIButton) {
