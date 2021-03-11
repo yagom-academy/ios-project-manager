@@ -1,4 +1,4 @@
-import UIKit
+import Foundation
 
 enum Mode {
     static let cancel = "Cancel"

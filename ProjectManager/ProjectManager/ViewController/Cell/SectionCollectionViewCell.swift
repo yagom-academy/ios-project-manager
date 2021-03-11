@@ -4,12 +4,6 @@ protocol BoardTableViewCellDelegate: AnyObject {
     func tableViewCell(_ boardTableViewCell: BoardTableViewCell, didSelectAt index: Int, tappedCollectionViewCell: SectionCollectionViewCell)
 }
 
-enum ProgressStatus {
-    case todo
-    case doing
-    case done
-}
-
 struct TodoItem {
     var title: String
     var description: String
