@@ -9,48 +9,48 @@ import UIKit
 
 class ListItemDetailViewController: UIViewController {
     private let titleTextField: UITextField = {
-        let titleTextField = UITextField()
-        titleTextField.translatesAutoresizingMaskIntoConstraints = false
-        titleTextField.placeholder = "Title"
-        titleTextField.borderStyle = .roundedRect
-        titleTextField.layer.shadowColor = UIColor.systemGray4.cgColor
-        titleTextField.layer.masksToBounds = false
-        titleTextField.layer.shadowOffset = CGSize(width: 5, height: 5)
-        titleTextField.layer.shadowRadius = 1
-        titleTextField.layer.shadowOpacity = 1
-        return titleTextField
+        let textField = UITextField()
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.placeholder = "Title"
+        textField.borderStyle = .roundedRect
+        textField.layer.shadowColor = UIColor.systemGray4.cgColor
+        textField.layer.masksToBounds = false
+        textField.layer.shadowOffset = CGSize(width: 5, height: 5)
+        textField.layer.shadowRadius = 1
+        textField.layer.shadowOpacity = 1
+        return textField
     }()
     private let deadLineDatePicker: UIDatePicker = {
-        let deadLineDatePicker = UIDatePicker()
-        deadLineDatePicker.translatesAutoresizingMaskIntoConstraints = false
-        deadLineDatePicker.preferredDatePickerStyle = .wheels
-        deadLineDatePicker.datePickerMode = .date
-        deadLineDatePicker.timeZone = NSTimeZone.local
-        return deadLineDatePicker
+        let datePicker = UIDatePicker()
+        datePicker.translatesAutoresizingMaskIntoConstraints = false
+        datePicker.preferredDatePickerStyle = .wheels
+        datePicker.datePickerMode = .date
+        datePicker.timeZone = NSTimeZone.local
+        return datePicker
     }()
-    private let checkboxButton: UIButton = {
-        let checkboxButton = UIButton()
-        checkboxButton.translatesAutoresizingMaskIntoConstraints = false
-        checkboxButton.setTitle("날짜 선택 안함", for: .normal)
-        checkboxButton.setTitleColor(.black, for: .normal)
-        checkboxButton.setImage(UIImage(systemName: "square"), for: .normal)
-        checkboxButton.setImage(UIImage(systemName: "square.fill"), for: .selected)
-        checkboxButton.addTarget(self, action: #selector(touchUpCheckboxButton), for: .touchUpInside)
-        return checkboxButton
+    private let deadLineDatePickerEnableToggleButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("날짜 선택 안함", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.setImage(UIImage(systemName: "square"), for: .normal)
+        button.setImage(UIImage(systemName: "square.fill"), for: .selected)
+        button.addTarget(self, action: #selector(touchUpCheckboxButton), for: .touchUpInside)
+        return button
     }()
     private let descriptionTextView: UITextView = {
-        let descriptionTextView = UITextView()
-        descriptionTextView.translatesAutoresizingMaskIntoConstraints = false
-        descriptionTextView.font = .preferredFont(forTextStyle: .body)
-        descriptionTextView.layer.borderWidth = 1
-        descriptionTextView.layer.borderColor = UIColor.systemGray.cgColor
-        descriptionTextView.layer.cornerRadius = 5
-        descriptionTextView.layer.shadowColor = UIColor.systemGray4.cgColor
-        descriptionTextView.layer.masksToBounds = false
-        descriptionTextView.layer.shadowOffset = CGSize(width: 5, height: 5)
-        descriptionTextView.layer.shadowRadius = 1
-        descriptionTextView.layer.shadowOpacity = 1
-        return descriptionTextView
+        let textView = UITextView()
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.font = .preferredFont(forTextStyle: .body)
+        textView.layer.borderWidth = 1
+        textView.layer.borderColor = UIColor.systemGray.cgColor
+        textView.layer.cornerRadius = 5
+        textView.layer.masksToBounds = false
+        textView.layer.shadowOffset = CGSize(width: 5, height: 5)
+        textView.layer.shadowRadius = 1
+        textView.layer.shadowOpacity = 1
+        textView.layer.shadowColor = UIColor.systemGray4.cgColor
+        return textView
     }()
     private let descriptionTextViewTextMaxCount = 1000
     
@@ -59,7 +59,7 @@ class ListItemDetailViewController: UIViewController {
         view.backgroundColor = .white
         view.addSubview(titleTextField)
         view.addSubview(deadLineDatePicker)
-        view.addSubview(checkboxButton)
+        view.addSubview(deadLineDatePickerEnableToggleButton)
         view.addSubview(descriptionTextView)
         descriptionTextView.delegate = self
         configureAutoLayout()
@@ -77,10 +77,10 @@ class ListItemDetailViewController: UIViewController {
             deadLineDatePicker.centerXAnchor.constraint(equalTo: titleTextField.centerXAnchor),
             deadLineDatePicker.widthAnchor.constraint(equalTo: titleTextField.widthAnchor),
             
-            checkboxButton.topAnchor.constraint(equalTo: deadLineDatePicker.bottomAnchor, constant: 10),
-            checkboxButton.trailingAnchor.constraint(equalTo: deadLineDatePicker.trailingAnchor),
+            deadLineDatePickerEnableToggleButton.topAnchor.constraint(equalTo: deadLineDatePicker.bottomAnchor, constant: 10),
+            deadLineDatePickerEnableToggleButton.trailingAnchor.constraint(equalTo: deadLineDatePicker.trailingAnchor),
             
-            descriptionTextView.topAnchor.constraint(equalTo: checkboxButton.bottomAnchor, constant: 10),
+            descriptionTextView.topAnchor.constraint(equalTo: deadLineDatePickerEnableToggleButton.bottomAnchor, constant: 10),
             descriptionTextView.centerXAnchor.constraint(equalTo: titleTextField.centerXAnchor),
             descriptionTextView.widthAnchor.constraint(equalTo: titleTextField.widthAnchor),
             descriptionTextView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -30)
