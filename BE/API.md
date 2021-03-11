@@ -1,3 +1,5 @@
+
+
 ### 메모 조회
 
 #### 메모 조회 요청 방식
@@ -7,28 +9,28 @@
 #### 메모 조회 응답 파라미터
 
 - memos: object array
-- index: number
+- index: string
 - title: string
 - description: string
 - date: number
-- column: string
+- status: string
 
 ```json
 {
     "memos": [
         {
-            "index": 1,
+            "index": "48E2E85B-9FC4-4FA7-AE98-D0F2BE71AFF8",
             "title": "아침먹기",
             "description": "오늘의 아침은 순대국밥",
-            "date": 1615219025.119415,
-            "column": "todo"
+            "date": "2020-04-03T00:00:00Z",
+            "status": "todo"
         },
         {
-            "index": 2,
+            "index": "48E2E85B-9FC4-4FA7-AE98-D0F2BE71AFF9",
             "title": "점심먹기",
             "description": "오늘의 점심은 서브웨이",
-            "date": 1615219025.119415,
-            "column": "todo"
+            "date": "2020-04-03T00:00:00Z",
+            "status": "todo"
         }
     ]
 }
@@ -47,24 +49,37 @@
 - title: string
 - description: string
 - date: number
-- column: string
+- status: string
 
 ```json
 {
     "title": "아침먹기",
     "description": "오늘의 아침은 순대국밥",
-    "date": 1615219025.119415,
-    "column": "todo"
+    "date": "2020-04-03T00:00:00Z",
+    "status": "todo"
 }
 ```
 
 #### 메모 저장 응답 파라미터
 
-- index: number
+- result: bool
+- item: object
+- index: string
+- title: string
+- description: string
+- date: string
+- status: string
 
 ```json
 {
-    "index": 1
+    "result": true,
+    "item": {
+        "index": "48E2E85B-9FC4-4FA7-AE98-D0F2BE71AFF8",
+        "title": "아침먹기",
+        "description": "오늘의 아침은 순대국밥",
+        "date": "2020-04-03T00:00:00Z",
+        "status": "todo"
+    }
 }
 ```
 
@@ -78,28 +93,42 @@
 
 #### 메모 수정 요청 파라미터
 
-- index: number
+- index: string
 - title: string
 - description: string
-- date: number
+- date: string
 - column: string
 
 ```json
 {
+  	"index": "48E2E85B-9FC4-4FA7-AE98-D0F2BE71AF10",
     "title": "아침먹기",
     "description": "오늘의 아침은 순대국밥",
-    "date": 1615219025.119415,
-    "column": "todo"
+    "date": "2020-04-03T00:00:00Z",
+    "status": "todo"
 }
 ```
 
 #### 메모 수정 응답 파라미터
 
-- index: number
+- result: bool
+- item: object
+- index: string
+- title: string
+- description: string
+- date: string
+- status: string
 
 ```json
 {
-    "index": 1
+  	"result": true,
+  	"item": {
+        "index": "48E2E85B-9FC4-4FA7-AE98-D0F2BE71AF10",
+        "title": "아침먹기",
+        "description": "오늘의 아침은 순대국밥",
+        "date": "2020-04-03T00:00:00Z",
+        "status": "todo"
+		}
 }
 ```
 
@@ -117,11 +146,24 @@ DELETE /memo/{index}
 
 #### 메모 삭제 응답 파라미터
 
-- index: number
+- result: bool
+- item: object
+- index: string
+- title: string
+- description: string
+- date: string
+- status: string
 
 ```json
 {
-    "index": 1
+    "result": true,
+  	"item": {
+        "index": "48E2E85B-9FC4-4FA7-AE98-D0F2BE71AF10",
+        "title": "아침먹기",
+        "description": "오늘의 아침은 순대국밥",
+        "date": "2020-04-03T00:00:00Z",
+        "status": "todo"
+		}
 }
 ```
 
@@ -136,23 +178,37 @@ DELETE /memo/{index}
 #### 히스토리 조회 응답 파라미터
 
 - histories: object array
+- index: string
 - title: string
-- date: number
+- fromStatus: string?
+- toStatus: string?
+- behavior: string
+- modifiedDate: string
 
 ```json
 {
     "histories": [
         {
+            "index": "48E2E85B-9FC4-4FA7-AE98-D0F2BE71AF10",
             "title": "Moved '아침먹기' from TODO to DOING.",
-            "date": 1615219025.119415
+            "fromStatus": "todo",
+            "toStatus": "doing",
+            "behavior": "moved",
+            "modifiedDate": "2020-04-03T00:00:00Z"
         },
         {
+            "index": "48E2E85B-9FC4-4FA7-AE98-D0F2BE71AF10",
             "title": "Added '점심먹기'",
-            "date": 1615219025.119415
+            "behavior": "added",
+            "modifiedDate": "2020-04-03T00:00:00Z",
+        },
+        {
+            "index": "48E2E85B-9FC4-4FA7-AE98-D0F2BE71AF10",
+            "title": "Added '점심먹기'",
+            "fromStatus": "done",
+            "behavior": "removed",
+            "modifiedDate": "2020-04-03T00:00:00Z",
         }
     ]
 }
 ```
-
-
-
