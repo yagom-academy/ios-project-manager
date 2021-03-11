@@ -9,16 +9,17 @@ import Foundation
 
 struct Thing: Codable {
     let title: String
-    let body: String // TODO: description으로 변수명 바꾸기
-    let date: Date
+    let description: String
+    let dateNumber: Int
     var dateString: String {
         return DateFormatter().convertToUserLocaleString(date: date)
     }
-    var date2: Int {
-        return 1
+    var date: Date {
+        return Date(timeIntervalSince1970: TimeInterval(dateNumber))
     }
 
-//    enum CodingKeys: String, CodingKey {
-//        case title,
-//    }
+    enum CodingKeys: String, CodingKey {
+        case title, description
+        case dateNumber = "due_date"
+    }
 }

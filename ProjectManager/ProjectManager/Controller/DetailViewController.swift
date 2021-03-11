@@ -93,7 +93,7 @@ class DetailViewController: UIViewController {
             return
         }
         titleTextField.text = thing.title
-        bodyTextView.text = thing.body
+        bodyTextView.text = thing.description
         datePicker.date = thing.date
     }
     
@@ -110,8 +110,8 @@ class DetailViewController: UIViewController {
         guard let title = titleTextField.text, let body = bodyTextView.text else {
             return
         }
-        let date = datePicker.date
-        let thing = Thing(title: title, body: body, date: date)
+        let date = Int(datePicker.date.timeIntervalSince1970)
+        let thing = Thing(title: title, description: body, dateNumber: date)
         
         if isNew {
             Things.shared.todoList.insert(thing, at: 0)

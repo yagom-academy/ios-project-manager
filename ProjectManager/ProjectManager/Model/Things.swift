@@ -13,18 +13,7 @@ final class Things {
     var doingList: [Thing] = []
     var doneList: [Thing] = []
     static let shared = Things()
-    private init() {
-        todoList.append(Thing(title: "titletitletitletitletitle",
-                              body: """
-                                    Hello World!
-                                    """
-                              , date: Date()))
-        todoList.append(Thing(title: "titletitlletitle",
-                              body: """
-                                    Bye World!
-                                    """
-                              , date: Date()))
-    }
+    private init() {}
     
     private func makeThingItemProvider(_ thing: Thing, _ completionHandler: @escaping () -> Void) -> NSItemProvider {
         let data = try? JSONEncoder().encode(thing)

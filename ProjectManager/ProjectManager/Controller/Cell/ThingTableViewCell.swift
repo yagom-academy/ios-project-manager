@@ -68,7 +68,7 @@ class ThingTableViewCell: UITableViewCell {
     
     func configureCell(_ thing: Thing) {
         titleLabel.text = thing.title
-        bodyLabel.text = thing.body
+        bodyLabel.text = thing.description
         bodyLabel.numberOfLines = 3 // TODO: makeLabel 안에 넣기.
         dateLabel.text = thing.dateString
         changeDateColor(date: thing.date)
