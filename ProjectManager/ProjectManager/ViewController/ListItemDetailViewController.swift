@@ -52,6 +52,7 @@ class ListItemDetailViewController: UIViewController {
         descriptionTextView.layer.shadowOpacity = 1
         return descriptionTextView
     }()
+    private let descriptionTextViewTextMaxCount = 1000
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,6 +61,7 @@ class ListItemDetailViewController: UIViewController {
         view.addSubview(deadLineDatePicker)
         view.addSubview(checkboxButton)
         view.addSubview(descriptionTextView)
+        descriptionTextView.delegate = self
         configureAutoLayout()
     }
     
@@ -88,5 +90,13 @@ class ListItemDetailViewController: UIViewController {
     @objc private func touchUpCheckboxButton(_ sender: UIButton) {
         sender.isSelected.toggle()
         deadLineDatePicker.isEnabled.toggle()
+    }
+}
+
+extension ListItemDetailViewController: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        let textViewText = (textView.text as NSString).replacingCharacters(in: range, with: text)
+        let TextMaxCount = textViewText.count
+        return TextMaxCount <= descriptionTextViewTextMaxCount
     }
 }
