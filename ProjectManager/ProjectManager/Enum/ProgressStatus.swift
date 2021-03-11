@@ -1,7 +1,7 @@
 import Foundation
 
-enum ProgressStatus {
-    case todo
-    case doing
-    case done
+enum ProgressStatus: String {
+    case todo = "TODO"
+    case doing = "DOING"
+    case done = "DONE"
 }

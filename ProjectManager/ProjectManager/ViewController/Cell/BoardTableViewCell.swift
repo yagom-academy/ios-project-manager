@@ -7,9 +7,9 @@ class BoardTableViewCell: UITableViewCell {
     
     static let identifier = "BoardTableViewCell"
     
-    func updateUI(with todoItem: TodoItem) {
+    func updateUI(with todoItem: Item) {
         self.titleLabel.text = todoItem.title
         self.descriptionLabel.text = todoItem.description
-        self.dueDateLabel.text = todoItem.dueDate
+        self.dueDateLabel.text = todoItem.dateToString
     }
 }
