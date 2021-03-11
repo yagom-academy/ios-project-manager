@@ -96,6 +96,8 @@ class DetailViewController: UIViewController {
         datePicker.date = thing.date
     }
     
+    // MARK: - Navigation bar
+    
     private func configureNavigationBar() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(touchUpDoneButton))
         if isNew {
