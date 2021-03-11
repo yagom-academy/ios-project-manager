@@ -13,7 +13,7 @@ class ThingTableHeaderView: UIView {
     
     private let titleLabel = UILabel()
     private let countLabel = UILabel()
-
+    
     // MARK: - Init
     
     init(height: Int, tableViewType: TableViewType) {

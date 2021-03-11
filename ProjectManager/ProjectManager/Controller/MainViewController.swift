@@ -218,7 +218,7 @@ extension MainViewController: UITableViewDragDelegate, UITableViewDropDelegate {
     func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
         let destinationIndexPath: IndexPath
         if let indexPath = coordinator.destinationIndexPath {
-           destinationIndexPath = indexPath
+            destinationIndexPath = indexPath
         } else {
             let section = tableView.numberOfSections
             destinationIndexPath = IndexPath(row: 0, section: section)
