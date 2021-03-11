@@ -22,11 +22,11 @@ struct Item: Codable {
 extension DateFormatter {
     func convertDateToString(date: Date) -> String {
         let currentLocale = Locale.current.collatorIdentifier ?? "ko_KR"
-        let dateFormatter = DateFormatter()
+        let formatter = DateFormatter()
         
-        dateFormatter.locale = Locale(identifier: currentLocale)
-        dateFormatter.setLocalizedDateFormatFromTemplate("yyyy. MM. dd.")
-        dateFormatter.timeZone = TimeZone.autoupdatingCurrent
-        return dateFormatter.string(from: date)
+        formatter.locale = Locale(identifier: currentLocale)
+        formatter.dateFormat = "yyyy.MM.dd"
+        
+        return formatter.string(from: date)
     }
 }
