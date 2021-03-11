@@ -1,6 +1,6 @@
 import Foundation
 
-enum Mode {
+enum Mode: String {
     static let cancel = "Cancel"
     static let edit = "Edit"
 }
