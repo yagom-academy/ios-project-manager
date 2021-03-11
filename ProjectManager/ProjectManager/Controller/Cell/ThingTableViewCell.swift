@@ -7,13 +7,11 @@
 
 import UIKit
 
-class ThingTableViewCell: UITableViewCell {
+final class ThingTableViewCell: UITableViewCell {
     
     // MARK: - Property
     
-    static var identifier: String {
-        return "\(self)"
-    }
+    static var identifier: String = String(describing: self)
     var isDone: Bool = false
     
     // MARK: - Outlet
@@ -26,12 +24,12 @@ class ThingTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        configuerConstraints()
+        configureConstraints()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        configuerConstraints()
+        configureConstraints()
     }
     
     override func prepareForReuse() {
@@ -39,7 +37,7 @@ class ThingTableViewCell: UITableViewCell {
         titleLabel.text = nil
         bodyLabel.text = nil
         dateLabel.text = nil
-        dateLabel.textColor = UIColor.label
+        dateLabel.textColor = .label
     }
     
     // MARK: - UI
@@ -52,19 +50,18 @@ class ThingTableViewCell: UITableViewCell {
         return label
     }
     
-    private func configuerConstraints() { // TODO: 함수명 오타수정.
-        let stackView = UIStackView()
-        contentView.addSubview(stackView)
+    private func configureConstraints() {
+        let stackView = UIStackView(arrangedSubviews: [titleLabel, bodyLabel, dateLabel])
         stackView.axis = .vertical
         stackView.distribution = .equalSpacing
-        stackView.addArrangedSubview(titleLabel)
-        stackView.addArrangedSubview(bodyLabel)
-        stackView.addArrangedSubview(dateLabel)
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
-        stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10).isActive = true
-        stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10).isActive = true
-        stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10).isActive = true
+        contentView.addSubview(stackView)
+        NSLayoutConstraint.activate([
+            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10)
+        ])
     }
     
     func configureCell(_ thing: Thing) {
