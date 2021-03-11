@@ -11,7 +11,6 @@ class ListCollectionViewCell: UICollectionViewCell {
     static var identifier: String {
         return "\(self)"
     }
-    private let tableViewHeaderHeight: CGFloat = 40
     private let tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -20,30 +19,10 @@ class ListCollectionViewCell: UICollectionViewCell {
         tableView.separatorStyle = .none
         return tableView
     }()
-    private let headerTitleLabel: UILabel = {
-        let headerTitleLabel = UILabel()
-        headerTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        headerTitleLabel.font = .preferredFont(forTextStyle: .largeTitle)
-        headerTitleLabel.text = "TODO"
-        return headerTitleLabel
-    }()
-    private let cellCountLabel: UILabel = {
-        let cellCountLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
-        cellCountLabel.translatesAutoresizingMaskIntoConstraints = false
-        cellCountLabel.backgroundColor = .black
-        cellCountLabel.textColor = .white
-        cellCountLabel.textAlignment = .center
-        cellCountLabel.font = .preferredFont(forTextStyle: .headline)
-        cellCountLabel.layer.masksToBounds = true
-        cellCountLabel.layer.cornerRadius = cellCountLabel.frame.width * 0.5
-        cellCountLabel.text = "1"
-        return cellCountLabel
-    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         tableView.dataSource = self
-        tableView.delegate = self
         contentView.addSubview(tableView)
         configureAutoLayout()
     }
@@ -55,6 +34,13 @@ class ListCollectionViewCell: UICollectionViewCell {
             tableView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             tableView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
+    }
+    
+    func configureTableHeaderView(itemStatus: ItemStatus) {
+        let headerView = HeaderView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 40))
+        headerView.backgroundColor = .systemGray6
+        headerView.fillHeaderViewText(itemStatus: itemStatus)
+        tableView.tableHeaderView = headerView
     }
     
     required init?(coder: NSCoder) {
@@ -73,35 +59,5 @@ extension ListCollectionViewCell: UITableViewDataSource {
             return UITableViewCell()
         }
         return cell
-    }
-}
-
-// MARK: - TableView Delegate
-extension ListCollectionViewCell: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: tableViewHeaderHeight))
-        headerView.backgroundColor = .white
-        configureAboutHeaderViewAutoLayout(headerView: headerView)
-        return headerView
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return tableViewHeaderHeight
-    }
-    
-    func configureAboutHeaderViewAutoLayout(headerView: UIView) {
-        headerView.addSubview(headerTitleLabel)
-        headerView.addSubview(cellCountLabel)
-        
-        NSLayoutConstraint.activate([
-            headerTitleLabel.topAnchor.constraint(equalTo: headerView.topAnchor),
-            headerTitleLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor),
-            headerTitleLabel.bottomAnchor.constraint(equalTo: headerView.bottomAnchor),
-
-            cellCountLabel.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
-            cellCountLabel.leadingAnchor.constraint(equalTo: headerTitleLabel.trailingAnchor, constant: 10),
-            cellCountLabel.widthAnchor.constraint(equalToConstant: 30),
-            cellCountLabel.heightAnchor.constraint(equalToConstant: 30)
-        ])
     }
 }
