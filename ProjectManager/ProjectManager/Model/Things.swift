@@ -121,19 +121,4 @@ final class Things {
             }
         }
     }
-    
-    func removeTodo(at index: Int, _ completionHandler: @escaping () -> Void) {
-        todoList.remove(at: index) // TODO: 서버에서 정상적으로 삭제된 것이 확인되면 실행되도록 수정하기.
-        completionHandler()
-    }
-    
-    func removeDoing(at index: Int, _ completionHandler: @escaping () -> Void) {
-        doingList.remove(at: index) // TODO: 서버에서 정상적으로 삭제된 것이 확인되면 실행되도록 수정하기.
-        completionHandler()
-    }
-    
-    func removeDone(at index: Int, _ completionHandler: @escaping () -> Void) {
-        doneList.remove(at: index) // TODO: 서버에서 정상적으로 삭제된 것이 확인되면 실행되도록 수정하기.
-        completionHandler()
-    }
 }
