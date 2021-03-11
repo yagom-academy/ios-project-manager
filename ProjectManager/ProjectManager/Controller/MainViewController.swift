@@ -24,13 +24,15 @@ class MainViewController: UIViewController {
         configureNavigationBar()
         configureConstratins()
         registerNotificationCentor()
-        // TODO: 헤더뷰 초기화 함수 구현.
+        setTableHeaderView()
+    }
+    
+    // MARK: - UI
+    private func setTableHeaderView() {
         todoTableView.tableHeaderView = todoHeaderView
         doingTableView.tableHeaderView = doingHeaderView
         doneTableView.tableHeaderView = doneHeaderView
     }
-    
-    // MARK: - UI
     
     private func makeTableView() -> UITableView {
         let tableView = UITableView(frame: .zero, style: .grouped)
