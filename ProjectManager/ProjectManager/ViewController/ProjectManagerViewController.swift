@@ -14,6 +14,10 @@ class ProjectManagerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureNavigationBar()
+    }
+    
+    private func configureNavigationBar() {
         titleNavigationBar.topItem?.title = "Project Manager"
     }
     
