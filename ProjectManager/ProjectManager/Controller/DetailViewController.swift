@@ -35,10 +35,10 @@ final class DetailViewController: UIViewController {
         datePicker.translatesAutoresizingMaskIntoConstraints = false
         return datePicker
     }()
-    private let bodyTextView: UITextView = {
+    private let descriptionTextView: UITextView = {
         let textView = UITextView()
         makeShadow(view: textView)
-        textView.text = Strings.bodyPlaceHolder
+        textView.text = Strings.descriptionPlaceHolder
         textView.isEditable = false
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.textContainerInset = UIEdgeInsets(top: 10, left: 5, bottom: 10, right: 5)
@@ -49,7 +49,7 @@ final class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        bodyTextView.delegate = self
+        descriptionTextView.delegate = self
         configureConstraints()
         configureNavigationBar()
         setContents()
@@ -62,7 +62,7 @@ final class DetailViewController: UIViewController {
         view.backgroundColor = .white
         view.addSubview(titleTextField)
         view.addSubview(datePicker)
-        view.addSubview(bodyTextView)
+        view.addSubview(descriptionTextView)
         
         NSLayoutConstraint.activate([
             titleTextField.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 10),
@@ -74,10 +74,10 @@ final class DetailViewController: UIViewController {
             datePicker.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -10),
             datePicker.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 10),
             
-            bodyTextView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 10),
-            bodyTextView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -10),
-            bodyTextView.topAnchor.constraint(equalTo: datePicker.bottomAnchor, constant: 10),
-            bodyTextView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -10),
+            descriptionTextView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 10),
+            descriptionTextView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -10),
+            descriptionTextView.topAnchor.constraint(equalTo: datePicker.bottomAnchor, constant: 10),
+            descriptionTextView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -10),
         ])
     }
     
@@ -93,7 +93,7 @@ final class DetailViewController: UIViewController {
             return
         }
         titleTextField.text = thing.title
-        bodyTextView.text = thing.description
+        descriptionTextView.text = thing.description
         datePicker.date = thing.date
     }
     
@@ -109,7 +109,7 @@ final class DetailViewController: UIViewController {
     }
     
     @objc private func touchUpDoneButton() {
-        guard let title = titleTextField.text, let body = bodyTextView.text else {
+        guard let title = titleTextField.text, let body = descriptionTextView.text else {
             return
         }
         let date = Int(datePicker.date.timeIntervalSince1970)
@@ -142,7 +142,7 @@ final class DetailViewController: UIViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(touchUpCancelButton))
         titleTextField.isUserInteractionEnabled = true
         datePicker.isUserInteractionEnabled = true
-        bodyTextView.isEditable = true
+        descriptionTextView.isEditable = true
     }
 }
 

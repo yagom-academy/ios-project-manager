@@ -17,7 +17,7 @@ final class ThingTableViewCell: UITableViewCell {
     // MARK: - Outlet
     
     private let titleLabel: UILabel = makeLabel(textSize: .title3)
-    private let bodyLabel: UILabel = makeLabel(textColor: .gray, numberOfLines: 3)
+    private let descriptionLabel: UILabel = makeLabel(textColor: .gray, numberOfLines: 3)
     private let dateLabel: UILabel = makeLabel(textSize: .caption1)
     
     // MARK: - init
@@ -35,7 +35,7 @@ final class ThingTableViewCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         titleLabel.text = nil
-        bodyLabel.text = nil
+        descriptionLabel.text = nil
         dateLabel.text = nil
         dateLabel.textColor = .label
     }
@@ -51,7 +51,7 @@ final class ThingTableViewCell: UITableViewCell {
     }
     
     private func configureConstraints() {
-        let stackView = UIStackView(arrangedSubviews: [titleLabel, bodyLabel, dateLabel])
+        let stackView = UIStackView(arrangedSubviews: [titleLabel, descriptionLabel, dateLabel])
         stackView.axis = .vertical
         stackView.distribution = .equalSpacing
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -66,7 +66,7 @@ final class ThingTableViewCell: UITableViewCell {
     
     func configureCell(_ thing: Thing) {
         titleLabel.text = thing.title
-        bodyLabel.text = thing.description
+        descriptionLabel.text = thing.description
         dateLabel.text = thing.dateString
         changeDateColor(date: thing.date)
     }
