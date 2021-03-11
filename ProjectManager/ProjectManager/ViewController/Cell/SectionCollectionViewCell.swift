@@ -10,11 +10,13 @@ class SectionCollectionViewCell: UICollectionViewCell {
     
     static let identifier = "SectionCollectionViewCell"
     
-    let todoList = [TodoItem(title: "title1", description: "storyboard file instead.UIKit separates the content of your view controllers from the way that content is presented and displayed onscreen. Presented view controllers are managed by an underlying presentation controller object, which manages the visual style used to display the view controller’s view. A presentation controller may do the following:Set the size of the presented view controller.Add custom views to change the visual appearance of the presented content.Supply transition animations for any of its custom views.Adapt the visual appearance of the presentation when changes occur in the app’s environment.UIKit provides presentation controllers for the standard presentation styles. When you set the presentation style of a view controller to UIModalPresentationCustom and provide an appropriate transitioning delegate, UIKit uses your custom presentation controller instead.", dueDate: "2020.12.12", progressStatus: .doing),
+    var todoList = [TodoItem(title: "title1", description: "storyboard file instead.UIKit separates the content of your view controllers from the way that content is presented and displayed onscreen. Presented view controllers are managed by an underlying presentation controller object, which manages the visual style used to display the view controller’s view. A presentation controller may do the following:Set the size of the presented view controller.Add custom views to change the visual appearance of the presented content.Supply transition animations for any of its custom views.Adapt the visual appearance of the presentation when changes occur in the app’s environment.UIKit provides presentation controllers for the standard presentation styles. When you set the presentation style of a view controller to UIModalPresentationCustom and provide an appropriate transitioning delegate, UIKit uses your custom presentation controller instead.", dueDate: "2020.12.12", progressStatus: .doing),
                     TodoItem(title: "title2", description: "storyboard file", dueDate: "2020.12.13", progressStatus: .done),
                     TodoItem(title: "title3", description: "storyboard filestoryboard filestoryboard file", dueDate: "2020.12.14", progressStatus: .todo),
                     TodoItem(title: "title4", description: " storyboard file instead.UIKit separates the content of your view controllers from the way that content is presented and displayed onscreen. Presented view controllers are managed by an underlying presentation controller object, which manages ", dueDate: "2020.12.22", progressStatus: .todo),
                     TodoItem(title: "title5", description: "Project Manager", dueDate: "2020.12.31", progressStatus: .doing)]
+    
+    let doingList = [TodoItem(title: "title1-1", description: "test", dueDate: "2020.12.12", progressStatus: .doing), TodoItem(title: "title1-1", description: "test", dueDate: "2020.12.12", progressStatus: .doing), TodoItem(title: "title1-1", description: "test", dueDate: "2020.12.12", progressStatus: .doing), TodoItem(title: "title1-1", description: "test", dueDate: "2020.12.12", progressStatus: .doing), TodoItem(title: "title1-1", description: "test", dueDate: "2020.12.12", progressStatus: .doing)]
     
     override func awakeFromNib() {
         registerXib()
@@ -38,6 +40,8 @@ extension SectionCollectionViewCell: UITableViewDelegate {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // 데이터 삭제 관련 기능 구현
+            todoList.remove(at: indexPath.row)
+            tableView.reloadData()
         }
     }
 }
