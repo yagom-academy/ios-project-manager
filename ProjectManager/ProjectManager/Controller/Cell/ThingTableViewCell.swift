@@ -19,7 +19,7 @@ class ThingTableViewCell: UITableViewCell {
     // MARK: - Outlet
     
     private let titleLabel: UILabel = makeLabel(textSize: .title3)
-    private let bodyLabel: UILabel = makeLabel(textColor: .gray)
+    private let bodyLabel: UILabel = makeLabel(textColor: .gray, numberOfLines: 3)
     private let dateLabel: UILabel = makeLabel(textSize: .caption1)
     
     // MARK: - init
@@ -44,10 +44,11 @@ class ThingTableViewCell: UITableViewCell {
     
     // MARK: - UI
     
-    static private func makeLabel(textColor: UIColor = .black, textSize: UIFont.TextStyle = .body) -> UILabel {
+    static private func makeLabel(textColor: UIColor = .black, textSize: UIFont.TextStyle = .body, numberOfLines: Int = 1) -> UILabel {
         let label = UILabel()
         label.textColor = textColor
         label.font = .preferredFont(forTextStyle: textSize)
+        label.numberOfLines = numberOfLines
         return label
     }
     
@@ -69,7 +70,6 @@ class ThingTableViewCell: UITableViewCell {
     func configureCell(_ thing: Thing) {
         titleLabel.text = thing.title
         bodyLabel.text = thing.body
-        bodyLabel.numberOfLines = 3 // TODO: makeLabel 안에 넣기.
         dateLabel.text = thing.dateString
         changeDateColor(date: thing.date)
     }
