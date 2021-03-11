@@ -1,6 +1,6 @@
 import UIKit
 
-class ViewController: UIViewController {
+class ProjectManagerViewController: UIViewController {
     @IBOutlet weak var titleNavigationBar: UINavigationBar!
     @IBOutlet weak var addButton: UIBarButtonItem!
     @IBOutlet weak var sectionCollectionView: UICollectionView!
@@ -21,10 +21,10 @@ class ViewController: UIViewController {
         presentSheetViewController()
     }
 }
-extension ViewController: UICollectionViewDelegate {
+extension ProjectManagerViewController: UICollectionViewDelegate {
     
 }
-extension ViewController: UICollectionViewDataSource {
+extension ProjectManagerViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return boards.count
     }
@@ -38,7 +38,7 @@ extension ViewController: UICollectionViewDataSource {
         return cell
     }
 }
-extension ViewController: UICollectionViewDelegateFlowLayout {
+extension ProjectManagerViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let collectionViewCellWidth = collectionView.frame.width / 3.08
@@ -47,12 +47,12 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: collectionViewCellWidth, height: collectionViewCellHeight)
     }
 }
-extension ViewController: BoardTableViewCellDelegate {
+extension ProjectManagerViewController: BoardTableViewCellDelegate {
     func tableViewCell(_ boardTableViewCell: BoardTableViewCell, didSelectAt index: Int, tappedCollectionViewCell: SectionCollectionViewCell) {
         presentSheetViewController()
     }
 }
-extension ViewController {
+extension ProjectManagerViewController {
     private func presentSheetViewController() {
         guard let sheetViewController = self.storyboard?.instantiateViewController(identifier: SheetViewController.identifier) else {
             return
