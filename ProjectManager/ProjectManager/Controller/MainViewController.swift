@@ -6,13 +6,13 @@
 
 import UIKit
 
-class MainViewController: UIViewController {
+final class MainViewController: UIViewController {
     
     // MARK: - Outlet
     
-    lazy var todoTableView = makeTableView()
-    lazy var doingTableView = makeTableView()
-    lazy var doneTableView = makeTableView()
+    private lazy var todoTableView = makeTableView()
+    private lazy var doingTableView = makeTableView()
+    private lazy var doneTableView = makeTableView()
     private let todoHeaderView = ThingTableHeaderView(height: 50, tableViewType: .todo)
     private let doingHeaderView = ThingTableHeaderView(height: 50, tableViewType: .done)
     private let doneHeaderView = ThingTableHeaderView(height: 50, tableViewType: .doing)
@@ -93,7 +93,7 @@ class MainViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(reloadTableView), name: Strings.reloadNotification, object: nil)
     }
     
-    @objc func reloadTableView() {
+    @objc private func reloadTableView() {
         todoTableView.reloadData()
         doingTableView.reloadData()
         doneTableView.reloadData()
@@ -226,7 +226,7 @@ extension MainViewController: UITableViewDragDelegate, UITableViewDropDelegate {
     func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
         let destinationIndexPath: IndexPath
         if let indexPath = coordinator.destinationIndexPath {
-           destinationIndexPath = indexPath
+            destinationIndexPath = indexPath
         } else {
             let section = tableView.numberOfSections
             destinationIndexPath = IndexPath(row: 0, section: section)

@@ -17,7 +17,7 @@ struct Thing: Codable {
     var date: Date {
         return Date(timeIntervalSince1970: TimeInterval(dateNumber))
     }
-
+    
     enum CodingKeys: String, CodingKey {
         case title, description
         case dateNumber = "due_date"
