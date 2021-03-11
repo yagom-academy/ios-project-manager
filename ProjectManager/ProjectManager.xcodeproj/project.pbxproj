@@ -45,6 +45,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9AE07A4A25F9D23200C9F434 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
+				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
+				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
+				C7431F1325F51E1E0094C4CF /* Info.plist */,
+				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9AE07A4C25F9D2F800C9F434 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0925F51E1D0094C4CF /* ViewController.swift */,
+				D91EE2CB25F73473003C86BD /* SheetViewController.swift */,
+				9AE07A4D25F9D31500C9F434 /* Cell */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		9AE07A4D25F9D31500C9F434 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				D91EE2D525F86840003C86BD /* SectionCollectionViewCell.swift */,
+				D91EE2CE25F74482003C86BD /* BoardTableViewCell.swift */,
+				D91EE2CF25F74482003C86BD /* BoardTableViewCell.xib */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		C7431EF925F51E1D0094C4CF = {
 			isa = PBXGroup;
 			children = (
@@ -64,17 +96,9 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
-				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
-				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
-				C7431F0925F51E1D0094C4CF /* ViewController.swift */,
+				9AE07A4A25F9D23200C9F434 /* Supporting Files */,
+				9AE07A4C25F9D2F800C9F434 /* ViewController */,
 				C7431F0B25F51E1D0094C4CF /* Main.storyboard */,
-				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
-				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
-				C7431F1325F51E1E0094C4CF /* Info.plist */,
-				D91EE2CB25F73473003C86BD /* SheetViewController.swift */,
-				D91EE2D525F86840003C86BD /* SectionCollectionViewCell.swift */,
-				D91EE2CE25F74482003C86BD /* BoardTableViewCell.swift */,
-				D91EE2CF25F74482003C86BD /* BoardTableViewCell.xib */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
@@ -303,7 +327,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = ProjectManager/Info.plist;
+				INFOPLIST_FILE = "ProjectManager/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -322,7 +346,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = ProjectManager/Info.plist;
+				INFOPLIST_FILE = "ProjectManager/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
