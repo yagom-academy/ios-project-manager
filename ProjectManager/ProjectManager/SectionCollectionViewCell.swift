@@ -1,10 +1,3 @@
-//
-//  SectionCollectionViewCell.swift
-//  ProjectManager
-//
-//  Created by 강인희 on 2021/03/10.
-//
-
 import UIKit
 
 protocol BoardTableViewCellDelegate: AnyObject {

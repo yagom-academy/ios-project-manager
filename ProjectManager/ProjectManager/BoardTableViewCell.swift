@@ -1,10 +1,3 @@
-//
-//  BoardTableViewCell.swift
-//  ProjectManager
-//
-//  Created by 강인희 on 2021/03/09.
-//
-
 import UIKit
 
 class BoardTableViewCell: UITableViewCell {
