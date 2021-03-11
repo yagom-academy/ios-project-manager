@@ -49,6 +49,7 @@ final class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        bodyTextView.delegate = self
         configureConstraints()
         configureNavigationBar()
         setContents()
@@ -142,5 +143,21 @@ final class DetailViewController: UIViewController {
         titleTextField.isUserInteractionEnabled = true
         datePicker.isUserInteractionEnabled = true
         bodyTextView.isEditable = true
+    }
+}
+
+extension DetailViewController: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        return self.textLimit(existingText: textView.text,
+                                  newText: text,
+                                  limit: 1000)
+    }
+    
+    private func textLimit(existingText: String?,
+                           newText: String,
+                           limit: Int) -> Bool {
+        let text = existingText ?? ""
+        let isAtLimit = text.count + newText.count <= limit
+        return isAtLimit
     }
 }
