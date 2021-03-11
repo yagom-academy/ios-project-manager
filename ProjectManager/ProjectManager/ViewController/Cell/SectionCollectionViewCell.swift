@@ -4,13 +4,6 @@ protocol BoardTableViewCellDelegate: AnyObject {
     func tableViewCell(_ boardTableViewCell: BoardTableViewCell, didSelectAt index: Int, tappedCollectionViewCell: SectionCollectionViewCell)
 }
 
-struct TodoItem {
-    var title: String
-    var description: String
-    var dueDate: String
-    var progressStatus: ProgressStatus
-}
-
 class SectionCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var boardTableView: UITableView!
     weak var delegate: BoardTableViewCellDelegate?
