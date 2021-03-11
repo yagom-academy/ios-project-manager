@@ -18,6 +18,7 @@ class DetailViewController: UIViewController {
     
     // MARK: - Outlet
     
+    // TODO: placeholder 앞에 여백 추가하기.
     let titleTextField: UITextField = {
         let textField = UITextField()
         makeShadow(view: textField)
@@ -38,7 +39,8 @@ class DetailViewController: UIViewController {
     let bodyTextView: UITextView = {
         let textView = UITextView()
         makeShadow(view: textView)
-        textView.text = "이곳에 내용을 입력하세요."
+        textView.textContainerInset = UIEdgeInsets(top: 10, left: 5, bottom: 10, right: 5)
+        textView.text = "이곳에 내용을 입력하세요." // TODO: Strings로 이동.
         textView.isEditable = false
         textView.translatesAutoresizingMaskIntoConstraints = false
         return textView
@@ -86,7 +88,7 @@ class DetailViewController: UIViewController {
         view.layer.masksToBounds = false
     }
     
-    private func fillData() {
+    private func fillData() { // TODO: 함수명 setContents로 바꾸기.
         guard let thing = thing else {
             return
         }

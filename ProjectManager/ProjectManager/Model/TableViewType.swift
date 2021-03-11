@@ -6,7 +6,7 @@
 //
 
 enum TableViewType: String {
-    case todo = "TODO "
-    case doing = "DOING "
-    case done = "DONE "
+    case todo = "TODO"
+    case doing = "DOING"
+    case done = "DONE"
 }

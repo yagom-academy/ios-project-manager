@@ -34,41 +34,42 @@ class ThingTableViewCell: UITableViewCell {
         configuerConstraints()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        titleLabel.text = nil
+        bodyLabel.text = nil
+        dateLabel.text = nil
+        dateLabel.textColor = UIColor.label
+    }
+    
     // MARK: - UI
     
     static private func makeLabel(textColor: UIColor = .black, textSize: UIFont.TextStyle = .body) -> UILabel {
         let label = UILabel()
         label.textColor = textColor
         label.font = .preferredFont(forTextStyle: textSize)
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }
     
-    private func configuerConstraints() {
-        contentView.addSubview(titleLabel)
-        contentView.addSubview(bodyLabel)
-        contentView.addSubview(dateLabel)
-        
-        NSLayoutConstraint.activate([
-            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
-            
-            bodyLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
-            bodyLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
-            bodyLabel.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
-            
-            dateLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
-            dateLabel.topAnchor.constraint(equalTo: bodyLabel.bottomAnchor, constant: 10),
-            dateLabel.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
-            dateLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
-        ])
+    private func configuerConstraints() { // TODO: 함수명 오타수정.
+        let stackView = UIStackView()
+        contentView.addSubview(stackView)
+        stackView.axis = .vertical
+        stackView.distribution = .equalSpacing
+        stackView.addArrangedSubview(titleLabel)
+        stackView.addArrangedSubview(bodyLabel)
+        stackView.addArrangedSubview(dateLabel)
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
+        stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10).isActive = true
+        stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10).isActive = true
+        stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10).isActive = true
     }
     
     func configureCell(_ thing: Thing) {
         titleLabel.text = thing.title
         bodyLabel.text = thing.body
-        bodyLabel.numberOfLines = 3
+        bodyLabel.numberOfLines = 3 // TODO: makeLabel 안에 넣기.
         dateLabel.text = thing.dateString
         changeDateColor(date: thing.date)
     }

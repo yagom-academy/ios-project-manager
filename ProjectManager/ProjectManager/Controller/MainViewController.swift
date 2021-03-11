@@ -13,6 +13,9 @@ class MainViewController: UIViewController {
     lazy var todoTableView = makeTableView()
     lazy var doingTableView = makeTableView()
     lazy var doneTableView = makeTableView()
+    private let todoHeaderView = ThingTableHeaderView(height: 50, title: "TODO")
+    private let doingHeaderView = ThingTableHeaderView(height: 50, title: "DOING")
+    private let doneHeaderView = ThingTableHeaderView(height: 50, title: "DONE")
     
     // MARK: - Life Cycle
     
@@ -21,14 +24,22 @@ class MainViewController: UIViewController {
         configureNavigationBar()
         configureConstratins()
         registerNotificationCentor()
+        // TODO: 헤더뷰 초기화 함수 구현.
+        todoTableView.tableHeaderView = todoHeaderView
+        doingTableView.tableHeaderView = doingHeaderView
+        doneTableView.tableHeaderView = doneHeaderView
     }
     
     // MARK: - UI
     
     private func makeTableView() -> UITableView {
-        let tableView = UITableView()
+        let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.dragDelegate = self
+        tableView.dropDelegate = self
+        tableView.sectionHeaderHeight = 2
+        tableView.sectionFooterHeight = 2
         tableView.register(ThingTableViewCell.self, forCellReuseIdentifier: ThingTableViewCell.identifier)
         return tableView
     }
@@ -56,18 +67,19 @@ class MainViewController: UIViewController {
     private func configureNavigationBar() {
         navigationItem.title = Strings.navigationTitle
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(touchUpAddButton))
+        navigationController?.setToolbarHidden(false, animated: false)
     }
     
     // MARK: - DetailView
     
-    @objc private func touchUpAddButton() {
+    @IBAction private func touchUpAddButton() {
         showDetailView(isNew: true)
     }
     
     private func showDetailView(isNew: Bool = false, tableViewType: TableViewType = .todo, index: Int? = nil, thing: Thing? = nil) {
         let detailView = DetailViewController()
         let navigationController = UINavigationController(rootViewController: detailView)
-        detailView.isNew = isNew
+        detailView.isNew = isNew // TODO: 정리방법 고민하기.
         detailView.title = tableViewType.rawValue
         detailView.tableViewType = tableViewType
         detailView.index = index
@@ -84,71 +96,22 @@ class MainViewController: UIViewController {
         doingTableView.reloadData()
         doneTableView.reloadData()
     }
-    
-    // MARK: - TableView
-    
-    private func makeHeaderView(tableViewType: TableViewType, thingCount: Int) -> UIView {
-        let headerView = UIView()
-        let titleLabel = makeHeaderText(tableViewType: tableViewType, thingCount: thingCount)
-        
-        headerView.backgroundColor = .systemGroupedBackground
-        headerView.addSubview(titleLabel)
-        NSLayoutConstraint.activate([
-            titleLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 20),
-            titleLabel.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 10),
-            titleLabel.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -20),
-            titleLabel.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: -10),
-        ])
-        return headerView
-    }
-    
-    private func makeHeaderText(tableViewType: TableViewType, thingCount: Int) -> UILabel {
-        let titleLabel = UILabel()
-        let attributedString = NSMutableAttributedString(string: tableViewType.rawValue)
-        let numberCircle = NSTextAttachment()
-        
-        if thingCount <= 50 {
-            let imageName = String(format: Strings.numberCirclerImage, thingCount)
-            numberCircle.image = UIImage(systemName: imageName)
-            attributedString.append(NSAttributedString(attachment: numberCircle))
-        } else {
-            let plusImage = NSTextAttachment()
-            numberCircle.image = UIImage(systemName: Strings.fiftyNumberCircle)
-            attributedString.append(NSAttributedString(attachment: numberCircle))
-            plusImage.image = UIImage(systemName: Strings.plusImage)
-            attributedString.append(NSAttributedString(attachment: plusImage))
-        }
-        
-        titleLabel.attributedText = attributedString
-        titleLabel.font = .preferredFont(forTextStyle: .title1)
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        return titleLabel
-    }
 }
 
 // MARK: - Delegate
 
 extension MainViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if tableView == todoTableView {
-            return makeHeaderView(tableViewType: .todo, thingCount: Things.shared.todoList.count)
-        } else if tableView == doingTableView {
-            return makeHeaderView(tableViewType: .doing, thingCount: Things.shared.doingList.count)
-        } else {
-            return makeHeaderView(tableViewType: .done, thingCount: Things.shared.doneList.count)
-        }
-    }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let index = indexPath.section
         if tableView == todoTableView {
-            let thing = Things.shared.todoList[indexPath.row]
-            showDetailView(index: indexPath.row, thing: thing)
+            let thing = Things.shared.todoList[index]
+            showDetailView(index: index, thing: thing)
         } else if tableView == doingTableView {
-            let thing = Things.shared.doingList[indexPath.row]
-            showDetailView(tableViewType: .doing, index: indexPath.row, thing: thing)
+            let thing = Things.shared.doingList[index]
+            showDetailView(tableViewType: .doing, index: index, thing: thing)
         } else {
-            let thing = Things.shared.doneList[indexPath.row]
-            showDetailView(tableViewType: .done, index: indexPath.row, thing: thing)
+            let thing = Things.shared.doneList[index]
+            showDetailView(tableViewType: .done, index: index, thing: thing)
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -159,14 +122,16 @@ extension MainViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+            let index = indexPath.section
             if tableView == todoTableView {
-                Things.shared.todoList.remove(at: indexPath.row)
+                Things.shared.todoList.remove(at: index)
             } else if tableView == doingTableView {
-                Things.shared.doingList.remove(at: indexPath.row)
+                Things.shared.doingList.remove(at: index)
             } else {
-                Things.shared.doneList.remove(at: indexPath.row)
+                Things.shared.doneList.remove(at: index)
             }
-            tableView.reloadData()
+            let indexSet = IndexSet(index...index)
+            tableView.deleteSections(indexSet, with: .automatic)
         }
     }
 }
@@ -175,13 +140,42 @@ extension MainViewController: UITableViewDelegate {
 // MARK: - DataSoure
 
 extension MainViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return 5
+        }
+        return 0
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        switch tableView {
+        case todoTableView:
+            let todoCount = Things.shared.todoList.count
+            todoHeaderView.setCount(todoCount)
+            return todoCount
+        case doingTableView:
+            let doingCount = Things.shared.doingList.count
+            doingHeaderView.setCount(doingCount)
+            return doingCount
+        case doneTableView:
+            let doneCount = Things.shared.doneList.count
+            doneHeaderView.setCount(doneCount)
+            return doneCount
+        default:
+            return 0
+        }
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if tableView == todoTableView {
-            return Things.shared.todoList.count
-        } else if tableView == doingTableView {
-            return Things.shared.doingList.count
-        } else {
-            return Things.shared.doneList.count
+        switch tableView {
+        case todoTableView:
+            return 1
+        case doingTableView:
+            return 1
+        case doneTableView:
+            return 1
+        default:
+            return 0
         }
     }
     
@@ -189,14 +183,56 @@ extension MainViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ThingTableViewCell.identifier) as? ThingTableViewCell else {
             return UITableViewCell()
         }
-        if tableView == todoTableView {
-            cell.configureCell(Things.shared.todoList[indexPath.row])
-        } else if tableView == doingTableView {
-            cell.configureCell(Things.shared.doingList[indexPath.row])
-        } else {
+        let index = indexPath.section
+        switch tableView { // TODO: list에서 indexPath.row 개수 검사 후 접근하도록 수정
+        case todoTableView:
+            cell.configureCell(Things.shared.todoList[index])
+        case doingTableView:
+            cell.configureCell(Things.shared.doingList[index])
+        case doneTableView:
             cell.isDone = true
-            cell.configureCell(Things.shared.doneList[indexPath.row])
+            cell.configureCell(Things.shared.doneList[index])
+        default:
+            break
         }
         return cell
     }
 }
+
+// MARK: - Drag & Drop
+
+extension MainViewController: UITableViewDragDelegate, UITableViewDropDelegate {
+    func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        switch tableView {
+        case todoTableView:
+            return Things.shared.dragTodo(for: indexPath, tableView: tableView)
+        case doingTableView:
+            return Things.shared.dragDoing(for: indexPath, tableView: tableView)
+        case doneTableView:
+            return Things.shared.dragDone(for: indexPath, tableView: tableView)
+        default:
+            return [UIDragItem(itemProvider: NSItemProvider())] // TODO: 임시로 해놓은거니깐 바꿔야됨.
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
+        let destinationIndexPath: IndexPath
+        if let indexPath = coordinator.destinationIndexPath {
+           destinationIndexPath = indexPath
+        } else {
+            let section = tableView.numberOfSections
+            destinationIndexPath = IndexPath(row: 0, section: section)
+        }
+        switch tableView {
+        case todoTableView:
+            Things.shared.dropTodo(coordinator.items, tableView: tableView, destinationIndexPath: destinationIndexPath)
+        case doingTableView:
+            Things.shared.dropDoing(coordinator.items, tableView: tableView, destinationIndexPath: destinationIndexPath)
+        case doneTableView:
+            Things.shared.dropDone(coordinator.items, tableView: tableView, destinationIndexPath: destinationIndexPath)
+        default:
+            break
+        }
+    }
+}
+
