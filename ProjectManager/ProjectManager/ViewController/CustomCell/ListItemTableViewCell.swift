@@ -12,46 +12,36 @@ class ListItemTableViewCell: UITableViewCell {
         return "\(self)"
     }
     private let contentsContainerView: UIView = {
-        let contentsContainerView = UIView()
-        contentsContainerView.translatesAutoresizingMaskIntoConstraints = false
-        contentsContainerView.backgroundColor = .white
-        contentsContainerView.layer.shadowColor = UIColor.systemGray4.cgColor
-        contentsContainerView.layer.masksToBounds = false
-        contentsContainerView.layer.shadowOffset = CGSize(width: 0, height: 1)
-        contentsContainerView.layer.shadowRadius = 1
-        contentsContainerView.layer.shadowOpacity = 1
-        return contentsContainerView
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .white
+        view.layer.shadowColor = UIColor.systemGray4.cgColor
+        view.layer.masksToBounds = false
+        view.layer.shadowOffset = CGSize(width: 0, height: 1)
+        view.layer.shadowRadius = 1
+        view.layer.shadowOpacity = 1
+        return view
     }()
-    private let titleLabel: UILabel = {
-        let titleLabel = UILabel()
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.font = .preferredFont(forTextStyle: .headline)
-        return titleLabel
-    }()
-    private let descriptionLabel: UILabel = {
-        let descriptionLabel = UILabel()
-        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        descriptionLabel.font = .preferredFont(forTextStyle: .caption1)
-        descriptionLabel.numberOfLines = 0
-        descriptionLabel.textColor = .gray
-        return descriptionLabel
-    }()
-    private let deadLineLabel: UILabel = {
-        let deadLineLabel = UILabel()
-        deadLineLabel.translatesAutoresizingMaskIntoConstraints = false
-        deadLineLabel.font = .preferredFont(forTextStyle: .caption1)
-        return deadLineLabel
-    }()
+    lazy var titleLabel: UILabel = makeCellLabel(font: .title3, textColor: .black)
+    lazy var descriptionLabel: UILabel = makeCellLabel(font: .body, textColor: .gray, numberOfLines: 3)
+    lazy var deadLineLabel: UILabel = makeCellLabel(font: .callout, textColor: .black)
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         backgroundColor = .clear
         contentView.backgroundColor = .clear
-        titleLabel.text = "title"
-        descriptionLabel.text = "descriptionLabel descriptionLabel descriptionLabel descriptionLabel descriptionLabel descriptionLabel descriptionLabel descriptionLabel descriptionLabel descriptionLabel descriptionLabel descriptionLabel descriptionLabel descriptionLabel descriptionLabel descriptionLabel"
-        deadLineLabel.text = "deadLine"
         configureContentsContainerView()
         configureAutoLayout()
+    }
+    
+    private func makeCellLabel(font: UIFont.TextStyle, textColor: UIColor, numberOfLines: Int = 1) -> UILabel {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.adjustsFontForContentSizeCategory = true
+        label.font = .preferredFont(forTextStyle: font)
+        label.textColor = textColor
+        label.numberOfLines = numberOfLines
+        return label
     }
     
     private func configureContentsContainerView() {
@@ -64,31 +54,29 @@ class ListItemTableViewCell: UITableViewCell {
     private func configureAutoLayout() {
         NSLayoutConstraint.activate([
             contentsContainerView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            contentsContainerView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            contentsContainerView.widthAnchor.constraint(equalTo: contentView.widthAnchor),
-            contentsContainerView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.95),
+            contentsContainerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            contentsContainerView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 1),
+            contentsContainerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
             
             titleLabel.topAnchor.constraint(equalTo: contentsContainerView.topAnchor, constant: 10),
-            titleLabel.trailingAnchor.constraint(equalTo: contentsContainerView.trailingAnchor),
-            titleLabel.leadingAnchor.constraint(equalTo: contentsContainerView.leadingAnchor),
+            titleLabel.centerXAnchor.constraint(equalTo: contentsContainerView.centerXAnchor),
+            titleLabel.widthAnchor.constraint(equalTo: contentsContainerView.widthAnchor, multiplier: 0.9),
             
             descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor),
-            descriptionLabel.trailingAnchor.constraint(equalTo: contentsContainerView.trailingAnchor),
-            descriptionLabel.leadingAnchor.constraint(equalTo: contentsContainerView.leadingAnchor),
+            descriptionLabel.centerXAnchor.constraint(equalTo: contentsContainerView.centerXAnchor),
+            descriptionLabel.widthAnchor.constraint(equalTo: contentsContainerView.widthAnchor, multiplier: 0.9),
             
-            deadLineLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor),
-            deadLineLabel.trailingAnchor.constraint(equalTo: contentsContainerView.trailingAnchor),
-            deadLineLabel.leadingAnchor.constraint(equalTo: contentsContainerView.leadingAnchor),
-            deadLineLabel.bottomAnchor.constraint(equalTo: contentsContainerView.bottomAnchor, constant: -10)
+            deadLineLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 10),
+            deadLineLabel.bottomAnchor.constraint(equalTo: contentsContainerView.bottomAnchor, constant: -10),
+            deadLineLabel.centerXAnchor.constraint(equalTo: contentsContainerView.centerXAnchor),
+            deadLineLabel.widthAnchor.constraint(equalTo: contentsContainerView.widthAnchor, multiplier: 0.9)
         ])
-        
-        titleLabel.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
-        descriptionLabel.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
-        deadLineLabel.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
-        
-        titleLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
-        descriptionLabel.setContentHuggingPriority(.defaultLow, for: .vertical)
-        deadLineLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
+    }
+    
+    func fillLabelsText(item: Todo) {
+        titleLabel.text = item.title
+        descriptionLabel.text = item.description
+        deadLineLabel.text = "2021. 03. 01"
     }
     
     override func prepareForReuse() {

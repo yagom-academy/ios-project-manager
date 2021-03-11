@@ -67,6 +67,8 @@ extension ListCollectionViewCell: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ListItemTableViewCell.identifier, for: indexPath) as? ListItemTableViewCell else {
             return UITableViewCell()
         }
+        let todo = Todo(title: "지금 시간", description: "우리 커밋하고 있어여", deadLine: Date())
+        cell.fillLabelsText(item: todo)
         return cell
     }
 }
