@@ -81,7 +81,7 @@ class MainViewController: UIViewController {
     private func showDetailView(isNew: Bool = false, tableViewType: TableViewType = .todo, index: Int? = nil, thing: Thing? = nil) {
         let detailView = DetailViewController()
         let navigationController = UINavigationController(rootViewController: detailView)
-        detailView.isNew = isNew // TODO: 정리방법 고민하기.
+        detailView.isNew = isNew
         detailView.title = tableViewType.rawValue
         detailView.tableViewType = tableViewType
         detailView.index = index
@@ -219,7 +219,7 @@ extension MainViewController: UITableViewDragDelegate, UITableViewDropDelegate {
         case doneTableView:
             return Things.shared.dragDone(for: indexPath, tableView: tableView)
         default:
-            return [UIDragItem(itemProvider: NSItemProvider())] // TODO: 임시로 해놓은거니깐 바꿔야됨.
+            return [UIDragItem(itemProvider: NSItemProvider())]
         }
     }
     
