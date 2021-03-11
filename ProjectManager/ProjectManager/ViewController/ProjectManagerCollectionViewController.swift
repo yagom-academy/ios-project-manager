@@ -9,8 +9,8 @@ import UIKit
 class ProjectManagerCollectionViewController: UIViewController {
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        layout.scrollDirection = .horizontal
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .systemGray4
         collectionView.register(ListCollectionViewCell.self, forCellWithReuseIdentifier: ListCollectionViewCell.identifier)
@@ -19,13 +19,21 @@ class ProjectManagerCollectionViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
-        view.addSubview(collectionView)
-        collectionView.dataSource = self
-        collectionView.delegate = self
+        delegateDelegate()
+        setUpView()
         configureAutoLayout()
         configureNavigationBar()
         configureToolBar()
+    }
+    
+    private func delegateDelegate() {
+        collectionView.dataSource = self
+        collectionView.delegate = self
+    }
+    
+    private func setUpView() {
+        view.backgroundColor = .white
+        view.addSubview(collectionView)
     }
     
     private func configureAutoLayout() {
@@ -57,6 +65,7 @@ class ProjectManagerCollectionViewController: UIViewController {
         let flexibleSpaceBarButtonItem: UIBarButtonItem = .init(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let undoButton: UIBarButtonItem = .init(barButtonSystemItem: .undo, target: self, action: #selector(touchUpUndoButton))
         let redoButton: UIBarButtonItem = .init(barButtonSystemItem: .redo, target: self, action: #selector(touchUpRedoButton))
+        
         barButtonItems.append(flexibleSpaceBarButtonItem)
         barButtonItems.append(undoButton)
         barButtonItems.append(redoButton)
