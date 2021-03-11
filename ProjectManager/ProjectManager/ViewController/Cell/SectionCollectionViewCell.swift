@@ -60,7 +60,7 @@ extension SectionCollectionViewCell: UITableViewDataSource {
         headerView.backgroundColor = .systemGray5
         
         let titleLabel = UILabel()
-        titleLabel.text = "TODO"
+        titleLabel.text = ProgressStatus.todo.rawValue
         titleLabel.font = .preferredFont(forTextStyle: .largeTitle)
         
         headerView.addSubview(titleLabel)
