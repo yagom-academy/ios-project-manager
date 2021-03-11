@@ -8,11 +8,6 @@ class SheetViewController: UIViewController {
     
     static let identifier = "SheetViewController"
     
-    private enum Mode {
-        static let cancel = "Cancel"
-        static let edit = "Edit"
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.modeButtonItem.title = Mode.cancel
