@@ -146,17 +146,15 @@ final class DetailViewController: UIViewController {
     }
 }
 
+// MARK: - TexViewDlegate
+
 extension DetailViewController: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        return self.textLimit(existingText: textView.text,
-                                  newText: text,
-                                  limit: 1000)
+        return self.textLimit(existingText: textView.text, newText: text, limit: 1000)
     }
     
-    private func textLimit(existingText: String?,
-                           newText: String,
-                           limit: Int) -> Bool {
-        let text = existingText ?? ""
+    private func textLimit(existingText: String?, newText: String, limit: Int) -> Bool {
+        let text = existingText ?? String.empty
         let isAtLimit = text.count + newText.count <= limit
         return isAtLimit
     }

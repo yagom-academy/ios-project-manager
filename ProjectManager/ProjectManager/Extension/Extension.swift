@@ -22,3 +22,9 @@ extension DateFormatter {
         return dateString
     }
 }
+
+// MARK: - String
+
+extension String {
+    static let empty = ""
+}
