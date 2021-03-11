@@ -17,7 +17,6 @@ struct TodoItem {
     var progressStatus: ProgressStatus
 }
 
-
 class SectionCollectionViewCell: UICollectionViewCell {
     static let identifier = "SectionCollectionViewCell"
     @IBOutlet weak var boardTableView: UITableView!
@@ -39,6 +38,7 @@ class SectionCollectionViewCell: UICollectionViewCell {
         boardTableView.register(nibName, forCellReuseIdentifier: BoardTableViewCell.identifier)
     }
 }
+
 extension SectionCollectionViewCell: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let selectedCell = tableView.cellForRow(at: indexPath) as? BoardTableViewCell else {
@@ -54,6 +54,7 @@ extension SectionCollectionViewCell: UITableViewDelegate {
         }
     }
 }
+
 extension SectionCollectionViewCell: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return todoList.count

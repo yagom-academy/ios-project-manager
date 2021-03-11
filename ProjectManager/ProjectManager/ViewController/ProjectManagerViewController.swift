@@ -31,9 +31,11 @@ class ProjectManagerViewController: UIViewController {
         presentSheetViewController()
     }
 }
+
 extension ProjectManagerViewController: UICollectionViewDelegate {
     
 }
+
 extension ProjectManagerViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return boards.count
@@ -48,6 +50,7 @@ extension ProjectManagerViewController: UICollectionViewDataSource {
         return cell
     }
 }
+
 extension ProjectManagerViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
@@ -57,11 +60,13 @@ extension ProjectManagerViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: collectionViewCellWidth, height: collectionViewCellHeight)
     }
 }
+
 extension ProjectManagerViewController: BoardTableViewCellDelegate {
     func tableViewCell(_ boardTableViewCell: BoardTableViewCell, didSelectAt index: Int, tappedCollectionViewCell: SectionCollectionViewCell) {
         presentSheetViewController()
     }
 }
+
 extension ProjectManagerViewController {
     private func presentSheetViewController() {
         guard let sheetViewController = self.storyboard?.instantiateViewController(identifier: SheetViewController.identifier) else {
