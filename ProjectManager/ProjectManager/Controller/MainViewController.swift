@@ -68,8 +68,13 @@ final class MainViewController: UIViewController {
     
     private func configureNavigationBar() {
         navigationItem.title = Strings.navigationTitle
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: Strings.historyButton, style: .plain, target: self, action: #selector(touchUpHistoryButton))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(touchUpAddButton))
         navigationController?.setToolbarHidden(false, animated: false)
+    }
+    
+    @objc private func touchUpHistoryButton() {
+        print("history")
     }
     
     // MARK: - DetailView
