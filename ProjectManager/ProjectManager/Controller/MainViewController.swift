@@ -186,14 +186,20 @@ extension MainViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         let index = indexPath.section
-        switch tableView { // TODO: list에서 indexPath.row 개수 검사 후 접근하도록 수정
+        switch tableView {
         case todoTableView:
-            cell.configureCell(Things.shared.todoList[index])
+            if index < Things.shared.todoList.count {
+                cell.configureCell(Things.shared.todoList[index])
+            }
         case doingTableView:
-            cell.configureCell(Things.shared.doingList[index])
+            if index < Things.shared.doingList.count {
+                cell.configureCell(Things.shared.doingList[index])
+            }
         case doneTableView:
-            cell.isDone = true
-            cell.configureCell(Things.shared.doneList[index])
+            if index < Things.shared.doneList.count {
+                cell.isDone = true
+                cell.configureCell(Things.shared.doneList[index])
+            }
         default:
             break
         }
