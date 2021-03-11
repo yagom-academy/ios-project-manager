@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ThingTableHeaderView: UIView {
+final class ThingTableHeaderView: UIView {
     
     // MARK: - Outlet
     

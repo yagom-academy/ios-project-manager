@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DetailViewController: UIViewController {
+final class DetailViewController: UIViewController {
     
     // MARK: - Property
     
@@ -18,7 +18,7 @@ class DetailViewController: UIViewController {
     
     // MARK: - Outlet
     
-    let titleTextField: UITextField = {
+    private let titleTextField: UITextField = {
         let textField = UITextField()
         makeShadow(view: textField)
         textField.backgroundColor = .white
@@ -27,7 +27,7 @@ class DetailViewController: UIViewController {
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
-    let datePicker: UIDatePicker = {
+    private let datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .date
         datePicker.preferredDatePickerStyle = .wheels
@@ -35,7 +35,7 @@ class DetailViewController: UIViewController {
         datePicker.translatesAutoresizingMaskIntoConstraints = false
         return datePicker
     }()
-    let bodyTextView: UITextView = {
+    private let bodyTextView: UITextView = {
         let textView = UITextView()
         makeShadow(view: textView)
         textView.text = Strings.bodyPlaceHolder
