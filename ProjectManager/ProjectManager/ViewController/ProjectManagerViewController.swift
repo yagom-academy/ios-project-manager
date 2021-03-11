@@ -5,20 +5,26 @@ class ProjectManagerViewController: UIViewController {
     @IBOutlet weak var addButton: UIBarButtonItem!
     @IBOutlet weak var sectionCollectionView: UICollectionView!
     
-    private let todoBoard = UITableView()
-    private let doingBoard = UITableView()
-    private let doneBoard = UITableView()
-    private lazy var boards: [UITableView] = {
-        return [todoBoard, doingBoard, doneBoard]
-    }()
+    var boards = [UITableView]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavigationBar()
+        configureBoard()
     }
     
     private func configureNavigationBar() {
         titleNavigationBar.topItem?.title = "Project Manager"
+    }
+    
+    private func configureBoard() {
+        let todoBoard = UITableView()
+        let doingBoard = UITableView()
+        let doneBoard = UITableView()
+        
+        boards.append(todoBoard)
+        boards.append(doingBoard)
+        boards.append(doneBoard)
     }
     
     @IBAction func tappedAddButton(_ sender: Any) {
