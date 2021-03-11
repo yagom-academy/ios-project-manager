@@ -8,17 +8,20 @@
 import UIKit
 
 class ThingTableHeaderView: UIView {
+    
+    // MARK: - Outlet
+    
     private let titleLabel = UILabel()
     private let countLabel = UILabel()
 
-    init(height: Int, title: String) {
+    // MARK: - Init
+    
+    init(height: Int, tableViewType: TableViewType) {
         super.init(frame: CGRect(x: 0, y: 0, width: 0, height: height))
-        addSubview(titleLabel)
-        addSubview(countLabel)
+        
         configureConstraints()
         setStyle()
-        titleLabel.text = title
-        countLabel.text = String(0)
+        titleLabel.text = tableViewType.rawValue
     }
     
     required init?(coder: NSCoder) {
@@ -26,6 +29,9 @@ class ThingTableHeaderView: UIView {
     }
     
     private func configureConstraints() {
+        addSubview(titleLabel)
+        addSubview(countLabel)
+        
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         countLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
