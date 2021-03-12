@@ -105,7 +105,8 @@ extension ProjectManagerCollectionViewController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ListCollectionViewCell.identifier, for: indexPath) as? ListCollectionViewCell else {
             return UICollectionViewCell()
         }
-        cell.configureTableHeaderView(itemStatus: itemStatusList[indexPath.row])
+        cell.statusType = itemStatusList[indexPath.row]
+//        cell.configureTableHeaderView(itemStatus: itemStatusList[indexPath.row])
         return cell
     }
 }
