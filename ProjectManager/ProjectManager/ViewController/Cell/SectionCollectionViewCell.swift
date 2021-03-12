@@ -10,10 +10,6 @@ class SectionCollectionViewCell: UICollectionViewCell {
     
     static let identifier = "SectionCollectionViewCell"
     
-    var todoList = [Item(title: "title1", description: "storyboard file instead.UIKit separates the content of your view controllers from the way that content is presented and displayed onscreen. Presented view controllers are managed by an underlying presentation controller object, which manages the visual style used to display the view controller’s view. A presentation controller may do the following:Set the size of the presented view controller.Add custom views to change the visual appearance of the presented content.Supply transition animations for any of its custom views.Adapt the visual appearance of the presentation when changes occur in the app’s environment.UIKit provides presentation controllers for the standard presentation styles. When you set the presentation style of a view controller to UIModalPresentationCustom and provide an appropriate transitioning delegate, UIKit uses your custom presentation controller instead.", progressStatus: ProgressStatus.todo.rawValue, dueDate: 1220301220)]
-    
-    var doingList = [Item(title: "1title1", description: "storyboard file instead.UIKit separates the content of your view controllers from the way that contenalPresentationCustom and provide an appropriate transitioning delegate, UIKit uses your custom presentation controller instead.", progressStatus: ProgressStatus.todo.rawValue, dueDate: 1220301220), Item(title: "2title2", description: "storyboard file instead.UIKit separates the content of your view controllers from the way that contenalPresentationCustom and provide an appropriate transitioning delegate, UIKit uses your custom presentation controller instead.", progressStatus: ProgressStatus.todo.rawValue, dueDate: 1220301220)]
-    
     override func awakeFromNib() {
         registerXib()
     }
@@ -29,13 +25,18 @@ extension SectionCollectionViewCell: UITableViewDelegate {
         guard let selectedCell = tableView.cellForRow(at: indexPath) as? BoardTableViewCell else {
             return
         }
-        
         self.delegate?.tableViewCell(selectedCell, didSelectAt: indexPath.row, tappedCollectionViewCell: self)
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            doingList.remove(at: indexPath.row)
+            if tableView == BoardManager.shared.boards[0] {
+                Items.shared.todoList.remove(at: indexPath.row)
+            } else if tableView == BoardManager.shared.boards[1]{
+                Items.shared.doingList.remove(at: indexPath.row)
+            } else {
+                Items.shared.doneList.remove(at: indexPath.row)
+            }
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
     }
@@ -44,9 +45,11 @@ extension SectionCollectionViewCell: UITableViewDelegate {
 extension SectionCollectionViewCell: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == BoardManager.shared.boards[0] {
-            return todoList.count
+            return Items.shared.todoList.count
+        } else if tableView == BoardManager.shared.boards[1]{
+            return Items.shared.doingList.count
         } else {
-            return doingList.count
+            return Items.shared.doneList.count
         }
     }
     
@@ -55,11 +58,14 @@ extension SectionCollectionViewCell: UITableViewDataSource {
             return UITableViewCell()
         }
         if tableView == BoardManager.shared.boards[0] {
-            let todoItem = todoList[indexPath.row]
+            let todoItem = Items.shared.todoList[indexPath.row]
             cell.updateUI(with: todoItem)
-        } else {
-            let doingItem = doingList[indexPath.row]
+        } else if tableView == BoardManager.shared.boards[1] {
+            let doingItem = Items.shared.doingList[indexPath.row]
             cell.updateUI(with: doingItem)
+        } else {
+            let doneItem = Items.shared.doneList[indexPath.row]
+            cell.updateUI(with: doneItem)
         }
         return cell
     }
@@ -69,7 +75,15 @@ extension SectionCollectionViewCell: UITableViewDataSource {
         headerView.backgroundColor = .systemGray5
         
         let titleLabel = UILabel()
-        titleLabel.text = ProgressStatus.todo.rawValue
+        
+        if tableView == BoardManager.shared.boards[0] {
+            titleLabel.text = ProgressStatus.todo.rawValue
+        } else if tableView == BoardManager.shared.boards[1] {
+            titleLabel.text = ProgressStatus.doing.rawValue
+        } else {
+            titleLabel.text = ProgressStatus.done.rawValue
+        }
+        
         titleLabel.font = .preferredFont(forTextStyle: .largeTitle)
         
         headerView.addSubview(titleLabel)
@@ -80,7 +94,6 @@ extension SectionCollectionViewCell: UITableViewDataSource {
             titleLabel.trailingAnchor.constraint(equalTo: headerView.trailingAnchor),
             titleLabel.centerYAnchor.constraint(equalTo: headerView.centerYAnchor)
         ])
-        
         return headerView
     }
     

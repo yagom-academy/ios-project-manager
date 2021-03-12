@@ -4,7 +4,5 @@ final class BoardManager {
     static let shared = BoardManager()
     var boards = [UITableView]()
     
-    private init() {
-        
-    }
+    private init() {}
 }

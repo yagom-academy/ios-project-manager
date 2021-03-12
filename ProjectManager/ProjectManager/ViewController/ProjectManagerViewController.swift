@@ -9,6 +9,7 @@ class ProjectManagerViewController: UIViewController {
         super.viewDidLoad()
         configureNavigationBar()
         configureBoard()
+        makeList()
     }
     
     private func configureNavigationBar() {
@@ -28,6 +29,14 @@ class ProjectManagerViewController: UIViewController {
     @IBAction func tappedAddButton(_ sender: Any) {
         presentSheetViewController()
     }
+    
+    func makeList() {
+        Items.shared.todoList.append(Item(title: "TODO LIST", description: "TODO LIST for project. please help me!!", progressStatus: ProgressStatus.todo.rawValue, dueDate: 1220301220))
+        
+        Items.shared.doingList.append(Item(title: "DOING LIST", description: "DOING LIST for project. let's go party tonight!!", progressStatus: ProgressStatus.doing.rawValue, dueDate: 2220301220))
+        
+        Items.shared.doneList.append(Item(title: "DONE LIST", description: "DONE LIST for project. It's over over over again!!", progressStatus: ProgressStatus.doing.rawValue, dueDate: 3220301220))
+    }
 }
 
 extension ProjectManagerViewController: UICollectionViewDelegate {
@@ -40,7 +49,7 @@ extension ProjectManagerViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SectionCollectionViewCell.identifier , for: indexPath) as? SectionCollectionViewCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SectionCollectionViewCell.identifier, for: indexPath) as? SectionCollectionViewCell else {
             return UICollectionViewCell()
         }
         
