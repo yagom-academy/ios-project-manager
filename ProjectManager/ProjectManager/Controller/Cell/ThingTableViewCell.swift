@@ -9,10 +9,6 @@ import UIKit
 
 final class ThingTableViewCell: UITableViewCell, Reusable {
     
-    // MARK: - Property
-    
-    var isDone: Bool = false
-    
     // MARK: - Outlet
     
     private let titleLabel: UILabel = UILabel()
@@ -62,7 +58,7 @@ final class ThingTableViewCell: UITableViewCell, Reusable {
         contentView.addSubview(spacingView)
         contentView.addSubview(stackView)
         NSLayoutConstraint.activate([
-            spacingView.heightAnchor.constraint(equalToConstant: 10),
+            spacingView.heightAnchor.constraint(equalToConstant: 5),
             spacingView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0),
             spacingView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0),
             spacingView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 0),
@@ -78,11 +74,13 @@ final class ThingTableViewCell: UITableViewCell, Reusable {
         titleLabel.text = thing.title
         descriptionLabel.text = thing.description
         dateLabel.text = thing.dateString
-        changeDateColor(date: thing.date)
+        if !thing.isDone {
+            changeDateColor(date: thing.date)
+        }
     }
     
     private func changeDateColor(date: Date) {
-        if isDone == false, date < Date() {
+        if date < Date() {
             dateLabel.textColor = .red
         } else {
             dateLabel.textColor = .label

@@ -181,7 +181,6 @@ extension MainViewController: UITableViewDataSource {
         case doingTableView:
             cell.configureCell(Things.shared.doingList[index])
         case doneTableView:
-            cell.isDone = true
             cell.configureCell(Things.shared.doneList[index])
         default:
             break

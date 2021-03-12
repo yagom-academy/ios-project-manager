@@ -11,6 +11,7 @@ struct Thing: Codable {
     let title: String
     let description: String
     let dateNumber: Int
+    var isDone: Bool = false
     var dateString: String {
         return DateFormatter().convertToUserLocaleString(date: date)
     }
