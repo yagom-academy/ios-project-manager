@@ -17,6 +17,13 @@ struct Item: Codable {
     enum CodingKeys: String, CodingKey {
         case title, description, progressStatus, dueDate
     }
+    
+    mutating func updateItem(_ item: Item) {
+        self.title = item.title
+        self.description = item.description
+        self.progressStatus = item.progressStatus
+        self.dueDate = item.dueDate
+    }
 }
 
 extension DateFormatter {

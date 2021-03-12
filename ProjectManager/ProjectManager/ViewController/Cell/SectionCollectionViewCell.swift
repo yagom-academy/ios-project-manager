@@ -39,6 +39,7 @@ extension SectionCollectionViewCell: UITableViewDelegate {
                 Items.shared.doneList.remove(at: indexPath.row)
             }
             tableView.deleteRows(at: [indexPath], with: .automatic)
+            //데이터 삭제 필요
         }
     }
 }
@@ -59,6 +60,7 @@ extension SectionCollectionViewCell: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: BoardTableViewCell.identifier) as? BoardTableViewCell else {
             return UITableViewCell()
         }
+        
         switch self.boardTableView {
         case boardManager.boards[0]:
             let todoItem = Items.shared.todoList[indexPath.row]
@@ -66,10 +68,13 @@ extension SectionCollectionViewCell: UITableViewDataSource {
         case boardManager.boards[1]:
             let doingItem = Items.shared.doingList[indexPath.row]
             cell.updateUI(with: doingItem)
-        default:
+        case boardManager.boards[2]:
             let doneItem = Items.shared.doneList[indexPath.row]
             cell.updateUI(with: doneItem)
+        default:
+            break
         }
+
         return cell
     }
     

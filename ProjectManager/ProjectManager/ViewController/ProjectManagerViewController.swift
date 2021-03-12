@@ -13,9 +13,9 @@ class ProjectManagerViewController: UIViewController {
     }
     
     @IBAction func tappedAddButton(_ sender: Any) {
-        presentSheetViewController()
+        createNewTodoItem()
     }
-
+    
     private func configureNavigationBar() {
         titleNavigationBar.topItem?.title = "Project Manager"
     }
@@ -67,17 +67,63 @@ extension ProjectManagerViewController: UICollectionViewDelegateFlowLayout {
 
 extension ProjectManagerViewController: BoardTableViewCellDelegate {
     func tableViewCell(_ boardTableViewCell: BoardTableViewCell, didSelectAt index: Int, tappedCollectionViewCell: SectionCollectionViewCell) {
-        presentSheetViewController()
+        switch tappedCollectionViewCell.boardTableView {
+        case boardManager.boards[0]:
+            updateTodoItem(with: Items.shared.todoList[index], in: boardTableViewCell, at: index, sectionCollectionViewCell: tappedCollectionViewCell)
+        case boardManager.boards[1]:
+            updateTodoItem(with: Items.shared.doingList[index], in: boardTableViewCell, at: index, sectionCollectionViewCell: tappedCollectionViewCell)
+        case boardManager.boards[2]:
+            updateTodoItem(with: Items.shared.doneList[index], in: boardTableViewCell, at: index, sectionCollectionViewCell: tappedCollectionViewCell)
+        default:
+            break
+        }
     }
 }
 
 extension ProjectManagerViewController {
-    private func presentSheetViewController() {
-        guard let sheetViewController = self.storyboard?.instantiateViewController(identifier: SheetViewController.identifier) else {
-            return
+    private func createNewTodoItem() {
+        var newItem = Item(title: "", description: "", progressStatus: "", dueDate: Int(Date().timeIntervalSince1970))
+        let presentedSheetViewController = presentSheetViewController(with: newItem)
+        
+        presentedSheetViewController.updateItemHandler { (currentItem) in
+            newItem = currentItem
+            Items.shared.todoList.append(newItem)
+            print(Items.shared.todoList)
+
+            // todoTableView 업데이트 작업 필요
+            
+        }
+    }
+    
+    private func updateTodoItem(with item: Item, in boardTableViewCell: BoardTableViewCell, at index: Int, sectionCollectionViewCell: SectionCollectionViewCell) {
+        let presentedSheetViewController = presentSheetViewController(with: item)
+        
+        presentedSheetViewController.updateItemHandler { (currentItem) in
+            switch sectionCollectionViewCell.boardTableView {
+            case boardManager.boards[0]:
+                Items.shared.todoList[index].updateItem(currentItem)
+            case boardManager.boards[1]:
+                Items.shared.doingList[index].updateItem(currentItem)
+            case boardManager.boards[2]:
+                Items.shared.doneList[index].updateItem(currentItem)
+            default:
+                break
+            }
+            
+            boardTableViewCell.updateUI(with: currentItem)
+        }
+    }
+    
+    private func presentSheetViewController(with item: Item) -> SheetViewController {
+        guard let sheetViewController = self.storyboard?.instantiateViewController(identifier: SheetViewController.identifier) as? SheetViewController else {
+            return SheetViewController()
         }
         
         sheetViewController.modalPresentationStyle = .formSheet
+        sheetViewController.setItem(with: item)
+        sheetViewController.mode = Mode.new
         self.present(sheetViewController, animated: true, completion: nil)
+        
+        return sheetViewController
     }
 }
