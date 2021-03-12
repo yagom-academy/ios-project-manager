@@ -11,6 +11,7 @@
 		3648209425F733E6004ADF6D /* Things.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3648209325F733E6004ADF6D /* Things.swift */; };
 		364820A225F80C02004ADF6D /* ThingTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364820A125F80C02004ADF6D /* ThingTableHeaderView.swift */; };
 		364820B625FA0B2B004ADF6D /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364820B525FA0B2B004ADF6D /* MainViewController.swift */; };
+		364820C625FB5FE6004ADF6D /* ThingTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364820C525FB5FE6004ADF6D /* ThingTableView.swift */; };
 		4C06ED5925FB0D8800F92978 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C06ED5825FB0D8800F92978 /* Reusable.swift */; };
 		4CAA8E0525F90EDD00B9C0A7 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAA8E0425F90EDD00B9C0A7 /* Strings.swift */; };
 		4CAA8E0925F90F3500B9C0A7 /* ThingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAA8E0825F90F3500B9C0A7 /* ThingTableViewCell.swift */; };
@@ -28,6 +29,7 @@
 		3648209325F733E6004ADF6D /* Things.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Things.swift; sourceTree = "<group>"; };
 		364820A125F80C02004ADF6D /* ThingTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThingTableHeaderView.swift; sourceTree = "<group>"; };
 		364820B525FA0B2B004ADF6D /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		364820C525FB5FE6004ADF6D /* ThingTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThingTableView.swift; sourceTree = "<group>"; };
 		4C06ED5825FB0D8800F92978 /* Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
 		4CAA8E0425F90EDD00B9C0A7 /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		4CAA8E0825F90F3500B9C0A7 /* ThingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThingTableViewCell.swift; sourceTree = "<group>"; };
@@ -65,6 +67,14 @@
 			path = SupportingFiles;
 			sourceTree = "<group>";
 		};
+		364820C425FB5FC5004ADF6D /* TableView */ = {
+			isa = PBXGroup;
+			children = (
+				364820C525FB5FE6004ADF6D /* ThingTableView.swift */,
+			);
+			path = TableView;
+			sourceTree = "<group>";
+		};
 		4CAA8E1625F9169300B9C0A7 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -94,6 +104,7 @@
 		4CAA8E1A25F916C500B9C0A7 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				364820C425FB5FC5004ADF6D /* TableView */,
 				364820B525FA0B2B004ADF6D /* MainViewController.swift */,
 				4CAA8E1D25F91F6E00B9C0A7 /* DetailViewController.swift */,
 				364820A125F80C02004ADF6D /* ThingTableHeaderView.swift */,
@@ -215,6 +226,7 @@
 				4CAA8E1025F9132F00B9C0A7 /* Extension.swift in Sources */,
 				364820B625FA0B2B004ADF6D /* MainViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
+				364820C625FB5FE6004ADF6D /* ThingTableView.swift in Sources */,
 				4CAA8E0525F90EDD00B9C0A7 /* Strings.swift in Sources */,
 				364820A225F80C02004ADF6D /* ThingTableHeaderView.swift in Sources */,
 				3648209125F7339F004ADF6D /* Thing.swift in Sources */,
