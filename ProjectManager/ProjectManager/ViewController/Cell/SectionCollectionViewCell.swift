@@ -31,9 +31,9 @@ extension SectionCollectionViewCell: UITableViewDelegate {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             switch self.boardTableView {
-            case BoardManager.shared.boards[0]:
+            case boardManager.boards[0]:
                 Items.shared.todoList.remove(at: indexPath.row)
-            case BoardManager.shared.boards[1]:
+            case boardManager.boards[1]:
                 Items.shared.doingList.remove(at: indexPath.row)
             default:
                 Items.shared.doneList.remove(at: indexPath.row)
@@ -46,9 +46,9 @@ extension SectionCollectionViewCell: UITableViewDelegate {
 extension SectionCollectionViewCell: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch self.boardTableView {
-        case BoardManager.shared.boards[0]:
+        case boardManager.boards[0]:
             return Items.shared.todoList.count
-        case BoardManager.shared.boards[1]:
+        case boardManager.boards[1]:
             return Items.shared.doingList.count
         default:
             return Items.shared.doneList.count
@@ -60,10 +60,10 @@ extension SectionCollectionViewCell: UITableViewDataSource {
             return UITableViewCell()
         }
         switch self.boardTableView {
-        case BoardManager.shared.boards[0]:
+        case boardManager.boards[0]:
             let todoItem = Items.shared.todoList[indexPath.row]
             cell.updateUI(with: todoItem)
-        case BoardManager.shared.boards[1]:
+        case boardManager.boards[1]:
             let doingItem = Items.shared.doingList[indexPath.row]
             cell.updateUI(with: doingItem)
         default:
@@ -80,9 +80,9 @@ extension SectionCollectionViewCell: UITableViewDataSource {
         let titleLabel = UILabel()
         
         switch self.boardTableView {
-        case BoardManager.shared.boards[0]:
+        case boardManager.boards[0]:
             titleLabel.text = ProgressStatus.todo.rawValue
-        case BoardManager.shared.boards[1]:
+        case boardManager.boards[1]:
             titleLabel.text = ProgressStatus.doing.rawValue
         default:
             titleLabel.text = ProgressStatus.done.rawValue

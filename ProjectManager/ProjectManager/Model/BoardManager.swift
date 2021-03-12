@@ -6,3 +6,4 @@ final class BoardManager {
     
     private init() {}
 }
+let boardManager = BoardManager.shared

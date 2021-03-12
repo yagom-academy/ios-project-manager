@@ -12,6 +12,10 @@ class ProjectManagerViewController: UIViewController {
         makeList()
     }
     
+    @IBAction func tappedAddButton(_ sender: Any) {
+        presentSheetViewController()
+    }
+
     private func configureNavigationBar() {
         titleNavigationBar.topItem?.title = "Project Manager"
     }
@@ -21,16 +25,12 @@ class ProjectManagerViewController: UIViewController {
         let doingBoard = UITableView()
         let doneBoard = UITableView()
         
-        BoardManager.shared.boards.append(todoBoard)
-        BoardManager.shared.boards.append(doingBoard)
-        BoardManager.shared.boards.append(doneBoard)
+        boardManager.boards.append(todoBoard)
+        boardManager.boards.append(doingBoard)
+        boardManager.boards.append(doneBoard)
     }
     
-    @IBAction func tappedAddButton(_ sender: Any) {
-        presentSheetViewController()
-    }
-    
-    func makeList() {
+    private func makeList() {
         Items.shared.todoList.append(Item(title: "TODO LIST", description: "TODO LIST for project. please help me!!", progressStatus: ProgressStatus.todo.rawValue, dueDate: 1220301220))
         
         Items.shared.doingList.append(Item(title: "DOING LIST", description: "DOING LIST for project. let's go party tonight!!", progressStatus: ProgressStatus.doing.rawValue, dueDate: 2220301220))
@@ -39,13 +39,9 @@ class ProjectManagerViewController: UIViewController {
     }
 }
 
-extension ProjectManagerViewController: UICollectionViewDelegate {
-    
-}
-
 extension ProjectManagerViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return BoardManager.shared.boards.count
+        return boardManager.boards.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -53,7 +49,7 @@ extension ProjectManagerViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         
-        cell.boardTableView = BoardManager.shared.boards[indexPath.row]
+        cell.boardTableView = boardManager.boards[indexPath.row]
         cell.delegate = self
         return cell
     }
