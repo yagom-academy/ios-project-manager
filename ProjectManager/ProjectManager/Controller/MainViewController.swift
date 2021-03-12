@@ -14,8 +14,8 @@ final class MainViewController: UIViewController {
     private lazy var doingTableView = makeTableView()
     private lazy var doneTableView = makeTableView()
     private let todoHeaderView = ThingTableHeaderView(height: 50, tableViewType: .todo)
-    private let doingHeaderView = ThingTableHeaderView(height: 50, tableViewType: .done)
-    private let doneHeaderView = ThingTableHeaderView(height: 50, tableViewType: .doing)
+    private let doingHeaderView = ThingTableHeaderView(height: 50, tableViewType: .doing)
+    private let doneHeaderView = ThingTableHeaderView(height: 50, tableViewType: .done)
     
     // MARK: - Life Cycle
     
