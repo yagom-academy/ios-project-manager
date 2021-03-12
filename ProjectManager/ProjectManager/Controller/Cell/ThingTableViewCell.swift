@@ -74,6 +74,8 @@ final class ThingTableViewCell: UITableViewCell {
     private func changeDateColor(date: Date) {
         if isDone == false, date < Date() {
             dateLabel.textColor = .red
+        } else {
+            dateLabel.textColor = .label
         }
     }
 }
