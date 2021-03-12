@@ -24,6 +24,9 @@ class SheetViewController: UIViewController {
         } else {
             sender.title = Mode.cancel
             //기존의 글 수정 및 Done -> update 내용 저장하기
+            self.titleTextField.isUserInteractionEnabled = true
+            self.deadlineDatePicker.isUserInteractionEnabled = true
+            self.descriptionTextView.isEditable = true
         }
     }
 

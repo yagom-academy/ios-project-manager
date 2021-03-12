@@ -60,7 +60,7 @@
 			children = (
 				9A59AED425FAE83A00643302 /* BoardManager.swift */,
 				9AE07A5725F9DA9A00C9F434 /* Enum */,
-				9AE07A5C25FA2E0600C9F434 /* Item */,
+				9AE07A5C25FA2E0600C9F434 /* ItemManager */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -106,13 +106,13 @@
 			path = Enum;
 			sourceTree = "<group>";
 		};
-		9AE07A5C25FA2E0600C9F434 /* Item */ = {
+		9AE07A5C25FA2E0600C9F434 /* ItemManager */ = {
 			isa = PBXGroup;
 			children = (
 				9AE07A5925FA2DC200C9F434 /* Item.swift */,
 				9AA3663925FAFC7B00AEE729 /* Items.swift */,
 			);
-			path = Item;
+			path = ItemManager;
 			sourceTree = "<group>";
 		};
 		C7431EF925F51E1D0094C4CF = {
