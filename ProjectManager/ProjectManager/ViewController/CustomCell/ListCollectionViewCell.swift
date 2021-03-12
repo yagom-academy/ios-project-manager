@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol ListItemDetailViewDelegate: class {
+    func presentEditView(itemStatus: ItemStatus, index: Int)
+}
+
 class ListCollectionViewCell: UICollectionViewCell {
     var statusType: ItemStatus = .todo {
         didSet {
@@ -16,6 +20,7 @@ class ListCollectionViewCell: UICollectionViewCell {
     static var identifier: String {
         return "\(self)"
     }
+    weak var delegate: ListItemDetailViewDelegate?
     
     private let tableView: UITableView = {
         let tableView = UITableView()
@@ -39,6 +44,7 @@ class ListCollectionViewCell: UICollectionViewCell {
 
     private func delegateDelegate() {
         tableView.dataSource = self
+        tableView.delegate = self
     }
     
     private func setUpContentView() {
@@ -82,5 +88,12 @@ extension ListCollectionViewCell: UITableViewDataSource {
             ItemList.shared.removeItem(statusType: statusType, index: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
+    }
+}
+
+// MARK: - TableView Delegate
+extension ListCollectionViewCell: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.delegate?.presentEditView(itemStatus: statusType, index: indexPath.row)
     }
 }

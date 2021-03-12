@@ -106,7 +106,18 @@ extension ProjectManagerCollectionViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         cell.statusType = itemStatusList[indexPath.row]
-//        cell.configureTableHeaderView(itemStatus: itemStatusList[indexPath.row])
+        cell.delegate = self
         return cell
+    }
+}
+
+extension ProjectManagerCollectionViewController: ListItemDetailViewDelegate {
+    func presentEditView(itemStatus: ItemStatus, index: Int) {
+        let listItemDetailViewController = ListItemDetailViewController()
+        let navigationController = UINavigationController(rootViewController: listItemDetailViewController)
+        let todo = ItemList.shared.getItem(statusType: itemStatus, index: index)
+        listItemDetailViewController.configureNavigationBar(itemStatus: itemStatus, type: .edit)
+        listItemDetailViewController.fillContents(todo: todo)
+        present(navigationController, animated: true, completion: nil)
     }
 }

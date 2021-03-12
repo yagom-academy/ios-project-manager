@@ -117,6 +117,18 @@ class ListItemDetailViewController: UIViewController {
         navigationItem.rightBarButtonItem = doneButton
     }
     
+    func fillContents(todo: Todo) {
+        titleTextField.text = todo.title
+        descriptionTextView.text = todo.description
+        
+        if todo.deadLine == nil {
+            deadLineDatePickerEnableToggleButton.isSelected.toggle()
+            deadLineDatePicker.isEnabled.toggle()
+        } else {
+            deadLineDatePicker.date = todo.deadLine!
+        }
+    }
+    
     @objc private func touchUpCheckboxButton(_ sender: UIButton) {
         sender.isSelected.toggle()
         deadLineDatePicker.isEnabled.toggle()
