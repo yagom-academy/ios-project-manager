@@ -56,10 +56,10 @@ final class Things {
     }
     
     func dragTodo(for indexPath: IndexPath, tableView: UITableView) -> [UIDragItem] {
-        let todo = todoList[indexPath.section]
+        let todo = todoList[indexPath.row]
         let itemProvider = makeThingItemProvider(todo) {
-            self.todoList.remove(at: indexPath.section)
-            let indexSet = IndexSet(indexPath.section...indexPath.section)
+            self.todoList.remove(at: indexPath.row)
+            let indexSet = IndexSet(indexPath.row...indexPath.row)
             DispatchQueue.main.async {
                 tableView.deleteSections(indexSet, with: .automatic)
             }
@@ -68,10 +68,10 @@ final class Things {
     }
     
     func dragDoing(for indexPath: IndexPath, tableView: UITableView) -> [UIDragItem] {
-        let doing = doingList[indexPath.section]
+        let doing = doingList[indexPath.row]
         let itemProvider = makeThingItemProvider(doing) {
-            self.doingList.remove(at: indexPath.section)
-            let indexSet = IndexSet(indexPath.section...indexPath.section)
+            self.doingList.remove(at: indexPath.row)
+            let indexSet = IndexSet(indexPath.row...indexPath.row)
             DispatchQueue.main.async {
                 tableView.deleteSections(indexSet, with: .automatic)
             }
@@ -80,10 +80,10 @@ final class Things {
     }
     
     func dragDone(for indexPath: IndexPath, tableView: UITableView) -> [UIDragItem] {
-        let done = doneList[indexPath.section]
+        let done = doneList[indexPath.row]
         let itemProvider = makeThingItemProvider(done) {
-            self.doneList.remove(at: indexPath.section)
-            let indexSet = IndexSet(indexPath.section...indexPath.section)
+            self.doneList.remove(at: indexPath.row)
+            let indexSet = IndexSet(indexPath.section...indexPath.row)
             DispatchQueue.main.async {
                 tableView.deleteSections(indexSet, with: .automatic)
             }
@@ -102,8 +102,8 @@ final class Things {
                 return
             }
             if let thing = try? JSONDecoder().decode(Thing.self, from: data) {
-                self.todoList.insert(thing, at: destinationIndexPath.section)
-                let indexSet = IndexSet(destinationIndexPath.section...destinationIndexPath.section)
+                self.todoList.insert(thing, at: destinationIndexPath.row)
+                let indexSet = IndexSet(destinationIndexPath.row...destinationIndexPath.row)
                 DispatchQueue.main.async {
                     tableView.insertSections(indexSet, with: .automatic)
                 }
@@ -122,8 +122,8 @@ final class Things {
                 return
             }
             if let thing = try? JSONDecoder().decode(Thing.self, from: data) {
-                self.doingList.insert(thing, at: destinationIndexPath.section)
-                let indexSet = IndexSet(destinationIndexPath.section...destinationIndexPath.section)
+                self.doingList.insert(thing, at: destinationIndexPath.row)
+                let indexSet = IndexSet(destinationIndexPath.row...destinationIndexPath.row)
                 DispatchQueue.main.async {
                     tableView.insertSections(indexSet, with: .automatic)
                 }
@@ -142,8 +142,8 @@ final class Things {
                 return
             }
             if let thing = try? JSONDecoder().decode(Thing.self, from: data) {
-                self.doneList.insert(thing, at: destinationIndexPath.section)
-                let indexSet = IndexSet(destinationIndexPath.section...destinationIndexPath.section)
+                self.doneList.insert(thing, at: destinationIndexPath.row)
+                let indexSet = IndexSet(destinationIndexPath.row...destinationIndexPath.row)
                 DispatchQueue.main.async {
                     tableView.insertSections(indexSet, with: .automatic)
                 }

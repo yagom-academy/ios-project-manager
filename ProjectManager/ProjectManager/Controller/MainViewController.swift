@@ -137,7 +137,7 @@ extension MainViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let index = indexPath.section
+            let index = indexPath.row
             if tableView == todoTableView {
                 Things.shared.deleteData(tableViewType: .todo, index: index)
             } else if tableView == doingTableView {
@@ -153,14 +153,7 @@ extension MainViewController: UITableViewDelegate {
 // MARK: - DataSoure
 
 extension MainViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 0 {
-            return 5
-        }
-        return 0
-    }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch tableView {
         case todoTableView:
             let todoCount = Things.shared.todoList.count
@@ -179,36 +172,17 @@ extension MainViewController: UITableViewDataSource {
         }
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch tableView {
-        case todoTableView:
-            return 1
-        case doingTableView:
-            return 1
-        case doneTableView:
-            return 1
-        default:
-            return 0
-        }
-    }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(for: indexPath, cellType: ThingTableViewCell.self)
-        let index = indexPath.section
+        let index = indexPath.row
         switch tableView {
         case todoTableView:
-            if index < Things.shared.todoList.count {
-                cell.configureCell(Things.shared.todoList[index])
-            }
+            cell.configureCell(Things.shared.todoList[index])
         case doingTableView:
-            if index < Things.shared.doingList.count {
-                cell.configureCell(Things.shared.doingList[index])
-            }
+            cell.configureCell(Things.shared.doingList[index])
         case doneTableView:
-            if index < Things.shared.doneList.count {
-                cell.isDone = true
-                cell.configureCell(Things.shared.doneList[index])
-            }
+            cell.isDone = true
+            cell.configureCell(Things.shared.doneList[index])
         default:
             break
         }
@@ -233,20 +207,16 @@ extension MainViewController: UITableViewDragDelegate, UITableViewDropDelegate {
     }
     
     func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
-        let destinationIndexPath: IndexPath
-        if let indexPath = coordinator.destinationIndexPath {
-            destinationIndexPath = indexPath
-        } else {
-            let section = tableView.numberOfSections
-            destinationIndexPath = IndexPath(row: 0, section: section)
+        guard let indexPath = coordinator.destinationIndexPath else {
+            return 
         }
         switch tableView {
         case todoTableView:
-            Things.shared.dropTodo(coordinator.items, tableView: tableView, destinationIndexPath: destinationIndexPath)
+            Things.shared.dropTodo(coordinator.items, tableView: tableView, destinationIndexPath: indexPath)
         case doingTableView:
-            Things.shared.dropDoing(coordinator.items, tableView: tableView, destinationIndexPath: destinationIndexPath)
+            Things.shared.dropDoing(coordinator.items, tableView: tableView, destinationIndexPath: indexPath)
         case doneTableView:
-            Things.shared.dropDone(coordinator.items, tableView: tableView, destinationIndexPath: destinationIndexPath)
+            Things.shared.dropDone(coordinator.items, tableView: tableView, destinationIndexPath: indexPath)
         default:
             break
         }
