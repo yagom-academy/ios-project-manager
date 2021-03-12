@@ -74,7 +74,7 @@ final class MainViewController: UIViewController {
     }
     
     @objc private func touchUpHistoryButton() {
-        print("history")
+        // TODO: history popOver
     }
     
     // MARK: - DetailView
