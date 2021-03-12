@@ -76,7 +76,7 @@ class ListItemTableViewCell: UITableViewCell {
     func fillLabelsText(item: Todo) {
         titleLabel.text = item.title
         descriptionLabel.text = item.description
-        deadLineLabel.text = "2021. 03. 01"
+        deadLineLabel.text = item.deadLine?.toString
     }
     
     override func prepareForReuse() {
