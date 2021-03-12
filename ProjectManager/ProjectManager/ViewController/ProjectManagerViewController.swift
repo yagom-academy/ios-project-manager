@@ -5,8 +5,6 @@ class ProjectManagerViewController: UIViewController {
     @IBOutlet weak var addButton: UIBarButtonItem!
     @IBOutlet weak var sectionCollectionView: UICollectionView!
     
-    var boards = [UITableView]()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavigationBar()
@@ -22,9 +20,9 @@ class ProjectManagerViewController: UIViewController {
         let doingBoard = UITableView()
         let doneBoard = UITableView()
         
-        boards.append(todoBoard)
-        boards.append(doingBoard)
-        boards.append(doneBoard)
+        BoardManager.shared.boards.append(todoBoard)
+        BoardManager.shared.boards.append(doingBoard)
+        BoardManager.shared.boards.append(doneBoard)
     }
     
     @IBAction func tappedAddButton(_ sender: Any) {
@@ -38,7 +36,7 @@ extension ProjectManagerViewController: UICollectionViewDelegate {
 
 extension ProjectManagerViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return boards.count
+        return BoardManager.shared.boards.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
