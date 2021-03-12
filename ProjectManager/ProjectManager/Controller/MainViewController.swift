@@ -95,12 +95,20 @@ final class MainViewController: UIViewController {
     }
     
     private func registerNotificationCentor() {
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadTableView), name: Notification.Name(Strings.reloadData), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadTodoTableView), name: Notification.Name(TableViewType.todo.rawValue), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadDoingTableView), name: Notification.Name(TableViewType.doing.rawValue), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadDoneTableView), name: Notification.Name(TableViewType.done.rawValue), object: nil)
     }
     
-    @objc private func reloadTableView() {
+    @objc private func reloadTodoTableView() {
         todoTableView.reloadData()
+    }
+    
+    @objc private func reloadDoingTableView() {
         doingTableView.reloadData()
+    }
+    
+    @objc private func reloadDoneTableView() {
         doneTableView.reloadData()
     }
 }
@@ -131,14 +139,12 @@ extension MainViewController: UITableViewDelegate {
         if editingStyle == .delete {
             let index = indexPath.section
             if tableView == todoTableView {
-                Things.shared.todoList.remove(at: index)
+                Things.shared.deleteData(tableViewType: .todo, index: index)
             } else if tableView == doingTableView {
-                Things.shared.doingList.remove(at: index)
+                Things.shared.deleteData(tableViewType: .doing, index: index)
             } else {
-                Things.shared.doneList.remove(at: index)
+                Things.shared.deleteData(tableViewType: .done, index: index)
             }
-            let indexSet = IndexSet(index...index)
-            tableView.deleteSections(indexSet, with: .automatic)
         }
     }
 }

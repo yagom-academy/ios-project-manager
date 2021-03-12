@@ -15,6 +15,35 @@ final class Things {
     static let shared = Things()
     private init() {}
     
+    func createData(thing: Thing) {
+        todoList.insert(thing, at: 0)
+        NotificationCenter.default.post(name: Notification.Name(TableViewType.todo.rawValue), object: nil)
+    }
+    
+    func updateData(thing: Thing, tableViewType: TableViewType, index: Int) {
+        switch tableViewType {
+        case .todo:
+            todoList[index] = thing
+        case .doing:
+            doingList[index] = thing
+        case .done:
+            doneList[index] = thing
+        }
+        NotificationCenter.default.post(name: Notification.Name(tableViewType.rawValue), object: nil)
+    }
+    
+    func deleteData(tableViewType: TableViewType, index: Int) {
+        switch tableViewType {
+        case .todo:
+            todoList.remove(at: index)
+        case .doing:
+            doingList.remove(at: index)
+        case .done:
+            doneList.remove(at: index)
+        }
+        NotificationCenter.default.post(name: Notification.Name(tableViewType.rawValue), object: nil)
+    }
+    
     private func makeThingItemProvider(_ thing: Thing, _ completionHandler: @escaping () -> Void) -> NSItemProvider {
         let data = try? JSONEncoder().encode(thing)
         let itemProvider = NSItemProvider()

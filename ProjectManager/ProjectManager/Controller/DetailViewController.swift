@@ -116,17 +116,10 @@ final class DetailViewController: UIViewController {
         let thing = Thing(title: title, description: body, dateNumber: date)
         
         if isNew {
-            Things.shared.todoList.insert(thing, at: 0)
-        } else if let index = index {
-            if tableViewType == .todo {
-                Things.shared.todoList[index] = thing
-            } else if tableViewType == .doing {
-                Things.shared.doingList[index] = thing
-            } else {
-                Things.shared.doneList[index] = thing
-            }
+            Things.shared.createData(thing: thing)
+        } else if let index = index, let tableViewType = tableViewType {
+            Things.shared.updateData(thing: thing, tableViewType: tableViewType, index: index)
         }
-        NotificationCenter.default.post(name: Notification.Name(Strings.reloadData), object: nil)
         dismiss(animated: true, completion: nil)
     }
     
