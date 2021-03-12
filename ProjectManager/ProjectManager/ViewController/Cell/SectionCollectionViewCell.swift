@@ -30,11 +30,12 @@ extension SectionCollectionViewCell: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            if tableView == BoardManager.shared.boards[0] {
+            switch self.boardTableView {
+            case BoardManager.shared.boards[0]:
                 Items.shared.todoList.remove(at: indexPath.row)
-            } else if tableView == BoardManager.shared.boards[1]{
+            case BoardManager.shared.boards[1]:
                 Items.shared.doingList.remove(at: indexPath.row)
-            } else {
+            default:
                 Items.shared.doneList.remove(at: indexPath.row)
             }
             tableView.deleteRows(at: [indexPath], with: .automatic)
@@ -44,11 +45,12 @@ extension SectionCollectionViewCell: UITableViewDelegate {
 
 extension SectionCollectionViewCell: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if tableView == BoardManager.shared.boards[0] {
+        switch self.boardTableView {
+        case BoardManager.shared.boards[0]:
             return Items.shared.todoList.count
-        } else if tableView == BoardManager.shared.boards[1]{
+        case BoardManager.shared.boards[1]:
             return Items.shared.doingList.count
-        } else {
+        default:
             return Items.shared.doneList.count
         }
     }
@@ -57,13 +59,14 @@ extension SectionCollectionViewCell: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: BoardTableViewCell.identifier) as? BoardTableViewCell else {
             return UITableViewCell()
         }
-        if tableView == BoardManager.shared.boards[0] {
+        switch self.boardTableView {
+        case BoardManager.shared.boards[0]:
             let todoItem = Items.shared.todoList[indexPath.row]
             cell.updateUI(with: todoItem)
-        } else if tableView == BoardManager.shared.boards[1] {
+        case BoardManager.shared.boards[1]:
             let doingItem = Items.shared.doingList[indexPath.row]
             cell.updateUI(with: doingItem)
-        } else {
+        default:
             let doneItem = Items.shared.doneList[indexPath.row]
             cell.updateUI(with: doneItem)
         }
@@ -76,11 +79,12 @@ extension SectionCollectionViewCell: UITableViewDataSource {
         
         let titleLabel = UILabel()
         
-        if tableView == BoardManager.shared.boards[0] {
+        switch self.boardTableView {
+        case BoardManager.shared.boards[0]:
             titleLabel.text = ProgressStatus.todo.rawValue
-        } else if tableView == BoardManager.shared.boards[1] {
+        case BoardManager.shared.boards[1]:
             titleLabel.text = ProgressStatus.doing.rawValue
-        } else {
+        default:
             titleLabel.text = ProgressStatus.done.rawValue
         }
         

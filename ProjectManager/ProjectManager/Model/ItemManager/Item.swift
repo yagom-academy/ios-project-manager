@@ -1,10 +1,10 @@
 import Foundation
 
 struct Item: Codable {
-    let title: String
-    let description: String
-    let progressStatus: String
-    let dueDate: Int
+    var title: String
+    var description: String
+    var progressStatus: String
+    var dueDate: Int
     
     var date: Date {
         return Date(timeIntervalSince1970: TimeInterval(dueDate))

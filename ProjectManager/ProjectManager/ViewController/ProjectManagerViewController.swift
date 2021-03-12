@@ -35,7 +35,7 @@ class ProjectManagerViewController: UIViewController {
         
         Items.shared.doingList.append(Item(title: "DOING LIST", description: "DOING LIST for project. let's go party tonight!!", progressStatus: ProgressStatus.doing.rawValue, dueDate: 2220301220))
         
-        Items.shared.doneList.append(Item(title: "DONE LIST", description: "DONE LIST for project. It's over over over again!!", progressStatus: ProgressStatus.doing.rawValue, dueDate: 3220301220))
+        Items.shared.doneList.append(Item(title: "DONE LIST", description: "DONE LIST for project. It's over over over again!!", progressStatus: ProgressStatus.done.rawValue, dueDate: 3220301220))
     }
 }
 
@@ -53,6 +53,7 @@ extension ProjectManagerViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         
+        cell.boardTableView = BoardManager.shared.boards[indexPath.row]
         cell.delegate = self
         return cell
     }
