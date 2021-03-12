@@ -187,7 +187,7 @@ extension MainViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(for: indexPath, cellType: ThingTableViewCell)
+        let cell = tableView.dequeueReusableCell(for: indexPath, cellType: ThingTableViewCell.self)
         let index = indexPath.section
         switch tableView {
         case todoTableView:

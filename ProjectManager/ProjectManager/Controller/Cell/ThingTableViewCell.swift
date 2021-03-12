@@ -15,20 +15,22 @@ final class ThingTableViewCell: UITableViewCell, Reusable {
     
     // MARK: - Outlet
     
-    private let titleLabel: UILabel = makeLabel(textSize: .title3)
-    private let descriptionLabel: UILabel = makeLabel(textColor: .gray, numberOfLines: 3)
-    private let dateLabel: UILabel = makeLabel(textSize: .caption1)
+    private let titleLabel: UILabel = UILabel()
+    private let descriptionLabel: UILabel = UILabel()
+    private let dateLabel: UILabel = UILabel()
     
     // MARK: - init
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configureConstraints()
+        configureLabel()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         configureConstraints()
+        configureLabel()
     }
     
     override func prepareForReuse() {
@@ -40,13 +42,11 @@ final class ThingTableViewCell: UITableViewCell, Reusable {
     }
     
     // MARK: - UI
-    
-    static private func makeLabel(textColor: UIColor = .black, textSize: UIFont.TextStyle = .body, numberOfLines: Int = 1) -> UILabel {
-        let label = UILabel()
-        label.textColor = textColor
-        label.font = .preferredFont(forTextStyle: textSize)
-        label.numberOfLines = numberOfLines
-        return label
+
+    private func configureLabel() {
+        titleLabel.configure(textSize: .title3)
+        descriptionLabel.configure(textColor: .gray, numberOfLines: 3)
+        dateLabel.configure(textSize: .caption1)
     }
     
     private func configureConstraints() {
