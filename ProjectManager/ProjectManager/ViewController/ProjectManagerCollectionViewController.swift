@@ -7,10 +7,13 @@
 import UIKit
 
 class ProjectManagerCollectionViewController: UIViewController {
-    private let collectionView: UICollectionView = {
+    private var itemStatusList: [ItemStatus] = [.todo, .doing, .done]
+    private let cellSpacing = 10
+    private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = CGFloat(cellSpacing)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .systemGray4
         collectionView.isScrollEnabled = false
@@ -85,8 +88,8 @@ class ProjectManagerCollectionViewController: UIViewController {
 // MARK: - CollectionView Delegate FlowLayout
 extension ProjectManagerCollectionViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let itemSpacing: CGFloat = 8
-        let width: CGFloat = (collectionView.frame.width - itemSpacing * 2) / 3
+        let totalInterval: CGFloat = CGFloat(cellSpacing * itemStatusList.count - 1)
+        let width: CGFloat = CGFloat((collectionView.frame.width - totalInterval) / CGFloat(itemStatusList.count))
         let height: CGFloat = collectionView.frame.height
         return CGSize(width: width, height: height)
     }
@@ -95,14 +98,14 @@ extension ProjectManagerCollectionViewController: UICollectionViewDelegateFlowLa
 // MARK: - CollectionView DataSource
 extension ProjectManagerCollectionViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return itemStatusList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ListCollectionViewCell.identifier, for: indexPath) as? ListCollectionViewCell else {
             return UICollectionViewCell()
         }
-        cell.configureTableHeaderView(itemStatus: .todo)
+        cell.configureTableHeaderView(itemStatus: itemStatusList[indexPath.row])
         return cell
     }
 }
