@@ -95,7 +95,7 @@ final class MainViewController: UIViewController {
     }
     
     private func registerNotificationCentor() {
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadTableView), name: Strings.reloadNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadTableView), name: Notification.Name(Strings.reloadData), object: nil)
     }
     
     @objc private func reloadTableView() {

@@ -126,7 +126,7 @@ final class DetailViewController: UIViewController {
                 Things.shared.doneList[index] = thing
             }
         }
-        NotificationCenter.default.post(name: Strings.reloadNotification, object: nil)
+        NotificationCenter.default.post(name: Notification.Name(Strings.reloadData), object: nil)
         dismiss(animated: true, completion: nil)
     }
     
