@@ -42,7 +42,7 @@ final class ThingTableViewCell: UITableViewCell, Reusable {
     }
     
     // MARK: - UI
-
+    
     private func configureLabel() {
         titleLabel.configure(textSize: .title3)
         descriptionLabel.configure(textColor: .gray, numberOfLines: 3)
@@ -50,13 +50,24 @@ final class ThingTableViewCell: UITableViewCell, Reusable {
     }
     
     private func configureConstraints() {
+        let spacingView = UIView()
+        spacingView.backgroundColor = .systemGroupedBackground
+        spacingView.translatesAutoresizingMaskIntoConstraints = false
+        
         let stackView = UIStackView(arrangedSubviews: [titleLabel, descriptionLabel, dateLabel])
         stackView.axis = .vertical
         stackView.distribution = .equalSpacing
         stackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        contentView.addSubview(spacingView)
         contentView.addSubview(stackView)
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            spacingView.heightAnchor.constraint(equalToConstant: 10),
+            spacingView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0),
+            spacingView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0),
+            spacingView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 0),
+            
+            stackView.topAnchor.constraint(equalTo: spacingView.bottomAnchor, constant: 0),
             stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
             stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
             stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10)
