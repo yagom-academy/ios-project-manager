@@ -203,9 +203,18 @@ extension MainViewController: UITableViewDragDelegate, UITableViewDropDelegate {
     }
     
     func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
-        guard let indexPath = coordinator.destinationIndexPath else {
-            return 
+        var indexPath: IndexPath
+        if let destinationIndexPath = coordinator.destinationIndexPath {
+            indexPath = destinationIndexPath
+        } else {
+            var section = tableView.numberOfSections
+            if section > 0 {
+                section -= 1
+            }
+            let row = tableView.numberOfRows(inSection: section)
+            indexPath = IndexPath(row: row, section: section)
         }
+        
         switch tableView {
         case todoTableView:
             Things.shared.dropTodo(coordinator.items, tableView: tableView, destinationIndexPath: indexPath)
