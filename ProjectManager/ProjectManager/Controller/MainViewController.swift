@@ -40,8 +40,6 @@ final class MainViewController: UIViewController {
         tableView.delegate = self
         tableView.dragDelegate = self
         tableView.dropDelegate = self
-        tableView.sectionHeaderHeight = 2
-        tableView.sectionFooterHeight = 2
         tableView.register(cellType: ThingTableViewCell.self)
         return tableView
     }
@@ -86,11 +84,11 @@ final class MainViewController: UIViewController {
     private func showDetailView(isNew: Bool = false, tableViewType: TableViewType = .todo, index: Int? = nil, thing: Thing? = nil) {
         let detailView = DetailViewController()
         let navigationController = UINavigationController(rootViewController: detailView)
-        detailView.isNew = isNew
         detailView.title = tableViewType.rawValue
-        detailView.tableViewType = tableViewType
+        detailView.isNew = isNew
         detailView.index = index
         detailView.thing = thing
+        detailView.tableViewType = tableViewType
         present(navigationController, animated: true, completion: nil)
     }
     
@@ -148,7 +146,6 @@ extension MainViewController: UITableViewDelegate {
         }
     }
 }
-
 
 // MARK: - DataSoure
 

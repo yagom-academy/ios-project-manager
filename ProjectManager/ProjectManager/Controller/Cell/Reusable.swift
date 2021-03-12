@@ -22,8 +22,7 @@ extension Reusable {
 // MARK: - TableView
 
 extension UITableView {
-    func register<T: UITableViewCell>(cellType: T.Type)
-    where T: Reusable {
+    func register<T: UITableViewCell>(cellType: T.Type) where T: Reusable {
         self.register(cellType.self, forCellReuseIdentifier: cellType.identifier)
     }
     

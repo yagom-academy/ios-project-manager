@@ -59,9 +59,8 @@ final class Things {
         let todo = todoList[indexPath.row]
         let itemProvider = makeThingItemProvider(todo) {
             self.todoList.remove(at: indexPath.row)
-            let indexSet = IndexSet(indexPath.row...indexPath.row)
             DispatchQueue.main.async {
-                tableView.deleteSections(indexSet, with: .automatic)
+                tableView.reloadData()
             }
         }
         return [UIDragItem(itemProvider: itemProvider)]
@@ -71,9 +70,8 @@ final class Things {
         let doing = doingList[indexPath.row]
         let itemProvider = makeThingItemProvider(doing) {
             self.doingList.remove(at: indexPath.row)
-            let indexSet = IndexSet(indexPath.row...indexPath.row)
             DispatchQueue.main.async {
-                tableView.deleteSections(indexSet, with: .automatic)
+                tableView.reloadData()
             }
         }
         return [UIDragItem(itemProvider: itemProvider)]
@@ -83,9 +81,8 @@ final class Things {
         let done = doneList[indexPath.row]
         let itemProvider = makeThingItemProvider(done) {
             self.doneList.remove(at: indexPath.row)
-            let indexSet = IndexSet(indexPath.section...indexPath.row)
             DispatchQueue.main.async {
-                tableView.deleteSections(indexSet, with: .automatic)
+                tableView.reloadData()
             }
         }
         return [UIDragItem(itemProvider: itemProvider)]
@@ -103,9 +100,8 @@ final class Things {
             }
             if let thing = try? JSONDecoder().decode(Thing.self, from: data) {
                 self.todoList.insert(thing, at: destinationIndexPath.row)
-                let indexSet = IndexSet(destinationIndexPath.row...destinationIndexPath.row)
                 DispatchQueue.main.async {
-                    tableView.insertSections(indexSet, with: .automatic)
+                    tableView.reloadData()
                 }
             }
         }
@@ -123,9 +119,8 @@ final class Things {
             }
             if let thing = try? JSONDecoder().decode(Thing.self, from: data) {
                 self.doingList.insert(thing, at: destinationIndexPath.row)
-                let indexSet = IndexSet(destinationIndexPath.row...destinationIndexPath.row)
                 DispatchQueue.main.async {
-                    tableView.insertSections(indexSet, with: .automatic)
+                    tableView.reloadData()
                 }
             }
         }
@@ -143,9 +138,8 @@ final class Things {
             }
             if let thing = try? JSONDecoder().decode(Thing.self, from: data) {
                 self.doneList.insert(thing, at: destinationIndexPath.row)
-                let indexSet = IndexSet(destinationIndexPath.row...destinationIndexPath.row)
                 DispatchQueue.main.async {
-                    tableView.insertSections(indexSet, with: .automatic)
+                    tableView.reloadData()
                 }
             }
         }
