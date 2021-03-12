@@ -13,6 +13,7 @@ class ProjectManagerCollectionViewController: UIViewController {
         layout.scrollDirection = .horizontal
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .systemGray4
+        collectionView.isScrollEnabled = false
         collectionView.register(ListCollectionViewCell.self, forCellWithReuseIdentifier: ListCollectionViewCell.identifier)
         return collectionView
     }()
