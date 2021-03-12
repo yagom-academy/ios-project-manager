@@ -42,7 +42,7 @@ final class MainViewController: UIViewController {
         tableView.dropDelegate = self
         tableView.sectionHeaderHeight = 2
         tableView.sectionFooterHeight = 2
-        tableView.register(ThingTableViewCell.self, forCellReuseIdentifier: ThingTableViewCell.identifier)
+        tableView.register(cellType: ThingTableViewCell.self)
         return tableView
     }
     
@@ -187,9 +187,7 @@ extension MainViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: ThingTableViewCell.identifier) as? ThingTableViewCell else {
-            return UITableViewCell()
-        }
+        let cell = tableView.dequeueReusableCell(for: indexPath, cellType: ThingTableViewCell)
         let index = indexPath.section
         switch tableView {
         case todoTableView:

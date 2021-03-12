@@ -7,11 +7,10 @@
 
 import UIKit
 
-final class ThingTableViewCell: UITableViewCell {
+final class ThingTableViewCell: UITableViewCell, Reusable {
     
     // MARK: - Property
     
-    static var identifier: String = String(describing: self)
     var isDone: Bool = false
     
     // MARK: - Outlet
