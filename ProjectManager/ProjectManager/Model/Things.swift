@@ -9,11 +9,75 @@ import UIKit
 import MobileCoreServices
 
 final class Things {
-    var todoList: [Thing] = []
+    var todoList: [Thing] = [] // TODO: 접근제한자 Private으로 바꾸기.
     var doingList: [Thing] = []
     var doneList: [Thing] = []
     static let shared = Things()
     private init() {}
+    
+    func getThing(at index: Int, _ tableViewType: TableViewType) -> Thing? {
+        switch tableViewType {
+        case .todo:
+            if index < Things.shared.todoList.count {
+                return Things.shared.todoList[index]
+            }
+        case .doing:
+            if index < Things.shared.doingList.count {
+                return Things.shared.doingList[index]
+            }
+        case .done:
+            if index < Things.shared.doneList.count {
+                return Things.shared.doneList[index]
+            }
+        }
+        return nil
+    }
+    
+    func deleteThing(at index: Int, _ tableViewType: TableViewType, _ completionHandler: @escaping () -> Void) {
+        switch tableViewType {
+        case .todo:
+            if index < Things.shared.todoList.count {
+                Things.shared.todoList.remove(at: index)
+            }
+        case .doing:
+            if index < Things.shared.doingList.count {
+                Things.shared.doingList.remove(at: index)
+            }
+        case .done:
+            if index < Things.shared.doneList.count {
+                Things.shared.doneList.remove(at: index)
+            }
+        }
+        completionHandler()
+    }
+    
+    func getThingListCount(_ tableViewType: TableViewType) -> Int {
+        switch tableViewType {
+        case .todo:
+            return Things.shared.todoList.count
+        case .doing:
+            return Things.shared.doingList.count
+        case .done:
+            return Things.shared.doneList.count
+        }
+    }
+    
+    func insertThing(_ thing: Thing, at index: Int, _ tableViewType: TableViewType) {
+        switch tableViewType {
+        case .todo:
+            if index <= Things.shared.todoList.count {
+                Things.shared.todoList.insert(thing, at: index)
+            }
+        case .doing:
+            if index <= Things.shared.doingList.count {
+                Things.shared.doingList.insert(thing, at: index)
+            }
+        case .done:
+            if index <= Things.shared.doneList.count {
+                Things.shared.doneList.insert(thing, at: index)
+            }
+        }
+    }
     
     func createData(thing: Thing) {
         todoList.insert(thing, at: 0)
@@ -30,118 +94,5 @@ final class Things {
             doneList[index] = thing
         }
         NotificationCenter.default.post(name: Notification.Name(tableViewType.rawValue), object: nil)
-    }
-    
-    func deleteData(tableViewType: TableViewType, index: Int) {
-        switch tableViewType {
-        case .todo:
-            todoList.remove(at: index)
-        case .doing:
-            doingList.remove(at: index)
-        case .done:
-            doneList.remove(at: index)
-        }
-        NotificationCenter.default.post(name: Notification.Name(tableViewType.rawValue), object: nil)
-    }
-    
-    private func makeThingItemProvider(_ thing: Thing, _ completionHandler: @escaping () -> Void) -> NSItemProvider {
-        let data = try? JSONEncoder().encode(thing)
-        let itemProvider = NSItemProvider()
-        itemProvider.registerDataRepresentation(forTypeIdentifier: kUTTypeJSON as String, visibility: .all) { (completion) -> Progress? in
-            completion(data, nil)
-            completionHandler()
-            return nil
-        }
-        return itemProvider
-    }
-    
-    func dragTodo(for indexPath: IndexPath, tableView: UITableView) -> [UIDragItem] {
-        let todo = todoList[indexPath.row]
-        let itemProvider = makeThingItemProvider(todo) {
-            self.todoList.remove(at: indexPath.row)
-            DispatchQueue.main.async {
-                tableView.reloadData()
-            }
-        }
-        return [UIDragItem(itemProvider: itemProvider)]
-    }
-    
-    func dragDoing(for indexPath: IndexPath, tableView: UITableView) -> [UIDragItem] {
-        let doing = doingList[indexPath.row]
-        let itemProvider = makeThingItemProvider(doing) {
-            self.doingList.remove(at: indexPath.row)
-            DispatchQueue.main.async {
-                tableView.reloadData()
-            }
-        }
-        return [UIDragItem(itemProvider: itemProvider)]
-    }
-    
-    func dragDone(for indexPath: IndexPath, tableView: UITableView) -> [UIDragItem] {
-        let done = doneList[indexPath.row]
-        let itemProvider = makeThingItemProvider(done) {
-            self.doneList.remove(at: indexPath.row)
-            DispatchQueue.main.async {
-                tableView.reloadData()
-            }
-        }
-        return [UIDragItem(itemProvider: itemProvider)]
-    }
-    
-    func dropTodo(_ dropItems: [UITableViewDropItem], tableView: UITableView, destinationIndexPath: IndexPath) {
-        guard let dropItem = dropItems.first else {
-            return
-        }
-        
-        dropItem.dragItem.itemProvider.loadDataRepresentation(forTypeIdentifier: kUTTypeJSON as String) { (data, error) in
-            guard error == nil,
-                  let data = data else {
-                return
-            }
-            if let thing = try? JSONDecoder().decode(Thing.self, from: data) {
-                self.todoList.insert(thing, at: destinationIndexPath.row)
-                DispatchQueue.main.async {
-                    tableView.reloadData()
-                }
-            }
-        }
-    }
-    
-    func dropDoing(_ dropItems: [UITableViewDropItem], tableView: UITableView, destinationIndexPath: IndexPath) {
-        guard let dropItem = dropItems.first else {
-            return
-        }
-        
-        dropItem.dragItem.itemProvider.loadDataRepresentation(forTypeIdentifier: kUTTypeJSON as String) { (data, error) in
-            guard error == nil,
-                  let data = data else {
-                return
-            }
-            if let thing = try? JSONDecoder().decode(Thing.self, from: data) {
-                self.doingList.insert(thing, at: destinationIndexPath.row)
-                DispatchQueue.main.async {
-                    tableView.reloadData()
-                }
-            }
-        }
-    }
-    
-    func dropDone(_ dropItems: [UITableViewDropItem], tableView: UITableView, destinationIndexPath: IndexPath) {
-        guard let dropItem = dropItems.first else {
-            return
-        }
-        
-        dropItem.dragItem.itemProvider.loadDataRepresentation(forTypeIdentifier: kUTTypeJSON as String) { (data, error) in
-            guard error == nil,
-                  let data = data else {
-                return
-            }
-            if let thing = try? JSONDecoder().decode(Thing.self, from: data) {
-                self.doneList.insert(thing, at: destinationIndexPath.row)
-                DispatchQueue.main.async {
-                    tableView.reloadData()
-                }
-            }
-        }
     }
 }
