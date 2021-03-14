@@ -107,6 +107,7 @@ class ListItemDetailViewController: UIViewController {
                 barButtonItem.action = #selector(edit)
             case .edit:
                 barButtonItem.action = #selector(cancel)
+                makeIneditable()
             }
             return barButtonItem
         }()
@@ -117,15 +118,20 @@ class ListItemDetailViewController: UIViewController {
         navigationItem.rightBarButtonItem = doneButton
     }
     
+    private func makeIneditable() {
+        titleTextField.isUserInteractionEnabled = false
+        descriptionTextView.isEditable = false
+    }
+    
     func fillContents(todo: Todo) {
         titleTextField.text = todo.title
         descriptionTextView.text = todo.description
         
-        if todo.deadLine == nil {
+        if let deadline = todo.deadLine {
+            deadLineDatePicker.date = deadline
+        } else {
             deadLineDatePickerEnableToggleButton.isSelected.toggle()
             deadLineDatePicker.isEnabled.toggle()
-        } else {
-            deadLineDatePicker.date = todo.deadLine!
         }
     }
     
@@ -135,7 +141,8 @@ class ListItemDetailViewController: UIViewController {
     }
     
     @objc func edit() {
-        
+        titleTextField.isUserInteractionEnabled = true
+        descriptionTextView.isEditable = true
     }
     
     @objc func cancel() {
