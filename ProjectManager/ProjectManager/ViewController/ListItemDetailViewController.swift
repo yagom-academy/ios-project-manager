@@ -8,6 +8,10 @@
 import UIKit
 
 class ListItemDetailViewController: UIViewController {
+    private var statusType: ItemStatus = .todo
+    private var detailViewType: DetailViewType = .create
+    private var itemIndex: Int = 0
+    private let descriptionTextViewTextMaxCount: Int = 1000
     private let titleTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -52,7 +56,6 @@ class ListItemDetailViewController: UIViewController {
         textView.layer.shadowColor = UIColor.systemGray4.cgColor
         return textView
     }()
-    private let descriptionTextViewTextMaxCount = 1000
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,14 +98,26 @@ class ListItemDetailViewController: UIViewController {
         ])
     }
     
-    func configureNavigationBar(itemStatus: ItemStatus, type: DetailViewType) {
+    func configureDetailView(itemStatus: ItemStatus, type: DetailViewType, index: Int = 0) {
+        self.statusType = itemStatus
+        self.detailViewType = type
+        self.itemIndex = index
+        configureNavigationBar()
+        
+        if type == .edit {
+            let todo = ItemList.shared.getItem(statusType: itemStatus, index: index)
+            fillContents(todo: todo)
+        }
+    }
+    
+    private func configureNavigationBar() {
         let leftBarButton: UIBarButtonItem = {
             let barButtonItem = UIBarButtonItem()
-            barButtonItem.title = type.leftButtonName
+            barButtonItem.title = detailViewType.leftButtonName
             barButtonItem.style = .plain
             barButtonItem.target = self
             
-            switch type {
+            switch detailViewType {
             case .create:
                 barButtonItem.action = #selector(edit)
             case .edit:
@@ -113,7 +128,7 @@ class ListItemDetailViewController: UIViewController {
         }()
         let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(done))
         
-        navigationItem.title = itemStatus.title
+        navigationItem.title = statusType.title
         navigationItem.leftBarButtonItem = leftBarButton
         navigationItem.rightBarButtonItem = doneButton
     }
@@ -123,7 +138,7 @@ class ListItemDetailViewController: UIViewController {
         descriptionTextView.isEditable = false
     }
     
-    func fillContents(todo: Todo) {
+    private func fillContents(todo: Todo) {
         titleTextField.text = todo.title
         descriptionTextView.text = todo.description
         

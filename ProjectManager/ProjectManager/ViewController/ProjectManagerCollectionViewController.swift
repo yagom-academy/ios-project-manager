@@ -59,7 +59,7 @@ class ProjectManagerCollectionViewController: UIViewController {
     @objc private func touchUpAddButton() {
         let listItemDetailViewController = ListItemDetailViewController()
         let navigationController = UINavigationController(rootViewController: listItemDetailViewController)
-        listItemDetailViewController.configureNavigationBar(itemStatus: .todo, type: .create)
+        listItemDetailViewController.configureDetailView(itemStatus: .todo, type: .create)
         present(navigationController, animated: true, completion: nil)
     }
     
@@ -108,9 +108,7 @@ extension ProjectManagerCollectionViewController: ListItemDetailViewDelegate {
     func presentEditView(itemStatus: ItemStatus, index: Int) {
         let listItemDetailViewController = ListItemDetailViewController()
         let navigationController = UINavigationController(rootViewController: listItemDetailViewController)
-        let todo = ItemList.shared.getItem(statusType: itemStatus, index: index)
-        listItemDetailViewController.configureNavigationBar(itemStatus: itemStatus, type: .edit)
-        listItemDetailViewController.fillContents(todo: todo)
+        listItemDetailViewController.configureDetailView(itemStatus: itemStatus, type: .edit, index: index)
         present(navigationController, animated: true, completion: nil)
     }
 }
