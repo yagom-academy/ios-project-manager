@@ -74,6 +74,7 @@
 		364820C425FB5FC5004ADF6D /* TableView */ = {
 			isa = PBXGroup;
 			children = (
+				4CAA8E1B25F916CB00B9C0A7 /* Cell */,
 				364820C525FB5FE6004ADF6D /* ThingTableView.swift */,
 				364820C825FB90C8004ADF6D /* Draggable.swift */,
 				364820CB25FBAB53004ADF6D /* Droppable.swift */,
@@ -114,7 +115,6 @@
 				364820B525FA0B2B004ADF6D /* MainViewController.swift */,
 				4CAA8E1D25F91F6E00B9C0A7 /* DetailViewController.swift */,
 				364820A125F80C02004ADF6D /* ThingTableHeaderView.swift */,
-				4CAA8E1B25F916CB00B9C0A7 /* Cell */,
 			);
 			path = Controller;
 			sourceTree = "<group>";

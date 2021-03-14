@@ -32,15 +32,4 @@ extension UITableView {
         }
         return cell
     }
-    
-    func register<T: UITableViewHeaderFooterView>(headerFooterViewType: T.Type) where T: Reusable {
-        self.register(headerFooterViewType.self, forHeaderFooterViewReuseIdentifier: headerFooterViewType.identifier)
-    }
-    
-    func dequeueReusableHeaderFooterView<T: UITableViewHeaderFooterView>(_ viewType: T.Type = T.self) -> T? where T: Reusable {
-        guard let view = self.dequeueReusableHeaderFooterView(withIdentifier: viewType.identifier) as? T? else {
-            return nil
-        }
-        return view
-    }
 }
