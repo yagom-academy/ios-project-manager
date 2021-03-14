@@ -10,12 +10,9 @@ final class MainViewController: UIViewController {
     
     // MARK: - Outlet
     
-    private lazy var todoTableView = makeTableView()
-    private lazy var doingTableView = makeTableView()
-    private lazy var doneTableView = makeTableView()
-    private let todoHeaderView = ThingTableHeaderView(height: 50, tableViewType: .todo)
-    private let doingHeaderView = ThingTableHeaderView(height: 50, tableViewType: .done)
-    private let doneHeaderView = ThingTableHeaderView(height: 50, tableViewType: .doing)
+    private lazy var todoTableView = ThingTableView(tableViewType: .todo, mainViewController: self)
+    private lazy var doingTableView = ThingTableView(tableViewType: .doing, mainViewController: self)
+    private lazy var doneTableView = ThingTableView(tableViewType: .done, mainViewController: self)
     
     // MARK: - Life Cycle
     
@@ -24,25 +21,9 @@ final class MainViewController: UIViewController {
         configureNavigationBar()
         configureConstratins()
         registerNotificationCentor()
-        setTableHeaderView()
     }
     
     // MARK: - UI
-    private func setTableHeaderView() {
-        todoTableView.tableHeaderView = todoHeaderView
-        doingTableView.tableHeaderView = doingHeaderView
-        doneTableView.tableHeaderView = doneHeaderView
-    }
-    
-    private func makeTableView() -> UITableView {
-        let tableView = UITableView(frame: .zero, style: .grouped)
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.dragDelegate = self
-        tableView.dropDelegate = self
-        tableView.register(cellType: ThingTableViewCell.self)
-        return tableView
-    }
     
     private func configureConstratins() {
         let safeArea = view.safeAreaLayoutGuide
@@ -115,17 +96,12 @@ final class MainViewController: UIViewController {
 
 extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let index = indexPath.section
-        if tableView == todoTableView {
-            let thing = Things.shared.todoList[index]
-            showDetailView(index: index, thing: thing)
-        } else if tableView == doingTableView {
-            let thing = Things.shared.doingList[index]
-            showDetailView(tableViewType: .doing, index: index, thing: thing)
-        } else {
-            let thing = Things.shared.doneList[index]
-            showDetailView(tableViewType: .done, index: index, thing: thing)
+        guard let tableViewType = (tableView as? ThingTableView)?.tableViewType else {
+            return
         }
+        let index = indexPath.row
+        let thing = Things.shared.getThing(at: index, tableViewType)
+        showDetailView(tableViewType: tableViewType, index: index, thing: thing)
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
@@ -135,13 +111,14 @@ extension MainViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+            guard let tableViewType = (tableView as? ThingTableView)?.tableViewType else {
+                return
+            }
             let index = indexPath.row
-            if tableView == todoTableView {
-                Things.shared.deleteData(tableViewType: .todo, index: index)
-            } else if tableView == doingTableView {
-                Things.shared.deleteData(tableViewType: .doing, index: index)
-            } else {
-                Things.shared.deleteData(tableViewType: .done, index: index)
+            Things.shared.deleteThing(at: index, tableViewType) {
+                DispatchQueue.main.async {
+                    tableView.deleteRows(at: [indexPath], with: .left)
+                }
             }
         }
     }
@@ -151,37 +128,23 @@ extension MainViewController: UITableViewDelegate {
 
 extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch tableView {
-        case todoTableView:
-            let todoCount = Things.shared.todoList.count
-            todoHeaderView.setCount(todoCount)
-            return todoCount
-        case doingTableView:
-            let doingCount = Things.shared.doingList.count
-            doingHeaderView.setCount(doingCount)
-            return doingCount
-        case doneTableView:
-            let doneCount = Things.shared.doneList.count
-            doneHeaderView.setCount(doneCount)
-            return doneCount
-        default:
+        guard let thingTableView = tableView as? ThingTableView else {
             return 0
         }
+        let tableViewType = thingTableView.tableViewType
+        let thingsCount = Things.shared.getThingListCount(tableViewType)
+        thingTableView.setCount(thingsCount)
+        return thingsCount
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(for: indexPath, cellType: ThingTableViewCell.self)
         let index = indexPath.row
-        switch tableView {
-        case todoTableView:
-            cell.configureCell(Things.shared.todoList[index])
-        case doingTableView:
-            cell.configureCell(Things.shared.doingList[index])
-        case doneTableView:
-            cell.configureCell(Things.shared.doneList[index])
-        default:
-            break
+        guard let tableViewType = (tableView as? ThingTableView)?.tableViewType,
+              let thing = Things.shared.getThing(at: index, tableViewType) else {
+            return cell
         }
+        cell.configureCell(thing)
         return cell
     }
 }
@@ -190,31 +153,28 @@ extension MainViewController: UITableViewDataSource {
 
 extension MainViewController: UITableViewDragDelegate, UITableViewDropDelegate {
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
-        switch tableView {
-        case todoTableView:
-            return Things.shared.dragTodo(for: indexPath, tableView: tableView)
-        case doingTableView:
-            return Things.shared.dragDoing(for: indexPath, tableView: tableView)
-        case doneTableView:
-            return Things.shared.dragDone(for: indexPath, tableView: tableView)
-        default:
+        guard let thingTableView = tableView as? ThingTableView else {
             return [UIDragItem(itemProvider: NSItemProvider())]
         }
+        return thingTableView.drag(for: indexPath)
     }
     
     func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
-        guard let indexPath = coordinator.destinationIndexPath else {
-            return 
+        var indexPath: IndexPath
+        if let destinationIndexPath = coordinator.destinationIndexPath {
+            indexPath = destinationIndexPath
+        } else {
+            var section = tableView.numberOfSections
+            if section > 0 {
+                section -= 1
+            }
+            let row = tableView.numberOfRows(inSection: section)
+            indexPath = IndexPath(row: row, section: section)
         }
-        switch tableView {
-        case todoTableView:
-            Things.shared.dropTodo(coordinator.items, tableView: tableView, destinationIndexPath: indexPath)
-        case doingTableView:
-            Things.shared.dropDoing(coordinator.items, tableView: tableView, destinationIndexPath: indexPath)
-        case doneTableView:
-            Things.shared.dropDone(coordinator.items, tableView: tableView, destinationIndexPath: indexPath)
-        default:
-            break
+        
+        guard let thingTableView = tableView as? ThingTableView else {
+            return
         }
+        thingTableView.drop(coordinator.items, to: indexPath)
     }
 }

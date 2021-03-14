@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MobileCoreServices
 
 // MARK: - DateFormatter
 
@@ -36,5 +37,19 @@ extension UILabel {
         self.textColor = textColor
         self.font = .preferredFont(forTextStyle: textSize)
         self.numberOfLines = numberOfLines
+    }
+}
+
+// MARK: - NSItemProvider
+
+extension NSItemProvider {
+    static func makeJSONItemProvider(data: Data?, _ completionHandler: @escaping () -> Void) -> NSItemProvider {
+        let itemProvider = self.init()
+        itemProvider.registerDataRepresentation(forTypeIdentifier: kUTTypeJSON as String, visibility: .all) { (loadHandler) -> Progress? in
+            loadHandler(data, nil)
+            completionHandler()
+            return nil
+        }
+        return itemProvider
     }
 }
