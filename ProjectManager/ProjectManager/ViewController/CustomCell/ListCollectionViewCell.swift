@@ -79,7 +79,7 @@ extension ListCollectionViewCell: UITableViewDataSource {
             return UITableViewCell()
         }
         let todo = ItemList.shared.getItem(statusType: statusType, index: indexPath.row)
-        cell.fillLabelsText(item: todo)
+        cell.fillLabelsText(item: todo, statusType: statusType)
         return cell
     }
     
