@@ -32,14 +32,13 @@ extension SectionCollectionViewCell: UITableViewDelegate {
         if editingStyle == .delete {
             switch self.boardTableView {
             case boardManager.boards[0]:
-                Items.shared.todoList.remove(at: indexPath.row)
+                Items.shared.deleteTodoItem(at: indexPath.row)
             case boardManager.boards[1]:
-                Items.shared.doingList.remove(at: indexPath.row)
+                Items.shared.deleteDoingItem(at: indexPath.row)
             default:
-                Items.shared.doneList.remove(at: indexPath.row)
+                Items.shared.deleteDoneItem(at: indexPath.row)
             }
             tableView.deleteRows(at: [indexPath], with: .automatic)
-            //데이터 삭제 필요
         }
     }
 }
