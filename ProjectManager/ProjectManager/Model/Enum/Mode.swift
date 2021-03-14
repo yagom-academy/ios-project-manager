@@ -1,6 +1,6 @@
 import Foundation
 
 enum Mode {
-    static let cancel = "Cancel"
+    static let new = "Cancel"
     static let edit = "Edit"
 }
