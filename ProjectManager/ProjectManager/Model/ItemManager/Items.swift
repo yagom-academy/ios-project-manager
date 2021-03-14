@@ -24,6 +24,14 @@ final class Items {
        todoList[index].updateItem(item)
     }
     
+    func updateDoingItem(at index: Int, with item: Item) {
+       doingList[index].updateItem(item)
+    }
+    
+    func updateDoneItem(at index: Int, with item: Item) {
+       doneList[index].updateItem(item)
+    }
+    
     func deleteTodoItem(at index: Int) {
         todoList.remove(at: index)
     }

@@ -96,11 +96,11 @@ extension ProjectManagerViewController {
         presentedSheetViewController.updateItemHandler { (currentItem) in
             switch sectionCollectionViewCell.boardTableView {
             case boardManager.boards[0]:
-                Items.shared.todoList[index].updateItem(currentItem)
+                Items.shared.updateTodoItem(at: index, with: currentItem)
             case boardManager.boards[1]:
-                Items.shared.doingList[index].updateItem(currentItem)
+                Items.shared.updateDoingItem(at: index, with: currentItem)
             case boardManager.boards[2]:
-                Items.shared.doneList[index].updateItem(currentItem)
+                Items.shared.updateDoneItem(at: index, with: currentItem)
             default:
                 break
             }
