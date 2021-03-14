@@ -66,13 +66,6 @@ class ProjectManagerCollectionViewController: UIViewController {
     private func configureToolBar() {
         self.navigationController?.isToolbarHidden = false
         var barButtonItems = [UIBarButtonItem]()
-        let flexibleSpaceBarButtonItem: UIBarButtonItem = .init(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let undoButton: UIBarButtonItem = .init(barButtonSystemItem: .undo, target: self, action: #selector(touchUpUndoButton))
-        let redoButton: UIBarButtonItem = .init(barButtonSystemItem: .redo, target: self, action: #selector(touchUpRedoButton))
-        
-        barButtonItems.append(flexibleSpaceBarButtonItem)
-        barButtonItems.append(undoButton)
-        barButtonItems.append(redoButton)
         toolbarItems = barButtonItems
     }
     

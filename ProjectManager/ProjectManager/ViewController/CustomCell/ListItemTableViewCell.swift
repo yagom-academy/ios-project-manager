@@ -95,7 +95,6 @@ class ListItemTableViewCell: UITableViewCell {
         titleLabel.text = ""
         descriptionLabel.text = ""
         deadLineLabel.text = ""
-        descriptionLabel.textColor = .black
         deadLineLabel.textColor = .black
     }
     
