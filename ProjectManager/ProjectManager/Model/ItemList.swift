@@ -54,4 +54,26 @@ class ItemList {
             doneList.remove(at: index)
         }
     }
+    
+    func insertItem(statusType: ItemStatus, index: Int = 0, item: Todo)  {
+        switch statusType {
+        case .todo:
+            todoList.insert(item, at: index)
+        case .doing:
+            doingList.insert(item, at: index)
+        case .done:
+            doneList.insert(item, at: index)
+        }
+    }
+    
+    func updateItem(statusType: ItemStatus, index: Int, item: Todo) {
+        switch statusType {
+        case .todo:
+            todoList[index] = item
+        case .doing:
+            doingList[index] = item
+        case .done:
+            doneList[index] = item
+        }
+    }
 }

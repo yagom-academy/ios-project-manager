@@ -7,8 +7,8 @@
 
 import UIKit
 
-protocol ListItemDetailViewDelegate: class {
-    func presentEditView(itemStatus: ItemStatus, index: Int)
+protocol ListCollectionViewCellDelegate: class {
+    func presentEditView(listItemDetailViewController: ListItemDetailViewController)
 }
 
 class ListCollectionViewCell: UICollectionViewCell {
@@ -20,7 +20,7 @@ class ListCollectionViewCell: UICollectionViewCell {
     static var identifier: String {
         return "\(self)"
     }
-    weak var delegate: ListItemDetailViewDelegate?
+    weak var delegate: ListCollectionViewCellDelegate?
     
     private let tableView: UITableView = {
         let tableView = UITableView()
@@ -36,6 +36,7 @@ class ListCollectionViewCell: UICollectionViewCell {
         delegateDelegate()
         setUpContentView()
         configureAutoLayout()
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadTableView), name: NSNotification.Name("reloadTableView"), object: nil)
     }
     
     required init?(coder: NSCoder) {
@@ -65,6 +66,14 @@ class ListCollectionViewCell: UICollectionViewCell {
         headerView.fillHeaderViewText(itemStatus: statusType)
         tableView.tableHeaderView = headerView
     }
+    
+    @objc func reloadTableView(_ noti: Notification) {
+        let status = noti.userInfo?["statusType"] as? ItemStatus
+        if self.statusType == status {
+            tableView.reloadData()
+            configureTableHeaderView()
+        }
+    }
 }
 
 // MARK: - TableView DataSource
@@ -86,6 +95,7 @@ extension ListCollectionViewCell: UITableViewDataSource {
         if editingStyle == .delete {
             ItemList.shared.removeItem(statusType: statusType, index: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
+            configureTableHeaderView()
         }
     }
 }
@@ -93,6 +103,8 @@ extension ListCollectionViewCell: UITableViewDataSource {
 // MARK: - TableView Delegate
 extension ListCollectionViewCell: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.delegate?.presentEditView(itemStatus: statusType, index: indexPath.row)
+        let listItemDetailViewController = ListItemDetailViewController()
+        listItemDetailViewController.configureDetailView(itemStatus: statusType, type: .edit, index: indexPath.row)
+        self.delegate?.presentEditView(listItemDetailViewController: listItemDetailViewController)
     }
 }

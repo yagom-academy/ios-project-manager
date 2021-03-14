@@ -104,11 +104,9 @@ extension ProjectManagerCollectionViewController: UICollectionViewDataSource {
     }
 }
 
-extension ProjectManagerCollectionViewController: ListItemDetailViewDelegate {
-    func presentEditView(itemStatus: ItemStatus, index: Int) {
-        let listItemDetailViewController = ListItemDetailViewController()
+extension ProjectManagerCollectionViewController: ListCollectionViewCellDelegate {
+    func presentEditView(listItemDetailViewController: ListItemDetailViewController) {
         let navigationController = UINavigationController(rootViewController: listItemDetailViewController)
-        listItemDetailViewController.configureDetailView(itemStatus: itemStatus, type: .edit, index: index)
         present(navigationController, animated: true, completion: nil)
     }
 }

@@ -12,7 +12,7 @@ class ListItemDetailViewController: UIViewController {
     private var detailViewType: DetailViewType = .create
     private var itemIndex: Int = 0
     private let descriptionTextViewTextMaxCount: Int = 1000
-    private let titleTextField: UITextField = {
+    private lazy var titleTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.placeholder = "Title"
@@ -56,6 +56,7 @@ class ListItemDetailViewController: UIViewController {
         textView.layer.shadowColor = UIColor.systemGray4.cgColor
         return textView
     }()
+    private lazy var doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(done))
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,6 +67,7 @@ class ListItemDetailViewController: UIViewController {
     
     private func delegateDelegate() {
         descriptionTextView.delegate = self
+        titleTextField.delegate = self
     }
     
     private func setUpView() {
@@ -110,32 +112,10 @@ class ListItemDetailViewController: UIViewController {
         }
     }
     
-    private func configureNavigationBar() {
-        let leftBarButton: UIBarButtonItem = {
-            let barButtonItem = UIBarButtonItem()
-            barButtonItem.title = detailViewType.leftButtonName
-            barButtonItem.style = .plain
-            barButtonItem.target = self
-            
-            switch detailViewType {
-            case .create:
-                barButtonItem.action = #selector(edit)
-            case .edit:
-                barButtonItem.action = #selector(cancel)
-                makeIneditable()
-            }
-            return barButtonItem
-        }()
-        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(done))
-        
-        navigationItem.title = statusType.title
-        navigationItem.leftBarButtonItem = leftBarButton
-        navigationItem.rightBarButtonItem = doneButton
-    }
-    
     private func makeIneditable() {
         titleTextField.isUserInteractionEnabled = false
         descriptionTextView.isEditable = false
+        deadLineDatePicker.isEnabled = false
     }
     
     private func fillContents(todo: Todo) {
@@ -155,24 +135,74 @@ class ListItemDetailViewController: UIViewController {
         deadLineDatePicker.isEnabled.toggle()
     }
     
+    // MARK: - Navigation Bar
+    private func configureNavigationBar() {
+        let leftBarbutton: UIBarButtonItem = {
+            let barButton = UIBarButtonItem()
+            barButton.title = detailViewType.leftButtonName
+            barButton.style = .plain
+            barButton.target = self
+            return barButton
+        }()
+        
+        switch detailViewType {
+        case .create:
+            leftBarbutton.action = #selector(cancel)
+            doneButton.isEnabled = false
+        case .edit:
+            leftBarbutton.action = #selector(edit)
+            makeIneditable()
+        }
+
+        navigationItem.title = statusType.title
+        navigationItem.leftBarButtonItem = leftBarbutton
+        navigationItem.rightBarButtonItem = doneButton
+    }
+    
     @objc func edit() {
         titleTextField.isUserInteractionEnabled = true
         descriptionTextView.isEditable = true
+        deadLineDatePicker.isEnabled = true
     }
     
     @objc func cancel() {
-        
+        dismiss(animated: true, completion: nil)
     }
     
     @objc func done() {
+        guard let title = titleTextField.text else {
+            dismiss(animated: true, completion: nil)
+            return
+        }
+        let description = descriptionTextView.text
+        let deadline = deadLineDatePickerEnableToggleButton.isSelected ? nil: deadLineDatePicker.date
+        let todo = Todo(title: title, description: description, deadLine: deadline)
         
+        switch detailViewType {
+        case .create:
+            ItemList.shared.insertItem(statusType: .todo, item: todo)
+        case .edit:
+            ItemList.shared.updateItem(statusType: statusType, index: itemIndex, item: todo)
+        }
+        
+        let userInfo: [AnyHashable: ItemStatus] = ["statusType": statusType]
+        NotificationCenter.default.post(name: NSNotification.Name("reloadTableView"), object: nil, userInfo: userInfo)
+        dismiss(animated: true, completion: nil)
     }
 }
 
+// MARK: - UITextViewDelegate
 extension ListItemDetailViewController: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         let textViewText = (textView.text as NSString).replacingCharacters(in: range, with: text)
         let TextMaxCount = textViewText.count
         return TextMaxCount <= descriptionTextViewTextMaxCount
+    }
+}
+
+// MARK: - UITextFieldDelegate
+extension ListItemDetailViewController: UITextFieldDelegate {
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        doneButton.isEnabled = titleTextField.text != ""
     }
 }
