@@ -32,11 +32,11 @@ extension SectionCollectionViewCell: UITableViewDelegate {
         if editingStyle == .delete {
             switch self.boardTableView {
             case boardManager.boards[0]:
-                Items.shared.deleteTodoItem(at: indexPath.row)
+                itemManager.deleteTodoItem(at: indexPath.row)
             case boardManager.boards[1]:
-                Items.shared.deleteDoingItem(at: indexPath.row)
+                itemManager.deleteDoingItem(at: indexPath.row)
             default:
-                Items.shared.deleteDoneItem(at: indexPath.row)
+                itemManager.deleteDoneItem(at: indexPath.row)
             }
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
@@ -47,11 +47,11 @@ extension SectionCollectionViewCell: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch self.boardTableView {
         case boardManager.boards[0]:
-            return Items.shared.todoList.count
+            return itemManager.todoList.count
         case boardManager.boards[1]:
-            return Items.shared.doingList.count
+            return itemManager.doingList.count
         default:
-            return Items.shared.doneList.count
+            return itemManager.doneList.count
         }
     }
     
@@ -62,13 +62,13 @@ extension SectionCollectionViewCell: UITableViewDataSource {
         
         switch self.boardTableView {
         case boardManager.boards[0]:
-            let todoItem = Items.shared.todoList[indexPath.row]
+            let todoItem = itemManager.todoList[indexPath.row]
             cell.updateUI(with: todoItem)
         case boardManager.boards[1]:
-            let doingItem = Items.shared.doingList[indexPath.row]
+            let doingItem = itemManager.doingList[indexPath.row]
             cell.updateUI(with: doingItem)
         case boardManager.boards[2]:
-            let doneItem = Items.shared.doneList[indexPath.row]
+            let doneItem = itemManager.doneList[indexPath.row]
             cell.updateUI(with: doneItem)
         default:
             break

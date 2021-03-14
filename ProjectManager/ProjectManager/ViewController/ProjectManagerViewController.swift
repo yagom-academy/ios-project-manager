@@ -31,11 +31,11 @@ class ProjectManagerViewController: UIViewController {
     }
     
     private func makeList() {
-        Items.shared.todoList.append(Item(title: "TODO LIST", description: "TODO LIST for project. please help me!!", progressStatus: ProgressStatus.todo.rawValue, dueDate: 1220301220))
+        itemManager.todoList.append(Item(title: "TODO LIST", description: "TODO LIST for project. please help me!!", progressStatus: ProgressStatus.todo.rawValue, dueDate: 1220301220))
         
-        Items.shared.doingList.append(Item(title: "DOING LIST", description: "DOING LIST for project. let's go party tonight!!", progressStatus: ProgressStatus.doing.rawValue, dueDate: 2220301220))
+        itemManager.doingList.append(Item(title: "DOING LIST", description: "DOING LIST for project. let's go party tonight!!", progressStatus: ProgressStatus.doing.rawValue, dueDate: 2220301220))
         
-        Items.shared.doneList.append(Item(title: "DONE LIST", description: "DONE LIST for project. It's over over over again!!", progressStatus: ProgressStatus.done.rawValue, dueDate: 3220301220))
+        itemManager.doneList.append(Item(title: "DONE LIST", description: "DONE LIST for project. It's over over over again!!", progressStatus: ProgressStatus.done.rawValue, dueDate: 3220301220))
     }
 }
 
@@ -69,11 +69,11 @@ extension ProjectManagerViewController: BoardTableViewCellDelegate {
     func tableViewCell(_ boardTableViewCell: BoardTableViewCell, didSelectAt index: Int, tappedCollectionViewCell: SectionCollectionViewCell) {
         switch tappedCollectionViewCell.boardTableView {
         case boardManager.boards[0]:
-            updateItem(with: Items.shared.todoList[index], in: boardTableViewCell, at: index, sectionCollectionViewCell: tappedCollectionViewCell)
+            updateItem(with: itemManager.todoList[index], in: boardTableViewCell, at: index, sectionCollectionViewCell: tappedCollectionViewCell)
         case boardManager.boards[1]:
-            updateItem(with: Items.shared.doingList[index], in: boardTableViewCell, at: index, sectionCollectionViewCell: tappedCollectionViewCell)
+            updateItem(with: itemManager.doingList[index], in: boardTableViewCell, at: index, sectionCollectionViewCell: tappedCollectionViewCell)
         case boardManager.boards[2]:
-            updateItem(with: Items.shared.doneList[index], in: boardTableViewCell, at: index, sectionCollectionViewCell: tappedCollectionViewCell)
+            updateItem(with: itemManager.doneList[index], in: boardTableViewCell, at: index, sectionCollectionViewCell: tappedCollectionViewCell)
         default:
             break
         }
@@ -81,12 +81,12 @@ extension ProjectManagerViewController: BoardTableViewCellDelegate {
 }
 extension ProjectManagerViewController {
     private func createNewTodoItem() {
-        var newItem = Items.shared.createItem("", "", dueDate: Int(Date().timeIntervalSince1970))
+        var newItem = itemManager.createItem("", "", dueDate: Int(Date().timeIntervalSince1970))
         let presentedSheetViewController = presentSheetViewController(with: newItem)
         
         presentedSheetViewController.updateItemHandler { (currentItem) in
             newItem = currentItem
-            Items.shared.todoList.append(newItem)
+            itemManager.todoList.append(newItem)
         }
     }
     
@@ -96,11 +96,11 @@ extension ProjectManagerViewController {
         presentedSheetViewController.updateItemHandler { (currentItem) in
             switch sectionCollectionViewCell.boardTableView {
             case boardManager.boards[0]:
-                Items.shared.updateTodoItem(at: index, with: currentItem)
+                itemManager.updateTodoItem(at: index, with: currentItem)
             case boardManager.boards[1]:
-                Items.shared.updateDoingItem(at: index, with: currentItem)
+                itemManager.updateDoingItem(at: index, with: currentItem)
             case boardManager.boards[2]:
-                Items.shared.updateDoneItem(at: index, with: currentItem)
+                itemManager.updateDoneItem(at: index, with: currentItem)
             default:
                 break
             }

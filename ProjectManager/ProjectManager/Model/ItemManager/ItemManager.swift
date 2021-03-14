@@ -1,7 +1,7 @@
 import Foundation
 
-final class Items {
-    static let shared = Items()
+final class ItemManager {
+    static let shared = ItemManager()
     var todoList = [Item]()
     var doingList = [Item]()
     var doneList = [Item]()
@@ -44,3 +44,4 @@ final class Items {
         doneList.remove(at: index)
     }
 }
+let itemManager = ItemManager.shared
