@@ -15,7 +15,7 @@
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
 		E2B61D4E25FA6D8A007DF2FB /* ItemStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B61D4D25FA6D89007DF2FB /* ItemStatus.swift */; };
 		E2B61D5125FA6DB0007DF2FB /* DetailViewType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B61D5025FA6DB0007DF2FB /* DetailViewType.swift */; };
-		E2B61D5525FA73ED007DF2FB /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B61D5425FA73EC007DF2FB /* HeaderView.swift */; };
+		E2B61D5525FA73ED007DF2FB /* TableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B61D5425FA73EC007DF2FB /* TableHeaderView.swift */; };
 		FD4D22FA25F7109800FA6E6A /* ListItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4D22F925F7109800FA6E6A /* ListItemDetailViewController.swift */; };
 		FD4D22FF25F7112200FA6E6A /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4D22FE25F7112200FA6E6A /* Todo.swift */; };
 		FD4D230825F7134000FA6E6A /* ListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4D230725F7134000FA6E6A /* ListCollectionViewCell.swift */; };
@@ -34,7 +34,7 @@
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E2B61D4D25FA6D89007DF2FB /* ItemStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemStatus.swift; sourceTree = "<group>"; };
 		E2B61D5025FA6DB0007DF2FB /* DetailViewType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewType.swift; sourceTree = "<group>"; };
-		E2B61D5425FA73EC007DF2FB /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		E2B61D5425FA73EC007DF2FB /* TableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableHeaderView.swift; sourceTree = "<group>"; };
 		FD4D22F925F7109800FA6E6A /* ListItemDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemDetailViewController.swift; sourceTree = "<group>"; };
 		FD4D22FE25F7112200FA6E6A /* Todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
 		FD4D230725F7134000FA6E6A /* ListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -118,7 +118,7 @@
 			children = (
 				FD4D230725F7134000FA6E6A /* ListCollectionViewCell.swift */,
 				FD4D230B25F7134F00FA6E6A /* ListItemTableViewCell.swift */,
-				E2B61D5425FA73EC007DF2FB /* HeaderView.swift */,
+				E2B61D5425FA73EC007DF2FB /* TableHeaderView.swift */,
 			);
 			path = CustomCell;
 			sourceTree = "<group>";
@@ -208,7 +208,7 @@
 				E2B61D4E25FA6D8A007DF2FB /* ItemStatus.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				FD4D231025F7138800FA6E6A /* Date+ConverToString.swift in Sources */,
-				E2B61D5525FA73ED007DF2FB /* HeaderView.swift in Sources */,
+				E2B61D5525FA73ED007DF2FB /* TableHeaderView.swift in Sources */,
 				FD4D22FA25F7109800FA6E6A /* ListItemDetailViewController.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				FD4D22FF25F7112200FA6E6A /* Todo.swift in Sources */,

@@ -61,8 +61,7 @@ class ListCollectionViewCell: UICollectionViewCell {
     }
     
     func configureTableHeaderView() {
-        let headerView = HeaderView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 40))
-        headerView.backgroundColor = .systemGray6
+        let headerView = TableHeaderView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 60))
         headerView.fillHeaderViewText(itemStatus: statusType)
         tableView.tableHeaderView = headerView
     }

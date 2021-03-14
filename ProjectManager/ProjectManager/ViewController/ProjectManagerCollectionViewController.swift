@@ -88,7 +88,7 @@ class ProjectManagerCollectionViewController: UIViewController {
 // MARK: - CollectionView Delegate FlowLayout
 extension ProjectManagerCollectionViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let totalInterval: CGFloat = CGFloat(cellSpacing * itemStatusList.count - 1)
+        let totalInterval: CGFloat = CGFloat(cellSpacing * (itemStatusList.count - 1))
         let width: CGFloat = CGFloat((collectionView.frame.width - totalInterval) / CGFloat(itemStatusList.count))
         let height: CGFloat = collectionView.frame.height
         return CGSize(width: width, height: height)
