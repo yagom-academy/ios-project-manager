@@ -23,14 +23,14 @@ class ProjectManagerCollectionViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        delegateDelegate()
+        setUpDelegate()
         setUpView()
         configureAutoLayout()
         configureNavigationBar()
         configureToolBar()
     }
     
-    private func delegateDelegate() {
+    private func setUpDelegate() {
         collectionView.dataSource = self
         collectionView.delegate = self
     }

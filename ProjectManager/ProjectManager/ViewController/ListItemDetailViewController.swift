@@ -71,13 +71,13 @@ class ListItemDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        delegateDelegate()
+        setUpDelegate()
         setUpView()
         configureAutoLayout()
         configureDetailView()
     }
     
-    private func delegateDelegate() {
+    private func setUpDelegate() {
         descriptionTextView.delegate = self
         titleTextField.delegate = self
     }
