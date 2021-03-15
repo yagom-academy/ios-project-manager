@@ -5,6 +5,7 @@ protocol AddItemDelegate: AnyObject {
 
 class SectionCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var boardTableView: UITableView!
+    weak var delegate: BoardTableViewCellDelegate?
     var board: Board?
     static let identifier = "SectionCollectionViewCell"
     
@@ -22,6 +23,14 @@ class SectionCollectionViewCell: UICollectionViewCell {
         boardTableView.reloadData()
     }
 }
+extension SectionCollectionViewCell: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let selectedCell = tableView.cellForRow(at: indexPath) as? BoardTableViewCell else {
+            return
+        }
+        self.delegate?.tableViewCell(selectedCell, didSelectAt: indexPath.row, on : board)
+    }
+}
 extension SectionCollectionViewCell: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: BoardTableViewCell.identifier) as? BoardTableViewCell else {
@@ -31,9 +40,8 @@ extension SectionCollectionViewCell: UITableViewDataSource {
         guard let item = board?.items[indexPath.row] else {
             return UITableViewCell()
         }
-        
+
         cell.updateUI(with: item)
-        
         return cell
     }
     
