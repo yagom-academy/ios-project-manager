@@ -101,7 +101,7 @@
 				346C220F25FF62D500253919 /* ProjectManagerCollectionVC+Drag&Drop.swift */,
 				FD4D22F925F7109800FA6E6A /* ListItemDetailViewController.swift */,
 				E2B61D5025FA6DB0007DF2FB /* DetailViewType.swift */,
-				FD4D230625F7130000FA6E6A /* CustomCell */,
+				FD4D230625F7130000FA6E6A /* TableView */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -118,7 +118,7 @@
 			path = SupportingFiles;
 			sourceTree = "<group>";
 		};
-		FD4D230625F7130000FA6E6A /* CustomCell */ = {
+		FD4D230625F7130000FA6E6A /* TableView */ = {
 			isa = PBXGroup;
 			children = (
 				FD4D230725F7134000FA6E6A /* ListTableView.swift */,
@@ -126,7 +126,7 @@
 				FD4D230B25F7134F00FA6E6A /* ListItemTableViewCell.swift */,
 				E2B61D5425FA73EC007DF2FB /* TableHeaderView.swift */,
 			);
-			path = CustomCell;
+			path = TableView;
 			sourceTree = "<group>";
 		};
 		FD4D230E25F7136700FA6E6A /* Extension */ = {
