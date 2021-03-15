@@ -32,14 +32,14 @@ extension SectionCollectionViewCell: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-            if editingStyle == .delete {
-                if let board = self.board {
-                    board.deleteTodoItem(at: indexPath.row)
-                }
-                
-                tableView.deleteRows(at: [indexPath], with: .automatic)
+        if editingStyle == .delete {
+            if let board = self.board {
+                board.deleteTodoItem(at: indexPath.row)
             }
+            
+            tableView.deleteRows(at: [indexPath], with: .automatic)
         }
+    }
 }
 extension SectionCollectionViewCell: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -50,7 +50,7 @@ extension SectionCollectionViewCell: UITableViewDataSource {
         guard let item = board?.items[indexPath.row] else {
             return UITableViewCell()
         }
-
+        
         cell.updateUI(with: item)
         return cell
     }
@@ -73,6 +73,8 @@ extension SectionCollectionViewCell: AddItemDelegate {
             return
         }
         board.addTodoItem(item)
-        boardTableView.reloadData()
+        let indexPath = IndexPath(row:(board.items.count - 1), section:0)
+        boardTableView.insertRows(at: [indexPath], with: .automatic)
+        
     }
 }
