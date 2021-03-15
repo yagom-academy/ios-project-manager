@@ -30,6 +30,16 @@ extension SectionCollectionViewCell: UITableViewDelegate {
         }
         self.delegate?.tableViewCell(selectedCell, didSelectAt: indexPath.row, on : board)
     }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+            if editingStyle == .delete {
+                if let board = self.board {
+                    board.deleteTodoItem(at: indexPath.row)
+                }
+                
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+            }
+        }
 }
 extension SectionCollectionViewCell: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
