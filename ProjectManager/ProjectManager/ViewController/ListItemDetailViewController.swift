@@ -120,7 +120,7 @@ class ListItemDetailViewController: UIViewController {
     
     private func fillContents(todo: Todo) {
         titleTextField.text = todo.title
-        descriptionTextView.text = todo.description
+        descriptionTextView.text = todo.descriptions
         
         if let deadline = todo.deadLine {
             deadLineDatePicker.date = deadline
@@ -176,7 +176,7 @@ class ListItemDetailViewController: UIViewController {
         }
         let description = descriptionTextView.text
         let deadline = deadLineDatePickerEnableToggleButton.isSelected ? nil: deadLineDatePicker.date
-        let todo = Todo(title: title, description: description, deadLine: deadline)
+        let todo = Todo(title: title, descriptions: description, deadLine: deadline)
         
         switch detailViewType {
         case .create:

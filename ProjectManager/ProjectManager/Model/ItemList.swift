@@ -19,8 +19,8 @@ class ItemList {
     private var doingList = [Todo]()
     private var doneList = [Todo]()
     
-    private var todo1 = Todo(title: "무야호", description: "그만큼 기분이 좋으시다는거지.", deadLine: Date())
-    private var todo2 = Todo(title: "UI 만들기", description: "잘 하고 있어....!!!잘 하고 있어....!!!잘 하고 있어....!!!잘 하고 있어....!!!잘 하고 있어....!!!잘 하고 있어....!!!", deadLine: Date())
+    private var todo1 = Todo(title: "무야호", descriptions: "그만큼 기분이 좋으시다는거지.", deadLine: Date())
+    private var todo2 = Todo(title: "UI 만들기", descriptions: "잘 하고 있어....!!!잘 하고 있어....!!!잘 하고 있어....!!!잘 하고 있어....!!!잘 하고 있어....!!!잘 하고 있어....!!!", deadLine: Date())
     
     func countListItem(statusType: ItemStatus) -> Int {
         switch statusType {

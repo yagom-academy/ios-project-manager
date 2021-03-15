@@ -75,7 +75,7 @@ class ListItemTableViewCell: UITableViewCell {
     
     func fillLabelsText(item: Todo, statusType: ItemStatus) {
         titleLabel.text = item.title
-        descriptionLabel.text = item.description
+        descriptionLabel.text = item.descriptions
         
         guard let date = item.deadLine else {
             deadLineLabel.text = "마감 기한 없음"

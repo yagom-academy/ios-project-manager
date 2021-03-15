@@ -22,7 +22,7 @@ class ListCollectionViewCell: UICollectionViewCell {
     }
     weak var delegate: ListCollectionViewCellDelegate?
     
-    private let tableView: UITableView = {
+    let tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(ListItemTableViewCell.self, forCellReuseIdentifier: ListItemTableViewCell.identifier)
@@ -46,6 +46,9 @@ class ListCollectionViewCell: UICollectionViewCell {
     private func delegateDelegate() {
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.dragDelegate = self
+        tableView.dropDelegate = self
+        tableView.dragInteractionEnabled = true
     }
     
     private func setUpContentView() {
