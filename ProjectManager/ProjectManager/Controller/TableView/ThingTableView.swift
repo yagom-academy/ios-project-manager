@@ -2,28 +2,58 @@
 //  ThingTableView.swift
 //  ProjectManager
 //
-//  Created by 임성민 on 2021/03/12.
+//  Created by 임성민 on 2021/03/09.
 //
 
 import UIKit
+import MobileCoreServices
 
-final class ThingTableView: UITableView, Draggable, Droppable {
-    var tableViewType: TableViewType
+class ThingTableView: UITableView, Draggable, Droppable {
     
-    init<T: UIViewController>(tableViewType: TableViewType, mainViewController: T) where T: UITableViewDataSource & UITableViewDelegate & UITableViewDragDelegate & UITableViewDropDelegate {
-        self.tableViewType = tableViewType
+    //MARK: - Property
+    
+    var list: [Thing] = []
+    var title: String? = nil
+    
+    //MARK: - Init
+    
+    init(title: String) {
         super.init(frame: .zero, style: .grouped)
-        tableHeaderView = ThingTableHeaderView(height: 50, tableViewType: tableViewType)
-        dataSource = mainViewController
-        delegate = mainViewController
-        dragDelegate = mainViewController
-        dropDelegate = mainViewController
-        register(cellType: ThingTableViewCell.self)
+        self.title = title
+        tableHeaderView = ThingTableHeaderView(height: 50, title: title)
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
     }
+    
+    //MARK: - CURD
+    
+    func createThing(_ thing: Thing) {
+        list.insert(thing, at: 0)
+        self.reloadData()
+    }
+    
+    func updateThing(_ thing: Thing, index: Int) {
+        list[index] = thing
+        self.reloadData()
+    }
+    
+    func deleteThing(at indexPath: IndexPath) {
+        list.remove(at: indexPath.row)
+        DispatchQueue.main.async {
+            self.deleteRows(at: [indexPath], with: .left)
+        }
+    }
+    
+    func insertThing(_ thing: Thing, at indexPath: IndexPath) {
+        list.insert(thing, at: indexPath.row)
+        DispatchQueue.main.async {
+            self.reloadData()
+        }
+    }
+    
+    //MARK: - set Count
     
     func setCount(_ count: Int) {
         if let tableHeaderView = self.tableHeaderView as? ThingTableHeaderView {

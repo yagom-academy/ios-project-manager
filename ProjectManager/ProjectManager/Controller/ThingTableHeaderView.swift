@@ -16,9 +16,9 @@ final class ThingTableHeaderView: UIView {
     
     // MARK: - Init
 
-    init(height: Int, tableViewType: TableViewType) {
+    init(height: Int, title: String) {
         super.init(frame: CGRect(x: 0, y: 0, width: 0, height: height))
-        titleLabel.text = tableViewType.rawValue
+        titleLabel.text = title
         configureConstraints()
         setStyle()
     }

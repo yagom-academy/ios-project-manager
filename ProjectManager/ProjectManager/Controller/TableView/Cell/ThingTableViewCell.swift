@@ -20,7 +20,6 @@ final class ThingTableViewCell: UITableViewCell, Reusable {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configureConstraints()
-        configureLabel()
     }
     
     required init?(coder: NSCoder) {
