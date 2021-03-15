@@ -118,6 +118,7 @@ class ListItemDetailViewController: UIViewController {
         if detailViewType == .edit {
             let todo = ItemList.shared.getItem(statusType: statusType, index: itemIndex)
             fillContents(todo: todo)
+            makeIneditable()
         }
     }
     
@@ -160,7 +161,6 @@ class ListItemDetailViewController: UIViewController {
             doneButton.isEnabled = false
         case .edit:
             leftBarbutton.action = #selector(edit)
-            makeIneditable()
         }
 
         navigationItem.title = statusType.title
@@ -171,7 +171,7 @@ class ListItemDetailViewController: UIViewController {
     @objc func edit() {
         titleTextField.isUserInteractionEnabled = true
         descriptionTextView.isEditable = true
-        deadLineDatePicker.isEnabled = true
+        deadLineDatePicker.isEnabled = !deadLineDatePickerEnableToggleButton.isSelected
     }
     
     @objc func cancel() {
