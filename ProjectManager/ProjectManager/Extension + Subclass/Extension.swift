@@ -30,16 +30,6 @@ extension String {
     static let empty = ""
 }
 
-// MARK: - UILabel
-
-extension UILabel {
-    func configure(textColor: UIColor = .black, textSize: UIFont.TextStyle = .body, numberOfLines: Int = 1) {
-        self.textColor = textColor
-        self.font = .preferredFont(forTextStyle: textSize)
-        self.numberOfLines = numberOfLines
-    }
-}
-
 // MARK: - NSItemProvider
 
 extension NSItemProvider {
