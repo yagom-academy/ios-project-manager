@@ -15,7 +15,7 @@ class ListTableView: UITableView {
     var statusType: ItemStatus
     weak var listTableViewDelegate: ListTableViewDelegate?
     lazy var headerView = TableHeaderView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: 60))
-
+    
     init(statusType: ItemStatus) {
         self.statusType = statusType
         super.init(frame: .zero, style: .plain)

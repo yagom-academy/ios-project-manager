@@ -64,16 +64,6 @@ class ProjectManagerCollectionViewController: UIViewController {
     
     private func configureToolBar() {
         self.navigationController?.isToolbarHidden = false
-        var barButtonItems = [UIBarButtonItem]()
-        toolbarItems = barButtonItems
-    }
-    
-    @objc private func touchUpUndoButton() {
-        
-    }
-    
-    @objc private func touchUpRedoButton() {
-        
     }
 }
 

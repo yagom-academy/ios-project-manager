@@ -57,7 +57,7 @@ class TableHeaderView: UIView {
             titleLabel.topAnchor.constraint(equalTo: contentsContainerView.topAnchor),
             titleLabel.leadingAnchor.constraint(equalTo: contentsContainerView.leadingAnchor),
             titleLabel.bottomAnchor.constraint(equalTo: contentsContainerView.bottomAnchor),
-
+            
             cellCountLabel.centerYAnchor.constraint(equalTo: contentsContainerView.centerYAnchor),
             cellCountLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 10),
             cellCountLabel.widthAnchor.constraint(equalToConstant: 40),

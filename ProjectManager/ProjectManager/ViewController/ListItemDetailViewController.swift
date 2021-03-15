@@ -162,7 +162,7 @@ class ListItemDetailViewController: UIViewController {
         case .edit:
             leftBarbutton.action = #selector(edit)
         }
-
+        
         navigationItem.title = statusType.title
         navigationItem.leftBarButtonItem = leftBarbutton
         navigationItem.rightBarButtonItem = doneButton
