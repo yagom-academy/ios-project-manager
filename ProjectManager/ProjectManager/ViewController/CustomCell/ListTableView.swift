@@ -83,8 +83,7 @@ extension ListTableView: UITableViewDataSource {
 // MARK: - TableView Delegate
 extension ListTableView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let listItemDetailViewController = ListItemDetailViewController()
-        listItemDetailViewController.configureDetailView(itemStatus: statusType, type: .edit, index: indexPath.row)
+        let listItemDetailViewController = ListItemDetailViewController(statusType: statusType, detailViewType: .edit, itemIndex: indexPath.row)
         self.listTableViewDelegate?.presentEditView(listItemDetailViewController: listItemDetailViewController)
     }
 }

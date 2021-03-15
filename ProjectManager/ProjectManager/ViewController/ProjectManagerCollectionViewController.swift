@@ -57,9 +57,8 @@ class ProjectManagerCollectionViewController: UIViewController {
     }
     
     @objc private func touchUpAddButton() {
-        let listItemDetailViewController = ListItemDetailViewController()
+        let listItemDetailViewController = ListItemDetailViewController(statusType: .todo, detailViewType: .create)
         let navigationController = UINavigationController(rootViewController: listItemDetailViewController)
-        listItemDetailViewController.configureDetailView(itemStatus: .todo, type: .create)
         present(navigationController, animated: true, completion: nil)
     }
     

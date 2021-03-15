@@ -8,9 +8,9 @@
 import UIKit
 
 class ListItemDetailViewController: UIViewController {
-    private var statusType: ItemStatus = .todo
-    private var detailViewType: DetailViewType = .create
-    private var itemIndex: Int = 0
+    private var statusType: ItemStatus
+    private var detailViewType: DetailViewType
+    private var itemIndex: Int
     private let descriptionTextViewTextMaxCount: Int = 1000
     private lazy var titleTextField: UITextField = {
         let textField = UITextField()
@@ -58,11 +58,23 @@ class ListItemDetailViewController: UIViewController {
     }()
     private lazy var doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(done))
     
+    init(statusType: ItemStatus, detailViewType: DetailViewType, itemIndex: Int = 0) {
+        self.statusType = statusType
+        self.detailViewType = detailViewType
+        self.itemIndex = itemIndex
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         delegateDelegate()
         setUpView()
         configureAutoLayout()
+        configureDetailView()
     }
     
     private func delegateDelegate() {
@@ -100,14 +112,11 @@ class ListItemDetailViewController: UIViewController {
         ])
     }
     
-    func configureDetailView(itemStatus: ItemStatus, type: DetailViewType, index: Int = 0) {
-        self.statusType = itemStatus
-        self.detailViewType = type
-        self.itemIndex = index
+    func configureDetailView() {
         configureNavigationBar()
         
-        if type == .edit {
-            let todo = ItemList.shared.getItem(statusType: itemStatus, index: index)
+        if detailViewType == .edit {
+            let todo = ItemList.shared.getItem(statusType: statusType, index: itemIndex)
             fillContents(todo: todo)
         }
     }
