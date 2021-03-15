@@ -9,14 +9,13 @@ import Foundation
 import UIKit
 import MobileCoreServices
 
-extension ListCollectionViewCell: UITableViewDragDelegate {
-    func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+extension ListTableView {
+    func dragItem(tableView: UITableView, indexPath: IndexPath) -> [UIDragItem] {
         let item = ItemList.shared.getItem(statusType: statusType, index: indexPath.row)
-        
-        
         guard let data = try? JSONEncoder().encode(item) else { return [] }
         let itemProvider = NSItemProvider()
         let dragItem = UIDragItem(itemProvider: itemProvider)
+        
         itemProvider.registerDataRepresentation(forTypeIdentifier: kUTTypePlainText as String, visibility: .all) { completion in
             completion(data, nil)
             DispatchQueue.main.async {
@@ -27,10 +26,8 @@ extension ListCollectionViewCell: UITableViewDragDelegate {
         }
         return [dragItem]
     }
-}
-
-extension ListCollectionViewCell: UITableViewDropDelegate {
-    func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
+    
+    func dropItem(tableView: UITableView, coordinator: UITableViewDropCoordinator) {
         let insertionIndex: IndexPath
         if let indexPath = coordinator.destinationIndexPath {
           insertionIndex = indexPath
@@ -56,13 +53,5 @@ extension ListCollectionViewCell: UITableViewDropDelegate {
               }
           }
         }
-    }
-    
-    func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
-        return UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
-    }
-    
-    func tableView(_ tableView: UITableView, canHandle session: UIDropSession) -> Bool {
-        session.canLoadObjects(ofClass: NSString.self)
     }
 }

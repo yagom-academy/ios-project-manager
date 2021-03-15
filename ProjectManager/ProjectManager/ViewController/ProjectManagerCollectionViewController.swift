@@ -9,7 +9,7 @@ import UIKit
 class ProjectManagerCollectionViewController: UIViewController {
     private var itemStatusList: [ItemStatus] = [.todo, .doing, .done]
     private let cellSpacing = 10
-    private lazy var collectionView: UICollectionView = {
+    lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         layout.scrollDirection = .horizontal
@@ -17,7 +17,7 @@ class ProjectManagerCollectionViewController: UIViewController {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .systemGray4
         collectionView.isScrollEnabled = false
-        collectionView.register(ListCollectionViewCell.self, forCellWithReuseIdentifier: ListCollectionViewCell.identifier)
+        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         return collectionView
     }()
     
@@ -95,16 +95,26 @@ extension ProjectManagerCollectionViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ListCollectionViewCell.identifier, for: indexPath) as? ListCollectionViewCell else {
-            return UICollectionViewCell()
-        }
-        cell.statusType = itemStatusList[indexPath.row]
-        cell.delegate = self
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) 
+        let itemStatus = itemStatusList[indexPath.row]
+        let tableView = ListTableView(statusType: itemStatus)
+        tableView.dragDelegate = self
+        tableView.dropDelegate = self
+        tableView.listTableViewDelegate = self
+        tableView.dragInteractionEnabled = true
+        cell.contentView.addSubview(tableView)
+        
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: cell.contentView.topAnchor),
+            tableView.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor),
+            tableView.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor)
+        ])
         return cell
     }
 }
 
-extension ProjectManagerCollectionViewController: ListCollectionViewCellDelegate {
+extension ProjectManagerCollectionViewController: ListTableViewDelegate {
     func presentEditView(listItemDetailViewController: ListItemDetailViewController) {
         let navigationController = UINavigationController(rootViewController: listItemDetailViewController)
         present(navigationController, animated: true, completion: nil)
