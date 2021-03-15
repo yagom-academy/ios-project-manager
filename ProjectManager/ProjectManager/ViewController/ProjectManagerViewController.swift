@@ -4,12 +4,13 @@ class ProjectManagerViewController: UIViewController {
     @IBOutlet weak var titleNavigationBar: UINavigationBar!
     @IBOutlet weak var addButton: UIBarButtonItem!
     @IBOutlet weak var sectionCollectionView: UICollectionView!
+    var boards = [Board]()
+    weak var delegate: AddItemDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavigationBar()
-        configureBoard()
-        makeList()
+        configureBoards()
     }
     
     @IBAction func tappedAddButton(_ sender: Any) {
@@ -20,28 +21,14 @@ class ProjectManagerViewController: UIViewController {
         titleNavigationBar.topItem?.title = "Project Manager"
     }
     
-    private func configureBoard() {
-        let todoBoard = UITableView()
-        let doingBoard = UITableView()
-        let doneBoard = UITableView()
-        
-        boardManager.boards.append(todoBoard)
-        boardManager.boards.append(doingBoard)
-        boardManager.boards.append(doneBoard)
-    }
-    
-    private func makeList() {
-        itemManager.todoList.append(Item(title: "TODO LIST", description: "TODO LIST for project. please help me!!", progressStatus: ProgressStatus.todo.rawValue, dueDate: 1220301220))
-        
-        itemManager.doingList.append(Item(title: "DOING LIST", description: "DOING LIST for project. let's go party tonight!!", progressStatus: ProgressStatus.doing.rawValue, dueDate: 2220301220))
-        
-        itemManager.doneList.append(Item(title: "DONE LIST", description: "DONE LIST for project. It's over over over again!!", progressStatus: ProgressStatus.done.rawValue, dueDate: 3220301220))
+    private func configureBoards() {
+       boards = [Board(title: "TODO", items: [Item(title: "TODO LIST", description: "TODO LIST for project. please help me!!", progressStatus: ProgressStatus.todo.rawValue, dueDate: 1220301220), Item(title: "TODO LIST2", description: "TODO LIST for project. please help me!!", progressStatus: ProgressStatus.todo.rawValue, dueDate: 1220301220), Item(title: "TODO LIST3", description: "TODO LIST for project. please help me!!", progressStatus: ProgressStatus.todo.rawValue, dueDate: 1220301220)]),Board(title: "DOING", items: [Item(title: "TODO LIST", description: "TODO LIST for project. please help me!!", progressStatus: ProgressStatus.todo.rawValue, dueDate: 1220301220), Item(title: "DOING LIST2", description: "TODO LIST for project. please help me!!", progressStatus: ProgressStatus.todo.rawValue, dueDate: 1220301220), Item(title: "TODO LIST3", description: "DOING LIST for project. please help me!!", progressStatus: ProgressStatus.todo.rawValue, dueDate: 1220301220)]),Board(title: "DONE", items: [Item(title: "DONE LIST", description: "Done LIST for project. please help me!!", progressStatus: ProgressStatus.todo.rawValue, dueDate: 1220301220), Item(title: "DOING LIST2", description: "TODO LIST for project. please help me!!", progressStatus: ProgressStatus.todo.rawValue, dueDate: 1220301220), Item(title: "TODO LIST3", description: "DOING LIST for project. please help me!!", progressStatus: ProgressStatus.todo.rawValue, dueDate: 1220301220)])]
     }
 }
 
 extension ProjectManagerViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return boardManager.boards.count
+        return boards.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -49,8 +36,8 @@ extension ProjectManagerViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         
-        cell.boardTableView = boardManager.boards[indexPath.row]
-        cell.delegate = self
+        cell.configureBoard(with : boards[indexPath.item])
+//        self.delegate = cell
         return cell
     }
 }
@@ -64,61 +51,27 @@ extension ProjectManagerViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: collectionViewCellWidth, height: collectionViewCellHeight)
     }
 }
-
-extension ProjectManagerViewController: BoardTableViewCellDelegate {
-    func tableViewCell(_ boardTableViewCell: BoardTableViewCell, didSelectAt index: Int, tappedCollectionViewCell: SectionCollectionViewCell) {
-        switch tappedCollectionViewCell.boardTableView {
-        case boardManager.boards[0]:
-            updateItem(with: itemManager.todoList[index], in: boardTableViewCell, at: index, sectionCollectionViewCell: tappedCollectionViewCell)
-        case boardManager.boards[1]:
-            updateItem(with: itemManager.doingList[index], in: boardTableViewCell, at: index, sectionCollectionViewCell: tappedCollectionViewCell)
-        case boardManager.boards[2]:
-            updateItem(with: itemManager.doneList[index], in: boardTableViewCell, at: index, sectionCollectionViewCell: tappedCollectionViewCell)
-        default:
-            break
-        }
-    }
-}
 extension ProjectManagerViewController {
     private func createNewTodoItem() {
-        var newItem = itemManager.createItem("", "", dueDate: Int(Date().timeIntervalSince1970))
+        var newItem = boards[0].createItem("", "", dueDate: Int(Date().timeIntervalSince1970))
         let presentedSheetViewController = presentSheetViewController(with: newItem)
         
         presentedSheetViewController.updateItemHandler { (currentItem) in
             newItem = currentItem
-            itemManager.todoList.append(newItem)
+            self.delegate = self.sectionCollectionView.cellForItem(at: [0,0]) as? SectionCollectionViewCell
+            self.delegate?.addNewCell(newItem)
         }
     }
-    
-    private func updateItem(with item: Item, in boardTableViewCell: BoardTableViewCell, at index: Int, sectionCollectionViewCell: SectionCollectionViewCell) {
-        let presentedSheetViewController = presentSheetViewController(with: item)
-        
-        presentedSheetViewController.updateItemHandler { (currentItem) in
-            switch sectionCollectionViewCell.boardTableView {
-            case boardManager.boards[0]:
-                itemManager.updateTodoItem(at: index, with: currentItem)
-            case boardManager.boards[1]:
-                itemManager.updateDoingItem(at: index, with: currentItem)
-            case boardManager.boards[2]:
-                itemManager.updateDoneItem(at: index, with: currentItem)
-            default:
-                break
-            }
-            
-            boardTableViewCell.updateUI(with: currentItem)
-        }
-    }
-    
     private func presentSheetViewController(with item: Item) -> SheetViewController {
-        guard let sheetViewController = self.storyboard?.instantiateViewController(identifier: SheetViewController.identifier) as? SheetViewController else {
-            return SheetViewController()
-        }
-        
-        sheetViewController.modalPresentationStyle = .formSheet
-        sheetViewController.setItem(with: item)
-        sheetViewController.mode = Mode.new
-        self.present(sheetViewController, animated: true, completion: nil)
-        
-        return sheetViewController
-    }
+           guard let sheetViewController = self.storyboard?.instantiateViewController(identifier: SheetViewController.identifier) as? SheetViewController else {
+               return SheetViewController()
+           }
+           
+           sheetViewController.modalPresentationStyle = .formSheet
+           sheetViewController.setItem(with: item)
+           sheetViewController.mode = Mode.new
+           self.present(sheetViewController, animated: true, completion: nil)
+           
+           return sheetViewController
+       }
 }
