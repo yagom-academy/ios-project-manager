@@ -21,6 +21,7 @@ extension ListTableView {
             DispatchQueue.main.async {
                 ItemList.shared.removeItem(statusType: self.statusType, index: indexPath.row)
                 tableView.deleteRows(at: [indexPath], with: .fade)
+                self.reloadHeaderCellCountLabel()
             }
             return nil
         }
@@ -48,8 +49,9 @@ extension ListTableView {
 
               DispatchQueue.main.async {
                 ItemList.shared.insertItem(statusType: self.statusType, index: insertionIndex.row, item: todo)
-                  tableView.insertRows(at: [insertionIndex], with: .automatic)
-                  tableView.reloadData()
+                tableView.insertRows(at: [insertionIndex], with: .automatic)
+                tableView.reloadData()
+                self.reloadHeaderCellCountLabel()
               }
           }
         }

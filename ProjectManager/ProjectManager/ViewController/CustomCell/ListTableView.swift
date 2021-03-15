@@ -14,6 +14,7 @@ protocol ListTableViewDelegate: class {
 class ListTableView: UITableView {
     var statusType: ItemStatus
     weak var listTableViewDelegate: ListTableViewDelegate?
+    lazy var headerView = TableHeaderView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: 60))
 
     init(statusType: ItemStatus) {
         self.statusType = statusType
@@ -36,17 +37,21 @@ class ListTableView: UITableView {
         self.separatorStyle = .none
     }
     
-    func configureTableHeaderView() {
-        let headerView = TableHeaderView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: 60))
-        headerView.fillHeaderViewText(itemStatus: statusType)
+    private func configureTableHeaderView() {
+        headerView.titleLabel.text = statusType.title
+        headerView.cellCountLabel.text = String(ItemList.shared.countListItem(statusType: statusType))
         self.tableHeaderView = headerView
+    }
+    
+    func reloadHeaderCellCountLabel() {
+        headerView.cellCountLabel.text = String(ItemList.shared.countListItem(statusType: statusType))
     }
     
     @objc func reloadTableView(_ noti: Notification) {
         let status = noti.userInfo?["statusType"] as? ItemStatus
         if self.statusType == status {
             self.reloadData()
-            configureTableHeaderView()
+            reloadHeaderCellCountLabel()
         }
     }
 }

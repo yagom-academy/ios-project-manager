@@ -72,9 +72,4 @@ class TableHeaderView: UIView {
         self.layer.shadowRadius = 1
         self.layer.shadowOpacity = 1
     }
-    
-    func fillHeaderViewText(itemStatus: ItemStatus) {
-        titleLabel.text = itemStatus.title
-        cellCountLabel.text = String(ItemList.shared.countListItem(statusType: itemStatus))
-    }
 }
