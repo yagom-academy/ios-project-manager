@@ -9,6 +9,10 @@ import UIKit
 
 final class ThingTableHeaderView: UIView {
     
+    // MARK: - Property
+    
+    private let countLabelDiameter: CGFloat = 25
+    
     // MARK: - Outlet
     
     private let titleLabel = UILabel()
@@ -43,8 +47,8 @@ final class ThingTableHeaderView: UIView {
             titleLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
             
-            countLabel.widthAnchor.constraint(equalToConstant: 20),
-            countLabel.heightAnchor.constraint(equalToConstant: 20),
+            countLabel.widthAnchor.constraint(equalToConstant: countLabelDiameter),
+            countLabel.heightAnchor.constraint(equalToConstant: countLabelDiameter),
             countLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             countLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 5)
         ])
@@ -57,7 +61,7 @@ final class ThingTableHeaderView: UIView {
         countLabel.textColor = .white
         countLabel.textAlignment = .center
         countLabel.backgroundColor = .black
-        countLabel.layer.cornerRadius = 10
+        countLabel.layer.cornerRadius = countLabelDiameter/2
         countLabel.layer.masksToBounds = true
     }
     
