@@ -118,8 +118,8 @@
 				364820C425FB5FC5004ADF6D /* TableView */,
 				364820B525FA0B2B004ADF6D /* MainViewController.swift */,
 				4CAA8E1D25F91F6E00B9C0A7 /* DetailViewController.swift */,
-				364820A125F80C02004ADF6D /* ThingTableHeaderView.swift */,
 				364820D225FFD621004ADF6D /* MainTitleView.swift */,
+				364820A125F80C02004ADF6D /* ThingTableHeaderView.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";

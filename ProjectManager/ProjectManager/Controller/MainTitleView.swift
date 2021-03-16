@@ -7,24 +7,28 @@
 
 import UIKit
 
-class MainTitleView: UIView {
+final class MainTitleView: UIView {
     
-    // MARK: - Outlet
+    // MARK: - Property
     
-    private let titleLabel = UILabel()
-    private let connectionLabel = UILabel()
-    private let connectionLabelDiameter: CGFloat = 16
+    private let connectionLabelDiameter: CGFloat = 15
     var isConnected: Bool = false {
         didSet {
             changeConnectionLabelColor()
         }
     }
     
+    // MARK: - Outlet
+    
+    private let titleLabel = UILabel()
+    private let connectionLabel = UILabel()
+    
+    
     // MARK: - Init
     
-    init(title: String) {
+    init() {
         super.init(frame: .zero)
-        titleLabel.text = title
+        titleLabel.text = Strings.navigationTitle
         configureConstraints()
         setStyle()
     }
@@ -40,34 +44,34 @@ class MainTitleView: UIView {
     private func configureConstraints() {
         addSubview(titleLabel)
         addSubview(connectionLabel)
+        
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         connectionLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            titleLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             titleLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            titleLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: 10),
+            
             connectionLabel.widthAnchor.constraint(equalToConstant: connectionLabelDiameter),
             connectionLabel.heightAnchor.constraint(equalToConstant: connectionLabelDiameter),
             connectionLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            connectionLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 8)
+            connectionLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 5)
         ])
     }
     
     private func setStyle() {
         titleLabel.font = .preferredFont(forTextStyle: .headline)
-        connectionLabel.textAlignment = .center
+        connectionLabel.font = .systemFont(ofSize: 15)
         connectionLabel.backgroundColor = .red
         connectionLabel.layer.cornerRadius = connectionLabelDiameter/2
         connectionLabel.layer.masksToBounds = true
     }
     
     private func changeConnectionLabelColor() {
-        var color: UIColor
         if isConnected {
-            color = .systemGreen
+            connectionLabel.backgroundColor = .green
         } else {
-            color = .systemRed
+            connectionLabel.backgroundColor = .red
         }
-        connectionLabel.backgroundColor = color
     }
 }

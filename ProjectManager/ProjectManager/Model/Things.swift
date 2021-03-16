@@ -67,7 +67,7 @@ final class Things {
         }
         return nil
     }
-
+    
     func getThingListCount(_ tableViewType: TableViewType) -> Int {
         switch tableViewType {
         case .todo:
