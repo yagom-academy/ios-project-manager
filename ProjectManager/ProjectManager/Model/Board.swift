@@ -16,15 +16,15 @@ class Board {
         items.append(item)
     }
     
-    func readTodoItems() -> [Item] {
+    func readItems() -> [Item] {
         return items
     }
     
-    func updateTodoItem(at index: Int, with item: Item) {
+    func updateItem(at index: Int, with item: Item) {
        items[index].updateItem(item)
     }
 
-    func deleteTodoItem(at index: Int) {
+    func deleteItem(at index: Int) {
         items.remove(at: index)
     }
 }

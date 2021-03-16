@@ -53,7 +53,7 @@ extension SectionCollectionViewCell: UITableViewDelegate {
                 return
             }
             
-            board.deleteTodoItem(at: indexPath.row)
+            board.deleteItem(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
             configureBoard(with: board)
         }

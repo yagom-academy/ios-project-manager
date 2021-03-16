@@ -96,7 +96,7 @@ extension ProjectManagerViewController {
         let presentedSheetViewController = presentSheetViewController(with: item, mode: Mode.uneditable)
         
         presentedSheetViewController.updateItemHandler { (currentItem) in
-            board.updateTodoItem(at: index, with: currentItem)
+            board.updateItem(at: index, with: currentItem)
             boardTableViewCell.updateUI(with: currentItem)
         }
     }
