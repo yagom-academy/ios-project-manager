@@ -52,8 +52,11 @@ final class MainViewController: UIViewController {
         navigationController?.setToolbarHidden(false, animated: false)
     }
     
-    @objc private func touchUpHistoryButton() {
-        // TODO: history popOver
+    @objc private func touchUpHistoryButton(_ sender: AnyObject) {
+        let popOver = HistoryTableViewController()
+        popOver.modalPresentationStyle = .popover
+        popOver.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
+        present(popOver, animated: true, completion: nil)
     }
     
     // MARK: - DetailView
