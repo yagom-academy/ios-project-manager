@@ -31,6 +31,10 @@ class SectionCollectionViewCell: UICollectionViewCell {
         self.board = board
         sectionTitleLabel.text = "\(board.title) "
         boardItemCountLabel.text = "\(board.items.count)"
+        boardItemCountLabel.textColor = .white
+        boardItemCountLabel.layer.borderColor = UIColor.black.cgColor
+        boardItemCountLabel.layer.borderWidth = 1
+        boardItemCountLabel.layer.cornerRadius = 10
     }
 }
 extension SectionCollectionViewCell: UITableViewDelegate {
