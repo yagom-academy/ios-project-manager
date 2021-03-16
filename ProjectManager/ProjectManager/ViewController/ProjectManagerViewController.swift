@@ -71,6 +71,7 @@ extension ProjectManagerViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: collectionViewCellWidth, height: collectionViewCellHeight)
     }
 }
+
 extension ProjectManagerViewController: BoardTableViewCellDelegate {
     func tableViewCell(_ boardTableViewCell: BoardTableViewCell, didSelectAt index: Int, on board: Board?) {
         if let board = board {
@@ -78,6 +79,7 @@ extension ProjectManagerViewController: BoardTableViewCellDelegate {
         }
     }
 }
+
 extension ProjectManagerViewController {
     private func createNewTodoItem() {
         var newItem = todoBoard.createItem()
@@ -89,6 +91,7 @@ extension ProjectManagerViewController {
             self.delegate?.addNewCell(with: newItem)
         }
     }
+    
     private func updateItem(with item: Item, in boardTableViewCell: BoardTableViewCell, at index: Int, on board: Board) {
         let presentedSheetViewController = presentSheetViewController(with: item, mode: Mode.uneditable)
         
@@ -97,6 +100,7 @@ extension ProjectManagerViewController {
             boardTableViewCell.updateUI(with: currentItem)
         }
     }
+    
     private func presentSheetViewController(with item: Item, mode: Mode) -> SheetViewController {
         guard let sheetViewController = self.storyboard?.instantiateViewController(identifier: SheetViewController.identifier) as? SheetViewController else {
             return SheetViewController()

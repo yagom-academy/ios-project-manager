@@ -37,6 +37,7 @@ class SectionCollectionViewCell: UICollectionViewCell {
         boardItemCountLabel.layer.cornerRadius = 10
     }
 }
+
 extension SectionCollectionViewCell: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let selectedCell = tableView.cellForRow(at: indexPath) as? BoardTableViewCell else {
@@ -58,6 +59,7 @@ extension SectionCollectionViewCell: UITableViewDelegate {
         }
     }
 }
+
 extension SectionCollectionViewCell: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: BoardTableViewCell.identifier) as? BoardTableViewCell, let item = board?.items[indexPath.row] else {
