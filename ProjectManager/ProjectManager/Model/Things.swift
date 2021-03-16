@@ -9,27 +9,28 @@ import UIKit
 import MobileCoreServices
 
 final class Things {
-    private var todoList: [Thing] = []
-    private var doingList: [Thing] = []
-    private var doneList: [Thing] = []
+    var todoList: [Thing] = [] // TODO: 접근제한자 Private으로 바꾸기.
+    var doingList: [Thing] = []
+    var doneList: [Thing] = []
     static let shared = Things()
     private init() {}
     
-    func createData(thing: Thing) {
-        todoList.insert(thing, at: 0)
-        NotificationCenter.default.post(name: Notification.Name(TableViewType.todo.rawValue), object: nil)
-    }
-    
-    func updateData(thing: Thing, tableViewType: TableViewType, index: Int) {
+    func getThing(at index: Int, _ tableViewType: TableViewType) -> Thing? {
         switch tableViewType {
         case .todo:
-            todoList[index] = thing
+            if index < Things.shared.todoList.count {
+                return Things.shared.todoList[index]
+            }
         case .doing:
-            doingList[index] = thing
+            if index < Things.shared.doingList.count {
+                return Things.shared.doingList[index]
+            }
         case .done:
-            doneList[index] = thing
+            if index < Things.shared.doneList.count {
+                return Things.shared.doneList[index]
+            }
         }
-        NotificationCenter.default.post(name: Notification.Name(tableViewType.rawValue), object: nil)
+        return nil
     }
     
     func deleteThing(at index: Int, _ tableViewType: TableViewType, _ completionHandler: @escaping () -> Void) {
@@ -48,24 +49,6 @@ final class Things {
             }
         }
         completionHandler()
-    }
-    
-    func getThing(at index: Int, _ tableViewType: TableViewType) -> Thing? {
-        switch tableViewType {
-        case .todo:
-            if index < Things.shared.todoList.count {
-                return Things.shared.todoList[index]
-            }
-        case .doing:
-            if index < Things.shared.doingList.count {
-                return Things.shared.doingList[index]
-            }
-        case .done:
-            if index < Things.shared.doneList.count {
-                return Things.shared.doneList[index]
-            }
-        }
-        return nil
     }
     
     func getThingListCount(_ tableViewType: TableViewType) -> Int {
@@ -94,5 +77,22 @@ final class Things {
                 Things.shared.doneList.insert(thing, at: index)
             }
         }
+    }
+    
+    func createData(thing: Thing) {
+        todoList.insert(thing, at: 0)
+        NotificationCenter.default.post(name: Notification.Name(TableViewType.todo.rawValue), object: nil)
+    }
+    
+    func updateData(thing: Thing, tableViewType: TableViewType, index: Int) {
+        switch tableViewType {
+        case .todo:
+            todoList[index] = thing
+        case .doing:
+            doingList[index] = thing
+        case .done:
+            doneList[index] = thing
+        }
+        NotificationCenter.default.post(name: Notification.Name(tableViewType.rawValue), object: nil)
     }
 }

@@ -14,7 +14,7 @@ final class DetailViewController: UIViewController {
     var isNew: Bool = false
     var index: Int? = nil
     var thing: Thing? = nil
-    var tableViewType: TableViewType? = nil
+    var tableView: ThingTableView? = nil
     
     // MARK: - Outlet
     
@@ -100,6 +100,7 @@ final class DetailViewController: UIViewController {
     // MARK: - Navigation bar
     
     private func configureNavigationBar() {
+        title = tableView?.title
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(touchUpDoneButton))
         if isNew {
             toggleEditMode()
@@ -116,9 +117,9 @@ final class DetailViewController: UIViewController {
         let thing = Thing(title: title, description: body, dateNumber: date)
         
         if isNew {
-            Things.shared.createData(thing: thing)
-        } else if let index = index, let tableViewType = tableViewType {
-            Things.shared.updateData(thing: thing, tableViewType: tableViewType, index: index)
+            tableView?.createThing(thing)
+        } else if let index = index {
+            tableView?.updateThing(thing, index: index)
         }
         dismiss(animated: true, completion: nil)
     }

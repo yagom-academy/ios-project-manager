@@ -7,22 +7,16 @@
 
 import UIKit
 
-protocol Draggable: UITableView {
+protocol Draggable: ThingTableView {
     func drag(for indexPath: IndexPath) -> [UIDragItem]
 }
 
-extension Draggable where Self: ThingTableView {
+extension Draggable {
     func drag(for indexPath: IndexPath) -> [UIDragItem] {
-        let index = indexPath.row
-        let thing = Things.shared.getThing(at: index, self.tableViewType)
+        let thing = list[indexPath.row]
         let data = try? JSONEncoder().encode(thing)
-        
         let itemProvider = NSItemProvider.makeJSONItemProvider(data: data) {
-            Things.shared.deleteThing(at: index, self.tableViewType) {
-                DispatchQueue.main.async {
-                    self.deleteRows(at: [indexPath], with: .fade)
-                }
-            }
+            self.deleteThing(at: indexPath)
         }
         let dragItem = UIDragItem(itemProvider: itemProvider)
         return [dragItem]
