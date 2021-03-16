@@ -1,16 +1,17 @@
 //
-//  TitleView.swift
+//  MainTitleView.swift
 //  ProjectManager
 //
-//  Created by 리나 on 2021/03/16.
+//  Created by 임성민 on 2021/03/16.
 //
 
 import UIKit
 
-final class TitleView: UIView {
+final class MainTitleView: UIView {
     
     // MARK: - Property
     
+    private let connectionLabelDiameter: CGFloat = 15
     var isConnected: Bool = false {
         didSet {
             changeConnectionLabelColor()
@@ -20,7 +21,8 @@ final class TitleView: UIView {
     // MARK: - Outlet
     
     private let titleLabel = UILabel()
-    private let countLabel = UILabel()
+    private let connectionLabel = UILabel()
+    
     
     // MARK: - Init
     
@@ -41,35 +43,35 @@ final class TitleView: UIView {
     
     private func configureConstraints() {
         addSubview(titleLabel)
-        addSubview(countLabel)
+        addSubview(connectionLabel)
         
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        countLabel.translatesAutoresizingMaskIntoConstraints = false
+        connectionLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             titleLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             titleLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: 10),
             
-            countLabel.widthAnchor.constraint(equalToConstant: 20),
-            countLabel.heightAnchor.constraint(equalToConstant: 20),
-            countLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            countLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 5)
+            connectionLabel.widthAnchor.constraint(equalToConstant: connectionLabelDiameter),
+            connectionLabel.heightAnchor.constraint(equalToConstant: connectionLabelDiameter),
+            connectionLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            connectionLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 5)
         ])
     }
     
     private func setStyle() {
         titleLabel.font = .preferredFont(forTextStyle: .headline)
-        countLabel.font = .systemFont(ofSize: 15)
-        countLabel.backgroundColor = .red
-        countLabel.layer.cornerRadius = 10
-        countLabel.layer.masksToBounds = true
+        connectionLabel.font = .systemFont(ofSize: 15)
+        connectionLabel.backgroundColor = .red
+        connectionLabel.layer.cornerRadius = connectionLabelDiameter/2
+        connectionLabel.layer.masksToBounds = true
     }
     
     private func changeConnectionLabelColor() {
         if isConnected {
-            countLabel.backgroundColor = .green
+            connectionLabel.backgroundColor = .green
         } else {
-            countLabel.backgroundColor = .red
+            connectionLabel.backgroundColor = .red
         }
     }
 }

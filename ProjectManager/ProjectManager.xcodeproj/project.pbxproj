@@ -14,9 +14,9 @@
 		364820C625FB5FE6004ADF6D /* ThingTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364820C525FB5FE6004ADF6D /* ThingTableView.swift */; };
 		364820C925FB90C8004ADF6D /* Draggable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364820C825FB90C8004ADF6D /* Draggable.swift */; };
 		364820CC25FBAB53004ADF6D /* Droppable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364820CB25FBAB53004ADF6D /* Droppable.swift */; };
+		364820D325FFD621004ADF6D /* MainTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364820D225FFD621004ADF6D /* MainTitleView.swift */; };
+		364820D725FFE403004ADF6D /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 364820D625FFE403004ADF6D /* Alamofire */; };
 		4C06ED5925FB0D8800F92978 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C06ED5825FB0D8800F92978 /* Reusable.swift */; };
-		4C5988BD2600440A0073BDF9 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 4C5988BC2600440A0073BDF9 /* Alamofire */; };
-		4C5988C42600458F0073BDF9 /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5988C32600458F0073BDF9 /* TitleView.swift */; };
 		4CAA8E0525F90EDD00B9C0A7 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAA8E0425F90EDD00B9C0A7 /* Strings.swift */; };
 		4CAA8E0925F90F3500B9C0A7 /* ThingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAA8E0825F90F3500B9C0A7 /* ThingTableViewCell.swift */; };
 		4CAA8E1025F9132F00B9C0A7 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAA8E0F25F9132F00B9C0A7 /* Extension.swift */; };
@@ -36,6 +36,7 @@
 		364820C525FB5FE6004ADF6D /* ThingTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThingTableView.swift; sourceTree = "<group>"; };
 		364820C825FB90C8004ADF6D /* Draggable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Draggable.swift; sourceTree = "<group>"; };
 		364820CB25FBAB53004ADF6D /* Droppable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Droppable.swift; sourceTree = "<group>"; };
+		364820D225FFD621004ADF6D /* MainTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTitleView.swift; sourceTree = "<group>"; };
 		4C06ED5825FB0D8800F92978 /* Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
 		4C5988C32600458F0073BDF9 /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
 		4CAA8E0425F90EDD00B9C0A7 /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
@@ -56,7 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4C5988BD2600440A0073BDF9 /* Alamofire in Frameworks */,
+				364820D725FFE403004ADF6D /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -118,7 +119,7 @@
 				364820C425FB5FC5004ADF6D /* TableView */,
 				364820B525FA0B2B004ADF6D /* MainViewController.swift */,
 				4CAA8E1D25F91F6E00B9C0A7 /* DetailViewController.swift */,
-				4C5988C32600458F0073BDF9 /* TitleView.swift */,
+				364820D225FFD621004ADF6D /* MainTitleView.swift */,
 				364820A125F80C02004ADF6D /* ThingTableHeaderView.swift */,
 			);
 			path = Controller;
@@ -137,6 +138,7 @@
 			isa = PBXGroup;
 			children = (
 				C7431F0425F51E1D0094C4CF /* ProjectManager */,
+				4CD2FF1726004C5D0062AB18 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -179,7 +181,7 @@
 			);
 			name = ProjectManager;
 			packageProductDependencies = (
-				4C5988BC2600440A0073BDF9 /* Alamofire */,
+				364820D625FFE403004ADF6D /* Alamofire */,
 			);
 			productName = ProjectManager;
 			productReference = C7431F0225F51E1D0094C4CF /* ProjectManager.app */;
@@ -209,7 +211,7 @@
 			);
 			mainGroup = C7431EF925F51E1D0094C4CF;
 			packageReferences = (
-				4C5988BB2600440A0073BDF9 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				364820D525FFE403004ADF6D /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = C7431F0325F51E1D0094C4CF /* Products */;
 			projectDirPath = "";
@@ -237,6 +239,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				364820D325FFD621004ADF6D /* MainTitleView.swift in Sources */,
 				4C06ED5925FB0D8800F92978 /* Reusable.swift in Sources */,
 				4CAA8E1E25F91F6E00B9C0A7 /* DetailViewController.swift in Sources */,
 				4CAA8E0925F90F3500B9C0A7 /* ThingTableViewCell.swift in Sources */,
@@ -448,9 +451,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		4C5988BB2600440A0073BDF9 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+		364820D525FFE403004ADF6D /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 5.4.1;
@@ -459,9 +462,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		4C5988BC2600440A0073BDF9 /* Alamofire */ = {
+		364820D625FFE403004ADF6D /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4C5988BB2600440A0073BDF9 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			package = 364820D525FFE403004ADF6D /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
 		};
 /* End XCSwiftPackageProductDependency section */
