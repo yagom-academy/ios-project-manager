@@ -11,22 +11,20 @@ final class ThingTableViewCell: UITableViewCell, Reusable {
     
     // MARK: - Outlet
     
-    private let titleLabel: UILabel = UILabel()
-    private let descriptionLabel: UILabel = UILabel()
-    private let dateLabel: UILabel = UILabel()
+    private let titleLabel = Label(textSize: .title3)
+    private let descriptionLabel = Label(textColor: .gray, numberOfLines: 3)
+    private let dateLabel = Label(textSize: .caption1)
     
     // MARK: - init
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configureConstraints()
-        configureLabel()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         configureConstraints()
-        configureLabel()
     }
     
     override func prepareForReuse() {
@@ -38,12 +36,6 @@ final class ThingTableViewCell: UITableViewCell, Reusable {
     }
     
     // MARK: - UI
-    
-    private func configureLabel() {
-        titleLabel.configure(textSize: .title3)
-        descriptionLabel.configure(textColor: .gray, numberOfLines: 3)
-        dateLabel.configure(textSize: .caption1)
-    }
     
     private func configureConstraints() {
         let spacingView = UIView()

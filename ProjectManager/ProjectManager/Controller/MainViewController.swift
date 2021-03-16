@@ -10,9 +10,9 @@ final class MainViewController: UIViewController {
     
     // MARK: - Outlet
     
-    private lazy var todoTableView = ThingTableView(tableViewType: .todo, mainViewController: self)
-    private lazy var doingTableView = ThingTableView(tableViewType: .doing, mainViewController: self)
-    private lazy var doneTableView = ThingTableView(tableViewType: .done, mainViewController: self)
+    private lazy var todoTableView = makeTableView(type: .todo)
+    private lazy var doingTableView = makeTableView(type: .doing)
+    private lazy var doneTableView = makeTableView(type: .done)
     
     // MARK: - Life Cycle
     
@@ -20,10 +20,19 @@ final class MainViewController: UIViewController {
         super.viewDidLoad()
         configureNavigationBar()
         configureConstratins()
-        registerNotificationCentor()
     }
     
     // MARK: - UI
+    
+    private func makeTableView(type: TableViewType) -> ThingTableView {
+        let tableView = ThingTableView(title: type.rawValue)
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.dragDelegate = self
+        tableView.dropDelegate = self
+        tableView.register(cellType: ThingTableViewCell.self)
+        return tableView
+    }
     
     private func configureConstratins() {
         let safeArea = view.safeAreaLayoutGuide
@@ -59,36 +68,17 @@ final class MainViewController: UIViewController {
     // MARK: - DetailView
     
     @IBAction private func touchUpAddButton() {
-        showDetailView(isNew: true)
+        showDetailView(isNew: true, tableView: todoTableView)
     }
     
-    private func showDetailView(isNew: Bool = false, tableViewType: TableViewType = .todo, index: Int? = nil, thing: Thing? = nil) {
+    private func showDetailView(isNew: Bool = false, index: Int? = nil, thing: Thing? = nil, tableView: ThingTableView? = nil) {
         let detailView = DetailViewController()
         let navigationController = UINavigationController(rootViewController: detailView)
-        detailView.title = tableViewType.rawValue
         detailView.isNew = isNew
         detailView.index = index
         detailView.thing = thing
-        detailView.tableViewType = tableViewType
+        detailView.tableView = tableView
         present(navigationController, animated: true, completion: nil)
-    }
-    
-    private func registerNotificationCentor() {
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadTodoTableView), name: Notification.Name(TableViewType.todo.rawValue), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadDoingTableView), name: Notification.Name(TableViewType.doing.rawValue), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadDoneTableView), name: Notification.Name(TableViewType.done.rawValue), object: nil)
-    }
-    
-    @objc private func reloadTodoTableView() {
-        todoTableView.reloadData()
-    }
-    
-    @objc private func reloadDoingTableView() {
-        doingTableView.reloadData()
-    }
-    
-    @objc private func reloadDoneTableView() {
-        doneTableView.reloadData()
     }
 }
 
@@ -96,12 +86,11 @@ final class MainViewController: UIViewController {
 
 extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let tableViewType = (tableView as? ThingTableView)?.tableViewType else {
+        guard let thingTableView = tableView as? ThingTableView else {
             return
         }
-        let index = indexPath.row
-        let thing = Things.shared.getThing(at: index, tableViewType)
-        showDetailView(tableViewType: tableViewType, index: index, thing: thing)
+        let thing = thingTableView.list[indexPath.row]
+        showDetailView(index: indexPath.row, thing: thing, tableView: thingTableView)
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
@@ -111,15 +100,10 @@ extension MainViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            guard let tableViewType = (tableView as? ThingTableView)?.tableViewType else {
+            guard let thingTableView = tableView as? ThingTableView else {
                 return
             }
-            let index = indexPath.row
-            Things.shared.deleteThing(at: index, tableViewType) {
-                DispatchQueue.main.async {
-                    tableView.deleteRows(at: [indexPath], with: .left)
-                }
-            }
+            thingTableView.deleteThing(at: indexPath)
         }
     }
 }
@@ -131,19 +115,16 @@ extension MainViewController: UITableViewDataSource {
         guard let thingTableView = tableView as? ThingTableView else {
             return 0
         }
-        let tableViewType = thingTableView.tableViewType
-        let thingsCount = Things.shared.getThingListCount(tableViewType)
-        thingTableView.setCount(thingsCount)
-        return thingsCount
+        thingTableView.setCount(thingTableView.list.count)
+        return thingTableView.list.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(for: indexPath, cellType: ThingTableViewCell.self)
-        let index = indexPath.row
-        guard let tableViewType = (tableView as? ThingTableView)?.tableViewType,
-              let thing = Things.shared.getThing(at: index, tableViewType) else {
-            return cell
+        guard let thingTableView = tableView as? ThingTableView else {
+            return UITableViewCell()
         }
+        let cell = thingTableView.dequeueReusableCell(for: indexPath, cellType: ThingTableViewCell.self)
+        let thing = thingTableView.list[indexPath.row]
         cell.configureCell(thing)
         return cell
     }
@@ -153,7 +134,7 @@ extension MainViewController: UITableViewDataSource {
 
 extension MainViewController: UITableViewDragDelegate, UITableViewDropDelegate {
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
-        guard let thingTableView = tableView as? ThingTableView else {
+        guard let thingTableView = tableView as? Draggable else {
             return [UIDragItem(itemProvider: NSItemProvider())]
         }
         return thingTableView.drag(for: indexPath)
@@ -172,7 +153,7 @@ extension MainViewController: UITableViewDragDelegate, UITableViewDropDelegate {
             indexPath = IndexPath(row: row, section: section)
         }
         
-        guard let thingTableView = tableView as? ThingTableView else {
+        guard let thingTableView = tableView as? Droppable else {
             return
         }
         thingTableView.drop(coordinator.items, to: indexPath)
