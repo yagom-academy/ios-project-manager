@@ -23,6 +23,19 @@ extension DateFormatter {
         let dateString = dateFormatter.string(from: date)
         return dateString
     }
+    
+    static func convertToUserLocaleStringWithTime(date: Date) -> String {
+        let dateFormatter = self.init()
+        var locale = Locale.autoupdatingCurrent.identifier
+        if let collatorLocale = Locale.autoupdatingCurrent.collatorIdentifier {
+            locale = collatorLocale
+        }
+        dateFormatter.dateStyle = .long
+        dateFormatter.timeStyle = .medium
+        dateFormatter.locale = Locale(identifier: locale)
+        let dateString = dateFormatter.string(from: date)
+        return dateString
+    }
 }
 
 // MARK: - String

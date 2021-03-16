@@ -19,7 +19,7 @@ struct HistoryManager {
     
     static func insertAddHistory(title: String) {
         let content = "Add '\(title)'"
-        let dateString = DateFormatter.convertToUserLocaleString(date: Date())
+        let dateString = DateFormatter.convertToUserLocaleStringWithTime(date: Date())
         let history: History = (content, dateString)
         list.insert(history, at: 0)
     }
