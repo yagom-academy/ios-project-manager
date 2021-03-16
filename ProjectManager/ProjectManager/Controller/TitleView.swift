@@ -1,13 +1,21 @@
 //
-//  ThingTableHeaderView.swift
+//  TitleView.swift
 //  ProjectManager
 //
-//  Created by 임성민 on 2021/03/10.
+//  Created by 리나 on 2021/03/16.
 //
 
 import UIKit
 
-final class ThingTableHeaderView: UIView {
+final class TitleView: UIView {
+    
+    // MARK: - Property
+    
+    var isConnected: Bool = false {
+        didSet {
+            changeConnectionLabelColor()
+        }
+    }
     
     // MARK: - Outlet
     
@@ -16,9 +24,9 @@ final class ThingTableHeaderView: UIView {
     
     // MARK: - Init
     
-    init(height: Int, tableViewType: TableViewType) {
-        super.init(frame: CGRect(x: 0, y: 0, width: 0, height: height))
-        titleLabel.text = tableViewType.rawValue
+    init() {
+        super.init(frame: .zero)
+        titleLabel.text = Strings.navigationTitle
         configureConstraints()
         setStyle()
     }
@@ -40,7 +48,7 @@ final class ThingTableHeaderView: UIView {
         
         NSLayoutConstraint.activate([
             titleLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
+            titleLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: 10),
             
             countLabel.widthAnchor.constraint(equalToConstant: 20),
             countLabel.heightAnchor.constraint(equalToConstant: 20),
@@ -50,17 +58,18 @@ final class ThingTableHeaderView: UIView {
     }
     
     private func setStyle() {
-        backgroundColor = .systemGray5
-        titleLabel.font = .preferredFont(forTextStyle: .title2)
+        titleLabel.font = .preferredFont(forTextStyle: .headline)
         countLabel.font = .systemFont(ofSize: 15)
-        countLabel.textColor = .white
-        countLabel.textAlignment = .center
-        countLabel.backgroundColor = .black
+        countLabel.backgroundColor = .red
         countLabel.layer.cornerRadius = 10
         countLabel.layer.masksToBounds = true
     }
     
-    func setCount(_ count: Int) {
-        countLabel.text = String(count)
+    private func changeConnectionLabelColor() {
+        if isConnected {
+            countLabel.backgroundColor = .green
+        } else {
+            countLabel.backgroundColor = .red
+        }
     }
 }
