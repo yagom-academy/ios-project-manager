@@ -33,7 +33,7 @@ class ProjectManagerViewController: UIViewController {
         titleNavigationBar.topItem?.title = "Project Manager"
     }
     
-    private func addBoardItems() {
+    func addBoardItems() {
         todoBoard.items.append(Item(title: "TODO LIST", description: "TODO LIST for project. please help me!!", progressStatus: ProgressStatus.todo.rawValue, dueDate: 1220301220))
         todoBoard.items.append(Item(title: "TODO LIST2", description: "TODO LIST for project. please help me!!", progressStatus: ProgressStatus.todo.rawValue, dueDate: 1220301220))
         todoBoard.items.append(Item(title: "TODO LIST3", description: "TODO LIST for project. please help me!!", progressStatus: ProgressStatus.todo.rawValue, dueDate: 1220301220))

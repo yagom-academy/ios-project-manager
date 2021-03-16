@@ -12,6 +12,10 @@ class SectionCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var sectionTitleLabel: UILabel!
     @IBOutlet weak var boardItemCountLabel: UILabel!
     
+    let pj = ProjectManagerViewController()
+    var rowCount = UserDefaults.standard
+    var boardCount = UserDefaults.standard
+    
     weak var delegate: BoardTableViewCellDelegate?
     var board: Board?
     
@@ -20,6 +24,8 @@ class SectionCollectionViewCell: UICollectionViewCell {
         boardTableView.dragInteractionEnabled = true
         boardTableView.dragDelegate = self
         boardTableView.dropDelegate = self
+        
+        pj.addBoardItems()
     }
     
     private func registerXib(){
@@ -94,75 +100,66 @@ extension SectionCollectionViewCell: AddItemDelegate {
 
 extension SectionCollectionViewCell: UITableViewDragDelegate {
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
-        guard let board = board, let stringData = board.items[indexPath.row].title.data(using: .utf8) else {
-            return []
+        let string = board?.title
+        guard let data = string!.data(using: .utf8) else { return [] }
+        let itemProvider = NSItemProvider(item: data as NSData, typeIdentifier: kUTTypePlainText as String)
+        
+        let indexRow = indexPath.row
+        rowCount.setValue(indexRow, forKey: "indexCount")
+        
+        switch self.board?.title {
+        case ProgressStatus.todo.rawValue:
+            boardCount.setValue(0, forKey: "boardCount")
+        case ProgressStatus.doing.rawValue:
+            boardCount.setValue(1, forKey: "boardCount")
+        case ProgressStatus.done.rawValue:
+            boardCount.setValue(2, forKey: "boardCount")
+        default:
+            break
         }
-
-        let itemProvider = NSItemProvider(item: stringData as NSData, typeIdentifier: kUTTypePlainText as String)
-        let dragItem = UIDragItem(itemProvider: itemProvider)
-        session.localContext = (board, indexPath, tableView)
-
-        return [dragItem]
+        
+        self.board?.items.remove(at: indexRow)
+        tableView.deleteRows(at: [indexPath], with: .automatic)
+        configureBoard(with: self.board!)
+        
+        return [UIDragItem(itemProvider: itemProvider)]
     }
 }
 
 extension SectionCollectionViewCell: UITableViewDropDelegate {
     func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
-        if coordinator.session.hasItemsConforming(toTypeIdentifiers: [kUTTypePlainText as String]) {
-            coordinator.session.loadObjects(ofClass: NSString.self) { (items) in
-                guard let string = items.first as? String else {
-                    return
-                }
-                
-                switch (coordinator.items.first?.sourceIndexPath, coordinator.destinationIndexPath) {
-                case (.some(let sourceIndexPath), .some(let destinationIndexPath)):
-                    // Same Table View
-                    let updatedIndexPaths: [IndexPath]
-                    if sourceIndexPath.row < destinationIndexPath.row {
-                        print("1gogo")
-                        updatedIndexPaths =  (sourceIndexPath.row...destinationIndexPath.row).map { IndexPath(row: $0, section: 0)
-                        }
-                        
-                    } else if sourceIndexPath.row > destinationIndexPath.row {
-                        print("2gogo")
-                        updatedIndexPaths =  (destinationIndexPath.row...sourceIndexPath.row).map { IndexPath(row: $0, section: 0)
-                        }
-                    } else {
-                        updatedIndexPaths = []
-                        print("3gogo")
-                    }
-                    tableView.beginUpdates()
-                    break
-                    
-                case (nil, .some(let destinationIndexPath)):
-                    // Move data from a table to another table
-                    self.removeSourceTableData(localContext: coordinator.session.localDragSession?.localContext)
-                    break
-                    
-                    
-                case (nil, nil):
-                    // Insert data from a table to another table
-                    self.removeSourceTableData(localContext: coordinator.session.localDragSession?.localContext)
-                    break
-                    
-                default: break
-                    
-                }
-            }
+        let destinationIndexPath: IndexPath
+        
+        if let indexPath = coordinator.destinationIndexPath {
+            destinationIndexPath = indexPath
+        } else {
+            let section = tableView.numberOfSections - 1
+            let row = tableView.numberOfRows(inSection: section)
+            destinationIndexPath = IndexPath(row: row, section: section)
         }
-    }
-    
-    func removeSourceTableData(localContext: Any?) {
-        if let (dataSource, sourceIndexPath, tableView) = localContext as? (Board, IndexPath, UITableView) {
-            tableView.beginUpdates()
-            dataSource.items.remove(at: sourceIndexPath.row)
-            tableView.deleteRows(at: [sourceIndexPath], with: .automatic)
-            tableView.endUpdates()
+        
+        coordinator.session.loadObjects(ofClass: NSString.self) { [self] items in
+            guard let strings = items as? [String] else { return }
+
+            var indexPaths = [IndexPath]()
+
+            for index in 0..<strings.count {
+                let indexPath = IndexPath(row: destinationIndexPath.row + index, section: destinationIndexPath.section)
+                
+                let count = self.rowCount.integer(forKey: "indexCount")
+                let boardNumber = self.boardCount.integer(forKey: "boardCount")
+                
+                self.board?.items.insert(pj.boards[boardNumber].items[count], at: indexPath.row)
+                
+                indexPaths.append(indexPath)
+            }
+            tableView.insertRows(at: indexPaths, with: .automatic)
+            configureBoard(with: self.board!)
         }
     }
     
     func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
         return UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
     }
-    
 }
+
