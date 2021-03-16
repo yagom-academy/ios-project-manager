@@ -1,4 +1,5 @@
 import UIKit
+import MobileCoreServices
 
 protocol BoardTableViewCellDelegate: AnyObject {
     func tableViewCell(_ boardTableViewCell: BoardTableViewCell, didSelectAt index: Int, on board: Board?)
@@ -92,5 +93,28 @@ extension ProjectManagerViewController {
         self.present(sheetViewController, animated: true, completion: nil)
         
         return sheetViewController
+    }
+}
+
+extension ProjectManagerViewController: UIDropInteractionDelegate {
+    func dropInteraction(_ interaction: UIDropInteraction, sessionDidUpdate session: UIDropSession) -> UIDropProposal {
+        return UIDropProposal(operation: .move)
+    }
+    
+    func dropInteraction(_ interaction: UIDropInteraction, performDrop session: UIDropSession) {
+        if session.hasItemsConforming(toTypeIdentifiers: [kUTTypePlainText as String]) {
+            session.loadObjects(ofClass: NSString.self) { (items) in
+                guard let _ = items.first as? String else {
+                    return
+                }
+                
+                if let (dataSource, sourceIndexPath, tableView) = session.localDragSession?.localContext as? (Board, IndexPath, UITableView) {
+                    tableView.beginUpdates()
+                    dataSource.items.remove(at: sourceIndexPath.row)
+                    tableView.deleteRows(at: [sourceIndexPath], with: .automatic)
+                    tableView.endUpdates()
+                }
+            }
+        }
     }
 }
