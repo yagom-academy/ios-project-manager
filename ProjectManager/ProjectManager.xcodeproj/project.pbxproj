@@ -16,6 +16,7 @@
 		364820E4260142D3004ADF6D /* ThingTableViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364820E3260142D3004ADF6D /* ThingTableViewProtocol.swift */; };
 		364820E7260143AF004ADF6D /* TodoTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364820E6260143AF004ADF6D /* TodoTableView.swift */; };
 		364820EB2601453F004ADF6D /* DoingTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364820EA2601453F004ADF6D /* DoingTableView.swift */; };
+		364820EE260145B5004ADF6D /* DoneTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364820ED260145B5004ADF6D /* DoneTableView.swift */; };
 		4C06ED5925FB0D8800F92978 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C06ED5825FB0D8800F92978 /* Reusable.swift */; };
 		4C5988A625FFA22D0073BDF9 /* Subclass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5988A525FFA22D0073BDF9 /* Subclass.swift */; };
 		4CAA8E0525F90EDD00B9C0A7 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAA8E0425F90EDD00B9C0A7 /* Strings.swift */; };
@@ -39,6 +40,7 @@
 		364820E3260142D3004ADF6D /* ThingTableViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThingTableViewProtocol.swift; sourceTree = "<group>"; };
 		364820E6260143AF004ADF6D /* TodoTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTableView.swift; sourceTree = "<group>"; };
 		364820EA2601453F004ADF6D /* DoingTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoingTableView.swift; sourceTree = "<group>"; };
+		364820ED260145B5004ADF6D /* DoneTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneTableView.swift; sourceTree = "<group>"; };
 		4C06ED5825FB0D8800F92978 /* Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
 		4C5988A525FFA22D0073BDF9 /* Subclass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Subclass.swift; sourceTree = "<group>"; };
 		4CAA8E0425F90EDD00B9C0A7 /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
@@ -88,6 +90,7 @@
 				364820E3260142D3004ADF6D /* ThingTableViewProtocol.swift */,
 				364820E6260143AF004ADF6D /* TodoTableView.swift */,
 				364820EA2601453F004ADF6D /* DoingTableView.swift */,
+				364820ED260145B5004ADF6D /* DoneTableView.swift */,
 			);
 			path = TableView;
 			sourceTree = "<group>";
@@ -249,6 +252,7 @@
 				364820C925FB90C8004ADF6D /* Draggable.swift in Sources */,
 				3648209125F7339F004ADF6D /* Thing.swift in Sources */,
 				3648209425F733E6004ADF6D /* ThingTableView.swift in Sources */,
+				364820EE260145B5004ADF6D /* DoneTableView.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				364820EB2601453F004ADF6D /* DoingTableView.swift in Sources */,
 				364820CC25FBAB53004ADF6D /* Droppable.swift in Sources */,
