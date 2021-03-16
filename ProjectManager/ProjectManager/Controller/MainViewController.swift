@@ -134,7 +134,7 @@ extension MainViewController: UITableViewDataSource {
 
 extension MainViewController: UITableViewDragDelegate, UITableViewDropDelegate {
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
-        guard let thingTableView = tableView as? ThingTableView else {
+        guard let thingTableView = tableView as? Draggable else {
             return [UIDragItem(itemProvider: NSItemProvider())]
         }
         return thingTableView.drag(for: indexPath)
@@ -153,7 +153,7 @@ extension MainViewController: UITableViewDragDelegate, UITableViewDropDelegate {
             indexPath = IndexPath(row: row, section: section)
         }
         
-        guard let thingTableView = tableView as? ThingTableView else {
+        guard let thingTableView = tableView as? Droppable else {
             return
         }
         thingTableView.drop(coordinator.items, to: indexPath)
