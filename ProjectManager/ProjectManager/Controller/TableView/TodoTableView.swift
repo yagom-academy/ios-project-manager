@@ -7,14 +7,53 @@
 
 import UIKit
 
-class TodoTableView: UITableView {
-
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+class TodoTableView: UITableView, ThingTableViewProtocol {
+    
+    //MARK: - Property
+    var list: [Thing] = []
+    
+    //MARK: - Init
+    init() {
+        super.init(frame: .zero, style: .grouped)
+        tableHeaderView = ThingTableHeaderView(height: 50, title: "TODO")
     }
-    */
-
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        tableHeaderView = ThingTableHeaderView(height: 50, title: "TODO")
+    }
+    
+    //MARK: - CRUD
+    
+    func createThing(_ thing: Thing) {
+        list.insert(thing, at: 0)
+        self.reloadData()
+    }
+    
+    func updateThing(_ thing: Thing, index: Int) {
+        list[index] = thing
+        self.reloadData()
+    }
+    
+    func deleteThing(at indexPath: IndexPath) {
+        list.remove(at: indexPath.row)
+        DispatchQueue.main.async {
+            self.deleteRows(at: [indexPath], with: .left)
+        }
+    }
+    
+    func insertThing(_ thing: Thing, at indexPath: IndexPath) {
+        list.insert(thing, at: indexPath.row)
+        DispatchQueue.main.async {
+            self.reloadData()
+        }
+    }
+    
+    //MARK: - set Count
+    
+    func setCount(_ count: Int) {
+        if let tableHeaderView = self.tableHeaderView as? ThingTableHeaderView {
+            tableHeaderView.setCount(count)
+        }
+    }
 }
