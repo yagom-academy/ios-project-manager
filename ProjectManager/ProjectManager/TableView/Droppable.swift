@@ -9,11 +9,11 @@ import UIKit
 import MobileCoreServices
 
 protocol Droppable: ThingTableView {
-    func drop(_ dropItems: [UITableViewDropItem], to indexPath: IndexPath)
+    func drop(_ dropItems: [UITableViewDropItem], to indexPath: IndexPath, tableViewTitle: String)
 }
 
 extension Droppable {
-    func drop(_ dropItems: [UITableViewDropItem], to indexPath: IndexPath) {
+    func drop(_ dropItems: [UITableViewDropItem], to indexPath: IndexPath, tableViewTitle: String) {
         guard let dropItem = dropItems.first else {
             return
         }
@@ -28,6 +28,7 @@ extension Droppable {
                 thing.isDone = false
             }
             self.insertThing(thing, at: indexPath)
+            HistoryManager.insertMoveHistoryWhenInsert(to: tableViewTitle)
         }
     }
 }

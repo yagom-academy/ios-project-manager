@@ -103,9 +103,10 @@ extension MainViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            guard let thingTableView = tableView as? ThingTableView else {
+            guard let thingTableView = tableView as? ThingTableView, let title = thingTableView.title else {
                 return
             }
+            HistoryManager.insertRemoveHistory(title: thingTableView.list[indexPath.row].title, from: title)
             thingTableView.deleteThing(at: indexPath)
         }
     }
@@ -137,10 +138,10 @@ extension MainViewController: UITableViewDataSource {
 
 extension MainViewController: UITableViewDragDelegate, UITableViewDropDelegate {
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
-        guard let thingTableView = tableView as? Draggable else {
+        guard let thingTableView = tableView as? Draggable, let tableViewTitle = thingTableView.title else {
             return [UIDragItem(itemProvider: NSItemProvider())]
         }
-        return thingTableView.drag(for: indexPath)
+        return thingTableView.drag(for: indexPath, tableViewTitle: tableViewTitle)
     }
     
     func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
@@ -156,9 +157,9 @@ extension MainViewController: UITableViewDragDelegate, UITableViewDropDelegate {
             indexPath = IndexPath(row: row, section: section)
         }
         
-        guard let thingTableView = tableView as? Droppable else {
+        guard let thingTableView = tableView as? Droppable, let tableViewTitle = thingTableView.title  else {
             return
         }
-        thingTableView.drop(coordinator.items, to: indexPath)
+        thingTableView.drop(coordinator.items, to: indexPath, tableViewTitle: tableViewTitle)
     }
 }

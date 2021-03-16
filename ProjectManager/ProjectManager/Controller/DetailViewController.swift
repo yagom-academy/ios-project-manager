@@ -118,7 +118,7 @@ final class DetailViewController: UIViewController {
         
         if isNew {
             tableView?.createThing(thing)
-            HistoryManager.insertAddHistory(title: title)
+            HistoryManager.insertAddHistory(title: thing.title)
         } else if let index = index {
             tableView?.updateThing(thing, index: index)
         }
