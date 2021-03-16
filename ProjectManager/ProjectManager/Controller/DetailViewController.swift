@@ -118,6 +118,7 @@ final class DetailViewController: UIViewController {
         
         if isNew {
             tableView?.createThing(thing)
+            
         } else if let index = index {
             tableView?.updateThing(thing, index: index)
         }
