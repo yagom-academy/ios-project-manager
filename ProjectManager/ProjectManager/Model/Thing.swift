@@ -13,7 +13,7 @@ struct Thing: Codable {
     let dateNumber: Int
     var isDone: Bool = false
     var dateString: String {
-        return DateFormatter().convertToUserLocaleString(date: date)
+        return DateFormatter.convertToUserLocaleString(date: date)
     }
     var date: Date {
         return Date(timeIntervalSince1970: TimeInterval(dateNumber))

@@ -11,15 +11,16 @@ import MobileCoreServices
 // MARK: - DateFormatter
 
 extension DateFormatter {
-    func convertToUserLocaleString(date: Date) -> String {
+    static func convertToUserLocaleString(date: Date) -> String {
+        let dateFormatter = self.init()
         var locale = Locale.autoupdatingCurrent.identifier
         if let collatorLocale = Locale.autoupdatingCurrent.collatorIdentifier {
             locale = collatorLocale
         }
-        self.dateStyle = .medium
-        self.timeStyle = .none
-        self.locale = Locale(identifier: locale)
-        let dateString = self.string(from: date)
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .none
+        dateFormatter.locale = Locale(identifier: locale)
+        let dateString = dateFormatter.string(from: date)
         return dateString
     }
 }
