@@ -18,27 +18,28 @@ struct HistoryManager {
     }
     
     static func insertAddHistory(title: String) {
-        let content = "Add '\(title)'"
+        let content = String(format: Strings.historyAddMessage, title)
         let dateString = DateFormatter.convertToUserLocaleStringWithTime(date: Date())
         let history: History = (content, dateString)
         list.insert(history, at: 0)
     }
-
+    
     static func insertRemoveHistory(title: String, from: String) {
-        let content = "Remove '\(title)' from \(from)"
+        let content = String(format: Strings.historyDeleteMessage, title, from)
         let dateString = DateFormatter.convertToUserLocaleStringWithTime(date: Date())
         let history: History = (content, dateString)
         list.insert(history, at: 0)
     }
     
     static func insertMoveHistoryWhenRemove(title: String, from: String) {
-        let content = "Move '\(title)' from \(from)"
+        let content = String(format: Strings.historyStartMoveMessage, title, from)
         let history: History = (content, String.empty)
         list.insert(history, at: 0)
     }
     
     static func insertMoveHistoryWhenInsert(to: String) {
-        list[0].content = list[0].content + " to \(to)"
+        let content = String(format: Strings.historyEndMoveMessage, list[0].content, to)
+        list[0].content = content
         list[0].dateString = DateFormatter.convertToUserLocaleStringWithTime(date: Date())
     }
 }

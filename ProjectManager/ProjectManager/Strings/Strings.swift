@@ -12,4 +12,8 @@ enum Strings {
     static let titlePlaceHolder = "Title"
     static let descriptionPlaceHolder = "이곳에 내용을 입력하세요."
     static let historyButton = "History"
+    static let historyAddMessage = "Add '%@'"
+    static let historyDeleteMessage = "Remove '%@' from %@"
+    static let historyStartMoveMessage = "Move '%@' from %@"
+    static let historyEndMoveMessage = "%@ to %@"
 }
