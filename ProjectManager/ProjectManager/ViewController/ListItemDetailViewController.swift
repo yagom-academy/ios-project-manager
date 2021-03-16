@@ -72,9 +72,10 @@ class ListItemDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpDelegate()
-        setUpView()
+        configureView()
         configureAutoLayout()
-        configureDetailView()
+        configureNavigationBar()
+        configureEditView()
     }
     
     private func setUpDelegate() {
@@ -82,7 +83,7 @@ class ListItemDetailViewController: UIViewController {
         titleTextField.delegate = self
     }
     
-    private func setUpView() {
+    private func configureView() {
         view.backgroundColor = .white
         view.addSubview(titleTextField)
         view.addSubview(deadLineDatePicker)
@@ -112,9 +113,7 @@ class ListItemDetailViewController: UIViewController {
         ])
     }
     
-    func configureDetailView() {
-        configureNavigationBar()
-        
+    func configureEditView() {
         if detailViewType == .edit {
             let todo = ItemList.shared.getItem(statusType: statusType, index: itemIndex)
             fillContents(todo: todo)

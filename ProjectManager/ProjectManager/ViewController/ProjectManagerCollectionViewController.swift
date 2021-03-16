@@ -24,7 +24,7 @@ class ProjectManagerCollectionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpDelegate()
-        setUpView()
+        configureView()
         configureAutoLayout()
         configureNavigationBar()
         configureToolBar()
@@ -35,7 +35,7 @@ class ProjectManagerCollectionViewController: UIViewController {
         collectionView.delegate = self
     }
     
-    private func setUpView() {
+    private func configureView() {
         view.backgroundColor = .white
         view.addSubview(collectionView)
     }

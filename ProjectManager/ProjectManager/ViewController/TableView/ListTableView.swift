@@ -19,8 +19,7 @@ class ListTableView: UITableView {
     init(statusType: ItemStatus) {
         self.statusType = statusType
         super.init(frame: .zero, style: .plain)
-        dataSource = self
-        delegate = self
+        setUpDelegate()
         configureTableView()
         configureTableHeaderView()
         NotificationCenter.default.addObserver(self, selector: #selector(reloadTableView), name: NSNotification.Name("reloadTableView"), object: nil)
@@ -30,7 +29,12 @@ class ListTableView: UITableView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureTableView() {
+    private func setUpDelegate() {
+        dataSource = self
+        delegate = self
+    }
+    
+    private func configureTableView() {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.register(ListItemTableViewCell.self, forCellReuseIdentifier: ListItemTableViewCell.identifier)
         self.backgroundColor = .systemGray6
