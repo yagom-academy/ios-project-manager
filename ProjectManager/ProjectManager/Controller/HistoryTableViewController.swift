@@ -37,14 +37,14 @@ final class HistoryTableViewController: UIViewController, UITableViewDataSource 
     // MARK: - Data Source
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return HistoryManager.list.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
         var content = cell.defaultContentConfiguration()
-        content.text = "Move '프로젝트 회고작성' from todo to done"
-        content.secondaryText = "Mar 21, 2021 3:32:21 PM"
+        content.text = HistoryManager.list[indexPath.row].content
+        content.secondaryText = HistoryManager.list[indexPath.row].dateString
         content.secondaryTextProperties.color = .gray
         cell.contentConfiguration = content
         return cell
