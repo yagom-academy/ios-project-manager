@@ -6,3 +6,13 @@
 //
 
 import Foundation
+
+protocol ThingTableViewProtocol {
+    var list: [Thing] { get }
+    
+    func createThing(_ thing: Thing)
+    func updateThing(_ thing: Thing, index: Int)
+    func deleteThing(at indexPath: IndexPath)
+    func insertThing(_ thing: Thing, at indexPath: IndexPath)
+    func setCount(_ count: Int)
+}
