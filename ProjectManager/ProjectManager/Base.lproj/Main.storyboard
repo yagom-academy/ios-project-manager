@@ -4,6 +4,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -46,8 +47,25 @@
                                             <rect key="frame" x="0.0" y="0.0" width="540" height="579"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="zfw-Hu-bHb">
+                                                    <rect key="frame" x="10" y="10" width="168" height="41"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uzp-ac-dBR">
+                                                            <rect key="frame" x="0.0" y="0.0" width="80" height="41"/>
+                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VLk-en-wR1">
+                                                            <rect key="frame" x="88" y="0.0" width="80" height="41"/>
+                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
                                                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="r93-ie-rsO">
-                                                    <rect key="frame" x="0.0" y="0.0" width="540" height="579"/>
+                                                    <rect key="frame" x="0.0" y="61" width="540" height="518"/>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <connections>
                                                         <outlet property="dataSource" destination="J7u-u0-CoX" id="idx-iW-CdA"/>
@@ -57,16 +75,20 @@
                                             </subviews>
                                             <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
-                                                <constraint firstItem="r93-ie-rsO" firstAttribute="top" secondItem="q4F-OI-JXJ" secondAttribute="top" id="45z-Mm-cw7"/>
+                                                <constraint firstItem="zfw-Hu-bHb" firstAttribute="top" secondItem="q4F-OI-JXJ" secondAttribute="top" constant="10" id="5WG-uH-yvs"/>
                                                 <constraint firstItem="r93-ie-rsO" firstAttribute="leading" secondItem="q4F-OI-JXJ" secondAttribute="leading" id="NZ3-Qc-dmb"/>
+                                                <constraint firstItem="zfw-Hu-bHb" firstAttribute="leading" secondItem="q4F-OI-JXJ" secondAttribute="leading" constant="10" id="d7m-Ot-V1V"/>
                                                 <constraint firstAttribute="bottom" secondItem="r93-ie-rsO" secondAttribute="bottom" id="kIs-2D-R8w"/>
                                                 <constraint firstAttribute="trailing" secondItem="r93-ie-rsO" secondAttribute="trailing" id="lWa-2z-e51"/>
+                                                <constraint firstItem="r93-ie-rsO" firstAttribute="top" secondItem="zfw-Hu-bHb" secondAttribute="bottom" constant="10" id="zD2-VI-viM"/>
                                             </constraints>
                                         </collectionViewCellContentView>
                                         <color key="backgroundColor" systemColor="systemGray5Color"/>
                                         <size key="customSize" width="540" height="579"/>
                                         <connections>
+                                            <outlet property="boardItemCountLabel" destination="VLk-en-wR1" id="QBv-15-FCT"/>
                                             <outlet property="boardTableView" destination="r93-ie-rsO" id="3Nu-Ue-RY9"/>
+                                            <outlet property="sectionTitleLabel" destination="uzp-ac-dBR" id="Bv0-an-ck6"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>

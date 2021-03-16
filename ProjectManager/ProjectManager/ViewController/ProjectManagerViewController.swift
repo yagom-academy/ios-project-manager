@@ -8,13 +8,20 @@ class ProjectManagerViewController: UIViewController {
     @IBOutlet weak var titleNavigationBar: UINavigationBar!
     @IBOutlet weak var addButton: UIBarButtonItem!
     @IBOutlet weak var sectionCollectionView: UICollectionView!
-    var boards = [Board]()
+    
+    let todoBoard = Board(title: ProgressStatus.todo.rawValue)
+    let doingBoard = Board(title: ProgressStatus.doing.rawValue)
+    let doneBoard = Board(title: ProgressStatus.done.rawValue)
+    lazy var boards: [Board] = {
+        return [todoBoard, doingBoard, doneBoard]
+    }()
+    
     weak var delegate: AddItemDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavigationBar()
-        configureBoards()
+        addBoardItems()
     }
     
     @IBAction func tappedAddButton(_ sender: Any) {
@@ -25,8 +32,16 @@ class ProjectManagerViewController: UIViewController {
         titleNavigationBar.topItem?.title = "Project Manager"
     }
     
-    private func configureBoards() {
-        boards = [Board(title: "TODO", items: [Item(title: "TODO LIST", description: "TODO LIST for project. please help me!!", progressStatus: ProgressStatus.todo.rawValue, dueDate: 1220301220), Item(title: "TODO LIST2", description: "TODO LIST for project. please help me!!", progressStatus: ProgressStatus.todo.rawValue, dueDate: 1220301220), Item(title: "TODO LIST3", description: "TODO LIST for project. please help me!!", progressStatus: ProgressStatus.todo.rawValue, dueDate: 1220301220)]),Board(title: "DOING", items: [Item(title: "TODO LIST", description: "TODO LIST for project. please help me!!", progressStatus: ProgressStatus.todo.rawValue, dueDate: 1220301220), Item(title: "DOING LIST2", description: "TODO LIST for project. please help me!!", progressStatus: ProgressStatus.todo.rawValue, dueDate: 1220301220), Item(title: "TODO LIST3", description: "DOING LIST for project. please help me!!", progressStatus: ProgressStatus.todo.rawValue, dueDate: 1220301220)]),Board(title: "DONE", items: [Item(title: "DONE LIST", description: "Done LIST for project. please help me!!", progressStatus: ProgressStatus.todo.rawValue, dueDate: 1220301220), Item(title: "DOING LIST2", description: "TODO LIST for project. please help me!!", progressStatus: ProgressStatus.todo.rawValue, dueDate: 1220301220), Item(title: "TODO LIST3", description: "DOING LIST for project. please help me!!", progressStatus: ProgressStatus.todo.rawValue, dueDate: 1220301220)])]
+    private func addBoardItems() {
+        todoBoard.items.append(Item(title: "TODO LIST", description: "TODO LIST for project. please help me!!", progressStatus: ProgressStatus.todo.rawValue, dueDate: 1220301220))
+        todoBoard.items.append(Item(title: "TODO LIST2", description: "TODO LIST for project. please help me!!", progressStatus: ProgressStatus.todo.rawValue, dueDate: 1220301220))
+        todoBoard.items.append(Item(title: "TODO LIST3", description: "TODO LIST for project. please help me!!", progressStatus: ProgressStatus.todo.rawValue, dueDate: 1220301220))
+        doingBoard.items.append(Item(title: "DOing LIST", description: "TODO LIST for project. please help me!!", progressStatus: ProgressStatus.todo.rawValue, dueDate: 1220301220))
+        doingBoard.items.append(Item(title: "DOing LIST2", description: "TODO LIST for project. please help me!!", progressStatus: ProgressStatus.todo.rawValue, dueDate: 1220301220))
+        doingBoard.items.append(Item(title: "DOing LIST3", description: "TODO LIST for project. please help me!!", progressStatus: ProgressStatus.todo.rawValue, dueDate: 1220301220))
+        doneBoard.items.append(Item(title: "DONE LIST", description: "Done LIST for project. please help me!!", progressStatus: ProgressStatus.todo.rawValue, dueDate: 1220301220))
+        doneBoard.items.append(Item(title: "DONE LIST2", description: "Done LIST for project. please help me!!", progressStatus: ProgressStatus.todo.rawValue, dueDate: 1220301220))
+        doneBoard.items.append(Item(title: "DONE LIST3", description: "Done LIST for project. please help me!!", progressStatus: ProgressStatus.todo.rawValue, dueDate: 1220301220))
     }
 }
 
@@ -49,7 +64,7 @@ extension ProjectManagerViewController: UICollectionViewDataSource {
 extension ProjectManagerViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let collectionViewCellWidth = collectionView.frame.width / 3.08
+        let collectionViewCellWidth = collectionView.frame.width / CGFloat(boards.count) - 10
         let collectionViewCellHeight = collectionView.frame.height
         
         return CGSize(width: collectionViewCellWidth, height: collectionViewCellHeight)
@@ -64,8 +79,8 @@ extension ProjectManagerViewController: BoardTableViewCellDelegate {
 }
 extension ProjectManagerViewController {
     private func createNewTodoItem() {
-        var newItem = boards[0].createItem("", "", dueDate: Int(Date().timeIntervalSince1970))
-        let presentedSheetViewController = presentSheetViewController(with: newItem)
+        var newItem = todoBoard.createItem()
+        let presentedSheetViewController = presentSheetViewController(with: newItem, mode: Mode.editable)
         
         presentedSheetViewController.updateItemHandler { (currentItem) in
             newItem = currentItem
@@ -74,21 +89,21 @@ extension ProjectManagerViewController {
         }
     }
     private func updateItem(with item: Item, in boardTableViewCell: BoardTableViewCell, at index: Int, on board: Board) {
-        let presentedSheetViewController = presentSheetViewController(with: item)
+        let presentedSheetViewController = presentSheetViewController(with: item, mode: Mode.uneditable)
         
         presentedSheetViewController.updateItemHandler { (currentItem) in
             board.updateTodoItem(at: index, with: currentItem)
             boardTableViewCell.updateUI(with: currentItem)
         }
     }
-    private func presentSheetViewController(with item: Item) -> SheetViewController {
+    private func presentSheetViewController(with item: Item, mode: Mode) -> SheetViewController {
         guard let sheetViewController = self.storyboard?.instantiateViewController(identifier: SheetViewController.identifier) as? SheetViewController else {
             return SheetViewController()
         }
         
         sheetViewController.modalPresentationStyle = .formSheet
         sheetViewController.setItem(with: item)
-        sheetViewController.mode = Mode.new
+        sheetViewController.mode = mode
         self.present(sheetViewController, animated: true, completion: nil)
         
         return sheetViewController

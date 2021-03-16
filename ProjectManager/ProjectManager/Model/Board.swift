@@ -1,16 +1,15 @@
-//import UIKit
-//
+import UIKit
+
 class Board {
     var title: String
-    var items: [Item]
+    var items = [Item]()
     
-    init(title: String, items: [Item]) {
+    init(title: String) {
         self.title = title
-        self.items = items
     }
     
-    func createItem(_ title: String, _ description: String, dueDate: Int) -> Item {
-        return Item(title: title, description: description, progressStatus: "TODO", dueDate: dueDate)
+    func createItem() -> Item {
+        return Item(title: "", description: "", progressStatus: "", dueDate: Int(Date().timeIntervalSince1970))
     }
     
     func addTodoItem(_ item: Item) {

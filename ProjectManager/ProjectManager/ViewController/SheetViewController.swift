@@ -9,7 +9,7 @@ class SheetViewController: UIViewController {
     static let identifier = "SheetViewController"
     
     var currentItem = Item(title: "", description: "", progressStatus: "", dueDate: Int(Date().timeIntervalSince1970))
-    var mode: String = ""
+    var mode: Mode?
     var completionHandler: ((Item) -> Void)?
     
     override func viewDidLoad() {
@@ -18,13 +18,9 @@ class SheetViewController: UIViewController {
     }
     
     private func configureSheet() {
-        mode = determineModeStatus()
-        self.modeButtonItem.title = mode
-        
-        if self.mode == Mode.edit {
-            checkOfModifiable(status: false)
-        } else {
-            checkOfModifiable(status: true)
+        if let mode = self.mode {
+            self.modeButtonItem.title = mode.barButtonTitle
+            checkOfModifiable(status: mode)
         }
         
         self.titleTextField.text = currentItem.title
@@ -32,22 +28,13 @@ class SheetViewController: UIViewController {
         self.descriptionTextView.text = currentItem.description
     }
     
-    private func determineModeStatus() -> String {
-        var modeStatus: String = ""
-        if currentItem.title == "" && currentItem.description == "" {
-            modeStatus = Mode.new
-        } else {
-            modeStatus = Mode.edit
-        }
-        return modeStatus
-    }
-    
-    private func checkOfModifiable(status: Bool) {
-        if status == true {
+    private func checkOfModifiable(status: Mode) {
+        switch status {
+        case .editable:
             self.titleTextField.isUserInteractionEnabled = true
             self.deadlineDatePicker.isUserInteractionEnabled = true
             self.descriptionTextView.isEditable = true
-        } else {
+        case .uneditable:
             self.titleTextField.isUserInteractionEnabled = false
             self.deadlineDatePicker.isUserInteractionEnabled = false
             self.descriptionTextView.isEditable = false
@@ -63,7 +50,7 @@ class SheetViewController: UIViewController {
               let itemDescription = descriptionTextView.text else {
             return
         }
-       
+        
         currentItem.title = itemTitle
         currentItem.description = itemDescription
         currentItem.dueDate = Int(deadlineDatePicker.date.timeIntervalSince1970)
@@ -76,12 +63,12 @@ class SheetViewController: UIViewController {
     }
     
     @IBAction private func tappedModeButton(_ sender: UIBarButtonItem) {
-        if sender.title == Mode.new {
+        if sender.title == Mode.editable.barButtonTitle {
             self.dismiss(animated: true, completion: nil)
         } else {
-            sender.title = Mode.new
-
-            checkOfModifiable(status: true)
+            sender.title = Mode.editable.barButtonTitle
+            mode = .editable
+            checkOfModifiable(status: Mode.editable)
         }
     }
     
@@ -90,6 +77,5 @@ class SheetViewController: UIViewController {
         currentItem.dueDate = item.dueDate
         currentItem.progressStatus = item.progressStatus
         currentItem.description = item.description
-        self.mode = Mode.edit
     }
 }

@@ -1,6 +1,15 @@
 import Foundation
 
 enum Mode {
-    static let new = "Cancel"
-    static let edit = "Edit"
+    case editable
+    case uneditable
+    
+    var barButtonTitle: String {
+        switch self {
+        case .editable:
+            return "Cancel"
+        case .uneditable:
+            return "Edit"
+        }
+    }
 }
