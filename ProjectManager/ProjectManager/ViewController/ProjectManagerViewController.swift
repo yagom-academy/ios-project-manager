@@ -67,10 +67,8 @@ extension ProjectManagerViewController: UIDropInteractionDelegate {
                 }
                 
                 if let (dataSource, sourceIndexPath, tableView) = session.localDragSession?.localContext as? (Board, IndexPath, UITableView) {
-                    tableView.beginUpdates()
                     dataSource.deleteItem(at: sourceIndexPath.row)
                     tableView.deleteRows(at: [sourceIndexPath], with: .automatic)
-                    tableView.endUpdates()
                 }
             }
         }
