@@ -111,9 +111,7 @@ extension SectionCollectionViewCell: AddItemDelegate {
 
 extension SectionCollectionViewCell: UITableViewDragDelegate {
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
-        let string = board?.title
-        guard let data = string!.data(using: .utf8) else { return [] }
-        let itemProvider = NSItemProvider(item: data as NSData, typeIdentifier: kUTTypePlainText as String)
+        let itemProvider = NSItemProvider()
         
         let indexRow = indexPath.row
         rowCount.setValue(indexRow, forKey: "indexCount")
@@ -128,11 +126,7 @@ extension SectionCollectionViewCell: UITableViewDragDelegate {
         default:
             break
         }
-        
-        self.board?.items.remove(at: indexRow)
-        tableView.deleteRows(at: [indexPath], with: .automatic)
-        configureBoard(with: self.board!)
-        
+        session.localContext = (board, indexPath, tableView)
         return [UIDragItem(itemProvider: itemProvider)]
     }
 }
@@ -140,7 +134,7 @@ extension SectionCollectionViewCell: UITableViewDragDelegate {
 extension SectionCollectionViewCell: UITableViewDropDelegate {
     func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
         let destinationIndexPath: IndexPath
-        
+
         if let indexPath = coordinator.destinationIndexPath {
             destinationIndexPath = indexPath
         } else {
@@ -151,11 +145,10 @@ extension SectionCollectionViewCell: UITableViewDropDelegate {
         
         coordinator.session.loadObjects(ofClass: NSString.self) { [self] items in
             guard let strings = items as? [String] else { return }
-
             var indexPaths = [IndexPath]()
-
-            for index in 0..<strings.count {
-                let indexPath = IndexPath(row: destinationIndexPath.row + index, section: destinationIndexPath.section)
+            
+            //for index in 0..<strings.count {
+                let indexPath = IndexPath(row: destinationIndexPath.row, section: destinationIndexPath.section)
                 
                 let count = self.rowCount.integer(forKey: "indexCount")
                 let boardNumber = self.boardCount.integer(forKey: "boardCount")
@@ -163,9 +156,10 @@ extension SectionCollectionViewCell: UITableViewDropDelegate {
                 self.board?.items.insert(boardManager.boards[boardNumber].items[count], at: indexPath.row)
                 
                 indexPaths.append(indexPath)
-            }
+            //}
             tableView.insertRows(at: indexPaths, with: .automatic)
             configureBoard(with: self.board!)
+            self.removeSourceTableData(localContext: coordinator.session.localDragSession?.localContext)
         }
     }
     
@@ -173,4 +167,14 @@ extension SectionCollectionViewCell: UITableViewDropDelegate {
         return UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
     }
 }
-
+extension SectionCollectionViewCell {
+    private func removeSourceTableData(localContext: Any?) {
+            if let (dataSource, sourceIndexPath, tableView) = localContext as? (Board, IndexPath, UITableView) {
+                tableView.beginUpdates()
+                dataSource.items.remove(at: sourceIndexPath.row)
+                tableView.deleteRows(at: [sourceIndexPath], with: .automatic)
+                tableView.endUpdates()
+                tableView.reloadData()
+            }
+        }
+}
