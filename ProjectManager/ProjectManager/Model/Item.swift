@@ -5,11 +5,9 @@ struct Item: Codable {
     var description: String
     var progressStatus: String
     var dueDate: Int
-    
     var date: Date {
         return Date(timeIntervalSince1970: TimeInterval(dueDate))
     }
-    
     var dateToString: String {
         return DateFormatter().convertDateToString(date: date)
     }
@@ -25,7 +23,6 @@ struct Item: Codable {
         self.dueDate = item.dueDate
     }
 }
-
 extension DateFormatter {
     func convertDateToString(date: Date) -> String {
         let currentLocale = Locale.current.collatorIdentifier ?? "ko_KR"

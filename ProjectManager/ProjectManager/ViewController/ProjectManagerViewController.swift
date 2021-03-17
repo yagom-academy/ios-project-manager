@@ -10,9 +10,8 @@ class ProjectManagerViewController: UIViewController {
     @IBOutlet weak var addButton: UIBarButtonItem!
     @IBOutlet weak var sectionCollectionView: UICollectionView!
     
-    let boardManager: BoardManager = BoardManager.shared
-    
     weak var delegate: AddItemDelegate?
+    let boardManager: BoardManager = BoardManager.shared
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,10 +23,6 @@ class ProjectManagerViewController: UIViewController {
         createNewTodoItem()
     }
     
-    private func configureNavigationBar() {
-        titleNavigationBar.topItem?.title = "Project Manager"
-    }
-    
     @objc func reloadHeader(_ noti: Notification) {
         for item in 0..<sectionCollectionView.numberOfItems(inSection: 0) {
             if let sectionCollectionViewCell = sectionCollectionView.cellForItem(at: [0,item]) as? SectionCollectionViewCell, let cellBoard = sectionCollectionViewCell.board {
@@ -36,7 +31,6 @@ class ProjectManagerViewController: UIViewController {
         }
     }
 }
-
 extension ProjectManagerViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return boardManager.boards.count
@@ -52,7 +46,6 @@ extension ProjectManagerViewController: UICollectionViewDataSource {
         return cell
     }
 }
-
 extension ProjectManagerViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
@@ -62,7 +55,28 @@ extension ProjectManagerViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: collectionViewCellWidth, height: collectionViewCellHeight)
     }
 }
-
+extension ProjectManagerViewController: UIDropInteractionDelegate {
+    func dropInteraction(_ interaction: UIDropInteraction, sessionDidUpdate session: UIDropSession) -> UIDropProposal {
+        return UIDropProposal(operation: .move)
+    }
+    
+    func dropInteraction(_ interaction: UIDropInteraction, performDrop session: UIDropSession) {
+        if session.hasItemsConforming(toTypeIdentifiers: [kUTTypePlainText as String]) {
+            session.loadObjects(ofClass: NSString.self) { (items) in
+                guard let _ = items.first as? String else {
+                    return
+                }
+                
+                if let (dataSource, sourceIndexPath, tableView) = session.localDragSession?.localContext as? (Board, IndexPath, UITableView) {
+                    tableView.beginUpdates()
+                    dataSource.deleteItem(at: sourceIndexPath.row)
+                    tableView.deleteRows(at: [sourceIndexPath], with: .automatic)
+                    tableView.endUpdates()
+                }
+            }
+        }
+    }
+}
 extension ProjectManagerViewController: BoardTableViewCellDelegate {
     func tableViewCell(_ boardTableViewCell: BoardTableViewCell, didSelectAt index: Int, on board: Board?) {
         if let board = board {
@@ -70,8 +84,11 @@ extension ProjectManagerViewController: BoardTableViewCellDelegate {
         }
     }
 }
-
 extension ProjectManagerViewController {
+    private func configureNavigationBar() {
+        titleNavigationBar.topItem?.title = "Project Manager"
+    }
+    
     private func createNewTodoItem() {
         var newItem = boardManager.todoBoard.createItem()
         let presentedSheetViewController = presentSheetViewController(with: newItem, mode: Mode.editable)
@@ -104,28 +121,5 @@ extension ProjectManagerViewController {
         self.present(sheetViewController, animated: true, completion: nil)
         
         return sheetViewController
-    }
-}
-
-extension ProjectManagerViewController: UIDropInteractionDelegate {
-    func dropInteraction(_ interaction: UIDropInteraction, sessionDidUpdate session: UIDropSession) -> UIDropProposal {
-        return UIDropProposal(operation: .move)
-    }
-    
-    func dropInteraction(_ interaction: UIDropInteraction, performDrop session: UIDropSession) {
-        if session.hasItemsConforming(toTypeIdentifiers: [kUTTypePlainText as String]) {
-            session.loadObjects(ofClass: NSString.self) { (items) in
-                guard let _ = items.first as? String else {
-                    return
-                }
-                
-                if let (dataSource, sourceIndexPath, tableView) = session.localDragSession?.localContext as? (Board, IndexPath, UITableView) {
-                    tableView.beginUpdates()
-                    dataSource.deleteItem(at: sourceIndexPath.row)
-                    tableView.deleteRows(at: [sourceIndexPath], with: .automatic)
-                    tableView.endUpdates()
-                }
-            }
-        }
     }
 }

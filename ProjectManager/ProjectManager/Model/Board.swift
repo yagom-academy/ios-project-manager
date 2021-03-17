@@ -1,7 +1,7 @@
 import UIKit
 
 class Board {
-    var title: String
+    let title: String
     private var items = [Item]()
     var itemsCount: Int {
         return items.count
@@ -25,10 +25,6 @@ class Board {
     
     func insertItem(at index: Int, with item: Item) {
         items.insert(item, at: index)
-    }
-    
-    func readItems() -> [Item] {
-        return items
     }
     
     func updateItem(at index: Int, with item: Item) {

@@ -12,29 +12,15 @@ class SectionCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var sectionTitleLabel: UILabel!
     @IBOutlet weak var boardItemCountLabel: UILabel!
     
+    weak var delegate: BoardTableViewCellDelegate?
+    let boardManager: BoardManager = BoardManager.shared
     private var draggingRowIndex = 0
     private var draggingBoardIndex = 0
-    
-    let boardManager: BoardManager = BoardManager.shared
-    
-    weak var delegate: BoardTableViewCellDelegate?
     var board: Board?
     
     override func awakeFromNib() {
         registerXib()
         configureBoardTable()
-    }
-    
-    private func registerXib(){
-        let nibName = UINib(nibName: BoardTableViewCell.identifier, bundle: nil)
-        boardTableView.register(nibName, forCellReuseIdentifier: BoardTableViewCell.identifier)
-    }
-    
-    private func configureBoardTable() {
-        boardTableView.dragInteractionEnabled = true
-        boardTableView.dragDelegate = self
-        boardTableView.dropDelegate = self
-        boardTableView.tableFooterView = UIView(frame: CGRect.zero)
     }
     
     func configureBoard(with board: Board) {
@@ -49,7 +35,6 @@ class SectionCollectionViewCell: UICollectionViewCell {
         boardItemCountLabel.layer.cornerRadius = 10
     }
 }
-
 extension SectionCollectionViewCell: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let selectedCell = tableView.cellForRow(at: indexPath) as? BoardTableViewCell else {
@@ -71,7 +56,6 @@ extension SectionCollectionViewCell: UITableViewDelegate {
         }
     }
 }
-
 extension SectionCollectionViewCell: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: BoardTableViewCell.identifier) as? BoardTableViewCell, let item = board?.item(at: indexPath.row) else {
@@ -98,17 +82,6 @@ extension SectionCollectionViewCell: UITableViewDataSource {
         }
     }
 }
-
-extension SectionCollectionViewCell: AddItemDelegate {
-    func addNewCell(with item: Item) {
-        if let board = self.board {
-            board.addItem(item)
-            self.configureBoard(with: board)
-        }
-        boardTableView.reloadData()
-    }
-}
-
 extension SectionCollectionViewCell: UITableViewDragDelegate {
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
         let itemProvider = NSItemProvider()
@@ -130,7 +103,6 @@ extension SectionCollectionViewCell: UITableViewDragDelegate {
         return [UIDragItem(itemProvider: itemProvider)]
     }
 }
-
 extension SectionCollectionViewCell: UITableViewDropDelegate {
     func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
         let destinationIndexPath: IndexPath
@@ -161,7 +133,28 @@ extension SectionCollectionViewCell: UITableViewDropDelegate {
         return UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
     }
 }
+extension SectionCollectionViewCell: AddItemDelegate {
+    func addNewCell(with item: Item) {
+        if let board = self.board {
+            board.addItem(item)
+            self.configureBoard(with: board)
+        }
+        boardTableView.reloadData()
+    }
+}
 extension SectionCollectionViewCell {
+    private func registerXib(){
+        let nibName = UINib(nibName: BoardTableViewCell.identifier, bundle: nil)
+        boardTableView.register(nibName, forCellReuseIdentifier: BoardTableViewCell.identifier)
+    }
+    
+    private func configureBoardTable() {
+        boardTableView.dragInteractionEnabled = true
+        boardTableView.dragDelegate = self
+        boardTableView.dropDelegate = self
+        boardTableView.tableFooterView = UIView(frame: CGRect.zero)
+    }
+    
     private func removeSourceTableData(localContext: Any?) {
         if let (dataSource, sourceIndexPath, tableView) = localContext as? (Board, IndexPath, UITableView) {
             tableView.beginUpdates()

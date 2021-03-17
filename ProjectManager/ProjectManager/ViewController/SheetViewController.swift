@@ -1,12 +1,12 @@
 import UIKit
 
 class SheetViewController: UIViewController {
+    static let identifier = "SheetViewController"
+    
     @IBOutlet weak var modeButtonItem: UIBarButtonItem!
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var deadlineDatePicker: UIDatePicker!
     @IBOutlet weak var descriptionTextView: UITextView!
-    
-    static let identifier = "SheetViewController"
     
     var currentItem = Item(title: "", description: "", progressStatus: "", dueDate: Int(Date().timeIntervalSince1970))
     var mode: Mode?
@@ -15,34 +15,6 @@ class SheetViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureSheet()
-    }
-    
-    private func configureSheet() {
-        if let mode = self.mode {
-            self.modeButtonItem.title = mode.barButtonTitle
-            checkOfModifiable(status: mode)
-        }
-        
-        self.titleTextField.text = currentItem.title
-        self.deadlineDatePicker.date = Date(timeIntervalSince1970: TimeInterval(currentItem.dueDate))
-        self.descriptionTextView.text = currentItem.description
-    }
-    
-    private func checkOfModifiable(status: Mode) {
-        switch status {
-        case .editable:
-            self.titleTextField.isUserInteractionEnabled = true
-            self.deadlineDatePicker.isUserInteractionEnabled = true
-            self.descriptionTextView.isEditable = true
-        case .uneditable:
-            self.titleTextField.isUserInteractionEnabled = false
-            self.deadlineDatePicker.isUserInteractionEnabled = false
-            self.descriptionTextView.isEditable = false
-        }
-    }
-    
-    func updateItemHandler(handler: @escaping (_ item: Item) -> Void) {
-        completionHandler = handler
     }
     
     @IBAction private func tappedDoneButton(_ sender: Any) {
@@ -72,10 +44,39 @@ class SheetViewController: UIViewController {
         }
     }
     
+    func updateItemHandler(handler: @escaping (_ item: Item) -> Void) {
+        completionHandler = handler
+    }
+    
     func setItem(with item: Item) {
         currentItem.title = item.title
         currentItem.dueDate = item.dueDate
         currentItem.progressStatus = item.progressStatus
         currentItem.description = item.description
+    }
+}
+extension SheetViewController {
+    private func configureSheet() {
+        if let mode = self.mode {
+            self.modeButtonItem.title = mode.barButtonTitle
+            checkOfModifiable(status: mode)
+        }
+        
+        self.titleTextField.text = currentItem.title
+        self.deadlineDatePicker.date = Date(timeIntervalSince1970: TimeInterval(currentItem.dueDate))
+        self.descriptionTextView.text = currentItem.description
+    }
+    
+    private func checkOfModifiable(status: Mode) {
+        switch status {
+        case .editable:
+            self.titleTextField.isUserInteractionEnabled = true
+            self.deadlineDatePicker.isUserInteractionEnabled = true
+            self.descriptionTextView.isEditable = true
+        case .uneditable:
+            self.titleTextField.isUserInteractionEnabled = false
+            self.deadlineDatePicker.isUserInteractionEnabled = false
+            self.descriptionTextView.isEditable = false
+        }
     }
 }
