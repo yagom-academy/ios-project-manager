@@ -57,7 +57,7 @@ extension ProjectManagerViewController: UICollectionViewDelegateFlowLayout {
 extension ProjectManagerViewController: BoardTableViewCellDelegate {
     func tableViewCell(_ boardTableViewCell: BoardTableViewCell, didSelectAt index: Int, on board: Board?) {
         if let board = board {
-            updateItem(with: board.items[index], in: boardTableViewCell, at: index, on: board)
+            updateItem(in: boardTableViewCell, at: index, on: board)
         }
     }
 }
@@ -74,7 +74,8 @@ extension ProjectManagerViewController {
         }
     }
     
-    private func updateItem(with item: Item, in boardTableViewCell: BoardTableViewCell, at index: Int, on board: Board) {
+    private func updateItem(in boardTableViewCell: BoardTableViewCell, at index: Int, on board: Board) {
+        let item = board.item(at: index)
         let presentedSheetViewController = presentSheetViewController(with: item, mode: Mode.uneditable)
         
         presentedSheetViewController.updateItemHandler { (currentItem) in
@@ -111,7 +112,7 @@ extension ProjectManagerViewController: UIDropInteractionDelegate {
                 
                 if let (dataSource, sourceIndexPath, tableView) = session.localDragSession?.localContext as? (Board, IndexPath, UITableView) {
                     tableView.beginUpdates()
-                    dataSource.items.remove(at: sourceIndexPath.row)
+                    dataSource.deleteItem(at: sourceIndexPath.row)
                     tableView.deleteRows(at: [sourceIndexPath], with: .automatic)
                     tableView.endUpdates()
                 }

@@ -2,17 +2,24 @@ import UIKit
 
 class Board {
     var title: String
-    var items = [Item]()
+    private var items = [Item]()
+    var itemsCount: Int {
+        return items.count
+    }
     
     init(title: String) {
         self.title = title
+    }
+    
+    func item(at index: Int) -> Item {
+        return items[index]
     }
     
     func createItem() -> Item {
         return Item(title: "", description: "", progressStatus: "", dueDate: Int(Date().timeIntervalSince1970))
     }
     
-    func addTodoItem(_ item: Item) {
+    func addItem(_ item: Item) {
         items.append(item)
     }
     

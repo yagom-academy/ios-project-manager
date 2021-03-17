@@ -41,7 +41,7 @@ class SectionCollectionViewCell: UICollectionViewCell {
     func configureBoard(with board: Board) {
         self.board = board
         sectionTitleLabel.text = "\(board.title) "
-        boardItemCountLabel.text = "\(board.items.count)"
+        boardItemCountLabel.text = "\(board.itemsCount)"
         boardItemCountLabel.textColor = .white
         boardItemCountLabel.textAlignment = .center
         boardItemCountLabel.backgroundColor = .black
@@ -57,7 +57,7 @@ extension SectionCollectionViewCell: UITableViewDelegate {
             return
         }
         
-        self.delegate?.tableViewCell(selectedCell, didSelectAt: indexPath.row, on : board)
+        self.delegate?.tableViewCell(selectedCell, didSelectAt: indexPath.row, on: board)
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -79,7 +79,7 @@ extension SectionCollectionViewCell: UITableViewDelegate {
 
 extension SectionCollectionViewCell: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: BoardTableViewCell.identifier) as? BoardTableViewCell, let item = board?.items[indexPath.row] else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: BoardTableViewCell.identifier) as? BoardTableViewCell, let item = board?.item(at: indexPath.row) else {
             return UITableViewCell()
         }
         
@@ -88,7 +88,7 @@ extension SectionCollectionViewCell: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return board?.items.count ?? 0
+        return board?.itemsCount ?? 0
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -97,7 +97,7 @@ extension SectionCollectionViewCell: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         if let board = self.board {
-            let movingItem = board.items[sourceIndexPath.row]
+            let movingItem = board.item(at: sourceIndexPath.row)
             board.deleteItem(at: sourceIndexPath.row)
             board.insertItem(at: destinationIndexPath.row, with: movingItem)
         }
@@ -106,14 +106,9 @@ extension SectionCollectionViewCell: UITableViewDataSource {
 
 extension SectionCollectionViewCell: AddItemDelegate {
     func addNewCell(with item: Item) {
-        guard let board = self.board else {
-            return
+        if let board = self.board {
+            board.addItem(item)
         }
-        
-        board.addTodoItem(item)
-        let indexPath = IndexPath(row:(board.items.count - 1), section:0)
-        boardTableView.insertRows(at: [indexPath], with: .automatic)
-        configureBoard(with: board)
     }
 }
 
@@ -134,6 +129,7 @@ extension SectionCollectionViewCell: UITableViewDragDelegate {
         default:
             break
         }
+        
         session.localContext = (board, indexPath, tableView)
         return [UIDragItem(itemProvider: itemProvider)]
     }
@@ -142,31 +138,28 @@ extension SectionCollectionViewCell: UITableViewDragDelegate {
 extension SectionCollectionViewCell: UITableViewDropDelegate {
     func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
         let destinationIndexPath: IndexPath
-
+        
         if let indexPath = coordinator.destinationIndexPath {
             destinationIndexPath = indexPath
         } else {
-            let section = tableView.numberOfSections - 1
-            let row = tableView.numberOfRows(inSection: section)
-            destinationIndexPath = IndexPath(row: row, section: section)
+            let row = tableView.numberOfRows(inSection: 0)
+            destinationIndexPath = IndexPath(row: row, section: 0)
         }
         
         coordinator.session.loadObjects(ofClass: NSString.self) { [self] items in
-            guard let strings = items as? [String] else { return }
             var indexPaths = [IndexPath]()
+            let indexPath = IndexPath(row: destinationIndexPath.row, section: destinationIndexPath.section)
             
-            //for index in 0..<strings.count {
-                let indexPath = IndexPath(row: destinationIndexPath.row, section: destinationIndexPath.section)
-                
-                let count = self.rowCount.integer(forKey: "indexCount")
-                let boardNumber = self.boardCount.integer(forKey: "boardCount")
-                
-                self.board?.items.insert(boardManager.boards[boardNumber].items[count], at: indexPath.row)
-                
+            let count = self.rowCount.integer(forKey: "indexCount")
+            let boardNumber = self.boardCount.integer(forKey: "boardCount")
+            
+            if let board = self.board {
+                board.insertItem(at: indexPath.row, with: boardManager.boards[boardNumber].item(at: count))
                 indexPaths.append(indexPath)
-            //}
-            tableView.insertRows(at: indexPaths, with: .automatic)
-            configureBoard(with: self.board!)
+                tableView.insertRows(at: indexPaths, with: .automatic)
+                configureBoard(with: board)
+            }
+            
             self.removeSourceTableData(localContext: coordinator.session.localDragSession?.localContext)
         }
     }
@@ -177,12 +170,12 @@ extension SectionCollectionViewCell: UITableViewDropDelegate {
 }
 extension SectionCollectionViewCell {
     private func removeSourceTableData(localContext: Any?) {
-            if let (dataSource, sourceIndexPath, tableView) = localContext as? (Board, IndexPath, UITableView) {
-                tableView.beginUpdates()
-                dataSource.items.remove(at: sourceIndexPath.row)
-                tableView.deleteRows(at: [sourceIndexPath], with: .automatic)
-                tableView.endUpdates()
-                tableView.reloadData()
-            }
+        if let (dataSource, sourceIndexPath, tableView) = localContext as? (Board, IndexPath, UITableView) {
+            tableView.beginUpdates()
+            dataSource.deleteItem(at: sourceIndexPath.row)
+            tableView.deleteRows(at: [sourceIndexPath], with: .automatic)
+            tableView.endUpdates()
+            tableView.reloadData()
         }
+    }
 }
