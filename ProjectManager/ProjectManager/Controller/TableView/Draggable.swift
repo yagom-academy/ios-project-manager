@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol Draggable: ThingTableView {
+protocol Draggable: ThingTableViewProtocol {
     func drag(for indexPath: IndexPath) -> [UIDragItem]
 }
 

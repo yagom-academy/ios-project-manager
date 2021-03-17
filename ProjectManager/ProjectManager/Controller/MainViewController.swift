@@ -10,9 +10,9 @@ final class MainViewController: UIViewController {
     
     // MARK: - Outlet
     
-    private lazy var todoTableView = makeTableView(type: .todo)
-    private lazy var doingTableView = makeTableView(type: .doing)
-    private lazy var doneTableView = makeTableView(type: .done)
+    private lazy var todoTableView = TodoTableView()
+    private lazy var doingTableView = DoingTableView()
+    private lazy var doneTableView = DoneTableView()
     
     // MARK: - Life Cycle
     
@@ -20,18 +20,20 @@ final class MainViewController: UIViewController {
         super.viewDidLoad()
         configureNavigationBar()
         configureConstratins()
+        configureThingTableViews()
     }
     
     // MARK: - UI
     
-    private func makeTableView(type: TableViewType) -> ThingTableView {
-        let tableView = ThingTableView(title: type.rawValue)
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.dragDelegate = self
-        tableView.dropDelegate = self
-        tableView.register(cellType: ThingTableViewCell.self)
-        return tableView
+    private func configureThingTableViews() {
+        let thingTableViews = [todoTableView, doingTableView, doneTableView]
+        for thingTableView in thingTableViews {
+            thingTableView.dataSource = self
+            thingTableView.delegate = self
+            thingTableView.dragDelegate = self
+            thingTableView.dropDelegate = self
+            thingTableView.register(cellType: ThingTableViewCell.self)
+        }
     }
     
     private func configureConstratins() {
@@ -71,7 +73,7 @@ final class MainViewController: UIViewController {
         showDetailView(isNew: true, tableView: todoTableView)
     }
     
-    private func showDetailView(isNew: Bool = false, index: Int? = nil, thing: Thing? = nil, tableView: ThingTableView? = nil) {
+    private func showDetailView(isNew: Bool = false, index: Int? = nil, thing: Thing? = nil, tableView: ThingTableViewProtocol? = nil) {
         let detailView = DetailViewController()
         let navigationController = UINavigationController(rootViewController: detailView)
         detailView.isNew = isNew
@@ -86,7 +88,7 @@ final class MainViewController: UIViewController {
 
 extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let thingTableView = tableView as? ThingTableView else {
+        guard let thingTableView = tableView as? ThingTableViewProtocol else {
             return
         }
         let thing = thingTableView.list[indexPath.row]
@@ -100,7 +102,7 @@ extension MainViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            guard let thingTableView = tableView as? ThingTableView else {
+            guard let thingTableView = tableView as? ThingTableViewProtocol else {
                 return
             }
             thingTableView.deleteThing(at: indexPath)
@@ -112,7 +114,7 @@ extension MainViewController: UITableViewDelegate {
 
 extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let thingTableView = tableView as? ThingTableView else {
+        guard let thingTableView = tableView as? ThingTableViewProtocol else {
             return 0
         }
         thingTableView.setCount(thingTableView.list.count)
@@ -120,7 +122,7 @@ extension MainViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let thingTableView = tableView as? ThingTableView else {
+        guard let thingTableView = tableView as? ThingTableViewProtocol else {
             return UITableViewCell()
         }
         let cell = thingTableView.dequeueReusableCell(for: indexPath, cellType: ThingTableViewCell.self)
@@ -134,10 +136,10 @@ extension MainViewController: UITableViewDataSource {
 
 extension MainViewController: UITableViewDragDelegate, UITableViewDropDelegate {
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
-        guard let thingTableView = tableView as? Draggable else {
+        guard let draggableTableView = tableView as? Draggable else {
             return [UIDragItem(itemProvider: NSItemProvider())]
         }
-        return thingTableView.drag(for: indexPath)
+        return draggableTableView.drag(for: indexPath)
     }
     
     func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
@@ -145,17 +147,14 @@ extension MainViewController: UITableViewDragDelegate, UITableViewDropDelegate {
         if let destinationIndexPath = coordinator.destinationIndexPath {
             indexPath = destinationIndexPath
         } else {
-            var section = tableView.numberOfSections
-            if section > 0 {
-                section -= 1
-            }
+            let section = tableView.numberOfSections - 1
             let row = tableView.numberOfRows(inSection: section)
             indexPath = IndexPath(row: row, section: section)
         }
         
-        guard let thingTableView = tableView as? Droppable else {
+        guard let droppableTableView = tableView as? Droppable else {
             return
         }
-        thingTableView.drop(coordinator.items, to: indexPath)
+        droppableTableView.drop(coordinator.items, to: indexPath)
     }
 }

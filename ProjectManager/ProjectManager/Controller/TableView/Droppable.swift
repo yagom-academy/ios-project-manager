@@ -8,7 +8,7 @@
 import UIKit
 import MobileCoreServices
 
-protocol Droppable: ThingTableView {
+protocol Droppable: ThingTableViewProtocol {
     func drop(_ dropItems: [UITableViewDropItem], to indexPath: IndexPath)
 }
 
@@ -22,7 +22,7 @@ extension Droppable {
             guard error == nil, let data = data, var thing = try? JSONDecoder().decode(Thing.self, from: data) else {
                 return
             }
-            if self.title == TableViewType.done.rawValue {
+            if self is DoneTableView {
                 thing.isDone = true
             } else {
                 thing.isDone = false

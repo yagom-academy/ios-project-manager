@@ -1,33 +1,29 @@
 //
-//  ThingTableView.swift
+//  TodoTableVIew.swift
 //  ProjectManager
 //
-//  Created by 임성민 on 2021/03/09.
+//  Created by 임성민 on 2021/03/17.
 //
 
 import UIKit
-import MobileCoreServices
 
-class ThingTableView: UITableView, Draggable, Droppable {
+class TodoTableView: UITableView, ThingTableViewProtocol, Draggable, Droppable {
     
     //MARK: - Property
-    
     var list: [Thing] = []
-    var title: String? = nil
     
     //MARK: - Init
-    
-    init(title: String) {
+    init() {
         super.init(frame: .zero, style: .grouped)
-        self.title = title
-        tableHeaderView = ThingTableHeaderView(height: 50, title: title)
+        tableHeaderView = ThingTableHeaderView(height: 50, title: "TODO")
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        tableHeaderView = ThingTableHeaderView(height: 50, title: "TODO")
     }
     
-    //MARK: - CURD
+    //MARK: - CRUD
     
     func createThing(_ thing: Thing) {
         list.insert(thing, at: 0)
