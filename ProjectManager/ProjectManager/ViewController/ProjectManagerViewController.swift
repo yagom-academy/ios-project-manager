@@ -17,6 +17,7 @@ class ProjectManagerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavigationBar()
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadHeader), name: NSNotification.Name("reloadHeader"), object: nil)
     }
     
     @IBAction func tappedAddButton(_ sender: Any) {
@@ -25,6 +26,14 @@ class ProjectManagerViewController: UIViewController {
     
     private func configureNavigationBar() {
         titleNavigationBar.topItem?.title = "Project Manager"
+    }
+    
+    @objc func reloadHeader(_ noti: Notification) {
+        for item in 0..<sectionCollectionView.numberOfItems(inSection: 0) {
+            if let sectionCollectionViewCell = sectionCollectionView.cellForItem(at: [0,item]) as? SectionCollectionViewCell, let cellBoard = sectionCollectionViewCell.board {
+                sectionCollectionViewCell.configureBoard(with: cellBoard)
+            }
+        }
     }
 }
 

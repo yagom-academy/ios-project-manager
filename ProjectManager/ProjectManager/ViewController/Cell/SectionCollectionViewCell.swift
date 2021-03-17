@@ -23,7 +23,7 @@ class SectionCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         registerXib()
         configureBoardTable()
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadTableView), name: NSNotification.Name("reload"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadTodoBoard), name: NSNotification.Name("reloadTodoBoard"), object: nil)
     }
     
     private func registerXib(){
@@ -72,7 +72,7 @@ extension SectionCollectionViewCell: UITableViewDelegate {
         }
     }
     
-    @objc func reloadTableView(_ noti: Notification) {
+    @objc func reloadTodoBoard(_ noti: Notification) {
         boardTableView.reloadData()
     }
 }
@@ -174,6 +174,7 @@ extension SectionCollectionViewCell {
             tableView.beginUpdates()
             dataSource.deleteItem(at: sourceIndexPath.row)
             tableView.deleteRows(at: [sourceIndexPath], with: .automatic)
+            NotificationCenter.default.post(name: NSNotification.Name("reloadHeader"), object: nil)
             tableView.endUpdates()
             tableView.reloadData()
         }
