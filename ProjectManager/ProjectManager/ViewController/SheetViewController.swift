@@ -59,6 +59,8 @@ class SheetViewController: UIViewController {
             completionHandler(currentItem)
         }
         
+        NotificationCenter.default.post(name: NSNotification.Name("reload"), object: nil)
+        
         self.dismiss(animated: true, completion: nil)
     }
     
