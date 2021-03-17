@@ -103,6 +103,7 @@ extension SectionCollectionViewCell: AddItemDelegate {
     func addNewCell(with item: Item) {
         if let board = self.board {
             board.addItem(item)
+            self.configureBoard(with: board)
         }
         boardTableView.reloadData()
     }
