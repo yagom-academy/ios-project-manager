@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DoneTableView: ThingTableView {
+final class DoneTableView: ThingTableView {
     override init() {
         super.init()
         tableHeaderView = ThingTableHeaderView(height: 50, title: Strings.doneTitle)

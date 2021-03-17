@@ -15,7 +15,7 @@ class ThingTableView: UITableView, Draggable, Droppable {
     
     //MARK: - Init
     
-    init(String: title) {
+    init() {
         super.init(frame: .zero, style: .grouped)
     }
     
