@@ -12,9 +12,10 @@ class SectionCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var sectionTitleLabel: UILabel!
     @IBOutlet weak var boardItemCountLabel: UILabel!
     
-    let pj = ProjectManagerViewController()
     var rowCount = UserDefaults.standard
     var boardCount = UserDefaults.standard
+    
+    let boardManager: BoardManager = BoardManager.shared
     
     weak var delegate: BoardTableViewCellDelegate?
     var board: Board?
@@ -24,8 +25,6 @@ class SectionCollectionViewCell: UICollectionViewCell {
         boardTableView.dragInteractionEnabled = true
         boardTableView.dragDelegate = self
         boardTableView.dropDelegate = self
-        
-        pj.addBoardItems()
     }
     
     private func registerXib(){
@@ -149,7 +148,7 @@ extension SectionCollectionViewCell: UITableViewDropDelegate {
                 let count = self.rowCount.integer(forKey: "indexCount")
                 let boardNumber = self.boardCount.integer(forKey: "boardCount")
                 
-                self.board?.items.insert(pj.boards[boardNumber].items[count], at: indexPath.row)
+                self.board?.items.insert(boardManager.boards[boardNumber].items[count], at: indexPath.row)
                 
                 indexPaths.append(indexPath)
             }

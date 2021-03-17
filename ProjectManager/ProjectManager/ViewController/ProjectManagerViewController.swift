@@ -10,19 +10,13 @@ class ProjectManagerViewController: UIViewController {
     @IBOutlet weak var addButton: UIBarButtonItem!
     @IBOutlet weak var sectionCollectionView: UICollectionView!
     
-    let todoBoard = Board(title: ProgressStatus.todo.rawValue)
-    let doingBoard = Board(title: ProgressStatus.doing.rawValue)
-    let doneBoard = Board(title: ProgressStatus.done.rawValue)
-    lazy var boards: [Board] = {
-        return [todoBoard, doingBoard, doneBoard]
-    }()
+    let boardManager: BoardManager = BoardManager.shared
     
     weak var delegate: AddItemDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavigationBar()
-        addBoardItems()
     }
     
     @IBAction func tappedAddButton(_ sender: Any) {
@@ -32,23 +26,11 @@ class ProjectManagerViewController: UIViewController {
     private func configureNavigationBar() {
         titleNavigationBar.topItem?.title = "Project Manager"
     }
-    
-    func addBoardItems() {
-        todoBoard.items.append(Item(title: "TODO LIST", description: "TODO LIST for project. please help me!!", progressStatus: ProgressStatus.todo.rawValue, dueDate: 1220301220))
-        todoBoard.items.append(Item(title: "TODO LIST2", description: "TODO LIST for project. please help me!!", progressStatus: ProgressStatus.todo.rawValue, dueDate: 1220301220))
-        todoBoard.items.append(Item(title: "TODO LIST3", description: "TODO LIST for project. please help me!!", progressStatus: ProgressStatus.todo.rawValue, dueDate: 1220301220))
-        doingBoard.items.append(Item(title: "DOing LIST", description: "TODO LIST for project. please help me!!", progressStatus: ProgressStatus.todo.rawValue, dueDate: 1220301220))
-        doingBoard.items.append(Item(title: "DOing LIST2", description: "TODO LIST for project. please help me!!", progressStatus: ProgressStatus.todo.rawValue, dueDate: 1220301220))
-        doingBoard.items.append(Item(title: "DOing LIST3", description: "TODO LIST for project. please help me!!", progressStatus: ProgressStatus.todo.rawValue, dueDate: 1220301220))
-        doneBoard.items.append(Item(title: "DONE LIST", description: "Done LIST for project. please help me!!", progressStatus: ProgressStatus.todo.rawValue, dueDate: 1220301220))
-        doneBoard.items.append(Item(title: "DONE LIST2", description: "Done LIST for project. please help me!!", progressStatus: ProgressStatus.todo.rawValue, dueDate: 1220301220))
-        doneBoard.items.append(Item(title: "DONE LIST3", description: "Done LIST for project. please help me!!", progressStatus: ProgressStatus.todo.rawValue, dueDate: 1220301220))
-    }
 }
 
 extension ProjectManagerViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return boards.count
+        return boardManager.boards.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -56,7 +38,7 @@ extension ProjectManagerViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         
-        cell.configureBoard(with : boards[indexPath.item])
+        cell.configureBoard(with : boardManager.boards[indexPath.item])
         cell.delegate = self
         return cell
     }
@@ -65,7 +47,7 @@ extension ProjectManagerViewController: UICollectionViewDataSource {
 extension ProjectManagerViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let collectionViewCellWidth = collectionView.frame.width / CGFloat(boards.count) - 10
+        let collectionViewCellWidth = collectionView.frame.width / CGFloat(boardManager.boards.count) - 10
         let collectionViewCellHeight = collectionView.frame.height
         
         return CGSize(width: collectionViewCellWidth, height: collectionViewCellHeight)
@@ -82,7 +64,7 @@ extension ProjectManagerViewController: BoardTableViewCellDelegate {
 
 extension ProjectManagerViewController {
     private func createNewTodoItem() {
-        var newItem = todoBoard.createItem()
+        var newItem = boardManager.todoBoard.createItem()
         let presentedSheetViewController = presentSheetViewController(with: newItem, mode: Mode.editable)
         
         presentedSheetViewController.updateItemHandler { (currentItem) in
