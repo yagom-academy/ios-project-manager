@@ -5,9 +5,9 @@
 //  Created by 임성민 on 2021/03/17.
 //
 
-import Foundation
+import UIKit
 
-protocol ThingTableViewProtocol {
+protocol ThingTableViewProtocol: UITableView {
     var list: [Thing] { get }
     
     func createThing(_ thing: Thing)

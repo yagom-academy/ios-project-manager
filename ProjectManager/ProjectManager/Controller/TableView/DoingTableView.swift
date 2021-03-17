@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DoingTableView: UITableView, ThingTableViewProtocol {
+class DoingTableView: UITableView, ThingTableViewProtocol, Draggable, Droppable {
 
     //MARK: - Property
     var list: [Thing] = []

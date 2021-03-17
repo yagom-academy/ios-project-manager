@@ -14,7 +14,7 @@ final class DetailViewController: UIViewController {
     var isNew: Bool = false
     var index: Int? = nil
     var thing: Thing? = nil
-    var tableView: ThingTableView? = nil
+    var tableView: ThingTableViewProtocol?
     
     // MARK: - Outlet
     
@@ -100,7 +100,6 @@ final class DetailViewController: UIViewController {
     // MARK: - Navigation bar
     
     private func configureNavigationBar() {
-        title = tableView?.title
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(touchUpDoneButton))
         if isNew {
             toggleEditMode()
