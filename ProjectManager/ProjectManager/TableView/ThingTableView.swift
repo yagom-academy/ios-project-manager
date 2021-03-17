@@ -1,5 +1,5 @@
 //
-//  TodoTableVIew.swift
+//  ThingTableView.swift
 //  ProjectManager
 //
 //  Created by 임성민 on 2021/03/17.
@@ -7,20 +7,20 @@
 
 import UIKit
 
-class TodoTableView: UITableView, ThingTableViewProtocol, Draggable, Droppable {
+class ThingTableView: UITableView, Draggable, Droppable {
     
     //MARK: - Property
+    
     var list: [Thing] = []
     
     //MARK: - Init
+    
     init() {
         super.init(frame: .zero, style: .grouped)
-        tableHeaderView = ThingTableHeaderView(height: 50, title: "TODO")
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        tableHeaderView = ThingTableHeaderView(height: 50, title: "TODO")
     }
     
     //MARK: - CRUD
@@ -56,4 +56,5 @@ class TodoTableView: UITableView, ThingTableViewProtocol, Draggable, Droppable {
             tableHeaderView.setCount(count)
         }
     }
+    
 }

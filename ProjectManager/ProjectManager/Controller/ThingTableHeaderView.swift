@@ -15,7 +15,7 @@ final class ThingTableHeaderView: UIView {
     private let countLabel = UILabel()
     
     // MARK: - Init
-
+    
     init(height: Int, title: String) {
         super.init(frame: CGRect(x: 0, y: 0, width: 0, height: height))
         titleLabel.text = title

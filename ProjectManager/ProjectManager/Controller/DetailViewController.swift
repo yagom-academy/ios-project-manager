@@ -14,7 +14,7 @@ final class DetailViewController: UIViewController {
     var isNew: Bool = false
     var index: Int? = nil
     var thing: Thing? = nil
-    var tableView: ThingTableViewProtocol?
+    var tableView: ThingTableView?
     
     // MARK: - Outlet
     
