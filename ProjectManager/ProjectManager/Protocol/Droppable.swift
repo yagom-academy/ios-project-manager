@@ -8,7 +8,7 @@
 import UIKit
 import MobileCoreServices
 
-protocol Droppable: ThingTableViewProtocol {
+protocol Droppable: ThingTableView {
     func drop(_ dropItems: [UITableViewDropItem], to indexPath: IndexPath)
 }
 
