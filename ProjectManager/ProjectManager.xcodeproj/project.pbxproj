@@ -18,6 +18,8 @@
 		364820E7260143AF004ADF6D /* TodoTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364820E6260143AF004ADF6D /* TodoTableView.swift */; };
 		364820EB2601453F004ADF6D /* DoingTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364820EA2601453F004ADF6D /* DoingTableView.swift */; };
 		364820EE260145B5004ADF6D /* DoneTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364820ED260145B5004ADF6D /* DoneTableView.swift */; };
+		364820F526028437004ADF6D /* Thing.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 364820F326028437004ADF6D /* Thing.xcdatamodeld */; };
+		364820F8260288D5004ADF6D /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364820F7260288D5004ADF6D /* CoreDataStack.swift */; };
 		4C06ED5925FB0D8800F92978 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C06ED5825FB0D8800F92978 /* Reusable.swift */; };
 		4C5988A625FFA22D0073BDF9 /* Subclass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5988A525FFA22D0073BDF9 /* Subclass.swift */; };
 		4CAA8E0525F90EDD00B9C0A7 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAA8E0425F90EDD00B9C0A7 /* Strings.swift */; };
@@ -41,6 +43,8 @@
 		364820E6260143AF004ADF6D /* TodoTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTableView.swift; sourceTree = "<group>"; };
 		364820EA2601453F004ADF6D /* DoingTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoingTableView.swift; sourceTree = "<group>"; };
 		364820ED260145B5004ADF6D /* DoneTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneTableView.swift; sourceTree = "<group>"; };
+		364820F426028437004ADF6D /* Thing.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Thing.xcdatamodel; sourceTree = "<group>"; };
+		364820F7260288D5004ADF6D /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		4C06ED5825FB0D8800F92978 /* Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
 		4C5988A525FFA22D0073BDF9 /* Subclass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Subclass.swift; sourceTree = "<group>"; };
 		4CAA8E0425F90EDD00B9C0A7 /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
@@ -95,6 +99,8 @@
 			isa = PBXGroup;
 			children = (
 				3648209025F7339F004ADF6D /* Thing.swift */,
+				364820F326028437004ADF6D /* Thing.xcdatamodeld */,
+				364820F7260288D5004ADF6D /* CoreDataStack.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -255,11 +261,13 @@
 				364820D325FFD621004ADF6D /* MainTitleView.swift in Sources */,
 				4C06ED5925FB0D8800F92978 /* Reusable.swift in Sources */,
 				4CAA8E1E25F91F6E00B9C0A7 /* DetailViewController.swift in Sources */,
+				364820F526028437004ADF6D /* Thing.xcdatamodeld in Sources */,
 				4CAA8E0925F90F3500B9C0A7 /* ThingTableViewCell.swift in Sources */,
 				4CAA8E1025F9132F00B9C0A7 /* Extension.swift in Sources */,
 				364820B625FA0B2B004ADF6D /* MainViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				364820E4260142D3004ADF6D /* ThingTableView.swift in Sources */,
+				364820F8260288D5004ADF6D /* CoreDataStack.swift in Sources */,
 				4CAA8E0525F90EDD00B9C0A7 /* Strings.swift in Sources */,
 				364820A225F80C02004ADF6D /* ThingTableHeaderView.swift in Sources */,
 				364820E7260143AF004ADF6D /* TodoTableView.swift in Sources */,
@@ -482,6 +490,18 @@
 			productName = Alamofire;
 		};
 /* End XCSwiftPackageProductDependency section */
+/* Begin XCVersionGroup section */
+		364820F326028437004ADF6D /* Thing.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				364820F426028437004ADF6D /* Thing.xcdatamodel */,
+			);
+			currentVersion = 364820F426028437004ADF6D /* Thing.xcdatamodel */;
+			path = Thing.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = C7431EFA25F51E1D0094C4CF /* Project object */;
 }
