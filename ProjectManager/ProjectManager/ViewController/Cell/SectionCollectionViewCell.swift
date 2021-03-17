@@ -94,6 +94,14 @@ extension SectionCollectionViewCell: UITableViewDataSource {
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
+    
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        if let board = self.board {
+            let movingItem = board.items[sourceIndexPath.row]
+            board.deleteItem(at: sourceIndexPath.row)
+            board.insertItem(at: destinationIndexPath.row, with: movingItem)
+        }
+    }
 }
 
 extension SectionCollectionViewCell: AddItemDelegate {

@@ -16,6 +16,10 @@ class Board {
         items.append(item)
     }
     
+    func insertItem(at index: Int, with item: Item) {
+        items.insert(item, at: index)
+    }
+    
     func readItems() -> [Item] {
         return items
     }
