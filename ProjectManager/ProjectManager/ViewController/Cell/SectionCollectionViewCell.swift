@@ -13,7 +13,6 @@ class SectionCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var boardItemCountLabel: UILabel!
     
     weak var delegate: BoardTableViewCellDelegate?
-    let boardManager: BoardManager = BoardManager.shared
     private var draggingRowIndex = 0
     private var draggingBoardIndex = 0
     var board: Board?
@@ -21,18 +20,13 @@ class SectionCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         registerXib()
         configureBoardTable()
+        updateHeaderUI()
     }
     
-    func configureBoard(with board: Board) {
+    func updateHeaderLabels(with board: Board) {
         self.board = board
         sectionTitleLabel.text = "\(board.title) "
         boardItemCountLabel.text = "\(board.itemsCount)"
-        boardItemCountLabel.textColor = .white
-        boardItemCountLabel.textAlignment = .center
-        boardItemCountLabel.backgroundColor = .black
-        boardItemCountLabel.translatesAutoresizingMaskIntoConstraints = false
-        boardItemCountLabel.layer.masksToBounds = true
-        boardItemCountLabel.layer.cornerRadius = 10
     }
 }
 extension SectionCollectionViewCell: UITableViewDelegate {
@@ -52,7 +46,7 @@ extension SectionCollectionViewCell: UITableViewDelegate {
             
             board.deleteItem(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
-            configureBoard(with: board)
+            updateHeaderLabels(with: board)
         }
     }
 }
@@ -122,7 +116,7 @@ extension SectionCollectionViewCell: UITableViewDropDelegate {
                 board.insertItem(at: indexPath.row, with: boardManager.boards[draggingBoardIndex].item(at: draggingRowIndex))
                 indexPaths.append(indexPath)
                 tableView.insertRows(at: indexPaths, with: .automatic)
-                configureBoard(with: board)
+                updateHeaderLabels(with: board)
             }
             
             self.removeSourceTableData(localContext: coordinator.session.localDragSession?.localContext)
@@ -137,7 +131,7 @@ extension SectionCollectionViewCell: AddItemDelegate {
     func addNewCell(with item: Item) {
         if let board = self.board {
             board.addItem(item)
-            self.configureBoard(with: board)
+            updateHeaderLabels(with: board)
         }
         boardTableView.reloadData()
     }
@@ -153,6 +147,15 @@ extension SectionCollectionViewCell {
         boardTableView.dragDelegate = self
         boardTableView.dropDelegate = self
         boardTableView.tableFooterView = UIView(frame: CGRect.zero)
+    }
+    
+    private func updateHeaderUI() {
+        boardItemCountLabel.textColor = .white
+        boardItemCountLabel.textAlignment = .center
+        boardItemCountLabel.backgroundColor = .black
+        boardItemCountLabel.translatesAutoresizingMaskIntoConstraints = false
+        boardItemCountLabel.layer.masksToBounds = true
+        boardItemCountLabel.layer.cornerRadius = 10
     }
     
     private func removeSourceTableData(localContext: Any?) {

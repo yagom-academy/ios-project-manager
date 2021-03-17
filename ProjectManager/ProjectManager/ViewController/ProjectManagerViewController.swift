@@ -11,7 +11,6 @@ class ProjectManagerViewController: UIViewController {
     @IBOutlet weak var sectionCollectionView: UICollectionView!
     
     weak var delegate: AddItemDelegate?
-    let boardManager: BoardManager = BoardManager.shared
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +25,7 @@ class ProjectManagerViewController: UIViewController {
     @objc func reloadHeader(_ noti: Notification) {
         for item in 0..<sectionCollectionView.numberOfItems(inSection: 0) {
             if let sectionCollectionViewCell = sectionCollectionView.cellForItem(at: [0,item]) as? SectionCollectionViewCell, let cellBoard = sectionCollectionViewCell.board {
-                sectionCollectionViewCell.configureBoard(with: cellBoard)
+                sectionCollectionViewCell.updateHeaderLabels(with: cellBoard)
             }
         }
     }
@@ -41,7 +40,7 @@ extension ProjectManagerViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         
-        cell.configureBoard(with : boardManager.boards[indexPath.item])
+        cell.updateHeaderLabels(with : boardManager.boards[indexPath.item])
         cell.delegate = self
         return cell
     }
