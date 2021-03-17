@@ -37,8 +37,10 @@ class SectionCollectionViewCell: UICollectionViewCell {
         sectionTitleLabel.text = "\(board.title) "
         boardItemCountLabel.text = "\(board.items.count)"
         boardItemCountLabel.textColor = .white
-        boardItemCountLabel.layer.borderColor = UIColor.black.cgColor
-        boardItemCountLabel.layer.borderWidth = 1
+        boardItemCountLabel.textAlignment = .center
+        boardItemCountLabel.backgroundColor = .black
+        boardItemCountLabel.translatesAutoresizingMaskIntoConstraints = false
+        boardItemCountLabel.layer.masksToBounds = true
         boardItemCountLabel.layer.cornerRadius = 10
     }
 }
