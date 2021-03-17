@@ -23,7 +23,6 @@ class SectionCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         registerXib()
         configureBoardTable()
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadTodoBoard), name: NSNotification.Name("reloadTodoBoard"), object: nil)
     }
     
     private func registerXib(){
@@ -71,10 +70,6 @@ extension SectionCollectionViewCell: UITableViewDelegate {
             configureBoard(with: board)
         }
     }
-    
-    @objc func reloadTodoBoard(_ noti: Notification) {
-        boardTableView.reloadData()
-    }
 }
 
 extension SectionCollectionViewCell: UITableViewDataSource {
@@ -109,6 +104,7 @@ extension SectionCollectionViewCell: AddItemDelegate {
         if let board = self.board {
             board.addItem(item)
         }
+        boardTableView.reloadData()
     }
 }
 
