@@ -131,9 +131,9 @@ extension SectionCollectionViewCell: AddItemDelegate {
     func addNewCell(with item: Item) {
         if let board = self.board {
             board.addItem(item)
+            boardTableView.insertRows(at: [IndexPath(row: board.itemsCount - 1, section: 0)], with: .automatic)
             updateHeaderLabels(with: board)
         }
-        boardTableView.reloadData()
     }
 }
 extension SectionCollectionViewCell {
@@ -165,7 +165,6 @@ extension SectionCollectionViewCell {
             tableView.deleteRows(at: [sourceIndexPath], with: .automatic)
             NotificationCenter.default.post(name: NSNotification.Name("reloadHeader"), object: nil)
             tableView.endUpdates()
-            tableView.reloadData()
         }
     }
 }
