@@ -22,14 +22,19 @@ class SectionCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         registerXib()
-        boardTableView.dragInteractionEnabled = true
-        boardTableView.dragDelegate = self
-        boardTableView.dropDelegate = self
+        configureBoardTable()
     }
     
     private func registerXib(){
         let nibName = UINib(nibName: BoardTableViewCell.identifier, bundle: nil)
         boardTableView.register(nibName, forCellReuseIdentifier: BoardTableViewCell.identifier)
+    }
+    
+    private func configureBoardTable() {
+        boardTableView.dragInteractionEnabled = true
+        boardTableView.dragDelegate = self
+        boardTableView.dropDelegate = self
+        boardTableView.tableFooterView = UIView(frame: CGRect.zero)
     }
     
     func configureBoard(with board: Board) {

@@ -66,14 +66,14 @@
                                                 </stackView>
                                                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="r93-ie-rsO">
                                                     <rect key="frame" x="0.0" y="61" width="540" height="518"/>
-                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                    <color key="backgroundColor" systemColor="systemGray5Color"/>
                                                     <connections>
                                                         <outlet property="dataSource" destination="J7u-u0-CoX" id="idx-iW-CdA"/>
                                                         <outlet property="delegate" destination="J7u-u0-CoX" id="KP0-KU-ubg"/>
                                                     </connections>
                                                 </tableView>
                                             </subviews>
-                                            <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="backgroundColor" systemColor="systemGray5Color"/>
                                             <constraints>
                                                 <constraint firstItem="zfw-Hu-bHb" firstAttribute="top" secondItem="q4F-OI-JXJ" secondAttribute="top" constant="10" id="5WG-uH-yvs"/>
                                                 <constraint firstItem="r93-ie-rsO" firstAttribute="leading" secondItem="q4F-OI-JXJ" secondAttribute="leading" id="NZ3-Qc-dmb"/>
