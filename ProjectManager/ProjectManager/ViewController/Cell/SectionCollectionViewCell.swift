@@ -12,8 +12,8 @@ class SectionCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var sectionTitleLabel: UILabel!
     @IBOutlet weak var boardItemCountLabel: UILabel!
     
-    var rowCount = UserDefaults.standard
-    var boardCount = UserDefaults.standard
+    private var draggingRowIndex = 0
+    private var draggingBoardIndex = 0
     
     let boardManager: BoardManager = BoardManager.shared
     
@@ -116,16 +116,15 @@ extension SectionCollectionViewCell: UITableViewDragDelegate {
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
         let itemProvider = NSItemProvider()
         
-        let indexRow = indexPath.row
-        rowCount.setValue(indexRow, forKey: "indexCount")
+        draggingRowIndex = indexPath.row
         
         switch self.board?.title {
         case ProgressStatus.todo.rawValue:
-            boardCount.setValue(0, forKey: "boardCount")
+            draggingBoardIndex = 0
         case ProgressStatus.doing.rawValue:
-            boardCount.setValue(1, forKey: "boardCount")
+            draggingBoardIndex = 1
         case ProgressStatus.done.rawValue:
-            boardCount.setValue(2, forKey: "boardCount")
+            draggingBoardIndex = 2
         default:
             break
         }
@@ -150,11 +149,8 @@ extension SectionCollectionViewCell: UITableViewDropDelegate {
             var indexPaths = [IndexPath]()
             let indexPath = IndexPath(row: destinationIndexPath.row, section: destinationIndexPath.section)
             
-            let count = self.rowCount.integer(forKey: "indexCount")
-            let boardNumber = self.boardCount.integer(forKey: "boardCount")
-            
             if let board = self.board {
-                board.insertItem(at: indexPath.row, with: boardManager.boards[boardNumber].item(at: count))
+                board.insertItem(at: indexPath.row, with: boardManager.boards[draggingBoardIndex].item(at: draggingRowIndex))
                 indexPaths.append(indexPath)
                 tableView.insertRows(at: indexPaths, with: .automatic)
                 configureBoard(with: board)
