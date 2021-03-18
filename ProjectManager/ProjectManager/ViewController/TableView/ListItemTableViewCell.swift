@@ -22,9 +22,9 @@ class ListItemTableViewCell: UITableViewCell {
         view.layer.shadowOpacity = 1
         return view
     }()
-    lazy var titleLabel: UILabel = makeCellLabel(font: .title3, textColor: .black)
-    lazy var descriptionLabel: UILabel = makeCellLabel(font: .body, textColor: .gray, numberOfLines: 3)
-    lazy var deadLineLabel: UILabel = makeCellLabel(font: .callout, textColor: .black)
+    private lazy var titleLabel: UILabel = makeCellLabel(font: .title3, textColor: .black)
+    private lazy var descriptionLabel: UILabel = makeCellLabel(font: .body, textColor: .gray, numberOfLines: 3)
+    private lazy var deadLineLabel: UILabel = makeCellLabel(font: .callout, textColor: .black)
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

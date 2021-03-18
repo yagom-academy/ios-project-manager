@@ -6,15 +6,16 @@
 //
 
 import UIKit
+import MobileCoreServices
 
 protocol ListTableViewDelegate: class {
     func presentEditView(listItemDetailViewController: ListItemDetailViewController)
 }
 
 class ListTableView: UITableView {
-    var statusType: ItemStatus
+    private var statusType: ItemStatus
     weak var listTableViewDelegate: ListTableViewDelegate?
-    lazy var headerView = TableHeaderView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: 60))
+    private lazy var headerView = TableHeaderView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: 60))
     
     init(statusType: ItemStatus) {
         self.statusType = statusType
@@ -42,16 +43,15 @@ class ListTableView: UITableView {
     }
     
     private func configureTableHeaderView() {
-        headerView.titleLabel.text = statusType.title
-        headerView.cellCountLabel.text = String(ItemList.shared.countListItem(statusType: statusType))
+        headerView.fillLabels(statusType: statusType)
         self.tableHeaderView = headerView
     }
     
-    func reloadHeaderCellCountLabel() {
-        headerView.cellCountLabel.text = String(ItemList.shared.countListItem(statusType: statusType))
+    private func reloadHeaderCellCountLabel() {
+        headerView.reloadCellCountLabel(statusType: statusType)
     }
     
-    @objc func reloadTableView(_ noti: Notification) {
+    @objc private func reloadTableView(_ noti: Notification) {
         let status = noti.userInfo?["statusType"] as? ItemStatus
         if self.statusType == status {
             self.reloadData()
@@ -89,5 +89,55 @@ extension ListTableView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let listItemDetailViewController = ListItemDetailViewController(statusType: statusType, detailViewType: .edit, itemIndex: indexPath.row)
         self.listTableViewDelegate?.presentEditView(listItemDetailViewController: listItemDetailViewController)
+    }
+}
+
+// MARK: - Drag & Drop
+extension ListTableView {
+    func dragItem(tableView: UITableView, indexPath: IndexPath) -> [UIDragItem] {
+        let item = ItemList.shared.getItem(statusType: statusType, index: indexPath.row)
+        guard let data = try? JSONEncoder().encode(item) else { return [] }
+        let itemProvider = NSItemProvider()
+        let dragItem = UIDragItem(itemProvider: itemProvider)
+        
+        itemProvider.registerDataRepresentation(forTypeIdentifier: kUTTypePlainText as String, visibility: .all) { completion in
+            completion(data, nil)
+            DispatchQueue.main.async {
+                ItemList.shared.removeItem(statusType: self.statusType, index: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+                self.reloadHeaderCellCountLabel()
+            }
+            return nil
+        }
+        return [dragItem]
+    }
+    
+    func dropItem(tableView: UITableView, coordinator: UITableViewDropCoordinator) {
+        let insertionIndex: IndexPath
+        if let indexPath = coordinator.destinationIndexPath {
+            insertionIndex = indexPath
+        } else {
+            let section = tableView.numberOfSections - 1
+            let row = tableView.numberOfRows(inSection: section)
+            insertionIndex = IndexPath(row: row, section: section)
+        }
+        
+        for item in coordinator.items {
+            item.dragItem.itemProvider.loadDataRepresentation(forTypeIdentifier: kUTTypePlainText as String) { (data, error) in
+                guard let data = data, error == nil else {
+                    return
+                }
+                guard let todo = try? JSONDecoder().decode(Todo.self, from: data) else {
+                    return
+                }
+                
+                DispatchQueue.main.async {
+                    ItemList.shared.insertItem(statusType: self.statusType, index: insertionIndex.row, item: todo)
+                    tableView.insertRows(at: [insertionIndex], with: .automatic)
+                    tableView.reloadData()
+                    self.reloadHeaderCellCountLabel()
+                }
+            }
+        }
     }
 }

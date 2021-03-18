@@ -9,7 +9,7 @@ import UIKit
 class ProjectManagerCollectionViewController: UIViewController {
     private var itemStatusList: [ItemStatus] = [.todo, .doing, .done]
     private let cellSpacing = 10
-    lazy var collectionView: UICollectionView = {
+    private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         layout.scrollDirection = .horizontal

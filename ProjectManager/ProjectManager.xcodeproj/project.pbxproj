@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		346C220625FB45EC00253919 /* ItemList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346C220525FB45EC00253919 /* ItemList.swift */; };
-		346C220D25FF145900253919 /* ListTableView+Drag&Drop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346C220C25FF145900253919 /* ListTableView+Drag&Drop.swift */; };
 		346C221025FF62D500253919 /* ProjectManagerCollectionVC+Drag&Drop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346C220F25FF62D500253919 /* ProjectManagerCollectionVC+Drag&Drop.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
@@ -27,7 +26,6 @@
 
 /* Begin PBXFileReference section */
 		346C220525FB45EC00253919 /* ItemList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemList.swift; sourceTree = "<group>"; };
-		346C220C25FF145900253919 /* ListTableView+Drag&Drop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListTableView+Drag&Drop.swift"; sourceTree = "<group>"; };
 		346C220F25FF62D500253919 /* ProjectManagerCollectionVC+Drag&Drop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProjectManagerCollectionVC+Drag&Drop.swift"; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -122,7 +120,6 @@
 			isa = PBXGroup;
 			children = (
 				FD4D230725F7134000FA6E6A /* ListTableView.swift */,
-				346C220C25FF145900253919 /* ListTableView+Drag&Drop.swift */,
 				FD4D230B25F7134F00FA6E6A /* ListItemTableViewCell.swift */,
 				E2B61D5425FA73EC007DF2FB /* TableHeaderView.swift */,
 			);
@@ -218,7 +215,6 @@
 				E2B61D5525FA73ED007DF2FB /* TableHeaderView.swift in Sources */,
 				FD4D22FA25F7109800FA6E6A /* ListItemDetailViewController.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
-				346C220D25FF145900253919 /* ListTableView+Drag&Drop.swift in Sources */,
 				FD4D22FF25F7112200FA6E6A /* Todo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

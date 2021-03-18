@@ -113,7 +113,7 @@ class ListItemDetailViewController: UIViewController {
         ])
     }
     
-    func configureEditView() {
+    private func configureEditView() {
         if detailViewType == .edit {
             let todo = ItemList.shared.getItem(statusType: statusType, index: itemIndex)
             fillContents(todo: todo)
@@ -167,17 +167,17 @@ class ListItemDetailViewController: UIViewController {
         navigationItem.rightBarButtonItem = doneButton
     }
     
-    @objc func edit() {
+    @objc private func edit() {
         titleTextField.isUserInteractionEnabled = true
         descriptionTextView.isEditable = true
         deadLineDatePicker.isEnabled = !deadLineDatePickerEnableToggleButton.isSelected
     }
     
-    @objc func cancel() {
+    @objc private func cancel() {
         dismiss(animated: true, completion: nil)
     }
     
-    @objc func done() {
+    @objc private func done() {
         guard let title = titleTextField.text else {
             dismiss(animated: true, completion: nil)
             return
