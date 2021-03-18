@@ -13,8 +13,8 @@ class SectionCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var boardItemCountLabel: UILabel!
     
     weak var delegate: BoardTableViewCellDelegate?
-    private var draggingRowIndex = 0
-    private var draggingBoardIndex = 0
+    var rowCount = UserDefaults.standard
+    var boardCount = UserDefaults.standard
     var board: Board?
     
     override func awakeFromNib() {
@@ -89,15 +89,16 @@ extension SectionCollectionViewCell: UITableViewDragDelegate {
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
         let itemProvider = NSItemProvider()
         
-        draggingRowIndex = indexPath.row
+        let indexRow = indexPath.row
+        rowCount.setValue(indexRow, forKey: "indexCount")
         
         switch self.board?.title {
         case ProgressStatus.todo.rawValue:
-            draggingBoardIndex = 0
+            boardCount.setValue(0, forKey: "boardCount")
         case ProgressStatus.doing.rawValue:
-            draggingBoardIndex = 1
+            boardCount.setValue(1, forKey: "boardCount")
         case ProgressStatus.done.rawValue:
-            draggingBoardIndex = 2
+            boardCount.setValue(2, forKey: "boardCount")
         default:
             break
         }
@@ -124,8 +125,11 @@ extension SectionCollectionViewCell: UITableViewDropDelegate {
             var indexPaths = [IndexPath]()
             let indexPath = IndexPath(row: destinationIndexPath.row, section: destinationIndexPath.section)
             
+            let count = self.rowCount.integer(forKey: "indexCount")
+            let boardNumber = self.boardCount.integer(forKey: "boardCount")
+            
             if let board = self.board {
-                board.insertItem(at: indexPath.row, with: boardManager.boards[draggingBoardIndex].item(at: draggingRowIndex))
+                board.insertItem(at: indexPath.row, with: boardManager.boards[boardNumber].item(at: count))
                 indexPaths.append(indexPath)
                 tableView.insertRows(at: indexPaths, with: .automatic)
                 updateHeaderLabels(with: board)
