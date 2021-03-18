@@ -16,7 +16,7 @@ class Board {
     }
     
     func createItem() -> Item {
-        return Item(title: "", description: "", progressStatus: "", dueDate: Int(Date().timeIntervalSince1970))
+        return Item(title: "", description: "", progressStatus: "", timeStamp: Int(Date().timeIntervalSince1970))
     }
     
     func addItem(_ item: Item) {

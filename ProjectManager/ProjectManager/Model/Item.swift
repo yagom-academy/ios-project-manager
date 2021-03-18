@@ -4,23 +4,23 @@ struct Item: Codable {
     var title: String
     var description: String
     var progressStatus: String
-    var dueDate: Int
-    var date: Date {
-        return Date(timeIntervalSince1970: TimeInterval(dueDate))
+    var timeStamp: Int
+    var dueDate: Date {
+        return Date(timeIntervalSince1970: TimeInterval(timeStamp))
     }
     var dateToString: String {
-        return DateFormatter().convertDateToString(date: date)
+        return DateFormatter().convertDateToString(date: dueDate)
     }
     
     enum CodingKeys: String, CodingKey {
-        case title, description, progressStatus, dueDate
+        case title, description, progressStatus, timeStamp
     }
     
     mutating func updateItem(_ item: Item) {
         self.title = item.title
         self.description = item.description
         self.progressStatus = item.progressStatus
-        self.dueDate = item.dueDate
+        self.timeStamp = item.timeStamp
     }
 }
 extension DateFormatter {

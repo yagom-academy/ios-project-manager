@@ -2,13 +2,13 @@ import Foundation
 
 enum Mode {
     case editable
-    case uneditable
+    case readOnly
     
     var barButtonTitle: String {
         switch self {
         case .editable:
             return "Cancel"
-        case .uneditable:
+        case .readOnly:
             return "Edit"
         }
     }

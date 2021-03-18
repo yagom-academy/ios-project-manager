@@ -16,7 +16,7 @@ class BoardTableViewCell: UITableViewCell {
             let currentTimeInterval = Date().timeIntervalSince1970
             let currentDateToInt = Int(currentTimeInterval)
             
-            if currentDateToInt > item.dueDate {
+            if currentDateToInt > item.timeStamp {
                 self.dueDateLabel.textColor = .red
             } else {
                 self.dueDateLabel.textColor = .black

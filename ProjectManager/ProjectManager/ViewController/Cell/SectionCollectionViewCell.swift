@@ -42,11 +42,11 @@ extension SectionCollectionViewCell: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        guard let board = self.board else {
+            return
+        }
+        
         if editingStyle == .delete {
-            guard let board = self.board else {
-                return
-            }
-            
             board.deleteItem(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
             updateHeaderLabels(with: board)

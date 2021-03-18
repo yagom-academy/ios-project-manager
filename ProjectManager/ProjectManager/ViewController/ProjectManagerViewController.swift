@@ -74,11 +74,8 @@ extension ProjectManagerViewController: UIDropInteractionDelegate {
                 guard let _ = items.first as? String else {
                     return
                 }
-                
-                if let (dataSource, sourceIndexPath, tableView) = session.localDragSession?.localContext as? (Board, IndexPath, UITableView) {
-                    dataSource.deleteItem(at: sourceIndexPath.row)
-                    tableView.deleteRows(at: [sourceIndexPath], with: .automatic)
-                }
+
+                self.deleteDraggedItem(localDragSession: session.localDragSession)
             }
         }
     }
@@ -114,7 +111,7 @@ extension ProjectManagerViewController {
     
     private func updateItem(in boardTableViewCell: BoardTableViewCell, at index: Int, on board: Board) {
         let item = board.item(at: index)
-        let presentedSheetViewController = presentSheetViewController(with: item, mode: Mode.uneditable)
+        let presentedSheetViewController = presentSheetViewController(with: item, mode: Mode.readOnly)
         
         presentedSheetViewController.updateItemHandler { (currentItem) in
             board.updateItem(at: index, with: currentItem)
@@ -133,5 +130,12 @@ extension ProjectManagerViewController {
         self.present(sheetViewController, animated: true, completion: nil)
         
         return sheetViewController
+    }
+    
+    private func deleteDraggedItem(localDragSession: UIDragSession?) {
+        if let (board, sourceIndexPath, tableView) = localDragSession?.localContext as? (Board, IndexPath, UITableView) {
+            board.deleteItem(at: sourceIndexPath.row)
+            tableView.deleteRows(at: [sourceIndexPath], with: .automatic)
+        }
     }
 }

@@ -8,7 +8,7 @@ class SheetViewController: UIViewController {
     @IBOutlet weak var deadlineDatePicker: UIDatePicker!
     @IBOutlet weak var descriptionTextView: UITextView!
     
-    var currentItem = Item(title: "", description: "", progressStatus: "", dueDate: Int(Date().timeIntervalSince1970))
+    var currentItem = Item(title: "", description: "", progressStatus: "", timeStamp: Int(Date().timeIntervalSince1970))
     var mode: Mode?
     var completionHandler: ((Item) -> Void)?
     
@@ -25,7 +25,7 @@ class SheetViewController: UIViewController {
         
         currentItem.title = itemTitle
         currentItem.description = itemDescription
-        currentItem.dueDate = Int(deadlineDatePicker.date.timeIntervalSince1970)
+        currentItem.timeStamp = Int(deadlineDatePicker.date.timeIntervalSince1970)
         
         if let completionHandler = completionHandler {
             completionHandler(currentItem)
@@ -50,7 +50,7 @@ class SheetViewController: UIViewController {
     
     func setItem(with item: Item) {
         currentItem.title = item.title
-        currentItem.dueDate = item.dueDate
+        currentItem.timeStamp = item.timeStamp
         currentItem.progressStatus = item.progressStatus
         currentItem.description = item.description
     }
@@ -66,7 +66,7 @@ extension SheetViewController {
         }
         
         self.titleTextField.text = currentItem.title
-        self.deadlineDatePicker.date = Date(timeIntervalSince1970: TimeInterval(currentItem.dueDate))
+        self.deadlineDatePicker.date = Date(timeIntervalSince1970: TimeInterval(currentItem.timeStamp))
         self.descriptionTextView.text = currentItem.description
     }
     
@@ -76,7 +76,7 @@ extension SheetViewController {
             self.titleTextField.isUserInteractionEnabled = true
             self.deadlineDatePicker.isUserInteractionEnabled = true
             self.descriptionTextView.isEditable = true
-        case .uneditable:
+        case .readOnly:
             self.titleTextField.isUserInteractionEnabled = false
             self.deadlineDatePicker.isUserInteractionEnabled = false
             self.descriptionTextView.isEditable = false
