@@ -30,6 +30,9 @@ class ProjectManagerViewController: UIViewController {
         }
     }
 }
+
+// MARK: - UIColletionViewDataSource
+
 extension ProjectManagerViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return boardManager.boards.count
@@ -45,6 +48,9 @@ extension ProjectManagerViewController: UICollectionViewDataSource {
         return cell
     }
 }
+
+// MARK: - UICollectionViewDelegateFlowLayout
+
 extension ProjectManagerViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
@@ -54,6 +60,9 @@ extension ProjectManagerViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: collectionViewCellWidth, height: collectionViewCellHeight)
     }
 }
+
+// MARK: - UIDropInteractionDelegate
+
 extension ProjectManagerViewController: UIDropInteractionDelegate {
     func dropInteraction(_ interaction: UIDropInteraction, sessionDidUpdate session: UIDropSession) -> UIDropProposal {
         return UIDropProposal(operation: .move)
@@ -74,6 +83,9 @@ extension ProjectManagerViewController: UIDropInteractionDelegate {
         }
     }
 }
+
+// MARK: - BoardTableViewCellDelegate
+
 extension ProjectManagerViewController: BoardTableViewCellDelegate {
     func tableViewCell(_ boardTableViewCell: BoardTableViewCell, didSelectAt index: Int, on board: Board?) {
         if let board = board {
@@ -81,6 +93,9 @@ extension ProjectManagerViewController: BoardTableViewCellDelegate {
         }
     }
 }
+
+// MARK: - Extension ProjectManagerViewController
+
 extension ProjectManagerViewController {
     private func configureNavigationBar() {
         titleNavigationBar.topItem?.title = "Project Manager"

@@ -29,6 +29,9 @@ class SectionCollectionViewCell: UICollectionViewCell {
         boardItemCountLabel.text = "\(board.itemsCount)"
     }
 }
+
+// MARK: - UITableViewDelegate
+
 extension SectionCollectionViewCell: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let selectedCell = tableView.cellForRow(at: indexPath) as? BoardTableViewCell else {
@@ -50,6 +53,9 @@ extension SectionCollectionViewCell: UITableViewDelegate {
         }
     }
 }
+
+// MARK: - UITableViewDataSource
+
 extension SectionCollectionViewCell: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: BoardTableViewCell.identifier) as? BoardTableViewCell, let item = board?.item(at: indexPath.row) else {
@@ -76,6 +82,9 @@ extension SectionCollectionViewCell: UITableViewDataSource {
         }
     }
 }
+
+// MARK: - UITableViewDragDelegate
+
 extension SectionCollectionViewCell: UITableViewDragDelegate {
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
         let itemProvider = NSItemProvider()
@@ -97,6 +106,9 @@ extension SectionCollectionViewCell: UITableViewDragDelegate {
         return [UIDragItem(itemProvider: itemProvider)]
     }
 }
+
+// MARK: - UITableViewDropDelegate
+
 extension SectionCollectionViewCell: UITableViewDropDelegate {
     func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
         let destinationIndexPath: IndexPath
@@ -127,6 +139,9 @@ extension SectionCollectionViewCell: UITableViewDropDelegate {
         return UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
     }
 }
+
+// MARK: - AddItemDelegate
+
 extension SectionCollectionViewCell: AddItemDelegate {
     func addNewCell(with item: Item) {
         if let board = self.board {
@@ -136,6 +151,9 @@ extension SectionCollectionViewCell: AddItemDelegate {
         }
     }
 }
+
+// MARK: - Extension SectionCollectionViewCell
+
 extension SectionCollectionViewCell {
     private func registerXib(){
         let nibName = UINib(nibName: BoardTableViewCell.identifier, bundle: nil)

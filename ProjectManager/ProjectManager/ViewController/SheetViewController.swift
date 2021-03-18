@@ -55,6 +55,9 @@ class SheetViewController: UIViewController {
         currentItem.description = item.description
     }
 }
+
+// MARK: - configure & checkOfModify
+
 extension SheetViewController {
     private func configureSheet() {
         if let mode = self.mode {
