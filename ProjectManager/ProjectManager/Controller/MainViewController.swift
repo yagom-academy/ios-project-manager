@@ -5,6 +5,7 @@
 // 
 
 import UIKit
+import Alamofire
 
 final class MainViewController: UIViewController {
     
@@ -21,6 +22,7 @@ final class MainViewController: UIViewController {
         configureNavigationBar()
         configureConstratins()
         configureThingTableViews()
+        fetchData()
     }
     
     // MARK: - UI
@@ -68,6 +70,27 @@ final class MainViewController: UIViewController {
         popOver.modalPresentationStyle = .popover
         popOver.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
         present(popOver, animated: true, completion: nil)
+    }
+    
+    // MARK: - Fetch Data
+    
+    private func fetchData() {
+        AF.request("https://pm-ggoglru.herokuapp.com/things").responseDecodable(of: [Things].self) { response in
+            switch response.result {
+            case .success(let things):
+                for thing in things {
+                    if thing.state == "todo" {
+                        self.todoTableView.fetchList(thing.list)
+                    } else if thing.state == "doing" {
+                        self.doingTableView.fetchList(thing.list)
+                    } else if thing.state == "done" {
+                        self.doneTableView.fetchList(thing.list)
+                    }
+                }
+            case .failure(let error):
+                debugPrint(error.localizedDescription)
+            }
+        }
     }
     
     // MARK: - DetailView

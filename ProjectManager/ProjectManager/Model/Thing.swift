@@ -8,9 +8,10 @@
 import Foundation
 
 struct Thing: Codable {
+    let id: Int? = nil
     let title: String
     let description: String
-    let dateNumber: Int
+    let dateNumber: Double
     var isDone: Bool = false
     var dateString: String {
         return DateFormatter.convertToUserLocaleString(date: date)
@@ -20,7 +21,7 @@ struct Thing: Codable {
     }
     
     enum CodingKeys: String, CodingKey {
-        case title, description
+        case id, title, description
         case dateNumber = "due_date"
     }
 }

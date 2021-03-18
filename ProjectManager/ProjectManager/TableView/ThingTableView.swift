@@ -11,7 +11,11 @@ class ThingTableView: UITableView, Draggable, Droppable {
     
     //MARK: - Property
     
-    var list: [Thing] = []
+    var list: [Thing] = [] {
+        didSet {
+            self.reloadData()
+        }
+    }
     
     //MARK: - Init
     
@@ -47,6 +51,12 @@ class ThingTableView: UITableView, Draggable, Droppable {
         DispatchQueue.main.async {
             self.reloadData()
         }
+    }
+    
+    //MARK: - Network
+    
+    func fetchList(_ list: [Thing]) {
+        self.list = list
     }
     
     //MARK: - set Count

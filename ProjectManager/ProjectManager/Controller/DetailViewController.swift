@@ -112,7 +112,7 @@ final class DetailViewController: UIViewController {
         guard let title = titleTextField.text, let body = descriptionTextView.text else {
             return
         }
-        let date = Int(datePicker.date.timeIntervalSince1970)
+        let date = datePicker.date.timeIntervalSince1970
         let thing = Thing(title: title, description: body, dateNumber: date)
         
         if isNew {
