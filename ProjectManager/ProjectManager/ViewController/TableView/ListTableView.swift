@@ -8,7 +8,7 @@
 import UIKit
 import MobileCoreServices
 
-protocol ListTableViewDelegate: class {
+protocol ListTableViewDelegate: AnyObject {
     func presentEditView(listItemDetailViewController: ListItemDetailViewController)
 }
 
