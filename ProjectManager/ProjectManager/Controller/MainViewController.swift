@@ -11,9 +11,9 @@ final class MainViewController: UIViewController {
     
     // MARK: - Outlet
     
-    private lazy var todoTableView = TodoTableView()
-    private lazy var doingTableView = DoingTableView()
-    private lazy var doneTableView = DoneTableView()
+    private lazy var todoTableView = TodoTableView(state: .todo)
+    private lazy var doingTableView = DoingTableView(state: .doing)
+    private lazy var doneTableView = DoneTableView(state: .done)
     private lazy var titleView = MainTitleView()
     
     // MARK: - Life Cycle
@@ -76,15 +76,15 @@ final class MainViewController: UIViewController {
     // MARK: - Fetch Data
     
     private func fetchData() {
-        AF.request("https://pm-ggoglru.herokuapp.com/things").responseDecodable(of: [Things].self) { response in
+        AF.request(Strings.baseURL).responseDecodable(of: [Things].self) { response in
             switch response.result {
             case .success(let things):
                 for thing in things {
-                    if thing.state == "todo" {
+                    if thing.state == Thing.State.todo.rawValue {
                         self.todoTableView.fetchList(thing.list)
-                    } else if thing.state == "doing" {
+                    } else if thing.state == Thing.State.doing.rawValue {
                         self.doingTableView.fetchList(thing.list)
-                    } else if thing.state == "done" {
+                    } else if thing.state == Thing.State.done.rawValue {
                         self.doneTableView.fetchList(thing.list)
                     }
                 }
@@ -134,8 +134,9 @@ extension MainViewController: UITableViewDelegate {
             guard let thingTableView = tableView as? ThingTableView else {
                 return
             }
-            HistoryManager.insertRemoveHistory(title: thingTableView.list[indexPath.row].title, from: thingTableView)
-            thingTableView.deleteThing(at: indexPath)
+            let thing = thingTableView.list[indexPath.row]
+            HistoryManager.insertRemoveHistory(title: thing.title, from: thingTableView)
+            thingTableView.deleteThing(at: indexPath, id: thing.id)
         }
     }
 }

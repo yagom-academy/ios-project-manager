@@ -19,4 +19,5 @@ enum Strings {
     static let historyDeleteMessage = "Remove '%@' from %@"
     static let historyStartMoveMessage = "Move '%@' from %@"
     static let historyEndMoveMessage = "%@ to %@"
+    static let baseURL = "https://pm-ggoglru.herokuapp.com/things"
 }

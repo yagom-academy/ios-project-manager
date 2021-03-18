@@ -16,7 +16,7 @@ extension Draggable {
         let thing = list[indexPath.row]
         let data = try? JSONEncoder().encode(thing)
         let itemProvider = NSItemProvider.makeJSONItemProvider(data: data) {
-            self.deleteThing(at: indexPath)
+            self.removeThing(at: indexPath)
         }
         let dragItem = UIDragItem(itemProvider: itemProvider)
         HistoryManager.insertMoveHistoryWhenRemove(title: thing.title, from: tableView)

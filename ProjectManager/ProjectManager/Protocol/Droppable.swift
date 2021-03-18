@@ -24,8 +24,13 @@ extension Droppable {
             }
             if self is DoneTableView {
                 thing.isDone = true
+                thing.state = "done"
+            } else if self is DoingTableView {
+                thing.isDone = false
+                thing.state = "doing"
             } else {
                 thing.isDone = false
+                thing.state = "todo"
             }
             self.insertThing(thing, at: indexPath)
             HistoryManager.insertMoveHistoryWhenInsert(to: tableView)

@@ -116,7 +116,7 @@ final class DetailViewController: UIViewController {
         }
         let date = datePicker.date.timeIntervalSince1970
         let body = descriptionTextView.text
-        let thing = Thing(title: title, description: body, dateNumber: date)
+        let thing = Thing(id: self.thing?.id, title: title, description: body, dateNumber: date, state: (tableView?.state!.rawValue)!)
         
         if isNew {
             tableView?.createThing(thing)
