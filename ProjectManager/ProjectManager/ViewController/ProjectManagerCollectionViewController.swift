@@ -90,7 +90,6 @@ extension ProjectManagerCollectionViewController: UICollectionViewDataSource {
         tableView.dragDelegate = self
         tableView.dropDelegate = self
         tableView.listTableViewDelegate = self
-        tableView.dragInteractionEnabled = true
         cell.contentView.addSubview(tableView)
         
         NSLayoutConstraint.activate([
