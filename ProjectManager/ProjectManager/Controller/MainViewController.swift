@@ -10,9 +10,9 @@ final class MainViewController: UIViewController {
     
     // MARK: - Outlet
     
-    private lazy var todoTableView = makeTableView(type: .todo)
-    private lazy var doingTableView = makeTableView(type: .doing)
-    private lazy var doneTableView = makeTableView(type: .done)
+    private lazy var todoTableView = TodoTableView()
+    private lazy var doingTableView = DoingTableView()
+    private lazy var doneTableView = DoneTableView()
     
     // MARK: - Life Cycle
     
@@ -20,18 +20,20 @@ final class MainViewController: UIViewController {
         super.viewDidLoad()
         configureNavigationBar()
         configureConstratins()
+        configureThingTableViews()
     }
     
     // MARK: - UI
     
-    private func makeTableView(type: TableViewType) -> ThingTableView {
-        let tableView = ThingTableView(title: type.rawValue)
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.dragDelegate = self
-        tableView.dropDelegate = self
-        tableView.register(cellType: ThingTableViewCell.self)
-        return tableView
+    private func configureThingTableViews() {
+        let thingTableViews = [todoTableView, doingTableView, doneTableView]
+        for thingTableView in thingTableViews {
+            thingTableView.dataSource = self
+            thingTableView.delegate = self
+            thingTableView.dragDelegate = self
+            thingTableView.dropDelegate = self
+            thingTableView.register(cellType: ThingTableViewCell.self)
+        }
     }
     
     private func configureConstratins() {
@@ -103,10 +105,10 @@ extension MainViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            guard let thingTableView = tableView as? ThingTableView, let title = thingTableView.title else {
+            guard let thingTableView = tableView as? ThingTableView else {
                 return
             }
-            HistoryManager.insertRemoveHistory(title: thingTableView.list[indexPath.row].title, from: title)
+            HistoryManager.insertRemoveHistory(title: thingTableView.list[indexPath.row].title, from: <#String#>)
             thingTableView.deleteThing(at: indexPath)
         }
     }
@@ -138,10 +140,10 @@ extension MainViewController: UITableViewDataSource {
 
 extension MainViewController: UITableViewDragDelegate, UITableViewDropDelegate {
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
-        guard let thingTableView = tableView as? Draggable, let tableViewTitle = thingTableView.title else {
+        guard let draggableTableView = tableView as? Draggable else {
             return [UIDragItem(itemProvider: NSItemProvider())]
         }
-        return thingTableView.drag(for: indexPath, tableViewTitle: tableViewTitle)
+        return draggableTableView.drag(for: indexPath, tableViewTitle: <#String#>)
     }
     
     func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
@@ -149,17 +151,13 @@ extension MainViewController: UITableViewDragDelegate, UITableViewDropDelegate {
         if let destinationIndexPath = coordinator.destinationIndexPath {
             indexPath = destinationIndexPath
         } else {
-            var section = tableView.numberOfSections
-            if section > 0 {
-                section -= 1
-            }
+            let section = tableView.numberOfSections - 1
             let row = tableView.numberOfRows(inSection: section)
             indexPath = IndexPath(row: row, section: section)
         }
-        
-        guard let thingTableView = tableView as? Droppable, let tableViewTitle = thingTableView.title  else {
+        guard let droppableTableView = tableView as? Droppable else {
             return
         }
-        thingTableView.drop(coordinator.items, to: indexPath, tableViewTitle: tableViewTitle)
+        droppableTableView.drop(coordinator.items, to: indexPath, tableViewTitle: <#String#>)
     }
 }

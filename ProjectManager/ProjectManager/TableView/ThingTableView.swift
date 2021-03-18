@@ -2,32 +2,28 @@
 //  ThingTableView.swift
 //  ProjectManager
 //
-//  Created by 임성민 on 2021/03/09.
+//  Created by 임성민 on 2021/03/17.
 //
 
 import UIKit
-import MobileCoreServices
 
 class ThingTableView: UITableView, Draggable, Droppable {
     
     //MARK: - Property
     
     var list: [Thing] = []
-    var title: String? = nil
     
     //MARK: - Init
     
-    init(title: String) {
+    init() {
         super.init(frame: .zero, style: .grouped)
-        self.title = title
-        tableHeaderView = ThingTableHeaderView(height: 50, title: title)
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
     
-    //MARK: - CURD
+    //MARK: - CRUD
     
     func createThing(_ thing: Thing) {
         list.insert(thing, at: 0)
@@ -60,4 +56,5 @@ class ThingTableView: UITableView, Draggable, Droppable {
             tableHeaderView.setCount(count)
         }
     }
+    
 }
