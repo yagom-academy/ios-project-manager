@@ -69,7 +69,7 @@ final class MainTitleView: UIView {
     
     private func changeConnectionLabelColor() {
         if isConnected {
-            connectionLabel.backgroundColor = .green
+            connectionLabel.backgroundColor = .systemGreen
         } else {
             connectionLabel.backgroundColor = .red
         }

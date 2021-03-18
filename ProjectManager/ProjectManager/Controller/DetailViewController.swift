@@ -108,11 +108,14 @@ final class DetailViewController: UIViewController {
         }
     }
     
+    // MARK: - Data CURD
+    
     @objc private func touchUpDoneButton() {
-        guard let title = titleTextField.text, let body = descriptionTextView.text else {
+        guard let title = titleTextField.text else {
             return
         }
         let date = datePicker.date.timeIntervalSince1970
+        let body = descriptionTextView.text
         let thing = Thing(title: title, description: body, dateNumber: date)
         
         if isNew {

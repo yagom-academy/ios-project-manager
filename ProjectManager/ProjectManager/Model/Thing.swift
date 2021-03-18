@@ -10,7 +10,7 @@ import Foundation
 struct Thing: Codable {
     let id: Int? = nil
     let title: String
-    let description: String
+    let description: String?
     let dateNumber: Double
     var isDone: Bool = false
     var dateString: String {

@@ -14,6 +14,7 @@ final class MainViewController: UIViewController {
     private lazy var todoTableView = TodoTableView()
     private lazy var doingTableView = DoingTableView()
     private lazy var doneTableView = DoneTableView()
+    private lazy var titleView = MainTitleView()
     
     // MARK: - Life Cycle
     
@@ -59,7 +60,7 @@ final class MainViewController: UIViewController {
     }
     
     private func configureNavigationBar() {
-        navigationItem.titleView = MainTitleView()
+        navigationItem.titleView = titleView
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: Strings.historyButton, style: .plain, target: self, action: #selector(touchUpHistoryButton))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(touchUpAddButton))
         navigationController?.setToolbarHidden(false, animated: false)
@@ -87,8 +88,10 @@ final class MainViewController: UIViewController {
                         self.doneTableView.fetchList(thing.list)
                     }
                 }
+                self.titleView.isConnected = true
             case .failure(let error):
                 debugPrint(error.localizedDescription)
+                self.titleView.isConnected = false
             }
         }
     }
