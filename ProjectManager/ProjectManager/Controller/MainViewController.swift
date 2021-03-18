@@ -108,7 +108,7 @@ extension MainViewController: UITableViewDelegate {
             guard let thingTableView = tableView as? ThingTableView else {
                 return
             }
-            HistoryManager.insertRemoveHistory(title: thingTableView.list[indexPath.row].title, from: <#String#>)
+            HistoryManager.insertRemoveHistory(title: thingTableView.list[indexPath.row].title, from: thingTableView)
             thingTableView.deleteThing(at: indexPath)
         }
     }
@@ -143,7 +143,7 @@ extension MainViewController: UITableViewDragDelegate, UITableViewDropDelegate {
         guard let draggableTableView = tableView as? Draggable else {
             return [UIDragItem(itemProvider: NSItemProvider())]
         }
-        return draggableTableView.drag(for: indexPath, tableViewTitle: <#String#>)
+        return draggableTableView.drag(for: indexPath, tableView: draggableTableView)
     }
     
     func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
@@ -158,6 +158,6 @@ extension MainViewController: UITableViewDragDelegate, UITableViewDropDelegate {
         guard let droppableTableView = tableView as? Droppable else {
             return
         }
-        droppableTableView.drop(coordinator.items, to: indexPath, tableViewTitle: <#String#>)
+        droppableTableView.drop(coordinator.items, to: indexPath, tableView: droppableTableView)
     }
 }
