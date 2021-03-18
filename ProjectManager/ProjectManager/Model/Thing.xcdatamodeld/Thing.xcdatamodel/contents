@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20D64" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Doing" representedClassName="Todo" syncable="YES" codeGenerationType="class">
+    <entity name="Doing" representedClassName="Doing" syncable="YES" codeGenerationType="class">
         <attribute name="date" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="detailDescription" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="title" optional="YES" attributeType="String"/>
     </entity>
-    <entity name="Done" representedClassName="Todo" syncable="YES" codeGenerationType="class">
+    <entity name="Done" representedClassName="Done" syncable="YES" codeGenerationType="class">
         <attribute name="date" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="detailDescription" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
@@ -19,8 +19,8 @@
         <attribute name="title" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="Todo" positionX="-63" positionY="-18" width="128" height="14"/>
-        <element name="Doing" positionX="-54" positionY="9" width="128" height="14"/>
-        <element name="Done" positionX="-36" positionY="18" width="128" height="14"/>
+        <element name="Doing" positionX="-54" positionY="-9" width="128" height="89"/>
+        <element name="Done" positionX="-36" positionY="9" width="128" height="89"/>
+        <element name="Todo" positionX="-63" positionY="-18" width="128" height="89"/>
     </elements>
 </model>
