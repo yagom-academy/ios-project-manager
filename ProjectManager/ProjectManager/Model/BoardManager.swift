@@ -2,6 +2,7 @@ import Foundation
 
 class BoardManager {
     static let shared = BoardManager()
+    let boardManager = BoardManager.shared
     
     let todoBoard = Board(title: ProgressStatus.todo.rawValue)
     let doingBoard = Board(title: ProgressStatus.doing.rawValue)
@@ -22,5 +23,3 @@ class BoardManager {
         doneBoard.addItem(Item(title: "끝마친 일 (3)", description: "숙면하고 잘~~자기", progressStatus: ProgressStatus.done.rawValue, dueDate: 1000301220))
     }
 }
-
-let boardManager = BoardManager.shared
