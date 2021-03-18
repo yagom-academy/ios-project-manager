@@ -203,8 +203,8 @@ class ListItemDetailViewController: UIViewController {
 extension ListItemDetailViewController: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         let textViewText = (textView.text as NSString).replacingCharacters(in: range, with: text)
-        let TextMaxCount = textViewText.count
-        return TextMaxCount <= descriptionTextViewTextMaxCount
+        let textMaxCount = textViewText.count
+        return textMaxCount <= descriptionTextViewTextMaxCount
     }
 }
 
