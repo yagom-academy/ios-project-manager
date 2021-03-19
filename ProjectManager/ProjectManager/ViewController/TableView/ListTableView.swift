@@ -23,7 +23,6 @@ class ListTableView: UITableView {
         setUpDelegate()
         configureTableView()
         configureTableHeaderView()
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadTableView), name: NSNotification.Name("reloadTableView"), object: nil)
     }
     
     required init?(coder: NSCoder) {
@@ -33,6 +32,15 @@ class ListTableView: UITableView {
     private func setUpDelegate() {
         dataSource = self
         delegate = self
+        
+        switch statusType {
+        case .todo:
+            ItemList.shared.todoDelegate = self
+        case .doing:
+            ItemList.shared.doingDelegate = self
+        case .done:
+            ItemList.shared.doneDelegate = self
+        }
     }
     
     private func configureTableView() {
@@ -78,7 +86,7 @@ extension ListTableView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             ItemList.shared.removeItem(statusType: statusType, index: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
+//            tableView.deleteRows(at: [indexPath], with: .automatic)
             configureTableHeaderView()
         }
     }
@@ -89,6 +97,24 @@ extension ListTableView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let listItemDetailViewController = ListItemDetailViewController(statusType: statusType, detailViewType: .edit, itemIndex: indexPath.row)
         self.listTableViewDelegate?.presentEditView(listItemDetailViewController: listItemDetailViewController)
+    }
+}
+
+// MARK: - ItemListUpdateDelegate
+extension ListTableView: ItemListUpdateDelegate {
+    func insertRow(at index: Int) {
+        let indexPath = IndexPath(row: index, section: 0)
+        insertRows(at: [indexPath], with: .automatic)
+    }
+
+    func deleteRow(at index: Int) {
+        let indexPath = IndexPath(row: index, section: 0)
+        deleteRows(at: [indexPath], with: .automatic)
+    }
+
+    func updateRow(at index: Int) {
+        let indexPath = IndexPath(row: index, section: 0)
+        self.reloadRows(at: [indexPath], with: .automatic)
     }
 }
 
@@ -104,7 +130,6 @@ extension ListTableView {
             completion(data, nil)
             DispatchQueue.main.async {
                 ItemList.shared.removeItem(statusType: self.statusType, index: indexPath.row)
-                tableView.deleteRows(at: [indexPath], with: .fade)
                 self.reloadHeaderCellCountLabel()
             }
             return nil
@@ -133,8 +158,6 @@ extension ListTableView {
                 
                 DispatchQueue.main.async {
                     ItemList.shared.insertItem(statusType: self.statusType, index: insertionIndex.row, item: todo)
-                    tableView.insertRows(at: [insertionIndex], with: .automatic)
-                    tableView.reloadData()
                     self.reloadHeaderCellCountLabel()
                 }
             }

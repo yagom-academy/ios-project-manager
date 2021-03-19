@@ -7,6 +7,12 @@
 
 import Foundation
 
+protocol ItemListUpdateDelegate: AnyObject {
+    func insertRow(at index: Int)
+    func deleteRow(at index: Int)
+    func updateRow(at index: Int)
+}
+
 class ItemList {
     static let shared = ItemList()
     private init() {
@@ -14,6 +20,10 @@ class ItemList {
         doingList.append(contentsOf: [todo2, todo1])
         doneList.append(todo1)
     }
+
+    weak var todoDelegate: ItemListUpdateDelegate?
+    weak var doingDelegate: ItemListUpdateDelegate?
+    weak var doneDelegate: ItemListUpdateDelegate?
     
     private var todoList = [Todo]()
     private var doingList = [Todo]()
@@ -48,10 +58,13 @@ class ItemList {
         switch statusType {
         case .todo:
             todoList.remove(at: index)
+            todoDelegate?.deleteRow(at: index)
         case .doing:
             doingList.remove(at: index)
+            doingDelegate?.deleteRow(at: index)
         case .done:
             doneList.remove(at: index)
+            doneDelegate?.deleteRow(at: index)
         }
     }
     
@@ -59,10 +72,13 @@ class ItemList {
         switch statusType {
         case .todo:
             todoList.insert(item, at: index)
+            todoDelegate?.insertRow(at: index)
         case .doing:
             doingList.insert(item, at: index)
+            doingDelegate?.insertRow(at: index)
         case .done:
             doneList.insert(item, at: index)
+            doneDelegate?.insertRow(at: index)
         }
     }
     
@@ -70,10 +86,13 @@ class ItemList {
         switch statusType {
         case .todo:
             todoList[index] = item
+            todoDelegate?.updateRow(at: index)
         case .doing:
             doingList[index] = item
+            doingDelegate?.updateRow(at: index)
         case .done:
             doneList[index] = item
+            doneDelegate?.updateRow(at: index)
         }
     }
 }

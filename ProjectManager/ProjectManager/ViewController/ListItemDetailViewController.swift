@@ -193,8 +193,6 @@ class ListItemDetailViewController: UIViewController {
             ItemList.shared.updateItem(statusType: statusType, index: itemIndex, item: todo)
         }
         
-        let userInfo: [AnyHashable: ItemStatus] = ["statusType": statusType]
-        NotificationCenter.default.post(name: NSNotification.Name("reloadTableView"), object: nil, userInfo: userInfo)
         dismiss(animated: true, completion: nil)
     }
 }
