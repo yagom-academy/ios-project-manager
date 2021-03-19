@@ -11,8 +11,9 @@ import MobileCoreServices
 // MARK: - DateFormatter
 
 extension DateFormatter {
+    static let dateFormatter = DateFormatter()
+    
     static func convertToUserLocaleString(date: Date) -> String {
-        let dateFormatter = self.init()
         var locale = Locale.autoupdatingCurrent.identifier
         if let collatorLocale = Locale.autoupdatingCurrent.collatorIdentifier {
             locale = collatorLocale
@@ -25,7 +26,6 @@ extension DateFormatter {
     }
     
     static func convertToUserLocaleStringWithTime(date: Date) -> String {
-        let dateFormatter = self.init()
         var locale = Locale.autoupdatingCurrent.identifier
         if let collatorLocale = Locale.autoupdatingCurrent.collatorIdentifier {
             locale = collatorLocale
