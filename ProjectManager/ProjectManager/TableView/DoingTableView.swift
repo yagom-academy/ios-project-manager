@@ -33,6 +33,18 @@ final class DoingTableView: ThingTableView {
         fetch()
     }
     
+    func fetchList(_ list: [Thing]) {
+        self.list = list
+        for thing in list {
+            thing.state = Strings.doingState
+        }
+        do {
+            try CoreDataStack.shared.persistentContainer.viewContext.save()
+        } catch {
+            debugPrint("core data error")
+        }
+    }
+
     private func fetch() {
         do {
             try fetchedResultsController.performFetch()

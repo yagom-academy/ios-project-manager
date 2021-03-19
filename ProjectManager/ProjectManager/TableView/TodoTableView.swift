@@ -48,6 +48,18 @@ final class TodoTableView: ThingTableView {
         }
     }
     
+    func fetchList(_ list: [Thing]) {
+        self.list = list
+        for thing in list {
+            thing.state = Strings.todoState
+        }
+        do {
+            try CoreDataStack.shared.persistentContainer.viewContext.save()
+        } catch {
+            debugPrint("core data error")
+        }
+    }
+    
     private func fetch() {
         do {
             try fetchedResultsController.performFetch()
