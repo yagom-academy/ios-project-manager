@@ -12,7 +12,7 @@ final class DoneTableView: ThingTableView {
     
     private lazy var fetchedResultsController: NSFetchedResultsController<Thing> = {
         let context = CoreDataStack.shared.persistentContainer.viewContext
-        let fetchRequest: NSFetchRequest<Thing> = NSFetchRequest<Thing>(entityName: "Thing")
+        let fetchRequest: NSFetchRequest<Thing> = NSFetchRequest<Thing>(entityName: Strings.thing)
         fetchRequest.predicate = NSPredicate(format: "state = 'done'")
         let sort = NSSortDescriptor(key: #keyPath(Thing.dateNumber), ascending: false)
         fetchRequest.sortDescriptors = [sort]
@@ -37,7 +37,7 @@ final class DoneTableView: ThingTableView {
         do {
             try fetchedResultsController.performFetch()
         } catch {
-            
+            debugPrint("core data error")
         }
         if let fetchedObjects = fetchedResultsController.fetchedObjects {
             self.list = fetchedObjects

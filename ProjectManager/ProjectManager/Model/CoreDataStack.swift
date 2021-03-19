@@ -12,7 +12,7 @@ final class CoreDataStack {
     static let shared: CoreDataStack = CoreDataStack()
     
     lazy var persistentContainer: NSPersistentCloudKitContainer = {
-        let container = NSPersistentCloudKitContainer(name: "ProjectManager")
+        let container = NSPersistentCloudKitContainer(name: Strings.projectManager)
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
@@ -20,7 +20,7 @@ final class CoreDataStack {
         })
         return container
     }()
-
+    
     func saveContext () {
         let context = persistentContainer.viewContext
         if context.hasChanges {

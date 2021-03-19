@@ -34,8 +34,8 @@ class ThingTableView: UITableView, Draggable, Droppable {
     func fetchList(_ list: [Thing]) {
         self.list = list
     }
-
-    func updateThing(_ thing: Thing, _ title: String, _ description: String, _ date: Double) {
+    
+    func updateThing(_ thing: Thing, title: String, description: String, date: Double) {
         thing.title = title
         thing.detailDescription = description
         thing.dateNumber = date
@@ -43,20 +43,19 @@ class ThingTableView: UITableView, Draggable, Droppable {
             try CoreDataStack.shared.persistentContainer.viewContext.save()
             NetworkManager.update(thing: thing) { _ in }
         } catch {
-            
+            debugPrint("core data error")
         }
     }
     
-    // TODO: 통신할때 드래그에 대한 예외처리 추가.
     func deleteThing(at indexPath: IndexPath) {
         let thing = list[indexPath.row]
         CoreDataStack.shared.persistentContainer.viewContext.delete(thing)
         do {
             try CoreDataStack.shared.persistentContainer.viewContext.save()
-            list.remove(at: indexPath.row)
             NetworkManager.delete(id: Int(thing.id)) { _ in }
+            list.remove(at: indexPath.row)
         } catch {
-            
+            debugPrint("core data error")
         }
     }
     
@@ -70,7 +69,7 @@ class ThingTableView: UITableView, Draggable, Droppable {
             NetworkManager.update(thing: thing) { _ in }
             list.insert(thing, at: indexPath.row)
         } catch {
-            
+            debugPrint("core data error")
         }
     }
     

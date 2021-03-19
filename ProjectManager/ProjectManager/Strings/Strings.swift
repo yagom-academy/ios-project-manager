@@ -25,6 +25,11 @@ enum Strings {
     static let doingState = "doing"
     static let doneState = "done"
     
+    // MARK: - CoreData
+    
+    static let thing = "Thing"
+    static let projectManager = "ProjectManager"
+    
     // MARK: - HistoryManager
     
     static let historyAddMessage = "Add '%@'"

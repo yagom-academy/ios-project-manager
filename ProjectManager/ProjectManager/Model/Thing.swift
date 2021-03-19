@@ -35,7 +35,7 @@ class Thing: NSManagedObject, Codable {
     }
     
     required convenience init(from decoder: Decoder) throws {
-        guard let entity = NSEntityDescription.entity(forEntityName: "Thing", in: CoreDataStack.shared.persistentContainer.viewContext) else {
+        guard let entity = NSEntityDescription.entity(forEntityName: Strings.thing, in: CoreDataStack.shared.persistentContainer.viewContext) else {
             fatalError("Failed to decode User")
         }
         self.init(entity: entity, insertInto: CoreDataStack.shared.persistentContainer.viewContext)

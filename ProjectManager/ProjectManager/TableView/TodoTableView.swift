@@ -12,7 +12,7 @@ final class TodoTableView: ThingTableView {
     
     private lazy var fetchedResultsController: NSFetchedResultsController<Thing> = {
         let context = CoreDataStack.shared.persistentContainer.viewContext
-        let fetchRequest: NSFetchRequest<Thing> = NSFetchRequest<Thing>(entityName: "Thing")
+        let fetchRequest: NSFetchRequest<Thing> = NSFetchRequest<Thing>(entityName: Strings.thing)
         fetchRequest.predicate = NSPredicate(format: "state = 'todo'")
         let sort = NSSortDescriptor(key: #keyPath(Thing.dateNumber), ascending: false)
         fetchRequest.sortDescriptors = [sort]
@@ -44,7 +44,7 @@ final class TodoTableView: ThingTableView {
             NetworkManager.create(thing: thing) { _ in }
             list.insert(thing, at: 0)
         } catch {
-            
+            debugPrint("core data error")
         }
     }
     
@@ -52,7 +52,7 @@ final class TodoTableView: ThingTableView {
         do {
             try fetchedResultsController.performFetch()
         } catch {
-            
+            debugPrint("core data error")
         }
         if let fetchedObjects = fetchedResultsController.fetchedObjects {
             self.list = fetchedObjects

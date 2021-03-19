@@ -124,7 +124,7 @@ final class DetailViewController: UIViewController {
             todoTableView.createThing(title, description, date)
             HistoryManager.insertAddHistory(title: title)
         } else if let thing = thing {
-            tableView?.updateThing(thing, title, description, date)
+            tableView?.updateThing(thing, title: title, description: description, date: date)
         }
         dismiss(animated: true, completion: nil)
     }
