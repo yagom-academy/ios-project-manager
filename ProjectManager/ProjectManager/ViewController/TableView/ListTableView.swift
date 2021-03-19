@@ -58,14 +58,6 @@ class ListTableView: UITableView {
     private func reloadHeaderCellCountLabel() {
         headerView.reloadCellCountLabel(statusType: statusType)
     }
-    
-    @objc private func reloadTableView(_ noti: Notification) {
-        let status = noti.userInfo?["statusType"] as? ItemStatus
-        if self.statusType == status {
-            self.reloadData()
-            reloadHeaderCellCountLabel()
-        }
-    }
 }
 
 // MARK: - TableView DataSource
@@ -86,7 +78,6 @@ extension ListTableView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             ItemList.shared.removeItem(statusType: statusType, index: indexPath.row)
-            configureTableHeaderView()
         }
     }
 }
@@ -104,11 +95,13 @@ extension ListTableView: ItemListUpdateDelegate {
     func insertRow(at index: Int) {
         let indexPath = IndexPath(row: index, section: 0)
         insertRows(at: [indexPath], with: .automatic)
+        reloadHeaderCellCountLabel()
     }
 
     func deleteRow(at index: Int) {
         let indexPath = IndexPath(row: index, section: 0)
         deleteRows(at: [indexPath], with: .automatic)
+        reloadHeaderCellCountLabel()
     }
 
     func updateRow(at index: Int) {
@@ -129,7 +122,6 @@ extension ListTableView {
             completion(data, nil)
             DispatchQueue.main.async {
                 ItemList.shared.removeItem(statusType: self.statusType, index: indexPath.row)
-                self.reloadHeaderCellCountLabel()
             }
             return nil
         }
@@ -157,7 +149,6 @@ extension ListTableView {
                 
                 DispatchQueue.main.async {
                     ItemList.shared.insertItem(statusType: self.statusType, index: insertionIndex.row, item: todo)
-                    self.reloadHeaderCellCountLabel()
                 }
             }
         }
