@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		9A32B08B260192C800C58CFB /* BoardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A32B08A260192C800C58CFB /* BoardManager.swift */; };
 		9A59AED525FAE83A00643302 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A59AED425FAE83A00643302 /* Board.swift */; };
+		9A65FD3F2604429100F4B6B0 /* DecodeJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A65FD3E2604429100F4B6B0 /* DecodeJSON.swift */; };
 		9AE07A5125F9D71500C9F434 /* Mode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE07A5025F9D71500C9F434 /* Mode.swift */; };
 		9AE07A5425F9DA0B00C9F434 /* ProgressStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE07A5325F9DA0B00C9F434 /* ProgressStatus.swift */; };
 		9AE07A5A25FA2DC200C9F434 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE07A5925FA2DC200C9F434 /* Item.swift */; };
@@ -27,6 +28,7 @@
 /* Begin PBXFileReference section */
 		9A32B08A260192C800C58CFB /* BoardManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardManager.swift; sourceTree = "<group>"; };
 		9A59AED425FAE83A00643302 /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
+		9A65FD3E2604429100F4B6B0 /* DecodeJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecodeJSON.swift; sourceTree = "<group>"; };
 		9AE07A5025F9D71500C9F434 /* Mode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mode.swift; sourceTree = "<group>"; };
 		9AE07A5325F9DA0B00C9F434 /* ProgressStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressStatus.swift; sourceTree = "<group>"; };
 		9AE07A5925FA2DC200C9F434 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
@@ -61,6 +63,7 @@
 				9A59AED425FAE83A00643302 /* Board.swift */,
 				9A32B08A260192C800C58CFB /* BoardManager.swift */,
 				9AE07A5925FA2DC200C9F434 /* Item.swift */,
+				9A65FD3E2604429100F4B6B0 /* DecodeJSON.swift */,
 				9AE07A5725F9DA9A00C9F434 /* Enum */,
 			);
 			path = Model;
@@ -206,6 +209,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9AE07A5425F9DA0B00C9F434 /* ProgressStatus.swift in Sources */,
+				9A65FD3F2604429100F4B6B0 /* DecodeJSON.swift in Sources */,
 				9AE07A5A25FA2DC200C9F434 /* Item.swift in Sources */,
 				9A59AED525FAE83A00643302 /* Board.swift in Sources */,
 				D91EE2D025F74482003C86BD /* BoardTableViewCell.swift in Sources */,

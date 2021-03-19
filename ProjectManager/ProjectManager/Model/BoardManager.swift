@@ -10,6 +10,8 @@ class BoardManager {
         return [todoBoard, doingBoard, doneBoard]
     }()
     
+    let totalBoardItem: [Item] = []
+    
     private init() {
         todoBoard.addItem(Item(title: "해야할 일 (1)", description: "오늘은 집안일을 해야한다. 빨래, 설거지, 청소기.... 힘든 주부의 삶", progressStatus: ProgressStatus.todo.rawValue, timeStamp: 1621301220))
         todoBoard.addItem(Item(title: "해야할 일 (2)", description: "TIL과 수업 예습 복습을 잘해보자..!! 이번주 목요일 주제는 뭐였더라..?", progressStatus: ProgressStatus.todo.rawValue, timeStamp: 1622301220))
