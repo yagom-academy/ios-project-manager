@@ -86,7 +86,6 @@ extension ListTableView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             ItemList.shared.removeItem(statusType: statusType, index: indexPath.row)
-//            tableView.deleteRows(at: [indexPath], with: .automatic)
             configureTableHeaderView()
         }
     }
@@ -120,7 +119,7 @@ extension ListTableView: ItemListUpdateDelegate {
 
 // MARK: - Drag & Drop
 extension ListTableView {
-    func dragItem(tableView: UITableView, indexPath: IndexPath) -> [UIDragItem] {
+    func dragItem(indexPath: IndexPath) -> [UIDragItem] {
         let item = ItemList.shared.getItem(statusType: statusType, index: indexPath.row)
         guard let data = try? JSONEncoder().encode(item) else { return [] }
         let itemProvider = NSItemProvider()
@@ -137,13 +136,13 @@ extension ListTableView {
         return [dragItem]
     }
     
-    func dropItem(tableView: UITableView, coordinator: UITableViewDropCoordinator) {
+    func dropItem(coordinator: UITableViewDropCoordinator) {
         let insertionIndex: IndexPath
         if let indexPath = coordinator.destinationIndexPath {
             insertionIndex = indexPath
         } else {
-            let section = tableView.numberOfSections - 1
-            let row = tableView.numberOfRows(inSection: section)
+            let section = self.numberOfSections - 1
+            let row = self.numberOfRows(inSection: section)
             insertionIndex = IndexPath(row: row, section: section)
         }
         

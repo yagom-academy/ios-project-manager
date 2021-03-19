@@ -11,7 +11,7 @@ import UIKit
 extension ProjectManagerCollectionViewController: UITableViewDragDelegate {
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
         let table = tableView as? ListTableView
-        let dragItems = table?.dragItem(tableView: tableView, indexPath: indexPath) ?? []
+        let dragItems = table?.dragItem(indexPath: indexPath) ?? []
         return dragItems
     }
 }
@@ -19,14 +19,10 @@ extension ProjectManagerCollectionViewController: UITableViewDragDelegate {
 extension ProjectManagerCollectionViewController: UITableViewDropDelegate {
     func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
         let table = tableView as? ListTableView
-        table?.dropItem(tableView: tableView, coordinator: coordinator)
+        table?.dropItem(coordinator: coordinator)
     }
     
     func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
         return UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
-    }
-    
-    func tableView(_ tableView: UITableView, canHandle session: UIDropSession) -> Bool {
-        session.canLoadObjects(ofClass: NSString.self)
     }
 }
