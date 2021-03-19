@@ -49,10 +49,11 @@ class ThingTableView: UITableView, Draggable, Droppable {
     
     func deleteThing(at indexPath: IndexPath) {
         let thing = list[indexPath.row]
+        let id = thing.id
         CoreDataStack.shared.persistentContainer.viewContext.delete(thing)
         do {
             try CoreDataStack.shared.persistentContainer.viewContext.save()
-            NetworkManager.delete(id: Int(thing.id)) { _ in }
+            NetworkManager.delete(id: Int(id)) { _ in }
             list.remove(at: indexPath.row)
         } catch {
             debugPrint("core data error")
