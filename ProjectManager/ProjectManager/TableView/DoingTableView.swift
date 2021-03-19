@@ -7,4 +7,14 @@
 
 import UIKit
 
-final class DoingTableView: ThingTableView {}
+final class DoingTableView: ThingTableView {
+    override init() {
+        super.init()
+        tableHeaderView = ThingTableHeaderView(height: 50, title: Strings.doingTitle)
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        tableHeaderView = ThingTableHeaderView(height: 50, title: Strings.doingTitle)
+    }
+}

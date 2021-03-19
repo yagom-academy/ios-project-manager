@@ -22,15 +22,12 @@ extension Droppable {
             guard error == nil, let data = data, var thing = try? JSONDecoder().decode(Thing.self, from: data) else {
                 return
             }
-            if self is DoneTableView {
-                thing.isDone = true
-                thing.state = "done"
+            if self is TodoTableView {
+                thing.state = Strings.todoState
             } else if self is DoingTableView {
-                thing.isDone = false
-                thing.state = "doing"
+                thing.state = Strings.doingState
             } else {
-                thing.isDone = false
-                thing.state = "todo"
+                thing.state = Strings.doneState
             }
             self.insertThing(thing, at: indexPath)
             HistoryManager.insertMoveHistoryWhenInsert(to: tableView)

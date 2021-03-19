@@ -11,9 +11,9 @@ final class MainViewController: UIViewController {
     
     // MARK: - Outlet
     
-    private lazy var todoTableView = TodoTableView(state: .todo)
-    private lazy var doingTableView = DoingTableView(state: .doing)
-    private lazy var doneTableView = DoneTableView(state: .done)
+    private lazy var todoTableView = TodoTableView()
+    private lazy var doingTableView = DoingTableView()
+    private lazy var doneTableView = DoneTableView()
     private lazy var titleView = MainTitleView()
     
     // MARK: - Life Cycle
@@ -80,11 +80,11 @@ final class MainViewController: UIViewController {
             switch response.result {
             case .success(let things):
                 for thing in things {
-                    if thing.state == Thing.State.todo.rawValue {
+                    if thing.state == Strings.todoState {
                         self.todoTableView.fetchList(thing.list)
-                    } else if thing.state == Thing.State.doing.rawValue {
+                    } else if thing.state == Strings.doingState {
                         self.doingTableView.fetchList(thing.list)
-                    } else if thing.state == Thing.State.done.rawValue {
+                    } else if thing.state == Strings.doneState {
                         self.doneTableView.fetchList(thing.list)
                     }
                 }

@@ -116,12 +116,14 @@ final class DetailViewController: UIViewController {
         }
         let date = datePicker.date.timeIntervalSince1970
         let body = descriptionTextView.text
-        let thing = Thing(id: self.thing?.id, title: title, description: body, dateNumber: date, state: (tableView?.state!.rawValue)!)
         
         if isNew {
-            tableView?.createThing(thing)
-            HistoryManager.insertAddHistory(title: thing.title)
-        } else if let index = index {
+            tableView?.createThing(title: title, description: body, date: date)
+            HistoryManager.insertAddHistory(title: title)
+        } else if let index = index, var thing = thing {
+            thing.title = title
+            thing.description = body
+            thing.dateNumber = date
             tableView?.updateThing(thing, index: index)
         }
         dismiss(animated: true, completion: nil)

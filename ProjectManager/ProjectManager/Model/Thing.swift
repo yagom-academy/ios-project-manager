@@ -9,11 +9,10 @@ import Foundation
 
 struct Thing: Codable {
     let id: Int?
-    let title: String
-    let description: String?
-    let dateNumber: Double
+    var title: String
+    var description: String?
+    var dateNumber: Double
     var state: String?
-    var isDone: Bool = false
     var dateString: String {
         return DateFormatter.convertToUserLocaleString(date: date)
     }
@@ -24,12 +23,6 @@ struct Thing: Codable {
     enum CodingKeys: String, CodingKey {
         case id, title, description, state
         case dateNumber = "due_date"
-    }
-    
-    enum State: String {
-        case todo = "todo"
-        case doing = "doing"
-        case done = "done"
     }
     
     var parameters: [String : Any] {[

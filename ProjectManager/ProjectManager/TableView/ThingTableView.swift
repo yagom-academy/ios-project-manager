@@ -12,7 +12,6 @@ class ThingTableView: UITableView, Draggable, Droppable {
     
     //MARK: - Property
     
-    var state: Thing.State? = nil
     var list: [Thing] = [] {
         didSet {
             DispatchQueue.main.async {
@@ -23,10 +22,8 @@ class ThingTableView: UITableView, Draggable, Droppable {
     
     //MARK: - Init
     
-    init(state: Thing.State) {
+    init() {
         super.init(frame: .zero, style: .grouped)
-        self.state = state
-        tableHeaderView = ThingTableHeaderView(height: 50, title: state.rawValue)
     }
     
     required init?(coder: NSCoder) {
@@ -34,8 +31,9 @@ class ThingTableView: UITableView, Draggable, Droppable {
     }
     
     //MARK: - CRUD
-    // TODO: 업데이트, 삭제 하기전에, id값 받아와야함... 실패,성공 경우마다 UI에 반영해줘야함
-    func createThing(_ thing: Thing) {
+    // TODO: 만들고 나서 id값 받아와야함... 실패,성공 경우마다 UI에 반영해줘야함, 
+    func createThing(title: String, description: String?, date: Double) {
+        let thing = Thing(id: 0, title: title, description: description, dateNumber: date, state: Strings.todoState)
         AF.request(Strings.baseURL, method: .post, parameters: thing.parameters).response { response in
             switch response.result {
             case .success(let data):
@@ -52,8 +50,6 @@ class ThingTableView: UITableView, Draggable, Droppable {
             return
         }
         let idString = String(id)
-        dump(thing)
-        print("\(id), \(idString)")
         AF.request("\(Strings.baseURL)/\(idString)", method: .patch, parameters: thing.parameters).response { response in
             switch response.result {
             case .success(let data):
