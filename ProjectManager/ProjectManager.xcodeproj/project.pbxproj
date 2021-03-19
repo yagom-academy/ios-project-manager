@@ -18,6 +18,8 @@
 		364820E7260143AF004ADF6D /* TodoTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364820E6260143AF004ADF6D /* TodoTableView.swift */; };
 		364820EB2601453F004ADF6D /* DoingTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364820EA2601453F004ADF6D /* DoingTableView.swift */; };
 		364820EE260145B5004ADF6D /* DoneTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364820ED260145B5004ADF6D /* DoneTableView.swift */; };
+		364820F8260288D5004ADF6D /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364820F7260288D5004ADF6D /* CoreDataStack.swift */; };
+		369E5BC426037AFF00369A3C /* ProjectManager.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 369E5BC226037AFF00369A3C /* ProjectManager.xcdatamodeld */; };
 		4C06ED5925FB0D8800F92978 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C06ED5825FB0D8800F92978 /* Reusable.swift */; };
 		4C26FCFF2600B5C80008BEEC /* HistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C26FCFE2600B5C80008BEEC /* HistoryTableViewController.swift */; };
 		4C26FD042600C0040008BEEC /* HistoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C26FD032600C0040008BEEC /* HistoryManager.swift */; };
@@ -45,6 +47,8 @@
 		364820E6260143AF004ADF6D /* TodoTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTableView.swift; sourceTree = "<group>"; };
 		364820EA2601453F004ADF6D /* DoingTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoingTableView.swift; sourceTree = "<group>"; };
 		364820ED260145B5004ADF6D /* DoneTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneTableView.swift; sourceTree = "<group>"; };
+		364820F7260288D5004ADF6D /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		369E5BC326037AFF00369A3C /* ProjectManager.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ProjectManager.xcdatamodel; sourceTree = "<group>"; };
 		4C06ED5825FB0D8800F92978 /* Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
 		4C26FCFE2600B5C80008BEEC /* HistoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryTableViewController.swift; sourceTree = "<group>"; };
 		4C26FD032600C0040008BEEC /* HistoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryManager.swift; sourceTree = "<group>"; };
@@ -115,6 +119,8 @@
 				4CC50460260398D4009729F9 /* Things.swift */,
 				4C26FD032600C0040008BEEC /* HistoryManager.swift */,
 				4CC50464260457DA009729F9 /* NetworkManager.swift */,
+				364820F7260288D5004ADF6D /* CoreDataStack.swift */,
+				369E5BC226037AFF00369A3C /* ProjectManager.xcdatamodeld */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -277,10 +283,12 @@
 				4CAA8E0925F90F3500B9C0A7 /* ThingTableViewCell.swift in Sources */,
 				4CC50465260457DA009729F9 /* NetworkManager.swift in Sources */,
 				4CAA8E1025F9132F00B9C0A7 /* Extension.swift in Sources */,
+				369E5BC426037AFF00369A3C /* ProjectManager.xcdatamodeld in Sources */,
 				364820B625FA0B2B004ADF6D /* MainViewController.swift in Sources */,
 				4C26FD042600C0040008BEEC /* HistoryManager.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				364820E4260142D3004ADF6D /* ThingTableView.swift in Sources */,
+				364820F8260288D5004ADF6D /* CoreDataStack.swift in Sources */,
 				4CAA8E0525F90EDD00B9C0A7 /* Strings.swift in Sources */,
 				364820A225F80C02004ADF6D /* ThingTableHeaderView.swift in Sources */,
 				364820E7260143AF004ADF6D /* TodoTableView.swift in Sources */,
@@ -432,6 +440,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = ProjectManager/SupportingFiles/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -451,6 +460,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = ProjectManager/SupportingFiles/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -505,6 +515,19 @@
 			productName = Alamofire;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		369E5BC226037AFF00369A3C /* ProjectManager.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				369E5BC326037AFF00369A3C /* ProjectManager.xcdatamodel */,
+			);
+			currentVersion = 369E5BC326037AFF00369A3C /* ProjectManager.xcdatamodel */;
+			path = ProjectManager.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = C7431EFA25F51E1D0094C4CF /* Project object */;
 }

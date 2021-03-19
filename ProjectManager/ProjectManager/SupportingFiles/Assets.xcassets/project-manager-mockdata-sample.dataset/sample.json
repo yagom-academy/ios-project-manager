@@ -1,0 +1,59 @@
+[
+    {
+        "state": "todo",
+        "list": [
+            {
+                "id": 1,
+                "title": "UML 작성하기",
+                "description": "UML은 Application의 구조를 표현하고 의사를 전달하는데 아주 훌륭한 도구입니다.\n UML을 작성해 봅시다.",
+                "due_date": 1611523563.719116
+            },
+            {
+                "id": 2,
+                "title": "밥 먹기",
+                "description": "영양가 있고 맛있는 밥을 먹읍시다.",
+                "due_date": 1611523563.719745
+            }
+        ]
+    },
+    {
+        "state": "doing",
+        "list": [
+            {
+                "id": 3,
+                "title": "API 설계하기",
+                "description": null,
+                "due_date": 1611523563.719116
+            },
+            {
+                "id": 4,
+                "title": "TIL 작성하기",
+                "description": "서버와 클라이언트간의 관계에 대해 더 공부해보고 작성할 것!",
+                "due_date": 1611523563.719666
+            },
+            {
+                "id": 5,
+                "title": "방청소하기",
+                "description": "1. 안쓰는 종이 분류해서 버리기\n2. 필요한 책 제외하고 서랍에 넣기\n3.쓰레기통 비우기",
+                "due_date": 1611523563.712216
+            }
+        ]
+    },
+    {
+        "state": "done",
+        "list": [
+            {
+                "id": 6,
+                "title": "연말정산하기",
+                "description": null,
+                "due_date": 1611523563.719336
+            },
+            {
+                "id": 7,
+                "title": "구정때 부모님 용돈드리기",
+                "description": null,
+                "due_date": 1611523563.719146
+            }
+        ]
+    }
+]

@@ -34,41 +34,29 @@ class ThingTableView: UITableView, Draggable, Droppable {
     func fetchList(_ list: [Thing]) {
         self.list = list
     }
-    
-    func createThing(title: String, description: String?, date: Double) {
-        let thing = Thing(id: 0, title: title, description: description, dateNumber: date, state: Strings.todoState)
-        NetworkManager.create(thing: thing) { result in
-            switch result {
-            case .success(_):
-                self.list.append(thing)
-            default:
-                break
-            }
+
+    func updateThing(_ thing: Thing, _ title: String, _ description: String, _ date: Int) {
+        thing.title = title
+        thing.detailDescription = description
+        thing.dateNumber = Int64(date)
+        do {
+            try CoreDataStack.shared.persistentContainer.viewContext.save()
+            NetworkManager.update(thing: thing) { _ in }
+        } catch {
+            
         }
     }
     
-    func updateThing(_ thing: Thing, index: Int) {
-        NetworkManager.update(thing: thing) { result in
-            switch result {
-            case .success(_):
-                self.list[index] = thing
-            default:
-                break
-            }
-        }
-    }
-    
-    func deleteThing(at indexPath: IndexPath, id: Int?) {
-        guard let id = id else {
-            return
-        }
-        NetworkManager.delete(id: id) { result in
-            switch result {
-            case .success(_):
-                self.list.remove(at: indexPath.row)
-            default:
-                break
-            }
+    // TODO: 통신할때 드래그에 대한 예외처리 추가.
+    func deleteThing(at indexPath: IndexPath) {
+        let thing = list[indexPath.row]
+        CoreDataStack.shared.persistentContainer.viewContext.delete(thing)
+        do {
+            try CoreDataStack.shared.persistentContainer.viewContext.save()
+            list.remove(at: indexPath.row)
+            NetworkManager.delete(id: Int(thing.id)) { _ in }
+        } catch {
+            
         }
     }
     
@@ -77,13 +65,12 @@ class ThingTableView: UITableView, Draggable, Droppable {
     }
     
     func insertThing(_ thing: Thing, at indexPath: IndexPath) {
-        NetworkManager.update(thing: thing) { result in
-            switch result {
-            case .success(_):
-                self.list.insert(thing, at: indexPath.row)
-            default:
-                break
-            }
+        do {
+            try CoreDataStack.shared.persistentContainer.viewContext.save()
+            NetworkManager.update(thing: thing) { _ in }
+            list.insert(thing, at: indexPath.row)
+        } catch {
+            
         }
     }
     

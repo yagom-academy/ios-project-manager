@@ -64,7 +64,7 @@ final class ThingTableViewCell: UITableViewCell, Reusable {
     
     func configureCell(_ thing: Thing) {
         titleLabel.text = thing.title
-        descriptionLabel.text = thing.description
+        descriptionLabel.text = thing.detailDescription
         dateLabel.text = thing.dateString
         if thing.state != Strings.doneState {
             changeDateColor(date: thing.date)

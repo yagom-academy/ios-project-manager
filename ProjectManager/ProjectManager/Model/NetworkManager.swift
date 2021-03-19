@@ -58,9 +58,7 @@ struct NetworkManager {
     }
     
     static func update(thing: Thing, _ completionHandler: @escaping (Result<Codable?, Error>) -> Void) {
-        guard let id = thing.id else {
-            return
-        }
+        let id = thing.id
         let absoluteURL = String(format: Strings.absoluteURL, id)
         AF.request(absoluteURL, method: .patch, parameters: thing.parameters).validate(statusCode: 200..<300).response { response in
             switch response.result {
