@@ -19,7 +19,7 @@ extension Droppable {
         }
         
         dropItem.dragItem.itemProvider.loadDataRepresentation(forTypeIdentifier: kUTTypeJSON as String) { data, error in
-            guard error == nil, let data = data, var thing = try? JSONDecoder().decode(Thing.self, from: data) else {
+            guard error == nil, let data = data, let thing = try? JSONDecoder().decode(Thing.self, from: data) else {
                 return
             }
             if self is DoneTableView {

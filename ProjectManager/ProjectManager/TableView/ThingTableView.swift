@@ -25,27 +25,44 @@ class ThingTableView: UITableView, Draggable, Droppable {
     
     //MARK: - CRUD
     
-    func createThing(_ thing: Thing) {
-        list.insert(thing, at: 0)
-        self.reloadData()
+    func updateThing(_ thing: Thing, _ title: String, _ description: String, _ date: Int) {
+        thing.title = title
+        thing.detailDescription = description
+        thing.dateNumber = Int64(date)
+        do {
+            try CoreDataStack.shared.persistentContainer.viewContext.save()
+        } catch {
+            
+        }
     }
     
-    func updateThing(_ thing: Thing, index: Int) {
-        list[index] = thing
-        self.reloadData()
-    }
-    
+    // TODO: 통신할때 드래그에 대한 예외처리 추가.
     func deleteThing(at indexPath: IndexPath) {
-        list.remove(at: indexPath.row)
-        DispatchQueue.main.async {
-            self.deleteRows(at: [indexPath], with: .left)
+        let thing = list.remove(at: indexPath.row)
+        CoreDataStack.shared.persistentContainer.viewContext.delete(thing)
+        do {
+            try CoreDataStack.shared.persistentContainer.viewContext.save()
+        } catch {
+            
         }
     }
     
     func insertThing(_ thing: Thing, at indexPath: IndexPath) {
         list.insert(thing, at: indexPath.row)
-        DispatchQueue.main.async {
-            self.reloadData()
+        switch self {
+        case is TodoTableView:
+            thing.state = "todo"
+        case is DoingTableView:
+            thing.state = "doing"
+        case is DoneTableView:
+            thing.state = "done"
+        default:
+            break
+        }
+        do {
+            try CoreDataStack.shared.persistentContainer.viewContext.save()
+        } catch {
+            
         }
     }
     

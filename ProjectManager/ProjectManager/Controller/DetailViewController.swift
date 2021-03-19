@@ -93,7 +93,7 @@ final class DetailViewController: UIViewController {
             return
         }
         titleTextField.text = thing.title
-        descriptionTextView.text = thing.description
+        descriptionTextView.text = thing.detailDescription
         datePicker.date = thing.date
     }
     
@@ -109,16 +109,18 @@ final class DetailViewController: UIViewController {
     }
     
     @objc private func touchUpDoneButton() {
-        guard let title = titleTextField.text, let body = descriptionTextView.text else {
+        guard let title = titleTextField.text, let description = descriptionTextView.text else {
             return
         }
         let date = Int(datePicker.date.timeIntervalSince1970)
-        let thing = Thing(title: title, description: body, dateNumber: date)
         
         if isNew {
-            tableView?.createThing(thing)
-        } else if let index = index {
-            tableView?.updateThing(thing, index: index)
+            guard let todoTableView = tableView as? TodoTableView else {
+                return
+            }
+            todoTableView.createThing(title, description, date)
+        } else if let thing = thing {
+            tableView?.updateThing(thing, title, description, date)
         }
         dismiss(animated: true, completion: nil)
     }
