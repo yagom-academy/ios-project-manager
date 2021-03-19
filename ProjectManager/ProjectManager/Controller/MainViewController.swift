@@ -5,7 +5,6 @@
 // 
 
 import UIKit
-import Alamofire
 
 final class MainViewController: UIViewController {
     
@@ -76,8 +75,8 @@ final class MainViewController: UIViewController {
     // MARK: - Fetch Data
     
     private func fetchData() {
-        AF.request(Strings.baseURL).responseDecodable(of: [Things].self) { response in
-            switch response.result {
+        NetworkManager.fetch { result in
+            switch result {
             case .success(let things):
                 for thing in things {
                     if thing.state == Strings.todoState {
@@ -89,8 +88,7 @@ final class MainViewController: UIViewController {
                     }
                 }
                 self.titleView.isConnected = true
-            case .failure(let error):
-                debugPrint(error.localizedDescription)
+            case .failure(_):
                 self.titleView.isConnected = false
             }
         }
