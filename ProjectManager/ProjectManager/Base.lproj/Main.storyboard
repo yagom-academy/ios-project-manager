@@ -22,6 +22,13 @@
                                 <rect key="frame" x="0.0" y="0.0" width="1080" height="50"/>
                                 <items>
                                     <navigationItem title="Title" id="BsE-ch-KEa">
+                                        <barButtonItem key="leftBarButtonItem" id="Bh4-4h-ztG">
+                                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="tG9-hK-IlQ">
+                                                <rect key="frame" x="20" y="10" width="240" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="History"/>
+                                            </button>
+                                        </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="0Tp-Ac-3jF">
                                             <connections>
                                                 <action selector="tappedAddButton:" destination="BYZ-38-t0r" id="uyM-FM-jrS"/>
