@@ -155,6 +155,8 @@ extension ProjectManagerViewController {
     }
 }
 
+// MARK: - Popover
+
 extension ProjectManagerViewController {
     @IBAction func showHistory(_ sender: Any) {
     }
