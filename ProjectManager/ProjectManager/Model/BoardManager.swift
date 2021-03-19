@@ -19,15 +19,25 @@ class BoardManager {
         let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
         let fileURL = documentsURL.appendingPathComponent("JSONFile.json")
         
-        let savedData = try! Data(contentsOf: fileURL)
-        if let savedItem = decodedData.decodeJSONFile(data: savedData, type: [Item].self) {
-            items = savedItem
+        guard fileManager.fileExists(atPath: fileURL.path) else {
+            fileManager.createFile(atPath: fileURL.path, contents: nil, attributes: nil)
+            return
         }
         
-        for index in 0..<items.count {
-            addJSONItem(item: items[index])
+        do {
+            let savedData = try Data(contentsOf: fileURL)
+            if let savedItem = decodedData.decodeJSONFile(data: savedData, type: [Item].self) {
+                items = savedItem
+            }
+            
+            for index in 0..<items.count {
+                addJSONItem(item: items[index])
+            }
+        } catch {
+            print("데이터 로딩 실패")
         }
     }
+    
     
     func addJSONItem(item: Item) {
         switch item.progressStatus {
