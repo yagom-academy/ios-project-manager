@@ -35,10 +35,10 @@ class ThingTableView: UITableView, Draggable, Droppable {
         self.list = list
     }
 
-    func updateThing(_ thing: Thing, _ title: String, _ description: String, _ date: Int) {
+    func updateThing(_ thing: Thing, _ title: String, _ description: String, _ date: Double) {
         thing.title = title
         thing.detailDescription = description
-        thing.dateNumber = Int64(date)
+        thing.dateNumber = date
         do {
             try CoreDataStack.shared.persistentContainer.viewContext.save()
             NetworkManager.update(thing: thing) { _ in }

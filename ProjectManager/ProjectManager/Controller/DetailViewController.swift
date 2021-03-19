@@ -115,7 +115,7 @@ final class DetailViewController: UIViewController {
               let description = descriptionTextView.text else {
             return
         }
-        let date = Int(datePicker.date.timeIntervalSince1970)
+        let date = datePicker.date.timeIntervalSince1970
         
         if isNew {
             guard let todoTableView = tableView as? TodoTableView else {

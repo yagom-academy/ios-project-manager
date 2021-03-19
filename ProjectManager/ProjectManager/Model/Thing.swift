@@ -12,7 +12,7 @@ class Thing: NSManagedObject, Codable {
     @NSManaged var id: Int32
     @NSManaged var title: String
     @NSManaged var detailDescription: String?
-    @NSManaged var dateNumber: Int64
+    @NSManaged var dateNumber: Double
     @NSManaged var state: String?
     var dateString: String {
         return DateFormatter.convertToUserLocaleString(date: date)
@@ -44,7 +44,7 @@ class Thing: NSManagedObject, Codable {
         self.id = try container.decodeIfPresent(Int32.self, forKey: .id) ?? 0
         self.title = try container.decode(String.self, forKey: .title)
         self.detailDescription = try container.decodeIfPresent(String.self, forKey: .detailDescription)
-        self.dateNumber = try container.decodeIfPresent(Int64.self, forKey: .dateNumber) ?? 0
+        self.dateNumber = try container.decodeIfPresent(Double.self, forKey: .dateNumber) ?? 0
     }
     
     func encode(to encoder: Encoder) throws {

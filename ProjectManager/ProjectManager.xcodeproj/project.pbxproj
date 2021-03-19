@@ -117,10 +117,10 @@
 			children = (
 				3648209025F7339F004ADF6D /* Thing.swift */,
 				4CC50460260398D4009729F9 /* Things.swift */,
+				369E5BC226037AFF00369A3C /* ProjectManager.xcdatamodeld */,
+				364820F7260288D5004ADF6D /* CoreDataStack.swift */,
 				4C26FD032600C0040008BEEC /* HistoryManager.swift */,
 				4CC50464260457DA009729F9 /* NetworkManager.swift */,
-				364820F7260288D5004ADF6D /* CoreDataStack.swift */,
-				369E5BC226037AFF00369A3C /* ProjectManager.xcdatamodeld */,
 			);
 			path = Model;
 			sourceTree = "<group>";
