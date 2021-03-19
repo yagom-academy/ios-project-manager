@@ -12,7 +12,7 @@ final class CoreDataStack {
     static let shared: CoreDataStack = CoreDataStack()
     
     lazy var persistentContainer: NSPersistentCloudKitContainer = {
-        let container = NSPersistentCloudKitContainer(name: "Thing")
+        let container = NSPersistentCloudKitContainer(name: "ProjectManager")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
