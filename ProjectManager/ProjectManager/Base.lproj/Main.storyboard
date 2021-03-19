@@ -28,6 +28,9 @@
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <state key="normal" title="History"/>
                                             </button>
+                                            <connections>
+                                                <action selector="showHistory:" destination="BYZ-38-t0r" id="iR9-KE-9AF"/>
+                                            </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="0Tp-Ac-3jF">
                                             <connections>
@@ -126,6 +129,33 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="11.666666666666666" y="93.333333333333329"/>
+        </scene>
+        <!--History View Controller-->
+        <scene sceneID="zTV-Xf-1qn">
+            <objects>
+                <viewController storyboardIdentifier="history" id="PhE-fi-btB" customClass="HistoryViewController" customModule="ProjectManager" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="TKr-7l-YMx">
+                        <rect key="frame" x="0.0" y="0.0" width="1080" height="810"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="TYZ-ae-oeY">
+                                <rect key="frame" x="0.0" y="0.0" width="1080" height="810"/>
+                                <color key="backgroundColor" systemColor="labelColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="llJ-f2-fZv"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="TYZ-ae-oeY" firstAttribute="leading" secondItem="llJ-f2-fZv" secondAttribute="leading" id="MXc-ak-EbO"/>
+                            <constraint firstItem="TYZ-ae-oeY" firstAttribute="top" secondItem="llJ-f2-fZv" secondAttribute="top" id="UCp-iq-sE1"/>
+                            <constraint firstItem="llJ-f2-fZv" firstAttribute="trailing" secondItem="TYZ-ae-oeY" secondAttribute="trailing" id="gZf-O5-n5r"/>
+                            <constraint firstItem="llJ-f2-fZv" firstAttribute="bottom" secondItem="TYZ-ae-oeY" secondAttribute="bottom" id="uPX-kK-lna"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6Fg-xQ-UtU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="11.666666666666666" y="757.77777777777771"/>
         </scene>
         <!--Sheet View Controller-->
         <scene sceneID="Uaj-Cj-APo">

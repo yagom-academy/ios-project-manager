@@ -15,7 +15,7 @@ class ProjectManagerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavigationBar()
-//        createFile()
+        //        createFile()
         NotificationCenter.default.addObserver(self, selector: #selector(reloadHeader), name: NSNotification.Name("reloadHeader"), object: nil)
     }
     
@@ -148,9 +148,14 @@ extension ProjectManagerViewController {
         let fileManager = FileManager.default
         let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
         let fileURL = documentsURL.appendingPathComponent("JSONFile.json")
-//        let text = NSString(string: jsonString)
-//        try? text.write(to: fileURL, atomically: true, encoding: String.Encoding.utf8.rawValue)
+        //        let text = NSString(string: jsonString)
+        //        try? text.write(to: fileURL, atomically: true, encoding: String.Encoding.utf8.rawValue)
         
         print(fileURL)
+    }
+}
+
+extension ProjectManagerViewController {
+    @IBAction func showHistory(_ sender: Any) {
     }
 }
