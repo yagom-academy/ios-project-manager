@@ -15,7 +15,6 @@ class ProjectManagerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavigationBar()
-        //        createFile()
         NotificationCenter.default.addObserver(self, selector: #selector(reloadHeader), name: NSNotification.Name("reloadHeader"), object: nil)
     }
     
@@ -144,15 +143,6 @@ extension ProjectManagerViewController {
 // MARK: - Create Local Disk Cache
 
 extension ProjectManagerViewController {
-    func createFile() {
-        let fileManager = FileManager.default
-        let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        let fileURL = documentsURL.appendingPathComponent("JSONFile.json")
-        //        let text = NSString(string: jsonString)
-        //        try? text.write(to: fileURL, atomically: true, encoding: String.Encoding.utf8.rawValue)
-        
-        print(fileURL)
-    }
 }
 
 // MARK: - Popover

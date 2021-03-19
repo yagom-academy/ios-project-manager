@@ -1,16 +1,12 @@
 import UIKit
 
 struct DecodeJSON {
-    func decodeJSONFile<T: Decodable>(fileName: String, type: T.Type) -> T? {
-        let dataAssetName: String = fileName
-        guard let dataAsset: NSDataAsset = NSDataAsset.init(name: dataAssetName) else {
-            return nil
-        }
+    func decodeJSONFile<T: Decodable>(data: Data, type: T.Type) -> T? {
         
         let jsonDecoder: JSONDecoder = JSONDecoder()
         
         do {
-            let decodeData = try jsonDecoder.decode(T.self, from: dataAsset.data)
+            let decodeData = try jsonDecoder.decode(T.self, from: data)
             return decodeData
         } catch DecodingError.dataCorrupted(let context) {
             print("데이터가 손상되었거나 유효하지 않습니다.")

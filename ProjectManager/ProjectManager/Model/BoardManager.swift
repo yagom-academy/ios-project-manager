@@ -10,18 +10,22 @@ class BoardManager {
         return [todoBoard, doingBoard, doneBoard]
     }()
     
-    var itemData: [Item] = []
+    private var items: [Item] = []
     
     private init() {
         let decodedData: DecodeJSON = DecodeJSON()
         
-        if let decodedData = decodedData.decodeJSONFile(fileName: "JSONMock", type: [Item].self) {
-            itemData = decodedData
-        }
-        print(itemData)
+        let fileManager = FileManager.default
+        let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let fileURL = documentsURL.appendingPathComponent("JSONFile.json")
         
-        for index in 0..<itemData.count {
-            addJSONItem(item: itemData[index])
+        let savedData = try! Data(contentsOf: fileURL)
+        if let savedItem = decodedData.decodeJSONFile(data: savedData, type: [Item].self) {
+            items = savedItem
+        }
+        
+        for index in 0..<items.count {
+            addJSONItem(item: items[index])
         }
     }
     
