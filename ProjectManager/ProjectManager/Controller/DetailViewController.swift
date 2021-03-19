@@ -124,6 +124,13 @@ final class DetailViewController: UIViewController {
             thing.title = title
             thing.description = body
             thing.dateNumber = date
+            if tableView is TodoTableView {
+                thing.state = Strings.todoState
+            } else if tableView is DoingTableView {
+                thing.state = Strings.doingState
+            } else {
+                thing.state = Strings.doneState
+            }
             tableView?.updateThing(thing, index: index)
         }
         dismiss(animated: true, completion: nil)
