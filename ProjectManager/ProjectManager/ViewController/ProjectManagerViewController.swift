@@ -104,6 +104,7 @@ extension ProjectManagerViewController {
         
         presentedSheetViewController.updateItemHandler { (currentItem) in
             newItem = currentItem
+            newItem.progressStatus = ProgressStatus.todo.rawValue
             self.delegate = self.sectionCollectionView.cellForItem(at: [0,0]) as? SectionCollectionViewCell
             self.delegate?.addNewCell(with: newItem)
         }
