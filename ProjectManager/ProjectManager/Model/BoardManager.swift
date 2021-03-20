@@ -10,14 +10,17 @@ class BoardManager {
         return [todoBoard, doingBoard, doneBoard]
     }()
     
+    private let fileManager = FileManager.default
+    private lazy var documentsURL: URL = {
+        return fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
+    }()
+    private lazy var fileURL: URL = {
+       return documentsURL.appendingPathComponent("JSONFile.json")
+    }()
     private var items: [Item] = []
     
     private init() {
         let decodedData: DecodeJSON = DecodeJSON()
-        
-        let fileManager = FileManager.default
-        let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        let fileURL = documentsURL.appendingPathComponent("JSONFile.json")
         
         guard fileManager.fileExists(atPath: fileURL.path) else {
             fileManager.createFile(atPath: fileURL.path, contents: nil, attributes: nil)
@@ -56,10 +59,6 @@ class BoardManager {
         let jsonEncoder = JSONEncoder()
         jsonEncoder.outputFormatting = .prettyPrinted
         let encodedData = try! jsonEncoder.encode(item)
-        
-        let fileManager = FileManager.default
-        let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        let fileURL = documentsURL.appendingPathComponent("JSONFile.json")
         
         do {
             if let fileUpdater = try? FileHandle(forUpdating: fileURL) {
