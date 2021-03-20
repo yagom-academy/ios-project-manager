@@ -31,7 +31,7 @@ class BoardManager {
             }
             
             for index in 0..<items.count {
-                addJSONItem(item: items[index])
+                arrangeJSONItem(item: items[index])
             }
         } catch {
             print("데이터 로딩 실패")
@@ -39,7 +39,7 @@ class BoardManager {
     }
     
     
-    func addJSONItem(item: Item) {
+    private func arrangeJSONItem(item: Item) {
         switch item.progressStatus {
         case ProgressStatus.todo.rawValue:
             todoBoard.addItem(Item(title: item.title, description: item.description, progressStatus: item.progressStatus, timeStamp: item.timeStamp))
@@ -49,6 +49,26 @@ class BoardManager {
             doneBoard.addItem(Item(title: item.title, description: item.description, progressStatus: item.progressStatus, timeStamp: item.timeStamp))
         default:
             break
+        }
+    }
+    
+    func addToFile(with item: Item) {
+        let jsonEncoder = JSONEncoder()
+        jsonEncoder.outputFormatting = .prettyPrinted
+        let encodedData = try! jsonEncoder.encode(item)
+        
+        let fileManager = FileManager.default
+        let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let fileURL = documentsURL.appendingPathComponent("JSONFile.json")
+        
+        do {
+            if let fileUpdater = try? FileHandle(forUpdating: fileURL) {
+                try fileUpdater.seek(toOffset: fileUpdater.seekToEndOfFile()-2)
+                fileUpdater.write(Data("\n".utf8) + encodedData + Data(",\n]".utf8))
+                fileUpdater.closeFile()
+            }
+        } catch {
+            print("데이터 업데이트 실패")
         }
     }
 }
