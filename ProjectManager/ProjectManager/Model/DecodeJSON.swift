@@ -26,3 +26,18 @@ struct DecodeJSON {
         return nil
     }
 }
+
+struct EncodeJSON {
+    func encodeJSONFile<T: Encodable>(type: T) -> Data? {
+        let jsonEncoder: JSONEncoder = JSONEncoder()
+        jsonEncoder.outputFormatting = .prettyPrinted
+        
+        do {
+            let encodeData = try jsonEncoder.encode(type.self)
+            return encodeData
+        } catch {
+            print(error)
+        }
+        return nil
+    }
+}

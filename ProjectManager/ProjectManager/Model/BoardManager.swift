@@ -20,7 +20,7 @@ class BoardManager {
     private var items: [Item] = []
     
     private init() {
-        let decodedData: DecodeJSON = DecodeJSON()
+        let decoder: DecodeJSON = DecodeJSON()
         
         guard fileManager.fileExists(atPath: fileURL.path) else {
             fileManager.createFile(atPath: fileURL.path, contents: nil, attributes: nil)
@@ -29,7 +29,7 @@ class BoardManager {
         
         do {
             let savedData = try Data(contentsOf: fileURL)
-            if let savedItem = decodedData.decodeJSONFile(data: savedData, type: [Item].self) {
+            if let savedItem = decoder.decodeJSONFile(data: savedData, type: [Item].self) {
                 items = savedItem
             }
             
@@ -56,18 +56,18 @@ class BoardManager {
     }
     
     func addToFile(with item: Item) {
-        let jsonEncoder = JSONEncoder()
-        jsonEncoder.outputFormatting = .prettyPrinted
-        let encodedData = try! jsonEncoder.encode(item)
+        let encoder: EncodeJSON = EncodeJSON()
         
-        do {
-            if let fileUpdater = try? FileHandle(forUpdating: fileURL) {
-                try fileUpdater.seek(toOffset: fileUpdater.seekToEndOfFile()-2)
-                fileUpdater.write(Data("\n".utf8) + encodedData + Data(",\n]".utf8))
-                fileUpdater.closeFile()
+        if let encodedData = encoder.encodeJSONFile(type: item) {
+            do {
+                if let fileUpdater = try? FileHandle(forUpdating: fileURL) {
+                    try fileUpdater.seek(toOffset: fileUpdater.seekToEndOfFile()-2)
+                    fileUpdater.write(Data("\n".utf8) + encodedData + Data(",\n]".utf8))
+                    fileUpdater.closeFile()
+                }
+            } catch {
+                print("데이터 업데이트 실패")
             }
-        } catch {
-            print("데이터 업데이트 실패")
         }
     }
 }
