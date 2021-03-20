@@ -10,37 +10,15 @@ class BoardManager {
         return [todoBoard, doingBoard, doneBoard]
     }()
     
-    private let fileManager = FileManager.default
-    private lazy var documentsURL: URL = {
-        return fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
-    }()
-    private lazy var fileURL: URL = {
-       return documentsURL.appendingPathComponent("JSONFile.json")
-    }()
     private var items: [Item] = []
     
     private init() {
-        let decoder: DecodeJSON = DecodeJSON()
+        items = projectFileManager.setItems()
         
-        guard fileManager.fileExists(atPath: fileURL.path) else {
-            fileManager.createFile(atPath: fileURL.path, contents: nil, attributes: nil)
-            return
-        }
-        
-        do {
-            let savedData = try Data(contentsOf: fileURL)
-            if let savedItem = decoder.decodeJSONFile(data: savedData, type: [Item].self) {
-                items = savedItem
-            }
-            
-            for index in 0..<items.count {
-                arrangeJSONItem(item: items[index])
-            }
-        } catch {
-            print("데이터 로딩 실패")
+        for index in 0..<items.count {
+            arrangeJSONItem(item: items[index])
         }
     }
-    
     
     private func arrangeJSONItem(item: Item) {
         switch item.progressStatus {
@@ -52,22 +30,6 @@ class BoardManager {
             doneBoard.addItem(Item(title: item.title, description: item.description, progressStatus: item.progressStatus, timeStamp: item.timeStamp))
         default:
             break
-        }
-    }
-    
-    func addToFile(with item: Item) {
-        let encoder: EncodeJSON = EncodeJSON()
-        
-        if let encodedData = encoder.encodeJSONFile(type: item) {
-            do {
-                if let fileUpdater = try? FileHandle(forUpdating: fileURL) {
-                    try fileUpdater.seek(toOffset: fileUpdater.seekToEndOfFile()-2)
-                    fileUpdater.write(Data("\n".utf8) + encodedData + Data(",\n]".utf8))
-                    fileUpdater.closeFile()
-                }
-            } catch {
-                print("데이터 업데이트 실패")
-            }
         }
     }
 }

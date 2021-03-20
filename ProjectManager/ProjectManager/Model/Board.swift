@@ -2,7 +2,7 @@ import UIKit
 
 class Board {
     let title: String
-    private var items = [Item]()
+    var items = [Item]()
     var itemsCount: Int {
         return items.count
     }

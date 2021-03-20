@@ -24,6 +24,7 @@
 		D91EE2D025F74482003C86BD /* BoardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91EE2CE25F74482003C86BD /* BoardTableViewCell.swift */; };
 		D91EE2D125F74482003C86BD /* BoardTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D91EE2CF25F74482003C86BD /* BoardTableViewCell.xib */; };
 		D91EE2D625F86840003C86BD /* SectionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91EE2D525F86840003C86BD /* SectionCollectionViewCell.swift */; };
+		D9EAB41E26064A5D0007F8B7 /* ProjectFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EAB41D26064A5D0007F8B7 /* ProjectFileManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		D91EE2CE25F74482003C86BD /* BoardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardTableViewCell.swift; sourceTree = "<group>"; };
 		D91EE2CF25F74482003C86BD /* BoardTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BoardTableViewCell.xib; sourceTree = "<group>"; };
 		D91EE2D525F86840003C86BD /* SectionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionCollectionViewCell.swift; sourceTree = "<group>"; };
+		D9EAB41D26064A5D0007F8B7 /* ProjectFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectFileManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 			children = (
 				9A59AED425FAE83A00643302 /* Board.swift */,
 				9A32B08A260192C800C58CFB /* BoardManager.swift */,
+				D9EAB41D26064A5D0007F8B7 /* ProjectFileManager.swift */,
 				9AE07A5925FA2DC200C9F434 /* Item.swift */,
 				9A65FD3E2604429100F4B6B0 /* DecodeJSON.swift */,
 				9AE07A5725F9DA9A00C9F434 /* Enum */,
@@ -212,6 +215,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9AE07A5425F9DA0B00C9F434 /* ProgressStatus.swift in Sources */,
+				D9EAB41E26064A5D0007F8B7 /* ProjectFileManager.swift in Sources */,
 				9A65FD3F2604429100F4B6B0 /* DecodeJSON.swift in Sources */,
 				9AE07A5A25FA2DC200C9F434 /* Item.swift in Sources */,
 				9A59AED525FAE83A00643302 /* Board.swift in Sources */,

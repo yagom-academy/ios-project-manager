@@ -107,7 +107,7 @@ extension ProjectManagerViewController {
             newItem.progressStatus = ProgressStatus.todo.rawValue
             self.delegate = self.sectionCollectionView.cellForItem(at: [0,0]) as? SectionCollectionViewCell
             self.delegate?.addNewCell(with: newItem)
-            boardManager.addToFile(with: newItem)
+            projectFileManager.updateFile()
         }
     }
     
@@ -118,6 +118,7 @@ extension ProjectManagerViewController {
         presentedSheetViewController.updateItemHandler { (currentItem) in
             board.updateItem(at: index, with: currentItem)
             boardTableViewCell.updateUI(with: currentItem)
+            projectFileManager.updateFile()
         }
     }
     
@@ -138,13 +139,9 @@ extension ProjectManagerViewController {
         if let (board, sourceIndexPath, tableView) = localDragSession?.localContext as? (Board, IndexPath, UITableView) {
             board.deleteItem(at: sourceIndexPath.row)
             tableView.deleteRows(at: [sourceIndexPath], with: .automatic)
+            projectFileManager.updateFile()
         }
     }
-}
-
-// MARK: - Create Local Disk Cache
-
-extension ProjectManagerViewController {
 }
 
 // MARK: - Popover

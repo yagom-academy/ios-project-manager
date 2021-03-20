@@ -50,6 +50,7 @@ extension SectionCollectionViewCell: UITableViewDelegate {
             board.deleteItem(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
             updateHeaderLabels(with: board)
+            projectFileManager.updateFile()
         }
     }
 }
@@ -137,6 +138,8 @@ extension SectionCollectionViewCell: UITableViewDropDelegate {
             
             self.removeSourceTableData(localContext: coordinator.session.localDragSession?.localContext)
         }
+        
+        projectFileManager.updateFile()
     }
     
     func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
