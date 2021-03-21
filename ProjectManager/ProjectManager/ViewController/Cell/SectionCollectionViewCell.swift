@@ -47,7 +47,8 @@ extension SectionCollectionViewCell: UITableViewDelegate {
         }
         
         if editingStyle == .delete {
-            print("Deleted \(board.item(at: indexPath.row).title), \(Date())")
+            let historyLog = HistoryLog.delete(board.item(at: indexPath.row).title)
+            boardManager.historyContainer.append((historyLog.description, Date()))
             board.deleteItem(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
             updateHeaderLabels(with: board)
@@ -186,7 +187,8 @@ extension SectionCollectionViewCell {
     
     private func removeSourceTableData(localContext: Any?) {
         if let (dataSource, sourceIndexPath, tableView) = localContext as? (Board, IndexPath, UITableView) {
-            print("Moved \(dataSource.item(at: sourceIndexPath.row).title) from \(dataSource.title) to \(self.board!.title)")
+            let historyLog = HistoryLog.move(dataSource.item(at: sourceIndexPath.row).title, dataSource.title, self.board!.title)
+            boardManager.historyContainer.append((historyLog.description, Date()))
             dataSource.deleteItem(at: sourceIndexPath.row)
             tableView.deleteRows(at: [sourceIndexPath], with: .automatic)
             NotificationCenter.default.post(name: NSNotification.Name("reloadHeader"), object: nil)

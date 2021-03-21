@@ -8,7 +8,7 @@ class SheetViewController: UIViewController {
     @IBOutlet weak var deadlineDatePicker: UIDatePicker!
     @IBOutlet weak var descriptionTextView: UITextView!
     
-    var currentItem = Item(title: "", description: "", progressStatus: "", timeStamp: Int(Date().timeIntervalSince1970))
+    var currentItem = Item(title: "", description: "", progressStatus: "TODO", timeStamp: Int(Date().timeIntervalSince1970))
     var mode: Mode?
     var completionHandler: ((Item) -> Void)?
     

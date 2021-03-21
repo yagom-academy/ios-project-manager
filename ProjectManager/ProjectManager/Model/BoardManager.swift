@@ -1,5 +1,22 @@
 import Foundation
 
+enum HistoryLog {
+    case add(String)
+    case move(String, String, String)
+    case delete(String)
+    
+    var description: String {
+        switch self {
+        case .add(let title):
+            return "Added \(title)"
+        case .move(let title, let before,  let after):
+            return "Moved \(title) from \(before) to \(after)"
+        case .delete(let title):
+            return "Deleted \(title)"
+        }
+    }
+}
+
 class BoardManager {
     static let shared = BoardManager()
     
@@ -10,13 +27,15 @@ class BoardManager {
         return [todoBoard, doingBoard, doneBoard]
     }()
     
+    var historyContainer = [(String, Date)]()
+    
     private var items: [Item] = []
     
     private init() {
         items = projectFileManager.setItems()
         
-        for index in 0..<items.count {
-            arrangeJSONItem(item: items[index])
+        for item in items {
+            arrangeJSONItem(item: item)
         }
     }
     

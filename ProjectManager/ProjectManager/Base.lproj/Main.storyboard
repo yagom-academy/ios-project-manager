@@ -141,6 +141,10 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="TYZ-ae-oeY">
                                 <rect key="frame" x="10" y="10" width="1060" height="790"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="PhE-fi-btB" id="b50-Wn-87G"/>
+                                    <outlet property="delegate" destination="PhE-fi-btB" id="drH-p7-Z8w"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="llJ-f2-fZv"/>
