@@ -1,4 +1,4 @@
-import UIKit
+import Foundation
 
 struct DecodeJSON {
     func decodeJSONFile<T: Decodable>(data: Data, type: T.Type) -> T? {

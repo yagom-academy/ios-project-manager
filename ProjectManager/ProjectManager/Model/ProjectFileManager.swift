@@ -1,10 +1,3 @@
-//
-//  ProjectFileManager.swift
-//  ProjectManager
-//
-//  Created by 강인희 on 2021/03/21.
-//
-
 import Foundation
 
 class ProjectFileManager {
@@ -15,6 +8,7 @@ class ProjectFileManager {
     private lazy var documentsURL: URL = {
         return fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
     }()
+    
     private lazy var fileURL: URL = {
         return documentsURL.appendingPathComponent("JSONFile.json")
     }()

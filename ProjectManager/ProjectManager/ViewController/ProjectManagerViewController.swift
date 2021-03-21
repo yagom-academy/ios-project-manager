@@ -146,7 +146,25 @@ extension ProjectManagerViewController {
 
 // MARK: - Popover
 
-extension ProjectManagerViewController {
+extension ProjectManagerViewController: UIPopoverPresentationControllerDelegate {
     @IBAction func showHistory(_ sender: Any) {
+        let popoverContent = self.storyboard?.instantiateViewController(withIdentifier: "history") as! HistoryViewController
+        
+        popoverContent.modalPresentationStyle = .popover
+        
+        _ = popoverContent.popoverPresentationController
+        
+        if let popover = popoverContent.popoverPresentationController {
+            
+            let viewForSource = sender as! UIView
+            popover.sourceView = viewForSource
+            
+            popover.sourceRect = viewForSource.bounds
+            popoverContent.preferredContentSize = CGSize(width: 600,height: 600)
+            
+            popover.delegate = self
+        }
+        
+        self.present(popoverContent, animated: true, completion: nil)
     }
 }

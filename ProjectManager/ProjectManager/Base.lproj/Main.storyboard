@@ -27,10 +27,10 @@
                                                 <rect key="frame" x="20" y="10" width="240" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <state key="normal" title="History"/>
+                                                <connections>
+                                                    <action selector="showHistory:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9sK-eZ-IYQ"/>
+                                                </connections>
                                             </button>
-                                            <connections>
-                                                <action selector="showHistory:" destination="BYZ-38-t0r" id="iR9-KE-9AF"/>
-                                            </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="0Tp-Ac-3jF">
                                             <connections>
@@ -139,17 +139,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="TYZ-ae-oeY">
-                                <rect key="frame" x="0.0" y="0.0" width="1080" height="810"/>
-                                <color key="backgroundColor" systemColor="labelColor"/>
+                                <rect key="frame" x="10" y="10" width="1060" height="790"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="llJ-f2-fZv"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="systemGray5Color"/>
                         <constraints>
-                            <constraint firstItem="TYZ-ae-oeY" firstAttribute="leading" secondItem="llJ-f2-fZv" secondAttribute="leading" id="MXc-ak-EbO"/>
-                            <constraint firstItem="TYZ-ae-oeY" firstAttribute="top" secondItem="llJ-f2-fZv" secondAttribute="top" id="UCp-iq-sE1"/>
-                            <constraint firstItem="llJ-f2-fZv" firstAttribute="trailing" secondItem="TYZ-ae-oeY" secondAttribute="trailing" id="gZf-O5-n5r"/>
-                            <constraint firstItem="llJ-f2-fZv" firstAttribute="bottom" secondItem="TYZ-ae-oeY" secondAttribute="bottom" id="uPX-kK-lna"/>
+                            <constraint firstItem="TYZ-ae-oeY" firstAttribute="leading" secondItem="llJ-f2-fZv" secondAttribute="leading" constant="10" id="MXc-ak-EbO"/>
+                            <constraint firstItem="TYZ-ae-oeY" firstAttribute="top" secondItem="llJ-f2-fZv" secondAttribute="top" constant="10" id="UCp-iq-sE1"/>
+                            <constraint firstItem="llJ-f2-fZv" firstAttribute="trailing" secondItem="TYZ-ae-oeY" secondAttribute="trailing" constant="10" id="gZf-O5-n5r"/>
+                            <constraint firstItem="llJ-f2-fZv" firstAttribute="bottom" secondItem="TYZ-ae-oeY" secondAttribute="bottom" constant="10" id="uPX-kK-lna"/>
                         </constraints>
                     </view>
                 </viewController>

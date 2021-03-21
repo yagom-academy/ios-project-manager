@@ -23,6 +23,9 @@ struct Item: Codable {
         self.timeStamp = item.timeStamp
     }
 }
+
+// MARK: - DateFormating
+
 extension DateFormatter {
     func convertDateToString(date: Date) -> String {
         let currentLocale = Locale.current.collatorIdentifier ?? "ko_KR"
