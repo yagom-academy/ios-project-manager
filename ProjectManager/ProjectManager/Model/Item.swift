@@ -22,6 +22,10 @@ struct Item: Codable {
         self.progressStatus = item.progressStatus
         self.timeStamp = item.timeStamp
     }
+    
+    mutating func updateProgressStatus(with progressStatus: String) {
+        self.progressStatus = progressStatus
+    }
 }
 
 // MARK: - DateFormating

@@ -61,26 +61,6 @@ extension ProjectManagerViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-// MARK: - UIDropInteractionDelegate
-
-extension ProjectManagerViewController: UIDropInteractionDelegate {
-    func dropInteraction(_ interaction: UIDropInteraction, sessionDidUpdate session: UIDropSession) -> UIDropProposal {
-        return UIDropProposal(operation: .move)
-    }
-    
-    func dropInteraction(_ interaction: UIDropInteraction, performDrop session: UIDropSession) {
-        if session.hasItemsConforming(toTypeIdentifiers: [kUTTypePlainText as String]) {
-            session.loadObjects(ofClass: NSString.self) { (items) in
-                guard let _ = items.first as? String else {
-                    return
-                }
-                
-                self.deleteDraggedItem(localDragSession: session.localDragSession)
-            }
-        }
-    }
-}
-
 // MARK: - BoardTableViewCellDelegate
 
 extension ProjectManagerViewController: BoardTableViewCellDelegate {
@@ -107,6 +87,7 @@ extension ProjectManagerViewController {
             newItem.progressStatus = ProgressStatus.todo.rawValue
             self.delegate = self.sectionCollectionView.cellForItem(at: [0,0]) as? SectionCollectionViewCell
             self.delegate?.addNewCell(with: newItem)
+            print("Added '\(newItem.title)' \(Date())")
             projectFileManager.updateFile()
         }
     }
@@ -133,14 +114,6 @@ extension ProjectManagerViewController {
         self.present(sheetViewController, animated: true, completion: nil)
         
         return sheetViewController
-    }
-    
-    private func deleteDraggedItem(localDragSession: UIDragSession?) {
-        if let (board, sourceIndexPath, tableView) = localDragSession?.localContext as? (Board, IndexPath, UITableView) {
-            board.deleteItem(at: sourceIndexPath.row)
-            tableView.deleteRows(at: [sourceIndexPath], with: .automatic)
-            projectFileManager.updateFile()
-        }
     }
 }
 
