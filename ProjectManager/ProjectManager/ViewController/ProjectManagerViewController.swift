@@ -157,15 +157,14 @@ extension ProjectManagerViewController {
             
             if path.status != .satisfied {
                 print("네트워크에 연결되어 있지 않습니다.")
-            }
-            else if path.usesInterfaceType(.cellular) {
-                print("셀룰러에 연결되어 있습니다.")
-            }
-            else if path.usesInterfaceType(.wifi) {
-                print("와이파이에 연결되어 있습니다.")
-            }
-            else if path.usesInterfaceType(.wiredEthernet) {
-                print("이더넷에 연결되어 있습니다.")
+                DispatchQueue.main.async {
+                    self.networkLabel.isHidden = false
+                }
+            } else {
+                print("네트워크에 연결되어 있습니다.")
+                DispatchQueue.main.async {
+                    self.networkLabel.isHidden = true
+                }
             }
         }
         monitor.start(queue: DispatchQueue.global(qos: .background))
