@@ -14,6 +14,7 @@ final class HistoryTableViewController: UIViewController, UITableViewDataSource 
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTableView()
+        preferredContentSize = CGSize(width: 400, height: 400)
     }
     
     // MARK: - UI
