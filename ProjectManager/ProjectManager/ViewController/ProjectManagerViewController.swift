@@ -141,6 +141,5 @@ extension ProjectManagerViewController: UIPopoverPresentationControllerDelegate 
         }
         
         self.present(popoverContent, animated: true, completion: nil)
-        print(historyManager.historyContainer)
     }
 }
