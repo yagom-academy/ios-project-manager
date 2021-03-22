@@ -9,6 +9,11 @@ extension HistoryViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        guard let cell =
+                tableView.dequeueReusableCell(withIdentifier: HistoryTableViewCell.identifier) as? HistoryTableViewCell else {
+            return UITableViewCell()
+        }
+        cell.configureLabel(with: indexPath.row)
+        return cell
     }
 }

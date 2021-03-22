@@ -47,7 +47,7 @@ extension SectionCollectionViewCell: UITableViewDelegate {
         }
         
         if editingStyle == .delete {
-            let historyLog = HistoryLog.delete(board.item(at: indexPath.row).title)
+            let historyLog = HistoryLog.delete(board.item(at: indexPath.row).title, board.item(at: indexPath.row).progressStatus)
             historyManager.historyContainer.append((historyLog.description, Date()))
             board.deleteItem(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
