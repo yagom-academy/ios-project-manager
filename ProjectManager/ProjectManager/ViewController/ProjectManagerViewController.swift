@@ -10,6 +10,7 @@ class ProjectManagerViewController: UIViewController {
     @IBOutlet weak var titleNavigationBar: UINavigationBar!
     @IBOutlet weak var addButton: UIBarButtonItem!
     @IBOutlet weak var sectionCollectionView: UICollectionView!
+    @IBOutlet weak var networkLabel: UILabel!
     
     weak var delegate: AddItemDelegate?
     
@@ -170,4 +171,3 @@ extension ProjectManagerViewController {
         monitor.start(queue: DispatchQueue.global(qos: .background))
     }
 }
-

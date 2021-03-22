@@ -107,6 +107,12 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="F16-e5-uts"/>
                                 </connections>
                             </collectionView>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="네트워크에 연결되어 있지 않습니다." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wrV-VT-ikv">
+                                <rect key="frame" x="421" y="769.5" width="238.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -117,11 +123,14 @@
                             <constraint firstItem="I8o-w3-vQ7" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="NGj-g1-qnt"/>
                             <constraint firstItem="I8o-w3-vQ7" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Pe2-1J-kpv"/>
                             <constraint firstItem="7Pi-0Z-K0O" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="QIT-oV-yH6"/>
+                            <constraint firstItem="wrV-VT-ikv" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="YW3-Gd-P6s"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="I8o-w3-vQ7" secondAttribute="trailing" id="avX-CS-ndJ"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="wrV-VT-ikv" secondAttribute="bottom" constant="20" id="v0s-JP-Rhb"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="addButton" destination="0Tp-Ac-3jF" id="IWd-AZ-ePM"/>
+                        <outlet property="networkLabel" destination="wrV-VT-ikv" id="gPG-p1-MBW"/>
                         <outlet property="sectionCollectionView" destination="7Pi-0Z-K0O" id="Uip-Kj-bfW"/>
                         <outlet property="titleNavigationBar" destination="I8o-w3-vQ7" id="7h7-n4-495"/>
                     </connections>
