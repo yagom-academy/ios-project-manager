@@ -11,7 +11,7 @@ class HistoryTableViewCell: UITableViewCell {
         self.subTitle.text = convertDateToString(date: historyManager.historyContainer[index].1)
     }
     
-    func convertDateToString(date: Date) -> String {
+    private func convertDateToString(date: Date) -> String {
         let convertedDate: String
         let dateFormatter = DateFormatter()
         
