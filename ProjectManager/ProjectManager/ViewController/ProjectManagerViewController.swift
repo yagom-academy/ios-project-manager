@@ -1,5 +1,6 @@
 import UIKit
 import MobileCoreServices
+import Network
 
 protocol BoardTableViewCellDelegate: AnyObject {
     func tableViewCell(_ boardTableViewCell: BoardTableViewCell, didSelectAt index: Int, on board: Board?)
@@ -16,6 +17,7 @@ class ProjectManagerViewController: UIViewController {
         super.viewDidLoad()
         configureNavigationBar()
         NotificationCenter.default.addObserver(self, selector: #selector(reloadHeader), name: NSNotification.Name("reloadHeader"), object: nil)
+        configureNetworkMonitor()
     }
     
     @IBAction func tappedAddButton(_ sender: Any) {
@@ -143,3 +145,29 @@ extension ProjectManagerViewController: UIPopoverPresentationControllerDelegate 
         self.present(popoverContent, animated: true, completion: nil)
     }
 }
+
+// MARK: - Check the Network Connection
+
+extension ProjectManagerViewController {
+    func configureNetworkMonitor() {
+        let monitor = NWPathMonitor()
+        
+        monitor.pathUpdateHandler = { path in
+            
+            if path.status != .satisfied {
+                print("네트워크에 연결되어 있지 않습니다.")
+            }
+            else if path.usesInterfaceType(.cellular) {
+                print("셀룰러에 연결되어 있습니다.")
+            }
+            else if path.usesInterfaceType(.wifi) {
+                print("와이파이에 연결되어 있습니다.")
+            }
+            else if path.usesInterfaceType(.wiredEthernet) {
+                print("이더넷에 연결되어 있습니다.")
+            }
+        }
+        monitor.start(queue: DispatchQueue.global(qos: .background))
+    }
+}
+
