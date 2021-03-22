@@ -142,7 +142,7 @@
                                 <rect key="frame" x="10" y="10" width="1060" height="790"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="eqg-sO-J0R" detailTextLabel="xUH-QK-VRb" style="IBUITableViewCellStyleSubtitle" id="PSh-CT-beo">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="HistoryCell" textLabel="eqg-sO-J0R" detailTextLabel="xUH-QK-VRb" style="IBUITableViewCellStyleSubtitle" id="PSh-CT-beo" customClass="HistoryTableViewCell" customModule="ProjectManager" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="1060" height="55.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="PSh-CT-beo" id="8pm-6z-yBj">
@@ -165,6 +165,10 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="subTitle" destination="xUH-QK-VRb" id="PVF-BV-rYz"/>
+                                            <outlet property="title" destination="eqg-sO-J0R" id="G7n-G3-Qb3"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
