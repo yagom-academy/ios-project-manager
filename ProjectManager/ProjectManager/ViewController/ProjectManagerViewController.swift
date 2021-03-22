@@ -87,8 +87,9 @@ extension ProjectManagerViewController {
             newItem.progressStatus = ProgressStatus.todo.rawValue
             self.delegate = self.sectionCollectionView.cellForItem(at: [0,0]) as? SectionCollectionViewCell
             self.delegate?.addNewCell(with: newItem)
+            
             let historyLog = HistoryLog.add(newItem.title)
-            boardManager.historyContainer.append((historyLog.description, Date()))
+            historyManager.historyContainer.append((historyLog.description, Date()))
             projectFileManager.updateFile()
         }
     }
@@ -140,6 +141,6 @@ extension ProjectManagerViewController: UIPopoverPresentationControllerDelegate 
         }
         
         self.present(popoverContent, animated: true, completion: nil)
-        print(boardManager.historyContainer)
+        print(historyManager.historyContainer)
     }
 }
