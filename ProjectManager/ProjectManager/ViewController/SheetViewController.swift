@@ -68,6 +68,7 @@ extension SheetViewController {
         self.titleTextField.text = currentItem.title
         self.deadlineDatePicker.date = Date(timeIntervalSince1970: TimeInterval(currentItem.timeStamp))
         self.descriptionTextView.text = currentItem.description
+        self.descriptionTextView.autocapitalizationType = .none
     }
     
     private func checkOfModifiable(status: Mode) {
