@@ -7,7 +7,7 @@ class HistoryTableViewCell: UITableViewCell {
     @IBOutlet weak var subTitle: UILabel!
     
     func configureLabel(with index: Int) {
-        self.title.text = historyManager.historyContainer[index].0
+        self.title.text = String(describing: historyManager.historyContainer[index].0)
         self.subTitle.text = convertDateToString(date: historyManager.historyContainer[index].1)
     }
     
