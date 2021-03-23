@@ -37,6 +37,7 @@ class ThingTableView: UITableView, Draggable, Droppable {
         thing.dateNumber = date
         do {
             try CoreDataStack.shared.persistentContainer.viewContext.save()
+            NetworkManager.update(thing: thing) { _ in }
         } catch {
             debugPrint("core data error")
         }
