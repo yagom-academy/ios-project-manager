@@ -91,6 +91,7 @@ final class MainViewController: UIViewController {
             case .failure(_):
                 self.titleView.isConnected = false
             }
+            CoreDataStack.shared.checkedOverlap()
         }
     }
     

@@ -21,7 +21,7 @@ final class CoreDataStack {
         return container
     }()
     
-    func saveContext () {
+    func saveContext() {
         let context = persistentContainer.viewContext
         if context.hasChanges {
             do {
@@ -30,6 +30,27 @@ final class CoreDataStack {
                 let nserror = error as NSError
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
+        }
+    }
+    
+    func checkedOverlap() {
+        guard let things = try? persistentContainer.viewContext.fetch(Thing.fetchRequest()) as? [Thing] else {
+            return
+        }
+        
+        let count = things.count
+        
+        var i = 0
+        while i < count + 1 {
+            var j = i + 1
+            while j < count {
+                if things[i].id == things[j].id {
+                    persistentContainer.viewContext.delete(things[i])
+                    saveContext()
+                }
+                j += 1;
+            }
+            i += 1;
         }
     }
 }
