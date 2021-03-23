@@ -21,13 +21,13 @@ struct NetworkManager {
         }
     }
     
-    static func create(thing: Thing, _ completionHandler: @escaping (Result<NSDictionary?, Error>) -> Void) {
+    static func create(thing: Thing, _ completionHandler: @escaping (Result<Int32?, Error>) -> Void) {
         AF.request(Strings.baseURL, method: .post, parameters: thing.parameters).validate(statusCode: 200..<300).responseJSON { response in
             switch response.result {
             case .success(let data):
                 if let data = data as? NSDictionary, let id = data.value(forKey: "id") as? Int32 {
                     thing.id = id
-                    completionHandler(.success(data))
+                    completionHandler(.success(id))
                 }
             case .failure(let error):
                 completionHandler(.failure(error))

@@ -38,7 +38,7 @@ final class CoreDataStack {
             return
         }
         var i = 0
-        while i < things.count + 1 {
+        while i < things.count {
             var j = i + 1
             while j < things.count {
                 if things[i].id == things[j].id {
@@ -51,11 +51,33 @@ final class CoreDataStack {
                     }
                     NetworkManager.update(thing: things[j]) { _ in }
                     persistentContainer.viewContext.delete(things[i])
-                    saveContext()
                 }
                 j += 1;
             }
             i += 1;
+        }
+        saveContext()
+        checkNewThing()
+    }
+    
+    func checkNewThing() {
+        guard let things = try? persistentContainer.viewContext.fetch(Thing.fetchRequest()) as? [Thing] else {
+            return
+        }
+        for thing in things {
+            if thing.id == 0 {
+                NetworkManager.create(thing: thing) { result in
+                    switch result {
+                    case .success(let id):
+                        if let id = id {
+                            thing.id = id
+                            self.saveContext()
+                        }
+                    case .failure(_):
+                        break
+                    }
+                }
+            }
         }
     }
 }
