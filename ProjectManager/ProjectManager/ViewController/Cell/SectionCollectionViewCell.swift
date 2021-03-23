@@ -47,9 +47,12 @@ extension SectionCollectionViewCell: UITableViewDelegate {
         }
         
         if editingStyle == .delete {
+            let historyLog = HistoryLog.delete(board.item(at: indexPath.row).title, board.item(at: indexPath.row).progressStatus)
+            historyManager.historyContainer.append((historyLog, Date()))
             board.deleteItem(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
             updateHeaderLabels(with: board)
+            projectFileManager.updateFile()
         }
     }
 }
@@ -130,12 +133,14 @@ extension SectionCollectionViewCell: UITableViewDropDelegate {
             
             if let board = self.board {
                 board.insertItem(at: indexPath.row, with: boardManager.boards[boardNumber].item(at: count))
+                board.items[indexPath.row].updateProgressStatus(with: board.title)
                 indexPaths.append(indexPath)
                 tableView.insertRows(at: indexPaths, with: .automatic)
                 updateHeaderLabels(with: board)
             }
-            
+
             self.removeSourceTableData(localContext: coordinator.session.localDragSession?.localContext)
+            projectFileManager.updateFile()
         }
     }
     
@@ -182,6 +187,8 @@ extension SectionCollectionViewCell {
     
     private func removeSourceTableData(localContext: Any?) {
         if let (dataSource, sourceIndexPath, tableView) = localContext as? (Board, IndexPath, UITableView) {
+            let historyLog = HistoryLog.move(dataSource.item(at: sourceIndexPath.row).title, dataSource.title, self.board!.title)
+            historyManager.historyContainer.append((historyLog, Date()))
             dataSource.deleteItem(at: sourceIndexPath.row)
             tableView.deleteRows(at: [sourceIndexPath], with: .automatic)
             NotificationCenter.default.post(name: NSNotification.Name("reloadHeader"), object: nil)

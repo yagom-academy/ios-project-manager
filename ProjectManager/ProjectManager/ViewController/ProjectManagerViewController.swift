@@ -1,5 +1,6 @@
 import UIKit
 import MobileCoreServices
+import Network
 
 protocol BoardTableViewCellDelegate: AnyObject {
     func tableViewCell(_ boardTableViewCell: BoardTableViewCell, didSelectAt index: Int, on board: Board?)
@@ -9,6 +10,7 @@ class ProjectManagerViewController: UIViewController {
     @IBOutlet weak var titleNavigationBar: UINavigationBar!
     @IBOutlet weak var addButton: UIBarButtonItem!
     @IBOutlet weak var sectionCollectionView: UICollectionView!
+    @IBOutlet weak var networkLabel: UILabel!
     
     weak var delegate: AddItemDelegate?
     
@@ -16,6 +18,7 @@ class ProjectManagerViewController: UIViewController {
         super.viewDidLoad()
         configureNavigationBar()
         NotificationCenter.default.addObserver(self, selector: #selector(reloadHeader), name: NSNotification.Name("reloadHeader"), object: nil)
+        configureNetworkMonitor()
     }
     
     @IBAction func tappedAddButton(_ sender: Any) {
@@ -61,26 +64,6 @@ extension ProjectManagerViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-// MARK: - UIDropInteractionDelegate
-
-extension ProjectManagerViewController: UIDropInteractionDelegate {
-    func dropInteraction(_ interaction: UIDropInteraction, sessionDidUpdate session: UIDropSession) -> UIDropProposal {
-        return UIDropProposal(operation: .move)
-    }
-    
-    func dropInteraction(_ interaction: UIDropInteraction, performDrop session: UIDropSession) {
-        if session.hasItemsConforming(toTypeIdentifiers: [kUTTypePlainText as String]) {
-            session.loadObjects(ofClass: NSString.self) { (items) in
-                guard let _ = items.first as? String else {
-                    return
-                }
-
-                self.deleteDraggedItem(localDragSession: session.localDragSession)
-            }
-        }
-    }
-}
-
 // MARK: - BoardTableViewCellDelegate
 
 extension ProjectManagerViewController: BoardTableViewCellDelegate {
@@ -104,8 +87,13 @@ extension ProjectManagerViewController {
         
         presentedSheetViewController.updateItemHandler { (currentItem) in
             newItem = currentItem
+            newItem.progressStatus = ProgressStatus.todo.rawValue
             self.delegate = self.sectionCollectionView.cellForItem(at: [0,0]) as? SectionCollectionViewCell
             self.delegate?.addNewCell(with: newItem)
+            
+            let historyLog = HistoryLog.add(newItem.title)
+            historyManager.historyContainer.append((historyLog, Date()))
+            projectFileManager.updateFile()
         }
     }
     
@@ -116,6 +104,7 @@ extension ProjectManagerViewController {
         presentedSheetViewController.updateItemHandler { (currentItem) in
             board.updateItem(at: index, with: currentItem)
             boardTableViewCell.updateUI(with: currentItem)
+            projectFileManager.updateFile()
         }
     }
     
@@ -131,11 +120,53 @@ extension ProjectManagerViewController {
         
         return sheetViewController
     }
-    
-    private func deleteDraggedItem(localDragSession: UIDragSession?) {
-        if let (board, sourceIndexPath, tableView) = localDragSession?.localContext as? (Board, IndexPath, UITableView) {
-            board.deleteItem(at: sourceIndexPath.row)
-            tableView.deleteRows(at: [sourceIndexPath], with: .automatic)
+}
+
+// MARK: - Popover
+
+extension ProjectManagerViewController: UIPopoverPresentationControllerDelegate {
+    @IBAction func showHistory(_ sender: Any) {
+        let popoverContent = self.storyboard?.instantiateViewController(withIdentifier: "history") as! HistoryViewController
+        
+        popoverContent.modalPresentationStyle = .popover
+        
+        _ = popoverContent.popoverPresentationController
+        
+        if let popover = popoverContent.popoverPresentationController {
+            
+            let viewForSource = sender as! UIView
+            popover.sourceView = viewForSource
+            
+            popover.sourceRect = viewForSource.bounds
+            popoverContent.preferredContentSize = CGSize(width: 600,height: 600)
+            
+            popover.delegate = self
         }
+        
+        self.present(popoverContent, animated: true, completion: nil)
+    }
+}
+
+// MARK: - Check the Network Connection
+
+extension ProjectManagerViewController {
+    func configureNetworkMonitor() {
+        let monitor = NWPathMonitor()
+        
+        monitor.pathUpdateHandler = { path in
+            
+            if path.status != .satisfied {
+                print("네트워크에 연결되어 있지 않습니다.")
+                DispatchQueue.main.async {
+                    self.networkLabel.isHidden = false
+                }
+            } else {
+                print("네트워크에 연결되어 있습니다.")
+                DispatchQueue.main.async {
+                    self.networkLabel.isHidden = true
+                }
+            }
+        }
+        monitor.start(queue: DispatchQueue.global(qos: .background))
     }
 }

@@ -22,7 +22,14 @@ struct Item: Codable {
         self.progressStatus = item.progressStatus
         self.timeStamp = item.timeStamp
     }
+    
+    mutating func updateProgressStatus(with progressStatus: String) {
+        self.progressStatus = progressStatus
+    }
 }
+
+// MARK: - DateFormating
+
 extension DateFormatter {
     func convertDateToString(date: Date) -> String {
         let currentLocale = Locale.current.collatorIdentifier ?? "ko_KR"
