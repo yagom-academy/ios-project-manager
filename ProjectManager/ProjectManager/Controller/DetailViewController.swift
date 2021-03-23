@@ -100,6 +100,13 @@ final class DetailViewController: UIViewController {
     // MARK: - Navigation bar
     
     private func configureNavigationBar() {
+        if tableView is DoingTableView {
+            title = Strings.doingTitle
+        } else if tableView is DoneTableView {
+            title = Strings.doneTitle
+        } else {
+            title = Strings.todoTitle
+        }
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(touchUpDoneButton))
         if isNew {
             toggleEditMode()
