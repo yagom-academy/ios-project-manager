@@ -92,7 +92,7 @@ extension ProjectManagerViewController {
             self.delegate?.addNewCell(with: newItem)
             
             let historyLog = HistoryLog.add(newItem.title)
-            historyManager.historyContainer.append((historyLog.description, Date()))
+            historyManager.historyContainer.append((String(describing: historyLog), Date()))
             projectFileManager.updateFile()
         }
     }

@@ -1,6 +1,6 @@
 import Foundation
 
-enum HistoryLog {
+enum HistoryLog: CustomStringConvertible {
     case add(String)
     case move(String, String, String)
     case delete(String, String)
