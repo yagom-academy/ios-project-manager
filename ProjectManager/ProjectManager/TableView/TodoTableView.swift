@@ -32,12 +32,13 @@ final class TodoTableView: ThingTableView {
         tableHeaderView = ThingTableHeaderView(height: 50, title: Strings.todoTitle)
     }
     
-    func createThing(_ title: String, _ description: String, _ date: Double) {
+    func createThing(title: String, description: String, date: Double, lastModified: Double) {
         let thing = Thing(context: CoreDataStack.shared.persistentContainer.viewContext)
         thing.id = 0
         thing.title = title
         thing.detailDescription = description
         thing.dateNumber = date
+        thing.lastModified = lastModified
         thing.state = Strings.todoState
         do {
             try CoreDataStack.shared.persistentContainer.viewContext.save()

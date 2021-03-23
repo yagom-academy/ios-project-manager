@@ -123,15 +123,16 @@ final class DetailViewController: UIViewController {
             return
         }
         let date = datePicker.date.timeIntervalSince1970
+        let lastModified = Date().timeIntervalSince1970
         
         if isNew {
             guard let todoTableView = tableView as? TodoTableView else {
                 return
             }
-            todoTableView.createThing(title, description, date)
+            todoTableView.createThing(title: title, description: description, date: date, lastModified: lastModified)
             HistoryManager.insertAddHistory(title: title)
         } else if let thing = thing {
-            tableView?.updateThing(thing, title: title, description: description, date: date)
+            tableView?.updateThing(thing, title: title, description: description, date: date, lastModified: lastModified)
         }
         dismiss(animated: true, completion: nil)
     }

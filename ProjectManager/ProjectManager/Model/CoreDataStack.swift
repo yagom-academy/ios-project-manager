@@ -37,14 +37,19 @@ final class CoreDataStack {
         guard let things = try? persistentContainer.viewContext.fetch(Thing.fetchRequest()) as? [Thing] else {
             return
         }
-        
-        let count = things.count
-        
         var i = 0
-        while i < count + 1 {
+        while i < things.count + 1 {
             var j = i + 1
-            while j < count {
+            while j < things.count {
                 if things[i].id == things[j].id {
+                    if things[i].lastModified > things[j].lastModified {
+                        things[j].title = things[i].title
+                        things[j].detailDescription = things[i].detailDescription
+                        things[j].dateNumber = things[i].dateNumber
+                        things[j].lastModified = things[i].lastModified
+                        things[j].state = things[i].state
+                    }
+                    NetworkManager.update(thing: things[j]) { _ in }
                     persistentContainer.viewContext.delete(things[i])
                     saveContext()
                 }
