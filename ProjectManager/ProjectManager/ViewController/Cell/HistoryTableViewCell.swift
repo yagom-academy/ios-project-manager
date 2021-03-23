@@ -15,7 +15,7 @@ class HistoryTableViewCell: UITableViewCell {
         let convertedDate: String
         let dateFormatter = DateFormatter()
         
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        dateFormatter.dateFormat = "MMM dd, yyyy h:mm:ss a"
         convertedDate = dateFormatter.string(from: date)
         
         return convertedDate
