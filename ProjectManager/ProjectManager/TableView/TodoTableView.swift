@@ -41,8 +41,9 @@ final class TodoTableView: ThingTableView {
         thing.lastModified = lastModified
         thing.state = Strings.todoState
         do {
-            try CoreDataStack.shared.persistentContainer.viewContext.save()
-            NetworkManager.create(thing: thing) { _ in }
+            NetworkManager.create(thing: thing) { _ in
+                try? CoreDataStack.shared.persistentContainer.viewContext.save()
+            }
             list.insert(thing, at: 0)
         } catch {
             debugPrint("core data error")
