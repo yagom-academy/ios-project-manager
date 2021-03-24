@@ -21,21 +21,19 @@ struct NetworkManager {
         }
     }
     
-    static func create(thing: Thing, _ completionHandler: @escaping (Result<Codable?, Error>) -> Void) {        AF.request(Strings.baseURL, method: .post, parameters: thing.parameters).validate(statusCode: 200..<300).response { response in
-        switch response.result {
-        case .success(let data):
-            if let data = data {
-                if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
-                    dump(json)
+    static func create(thing: Thing, _ completionHandler: @escaping (Result<Int32?, Error>) -> Void) {
+        AF.request(Strings.baseURL, method: .post, parameters: thing.parameters).validate(statusCode: 200..<300).responseJSON { response in
+            switch response.result {
+            case .success(let data):
+                if let data = data as? NSDictionary, let id = data.value(forKey: "id") as? Int32 {
+                    thing.id = id
+                    completionHandler(.success(id))
                 }
-            } else {
-                completionHandler(.success(nil))
+            case .failure(let error):
+                completionHandler(.failure(error))
+                debugPrint(error.localizedDescription)
             }
-        case .failure(let error):
-            completionHandler(.failure(error))
-            debugPrint(error.localizedDescription)
         }
-    }
     }
     
     static func delete(id: Int, _ completionHandler: @escaping (Result<Codable?, Error>) -> Void)  {

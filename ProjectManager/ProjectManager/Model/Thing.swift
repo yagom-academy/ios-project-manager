@@ -13,6 +13,7 @@ class Thing: NSManagedObject, Codable {
     @NSManaged var title: String
     @NSManaged var detailDescription: String?
     @NSManaged var dateNumber: Double
+    @NSManaged var lastModified: Double
     @NSManaged var state: String?
     var dateString: String {
         return DateFormatter.convertToUserLocaleString(date: date)
@@ -25,6 +26,7 @@ class Thing: NSManagedObject, Codable {
         "title": title,
         "description": detailDescription ?? String.empty,
         "due_date": dateNumber,
+        "updated_at": lastModified,
         "state": state ?? Strings.todoState
     ]}
     
@@ -32,6 +34,7 @@ class Thing: NSManagedObject, Codable {
         case id, title, state
         case detailDescription = "description"
         case dateNumber = "due_date"
+        case lastModified = "updated_at"
     }
     
     required convenience init(from decoder: Decoder) throws {
@@ -45,6 +48,7 @@ class Thing: NSManagedObject, Codable {
         self.title = try container.decode(String.self, forKey: .title)
         self.detailDescription = try container.decodeIfPresent(String.self, forKey: .detailDescription)
         self.dateNumber = try container.decodeIfPresent(Double.self, forKey: .dateNumber) ?? 0
+        self.lastModified = try container.decode(Double.self, forKey: .lastModified)
     }
     
     func encode(to encoder: Encoder) throws {
@@ -53,6 +57,7 @@ class Thing: NSManagedObject, Codable {
         try container.encode(title, forKey: .title)
         try container.encode(detailDescription, forKey: .detailDescription)
         try container.encode(dateNumber, forKey: .dateNumber)
+        try container.encode(lastModified, forKey: .lastModified)
         try container.encode(state, forKey: .state)
     }
 }

@@ -100,6 +100,13 @@ final class DetailViewController: UIViewController {
     // MARK: - Navigation bar
     
     private func configureNavigationBar() {
+        if tableView is DoingTableView {
+            title = Strings.doingTitle
+        } else if tableView is DoneTableView {
+            title = Strings.doneTitle
+        } else {
+            title = Strings.todoTitle
+        }
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(touchUpDoneButton))
         if isNew {
             toggleEditMode()
@@ -116,15 +123,16 @@ final class DetailViewController: UIViewController {
             return
         }
         let date = datePicker.date.timeIntervalSince1970
+        let lastModified = Date().timeIntervalSince1970
         
         if isNew {
             guard let todoTableView = tableView as? TodoTableView else {
                 return
             }
-            todoTableView.createThing(title, description, date)
+            todoTableView.createThing(title: title, description: description, date: date, lastModified: lastModified)
             HistoryManager.insertAddHistory(title: title)
         } else if let thing = thing {
-            tableView?.updateThing(thing, title: title, description: description, date: date)
+            tableView?.updateThing(thing, title: title, description: description, date: date, lastModified: lastModified)
         }
         dismiss(animated: true, completion: nil)
     }

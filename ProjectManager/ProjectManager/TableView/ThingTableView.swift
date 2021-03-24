@@ -31,12 +31,14 @@ class ThingTableView: UITableView, Draggable, Droppable {
     
     //MARK: - CRUD
     
-    func updateThing(_ thing: Thing, title: String, description: String, date: Double) {
+    func updateThing(_ thing: Thing, title: String, description: String, date: Double, lastModified: Double) {
         thing.title = title
         thing.detailDescription = description
         thing.dateNumber = date
+        thing.lastModified = lastModified
         do {
             try CoreDataStack.shared.persistentContainer.viewContext.save()
+            NetworkManager.update(thing: thing) { _ in }
         } catch {
             debugPrint("core data error")
         }
