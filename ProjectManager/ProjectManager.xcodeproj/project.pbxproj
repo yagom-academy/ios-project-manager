@@ -20,6 +20,7 @@
 		364820EE260145B5004ADF6D /* DoneTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364820ED260145B5004ADF6D /* DoneTableView.swift */; };
 		364820F8260288D5004ADF6D /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364820F7260288D5004ADF6D /* CoreDataStack.swift */; };
 		369E5BC426037AFF00369A3C /* ProjectManager.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 369E5BC226037AFF00369A3C /* ProjectManager.xcdatamodeld */; };
+		36E1F801260A78C000E5B968 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E1F800260A78C000E5B968 /* NetworkMonitor.swift */; };
 		4C06ED5925FB0D8800F92978 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C06ED5825FB0D8800F92978 /* Reusable.swift */; };
 		4C26FCFF2600B5C80008BEEC /* HistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C26FCFE2600B5C80008BEEC /* HistoryTableViewController.swift */; };
 		4C26FD042600C0040008BEEC /* HistoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C26FD032600C0040008BEEC /* HistoryManager.swift */; };
@@ -49,6 +50,7 @@
 		364820ED260145B5004ADF6D /* DoneTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneTableView.swift; sourceTree = "<group>"; };
 		364820F7260288D5004ADF6D /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		369E5BC326037AFF00369A3C /* ProjectManager.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ProjectManager.xcdatamodel; sourceTree = "<group>"; };
+		36E1F800260A78C000E5B968 /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 		4C06ED5825FB0D8800F92978 /* Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
 		4C26FCFE2600B5C80008BEEC /* HistoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryTableViewController.swift; sourceTree = "<group>"; };
 		4C26FD032600C0040008BEEC /* HistoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryManager.swift; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 				364820F7260288D5004ADF6D /* CoreDataStack.swift */,
 				4C26FD032600C0040008BEEC /* HistoryManager.swift */,
 				4CC50464260457DA009729F9 /* NetworkManager.swift */,
+				36E1F800260A78C000E5B968 /* NetworkMonitor.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -289,6 +292,7 @@
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				364820E4260142D3004ADF6D /* ThingTableView.swift in Sources */,
 				364820F8260288D5004ADF6D /* CoreDataStack.swift in Sources */,
+				36E1F801260A78C000E5B968 /* NetworkMonitor.swift in Sources */,
 				4CAA8E0525F90EDD00B9C0A7 /* Strings.swift in Sources */,
 				364820A225F80C02004ADF6D /* ThingTableHeaderView.swift in Sources */,
 				364820E7260143AF004ADF6D /* TodoTableView.swift in Sources */,

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Network
 
 final class MainTitleView: UIView {
     
@@ -23,7 +24,6 @@ final class MainTitleView: UIView {
     private let titleLabel = UILabel()
     private let connectionLabel = UILabel()
     
-    
     // MARK: - Init
     
     init() {
@@ -31,12 +31,14 @@ final class MainTitleView: UIView {
         titleLabel.text = Strings.navigationTitle
         configureConstraints()
         setStyle()
+        setNetworkConnection()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         configureConstraints()
         setStyle()
+        setNetworkConnection()
     }
     
     // MARK: - UI
@@ -73,5 +75,19 @@ final class MainTitleView: UIView {
         } else {
             connectionLabel.backgroundColor = .red
         }
+    }
+    
+    private func setNetworkConnection() {
+        isConnected = NetworkMonitor.shared.isConnected
+        NotificationCenter.default.addObserver(self, selector: #selector(setIsConnectedTrue), name: NSNotification.Name(Strings.networkConnectNotification), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(setIsConnectedFalse), name: NSNotification.Name(Strings.networkDisconnectNotification), object: nil)
+    }
+    
+    @objc func setIsConnectedTrue() {
+        self.isConnected = true
+    }
+    
+    @objc func setIsConnectedFalse() {
+        self.isConnected = false
     }
 }

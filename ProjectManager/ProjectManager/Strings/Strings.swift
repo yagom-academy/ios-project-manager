@@ -41,4 +41,9 @@ enum Strings {
     
     static let baseURL = "https://pm-ggoglru.herokuapp.com/things"
     static let absoluteURL = "\(baseURL)/%d"
+    
+    // MARK: - NetworkMonitor
+    
+    static let networkConnectNotification = "networkConnectNotification"
+    static let networkDisconnectNotification = "networkDisconnectNotification"
 }
