@@ -9,8 +9,10 @@ import Foundation
 import Alamofire
 
 struct NetworkManager {
+    private static var successStatusCode: Range = 200..<300
+    
     static func fetch(_ completionHandler: @escaping (Result<[Things], Error>) -> Void) {
-        AF.request(Strings.baseURL).validate(statusCode: 200..<300).responseDecodable(of: [Things].self) { response in
+        AF.request(Strings.baseURL).validate(statusCode: successStatusCode).responseDecodable(of: [Things].self) { response in
             switch response.result {
             case .success(let things):
                 completionHandler(.success(things))
@@ -22,7 +24,7 @@ struct NetworkManager {
     }
     
     static func create(thing: Thing, _ completionHandler: @escaping (Result<Int32?, Error>) -> Void) {
-        AF.request(Strings.baseURL, method: .post, parameters: thing.parameters).validate(statusCode: 200..<300).responseJSON { response in
+        AF.request(Strings.baseURL, method: .post, parameters: thing.parameters).validate(statusCode: successStatusCode).responseJSON { response in
             switch response.result {
             case .success(let data):
                 if let data = data as? NSDictionary, let id = data.value(forKey: "id") as? Int32 {
@@ -38,7 +40,7 @@ struct NetworkManager {
     
     static func delete(id: Int, _ completionHandler: @escaping (Result<Codable?, Error>) -> Void)  {
         let absoluteURL = String(format: Strings.absoluteURL, id)
-        AF.request(absoluteURL, method: .delete).validate(statusCode: 200..<300).response { response in
+        AF.request(absoluteURL, method: .delete).validate(statusCode: successStatusCode).response { response in
             switch response.result {
             case .success(let data):
                 if let data = data {
@@ -56,7 +58,7 @@ struct NetworkManager {
     static func update(thing: Thing, _ completionHandler: @escaping (Result<Codable?, Error>) -> Void) {
         let id = thing.id
         let absoluteURL = String(format: Strings.absoluteURL, id)
-        AF.request(absoluteURL, method: .patch, parameters: thing.parameters).validate(statusCode: 200..<300).response { response in
+        AF.request(absoluteURL, method: .patch, parameters: thing.parameters).validate(statusCode: successStatusCode).response { response in
             switch response.result {
             case .success(let data):
                 if let data = data {
