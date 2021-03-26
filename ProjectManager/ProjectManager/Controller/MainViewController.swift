@@ -26,6 +26,7 @@ final class MainViewController: UIViewController {
         ThingDataManager.shared.setThingFetchedResultsControllerDelegate(doingTableView)
         ThingDataManager.shared.setThingFetchedResultsControllerDelegate(doneTableView)
         ThingDataManager.shared.requestThings()
+        NotificationCenter.default.addObserver(self, selector: #selector(synchronizeThingsWithServer), name: NSNotification.Name(Strings.networkConnectNotification), object: nil)
     }
     
     // MARK: - UI
@@ -73,6 +74,10 @@ final class MainViewController: UIViewController {
         popOver.modalPresentationStyle = .popover
         popOver.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
         present(popOver, animated: true, completion: nil)
+    }
+    
+    @objc func synchronizeThingsWithServer() {
+        ThingDataManager.shared.requestThings()
     }
     
     // MARK: - DetailView
