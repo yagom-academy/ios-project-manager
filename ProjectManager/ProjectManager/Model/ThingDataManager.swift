@@ -48,12 +48,10 @@ final class ThingDataManager {
     }
     
     func requestThings() {
-        guard let localTodos = fetchThingsFromLocal(Strings.todoState),
-              let localDoings = fetchThingsFromLocal(Strings.doingState),
-              let localDones = fetchThingsFromLocal(Strings.doneState) else {
+        let fetchRequest = NSFetchRequest<Thing>(entityName: "Thing")
+        guard let localThings = try? CoreDataStack.shared.persistentContainer.viewContext.fetch(fetchRequest) else {
             return
         }
-        let localThings: [Thing] = localTodos + localDoings + localDones
         
         fetchThingsFromOnline { (result) in
             switch result {
@@ -127,40 +125,48 @@ final class ThingDataManager {
     private func synchronizeThings(_ localThings: [Thing], _ onlineThings: [Thing]) {
         for onlineThing in onlineThings {
             for localThing in localThings {
-                if localThing.id > 0 && onlineThing.id == localThing.id {
+                if onlineThing.id == localThing.id || onlineThing.id == (localThing.id * -1) {
                     if onlineThing.lastModified > localThing.lastModified {
-                        // 로컬을 지우고 온라인을 반영
+                        // 온라인의 Thing이 최신이어서 로컬 Thing을 삭제
                         CoreDataStack.shared.persistentContainer.viewContext.delete(localThing)
                     } else if onlineThing.lastModified < localThing.lastModified {
-                        // 온라인의 내용을 변경
-                        NetworkManager.update(thing: localThing) { _ in }
-                        CoreDataStack.shared.persistentContainer.viewContext.delete(onlineThing)
+                        if localThing.id > 0 {
+                            // 로컬 Thing이 최신이어서 온라인 Thing을 갱신
+                            NetworkManager.update(thing: localThing) { _ in }
+                            CoreDataStack.shared.persistentContainer.viewContext.delete(onlineThing)
+                        } else {
+                            // 오프라인때 삭제되었지만 온라인에는 남아있을 경우 온라인과 로컬 모두 삭제(오프라인 삭제가 더 최신)
+                            let id = localThing.id * -1
+                            NetworkManager.delete(id: Int(id)) { _ in }
+                            CoreDataStack.shared.persistentContainer.viewContext.delete(localThing)
+                            CoreDataStack.shared.persistentContainer.viewContext.delete(onlineThing)
+                        }
                     } else {
-                        // 로컬 내용 유지
+                        // 온라인과 로컬이 동일하면 온라인에서 가져온 것을 삭제
                         CoreDataStack.shared.persistentContainer.viewContext.delete(onlineThing)
                     }
                     break
                 }
             }
         }
-        for localTodo in localThings {
-            if localTodo.id == 0 {
-                // 온라인에 생성
-                NetworkManager.create(thing: localTodo) { result in
+        for localThing in localThings {
+            if localThing.id == 0 {
+                // 오프라인때 생성됐던 Thing을 서버에 저장
+                NetworkManager.create(thing: localThing) { result in
                     switch result {
                     case .success(let id):
                         if let id = id {
-                            localTodo.id = id
+                            localThing.id = id
                         }
                     case .failure(_):
                         break
                     }
                 }
-            } else if localTodo.id < 0 {
-                // 로컬과 온라인 모두 삭제
-                let id = localTodo.id * -1
+            } else if localThing.id < 0 {
+                // 오프라인때 삭제됐던 Thing을 서버와 로컬에서 삭제
+                let id = localThing.id * -1
                 NetworkManager.delete(id: Int(id)) { _ in }
-                CoreDataStack.shared.persistentContainer.viewContext.delete(localTodo)
+                CoreDataStack.shared.persistentContainer.viewContext.delete(localThing)
             }
         }
         do {

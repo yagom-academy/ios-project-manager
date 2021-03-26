@@ -37,11 +37,12 @@ class ThingTableView: UITableView, Draggable, Droppable {
         thing.detailDescription = description
         thing.dateNumber = date
         thing.lastModified = lastModified
-        do {
-            try CoreDataStack.shared.persistentContainer.viewContext.save()
-            NetworkManager.update(thing: thing) { _ in }
-        } catch {
-            debugPrint("core data error")
+        NetworkManager.update(thing: thing) { result in
+            do {
+                try CoreDataStack.shared.persistentContainer.viewContext.save()
+            } catch {
+                debugPrint("core data error")
+            }
         }
     }
     
@@ -49,14 +50,29 @@ class ThingTableView: UITableView, Draggable, Droppable {
         let thing = list[indexPath.row]
         let id = thing.id
         list.remove(at: indexPath.row)
-
-        NetworkManager.delete(id: Int(id)) { result in
-            switch result {
-            case .success(_):
-                CoreDataStack.shared.persistentContainer.viewContext.delete(thing)
-                try? CoreDataStack.shared.persistentContainer.viewContext.save()
-            case .failure(_):
-                thing.id = id * -1
+        
+        if NetworkMonitor.shared.isConnected {
+            NetworkManager.delete(id: Int(id)) { result in
+                switch result {
+                case .success(_):
+                    CoreDataStack.shared.persistentContainer.viewContext.delete(thing)
+                case .failure(_):
+                    thing.lastModified = Date().now.timeIntervalSince1970
+                    thing.id = (id * -1)
+                }
+                do {
+                    try CoreDataStack.shared.persistentContainer.viewContext.save()
+                } catch {
+                    debugPrint("Core Data Error")
+                }
+            }
+        } else {
+            thing.lastModified = Date().now.timeIntervalSince1970
+            thing.id = (id * -1)
+            do {
+                try CoreDataStack.shared.persistentContainer.viewContext.save()
+            } catch {
+                debugPrint("Core Data Error")
             }
         }
     }
