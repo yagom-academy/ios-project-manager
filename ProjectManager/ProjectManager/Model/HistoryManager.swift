@@ -21,20 +21,20 @@ struct HistoryManager {
         let content = String(format: Strings.historyAddMessage, title)
         let dateString = DateFormatter.convertToUserLocaleStringWithTime(date: Date().now)
         let history: History = (content, dateString)
-        list.insert(history, at: 0)
+        list.insertAtFirst(history)
     }
     
     static func insertRemoveHistory(title: String, from tableView: String) {
         let content = String(format: Strings.historyDeleteMessage, title, tableView)
         let dateString = DateFormatter.convertToUserLocaleStringWithTime(date: Date().now)
         let history: History = (content, dateString)
-        list.insert(history, at: 0)
+        list.insertAtFirst(history)
     }
     
     static func insertMoveHistoryWhenRemove(title: String, from tableView: String) {
         let content = String(format: Strings.historyStartMoveMessage, title, tableView)
         let history: History = (content, String.empty)
-        list.insert(history, at: 0)
+        list.insertAtFirst(history)
     }
     
     static func insertMoveHistoryWhenInsert(to tableView: String) {

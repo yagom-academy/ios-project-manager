@@ -66,3 +66,9 @@ extension Date {
     }
 }
 
+// MARK: - Array
+extension Array {
+    mutating func insertAtFirst(_ newElement: Element) {
+        self.insert(newElement, at: 0)
+    }
+}
