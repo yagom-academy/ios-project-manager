@@ -43,7 +43,6 @@ struct NetworkManager {
             case .success(let data):
                 if let data = data {
                     if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
-                        dump(json)
                     }
                 }
                 completionHandler(.success(nil))
@@ -62,7 +61,6 @@ struct NetworkManager {
             case .success(let data):
                 if let data = data {
                     if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
-                        dump(json)
                     }
                 } else {
                     completionHandler(.success(nil))
