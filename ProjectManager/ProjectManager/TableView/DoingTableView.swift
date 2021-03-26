@@ -6,69 +6,28 @@
 //
 
 import UIKit
-import CoreData
 
 final class DoingTableView: ThingTableView {
     
-    private lazy var fetchedResultsController: NSFetchedResultsController<Thing> = {
-        let context = CoreDataStack.shared.persistentContainer.viewContext
-        let fetchRequest: NSFetchRequest<Thing> = NSFetchRequest<Thing>(entityName: Strings.thing)
-        fetchRequest.predicate = NSPredicate(format: "state = 'doing'")
-        let sort = NSSortDescriptor(key: #keyPath(Thing.dateNumber), ascending: false)
-        fetchRequest.sortDescriptors = [sort]
-        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
-        fetchedResultsController.delegate = self
-        return fetchedResultsController
-    }()
+    //MARK: - Init
     
     override init() {
         super.init()
         tableHeaderView = ThingTableHeaderView(height: 50, title: Strings.doingTitle)
-        fetch()
+        NotificationCenter.default.addObserver(self, selector: #selector(setList(_:)), name: NSNotification.Name("broadcastdoing"), object: nil)
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         tableHeaderView = ThingTableHeaderView(height: 50, title: Strings.doingTitle)
-        fetch()
+        NotificationCenter.default.addObserver(self, selector: #selector(setList(_:)), name: NSNotification.Name("broadcastdoing"), object: nil)
     }
     
-    func fetchList(_ list: [Thing]) {
-        self.list = list
-        for thing in list {
-            thing.state = Strings.doingState
-        }
-        do {
-            try CoreDataStack.shared.persistentContainer.viewContext.save()
-        } catch {
-            debugPrint("core data error")
-        }
-    }
-
-    private func fetch() {
-        do {
-            try fetchedResultsController.performFetch()
-        } catch {
-            debugPrint("core data error")
-        }
-        if let fetchedObjects = fetchedResultsController.fetchedObjects {
-            self.list = fetchedObjects
-            self.reloadData()
-        }
-    }
-}
-
-extension DoingTableView: NSFetchedResultsControllerDelegate {
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-        switch type {
-        case .delete, .insert, .update:
-            self.reloadData()
-        default:
-            break
+    @objc func setList(_ notification: NSNotification) {
+        if let userInfo = notification.userInfo,
+           let list = userInfo[Strings.doingState] as? [Thing] {
+            self.list = list
         }
     }
     
-    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        self.reloadData()
-    }
 }

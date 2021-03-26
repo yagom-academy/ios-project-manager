@@ -22,7 +22,10 @@ final class MainViewController: UIViewController {
         configureNavigationBar()
         configureConstratins()
         configureThingTableViews()
-        fetchData()
+        ThingDataManager.shared.setThingFetchedResultsControllerDelegate(todoTableView)
+        ThingDataManager.shared.setThingFetchedResultsControllerDelegate(doingTableView)
+        ThingDataManager.shared.setThingFetchedResultsControllerDelegate(doneTableView)
+        ThingDataManager.shared.requestThings()
     }
     
     // MARK: - UI
@@ -70,29 +73,6 @@ final class MainViewController: UIViewController {
         popOver.modalPresentationStyle = .popover
         popOver.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
         present(popOver, animated: true, completion: nil)
-    }
-    
-    // MARK: - Fetch Data
-    
-    private func fetchData() {
-        NetworkManager.fetch { result in
-            switch result {
-            case .success(let things):
-                for thing in things {
-                    if thing.state == Strings.todoState {
-                        self.todoTableView.fetchList(thing.list)
-                    } else if thing.state == Strings.doingState {
-                        self.doingTableView.fetchList(thing.list)
-                    } else if thing.state == Strings.doneState {
-                        self.doneTableView.fetchList(thing.list)
-                    }
-                }
-                self.titleView.isConnected = true
-            case .failure(_):
-                self.titleView.isConnected = false
-            }
-            CoreDataStack.shared.checkedOverlap()
-        }
     }
     
     // MARK: - DetailView

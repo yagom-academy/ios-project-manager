@@ -6,31 +6,31 @@
 //
 
 import UIKit
-import CoreData
 
 final class TodoTableView: ThingTableView {
     
-    private lazy var fetchedResultsController: NSFetchedResultsController<Thing> = {
-        let context = CoreDataStack.shared.persistentContainer.viewContext
-        let fetchRequest: NSFetchRequest<Thing> = NSFetchRequest<Thing>(entityName: Strings.thing)
-        fetchRequest.predicate = NSPredicate(format: "state = 'todo'")
-        let sort = NSSortDescriptor(key: #keyPath(Thing.dateNumber), ascending: false)
-        fetchRequest.sortDescriptors = [sort]
-        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
-        fetchedResultsController.delegate = self
-        return fetchedResultsController
-    }()
-    
+    //MARK: - Init
+
     override init() {
         super.init()
         tableHeaderView = ThingTableHeaderView(height: 50, title: Strings.todoTitle)
-        fetch()
+        NotificationCenter.default.addObserver(self, selector: #selector(setList(_:)), name: NSNotification.Name("broadcasttodo"), object: nil)
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         tableHeaderView = ThingTableHeaderView(height: 50, title: Strings.todoTitle)
+        NotificationCenter.default.addObserver(self, selector: #selector(setList(_:)), name: NSNotification.Name("broadcasttodo"), object: nil)
     }
+    
+    @objc func setList(_ notification: NSNotification) {
+        if let userInfo = notification.userInfo,
+           let list = userInfo[Strings.todoState] as? [Thing] {
+            self.list = list
+        }
+    }
+    
+    //MARK: - CRUD
     
     func createThing(title: String, description: String, date: Double, lastModified: Double) {
         let thing = Thing(context: CoreDataStack.shared.persistentContainer.viewContext)
@@ -40,52 +40,14 @@ final class TodoTableView: ThingTableView {
         thing.dateNumber = date
         thing.lastModified = lastModified
         thing.state = Strings.todoState
-        do {
-            NetworkManager.create(thing: thing) { _ in
-                try? CoreDataStack.shared.persistentContainer.viewContext.save()
-            }
-            list.insert(thing, at: 0)
-        } catch {
-            debugPrint("core data error")
-        }
-    }
-    
-    func fetchList(_ list: [Thing]) {
-        self.list = list
-        for thing in list {
-            thing.state = Strings.todoState
-        }
-        do {
+        NetworkManager.create(thing: thing) { _ in
+            do {
             try CoreDataStack.shared.persistentContainer.viewContext.save()
-        } catch {
-            debugPrint("core data error")
+            } catch {
+                debugPrint("core data error")
+            }
         }
+        list.insert(thing, at: 0)
     }
-    
-    private func fetch() {
-        do {
-            try fetchedResultsController.performFetch()
-        } catch {
-            debugPrint("core data error")
-        }
-        if let fetchedObjects = fetchedResultsController.fetchedObjects {
-            self.list = fetchedObjects
-            self.reloadData()
-        }
-    }
-}
-
-extension TodoTableView: NSFetchedResultsControllerDelegate {
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-        switch type {
-        case .delete, .insert, .update:
-            self.reloadData()
-        default:
-            break
-        }
-    }
-    
-    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        self.reloadData()
-    }
+ 
 }

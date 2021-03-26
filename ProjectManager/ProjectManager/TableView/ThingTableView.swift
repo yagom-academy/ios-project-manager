@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreData
 
 class ThingTableView: UITableView, Draggable, Droppable {
     
@@ -48,12 +49,15 @@ class ThingTableView: UITableView, Draggable, Droppable {
         let thing = list[indexPath.row]
         let id = thing.id
         list.remove(at: indexPath.row)
-        CoreDataStack.shared.persistentContainer.viewContext.delete(thing)
-        do {
-            try CoreDataStack.shared.persistentContainer.viewContext.save()
-            NetworkManager.delete(id: Int(id)) { _ in }
-        } catch {
-            debugPrint("core data error")
+
+        NetworkManager.delete(id: Int(id)) { result in
+            switch result {
+            case .success(_):
+                CoreDataStack.shared.persistentContainer.viewContext.delete(thing)
+                try? CoreDataStack.shared.persistentContainer.viewContext.save()
+            case .failure(_):
+                thing.id = id * -1
+            }
         }
     }
     
@@ -75,4 +79,21 @@ class ThingTableView: UITableView, Draggable, Droppable {
         }
     }
     
+}
+
+// MARK: - NSFetchedResultsControllerDelegate
+
+extension ThingTableView: NSFetchedResultsControllerDelegate {
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        switch type {
+        case .delete, .insert, .update:
+            self.reloadData()
+        default:
+            break
+        }
+    }
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        self.reloadData()
+    }
 }
