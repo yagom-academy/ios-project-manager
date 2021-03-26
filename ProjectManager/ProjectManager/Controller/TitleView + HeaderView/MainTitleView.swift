@@ -13,11 +13,6 @@ final class MainTitleView: UIView {
     // MARK: - Property
     
     private let connectionLabelDiameter: CGFloat = 15
-    var isConnected: Bool = false {
-        didSet {
-            changeConnectionLabelColor()
-        }
-    }
     
     // MARK: - Outlet
     
@@ -69,7 +64,7 @@ final class MainTitleView: UIView {
         connectionLabel.layer.masksToBounds = true
     }
     
-    private func changeConnectionLabelColor() {
+    private func changeConnectionLabelColor(_ isConnected: Bool) {
         if isConnected {
             connectionLabel.backgroundColor = .systemGreen
         } else {
@@ -78,16 +73,18 @@ final class MainTitleView: UIView {
     }
     
     private func setNetworkConnection() {
-        isConnected = NetworkMonitor.shared.isConnected
-        NotificationCenter.default.addObserver(self, selector: #selector(setIsConnectedTrue), name: NSNotification.Name(Strings.networkConnectNotification), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(setIsConnectedFalse), name: NSNotification.Name(Strings.networkDisconnectNotification), object: nil)
+        if NetworkMonitor.shared.isConnected {
+            changeConnectionLabelColor(true)
+        }
+        NotificationCenter.default.addObserver(self, selector: #selector(setConnectionLabelGreen), name: NSNotification.Name(Strings.networkConnectNotification), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(setConnectionLabelRed), name: NSNotification.Name(Strings.networkDisconnectNotification), object: nil)
     }
     
-    @objc func setIsConnectedTrue() {
-        self.isConnected = true
+    @objc func setConnectionLabelGreen() {
+        changeConnectionLabelColor(true)
     }
     
-    @objc func setIsConnectedFalse() {
-        self.isConnected = false
+    @objc func setConnectionLabelRed() {
+        changeConnectionLabelColor(false)
     }
 }
