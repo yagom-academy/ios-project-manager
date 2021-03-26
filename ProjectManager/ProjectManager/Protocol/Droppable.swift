@@ -8,12 +8,12 @@
 import UIKit
 import MobileCoreServices
 
-protocol Droppable: ThingTableView {
-    func drop(_ dropItems: [UITableViewDropItem], to indexPath: IndexPath, tableView: ThingTableView)
+protocol Droppable {
+    func drop(_ dropItems: [UITableViewDropItem], to indexPath: IndexPath)
 }
 
-extension Droppable {
-    func drop(_ dropItems: [UITableViewDropItem], to indexPath: IndexPath, tableView: ThingTableView) {
+extension Droppable where Self: ThingTableView {
+    func drop(_ dropItems: [UITableViewDropItem], to indexPath: IndexPath) {
         guard let dropItem = dropItems.first else {
             return
         }

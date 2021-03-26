@@ -7,12 +7,12 @@
 
 import UIKit
 
-protocol Draggable: ThingTableView {
-    func drag(for indexPath: IndexPath, tableView: ThingTableView) -> [UIDragItem]
+protocol Draggable {
+    func drag(for indexPath: IndexPath) -> [UIDragItem]
 }
 
-extension Draggable {
-    func drag(for indexPath: IndexPath, tableView: ThingTableView) -> [UIDragItem] {
+extension Draggable where Self: ThingTableView {
+    func drag(for indexPath: IndexPath) -> [UIDragItem] {
         let thing = list[indexPath.row]
         let data = try? JSONEncoder().encode(thing)
         let itemProvider = NSItemProvider.makeJSONItemProvider(data: data) {
