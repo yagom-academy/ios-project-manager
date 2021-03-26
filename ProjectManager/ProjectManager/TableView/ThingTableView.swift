@@ -57,10 +57,6 @@ class ThingTableView: UITableView, Draggable, Droppable {
         }
     }
     
-    func removeThing(at indexPath: IndexPath) {
-        list.remove(at: indexPath.row)
-    }
-    
     func insertThing(_ thing: Thing, at indexPath: IndexPath) {
         do {
             try CoreDataStack.shared.persistentContainer.viewContext.save()
