@@ -45,9 +45,8 @@ struct NetworkManager {
                     if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
                         dump(json)
                     }
-                } else {
-                    completionHandler(.success(nil))
                 }
+                completionHandler(.success(nil))
             case .failure(let error):
                 completionHandler(.failure(error))
                 debugPrint(error.localizedDescription)
