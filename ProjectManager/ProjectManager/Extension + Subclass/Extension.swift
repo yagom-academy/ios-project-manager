@@ -57,3 +57,12 @@ extension NSItemProvider {
         return itemProvider
     }
 }
+
+// MARK: - Date
+
+extension Date {
+    var now: Date {
+        return self
+    }
+}
+

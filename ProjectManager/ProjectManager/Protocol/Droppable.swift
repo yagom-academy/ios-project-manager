@@ -29,7 +29,7 @@ extension Droppable {
             } else {
                 thing.state = Strings.doneState
             }
-            thing.lastModified = Date().timeIntervalSince1970
+            thing.lastModified = Date().now.timeIntervalSince1970
             self.insertThing(thing, at: indexPath)
             HistoryManager.insertMoveHistoryWhenInsert(to: tableView)
         }

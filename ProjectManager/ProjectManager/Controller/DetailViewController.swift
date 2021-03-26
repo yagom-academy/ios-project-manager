@@ -123,7 +123,7 @@ final class DetailViewController: UIViewController {
             return
         }
         let date = datePicker.date.timeIntervalSince1970
-        let lastModified = Date().timeIntervalSince1970
+        let lastModified = Date().now.timeIntervalSince1970
         
         if isNew {
             guard let todoTableView = tableView as? TodoTableView else {
