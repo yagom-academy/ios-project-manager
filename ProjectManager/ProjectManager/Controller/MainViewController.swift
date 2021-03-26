@@ -114,7 +114,9 @@ extension MainViewController: UITableViewDelegate {
                 return
             }
             let thing = thingTableView.list[indexPath.row]
-            HistoryManager.insertRemoveHistory(title: thing.title, from: thingTableView)
+            
+            let tableViewTitle = HistoryManager.convertTableViewToString(tableView: thingTableView)
+            HistoryManager.insertRemoveHistory(title: thing.title, from: tableViewTitle)
             thingTableView.deleteThing(at: indexPath)
         }
     }

@@ -20,7 +20,8 @@ extension Draggable where Self: ThingTableView {
             self.list.remove(at: indexPath.row)
         }
         let dragItem = UIDragItem(itemProvider: itemProvider)
-        HistoryManager.insertMoveHistoryWhenRemove(title: thing.title, from: tableView)
+        let tableViewTitle = HistoryManager.convertTableViewToString(tableView: self)
+        HistoryManager.insertMoveHistoryWhenRemove(title: thing.title, from: tableViewTitle)
         return [dragItem]
     }
 }

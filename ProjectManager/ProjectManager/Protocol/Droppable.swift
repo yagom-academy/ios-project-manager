@@ -31,7 +31,8 @@ extension Droppable where Self: ThingTableView {
             }
             thing.lastModified = Date().now.timeIntervalSince1970
             self.insertThing(thing, at: indexPath)
-            HistoryManager.insertMoveHistoryWhenInsert(to: tableView)
+            let tableViewTitle = HistoryManager.convertTableViewToString(tableView: self)
+            HistoryManager.insertMoveHistoryWhenInsert(to: tableViewTitle)
         }
     }
 }
