@@ -11,15 +11,29 @@ import MobileCoreServices
 // MARK: - DateFormatter
 
 extension DateFormatter {
-    func convertToUserLocaleString(date: Date) -> String {
+    static let dateFormatter = DateFormatter()
+    
+    static func convertToUserLocaleString(date: Date) -> String {
         var locale = Locale.autoupdatingCurrent.identifier
         if let collatorLocale = Locale.autoupdatingCurrent.collatorIdentifier {
             locale = collatorLocale
         }
-        self.dateStyle = .medium
-        self.timeStyle = .none
-        self.locale = Locale(identifier: locale)
-        let dateString = self.string(from: date)
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .none
+        dateFormatter.locale = Locale(identifier: locale)
+        let dateString = dateFormatter.string(from: date)
+        return dateString
+    }
+    
+    static func convertToUserLocaleStringWithTime(date: Date) -> String {
+        var locale = Locale.autoupdatingCurrent.identifier
+        if let collatorLocale = Locale.autoupdatingCurrent.collatorIdentifier {
+            locale = collatorLocale
+        }
+        dateFormatter.dateStyle = .long
+        dateFormatter.timeStyle = .medium
+        dateFormatter.locale = Locale(identifier: locale)
+        let dateString = dateFormatter.string(from: date)
         return dateString
     }
 }
@@ -41,5 +55,20 @@ extension NSItemProvider {
             return nil
         }
         return itemProvider
+    }
+}
+
+// MARK: - Date
+
+extension Date {
+    var now: Date {
+        return self
+    }
+}
+
+// MARK: - Array
+extension Array {
+    mutating func insertAtFirst(_ newElement: Element) {
+        self.insert(newElement, at: 0)
     }
 }

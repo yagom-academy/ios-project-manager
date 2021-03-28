@@ -13,6 +13,7 @@ final class MainViewController: UIViewController {
     private lazy var todoTableView = TodoTableView()
     private lazy var doingTableView = DoingTableView()
     private lazy var doneTableView = DoneTableView()
+    private lazy var titleView = MainTitleView()
     
     // MARK: - Life Cycle
     
@@ -21,6 +22,11 @@ final class MainViewController: UIViewController {
         configureNavigationBar()
         configureConstratins()
         configureThingTableViews()
+        ThingDataManager.shared.setThingFetchedResultsControllerDelegate(todoTableView)
+        ThingDataManager.shared.setThingFetchedResultsControllerDelegate(doingTableView)
+        ThingDataManager.shared.setThingFetchedResultsControllerDelegate(doneTableView)
+        ThingDataManager.shared.requestThings()
+        NotificationCenter.default.addObserver(self, selector: #selector(synchronizeThingsWithServer), name: NSNotification.Name(Strings.networkConnectNotification), object: nil)
     }
     
     // MARK: - UI
@@ -57,14 +63,21 @@ final class MainViewController: UIViewController {
     }
     
     private func configureNavigationBar() {
-        navigationItem.title = Strings.navigationTitle
+        navigationItem.titleView = titleView
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: Strings.historyButton, style: .plain, target: self, action: #selector(touchUpHistoryButton))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(touchUpAddButton))
         navigationController?.setToolbarHidden(false, animated: false)
     }
     
-    @objc private func touchUpHistoryButton() {
-        // TODO: history popOver
+    @objc private func touchUpHistoryButton(_ sender: AnyObject) {
+        let popOver = HistoryTableViewController()
+        popOver.modalPresentationStyle = .popover
+        popOver.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
+        present(popOver, animated: true, completion: nil)
+    }
+    
+    @objc func synchronizeThingsWithServer() {
+        ThingDataManager.shared.requestThings()
     }
     
     // MARK: - DetailView
@@ -105,6 +118,10 @@ extension MainViewController: UITableViewDelegate {
             guard let thingTableView = tableView as? ThingTableView else {
                 return
             }
+            let thing = thingTableView.list[indexPath.row]
+            
+            let tableViewTitle = HistoryManager.convertTableViewToString(tableView: thingTableView)
+            HistoryManager.insertRemoveHistory(title: thing.title, from: tableViewTitle)
             thingTableView.deleteThing(at: indexPath)
         }
     }
@@ -151,7 +168,6 @@ extension MainViewController: UITableViewDragDelegate, UITableViewDropDelegate {
             let row = tableView.numberOfRows(inSection: section)
             indexPath = IndexPath(row: row, section: section)
         }
-        
         guard let droppableTableView = tableView as? Droppable else {
             return
         }
