@@ -20,7 +20,7 @@ class ListCollectionView: UICollectionView {
         super.init(frame: frame, collectionViewLayout: layout)
         register(ItemCell.self, forCellWithReuseIdentifier: ItemCell.reuseIdentifier)
         register(HeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HeaderView.reuseIdentifier)
-        backgroundColor = .systemBackground
+        backgroundColor = .secondarySystemBackground
         configureLayout()
         configureDataSource()
     }
@@ -37,7 +37,7 @@ class ListCollectionView: UICollectionView {
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(36))
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
         
-        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(36))
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(48))
         let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
         
         let section = NSCollectionLayoutSection(group: group)
