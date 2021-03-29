@@ -1,0 +1,54 @@
+@startuml
+
+package ViewController <<Rectangle>> {
+    class MainViewController {
+        -todoCardsTableView: TodoCardsTableView
+        -doingCardsTableView: DoingCardsTableView
+        -doneCardsTableView: DoneCardsTableView
+    }
+}
+
+package Model <<Rectangle>> {
+    class Card {
+        -title: String
+        -description: String?
+        -deadline: Int?
+        -status: String
+    }
+}
+
+
+package TableView <<Rectangle>> {
+    class UITableView
+
+    class CardsTableView {
+        -list: [Card]
+    }
+
+    class TodoCardsTableView {
+
+    }
+
+    class DoingCardsTableView {
+
+    }
+
+    class DoneCardsTableView {
+
+    }
+
+    UITableView <|-- CardsTableView
+    CardsTableView <|-- TodoCardsTableView
+    CardsTableView <|-- DoingCardsTableView
+    CardsTableView <|-- DoneCardsTableView
+
+    class UITableViewCell
+    class CardTableViewCell {
+        -titleLabel: UILabel
+        -descriptionLabel: UILabel
+        -deadlineLabel: UILabel
+    }
+    UITableViewCell <|-- CardTableViewCell
+}
+
+@enduml
