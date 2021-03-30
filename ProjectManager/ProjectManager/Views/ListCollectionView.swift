@@ -5,6 +5,8 @@ class ListCollectionView: UICollectionView {
         case main
     }
     
+    var collectionType: CollectionType
+    
     lazy var diffableDataSource: UICollectionViewDiffableDataSource<Section, Int> = {
         return UICollectionViewDiffableDataSource<Section, Int>(collectionView: self) { (collectionView, indexPath, number) -> UICollectionViewCell? in
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ItemCell.reuseIdentifier, for: indexPath) as? ItemCell else {
@@ -16,7 +18,8 @@ class ListCollectionView: UICollectionView {
         }
     }()
     
-    override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
+    init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout, collectionType: CollectionType) {
+        self.collectionType = collectionType
         super.init(frame: frame, collectionViewLayout: layout)
         register(ItemCell.self, forCellWithReuseIdentifier: ItemCell.reuseIdentifier)
         register(HeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HeaderView.reuseIdentifier)
@@ -56,7 +59,7 @@ class ListCollectionView: UICollectionView {
             guard let supplementaryView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: HeaderView.reuseIdentifier, for: indexPath) as? HeaderView else {
                 return nil
             }
-            supplementaryView.configure(headerName: "Header")
+            supplementaryView.configure(headerType: self.collectionType)
             return supplementaryView
         }
 

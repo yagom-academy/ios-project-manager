@@ -21,8 +21,8 @@ class HeaderView: UICollectionReusableView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(headerName: String) {
-        headerLabel.text = headerName
+    func configure(headerType: CollectionType) {
+        headerLabel.text = headerType.rawValue
     }
     
     func configureConstraints() {
