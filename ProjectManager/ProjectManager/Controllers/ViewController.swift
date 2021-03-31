@@ -48,3 +48,10 @@ class ViewController: UIViewController {
     }
 }
 
+extension ViewController: ViewControllerDelegate {
+    func didTapAddButton() {
+        let addTodoViewController = AddTodoViewController()
+        addTodoViewController.modalPresentationStyle = .formSheet
+        self.present(addTodoViewController, animated: false, completion: nil)
+    }
+}
