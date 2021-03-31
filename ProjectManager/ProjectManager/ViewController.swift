@@ -6,7 +6,14 @@
 
 import UIKit
 
+protocol ViewControllerDelegate: AnyObject {
+    func didTapAddButton()
+}
+
 class ViewController: UIViewController {
+    
+    weak var viewControllerDelegate: ViewControllerDelegate?
+    
     let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -37,7 +44,7 @@ class ViewController: UIViewController {
     }
     
     @objc private func goToAddTodoViewController() {
-        
+        viewControllerDelegate?.didTapAddButton()
     }
 }
 
