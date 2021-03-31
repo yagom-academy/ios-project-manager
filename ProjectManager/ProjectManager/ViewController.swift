@@ -22,6 +22,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Project Manager"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(goToAddTodoViewController))
         stackView.frame = view.bounds
         
         view.addSubview(stackView)
@@ -29,6 +30,10 @@ class ViewController: UIViewController {
         stackView.addArrangedSubview(firstCollectionView)
         stackView.addArrangedSubview(secondCollectionView)
         stackView.addArrangedSubview(thirdCollectionView)
+    }
+    
+    @objc private func goToAddTodoViewController() {
+        
     }
 }
 
