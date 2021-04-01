@@ -53,7 +53,11 @@ class AddTodoViewController: UIViewController {
     private func setNavigation() {
         navigationItem.title = "TODO"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: nil)
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: nil)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(didTappedCancelButton))
+    }
+    
+    @objc private func didTappedCancelButton() {
+        self.dismiss(animated: true, completion: nil)
     }
     
     private func setAutoLayout() {
