@@ -16,6 +16,10 @@ class AddTodoViewController: UIViewController {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.placeholder = "Title"
+        textField.clipsToBounds = false // todo: shadow refactoring
+        textField.layer.shadowRadius = 5.0
+        textField.layer.shadowOpacity = 0.5
+        textField.layer.shadowOffset = CGSize(width: 3, height: 3)
         return textField
     }()
     
@@ -32,6 +36,10 @@ class AddTodoViewController: UIViewController {
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.font = UIFont.systemFont(ofSize: 17)
         textView.isEditable = false
+        textView.clipsToBounds = false
+        textView.layer.shadowRadius = 5.0
+        textView.layer.shadowOpacity = 0.5
+        textView.layer.shadowOffset = CGSize(width: 3, height: 3)
         return textView
     }()
     
@@ -78,9 +86,9 @@ class AddTodoViewController: UIViewController {
             textField.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: magin),
             textField.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -magin),
             
-            textView.heightAnchor.constraint(equalToConstant: 300),
             textView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: magin),
             textView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -magin),
+            textView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -magin),
             
             datePicker.heightAnchor.constraint(equalToConstant: 200),
             datePicker.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: magin),
