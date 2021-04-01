@@ -1,6 +1,6 @@
 import Foundation
 
-enum CollectionType: String {
+enum State: String, Codable {
     case todo = "TODO"
     case doing = "DOING"
     case done = "DONE"
