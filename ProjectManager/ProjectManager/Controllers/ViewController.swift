@@ -44,7 +44,7 @@ class ViewController: UIViewController {
     }
     
     @objc private func goToAddTodoViewController() {
-        viewControllerDelegate?.didTapAddButton()
+        didTapAddButton()
     }
 }
 
@@ -52,6 +52,6 @@ extension ViewController: ViewControllerDelegate {
     func didTapAddButton() {
         let addTodoViewController = AddTodoViewController()
         addTodoViewController.modalPresentationStyle = .formSheet
-        self.present(addTodoViewController, animated: false, completion: nil)
+        self.present(UINavigationController(rootViewController: addTodoViewController), animated: true, completion: nil)
     }
 }
