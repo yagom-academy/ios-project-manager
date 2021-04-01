@@ -21,7 +21,7 @@ class HeaderView: UICollectionReusableView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(headerType: CollectionType) {
+    func configure(headerType: State) {
         headerLabel.text = headerType.rawValue
     }
     
