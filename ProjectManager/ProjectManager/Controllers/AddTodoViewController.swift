@@ -8,20 +8,20 @@ class AddTodoViewController: UIViewController {
         stackView.distribution = .fill
         stackView.spacing = 8
         stackView.backgroundColor = .white
-        stackView.alignment = .center
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8)
         return stackView
     }()
     
     let textField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.backgroundColor = .systemBackground
         textField.placeholder = "Title"
-        
-//        textField.layer.borderColor = UIColor.gray.cgColor
-//        textField.layer.borderWidth = 0.5
-        textField.clipsToBounds = false // todo: shadow refactoring
-        textField.layer.shadowRadius = 5.0
+        textField.clipsToBounds = false
         textField.layer.shadowOpacity = 0.5
+        textField.layer.shadowRadius = 5.0
         textField.layer.shadowOffset = CGSize(width: 3, height: 3)
         return textField
     }()
@@ -54,7 +54,6 @@ class AddTodoViewController: UIViewController {
     }
     
     private func setStackView() {
-        stackView.frame = view.bounds
         view.addSubview(stackView)
         stackView.addArrangedSubview(textField)
         stackView.addArrangedSubview(datePicker)
@@ -77,25 +76,12 @@ class AddTodoViewController: UIViewController {
     
     private func setAutoLayout() {
         let safeArea = view.safeAreaLayoutGuide
-        let magin: CGFloat = 10
         NSLayoutConstraint.activate([
-            
             stackView.topAnchor.constraint(equalTo: safeArea.topAnchor),
+            stackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
             stackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
-            stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            
-            textField.heightAnchor.constraint(equalToConstant: 30),
-            textField.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: magin),
-            textField.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: magin),
-            textField.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -magin),
-            
-            textView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: magin),
-            textView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -magin),
-            textView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -magin),
-            
-            datePicker.heightAnchor.constraint(equalToConstant: 200),
-            datePicker.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: magin),
-            datePicker.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -magin)
+            textField.heightAnchor.constraint(equalToConstant: 42)
         ])
     }
 }
