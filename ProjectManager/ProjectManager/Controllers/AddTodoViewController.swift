@@ -16,6 +16,9 @@ class AddTodoViewController: UIViewController {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.placeholder = "Title"
+        
+//        textField.layer.borderColor = UIColor.gray.cgColor
+//        textField.layer.borderWidth = 0.5
         textField.clipsToBounds = false // todo: shadow refactoring
         textField.layer.shadowRadius = 5.0
         textField.layer.shadowOpacity = 0.5
@@ -35,7 +38,7 @@ class AddTodoViewController: UIViewController {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.font = UIFont.systemFont(ofSize: 17)
-        textView.isEditable = false
+        textView.isEditable = true
         textView.clipsToBounds = false
         textView.layer.shadowRadius = 5.0
         textView.layer.shadowOpacity = 0.5
