@@ -9,11 +9,10 @@ class ListCollectionView: UICollectionView {
     
     lazy var diffableDataSource: UICollectionViewDiffableDataSource<Section, Int> = {
         return UICollectionViewDiffableDataSource<Section, Int>(collectionView: self) { (collectionView, indexPath, number) -> UICollectionViewCell? in
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ItemCell.reuseIdentifier, for: indexPath) as? ItemCell else {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ItemCell.identifier, for: indexPath) as? ItemCell else {
                 return UICollectionViewCell()
             }
-            cell.configure(number: number)
-            cell.backgroundColor = .systemPink
+            cell.contentView.backgroundColor = .white
             return cell
         }
     }()
@@ -21,23 +20,25 @@ class ListCollectionView: UICollectionView {
     init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout, collectionType: State) {
         self.collectionType = collectionType
         super.init(frame: frame, collectionViewLayout: layout)
-        register(ItemCell.self, forCellWithReuseIdentifier: ItemCell.reuseIdentifier)
+        register(ItemCell.self, forCellWithReuseIdentifier: ItemCell.identifier)
         register(HeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HeaderView.reuseIdentifier)
-        backgroundColor = .secondarySystemBackground
+        backgroundColor = .systemGray6
         configureLayout()
         configureDataSource()
+        // Hide scroll bar
+        self.showsVerticalScrollIndicator = false
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureLayout() {
+    private func configureLayout() {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 8, trailing: 0)
+        item.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 0, bottom: 0, trailing: 0)
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(36))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(150))
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
         
         let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(48))
