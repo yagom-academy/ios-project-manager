@@ -5,7 +5,7 @@ class ListCollectionView: UICollectionView {
         case main
     }
     
-    var collectionType: CollectionType
+    var collectionType: State
     
     lazy var diffableDataSource: UICollectionViewDiffableDataSource<Section, Int> = {
         return UICollectionViewDiffableDataSource<Section, Int>(collectionView: self) { (collectionView, indexPath, number) -> UICollectionViewCell? in
@@ -18,7 +18,7 @@ class ListCollectionView: UICollectionView {
         }
     }()
     
-    init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout, collectionType: CollectionType) {
+    init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout, collectionType: State) {
         self.collectionType = collectionType
         super.init(frame: frame, collectionViewLayout: layout)
         register(ItemCell.self, forCellWithReuseIdentifier: ItemCell.reuseIdentifier)

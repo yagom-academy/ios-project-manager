@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B415FAE02612E5900088878F /* CollectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B415FADF2612E5900088878F /* CollectionType.swift */; };
+		B415FAE02612E5900088878F /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = B415FADF2612E5900088878F /* State.swift */; };
 		B45825D22611DD6B009091BB /* ListCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45825D12611DD6B009091BB /* ListCollectionView.swift */; };
+		B4582BB4261495710086602A /* Thing.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4582BB3261495710086602A /* Thing.swift */; };
 		B4F16D212612383800F67B65 /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F16D202612383800F67B65 /* ItemCell.swift */; };
 		B4F16D2826123EBC00F67B65 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F16D2726123EBC00F67B65 /* HeaderView.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
@@ -21,8 +22,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		B415FADF2612E5900088878F /* CollectionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionType.swift; sourceTree = "<group>"; };
+		B415FADF2612E5900088878F /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
 		B45825D12611DD6B009091BB /* ListCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCollectionView.swift; sourceTree = "<group>"; };
+		B4582BB3261495710086602A /* Thing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Thing.swift; sourceTree = "<group>"; };
 		B4F16D202612383800F67B65 /* ItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
 		B4F16D2726123EBC00F67B65 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -50,7 +52,8 @@
 		B415FADE2612E5860088878F /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				B415FADF2612E5900088878F /* CollectionType.swift */,
+				B415FADF2612E5900088878F /* State.swift */,
+				B4582BB3261495710086602A /* Thing.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -176,8 +179,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B4582BB4261495710086602A /* Thing.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */,
-				B415FAE02612E5900088878F /* CollectionType.swift in Sources */,
+				B415FAE02612E5900088878F /* State.swift in Sources */,
 				B4F16D2826123EBC00F67B65 /* HeaderView.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				EAA7C8B02614839D0029E5AC /* AddTodoViewController.swift in Sources */,
