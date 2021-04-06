@@ -6,6 +6,8 @@ class ListCollectionView: UICollectionView {
     }
     
     var collectionType: State
+    var things: [Thing] = []
+    var filteredThings: [Thing] = []
     
     lazy var diffableDataSource: UICollectionViewDiffableDataSource<Section, Int> = {
         return UICollectionViewDiffableDataSource<Section, Int>(collectionView: self) { (collectionView, indexPath, number) -> UICollectionViewCell? in
@@ -25,6 +27,7 @@ class ListCollectionView: UICollectionView {
         backgroundColor = .systemGray6
         configureLayout()
         configureDataSource()
+        NotificationCenter.default.addObserver(self, selector: #selector(didChangedDate), name: NSNotification.Name.NSCalendarDayChanged, object: nil)
         // Hide scroll bar
         self.showsVerticalScrollIndicator = false
     }
@@ -49,6 +52,13 @@ class ListCollectionView: UICollectionView {
         
         let layout = UICollectionViewCompositionalLayout(section: section)
         self.collectionViewLayout = layout
+    }
+    
+    @objc private func didChangedDate() {
+        filteredThings = things.filter {
+            guard let dueDate = $0.dueDate else { return false }
+            return dueDate < Double(Date().timeIntervalSince1970)
+        }
     }
     
     func configureDataSource() {
