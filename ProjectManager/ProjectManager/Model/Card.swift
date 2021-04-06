@@ -7,10 +7,10 @@
 
 import Foundation
 
-class Card: Codable {
+struct Card: Codable {
     var id: Int?
     var title: String
-    var description: String?
+    var descriptions: String?
     var deadline: Int?
-    var status: String?
+    var status: Int?
 }
