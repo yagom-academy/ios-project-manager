@@ -7,7 +7,6 @@ class ItemCell: UICollectionViewCell {
         let titleLabel = UILabel()
         titleLabel.lineBreakMode = .byTruncatingTail
         titleLabel.font = UIFont.systemFont(ofSize: 18, weight: .medium)
-        titleLabel.text = "라자냐 재료 사러가기"
         return titleLabel
     }()
     private lazy var descriptionLabel: UILabel = {
@@ -16,15 +15,11 @@ class ItemCell: UICollectionViewCell {
         descriptionLabel.numberOfLines = 3
         descriptionLabel.lineBreakMode = .byTruncatingTail
         descriptionLabel.textColor = .lightGray
-        //TODO: Line spacing 조절하기
-        //TODO: 설명이 세 줄 이상이면 세 줄 까지만 표시합니다. 설명이 세 줄 이하라면, 설명글의 높이에 맞게 셀의 높이가 맞춰집니다
-        descriptionLabel.text = "내가 가는 이길이 어디로 가는지 어디로 날 데려가는지 그 곳은 어딘지 알 수 없지만 알 수 없지만 오늘도 난 걸어가고 있네 사람들은 길이 다 정해져 있다고, 오늘도 난 걸어가고 있네 사람들은 길이 다 정해져 있다고, 오늘도 난 걸어가고 있네 사람들은 길이 다 정해져 있다고"
         return descriptionLabel
     }()
     private lazy var expirationDateLabel: UILabel = {
         let expirationDateLabel = UILabel()
         expirationDateLabel.font = UIFont.systemFont(ofSize: 14, weight: .medium)
-        expirationDateLabel.text = "2021.04.03."
         return expirationDateLabel
     }()
 
@@ -62,5 +57,11 @@ extension ItemCell {
             expirationDateLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             expirationDateLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4)
         ])
+    }
+
+    func configure(thing: Thing) {
+        titleLabel.text = thing.title
+        descriptionLabel.text = thing.description
+        expirationDateLabel.text = String(thing.dueDate!)
     }
 }
