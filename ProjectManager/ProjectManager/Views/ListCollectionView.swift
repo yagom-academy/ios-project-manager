@@ -1,6 +1,9 @@
 import UIKit
 
 class ListCollectionView: UICollectionView {
+    
+    var things: [Thing] = []
+    
     enum Section {
         case main
     }
@@ -71,5 +74,13 @@ extension ListCollectionView {
         }
 
         diffableDataSource.apply(initialSnapShot, animatingDifferences: false)
+    }
+    
+    func updateDataSource(with thing: Thing) {
+        self.things.append(thing)
+        var snapShot = NSDiffableDataSourceSnapshot<Section, Thing>()
+        snapShot.appendSections([.main])
+        snapShot.appendItems(self.things)
+        diffableDataSource.apply(snapShot)
     }
 }
