@@ -1,9 +1,6 @@
 import UIKit
 
 class ListCollectionView: UICollectionView {
-    
-    var things: [Thing] = []
-    
     enum Section {
         case main
     }
@@ -41,20 +38,17 @@ class ListCollectionView: UICollectionView {
 
 extension ListCollectionView {
     private func configureLayout() {
-        let heightDimension: NSCollectionLayoutDimension = .estimated(150)
+        let size = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(44))
+        let item = NSCollectionLayoutItem(layoutSize: size)
 
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: heightDimension)
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        item.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 0, bottom: 0, trailing: 0)
-
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: heightDimension)
-        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
+        let group = NSCollectionLayoutGroup.vertical(layoutSize: size, subitems: [item])
 
         let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(48))
         let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
 
         let section = NSCollectionLayoutSection(group: group)
         section.boundarySupplementaryItems = [sectionHeader]
+        section.interGroupSpacing = 8
 
         let layout = UICollectionViewCompositionalLayout(section: section)
         self.collectionViewLayout = layout
