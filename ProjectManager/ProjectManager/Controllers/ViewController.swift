@@ -6,13 +6,7 @@
 
 import UIKit
 
-protocol ViewControllerDelegate: AnyObject {
-    func didTapAddButton()
-}
-
 class ViewController: UIViewController {
-    
-    weak var viewControllerDelegate: ViewControllerDelegate?
     
     let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -44,14 +38,23 @@ class ViewController: UIViewController {
     }
     
     @objc private func goToAddTodoViewController() {
-        didTapAddButton()
+        didTapAddButton(with: firstCollectionView)
     }
 }
 
-extension ViewController: ViewControllerDelegate {
-    func didTapAddButton() {
-        let addTodoViewController = AddTodoViewController()
+extension ViewController {
+    func didTapAddButton(with collectionView: ListCollectionView) {
+        let addTodoViewController = AddTodoViewController(collectionView: collectionView)
         addTodoViewController.modalPresentationStyle = .formSheet
         self.present(UINavigationController(rootViewController: addTodoViewController), animated: true, completion: nil)
     }
 }
+
+// ViewController에서 +버튼클릭시부터 collectionView를 들고다녀야함
+// AddTodoViewController에서 CollectionView를 알고있어야하고
+// 내가 어떤 collectionView에서 dataSource를 업데이트를 할지?
+
+// thing 인스턴스를 ListCollectionView에 있는 updateDataSource라는 func에담아줘야함
+// updateDataSource는 things라는 배열에 append하고 snapshot을 찍고 apply해줌
+
+// cell에 어떤 내용이 표시되어야할지 configure (글렌에게 push요청)

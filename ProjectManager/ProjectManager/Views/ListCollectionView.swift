@@ -1,14 +1,17 @@
 import UIKit
 
 class ListCollectionView: UICollectionView {
+    
+    var things: [Thing] = []
+    
     enum Section {
         case main
     }
     
     var collectionType: State
     
-    lazy var diffableDataSource: UICollectionViewDiffableDataSource<Section, Int> = {
-        return UICollectionViewDiffableDataSource<Section, Int>(collectionView: self) { (collectionView, indexPath, number) -> UICollectionViewCell? in
+    lazy var diffableDataSource: UICollectionViewDiffableDataSource<Section, Thing> = {
+        return UICollectionViewDiffableDataSource<Section, Thing>(collectionView: self) { (collectionView, indexPath, Thing) -> UICollectionViewCell? in
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ItemCell.identifier, for: indexPath) as? ItemCell else {
                 return UICollectionViewCell()
             }
@@ -52,9 +55,9 @@ class ListCollectionView: UICollectionView {
     }
     
     func configureDataSource() {
-        var initialSnapShot = NSDiffableDataSourceSnapshot<Section, Int>()
+        var initialSnapShot = NSDiffableDataSourceSnapshot<Section, Thing>()
         initialSnapShot.appendSections([.main])
-        initialSnapShot.appendItems(Array(1...7))
+        initialSnapShot.appendItems(self.things)
         
         diffableDataSource.supplementaryViewProvider = { (collectionView: UICollectionView, kind: String, indexPath: IndexPath) -> UICollectionReusableView? in
             guard let supplementaryView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: HeaderView.reuseIdentifier, for: indexPath) as? HeaderView else {
@@ -65,5 +68,13 @@ class ListCollectionView: UICollectionView {
         }
 
         diffableDataSource.apply(initialSnapShot, animatingDifferences: false)
+    }
+    
+    func updateDataSource(with thing: Thing) {
+        self.things.append(thing)
+        var snapShot = NSDiffableDataSourceSnapshot<Section, Thing>()
+        snapShot.appendSections([.main])
+        snapShot.appendItems(self.things)
+        diffableDataSource.apply(snapShot)
     }
 }
