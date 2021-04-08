@@ -6,15 +6,20 @@ class ListCollectionView: UICollectionView {
     }
     
     var collectionType: State
-    var things: [Thing] = [Thing(id: 1, title: "Self-sizing 고민해보기", description: "Lorem Ipsum is simply dummy text.", state: .todo, dueDate: 0.0, updatedAt: 0.0), Thing(id: 2, title: "DiffableDataSource 공부해보기", description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a ty≥pe specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.", state: .todo, dueDate: 0.0, updatedAt: 0.0)]
     
     lazy var diffableDataSource: UICollectionViewDiffableDataSource<Section, Thing> = {
         return UICollectionViewDiffableDataSource<Section, Thing>(collectionView: self) { (collectionView, indexPath, thing) -> UICollectionViewCell? in
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ItemCell.identifier, for: indexPath) as? ItemCell else {
                 return UICollectionViewCell()
             }
+            
+            if self.checkIsDatePassed(thing.dueDate ?? 0.0) {
+                cell.configure(thing: thing, datePassed: true)
+            } else {
+                cell.configure(thing: thing, datePassed: false)
+            }
+            
             cell.contentView.backgroundColor = .white
-            cell.configure(thing: thing)
             return cell
         }
     }()
@@ -76,5 +81,14 @@ extension ListCollectionView {
         snapShot.appendSections([.main])
         snapShot.appendItems(self.things)
         diffableDataSource.apply(snapShot)
+    }
+    
+    func checkIsDatePassed(_ date: Double) -> Bool {
+        let currentDate = Date().timeIntervalSince1970
+        if date < currentDate {
+            return true
+        } else {
+            return false
+        }
     }
 }
