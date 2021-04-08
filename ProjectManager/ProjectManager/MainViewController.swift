@@ -30,10 +30,28 @@ class MainViewController: UIViewController {
     
     @objc private func touchUpAddButton() {
         showDetailView()
+        configureMainView()
     }
     
     private func showDetailView() {
         print("showDetail")
     }
+    
+    private func configureMainView() {
+            let stackView = UIStackView(arrangedSubviews: [todoTableView, doingTableView, doneTableView])
+            let safeArea = view.safeAreaLayoutGuide
+            stackView.axis = .horizontal
+            stackView.distribution = .fillEqually
+            stackView.spacing = 10
+            stackView.backgroundColor = .systemGray2
+            view.addSubview(stackView)
+            stackView.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                stackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+                stackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
+                stackView.topAnchor.constraint(equalTo: safeArea.topAnchor),
+                stackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
+            ])
+        }
 }
 
