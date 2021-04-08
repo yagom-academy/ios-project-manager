@@ -156,3 +156,26 @@ extension MainViewController: UITableViewDragDelegate {
         return Todos.common.dragItems(for: indexPath, from: tableViewName)
     }
 }
+
+extension MainViewController: UITableViewDropDelegate {
+    
+    func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
+        var tableViewName = String.empty
+        var indexPath: IndexPath
+        if let destinationIndexPath = coordinator.destinationIndexPath {
+            indexPath = destinationIndexPath
+        } else {
+            let section = tableView.numberOfSections - 1
+            let row = tableView.numberOfRows(inSection: section)
+            indexPath = IndexPath(row: row, section: section)
+        }
+        if tableView == todoTableView {
+            tableViewName = String.todo
+        } else if tableView == doingTableView {
+            tableViewName = String.doing
+        } else {
+            tableViewName = String.done
+        }
+        Todos.common.dropItems(for: indexPath, from: tableViewName, dropItems: coordinator.items)
+    }
+}
