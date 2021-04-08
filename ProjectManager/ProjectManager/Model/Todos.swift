@@ -25,6 +25,17 @@ class Todos {
          }
      }
     
+    private func insertItem(todo: Todo, at index: Int, from listName: String) {
+           if listName == String.todo {
+               self.todoList.insert(todo, at: index)
+           } else if listName == String.doing {
+               self.doingList.insert(todo, at: index)
+           } else {
+               self.doneList.insert(todo, at: index)
+           }
+           NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadView"), object: nil)
+       }
+    
     func dragItems(for indexPath: IndexPath, from tableView: String) -> [UIDragItem] {
           var todo = Todo(title: String.empty, description: String.empty, deadline: 0)
           if tableView == String.todo {
@@ -43,4 +54,23 @@ class Todos {
           self.deleteItem(at: indexPath.row, from: tableView)
           return [UIDragItem(itemProvider: itemProvider)]
       }
+    
+    func dropItems(for indexPath: IndexPath, from tableView: String, dropItems: [UITableViewDropItem]) {
+            guard let dropItem = dropItems.first else {
+                return
+            }
+            dropItem.dragItem.itemProvider.loadDataRepresentation(forTypeIdentifier: kUTTypeJSON as String){ data, error in
+                guard error == nil else{
+                    return
+                }
+                guard let data = data else {
+                    return
+                }
+                guard let todo = try? JSONDecoder().decode(Todo.self, from: data) else {
+                    return
+                }
+                self.insertItem(todo: todo, at: indexPath.row, from: tableView)
+                
+            }
+        }
 }
