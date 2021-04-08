@@ -37,6 +37,7 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         configureConstraints()
         configureNavigationBar()
+        configureDetailView()
     }
     
     static private func addShadow(_ view: UIView) {
@@ -46,6 +47,16 @@ class DetailViewController: UIViewController {
         view.layer.shadowOpacity = 0.5
         view.layer.masksToBounds = false
     }
+    
+    private func configureDetailView() {
+            if isEdit {
+                changeToUneditable()
+                titleTextField.text = todo?.title
+                let date = Date(timeIntervalSince1970: todo?.deadline ?? 0)
+                datePicker.date = date
+                descriptionTextView.text = todo?.description
+            }
+        }
     
     private func changeToEditable() {
             titleTextField.isUserInteractionEnabled = true
