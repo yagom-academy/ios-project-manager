@@ -9,6 +9,10 @@ import Foundation
 
 extension String {
     static let navigationBarTitle = "Project Manager"
+    static let empty = ""
+    static let todo = "TODO"
+    static let doing = "DOING"
+    static let done = "DONE"
 }
 
 extension DateFormatter {
