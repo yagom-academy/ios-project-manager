@@ -1,17 +1,16 @@
 //
-//  CardTableViewCell.swift
+//  CardsTableViewCell.swift
 //  ProjectManager
 //
-//  Created by Kyungmin Lee on 2021/04/06.
+//  Created by Kyungmin Lee on 2021/04/09.
 //
 
 import UIKit
 
-class CardTableViewCell: UITableViewCell {
+class CardsTableViewCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var descriptionsLable: UILabel!
-    @IBOutlet weak var deadlineLable: UILabel!
-    
+    @IBOutlet weak var descriptionsLabel: UILabel!
+    @IBOutlet weak var deadlineLabel: UILabel!
     
     class var identifier: String {
         return "\(self)"
@@ -27,5 +26,5 @@ class CardTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
+    
 }
