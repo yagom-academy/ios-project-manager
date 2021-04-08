@@ -22,6 +22,18 @@ class MainViewController: UIViewController {
         configureNavigationBar()
         configureMainView()
         registerCell()
+        
+        todoTableView.dataSource = self
+        todoTableView.delegate = self
+        
+        
+        doingTableView.dataSource = self
+        doingTableView.delegate = self
+        
+        
+        doneTableView.dataSource = self
+        doneTableView.delegate = self
+        
     }
     
     private func configureNavigationBar() {
@@ -36,14 +48,14 @@ class MainViewController: UIViewController {
     }
     
     private func showDetailView(isEdit: Bool = false, todo: Todo? = nil, tableView: String? = nil, index: Int = 0) {
-            let detailView = DetailViewController()
-            let navigationController = UINavigationController(rootViewController: detailView)
-            detailView.tableViewName = tableView
-            detailView.index = index
-            detailView.isEdit = isEdit
-            detailView.todo = todo
-            present(navigationController, animated: true, completion: nil)
-        }
+        let detailView = DetailViewController()
+        let navigationController = UINavigationController(rootViewController: detailView)
+        detailView.tableViewName = tableView
+        detailView.index = index
+        detailView.isEdit = isEdit
+        detailView.todo = todo
+        present(navigationController, animated: true, completion: nil)
+    }
     
     private func configureMainView() {
         let stackView = UIStackView(arrangedSubviews: [todoTableView, doingTableView, doneTableView])
@@ -106,6 +118,13 @@ extension MainViewController: UITableViewDataSource {
 extension MainViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if tableView == todoTableView {
+            showDetailView(isEdit: true, todo: Todos.common.todoList[indexPath.row], tableView: String.todo, index: indexPath.row)
+        } else if tableView == doingTableView {
+            showDetailView(isEdit: true, todo: Todos.common.doingList[indexPath.row], tableView: String.doing, index: indexPath.row)
+        } else {
+            showDetailView(isEdit: true, todo: Todos.common.doneList[indexPath.row], tableView: String.done, index: indexPath.row)
+        }
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
