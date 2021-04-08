@@ -35,9 +35,15 @@ class MainViewController: UIViewController {
         configureMainView()
     }
     
-    private func showDetailView() {
-        print("showDetail")
-    }
+    private func showDetailView(isEdit: Bool = false, todo: Todo? = nil, tableView: String? = nil, index: Int = 0) {
+            let detailView = DetailViewController()
+            let navigationController = UINavigationController(rootViewController: detailView)
+            detailView.tableViewName = tableView
+            detailView.index = index
+            detailView.isEdit = isEdit
+            detailView.todo = todo
+            present(navigationController, animated: true, completion: nil)
+        }
     
     private func configureMainView() {
         let stackView = UIStackView(arrangedSubviews: [todoTableView, doingTableView, doneTableView])
