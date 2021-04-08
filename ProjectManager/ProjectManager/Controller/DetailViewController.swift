@@ -36,6 +36,7 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureConstraints()
+        configureNavigationBar()
     }
     
     static private func addShadow(_ view: UIView) {
@@ -46,6 +47,57 @@ class DetailViewController: UIViewController {
         view.layer.masksToBounds = false
     }
     
+    private func changeToEditable() {
+            titleTextField.isUserInteractionEnabled = true
+            datePicker.isUserInteractionEnabled = true
+            descriptionTextView.isEditable = true
+        }
+    
+    private func changeToUneditable() {
+          titleTextField.isUserInteractionEnabled = false
+          datePicker.isUserInteractionEnabled = false
+          descriptionTextView.isEditable = false
+      }
+    
+    @objc private func touchUpEditButton() {
+           navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(touchUpCancelButton))
+           changeToEditable()
+       }
+       
+       @objc private func touchUpDoneButton() {
+           if let title = titleTextField.text, let description = descriptionTextView.text  {
+               let deadline = datePicker.date.timeIntervalSince1970
+               let todo = Todo(title: title, description: description, deadline: deadline)
+               if isEdit {
+                   if tableViewName == String.todo {
+                       Todos.common.todoList[index] = todo
+                   } else if tableViewName == String.doing {
+                       Todos.common.doingList[index] = todo
+                   } else {
+                       Todos.common.doneList[index] = todo
+                   }
+               } else {
+                   Todos.common.todoList.append(todo)
+               }
+           }
+           NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadView"), object: nil)
+           dismiss(animated: true, completion: nil)
+       }
+       
+       @objc private func touchUpCancelButton() {
+           dismiss(animated: true, completion: nil)
+       }
+    
+    private func configureNavigationBar() {
+            if isEdit {
+                navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(touchUpEditButton))
+            } else {
+                navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(touchUpCancelButton))
+            }
+            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector (touchUpDoneButton))
+            title = String.todo
+        }
+
     private func configureConstraints() {
            let safeArea = view.safeAreaLayoutGuide
            view.backgroundColor = .white
