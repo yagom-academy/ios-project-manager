@@ -9,7 +9,7 @@ class DetailViewController: UIViewController {
     
     private let titleTextField: UITextField = {
         let textField = UITextField()
-        
+        addShadow(textField)
         textField.backgroundColor = .white
         textField.placeholder = "Title"
         textField.isUserInteractionEnabled = true
@@ -26,7 +26,7 @@ class DetailViewController: UIViewController {
     }()
     private let descriptionTextView: UITextView = {
         let textView = UITextView()
-        
+        addShadow(textView)
         textView.isEditable = true
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.textContainerInset = UIEdgeInsets(top: 10, left: 5, bottom: 10, right: 5)
@@ -36,6 +36,14 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureConstraints()
+    }
+    
+    static private func addShadow(_ view: UIView) {
+        view.layer.shadowOffset = CGSize(width: 2, height: 2)
+        view.layer.shadowRadius = 2
+        view.layer.borderWidth = 0.25
+        view.layer.shadowOpacity = 0.5
+        view.layer.masksToBounds = false
     }
     
     private func configureConstraints() {
