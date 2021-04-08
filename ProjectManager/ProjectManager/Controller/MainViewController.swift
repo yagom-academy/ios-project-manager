@@ -12,6 +12,10 @@ class MainViewController: UIViewController {
     private var doingTableView = UITableView(frame: .zero, style: .grouped)
     private var doneTableView = UITableView(frame: .zero, style: .grouped)
     
+    private let todoHeaderView = HeaderView(Todos.common.todoList.count, title: String.todo)
+    private let doingHeaderView = HeaderView(Todos.common.doingList.count, title: String.doing)
+    private let doneHeaderView = HeaderView(Todos.common.doneList.count, title: String.done)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -22,6 +26,7 @@ class MainViewController: UIViewController {
         configureNavigationBar()
         configureMainView()
         registerCell()
+        configureTableViewHeader()
         
         todoTableView.dataSource = self
         todoTableView.delegate = self
@@ -35,6 +40,7 @@ class MainViewController: UIViewController {
         doneTableView.delegate = self
         
     }
+    
     
     private func configureNavigationBar() {
         navigationController?.isToolbarHidden = false
@@ -72,6 +78,12 @@ class MainViewController: UIViewController {
             stackView.topAnchor.constraint(equalTo: safeArea.topAnchor),
             stackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
         ])
+    }
+    
+    private func configureTableViewHeader() {
+        todoTableView.tableHeaderView = todoHeaderView
+        doingTableView.tableHeaderView = doingHeaderView
+        doneTableView.tableHeaderView = doneHeaderView
     }
     
     private func registerCell() {
