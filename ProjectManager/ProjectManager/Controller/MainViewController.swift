@@ -30,14 +30,15 @@ class MainViewController: UIViewController {
         
         todoTableView.dataSource = self
         todoTableView.delegate = self
-        
+        todoTableView.dragDelegate = self
         
         doingTableView.dataSource = self
         doingTableView.delegate = self
-        
+        doingTableView.dragDelegate = self
         
         doneTableView.dataSource = self
         doneTableView.delegate = self
+        doneTableView.dragDelegate = self
         
     }
     
@@ -138,5 +139,20 @@ extension MainViewController: UITableViewDelegate {
             showDetailView(isEdit: true, todo: Todos.common.doneList[indexPath.row], tableView: String.done, index: indexPath.row)
         }
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
+
+extension MainViewController: UITableViewDragDelegate {
+    
+    func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        var tableViewName = String.empty
+        if tableView == todoTableView {
+            tableViewName = String.todo
+        } else if tableView == doingTableView {
+            tableViewName = String.doing
+        } else {
+            tableViewName = String.done
+        }
+        return Todos.common.dragItems(for: indexPath, from: tableViewName)
     }
 }
