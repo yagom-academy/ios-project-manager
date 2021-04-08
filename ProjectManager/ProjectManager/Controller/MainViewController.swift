@@ -31,17 +31,35 @@ class MainViewController: UIViewController {
         todoTableView.dataSource = self
         todoTableView.delegate = self
         todoTableView.dragDelegate = self
+        todoTableView.dropDelegate = self
         
         doingTableView.dataSource = self
         doingTableView.delegate = self
         doingTableView.dragDelegate = self
+        doingTableView.dropDelegate = self
         
         doneTableView.dataSource = self
         doneTableView.delegate = self
         doneTableView.dragDelegate = self
+        doneTableView.dropDelegate = self
         
-    }
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadTableView), name: NSNotification.Name(rawValue: "reloadView"), object: nil)
+            }
     
+    @objc private func reloadTableView() {
+            DispatchQueue.main.async {
+                self.todoTableView.reloadData()
+                self.doingTableView.reloadData()
+                self.doneTableView.reloadData()
+                self.reloadCountLabel()
+            }
+        }
+        
+        private func reloadCountLabel() {
+            todoHeaderView.numberLabel.text = String(Todos.common.todoList.count)
+            doingHeaderView.numberLabel.text = String(Todos.common.doingList.count)
+            doneHeaderView.numberLabel.text = String(Todos.common.doneList.count)
+        }
     
     private func configureNavigationBar() {
         navigationController?.isToolbarHidden = false
