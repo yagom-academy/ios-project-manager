@@ -12,7 +12,7 @@ class MainViewController: UIViewController {
     @IBOutlet weak var doingCardsTableView: CardsTableView!
     @IBOutlet weak var doneCardsTableView: CardsTableView!
     
-    private let showCardDetailSegueIdentifier: String = "showCardDetail"
+    private let presentCardDetailSegueIdentifier: String = "presentCardDetail"
     private var cardList: CardList?
     private var todoCards: [Card] = []
     private var doingCards: [Card] = []
@@ -39,7 +39,7 @@ class MainViewController: UIViewController {
     }
     
     @IBAction func touchUpAddButton(_ sender: Any) {
-        performSegue(withIdentifier: showCardDetailSegueIdentifier, sender: nil)
+        performSegue(withIdentifier: presentCardDetailSegueIdentifier, sender: nil)
     }
     
     
@@ -83,7 +83,7 @@ extension MainViewController: UITableViewDelegate {
                 cards = todoCards
         }
         
-        performSegue(withIdentifier: showCardDetailSegueIdentifier, sender: cards[indexPath.row])
+        performSegue(withIdentifier: presentCardDetailSegueIdentifier, sender: cards[indexPath.row])
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }

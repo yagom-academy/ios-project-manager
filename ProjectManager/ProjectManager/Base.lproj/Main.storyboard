@@ -79,7 +79,7 @@
                         <outlet property="doingCardsTableView" destination="1kb-yo-9PF" id="78r-gQ-13l"/>
                         <outlet property="doneCardsTableView" destination="iQe-MN-T76" id="tR0-3j-52c"/>
                         <outlet property="todoCardsTableView" destination="o13-mq-ZgK" id="7KF-9P-86x"/>
-                        <segue destination="aC8-j9-Of4" kind="show" identifier="showCardDetail" id="bfl-Qn-hhd"/>
+                        <segue destination="aC8-j9-Of4" kind="presentation" identifier="presentCardDetail" id="bfl-Qn-hhd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -89,7 +89,7 @@
         <!--Card View Controller-->
         <scene sceneID="d3V-QV-JqW">
             <objects>
-                <viewController id="aC8-j9-Of4" customClass="CardViewController" customModule="ProjectManager" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="formSheet" id="aC8-j9-Of4" customClass="CardViewController" customModule="ProjectManager" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6Tu-1E-LjZ">
                         <rect key="frame" x="0.0" y="0.0" width="540" height="620"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -109,7 +109,6 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="Rus-ed-eFA"/>
-                    <modalFormSheetSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="navigationBar" destination="ttD-JS-smW" id="vf6-EP-Sei"/>
                     </connections>
