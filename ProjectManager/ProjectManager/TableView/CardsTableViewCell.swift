@@ -15,6 +15,19 @@ class CardsTableViewCell: UITableViewCell {
     class var identifier: String {
         return "\(self)"
     }
+    private let dateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .short
+        
+        return dateFormatter
+    }()
+    private var locale: Locale {
+        if let language = Locale.preferredLanguages.first {
+            return Locale(identifier: language)
+        } else {
+            return Locale.current
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -27,4 +40,15 @@ class CardsTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    func configure(card: Card) {
+        titleLabel.text = card.title
+        descriptionsLabel.text = card.descriptions
+        if let date = card.deadlineDate {
+            dateFormatter.locale = locale
+            deadlineLabel.text = dateFormatter.string(from: date)
+            if card.status != Constants.CardStatus.done {
+                deadlineLabel.textColor = (date < Date()) ? .systemRed : .label
+            }
+        }
+    }
 }

@@ -101,9 +101,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
             cards = todoCards
         }
         
-        cell.titleLabel?.text = cards[indexPath.row].title
-        cell.descriptionsLabel?.text = cards[indexPath.row].descriptions
-        cell.deadlineLabel?.text = "\(cards[indexPath.row].deadline)"
+        cell.configure(card: cards[indexPath.row])
         
         return cell
     }

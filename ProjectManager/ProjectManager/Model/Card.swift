@@ -13,4 +13,11 @@ struct Card: Codable {
     var descriptions: String?
     var deadline: Int?
     var status: Int?
+    
+    var deadlineDate: Date? {
+        if let deadline = deadline {
+            return Date(timeIntervalSince1970: Double(deadline))
+        }
+        return nil
+    }
 }
