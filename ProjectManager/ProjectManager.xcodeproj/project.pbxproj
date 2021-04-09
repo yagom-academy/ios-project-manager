@@ -12,6 +12,7 @@
 		56569CB2261B5118009C3F6B /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56569CB1261B5118009C3F6B /* Card.swift */; };
 		5690B73A261F8444001B17E8 /* CardsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5690B738261F8444001B17E8 /* CardsTableViewCell.swift */; };
 		5690B73B261F8444001B17E8 /* CardsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5690B739261F8444001B17E8 /* CardsTableViewCell.xib */; };
+		5690B73E261FDEC9001B17E8 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5690B73D261FDEC9001B17E8 /* Constants.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* MainViewController.swift */; };
@@ -26,6 +27,7 @@
 		56569CB1261B5118009C3F6B /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		5690B738261F8444001B17E8 /* CardsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsTableViewCell.swift; sourceTree = "<group>"; };
 		5690B739261F8444001B17E8 /* CardsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardsTableViewCell.xib; sourceTree = "<group>"; };
+		5690B73D261FDEC9001B17E8 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -74,6 +76,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		5690B740261FDEED001B17E8 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				5690B73D261FDEC9001B17E8 /* Constants.swift */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
 		C7431EF925F51E1D0094C4CF = {
 			isa = PBXGroup;
 			children = (
@@ -93,6 +103,7 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
+				5690B740261FDEED001B17E8 /* Constants */,
 				56569CB0261B50E7009C3F6B /* Model */,
 				56569CAE261B4D0A009C3F6B /* ViewController */,
 				56569CAD261B4CEA009C3F6B /* TableView */,
@@ -184,6 +195,7 @@
 				5690B73A261F8444001B17E8 /* CardsTableViewCell.swift in Sources */,
 				5619C9BA261C2FEF002FA1F2 /* CardList.swift in Sources */,
 				56569CAB261B4CD7009C3F6B /* CardsTableView.swift in Sources */,
+				5690B73E261FDEC9001B17E8 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -53,28 +53,28 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         todoCardsTableView.delegate = self
         todoCardsTableView.dataSource = self
         todoCardsTableView.register(nib, forCellReuseIdentifier: CardsTableViewCell.identifier)
-        todoCardsTableView.tag = 0
+        todoCardsTableView.tag = Constants.CardStatus.todo
         
         doingCardsTableView.delegate = self
         doingCardsTableView.dataSource = self
         doingCardsTableView.register(nib, forCellReuseIdentifier: CardsTableViewCell.identifier)
-        doingCardsTableView.tag = 1
+        doingCardsTableView.tag = Constants.CardStatus.doing
 
         doneCardsTableView.delegate = self
         doneCardsTableView.dataSource = self
         doneCardsTableView.register(nib, forCellReuseIdentifier: CardsTableViewCell.identifier)
-        doneCardsTableView.tag = 2
+        doneCardsTableView.tag = Constants.CardStatus.done
 
         
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch tableView.tag {
-        case 0:
+        case Constants.CardStatus.todo:
             return todoCards.count
-        case 1:
+        case Constants.CardStatus.doing:
             return doingCards.count
-        case 2:
+        case Constants.CardStatus.done:
             return doneCards.count
         default:
             break
@@ -91,11 +91,11 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         let cards: [Card]
         
         switch tableView.tag {
-        case 0:
+        case Constants.CardStatus.todo:
             cards = todoCards
-        case 1:
+        case Constants.CardStatus.doing:
             cards = doingCards
-        case 2:
+        case Constants.CardStatus.done:
             cards = doneCards
         default:
             cards = todoCards
