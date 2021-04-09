@@ -12,10 +12,12 @@ class MainViewController: UIViewController {
     @IBOutlet weak var doingCardsTableView: CardsTableView!
     @IBOutlet weak var doneCardsTableView: CardsTableView!
     
+    private let showCardDetailSegueIdentifier: String = "showCardDetail"
     private var cardList: CardList?
     private var todoCards: [Card] = []
     private var doingCards: [Card] = []
     private var doneCards: [Card] = []
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +25,23 @@ class MainViewController: UIViewController {
         setupTableView()
         loadData()
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let cardViewController = segue.destination as? CardViewController else {
+            return
+        }
+        
+        if let card = sender as? Card {
+            cardViewController.card = card
+        } else {
+            
+        }
+    }
+    
+    @IBAction func touchUpAddButton(_ sender: Any) {
+        performSegue(withIdentifier: showCardDetailSegueIdentifier, sender: nil)
+    }
+    
     
     private func loadData() {
         guard let dataAsset: NSDataAsset = NSDataAsset(name: "itemsMock") else { return }
@@ -45,7 +64,31 @@ class MainViewController: UIViewController {
     }
 }
 
-extension MainViewController: UITableViewDelegate, UITableViewDataSource {
+extension MainViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cards: [Card]
+        
+        switch tableView.tag {
+            case Constants.CardStatus.todo:
+                cards = todoCards
+            case Constants.CardStatus.doing:
+                cards = doingCards
+            case Constants.CardStatus.done:
+                cards = doneCards
+            default:
+                cards = todoCards
+        }
+        
+        performSegue(withIdentifier: showCardDetailSegueIdentifier, sender: cards[indexPath.row])
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
+
+extension MainViewController: UITableViewDataSource {
     
     func setupTableView() {
         let nib = UINib(nibName: "CardsTableViewCell", bundle: nil)
@@ -105,12 +148,4 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         
         return cell
     }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
-    }
-    
-    
-    
-    
 }

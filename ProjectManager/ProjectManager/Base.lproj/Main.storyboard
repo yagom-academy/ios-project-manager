@@ -23,7 +23,11 @@
                                 </constraints>
                                 <items>
                                     <navigationItem title="Project Manager" id="E2Q-9b-MiI">
-                                        <barButtonItem key="rightBarButtonItem" image="plus" catalog="system" id="xkS-jd-eiX"/>
+                                        <barButtonItem key="rightBarButtonItem" image="plus" catalog="system" id="xkS-jd-eiX">
+                                            <connections>
+                                                <action selector="touchUpAddButton:" destination="BYZ-38-t0r" id="gLC-Xj-JHK"/>
+                                            </connections>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
@@ -75,11 +79,44 @@
                         <outlet property="doingCardsTableView" destination="1kb-yo-9PF" id="78r-gQ-13l"/>
                         <outlet property="doneCardsTableView" destination="iQe-MN-T76" id="tR0-3j-52c"/>
                         <outlet property="todoCardsTableView" destination="o13-mq-ZgK" id="7KF-9P-86x"/>
+                        <segue destination="aC8-j9-Of4" kind="show" identifier="showCardDetail" id="bfl-Qn-hhd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="140.99560761346999" y="138.8671875"/>
+        </scene>
+        <!--Card View Controller-->
+        <scene sceneID="d3V-QV-JqW">
+            <objects>
+                <viewController id="aC8-j9-Of4" customClass="CardViewController" customModule="ProjectManager" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="6Tu-1E-LjZ">
+                        <rect key="frame" x="0.0" y="0.0" width="540" height="620"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ttD-JS-smW">
+                                <rect key="frame" x="0.0" y="0.0" width="540" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <items>
+                                    <navigationItem title="TODO" id="526-tH-BP1">
+                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="LEG-XS-H2y"/>
+                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="XkO-FM-AtV"/>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="YPF-5t-Flk"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Rus-ed-eFA"/>
+                    <modalFormSheetSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="navigationBar" destination="ttD-JS-smW" id="vf6-EP-Sei"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="l6P-4a-g1H" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="802" y="139"/>
         </scene>
     </scenes>
     <resources>
