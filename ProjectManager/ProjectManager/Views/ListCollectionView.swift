@@ -59,11 +59,8 @@ extension ListCollectionView {
     }
     
     func deleteDataSource(thing: Thing) {
-        print("Delete")
-        print(collectionType)
         var snapshot = diffableDataSource.snapshot()
         snapshot.deleteItems([thing])
-        print(snapshot.itemIdentifiers)
         diffableDataSource.apply(snapshot, animatingDifferences: true)
     }
     
