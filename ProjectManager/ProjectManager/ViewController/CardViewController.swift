@@ -7,6 +7,8 @@
 
 import UIKit
 
+
+
 class CardViewController: UIViewController {
     @IBOutlet weak var navigationBar: UINavigationBar!
     @IBOutlet weak var titleTextView: UITextView!
@@ -14,7 +16,36 @@ class CardViewController: UIViewController {
     @IBOutlet weak var deadlineDatePicker: UIDatePicker!
     
     var card: Card?
-    private let editButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.edit, target: self, action: nil)
+    var isCardEditable: Bool {
+        get {
+            return _cardEditable
+        }
+        set(value) {
+            _cardEditable = value
+            titleTextView.isEditable = value
+            descriptionsTextView.isEditable = value
+            deadlineDatePicker.isUserInteractionEnabled = value
+        }
+    }
+    
+    private enum BarButtonTag: Int {
+        case done
+        case cancel
+        case edit
+        case save
+    }
+    private var _cardEditable: Bool = false
+    private lazy var editButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(barButtonPressed(_:)))
+        button.tag = BarButtonTag.edit.rawValue
+        return button
+    }()
+    private lazy var saveButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(barButtonPressed(_:)))
+        button.tag = BarButtonTag.save.rawValue
+        button.tintColor = .systemRed
+        return button
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,10 +64,32 @@ class CardViewController: UIViewController {
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    @IBAction private func barButtonPressed(_ sender: Any) {
+        guard let button = sender as? UIBarButtonItem,
+              let barButtontag = BarButtonTag(rawValue: button.tag) else { return }
+        
+        switch barButtontag {
+            case .done, .cancel:
+                dismiss(animated: true, completion: nil)
+            case .edit:
+                navigationBar.topItem?.setLeftBarButton(saveButton, animated: true)
+                isCardEditable = true
+            case .save:
+                navigationBar.topItem?.setLeftBarButton(editButton, animated: true)
+                isCardEditable = false
+        }
         
     }
+    
+//    @objc private func editButtonPressed() {
+//        navigationBar.topItem?.setLeftBarButton(saveButton, animated: true)
+//        isCardEditable = true
+//    }
+//
+//    @objc private func saveButtonPressed() {
+//        navigationBar.topItem?.setLeftBarButton(editButton, animated: true)
+//        isCardEditable = false
+//    }
     
 
     /*
