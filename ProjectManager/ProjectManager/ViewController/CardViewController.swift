@@ -9,14 +9,27 @@ import UIKit
 
 class CardViewController: UIViewController {
     @IBOutlet weak var navigationBar: UINavigationBar!
+    @IBOutlet weak var titleTextView: UITextView!
+    @IBOutlet weak var descriptionsTextView: UITextView!
+    @IBOutlet weak var deadlineDatePicker: UIDatePicker!
+    
     var card: Card?
     private let editButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.edit, target: self, action: nil)
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if let _ = card {
+        if let card = card {
             navigationBar.topItem?.leftBarButtonItem = editButton
+            titleTextView.text = card.title
+            if let descriptions = card.descriptions {
+                descriptionsTextView.text = descriptions
+            } else {
+                descriptionsTextView.text = ""
+            }
+            if let deadlineDate = card.deadlineDate {
+                deadlineDatePicker.date = deadlineDate
+            }
         }
     }
     

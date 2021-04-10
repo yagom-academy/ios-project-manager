@@ -17,7 +17,8 @@ struct Card: Codable {
     var deadlineDate: Date? {
         if let deadline = deadline {
             return Date(timeIntervalSince1970: Double(deadline))
+        } else {
+            return nil
         }
-        return nil
     }
 }
