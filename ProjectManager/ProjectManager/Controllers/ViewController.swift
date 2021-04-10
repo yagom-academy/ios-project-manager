@@ -55,10 +55,8 @@ class ViewController: UIViewController {
         case .todo:
             firstCollectionView.deleteDataSource(thing: thing)
         case .doing:
-            print("Delete!")
             secondCollectionView.deleteDataSource(thing: thing)
         case .done:
-            print("Delete!")
             thirdCollectionView.deleteDataSource(thing: thing)
         default:
             return
