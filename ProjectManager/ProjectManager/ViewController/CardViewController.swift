@@ -58,15 +58,7 @@ class CardViewController: UIViewController {
 
         if let card = card {
             navigationBar.topItem?.leftBarButtonItem = editButton
-            titleTextView.text = card.title
-            if let descriptions = card.descriptions {
-                descriptionsTextView.text = descriptions
-            } else {
-                descriptionsTextView.text = ""
-            }
-            if let deadlineDate = card.deadlineDate {
-                deadlineDatePicker.date = deadlineDate
-            }
+            setupCard(card)
         }
     }
     
@@ -85,16 +77,17 @@ class CardViewController: UIViewController {
                 isCardEditable = false
         }
         
-    }    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
     }
-    */
-
+    
+    func setupCard(_ card: Card) {
+        titleTextView.text = card.title
+        if let descriptions = card.descriptions {
+            descriptionsTextView.text = descriptions
+        } else {
+            descriptionsTextView.text = ""
+        }
+        if let deadlineDate = card.deadlineDate {
+            deadlineDatePicker.date = deadlineDate
+        }
+    }
 }
