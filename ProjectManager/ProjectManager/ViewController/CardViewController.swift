@@ -13,7 +13,13 @@ class CardViewController: UIViewController {
     @IBOutlet weak var navigationBar: UINavigationBar!
     @IBOutlet weak var titleTextView: UITextView!
     @IBOutlet weak var descriptionsTextView: UITextView!
-    @IBOutlet weak var deadlineDatePicker: UIDatePicker!
+    @IBOutlet weak var deadlineDatePicker: UIDatePicker! {
+        didSet {
+            if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+                deadlineDatePicker.locale = appDelegate.locale
+            }
+        }
+    }
     
     var card: Card?
     var isCardEditable: Bool {
@@ -79,18 +85,7 @@ class CardViewController: UIViewController {
                 isCardEditable = false
         }
         
-    }
-    
-//    @objc private func editButtonPressed() {
-//        navigationBar.topItem?.setLeftBarButton(saveButton, animated: true)
-//        isCardEditable = true
-//    }
-//
-//    @objc private func saveButtonPressed() {
-//        navigationBar.topItem?.setLeftBarButton(editButton, animated: true)
-//        isCardEditable = false
-//    }
-    
+    }    
 
     /*
     // MARK: - Navigation

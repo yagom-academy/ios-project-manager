@@ -18,7 +18,9 @@ class CardsTableViewCell: UITableViewCell {
     private let dateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .short
-        
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+            dateFormatter.locale = appDelegate.locale
+        }
         return dateFormatter
     }()
     private var locale: Locale {
@@ -44,7 +46,6 @@ class CardsTableViewCell: UITableViewCell {
         titleLabel.text = card.title
         descriptionsLabel.text = card.descriptions
         if let date = card.deadlineDate {
-            dateFormatter.locale = locale
             deadlineLabel.text = dateFormatter.string(from: date)
             if card.status != Constants.CardStatus.done {
                 deadlineLabel.textColor = (date < Date()) ? .systemRed : .label
