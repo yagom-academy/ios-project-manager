@@ -13,10 +13,9 @@ class MainViewController: UIViewController {
     @IBOutlet weak var doneCardsTableView: CardsTableView!
     
     private let presentCardDetailSegueIdentifier: String = "presentCardDetail"
-    private var cardList: CardList?
-    private var todoCards: [Card] = []
-    private var doingCards: [Card] = []
-    private var doneCards: [Card] = []
+    private lazy var dataManager: DataManager = {
+        return DataManager.shared
+    }()
     
 
     override func viewDidLoad() {
@@ -44,20 +43,7 @@ class MainViewController: UIViewController {
     
     
     private func loadData() {
-        guard let dataAsset: NSDataAsset = NSDataAsset(name: "itemsMock") else { return }
-        
-        do {
-            cardList = try JSONDecoder().decode(CardList.self, from: dataAsset.data)
-        } catch {
-            print(error.localizedDescription)
-        }
-        
-        guard let cards = cardList?.cards else { return }
-        
-        todoCards = cards.filter {$0.status == 0}
-        doingCards = cards.filter {$0.status == 1}
-        doneCards = cards.filter {$0.status == 2}
-                
+        dataManager.loadData()
         todoCardsTableView.reloadData()
         doingCardsTableView.reloadData()
         doneCardsTableView.reloadData()
@@ -70,20 +56,10 @@ extension MainViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cards: [Card]
-        
-        switch tableView.tag {
-            case Constants.CardStatus.todo:
-                cards = todoCards
-            case Constants.CardStatus.doing:
-                cards = doingCards
-            case Constants.CardStatus.done:
-                cards = doneCards
-            default:
-                cards = todoCards
+        if let status = Card.Status(rawValue: tableView.tag) {
+            let card = dataManager.card(status: status, index: indexPath.row)
+            performSegue(withIdentifier: presentCardDetailSegueIdentifier, sender: card)
         }
-        
-        performSegue(withIdentifier: presentCardDetailSegueIdentifier, sender: cards[indexPath.row])
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
@@ -96,55 +72,35 @@ extension MainViewController: UITableViewDataSource {
         todoCardsTableView.delegate = self
         todoCardsTableView.dataSource = self
         todoCardsTableView.register(nib, forCellReuseIdentifier: CardsTableViewCell.identifier)
-        todoCardsTableView.tag = Constants.CardStatus.todo
+        todoCardsTableView.tag = Card.Status.todo.tag
         
         doingCardsTableView.delegate = self
         doingCardsTableView.dataSource = self
         doingCardsTableView.register(nib, forCellReuseIdentifier: CardsTableViewCell.identifier)
-        doingCardsTableView.tag = Constants.CardStatus.doing
+        doingCardsTableView.tag = Card.Status.doing.tag
 
         doneCardsTableView.delegate = self
         doneCardsTableView.dataSource = self
         doneCardsTableView.register(nib, forCellReuseIdentifier: CardsTableViewCell.identifier)
-        doneCardsTableView.tag = Constants.CardStatus.done
-
-        
+        doneCardsTableView.tag = Card.Status.done.tag
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch tableView.tag {
-        case Constants.CardStatus.todo:
-            return todoCards.count
-        case Constants.CardStatus.doing:
-            return doingCards.count
-        case Constants.CardStatus.done:
-            return doneCards.count
-        default:
-            break
+        if let status = Card.Status(rawValue: tableView.tag) {
+            return dataManager.cardCount(status: status)
+        } else {
+            return 0
         }
-        
-        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell: CardsTableViewCell = tableView.dequeueReusableCell(withIdentifier: CardsTableViewCell.identifier, for: indexPath) as? CardsTableViewCell else {
+        guard let cell: CardsTableViewCell = tableView.dequeueReusableCell(withIdentifier: CardsTableViewCell.identifier, for: indexPath) as? CardsTableViewCell,
+              let status = Card.Status(rawValue: tableView.tag) else {
             return CardsTableViewCell()
         }
- 
-        let cards: [Card]
-        
-        switch tableView.tag {
-        case Constants.CardStatus.todo:
-            cards = todoCards
-        case Constants.CardStatus.doing:
-            cards = doingCards
-        case Constants.CardStatus.done:
-            cards = doneCards
-        default:
-            cards = todoCards
-        }
-        
-        cell.configure(card: cards[indexPath.row])
+    
+        let card = dataManager.card(status: status, index: indexPath.row)
+        cell.configure(card: card)
         
         return cell
     }

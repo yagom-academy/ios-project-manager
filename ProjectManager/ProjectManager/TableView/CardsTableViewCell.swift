@@ -47,7 +47,7 @@ class CardsTableViewCell: UITableViewCell {
         descriptionsLabel.text = card.descriptions
         if let date = card.deadlineDate {
             deadlineLabel.text = dateFormatter.string(from: date)
-            if card.status != Constants.CardStatus.done {
+            if card.status != .done {
                 deadlineLabel.textColor = (date < Date()) ? .systemRed : .label
             }
         }
