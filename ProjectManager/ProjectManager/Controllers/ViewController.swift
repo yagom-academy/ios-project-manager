@@ -30,6 +30,10 @@ class ViewController: UIViewController {
         stackView.addArrangedSubview(firstCollectionView)
         stackView.addArrangedSubview(secondCollectionView)
         stackView.addArrangedSubview(thirdCollectionView)
+
+        firstCollectionView.delegate = self
+        secondCollectionView.delegate = self
+        thirdCollectionView.delegate = self
     }
     
     private func setNavigation() {
@@ -50,11 +54,17 @@ extension ViewController {
     }
 }
 
-// ViewController에서 +버튼클릭시부터 collectionView를 들고다녀야함
-// AddTodoViewController에서 CollectionView를 알고있어야하고
-// 내가 어떤 collectionView에서 dataSource를 업데이트를 할지?
-
-// thing 인스턴스를 ListCollectionView에 있는 updateDataSource라는 func에담아줘야함
-// updateDataSource는 things라는 배열에 append하고 snapshot을 찍고 apply해줌
-
-// cell에 어떤 내용이 표시되어야할지 configure (글렌에게 push요청)
+extension ViewController: UICollectionViewDelegate {
+    //MARK:- Cell 터치 시, 상세 내용 표시
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let collectionView = collectionView as? ListCollectionView else { return }
+        let descriptionViewController = UINavigationController(rootViewController: AddTodoViewController(collectionView: collectionView))
+        descriptionViewController.modalPresentationStyle = .formSheet
+        self.present(descriptionViewController, animated: true) {
+            guard let presentedContentView = descriptionViewController.viewControllers.last as? AddTodoViewController else { return }
+            presentedContentView.textField.isUserInteractionEnabled = false
+            presentedContentView.datePicker.isUserInteractionEnabled = false
+            presentedContentView.textView.isUserInteractionEnabled = false
+        }
+    }
+}
