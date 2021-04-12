@@ -18,16 +18,37 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        todoTableView.backgroundColor = .systemGroupedBackground
-        doingTableView.backgroundColor = .systemGroupedBackground
-        doneTableView.backgroundColor = .systemGroupedBackground
-        
         configureNavigationBar()
         configureMainView()
         registerCell()
         configureTableViewHeader()
+        setDelegateAndDataSource()
         
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadTableView), name: NSNotification.Name(rawValue: "reloadView"), object: nil)
+    }
+    
+    @objc private func reloadTableView() {
+        DispatchQueue.main.async {
+            self.todoTableView.reloadData()
+            self.doingTableView.reloadData()
+            self.doneTableView.reloadData()
+            self.reloadCountLabel()
+        }
+    }
+    
+    private func reloadCountLabel() {
+        todoHeaderView.numberLabel.text = String(Todos.common.todoList.count)
+        doingHeaderView.numberLabel.text = String(Todos.common.doingList.count)
+        doneHeaderView.numberLabel.text = String(Todos.common.doneList.count)
+    }
+    
+    private func configureNavigationBar() {
+        navigationController?.isToolbarHidden = false
+        navigationItem.rightBarButtonItem = .init(barButtonSystemItem: .add, target: self, action: #selector(touchUpAddButton))
+        navigationItem.title = String.navigationBarTitle
+    }
+    
+    private func setDelegateAndDataSource() {
         todoTableView.dataSource = self
         todoTableView.delegate = self
         todoTableView.dragDelegate = self
@@ -42,29 +63,6 @@ class MainViewController: UIViewController {
         doneTableView.delegate = self
         doneTableView.dragDelegate = self
         doneTableView.dropDelegate = self
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadTableView), name: NSNotification.Name(rawValue: "reloadView"), object: nil)
-            }
-    
-    @objc private func reloadTableView() {
-            DispatchQueue.main.async {
-                self.todoTableView.reloadData()
-                self.doingTableView.reloadData()
-                self.doneTableView.reloadData()
-                self.reloadCountLabel()
-            }
-        }
-        
-        private func reloadCountLabel() {
-            todoHeaderView.numberLabel.text = String(Todos.common.todoList.count)
-            doingHeaderView.numberLabel.text = String(Todos.common.doingList.count)
-            doneHeaderView.numberLabel.text = String(Todos.common.doneList.count)
-        }
-    
-    private func configureNavigationBar() {
-        navigationController?.isToolbarHidden = false
-        navigationItem.rightBarButtonItem = .init(barButtonSystemItem: .add, target: self, action: #selector(touchUpAddButton))
-        navigationItem.title = String.navigationBarTitle
     }
     
     @objc private func touchUpAddButton() {
@@ -85,6 +83,11 @@ class MainViewController: UIViewController {
     private func configureMainView() {
         let stackView = UIStackView(arrangedSubviews: [todoTableView, doingTableView, doneTableView])
         let safeArea = view.safeAreaLayoutGuide
+        
+        todoTableView.backgroundColor = .systemGroupedBackground
+        doingTableView.backgroundColor = .systemGroupedBackground
+        doneTableView.backgroundColor = .systemGroupedBackground
+        
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
         stackView.spacing = 10
@@ -143,6 +146,26 @@ extension MainViewController: UITableViewDataSource {
         } else {
             return Todos.common.doneList.count
         }
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if tableView == todoTableView {
+            if editingStyle == .delete {
+                Todos.common.todoList.remove(at: indexPath.row)
+                reloadCountLabel()
+            }
+        } else if tableView == doingTableView {
+            if editingStyle == .delete {
+                Todos.common.doingList.remove(at: indexPath.row)
+                reloadCountLabel()
+            }
+        } else {
+            if editingStyle == .delete {
+                Todos.common.doneList.remove(at: indexPath.row)
+                reloadCountLabel()
+            }
+        }
+        tableView.deleteRows(at: [indexPath], with: .fade)
     }
 }
 
