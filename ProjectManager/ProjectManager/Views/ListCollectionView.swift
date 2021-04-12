@@ -40,7 +40,11 @@ extension ListCollectionView {
                 return UICollectionViewCell()
             }
             cell.contentView.backgroundColor = .white
-            cell.configure(thing: thing)
+            if self.checkIsDatePassed(thing.dueDate ?? 0.0) {
+                cell.configure(thing: thing, datePassed: true)
+            } else {
+                cell.configure(thing: thing, datePassed: false)
+            }
             return cell
         })
         

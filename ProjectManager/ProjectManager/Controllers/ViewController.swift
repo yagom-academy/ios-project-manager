@@ -7,8 +7,6 @@
 import UIKit
 
 class ViewController: UIViewController {
-    var diffableDataSource: UICollectionViewDiffableDataSource<State, Thing>!
-    
     let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -38,7 +36,9 @@ class ViewController: UIViewController {
         secondCollectionView.dropDelegate = self
         thirdCollectionView.dragDelegate = self
         thirdCollectionView.dropDelegate = self
-        
+        firstCollectionView.dragInteractionEnabled = true
+        secondCollectionView.dragInteractionEnabled = true
+        thirdCollectionView.dragInteractionEnabled = true
     }
     
     private func setNavigation() {
