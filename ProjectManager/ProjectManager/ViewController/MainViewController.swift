@@ -30,6 +30,8 @@ class MainViewController: UIViewController {
             return
         }
         
+        cardViewController.delegate = self
+        
         if let card = sender as? Card {
             cardViewController.mode = .presentCard
             cardViewController.card = card
@@ -104,5 +106,20 @@ extension MainViewController: UITableViewDataSource {
         cell.configure(card: card)
         
         return cell
+    }
+}
+
+extension MainViewController: CardViewControllerDelegate {
+    func cardViewController(_ cardViewController: CardViewController, card: Card) {
+        guard let index = dataManager.cardIndex(card: card) else { return }
+        
+        switch card.status {
+        case .todo:
+            todoCardsTableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+        case .doing:
+            doingCardsTableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+        case .done:
+            doneCardsTableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+        }
     }
 }

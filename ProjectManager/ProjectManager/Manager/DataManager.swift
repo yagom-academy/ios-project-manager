@@ -38,4 +38,14 @@ class DataManager {
     func cardCount(status: Card.Status) -> Int {
         return cards[status.index].count
     }
+    
+    func updateCard(with card: Card) {
+        guard let index = cards[card.status.index].firstIndex(where: {$0.id == card.id}) else { return }
+        
+        cards[card.status.index][index].update(card: card)
+    }
+    
+    func cardIndex(card: Card) -> Int? {
+        return cards[card.status.index].firstIndex(where: {$0.id == card.id})
+    }
 }

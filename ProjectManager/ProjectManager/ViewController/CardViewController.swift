@@ -7,6 +7,9 @@
 
 import UIKit
 
+protocol CardViewControllerDelegate {
+    func cardViewController(_ cardViewController: CardViewController, card: Card)
+}
 
 
 class CardViewController: UIViewController {
@@ -42,7 +45,11 @@ class CardViewController: UIViewController {
         button.tag = BarButton.edit.tag
         return button
     }()
-    
+    private lazy var dataManager: DataManager = {
+        return DataManager.shared
+    }()
+
+    var delegate: CardViewControllerDelegate?
     var mode: Mode = .addCard
     var card: Card?
     var isCardEditable: Bool {
@@ -126,6 +133,18 @@ class CardViewController: UIViewController {
     }
     
     func saveCard() {
+        guard var editedCard = self.card else { return }
+        guard let title = titleTextView.text,
+              let descriptions = descriptionsTextView.text else { return }
+        let deadline = Int(deadlineDatePicker.date.timeIntervalSince1970)
+
+        editedCard.title = title
+        editedCard.descriptions = descriptions
+        editedCard.deadline = deadline
         
+        dataManager.updateCard(with: editedCard)
+        if let card = self.card {
+            delegate?.cardViewController(self, card: card)
+        }
     }
 }

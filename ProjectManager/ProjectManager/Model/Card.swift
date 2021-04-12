@@ -25,7 +25,7 @@ struct Card: Codable {
     var title: String
     var descriptions: String?
     var deadline: Int?
-    var status: Status?
+    var status: Status
     
     var deadlineDate: Date? {
         if let deadline = deadline {
