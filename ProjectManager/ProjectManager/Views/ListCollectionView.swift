@@ -6,64 +6,44 @@ class ListCollectionView: UICollectionView {
     }
     
     var collectionType: State
-    
-    lazy var diffableDataSource: UICollectionViewDiffableDataSource<Section, Thing> = {
-        return UICollectionViewDiffableDataSource<Section, Thing>(collectionView: self) { (collectionView, indexPath, thing) -> UICollectionViewCell? in
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ItemCell.identifier, for: indexPath) as? ItemCell else {
-                return UICollectionViewCell()
-            }
-            
-            if self.checkIsDatePassed(thing.dueDate ?? 0.0) {
-                cell.configure(thing: thing, datePassed: true)
-            } else {
-                cell.configure(thing: thing, datePassed: false)
-            }
-            
-            cell.contentView.backgroundColor = .white
-            return cell
-        }
-    }()
+    var things: [Thing]
+    var diffableDataSource: UICollectionViewDiffableDataSource<State, Thing>!
+
     
     init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout, collectionType: State) {
         self.collectionType = collectionType
+        self.things = DataSource.shared.getDataByState(state: collectionType)
+        
         super.init(frame: frame, collectionViewLayout: layout)
-        register(ItemCell.self, forCellWithReuseIdentifier: ItemCell.identifier)
-        register(HeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HeaderView.reuseIdentifier)
-        backgroundColor = .systemGray6
-        configureLayout()
+        configureCollectionView()
         configureDataSource()
-        // Hide scroll bar
-        self.showsVerticalScrollIndicator = false
+        configureSnapshot()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    private func configureCollectionView() {
+        backgroundColor = .systemGray6
+        register(ItemCell.self, forCellWithReuseIdentifier: ItemCell.identifier)
+        register(HeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HeaderView.reuseIdentifier)
+        collectionViewLayout = UIHelper.shared.configureCollectionLayout()
+        self.showsVerticalScrollIndicator = false
+    }
 }
 
 extension ListCollectionView {
-    private func configureLayout() {
-        let size = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(44))
-        let item = NSCollectionLayoutItem(layoutSize: size)
-
-        let group = NSCollectionLayoutGroup.vertical(layoutSize: size, subitems: [item])
-
-        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(48))
-        let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
-
-        let section = NSCollectionLayoutSection(group: group)
-        section.boundarySupplementaryItems = [sectionHeader]
-        section.interGroupSpacing = 8
-
-        let layout = UICollectionViewCompositionalLayout(section: section)
-        self.collectionViewLayout = layout
-    }
-
     private func configureDataSource() {
-        var initialSnapShot = NSDiffableDataSourceSnapshot<Section, Thing>()
-        initialSnapShot.appendSections([.main])
-        initialSnapShot.appendItems(things)
-
+        diffableDataSource = UICollectionViewDiffableDataSource<State, Thing>(collectionView: self, cellProvider: { (collectionView, indexPath, thing) -> UICollectionViewCell? in
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ItemCell.identifier, for: indexPath) as? ItemCell else {
+                return UICollectionViewCell()
+            }
+            cell.contentView.backgroundColor = .white
+            cell.configure(thing: thing)
+            return cell
+        })
+        
         diffableDataSource.supplementaryViewProvider = { (collectionView: UICollectionView, kind: String, indexPath: IndexPath) -> UICollectionReusableView? in
             guard let supplementaryView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: HeaderView.reuseIdentifier, for: indexPath) as? HeaderView else {
                 return nil
@@ -71,16 +51,37 @@ extension ListCollectionView {
             supplementaryView.configure(headerType: self.collectionType)
             return supplementaryView
         }
-
-        diffableDataSource.apply(initialSnapShot, animatingDifferences: false)
     }
     
-    func updateDataSource(with thing: Thing) {
-        self.things.append(thing)
-        var snapShot = NSDiffableDataSourceSnapshot<Section, Thing>()
-        snapShot.appendSections([.main])
-        snapShot.appendItems(self.things)
-        diffableDataSource.apply(snapShot)
+    func insertDataSource(thing: Thing, state: State) {
+        var snapshot = diffableDataSource.snapshot()
+        snapshot.appendItems([thing], toSection: state)
+        diffableDataSource.apply(snapshot, animatingDifferences: true)
+    }
+    
+    func deleteDataSource(thing: Thing) {
+        var snapshot = diffableDataSource.snapshot()
+        snapshot.deleteItems([thing])
+        diffableDataSource.apply(snapshot, animatingDifferences: true)
+    }
+    
+    func reorderDataSource(destinationIndexPath: IndexPath, thing: Thing) {
+        var snapshot = diffableDataSource.snapshot()
+
+        if let lastItem = diffableDataSource.itemIdentifier(for: destinationIndexPath) {
+            snapshot.insertItems([thing], beforeItem: lastItem)
+        } else {
+            snapshot.appendItems([thing])
+        }
+        
+        diffableDataSource.apply(snapshot)
+    }
+    
+    private func configureSnapshot() {
+        var initialSnapshot = NSDiffableDataSourceSnapshot<State, Thing>()
+        initialSnapshot.appendSections([collectionType])
+        initialSnapshot.appendItems(things)
+        diffableDataSource.apply(initialSnapshot, animatingDifferences: true)
     }
     
     func checkIsDatePassed(_ date: Double) -> Bool {
