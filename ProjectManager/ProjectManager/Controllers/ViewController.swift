@@ -7,7 +7,6 @@
 import UIKit
 
 class ViewController: UIViewController {
-    
     let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -31,9 +30,15 @@ class ViewController: UIViewController {
         stackView.addArrangedSubview(secondCollectionView)
         stackView.addArrangedSubview(thirdCollectionView)
 
-        firstCollectionView.delegate = self
-        secondCollectionView.delegate = self
-        thirdCollectionView.delegate = self
+        firstCollectionView.dragDelegate = self
+        firstCollectionView.dropDelegate = self
+        secondCollectionView.dragDelegate = self
+        secondCollectionView.dropDelegate = self
+        thirdCollectionView.dragDelegate = self
+        thirdCollectionView.dropDelegate = self
+        firstCollectionView.dragInteractionEnabled = true
+        secondCollectionView.dragInteractionEnabled = true
+        thirdCollectionView.dragInteractionEnabled = true
     }
     
     private func setNavigation() {
@@ -43,6 +48,19 @@ class ViewController: UIViewController {
     
     @objc private func goToAddTodoViewController() {
         didTapAddButton(with: firstCollectionView)
+    }
+    
+    private func deleteFromBefore(thing: Thing) {
+        switch thing.state {
+        case .todo:
+            firstCollectionView.deleteDataSource(thing: thing)
+        case .doing:
+            secondCollectionView.deleteDataSource(thing: thing)
+        case .done:
+            thirdCollectionView.deleteDataSource(thing: thing)
+        default:
+            return
+        }
     }
 }
 
@@ -54,17 +72,62 @@ extension ViewController {
     }
 }
 
-extension ViewController: UICollectionViewDelegate {
-    //MARK:- Cell 터치 시, 상세 내용 표시
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let collectionView = collectionView as? ListCollectionView else { return }
-        let descriptionViewController = UINavigationController(rootViewController: AddTodoViewController(collectionView: collectionView))
-        descriptionViewController.modalPresentationStyle = .formSheet
-        self.present(descriptionViewController, animated: true) {
-            guard let presentedContentView = descriptionViewController.viewControllers.last as? AddTodoViewController else { return }
-            presentedContentView.textField.isUserInteractionEnabled = false
-            presentedContentView.datePicker.isUserInteractionEnabled = false
-            presentedContentView.textView.isUserInteractionEnabled = false
+//MARK: - UICollectionViewDragDelegate -
+extension ViewController: UICollectionViewDragDelegate {
+    func collectionView(_ collectionView: UICollectionView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        guard let collectionView = collectionView as? ListCollectionView,
+              let thing = collectionView.diffableDataSource.itemIdentifier(for: indexPath) else {
+            return []
+        }
+        
+        let itemProvider = NSItemProvider(object: thing)
+        let dragItem = UIDragItem(itemProvider: itemProvider)
+        
+        return [dragItem]
+    }
+}
+
+
+//MARK: - UICollectionViewDropDelegate -
+extension ViewController: UICollectionViewDropDelegate {
+    func collectionView(_ collectionView: UICollectionView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UICollectionViewDropProposal {
+        var dropProposal = UICollectionViewDropProposal(operation: .cancel)
+        guard session.items.count == 1 else {
+            return dropProposal
+        }
+        if collectionView.hasActiveDrag {
+            dropProposal = UICollectionViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
+        } else {
+            dropProposal = UICollectionViewDropProposal(operation: .copy, intent: .insertAtDestinationIndexPath)
+        }
+        return dropProposal
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator) {
+        guard let collectionView = collectionView as? ListCollectionView else {
+            return
+        }
+        
+        let destinationIndexPath: IndexPath
+        
+        if let indexPath = coordinator.destinationIndexPath {
+            destinationIndexPath = indexPath
+        } else {
+            let section = collectionView.numberOfSections - 1
+            let row = collectionView.numberOfItems(inSection: section)
+            destinationIndexPath = IndexPath(row: row, section: section)
+        }
+        
+        coordinator.session.loadObjects(ofClass: Thing.self) { [weak self] (items) in
+            guard let self = self else { return }
+            let thingItem = items as! [Thing]
+            let thing = thingItem.first!
+            let state = collectionView.collectionType
+            
+            self.deleteFromBefore(thing: thing)
+            thing.state = state
+            collectionView.reorderDataSource(destinationIndexPath: destinationIndexPath, thing: thing)
+
         }
     }
 }
