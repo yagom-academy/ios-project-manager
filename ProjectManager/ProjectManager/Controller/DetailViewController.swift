@@ -49,87 +49,90 @@ class DetailViewController: UIViewController {
     }
     
     private func configureDetailView() {
-            if isEdit {
-                changeToUneditable()
-                titleTextField.text = todo?.title
-                let date = Date(timeIntervalSince1970: todo?.deadline ?? 0)
-                datePicker.date = date
-                descriptionTextView.text = todo?.description
-            }
+        if isEdit {
+            changeToUneditable()
+            titleTextField.text = todo?.title
+            let date = Date(timeIntervalSince1970: todo?.deadline ?? 0)
+            datePicker.date = date
+            descriptionTextView.text = todo?.description
         }
+    }
     
     private func changeToEditable() {
-            titleTextField.isUserInteractionEnabled = true
-            datePicker.isUserInteractionEnabled = true
-            descriptionTextView.isEditable = true
-        }
+        titleTextField.isUserInteractionEnabled = true
+        datePicker.isUserInteractionEnabled = true
+        descriptionTextView.isEditable = true
+    }
     
     private func changeToUneditable() {
-          titleTextField.isUserInteractionEnabled = false
-          datePicker.isUserInteractionEnabled = false
-          descriptionTextView.isEditable = false
-      }
+        titleTextField.isUserInteractionEnabled = false
+        datePicker.isUserInteractionEnabled = false
+        descriptionTextView.isEditable = false
+    }
     
     @objc private func touchUpEditButton() {
-           navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(touchUpCancelButton))
-           changeToEditable()
-       }
-       
-       @objc private func touchUpDoneButton() {
-           if let title = titleTextField.text, let description = descriptionTextView.text  {
-               let deadline = datePicker.date.timeIntervalSince1970
-               let todo = Todo(title: title, description: description, deadline: deadline)
-               if isEdit {
-                   if tableViewName == String.todo {
-                       Todos.common.todoList[index] = todo
-                   } else if tableViewName == String.doing {
-                       Todos.common.doingList[index] = todo
-                   } else {
-                       Todos.common.doneList[index] = todo
-                   }
-               } else {
-                   Todos.common.todoList.append(todo)
-               }
-           }
-           NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadView"), object: nil)
-           dismiss(animated: true, completion: nil)
-       }
-       
-       @objc private func touchUpCancelButton() {
-           dismiss(animated: true, completion: nil)
-       }
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(touchUpCancelButton))
+        changeToEditable()
+    }
+    
+    @objc private func touchUpDoneButton() {
+        if let title = titleTextField.text, let description = descriptionTextView.text  {
+            let deadline = datePicker.date.timeIntervalSince1970
+            let todo = Todo(title: title, description: description, deadline: deadline)
+            if isEdit, let state = tableViewName {
+                switch state {
+                case .todo:
+                    Todos.common.todoList[index] = todo
+                case .doing:
+                    Todos.common.doingList[index] = todo
+                case .done:
+                    Todos.common.doneList[index] = todo
+                default:
+                    break
+                }
+            } else {
+                Todos.common.todoList.append(todo)
+            }
+        }
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadView"), object: nil)
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @objc private func touchUpCancelButton() {
+        dismiss(animated: true, completion: nil)
+    }
     
     private func configureNavigationBar() {
-            if isEdit {
-                navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(touchUpEditButton))
-            } else {
-                navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(touchUpCancelButton))
-            }
-            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector (touchUpDoneButton))
-            title = String.todo
+        if isEdit {
+            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(touchUpEditButton))
+        } else {
+            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(touchUpCancelButton))
         }
-
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector (touchUpDoneButton))
+        title = String.todo
+    }
+    
     private func configureConstraints() {
-           let safeArea = view.safeAreaLayoutGuide
-           view.backgroundColor = .white
-           view.addSubview(titleTextField)
-           view.addSubview(datePicker)
-           view.addSubview(descriptionTextView)
-           
-           NSLayoutConstraint.activate([
-               titleTextField.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 10),
-               titleTextField.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -10),
-               titleTextField.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 10),
-               titleTextField.heightAnchor.constraint(equalToConstant: 50),
-               
-               datePicker.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 10),
-               datePicker.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -10),
-               datePicker.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 10),
-               
-               descriptionTextView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 10),
-               descriptionTextView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -10),
-               descriptionTextView.topAnchor.constraint(equalTo: datePicker.bottomAnchor, constant: 10),
-               descriptionTextView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -10),
-           ])
-       }
-   }
+        let safeArea = view.safeAreaLayoutGuide
+        view.backgroundColor = .white
+        view.addSubview(titleTextField)
+        view.addSubview(datePicker)
+        view.addSubview(descriptionTextView)
+        
+        NSLayoutConstraint.activate([
+            titleTextField.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 10),
+            titleTextField.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -10),
+            titleTextField.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 10),
+            titleTextField.heightAnchor.constraint(equalToConstant: 50),
+            
+            datePicker.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 10),
+            datePicker.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -10),
+            datePicker.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 10),
+            
+            descriptionTextView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 10),
+            descriptionTextView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -10),
+            descriptionTextView.topAnchor.constraint(equalTo: datePicker.bottomAnchor, constant: 10),
+            descriptionTextView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -10),
+        ])
+    }
+}
