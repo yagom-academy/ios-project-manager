@@ -8,6 +8,7 @@ class ListCollectionView: UICollectionView {
     var collectionType: State
     var things: [Thing]
     var diffableDataSource: UICollectionViewDiffableDataSource<State, Thing>!
+
     
     init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout, collectionType: State) {
         self.collectionType = collectionType
@@ -81,5 +82,14 @@ extension ListCollectionView {
         initialSnapshot.appendSections([collectionType])
         initialSnapshot.appendItems(things)
         diffableDataSource.apply(initialSnapshot, animatingDifferences: true)
+    }
+    
+    func checkIsDatePassed(_ date: Double) -> Bool {
+        let currentDate = Date().timeIntervalSince1970
+        if date < currentDate {
+            return true
+        } else {
+            return false
+        }
     }
 }
