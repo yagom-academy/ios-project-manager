@@ -12,7 +12,7 @@ class MainViewController: UIViewController {
     @IBOutlet weak var doingCardsTableView: CardsTableView!
     @IBOutlet weak var doneCardsTableView: CardsTableView!
     
-    private let presentCardDetailSegueIdentifier: String = "presentCardDetail"
+    private let presentCardSegueIdentifier: String = "presentCard"
     private lazy var dataManager: DataManager = {
         return DataManager.shared
     }()
@@ -31,14 +31,15 @@ class MainViewController: UIViewController {
         }
         
         if let card = sender as? Card {
+            cardViewController.mode = .presentCard
             cardViewController.card = card
         } else {
-            
+            cardViewController.mode = .addCard
         }
     }
     
     @IBAction func touchUpAddButton(_ sender: Any) {
-        performSegue(withIdentifier: presentCardDetailSegueIdentifier, sender: nil)
+        performSegue(withIdentifier: presentCardSegueIdentifier, sender: nil)
     }
     
     
@@ -58,7 +59,7 @@ extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let status = Card.Status(rawValue: tableView.tag) {
             let card = dataManager.card(status: status, index: indexPath.row)
-            performSegue(withIdentifier: presentCardDetailSegueIdentifier, sender: card)
+            performSegue(withIdentifier: presentCardSegueIdentifier, sender: card)
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }

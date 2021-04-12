@@ -10,17 +10,40 @@ import UIKit
 
 
 class CardViewController: UIViewController {
-    @IBOutlet weak var navigationBar: UINavigationBar!
-    @IBOutlet weak var titleTextView: UITextView!
-    @IBOutlet weak var descriptionsTextView: UITextView!
-    @IBOutlet weak var deadlineDatePicker: UIDatePicker! {
+    enum Mode {
+        case addCard
+        case presentCard
+    }
+    
+    private enum BarButton: Int {
+        case done = 0
+        case cancel
+        case edit
+        
+        var tag: Int {
+            return self.rawValue
+        }
+    }
+    
+    @IBOutlet private weak var navigationBar: UINavigationBar!
+    @IBOutlet private weak var titleTextView: UITextView!
+    @IBOutlet private weak var descriptionsTextView: UITextView!
+    @IBOutlet private weak var deadlineDatePicker: UIDatePicker! {
         didSet {
             if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
                 deadlineDatePicker.locale = appDelegate.locale
             }
         }
     }
+    @IBOutlet private weak var doneBarButton: UIBarButtonItem!
+    @IBOutlet private var cancelBarButton: UIBarButtonItem!
+    private lazy var editBarButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(barButtonPressed(_:)))
+        button.tag = BarButton.edit.tag
+        return button
+    }()
     
+    var mode: Mode = .addCard
     var card: Card?
     var isCardEditable: Bool {
         get {
@@ -33,50 +56,61 @@ class CardViewController: UIViewController {
             deadlineDatePicker.isUserInteractionEnabled = value
         }
     }
-    
-    private enum BarButtonTag: Int {
-        case done
-        case cancel
-        case edit
-        case save
-    }
     private var _cardEditable: Bool = false
-    private lazy var editButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(barButtonPressed(_:)))
-        button.tag = BarButtonTag.edit.rawValue
-        return button
-    }()
-    private lazy var saveButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(barButtonPressed(_:)))
-        button.tag = BarButtonTag.save.rawValue
-        button.tintColor = .systemRed
-        return button
-    }()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if let card = card {
-            navigationBar.topItem?.leftBarButtonItem = editButton
-            setupCard(card)
+        switch mode {
+        case .addCard:
+            isCardEditable = true
+        case .presentCard:
+            navigationBar.topItem?.leftBarButtonItem = editBarButton
+            if let card = card {
+                setupCard(card)
+            }
         }
+        
     }
     
     @IBAction private func barButtonPressed(_ sender: Any) {
         guard let button = sender as? UIBarButtonItem,
-              let barButtontag = BarButtonTag(rawValue: button.tag) else { return }
+              let barButton = BarButton(rawValue: button.tag) else { return }
         
-        switch barButtontag {
-            case .done, .cancel:
-                dismiss(animated: true, completion: nil)
-            case .edit:
-                navigationBar.topItem?.setLeftBarButton(saveButton, animated: true)
-                isCardEditable = true
-            case .save:
-                navigationBar.topItem?.setLeftBarButton(editButton, animated: true)
-                isCardEditable = false
+        switch mode {
+        case .addCard:
+            barButtonPressedOnAddCardMode(barButton: barButton)
+        case .presentCard:
+            barButtonPressedOnPresentCardMode(barButton: barButton)
         }
-        
+    }
+    
+    private func barButtonPressedOnAddCardMode(barButton: BarButton) {
+        switch barButton {
+        case .done:
+            saveCard()
+            dismiss(animated: true, completion: nil)
+        case .cancel:
+            dismiss(animated: true, completion: nil)
+        case .edit:
+            navigationBar.topItem?.setLeftBarButton(cancelBarButton, animated: true)
+            isCardEditable = true
+        }
+    }
+    
+    private func barButtonPressedOnPresentCardMode(barButton: BarButton) {
+        switch barButton {
+        case .done:
+            saveCard()
+            dismiss(animated: true, completion: nil)
+        case .cancel:
+            navigationBar.topItem?.setLeftBarButton(editBarButton, animated: true)
+            isCardEditable = false
+        case .edit:
+            navigationBar.topItem?.setLeftBarButton(cancelBarButton, animated: true)
+            isCardEditable = true
+        }
     }
     
     func setupCard(_ card: Card) {
@@ -89,5 +123,9 @@ class CardViewController: UIViewController {
         if let deadlineDate = card.deadlineDate {
             deadlineDatePicker.date = deadlineDate
         }
+    }
+    
+    func saveCard() {
+        
     }
 }
