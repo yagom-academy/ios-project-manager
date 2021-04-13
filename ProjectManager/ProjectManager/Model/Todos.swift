@@ -16,57 +16,51 @@ final class Todos {
     var doneList: [Todo] = [Todo(title: "저녁 재료사기", description: "마트에서", deadline: 1611123563.702304)]
 
     private func deleteItem(at index: Int, from listName: String) {
-        if listName == String.todo {
-            self.todoList.remove(at: index)
-        } else if listName == String.doing {
-            self.doingList.remove(at: index)
-        } else {
-            self.doneList.remove(at: index)
-        }
-    }
+         if listName == State.todo.rawValue {
+             self.todoList.remove(at: index)
+         } else if listName == State.doing.rawValue {
+             self.doingList.remove(at: index)
+         } else {
+             self.doneList.remove(at: index)
+         }
+     }
     
     private func insertItem(todo: Todo, at index: Int, from listName: String) {
-        if listName == String.todo {
-            self.todoList.insert(todo, at: index)
-        } else if listName == String.doing {
-            self.doingList.insert(todo, at: index)
-        } else {
-            self.doneList.insert(todo, at: index)
-        }
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadView"), object: nil)
-    }
+           if listName == State.todo.rawValue {
+               self.todoList.insert(todo, at: index)
+           } else if listName == State.doing.rawValue {
+               self.doingList.insert(todo, at: index)
+           } else {
+               self.doneList.insert(todo, at: index)
+           }
+           NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadView"), object: nil)
+       }
     
     func dragItems(for indexPath: IndexPath, from tableView: String) -> [UIDragItem] {
-        var todo = Todo(title: String.empty, description: String.empty, deadline: 0)
-        if tableView == String.todo {
-            todo = todoList[indexPath.row]
-        } else if tableView == String.doing {
-            todo = doingList[indexPath.row]
-        } else {
-            todo = doneList[indexPath.row]
-        }
-        let data = try? JSONEncoder().encode(todo)
-        let itemProvider = NSItemProvider()
-        itemProvider.registerDataRepresentation(forTypeIdentifier: kUTTypeJSON as String, visibility: .all) { completion in
-            completion(data, nil)
-            return nil
-        }
-        self.deleteItem(at: indexPath.row, from: tableView)
-        return [UIDragItem(itemProvider: itemProvider)]
-    }
+          var todo = Todo(title: State.empty.rawValue, description: State.empty.rawValue, deadline: 0)
+          if tableView == State.todo.rawValue {
+              todo = todoList[indexPath.row]
+          } else if tableView == State.doing.rawValue {
+              todo = doingList[indexPath.row]
+          } else {
+              todo = doneList[indexPath.row]
+          }
+          let data = try? JSONEncoder().encode(todo)
+          let itemProvider = NSItemProvider()
+          itemProvider.registerDataRepresentation(forTypeIdentifier: kUTTypeJSON as String, visibility: .all) { completion in
+              completion(data, nil)
+              return nil
+          }
+          self.deleteItem(at: indexPath.row, from: tableView)
+          return [UIDragItem(itemProvider: itemProvider)]
+      }
     
     func dropItems(for indexPath: IndexPath, from tableView: String, dropItems: [UITableViewDropItem]) {
         guard let dropItem = dropItems.first else {
             return
         }
         dropItem.dragItem.itemProvider.loadDataRepresentation(forTypeIdentifier: kUTTypeJSON as String){ data, error in
-            guard error == nil else{
-                return
-            }
-            guard let data = data else {
-                return
-            }
-            guard let todo = try? JSONDecoder().decode(Todo.self, from: data) else {
+            guard error == nil, let data = data, let todo = try? JSONDecoder().decode(Todo.self, from: data) else {
                 return
             }
             self.insertItem(todo: todo, at: indexPath.row, from: tableView)

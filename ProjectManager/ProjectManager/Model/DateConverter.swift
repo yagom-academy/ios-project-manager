@@ -1,23 +1,15 @@
 //
-//  Extension.swift
+//  DateConverter.swift
 //  ProjectManager
 //
-//  Created by 김태형 on 2021/04/08.
+//  Created by 김태형 on 2021/04/13.
 //
 
 import Foundation
 
-extension String {
-    static let navigationBarTitle = "Project Manager"
-    static let empty = ""
-    static let todo = "TODO"
-    static let doing = "DOING"
-    static let done = "DONE"
-}
-
-extension DateFormatter {
+struct DateConverter {
     
-    func convertToLocaleDate(_ unixTimestamp: Double) -> String {
+    static func convertToLocaleDate(_ unixTimestamp: Double) -> String {
         let dateFormatter = DateFormatter()
         let date = Date(timeIntervalSince1970: unixTimestamp)
         dateFormatter.locale = Locale.autoupdatingCurrent
@@ -27,4 +19,3 @@ extension DateFormatter {
         return dateString
     }
 }
-

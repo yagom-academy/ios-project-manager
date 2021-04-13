@@ -1,3 +1,9 @@
+//
+//  DetailViewController.swift
+//  ProjectManager
+//
+//  Created by 김태형 on 2021/03/30.
+//
 import UIKit
 
 class DetailViewController: UIViewController {
@@ -81,11 +87,11 @@ class DetailViewController: UIViewController {
             let todo = Todo(title: title, description: description, deadline: deadline)
             if isEdit, let state = tableViewName {
                 switch state {
-                case .todo:
+                case State.todo.rawValue:
                     Todos.common.todoList[index] = todo
-                case .doing:
+                case State.doing.rawValue:
                     Todos.common.doingList[index] = todo
-                case .done:
+                case State.done.rawValue:
                     Todos.common.doneList[index] = todo
                 default:
                     break
@@ -109,7 +115,7 @@ class DetailViewController: UIViewController {
             navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(touchUpCancelButton))
         }
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector (touchUpDoneButton))
-        title = String.todo
+        title = State.todo.rawValue
     }
     
     private func configureConstraints() {

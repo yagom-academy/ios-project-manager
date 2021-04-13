@@ -15,6 +15,6 @@ struct Todo: Codable {
         case title, description, deadline
     }
     var convertedDate: String {
-        return DateFormatter().convertToLocaleDate(deadline)
+        return DateConverter.convertToLocaleDate(deadline)
     }
 }

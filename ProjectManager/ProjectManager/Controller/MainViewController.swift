@@ -12,9 +12,9 @@ class MainViewController: UIViewController {
     private var doingTableView = UITableView(frame: .zero, style: .grouped)
     private var doneTableView = UITableView(frame: .zero, style: .grouped)
     
-    private let todoHeaderView = HeaderView(Todos.common.todoList.count, title: String.todo)
-    private let doingHeaderView = HeaderView(Todos.common.doingList.count, title: String.doing)
-    private let doneHeaderView = HeaderView(Todos.common.doneList.count, title: String.done)
+    private let todoHeaderView = HeaderView(Todos.common.todoList.count, title: State.todo.rawValue)
+    private let doingHeaderView = HeaderView(Todos.common.doingList.count, title: State.doing.rawValue)
+    private let doneHeaderView = HeaderView(Todos.common.doneList.count, title: State.done.rawValue)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,7 +45,7 @@ class MainViewController: UIViewController {
     private func configureNavigationBar() {
         navigationController?.isToolbarHidden = false
         navigationItem.rightBarButtonItem = .init(barButtonSystemItem: .add, target: self, action: #selector(touchUpAddButton))
-        navigationItem.title = String.navigationBarTitle
+        navigationItem.title = NavigationBar.title.rawValue
     }
     
     private func setDelegateAndDataSource() {
@@ -130,11 +130,11 @@ class MainViewController: UIViewController {
     private func stateForTableView(_ tableView: UITableView) -> String? {
         switch tableView {
         case todoTableView:
-            return String.todo
+            return State.todo.rawValue
         case doingTableView:
-            return String.doing
+            return State.doing.rawValue
         case doneTableView:
-            return String.done
+            return State.done.rawValue
         default:
             return nil
         }
@@ -184,6 +184,7 @@ extension MainViewController: UITableViewDelegate {
         guard let list = listForTableView(tableView),
               let state = stateForTableView(tableView) else {
             return
+
         }
         showDetailView(isEdit: true, todo: list[indexPath.row], tableView: state, index: indexPath.row)
         tableView.deselectRow(at: indexPath, animated: true)
@@ -193,6 +194,7 @@ extension MainViewController: UITableViewDelegate {
 extension MainViewController: UITableViewDragDelegate {
     
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+
         guard let state = stateForTableView(tableView) else {
             return []
         }
@@ -207,7 +209,6 @@ extension MainViewController: UITableViewDropDelegate {
         guard let state = stateForTableView(tableView) else {
             return
         }
-        
         var indexPath: IndexPath
         if let destinationIndexPath = coordinator.destinationIndexPath {
             indexPath = destinationIndexPath
@@ -216,7 +217,6 @@ extension MainViewController: UITableViewDropDelegate {
             let row = tableView.numberOfRows(inSection: section)
             indexPath = IndexPath(row: row, section: section)
         }
-        
         Todos.common.dropItems(for: indexPath, from: state, dropItems: coordinator.items)
     }
 }
