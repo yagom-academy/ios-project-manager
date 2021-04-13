@@ -6,3 +6,7 @@
 //
 
 import Foundation
+
+enum NavigationBar: String {
+    case title = "Project Manager"
+}

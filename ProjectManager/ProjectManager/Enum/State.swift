@@ -14,7 +14,3 @@ enum State : String {
     case done = "DONE"
 }
 
-enum NavigationBar: String {
-    case title = "Project Manager"
-}
-
