@@ -219,4 +219,8 @@ extension MainViewController: UITableViewDropDelegate {
         }
         Todos.common.dropItems(for: indexPath, from: state, dropItems: coordinator.items)
     }
+    
+    func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
+            return UITableViewDropProposal(operation: .move, intent: .automatic)
+        }
 }
