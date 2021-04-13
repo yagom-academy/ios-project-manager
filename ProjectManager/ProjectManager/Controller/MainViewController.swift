@@ -113,39 +113,48 @@ class MainViewController: UIViewController {
         doingTableView.register(TableViewCell.self, forCellReuseIdentifier: TableViewCell.identifier)
         doneTableView.register(TableViewCell.self, forCellReuseIdentifier: TableViewCell.identifier)
     }
-}
-
-extension MainViewController: UITableViewDataSource {
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: TableViewCell.identifier, for: indexPath) as? TableViewCell else {
-            return UITableViewCell()
-        }
-        
-        if tableView == todoTableView {
-            cell.configure(Todos.common.todoList[indexPath.row])
-            cell.determineColor(Todos.common.todoList[indexPath.row].deadline)
-            return cell
-        } else if tableView == doingTableView {
-            cell.configure(Todos.common.doingList[indexPath.row])
-            cell.determineColor(Todos.common.doingList[indexPath.row].deadline)
-            return cell
-        } else if tableView == doneTableView {
-            cell.configure(Todos.common.doneList[indexPath.row])
-            return cell
-        } else {
-            return UITableViewCell()
+    private func listForTableView(_ tableView: UITableView) -> [Todo]? {
+        switch tableView {
+        case todoTableView:
+            return Todos.common.todoList
+        case doingTableView:
+            return Todos.common.doingList
+        case doneTableView:
+            return Todos.common.doneList
+        default:
+            return nil
         }
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if tableView == todoTableView {
-            return Todos.common.todoList.count
-        } else if tableView == doingTableView {
-            return Todos.common.doingList.count
-        } else {
-            return Todos.common.doneList.count
+    private func stateForTableView(_ tableView: UITableView) -> String? {
+        switch tableView {
+        case todoTableView:
+            return String.todo
+        case doingTableView:
+            return String.doing
+        case doneTableView:
+            return String.done
+        default:
+            return nil
         }
+    }
+}
+
+extension MainViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: TableViewCell.identifier, for: indexPath) as? TableViewCell,
+              let list = listForTableView(tableView) else {
+            return UITableViewCell()
+        }
+        
+        cell.configure(list[indexPath.row])
+        cell.determineColor(list[indexPath.row].deadline)
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return listForTableView(tableView)?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -172,13 +181,11 @@ extension MainViewController: UITableViewDataSource {
 extension MainViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if tableView == todoTableView {
-            showDetailView(isEdit: true, todo: Todos.common.todoList[indexPath.row], tableView: String.todo, index: indexPath.row)
-        } else if tableView == doingTableView {
-            showDetailView(isEdit: true, todo: Todos.common.doingList[indexPath.row], tableView: String.doing, index: indexPath.row)
-        } else {
-            showDetailView(isEdit: true, todo: Todos.common.doneList[indexPath.row], tableView: String.done, index: indexPath.row)
+        guard let list = listForTableView(tableView),
+              let state = stateForTableView(tableView) else {
+            return
         }
+        showDetailView(isEdit: true, todo: list[indexPath.row], tableView: state, index: indexPath.row)
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
@@ -186,22 +193,21 @@ extension MainViewController: UITableViewDelegate {
 extension MainViewController: UITableViewDragDelegate {
     
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
-        var tableViewName = String.empty
-        if tableView == todoTableView {
-            tableViewName = String.todo
-        } else if tableView == doingTableView {
-            tableViewName = String.doing
-        } else {
-            tableViewName = String.done
+        guard let state = stateForTableView(tableView) else {
+            return []
         }
-        return Todos.common.dragItems(for: indexPath, from: tableViewName)
+        
+        return Todos.common.dragItems(for: indexPath, from: state)
     }
 }
 
 extension MainViewController: UITableViewDropDelegate {
     
     func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
-        var tableViewName = String.empty
+        guard let state = stateForTableView(tableView) else {
+            return
+        }
+        
         var indexPath: IndexPath
         if let destinationIndexPath = coordinator.destinationIndexPath {
             indexPath = destinationIndexPath
@@ -210,13 +216,7 @@ extension MainViewController: UITableViewDropDelegate {
             let row = tableView.numberOfRows(inSection: section)
             indexPath = IndexPath(row: row, section: section)
         }
-        if tableView == todoTableView {
-            tableViewName = String.todo
-        } else if tableView == doingTableView {
-            tableViewName = String.doing
-        } else {
-            tableViewName = String.done
-        }
-        Todos.common.dropItems(for: indexPath, from: tableViewName, dropItems: coordinator.items)
+        
+        Todos.common.dropItems(for: indexPath, from: state, dropItems: coordinator.items)
     }
 }
