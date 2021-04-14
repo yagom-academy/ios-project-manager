@@ -1,12 +1,13 @@
 import UIKit
 
-class AddTodoViewController: UIViewController {
+class PopOverViewController: UIViewController {
     
     var collectionView: ListCollectionView?
     
-    init(collectionView: ListCollectionView) {
-        self.collectionView = collectionView
+    init(collectionView: ListCollectionView, leftBarbuttonTitle: String) {
         super.init(nibName: nil, bundle: nil)
+        self.setNavigation(leftBarButtonTitle: leftBarbuttonTitle)
+        self.collectionView = collectionView
     }
     
     required init?(coder: NSCoder) {
@@ -60,7 +61,6 @@ class AddTodoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setStackView()
-        setNavigation()
         setAutoLayout()
     }
     
@@ -71,10 +71,14 @@ class AddTodoViewController: UIViewController {
         stackView.addArrangedSubview(textView)
     }
     
-    private func setNavigation() {
-        navigationItem.title = "TODO"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(didTappedDoneButton))
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(didTappedCancelButton))
+    private func setNavigation(leftBarButtonTitle: String) {
+        navigationItem.title = PopOverNavigationItems.navigationTitle
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: PopOverNavigationItems.doneButton, style: .plain, target: self, action: #selector(didTappedDoneButton))
+        if leftBarButtonTitle == PopOverNavigationItems.cancelButton {
+            navigationItem.leftBarButtonItem = UIBarButtonItem(title: PopOverNavigationItems.cancelButton, style: .plain, target: self, action: #selector(didTappedCancelButton))
+        } else {
+            navigationItem.leftBarButtonItem = UIBarButtonItem(title: PopOverNavigationItems.editButton, style: .plain, target: self, action: #selector(didTappedEditButton))
+        }
     }
     
     @objc private func didTappedDoneButton() {
@@ -85,6 +89,13 @@ class AddTodoViewController: UIViewController {
     
     @objc private func didTappedCancelButton() {
         self.dismiss(animated: true, completion: nil)
+    }
+
+    @objc private func didTappedEditButton() {
+        guard let contentView = self.navigationController?.viewControllers.last as? PopOverViewController else { return }
+        contentView.textField.isUserInteractionEnabled = true
+        contentView.datePicker.isUserInteractionEnabled = true
+        contentView.textView.isUserInteractionEnabled = true
     }
     
     private func setAutoLayout() {
@@ -98,3 +109,27 @@ class AddTodoViewController: UIViewController {
         ])
     }
 }
+
+//extension PopOverViewController {
+//    func configurePopOverView(_ collectionView: ListCollectionView, indexPath: IndexPath) -> UINavigationController? {
+//        let popOverViewController = UINavigationController(rootViewController: PopOverViewController(collectionView: collectionView, leftBarbuttonTitle: PopOverNavigationItems.editButton))
+//
+//        // Pop over presenting
+//        popOverViewController.modalPresentationStyle = .formSheet
+//        guard let presentedContentView = popOverViewController.viewControllers.last as? PopOverViewController else { return nil }
+//
+//        // Description data configuration
+//        guard let itemCell = collectionView.cellForItem(at: indexPath) as? ItemCell else { return nil }
+//        presentedContentView.textField.text = itemCell.titleLabel.text
+//        guard let dateText = itemCell.expirationDateLabel.text, let timeStamp = TimeInterval(dateText) else { return nil }
+//        let unixTimeStamp = Date(timeIntervalSince1970: timeStamp)
+//        presentedContentView.datePicker.setDate(unixTimeStamp, animated: true)
+//        presentedContentView.textView.text = itemCell.descriptionLabel.text
+//
+//        // User interaction blocking
+//        presentedContentView.textField.isUserInteractionEnabled = false
+//        presentedContentView.datePicker.isUserInteractionEnabled = false
+//        presentedContentView.textView.isUserInteractionEnabled = false
+//        return popOverViewController
+//    }
+//}
