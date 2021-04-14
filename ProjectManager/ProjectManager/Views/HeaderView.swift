@@ -23,10 +23,12 @@ class HeaderView: UICollectionReusableView {
     
     func configure(headerType: State) {
         headerLabel.text = headerType.rawValue
+        self.backgroundColor = .systemBackground
     }
     
     func configureConstraints() {
         NSLayoutConstraint.activate([
+            headerLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 8),
             headerLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
             headerLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
             headerLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor)
