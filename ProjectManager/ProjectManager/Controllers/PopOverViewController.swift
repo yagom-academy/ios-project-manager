@@ -96,6 +96,8 @@ class PopOverViewController: UIViewController {
         contentView.textField.isUserInteractionEnabled = true
         contentView.datePicker.isUserInteractionEnabled = true
         contentView.textView.isUserInteractionEnabled = true
+
+        contentView.textField.becomeFirstResponder()
     }
     
     private func setAutoLayout() {
@@ -109,27 +111,3 @@ class PopOverViewController: UIViewController {
         ])
     }
 }
-
-//extension PopOverViewController {
-//    func configurePopOverView(_ collectionView: ListCollectionView, indexPath: IndexPath) -> UINavigationController? {
-//        let popOverViewController = UINavigationController(rootViewController: PopOverViewController(collectionView: collectionView, leftBarbuttonTitle: PopOverNavigationItems.editButton))
-//
-//        // Pop over presenting
-//        popOverViewController.modalPresentationStyle = .formSheet
-//        guard let presentedContentView = popOverViewController.viewControllers.last as? PopOverViewController else { return nil }
-//
-//        // Description data configuration
-//        guard let itemCell = collectionView.cellForItem(at: indexPath) as? ItemCell else { return nil }
-//        presentedContentView.textField.text = itemCell.titleLabel.text
-//        guard let dateText = itemCell.expirationDateLabel.text, let timeStamp = TimeInterval(dateText) else { return nil }
-//        let unixTimeStamp = Date(timeIntervalSince1970: timeStamp)
-//        presentedContentView.datePicker.setDate(unixTimeStamp, animated: true)
-//        presentedContentView.textView.text = itemCell.descriptionLabel.text
-//
-//        // User interaction blocking
-//        presentedContentView.textField.isUserInteractionEnabled = false
-//        presentedContentView.datePicker.isUserInteractionEnabled = false
-//        presentedContentView.textView.isUserInteractionEnabled = false
-//        return popOverViewController
-//    }
-//}
