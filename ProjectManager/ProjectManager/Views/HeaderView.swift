@@ -1,7 +1,7 @@
 import UIKit
 
 class HeaderView: UICollectionReusableView {
-    static let reuseIdentifier = String(describing: HeaderView.self)
+    static let identifier = String(describing: HeaderView.self)
     
     private let headerLabel: UILabel = {
         let label = UILabel()

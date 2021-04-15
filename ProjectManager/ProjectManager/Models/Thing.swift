@@ -47,7 +47,7 @@ final class Thing: NSObject, Codable {
 //MARK: - NSItemProviderWriting -
 extension Thing: NSItemProviderWriting {
     static var writableTypeIdentifiersForItemProvider: [String] {
-        return ["com.holuck"]
+        return ["com.project-manager"]
     }
     
     func loadData(withTypeIdentifier typeIdentifier: String, forItemProviderCompletionHandler completionHandler: @escaping (Data?, Error?) -> Void) -> Progress? {
@@ -66,7 +66,7 @@ extension Thing: NSItemProviderWriting {
 //MARK: - NSItemProviderReading -
 extension Thing: NSItemProviderReading {
     static var readableTypeIdentifiersForItemProvider: [String] {
-        return ["com.holuck"]
+        return ["com.project-manager"]
     }
     
     static func object(withItemProviderData data: Data, typeIdentifier: String) throws -> Thing {

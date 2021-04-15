@@ -1,19 +1,16 @@
 import UIKit
 
 class ListCollectionView: UICollectionView {
-    enum Section {
-        case main
-    }
-    
     var collectionType: State
-    var things: [Thing]
     var diffableDataSource: UICollectionViewDiffableDataSource<State, Thing>!
+    private var things: [Thing]
     
     init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout, collectionType: State) {
         self.collectionType = collectionType
-        self.things = DataSource.shared.getDataByState(state: collectionType)
-        
+        things = DataSource.shared.getDataByState(state: collectionType)
+
         super.init(frame: frame, collectionViewLayout: layout)
+        
         configureCollectionView()
         configureDataSource()
         configureSnapshot()
@@ -26,16 +23,17 @@ class ListCollectionView: UICollectionView {
     private func configureCollectionView() {
         backgroundColor = .systemGray6
         register(ItemCell.self, forCellWithReuseIdentifier: ItemCell.identifier)
-        register(HeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HeaderView.reuseIdentifier)
+        register(HeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HeaderView.identifier)
         collectionViewLayout = UIHelper.shared.configureCollectionLayout(with: self)
-        self.showsVerticalScrollIndicator = false
+        showsVerticalScrollIndicator = false
     }
 }
 
 extension ListCollectionView {
     private func configureDataSource() {
-        diffableDataSource = UICollectionViewDiffableDataSource<State, Thing>(collectionView: self, cellProvider: { (collectionView, indexPath, thing) -> UICollectionViewCell? in
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ItemCell.identifier, for: indexPath) as? ItemCell else {
+        diffableDataSource = UICollectionViewDiffableDataSource<State, Thing>(collectionView: self, cellProvider: { [weak self] (collectionView, indexPath, thing) -> UICollectionViewCell? in
+            guard let self = self,
+                  let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ItemCell.identifier, for: indexPath) as? ItemCell else {
                 return UICollectionViewCell()
             }
             cell.contentView.backgroundColor = .white
@@ -43,8 +41,9 @@ extension ListCollectionView {
             return cell
         })
         
-        diffableDataSource.supplementaryViewProvider = { (collectionView: UICollectionView, kind: String, indexPath: IndexPath) -> UICollectionReusableView? in
-            guard let supplementaryView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: HeaderView.reuseIdentifier, for: indexPath) as? HeaderView else {
+        diffableDataSource.supplementaryViewProvider = { [weak self] (collectionView: UICollectionView, kind: String, indexPath: IndexPath) -> UICollectionReusableView? in
+            guard let self = self,
+                  let supplementaryView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: HeaderView.identifier, for: indexPath) as? HeaderView else {
                 return nil
             }
             let count = self.diffableDataSource.collectionView(collectionView, numberOfItemsInSection: 0)

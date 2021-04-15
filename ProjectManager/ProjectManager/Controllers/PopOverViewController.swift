@@ -1,21 +1,6 @@
 import UIKit
 
 class PopOverViewController: UIViewController {
-    
-    var collectionView: ListCollectionView?
-    var indexPath: IndexPath?
-    
-    init(collectionView: ListCollectionView, leftBarbuttonTitle: String, indexPath: IndexPath?) {
-        super.init(nibName: nil, bundle: nil)
-        self.setNavigation(leftBarButtonTitle: leftBarbuttonTitle)
-        self.collectionView = collectionView
-        self.indexPath = indexPath
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -60,10 +45,24 @@ class PopOverViewController: UIViewController {
         return textView
     }()
     
+    var collectionView: ListCollectionView?
+    var indexPath: IndexPath?
+    
+    init(collectionView: ListCollectionView, leftBarbuttonTitle: String, indexPath: IndexPath?) {
+        super.init(nibName: nil, bundle: nil)
+        self.setNavigation(leftBarButtonTitle: leftBarbuttonTitle)
+        self.collectionView = collectionView
+        self.indexPath = indexPath
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setStackView()
-        setAutoLayout()
+        setConstraints()
     }
     
     private func setStackView() {
@@ -116,7 +115,7 @@ class PopOverViewController: UIViewController {
         }
     }
     
-    private func setAutoLayout() {
+    private func setConstraints() {
         let safeArea = view.safeAreaLayoutGuide
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: safeArea.topAnchor),

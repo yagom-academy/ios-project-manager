@@ -7,7 +7,7 @@
 import UIKit
 
 class ViewController: UIViewController {
-    let stackView: UIStackView = {
+    private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
@@ -15,33 +15,16 @@ class ViewController: UIViewController {
         return stackView
     }()
     
-    let firstCollectionView = ListCollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout(), collectionType: .todo)
-    let secondCollectionView = ListCollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout(), collectionType: .doing)
-    let thirdCollectionView = ListCollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout(), collectionType: .done)
+    private let todoCollectionView = ListCollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout(), collectionType: .todo)
+    private let doingCollectionView = ListCollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout(), collectionType: .doing)
+    private let doneCollectionView = ListCollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout(), collectionType: .done)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setNavigation()
         stackView.frame = view.bounds
-        
         view.addSubview(stackView)
-        
-        stackView.addArrangedSubview(firstCollectionView)
-        stackView.addArrangedSubview(secondCollectionView)
-        stackView.addArrangedSubview(thirdCollectionView)
-
-        firstCollectionView.delegate = self
-        secondCollectionView.delegate = self
-        thirdCollectionView.delegate = self
-        firstCollectionView.dragDelegate = self
-        firstCollectionView.dropDelegate = self
-        secondCollectionView.dragDelegate = self
-        secondCollectionView.dropDelegate = self
-        thirdCollectionView.dragDelegate = self
-        thirdCollectionView.dropDelegate = self
-        firstCollectionView.dragInteractionEnabled = true
-        secondCollectionView.dragInteractionEnabled = true
-        thirdCollectionView.dragInteractionEnabled = true
+        collectionViewSetup()
     }
     
     private func setNavigation() {
@@ -49,26 +32,46 @@ class ViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(presentPopOverViewController))
     }
     
+    private func collectionViewSetup() {
+        stackView.addArrangedSubview(todoCollectionView)
+        stackView.addArrangedSubview(doingCollectionView)
+        stackView.addArrangedSubview(doneCollectionView)
+        
+        todoCollectionView.delegate = self
+        doingCollectionView.delegate = self
+        doneCollectionView.delegate = self
+        todoCollectionView.dragDelegate = self
+        todoCollectionView.dropDelegate = self
+        doingCollectionView.dragDelegate = self
+        doingCollectionView.dropDelegate = self
+        doneCollectionView.dragDelegate = self
+        doneCollectionView.dropDelegate = self
+        todoCollectionView.dragInteractionEnabled = true
+        doingCollectionView.dragInteractionEnabled = true
+        doneCollectionView.dragInteractionEnabled = true
+    }
+    
     @objc private func presentPopOverViewController() {
-        didTapAddButton(with: firstCollectionView)
+        didTapAddButton(with: todoCollectionView)
     }
     
     private func deleteFromBefore(thing: Thing) {
         switch thing.state {
         case .todo:
-            firstCollectionView.deleteDataSource(thing: thing)
+            todoCollectionView.deleteDataSource(thing: thing)
         case .doing:
-            secondCollectionView.deleteDataSource(thing: thing)
+            doingCollectionView.deleteDataSource(thing: thing)
         case .done:
-            thirdCollectionView.deleteDataSource(thing: thing)
+            doneCollectionView.deleteDataSource(thing: thing)
         default:
             return
         }
     }
 }
 
+//MARK: - Thing Add / Edit 관련
 extension ViewController {
-    func didTapAddButton(with collectionView: ListCollectionView) {
+    private func didTapAddButton(with collectionView: ListCollectionView) {
         let popOverViewController = PopOverViewController(collectionView: collectionView, leftBarbuttonTitle: PopOverNavigationItems.cancelButton, indexPath: nil)
         popOverViewController.modalPresentationStyle = .formSheet
         self.present(UINavigationController(rootViewController: popOverViewController), animated: true, completion: nil)
@@ -105,15 +108,6 @@ extension ViewController: UICollectionViewDragDelegate {
         let dragItem = UIDragItem(itemProvider: itemProvider)
         
         return [dragItem]
-    }
-}
-
-//MARK: - UICollectionViewDelegate -
-extension ViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let collectionView = collectionView as? ListCollectionView,
-              let popOverViewController = configurePopOverView(collectionView, indexPath: indexPath) else { return }
-        self.present(popOverViewController, animated: true)
     }
 }
 
@@ -158,5 +152,14 @@ extension ViewController: UICollectionViewDropDelegate {
             collectionView.reorderDataSource(destinationIndexPath: destinationIndexPath, thing: thing)
 
         }
+    }
+}
+
+//MARK: - UICollectionViewDelegate -
+extension ViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let collectionView = collectionView as? ListCollectionView,
+              let popOverViewController = configurePopOverView(collectionView, indexPath: indexPath) else { return }
+        self.present(popOverViewController, animated: true)
     }
 }
