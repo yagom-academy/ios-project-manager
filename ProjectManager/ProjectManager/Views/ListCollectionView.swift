@@ -8,7 +8,6 @@ class ListCollectionView: UICollectionView {
     var collectionType: State
     var things: [Thing]
     var diffableDataSource: UICollectionViewDiffableDataSource<State, Thing>!
-
     
     init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout, collectionType: State) {
         self.collectionType = collectionType
@@ -28,7 +27,7 @@ class ListCollectionView: UICollectionView {
         backgroundColor = .systemGray6
         register(ItemCell.self, forCellWithReuseIdentifier: ItemCell.identifier)
         register(HeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HeaderView.reuseIdentifier)
-        collectionViewLayout = UIHelper.shared.configureCollectionLayout()
+        collectionViewLayout = UIHelper.shared.configureCollectionLayout(with: self)
         self.showsVerticalScrollIndicator = false
     }
 }
