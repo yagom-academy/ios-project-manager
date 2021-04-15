@@ -77,7 +77,6 @@ extension ViewController {
     private func configurePopOverView(_ collectionView: ListCollectionView, indexPath: IndexPath) -> UINavigationController? {
         let popOverViewController = UINavigationController(rootViewController: PopOverViewController(collectionView: collectionView, leftBarbuttonTitle: PopOverNavigationItems.editButton, indexPath: indexPath))
 
-        popOverViewController.modalPresentationStyle = .formSheet
         guard let presentedContentView = popOverViewController.viewControllers.last as? PopOverViewController else { return nil }
 
         guard let thing = collectionView.diffableDataSource.itemIdentifier(for: indexPath) else { return nil }
