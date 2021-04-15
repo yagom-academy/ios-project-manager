@@ -77,14 +77,14 @@ class PopOverViewController: UIViewController {
         navigationItem.title = PopOverNavigationItems.navigationTitle
         if leftBarButtonTitle == PopOverNavigationItems.cancelButton {
             navigationItem.leftBarButtonItem = UIBarButtonItem(title: PopOverNavigationItems.cancelButton, style: .plain, target: self, action: #selector(didTappedCancelButton))
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: PopOverNavigationItems.doneButton, style: .plain, target: self, action: #selector(didTappedDoneButton))
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: PopOverNavigationItems.doneButton, style: .plain, target: self, action: #selector(didTappedAddDoneButton))
         } else {
             navigationItem.leftBarButtonItem = UIBarButtonItem(title: PopOverNavigationItems.editButton, style: .plain, target: self, action: #selector(didTappedEditButton))
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: PopOverNavigationItems.doneButton, style: .plain, target: self, action: #selector(didTappedDoneBtn))
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: PopOverNavigationItems.doneButton, style: .plain, target: self, action: #selector(didTappedEditDoneButton))
         }
     }
     
-    @objc private func didTappedDoneButton() {
+    @objc private func didTappedAddDoneButton() {
         let thing = Thing(id: 3, title: textField.text, description: textView.text, state: .todo, dueDate: datePicker.date.timeIntervalSince1970, updatedAt: NSTimeIntervalSince1970)
         collectionView?.insertDataSource(thing: thing, state: .todo)
         self.dismiss(animated: true, completion: nil)
@@ -103,17 +103,17 @@ class PopOverViewController: UIViewController {
         contentView.textField.becomeFirstResponder()
     }
 
-    @objc private func didTappedDoneBtn() {
+    @objc private func didTappedEditDoneButton() {
         guard let contentView = self.navigationController?.viewControllers.last as? PopOverViewController else { return }
-        guard let collectionView = self.collectionView else { return }
+        guard let collectionView = self.collectionView,
+              let indexPath = self.indexPath else { return }
         let thing: Thing = Thing(title: nil, description: nil, state: nil, dueDate: nil)
         self.dismiss(animated: true) {
             thing.title = contentView.textField.text
             thing.des = contentView.textView.text
             thing.dueDate = contentView.datePicker.date.timeIntervalSince1970
-            collectionView.updateThing(indexPath: self.indexPath!, thing: thing)
+            collectionView.updateThing(indexPath: indexPath, thing: thing)
         }
-
     }
     
     private func setAutoLayout() {

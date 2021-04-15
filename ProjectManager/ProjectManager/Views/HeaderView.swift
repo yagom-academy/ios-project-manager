@@ -25,7 +25,7 @@ class HeaderView: UICollectionReusableView {
         headerLabel.text = headerType.rawValue
     }
     
-    func configureConstraints() {
+    private func configureConstraints() {
         NSLayoutConstraint.activate([
             headerLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
             headerLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),

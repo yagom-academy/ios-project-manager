@@ -62,10 +62,19 @@ extension ItemCell {
     func configure(thing: Thing, datePassed: Bool) {
         titleLabel.text = thing.title
         descriptionLabel.text = thing.des
-        expirationDateLabel.text = String(thing.dueDate ?? 0.0)
+        let dateFormatter = DateFormatter()
+        guard let dueDate = thing.dueDate else { return }
+        let date = Date(timeIntervalSince1970: dueDate)
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .none
+        let languageCode = NSLocale.preferredLanguages[0]
+        dateFormatter.locale = Locale(identifier: languageCode)
+        expirationDateLabel.text = dateFormatter.string(from: date)
         
         if datePassed {
             expirationDateLabel.textColor = .systemRed
+        } else {
+            expirationDateLabel.textColor = .label
         }
     }
 }

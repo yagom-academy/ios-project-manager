@@ -77,19 +77,16 @@ extension ViewController {
     private func configurePopOverView(_ collectionView: ListCollectionView, indexPath: IndexPath) -> UINavigationController? {
         let popOverViewController = UINavigationController(rootViewController: PopOverViewController(collectionView: collectionView, leftBarbuttonTitle: PopOverNavigationItems.editButton, indexPath: indexPath))
 
-        // Pop over presenting
         popOverViewController.modalPresentationStyle = .formSheet
         guard let presentedContentView = popOverViewController.viewControllers.last as? PopOverViewController else { return nil }
 
-        // Description data configuration
-        guard let itemCell = collectionView.cellForItem(at: indexPath) as? ItemCell else { return nil }
-        presentedContentView.textField.text = itemCell.titleLabel.text
-        guard let dateText = itemCell.expirationDateLabel.text, let timeStamp = TimeInterval(dateText) else { return nil }
-        let unixTimeStamp = Date(timeIntervalSince1970: timeStamp)
-        presentedContentView.datePicker.setDate(unixTimeStamp, animated: true)
-        presentedContentView.textView.text = itemCell.descriptionLabel.text
+        guard let thing = collectionView.diffableDataSource.itemIdentifier(for: indexPath) else { return nil }
 
-        // User interaction blocking
+        presentedContentView.textField.text = thing.title
+        guard let dueDate = thing.dueDate else { return nil }
+        presentedContentView.datePicker.date = Date(timeIntervalSince1970: dueDate)
+        presentedContentView.textView.text = thing.des
+
         presentedContentView.textField.isUserInteractionEnabled = false
         presentedContentView.datePicker.isUserInteractionEnabled = false
         presentedContentView.textView.isUserInteractionEnabled = false
@@ -153,8 +150,8 @@ extension ViewController: UICollectionViewDropDelegate {
         
         coordinator.session.loadObjects(ofClass: Thing.self) { [weak self] (items) in
             guard let self = self else { return }
-            let thingItem = items as! [Thing]
-            let thing = thingItem.first!
+            guard let thingItem = items as? [Thing],
+                  let thing = thingItem.first else { return }
             let state = collectionView.collectionType
             
             self.deleteFromBefore(thing: thing)

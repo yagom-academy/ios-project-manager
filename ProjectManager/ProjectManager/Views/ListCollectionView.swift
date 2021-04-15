@@ -40,11 +40,7 @@ extension ListCollectionView {
                 return UICollectionViewCell()
             }
             cell.contentView.backgroundColor = .white
-            if self.checkIsDatePassed(thing.dueDate ?? 0.0) {
-                cell.configure(thing: thing, datePassed: true)
-            } else {
-                cell.configure(thing: thing, datePassed: false)
-            }
+            cell.configure(thing: thing, datePassed: self.checkIsDatePassed(thing.dueDate ?? 0.0))
             return cell
         })
         
@@ -103,7 +99,7 @@ extension ListCollectionView {
         diffableDataSource.apply(initialSnapshot, animatingDifferences: true)
     }
     
-    func checkIsDatePassed(_ date: Double) -> Bool {
+    private func checkIsDatePassed(_ date: Double) -> Bool {
         let currentDate = Date().timeIntervalSince1970
         if date < currentDate {
             return true
