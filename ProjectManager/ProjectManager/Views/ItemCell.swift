@@ -3,13 +3,13 @@ import UIKit
 class ItemCell: UICollectionViewCell {
     static let identifier = String(describing: ItemCell.self)
 
-    private lazy var titleLabel: UILabel = {
+     lazy var titleLabel: UILabel = {
         let titleLabel = UILabel()
         titleLabel.lineBreakMode = .byTruncatingTail
         titleLabel.font = UIFont.systemFont(ofSize: 18, weight: .medium)
         return titleLabel
     }()
-    private lazy var descriptionLabel: UILabel = {
+     lazy var descriptionLabel: UILabel = {
         let descriptionLabel = UILabel()
         descriptionLabel.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         descriptionLabel.numberOfLines = 3
@@ -17,7 +17,7 @@ class ItemCell: UICollectionViewCell {
         descriptionLabel.textColor = .lightGray
         return descriptionLabel
     }()
-    private lazy var expirationDateLabel: UILabel = {
+     lazy var expirationDateLabel: UILabel = {
         let expirationDateLabel = UILabel()
         expirationDateLabel.font = UIFont.systemFont(ofSize: 14, weight: .medium)
         return expirationDateLabel
@@ -62,10 +62,19 @@ extension ItemCell {
     func configure(thing: Thing, datePassed: Bool) {
         titleLabel.text = thing.title
         descriptionLabel.text = thing.des
-        expirationDateLabel.text = String(thing.dueDate!)
+        let dateFormatter = DateFormatter()
+        guard let dueDate = thing.dueDate else { return }
+        let date = Date(timeIntervalSince1970: dueDate)
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .none
+        let languageCode = NSLocale.preferredLanguages[0]
+        dateFormatter.locale = Locale(identifier: languageCode)
+        expirationDateLabel.text = dateFormatter.string(from: date)
         
         if datePassed {
             expirationDateLabel.textColor = .systemRed
+        } else {
+            expirationDateLabel.textColor = .label
         }
     }
 }

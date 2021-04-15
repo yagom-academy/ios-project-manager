@@ -26,7 +26,7 @@ class HeaderView: UICollectionReusableView {
         self.backgroundColor = .systemBackground
     }
     
-    func configureConstraints() {
+    private func configureConstraints() {
         NSLayoutConstraint.activate([
             headerLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 8),
             headerLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),

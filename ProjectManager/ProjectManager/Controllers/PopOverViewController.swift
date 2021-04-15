@@ -1,12 +1,15 @@
 import UIKit
 
-class AddTodoViewController: UIViewController {
+class PopOverViewController: UIViewController {
     
     var collectionView: ListCollectionView?
+    var indexPath: IndexPath?
     
-    init(collectionView: ListCollectionView) {
-        self.collectionView = collectionView
+    init(collectionView: ListCollectionView, leftBarbuttonTitle: String, indexPath: IndexPath?) {
         super.init(nibName: nil, bundle: nil)
+        self.setNavigation(leftBarButtonTitle: leftBarbuttonTitle)
+        self.collectionView = collectionView
+        self.indexPath = indexPath
     }
     
     required init?(coder: NSCoder) {
@@ -60,7 +63,6 @@ class AddTodoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setStackView()
-        setNavigation()
         setAutoLayout()
     }
     
@@ -71,13 +73,18 @@ class AddTodoViewController: UIViewController {
         stackView.addArrangedSubview(textView)
     }
     
-    private func setNavigation() {
-        navigationItem.title = "TODO"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(didTappedDoneButton))
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(didTappedCancelButton))
+    private func setNavigation(leftBarButtonTitle: String) {
+        navigationItem.title = PopOverNavigationItems.navigationTitle
+        if leftBarButtonTitle == PopOverNavigationItems.cancelButton {
+            navigationItem.leftBarButtonItem = UIBarButtonItem(title: PopOverNavigationItems.cancelButton, style: .plain, target: self, action: #selector(didTappedCancelButton))
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: PopOverNavigationItems.doneButton, style: .plain, target: self, action: #selector(didTappedAddDoneButton))
+        } else {
+            navigationItem.leftBarButtonItem = UIBarButtonItem(title: PopOverNavigationItems.editButton, style: .plain, target: self, action: #selector(didTappedEditButton))
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: PopOverNavigationItems.doneButton, style: .plain, target: self, action: #selector(didTappedEditDoneButton))
+        }
     }
     
-    @objc private func didTappedDoneButton() {
+    @objc private func didTappedAddDoneButton() {
         let thing = Thing(id: 3, title: textField.text, description: textView.text, state: .todo, dueDate: datePicker.date.timeIntervalSince1970, updatedAt: NSTimeIntervalSince1970)
         collectionView?.insertDataSource(thing: thing, state: .todo)
         self.dismiss(animated: true, completion: nil)
@@ -85,6 +92,28 @@ class AddTodoViewController: UIViewController {
     
     @objc private func didTappedCancelButton() {
         self.dismiss(animated: true, completion: nil)
+    }
+
+    @objc private func didTappedEditButton() {
+        guard let contentView = self.navigationController?.viewControllers.last as? PopOverViewController else { return }
+        contentView.textField.isUserInteractionEnabled = true
+        contentView.datePicker.isUserInteractionEnabled = true
+        contentView.textView.isUserInteractionEnabled = true
+
+        contentView.textField.becomeFirstResponder()
+    }
+
+    @objc private func didTappedEditDoneButton() {
+        guard let contentView = self.navigationController?.viewControllers.last as? PopOverViewController else { return }
+        guard let collectionView = self.collectionView,
+              let indexPath = self.indexPath else { return }
+        let thing: Thing = Thing(title: nil, description: nil, state: nil, dueDate: nil)
+        self.dismiss(animated: true) {
+            thing.title = contentView.textField.text
+            thing.des = contentView.textView.text
+            thing.dueDate = contentView.datePicker.date.timeIntervalSince1970
+            collectionView.updateThing(indexPath: indexPath, thing: thing)
+        }
     }
     
     private func setAutoLayout() {
