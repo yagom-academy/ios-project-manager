@@ -3,11 +3,13 @@ import UIKit
 class PopOverViewController: UIViewController {
     
     var collectionView: ListCollectionView?
+    var indexPath: IndexPath?
     
-    init(collectionView: ListCollectionView, leftBarbuttonTitle: String) {
+    init(collectionView: ListCollectionView, leftBarbuttonTitle: String, indexPath: IndexPath?) {
         super.init(nibName: nil, bundle: nil)
         self.setNavigation(leftBarButtonTitle: leftBarbuttonTitle)
         self.collectionView = collectionView
+        self.indexPath = indexPath
     }
     
     required init?(coder: NSCoder) {
@@ -78,7 +80,7 @@ class PopOverViewController: UIViewController {
             navigationItem.rightBarButtonItem = UIBarButtonItem(title: PopOverNavigationItems.doneButton, style: .plain, target: self, action: #selector(didTappedDoneButton))
         } else {
             navigationItem.leftBarButtonItem = UIBarButtonItem(title: PopOverNavigationItems.editButton, style: .plain, target: self, action: #selector(didTappedEditButton))
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: PopOverNavigationItems.doneButton, style: .plain, target: self, action: #selector(didTappedDoneBtn(_:)))
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: PopOverNavigationItems.doneButton, style: .plain, target: self, action: #selector(didTappedDoneBtn))
         }
     }
     
@@ -101,14 +103,17 @@ class PopOverViewController: UIViewController {
         contentView.textField.becomeFirstResponder()
     }
 
-    @objc private func didTappedDoneBtn(_ indexPath: IndexPath) {
+    @objc private func didTappedDoneBtn() {
         guard let contentView = self.navigationController?.viewControllers.last as? PopOverViewController else { return }
-        guard let collectionView = self.collectionView, let itemCell = collectionView.cellForItem(at: indexPath) as? ItemCell else { return }
+        guard let collectionView = self.collectionView else { return }
+        let thing: Thing = Thing(title: nil, description: nil, state: nil, dueDate: nil)
         self.dismiss(animated: true) {
-            itemCell.titleLabel.text = contentView.textField.text
-            itemCell.descriptionLabel.text = contentView.textView.text
-            itemCell.expirationDateLabel.text = contentView.datePicker.date.description
+            thing.title = contentView.textField.text
+            thing.des = contentView.textView.text
+            thing.dueDate = contentView.datePicker.date.timeIntervalSince1970
+            collectionView.updateThing(indexPath: self.indexPath!, thing: thing)
         }
+
     }
     
     private func setAutoLayout() {

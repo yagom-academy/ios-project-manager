@@ -69,13 +69,13 @@ class ViewController: UIViewController {
 
 extension ViewController {
     func didTapAddButton(with collectionView: ListCollectionView) {
-        let popOverViewController = PopOverViewController(collectionView: collectionView, leftBarbuttonTitle: PopOverNavigationItems.cancelButton)
+        let popOverViewController = PopOverViewController(collectionView: collectionView, leftBarbuttonTitle: PopOverNavigationItems.cancelButton, indexPath: nil)
         popOverViewController.modalPresentationStyle = .formSheet
         self.present(UINavigationController(rootViewController: popOverViewController), animated: true, completion: nil)
     }
 
     private func configurePopOverView(_ collectionView: ListCollectionView, indexPath: IndexPath) -> UINavigationController? {
-        let popOverViewController = UINavigationController(rootViewController: PopOverViewController(collectionView: collectionView, leftBarbuttonTitle: PopOverNavigationItems.editButton))
+        let popOverViewController = UINavigationController(rootViewController: PopOverViewController(collectionView: collectionView, leftBarbuttonTitle: PopOverNavigationItems.editButton, indexPath: indexPath))
 
         // Pop over presenting
         popOverViewController.modalPresentationStyle = .formSheet

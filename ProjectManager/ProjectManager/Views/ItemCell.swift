@@ -62,7 +62,7 @@ extension ItemCell {
     func configure(thing: Thing, datePassed: Bool) {
         titleLabel.text = thing.title
         descriptionLabel.text = thing.des
-        expirationDateLabel.text = String(thing.dueDate!)
+        expirationDateLabel.text = String(thing.dueDate ?? 0.0)
         
         if datePassed {
             expirationDateLabel.textColor = .systemRed

@@ -81,6 +81,21 @@ extension ListCollectionView {
         diffableDataSource.apply(snapshot)
     }
     
+    func updateThing(indexPath: IndexPath, thing: Thing) {
+        var snapshot = diffableDataSource.snapshot()
+        
+        guard let oldThing = diffableDataSource.itemIdentifier(for: indexPath) else {
+            return
+        }
+        
+        oldThing.title = thing.title
+        oldThing.dueDate = thing.dueDate
+        oldThing.des = thing.des
+        
+        snapshot.reloadItems([oldThing])
+        diffableDataSource.apply(snapshot)
+    }
+    
     private func configureSnapshot() {
         var initialSnapshot = NSDiffableDataSourceSnapshot<State, Thing>()
         initialSnapshot.appendSections([collectionType])
