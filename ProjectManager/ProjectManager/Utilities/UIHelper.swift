@@ -18,6 +18,7 @@ final class UIHelper {
         
         var listConfigration = UICollectionLayoutListConfiguration(appearance: .plain)
         listConfigration.headerMode = .supplementary
+        listConfigration.backgroundColor = .systemGray6
         listConfigration.trailingSwipeActionsConfigurationProvider = { [weak self] indexPath in
             guard self != nil else { return nil }
             guard let thing = collectionView.diffableDataSource.itemIdentifier(for: indexPath) else {

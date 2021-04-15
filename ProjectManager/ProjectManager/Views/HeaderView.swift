@@ -37,7 +37,7 @@ class HeaderView: UICollectionReusableView {
         headerLabel.text = headerType.rawValue.uppercased()
         countLabel.text = "\(count)"
         countLabel.layer.cornerRadius = self.frame.height - 8
-        self.backgroundColor = .systemBackground
+        backgroundColor = .systemGray6
     }
     
     private func configureConstraints() {

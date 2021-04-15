@@ -36,7 +36,7 @@ extension ListCollectionView {
                   let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ItemCell.identifier, for: indexPath) as? ItemCell else {
                 return UICollectionViewCell()
             }
-            cell.contentView.backgroundColor = .white
+            cell.contentView.backgroundColor = .systemBackground
             cell.configure(thing: thing, datePassed: self.checkIsDatePassed(thing.dueDate ?? 0.0))
             return cell
         })
