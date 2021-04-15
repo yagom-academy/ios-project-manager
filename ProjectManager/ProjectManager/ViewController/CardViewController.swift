@@ -112,8 +112,7 @@ class CardViewController: UIViewController {
             saveCard()
             dismiss(animated: true, completion: nil)
         case .cancel:
-            navigationBar.topItem?.setLeftBarButton(editBarButton, animated: true)
-            isCardEditable = false
+            dismiss(animated: true, completion: nil)
         case .edit:
             navigationBar.topItem?.setLeftBarButton(cancelBarButton, animated: true)
             isCardEditable = true
