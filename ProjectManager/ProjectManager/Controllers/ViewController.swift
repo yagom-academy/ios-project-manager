@@ -30,6 +30,9 @@ class ViewController: UIViewController {
         stackView.addArrangedSubview(secondCollectionView)
         stackView.addArrangedSubview(thirdCollectionView)
 
+        firstCollectionView.delegate = self
+        secondCollectionView.delegate = self
+        thirdCollectionView.delegate = self
         firstCollectionView.dragDelegate = self
         firstCollectionView.dropDelegate = self
         secondCollectionView.dragDelegate = self
@@ -43,10 +46,10 @@ class ViewController: UIViewController {
     
     private func setNavigation() {
         navigationItem.title = "Project Manager"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(goToAddTodoViewController))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(presentPopOverViewController))
     }
     
-    @objc private func goToAddTodoViewController() {
+    @objc private func presentPopOverViewController() {
         didTapAddButton(with: firstCollectionView)
     }
     
@@ -66,9 +69,31 @@ class ViewController: UIViewController {
 
 extension ViewController {
     func didTapAddButton(with collectionView: ListCollectionView) {
-        let addTodoViewController = AddTodoViewController(collectionView: collectionView)
-        addTodoViewController.modalPresentationStyle = .formSheet
-        self.present(UINavigationController(rootViewController: addTodoViewController), animated: true, completion: nil)
+        let popOverViewController = PopOverViewController(collectionView: collectionView, leftBarbuttonTitle: PopOverNavigationItems.cancelButton)
+        popOverViewController.modalPresentationStyle = .formSheet
+        self.present(UINavigationController(rootViewController: popOverViewController), animated: true, completion: nil)
+    }
+
+    private func configurePopOverView(_ collectionView: ListCollectionView, indexPath: IndexPath) -> UINavigationController? {
+        let popOverViewController = UINavigationController(rootViewController: PopOverViewController(collectionView: collectionView, leftBarbuttonTitle: PopOverNavigationItems.editButton))
+
+        // Pop over presenting
+        popOverViewController.modalPresentationStyle = .formSheet
+        guard let presentedContentView = popOverViewController.viewControllers.last as? PopOverViewController else { return nil }
+
+        // Description data configuration
+        guard let itemCell = collectionView.cellForItem(at: indexPath) as? ItemCell else { return nil }
+        presentedContentView.textField.text = itemCell.titleLabel.text
+        guard let dateText = itemCell.expirationDateLabel.text, let timeStamp = TimeInterval(dateText) else { return nil }
+        let unixTimeStamp = Date(timeIntervalSince1970: timeStamp)
+        presentedContentView.datePicker.setDate(unixTimeStamp, animated: true)
+        presentedContentView.textView.text = itemCell.descriptionLabel.text
+
+        // User interaction blocking
+        presentedContentView.textField.isUserInteractionEnabled = false
+        presentedContentView.datePicker.isUserInteractionEnabled = false
+        presentedContentView.textView.isUserInteractionEnabled = false
+        return popOverViewController
     }
 }
 
@@ -87,6 +112,14 @@ extension ViewController: UICollectionViewDragDelegate {
     }
 }
 
+//MARK: - UICollectionViewDelegate -
+extension ViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let collectionView = collectionView as? ListCollectionView,
+              let popOverViewController = configurePopOverView(collectionView, indexPath: indexPath) else { return }
+        self.present(popOverViewController, animated: true)
+    }
+}
 
 //MARK: - UICollectionViewDropDelegate -
 extension ViewController: UICollectionViewDropDelegate {

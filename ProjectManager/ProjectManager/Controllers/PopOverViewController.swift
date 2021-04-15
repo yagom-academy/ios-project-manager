@@ -73,11 +73,12 @@ class PopOverViewController: UIViewController {
     
     private func setNavigation(leftBarButtonTitle: String) {
         navigationItem.title = PopOverNavigationItems.navigationTitle
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: PopOverNavigationItems.doneButton, style: .plain, target: self, action: #selector(didTappedDoneButton))
         if leftBarButtonTitle == PopOverNavigationItems.cancelButton {
             navigationItem.leftBarButtonItem = UIBarButtonItem(title: PopOverNavigationItems.cancelButton, style: .plain, target: self, action: #selector(didTappedCancelButton))
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: PopOverNavigationItems.doneButton, style: .plain, target: self, action: #selector(didTappedDoneButton))
         } else {
             navigationItem.leftBarButtonItem = UIBarButtonItem(title: PopOverNavigationItems.editButton, style: .plain, target: self, action: #selector(didTappedEditButton))
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: PopOverNavigationItems.doneButton, style: .plain, target: self, action: #selector(didTappedDoneBtn(_:)))
         }
     }
     
@@ -98,6 +99,16 @@ class PopOverViewController: UIViewController {
         contentView.textView.isUserInteractionEnabled = true
 
         contentView.textField.becomeFirstResponder()
+    }
+
+    @objc private func didTappedDoneBtn(_ indexPath: IndexPath) {
+        guard let contentView = self.navigationController?.viewControllers.last as? PopOverViewController else { return }
+        guard let collectionView = self.collectionView, let itemCell = collectionView.cellForItem(at: indexPath) as? ItemCell else { return }
+        self.dismiss(animated: true) {
+            itemCell.titleLabel.text = contentView.textField.text
+            itemCell.descriptionLabel.text = contentView.textView.text
+            itemCell.expirationDateLabel.text = contentView.datePicker.date.description
+        }
     }
     
     private func setAutoLayout() {
