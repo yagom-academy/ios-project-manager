@@ -1,14 +1,14 @@
 import Foundation
 
 final class Thing: NSObject, Codable {
-    var id: Int? = nil
+    var id: String? = nil
     var title: String? = nil
     var des: String? = nil
     var state: State? = nil
     var dueDate: Double? = nil
-    var updatedAt: Double? = nil
+    var updatedAt: String? = nil
     
-    init(id: Int, title: String?, description: String?, state: State, dueDate: Double, updatedAt: Double) {
+    init(id: String, title: String?, description: String?, state: State, dueDate: Double, updatedAt: String) {
         self.id = id
         self.title = title
         self.des = description
@@ -25,9 +25,8 @@ final class Thing: NSObject, Codable {
     }
     
     enum CodingKeys: String, CodingKey {
-        case id, title, des, state
-        case dueDate = "due_date"
-        case updatedAt = "updated_at"
+        case id, title, state, dueDate, updatedAt
+        case des = "description"
     }
     
     static func ==(lhs: Thing, rhs: Thing) -> Bool {

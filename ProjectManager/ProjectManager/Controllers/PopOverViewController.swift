@@ -85,8 +85,8 @@ class PopOverViewController: UIViewController {
     }
     
     @objc private func didTappedAddDoneButton() {
-        let thing = Thing(id: 3, title: textField.text, description: textView.text, state: .todo, dueDate: datePicker.date.timeIntervalSince1970, updatedAt: NSTimeIntervalSince1970)
-        collectionView?.insertDataSource(thing: thing, state: .todo)
+//        let thing = Thing(id: 3, title: textField.text, description: textView.text, state: .todo, dueDate: datePicker.date.timeIntervalSince1970, updatedAt: NSTimeIntervalSince1970)
+//        collectionView?.insertDataSource(thing: thing, state: .todo)
         self.dismiss(animated: true, completion: nil)
     }
     
