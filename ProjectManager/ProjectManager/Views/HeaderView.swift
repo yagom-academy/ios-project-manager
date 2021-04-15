@@ -11,9 +11,21 @@ class HeaderView: UICollectionReusableView {
         return label
     }()
     
+    private let countLabel: UILabel = {
+        let label = UILabel()
+        label.backgroundColor = .black
+        label.textAlignment = .center
+        label.textColor = .white
+        label.font = UIFont.preferredFont(forTextStyle: .title1)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.layer.masksToBounds = true
+        return label
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(headerLabel)
+        addSubview(countLabel)
         configureConstraints()
     }
     
@@ -21,17 +33,23 @@ class HeaderView: UICollectionReusableView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(headerType: State) {
-        headerLabel.text = headerType.rawValue
+    func configure(headerType: State, count: Int) {
+        headerLabel.text = headerType.rawValue.uppercased()
+        countLabel.text = "\(count)"
+        countLabel.layer.cornerRadius = self.frame.height - 8
         self.backgroundColor = .systemBackground
     }
     
     private func configureConstraints() {
+        let padding: CGFloat = 8.0
         NSLayoutConstraint.activate([
-            headerLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 8),
-            headerLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
-            headerLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
-            headerLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+            headerLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: padding),
+            headerLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
+            headerLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            countLabel.leadingAnchor.constraint(equalTo: headerLabel.trailingAnchor, constant: padding),
+            countLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            countLabel.heightAnchor.constraint(equalTo: self.heightAnchor, constant: -padding),
+            countLabel.widthAnchor.constraint(equalTo: self.heightAnchor, constant: -padding)
         ])
     }
 }

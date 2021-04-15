@@ -47,7 +47,8 @@ extension ListCollectionView {
             guard let supplementaryView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: HeaderView.reuseIdentifier, for: indexPath) as? HeaderView else {
                 return nil
             }
-            supplementaryView.configure(headerType: self.collectionType)
+            let count = self.diffableDataSource.collectionView(collectionView, numberOfItemsInSection: 0)
+            supplementaryView.configure(headerType: self.collectionType, count: count)
             return supplementaryView
         }
     }
