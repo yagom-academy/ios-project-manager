@@ -18,6 +18,13 @@ final class MemoHeaderCell: UICollectionViewListCell {
         setupUI()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        titleLabel.text = nil
+        currentMemoCountLabel.text = nil
+    }
+    
     private func setupConstraints() {
         contentView.addSubview(titleLabel)
         contentView.addSubview(currentMemoCountLabel)
