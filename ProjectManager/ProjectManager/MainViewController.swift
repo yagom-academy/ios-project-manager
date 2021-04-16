@@ -42,6 +42,7 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         
         configureNavigationBar()
+        configureCollectionView()
     }
     
     private func configureNavigationBar() {
@@ -58,6 +59,48 @@ class MainViewController: UIViewController {
         memoInsertViewController.delegate = self
         let navigationController = UINavigationController(rootViewController: memoInsertViewController)
         present(navigationController, animated: true)
+    }
+}
+
+extension MainViewController {
+    private func createLayout() -> UICollectionViewLayout {
+        var config = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
+        config.headerMode = .supplementary
+        return UICollectionViewCompositionalLayout.list(using: config)
+    }
+    
+    private func configureCollectionView() {
+        todoCollectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
+        view.addSubview(todoCollectionView)
+        
+        todoCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        let safeArea = view.safeAreaLayoutGuide
+        NSLayoutConstraint.activate([
+            todoCollectionView.topAnchor.constraint(equalTo: safeArea.topAnchor),
+            todoCollectionView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
+            todoCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            todoCollectionView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1 / 3),
+        ])
+        
+        doingCollectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
+        view.addSubview(doingCollectionView)
+        doingCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            doingCollectionView.topAnchor.constraint(equalTo: safeArea.topAnchor),
+            doingCollectionView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
+            doingCollectionView.leadingAnchor.constraint(equalTo: todoCollectionView.trailingAnchor),
+            doingCollectionView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1 / 3),
+        ])
+        
+        doneCollectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
+        view.addSubview(doneCollectionView)
+        doneCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            doneCollectionView.topAnchor.constraint(equalTo: safeArea.topAnchor),
+            doneCollectionView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
+            doneCollectionView.leadingAnchor.constraint(equalTo: doingCollectionView.trailingAnchor),
+            doneCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
     }
 }
 
