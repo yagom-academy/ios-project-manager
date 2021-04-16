@@ -2,46 +2,11 @@
 
 package ViewController <<Rectangle>> {
     class MainViewController {
-        -todoCardsTableView: TodoCardsTableView
-        -doingCardsTableView: DoingCardsTableView
-        -doneCardsTableView: DoneCardsTableView
+        -todoCardsTableView: UITableView
+        -doingCardsTableView: UITableView
+        -doneCardsTableView: UITableView
     }
-}
-
-package Model <<Rectangle>> {
-    class Card {
-        -title: String
-        -description: String?
-        -deadline: Int?
-        -status: String
-    }
-}
-
-
-package TableView <<Rectangle>> {
-    class UITableView
-
-    class CardsTableView {
-        -list: [Card]
-    }
-
-    class TodoCardsTableView {
-
-    }
-
-    class DoingCardsTableView {
-
-    }
-
-    class DoneCardsTableView {
-
-    }
-
-    UITableView <|-- CardsTableView
-    CardsTableView <|-- TodoCardsTableView
-    CardsTableView <|-- DoingCardsTableView
-    CardsTableView <|-- DoneCardsTableView
-
+    
     class UITableViewCell
     class CardTableViewCell {
         -titleLabel: UILabel
@@ -49,6 +14,31 @@ package TableView <<Rectangle>> {
         -deadlineLabel: UILabel
     }
     UITableViewCell <|-- CardTableViewCell
+}
+
+package Model <<Rectangle>> {
+    class Card {
+        +title: String
+        +description: String?
+        +deadline: Int?
+        +status: String
+    }
+    
+    class CardList {
+        +cards: [Card]
+    }
+    
+    CardList o-- Card
+}
+
+package Manager <<Rectangle>> {
+    class DataManager {
+        -cardList: CardList?
+        -cards: [[Card]]
+    }
+    
+    DataManager o-- Card
+    DataManager o-- CardList
 }
 
 @enduml
