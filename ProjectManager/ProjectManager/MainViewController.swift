@@ -10,6 +10,8 @@ class MainViewController: UIViewController {
     private var doneDataSource: UICollectionViewDiffableDataSource<HeaderItem, Item>!
     
     private var todoSnapshot = NSDiffableDataSourceSnapshot<HeaderItem, Item>()
+    private var doingSnapshot = NSDiffableDataSourceSnapshot<HeaderItem, Item>()
+    private var doneSnapshot = NSDiffableDataSourceSnapshot<HeaderItem, Item>()
     
     private var todoHeaderItem = [
         HeaderItem(title: "todo", items: [
@@ -224,14 +226,12 @@ extension MainViewController {
         }
         todoDataSource.apply(todoSnapshot)
         
-        var doingSnapshot = NSDiffableDataSourceSnapshot<HeaderItem, Item>()
         doingSnapshot.appendSections(doingHeaderItem)
         for headerItem in doingHeaderItem {
             doingSnapshot.appendItems(headerItem.items, toSection: headerItem)
         }
         doingDataSource.apply(doingSnapshot)
         
-        var doneSnapshot = NSDiffableDataSourceSnapshot<HeaderItem, Item>()
         doneSnapshot.appendSections(doneHeaderItem)
         for headerItem in doneHeaderItem {
             doneSnapshot.appendItems(headerItem.items, toSection: headerItem)
