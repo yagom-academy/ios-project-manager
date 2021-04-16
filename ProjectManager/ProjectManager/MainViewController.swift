@@ -104,3 +104,76 @@ extension MainViewController {
     }
 }
 
+extension MainViewController {
+    private func configureDataSource() {
+        let cellRegistration = UICollectionView.CellRegistration<MemoCell, Item> { (cell, indexPath, item) in
+            cell.updateWithItem(item)
+        }
+        
+        let todoHeaderCellRegistration = UICollectionView.SupplementaryRegistration<MemoHeaderCell>(elementKind: "TODO") { [unowned self] (supplementaryView, string, indexPath) in
+            supplementaryView.updateWithHeaderItem("TODO", todoHeaderItem.first?.items.count ?? 0)
+        }
+        
+        let doingHeaderCellRegistration = UICollectionView.SupplementaryRegistration<MemoHeaderCell>(elementKind: "DOING") { (supplementaryView, string, indexPath) in
+            supplementaryView.updateWithHeaderItem("DOING", doingHeaderItem.first?.items.count ?? 0)
+        }
+        
+        let doneHeaderCellRegistration = UICollectionView.SupplementaryRegistration<MemoHeaderCell>(elementKind: "DONE") { (supplementaryView, string, indexPath) in
+            supplementaryView.updateWithHeaderItem("DONE", doneHeaderItem.first?.items.count ?? 0)
+        }
+        
+        todoDataSource = UICollectionViewDiffableDataSource<HeaderItem, Item>(collectionView: todoCollectionView) {
+            (collectionView, indexPath, item) -> UICollectionViewCell? in
+            collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: item)
+        }
+        
+        todoDataSource.supplementaryViewProvider = { (supplementaryView, elementKind, indexPath) in
+            self.todoCollectionView.dequeueConfiguredReusableSupplementary(using: todoHeaderCellRegistration, for: indexPath)
+        }
+        todoDataSource.reorderingHandlers.canReorderItem = { item in
+            true
+        }
+        
+        doingDataSource = UICollectionViewDiffableDataSource<HeaderItem, Item>(collectionView: doingCollectionView, cellProvider: { (collectionView, indexPath, item) -> UICollectionViewCell? in
+            collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: item)
+        })
+        
+        doingDataSource.supplementaryViewProvider = { (supplementaryView, elementKind, indexPath) in
+            self.todoCollectionView.dequeueConfiguredReusableSupplementary(using: doingHeaderCellRegistration, for: indexPath)
+        }
+        doingDataSource.reorderingHandlers.canReorderItem = { item in
+            true
+        }
+        
+        doneDataSource = UICollectionViewDiffableDataSource<HeaderItem, Item>(collectionView: doneCollectionView, cellProvider: { (collectioView, indexPath, item) -> UICollectionViewCell? in
+            collectioView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: item)
+        })
+        
+        doneDataSource.supplementaryViewProvider = { (supplementaryView, elementKind, indexPath) in
+            self.todoCollectionView.dequeueConfiguredReusableSupplementary(using: doneHeaderCellRegistration, for: indexPath)
+        }
+        doneDataSource.reorderingHandlers.canReorderItem = { item in
+            true
+        }
+        
+        todoSnapshot.appendSections(todoHeaderItem)
+        for headerItem in todoHeaderItem {
+            todoSnapshot.appendItems(headerItem.items, toSection: headerItem)
+        }
+        todoDataSource.apply(todoSnapshot)
+        
+        var doingSnapshot = NSDiffableDataSourceSnapshot<HeaderItem, Item>()
+        doingSnapshot.appendSections(doingHeaderItem)
+        for headerItem in doingHeaderItem {
+            doingSnapshot.appendItems(headerItem.items, toSection: headerItem)
+        }
+        doingDataSource.apply(doingSnapshot)
+        
+        var doneSnapshot = NSDiffableDataSourceSnapshot<HeaderItem, Item>()
+        doneSnapshot.appendSections(doneHeaderItem)
+        for headerItem in doneHeaderItem {
+            doneSnapshot.appendItems(headerItem.items, toSection: headerItem)
+        }
+        doneDataSource.apply(doneSnapshot)
+    }
+}
