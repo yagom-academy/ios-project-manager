@@ -41,8 +41,11 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.backgroundColor = .systemBackground
         configureNavigationBar()
         configureCollectionView()
+        configureDataSource()
+        configureGesture()
     }
     
     private func configureNavigationBar() {
@@ -59,6 +62,65 @@ class MainViewController: UIViewController {
         memoInsertViewController.delegate = self
         let navigationController = UINavigationController(rootViewController: memoInsertViewController)
         present(navigationController, animated: true)
+    }
+    
+    private func configureGesture() {
+        let todoGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleTodoCollectionViewLongPressGesture))
+        todoCollectionView.addGestureRecognizer(todoGesture)
+        
+        let doingGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleDoingCollectionViewLongPressGesture))
+        doingCollectionView.addGestureRecognizer(doingGesture)
+        
+        let doneGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleDoneCollectionViewLongPressGesture))
+        doneCollectionView.addGestureRecognizer(doneGesture)
+    }
+    
+    @objc private func handleTodoCollectionViewLongPressGesture(_ gesture: UILongPressGestureRecognizer) {
+        switch gesture.state {
+        case .began:
+            guard let targetIndexPath = todoCollectionView.indexPathForItem(at: gesture.location(in: todoCollectionView)) else {
+                return
+            }
+            todoCollectionView.beginInteractiveMovementForItem(at: targetIndexPath)
+        case .changed:
+            todoCollectionView.updateInteractiveMovementTargetPosition(gesture.location(in: todoCollectionView))
+        case .ended:
+            todoCollectionView.endInteractiveMovement()
+        default:
+            todoCollectionView.cancelInteractiveMovement()
+        }
+    }
+    
+    @objc private func handleDoingCollectionViewLongPressGesture(_ gesture: UILongPressGestureRecognizer) {
+        switch gesture.state {
+        case .began:
+            guard let targetIndexPath = doingCollectionView.indexPathForItem(at: gesture.location(in: doingCollectionView)) else {
+                return
+            }
+            doingCollectionView.beginInteractiveMovementForItem(at: targetIndexPath)
+        case .changed:
+            doingCollectionView.updateInteractiveMovementTargetPosition(gesture.location(in: doingCollectionView))
+        case .ended:
+            doingCollectionView.endInteractiveMovement()
+        default:
+            doingCollectionView.cancelInteractiveMovement()
+        }
+    }
+    
+    @objc private func handleDoneCollectionViewLongPressGesture(_ gesture: UILongPressGestureRecognizer) {
+        switch gesture.state {
+        case .began:
+            guard let targetIndexPath = doneCollectionView.indexPathForItem(at: gesture.location(in: doneCollectionView)) else {
+                return
+            }
+            doneCollectionView.beginInteractiveMovementForItem(at: targetIndexPath)
+        case .changed:
+            doneCollectionView.updateInteractiveMovementTargetPosition(gesture.location(in: doneCollectionView))
+        case .ended:
+            doneCollectionView.endInteractiveMovement()
+        default:
+            doneCollectionView.cancelInteractiveMovement()
+        }
     }
 }
 
@@ -114,11 +176,11 @@ extension MainViewController {
             supplementaryView.updateWithHeaderItem("TODO", todoHeaderItem.first?.items.count ?? 0)
         }
         
-        let doingHeaderCellRegistration = UICollectionView.SupplementaryRegistration<MemoHeaderCell>(elementKind: "DOING") { (supplementaryView, string, indexPath) in
+        let doingHeaderCellRegistration = UICollectionView.SupplementaryRegistration<MemoHeaderCell>(elementKind: "DOING") { [unowned self] (supplementaryView, string, indexPath) in
             supplementaryView.updateWithHeaderItem("DOING", doingHeaderItem.first?.items.count ?? 0)
         }
         
-        let doneHeaderCellRegistration = UICollectionView.SupplementaryRegistration<MemoHeaderCell>(elementKind: "DONE") { (supplementaryView, string, indexPath) in
+        let doneHeaderCellRegistration = UICollectionView.SupplementaryRegistration<MemoHeaderCell>(elementKind: "DONE") { [unowned self] (supplementaryView, string, indexPath) in
             supplementaryView.updateWithHeaderItem("DONE", doneHeaderItem.first?.items.count ?? 0)
         }
         
