@@ -8,8 +8,13 @@ import UIKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
+    private(set) lazy var locale: Locale = {
+        if let language = Locale.preferredLanguages.first {
+            return Locale(identifier: language)
+        } else {
+            return Locale.current
+        }
+    }()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.

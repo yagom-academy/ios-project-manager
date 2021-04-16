@@ -7,19 +7,33 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5619C9BA261C2FEF002FA1F2 /* CardList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5619C9B9261C2FEF002FA1F2 /* CardList.swift */; };
+		56569CAB261B4CD7009C3F6B /* CardsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56569CAA261B4CD7009C3F6B /* CardsTableView.swift */; };
+		56569CB2261B5118009C3F6B /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56569CB1261B5118009C3F6B /* Card.swift */; };
+		56799E88262020A0009F56FC /* CardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56799E87262020A0009F56FC /* CardViewController.swift */; };
+		568E66F72622F94900119D8C /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568E66F62622F94900119D8C /* DataManager.swift */; };
+		5690B73A261F8444001B17E8 /* CardsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5690B738261F8444001B17E8 /* CardsTableViewCell.swift */; };
+		5690B73B261F8444001B17E8 /* CardsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5690B739261F8444001B17E8 /* CardsTableViewCell.xib */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
-		C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* ViewController.swift */; };
+		C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* MainViewController.swift */; };
 		C7431F0D25F51E1D0094C4CF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0B25F51E1D0094C4CF /* Main.storyboard */; };
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5619C9B9261C2FEF002FA1F2 /* CardList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardList.swift; sourceTree = "<group>"; };
+		56569CAA261B4CD7009C3F6B /* CardsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsTableView.swift; sourceTree = "<group>"; };
+		56569CB1261B5118009C3F6B /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		56799E87262020A0009F56FC /* CardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewController.swift; sourceTree = "<group>"; };
+		568E66F62622F94900119D8C /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		5690B738261F8444001B17E8 /* CardsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsTableViewCell.swift; sourceTree = "<group>"; };
+		5690B739261F8444001B17E8 /* CardsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardsTableViewCell.xib; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		C7431F0925F51E1D0094C4CF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		C7431F0925F51E1D0094C4CF /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		C7431F0C25F51E1D0094C4CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C7431F0E25F51E1E0094C4CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C7431F1125F51E1E0094C4CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -37,6 +51,60 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5627E0952621CABB00713550 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
+				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		5627E0962621CAD600713550 /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0B25F51E1D0094C4CF /* Main.storyboard */,
+				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
+			);
+			path = Storyboard;
+			sourceTree = "<group>";
+		};
+		56569CAD261B4CEA009C3F6B /* TableView */ = {
+			isa = PBXGroup;
+			children = (
+				56569CAA261B4CD7009C3F6B /* CardsTableView.swift */,
+				5690B738261F8444001B17E8 /* CardsTableViewCell.swift */,
+				5690B739261F8444001B17E8 /* CardsTableViewCell.xib */,
+			);
+			path = TableView;
+			sourceTree = "<group>";
+		};
+		56569CAE261B4D0A009C3F6B /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
+				56799E87262020A0009F56FC /* CardViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		56569CB0261B50E7009C3F6B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				56569CB1261B5118009C3F6B /* Card.swift */,
+				5619C9B9261C2FEF002FA1F2 /* CardList.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		568E66F52622F8FE00119D8C /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				568E66F62622F94900119D8C /* DataManager.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
 		C7431EF925F51E1D0094C4CF = {
 			isa = PBXGroup;
 			children = (
@@ -56,12 +124,13 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
-				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
-				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
-				C7431F0925F51E1D0094C4CF /* ViewController.swift */,
-				C7431F0B25F51E1D0094C4CF /* Main.storyboard */,
+				5627E0952621CABB00713550 /* App */,
+				5627E0962621CAD600713550 /* Storyboard */,
+				568E66F52622F8FE00119D8C /* Manager */,
+				56569CB0261B50E7009C3F6B /* Model */,
+				56569CAE261B4D0A009C3F6B /* ViewController */,
+				56569CAD261B4CEA009C3F6B /* TableView */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
-				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
 			);
 			path = ProjectManager;
@@ -127,6 +196,7 @@
 				C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */,
 				C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */,
 				C7431F0D25F51E1D0094C4CF /* Main.storyboard in Resources */,
+				5690B73B261F8444001B17E8 /* CardsTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,9 +207,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */,
+				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
+				568E66F72622F94900119D8C /* DataManager.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
+				56569CB2261B5118009C3F6B /* Card.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
+				5690B73A261F8444001B17E8 /* CardsTableViewCell.swift in Sources */,
+				56799E88262020A0009F56FC /* CardViewController.swift in Sources */,
+				5619C9BA261C2FEF002FA1F2 /* CardList.swift in Sources */,
+				56569CAB261B4CD7009C3F6B /* CardsTableView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

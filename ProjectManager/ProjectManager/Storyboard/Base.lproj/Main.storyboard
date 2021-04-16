@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="ipad12_9rounded" orientation="landscape" layout="fullscreen" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Main View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="MainViewController" customModule="ProjectManager" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="1366" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iDY-gD-A1V">
+                                <rect key="frame" x="0.0" y="0.0" width="1366" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="aoO-vK-aW9"/>
+                                </constraints>
+                                <items>
+                                    <navigationItem title="Project Manager" id="E2Q-9b-MiI">
+                                        <barButtonItem key="rightBarButtonItem" image="plus" catalog="system" id="xkS-jd-eiX">
+                                            <connections>
+                                                <action selector="touchUpAddButton:" destination="BYZ-38-t0r" id="gLC-Xj-JHK"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Iif-h2-QQN">
+                                <rect key="frame" x="0.0" y="974" width="1366" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="wLQ-yp-xjn"/>
+                                </constraints>
+                                <items>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="fsg-jz-5w8"/>
+                                    <barButtonItem title="Undo" id="oVG-eu-z2l"/>
+                                    <barButtonItem title="Redo" id="hVV-gY-Ioi"/>
+                                </items>
+                            </toolbar>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="hmp-7a-MHk">
+                                <rect key="frame" x="0.0" y="50" width="1366" height="924"/>
+                                <subviews>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="o13-mq-ZgK" customClass="CardsTableView" customModule="ProjectManager" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="448.5" height="924"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    </tableView>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1kb-yo-9PF" customClass="CardsTableView" customModule="ProjectManager" customModuleProvider="target">
+                                        <rect key="frame" x="458.5" y="0.0" width="449" height="924"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    </tableView>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="iQe-MN-T76" customClass="CardsTableView" customModule="ProjectManager" customModuleProvider="target">
+                                        <rect key="frame" x="917.5" y="0.0" width="448.5" height="924"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    </tableView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="iDY-gD-A1V" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="4Um-2E-GRn"/>
+                            <constraint firstAttribute="trailing" secondItem="iDY-gD-A1V" secondAttribute="trailing" id="EiN-jg-Lgr"/>
+                            <constraint firstItem="Iif-h2-QQN" firstAttribute="top" secondItem="hmp-7a-MHk" secondAttribute="bottom" id="Hb5-CV-Ip0"/>
+                            <constraint firstAttribute="bottom" secondItem="Iif-h2-QQN" secondAttribute="bottom" id="LaT-qt-8Mu"/>
+                            <constraint firstItem="hmp-7a-MHk" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="hLV-Rn-hhs"/>
+                            <constraint firstItem="Iif-h2-QQN" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="iUS-T7-VbP"/>
+                            <constraint firstItem="Iif-h2-QQN" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="oDu-aH-CiE"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="hmp-7a-MHk" secondAttribute="trailing" id="tlq-0T-GOR"/>
+                            <constraint firstItem="hmp-7a-MHk" firstAttribute="top" secondItem="iDY-gD-A1V" secondAttribute="bottom" id="xQD-Bd-sed"/>
+                            <constraint firstItem="iDY-gD-A1V" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="yqQ-yu-ZB0"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="doingCardsTableView" destination="1kb-yo-9PF" id="78r-gQ-13l"/>
+                        <outlet property="doneCardsTableView" destination="iQe-MN-T76" id="tR0-3j-52c"/>
+                        <outlet property="todoCardsTableView" destination="o13-mq-ZgK" id="7KF-9P-86x"/>
+                        <segue destination="aC8-j9-Of4" kind="presentation" identifier="presentCard" id="bfl-Qn-hhd"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="140.99560761346999" y="138.8671875"/>
+        </scene>
+        <!--Card View Controller-->
+        <scene sceneID="d3V-QV-JqW">
+            <objects>
+                <viewController modalPresentationStyle="formSheet" id="aC8-j9-Of4" customClass="CardViewController" customModule="ProjectManager" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="6Tu-1E-LjZ">
+                        <rect key="frame" x="0.0" y="0.0" width="540" height="620"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ttD-JS-smW">
+                                <rect key="frame" x="0.0" y="0.0" width="540" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <items>
+                                    <navigationItem title="TODO" id="526-tH-BP1">
+                                        <barButtonItem key="leftBarButtonItem" tag="1" systemItem="cancel" id="LEG-XS-H2y">
+                                            <connections>
+                                                <action selector="barButtonPressed:" destination="aC8-j9-Of4" id="8z1-UO-xZ3"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="XkO-FM-AtV">
+                                            <connections>
+                                                <action selector="barButtonPressed:" destination="aC8-j9-Of4" id="IM2-fz-Wg3"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <datePicker userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="mSm-5h-hnT">
+                                <rect key="frame" x="0.0" y="103" width="540" height="216"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            </datePicker>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" text="할일 내용을 입력하세요. 글자수는 1000자로 제한합니다." translatesAutoresizingMaskIntoConstraints="NO" id="fBj-Wi-L3R">
+                                <rect key="frame" x="20" y="327" width="500" height="273"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="textColor" systemColor="systemGrayColor"/>
+                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" text="Title" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="9Cs-ki-oX4">
+                                <rect key="frame" x="20" y="63" width="500" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="textColor" systemColor="systemGrayColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="YPF-5t-Flk"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Rus-ed-eFA"/>
+                    <connections>
+                        <outlet property="cancelBarButton" destination="LEG-XS-H2y" id="ZhG-6Q-aff"/>
+                        <outlet property="deadlineDatePicker" destination="mSm-5h-hnT" id="s7j-tF-kNV"/>
+                        <outlet property="descriptionsTextView" destination="fBj-Wi-L3R" id="zac-Jv-kYO"/>
+                        <outlet property="doneBarButton" destination="LEG-XS-H2y" id="v9V-zz-mZy"/>
+                        <outlet property="navigationBar" destination="ttD-JS-smW" id="vf6-EP-Sei"/>
+                        <outlet property="titleTextView" destination="9Cs-ki-oX4" id="MTO-Bo-1FF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="l6P-4a-g1H" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="801.61054172767194" y="138.8671875"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="plus" catalog="system" width="128" height="113"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGrayColor">
+            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>
