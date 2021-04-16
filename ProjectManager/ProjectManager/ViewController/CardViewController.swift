@@ -176,10 +176,14 @@ extension CardViewController: UITextViewDelegate {
         titleTextView.delegate = self
         titleTextView.text = CardViewController.UIConstatns.titlePlaceHolder
         titleTextView.textColor = .systemGray
+        titleTextView.layer.borderWidth = 1.0
+        titleTextView.layer.borderColor = UIColor.systemGray.cgColor
         
         descriptionsTextView.delegate = self
         descriptionsTextView.text = CardViewController.UIConstatns.descriptionsPlaceHolder
         descriptionsTextView.textColor = .systemGray
+        descriptionsTextView.layer.borderWidth = 1.0
+        descriptionsTextView.layer.borderColor = UIColor.systemGray.cgColor
     }
     
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {

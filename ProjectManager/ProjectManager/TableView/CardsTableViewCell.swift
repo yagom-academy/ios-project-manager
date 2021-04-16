@@ -57,5 +57,7 @@ class CardsTableViewCell: UITableViewCell {
                 deadlineLabel.textColor = (date < Date()) ? .systemRed : .label
             }
         }
+        contentView.layer.borderWidth = 0.5
+        contentView.layer.borderColor = UIColor.systemGray2.cgColor
     }
 }
