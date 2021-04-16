@@ -1,5 +1,9 @@
 import UIKit
 
+protocol MemoItemDelegate: AnyObject {
+    func addMemo(_ item: Item)
+}
+
 class MemoInsertViewController: UIViewController {
     let titleTextField = UITextField()
     let datePicker = UIDatePicker()
