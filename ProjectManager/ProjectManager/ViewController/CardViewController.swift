@@ -8,7 +8,8 @@
 import UIKit
 
 protocol CardViewControllerDelegate {
-    func cardViewController(_ cardViewController: CardViewController, card: Card)
+    func cardViewController(_ cardViewController: CardViewController, didUpdateCard: Card)
+    func cardViewController(_ cardViewController: CardViewController, addNewCard: Card)
 }
 
 
@@ -102,7 +103,7 @@ class CardViewController: UIViewController {
     private func barButtonPressedOnAddCardMode(barButton: BarButton) {
         switch barButton {
         case .done:
-            saveCard()
+            saveNewCard()
             dismiss(animated: true, completion: nil)
         case .cancel:
             dismiss(animated: true, completion: nil)
@@ -154,8 +155,19 @@ class CardViewController: UIViewController {
         
         dataManager.updateCard(with: editedCard)
         if let card = self.card {
-            delegate?.cardViewController(self, card: card)
+            delegate?.cardViewController(self, didUpdateCard: card)
         }
+    }
+    
+    func saveNewCard() {
+        guard let title = titleTextView.text,
+              let descriptions = descriptionsTextView.text else { return }
+        let deadline = Int(deadlineDatePicker.date.timeIntervalSince1970)
+        
+        let newCard: Card = Card(id: nil, title: title, descriptions: descriptions, deadline: deadline, status: .todo)
+        
+        dataManager.addCard(with: newCard)
+        delegate?.cardViewController(self, addNewCard: newCard)
     }
 }
 

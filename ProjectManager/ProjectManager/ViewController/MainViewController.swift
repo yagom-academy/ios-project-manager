@@ -110,16 +110,30 @@ extension MainViewController: UITableViewDataSource {
 }
 
 extension MainViewController: CardViewControllerDelegate {
-    func cardViewController(_ cardViewController: CardViewController, card: Card) {
-        guard let index = dataManager.cardIndex(card: card) else { return }
+    func cardViewController(_ cardViewController: CardViewController, didUpdateCard: Card) {
+        guard let index = dataManager.cardIndex(card: didUpdateCard) else { return }
         
-        switch card.status {
+        switch didUpdateCard.status {
         case .todo:
             todoCardsTableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
         case .doing:
             doingCardsTableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
         case .done:
             doneCardsTableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+        }
+    }
+    
+    func cardViewController(_ cardViewController: CardViewController, addNewCard: Card) {
+        switch addNewCard.status {
+        case .todo:
+            let insertRow = todoCardsTableView.numberOfRows(inSection: 0)
+            todoCardsTableView.insertRows(at: [IndexPath(row: insertRow, section: 0)], with: .automatic)
+        case .doing:
+            let insertRow = doingCardsTableView.numberOfRows(inSection: 0)
+            doingCardsTableView.insertRows(at: [IndexPath(row: insertRow, section: 0)], with: .automatic)
+        case .done:
+            let insertRow = doneCardsTableView.numberOfRows(inSection: 0)
+            doneCardsTableView.insertRows(at: [IndexPath(row: insertRow, section: 0)], with: .automatic)
         }
     }
 }

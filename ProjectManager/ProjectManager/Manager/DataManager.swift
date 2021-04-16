@@ -31,6 +31,10 @@ class DataManager {
         }
     }
     
+    func addCard(with card: Card) {
+        cards[card.status.index].append(card)
+    }
+    
     func card(status: Card.Status, index: Int) -> Card {
         return cards[status.index][index]
     }

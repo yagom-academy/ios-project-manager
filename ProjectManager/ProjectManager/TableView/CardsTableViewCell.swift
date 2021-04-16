@@ -42,6 +42,12 @@ class CardsTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    override func prepareForReuse() {
+        titleLabel.text = ""
+        descriptionsLabel.text = ""
+        deadlineLabel.text = ""
+    }
+    
     func configure(card: Card) {
         titleLabel.text = card.title
         descriptionsLabel.text = card.descriptions
