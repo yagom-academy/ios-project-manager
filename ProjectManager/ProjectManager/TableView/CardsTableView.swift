@@ -8,7 +8,9 @@
 import UIKit
 
 class CardsTableView: UITableView {
-    var cards: [Card] = []
+    //private var cards: [Card] = []
     
-
+//    func cardIndex() -> Int {
+//        
+//    }
 }

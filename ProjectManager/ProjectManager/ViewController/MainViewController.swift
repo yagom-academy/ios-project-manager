@@ -65,6 +65,30 @@ extension MainViewController: UITableViewDelegate {
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        guard editingStyle == .delete else { return }
+        guard let cardsTableView = tableView as? CardsTableView else { return }
+        
+        let cardStatus: Card.Status
+        switch cardsTableView {
+        case todoCardsTableView:
+            cardStatus = .todo
+        case doingCardsTableView:
+            cardStatus = .doing
+        case doneCardsTableView:
+            cardStatus = .done
+        default:
+            cardStatus = .todo
+        }
+        
+        dataManager.deleteCard(status: cardStatus, index: indexPath.row)
+        tableView.deleteRows(at: [indexPath], with: .automatic)
+    }
 }
 
 extension MainViewController: UITableViewDataSource {

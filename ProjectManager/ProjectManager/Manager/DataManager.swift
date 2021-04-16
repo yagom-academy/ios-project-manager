@@ -52,4 +52,8 @@ class DataManager {
     func cardIndex(card: Card) -> Int? {
         return cards[card.status.index].firstIndex(where: {$0.id == card.id})
     }
+    
+    func deleteCard(status: Card.Status, index: Int) {
+        cards[status.index].remove(at: index)
+    }
 }
