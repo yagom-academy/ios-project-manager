@@ -24,7 +24,7 @@ class MainViewController: UIViewController {
             Item(title: "나는 최고다.", description: "정말 최고다.", date: "2021-01-01"),
             Item(title: "너는 최고다.", description: "너무 최고다.", date: "2021-01-01"),
             Item(title: "우리는 최고다.", description: "진짜 최고다.", date: "2021-01-01"),
-            Item(title: "전설의 시작.", description: "zdo", date: "2021-01-01"),
+            Item(title: "전설의 시작.", description: "CollectionView List Configuration 많이 사랑해주세요~", date: "2021-01-01"),
         ])
     ]
 
@@ -40,6 +40,24 @@ class MainViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        configureNavigationBar()
+    }
+    
+    private func configureNavigationBar() {
+        navigationItem.title = "Project Manager"
+        
+        let barButtonItem = UIBarButtonItem(systemItem: .add)
+        barButtonItem.target = self
+        barButtonItem.action = #selector(showMemoInsertView)
+        navigationItem.setRightBarButton(barButtonItem, animated: true)
+    }
+    
+    @objc private func showMemoInsertView() {
+        let memoInsertViewController = MemoInsertViewController()
+        memoInsertViewController.delegate = self
+        let navigationController = UINavigationController(rootViewController: memoInsertViewController)
+        present(navigationController, animated: true)
     }
 }
 
