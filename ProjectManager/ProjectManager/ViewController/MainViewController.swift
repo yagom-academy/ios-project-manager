@@ -8,9 +8,9 @@ import UIKit
 
 class MainViewController: UIViewController {
 
-    @IBOutlet weak var todoCardsTableView: CardsTableView!
-    @IBOutlet weak var doingCardsTableView: CardsTableView!
-    @IBOutlet weak var doneCardsTableView: CardsTableView!
+    @IBOutlet weak var todoCardsTableView: UITableView!
+    @IBOutlet weak var doingCardsTableView: UITableView!
+    @IBOutlet weak var doneCardsTableView: UITableView!
     
     private let presentCardSegueIdentifier: String = "presentCard"
     private lazy var dataManager: DataManager = {
@@ -72,10 +72,9 @@ extension MainViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         guard editingStyle == .delete else { return }
-        guard let cardsTableView = tableView as? CardsTableView else { return }
         
         let cardStatus: Card.Status
-        switch cardsTableView {
+        switch tableView {
         case todoCardsTableView:
             cardStatus = .todo
         case doingCardsTableView:

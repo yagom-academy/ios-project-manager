@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		5619C9BA261C2FEF002FA1F2 /* CardList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5619C9B9261C2FEF002FA1F2 /* CardList.swift */; };
-		56569CAB261B4CD7009C3F6B /* CardsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56569CAA261B4CD7009C3F6B /* CardsTableView.swift */; };
 		56569CB2261B5118009C3F6B /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56569CB1261B5118009C3F6B /* Card.swift */; };
 		56799E88262020A0009F56FC /* CardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56799E87262020A0009F56FC /* CardViewController.swift */; };
 		568E66F72622F94900119D8C /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568E66F62622F94900119D8C /* DataManager.swift */; };
@@ -24,7 +23,6 @@
 
 /* Begin PBXFileReference section */
 		5619C9B9261C2FEF002FA1F2 /* CardList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardList.swift; sourceTree = "<group>"; };
-		56569CAA261B4CD7009C3F6B /* CardsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsTableView.swift; sourceTree = "<group>"; };
 		56569CB1261B5118009C3F6B /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		56799E87262020A0009F56FC /* CardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewController.swift; sourceTree = "<group>"; };
 		568E66F62622F94900119D8C /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
@@ -72,7 +70,6 @@
 		56569CAD261B4CEA009C3F6B /* TableView */ = {
 			isa = PBXGroup;
 			children = (
-				56569CAA261B4CD7009C3F6B /* CardsTableView.swift */,
 				5690B738261F8444001B17E8 /* CardsTableViewCell.swift */,
 				5690B739261F8444001B17E8 /* CardsTableViewCell.xib */,
 			);
@@ -215,7 +212,6 @@
 				5690B73A261F8444001B17E8 /* CardsTableViewCell.swift in Sources */,
 				56799E88262020A0009F56FC /* CardViewController.swift in Sources */,
 				5619C9BA261C2FEF002FA1F2 /* CardList.swift in Sources */,
-				56569CAB261B4CD7009C3F6B /* CardsTableView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
