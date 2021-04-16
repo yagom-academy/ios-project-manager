@@ -28,6 +28,11 @@ class CardViewController: UIViewController {
         }
     }
     
+    private enum UIConstatns {
+        static let titlePlaceHolder = "Title"
+        static let descriptionsPlaceHolder = "할일 내용을 입력하세요. \n글자수는 1000자로 제한합니다."
+    }
+    
     @IBOutlet private weak var navigationBar: UINavigationBar!
     @IBOutlet private weak var titleTextView: UITextView!
     @IBOutlet private weak var descriptionsTextView: UITextView!
@@ -68,7 +73,8 @@ class CardViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        setupTextView()
         switch mode {
         case .addCard:
             isCardEditable = true
@@ -120,12 +126,17 @@ class CardViewController: UIViewController {
     }
     
     func setupCard(_ card: Card) {
+        titleTextView.textColor = .label
         titleTextView.text = card.title
+        
+        descriptionsTextView.textColor = .label
         if let descriptions = card.descriptions {
             descriptionsTextView.text = descriptions
         } else {
             descriptionsTextView.text = ""
         }
+        
+        
         if let deadlineDate = card.deadlineDate {
             deadlineDatePicker.date = deadlineDate
         }
@@ -145,5 +156,35 @@ class CardViewController: UIViewController {
         if let card = self.card {
             delegate?.cardViewController(self, card: card)
         }
+    }
+}
+
+extension CardViewController: UITextViewDelegate {
+    func setupTextView() {
+        titleTextView.delegate = self
+        titleTextView.text = CardViewController.UIConstatns.titlePlaceHolder
+        titleTextView.textColor = .systemGray
+        
+        descriptionsTextView.delegate = self
+        descriptionsTextView.text = CardViewController.UIConstatns.descriptionsPlaceHolder
+        descriptionsTextView.textColor = .systemGray
+    }
+    
+    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+        switch textView {
+        case titleTextView:
+            if titleTextView.text == CardViewController.UIConstatns.titlePlaceHolder {
+                titleTextView.text = ""
+                titleTextView.textColor = .label
+            }
+        case descriptionsTextView:
+            if descriptionsTextView.text == CardViewController.UIConstatns.descriptionsPlaceHolder {
+                descriptionsTextView.text = ""
+                descriptionsTextView.textColor = .label
+            }
+        default:
+            break
+        }
+        return true
     }
 }
