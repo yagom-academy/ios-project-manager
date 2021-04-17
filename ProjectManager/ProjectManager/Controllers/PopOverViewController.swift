@@ -64,7 +64,12 @@ final class PopOverViewController: UIViewController {
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
+        if let thing = thing {
+            configureEdit(with: thing)
+        } else {
+            configureAdd()
+        }
     }
     
     override func viewDidLoad() {
@@ -79,7 +84,7 @@ final class PopOverViewController: UIViewController {
         stackView.addArrangedSubview(datePicker)
         stackView.addArrangedSubview(textView)
     }
-
+    
     //Add Configure
     private func configureAdd() {
         navigationItem.title = PopOverNavigationItems.navigationTitle
@@ -95,7 +100,7 @@ final class PopOverViewController: UIViewController {
         textField.text = thing.title
         guard let dueDate = thing.dueDate else { return }
         datePicker.date = Date(timeIntervalSince1970: dueDate)
-        textView.text = thing.des
+        textView.text = thing.detail
         self.thing = thing
         textField.isUserInteractionEnabled = false
         datePicker.isUserInteractionEnabled = false
@@ -112,16 +117,16 @@ final class PopOverViewController: UIViewController {
     @objc private func didTappedCancelButton() {
         self.dismiss(animated: true, completion: nil)
     }
-
+    
     @objc private func didTappedEditButton() {
         guard let contentView = self.navigationController?.viewControllers.last as? PopOverViewController else { return }
         contentView.textField.isUserInteractionEnabled = true
         contentView.datePicker.isUserInteractionEnabled = true
         contentView.textView.isUserInteractionEnabled = true
-
+        
         contentView.textField.becomeFirstResponder()
     }
-
+    
     @objc private func didTappedEditDoneButton() {
         guard let contentView = self.navigationController?.viewControllers.last as? PopOverViewController else { return }
         guard let thing = self.thing else {
@@ -129,7 +134,7 @@ final class PopOverViewController: UIViewController {
         }
         self.dismiss(animated: true) {
             thing.title = contentView.textField.text
-            thing.des = contentView.textView.text
+            thing.detail = contentView.textView.text
             thing.dueDate = contentView.datePicker.date.timeIntervalSince1970
             self.delegate?.editThingToDataSource(self, thing: thing)
         }

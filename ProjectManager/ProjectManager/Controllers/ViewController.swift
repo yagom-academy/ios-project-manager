@@ -14,7 +14,6 @@ class ViewController: UIViewController {
         stackView.spacing = 8
         return stackView
     }()
-    
     private let todoCollectionView = ListCollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout(), collectionType: .todo)
     private let doingCollectionView = ListCollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout(), collectionType: .doing)
     private let doneCollectionView = ListCollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout(), collectionType: .done)
@@ -37,18 +36,16 @@ class ViewController: UIViewController {
         stackView.addArrangedSubview(doingCollectionView)
         stackView.addArrangedSubview(doneCollectionView)
         
-        todoCollectionView.delegate = self
-        doingCollectionView.delegate = self
-        doneCollectionView.delegate = self
-        todoCollectionView.dragDelegate = self
-        todoCollectionView.dropDelegate = self
-        doingCollectionView.dragDelegate = self
-        doingCollectionView.dropDelegate = self
-        doneCollectionView.dragDelegate = self
-        doneCollectionView.dropDelegate = self
-        todoCollectionView.dragInteractionEnabled = true
-        doingCollectionView.dragInteractionEnabled = true
-        doneCollectionView.dragInteractionEnabled = true
+        dragAndDropSetup(todoCollectionView)
+        dragAndDropSetup(doingCollectionView)
+        dragAndDropSetup(doneCollectionView)
+    }
+    
+    private func dragAndDropSetup(_ listCollectionView: ListCollectionView) {
+        listCollectionView.delegate = self
+        listCollectionView.dragDelegate = self
+        listCollectionView.dropDelegate = self
+        listCollectionView.dragInteractionEnabled = true
     }
     
     @objc private func presentPopOverViewController() {
@@ -56,15 +53,14 @@ class ViewController: UIViewController {
     }
     
     private func deleteFromBefore(thing: Thing) {
-        switch thing.state {
+        guard let state = thing.state else { return }
+        switch state {
         case .todo:
             todoCollectionView.deleteDataSource(thing: thing)
         case .doing:
             doingCollectionView.deleteDataSource(thing: thing)
         case .done:
             doneCollectionView.deleteDataSource(thing: thing)
-        default:
-            return
         }
     }
 }

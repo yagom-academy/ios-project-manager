@@ -3,7 +3,7 @@ import Foundation
 final class Thing: NSObject, Codable {
     var id: String? = nil
     var title: String? = nil
-    var des: String? = nil
+    var detail: String? = nil
     var state: State? = nil
     var dueDate: Double? = nil
     var updatedAt: String? = nil
@@ -11,7 +11,7 @@ final class Thing: NSObject, Codable {
     init(id: String? = nil, title: String?, description: String?, state: State?, dueDate: Double?, updatedAt: String? = nil) {
         self.id = id
         self.title = title
-        self.des = description
+        self.detail = description
         self.state = state
         self.dueDate = dueDate
         self.updatedAt = updatedAt
@@ -19,7 +19,7 @@ final class Thing: NSObject, Codable {
     
     enum CodingKeys: String, CodingKey {
         case id, title, state, dueDate, updatedAt
-        case des = "description"
+        case detail = "description"
     }
     
     static func ==(lhs: Thing, rhs: Thing) -> Bool {

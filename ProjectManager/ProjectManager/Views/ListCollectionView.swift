@@ -8,9 +8,7 @@ class ListCollectionView: UICollectionView {
     init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout, collectionType: State) {
         self.collectionType = collectionType
         things = DataSource.shared.getDataByState(state: collectionType)
-
         super.init(frame: frame, collectionViewLayout: layout)
-        
         configureCollectionView()
         configureDataSource()
         configureSnapshot()
@@ -19,6 +17,7 @@ class ListCollectionView: UICollectionView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     
     private func configureCollectionView() {
         backgroundColor = .systemGray6
@@ -91,10 +90,6 @@ extension ListCollectionView {
     
     private func checkIsDatePassed(_ date: Double) -> Bool {
         let currentDate = Date().timeIntervalSince1970
-        if date < currentDate {
-            return true
-        } else {
-            return false
-        }
+        return date < currentDate
     }
 }

@@ -29,7 +29,8 @@ class ItemCell: UICollectionViewCell {
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
+        setConstraints()
     }
 }
 
@@ -61,7 +62,7 @@ extension ItemCell {
     
     func configure(thing: Thing, datePassed: Bool) {
         titleLabel.text = thing.title
-        descriptionLabel.text = thing.des
+        descriptionLabel.text = thing.detail
         let dateFormatter = DateFormatter()
         guard let dueDate = thing.dueDate else { return }
         let date = Date(timeIntervalSince1970: dueDate)

@@ -32,7 +32,7 @@ class DataSource {
             let things = try decoder.decode([Thing].self, from: data)
             self.things = things
         } catch {
-            print(error)
+            print("\(error)")
         }
     }
     

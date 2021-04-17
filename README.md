@@ -20,7 +20,7 @@
 
 ## Refactor
 
-- 기존에 PopOverViewController의 View들을 Private으로 설정해줄 수 없었다. -> ViewController에서 접근하고 있었기때문이다. 그래서 ViewController에서는 PopOverViewController에 사용할 Thing만 넘겨주고, 그 Thing의 유무에 따라 Add를 위한 PopOverViewController인지 Edit를 위한 PopOverViewController인지 결정해줬다. 
+- 기존에 PopOverViewController의 View들을 Private으로 설정해줄 수 없었다. -> ViewController에서 접근하고 있었기때문이다. 그래서 ViewController에서는 PopOverViewController에 사용할 Thing만 넘겨주고, 그 Thing의 유무에 따라 Add를 위한 PopOverViewController인지 Edit를 위한 PopOverViewController인지 결정해주었습니다.
 
   - ```swift
         init(collectionView: ListCollectionView, thing: Thing?) {
@@ -35,7 +35,7 @@
         }
     ```
 
-    그래서 기존에 ViewController에서 접근하여 설정했던 값들을 PopOverViewController에서 설정하여 View들에게 접근제한자를 설정해줄 수 있게 해줌.
+    그래서 기존에 ViewController에서 접근하여 설정했던 값들을 PopOverViewController에서 설정하여 View들에게 접근제한자를 설정해줄 수 있게 해주었습니다.
 
 - 기존에 PopOverViewController가 화면에 보여지지 않을 CollectionView를 소유하고 있었는데 이를 PopOverViewController에 Protocol을 생성해주면서 Delegate 패턴을 사용하여 해결해 주었습니다. 
 
@@ -66,7 +66,7 @@
     }
     ```
 
-    그래서 더이상 PopOverViewController가 불필요하게 CollectionView를 들고다니지 않을 수 있게 리팩토링 해줌.
+    그래서 더이상 PopOverViewController가 불필요하게 CollectionView를 들고다니지 않을 수 있게 리팩토링 해주었습니다.
 
 
 
@@ -93,4 +93,27 @@
     ```
 
     object에 대한 hash값과 isEqual을 정의해주며 id값을 비교하여 Diffable DataSource에서 데이터를 찾을 수 있게 해주었다.
+
+- ```swift
+      init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout, collectionType: State) {
+          super.init(frame: frame, collectionViewLayout: layout)
+          self.collectionType = collectionType
+          things = DataSource.shared.getDataByState(state: collectionType)
+          configureCollectionView()
+          configureDataSource()
+          configureSnapshot()
+      }
+      
+      required init?(coder: NSCoder) {
+          super.init(coder: coder)
+          preconditionFailure("모르겠어요.")
+          self.collectionType = collectionType	//Error!
+          things = DataSource.shared.getDataByState(state: collectionType)
+          configureCollectionView()
+          configureDataSource()
+          configureSnapshot()
+      }
+  ```
+
+  Required init? 과 init의 구현을 똑같이 해주려고 하는데 기존의 init은 collectionType이라는 파라미터를 하나 더 받아온다. 하지만 required init?에 collectionType이라는 파라미터를 넣으면 required init?을 또 생성하라는 에러메시지가 나오는 문제 
 
