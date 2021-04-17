@@ -1,6 +1,6 @@
 import UIKit
 
-class PopOverViewController: UIViewController {
+final class PopOverViewController: UIViewController {
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical

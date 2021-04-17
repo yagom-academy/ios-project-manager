@@ -8,20 +8,13 @@ final class Thing: NSObject, Codable {
     var dueDate: Double? = nil
     var updatedAt: String? = nil
     
-    init(id: String, title: String?, description: String?, state: State, dueDate: Double, updatedAt: String) {
+    init(id: String? = nil, title: String?, description: String?, state: State?, dueDate: Double?, updatedAt: String? = nil) {
         self.id = id
         self.title = title
         self.des = description
         self.state = state
         self.dueDate = dueDate
         self.updatedAt = updatedAt
-    }
-    
-    init(title: String?, description: String?, state: State?, dueDate: Double?) {
-        self.title = title
-        self.des = description
-        self.state = state
-        self.dueDate = dueDate
     }
     
     enum CodingKeys: String, CodingKey {
@@ -52,14 +45,14 @@ extension Thing: NSItemProviderWriting {
     
     func loadData(withTypeIdentifier typeIdentifier: String, forItemProviderCompletionHandler completionHandler: @escaping (Data?, Error?) -> Void) -> Progress? {
         let progress = Progress(totalUnitCount: 100)
-          do {
+        do {
             let data = try JSONEncoder().encode(self)
             progress.completedUnitCount = 100
             completionHandler(data, nil)
-          } catch {
+        } catch {
             completionHandler(nil, error)
-          }
-          return progress
+        }
+        return progress
     }
 }
 
