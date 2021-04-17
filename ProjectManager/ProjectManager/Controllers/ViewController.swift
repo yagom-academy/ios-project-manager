@@ -72,11 +72,11 @@ class ViewController: UIViewController {
 //MARK: - Thing Add / Edit 관련
 extension ViewController {
     private func didTapAddButton(with collectionView: ListCollectionView) {
-        let popOverViewController = PopOverViewController(collectionView: collectionView, thing: nil)
+        let popOverViewController = PopOverViewController(thing: nil)
         popOverViewController.modalPresentationStyle = .formSheet
+        popOverViewController.delegate = self
         self.present(UINavigationController(rootViewController: popOverViewController), animated: true, completion: nil)
     }
-
 }
 
 //MARK: - UICollectionViewDragDelegate -
@@ -145,7 +145,26 @@ extension ViewController: UICollectionViewDelegate {
               let thing = collectionView.diffableDataSource.itemIdentifier(for: indexPath) else {
             return
         }
-        let popOverViewController = UINavigationController(rootViewController: PopOverViewController(collectionView: collectionView, thing: thing))
-        self.present(popOverViewController, animated: true)
+        let popOverViewController = PopOverViewController(thing: thing)
+        popOverViewController.delegate = self
+        self.present(UINavigationController(rootViewController: popOverViewController), animated: true)
+    }
+}
+
+extension ViewController: PopOverViewDelegate {
+    func addThingToDataSource(_ popOverViewController: PopOverViewController, thing: Thing) {
+        todoCollectionView.insertDataSource(thing: thing, state: .todo)
+    }
+    
+    func editThingToDataSource(_ popOverViewController: PopOverViewController, thing: Thing) {
+        guard let state = thing.state else { return }
+        switch state {
+        case .todo:
+            todoCollectionView.updateThing(thing: thing)
+        case .doing:
+            doingCollectionView.updateThing(thing: thing)
+        case .done:
+            doneCollectionView.updateThing(thing: thing)
+        }
     }
 }

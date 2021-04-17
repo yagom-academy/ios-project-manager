@@ -1,5 +1,10 @@
 import UIKit
 
+protocol PopOverViewDelegate: AnyObject {
+    func addThingToDataSource(_ popOverViewController: PopOverViewController, thing: Thing)
+    func editThingToDataSource(_ popOverViewController: PopOverViewController, thing: Thing)
+}
+
 final class PopOverViewController: UIViewController {
     private let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -45,13 +50,11 @@ final class PopOverViewController: UIViewController {
         return textView
     }()
     
-    var collectionView: ListCollectionView?
-    var indexPath: IndexPath?
+    var delegate: PopOverViewDelegate?
     var thing: Thing?
     
-    init(collectionView: ListCollectionView, thing: Thing?) {
+    init(thing: Thing?) {
         super.init(nibName: nil, bundle: nil)
-        self.collectionView = collectionView
         
         if let thing = thing {
             configureEdit(with: thing)
@@ -101,8 +104,9 @@ final class PopOverViewController: UIViewController {
     
     @objc private func didTappedAddDoneButton() {
         let thing = Thing(id: UUID().uuidString, title: textField.text, description: textView.text, state: .todo, dueDate: datePicker.date.timeIntervalSince1970, updatedAt: "\(Date())")
-        collectionView?.insertDataSource(thing: thing, state: .todo)
-        self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true) {
+            self.delegate?.addThingToDataSource(self, thing: thing)
+        }
     }
     
     @objc private func didTappedCancelButton() {
@@ -120,15 +124,14 @@ final class PopOverViewController: UIViewController {
 
     @objc private func didTappedEditDoneButton() {
         guard let contentView = self.navigationController?.viewControllers.last as? PopOverViewController else { return }
-        guard let collectionView = self.collectionView,
-              let thing = self.thing else {
+        guard let thing = self.thing else {
             return
         }
         self.dismiss(animated: true) {
             thing.title = contentView.textField.text
             thing.des = contentView.textView.text
             thing.dueDate = contentView.datePicker.date.timeIntervalSince1970
-            collectionView.updateThing(thing: thing)
+            self.delegate?.editThingToDataSource(self, thing: thing)
         }
     }
     

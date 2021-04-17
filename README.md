@@ -37,7 +37,36 @@
 
     그래서 기존에 ViewController에서 접근하여 설정했던 값들을 PopOverViewController에서 설정하여 View들에게 접근제한자를 설정해줄 수 있게 해줌.
 
+- 기존에 PopOverViewController가 화면에 보여지지 않을 CollectionView를 소유하고 있었는데 이를 PopOverViewController에 Protocol을 생성해주면서 Delegate 패턴을 사용하여 해결해 주었습니다. 
 
+  - ```swift
+    //PopOverViewController.swift
+    protocol PopOverViewDelegate: AnyObject {
+        func addThingToDataSource(_ popOverViewController: PopOverViewController, thing: Thing)
+        func editThingToDataSource(_ popOverViewController: PopOverViewController, thing: Thing)
+    }
+    
+    //ViewController.swift
+    extension ViewController: PopOverViewDelegate {
+        func addThingToDataSource(_ popOverViewController: PopOverViewController, thing: Thing) {
+            todoCollectionView.insertDataSource(thing: thing, state: .todo)
+        }
+        
+        func editThingToDataSource(_ popOverViewController: PopOverViewController, thing: Thing) {
+            guard let state = thing.state else { return }
+            switch state {
+            case .todo:
+                todoCollectionView.updateThing(thing: thing)
+            case .doing:
+                doingCollectionView.updateThing(thing: thing)
+            case .done:
+                doneCollectionView.updateThing(thing: thing)
+            }
+        }
+    }
+    ```
+
+    그래서 더이상 PopOverViewController가 불필요하게 CollectionView를 들고다니지 않을 수 있게 리팩토링 해줌.
 
 
 
