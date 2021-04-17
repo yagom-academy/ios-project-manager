@@ -72,28 +72,11 @@ class ViewController: UIViewController {
 //MARK: - Thing Add / Edit 관련
 extension ViewController {
     private func didTapAddButton(with collectionView: ListCollectionView) {
-        let popOverViewController = PopOverViewController(collectionView: collectionView, leftBarbuttonTitle: PopOverNavigationItems.cancelButton, indexPath: nil)
+        let popOverViewController = PopOverViewController(collectionView: collectionView, thing: nil)
         popOverViewController.modalPresentationStyle = .formSheet
         self.present(UINavigationController(rootViewController: popOverViewController), animated: true, completion: nil)
     }
 
-    private func configurePopOverView(_ collectionView: ListCollectionView, indexPath: IndexPath) -> UINavigationController? {
-        let popOverViewController = UINavigationController(rootViewController: PopOverViewController(collectionView: collectionView, leftBarbuttonTitle: PopOverNavigationItems.editButton, indexPath: indexPath))
-
-        guard let presentedContentView = popOverViewController.viewControllers.last as? PopOverViewController else { return nil }
-
-        guard let thing = collectionView.diffableDataSource.itemIdentifier(for: indexPath) else { return nil }
-
-        presentedContentView.textField.text = thing.title
-        guard let dueDate = thing.dueDate else { return nil }
-        presentedContentView.datePicker.date = Date(timeIntervalSince1970: dueDate)
-        presentedContentView.textView.text = thing.des
-
-        presentedContentView.textField.isUserInteractionEnabled = false
-        presentedContentView.datePicker.isUserInteractionEnabled = false
-        presentedContentView.textView.isUserInteractionEnabled = false
-        return popOverViewController
-    }
 }
 
 //MARK: - UICollectionViewDragDelegate -
@@ -159,7 +142,10 @@ extension ViewController: UICollectionViewDropDelegate {
 extension ViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let collectionView = collectionView as? ListCollectionView,
-              let popOverViewController = configurePopOverView(collectionView, indexPath: indexPath) else { return }
+              let thing = collectionView.diffableDataSource.itemIdentifier(for: indexPath) else {
+            return
+        }
+        let popOverViewController = UINavigationController(rootViewController: PopOverViewController(collectionView: collectionView, thing: thing))
         self.present(popOverViewController, animated: true)
     }
 }

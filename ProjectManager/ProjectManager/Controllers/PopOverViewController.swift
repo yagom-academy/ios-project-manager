@@ -1,7 +1,7 @@
 import UIKit
 
 class PopOverViewController: UIViewController {
-    let stackView: UIStackView = {
+    private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.distribution = .fill
@@ -13,7 +13,7 @@ class PopOverViewController: UIViewController {
         return stackView
     }()
     
-    let textField: UITextField = {
+    private let textField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.backgroundColor = .systemBackground
@@ -25,7 +25,7 @@ class PopOverViewController: UIViewController {
         return textField
     }()
     
-    let datePicker: UIDatePicker = {
+    private let datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.translatesAutoresizingMaskIntoConstraints = false
         datePicker.preferredDatePickerStyle = .wheels
@@ -33,7 +33,7 @@ class PopOverViewController: UIViewController {
         return datePicker
     }()
     
-    let textView: UITextView = {
+    private let textView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.font = UIFont.systemFont(ofSize: 17)
@@ -47,12 +47,17 @@ class PopOverViewController: UIViewController {
     
     var collectionView: ListCollectionView?
     var indexPath: IndexPath?
+    var thing: Thing?
     
-    init(collectionView: ListCollectionView, leftBarbuttonTitle: String, indexPath: IndexPath?) {
+    init(collectionView: ListCollectionView, thing: Thing?) {
         super.init(nibName: nil, bundle: nil)
-        self.setNavigation(leftBarButtonTitle: leftBarbuttonTitle)
         self.collectionView = collectionView
-        self.indexPath = indexPath
+        
+        if let thing = thing {
+            configureEdit(with: thing)
+        } else {
+            configureAdd()
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -71,16 +76,27 @@ class PopOverViewController: UIViewController {
         stackView.addArrangedSubview(datePicker)
         stackView.addArrangedSubview(textView)
     }
-    
-    private func setNavigation(leftBarButtonTitle: String) {
+
+    //Add Configure
+    private func configureAdd() {
         navigationItem.title = PopOverNavigationItems.navigationTitle
-        if leftBarButtonTitle == PopOverNavigationItems.cancelButton {
-            navigationItem.leftBarButtonItem = UIBarButtonItem(title: PopOverNavigationItems.cancelButton, style: .plain, target: self, action: #selector(didTappedCancelButton))
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: PopOverNavigationItems.doneButton, style: .plain, target: self, action: #selector(didTappedAddDoneButton))
-        } else {
-            navigationItem.leftBarButtonItem = UIBarButtonItem(title: PopOverNavigationItems.editButton, style: .plain, target: self, action: #selector(didTappedEditButton))
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: PopOverNavigationItems.doneButton, style: .plain, target: self, action: #selector(didTappedEditDoneButton))
-        }
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: PopOverNavigationItems.cancelButton, style: .plain, target: self, action: #selector(didTappedCancelButton))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: PopOverNavigationItems.doneButton, style: .plain, target: self, action: #selector(didTappedAddDoneButton))
+    }
+    
+    //Edit Configure
+    private func configureEdit(with thing: Thing) {
+        navigationItem.title = PopOverNavigationItems.navigationTitle
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: PopOverNavigationItems.editButton, style: .plain, target: self, action: #selector(didTappedEditButton))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: PopOverNavigationItems.doneButton, style: .plain, target: self, action: #selector(didTappedEditDoneButton))
+        textField.text = thing.title
+        guard let dueDate = thing.dueDate else { return }
+        datePicker.date = Date(timeIntervalSince1970: dueDate)
+        textView.text = thing.des
+        self.thing = thing
+        textField.isUserInteractionEnabled = false
+        datePicker.isUserInteractionEnabled = false
+        textView.isUserInteractionEnabled = false
     }
     
     @objc private func didTappedAddDoneButton() {
@@ -105,13 +121,14 @@ class PopOverViewController: UIViewController {
     @objc private func didTappedEditDoneButton() {
         guard let contentView = self.navigationController?.viewControllers.last as? PopOverViewController else { return }
         guard let collectionView = self.collectionView,
-              let indexPath = self.indexPath else { return }
-        let thing: Thing = Thing(title: nil, description: nil, state: nil, dueDate: nil)
+              let thing = self.thing else {
+            return
+        }
         self.dismiss(animated: true) {
             thing.title = contentView.textField.text
             thing.des = contentView.textView.text
             thing.dueDate = contentView.datePicker.date.timeIntervalSince1970
-            collectionView.updateThing(indexPath: indexPath, thing: thing)
+            collectionView.updateThing(thing: thing)
         }
     }
     

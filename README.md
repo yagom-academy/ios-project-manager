@@ -16,6 +16,31 @@
 
 
 
+
+
+## Refactor
+
+- 기존에 PopOverViewController의 View들을 Private으로 설정해줄 수 없었다. -> ViewController에서 접근하고 있었기때문이다. 그래서 ViewController에서는 PopOverViewController에 사용할 Thing만 넘겨주고, 그 Thing의 유무에 따라 Add를 위한 PopOverViewController인지 Edit를 위한 PopOverViewController인지 결정해줬다. 
+
+  - ```swift
+        init(collectionView: ListCollectionView, thing: Thing?) {
+            super.init(nibName: nil, bundle: nil)
+            self.collectionView = collectionView
+            
+            if let thing = thing {
+                configureEdit(with: thing)
+            } else {
+                configureAdd()
+            }
+        }
+    ```
+
+    그래서 기존에 ViewController에서 접근하여 설정했던 값들을 PopOverViewController에서 설정하여 View들에게 접근제한자를 설정해줄 수 있게 해줌.
+
+
+
+
+
 ## 문제점
 
 - CollectionView Drag and Drop 기능 구현 중 하나의 CollectionView에 있는 cell을 다른 CollectionView로 이동하려고 할 때 이전의 cell은 지워지지 않고 그대로 남아있는 현상.
