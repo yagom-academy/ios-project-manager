@@ -26,7 +26,19 @@ class TableViewController: UIViewController {
         tableRowCount.layer.cornerRadius = 12
     }
     
-    @IBAction func cliskPlusButton(_ sender: Any) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showDetail" {
+            let viewController = segue.destination as? DetailViewController
+            
+            if let index = sender as? Int {
+                let item = viewModel.itemInfo(at: index)
+                viewController?.viewModel.update(model: item)
+                viewController?.changeToEditMode()
+            }
+        }
+    }
+    
+    @IBAction func clickPlusButton(_ sender: Any) {
         performSegue(
             withIdentifier: "addNewTODO",
             sender: nil
@@ -41,6 +53,13 @@ extension TableViewController: UITableViewDelegate {
         heightForRowAt indexPath: IndexPath
     ) -> CGFloat {
         return UITableView.automaticDimension
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(
+            withIdentifier: "showDetail",
+            sender: indexPath.row
+        )
     }
 }
 

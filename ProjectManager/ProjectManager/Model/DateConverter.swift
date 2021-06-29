@@ -28,4 +28,13 @@ class DateConverter {
         return stringOfDate
     }
 
+    func numberToDate(number: TimeInterval) -> Date {
+        let stringOfDate = numberToString(number: number)
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: Locale.current.identifier)
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let date = dateFormatter.date(from: stringOfDate)!
+        
+        return date
+    }
 }
