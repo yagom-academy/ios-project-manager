@@ -8,12 +8,12 @@
 import UIKit
 
 class TableViewController: UIViewController {
+    let viewModel = TableViewModel()
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var centerTableView: UITableView!
     @IBOutlet weak var rightTableView: UITableView!
     @IBOutlet weak var tableRowCount: UILabel!
-    
-    let viewModel = TableViewModel()
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +24,13 @@ class TableViewController: UIViewController {
         tableRowCount.text = "\(viewModel.numOfList)"
         tableRowCount.layer.masksToBounds = true
         tableRowCount.layer.cornerRadius = 12
+    }
+    
+    @IBAction func cliskPlusButton(_ sender: Any) {
+        performSegue(
+            withIdentifier: "addNewTODO",
+            sender: nil
+        )
     }
 }
 

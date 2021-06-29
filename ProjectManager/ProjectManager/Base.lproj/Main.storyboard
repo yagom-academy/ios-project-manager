@@ -156,7 +156,22 @@
                             <constraint firstItem="Y8f-OX-aee" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="xP1-aC-7O6"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Project Manager" id="W8h-f5-fp1"/>
+                    <navigationItem key="navigationItem" title="Project Manager" id="W8h-f5-fp1">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="Eg0-Hu-4iy">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="XZc-XN-v8r">
+                                <rect key="frame" x="1328" y="14" width="18" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="plus" catalog="system"/>
+                                <connections>
+                                    <action selector="cliskPlusButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vlR-Yd-mdW"/>
+                                </connections>
+                            </button>
+                            <connections>
+                                <action selector="cliskPlusButton:" destination="BYZ-38-t0r" id="CEl-dd-HU5"/>
+                                <segue destination="SYa-qz-GRD" kind="presentation" identifier="addNewTODO" id="6O5-uu-iqo"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="centerTableView" destination="SQX-p8-njq" id="RqN-P6-eI2"/>
                         <outlet property="rightTableView" destination="LUh-dS-dai" id="3ad-MU-2cQ"/>
@@ -167,6 +182,71 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="832.79648609077594" y="137.6953125"/>
+        </scene>
+        <!--Add View Controller-->
+        <scene sceneID="mcY-Ng-zQz">
+            <objects>
+                <viewController id="SYa-qz-GRD" customClass="AddViewController" customModule="ProjectManager" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3pN-1J-XpM">
+                        <rect key="frame" x="0.0" y="0.0" width="704" height="984"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vlu-8e-ciM">
+                                <rect key="frame" x="0.0" y="0.0" width="704" height="50"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <items>
+                                    <navigationItem title="TODO" id="US6-3G-jHo">
+                                        <barButtonItem key="leftBarButtonItem" style="plain" id="hwV-34-NY0">
+                                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="GIN-5C-JUo">
+                                                <rect key="frame" x="20" y="13" width="156" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="Cancel"/>
+                                            </button>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" style="plain" id="eZ3-vn-z19">
+                                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="8j3-9b-5jq">
+                                                <rect key="frame" x="528" y="13" width="156" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="Done"/>
+                                                <connections>
+                                                    <action selector="clickDoneButton:" destination="SYa-qz-GRD" eventType="touchUpInside" id="HbT-XI-lbS"/>
+                                                </connections>
+                                            </button>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Title" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fy8-fs-LpX">
+                                <rect key="frame" x="20" y="63" width="664" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="QRa-Z9-LEM">
+                                <rect key="frame" x="-6" y="106" width="704" height="216"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            </datePicker>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="입력 가능한 글자수는 1000자로 제한합니다." allowsEditingTextAttributes="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fSp-nb-lzj">
+                                <rect key="frame" x="20" y="330" width="664" height="634"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" name=".AppleSDGothicNeoI-Regular" family=".Apple SD Gothic NeoI" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="xWv-pZ-RSh"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <connections>
+                        <outlet property="newContent" destination="fSp-nb-lzj" id="eH1-uj-Fbb"/>
+                        <outlet property="newDate" destination="QRa-Z9-LEM" id="yEE-yn-JUb"/>
+                        <outlet property="newTitle" destination="fy8-fs-LpX" id="hZj-Al-Lck"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SmU-EI-6Wh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1453.8799414348462" y="135.9375"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="hPG-UD-bzD">
@@ -188,6 +268,10 @@
         </scene>
     </scenes>
     <resources>
+        <image name="plus" catalog="system" width="128" height="113"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
