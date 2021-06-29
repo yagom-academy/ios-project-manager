@@ -8,7 +8,7 @@ import SwiftUI
 import UIKit
 
 
-class ViewController: UIViewController {
+class ProjectManagerViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
