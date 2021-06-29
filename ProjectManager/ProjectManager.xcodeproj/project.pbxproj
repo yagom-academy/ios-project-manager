@@ -13,6 +13,9 @@
 		C7431F0A25F51E1D0094C4CF /* ProjectManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* ProjectManagerViewController.swift */; };
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
+		D011DAB4268B0E00001DEE59 /* TODOTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D011DAB3268B0E00001DEE59 /* TODOTableViewController.swift */; };
+		D011DAB6268B0E0A001DEE59 /* DOINGTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D011DAB5268B0E0A001DEE59 /* DOINGTableViewController.swift */; };
+		D011DAB8268B0E13001DEE59 /* DONETableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D011DAB7268B0E13001DEE59 /* DONETableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +27,9 @@
 		C7431F0E25F51E1E0094C4CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C7431F1125F51E1E0094C4CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D011DAB3268B0E00001DEE59 /* TODOTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TODOTableViewController.swift; sourceTree = "<group>"; };
+		D011DAB5268B0E0A001DEE59 /* DOINGTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DOINGTableViewController.swift; sourceTree = "<group>"; };
+		D011DAB7268B0E13001DEE59 /* DONETableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DONETableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,13 +64,32 @@
 			children = (
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
-				C7431F0925F51E1D0094C4CF /* ProjectManagerViewController.swift */,
-				3818930E268AFDDF00D48055 /* RegisterViewController.swift */,
+				D011DABA268B0E3E001DEE59 /* ViewControllers */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
 			);
 			path = ProjectManager;
+			sourceTree = "<group>";
+		};
+		D011DAB9268B0E16001DEE59 /* TableViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				D011DAB3268B0E00001DEE59 /* TODOTableViewController.swift */,
+				D011DAB5268B0E0A001DEE59 /* DOINGTableViewController.swift */,
+				D011DAB7268B0E13001DEE59 /* DONETableViewController.swift */,
+			);
+			path = TableViewControllers;
+			sourceTree = "<group>";
+		};
+		D011DABA268B0E3E001DEE59 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0925F51E1D0094C4CF /* ProjectManagerViewController.swift */,
+				3818930E268AFDDF00D48055 /* RegisterViewController.swift */,
+				D011DAB9268B0E16001DEE59 /* TableViewControllers */,
+			);
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,9 +162,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7431F0A25F51E1D0094C4CF /* ProjectManagerViewController.swift in Sources */,
+				D011DAB4268B0E00001DEE59 /* TODOTableViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				3818930F268AFDDF00D48055 /* RegisterViewController.swift in Sources */,
+				D011DAB8268B0E13001DEE59 /* DONETableViewController.swift in Sources */,
+				D011DAB6268B0E0A001DEE59 /* DOINGTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

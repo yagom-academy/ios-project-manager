@@ -9,6 +9,9 @@ import UIKit
 class ProjectManagerViewController: UIViewController {
 
     let registerViewController = RegisterViewController()
+    let todoTableViewController = TODOTableViewController()
+    let doingTableViewController = DOINGTableViewController()
+    let doneTableViewController = DONETableViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
