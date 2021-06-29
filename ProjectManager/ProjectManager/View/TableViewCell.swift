@@ -9,15 +9,25 @@ import UIKit
 
 class LeftTableViewCell: UITableViewCell {
     static let cellIdentifier = "LeftTableViewCell"
+    private let dateConverter = DateConverter()
     
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var summary: UILabel!
     @IBOutlet weak var date: UILabel!
     
     func update(info: TableItem) {
+        self.backgroundColor = UIColor.clear
+        
         title.text = info.title
         summary.text = info.summary
-        date.text = info.date
+        date.text = dateConverter.numberToString(number: info.date)
+        
+        let stringOfCurrentDate = dateConverter.dateToString(date: Date())
+        if date.text ?? "" < stringOfCurrentDate {
+            date.textColor = UIColor.red
+        } else {
+            date.textColor = UIColor.black
+        }
     }
 }
 

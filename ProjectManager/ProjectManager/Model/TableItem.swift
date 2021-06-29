@@ -10,11 +10,11 @@ import UIKit
 struct TableItem {
     let title: String
     let summary: String
-    let date: String
+    let date: Double
     
     init(title: String,
          summary: String,
-         date: String) {
+         date: Double) {
         self.title = title
         self.summary = summary
         self.date = date
