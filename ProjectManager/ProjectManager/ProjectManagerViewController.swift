@@ -14,5 +14,8 @@ class ProjectManagerViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         self.navigationItem.title = "Project Manager"
+        
+        let rightBarButton = UIBarButtonItem.init(title: "+", style: .done, target: self, action: nil)
+        navigationItem.rightBarButtonItem = rightBarButton
     }
 }
