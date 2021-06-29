@@ -4,18 +4,24 @@
 //  Copyright © yagom. All rights reserved.
 // 
 
-import SwiftUI
 import UIKit
-
 
 class ProjectManagerViewController: UIViewController {
 
+    let registerViewController = RegisterViewController()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
-        self.navigationItem.title = "Project Manager"
+        let rightBarButton = UIBarButtonItem.init(barButtonSystemItem: .add,
+                                                  target: self,
+                                                  action: #selector(buttonPressed(_:)))
         
-        let rightBarButton = UIBarButtonItem.init(title: "+", style: .done, target: self, action: nil)
+        view.backgroundColor = .white
+        navigationItem.title = "Project Manager"
         navigationItem.rightBarButtonItem = rightBarButton
+    }
+    
+    @objc func buttonPressed(_ sender: Any) {
+        self.present(registerViewController, animated: true, completion: nil)
     }
 }
