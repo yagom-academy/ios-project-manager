@@ -1,5 +1,5 @@
 //
-//  ProjectManager - ViewController.swift
+//  ProjectManager - ProjectManagerViewController.swift
 //  Created by yagom. 
 //  Copyright © yagom. All rights reserved.
 // 
@@ -13,6 +13,6 @@ class ProjectManagerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        self.navigationItem.title = "Project Manager"
     }
 }
-
