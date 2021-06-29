@@ -11,6 +11,7 @@ class TableViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var centerTableView: UITableView!
     @IBOutlet weak var rightTableView: UITableView!
+    @IBOutlet weak var tableRowCount: UILabel!
     
     let viewModel = TableViewModel()
         
@@ -19,6 +20,10 @@ class TableViewController: UIViewController {
         
         tableView.delegate = self
         tableView.dataSource = self
+        
+        tableRowCount.text = "\(viewModel.numOfList)"
+        tableRowCount.layer.masksToBounds = true
+        tableRowCount.layer.cornerRadius = 12
     }
 }
 
