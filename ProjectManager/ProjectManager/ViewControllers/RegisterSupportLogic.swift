@@ -8,16 +8,16 @@
 import UIKit
 
 protocol RegisterSupportLogic {
-    func convertToModel() -> TODOModel?
+    func convertToModel(title: String?,
+                        dateString: String,
+                        description: String) -> TODOModel?
     
     func convertDateToString(_ date: Date) -> String
 }
 
 extension RegisterViewController: RegisterSupportLogic {
-    func convertToModel() -> TODOModel? {
-        guard let title = registerTitle.text else { return nil }
-        let dateString = convertDateToString(datePicker.date)
-        let description = description
+    func convertToModel(title: String?, dateString: String, description: String) -> TODOModel? {
+        guard let title = title else { return nil }
         
         return TODOModel(title: title,
                          deadline: dateString,

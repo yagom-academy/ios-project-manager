@@ -10,10 +10,15 @@ import XCTest
 
 class ProjectManagerTests: XCTestCase {
     let sut = TODOModel(title: "야곰괴롭히기",
-                        deadline: <#T##Date#>,
-                        description: <#T##String#>)
+                        deadline: "2021-07-21",
+                        description: "야곰을 충분히 괴롭혀주세요.")
     
     func test_할일등록화면에서_done_버튼을누를시_원하는모델객체가_생성되는가() {
-        XCTAssertEqual(<#T##expression1: Equatable##Equatable#>, <#T##expression2: Equatable##Equatable#>)
+        let registerViewController = RegisterViewController()
+        let convertedModel = registerViewController.convertToModel(title: "야곰괴롭히기",
+                                                                   dateString: "2021-07-21",
+                                                                   description: "야곰을 충분히 괴롭혀주세요.")!
+        
+        XCTAssertEqual(sut.deadline, convertedModel.deadline)
     }
 }
