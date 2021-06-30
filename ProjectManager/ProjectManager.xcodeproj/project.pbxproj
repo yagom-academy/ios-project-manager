@@ -18,6 +18,7 @@
 		D011DAB8268B0E13001DEE59 /* DONETableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D011DAB7268B0E13001DEE59 /* DONETableViewController.swift */; };
 		D01DA665268C8B3300FFBEE1 /* TODOModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01DA664268C8B3300FFBEE1 /* TODOModel.swift */; };
 		D01DA670268C900200FFBEE1 /* ProjectManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01DA66F268C900200FFBEE1 /* ProjectManagerTests.swift */; };
+		D01DA678268C944500FFBEE1 /* RegisterSupportLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01DA677268C944500FFBEE1 /* RegisterSupportLogic.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,7 @@
 		D01DA66D268C900200FFBEE1 /* ProjectManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProjectManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D01DA66F268C900200FFBEE1 /* ProjectManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerTests.swift; sourceTree = "<group>"; };
 		D01DA671268C900200FFBEE1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D01DA677268C944500FFBEE1 /* RegisterSupportLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterSupportLogic.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +115,7 @@
 			children = (
 				C7431F0925F51E1D0094C4CF /* ProjectManagerViewController.swift */,
 				3818930E268AFDDF00D48055 /* RegisterViewController.swift */,
+				D01DA677268C944500FFBEE1 /* RegisterSupportLogic.swift */,
 				D011DAB9268B0E16001DEE59 /* TableViewControllers */,
 			);
 			path = ViewControllers;
@@ -236,6 +239,7 @@
 			files = (
 				C7431F0A25F51E1D0094C4CF /* ProjectManagerViewController.swift in Sources */,
 				D01DA665268C8B3300FFBEE1 /* TODOModel.swift in Sources */,
+				D01DA678268C944500FFBEE1 /* RegisterSupportLogic.swift in Sources */,
 				D011DAB4268B0E00001DEE59 /* TODOTableViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,

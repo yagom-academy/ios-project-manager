@@ -9,6 +9,6 @@ import Foundation
 
 struct TODOModel {
     let title: String
-    let deadline: Date
+    let deadline: String
     let description: String
 }
