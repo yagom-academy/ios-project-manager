@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		851DD1D2268B6FF80065837E /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851DD1D1268B6FF80065837E /* DetailViewModel.swift */; };
+		856D19A9268C7BB100D2D134 /* DoingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 856D19A8268C7BB100D2D134 /* DoingTableViewController.swift */; };
+		856D19AB268C7BF500D2D134 /* DoneTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 856D19AA268C7BF500D2D134 /* DoneTableViewController.swift */; };
 		85B98957268AA4E100FF2DD7 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B98956268AA4E100FF2DD7 /* TableViewController.swift */; };
 		85B98959268AA8DF00FF2DD7 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B98958268AA8DF00FF2DD7 /* TableViewCell.swift */; };
 		85B9895D268AC66A00FF2DD7 /* TableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B9895C268AC66A00FF2DD7 /* TableViewModel.swift */; };
@@ -23,6 +25,8 @@
 
 /* Begin PBXFileReference section */
 		851DD1D1268B6FF80065837E /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
+		856D19A8268C7BB100D2D134 /* DoingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoingTableViewController.swift; sourceTree = "<group>"; };
+		856D19AA268C7BF500D2D134 /* DoneTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneTableViewController.swift; sourceTree = "<group>"; };
 		85B98956268AA4E100FF2DD7 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		85B98958268AA8DF00FF2DD7 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		85B9895C268AC66A00FF2DD7 /* TableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewModel.swift; sourceTree = "<group>"; };
@@ -53,6 +57,8 @@
 			isa = PBXGroup;
 			children = (
 				85B98956268AA4E100FF2DD7 /* TableViewController.swift */,
+				856D19A8268C7BB100D2D134 /* DoingTableViewController.swift */,
+				856D19AA268C7BF500D2D134 /* DoneTableViewController.swift */,
 				85B98958268AA8DF00FF2DD7 /* TableViewCell.swift */,
 				85B98962268B605800FF2DD7 /* DetailViewController.swift */,
 			);
@@ -194,8 +200,10 @@
 				851DD1D2268B6FF80065837E /* DetailViewModel.swift in Sources */,
 				85B9895D268AC66A00FF2DD7 /* TableViewModel.swift in Sources */,
 				85B98959268AA8DF00FF2DD7 /* TableViewCell.swift in Sources */,
+				856D19AB268C7BF500D2D134 /* DoneTableViewController.swift in Sources */,
 				85B98957268AA4E100FF2DD7 /* TableViewController.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
+				856D19A9268C7BB100D2D134 /* DoingTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -343,7 +351,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = SPWQVPZS24;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = ProjectManager/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -363,7 +371,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = SPWQVPZS24;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = ProjectManager/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (

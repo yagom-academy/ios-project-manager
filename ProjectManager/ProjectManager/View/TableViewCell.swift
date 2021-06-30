@@ -7,39 +7,34 @@
 
 import UIKit
 
-class LeftTableViewCell: UITableViewCell {
-    static let cellIdentifier = "LeftTableViewCell"
+class TableViewCell: UITableViewCell {
+    static let cellIdentifier = "TableViewCell"
     private let dateConverter = DateConverter()
     
-    @IBOutlet weak var title: UILabel!
-    @IBOutlet weak var summary: UILabel!
-    @IBOutlet weak var date: UILabel!
+    @IBOutlet weak var todoTitle: UILabel!
+    @IBOutlet weak var todoSummary: UILabel!
+    @IBOutlet weak var todoDate: UILabel!
+    
+    @IBOutlet weak var doingTitle: UILabel!
+    @IBOutlet weak var doingSummary: UILabel!
+    @IBOutlet weak var doingDate: UILabel!
+    
+    @IBOutlet weak var doneTitle: UILabel!
+    @IBOutlet weak var doneSummary: UILabel!
+    @IBOutlet weak var doneDate: UILabel!
     
     func update(info: TableItem) {
         self.backgroundColor = UIColor.clear
         
-        title.text = info.title
-        summary.text = info.summary
-        date.text = dateConverter.numberToString(number: info.date)
+        todoTitle.text = info.title
+        todoSummary.text = info.summary
+        todoDate.text = dateConverter.numberToString(number: info.date)
         
         let stringOfCurrentDate = dateConverter.dateToString(date: Date())
-        if date.text ?? "" < stringOfCurrentDate {
-            date.textColor = UIColor.red
+        if todoDate.text ?? "" < stringOfCurrentDate {
+            todoDate.textColor = UIColor.red
         } else {
-            date.textColor = UIColor.black
+            todoDate.textColor = UIColor.black
         }
     }
 }
-
-class CenterTableViewCell: UITableViewCell {
-    static let cellIdentifier = "CenterTableViewCell"
-    
-    @IBOutlet weak var label: UILabel!
-}
-
-class RightTableViewCell: UITableViewCell {
-    static let cellIdentifier = "RightTableViewCell"
-    
-    @IBOutlet weak var label: UILabel!
-}
-

@@ -10,20 +10,24 @@ import UIKit
 class TableViewController: UIViewController {
     let viewModel = TableViewModel()
     
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var centerTableView: UITableView!
-    @IBOutlet weak var rightTableView: UITableView!
-    @IBOutlet weak var tableRowCount: UILabel!
-        
+    @IBOutlet weak var todoTableView: UITableView!
+    @IBOutlet weak var doingTableView: UITableView!
+    @IBOutlet weak var doneTableView: UITableView!
+    @IBOutlet weak var todoTableRowCount: UILabel!
+    @IBOutlet weak var doingTableRowCount: UILabel!
+    @IBOutlet weak var doneTableRowCount: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.delegate = self
-        tableView.dataSource = self
+        todoTableView.delegate = self
+        todoTableView.dataSource = self
         
-        tableRowCount.text = "\(viewModel.numOfList)"
-        tableRowCount.layer.masksToBounds = true
-        tableRowCount.layer.cornerRadius = 12
+        let circleImage = UIImage(systemName: "circle.fill")
+        todoTableRowCount.text = "\(viewModel.numOfList)"
+        todoTableRowCount.backgroundColor = UIColor(patternImage: circleImage!)
+        doingTableRowCount.backgroundColor = UIColor(patternImage: circleImage!) 
+        doneTableRowCount.backgroundColor = UIColor(patternImage: circleImage!)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -77,15 +81,16 @@ extension TableViewController: UITableViewDataSource {
         cellForRowAt indexPath: IndexPath
     ) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: LeftTableViewCell.cellIdentifier,
+            withIdentifier: TableViewCell.cellIdentifier,
             for: indexPath
-        ) as? LeftTableViewCell
+        ) as? TableViewCell
         else {
             return UITableViewCell()
         }
         
         let listInfo = viewModel.itemInfo(at: indexPath.row)
         cell.update(info: listInfo)
+        cell.separatorInset = UIEdgeInsets.zero
         
         return cell
     }
