@@ -47,6 +47,8 @@ class RegisterViewController: UIViewController {
         description.layer.shadowOpacity = 0.6
         description.clipsToBounds = false
         
+        description.textContainerInset = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
+        
         return description
     }()
 
@@ -59,9 +61,17 @@ class RegisterViewController: UIViewController {
         return myStackView
     }()
     
+    func placeholderSetting() {
+        registerDescription.text = "설명을 입력해주세요"
+        registerDescription.textColor = UIColor.lightGray
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        placeholderSetting()
+        registerDescription.delegate = self
+        
         navigationItem.title = "TODO"
         navigationItem.leftBarButtonItem = leftButton
         navigationItem.rightBarButtonItem = rightButton
@@ -85,5 +95,22 @@ class RegisterViewController: UIViewController {
             
             registerTitle.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.1)
         ])
+    }
+}
+
+extension RegisterViewController: UITextViewDelegate {
+
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == UIColor.lightGray {
+            textView.text = nil
+            textView.textColor = UIColor.black
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = "설명을 입력해주세요"
+            textView.textColor = UIColor.lightGray
+        }
     }
 }
