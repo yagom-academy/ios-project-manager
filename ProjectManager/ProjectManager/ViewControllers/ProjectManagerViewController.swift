@@ -54,6 +54,7 @@ class ProjectManagerViewController: UIViewController {
     }
     
     @objc func buttonPressed(_ sender: Any) {
-        self.present(registerViewController, animated: true, completion: nil)
+        let navigationController = UINavigationController(rootViewController: registerViewController)
+        self.present(navigationController, animated: true, completion: nil)
     }
 }
