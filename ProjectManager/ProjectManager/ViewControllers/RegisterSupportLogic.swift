@@ -10,15 +10,13 @@ import UIKit
 protocol RegisterSupportLogic {
     func convertToModel() -> TODOModel?
     
-    func convertDateToString(_ datePicker: UIDatePicker) -> String
-    
-    func didHitDoneButton()
+    func convertDateToString(_ date: Date) -> String
 }
 
 extension RegisterViewController: RegisterSupportLogic {
     func convertToModel() -> TODOModel? {
         guard let title = registerTitle.text else { return nil }
-        let dateString = convertDateToString(datePicker)
+        let dateString = convertDateToString(datePicker.date)
         let description = description
         
         return TODOModel(title: title,
@@ -26,16 +24,10 @@ extension RegisterViewController: RegisterSupportLogic {
                          description: description)
     }
     
-    func convertDateToString(_ datePicker: UIDatePicker) -> String {
+    func convertDateToString(_ date: Date) -> String {
         let formatter = DateFormatter()
-        let date: Date = datePicker.date
-        
         formatter.dateFormat = "yyyy-MM-dd"
         
         return formatter.string(from: date)
-    }
-    
-    @objc func didHitDoneButton() {
-        self.dismiss(animated: true, completion: nil)
     }
 }

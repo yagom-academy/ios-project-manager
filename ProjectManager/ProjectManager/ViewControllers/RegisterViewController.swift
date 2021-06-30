@@ -9,8 +9,15 @@ import UIKit
 
 class RegisterViewController: UIViewController {
     
-    let leftButton = UIBarButtonItem.init(title: "Cancel", style: .done, target: self, action: nil)
-    let rightButton = UIBarButtonItem.init(title: "Done", style: .done, target: self, action: nil)
+    let leftButton = UIBarButtonItem.init(title: "Cancel",
+                                          style: .done,
+                                          target: self,
+                                          action: #selector(didHitCancelButton))
+    
+    var rightButton = UIBarButtonItem.init(title: "Done",
+                                           style: .done,
+                                           target: self,
+                                           action: #selector(didHitDoneButton))
     
     let registerTitle: UITextField = {
         let registerTitle = UITextField()
@@ -66,6 +73,14 @@ class RegisterViewController: UIViewController {
         registerDescription.textColor = UIColor.lightGray
     }
     
+    @objc func didHitCancelButton() {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func didHitDoneButton() {
+        self.dismiss(animated: true, completion: nil)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
