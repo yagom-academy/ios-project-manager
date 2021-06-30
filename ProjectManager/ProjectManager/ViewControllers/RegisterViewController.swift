@@ -11,7 +11,7 @@ class RegisterViewController: UIViewController {
     
     let leftButton = UIBarButtonItem.init(title: "Cancel", style: .done, target: self, action: nil)
     let rightButton = UIBarButtonItem.init(title: "Done", style: .done, target: self, action: nil)
-    let labelTitle = UILabel()
+    let registerTitle = UITextField()
     
     let datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
@@ -21,18 +21,24 @@ class RegisterViewController: UIViewController {
         return datePicker
     }()
     
-    let textField = UITextField()
+    let registerDescription = UITextView()
 
     let stackView: UIStackView = {
         let myStackView = UIStackView()
         myStackView.axis = .vertical
         myStackView.alignment = .fill
+        myStackView.spacing = 10
         
         return myStackView
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        registerTitle.backgroundColor = .yellow
+        registerTitle.layer.shadowOffset = .zero
+        registerTitle.layer.shadowColor = UIColor.black.cgColor
+        registerTitle.layer.shadowOpacity = 5
 
         navigationItem.title = "TODO"
         navigationItem.leftBarButtonItem = leftButton
@@ -41,25 +47,24 @@ class RegisterViewController: UIViewController {
         view.backgroundColor = .white
         view.addSubview(stackView)
         
-        stackView.addArrangedSubview(labelTitle)
+        stackView.addArrangedSubview(registerTitle)
         stackView.addArrangedSubview(datePicker)
-        stackView.addArrangedSubview(textField)
+        stackView.addArrangedSubview(registerDescription)
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        labelTitle.translatesAutoresizingMaskIntoConstraints = false
-        textField.translatesAutoresizingMaskIntoConstraints = false
+        registerTitle.translatesAutoresizingMaskIntoConstraints = false
+        registerDescription.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            stackView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
-            stackView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
-            stackView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 1),
-            stackView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 1),
+            stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 15),
+            stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -15),
+            stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 15),
+            stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -15),
             
-            labelTitle.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.1),
-            labelTitle.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1)
+            registerTitle.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.1)
         ])
         
-        labelTitle.backgroundColor = .yellow
-        textField.backgroundColor = .green
+        
+        registerDescription.backgroundColor = .green
     }
 }
