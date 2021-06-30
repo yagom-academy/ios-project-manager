@@ -16,6 +16,7 @@
 		D011DAB4268B0E00001DEE59 /* TODOTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D011DAB3268B0E00001DEE59 /* TODOTableViewController.swift */; };
 		D011DAB6268B0E0A001DEE59 /* DOINGTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D011DAB5268B0E0A001DEE59 /* DOINGTableViewController.swift */; };
 		D011DAB8268B0E13001DEE59 /* DONETableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D011DAB7268B0E13001DEE59 /* DONETableViewController.swift */; };
+		D01DA665268C8B3300FFBEE1 /* TODOModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01DA664268C8B3300FFBEE1 /* TODOModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		D011DAB3268B0E00001DEE59 /* TODOTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TODOTableViewController.swift; sourceTree = "<group>"; };
 		D011DAB5268B0E0A001DEE59 /* DOINGTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DOINGTableViewController.swift; sourceTree = "<group>"; };
 		D011DAB7268B0E13001DEE59 /* DONETableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DONETableViewController.swift; sourceTree = "<group>"; };
+		D01DA664268C8B3300FFBEE1 /* TODOModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TODOModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +67,7 @@
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
 				D011DABA268B0E3E001DEE59 /* ViewControllers */,
+				D01DA666268C8B3B00FFBEE1 /* Models */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
@@ -90,6 +93,14 @@
 				D011DAB9268B0E16001DEE59 /* TableViewControllers */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		D01DA666268C8B3B00FFBEE1 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D01DA664268C8B3300FFBEE1 /* TODOModel.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -162,6 +173,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7431F0A25F51E1D0094C4CF /* ProjectManagerViewController.swift in Sources */,
+				D01DA665268C8B3300FFBEE1 /* TODOModel.swift in Sources */,
 				D011DAB4268B0E00001DEE59 /* TODOTableViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
