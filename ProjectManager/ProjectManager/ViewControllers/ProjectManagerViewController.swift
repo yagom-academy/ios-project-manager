@@ -12,7 +12,7 @@ class ProjectManagerViewController: UIViewController {
     let todoTableViewController = TODOTableViewController()
     let doingTableViewController = DOINGTableViewController()
     let doneTableViewController = DONETableViewController()
-    
+
     let stackView: UIStackView = {
         let myStackView = UIStackView()
         myStackView.alignment = .fill
@@ -20,13 +20,13 @@ class ProjectManagerViewController: UIViewController {
 
         return myStackView
     }()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         let rightBarButton = UIBarButtonItem.init(barButtonSystemItem: .add,
                                                   target: self,
                                                   action: #selector(buttonPressed(_:)))
-        
+
         view.backgroundColor = .white
         navigationItem.title = "Project Manager"
         navigationItem.rightBarButtonItem = rightBarButton
@@ -52,7 +52,7 @@ class ProjectManagerViewController: UIViewController {
             doneTableViewController.view.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1/3)
         ])
     }
-    
+
     @objc func buttonPressed(_ sender: Any) {
         let navigationController = UINavigationController(rootViewController: registerViewController)
         self.present(navigationController, animated: true, completion: nil)

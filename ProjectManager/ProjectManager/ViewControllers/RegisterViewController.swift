@@ -8,6 +8,20 @@
 import UIKit
 
 class RegisterViewController: UIViewController {
+    
+    let leftButton = UIBarButtonItem.init(title: "Cancel", style: .done, target: self, action: nil)
+    let rightButton = UIBarButtonItem.init(title: "Done", style: .done, target: self, action: nil)
+    let labelTitle = UILabel()
+    
+    let datePicker: UIDatePicker = {
+        let datePicker = UIDatePicker()
+        datePicker.preferredDatePickerStyle = .wheels
+        datePicker.datePickerMode = .date
+        
+        return datePicker
+    }()
+    
+    let textField = UITextField()
 
     let stackView: UIStackView = {
         let myStackView = UIStackView()
@@ -19,48 +33,33 @@ class RegisterViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
-        
+
         navigationItem.title = "TODO"
-
-        let leftButton = UIBarButtonItem.init(title: "Cancel", style: .done, target: self, action: nil)
-        let rightButton = UIBarButtonItem.init(title: "Done", style: .done, target: self, action: nil)
-
         navigationItem.leftBarButtonItem = leftButton
         navigationItem.rightBarButtonItem = rightButton
         
+        view.backgroundColor = .white
         view.addSubview(stackView)
+        
+        stackView.addArrangedSubview(labelTitle)
+        stackView.addArrangedSubview(datePicker)
+        stackView.addArrangedSubview(textField)
+        
         stackView.translatesAutoresizingMaskIntoConstraints = false
+        labelTitle.translatesAutoresizingMaskIntoConstraints = false
+        textField.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             stackView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
             stackView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
             stackView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 1),
-            stackView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 1)
+            stackView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 1),
+            
+            labelTitle.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.1),
+            labelTitle.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1)
         ])
         
-//        stackView.backgroundColor = .green
-        
-        let title = UILabel()
-        let datePicker = UIDatePicker()
-        let textField = UITextField()
-        
-        title.translatesAutoresizingMaskIntoConstraints = false
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        
-        title.backgroundColor = .yellow
+        labelTitle.backgroundColor = .yellow
         textField.backgroundColor = .green
-
-        stackView.addArrangedSubview(title)
-        stackView.addArrangedSubview(datePicker)
-        stackView.addArrangedSubview(textField)
-        
-        NSLayoutConstraint.activate([
-            title.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.1),
-            title.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1)
-        ])
-
-        datePicker.preferredDatePickerStyle = .wheels
-        datePicker.datePickerMode = .date
     }
 }
