@@ -20,6 +20,12 @@ class RegisterViewController: UIViewController {
         registerTitle.layer.shadowColor = UIColor.black.cgColor
         registerTitle.layer.shadowOpacity = 0.6
         registerTitle.clipsToBounds = false
+        registerTitle.placeholder = "Title"
+       
+        registerTitle.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: registerTitle.frame.height))
+        registerTitle.leftViewMode = .always
+        registerTitle.rightView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: registerTitle.frame.height))
+        registerTitle.rightViewMode = .always
         
         return registerTitle
     }()
