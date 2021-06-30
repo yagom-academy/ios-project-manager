@@ -11,7 +11,18 @@ class RegisterViewController: UIViewController {
     
     let leftButton = UIBarButtonItem.init(title: "Cancel", style: .done, target: self, action: nil)
     let rightButton = UIBarButtonItem.init(title: "Done", style: .done, target: self, action: nil)
-    let registerTitle = UITextField()
+    
+    let registerTitle: UITextField = {
+        let registerTitle = UITextField()
+        
+        registerTitle.backgroundColor = .yellow
+        registerTitle.layer.shadowOffset = .zero
+        registerTitle.layer.shadowColor = UIColor.black.cgColor
+        registerTitle.layer.shadowOpacity = 5
+        registerTitle.clipsToBounds = false
+        
+        return registerTitle
+    }()
     
     let datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
@@ -21,7 +32,17 @@ class RegisterViewController: UIViewController {
         return datePicker
     }()
     
-    let registerDescription = UITextView()
+    let registerDescription: UITextView = {
+        let description = UITextView()
+        
+        description.backgroundColor = .yellow
+        description.layer.shadowOffset = .zero
+        description.layer.shadowColor = UIColor.black.cgColor
+        description.layer.shadowOpacity = 5
+        description.clipsToBounds = false
+        
+        return description
+    }()
 
     let stackView: UIStackView = {
         let myStackView = UIStackView()
@@ -34,11 +55,6 @@ class RegisterViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        registerTitle.backgroundColor = .yellow
-        registerTitle.layer.shadowOffset = .zero
-        registerTitle.layer.shadowColor = UIColor.black.cgColor
-        registerTitle.layer.shadowOpacity = 5
 
         navigationItem.title = "TODO"
         navigationItem.leftBarButtonItem = leftButton
@@ -63,8 +79,5 @@ class RegisterViewController: UIViewController {
             
             registerTitle.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.1)
         ])
-        
-        
-        registerDescription.backgroundColor = .green
     }
 }
