@@ -15,10 +15,10 @@ class RegisterViewController: UIViewController {
     let registerTitle: UITextField = {
         let registerTitle = UITextField()
         
-        registerTitle.backgroundColor = .yellow
-        registerTitle.layer.shadowOffset = .zero
+        registerTitle.backgroundColor = .white
+        registerTitle.layer.shadowOffset = CGSize(width: 0, height: 3)
         registerTitle.layer.shadowColor = UIColor.black.cgColor
-        registerTitle.layer.shadowOpacity = 5
+        registerTitle.layer.shadowOpacity = 0.6
         registerTitle.clipsToBounds = false
         
         return registerTitle
@@ -35,10 +35,10 @@ class RegisterViewController: UIViewController {
     let registerDescription: UITextView = {
         let description = UITextView()
         
-        description.backgroundColor = .yellow
-        description.layer.shadowOffset = .zero
+        description.backgroundColor = .white
+        description.layer.shadowOffset = CGSize(width: 0, height: 3)
         description.layer.shadowColor = UIColor.black.cgColor
-        description.layer.shadowOpacity = 5
+        description.layer.shadowOpacity = 0.6
         description.clipsToBounds = false
         
         return description
