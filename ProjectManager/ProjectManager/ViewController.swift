@@ -12,22 +12,40 @@ class ViewController: UIViewController {
     @IBOutlet weak var doingTableView: UITableView!
     @IBOutlet weak var doneTableView: UITableView!
     
+    enum header {
+        case toDo, doing, done
+        
+        var identifier: String {
+            switch self {
+            case .toDo:
+                return "TODO"
+            case .doing:
+                return "DOING"
+            case .done:
+                return "DONE"
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         toDoTableView.dataSource = self
         toDoTableView.dragDelegate = self
-        toDoTableView.register(Header.self, forHeaderFooterViewReuseIdentifier: "TODO")
+        toDoTableView.dropDelegate = self
+        toDoTableView.register(Header.self, forHeaderFooterViewReuseIdentifier: header.toDo.identifier)
         toDoTableView.delegate = self
         
         doingTableView.dataSource = self
         doingTableView.dragDelegate = self
-        doingTableView.register(Header.self, forHeaderFooterViewReuseIdentifier: "DOING")
+        doingTableView.dropDelegate = self
+        doingTableView.register(Header.self, forHeaderFooterViewReuseIdentifier: header.doing.identifier)
         doingTableView.delegate = self
         
         doneTableView.dataSource = self
         doneTableView.dragDelegate = self
-        doneTableView.register(Header.self, forHeaderFooterViewReuseIdentifier: "DONE")
+        doneTableView.dropDelegate = self
+        doneTableView.register(Header.self, forHeaderFooterViewReuseIdentifier: header.done.identifier)
         doneTableView.delegate = self
     }
 }
@@ -64,13 +82,13 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         
         switch tableView {
         case toDoTableView:
-            return customizeHeaderView(in: tableView, withIdentifier: "TODO")
+            return customizeHeaderView(in: tableView, withIdentifier: header.toDo.identifier)
             
         case doingTableView:
-            return customizeHeaderView(in: tableView, withIdentifier: "DOING")
+            return customizeHeaderView(in: tableView, withIdentifier: header.doing.identifier)
             
         case doneTableView:
-            return customizeHeaderView(in: tableView, withIdentifier: "DONE")
+            return customizeHeaderView(in: tableView, withIdentifier: header.done.identifier)
             
         default:
             return nil
