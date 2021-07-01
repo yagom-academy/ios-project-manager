@@ -21,7 +21,7 @@ class RegisterViewController: UIViewController {
     
     let registerTitle: UITextField = {
         let registerTitle = UITextField()
-        
+
         registerTitle.backgroundColor = .white
         registerTitle.layer.shadowOffset = CGSize(width: 0, height: 3)
         registerTitle.layer.shadowColor = UIColor.black.cgColor
@@ -39,6 +39,7 @@ class RegisterViewController: UIViewController {
     
     let datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
+
         datePicker.preferredDatePickerStyle = .wheels
         datePicker.datePickerMode = .date
         
@@ -47,13 +48,14 @@ class RegisterViewController: UIViewController {
     
     let registerDescription: UITextView = {
         let description = UITextView()
-        
+
         description.backgroundColor = .white
         description.layer.shadowOffset = CGSize(width: 0, height: 3)
         description.layer.shadowColor = UIColor.black.cgColor
         description.layer.shadowOpacity = 0.6
         description.clipsToBounds = false
-        
+        description.text = "설명을 입력해주세요"
+        description.textColor = UIColor.lightGray
         description.textContainerInset = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
         
         return description
@@ -61,17 +63,13 @@ class RegisterViewController: UIViewController {
 
     let stackView: UIStackView = {
         let myStackView = UIStackView()
+
         myStackView.axis = .vertical
         myStackView.alignment = .fill
         myStackView.spacing = 10
         
         return myStackView
     }()
-    
-    func placeholderSetting() {
-        registerDescription.text = "설명을 입력해주세요"
-        registerDescription.textColor = UIColor.lightGray
-    }
     
     @objc func didHitCancelButton() {
         self.dismiss(animated: true, completion: nil)
@@ -83,8 +81,7 @@ class RegisterViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        placeholderSetting()
+
         registerDescription.delegate = self
         
         navigationItem.title = "TODO"

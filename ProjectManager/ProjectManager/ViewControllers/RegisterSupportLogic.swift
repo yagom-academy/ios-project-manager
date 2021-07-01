@@ -9,25 +9,32 @@ import UIKit
 
 protocol RegisterSupportLogic {
     func convertToModel(title: String?,
-                        dateString: String,
-                        description: String) -> TODOModel?
+                        date: Double,
+                        description: String,
+                        status: String,
+                        identifier: String) -> TODOModel?
     
-    func convertDateToString(_ date: Date) -> String
+    func convertDateToString(_ date: Date) -> Double
 }
 
 extension RegisterViewController: RegisterSupportLogic {
-    func convertToModel(title: String?, dateString: String, description: String) -> TODOModel? {
+    func convertToModel(title: String?,
+                        date: Double,
+                        description: String,
+                        status: String,
+                        identifier: String) -> TODOModel? {
         guard let title = title else { return nil }
         
         return TODOModel(title: title,
-                         deadline: dateString,
-                         description: description)
+                         date: date,
+                         description: description,
+                         status: status,
+                         identifier: identifier)
     }
     
-    func convertDateToString(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
+    func convertDateToString(_ date: Date) -> Double {
+        let unixStamp = date.timeIntervalSince1970
         
-        return formatter.string(from: date)
+        return unixStamp
     }
 }

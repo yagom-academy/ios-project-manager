@@ -8,7 +8,9 @@
 import Foundation
 
 struct TODOModel {
-    let title: String
-    let deadline: String
-    let description: String
+    var title: String
+    var date: Double
+    var description: String
+    var status: String
+    let identifier: String
 }
