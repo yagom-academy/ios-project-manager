@@ -8,17 +8,14 @@ import UIKit
 
 class ProjectManagerViewController: UIViewController {
 
-    let projectManagerStackView = UIStackView()
-    let toDoTableView = UITableView()
-    let doingTableView = UITableView()
-    let doneTableView = UITableView()
+    let projectManagerStackView = ProjectManagerStackView()
+    let titleLabel = UILabel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
-        
+        view.backgroundColor = .systemBackground
+        title = "소개팅 필승 공략"
+        configureStackView()
     }
-
-
 }
 
