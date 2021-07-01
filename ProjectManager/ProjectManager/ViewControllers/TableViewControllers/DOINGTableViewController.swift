@@ -22,7 +22,7 @@ class DOINGTableViewController: UITableViewController {
 
             return header
         }()
-        
+
         let headerLabel : UILabel = {
             let label = UILabel(frame: header.bounds)
             label.text = "DOING"
