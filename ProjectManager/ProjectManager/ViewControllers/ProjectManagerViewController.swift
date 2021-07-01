@@ -17,7 +17,8 @@ class ProjectManagerViewController: UIViewController {
         let myStackView = UIStackView()
         myStackView.alignment = .fill
         myStackView.axis = .horizontal
-
+        myStackView.spacing = 10
+        
         return myStackView
     }()
 
@@ -47,8 +48,8 @@ class ProjectManagerViewController: UIViewController {
             stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
 
-            todoTableViewController.view.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1/3),
-            doingTableViewController.view.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1/3),
+            todoTableViewController.view.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1/3, constant: -10),
+            doingTableViewController.view.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1/3, constant: -10),
             doneTableViewController.view.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1/3)
         ])
     }
