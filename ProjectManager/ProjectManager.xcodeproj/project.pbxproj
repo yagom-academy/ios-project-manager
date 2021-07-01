@@ -8,7 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		33C21206268DDE8D00232BD4 /* ProjectManagerStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C21205268DDE8D00232BD4 /* ProjectManagerStackView.swift */; };
-		33C21209268DE1A700232BD4 /* ProjectManagerAutoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C21208268DE1A700232BD4 /* ProjectManagerAutoLayout.swift */; };
+		33C2120C268DEF7300232BD4 /* ProjectManagerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C2120B268DEF7300232BD4 /* ProjectManagerTableViewCell.swift */; };
+		33C2120F268DF19B00232BD4 /* ProjectManagerCellStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C2120E268DF19B00232BD4 /* ProjectManagerCellStackView.swift */; };
+		33C21214268DF49600232BD4 /* TableViewDelegate+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C21213268DF49600232BD4 /* TableViewDelegate+Ext.swift */; };
+		33C21219268DF51E00232BD4 /* TableViewDataSource+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C21218268DF51E00232BD4 /* TableViewDataSource+Ext.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* ProjectManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* ProjectManagerViewController.swift */; };
@@ -18,7 +21,10 @@
 
 /* Begin PBXFileReference section */
 		33C21205268DDE8D00232BD4 /* ProjectManagerStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerStackView.swift; sourceTree = "<group>"; };
-		33C21208268DE1A700232BD4 /* ProjectManagerAutoLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerAutoLayout.swift; sourceTree = "<group>"; };
+		33C2120B268DEF7300232BD4 /* ProjectManagerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerTableViewCell.swift; sourceTree = "<group>"; };
+		33C2120E268DF19B00232BD4 /* ProjectManagerCellStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerCellStackView.swift; sourceTree = "<group>"; };
+		33C21213268DF49600232BD4 /* TableViewDelegate+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "TableViewDelegate+Ext.swift"; path = "../../../../../../Documents/TableViewDelegate+Ext.swift"; sourceTree = "<group>"; };
+		33C21218268DF51E00232BD4 /* TableViewDataSource+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TableViewDataSource+Ext.swift"; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -39,6 +45,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		33C21211268DF41000232BD4 /* Screen */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0925F51E1D0094C4CF /* ProjectManagerViewController.swift */,
+				33C21213268DF49600232BD4 /* TableViewDelegate+Ext.swift */,
+				33C21218268DF51E00232BD4 /* TableViewDataSource+Ext.swift */,
+			);
+			path = Screen;
+			sourceTree = "<group>";
+		};
 		C7431EF925F51E1D0094C4CF = {
 			isa = PBXGroup;
 			children = (
@@ -60,9 +76,10 @@
 			children = (
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
-				C7431F0925F51E1D0094C4CF /* ProjectManagerViewController.swift */,
-				33C21208268DE1A700232BD4 /* ProjectManagerAutoLayout.swift */,
+				33C21211268DF41000232BD4 /* Screen */,
 				33C21205268DDE8D00232BD4 /* ProjectManagerStackView.swift */,
+				33C2120E268DF19B00232BD4 /* ProjectManagerCellStackView.swift */,
+				33C2120B268DEF7300232BD4 /* ProjectManagerTableViewCell.swift */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
@@ -139,9 +156,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				33C21209268DE1A700232BD4 /* ProjectManagerAutoLayout.swift in Sources */,
+				33C21214268DF49600232BD4 /* TableViewDelegate+Ext.swift in Sources */,
+				33C21219268DF51E00232BD4 /* TableViewDataSource+Ext.swift in Sources */,
+				33C2120C268DEF7300232BD4 /* ProjectManagerTableViewCell.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* ProjectManagerViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
+				33C2120F268DF19B00232BD4 /* ProjectManagerCellStackView.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				33C21206268DDE8D00232BD4 /* ProjectManagerStackView.swift in Sources */,
 			);

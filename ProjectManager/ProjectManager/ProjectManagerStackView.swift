@@ -35,5 +35,13 @@ class ProjectManagerStackView: UIStackView {
         addArrangedSubview(toDoTableView)
         addArrangedSubview(doingTableView)
         addArrangedSubview(doneTableView)
+        
+//        toDoTableView.tableFooterView = UIView(frame: .zero)
+//        doingTableView.tableFooterView = UIView(frame: .zero)
+//        doneTableView.tableFooterView = UIView(frame: .zero)
+        
+        toDoTableView.register(ProjectManagerTableViewCell.self, forCellReuseIdentifier: ProjectManagerTableViewCell.identifier)
+        doingTableView.register(ProjectManagerTableViewCell.self, forCellReuseIdentifier: ProjectManagerTableViewCell.identifier)
+        doneTableView.register(ProjectManagerTableViewCell.self, forCellReuseIdentifier: ProjectManagerTableViewCell.identifier)
     }
 }
