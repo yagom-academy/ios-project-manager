@@ -64,23 +64,23 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         
         switch tableView {
         case toDoTableView:
-            let toDoTitle = toDoTableView.dequeueReusableHeaderFooterView(withIdentifier: "TODO") as? Header ?? nil
-            toDoTitle?.title.text = "TODO"
-            return toDoTitle
+            return customizeHeaderView(in: tableView, withIdentifier: "TODO")
             
         case doingTableView:
-            let doingTitle = doingTableView.dequeueReusableHeaderFooterView(withIdentifier: "DOING") as? Header ?? nil
-            doingTitle?.title.text = "DOING"
-            return doingTitle
+            return customizeHeaderView(in: tableView, withIdentifier: "DOING")
             
         case doneTableView:
-            let doneTitle = doneTableView.dequeueReusableHeaderFooterView(withIdentifier: "DONE") as? Header ?? nil
-            doneTitle?.title.text = "DONE"
-            return doneTitle
+            return customizeHeaderView(in: tableView, withIdentifier: "DONE")
             
         default:
             return nil
         }
+    }
+    
+    private func customizeHeaderView(in tableView: UITableView, withIdentifier identifier: String) -> Header? {
+        let customizedHeader = toDoTableView.dequeueReusableHeaderFooterView(withIdentifier: identifier) as? Header ?? nil
+        customizedHeader?.title.text = identifier
+        return customizedHeader
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
