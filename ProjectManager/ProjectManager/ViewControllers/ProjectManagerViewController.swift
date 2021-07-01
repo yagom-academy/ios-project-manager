@@ -8,7 +8,6 @@ import UIKit
 
 class ProjectManagerViewController: UIViewController {
 
-    let registerViewController = RegisterViewController()
     let todoTableViewController = TODOTableViewController()
     let doingTableViewController = DOINGTableViewController()
     let doneTableViewController = DONETableViewController()
@@ -55,6 +54,7 @@ class ProjectManagerViewController: UIViewController {
     }
 
     @objc func buttonPressed(_ sender: Any) {
+        let registerViewController = RegisterViewController()
         let navigationController = UINavigationController(rootViewController: registerViewController)
         self.present(navigationController, animated: true, completion: nil)
     }
