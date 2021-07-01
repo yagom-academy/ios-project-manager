@@ -8,9 +8,15 @@ import UIKit
 
 class ProjectManagerViewController: UIViewController {
 
+    let projectManagerStackView = UIStackView()
+    let toDoTableView = UITableView()
+    let doingTableView = UITableView()
+    let doneTableView = UITableView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+       
+        
     }
 
 
