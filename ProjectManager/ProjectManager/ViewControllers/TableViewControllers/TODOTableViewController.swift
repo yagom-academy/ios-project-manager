@@ -38,7 +38,7 @@ class TODOTableViewController: UITableViewController {
             countView.backgroundColor = .black
             countView.translatesAutoresizingMaskIntoConstraints = false
             countView.clipsToBounds = true
-            countView.layer.cornerRadius = 12
+            countView.layer.cornerRadius = 11.5
             
             return countView
         }()
@@ -50,7 +50,6 @@ class TODOTableViewController: UITableViewController {
             count.font = UIFont.preferredFont(forTextStyle: .title3)
             count.textAlignment = .center
             count.translatesAutoresizingMaskIntoConstraints = false
-            count.layer.borderWidth = 3.0
 
             return count
         }()
