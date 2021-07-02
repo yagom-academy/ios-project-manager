@@ -70,6 +70,14 @@ I'm on the next level yeah절대적 룰을 지켜내 손을놓지말아결속은
         ])
     }
     
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        
+        if selected {
+            contentView.backgroundColor = .systemGray3
+        }
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
