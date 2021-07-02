@@ -93,7 +93,6 @@ class TODOTableViewController: UITableViewController {
         
         let cell: UITableViewCell = {
             let cell = tableView.dequeueReusableCell(withIdentifier: "scheduleCell", for: indexPath)
-            cell.backgroundColor = .magenta
 
             return cell
         }()
