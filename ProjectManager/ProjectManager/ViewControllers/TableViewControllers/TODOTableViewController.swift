@@ -46,7 +46,7 @@ class TODOTableViewController: UITableViewController {
         let countLabel: UILabel = {
             let count = UILabel(frame: header.bounds)
             count.textColor = .white
-            count.text = "\(todoLists.count)"
+            count.text = "\(TODOTableViewController.todoLists.count)"
             count.font = UIFont.preferredFont(forTextStyle: .title3)
             count.textAlignment = .center
             count.translatesAutoresizingMaskIntoConstraints = false
@@ -92,7 +92,10 @@ class TODOTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell: UITableViewCell = {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "scheduleCell", for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "scheduleCell", for: indexPath) as! ScheduleCell
+            cell.titleLabel.text = TODOTableViewController.todoLists[indexPath.row].title
+            cell.descriptionLabel.text = TODOTableViewController.todoLists[indexPath.row].description
+            cell.dateLabel.text = "\(TODOTableViewController.todoLists[indexPath.row].date)"
 
             return cell
         }()
