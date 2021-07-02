@@ -8,7 +8,7 @@
 import UIKit
 
 class TODOTableViewController: UITableViewController {
-    var todoLists: [TODOModel] = []
+    static var todoLists: [TODOModel] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()

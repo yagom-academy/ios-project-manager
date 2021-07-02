@@ -83,6 +83,15 @@ class RegisterViewController: UIViewController {
     @objc func didHitDoneButton() {
         self.dismiss(animated: true, completion: nil)
         
+        let model = convertToModel(title: registerTitle.text,
+                                   date: convertDateToString(datePicker.date),
+                                   description: registerDescription.text,
+                               status: "todo",
+                               identifier: UUID().uuidString)
+        
+        guard let model = model else { return }
+        
+        TODOTableViewController.todoLists.append(model)
     }
 
     override func viewDidLoad() {
