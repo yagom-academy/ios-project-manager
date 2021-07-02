@@ -33,6 +33,7 @@ class RegisterViewController: UIViewController {
         registerTitle.leftViewMode = .always
         registerTitle.rightView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: registerTitle.frame.height))
         registerTitle.rightViewMode = .always
+        registerTitle.translatesAutoresizingMaskIntoConstraints = false
 
         return registerTitle
     }()
@@ -57,6 +58,7 @@ class RegisterViewController: UIViewController {
         description.text = "설명을 입력해주세요"
         description.textColor = UIColor.lightGray
         description.textContainerInset = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
+        description.translatesAutoresizingMaskIntoConstraints = false
         
         return description
     }()
@@ -67,6 +69,7 @@ class RegisterViewController: UIViewController {
         myStackView.axis = .vertical
         myStackView.alignment = .fill
         myStackView.spacing = 10
+        myStackView.translatesAutoresizingMaskIntoConstraints = false
         
         return myStackView
     }()
@@ -96,10 +99,6 @@ class RegisterViewController: UIViewController {
         stackView.addArrangedSubview(datePicker)
         stackView.addArrangedSubview(registerDescription)
         
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        registerTitle.translatesAutoresizingMaskIntoConstraints = false
-        registerDescription.translatesAutoresizingMaskIntoConstraints = false
-        
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 15),
             stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -15),
@@ -113,6 +112,14 @@ class RegisterViewController: UIViewController {
 
 extension RegisterViewController: UITextViewDelegate {
 
+    private func textLimit(existingText: String?,
+                           newText: String,
+                           limit: Int) -> Bool {
+        let text = existingText ?? ""
+        let isAtLimit = text.count + newText.count <= limit
+        return isAtLimit
+    }
+    
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.textColor == UIColor.lightGray {
             textView.text = nil
@@ -125,5 +132,9 @@ extension RegisterViewController: UITextViewDelegate {
             textView.text = "설명을 입력해주세요"
             textView.textColor = UIColor.lightGray
         }
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        return self.textLimit(existingText: textView.text, newText: text, limit: 1000)
     }
 }
