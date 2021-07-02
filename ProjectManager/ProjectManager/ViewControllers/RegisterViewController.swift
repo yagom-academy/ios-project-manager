@@ -81,8 +81,6 @@ class RegisterViewController: UIViewController {
     }
     
     @objc func didHitDoneButton() {
-        self.dismiss(animated: true, completion: nil)
-        
         let model = convertToModel(title: registerTitle.text,
                                    date: convertDateToString(datePicker.date),
                                    description: registerDescription.text,
@@ -92,6 +90,8 @@ class RegisterViewController: UIViewController {
         guard let model = model else { return }
         
         TODOTableViewController.todoLists.append(model)
+        
+        self.dismiss(animated: true, completion: nil)
     }
 
     override func viewDidLoad() {
@@ -118,6 +118,10 @@ class RegisterViewController: UIViewController {
             
             registerTitle.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.1)
         ])
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        NotificationCenter.default.post(name: didDismissPostProjectManagerViewController, object: nil, userInfo: nil)
     }
 }
 

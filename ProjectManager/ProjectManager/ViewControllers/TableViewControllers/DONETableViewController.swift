@@ -8,7 +8,8 @@
 import UIKit
 
 class DONETableViewController: UITableViewController {
-    var todoLists: [TODOModel] = []
+    static var doneLists: [TODOModel] = []
+    var countLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,10 +44,10 @@ class DONETableViewController: UITableViewController {
             return countView
         }()
         
-        let countLabel: UILabel = {
+        self.countLabel = {
             let count = UILabel(frame: header.bounds)
             count.textColor = .white
-            count.text = "\(todoLists.count)"
+            count.text = "\(TODOTableViewController.todoLists.count)"
             count.font = UIFont.preferredFont(forTextStyle: .title3)
             count.textAlignment = .center
             count.translatesAutoresizingMaskIntoConstraints = false
@@ -86,7 +87,7 @@ class DONETableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return DONETableViewController.doneLists.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

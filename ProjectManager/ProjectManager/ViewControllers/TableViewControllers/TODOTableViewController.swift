@@ -9,6 +9,7 @@ import UIKit
 
 class TODOTableViewController: UITableViewController {
     static var todoLists: [TODOModel] = []
+    var countLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,7 +44,7 @@ class TODOTableViewController: UITableViewController {
             return countView
         }()
         
-        let countLabel: UILabel = {
+        self.countLabel = {
             let count = UILabel(frame: header.bounds)
             count.textColor = .white
             count.text = "\(TODOTableViewController.todoLists.count)"
@@ -78,10 +79,6 @@ class TODOTableViewController: UITableViewController {
             countLabel.centerYAnchor.constraint(equalTo: countView.centerYAnchor)
         ])
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        tableView.reloadData()
-    }
 
     // MARK: - Table view data source
 
@@ -90,17 +87,20 @@ class TODOTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return TODOTableViewController.todoLists.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let cell: UITableViewCell = {
             let cell = tableView.dequeueReusableCell(withIdentifier: "scheduleCell", for: indexPath) as! ScheduleCell
-            cell.titleLabel.text = TODOTableViewController.todoLists[indexPath.row].title
-            cell.descriptionLabel.text = TODOTableViewController.todoLists[indexPath.row].description
-            cell.dateLabel.text = "\(TODOTableViewController.todoLists[indexPath.row].date)"
-
+            
+            if TODOTableViewController.todoLists.count > 0 {
+                cell.titleLabel.text = TODOTableViewController.todoLists[indexPath.row].title
+                cell.descriptionLabel.text = TODOTableViewController.todoLists[indexPath.row].description
+                cell.dateLabel.text = "\(TODOTableViewController.todoLists[indexPath.row].date)"
+            }
+            
             return cell
         }()
 

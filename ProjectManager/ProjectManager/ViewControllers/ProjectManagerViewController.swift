@@ -6,6 +6,9 @@
 
 import UIKit
 
+//노티피케이션 센터를 만들어주었음
+let didDismissPostProjectManagerViewController: Notification.Name = Notification.Name("DidDismissPostProjectManagerViewController")
+
 class ProjectManagerViewController: UIViewController {
 
     let todoTableViewController = TODOTableViewController()
@@ -22,8 +25,18 @@ class ProjectManagerViewController: UIViewController {
         return myStackView
     }()
 
+    @objc func reloadData() {
+        todoTableViewController.tableView.reloadData()
+        todoTableViewController.countLabel.text = "\(TODOTableViewController.todoLists.count)"
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //야 노티피케이션 센터에 알림오면 나한테 알려줘~
+        //만약에 알림을 받으면, 내가 self.reloadData 를 실행할거야~
+        NotificationCenter.default.addObserver(self, selector: #selector(self.reloadData), name: didDismissPostProjectManagerViewController, object: nil)
+        
         let rightBarButton = UIBarButtonItem.init(barButtonSystemItem: .add,
                                                   target: self,
                                                   action: #selector(buttonPressed(_:)))
