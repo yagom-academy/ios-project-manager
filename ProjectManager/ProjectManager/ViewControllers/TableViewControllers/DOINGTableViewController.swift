@@ -13,7 +13,7 @@ class DOINGTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "reuseIdentifier")
+        tableView.register(ScheduleCell.classForCoder(), forCellReuseIdentifier: "scheduleCell")
         self.tableView.separatorStyle = .none
         
         let header: UIView = {
@@ -86,11 +86,17 @@ class DOINGTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return todoLists.count
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        
+        let cell: UITableViewCell = {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "scheduleCell", for: indexPath)
+            cell.backgroundColor = .magenta
+
+            return cell
+        }()
         
         return cell
     }
