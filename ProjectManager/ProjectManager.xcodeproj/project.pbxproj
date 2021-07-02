@@ -19,6 +19,7 @@
 		D01DA665268C8B3300FFBEE1 /* TODOModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01DA664268C8B3300FFBEE1 /* TODOModel.swift */; };
 		D01DA670268C900200FFBEE1 /* ProjectManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01DA66F268C900200FFBEE1 /* ProjectManagerTests.swift */; };
 		D01DA678268C944500FFBEE1 /* RegisterSupportLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01DA677268C944500FFBEE1 /* RegisterSupportLogic.swift */; };
+		D0B55249268EA3C300341CFB /* ScheduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B55248268EA3C300341CFB /* ScheduleCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +49,7 @@
 		D01DA66F268C900200FFBEE1 /* ProjectManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerTests.swift; sourceTree = "<group>"; };
 		D01DA671268C900200FFBEE1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D01DA677268C944500FFBEE1 /* RegisterSupportLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterSupportLogic.swift; sourceTree = "<group>"; };
+		D0B55248268EA3C300341CFB /* ScheduleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 				D011DAB3268B0E00001DEE59 /* TODOTableViewController.swift */,
 				D011DAB5268B0E0A001DEE59 /* DOINGTableViewController.swift */,
 				D011DAB7268B0E13001DEE59 /* DONETableViewController.swift */,
+				D0B55248268EA3C300341CFB /* ScheduleCell.swift */,
 			);
 			path = TableViewControllers;
 			sourceTree = "<group>";
@@ -242,6 +245,7 @@
 				D01DA678268C944500FFBEE1 /* RegisterSupportLogic.swift in Sources */,
 				D011DAB4268B0E00001DEE59 /* TODOTableViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
+				D0B55249268EA3C300341CFB /* ScheduleCell.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				3818930F268AFDDF00D48055 /* RegisterViewController.swift in Sources */,
 				D011DAB8268B0E13001DEE59 /* DONETableViewController.swift in Sources */,
