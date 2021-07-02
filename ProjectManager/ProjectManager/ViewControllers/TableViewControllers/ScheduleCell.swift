@@ -65,7 +65,7 @@ I'm on the next level yeah절대적 룰을 지켜내 손을놓지말아결속은
         NSLayoutConstraint.activate([
             contentView.topAnchor.constraint(equalTo: stackView.topAnchor, constant: -10),
             contentView.bottomAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 10),
-            contentView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: -10),
+            contentView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: -15),
             contentView.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: 10)
         ])
     }
