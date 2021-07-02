@@ -78,6 +78,10 @@ class TODOTableViewController: UITableViewController {
             countLabel.centerYAnchor.constraint(equalTo: countView.centerYAnchor)
         ])
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        tableView.reloadData()
+    }
 
     // MARK: - Table view data source
 
@@ -90,7 +94,7 @@ class TODOTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+
         let cell: UITableViewCell = {
             let cell = tableView.dequeueReusableCell(withIdentifier: "scheduleCell", for: indexPath) as! ScheduleCell
             cell.titleLabel.text = TODOTableViewController.todoLists[indexPath.row].title
