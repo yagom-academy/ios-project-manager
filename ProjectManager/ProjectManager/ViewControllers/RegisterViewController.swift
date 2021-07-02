@@ -23,6 +23,7 @@ class RegisterViewController: UIViewController {
         let registerTitle = UITextField()
 
         registerTitle.backgroundColor = .white
+        registerTitle.font = UIFont.preferredFont(forTextStyle: .title3)
         registerTitle.layer.shadowOffset = CGSize(width: 0, height: 3)
         registerTitle.layer.shadowColor = UIColor.black.cgColor
         registerTitle.layer.shadowOpacity = 0.6
@@ -51,6 +52,7 @@ class RegisterViewController: UIViewController {
         let description = UITextView()
 
         description.backgroundColor = .white
+        description.font = UIFont.preferredFont(forTextStyle: .title3)
         description.layer.shadowOffset = CGSize(width: 0, height: 3)
         description.layer.shadowColor = UIColor.black.cgColor
         description.layer.shadowOpacity = 0.6
