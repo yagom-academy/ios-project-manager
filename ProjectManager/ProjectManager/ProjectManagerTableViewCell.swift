@@ -11,13 +11,14 @@ class ProjectManagerTableViewCell: UITableViewCell {
     
     static let identifier = "ProjectManagerTableViewCell"
     let projectManagerCellStackView = ProjectManagerCellStackView()
-    
+
     let titleLabel = UILabel()
     let descriptionLabel = UILabel()
     let dateLabel = UILabel()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: .default, reuseIdentifier: ProjectManagerTableViewCell.identifier)
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
         configureCellStackView()
         configureLabel()
     }
@@ -28,13 +29,12 @@ class ProjectManagerTableViewCell: UITableViewCell {
     
     private func configureCellStackView() {
         addSubview(projectManagerCellStackView)
-        translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            projectManagerCellStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-            projectManagerCellStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
-            projectManagerCellStackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
-            projectManagerCellStackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor)
+            projectManagerCellStackView.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor),
+            projectManagerCellStackView.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor),
+            projectManagerCellStackView.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
+            projectManagerCellStackView.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor)
         ])
     }
     
@@ -52,7 +52,8 @@ class ProjectManagerTableViewCell: UITableViewCell {
         descriptionLabel.numberOfLines = 3
         dateLabel.numberOfLines = 1
         
-        descriptionLabel.lineBreakMode = .byWordWrapping
+        descriptionLabel.lineBreakMode = .byTruncatingTail
+        dateLabel.textColor = .systemRed
     }
 }
 

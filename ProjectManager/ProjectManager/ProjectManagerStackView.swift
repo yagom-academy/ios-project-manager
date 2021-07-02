@@ -11,6 +11,7 @@ class ProjectManagerStackView: UIStackView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
         configureProjectManagerStackView()
     }
     

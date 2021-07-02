@@ -26,6 +26,10 @@ class ProjectManagerViewController: UIViewController {
         toDoTableView.dataSource = self
         doingTableView.dataSource = self
         doneTableView.dataSource = self
+        
+        toDoTableView.delegate = self
+        doingTableView.delegate = self
+        doneTableView.delegate = self
     }
     
     private func configureProjectManagerTableView() {
@@ -33,9 +37,9 @@ class ProjectManagerViewController: UIViewController {
         projectManagerStackView.addArrangedSubview(doingTableView)
         projectManagerStackView.addArrangedSubview(doneTableView)
         
-        toDoTableView.tableFooterView = UIView(frame: .zero)
-        doingTableView.tableFooterView = UIView(frame: .zero)
-        doneTableView.tableFooterView = UIView(frame: .zero)
+//        toDoTableView.tableFooterView = UIView(frame: .zero)
+//        doingTableView.tableFooterView = UIView(frame: .zero)
+//        doneTableView.tableFooterView = UIView(frame: .zero)
         
         toDoTableView.register(ProjectManagerTableViewCell.self, forCellReuseIdentifier: ProjectManagerTableViewCell.identifier)
         doingTableView.register(ProjectManagerTableViewCell.self, forCellReuseIdentifier: ProjectManagerTableViewCell.identifier)
