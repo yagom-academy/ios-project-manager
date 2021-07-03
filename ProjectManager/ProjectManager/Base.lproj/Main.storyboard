@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="2Rg-GA-UcB">
-    <device id="ipad12_9rounded" orientation="landscape" layout="fullscreen" appearance="light"/>
+    <device id="ipad12_9" orientation="landscape" layout="fullscreen" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WXw-1f-PGQ" userLabel="TODOView">
-                                <rect key="frame" x="0.0" y="50" width="451" height="954"/>
+                                <rect key="frame" x="0.0" y="50" width="451" height="974"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TODO" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y8f-OX-aee">
                                         <rect key="frame" x="20" y="10" width="68.5" height="30"/>
@@ -36,9 +36,14 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Gyj-8d-YIF">
-                                        <rect key="frame" x="0.0" y="40" width="451" height="914"/>
+                                        <rect key="frame" x="0.0" y="40" width="451" height="934"/>
                                         <color key="backgroundColor" systemColor="systemGray5Color"/>
                                         <color key="sectionIndexBackgroundColor" systemColor="systemGray5Color"/>
+                                        <view key="tableFooterView" hidden="YES" contentMode="scaleToFill" id="dAB-e7-r99">
+                                            <rect key="frame" x="0.0" y="170.00000034679067" width="451" height="44"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        </view>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TableViewCell" id="ItL-Me-5D9" userLabel="TODOTableViewCell" customClass="TableViewCell" customModule="ProjectManager" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="24.5" width="451" height="121"/>
@@ -113,7 +118,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Jx-lu-bvK" userLabel="DoingView">
-                                <rect key="frame" x="457.5" y="50" width="451" height="954"/>
+                                <rect key="frame" x="457.5" y="50" width="451" height="974"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DOING" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NIU-X5-yMF">
                                         <rect key="frame" x="20" y="10" width="77.5" height="30"/>
@@ -132,7 +137,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="SQX-p8-njq">
-                                        <rect key="frame" x="0.0" y="40" width="451" height="914"/>
+                                        <rect key="frame" x="0.0" y="40" width="451" height="934"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TableViewCell" id="iKw-DK-bfQ" userLabel="DoingTableViewCell" customClass="TableViewCell" customModule="ProjectManager" customModuleProvider="target">
@@ -202,7 +207,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4SC-zB-XGp" userLabel="DoneView">
-                                <rect key="frame" x="915" y="50" width="451" height="954"/>
+                                <rect key="frame" x="915" y="50" width="451" height="974"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DONE" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0iS-Or-3XG">
                                         <rect key="frame" x="20" y="10" width="68" height="30"/>
@@ -221,7 +226,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="LUh-dS-dai">
-                                        <rect key="frame" x="0.0" y="40" width="451" height="914"/>
+                                        <rect key="frame" x="0.0" y="40" width="451" height="934"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TableViewCell" id="FfO-qb-eBC" userLabel="DoneTableViewCell" customClass="TableViewCell" customModule="ProjectManager" customModuleProvider="target">
@@ -336,7 +341,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="751" y="125"/>
+            <point key="canvasLocation" x="751" y="138"/>
         </scene>
         <!--Detail View Controller-->
         <scene sceneID="mcY-Ng-zQz">
@@ -367,7 +372,7 @@
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <state key="normal" title="Done"/>
                                                 <connections>
-                                                    <action selector="clickDoneButton:" destination="SYa-qz-GRD" eventType="touchUpInside" id="HbT-XI-lbS"/>
+                                                    <action selector="clickDoneButton:" destination="SYa-qz-GRD" eventType="touchUpInside" id="P0D-Zu-Gva"/>
                                                 </connections>
                                             </button>
                                         </barButtonItem>
@@ -405,7 +410,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SmU-EI-6Wh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1551" y="138"/>
+            <point key="canvasLocation" x="1461" y="138"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="hPG-UD-bzD">
@@ -427,7 +432,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="zCg-6y-ZE0"/>
+        <segue reference="6O5-uu-iqo"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="plus" catalog="system" width="128" height="113"/>

@@ -7,6 +7,7 @@
 
 import UIKit
 
+// TODO: - item 구성이름(title,date,summary) 서버side 이름과 통일시켜야 함
 struct TableItem {
     let title: String
     let summary: String

@@ -22,12 +22,33 @@ class TableViewController: UIViewController {
         
         todoTableView.delegate = self
         todoTableView.dataSource = self
+        doingTableView.delegate = self
+        //        doingTableView.dataSource = self
+        doneTableView.delegate = self
+        //        doneTableView.dataSource = self
         
         let circleImage = UIImage(systemName: "circle.fill")
         todoTableRowCount.text = "\(viewModel.numOfList)"
         todoTableRowCount.backgroundColor = UIColor(patternImage: circleImage!)
+        doingTableRowCount.text = "\(viewModel.numOfList)"
         doingTableRowCount.backgroundColor = UIColor(patternImage: circleImage!) 
+        doneTableRowCount.text = "\(viewModel.numOfList)"
         doneTableRowCount.backgroundColor = UIColor(patternImage: circleImage!)
+        
+        NotificationCenter.default.addObserver(
+            self, selector: #selector(self.didDismissDetailViewControllerNotification(_:)),
+            name: DetailViewController.dismissNotification,
+            object: nil
+        )
+    }
+    
+    @objc func didDismissDetailViewControllerNotification(_ notification: Notification) {
+        // TODO: - Server Request
+        
+        OperationQueue.main.addOperation {
+            self.viewModel.update(model: dummy)
+            self.todoTableView.reloadData()
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -38,6 +59,11 @@ class TableViewController: UIViewController {
                 let item = viewModel.itemInfo(at: index)
                 viewController?.viewModel.update(model: item)
                 viewController?.changeToEditMode()
+                
+                // TODO: - 보다 MVVM에 적합한 방법은 뭘까 고민
+                // index 정보를 viewModel에 담아서 전달해도 될까?
+                // 여기서는 index정보지만, server에 연결되는 경우엔 item의 고유번호(?)정보를 전달해야함
+                viewController?.setItemIndex(index)
             }
         }
     }
@@ -47,6 +73,10 @@ class TableViewController: UIViewController {
             withIdentifier: "addNewTODO",
             sender: nil
         )
+    }
+    
+    func updateTable() {
+        todoTableView.reloadData()
     }
 }
 

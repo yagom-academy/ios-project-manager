@@ -12,9 +12,11 @@ enum Mode {
 }
 
 class DetailViewController: UIViewController {
+    static let dismissNotification = Notification.Name("didDismissDetailViewController")
     private let dateConverter = DateConverter()
     private var mode: Mode = .addMode
     let viewModel = DetailViewModel()
+    var itemIndex: Int = 0
     
     @IBOutlet weak var newTitle: UITextField!
     @IBOutlet weak var newDate: UIDatePicker!
@@ -42,6 +44,14 @@ class DetailViewController: UIViewController {
         updateUI()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        NotificationCenter.default.post(
+            name: DetailViewController.dismissNotification,
+            object: nil,
+            userInfo: nil
+        )
+    }
+    
     func updateUI() {
         if let item = viewModel.item {
             newTitle.text = item.title
@@ -58,6 +68,10 @@ class DetailViewController: UIViewController {
         mode = .editMode
     }
     
+    func setItemIndex(_ index: Int) {
+        itemIndex = index
+    }
+    
     private func addNewTODO() {
         let title: String = newTitle.text!
         let date: Double = dateConverter.dateToNumber(date: newDate.date)
@@ -71,7 +85,20 @@ class DetailViewController: UIViewController {
             ----------------
             """
         print(printString)
+        dummy.append(
+            TableItem(
+                title: title,
+                summary: content,
+                date: date
+            )
+        )
         
+        NotificationCenter.default.post(
+            name: DetailViewController.dismissNotification,
+            object: nil,
+            userInfo: nil
+        )
+ 
         dismiss(
             animated: true,
             completion: nil
@@ -91,6 +118,17 @@ class DetailViewController: UIViewController {
             ----------------
             """
         print(printString)
+        dummy[itemIndex] = TableItem(
+            title: title,
+            summary: content,
+            date: date
+        )
+        
+        NotificationCenter.default.post(
+            name: DetailViewController.dismissNotification,
+            object: nil,
+            userInfo: nil
+        )
         
         dismiss(
             animated: true,
