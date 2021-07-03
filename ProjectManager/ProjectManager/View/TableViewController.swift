@@ -138,6 +138,17 @@ extension TableViewController: UITableViewDataSource {
 
     func tableView(
         _ tableView: UITableView,
+        commit editingStyle: UITableViewCell.EditingStyle,
+        forRowAt indexPath: IndexPath
+    ) {
+        if (editingStyle == .delete) {
+            self.viewModel.removeCell(at: indexPath.row)
+            self.updateTable()
+        }
+    }
+
+    func tableView(
+        _ tableView: UITableView,
         moveRowAt sourceIndexPath: IndexPath,
         to destinationIndexPath: IndexPath
     ) {

@@ -24,10 +24,16 @@ class TableViewModel {
     
     func removeCell(at index: Int) {
         list.remove(at: index)
+        
+        // TODO: - server API "remove"
+        dummy.remove(at: index)
     }
     
     func insert(cell: TableItem ,at index: Int) {
         list.insert(cell, at: index)
+        
+        // TODO: - server API "insert"
+        dummy.insert(cell, at: index)
     }
 }
 
