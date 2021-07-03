@@ -8,7 +8,7 @@
 import UIKit
 
 class DOINGTableViewController: UITableViewController {
-    static var doingLists: [TODOModel] = []
+    static var doingLists: [Task] = []
     var countLabel: UILabel!
     
     override func viewDidLoad() {
@@ -23,7 +23,7 @@ class DOINGTableViewController: UITableViewController {
 
             return header
         }()
-
+        
         let headerLabel : UILabel = {
             let label = UILabel(frame: header.bounds)
             label.text = "DOING"
@@ -44,7 +44,7 @@ class DOINGTableViewController: UITableViewController {
             return countView
         }()
         
-        self.countLabel = {
+        countLabel = {
             let count = UILabel(frame: header.bounds)
             count.textColor = .white
             count.text = "\(TODOTableViewController.todoLists.count)"
@@ -63,7 +63,7 @@ class DOINGTableViewController: UITableViewController {
         tableView.dataSource = self
         tableView.backgroundColor = .systemGray6
         tableView.tableHeaderView = header
-        
+                
         let padding: CGFloat = 20.0
         NSLayoutConstraint.activate([
             headerLabel.topAnchor.constraint(equalTo: header.topAnchor, constant: padding),
@@ -87,27 +87,32 @@ class DOINGTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return DOINGTableViewController.doingLists.count
-    }
-
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell: UITableViewCell = {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "scheduleCell", for: indexPath)
-
-            return cell
-        }()
-        
-        return cell
+        return TODOTableViewController.todoLists.count
     }
     
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
+        let cell: UITableViewCell = {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "scheduleCell", for: indexPath) as! ScheduleCell
+            
+            if TODOTableViewController.todoLists.count > 0 {
+                cell.titleLabel.text = TODOTableViewController.todoLists[indexPath.row].title
+                cell.descriptionLabel.text = TODOTableViewController.todoLists[indexPath.row].description
+                cell.dateLabel.text = "\(TODOTableViewController.todoLists[indexPath.row].date)"
+            }
+            
+            return cell
+        }()
+
+        return cell
+    }
+
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         return .delete
     }
-    
+
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
         }
     }
-    
 }

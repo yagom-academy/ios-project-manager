@@ -14,10 +14,21 @@ class RegisterViewController: UIViewController {
                                           target: self,
                                           action: #selector(didHitCancelButton))
 
-    var rightButton = UIBarButtonItem.init(title: "Done",
+    let rightButton = UIBarButtonItem.init(title: "Done",
                                            style: .done,
                                            target: self,
                                            action: #selector(didHitDoneButton))
+
+    let stackView: UIStackView = {
+        let myStackView = UIStackView()
+
+        myStackView.axis = .vertical
+        myStackView.alignment = .fill
+        myStackView.spacing = 10
+        myStackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return myStackView
+    }()
 
     let registerTitle: UITextField = {
         let registerTitle = UITextField()
@@ -31,8 +42,8 @@ class RegisterViewController: UIViewController {
         registerTitle.placeholder = "Title"
 
         registerTitle.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: registerTitle.frame.height))
-        registerTitle.leftViewMode = .always
         registerTitle.rightView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: registerTitle.frame.height))
+        registerTitle.leftViewMode = .always
         registerTitle.rightViewMode = .always
         registerTitle.translatesAutoresizingMaskIntoConstraints = false
 
@@ -44,6 +55,7 @@ class RegisterViewController: UIViewController {
 
         datePicker.preferredDatePickerStyle = .wheels
         datePicker.datePickerMode = .date
+        datePicker.translatesAutoresizingMaskIntoConstraints = false
         
         return datePicker
     }()
@@ -64,17 +76,6 @@ class RegisterViewController: UIViewController {
         
         return description
     }()
-
-    let stackView: UIStackView = {
-        let myStackView = UIStackView()
-
-        myStackView.axis = .vertical
-        myStackView.alignment = .fill
-        myStackView.spacing = 10
-        myStackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        return myStackView
-    }()
     
     @objc func didHitCancelButton() {
         self.dismiss(animated: true, completion: nil)
@@ -84,13 +85,11 @@ class RegisterViewController: UIViewController {
         let model = convertToModel(title: registerTitle.text,
                                    date: convertDateToString(datePicker.date),
                                    description: registerDescription.text,
-                               status: "todo",
-                               identifier: UUID().uuidString)
+                                   status: "todo",
+                                   identifier: UUID().uuidString)
         
         guard let model = model else { return }
-        
         TODOTableViewController.todoLists.append(model)
-        
         self.dismiss(animated: true, completion: nil)
     }
 
@@ -119,7 +118,7 @@ class RegisterViewController: UIViewController {
             registerTitle.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.1)
         ])
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         NotificationCenter.default.post(name: didDismissPostProjectManagerViewController, object: nil, userInfo: nil)
     }
@@ -127,11 +126,10 @@ class RegisterViewController: UIViewController {
 
 extension RegisterViewController: UITextViewDelegate {
 
-    private func textLimit(existingText: String?,
-                           newText: String,
-                           limit: Int) -> Bool {
+    private func textLimit(existingText: String?, newText: String, limit: Int) -> Bool {
         let text = existingText ?? ""
         let isAtLimit = text.count + newText.count <= limit
+
         return isAtLimit
     }
     

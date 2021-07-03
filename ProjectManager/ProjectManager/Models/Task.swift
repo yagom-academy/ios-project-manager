@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TODOModel {
+struct Task {
     var title: String
     var date: Double
     var description: String

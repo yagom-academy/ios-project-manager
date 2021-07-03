@@ -12,7 +12,7 @@ protocol RegisterSupportLogic {
                         date: Double,
                         description: String,
                         status: String,
-                        identifier: String) -> TODOModel?
+                        identifier: String) -> Task?
     
     func convertDateToString(_ date: Date) -> Double
 }
@@ -22,10 +22,11 @@ extension RegisterViewController: RegisterSupportLogic {
                         date: Double,
                         description: String,
                         status: String,
-                        identifier: String) -> TODOModel? {
+                        identifier: String) -> Task?
+    {
         guard let title = title else { return nil }
         
-        return TODOModel(title: title,
+        return Task(title: title,
                          date: date,
                          description: description,
                          status: status,

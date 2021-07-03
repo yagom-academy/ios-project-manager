@@ -18,6 +18,7 @@ class ScheduleCell: UITableViewCell {
         
         let stackView: UIStackView = {
             let stackView = UIStackView()
+            
             stackView.axis = .vertical
             stackView.alignment = .leading
             stackView.distribution = .fill
@@ -29,6 +30,7 @@ class ScheduleCell: UITableViewCell {
         
         self.titleLabel = {
             let titleLabel = UILabel()
+            
             titleLabel.text = "title"
             titleLabel.font = UIFont.preferredFont(forTextStyle: .title2)
             titleLabel.lineBreakMode = .byTruncatingTail
@@ -39,9 +41,10 @@ class ScheduleCell: UITableViewCell {
 
         self.descriptionLabel = {
             let descriptionLabel = UILabel()
+            
             descriptionLabel.text = """
-I'm on the next level yeah절대적 룰을 지켜내 손을놓지말아결속은 나의 무기광야로 걸어가알아 네 homeground위협에 맞서서제껴라 제껴라 제껴라상상도 못한 black out유혹은 깊고 진해(Too hot too hot)(Ooh ooh wee) 맞잡은 손을 놓쳐난 절대 포기 못해I'm on the next level저 너머의 문을 열어Next level널 결국엔 내가 부셔Next levelKosmo에 닿을 때까지Next level제껴라 제껴라 제껴라
-"""
+                I'm on the next level yeah절대적 룰을 지켜내 손을놓지말아결속은 나의 무기광야로 걸어가알아 네 homeground위협에 맞서서제껴라 제껴라 제껴라상상도 못한 black out유혹은 깊고 진해(Too hot too hot)(Ooh ooh wee) 맞잡은 손을 놓쳐난 절대 포기 못해I'm on the next level저 너머의 문을 열어Next level널 결국엔 내가 부셔Next levelKosmo에 닿을 때까지Next level제껴라 제껴라 제껴라
+                """
             descriptionLabel.font = UIFont.preferredFont(forTextStyle: .body)
             descriptionLabel.numberOfLines = 3
             descriptionLabel.lineBreakMode = .byTruncatingTail
@@ -53,6 +56,7 @@ I'm on the next level yeah절대적 룰을 지켜내 손을놓지말아결속은
 
         self.dateLabel = {
             let dateLabel = UILabel()
+            
             dateLabel.text = "date"
             dateLabel.font = UIFont.preferredFont(forTextStyle: .body)
             dateLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -77,9 +81,7 @@ I'm on the next level yeah절대적 룰을 지켜내 손을놓지말아결속은
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
-        if selected {
-            contentView.backgroundColor = .systemGray3
-        }
+        if selected { contentView.backgroundColor = .systemGray3 }
     }
     
     required init?(coder: NSCoder) {

@@ -8,7 +8,7 @@
 import UIKit
 
 class TODOTableViewController: UITableViewController {
-    static var todoLists: [TODOModel] = []
+    static var todoLists: [Task] = []
     var countLabel: UILabel!
     
     override func viewDidLoad() {
@@ -44,7 +44,7 @@ class TODOTableViewController: UITableViewController {
             return countView
         }()
         
-        self.countLabel = {
+        countLabel = {
             let count = UILabel(frame: header.bounds)
             count.textColor = .white
             count.text = "\(TODOTableViewController.todoLists.count)"
@@ -106,14 +106,13 @@ class TODOTableViewController: UITableViewController {
 
         return cell
     }
+
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         return .delete
     }
-    
+
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
         }
     }
-    
 }
-

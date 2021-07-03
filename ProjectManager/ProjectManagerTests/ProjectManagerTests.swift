@@ -9,7 +9,7 @@ import XCTest
 @testable import ProjectManager
 
 class ProjectManagerTests: XCTestCase {
-    let sut = TODOModel(title: "야곰괴롭히기",
+    let sut = Task(title: "야곰괴롭히기",
                         deadline: "2021-07-21",
                         description: "야곰을 충분히 괴롭혀주세요.")
     
