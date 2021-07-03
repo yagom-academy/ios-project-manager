@@ -7,14 +7,22 @@
 
 import Foundation
 
-class DetailViewModel {
-    var item: TableItem?
+final class DetailViewModel {
+    private var item: TableItem?
     
     func update(model: TableItem?) {
         item = model
     }
     
     func itemInfo() -> TableItem? {
+        return item
+    }
+    
+    func setItem(_ item: TableItem?) {
+        self.item = item
+    }
+    
+    func tableItem() -> TableItem? {
         return item
     }
 }

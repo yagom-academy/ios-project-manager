@@ -7,7 +7,7 @@
 
 import Foundation
 
-class DateConverter {
+final class DateConverter {
     func numberToString(number: TimeInterval) -> String {
         let date = Date(timeIntervalSince1970: number)
         let dateFormatter = DateFormatter()

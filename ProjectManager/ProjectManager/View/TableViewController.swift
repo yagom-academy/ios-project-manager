@@ -7,8 +7,8 @@
 
 import UIKit
 
-class TableViewController: UIViewController {
-    let viewModel = TableViewModel()
+final class TableViewController: UIViewController {
+    private let viewModel = TableViewModel()
     
     @IBOutlet weak var todoTableView: UITableView!
     @IBOutlet weak var doingTableView: UITableView!
@@ -46,7 +46,7 @@ class TableViewController: UIViewController {
         )
     }
     
-    @objc func didDismissDetailViewControllerNotification(_ notification: Notification) {
+    @objc private func didDismissDetailViewControllerNotification(_ notification: Notification) {
         // TODO: - Server Request
         
         OperationQueue.main.addOperation {
@@ -60,14 +60,15 @@ class TableViewController: UIViewController {
             let viewController = segue.destination as? DetailViewController
             
             if let index = sender as? Int {
-                let item = viewModel.itemInfo(at: index)
-                viewController?.viewModel.update(model: item)
                 viewController?.changeToEditMode()
                 
                 // TODO: - 보다 MVVM에 적합한 방법은 뭘까 고민
                 // index 정보를 viewModel에 담아서 전달해도 될까?
                 // 여기서는 index정보지만, server에 연결되는 경우엔 item의 고유번호(?)정보를 전달해야함
-                viewController?.setItemIndex(index)
+                viewController?.setViewModel(
+                    tableViewModel: viewModel,
+                    index: index
+                )
             }
         }
     }

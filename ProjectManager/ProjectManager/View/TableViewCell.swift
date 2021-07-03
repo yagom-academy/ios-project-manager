@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TableViewCell: UITableViewCell {
+final class TableViewCell: UITableViewCell {
     static let cellIdentifier = "TableViewCell"
     private let dateConverter = DateConverter()
     

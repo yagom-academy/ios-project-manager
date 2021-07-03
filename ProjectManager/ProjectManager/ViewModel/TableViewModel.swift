@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TableViewModel {
+final class TableViewModel {
     private var list: [TableItem] = dummy
     
     var numOfList: Int {

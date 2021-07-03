@@ -7,16 +7,12 @@
 
 import UIKit
 
-enum Mode {
-    case addMode, editMode
-}
-
-class DetailViewController: UIViewController {
+final class DetailViewController: UIViewController {
     static let dismissNotification = Notification.Name("didDismissDetailViewController")
     private let dateConverter = DateConverter()
-    private var mode: Mode = .addMode
-    let viewModel = DetailViewModel()
-    var itemIndex: Int = 0
+    private var mode: DetailViewModeStyle = .addMode
+    private var viewModel = DetailViewModel()
+    private var itemIndex: Int = 0
     
     @IBOutlet weak var newTitle: UITextField!
     @IBOutlet weak var newDate: UIDatePicker!
@@ -53,7 +49,7 @@ class DetailViewController: UIViewController {
     }
     
     func updateUI() {
-        if let item = viewModel.item {
+        if let item = viewModel.tableItem() {
             newTitle.text = item.title
             newDate.date = dateConverter.numberToDate(number: item.date)
             newContent.text = item.summary
@@ -67,9 +63,12 @@ class DetailViewController: UIViewController {
     func changeToEditMode() {
         mode = .editMode
     }
-    
-    func setItemIndex(_ index: Int) {
+ 
+    func setViewModel(tableViewModel: TableViewModel, index: Int) {
         itemIndex = index
+        
+        let newItem = tableViewModel.itemInfo(at: index)
+        viewModel.setItem(newItem)
     }
     
     private func addNewTODO() {
