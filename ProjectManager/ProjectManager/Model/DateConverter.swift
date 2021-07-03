@@ -20,14 +20,14 @@ final class DateConverter {
     func dateToNumber(date: Date) -> TimeInterval {
         return date.timeIntervalSince1970
     }
-
+    
     func dateToString(date: Date) -> String {
         let numberOfDate = dateToNumber(date: date)
         let stringOfDate = numberToString(number: numberOfDate)
         
         return stringOfDate
     }
-
+    
     func numberToDate(number: TimeInterval) -> Date {
         let stringOfDate = numberToString(number: number)
         let dateFormatter = DateFormatter()

@@ -17,6 +17,7 @@
 		85B98961268B1E2000FF2DD7 /* DateConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B98960268B1E2000FF2DD7 /* DateConverter.swift */; };
 		85B98963268B605800FF2DD7 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B98962268B605800FF2DD7 /* DetailViewController.swift */; };
 		85C2719326909EB9001B806C /* DetailViewModeStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85C2719226909EB9001B806C /* DetailViewModeStyle.swift */; };
+		85C271972690A089001B806C /* DummyForTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85C271962690A089001B806C /* DummyForTest.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0D25F51E1D0094C4CF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0B25F51E1D0094C4CF /* Main.storyboard */; };
@@ -35,6 +36,7 @@
 		85B98960268B1E2000FF2DD7 /* DateConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateConverter.swift; sourceTree = "<group>"; };
 		85B98962268B605800FF2DD7 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		85C2719226909EB9001B806C /* DetailViewModeStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModeStyle.swift; sourceTree = "<group>"; };
+		85C271962690A089001B806C /* DummyForTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyForTest.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -74,6 +76,7 @@
 				85B9895E268AC6A200FF2DD7 /* TableItem.swift */,
 				85B98960268B1E2000FF2DD7 /* DateConverter.swift */,
 				85C2719226909EB9001B806C /* DetailViewModeStyle.swift */,
+				85C271962690A089001B806C /* DummyForTest.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -203,6 +206,7 @@
 				85C2719326909EB9001B806C /* DetailViewModeStyle.swift in Sources */,
 				851DD1D2268B6FF80065837E /* DetailViewModel.swift in Sources */,
 				85B9895D268AC66A00FF2DD7 /* TableViewModel.swift in Sources */,
+				85C271972690A089001B806C /* DummyForTest.swift in Sources */,
 				85B98959268AA8DF00FF2DD7 /* TableViewCell.swift in Sources */,
 				856D19AB268C7BF500D2D134 /* DoneTableViewController.swift in Sources */,
 				85B98957268AA4E100FF2DD7 /* TableViewController.swift in Sources */,

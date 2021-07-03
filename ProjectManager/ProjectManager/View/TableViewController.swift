@@ -136,7 +136,7 @@ extension TableViewController: UITableViewDataSource {
     ) -> Bool {
         return true
     }
-
+    
     func tableView(
         _ tableView: UITableView,
         commit editingStyle: UITableViewCell.EditingStyle,
@@ -147,13 +147,12 @@ extension TableViewController: UITableViewDataSource {
             self.updateTable()
         }
     }
-
+    
     func tableView(
         _ tableView: UITableView,
         moveRowAt sourceIndexPath: IndexPath,
         to destinationIndexPath: IndexPath
     ) {
-        print("\(sourceIndexPath.row) -> \(destinationIndexPath.row)")
         let moveCell = self.viewModel.itemInfo(at: sourceIndexPath.row)
         self.viewModel.removeCell(at: sourceIndexPath.row)
         self.viewModel.insert(
