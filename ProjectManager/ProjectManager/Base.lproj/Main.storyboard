@@ -330,8 +330,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="doingTableRowCount" destination="gow-cp-XGf" id="8cX-Qx-pHF"/>
-                        <outlet property="doingTableView" destination="SQX-p8-njq" id="RqN-P6-eI2"/>
+                        <outlet property="doingTableRowCount" destination="gow-cp-XGf" id="1J7-7Y-Rrq"/>
+                        <outlet property="doingTableView" destination="SQX-p8-njq" id="1et-sm-8dC"/>
                         <outlet property="doneTableRowCount" destination="Rdx-uw-TpV" id="KMg-kK-for"/>
                         <outlet property="doneTableView" destination="LUh-dS-dai" id="3ad-MU-2cQ"/>
                         <outlet property="todoTableRowCount" destination="LZw-yb-gqO" id="EZR-oe-WgH"/>

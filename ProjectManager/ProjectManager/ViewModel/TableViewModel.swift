@@ -21,6 +21,14 @@ class TableViewModel {
     func update(model: [TableItem]) {
         list = model
     }
+    
+    func removeCell(at index: Int) {
+        list.remove(at: index)
+    }
+    
+    func insert(cell: TableItem ,at index: Int) {
+        list.insert(cell, at: index)
+    }
 }
 
 // MARK: - test전용 Dummy

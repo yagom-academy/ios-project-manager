@@ -22,10 +22,14 @@ class TableViewController: UIViewController {
         
         todoTableView.delegate = self
         todoTableView.dataSource = self
+        todoTableView.dragInteractionEnabled = true
+        todoTableView.dragDelegate = self
+        todoTableView.dropDelegate = self
+        
         doingTableView.delegate = self
-        //        doingTableView.dataSource = self
+//        doingTableView.dataSource = self
         doneTableView.delegate = self
-        //        doneTableView.dataSource = self
+//        doneTableView.dataSource = self
         
         let circleImage = UIImage(systemName: "circle.fill")
         todoTableRowCount.text = "\(viewModel.numOfList)"
@@ -123,5 +127,64 @@ extension TableViewController: UITableViewDataSource {
         cell.separatorInset = UIEdgeInsets.zero
         
         return cell
+    }
+    
+    func tableView(
+        _ tableView: UITableView,
+        canEditRowAt indexPath: IndexPath
+    ) -> Bool {
+        return true
+    }
+
+    func tableView(
+        _ tableView: UITableView,
+        moveRowAt sourceIndexPath: IndexPath,
+        to destinationIndexPath: IndexPath
+    ) {
+        print("\(sourceIndexPath.row) -> \(destinationIndexPath.row)")
+        let moveCell = self.viewModel.itemInfo(at: sourceIndexPath.row)
+        self.viewModel.removeCell(at: sourceIndexPath.row)
+        self.viewModel.insert(
+            cell: moveCell,
+            at: destinationIndexPath.row
+        )
+    }
+}
+
+// MARK: - UITableView UITableViewDragDelegate
+extension TableViewController: UITableViewDragDelegate {
+    func tableView(
+        _ tableView: UITableView,
+        itemsForBeginning session: UIDragSession,
+        at indexPath: IndexPath
+    ) -> [UIDragItem] {
+        return [UIDragItem(itemProvider: NSItemProvider())]
+    }
+}
+
+// MARK: - UITableView UITableViewDropDelegate
+extension TableViewController: UITableViewDropDelegate {
+    func tableView(
+        _ tableView: UITableView,
+        dropSessionDidUpdate session: UIDropSession,
+        withDestinationIndexPath destinationIndexPath: IndexPath?
+    ) -> UITableViewDropProposal {
+        if session.localDragSession != nil {
+            return UITableViewDropProposal(
+                operation: .move,
+                intent: .insertAtDestinationIndexPath
+            )
+        }
+        return UITableViewDropProposal(
+            operation: .cancel,
+            intent: .unspecified
+        )
+    }
+    
+    func tableView(
+        _ tableView: UITableView,
+        performDropWith coordinator: UITableViewDropCoordinator
+    ) {
+        
     }
 }
