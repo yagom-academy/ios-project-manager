@@ -32,7 +32,7 @@ class ProjectManagerViewController: UIViewController {
 
     @objc func reloadData() {
         todoTableViewController.tableView.reloadData()
-        todoTableViewController.countLabel.text = "\(TODOTableViewController.todoLists.count)"
+        todoTableViewController.countLabel.text = "\(TaskManager.todolist.count)"
     }
     
     override func viewDidLoad() {

@@ -8,7 +8,7 @@
 import UIKit
 
 class DONETableViewController: UITableViewController {
-    static var doneLists: [Task] = []
+
     var countLabel: UILabel!
     
     override func viewDidLoad() {
@@ -47,7 +47,7 @@ class DONETableViewController: UITableViewController {
         countLabel = {
             let count = UILabel(frame: header.bounds)
             count.textColor = .white
-            count.text = "\(TODOTableViewController.todoLists.count)"
+            count.text = "\(TaskManager.donelist.count)"
             count.font = UIFont.preferredFont(forTextStyle: .title3)
             count.textAlignment = .center
             count.translatesAutoresizingMaskIntoConstraints = false
@@ -87,7 +87,7 @@ class DONETableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return TODOTableViewController.todoLists.count
+        return TaskManager.donelist.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -95,10 +95,10 @@ class DONETableViewController: UITableViewController {
         let cell: UITableViewCell = {
             let cell = tableView.dequeueReusableCell(withIdentifier: "scheduleCell", for: indexPath) as! ScheduleCell
             
-            if TODOTableViewController.todoLists.count > 0 {
-                cell.titleLabel.text = TODOTableViewController.todoLists[indexPath.row].title
-                cell.descriptionLabel.text = TODOTableViewController.todoLists[indexPath.row].description
-                cell.dateLabel.text = "\(TODOTableViewController.todoLists[indexPath.row].date)"
+            if TaskManager.donelist.count > 0 {
+                cell.titleLabel.text = TaskManager.donelist[indexPath.row].title
+                cell.descriptionLabel.text = TaskManager.donelist[indexPath.row].description
+                cell.dateLabel.text = "\(TaskManager.donelist[indexPath.row].date)"
             }
             
             return cell

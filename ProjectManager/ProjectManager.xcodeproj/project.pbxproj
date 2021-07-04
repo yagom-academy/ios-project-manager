@@ -20,6 +20,7 @@
 		D01DA670268C900200FFBEE1 /* ProjectManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01DA66F268C900200FFBEE1 /* ProjectManagerTests.swift */; };
 		D01DA678268C944500FFBEE1 /* RegisterSupportLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01DA677268C944500FFBEE1 /* RegisterSupportLogic.swift */; };
 		D0B55249268EA3C300341CFB /* ScheduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B55248268EA3C300341CFB /* ScheduleCell.swift */; };
+		D0E81DF226926CE100197F10 /* TasksManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E81DF126926CE100197F10 /* TasksManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +51,7 @@
 		D01DA671268C900200FFBEE1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D01DA677268C944500FFBEE1 /* RegisterSupportLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterSupportLogic.swift; sourceTree = "<group>"; };
 		D0B55248268EA3C300341CFB /* ScheduleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCell.swift; sourceTree = "<group>"; };
+		D0E81DF126926CE100197F10 /* TasksManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +130,7 @@
 			isa = PBXGroup;
 			children = (
 				D01DA664268C8B3300FFBEE1 /* Task.swift */,
+				D0E81DF126926CE100197F10 /* TasksManager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -248,6 +251,7 @@
 				D0B55249268EA3C300341CFB /* ScheduleCell.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				3818930F268AFDDF00D48055 /* RegisterViewController.swift in Sources */,
+				D0E81DF226926CE100197F10 /* TasksManager.swift in Sources */,
 				D011DAB8268B0E13001DEE59 /* DONETableViewController.swift in Sources */,
 				D011DAB6268B0E0A001DEE59 /* DOINGTableViewController.swift in Sources */,
 			);
