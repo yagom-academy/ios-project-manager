@@ -8,7 +8,6 @@
 import UIKit
 
 final class DoingTableViewCell: UITableViewCell {
-    static let cellIdentifier = "DoingTableViewCell"
     private let dateConverter = DateConverter()
     
     @IBOutlet weak var doingTitle: UILabel!

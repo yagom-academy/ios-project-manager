@@ -8,13 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		851DD1D2268B6FF80065837E /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851DD1D1268B6FF80065837E /* DetailViewModel.swift */; };
+		855C6E1E269208B000394F08 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855C6E1D269208B000394F08 /* Strings.swift */; };
 		85B98957268AA4E100FF2DD7 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B98956268AA4E100FF2DD7 /* TableViewController.swift */; };
 		85B98959268AA8DF00FF2DD7 /* TodoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B98958268AA8DF00FF2DD7 /* TodoTableViewCell.swift */; };
 		85B9895D268AC66A00FF2DD7 /* TodoTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B9895C268AC66A00FF2DD7 /* TodoTableViewModel.swift */; };
 		85B9895F268AC6A200FF2DD7 /* TableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B9895E268AC6A200FF2DD7 /* TableItem.swift */; };
 		85B98961268B1E2000FF2DD7 /* DateConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B98960268B1E2000FF2DD7 /* DateConverter.swift */; };
 		85B98963268B605800FF2DD7 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B98962268B605800FF2DD7 /* DetailViewController.swift */; };
-		85C2719326909EB9001B806C /* DetailViewModeStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85C2719226909EB9001B806C /* DetailViewModeStyle.swift */; };
+		85C2719326909EB9001B806C /* DetailViewStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85C2719226909EB9001B806C /* DetailViewStyle.swift */; };
 		85C271972690A089001B806C /* DummyForTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85C271962690A089001B806C /* DummyForTest.swift */; };
 		85C271992690B4EE001B806C /* DoingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85C271982690B4EE001B806C /* DoingTableViewCell.swift */; };
 		85C2719B2690B526001B806C /* DoneTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85C2719A2690B526001B806C /* DoneTableViewCell.swift */; };
@@ -30,13 +31,14 @@
 
 /* Begin PBXFileReference section */
 		851DD1D1268B6FF80065837E /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
+		855C6E1D269208B000394F08 /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		85B98956268AA4E100FF2DD7 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		85B98958268AA8DF00FF2DD7 /* TodoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTableViewCell.swift; sourceTree = "<group>"; };
 		85B9895C268AC66A00FF2DD7 /* TodoTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTableViewModel.swift; sourceTree = "<group>"; };
 		85B9895E268AC6A200FF2DD7 /* TableItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableItem.swift; sourceTree = "<group>"; };
 		85B98960268B1E2000FF2DD7 /* DateConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateConverter.swift; sourceTree = "<group>"; };
 		85B98962268B605800FF2DD7 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
-		85C2719226909EB9001B806C /* DetailViewModeStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModeStyle.swift; sourceTree = "<group>"; };
+		85C2719226909EB9001B806C /* DetailViewStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewStyle.swift; sourceTree = "<group>"; };
 		85C271962690A089001B806C /* DummyForTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyForTest.swift; sourceTree = "<group>"; };
 		85C271982690B4EE001B806C /* DoingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoingTableViewCell.swift; sourceTree = "<group>"; };
 		85C2719A2690B526001B806C /* DoneTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneTableViewCell.swift; sourceTree = "<group>"; };
@@ -73,19 +75,57 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
-		855C6DF626917CF500394F08 /* ViewController */ = {
+		855C6E1A2692084500394F08 /* DetailView */ = {
+			isa = PBXGroup;
+			children = (
+				85C2719226909EB9001B806C /* DetailViewStyle.swift */,
+				85B98962268B605800FF2DD7 /* DetailViewController.swift */,
+			);
+			path = DetailView;
+			sourceTree = "<group>";
+		};
+		855C6E1B2692084F00394F08 /* TableView */ = {
 			isa = PBXGroup;
 			children = (
 				85B98956268AA4E100FF2DD7 /* TableViewController.swift */,
-				85B98962268B605800FF2DD7 /* DetailViewController.swift */,
 			);
-			path = ViewController;
+			path = TableView;
+			sourceTree = "<group>";
+		};
+		855C6E1C269208A300394F08 /* Strings */ = {
+			isa = PBXGroup;
+			children = (
+				855C6E1D269208B000394F08 /* Strings.swift */,
+			);
+			path = Strings;
+			sourceTree = "<group>";
+		};
+		855C6E1F269208D600394F08 /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
+				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
+				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
+				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
+				C7431F1325F51E1E0094C4CF /* Info.plist */,
+			);
+			path = SupportingFiles;
+			sourceTree = "<group>";
+		};
+		855C6E2026920B4200394F08 /* Tool */ = {
+			isa = PBXGroup;
+			children = (
+				85B98960268B1E2000FF2DD7 /* DateConverter.swift */,
+			);
+			path = Tool;
 			sourceTree = "<group>";
 		};
 		85B98952268AA46E00FF2DD7 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				855C6DF626917CF500394F08 /* ViewController */,
+				C7431F0B25F51E1D0094C4CF /* Main.storyboard */,
+				855C6E1B2692084F00394F08 /* TableView */,
+				855C6E1A2692084500394F08 /* DetailView */,
 				855C6DF526917CE300394F08 /* Cell */,
 			);
 			path = View;
@@ -94,11 +134,7 @@
 		85B98953268AA47A00FF2DD7 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				85B98955268AA4B900FF2DD7 /* delegate */,
-				85C271A02690B859001B806C /* Protocol */,
 				85B9895E268AC6A200FF2DD7 /* TableItem.swift */,
-				85B98960268B1E2000FF2DD7 /* DateConverter.swift */,
-				85C2719226909EB9001B806C /* DetailViewModeStyle.swift */,
 				85C271962690A089001B806C /* DummyForTest.swift */,
 			);
 			path = Model;
@@ -107,21 +143,13 @@
 		85B98954268AA48400FF2DD7 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				85C271A02690B859001B806C /* Protocol */,
 				85B9895C268AC66A00FF2DD7 /* TodoTableViewModel.swift */,
 				85C2719C2690B56E001B806C /* DoingTableViewModel.swift */,
 				85C2719E2690B58E001B806C /* DoneTableViewModel.swift */,
 				851DD1D1268B6FF80065837E /* DetailViewModel.swift */,
 			);
 			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		85B98955268AA4B900FF2DD7 /* delegate */ = {
-			isa = PBXGroup;
-			children = (
-				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
-				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
-			);
-			path = delegate;
 			sourceTree = "<group>";
 		};
 		85C271A02690B859001B806C /* Protocol */ = {
@@ -154,10 +182,9 @@
 				85B98953268AA47A00FF2DD7 /* Model */,
 				85B98952268AA46E00FF2DD7 /* View */,
 				85B98954268AA48400FF2DD7 /* ViewModel */,
-				C7431F0B25F51E1D0094C4CF /* Main.storyboard */,
-				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
-				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
-				C7431F1325F51E1E0094C4CF /* Info.plist */,
+				855C6E1C269208A300394F08 /* Strings */,
+				855C6E2026920B4200394F08 /* Tool */,
+				855C6E1F269208D600394F08 /* SupportingFiles */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
@@ -238,12 +265,13 @@
 				85B98963268B605800FF2DD7 /* DetailViewController.swift in Sources */,
 				85C271992690B4EE001B806C /* DoingTableViewCell.swift in Sources */,
 				85B9895F268AC6A200FF2DD7 /* TableItem.swift in Sources */,
-				85C2719326909EB9001B806C /* DetailViewModeStyle.swift in Sources */,
+				85C2719326909EB9001B806C /* DetailViewStyle.swift in Sources */,
 				851DD1D2268B6FF80065837E /* DetailViewModel.swift in Sources */,
 				85B9895D268AC66A00FF2DD7 /* TodoTableViewModel.swift in Sources */,
 				85C271972690A089001B806C /* DummyForTest.swift in Sources */,
 				85C2719D2690B56E001B806C /* DoingTableViewModel.swift in Sources */,
 				85B98959268AA8DF00FF2DD7 /* TodoTableViewCell.swift in Sources */,
+				855C6E1E269208B000394F08 /* Strings.swift in Sources */,
 				85B98957268AA4E100FF2DD7 /* TableViewController.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				85C271A22690B86E001B806C /* TableViewModel.swift in Sources */,
@@ -396,7 +424,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SPWQVPZS24;
-				INFOPLIST_FILE = ProjectManager/Info.plist;
+				INFOPLIST_FILE = ProjectManager/SupportingFiles/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -416,7 +444,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SPWQVPZS24;
-				INFOPLIST_FILE = ProjectManager/Info.plist;
+				INFOPLIST_FILE = ProjectManager/SupportingFiles/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

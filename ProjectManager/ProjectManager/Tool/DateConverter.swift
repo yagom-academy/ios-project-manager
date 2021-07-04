@@ -8,9 +8,10 @@
 import Foundation
 
 final class DateConverter {
+    private let dateFormatter = DateFormatter()
+    
     func numberToString(number: TimeInterval) -> String {
         let date = Date(timeIntervalSince1970: number)
-        let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: Locale.current.identifier)
         dateFormatter.dateFormat = "yyyy-MM-dd"
         
@@ -30,7 +31,6 @@ final class DateConverter {
     
     func numberToDate(number: TimeInterval) -> Date {
         let stringOfDate = numberToString(number: number)
-        let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: Locale.current.identifier)
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let date = dateFormatter.date(from: stringOfDate)!

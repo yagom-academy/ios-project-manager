@@ -7,6 +7,6 @@
 
 import Foundation
 
-enum DetailViewModeStyle {
-    case addMode, editMode
+enum DetailViewStyle {
+    case add, edit
 }

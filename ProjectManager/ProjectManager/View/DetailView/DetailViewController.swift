@@ -8,9 +8,9 @@
 import UIKit
 
 final class DetailViewController: UIViewController {
-    static let dismissNotification = Notification.Name("didDismissDetailViewController")
+    static let dismissNotification = Notification.Name(Strings.dismissNotification)
     private let dateConverter = DateConverter()
-    private var mode: DetailViewModeStyle = .addMode
+    private var viewStyle: DetailViewStyle = .add
     private var viewModel = DetailViewModel()
     private var itemIndex: Int = 0
     
@@ -20,18 +20,20 @@ final class DetailViewController: UIViewController {
     @IBOutlet weak var leftButton: UIButton!
     
     @IBAction func clickDoneButton(_ sender: Any) {
-        if mode == .addMode {
-            addNewTODO()
-        } else {
-            cancel()
+        switch viewStyle {
+        case .add:
+            addTodoListItem()
+        case .edit:
+            cancelView()
         }
     }
     
     @IBAction func clickLeftButton(_ sender: Any) {
-        if mode == .addMode {
-            cancel()
-        } else {
-            editTODO()
+        switch viewStyle {
+        case .add:
+            cancelView()
+        case .edit:
+            editTodoListItem()
         }
     }
     
@@ -55,23 +57,32 @@ final class DetailViewController: UIViewController {
             newContent.text = item.summary
         }
         
-        if mode == .editMode {
-            leftButton.setTitle("Edit", for: UIControl.State.normal)
+        if viewStyle == .edit {
+            leftButton.setTitle(
+                Strings.editStyleTitle,
+                for: UIControl.State.normal
+            )
         }
     }
     
     func changeToEditMode() {
-        mode = .editMode
+        viewStyle = .edit
     }
     
-    func setViewModel(tableViewModel: TodoTableViewModel, index: Int) {
+    func setViewModel(
+        tableViewModel: TodoTableViewModel,
+        index: Int
+    ) {
         itemIndex = index
         
         let newItem = tableViewModel.itemInfo(at: index)
         viewModel.setItem(newItem)
     }
-    
-    private func addNewTODO() {
+}
+
+// MARK: - Button Action
+extension DetailViewController {
+    private func addTodoListItem() {
         let title: String = newTitle.text!
         let date: Double = dateConverter.dateToNumber(date: newDate.date)
         let content: String = newContent.text
@@ -97,7 +108,7 @@ final class DetailViewController: UIViewController {
         )
     }
     
-    private func editTODO() {
+    private func editTodoListItem() {
         let title: String = newTitle.text!
         let date: Double = dateConverter.dateToNumber(date: newDate.date)
         let content: String = newContent.text
@@ -121,7 +132,7 @@ final class DetailViewController: UIViewController {
         )
     }
     
-    private func cancel() {
+    private func cancelView() {
         dismiss(
             animated: true,
             completion: nil

@@ -8,7 +8,6 @@
 import UIKit
 
 final class TodoTableViewCell: UITableViewCell {
-    static let cellIdentifier = "TODOTableViewCell"
     private let dateConverter = DateConverter()
     
     @IBOutlet weak var todoTitle: UILabel!

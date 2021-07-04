@@ -23,31 +23,10 @@ final class TableViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        todoTableView.delegate = self
-        todoTableView.dataSource = self
-        todoTableView.dragInteractionEnabled = true
-        todoTableView.dragDelegate = self
-        todoTableView.dropDelegate = self
-        
-        doingTableView.delegate = self
-        doingTableView.dataSource = self
-        doingTableView.dragInteractionEnabled = true
-        doingTableView.dragDelegate = self
-        doingTableView.dropDelegate = self
-        
-        doneTableView.delegate = self
-        doneTableView.dataSource = self
-        doneTableView.dragInteractionEnabled = true
-        doneTableView.dragDelegate = self
-        doneTableView.dropDelegate = self
-        
-        let circleImage = UIImage(systemName: "circle.fill")
-        todoTableRowCount.text = "\(todoViewModel.numOfList)"
-        todoTableRowCount.backgroundColor = UIColor(patternImage: circleImage!)
-        doingTableRowCount.text = "\(doingViewModel.numOfList)"
-        doingTableRowCount.backgroundColor = UIColor(patternImage: circleImage!) 
-        doneTableRowCount.text = "\(doneViewModel.numOfList)"
-        doneTableRowCount.backgroundColor = UIColor(patternImage: circleImage!)
+        setTableViewDelegate(todoTableView)
+        setTableViewDelegate(doingTableView)
+        setTableViewDelegate(doneTableView)
+        setTablesRowCount()
         
         NotificationCenter.default.addObserver(
             self, selector: #selector(self.didDismissDetailViewControllerNotification(_:)),
@@ -69,7 +48,7 @@ final class TableViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showDetail" {
+        if segue.identifier == Strings.showDetailView {
             let viewController = segue.destination as? DetailViewController
             
             if let index = sender as? Int {
@@ -88,20 +67,17 @@ final class TableViewController: UIViewController {
     
     @IBAction func clickPlusButton(_ sender: Any) {
         performSegue(
-            withIdentifier: "addNewTODO",
+            withIdentifier: Strings.addTodoListItem,
             sender: nil
         )
     }
     
     func updateTable() {
         todoTableView.reloadData()
+        doingTableView.reloadData()
+        doneTableView.reloadData()
+        
         updateAllTableRowCount()
-    }
-    
-    private func updateAllTableRowCount() {
-        todoTableRowCount.text = "\(todoViewModel.numOfList)"
-        doingTableRowCount.text = "\(doingViewModel.numOfList)"
-        doneTableRowCount.text = "\(doneViewModel.numOfList)"
     }
     
     func customizedViewModel(of tableView: UITableView) -> TableViewModel? {
@@ -122,6 +98,33 @@ final class TableViewController: UIViewController {
     }
 }
 
+// MARK: - View Setting
+extension TableViewController {
+    private func updateAllTableRowCount() {
+        todoTableRowCount.text = "\(todoViewModel.numOfList)"
+        doingTableRowCount.text = "\(doingViewModel.numOfList)"
+        doneTableRowCount.text = "\(doneViewModel.numOfList)"
+    }
+    
+    private func setTableViewDelegate(_ tableView: UITableView) {
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.dragInteractionEnabled = true
+        tableView.dragDelegate = self
+        tableView.dropDelegate = self
+    }
+    
+    private func setTablesRowCount() {
+        let circleImage = UIImage(systemName: Strings.circleImageName)
+        todoTableRowCount.text = "\(todoViewModel.numOfList)"
+        todoTableRowCount.backgroundColor = UIColor(patternImage: circleImage!)
+        doingTableRowCount.text = "\(doingViewModel.numOfList)"
+        doingTableRowCount.backgroundColor = UIColor(patternImage: circleImage!)
+        doneTableRowCount.text = "\(doneViewModel.numOfList)"
+        doneTableRowCount.backgroundColor = UIColor(patternImage: circleImage!)
+    }
+}
+
 // MARK: - UITableViewDelegate
 extension TableViewController: UITableViewDelegate {
     func tableView(
@@ -133,7 +136,7 @@ extension TableViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(
-            withIdentifier: "showDetail",
+            withIdentifier: Strings.showDetailView,
             sender: indexPath.row
         )
     }
@@ -145,16 +148,8 @@ extension TableViewController: UITableViewDataSource {
         _ tableView: UITableView,
         numberOfRowsInSection section: Int
     ) -> Int {
-        switch tableView {
-        case todoTableView:
-            return todoViewModel.numOfList
-        case doingTableView:
-            return doingViewModel.numOfList
-        case doneTableView:
-            return doneViewModel.numOfList
-        default:
-            return 0
-        }
+        let viewModel = customizedViewModel(of: tableView)
+        return viewModel?.numOfList ?? 0
     }
     
     func tableView(
@@ -164,7 +159,7 @@ extension TableViewController: UITableViewDataSource {
         switch tableView {
         case todoTableView:
             let cell = tableView.dequeueReusableCell(
-                withIdentifier: TodoTableViewCell.cellIdentifier,
+                withIdentifier: Strings.todoTableViewCellIdentifier,
                 for: indexPath
             ) as! TodoTableViewCell
             let listInfo = self.todoViewModel.itemInfo(at: indexPath.row)
@@ -173,7 +168,7 @@ extension TableViewController: UITableViewDataSource {
             return cell
         case doingTableView:
             let cell = tableView.dequeueReusableCell(
-                withIdentifier: DoingTableViewCell.cellIdentifier,
+                withIdentifier: Strings.doingTableViewCellIdentifier,
                 for: indexPath
             ) as! DoingTableViewCell
             let listInfo = self.doingViewModel.itemInfo(at: indexPath.row)
@@ -182,7 +177,7 @@ extension TableViewController: UITableViewDataSource {
             return cell
         case doneTableView:
             let cell = tableView.dequeueReusableCell(
-                withIdentifier: DoneTableViewCell.cellIdentifier,
+                withIdentifier: Strings.doneTableViewCellIdentifier,
                 for: indexPath
             ) as! DoneTableViewCell
             let listInfo = self.doneViewModel.itemInfo(at: indexPath.row)
@@ -248,18 +243,9 @@ extension TableViewController: UITableViewDragDelegate {
         dragSessionDidEnd session: UIDragSession
     ) {
         guard let selectIndexPath = selectIndexPath else { return }
-        if selectIndexPath.1 {
-            switch tableView {
-            case todoTableView:
-                todoViewModel.removeCell(at: selectIndexPath.0.row)
-            case doingTableView:
-                doingViewModel.removeCell(at: selectIndexPath.0.row)
-            case doneTableView:
-                doneViewModel.removeCell(at: selectIndexPath.0.row)
-            default:
-                // TODO: - default일 경우 처리
-                print("default")
-            }
+        if selectIndexPath.1 {            
+            let viewModel = customizedViewModel(of: tableView)
+            viewModel?.removeCell(at: selectIndexPath.0.row)
             
             tableView.beginUpdates()
             tableView.deleteRows(
