@@ -11,6 +11,7 @@ final class TableViewController: UIViewController {
     private let todoViewModel = TodoTableViewModel()
     private let doingViewModel = DoingTableViewModel()
     private let doneViewModel = DoneTableViewModel()
+    private var selectIndexPath : (IndexPath, Bool)?
     
     @IBOutlet weak var todoTableView: UITableView!
     @IBOutlet weak var doingTableView: UITableView!
@@ -94,10 +95,30 @@ final class TableViewController: UIViewController {
     
     func updateTable() {
         todoTableView.reloadData()
-        
+        updateAllTableRowCount()
+    }
+    
+    private func updateAllTableRowCount() {
         todoTableRowCount.text = "\(todoViewModel.numOfList)"
         doingTableRowCount.text = "\(doingViewModel.numOfList)"
         doneTableRowCount.text = "\(doneViewModel.numOfList)"
+    }
+    
+    func customizedViewModel(of tableView: UITableView) -> TableViewModel? {
+        var viewModel: TableViewModel?
+        switch tableView {
+        case todoTableView:
+            viewModel = todoViewModel
+        case doingTableView:
+            viewModel = doingViewModel
+        case doneTableView:
+            viewModel = doneViewModel
+        default:
+            // TODO: - nil일 경우 처리
+            viewModel = nil
+        }
+        
+        return viewModel
     }
 }
 
@@ -185,18 +206,7 @@ extension TableViewController: UITableViewDataSource {
         commit editingStyle: UITableViewCell.EditingStyle,
         forRowAt indexPath: IndexPath
     ) {
-        var viewModel: TableViewModel?
-        switch tableView {
-        case todoTableView:
-            viewModel = todoViewModel
-        case doingTableView:
-            viewModel = doingViewModel
-        case doneTableView:
-            viewModel = doneViewModel
-        default:
-            viewModel = nil
-        }
-        
+        let viewModel = customizedViewModel(of: tableView)
         if (editingStyle == .delete) {
             viewModel?.removeCell(at: indexPath.row)
             self.updateTable()
@@ -208,21 +218,11 @@ extension TableViewController: UITableViewDataSource {
         moveRowAt sourceIndexPath: IndexPath,
         to destinationIndexPath: IndexPath
     ) {
-        var viewModel: TableViewModel?
-        switch tableView {
-        case todoTableView:
-            viewModel = todoViewModel
-        case doingTableView:
-            viewModel = doingViewModel
-        case doneTableView:
-            viewModel = doneViewModel
-        default:
-            viewModel = nil
-        }
-        let moveCell = (viewModel?.itemInfo(at: sourceIndexPath.row))!
+        let viewModel = customizedViewModel(of: tableView)
+        let moveCell = (viewModel?.itemInfo(at: sourceIndexPath.row))
         viewModel?.removeCell(at: sourceIndexPath.row)
         viewModel?.insert(
-            cell: moveCell,
+            cell: moveCell!,
             at: destinationIndexPath.row
         )
     }
@@ -235,7 +235,40 @@ extension TableViewController: UITableViewDragDelegate {
         itemsForBeginning session: UIDragSession,
         at indexPath: IndexPath
     ) -> [UIDragItem] {
-        return [UIDragItem(itemProvider: NSItemProvider())]
+        let viewModel = customizedViewModel(of: tableView)
+        let tableItem = viewModel?.itemInfo(at: indexPath.row)
+        let itemProvider = NSItemProvider(object: tableItem!)
+        selectIndexPath = (indexPath, false)
+        
+        return [UIDragItem(itemProvider: itemProvider)]
+    }
+    
+    func tableView(
+        _ tableView: UITableView,
+        dragSessionDidEnd session: UIDragSession
+    ) {
+        guard let selectIndexPath = selectIndexPath else { return }
+        if selectIndexPath.1 {
+            switch tableView {
+            case todoTableView:
+                todoViewModel.removeCell(at: selectIndexPath.0.row)
+            case doingTableView:
+                doingViewModel.removeCell(at: selectIndexPath.0.row)
+            case doneTableView:
+                doneViewModel.removeCell(at: selectIndexPath.0.row)
+            default:
+                // TODO: - default일 경우 처리
+                print("default")
+            }
+            
+            tableView.beginUpdates()
+            tableView.deleteRows(
+                at: [selectIndexPath.0],
+                with: .automatic
+            )
+            tableView.endUpdates()
+            updateAllTableRowCount()
+        }
     }
 }
 
@@ -243,25 +276,84 @@ extension TableViewController: UITableViewDragDelegate {
 extension TableViewController: UITableViewDropDelegate {
     func tableView(
         _ tableView: UITableView,
+        canHandle session: UIDropSession
+    ) -> Bool {
+        return session.canLoadObjects(ofClass: TableItem.self)
+    }
+    
+    func tableView(
+        _ tableView: UITableView,
         dropSessionDidUpdate session: UIDropSession,
         withDestinationIndexPath destinationIndexPath: IndexPath?
     ) -> UITableViewDropProposal {
-        if session.localDragSession != nil {
+        var dropProposal = UITableViewDropProposal(operation: .cancel)
+        guard session.items.count == 1
+        else {
+            return dropProposal
+        }
+        
+        if tableView.hasActiveDrag {
+            if tableView.isEditing {
+                dropProposal = UITableViewDropProposal(
+                    operation: .move,
+                    intent: .insertAtDestinationIndexPath
+                )
+            }
+        } else {
+            if let indexPath = selectIndexPath {
+                selectIndexPath = (indexPath.0, true)
+            }
+
             return UITableViewDropProposal(
-                operation: .move,
+                operation: .copy,
                 intent: .insertAtDestinationIndexPath
             )
         }
-        return UITableViewDropProposal(
-            operation: .cancel,
-            intent: .unspecified
-        )
+        
+        return dropProposal
     }
     
     func tableView(
         _ tableView: UITableView,
         performDropWith coordinator: UITableViewDropCoordinator
     ) {
+        var destinationIndexPath = IndexPath(
+            row: tableView.numberOfRows(inSection: 0),
+            section: 0
+        )
+        if let indexpath = coordinator.destinationIndexPath {
+            destinationIndexPath = indexpath
+        }
         
+        coordinator.session.loadObjects(ofClass: TableItem.self) { [self] items in
+            guard let subject = items as? [TableItem]
+            else {
+                return
+            }
+            var indexPaths = [IndexPath]()
+            
+            for (index, value) in subject.enumerated() {
+                let indexPath = IndexPath(
+                    row: destinationIndexPath.row + index,
+                    section: destinationIndexPath.section
+                )
+                let viewModel = customizedViewModel(of: tableView)
+                viewModel?.insert(
+                    cell: value,
+                    at: indexPath.row
+                )
+
+                indexPaths.append(indexPath)
+            }
+            
+            tableView.beginUpdates()
+            tableView.insertRows(
+                at: indexPaths,
+                with: .automatic
+            )
+            tableView.endUpdates()
+            
+            updateAllTableRowCount()
+        }
     }
 }
