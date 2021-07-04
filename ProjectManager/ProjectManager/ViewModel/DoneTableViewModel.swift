@@ -1,14 +1,14 @@
 //
-//  TableViewModel.swift
+//  DoneTableViewModel.swift
 //  ProjectManager
 //
-//  Created by 강경 on 2021/06/29.
+//  Created by 강경 on 2021/07/04.
 //
 
-import UIKit
+import Foundation
 
-final class TableViewModel {
-    private var list: [TableItem] = dummy
+final class DoneTableViewModel: TableViewModel {
+    internal var list: [TableItem] = doneDummy
     
     var numOfList: Int {
         return list.count
@@ -26,13 +26,13 @@ final class TableViewModel {
         list.remove(at: index)
         
         // TODO: - server API "remove"
-        dummy.remove(at: index)
+        doneDummy.remove(at: index)
     }
     
     func insert(cell: TableItem ,at index: Int) {
         list.insert(cell, at: index)
         
         // TODO: - server API "insert"
-        dummy.insert(cell, at: index)
+        doneDummy.insert(cell, at: index)
     }
 }

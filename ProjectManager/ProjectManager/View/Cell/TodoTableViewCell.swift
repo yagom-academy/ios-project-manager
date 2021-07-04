@@ -1,5 +1,5 @@
 //
-//  TableViewCell.swift
+//  TodoTableViewCell.swift
 //  ProjectManager
 //
 //  Created by 강경 on 2021/06/29.
@@ -7,21 +7,13 @@
 
 import UIKit
 
-final class TableViewCell: UITableViewCell {
-    static let cellIdentifier = "TableViewCell"
+final class TodoTableViewCell: UITableViewCell {
+    static let cellIdentifier = "TODOTableViewCell"
     private let dateConverter = DateConverter()
     
     @IBOutlet weak var todoTitle: UILabel!
     @IBOutlet weak var todoSummary: UILabel!
     @IBOutlet weak var todoDate: UILabel!
-    
-    @IBOutlet weak var doingTitle: UILabel!
-    @IBOutlet weak var doingSummary: UILabel!
-    @IBOutlet weak var doingDate: UILabel!
-    
-    @IBOutlet weak var doneTitle: UILabel!
-    @IBOutlet weak var doneSummary: UILabel!
-    @IBOutlet weak var doneDate: UILabel!
     
     func update(info: TableItem) {
         self.backgroundColor = UIColor.clear
@@ -37,4 +29,8 @@ final class TableViewCell: UITableViewCell {
             todoDate.textColor = UIColor.black
         }
     }
+}
+
+class Test: UITableViewCell {
+    
 }

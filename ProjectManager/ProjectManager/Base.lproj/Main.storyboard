@@ -45,7 +45,7 @@
                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         </view>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TableViewCell" id="ItL-Me-5D9" userLabel="TODOTableViewCell" customClass="TableViewCell" customModule="ProjectManager" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TODOTableViewCell" id="ItL-Me-5D9" userLabel="TODOTableViewCell" customClass="TodoTableViewCell" customModule="ProjectManager" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="24.5" width="451" height="121"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ItL-Me-5D9" id="Uzo-n5-qne">
@@ -138,9 +138,14 @@
                                     </label>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="SQX-p8-njq">
                                         <rect key="frame" x="0.0" y="40" width="451" height="934"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="backgroundColor" systemColor="systemGray5Color"/>
+                                        <view key="tableFooterView" hidden="YES" contentMode="scaleToFill" id="oy4-fP-LNH">
+                                            <rect key="frame" x="0.0" y="170.00000034679067" width="451" height="44"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        </view>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TableViewCell" id="iKw-DK-bfQ" userLabel="DoingTableViewCell" customClass="TableViewCell" customModule="ProjectManager" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DoingTableViewCell" id="iKw-DK-bfQ" userLabel="DoingTableViewCell" customClass="DoingTableViewCell" customModule="ProjectManager" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="24.5" width="451" height="121"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="iKw-DK-bfQ" id="JMo-T6-Rol">
@@ -190,6 +195,11 @@
                                                         <constraint firstAttribute="trailing" secondItem="D6t-Oo-h9w" secondAttribute="trailing" id="r7p-kk-d1M"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
+                                                <connections>
+                                                    <outlet property="doingDate" destination="FhZ-vs-03K" id="RhJ-Bd-22o"/>
+                                                    <outlet property="doingSummary" destination="Knq-9r-xk1" id="8Gk-P1-otg"/>
+                                                    <outlet property="doingTitle" destination="Hag-iX-Izt" id="eg1-hV-aCY"/>
+                                                </connections>
                                             </tableViewCell>
                                         </prototypes>
                                     </tableView>
@@ -227,9 +237,14 @@
                                     </label>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="LUh-dS-dai">
                                         <rect key="frame" x="0.0" y="40" width="451" height="934"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="backgroundColor" systemColor="systemGray5Color"/>
+                                        <view key="tableFooterView" hidden="YES" contentMode="scaleToFill" id="qmh-PA-I0v">
+                                            <rect key="frame" x="0.0" y="170.00000034679067" width="451" height="44"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        </view>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TableViewCell" id="FfO-qb-eBC" userLabel="DoneTableViewCell" customClass="TableViewCell" customModule="ProjectManager" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DoneTableViewCell" id="FfO-qb-eBC" userLabel="DoneTableViewCell" customClass="DoneTableViewCell" customModule="ProjectManager" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="24.5" width="451" height="121"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="FfO-qb-eBC" id="f29-G6-eIb">
@@ -279,6 +294,11 @@
                                                         <constraint firstItem="fR4-Ko-QDe" firstAttribute="leading" secondItem="f29-G6-eIb" secondAttribute="leading" id="jCf-vy-5kD"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
+                                                <connections>
+                                                    <outlet property="doneDate" destination="nxl-Jz-f6r" id="gbP-Ec-h5R"/>
+                                                    <outlet property="doneSummary" destination="NPo-3U-K68" id="o5n-y8-5bz"/>
+                                                    <outlet property="doneTitle" destination="baB-pl-ejy" id="lvt-pU-Iay"/>
+                                                </connections>
                                             </tableViewCell>
                                         </prototypes>
                                     </tableView>

@@ -8,7 +8,9 @@
 import UIKit
 
 final class TableViewController: UIViewController {
-    private let viewModel = TableViewModel()
+    private let todoViewModel = TodoTableViewModel()
+    private let doingViewModel = DoingTableViewModel()
+    private let doneViewModel = DoneTableViewModel()
     
     @IBOutlet weak var todoTableView: UITableView!
     @IBOutlet weak var doingTableView: UITableView!
@@ -27,16 +29,23 @@ final class TableViewController: UIViewController {
         todoTableView.dropDelegate = self
         
         doingTableView.delegate = self
-//        doingTableView.dataSource = self
+        doingTableView.dataSource = self
+        doingTableView.dragInteractionEnabled = true
+        doingTableView.dragDelegate = self
+        doingTableView.dropDelegate = self
+        
         doneTableView.delegate = self
-//        doneTableView.dataSource = self
+        doneTableView.dataSource = self
+        doneTableView.dragInteractionEnabled = true
+        doneTableView.dragDelegate = self
+        doneTableView.dropDelegate = self
         
         let circleImage = UIImage(systemName: "circle.fill")
-        todoTableRowCount.text = "\(viewModel.numOfList)"
+        todoTableRowCount.text = "\(todoViewModel.numOfList)"
         todoTableRowCount.backgroundColor = UIColor(patternImage: circleImage!)
-        doingTableRowCount.text = "\(viewModel.numOfList)"
+        doingTableRowCount.text = "\(doingViewModel.numOfList)"
         doingTableRowCount.backgroundColor = UIColor(patternImage: circleImage!) 
-        doneTableRowCount.text = "\(viewModel.numOfList)"
+        doneTableRowCount.text = "\(doneViewModel.numOfList)"
         doneTableRowCount.backgroundColor = UIColor(patternImage: circleImage!)
         
         NotificationCenter.default.addObserver(
@@ -50,8 +59,11 @@ final class TableViewController: UIViewController {
         // TODO: - Server Request
         
         OperationQueue.main.addOperation {
-            self.viewModel.update(model: dummy)
-            self.todoTableView.reloadData()
+            self.todoViewModel.update(model: todoDummy)
+            self.doingViewModel.update(model: doingDummy)
+            self.doneViewModel.update(model: doneDummy)
+            
+            self.updateTable()
         }
     }
     
@@ -66,7 +78,7 @@ final class TableViewController: UIViewController {
                 // index 정보를 viewModel에 담아서 전달해도 될까?
                 // 여기서는 index정보지만, server에 연결되는 경우엔 item의 고유번호(?)정보를 전달해야함
                 viewController?.setViewModel(
-                    tableViewModel: viewModel,
+                    tableViewModel: todoViewModel,
                     index: index
                 )
             }
@@ -82,10 +94,14 @@ final class TableViewController: UIViewController {
     
     func updateTable() {
         todoTableView.reloadData()
+        
+        todoTableRowCount.text = "\(todoViewModel.numOfList)"
+        doingTableRowCount.text = "\(doingViewModel.numOfList)"
+        doneTableRowCount.text = "\(doneViewModel.numOfList)"
     }
 }
 
-// MARK: - UITableView UITableViewDelegate
+// MARK: - UITableViewDelegate
 extension TableViewController: UITableViewDelegate {
     func tableView(
         _ tableView: UITableView,
@@ -102,32 +118,59 @@ extension TableViewController: UITableViewDelegate {
     }
 }
 
-// MARK: - UITableView UITableViewDataSource
+// MARK: - UITableViewDataSource
 extension TableViewController: UITableViewDataSource {
     func tableView(
         _ tableView: UITableView,
         numberOfRowsInSection section: Int
     ) -> Int {
-        return viewModel.numOfList
+        switch tableView {
+        case todoTableView:
+            return todoViewModel.numOfList
+        case doingTableView:
+            return doingViewModel.numOfList
+        case doneTableView:
+            return doneViewModel.numOfList
+        default:
+            return 0
+        }
     }
     
     func tableView(
         _ tableView: UITableView,
         cellForRowAt indexPath: IndexPath
     ) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: TableViewCell.cellIdentifier,
-            for: indexPath
-        ) as? TableViewCell
-        else {
+        switch tableView {
+        case todoTableView:
+            let cell = tableView.dequeueReusableCell(
+                withIdentifier: TodoTableViewCell.cellIdentifier,
+                for: indexPath
+            ) as! TodoTableViewCell
+            let listInfo = self.todoViewModel.itemInfo(at: indexPath.row)
+            cell.update(info: listInfo)
+            cell.separatorInset = UIEdgeInsets.zero
+            return cell
+        case doingTableView:
+            let cell = tableView.dequeueReusableCell(
+                withIdentifier: DoingTableViewCell.cellIdentifier,
+                for: indexPath
+            ) as! DoingTableViewCell
+            let listInfo = self.doingViewModel.itemInfo(at: indexPath.row)
+            cell.update(info: listInfo)
+            cell.separatorInset = UIEdgeInsets.zero
+            return cell
+        case doneTableView:
+            let cell = tableView.dequeueReusableCell(
+                withIdentifier: DoneTableViewCell.cellIdentifier,
+                for: indexPath
+            ) as! DoneTableViewCell
+            let listInfo = self.doneViewModel.itemInfo(at: indexPath.row)
+            cell.update(info: listInfo)
+            cell.separatorInset = UIEdgeInsets.zero
+            return cell
+        default:
             return UITableViewCell()
         }
-        
-        let listInfo = viewModel.itemInfo(at: indexPath.row)
-        cell.update(info: listInfo)
-        cell.separatorInset = UIEdgeInsets.zero
-        
-        return cell
     }
     
     func tableView(
@@ -142,8 +185,20 @@ extension TableViewController: UITableViewDataSource {
         commit editingStyle: UITableViewCell.EditingStyle,
         forRowAt indexPath: IndexPath
     ) {
+        var viewModel: TableViewModel?
+        switch tableView {
+        case todoTableView:
+            viewModel = todoViewModel
+        case doingTableView:
+            viewModel = doingViewModel
+        case doneTableView:
+            viewModel = doneViewModel
+        default:
+            viewModel = nil
+        }
+        
         if (editingStyle == .delete) {
-            self.viewModel.removeCell(at: indexPath.row)
+            viewModel?.removeCell(at: indexPath.row)
             self.updateTable()
         }
     }
@@ -153,16 +208,27 @@ extension TableViewController: UITableViewDataSource {
         moveRowAt sourceIndexPath: IndexPath,
         to destinationIndexPath: IndexPath
     ) {
-        let moveCell = self.viewModel.itemInfo(at: sourceIndexPath.row)
-        self.viewModel.removeCell(at: sourceIndexPath.row)
-        self.viewModel.insert(
+        var viewModel: TableViewModel?
+        switch tableView {
+        case todoTableView:
+            viewModel = todoViewModel
+        case doingTableView:
+            viewModel = doingViewModel
+        case doneTableView:
+            viewModel = doneViewModel
+        default:
+            viewModel = nil
+        }
+        let moveCell = (viewModel?.itemInfo(at: sourceIndexPath.row))!
+        viewModel?.removeCell(at: sourceIndexPath.row)
+        viewModel?.insert(
             cell: moveCell,
             at: destinationIndexPath.row
         )
     }
 }
 
-// MARK: - UITableView UITableViewDragDelegate
+// MARK: - UITableViewDragDelegate
 extension TableViewController: UITableViewDragDelegate {
     func tableView(
         _ tableView: UITableView,
@@ -173,7 +239,7 @@ extension TableViewController: UITableViewDragDelegate {
     }
 }
 
-// MARK: - UITableView UITableViewDropDelegate
+// MARK: - UITableViewDropDelegate
 extension TableViewController: UITableViewDropDelegate {
     func tableView(
         _ tableView: UITableView,

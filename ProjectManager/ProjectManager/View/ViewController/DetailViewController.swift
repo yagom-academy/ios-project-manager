@@ -64,7 +64,7 @@ final class DetailViewController: UIViewController {
         mode = .editMode
     }
     
-    func setViewModel(tableViewModel: TableViewModel, index: Int) {
+    func setViewModel(tableViewModel: TodoTableViewModel, index: Int) {
         itemIndex = index
         
         let newItem = tableViewModel.itemInfo(at: index)
@@ -77,7 +77,7 @@ final class DetailViewController: UIViewController {
         let content: String = newContent.text
         
         // TODO: - dummy에 직접 접근하지 말고, ViewModel을 이용하여 처리하도록 하자
-        dummy.append(
+        todoDummy.append(
             TableItem(
                 title: title,
                 summary: content,
@@ -103,7 +103,7 @@ final class DetailViewController: UIViewController {
         let content: String = newContent.text
         
         // TODO: - dummy에 직접 접근하지 말고, ViewModel을 이용하여 처리하도록 하자
-        dummy[itemIndex] = TableItem(
+        todoDummy[itemIndex] = TableItem(
             title: title,
             summary: content,
             date: date
