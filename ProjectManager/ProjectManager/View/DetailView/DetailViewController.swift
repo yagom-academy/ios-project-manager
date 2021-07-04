@@ -87,14 +87,12 @@ extension DetailViewController {
         let date: Double = dateConverter.dateToNumber(date: newDate.date)
         let content: String = newContent.text
         
-        // TODO: - dummy에 직접 접근하지 말고, ViewModel을 이용하여 처리하도록 하자
-        todoDummy.append(
-            TableItem(
-                title: title,
-                summary: content,
-                date: date
-            )
+        let newCell = TableItem(
+            title: title,
+            summary: content,
+            date: date
         )
+        viewModel.insert(cell: newCell)
         
         NotificationCenter.default.post(
             name: DetailViewController.dismissNotification,
@@ -113,12 +111,12 @@ extension DetailViewController {
         let date: Double = dateConverter.dateToNumber(date: newDate.date)
         let content: String = newContent.text
         
-        // TODO: - dummy에 직접 접근하지 말고, ViewModel을 이용하여 처리하도록 하자
-        todoDummy[itemIndex] = TableItem(
+        let editedCell = TableItem(
             title: title,
             summary: content,
             date: date
         )
+        viewModel.edit(cell: editedCell, at: itemIndex)
         
         NotificationCenter.default.post(
             name: DetailViewController.dismissNotification,

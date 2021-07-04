@@ -80,21 +80,14 @@ final class TableViewController: UIViewController {
         updateAllTableRowCount()
     }
     
-    func customizedViewModel(of tableView: UITableView) -> TableViewModel? {
-        var viewModel: TableViewModel?
-        switch tableView {
-        case todoTableView:
-            viewModel = todoViewModel
-        case doingTableView:
-            viewModel = doingViewModel
-        case doneTableView:
-            viewModel = doneViewModel
-        default:
-            // TODO: - nil일 경우 처리
-            viewModel = nil
+    func customizedViewModel(of tableView: UITableView) -> TableViewModel {
+        if tableView == todoTableView {
+            return todoViewModel
+        } else if tableView == doingTableView {
+            return doingViewModel
+        } else {
+            return doneViewModel
         }
-        
-        return viewModel
     }
 }
 
@@ -149,7 +142,7 @@ extension TableViewController: UITableViewDataSource {
         numberOfRowsInSection section: Int
     ) -> Int {
         let viewModel = customizedViewModel(of: tableView)
-        return viewModel?.numOfList ?? 0
+        return viewModel.numOfList
     }
     
     func tableView(
@@ -203,7 +196,7 @@ extension TableViewController: UITableViewDataSource {
     ) {
         let viewModel = customizedViewModel(of: tableView)
         if (editingStyle == .delete) {
-            viewModel?.removeCell(at: indexPath.row)
+            viewModel.removeCell(at: indexPath.row)
             self.updateTable()
         }
     }
@@ -214,10 +207,10 @@ extension TableViewController: UITableViewDataSource {
         to destinationIndexPath: IndexPath
     ) {
         let viewModel = customizedViewModel(of: tableView)
-        let moveCell = (viewModel?.itemInfo(at: sourceIndexPath.row))
-        viewModel?.removeCell(at: sourceIndexPath.row)
-        viewModel?.insert(
-            cell: moveCell!,
+        let moveCell = (viewModel.itemInfo(at: sourceIndexPath.row))
+        viewModel.removeCell(at: sourceIndexPath.row)
+        viewModel.insert(
+            cell: moveCell,
             at: destinationIndexPath.row
         )
     }
@@ -231,8 +224,8 @@ extension TableViewController: UITableViewDragDelegate {
         at indexPath: IndexPath
     ) -> [UIDragItem] {
         let viewModel = customizedViewModel(of: tableView)
-        let tableItem = viewModel?.itemInfo(at: indexPath.row)
-        let itemProvider = NSItemProvider(object: tableItem!)
+        let tableItem = viewModel.itemInfo(at: indexPath.row)
+        let itemProvider = NSItemProvider(object: tableItem)
         selectIndexPath = (indexPath, false)
         
         return [UIDragItem(itemProvider: itemProvider)]
@@ -245,7 +238,7 @@ extension TableViewController: UITableViewDragDelegate {
         guard let selectIndexPath = selectIndexPath else { return }
         if selectIndexPath.1 {            
             let viewModel = customizedViewModel(of: tableView)
-            viewModel?.removeCell(at: selectIndexPath.0.row)
+            viewModel.removeCell(at: selectIndexPath.0.row)
             
             tableView.beginUpdates()
             tableView.deleteRows(
@@ -324,7 +317,7 @@ extension TableViewController: UITableViewDropDelegate {
                     section: destinationIndexPath.section
                 )
                 let viewModel = customizedViewModel(of: tableView)
-                viewModel?.insert(
+                viewModel.insert(
                     cell: value,
                     at: indexPath.row
                 )
