@@ -13,6 +13,7 @@ class ProjectManagerViewController: UIViewController {
     let doingStackView = ListContentsStackview()
     let doneStackView = ListContentsStackview()
     
+    
     let todoTitleView = ListTitleView()
     let doingTitleView = ListTitleView()
     let doneTitleView = ListTitleView()
@@ -23,9 +24,10 @@ class ProjectManagerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+//        UINavigationController(rootViewController: newTodoFormViewController)
         view.backgroundColor = .systemGray4
         title = "소개팅 필승 공략"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: nil)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(pushNewTodoFormViewController))
         configureStackView()
         configureTitleView()
         configureProcessListsTableView()
@@ -46,6 +48,13 @@ class ProjectManagerViewController: UIViewController {
         todoTitleView.layer.addBorder([.bottom], color: .systemGray4, width: 1.5)
         doingTitleView.layer.addBorder([.bottom], color: .systemGray4, width: 1.5)
         doneTitleView.layer.addBorder([.bottom], color: .systemGray4, width: 1.5)
+    }
+    
+    @objc func pushNewTodoFormViewController() {
+        let newTodoFormViewController = NewTodoFormViewController()
+        let newTodoFormNavigationController = NewTodoFormNavigationController(rootViewController: newTodoFormViewController)
+        newTodoFormNavigationController.modalPresentationStyle = .formSheet
+        present(newTodoFormNavigationController, animated: true)
     }
 
     private func configureTitleView() {
@@ -78,6 +87,10 @@ class ProjectManagerViewController: UIViewController {
         
         todoTitleView.count.layer.cornerRadius = 12.5
         todoTitleView.count.layer.masksToBounds = true
+        doingTitleView.count.layer.cornerRadius = 12.5
+        doingTitleView.count.layer.masksToBounds = true
+        doneTitleView.count.layer.cornerRadius = 12.5
+        doneTitleView.count.layer.masksToBounds = true
         
     }
     

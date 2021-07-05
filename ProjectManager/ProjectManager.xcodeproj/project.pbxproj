@@ -11,6 +11,11 @@
 		33C2120C268DEF7300232BD4 /* TodoListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C2120B268DEF7300232BD4 /* TodoListCell.swift */; };
 		33C2120F268DF19B00232BD4 /* CellStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C2120E268DF19B00232BD4 /* CellStackView.swift */; };
 		33C21219268DF51E00232BD4 /* TableViewDataSource+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C21218268DF51E00232BD4 /* TableViewDataSource+Ext.swift */; };
+		B4A446472692FB890055C901 /* NewTodoFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A446462692FB890055C901 /* NewTodoFormViewController.swift */; };
+		B4A4464A269311590055C901 /* NewTodoFormNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A44649269311590055C901 /* NewTodoFormNavigationController.swift */; };
+		B4A4464D269314360055C901 /* NewTodoFormTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A4464C269314360055C901 /* NewTodoFormTextField.swift */; };
+		B4A44650269315AE0055C901 /* NewTodoFormStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A4464F269315AE0055C901 /* NewTodoFormStackView.swift */; };
+		B4A446532693253D0055C901 /* NewTodoFormTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A446522693253D0055C901 /* NewTodoFormTextView.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* ProjectManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* ProjectManagerViewController.swift */; };
@@ -26,6 +31,11 @@
 		33C2120B268DEF7300232BD4 /* TodoListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListCell.swift; sourceTree = "<group>"; };
 		33C2120E268DF19B00232BD4 /* CellStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellStackView.swift; sourceTree = "<group>"; };
 		33C21218268DF51E00232BD4 /* TableViewDataSource+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TableViewDataSource+Ext.swift"; sourceTree = "<group>"; };
+		B4A446462692FB890055C901 /* NewTodoFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTodoFormViewController.swift; sourceTree = "<group>"; };
+		B4A44649269311590055C901 /* NewTodoFormNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTodoFormNavigationController.swift; sourceTree = "<group>"; };
+		B4A4464C269314360055C901 /* NewTodoFormTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTodoFormTextField.swift; sourceTree = "<group>"; };
+		B4A4464F269315AE0055C901 /* NewTodoFormStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTodoFormStackView.swift; sourceTree = "<group>"; };
+		B4A446522693253D0055C901 /* NewTodoFormTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTodoFormTextView.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -67,6 +77,11 @@
 				FF65C6B8268EDBCC003E63D9 /* ListTitleView.swift */,
 				33C2120E268DF19B00232BD4 /* CellStackView.swift */,
 				33C2120B268DEF7300232BD4 /* TodoListCell.swift */,
+				B4A446462692FB890055C901 /* NewTodoFormViewController.swift */,
+				B4A44649269311590055C901 /* NewTodoFormNavigationController.swift */,
+				B4A4464C269314360055C901 /* NewTodoFormTextField.swift */,
+				B4A4464F269315AE0055C901 /* NewTodoFormStackView.swift */,
+				B4A446522693253D0055C901 /* NewTodoFormTextView.swift */,
 			);
 			path = "Custom Views";
 			sourceTree = "<group>";
@@ -170,15 +185,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B4A4464A269311590055C901 /* NewTodoFormNavigationController.swift in Sources */,
 				FF65C6B2268EAFFE003E63D9 /* TableViewDelegate+Ext.swift in Sources */,
 				33C21219268DF51E00232BD4 /* TableViewDataSource+Ext.swift in Sources */,
 				33C2120C268DEF7300232BD4 /* TodoListCell.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* ProjectManagerViewController.swift in Sources */,
+				B4A446532693253D0055C901 /* NewTodoFormTextView.swift in Sources */,
+				B4A446472692FB890055C901 /* NewTodoFormViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				FF65C6B5268EDB61003E63D9 /* ListContentsStackview.swift in Sources */,
 				33C2120F268DF19B00232BD4 /* CellStackView.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				33C21206268DDE8D00232BD4 /* ProcessListsStackView.swift in Sources */,
+				B4A4464D269314360055C901 /* NewTodoFormTextField.swift in Sources */,
+				B4A44650269315AE0055C901 /* NewTodoFormStackView.swift in Sources */,
 				FF65C6B9268EDBCC003E63D9 /* ListTitleView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
