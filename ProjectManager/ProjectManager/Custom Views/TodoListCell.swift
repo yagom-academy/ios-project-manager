@@ -7,10 +7,10 @@
 
 import UIKit
 
-class ProjectManagerTableViewCell: UITableViewCell {
+class TodoListCell: UITableViewCell {
     
     static let identifier = "ProjectManagerTableViewCell"
-    let projectManagerCellStackView = ProjectManagerCellStackView()
+    let cellStackView = CellStackView()
 
     let titleLabel = UILabel()
     let descriptionLabel = UILabel()
@@ -28,20 +28,20 @@ class ProjectManagerTableViewCell: UITableViewCell {
     }
     
     private func configureCellStackView() {
-        addSubview(projectManagerCellStackView)
+        addSubview(cellStackView)
         
         NSLayoutConstraint.activate([
-            projectManagerCellStackView.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor),
-            projectManagerCellStackView.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor),
-            projectManagerCellStackView.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
-            projectManagerCellStackView.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor)
+            cellStackView.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor),
+            cellStackView.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor),
+            cellStackView.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
+            cellStackView.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor)
         ])
     }
     
     private func configureLabel() {
-        projectManagerCellStackView.addArrangedSubview(titleLabel)
-        projectManagerCellStackView.addArrangedSubview(descriptionLabel)
-        projectManagerCellStackView.addArrangedSubview(dateLabel)
+        cellStackView.addArrangedSubview(titleLabel)
+        cellStackView.addArrangedSubview(descriptionLabel)
+        cellStackView.addArrangedSubview(dateLabel)
         
         titleLabel.font = UIFont.boldSystemFont(ofSize: 17)
         descriptionLabel.font = UIFont.systemFont(ofSize: 15)

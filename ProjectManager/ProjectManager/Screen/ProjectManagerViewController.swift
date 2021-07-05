@@ -8,27 +8,31 @@ import UIKit
 
 class ProjectManagerViewController: UIViewController {
 
-    let projectManagerStackView = ProjectManagerStackView()
-    let toDoStackView = MemoStackView()
-    let doingStackView = MemoStackView()
-    let doneStackView = MemoStackView()
+    let processListsStackView = ProcessListsStackView()
+    let toDoStackView = ListContentsStackview()
+    let doingStackView = ListContentsStackview()
+    let doneStackView = ListContentsStackview()
     
-    let todoTitleView = MemoTitleView()
-    let doingTitleView = MemoTitleView()
-    let doneTitleView = MemoTitleView()
+    let todoTitleView = ListTitleView()
+    let doingTitleView = ListTitleView()
+    let doneTitleView = ListTitleView()
     
     let toDoTableView = UITableView()
     let doingTableView = UITableView()
     let doneTableView = UITableView()
+    
+    let addButton = UIBarButtonItem()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .systemGray4
         title = "소개팅 필승 공략"
-        
+
         configureStackView()
-        configureProjectManagerTableView()
+        configureTitleView()
+        configureProcessListsTableView()
+        configureListContentsStackview()
         
         toDoTableView.dataSource = self
         doingTableView.dataSource = self
@@ -46,18 +50,11 @@ class ProjectManagerViewController: UIViewController {
         doingTitleView.layer.addBorder([.bottom], color: .systemGray4, width: 1.5)
         doneTitleView.layer.addBorder([.bottom], color: .systemGray4, width: 1.5)
     }
-    
-    private func configureProjectManagerTableView() {
+
+    private func configureTitleView() {
         toDoStackView.addArrangedSubview(todoTitleView)
-        toDoStackView.addArrangedSubview(toDoTableView)
         doingStackView.addArrangedSubview(doingTitleView)
-        doingStackView.addArrangedSubview(doingTableView)
         doneStackView.addArrangedSubview(doneTitleView)
-        doneStackView.addArrangedSubview(doneTableView)
-        
-        toDoTableView.showsVerticalScrollIndicator = false
-        doingTableView.showsVerticalScrollIndicator = false
-        doneTableView.showsVerticalScrollIndicator = false
         
         todoTitleView.title.text = "TODO"
         todoTitleView.count.text = "5"
@@ -85,9 +82,16 @@ class ProjectManagerViewController: UIViewController {
         todoTitleView.count.layer.cornerRadius = 12.5
         todoTitleView.count.layer.masksToBounds = true
         
-        projectManagerStackView.addArrangedSubview(toDoStackView)
-        projectManagerStackView.addArrangedSubview(doingStackView)
-        projectManagerStackView.addArrangedSubview(doneStackView)
+    }
+    
+    private func configureProcessListsTableView() {
+        toDoStackView.addArrangedSubview(toDoTableView)
+        doingStackView.addArrangedSubview(doingTableView)
+        doneStackView.addArrangedSubview(doneTableView)
+        
+        toDoTableView.showsVerticalScrollIndicator = false
+        doingTableView.showsVerticalScrollIndicator = false
+        doneTableView.showsVerticalScrollIndicator = false
         
         toDoTableView.tableFooterView = UIView(frame: .zero)
         doingTableView.tableFooterView = UIView(frame: .zero)
@@ -97,9 +101,17 @@ class ProjectManagerViewController: UIViewController {
         doingTableView.backgroundColor = .systemGray6
         doneTableView.backgroundColor = .systemGray6
         
-        toDoTableView.register(ProjectManagerTableViewCell.self, forCellReuseIdentifier: ProjectManagerTableViewCell.identifier)
-        doingTableView.register(ProjectManagerTableViewCell.self, forCellReuseIdentifier: ProjectManagerTableViewCell.identifier)
-        doneTableView.register(ProjectManagerTableViewCell.self, forCellReuseIdentifier: ProjectManagerTableViewCell.identifier)
+        toDoTableView.register(TodoListCell.self, forCellReuseIdentifier: TodoListCell.identifier)
+        doingTableView.register(TodoListCell.self, forCellReuseIdentifier: TodoListCell.identifier)
+        doneTableView.register(TodoListCell.self, forCellReuseIdentifier: TodoListCell.identifier)
+
+    }
+    
+    private func configureListContentsStackview() {
+        processListsStackView.addArrangedSubview(toDoStackView)
+        processListsStackView.addArrangedSubview(doingStackView)
+        processListsStackView.addArrangedSubview(doneStackView)
+
     }
 }
 
@@ -107,13 +119,13 @@ class ProjectManagerViewController: UIViewController {
 extension ProjectManagerViewController {
     
     private func configureStackView() {
-        view.addSubview(projectManagerStackView)
+        view.addSubview(processListsStackView)
         
         NSLayoutConstraint.activate([
-            projectManagerStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            projectManagerStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            projectManagerStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            projectManagerStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
+            processListsStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            processListsStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            processListsStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            processListsStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
         ])
     }
 }

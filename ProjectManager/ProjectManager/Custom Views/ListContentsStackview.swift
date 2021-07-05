@@ -7,19 +7,19 @@
 
 import UIKit
 
-class MemoStackView: UIStackView {
+class ListContentsStackview: UIStackView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        configureStackView()
+        configureListContentsStackView()
     }
 
     required init(coder: NSCoder) {
         super.init(coder: coder)
     }
     
-    private func configureStackView() {
+    private func configureListContentsStackView() {
         axis = .vertical
         alignment = .fill
         distribution = .fill

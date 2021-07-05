@@ -1,5 +1,5 @@
 //
-//  ProjectManagerCellStackView.swift
+//  ProjectManagerStackView.swift
 //  ProjectManager
 //
 //  Created by kio on 2021/07/01.
@@ -7,22 +7,22 @@
 
 import UIKit
 
-class ProjectManagerCellStackView: UIStackView {
-    
+class ProcessListsStackView: UIStackView {
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        configureStackView()
+        configureProcessListsStackView()
     }
     
     required init(coder: NSCoder) {
         super.init(coder: coder)
     }
     
-    private func configureStackView() {
-        axis = .vertical
+    private func configureProcessListsStackView() {
+        axis = .horizontal
         alignment = .fill
-        distribution = .fill
+        distribution = .fillEqually
         spacing = 10
         translatesAutoresizingMaskIntoConstraints = false
     }

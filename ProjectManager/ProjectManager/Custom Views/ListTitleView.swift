@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MemoTitleView: UIView {
+class ListTitleView: UIView {
     
     let title = UILabel()
     let count = UILabel()
@@ -15,14 +15,14 @@ class MemoTitleView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        configurView()
+        configureListTitleView()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
     
-    private func configurView() {
+    private func configureListTitleView() {
         backgroundColor = .systemGray6
         addSubview(title)
         addSubview(count)
