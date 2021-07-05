@@ -21,14 +21,11 @@ class ProjectManagerViewController: UIViewController {
     let doingTableView = UITableView()
     let doneTableView = UITableView()
     
-    let addButton = UIBarButtonItem()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.backgroundColor = .systemGray4
         title = "소개팅 필승 공략"
-
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: nil)
         configureStackView()
         configureTitleView()
         configureProcessListsTableView()
