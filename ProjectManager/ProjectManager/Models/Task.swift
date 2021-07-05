@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Task {
+struct Task: Codable {
     var title: String
     var date: Double
     var description: String
