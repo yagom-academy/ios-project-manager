@@ -29,7 +29,3 @@ final class TodoTableViewCell: UITableViewCell {
         }
     }
 }
-
-class Test: UITableViewCell {
-    
-}
