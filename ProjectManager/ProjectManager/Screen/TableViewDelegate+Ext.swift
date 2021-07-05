@@ -8,5 +8,16 @@
 import UIKit
 
 extension ProjectManagerViewController: UITableViewDelegate {
-
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 10
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return UIView()
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return CGFloat(10)
+    }
 }

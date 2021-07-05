@@ -17,6 +17,8 @@
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
 		FF65C6B2268EAFFE003E63D9 /* TableViewDelegate+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF65C6B1268EAFFE003E63D9 /* TableViewDelegate+Ext.swift */; };
+		FF65C6B5268EDB61003E63D9 /* MemoStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF65C6B4268EDB61003E63D9 /* MemoStackView.swift */; };
+		FF65C6B9268EDBCC003E63D9 /* MemoTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF65C6B8268EDBCC003E63D9 /* MemoTitleView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,8 @@
 		C7431F1125F51E1E0094C4CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FF65C6B1268EAFFE003E63D9 /* TableViewDelegate+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TableViewDelegate+Ext.swift"; sourceTree = "<group>"; };
+		FF65C6B4268EDB61003E63D9 /* MemoStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoStackView.swift; sourceTree = "<group>"; };
+		FF65C6B8268EDBCC003E63D9 /* MemoTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoTitleView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +82,8 @@
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
 				33C21211268DF41000232BD4 /* Screen */,
 				33C21205268DDE8D00232BD4 /* ProjectManagerStackView.swift */,
+				FF65C6B4268EDB61003E63D9 /* MemoStackView.swift */,
+				FF65C6B8268EDBCC003E63D9 /* MemoTitleView.swift */,
 				33C2120E268DF19B00232BD4 /* ProjectManagerCellStackView.swift */,
 				33C2120B268DEF7300232BD4 /* ProjectManagerTableViewCell.swift */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
@@ -161,9 +167,11 @@
 				33C2120C268DEF7300232BD4 /* ProjectManagerTableViewCell.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* ProjectManagerViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
+				FF65C6B5268EDB61003E63D9 /* MemoStackView.swift in Sources */,
 				33C2120F268DF19B00232BD4 /* ProjectManagerCellStackView.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				33C21206268DDE8D00232BD4 /* ProjectManagerStackView.swift in Sources */,
+				FF65C6B9268EDBCC003E63D9 /* MemoTitleView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
