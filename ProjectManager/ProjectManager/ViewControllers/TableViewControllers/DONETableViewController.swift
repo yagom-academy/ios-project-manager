@@ -47,7 +47,7 @@ class DONETableViewController: UITableViewController {
         countLabel = {
             let count = UILabel(frame: header.bounds)
             count.textColor = .white
-            count.text = "\(TaskManager.donelist.count)"
+            count.text = "\(Task.donelist.count)"
             count.font = UIFont.preferredFont(forTextStyle: .title3)
             count.textAlignment = .center
             count.translatesAutoresizingMaskIntoConstraints = false
@@ -87,7 +87,7 @@ class DONETableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return TaskManager.donelist.count
+        return Task.donelist.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -95,10 +95,10 @@ class DONETableViewController: UITableViewController {
         let cell: UITableViewCell = {
             let cell = tableView.dequeueReusableCell(withIdentifier: "scheduleCell", for: indexPath) as! ScheduleCell
             
-            if TaskManager.donelist.count > 0 {
-                cell.titleLabel.text = TaskManager.donelist[indexPath.row].title
-                cell.descriptionLabel.text = TaskManager.donelist[indexPath.row].description
-                cell.dateLabel.text = "\(TaskManager.donelist[indexPath.row].date)"
+            if Task.donelist.count > 0 {
+                cell.titleLabel.text = Task.donelist[indexPath.row].title
+                cell.descriptionLabel.text = Task.donelist[indexPath.row].description
+                cell.dateLabel.text = "\(Task.donelist[indexPath.row].date)"
             }
             
             return cell

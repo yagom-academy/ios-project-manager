@@ -5,7 +5,7 @@
 //  Created by 김찬우 on 2021/06/30.
 //
 
-import Foundation
+import UIKit
 import MobileCoreServices
 
 final class Task: NSObject, Codable {
@@ -14,6 +14,10 @@ final class Task: NSObject, Codable {
     var myDescription: String
     var status: String
     let identifier: String
+    
+    static var todolist: [Task] = []
+    static var doinglist: [Task] = []
+    static var donelist: [Task] = []
     
     init(title: String, date: Double, myDescription: String, status: String, identifier: String){
         self.title = title
@@ -26,7 +30,7 @@ final class Task: NSObject, Codable {
 
 extension Task: NSItemProviderWriting {
     static var writableTypeIdentifiersForItemProvider: [String] {
-        return [(kUTTypeData) as String]
+        return [kUTTypeUTF8PlainText as String]
     }
     
     func loadData(withTypeIdentifier typeIdentifier: String, forItemProviderCompletionHandler completionHandler: @escaping (Data?, Error?) -> Void) -> Progress? {
@@ -47,7 +51,7 @@ extension Task: NSItemProviderWriting {
 
 extension Task: NSItemProviderReading {
     static var readableTypeIdentifiersForItemProvider: [String] {
-        return [(kUTTypeData) as String]
+        return [kUTTypeUTF8PlainText as String]
     }
     
     static func object(withItemProviderData data: Data, typeIdentifier: String) throws -> Task {
@@ -57,7 +61,7 @@ extension Task: NSItemProviderReading {
             let task = try decoder.decode(Task.self, from: data)
             return task
         } catch {
-            fatalError("Err")
+            throw error
         }
     }
 }

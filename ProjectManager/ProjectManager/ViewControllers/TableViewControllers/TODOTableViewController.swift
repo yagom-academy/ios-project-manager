@@ -47,7 +47,7 @@ class TODOTableViewController: UITableViewController {
         countLabel = {
             let count = UILabel(frame: header.bounds)
             count.textColor = .white
-            count.text = "\(TaskManager.todolist.count)"
+            count.text = "\(Task.todolist.count)"
             count.font = UIFont.preferredFont(forTextStyle: .title3)
             count.textAlignment = .center
             count.translatesAutoresizingMaskIntoConstraints = false
@@ -58,6 +58,10 @@ class TODOTableViewController: UITableViewController {
         header.addSubview(headerLabel)
         countView.addSubview(countLabel)
         header.addSubview(countView)
+        
+        tableView.dragDelegate = self
+        tableView.dropDelegate = self
+        tableView.isUserInteractionEnabled = true
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -87,7 +91,7 @@ class TODOTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return TaskManager.todolist.count
+        return Task.todolist.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -95,10 +99,10 @@ class TODOTableViewController: UITableViewController {
         let cell: UITableViewCell = {
             let cell = tableView.dequeueReusableCell(withIdentifier: "scheduleCell", for: indexPath) as! ScheduleCell
             
-            if TaskManager.todolist.count > 0 {
-                cell.titleLabel.text = TaskManager.todolist[indexPath.row].title
-                cell.descriptionLabel.text = TaskManager.todolist[indexPath.row].description
-                cell.dateLabel.text = "\(TaskManager.todolist[indexPath.row].date)"
+            if Task.todolist.count > 0 {
+                cell.titleLabel.text = Task.todolist[indexPath.row].title
+                cell.descriptionLabel.text = Task.todolist[indexPath.row].description
+                cell.dateLabel.text = "\(Task.todolist[indexPath.row].date)"
             }
             
             return cell
@@ -114,5 +118,50 @@ class TODOTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
         }
+    }
+}
+
+extension TODOTableViewController: UITableViewDragDelegate {
+    func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        let item = Task.todolist[indexPath.row]
+        let itemProvider = NSItemProvider(object: item)
+        let dragItem = UIDragItem(itemProvider: itemProvider)
+        
+        return [dragItem]
+    }
+}
+
+extension TODOTableViewController: UITableViewDropDelegate {
+    func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
+        let destinationIndexPath: IndexPath
+            
+        if let indexPath = coordinator.destinationIndexPath {
+            destinationIndexPath = indexPath
+        } else {
+            // Get last index path of table view.
+            let section = tableView.numberOfSections - 1
+            let row = tableView.numberOfRows(inSection: section)
+            destinationIndexPath = IndexPath(row: row, section: section)
+        }
+        
+        coordinator.session.loadObjects(ofClass: Task.self) { items in
+            // Consume drag items.
+            let tasks = items as! [Task]
+            
+            var indexPaths = [IndexPath]()
+            for (index, task) in tasks.enumerated() {
+                let indexPath = IndexPath(row: destinationIndexPath.row + index, section: destinationIndexPath.section)
+                Task.todolist.insert(task, at: indexPath.row)
+                indexPaths.append(indexPath)
+            }
+
+            tableView.insertRows(at: indexPaths, with: .automatic)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
+        let dropProposal = UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
+        
+        return dropProposal
     }
 }

@@ -10,7 +10,7 @@ import UIKit
 protocol RegisterSupportLogic {
     func convertToModel(title: String?,
                         date: Double,
-                        description: String,
+                        myDescription: String,
                         status: String,
                         identifier: String) -> Task?
     
@@ -20,7 +20,7 @@ protocol RegisterSupportLogic {
 extension RegisterViewController: RegisterSupportLogic {
     func convertToModel(title: String?,
                         date: Double,
-                        description: String,
+                        myDescription: String,
                         status: String,
                         identifier: String) -> Task?
     {
@@ -28,7 +28,7 @@ extension RegisterViewController: RegisterSupportLogic {
         
         return Task(title: title,
                          date: date,
-                         description: description,
+                         myDescription: description,
                          status: status,
                          identifier: identifier)
     }
