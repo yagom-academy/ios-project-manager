@@ -14,7 +14,9 @@ final class DoingTableViewCell: UITableViewCell {
     @IBOutlet weak var doingTitle: UILabel!
     @IBOutlet weak var doingSummary: UILabel!
     @IBOutlet weak var doingDate: UILabel!
-    
+}
+
+extension DoingTableViewCell: TableViewCell {
     func update(info: TableItem) {
         doingTitle.text = info.title
         doingSummary.text = info.summary

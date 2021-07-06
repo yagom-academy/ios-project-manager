@@ -76,13 +76,23 @@ final class TableViewController: UIViewController {
         updateAllTableRowCount()
     }
     
-    func viewModel(of tableView: UITableView) -> TableViewModel {
+    private func viewModel(of tableView: UITableView) -> TableViewModel {
         if tableView == todoTableView {
             return todoViewModel
         } else if tableView == doingTableView {
             return doingViewModel
         } else {
             return doneViewModel
+        }
+    }
+    
+    private func tableViewCellIdentifier(of tableView: UITableView) -> String {
+        if tableView == todoTableView {
+            return TodoTableViewCell.identifier
+        } else if tableView == doingTableView {
+            return DoingTableViewCell.identifier
+        } else {
+            return DoneTableViewCell.identifier
         }
     }
 }
@@ -149,37 +159,17 @@ extension TableViewController: UITableViewDataSource {
         _ tableView: UITableView,
         cellForRowAt indexPath: IndexPath
     ) -> UITableViewCell {
-        switch tableView {
-        case todoTableView:
-            let cell = tableView.dequeueReusableCell(
-                withIdentifier: TodoTableViewCell.identifier,
-                for: indexPath
-            ) as! TodoTableViewCell
-            let listInfo = self.todoViewModel.itemInfo(at: indexPath.row)
-            cell.update(info: listInfo)
-            cell.separatorInset = UIEdgeInsets.zero
-            return cell
-        case doingTableView:
-            let cell = tableView.dequeueReusableCell(
-                withIdentifier: DoingTableViewCell.identifier,
-                for: indexPath
-            ) as! DoingTableViewCell
-            let listInfo = self.doingViewModel.itemInfo(at: indexPath.row)
-            cell.update(info: listInfo)
-            cell.separatorInset = UIEdgeInsets.zero
-            return cell
-        case doneTableView:
-            let cell = tableView.dequeueReusableCell(
-                withIdentifier: DoneTableViewCell.identifier,
-                for: indexPath
-            ) as! DoneTableViewCell
-            let listInfo = self.doneViewModel.itemInfo(at: indexPath.row)
-            cell.update(info: listInfo)
-            cell.separatorInset = UIEdgeInsets.zero
-            return cell
-        default:
-            return UITableViewCell()
-        }
+        let viewModel = viewModel(of: tableView)
+        let cellIdentifier = tableViewCellIdentifier(of: tableView)
+        let cell = tableView.dequeueReusableCell(
+            withIdentifier: cellIdentifier,
+            for: indexPath
+        ) as! TableViewCell
+        let listInfo = viewModel.itemInfo(at: indexPath.row)
+        cell.update(info: listInfo)
+        cell.separatorInset = UIEdgeInsets.zero
+        
+        return cell
     }
     
     func tableView(

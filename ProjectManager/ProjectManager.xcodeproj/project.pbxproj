@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		851DD1D2268B6FF80065837E /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851DD1D1268B6FF80065837E /* DetailViewModel.swift */; };
 		8520A8F4269467C7006FC607 /* CellInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8520A8F3269467C7006FC607 /* CellInfo.swift */; };
+		8520A8F726948CF6006FC607 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8520A8F626948CF6006FC607 /* TableViewCell.swift */; };
 		855C6E1E269208B000394F08 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855C6E1D269208B000394F08 /* Strings.swift */; };
 		85B98957268AA4E100FF2DD7 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B98956268AA4E100FF2DD7 /* TableViewController.swift */; };
 		85B98959268AA8DF00FF2DD7 /* TodoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B98958268AA8DF00FF2DD7 /* TodoTableViewCell.swift */; };
@@ -33,6 +34,7 @@
 /* Begin PBXFileReference section */
 		851DD1D1268B6FF80065837E /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		8520A8F3269467C7006FC607 /* CellInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellInfo.swift; sourceTree = "<group>"; };
+		8520A8F626948CF6006FC607 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		855C6E1D269208B000394F08 /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		85B98956268AA4E100FF2DD7 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		85B98958268AA8DF00FF2DD7 /* TodoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTableViewCell.swift; sourceTree = "<group>"; };
@@ -67,9 +69,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8520A8F526948CE2006FC607 /* protocol */ = {
+			isa = PBXGroup;
+			children = (
+				8520A8F626948CF6006FC607 /* TableViewCell.swift */,
+			);
+			path = protocol;
+			sourceTree = "<group>";
+		};
 		855C6DF526917CE300394F08 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				8520A8F526948CE2006FC607 /* protocol */,
 				85B98958268AA8DF00FF2DD7 /* TodoTableViewCell.swift */,
 				85C271982690B4EE001B806C /* DoingTableViewCell.swift */,
 				85C2719A2690B526001B806C /* DoneTableViewCell.swift */,
@@ -266,6 +277,7 @@
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				85C2719F2690B58E001B806C /* DoneTableViewModel.swift in Sources */,
 				85B98963268B605800FF2DD7 /* DetailViewController.swift in Sources */,
+				8520A8F726948CF6006FC607 /* TableViewCell.swift in Sources */,
 				85C271992690B4EE001B806C /* DoingTableViewCell.swift in Sources */,
 				85B9895F268AC6A200FF2DD7 /* TableItem.swift in Sources */,
 				85C2719326909EB9001B806C /* DetailViewEnum.swift in Sources */,
