@@ -426,6 +426,7 @@
                         <outlet property="newContent" destination="fSp-nb-lzj" id="7FM-9j-qMa"/>
                         <outlet property="newDate" destination="QRa-Z9-LEM" id="yEE-yn-JUb"/>
                         <outlet property="newTitle" destination="fy8-fs-LpX" id="hZj-Al-Lck"/>
+                        <outlet property="rightButton" destination="eZ3-vn-z19" id="ksE-Va-Hrm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SmU-EI-6Wh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

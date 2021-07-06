@@ -11,7 +11,7 @@ enum Strings {
     static let showDetailView = "showDetail"
     static let addTodoListItem = "addNewTODO"
     static let circleImageName = "circle.fill"
-    static let dismissNotification = "didDismissDetailViewController"
+    static let dismissDetailViewNotification = "didDismissDetailViewController"
     static let editStyleTitle = "Edit"
     static let todoTableViewCellIdentifier = "TODOTableViewCell"
     static let doingTableViewCellIdentifier = "DoingTableViewCell"

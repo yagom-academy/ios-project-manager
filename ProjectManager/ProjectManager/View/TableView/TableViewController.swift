@@ -29,13 +29,13 @@ final class TableViewController: UIViewController {
         setTablesRowCount()
         
         NotificationCenter.default.addObserver(
-            self, selector: #selector(self.didDismissDetailViewControllerNotification(_:)),
-            name: DetailViewController.dismissNotification,
+            self, selector: #selector(self.didDismissDetailViewNotification(_:)),
+            name: Notification.Name(Strings.dismissDetailViewNotification),
             object: nil
         )
     }
     
-    @objc private func didDismissDetailViewControllerNotification(_ notification: Notification) {
+    @objc private func didDismissDetailViewNotification(_ notification: Notification) {
         // TODO: - Server Request
         
         OperationQueue.main.addOperation {

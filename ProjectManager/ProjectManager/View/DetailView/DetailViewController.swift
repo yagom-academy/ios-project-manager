@@ -8,7 +8,6 @@
 import UIKit
 
 final class DetailViewController: UIViewController {
-    static let dismissNotification = Notification.Name(Strings.dismissNotification)
     private let dateConverter = DateConverter()
     private var viewStyle: DetailViewStyle = .add
     private var viewModel = DetailViewModel()
@@ -18,13 +17,21 @@ final class DetailViewController: UIViewController {
     @IBOutlet weak var newDate: UIDatePicker!
     @IBOutlet weak var newContent: UITextView!
     @IBOutlet weak var leftButton: UIButton!
+    @IBOutlet weak var rightButton: UIBarButtonItem!
     
     @IBAction func clickDoneButton(_ sender: Any) {
         switch viewStyle {
         case .add:
-            addTodoListItem()
+            complete() { (newCell: TableItem) in
+                viewModel.insert(cell: newCell)
+            }
         case .edit:
-            cancelView()
+            complete() { (newCell: TableItem) in
+                viewModel.edit(
+                    cell: newCell,
+                    at: itemIndex
+                )
+            }
         }
     }
     
@@ -33,7 +40,7 @@ final class DetailViewController: UIViewController {
         case .add:
             cancelView()
         case .edit:
-            editTodoListItem()
+            makeTodoListItemEditable()
         }
     }
     
@@ -44,7 +51,7 @@ final class DetailViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         NotificationCenter.default.post(
-            name: DetailViewController.dismissNotification,
+            name: Notification.Name(Strings.dismissDetailViewNotification),
             object: nil,
             userInfo: nil
         )
@@ -58,10 +65,7 @@ final class DetailViewController: UIViewController {
         }
         
         if viewStyle == .edit {
-            leftButton.setTitle(
-                Strings.editStyleTitle,
-                for: UIControl.State.normal
-            )
+            setEditView()
         }
     }
     
@@ -78,11 +82,23 @@ final class DetailViewController: UIViewController {
         let newItem = tableViewModel.itemInfo(at: index)
         viewModel.setItem(newItem)
     }
+    
+    private func setEditView() {
+        leftButton.setTitle(
+            Strings.editStyleTitle,
+            for: UIControl.State.normal
+        )
+        
+        rightButton.isEnabled = false
+        newTitle.isEnabled = false
+        newDate.isEnabled = false
+        newContent.isEditable = false
+    }
 }
 
 // MARK: - Button Action
 extension DetailViewController {
-    private func addTodoListItem() {
+    private func complete(_ save: (_ newCell: TableItem) -> Void) {
         let title: String = newTitle.text!
         let date: Double = dateConverter.dateToNumber(date: newDate.date)
         let content: String = newContent.text
@@ -92,10 +108,10 @@ extension DetailViewController {
             summary: content,
             date: date
         )
-        viewModel.insert(cell: newCell)
+        save(newCell)
         
         NotificationCenter.default.post(
-            name: DetailViewController.dismissNotification,
+            name: Notification.Name(Strings.dismissDetailViewNotification),
             object: nil,
             userInfo: nil
         )
@@ -106,28 +122,11 @@ extension DetailViewController {
         )
     }
     
-    private func editTodoListItem() {
-        let title: String = newTitle.text!
-        let date: Double = dateConverter.dateToNumber(date: newDate.date)
-        let content: String = newContent.text
-        
-        let editedCell = TableItem(
-            title: title,
-            summary: content,
-            date: date
-        )
-        viewModel.edit(cell: editedCell, at: itemIndex)
-        
-        NotificationCenter.default.post(
-            name: DetailViewController.dismissNotification,
-            object: nil,
-            userInfo: nil
-        )
-        
-        dismiss(
-            animated: true,
-            completion: nil
-        )
+    private func makeTodoListItemEditable() {
+        rightButton.isEnabled = true
+        newTitle.isEnabled = true
+        newDate.isEnabled = true
+        newContent.isEditable = true
     }
     
     private func cancelView() {
