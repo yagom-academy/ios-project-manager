@@ -14,5 +14,5 @@ protocol TableViewModel {
     func itemInfo(at index: Int) -> TableItem
     func update(model: [TableItem])
     func removeCell(at index: Int)
-    func insert(cell: TableItem ,at index: Int)
+    func insert(cell: TableItem, at index: Int)
 }
