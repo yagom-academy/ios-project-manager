@@ -11,6 +11,7 @@ final class DetailViewController: UIViewController {
     private let dateConverter = DateConverter()
     private var viewStyle: DetailViewStyle = .add
     private var viewModel = DetailViewModel()
+    private var tableViewType: TableViewType = .todo
     private var itemIndex: Int = 0
     
     @IBOutlet weak var newTitle: UITextField!
@@ -22,14 +23,18 @@ final class DetailViewController: UIViewController {
     @IBAction func clickDoneButton(_ sender: Any) {
         switch viewStyle {
         case .add:
-            complete() { (newCell: TableItem) in
-                viewModel.insert(cell: newCell)
+            complete() { (newCell: TableItem, tableViewType: TableViewType) in
+                viewModel.insert(
+                    cell: newCell,
+                    tableViewType: tableViewType
+                )
             }
         case .edit:
-            complete() { (newCell: TableItem) in
+            complete() { (newCell: TableItem, tableViewType: TableViewType) in
                 viewModel.edit(
                     cell: newCell,
-                    at: itemIndex
+                    at: itemIndex,
+                    tableViewType: tableViewType
                 )
             }
         }
@@ -74,13 +79,25 @@ final class DetailViewController: UIViewController {
     }
     
     func setViewModel(
-        tableViewModel: TodoTableViewModel,
+        tableViewModel: TableViewModel,
         index: Int
     ) {
-        itemIndex = index
-        
         let newItem = tableViewModel.itemInfo(at: index)
         viewModel.setItem(newItem)
+        setTableViewType(tableViewModel: tableViewModel)
+        itemIndex = index
+    }
+    
+    private func setTableViewType(tableViewModel: TableViewModel) {
+        switch tableViewModel {
+        case is TodoTableViewModel:
+            tableViewType = .todo
+        case is DoingTableViewModel:
+            tableViewType = .doing
+        default:
+            // DoneTableViewModel
+            tableViewType = .done
+        }
     }
     
     private func setEditView() {
@@ -98,7 +115,12 @@ final class DetailViewController: UIViewController {
 
 // MARK: - Button Action
 extension DetailViewController {
-    private func complete(_ save: (_ newCell: TableItem) -> Void) {
+    private func complete(
+        _ save: (
+            _ newCell: TableItem,
+            _ tableViewType: TableViewType
+        ) -> Void
+    ) {
         let title: String = newTitle.text!
         let date: Double = dateConverter.dateToNumber(date: newDate.date)
         let content: String = newContent.text
@@ -108,7 +130,7 @@ extension DetailViewController {
             summary: content,
             date: date
         )
-        save(newCell)
+        save(newCell, tableViewType)
         
         NotificationCenter.default.post(
             name: Notification.Name(Strings.dismissDetailViewNotification),

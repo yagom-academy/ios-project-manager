@@ -51,15 +51,11 @@ final class TableViewController: UIViewController {
         if segue.identifier == Strings.showDetailView {
             let viewController = segue.destination as? DetailViewController
             
-            if let index = sender as? Int {
+            if let cellInfo = sender as? CellInfo {
                 viewController?.changeToEditMode()
-                
-                // TODO: - 보다 MVVM에 적합한 방법은 뭘까 고민
-                // index 정보를 viewModel에 담아서 전달해도 될까?
-                // 여기서는 index정보지만, server에 연결되는 경우엔 item의 고유번호(?)정보를 전달해야함
                 viewController?.setViewModel(
-                    tableViewModel: todoViewModel,
-                    index: index
+                    tableViewModel: viewModel(of: cellInfo.tableView),
+                    index: cellInfo.index
                 )
             }
         }
@@ -80,7 +76,7 @@ final class TableViewController: UIViewController {
         updateAllTableRowCount()
     }
     
-    func customizedViewModel(of tableView: UITableView) -> TableViewModel {
+    func viewModel(of tableView: UITableView) -> TableViewModel {
         if tableView == todoTableView {
             return todoViewModel
         } else if tableView == doingTableView {
@@ -128,9 +124,13 @@ extension TableViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cellInfo = CellInfo(
+            tableView: tableView,
+            index: indexPath.row
+        )
         performSegue(
             withIdentifier: Strings.showDetailView,
-            sender: indexPath.row
+            sender: cellInfo
         )
     }
 }
@@ -141,7 +141,7 @@ extension TableViewController: UITableViewDataSource {
         _ tableView: UITableView,
         numberOfRowsInSection section: Int
     ) -> Int {
-        let viewModel = customizedViewModel(of: tableView)
+        let viewModel = viewModel(of: tableView)
         return viewModel.numOfList
     }
     
@@ -194,7 +194,7 @@ extension TableViewController: UITableViewDataSource {
         commit editingStyle: UITableViewCell.EditingStyle,
         forRowAt indexPath: IndexPath
     ) {
-        let viewModel = customizedViewModel(of: tableView)
+        let viewModel = viewModel(of: tableView)
         if (editingStyle == .delete) {
             viewModel.removeCell(at: indexPath.row)
             self.updateTable()
@@ -206,7 +206,7 @@ extension TableViewController: UITableViewDataSource {
         moveRowAt sourceIndexPath: IndexPath,
         to destinationIndexPath: IndexPath
     ) {
-        let viewModel = customizedViewModel(of: tableView)
+        let viewModel = viewModel(of: tableView)
         let moveCell = (viewModel.itemInfo(at: sourceIndexPath.row))
         viewModel.removeCell(at: sourceIndexPath.row)
         viewModel.insert(
@@ -223,7 +223,7 @@ extension TableViewController: UITableViewDragDelegate {
         itemsForBeginning session: UIDragSession,
         at indexPath: IndexPath
     ) -> [UIDragItem] {
-        let viewModel = customizedViewModel(of: tableView)
+        let viewModel = viewModel(of: tableView)
         let tableItem = viewModel.itemInfo(at: indexPath.row)
         let itemProvider = NSItemProvider(object: tableItem)
         selectIndexPath = (indexPath, false)
@@ -237,7 +237,7 @@ extension TableViewController: UITableViewDragDelegate {
     ) {
         guard let selectIndexPath = selectIndexPath else { return }
         if selectIndexPath.1 {            
-            let viewModel = customizedViewModel(of: tableView)
+            let viewModel = viewModel(of: tableView)
             viewModel.removeCell(at: selectIndexPath.0.row)
             
             tableView.beginUpdates()
@@ -316,7 +316,7 @@ extension TableViewController: UITableViewDropDelegate {
                     row: destinationIndexPath.row + index,
                     section: destinationIndexPath.section
                 )
-                let viewModel = customizedViewModel(of: tableView)
+                let viewModel = viewModel(of: tableView)
                 viewModel.insert(
                     cell: value,
                     at: indexPath.row
