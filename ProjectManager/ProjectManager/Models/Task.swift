@@ -9,15 +9,15 @@ import UIKit
 import MobileCoreServices
 
 final class Task: NSObject, Codable {
+    static var todolist: [Task] = []
+    static var doinglist: [Task] = []
+    static var donelist: [Task] = []
+    
     var title: String
     var date: Double
     var myDescription: String
     var status: String
     let identifier: String
-    
-    static var todolist: [Task] = []
-    static var doinglist: [Task] = []
-    static var donelist: [Task] = []
     
     init(title: String, date: Double, myDescription: String, status: String, identifier: String){
         self.title = title

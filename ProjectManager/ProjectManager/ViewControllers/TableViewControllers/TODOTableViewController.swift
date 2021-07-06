@@ -33,7 +33,7 @@ class TODOTableViewController: UITableViewController {
 
             return label
         }()
-        
+    
         let countView: UIView = {
             let countView = UIView()
             countView.backgroundColor = .black
@@ -88,7 +88,7 @@ class TODOTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
-    }
+    } //
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return Task.todolist.count
@@ -149,26 +149,16 @@ extension TODOTableViewController: UITableViewDropDelegate {
         if let indexPath = coordinator.destinationIndexPath {
             destinationIndexPath = indexPath
         } else {
-            // Get last index path of table view.
             let section = tableView.numberOfSections - 1
             let row = tableView.numberOfRows(inSection: section)
             destinationIndexPath = IndexPath(row: row, section: section)
         }
         
         coordinator.session.loadObjects(ofClass: Task.self) { items in
-            // Consume drag items.
             let tasks = items as! [Task]
-            
-            var indexPaths = [IndexPath]()
-            for (index, task) in tasks.enumerated() {
-                let indexPath = IndexPath(row: destinationIndexPath.row + index, section: destinationIndexPath.section)
-                Task.todolist.insert(task, at: indexPath.row)
-                indexPaths.append(indexPath)
                 
-            }
-            
-            tableView.insertRows(at: indexPaths, with: .automatic)
-            
+            Task.todolist.insert(tasks[0], at: destinationIndexPath.row)
+            tableView.insertRows(at: [destinationIndexPath], with: .automatic)
         }
     }
     
