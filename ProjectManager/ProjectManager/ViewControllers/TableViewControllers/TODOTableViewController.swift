@@ -97,20 +97,23 @@ extension TODOTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-        let cell: UITableViewCell = {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "scheduleCell", for: indexPath) as! ScheduleCell
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "scheduleCell", for: indexPath) as! ScheduleCell
+        
+        if Task.todoList.count > 0 {
+            cell.task = Task.todoList[indexPath.row]
             
-            if Task.todoList.count > 0 {
-                cell.titleLabel.text = Task.todoList[indexPath.row].title
-                cell.descriptionLabel.text = Task.todoList[indexPath.row].myDescription
-                cell.dateLabel.text = "\(Task.todoList[indexPath.row].date)"
-            }
-            
-            return cell
-        }()
+            cell.titleLabel.text = cell.task.title
+            cell.descriptionLabel.text = cell.task.myDescription
+            cell.dateLabel.text = "\(cell.task.date)"
+        }
 
         return cell
+    }
+    
+    
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -127,10 +130,6 @@ extension TODOTableViewController {
         let task = Task.todoList[sourceIndexPath.row]
         Task.todoList.remove(at: sourceIndexPath.row)
         Task.todoList.insert(task, at: destinationIndexPath.row)
-    }
-    
-    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-        return .delete
     }
 }
 
@@ -175,6 +174,7 @@ extension TODOTableViewController: UITableViewDropDelegate {
     }
     
     func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
+
         let dropProposal = UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
 
         return dropProposal

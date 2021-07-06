@@ -101,10 +101,12 @@ extension DOINGTableViewController {
         let cell: UITableViewCell = {
             let cell = tableView.dequeueReusableCell(withIdentifier: "scheduleCell", for: indexPath) as! ScheduleCell
             
-            if Task.doingList.count > 0 {
-                cell.titleLabel.text = Task.doingList[indexPath.row].title
-                cell.descriptionLabel.text = Task.doingList[indexPath.row].myDescription
-                cell.dateLabel.text = "\(Task.doingList[indexPath.row].date)"
+            if Task.todoList.count > 0 {
+                cell.task = Task.todoList[indexPath.row]
+                
+                cell.titleLabel.text = cell.task.title
+                cell.descriptionLabel.text = cell.task.myDescription
+                cell.dateLabel.text = "\(cell.task.date)"
             }
             
             return cell

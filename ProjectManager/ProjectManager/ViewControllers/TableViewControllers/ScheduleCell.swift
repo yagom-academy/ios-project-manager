@@ -8,7 +8,7 @@
 import UIKit
 
 class ScheduleCell: UITableViewCell {
-
+    var task: Task!
     var titleLabel: UILabel!
     var descriptionLabel: UILabel!
     var dateLabel: UILabel!
