@@ -9,7 +9,6 @@ import Foundation
 
 final class TodoTableViewModel: TableViewModel {
     internal var list: [TableItem] = todoDummy
-    
     var numOfList: Int {
         return list.count
     }

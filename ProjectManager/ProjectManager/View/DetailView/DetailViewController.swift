@@ -56,7 +56,7 @@ final class DetailViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         NotificationCenter.default.post(
-            name: Notification.Name(Strings.dismissDetailViewNotification),
+            name: Notification.Name(Strings.dismissDetailView),
             object: nil,
             userInfo: nil
         )
@@ -116,11 +116,8 @@ final class DetailViewController: UIViewController {
 // MARK: - Button Action
 extension DetailViewController {
     private func complete(
-        _ save: (
-            _ newCell: TableItem,
-            _ tableViewType: TableViewType
-        ) -> Void
-    ) {
+        _ save: (_ newCell: TableItem, _ tableViewType: TableViewType) -> Void
+) {
         let title: String = newTitle.text!
         let date: Double = dateConverter.dateToNumber(date: newDate.date)
         let content: String = newContent.text
@@ -133,7 +130,7 @@ extension DetailViewController {
         save(newCell, tableViewType)
         
         NotificationCenter.default.post(
-            name: Notification.Name(Strings.dismissDetailViewNotification),
+            name: Notification.Name(Strings.dismissDetailView),
             object: nil,
             userInfo: nil
         )

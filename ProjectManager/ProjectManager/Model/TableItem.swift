@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MobileCoreServices
 
 // TODO: - item 구성이름(title,date,summary) 서버side 이름과 통일시켜야 함
 final class TableItem: NSObject {
@@ -30,7 +31,6 @@ final class TableItem: NSObject {
     }
 }
 
-import MobileCoreServices
 extension TableItem: NSItemProviderWriting {
     static var writableTypeIdentifiersForItemProvider: [String] {
         return [String(kUTTypeData)]

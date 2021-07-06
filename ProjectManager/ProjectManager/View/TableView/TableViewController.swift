@@ -30,7 +30,7 @@ final class TableViewController: UIViewController {
         
         NotificationCenter.default.addObserver(
             self, selector: #selector(self.didDismissDetailViewNotification(_:)),
-            name: Notification.Name(Strings.dismissDetailViewNotification),
+            name: Notification.Name(Strings.dismissDetailView),
             object: nil
         )
     }
@@ -152,7 +152,7 @@ extension TableViewController: UITableViewDataSource {
         switch tableView {
         case todoTableView:
             let cell = tableView.dequeueReusableCell(
-                withIdentifier: Strings.todoTableViewCellIdentifier,
+                withIdentifier: TodoTableViewCell.identifier,
                 for: indexPath
             ) as! TodoTableViewCell
             let listInfo = self.todoViewModel.itemInfo(at: indexPath.row)
@@ -161,7 +161,7 @@ extension TableViewController: UITableViewDataSource {
             return cell
         case doingTableView:
             let cell = tableView.dequeueReusableCell(
-                withIdentifier: Strings.doingTableViewCellIdentifier,
+                withIdentifier: DoingTableViewCell.identifier,
                 for: indexPath
             ) as! DoingTableViewCell
             let listInfo = self.doingViewModel.itemInfo(at: indexPath.row)
@@ -170,7 +170,7 @@ extension TableViewController: UITableViewDataSource {
             return cell
         case doneTableView:
             let cell = tableView.dequeueReusableCell(
-                withIdentifier: Strings.doneTableViewCellIdentifier,
+                withIdentifier: DoneTableViewCell.identifier,
                 for: indexPath
             ) as! DoneTableViewCell
             let listInfo = self.doneViewModel.itemInfo(at: indexPath.row)

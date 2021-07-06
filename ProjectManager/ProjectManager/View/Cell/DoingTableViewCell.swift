@@ -8,6 +8,7 @@
 import UIKit
 
 final class DoingTableViewCell: UITableViewCell {
+    static let identifier = "DoingTableViewCellIdentifier"
     private let dateConverter = DateConverter()
     
     @IBOutlet weak var doingTitle: UILabel!
@@ -15,17 +16,12 @@ final class DoingTableViewCell: UITableViewCell {
     @IBOutlet weak var doingDate: UILabel!
     
     func update(info: TableItem) {
-        self.backgroundColor = UIColor.clear
-        
         doingTitle.text = info.title
         doingSummary.text = info.summary
-        doingDate.text = dateConverter.numberToString(number: info.date)
         
+        let stringOfDate = dateConverter.numberToString(number: info.date)
         let stringOfCurrentDate = dateConverter.dateToString(date: Date())
-        if doingDate.text ?? "" < stringOfCurrentDate {
-            doingDate.textColor = UIColor.red
-        } else {
-            doingDate.textColor = UIColor.black
-        }
+        doingDate.text = stringOfDate
+        doingDate.textColor = stringOfDate < stringOfCurrentDate ? .red : .black
     }
 }
