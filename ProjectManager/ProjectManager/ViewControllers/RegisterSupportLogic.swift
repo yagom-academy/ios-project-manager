@@ -28,7 +28,7 @@ extension RegisterViewController: RegisterSupportLogic {
         
         return Task(title: title,
                          date: date,
-                         myDescription: description,
+                         myDescription: myDescription,
                          status: status,
                          identifier: identifier)
     }

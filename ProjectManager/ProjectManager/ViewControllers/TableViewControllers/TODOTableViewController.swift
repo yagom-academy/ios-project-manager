@@ -101,7 +101,7 @@ class TODOTableViewController: UITableViewController {
             
             if Task.todolist.count > 0 {
                 cell.titleLabel.text = Task.todolist[indexPath.row].title
-                cell.descriptionLabel.text = Task.todolist[indexPath.row].description
+                cell.descriptionLabel.text = Task.todolist[indexPath.row].myDescription
                 cell.dateLabel.text = "\(Task.todolist[indexPath.row].date)"
             }
             
@@ -118,6 +118,14 @@ class TODOTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
         }
+    }
+    
+    override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        guard sourceIndexPath != destinationIndexPath else { return }
+        
+        let task = Task.todolist[sourceIndexPath.row]
+        Task.todolist.remove(at: sourceIndexPath.row)
+        Task.todolist.insert(task, at: destinationIndexPath.row)
     }
 }
 
@@ -153,15 +161,17 @@ extension TODOTableViewController: UITableViewDropDelegate {
                 let indexPath = IndexPath(row: destinationIndexPath.row + index, section: destinationIndexPath.section)
                 Task.todolist.insert(task, at: indexPath.row)
                 indexPaths.append(indexPath)
+                
             }
-
+            
             tableView.insertRows(at: indexPaths, with: .automatic)
+            
         }
     }
     
     func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
         let dropProposal = UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
-        
+
         return dropProposal
     }
 }
