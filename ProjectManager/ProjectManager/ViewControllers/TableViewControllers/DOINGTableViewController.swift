@@ -8,7 +8,7 @@
 import UIKit
 
 class DOINGTableViewController: UITableViewController {
-
+    private var selectIndexPath: IndexPath = []
     var countLabel: UILabel!
     
     override func viewDidLoad() {
@@ -136,11 +136,20 @@ extension DOINGTableViewController {
 
 extension DOINGTableViewController: UITableViewDragDelegate {
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        selectIndexPath = indexPath
         let item = Task.doingList[indexPath.row]
         let itemProvider = NSItemProvider(object: item)
         let dragItem = UIDragItem(itemProvider: itemProvider)
         
         return [dragItem]
+    }
+    
+    func tableView(_ tableView: UITableView, dragSessionWillBegin session: UIDragSession) {
+        Task.doingList.remove(at: selectIndexPath.row)
+        
+        tableView.beginUpdates()
+        tableView.deleteRows(at: [selectIndexPath], with: .automatic)
+        tableView.endUpdates()
     }
 }
 
