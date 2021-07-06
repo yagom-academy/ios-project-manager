@@ -8,26 +8,54 @@
 import UIKit
 
 class NewTodoFormViewController: UIViewController {
-
+    
     let newTodoFormStackView = NewTodoFormStackView()
     let newTodoFormTextField = NewTodoFormTextField()
     let datePicker = UIDatePicker()
     let newTodoFormTextView = NewTodoFormTextView()
     
+    var delegate: ProjectManagerDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         view.backgroundColor = .systemBackground
         title = "TODO"
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismissViewController))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissViewController))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneViewController))
+        
         configiureNewTodoFormStackView()
         configureNewTodoFormTextField()
         configureDatePicker()
         configureNewTodoFormTextView()
+        createDismissKeyboardTapGestrue()
     }
 
     @objc private func dismissViewController() {
         dismiss(animated: true)
+    }
+    
+    @objc private func doneViewController() {
+    
+        if let data = newTodoFormTextField.text {
+            delegate?.dataPassing(text: data)
+        }
+                
+        guard let presentingViewController = presentingViewController as? UINavigationController,
+              let projectManagerViewController = presentingViewController.viewControllers[0] as? ProjectManagerViewController else {
+            print("return")
+            return
+        }
+        
+        projectManagerViewController.data.append(1)
+        projectManagerViewController.toDoTableView.reloadData()
+    
+        dismiss(animated: true, completion: nil)
+    }
+    
+    private func createDismissKeyboardTapGestrue() {
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
+        view.addGestureRecognizer(tap)
     }
     
     private func configureNewTodoFormTextField() {

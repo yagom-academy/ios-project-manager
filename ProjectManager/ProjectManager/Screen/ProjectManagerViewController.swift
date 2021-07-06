@@ -4,15 +4,18 @@
 //  Copyright © yagom. All rights reserved.
 // 
 
+// 덕복 - api문서에서 모델이 필요치않나?
+
 import UIKit
 
 class ProjectManagerViewController: UIViewController {
-
+    
+    var data: [Int] = [1,2,3]
+    
     let processListsStackView = ProcessListsStackView()
     let toDoStackView = ListContentsStackview()
     let doingStackView = ListContentsStackview()
     let doneStackView = ListContentsStackview()
-    
     
     let todoTitleView = ListTitleView()
     let doingTitleView = ListTitleView()
@@ -22,12 +25,15 @@ class ProjectManagerViewController: UIViewController {
     let doingTableView = UITableView()
     let doneTableView = UITableView()
     
+    let newTodoFormViewController = NewTodoFormViewController()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-//        UINavigationController(rootViewController: newTodoFormViewController)
+        
         view.backgroundColor = .systemGray4
         title = "소개팅 필승 공략"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(pushNewTodoFormViewController))
+        
         configureStackView()
         configureTitleView()
         configureProcessListsTableView()
@@ -50,11 +56,22 @@ class ProjectManagerViewController: UIViewController {
         doneTitleView.layer.addBorder([.bottom], color: .systemGray4, width: 1.5)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        toDoTableView.reloadData()
+        print("viewWillAppear")
+        print(data)
+    }
+    
     @objc func pushNewTodoFormViewController() {
-        let newTodoFormViewController = NewTodoFormViewController()
         let newTodoFormNavigationController = NewTodoFormNavigationController(rootViewController: newTodoFormViewController)
         newTodoFormNavigationController.modalPresentationStyle = .formSheet
+        
         present(newTodoFormNavigationController, animated: true)
+    }
+    
+    @objc func plus() {
+        data.append(data.count+1)
+        toDoTableView.reloadData()
     }
 
     private func configureTitleView() {
@@ -63,11 +80,11 @@ class ProjectManagerViewController: UIViewController {
         doneStackView.addArrangedSubview(doneTitleView)
         
         todoTitleView.title.text = "TODO"
-        todoTitleView.count.text = "5"
+        todoTitleView.count.text = "\(data.count)"
         doingTitleView.title.text = "DOING"
-        doingTitleView.count.text = "5"
+        doingTitleView.count.text = "\(data.count)"
         doneTitleView.title.text = "DONE"
-        doneTitleView.count.text = "5"
+        doneTitleView.count.text = "\(data.count)"
         
         todoTitleView.title.font = UIFont.boldSystemFont(ofSize: 30)
         doingTitleView.title.font = UIFont.boldSystemFont(ofSize: 30)
@@ -91,7 +108,6 @@ class ProjectManagerViewController: UIViewController {
         doingTitleView.count.layer.masksToBounds = true
         doneTitleView.count.layer.cornerRadius = 12.5
         doneTitleView.count.layer.masksToBounds = true
-        
     }
     
     private func configureProcessListsTableView() {
@@ -114,7 +130,6 @@ class ProjectManagerViewController: UIViewController {
         toDoTableView.register(TodoListCell.self, forCellReuseIdentifier: TodoListCell.identifier)
         doingTableView.register(TodoListCell.self, forCellReuseIdentifier: TodoListCell.identifier)
         doneTableView.register(TodoListCell.self, forCellReuseIdentifier: TodoListCell.identifier)
-
     }
     
     private func configureListContentsStackview() {
@@ -164,5 +179,4 @@ extension CALayer {
         }
     }
 }
-
 

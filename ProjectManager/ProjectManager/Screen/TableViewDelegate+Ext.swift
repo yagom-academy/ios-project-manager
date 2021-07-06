@@ -10,7 +10,7 @@ import UIKit
 extension ProjectManagerViewController: UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 10
+        return data.count
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
