@@ -89,7 +89,7 @@ class RegisterViewController: UIViewController {
                                    identifier: UUID().uuidString)
         
         guard let bindedModel = model else { return }
-        Task.todolist.append(bindedModel)
+        Task.todoList.append(bindedModel)
         self.dismiss(animated: true, completion: nil)
     }
 

@@ -47,7 +47,7 @@ class TODOTableViewController: UITableViewController {
         countLabel = {
             let count = UILabel(frame: header.bounds)
             count.textColor = .white
-            count.text = "\(Task.todolist.count)"
+            count.text = "\(Task.todoList.count)"
             count.font = UIFont.preferredFont(forTextStyle: .title3)
             count.textAlignment = .center
             count.translatesAutoresizingMaskIntoConstraints = false
@@ -83,7 +83,9 @@ class TODOTableViewController: UITableViewController {
             countLabel.centerYAnchor.constraint(equalTo: countView.centerYAnchor)
         ])
     }
+}
 
+extension TODOTableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -91,7 +93,7 @@ class TODOTableViewController: UITableViewController {
     } //
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Task.todolist.count
+        return Task.todoList.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -99,10 +101,10 @@ class TODOTableViewController: UITableViewController {
         let cell: UITableViewCell = {
             let cell = tableView.dequeueReusableCell(withIdentifier: "scheduleCell", for: indexPath) as! ScheduleCell
             
-            if Task.todolist.count > 0 {
-                cell.titleLabel.text = Task.todolist[indexPath.row].title
-                cell.descriptionLabel.text = Task.todolist[indexPath.row].myDescription
-                cell.dateLabel.text = "\(Task.todolist[indexPath.row].date)"
+            if Task.todoList.count > 0 {
+                cell.titleLabel.text = Task.todoList[indexPath.row].title
+                cell.descriptionLabel.text = Task.todoList[indexPath.row].myDescription
+                cell.dateLabel.text = "\(Task.todoList[indexPath.row].date)"
             }
             
             return cell
@@ -110,31 +112,31 @@ class TODOTableViewController: UITableViewController {
 
         return cell
     }
-
-    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-        return .delete
-    }
-
+    
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            Task.todolist.remove(at: indexPath.row)
+            Task.todoList.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
-            countLabel.text = "\(Task.todolist.count)"
+            countLabel.text = "\(Task.todoList.count)"
         }
     }
     
     override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         guard sourceIndexPath != destinationIndexPath else { return }
         
-        let task = Task.todolist[sourceIndexPath.row]
-        Task.todolist.remove(at: sourceIndexPath.row)
-        Task.todolist.insert(task, at: destinationIndexPath.row)
+        let task = Task.todoList[sourceIndexPath.row]
+        Task.todoList.remove(at: sourceIndexPath.row)
+        Task.todoList.insert(task, at: destinationIndexPath.row)
+    }
+    
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
     }
 }
 
 extension TODOTableViewController: UITableViewDragDelegate {
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
-        let item = Task.todolist[indexPath.row]
+        let item = Task.todoList[indexPath.row]
         let itemProvider = NSItemProvider(object: item)
         let dragItem = UIDragItem(itemProvider: itemProvider)
         
@@ -157,8 +159,9 @@ extension TODOTableViewController: UITableViewDropDelegate {
         coordinator.session.loadObjects(ofClass: Task.self) { items in
             let tasks = items as! [Task]
                 
-            Task.todolist.insert(tasks[0], at: destinationIndexPath.row)
+            Task.todoList.insert(tasks[0], at: destinationIndexPath.row)
             tableView.insertRows(at: [destinationIndexPath], with: .automatic)
+            tableView.reloadData()
         }
     }
     

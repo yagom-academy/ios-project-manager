@@ -9,9 +9,9 @@ import UIKit
 import MobileCoreServices
 
 final class Task: NSObject, Codable {
-    static var todolist: [Task] = []
-    static var doinglist: [Task] = []
-    static var donelist: [Task] = []
+    static var todoList: [Task] = []
+    static var doingList: [Task] = []
+    static var doneList: [Task] = []
     
     var title: String
     var date: Double

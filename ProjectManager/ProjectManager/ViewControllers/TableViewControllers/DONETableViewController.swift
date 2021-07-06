@@ -47,7 +47,7 @@ class DONETableViewController: UITableViewController {
         countLabel = {
             let count = UILabel(frame: header.bounds)
             count.textColor = .white
-            count.text = "\(Task.donelist.count)"
+            count.text = "\(Task.doneList.count)"
             count.font = UIFont.preferredFont(forTextStyle: .title3)
             count.textAlignment = .center
             count.translatesAutoresizingMaskIntoConstraints = false
@@ -58,6 +58,10 @@ class DONETableViewController: UITableViewController {
         header.addSubview(headerLabel)
         countView.addSubview(countLabel)
         header.addSubview(countView)
+        
+        tableView.dragDelegate = self
+        tableView.dropDelegate = self
+        tableView.isUserInteractionEnabled = true
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -79,15 +83,17 @@ class DONETableViewController: UITableViewController {
             countLabel.centerYAnchor.constraint(equalTo: countView.centerYAnchor)
         ])
     }
+}
 
+extension DONETableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
-    }
+    } //
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Task.donelist.count
+        return Task.doneList.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -95,10 +101,10 @@ class DONETableViewController: UITableViewController {
         let cell: UITableViewCell = {
             let cell = tableView.dequeueReusableCell(withIdentifier: "scheduleCell", for: indexPath) as! ScheduleCell
             
-            if Task.donelist.count > 0 {
-                cell.titleLabel.text = Task.donelist[indexPath.row].title
-                cell.descriptionLabel.text = Task.donelist[indexPath.row].description
-                cell.dateLabel.text = "\(Task.donelist[indexPath.row].date)"
+            if Task.doneList.count > 0 {
+                cell.titleLabel.text = Task.doneList[indexPath.row].title
+                cell.descriptionLabel.text = Task.doneList[indexPath.row].myDescription
+                cell.dateLabel.text = "\(Task.doneList[indexPath.row].date)"
             }
             
             return cell
@@ -106,13 +112,62 @@ class DONETableViewController: UITableViewController {
 
         return cell
     }
-
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            Task.doneList.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            countLabel.text = "\(Task.doneList.count)"
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        guard sourceIndexPath != destinationIndexPath else { return }
+        
+        let task = Task.doneList[sourceIndexPath.row]
+        Task.doneList.remove(at: sourceIndexPath.row)
+        Task.doneList.insert(task, at: destinationIndexPath.row)
+    }
+    
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         return .delete
     }
+}
 
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
+extension DONETableViewController: UITableViewDragDelegate {
+    func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        let item = Task.doneList[indexPath.row]
+        let itemProvider = NSItemProvider(object: item)
+        let dragItem = UIDragItem(itemProvider: itemProvider)
+        
+        return [dragItem]
+    }
+}
+
+extension DONETableViewController: UITableViewDropDelegate {
+    func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
+        let destinationIndexPath: IndexPath
+            
+        if let indexPath = coordinator.destinationIndexPath {
+            destinationIndexPath = indexPath
+        } else {
+            let section = tableView.numberOfSections - 1
+            let row = tableView.numberOfRows(inSection: section)
+            destinationIndexPath = IndexPath(row: row, section: section)
         }
+        
+        coordinator.session.loadObjects(ofClass: Task.self) { items in
+            let tasks = items as! [Task]
+                
+            Task.doneList.insert(tasks[0], at: destinationIndexPath.row)
+            tableView.insertRows(at: [destinationIndexPath], with: .automatic)
+            tableView.reloadData()
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
+        let dropProposal = UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
+
+        return dropProposal
     }
 }
