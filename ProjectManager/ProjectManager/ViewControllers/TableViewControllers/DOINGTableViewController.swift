@@ -168,10 +168,4 @@ extension DOINGTableViewController: UITableViewDropDelegate {
             tableView.reloadData()
         }
     }
-    
-    func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
-        let dropProposal = UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
-
-        return dropProposal
-    }
 }
