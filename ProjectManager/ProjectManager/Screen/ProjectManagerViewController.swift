@@ -16,6 +16,7 @@ class ProjectManagerViewController: UIViewController {
     let toDoStackView = ListContentsStackview()
     let doingStackView = ListContentsStackview()
     let doneStackView = ListContentsStackview()
+    let undoManagerToolbar = UndoManagerToolbar()
     
     let todoTitleView = ListTitleView()
     let doingTitleView = ListTitleView()
@@ -34,10 +35,12 @@ class ProjectManagerViewController: UIViewController {
         title = "소개팅 필승 공략"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(pushNewTodoFormViewController))
         newTodoFormViewController.delegate = self
+        configureUndoManagerToolbar()
         configureStackView()
         configureTitleView()
         configureProcessListsTableView()
         configureListContentsStackview()
+        
         
         toDoTableView.dataSource = self
         doingTableView.dataSource = self
@@ -131,7 +134,17 @@ class ProjectManagerViewController: UIViewController {
         processListsStackView.addArrangedSubview(toDoStackView)
         processListsStackView.addArrangedSubview(doingStackView)
         processListsStackView.addArrangedSubview(doneStackView)
-
+    }
+    
+    private func configureUndoManagerToolbar() {
+        view.addSubview(undoManagerToolbar)
+        undoManagerToolbar.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            undoManagerToolbar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            undoManagerToolbar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            undoManagerToolbar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+        ])
     }
 }
 
@@ -143,7 +156,7 @@ extension ProjectManagerViewController {
         
         NSLayoutConstraint.activate([
             processListsStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            processListsStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            processListsStackView.bottomAnchor.constraint(equalTo: undoManagerToolbar.safeAreaLayoutGuide.topAnchor),
             processListsStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             processListsStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
         ])

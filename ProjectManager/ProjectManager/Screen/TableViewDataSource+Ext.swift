@@ -26,4 +26,13 @@ extension ProjectManagerViewController: UITableViewDataSource {
 
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            data.remove(at: indexPath.section)
+            tableView.deleteSections([indexPath.section], with: .fade)
+        }
+        
+        todoTitleView.count.text = String(data.count)
+    }
 }

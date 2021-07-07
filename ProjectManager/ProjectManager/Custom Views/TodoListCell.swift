@@ -53,7 +53,6 @@ class TodoListCell: UITableViewCell {
         dateLabel.numberOfLines = 1
         
         descriptionLabel.lineBreakMode = .byTruncatingTail
-        dateLabel.textColor = .systemRed
     }
 }
 
