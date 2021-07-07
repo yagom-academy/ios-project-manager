@@ -19,8 +19,6 @@ class NewTodoFormTextView: UITextView {
     }
     
     private func configure() {
-        translatesAutoresizingMaskIntoConstraints = false
-        
         layer.cornerRadius = 4
         layer.borderColor = UIColor.systemGray4.cgColor
         layer.shadowColor = UIColor.black.cgColor

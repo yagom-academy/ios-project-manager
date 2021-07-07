@@ -11,6 +11,7 @@ class NewTodoFormTextField: UITextField {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        addPadding()
         configure()
     }
     
@@ -31,5 +32,15 @@ class NewTodoFormTextField: UITextField {
         
         backgroundColor = .systemBackground
         placeholder = "Title"
+    }
+    
+    private func addPadding() {
+        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: frame.size.height))
+        
+        leftView = paddingView
+        rightView = paddingView
+        leftViewMode = .always
+        rightViewMode = .always
+        
     }
 }

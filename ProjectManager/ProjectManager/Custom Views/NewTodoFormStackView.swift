@@ -21,10 +21,11 @@ class NewTodoFormStackView: UIStackView {
     
     private func configure() {
         axis = .vertical
-        alignment = .center
+        alignment = .fill
         distribution = .fill
         spacing = 10
         translatesAutoresizingMaskIntoConstraints = false
         isLayoutMarginsRelativeArrangement = true
+        layoutMargins = UIEdgeInsets(top: 5, left: 15, bottom: 20, right: 15)
     }
 }

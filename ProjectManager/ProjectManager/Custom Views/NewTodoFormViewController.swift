@@ -31,8 +31,6 @@ class NewTodoFormViewController: UIViewController {
         createDismissKeyboardTapGestrue()
     }
  
-    
-    
     @objc private func dismissViewController() {
         dismiss(animated: true)
     }
@@ -41,8 +39,7 @@ class NewTodoFormViewController: UIViewController {
         
         guard let presentingViewController = presentingViewController as? UINavigationController,
               let projectManagerViewController = presentingViewController.viewControllers[0] as? ProjectManagerViewController else {
-            
-            print("return")
+        
             return
         }
 
@@ -51,7 +48,7 @@ class NewTodoFormViewController: UIViewController {
             
             delegate?.dataPassing(title: title, date: formattedDate(date: datePicker.date), description: description)
         }
-        
+        projectManagerViewController.todoTitleView.count.text = String(projectManagerViewController.data.count)
         projectManagerViewController.toDoTableView.reloadData()
         dismiss(animated: true) {
             self.newTodoFormTextField.text = ""
@@ -77,10 +74,7 @@ class NewTodoFormViewController: UIViewController {
         newTodoFormStackView.addArrangedSubview(newTodoFormTextField)
 
         NSLayoutConstraint.activate([
-            newTodoFormTextField.heightAnchor.constraint(equalToConstant: 50),
-            newTodoFormTextField.topAnchor.constraint(equalTo: newTodoFormStackView.layoutMarginsGuide.topAnchor, constant: 10),
-            newTodoFormTextField.leadingAnchor.constraint(equalTo: newTodoFormStackView.layoutMarginsGuide.leadingAnchor, constant: 10),
-            newTodoFormTextField.trailingAnchor.constraint(equalTo: newTodoFormStackView.layoutMarginsGuide.trailingAnchor, constant: -10)
+            newTodoFormTextField.heightAnchor.constraint(equalToConstant: view.frame.size.height / 19 )
         ])
     }
     
@@ -89,20 +83,12 @@ class NewTodoFormViewController: UIViewController {
         datePicker.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            datePicker.topAnchor.constraint(equalTo: newTodoFormTextField.safeAreaLayoutGuide.bottomAnchor),
-            datePicker.heightAnchor.constraint(equalToConstant: 200)
+            datePicker.heightAnchor.constraint(equalToConstant: view.frame.size.height / 4)
         ])
     }
     
     private func configureNewTodoFormTextView() {
         newTodoFormStackView.addArrangedSubview(newTodoFormTextView)
-        
-        NSLayoutConstraint.activate([
-            newTodoFormTextView.topAnchor.constraint(equalTo: datePicker.safeAreaLayoutGuide.bottomAnchor),
-            newTodoFormTextView.leadingAnchor.constraint(equalTo: newTodoFormStackView.layoutMarginsGuide.leadingAnchor, constant: 10),
-            newTodoFormTextView.trailingAnchor.constraint(equalTo: newTodoFormStackView.layoutMarginsGuide.trailingAnchor, constant: -10),
-            newTodoFormTextView.bottomAnchor.constraint(equalTo: newTodoFormStackView.layoutMarginsGuide.bottomAnchor, constant: -25)
-        ])
     }
     
     private func configiureNewTodoFormStackView() {
