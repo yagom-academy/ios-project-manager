@@ -14,7 +14,7 @@ class ViewController: UIViewController {
 
     private let jsonDataManager: JSONDataManageable? = JSONDataManager()
     
-    enum header {
+    enum HeaderType {
         case toDo, doing, done
         
         var identifier: String {
@@ -36,21 +36,21 @@ class ViewController: UIViewController {
         toDoTableView.dragDelegate = self
         toDoTableView.dropDelegate = self
         toDoTableView.dragInteractionEnabled = true
-        toDoTableView.register(Header.self, forHeaderFooterViewReuseIdentifier: header.toDo.identifier)
+        toDoTableView.register(Header.self, forHeaderFooterViewReuseIdentifier: HeaderType.toDo.identifier)
         toDoTableView.delegate = self
         
         doingTableView.dataSource = self
         doingTableView.dragDelegate = self
         doingTableView.dropDelegate = self
         doingTableView.dragInteractionEnabled = true
-        doingTableView.register(Header.self, forHeaderFooterViewReuseIdentifier: header.doing.identifier)
+        doingTableView.register(Header.self, forHeaderFooterViewReuseIdentifier: HeaderType.doing.identifier)
         doingTableView.delegate = self
         
         doneTableView.dataSource = self
         doneTableView.dragDelegate = self
         doneTableView.dropDelegate = self
         doneTableView.dragInteractionEnabled = true
-        doneTableView.register(Header.self, forHeaderFooterViewReuseIdentifier: header.done.identifier)
+        doneTableView.register(Header.self, forHeaderFooterViewReuseIdentifier: HeaderType.done.identifier)
         doneTableView.delegate = self
     }
 }
@@ -106,13 +106,13 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         
         switch tableView {
         case toDoTableView:
-            return customizeHeaderView(in: tableView, withIdentifier: header.toDo.identifier)
+            return customizeHeaderView(in: tableView, withIdentifier: HeaderType.toDo.identifier)
             
         case doingTableView:
-            return customizeHeaderView(in: tableView, withIdentifier: header.doing.identifier)
+            return customizeHeaderView(in: tableView, withIdentifier: HeaderType.doing.identifier)
             
         case doneTableView:
-            return customizeHeaderView(in: tableView, withIdentifier: header.done.identifier)
+            return customizeHeaderView(in: tableView, withIdentifier: HeaderType.done.identifier)
             
         default:
             return nil
@@ -120,7 +120,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     private func customizeHeaderView(in tableView: UITableView, withIdentifier identifier: String) -> Header? {
-        let customizedHeader = toDoTableView.dequeueReusableHeaderFooterView(withIdentifier: identifier) as? Header ?? nil
+        let customizedHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: identifier) as? Header ?? nil
         customizedHeader?.title.text = identifier
         return customizedHeader
     }
@@ -159,23 +159,23 @@ extension ViewController: UITableViewDragDelegate {
     
     func tableView(_ tableView: UITableView, dragSessionWillBegin session: UIDragSession) {
         
-//        let location = session.location(in: tableView)
-//        guard let indexPath = tableView.indexPathForRow(at: location) else { return }
-//
-//        guard var jsonDataManager = jsonDataManager else { return }
-//
-//        switch tableView {
-//        case toDoTableView:
-//            jsonDataManager.toDoList.remove(at: indexPath.row)
-//        case doingTableView:
-//            jsonDataManager.doingList.remove(at: indexPath.row)
-//        case doneTableView:
-//            jsonDataManager.doneList.remove(at: indexPath.row)
-//        default:
-//            break
-//        }
-//
-//        tableView.deleteRows(at: [indexPath], with: .automatic)
+        let location = session.location(in: tableView)
+        guard let indexPath = tableView.indexPathForRow(at: location) else { return }
+
+        guard var jsonDataManager = jsonDataManager else { return }
+
+        switch tableView {
+        case toDoTableView:
+            jsonDataManager.toDoList.remove(at: indexPath.row)
+        case doingTableView:
+            jsonDataManager.doingList.remove(at: indexPath.row)
+        case doneTableView:
+            jsonDataManager.doneList.remove(at: indexPath.row)
+        default:
+            break
+        }
+
+        tableView.deleteRows(at: [indexPath], with: .automatic)
     }
 
 }

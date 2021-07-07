@@ -28,10 +28,8 @@ class Header: UITableViewHeaderFooterView {
         contentView.addSubview(title)
         
         NSLayoutConstraint.activate([
-            title.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
-            title.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor, constant: -100),
-            title.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
-
+            title.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            title.centerXAnchor.constraint(equalTo: contentView.centerXAnchor, constant: -165)
         ])
     }
 }

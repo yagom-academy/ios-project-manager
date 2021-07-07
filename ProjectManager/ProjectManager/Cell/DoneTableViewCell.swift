@@ -13,7 +13,6 @@ class DoneTableViewCell: UITableViewCell {
     @IBOutlet private weak var contentLabel: UILabel!
     @IBOutlet private weak var dateLabel: UILabel!
     
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

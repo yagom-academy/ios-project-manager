@@ -72,7 +72,6 @@
 				3C6FE26A268AB139009354AA /* ToDoTableViewCell.swift */,
 				3C941E2A268B1A6700D86ED6 /* DoingTableViewCell.swift */,
 				3C1B2845268C39E700A64844 /* DoneTableViewCell.swift */,
-				48288250268DA796002C7C40 /* CellConfigurable.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -130,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				EAD1B6412693EFFE00487599 /* JSONDataManageable.swift */,
+				48288250268DA796002C7C40 /* CellConfigurable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";

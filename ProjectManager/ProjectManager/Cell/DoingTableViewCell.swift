@@ -23,7 +23,6 @@ class DoingTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
 }
 
 extension DoingTableViewCell: CellConfigurable {
