@@ -2,7 +2,7 @@
 //  Header.swift
 //  ProjectManager
 //
-//  Created by 이성노 on 2021/06/30.
+//  Created by Jay, Ian, James on 2021/06/30.
 //
 
 import UIKit
@@ -28,10 +28,8 @@ class Header: UITableViewHeaderFooterView {
         contentView.addSubview(title)
         
         NSLayoutConstraint.activate([
-//            title.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor, constant: 5),
             title.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
             title.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor, constant: -100),
-//            title.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor, constant: -10),
             title.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
 
         ])

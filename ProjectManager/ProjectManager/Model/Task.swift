@@ -2,7 +2,7 @@
 //  Task.swift
 //  ProjectManager
 //
-//  Created by Seungjin Baek on 2021/07/01.
+//  Created by Jay, Ian, James on 2021/07/01.
 //
 
 import UIKit
@@ -13,29 +13,19 @@ final class Task: NSObject, NSItemProviderReading, NSItemProviderWriting, Codabl
     let id: String
     let title: String
     let content: String
-    let date: Date
+    let deadlineDate: String
+    let classification: String
+    let isDeleted: Bool
     
-    init (id: String, title: String, content: String, date: Date) {
+    init (id: String, title: String, content: String, deadlineDate: String, classification: String) {
         self.id = id
         self.title = title
         self.content = content
-        self.date = date
+        self.deadlineDate = deadlineDate
+        self.classification = classification
+        self.isDeleted = false
         super.init()
     }
-    
-    //MARK: - NSItemProviderReading
-    
-    static var readableTypeIdentifiersForItemProvider = [kUTTypeUTF8PlainText as String]
-    
-    static func object(withItemProviderData data: Data, typeIdentifier: String) throws -> Task {
-        if typeIdentifier == kUTTypeUTF8PlainText as String {
-            guard let task = try? JSONDecoder().decode(Task.self, from: data) else { throw DragAndDropError.jsonParsingError }
-            return task
-        } else {
-            throw DragAndDropError.invalidTypeIdentifier
-        }
-    }
-    
     
     //MARK: - NSItemProviderWriting
     
@@ -51,5 +41,18 @@ final class Task: NSObject, NSItemProviderReading, NSItemProviderWriting, Codabl
             completionHandler(nil, DragAndDropError.invalidTypeIdentifier)
         }
         return nil
+    }
+    
+    //MARK: - NSItemProviderReading
+    
+    static var readableTypeIdentifiersForItemProvider = [kUTTypeUTF8PlainText as String]
+    
+    static func object(withItemProviderData data: Data, typeIdentifier: String) throws -> Task {
+        if typeIdentifier == kUTTypeUTF8PlainText as String {
+            guard let task = try? JSONDecoder().decode(Task.self, from: data) else { throw DragAndDropError.jsonParsingError }
+            return task
+        } else {
+            throw DragAndDropError.invalidTypeIdentifier
+        }
     }
 }

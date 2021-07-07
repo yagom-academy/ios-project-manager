@@ -2,7 +2,7 @@
 //  DoneTableViewCell.swift
 //  ProjectManager
 //
-//  Created by 이성노 on 2021/06/30.
+//  Created by Jay, Ian, James on 2021/06/30.
 //
 
 import UIKit
@@ -34,6 +34,7 @@ extension DoneTableViewCell: CellConfigurable {
         dateFormatter.timeStyle = .none
         titleLabel.text = tasks[row].title
         contentLabel.text = tasks[row].content
-        dateLabel.text = dateFormatter.string(from: tasks[row].date)
+//        dateLabel.text = dateFormatter.string(from: tasks[row].deadlineDate)
+        dateLabel.text = tasks[row].deadlineDate
     }
 }

@@ -2,7 +2,7 @@
 //  CellConfigurable.swift
 //  ProjectManager
 //
-//  Created by Seungjin Baek on 2021/07/01.
+//  Created by Jay, Ian, James on 2021/07/01.
 //
 
 import UIKit

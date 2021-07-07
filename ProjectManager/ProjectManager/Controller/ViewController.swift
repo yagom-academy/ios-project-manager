@@ -12,6 +12,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var doingTableView: UITableView!
     @IBOutlet weak var doneTableView: UITableView!
 
+    private let jsonDataManager: JSONDataManageable? = JSONDataManager()
+    
     enum header {
         case toDo, doing, done
         
@@ -59,25 +61,40 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     
     //TODO
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        
+        guard let jsonDataManager = jsonDataManager else { return 0 }
+        
+        switch tableView {
+        case toDoTableView:
+            return jsonDataManager.toDoList.count
+        case doingTableView:
+            return jsonDataManager.doingList.count
+        case doneTableView:
+            return jsonDataManager.doneList.count
+        default:
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        guard let jsonDataManager = jsonDataManager else { return UITableViewCell() }
+        
         switch tableView {
         case toDoTableView:
             guard let toDoCell = tableView.dequeueReusableCell(withIdentifier: "toDoCell", for: indexPath) as? ToDoTableViewCell else { return UITableViewCell() }
-            toDoCell.configure(tasks: toDoTask, rowAt: indexPath.row)
+            
+            toDoCell.configure(tasks: jsonDataManager.toDoList, rowAt: indexPath.row)
             return toDoCell
             
         case doingTableView:
             guard let doingCell = tableView.dequeueReusableCell(withIdentifier: "doingCell", for: indexPath) as? DoingTableViewCell else { return  UITableViewCell() }
-            doingCell.configure(tasks: doingTask, rowAt: indexPath.row)
+            doingCell.configure(tasks: jsonDataManager.doingList, rowAt: indexPath.row)
             return doingCell
             
         case doneTableView:
             guard let doneCell = tableView.dequeueReusableCell(withIdentifier: "doneCell", for: indexPath) as? DoneTableViewCell else { return  UITableViewCell() }
-            doneCell.configure(tasks: doneTask, rowAt: indexPath.row)
+            doneCell.configure(tasks: jsonDataManager.doneList, rowAt: indexPath.row)
             return doneCell
             
         default:
@@ -115,16 +132,56 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
 }
 
 // MARK:- UITableView DragDelegate
+
+// FIXME:- 분기처리
 extension ViewController: UITableViewDragDelegate {
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
-        let dragItem = UIDragItem(itemProvider: NSItemProvider(object: self.toDoTask[indexPath.row]))
-        dragItem.localObject = true
-        return [dragItem]
+        
+        guard let jsonDataManager = JSONDataManager() else { return [] }
+        
+        switch tableView {
+        case toDoTableView:
+            let dragItem = UIDragItem(itemProvider: NSItemProvider(object: jsonDataManager.toDoList[indexPath.row]))
+            dragItem.localObject = String.self
+            return [dragItem]
+        case doingTableView:
+            let dragItem = UIDragItem(itemProvider: NSItemProvider(object: jsonDataManager.doingList[indexPath.row]))
+            dragItem.localObject = String.self
+            return [dragItem]
+        case doneTableView:
+            let dragItem = UIDragItem(itemProvider: NSItemProvider(object: jsonDataManager.doneList[indexPath.row]))
+            dragItem.localObject = String.self
+            return [dragItem]
+        default:
+            return []
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, dragSessionWillBegin session: UIDragSession) {
+        
+//        let location = session.location(in: tableView)
+//        guard let indexPath = tableView.indexPathForRow(at: location) else { return }
+//
+//        guard var jsonDataManager = jsonDataManager else { return }
+//
+//        switch tableView {
+//        case toDoTableView:
+//            jsonDataManager.toDoList.remove(at: indexPath.row)
+//        case doingTableView:
+//            jsonDataManager.doingList.remove(at: indexPath.row)
+//        case doneTableView:
+//            jsonDataManager.doneList.remove(at: indexPath.row)
+//        default:
+//            break
+//        }
+//
+//        tableView.deleteRows(at: [indexPath], with: .automatic)
     }
 
 }
 
 // MARK:- UITableView DropDelegate
+
 extension ViewController: UITableViewDropDelegate {
     
     func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
@@ -143,40 +200,48 @@ extension ViewController: UITableViewDropDelegate {
             let row = tableView.numberOfRows(inSection: section)
             destinationIndexPath = IndexPath(row: row, section: section)
         }
-        //FIXME:- NSString.self -> Task.self
-        coordinator.session.loadObjects(ofClass: Task.self) { tasks in
+
+        guard var jsonDataManager = jsonDataManager else { return }
+        
+        coordinator.session.loadObjects(ofClass: Task.self) { [weak self] tasks in
+            
+            guard let self = self else { return }
+            
             guard let tasks = tasks as? [Task] else { return }
+            
+            
             var indexPaths = [IndexPath]()
             print("성공!")
             for (index, value) in tasks.enumerated() {
                 let indexPath = IndexPath(row: destinationIndexPath.row + index, section: destinationIndexPath.section)
+                
                 switch tableView {
                 case self.toDoTableView:
-                    self.toDoTask.insert(value, at: indexPath.row)
-                    if (self.doingTask.contains(value)) {
-                        self.doingTask = self.doingTask.filter {$0 != value}
-                        self.doingTableView.reloadData()
+                    jsonDataManager.toDoList.insert(value, at: indexPath.row)
+                    if jsonDataManager.doingList.contains(value) {
+                        jsonDataManager.doingList = jsonDataManager.doingList.filter {$0 != value}
+//                        self.doingTableView.reloadData()
                     } else {
-                        self.doneTask = self.doneTask.filter {$0 != value}
-                        self.doneTableView.reloadData()
+                        jsonDataManager.doneList = jsonDataManager.doneList.filter {$0 != value}
+//                        self.doneTableView.reloadData()
                     }
                 case self.doingTableView:
-                    self.doingTask.insert(value, at: indexPath.row)
-                    if (self.toDoTask.contains(value)) {
-                        self.toDoTask = self.toDoTask.filter {$0 != value}
-                        self.toDoTableView.reloadData()
+                    jsonDataManager.doingList.insert(value, at: indexPath.row)
+                    if jsonDataManager.toDoList.contains(value) {
+                        jsonDataManager.toDoList = jsonDataManager.toDoList.filter {$0 != value}
+//                        self.toDoTableView.reloadData()
                     } else {
-                        self.doneTask = self.doneTask.filter {$0 != value}
-                        self.doneTableView.reloadData()
+                        jsonDataManager.doneList = jsonDataManager.doneList.filter {$0 != value}
+//                        self.doneTableView.reloadData()
                     }
                 case self.doneTableView:
-                    self.doneTask.insert(value, at: indexPath.row)
-                    if (self.doingTask.contains(value)) {
-                        self.doingTask = self.doingTask.filter {$0 != value}
-                        self.doingTableView.reloadData()
+                    jsonDataManager.doneList.insert(value, at: indexPath.row)
+                    if jsonDataManager.doingList.contains(value) {
+                        jsonDataManager.doingList = jsonDataManager.doingList.filter {$0 != value}
+//                        self.doingTableView.reloadData()
                     } else {
-                        self.toDoTask = self.toDoTask.filter {$0 != value}
-                        self.toDoTableView.reloadData()
+                        jsonDataManager.toDoList = jsonDataManager.toDoList.filter {$0 != value}
+//                        self.toDoTableView.reloadData()
                     }
                 default:
                     break
@@ -184,6 +249,7 @@ extension ViewController: UITableViewDropDelegate {
                 indexPaths.append(indexPath)
             }
             tableView.insertRows(at: indexPaths, with: .automatic)
+            tableView.reloadData()
         }
         
     }

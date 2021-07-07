@@ -31,8 +31,9 @@ extension ToDoTableViewCell: CellConfigurable {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .none
-        self.titleLabel.text = tasks[row].title
-        self.contentLabel.text = tasks[row].content
-        self.dateLabel.text = dateFormatter.string(from: tasks[row].date)
+        titleLabel.text = tasks[row].title
+        contentLabel.text = tasks[row].content
+//        self.dateLabel.text = dateFormatter.string(from: tasks[row].deadlineDate)
+        dateLabel.text = tasks[row].deadlineDate
     }
 }
