@@ -97,21 +97,14 @@ extension DONETableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-        let cell: UITableViewCell = {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "scheduleCell", for: indexPath) as! ScheduleCell
-            
-            if Task.todoList.count > 0 {
-                cell.task = Task.todoList[indexPath.row]
-                
-                cell.titleLabel.text = cell.task.title
-                cell.descriptionLabel.text = cell.task.myDescription
-                cell.dateLabel.text = "\(cell.task.date)"
-            }
-            
-            return cell
-        }()
-
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "scheduleCell", for: indexPath) as! ScheduleCell
+        
+        cell.task = Task.doneList[indexPath.row]
+        cell.titleLabel.text = cell.task.title
+        cell.descriptionLabel.text = cell.task.myDescription
+        cell.dateLabel.text = "\(cell.task.date)"
+        
         return cell
     }
     

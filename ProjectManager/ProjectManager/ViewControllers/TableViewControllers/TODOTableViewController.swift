@@ -100,17 +100,13 @@ extension TODOTableViewController {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "scheduleCell", for: indexPath) as! ScheduleCell
         
-        if Task.todoList.count > 0 {
-            cell.task = Task.todoList[indexPath.row]
-            
-            cell.titleLabel.text = cell.task.title
-            cell.descriptionLabel.text = cell.task.myDescription
-            cell.dateLabel.text = "\(cell.task.date)"
-        }
+        cell.task = Task.todoList[indexPath.row]
+        cell.titleLabel.text = cell.task.title
+        cell.descriptionLabel.text = cell.task.myDescription
+        cell.dateLabel.text = "\(cell.task.date)"
 
         return cell
     }
-    
     
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         return .delete
