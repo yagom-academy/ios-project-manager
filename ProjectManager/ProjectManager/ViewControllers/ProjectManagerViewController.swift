@@ -6,7 +6,7 @@
 
 import UIKit
 
-let didDismissPostProjectManagerViewController: Notification.Name = Notification.Name("DidDismissPostProjectManagerViewController")
+let didDismissNotificationCenter: Notification.Name = Notification.Name("DidDismissPostProjectManagerViewController")
 
 class ProjectManagerViewController: UIViewController {
 
@@ -38,7 +38,7 @@ class ProjectManagerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.reloadData), name: didDismissPostProjectManagerViewController, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.reloadData), name: didDismissNotificationCenter, object: nil)
         
         let rightBarButton = UIBarButtonItem.init(barButtonSystemItem: .add,
                                                   target: self,

@@ -14,7 +14,7 @@ protocol RegisterSupportLogic {
                         status: String,
                         identifier: String) -> Task?
     
-    func convertDateToString(_ date: Date) -> Double
+    func convertDateToDouble(_ date: Date) -> Double
 }
 
 extension RegisterViewController: RegisterSupportLogic {
@@ -33,7 +33,7 @@ extension RegisterViewController: RegisterSupportLogic {
                          identifier: identifier)
     }
     
-    func convertDateToString(_ date: Date) -> Double {
+    func convertDateToDouble(_ date: Date) -> Double {
         let unixStamp = date.timeIntervalSince1970
         
         return unixStamp

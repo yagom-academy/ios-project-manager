@@ -83,7 +83,7 @@ class RegisterViewController: UIViewController {
     
     @objc func didHitDoneButton() {
         let model = convertToModel(title: registerTitle.text,
-                                   date: convertDateToString(datePicker.date),
+                                   date: convertDateToDouble(datePicker.date),
                                    myDescription: registerDescription.text,
                                    status: "todo",
                                    identifier: UUID().uuidString)
@@ -120,7 +120,7 @@ class RegisterViewController: UIViewController {
     }
 
     override func viewWillDisappear(_ animated: Bool) {
-        NotificationCenter.default.post(name: didDismissPostProjectManagerViewController, object: nil, userInfo: nil)
+        NotificationCenter.default.post(name: didDismissNotificationCenter, object: nil, userInfo: nil)
     }
 }
 
