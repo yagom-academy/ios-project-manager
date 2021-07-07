@@ -9,7 +9,11 @@ import UIKit
 
 final class DoneTableViewCell: UITableViewCell {
     static let identifier = "DoneTableViewCellIdentifier"
-    private let dateConverter = DateConverter()
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        self.separatorInset = UIEdgeInsets.zero
+    }
     
     @IBOutlet weak var doneTitle: UILabel!
     @IBOutlet weak var doneSummary: UILabel!
@@ -17,13 +21,10 @@ final class DoneTableViewCell: UITableViewCell {
 }
 
 extension DoneTableViewCell: TableViewCell {
-    func update(info: TableItem) {
+    func update(info: ViewInfo) {
         doneTitle.text = info.title
         doneSummary.text = info.summary
-        
-        let stringOfDate = dateConverter.numberToString(number: info.date)
-        let stringOfCurrentDate = dateConverter.dateToString(date: Date())
-        doneDate.text = stringOfDate
-        doneDate.textColor = stringOfDate < stringOfCurrentDate ? .red : .black
+        doneDate.text = info.date
+        doneDate.textColor = info.isDateColorRed ? .red : .black
     }
 }

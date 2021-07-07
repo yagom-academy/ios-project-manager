@@ -12,6 +12,7 @@ protocol TableViewModel {
     var numOfList: Int { get }
     
     func itemInfo(at index: Int) -> TableItem
+    func viewInfo(at index: Int) -> ViewInfo
     func update(model: [TableItem])
     func removeCell(at index: Int)
     func insert(cell: TableItem, at index: Int)

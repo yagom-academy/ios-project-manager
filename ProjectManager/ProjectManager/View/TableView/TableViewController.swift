@@ -133,7 +133,10 @@ extension TableViewController: UITableViewDelegate {
         return UITableView.automaticDimension
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(
+        _ tableView: UITableView,
+        didSelectRowAt indexPath: IndexPath
+    ) {
         let cellInfo = CellInfo(
             tableView: tableView,
             index: indexPath.row
@@ -165,9 +168,8 @@ extension TableViewController: UITableViewDataSource {
             withIdentifier: cellIdentifier,
             for: indexPath
         ) as! TableViewCell
-        let listInfo = viewModel.itemInfo(at: indexPath.row)
-        cell.update(info: listInfo)
-        cell.separatorInset = UIEdgeInsets.zero
+        let viewInfo = viewModel.viewInfo(at: indexPath.row)
+        cell.update(info: viewInfo)
         
         return cell
     }

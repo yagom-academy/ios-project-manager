@@ -188,6 +188,7 @@
                                                             </constraints>
                                                         </view>
                                                     </subviews>
+                                                    <color key="backgroundColor" systemColor="systemGray5Color"/>
                                                     <constraints>
                                                         <constraint firstItem="D6t-Oo-h9w" firstAttribute="top" secondItem="JMo-T6-Rol" secondAttribute="top" constant="10" id="3LZ-lr-N8k"/>
                                                         <constraint firstItem="D6t-Oo-h9w" firstAttribute="leading" secondItem="JMo-T6-Rol" secondAttribute="leading" id="Nbn-zH-XOr"/>
@@ -287,6 +288,7 @@
                                                             </constraints>
                                                         </view>
                                                     </subviews>
+                                                    <color key="backgroundColor" systemColor="systemGray5Color"/>
                                                     <constraints>
                                                         <constraint firstAttribute="bottom" secondItem="fR4-Ko-QDe" secondAttribute="bottom" constant="-10" id="59q-0s-Eeh"/>
                                                         <constraint firstItem="fR4-Ko-QDe" firstAttribute="top" secondItem="f29-G6-eIb" secondAttribute="top" constant="10" id="LvX-LN-vDx"/>

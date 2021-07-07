@@ -8,5 +8,5 @@
 import UIKit
 
 protocol TableViewCell: UITableViewCell {
-    func update(info: TableItem)
+    func update(info: ViewInfo)
 }
