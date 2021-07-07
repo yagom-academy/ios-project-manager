@@ -15,7 +15,7 @@
 		85B98959268AA8DF00FF2DD7 /* TodoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B98958268AA8DF00FF2DD7 /* TodoTableViewCell.swift */; };
 		85B9895D268AC66A00FF2DD7 /* TodoTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B9895C268AC66A00FF2DD7 /* TodoTableViewModel.swift */; };
 		85B9895F268AC6A200FF2DD7 /* TableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B9895E268AC6A200FF2DD7 /* TableItem.swift */; };
-		85B98961268B1E2000FF2DD7 /* DateConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B98960268B1E2000FF2DD7 /* DateConverter.swift */; };
+		85B98961268B1E2000FF2DD7 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B98960268B1E2000FF2DD7 /* DateFormatter.swift */; };
 		85B98963268B605800FF2DD7 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B98962268B605800FF2DD7 /* DetailViewController.swift */; };
 		85C2719326909EB9001B806C /* DetailViewEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85C2719226909EB9001B806C /* DetailViewEnum.swift */; };
 		85C271972690A089001B806C /* DummyForTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85C271962690A089001B806C /* DummyForTest.swift */; };
@@ -41,7 +41,7 @@
 		85B98958268AA8DF00FF2DD7 /* TodoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTableViewCell.swift; sourceTree = "<group>"; };
 		85B9895C268AC66A00FF2DD7 /* TodoTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTableViewModel.swift; sourceTree = "<group>"; };
 		85B9895E268AC6A200FF2DD7 /* TableItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableItem.swift; sourceTree = "<group>"; };
-		85B98960268B1E2000FF2DD7 /* DateConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateConverter.swift; sourceTree = "<group>"; };
+		85B98960268B1E2000FF2DD7 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
 		85B98962268B605800FF2DD7 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		85C2719226909EB9001B806C /* DetailViewEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewEnum.swift; sourceTree = "<group>"; };
 		85C271962690A089001B806C /* DummyForTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyForTest.swift; sourceTree = "<group>"; };
@@ -126,12 +126,12 @@
 			path = SupportingFiles;
 			sourceTree = "<group>";
 		};
-		855C6E2026920B4200394F08 /* Tool */ = {
+		855C6E2026920B4200394F08 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				85B98960268B1E2000FF2DD7 /* DateConverter.swift */,
+				85B98960268B1E2000FF2DD7 /* DateFormatter.swift */,
 			);
-			path = Tool;
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		85B98952268AA46E00FF2DD7 /* View */ = {
@@ -200,7 +200,7 @@
 				85B98952268AA46E00FF2DD7 /* View */,
 				85B98954268AA48400FF2DD7 /* ViewModel */,
 				855C6E1C269208A300394F08 /* Strings */,
-				855C6E2026920B4200394F08 /* Tool */,
+				855C6E2026920B4200394F08 /* Extension */,
 				855C6E1F269208D600394F08 /* SupportingFiles */,
 			);
 			path = ProjectManager;
@@ -276,7 +276,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				85B98961268B1E2000FF2DD7 /* DateConverter.swift in Sources */,
+				85B98961268B1E2000FF2DD7 /* DateFormatter.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				85C2719F2690B58E001B806C /* DoneTableViewModel.swift in Sources */,
 				85B98963268B605800FF2DD7 /* DetailViewController.swift in Sources */,

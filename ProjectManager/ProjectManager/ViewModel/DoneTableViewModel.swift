@@ -8,7 +8,7 @@
 import Foundation
 
 final class DoneTableViewModel: TableViewModel {
-    private let dateConverter = DateConverter()
+    private let dateFormatter = DateFormatter()
     internal var list: [TableItem] = doneDummy
     
     var numOfList: Int {
@@ -21,8 +21,8 @@ final class DoneTableViewModel: TableViewModel {
     
     func viewInfo(at index: Int) -> ViewInfo {
         let itemInfo = itemInfo(at: index)
-        let stringOfDate = dateConverter.numberToString(number: itemInfo.date)
-        let stringOfCurrentDate = dateConverter.dateToString(date: Date())
+        let stringOfDate = dateFormatter.numberToString(number: itemInfo.date)
+        let stringOfCurrentDate = dateFormatter.dateToString(date: Date())
         let isDateColorRed = stringOfDate < stringOfCurrentDate ? true : false
         
         return ViewInfo(

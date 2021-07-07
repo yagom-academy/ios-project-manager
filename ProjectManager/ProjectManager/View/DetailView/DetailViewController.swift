@@ -8,7 +8,7 @@
 import UIKit
 
 final class DetailViewController: UIViewController {
-    private let dateConverter = DateConverter()
+    private let dateFormatter = DateFormatter()
     private var viewStyle: DetailViewStyle = .add
     private var viewModel = DetailViewModel()
     private var tableViewType: TableViewType = .todo
@@ -65,7 +65,7 @@ final class DetailViewController: UIViewController {
     func updateUI() {
         if let item = viewModel.tableItem() {
             newTitle.text = item.title
-            newDate.date = dateConverter.numberToDate(number: item.date)
+            newDate.date = dateFormatter.numberToDate(number: item.date)
             newContent.text = item.summary
         }
         
@@ -119,7 +119,7 @@ extension DetailViewController {
         _ save: (_ newCell: TableItem, _ tableViewType: TableViewType) -> Void
 ) {
         let title: String = newTitle.text!
-        let date: Double = dateConverter.dateToNumber(date: newDate.date)
+        let date: Double = dateFormatter.dateToNumber(date: newDate.date)
         let content: String = newContent.text
         
         let newCell = TableItem(
