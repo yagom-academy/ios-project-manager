@@ -7,9 +7,9 @@
 
 import UIKit
 
-extension TodoListCell: ProjectManagerDelegate {
-    func dataPassing(text: String) {
-        titleLabel.text = text
-        descriptionLabel.text = text
+extension ProjectManagerViewController: ProjectManagerDelegate {
+    
+    func dataPassing(title: String, date: String, description: String) {
+        data.append(CellData(title: title, description: description, deadline: date))
     }
 }

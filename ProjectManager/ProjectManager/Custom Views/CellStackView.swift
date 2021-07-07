@@ -12,6 +12,7 @@ class CellStackView: UIStackView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        
         configureCellStackView()
     }
     

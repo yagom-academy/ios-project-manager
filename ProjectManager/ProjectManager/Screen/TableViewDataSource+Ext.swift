@@ -17,17 +17,13 @@ extension ProjectManagerViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "ProjectManagerTableViewCell") as? TodoListCell else {
             return UITableViewCell()
         }
-
-        newTodoFormViewController.delegate = cell
         
         cell.selectionStyle = .none
         cell.separatorInset = .zero
-        
-//        newTodoFormViewController.delegate = cell
-//        cell.titleLabel.text = "금연하기 + \(indexPath)"
-//        cell.descriptionLabel.text = "담배냄새는 소개팅에서 마이너스, 담배냄새는 소개팅에서 마이너스, 담배냄새는 소개팅에서 마이너스,담배냄새는 소개팅에서 마이너스, 담배냄새는 소개팅에서 마이너스, 담배냄새는 소개팅에서 마이너스, 담배냄새는 소개팅에서 마이너스"
-//        cell.dateLabel.text = "2021.07.06"
-        
+        cell.titleLabel.text = data[indexPath.section].title
+        cell.dateLabel.text = data[indexPath.section].deadline
+        cell.descriptionLabel.text = data[indexPath.section].description
+
         return cell
     }
 }

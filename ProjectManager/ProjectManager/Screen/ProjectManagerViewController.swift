@@ -10,7 +10,7 @@ import UIKit
 
 class ProjectManagerViewController: UIViewController {
     
-    var data: [Int] = [1,2,3]
+    var data: [CellData] = []
     
     let processListsStackView = ProcessListsStackView()
     let toDoStackView = ListContentsStackview()
@@ -33,7 +33,7 @@ class ProjectManagerViewController: UIViewController {
         view.backgroundColor = .systemGray4
         title = "소개팅 필승 공략"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(pushNewTodoFormViewController))
-        
+        newTodoFormViewController.delegate = self
         configureStackView()
         configureTitleView()
         configureProcessListsTableView()
@@ -67,11 +67,6 @@ class ProjectManagerViewController: UIViewController {
         newTodoFormNavigationController.modalPresentationStyle = .formSheet
         
         present(newTodoFormNavigationController, animated: true)
-    }
-    
-    @objc func plus() {
-        data.append(data.count+1)
-        toDoTableView.reloadData()
     }
 
     private func configureTitleView() {

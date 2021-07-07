@@ -30,6 +30,5 @@ class NewTodoFormTextView: UITextView {
         layer.shadowOpacity = 0.3
         
         backgroundColor = .systemBackground
-        
     }
 }

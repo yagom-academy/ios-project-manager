@@ -30,27 +30,41 @@ class NewTodoFormViewController: UIViewController {
         configureNewTodoFormTextView()
         createDismissKeyboardTapGestrue()
     }
-
+ 
+    
+    
     @objc private func dismissViewController() {
         dismiss(animated: true)
     }
     
     @objc private func doneViewController() {
-    
-        if let data = newTodoFormTextField.text {
-            delegate?.dataPassing(text: data)
-        }
-                
+        
         guard let presentingViewController = presentingViewController as? UINavigationController,
               let projectManagerViewController = presentingViewController.viewControllers[0] as? ProjectManagerViewController else {
+            
             print("return")
             return
         }
+
         
-        projectManagerViewController.data.append(1)
+        if let title = newTodoFormTextField.text, let description = newTodoFormTextView.text {
+            
+            delegate?.dataPassing(title: title, date: formattedDate(date: datePicker.date), description: description)
+        }
+        
         projectManagerViewController.toDoTableView.reloadData()
+        dismiss(animated: true) {
+            self.newTodoFormTextField.text = ""
+            self.newTodoFormTextView.text = ""
+        }
+    }
     
-        dismiss(animated: true, completion: nil)
+    private func formattedDate(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let date = dateFormatter.string(from: datePicker.date)
+        
+        return date
     }
     
     private func createDismissKeyboardTapGestrue() {
@@ -72,6 +86,7 @@ class NewTodoFormViewController: UIViewController {
     
     private func configureDatePicker() {
         newTodoFormStackView.addArrangedSubview(datePicker)
+        datePicker.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             datePicker.topAnchor.constraint(equalTo: newTodoFormTextField.safeAreaLayoutGuide.bottomAnchor),
