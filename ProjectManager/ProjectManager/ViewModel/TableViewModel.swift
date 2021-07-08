@@ -35,7 +35,9 @@ final class TableViewModel {
         return stringOfDate < stringOfCurrentDate ? true : false
     }
     
-    // TODO: - memoInfo, itemInfo 이름 변경
+    // TODO: - 이름 변경
+    // memoInfo, itemInfo, cellInfo
+    // step2에서 cellInfo를 변경하면서 다 변경해주자
     func memoInfo(at index: Int) -> MemoTableViewCellModel? {
         return memoList.value?[index]
     }

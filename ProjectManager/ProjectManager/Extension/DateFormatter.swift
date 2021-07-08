@@ -7,6 +7,7 @@
 
 import Foundation
 
+// Todo: - step2에서 Double타입의 경우에 해당하는 함수를 삭제하자
 extension DateFormatter {
     func numberToString(number: TimeInterval) -> String {
         let date = Date(timeIntervalSince1970: number)

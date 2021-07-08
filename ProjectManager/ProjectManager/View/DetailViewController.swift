@@ -79,6 +79,7 @@ final class DetailViewController: UIViewController {
     }
     
     // TODO: - 여기에 있는 TableViewModel 내쫓기
+    // tableViewType으로 바꿔주자
     func setViewModel(
         tableViewModel: TableViewModel,
         index: Int

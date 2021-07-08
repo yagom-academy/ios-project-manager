@@ -53,6 +53,10 @@ final class TableViewController: UIViewController {
             
             if let cellInfo = sender as? CellInfo {
                 viewController?.changeToEditMode()
+                // TODO: - Step2 진행시 server side를 고려하여 변경해야 할 점
+                // 전달하는 정보를 index에서 id로 변경
+                // tableViewModel째로 넘기는건 무모함 -> 해당하는 아이템만 넘기자
+                // 그러면서 tableViewType정보도 넘겨야 함
                 viewController?.setViewModel(
                     tableViewModel: viewModel(of: cellInfo.tableView),
                     index: cellInfo.index
@@ -110,6 +114,7 @@ extension TableViewController {
     }
     
     private func setTablesRowCount() {
+        // TODO: - UILabel의 extension을 만들어서 처리해보자
         let circleImage = UIImage(systemName: Strings.circleImageName)
         todoTableRowCount.backgroundColor = UIColor(patternImage: circleImage!)
         doingTableRowCount.backgroundColor = UIColor(patternImage: circleImage!)
