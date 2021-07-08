@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RegisterViewController: UIViewController {
+class RegisterViewController: UIViewController, ModelMakable {
 
     let leftButton = UIBarButtonItem.init(title: "Cancel",
                                           style: .done,

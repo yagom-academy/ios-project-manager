@@ -1,13 +1,13 @@
 //
-//  RegisterSupportLogic.swift
+//  ModelMakable.swift
 //  ProjectManager
 //
-//  Created by 김찬우 on 2021/06/30.
+//  Created by YB on 2021/07/08.
 //
 
-import UIKit
+import Foundation
 
-protocol RegisterSupportLogic {
+protocol ModelMakable {
     func convertToModel(title: String?,
                         date: Double,
                         myDescription: String,
@@ -17,7 +17,8 @@ protocol RegisterSupportLogic {
     func convertDateToDouble(_ date: Date) -> Double
 }
 
-extension RegisterViewController: RegisterSupportLogic {
+extension ModelMakable {
+    
     func convertToModel(title: String?,
                         date: Double,
                         myDescription: String,

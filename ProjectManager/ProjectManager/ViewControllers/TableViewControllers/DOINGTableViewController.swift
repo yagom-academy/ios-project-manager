@@ -103,8 +103,8 @@ extension DOINGTableViewController {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy년 MM월 dd일"
         let currentDate = Date()
-        let unixCurrentDate = currentDate.timeIntervalSince1970
-        
+        let unixCurrentDate = convertDateToDouble(currentDate)
+
         cell.task = Task.doingList[indexPath.row]
         cell.titleLabel.text = cell.task.title
         cell.descriptionLabel.text = cell.task.myDescription
