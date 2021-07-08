@@ -56,7 +56,7 @@ final class DetailViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         NotificationCenter.default.post(
-            name: Notification.Name(Strings.dismissDetailView),
+            name: Notification.Name(Strings.didDismissDetailViewNotification),
             object: nil,
             userInfo: nil
         )
@@ -102,7 +102,7 @@ final class DetailViewController: UIViewController {
     
     private func setEditView() {
         leftButton.setTitle(
-            Strings.editStyleTitle,
+            Strings.editStyleTitleName,
             for: UIControl.State.normal
         )
         
@@ -130,7 +130,7 @@ extension DetailViewController {
         save(newCell, tableViewType)
         
         NotificationCenter.default.post(
-            name: Notification.Name(Strings.dismissDetailView),
+            name: Notification.Name(Strings.didDismissDetailViewNotification),
             object: nil,
             userInfo: nil
         )

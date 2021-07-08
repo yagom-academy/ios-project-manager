@@ -30,7 +30,7 @@ final class TableViewController: UIViewController {
         
         NotificationCenter.default.addObserver(
             self, selector: #selector(self.didDismissDetailViewNotification(_:)),
-            name: Notification.Name(Strings.dismissDetailView),
+            name: Notification.Name(Strings.didDismissDetailViewNotification),
             object: nil
         )
     }
@@ -48,7 +48,7 @@ final class TableViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == Strings.showDetailView {
+        if segue.identifier == Strings.showDetailViewSegueIdentifier {
             let viewController = segue.destination as? DetailViewController
             
             if let cellInfo = sender as? CellInfo {
@@ -63,7 +63,7 @@ final class TableViewController: UIViewController {
     
     @IBAction func clickPlusButton(_ sender: Any) {
         performSegue(
-            withIdentifier: Strings.addTodoListItem,
+            withIdentifier: Strings.addTodoListItemSegueIdentifier,
             sender: nil
         )
     }
@@ -83,16 +83,6 @@ final class TableViewController: UIViewController {
             return doingViewModel
         } else {
             return doneViewModel
-        }
-    }
-    
-    private func tableViewCellIdentifier(of tableView: UITableView) -> String {
-        if tableView == todoTableView {
-            return TodoTableViewCell.identifier
-        } else if tableView == doingTableView {
-            return DoingTableViewCell.identifier
-        } else {
-            return DoneTableViewCell.identifier
         }
     }
 }
@@ -142,7 +132,7 @@ extension TableViewController: UITableViewDelegate {
             index: indexPath.row
         )
         performSegue(
-            withIdentifier: Strings.showDetailView,
+            withIdentifier: Strings.showDetailViewSegueIdentifier,
             sender: cellInfo
         )
     }
@@ -163,9 +153,8 @@ extension TableViewController: UITableViewDataSource {
         cellForRowAt indexPath: IndexPath
     ) -> UITableViewCell {
         let viewModel = viewModel(of: tableView)
-        let cellIdentifier = tableViewCellIdentifier(of: tableView)
         let cell = tableView.dequeueReusableCell(
-            withIdentifier: cellIdentifier,
+            withIdentifier: TableViewCell.identifier,
             for: indexPath
         ) as! TableViewCell
         let viewInfo = viewModel.viewInfo(at: indexPath.row)
@@ -227,7 +216,10 @@ extension TableViewController: UITableViewDragDelegate {
         _ tableView: UITableView,
         dragSessionDidEnd session: UIDragSession
     ) {
-        guard let selectIndexPath = selectIndexPath else { return }
+        guard let selectIndexPath = selectIndexPath
+        else {
+            return
+        }
         if selectIndexPath.1 {            
             let viewModel = viewModel(of: tableView)
             viewModel.removeCell(at: selectIndexPath.0.row)

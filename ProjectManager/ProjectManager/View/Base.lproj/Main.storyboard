@@ -45,7 +45,7 @@
                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         </view>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TODOTableViewCellIdentifier" id="ItL-Me-5D9" userLabel="TODOTableViewCell" customClass="TodoTableViewCell" customModule="ProjectManager" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TableViewCellIdentifier" id="ItL-Me-5D9" userLabel="TODOTableViewCell" customClass="TableViewCell" customModule="ProjectManager" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="24.5" width="451" height="121"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ItL-Me-5D9" id="Uzo-n5-qne">
@@ -97,9 +97,9 @@
                                                     </constraints>
                                                 </tableViewCellContentView>
                                                 <connections>
-                                                    <outlet property="todoDate" destination="KVD-Ck-Opx" id="two-Tb-T79"/>
-                                                    <outlet property="todoSummary" destination="VuN-fe-JRa" id="XDX-h3-kch"/>
-                                                    <outlet property="todoTitle" destination="L64-rG-Eyx" id="NFT-P8-lNA"/>
+                                                    <outlet property="date" destination="KVD-Ck-Opx" id="two-Tb-T79"/>
+                                                    <outlet property="summary" destination="VuN-fe-JRa" id="XDX-h3-kch"/>
+                                                    <outlet property="title" destination="L64-rG-Eyx" id="NFT-P8-lNA"/>
                                                 </connections>
                                             </tableViewCell>
                                         </prototypes>
@@ -145,7 +145,7 @@
                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         </view>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DoingTableViewCellIdentifier" id="iKw-DK-bfQ" userLabel="DoingTableViewCell" customClass="DoingTableViewCell" customModule="ProjectManager" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TableViewCellIdentifier" id="iKw-DK-bfQ" userLabel="DoingTableViewCell" customClass="TableViewCell" customModule="ProjectManager" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="24.5" width="451" height="121"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="iKw-DK-bfQ" id="JMo-T6-Rol">
@@ -197,9 +197,9 @@
                                                     </constraints>
                                                 </tableViewCellContentView>
                                                 <connections>
-                                                    <outlet property="doingDate" destination="FhZ-vs-03K" id="RhJ-Bd-22o"/>
-                                                    <outlet property="doingSummary" destination="Knq-9r-xk1" id="8Gk-P1-otg"/>
-                                                    <outlet property="doingTitle" destination="Hag-iX-Izt" id="eg1-hV-aCY"/>
+                                                    <outlet property="date" destination="FhZ-vs-03K" id="7Df-VC-0HM"/>
+                                                    <outlet property="summary" destination="Knq-9r-xk1" id="puR-Ix-iDa"/>
+                                                    <outlet property="title" destination="Hag-iX-Izt" id="Ti4-X9-ddu"/>
                                                 </connections>
                                             </tableViewCell>
                                         </prototypes>
@@ -245,7 +245,7 @@
                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         </view>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DoneTableViewCellIdentifier" id="FfO-qb-eBC" userLabel="DoneTableViewCell" customClass="DoneTableViewCell" customModule="ProjectManager" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TableViewCellIdentifier" id="FfO-qb-eBC" userLabel="DoneTableViewCell" customClass="TableViewCell" customModule="ProjectManager" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="24.5" width="451" height="121"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="FfO-qb-eBC" id="f29-G6-eIb">
@@ -297,9 +297,9 @@
                                                     </constraints>
                                                 </tableViewCellContentView>
                                                 <connections>
-                                                    <outlet property="doneDate" destination="nxl-Jz-f6r" id="gbP-Ec-h5R"/>
-                                                    <outlet property="doneSummary" destination="NPo-3U-K68" id="o5n-y8-5bz"/>
-                                                    <outlet property="doneTitle" destination="baB-pl-ejy" id="lvt-pU-Iay"/>
+                                                    <outlet property="date" destination="nxl-Jz-f6r" id="YFh-tX-Eij"/>
+                                                    <outlet property="summary" destination="NPo-3U-K68" id="oWe-MZ-Gia"/>
+                                                    <outlet property="title" destination="baB-pl-ejy" id="h4i-jJ-Uul"/>
                                                 </connections>
                                             </tableViewCell>
                                         </prototypes>

@@ -8,9 +8,9 @@
 import Foundation
 
 enum Strings {
-    static let showDetailView = "showDetailViewSegueIdentifier"
-    static let addTodoListItem = "addTodoListItemSegueIdentifier"
+    static let showDetailViewSegueIdentifier = "showDetailViewSegueIdentifier"
+    static let addTodoListItemSegueIdentifier = "addTodoListItemSegueIdentifier"
     static let circleImageName = "circle.fill"
-    static let dismissDetailView = "didDismissDetailViewNotification"
-    static let editStyleTitle = "Edit"
+    static let didDismissDetailViewNotification = "didDismissDetailViewNotification"
+    static let editStyleTitleName = "Edit"
 }
