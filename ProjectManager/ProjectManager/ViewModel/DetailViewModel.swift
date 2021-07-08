@@ -31,39 +31,23 @@ final class DetailViewModel {
         tableViewType: TableViewType
     ) {
         // TODO: - server API "remove"
-        switch tableViewType {
-        case .todo:
-            todoDummy.remove(at: index)
-        case .doing:
-            doingDummy.remove(at: index)
-        case .done:
-            doneDummy.remove(at: index)
-        }
+        Dummy.shared.remove(
+            tableViewType: tableViewType,
+            at: index
+        )
     }
     
     func insert(
         cell: Memo,
-        at index: Int = todoDummy.endIndex,
+        at index: Int = Dummy.shared.todo.endIndex,
         tableViewType: TableViewType
     ) {
         // TODO: - server API "insert"
-        switch tableViewType {
-        case .todo:
-            todoDummy.insert(
-                cell,
-                at: index
-            )
-        case .doing:
-            doingDummy.insert(
-                cell,
-                at: index
-            )
-        case .done:
-            doneDummy.insert(
-                cell,
-                at: index
-            )
-        }
+        Dummy.shared.insert(
+            tableViewType: tableViewType,
+            cell: cell,
+            at: index
+        )
     }
     
     func edit(

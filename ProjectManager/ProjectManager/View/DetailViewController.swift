@@ -85,20 +85,8 @@ final class DetailViewController: UIViewController {
     ) {
         let newItem = tableViewModel.memoInfo(at: index)
         viewModel.setItem(newItem)
-        setTableViewType(tableViewModel: tableViewModel)
+        tableViewType = tableViewModel.tableViewType
         itemIndex = index
-    }
-    
-    private func setTableViewType(tableViewModel: TableViewModel) {
-        switch tableViewModel {
-        case is TodoTableViewModel:
-            tableViewType = .todo
-        case is DoingTableViewModel:
-            tableViewType = .doing
-        default:
-            // DoneTableViewModel
-            tableViewType = .done
-        }
     }
     
     private func setEditView() {

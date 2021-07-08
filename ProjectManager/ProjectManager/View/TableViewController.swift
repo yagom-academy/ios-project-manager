@@ -8,9 +8,9 @@
 import UIKit
 
 final class TableViewController: UIViewController {
-    private let todoViewModel = TodoTableViewModel()
-    private let doingViewModel = DoingTableViewModel()
-    private let doneViewModel = DoneTableViewModel()
+    private let todoViewModel = TableViewModel(tableViewType: .todo)
+    private let doingViewModel = TableViewModel(tableViewType: .doing)
+    private let doneViewModel = TableViewModel(tableViewType: .done)
     private var selectIndexPath : (IndexPath, Bool)?
     
     @IBOutlet weak var todoTableView: UITableView!

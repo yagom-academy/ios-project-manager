@@ -1,22 +1,26 @@
 //
-//  DoneTableViewModel.swift
+//  TableViewModel.swift
 //  ProjectManager
 //
-//  Created by 강경 on 2021/07/04.
+//  Created by 강경 on 2021/06/29.
 //
 
 import Foundation
 
-final class DoneTableViewModel: TableViewModel {
+final class TableViewModel {
     private let dateFormatter = DateFormatter()
-    internal var memoList: Observable<[MemoTableViewCellModel]> = Observable([])
-    
+    let tableViewType: TableViewType
+    var memoList: Observable<[MemoTableViewCellModel]> = Observable([])
     var numOfList: Int {
         return memoList.value?.count ?? 0
     }
     
+    init(tableViewType: TableViewType) {
+        self.tableViewType = tableViewType
+    }
+    
     func fetchData() {
-        memoList.value = doneDummy.compactMap({
+        memoList.value = Dummy.shared.dummy(as: tableViewType).compactMap({
             MemoTableViewCellModel(
                 title: $0.title,
                 content: $0.content,
@@ -49,7 +53,10 @@ final class DoneTableViewModel: TableViewModel {
         memoList.value?.remove(at: index)
         
         // TODO: - server API "remove"
-        doneDummy.remove(at: index)
+        Dummy.shared.remove(
+            tableViewType: tableViewType,
+            at: index
+        )
     }
     
     func insert(
@@ -68,8 +75,9 @@ final class DoneTableViewModel: TableViewModel {
         )
         
         // TODO: - server API "insert"
-        doneDummy.insert(
-            cell,
+        Dummy.shared.insert(
+            tableViewType: tableViewType,
+            cell: cell,
             at: index
         )
     }
