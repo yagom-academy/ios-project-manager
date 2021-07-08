@@ -10,6 +10,6 @@ import UIKit
 extension ProjectManagerViewController: ProjectManagerDelegate {
     
     func dataPassing(title: String, date: String, description: String) {
-        data.append(CellData(title: title, description: description, deadline: date))
+        data.append(CellData(title: title, body: description, deadline: date))
     }
 }

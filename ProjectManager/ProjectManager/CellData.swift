@@ -6,10 +6,48 @@
 //
 
 import Foundation
+import MobileCoreServices
 
-struct CellData {
+final class CellData: NSObject, Codable, NSItemProviderWriting, NSItemProviderReading {
     
     var title: String
-    var description: String
+    var body: String
     var deadline: String
+    
+    init(title: String = "" , body: String = "", deadline: String = "") {
+        self.title = title
+        self.body = body
+        self.deadline = deadline
+    }
+    
+    static var readableTypeIdentifiersForItemProvider: [String] {
+        return [(kUTTypeData) as String]
+    }
+    
+    static func object(withItemProviderData data: Data, typeIdentifier: String) throws -> CellData {
+        let decoder = JSONDecoder()
+        do {
+            let cellData = try decoder.decode(CellData.self, from: data)
+            return cellData
+        } catch {
+            fatalError()
+        }
+    }
+    
+    static var writableTypeIdentifiersForItemProvider: [String] {
+        return [(kUTTypeData) as String]
+    }
+    
+    func loadData(withTypeIdentifier typeIdentifier: String, forItemProviderCompletionHandler completionHandler: @escaping (Data?, Error?) -> Void) -> Progress? {
+        
+        let progress = Progress(totalUnitCount: 100)
+        do {
+            let data = try JSONEncoder().encode(self)
+            progress.completedUnitCount = 100
+            completionHandler(data, nil)
+        } catch {
+            completionHandler(nil, error)
+        }
+        return progress
+    }
 }

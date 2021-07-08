@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		33812BBC2696D60200851B6B /* DragDelegate+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33812BBB2696D60200851B6B /* DragDelegate+Ext.swift */; };
+		33812BC02696D68200851B6B /* DropDelegate+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33812BBF2696D68200851B6B /* DropDelegate+Ext.swift */; };
 		33C21206268DDE8D00232BD4 /* ProcessListsStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C21205268DDE8D00232BD4 /* ProcessListsStackView.swift */; };
 		33C2120C268DEF7300232BD4 /* TodoListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C2120B268DEF7300232BD4 /* TodoListCell.swift */; };
 		33C2120F268DF19B00232BD4 /* CellStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C2120E268DF19B00232BD4 /* CellStackView.swift */; };
@@ -31,6 +33,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		33812BBB2696D60200851B6B /* DragDelegate+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DragDelegate+Ext.swift"; sourceTree = "<group>"; };
+		33812BBF2696D68200851B6B /* DropDelegate+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DropDelegate+Ext.swift"; sourceTree = "<group>"; };
 		33C21205268DDE8D00232BD4 /* ProcessListsStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessListsStackView.swift; sourceTree = "<group>"; };
 		33C2120B268DEF7300232BD4 /* TodoListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListCell.swift; sourceTree = "<group>"; };
 		33C2120E268DF19B00232BD4 /* CellStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellStackView.swift; sourceTree = "<group>"; };
@@ -72,6 +76,8 @@
 			children = (
 				C7431F0925F51E1D0094C4CF /* ProjectManagerViewController.swift */,
 				33C487E02693EC47000685AA /* ProjectManagerDelegate.swift */,
+				33812BBB2696D60200851B6B /* DragDelegate+Ext.swift */,
+				33812BBF2696D68200851B6B /* DropDelegate+Ext.swift */,
 				33C487E42693ECFF000685AA /* ProjectManagerViewController+Ext.swift */,
 				FF65C6B1268EAFFE003E63D9 /* TableViewDelegate+Ext.swift */,
 				33C21218268DF51E00232BD4 /* TableViewDataSource+Ext.swift */,
@@ -199,9 +205,11 @@
 			files = (
 				B4A4464A269311590055C901 /* NewTodoFormNavigationController.swift in Sources */,
 				FF65C6B2268EAFFE003E63D9 /* TableViewDelegate+Ext.swift in Sources */,
+				33812BC02696D68200851B6B /* DropDelegate+Ext.swift in Sources */,
 				33C21219268DF51E00232BD4 /* TableViewDataSource+Ext.swift in Sources */,
 				33C2120C268DEF7300232BD4 /* TodoListCell.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* ProjectManagerViewController.swift in Sources */,
+				33812BBC2696D60200851B6B /* DragDelegate+Ext.swift in Sources */,
 				B4A446532693253D0055C901 /* NewTodoFormTextView.swift in Sources */,
 				B4A446472692FB890055C901 /* NewTodoFormViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,

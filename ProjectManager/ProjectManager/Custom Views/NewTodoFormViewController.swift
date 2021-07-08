@@ -43,7 +43,6 @@ class NewTodoFormViewController: UIViewController {
             return
         }
 
-        
         if let title = newTodoFormTextField.text, let description = newTodoFormTextView.text {
             
             delegate?.dataPassing(title: title, date: formattedDate(date: datePicker.date), description: description)

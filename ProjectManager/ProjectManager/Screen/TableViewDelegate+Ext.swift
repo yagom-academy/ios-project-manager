@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MobileCoreServices
 
 extension ProjectManagerViewController: UITableViewDelegate {
     
@@ -20,4 +21,9 @@ extension ProjectManagerViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return CGFloat(10)
     }
+    
+//    func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+//        return [UIDragItem]
+//    }
+    
 }

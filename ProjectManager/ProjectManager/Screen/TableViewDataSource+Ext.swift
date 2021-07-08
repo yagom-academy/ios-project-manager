@@ -22,7 +22,7 @@ extension ProjectManagerViewController: UITableViewDataSource {
         cell.separatorInset = .zero
         cell.titleLabel.text = data[indexPath.section].title
         cell.dateLabel.text = data[indexPath.section].deadline
-        cell.descriptionLabel.text = data[indexPath.section].description
+        cell.descriptionLabel.text = data[indexPath.section].body
 
         return cell
     }
@@ -34,5 +34,22 @@ extension ProjectManagerViewController: UITableViewDataSource {
         }
         
         todoTitleView.count.text = String(data.count)
+    }
+    
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        return false
+    }
+    
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+
+        moveItem(at: sourceIndexPath.section, to: destinationIndexPath.section)
+    }
+    
+    func moveItem(at sourceIndex: Int, to destinationIndex: Int) {
+        guard sourceIndex != destinationIndex else { return }
+        
+        let place = data[sourceIndex]
+        data.remove(at: sourceIndex)
+        data.insert(place, at: destinationIndex)
     }
 }

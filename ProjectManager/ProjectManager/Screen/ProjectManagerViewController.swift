@@ -27,9 +27,11 @@ class ProjectManagerViewController: UIViewController {
     let doneTableView = UITableView()
     
     let newTodoFormViewController = NewTodoFormViewController()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        addDragAndDropInteraction()
         
         view.backgroundColor = .systemGray4
         title = "소개팅 필승 공략"
@@ -40,7 +42,6 @@ class ProjectManagerViewController: UIViewController {
         configureTitleView()
         configureProcessListsTableView()
         configureListContentsStackview()
-        
         
         toDoTableView.dataSource = self
         doingTableView.dataSource = self
@@ -63,6 +64,20 @@ class ProjectManagerViewController: UIViewController {
         toDoTableView.reloadData()
         print("viewWillAppear")
         print(data)
+    }
+    
+    private func addDragAndDropInteraction() {
+        toDoTableView.dragInteractionEnabled = true
+        doingTableView.dragInteractionEnabled = true
+        doneTableView.dragInteractionEnabled = true
+        
+        toDoTableView.dragDelegate = self
+        doingTableView.dragDelegate = self
+        doneTableView.dragDelegate = self
+        
+        toDoTableView.dropDelegate = self
+        doingTableView.dropDelegate = self
+        doneTableView.dropDelegate = self
     }
     
     @objc func pushNewTodoFormViewController() {
