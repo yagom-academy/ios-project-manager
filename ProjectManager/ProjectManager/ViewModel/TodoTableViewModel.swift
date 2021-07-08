@@ -9,44 +9,67 @@ import Foundation
 
 final class TodoTableViewModel: TableViewModel {
     private let dateFormatter = DateFormatter()
-    internal var list: [TableItem] = todoDummy
+    var memoList: Observable<[MemoTableViewCellModel]> = Observable([])
     var numOfList: Int {
-        return list.count
+        return memoList.value?.count ?? 0
     }
     
-    func itemInfo(at index: Int) -> TableItem {
-        return list[index]
+    func fetchData() {
+        memoList.value = todoDummy.compactMap({
+            MemoTableViewCellModel(
+                title: $0.title,
+                content: $0.content,
+                date: dateFormatter.numberToString(number: $0.date),
+                isDateColorRed: checkDateColor(date: dateFormatter.numberToString(number: $0.date))
+            )
+        })
     }
     
-    func viewInfo(at index: Int) -> ViewInfo {
-        let itemInfo = itemInfo(at: index)
-        let stringOfDate = dateFormatter.numberToString(number: itemInfo.date)
+    private func checkDateColor(date stringOfDate: String) -> Bool {
         let stringOfCurrentDate = dateFormatter.dateToString(date: Date())
-        let isDateColorRed = stringOfDate < stringOfCurrentDate ? true : false
-        
-        return ViewInfo(
-            title: itemInfo.title,
-            summary: itemInfo.summary,
-            date: stringOfDate,
-            isDateColorRed: isDateColorRed
+        return stringOfDate < stringOfCurrentDate ? true : false
+    }
+    
+    // TODO: - memoInfo, itemInfo 이름 변경
+    func memoInfo(at index: Int) -> MemoTableViewCellModel? {
+        return memoList.value?[index]
+    }
+    
+    func itemInfo(at index: Int) -> Memo {
+        let item = memoInfo(at: index)!
+        return Memo(
+            title: item.title,
+            content: item.content,
+            date: dateFormatter.stringToNumber(string: item.date)
         )
     }
     
-    func update(model: [TableItem]) {
-        list = model
-    }
-    
     func removeCell(at index: Int) {
-        list.remove(at: index)
+        memoList.value?.remove(at: index)
         
         // TODO: - server API "remove"
         todoDummy.remove(at: index)
     }
     
-    func insert(cell: TableItem ,at index: Int) {
-        list.insert(cell, at: index)
+    func insert(
+        cell: Memo,
+        at index: Int
+    ) {
+        let memoTableViewCellModel = MemoTableViewCellModel(
+            title: cell.title,
+            content: cell.content,
+            date: dateFormatter.numberToString(number: cell.date),
+            isDateColorRed: checkDateColor(date: dateFormatter.numberToString(number: cell.date))
+        )
+        memoList.value?.insert(
+            memoTableViewCellModel,
+            at: index
+        )
         
         // TODO: - server API "insert"
-        todoDummy.insert(cell, at: index)
+        todoDummy.insert(
+            cell,
+            at: index
+        )
     }
 }

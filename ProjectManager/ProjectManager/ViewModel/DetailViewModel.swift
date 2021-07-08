@@ -8,21 +8,21 @@
 import Foundation
 
 final class DetailViewModel {
-    private var item: TableItem?
+    private var item: MemoTableViewCellModel?
     
-    func update(model: TableItem?) {
+    func update(model: MemoTableViewCellModel?) {
         item = model
     }
     
-    func itemInfo() -> TableItem? {
+    func itemInfo() -> MemoTableViewCellModel? {
         return item
     }
     
-    func setItem(_ item: TableItem?) {
+    func setItem(_ item: MemoTableViewCellModel?) {
         self.item = item
     }
     
-    func tableItem() -> TableItem? {
+    func tableItem() -> MemoTableViewCellModel? {
         return item
     }
    
@@ -42,7 +42,7 @@ final class DetailViewModel {
     }
     
     func insert(
-        cell: TableItem,
+        cell: Memo,
         at index: Int = todoDummy.endIndex,
         tableViewType: TableViewType
     ) {
@@ -67,7 +67,7 @@ final class DetailViewModel {
     }
     
     func edit(
-        cell: TableItem,
+        cell: Memo,
         at index: Int,
         tableViewType: TableViewType
     ) {

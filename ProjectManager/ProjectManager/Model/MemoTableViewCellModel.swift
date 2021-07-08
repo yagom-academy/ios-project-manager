@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct ViewInfo {
+struct MemoTableViewCellModel {
     let title: String
-    let summary: String
+    let content: String
     let date: String
     let isDateColorRed: Bool
 }

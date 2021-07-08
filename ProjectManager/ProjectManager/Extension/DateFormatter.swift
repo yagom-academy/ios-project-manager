@@ -35,4 +35,22 @@ extension DateFormatter {
         
         return date
     }
+    
+    func stringToDate(string: String) -> Date {
+        self.locale = Locale(identifier: Locale.current.identifier)
+        self.dateFormat = "yyyy-MM-dd"
+        guard let date = self.date(from: string)
+        else {
+            print("date에 이상한 String이 들어갔음..")
+            return Date()
+        }
+        
+        return date
+    }
+    
+    func stringToNumber(string: String) -> TimeInterval {
+        let date = stringToDate(string: string)
+        
+        return dateToNumber(date: date)
+    }
 }

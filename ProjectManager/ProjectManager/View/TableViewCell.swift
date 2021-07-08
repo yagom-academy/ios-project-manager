@@ -19,9 +19,9 @@ final class TableViewCell: UITableViewCell {
         self.separatorInset = UIEdgeInsets.zero
     }
     
-    func update(info: ViewInfo) {
+    func update(info: MemoTableViewCellModel) {
         title.text = info.title
-        summary.text = info.summary
+        summary.text = info.content
         date.text = info.date
         date.textColor = info.isDateColorRed ? .red : .black
     }

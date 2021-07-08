@@ -8,30 +8,31 @@
 import UIKit
 import MobileCoreServices
 
-// TODO: - item 구성이름(title,date,summary) 서버side 이름과 통일시켜야 함
-final class TableItem: NSObject {
-    let title: String
-    let summary: String
+final class Memo: NSObject {
+    var title: String
+    let content: String
     let date: Double
     
     override init() {
         title = ""
-        summary = ""
+        content = ""
         date = 0.0
         
         super.init()
     }
     
-    init(title: String,
-         summary: String,
-         date: Double) {
+    init(
+        title: String,
+        content: String,
+        date: Double
+    ) {
         self.title = title
-        self.summary = summary
+        self.content = content
         self.date = date
     }
 }
 
-extension TableItem: NSItemProviderWriting {
+extension Memo: NSItemProviderWriting {
     static var writableTypeIdentifiersForItemProvider: [String] {
         return [String(kUTTypeData)]
     }
@@ -53,14 +54,20 @@ extension TableItem: NSItemProviderWriting {
     }
 }
 
-extension TableItem: Codable, NSItemProviderReading {
+extension Memo: Codable, NSItemProviderReading {
     static var readableTypeIdentifiersForItemProvider: [String] {
         return [String(kUTTypeData)]
     }
     
-    static func object(withItemProviderData data: Data, typeIdentifier: String) throws -> Self {
+    static func object(
+        withItemProviderData data: Data,
+        typeIdentifier: String
+    ) throws -> Self {
         do {
-            let subject = try JSONDecoder().decode(TableItem.self, from: data)
+            let subject = try JSONDecoder().decode(
+                Memo.self,
+                from: data
+            )
             return subject as! Self
         } catch {
             fatalError()

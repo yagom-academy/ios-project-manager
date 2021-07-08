@@ -33,18 +33,18 @@ final class TableViewController: UIViewController {
             name: Notification.Name(Strings.didDismissDetailViewNotification),
             object: nil
         )
+        
+        todoViewModel.memoList.bind { _ in
+            DispatchQueue.main.async {
+                self.updateTable()
+            }
+        }
+        
+        fetchData()
     }
     
     @objc private func didDismissDetailViewNotification(_ notification: Notification) {
-        // TODO: - Server Request
-        
-        OperationQueue.main.addOperation {
-            self.todoViewModel.update(model: todoDummy)
-            self.doingViewModel.update(model: doingDummy)
-            self.doneViewModel.update(model: doneDummy)
-            
-            self.updateTable()
-        }
+        fetchData()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -85,6 +85,12 @@ final class TableViewController: UIViewController {
             return doneViewModel
         }
     }
+    
+    private func fetchData() {
+        todoViewModel.fetchData()
+        doingViewModel.fetchData()
+        doneViewModel.fetchData()
+    }
 }
 
 // MARK: - View Setting
@@ -105,12 +111,11 @@ extension TableViewController {
     
     private func setTablesRowCount() {
         let circleImage = UIImage(systemName: Strings.circleImageName)
-        todoTableRowCount.text = "\(todoViewModel.numOfList)"
         todoTableRowCount.backgroundColor = UIColor(patternImage: circleImage!)
-        doingTableRowCount.text = "\(doingViewModel.numOfList)"
         doingTableRowCount.backgroundColor = UIColor(patternImage: circleImage!)
-        doneTableRowCount.text = "\(doneViewModel.numOfList)"
         doneTableRowCount.backgroundColor = UIColor(patternImage: circleImage!)
+        
+        updateAllTableRowCount()
     }
 }
 
@@ -157,9 +162,7 @@ extension TableViewController: UITableViewDataSource {
             withIdentifier: TableViewCell.identifier,
             for: indexPath
         ) as! TableViewCell
-        let viewInfo = viewModel.viewInfo(at: indexPath.row)
-        cell.update(info: viewInfo)
-        
+        cell.update(info: viewModel.memoInfo(at: indexPath.row)!)
         return cell
     }
     
@@ -176,7 +179,7 @@ extension TableViewController: UITableViewDataSource {
         forRowAt indexPath: IndexPath
     ) {
         let viewModel = viewModel(of: tableView)
-        if (editingStyle == .delete) {
+        if editingStyle == .delete {
             viewModel.removeCell(at: indexPath.row)
             self.updateTable()
         }
@@ -188,7 +191,7 @@ extension TableViewController: UITableViewDataSource {
         to destinationIndexPath: IndexPath
     ) {
         let viewModel = viewModel(of: tableView)
-        let moveCell = (viewModel.itemInfo(at: sourceIndexPath.row))
+        let moveCell = viewModel.itemInfo(at: sourceIndexPath.row)
         viewModel.removeCell(at: sourceIndexPath.row)
         viewModel.insert(
             cell: moveCell,
@@ -241,7 +244,7 @@ extension TableViewController: UITableViewDropDelegate {
         _ tableView: UITableView,
         canHandle session: UIDropSession
     ) -> Bool {
-        return session.canLoadObjects(ofClass: TableItem.self)
+        return session.canLoadObjects(ofClass: Memo.self)
     }
     
     func tableView(
@@ -288,8 +291,8 @@ extension TableViewController: UITableViewDropDelegate {
             destinationIndexPath = indexpath
         }
         
-        coordinator.session.loadObjects(ofClass: TableItem.self) { [self] items in
-            guard let subject = items as? [TableItem]
+        coordinator.session.loadObjects(ofClass: Memo.self) { [self] items in
+            guard let subject = items as? [Memo]
             else {
                 return
             }

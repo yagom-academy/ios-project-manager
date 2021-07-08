@@ -8,12 +8,10 @@
 import Foundation
 
 protocol TableViewModel {
-    var list: [TableItem] { get set }
     var numOfList: Int { get }
-    
-    func itemInfo(at index: Int) -> TableItem
-    func viewInfo(at index: Int) -> ViewInfo
-    func update(model: [TableItem])
+
+    func itemInfo(at index: Int) -> Memo
     func removeCell(at index: Int)
-    func insert(cell: TableItem, at index: Int)
+    func insert(cell: Memo, at index: Int)
+    func memoInfo(at index: Int) -> MemoTableViewCellModel?
 }

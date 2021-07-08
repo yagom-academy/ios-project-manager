@@ -23,14 +23,14 @@ final class DetailViewController: UIViewController {
     @IBAction func clickDoneButton(_ sender: Any) {
         switch viewStyle {
         case .add:
-            complete() { (newCell: TableItem, tableViewType: TableViewType) in
+            complete() { (newCell: Memo, tableViewType: TableViewType) in
                 viewModel.insert(
                     cell: newCell,
                     tableViewType: tableViewType
                 )
             }
         case .edit:
-            complete() { (newCell: TableItem, tableViewType: TableViewType) in
+            complete() { (newCell: Memo, tableViewType: TableViewType) in
                 viewModel.edit(
                     cell: newCell,
                     at: itemIndex,
@@ -65,8 +65,8 @@ final class DetailViewController: UIViewController {
     func updateUI() {
         if let item = viewModel.tableItem() {
             newTitle.text = item.title
-            newDate.date = dateFormatter.numberToDate(number: item.date)
-            newContent.text = item.summary
+            newDate.date = dateFormatter.stringToDate(string: item.date)
+            newContent.text = item.content
         }
         
         if viewStyle == .edit {
@@ -78,11 +78,12 @@ final class DetailViewController: UIViewController {
         viewStyle = .edit
     }
     
+    // TODO: - 여기에 있는 TableViewModel 내쫓기
     func setViewModel(
         tableViewModel: TableViewModel,
         index: Int
     ) {
-        let newItem = tableViewModel.itemInfo(at: index)
+        let newItem = tableViewModel.memoInfo(at: index)
         viewModel.setItem(newItem)
         setTableViewType(tableViewModel: tableViewModel)
         itemIndex = index
@@ -116,15 +117,14 @@ final class DetailViewController: UIViewController {
 // MARK: - Button Action
 extension DetailViewController {
     private func complete(
-        _ save: (_ newCell: TableItem, _ tableViewType: TableViewType) -> Void
-) {
+        _ save: (_ newCell: Memo, _ tableViewType: TableViewType) -> Void
+    ) {
         let title: String = newTitle.text!
         let date: Double = dateFormatter.dateToNumber(date: newDate.date)
         let content: String = newContent.text
-        
-        let newCell = TableItem(
+        let newCell = Memo(
             title: title,
-            summary: content,
+            content: content,
             date: date
         )
         save(newCell, tableViewType)
