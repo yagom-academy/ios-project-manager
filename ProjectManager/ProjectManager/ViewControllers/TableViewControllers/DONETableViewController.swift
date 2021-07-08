@@ -102,6 +102,8 @@ extension DONETableViewController {
         
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy년 MM월 dd일"
+        let currentDate = Date()
+        let unixCurrentDate = currentDate.timeIntervalSince1970
         
         cell.task = Task.doneList[indexPath.row]
         cell.titleLabel.text = cell.task.title
@@ -111,7 +113,7 @@ extension DONETableViewController {
         let formatterDate = formatter.string(from: date)
         
         cell.dateLabel.text = "\(formatterDate)"
-        if cell.task.date < cell.task.current {
+        if cell.task.date < unixCurrentDate {
             cell.dateLabel.textColor = .red
         }
         

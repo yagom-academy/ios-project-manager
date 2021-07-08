@@ -86,9 +86,7 @@ class RegisterViewController: UIViewController {
                                    date: convertDateToDouble(datePicker.date),
                                    myDescription: registerDescription.text,
                                    status: "todo",
-                                   identifier: UUID().uuidString,
-                                   current: convertDateToDouble(Date())
-                                    )
+                                   identifier: UUID().uuidString)
         
         guard let bindedModel = model else { return }
         Task.todoList.append(bindedModel)

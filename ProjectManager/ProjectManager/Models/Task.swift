@@ -18,15 +18,13 @@ final class Task: NSObject, Codable {
     var myDescription: String
     var status: String
     let identifier: String
-    var current: Double
     
-    init(title: String, date: Double, myDescription: String, status: String, identifier: String, current: Double){
+    init(title: String, date: Double, myDescription: String, status: String, identifier: String){
         self.title = title
         self.date = date
         self.myDescription = myDescription
         self.status = status
         self.identifier = identifier
-        self.current = current
     }
 }
 
