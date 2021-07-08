@@ -12,7 +12,8 @@ protocol RegisterSupportLogic {
                         date: Double,
                         myDescription: String,
                         status: String,
-                        identifier: String) -> Task?
+                        identifier: String,
+                        current: Double) -> Task?
     
     func convertDateToDouble(_ date: Date) -> Double
 }
@@ -22,7 +23,8 @@ extension RegisterViewController: RegisterSupportLogic {
                         date: Double,
                         myDescription: String,
                         status: String,
-                        identifier: String) -> Task?
+                        identifier: String,
+                        current: Double) -> Task?
     {
         guard let title = title else { return nil }
         
@@ -30,7 +32,8 @@ extension RegisterViewController: RegisterSupportLogic {
                          date: date,
                          myDescription: myDescription,
                          status: status,
-                         identifier: identifier)
+                         identifier: identifier,
+                         current: current)
     }
     
     func convertDateToDouble(_ date: Date) -> Double {

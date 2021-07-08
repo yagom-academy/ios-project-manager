@@ -100,10 +100,20 @@ extension DONETableViewController {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "scheduleCell", for: indexPath) as! ScheduleCell
         
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy년 MM월 dd일"
+        
         cell.task = Task.doneList[indexPath.row]
         cell.titleLabel.text = cell.task.title
         cell.descriptionLabel.text = cell.task.myDescription
-        cell.dateLabel.text = "\(cell.task.date)"
+        
+        let date = Date(timeIntervalSince1970: cell.task.date)
+        let formatterDate = formatter.string(from: date)
+        
+        cell.dateLabel.text = "\(formatterDate)"
+        if cell.task.date < cell.task.current {
+            cell.dateLabel.textColor = .red
+        }
         
         return cell
     }
