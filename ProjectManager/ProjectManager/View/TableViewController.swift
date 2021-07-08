@@ -11,7 +11,8 @@ final class TableViewController: UIViewController {
     private let todoViewModel = TableViewModel(tableViewType: .todo)
     private let doingViewModel = TableViewModel(tableViewType: .doing)
     private let doneViewModel = TableViewModel(tableViewType: .done)
-    private var selectIndexPath : (IndexPath, Bool)?
+    private var selectIndexPath: IndexPath?
+    private var isTablesNotSame: Bool?
     
     @IBOutlet weak var todoTableView: UITableView!
     @IBOutlet weak var doingTableView: UITableView!
@@ -215,7 +216,8 @@ extension TableViewController: UITableViewDragDelegate {
         let viewModel = viewModel(of: tableView)
         let tableItem = viewModel.itemInfo(at: indexPath.row)
         let itemProvider = NSItemProvider(object: tableItem)
-        selectIndexPath = (indexPath, false)
+        selectIndexPath = indexPath
+        isTablesNotSame = false
         
         return [UIDragItem(itemProvider: itemProvider)]
     }
@@ -224,17 +226,18 @@ extension TableViewController: UITableViewDragDelegate {
         _ tableView: UITableView,
         dragSessionDidEnd session: UIDragSession
     ) {
-        guard let selectIndexPath = selectIndexPath
+        guard let selectIndexPath = selectIndexPath,
+              let isTablesNotSame = isTablesNotSame
         else {
             return
         }
-        if selectIndexPath.1 {            
+        if isTablesNotSame {
             let viewModel = viewModel(of: tableView)
-            viewModel.removeCell(at: selectIndexPath.0.row)
+            viewModel.removeCell(at: selectIndexPath.row)
             
             tableView.beginUpdates()
             tableView.deleteRows(
-                at: [selectIndexPath.0],
+                at: [selectIndexPath],
                 with: .automatic
             )
             tableView.endUpdates()
@@ -272,7 +275,8 @@ extension TableViewController: UITableViewDropDelegate {
             }
         } else {
             if let indexPath = selectIndexPath {
-                selectIndexPath = (indexPath.0, true)
+                selectIndexPath = indexPath
+                isTablesNotSame = true
             }
 
             return UITableViewDropProposal(
