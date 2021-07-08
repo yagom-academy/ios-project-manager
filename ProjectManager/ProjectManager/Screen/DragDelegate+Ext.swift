@@ -42,8 +42,9 @@ extension ProjectManagerViewController: UITableViewDragDelegate {
 
         return [
             UIDragItem(itemProvider: itemProvider),
-//            UIDragItem(itemProvider: dateProvider),
+//            UIDragItem(itemProvider: dateProvider)
 //            UIDragItem(itemProvider: descriptionProvider)
+
         ]
     }
 }
