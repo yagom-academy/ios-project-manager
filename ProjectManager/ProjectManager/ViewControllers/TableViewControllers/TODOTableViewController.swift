@@ -139,6 +139,13 @@ extension TODOTableViewController {
         Task.todoList.remove(at: sourceIndexPath.row)
         Task.todoList.insert(task, at: destinationIndexPath.row)
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let editViewController = EditViewController()
+        editViewController.indexPath = indexPath
+        let navigationController = UINavigationController(rootViewController: editViewController)
+        self.present(navigationController, animated: true, completion: nil)
+    }
 }
 
 extension TODOTableViewController: UITableViewDragDelegate {
