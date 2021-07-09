@@ -7,18 +7,16 @@
 
 import UIKit
 
-class EditViewController: UIViewController {
-    
-    let leftButton = UIBarButtonItem.init(title: "Edit",
-                                          style: .done,
-                                          target: self,
-                                          action: nil)
+enum Mode {
+    case select
+    case edit
+}
 
-    let rightButton = UIBarButtonItem.init(title: "Done",
-                                           style: .done,
-                                           target: self,
-                                           action: nil)
+class EditViewController: UIViewController, ModelMakable {
     
+    var mode: Mode = .select
+    var leftButton: UIBarButtonItem!
+    var rightButton: UIBarButtonItem!
     var indexPath: IndexPath!
     var task: Task!
     
@@ -86,8 +84,79 @@ class EditViewController: UIViewController {
         registerDescription.text = task.myDescription
     }
     
+    func setMode(){
+        switch mode {
+        case .select:
+            leftButton = UIBarButtonItem(title: "Edit",
+                                         style: .done,
+                                         target: self,
+                                         action: #selector(didHitEditbutton))
+            
+            rightButton = UIBarButtonItem(title: "done",
+                                          style: .done,
+                                          target: self,
+                                          action: #selector(didHitdoneButton))
+            
+            registerTitle.isUserInteractionEnabled = false
+            datePicker.isUserInteractionEnabled = false
+            registerDescription.isUserInteractionEnabled = false
+        case .edit:
+            leftButton = UIBarButtonItem(title: "Cancel",
+                                         style: .done,
+                                         target: self,
+                                         action: #selector(didHitCancelButton))
+            
+            rightButton = UIBarButtonItem(title: "done",
+                                          style: .done,
+                                          target: self,
+                                          action: #selector(didHitdoneButton))
+            
+            registerTitle.isUserInteractionEnabled = true
+            datePicker.isUserInteractionEnabled = true
+            registerDescription.isUserInteractionEnabled = true
+        }
+    }
+    
+    @objc func didHitEditbutton() {
+        mode = .edit
+        setMode()
+    }
+    
+    @objc func didHitdoneButton() {
+        switch mode {
+        case .select:
+            self.dismiss(animated: true, completion: nil)
+        case .edit:
+            task = convertToModel(title: registerTitle.text,
+                                  date: convertDateToDouble(datePicker.date),
+                                  myDescription: registerDescription.text,
+                                  status: task.status,
+                                  identifier: task.identifier)
+            
+            switch task.status {
+            case "TODO":
+                Task.todoList.remove(at: indexPath.row)
+                Task.todoList.insert(task, at: indexPath.row)
+            case "DOING":
+                Task.doingList.remove(at: indexPath.row)
+                Task.doingList.insert(task, at: indexPath.row)
+            case "DONE":
+                Task.doneList.remove(at: indexPath.row)
+                Task.doneList.insert(task, at: indexPath.row)
+            default: return
+            }
+        }
+    }
+    
+    @objc func didHitCancelButton() {
+        registerTitle.text = task.title
+        datePicker.date = Date(timeIntervalSince1970: task.date)
+        registerDescription.text = task.myDescription
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        setMode()
         view.backgroundColor = .white
         
         navigationItem.title = task.status
@@ -108,5 +177,9 @@ class EditViewController: UIViewController {
             
             registerTitle.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.1)
         ])
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        NotificationCenter.default.post(name: didDismissNotificationCenter, object: nil, userInfo: nil)
     }
 }
