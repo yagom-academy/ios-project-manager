@@ -16,6 +16,17 @@ class ScheduleCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        let stackView2: UIStackView = {
+            let stackView = UIStackView()
+            
+            stackView.axis = .vertical
+            stackView.alignment = .center
+            stackView.spacing = 2
+            stackView.translatesAutoresizingMaskIntoConstraints = false
+            
+            return stackView
+        }()
+        
         let stackView: UIStackView = {
             let stackView = UIStackView()
             
@@ -25,7 +36,19 @@ class ScheduleCell: UITableViewCell {
             stackView.spacing = 5
             stackView.translatesAutoresizingMaskIntoConstraints = false
             
+            stackView.isLayoutMarginsRelativeArrangement = true
+            stackView.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0)
+            
             return stackView
+        }()
+        
+        let marginView: UIView = {
+            let margin = UIView()
+            
+            margin.backgroundColor = .systemGray6
+            margin.translatesAutoresizingMaskIntoConstraints = false
+
+            return margin
         }()
         
         self.titleLabel = {
@@ -65,16 +88,21 @@ class ScheduleCell: UITableViewCell {
         }()
         
         contentView.backgroundColor = .white
-        contentView.addSubview(stackView)
+        contentView.addSubview(stackView2)
+        stackView2.addArrangedSubview(stackView)
+        stackView2.addArrangedSubview(marginView)
         stackView.addArrangedSubview(titleLabel)
         stackView.addArrangedSubview(descriptionLabel)
         stackView.addArrangedSubview(dateLabel)
-
+        
         NSLayoutConstraint.activate([
-            contentView.topAnchor.constraint(equalTo: stackView.topAnchor, constant: -10),
-            contentView.bottomAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 10),
-            contentView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: -15),
-            contentView.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: 10)
+            contentView.topAnchor.constraint(equalTo: stackView2.topAnchor),
+            contentView.bottomAnchor.constraint(equalTo: stackView2.bottomAnchor),
+            
+            stackView.widthAnchor.constraint(equalTo: contentView.widthAnchor, constant: -20),
+            
+            marginView.heightAnchor.constraint(equalToConstant: 10),
+            marginView.widthAnchor.constraint(equalTo: contentView.widthAnchor)
         ])
     }
     
