@@ -183,7 +183,7 @@ extension TODOTableViewController: UITableViewDropDelegate {
         
         coordinator.session.loadObjects(ofClass: Task.self) { items in
             let tasks = items as! [Task]
-                
+            tasks[0].status = "TODO"
             Task.todoList.insert(tasks[0], at: destinationIndexPath.row)
             tableView.insertRows(at: [destinationIndexPath], with: .automatic)
             tableView.reloadData()
