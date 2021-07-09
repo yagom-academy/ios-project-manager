@@ -11,6 +11,7 @@
 		3C1B2848268C3DDA00A64844 /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1B2847268C3DDA00A64844 /* Header.swift */; };
 		3C6FE26B268AB139009354AA /* ToDoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C6FE26A268AB139009354AA /* ToDoTableViewCell.swift */; };
 		3C941E2B268B1A6700D86ED6 /* DoingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C941E2A268B1A6700D86ED6 /* DoingTableViewCell.swift */; };
+		3CBA568F2695A7B900291A42 /* DateFormatter + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CBA568E2695A7B900291A42 /* DateFormatter + Extension.swift */; };
 		481F1047268F0A42006984D9 /* DragAndDropError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481F1046268F0A42006984D9 /* DragAndDropError.swift */; };
 		48288249268DA23F002C7C40 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48288248268DA23F002C7C40 /* Task.swift */; };
 		48288251268DA796002C7C40 /* CellConfigurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48288250268DA796002C7C40 /* CellConfigurable.swift */; };
@@ -29,6 +30,7 @@
 		3C1B2847268C3DDA00A64844 /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
 		3C6FE26A268AB139009354AA /* ToDoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoTableViewCell.swift; sourceTree = "<group>"; };
 		3C941E2A268B1A6700D86ED6 /* DoingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoingTableViewCell.swift; sourceTree = "<group>"; };
+		3CBA568E2695A7B900291A42 /* DateFormatter + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter + Extension.swift"; sourceTree = "<group>"; };
 		481F1046268F0A42006984D9 /* DragAndDropError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragAndDropError.swift; sourceTree = "<group>"; };
 		48288248268DA23F002C7C40 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		48288250268DA796002C7C40 /* CellConfigurable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellConfigurable.swift; sourceTree = "<group>"; };
@@ -55,6 +57,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3CBA56902695A7D400291A42 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				3CBA568E2695A7B900291A42 /* DateFormatter + Extension.swift */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
 		48288247268DA1FD002C7C40 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -72,6 +82,7 @@
 				3C6FE26A268AB139009354AA /* ToDoTableViewCell.swift */,
 				3C941E2A268B1A6700D86ED6 /* DoingTableViewCell.swift */,
 				3C1B2845268C39E700A64844 /* DoneTableViewCell.swift */,
+				48288250268DA796002C7C40 /* CellConfigurable.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -114,6 +125,7 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
+				3CBA56902695A7D400291A42 /* Utility */,
 				EAD1B6402693EF6800487599 /* Protocols */,
 				486AD1002692D2AD0023F03A /* Controller */,
 				48288253268E0143002C7C40 /* Resources */,
@@ -129,7 +141,6 @@
 			isa = PBXGroup;
 			children = (
 				EAD1B6412693EFFE00487599 /* JSONDataManageable.swift */,
-				48288250268DA796002C7C40 /* CellConfigurable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -215,6 +226,7 @@
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				EAD1B6422693EFFE00487599 /* JSONDataManageable.swift in Sources */,
 				481F1047268F0A42006984D9 /* DragAndDropError.swift in Sources */,
+				3CBA568F2695A7B900291A42 /* DateFormatter + Extension.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

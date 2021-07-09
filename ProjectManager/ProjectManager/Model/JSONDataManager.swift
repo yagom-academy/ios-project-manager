@@ -35,8 +35,11 @@ enum ProjectTaskType: String {
     }
     
     private func taskArrayFromAsset() -> [Task]? {
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .formatted(DateFormatter.iso8601Full)
+        
         guard let dataAsset = NSDataAsset.init(name: self.description),
-        let model = try? JSONDecoder().decode([Task].self, from: dataAsset.data) else { return nil }
+        let model = try? decoder.decode([Task].self, from: dataAsset.data) else { return nil }
         return model
     }
 }

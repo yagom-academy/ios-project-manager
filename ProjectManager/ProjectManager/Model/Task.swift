@@ -13,11 +13,11 @@ final class Task: NSObject, NSItemProviderReading, NSItemProviderWriting, Codabl
     let id: String
     let title: String
     let content: String
-    let deadlineDate: String
+    let deadlineDate: Date
     let classification: String
     let isDeleted: Bool
     
-    init (id: String, title: String, content: String, deadlineDate: String, classification: String) {
+    init (id: String, title: String, content: String, deadlineDate: Date, classification: String) {
         self.id = id
         self.title = title
         self.content = content

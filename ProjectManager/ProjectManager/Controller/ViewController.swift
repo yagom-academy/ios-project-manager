@@ -52,6 +52,13 @@ class ViewController: UIViewController {
         doneTableView.dragInteractionEnabled = true
         doneTableView.register(Header.self, forHeaderFooterViewReuseIdentifier: HeaderType.done.identifier)
         doneTableView.delegate = self
+        
+        let date = Date()
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.customize(dateStyle: .medium, timeStyle: .none, dateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ")
+        print(dateFormatter.string(from: date))
+        print(Date().toString(dateFormat: "KST"))
     }
 }
 
@@ -220,28 +227,22 @@ extension ViewController: UITableViewDropDelegate {
                     jsonDataManager.toDoList.insert(value, at: indexPath.row)
                     if jsonDataManager.doingList.contains(value) {
                         jsonDataManager.doingList = jsonDataManager.doingList.filter {$0 != value}
-//                        self.doingTableView.reloadData()
                     } else {
                         jsonDataManager.doneList = jsonDataManager.doneList.filter {$0 != value}
-//                        self.doneTableView.reloadData()
                     }
                 case self.doingTableView:
                     jsonDataManager.doingList.insert(value, at: indexPath.row)
                     if jsonDataManager.toDoList.contains(value) {
                         jsonDataManager.toDoList = jsonDataManager.toDoList.filter {$0 != value}
-//                        self.toDoTableView.reloadData()
                     } else {
                         jsonDataManager.doneList = jsonDataManager.doneList.filter {$0 != value}
-//                        self.doneTableView.reloadData()
                     }
                 case self.doneTableView:
                     jsonDataManager.doneList.insert(value, at: indexPath.row)
                     if jsonDataManager.doingList.contains(value) {
                         jsonDataManager.doingList = jsonDataManager.doingList.filter {$0 != value}
-//                        self.doingTableView.reloadData()
                     } else {
                         jsonDataManager.toDoList = jsonDataManager.toDoList.filter {$0 != value}
-//                        self.toDoTableView.reloadData()
                     }
                 default:
                     break

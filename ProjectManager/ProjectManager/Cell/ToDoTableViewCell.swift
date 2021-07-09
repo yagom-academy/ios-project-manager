@@ -15,24 +15,33 @@ class ToDoTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
 }
 
 extension ToDoTableViewCell: CellConfigurable {
     func configure(tasks: [Task], rowAt row: Int) {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .none
+        dateFormatter.customize(dateStyle: .medium, timeStyle: .none, dateFormat: "yyyy. MM. dd")
         titleLabel.text = tasks[row].title
         contentLabel.text = tasks[row].content
-//        self.dateLabel.text = dateFormatter.string(from: tasks[row].deadlineDate)
-        dateLabel.text = tasks[row].deadlineDate
+        dateLabel.text = dateFormatter.string(from: tasks[row].deadlineDate)
+        changeOutDatedLabelColor(date: tasks[row].deadlineDate)
+    }
+    
+    func isOutDated(date: Date) -> Bool {
+        return Date() > date
+    }
+    
+    func changeOutDatedLabelColor(date: Date) {
+        if isOutDated(date: date) == true {
+            return dateLabel.textColor = .red
+        } else {
+            return dateLabel.textColor = .black
+        }
     }
 }
+

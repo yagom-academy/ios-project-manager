@@ -9,4 +9,5 @@ import UIKit
 
 protocol CellConfigurable {
     func configure(tasks: [Task], rowAt row: Int)
+    func isOutDated(date: Date) -> Bool
 }
