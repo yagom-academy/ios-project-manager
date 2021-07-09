@@ -33,7 +33,7 @@ class EditViewController: UIViewController {
         return myStackView
     }()
 
-    let registerTitle: UITextField = {
+    var registerTitle: UITextField = {
         let registerTitle = UITextField()
 
         registerTitle.backgroundColor = .white
@@ -53,7 +53,7 @@ class EditViewController: UIViewController {
         return registerTitle
     }()
 
-    let datePicker: UIDatePicker = {
+    var datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
 
         datePicker.preferredDatePickerStyle = .wheels
@@ -63,7 +63,7 @@ class EditViewController: UIViewController {
         return datePicker
     }()
     
-    let registerDescription: UITextView = {
+    var registerDescription: UITextView = {
         let description = UITextView()
 
         description.backgroundColor = .white
@@ -79,6 +79,12 @@ class EditViewController: UIViewController {
         
         return description
     }()
+    
+    func receiveTaskInformation() {
+        registerTitle.text = task.title
+        datePicker.date = Date(timeIntervalSince1970: task.date)
+        registerDescription.text = task.myDescription
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -144,6 +144,7 @@ extension TODOTableViewController {
         let editViewController = EditViewController()
         editViewController.indexPath = indexPath
         editViewController.task = Task.todoList[indexPath.row]
+        editViewController.receiveTaskInformation()
         let navigationController = UINavigationController(rootViewController: editViewController)
         self.present(navigationController, animated: true, completion: nil)
     }

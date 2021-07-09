@@ -144,6 +144,7 @@ extension DONETableViewController {
         let editViewController = EditViewController()
         editViewController.indexPath = indexPath
         editViewController.task = Task.doneList[indexPath.row]
+        editViewController.receiveTaskInformation()
         let navigationController = UINavigationController(rootViewController: editViewController)
         self.present(navigationController, animated: true, completion: nil)
     }
