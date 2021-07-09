@@ -23,14 +23,14 @@ final class DetailViewController: UIViewController {
     @IBAction func clickDoneButton(_ sender: Any) {
         switch viewStyle {
         case .add:
-            complete() { (newCell: Memo, tableViewType: TableViewType) in
+            complete { (newCell: Memo, tableViewType: TableViewType) in
                 viewModel.insert(
                     cell: newCell,
                     tableViewType: tableViewType
                 )
             }
         case .edit:
-            complete() { (newCell: Memo, tableViewType: TableViewType) in
+            complete { (newCell: Memo, tableViewType: TableViewType) in
                 viewModel.edit(
                     cell: newCell,
                     at: itemIndex,
@@ -116,6 +116,7 @@ extension DetailViewController {
             content: content,
             date: date
         )
+        // TODO: - save이름 더 가독성 좋게 바꾸기
         save(newCell, tableViewType)
         
         NotificationCenter.default.post(

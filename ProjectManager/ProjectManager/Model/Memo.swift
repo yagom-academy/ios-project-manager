@@ -9,7 +9,7 @@ import UIKit
 import MobileCoreServices
 
 final class Memo: NSObject {
-    var title: String
+    let title: String
     let content: String
     let date: Double
     

@@ -72,12 +72,12 @@
 			path = Enum;
 			sourceTree = "<group>";
 		};
-		8533BBCE2697A14800FA86F3 /* NetWork */ = {
+		8533BBCE2697A14800FA86F3 /* Network */ = {
 			isa = PBXGroup;
 			children = (
 				85C271962690A089001B806C /* Dummy.swift */,
 			);
-			path = NetWork;
+			path = Network;
 			sourceTree = "<group>";
 		};
 		855C6E1C269208A300394F08 /* Strings */ = {
@@ -161,7 +161,7 @@
 				85B98953268AA47A00FF2DD7 /* Model */,
 				85B98952268AA46E00FF2DD7 /* View */,
 				85B98954268AA48400FF2DD7 /* ViewModel */,
-				8533BBCE2697A14800FA86F3 /* NetWork */,
+				8533BBCE2697A14800FA86F3 /* Network */,
 				855C6E1C269208A300394F08 /* Strings */,
 				855C6E2026920B4200394F08 /* Extension */,
 				8533BBC726976B8800FA86F3 /* Enum */,

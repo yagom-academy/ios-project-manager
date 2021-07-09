@@ -30,7 +30,8 @@ final class TableViewController: UIViewController {
         setTablesRowCount()
         
         NotificationCenter.default.addObserver(
-            self, selector: #selector(self.didDismissDetailViewNotification(_:)),
+            self,
+            selector: #selector(self.didDismissDetailViewNotification(_:)),
             name: Notification.Name(Strings.didDismissDetailViewNotification),
             object: nil
         )
@@ -48,7 +49,10 @@ final class TableViewController: UIViewController {
         fetchData()
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    override func prepare(
+        for segue: UIStoryboardSegue,
+        sender: Any?
+    ) {
         if segue.identifier == Strings.showDetailViewSegueIdentifier {
             let viewController = segue.destination as? DetailViewController
             
