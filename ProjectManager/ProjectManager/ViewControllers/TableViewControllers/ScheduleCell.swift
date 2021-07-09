@@ -16,7 +16,7 @@ class ScheduleCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        let stackView2: UIStackView = {
+        let containerStackView: UIStackView = {
             let stackView = UIStackView()
             
             stackView.axis = .vertical
@@ -27,7 +27,7 @@ class ScheduleCell: UITableViewCell {
             return stackView
         }()
         
-        let stackView: UIStackView = {
+        let contentStackView: UIStackView = {
             let stackView = UIStackView()
             
             stackView.axis = .vertical
@@ -35,20 +35,19 @@ class ScheduleCell: UITableViewCell {
             stackView.distribution = .fill
             stackView.spacing = 5
             stackView.translatesAutoresizingMaskIntoConstraints = false
-            
             stackView.isLayoutMarginsRelativeArrangement = true
             stackView.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0)
             
             return stackView
         }()
         
-        let marginView: UIView = {
-            let margin = UIView()
+        let spaceView: UIView = {
+            let space = UIView()
             
-            margin.backgroundColor = .systemGray6
-            margin.translatesAutoresizingMaskIntoConstraints = false
+            space.backgroundColor = .systemGray6
+            space.translatesAutoresizingMaskIntoConstraints = false
 
-            return margin
+            return space
         }()
         
         self.titleLabel = {
@@ -88,21 +87,21 @@ class ScheduleCell: UITableViewCell {
         }()
         
         contentView.backgroundColor = .white
-        contentView.addSubview(stackView2)
-        stackView2.addArrangedSubview(stackView)
-        stackView2.addArrangedSubview(marginView)
-        stackView.addArrangedSubview(titleLabel)
-        stackView.addArrangedSubview(descriptionLabel)
-        stackView.addArrangedSubview(dateLabel)
+        contentView.addSubview(containerStackView)
+        containerStackView.addArrangedSubview(contentStackView)
+        containerStackView.addArrangedSubview(spaceView)
+        contentStackView.addArrangedSubview(titleLabel)
+        contentStackView.addArrangedSubview(descriptionLabel)
+        contentStackView.addArrangedSubview(dateLabel)
         
         NSLayoutConstraint.activate([
-            contentView.topAnchor.constraint(equalTo: stackView2.topAnchor),
-            contentView.bottomAnchor.constraint(equalTo: stackView2.bottomAnchor),
+            contentView.topAnchor.constraint(equalTo: containerStackView.topAnchor),
+            contentView.bottomAnchor.constraint(equalTo: containerStackView.bottomAnchor),
             
-            stackView.widthAnchor.constraint(equalTo: contentView.widthAnchor, constant: -20),
+            contentStackView.widthAnchor.constraint(equalTo: contentView.widthAnchor, constant: -20),
             
-            marginView.heightAnchor.constraint(equalToConstant: 10),
-            marginView.widthAnchor.constraint(equalTo: contentView.widthAnchor)
+            spaceView.heightAnchor.constraint(equalToConstant: 10),
+            spaceView.widthAnchor.constraint(equalTo: contentView.widthAnchor)
         ])
     }
     
