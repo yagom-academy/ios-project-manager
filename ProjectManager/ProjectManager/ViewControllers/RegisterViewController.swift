@@ -85,7 +85,7 @@ class RegisterViewController: UIViewController, ModelMakable {
         let model = convertToModel(title: registerTitle.text,
                                    date: convertDateToDouble(datePicker.date),
                                    myDescription: registerDescription.text,
-                                   status: "todo",
+                                   status: "TODO",
                                    identifier: UUID().uuidString)
         
         guard let bindedModel = model else { return }

@@ -139,6 +139,15 @@ extension DOINGTableViewController {
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         return .delete
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let editViewController = EditViewController()
+        editViewController.indexPath = indexPath
+        editViewController.task = Task.doingList[indexPath.row]
+        let navigationController = UINavigationController(rootViewController: editViewController)
+        self.present(navigationController, animated: true, completion: nil)
+    }
+    
 }
 
 extension DOINGTableViewController: UITableViewDragDelegate {
