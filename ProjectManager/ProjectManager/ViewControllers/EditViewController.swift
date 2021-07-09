@@ -92,7 +92,7 @@ class EditViewController: UIViewController, ModelMakable {
                                          target: self,
                                          action: #selector(didHitEditbutton))
             
-            rightButton = UIBarButtonItem(title: "done",
+            rightButton = UIBarButtonItem(title: "Done",
                                           style: .done,
                                           target: self,
                                           action: #selector(didHitdoneButton))
@@ -106,7 +106,7 @@ class EditViewController: UIViewController, ModelMakable {
                                          target: self,
                                          action: #selector(didHitCancelButton))
             
-            rightButton = UIBarButtonItem(title: "done",
+            rightButton = UIBarButtonItem(title: "Done",
                                           style: .done,
                                           target: self,
                                           action: #selector(didHitdoneButton))
@@ -120,6 +120,8 @@ class EditViewController: UIViewController, ModelMakable {
     @objc func didHitEditbutton() {
         mode = .edit
         setMode()
+        navigationItem.leftBarButtonItem = leftButton
+        navigationItem.rightBarButtonItem = rightButton
     }
     
     @objc func didHitdoneButton() {
@@ -145,6 +147,8 @@ class EditViewController: UIViewController, ModelMakable {
                 Task.doneList.insert(task, at: indexPath.row)
             default: return
             }
+            
+            self.dismiss(animated: true, completion: nil)
         }
     }
     

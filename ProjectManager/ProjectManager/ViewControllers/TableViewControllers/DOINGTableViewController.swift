@@ -99,7 +99,7 @@ extension DOINGTableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "scheduleCell", for: indexPath) as! ScheduleCell
-        
+        cell.prepareForReuse()
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy년 MM월 dd일"
         let currentDate = Date()
@@ -116,6 +116,8 @@ extension DOINGTableViewController {
         if cell.task.date < unixCurrentDate {
             cell.dateLabel.textColor = .red
         }
+        
+        
         
         return cell
     }

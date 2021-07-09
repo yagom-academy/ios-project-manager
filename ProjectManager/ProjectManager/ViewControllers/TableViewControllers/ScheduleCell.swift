@@ -111,6 +111,10 @@ class ScheduleCell: UITableViewCell {
         if selected { contentView.backgroundColor = .systemGray3 }
     }
     
+    override func prepareForReuse() {
+        dateLabel.textColor = .black
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
