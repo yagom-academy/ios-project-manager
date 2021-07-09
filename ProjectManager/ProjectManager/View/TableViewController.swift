@@ -187,7 +187,6 @@ extension TableViewController: UITableViewDataSource {
         let viewModel = viewModel(of: tableView)
         if editingStyle == .delete {
             viewModel.removeCell(at: indexPath.row)
-            self.updateTable()
         }
     }
     

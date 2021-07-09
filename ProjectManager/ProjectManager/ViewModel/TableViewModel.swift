@@ -52,35 +52,26 @@ final class TableViewModel {
     }
     
     func removeCell(at index: Int) {
-        memoList.value?.remove(at: index)
-        
         // TODO: - server API "remove"
         Dummy.shared.remove(
             tableViewType: tableViewType,
             at: index
         )
+        
+        fetchData()
     }
     
     func insert(
         cell: Memo,
         at index: Int
     ) {
-        let memoTableViewCellModel = MemoTableViewCellModel(
-            title: cell.title,
-            content: cell.content,
-            date: dateFormatter.numberToString(number: cell.date),
-            isDateColorRed: checkDateColor(date: dateFormatter.numberToString(number: cell.date))
-        )
-        memoList.value?.insert(
-            memoTableViewCellModel,
-            at: index
-        )
-        
         // TODO: - server API "insert"
         Dummy.shared.insert(
             tableViewType: tableViewType,
             cell: cell,
             at: index
         )
+        
+        fetchData()
     }
 }
