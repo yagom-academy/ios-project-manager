@@ -13,14 +13,6 @@ final class Memo: NSObject {
     let content: String
     let date: Double
     
-    override init() {
-        title = ""
-        content = ""
-        date = 0.0
-        
-        super.init()
-    }
-    
     init(
         title: String,
         content: String,
