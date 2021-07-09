@@ -93,6 +93,7 @@ extension TODOTableViewController {
     } //
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        countLabel.text = "\(Task.todoList.count)"
         return Task.todoList.count
     }
     

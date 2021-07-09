@@ -160,6 +160,8 @@ class EditViewController: UIViewController, ModelMakable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        registerDescription.delegate = self
+        
         setMode()
         view.backgroundColor = .white
         
@@ -185,5 +187,33 @@ class EditViewController: UIViewController, ModelMakable {
     
     override func viewWillDisappear(_ animated: Bool) {
         NotificationCenter.default.post(name: didDismissNotificationCenter, object: nil, userInfo: nil)
+    }
+}
+
+extension EditViewController: UITextViewDelegate {
+
+    private func textLimit(existingText: String?, newText: String, limit: Int) -> Bool {
+        let text = existingText ?? ""
+        let isAtLimit = text.count + newText.count <= limit
+
+        return isAtLimit
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == UIColor.lightGray {
+            textView.text = nil
+            textView.textColor = UIColor.black
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = "설명을 입력해주세요"
+            textView.textColor = UIColor.lightGray
+        }
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        return self.textLimit(existingText: textView.text, newText: text, limit: 1000)
     }
 }

@@ -93,6 +93,7 @@ extension DOINGTableViewController {
     } //
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        countLabel.text = "\(Task.doingList.count)"
         return Task.doingList.count
     }
     

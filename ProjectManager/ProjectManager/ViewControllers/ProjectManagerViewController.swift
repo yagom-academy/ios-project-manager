@@ -46,7 +46,7 @@ class ProjectManagerViewController: UIViewController {
                                                   target: self,
                                                   action: #selector(buttonPressed(_:)))
 
-        view.backgroundColor = .white
+        view.backgroundColor = .systemGray4
         navigationItem.title = "Project Manager"
         navigationItem.rightBarButtonItem = rightBarButton
 
