@@ -47,7 +47,7 @@ class NewTodoFormViewController: UIViewController {
             
             delegate?.dataPassing(title: title, date: formattedDate(date: datePicker.date), description: description)
         }
-        projectManagerViewController.todoTitleView.count.text = String(projectManagerViewController.data.count)
+        projectManagerViewController.todoTitleView.count.text = String(projectManagerViewController.todoTableViewData.count)
         projectManagerViewController.toDoTableView.reloadData()
         dismiss(animated: true) {
             self.newTodoFormTextField.text = ""

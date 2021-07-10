@@ -10,7 +10,21 @@ import UIKit
 
 class ProjectManagerViewController: UIViewController {
     
-    var data: [CellData] = []
+    var todoTableViewData: [CellData] = [
+        CellData(title: "수지의 탈주하기", body: "어느 부캠이 좋을까", deadline: "161015"),
+        CellData(title: "바비의 다이어트", body: "쿠팡에서 다이어트 음식 시켜야지", deadline: "161015"),
+        CellData(title: "키오의 이모티콘 만들기", body: "역시 공부보다 재미있어", deadline: "161015")
+    ]
+    var doingTableViewData : [CellData] = [
+        CellData(title: "수지의 탈주하기2", body: "어느 부캠이 좋을까", deadline: "161015"),
+        CellData(title: "바비의 다이어트2", body: "쿠팡에서 다이어트 음식 시켜야지", deadline: "161015"),
+        CellData(title: "키오의 이모티콘 만들기2", body: "역시 공부보다 재미있어", deadline: "161015")
+    ]
+    var doneTableViewData : [CellData] = [
+        CellData(title: "수지의 탈주하기3", body: "어느 부캠이 좋을까", deadline: "161015"),
+        CellData(title: "바비의 다이어트3", body: "쿠팡에서 다이어트 음식 시켜야지", deadline: "161015"),
+        CellData(title: "키오의 이모티콘 만들기3", body: "역시 공부보다 재미있어", deadline: "161015")
+    ]
     
     let processListsStackView = ProcessListsStackView()
     let toDoStackView = ListContentsStackview()
@@ -63,7 +77,7 @@ class ProjectManagerViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         toDoTableView.reloadData()
         print("viewWillAppear")
-        print(data)
+        print(todoTableViewData)
     }
     
     private func addDragAndDropInteraction() {
@@ -93,11 +107,11 @@ class ProjectManagerViewController: UIViewController {
         doneStackView.addArrangedSubview(doneTitleView)
         
         todoTitleView.title.text = "TODO"
-        todoTitleView.count.text = "\(data.count)"
+        todoTitleView.count.text = "\(todoTableViewData.count)"
         doingTitleView.title.text = "DOING"
-        doingTitleView.count.text = "\(data.count)"
+        doingTitleView.count.text = "\(todoTableViewData.count)"
         doneTitleView.title.text = "DONE"
-        doneTitleView.count.text = "\(data.count)"
+        doneTitleView.count.text = "\(todoTableViewData.count)"
         
         todoTitleView.title.font = UIFont.boldSystemFont(ofSize: 30)
         doingTitleView.title.font = UIFont.boldSystemFont(ofSize: 30)
@@ -132,10 +146,10 @@ class ProjectManagerViewController: UIViewController {
         doingTableView.showsVerticalScrollIndicator = false
         doneTableView.showsVerticalScrollIndicator = false
         
-        toDoTableView.tableFooterView = UIView(frame: .zero)
-        doingTableView.tableFooterView = UIView(frame: .zero)
-        doneTableView.tableFooterView = UIView(frame: .zero)
-        
+//        toDoTableView.tableFooterView = UIView(frame: .zero)
+//        doingTableView.tableFooterView = UIView(frame: .zero)
+//        doneTableView.tableFooterView = UIView(frame: .zero)
+//        
         toDoTableView.backgroundColor = .systemGray6
         doingTableView.backgroundColor = .systemGray6
         doneTableView.backgroundColor = .systemGray6

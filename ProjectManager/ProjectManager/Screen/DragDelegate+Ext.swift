@@ -16,35 +16,15 @@ extension ProjectManagerViewController: UITableViewDragDelegate {
     }
 
     func dragItems(for indexPath: IndexPath) -> [UIDragItem] {
-        let cellData = data[indexPath.section]
-        
-        let itemProvider = NSItemProvider(item: data, typeIdentifier: kUTTypePlainText as String)
+        let cellData = todoTableViewData[indexPath.section]
+        let itemProvider = NSItemProvider(object: cellData)
 //        let itemProvider = NSItemProvider(object: cellData, typeIdentifier: kUTTypePlainText as String)
-        
-        itemProvider.registerDataRepresentation(forTypeIdentifier: kUTTypeData as String, visibility: .all) { completion in
-            completion(cellData, nil)
-            return nil
-        }
-        
-//        let dateProvider = NSItemProvider()
-//
-//        dateProvider.registerDataRepresentation(forTypeIdentifier: kUTTypePlainText as String, visibility: .all) { completion in
-//            completion(date, nil)
-//            return nil
-//        }
-//
-//        let descriptionProvider = NSItemProvider()
-//
-//        descriptionProvider.registerDataRepresentation(forTypeIdentifier: kUTTypePlainText as String, visibility: .all) { completion in
-//            completion(description, nil)
+//        
+//        itemProvider.registerDataRepresentation(forTypeIdentifier: kUTTypeData as String, visibility: .) { completion in
+//            completion(cellData, nil)
 //            return nil
 //        }
 
-        return [
-            UIDragItem(itemProvider: itemProvider),
-//            UIDragItem(itemProvider: dateProvider)
-//            UIDragItem(itemProvider: descriptionProvider)
-
-        ]
+        return [UIDragItem(itemProvider: itemProvider)]
     }
 }

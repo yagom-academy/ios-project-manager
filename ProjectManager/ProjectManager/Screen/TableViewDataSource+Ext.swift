@@ -14,9 +14,11 @@ extension ProjectManagerViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ProjectManagerTableViewCell") as? TodoListCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ProjectManagerTableViewCell", for: indexPath) as? TodoListCell else {
             return UITableViewCell()
         }
+        
+        let data = checkedTableViewData(currentTableView: tableView)
         
         cell.selectionStyle = .none
         cell.separatorInset = .zero
@@ -29,27 +31,30 @@ extension ProjectManagerViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            data.remove(at: indexPath.section)
+            todoTableViewData.remove(at: indexPath.section)
             tableView.deleteSections([indexPath.section], with: .fade)
         }
         
-        todoTitleView.count.text = String(data.count)
+        todoTitleView.count.text = String(todoTableViewData.count)
     }
-    
+       
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        return false
+        print("hihi")
+        return true
     }
-    
-    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
 
-        moveItem(at: sourceIndexPath.section, to: destinationIndexPath.section)
-    }
-    
-    func moveItem(at sourceIndex: Int, to destinationIndex: Int) {
-        guard sourceIndex != destinationIndex else { return }
-        
-        let place = data[sourceIndex]
-        data.remove(at: sourceIndex)
-        data.insert(place, at: destinationIndex)
-    }
+//    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+//        print("drop")
+//        moveItem(at: sourceIndexPath.section, to: destinationIndexPath.section)
+//    }
+  
+//    func moveItem(at sourceIndex: Int, to destinationIndex: Int) {
+//        guard sourceIndex != destinationIndex else { return }
+//
+//        toDoTableView.moveSection(sourceIndex, toSection: destinationIndex)
+//
+//        let place = todoTableViewData[sourceIndex]
+//        todoTableViewData.remove(at: sourceIndex)
+//        todoTableViewData.insert(place, at: destinationIndex)
+//    }
 }
