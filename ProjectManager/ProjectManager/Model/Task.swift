@@ -24,7 +24,6 @@ final class Task: NSObject, NSItemProviderReading, NSItemProviderWriting, Codabl
         self.deadlineDate = deadlineDate
         self.classification = classification
         self.isDeleted = false
-        super.init()
     }
     
     //MARK: - NSItemProviderWriting

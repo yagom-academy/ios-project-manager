@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol TaskTableViewDataSource: UITableViewDataSource {
+protocol TaskTableViewDataSource: UITableViewDataSource {  
     func canHandle(_ session: UIDropSession) -> Bool
     func dragItem(taskType: ProjectTaskType, for indexPath: IndexPath) -> [UIDragItem]
 }

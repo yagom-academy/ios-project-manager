@@ -23,7 +23,7 @@ enum ProjectTaskType: String {
         }
     }
     
-    var model: [Task]? {
+    var model: [Task] {
         switch self {
         case .todo:
             return self.taskArrayFromAsset()
@@ -34,12 +34,12 @@ enum ProjectTaskType: String {
         }
     }
     
-    private func taskArrayFromAsset() -> [Task]? {
+    private func taskArrayFromAsset() -> [Task] {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .formatted(DateFormatter.iso8601Full)
         
         guard let dataAsset = NSDataAsset.init(name: self.description),
-              let model = try? decoder.decode([Task].self, from: dataAsset.data) else { return nil }
+              let model = try? decoder.decode([Task].self, from: dataAsset.data) else { return [] }
         return model
     }
 }
@@ -48,19 +48,22 @@ enum ProjectTaskType: String {
 
 final class TaskDataSource: NSObject, TaskTableViewDataSource {
     
+    private weak var toDoTableView: UITableView!
+    private weak var doingTableView: UITableView!
+    private weak var doneTableView: UITableView!
+
     private var toDoList: [Task]
     private var doingList: [Task]
     private var doneList: [Task]
     
-    override init() {
-        super.init()
-        if let toDoList = ProjectTaskType.todo.model,
-           let doingList = ProjectTaskType.doing.model,
-           let doneList = ProjectTaskType.done.model {
-            self.toDoList = toDoList
-            self.doingList = doingList
-            self.doneList = doneList
-        }
+    init(toDoTableView: UITableView, doingTableView: UITableView, doneTableView: UITableView) {
+        self.toDoList = ProjectTaskType.todo.model
+        self.doingList = ProjectTaskType.doing.model
+        self.doneList = ProjectTaskType.done.model
+        
+        self.toDoTableView = toDoTableView
+        self.doingTableView = doingTableView
+        self.doneTableView = doneTableView
     }
     
     func canHandle(_ session: UIDropSession) -> Bool {
@@ -75,8 +78,6 @@ final class TaskDataSource: NSObject, TaskTableViewDataSource {
             return createDragItem(tasks: doingList, for: indexPath)
         case .done:
             return createDragItem(tasks: doneList, for: indexPath)
-        default:
-            return []
         }
     }
     
@@ -87,38 +88,34 @@ final class TaskDataSource: NSObject, TaskTableViewDataSource {
     }
         
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-                
         switch tableView {
         case toDoTableView:
-            return jsonDataManager.toDoList.count
+            return self.toDoList.count
         case doingTableView:
-            return jsonDataManager.doingList.count
+            return self.doingList.count
         case doneTableView:
-            return jsonDataManager.doneList.count
+            return self.doneList.count
         default:
             return 0
         }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        guard let jsonDataManager = jsonDataManager else { return UITableViewCell() }
-        
         switch tableView {
         case toDoTableView:
             guard let toDoCell = tableView.dequeueReusableCell(withIdentifier: "toDoCell", for: indexPath) as? ToDoTableViewCell else { return UITableViewCell() }
             
-            toDoCell.configure(tasks: jsonDataManager.toDoList, rowAt: indexPath.row)
+            toDoCell.configure(tasks: self.toDoList, rowAt: indexPath.row)
             return toDoCell
             
         case doingTableView:
             guard let doingCell = tableView.dequeueReusableCell(withIdentifier: "doingCell", for: indexPath) as? DoingTableViewCell else { return  UITableViewCell() }
-            doingCell.configure(tasks: jsonDataManager.doingList, rowAt: indexPath.row)
+            doingCell.configure(tasks: self.doingList, rowAt: indexPath.row)
             return doingCell
             
         case doneTableView:
             guard let doneCell = tableView.dequeueReusableCell(withIdentifier: "doneCell", for: indexPath) as? DoneTableViewCell else { return  UITableViewCell() }
-            doneCell.configure(tasks: jsonDataManager.doneList, rowAt: indexPath.row)
+            doneCell.configure(tasks: self.doneList, rowAt: indexPath.row)
             return doneCell
             
         default:

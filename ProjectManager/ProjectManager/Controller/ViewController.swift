@@ -11,7 +11,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var doingTableView: UITableView!
     @IBOutlet weak var doneTableView: UITableView!
 
-    private let datasource: TaskTableViewDataSource = TaskDataSource()
+    private var datasource: TaskTableViewDataSource?
     
     enum HeaderType {
         case toDo, doing, done
@@ -51,6 +51,8 @@ class ViewController: UIViewController {
         doneTableView.dragInteractionEnabled = true
         doneTableView.register(Header.self, forHeaderFooterViewReuseIdentifier: HeaderType.done.identifier)
         doneTableView.delegate = self
+                
+        datasource = TaskDataSource(toDoTableView: toDoTableView, doingTableView: doingTableView, doneTableView: doneTableView)
         
         let date = Date()
         let dateFormatter = DateFormatter()
@@ -98,43 +100,18 @@ extension ViewController: UITableViewDelegate {
 // FIXME:- 분기처리
 extension ViewController: UITableViewDragDelegate {
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
-        
-        guard let jsonDataManager = TaskJSONDataManager() else { return [] }
-        
+             
         switch tableView {
         case toDoTableView:
-            return jsonDataManager.dragItem(taskType: .todo, for: indexPath)
+            return datasource?.dragItem(taskType: .todo, for: indexPath) ?? []
         case doingTableView:
-            return jsonDataManager.dragItem(taskType: .doing, for: indexPath)
+            return datasource?.dragItem(taskType: .doing, for: indexPath) ?? []
         case doneTableView:
-            return jsonDataManager.dragItem(taskType: .done, for: indexPath)
+            return datasource?.dragItem(taskType: .done, for: indexPath) ?? []
         default:
             return []
         }
-        
     }
-    
-    func tableView(_ tableView: UITableView, dragSessionWillBegin session: UIDragSession) {
-        
-        let location = session.location(in: tableView)
-        guard let indexPath = tableView.indexPathForRow(at: location) else { return }
-
-        guard var jsonDataManager = datasource else { return }
-
-        switch tableView {
-        case toDoTableView:
-            jsonDataManager.toDoList.remove(at: indexPath.row)
-        case doingTableView:
-            jsonDataManager.doingList.remove(at: indexPath.row)
-        case doneTableView:
-            jsonDataManager.doneList.remove(at: indexPath.row)
-        default:
-            break
-        }
-
-        tableView.deleteRows(at: [indexPath], with: .automatic)
-    }
-
 }
 
 // MARK:- UITableView DropDelegate
