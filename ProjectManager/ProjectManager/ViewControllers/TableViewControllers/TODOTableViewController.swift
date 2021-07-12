@@ -108,25 +108,19 @@ extension TODOTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: "scheduleCell", for: indexPath) as! ScheduleCell
-        cell.prepareForReuse()
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy년 MM월 dd일"
-        let currentDate = Date()
-        let unixCurrentDate = convertDateToDouble(currentDate)
         
+        cell.prepareForReuse()
         cell.task = Task.todoList[indexPath.row]
         cell.titleLabel.text = cell.task.title
         cell.descriptionLabel.text = cell.task.myDescription
         
         let date = Date(timeIntervalSince1970: cell.task.date)
-        let formatterDate = formatter.string(from: date)
-        
-        cell.dateLabel.text = "\(formatterDate)"
-        if cell.task.date < unixCurrentDate {
-            cell.dateLabel.textColor = .red
-        }
+        let dateString = formatter.string(from: date)
+        cell.dateLabel.text = dateString
+        checkDateForChangeColor(cell: cell)
         
         return cell
     }
@@ -153,11 +147,21 @@ extension TODOTableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let editViewController = EditViewController()
+        let navigationController = UINavigationController(rootViewController: editViewController)
+        
         editViewController.indexPath = indexPath
         editViewController.task = Task.todoList[indexPath.row]
         editViewController.receiveTaskInformation()
-        let navigationController = UINavigationController(rootViewController: editViewController)
+        
         self.present(navigationController, animated: true, completion: nil)
+    }
+    
+    func checkDateForChangeColor(cell: ScheduleCell) {
+        let unixCurrentDate = convertDateToDouble(Date())
+        
+        if cell.task.date < unixCurrentDate {
+            cell.dateLabel.textColor = .red
+        }
     }
 }
 
@@ -175,7 +179,7 @@ extension TODOTableViewController: UITableViewDragDelegate {
         Task.todoList.remove(at: selectIndexPath.row)
         
         tableView.beginUpdates()
-        tableView.deleteRows(at: [selectIndexPath], with: .automatic)
+        tableView.deleteRows(at: [selectIndexPath], with: .none)
         tableView.endUpdates()
     }
 }
@@ -202,6 +206,10 @@ extension TODOTableViewController: UITableViewDropDelegate {
     }
     
     func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
+        if session.items.count > 1 {
+            return UITableViewDropProposal(operation: .cancel, intent: .automatic)
+        }
+        
         return UITableViewDropProposal(operation: .move, intent: .automatic)
     }
 }

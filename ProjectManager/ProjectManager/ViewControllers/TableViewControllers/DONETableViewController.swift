@@ -9,22 +9,38 @@ import UIKit
 
 class DONETableViewController: UITableViewController {
     private var selectIndexPath: IndexPath = []
+    var header: UIView!
+    var headerLabel: UILabel!
     var countLabel: UILabel!
+    var countView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.register(ScheduleCell.classForCoder(), forCellReuseIdentifier: "scheduleCell")
-        self.tableView.separatorStyle = .none
+        tableView.separatorStyle = .none
         
-        let header: UIView = {
+        tableView.isUserInteractionEnabled = true
+        tableView.dragDelegate = self
+        tableView.dropDelegate = self
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        configureTableView()
+    }
+}
+
+extension DONETableViewController {
+    func configureTableView() {
+        header = {
             let header = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 60))
             header.backgroundColor = .systemGray6
 
             return header
         }()
         
-        let headerLabel : UILabel = {
+        headerLabel = {
             let label = UILabel(frame: header.bounds)
             label.text = "DONE"
             label.font = UIFont.preferredFont(forTextStyle: .title1)
@@ -33,8 +49,8 @@ class DONETableViewController: UITableViewController {
 
             return label
         }()
-        
-        let countView: UIView = {
+    
+        countView = {
             let countView = UIView()
             countView.backgroundColor = .black
             countView.translatesAutoresizingMaskIntoConstraints = false
@@ -55,19 +71,13 @@ class DONETableViewController: UITableViewController {
             return count
         }()
         
+        tableView.tableHeaderView = header
+        tableView.backgroundColor = .systemGray6
+        
         header.addSubview(headerLabel)
         countView.addSubview(countLabel)
         header.addSubview(countView)
         
-        tableView.dragDelegate = self
-        tableView.dropDelegate = self
-        tableView.isUserInteractionEnabled = true
-        
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.backgroundColor = .systemGray6
-        tableView.tableHeaderView = header
-                
         let padding: CGFloat = 20.0
         NSLayoutConstraint.activate([
             headerLabel.topAnchor.constraint(equalTo: header.topAnchor, constant: padding),
@@ -98,27 +108,25 @@ extension DONETableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: "scheduleCell", for: indexPath) as! ScheduleCell
-        cell.prepareForReuse()
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy년 MM월 dd일"
-        let currentDate = Date()
-        let unixCurrentDate = convertDateToDouble(currentDate)
         
+        cell.prepareForReuse()
         cell.task = Task.doneList[indexPath.row]
         cell.titleLabel.text = cell.task.title
         cell.descriptionLabel.text = cell.task.myDescription
         
         let date = Date(timeIntervalSince1970: cell.task.date)
-        let formatterDate = formatter.string(from: date)
-        
-        cell.dateLabel.text = "\(formatterDate)"
-        if cell.task.date < unixCurrentDate {
-            cell.dateLabel.textColor = .red
-        }
+        let dateString = formatter.string(from: date)
+        cell.dateLabel.text = dateString
+        checkDateForChangeColor(cell: cell)
         
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -137,19 +145,24 @@ extension DONETableViewController {
         Task.doneList.insert(task, at: destinationIndexPath.row)
     }
     
-    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-        return .delete
-    }
-    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let editViewController = EditViewController()
+        let navigationController = UINavigationController(rootViewController: editViewController)
+        
         editViewController.indexPath = indexPath
         editViewController.task = Task.doneList[indexPath.row]
         editViewController.receiveTaskInformation()
-        let navigationController = UINavigationController(rootViewController: editViewController)
+        
         self.present(navigationController, animated: true, completion: nil)
     }
     
+    func checkDateForChangeColor(cell: ScheduleCell) {
+        let unixCurrentDate = convertDateToDouble(Date())
+        
+        if cell.task.date < unixCurrentDate {
+            cell.dateLabel.textColor = .red
+        }
+    }
 }
 
 extension DONETableViewController: UITableViewDragDelegate {
@@ -166,7 +179,7 @@ extension DONETableViewController: UITableViewDragDelegate {
         Task.doneList.remove(at: selectIndexPath.row)
         
         tableView.beginUpdates()
-        tableView.deleteRows(at: [selectIndexPath], with: .automatic)
+        tableView.deleteRows(at: [selectIndexPath], with: .none)
         tableView.endUpdates()
     }
 }
@@ -193,6 +206,10 @@ extension DONETableViewController: UITableViewDropDelegate {
     }
     
     func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
+        if session.items.count > 1 {
+            return UITableViewDropProposal(operation: .cancel, intent: .automatic)
+        }
+        
         return UITableViewDropProposal(operation: .move, intent: .automatic)
     }
 }
