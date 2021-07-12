@@ -123,4 +123,46 @@ final class TaskDataSource: NSObject, TaskTableViewDataSource {
         }
     }
 
+    func toDoTask(index: Int) -> Task {
+        return toDoList[index]
+    }
+    
+    func doingTask(index: Int) -> Task {
+        return doingList[index]
+    }
+    
+    func doneTask(index: Int) -> Task {
+        return doneList[index]
+    }
+    
+    
+    func deleteTask(indexPath: IndexPath, in tableView: UITableView) {
+        switch tableView {
+        case toDoTableView:
+            toDoList.remove(at: indexPath.row)
+            toDoTableView.deleteRows(at: [indexPath], with: .automatic)
+        case doingTableView:
+            doingList.remove(at: indexPath.row)
+            doingTableView.deleteRows(at: [indexPath], with: .automatic)
+        case doneTableView:
+            doneList.remove(at: indexPath.row)
+            doneTableView.deleteRows(at: [indexPath], with: .automatic)
+        default:
+            break
+        }
+    }
+    
+    func addTask(task: Task, indexPath: IndexPath, in tableView: UITableView) {
+        switch tableView {
+        case toDoTableView:
+            toDoList.insert(task, at: indexPath.row)
+        case doingTableView:
+            doingList.insert(task, at: indexPath.row)
+        case doneTableView:
+            doneList.insert(task, at: indexPath.row)
+        default:
+            break
+        }
+        tableView.insertRows(at: [indexPath], with: .automatic)
+    }
 }

@@ -100,7 +100,6 @@ extension ViewController: UITableViewDelegate {
 // FIXME:- 분기처리
 extension ViewController: UITableViewDragDelegate {
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
-             
         switch tableView {
         case toDoTableView:
             return datasource?.dragItem(taskType: .todo, for: indexPath) ?? []
@@ -111,6 +110,12 @@ extension ViewController: UITableViewDragDelegate {
         default:
             return []
         }
+    }
+    
+    func tableView(_ tableView: UITableView, dragSessionWillBegin session: UIDragSession) {
+        guard let selectedIndex = tableView.indexPathForSelectedRow else { return }
+        datasource?.deleteTask(indexPath: selectedIndex, in: tableView)
+        tableView.deleteRows(at: [selectedIndex], with: .automatic)
     }
 }
 
@@ -134,52 +139,12 @@ extension ViewController: UITableViewDropDelegate {
             let row = tableView.numberOfRows(inSection: section)
             destinationIndexPath = IndexPath(row: row, section: section)
         }
-
-        guard var jsonDataManager = datasource else { return }
         
-        coordinator.session.loadObjects(ofClass: Task.self) { [weak self] tasks in
-            
-            guard let self = self else { return }
-            
+        coordinator.session.loadObjects(ofClass: Task.self) { tasks in
             guard let tasks = tasks as? [Task] else { return }
-            
-            
-            var indexPaths = [IndexPath]()
-            print("성공!")
-            for (index, value) in tasks.enumerated() {
-                let indexPath = IndexPath(row: destinationIndexPath.row + index, section: destinationIndexPath.section)
-                
-                switch tableView {
-                case self.toDoTableView:
-                    jsonDataManager.toDoList.insert(value, at: indexPath.row)
-                    if jsonDataManager.doingList.contains(value) {
-                        jsonDataManager.doingList = jsonDataManager.doingList.filter {$0 != value}
-                    } else {
-                        jsonDataManager.doneList = jsonDataManager.doneList.filter {$0 != value}
-                    }
-                case self.doingTableView:
-                    jsonDataManager.doingList.insert(value, at: indexPath.row)
-                    if jsonDataManager.toDoList.contains(value) {
-                        jsonDataManager.toDoList = jsonDataManager.toDoList.filter {$0 != value}
-                    } else {
-                        jsonDataManager.doneList = jsonDataManager.doneList.filter {$0 != value}
-                    }
-                case self.doneTableView:
-                    jsonDataManager.doneList.insert(value, at: indexPath.row)
-                    if jsonDataManager.doingList.contains(value) {
-                        jsonDataManager.doingList = jsonDataManager.doingList.filter {$0 != value}
-                    } else {
-                        jsonDataManager.toDoList = jsonDataManager.toDoList.filter {$0 != value}
-                    }
-                default:
-                    break
-                }
-                indexPaths.append(indexPath)
-            }
-            tableView.insertRows(at: indexPaths, with: .automatic)
-            tableView.reloadData()
+            self.datasource?.addTask(task: tasks[destinationIndexPath.row], indexPath: destinationIndexPath, in: tableView)
         }
-        
+       
     }
 
     func tableView(_ tableView: UITableView, canHandle session: UIDropSession) -> Bool {
