@@ -78,12 +78,6 @@ class EditViewController: UIViewController, ModelMakable {
         return description
     }()
     
-    func receiveTaskInformation() {
-        registerTitle.text = task.title
-        datePicker.date = Date(timeIntervalSince1970: task.date)
-        registerDescription.text = task.myDescription
-    }
-    
     func setMode(){
         switch mode {
         case .select:
@@ -96,6 +90,9 @@ class EditViewController: UIViewController, ModelMakable {
                                           style: .done,
                                           target: self,
                                           action: #selector(didHitdoneButton))
+            
+            navigationItem.leftBarButtonItem = leftButton
+            navigationItem.rightBarButtonItem = rightButton
             
             registerTitle.isUserInteractionEnabled = false
             datePicker.isUserInteractionEnabled = false
@@ -111,17 +108,24 @@ class EditViewController: UIViewController, ModelMakable {
                                           target: self,
                                           action: #selector(didHitdoneButton))
             
+            navigationItem.leftBarButtonItem = leftButton
+            navigationItem.rightBarButtonItem = rightButton
+            
             registerTitle.isUserInteractionEnabled = true
             datePicker.isUserInteractionEnabled = true
             registerDescription.isUserInteractionEnabled = true
         }
     }
     
+    func receiveTaskInformation() {
+        registerTitle.text = task.title
+        datePicker.date = Date(timeIntervalSince1970: task.date)
+        registerDescription.text = task.myDescription
+    }
+    
     @objc func didHitEditbutton() {
         mode = .edit
         setMode()
-        navigationItem.leftBarButtonItem = leftButton
-        navigationItem.rightBarButtonItem = rightButton
     }
     
     @objc func didHitdoneButton() {
@@ -155,12 +159,8 @@ class EditViewController: UIViewController, ModelMakable {
     @objc func didHitCancelButton() {
         mode = .select
         setMode()
-        navigationItem.leftBarButtonItem = leftButton
-        navigationItem.rightBarButtonItem = rightButton
-        
-        registerTitle.text = task.title
-        datePicker.date = Date(timeIntervalSince1970: task.date)
-        registerDescription.text = task.myDescription
+        receiveTaskInformation()
+        checkDefaultDescription()
     }
     
     override func viewDidLoad() {
@@ -168,12 +168,22 @@ class EditViewController: UIViewController, ModelMakable {
         registerDescription.delegate = self
         
         setMode()
-        view.backgroundColor = .white
-        
         navigationItem.title = task.status
         navigationItem.leftBarButtonItem = leftButton
         navigationItem.rightBarButtonItem = rightButton
-        
+        checkDefaultDescription()
+        configureView()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        NotificationCenter.default.post(name: didDismissNotificationCenter, object: nil, userInfo: nil)
+    }
+}
+
+extension EditViewController {
+    
+    func configureView() {
+        view.backgroundColor = .white
         view.addSubview(stackView)
         
         stackView.addArrangedSubview(registerTitle)
@@ -188,10 +198,6 @@ class EditViewController: UIViewController, ModelMakable {
             
             registerTitle.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.1)
         ])
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        NotificationCenter.default.post(name: didDismissNotificationCenter, object: nil, userInfo: nil)
     }
 }
 
@@ -220,5 +226,13 @@ extension EditViewController: UITextViewDelegate {
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         return self.textLimit(existingText: textView.text, newText: text, limit: 1000)
+    }
+    
+    func checkDefaultDescription() {
+        if registerDescription.text == "설명을 입력해주세요" {
+            registerDescription.textColor = UIColor.lightGray
+        } else {
+            registerDescription.textColor = UIColor.black
+        }
     }
 }
