@@ -153,6 +153,11 @@ class EditViewController: UIViewController, ModelMakable {
     }
     
     @objc func didHitCancelButton() {
+        mode = .select
+        setMode()
+        navigationItem.leftBarButtonItem = leftButton
+        navigationItem.rightBarButtonItem = rightButton
+        
         registerTitle.text = task.title
         datePicker.date = Date(timeIntervalSince1970: task.date)
         registerDescription.text = task.myDescription
