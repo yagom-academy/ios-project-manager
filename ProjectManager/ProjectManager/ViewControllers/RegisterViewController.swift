@@ -101,7 +101,18 @@ class RegisterViewController: UIViewController, ModelMakable {
         navigationItem.title = "TODO"
         navigationItem.leftBarButtonItem = leftButton
         navigationItem.rightBarButtonItem = rightButton
+     
+        configureView()
+    }
         
+
+    override func viewWillDisappear(_ animated: Bool) {
+        NotificationCenter.default.post(name: didDismissNotificationCenter, object: nil, userInfo: nil)
+    }
+}
+
+extension RegisterViewController {
+    func configureView() {
         view.backgroundColor = .white
         view.addSubview(stackView)
         
@@ -117,10 +128,6 @@ class RegisterViewController: UIViewController, ModelMakable {
             
             registerTitle.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.1)
         ])
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        NotificationCenter.default.post(name: didDismissNotificationCenter, object: nil, userInfo: nil)
     }
 }
 
