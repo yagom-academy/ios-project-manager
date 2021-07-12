@@ -38,17 +38,21 @@ class ProjectManagerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.reloadData), name: didDismissNotificationCenter, object: nil)
+        let rightBarButton = UIBarButtonItem(barButtonSystemItem: .add,
+                                             target: self,
+                                             action: #selector(buttonPressed(_:)))
         
-        let rightBarButton = UIBarButtonItem.init(barButtonSystemItem: .add,
-                                                  target: self,
-                                                  action: #selector(buttonPressed(_:)))
-
-        view.backgroundColor = .systemGray4
+        NotificationCenter.default.addObserver(self, selector: #selector(self.reloadData), name: didDismissNotificationCenter, object: nil)
         navigationItem.title = "Project Manager"
         navigationItem.rightBarButtonItem = rightBarButton
+        configureView()
+    }
+}
 
+extension ProjectManagerViewController {
+    func configureView() {
         view.addSubview(stackView)
+        view.backgroundColor = .systemGray4
         stackView.addArrangedSubview(todoTableViewController.view)
         stackView.addArrangedSubview(doingTableViewController.view)
         stackView.addArrangedSubview(doneTableViewController.view)
