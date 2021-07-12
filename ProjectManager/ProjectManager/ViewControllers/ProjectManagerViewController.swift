@@ -34,14 +34,14 @@ class ProjectManagerViewController: UIViewController {
         doneTableViewController.tableView.reloadData()
         todoTableViewController.countLabel.text = "\(Task.todoList.count)"
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         let rightBarButton = UIBarButtonItem(barButtonSystemItem: .add,
                                              target: self,
                                              action: #selector(buttonPressed(_:)))
-        
+
         NotificationCenter.default.addObserver(self, selector: #selector(self.reloadData), name: didDismissNotificationCenter, object: nil)
         navigationItem.title = "Project Manager"
         navigationItem.rightBarButtonItem = rightBarButton
@@ -50,6 +50,7 @@ class ProjectManagerViewController: UIViewController {
 }
 
 extension ProjectManagerViewController {
+
     func configureView() {
         view.addSubview(stackView)
         view.backgroundColor = .systemGray4

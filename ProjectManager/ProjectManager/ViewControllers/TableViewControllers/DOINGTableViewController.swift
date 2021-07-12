@@ -8,12 +8,13 @@
 import UIKit
 
 class DOINGTableViewController: UITableViewController {
+
     private var selectIndexPath: IndexPath = []
     var header: UIView!
     var headerLabel: UILabel!
     var countLabel: UILabel!
     var countView: UIView!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,6 +33,7 @@ class DOINGTableViewController: UITableViewController {
 }
 
 extension DOINGTableViewController {
+
     func configureTableView() {
         header = {
             let header = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 60))
@@ -96,7 +98,6 @@ extension DOINGTableViewController {
 }
 
 extension DOINGTableViewController {
-    // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -166,6 +167,7 @@ extension DOINGTableViewController {
 }
 
 extension DOINGTableViewController: UITableViewDragDelegate {
+
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
         selectIndexPath = indexPath
         let item = Task.doingList[indexPath.row]
@@ -185,6 +187,7 @@ extension DOINGTableViewController: UITableViewDragDelegate {
 }
 
 extension DOINGTableViewController: UITableViewDropDelegate {
+
     func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
         let destinationIndexPath: IndexPath
             

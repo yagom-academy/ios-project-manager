@@ -9,16 +9,17 @@ import UIKit
 import MobileCoreServices
 
 final class Task: NSObject, Codable {
+
     static var todoList: [Task] = []
     static var doingList: [Task] = []
     static var doneList: [Task] = []
-    
+
     var title: String
     var date: Double
     var myDescription: String
     var status: String
     let identifier: String
-    
+
     init(title: String, date: Double, myDescription: String, status: String, identifier: String){
         self.title = title
         self.date = date
@@ -29,14 +30,15 @@ final class Task: NSObject, Codable {
 }
 
 extension Task: NSItemProviderWriting {
+
     static var writableTypeIdentifiersForItemProvider: [String] {
         return [kUTTypeUTF8PlainText as String]
     }
-    
+
     func loadData(withTypeIdentifier typeIdentifier: String, forItemProviderCompletionHandler completionHandler: @escaping (Data?, Error?) -> Void) -> Progress? {
-        
+
         let progress = Progress(totalUnitCount: 100)
-        
+
             do {
               let data = try JSONEncoder().encode(self)
                 progress.completedUnitCount = 100
@@ -44,19 +46,20 @@ extension Task: NSItemProviderWriting {
             } catch {
                 completionHandler(nil, ConvertError.decodeError)
             }
-        
+
           return progress
     }
 }
 
 extension Task: NSItemProviderReading {
+
     static var readableTypeIdentifiersForItemProvider: [String] {
         return [kUTTypeUTF8PlainText as String]
     }
-    
+
     static func object(withItemProviderData data: Data, typeIdentifier: String) throws -> Task {
         let decoder = JSONDecoder()
-        
+
         do {
             let task = try decoder.decode(Task.self, from: data)
             return task

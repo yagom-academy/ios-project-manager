@@ -13,13 +13,13 @@ enum Mode {
 }
 
 class EditViewController: UIViewController, ModelMakable {
-    
+
     var mode: Mode = .select
     var leftButton: UIBarButtonItem!
     var rightButton: UIBarButtonItem!
     var indexPath: IndexPath!
     var task: Task!
-    
+
     let stackView: UIStackView = {
         let myStackView = UIStackView()
 
@@ -27,7 +27,7 @@ class EditViewController: UIViewController, ModelMakable {
         myStackView.alignment = .fill
         myStackView.spacing = 10
         myStackView.translatesAutoresizingMaskIntoConstraints = false
-        
+
         return myStackView
     }()
 
@@ -60,7 +60,7 @@ class EditViewController: UIViewController, ModelMakable {
         
         return datePicker
     }()
-    
+
     var registerDescription: UITextView = {
         let description = UITextView()
 
@@ -74,10 +74,10 @@ class EditViewController: UIViewController, ModelMakable {
         description.textColor = UIColor.lightGray
         description.textContainerInset = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
         description.translatesAutoresizingMaskIntoConstraints = false
-        
+
         return description
     }()
-    
+
     func setMode(){
         switch mode {
         case .select:
@@ -90,10 +90,10 @@ class EditViewController: UIViewController, ModelMakable {
                                           style: .done,
                                           target: self,
                                           action: #selector(didHitdoneButton))
-            
+
             navigationItem.leftBarButtonItem = leftButton
             navigationItem.rightBarButtonItem = rightButton
-            
+
             registerTitle.isUserInteractionEnabled = false
             datePicker.isUserInteractionEnabled = false
             registerDescription.isUserInteractionEnabled = false
@@ -107,27 +107,27 @@ class EditViewController: UIViewController, ModelMakable {
                                           style: .done,
                                           target: self,
                                           action: #selector(didHitdoneButton))
-            
+
             navigationItem.leftBarButtonItem = leftButton
             navigationItem.rightBarButtonItem = rightButton
-            
+
             registerTitle.isUserInteractionEnabled = true
             datePicker.isUserInteractionEnabled = true
             registerDescription.isUserInteractionEnabled = true
         }
     }
-    
+
     func receiveTaskInformation() {
         registerTitle.text = task.title
         datePicker.date = Date(timeIntervalSince1970: task.date)
         registerDescription.text = task.myDescription
     }
-    
+
     @objc func didHitEditbutton() {
         mode = .edit
         setMode()
     }
-    
+
     @objc func didHitdoneButton() {
         switch mode {
         case .select:
@@ -138,7 +138,7 @@ class EditViewController: UIViewController, ModelMakable {
                                   myDescription: registerDescription.text,
                                   status: task.status,
                                   identifier: task.identifier)
-            
+
             switch task.status {
             case "TODO":
                 Task.todoList.remove(at: indexPath.row)
@@ -151,11 +151,11 @@ class EditViewController: UIViewController, ModelMakable {
                 Task.doneList.insert(task, at: indexPath.row)
             default: return
             }
-            
+
             self.dismiss(animated: true, completion: nil)
         }
     }
-    
+
     @objc func didHitCancelButton() {
         mode = .select
         setMode()
@@ -166,7 +166,7 @@ class EditViewController: UIViewController, ModelMakable {
     override func viewDidLoad() {
         super.viewDidLoad()
         registerDescription.delegate = self
-        
+
         setMode()
         navigationItem.title = task.status
         navigationItem.leftBarButtonItem = leftButton
@@ -174,28 +174,28 @@ class EditViewController: UIViewController, ModelMakable {
         checkDefaultDescription()
         configureView()
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         NotificationCenter.default.post(name: didDismissNotificationCenter, object: nil, userInfo: nil)
     }
 }
 
 extension EditViewController {
-    
+
     func configureView() {
         view.backgroundColor = .white
         view.addSubview(stackView)
-        
+
         stackView.addArrangedSubview(registerTitle)
         stackView.addArrangedSubview(datePicker)
         stackView.addArrangedSubview(registerDescription)
-        
+
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 15),
             stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -15),
             stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 15),
             stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -15),
-            
+
             registerTitle.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.1)
         ])
     }
@@ -209,25 +209,25 @@ extension EditViewController: UITextViewDelegate {
 
         return isAtLimit
     }
-    
+
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.textColor == UIColor.lightGray {
             textView.text = nil
             textView.textColor = UIColor.black
         }
     }
-    
+
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.isEmpty {
             textView.text = "설명을 입력해주세요"
             textView.textColor = UIColor.lightGray
         }
     }
-    
+
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         return self.textLimit(existingText: textView.text, newText: text, limit: 1000)
     }
-    
+
     func checkDefaultDescription() {
         if registerDescription.text == "설명을 입력해주세요" {
             registerDescription.textColor = UIColor.lightGray

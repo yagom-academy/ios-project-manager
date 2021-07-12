@@ -8,7 +8,7 @@
 import UIKit
 
 class RegisterViewController: UIViewController, ModelMakable {
-    
+
     let leftButton = UIBarButtonItem.init(title: "Cancel",
                                           style: .done,
                                           target: self,
@@ -26,7 +26,7 @@ class RegisterViewController: UIViewController, ModelMakable {
         myStackView.alignment = .fill
         myStackView.spacing = 10
         myStackView.translatesAutoresizingMaskIntoConstraints = false
-        
+
         return myStackView
     }()
 
@@ -56,10 +56,10 @@ class RegisterViewController: UIViewController, ModelMakable {
         datePicker.preferredDatePickerStyle = .wheels
         datePicker.datePickerMode = .date
         datePicker.translatesAutoresizingMaskIntoConstraints = false
-        
+
         return datePicker
     }()
-    
+
     let registerDescription: UITextView = {
         let description = UITextView()
 
@@ -73,21 +73,21 @@ class RegisterViewController: UIViewController, ModelMakable {
         description.textColor = UIColor.lightGray
         description.textContainerInset = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
         description.translatesAutoresizingMaskIntoConstraints = false
-        
+
         return description
     }()
-    
+
     @objc func didHitCancelButton() {
         self.dismiss(animated: true, completion: nil)
     }
-    
+
     @objc func didHitDoneButton() {
         let model = convertToModel(title: registerTitle.text,
                                    date: convertDateToDouble(datePicker.date),
                                    myDescription: registerDescription.text,
                                    status: "TODO",
                                    identifier: UUID().uuidString)
-        
+
         guard let bindedModel = model else { return }
         Task.todoList.append(bindedModel)
         self.dismiss(animated: true, completion: nil)
@@ -97,14 +97,13 @@ class RegisterViewController: UIViewController, ModelMakable {
         super.viewDidLoad()
 
         registerDescription.delegate = self
-        
+
         navigationItem.title = "TODO"
         navigationItem.leftBarButtonItem = leftButton
         navigationItem.rightBarButtonItem = rightButton
-     
+
         configureView()
     }
-        
 
     override func viewWillDisappear(_ animated: Bool) {
         NotificationCenter.default.post(name: didDismissNotificationCenter, object: nil, userInfo: nil)
@@ -115,17 +114,17 @@ extension RegisterViewController {
     func configureView() {
         view.backgroundColor = .white
         view.addSubview(stackView)
-        
+
         stackView.addArrangedSubview(registerTitle)
         stackView.addArrangedSubview(datePicker)
         stackView.addArrangedSubview(registerDescription)
-        
+
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 15),
             stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -15),
             stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 15),
             stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -15),
-            
+
             registerTitle.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.1)
         ])
     }
@@ -139,21 +138,21 @@ extension RegisterViewController: UITextViewDelegate {
 
         return isAtLimit
     }
-    
+
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.textColor == UIColor.lightGray {
             textView.text = nil
             textView.textColor = UIColor.black
         }
     }
-    
+
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.isEmpty {
             textView.text = "설명을 입력해주세요"
             textView.textColor = UIColor.lightGray
         }
     }
-    
+
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         return self.textLimit(existingText: textView.text, newText: text, limit: 1000)
     }
