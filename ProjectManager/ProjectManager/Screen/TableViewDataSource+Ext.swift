@@ -40,21 +40,11 @@ extension ProjectManagerViewController: UITableViewDataSource {
         todoTitleView.count.text = String(todoTableViewData.count)
     }
        
-//    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-//        print("hihi")
-//        return true
-//    }
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
 
-//    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-//        print("drop")
-//        moveItem(at: sourceIndexPath.row, to: destinationIndexPath.row)
-//    }
-//  
-//    func moveItem(at sourceIndex: Int, to destinationIndex: Int) {
-//        guard sourceIndex != destinationIndex else { return }
-//
-//        let place = todoTableViewData[sourceIndex]
-//        todoTableViewData.remove(at: sourceIndex)
-//        todoTableViewData.insert(place, at: destinationIndex)
-//    }
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        moveItem(at: sourceIndexPath.row, to: destinationIndexPath.row, tableView: tableView)
+    }
 }

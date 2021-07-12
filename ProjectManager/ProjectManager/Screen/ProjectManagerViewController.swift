@@ -52,7 +52,7 @@ class ProjectManagerViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(pushNewTodoFormViewController))
         newTodoFormViewController.delegate = self
         configureUndoManagerToolbar()
-        configureStackView()
+        configureProjectManagerView()
         configureTitleView()
         configureProcessListsTableView()
         configureListContentsStackview()
@@ -64,14 +64,6 @@ class ProjectManagerViewController: UIViewController {
         toDoTableView.delegate = self
         doingTableView.delegate = self
         doneTableView.delegate = self
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        todoTitleView.layer.addBorder([.bottom], color: .systemGray4, width: 1.5)
-        doingTitleView.layer.addBorder([.bottom], color: .systemGray4, width: 1.5)
-        doneTitleView.layer.addBorder([.bottom], color: .systemGray4, width: 1.5)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -101,6 +93,7 @@ class ProjectManagerViewController: UIViewController {
         present(newTodoFormNavigationController, animated: true)
     }
 
+    // MARK: - Configure View
     private func configureTitleView() {
         toDoStackView.addArrangedSubview(todoTitleView)
         doingStackView.addArrangedSubview(doingTitleView)
@@ -146,10 +139,10 @@ class ProjectManagerViewController: UIViewController {
         doingTableView.showsVerticalScrollIndicator = false
         doneTableView.showsVerticalScrollIndicator = false
         
-//        toDoTableView.tableFooterView = UIView(frame: .zero)
-//        doingTableView.tableFooterView = UIView(frame: .zero)
-//        doneTableView.tableFooterView = UIView(frame: .zero)
-//        
+        toDoTableView.tableFooterView = UIView(frame: .zero)
+        doingTableView.tableFooterView = UIView(frame: .zero)
+        doneTableView.tableFooterView = UIView(frame: .zero)
+        
         toDoTableView.backgroundColor = .systemGray6
         doingTableView.backgroundColor = .systemGray6
         doneTableView.backgroundColor = .systemGray6
@@ -165,6 +158,17 @@ class ProjectManagerViewController: UIViewController {
         processListsStackView.addArrangedSubview(doneStackView)
     }
     
+    private func configureProjectManagerView() {
+        view.addSubview(processListsStackView)
+        
+        NSLayoutConstraint.activate([
+            processListsStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            processListsStackView.bottomAnchor.constraint(equalTo: undoManagerToolbar.safeAreaLayoutGuide.topAnchor),
+            processListsStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            processListsStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
+        ])
+    }
+    
     private func configureUndoManagerToolbar() {
         view.addSubview(undoManagerToolbar)
         undoManagerToolbar.translatesAutoresizingMaskIntoConstraints = false
@@ -175,45 +179,73 @@ class ProjectManagerViewController: UIViewController {
             undoManagerToolbar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
         ])
     }
-}
-
-// MARK: -StackView AutoLayout
-extension ProjectManagerViewController {
     
-    private func configureStackView() {
-        view.addSubview(processListsStackView)
+    // MARK: - functional Methods
+    func distinguishedTableViewData(currentTableView: UITableView) -> [CellData] {
         
-        NSLayoutConstraint.activate([
-            processListsStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            processListsStackView.bottomAnchor.constraint(equalTo: undoManagerToolbar.safeAreaLayoutGuide.topAnchor),
-            processListsStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            processListsStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
-        ])
+        switch currentTableView {
+        case toDoTableView:
+            return todoTableViewData
+        case doingTableView:
+            return doingTableViewData
+        default:
+            return doneTableViewData
+        }
     }
-}
-
-extension CALayer {
     
-    func addBorder(_ arr_edge: [UIRectEdge], color: UIColor, width: CGFloat) {
-        for edge in arr_edge {
-            let border = CALayer()
-            switch edge {
-            case UIRectEdge.top:
-                border.frame = CGRect.init(x: 0, y: 0, width: frame.width, height: width)
-                break
-            case UIRectEdge.bottom: border.frame = CGRect.init(x: 0, y: frame.height - width, width: frame.width, height: width)
-                break
-            case UIRectEdge.left: border.frame = CGRect.init(x: 0, y: 0, width: width, height: frame.height)
-                break
-            case UIRectEdge.right: border.frame = CGRect.init(x: frame.width - width, y: 0, width: width, height: frame.height)
-                break
-            default:
-                break
-            }
+    func distinguishedTableView(currentTableView: UITableView) -> TableViewType {
+        
+        switch currentTableView {
+        case toDoTableView:
+            return .todoTableView
+        case doingTableView:
+            return .doingTableView
+        default:
+            return .doneTableView
+        }
+    }
+    
+    func moveItem(at sourceIndex: Int, to destinationIndex: Int, tableView: UITableView) {
+        guard sourceIndex != destinationIndex else { return }
+
+        var tableViewData = distinguishedTableViewData(currentTableView: tableView)
+        
+        let place = tableViewData[sourceIndex]
+        tableViewData.remove(at: sourceIndex)
+        tableViewData.insert(place, at: destinationIndex)
+    }
+    
+    func addItem(currentTableView: UITableView, _ place: CellData, at index: Int) {
+        switch currentTableView {
+        case toDoTableView:
+            todoTableViewData.insert(place, at: index)
+        case doingTableView:
+            doingTableViewData.insert(place, at: index)
+        default:
+            doneTableViewData.insert(place, at: index)
+        }
+    }
+    
+    func reorderTableView(item: CellData, indexPath: IndexPath, currentTableView: TableViewType) {
+        switch item.superViewType {
+        case .todoTableView:
+            self.todoTableViewData.remove(at: item.sourceTableViewIndexPath!.row)
+            self.toDoTableView.deleteRows(at: [item.sourceTableViewIndexPath!], with: .automatic)
             
-            border.backgroundColor = color.cgColor
-            self.addSublayer(border)
+            item.superViewType = currentTableView
+            item.sourceTableViewIndexPath = indexPath
+        case .doingTableView:
+            self.doingTableViewData.remove(at: item.sourceTableViewIndexPath!.row)
+            self.doingTableView.deleteRows(at: [item.sourceTableViewIndexPath!], with: .automatic)
+            item.superViewType = currentTableView
+            item.sourceTableViewIndexPath = indexPath
+            
+            self.doingTableView.reloadData()
+        case .doneTableView:
+            self.doneTableViewData.remove(at: item.sourceTableViewIndexPath!.row)
+            self.doneTableView.deleteRows(at: [item.sourceTableViewIndexPath!], with: .automatic)
+            item.superViewType = currentTableView
+            item.sourceTableViewIndexPath = indexPath
         }
     }
 }
-
