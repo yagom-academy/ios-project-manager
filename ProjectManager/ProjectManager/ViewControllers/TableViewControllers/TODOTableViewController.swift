@@ -9,22 +9,38 @@ import UIKit
 
 class TODOTableViewController: UITableViewController {
     private var selectIndexPath: IndexPath = []
+    var header: UIView!
+    var headerLabel: UILabel!
     var countLabel: UILabel!
+    var countView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.register(ScheduleCell.classForCoder(), forCellReuseIdentifier: "scheduleCell")
-        self.tableView.separatorStyle = .none
+        tableView.separatorStyle = .none
         
-        let header: UIView = {
+        tableView.isUserInteractionEnabled = true
+        tableView.dragDelegate = self
+        tableView.dropDelegate = self
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        configureTableView()
+    }
+}
+
+extension TODOTableViewController {
+    func configureTableView() {
+        header = {
             let header = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 60))
             header.backgroundColor = .systemGray6
 
             return header
         }()
         
-        let headerLabel : UILabel = {
+        headerLabel = {
             let label = UILabel(frame: header.bounds)
             label.text = "TODO"
             label.font = UIFont.preferredFont(forTextStyle: .title1)
@@ -34,7 +50,7 @@ class TODOTableViewController: UITableViewController {
             return label
         }()
     
-        let countView: UIView = {
+        countView = {
             let countView = UIView()
             countView.backgroundColor = .black
             countView.translatesAutoresizingMaskIntoConstraints = false
@@ -55,19 +71,13 @@ class TODOTableViewController: UITableViewController {
             return count
         }()
         
+        tableView.tableHeaderView = header
+        tableView.backgroundColor = .systemGray6
+        
         header.addSubview(headerLabel)
         countView.addSubview(countLabel)
         header.addSubview(countView)
         
-        tableView.dragDelegate = self
-        tableView.dropDelegate = self
-        tableView.isUserInteractionEnabled = true
-        
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.backgroundColor = .systemGray6
-        tableView.tableHeaderView = header
-                
         let padding: CGFloat = 20.0
         NSLayoutConstraint.activate([
             headerLabel.topAnchor.constraint(equalTo: header.topAnchor, constant: padding),
