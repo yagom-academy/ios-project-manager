@@ -44,11 +44,11 @@ class NewTodoFormViewController: UIViewController {
         }
 
         if let title = newTodoFormTextField.text, let description = newTodoFormTextView.text {
-            
             delegate?.dataPassing(title: title, date: formattedDate(date: datePicker.date), description: description)
         }
+
         projectManagerViewController.todoTitleView.count.text = String(projectManagerViewController.todoTableViewData.count)
-        projectManagerViewController.toDoTableView.reloadData()
+        projectManagerViewController.todoTableView.reloadData()
         dismiss(animated: true) {
             self.newTodoFormTextField.text = ""
             self.newTodoFormTextView.text = ""

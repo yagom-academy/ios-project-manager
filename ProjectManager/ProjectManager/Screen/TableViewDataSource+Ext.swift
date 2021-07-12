@@ -33,11 +33,11 @@ extension ProjectManagerViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            todoTableViewData.remove(at: indexPath.row)
-            tableView.deleteSections([indexPath.row], with: .fade)
+            removeElement(tableView: tableView, indexPath: indexPath)
+            tableView.deleteRows(at: [indexPath], with: .fade)
         }
         
-        todoTitleView.count.text = String(todoTableViewData.count)
+        reloadCountLabel()
     }
        
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {

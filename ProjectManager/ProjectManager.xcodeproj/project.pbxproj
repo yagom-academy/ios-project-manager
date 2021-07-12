@@ -15,6 +15,7 @@
 		33C21219268DF51E00232BD4 /* TableViewDataSource+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C21218268DF51E00232BD4 /* TableViewDataSource+Ext.swift */; };
 		33C487E12693EC47000685AA /* ProjectManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C487E02693EC47000685AA /* ProjectManagerDelegate.swift */; };
 		33C487E52693ECFF000685AA /* ProjectManagerViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C487E42693ECFF000685AA /* ProjectManagerViewController+Ext.swift */; };
+		B435B438269C5B9900DFC408 /* TableViewType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B435B437269C5B9900DFC408 /* TableViewType.swift */; };
 		B464DE2126957A5200298D78 /* CellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B464DE2026957A5200298D78 /* CellData.swift */; };
 		B464DE2A2695ECCF00298D78 /* UndoManagerToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B464DE292695ECCF00298D78 /* UndoManagerToolbar.swift */; };
 		B4A446472692FB890055C901 /* NewTodoFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A446462692FB890055C901 /* NewTodoFormViewController.swift */; };
@@ -41,6 +42,7 @@
 		33C21218268DF51E00232BD4 /* TableViewDataSource+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TableViewDataSource+Ext.swift"; sourceTree = "<group>"; };
 		33C487E02693EC47000685AA /* ProjectManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerDelegate.swift; sourceTree = "<group>"; };
 		33C487E42693ECFF000685AA /* ProjectManagerViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProjectManagerViewController+Ext.swift"; sourceTree = "<group>"; };
+		B435B437269C5B9900DFC408 /* TableViewType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewType.swift; sourceTree = "<group>"; };
 		B464DE2026957A5200298D78 /* CellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellData.swift; sourceTree = "<group>"; };
 		B464DE292695ECCF00298D78 /* UndoManagerToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndoManagerToolbar.swift; sourceTree = "<group>"; };
 		B4A446462692FB890055C901 /* NewTodoFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTodoFormViewController.swift; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
 				B464DE2026957A5200298D78 /* CellData.swift */,
+				B435B437269C5B9900DFC408 /* TableViewType.swift */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
@@ -216,6 +219,7 @@
 				FF65C6B5268EDB61003E63D9 /* ListContentsStackView.swift in Sources */,
 				33C2120F268DF19B00232BD4 /* CellStackView.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
+				B435B438269C5B9900DFC408 /* TableViewType.swift in Sources */,
 				B464DE2126957A5200298D78 /* CellData.swift in Sources */,
 				33C487E52693ECFF000685AA /* ProjectManagerViewController+Ext.swift in Sources */,
 				33C21206268DDE8D00232BD4 /* ProcessListsStackView.swift in Sources */,

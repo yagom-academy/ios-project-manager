@@ -15,7 +15,6 @@ extension ProjectManagerViewController: UITableViewDropDelegate {
     }
     
     func canHandle(_ session: UIDropSession) -> Bool {
-        print("Hi")
         return session.canLoadObjects(ofClass: CellData.self)
     }
     
@@ -57,11 +56,11 @@ extension ProjectManagerViewController: UITableViewDropDelegate {
                 
                 self.addItem(currentTableView: tableView, item, at: indexPath.row)
                 
-                self.reorderTableView(item: item, indexPath: indexPath, currentTableView: currentTableView)
+                self.reorderTableView(item: item, indexPath: indexPath, destinationTableView: currentTableView)
                 
                 indexPaths.append(indexPath)
             }
-            tableView.insertRows(at: indexPaths, with: .automatic)
+            tableView.insertRows(at: indexPaths, with: .left)
         }
     }
 }

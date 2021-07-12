@@ -2,9 +2,7 @@
 //  ProjectManager - ViewController.swift
 //  Created by yagom. 
 //  Copyright © yagom. All rights reserved.
-// 
-
-// 덕복 - api문서에서 모델이 필요치않나?
+//
 
 import UIKit
 
@@ -36,7 +34,7 @@ class ProjectManagerViewController: UIViewController {
     let doingTitleView = ListTitleView()
     let doneTitleView = ListTitleView()
     
-    let toDoTableView = UITableView()
+    let todoTableView = UITableView()
     let doingTableView = UITableView()
     let doneTableView = UITableView()
     
@@ -57,31 +55,31 @@ class ProjectManagerViewController: UIViewController {
         configureProcessListsTableView()
         configureListContentsStackview()
         
-        toDoTableView.dataSource = self
+        todoTableView.dataSource = self
         doingTableView.dataSource = self
         doneTableView.dataSource = self
         
-        toDoTableView.delegate = self
+        todoTableView.delegate = self
         doingTableView.delegate = self
         doneTableView.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        toDoTableView.reloadData()
+        todoTableView.reloadData()
         print("viewWillAppear")
         print(todoTableViewData)
     }
     
     private func addDragAndDropInteraction() {
-        toDoTableView.dragInteractionEnabled = true
+        todoTableView.dragInteractionEnabled = true
         doingTableView.dragInteractionEnabled = true
         doneTableView.dragInteractionEnabled = true
         
-        toDoTableView.dragDelegate = self
+        todoTableView.dragDelegate = self
         doingTableView.dragDelegate = self
         doneTableView.dragDelegate = self
         
-        toDoTableView.dropDelegate = self
+        todoTableView.dropDelegate = self
         doingTableView.dropDelegate = self
         doneTableView.dropDelegate = self
     }
@@ -131,23 +129,23 @@ class ProjectManagerViewController: UIViewController {
     }
     
     private func configureProcessListsTableView() {
-        toDoStackView.addArrangedSubview(toDoTableView)
+        toDoStackView.addArrangedSubview(todoTableView)
         doingStackView.addArrangedSubview(doingTableView)
         doneStackView.addArrangedSubview(doneTableView)
         
-        toDoTableView.showsVerticalScrollIndicator = false
+        todoTableView.showsVerticalScrollIndicator = false
         doingTableView.showsVerticalScrollIndicator = false
         doneTableView.showsVerticalScrollIndicator = false
         
-        toDoTableView.tableFooterView = UIView(frame: .zero)
+        todoTableView.tableFooterView = UIView(frame: .zero)
         doingTableView.tableFooterView = UIView(frame: .zero)
         doneTableView.tableFooterView = UIView(frame: .zero)
         
-        toDoTableView.backgroundColor = .systemGray6
+        todoTableView.backgroundColor = .systemGray6
         doingTableView.backgroundColor = .systemGray6
         doneTableView.backgroundColor = .systemGray6
         
-        toDoTableView.register(TodoListCell.self, forCellReuseIdentifier: TodoListCell.identifier)
+        todoTableView.register(TodoListCell.self, forCellReuseIdentifier: TodoListCell.identifier)
         doingTableView.register(TodoListCell.self, forCellReuseIdentifier: TodoListCell.identifier)
         doneTableView.register(TodoListCell.self, forCellReuseIdentifier: TodoListCell.identifier)
     }
@@ -181,28 +179,52 @@ class ProjectManagerViewController: UIViewController {
     }
     
     // MARK: - functional Methods
-    func distinguishedTableViewData(currentTableView: UITableView) -> [CellData] {
-        
-        switch currentTableView {
-        case toDoTableView:
-            return todoTableViewData
+    func removeElement(tableView: UITableView, indexPath: IndexPath) {
+        switch tableView {
+        case todoTableView:
+            todoTableViewData.remove(at: indexPath.row)
         case doingTableView:
-            return doingTableViewData
+            doingTableViewData.remove(at: indexPath.row)
         default:
-            return doneTableViewData
+            doneTableViewData.remove(at: indexPath.row)
+        }
+    }
+    
+    func reloadCountLabel() {
+        todoTitleView.count.text = String(todoTableViewData.count)
+        doingTitleView.count.text = String(doingTableViewData.count)
+        doneTitleView.count.text = String(doneTableViewData.count)
+    }
+    
+    func distinguishedTableViewData(currentTableView: UITableView) -> [CellData] {
+        switch currentTableView {
+        case todoTableView:
+            return self.todoTableViewData
+        case doingTableView:
+            return self.doingTableViewData
+        default:
+            return self.doneTableViewData
         }
     }
     
     func distinguishedTableView(currentTableView: UITableView) -> TableViewType {
-        
         switch currentTableView {
-        case toDoTableView:
+        case todoTableView:
             return .todoTableView
         case doingTableView:
             return .doingTableView
         default:
             return .doneTableView
         }
+    }
+    
+    func dragItems(for indexPath: IndexPath, tableView: UITableView) -> [UIDragItem] {
+        let sourceTableViewData = distinguishedTableViewData(currentTableView: tableView)
+        let cellData = sourceTableViewData[indexPath.row]
+        cellData.sourceTableViewIndexPath = indexPath
+        let itemProvider = NSItemProvider(object: cellData)
+        
+        return [UIDragItem(itemProvider: itemProvider)]
     }
     
     func moveItem(at sourceIndex: Int, to destinationIndex: Int, tableView: UITableView) {
@@ -217,7 +239,7 @@ class ProjectManagerViewController: UIViewController {
     
     func addItem(currentTableView: UITableView, _ place: CellData, at index: Int) {
         switch currentTableView {
-        case toDoTableView:
+        case todoTableView:
             todoTableViewData.insert(place, at: index)
         case doingTableView:
             doingTableViewData.insert(place, at: index)
@@ -226,26 +248,23 @@ class ProjectManagerViewController: UIViewController {
         }
     }
     
-    func reorderTableView(item: CellData, indexPath: IndexPath, currentTableView: TableViewType) {
+    func reorderTableView(item: CellData, indexPath: IndexPath, destinationTableView: TableViewType) {
         switch item.superViewType {
         case .todoTableView:
-            self.todoTableViewData.remove(at: item.sourceTableViewIndexPath!.row)
-            self.toDoTableView.deleteRows(at: [item.sourceTableViewIndexPath!], with: .automatic)
-            
-            item.superViewType = currentTableView
-            item.sourceTableViewIndexPath = indexPath
+            updateData(item: item, indexPath: indexPath, sourceTableView: todoTableView, currentTableView: destinationTableView)
         case .doingTableView:
-            self.doingTableViewData.remove(at: item.sourceTableViewIndexPath!.row)
-            self.doingTableView.deleteRows(at: [item.sourceTableViewIndexPath!], with: .automatic)
-            item.superViewType = currentTableView
-            item.sourceTableViewIndexPath = indexPath
-            
-            self.doingTableView.reloadData()
+            updateData(item: item, indexPath: indexPath, sourceTableView: doingTableView, currentTableView: destinationTableView)
         case .doneTableView:
-            self.doneTableViewData.remove(at: item.sourceTableViewIndexPath!.row)
-            self.doneTableView.deleteRows(at: [item.sourceTableViewIndexPath!], with: .automatic)
-            item.superViewType = currentTableView
-            item.sourceTableViewIndexPath = indexPath
+            updateData(item: item, indexPath: indexPath, sourceTableView: doneTableView, currentTableView: destinationTableView)
         }
+    }
+    
+    func updateData(item: CellData, indexPath: IndexPath, sourceTableView: UITableView, currentTableView: TableViewType) {
+        
+        removeElement(tableView: sourceTableView, indexPath: item.sourceTableViewIndexPath!)
+        sourceTableView.deleteRows(at: [item.sourceTableViewIndexPath!], with: .right)
+        reloadCountLabel()
+        item.superViewType = currentTableView
+        item.sourceTableViewIndexPath = indexPath
     }
 }

@@ -5,14 +5,8 @@
 //  Created by 김민성 on 2021/07/07.
 //
 
-import UIKit
+import Foundation
 import MobileCoreServices
-
-enum TableViewType: String, Codable {
-    case todoTableView
-    case doingTableView
-    case doneTableView
-}
 
 final class CellData: NSObject, Codable, NSItemProviderWriting, NSItemProviderReading {
     
@@ -22,7 +16,7 @@ final class CellData: NSObject, Codable, NSItemProviderWriting, NSItemProviderRe
     var superViewType: TableViewType
     var sourceTableViewIndexPath: IndexPath?
     
-    init(title: String = "" , body: String = "", deadline: String = "", superViewType: TableViewType) {
+    init(title: String, body: String, deadline: String, superViewType: TableViewType) {
         self.title = title
         self.body = body
         self.deadline = deadline
