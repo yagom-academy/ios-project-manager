@@ -81,14 +81,13 @@ extension TODOTableViewController {
         countView.addSubview(countLabel)
         header.addSubview(countView)
 
-        let padding: CGFloat = 20.0
         NSLayoutConstraint.activate([
             header.topAnchor.constraint(equalTo: tableView.topAnchor),
             header.heightAnchor.constraint(equalToConstant: 60),
             header.widthAnchor.constraint(equalToConstant: 100),
             
-            headerLabel.topAnchor.constraint(equalTo: header.topAnchor, constant: padding),
-            headerLabel.leadingAnchor.constraint(equalTo: header.leadingAnchor, constant: padding),
+            headerLabel.topAnchor.constraint(equalTo: header.topAnchor, constant: 20),
+            headerLabel.leadingAnchor.constraint(equalTo: header.leadingAnchor, constant: 20),
             headerLabel.centerYAnchor.constraint(equalTo: header.centerYAnchor),
 
             countView.leadingAnchor.constraint(equalTo: headerLabel.trailingAnchor, constant: 10),
