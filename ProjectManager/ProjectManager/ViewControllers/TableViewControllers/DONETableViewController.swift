@@ -36,8 +36,9 @@ extension DONETableViewController {
 
     func configureTableView() {
         header = {
-            let header = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 60))
+            let header = UIView()
             header.backgroundColor = .systemGray6
+            header.translatesAutoresizingMaskIntoConstraints = false
 
             return header
         }()
@@ -82,14 +83,18 @@ extension DONETableViewController {
         
         let padding: CGFloat = 20.0
         NSLayoutConstraint.activate([
+            header.topAnchor.constraint(equalTo: tableView.topAnchor),
+            header.heightAnchor.constraint(equalToConstant: 60),
+            header.widthAnchor.constraint(equalToConstant: 100),
+            
             headerLabel.topAnchor.constraint(equalTo: header.topAnchor, constant: padding),
             headerLabel.leadingAnchor.constraint(equalTo: header.leadingAnchor, constant: padding),
             headerLabel.centerYAnchor.constraint(equalTo: header.centerYAnchor),
 
             countView.leadingAnchor.constraint(equalTo: headerLabel.trailingAnchor, constant: 10),
-            countView.centerYAnchor.constraint(equalTo: header.centerYAnchor, constant: 0),
-            countView.widthAnchor.constraint(equalTo: header.widthAnchor, multiplier: 0.06),
-            countView.heightAnchor.constraint(equalTo: countView.widthAnchor, multiplier: 1),
+            countView.centerYAnchor.constraint(equalTo: header.centerYAnchor),
+            countView.widthAnchor.constraint(equalToConstant: 25),
+            countView.heightAnchor.constraint(equalToConstant: 25),
 
             countLabel.centerXAnchor.constraint(equalTo: countView.centerXAnchor),
             countLabel.centerYAnchor.constraint(equalTo: countView.centerYAnchor)
