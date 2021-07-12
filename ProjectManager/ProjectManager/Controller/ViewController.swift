@@ -7,12 +7,11 @@
 import UIKit
 
 class ViewController: UIViewController {
-    
     @IBOutlet weak var toDoTableView: UITableView!
     @IBOutlet weak var doingTableView: UITableView!
     @IBOutlet weak var doneTableView: UITableView!
 
-    private let jsonDataManager: JSONDataManageable? = JSONDataManager()
+    private let datasource: TaskTableViewDataSource = TaskDataSource()
     
     enum HeaderType {
         case toDo, doing, done
@@ -32,21 +31,21 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        toDoTableView.dataSource = self
+        toDoTableView.dataSource = datasource
         toDoTableView.dragDelegate = self
         toDoTableView.dropDelegate = self
         toDoTableView.dragInteractionEnabled = true
         toDoTableView.register(Header.self, forHeaderFooterViewReuseIdentifier: HeaderType.toDo.identifier)
         toDoTableView.delegate = self
         
-        doingTableView.dataSource = self
+        doingTableView.dataSource = datasource
         doingTableView.dragDelegate = self
         doingTableView.dropDelegate = self
         doingTableView.dragInteractionEnabled = true
         doingTableView.register(Header.self, forHeaderFooterViewReuseIdentifier: HeaderType.doing.identifier)
         doingTableView.delegate = self
         
-        doneTableView.dataSource = self
+        doneTableView.dataSource = datasource
         doneTableView.dragDelegate = self
         doneTableView.dropDelegate = self
         doneTableView.dragInteractionEnabled = true
@@ -64,51 +63,8 @@ class ViewController: UIViewController {
 
 // MARK:- UITableView DataSource
 
-extension ViewController: UITableViewDataSource, UITableViewDelegate {
-    
-    //TODO
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        guard let jsonDataManager = jsonDataManager else { return 0 }
-        
-        switch tableView {
-        case toDoTableView:
-            return jsonDataManager.toDoList.count
-        case doingTableView:
-            return jsonDataManager.doingList.count
-        case doneTableView:
-            return jsonDataManager.doneList.count
-        default:
-            return 0
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        guard let jsonDataManager = jsonDataManager else { return UITableViewCell() }
-        
-        switch tableView {
-        case toDoTableView:
-            guard let toDoCell = tableView.dequeueReusableCell(withIdentifier: "toDoCell", for: indexPath) as? ToDoTableViewCell else { return UITableViewCell() }
-            
-            toDoCell.configure(tasks: jsonDataManager.toDoList, rowAt: indexPath.row)
-            return toDoCell
-            
-        case doingTableView:
-            guard let doingCell = tableView.dequeueReusableCell(withIdentifier: "doingCell", for: indexPath) as? DoingTableViewCell else { return  UITableViewCell() }
-            doingCell.configure(tasks: jsonDataManager.doingList, rowAt: indexPath.row)
-            return doingCell
-            
-        case doneTableView:
-            guard let doneCell = tableView.dequeueReusableCell(withIdentifier: "doneCell", for: indexPath) as? DoneTableViewCell else { return  UITableViewCell() }
-            doneCell.configure(tasks: jsonDataManager.doneList, rowAt: indexPath.row)
-            return doneCell
-            
-        default:
-            return UITableViewCell()
-        }
-    }
-    
+extension ViewController: UITableViewDelegate {
+
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         switch tableView {
@@ -135,7 +91,6 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 60
     }
-
 }
 
 // MARK:- UITableView DragDelegate
@@ -144,24 +99,19 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
 extension ViewController: UITableViewDragDelegate {
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
         
-        guard let jsonDataManager = JSONDataManager() else { return [] }
+        guard let jsonDataManager = TaskJSONDataManager() else { return [] }
         
         switch tableView {
         case toDoTableView:
-            let dragItem = UIDragItem(itemProvider: NSItemProvider(object: jsonDataManager.toDoList[indexPath.row]))
-            dragItem.localObject = String.self
-            return [dragItem]
+            return jsonDataManager.dragItem(taskType: .todo, for: indexPath)
         case doingTableView:
-            let dragItem = UIDragItem(itemProvider: NSItemProvider(object: jsonDataManager.doingList[indexPath.row]))
-            dragItem.localObject = String.self
-            return [dragItem]
+            return jsonDataManager.dragItem(taskType: .doing, for: indexPath)
         case doneTableView:
-            let dragItem = UIDragItem(itemProvider: NSItemProvider(object: jsonDataManager.doneList[indexPath.row]))
-            dragItem.localObject = String.self
-            return [dragItem]
+            return jsonDataManager.dragItem(taskType: .done, for: indexPath)
         default:
             return []
         }
+        
     }
     
     func tableView(_ tableView: UITableView, dragSessionWillBegin session: UIDragSession) {
@@ -169,7 +119,7 @@ extension ViewController: UITableViewDragDelegate {
         let location = session.location(in: tableView)
         guard let indexPath = tableView.indexPathForRow(at: location) else { return }
 
-        guard var jsonDataManager = jsonDataManager else { return }
+        guard var jsonDataManager = datasource else { return }
 
         switch tableView {
         case toDoTableView:
@@ -208,7 +158,7 @@ extension ViewController: UITableViewDropDelegate {
             destinationIndexPath = IndexPath(row: row, section: section)
         }
 
-        guard var jsonDataManager = jsonDataManager else { return }
+        guard var jsonDataManager = datasource else { return }
         
         coordinator.session.loadObjects(ofClass: Task.self) { [weak self] tasks in
             
@@ -254,8 +204,10 @@ extension ViewController: UITableViewDropDelegate {
         }
         
     }
-    
+
     func tableView(_ tableView: UITableView, canHandle session: UIDropSession) -> Bool {
-        return session.canLoadObjects(ofClass: NSString.self)
+        return session.canLoadObjects(ofClass: Task.self)
     }
 }
+
+
