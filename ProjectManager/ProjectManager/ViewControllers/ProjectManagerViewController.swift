@@ -6,8 +6,6 @@
 
 import UIKit
 
-let didDismissNotificationCenter: Notification.Name = Notification.Name("DidDismissPostProjectManagerViewController")
-
 class ProjectManagerViewController: UIViewController {
 
     let todoTableViewController = TODOTableViewController()

@@ -8,7 +8,7 @@
 import UIKit
 
 class RegisterViewController: UIViewController, ModelMakable {
-
+    
     let leftButton = UIBarButtonItem.init(title: "Cancel",
                                           style: .done,
                                           target: self,

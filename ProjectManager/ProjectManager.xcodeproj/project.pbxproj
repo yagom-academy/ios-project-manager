@@ -11,6 +11,7 @@
 		381EA17D2696EFCC00D04E66 /* ModelMakable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381EA17C2696EFCC00D04E66 /* ModelMakable.swift */; };
 		381EA1892696F2C600D04E66 /* TableViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381EA1882696F2C600D04E66 /* TableViewControllerExtension.swift */; };
 		38591BD82697F56F004E4A74 /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38591BD72697F56F004E4A74 /* EditViewController.swift */; };
+		389B2AEE269BE78000050536 /* NotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389B2AED269BE78000050536 /* NotificationCenter.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* ProjectManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* ProjectManagerViewController.swift */; };
@@ -39,6 +40,7 @@
 		381EA17C2696EFCC00D04E66 /* ModelMakable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelMakable.swift; sourceTree = "<group>"; };
 		381EA1882696F2C600D04E66 /* TableViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewControllerExtension.swift; sourceTree = "<group>"; };
 		38591BD72697F56F004E4A74 /* EditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
+		389B2AED269BE78000050536 /* NotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenter.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -79,6 +81,7 @@
 			children = (
 				381EA1882696F2C600D04E66 /* TableViewControllerExtension.swift */,
 				381EA17C2696EFCC00D04E66 /* ModelMakable.swift */,
+				389B2AED269BE78000050536 /* NotificationCenter.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -263,6 +266,7 @@
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				3818930F268AFDDF00D48055 /* RegisterViewController.swift in Sources */,
 				38591BD82697F56F004E4A74 /* EditViewController.swift in Sources */,
+				389B2AEE269BE78000050536 /* NotificationCenter.swift in Sources */,
 				381EA1892696F2C600D04E66 /* TableViewControllerExtension.swift in Sources */,
 				D011DAB8268B0E13001DEE59 /* DONETableViewController.swift in Sources */,
 				D011DAB6268B0E0A001DEE59 /* DOINGTableViewController.swift in Sources */,
