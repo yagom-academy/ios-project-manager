@@ -42,7 +42,7 @@ extension Task: NSItemProviderWriting {
                 progress.completedUnitCount = 100
                 completionHandler(data, nil)
             } catch {
-              completionHandler(nil, error)
+                completionHandler(nil, ConvertError.decodeError)
             }
         
           return progress
@@ -61,7 +61,7 @@ extension Task: NSItemProviderReading {
             let task = try decoder.decode(Task.self, from: data)
             return task
         } catch {
-            throw error
+            throw ConvertError.encodeError
         }
     }
 }

@@ -22,6 +22,7 @@
 		D011DAB8268B0E13001DEE59 /* DONETableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D011DAB7268B0E13001DEE59 /* DONETableViewController.swift */; };
 		D01DA665268C8B3300FFBEE1 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01DA664268C8B3300FFBEE1 /* Task.swift */; };
 		D01DA670268C900200FFBEE1 /* ProjectManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01DA66F268C900200FFBEE1 /* ProjectManagerTests.swift */; };
+		D09EDC64269C34EA00EA96C4 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09EDC63269C34EA00EA96C4 /* Errors.swift */; };
 		D0B55249268EA3C300341CFB /* ScheduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B55248268EA3C300341CFB /* ScheduleCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -55,6 +56,7 @@
 		D01DA66D268C900200FFBEE1 /* ProjectManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProjectManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D01DA66F268C900200FFBEE1 /* ProjectManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerTests.swift; sourceTree = "<group>"; };
 		D01DA671268C900200FFBEE1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D09EDC63269C34EA00EA96C4 /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		D0B55248268EA3C300341CFB /* ScheduleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -145,6 +147,7 @@
 			isa = PBXGroup;
 			children = (
 				D01DA664268C8B3300FFBEE1 /* Task.swift */,
+				D09EDC63269C34EA00EA96C4 /* Errors.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -263,6 +266,7 @@
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				D0B55249268EA3C300341CFB /* ScheduleCell.swift in Sources */,
 				381EA17D2696EFCC00D04E66 /* ModelMakable.swift in Sources */,
+				D09EDC64269C34EA00EA96C4 /* Errors.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				3818930F268AFDDF00D48055 /* RegisterViewController.swift in Sources */,
 				38591BD82697F56F004E4A74 /* EditViewController.swift in Sources */,

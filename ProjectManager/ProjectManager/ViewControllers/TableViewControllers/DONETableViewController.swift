@@ -197,7 +197,7 @@ extension DONETableViewController: UITableViewDropDelegate {
         }
         
         coordinator.session.loadObjects(ofClass: Task.self) { items in
-            let tasks = items as! [Task]
+            guard let tasks = items as? [Task] else { return }
             tasks[0].status = "DONE"
             Task.doneList.insert(tasks[0], at: destinationIndexPath.row)
             tableView.insertRows(at: [destinationIndexPath], with: .automatic)
