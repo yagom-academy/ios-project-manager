@@ -5,19 +5,28 @@
 //  Created by 김민성 on 2021/07/07.
 //
 
-import Foundation
+import UIKit
 import MobileCoreServices
+
+enum TableViewType: String, Codable {
+    case todoTableView
+    case doingTableView
+    case doneTableView
+}
 
 final class CellData: NSObject, Codable, NSItemProviderWriting, NSItemProviderReading {
     
     var title: String
     var body: String
     var deadline: String
+    var superViewType: TableViewType
+    var sourceTableViewIndexPath: IndexPath?
     
-    init(title: String = "" , body: String = "", deadline: String = "") {
+    init(title: String = "" , body: String = "", deadline: String = "", superViewType: TableViewType) {
         self.title = title
         self.body = body
         self.deadline = deadline
+        self.superViewType = superViewType
     }
     
     static var readableTypeIdentifiersForItemProvider: [String] {

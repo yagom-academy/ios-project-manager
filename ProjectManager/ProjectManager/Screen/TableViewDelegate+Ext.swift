@@ -10,7 +10,7 @@ import MobileCoreServices
 
 extension ProjectManagerViewController: UITableViewDelegate {
     
-    func checkedTableViewData(currentTableView: UITableView) -> [CellData] {
+    func distinguishedTableViewData(currentTableView: UITableView) -> [CellData] {
         
         switch currentTableView {
         case toDoTableView:
@@ -23,9 +23,8 @@ extension ProjectManagerViewController: UITableViewDelegate {
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        let data = checkedTableViewData(currentTableView: tableView)
         
-        return data.count
+        return 1
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -39,5 +38,4 @@ extension ProjectManagerViewController: UITableViewDelegate {
 //    func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
 //        return [UIDragItem]
 //    }
-    
 }

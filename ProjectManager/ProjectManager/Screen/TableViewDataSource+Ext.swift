@@ -10,7 +10,9 @@ import UIKit
 extension ProjectManagerViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        let data = distinguishedTableViewData(currentTableView: tableView)
+        
+        return data.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -18,40 +20,38 @@ extension ProjectManagerViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         
-        let data = checkedTableViewData(currentTableView: tableView)
+        let data = distinguishedTableViewData(currentTableView: tableView)
         
         cell.selectionStyle = .none
         cell.separatorInset = .zero
-        cell.titleLabel.text = data[indexPath.section].title
-        cell.dateLabel.text = data[indexPath.section].deadline
-        cell.descriptionLabel.text = data[indexPath.section].body
+        cell.titleLabel.text = data[indexPath.row].title
+        cell.dateLabel.text = data[indexPath.row].deadline
+        cell.descriptionLabel.text = data[indexPath.row].body
 
         return cell
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            todoTableViewData.remove(at: indexPath.section)
-            tableView.deleteSections([indexPath.section], with: .fade)
+            todoTableViewData.remove(at: indexPath.row)
+            tableView.deleteSections([indexPath.row], with: .fade)
         }
         
         todoTitleView.count.text = String(todoTableViewData.count)
     }
        
-    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        print("hihi")
-        return true
-    }
+//    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+//        print("hihi")
+//        return true
+//    }
 
 //    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
 //        print("drop")
-//        moveItem(at: sourceIndexPath.section, to: destinationIndexPath.section)
+//        moveItem(at: sourceIndexPath.row, to: destinationIndexPath.row)
 //    }
-  
+//  
 //    func moveItem(at sourceIndex: Int, to destinationIndex: Int) {
 //        guard sourceIndex != destinationIndex else { return }
-//
-//        toDoTableView.moveSection(sourceIndex, toSection: destinationIndex)
 //
 //        let place = todoTableViewData[sourceIndex]
 //        todoTableViewData.remove(at: sourceIndex)

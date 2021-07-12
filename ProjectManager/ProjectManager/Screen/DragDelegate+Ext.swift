@@ -12,12 +12,17 @@ extension ProjectManagerViewController: UITableViewDragDelegate {
     
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
         
-        return dragItems(for: indexPath)
+        let sourceTableViewData = distinguishedTableViewData(currentTableView: tableView)
+        let cellData = sourceTableViewData[indexPath.row]
+        cellData.sourceTableViewIndexPath = indexPath
+        let itemProvider = NSItemProvider(object: cellData)
+        
+        return [UIDragItem(itemProvider: itemProvider)]
     }
 
-    func dragItems(for indexPath: IndexPath) -> [UIDragItem] {
-        let cellData = todoTableViewData[indexPath.section]
-        let itemProvider = NSItemProvider(object: cellData)
+//    func dragItems(for indexPath: IndexPath) -> [UIDragItem] {
+//        let cellData = todoTableViewData[indexPath.row]
+//        let itemProvider = NSItemProvider(object: cellData)
 //        let itemProvider = NSItemProvider(object: cellData, typeIdentifier: kUTTypePlainText as String)
 //        
 //        itemProvider.registerDataRepresentation(forTypeIdentifier: kUTTypeData as String, visibility: .) { completion in
@@ -25,6 +30,6 @@ extension ProjectManagerViewController: UITableViewDragDelegate {
 //            return nil
 //        }
 
-        return [UIDragItem(itemProvider: itemProvider)]
-    }
+//        return [UIDragItem(itemProvider: itemProvider)]
+//    }
 }
