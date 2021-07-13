@@ -17,7 +17,7 @@
 ### 타임라인
 
 #### 06.28~07.03
-- [팀그라운드룰 작성](https://www.notion.so/4B-068e96ff33c74cf593ee0c65ad74cd8f)
+- [팀그라운드룰 작성](https://github.com/SoKoooool/ios-project-manager/blob/main/Docs/%ED%8C%80%EA%B7%B8%EB%9D%BC%EC%9A%B4%EB%93%9C%EB%A3%B0.md)
 - `UITableView`의 `Drag and Drop` 기능 공식문서 공부
 - drag and drop 문서만 3일
 #### 07.04~07.11
@@ -56,7 +56,19 @@
 <details>
 <summary>참고 링크 세부사항</summary>
 <div markdown="1">
-  
+
+
+공식문서
+- [Supporting Drag and Drop in Table Views](https://developer.apple.com/documentation/uikit/views_and_controls/table_views/supporting_drag_and_drop_in_table_views)
+- [Adopting Drag and Drop in a Table View](https://developer.apple.com/documentation/uikit/drag_and_drop/adopting_drag_and_drop_in_a_table_view)
+- [DateFormatter](https://developer.apple.com/documentation/foundation/dateformatter)
+- [tableView(_:editingStyleForRowAt:)](https://developer.apple.com/documentation/uikit/uitableviewdelegate/1614869-tableview?changes=_9)
+- [Pickers](https://developer.apple.com/design/human-interface-guidelines/ios/controls/pickers/)
+- [UIDatePicker](https://developer.apple.com/documentation/uikit/uidatepicker)
+- [Scheduling a Notification Locally from Your App](https://developer.apple.com/documentation/usernotifications/scheduling_a_notification_locally_from_your_app)
+- [Handling Notifications and Notification-Related Actions](https://developer.apple.com/documentation/usernotifications/handling_notifications_and_notification-related_actions)
+- [UndoManager](https://developer.apple.com/documentation/foundation/undomanager)
+   
 Drag and Drop
 - [[WWDC] Drag and Drop 2017](https://developer.apple.com/videos/play/wwdc2017/223/)
 - [[WWDC] Mastering Drag and Drop](https://developer.apple.com/videos/play/wwdc2017/213/)
@@ -64,7 +76,7 @@ Drag and Drop
 - [[GitHub] StanfordLectureMemo_11~12.md](https://github.com/applebuddy/iOSWithStanford/blob/master/StanfordLectureMemo_11~12.md#lecture-11-1)
 - [[유투브] Stanford - Developing iOS 11 Apps with Swift - 11. Drag and Drop, Table View, and Collection View](https://www.youtube.com/watch?v=noowieVV8nA)
 - [[raywenderlich] Drag and Drop](https://www.raywenderlich.com/3121851-drag-and-drop-tutorial-for-ios)
-- [Swift Talk](https://talk.objc.io/) - 유료
+- [Swift Talk - ](https://talk.objc.io/)
 - [[블로그] Drag and Drop Issue - panther](https://velog.io/@panther222128/Drag-and-Drop-Issue)
 - [[블로그] Creating a NSItemProvider for custom model class (Drag & Drop API) - Osama Naeem](https://exploringswift.com/blog/creating-a-nsitemprovider-for-custom-model-class-drag-drop-api)
 
