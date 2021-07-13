@@ -31,6 +31,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        datasource = TaskDataSource(toDoTableView: toDoTableView, doingTableView: doingTableView, doneTableView: doneTableView)
+        
         toDoTableView.dataSource = datasource
         toDoTableView.dragDelegate = self
         toDoTableView.dropDelegate = self
@@ -51,15 +53,10 @@ class ViewController: UIViewController {
         doneTableView.dragInteractionEnabled = true
         doneTableView.register(Header.self, forHeaderFooterViewReuseIdentifier: HeaderType.done.identifier)
         doneTableView.delegate = self
-                
-        datasource = TaskDataSource(toDoTableView: toDoTableView, doingTableView: doingTableView, doneTableView: doneTableView)
         
-        let date = Date()
         let dateFormatter = DateFormatter()
         
         dateFormatter.customize(dateStyle: .medium, timeStyle: .none, dateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ")
-        print(dateFormatter.string(from: date))
-        print(Date().toString(dateFormat: "KST"))
     }
 }
 
@@ -113,7 +110,7 @@ extension ViewController: UITableViewDragDelegate {
     }
     
     func tableView(_ tableView: UITableView, dragSessionWillBegin session: UIDragSession) {
-        guard let selectedIndex = tableView.indexPathForSelectedRow else { return }
+        guard let selectedIndex = tableView.indexPathForSelectedRow else { print("123"); return }
         datasource?.deleteTask(indexPath: selectedIndex, in: tableView)
         tableView.deleteRows(at: [selectedIndex], with: .automatic)
     }
@@ -144,7 +141,6 @@ extension ViewController: UITableViewDropDelegate {
             guard let tasks = tasks as? [Task] else { return }
             self.datasource?.addTask(task: tasks[destinationIndexPath.row], indexPath: destinationIndexPath, in: tableView)
         }
-       
     }
 
     func tableView(_ tableView: UITableView, canHandle session: UIDropSession) -> Bool {
