@@ -11,4 +11,7 @@ protocol TaskTableViewDataSource: UITableViewDataSource {
     func canHandle(_ session: UIDropSession) -> Bool
     func dragItem(taskType: ProjectTaskType, for indexPath: IndexPath) -> [UIDragItem]
     func moveTask(at sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath, in tableView: UITableView)
+    func addTask(task: Task, destinationIndexPath: IndexPath, tableView: UITableView)
+    func deleteTask(at indexPath: IndexPath, in tableView: UITableView)
+
 }

@@ -87,23 +87,21 @@ final class TaskDataSource: NSObject, TaskTableViewDataSource {
         return [dragItem]
     }
     
-    
-    func toDoTask(index: Int) -> Task {
+    private func toDoTask(index: Int) -> Task {
         return toDoList[index]
     }
     
-    func doingTask(index: Int) -> Task {
+    private func doingTask(index: Int) -> Task {
         return doingList[index]
     }
     
-    func doneTask(index: Int) -> Task {
+    private func doneTask(index: Int) -> Task {
         return doneList[index]
     }
     
     
     func moveTask(at sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath, in tableView: UITableView) {
-        
-        tableView.performBatchUpdates({ () -> Void in
+        tableView.performBatchUpdates({
             switch tableView {
             case toDoTableView:
                 let todoTask = toDoTask(index: sourceIndexPath.item)
@@ -124,8 +122,42 @@ final class TaskDataSource: NSObject, TaskTableViewDataSource {
             tableView.deleteRows(at: [sourceIndexPath], with: .automatic)
             tableView.insertRows(at: [destinationIndexPath], with: .automatic)
             
-        }, completion: nil)
+        })
     }
+    
+    func addTask(task: Task, destinationIndexPath: IndexPath, tableView: UITableView) {
+        tableView.performBatchUpdates({
+            switch tableView {
+            case toDoTableView:
+                toDoList.insert(task, at: destinationIndexPath.item)
+            case doingTableView:
+                doingList.insert(task, at: destinationIndexPath.item)
+            case doneTableView:
+                doneList.insert(task, at: destinationIndexPath.item)
+            default:
+                break
+            }
+            tableView.insertRows(at: [destinationIndexPath], with: .automatic)
+            
+        })
+    }
+    
+    func deleteTask(at indexPath: IndexPath, in tableView: UITableView) {
+        tableView.performBatchUpdates({
+            switch tableView {
+            case toDoTableView:
+                toDoList.remove(at: indexPath.item)
+            case doingTableView:
+                doingList.remove(at: indexPath.item)
+            case doneTableView:
+                doneList.remove(at: indexPath.item)
+            default:
+                break
+            }
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        })
+    }
+    
         
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch tableView {
