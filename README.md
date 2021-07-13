@@ -10,7 +10,52 @@
 
 ### 기능구현
 
+#### UI구현방식 :  코드
 
+#### 아키텍쳐 : 
+
+* ProjectManagerViewController : 
+    NavigationViewController위에 StackView(axis: horizontal)를 올리고 
+    각각 StackView내에 TitleLabel과 TableView를 StackView(axis: vertical)로 묶어 올렸습니다.
+
+*  NewTodoFromViewController(Modal View) :
+     NavigationViewController 위에 StackView(axis: horizontal)를 올리고
+     그 위에 TextField, DatePicker, TextView를 올렸습니다.
+
+* TodoListCell(Custom Cell) :
+      Cell위에 StackView를 올리고 위에 titleLabel,  descriptionLabel, DateLabel을 올렸습니다.
+
+![Jul-13-2021 22-57-48](https://user-images.githubusercontent.com/42936446/125465234-f8fc1ea7-d6f3-4e56-abc0-f80ba4b19ee7.gif)
+<br><br>
+
+
+<hr>
+
+#### Drag & Drop :
+
+- Cell내에 존재하는 titleLabel, descriptionLabel, dateLabel에 존재하는 세개의 데이터를 한번에 ItemProvider로써 변환하기 위해 CellData라는 타입을 만들었습니다.
+
+- 같은 테이블 뷰 Cell을 이동시에는 DataSource메서드인 moveRowAt을 활용하여 Drop이 이루어지고, 다른 테이블 뷰로의 이동시에는 같은 기능을 Drop Delegate 메서드인 dropSessionDidUpdate와 performDropWith 메서드가 해줍니다.
+
+![같은 테이블 drag and drop](https://user-images.githubusercontent.com/65153742/125465943-66dbfdad-e151-41b0-adab-81ad54ee77f3.gif)
+
+![drag and drop to 다른 테이블뷰](https://user-images.githubusercontent.com/65153742/125466165-23d903b2-1d81-4d7c-8c2c-caf3e293dad6.gif)
+<br><br>
+<hr>
+#### 새로운 Cell 추가,삭제 및 수정 :
+
+- Cell추가 : Delegate패턴을 이용하여 NewTodoFormViewController가 ProjectManagerViewController의 권한을 위임받아 데이터를 저장하는 배열에 append를 시키고 TableView를 reload 시키고 titleLabel에 개수를 갱신합니다.
+
+- Cell삭제 : DataSource의  editingStyle 메서드를 사용하여 구현하였고 삭제시 TableView위에 있는 TitleLabel에 있는 셀의 개수를 Reload를 시켜줍니다.
+
+- Cell수정 : Delegate패턴을 이용하여 Cell추가 기능과는 반대로 ProjectManagerViewController가 NewTodoFormViewController의 권한을 위임받아 Cell에 있는 데이터를 TextField, DatePicker 그리고 TextView에 전달해줬습니다. 
+      Edit버튼으로 EditingMode를 활성화하여 데이터를 수정하고 Done을 눌러 저장할 시 권한위임을 반대로하여 원래 Data 배열의 값을 갱신 시켜줬습니다.
+
+![NewMemo추가](https://user-images.githubusercontent.com/65153742/125465331-530113f0-5126-403c-9beb-c7e53b18e836.gif)
+
+![delete](https://user-images.githubusercontent.com/65153742/125465462-84a4cb8d-6c08-40b0-a9a6-6a9e5945986b.gif)
+
+![edit-done](https://user-images.githubusercontent.com/65153742/125465526-52f36ae3-49ef-4dad-8c32-4c48f5332645.gif)
 <br>
 <br>
 
