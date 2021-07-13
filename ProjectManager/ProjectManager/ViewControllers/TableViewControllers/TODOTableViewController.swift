@@ -8,8 +8,8 @@
 import UIKit
 
 class TODOTableViewController: UITableViewController {
-    private var selectIndexPath: IndexPath = []
     
+    private var selectIndexPath: IndexPath = []
     var headerView = HeaderView()
     
     override func viewDidLoad() {
@@ -23,7 +23,6 @@ class TODOTableViewController: UITableViewController {
         tableView.isUserInteractionEnabled = true
         tableView.dragDelegate = self
         tableView.dropDelegate = self
-
         tableView.delegate = self
         tableView.dataSource = self
 
@@ -42,7 +41,7 @@ extension TODOTableViewController {
         headerView.countLabel.text = "\(Task.todoList.count)"
         return Task.todoList.count
     }
-    
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "scheduleCell", for: indexPath) as! ScheduleCell
         let formatter = DateFormatter()

@@ -23,7 +23,6 @@ class DOINGTableViewController: UITableViewController {
         tableView.isUserInteractionEnabled = true
         tableView.dragDelegate = self
         tableView.dropDelegate = self
-        
         tableView.delegate = self
         tableView.dataSource = self
         
