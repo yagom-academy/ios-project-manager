@@ -36,6 +36,14 @@ extension ProjectManagerViewController: UITableViewDataSource {
         newTodoFormViewController.newTodoFormTextView.text = data[indexPath.row].body
         newTodoFormViewController.datePicker.date = Date(timeIntervalSince1970: data[indexPath.row].deadline)
         
+//        data[indexPath.row].title = newTodoFormViewController.newTodoFormTextField.text!
+//        
+//        delegate?.newtodoformviewcontroller(indexpath.row)
+//        
+//        func 세팅존나쩜(indexpath: IndexPath) {
+//            data[indexPath.row].title = newTodoFormViewController.newTodoFormTextField.text!
+//        }
+        
         newTodoFormViewController.newTodoFormTextField.isUserInteractionEnabled = false
         newTodoFormViewController.newTodoFormTextView.isUserInteractionEnabled = false
         newTodoFormViewController.datePicker.isUserInteractionEnabled = false

@@ -87,7 +87,12 @@ class ProjectManagerViewController: UIViewController {
     @objc func pushNewTodoFormViewController() {
         let newTodoFormNavigationController = NewTodoFormNavigationController(rootViewController: newTodoFormViewController)
         newTodoFormNavigationController.modalPresentationStyle = .formSheet
+        
         newTodoFormViewController.mode = "New"
+        newTodoFormViewController.newTodoFormTextField.isUserInteractionEnabled = true
+        newTodoFormViewController.newTodoFormTextView.isUserInteractionEnabled = true
+        newTodoFormViewController.datePicker.isUserInteractionEnabled = true
+        
         present(newTodoFormNavigationController, animated: true)
     }
 

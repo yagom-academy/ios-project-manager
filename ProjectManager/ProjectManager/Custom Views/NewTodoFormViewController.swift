@@ -23,19 +23,25 @@ class NewTodoFormViewController: UIViewController {
         
         view.backgroundColor = .systemBackground
         title = "TODO"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneViewController))
-        
-        if mode == "New" {
-            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismissViewController))
-        } else {
-            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: nil)
-        }
         
         configiureNewTodoFormStackView()
         configureNewTodoFormTextField()
         configureDatePicker()
         configureNewTodoFormTextView()
         createDismissKeyboardTapGestrue()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        changeMode()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        disableEdit()
+        clearNewTodoForm()
     }
  
     @objc private func dismissViewController() {
@@ -54,8 +60,36 @@ class NewTodoFormViewController: UIViewController {
         projectManagerViewController.todoTitleView.count.text = String(projectManagerViewController.todoTableViewData.count)
         projectManagerViewController.todoTableView.reloadData()
         dismiss(animated: true) {
-            self.newTodoFormTextField.text = ""
-            self.newTodoFormTextView.text = ""
+        }
+    }
+    
+    @objc private func enableEdit() {
+        newTodoFormTextField.isUserInteractionEnabled = true
+        newTodoFormTextView.isUserInteractionEnabled = true
+        datePicker.isUserInteractionEnabled = true
+        
+        newTodoFormTextField.becomeFirstResponder()
+    }
+    
+    private func disableEdit() {
+        newTodoFormTextField.isUserInteractionEnabled = false
+        newTodoFormTextView.isUserInteractionEnabled = false
+        datePicker.isUserInteractionEnabled = false
+    }
+    
+    private func clearNewTodoForm() {
+        newTodoFormTextField.text = ""
+        newTodoFormTextView.text = ""
+        datePicker.date = Date()
+    }
+    
+    private func changeMode() {
+        if mode == "New" {
+            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismissViewController))
+            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneViewController))
+        } else if mode == "Edit" {
+            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(enableEdit))
+            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: nil)
         }
     }
     
@@ -65,7 +99,6 @@ class NewTodoFormViewController: UIViewController {
     }
     
     private func configureNewTodoFormTextField() {
-        datePicker.preferredDatePickerStyle = .wheels
         newTodoFormStackView.addArrangedSubview(newTodoFormTextField)
 
         NSLayoutConstraint.activate([
@@ -74,6 +107,9 @@ class NewTodoFormViewController: UIViewController {
     }
     
     private func configureDatePicker() {
+        datePicker.preferredDatePickerStyle = .wheels
+        datePicker.datePickerMode = .date
+        
         newTodoFormStackView.addArrangedSubview(datePicker)
         datePicker.translatesAutoresizingMaskIntoConstraints = false
         
