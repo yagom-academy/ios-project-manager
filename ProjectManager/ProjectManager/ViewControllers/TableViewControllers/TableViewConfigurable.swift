@@ -8,7 +8,6 @@
 import UIKit
 
 protocol TableViewConfigurable {
-    var tableView: UITableView { get set }
     var header: UIView { get set }
     var headerLabel: UILabel { get set }
     var countLabel: UILabel { get set }
@@ -16,46 +15,6 @@ protocol TableViewConfigurable {
 }
 
 extension TableViewConfigurable {
-    mutating func setViews() {
-        header = {
-            let header = UIView()
-            header.backgroundColor = .systemGray6
-            header.translatesAutoresizingMaskIntoConstraints = false
-
-            return header
-        }()
-
-        headerLabel = {
-            let label = UILabel(frame: header.bounds)
-            label.text = "TODO"
-            label.font = UIFont.preferredFont(forTextStyle: .title1)
-            label.textAlignment = .left
-            label.translatesAutoresizingMaskIntoConstraints = false
-
-            return label
-        }()
-
-        countView = {
-            let countView = UIView()
-            countView.backgroundColor = .black
-            countView.translatesAutoresizingMaskIntoConstraints = false
-            countView.clipsToBounds = true
-            countView.layer.cornerRadius = 11.5
-
-            return countView
-        }()
-
-        countLabel = {
-            let count = UILabel(frame: header.bounds)
-            count.textColor = .white
-            count.text = "\(Task.todoList.count)"
-            count.font = UIFont.preferredFont(forTextStyle: .title3)
-            count.textAlignment = .center
-            count.translatesAutoresizingMaskIntoConstraints = false
-
-            return count
-        }()
-    }
     
     func addSubViews() {
         header.addSubview(headerLabel)
@@ -63,7 +22,7 @@ extension TableViewConfigurable {
         header.addSubview(countView)
     }
     
-    func configureViews() {
+    func configureViews(tableView: UITableView) {
         NSLayoutConstraint.activate([
             header.topAnchor.constraint(equalTo: tableView.topAnchor),
             header.heightAnchor.constraint(equalToConstant: 60),
