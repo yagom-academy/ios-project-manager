@@ -10,16 +10,15 @@ import UIKit
 class DOINGTableViewController: UITableViewController {
 
     private var selectIndexPath: IndexPath = []
-    var header: UIView!
-    var headerLabel: UILabel!
-    var countLabel: UILabel!
-    var countView: UIView!
+    var headerView = HeaderView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.register(ScheduleCell.classForCoder(), forCellReuseIdentifier: "scheduleCell")
         tableView.separatorStyle = .none
+        tableView.tableHeaderView = headerView.header
+        tableView.backgroundColor = .systemGray6
         
         tableView.isUserInteractionEnabled = true
         tableView.dragDelegate = self
@@ -28,77 +27,8 @@ class DOINGTableViewController: UITableViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
-        configureTableView()
-    }
-}
-
-extension DOINGTableViewController {
-
-    func configureTableView() {
-        header = {
-            let header = UIView()
-            header.backgroundColor = .systemGray6
-            header.translatesAutoresizingMaskIntoConstraints = false
-
-            return header
-        }()
-        
-        headerLabel = {
-            let label = UILabel(frame: header.bounds)
-            label.text = "DOING"
-            label.font = UIFont.preferredFont(forTextStyle: .title1)
-            label.textAlignment = .left
-            label.translatesAutoresizingMaskIntoConstraints = false
-
-            return label
-        }()
-    
-        countView = {
-            let countView = UIView()
-            countView.backgroundColor = .black
-            countView.translatesAutoresizingMaskIntoConstraints = false
-            countView.clipsToBounds = true
-            countView.layer.cornerRadius = 11.5
-            
-            return countView
-        }()
-        
-        countLabel = {
-            let count = UILabel(frame: header.bounds)
-            count.textColor = .white
-            count.text = "\(Task.doingList.count)"
-            count.font = UIFont.preferredFont(forTextStyle: .title3)
-            count.textAlignment = .center
-            count.translatesAutoresizingMaskIntoConstraints = false
-
-            return count
-        }()
-        
-        tableView.tableHeaderView = header
-        tableView.backgroundColor = .systemGray6
-        
-        header.addSubview(headerLabel)
-        countView.addSubview(countLabel)
-        header.addSubview(countView)
-        
-        let padding: CGFloat = 20.0
-        NSLayoutConstraint.activate([
-            header.topAnchor.constraint(equalTo: tableView.topAnchor),
-            header.heightAnchor.constraint(equalToConstant: 60),
-            header.widthAnchor.constraint(equalToConstant: 100),
-            
-            headerLabel.topAnchor.constraint(equalTo: header.topAnchor, constant: padding),
-            headerLabel.leadingAnchor.constraint(equalTo: header.leadingAnchor, constant: padding),
-            headerLabel.centerYAnchor.constraint(equalTo: header.centerYAnchor),
-
-            countView.leadingAnchor.constraint(equalTo: headerLabel.trailingAnchor, constant: 10),
-            countView.centerYAnchor.constraint(equalTo: header.centerYAnchor),
-            countView.widthAnchor.constraint(equalToConstant: 25),
-            countView.heightAnchor.constraint(equalToConstant: 25),
-
-            countLabel.centerXAnchor.constraint(equalTo: countView.centerXAnchor),
-            countLabel.centerYAnchor.constraint(equalTo: countView.centerYAnchor)
-        ])
+        headerView.addSubViews()
+        headerView.configureViews(tableView: tableView)
     }
 }
 
@@ -109,7 +39,7 @@ extension DOINGTableViewController {
     } //
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        countLabel.text = "\(Task.doingList.count)"
+        headerView.countLabel.text = "\(Task.doingList.count)"
         return Task.doingList.count
     }
     
@@ -139,7 +69,7 @@ extension DOINGTableViewController {
         if editingStyle == .delete {
             Task.doingList.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
-            countLabel.text = "\(Task.doingList.count)"
+            headerView.countLabel.text = "\(Task.doingList.count)"
         }
     }
     
