@@ -82,8 +82,9 @@ final class TaskDataSource: NSObject, TaskTableViewDataSource {
     }
     
     private func createDragItem(tasks: [Task], for indexPath: IndexPath) -> [UIDragItem] {
-        let dragItem = UIDragItem(itemProvider: NSItemProvider(object: tasks[indexPath.row]))
-        dragItem.localObject = true
+        let task = tasks[indexPath.row]
+        let dragItem = UIDragItem(itemProvider: NSItemProvider(object: task))
+        dragItem.localObject = task
         return [dragItem]
     }
     

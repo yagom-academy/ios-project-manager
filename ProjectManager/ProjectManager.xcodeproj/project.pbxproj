@@ -22,6 +22,7 @@
 		C7431F0D25F51E1D0094C4CF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0B25F51E1D0094C4CF /* Main.storyboard */; };
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
+		EA45AC89269D5D960098567E /* TaskDragCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA45AC88269D5D960098567E /* TaskDragCoordinator.swift */; };
 		EAD1B6422693EFFE00487599 /* TaskTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD1B6412693EFFE00487599 /* TaskTableViewDataSource.swift */; };
 /* End PBXBuildFile section */
 
@@ -43,6 +44,7 @@
 		C7431F0E25F51E1E0094C4CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C7431F1125F51E1E0094C4CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EA45AC88269D5D960098567E /* TaskDragCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDragCoordinator.swift; sourceTree = "<group>"; };
 		EAD1B6412693EFFE00487599 /* TaskTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewDataSource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -72,6 +74,7 @@
 				48288248268DA23F002C7C40 /* Task.swift */,
 				481F1046268F0A42006984D9 /* DragAndDropError.swift */,
 				486AD1072692DAC40023F03A /* TaskDataSource.swift */,
+				EA45AC88269D5D960098567E /* TaskDragCoordinator.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -226,6 +229,7 @@
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				EAD1B6422693EFFE00487599 /* TaskTableViewDataSource.swift in Sources */,
 				481F1047268F0A42006984D9 /* DragAndDropError.swift in Sources */,
+				EA45AC89269D5D960098567E /* TaskDragCoordinator.swift in Sources */,
 				3CBA568F2695A7B900291A42 /* DateFormatter + Extension.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 			);

@@ -94,9 +94,12 @@ extension ViewController: UITableViewDelegate {
 
 // MARK:- UITableView DragDelegate
 
-// FIXME:- 분기처리
 extension ViewController: UITableViewDragDelegate {
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        
+        let dragCoordinator = TaskDragCoordinator(sourceIndexPath: indexPath)
+        session.localContext = dragCoordinator
+        
         switch tableView {
         case toDoTableView:
             return datasource?.dragItem(taskType: .todo, for: indexPath) ?? []
@@ -107,6 +110,17 @@ extension ViewController: UITableViewDragDelegate {
         default:
             return []
         }
+    }
+    
+    func tableView(_ tableView: UITableView, dragSessionDidEnd session: UIDragSession) {
+        guard let dragCoordinator = session.localContext as? TaskDragCoordinator,
+              dragCoordinator.dragCompleted == true,
+              dragCoordinator.isReordering == false
+        else { return }
+        
+        let sourceIndexPath = dragCoordinator.sourceIndexPath
+        
+        datasource?.deleteTask(at: sourceIndexPath, in: tableView)
     }
 }
 
@@ -131,15 +145,27 @@ extension ViewController: UITableViewDropDelegate {
             destinationIndexPath = IndexPath(row: row, section: section)
         }
         
+        guard let dragCoordinator =
+          coordinator.session.localDragSession?.localContext as? TaskDragCoordinator
+          else { return }
+        
         for dropItem in coordinator.items {
             if let sourceIndexPath = dropItem.sourceIndexPath {
-                
+                dragCoordinator.isReordering = true
                 datasource?.moveTask(at: sourceIndexPath, to: destinationIndexPath, in: tableView)
                 coordinator.drop(dropItem.dragItem, toRowAt: destinationIndexPath)
+            } else {
+                dragCoordinator.isReordering = false
+                if let task = dropItem.dragItem.localObject as? Task {
+                    datasource?.addTask(task: task, destinationIndexPath: destinationIndexPath, tableView: tableView)
+                    
+                }
             }
+            dragCoordinator.dragCompleted = true
+            coordinator.drop(dropItem.dragItem, toRowAt: destinationIndexPath)
         }
     }
-
+    
     func tableView(_ tableView: UITableView, canHandle session: UIDropSession) -> Bool {
         return session.canLoadObjects(ofClass: Task.self)
     }
