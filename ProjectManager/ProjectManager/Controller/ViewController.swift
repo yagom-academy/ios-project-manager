@@ -108,12 +108,6 @@ extension ViewController: UITableViewDragDelegate {
             return []
         }
     }
-    
-    func tableView(_ tableView: UITableView, dragSessionWillBegin session: UIDragSession) {
-        guard let selectedIndex = tableView.indexPathForSelectedRow else { print("123"); return }
-        datasource?.deleteTask(indexPath: selectedIndex, in: tableView)
-        tableView.deleteRows(at: [selectedIndex], with: .automatic)
-    }
 }
 
 // MARK:- UITableView DropDelegate
@@ -137,9 +131,12 @@ extension ViewController: UITableViewDropDelegate {
             destinationIndexPath = IndexPath(row: row, section: section)
         }
         
-        coordinator.session.loadObjects(ofClass: Task.self) { tasks in
-            guard let tasks = tasks as? [Task] else { return }
-            self.datasource?.addTask(task: tasks[destinationIndexPath.row], indexPath: destinationIndexPath, in: tableView)
+        for dropItem in coordinator.items {
+            if let sourceIndexPath = dropItem.sourceIndexPath {
+                
+                datasource?.moveTask(at: sourceIndexPath, to: destinationIndexPath, in: tableView)
+                coordinator.drop(dropItem.dragItem, toRowAt: destinationIndexPath)
+            }
         }
     }
 
