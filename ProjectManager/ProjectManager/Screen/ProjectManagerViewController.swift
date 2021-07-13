@@ -38,6 +38,8 @@ class ProjectManagerViewController: UIViewController {
     let doingTableView = UITableView()
     let doneTableView = UITableView()
     
+    var delegate: NewTodoFormDelegate?
+    
     let newTodoFormViewController = NewTodoFormViewController()
 
     override func viewDidLoad() {
@@ -66,8 +68,6 @@ class ProjectManagerViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         todoTableView.reloadData()
-        print("viewWillAppear")
-        print(todoTableViewData)
     }
     
     private func addDragAndDropInteraction() {
@@ -88,7 +88,7 @@ class ProjectManagerViewController: UIViewController {
         let newTodoFormNavigationController = NewTodoFormNavigationController(rootViewController: newTodoFormViewController)
         newTodoFormNavigationController.modalPresentationStyle = .formSheet
         
-        newTodoFormViewController.mode = "New"
+        newTodoFormViewController.isEditMode = false
         newTodoFormViewController.newTodoFormTextField.isUserInteractionEnabled = true
         newTodoFormViewController.newTodoFormTextView.isUserInteractionEnabled = true
         newTodoFormViewController.datePicker.isUserInteractionEnabled = true
@@ -192,6 +192,17 @@ class ProjectManagerViewController: UIViewController {
             doingTableViewData.remove(at: indexPath.row)
         default:
             doneTableViewData.remove(at: indexPath.row)
+        }
+    }
+    
+    func reloadSelectedTableView(tableView: UITableView) {
+        switch tableView {
+        case todoTableView:
+            todoTableView.reloadData()
+        case doingTableView:
+            doingTableView.reloadData()
+        default:
+            doneTableView.reloadData()
         }
     }
     

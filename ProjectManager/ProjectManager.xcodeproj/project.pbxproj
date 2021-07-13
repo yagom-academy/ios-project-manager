@@ -16,6 +16,8 @@
 		33C487E12693EC47000685AA /* ProjectManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C487E02693EC47000685AA /* ProjectManagerDelegate.swift */; };
 		33C487E52693ECFF000685AA /* ProjectManagerViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C487E42693ECFF000685AA /* ProjectManagerViewController+Ext.swift */; };
 		B435B438269C5B9900DFC408 /* TableViewType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B435B437269C5B9900DFC408 /* TableViewType.swift */; };
+		B435B43C269D959500DFC408 /* NewTodoFromViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B435B43B269D959500DFC408 /* NewTodoFromViewController+Ext.swift */; };
+		B435B440269D95CB00DFC408 /* NewTodoFromDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B435B43F269D95CB00DFC408 /* NewTodoFromDelegate.swift */; };
 		B464DE2126957A5200298D78 /* CellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B464DE2026957A5200298D78 /* CellData.swift */; };
 		B464DE2A2695ECCF00298D78 /* UndoManagerToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B464DE292695ECCF00298D78 /* UndoManagerToolbar.swift */; };
 		B4A446472692FB890055C901 /* NewTodoFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4A446462692FB890055C901 /* NewTodoFormViewController.swift */; };
@@ -43,6 +45,8 @@
 		33C487E02693EC47000685AA /* ProjectManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerDelegate.swift; sourceTree = "<group>"; };
 		33C487E42693ECFF000685AA /* ProjectManagerViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProjectManagerViewController+Ext.swift"; sourceTree = "<group>"; };
 		B435B437269C5B9900DFC408 /* TableViewType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewType.swift; sourceTree = "<group>"; };
+		B435B43B269D959500DFC408 /* NewTodoFromViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewTodoFromViewController+Ext.swift"; sourceTree = "<group>"; };
+		B435B43F269D95CB00DFC408 /* NewTodoFromDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTodoFromDelegate.swift; sourceTree = "<group>"; };
 		B464DE2026957A5200298D78 /* CellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellData.swift; sourceTree = "<group>"; };
 		B464DE292695ECCF00298D78 /* UndoManagerToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndoManagerToolbar.swift; sourceTree = "<group>"; };
 		B4A446462692FB890055C901 /* NewTodoFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTodoFormViewController.swift; sourceTree = "<group>"; };
@@ -106,6 +110,8 @@
 				33C2120B268DEF7300232BD4 /* TodoListCell.swift */,
 				B4A44649269311590055C901 /* NewTodoFormNavigationController.swift */,
 				B4A446462692FB890055C901 /* NewTodoFormViewController.swift */,
+				B435B43B269D959500DFC408 /* NewTodoFromViewController+Ext.swift */,
+				B435B43F269D95CB00DFC408 /* NewTodoFromDelegate.swift */,
 				B4A4464C269314360055C901 /* NewTodoFormTextField.swift */,
 				B4A4464F269315AE0055C901 /* NewTodoFormStackView.swift */,
 				B4A446522693253D0055C901 /* NewTodoFormTextView.swift */,
@@ -217,6 +223,7 @@
 				B4A4464A269311590055C901 /* NewTodoFormNavigationController.swift in Sources */,
 				FF65C6B2268EAFFE003E63D9 /* TableViewDelegate+Ext.swift in Sources */,
 				33812BC02696D68200851B6B /* DropDelegate+Ext.swift in Sources */,
+				B435B43C269D959500DFC408 /* NewTodoFromViewController+Ext.swift in Sources */,
 				33C21219268DF51E00232BD4 /* TableViewDataSource+Ext.swift in Sources */,
 				33C2120C268DEF7300232BD4 /* TodoListCell.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* ProjectManagerViewController.swift in Sources */,
@@ -232,6 +239,7 @@
 				33C487E52693ECFF000685AA /* ProjectManagerViewController+Ext.swift in Sources */,
 				33C21206268DDE8D00232BD4 /* ProcessListsStackView.swift in Sources */,
 				B4A4464D269314360055C901 /* NewTodoFormTextField.swift in Sources */,
+				B435B440269D95CB00DFC408 /* NewTodoFromDelegate.swift in Sources */,
 				B4A44650269315AE0055C901 /* NewTodoFormStackView.swift in Sources */,
 				FF65C6B9268EDBCC003E63D9 /* ListTitleView.swift in Sources */,
 				B464DE2A2695ECCF00298D78 /* UndoManagerToolbar.swift in Sources */,

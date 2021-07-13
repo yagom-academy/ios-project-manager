@@ -13,10 +13,12 @@ class NewTodoFormViewController: UIViewController {
     let newTodoFormTextField = NewTodoFormTextField()
     let datePicker = UIDatePicker()
     let newTodoFormTextView = NewTodoFormTextView()
-    
+
     var delegate: ProjectManagerDelegate?
     
-    var mode = "New"
+    var isEditMode: Bool = false
+    var sentIndexPath = Int()
+    var tableView = UITableView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +26,7 @@ class NewTodoFormViewController: UIViewController {
         view.backgroundColor = .systemBackground
         title = "TODO"
         
+        presentingViewController2().delegate = self
         configiureNewTodoFormStackView()
         configureNewTodoFormTextField()
         configureDatePicker()
@@ -33,7 +36,6 @@ class NewTodoFormViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         changeMode()
     }
     
@@ -43,7 +45,7 @@ class NewTodoFormViewController: UIViewController {
         disableEdit()
         clearNewTodoForm()
     }
- 
+    
     @objc private func dismissViewController() {
         dismiss(animated: true)
     }
@@ -63,12 +65,36 @@ class NewTodoFormViewController: UIViewController {
         }
     }
     
+    @objc private func doneEdit() {
+        guard let presentingViewController = presentingViewController as? UINavigationController,
+              let projectManagerViewController = presentingViewController.viewControllers[0] as? ProjectManagerViewController else {
+            return
+        }
+
+        if let title = newTodoFormTextField.text, let description = newTodoFormTextView.text {
+            delegate?.updateData(tableView: self.tableView, title: title, date: datePicker.date.timeIntervalSince1970, indexPath: sentIndexPath, description: description)
+        }
+
+        projectManagerViewController.reloadSelectedTableView(tableView: tableView)
+        dismiss(animated: true) {
+        }
+    }
+    
     @objc private func enableEdit() {
         newTodoFormTextField.isUserInteractionEnabled = true
         newTodoFormTextView.isUserInteractionEnabled = true
         datePicker.isUserInteractionEnabled = true
         
         newTodoFormTextField.becomeFirstResponder()
+    }
+    
+    private func presentingViewController2() -> ProjectManagerViewController {
+        guard let presentingViewController = presentingViewController as? UINavigationController,
+              let projectManagerViewController = presentingViewController.viewControllers[0] as? ProjectManagerViewController else {
+            return ProjectManagerViewController()
+        }
+        
+        return projectManagerViewController
     }
     
     private func disableEdit() {
@@ -84,12 +110,12 @@ class NewTodoFormViewController: UIViewController {
     }
     
     private func changeMode() {
-        if mode == "New" {
+        if isEditMode {
+            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(enableEdit))
+            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneEdit))
+        } else {
             navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismissViewController))
             navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneViewController))
-        } else if mode == "Edit" {
-            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(enableEdit))
-            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: nil)
         }
     }
     

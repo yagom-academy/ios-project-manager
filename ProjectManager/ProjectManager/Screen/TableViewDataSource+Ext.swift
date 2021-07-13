@@ -26,23 +26,17 @@ extension ProjectManagerViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print(tableView)
         let newTodoFormNavigationController = NewTodoFormNavigationController(rootViewController: newTodoFormViewController)
         let data = distinguishedTableViewData(currentTableView: tableView)
         newTodoFormNavigationController.modalPresentationStyle = .formSheet
         
-        newTodoFormViewController.mode = "Edit"
+        newTodoFormViewController.isEditMode = true
         
         newTodoFormViewController.newTodoFormTextField.text = data[indexPath.row].title
         newTodoFormViewController.newTodoFormTextView.text = data[indexPath.row].body
         newTodoFormViewController.datePicker.date = Date(timeIntervalSince1970: data[indexPath.row].deadline)
-        
-//        data[indexPath.row].title = newTodoFormViewController.newTodoFormTextField.text!
-//        
-//        delegate?.newtodoformviewcontroller(indexpath.row)
-//        
-//        func 세팅존나쩜(indexpath: IndexPath) {
-//            data[indexPath.row].title = newTodoFormViewController.newTodoFormTextField.text!
-//        }
+        delegate?.getIndexPath(tableView, row: indexPath.row, data: data[indexPath.row])
         
         newTodoFormViewController.newTodoFormTextField.isUserInteractionEnabled = false
         newTodoFormViewController.newTodoFormTextView.isUserInteractionEnabled = false
