@@ -19,15 +19,9 @@ extension ProjectManagerViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "ProjectManagerTableViewCell", for: indexPath) as? TodoListCell else {
             return UITableViewCell()
         }
+    
+        configureCell(cell: cell, tableView: tableView, indexPath: indexPath)
         
-        let data = distinguishedTableViewData(currentTableView: tableView)
-        
-        cell.selectionStyle = .none
-        cell.separatorInset = .zero
-        cell.titleLabel.text = data[indexPath.row].title
-        cell.dateLabel.text = data[indexPath.row].deadline
-        cell.descriptionLabel.text = data[indexPath.row].body
-
         return cell
     }
     
@@ -39,12 +33,13 @@ extension ProjectManagerViewController: UITableViewDataSource {
         
         reloadCountLabel()
     }
-       
+    
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         return true
     }
-
+    
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         moveItem(at: sourceIndexPath.row, to: destinationIndexPath.row, tableView: tableView)
     }
 }
+

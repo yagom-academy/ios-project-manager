@@ -87,6 +87,15 @@
 			path = Screen;
 			sourceTree = "<group>";
 		};
+		33D4D3DF269D2437003CF744 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B435B437269C5B9900DFC408 /* TableViewType.swift */,
+				B464DE2026957A5200298D78 /* CellData.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		B4A446442692F28E0055C901 /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -124,15 +133,14 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
-				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
+				33D4D3DF269D2437003CF744 /* Model */,
 				B4A446442692F28E0055C901 /* Custom Views */,
 				33C21211268DF41000232BD4 /* Screen */,
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
+				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
-				B464DE2026957A5200298D78 /* CellData.swift */,
-				B435B437269C5B9900DFC408 /* TableViewType.swift */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";

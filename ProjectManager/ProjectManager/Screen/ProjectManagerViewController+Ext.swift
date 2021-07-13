@@ -9,7 +9,8 @@ import UIKit
 
 extension ProjectManagerViewController: ProjectManagerDelegate {
     
-    func dataPassing(title: String, date: String, description: String) {
+    func dataPassing(title: String, date: Double, description: String) {
+        
         todoTableViewData.append(CellData(title: title, body: description, deadline: date, superViewType: TableViewType.todoTableView))
     }
     

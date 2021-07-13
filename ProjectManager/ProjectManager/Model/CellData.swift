@@ -12,14 +12,16 @@ final class CellData: NSObject, Codable, NSItemProviderWriting, NSItemProviderRe
     
     var title: String
     var body: String
-    var deadline: String
+    var deadline: Double
+    var deadlineIsExpired: Bool
     var superViewType: TableViewType
     var sourceTableViewIndexPath: IndexPath?
     
-    init(title: String, body: String, deadline: String, superViewType: TableViewType) {
+    init(title: String, body: String, deadline: Double, deadlineIsExpired: Bool = false, superViewType: TableViewType) {
         self.title = title
         self.body = body
         self.deadline = deadline
+        self.deadlineIsExpired = deadlineIsExpired
         self.superViewType = superViewType
     }
     

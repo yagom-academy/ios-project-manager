@@ -8,5 +8,5 @@
 import UIKit
 
 protocol ProjectManagerDelegate {
-    func dataPassing(title: String, date: String, description: String)
+    func dataPassing(title: String, date: Double, description: String)
 }

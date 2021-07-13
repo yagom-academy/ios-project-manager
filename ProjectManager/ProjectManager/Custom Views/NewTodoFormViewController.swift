@@ -39,12 +39,11 @@ class NewTodoFormViewController: UIViewController {
         
         guard let presentingViewController = presentingViewController as? UINavigationController,
               let projectManagerViewController = presentingViewController.viewControllers[0] as? ProjectManagerViewController else {
-        
             return
         }
 
         if let title = newTodoFormTextField.text, let description = newTodoFormTextView.text {
-            delegate?.dataPassing(title: title, date: formattedDate(date: datePicker.date), description: description)
+            delegate?.dataPassing(title: title, date: datePicker.date.timeIntervalSince1970, description: description)
         }
 
         projectManagerViewController.todoTitleView.count.text = String(projectManagerViewController.todoTableViewData.count)
@@ -53,14 +52,6 @@ class NewTodoFormViewController: UIViewController {
             self.newTodoFormTextField.text = ""
             self.newTodoFormTextView.text = ""
         }
-    }
-    
-    private func formattedDate(date: Date) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        let date = dateFormatter.string(from: datePicker.date)
-        
-        return date
     }
     
     private func createDismissKeyboardTapGestrue() {

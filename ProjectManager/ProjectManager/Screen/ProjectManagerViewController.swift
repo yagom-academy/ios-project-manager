@@ -9,19 +9,19 @@ import UIKit
 class ProjectManagerViewController: UIViewController {
     
     var todoTableViewData: [CellData] = [
-        CellData(title: "수지의 탈주하기", body: "어느 부캠이 좋을까", deadline: "161015", superViewType: .todoTableView),
-        CellData(title: "바비의 다이어트", body: "쿠팡에서 다이어트 음식 시켜야지", deadline: "161015", superViewType: .todoTableView),
-        CellData(title: "키오의 이모티콘 만들기", body: "역시 공부보다 재미있어", deadline: "161015", superViewType: .todoTableView)
+        CellData(title: "수지의 탈주하기", body: "어느 부캠이 좋을까", deadline: 1610150400, superViewType: .todoTableView),
+        CellData(title: "바비의 다이어트", body: "쿠팡에서 다이어트 음식 시켜야지", deadline: 1610150400, superViewType: .todoTableView),
+        CellData(title: "키오의 이모티콘 만들기", body: "역시 공부보다 재미있어", deadline: 1610150400, superViewType: .todoTableView)
     ]
     var doingTableViewData : [CellData] = [
-        CellData(title: "수지의 탈주하기2", body: "어느 부캠이 좋을까", deadline: "161015", superViewType: .doingTableView),
-        CellData(title: "바비의 다이어트2", body: "쿠팡에서 다이어트 음식 시켜야지", deadline: "161015", superViewType: .doingTableView),
-        CellData(title: "키오의 이모티콘 만들기2", body: "역시 공부보다 재미있어", deadline: "161015", superViewType: .doingTableView)
+        CellData(title: "수지의 탈주하기2", body: "어느 부캠이 좋을까", deadline: 1610150400, superViewType: .doingTableView),
+        CellData(title: "바비의 다이어트2", body: "쿠팡에서 다이어트 음식 시켜야지", deadline: 1610150400, superViewType: .doingTableView),
+        CellData(title: "키오의 이모티콘 만들기2", body: "역시 공부보다 재미있어", deadline: 1610150400, superViewType: .doingTableView)
     ]
     var doneTableViewData : [CellData] = [
-        CellData(title: "수지의 탈주하기3", body: "어느 부캠이 좋을까", deadline: "161015", superViewType: .doneTableView),
-        CellData(title: "바비의 다이어트3", body: "쿠팡에서 다이어트 음식 시켜야지", deadline: "161015", superViewType: .doneTableView),
-        CellData(title: "키오의 이모티콘 만들기3", body: "역시 공부보다 재미있어", deadline: "161015", superViewType: .doneTableView)
+        CellData(title: "수지의 탈주하기3", body: "어느 부캠이 좋을까", deadline: 1610150400, superViewType: .doneTableView),
+        CellData(title: "바비의 다이어트3", body: "쿠팡에서 다이어트 음식 시켜야지", deadline: 1610150400, superViewType: .doneTableView),
+        CellData(title: "키오의 이모티콘 만들기3", body: "역시 공부보다 재미있어", deadline: 1610150400, superViewType: .doneTableView)
     ]
     
     let processListsStackView = ProcessListsStackView()
@@ -266,5 +266,34 @@ class ProjectManagerViewController: UIViewController {
         reloadCountLabel()
         item.superViewType = currentTableView
         item.sourceTableViewIndexPath = indexPath
+    }
+    
+    func formattedDate(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let date = dateFormatter.string(from: date)
+        
+        return date
+    }
+    
+    func configureCell(cell: TodoListCell, tableView: UITableView, indexPath: IndexPath) {
+        let data = distinguishedTableViewData(currentTableView: tableView)
+        
+        let currentDate = Date()
+        let deadlineDate = Date(timeIntervalSince1970: data[indexPath.row].deadline)
+        
+        let convertDate = formattedDate(date: deadlineDate)
+        
+        if currentDate > deadlineDate {
+            cell.dateLabel.textColor = .systemRed
+        } else {
+            cell.dateLabel.textColor = .black
+        }
+        
+        cell.selectionStyle = .none
+        cell.separatorInset = .zero
+        cell.titleLabel.text = data[indexPath.row].title
+        cell.dateLabel.text = "\(convertDate)"
+        cell.descriptionLabel.text = data[indexPath.row].body
     }
 }
