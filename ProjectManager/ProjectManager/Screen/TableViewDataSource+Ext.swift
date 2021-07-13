@@ -25,6 +25,24 @@ extension ProjectManagerViewController: UITableViewDataSource {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let newTodoFormNavigationController = NewTodoFormNavigationController(rootViewController: newTodoFormViewController)
+        let data = distinguishedTableViewData(currentTableView: tableView)
+        newTodoFormNavigationController.modalPresentationStyle = .formSheet
+        
+        newTodoFormViewController.mode = "Edit"
+        
+        newTodoFormViewController.newTodoFormTextField.text = data[indexPath.row].title
+        newTodoFormViewController.newTodoFormTextView.text = data[indexPath.row].body
+        newTodoFormViewController.datePicker.date = Date(timeIntervalSince1970: data[indexPath.row].deadline)
+        
+        newTodoFormViewController.newTodoFormTextField.isUserInteractionEnabled = false
+        newTodoFormViewController.newTodoFormTextView.isUserInteractionEnabled = false
+        newTodoFormViewController.datePicker.isUserInteractionEnabled = false
+        
+        present(newTodoFormNavigationController, animated: true)
+    }
+    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             removeElement(tableView: tableView, indexPath: indexPath)
@@ -42,4 +60,3 @@ extension ProjectManagerViewController: UITableViewDataSource {
         moveItem(at: sourceIndexPath.row, to: destinationIndexPath.row, tableView: tableView)
     }
 }
-

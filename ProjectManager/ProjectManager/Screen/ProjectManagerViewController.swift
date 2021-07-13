@@ -87,7 +87,7 @@ class ProjectManagerViewController: UIViewController {
     @objc func pushNewTodoFormViewController() {
         let newTodoFormNavigationController = NewTodoFormNavigationController(rootViewController: newTodoFormViewController)
         newTodoFormNavigationController.modalPresentationStyle = .formSheet
-        
+        newTodoFormViewController.mode = "New"
         present(newTodoFormNavigationController, animated: true)
     }
 

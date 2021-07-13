@@ -16,13 +16,20 @@ class NewTodoFormViewController: UIViewController {
     
     var delegate: ProjectManagerDelegate?
     
+    var mode = "New"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .systemBackground
         title = "TODO"
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismissViewController))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneViewController))
+        
+        if mode == "New" {
+            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismissViewController))
+        } else {
+            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: nil)
+        }
         
         configiureNewTodoFormStackView()
         configureNewTodoFormTextField()
@@ -36,12 +43,10 @@ class NewTodoFormViewController: UIViewController {
     }
     
     @objc private func doneViewController() {
-        
         guard let presentingViewController = presentingViewController as? UINavigationController,
               let projectManagerViewController = presentingViewController.viewControllers[0] as? ProjectManagerViewController else {
             return
         }
-
         if let title = newTodoFormTextField.text, let description = newTodoFormTextView.text {
             delegate?.dataPassing(title: title, date: datePicker.date.timeIntervalSince1970, description: description)
         }
