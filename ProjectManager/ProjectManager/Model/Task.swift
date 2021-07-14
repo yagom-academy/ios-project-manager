@@ -10,7 +10,7 @@ import MobileCoreServices
 
 final class Task: NSObject, NSItemProviderReading, NSItemProviderWriting, Codable {
     
-    let id: String // optional or decodable
+    let id: String? // optional or decodable
     let title: String
     let content: String
     let deadlineDate: Date
