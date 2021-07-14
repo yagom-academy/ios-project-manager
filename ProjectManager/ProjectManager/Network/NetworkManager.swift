@@ -10,10 +10,10 @@ import Foundation
 
 
 class NetworkManager {
-    func search(
+    func responseData(
         type: TableViewType,
         page: Int,
-        complete: @escaping ((ReceivedMemoModel?) -> Void)
+        complete: @escaping ((ReceivedMemoModel) -> Void)
     ) {
         guard let requestURL = RequestType.loadPage(type, page).url
         else {

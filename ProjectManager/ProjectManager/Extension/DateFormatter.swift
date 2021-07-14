@@ -27,4 +27,10 @@ extension DateFormatter {
         
         return date
     }
+    
+    func changeStringDateFormat(date: String) -> String {
+        let date = stringToDate(string: date)
+        
+        return dateToString(date: date)
+    }
 }

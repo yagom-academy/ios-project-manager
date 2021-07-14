@@ -20,32 +20,20 @@ final class TableViewModel {
     }
     
     func fetchData() {
-        NetworkManager().search(
-            type: .todo,
+        NetworkManager().responseData(
+            type: tableViewType,
             page: 1) { receivedMemoModel in
-            self.memoList.value = receivedMemoModel!.items.compactMap({
+            self.memoList.value = receivedMemoModel.items.compactMap({
                 MemoTableViewCellModel(
                     title: $0.title,
                     content: $0.content,
-                    dueDate: $0.dueDate, //self.dateFormatter.dateToString(date: $0.dueDate),
+                    dueDate: self.dateFormatter.changeStringDateFormat(date: $0.dueDate),
                     isDateColorRed: self.checkDateColor(
-                        date: $0.dueDate //self.dateFormatter.dateToString(date: $0.dueDate)
+                        date: $0.dueDate
                     )
                 )
             })
         }
-            
-        
-        
-        
-//        memoList.value = Dummy.shared.dummy(as: tableViewType).compactMap({
-//            MemoTableViewCellModel(
-//                title: $0.title,
-//                content: $0.content,
-//                dueDate: dateFormatter.dateToString(date: $0.dueDate),
-//                isDateColorRed: checkDateColor(date: dateFormatter.dateToString(date: $0.dueDate))
-//            )
-//        })
     }
     
     private func checkDateColor(date stringOfDate: String) -> Bool {
