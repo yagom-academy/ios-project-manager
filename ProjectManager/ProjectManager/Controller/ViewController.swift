@@ -7,6 +7,9 @@
 import UIKit
 
 class ViewController: UIViewController {
+        
+    private var datasource: TaskTableViewDataSource?
+    
     @IBOutlet weak var toDoTableView: UITableView!
     @IBOutlet weak var doingTableView: UITableView!
     @IBOutlet weak var doneTableView: UITableView!
@@ -20,8 +23,6 @@ class ViewController: UIViewController {
         optionsVC.popoverPresentationController?.barButtonItem = sender
         self.present(optionsVC, animated: false)
     }
-    
-    private var datasource: TaskTableViewDataSource?
     
     enum HeaderType {
         case toDo, doing, done
@@ -168,7 +169,6 @@ extension ViewController: UITableViewDropDelegate {
                 dragCoordinator.isReordering = false
                 if let task = dropItem.dragItem.localObject as? Task {
                     datasource?.addTask(task: task, destinationIndexPath: destinationIndexPath, tableView: tableView)
-                    
                 }
             }
             dragCoordinator.dragCompleted = true
