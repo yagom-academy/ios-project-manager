@@ -65,7 +65,7 @@ final class DetailViewController: UIViewController {
     func updateUI() {
         if let item = viewModel.tableItem() {
             newTitle.text = item.title
-            newDate.date = dateFormatter.stringToDate(string: item.date)
+            newDate.date = dateFormatter.stringToDate(string: item.dueDate)
             newContent.text = item.content
         }
         
@@ -108,13 +108,12 @@ extension DetailViewController {
     private func complete(
         _ save: (_ newCell: Memo, _ tableViewType: TableViewType) -> Void
     ) {
-        let title: String = newTitle.text!
-        let date: Double = dateFormatter.dateToNumber(date: newDate.date)
-        let content: String = newContent.text
         let newCell = Memo(
-            title: title,
-            content: content,
-            date: date
+            id: "test",
+            title: newTitle.text!,
+            content: newContent.text,
+            dueDate: dateFormatter.dateToString(date: newDate.date),
+            memoType: "todo"
         )
         // TODO: - save이름 더 가독성 좋게 바꾸기
         save(newCell, tableViewType)

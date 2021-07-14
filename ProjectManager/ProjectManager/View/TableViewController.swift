@@ -119,7 +119,7 @@ extension TableViewController {
     }
     
     private func setTablesRowCount() {
-        // TODO: - UILabel의 extension을 만들어서 처리해보자
+        // TODO: - UILabel의 SubClass를 만들어서 처리
         let circleImage = UIImage(systemName: Strings.circleImageName)
         todoTableRowCount.backgroundColor = UIColor(patternImage: circleImage!)
         doingTableRowCount.backgroundColor = UIColor(patternImage: circleImage!)

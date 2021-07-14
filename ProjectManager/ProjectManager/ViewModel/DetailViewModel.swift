@@ -39,7 +39,7 @@ final class DetailViewModel {
     
     func insert(
         cell: Memo,
-        at index: Int = Dummy.shared.todo.endIndex,
+        at index: Int = Dummy.shared.dummyList.count,
         tableViewType: TableViewType
     ) {
         // TODO: - server API "insert"

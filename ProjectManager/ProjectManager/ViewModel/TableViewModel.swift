@@ -20,14 +20,32 @@ final class TableViewModel {
     }
     
     func fetchData() {
-        memoList.value = Dummy.shared.dummy(as: tableViewType).compactMap({
-            MemoTableViewCellModel(
-                title: $0.title,
-                content: $0.content,
-                date: dateFormatter.numberToString(number: $0.date),
-                isDateColorRed: checkDateColor(date: dateFormatter.numberToString(number: $0.date))
-            )
-        })
+        NetworkManager().search(
+            type: .todo,
+            page: 1) { receivedMemoModel in
+            self.memoList.value = receivedMemoModel!.items.compactMap({
+                MemoTableViewCellModel(
+                    title: $0.title,
+                    content: $0.content,
+                    dueDate: $0.dueDate, //self.dateFormatter.dateToString(date: $0.dueDate),
+                    isDateColorRed: self.checkDateColor(
+                        date: $0.dueDate //self.dateFormatter.dateToString(date: $0.dueDate)
+                    )
+                )
+            })
+        }
+            
+        
+        
+        
+//        memoList.value = Dummy.shared.dummy(as: tableViewType).compactMap({
+//            MemoTableViewCellModel(
+//                title: $0.title,
+//                content: $0.content,
+//                dueDate: dateFormatter.dateToString(date: $0.dueDate),
+//                isDateColorRed: checkDateColor(date: dateFormatter.dateToString(date: $0.dueDate))
+//            )
+//        })
     }
     
     private func checkDateColor(date stringOfDate: String) -> Bool {
@@ -45,9 +63,11 @@ final class TableViewModel {
     func itemInfo(at index: Int) -> Memo {
         let item = memoInfo(at: index)!
         return Memo(
+            id: "test",
             title: item.title,
             content: item.content,
-            date: dateFormatter.stringToNumber(string: item.date)
+            dueDate: item.dueDate, //dateFormatter.stringToDate(string: item.dueDate),
+            memoType: "todo"
         )
     }
     

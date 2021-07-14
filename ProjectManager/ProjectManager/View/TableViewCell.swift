@@ -22,7 +22,7 @@ final class TableViewCell: UITableViewCell {
     func update(info: MemoTableViewCellModel) {
         title.text = info.title
         summary.text = info.content
-        date.text = info.date
+        date.text = info.dueDate
         date.textColor = info.isDateColorRed ? .red : .black
     }
 }

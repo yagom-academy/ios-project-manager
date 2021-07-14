@@ -9,18 +9,30 @@ import UIKit
 import MobileCoreServices
 
 final class Memo: NSObject {
+    let id: String
     let title: String
     let content: String
-    let date: Double
+    let dueDate: String
+    let memoType: String
     
     init(
+        id: String,
         title: String,
         content: String,
-        date: Double
+        dueDate: String,
+        memoType: String
     ) {
+        self.id = id
         self.title = title
         self.content = content
-        self.date = date
+        self.dueDate = dueDate
+        self.memoType = memoType
+    }
+    
+    private enum CodingKeys: String, CodingKey {
+        case id, title, content
+        case dueDate = "due_date"
+        case memoType = "memo_type"
     }
 }
 

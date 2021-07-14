@@ -7,6 +7,8 @@
 
 import Foundation
 
-enum TableViewType {
-    case todo, doing, done
+enum TableViewType: String {
+    case todo = "todo"
+    case doing = "doing"
+    case done = "done"
 }
