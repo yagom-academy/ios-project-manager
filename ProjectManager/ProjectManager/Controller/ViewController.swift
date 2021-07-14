@@ -181,4 +181,15 @@ extension ViewController: UITableViewDropDelegate {
     }
 }
 
+extension ViewController: ModalDelegate {
+    func addToDoList(task: Task) {
+        datasource?.appendToDoList(task: task)
+    }
+}
+
+extension ViewController: TableViewReloadable {
+    func reloadToDoTableView() {
+        self.toDoTableView.reloadData()
+    }
+}
 
