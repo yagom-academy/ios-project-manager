@@ -65,7 +65,7 @@ final class TaskDataSource: NSObject, TaskTableViewDataSource {
         self.doingTableView = doingTableView
         self.doneTableView = doneTableView
     }
-    
+        
     func canHandle(_ session: UIDropSession) -> Bool {
         return session.canLoadObjects(ofClass: Task.self)
     }
@@ -116,13 +116,11 @@ final class TaskDataSource: NSObject, TaskTableViewDataSource {
                 let doneTask = doneTask(index: sourceIndexPath.item)
                 doneList.remove(at: sourceIndexPath.item)
                 doneList.insert(doneTask, at: destinationIndexPath.item)
-            
             default:
                 break
             }
             tableView.deleteRows(at: [sourceIndexPath], with: .automatic)
             tableView.insertRows(at: [destinationIndexPath], with: .automatic)
-            
         })
     }
     
@@ -139,7 +137,6 @@ final class TaskDataSource: NSObject, TaskTableViewDataSource {
                 break
             }
             tableView.insertRows(at: [destinationIndexPath], with: .automatic)
-            
         })
     }
     
@@ -194,5 +191,9 @@ final class TaskDataSource: NSObject, TaskTableViewDataSource {
         default:
             return UITableViewCell()
         }
+    }
+    
+    func appendToDoList(task: Task) {
+        toDoList.append(task)
     }
 }
