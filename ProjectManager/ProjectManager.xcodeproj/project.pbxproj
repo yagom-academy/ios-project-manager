@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3C00C98D269EB6380059444B /* ModalDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C00C98C269EB6380059444B /* ModalDelegate.swift */; };
+		3C00C98F269ECEB00059444B /* TableViewReloadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C00C98E269ECEB00059444B /* TableViewReloadable.swift */; };
 		3C1B2846268C39E700A64844 /* DoneTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1B2845268C39E700A64844 /* DoneTableViewCell.swift */; };
 		3C1B2848268C3DDA00A64844 /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1B2847268C3DDA00A64844 /* Header.swift */; };
 		3C6FE26B268AB139009354AA /* ToDoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C6FE26A268AB139009354AA /* ToDoTableViewCell.swift */; };
@@ -28,6 +30,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3C00C98C269EB6380059444B /* ModalDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalDelegate.swift; sourceTree = "<group>"; };
+		3C00C98E269ECEB00059444B /* TableViewReloadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewReloadable.swift; sourceTree = "<group>"; };
 		3C1B2845268C39E700A64844 /* DoneTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneTableViewCell.swift; sourceTree = "<group>"; };
 		3C1B2847268C3DDA00A64844 /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
 		3C6FE26A268AB139009354AA /* ToDoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoTableViewCell.swift; sourceTree = "<group>"; };
@@ -147,6 +151,8 @@
 			isa = PBXGroup;
 			children = (
 				EAD1B6412693EFFE00487599 /* TaskTableViewDataSource.swift */,
+				3C00C98C269EB6380059444B /* ModalDelegate.swift */,
+				3C00C98E269ECEB00059444B /* TableViewReloadable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -226,12 +232,14 @@
 				3C1B2846268C39E700A64844 /* DoneTableViewCell.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */,
 				48B30B37269DCC4B004CDD89 /* AddTaskViewController.swift in Sources */,
+				3C00C98D269EB6380059444B /* ModalDelegate.swift in Sources */,
 				48288251268DA796002C7C40 /* CellConfigurable.swift in Sources */,
 				486AD1082692DAC40023F03A /* TaskDataSource.swift in Sources */,
 				3C1B2848268C3DDA00A64844 /* Header.swift in Sources */,
 				3C6FE26B268AB139009354AA /* ToDoTableViewCell.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				EAD1B6422693EFFE00487599 /* TaskTableViewDataSource.swift in Sources */,
+				3C00C98F269ECEB00059444B /* TableViewReloadable.swift in Sources */,
 				481F1047268F0A42006984D9 /* DragAndDropError.swift in Sources */,
 				EA45AC89269D5D960098567E /* TaskDragCoordinator.swift in Sources */,
 				3CBA568F2695A7B900291A42 /* DateFormatter + Extension.swift in Sources */,
