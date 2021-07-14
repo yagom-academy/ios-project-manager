@@ -156,6 +156,12 @@ final class TaskDataSource: NSObject, TaskTableViewDataSource {
         })
     }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            deleteTask(at: indexPath, in: tableView)
+        }
+    }
+
         
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch tableView {
