@@ -13,5 +13,5 @@ protocol TaskTableViewDataSource: UITableViewDataSource {
     func moveTask(at sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath, in tableView: UITableView)
     func addTask(task: Task, destinationIndexPath: IndexPath, tableView: UITableView)
     func deleteTask(at indexPath: IndexPath, in tableView: UITableView)
-
+    func appendToDoList(task: Task)
 }
