@@ -10,7 +10,17 @@ class ViewController: UIViewController {
     @IBOutlet weak var toDoTableView: UITableView!
     @IBOutlet weak var doingTableView: UITableView!
     @IBOutlet weak var doneTableView: UITableView!
-
+    
+    @IBAction func addToDoTask(_ sender: UIBarButtonItem) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let optionsVC = storyboard.instantiateViewController(withIdentifier: "addTaskViewController")
+        
+        optionsVC.modalPresentationStyle = .automatic
+        
+        optionsVC.popoverPresentationController?.barButtonItem = sender
+        self.present(optionsVC, animated: false)
+    }
+    
     private var datasource: TaskTableViewDataSource?
     
     enum HeaderType {
@@ -63,7 +73,7 @@ class ViewController: UIViewController {
 // MARK:- UITableView DataSource
 
 extension ViewController: UITableViewDelegate {
-
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         switch tableView {
@@ -146,8 +156,8 @@ extension ViewController: UITableViewDropDelegate {
         }
         
         guard let dragCoordinator =
-          coordinator.session.localDragSession?.localContext as? TaskDragCoordinator
-          else { return }
+                coordinator.session.localDragSession?.localContext as? TaskDragCoordinator
+        else { return }
         
         for dropItem in coordinator.items {
             if let sourceIndexPath = dropItem.sourceIndexPath {
