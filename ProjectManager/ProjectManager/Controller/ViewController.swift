@@ -16,12 +16,13 @@ class ViewController: UIViewController {
     
     @IBAction func addToDoTask(_ sender: UIBarButtonItem) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let optionsVC = storyboard.instantiateViewController(withIdentifier: "addTaskViewController")
+        guard let addTaskViewController = storyboard.instantiateViewController(withIdentifier: "addTaskViewController") as? AddTaskViewController else { return }
+            
+        addTaskViewController.modalPresentationStyle = .automatic
         
-        optionsVC.modalPresentationStyle = .automatic
-        
-        optionsVC.popoverPresentationController?.barButtonItem = sender
-        self.present(optionsVC, animated: false)
+        addTaskViewController.popoverPresentationController?.barButtonItem = sender
+        addTaskViewController.delegate = self
+        self.present(addTaskViewController, animated: false)
     }
     
     enum HeaderType {
