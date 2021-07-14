@@ -23,7 +23,11 @@
                                 </constraints>
                                 <items>
                                     <navigationItem title="Project Manager" id="5X5-bf-8Up">
-                                        <barButtonItem key="rightBarButtonItem" title="Item" image="plus" catalog="system" id="Xoq-mk-E3o"/>
+                                        <barButtonItem key="rightBarButtonItem" title="Item" image="plus" catalog="system" id="Xoq-mk-E3o">
+                                            <connections>
+                                                <action selector="addToDoTask:" destination="BYZ-38-t0r" id="ksa-pY-KkJ"/>
+                                            </connections>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
@@ -245,14 +249,104 @@
             </objects>
             <point key="canvasLocation" x="138.88888888888889" y="118.5185185185185"/>
         </scene>
+        <!--TODO-->
+        <scene sceneID="RJr-KB-OVv">
+            <objects>
+                <viewController storyboardIdentifier="addTaskViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="YAJ-e4-pLi" customClass="AddTaskViewController" customModule="ProjectManager" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="aHD-94-MjF">
+                        <rect key="frame" x="0.0" y="0.0" width="1080" height="810"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Title" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4zc-xs-9XJ">
+                                <rect key="frame" x="10" y="60" width="1060" height="32"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="heG-Ib-DOK">
+                                <rect key="frame" x="10" y="348" width="1060" height="442"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <integer key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" systemColor="systemGreenColor"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </textView>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q0m-d3-0aL">
+                                <rect key="frame" x="0.0" y="0.0" width="1080" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="NrY-J0-qzo"/>
+                                </constraints>
+                                <items>
+                                    <navigationItem title="TODO" id="AUv-Dw-Cix">
+                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="gqj-PA-Obo">
+                                            <connections>
+                                                <action selector="didTapCancel:" destination="YAJ-e4-pLi" id="wJb-jB-Tde"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="9jo-UA-ivH">
+                                            <connections>
+                                                <action selector="didTapDone:" destination="YAJ-e4-pLi" id="fZq-K7-Aum"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="wxy-5D-9j5">
+                                <rect key="frame" x="380" y="112" width="320" height="216"/>
+                            </datePicker>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="jwb-hJ-WNF"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="4zc-xs-9XJ" firstAttribute="top" secondItem="q0m-d3-0aL" secondAttribute="bottom" constant="10" id="78A-Lr-4O1"/>
+                            <constraint firstItem="q0m-d3-0aL" firstAttribute="top" secondItem="jwb-hJ-WNF" secondAttribute="top" id="HOA-zB-gPO"/>
+                            <constraint firstItem="jwb-hJ-WNF" firstAttribute="trailing" secondItem="4zc-xs-9XJ" secondAttribute="trailing" constant="10" id="HfO-bb-24t"/>
+                            <constraint firstItem="q0m-d3-0aL" firstAttribute="leading" secondItem="jwb-hJ-WNF" secondAttribute="leading" id="Q7r-de-tJq"/>
+                            <constraint firstItem="jwb-hJ-WNF" firstAttribute="bottom" secondItem="heG-Ib-DOK" secondAttribute="bottom" constant="20" id="bih-ae-Jko"/>
+                            <constraint firstItem="heG-Ib-DOK" firstAttribute="leading" secondItem="jwb-hJ-WNF" secondAttribute="leading" constant="10" id="eM0-j9-zBG"/>
+                            <constraint firstItem="heG-Ib-DOK" firstAttribute="top" secondItem="wxy-5D-9j5" secondAttribute="bottom" constant="20" id="j6F-tz-wR9"/>
+                            <constraint firstItem="jwb-hJ-WNF" firstAttribute="trailing" secondItem="heG-Ib-DOK" secondAttribute="trailing" constant="10" id="ovV-nX-kzx"/>
+                            <constraint firstItem="4zc-xs-9XJ" firstAttribute="leading" secondItem="jwb-hJ-WNF" secondAttribute="leading" constant="10" id="sdo-Zl-VAG"/>
+                            <constraint firstItem="wxy-5D-9j5" firstAttribute="centerX" secondItem="aHD-94-MjF" secondAttribute="centerX" id="vIY-Jg-IGn"/>
+                            <constraint firstItem="wxy-5D-9j5" firstAttribute="top" secondItem="4zc-xs-9XJ" secondAttribute="bottom" constant="20" id="wwq-rn-1Jr"/>
+                            <constraint firstItem="q0m-d3-0aL" firstAttribute="trailing" secondItem="jwb-hJ-WNF" secondAttribute="trailing" id="y1S-YL-ODq"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="TODO" id="INq-Uo-Kc4">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="kXX-EP-m4R"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="Ns8-Wu-bRK"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="todoTaskContent" destination="heG-Ib-DOK" id="K22-cR-OmR"/>
+                        <outlet property="todoTaskDeadlineDate" destination="wxy-5D-9j5" id="yqg-3t-Jcn"/>
+                        <outlet property="todoTaskTitle" destination="4zc-xs-9XJ" id="f68-W9-uar"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0sC-m0-ATd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1737.7777777777778" y="106.66666666666666"/>
+        </scene>
     </scenes>
     <resources>
         <image name="plus" catalog="system" width="128" height="113"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="opaqueSeparatorColor">
             <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGreenColor">
+            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
