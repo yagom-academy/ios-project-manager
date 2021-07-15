@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NewTodoFormTextView: UITextView {
+final class NewTodoFormTextView: UITextView {
     override init(frame: CGRect, textContainer: NSTextContainer?) {
         super.init(frame: frame, textContainer: textContainer)
         

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class UndoManagerToolbar: UIToolbar {
+final class UndoManagerToolbar: UIToolbar {
 
     override init(frame: CGRect) {
         super.init(frame: frame)

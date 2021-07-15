@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NewTodoFormViewController: UIViewController {
+final class NewTodoFormViewController: UIViewController {
     
     let newTodoFormStackView = NewTodoFormStackView()
     let newTodoFormTextField = NewTodoFormTextField()

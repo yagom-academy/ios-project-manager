@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NewTodoFormTextField: UITextField {
+final class NewTodoFormTextField: UITextField {
 
     override init(frame: CGRect) {
         super.init(frame: frame)

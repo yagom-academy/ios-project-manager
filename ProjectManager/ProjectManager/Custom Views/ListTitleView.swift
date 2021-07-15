@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ListTitleView: UIView {
+final class ListTitleView: UIView {
     
     let title = UILabel()
     let count = UILabel()

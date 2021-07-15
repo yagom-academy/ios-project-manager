@@ -21,14 +21,10 @@ extension ProjectManagerViewController: UITableViewDropDelegate {
     func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
         
         var dropProposal = UITableViewDropProposal(operation: .cancel)
-        print(dropProposal)
+        
         guard session.items.count == 1 else { return dropProposal }
         
-        if tableView.hasActiveDrag {
-            dropProposal = UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
-        } else {
-            dropProposal = UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
-        }
+        dropProposal = UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
         
         return dropProposal
     }

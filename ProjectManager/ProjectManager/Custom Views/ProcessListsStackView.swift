@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ProcessListsStackView: UIStackView {
+final class ProcessListsStackView: UIStackView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)

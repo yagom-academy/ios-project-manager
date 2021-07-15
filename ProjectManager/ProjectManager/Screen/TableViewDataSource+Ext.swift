@@ -27,7 +27,7 @@ extension ProjectManagerViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(tableView)
-        let newTodoFormNavigationController = NewTodoFormNavigationController(rootViewController: newTodoFormViewController)
+        let newTodoFormNavigationController = UINavigationController(rootViewController: newTodoFormViewController)
         let data = distinguishedTableViewData(currentTableView: tableView)
         newTodoFormNavigationController.modalPresentationStyle = .formSheet
         

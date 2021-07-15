@@ -7,6 +7,6 @@
 
 import UIKit
 
-protocol NewTodoFormDelegate {
+protocol NewTodoFormDelegate: AnyObject {
     func getIndexPath(_ tableView: UITableView, row: Int, data: CellData)
 }

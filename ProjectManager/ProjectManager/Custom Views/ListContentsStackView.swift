@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ListContentsStackview: UIStackView {
+final class ListContentsStackview: UIStackView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)

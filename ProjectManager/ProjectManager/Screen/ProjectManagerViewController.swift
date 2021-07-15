@@ -38,54 +38,42 @@ class ProjectManagerViewController: UIViewController {
     let doingTableView = UITableView()
     let doneTableView = UITableView()
     
-    var delegate: NewTodoFormDelegate?
+    weak var delegate: NewTodoFormDelegate?
     
     let newTodoFormViewController = NewTodoFormViewController()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        setTableViewControl(tableView: todoTableView)
+        setTableViewControl(tableView: doingTableView)
+        setTableViewControl(tableView: doneTableView)
         
-        addDragAndDropInteraction()
+        setDragAndDrop(tableView: todoTableView)
+        setDragAndDrop(tableView: doingTableView)
+        setDragAndDrop(tableView: doneTableView)
         
         view.backgroundColor = .systemGray4
         title = "소개팅 필승 공략"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(pushNewTodoFormViewController))
         newTodoFormViewController.delegate = self
+        
         configureUndoManagerToolbar()
         configureProjectManagerView()
         configureTitleView()
         configureProcessListsTableView()
         configureListContentsStackview()
-        
-        todoTableView.dataSource = self
-        doingTableView.dataSource = self
-        doneTableView.dataSource = self
-        
-        todoTableView.delegate = self
-        doingTableView.delegate = self
-        doneTableView.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         todoTableView.reloadData()
     }
     
-    private func addDragAndDropInteraction() {
-        todoTableView.dragInteractionEnabled = true
-        doingTableView.dragInteractionEnabled = true
-        doneTableView.dragInteractionEnabled = true
-        
-        todoTableView.dragDelegate = self
-        doingTableView.dragDelegate = self
-        doneTableView.dragDelegate = self
-        
-        todoTableView.dropDelegate = self
-        doingTableView.dropDelegate = self
-        doneTableView.dropDelegate = self
-    }
-    
     @objc func pushNewTodoFormViewController() {
-        let newTodoFormNavigationController = NewTodoFormNavigationController(rootViewController: newTodoFormViewController)
+        let newTodoFormNavigationController = UINavigationController(rootViewController: newTodoFormViewController)
+        
         newTodoFormNavigationController.modalPresentationStyle = .formSheet
         
         newTodoFormViewController.isEditMode = false
@@ -94,6 +82,17 @@ class ProjectManagerViewController: UIViewController {
         newTodoFormViewController.datePicker.isUserInteractionEnabled = true
         
         present(newTodoFormNavigationController, animated: true)
+    }
+    
+    private func setTableViewControl(tableView: UITableView) {
+        tableView.dataSource = self
+        tableView.delegate = self
+    }
+    
+    private func setDragAndDrop(tableView: UITableView) {
+        tableView.dragInteractionEnabled = true
+        tableView.dragDelegate = self
+        tableView.dropDelegate = self
     }
 
     // MARK: - Configure View
@@ -196,14 +195,7 @@ class ProjectManagerViewController: UIViewController {
     }
     
     func reloadSelectedTableView(tableView: UITableView) {
-        switch tableView {
-        case todoTableView:
-            todoTableView.reloadData()
-        case doingTableView:
-            doingTableView.reloadData()
-        default:
-            doneTableView.reloadData()
-        }
+        tableView.reloadData()
     }
     
     func reloadCountLabel() {
@@ -277,8 +269,12 @@ class ProjectManagerViewController: UIViewController {
     
     func updateData(item: CellData, indexPath: IndexPath, sourceTableView: UITableView, currentTableView: TableViewType) {
         
-        removeElement(tableView: sourceTableView, indexPath: item.sourceTableViewIndexPath!)
-        sourceTableView.deleteRows(at: [item.sourceTableViewIndexPath!], with: .right)
+        guard let sourceIndexPath = item.sourceTableViewIndexPath else {
+            return
+        }
+        
+        removeElement(tableView: sourceTableView, indexPath: sourceIndexPath)
+        sourceTableView.deleteRows(at: [sourceIndexPath], with: .right)
         reloadCountLabel()
         item.superViewType = currentTableView
         item.sourceTableViewIndexPath = indexPath

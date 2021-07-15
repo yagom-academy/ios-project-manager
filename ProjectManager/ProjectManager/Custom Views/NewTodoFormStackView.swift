@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NewTodoFormStackView: UIStackView {
+final class NewTodoFormStackView: UIStackView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
