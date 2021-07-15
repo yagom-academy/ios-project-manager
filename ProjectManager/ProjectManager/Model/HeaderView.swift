@@ -1,5 +1,5 @@
 //
-//  Header.swift
+//  HeaderView.swift
 //  ProjectManager
 //
 //  Created by Jay, Ian, James on 2021/06/30.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class Header: UITableViewHeaderFooterView {
+class HeaderView: UITableViewHeaderFooterView {
     
     let title = UILabel()
     

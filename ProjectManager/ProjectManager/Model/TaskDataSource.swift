@@ -44,14 +44,12 @@ enum ProjectTaskType: String {
     }
 }
 
-// MARK: - ParsingModel
-
 final class TaskDataSource: NSObject, TaskTableViewDataSource {
     
     private weak var toDoTableView: UITableView!
     private weak var doingTableView: UITableView!
     private weak var doneTableView: UITableView!
-
+    
     private var toDoList: [Task]
     private var doingList: [Task]
     private var doneList: [Task]
@@ -65,7 +63,7 @@ final class TaskDataSource: NSObject, TaskTableViewDataSource {
         self.doingTableView = doingTableView
         self.doneTableView = doneTableView
     }
-        
+    
     func canHandle(_ session: UIDropSession) -> Bool {
         return session.canLoadObjects(ofClass: Task.self)
     }
@@ -88,32 +86,19 @@ final class TaskDataSource: NSObject, TaskTableViewDataSource {
         return [dragItem]
     }
     
-    private func toDoTask(index: Int) -> Task {
-        return toDoList[index]
-    }
-    
-    private func doingTask(index: Int) -> Task {
-        return doingList[index]
-    }
-    
-    private func doneTask(index: Int) -> Task {
-        return doneList[index]
-    }
-    
-    
-    func moveTask(at sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath, in tableView: UITableView) {
+    func moveTask(from sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath, in tableView: UITableView) {
         tableView.performBatchUpdates({
             switch tableView {
             case toDoTableView:
-                let todoTask = toDoTask(index: sourceIndexPath.item)
+                let todoTask = toDoList[sourceIndexPath.item]
                 toDoList.remove(at: sourceIndexPath.item)
                 toDoList.insert(todoTask, at: destinationIndexPath.item)
             case doingTableView:
-                let doingTask = doingTask(index: sourceIndexPath.item)
+                let doingTask = doingList[sourceIndexPath.item]
                 doingList.remove(at: sourceIndexPath.item)
                 doingList.insert(doingTask, at: destinationIndexPath.item)
             case doneTableView:
-                let doneTask = doneTask(index: sourceIndexPath.item)
+                let doneTask = doneList[sourceIndexPath.item]
                 doneList.remove(at: sourceIndexPath.item)
                 doneList.insert(doneTask, at: destinationIndexPath.item)
             default:
@@ -161,8 +146,8 @@ final class TaskDataSource: NSObject, TaskTableViewDataSource {
             deleteTask(at: indexPath, in: tableView)
         }
     }
-
-        
+    
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch tableView {
         case toDoTableView:
@@ -175,7 +160,7 @@ final class TaskDataSource: NSObject, TaskTableViewDataSource {
             return 0
         }
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch tableView {
         case toDoTableView:

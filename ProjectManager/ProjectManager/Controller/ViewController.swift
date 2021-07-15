@@ -38,6 +38,10 @@ class ViewController: UIViewController {
                 return "DONE"
             }
         }
+        
+        static var height: CGFloat {
+            return 60
+        }
     }
     
     override func viewDidLoad() {
@@ -45,30 +49,22 @@ class ViewController: UIViewController {
         
         datasource = TaskDataSource(toDoTableView: toDoTableView, doingTableView: doingTableView, doneTableView: doneTableView)
         
-        toDoTableView.dataSource = datasource
-        toDoTableView.dragDelegate = self
-        toDoTableView.dropDelegate = self
-        toDoTableView.dragInteractionEnabled = true
-        toDoTableView.register(Header.self, forHeaderFooterViewReuseIdentifier: HeaderType.toDo.identifier)
-        toDoTableView.delegate = self
-        
-        doingTableView.dataSource = datasource
-        doingTableView.dragDelegate = self
-        doingTableView.dropDelegate = self
-        doingTableView.dragInteractionEnabled = true
-        doingTableView.register(Header.self, forHeaderFooterViewReuseIdentifier: HeaderType.doing.identifier)
-        doingTableView.delegate = self
-        
-        doneTableView.dataSource = datasource
-        doneTableView.dragDelegate = self
-        doneTableView.dropDelegate = self
-        doneTableView.dragInteractionEnabled = true
-        doneTableView.register(Header.self, forHeaderFooterViewReuseIdentifier: HeaderType.done.identifier)
-        doneTableView.delegate = self
+        setTableViewDelegate(tableView: toDoTableView, headerType: .toDo)
+        setTableViewDelegate(tableView: doingTableView, headerType: .doing)
+        setTableViewDelegate(tableView: doneTableView, headerType: .done)
         
         let dateFormatter = DateFormatter()
         
         dateFormatter.customize(dateStyle: .medium, timeStyle: .none, dateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ")
+    }
+    
+    func setTableViewDelegate(tableView: UITableView, headerType: HeaderType) {
+        tableView.dataSource = datasource
+        tableView.dragDelegate = self
+        tableView.dropDelegate = self
+        tableView.dragInteractionEnabled = true
+        tableView.register(HeaderView.self, forHeaderFooterViewReuseIdentifier: headerType.identifier)
+        tableView.delegate = self
     }
 }
 
@@ -93,14 +89,14 @@ extension ViewController: UITableViewDelegate {
         }
     }
     
-    private func customizeHeaderView(in tableView: UITableView, withIdentifier identifier: String) -> Header? {
-        let customizedHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: identifier) as? Header ?? nil
+    private func customizeHeaderView(in tableView: UITableView, withIdentifier identifier: String) -> HeaderView? {
+        let customizedHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: identifier) as? HeaderView ?? nil
         customizedHeader?.title.text = identifier
         return customizedHeader
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 60
+        return HeaderType.height
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -116,16 +112,21 @@ extension ViewController: UITableViewDragDelegate {
         let dragCoordinator = TaskDragCoordinator(sourceIndexPath: indexPath)
         session.localContext = dragCoordinator
         
+        let taskType: ProjectTaskType
+        
         switch tableView {
         case toDoTableView:
-            return datasource?.dragItem(taskType: .todo, for: indexPath) ?? []
+            taskType = .todo
         case doingTableView:
-            return datasource?.dragItem(taskType: .doing, for: indexPath) ?? []
+            taskType = .doing
         case doneTableView:
-            return datasource?.dragItem(taskType: .done, for: indexPath) ?? []
+            taskType = .done
         default:
-            return []
+            taskType = .todo
         }
+        
+        return datasource?.dragItem(taskType: taskType, for: indexPath) ?? []
+        
     }
     
     func tableView(_ tableView: UITableView, dragSessionDidEnd session: UIDragSession) {
@@ -168,7 +169,7 @@ extension ViewController: UITableViewDropDelegate {
         for dropItem in coordinator.items {
             if let sourceIndexPath = dropItem.sourceIndexPath {
                 dragCoordinator.isReordering = true
-                datasource?.moveTask(at: sourceIndexPath, to: destinationIndexPath, in: tableView)
+                datasource?.moveTask(from: sourceIndexPath, to: destinationIndexPath, in: tableView)
                 coordinator.drop(dropItem.dragItem, toRowAt: destinationIndexPath)
             } else {
                 dragCoordinator.isReordering = false
