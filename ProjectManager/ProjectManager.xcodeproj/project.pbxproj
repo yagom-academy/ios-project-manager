@@ -9,9 +9,9 @@
 /* Begin PBXBuildFile section */
 		3C00C98D269EB6380059444B /* ModalDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C00C98C269EB6380059444B /* ModalDelegate.swift */; };
 		3C00C98F269ECEB00059444B /* TableViewReloadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C00C98E269ECEB00059444B /* TableViewReloadable.swift */; };
-		3C00C993269EE13B0059444B /* DetailedViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C00C992269EE13B0059444B /* DetailedViewController2.swift */; };
+		3C00C993269EE13B0059444B /* DetailedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C00C992269EE13B0059444B /* DetailedViewController.swift */; };
 		3C1B2846268C39E700A64844 /* DoneTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1B2845268C39E700A64844 /* DoneTableViewCell.swift */; };
-		3C1B2848268C3DDA00A64844 /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1B2847268C3DDA00A64844 /* Header.swift */; };
+		3C1B2848268C3DDA00A64844 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1B2847268C3DDA00A64844 /* HeaderView.swift */; };
 		3C6FE26B268AB139009354AA /* ToDoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C6FE26A268AB139009354AA /* ToDoTableViewCell.swift */; };
 		3C941E2B268B1A6700D86ED6 /* DoingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C941E2A268B1A6700D86ED6 /* DoingTableViewCell.swift */; };
 		3CBA568F2695A7B900291A42 /* DateFormatter + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CBA568E2695A7B900291A42 /* DateFormatter + Extension.swift */; };
@@ -33,9 +33,9 @@
 /* Begin PBXFileReference section */
 		3C00C98C269EB6380059444B /* ModalDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalDelegate.swift; sourceTree = "<group>"; };
 		3C00C98E269ECEB00059444B /* TableViewReloadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewReloadable.swift; sourceTree = "<group>"; };
-		3C00C992269EE13B0059444B /* DetailedViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedViewController2.swift; sourceTree = "<group>"; };
+		3C00C992269EE13B0059444B /* DetailedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedViewController.swift; sourceTree = "<group>"; };
 		3C1B2845268C39E700A64844 /* DoneTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneTableViewCell.swift; sourceTree = "<group>"; };
-		3C1B2847268C3DDA00A64844 /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
+		3C1B2847268C3DDA00A64844 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		3C6FE26A268AB139009354AA /* ToDoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoTableViewCell.swift; sourceTree = "<group>"; };
 		3C941E2A268B1A6700D86ED6 /* DoingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoingTableViewCell.swift; sourceTree = "<group>"; };
 		3CBA568E2695A7B900291A42 /* DateFormatter + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter + Extension.swift"; sourceTree = "<group>"; };
@@ -78,7 +78,7 @@
 		48288247268DA1FD002C7C40 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				3C1B2847268C3DDA00A64844 /* Header.swift */,
+				3C1B2847268C3DDA00A64844 /* HeaderView.swift */,
 				48288248268DA23F002C7C40 /* Task.swift */,
 				481F1046268F0A42006984D9 /* DragAndDropError.swift */,
 				486AD1072692DAC40023F03A /* TaskDataSource.swift */,
@@ -114,7 +114,7 @@
 			children = (
 				C7431F0925F51E1D0094C4CF /* ViewController.swift */,
 				48B30B36269DCC4B004CDD89 /* AddTaskViewController.swift */,
-				3C00C992269EE13B0059444B /* DetailedViewController2.swift */,
+				3C00C992269EE13B0059444B /* DetailedViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -235,11 +235,11 @@
 				3C1B2846268C39E700A64844 /* DoneTableViewCell.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */,
 				48B30B37269DCC4B004CDD89 /* AddTaskViewController.swift in Sources */,
-				3C00C993269EE13B0059444B /* DetailedViewController2.swift in Sources */,
+				3C00C993269EE13B0059444B /* DetailedViewController.swift in Sources */,
 				3C00C98D269EB6380059444B /* ModalDelegate.swift in Sources */,
 				48288251268DA796002C7C40 /* CellConfigurable.swift in Sources */,
 				486AD1082692DAC40023F03A /* TaskDataSource.swift in Sources */,
-				3C1B2848268C3DDA00A64844 /* Header.swift in Sources */,
+				3C1B2848268C3DDA00A64844 /* HeaderView.swift in Sources */,
 				3C6FE26B268AB139009354AA /* ToDoTableViewCell.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				EAD1B6422693EFFE00487599 /* TaskTableViewDataSource.swift in Sources */,
