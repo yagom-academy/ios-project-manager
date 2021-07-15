@@ -14,4 +14,6 @@ enum Strings {
     static let circleImageName = "circle.fill"
     static let didDismissDetailViewNotification = "didDismissDetailViewNotification"
     static let editStyleTitleName = "Edit"
+    static let jsonTypeOfRequestValue = "application/json"
+    static let contentTypeOfHTTPHeaderField = "Content-Type"
 }

@@ -10,6 +10,7 @@ import Foundation
 final class TableViewModel {
     private let dateFormatter = DateFormatter()
     let tableViewType: TableViewType
+    // TODO: - MemoTableViewCellModel에 id값을 넣는것에 대해 고민하자..
     var memoList: Observable<[MemoTableViewCellModel]> = Observable([])
     var numOfList: Int {
         return memoList.value?.count ?? 0
@@ -26,6 +27,7 @@ final class TableViewModel {
         ) { receivedMemoModel in
             self.memoList.value = receivedMemoModel.items.compactMap({
                 MemoTableViewCellModel(
+                    id: $0.id,
                     title: $0.title,
                     content: $0.content,
                     dueDate: self.dateFormatter.changeStringDateFormat(
@@ -62,28 +64,32 @@ final class TableViewModel {
         return memoList.value?[index]
     }
     
-    func itemInfo(at index: Int) -> Memo {
+    func itemInfo(
+        at index: Int,
+        id: String = ""
+    ) -> Memo {
         let item = memoInfo(at: index)!
-        print(item.dueDate)
+        let dueDate = dateFormatter.changeStringDateFormat(
+            date: item.dueDate,
+            beforeDateFormat: .ymd_hms,
+            afterDateFormat: .ymd
+        )
         return Memo(
-            id: "test",
+            id: item.id,
             title: item.title,
             content: item.content,
-            dueDate: dateFormatter.changeStringDateFormat(
-                date: item.dueDate,
-                beforeDateFormat: .ymd_hms,
-                afterDateFormat: .ymd
-            ),
+            dueDate: dueDate,
             memoType: "todo"
         )
     }
     
     func removeCell(at index: Int) {
         // TODO: - server API "remove"
-        Dummy.shared.remove(
-            tableViewType: tableViewType,
-            at: index
-        )
+//        Dummy.shared.remove(
+//            tableViewType: tableViewType,
+//            at: index
+//        )
+        
         
         fetchData()
     }

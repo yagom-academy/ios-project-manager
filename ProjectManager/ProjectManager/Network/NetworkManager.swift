@@ -63,7 +63,10 @@ class NetworkManager {
         
         var request = URLRequest(url: requestURL)
         request.httpMethod = HttpMethod.post.rawValue
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue(
+            Strings.jsonTypeOfRequestValue,
+            forHTTPHeaderField: Strings.contentTypeOfHTTPHeaderField
+        )
         
         let postMemoModel = PostMemoModel(
             title: data.title,
@@ -72,7 +75,64 @@ class NetworkManager {
             memoType: data.memoType
         )
         
-        print(data.dueDate)
+        guard let encodedData = try? JSONEncoder().encode(postMemoModel)
+        else {
+            return
+        }
+        request.httpBody = encodedData
+        
+        let urlSession = URLSession.shared
+        urlSession.dataTask(with: request) { (data, response, error) in
+            guard let responseStatus = response as? HTTPURLResponse,
+                  responseStatus.statusCode == 200
+            else {
+                guard let data = data,
+                      error == nil
+                else {
+                    print(NetworkError.invalidData)
+                    return
+                }
+                
+                do {
+                    let urlResponse = try JSONDecoder().decode(
+                        RequestError.self,
+                        from: data
+                    )
+                    print("error: \(urlResponse.reason)")
+                } catch {
+                    print(NetworkError.DecodingProblem)
+                }
+                print(NetworkError.invalidResponse)
+                return
+            }
+        }.resume()
+    }
+    
+    func patchData(
+        type: TableViewType,
+        data: Memo,
+        id: String,
+        complete: @escaping (() -> Void)
+    ) {
+        guard let requestURL = RequestType.patchProduct(id: id).url
+        else {
+            return
+        }
+        
+        var request = URLRequest(url: requestURL)
+        request.httpMethod = HttpMethod.patch.rawValue
+        request.setValue(
+            Strings.jsonTypeOfRequestValue,
+            forHTTPHeaderField: Strings.contentTypeOfHTTPHeaderField
+        )
+        
+        let postMemoModel = PostMemoModel(
+            title: data.title,
+            content: data.content,
+            dueDate: data.dueDate,
+            memoType: data.memoType
+        )
+        
         guard let encodedData = try? JSONEncoder().encode(postMemoModel)
         else {
             return

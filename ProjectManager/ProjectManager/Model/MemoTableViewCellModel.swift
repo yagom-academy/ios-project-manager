@@ -8,6 +8,7 @@
 import Foundation
 
 struct MemoTableViewCellModel {
+    let id: String
     let title: String
     let content: String
     let dueDate: String

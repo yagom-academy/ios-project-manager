@@ -62,10 +62,7 @@ final class TableViewController: UIViewController {
                 // 전달하는 정보를 index에서 id로 변경
                 // tableViewModel째로 넘기는건 무모함 -> 해당하는 아이템만 넘기자
                 // 그러면서 tableViewType정보도 넘겨야 함
-                viewController?.setViewModel(
-                    tableViewModel: viewModel(of: cellInfo.tableView),
-                    index: cellInfo.index
-                )
+                viewController?.setViewModel(cellInfo: cellInfo)
             }
         }
     }
@@ -146,9 +143,11 @@ extension TableViewController: UITableViewDelegate {
         _ tableView: UITableView,
         didSelectRowAt indexPath: IndexPath
     ) {
+        let viewModel = viewModel(of: tableView)
+        let itemInfo = viewModel.itemInfo(at: indexPath.row)
         let cellInfo = CellInfo(
-            tableView: tableView,
-            index: indexPath.row
+            tableViewType: viewModel.tableViewType,
+            itemInfo: itemInfo
         )
         performSegue(
             withIdentifier: Strings.showDetailViewSegueIdentifier,

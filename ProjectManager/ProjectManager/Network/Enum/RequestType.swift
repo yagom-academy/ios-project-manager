@@ -10,8 +10,8 @@ import Foundation
 enum RequestType {
     case loadPage(_ type: TableViewType, _ page: Int)
     case postProduct
-    case patchProduct(id: Int)
-    case deleteProduct(id: Int)
+    case patchProduct(id: String)
+    case deleteProduct(id: String)
     
     static let successStatusCode: ClosedRange<Int> = (200...299)
     static let baseURL: String = "https://yagom-project-manager.herokuapp.com"
@@ -22,7 +22,7 @@ enum RequestType {
         case .postProduct:
             return "/memo"
         case .patchProduct(let id):
-            return "/memo/\(id)"
+            return "/memo?memo-id=\(id)"
         case .deleteProduct(let id):
             return "/memo/\(id)"
         }

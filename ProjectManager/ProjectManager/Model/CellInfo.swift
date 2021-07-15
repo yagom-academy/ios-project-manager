@@ -8,6 +8,6 @@
 import UIKit
 
 struct CellInfo {
-    let tableView: UITableView
-    let index: Int
+    let tableViewType: TableViewType
+    let itemInfo: Memo
 }

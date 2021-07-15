@@ -42,33 +42,30 @@ final class DetailViewModel {
         at index: Int = Dummy.shared.dummyList.count,
         tableViewType: TableViewType
     ) {
-        // TODO: - server API "insert"
-//        Dummy.shared.insert(
-//            tableViewType: tableViewType,
-//            cell: cell,
-//            at: index
-//        )
-        
         NetworkManager().postData(
             type: tableViewType,
             data: memo
         ) {}
-
     }
     
     func edit(
         cell: Memo,
-        at index: Int,
         tableViewType: TableViewType
     ) {
-        removeCell(
-            at: index,
-            tableViewType: tableViewType
-        )
-        insert(
-            memo: cell,
-            at: index,
-            tableViewType: tableViewType
-        )
+        // TODO: - server API "edit"
+//        removeCell(
+//            at: index,
+//            tableViewType: tableViewType
+//        )
+//        insert(
+//            memo: cell,
+//            at: index,
+//            tableViewType: tableViewType
+//        )
+        NetworkManager().patchData(
+            type: tableViewType,
+            data: cell,
+            id: cell.id
+        ) {}
     }
 }

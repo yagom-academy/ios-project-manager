@@ -12,7 +12,7 @@ final class DetailViewController: UIViewController {
     private var viewStyle: DetailViewStyle = .add
     private var viewModel = DetailViewModel()
     private var tableViewType: TableViewType = .todo
-    private var itemIndex: Int = 0
+    private var itemId: String = ""
     
     @IBOutlet weak var newTitle: UITextField!
     @IBOutlet weak var newDate: UIDatePicker!
@@ -33,7 +33,6 @@ final class DetailViewController: UIViewController {
             complete { (newCell: Memo, tableViewType: TableViewType) in
                 viewModel.edit(
                     cell: newCell,
-                    at: itemIndex,
                     tableViewType: tableViewType
                 )
             }
@@ -81,16 +80,19 @@ final class DetailViewController: UIViewController {
         viewStyle = .edit
     }
     
-    // TODO: - 여기에 있는 TableViewModel 내쫓기
-    // tableViewType으로 바꿔주자
-    func setViewModel(
-        tableViewModel: TableViewModel,
-        index: Int
-    ) {
-        let newItem = tableViewModel.memoInfo(at: index)
-        viewModel.setItem(newItem)
-        tableViewType = tableViewModel.tableViewType
-        itemIndex = index
+    func setViewModel(cellInfo: CellInfo) {
+        // FIX: - 필요없는 isDateColorRed 처리
+        let itemInfo = cellInfo.itemInfo
+        let memoTableViewCellModel = MemoTableViewCellModel(
+            id: itemInfo.id,
+            title: itemInfo.title,
+            content: itemInfo.content,
+            dueDate: itemInfo.dueDate,
+            isDateColorRed: false
+        )
+        viewModel.setItem(memoTableViewCellModel)
+        tableViewType = cellInfo.tableViewType
+        itemId = itemInfo.id
     }
     
     private func setEditView() {
@@ -112,14 +114,14 @@ extension DetailViewController {
         _ save: (_ newCell: Memo, _ tableViewType: TableViewType) -> Void
     ) {
         let newCell = Memo(
-            id: "test",
+            id: itemId,
             title: newTitle.text!,
             content: newContent.text,
             dueDate: dateFormatter.dateToString(
                 date: newDate.date,
                 dateFormat: .ymd_hms
             ),
-            memoType: "todo"
+            memoType: TableViewType.todo.rawValue
         )
         // TODO: - save이름 더 가독성 좋게 바꾸기
         save(newCell, tableViewType)
