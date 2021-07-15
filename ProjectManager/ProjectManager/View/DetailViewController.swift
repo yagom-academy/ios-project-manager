@@ -25,7 +25,7 @@ final class DetailViewController: UIViewController {
         case .add:
             complete { (newCell: Memo, tableViewType: TableViewType) in
                 viewModel.insert(
-                    cell: newCell,
+                    memo: newCell,
                     tableViewType: tableViewType
                 )
             }
@@ -65,7 +65,10 @@ final class DetailViewController: UIViewController {
     func updateUI() {
         if let item = viewModel.tableItem() {
             newTitle.text = item.title
-            newDate.date = dateFormatter.stringToDate(string: item.dueDate)
+            newDate.date = dateFormatter.stringToDate(
+                string: item.dueDate,
+                dateFormat: .ymd_hms
+            )
             newContent.text = item.content
         }
         
@@ -112,7 +115,10 @@ extension DetailViewController {
             id: "test",
             title: newTitle.text!,
             content: newContent.text,
-            dueDate: dateFormatter.dateToString(date: newDate.date),
+            dueDate: dateFormatter.dateToString(
+                date: newDate.date,
+                dateFormat: .ymd_hms
+            ),
             memoType: "todo"
         )
         // TODO: - save이름 더 가독성 좋게 바꾸기

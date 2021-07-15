@@ -38,16 +38,22 @@ final class DetailViewModel {
     }
     
     func insert(
-        cell: Memo,
+        memo: Memo,
         at index: Int = Dummy.shared.dummyList.count,
         tableViewType: TableViewType
     ) {
         // TODO: - server API "insert"
-        Dummy.shared.insert(
-            tableViewType: tableViewType,
-            cell: cell,
-            at: index
-        )
+//        Dummy.shared.insert(
+//            tableViewType: tableViewType,
+//            cell: cell,
+//            at: index
+//        )
+        
+        NetworkManager().postData(
+            type: tableViewType,
+            data: memo
+        ) {}
+
     }
     
     func edit(
@@ -60,7 +66,7 @@ final class DetailViewModel {
             tableViewType: tableViewType
         )
         insert(
-            cell: cell,
+            memo: cell,
             at: index,
             tableViewType: tableViewType
         )

@@ -22,12 +22,17 @@ final class TableViewModel {
     func fetchData() {
         NetworkManager().responseData(
             type: tableViewType,
-            page: 1) { receivedMemoModel in
+            page: 1
+        ) { receivedMemoModel in
             self.memoList.value = receivedMemoModel.items.compactMap({
                 MemoTableViewCellModel(
                     title: $0.title,
                     content: $0.content,
-                    dueDate: self.dateFormatter.changeStringDateFormat(date: $0.dueDate),
+                    dueDate: self.dateFormatter.changeStringDateFormat(
+                        date: $0.dueDate,
+                        beforeDateFormat: .ymd_hms,
+                        afterDateFormat: .ymd
+                    ),
                     isDateColorRed: self.checkDateColor(
                         date: $0.dueDate
                     )
@@ -37,8 +42,17 @@ final class TableViewModel {
     }
     
     private func checkDateColor(date stringOfDate: String) -> Bool {
-        let stringOfCurrentDate = dateFormatter.dateToString(date: Date())
-        return stringOfDate < stringOfCurrentDate ? true : false
+        let date = dateFormatter.changeStringDateFormat(
+            date: stringOfDate,
+            beforeDateFormat: .ymd_hms,
+            afterDateFormat: .ymd
+        )
+        let currentDate = dateFormatter.dateToString(
+            date: Date(),
+            dateFormat: .ymd
+        )
+        
+        return date < currentDate ? true : false
     }
     
     // TODO: - 이름 변경
@@ -50,11 +64,16 @@ final class TableViewModel {
     
     func itemInfo(at index: Int) -> Memo {
         let item = memoInfo(at: index)!
+        print(item.dueDate)
         return Memo(
             id: "test",
             title: item.title,
             content: item.content,
-            dueDate: item.dueDate, //dateFormatter.stringToDate(string: item.dueDate),
+            dueDate: dateFormatter.changeStringDateFormat(
+                date: item.dueDate,
+                beforeDateFormat: .ymd_hms,
+                afterDateFormat: .ymd
+            ),
             memoType: "todo"
         )
     }

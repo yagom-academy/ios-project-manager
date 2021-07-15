@@ -12,6 +12,8 @@
 		85066112269F77820064342D /* RequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85066111269F77820064342D /* RequestType.swift */; };
 		85066115269F7ED90064342D /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85066114269F7ED90064342D /* NetworkError.swift */; };
 		85066117269F87C20064342D /* MetaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85066116269F87C20064342D /* MetaData.swift */; };
+		8506611A269F901E0064342D /* PostMemoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85066119269F901E0064342D /* PostMemoModel.swift */; };
+		8506611C269F94810064342D /* RequestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8506611B269F94810064342D /* RequestError.swift */; };
 		8520A8F4269467C7006FC607 /* CellInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8520A8F3269467C7006FC607 /* CellInfo.swift */; };
 		8533BBC62697665000FA86F3 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8533BBC52697665000FA86F3 /* Observable.swift */; };
 		8533BBC926976BBE00FA86F3 /* DetailViewStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8533BBC826976BBE00FA86F3 /* DetailViewStyle.swift */; };
@@ -40,6 +42,8 @@
 		85066111269F77820064342D /* RequestType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestType.swift; sourceTree = "<group>"; };
 		85066114269F7ED90064342D /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		85066116269F87C20064342D /* MetaData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaData.swift; sourceTree = "<group>"; };
+		85066119269F901E0064342D /* PostMemoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMemoModel.swift; sourceTree = "<group>"; };
+		8506611B269F94810064342D /* RequestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestError.swift; sourceTree = "<group>"; };
 		8520A8F3269467C7006FC607 /* CellInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellInfo.swift; sourceTree = "<group>"; };
 		8533BBC52697665000FA86F3 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		8533BBC826976BBE00FA86F3 /* DetailViewStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewStyle.swift; sourceTree = "<group>"; };
@@ -92,6 +96,14 @@
 			path = Error;
 			sourceTree = "<group>";
 		};
+		85066118269F90020064342D /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				85066119269F901E0064342D /* PostMemoModel.swift */,
+			);
+			path = Request;
+			sourceTree = "<group>";
+		};
 		8533BBC726976B8800FA86F3 /* Enum */ = {
 			isa = PBXGroup;
 			children = (
@@ -117,6 +129,7 @@
 				8553EF74269849580008636B /* ReceivedMemoModel.swift */,
 				85B9895E268AC6A200FF2DD7 /* Memo.swift */,
 				85066116269F87C20064342D /* MetaData.swift */,
+				8506611B269F94810064342D /* RequestError.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -163,6 +176,7 @@
 		85B98953268AA47A00FF2DD7 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				85066118269F90020064342D /* Request */,
 				8553EF7626984CFF0008636B /* Response */,
 				85E108BC2695D4B100B70688 /* MemoTableViewCellModel.swift */,
 				8520A8F3269467C7006FC607 /* CellInfo.swift */,
@@ -290,6 +304,7 @@
 				85E108BD2695D4B100B70688 /* MemoTableViewCellModel.swift in Sources */,
 				85B9895F268AC6A200FF2DD7 /* Memo.swift in Sources */,
 				8533BBCD26979C4B00FA86F3 /* DetailViewModel.swift in Sources */,
+				8506611C269F94810064342D /* RequestError.swift in Sources */,
 				85B9895D268AC66A00FF2DD7 /* TableViewModel.swift in Sources */,
 				85C271972690A089001B806C /* Dummy.swift in Sources */,
 				85066110269F77320064342D /* HttpMethod.swift in Sources */,
@@ -303,6 +318,7 @@
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				8520A8F4269467C7006FC607 /* CellInfo.swift in Sources */,
 				8533BBCB26976BDE00FA86F3 /* TableViewType.swift in Sources */,
+				8506611A269F901E0064342D /* PostMemoModel.swift in Sources */,
 				85066112269F77820064342D /* RequestType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

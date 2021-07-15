@@ -20,7 +20,7 @@ enum RequestType {
         case .loadPage(let type, let page):
             return "/memo/\(type)?/page=\(page)&per=10&sort-order=ascending"
         case .postProduct:
-            return "/memo/"
+            return "/memo"
         case .patchProduct(let id):
             return "/memo/\(id)"
         case .deleteProduct(let id):

@@ -96,15 +96,19 @@ final class TableViewController: UIViewController {
     }
     
     private func fetchData() {
-        todoViewModel.fetchData()
-        doingViewModel.fetchData()
-        doneViewModel.fetchData()
+//        DispatchQueue.global().async {
+            self.todoViewModel.fetchData()
+            self.doingViewModel.fetchData()
+            self.doneViewModel.fetchData()
+//        }
     }
 }
 
 // MARK: - View Setting
 extension TableViewController {
     private func updateAllTableRowCount() {
+        // TODO: - 값을 metadata.total로 바꾸자
+        // 여기에 data binding도 구현해야 함..
         todoTableRowCount.text = "\(todoViewModel.numOfList)"
         doingTableRowCount.text = "\(doingViewModel.numOfList)"
         doneTableRowCount.text = "\(doneViewModel.numOfList)"
@@ -263,22 +267,14 @@ extension TableViewController: UITableViewDropDelegate {
         dropSessionDidUpdate session: UIDropSession,
         withDestinationIndexPath destinationIndexPath: IndexPath?
     ) -> UITableViewDropProposal {
-        var dropProposal = UITableViewDropProposal(operation: .cancel)
+        let dropProposal = UITableViewDropProposal(operation: .cancel)
         guard session.items.count == 1
         else {
             return dropProposal
         }
         
-        if tableView.hasActiveDrag {
-            if tableView.isEditing {
-                dropProposal = UITableViewDropProposal(
-                    operation: .move,
-                    intent: .insertAtDestinationIndexPath
-                )
-            }
-        } else {
-            if let indexPath = selectIndexPath {
-                selectIndexPath = indexPath
+        if !tableView.hasActiveDrag {
+            if selectIndexPath != nil {
                 isTablesNotSame = true
             }
 

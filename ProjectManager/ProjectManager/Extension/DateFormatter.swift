@@ -7,30 +7,57 @@
 
 import Foundation
 
-// Todo: - step2에서 Double타입의 경우에 해당하는 함수를 삭제하자 ====> 해결!!!
 extension DateFormatter {
-    func dateToString(date: Date) -> String {
+    func dateToString(
+        date: Date,
+        dateFormat: DateFormat
+    ) -> String {
         self.locale = Locale(identifier: Locale.current.identifier)
-        self.dateFormat = "yyyy-MM-dd"
+        self.dateFormat = dateFormat.rawValue
         
         return self.string(from: date)
     }
     
-    func stringToDate(string: String) -> Date {
+    func stringToDate(
+        string: String,
+        dateFormat: DateFormat
+    ) -> Date {
         self.locale = Locale(identifier: Locale.current.identifier)
-        self.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-        guard let date = self.date(from: string)
+        self.dateFormat = dateFormat.rawValue
+        
+        // TODO: - 보다 클린한 코딩을 위해 고민해보자..
+        var dateString = string
+        if string.count == 10 {
+            dateString += "T00:00:00Z"
+        }
+        guard let date = self.date(from: dateString)
         else {
             print("date에 이상한 String이 들어갔음..")
+            print("String: \(dateString)")
+            
             return Date()
         }
         
         return date
     }
     
-    func changeStringDateFormat(date: String) -> String {
-        let date = stringToDate(string: date)
+    func changeStringDateFormat(
+        date: String,
+        beforeDateFormat: DateFormat,
+        afterDateFormat: DateFormat
+    ) -> String {
+        let date = stringToDate(
+            string: date,
+            dateFormat: beforeDateFormat
+        )
+        self.locale = Locale(identifier: Locale.current.identifier)
+        self.dateFormat = afterDateFormat.rawValue
         
-        return dateToString(date: date)
+        return self.string(from: date)
     }
+}
+
+enum DateFormat: String {
+    case ymd = "yyyy-MM-dd"
+    case ymd_hms = "yyyy-MM-dd'T'HH:mm:ssZ"
 }
