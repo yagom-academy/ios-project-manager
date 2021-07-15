@@ -9,7 +9,7 @@ import Foundation
 
 enum NetworkError: Error {
     case connectionProblem
-    case DecodingProblem
+    case decodingProblem
     case invalidData
     case invalidRequest
     case invalidResponse

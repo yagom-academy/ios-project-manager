@@ -25,24 +25,13 @@ final class DetailViewModel {
     func tableItem() -> MemoTableViewCellModel? {
         return item
     }
-   
-    func insert(
-        memo: Memo,
-        at index: Int = Dummy.shared.dummyList.count,
-        tableViewType: TableViewType
-    ) {
-        NetworkManager().postData(
-            type: tableViewType,
-            data: memo
-        ) {}
+    
+    func insert(memo: Memo) {
+        NetworkManager().postData(data: memo) {}
     }
     
-    func edit(
-        cell: Memo,
-        tableViewType: TableViewType
-    ) {
+    func edit(cell: Memo) {
         NetworkManager().patchData(
-            type: tableViewType,
             data: cell,
             id: cell.id
         ) {}

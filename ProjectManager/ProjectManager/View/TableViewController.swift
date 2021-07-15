@@ -173,6 +173,7 @@ extension TableViewController: UITableViewDataSource {
         numberOfRowsInSection section: Int
     ) -> Int {
         let viewModel = viewModel(of: tableView)
+        
         return viewModel.numOfList
     }
     
@@ -186,6 +187,7 @@ extension TableViewController: UITableViewDataSource {
             for: indexPath
         ) as! TableViewCell
         cell.update(info: viewModel.memoInfo(at: indexPath.row)!)
+        
         return cell
     }
     
@@ -278,7 +280,7 @@ extension TableViewController: UITableViewDropDelegate {
             if selectIndexPath != nil {
                 isTablesNotSame = true
             }
-
+            
             return UITableViewDropProposal(
                 operation: .copy,
                 intent: .insertAtDestinationIndexPath

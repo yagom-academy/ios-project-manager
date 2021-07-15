@@ -21,8 +21,6 @@ final class TableViewModel {
     }
     
     func fetchData() {
-        print("fetch Data")
-        
         NetworkManager().getData(
             type: tableViewType,
             page: 1
@@ -42,10 +40,6 @@ final class TableViewModel {
                     )
                 )
             })
-            
-            
-            
-//            print("Get: \(self.memoList)")
         }
     }
     
@@ -89,10 +83,7 @@ final class TableViewModel {
     }
     
     func removeCell(id: String) {
-        NetworkManager().deleteData(
-            type: tableViewType,
-            id: id
-        ) {
+        NetworkManager().deleteData(id: id) {
             self.fetchData()
         }
     }
@@ -113,10 +104,7 @@ final class TableViewModel {
             dueDate: dueDate,
             memoType: destinationTableViewType.rawValue
         )
-        NetworkManager().postData(
-            type: tableViewType,
-            data: data
-        ) {
+        NetworkManager().postData(data: data) {
             self.fetchData()
         }
     }

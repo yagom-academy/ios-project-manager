@@ -8,6 +8,7 @@
 import Foundation
 
 final class NetworkManager {
+    // TODO: - 반복되는 부분(urlSession.dataTask)을 재사용할 수 있는 방법에 대해 고민해보자
     func getData(
         type: TableViewType,
         page: Int,
@@ -44,13 +45,12 @@ final class NetworkManager {
                 )
                 complete(urlResponse)
             } catch {
-                print(NetworkError.DecodingProblem)
+                print(NetworkError.decodingProblem)
             }
         }.resume()
     }
     
     func postData(
-        type: TableViewType,
         data: Memo,
         complete: @escaping (() -> Void)
     ) {
@@ -72,7 +72,6 @@ final class NetworkManager {
             dueDate: data.dueDate,
             memoType: data.memoType
         )
-        print("POST: \(data.dueDate)")
         
         guard let encodedData = try? JSONEncoder().encode(postMemoModel)
         else {
@@ -99,7 +98,7 @@ final class NetworkManager {
                     )
                     print("error: \(urlResponse.reason)")
                 } catch {
-                    print(NetworkError.DecodingProblem)
+                    print(NetworkError.decodingProblem)
                 }
                 print(NetworkError.invalidResponse)
                 return
@@ -110,7 +109,6 @@ final class NetworkManager {
     }
     
     func patchData(
-        type: TableViewType,
         data: Memo,
         id: String,
         complete: @escaping (() -> Void)
@@ -159,7 +157,7 @@ final class NetworkManager {
                     )
                     print("error: \(urlResponse.reason)")
                 } catch {
-                    print(NetworkError.DecodingProblem)
+                    print(NetworkError.decodingProblem)
                 }
                 print(NetworkError.invalidResponse)
                 return
@@ -170,7 +168,6 @@ final class NetworkManager {
     }
     
     func deleteData(
-        type: TableViewType,
         id: String,
         complete: @escaping (() -> Void)
     ) {
@@ -205,7 +202,7 @@ final class NetworkManager {
                     )
                     print("error: \(urlResponse.reason)")
                 } catch {
-                    print(NetworkError.DecodingProblem)
+                    print(NetworkError.decodingProblem)
                 }
                 print(NetworkError.invalidResponse)
                 return

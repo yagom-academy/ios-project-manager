@@ -23,18 +23,12 @@ final class DetailViewController: UIViewController {
     @IBAction func clickDoneButton(_ sender: Any) {
         switch viewStyle {
         case .add:
-            complete { (newCell: Memo, tableViewType: TableViewType) in
-                viewModel.insert(
-                    memo: newCell,
-                    tableViewType: tableViewType
-                )
+            complete { (newCell: Memo) in
+                viewModel.insert(memo: newCell)
             }
         case .edit:
-            complete { (newCell: Memo, tableViewType: TableViewType) in
-                viewModel.edit(
-                    cell: newCell,
-                    tableViewType: tableViewType
-                )
+            complete { (newCell: Memo) in
+                viewModel.edit(cell: newCell)
             }
         }
     }
@@ -111,7 +105,7 @@ final class DetailViewController: UIViewController {
 // MARK: - Button Action
 extension DetailViewController {
     private func complete(
-        _ save: (_ newCell: Memo, _ tableViewType: TableViewType) -> Void
+        _ save: (_ newCell: Memo) -> Void
     ) {
         let newCell = Memo(
             id: itemId,
@@ -121,10 +115,10 @@ extension DetailViewController {
                 date: newDate.date,
                 dateFormat: .ymd_hms
             ),
-            memoType: TableViewType.todo.rawValue
+            memoType: tableViewType.rawValue
         )
         // TODO: - save이름 더 가독성 좋게 바꾸기
-        save(newCell, tableViewType)
+        save(newCell)
         
         NotificationCenter.default.post(
             name: Notification.Name(Strings.didDismissDetailViewNotification),
