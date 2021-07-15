@@ -38,11 +38,26 @@ final class TableViewController: UIViewController {
         
         todoViewModel.memoList.bind { _ in
             DispatchQueue.main.async {
-                self.updateTable()
+                self.todoTableView.reloadData()
+                self.todoTableRowCount.text = "\(self.todoViewModel.numOfList)"
             }
         }
         
-        fetchData()
+        doingViewModel.memoList.bind { _ in
+            DispatchQueue.main.async {
+                self.doingTableView.reloadData()
+                self.doingTableRowCount.text = "\(self.doingViewModel.numOfList)"
+            }
+        }
+        
+        doneViewModel.memoList.bind { _ in
+            DispatchQueue.main.async {
+                self.doneTableView.reloadData()
+                self.doneTableRowCount.text = "\(self.doneViewModel.numOfList)"
+            }
+        }
+        
+        self.fetchData()
     }
     
     @objc private func didDismissDetailViewNotification(_ notification: Notification) {
@@ -89,19 +104,18 @@ final class TableViewController: UIViewController {
     }
     
     private func fetchData() {
-//        DispatchQueue.global().async {
-            self.todoViewModel.fetchData()
-            self.doingViewModel.fetchData()
-            self.doneViewModel.fetchData()
-//        }
+        self.todoViewModel.fetchData()
+        self.doingViewModel.fetchData()
+        self.doneViewModel.fetchData()
     }
 }
 
 // MARK: - View Setting
 extension TableViewController {
     private func updateAllTableRowCount() {
-        // TODO: - 값을 metadata.total로 바꾸자
-        // 여기에 data binding도 구현해야 함..
+        // TODO: - 스크롤 내릴 때, 10개간격으로 fetch시키기
+        // 값을 metadata.total로 바꾸자
+        // 그렇게 되면, data binding도 구현해야 함..
         todoTableRowCount.text = "\(todoViewModel.numOfList)"
         doingTableRowCount.text = "\(doingViewModel.numOfList)"
         doneTableRowCount.text = "\(doneViewModel.numOfList)"
@@ -202,12 +216,6 @@ extension TableViewController: UITableViewDataSource {
         let viewModel = viewModel(of: tableView)
         let item = viewModel.itemInfo(at: sourceIndexPath.row)
         viewModel.removeCell(id: item.id)
-        
-        let moveCell = viewModel.itemInfo(at: sourceIndexPath.row)
-        viewModel.insert(
-            cell: moveCell,
-            at: destinationIndexPath.row
-        )
     }
 }
 
@@ -241,13 +249,7 @@ extension TableViewController: UITableViewDragDelegate {
             let item = viewModel.itemInfo(at: selectIndexPath.row)
             viewModel.removeCell(id: item.id)
             
-            tableView.beginUpdates()
-            tableView.deleteRows(
-                at: [selectIndexPath],
-                with: .automatic
-            )
-            tableView.endUpdates()
-            updateAllTableRowCount()
+            updateTable()
         }
     }
 }
@@ -290,43 +292,21 @@ extension TableViewController: UITableViewDropDelegate {
         _ tableView: UITableView,
         performDropWith coordinator: UITableViewDropCoordinator
     ) {
-        var destinationIndexPath = IndexPath(
-            row: tableView.numberOfRows(inSection: 0),
-            section: 0
-        )
-        if let indexpath = coordinator.destinationIndexPath {
-            destinationIndexPath = indexpath
-        }
-        
         coordinator.session.loadObjects(ofClass: Memo.self) { [self] items in
             guard let subject = items as? [Memo]
             else {
                 return
             }
-            var indexPaths = [IndexPath]()
             
-            for (index, value) in subject.enumerated() {
-                let indexPath = IndexPath(
-                    row: destinationIndexPath.row + index,
-                    section: destinationIndexPath.section
-                )
+            for (_, value) in subject.enumerated() {
                 let viewModel = viewModel(of: tableView)
                 viewModel.insert(
                     cell: value,
-                    at: indexPath.row
+                    destinationTableViewType: viewModel.tableViewType
                 )
-
-                indexPaths.append(indexPath)
+                
+                updateTable()
             }
-            
-            tableView.beginUpdates()
-            tableView.insertRows(
-                at: indexPaths,
-                with: .automatic
-            )
-            tableView.endUpdates()
-            
-            updateAllTableRowCount()
         }
     }
 }

@@ -25,9 +25,9 @@ extension DateFormatter {
         self.locale = Locale(identifier: Locale.current.identifier)
         self.dateFormat = dateFormat.rawValue
         
-        // TODO: - 보다 클린한 코딩을 위해 고민해보자..
+        // TODO: - 보다 가독성이 높은, 클린한 코딩을 위해 고민해보자..
         var dateString = string
-        if string.count == 10 {
+        if string.count == 10 && dateFormat == .ymd_hms {
             dateString += "T00:00:00Z"
         }
         guard let date = self.date(from: dateString)

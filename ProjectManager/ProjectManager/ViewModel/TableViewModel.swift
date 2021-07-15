@@ -21,7 +21,9 @@ final class TableViewModel {
     }
     
     func fetchData() {
-        NetworkManager().responseData(
+        print("fetch Data")
+        
+        NetworkManager().getData(
             type: tableViewType,
             page: 1
         ) { receivedMemoModel in
@@ -40,6 +42,10 @@ final class TableViewModel {
                     )
                 )
             })
+            
+            
+            
+//            print("Get: \(self.memoList)")
         }
     }
     
@@ -78,7 +84,7 @@ final class TableViewModel {
             title: item.title,
             content: item.content,
             dueDate: dueDate,
-            memoType: "todo"
+            memoType: tableViewType.rawValue
         )
     }
     
@@ -93,15 +99,25 @@ final class TableViewModel {
     
     func insert(
         cell: Memo,
-        at index: Int
+        destinationTableViewType: TableViewType
     ) {
-        // TODO: - server API "insert"
-        Dummy.shared.insert(
-            tableViewType: tableViewType,
-            cell: cell,
-            at: index
+        let dueDate = DateFormatter().changeStringDateFormat(
+            date: cell.dueDate,
+            beforeDateFormat: .ymd,
+            afterDateFormat: .ymd_hms
         )
-        
-        fetchData()
+        let data = Memo(
+            id: cell.id,
+            title: cell.title,
+            content: cell.content,
+            dueDate: dueDate,
+            memoType: destinationTableViewType.rawValue
+        )
+        NetworkManager().postData(
+            type: tableViewType,
+            data: data
+        ) {
+            self.fetchData()
+        }
     }
 }

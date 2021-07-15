@@ -8,7 +8,7 @@
 import Foundation
 
 final class NetworkManager {
-    func responseData(
+    func getData(
         type: TableViewType,
         page: Int,
         complete: @escaping ((ReceivedMemoModel) -> Void)
@@ -72,6 +72,7 @@ final class NetworkManager {
             dueDate: data.dueDate,
             memoType: data.memoType
         )
+        print("POST: \(data.dueDate)")
         
         guard let encodedData = try? JSONEncoder().encode(postMemoModel)
         else {
