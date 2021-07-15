@@ -100,7 +100,14 @@ extension ViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        guard let detailViewController = storyboard.instantiateViewController(withIdentifier: "detailViewController") as? DetailViewController else { return }
+        guard let datasource = datasource else { return }
         
+        detailViewController.modalPresentationStyle = .automatic
+        detailViewController.setHeaderTitle(with: "DOING")
+        detailViewController.presentCurrentData(of: datasource.fetchTaskFromToDoList(), at: indexPath.row)
+        self.present(detailViewController, animated: false) {  }
     }
 }
 
