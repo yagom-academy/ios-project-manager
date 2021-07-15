@@ -331,7 +331,78 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0sC-m0-ATd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="774" y="119"/>
+            <point key="canvasLocation" x="759" y="119"/>
+        </scene>
+        <!--TODO-->
+        <scene sceneID="ioJ-HA-WwX">
+            <objects>
+                <viewController storyboardIdentifier="addTaskViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="lg2-7E-lUC" customClass="DetailedViewController" customModule="ProjectManager" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="JfT-Bf-xlg">
+                        <rect key="frame" x="0.0" y="0.0" width="1080" height="810"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Title" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uJD-vc-ebc">
+                                <rect key="frame" x="10" y="60" width="1060" height="32"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ah4-9P-UMK">
+                                <rect key="frame" x="10" y="348" width="1060" height="442"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <integer key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" systemColor="systemGreenColor"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </textView>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CwA-vv-gvh">
+                                <rect key="frame" x="0.0" y="0.0" width="1080" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="FpK-s5-scw"/>
+                                </constraints>
+                                <items>
+                                    <navigationItem title="TODO" id="xws-7q-xz4">
+                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Dew-4H-vuy"/>
+                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="5oa-BY-fLG"/>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="XmD-Bv-gT0">
+                                <rect key="frame" x="380" y="112" width="320" height="216"/>
+                            </datePicker>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="1fP-Vb-3v5"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="1fP-Vb-3v5" firstAttribute="trailing" secondItem="uJD-vc-ebc" secondAttribute="trailing" constant="10" id="Egm-kH-8kj"/>
+                            <constraint firstItem="CwA-vv-gvh" firstAttribute="top" secondItem="1fP-Vb-3v5" secondAttribute="top" id="IxS-r3-gHt"/>
+                            <constraint firstItem="1fP-Vb-3v5" firstAttribute="trailing" secondItem="ah4-9P-UMK" secondAttribute="trailing" constant="10" id="JGa-ab-7ti"/>
+                            <constraint firstItem="XmD-Bv-gT0" firstAttribute="top" secondItem="uJD-vc-ebc" secondAttribute="bottom" constant="20" id="Q5P-cy-xHu"/>
+                            <constraint firstItem="CwA-vv-gvh" firstAttribute="trailing" secondItem="1fP-Vb-3v5" secondAttribute="trailing" id="XT7-eM-XTZ"/>
+                            <constraint firstItem="ah4-9P-UMK" firstAttribute="leading" secondItem="1fP-Vb-3v5" secondAttribute="leading" constant="10" id="ftG-M5-7y0"/>
+                            <constraint firstItem="uJD-vc-ebc" firstAttribute="leading" secondItem="1fP-Vb-3v5" secondAttribute="leading" constant="10" id="pxi-UC-e3X"/>
+                            <constraint firstItem="CwA-vv-gvh" firstAttribute="leading" secondItem="1fP-Vb-3v5" secondAttribute="leading" id="sUZ-iY-m9O"/>
+                            <constraint firstItem="uJD-vc-ebc" firstAttribute="top" secondItem="CwA-vv-gvh" secondAttribute="bottom" constant="10" id="vk6-bD-3Sq"/>
+                            <constraint firstItem="ah4-9P-UMK" firstAttribute="top" secondItem="XmD-Bv-gT0" secondAttribute="bottom" constant="20" id="vmm-iB-sIn"/>
+                            <constraint firstItem="XmD-Bv-gT0" firstAttribute="centerX" secondItem="JfT-Bf-xlg" secondAttribute="centerX" id="x2P-Ph-bOY"/>
+                            <constraint firstItem="1fP-Vb-3v5" firstAttribute="bottom" secondItem="ah4-9P-UMK" secondAttribute="bottom" constant="20" id="zUV-Go-Lxl"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="TODO" id="JE3-d4-TIo">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="JSb-Ul-RIM"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="Tg3-3k-Rai"/>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZI5-W5-u3X" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1377" y="119"/>
         </scene>
     </scenes>
     <resources>
