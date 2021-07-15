@@ -7,9 +7,7 @@
 
 import Foundation
 
-
-
-class NetworkManager {
+final class NetworkManager {
     func responseData(
         type: TableViewType,
         page: Int,
@@ -105,6 +103,8 @@ class NetworkManager {
                 print(NetworkError.invalidResponse)
                 return
             }
+            
+            complete()
         }.resume()
     }
     
@@ -163,6 +163,54 @@ class NetworkManager {
                 print(NetworkError.invalidResponse)
                 return
             }
+            
+            complete()
+        }.resume()
+    }
+    
+    func deleteData(
+        type: TableViewType,
+        id: String,
+        complete: @escaping (() -> Void)
+    ) {
+        guard let requestURL = RequestType.deleteProduct(id: id).url
+        else {
+            return
+        }
+        
+        var request = URLRequest(url: requestURL)
+        request.httpMethod = HttpMethod.delete.rawValue
+        request.setValue(
+            Strings.jsonTypeOfRequestValue,
+            forHTTPHeaderField: Strings.contentTypeOfHTTPHeaderField
+        )
+        
+        let urlSession = URLSession.shared
+        urlSession.dataTask(with: request) { (data, response, error) in
+            guard let responseStatus = response as? HTTPURLResponse,
+                  responseStatus.statusCode == 200
+            else {
+                guard let data = data,
+                      error == nil
+                else {
+                    print(NetworkError.invalidData)
+                    return
+                }
+                
+                do {
+                    let urlResponse = try JSONDecoder().decode(
+                        RequestError.self,
+                        from: data
+                    )
+                    print("error: \(urlResponse.reason)")
+                } catch {
+                    print(NetworkError.DecodingProblem)
+                }
+                print(NetworkError.invalidResponse)
+                return
+            }
+            
+            complete()
         }.resume()
     }
 }

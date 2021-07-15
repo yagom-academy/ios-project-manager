@@ -26,17 +26,6 @@ final class DetailViewModel {
         return item
     }
    
-    private func removeCell(
-        at index: Int,
-        tableViewType: TableViewType
-    ) {
-        // TODO: - server API "remove"
-        Dummy.shared.remove(
-            tableViewType: tableViewType,
-            at: index
-        )
-    }
-    
     func insert(
         memo: Memo,
         at index: Int = Dummy.shared.dummyList.count,
@@ -52,16 +41,6 @@ final class DetailViewModel {
         cell: Memo,
         tableViewType: TableViewType
     ) {
-        // TODO: - server API "edit"
-//        removeCell(
-//            at: index,
-//            tableViewType: tableViewType
-//        )
-//        insert(
-//            memo: cell,
-//            at: index,
-//            tableViewType: tableViewType
-//        )
         NetworkManager().patchData(
             type: tableViewType,
             data: cell,

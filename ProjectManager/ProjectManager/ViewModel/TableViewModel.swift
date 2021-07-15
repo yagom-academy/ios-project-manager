@@ -57,9 +57,8 @@ final class TableViewModel {
         return date < currentDate ? true : false
     }
     
-    // TODO: - 이름 변경
+    // TODO: - 네이밍 좀 더 가독성있게 변경하기
     // memoInfo, itemInfo, cellInfo
-    // step2에서 cellInfo를 변경하면서 다 변경해주자
     func memoInfo(at index: Int) -> MemoTableViewCellModel? {
         return memoList.value?[index]
     }
@@ -83,15 +82,13 @@ final class TableViewModel {
         )
     }
     
-    func removeCell(at index: Int) {
-        // TODO: - server API "remove"
-//        Dummy.shared.remove(
-//            tableViewType: tableViewType,
-//            at: index
-//        )
-        
-        
-        fetchData()
+    func removeCell(id: String) {
+        NetworkManager().deleteData(
+            type: tableViewType,
+            id: id
+        ) {
+            self.fetchData()
+        }
     }
     
     func insert(

@@ -24,7 +24,7 @@ enum RequestType {
         case .patchProduct(let id):
             return "/memo?memo-id=\(id)"
         case .deleteProduct(let id):
-            return "/memo/\(id)"
+            return "/memo?memo-id=\(id)"
         }
     }
     

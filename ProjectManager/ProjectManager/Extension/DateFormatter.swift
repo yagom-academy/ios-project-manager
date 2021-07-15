@@ -56,8 +56,3 @@ extension DateFormatter {
         return self.string(from: date)
     }
 }
-
-enum DateFormat: String {
-    case ymd = "yyyy-MM-dd"
-    case ymd_hms = "yyyy-MM-dd'T'HH:mm:ssZ"
-}

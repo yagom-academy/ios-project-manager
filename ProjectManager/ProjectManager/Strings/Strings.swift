@@ -7,7 +7,6 @@
 
 import Foundation
 
-// TODO: - URL관련정보도 Strings처럼 enum으로 묶자
 enum Strings {
     static let showDetailViewSegueIdentifier = "showDetailViewSegueIdentifier"
     static let addTodoListItemSegueIdentifier = "addTodoListItemSegueIdentifier"

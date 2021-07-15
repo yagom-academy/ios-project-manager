@@ -29,6 +29,7 @@
 		85B98963268B605800FF2DD7 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B98962268B605800FF2DD7 /* DetailViewController.swift */; };
 		85C271972690A089001B806C /* Dummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85C271962690A089001B806C /* Dummy.swift */; };
 		85E108BD2695D4B100B70688 /* MemoTableViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85E108BC2695D4B100B70688 /* MemoTableViewCellModel.swift */; };
+		85EC5A1C26A0849600B9F149 /* DateFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85EC5A1B26A0849600B9F149 /* DateFormat.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0D25F51E1D0094C4CF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0B25F51E1D0094C4CF /* Main.storyboard */; };
@@ -59,6 +60,7 @@
 		85B98962268B605800FF2DD7 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		85C271962690A089001B806C /* Dummy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dummy.swift; sourceTree = "<group>"; };
 		85E108BC2695D4B100B70688 /* MemoTableViewCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoTableViewCellModel.swift; sourceTree = "<group>"; };
+		85EC5A1B26A0849600B9F149 /* DateFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormat.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 			children = (
 				8533BBC826976BBE00FA86F3 /* DetailViewStyle.swift */,
 				8533BBCA26976BDE00FA86F3 /* TableViewType.swift */,
+				85EC5A1B26A0849600B9F149 /* DateFormat.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -319,6 +322,7 @@
 				8520A8F4269467C7006FC607 /* CellInfo.swift in Sources */,
 				8533BBCB26976BDE00FA86F3 /* TableViewType.swift in Sources */,
 				8506611A269F901E0064342D /* PostMemoModel.swift in Sources */,
+				85EC5A1C26A0849600B9F149 /* DateFormat.swift in Sources */,
 				85066112269F77820064342D /* RequestType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

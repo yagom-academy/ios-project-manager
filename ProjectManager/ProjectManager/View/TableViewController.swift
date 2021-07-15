@@ -58,10 +58,6 @@ final class TableViewController: UIViewController {
             
             if let cellInfo = sender as? CellInfo {
                 viewController?.changeToEditMode()
-                // TODO: - Step2 진행시 server side를 고려하여 변경해야 할 점
-                // 전달하는 정보를 index에서 id로 변경
-                // tableViewModel째로 넘기는건 무모함 -> 해당하는 아이템만 넘기자
-                // 그러면서 tableViewType정보도 넘겨야 함
                 viewController?.setViewModel(cellInfo: cellInfo)
             }
         }
@@ -192,8 +188,9 @@ extension TableViewController: UITableViewDataSource {
         forRowAt indexPath: IndexPath
     ) {
         let viewModel = viewModel(of: tableView)
+        let item = viewModel.itemInfo(at: indexPath.row)
         if editingStyle == .delete {
-            viewModel.removeCell(at: indexPath.row)
+            viewModel.removeCell(id: item.id)
         }
     }
     
@@ -203,8 +200,10 @@ extension TableViewController: UITableViewDataSource {
         to destinationIndexPath: IndexPath
     ) {
         let viewModel = viewModel(of: tableView)
+        let item = viewModel.itemInfo(at: sourceIndexPath.row)
+        viewModel.removeCell(id: item.id)
+        
         let moveCell = viewModel.itemInfo(at: sourceIndexPath.row)
-        viewModel.removeCell(at: sourceIndexPath.row)
         viewModel.insert(
             cell: moveCell,
             at: destinationIndexPath.row
@@ -239,7 +238,8 @@ extension TableViewController: UITableViewDragDelegate {
         }
         if isTablesNotSame {
             let viewModel = viewModel(of: tableView)
-            viewModel.removeCell(at: selectIndexPath.row)
+            let item = viewModel.itemInfo(at: selectIndexPath.row)
+            viewModel.removeCell(id: item.id)
             
             tableView.beginUpdates()
             tableView.deleteRows(
