@@ -105,9 +105,10 @@ extension ViewController: UITableViewDelegate {
         guard let datasource = datasource else { return }
         
         detailViewController.modalPresentationStyle = .automatic
-        detailViewController.setHeaderTitle(with: "DOING")
-        detailViewController.presentCurrentData(of: datasource.fetchTaskFromToDoList(), at: indexPath.row)
-        self.present(detailViewController, animated: false) {  }
+        self.present(detailViewController, animated: false) {
+            detailViewController.presentCurrentData(of: datasource.fetchTaskFromToDoList(), at: indexPath.row)
+            detailViewController.setHeaderTitle(with: "DOING")
+        }
     }
 }
 
