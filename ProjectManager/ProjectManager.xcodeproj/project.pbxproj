@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		3C00C98D269EB6380059444B /* ModalDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C00C98C269EB6380059444B /* ModalDelegate.swift */; };
 		3C00C98F269ECEB00059444B /* TableViewReloadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C00C98E269ECEB00059444B /* TableViewReloadable.swift */; };
-		3C00C993269EE13B0059444B /* DetailedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C00C992269EE13B0059444B /* DetailedViewController.swift */; };
 		3C1B2846268C39E700A64844 /* DoneTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1B2845268C39E700A64844 /* DoneTableViewCell.swift */; };
 		3C1B2848268C3DDA00A64844 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C1B2847268C3DDA00A64844 /* HeaderView.swift */; };
 		3C6FE26B268AB139009354AA /* ToDoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C6FE26A268AB139009354AA /* ToDoTableViewCell.swift */; };
@@ -20,6 +19,7 @@
 		48288251268DA796002C7C40 /* CellConfigurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48288250268DA796002C7C40 /* CellConfigurable.swift */; };
 		486AD1082692DAC40023F03A /* TaskDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486AD1072692DAC40023F03A /* TaskDataSource.swift */; };
 		48B30B37269DCC4B004CDD89 /* AddTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B30B36269DCC4B004CDD89 /* AddTaskViewController.swift */; };
+		48E7FF1F26A022EA0001A3B5 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E7FF1E26A022EA0001A3B5 /* DetailViewController.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* ViewController.swift */; };
@@ -33,7 +33,6 @@
 /* Begin PBXFileReference section */
 		3C00C98C269EB6380059444B /* ModalDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalDelegate.swift; sourceTree = "<group>"; };
 		3C00C98E269ECEB00059444B /* TableViewReloadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewReloadable.swift; sourceTree = "<group>"; };
-		3C00C992269EE13B0059444B /* DetailedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedViewController.swift; sourceTree = "<group>"; };
 		3C1B2845268C39E700A64844 /* DoneTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneTableViewCell.swift; sourceTree = "<group>"; };
 		3C1B2847268C3DDA00A64844 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		3C6FE26A268AB139009354AA /* ToDoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoTableViewCell.swift; sourceTree = "<group>"; };
@@ -44,6 +43,7 @@
 		48288250268DA796002C7C40 /* CellConfigurable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellConfigurable.swift; sourceTree = "<group>"; };
 		486AD1072692DAC40023F03A /* TaskDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDataSource.swift; sourceTree = "<group>"; };
 		48B30B36269DCC4B004CDD89 /* AddTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskViewController.swift; sourceTree = "<group>"; };
+		48E7FF1E26A022EA0001A3B5 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -114,7 +114,7 @@
 			children = (
 				C7431F0925F51E1D0094C4CF /* ViewController.swift */,
 				48B30B36269DCC4B004CDD89 /* AddTaskViewController.swift */,
-				3C00C992269EE13B0059444B /* DetailedViewController.swift */,
+				48E7FF1E26A022EA0001A3B5 /* DetailViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -235,7 +235,6 @@
 				3C1B2846268C39E700A64844 /* DoneTableViewCell.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */,
 				48B30B37269DCC4B004CDD89 /* AddTaskViewController.swift in Sources */,
-				3C00C993269EE13B0059444B /* DetailedViewController.swift in Sources */,
 				3C00C98D269EB6380059444B /* ModalDelegate.swift in Sources */,
 				48288251268DA796002C7C40 /* CellConfigurable.swift in Sources */,
 				486AD1082692DAC40023F03A /* TaskDataSource.swift in Sources */,
@@ -245,6 +244,7 @@
 				EAD1B6422693EFFE00487599 /* TaskTableViewDataSource.swift in Sources */,
 				3C00C98F269ECEB00059444B /* TableViewReloadable.swift in Sources */,
 				481F1047268F0A42006984D9 /* DragAndDropError.swift in Sources */,
+				48E7FF1F26A022EA0001A3B5 /* DetailViewController.swift in Sources */,
 				EA45AC89269D5D960098567E /* TaskDragCoordinator.swift in Sources */,
 				3CBA568F2695A7B900291A42 /* DateFormatter + Extension.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,

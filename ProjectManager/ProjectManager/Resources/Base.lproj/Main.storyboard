@@ -265,7 +265,6 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="heG-Ib-DOK">
                                 <rect key="frame" x="10" y="348" width="1060" height="442"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <color key="textColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -336,7 +335,7 @@
         <!--TODO-->
         <scene sceneID="ioJ-HA-WwX">
             <objects>
-                <viewController storyboardIdentifier="addTaskViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="lg2-7E-lUC" customClass="DetailedViewController" customModule="ProjectManager" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="detailViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="lg2-7E-lUC" customClass="DetailViewController" customModule="ProjectManager" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="JfT-Bf-xlg">
                         <rect key="frame" x="0.0" y="0.0" width="1080" height="810"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -349,7 +348,6 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ah4-9P-UMK">
                                 <rect key="frame" x="10" y="348" width="1060" height="442"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <color key="textColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -369,8 +367,16 @@
                                 </constraints>
                                 <items>
                                     <navigationItem title="TODO" id="xws-7q-xz4">
-                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Dew-4H-vuy"/>
-                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="5oa-BY-fLG"/>
+                                        <barButtonItem key="leftBarButtonItem" systemItem="edit" id="Dew-4H-vuy">
+                                            <connections>
+                                                <action selector="didTapCancel:" destination="lg2-7E-lUC" id="vrH-0m-cnK"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="5oa-BY-fLG">
+                                            <connections>
+                                                <action selector="didTapDone:" destination="lg2-7E-lUC" id="7jh-Nx-xVw"/>
+                                            </connections>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
@@ -399,6 +405,11 @@
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="JSb-Ul-RIM"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="Tg3-3k-Rai"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="taskContent" destination="ah4-9P-UMK" id="7nW-4u-FJX"/>
+                        <outlet property="taskDeadline" destination="XmD-Bv-gT0" id="EYK-aw-C9y"/>
+                        <outlet property="taskTitle" destination="uJD-vc-ebc" id="wUH-Qa-YkD"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZI5-W5-u3X" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

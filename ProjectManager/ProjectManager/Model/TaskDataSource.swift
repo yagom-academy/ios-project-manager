@@ -68,6 +68,10 @@ final class TaskDataSource: NSObject, TaskTableViewDataSource {
         return session.canLoadObjects(ofClass: Task.self)
     }
     
+    func fetchTaskFromToDoList() -> [Task] {
+        return toDoList
+    }
+    
     func dragItem(taskType: ProjectTaskType, for indexPath: IndexPath) -> [UIDragItem] {
         switch taskType {
         case .todo:
