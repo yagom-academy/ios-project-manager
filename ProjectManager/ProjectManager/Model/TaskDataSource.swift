@@ -68,8 +68,16 @@ final class TaskDataSource: NSObject, TaskTableViewDataSource {
         return session.canLoadObjects(ofClass: Task.self)
     }
     
-    func fetchTaskFromToDoList() -> [Task] {
+    func fetchToDoList() -> [Task] {
         return toDoList
+    }
+    
+    func fetchDoingList() -> [Task] {
+        return doingList
+    }
+    
+    func fetchDoneList() -> [Task] {
+        return doneList
     }
     
     func dragItem(taskType: ProjectTaskType, for indexPath: IndexPath) -> [UIDragItem] {
@@ -191,4 +199,19 @@ final class TaskDataSource: NSObject, TaskTableViewDataSource {
     func appendToDoList(task: Task) {
         toDoList.append(task)
     }
+    
+    func fetchDoingTask(index: Int) {
+        
+    }
+    
+    func fetchDoneTask(index: Int) {
+        
+    }
+    
+    func modifyList(target: [Task], title: String, deadlineDate: Date, content: String, index: Int) {
+        target[index].title = title
+        target[index].deadlineDate = deadlineDate
+        target[index].content = content
+    }
+    
 }

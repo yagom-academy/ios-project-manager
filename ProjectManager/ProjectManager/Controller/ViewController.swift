@@ -8,7 +8,7 @@ import UIKit
 
 class ViewController: UIViewController {
         
-    private var datasource: TaskTableViewDataSource?
+    var datasource: TaskTableViewDataSource?
     
     @IBOutlet weak var toDoTableView: UITableView!
     @IBOutlet weak var doingTableView: UITableView!
@@ -68,7 +68,7 @@ class ViewController: UIViewController {
     }
 }
 
-// MARK:- UITableView DataSource
+// MARK:- UITableView Delegate
 
 extension ViewController: UITableViewDelegate {
     
@@ -102,12 +102,31 @@ extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         guard let detailViewController = storyboard.instantiateViewController(withIdentifier: "detailViewController") as? DetailViewController else { return }
+        
         guard let datasource = datasource else { return }
+        
+        detailViewController.toDoTableView = toDoTableView
+        detailViewController.doingTableView = doingTableView
+        detailViewController.doneTableView = doneTableView
+
+        detailViewController.currentTableView = tableView
+        detailViewController.selectedIndexPath = indexPath
         
         detailViewController.modalPresentationStyle = .automatic
         self.present(detailViewController, animated: false) {
-            detailViewController.presentCurrentData(of: datasource.fetchTaskFromToDoList(), at: indexPath.row)
-            detailViewController.setHeaderTitle(with: "DOING")
+            switch tableView {
+            case self.toDoTableView:
+                detailViewController.presentCurrentData(of: datasource.fetchToDoList(), at: indexPath.row)
+                detailViewController.setHeaderTitle(with: "TODO")
+            case self.doingTableView:
+                detailViewController.presentCurrentData(of: datasource.fetchDoingList(), at: indexPath.row)
+                detailViewController.setHeaderTitle(with: "DOING")
+            case self.doneTableView:
+                detailViewController.presentCurrentData(of: datasource.fetchDoneList(), at: indexPath.row)
+                detailViewController.setHeaderTitle(with: "DONE")
+            default:
+                break
+            }
         }
     }
 }
@@ -204,6 +223,14 @@ extension ViewController: ModalDelegate {
 extension ViewController: TableViewReloadable {
     func reloadToDoTableView() {
         self.toDoTableView.reloadData()
+    }
+    
+    func reloadDoingTableView() {
+        self.doingTableView.reloadData()
+    }
+    
+    func reloadDoneTableView() {
+        self.doneTableView.reloadData()
     }
 }
 

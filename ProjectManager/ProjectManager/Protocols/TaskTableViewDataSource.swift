@@ -14,5 +14,8 @@ protocol TaskTableViewDataSource: UITableViewDataSource {
     func addTask(task: Task, destinationIndexPath: IndexPath, tableView: UITableView)
     func deleteTask(at indexPath: IndexPath, in tableView: UITableView)
     func appendToDoList(task: Task)
-    func fetchTaskFromToDoList() -> [Task]
+    func fetchToDoList() -> [Task]
+    func fetchDoingList() -> [Task]
+    func fetchDoneList() -> [Task]
+    func modifyList(target: [Task], title: String, deadlineDate: Date, content: String, index: Int)
 }

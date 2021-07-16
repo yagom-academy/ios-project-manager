@@ -9,4 +9,6 @@ import Foundation
 
 protocol TableViewReloadable {
     func reloadToDoTableView()
+    func reloadDoingTableView()
+    func reloadDoneTableView()
 }

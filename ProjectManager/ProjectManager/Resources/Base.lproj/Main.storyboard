@@ -332,7 +332,7 @@
             </objects>
             <point key="canvasLocation" x="759" y="119"/>
         </scene>
-        <!--TODO-->
+        <!--Detail View Controller-->
         <scene sceneID="ioJ-HA-WwX">
             <objects>
                 <viewController storyboardIdentifier="detailViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="lg2-7E-lUC" customClass="DetailViewController" customModule="ProjectManager" customModuleProvider="target" sceneMemberID="viewController">
@@ -366,10 +366,10 @@
                                     <constraint firstAttribute="height" constant="50" id="FpK-s5-scw"/>
                                 </constraints>
                                 <items>
-                                    <navigationItem title="TODO" id="xws-7q-xz4">
+                                    <navigationItem id="xws-7q-xz4">
                                         <barButtonItem key="leftBarButtonItem" systemItem="edit" id="Dew-4H-vuy">
                                             <connections>
-                                                <action selector="didTapCancel:" destination="lg2-7E-lUC" id="vrH-0m-cnK"/>
+                                                <action selector="didTapEdit:" destination="lg2-7E-lUC" id="vrH-0m-cnK"/>
                                             </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="5oa-BY-fLG">
@@ -401,11 +401,8 @@
                             <constraint firstItem="1fP-Vb-3v5" firstAttribute="bottom" secondItem="ah4-9P-UMK" secondAttribute="bottom" constant="20" id="zUV-Go-Lxl"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="TODO" id="JE3-d4-TIo">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="JSb-Ul-RIM"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="Tg3-3k-Rai"/>
-                    </navigationItem>
                     <connections>
+                        <outlet property="navigationBar" destination="CwA-vv-gvh" id="t9m-xa-cOf"/>
                         <outlet property="taskContent" destination="ah4-9P-UMK" id="7nW-4u-FJX"/>
                         <outlet property="taskDeadline" destination="XmD-Bv-gT0" id="EYK-aw-C9y"/>
                         <outlet property="taskTitle" destination="uJD-vc-ebc" id="wUH-Qa-YkD"/>

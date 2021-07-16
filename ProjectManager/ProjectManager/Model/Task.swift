@@ -11,10 +11,10 @@ import MobileCoreServices
 final class Task: NSObject, NSItemProviderReading, NSItemProviderWriting, Codable {
     
     let id: String? // optional or decodable
-    let title: String
-    let content: String
-    let deadlineDate: Date
-    let classification: String //progress
+    var title: String
+    var content: String
+    var deadlineDate: Date
+    var classification: String //progress
     let isDeleted: Bool // deprecated
     // status: String created, updated, deleted -> enum
     // index: Int

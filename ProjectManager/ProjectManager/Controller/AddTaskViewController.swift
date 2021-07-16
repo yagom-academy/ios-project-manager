@@ -23,6 +23,7 @@ class AddTaskViewController: UIViewController {
     }
     
     @IBAction func didTapCancel(_ sender: UIBarButtonItem) {
+        dismiss(animated: true, completion: nil)
     }
 
     override func viewDidLoad() {

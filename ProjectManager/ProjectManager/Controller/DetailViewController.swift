@@ -9,21 +9,43 @@ import UIKit
 
 class DetailViewController: UIViewController {
     
+    var delegate: ModalDelegate?
+    var selectedIndexPath: IndexPath?
+    var currentTableView: UITableView!
+    
+    weak var toDoTableView: UITableView!
+    weak var doingTableView: UITableView!
+    weak var doneTableView: UITableView!
+    
     @IBOutlet weak var taskTitle: UITextField!
     @IBOutlet weak var taskDeadline: UIDatePicker!
     @IBOutlet weak var taskContent: UITextView!
-    
-    
+    @IBOutlet weak var navigationBar: UINavigationBar!
     
     @IBAction func didTapDone(_ sender: UIBarButtonItem) {
+        guard let presentingViewController = self.presentingViewController as? TableViewReloadable else { return }
+        
+        self.presentingViewController?.dismiss(animated: true) {
+            presentingViewController.reloadToDoTableView()
+            presentingViewController.reloadDoingTableView()
+            presentingViewController.reloadDoneTableView()
+        }
+        editContents(of: currentTableView)
+        
     }
     
-    @IBAction func didTapCancel(_ sender: UIBarButtonItem) {
+    @IBAction func didTapEdit(_ sender: UIBarButtonItem) {
+        taskTitle.isUserInteractionEnabled = true
+        taskDeadline.isUserInteractionEnabled = true
+        taskContent.isUserInteractionEnabled = true
+        taskTitle.becomeFirstResponder()
     }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        taskTitle.isUserInteractionEnabled = false
+        taskDeadline.isUserInteractionEnabled = false
+        taskContent.isUserInteractionEnabled = false
     }
     
     func presentCurrentData(of tasks: [Task], at index: Int) {
@@ -34,7 +56,34 @@ class DetailViewController: UIViewController {
     } // IB 아울렛으로 변수를 가져오는게 비동기라 nil이 발생 -> 해결방법 검색
     
     func setHeaderTitle(with title: String) {
-        self.navigationItem.title = title
+        self.navigationBar.topItem?.title = title
     }
+    
+    private func creatToDoTask() -> Task {
+        let task = Task(id: "", title: taskTitle.text ?? "", content: taskContent.text ?? "", deadlineDate: taskDeadline.date, classification: "todo")
+        return task
+    }
+
+    func editContents(of tableView: UITableView) {
+        guard let viewController = self.presentingViewController as? ViewController,
+              let datasource = viewController.datasource,
+              let selectedIndexPath = selectedIndexPath else { return }
+        let taskList: [Task]
+        switch tableView {
+        case toDoTableView:
+            taskList = datasource.fetchToDoList()
+        case doingTableView:
+            taskList = datasource.fetchDoingList()
+        case doneTableView:
+            taskList = datasource.fetchDoneList()
+        default:
+            taskList = []
+        }
+        
+        datasource.modifyList(target: taskList ,title: taskTitle.text ?? "", deadlineDate: taskDeadline.date, content: taskContent.text ?? "", index: selectedIndexPath.row)
+    }
+    
+    
+    
     
 }
