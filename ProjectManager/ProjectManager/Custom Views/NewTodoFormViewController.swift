@@ -14,7 +14,7 @@ final class NewTodoFormViewController: UIViewController {
     let datePicker = UIDatePicker()
     let newTodoFormTextView = NewTodoFormTextView()
 
-    var delegate: ProjectManagerDelegate?
+    var delegate: NewTodoFormViewControllerDelegate?
     
     var isEditMode: Bool = false
     var sentIndexPath = Int()
@@ -26,7 +26,6 @@ final class NewTodoFormViewController: UIViewController {
         view.backgroundColor = .systemBackground
         title = "TODO"
         
-        presentingViewController2().delegate = self
         configiureNewTodoFormStackView()
         configureNewTodoFormTextField()
         configureDatePicker()
@@ -51,36 +50,27 @@ final class NewTodoFormViewController: UIViewController {
     }
     
     @objc private func doneViewController() {
-        guard let presentingViewController = presentingViewController as? UINavigationController,
-              let projectManagerViewController = presentingViewController.viewControllers[0] as? ProjectManagerViewController else {
-            return
-        }
+        
         if let title = newTodoFormTextField.text, let description = newTodoFormTextView.text {
-            delegate?.dataPassing(title: title, date: datePicker.date.timeIntervalSince1970, description: description)
+            delegate?.passModalViewData(title: title, date: datePicker.date.timeIntervalSince1970, description: description)
         }
 
-        projectManagerViewController.todoTitleView.count.text = String(projectManagerViewController.todoTableViewData.count)
-        projectManagerViewController.todoTableView.reloadData()
-        dismiss(animated: true) {
-        }
+        presentingViewController().todoTitleView.countLabel.text = String(presentingViewController().todoTableViewData.count)
+        presentingViewController().todoTableView.reloadData()
+        dismiss(animated: true)
     }
     
     @objc private func doneEdit() {
-        guard let presentingViewController = presentingViewController as? UINavigationController,
-              let projectManagerViewController = presentingViewController.viewControllers[0] as? ProjectManagerViewController else {
-            return
-        }
 
         if let title = newTodoFormTextField.text, let description = newTodoFormTextView.text {
-            delegate?.updateData(tableView: self.tableView, title: title, date: datePicker.date.timeIntervalSince1970, indexPath: sentIndexPath, description: description)
+            presentingViewController().updateData(tableView: self.tableView, title: title, date: datePicker.date.timeIntervalSince1970, indexPath: sentIndexPath, description: description)
         }
 
-        projectManagerViewController.reloadSelectedTableView(tableView: tableView)
-        dismiss(animated: true) {
-        }
+        presentingViewController().reloadSelectedTableView(tableView: tableView)
+        dismiss(animated: true)
     }
     
-    @objc private func enableEdit() {
+    @objc func enableEdit() {
         newTodoFormTextField.isUserInteractionEnabled = true
         newTodoFormTextView.isUserInteractionEnabled = true
         datePicker.isUserInteractionEnabled = true
@@ -88,7 +78,7 @@ final class NewTodoFormViewController: UIViewController {
         newTodoFormTextField.becomeFirstResponder()
     }
     
-    private func presentingViewController2() -> ProjectManagerViewController {
+    private func presentingViewController() -> ProjectManagerViewController {
         guard let presentingViewController = presentingViewController as? UINavigationController,
               let projectManagerViewController = presentingViewController.viewControllers[0] as? ProjectManagerViewController else {
             return ProjectManagerViewController()
@@ -97,7 +87,7 @@ final class NewTodoFormViewController: UIViewController {
         return projectManagerViewController
     }
     
-    private func disableEdit() {
+    func disableEdit() {
         newTodoFormTextField.isUserInteractionEnabled = false
         newTodoFormTextView.isUserInteractionEnabled = false
         datePicker.isUserInteractionEnabled = false

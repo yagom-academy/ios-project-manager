@@ -9,8 +9,8 @@ import UIKit
 
 final class ListTitleView: UIView {
     
-    let title = UILabel()
-    let count = UILabel()
+    let titleLabel = UILabel()
+    let countLabel = UILabel()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -24,24 +24,24 @@ final class ListTitleView: UIView {
     
     private func configureListTitleView() {
         backgroundColor = .systemGray6
-        addSubview(title)
-        addSubview(count)
+        addSubview(titleLabel)
+        addSubview(countLabel)
         
-        title.translatesAutoresizingMaskIntoConstraints = false
-        count.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        countLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            title.centerYAnchor.constraint(equalTo: layoutMarginsGuide.centerYAnchor),
-            title.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
-            title.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor),
-            title.heightAnchor.constraint(equalToConstant: 50)
+            titleLabel.centerYAnchor.constraint(equalTo: layoutMarginsGuide.centerYAnchor),
+            titleLabel.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
+            titleLabel.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor),
+            titleLabel.heightAnchor.constraint(equalToConstant: 50)
         ])
         
         NSLayoutConstraint.activate([
-            count.centerYAnchor.constraint(equalTo: layoutMarginsGuide.centerYAnchor),
-            count.leadingAnchor.constraint(equalTo: title.layoutMarginsGuide.trailingAnchor, constant: 10),
-            count.widthAnchor.constraint(equalToConstant: 25),
-            count.heightAnchor.constraint(equalToConstant: 25)
+            countLabel.centerYAnchor.constraint(equalTo: layoutMarginsGuide.centerYAnchor),
+            countLabel.leadingAnchor.constraint(equalTo: titleLabel.layoutMarginsGuide.trailingAnchor, constant: 10),
+            countLabel.widthAnchor.constraint(equalToConstant: 25),
+            countLabel.heightAnchor.constraint(equalToConstant: 25)
         ])
     }
 }

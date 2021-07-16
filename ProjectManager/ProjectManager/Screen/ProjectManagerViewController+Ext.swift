@@ -7,8 +7,8 @@
 
 import UIKit
 
-extension ProjectManagerViewController: ProjectManagerDelegate {
-    func dataPassing(title: String, date: Double, description: String) {
+extension ProjectManagerViewController: NewTodoFormViewControllerDelegate {
+    func passModalViewData(title: String, date: Double, description: String) {
         todoTableViewData.append(CellData(title: title, body: description, deadline: date, superViewType: TableViewType.todoTableView))
     }
     

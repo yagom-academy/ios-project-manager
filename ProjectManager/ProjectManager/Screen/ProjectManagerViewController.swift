@@ -15,12 +15,12 @@ class ProjectManagerViewController: UIViewController {
     ]
     var doingTableViewData : [CellData] = [
         CellData(title: "수지의 탈주하기2", body: "어느 부캠이 좋을까", deadline: 1610150400, superViewType: .doingTableView),
-        CellData(title: "바비의 다이어트2", body: "쿠팡에서 다이어트 음식 시켜야지", deadline: 1610150400, superViewType: .doingTableView),
+        CellData(title: "바비의 데이트신청", body: "돼지바 먹으며 기다리기", deadline: 1610150400, superViewType: .doingTableView),
         CellData(title: "키오의 이모티콘 만들기2", body: "역시 공부보다 재미있어", deadline: 1610150400, superViewType: .doingTableView)
     ]
     var doneTableViewData : [CellData] = [
         CellData(title: "수지의 탈주하기3", body: "어느 부캠이 좋을까", deadline: 1610150400, superViewType: .doneTableView),
-        CellData(title: "바비의 다이어트3", body: "쿠팡에서 다이어트 음식 시켜야지", deadline: 1610150400, superViewType: .doneTableView),
+        CellData(title: "바비의 헌팅", body: "모델처럼 서있기", deadline: 1610150400, superViewType: .doneTableView),
         CellData(title: "키오의 이모티콘 만들기3", body: "역시 공부보다 재미있어", deadline: 1610150400, superViewType: .doneTableView)
     ]
     
@@ -37,10 +37,6 @@ class ProjectManagerViewController: UIViewController {
     let todoTableView = UITableView()
     let doingTableView = UITableView()
     let doneTableView = UITableView()
-    
-    weak var delegate: NewTodoFormDelegate?
-    
-    let newTodoFormViewController = NewTodoFormViewController()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,7 +52,6 @@ class ProjectManagerViewController: UIViewController {
         view.backgroundColor = .systemGray4
         title = "소개팅 필승 공략"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(pushNewTodoFormViewController))
-        newTodoFormViewController.delegate = self
         
         configureUndoManagerToolbar()
         configureProjectManagerView()
@@ -67,19 +62,19 @@ class ProjectManagerViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         todoTableView.reloadData()
     }
     
     @objc func pushNewTodoFormViewController() {
-        let newTodoFormNavigationController = UINavigationController(rootViewController: newTodoFormViewController)
+        let modalViewController = NewTodoFormViewController()
+        modalViewController.delegate = self
+        
+        let newTodoFormNavigationController = UINavigationController(rootViewController: modalViewController)
         
         newTodoFormNavigationController.modalPresentationStyle = .formSheet
         
-        newTodoFormViewController.isEditMode = false
-        newTodoFormViewController.newTodoFormTextField.isUserInteractionEnabled = true
-        newTodoFormViewController.newTodoFormTextView.isUserInteractionEnabled = true
-        newTodoFormViewController.datePicker.isUserInteractionEnabled = true
+        modalViewController.isEditMode = false
+        modalViewController.enableEdit()
         
         present(newTodoFormNavigationController, animated: true)
     }
@@ -101,35 +96,35 @@ class ProjectManagerViewController: UIViewController {
         doingStackView.addArrangedSubview(doingTitleView)
         doneStackView.addArrangedSubview(doneTitleView)
         
-        todoTitleView.title.text = "TODO"
-        todoTitleView.count.text = "\(todoTableViewData.count)"
-        doingTitleView.title.text = "DOING"
-        doingTitleView.count.text = "\(todoTableViewData.count)"
-        doneTitleView.title.text = "DONE"
-        doneTitleView.count.text = "\(todoTableViewData.count)"
+        todoTitleView.titleLabel.text = "TODO"
+        todoTitleView.countLabel.text = "\(todoTableViewData.count)"
+        doingTitleView.titleLabel.text = "DOING"
+        doingTitleView.countLabel.text = "\(todoTableViewData.count)"
+        doneTitleView.titleLabel.text = "DONE"
+        doneTitleView.countLabel.text = "\(todoTableViewData.count)"
         
-        todoTitleView.title.font = UIFont.boldSystemFont(ofSize: 30)
-        doingTitleView.title.font = UIFont.boldSystemFont(ofSize: 30)
-        doneTitleView.title.font = UIFont.boldSystemFont(ofSize: 30)
+        todoTitleView.titleLabel.font = UIFont.boldSystemFont(ofSize: 30)
+        doingTitleView.titleLabel.font = UIFont.boldSystemFont(ofSize: 30)
+        doneTitleView.titleLabel.font = UIFont.boldSystemFont(ofSize: 30)
         
-        todoTitleView.count.textColor = .systemBackground
-        doingTitleView.count.textColor = .systemBackground
-        doneTitleView.count.textColor = .systemBackground
+        todoTitleView.countLabel.textColor = .systemBackground
+        doingTitleView.countLabel.textColor = .systemBackground
+        doneTitleView.countLabel.textColor = .systemBackground
         
-        todoTitleView.count.backgroundColor = .black
-        doingTitleView.count.backgroundColor = .black
-        doneTitleView.count.backgroundColor = .black
+        todoTitleView.countLabel.backgroundColor = .black
+        doingTitleView.countLabel.backgroundColor = .black
+        doneTitleView.countLabel.backgroundColor = .black
         
-        todoTitleView.count.textAlignment = .center
-        doingTitleView.count.textAlignment = .center
-        doneTitleView.count.textAlignment = .center
+        todoTitleView.countLabel.textAlignment = .center
+        doingTitleView.countLabel.textAlignment = .center
+        doneTitleView.countLabel.textAlignment = .center
         
-        todoTitleView.count.layer.cornerRadius = 12.5
-        todoTitleView.count.layer.masksToBounds = true
-        doingTitleView.count.layer.cornerRadius = 12.5
-        doingTitleView.count.layer.masksToBounds = true
-        doneTitleView.count.layer.cornerRadius = 12.5
-        doneTitleView.count.layer.masksToBounds = true
+        todoTitleView.countLabel.layer.cornerRadius = 12.5
+        todoTitleView.countLabel.layer.masksToBounds = true
+        doingTitleView.countLabel.layer.cornerRadius = 12.5
+        doingTitleView.countLabel.layer.masksToBounds = true
+        doneTitleView.countLabel.layer.cornerRadius = 12.5
+        doneTitleView.countLabel.layer.masksToBounds = true
     }
     
     private func configureProcessListsTableView() {
@@ -199,9 +194,9 @@ class ProjectManagerViewController: UIViewController {
     }
     
     func reloadCountLabel() {
-        todoTitleView.count.text = String(todoTableViewData.count)
-        doingTitleView.count.text = String(doingTableViewData.count)
-        doneTitleView.count.text = String(doneTableViewData.count)
+        todoTitleView.countLabel.text = String(todoTableViewData.count)
+        doingTitleView.countLabel.text = String(doingTableViewData.count)
+        doneTitleView.countLabel.text = String(doneTableViewData.count)
     }
     
     func distinguishedTableViewData(currentTableView: UITableView) -> [CellData] {
@@ -307,5 +302,11 @@ class ProjectManagerViewController: UIViewController {
         cell.titleLabel.text = data[indexPath.row].title
         cell.dateLabel.text = "\(convertDate)"
         cell.descriptionLabel.text = data[indexPath.row].body
+    }
+    
+    func passPresentingViewData(modalViewController: NewTodoFormViewController, indexPath: IndexPath, data: [CellData]) {
+        modalViewController.newTodoFormTextField.text = data[indexPath.row].title
+        modalViewController.newTodoFormTextView.text = data[indexPath.row].body
+        modalViewController.datePicker.date = Date(timeIntervalSince1970: data[indexPath.row].deadline)
     }
 }
