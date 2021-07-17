@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import MobileCoreServices
 
 extension ProjectManagerViewController: UITableViewDropDelegate {
     
