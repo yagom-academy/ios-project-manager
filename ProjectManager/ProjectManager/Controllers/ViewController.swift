@@ -173,6 +173,17 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-
+extension ViewController: UICollectionViewDragDelegate {
+    func collectionView(_ collectionView: UICollectionView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        guard let task = findTask(collectionView: collectionView, indexPath: indexPath) else {
+            return []
+        }
+        let itemProvider = NSItemProvider(object: task as Task)
+        let dragItem = UIDragItem(itemProvider: itemProvider)
+        draggedCollectionView = collectionView
+        draggedCollectionViewIndexPath = indexPath
+        return [dragItem]
+    }
+}
 
 
