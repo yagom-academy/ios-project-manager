@@ -39,6 +39,50 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AA9F8CCE26A6ABE300467F34 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				AA9F8CD126A6ACF300467F34 /* Entry */,
+				AA9F8CD226A6AD1200467F34 /* Views */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		AA9F8CCF26A6ABEE00467F34 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
+				C7431F0B25F51E1D0094C4CF /* Main.storyboard */,
+				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		AA9F8CD026A6AC5B00467F34 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F1325F51E1E0094C4CF /* Info.plist */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		AA9F8CD126A6ACF300467F34 /* Entry */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
+				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
+			);
+			path = Entry;
+			sourceTree = "<group>";
+		};
+		AA9F8CD226A6AD1200467F34 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0925F51E1D0094C4CF /* ViewController.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		C7431EF925F51E1D0094C4CF = {
 			isa = PBXGroup;
 			children = (
@@ -59,13 +103,9 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
-				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
-				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
-				C7431F0925F51E1D0094C4CF /* ViewController.swift */,
-				C7431F0B25F51E1D0094C4CF /* Main.storyboard */,
-				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
-				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
-				C7431F1325F51E1E0094C4CF /* Info.plist */,
+				AA9F8CCF26A6ABEE00467F34 /* Resources */,
+				AA9F8CCE26A6ABE300467F34 /* Sources */,
+				AA9F8CD026A6AC5B00467F34 /* Supporting Files */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
@@ -312,7 +352,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = ProjectManager/Info.plist;
+				INFOPLIST_FILE = "ProjectManager/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -331,7 +371,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = ProjectManager/Info.plist;
+				INFOPLIST_FILE = "ProjectManager/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
