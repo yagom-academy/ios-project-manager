@@ -23,13 +23,13 @@ final class KanBanBoardViewController: UIViewController {
     }()
 
     private let doingTableView: KanBanTableView = {
-        let tableView = KanBanTableView(statusName: "TODO", tasks: [dummy, dummy])
+        let tableView = KanBanTableView(statusName: "DOING", tasks: [dummy, dummy])
         tableView.register(KanBanBoardCell.self, forCellReuseIdentifier: KanBanBoardCell.reuseIdentifier)
         return tableView
     }()
 
     private let doneTableView: KanBanTableView = {
-        let tableView = KanBanTableView(statusName: "TODO", tasks: [dummy, dummy])
+        let tableView = KanBanTableView(statusName: "DONE", tasks: [dummy, dummy])
         tableView.register(KanBanBoardCell.self, forCellReuseIdentifier: KanBanBoardCell.reuseIdentifier)
         return tableView
     }()
@@ -38,7 +38,11 @@ final class KanBanBoardViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         navigationItem.title = "Project Manager"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: nil)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .add,
+            target: self,
+            action: #selector(presentModally)
+        )
 
         toDoTableView.delegate = self
         doingTableView.delegate = self
@@ -58,6 +62,13 @@ final class KanBanBoardViewController: UIViewController {
         outerStackView.addArrangedSubview(doingTableView)
         outerStackView.addArrangedSubview(doneTableView)
 
+    }
+
+    @objc func presentModally() {
+        let taskDetailViewController = TaskDetailViewController()
+        taskDetailViewController.view.backgroundColor = .systemBackground
+        taskDetailViewController.modalPresentationStyle = .formSheet
+        present(UINavigationController(rootViewController: taskDetailViewController), animated: true, completion: nil)
     }
 }
 
@@ -95,18 +106,25 @@ extension KanBanBoardViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let tableView = tableView as? KanBanTableView else { return .none }
 
-        let view = UIView(frame: .zero)
+        let view = UIView(frame: .infinite)
         view.backgroundColor = .systemGray
 
         let statusLabel: UILabel = {
             let label = UILabel()
             label.text = tableView.statusName
+            label.font = UIFont.preferredFont(forTextStyle: .largeTitle)
             return label
         }()
 
         let countLabel: UILabel = {
             let label = UILabel()
             label.text = tableView.tasks.count.description
+            label.clipsToBounds = true
+            label.textAlignment = .center
+            label.layer.borderWidth = 2
+            label.layer.cornerRadius = 5
+            label.layer.borderColor = UIColor.black.cgColor
+            label.font = UIFont.preferredFont(forTextStyle: .body)
             return label
         }()
 
@@ -114,14 +132,20 @@ extension KanBanBoardViewController: UITableViewDelegate {
         view.addSubview(countLabel)
 
         statusLabel.snp.makeConstraints { label in
+            label.top.equalTo(view).inset(10)
             label.leading.equalTo(view).inset(10)
             label.centerY.equalTo(view)
+            label.bottom.equalTo(view).inset(10)
         }
 
         countLabel.snp.makeConstraints { label in
             label.leading.equalTo(statusLabel.snp.trailing).offset(10)
             label.centerY.equalTo(view)
+            label.width.equalTo(25)
+            label.height.equalTo(25)
         }
+
+        view.sizeThatFits(statusLabel.frame.size)
 
         return view
     }
