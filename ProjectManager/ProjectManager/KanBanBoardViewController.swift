@@ -16,23 +16,35 @@ final class KanBanBoardViewController: UIViewController {
         return stackView
     }()
 
+    // TODO: status 대소문자 통일 필요
+    // TODO: 무수히 많은 switch문들 해결 필요
+
     private let toDoTableView: KanBanTableView = {
-        let tableView = KanBanTableView(statusName: "TODO", tasks: [dummy, dummy])
+        let tableView = KanBanTableView(statusName: "TODO")
         tableView.register(KanBanBoardCell.self, forCellReuseIdentifier: KanBanBoardCell.reuseIdentifier)
         return tableView
     }()
 
     private let doingTableView: KanBanTableView = {
-        let tableView = KanBanTableView(statusName: "DOING", tasks: [dummy, dummy])
+        let tableView = KanBanTableView(statusName: "DOING")
         tableView.register(KanBanBoardCell.self, forCellReuseIdentifier: KanBanBoardCell.reuseIdentifier)
         return tableView
     }()
 
     private let doneTableView: KanBanTableView = {
-        let tableView = KanBanTableView(statusName: "DONE", tasks: [dummy, dummy])
+        let tableView = KanBanTableView(statusName: "DONE")
         tableView.register(KanBanBoardCell.self, forCellReuseIdentifier: KanBanBoardCell.reuseIdentifier)
         return tableView
     }()
+
+    init() {
+        super.init(nibName: nil, bundle: nil)
+        TaskManager.shared.taskManagerDelegate = self
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,33 +93,58 @@ final class KanBanBoardViewController: UIViewController {
     }
 }
 
-// MARK: - DataSource
+// MARK: - TableView DataSource
 
 extension KanBanBoardViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let tableView = tableView as? KanBanTableView else { return 0 }
-        return tableView.tasks.count
+
+        switch tableView.statusName {
+        case "TODO":
+            return TaskManager.shared.toDoTasks.count
+        case "DOING":
+            return TaskManager.shared.doingTasks.count
+        case "DONE":
+            return TaskManager.shared.doneTasks.count
+        default:
+            return 0
+        }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: KanBanBoardCell.reuseIdentifier,
                                                        for: indexPath) as? KanBanBoardCell,
-              let tableView = tableView as? KanBanTableView
-        else {
-            return UITableViewCell()
-        }
+              let tableView = tableView as? KanBanTableView else { return UITableViewCell() }
 
-        cell.setText(
-            title: tableView.tasks[indexPath.row].title,
-            description: tableView.tasks[indexPath.row].description,
-            date: tableView.tasks[indexPath.row].date.description
-        )
+        switch tableView.statusName {
+        case "toDo":
+            cell.setText(title: "title", description: "des", date: "123")
+            cell.setText(
+                title: TaskManager.shared.toDoTasks[indexPath.row].title,
+                description: TaskManager.shared.toDoTasks[indexPath.row].description,
+                date: TaskManager.shared.toDoTasks[indexPath.row].date.description
+            )
+        case "doing":
+            cell.setText(
+                title: TaskManager.shared.doingTasks[indexPath.row].title,
+                description: TaskManager.shared.doingTasks[indexPath.row].description,
+                date: TaskManager.shared.doingTasks[indexPath.row].date.description
+            )
+        case "done":
+            cell.setText(
+                title: TaskManager.shared.doneTasks[indexPath.row].title,
+                description: TaskManager.shared.doneTasks[indexPath.row].description,
+                date: TaskManager.shared.doneTasks[indexPath.row].date.description
+            )
+        default:
+            break
+        }
 
         return cell
     }
 }
 
-// MARK: - Delegate
+// MARK: - TableView Delegate
 
 extension KanBanBoardViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -125,7 +162,7 @@ extension KanBanBoardViewController: UITableViewDelegate {
 
         let countLabel: UILabel = {
             let label = UILabel()
-            label.text = tableView.tasks.count.description
+            label.text = "temp"
             label.clipsToBounds = true
             label.textAlignment = .center
             label.layer.borderWidth = 2
@@ -162,9 +199,27 @@ extension KanBanBoardViewController: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let taskDetailViewController = TaskDetailViewController(mode: .edit)
+        print(indexPath.row)
+        let taskDetailViewController = TaskDetailViewController(mode: .edit, indexPath: indexPath)
         taskDetailViewController.view.backgroundColor = .systemBackground
         taskDetailViewController.modalPresentationStyle = .formSheet
         present(UINavigationController(rootViewController: taskDetailViewController), animated: true, completion: nil)
+    }
+}
+
+// MARK: - TaskManagerDelegate
+
+extension KanBanBoardViewController: TaskManagerDelegate {
+    func taskDidCreated() {
+        print(TaskManager.shared.toDoTasks.count)
+        toDoTableView.reloadData()
+    }
+
+    func taskDidEdited() {
+
+    }
+
+    func taskDidDeleted() {
+
     }
 }

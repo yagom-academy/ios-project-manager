@@ -14,6 +14,10 @@ final class TaskDetailViewController: UIViewController {
 
     private var mode: Mode = .add
 
+    private var status: String? = "toDo"
+
+    private var indexPath: IndexPath?
+
     private let titleTextView: UITextView = {
         let textView = UITextView()
         textView.text = "textView"
@@ -40,9 +44,11 @@ final class TaskDetailViewController: UIViewController {
         return textView
     }()
 
-    init(mode: Mode) {
+    init(mode: Mode, status: String? = nil, indexPath: IndexPath? = nil) {
         super.init(nibName: nil, bundle: nil)
         self.mode = mode
+        self.status = status
+        self.indexPath = indexPath
     }
 
     required init?(coder: NSCoder) {
@@ -107,6 +113,25 @@ final class TaskDetailViewController: UIViewController {
     }
 
     @objc private func touchUpDoneButton() {
+        switch mode {
+        case .add:
+            TaskManager.shared.createTask(
+                title: titleTextView.text,
+                description: descriptionTextView.text,
+                date: datePickerView.date
+            )
+        case .edit:
+            guard let indexPath = indexPath else { return }
+
+            TaskManager.shared.editTask(
+                indexPath: indexPath,
+                title: titleTextView.text,
+                description: descriptionTextView.text,
+                date: datePickerView.date,
+                status: "toDo"
+            )
+        }
+
         dismiss(animated: true, completion: nil)
     }
 }

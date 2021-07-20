@@ -9,11 +9,10 @@ import UIKit
 
 final class KanBanTableView: UITableView {
     private(set) var statusName: String = ""
-    private(set) var tasks: [Task] = []
 
-    init(statusName: String, tasks: [Task]) {
+    init(statusName: String) {
         self.statusName = statusName
-        self.tasks = tasks
+
         super.init(frame: .zero, style: .grouped)
     }
 

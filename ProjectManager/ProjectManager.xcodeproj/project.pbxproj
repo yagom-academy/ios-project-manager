@@ -12,8 +12,12 @@
 		1C82065426A54CFC00BE904C /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1C82065326A54CFC00BE904C /* SnapKit */; };
 		1C82065926A55F3A00BE904C /* KanBanBoardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C82065826A55F3A00BE904C /* KanBanBoardCell.swift */; };
 		1C82065C26A657A800BE904C /* KanBanTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C82065B26A657A800BE904C /* KanBanTableView.swift */; };
-		1C82065E26A65C6300BE904C /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C82065D26A65C6300BE904C /* Task.swift */; };
 		1C82066226A661F800BE904C /* TaskDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C82066126A661F800BE904C /* TaskDetailViewController.swift */; };
+		1C82066426A6959100BE904C /* TaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C82066326A6959100BE904C /* TaskManager.swift */; };
+		1C82066626A6985200BE904C /* TaskManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C82066526A6985200BE904C /* TaskManagerDelegate.swift */; };
+		1C82067526A69D6500BE904C /* Task.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1C82067326A69D6500BE904C /* Task.xcdatamodeld */; };
+		1C82067826A69DB200BE904C /* Task+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C82067626A69DB200BE904C /* Task+CoreDataClass.swift */; };
+		1C82067926A69DB200BE904C /* Task+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C82067726A69DB200BE904C /* Task+CoreDataProperties.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* KanBanBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* KanBanBoardViewController.swift */; };
@@ -25,8 +29,12 @@
 		1C82065026A54BDC00BE904C /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		1C82065826A55F3A00BE904C /* KanBanBoardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KanBanBoardCell.swift; sourceTree = "<group>"; };
 		1C82065B26A657A800BE904C /* KanBanTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KanBanTableView.swift; sourceTree = "<group>"; };
-		1C82065D26A65C6300BE904C /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		1C82066126A661F800BE904C /* TaskDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailViewController.swift; sourceTree = "<group>"; };
+		1C82066326A6959100BE904C /* TaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManager.swift; sourceTree = "<group>"; };
+		1C82066526A6985200BE904C /* TaskManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManagerDelegate.swift; sourceTree = "<group>"; };
+		1C82067426A69D6500BE904C /* Task.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Task.xcdatamodel; sourceTree = "<group>"; };
+		1C82067626A69DB200BE904C /* Task+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataClass.swift"; sourceTree = "<group>"; };
+		1C82067726A69DB200BE904C /* Task+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -68,6 +76,16 @@
 			path = SupportingFiles;
 			sourceTree = "<group>";
 		};
+		1C82066E26A69C4000BE904C /* CoreDataModel */ = {
+			isa = PBXGroup;
+			children = (
+				1C82067626A69DB200BE904C /* Task+CoreDataClass.swift */,
+				1C82067726A69DB200BE904C /* Task+CoreDataProperties.swift */,
+				1C82067326A69D6500BE904C /* Task.xcdatamodeld */,
+			);
+			path = CoreDataModel;
+			sourceTree = "<group>";
+		};
 		C7431EF925F51E1D0094C4CF = {
 			isa = PBXGroup;
 			children = (
@@ -88,8 +106,10 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
+				1C82066E26A69C4000BE904C /* CoreDataModel */,
 				1C82065F26A6600E00BE904C /* EntryPoint */,
-				1C82065D26A65C6300BE904C /* Task.swift */,
+				1C82066326A6959100BE904C /* TaskManager.swift */,
+				1C82066526A6985200BE904C /* TaskManagerDelegate.swift */,
 				C7431F0925F51E1D0094C4CF /* KanBanBoardViewController.swift */,
 				1C82066126A661F800BE904C /* TaskDetailViewController.swift */,
 				1C82065B26A657A800BE904C /* KanBanTableView.swift */,
@@ -200,10 +220,14 @@
 			files = (
 				1C82066226A661F800BE904C /* TaskDetailViewController.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* KanBanBoardViewController.swift in Sources */,
+				1C82066426A6959100BE904C /* TaskManager.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				1C82065C26A657A800BE904C /* KanBanTableView.swift in Sources */,
-				1C82065E26A65C6300BE904C /* Task.swift in Sources */,
+				1C82066626A6985200BE904C /* TaskManagerDelegate.swift in Sources */,
+				1C82067826A69DB200BE904C /* Task+CoreDataClass.swift in Sources */,
+				1C82067526A69D6500BE904C /* Task.xcdatamodeld in Sources */,
+				1C82067926A69DB200BE904C /* Task+CoreDataProperties.swift in Sources */,
 				1C82065926A55F3A00BE904C /* KanBanBoardCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -430,6 +454,19 @@
 			productName = SnapKit;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		1C82067326A69D6500BE904C /* Task.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				1C82067426A69D6500BE904C /* Task.xcdatamodel */,
+			);
+			currentVersion = 1C82067426A69D6500BE904C /* Task.xcdatamodel */;
+			path = Task.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = C7431EFA25F51E1D0094C4CF /* Project object */;
 }
