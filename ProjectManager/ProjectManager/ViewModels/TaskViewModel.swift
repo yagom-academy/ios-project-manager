@@ -26,6 +26,10 @@ class TaskViewModel {
         taskList.insert(task, at: index)
     }
     
+    func deleteTaskFromTaskList(index: Int) {
+        taskList.remove(at: index)
+    }
+    
     func getTask() {
         networkManager.get { taskList in
             self.taskList.append(contentsOf: taskList)

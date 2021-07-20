@@ -14,7 +14,9 @@ class ViewController: UIViewController {
     let toDoCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     let doingCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     let doneCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-
+    var draggedCollectionView: UICollectionView?
+    var draggedCollectionViewIndexPath: IndexPath?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "Project Manager"
@@ -82,6 +84,40 @@ class ViewController: UIViewController {
             self.doneCollectionView.bottomAnchor.constraint(equalTo: layoutGuide.bottomAnchor, constant: 10),
         ])
     }
+    
+    private func findTask(collectionView: UICollectionView, indexPath:IndexPath) -> Task? {
+        switch collectionView {
+        case toDoCollectionView:
+            return toDoViewModel.referTask(at: indexPath)
+        case doingCollectionView:
+            return doingViewModel.referTask(at: indexPath)
+        case doneCollectionView:
+            return doneViewModel.referTask(at: indexPath)
+        default:
+            return nil
+        }
+    }
+    
+    private func findViewModel(collectionView: UICollectionView) -> TaskViewModel? {
+        switch collectionView {
+        case toDoCollectionView:
+            return toDoViewModel
+        case doingCollectionView:
+            return doingViewModel
+        case doneCollectionView:
+            return doneViewModel
+        default:
+            return nil
+        }
+    }
+    
+    private func removeDraggedCollectionViewItem() {
+        guard let draggedCollectionView = self.draggedCollectionView, let draggedCollectionViewIndexPath = self.draggedCollectionViewIndexPath else {
+            return
+        }
+        self.findViewModel(collectionView: draggedCollectionView)?.deleteTaskFromTaskList(index: draggedCollectionViewIndexPath.row)
+        draggedCollectionView.reloadData()
+    }
 }
 
 extension ViewController: UICollectionViewDelegate {
@@ -134,19 +170,6 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
         dummyCell.layoutIfNeeded()
         let estimatedSize = dummyCell.systemLayoutSizeFitting(CGSize(width: width, height: estimatedHeight))
         return CGSize(width: width, height: estimatedSize.height)
-    }
-    
-    private func findTask(collectionView: UICollectionView, indexPath:IndexPath) -> Task? {
-        switch collectionView {
-        case toDoCollectionView:
-            return toDoViewModel.referTask(at: indexPath)
-        case doingCollectionView:
-            return doingViewModel.referTask(at: indexPath)
-        case doneCollectionView:
-            return doneViewModel.referTask(at: indexPath)
-        default:
-            return nil
-        }
     }
 }
 
