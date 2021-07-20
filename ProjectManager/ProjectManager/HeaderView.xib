@@ -14,21 +14,21 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="H5t-kt-kUZ">
-                    <rect key="frame" x="10" y="28" width="148.5" height="40"/>
+                    <rect key="frame" x="10" y="29.5" width="143.5" height="37"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="Header" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ugM-KQ-6b4">
-                            <rect key="frame" x="0.0" y="1.5" width="98.5" height="37"/>
+                            <rect key="frame" x="0.0" y="0.0" width="98.5" height="37"/>
                             <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wmQ-2E-OHq">
-                            <rect key="frame" x="108.5" y="0.0" width="40" height="40"/>
+                            <rect key="frame" x="108.5" y="1" width="35" height="35"/>
                             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
-                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="EZt-ue-hQn"/>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="35" id="EZt-ue-hQn"/>
                                 <constraint firstAttribute="width" secondItem="wmQ-2E-OHq" secondAttribute="height" multiplier="1:1" id="aCP-c7-1ME"/>
-                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="zRP-4y-M06"/>
+                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="35" id="zRP-4y-M06"/>
                             </constraints>
                             <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                             <state key="normal" title="10">
