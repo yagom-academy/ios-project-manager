@@ -11,6 +11,7 @@
 		1C82065126A54BDC00BE904C /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 1C82065026A54BDC00BE904C /* .swiftlint.yml */; };
 		1C82065426A54CFC00BE904C /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1C82065326A54CFC00BE904C /* SnapKit */; };
 		1C82065926A55F3A00BE904C /* KanBanBoardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C82065826A55F3A00BE904C /* KanBanBoardCell.swift */; };
+		1C82065C26A657A800BE904C /* KanBanTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C82065B26A657A800BE904C /* KanBanTableView.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* KanBanBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* KanBanBoardViewController.swift */; };
@@ -21,6 +22,7 @@
 /* Begin PBXFileReference section */
 		1C82065026A54BDC00BE904C /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		1C82065826A55F3A00BE904C /* KanBanBoardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KanBanBoardCell.swift; sourceTree = "<group>"; };
+		1C82065B26A657A800BE904C /* KanBanTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KanBanTableView.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
 				C7431F0925F51E1D0094C4CF /* KanBanBoardViewController.swift */,
+				1C82065B26A657A800BE904C /* KanBanTableView.swift */,
 				1C82065826A55F3A00BE904C /* KanBanBoardCell.swift */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
@@ -176,6 +179,7 @@
 				C7431F0A25F51E1D0094C4CF /* KanBanBoardViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
+				1C82065C26A657A800BE904C /* KanBanTableView.swift in Sources */,
 				1C82065926A55F3A00BE904C /* KanBanBoardCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -8,38 +8,41 @@ import UIKit
 import SnapKit
 
 class KanBanBoardViewController: UIViewController {
-    // 3개의 datasource
-    let toDoArray = ["todo", "todo", "totoo"]
-    let doingArray = ["doing", "doing", "doingggg"]
-    let doneArray = ["done", "done", "doneee"]
-
     let outerStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
+        stackView.spacing = 10
         return stackView
     }()
 
-    let toDoTableView: UITableView = {
-        let tableView = UITableView()
+    let toDoTableView: KanBanTableView = {
+        let tableView = KanBanTableView()
+        tableView.statusName = "TODO"
+        tableView.tasks = ["todo", "todo", "totoo"]
         tableView.register(KanBanBoardCell.self, forCellReuseIdentifier: KanBanBoardCell.reuseIdentifier)
         return tableView
     }()
 
-    let doingTableView: UITableView = {
-        let tableView = UITableView()
+    let doingTableView: KanBanTableView = {
+        let tableView = KanBanTableView()
+        tableView.statusName = "DOING"
+        tableView.tasks = ["doing", "doing", "doingggg"]
         tableView.register(KanBanBoardCell.self, forCellReuseIdentifier: KanBanBoardCell.reuseIdentifier)
         return tableView
     }()
 
-    let doneTableView: UITableView = {
-        let tableView = UITableView()
+    let doneTableView: KanBanTableView = {
+        let tableView = KanBanTableView()
+        tableView.statusName = "DONE"
+        tableView.tasks = ["done", "done", "doneee"]
         tableView.register(KanBanBoardCell.self, forCellReuseIdentifier: KanBanBoardCell.reuseIdentifier)
         return tableView
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .systemBackground
         navigationItem.title = "Project Manager"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: nil)
 
@@ -50,17 +53,6 @@ class KanBanBoardViewController: UIViewController {
         toDoTableView.dataSource = self
         doingTableView.dataSource = self
         doneTableView.dataSource = self
-
-        toDoTableView.tableHeaderView = {
-            let view = UIView()
-            let label = UILabel()
-            view.addSubview(label)
-            label.snp.makeConstraints { label in
-                label.edges.equalTo(view)
-            }
-            label.text = "TODO"
-            return view
-        }()
 
         view.addSubview(outerStackView)
 
@@ -79,38 +71,21 @@ class KanBanBoardViewController: UIViewController {
 
 extension KanBanBoardViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // 각각의 table마다 분기처리를 통해 data를 넣어주는 방식
-        switch tableView {
-        case self.toDoTableView:
-            return toDoArray.count
-        case self.doingTableView:
-            return doingArray.count
-        case self.doneTableView:
-            return doneArray.count
-        default:
-            return 0
-        }
+        guard let tableView = tableView as? KanBanTableView else { return 0 }
+        return tableView.tasks.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: KanBanBoardCell.reuseIdentifier,
             for: indexPath
-        ) as? KanBanBoardCell
+        ) as? KanBanBoardCell,
+        let tableView = tableView as? KanBanTableView
         else {
             return UITableViewCell()
         }
 
-        switch tableView {
-        case self.toDoTableView:
-            cell.titleLabel.text = toDoArray[indexPath.row]
-        case self.doingTableView:
-            cell.titleLabel.text = doingArray[indexPath.row]
-        case self.doneTableView:
-            cell.titleLabel.text = doneArray[indexPath.row]
-        default:
-            break
-        }
+        cell.titleLabel.text = tableView.tasks[indexPath.row]
 
         return cell
     }
@@ -119,22 +94,22 @@ extension KanBanBoardViewController: UITableViewDataSource {
 // MARK: - Delegate
 
 extension KanBanBoardViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        100
-    }
-
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let tableView = tableView as? KanBanTableView else { return .none }
+
         let view = UIView(frame: .zero)
+        view.backgroundColor = .systemGray
+//        view.translatesAutoresizingMaskIntoConstraints = false // 왜 snapkit쓰면 이걸 안해줘도 되는지??
 
         let statusLabel: UILabel = {
             let label = UILabel()
-            label.text = "TEST"
+            label.text = tableView.statusName
             return label
         }()
 
         let countLabel: UILabel = {
             let label = UILabel()
-            label.text = "13"
+            label.text = tableView.tasks.count.description
             return label
         }()
 
@@ -143,12 +118,12 @@ extension KanBanBoardViewController: UITableViewDelegate {
 
         statusLabel.snp.makeConstraints { label in
             label.leading.equalTo(view).inset(10)
-            label.top.equalTo(view).inset(10)
+            label.centerY.equalTo(view)
         }
 
         countLabel.snp.makeConstraints { label in
             label.leading.equalTo(statusLabel.snp.trailing).offset(10)
-            label.top.equalTo(view).inset(10)
+            label.centerY.equalTo(view)
         }
 
         return view
