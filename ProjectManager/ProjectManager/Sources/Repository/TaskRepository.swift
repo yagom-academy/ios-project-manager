@@ -11,10 +11,17 @@ struct TaskRepository {
 
     private let decoder = JSONDecoder()
 
-    func fetchTasks() throws -> [Task] {
-        guard let asset = NSDataAsset(name: "tasks") else { return [] }
-        let tasks = try decoder.decode([Task].self, from: asset.data)
+    func fetchTasks(completion: (Result<[Task], PMError>) -> Void) {
+        guard let asset = NSDataAsset(name: "tasks") else {
+            completion(.failure(.invalidAsset))
+            return
+        }
 
-        return tasks
+        guard let tasks = try? decoder.decode([Task].self, from: asset.data) else {
+            completion(.failure(.decodingFailed))
+            return
+        }
+
+        completion(.success(tasks))
     }
 }
