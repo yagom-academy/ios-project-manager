@@ -150,20 +150,6 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-//extension ViewController: UICollectionViewDragDelegate {
-//    func collectionView(_ collectionView: UICollectionView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
-//        <#code#>
-//    }
-//    
-//    
-//}
-//
-//extension ViewController: UICollectionViewDropDelegate {
-//    func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator) {
-//        <#code#>
-//    }
-//    
-//    
-//}
+
 
 
