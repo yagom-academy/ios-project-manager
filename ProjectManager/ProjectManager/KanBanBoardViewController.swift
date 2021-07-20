@@ -36,36 +36,45 @@ final class KanBanBoardViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setUpView()
+        setTableViewDelegate()
+        setTableViewDataSource()
+        setUpOuterStackView()
+    }
+
+    private func setUpView() {
         view.backgroundColor = .systemBackground
         navigationItem.title = "Project Manager"
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .add,
             target: self,
-            action: #selector(presentModally)
+            action: #selector(touchUpTaskAddButton)
         )
+    }
 
-        toDoTableView.delegate = self
-        doingTableView.delegate = self
-        doneTableView.delegate = self
-
+    private func setTableViewDataSource() {
         toDoTableView.dataSource = self
         doingTableView.dataSource = self
         doneTableView.dataSource = self
+    }
 
+    private func setTableViewDelegate() {
+        toDoTableView.delegate = self
+        doingTableView.delegate = self
+        doneTableView.delegate = self
+    }
+
+    private func setUpOuterStackView() {
         view.addSubview(outerStackView)
-
-        outerStackView.snp.makeConstraints { make in
-            make.edges.equalTo(view)
-        }
+        outerStackView.snp.makeConstraints { $0.edges.equalTo(view) }
 
         outerStackView.addArrangedSubview(toDoTableView)
         outerStackView.addArrangedSubview(doingTableView)
         outerStackView.addArrangedSubview(doneTableView)
-
     }
 
-    @objc func presentModally() {
-        let taskDetailViewController = TaskDetailViewController()
+    @objc func touchUpTaskAddButton() {
+        let taskDetailViewController = TaskDetailViewController(mode: .add)
         taskDetailViewController.view.backgroundColor = .systemBackground
         taskDetailViewController.modalPresentationStyle = .formSheet
         present(UINavigationController(rootViewController: taskDetailViewController), animated: true, completion: nil)
@@ -81,11 +90,9 @@ extension KanBanBoardViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: KanBanBoardCell.reuseIdentifier,
-            for: indexPath
-        ) as? KanBanBoardCell,
-        let tableView = tableView as? KanBanTableView
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: KanBanBoardCell.reuseIdentifier,
+                                                       for: indexPath) as? KanBanBoardCell,
+              let tableView = tableView as? KanBanTableView
         else {
             return UITableViewCell()
         }
@@ -106,7 +113,7 @@ extension KanBanBoardViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let tableView = tableView as? KanBanTableView else { return .none }
 
-        let view = UIView(frame: .infinite)
+        let view = UIView()
         view.backgroundColor = .systemGray
 
         let statusLabel: UILabel = {
@@ -145,17 +152,19 @@ extension KanBanBoardViewController: UITableViewDelegate {
             label.height.equalTo(25)
         }
 
-        view.sizeThatFits(statusLabel.frame.size)
-
         return view
     }
 
     func tableView(_ tableView: UITableView,
                    trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        UISwipeActionsConfiguration(actions: [
-            UIContextualAction(style: .destructive,
-                               title: "delete",
-                               handler: { _, _, _ in })
-        ])
+        let contextualAction = UIContextualAction(style: .destructive, title: "delete", handler: { _, _, _ in })
+        return UISwipeActionsConfiguration(actions: [contextualAction])
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let taskDetailViewController = TaskDetailViewController(mode: .edit)
+        taskDetailViewController.view.backgroundColor = .systemBackground
+        taskDetailViewController.modalPresentationStyle = .formSheet
+        present(UINavigationController(rootViewController: taskDetailViewController), animated: true, completion: nil)
     }
 }

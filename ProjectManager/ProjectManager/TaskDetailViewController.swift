@@ -8,6 +8,12 @@
 import UIKit
 
 final class TaskDetailViewController: UIViewController {
+    enum Mode {
+        case add, edit
+    }
+
+    private var mode: Mode = .add
+
     private let titleTextView: UITextView = {
         let textView = UITextView()
         textView.text = "textView"
@@ -34,14 +40,37 @@ final class TaskDetailViewController: UIViewController {
         return textView
     }()
 
+    init(mode: Mode) {
+        super.init(nibName: nil, bundle: nil)
+        self.mode = mode
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: nil)
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: nil)
-
+        setUpNavigationItem()
         setUpTitleTextView()
         setUpDatePickerView()
         setUpDescriptionTextView()
+    }
+
+    private func setUpNavigationItem() {
+        let leftBarButtonSystemItem: UIBarButtonItem.SystemItem = mode == .add ? .cancel : .edit
+
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .done,
+            target: self,
+            action: #selector(touchUpDoneButton)
+        )
+
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: leftBarButtonSystemItem,
+            target: self,
+            action: #selector(touchUpCancelButton)
+        )
     }
 
     private func setUpTitleTextView() {
@@ -71,5 +100,13 @@ final class TaskDetailViewController: UIViewController {
             textView.trailing.equalTo(view).inset(10)
             textView.bottom.equalTo(view).inset(10)
         }
+    }
+
+    @objc private func touchUpCancelButton() {
+        dismiss(animated: true, completion: nil)
+    }
+
+    @objc private func touchUpDoneButton() {
+        dismiss(animated: true, completion: nil)
     }
 }
