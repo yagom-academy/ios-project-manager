@@ -46,6 +46,12 @@ class ViewController: UIViewController {
         self.toDoCollectionView.delegate = self
         self.doingCollectionView.delegate = self
         self.doneCollectionView.delegate = self
+        self.toDoCollectionView.dragDelegate = self
+        self.doingCollectionView.dragDelegate = self
+        self.doneCollectionView.dragDelegate = self
+        self.toDoCollectionView.dropDelegate = self
+        self.doingCollectionView.dropDelegate = self
+        self.doneCollectionView.dropDelegate = self
     }
     
     private func setUpDataSource() {
