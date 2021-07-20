@@ -14,6 +14,10 @@
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
 		E2738BA526A56AAA00B54228 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = E2738BA426A56AAA00B54228 /* .swiftlint.yml */; };
+		E2738BA826A5CB5100B54228 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2738BA626A5CB5100B54228 /* TableViewCell.swift */; };
+		E2738BA926A5CB5100B54228 /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2738BA726A5CB5100B54228 /* TableViewCell.xib */; };
+		E2943ACA26A69A0300405889 /* HeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2943AC926A69A0300405889 /* HeaderView.xib */; };
+		E2943ACC26A69A2200405889 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2943ACB26A69A2200405889 /* HeaderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +30,10 @@
 		C7431F1125F51E1E0094C4CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E2738BA426A56AAA00B54228 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		E2738BA626A5CB5100B54228 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		E2738BA726A5CB5100B54228 /* TableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableViewCell.xib; sourceTree = "<group>"; };
+		E2943AC926A69A0300405889 /* HeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderView.xib; sourceTree = "<group>"; };
+		E2943ACB26A69A2200405889 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +74,10 @@
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
+				E2738BA626A5CB5100B54228 /* TableViewCell.swift */,
+				E2738BA726A5CB5100B54228 /* TableViewCell.xib */,
+				E2943ACB26A69A2200405889 /* HeaderView.swift */,
+				E2943AC926A69A0300405889 /* HeaderView.xib */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
@@ -129,7 +141,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				E2738BA526A56AAA00B54228 /* .swiftlint.yml in Resources */,
+				E2738BA926A5CB5100B54228 /* TableViewCell.xib in Resources */,
 				C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */,
+				E2943ACA26A69A0300405889 /* HeaderView.xib in Resources */,
 				C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */,
 				C7431F0D25F51E1D0094C4CF /* Main.storyboard in Resources */,
 			);
@@ -162,7 +176,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E2943ACC26A69A2200405889 /* HeaderView.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */,
+				E2738BA826A5CB5100B54228 /* TableViewCell.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 			);
