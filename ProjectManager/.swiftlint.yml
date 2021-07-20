@@ -1,0 +1,42 @@
+disabled_rules:
+  - colon
+  - comma
+  - control_statement
+  - trailing_whitespace
+opt_in_rules:
+  - empty_count
+  - missing_docs
+
+included:
+  - ProjectManager
+excluded:
+  - ProjectManager/AppDelegate.swift
+  - ProjectManager/SceneDelegate.swift
+
+force_cast: warning
+force_try:
+  severity: warning
+
+line_length: 150
+
+type_body_length:
+  - 300
+  - 400
+
+file_length:
+  warning: 500
+  error: 1200
+
+type_name:
+  min_length: 4
+  max_length:
+    warning: 40
+    error: 50
+  excluded: iPhone
+identifier_name:
+  min_length:
+    error: 2
+  excluded:
+    - id
+    - GlobalAPIKey
+reporter: "xcode"
