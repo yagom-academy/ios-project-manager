@@ -186,4 +186,21 @@ extension ViewController: UICollectionViewDragDelegate {
     }
 }
 
-
+extension ViewController: UICollectionViewDropDelegate {
+    func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator) {
+        let destinationIndexPath = coordinator.destinationIndexPath ?? IndexPath(item: 0, section: 0)
+        
+        coordinator.session.loadObjects(ofClass: Task.self) { [weak self] taskList in
+            collectionView.performBatchUpdates({
+                guard let task = taskList[0] as? Task else {
+                    return
+                }
+                self?.removeDraggedCollectionViewItem()
+                self?.findViewModel(collectionView: collectionView)?.insertTaskIntoTaskList(index: destinationIndexPath.row, task: Task(taskTitle: task.taskTitle, taskDescription: task.taskDescription, taskDeadline: task.taskDeadline))
+                self?.draggedCollectionView = nil
+                self?.draggedCollectionViewIndexPath = nil
+                collectionView.reloadData()
+            })
+        }
+    }
+}
