@@ -7,25 +7,24 @@
 
 import UIKit
 
-class KanBanBoardCell: UITableViewCell {
-
+final class KanBanBoardCell: UITableViewCell {
     static let reuseIdentifier = "kanBanBoardCell"
 
-    let titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "titleLabel"
         label.font = UIFont.preferredFont(forTextStyle: .title2)
         return label
     }()
 
-    let descriptionPreviewLabel: UILabel = {
+    private let descriptionPreviewLabel: UILabel = {
         let label = UILabel()
         label.text = "descriptionPreviewLabel"
         label.font = UIFont.preferredFont(forTextStyle: .body)
         return label
     }()
 
-    let dateLabel: UILabel = {
+    private let dateLabel: UILabel = {
         let label = UILabel()
         label.text = "dateLabel"
         label.font = UIFont.preferredFont(forTextStyle: .subheadline)
@@ -57,5 +56,11 @@ class KanBanBoardCell: UITableViewCell {
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+    }
+
+    func setText(title: String, description: String, date: String) {
+        self.titleLabel.text = title
+        self.descriptionPreviewLabel.text = description
+        self.dateLabel.text = date
     }
 }

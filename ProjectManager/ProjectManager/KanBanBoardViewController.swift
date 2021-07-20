@@ -7,8 +7,8 @@
 import UIKit
 import SnapKit
 
-class KanBanBoardViewController: UIViewController {
-    let outerStackView: UIStackView = {
+final class KanBanBoardViewController: UIViewController {
+    private let outerStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
@@ -16,26 +16,20 @@ class KanBanBoardViewController: UIViewController {
         return stackView
     }()
 
-    let toDoTableView: KanBanTableView = {
-        let tableView = KanBanTableView()
-        tableView.statusName = "TODO"
-        tableView.tasks = ["todo", "todo", "totoo"]
+    private let toDoTableView: KanBanTableView = {
+        let tableView = KanBanTableView(statusName: "TODO", tasks: [dummy, dummy])
         tableView.register(KanBanBoardCell.self, forCellReuseIdentifier: KanBanBoardCell.reuseIdentifier)
         return tableView
     }()
 
-    let doingTableView: KanBanTableView = {
-        let tableView = KanBanTableView()
-        tableView.statusName = "DOING"
-        tableView.tasks = ["doing", "doing", "doingggg"]
+    private let doingTableView: KanBanTableView = {
+        let tableView = KanBanTableView(statusName: "TODO", tasks: [dummy, dummy])
         tableView.register(KanBanBoardCell.self, forCellReuseIdentifier: KanBanBoardCell.reuseIdentifier)
         return tableView
     }()
 
-    let doneTableView: KanBanTableView = {
-        let tableView = KanBanTableView()
-        tableView.statusName = "DONE"
-        tableView.tasks = ["done", "done", "doneee"]
+    private let doneTableView: KanBanTableView = {
+        let tableView = KanBanTableView(statusName: "TODO", tasks: [dummy, dummy])
         tableView.register(KanBanBoardCell.self, forCellReuseIdentifier: KanBanBoardCell.reuseIdentifier)
         return tableView
     }()
@@ -85,7 +79,11 @@ extension KanBanBoardViewController: UITableViewDataSource {
             return UITableViewCell()
         }
 
-        cell.titleLabel.text = tableView.tasks[indexPath.row]
+        cell.setText(
+            title: tableView.tasks[indexPath.row].title,
+            description: tableView.tasks[indexPath.row].description,
+            date: tableView.tasks[indexPath.row].date.description
+        )
 
         return cell
     }
@@ -99,7 +97,6 @@ extension KanBanBoardViewController: UITableViewDelegate {
 
         let view = UIView(frame: .zero)
         view.backgroundColor = .systemGray
-//        view.translatesAutoresizingMaskIntoConstraints = false // 왜 snapkit쓰면 이걸 안해줘도 되는지??
 
         let statusLabel: UILabel = {
             let label = UILabel()

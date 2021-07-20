@@ -7,12 +7,14 @@
 
 import UIKit
 
-class KanBanTableView: UITableView {
-    var statusName: String = ""
-    var tasks: [String] = []
+final class KanBanTableView: UITableView {
+    private(set) var statusName: String = ""
+    private(set) var tasks: [Task] = []
 
-    override init(frame: CGRect, style: UITableView.Style) {
-        super.init(frame: frame, style: style)
+    init(statusName: String, tasks: [Task]) {
+        self.statusName = statusName
+        self.tasks = tasks
+        super.init(frame: .zero, style: .grouped)
     }
 
     required init?(coder: NSCoder) {
