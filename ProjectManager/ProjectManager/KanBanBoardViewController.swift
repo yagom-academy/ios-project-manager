@@ -171,7 +171,14 @@ extension KanBanBoardViewController: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let taskDetailViewController = TaskDetailViewController(mode: .edit, indexPath: indexPath)
+        guard let tableView = tableView as? KanBanTableView else { return }
+
+        let taskDetailViewController = TaskDetailViewController(
+            mode: .edit,
+            status: tableView.status,
+            indexPath: indexPath
+        )
+
         taskDetailViewController.view.backgroundColor = .systemBackground
         taskDetailViewController.modalPresentationStyle = .formSheet
         present(UINavigationController(rootViewController: taskDetailViewController), animated: true, completion: nil)
@@ -186,8 +193,18 @@ extension KanBanBoardViewController: TaskManagerDelegate {
         toDoTableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
     }
 
-    func taskDidEdited() {
-
+    func taskDidEdited(indexPath: IndexPath, status: TaskStatus) {
+        switch status {
+        case .TODO:
+            toDoTableView.reloadRows(at: [indexPath], with: .automatic)
+            toDoHeaderView.countLabel.text = TaskManager.shared.toDoTasks.count.description
+        case .DOING:
+            doingTableView.reloadRows(at: [indexPath], with: .automatic)
+            doingHeaderView.countLabel.text = TaskManager.shared.doingTasks.count.description
+        case .DONE:
+            doneTableView.reloadRows(at: [indexPath], with: .automatic)
+            doneHeaderView.countLabel.text = TaskManager.shared.doneTasks.count.description
+        }
     }
 
     func taskDidDeleted(indexPath: IndexPath, status: TaskStatus) {

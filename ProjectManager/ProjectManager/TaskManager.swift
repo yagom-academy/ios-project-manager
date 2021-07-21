@@ -45,7 +45,7 @@ final class TaskManager {
             newTask.status = "toDo"
             newTask.date = date.timeIntervalSince1970
 
-            self.toDoTasks.append(newTask)
+            self.toDoTasks.insert(newTask, at: 0)
             self.taskManagerDelegate?.taskDidCreated()
 
             do {
@@ -65,7 +65,13 @@ final class TaskManager {
                 self.toDoTasks[indexPath.row].title = title
                 self.toDoTasks[indexPath.row].body = description
                 self.toDoTasks[indexPath.row].date = date.timeIntervalSince1970
-                self.taskManagerDelegate?.taskDidEdited()
+                self.taskManagerDelegate?.taskDidEdited(indexPath: indexPath, status: .TODO)
+
+                do {
+                    try self.viewContext.save()
+                } catch {
+
+                }
             }
         case .DOING:
             viewContext.perform { [weak self] in
@@ -73,7 +79,13 @@ final class TaskManager {
                 self.doingTasks[indexPath.row].title = title
                 self.doingTasks[indexPath.row].body = description
                 self.doingTasks[indexPath.row].date = date.timeIntervalSince1970
-                self.taskManagerDelegate?.taskDidEdited()
+                self.taskManagerDelegate?.taskDidEdited(indexPath: indexPath, status: .DOING)
+
+                do {
+                    try self.viewContext.save()
+                } catch {
+
+                }
             }
         case .DONE:
             viewContext.perform { [weak self] in
@@ -81,14 +93,14 @@ final class TaskManager {
                 self.doneTasks[indexPath.row].title = title
                 self.doneTasks[indexPath.row].body = description
                 self.doneTasks[indexPath.row].date = date.timeIntervalSince1970
-                self.taskManagerDelegate?.taskDidEdited()
+                self.taskManagerDelegate?.taskDidEdited(indexPath: indexPath, status: .DONE)
+
+                do {
+                    try self.viewContext.save()
+                } catch {
+
+                }
             }
-        }
-
-        do {
-            try viewContext.save()
-        } catch {
-
         }
     }
 
