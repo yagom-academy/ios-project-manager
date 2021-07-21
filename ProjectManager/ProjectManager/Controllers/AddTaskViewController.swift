@@ -9,6 +9,8 @@ import UIKit
 
 final class AddTaskViewController: UIViewController {
     
+    var mode: String?
+    
     struct AddTask {
         let title: String
         let date: Date
@@ -69,8 +71,11 @@ final class AddTaskViewController: UIViewController {
     
     private func setNavigationItem() {
         let closeButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(pushCloseButton))
+        let editButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(pushEditButton))
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(pushDoneButton))
-        
+        if let mode = mode {
+            self.navigationItem.leftBarButtonItem = editButton
+        }
         self.navigationItem.leftBarButtonItem = closeButton
         self.navigationItem.rightBarButtonItem = doneButton
     }
@@ -80,6 +85,9 @@ final class AddTaskViewController: UIViewController {
         view.addGestureRecognizer(tapGesture)
     }
     
+    @objc private func pushEditButton() {
+        
+    }
     
     @objc private func pushCloseButton() {
         dismiss(animated: true, completion: nil)

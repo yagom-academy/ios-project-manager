@@ -59,8 +59,9 @@ class ViewController: UIViewController {
         self.navigationItem.rightBarButtonItem = addTaskItem
     }
     
-    @objc private func addTask() {
+    @objc private func addTask(_ mode: String?) {
         let addTaskViewController = AddTaskViewController()
+        addTaskViewController.mode = mode
         addTaskViewController.modalPresentationStyle = .formSheet
         present(UINavigationController(rootViewController: addTaskViewController), animated: true, completion: nil)
     }
@@ -167,6 +168,9 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        addTask("edit")
+    }
 }
 
 extension ViewController: UICollectionViewDataSource {
