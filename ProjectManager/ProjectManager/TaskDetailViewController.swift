@@ -14,7 +14,7 @@ final class TaskDetailViewController: UIViewController {
 
     private var mode: Mode = .add
 
-    private var status: String? = "toDo"
+    private var status: TaskStatus? = .TODO
 
     private var indexPath: IndexPath?
 
@@ -44,7 +44,7 @@ final class TaskDetailViewController: UIViewController {
         return textView
     }()
 
-    init(mode: Mode, status: String? = nil, indexPath: IndexPath? = nil) {
+    init(mode: Mode, status: TaskStatus? = nil, indexPath: IndexPath? = nil) {
         super.init(nibName: nil, bundle: nil)
         self.mode = mode
         self.status = status
@@ -128,7 +128,7 @@ final class TaskDetailViewController: UIViewController {
                 title: titleTextView.text,
                 description: descriptionTextView.text,
                 date: datePickerView.date,
-                status: "toDo"
+                status: .TODO
             )
         }
 

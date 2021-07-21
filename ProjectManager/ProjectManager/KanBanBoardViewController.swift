@@ -16,23 +16,20 @@ final class KanBanBoardViewController: UIViewController {
         return stackView
     }()
 
-    // TODO: status 대소문자 통일 필요
-    // TODO: 무수히 많은 switch문들 해결 필요
-
     private let toDoTableView: KanBanTableView = {
-        let tableView = KanBanTableView(statusName: "TODO")
+        let tableView = KanBanTableView(status: .TODO)
         tableView.register(KanBanBoardCell.self, forCellReuseIdentifier: KanBanBoardCell.reuseIdentifier)
         return tableView
     }()
 
     private let doingTableView: KanBanTableView = {
-        let tableView = KanBanTableView(statusName: "DOING")
+        let tableView = KanBanTableView(status: .DOING)
         tableView.register(KanBanBoardCell.self, forCellReuseIdentifier: KanBanBoardCell.reuseIdentifier)
         return tableView
     }()
 
     private let doneTableView: KanBanTableView = {
-        let tableView = KanBanTableView(statusName: "DONE")
+        let tableView = KanBanTableView(status: .DONE)
         tableView.register(KanBanBoardCell.self, forCellReuseIdentifier: KanBanBoardCell.reuseIdentifier)
         return tableView
     }()
@@ -98,17 +95,7 @@ final class KanBanBoardViewController: UIViewController {
 extension KanBanBoardViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let tableView = tableView as? KanBanTableView else { return 0 }
-
-        switch tableView.statusName {
-        case "TODO":
-            return TaskManager.shared.toDoTasks.count
-        case "DOING":
-            return TaskManager.shared.doingTasks.count
-        case "DONE":
-            return TaskManager.shared.doneTasks.count
-        default:
-            return 0
-        }
+        return tableView.tasks.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -116,30 +103,8 @@ extension KanBanBoardViewController: UITableViewDataSource {
                                                        for: indexPath) as? KanBanBoardCell,
               let tableView = tableView as? KanBanTableView else { return UITableViewCell() }
 
-        switch tableView.statusName {
-        case "toDo":
-            cell.setText(title: "title", description: "des", date: "123")
-            cell.setText(
-                title: TaskManager.shared.toDoTasks[indexPath.row].title,
-                description: TaskManager.shared.toDoTasks[indexPath.row].description,
-                date: TaskManager.shared.toDoTasks[indexPath.row].date.description
-            )
-        case "doing":
-            cell.setText(
-                title: TaskManager.shared.doingTasks[indexPath.row].title,
-                description: TaskManager.shared.doingTasks[indexPath.row].description,
-                date: TaskManager.shared.doingTasks[indexPath.row].date.description
-            )
-        case "done":
-            cell.setText(
-                title: TaskManager.shared.doneTasks[indexPath.row].title,
-                description: TaskManager.shared.doneTasks[indexPath.row].description,
-                date: TaskManager.shared.doneTasks[indexPath.row].date.description
-            )
-        default:
-            break
-        }
-
+        let task = tableView.tasks[indexPath.row]
+        cell.setText(title: task.title, description: task.body, date: task.date.description)
         return cell
     }
 }
@@ -155,14 +120,14 @@ extension KanBanBoardViewController: UITableViewDelegate {
 
         let statusLabel: UILabel = {
             let label = UILabel()
-            label.text = tableView.statusName
+            label.text = tableView.status.rawValue
             label.font = UIFont.preferredFont(forTextStyle: .largeTitle)
             return label
         }()
 
         let countLabel: UILabel = {
             let label = UILabel()
-            label.text = "temp"
+            label.text = tableView.tasks.count.description
             label.clipsToBounds = true
             label.textAlignment = .center
             label.layer.borderWidth = 2
@@ -211,8 +176,8 @@ extension KanBanBoardViewController: UITableViewDelegate {
 
 extension KanBanBoardViewController: TaskManagerDelegate {
     func taskDidCreated() {
-        print(TaskManager.shared.toDoTasks.count)
-        toDoTableView.reloadData()
+        // TODO: refresh header count label
+        toDoTableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
     }
 
     func taskDidEdited() {
