@@ -124,6 +124,29 @@ class TaskCollectionViewCell: UICollectionViewCell {
         ])
     }
     
+    private func convertStringToTimeInterval1970(date: String) -> Double? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "ko_kr")
+        dateFormatter.dateFormat = "yyyy.MM.dd"
+        dateFormatter.timeZone = TimeZone.current
+        guard let dateInDateFormat = dateFormatter.date(from: date) else {
+            return nil
+        }
+        
+        return dateInDateFormat.timeIntervalSince1970
+    }
+    
+    private func checkIfDeadlineHasPassed(deadline: String) -> Bool? {
+        let currentDateOf1970Format = Date().timeIntervalSince1970
+        guard let deadline = convertStringToTimeInterval1970(date: deadline) else {
+            return nil
+        }
+        if currentDateOf1970Format > deadline + 86400 {
+            return true
+        }
+        return false
+    }
+    
     func configureCell(with: Task) {
         self.taskTitle.text = with.taskTitle
         self.taskDescription.text = with.taskDescription
@@ -131,6 +154,13 @@ class TaskCollectionViewCell: UICollectionViewCell {
         self.swipeView.layoutIfNeeded()
         self.estimatedSize = self.swipeView.systemLayoutSizeFitting(sizeThatFits(CGSize(width: self.contentView.frame.width, height: 500.0)))
         self.swipeView.frame = CGRect(x: 0, y: 0, width: self.contentView.frame.width, height: self.estimatedSize.height)
+        guard let isDeadlinePassed = checkIfDeadlineHasPassed(deadline: with.taskDeadline) else {
+            return
+        }
+        taskDeadline.textColor = .black
+        if isDeadlinePassed {
+            taskDeadline.textColor = .red
+        }
     }
     
     func getEstimatedHeight() -> CGFloat {
