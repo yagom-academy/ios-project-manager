@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		02256B7F26A7A857001F177D /* TaskList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02256B7E26A7A857001F177D /* TaskList.swift */; };
+		02256B8126A7B325001F177D /* TaskOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02256B8026A7B325001F177D /* TaskOrder.swift */; };
 		02F2F4B126A6F08100BBE874 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F2F4B026A6F08100BBE874 /* Task.swift */; };
 		02F2F4B826A7028000BBE874 /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F2F4B726A7028000BBE874 /* TaskViewModel.swift */; };
 		AA3267EE26A6F607007C2E60 /* TaskRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3267ED26A6F607007C2E60 /* TaskRepository.swift */; };
@@ -20,6 +22,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		02256B7E26A7A857001F177D /* TaskList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskList.swift; sourceTree = "<group>"; };
+		02256B8026A7B325001F177D /* TaskOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskOrder.swift; sourceTree = "<group>"; };
 		02F2F4B026A6F08100BBE874 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		02F2F4B726A7028000BBE874 /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
 		AA3267ED26A6F607007C2E60 /* TaskRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRepository.swift; sourceTree = "<group>"; };
@@ -49,6 +53,8 @@
 			isa = PBXGroup;
 			children = (
 				02F2F4B026A6F08100BBE874 /* Task.swift */,
+				02256B7E26A7A857001F177D /* TaskList.swift */,
+				02256B8026A7B325001F177D /* TaskOrder.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -242,7 +248,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02256B7F26A7A857001F177D /* TaskList.swift in Sources */,
 				02F2F4B126A6F08100BBE874 /* Task.swift in Sources */,
+				02256B8126A7B325001F177D /* TaskOrder.swift in Sources */,
 				02F2F4B826A7028000BBE874 /* TaskViewModel.swift in Sources */,
 				AA3267F126A6FFC3007C2E60 /* PMError.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */,
