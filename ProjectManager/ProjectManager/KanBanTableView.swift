@@ -24,6 +24,8 @@ final class KanBanTableView: UITableView {
     init(status: TaskStatus) {
         self.status = status
         super.init(frame: .zero, style: .grouped)
+
+        contentInset.top = -30 // swift 버그로 인해 navigation controller에 들어가는 table view에 spacing 문제 때문에 해주는 작업
     }
 
     required init?(coder: NSCoder) {
