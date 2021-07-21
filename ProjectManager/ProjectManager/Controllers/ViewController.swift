@@ -136,10 +136,14 @@ class ViewController: UIViewController {
         self.findViewModel(collectionView: draggedCollectionView)?.deleteTaskFromTaskList(index: draggedCollectionViewIndexPath.row)
         draggedCollectionView.reloadData()
     }
+    
+    private func setDraggedItemToNil() {
+        self.draggedCollectionView = nil
+        self.draggedCollectionViewIndexPath = nil
+    }
 }
 
 extension ViewController: UICollectionViewDelegate {
-    
 }
 
 extension ViewController: UICollectionViewDataSource {
@@ -166,6 +170,7 @@ extension ViewController: UICollectionViewDataSource {
                 return UICollectionViewCell()
             }
             cell.configureCell(with: task)
+            print("title: ",cell.taskTitle.text, "indexPath.row", indexPath.row)
             return cell
         }
         
@@ -215,15 +220,21 @@ extension ViewController: UICollectionViewDropDelegate {
         
         coordinator.session.loadObjects(ofClass: Task.self) { [weak self] taskList in
             collectionView.performBatchUpdates({
-                guard let task = taskList[0] as? Task else {
+                guard let task = taskList[0] as? Task,
+                      let dropViewModel = self?.findViewModel(collectionView: collectionView),
+                      let dragCollectionViewIndexPath = self?.draggedCollectionViewIndexPath else {
                     return
                 }
+                self?.draggedCollectionView?.deleteItems(at: [dragCollectionViewIndexPath])
+                collectionView.insertItems(at: [destinationIndexPath])
                 self?.removeDraggedCollectionViewItem()
-                self?.findViewModel(collectionView: collectionView)?.insertTaskIntoTaskList(index: destinationIndexPath.row, task: Task(taskTitle: task.taskTitle, taskDescription: task.taskDescription, taskDeadline: task.taskDeadline))
-                self?.draggedCollectionView = nil
-                self?.draggedCollectionViewIndexPath = nil
-                collectionView.reloadData()
+                dropViewModel.insertTaskIntoTaskList(index: destinationIndexPath.row, task: Task(taskTitle: task.taskTitle, taskDescription: task.taskDescription, taskDeadline: task.taskDeadline))
+                self?.setDraggedItemToNil()
             })
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UICollectionViewDropProposal {
+        return UICollectionViewDropProposal(operation: .copy, intent: .insertAtDestinationIndexPath)
     }
 }
