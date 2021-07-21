@@ -17,6 +17,7 @@ class TaskCollectionViewCell: UICollectionViewCell {
     var deleteButton: UIButton = UIButton()
     var estimatedSize: CGSize = CGSize(width: 0, height: 0)
     var panGestureRecognizer: UIPanGestureRecognizer!
+    var deleteDelegate: DeleteDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -25,6 +26,13 @@ class TaskCollectionViewCell: UICollectionViewCell {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+    }
+    
+    func closeSwipe() {
+        UIView.animate(withDuration: 0.2) {
+            self.swipeView.frame = CGRect(x:0, y: 0, width: self.contentView.frame.width, height: self.contentView.frame.height)
+            self.deleteButton.frame = CGRect(x: self.contentView.frame.width, y: 0, width: 150, height: self.contentView.frame.height)
+        }
     }
     
     private func commonInit() {
@@ -79,8 +87,7 @@ class TaskCollectionViewCell: UICollectionViewCell {
     @objc func deleteTask() {
         let collectionView: UICollectionView = self.superview as! UICollectionView
         let indexPath: IndexPath = collectionView.indexPathForItem(at: self.center)!
-        print("collectionView: ", collectionView)
-        print("indexPath: ", indexPath)
+        deleteDelegate?.deleteTask(collectionView: collectionView, indexPath: indexPath)
     }
     
     private func setUpTaskTitleLabel() {

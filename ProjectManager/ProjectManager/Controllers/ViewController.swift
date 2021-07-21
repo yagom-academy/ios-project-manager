@@ -6,7 +6,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, TaskAddDelegate {
+class ViewController: UIViewController, TaskAddDelegate , DeleteDelegate {
     let toDoViewModel = TaskViewModel()
     let doingViewModel = TaskViewModel()
     let doneViewModel = TaskViewModel()
@@ -67,6 +67,11 @@ class ViewController: UIViewController, TaskAddDelegate {
     func addData(_ data: Task) {
         toDoViewModel.insertTaskIntoTaskList(index: 0, task: data)
         toDoCollectionView.reloadData()
+    }
+    
+    func deleteTask(collectionView: UICollectionView, indexPath: IndexPath) {
+        self.findViewModel(collectionView: collectionView)?.deleteTaskFromTaskList(index: indexPath.row)
+        collectionView.deleteItems(at: [indexPath])
     }
     
     private func addSubviewInView() {
@@ -198,12 +203,13 @@ extension ViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         
+        cell.deleteDelegate = self
+        
         if collectionView == self.toDoCollectionView {
             guard let task = toDoViewModel.referTask(at: indexPath) else {
                 return UICollectionViewCell()
             }
             cell.configureCell(with: task)
-            print("title: ",cell.taskTitle.text, "indexPath.row", indexPath.row)
             return cell
         }
         
