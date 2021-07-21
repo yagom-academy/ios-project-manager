@@ -189,10 +189,6 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
         let estimatedSize = dummyCell.systemLayoutSizeFitting(CGSize(width: width, height: estimatedHeight))
         return CGSize(width: width, height: estimatedSize.height)
     }
-    
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-//        return CGFloat(30)
-//    }
 }
 
 extension ViewController: UICollectionViewDragDelegate {
