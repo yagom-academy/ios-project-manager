@@ -66,6 +66,28 @@ final class KanBanBoardViewController: UIViewController {
         setUpTableStackView()
     }
 
+    private func setUpView() {
+        view.backgroundColor = .systemBackground
+        navigationItem.title = "Project Manager"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .add,
+            target: self,
+            action: #selector(touchUpTaskAddButton)
+        )
+    }
+
+    private func setTableViewDataSource() {
+        toDoTableView.dataSource = self
+        doingTableView.dataSource = self
+        doneTableView.dataSource = self
+    }
+
+    private func setTableViewDelegate() {
+        toDoTableView.delegate = self
+        doingTableView.delegate = self
+        doneTableView.delegate = self
+    }
+
     private func setUpHeaderStackView() {
         view.addSubview(headerStackView)
 
@@ -92,28 +114,6 @@ final class KanBanBoardViewController: UIViewController {
             status: TaskStatus.DONE.rawValue,
             count: TaskManager.shared.doneTasks.count.description
         )
-    }
-
-    private func setUpView() {
-        view.backgroundColor = .systemBackground
-        navigationItem.title = "Project Manager"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(
-            barButtonSystemItem: .add,
-            target: self,
-            action: #selector(touchUpTaskAddButton)
-        )
-    }
-
-    private func setTableViewDataSource() {
-        toDoTableView.dataSource = self
-        doingTableView.dataSource = self
-        doneTableView.dataSource = self
-    }
-
-    private func setTableViewDelegate() {
-        toDoTableView.delegate = self
-        doingTableView.delegate = self
-        doneTableView.delegate = self
     }
 
     private func setUpTableStackView() {
@@ -162,7 +162,11 @@ extension KanBanBoardViewController: UITableViewDataSource {
 extension KanBanBoardViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView,
                    trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let contextualAction = UIContextualAction(style: .destructive, title: "delete", handler: { _, _, _ in })
+        guard let tableView = tableView as? KanBanTableView else { return nil }
+
+        let contextualAction = UIContextualAction(style: .destructive, title: "delete") { _, _, _ in
+            TaskManager.shared.deleteTask(indexPath: indexPath, status: tableView.status)
+        }
         return UISwipeActionsConfiguration(actions: [contextualAction])
     }
 
@@ -186,7 +190,17 @@ extension KanBanBoardViewController: TaskManagerDelegate {
 
     }
 
-    func taskDidDeleted() {
-
+    func taskDidDeleted(indexPath: IndexPath, status: TaskStatus) {
+        switch status {
+        case .TODO:
+            toDoTableView.deleteRows(at: [indexPath], with: .automatic)
+            toDoHeaderView.countLabel.text = TaskManager.shared.toDoTasks.count.description
+        case .DOING:
+            doingTableView.deleteRows(at: [indexPath], with: .automatic)
+            doingHeaderView.countLabel.text = TaskManager.shared.doingTasks.count.description
+        case .DONE:
+            doneTableView.deleteRows(at: [indexPath], with: .automatic)
+            doneHeaderView.countLabel.text = TaskManager.shared.doneTasks.count.description
+        }
     }
 }

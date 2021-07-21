@@ -40,7 +40,6 @@ final class TaskManager {
         viewContext.perform { [weak self] in
             guard let self = self else { return }
             let newTask = ToDoTask(context: self.viewContext)
-            print("title : \(title), body : \(description)")
             newTask.title = title
             newTask.body = description
             newTask.status = "toDo"
@@ -48,12 +47,14 @@ final class TaskManager {
 
             self.toDoTasks.append(newTask)
             self.taskManagerDelegate?.taskDidCreated()
-        }
-        do {
-            try viewContext.save()
-        } catch {
 
+            do {
+                try self.viewContext.save()
+            } catch {
+
+            }
         }
+
     }
 
     func editTask(indexPath: IndexPath, title: String, description: String, date: Date, status: TaskStatus) {
@@ -98,26 +99,38 @@ final class TaskManager {
             viewContext.perform { [weak self] in
                 guard let self = self else { return }
                 self.viewContext.delete(self.toDoTasks[indexPath.row])
-                self.taskManagerDelegate?.taskDidDeleted()
+                self.toDoTasks.remove(at: indexPath.row)
+                self.taskManagerDelegate?.taskDidDeleted(indexPath: indexPath, status: .TODO)
+                do {
+                    try self.viewContext.save()
+                } catch {
+
+                }
             }
         case .DOING:
             viewContext.perform { [weak self] in
                 guard let self = self else { return }
                 self.viewContext.delete(self.doingTasks[indexPath.row])
-                self.taskManagerDelegate?.taskDidDeleted()
+                self.doingTasks.remove(at: indexPath.row)
+                self.taskManagerDelegate?.taskDidDeleted(indexPath: indexPath, status: .DOING)
+                do {
+                    try self.viewContext.save()
+                } catch {
+
+                }
             }
         case .DONE:
             viewContext.perform { [weak self] in
                 guard let self = self else { return }
                 self.viewContext.delete(self.doneTasks[indexPath.row])
-                self.taskManagerDelegate?.taskDidDeleted()
+                self.doneTasks.remove(at: indexPath.row)
+                self.taskManagerDelegate?.taskDidDeleted(indexPath: indexPath, status: .DONE)
+                do {
+                    try self.viewContext.save()
+                } catch {
+
+                }
             }
-        }
-
-        do {
-            try viewContext.save()
-        } catch {
-
         }
     }
 
