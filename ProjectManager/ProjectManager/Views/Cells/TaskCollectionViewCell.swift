@@ -15,6 +15,7 @@ class TaskCollectionViewCell: UICollectionViewCell {
     var taskDeadline = UILabel()
     var swipeView = UIView()
     var deleteButton: UIButton = UIButton()
+    var estimatedSize: CGSize = CGSize(width: 0, height: 0)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -27,14 +28,6 @@ class TaskCollectionViewCell: UICollectionViewCell {
     
     private func commonInit() {
         self.setUpUI()
-    }
-    
-    @objc func deleteTask() {
-        let collectionView: UICollectionView = self.superview as! UICollectionView
-        let indexPath: IndexPath = collectionView.indexPathForItem(at: self.center)!
-        print("collectionView: ", collectionView)
-        print("indexPath: ", indexPath)
-        
     }
     
     private func setUpUI() {
@@ -50,9 +43,8 @@ class TaskCollectionViewCell: UICollectionViewCell {
     }
     
     private func addSubviewInContentView() {
-        self.contentView.addSubview(self.taskTitle)
-        self.contentView.addSubview(self.taskDescription)
-        self.contentView.addSubview(self.taskDeadline)
+        self.contentView.addSubview(self.swipeView)
+        self.contentView.addSubview(self.deleteButton)
     }
     
     private func setUpSwipeView(layoutGuide: UILayoutGuide) {
@@ -80,6 +72,13 @@ class TaskCollectionViewCell: UICollectionViewCell {
             self.deleteButton.leadingAnchor.constraint(equalTo: self.swipeView.trailingAnchor, constant: 0),
             self.deleteButton.bottomAnchor.constraint(equalTo: layoutGuide.bottomAnchor, constant: 0),
         ])
+    }
+    
+    @objc func deleteTask() {
+        let collectionView: UICollectionView = self.superview as! UICollectionView
+        let indexPath: IndexPath = collectionView.indexPathForItem(at: self.center)!
+        print("collectionView: ", collectionView)
+        print("indexPath: ", indexPath)
     }
     
     private func setUpTaskTitleLabel(layoutGuide: UILayoutGuide) {
@@ -125,5 +124,12 @@ class TaskCollectionViewCell: UICollectionViewCell {
         self.taskTitle.text = with.taskTitle
         self.taskDescription.text = with.taskDescription
         self.taskDeadline.text = with.taskDeadline
+        self.swipeView.layoutIfNeeded()
+        self.estimatedSize = self.swipeView.systemLayoutSizeFitting(sizeThatFits(CGSize(width: self.contentView.frame.width, height: 500.0)))
+        self.swipeView.frame = CGRect(x: 0, y: 0, width: self.contentView.frame.width, height: self.estimatedSize.height)
+    }
+    
+    func getEstimatedHeight() -> CGFloat {
+        return self.estimatedSize.height
     }
 }
