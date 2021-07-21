@@ -16,26 +16,27 @@ final class TaskDetailViewController: UIViewController {
     private var status: TaskStatus? = .TODO
     private var indexPath: IndexPath?
 
-    private let titleTextView: UITextView = {
-        let textView = UITextView()
-        textView.text = "textView"
-        textView.font = UIFont.preferredFont(forTextStyle: .body)
-        textView.layer.borderWidth = 1
-        textView.layer.borderColor = UIColor.black.cgColor
-        return textView
+    private let titleTextField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "Title"
+        textField.font = UIFont.preferredFont(forTextStyle: .body)
+        textField.layer.borderWidth = 1
+        textField.layer.borderColor = UIColor.black.cgColor
+        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
+        textField.leftViewMode = .always
+        return textField
     }()
 
     private let datePickerView: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.preferredDatePickerStyle = .wheels
         datePicker.locale = Locale(identifier: Locale.preferredLanguages.first!)
-        datePicker.datePickerMode = .date // optional
+        datePicker.datePickerMode = .date
         return datePicker
     }()
 
     private let descriptionTextView: UITextView = {
         let textView = UITextView()
-        textView.text = "textView"
         textView.font = UIFont.preferredFont(forTextStyle: .body)
         textView.layer.borderWidth = 1
         textView.layer.borderColor = UIColor.black.cgColor
@@ -68,19 +69,19 @@ final class TaskDetailViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .done,
             target: self,
-            action: #selector(touchUpDoneButton)
+            action: #selector(touchUpRightBarButton)
         )
 
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: leftBarButtonSystemItem,
             target: self,
-            action: #selector(touchUpCancelButton)
+            action: #selector(touchUpLeftBarButton)
         )
     }
 
     private func setUpTitleTextView() {
-        view.addSubview(titleTextView)
-        titleTextView.snp.makeConstraints { textView in
+        view.addSubview(titleTextField)
+        titleTextField.snp.makeConstraints { textView in
             textView.top.equalTo(view.safeAreaLayoutGuide).inset(10)
             textView.leading.equalTo(view).inset(10)
             textView.trailing.equalTo(view).inset(10)
@@ -91,7 +92,7 @@ final class TaskDetailViewController: UIViewController {
     private func setUpDatePickerView() {
         view.addSubview(datePickerView)
         datePickerView.snp.makeConstraints { picker in
-            picker.top.equalTo(titleTextView.snp.bottom).offset(10)
+            picker.top.equalTo(titleTextField.snp.bottom).offset(10)
             picker.leading.equalTo(view).inset(10)
             picker.trailing.equalTo(view).inset(10)
         }
@@ -113,45 +114,60 @@ final class TaskDetailViewController: UIViewController {
 
         switch status {
         case .TODO:
-            titleTextView.text =  TaskManager.shared.toDoTasks[indexPath.row].title
+            titleTextField.text =  TaskManager.shared.toDoTasks[indexPath.row].title
             descriptionTextView.text =  TaskManager.shared.toDoTasks[indexPath.row].body
             datePickerView.date = Date(timeIntervalSince1970: TaskManager.shared.toDoTasks[indexPath.row].date)
         case .DOING:
-            titleTextView.text =  TaskManager.shared.doingTasks[indexPath.row].title
+            titleTextField.text =  TaskManager.shared.doingTasks[indexPath.row].title
             descriptionTextView.text =  TaskManager.shared.doingTasks[indexPath.row].body
             datePickerView.date = Date(timeIntervalSince1970: TaskManager.shared.doingTasks[indexPath.row].date)
         case .DONE:
-            titleTextView.text =  TaskManager.shared.doneTasks[indexPath.row].title
+            titleTextField.text =  TaskManager.shared.doneTasks[indexPath.row].title
             descriptionTextView.text =  TaskManager.shared.doneTasks[indexPath.row].body
             datePickerView.date = Date(timeIntervalSince1970: TaskManager.shared.doneTasks[indexPath.row].date)
         }
     }
 
-    @objc private func touchUpCancelButton() {
-        dismiss(animated: true, completion: nil)
-    }
-
-    @objc private func touchUpDoneButton() {
+    @objc private func touchUpLeftBarButton() {
         switch mode {
         case .add:
-            TaskManager.shared.createTask(
-                title: titleTextView.text,
-                description: descriptionTextView.text,
-                date: datePickerView.date
-            )
+            break
         case .edit:
-            guard let indexPath = indexPath,
-                  let status = status else { return }
-
-            TaskManager.shared.editTask(
-                indexPath: indexPath,
-                title: titleTextView.text,
-                description: descriptionTextView.text,
-                date: datePickerView.date,
-                status: status
-            )
+            editTask()
         }
 
         dismiss(animated: true, completion: nil)
+    }
+
+    @objc private func touchUpRightBarButton() {
+        switch mode {
+        case .add:
+            addTask()
+        case .edit:
+            editTask()
+        }
+
+        dismiss(animated: true, completion: nil)
+    }
+
+    private func addTask() {
+        TaskManager.shared.createTask(
+            title: titleTextField.text!, // 애플 공식문서: This string is @"" by default.
+            description: descriptionTextView.text,
+            date: datePickerView.date
+        )
+    }
+
+    private func editTask() {
+        guard let indexPath = indexPath,
+              let status = status else { return }
+
+        TaskManager.shared.editTask(
+            indexPath: indexPath,
+            title: titleTextField.text!,
+            description: descriptionTextView.text,
+            date: datePickerView.date,
+            status: status
+        )
     }
 }
