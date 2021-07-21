@@ -150,16 +150,25 @@ extension ViewController: UICollectionViewDataSource {
         }
         
         if collectionView == self.toDoCollectionView {
-            cell.configureCell(with: Task(taskTitle: "toDoCollectionView", taskDescription: "toDoCollectionView", taskDeadline: "toDoCollectionView"))
+            guard let task = toDoViewModel.referTask(at: indexPath) else {
+                return UICollectionViewCell()
+            }
+            cell.configureCell(with: task)
             return cell
         }
         
         if collectionView == self.doingCollectionView {
-            cell.configureCell(with: Task(taskTitle: "doingCollectionView", taskDescription: "doingCollectionView", taskDeadline: "doingCollectionView"))
+            guard let task = doingViewModel.referTask(at: indexPath) else {
+                return UICollectionViewCell()
+            }
+            cell.configureCell(with: task)
             return cell
         }
         
-        cell.configureCell(with: Task(taskTitle: "doneCollectionView", taskDescription: "doneCollectionView", taskDeadline: "doneCollectionView"))
+        guard let task = doneViewModel.referTask(at: indexPath) else {
+            return UICollectionViewCell()
+        }
+        cell.configureCell(with: task)
         return cell
     }
 }
