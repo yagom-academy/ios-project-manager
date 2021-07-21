@@ -61,6 +61,11 @@ struct TaskViewModel {
         insert(task, to: state, at: destinationIndex)
     }
 
+    mutating func update(_ newTask: Task) {
+        guard let index = self.tasks.firstIndex(where: { $0.id == newTask.id }) else { return }
+        tasks[index] = newTask
+    }
+
     private mutating func insert(_ task: Task, to state: Task.State, at destinationIndex: Int) {
         let stateOrder: [UUID] = taskOrder[state]
         guard destinationIndex <= stateOrder.count,
