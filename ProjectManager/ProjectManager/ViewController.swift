@@ -11,9 +11,11 @@ class ViewController: UIViewController {
     @IBOutlet weak var todoTableView: UITableView!
     @IBOutlet weak var doingTableView: UITableView!
     @IBOutlet weak var doneTableView: UITableView!
+    @IBOutlet weak var todoCountLabel: UILabel!
+    @IBOutlet weak var doingCountLabel: UILabel!
+    @IBOutlet weak var doneCountLabel: UILabel!
     
     private let cellNibName = UINib(nibName: TableViewCell.identifier, bundle: nil)
-    private let headerNibName = UINib(nibName: HeaderView.identifier, bundle: nil)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,48 +23,52 @@ class ViewController: UIViewController {
         setTableView(todoTableView)
         setTableView(doingTableView)
         setTableView(doneTableView)
+        
+        setLabelToCircle()
     }
     
     private func setTableView(_ tableView: UITableView) {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(cellNibName, forCellReuseIdentifier: TableViewCell.identifier)
-        tableView.register(headerNibName, forHeaderFooterViewReuseIdentifier: HeaderView.identifier)
     }
-
+    
+    private func setLabelToCircle() {
+        todoCountLabel.layer.masksToBounds = true
+        doingCountLabel.layer.masksToBounds = true
+        doneCountLabel.layer.masksToBounds = true
+        
+        todoCountLabel.layer.cornerRadius = 0.5 * todoCountLabel.bounds.size.width
+        doingCountLabel.layer.cornerRadius = 0.5 * doingCountLabel.bounds.size.width
+        doneCountLabel.layer.cornerRadius = 0.5 * doneCountLabel.bounds.size.width
+    }
 }
 
 extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let headerView = self.todoTableView.dequeueReusableHeaderFooterView(withIdentifier: HeaderView.identifier) as? HeaderView
-        else { return UITableViewHeaderFooterView() }
-        
-        if tableView == todoTableView {
-            headerView.headerLabel.text = "TODO"
-        }
-        if tableView == doingTableView {
-            headerView.headerLabel.text = "DOING"
-        }
-        if tableView == doneTableView {
-            headerView.headerLabel.text = "DONE"
-        }
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 7))
+
+        headerView.backgroundColor = .systemGray6
         
         return headerView
     }
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 10
+    }
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 70
+        return 7
     }
 }
 
 extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: TableViewCell.identifier,
-                                                       for: indexPath) as? TableViewCell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: TableViewCell.identifier, for: indexPath) as? TableViewCell
         else { return UITableViewCell() }
         
         cell.titleLabel.text = "안녕"
@@ -71,5 +77,4 @@ extension ViewController: UITableViewDataSource {
         
         return cell
     }
-    
 }

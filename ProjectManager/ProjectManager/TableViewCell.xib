@@ -9,30 +9,30 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="gray" indentationWidth="10" reuseIdentifier="TableViewCell" rowHeight="97" id="KGk-i7-Jjw" customClass="TableViewCell" customModule="ProjectManager" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="452" height="97"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="gray" indentationWidth="10" reuseIdentifier="TableViewCell" rowHeight="103" id="KGk-i7-Jjw" customClass="TableViewCell" customModule="ProjectManager" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="467" height="103"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="452" height="97"/>
+                <rect key="frame" x="0.0" y="0.0" width="467" height="103"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="cSR-iD-E2O">
-                        <rect key="frame" x="20" y="10" width="412" height="77"/>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="top" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="cSR-iD-E2O">
+                        <rect key="frame" x="20" y="10" width="427" height="83"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WDr-3O-KSk">
-                                <rect key="frame" x="0.0" y="0.0" width="36.5" height="22.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="36.5" height="23"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Body" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xAD-Mz-mOY">
-                                <rect key="frame" x="0.0" y="27.5" width="33.5" height="22"/>
+                                <rect key="frame" x="0.0" y="36" width="33.5" height="17"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G04-28-er0">
-                                <rect key="frame" x="0.0" y="54.5" width="31.5" height="22.5"/>
+                                <rect key="frame" x="0.0" y="66" width="31.5" height="17"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -54,7 +54,7 @@
                 <outlet property="dueDateLabel" destination="G04-28-er0" id="pK4-in-SEf"/>
                 <outlet property="titleLabel" destination="WDr-3O-KSk" id="Mrd-Ds-vXu"/>
             </connections>
-            <point key="canvasLocation" x="233.33333333333334" y="152.34375"/>
+            <point key="canvasLocation" x="244.20289855072465" y="153.68303571428569"/>
         </tableViewCell>
     </objects>
 </document>
