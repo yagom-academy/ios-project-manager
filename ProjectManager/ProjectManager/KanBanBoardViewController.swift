@@ -152,7 +152,7 @@ extension KanBanBoardViewController: UITableViewDataSource {
               let tableView = tableView as? KanBanTableView else { return UITableViewCell() }
 
         let task = tableView.tasks[indexPath.row]
-        cell.setText(title: task.title, description: task.body, date: task.date.description)
+        cell.setText(title: task.title, description: task.body, date: task.date)
         return cell
     }
 }

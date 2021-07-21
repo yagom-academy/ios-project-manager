@@ -13,9 +13,7 @@ final class TaskDetailViewController: UIViewController {
     }
 
     private var mode: Mode = .add
-
     private var status: TaskStatus? = .TODO
-
     private var indexPath: IndexPath?
 
     private let titleTextView: UITextView = {
@@ -49,29 +47,10 @@ final class TaskDetailViewController: UIViewController {
         self.mode = mode
         self.status = status
         self.indexPath = indexPath
-        fetchTaskData()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-    }
-
-    func fetchTaskData() {
-        guard let indexPath = indexPath,
-              let status = status else { return }
-
-        switch status {
-        case .TODO:
-            titleTextView.text =  TaskManager.shared.toDoTasks[indexPath.row].title
-            descriptionTextView.text =  TaskManager.shared.toDoTasks[indexPath.row].body
-        //  datePickerView.date = TaskManager.shared.toDoTasks[indexPath.row].date
-        case .DOING:
-            titleTextView.text =  TaskManager.shared.doingTasks[indexPath.row].title
-            descriptionTextView.text =  TaskManager.shared.doingTasks[indexPath.row].body
-        case .DONE:
-            titleTextView.text =  TaskManager.shared.doneTasks[indexPath.row].title
-            descriptionTextView.text =  TaskManager.shared.doneTasks[indexPath.row].body
-        }
     }
 
     override func viewDidLoad() {
@@ -80,6 +59,7 @@ final class TaskDetailViewController: UIViewController {
         setUpTitleTextView()
         setUpDatePickerView()
         setUpDescriptionTextView()
+        fetchTaskData()
     }
 
     private func setUpNavigationItem() {
@@ -124,6 +104,26 @@ final class TaskDetailViewController: UIViewController {
             textView.leading.equalTo(view).inset(10)
             textView.trailing.equalTo(view).inset(10)
             textView.bottom.equalTo(view).inset(10)
+        }
+    }
+
+    private func fetchTaskData() {
+        guard let indexPath = indexPath,
+              let status = status else { return }
+
+        switch status {
+        case .TODO:
+            titleTextView.text =  TaskManager.shared.toDoTasks[indexPath.row].title
+            descriptionTextView.text =  TaskManager.shared.toDoTasks[indexPath.row].body
+            datePickerView.date = Date(timeIntervalSince1970: TaskManager.shared.toDoTasks[indexPath.row].date)
+        case .DOING:
+            titleTextView.text =  TaskManager.shared.doingTasks[indexPath.row].title
+            descriptionTextView.text =  TaskManager.shared.doingTasks[indexPath.row].body
+            datePickerView.date = Date(timeIntervalSince1970: TaskManager.shared.doingTasks[indexPath.row].date)
+        case .DONE:
+            titleTextView.text =  TaskManager.shared.doneTasks[indexPath.row].title
+            descriptionTextView.text =  TaskManager.shared.doneTasks[indexPath.row].body
+            datePickerView.date = Date(timeIntervalSince1970: TaskManager.shared.doneTasks[indexPath.row].date)
         }
     }
 
