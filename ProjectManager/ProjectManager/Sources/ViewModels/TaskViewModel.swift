@@ -10,14 +10,15 @@ import Foundation
 struct TaskViewModel {
 
     private let repository = TaskRepository()
-    private var taskOrder: [Task.State: [UUID]] = [:]
+    private var taskOrder = TaskOrder()
     private var tasks: [Task] = []
 
     mutating func fetchTasks() {
         repository.fetchTasks { result in
             switch result {
-            case .success(let tasks):
-                self.tasks = tasks
+            case .success(let taskList):
+                taskOrder = taskList.taskOrder
+                tasks = taskList.tasks
             case .failure(let error):
                 print(error)
             }
@@ -25,8 +26,8 @@ struct TaskViewModel {
     }
 
     func task(from state: Task.State, at index: Int) -> Task? {
-        guard let stateOrder: [UUID] = taskOrder[state],
-              index < stateOrder.count else { return nil }
+        let stateOrder: [UUID] = taskOrder[state]
+        guard index < stateOrder.count else { return nil }
         let taskID = stateOrder[index]
 
         return task(by: taskID)
