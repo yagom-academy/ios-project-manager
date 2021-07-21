@@ -34,21 +34,24 @@ class ViewController: UIViewController {
     }
     
     private func setCollectionViewConfigure() {
-        if let layout = toDoCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            layout.sectionHeadersPinToVisibleBounds = true
-        }
-
-        if let layout = doingCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            layout.sectionHeadersPinToVisibleBounds = true
-        }
-
-        if let layout = doneCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            layout.sectionHeadersPinToVisibleBounds = true
-        }
+        guard let todoLayout = toDoCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
+        guard let doingLayout = doingCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
+        guard let doneLayout = doneCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
         
-        toDoCollectionView.register(TaskCollectionViewHeaderCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: TaskCollectionViewHeaderCell.identifier)
-        doingCollectionView.register(TaskCollectionViewHeaderCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: TaskCollectionViewHeaderCell.identifier)
-        doneCollectionView.register(TaskCollectionViewHeaderCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: TaskCollectionViewHeaderCell.identifier)
+        todoLayout.sectionHeadersPinToVisibleBounds = true
+        doingLayout.sectionHeadersPinToVisibleBounds = true
+        doneLayout.sectionHeadersPinToVisibleBounds = true
+        
+        toDoCollectionView.register(TaskCollectionViewHeaderCell.self,
+                                    forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                                    withReuseIdentifier: TaskCollectionViewHeaderCell.identifier)
+        doingCollectionView.register(TaskCollectionViewHeaderCell.self,
+                                     forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                                     withReuseIdentifier: TaskCollectionViewHeaderCell.identifier)
+        doneCollectionView.register(TaskCollectionViewHeaderCell.self,
+                                    forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                                    withReuseIdentifier: TaskCollectionViewHeaderCell.identifier)
+
     }
     
 
