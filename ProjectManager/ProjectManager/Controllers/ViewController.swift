@@ -6,8 +6,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-    
+class ViewController: UIViewController, TaskAddDelegate {
     let toDoViewModel = TaskViewModel()
     let doingViewModel = TaskViewModel()
     let doneViewModel = TaskViewModel()
@@ -16,13 +15,15 @@ class ViewController: UIViewController {
     let doneCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     var draggedCollectionView: UICollectionView?
     var draggedCollectionViewIndexPath: IndexPath?
+    let addTaskViewController = AddTaskViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "Project Manager"
         let safeArea = self.view.safeAreaLayoutGuide
-        setAddTask()
-        setCollectionViewConfigure()
+        self.setAddTask()
+        self.setCollectionViewConfigure()
+        self.addTaskViewController.taskDelegate = self
         self.addSubviewInView()
         self.registerCollectionViewCell()
         self.setUpDelegate()
@@ -52,18 +53,20 @@ class ViewController: UIViewController {
                                     withReuseIdentifier: TaskCollectionViewHeaderCell.identifier)
 
     }
-    
 
     private func setAddTask() {
         let addTaskItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTask))
         self.navigationItem.rightBarButtonItem = addTaskItem
     }
     
-    @objc private func addTask(_ mode: String?) {
-        let addTaskViewController = AddTaskViewController()
-        addTaskViewController.mode = mode
+    @objc private func addTask() {
         addTaskViewController.modalPresentationStyle = .formSheet
         present(UINavigationController(rootViewController: addTaskViewController), animated: true, completion: nil)
+    }
+    
+    func addData(_ data: Task) {
+        toDoViewModel.insertTaskIntoTaskList(index: 0, task: data)
+        toDoCollectionView.reloadData()
     }
     
     private func addSubviewInView() {
