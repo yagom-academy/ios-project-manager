@@ -172,7 +172,10 @@ class ViewController: UIViewController, TaskAddDelegate {
 
 extension ViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        addTask("edit")
+        let addTaskViewController = AddTaskViewController()
+        addTaskViewController.mode = "edit"
+        addTaskViewController.modalPresentationStyle = .formSheet
+        present(UINavigationController(rootViewController: addTaskViewController), animated: true, completion: nil)
     }
 }
 
