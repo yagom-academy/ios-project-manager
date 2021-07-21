@@ -18,24 +18,18 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        todoTableView.delegate = self
-        todoTableView.dataSource = self
-        
-        doingTableView.delegate = self
-        doingTableView.dataSource = self
-        
-        doneTableView.delegate = self
-        doneTableView.dataSource = self
-        
-        self.todoTableView.register(cellNibName, forCellReuseIdentifier: TableViewCell.identifier)
-        self.todoTableView.register(headerNibName, forHeaderFooterViewReuseIdentifier: HeaderView.identifier)
-        
-        self.doingTableView.register(cellNibName, forCellReuseIdentifier: TableViewCell.identifier)
-        self.doingTableView.register(headerNibName, forHeaderFooterViewReuseIdentifier: HeaderView.identifier)
-        
-        self.doneTableView.register(cellNibName, forCellReuseIdentifier: TableViewCell.identifier)
-        self.doneTableView.register(headerNibName, forHeaderFooterViewReuseIdentifier: HeaderView.identifier)
+        setTableView(todoTableView)
+        setTableView(doingTableView)
+        setTableView(doneTableView)
     }
+    
+    private func setTableView(_ tableView: UITableView) {
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(cellNibName, forCellReuseIdentifier: TableViewCell.identifier)
+        tableView.register(headerNibName, forHeaderFooterViewReuseIdentifier: HeaderView.identifier)
+    }
+
 }
 
 extension ViewController: UITableViewDelegate {
