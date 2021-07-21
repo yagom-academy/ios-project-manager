@@ -21,6 +21,7 @@ final class KanBanBoardCell: UITableViewCell {
         let label = UILabel()
         label.text = "descriptionPreviewLabel"
         label.font = UIFont.preferredFont(forTextStyle: .body)
+        label.numberOfLines = 3
         return label
     }()
 
@@ -38,18 +39,20 @@ final class KanBanBoardCell: UITableViewCell {
         contentView.addSubview(dateLabel)
 
         titleLabel.snp.makeConstraints { label in
-            label.leading.equalTo(contentView).inset(10)
             label.top.equalTo(contentView).inset(10)
+            label.leading.equalTo(contentView).inset(10)
+            label.trailing.equalTo(contentView).inset(10)
         }
 
         descriptionPreviewLabel.snp.makeConstraints { label in
-            label.leading.equalTo(contentView).inset(10)
             label.top.equalTo(titleLabel.snp.bottom).offset(10)
+            label.leading.equalTo(contentView).inset(10)
+
         }
 
         dateLabel.snp.makeConstraints { label in
-            label.leading.equalTo(contentView).inset(10)
             label.top.equalTo(descriptionPreviewLabel.snp.bottom).offset(10)
+            label.leading.equalTo(contentView).inset(10)
             label.bottom.equalTo(contentView.snp.bottom).inset(10)
         }
     }
@@ -62,6 +65,7 @@ final class KanBanBoardCell: UITableViewCell {
         self.titleLabel.text = title
         self.descriptionPreviewLabel.text = description
         self.dateLabel.text = convertDate(date: date)
+        dateLabel.textColor = isDueDateOver(dueDate: date) ? .black : .systemRed
     }
 
     private func convertDate(date: Double) -> String {
@@ -72,5 +76,13 @@ final class KanBanBoardCell: UITableViewCell {
         dateFormatter.dateStyle = .long
 
         return dateFormatter.string(from: result)
+    }
+
+    private func isDueDateOver(dueDate: Double) -> Bool {
+        let currentDate = Date()
+        let dueDate = Date(timeIntervalSince1970: dueDate)
+        let comparisonResult = Calendar.current.compare(currentDate, to: dueDate, toGranularity: .day)
+
+        return comparisonResult == .orderedAscending || comparisonResult == .orderedSame
     }
 }
