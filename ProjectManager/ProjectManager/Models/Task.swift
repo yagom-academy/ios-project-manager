@@ -10,9 +10,9 @@ import MobileCoreServices
 class Task: NSObject, Codable {
     var taskTitle: String
     var taskDescription: String
-    var taskDeadline: String
+    var taskDeadline: Date
     
-    init(taskTitle: String, taskDescription: String, taskDeadline: String) {
+    init(taskTitle: String, taskDescription: String, taskDeadline: Date) {
         self.taskTitle = taskTitle
         self.taskDescription = taskDescription
         self.taskDeadline = taskDeadline

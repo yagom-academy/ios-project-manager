@@ -11,22 +11,22 @@ class TaskViewModel {
     let networkManager = NetworkManager()
     private var taskList: [Task] = [Task(taskTitle: "1 ToDoViewModel",
                                          taskDescription: "ToDoViewModel",
-                                         taskDeadline: "ToDoViewModel"),
+                                         taskDeadline: Date()),
                                     Task(taskTitle: "2 ToDoViewModel",
                                          taskDescription: "ToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModel",
-                                         taskDeadline: "2021.07.20"),
+                                         taskDeadline: Date()),
                                     Task(taskTitle: "3 ToDoViewModel",
                                          taskDescription: "ToDoViewModel",
-                                         taskDeadline: "2021.07.21"),
+                                         taskDeadline: Date()),
                                     Task(taskTitle: "4 ToDoViewModel",
                                          taskDescription: "ToDoViewModel",
-                                         taskDeadline: "2021.07.22"),
+                                         taskDeadline: Date()),
                                     Task(taskTitle: "5 ToDoViewModel",
                                          taskDescription: "ToDoViewModel",
-                                         taskDeadline: "2020.09.09"),
+                                         taskDeadline: Date()),
                                     Task(taskTitle: "6 ToDoViewModel",
                                          taskDescription: "ToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModel",
-                                         taskDeadline: "2022.09.09")]
+                                         taskDeadline: Date())]
     
     func referTask(at: IndexPath) -> Task? {
         if taskList.count > at.row {

@@ -20,7 +20,7 @@ final class AddTaskViewController: UIViewController {
     enum EdgeInsert {
         static let descriptionContent = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
     }
-    
+    var taskDelegate: TaskAddDelegate?
     private var todoTitle: String?
     private var todoDescription: String?
     private let titleTextField: UITextField = {
@@ -71,12 +71,12 @@ final class AddTaskViewController: UIViewController {
     
     private func setNavigationItem() {
         let closeButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(pushCloseButton))
-        let editButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(pushEditButton))
+        let editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(pushEditButton))
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(pushDoneButton))
-        if let mode = mode {
+        self.navigationItem.leftBarButtonItem = closeButton
+        if let _ = mode {
             self.navigationItem.leftBarButtonItem = editButton
         }
-        self.navigationItem.leftBarButtonItem = closeButton
         self.navigationItem.rightBarButtonItem = doneButton
     }
     
@@ -106,7 +106,8 @@ final class AddTaskViewController: UIViewController {
                 return
             }
             
-            print(AddTask(title: todoTitle, date: self.datePickerView.date, description: todoDescription))
+            let data = Task(taskTitle: todoTitle, taskDescription: todoDescription, taskDeadline: self.datePickerView.date)
+            self.taskDelegate?.addData(data)
         }
     }
     
