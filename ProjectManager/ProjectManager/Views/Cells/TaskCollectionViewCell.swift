@@ -36,14 +36,12 @@ class TaskCollectionViewCell: UICollectionViewCell {
     
     private func setUpUI() {
         self.contentView.backgroundColor = UIColor.red
-        let swipeViewSafeArea = self.swipeView.safeAreaLayoutGuide
-        let contentViewSafeArea = self.contentView.safeAreaLayoutGuide
         self.addSubviewInContentView()
-        self.setUpSwipeView(layoutGuide: contentViewSafeArea)
-        self.setUpDeleteButton(layoutGuide: contentViewSafeArea)
-        self.setUpTaskTitleLabel(layoutGuide: swipeViewSafeArea)
-        self.setUpTaskDescriptionLabel(layoutGuide: swipeViewSafeArea)
-        self.setUpTaskDeadlineLabel(layoutGuide: swipeViewSafeArea)
+        self.setUpSwipeView()
+        self.setUpDeleteButton()
+        self.setUpTaskTitleLabel()
+        self.setUpTaskDescriptionLabel()
+        self.setUpTaskDeadlineLabel()
     }
     
     private func addSubviewInContentView() {
@@ -51,30 +49,30 @@ class TaskCollectionViewCell: UICollectionViewCell {
         self.contentView.addSubview(self.deleteButton)
     }
     
-    private func setUpSwipeView(layoutGuide: UILayoutGuide) {
+    private func setUpSwipeView() {
         self.swipeView.backgroundColor = .white
         self.swipeView.addSubview(self.taskTitle)
         self.swipeView.addSubview(self.taskDescription)
         self.swipeView.addSubview(self.taskDeadline)
         self.swipeView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            self.swipeView.topAnchor.constraint(equalTo: layoutGuide.topAnchor, constant: 0),
-            self.swipeView.leadingAnchor.constraint(equalTo: layoutGuide.leadingAnchor, constant: 0),
-            self.swipeView.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor, constant: 0),
-            self.swipeView.bottomAnchor.constraint(equalTo: layoutGuide.bottomAnchor, constant: 0),
+            self.swipeView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0),
+            self.swipeView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0),
+            self.swipeView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 0),
+            self.swipeView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0),
         ])
     }
     
-    private func setUpDeleteButton(layoutGuide: UILayoutGuide) {
+    private func setUpDeleteButton() {
         self.deleteButton.setTitle("Delete", for: .normal)
         self.deleteButton.setTitleColor(.white, for: .normal)
         self.deleteButton.backgroundColor = .red
         self.deleteButton.addTarget(self, action: #selector(deleteTask), for: .touchDown)
         self.deleteButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            self.deleteButton.topAnchor.constraint(equalTo: layoutGuide.topAnchor, constant: 0),
+            self.deleteButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0),
             self.deleteButton.leadingAnchor.constraint(equalTo: self.swipeView.trailingAnchor, constant: 0),
-            self.deleteButton.bottomAnchor.constraint(equalTo: layoutGuide.bottomAnchor, constant: 0),
+            self.deleteButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0),
         ])
     }
     
@@ -85,42 +83,42 @@ class TaskCollectionViewCell: UICollectionViewCell {
         print("indexPath: ", indexPath)
     }
     
-    private func setUpTaskTitleLabel(layoutGuide: UILayoutGuide) {
+    private func setUpTaskTitleLabel() {
         self.taskTitle.font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.title3)
         self.taskTitle.textColor = .label
         self.taskTitle.translatesAutoresizingMaskIntoConstraints = false
         self.taskTitle.numberOfLines = 1
         NSLayoutConstraint.activate([
-            self.taskTitle.topAnchor.constraint(equalTo: layoutGuide.topAnchor, constant: 5),
-            self.taskTitle.leadingAnchor.constraint(equalTo: layoutGuide.leadingAnchor, constant: 10),
-            self.taskTitle.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor, constant: -10),
+            self.taskTitle.topAnchor.constraint(equalTo: swipeView.topAnchor, constant: 5),
+            self.taskTitle.leadingAnchor.constraint(equalTo: swipeView.leadingAnchor, constant: 10),
+            self.taskTitle.trailingAnchor.constraint(equalTo: swipeView.trailingAnchor, constant: -10),
             self.taskTitle.bottomAnchor.constraint(equalTo: self.taskDescription.topAnchor, constant: -5),
         ])
     }
     
-    private func setUpTaskDescriptionLabel(layoutGuide: UILayoutGuide) {
+    private func setUpTaskDescriptionLabel() {
         self.taskDescription.font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.body)
         self.taskDescription.textColor = .label
         self.taskDescription.translatesAutoresizingMaskIntoConstraints = false
         self.taskDescription.numberOfLines = 3
         NSLayoutConstraint.activate([
             self.taskDescription.topAnchor.constraint(equalTo: self.taskTitle.bottomAnchor, constant: 5),
-            self.taskDescription.leadingAnchor.constraint(equalTo: layoutGuide.leadingAnchor, constant: 10),
-            self.taskDescription.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor, constant: -10),
+            self.taskDescription.leadingAnchor.constraint(equalTo: swipeView.leadingAnchor, constant: 10),
+            self.taskDescription.trailingAnchor.constraint(equalTo: swipeView.trailingAnchor, constant: -10),
             self.taskDescription.bottomAnchor.constraint(equalTo: self.taskDeadline.topAnchor, constant: -5),
         ])
     }
     
-    private func setUpTaskDeadlineLabel(layoutGuide: UILayoutGuide) {
+    private func setUpTaskDeadlineLabel() {
         self.taskDeadline.font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.footnote)
         self.taskDeadline.textColor = .label
         self.taskDeadline.translatesAutoresizingMaskIntoConstraints = false
         self.taskDeadline.numberOfLines = 1
         NSLayoutConstraint.activate([
             self.taskDeadline.topAnchor.constraint(equalTo: self.taskDescription.bottomAnchor, constant: 5),
-            self.taskDeadline.leadingAnchor.constraint(equalTo: layoutGuide.leadingAnchor, constant: 10),
-            self.taskDeadline.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor, constant: -10),
-            self.taskDeadline.bottomAnchor.constraint(equalTo: layoutGuide.bottomAnchor, constant: -5),
+            self.taskDeadline.leadingAnchor.constraint(equalTo: swipeView.leadingAnchor, constant: 10),
+            self.taskDeadline.trailingAnchor.constraint(equalTo: swipeView.trailingAnchor, constant: -10),
+            self.taskDeadline.bottomAnchor.constraint(equalTo: swipeView.bottomAnchor, constant: -5),
         ])
     }
     

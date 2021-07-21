@@ -30,7 +30,6 @@ class ViewController: UIViewController {
         self.setUpToDoCollectionView(layoutGuide: safeArea)
         self.setUpDoingCollectionView(layoutGuide: safeArea)
         self.setUpDoneCollectionView(layoutGuide: safeArea)
-        
     }
     
     private func setCollectionViewConfigure() {
