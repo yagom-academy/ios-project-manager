@@ -21,6 +21,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         self.navigationItem.title = "Project Manager"
         let safeArea = self.view.safeAreaLayoutGuide
+        setAddTask()
         self.addSubviewInView()
         self.registerCollectionViewCell()
         self.setUpDelegate()
@@ -28,6 +29,17 @@ class ViewController: UIViewController {
         self.setUpToDoCollectionView(layoutGuide: safeArea)
         self.setUpDoingCollectionView(layoutGuide: safeArea)
         self.setUpDoneCollectionView(layoutGuide: safeArea)
+    }
+    
+    private func setAddTask() {
+        let addTaskItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTask))
+        self.navigationItem.rightBarButtonItem = addTaskItem
+    }
+    
+    @objc private func addTask() {
+        let addTaskViewController = AddTaskViewController()
+        addTaskViewController.modalPresentationStyle = .formSheet
+        present(UINavigationController(rootViewController: addTaskViewController), animated: true, completion: nil)
     }
     
     private func addSubviewInView() {

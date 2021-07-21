@@ -9,7 +9,24 @@ import Foundation
 
 class TaskViewModel {
     let networkManager = NetworkManager()
-    private var taskList: [Task] = [Task(taskTitle: "ToDoViewModel", taskDescription: "ToDoViewModel", taskDeadline: "ToDoViewModel"),Task(taskTitle: "ToDoViewModel", taskDescription: "ToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModel", taskDeadline: "ToDoViewModel"),Task(taskTitle: "ToDoViewModel", taskDescription: "ToDoViewModel", taskDeadline: "ToDoViewModel"),Task(taskTitle: "ToDoViewModel", taskDescription: "ToDoViewModel", taskDeadline: "ToDoViewModel"),Task(taskTitle: "ToDoViewModel", taskDescription: "ToDoViewModel", taskDeadline: "ToDoViewModel"),Task(taskTitle: "ToDoViewModel", taskDescription: "ToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModel", taskDeadline: "ToDoViewModel")]
+    private var taskList: [Task] = [Task(taskTitle: "ToDoViewModel",
+                                         taskDescription: "ToDoViewModel",
+                                         taskDeadline: "ToDoViewModel"),
+                                    Task(taskTitle: "ToDoViewModel",
+                                         taskDescription: "ToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModel",
+                                         taskDeadline: "ToDoViewModel"),
+                                    Task(taskTitle: "ToDoViewModel",
+                                         taskDescription: "ToDoViewModel",
+                                         taskDeadline: "ToDoViewModel"),
+                                    Task(taskTitle: "ToDoViewModel",
+                                         taskDescription: "ToDoViewModel",
+                                         taskDeadline: "ToDoViewModel"),
+                                    Task(taskTitle: "ToDoViewModel",
+                                         taskDescription: "ToDoViewModel",
+                                         taskDeadline: "ToDoViewModel"),
+                                    Task(taskTitle: "ToDoViewModel",
+                                         taskDescription: "ToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModel",
+                                         taskDeadline: "ToDoViewModel")]
     
     func referTask(at: IndexPath) -> Task? {
         if taskList.count > at.row {
