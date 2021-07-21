@@ -36,4 +36,36 @@ struct TaskViewModel {
     private func task(by id: UUID) -> Task? {
         return tasks.filter { $0.id == id }.first
     }
+
+    mutating func add(_ task: Task) {
+        tasks.append(task)
+        taskOrder.todo.append(task.id)
+    }
+
+    private mutating func insert(_ task: Task, state: Task.State, at destinationIndex: Int) {
+        let stateOrder: [UUID] = taskOrder[state]
+        guard destinationIndex <= stateOrder.count,
+              let task = self.task(by: task.id) else { return }
+
+        tasks.append(task)
+
+        switch state {
+        case .todo:
+            taskOrder.todo.insert(task.id, at: destinationIndex)
+        case .doing:
+            taskOrder.doing.insert(task.id, at: destinationIndex)
+        case .done:
+            taskOrder.done.insert(task.id, at: destinationIndex)
+        }
+    }
+
+    mutating func remove(_ task: Task) {
+        guard let index = taskOrder[task.state].firstIndex(of: task.id) else { return }
+        tasks.remove(at: index)
+    }
+
+    mutating func move(_ task: Task, to state: Task.State, at destinationIndex: Int) {
+        remove(task)
+        insert(task, state: state, at: destinationIndex)
+    }
 }
