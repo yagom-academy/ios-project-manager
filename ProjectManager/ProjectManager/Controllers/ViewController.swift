@@ -22,6 +22,7 @@ class ViewController: UIViewController {
         self.navigationItem.title = "Project Manager"
         let safeArea = self.view.safeAreaLayoutGuide
         setAddTask()
+        setCollectionViewConfigure()
         self.addSubviewInView()
         self.registerCollectionViewCell()
         self.setUpDelegate()
@@ -29,8 +30,31 @@ class ViewController: UIViewController {
         self.setUpToDoCollectionView(layoutGuide: safeArea)
         self.setUpDoingCollectionView(layoutGuide: safeArea)
         self.setUpDoneCollectionView(layoutGuide: safeArea)
+        
     }
     
+    private func setCollectionViewConfigure() {
+        guard let todoLayout = toDoCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
+        guard let doingLayout = doingCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
+        guard let doneLayout = doneCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
+        
+        todoLayout.sectionHeadersPinToVisibleBounds = true
+        doingLayout.sectionHeadersPinToVisibleBounds = true
+        doneLayout.sectionHeadersPinToVisibleBounds = true
+        
+        toDoCollectionView.register(TaskCollectionViewHeaderCell.self,
+                                    forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                                    withReuseIdentifier: TaskCollectionViewHeaderCell.identifier)
+        doingCollectionView.register(TaskCollectionViewHeaderCell.self,
+                                     forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                                     withReuseIdentifier: TaskCollectionViewHeaderCell.identifier)
+        doneCollectionView.register(TaskCollectionViewHeaderCell.self,
+                                    forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                                    withReuseIdentifier: TaskCollectionViewHeaderCell.identifier)
+
+    }
+    
+
     private func setAddTask() {
         let addTaskItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTask))
         self.navigationItem.rightBarButtonItem = addTaskItem
@@ -187,6 +211,27 @@ extension ViewController: UICollectionViewDataSource {
         }
         cell.configureCell(with: task)
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader,
+                                                                     withReuseIdentifier: TaskCollectionViewHeaderCell.identifier,
+                                                                     for: indexPath) as! TaskCollectionViewHeaderCell
+        switch collectionView {
+        case toDoCollectionView:
+            header.configure("TODO", count: toDoViewModel.taskListCount())
+        case doingCollectionView:
+            header.configure("DOING", count: doingViewModel.taskListCount())
+        case doneCollectionView:
+            header.configure("DONE", count: doneViewModel.taskListCount())
+        default:
+            break
+        }
+        return header
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: self.view.frame.width, height: 50)
     }
 }
 
