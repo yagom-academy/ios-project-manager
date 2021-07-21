@@ -61,6 +61,13 @@ class ViewController: UIViewController {
         return doingLabel
     }()
     
+    lazy var doneView: UIView = {
+        let doneView: UIView = UIView()
+        doneView.translatesAutoresizingMaskIntoConstraints = false
+        doneView.backgroundColor = .systemGray6
+        return doneView
+    }()
+    
     lazy var doneLabel: UILabel = {
         let doneLabel: UILabel = UILabel()
         doneLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -68,13 +75,6 @@ class ViewController: UIViewController {
         doneLabel.sizeToFit()
         doneLabel.font = UIFont.preferredFont(forTextStyle: .largeTitle)
         return doneLabel
-    }()
-    
-    lazy var doneView: UIView = {
-        let doneView: UIView = UIView()
-        doneView.translatesAutoresizingMaskIntoConstraints = false
-        doneView.backgroundColor = .systemGray6
-        return doneView
     }()
     
     lazy var titlesStackView: UIStackView = {
