@@ -1,0 +1,5 @@
+disabled_rules:
+included:
+excluded:
+- ProjectManager/AppDelegate.swift
+- ProjectManager/SceneDelegate.swift
