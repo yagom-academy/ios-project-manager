@@ -151,24 +151,24 @@ extension ViewController: UICollectionViewDataSource {
         
         if collectionView == self.toDoCollectionView {
             guard let task = toDoViewModel.referTask(at: indexPath) else {
-                return UICollectionViewCell()
-            }
-            cell.configureCell(with: task)
+                            return UICollectionViewCell()
+                        }
+                        cell.configureCell(with: task)
             return cell
         }
         
         if collectionView == self.doingCollectionView {
             guard let task = doingViewModel.referTask(at: indexPath) else {
-                return UICollectionViewCell()
-            }
-            cell.configureCell(with: task)
+                            return UICollectionViewCell()
+                        }
+                        cell.configureCell(with: task)
             return cell
         }
         
         guard let task = doneViewModel.referTask(at: indexPath) else {
-            return UICollectionViewCell()
-        }
-        cell.configureCell(with: task)
+                    return UICollectionViewCell()
+                }
+                cell.configureCell(with: task)
         return cell
     }
 }
