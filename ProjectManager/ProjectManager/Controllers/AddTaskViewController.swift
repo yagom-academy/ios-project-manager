@@ -69,6 +69,13 @@ final class AddTaskViewController: UIViewController {
         tapGestureAtKeyboardAnyWhere()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        titleTextField.text = nil
+        descriptionTextView.text = nil
+        datePickerView.setDate(Date(), animated: true)
+    }
+    
     private func setNavigationItem() {
         let closeButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(pushCloseButton))
         let editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(pushEditButton))
