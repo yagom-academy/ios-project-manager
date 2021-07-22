@@ -10,8 +10,10 @@ import UIKit
 class StateStackView: UIStackView {
 
     private enum Style {
-        static let spacing: CGFloat = 10
+        static let spacing: CGFloat = 3
     }
+
+    // MARK: Properties
 
     private var state: Task.State?
 
@@ -20,7 +22,7 @@ class StateStackView: UIStackView {
     let stateView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .systemGray6
         return view
     }()
 
@@ -28,7 +30,6 @@ class StateStackView: UIStackView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.preferredFont(forTextStyle: .largeTitle)
-
         return label
     }()
 
@@ -46,23 +47,15 @@ class StateStackView: UIStackView {
 
     let stateTableView: UITableView = {
         let tableView = UITableView()
+        tableView.backgroundColor = .systemGray6
         return tableView
     }()
 
     // MARK: Initializers
 
     init(state: Task.State) {
-        super.init(arrangedSubviews: [stateView, stateTableView])
+        super.init(frame: .zero)
         self.state = state
-        setAttributes()
-        setSubviews()
-        setStateLabel()
-        setTaskCountLabel(as: 0)
-    }
-
-    init(state: Task.State, frame: CGRect) {
-        self.state = state
-        super.init(frame: frame)
         setAttributes()
         setSubviews()
         setStateLabel()
@@ -73,11 +66,12 @@ class StateStackView: UIStackView {
         super.init(coder: coder)
     }
 
-    // MARK: Configure
+    // MARK: Configures
 
     private func setAttributes() {
         alignment = .fill
         axis = .vertical
+        backgroundColor = .systemGray4
         distribution = .fill
         spacing = Style.spacing
     }
@@ -87,25 +81,20 @@ class StateStackView: UIStackView {
         stateView.addSubview(taskCountLabel)
 
         NSLayoutConstraint.activate([
-            stateLabel.leadingAnchor.constraint(equalTo: stateView.leadingAnchor, constant: 15),
+            stateLabel.leadingAnchor.constraint(equalTo: stateView.leadingAnchor, constant: 10),
             stateLabel.topAnchor.constraint(equalTo: stateView.topAnchor, constant: 10),
-            stateLabel.bottomAnchor.constraint(equalTo: stateView.bottomAnchor, constant: 10),
-            taskCountLabel.leadingAnchor.constraint(equalTo: stateLabel.trailingAnchor, constant: 15),
+            stateLabel.bottomAnchor.constraint(equalTo: stateView.bottomAnchor, constant: -10),
+            taskCountLabel.leadingAnchor.constraint(equalTo: stateLabel.trailingAnchor, constant: 10),
             taskCountLabel.widthAnchor.constraint(equalTo: taskCountLabel.heightAnchor),
             taskCountLabel.centerYAnchor.constraint(equalTo: stateLabel.centerYAnchor)
         ])
 
         addArrangedSubview(stateView)
         addArrangedSubview(stateTableView)
-
-        NSLayoutConstraint.activate([
-            stateView.heightAnchor.constraint(greaterThanOrEqualToConstant: 150)
-        ])
     }
 
     func setTaskCountLabel(as value: Int) {
         taskCountLabel.text = "\(value)"
-//        taskCountLabel.layer.cornerRadius = 0.5 * taskCountLabel.bounds.width
     }
 
     func setStateLabel() {
