@@ -73,6 +73,18 @@ class ViewController: UIViewController {
         return doingLabel
     }()
     
+    lazy var doingCountLabel: UILabel = {
+        let doingCountLabel: UILabel = UILabel()
+        doingCountLabel.translatesAutoresizingMaskIntoConstraints = false
+        doingCountLabel.backgroundColor = .black
+        doingCountLabel.textColor = .white
+        doingCountLabel.text = "0"
+        doingCountLabel.font = UIFont.preferredFont(forTextStyle: .title2)
+        doingCountLabel.sizeToFit()
+        doingCountLabel.textAlignment = .center
+        return doingCountLabel
+    }()
+    
     lazy var doneView: UIView = {
         let doneView: UIView = UIView()
         doneView.translatesAutoresizingMaskIntoConstraints = false
@@ -87,6 +99,18 @@ class ViewController: UIViewController {
         doneLabel.sizeToFit()
         doneLabel.font = UIFont.preferredFont(forTextStyle: .largeTitle)
         return doneLabel
+    }()
+    
+    lazy var doneCountLabel: UILabel = {
+        let doneCountLabel: UILabel = UILabel()
+        doneCountLabel.translatesAutoresizingMaskIntoConstraints = false
+        doneCountLabel.backgroundColor = .black
+        doneCountLabel.textColor = .white
+        doneCountLabel.text = "0"
+        doneCountLabel.font = UIFont.preferredFont(forTextStyle: .title2)
+        doneCountLabel.sizeToFit()
+        doneCountLabel.textAlignment = .center
+        return doneCountLabel
     }()
     
     lazy var titlesStackView: UIStackView = {
@@ -116,6 +140,8 @@ class ViewController: UIViewController {
         self.doingView.addSubview(doingLabel)
         self.doneView.addSubview(doneLabel)
         self.todoView.addSubview(todoCountLabel)
+        self.doingView.addSubview(doingCountLabel)
+        self.doneView.addSubview(doneCountLabel)
     }
     
     private func configureConstraints() {
@@ -141,13 +167,23 @@ class ViewController: UIViewController {
             
             todoCountLabel.centerYAnchor.constraint(equalTo: todoLabel.centerYAnchor),
             todoCountLabel.leadingAnchor.constraint(equalTo: todoLabel.trailingAnchor, constant: 8),
-            todoCountLabel.widthAnchor.constraint(equalTo: todoCountLabel.heightAnchor)
+            todoCountLabel.widthAnchor.constraint(equalTo: todoCountLabel.heightAnchor),
+            doingCountLabel.centerYAnchor.constraint(equalTo: doingLabel.centerYAnchor),
+            doingCountLabel.leadingAnchor.constraint(equalTo: doingLabel.trailingAnchor, constant: 8),
+            doingCountLabel.widthAnchor.constraint(equalTo: doingCountLabel.heightAnchor),
+            doneCountLabel.centerYAnchor.constraint(equalTo: doneLabel.centerYAnchor),
+            doneCountLabel.leadingAnchor.constraint(equalTo: doneLabel.trailingAnchor, constant: 8),
+            doneCountLabel.widthAnchor.constraint(equalTo: doneCountLabel.heightAnchor)
         ])
     }
     
     override func viewDidLayoutSubviews() {
         todoCountLabel.layer.cornerRadius = todoCountLabel.frame.size.width
         todoCountLabel.layer.masksToBounds = true
+        doingCountLabel.layer.cornerRadius = doingCountLabel.frame.size.width
+        doingCountLabel.layer.masksToBounds = true
+        doneCountLabel.layer.cornerRadius = doneCountLabel.frame.size.width
+        doneCountLabel.layer.masksToBounds = true
     }
     
     override func viewDidLoad() {
