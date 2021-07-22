@@ -42,6 +42,15 @@ class ViewController: UIViewController {
         doingCountLabel.layer.cornerRadius = 0.5 * doingCountLabel.bounds.size.width
         doneCountLabel.layer.cornerRadius = 0.5 * doneCountLabel.bounds.size.width
     }
+    @IBAction func addMemo(_ sender: UIBarButtonItem) {
+        guard let vc = self.storyboard?.instantiateViewController(identifier: "TaskAlert") else{
+            return
+        }
+
+        vc.modalPresentationStyle = .formSheet
+        vc.modalTransitionStyle =  .crossDissolve
+        self.present(vc, animated: true, completion: nil)
+    }
 }
 
 extension ViewController: UITableViewDelegate {

@@ -207,7 +207,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Project Manager" id="Zpy-sh-uas">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="n7Q-9R-JiB"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="n7Q-9R-JiB">
+                            <connections>
+                                <action selector="addMemo:" destination="BYZ-38-t0r" id="Hdk-iB-Ohz"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="doingCountLabel" destination="juu-KN-vDe" id="bEH-tU-jiM"/>
@@ -221,6 +225,62 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="832.79648609077594" y="118.94531249999999"/>
+        </scene>
+        <!--Task Alert View Controller-->
+        <scene sceneID="Jse-Fb-I0R">
+            <objects>
+                <viewController storyboardIdentifier="TaskAlert" id="O8J-8T-QgR" customClass="TaskAlertViewController" customModule="ProjectManager" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8Cs-RN-AQq">
+                        <rect key="frame" x="0.0" y="0.0" width="1366" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="zVE-Qe-fkN">
+                                <rect key="frame" x="0.0" y="104" width="1366" height="216"/>
+                            </datePicker>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Fpw-Fc-P2W">
+                                <rect key="frame" x="0.0" y="60" width="1366" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="여기는 할일 내용 입력하는 곳이지롱 입력 가능한 글자수는 1000자로 제한합니다." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ZA4-H7-4Up">
+                                <rect key="frame" x="0.0" y="370" width="1366" height="654"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2DU-Sx-Kbc">
+                                <rect key="frame" x="0.0" y="0.0" width="1366" height="50"/>
+                                <items>
+                                    <navigationItem title="Title" id="E0r-1u-c7d">
+                                        <barButtonItem key="leftBarButtonItem" title="Item" id="fiZ-At-OVf"/>
+                                        <barButtonItem key="rightBarButtonItem" title="Item" id="Dxv-1v-v4O"/>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="mhy-ou-7fa"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="ZA4-H7-4Up" firstAttribute="top" secondItem="zVE-Qe-fkN" secondAttribute="bottom" constant="50" id="0Fn-Ev-k1p"/>
+                            <constraint firstItem="ZA4-H7-4Up" firstAttribute="leading" secondItem="mhy-ou-7fa" secondAttribute="leading" id="7ah-By-0Ao"/>
+                            <constraint firstItem="2DU-Sx-Kbc" firstAttribute="top" secondItem="mhy-ou-7fa" secondAttribute="top" id="B1c-cR-eSS"/>
+                            <constraint firstItem="Fpw-Fc-P2W" firstAttribute="top" secondItem="2DU-Sx-Kbc" secondAttribute="bottom" constant="10" id="LsZ-aZ-WSg"/>
+                            <constraint firstItem="zVE-Qe-fkN" firstAttribute="trailing" secondItem="mhy-ou-7fa" secondAttribute="trailing" id="QL3-ze-YwH"/>
+                            <constraint firstItem="2DU-Sx-Kbc" firstAttribute="trailing" secondItem="mhy-ou-7fa" secondAttribute="trailing" id="RtG-0a-RdN"/>
+                            <constraint firstItem="zVE-Qe-fkN" firstAttribute="leading" secondItem="mhy-ou-7fa" secondAttribute="leading" id="UaG-ki-oag"/>
+                            <constraint firstAttribute="bottom" secondItem="ZA4-H7-4Up" secondAttribute="bottom" id="Vzq-0D-7CU"/>
+                            <constraint firstItem="Fpw-Fc-P2W" firstAttribute="leading" secondItem="mhy-ou-7fa" secondAttribute="leading" id="bJl-uS-eQD"/>
+                            <constraint firstItem="ZA4-H7-4Up" firstAttribute="trailing" secondItem="mhy-ou-7fa" secondAttribute="trailing" id="fcJ-IV-H4t"/>
+                            <constraint firstItem="Fpw-Fc-P2W" firstAttribute="trailing" secondItem="mhy-ou-7fa" secondAttribute="trailing" id="gCb-4m-laY"/>
+                            <constraint firstItem="2DU-Sx-Kbc" firstAttribute="leading" secondItem="mhy-ou-7fa" secondAttribute="leading" id="ks6-QE-jHr"/>
+                            <constraint firstItem="zVE-Qe-fkN" firstAttribute="top" secondItem="Fpw-Fc-P2W" secondAttribute="bottom" constant="10" id="tEn-x3-ehq"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="n1h-r4-Rgh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1590.9224011713029" y="118.94531249999999"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="FzQ-Ih-E2o">
@@ -242,6 +302,9 @@
         </scene>
     </scenes>
     <resources>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
