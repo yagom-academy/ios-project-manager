@@ -209,7 +209,7 @@
                     <navigationItem key="navigationItem" title="Project Manager" id="Zpy-sh-uas">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="n7Q-9R-JiB">
                             <connections>
-                                <action selector="addMemo:" destination="BYZ-38-t0r" id="Hdk-iB-Ohz"/>
+                                <action selector="addTask:" destination="BYZ-38-t0r" id="Hdk-iB-Ohz"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
