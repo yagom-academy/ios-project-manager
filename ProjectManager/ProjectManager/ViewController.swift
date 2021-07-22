@@ -16,6 +16,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var doneCountLabel: UILabel!
     
     private let cellNibName = UINib(nibName: TableViewCell.identifier, bundle: nil)
+    var todos = [Task]()
+    var doings = [Task]()
+    var dones = [Task]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +26,21 @@ class ViewController: UIViewController {
         setTableView(todoTableView)
         setTableView(doingTableView)
         setTableView(doneTableView)
+        
+        guard let todoData = NSDataAsset(name: "todo"),
+              let doingData = NSDataAsset(name: "doing"),
+              let doneData = NSDataAsset(name: "done") else { return }
+        
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .formatted(DateFormatter.iso8601Full)
+        
+        do {
+            todos = try decoder.decode([Task].self, from: todoData.data)
+            doings = try decoder.decode([Task].self, from: doingData.data)
+            dones = try decoder.decode([Task].self, from: doneData.data)
+        } catch {
+            print("디코드에러")
+        }
         
         setLabelToCircle()
     }
@@ -41,6 +59,10 @@ class ViewController: UIViewController {
         todoCountLabel.layer.cornerRadius = 0.5 * todoCountLabel.bounds.size.width
         doingCountLabel.layer.cornerRadius = 0.5 * doingCountLabel.bounds.size.width
         doneCountLabel.layer.cornerRadius = 0.5 * doneCountLabel.bounds.size.width
+        
+        todoCountLabel.text = "\(todos.count)"
+        doingCountLabel.text = "\(doings.count)"
+        doneCountLabel.text = "\(dones.count)"
     }
     
     @IBAction func addTask(_ sender: UIBarButtonItem) {
@@ -62,7 +84,13 @@ extension ViewController: UITableViewDelegate {
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 10
+        if tableView == todoTableView {
+            return todos.count
+        } else if tableView == doingTableView {
+            return doings.count
+        } else {
+            return dones.count
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -79,10 +107,22 @@ extension ViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TableViewCell.identifier, for: indexPath) as? TableViewCell
         else { return UITableViewCell() }
         
-        cell.titleLabel.text = "안녕"
-        cell.bodyLabel.text = "나는 본문이야"
-        cell.dueDateLabel.text = "2021. 07. 20"
+        if tableView == todoTableView {
+            cell.configure(todos[indexPath.section])
+        } else if tableView == doingTableView {
+            cell.configure(doings[indexPath.section])
+        } else {
+            cell.configure(dones[indexPath.section])
+        }
         
         return cell
     }
+}
+
+extension DateFormatter {
+  static let iso8601Full: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
+    return formatter
+  }()
 }

@@ -8,7 +8,7 @@
 import Foundation
 
 struct Task: Codable {
-    let id: UUID
+    let id: String?
     let title: String
     let content: String
     let deadLineDate: Date
