@@ -9,18 +9,17 @@ import UIKit
 
 final class AddTaskViewController: UIViewController {
     
-    var mode: String?
-    
-    struct AddTask {
-        let title: String
-        let date: Date
-        let description: String
+    enum Mode {
+        case add
+        case edit
     }
     
     enum EdgeInsert {
         static let descriptionContent = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
     }
     var taskDelegate: TaskAddDelegate?
+    var mode: Mode?
+    var currentData: Task?
     private var todoTitle: String?
     private var todoDescription: String?
     private let titleTextField: UITextField = {
@@ -73,7 +72,21 @@ final class AddTaskViewController: UIViewController {
         super.viewWillAppear(animated)
         titleTextField.text = nil
         descriptionTextView.text = nil
+        todoTitle = nil
+        todoDescription = nil
         datePickerView.setDate(Date(), animated: true)
+        checkMode()
+    }
+    
+    private func checkMode() {
+        if mode == .edit {
+            titleTextField.text = currentData?.taskTitle
+            titleTextField.isEnabled = false
+            descriptionTextView.text = currentData?.taskDescription
+            descriptionTextView.isEditable = false
+            datePickerView.setDate(currentData?.taskDeadline ?? Date(), animated: true)
+            datePickerView.isEnabled = false
+        }
     }
     
     private func setNavigationItem() {

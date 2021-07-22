@@ -61,6 +61,7 @@ class ViewController: UIViewController, TaskAddDelegate {
     
     @objc private func addTask() {
         addTaskViewController.modalPresentationStyle = .formSheet
+        addTaskViewController.mode = .add
         present(UINavigationController(rootViewController: addTaskViewController), animated: true, completion: nil)
     }
     
@@ -172,9 +173,19 @@ class ViewController: UIViewController, TaskAddDelegate {
 
 extension ViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let addTaskViewController = AddTaskViewController()
-        addTaskViewController.mode = "edit"
+        addTaskViewController.mode = .edit
         addTaskViewController.modalPresentationStyle = .formSheet
+        switch collectionView {
+        case toDoCollectionView:
+            addTaskViewController.currentData = toDoViewModel.referTask(at: indexPath)
+        case doingCollectionView:
+            addTaskViewController.currentData = doingViewModel.referTask(at: indexPath)
+        case doneCollectionView:
+            addTaskViewController.currentData = doneViewModel.referTask(at: indexPath)
+        default:
+            return
+        }
+        
         present(UINavigationController(rootViewController: addTaskViewController), animated: true, completion: nil)
     }
 }
@@ -203,7 +214,6 @@ extension ViewController: UICollectionViewDataSource {
                 return UICollectionViewCell()
             }
             cell.configureCell(with: task)
-            print("title: ",cell.taskTitle.text, "indexPath.row", indexPath.row)
             return cell
         }
         
