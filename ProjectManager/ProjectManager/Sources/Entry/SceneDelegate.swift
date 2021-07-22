@@ -16,9 +16,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
 
         let window = UIWindow(windowScene: windowScene)
-        let viewController = ViewController()
-        viewController.view.backgroundColor = .systemGray4
-        let navigationViewController = UINavigationController(rootViewController: viewController)
+        let pmViewController = PMViewController()
+        pmViewController.view.backgroundColor = .systemGray4
+        let navigationViewController = UINavigationController(rootViewController: pmViewController)
         navigationViewController.setToolbarHidden(false, animated: false)
 
         window.rootViewController = navigationViewController

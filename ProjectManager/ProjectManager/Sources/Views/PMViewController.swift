@@ -1,12 +1,12 @@
 //
-//  ProjectManager - ViewController.swift
+//  ProjectManager - PMViewController.swift
 //  Created by yagom. 
 //  Copyright © yagom. All rights reserved.
 // 
 
 import UIKit
 
-class ViewController: UIViewController {
+class PMViewController: UIViewController {
 
     var viewModel = TaskViewModel()
 
@@ -61,7 +61,7 @@ class ViewController: UIViewController {
     @objc private func addButtonTapped() { }
 }
 
-extension ViewController: UITableViewDataSource {
+extension PMViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch tableView {
         case todoStackView.stateTableView:
