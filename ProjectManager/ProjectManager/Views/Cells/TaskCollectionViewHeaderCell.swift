@@ -7,8 +7,11 @@
 
 import UIKit
 
-final class TaskCollectionViewHeaderCell: UICollectionReusableView {
+final class TaskCollectionViewHeaderCell: UIView {
     static let identifier = "TaskCollectionViewHeaderCell"
+    
+    var status: String?
+    var count: Int?
     
     private let statusLabel: UILabel = {
         let label = UILabel()
@@ -45,18 +48,21 @@ final class TaskCollectionViewHeaderCell: UICollectionReusableView {
         super.init(coder: coder)
     }
     
-    func configure(_ status: String, count: Int) {
+    func initializeHeader(_ status: String, count: Int) {
         backgroundColor = .systemGray6
         statusLabel.text = status
         countLabel.text = String(count)
         self.layer.shadowOpacity = 1
-        self.layer.shadowRadius = 3.0
-        self.layer.shadowColor = UIColor.black.cgColor
-
+        self.layer.shadowRadius = 2.0
+        self.layer.shadowColor = UIColor.systemGray4.cgColor
+    }
+    
+    func updateCount(_ count: Int) {
+        countLabel.text = String(count)
     }
     
     private func setStatusLabelConstraint() {
-        addSubview(statusLabel)
+        self.addSubview(statusLabel)
         NSLayoutConstraint.activate([
             statusLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
             statusLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor)
