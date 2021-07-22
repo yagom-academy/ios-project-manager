@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4584667226A7C41D002BBA1C /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 4584667126A7C41D002BBA1C /* .swiftlint.yml */; };
+		B05D4B5926A9578500FA3560 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05D4B5826A9578500FA3560 /* Task.swift */; };
 		C3844F6626A9461F00F91098 /* ItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3844F6526A9461F00F91098 /* ItemTableViewCell.swift */; };
 		C3844F6826A9469800F91098 /* ItemTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3844F6726A9469800F91098 /* ItemTitleLabel.swift */; };
 		C3844F6A26A948C000F91098 /* ItemContentLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3844F6926A948C000F91098 /* ItemContentLabel.swift */; };
@@ -23,6 +24,7 @@
 /* Begin PBXFileReference section */
 		4584667126A7C41D002BBA1C /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		6AA9ADBAB51EE60EC42D341C /* Pods-ProjectManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.release.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.release.xcconfig"; sourceTree = "<group>"; };
+		B05D4B5826A9578500FA3560 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		B1DD1443BF563C703D4187D0 /* Pods_ProjectManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B47A71D921688FA8F8871E6D /* Pods-ProjectManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.debug.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.debug.xcconfig"; sourceTree = "<group>"; };
 		C3844F6526A9461F00F91098 /* ItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTableViewCell.swift; sourceTree = "<group>"; };
@@ -56,6 +58,14 @@
 				B1DD1443BF563C703D4187D0 /* Pods_ProjectManager.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B05D4B5B26A957F200FA3560 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B05D4B5826A9578500FA3560 /* Task.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		C0963E7B6096B092C4ED0896 /* Pods */ = {
@@ -103,6 +113,7 @@
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
 				C3844F6D26A950AD00F91098 /* View */,
+				B05D4B5B26A957F200FA3560 /* Model */,
 				C7431F0925F51E1D0094C4CF /* ViewController.swift */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
@@ -225,6 +236,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B05D4B5926A9578500FA3560 /* Task.swift in Sources */,
 				C3844F6826A9469800F91098 /* ItemTitleLabel.swift in Sources */,
 				C3844F6626A9461F00F91098 /* ItemTableViewCell.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */,
