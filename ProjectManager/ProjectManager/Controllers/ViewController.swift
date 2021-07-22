@@ -40,6 +40,8 @@ class ViewController: UIViewController, TaskAddDelegate , DeleteDelegate {
         self.setUpDoingCollectionView()
         self.setUpDoneCollectionView()
         self.setUpToDoHeader()
+        self.setUpDoingHeader()
+        self.setUpDoneHeader()
     }
     
     private func setCollectionViewConfigure() {
@@ -102,8 +104,8 @@ class ViewController: UIViewController, TaskAddDelegate , DeleteDelegate {
         self.view.addSubview(doingCollectionView)
         self.view.addSubview(doneCollectionView)
         self.view.addSubview(toDoHeader)
-//        self.view.addSubview(doingHeader)
-//        self.view.addSubview(doneHeader)
+        self.view.addSubview(doingHeader)
+        self.view.addSubview(doneHeader)
     }
     
     private func registerCollectionViewCell() {
@@ -138,6 +140,28 @@ class ViewController: UIViewController, TaskAddDelegate , DeleteDelegate {
             self.toDoHeader.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             self.toDoHeader.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1/3, constant: -20/3),
             self.toDoHeader.bottomAnchor.constraint(equalTo: self.toDoCollectionView.topAnchor),
+        ])
+    }
+    
+    private func setUpDoingHeader() {
+        self.doingHeader.translatesAutoresizingMaskIntoConstraints = false
+        doingHeader.backgroundColor = .red
+        NSLayoutConstraint.activate([
+            self.doingHeader.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            self.doingHeader.leadingAnchor.constraint(equalTo: self.doingCollectionView.leadingAnchor),
+            self.doingHeader.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1/3, constant: -20/3),
+            self.doingHeader.bottomAnchor.constraint(equalTo: self.doingCollectionView.topAnchor),
+        ])
+    }
+    
+    private func setUpDoneHeader() {
+        self.doneHeader.translatesAutoresizingMaskIntoConstraints = false
+        doneHeader.backgroundColor = .red
+        NSLayoutConstraint.activate([
+            self.doneHeader.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            self.doneHeader.leadingAnchor.constraint(equalTo: self.doneCollectionView.leadingAnchor),
+            self.doneHeader.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1/3, constant: -20/3),
+            self.doneHeader.bottomAnchor.constraint(equalTo: self.doneCollectionView.topAnchor),
         ])
     }
     
