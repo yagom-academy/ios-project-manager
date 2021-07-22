@@ -236,6 +236,9 @@
                         <subviews>
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="zVE-Qe-fkN">
                                 <rect key="frame" x="0.0" y="104" width="1366" height="216"/>
+                                <connections>
+                                    <action selector="getDeadLine:" destination="O8J-8T-QgR" eventType="valueChanged" id="OXN-to-IyC"/>
+                                </connections>
                             </datePicker>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Fpw-Fc-P2W">
                                 <rect key="frame" x="0.0" y="60" width="1366" height="34"/>
@@ -254,7 +257,11 @@
                                 <items>
                                     <navigationItem title="Title" id="E0r-1u-c7d">
                                         <barButtonItem key="leftBarButtonItem" title="Item" id="fiZ-At-OVf"/>
-                                        <barButtonItem key="rightBarButtonItem" title="Item" id="Dxv-1v-v4O"/>
+                                        <barButtonItem key="rightBarButtonItem" title="Item" systemItem="done" id="Dxv-1v-v4O">
+                                            <connections>
+                                                <action selector="finishEditTask:" destination="O8J-8T-QgR" id="RsJ-I3-tHE"/>
+                                            </connections>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
@@ -277,6 +284,10 @@
                             <constraint firstItem="zVE-Qe-fkN" firstAttribute="top" secondItem="Fpw-Fc-P2W" secondAttribute="bottom" constant="10" id="tEn-x3-ehq"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="taskTextField" destination="Fpw-Fc-P2W" id="tmx-xZ-qRZ"/>
+                        <outlet property="taskTextView" destination="ZA4-H7-4Up" id="uTe-4s-otv"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n1h-r4-Rgh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
