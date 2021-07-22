@@ -13,6 +13,26 @@ Tak, Kane, Steven
   <p>
     - 활동학습(로컬 캐시)   
     - 팀 규칙 정하기
+    - SwiftLint 적용
+  </p>
+  
+  <summary>7/20(화)</summary>
+  <p>
+    - Drag and Drop 개념 정리
+    - Server 팀과의 회의
+  </p>
+  
+  <summary>7/21(수)</summary>
+  <p>
+    - Develop without Storyboard 개념 학습
+    - TableView TitleLabel 구현
+    - TableView(todo, doing, done) 구현
+  </p>
+  
+  <summary>7/22(목)</summary>
+  <p>
+    - 활동학습(AutoLayout Advanced)
+    - Drag and Drop 기본 동작 구현
+    - 원형 Layout UILabel 구현
   </p>
 </details>
-
