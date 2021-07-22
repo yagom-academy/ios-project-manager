@@ -9,4 +9,5 @@ import Foundation
 
 protocol TaskAddDelegate {
     func addData(_ data: Task)
+    func updateData(state: State, indexPath: IndexPath, _ data: Task)
 }

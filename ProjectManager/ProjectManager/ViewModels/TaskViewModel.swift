@@ -51,6 +51,10 @@ class TaskViewModel {
         taskList.remove(at: index)
     }
     
+    func updateTaskIntoTaskList(indexPath: IndexPath, task: Task) {
+        taskList[indexPath.row] = task
+    }
+    
     func getTask() {
         networkManager.get { taskList in
             self.taskList.append(contentsOf: taskList)

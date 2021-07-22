@@ -7,19 +7,28 @@
 
 import UIKit
 
+enum State {
+    case todo
+    case doing
+    case done
+}
+
 final class AddTaskViewController: UIViewController {
     
     enum Mode {
         case add
         case edit
     }
-    
+
     enum EdgeInsert {
         static let descriptionContent = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
     }
     var taskDelegate: TaskAddDelegate?
     var mode: Mode?
+    var state: State?
     var currentData: Task?
+    var editIndexPath: IndexPath?
+
     private var todoTitle: String?
     private var todoDescription: String?
     private let titleTextField: UITextField = {
@@ -70,6 +79,7 @@ final class AddTaskViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationItem.leftBarButtonItem?.tintColor = .systemBlue
         titleTextField.text = nil
         descriptionTextView.text = nil
         todoTitle = nil
@@ -89,6 +99,13 @@ final class AddTaskViewController: UIViewController {
         }
     }
     
+    func setState(mode: Mode, state: State, data: Task?, indexPath: IndexPath?) {
+        self.mode = mode
+        self.state = state
+        self.currentData = data
+        self.editIndexPath = indexPath
+    }
+    
     private func setNavigationItem() {
         let closeButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(pushCloseButton))
         let editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(pushEditButton))
@@ -106,7 +123,10 @@ final class AddTaskViewController: UIViewController {
     }
     
     @objc private func pushEditButton() {
-        
+        titleTextField.isEnabled = true
+        descriptionTextView.isEditable = true
+        datePickerView.isEnabled = true
+        navigationItem.leftBarButtonItem?.tintColor = .gray
     }
     
     @objc private func pushCloseButton() {
@@ -117,17 +137,34 @@ final class AddTaskViewController: UIViewController {
         dismiss(animated: true) {
             // TODO Cell index 0에 추가
             guard let todoTitle = self.todoTitle else {
-                // Alert title is empty
+                // TODO: Alert title is empty
                 return
             }
             
             guard let todoDescription = self.todoDescription else {
-                // Alert description is empty
+                // TODO: Alert description is empty
                 return
             }
             
             let data = Task(taskTitle: todoTitle, taskDescription: todoDescription, taskDeadline: self.datePickerView.date)
-            self.taskDelegate?.addData(data)
+            
+            if self.mode == .add {
+                self.taskDelegate?.addData(data)
+            }
+            
+            if self.mode == .edit {
+                guard let indexPath = self.editIndexPath else { return }
+                switch self.state {
+                case .todo:
+                    self.taskDelegate?.updateData(state: .todo, indexPath: indexPath, data)
+                case .doing:
+                    self.taskDelegate?.updateData(state: .doing, indexPath: indexPath, data)
+                case .done:
+                    self.taskDelegate?.updateData(state: .done, indexPath: indexPath, data)
+                case .none:
+                    return
+                }
+            }
         }
     }
     
