@@ -17,6 +17,7 @@
 		E2738BA526A56AAA00B54228 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = E2738BA426A56AAA00B54228 /* .swiftlint.yml */; };
 		E2738BA826A5CB5100B54228 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2738BA626A5CB5100B54228 /* TableViewCell.swift */; };
 		E2738BA926A5CB5100B54228 /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2738BA726A5CB5100B54228 /* TableViewCell.xib */; };
+		E2F9993326A9439D00E639BA /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F9993226A9439D00E639BA /* Task.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		E2738BA426A56AAA00B54228 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		E2738BA626A5CB5100B54228 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		E2738BA726A5CB5100B54228 /* TableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableViewCell.xib; sourceTree = "<group>"; };
+		E2F9993226A9439D00E639BA /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +67,7 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
+				E2F9993426A943AD00E639BA /* Model */,
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
 				C7431F0925F51E1D0094C4CF /* ViewController.swift */,
@@ -74,9 +77,17 @@
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
 				E2738BA626A5CB5100B54228 /* TableViewCell.swift */,
 				E2738BA726A5CB5100B54228 /* TableViewCell.xib */,
-				76F4BB5826A6C02300F78275 /* TaskAlertViewController.swift */
+				76F4BB5826A6C02300F78275 /* TaskAlertViewController.swift */,
 			);
 			path = ProjectManager;
+			sourceTree = "<group>";
+		};
+		E2F9993426A943AD00E639BA /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E2F9993226A9439D00E639BA /* Task.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -176,6 +187,7 @@
 				E2738BA826A5CB5100B54228 /* TableViewCell.swift in Sources */,
 				76F4BB5926A6C02300F78275 /* TaskAlertViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
+				E2F9993326A9439D00E639BA /* Task.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

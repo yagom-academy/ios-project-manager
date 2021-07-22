@@ -1,0 +1,21 @@
+//
+//  Task.swift
+//  ProjectManager
+//
+//  Created by 배은서 on 2021/07/22.
+//
+
+import Foundation
+
+struct Task: Codable {
+    let id: UUID
+    let title: String
+    let content: String
+    let deadLineDate: Date
+    let classification: String
+    
+    private enum CodingKeys: String, CodingKey {
+        case id, title, content, classification
+        case deadLineDate = "deadline_date"
+    }
+}
