@@ -46,9 +46,12 @@ final class TaskCollectionViewHeaderCell: UICollectionReusableView {
     }
     
     func configure(_ status: String, count: Int) {
-        backgroundColor = .systemGray2
+        backgroundColor = .systemGray6
         statusLabel.text = status
         countLabel.text = String(count)
+        self.layer.shadowOpacity = 1
+        self.layer.shadowRadius = 3.0
+        self.layer.shadowColor = UIColor.black.cgColor
 
     }
     

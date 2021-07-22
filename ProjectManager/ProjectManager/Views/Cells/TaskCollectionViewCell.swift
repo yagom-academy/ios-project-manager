@@ -22,6 +22,12 @@ class TaskCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
+        self.layer.shadowOpacity = 1
+        self.layer.shadowRadius = 1.0
+        self.layer.shadowColor = UIColor.systemGray5.cgColor
+        self.swipeView.layer.cornerRadius = 15
+        self.contentView.layer.cornerRadius = 15
+        self.layer.cornerRadius = 15
     }
     
     required init?(coder: NSCoder) {

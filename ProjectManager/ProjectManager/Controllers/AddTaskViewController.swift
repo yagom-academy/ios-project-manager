@@ -70,7 +70,6 @@ final class AddTaskViewController: UIViewController {
         self.navigationItem.title = "TODO"
         titleTextField.delegate = self
         descriptionTextView.delegate = self
-        setNavigationItem()
         titleTextFieldConstraint()
         datePickerViewConstraint()
         descriptionTextViewConstraint()
@@ -80,6 +79,7 @@ final class AddTaskViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationItem.leftBarButtonItem?.tintColor = .systemBlue
+        setNavigationItem()
         titleTextField.text = nil
         descriptionTextView.text = nil
         todoTitle = nil
@@ -96,7 +96,11 @@ final class AddTaskViewController: UIViewController {
             descriptionTextView.isEditable = false
             datePickerView.setDate(currentData?.taskDeadline ?? Date(), animated: true)
             datePickerView.isEnabled = false
+            return
         }
+        titleTextField.isEnabled = true
+        descriptionTextView.isEditable = true
+        datePickerView.isEnabled = true
     }
     
     func setState(mode: Mode, state: State, data: Task?, indexPath: IndexPath?) {
@@ -111,7 +115,7 @@ final class AddTaskViewController: UIViewController {
         let editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(pushEditButton))
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(pushDoneButton))
         self.navigationItem.leftBarButtonItem = closeButton
-        if let _ = mode {
+        if mode == .edit {
             self.navigationItem.leftBarButtonItem = editButton
         }
         self.navigationItem.rightBarButtonItem = doneButton
