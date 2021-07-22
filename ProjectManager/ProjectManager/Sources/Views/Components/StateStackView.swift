@@ -9,6 +9,8 @@ import UIKit
 
 class StateStackView: UIStackView {
 
+    typealias PMDelegate = UITableViewDataSource & UITableViewDragDelegate & UITableViewDropDelegate
+
     private enum Style {
         static let spacing: CGFloat = 3
     }
@@ -53,9 +55,11 @@ class StateStackView: UIStackView {
 
     // MARK: Initializers
 
-    init(state: Task.State, delegate: UITableViewDataSource) {
+    init(state: Task.State, delegate: PMDelegate) {
         super.init(frame: .zero)
         stateTableView.dataSource = delegate
+        stateTableView.dragDelegate = delegate
+        stateTableView.dropDelegate = delegate
         self.state = state
         setAttributes()
         setSubviews()
