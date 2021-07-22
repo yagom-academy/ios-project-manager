@@ -10,17 +10,19 @@ import Foundation
 struct TaskViewModel {
 
     private let repository = TaskRepository()
-    private var taskOrder = TaskOrder()
+    private(set) var taskOrder = TaskOrder()
     private var tasks: [Task] = []
 
-    mutating func fetchTasks() {
+    mutating func fetchTasks(completion: @escaping () -> Void) {
         repository.fetchTasks { result in
             switch result {
             case .success(let taskList):
                 taskOrder = taskList.taskOrder
                 tasks = taskList.tasks
+                completion()
             case .failure(let error):
                 print(error)
+                completion()
             }
         }
     }

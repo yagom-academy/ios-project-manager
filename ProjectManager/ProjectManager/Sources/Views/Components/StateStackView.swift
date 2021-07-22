@@ -53,13 +53,15 @@ class StateStackView: UIStackView {
 
     // MARK: Initializers
 
-    init(state: Task.State) {
+    init(state: Task.State, delegate: UITableViewDataSource) {
         super.init(frame: .zero)
+        stateTableView.dataSource = delegate
         self.state = state
         setAttributes()
         setSubviews()
         setStateLabel()
         setTaskCountLabel(as: 0)
+        stateTableView.register(TaskCell.self, forCellReuseIdentifier: TaskCell.reuseIdentifier)
     }
 
     required init(coder: NSCoder) {
