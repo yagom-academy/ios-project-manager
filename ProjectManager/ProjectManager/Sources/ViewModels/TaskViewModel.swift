@@ -9,6 +9,11 @@ import Foundation
 
 struct TaskViewModel {
 
+    var added: (() -> Void)?
+    var removed: ((Task.State, Int) -> Void)?
+    var updated: ((Task.State, Int) -> Void)?
+    var inserted: ((Task.State, Int) -> Void)?
+
     private let repository = TaskRepository()
     private(set) var taskOrder = TaskOrder()
     private var tasks: [Task] = []
@@ -42,6 +47,7 @@ struct TaskViewModel {
     mutating func add(_ task: Task) {
         tasks.append(task)
         taskOrder.todo.append(task.id)
+        added?()
     }
 
     mutating func remove(_ task: Task) {
@@ -51,10 +57,13 @@ struct TaskViewModel {
         switch task.state {
         case .todo:
             taskOrder.todo.remove(at: index)
+            removed?(.todo, index)
         case .doing:
             taskOrder.doing.remove(at: index)
+            removed?(.doing, index)
         case .done:
             taskOrder.done.remove(at: index)
+            removed?(.done, index)
         }
     }
 
@@ -66,6 +75,18 @@ struct TaskViewModel {
     mutating func update(_ newTask: Task) {
         guard let index = self.tasks.firstIndex(where: { $0.id == newTask.id }) else { return }
         tasks[index] = newTask
+
+        switch newTask.state {
+        case .todo:
+            taskOrder.todo.remove(at: index)
+            updated?(.todo, index)
+        case .doing:
+            taskOrder.doing.remove(at: index)
+            updated?(.doing, index)
+        case .done:
+            taskOrder.done.remove(at: index)
+            updated?(.done, index)
+        }
     }
 
     private mutating func insert(_ task: Task, to state: Task.State, at destinationIndex: Int) {
@@ -78,10 +99,13 @@ struct TaskViewModel {
         switch state {
         case .todo:
             taskOrder.todo.insert(task.id, at: destinationIndex)
+            inserted?(.todo, destinationIndex)
         case .doing:
             taskOrder.doing.insert(task.id, at: destinationIndex)
+            inserted?(.doing, destinationIndex)
         case .done:
             taskOrder.done.insert(task.id, at: destinationIndex)
+            inserted?(.done, destinationIndex)
         }
     }
 }

@@ -32,6 +32,48 @@ class PMViewController: UIViewController {
         pmStackView.addArrangedSubview(doingStackView)
         pmStackView.addArrangedSubview(doneStackView)
 
+        viewModel.added = { [weak self] in
+            guard let self = self else { return }
+            let indexPaths = [IndexPath(row: self.viewModel.taskOrder.todo.count, section: 0)]
+            self.todoStackView.stateTableView.insertRows(at: indexPaths, with: .automatic)
+        }
+
+        viewModel.removed = { [weak self] state, row in
+            let indexPaths = [IndexPath(row: row, section: 0)]
+            switch state {
+            case .todo:
+                self?.todoStackView.stateTableView.deleteRows(at: indexPaths, with: .automatic)
+            case .doing:
+                self?.doingStackView.stateTableView.deleteRows(at: indexPaths, with: .automatic)
+            case .done:
+                self?.doneStackView.stateTableView.deleteRows(at: indexPaths, with: .automatic)
+            }
+        }
+
+        viewModel.updated = { [weak self] state, row in
+            let indexPaths = [IndexPath(row: row, section: 0)]
+            switch state {
+            case .todo:
+                self?.todoStackView.stateTableView.reloadRows(at: indexPaths, with: .automatic)
+            case .doing:
+                self?.doingStackView.stateTableView.reloadRows(at: indexPaths, with: .automatic)
+            case .done:
+                self?.doneStackView.stateTableView.reloadRows(at: indexPaths, with: .automatic)
+            }
+        }
+
+        viewModel.inserted = { [weak self] state, row in
+            let indexPaths = [IndexPath(row: row, section: 0)]
+            switch state {
+            case .todo:
+                self?.todoStackView.stateTableView.insertRows(at: indexPaths, with: .automatic)
+            case .doing:
+                self?.doingStackView.stateTableView.insertRows(at: indexPaths, with: .automatic)
+            case .done:
+                self?.doneStackView.stateTableView.insertRows(at: indexPaths, with: .automatic)
+            }
+        }
+
         viewModel.fetchTasks {
             DispatchQueue.main.async {
                 self.todoStackView.stateTableView.reloadData()
