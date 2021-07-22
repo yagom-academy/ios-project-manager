@@ -159,16 +159,6 @@ class ViewController: UIViewController {
             titlesStackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
             titlesStackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
             
-            todoLabel.topAnchor.constraint(equalTo: todoView.topAnchor, constant: 15),
-            todoLabel.bottomAnchor.constraint(equalTo: todoView.bottomAnchor, constant: -15),
-            todoLabel.leadingAnchor.constraint(equalTo: todoView.leadingAnchor, constant: 10),
-            doingLabel.topAnchor.constraint(equalTo: doingView.topAnchor, constant: 15),
-            doingLabel.bottomAnchor.constraint(equalTo: doingView.bottomAnchor, constant: -15),
-            doingLabel.leadingAnchor.constraint(equalTo: doingView.leadingAnchor, constant: 10),
-            doneLabel.topAnchor.constraint(equalTo: doneView.topAnchor, constant: 15),
-            doneLabel.bottomAnchor.constraint(equalTo: doneView.bottomAnchor, constant: -15),
-            doneLabel.leadingAnchor.constraint(equalTo: doneView.leadingAnchor, constant: 10),
-            
             todoCountLabel.centerYAnchor.constraint(equalTo: todoLabel.centerYAnchor),
             todoCountLabel.leadingAnchor.constraint(equalTo: todoLabel.trailingAnchor, constant: 8),
             todoCountLabel.widthAnchor.constraint(equalTo: todoCountLabel.heightAnchor),
@@ -179,24 +169,27 @@ class ViewController: UIViewController {
             doneCountLabel.leadingAnchor.constraint(equalTo: doneLabel.trailingAnchor, constant: 8),
             doneCountLabel.widthAnchor.constraint(equalTo: doneCountLabel.heightAnchor)
         ])
+        
+        for (titleLabel, view) in [(todoLabel, todoView), (doingLabel, doingView), (doneLabel, doneView)] {
+            titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 15).isActive = true
+            titleLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -15).isActive = true
+            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
+        }
     }
     
     override func viewDidLayoutSubviews() {
-        todoCountLabel.layer.cornerRadius = todoCountLabel.frame.size.width
-        todoCountLabel.layer.masksToBounds = true
-        doingCountLabel.layer.cornerRadius = doingCountLabel.frame.size.width
-        doingCountLabel.layer.masksToBounds = true
-        doneCountLabel.layer.cornerRadius = doneCountLabel.frame.size.width
-        doneCountLabel.layer.masksToBounds = true
+        for countLabel in [todoCountLabel, doingCountLabel, doneCountLabel] {
+            countLabel.layer.cornerRadius = countLabel.frame.size.width
+            // TODO: 라벨로 나중에 뺴줘야함
+            countLabel.layer.masksToBounds = true
+        }
     }
     
     private func configureTableViews() {
-        todoTableView.register(ItemTableViewCell.self, forCellReuseIdentifier: ItemTableViewCell.identifier)
-        doingTableView.register(ItemTableViewCell.self, forCellReuseIdentifier: ItemTableViewCell.identifier)
-        doneTableView.register(ItemTableViewCell.self, forCellReuseIdentifier: ItemTableViewCell.identifier)
-        todoTableView.dataSource = self
-        doingTableView.dataSource = self
-        doneTableView.dataSource = self
+        for tableview in [todoTableView, doingTableView, doneTableView] {
+            tableview.register(ItemTableViewCell.self, forCellReuseIdentifier: ItemTableViewCell.identifier)
+            tableview.dataSource = self
+        }
     }
     
     override func viewDidLoad() {
