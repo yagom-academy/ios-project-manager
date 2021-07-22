@@ -13,6 +13,12 @@ struct Task: Codable {
     let content: String
     let deadLineDate: Date
     let classification: String
+    var formattedDeadLineDate: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.locale = Locale(identifier: "ko_kr")
+        return dateFormatter.string(from: self.deadLineDate)
+    }
     
     private enum CodingKeys: String, CodingKey {
         case id, title, content, classification
