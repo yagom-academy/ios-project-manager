@@ -171,6 +171,7 @@ class ViewController: UIViewController, TaskAddDelegate , DeleteDelegate {
     
     private func setUpToDoCollectionView() {
         self.toDoCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        self.toDoCollectionView.showsVerticalScrollIndicator = false
         NSLayoutConstraint.activate([
             self.toDoCollectionView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 140),
             self.toDoCollectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
@@ -181,6 +182,7 @@ class ViewController: UIViewController, TaskAddDelegate , DeleteDelegate {
     
     private func setUpDoingCollectionView() {
         self.doingCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        self.doingCollectionView.showsVerticalScrollIndicator = false
         NSLayoutConstraint.activate([
             self.doingCollectionView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 140),
             self.doingCollectionView.leadingAnchor.constraint(equalTo: toDoCollectionView.trailingAnchor, constant: 10),
@@ -191,6 +193,7 @@ class ViewController: UIViewController, TaskAddDelegate , DeleteDelegate {
     
     private func setUpDoneCollectionView() {
         self.doneCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        self.doneCollectionView.showsVerticalScrollIndicator = false
         NSLayoutConstraint.activate([
             self.doneCollectionView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 140),
             self.doneCollectionView.leadingAnchor.constraint(equalTo: doingCollectionView.trailingAnchor, constant: 10),
