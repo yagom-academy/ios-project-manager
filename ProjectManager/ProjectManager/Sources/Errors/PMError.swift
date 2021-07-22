@@ -10,4 +10,5 @@ import Foundation
 enum PMError: Error {
     case invalidAsset
     case decodingFailed
+    case invalidTypeIdentifier
 }

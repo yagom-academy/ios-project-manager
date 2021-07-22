@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class Task: Codable {
+final class Task: NSObject, Codable {
 
     private(set) var id: UUID = UUID()
     var title: String

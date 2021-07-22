@@ -11,6 +11,7 @@
 		02256B8126A7B325001F177D /* TaskOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02256B8026A7B325001F177D /* TaskOrder.swift */; };
 		02F2F4B126A6F08100BBE874 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F2F4B026A6F08100BBE874 /* Task.swift */; };
 		02F2F4B826A7028000BBE874 /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F2F4B726A7028000BBE874 /* TaskViewModel.swift */; };
+		AA126AC126A9724000EF24ED /* Task+NSItemProviderReading.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA126AC026A9724000EF24ED /* Task+NSItemProviderReading.swift */; };
 		AA3267EE26A6F607007C2E60 /* TaskRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3267ED26A6F607007C2E60 /* TaskRepository.swift */; };
 		AA3267F126A6FFC3007C2E60 /* PMError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3267F026A6FFC3007C2E60 /* PMError.swift */; };
 		AA3267F626A7F7F2007C2E60 /* StateStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3267F526A7F7F2007C2E60 /* StateStackView.swift */; };
@@ -29,6 +30,7 @@
 		02256B8026A7B325001F177D /* TaskOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskOrder.swift; sourceTree = "<group>"; };
 		02F2F4B026A6F08100BBE874 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		02F2F4B726A7028000BBE874 /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
+		AA126AC026A9724000EF24ED /* Task+NSItemProviderReading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+NSItemProviderReading.swift"; sourceTree = "<group>"; };
 		AA3267ED26A6F607007C2E60 /* TaskRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRepository.swift; sourceTree = "<group>"; };
 		AA3267F026A6FFC3007C2E60 /* PMError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PMError.swift; sourceTree = "<group>"; };
 		AA3267F526A7F7F2007C2E60 /* StateStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateStackView.swift; sourceTree = "<group>"; };
@@ -59,6 +61,7 @@
 			isa = PBXGroup;
 			children = (
 				02F2F4B026A6F08100BBE874 /* Task.swift */,
+				AA126AC026A9724000EF24ED /* Task+NSItemProviderReading.swift */,
 				02256B7E26A7A857001F177D /* TaskList.swift */,
 				02256B8026A7B325001F177D /* TaskOrder.swift */,
 			);
@@ -277,6 +280,7 @@
 				02F2F4B126A6F08100BBE874 /* Task.swift in Sources */,
 				02256B8126A7B325001F177D /* TaskOrder.swift in Sources */,
 				AA3267F626A7F7F2007C2E60 /* StateStackView.swift in Sources */,
+				AA126AC126A9724000EF24ED /* Task+NSItemProviderReading.swift in Sources */,
 				02F2F4B826A7028000BBE874 /* TaskViewModel.swift in Sources */,
 				AA32681B26A945F7007C2E60 /* Date+Extension.swift in Sources */,
 				AA3267F126A6FFC3007C2E60 /* PMError.swift in Sources */,
