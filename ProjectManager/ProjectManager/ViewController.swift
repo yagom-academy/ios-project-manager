@@ -45,6 +45,18 @@ class ViewController: UIViewController {
         return todoLabel
     }()
     
+    lazy var todoCountLabel: UILabel = {
+        let todoCountLabel: UILabel = UILabel()
+        todoCountLabel.translatesAutoresizingMaskIntoConstraints = false
+        todoCountLabel.backgroundColor = .black
+        todoCountLabel.textColor = .white
+        todoCountLabel.text = "0"
+        todoCountLabel.font = UIFont.preferredFont(forTextStyle: .title2)
+        todoCountLabel.sizeToFit()
+        todoCountLabel.textAlignment = .center
+        return todoCountLabel
+    }()
+    
     lazy var doingView: UIView = {
         let doingView: UIView = UIView()
         doingView.translatesAutoresizingMaskIntoConstraints = false
@@ -103,6 +115,7 @@ class ViewController: UIViewController {
         self.todoView.addSubview(todoLabel)
         self.doingView.addSubview(doingLabel)
         self.doneView.addSubview(doneLabel)
+        self.todoView.addSubview(todoCountLabel)
     }
     
     private func configureConstraints() {
@@ -124,9 +137,17 @@ class ViewController: UIViewController {
             doingLabel.leadingAnchor.constraint(equalTo: doingView.leadingAnchor, constant: 10),
             doneLabel.topAnchor.constraint(equalTo: doneView.topAnchor, constant: 15),
             doneLabel.bottomAnchor.constraint(equalTo: doneView.bottomAnchor, constant: -15),
-            doneLabel.leadingAnchor.constraint(equalTo: doneView.leadingAnchor, constant: 10)
+            doneLabel.leadingAnchor.constraint(equalTo: doneView.leadingAnchor, constant: 10),
             
+            todoCountLabel.centerYAnchor.constraint(equalTo: todoLabel.centerYAnchor),
+            todoCountLabel.leadingAnchor.constraint(equalTo: todoLabel.trailingAnchor, constant: 8),
+            todoCountLabel.widthAnchor.constraint(equalTo: todoCountLabel.heightAnchor)
         ])
+    }
+    
+    override func viewDidLayoutSubviews() {
+        todoCountLabel.layer.cornerRadius = todoCountLabel.frame.size.width
+        todoCountLabel.layer.masksToBounds = true
     }
     
     override func viewDidLoad() {
