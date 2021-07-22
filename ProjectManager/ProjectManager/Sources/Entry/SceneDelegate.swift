@@ -19,6 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let viewController = ViewController()
         viewController.view.backgroundColor = .systemGray4
         let navigationViewController = UINavigationController(rootViewController: viewController)
+        navigationViewController.setToolbarHidden(false, animated: false)
 
         window.rootViewController = navigationViewController
         window.makeKeyAndVisible()

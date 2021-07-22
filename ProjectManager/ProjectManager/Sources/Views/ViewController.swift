@@ -46,7 +46,7 @@ class ViewController: UIViewController {
             pmStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             pmStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             pmStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            pmStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            pmStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
 }
