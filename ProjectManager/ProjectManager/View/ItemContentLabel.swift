@@ -23,6 +23,7 @@ class ItemContentLabel: UILabel {
     }
     
     private func configure() {
+        self.translatesAutoresizingMaskIntoConstraints = false
         self.numberOfLines = 3
         self.lineBreakMode = .byTruncatingTail
         self.font = UIFont.preferredFont(forTextStyle: .body)

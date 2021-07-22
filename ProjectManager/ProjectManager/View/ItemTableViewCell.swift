@@ -8,22 +8,32 @@
 import UIKit
 
 class ItemTableViewCell: UITableViewCell {
+    static let identifier = "itemTableViewCell"
     lazy var titleLabel: ItemTitleLabel = ItemTitleLabel()
     lazy var contentLabel: ItemContentLabel = ItemContentLabel()
     lazy var dateLabel: ItemDateLabel = ItemDateLabel()
     
     lazy var stackView: UIStackView = {
         let stackView: UIStackView = UIStackView(arrangedSubviews: [titleLabel, contentLabel, dateLabel])
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.distribution = .equalSpacing
         stackView.spacing = 5
         return stackView
     }()
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(stackView)
         configureConstraints()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
     }
     
     private func configureConstraints() {
@@ -33,5 +43,11 @@ class ItemTableViewCell: UITableViewCell {
             stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
             stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5)
         ])
+    }
+    
+    func configure(task: Task) {
+        titleLabel.text = task.title
+        contentLabel.text = task.content
+        dateLabel.text = task.deadLine
     }
 }

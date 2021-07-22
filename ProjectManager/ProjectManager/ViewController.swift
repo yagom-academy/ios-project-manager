@@ -8,6 +8,10 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    var todoTasks: [Task] = [Task(title: "할일1", content: "할일내용1", deadLine: "2021.05.12")]
+    var doingTasks: [Task] = [Task(title: "하고있는일1", content: "하고있는일내용1", deadLine: "2021.05.13")]
+    var doneTasks: [Task] = [Task(title: "한일1", content: "한일내용1", deadLine: "2021.05.22")]
+    
     lazy var todoTableView: UITableView = {
         let todoTableView: UITableView = UITableView()
         todoTableView.translatesAutoresizingMaskIntoConstraints = false
@@ -186,6 +190,15 @@ class ViewController: UIViewController {
         doneCountLabel.layer.masksToBounds = true
     }
     
+    private func configureTableViews() {
+        todoTableView.register(ItemTableViewCell.self, forCellReuseIdentifier: ItemTableViewCell.identifier)
+        doingTableView.register(ItemTableViewCell.self, forCellReuseIdentifier: ItemTableViewCell.identifier)
+        doneTableView.register(ItemTableViewCell.self, forCellReuseIdentifier: ItemTableViewCell.identifier)
+        todoTableView.dataSource = self
+        doingTableView.dataSource = self
+        doneTableView.dataSource = self
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "Project Manager"
@@ -193,6 +206,39 @@ class ViewController: UIViewController {
         self.view.backgroundColor = .white
         addSubViews()
         configureConstraints()
+        configureTableViews()
     }
 }
 
+extension ViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        switch tableView {
+        case todoTableView:
+            return todoTasks.count
+        case doingTableView:
+            return doingTasks.count
+        case doneTableView:
+            return doneTasks.count
+        default:
+            return 0
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ItemTableViewCell.identifier) as? ItemTableViewCell else {
+            return UITableViewCell()
+        }
+        
+        switch tableView {
+        case todoTableView:
+            cell.configure(task: todoTasks[indexPath.row])
+        case doingTableView:
+            cell.configure(task: doingTasks[indexPath.row])
+        case doneTableView:
+            cell.configure(task: doneTasks[indexPath.row])
+        default:
+            print("error")
+        }
+        return cell
+    }
+}
