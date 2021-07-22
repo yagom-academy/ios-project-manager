@@ -12,6 +12,7 @@
 		C3484B7326A981FB0054C20A /* ViewController+DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3484B7226A981FB0054C20A /* ViewController+DataSource.swift */; };
 		C3484B7526A9822C0054C20A /* ViewController+DragDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3484B7426A9822C0054C20A /* ViewController+DragDelegate.swift */; };
 		C3484B7726A982360054C20A /* ViewController+DropDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3484B7626A982360054C20A /* ViewController+DropDelegate.swift */; };
+		C3484B7926A9879F0054C20A /* DragCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3484B7826A9879F0054C20A /* DragCoordinator.swift */; };
 		C3844F6626A9461F00F91098 /* ItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3844F6526A9461F00F91098 /* ItemTableViewCell.swift */; };
 		C3844F6826A9469800F91098 /* ItemTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3844F6726A9469800F91098 /* ItemTitleLabel.swift */; };
 		C3844F6A26A948C000F91098 /* ItemContentLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3844F6926A948C000F91098 /* ItemContentLabel.swift */; };
@@ -33,6 +34,7 @@
 		C3484B7226A981FB0054C20A /* ViewController+DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+DataSource.swift"; sourceTree = "<group>"; };
 		C3484B7426A9822C0054C20A /* ViewController+DragDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+DragDelegate.swift"; sourceTree = "<group>"; };
 		C3484B7626A982360054C20A /* ViewController+DropDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+DropDelegate.swift"; sourceTree = "<group>"; };
+		C3484B7826A9879F0054C20A /* DragCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragCoordinator.swift; sourceTree = "<group>"; };
 		C3844F6526A9461F00F91098 /* ItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTableViewCell.swift; sourceTree = "<group>"; };
 		C3844F6726A9469800F91098 /* ItemTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTitleLabel.swift; sourceTree = "<group>"; };
 		C3844F6926A948C000F91098 /* ItemContentLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemContentLabel.swift; sourceTree = "<group>"; };
@@ -70,6 +72,7 @@
 			isa = PBXGroup;
 			children = (
 				B05D4B5826A9578500FA3560 /* Task.swift */,
+				C3484B7826A9879F0054C20A /* DragCoordinator.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -264,6 +267,7 @@
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				C3844F6C26A94A1D00F91098 /* ItemDateLabel.swift in Sources */,
+				C3484B7926A9879F0054C20A /* DragCoordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
