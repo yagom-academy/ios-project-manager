@@ -26,6 +26,7 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setNavigationBar()
         setSubView()
         pmStackView.addArrangedSubview(todoStackView)
         pmStackView.addArrangedSubview(doingStackView)
@@ -40,6 +41,13 @@ class ViewController: UIViewController {
         }
     }
 
+    private func setNavigationBar() {
+        title = "Project Manager"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
+                                                            target: self,
+                                                            action: #selector(addButtonTapped))
+    }
+
     private func setSubView() {
         view.addSubview(pmStackView)
         NSLayoutConstraint.activate([
@@ -49,6 +57,8 @@ class ViewController: UIViewController {
             pmStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
+
+    @objc private func addButtonTapped() { }
 }
 
 extension ViewController: UITableViewDataSource {
