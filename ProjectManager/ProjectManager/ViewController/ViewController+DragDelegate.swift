@@ -23,11 +23,16 @@ extension ViewController: UITableViewDragDelegate {
         
         session.localContext = DragCoordinator(indexPath: indexPath)
         let itemProvider = NSItemProvider(object: task)
-        return [UIDragItem(itemProvider: itemProvider)]
+        let dragItem = UIDragItem(itemProvider: itemProvider)
+        dragItem.localObject = task
+        
+        return [dragItem]
     }
     
     func tableView(_ tableView: UITableView, dragSessionDidEnd session: UIDragSession) {
-        guard let dragCoordinator = session.localContext as? DragCoordinator else { return }
+        guard let dragCoordinator = session.localContext as? DragCoordinator,
+              dragCoordinator.dragCompleted == true,
+              dragCoordinator.isReordering == false else { return }
         if tableView == todoTableView {
             todoTasks.remove(at: dragCoordinator.indexPath.row)
         } else if tableView == doingTableView {

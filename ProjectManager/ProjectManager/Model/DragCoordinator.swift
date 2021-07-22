@@ -8,6 +8,8 @@
 import Foundation
 
 class DragCoordinator {
+    var isReordering: Bool = false
+    var dragCompleted: Bool = false
     let indexPath: IndexPath
     
     init(indexPath: IndexPath) {
