@@ -17,6 +17,7 @@ class ViewController: UIViewController, TaskAddDelegate , DeleteDelegate {
     var draggedCollectionViewIndexPath: IndexPath?
     let addTaskViewController = AddTaskViewController()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "Project Manager"
