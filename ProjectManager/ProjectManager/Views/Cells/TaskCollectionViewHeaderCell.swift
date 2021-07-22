@@ -49,7 +49,7 @@ final class TaskCollectionViewHeaderCell: UICollectionReusableView {
         backgroundColor = .systemGray2
         statusLabel.text = status
         countLabel.text = String(count)
-        
+
     }
     
     private func setStatusLabelConstraint() {

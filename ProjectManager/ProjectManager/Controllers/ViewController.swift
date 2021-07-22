@@ -62,6 +62,7 @@ class ViewController: UIViewController, TaskAddDelegate , DeleteDelegate {
     
     @objc private func addTask() {
         addTaskViewController.modalPresentationStyle = .formSheet
+        addTaskViewController.setState(mode: .add, state: .todo, data: nil, indexPath: nil)
         present(UINavigationController(rootViewController: addTaskViewController), animated: true, completion: nil)
     }
     
@@ -70,6 +71,19 @@ class ViewController: UIViewController, TaskAddDelegate , DeleteDelegate {
         toDoCollectionView.reloadData()
     }
     
+    func updateData(state: State, indexPath: IndexPath, _ data: Task) {
+        switch state {
+        case .todo:
+            toDoViewModel.updateTaskIntoTaskList(indexPath: indexPath, task: data)
+            toDoCollectionView.reloadData()
+        case .doing:
+            doingViewModel.updateTaskIntoTaskList(indexPath: indexPath, task: data)
+            doingCollectionView.reloadData()
+        case .done:
+            doneViewModel.updateTaskIntoTaskList(indexPath: indexPath, task: data)
+            doneCollectionView.reloadData()
+        }
+        
     func deleteTask(collectionView: UICollectionView, indexPath: IndexPath) {
         self.findViewModel(collectionView: collectionView)?.deleteTaskFromTaskList(index: indexPath.row)
         collectionView.deleteItems(at: [indexPath])
@@ -108,9 +122,9 @@ class ViewController: UIViewController, TaskAddDelegate , DeleteDelegate {
     private func setUpToDoCollectionView(layoutGuide: UILayoutGuide) {
         self.toDoCollectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            self.toDoCollectionView.topAnchor.constraint(equalTo: layoutGuide.topAnchor, constant: 10),
-            self.toDoCollectionView.leadingAnchor.constraint(equalTo: layoutGuide.leadingAnchor, constant: 10),
-            self.toDoCollectionView.widthAnchor.constraint(equalTo: layoutGuide.widthAnchor, multiplier: 1/3, constant: -40/3),
+            self.toDoCollectionView.topAnchor.constraint(equalTo: layoutGuide.topAnchor),
+            self.toDoCollectionView.leadingAnchor.constraint(equalTo: layoutGuide.leadingAnchor),
+            self.toDoCollectionView.widthAnchor.constraint(equalTo: layoutGuide.widthAnchor, multiplier: 1/3, constant: -20/3),
             self.toDoCollectionView.bottomAnchor.constraint(equalTo: layoutGuide.bottomAnchor, constant: 10),
         ])
     }
@@ -118,9 +132,9 @@ class ViewController: UIViewController, TaskAddDelegate , DeleteDelegate {
     private func setUpDoingCollectionView(layoutGuide: UILayoutGuide) {
         self.doingCollectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            self.doingCollectionView.topAnchor.constraint(equalTo: layoutGuide.topAnchor, constant: 10),
+            self.doingCollectionView.topAnchor.constraint(equalTo: layoutGuide.topAnchor),
             self.doingCollectionView.leadingAnchor.constraint(equalTo: toDoCollectionView.trailingAnchor, constant: 10),
-            self.doingCollectionView.widthAnchor.constraint(equalTo: layoutGuide.widthAnchor, multiplier: 1/3, constant: -40/3),
+            self.doingCollectionView.widthAnchor.constraint(equalTo: layoutGuide.widthAnchor, multiplier: 1/3, constant: -20/3),
             self.doingCollectionView.bottomAnchor.constraint(equalTo: layoutGuide.bottomAnchor, constant: 10),
         ])
     }
@@ -128,10 +142,10 @@ class ViewController: UIViewController, TaskAddDelegate , DeleteDelegate {
     private func setUpDoneCollectionView(layoutGuide: UILayoutGuide) {
         self.doneCollectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            self.doneCollectionView.topAnchor.constraint(equalTo: layoutGuide.topAnchor, constant: 10),
+            self.doneCollectionView.topAnchor.constraint(equalTo: layoutGuide.topAnchor),
             self.doneCollectionView.leadingAnchor.constraint(equalTo: doingCollectionView.trailingAnchor, constant: 10),
-            self.doneCollectionView.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor, constant: -10),
-            self.doneCollectionView.widthAnchor.constraint(equalTo: layoutGuide.widthAnchor, multiplier: 1/3, constant: -40/3),
+            self.doneCollectionView.trailingAnchor.constraint(equalTo: layoutGuide.trailingAnchor),
+            self.doneCollectionView.widthAnchor.constraint(equalTo: layoutGuide.widthAnchor, multiplier: 1/3, constant: -20/3),
             self.doneCollectionView.bottomAnchor.constraint(equalTo: layoutGuide.bottomAnchor, constant: 10),
         ])
     }
@@ -178,9 +192,19 @@ class ViewController: UIViewController, TaskAddDelegate , DeleteDelegate {
 
 extension ViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let addTaskViewController = AddTaskViewController()
-        addTaskViewController.mode = "edit"
+        addTaskViewController.mode = .edit
         addTaskViewController.modalPresentationStyle = .formSheet
+        switch collectionView {
+        case toDoCollectionView:
+            addTaskViewController.setState(mode: .edit, state: .todo, data: toDoViewModel.referTask(at: indexPath), indexPath: indexPath)
+        case doingCollectionView:
+            addTaskViewController.setState(mode: .edit, state: .doing, data: doingViewModel.referTask(at: indexPath), indexPath: indexPath)
+        case doneCollectionView:
+            addTaskViewController.setState(mode: .edit, state: .done, data: doneViewModel.referTask(at: indexPath), indexPath: indexPath)
+        default:
+            return
+        }
+        
         present(UINavigationController(rootViewController: addTaskViewController), animated: true, completion: nil)
     }
 }
@@ -233,6 +257,7 @@ extension ViewController: UICollectionViewDataSource {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader,
                                                                      withReuseIdentifier: TaskCollectionViewHeaderCell.identifier,
                                                                      for: indexPath) as! TaskCollectionViewHeaderCell
+        print(indexPath)
         switch collectionView {
         case toDoCollectionView:
             header.configure("TODO", count: toDoViewModel.taskListCount())
@@ -260,6 +285,10 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
         }
         return CGSize(width: width, height: dummyCell.getEstimatedHeight())
     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)
+    }
 }
 
 extension ViewController: UICollectionViewDragDelegate {
@@ -278,24 +307,44 @@ extension ViewController: UICollectionViewDragDelegate {
 extension ViewController: UICollectionViewDropDelegate {
     func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator) {
         let destinationIndexPath = coordinator.destinationIndexPath ?? IndexPath(item: 0, section: 0)
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader,
+                                                                     withReuseIdentifier: TaskCollectionViewHeaderCell.identifier,
+                                                                     for: IndexPath(row: 0, section: 0)) as! TaskCollectionViewHeaderCell
         
         coordinator.session.loadObjects(ofClass: Task.self) { [weak self] taskList in
             collectionView.performBatchUpdates({
                 guard let task = taskList[0] as? Task,
                       let dropViewModel = self?.findViewModel(collectionView: collectionView),
-                      let dragCollectionViewIndexPath = self?.draggedCollectionViewIndexPath else {
+                      let dragCollectionViewIndexPath = self?.draggedCollectionViewIndexPath,
+                      let headerTitle = self?.findHeaderTitle(collectionView)
+                      else {
                     return
                 }
                 self?.draggedCollectionView?.deleteItems(at: [dragCollectionViewIndexPath])
                 collectionView.insertItems(at: [destinationIndexPath])
+                header.configure(headerTitle, count: dropViewModel.taskListCount())
                 self?.removeDraggedCollectionViewItem()
                 dropViewModel.insertTaskIntoTaskList(index: destinationIndexPath.row, task: Task(taskTitle: task.taskTitle, taskDescription: task.taskDescription, taskDeadline: task.taskDeadline))
                 self?.setDraggedItemToNil()
             })
         }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UICollectionViewDropProposal {
         return UICollectionViewDropProposal(operation: .copy, intent: .insertAtDestinationIndexPath)
+    }
+    
+    private func findHeaderTitle(_ collecionView: UICollectionView) -> String {
+        switch collecionView {
+        case toDoCollectionView:
+            return "TODO"
+        case doingCollectionView:
+            return "DOING"
+        case doneCollectionView:
+            return "DONE"
+        default:
+            return ""
+        }
     }
 }
