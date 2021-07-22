@@ -32,6 +32,9 @@ class TaskAlertViewController: UIViewController {
     
     @IBAction func getDeadLine(_ sender: UIDatePicker) {
         let datePicker = sender
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        tempDeadLine = formatter.string(from: datePicker.date)
     }
     
     @IBAction func finishEditTask(_ sender: Any) {
