@@ -28,6 +28,7 @@ class ViewController: UIViewController, TaskAddDelegate , DeleteDelegate {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.navigationBar.backgroundColor = .systemGray2
         self.navigationItem.title = "Project Manager"
         self.setAddTask()
         self.setCollectionViewConfigure()
