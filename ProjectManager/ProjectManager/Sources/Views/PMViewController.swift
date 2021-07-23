@@ -104,7 +104,10 @@ class PMViewController: UIViewController {
         ])
     }
 
-    @objc private func addButtonTapped() { }
+    @objc private func addButtonTapped() {
+        let taskEditViewController = UINavigationController(rootViewController: TaskEditViewController())
+        present(taskEditViewController, animated: true, completion: nil)
+    }
 }
 
 extension PMViewController: UITableViewDataSource {
@@ -157,5 +160,25 @@ extension PMViewController: UITableViewDataSource {
         default:
             break
         }
+    }
+}
+
+extension PMViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let taskEditViewController = TaskEditViewController()
+
+        switch tableView {
+        case self.todoStackView.stateTableView:
+            taskEditViewController.task = viewModel.task(from: .todo, at: indexPath.row)
+        case self.doingStackView.stateTableView:
+            taskEditViewController.task = viewModel.task(from: .doing, at: indexPath.row)
+        case self.doneStackView.stateTableView:
+            taskEditViewController.task = viewModel.task(from: .done, at: indexPath.row)
+        default:
+            break
+        }
+
+        present(UINavigationController(rootViewController: taskEditViewController), animated: true, completion: nil)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
