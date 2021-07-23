@@ -6,7 +6,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, TaskAddDelegate , DeleteDelegate {
+class ProjectManagerViewController: UIViewController, TaskAddDelegate , DeleteDelegate {
     let toDoViewModel = TaskViewModel()
     let doingViewModel = TaskViewModel()
     let doneViewModel = TaskViewModel()
@@ -256,7 +256,7 @@ class ViewController: UIViewController, TaskAddDelegate , DeleteDelegate {
     }
 }
 
-extension ViewController: UICollectionViewDelegate {
+extension ProjectManagerViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         addTaskViewController.mode = .edit
         addTaskViewController.modalPresentationStyle = .formSheet
@@ -275,7 +275,7 @@ extension ViewController: UICollectionViewDelegate {
     }
 }
 
-extension ViewController: UICollectionViewDataSource {
+extension ProjectManagerViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == self.toDoCollectionView {
             return toDoViewModel.taskListCount()
@@ -321,7 +321,7 @@ extension ViewController: UICollectionViewDataSource {
     
 }
 
-extension ViewController: UICollectionViewDelegateFlowLayout {
+extension ProjectManagerViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.frame.width
         let dummyCell = TaskCollectionViewCell(frame: CGRect(x: 0, y: 0, width: width, height: 500.0))
@@ -336,7 +336,7 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-extension ViewController: UICollectionViewDragDelegate {
+extension ProjectManagerViewController: UICollectionViewDragDelegate {
     func collectionView(_ collectionView: UICollectionView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
         guard let task = findTask(collectionView: collectionView, indexPath: indexPath) else {
             return []
@@ -349,7 +349,7 @@ extension ViewController: UICollectionViewDragDelegate {
     }
 }
 
-extension ViewController: UICollectionViewDropDelegate {
+extension ProjectManagerViewController: UICollectionViewDropDelegate {
     func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator) {
         let destinationIndexPath = coordinator.destinationIndexPath ?? IndexPath(item: 0, section: 0)
         
