@@ -69,6 +69,11 @@ struct TaskViewModel {
         }
     }
 
+    mutating func remove(state: Task.State, at index: Int) {
+        guard let task = task(by: taskOrder[state][index]) else { return }
+        remove(task)
+    }
+
     mutating func move(_ task: Task, to state: Task.State, at destinationIndex: Int) {
         remove(task)
         insert(task, to: state, at: destinationIndex)

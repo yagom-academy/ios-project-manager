@@ -181,4 +181,23 @@ extension PMViewController: UITableViewDelegate {
         present(UINavigationController(rootViewController: taskEditViewController), animated: true, completion: nil)
         tableView.deselectRow(at: indexPath, animated: true)
     }
+
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            switch tableView {
+            case todoStackView.stateTableView:
+                viewModel.remove(state: .todo, at: indexPath.row)
+            case doingStackView.stateTableView:
+                viewModel.remove(state: .doing, at: indexPath.row)
+            case doneStackView.stateTableView:
+                viewModel.remove(state: .done, at: indexPath.row)
+            default:
+                break
+            }
+        }
+    }
 }
