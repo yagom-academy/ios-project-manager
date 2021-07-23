@@ -27,22 +27,9 @@ class ViewController: UIViewController {
         setTableView(doingTableView)
         setTableView(doneTableView)
         
-        guard let todoData = NSDataAsset(name: "todo"),
-              let doingData = NSDataAsset(name: "doing"),
-              let doneData = NSDataAsset(name: "done") else { return }
-        
-        let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .formatted(DateFormatter.iso8601Full)
-        
-        do {
-            todos = try decoder.decode([Task].self, from: todoData.data)
-            doings = try decoder.decode([Task].self, from: doingData.data)
-            dones = try decoder.decode([Task].self, from: doneData.data)
-        } catch {
-            print("디코드에러")
-        }
-        
         setLabelToCircle()
+        
+        fetchData()
     }
     
     private func setTableView(_ tableView: UITableView) {
@@ -63,6 +50,23 @@ class ViewController: UIViewController {
         todoCountLabel.text = "\(todos.count)"
         doingCountLabel.text = "\(doings.count)"
         doneCountLabel.text = "\(dones.count)"
+    }
+    
+    private func fetchData() {
+        guard let todoData = NSDataAsset(name: "todo"),
+              let doingData = NSDataAsset(name: "doing"),
+              let doneData = NSDataAsset(name: "done") else { return }
+        
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .formatted(DateFormatter.iso8601Full)
+        
+        do {
+            todos = try decoder.decode([Task].self, from: todoData.data)
+            doings = try decoder.decode([Task].self, from: doingData.data)
+            dones = try decoder.decode([Task].self, from: doneData.data)
+        } catch {
+            print("디코드에러")
+        }
     }
     
     @IBAction func addTask(_ sender: UIBarButtonItem) {
