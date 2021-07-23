@@ -53,6 +53,7 @@ final class StateStackView: UIStackView {
     let stateTableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .systemGray6
+        tableView.tableFooterView = UIView()
         return tableView
     }()
 
