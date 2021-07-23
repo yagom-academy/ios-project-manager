@@ -136,12 +136,14 @@ final class TaskEditViewController: UIViewController {
     }
     @objc private func cancelButtonTapped() {
         toggleEditMode()
+        configure()
         navigationItem.leftBarButtonItem = editButton
     }
 
     private func configure() {
         guard let task = task else { return }
         titleTextField.text = task.title
+        dueDatePicker.date = task.dueDate
         bodyTextView.text = task.body
     }
 
