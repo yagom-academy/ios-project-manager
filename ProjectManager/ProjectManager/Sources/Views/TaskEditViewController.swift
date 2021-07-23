@@ -28,16 +28,16 @@ final class TaskEditViewController: UIViewController {
     // MARK: Views
 
     private lazy var editButton = UIBarButtonItem(title: Style.editButtonTitle,
-                                     style: .plain,
-                                     target: self,
-                                     action: #selector(editButtonTapped))
+                                                  style: .plain,
+                                                  target: self,
+                                                  action: #selector(editButtonTapped))
     private lazy var doneButton = UIBarButtonItem(title: Style.doneButtonTitle,
-                                     style: .done, target: self,
-                                     action: #selector(doneButtonTapped))
+                                                  style: .done, target: self,
+                                                  action: #selector(doneButtonTapped))
     private lazy var cancelButton = UIBarButtonItem(title: Style.cancelButtonTitle,
-                                       style: .plain,
-                                       target: self,
-                                       action: #selector(cancelButtonTapped))
+                                                    style: .plain,
+                                                    target: self,
+                                                    action: #selector(cancelButtonTapped))
 
     private let titleTextField: TaskEditTitleTextField = {
         let textField = TaskEditTitleTextField()
