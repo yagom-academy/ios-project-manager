@@ -58,14 +58,9 @@ class TaskFormViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // leftbutton
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "cancel", style: .plain, target: self, action: nil)
-        // rightbutton
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "done", style: .plain, target: self, action: nil)
-        
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "cancel", style: .plain, target: self, action: #selector(clickLeftBarButton))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "done", style: .plain, target: self, action: #selector(clickRightBarButton))
         self.navigationItem.title = "TODO"
-        
         self.view.backgroundColor = .systemBackground
         view.addSubview(stackView)
         configureConstraints()
@@ -81,6 +76,24 @@ class TaskFormViewController: UIViewController {
         ])
     }
     
+    @objc private func clickLeftBarButton() {
+        self.dismiss(animated: true, completion: nil)
+    } 
     
+    @objc private func clickRightBarButton() {
+        guard let navigationViewController = self.presentingViewController as? UINavigationController,
+              let viewController = navigationViewController.topViewController as? ViewController else { return }
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: Locale.current.identifier)
+        dateFormatter.dateFormat = "yyyy.MM.dd"
+        let dateText = dateFormatter.string(from: datePicker.date)
+        
+        let task = Task(title: titleTextField.text!, content: contentTextView.text!, deadLine: dateText, state: "todo")
+        
+        viewController.addNewTask(task)
+        
+        self.dismiss(animated: true, completion: nil)
+    }
     
 }

@@ -38,6 +38,7 @@ class ItemDateLabel: UILabel {
             self.textColor = .systemRed
         }
         
+        // TODO: 하나의 데이터 처리 객체 만들기
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: Locale.current.identifier)
         dateFormatter.dateFormat = "yyyy.MM.dd"

@@ -227,4 +227,13 @@ class ViewController: UIViewController {
         self.present(navigationController, animated: true, completion: nil)
         
     }
+    
+    func addNewTask(_ task: Task) {
+        let numberOfTasks = todoTableView.numberOfRows(inSection: 0)
+        todoTableViewDataSource.addTask(task, at: numberOfTasks)
+        
+        todoTableView.performBatchUpdates {
+            todoTableView.insertRows(at: [IndexPath(row: numberOfTasks, section: 0)], with: .automatic)
+        }
+    }
 }
