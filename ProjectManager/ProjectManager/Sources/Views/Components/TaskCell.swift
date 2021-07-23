@@ -25,6 +25,7 @@ final class TaskCell: UITableViewCell {
     let bodyLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .subheadline)
+        label.textColor = UIColor.gray
         label.numberOfLines = 3
         return label
     }()
@@ -62,6 +63,7 @@ final class TaskCell: UITableViewCell {
         titleLabel.text = task?.title
         bodyLabel.text = task?.body
         dueDateLabel.text = task?.dueDate.formatted
+        setStyle(with: task)
     }
 
     func setLayout() {
@@ -78,5 +80,10 @@ final class TaskCell: UITableViewCell {
         contentStackView.addArrangedSubview(bodyLabel)
         contentStackView.addArrangedSubview(dueDateLabel)
         contentView.addSubview(contentStackView)
+    }
+
+    func setStyle(with task: Task?) {
+        guard let task = task else { return }
+        dueDateLabel.textColor = task.dueDate > Date() ? UIColor.label : UIColor.systemRed
     }
 }
