@@ -35,7 +35,7 @@ class PMViewController: UIViewController {
         viewModel.added = { [weak self] in
             guard let self = self else { return }
             let indexPaths = [IndexPath(row: self.viewModel.taskOrder.todo.count, section: 0)]
-            self.todoStackView.stateTableView.insertRows(at: indexPaths, with: .automatic)
+            self.todoStackView.stateTableView.insertRows(at: indexPaths, with: .none)
         }
 
         viewModel.removed = { [weak self] state, row in
@@ -43,11 +43,11 @@ class PMViewController: UIViewController {
             DispatchQueue.main.async {
                 switch state {
                 case .todo:
-                    self?.todoStackView.stateTableView.deleteRows(at: indexPaths, with: .automatic)
+                    self?.todoStackView.stateTableView.deleteRows(at: indexPaths, with: .none)
                 case .doing:
-                    self?.doingStackView.stateTableView.deleteRows(at: indexPaths, with: .automatic)
+                    self?.doingStackView.stateTableView.deleteRows(at: indexPaths, with: .none)
                 case .done:
-                    self?.doneStackView.stateTableView.deleteRows(at: indexPaths, with: .automatic)
+                    self?.doneStackView.stateTableView.deleteRows(at: indexPaths, with: .none)
                 }
             }
         }
@@ -56,11 +56,11 @@ class PMViewController: UIViewController {
             let indexPaths = [IndexPath(row: row, section: 0)]
             switch state {
             case .todo:
-                self?.todoStackView.stateTableView.reloadRows(at: indexPaths, with: .automatic)
+                self?.todoStackView.stateTableView.reloadRows(at: indexPaths, with: .none)
             case .doing:
-                self?.doingStackView.stateTableView.reloadRows(at: indexPaths, with: .automatic)
+                self?.doingStackView.stateTableView.reloadRows(at: indexPaths, with: .none)
             case .done:
-                self?.doneStackView.stateTableView.reloadRows(at: indexPaths, with: .automatic)
+                self?.doneStackView.stateTableView.reloadRows(at: indexPaths, with: .none)
             }
         }
 
@@ -69,11 +69,11 @@ class PMViewController: UIViewController {
             DispatchQueue.main.async {
                 switch state {
                 case .todo:
-                    self?.todoStackView.stateTableView.insertRows(at: indexPaths, with: .automatic)
+                    self?.todoStackView.stateTableView.insertRows(at: indexPaths, with: .none)
                 case .doing:
-                    self?.doingStackView.stateTableView.insertRows(at: indexPaths, with: .automatic)
+                    self?.doingStackView.stateTableView.insertRows(at: indexPaths, with: .none)
                 case .done:
-                    self?.doneStackView.stateTableView.insertRows(at: indexPaths, with: .automatic)
+                    self?.doneStackView.stateTableView.insertRows(at: indexPaths, with: .none)
                 }
             }
         }
