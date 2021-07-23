@@ -60,7 +60,7 @@ class ViewController: UIViewController {
         todoCountLabel.textColor = .white
         todoCountLabel.text = "0"
         todoCountLabel.font = UIFont.preferredFont(forTextStyle: .title2)
-        todoCountLabel.sizeToFit()
+//        todoCountLabel.sizeToFit()
         todoCountLabel.textAlignment = .center
         return todoCountLabel
     }()
@@ -88,7 +88,7 @@ class ViewController: UIViewController {
         doingCountLabel.textColor = .white
         doingCountLabel.text = "0"
         doingCountLabel.font = UIFont.preferredFont(forTextStyle: .title2)
-        doingCountLabel.sizeToFit()
+//        doingCountLabel.sizeToFit()
         doingCountLabel.textAlignment = .center
         return doingCountLabel
     }()
@@ -116,7 +116,7 @@ class ViewController: UIViewController {
         doneCountLabel.textColor = .white
         doneCountLabel.text = "0"
         doneCountLabel.font = UIFont.preferredFont(forTextStyle: .title2)
-        doneCountLabel.sizeToFit()
+//        doneCountLabel.sizeToFit()
         doneCountLabel.textAlignment = .center
         return doneCountLabel
     }()
@@ -183,9 +183,12 @@ class ViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         for countLabel in [todoCountLabel, doingCountLabel, doneCountLabel] {
-            countLabel.layer.cornerRadius = countLabel.frame.size.width
+//            countLabel.setNeedsLayout()
+//            countLabel.layoutIfNeeded()
+            countLabel.layer.cornerRadius = countLabel.frame.size.height / 2
             // TODO: 라벨로 나중에 뺴줘야함
             countLabel.layer.masksToBounds = true
+            print(countLabel.frame.size)
         }
     }
     
@@ -217,6 +220,16 @@ class ViewController: UIViewController {
         addSubViews()
         configureConstraints()
         configureTableViews()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        for countLabel in [todoCountLabel, doingCountLabel, doneCountLabel] {
+            countLabel.layer.cornerRadius = countLabel.frame.size.height / 2
+            // TODO: 라벨로 나중에 뺴줘야함
+            countLabel.layer.masksToBounds = true
+            print(countLabel.frame.size)
+        }
     }
     
     @objc func clickAddBarButton() {
