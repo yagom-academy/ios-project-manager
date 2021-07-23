@@ -7,18 +7,40 @@
 
 import UIKit
 
+enum FormType {
+    case edit
+    case add
+}
+
 class TaskFormViewController: UIViewController {
-    var type: String?
-    
-    convenience init() {
-        print("convenience init")
-        self.init(type: nil)
+    var type: FormType = .edit {
+        didSet {
+            configureLeftBarButtonItem(type: type)
+        }
     }
-    
-    init(type: String?) {
-        print("init")
+   
+    init(type: FormType) {
         self.type = type
         super.init(nibName: nil, bundle: nil)
+        self.configureLeftBarButtonItem(type: type)
+    }
+    
+    private func configureLeftBarButtonItem(type: FormType) {
+        switch type {
+        case .edit:
+            self.view.isUserInteractionEnabled = false
+            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Edit",
+                                                               style: .plain,
+                                                               target: self,
+                                                               action: #selector(editTask))
+        case .add:
+            self.view.isUserInteractionEnabled = true
+            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel",
+                                                               style: .plain,
+                                                               target: self,
+                                                               action: #selector(clickLeftBarButton))
+        }
+//        let buttonTitle = type == .edit ? "Edit" : "Cancel"
     }
     
     required init?(coder: NSCoder) {
@@ -58,9 +80,7 @@ class TaskFormViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "cancel", style: .plain, target: self, action: #selector(clickLeftBarButton))
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "done", style: .plain, target: self, action: #selector(clickRightBarButton))
-        self.navigationItem.title = "TODO"
         self.view.backgroundColor = .systemBackground
         view.addSubview(stackView)
         configureConstraints()
@@ -74,6 +94,12 @@ class TaskFormViewController: UIViewController {
             stackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 10),
             stackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -10)
         ])
+    }
+    
+    @objc private func editTask() {
+        self.view.isUserInteractionEnabled = true
+        //todo: 키보드 입력 후 datepicker 조정시 키보드가 내려가도록 설정
+        self.titleTextField.becomeFirstResponder()
     }
     
     @objc private func clickLeftBarButton() {
@@ -103,5 +129,6 @@ class TaskFormViewController: UIViewController {
         dateFormatter.dateFormat = "yyyy.MM.dd"
         guard let date = dateFormatter.date(from: task.deadLine) else { return }
         datePicker.date = date
+        navigationItem.title = task.state.uppercased()
     }
 }

@@ -221,7 +221,7 @@ class ViewController: UIViewController {
     
     @objc func clickAddBarButton() {
         print("addbuttonClick")
-        let taskFormViewController = TaskFormViewController(type: "add")
+        let taskFormViewController = TaskFormViewController(type: .add)
         let navigationController = UINavigationController(rootViewController: taskFormViewController)
         
         navigationController.modalPresentationStyle = .formSheet

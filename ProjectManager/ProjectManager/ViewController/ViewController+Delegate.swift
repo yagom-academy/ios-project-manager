@@ -12,7 +12,7 @@ extension ViewController: UITableViewDelegate {
         
         let dataSource = dataSourceForTableView(tableView)
         let task = dataSource.getTask(indexPath)
-        let taskFormViewController = TaskFormViewController(type: "edit")
+        let taskFormViewController = TaskFormViewController(type: .edit)
         taskFormViewController.configureViews(task)
         let navigationController = UINavigationController(rootViewController: taskFormViewController)
         
