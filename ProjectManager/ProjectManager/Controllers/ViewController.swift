@@ -135,7 +135,7 @@ class ViewController: UIViewController, TaskAddDelegate , DeleteDelegate {
     
     private func setUpToDoHeader() {
         self.toDoHeader.translatesAutoresizingMaskIntoConstraints = false
-        self.toDoHeader.initializeHeader("DONE", count: toDoViewModel.taskListCount())
+        self.toDoHeader.initializeHeader("TODO", count: toDoViewModel.taskListCount())
         toDoHeader.backgroundColor = .systemGray6
         NSLayoutConstraint.activate([
             self.toDoHeader.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 0),
@@ -147,7 +147,7 @@ class ViewController: UIViewController, TaskAddDelegate , DeleteDelegate {
     
     private func setUpDoingHeader() {
         self.doingHeader.translatesAutoresizingMaskIntoConstraints = false
-        self.doingHeader.initializeHeader("DONE", count: doingViewModel.taskListCount())
+        self.doingHeader.initializeHeader("DOING", count: doingViewModel.taskListCount())
         doingHeader.backgroundColor = .systemGray6
         NSLayoutConstraint.activate([
             self.doingHeader.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
