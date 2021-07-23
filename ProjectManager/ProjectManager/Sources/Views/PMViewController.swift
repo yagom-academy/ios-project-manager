@@ -40,13 +40,15 @@ class PMViewController: UIViewController {
 
         viewModel.removed = { [weak self] state, row in
             let indexPaths = [IndexPath(row: row, section: 0)]
-            switch state {
-            case .todo:
-                self?.todoStackView.stateTableView.deleteRows(at: indexPaths, with: .automatic)
-            case .doing:
-                self?.doingStackView.stateTableView.deleteRows(at: indexPaths, with: .automatic)
-            case .done:
-                self?.doneStackView.stateTableView.deleteRows(at: indexPaths, with: .automatic)
+            DispatchQueue.main.async {
+                switch state {
+                case .todo:
+                    self?.todoStackView.stateTableView.deleteRows(at: indexPaths, with: .automatic)
+                case .doing:
+                    self?.doingStackView.stateTableView.deleteRows(at: indexPaths, with: .automatic)
+                case .done:
+                    self?.doneStackView.stateTableView.deleteRows(at: indexPaths, with: .automatic)
+                }
             }
         }
 
@@ -64,13 +66,15 @@ class PMViewController: UIViewController {
 
         viewModel.inserted = { [weak self] state, row in
             let indexPaths = [IndexPath(row: row, section: 0)]
-            switch state {
-            case .todo:
-                self?.todoStackView.stateTableView.insertRows(at: indexPaths, with: .automatic)
-            case .doing:
-                self?.doingStackView.stateTableView.insertRows(at: indexPaths, with: .automatic)
-            case .done:
-                self?.doneStackView.stateTableView.insertRows(at: indexPaths, with: .automatic)
+            DispatchQueue.main.async {
+                switch state {
+                case .todo:
+                    self?.todoStackView.stateTableView.insertRows(at: indexPaths, with: .automatic)
+                case .doing:
+                    self?.doingStackView.stateTableView.insertRows(at: indexPaths, with: .automatic)
+                case .done:
+                    self?.doneStackView.stateTableView.insertRows(at: indexPaths, with: .automatic)
+                }
             }
         }
 
