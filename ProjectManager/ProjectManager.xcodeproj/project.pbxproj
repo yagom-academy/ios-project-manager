@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		455C45D426AA4CDA0024C9D1 /* TaskTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455C45D326AA4CDA0024C9D1 /* TaskTableViewDataSource.swift */; };
 		4584667226A7C41D002BBA1C /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 4584667126A7C41D002BBA1C /* .swiftlint.yml */; };
 		B05D4B5926A9578500FA3560 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05D4B5826A9578500FA3560 /* Task.swift */; };
 		C3484B7326A981FB0054C20A /* ViewController+DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3484B7226A981FB0054C20A /* ViewController+DataSource.swift */; };
@@ -26,6 +27,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		455C45D326AA4CDA0024C9D1 /* TaskTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewDataSource.swift; sourceTree = "<group>"; };
 		4584667126A7C41D002BBA1C /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		6AA9ADBAB51EE60EC42D341C /* Pods-ProjectManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.release.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.release.xcconfig"; sourceTree = "<group>"; };
 		B05D4B5826A9578500FA3560 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 				C3484B7226A981FB0054C20A /* ViewController+DataSource.swift */,
 				C3484B7426A9822C0054C20A /* ViewController+DragDelegate.swift */,
 				C3484B7626A982360054C20A /* ViewController+DropDelegate.swift */,
+				455C45D326AA4CDA0024C9D1 /* TaskTableViewDataSource.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -262,6 +265,7 @@
 				C3484B7726A982360054C20A /* ViewController+DropDelegate.swift in Sources */,
 				C3844F6626A9461F00F91098 /* ItemTableViewCell.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */,
+				455C45D426AA4CDA0024C9D1 /* TaskTableViewDataSource.swift in Sources */,
 				C3484B7526A9822C0054C20A /* ViewController+DragDelegate.swift in Sources */,
 				C3844F6A26A948C000F91098 /* ItemContentLabel.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,

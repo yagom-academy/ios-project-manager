@@ -8,9 +8,13 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    var todoTasks: [Task] = [Task(title: "할일1", content: "할일내용1", deadLine: "2021.05.12", state: "todo")]
-    var doingTasks: [Task] = [Task(title: "하고있는일1", content: "하고있는일내용1", deadLine: "2021.05.13", state: "doing")]
-    var doneTasks: [Task] = [Task(title: "한일1", content: "한일내용1", deadLine: "2021.05.22", state: "done")]
+//    var todoTasks: [Task] = [Task(title: "할일1", content: "할일내용1", deadLine: "2021.05.12", state: "todo")]
+//    var doingTasks: [Task] = [Task(title: "하고있는일1", content: "하고있는일내용1", deadLine: "2021.05.13", state: "doing")]
+//    var doneTasks: [Task] = [Task(title: "한일1", content: "한일내용1", deadLine: "2021.05.22", state: "done")]
+    
+    var todoTableViewDataSource = TaskTableViewDataSource(tasks: [Task(title: "할일1", content: "할일내용1", deadLine: "2021.05.12", state: "todo")])
+    var doingTableViewDataSource = TaskTableViewDataSource(tasks: [Task(title: "하고있는1", content: "하고있는일내용1", deadLine: "2021.07.23", state: "doing")])
+    var doneTableViewDataSource = TaskTableViewDataSource(tasks: [Task(title: "한1", content: "한일내용1", deadLine: "2021.08.12", state: "done")])
     
     lazy var todoTableView: UITableView = {
         let todoTableView: UITableView = UITableView()
@@ -186,11 +190,21 @@ class ViewController: UIViewController {
     }
     
     private func configureTableViews() {
-        for tableview in [todoTableView, doingTableView, doneTableView] {
-            tableview.register(ItemTableViewCell.self, forCellReuseIdentifier: ItemTableViewCell.identifier)
-            tableview.dataSource = self
-            tableview.dropDelegate = self
-            tableview.dragDelegate = self
+        for tableView in [todoTableView, doingTableView, doneTableView] {
+            tableView.register(ItemTableViewCell.self, forCellReuseIdentifier: ItemTableViewCell.identifier)
+            tableView.dataSource = dataSourceForTableView(tableView)
+            tableView.dropDelegate = self
+            tableView.dragDelegate = self
+        }
+    }
+    
+    func dataSourceForTableView(_ tableView: UITableView) -> TaskTableViewDataSource {
+        if tableView == todoTableView {
+            return todoTableViewDataSource
+        } else if tableView == doingTableView {
+            return doingTableViewDataSource
+        } else {
+            return doneTableViewDataSource
         }
     }
     
