@@ -7,7 +7,7 @@
 
 import UIKit
 
-class StateStackView: UIStackView {
+final class StateStackView: UIStackView {
 
     typealias PMDelegate = UITableViewDataSource &
                            UITableViewDelegate &

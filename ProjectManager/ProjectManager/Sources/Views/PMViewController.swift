@@ -6,7 +6,7 @@
 
 import UIKit
 
-class PMViewController: UIViewController {
+final class PMViewController: UIViewController {
 
     var viewModel = TaskViewModel()
 

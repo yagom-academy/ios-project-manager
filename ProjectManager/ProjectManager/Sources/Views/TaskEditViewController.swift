@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TaskEditViewController: UIViewController {
+final class TaskEditViewController: UIViewController {
 
     private enum Style {
         static let defaultTitle = "TODO"

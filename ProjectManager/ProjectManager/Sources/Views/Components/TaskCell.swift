@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TaskCell: UITableViewCell {
+final class TaskCell: UITableViewCell {
 
     // MARK: Properties
 
