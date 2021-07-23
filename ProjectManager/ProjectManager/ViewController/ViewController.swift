@@ -211,10 +211,20 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "Project Manager"
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: nil)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(clickAddBarButton))
         self.view.backgroundColor = .white
         addSubViews()
         configureConstraints()
         configureTableViews()
+    }
+    
+    @objc func clickAddBarButton() {
+        print("addbuttonClick")
+        let taskFormViewController = TaskFormViewController(type: "add")
+        let navigationController = UINavigationController(rootViewController: taskFormViewController)
+        
+        navigationController.modalPresentationStyle = .formSheet
+        self.present(navigationController, animated: true, completion: nil)
+        
     }
 }

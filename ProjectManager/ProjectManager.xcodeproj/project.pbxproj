@@ -10,6 +10,8 @@
 		455C45D426AA4CDA0024C9D1 /* TaskTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455C45D326AA4CDA0024C9D1 /* TaskTableViewDataSource.swift */; };
 		4584667226A7C41D002BBA1C /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 4584667126A7C41D002BBA1C /* .swiftlint.yml */; };
 		B05D4B5926A9578500FA3560 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05D4B5826A9578500FA3560 /* Task.swift */; };
+		B08D8E1926AA5D39003CB311 /* ViewController+Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08D8E1826AA5D39003CB311 /* ViewController+Delegate.swift */; };
+		B08D8E1C26AA5F49003CB311 /* TaskFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08D8E1B26AA5F49003CB311 /* TaskFormViewController.swift */; };
 		C3484B7526A9822C0054C20A /* ViewController+DragDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3484B7426A9822C0054C20A /* ViewController+DragDelegate.swift */; };
 		C3484B7726A982360054C20A /* ViewController+DropDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3484B7626A982360054C20A /* ViewController+DropDelegate.swift */; };
 		C3484B7926A9879F0054C20A /* DragCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3484B7826A9879F0054C20A /* DragCoordinator.swift */; };
@@ -30,6 +32,8 @@
 		4584667126A7C41D002BBA1C /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		6AA9ADBAB51EE60EC42D341C /* Pods-ProjectManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.release.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.release.xcconfig"; sourceTree = "<group>"; };
 		B05D4B5826A9578500FA3560 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		B08D8E1826AA5D39003CB311 /* ViewController+Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Delegate.swift"; sourceTree = "<group>"; };
+		B08D8E1B26AA5F49003CB311 /* TaskFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskFormViewController.swift; sourceTree = "<group>"; };
 		B1DD1443BF563C703D4187D0 /* Pods_ProjectManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B47A71D921688FA8F8871E6D /* Pods-ProjectManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.debug.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.debug.xcconfig"; sourceTree = "<group>"; };
 		C3484B7426A9822C0054C20A /* ViewController+DragDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+DragDelegate.swift"; sourceTree = "<group>"; };
@@ -90,9 +94,11 @@
 			isa = PBXGroup;
 			children = (
 				C7431F0925F51E1D0094C4CF /* ViewController.swift */,
+				B08D8E1826AA5D39003CB311 /* ViewController+Delegate.swift */,
 				C3484B7426A9822C0054C20A /* ViewController+DragDelegate.swift */,
 				C3484B7626A982360054C20A /* ViewController+DropDelegate.swift */,
 				455C45D326AA4CDA0024C9D1 /* TaskTableViewDataSource.swift */,
+				B08D8E1B26AA5F49003CB311 /* TaskFormViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -267,7 +273,9 @@
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				C3844F6C26A94A1D00F91098 /* ItemDateLabel.swift in Sources */,
+				B08D8E1926AA5D39003CB311 /* ViewController+Delegate.swift in Sources */,
 				C3484B7926A9879F0054C20A /* DragCoordinator.swift in Sources */,
+				B08D8E1C26AA5F49003CB311 /* TaskFormViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
