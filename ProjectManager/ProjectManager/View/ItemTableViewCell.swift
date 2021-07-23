@@ -36,6 +36,15 @@ class ItemTableViewCell: UITableViewCell {
         super.awakeFromNib()
     }
     
+    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+        super.setHighlighted(highlighted, animated: animated)
+        if highlighted {
+            self.backgroundColor = .systemGray
+        } else {
+            self.backgroundColor = .systemBackground
+        }
+    }
+    
     private func configureConstraints() {
         NSLayoutConstraint.activate([
             stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5),

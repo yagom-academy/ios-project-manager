@@ -193,6 +193,7 @@ class ViewController: UIViewController {
         for tableView in [todoTableView, doingTableView, doneTableView] {
             tableView.register(ItemTableViewCell.self, forCellReuseIdentifier: ItemTableViewCell.identifier)
             tableView.dataSource = dataSourceForTableView(tableView)
+            tableView.delegate = self
             tableView.dropDelegate = self
             tableView.dragDelegate = self
         }

@@ -22,6 +22,7 @@ class TaskTableViewDataSource: NSObject, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ItemTableViewCell.identifier) as? ItemTableViewCell else { return UITableViewCell()}
         cell.configure(task: tasks[indexPath.row])
+        cell.selectionStyle = .none
         return cell
     }
 }
@@ -49,5 +50,9 @@ extension TaskTableViewDataSource {
     
     func deleteTask(at index: Int) {
         tasks.remove(at: index)
+    }
+    
+    func getTask(_ indexPath: IndexPath) -> Task {
+        return tasks[indexPath.row]
     }
 }

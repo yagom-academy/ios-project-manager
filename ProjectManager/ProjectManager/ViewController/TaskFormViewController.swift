@@ -78,7 +78,7 @@ class TaskFormViewController: UIViewController {
     
     @objc private func clickLeftBarButton() {
         self.dismiss(animated: true, completion: nil)
-    } 
+    }
     
     @objc private func clickRightBarButton() {
         guard let navigationViewController = self.presentingViewController as? UINavigationController,
@@ -96,4 +96,12 @@ class TaskFormViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
+    func configureViews(_ task: Task) {
+        titleTextField.text = task.title
+        contentTextView.text = task.content
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy.MM.dd"
+        guard let date = dateFormatter.date(from: task.deadLine) else { return }
+        datePicker.date = date
+    }
 }
