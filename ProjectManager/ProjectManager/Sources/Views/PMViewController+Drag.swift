@@ -25,7 +25,17 @@ extension PMViewController: UITableViewDragDelegate {
     }
 
     private func dragItem(with state: Task.State, at index: Int) -> [UIDragItem] {
-        guard let draggedTask = viewModel.task(from: .todo, at: index) else { return [] }
+        var draggedTask: Task?
+
+        switch state {
+        case .todo:
+            draggedTask = viewModel.task(from: .todo, at: index)
+        case .doing:
+            draggedTask = viewModel.task(from: .doing, at: index)
+        case .done:
+            draggedTask = viewModel.task(from: .done, at: index)
+        }
+        guard let draggedTask = draggedTask else { return [] }
         let itemProvider = NSItemProvider(object: draggedTask)
         let dragItem = UIDragItem(itemProvider: itemProvider)
         return [dragItem]
