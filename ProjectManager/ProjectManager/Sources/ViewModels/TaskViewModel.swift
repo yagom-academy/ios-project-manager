@@ -106,6 +106,22 @@ struct TaskViewModel {
             inserted?(.done, destinationIndex)
         }
 
-        tasks[destinationIndex].state = state
+        task.state = state
+    }
+
+    mutating func move(in state: Task.State, from sourceIndex: Int, to destinationIndex: Int) {
+        let taskID: UUID
+
+        switch state {
+        case .todo:
+            taskID = taskOrder.todo.remove(at: sourceIndex)
+            taskOrder.todo.insert(taskID, at: destinationIndex)
+        case .doing:
+            taskID = taskOrder.doing.remove(at: sourceIndex)
+            taskOrder.doing.insert(taskID, at: destinationIndex)
+        case .done:
+            taskID = taskOrder.done.remove(at: sourceIndex)
+            taskOrder.done.insert(taskID, at: destinationIndex)
+        }
     }
 }

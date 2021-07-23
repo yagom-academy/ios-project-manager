@@ -141,4 +141,21 @@ extension PMViewController: UITableViewDataSource {
 
         return taskCell
     }
+
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        switch tableView {
+        case self.todoStackView.stateTableView:
+            self.viewModel.move(in: .todo, from: sourceIndexPath.row, to: destinationIndexPath.row)
+        case self.doingStackView.stateTableView:
+            self.viewModel.move(in: .doing, from: sourceIndexPath.row, to: destinationIndexPath.row)
+        case self.doneStackView.stateTableView:
+            self.viewModel.move(in: .done, from: sourceIndexPath.row, to: destinationIndexPath.row)
+        default:
+            break
+        }
+    }
 }
