@@ -237,4 +237,14 @@ class ViewController: UIViewController {
             todoTableView.insertRows(at: [IndexPath(row: numberOfTasks, section: 0)], with: .automatic)
         }
     }
+    
+    func updateEditedCell(state: String) {
+        if state == "todo" {
+            todoTableView.reloadRows(at: [todoTableView.indexPathForSelectedRow!], with: .automatic)
+        } else if state == "doing" {
+            doingTableView.reloadRows(at: [doingTableView.indexPathForSelectedRow!], with: .automatic)
+        } else {
+            doneTableView.reloadRows(at: [doneTableView.indexPathForSelectedRow!], with: .automatic)
+        }
+    }
 }

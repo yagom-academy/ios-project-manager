@@ -19,6 +19,8 @@ class TaskFormViewController: UIViewController {
         }
     }
    
+    var selectedTask: Task?
+    
     init(type: FormType) {
         self.type = type
         super.init(nibName: nil, bundle: nil)
@@ -32,13 +34,15 @@ class TaskFormViewController: UIViewController {
             navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Edit",
                                                                style: .plain,
                                                                target: self,
-                                                               action: #selector(editTask))
+                                                               action: #selector(clinkEditButton))
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector (clickEditDoneButton))
         case .add:
             self.view.isUserInteractionEnabled = true
             navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel",
                                                                style: .plain,
                                                                target: self,
-                                                               action: #selector(clickLeftBarButton))
+                                                               action: #selector(clickCancelButton))
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(clickAddDoneButton))
         }
 //        let buttonTitle = type == .edit ? "Edit" : "Cancel"
     }
@@ -80,10 +84,10 @@ class TaskFormViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "done", style: .plain, target: self, action: #selector(clickRightBarButton))
         self.view.backgroundColor = .systemBackground
         view.addSubview(stackView)
         configureConstraints()
+        navigationItem.title = "TODO"
     }
     
     private func configureConstraints() {
@@ -96,17 +100,17 @@ class TaskFormViewController: UIViewController {
         ])
     }
     
-    @objc private func editTask() {
+    @objc private func clinkEditButton() {
         self.view.isUserInteractionEnabled = true
         //todo: 키보드 입력 후 datepicker 조정시 키보드가 내려가도록 설정
         self.titleTextField.becomeFirstResponder()
     }
     
-    @objc private func clickLeftBarButton() {
+    @objc private func clickCancelButton() {
         self.dismiss(animated: true, completion: nil)
     }
     
-    @objc private func clickRightBarButton() {
+    @objc private func clickAddDoneButton() {
         guard let navigationViewController = self.presentingViewController as? UINavigationController,
               let viewController = navigationViewController.topViewController as? ViewController else { return }
         
@@ -122,7 +126,22 @@ class TaskFormViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
+    @objc private func clickEditDoneButton() {
+        guard let navigationViewController = self.presentingViewController as? UINavigationController,
+              let viewController = navigationViewController.topViewController as? ViewController else { return }
+        selectedTask?.title = titleTextField.text!
+        selectedTask?.content = contentTextView.text!
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy.MM.dd"
+        let date = dateFormatter.string(from: datePicker.date)
+        selectedTask?.deadLine = date
+        viewController.updateEditedCell(state: selectedTask!.state)
+        
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     func configureViews(_ task: Task) {
+        selectedTask = task
         titleTextField.text = task.title
         contentTextView.text = task.content
         let dateFormatter = DateFormatter()
