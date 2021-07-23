@@ -22,6 +22,7 @@ extension PMViewController: UITableViewDropDelegate {
 
     func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
         let destinationIndexPath: IndexPath
+        let dropItem: UITableViewDropItem? = coordinator.items.first
 
         if let indexPath = coordinator.destinationIndexPath {
             destinationIndexPath = indexPath
@@ -30,7 +31,7 @@ extension PMViewController: UITableViewDropDelegate {
             destinationIndexPath = IndexPath(row: row, section: 0)
         }
 
-        coordinator.items.first?.dragItem.itemProvider.loadObject(ofClass: Task.self) { [weak self] (data, error) in
+        dropItem?.dragItem.itemProvider.loadObject(ofClass: Task.self) { [weak self] (data, error) in
             guard let task = data as? Task,
                   error == nil,
                   let self = self else { return }
