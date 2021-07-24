@@ -7,9 +7,7 @@
 
 import UIKit
 
-final class TaskCollectionViewHeaderCell: UIView {
-    static let identifier = "TaskCollectionViewHeaderCell"
-    
+final class TaskHeader: UIView {
     var status: String?
     var count: Int?
     
@@ -39,19 +37,23 @@ final class TaskCollectionViewHeaderCell: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setStatusLabelConstraint()
-        setCountViewConstraint()
-        setCountLabelConstraint()
+        
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
     
-    func initializeHeader(_ status: String, count: Int) {
-        backgroundColor = .systemGray6
-        statusLabel.text = status
-        countLabel.text = String(count)
+    init(title: String) {
+        super.init(frame: .zero)
+        setStatusLabelConstraint()
+        setCountViewConstraint()
+        setCountLabelConstraint()
+        initializeHeaderConfigure(title)
+    }
+    
+    private func initializeHeaderConfigure(_ title: String) {
+        self.statusLabel.text = title
         self.layer.shadowOpacity = 1
         self.layer.shadowRadius = 2.0
         self.layer.shadowColor = UIColor.systemGray4.cgColor

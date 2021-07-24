@@ -10,9 +10,6 @@ class ProjectManagerViewController: UIViewController, TaskAddDelegate , DeleteDe
     let toDoViewModel = TaskViewModel()
     let doingViewModel = TaskViewModel()
     let doneViewModel = TaskViewModel()
-    let toDoHeader = TaskCollectionViewHeaderCell()
-    let doingHeader = TaskCollectionViewHeaderCell()
-    let doneHeader = TaskCollectionViewHeaderCell()
     let toDoCollectionView: UICollectionView = {
         let collecionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         collecionView.backgroundColor = .systemGray6
@@ -34,6 +31,25 @@ class ProjectManagerViewController: UIViewController, TaskAddDelegate , DeleteDe
         collecionView.showsVerticalScrollIndicator = false
         return collecionView
     }()
+    let toDoHeader: TaskHeader = {
+        let header = TaskHeader(title: "TODO")
+        header.backgroundColor = .systemGray6
+        header.translatesAutoresizingMaskIntoConstraints = false
+        return header
+    }()
+    let doingHeader: TaskHeader = {
+        let header = TaskHeader(title: "DOING")
+        header.backgroundColor = .systemGray6
+        header.translatesAutoresizingMaskIntoConstraints = false
+        return header
+    }()
+    let doneHeader: TaskHeader = {
+        let header = TaskHeader(title: "DONE")
+        header.backgroundColor = .systemGray6
+        header.translatesAutoresizingMaskIntoConstraints = false
+        return header
+    }()
+    
     var dragCollectionView: UICollectionView?
     var dragCollectionViewIndexPath: IndexPath?
     let addTaskViewController = AddTaskViewController()
@@ -49,9 +65,7 @@ class ProjectManagerViewController: UIViewController, TaskAddDelegate , DeleteDe
         self.navigationController?.navigationBar.backgroundColor = .systemGray2
         self.navigationItem.title = "Project Manager"
         self.setAddTask()
-        self.setCollectionViewConfigure()
         self.addTaskViewController.taskDelegate = self
-        self.addSubviewInView()
         self.registerCollectionViewCell()
         self.setUpDelegate()
         self.setUpDataSource()
@@ -61,26 +75,6 @@ class ProjectManagerViewController: UIViewController, TaskAddDelegate , DeleteDe
         self.setUpToDoHeader()
         self.setUpDoingHeader()
         self.setUpDoneHeader()
-    }
-    
-    private func setCollectionViewConfigure() {
-        guard let todoLayout = toDoCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
-        guard let doingLayout = doingCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
-        guard let doneLayout = doneCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
-        
-        todoLayout.sectionHeadersPinToVisibleBounds = true
-        doingLayout.sectionHeadersPinToVisibleBounds = true
-        doneLayout.sectionHeadersPinToVisibleBounds = true
-        
-        toDoCollectionView.register(TaskCollectionViewHeaderCell.self,
-                                    forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                                    withReuseIdentifier: TaskCollectionViewHeaderCell.identifier)
-        doingCollectionView.register(TaskCollectionViewHeaderCell.self,
-                                     forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                                     withReuseIdentifier: TaskCollectionViewHeaderCell.identifier)
-        doneCollectionView.register(TaskCollectionViewHeaderCell.self,
-                                    forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                                    withReuseIdentifier: TaskCollectionViewHeaderCell.identifier)
     }
 
     private func setAddTask() {
@@ -119,12 +113,6 @@ class ProjectManagerViewController: UIViewController, TaskAddDelegate , DeleteDe
         self.updateCount(collectionView)
     }
     
-    private func addSubviewInView() {
-        self.view.addSubview(toDoHeader)
-        self.view.addSubview(doingHeader)
-        self.view.addSubview(doneHeader)
-    }
-    
     private func registerCollectionViewCell() {
         self.toDoCollectionView.register(TaskCollectionViewCell.classForCoder(), forCellWithReuseIdentifier: TaskCollectionViewCell.identifier)
         self.doingCollectionView.register(TaskCollectionViewCell.classForCoder(), forCellWithReuseIdentifier: TaskCollectionViewCell.identifier)
@@ -150,9 +138,8 @@ class ProjectManagerViewController: UIViewController, TaskAddDelegate , DeleteDe
     }
     
     private func setUpToDoHeader() {
-        self.toDoHeader.translatesAutoresizingMaskIntoConstraints = false
-        self.toDoHeader.initializeHeader("TODO", count: toDoViewModel.taskListCount())
-        toDoHeader.backgroundColor = .systemGray6
+        self.view.addSubview(toDoHeader)
+        self.toDoHeader.updateCount(toDoViewModel.taskListCount())
         NSLayoutConstraint.activate([
             self.toDoHeader.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 0),
             self.toDoHeader.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
@@ -162,9 +149,8 @@ class ProjectManagerViewController: UIViewController, TaskAddDelegate , DeleteDe
     }
     
     private func setUpDoingHeader() {
-        self.doingHeader.translatesAutoresizingMaskIntoConstraints = false
-        self.doingHeader.initializeHeader("DOING", count: doingViewModel.taskListCount())
-        doingHeader.backgroundColor = .systemGray6
+        self.view.addSubview(doingHeader)
+        self.doingHeader.updateCount(toDoViewModel.taskListCount())
         NSLayoutConstraint.activate([
             self.doingHeader.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
             self.doingHeader.leadingAnchor.constraint(equalTo: self.doingCollectionView.leadingAnchor),
@@ -174,9 +160,8 @@ class ProjectManagerViewController: UIViewController, TaskAddDelegate , DeleteDe
     }
     
     private func setUpDoneHeader() {
-        self.doneHeader.translatesAutoresizingMaskIntoConstraints = false
-        self.doneHeader.initializeHeader("DONE", count: doneViewModel.taskListCount())
-        doneHeader.backgroundColor = .systemGray6
+        self.view.addSubview(doneHeader)
+        self.doneHeader.updateCount(toDoViewModel.taskListCount())
         NSLayoutConstraint.activate([
             self.doneHeader.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
             self.doneHeader.leadingAnchor.constraint(equalTo: self.doneCollectionView.leadingAnchor),
@@ -242,7 +227,7 @@ class ProjectManagerViewController: UIViewController, TaskAddDelegate , DeleteDe
         }
     }
     
-    func findHeader(status: UICollectionView) -> TaskCollectionViewHeaderCell? {
+    func findHeader(status: UICollectionView) -> TaskHeader? {
         switch status {
         case toDoCollectionView:
             return toDoHeader
