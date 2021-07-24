@@ -52,7 +52,7 @@ final class TaskCollectionViewCell: UICollectionViewCell {
         button.setTitle("Delete", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .red
-        button.layer.cornerRadius = 15
+        button.layer.cornerRadius = 17
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
