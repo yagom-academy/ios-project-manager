@@ -181,17 +181,11 @@ final class TaskCollectionViewCell: UICollectionViewCell {
         self.taskTitle.text = data.taskTitle
         self.taskDescription.text = data.taskDescription
         self.taskDeadline.text = convertDateToString(data.taskDeadline)
-//        self.swipeView.layoutIfNeeded()
-        self.estimatedSize = self.swipeView.systemLayoutSizeFitting(sizeThatFits(CGSize(width: self.contentView.frame.width, height: 500.0)))
         guard let isDeadlinePassed = checkIfDeadlineHasPassed(deadline: convertDateToString(data.taskDeadline)) else { return }
         taskDeadline.textColor = .black
         if isDeadlinePassed {
             taskDeadline.textColor = .red
         }
-    }
-        
-    func getEstimatedHeight() -> CGFloat {
-        return self.estimatedSize.height
     }
 }
 

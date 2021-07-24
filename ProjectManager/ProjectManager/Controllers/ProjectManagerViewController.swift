@@ -314,12 +314,15 @@ extension ProjectManagerViewController: UICollectionViewDataSource {
 
 extension ProjectManagerViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = collectionView.frame.width
+        let estimatedHeight: CGFloat = 300.0
+        let width = collectionView.frame.width * 0.95
         let dummyCell = TaskCollectionViewCell(frame: CGRect(x: 0, y: 0, width: width, height: 500.0))
-        if let task = self.findTask(collectionView: collectionView, indexPath: indexPath) {
-            dummyCell.configureCell(with: task)
-        }
-        return CGSize(width: width, height: dummyCell.getEstimatedHeight())
+        guard let task = self.findTask(collectionView: collectionView, indexPath: indexPath) else { return CGSize() }
+        dummyCell.configureCell(data: task)
+        dummyCell.layoutIfNeeded()
+        let estimatedSize = dummyCell.systemLayoutSizeFitting(CGSize(width: width, height: estimatedHeight))
+
+        return CGSize(width: width, height: estimatedSize.height)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
