@@ -10,6 +10,12 @@ import UIKit
 
 final class TaskCollectionViewCell: UICollectionViewCell {
     static let identifier = "TaskCollectionViewCell"
+    enum Style {
+        static let titleLabelMargin: UIEdgeInsets = .init(top: 5, left: 10, bottom: -5, right: -10)
+        static let descriptionLabelMargin: UIEdgeInsets = .init(top: 5, left: 10, bottom: -5, right: -10)
+        static let deadLineLabelMargin: UIEdgeInsets = .init(top: 5, left: 10, bottom: -5, right: -10)
+    }
+    
     private let taskTitle: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .title3)
@@ -51,7 +57,7 @@ final class TaskCollectionViewCell: UICollectionViewCell {
     }()
     private var estimatedSize: CGSize = CGSize(width: 0, height: 0)
     private var panGestureRecognizer: UIPanGestureRecognizer!
-    private var deleteDelegate: DeleteDelegate?
+    var deleteDelegate: DeleteDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -91,59 +97,52 @@ final class TaskCollectionViewCell: UICollectionViewCell {
         self.setUpTaskDeadlineLabel()
     }
     
-    
     private func setUpSwipeView() {
         self.contentView.addSubview(self.swipeView)
         self.swipeView.addSubview(self.taskTitle)
         self.swipeView.addSubview(self.taskDescription)
         self.swipeView.addSubview(self.taskDeadline)
         NSLayoutConstraint.activate([
-            self.swipeView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0),
-            self.swipeView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0),
-            self.swipeView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 0),
-            self.swipeView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0),
+            self.swipeView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            self.swipeView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            self.swipeView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            self.swipeView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
     
     private func setUpDeleteButton() {
         self.contentView.addSubview(self.deleteButton)
         NSLayoutConstraint.activate([
-            self.deleteButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0),
-            self.deleteButton.leadingAnchor.constraint(equalTo: self.swipeView.trailingAnchor, constant: 0),
-            self.deleteButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0),
+            self.deleteButton.topAnchor.constraint(equalTo: contentView.topAnchor),
+            self.deleteButton.leadingAnchor.constraint(equalTo: self.swipeView.trailingAnchor),
+            self.deleteButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
         ])
-    }
-    
-    @objc func deleteTask() {
-        let collectionView: UICollectionView = self.superview as! UICollectionView
-        let indexPath: IndexPath = collectionView.indexPathForItem(at: self.center)!
-        deleteDelegate?.deleteTask(collectionView: collectionView, indexPath: indexPath)
     }
     
     private func setUpTaskTitleLabel() {
         NSLayoutConstraint.activate([
-            self.taskTitle.topAnchor.constraint(equalTo: swipeView.topAnchor, constant: 5),
-            self.taskTitle.leadingAnchor.constraint(equalTo: swipeView.leadingAnchor, constant: 10),
-            self.taskTitle.trailingAnchor.constraint(equalTo: swipeView.trailingAnchor, constant: -10),
-            self.taskTitle.bottomAnchor.constraint(equalTo: self.taskDescription.topAnchor, constant: -5),
+            self.taskTitle.topAnchor.constraint(equalTo: swipeView.topAnchor, constant: Style.titleLabelMargin.top),
+            self.taskTitle.leadingAnchor.constraint(equalTo: swipeView.leadingAnchor, constant: Style.titleLabelMargin.left),
+            self.taskTitle.trailingAnchor.constraint(equalTo: swipeView.trailingAnchor, constant: Style.titleLabelMargin.right),
+            self.taskTitle.bottomAnchor.constraint(equalTo: self.taskDescription.topAnchor, constant: Style.titleLabelMargin.bottom),
         ])
     }
     
     private func setUpTaskDescriptionLabel() {
         NSLayoutConstraint.activate([
-            self.taskDescription.topAnchor.constraint(equalTo: self.taskTitle.bottomAnchor, constant: 5),
-            self.taskDescription.leadingAnchor.constraint(equalTo: swipeView.leadingAnchor, constant: 10),
-            self.taskDescription.trailingAnchor.constraint(equalTo: swipeView.trailingAnchor, constant: -10),
-            self.taskDescription.bottomAnchor.constraint(equalTo: self.taskDeadline.topAnchor, constant: -5),
+            self.taskDescription.topAnchor.constraint(equalTo: self.taskTitle.bottomAnchor, constant: Style.descriptionLabelMargin.top),
+            self.taskDescription.leadingAnchor.constraint(equalTo: swipeView.leadingAnchor, constant: Style.descriptionLabelMargin.left),
+            self.taskDescription.trailingAnchor.constraint(equalTo: swipeView.trailingAnchor, constant: Style.descriptionLabelMargin.right),
+            self.taskDescription.bottomAnchor.constraint(equalTo: self.taskDeadline.topAnchor, constant: Style.descriptionLabelMargin.bottom),
         ])
     }
     
     private func setUpTaskDeadlineLabel() {
         NSLayoutConstraint.activate([
-            self.taskDeadline.topAnchor.constraint(equalTo: self.taskDescription.bottomAnchor, constant: 5),
-            self.taskDeadline.leadingAnchor.constraint(equalTo: swipeView.leadingAnchor, constant: 10),
-            self.taskDeadline.trailingAnchor.constraint(equalTo: swipeView.trailingAnchor, constant: -10),
-            self.taskDeadline.bottomAnchor.constraint(equalTo: swipeView.bottomAnchor, constant: -5),
+            self.taskDeadline.topAnchor.constraint(equalTo: self.taskDescription.bottomAnchor, constant: Style.deadLineLabelMargin.top),
+            self.taskDeadline.leadingAnchor.constraint(equalTo: swipeView.leadingAnchor, constant: Style.deadLineLabelMargin.left),
+            self.taskDeadline.trailingAnchor.constraint(equalTo: swipeView.trailingAnchor, constant: Style.deadLineLabelMargin.right),
+            self.taskDeadline.bottomAnchor.constraint(equalTo: swipeView.bottomAnchor, constant: Style.deadLineLabelMargin.bottom),
         ])
     }
     
