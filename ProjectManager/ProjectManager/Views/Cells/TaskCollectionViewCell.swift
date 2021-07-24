@@ -8,16 +8,50 @@
 import Foundation
 import UIKit
 
-class TaskCollectionViewCell: UICollectionViewCell {
+final class TaskCollectionViewCell: UICollectionViewCell {
     static let identifier = "TaskCollectionViewCell"
-    var taskTitle = UILabel()
-    var taskDescription = UILabel()
-    var taskDeadline = UILabel()
-    var swipeView = UIView()
-    var deleteButton: UIButton = UIButton()
-    var estimatedSize: CGSize = CGSize(width: 0, height: 0)
-    var panGestureRecognizer: UIPanGestureRecognizer!
-    var deleteDelegate: DeleteDelegate?
+    private let taskTitle: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.preferredFont(forTextStyle: .title3)
+        label.textColor = .label
+        label.numberOfLines = 1
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    private let taskDescription: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.preferredFont(forTextStyle: .body)
+        label.textColor = .label
+        label.numberOfLines = 3
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    private let taskDeadline: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.preferredFont(forTextStyle: .footnote)
+        label.textColor = .label
+        label.numberOfLines = 1
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    private let swipeView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    private let deleteButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Delete", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = .red
+        button.addTarget(self, action: #selector(deleteTask), for: .touchDown)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    private var estimatedSize: CGSize = CGSize(width: 0, height: 0)
+    private var panGestureRecognizer: UIPanGestureRecognizer!
+    private var deleteDelegate: DeleteDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -50,7 +84,6 @@ class TaskCollectionViewCell: UICollectionViewCell {
     
     private func setUpUI() {
         self.contentView.backgroundColor = UIColor.red
-        self.addSubviewInContentView()
         self.setUpSwipeView()
         self.setUpDeleteButton()
         self.setUpTaskTitleLabel()
@@ -58,17 +91,12 @@ class TaskCollectionViewCell: UICollectionViewCell {
         self.setUpTaskDeadlineLabel()
     }
     
-    private func addSubviewInContentView() {
-        self.contentView.addSubview(self.swipeView)
-        self.contentView.addSubview(self.deleteButton)
-    }
     
     private func setUpSwipeView() {
-        self.swipeView.backgroundColor = .white
+        self.contentView.addSubview(self.swipeView)
         self.swipeView.addSubview(self.taskTitle)
         self.swipeView.addSubview(self.taskDescription)
         self.swipeView.addSubview(self.taskDeadline)
-        self.swipeView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             self.swipeView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0),
             self.swipeView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0),
@@ -78,11 +106,7 @@ class TaskCollectionViewCell: UICollectionViewCell {
     }
     
     private func setUpDeleteButton() {
-        self.deleteButton.setTitle("Delete", for: .normal)
-        self.deleteButton.setTitleColor(.white, for: .normal)
-        self.deleteButton.backgroundColor = .red
-        self.deleteButton.addTarget(self, action: #selector(deleteTask), for: .touchDown)
-        self.deleteButton.translatesAutoresizingMaskIntoConstraints = false
+        self.contentView.addSubview(self.deleteButton)
         NSLayoutConstraint.activate([
             self.deleteButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0),
             self.deleteButton.leadingAnchor.constraint(equalTo: self.swipeView.trailingAnchor, constant: 0),
@@ -97,10 +121,6 @@ class TaskCollectionViewCell: UICollectionViewCell {
     }
     
     private func setUpTaskTitleLabel() {
-        self.taskTitle.font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.title3)
-        self.taskTitle.textColor = .label
-        self.taskTitle.translatesAutoresizingMaskIntoConstraints = false
-        self.taskTitle.numberOfLines = 1
         NSLayoutConstraint.activate([
             self.taskTitle.topAnchor.constraint(equalTo: swipeView.topAnchor, constant: 5),
             self.taskTitle.leadingAnchor.constraint(equalTo: swipeView.leadingAnchor, constant: 10),
@@ -110,10 +130,6 @@ class TaskCollectionViewCell: UICollectionViewCell {
     }
     
     private func setUpTaskDescriptionLabel() {
-        self.taskDescription.font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.body)
-        self.taskDescription.textColor = .label
-        self.taskDescription.translatesAutoresizingMaskIntoConstraints = false
-        self.taskDescription.numberOfLines = 3
         NSLayoutConstraint.activate([
             self.taskDescription.topAnchor.constraint(equalTo: self.taskTitle.bottomAnchor, constant: 5),
             self.taskDescription.leadingAnchor.constraint(equalTo: swipeView.leadingAnchor, constant: 10),
@@ -123,10 +139,6 @@ class TaskCollectionViewCell: UICollectionViewCell {
     }
     
     private func setUpTaskDeadlineLabel() {
-        self.taskDeadline.font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.footnote)
-        self.taskDeadline.textColor = .label
-        self.taskDeadline.translatesAutoresizingMaskIntoConstraints = false
-        self.taskDeadline.numberOfLines = 1
         NSLayoutConstraint.activate([
             self.taskDeadline.topAnchor.constraint(equalTo: self.taskDescription.bottomAnchor, constant: 5),
             self.taskDeadline.leadingAnchor.constraint(equalTo: swipeView.leadingAnchor, constant: 10),
