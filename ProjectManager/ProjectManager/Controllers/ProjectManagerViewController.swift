@@ -6,11 +6,8 @@
 
 import UIKit
 
-class ProjectManagerViewController: UIViewController, TaskAddDelegate , DeleteDelegate {
-    let toDoViewModel = TaskViewModel()
-    let doingViewModel = TaskViewModel()
-    let doneViewModel = TaskViewModel()
-    let toDoCollectionView: UICollectionView = {
+final class ProjectManagerViewController: UIViewController, TaskAddDelegate , DeleteDelegate {
+    private let toDoCollectionView: UICollectionView = {
         let collecionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         collecionView.backgroundColor = .systemGray6
         collecionView.translatesAutoresizingMaskIntoConstraints = false
@@ -18,7 +15,7 @@ class ProjectManagerViewController: UIViewController, TaskAddDelegate , DeleteDe
         collecionView.register(TaskCollectionViewCell.classForCoder(), forCellWithReuseIdentifier: TaskCollectionViewCell.identifier)
         return collecionView
     }()
-    let doingCollectionView: UICollectionView = {
+    private let doingCollectionView: UICollectionView = {
         let collecionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         collecionView.backgroundColor = .systemGray6
         collecionView.translatesAutoresizingMaskIntoConstraints = false
@@ -26,7 +23,7 @@ class ProjectManagerViewController: UIViewController, TaskAddDelegate , DeleteDe
         collecionView.register(TaskCollectionViewCell.classForCoder(), forCellWithReuseIdentifier: TaskCollectionViewCell.identifier)
         return collecionView
     }()
-    let doneCollectionView: UICollectionView = {
+    private let doneCollectionView: UICollectionView = {
         let collecionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         collecionView.backgroundColor = .systemGray6
         collecionView.translatesAutoresizingMaskIntoConstraints = false
@@ -34,39 +31,34 @@ class ProjectManagerViewController: UIViewController, TaskAddDelegate , DeleteDe
         collecionView.register(TaskCollectionViewCell.classForCoder(), forCellWithReuseIdentifier: TaskCollectionViewCell.identifier)
         return collecionView
     }()
-    let toDoHeader: TaskHeader = {
+    private let toDoHeader: TaskHeader = {
         let header = TaskHeader(title: "TODO")
         header.backgroundColor = .systemGray6
         header.translatesAutoresizingMaskIntoConstraints = false
         return header
     }()
-    let doingHeader: TaskHeader = {
+    private let doingHeader: TaskHeader = {
         let header = TaskHeader(title: "DOING")
         header.backgroundColor = .systemGray6
         header.translatesAutoresizingMaskIntoConstraints = false
         return header
     }()
-    let doneHeader: TaskHeader = {
+    private let doneHeader: TaskHeader = {
         let header = TaskHeader(title: "DONE")
         header.backgroundColor = .systemGray6
         header.translatesAutoresizingMaskIntoConstraints = false
         return header
     }()
+    private let toDoViewModel = TaskViewModel()
+    private let doingViewModel = TaskViewModel()
+    private let doneViewModel = TaskViewModel()
+    private var dragCollectionView: UICollectionView?
+    private var dragCollectionViewIndexPath: IndexPath?
+    private let addTaskViewController = AddTaskViewController()
     
-    var dragCollectionView: UICollectionView?
-    var dragCollectionViewIndexPath: IndexPath?
-    let addTaskViewController = AddTaskViewController()
-    
-    override func viewWillAppear(_ animated: Bool) {
-        self.view.backgroundColor = .systemGray4
-        self.toDoCollectionView.backgroundColor = .systemGray6
-        self.doingCollectionView.backgroundColor = .systemGray6
-        self.doneCollectionView.backgroundColor = .systemGray6
-    }
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.navigationBar.backgroundColor = .systemGray2
-        self.navigationItem.title = "Project Manager"
+        self.projectManagerViewControllerConfigure()
         self.setAddTask()
         self.addTaskViewController.taskDelegate = self
         self.setUpDelegate()
@@ -77,6 +69,12 @@ class ProjectManagerViewController: UIViewController, TaskAddDelegate , DeleteDe
         self.setUpToDoHeader()
         self.setUpDoingHeader()
         self.setUpDoneHeader()
+    }
+    
+    private func projectManagerViewControllerConfigure() {
+        self.view.backgroundColor = .systemGray4
+        self.navigationController?.navigationBar.backgroundColor = .systemGray2
+        self.navigationItem.title = "Project Manager"
     }
 
     private func setAddTask() {
