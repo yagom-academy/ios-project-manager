@@ -291,7 +291,7 @@ extension ProjectManagerViewController: UICollectionViewDataSource {
             guard let task = toDoViewModel.referTask(at: indexPath) else {
                 return UICollectionViewCell()
             }
-            cell.configureCell(with: task)
+            cell.configureCell(data: task)
             return cell
         }
         
@@ -299,14 +299,14 @@ extension ProjectManagerViewController: UICollectionViewDataSource {
             guard let task = doingViewModel.referTask(at: indexPath) else {
                 return UICollectionViewCell()
             }
-            cell.configureCell(with: task)
+            cell.configureCell(data: task)
             return cell
         }
         
         guard let task = doneViewModel.referTask(at: indexPath) else {
             return UICollectionViewCell()
         }
-        cell.configureCell(with: task)
+        cell.configureCell(data: task)
         return cell
     }
     

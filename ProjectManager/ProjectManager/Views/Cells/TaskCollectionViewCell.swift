@@ -43,6 +43,7 @@ final class TaskCollectionViewCell: UICollectionViewCell {
     private let swipeView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
+        view.layer.cornerRadius = 15
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -61,43 +62,38 @@ final class TaskCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        commonInit()
-        self.layer.shadowOpacity = 1
-        self.layer.shadowRadius = 1.0
-        self.layer.shadowColor = UIColor.systemGray5.cgColor
-        self.swipeView.layer.cornerRadius = 15
-        self.contentView.layer.cornerRadius = 15
-        self.layer.cornerRadius = 15
+        setPanGestureRecognizer()
+        setTaskCollectionViewCell()
+        setContentConstraint()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
     
-    func closeSwipe() {
-        UIView.animate(withDuration: 0.2) {
-            self.swipeView.frame = CGRect(x:0, y: 0, width: self.contentView.frame.width, height: self.contentView.frame.height)
-            self.deleteButton.frame = CGRect(x: self.contentView.frame.width, y: 0, width: 150, height: self.contentView.frame.height)
-        }
-    }
-    
-    private func commonInit() {
-        self.setUpUI()
+    private func setPanGestureRecognizer() {
         self.panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(onPan(_:)))
         self.panGestureRecognizer.delegate = self
         self.addGestureRecognizer(self.panGestureRecognizer)
     }
     
-    private func setUpUI() {
-        self.contentView.backgroundColor = UIColor.red
-        self.setUpSwipeView()
-        self.setUpDeleteButton()
-        self.setUpTaskTitleLabel()
-        self.setUpTaskDescriptionLabel()
-        self.setUpTaskDeadlineLabel()
+    private func setTaskCollectionViewCell() {
+        self.contentView.layer.cornerRadius = 15
+        self.layer.cornerRadius = 15
+        self.layer.shadowOpacity = 1
+        self.layer.shadowRadius = 1.0
+        self.layer.shadowColor = UIColor.systemGray5.cgColor
     }
     
-    private func setUpSwipeView() {
+    private func setContentConstraint() {
+        setSwipeView()
+        setDeleteButton()
+        setTaskTitleLabel()
+        setTaskDescriptionLabel()
+        setTaskDeadlineLabel()
+    }
+    
+    private func setSwipeView() {
         self.contentView.addSubview(self.swipeView)
         self.swipeView.addSubview(self.taskTitle)
         self.swipeView.addSubview(self.taskDescription)
@@ -110,7 +106,7 @@ final class TaskCollectionViewCell: UICollectionViewCell {
         ])
     }
     
-    private func setUpDeleteButton() {
+    private func setDeleteButton() {
         self.contentView.addSubview(self.deleteButton)
         NSLayoutConstraint.activate([
             self.deleteButton.topAnchor.constraint(equalTo: contentView.topAnchor),
@@ -119,7 +115,7 @@ final class TaskCollectionViewCell: UICollectionViewCell {
         ])
     }
     
-    private func setUpTaskTitleLabel() {
+    private func setTaskTitleLabel() {
         NSLayoutConstraint.activate([
             self.taskTitle.topAnchor.constraint(equalTo: swipeView.topAnchor, constant: Style.titleLabelMargin.top),
             self.taskTitle.leadingAnchor.constraint(equalTo: swipeView.leadingAnchor, constant: Style.titleLabelMargin.left),
@@ -128,7 +124,7 @@ final class TaskCollectionViewCell: UICollectionViewCell {
         ])
     }
     
-    private func setUpTaskDescriptionLabel() {
+    private func setTaskDescriptionLabel() {
         NSLayoutConstraint.activate([
             self.taskDescription.topAnchor.constraint(equalTo: self.taskTitle.bottomAnchor, constant: Style.descriptionLabelMargin.top),
             self.taskDescription.leadingAnchor.constraint(equalTo: swipeView.leadingAnchor, constant: Style.descriptionLabelMargin.left),
@@ -137,7 +133,7 @@ final class TaskCollectionViewCell: UICollectionViewCell {
         ])
     }
     
-    private func setUpTaskDeadlineLabel() {
+    private func setTaskDeadlineLabel() {
         NSLayoutConstraint.activate([
             self.taskDeadline.topAnchor.constraint(equalTo: self.taskDescription.bottomAnchor, constant: Style.deadLineLabelMargin.top),
             self.taskDeadline.leadingAnchor.constraint(equalTo: swipeView.leadingAnchor, constant: Style.deadLineLabelMargin.left),
@@ -146,43 +142,27 @@ final class TaskCollectionViewCell: UICollectionViewCell {
         ])
     }
     
+    @objc func deleteTask() {
+        guard let collectionView: UICollectionView = self.superview as? UICollectionView else { return }
+        guard let indexPath = collectionView.indexPathForItem(at: self.center) else { return }
+        deleteDelegate?.deleteTask(collectionView: collectionView, indexPath: indexPath)
+    }
+    
+    func closeSwipe() {
+        UIView.animate(withDuration: 0.2) {
+            self.swipeView.frame = CGRect(x:0, y: 0, width: self.contentView.frame.width, height: self.contentView.frame.height)
+            self.deleteButton.frame = CGRect(x: self.contentView.frame.width, y: 0, width: 150, height: self.contentView.frame.height)
+        }
+    }
+    
     private func convertStringToTimeInterval1970(date: String) -> Double? {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "ko_kr")
         dateFormatter.dateFormat = "yyyy.MM.dd"
         dateFormatter.timeZone = TimeZone.current
-        guard let dateInDateFormat = dateFormatter.date(from: date) else {
-            return nil
-        }
+        guard let dateInDateFormat = dateFormatter.date(from: date) else { return nil }
         
         return dateInDateFormat.timeIntervalSince1970
-    }
-    
-    private func checkIfDeadlineHasPassed(deadline: String) -> Bool? {
-        let currentDateOf1970Format = Date().timeIntervalSince1970
-        guard let deadline = convertStringToTimeInterval1970(date: deadline) else {
-            return nil
-        }
-        if currentDateOf1970Format > deadline + 86400 {
-            return true
-        }
-        return false
-    }
-    
-    func configureCell(with: Task) {
-        self.taskTitle.text = with.taskTitle
-        self.taskDescription.text = with.taskDescription
-        self.taskDeadline.text = convertDateToString(with.taskDeadline)
-        self.swipeView.layoutIfNeeded()
-        self.estimatedSize = self.swipeView.systemLayoutSizeFitting(sizeThatFits(CGSize(width: self.contentView.frame.width, height: 500.0)))
-        self.swipeView.frame = CGRect(x: 0, y: 0, width: self.contentView.frame.width, height: self.estimatedSize.height)
-        guard let isDeadlinePassed = checkIfDeadlineHasPassed(deadline: convertDateToString(with.taskDeadline)) else {
-            return
-        }
-        taskDeadline.textColor = .black
-        if isDeadlinePassed {
-            taskDeadline.textColor = .red
-        }
     }
     
     private func convertDateToString(_ date: Date) -> String {
@@ -190,7 +170,26 @@ final class TaskCollectionViewCell: UICollectionViewCell {
         dateFormatter.dateFormat = "yyyy.MM.dd"
         return dateFormatter.string(from: date)
     }
+
     
+    private func checkIfDeadlineHasPassed(deadline: String) -> Bool? {
+        guard let deadline = convertStringToTimeInterval1970(date: deadline) else { return nil }
+        return Date().timeIntervalSince1970 > deadline + 86400 ? true : false
+    }
+    
+    func configureCell(data: Task) {
+        self.taskTitle.text = data.taskTitle
+        self.taskDescription.text = data.taskDescription
+        self.taskDeadline.text = convertDateToString(data.taskDeadline)
+//        self.swipeView.layoutIfNeeded()
+        self.estimatedSize = self.swipeView.systemLayoutSizeFitting(sizeThatFits(CGSize(width: self.contentView.frame.width, height: 500.0)))
+        guard let isDeadlinePassed = checkIfDeadlineHasPassed(deadline: convertDateToString(data.taskDeadline)) else { return }
+        taskDeadline.textColor = .black
+        if isDeadlinePassed {
+            taskDeadline.textColor = .red
+        }
+    }
+        
     func getEstimatedHeight() -> CGFloat {
         return self.estimatedSize.height
     }
