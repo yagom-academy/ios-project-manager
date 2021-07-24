@@ -52,11 +52,10 @@ final class TaskCollectionViewCell: UICollectionViewCell {
         button.setTitle("Delete", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .red
-        button.addTarget(self, action: #selector(deleteTask), for: .touchDown)
+        button.layer.cornerRadius = 15
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-    private var estimatedSize: CGSize = CGSize(width: 0, height: 0)
     private var panGestureRecognizer: UIPanGestureRecognizer!
     var deleteDelegate: DeleteDelegate?
     
@@ -108,9 +107,11 @@ final class TaskCollectionViewCell: UICollectionViewCell {
     
     private func setDeleteButton() {
         self.contentView.addSubview(self.deleteButton)
+        self.contentView.bringSubviewToFront(swipeView)
+        self.deleteButton.addTarget(self, action: #selector(deleteTask), for: .touchDown)
         NSLayoutConstraint.activate([
             self.deleteButton.topAnchor.constraint(equalTo: contentView.topAnchor),
-            self.deleteButton.leadingAnchor.constraint(equalTo: self.swipeView.trailingAnchor),
+            self.deleteButton.trailingAnchor.constraint(equalTo: self.swipeView.trailingAnchor),
             self.deleteButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
         ])
     }
@@ -213,13 +214,13 @@ extension TaskCollectionViewCell: UIGestureRecognizerDelegate {
         var changedX = self.swipeView.center.x + transition.x
         
         if self.swipeView.center.x < self.frame.width/2 - 150 {
-            changedX = self.frame.width/2 - 150
+            changedX = self.frame.width/2 - 120
         }
         if self.swipeView.center.x > self.frame.width/2 {
             changedX = self.frame.width/2
         }
         UIView.animate(withDuration: 0.2) {
-            self.deleteButton.frame = CGRect(x: changedX + self.contentView.frame.width/2, y: 0, width: 150, height: self.contentView.frame.height)
+            self.deleteButton.frame = CGRect(x: changedX + self.contentView.frame.width/2, y: 0, width: 120, height: self.contentView.frame.height)
             self.panGestureRecognizer.setTranslation(CGPoint.zero, in: self.deleteButton)
             self.swipeView.center = CGPoint(x: changedX, y: self.swipeView.center.y)
             self.panGestureRecognizer.setTranslation(CGPoint.zero, in: self.swipeView)
@@ -229,13 +230,13 @@ extension TaskCollectionViewCell: UIGestureRecognizerDelegate {
             if self.swipeView.center.x + 150/2 < contentView.center.x {
                 UIView.animate(withDuration: 0.2) { [weak self] in
                     self?.swipeView.frame = CGRect(x: -(self?.deleteButton.frame.width)!, y: 0, width: (self?.contentView.frame.width)!, height: (self?.contentView.frame.height)!)
-                    self?.deleteButton.frame = CGRect(x: (self?.contentView.frame.width)!-150, y: 0, width: 150, height: (self?.contentView.frame.height)!)
+                    self?.deleteButton.frame = CGRect(x: (self?.contentView.frame.width)!-120, y: 0, width: 150, height: (self?.contentView.frame.height)!)
                 }
                 return
             }
             UIView.animate(withDuration: 0.2) { [weak self] in
                 self?.swipeView.frame = CGRect(x: 0, y: 0, width: (self?.contentView.frame.width)!, height: (self?.contentView.frame.height)!)
-                self?.deleteButton.frame = CGRect(x: (self?.contentView.frame.width)!, y: 0, width: 150, height: (self?.contentView.frame.height)!)
+                self?.deleteButton.frame = CGRect(x: (self?.contentView.frame.width)!-150, y: 0, width: 150, height: (self?.contentView.frame.height)!)
             }
         }
     }
