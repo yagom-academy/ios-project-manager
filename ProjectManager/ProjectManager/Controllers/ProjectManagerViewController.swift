@@ -15,6 +15,7 @@ class ProjectManagerViewController: UIViewController, TaskAddDelegate , DeleteDe
         collecionView.backgroundColor = .systemGray6
         collecionView.translatesAutoresizingMaskIntoConstraints = false
         collecionView.showsVerticalScrollIndicator = false
+        collecionView.register(TaskCollectionViewCell.classForCoder(), forCellWithReuseIdentifier: TaskCollectionViewCell.identifier)
         return collecionView
     }()
     let doingCollectionView: UICollectionView = {
@@ -22,6 +23,7 @@ class ProjectManagerViewController: UIViewController, TaskAddDelegate , DeleteDe
         collecionView.backgroundColor = .systemGray6
         collecionView.translatesAutoresizingMaskIntoConstraints = false
         collecionView.showsVerticalScrollIndicator = false
+        collecionView.register(TaskCollectionViewCell.classForCoder(), forCellWithReuseIdentifier: TaskCollectionViewCell.identifier)
         return collecionView
     }()
     let doneCollectionView: UICollectionView = {
@@ -29,6 +31,7 @@ class ProjectManagerViewController: UIViewController, TaskAddDelegate , DeleteDe
         collecionView.backgroundColor = .systemGray6
         collecionView.translatesAutoresizingMaskIntoConstraints = false
         collecionView.showsVerticalScrollIndicator = false
+        collecionView.register(TaskCollectionViewCell.classForCoder(), forCellWithReuseIdentifier: TaskCollectionViewCell.identifier)
         return collecionView
     }()
     let toDoHeader: TaskHeader = {
@@ -66,7 +69,6 @@ class ProjectManagerViewController: UIViewController, TaskAddDelegate , DeleteDe
         self.navigationItem.title = "Project Manager"
         self.setAddTask()
         self.addTaskViewController.taskDelegate = self
-        self.registerCollectionViewCell()
         self.setUpDelegate()
         self.setUpDataSource()
         self.setUpToDoCollectionView()
@@ -111,12 +113,6 @@ class ProjectManagerViewController: UIViewController, TaskAddDelegate , DeleteDe
         self.findViewModel(collectionView: collectionView)?.deleteTaskFromTaskList(index: indexPath.row)
         collectionView.deleteItems(at: [indexPath])
         self.updateCount(collectionView)
-    }
-    
-    private func registerCollectionViewCell() {
-        self.toDoCollectionView.register(TaskCollectionViewCell.classForCoder(), forCellWithReuseIdentifier: TaskCollectionViewCell.identifier)
-        self.doingCollectionView.register(TaskCollectionViewCell.classForCoder(), forCellWithReuseIdentifier: TaskCollectionViewCell.identifier)
-        self.doneCollectionView.register(TaskCollectionViewCell.classForCoder(), forCellWithReuseIdentifier: TaskCollectionViewCell.identifier)
     }
     
     private func setUpDelegate() {
