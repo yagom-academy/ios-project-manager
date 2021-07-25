@@ -1,5 +1,5 @@
 //
-//  TaskCollectionViewHeaderCell.swift
+//  TaskHeader.swift
 //  ProjectManager
 //
 //  Created by Fezravien on 2021/07/21.
@@ -8,9 +8,6 @@
 import UIKit
 
 final class TaskHeader: UIView {
-    var status: String?
-    var count: Int?
-    
     private let statusLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .left
@@ -35,6 +32,8 @@ final class TaskHeader: UIView {
         return label
     }()
     
+    // MARK: - Initial TaskHeader
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -51,6 +50,8 @@ final class TaskHeader: UIView {
         initializeHeaderConfigure(title)
     }
     
+    // MARK: - TaskHeader Configure
+    
     private func initializeHeaderConfigure(_ title: String) {
         self.statusLabel.text = title
         self.layer.shadowOpacity = 1
@@ -58,9 +59,13 @@ final class TaskHeader: UIView {
         self.layer.shadowColor = UIColor.systemGray4.cgColor
     }
     
+    // MARK: - Outside Method - update count
+    
     func updateCount(_ count: Int) {
         countLabel.text = String(count)
     }
+    
+    // MARK: - Set Constraint
     
     private func setStatusLabelConstraint() {
         self.addSubview(statusLabel)
