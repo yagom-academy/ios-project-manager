@@ -16,12 +16,7 @@ final class TaskDetailViewController: UIViewController {
     enum EdgeInsert {
         static let descriptionContent = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
     }
-    var taskDelegate: TaskAddDelegate?
-    var mode: Mode?
-    var state: State?
-    var currentData: Task?
-    var editIndexPath: IndexPath?
-
+    
     private var todoTitle: String?
     private var todoDescription: String?
     private let titleTextField: UITextField = {
@@ -37,7 +32,7 @@ final class TaskDetailViewController: UIViewController {
         title.autocorrectionType = .no
         return title
     }()
-    private let datePickerView: UIDatePicker = {
+    private let deadLineDatePickerView: UIDatePicker = {
         let date = UIDatePicker(frame: .zero)
         date.preferredDatePickerStyle = .wheels
         date.datePickerMode = .date
@@ -56,59 +51,77 @@ final class TaskDetailViewController: UIViewController {
         description.autocorrectionType = .no
         return description
     }()
+    var taskDelegate: TaskAddDelegate?
+    private var mode: Mode?
+    private var state: State?
+    private var currentData: Task?
+    private var editIndexPath: IndexPath?
+    
+    // MARK: - ViewController Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .white
-        self.navigationItem.title = "TODO"
-        titleTextField.delegate = self
-        descriptionTextView.delegate = self
-        titleTextFieldConstraint()
-        datePickerViewConstraint()
-        descriptionTextViewConstraint()
+        setTaskDetailViewControllerConfigure()
+        setDelegate()
+        setConstraint()
         tapGestureAtKeyboardAnyWhere()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationItem.leftBarButtonItem?.tintColor = .systemBlue
         setNavigationItem()
-        titleTextField.text = nil
-        descriptionTextView.text = nil
-        todoTitle = nil
-        todoDescription = nil
-        datePickerView.setDate(Date(), animated: true)
+        resetInitalConfigure()
         checkMode()
     }
     
-    private func checkMode() {
-        if mode == .edit {
-            titleTextField.text = currentData?.taskTitle
-            titleTextField.isEnabled = false
-            descriptionTextView.text = currentData?.taskDescription
-            descriptionTextView.isEditable = false
-            datePickerView.setDate(currentData?.taskDeadline ?? Date(), animated: true)
-            datePickerView.isEnabled = false
-            return
-        }
-        titleTextField.isEnabled = true
-        descriptionTextView.isEditable = true
-        datePickerView.isEnabled = true
+    // MARK: - Initial Configure
+    
+    private func setTaskDetailViewControllerConfigure() {
+        self.view.backgroundColor = .white
+        self.navigationItem.title = "TODO"
     }
     
-    func setState(mode: Mode, state: State, data: Task?, indexPath: IndexPath?) {
-        self.mode = mode
-        self.state = state
-        self.currentData = data
-        self.editIndexPath = indexPath
+    private func resetInitalConfigure() {
+        self.titleTextField.text = nil
+        self.descriptionTextView.text = nil
+        self.todoTitle = nil
+        self.todoDescription = nil
+        self.deadLineDatePickerView.setDate(Date(), animated: true)
+    }
+    
+    private func setDelegate() {
+        self.titleTextField.delegate = self
+        self.descriptionTextView.delegate = self
+    }
+    
+    private func setConstraint() {
+        titleTextFieldConstraint()
+        datePickerViewConstraint()
+        descriptionTextViewConstraint()
+    }
+    
+    private func checkMode() {
+        if self.mode == .edit {
+            self.titleTextField.text = currentData?.taskTitle
+            self.titleTextField.isEnabled = false
+            self.descriptionTextView.text = currentData?.taskDescription
+            self.descriptionTextView.isEditable = false
+            self.deadLineDatePickerView.setDate(currentData?.taskDeadline ?? Date(), animated: true)
+            self.deadLineDatePickerView.isEnabled = false
+            return
+        }
+        self.titleTextField.isEnabled = true
+        self.descriptionTextView.isEditable = true
+        self.deadLineDatePickerView.isEnabled = true
     }
     
     private func setNavigationItem() {
-        let closeButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(pushCloseButton))
-        let editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(pushEditButton))
-        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(pushDoneButton))
+        self.navigationItem.leftBarButtonItem?.tintColor = .systemBlue
+        let closeButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(tapCloseButton))
+        let editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(tapEditButton))
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(tapDoneButton))
         self.navigationItem.leftBarButtonItem = closeButton
-        if mode == .edit {
+        if self.mode == .edit {
             self.navigationItem.leftBarButtonItem = editButton
         }
         self.navigationItem.rightBarButtonItem = doneButton
@@ -116,34 +129,66 @@ final class TaskDetailViewController: UIViewController {
     
     private func tapGestureAtKeyboardAnyWhere() {
         let tapGesture = UITapGestureRecognizer(target: self.view, action: #selector(view.endEditing))
-        view.addGestureRecognizer(tapGesture)
+        self.view.addGestureRecognizer(tapGesture)
     }
     
-    @objc private func pushEditButton() {
+    // MARK: - Constraint
+    
+    private func titleTextFieldConstraint() {
+        self.view.addSubview(titleTextField)
+        NSLayoutConstraint.activate([
+            self.titleTextField.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 10),
+            self.titleTextField.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 15),
+            self.titleTextField.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -10),
+            self.titleTextField.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 1/16)
+        ])
+    }
+    
+    private func datePickerViewConstraint() {
+        self.view.addSubview(deadLineDatePickerView)
+        NSLayoutConstraint.activate([
+            self.deadLineDatePickerView.centerXAnchor.constraint(equalTo: titleTextField.centerXAnchor),
+            self.deadLineDatePickerView.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 25),
+            self.deadLineDatePickerView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 1/5),
+            self.deadLineDatePickerView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1/2)
+        ])
+    }
+    
+    private func descriptionTextViewConstraint() {
+        self.view.addSubview(descriptionTextView)
+        NSLayoutConstraint.activate([
+            self.descriptionTextView.centerXAnchor.constraint(equalTo: deadLineDatePickerView.centerXAnchor),
+            self.descriptionTextView.topAnchor.constraint(equalTo: deadLineDatePickerView.bottomAnchor, constant: 25),
+            self.descriptionTextView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -15),
+            self.descriptionTextView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20)
+        ])
+    }
+    
+    // MARK: - Outside Method
+    
+    func setState(mode: Mode, state: State, data: Task?, indexPath: IndexPath?) {
+        self.mode = mode
+        self.state = state
+        self.currentData = data
+        self.editIndexPath = indexPath
+    }
+ 
+    // MARK: - Button Event
+    
+    @objc private func tapEditButton() {
         titleTextField.isEnabled = true
         descriptionTextView.isEditable = true
-        datePickerView.isEnabled = true
+        deadLineDatePickerView.isEnabled = true
         navigationItem.leftBarButtonItem?.tintColor = .gray
     }
     
-    @objc private func pushCloseButton() {
+    @objc private func tapCloseButton() {
         dismiss(animated: true, completion: nil)
     }
     
     @objc private func pushDoneButton() {
         dismiss(animated: true) {
-            // TODO Cell index 0에 추가
-            guard let todoTitle = self.todoTitle else {
-                // TODO: Alert title is empty
-                return
-            }
-            
-            guard let todoDescription = self.todoDescription else {
-                // TODO: Alert description is empty
-                return
-            }
-            
-            let data = Task(taskTitle: todoTitle, taskDescription: todoDescription, taskDeadline: self.datePickerView.date)
+            let data = Task(taskTitle: todoTitle, taskDescription: todoDescription, taskDeadline: self.deadLineDatePickerView.date)
             
             if self.mode == .add {
                 self.taskDelegate?.addData(data)
@@ -164,46 +209,17 @@ final class TaskDetailViewController: UIViewController {
             }
         }
     }
-    
-    private func titleTextFieldConstraint() {
-        self.view.addSubview(titleTextField)
-        NSLayoutConstraint.activate([
-            titleTextField.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 10),
-            titleTextField.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 15),
-            titleTextField.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -10),
-            titleTextField.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 1/16)
-        ])
-    }
-    
-    private func datePickerViewConstraint() {
-        self.view.addSubview(datePickerView)
-        NSLayoutConstraint.activate([
-            datePickerView.centerXAnchor.constraint(equalTo: titleTextField.centerXAnchor),
-            datePickerView.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 25),
-            datePickerView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 1/5),
-            datePickerView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1/2)
-        ])
-    }
-    
-    private func descriptionTextViewConstraint() {
-        self.view.addSubview(descriptionTextView)
-        NSLayoutConstraint.activate([
-            descriptionTextView.centerXAnchor.constraint(equalTo: datePickerView.centerXAnchor),
-            descriptionTextView.topAnchor.constraint(equalTo: datePickerView.bottomAnchor, constant: 25),
-            descriptionTextView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -15),
-            descriptionTextView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20)
-        ])
-    }
 }
 
-extension AddTaskViewController: UITextFieldDelegate {
+// MARK: - TextField Delegate
+
+extension TaskDetailViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         titleTextField.resignFirstResponder()
         return true
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        // titleTextField value
         guard let text = textField.text else { return }
         todoTitle = text
     }
@@ -214,7 +230,9 @@ extension AddTaskViewController: UITextFieldDelegate {
     }
 }
 
-extension AddTaskViewController: UITextViewDelegate {
+// MARK: - TextView Delegate
+
+extension TaskDetailViewController: UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
         guard let text = textView.text else { return }
         todoDescription = text
