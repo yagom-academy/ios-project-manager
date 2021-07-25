@@ -6,7 +6,15 @@
 
 import UIKit
 
-final class ProjectManagerViewController: UIViewController, TaskAddDelegate , DeleteDelegate {
+final class ProjectManagerViewController: UIViewController, TaskAddDelegate, DeleteDelegate {
+    
+    enum Style {
+        static let headerViewWidthMultiplier: CGFloat = 1/3
+        static let headerViewEachMargin: CGFloat = -20/3
+        static let headerViewHeightMultiplier: CGFloat = 1/16
+        static let collecionAndHeaderSpace: CGFloat = 3
+    }
+    
     private let toDoCollectionView: UICollectionView = {
         let collecionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         collecionView.backgroundColor = .systemGray6
@@ -49,12 +57,12 @@ final class ProjectManagerViewController: UIViewController, TaskAddDelegate , De
         header.translatesAutoresizingMaskIntoConstraints = false
         return header
     }()
+    private let addTaskViewController = AddTaskViewController()
     private let toDoViewModel = TaskViewModel()
     private let doingViewModel = TaskViewModel()
     private let doneViewModel = TaskViewModel()
     private var dragCollectionView: UICollectionView?
     private var dragCollectionViewIndexPath: IndexPath?
-    private let addTaskViewController = AddTaskViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -143,51 +151,52 @@ final class ProjectManagerViewController: UIViewController, TaskAddDelegate , De
         self.view.addSubview(toDoHeader)
         self.toDoHeader.updateCount(toDoViewModel.taskListCount())
         NSLayoutConstraint.activate([
-            self.toDoHeader.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 0),
+            self.toDoHeader.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
             self.toDoHeader.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            self.toDoHeader.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1/3, constant: -20/3),
-            self.toDoHeader.bottomAnchor.constraint(equalTo: self.toDoCollectionView.topAnchor, constant: -1),
+            self.toDoHeader.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: Style.headerViewWidthMultiplier, constant: Style.headerViewEachMargin),
+            self.toDoHeader.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: Style.headerViewHeightMultiplier)
         ])
     }
     
     private func setDoingHeader() {
         self.view.addSubview(doingHeader)
-        self.doingHeader.updateCount(toDoViewModel.taskListCount())
+        self.doingHeader.updateCount(doingViewModel.taskListCount())
         NSLayoutConstraint.activate([
             self.doingHeader.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
-            self.doingHeader.leadingAnchor.constraint(equalTo: self.doingCollectionView.leadingAnchor),
-            self.doingHeader.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1/3, constant: -20/3),
-            self.doingHeader.bottomAnchor.constraint(equalTo: self.doingCollectionView.topAnchor, constant: -1),
+            self.doingHeader.leadingAnchor.constraint(equalTo: self.toDoHeader.trailingAnchor, constant: 10),
+            self.doingHeader.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: Style.headerViewWidthMultiplier, constant: Style.headerViewEachMargin),
+            self.doingHeader.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: Style.headerViewHeightMultiplier)
         ])
     }
     
     private func setDoneHeader() {
         self.view.addSubview(doneHeader)
-        self.doneHeader.updateCount(toDoViewModel.taskListCount())
+        self.doneHeader.updateCount(doneViewModel.taskListCount())
         NSLayoutConstraint.activate([
             self.doneHeader.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
-            self.doneHeader.leadingAnchor.constraint(equalTo: self.doneCollectionView.leadingAnchor),
-            self.doneHeader.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1/3, constant: -20/3),
-            self.doneHeader.bottomAnchor.constraint(equalTo: self.doneCollectionView.topAnchor, constant: -1),
+            self.doneHeader.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            self.doneHeader.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: Style.headerViewWidthMultiplier, constant: Style.headerViewEachMargin),
+            self.doneHeader.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: Style.headerViewHeightMultiplier)
+            
         ])
     }
     
     private func setToDoCollectionView() {
         self.view.addSubview(toDoCollectionView)
         NSLayoutConstraint.activate([
-            self.toDoCollectionView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 140),
-            self.toDoCollectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            self.toDoCollectionView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1/3, constant: -20/3),
-            self.toDoCollectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            self.toDoCollectionView.topAnchor.constraint(equalTo: toDoHeader.bottomAnchor, constant: Style.collecionAndHeaderSpace),
+            self.toDoCollectionView.centerXAnchor.constraint(equalTo: toDoHeader.centerXAnchor),
+            self.toDoCollectionView.widthAnchor.constraint(equalTo: toDoHeader.widthAnchor),
+            self.toDoCollectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
         ])
     }
     
     private func setDoingCollectionView() {
         self.view.addSubview(doingCollectionView)
         NSLayoutConstraint.activate([
-            self.doingCollectionView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 140),
-            self.doingCollectionView.leadingAnchor.constraint(equalTo: toDoCollectionView.trailingAnchor, constant: 10),
-            self.doingCollectionView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1/3, constant: -20/3),
+            self.doingCollectionView.topAnchor.constraint(equalTo: doingHeader.bottomAnchor, constant: Style.collecionAndHeaderSpace),
+            self.doingCollectionView.centerXAnchor.constraint(equalTo: doingHeader.centerXAnchor),
+            self.doingCollectionView.widthAnchor.constraint(equalTo: doingHeader.widthAnchor),
             self.doingCollectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
         ])
     }
@@ -195,10 +204,9 @@ final class ProjectManagerViewController: UIViewController, TaskAddDelegate , De
     private func setDoneCollectionView() {
         self.view.addSubview(doneCollectionView)
         NSLayoutConstraint.activate([
-            self.doneCollectionView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 140),
-            self.doneCollectionView.leadingAnchor.constraint(equalTo: doingCollectionView.trailingAnchor, constant: 10),
-            self.doneCollectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            self.doneCollectionView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1/3, constant: -20/3),
+            self.doneCollectionView.topAnchor.constraint(equalTo: doneHeader.bottomAnchor, constant: Style.collecionAndHeaderSpace),
+            self.doneCollectionView.centerXAnchor.constraint(equalTo: doneHeader.centerXAnchor),
+            self.doneCollectionView.widthAnchor.constraint(equalTo: doneHeader.widthAnchor),
             self.doneCollectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
         ])
     }
