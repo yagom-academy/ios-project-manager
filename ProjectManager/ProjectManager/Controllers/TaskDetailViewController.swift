@@ -14,7 +14,7 @@ final class TaskDetailViewController: UIViewController {
     }
 
     enum EdgeInsert {
-        static let descriptionContent = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
+        static let descriptionContent: UIEdgeInsets = .init(top: 10, left: 20, bottom: 10, right: 20)
     }
     
     private var todoTitle: String?
@@ -96,7 +96,7 @@ final class TaskDetailViewController: UIViewController {
     
     private func setConstraint() {
         titleTextFieldConstraint()
-        datePickerViewConstraint()
+        deadLineDatePickerViewConstraint()
         descriptionTextViewConstraint()
     }
     
@@ -137,14 +137,14 @@ final class TaskDetailViewController: UIViewController {
     private func titleTextFieldConstraint() {
         self.view.addSubview(titleTextField)
         NSLayoutConstraint.activate([
-            self.titleTextField.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 10),
             self.titleTextField.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 15),
+            self.titleTextField.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 10),
             self.titleTextField.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -10),
             self.titleTextField.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 1/16)
         ])
     }
     
-    private func datePickerViewConstraint() {
+    private func deadLineDatePickerViewConstraint() {
         self.view.addSubview(deadLineDatePickerView)
         NSLayoutConstraint.activate([
             self.deadLineDatePickerView.centerXAnchor.constraint(equalTo: titleTextField.centerXAnchor),
@@ -188,34 +188,22 @@ final class TaskDetailViewController: UIViewController {
     
     @objc private func tapDoneButton() {
         guard let todoTitle = self.todoTitle else {
-            let alert = UIAlertController(title: "⚠️", message: "Title Error: 비어있습니다.", preferredStyle: .alert)
-            let okButton = UIAlertAction(title: "OK", style: .default)
-            alert.addAction(okButton)
-            self.present(alert, animated: true, completion: nil)
+            taskDetailErrorAlert(title: "⚠️", message: "Title Error: 비어있습니다.")
             return
         }
         
         guard let todoDescription = self.todoDescription else {
-            let alert = UIAlertController(title: "⚠️", message: "Description Error: 비어있습니다.", preferredStyle: .alert)
-            let okButton = UIAlertAction(title: "OK", style: .default)
-            alert.addAction(okButton)
-            self.present(alert, animated: true, completion: nil)
+            taskDetailErrorAlert(title: "⚠️", message: "Description Error: 비어있습니다.")
             return
         }
         
         if todoTitle.count > 100 {
-            let alert = UIAlertController(title: "⚠️", message: "Title Error: 100자 이상", preferredStyle: .alert)
-            let okButton = UIAlertAction(title: "OK", style: .default)
-            alert.addAction(okButton)
-            self.present(alert, animated: true, completion: nil)
+            taskDetailErrorAlert(title: "⚠️", message: "Title Error: 100자 이상")
             return
         }
-        
+
         if todoDescription.count > 1000 {
-            let alert = UIAlertController(title: "⚠️", message: "Description Error: 1000자 이상.", preferredStyle: .alert)
-            let okButton = UIAlertAction(title: "OK", style: .default)
-            alert.addAction(okButton)
-            self.present(alert, animated: true, completion: nil)
+            taskDetailErrorAlert(title: "⚠️", message: "Description Error: 1000자 이상.")
             return
         }
         
@@ -240,6 +228,13 @@ final class TaskDetailViewController: UIViewController {
                 }
             }
         }
+    }
+    
+    private func taskDetailErrorAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okButton = UIAlertAction(title: "OK", style: .default)
+        alert.addAction(okButton)
+        self.present(alert, animated: true, completion: nil)
     }
 }
 
