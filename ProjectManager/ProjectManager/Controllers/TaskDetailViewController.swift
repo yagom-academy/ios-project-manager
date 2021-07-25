@@ -186,7 +186,39 @@ final class TaskDetailViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    @objc private func pushDoneButton() {
+    @objc private func tapDoneButton() {
+        guard let todoTitle = self.todoTitle else {
+            let alert = UIAlertController(title: "⚠️", message: "Title Error: 비어있습니다.", preferredStyle: .alert)
+            let okButton = UIAlertAction(title: "OK", style: .default)
+            alert.addAction(okButton)
+            self.present(alert, animated: true, completion: nil)
+            return
+        }
+        
+        guard let todoDescription = self.todoDescription else {
+            let alert = UIAlertController(title: "⚠️", message: "Description Error: 비어있습니다.", preferredStyle: .alert)
+            let okButton = UIAlertAction(title: "OK", style: .default)
+            alert.addAction(okButton)
+            self.present(alert, animated: true, completion: nil)
+            return
+        }
+        
+        if todoTitle.count > 100 {
+            let alert = UIAlertController(title: "⚠️", message: "Title Error: 100자 이상", preferredStyle: .alert)
+            let okButton = UIAlertAction(title: "OK", style: .default)
+            alert.addAction(okButton)
+            self.present(alert, animated: true, completion: nil)
+            return
+        }
+        
+        if todoDescription.count > 1000 {
+            let alert = UIAlertController(title: "⚠️", message: "Description Error: 1000자 이상.", preferredStyle: .alert)
+            let okButton = UIAlertAction(title: "OK", style: .default)
+            alert.addAction(okButton)
+            self.present(alert, animated: true, completion: nil)
+            return
+        }
+        
         dismiss(animated: true) {
             let data = Task(taskTitle: todoTitle, taskDescription: todoDescription, taskDeadline: self.deadLineDatePickerView.date)
             
