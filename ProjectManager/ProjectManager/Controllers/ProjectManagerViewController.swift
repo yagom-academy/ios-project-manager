@@ -20,7 +20,7 @@ final class ProjectManagerViewController: UIViewController, TaskAddDelegate, Del
         collecionView.backgroundColor = .systemGray6
         collecionView.translatesAutoresizingMaskIntoConstraints = false
         collecionView.showsVerticalScrollIndicator = false
-        collecionView.register(TaskCollectionViewCell.classForCoder(), forCellWithReuseIdentifier: TaskCollectionViewCell.identifier)
+        collecionView.register(TaskCollectionViewCell.self, forCellWithReuseIdentifier: TaskCollectionViewCell.identifier)
         return collecionView
     }()
     private let doingCollectionView: UICollectionView = {
@@ -28,7 +28,7 @@ final class ProjectManagerViewController: UIViewController, TaskAddDelegate, Del
         collecionView.backgroundColor = .systemGray6
         collecionView.translatesAutoresizingMaskIntoConstraints = false
         collecionView.showsVerticalScrollIndicator = false
-        collecionView.register(TaskCollectionViewCell.classForCoder(), forCellWithReuseIdentifier: TaskCollectionViewCell.identifier)
+        collecionView.register(TaskCollectionViewCell.self, forCellWithReuseIdentifier: TaskCollectionViewCell.identifier)
         return collecionView
     }()
     private let doneCollectionView: UICollectionView = {
@@ -36,7 +36,7 @@ final class ProjectManagerViewController: UIViewController, TaskAddDelegate, Del
         collecionView.backgroundColor = .systemGray6
         collecionView.translatesAutoresizingMaskIntoConstraints = false
         collecionView.showsVerticalScrollIndicator = false
-        collecionView.register(TaskCollectionViewCell.classForCoder(), forCellWithReuseIdentifier: TaskCollectionViewCell.identifier)
+        collecionView.register(TaskCollectionViewCell.self, forCellWithReuseIdentifier: TaskCollectionViewCell.identifier)
         return collecionView
     }()
     private let toDoHeader: TaskHeader = {
@@ -70,25 +70,57 @@ final class ProjectManagerViewController: UIViewController, TaskAddDelegate, Del
         setAddTask()
         setHeaderView()
         setCollecionView()
+        setDataBindingWithViewModel()
     }
     
-    func addData(_ data: Task) {
-        toDoViewModel.insertTaskIntoTaskList(index: 0, task: data)
-        toDoCollectionView.reloadData()
+    // MARK: - Data Binding
+    
+    private func setDataBindingWithViewModel() {
+        toDoViewModel.updateTaskCollectionView = { [weak self] in
+            self?.updateCount(self!.toDoCollectionView)
+            self?.toDoCollectionView.reloadData()
+        }
+        doingViewModel.updateTaskCollectionView = { [weak self] in
+            self?.updateCount(self!.doingCollectionView)
+            self?.doingCollectionView.reloadData()
+        }
+        doneViewModel.updateTaskCollectionView = { [weak self] in
+            self?.updateCount(self!.doneCollectionView)
+            self?.doneCollectionView.reloadData()
+        }
     }
     
     func updateData(state: State, indexPath: IndexPath, _ data: Task) {
         switch state {
         case .todo:
             toDoViewModel.updateTaskIntoTaskList(indexPath: indexPath, task: data)
-            toDoCollectionView.reloadData()
         case .doing:
             doingViewModel.updateTaskIntoTaskList(indexPath: indexPath, task: data)
-            doingCollectionView.reloadData()
         case .done:
             doneViewModel.updateTaskIntoTaskList(indexPath: indexPath, task: data)
-            doneCollectionView.reloadData()
         }
+    }
+    
+    // MARK: - Cell Update & Delete
+    
+    func deleteTask(collectionView: UICollectionView, indexPath: IndexPath) {
+        self.findViewModel(collectionView: collectionView)?.deleteTaskFromTaskList(index: indexPath.row)
+    }
+    
+    private func updateCount(_ collectionView: UICollectionView) {
+        guard let viewModel = self.findViewModel(collectionView: collectionView),
+              let header = self.findHeader(status: collectionView)
+        else {
+            return
+        }
+        header.updateCount(viewModel.taskListCount())
+    }
+    
+    // MARK: - SuperView Add Button Action
+    
+    private func setAddTask() {
+        let addTaskItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTask))
+        self.navigationItem.rightBarButtonItem = addTaskItem
     }
     
     @objc private func addTask() {
@@ -96,11 +128,9 @@ final class ProjectManagerViewController: UIViewController, TaskAddDelegate, Del
         addTaskViewController.setState(mode: .add, state: .todo, data: nil, indexPath: nil)
         present(UINavigationController(rootViewController: addTaskViewController), animated: true, completion: nil)
     }
-        
-    func deleteTask(collectionView: UICollectionView, indexPath: IndexPath) {
-        self.findViewModel(collectionView: collectionView)?.deleteTaskFromTaskList(index: indexPath.row)
-        collectionView.deleteItems(at: [indexPath])
-        self.updateCount(collectionView)
+    
+    func addData(_ data: Task) {
+        toDoViewModel.insertTaskIntoTaskList(index: 0, task: data)
     }
     
     private func projectManagerViewControllerConfigure() {
@@ -109,11 +139,6 @@ final class ProjectManagerViewController: UIViewController, TaskAddDelegate, Del
         self.navigationItem.title = "Project Manager"
         self.setDelegate()
         self.setDataSource()
-    }
-
-    private func setAddTask() {
-        let addTaskItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTask))
-        self.navigationItem.rightBarButtonItem = addTaskItem
     }
     
     private func setCollecionView() {
@@ -300,7 +325,6 @@ extension ProjectManagerViewController: UICollectionViewDataSource {
         guard let cell = toDoCollectionView.dequeueReusableCell(withReuseIdentifier: TaskCollectionViewCell.identifier, for: indexPath) as? TaskCollectionViewCell else {
             return UICollectionViewCell()
         }
-        
         cell.deleteDelegate = self
         
         if collectionView == self.toDoCollectionView {
@@ -322,11 +346,35 @@ extension ProjectManagerViewController: UICollectionViewDataSource {
         guard let task = doneViewModel.referTask(at: indexPath) else {
             return UICollectionViewCell()
         }
+
         cell.configureCell(data: task)
+        
         return cell
     }
-    
 }
+
+// MARK: - CollectionView Delegate
+
+extension ProjectManagerViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        addTaskViewController.mode = .edit
+        addTaskViewController.modalPresentationStyle = .formSheet
+        switch collectionView {
+        case toDoCollectionView:
+            addTaskViewController.setState(mode: .edit, state: .todo, data: toDoViewModel.referTask(at: indexPath), indexPath: indexPath)
+        case doingCollectionView:
+            addTaskViewController.setState(mode: .edit, state: .doing, data: doingViewModel.referTask(at: indexPath), indexPath: indexPath)
+        case doneCollectionView:
+            addTaskViewController.setState(mode: .edit, state: .done, data: doneViewModel.referTask(at: indexPath), indexPath: indexPath)
+        default:
+            return
+        }
+        
+        present(UINavigationController(rootViewController: addTaskViewController), animated: true, completion: nil)
+    }
+}
+
+// MARK: - CollectionView FlowLayout Delegate
 
 extension ProjectManagerViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -348,9 +396,7 @@ extension ProjectManagerViewController: UICollectionViewDelegateFlowLayout {
 
 extension ProjectManagerViewController: UICollectionViewDragDelegate {
     func collectionView(_ collectionView: UICollectionView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
-        guard let task = findTask(collectionView: collectionView, indexPath: indexPath) else {
-            return []
-        }
+        guard let task = findTask(collectionView: collectionView, indexPath: indexPath) else { return [] }
         let itemProvider = NSItemProvider(object: task as Task)
         let dragItem = UIDragItem(itemProvider: itemProvider)
         dragCollectionView = collectionView
@@ -367,29 +413,17 @@ extension ProjectManagerViewController: UICollectionViewDropDelegate {
             collectionView.performBatchUpdates({
                 guard let task = taskList[0] as? Task,
                       let dropViewModel = self?.findViewModel(collectionView: collectionView),
-                      let dragCollectionViewIndexPath = self?.dragCollectionViewIndexPath,
-                      let dragCollectionView = self?.dragCollectionView
-                      else {
+                      let dragCollectionViewIndexPath = self?.dragCollectionViewIndexPath else {
+                    
                     return
                 }
                 self?.dragCollectionView?.deleteItems(at: [dragCollectionViewIndexPath])
                 collectionView.insertItems(at: [destinationIndexPath])
                 self?.removeDraggedCollectionViewItem()
                 dropViewModel.insertTaskIntoTaskList(index: destinationIndexPath.row, task: Task(taskTitle: task.taskTitle, taskDescription: task.taskDescription, taskDeadline: task.taskDeadline))
-                self?.updateCount(dragCollectionView)
-                self?.updateCount(collectionView)
                 self?.setDraggedItemToNil()
             })
         }
-    }
-    
-    private func updateCount(_ collectionView: UICollectionView) {
-        guard let viewModel = self.findViewModel(collectionView: collectionView),
-              let header = self.findHeader(status: collectionView)
-        else {
-            return
-        }
-        header.updateCount(viewModel.taskListCount())
     }
     
     func collectionView(_ collectionView: UICollectionView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UICollectionViewDropProposal {

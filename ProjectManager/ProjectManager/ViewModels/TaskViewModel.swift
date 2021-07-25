@@ -7,8 +7,9 @@
 
 import Foundation
 
-class TaskViewModel {
-    let networkManager = NetworkManager()
+final class TaskViewModel {
+    private let networkManager = NetworkManager()
+    var updateTaskCollectionView : () -> Void = {}
     private var taskList: [Task] = [Task(taskTitle: "1 ToDoViewModel",
                                          taskDescription: "ToDoViewModel",
                                          taskDeadline: Date()),
@@ -26,7 +27,11 @@ class TaskViewModel {
                                          taskDeadline: Date()),
                                     Task(taskTitle: "6 ToDoViewModel",
                                          taskDescription: "ToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModel",
-                                         taskDeadline: Date())]
+                                         taskDeadline: Date())] {
+        didSet {
+            updateTaskCollectionView()
+        }
+    }
     
     func referTask(at: IndexPath) -> Task? {
         if taskList.count > at.row {
