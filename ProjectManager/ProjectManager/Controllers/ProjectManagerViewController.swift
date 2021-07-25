@@ -58,34 +58,10 @@ final class ProjectManagerViewController: UIViewController, TaskAddDelegate , De
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.projectManagerViewControllerConfigure()
-        self.setAddTask()
-        self.addTaskViewController.taskDelegate = self
-        self.setUpDelegate()
-        self.setUpDataSource()
-        self.setUpToDoCollectionView()
-        self.setUpDoingCollectionView()
-        self.setUpDoneCollectionView()
-        self.setUpToDoHeader()
-        self.setUpDoingHeader()
-        self.setUpDoneHeader()
-    }
-    
-    private func projectManagerViewControllerConfigure() {
-        self.view.backgroundColor = .systemGray4
-        self.navigationController?.navigationBar.backgroundColor = .systemGray2
-        self.navigationItem.title = "Project Manager"
-    }
-
-    private func setAddTask() {
-        let addTaskItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTask))
-        self.navigationItem.rightBarButtonItem = addTaskItem
-    }
-    
-    @objc private func addTask() {
-        addTaskViewController.modalPresentationStyle = .formSheet
-        addTaskViewController.setState(mode: .add, state: .todo, data: nil, indexPath: nil)
-        present(UINavigationController(rootViewController: addTaskViewController), animated: true, completion: nil)
+        projectManagerViewControllerConfigure()
+        setAddTask()
+        setHeaderView()
+        setCollecionView()
     }
     
     func addData(_ data: Task) {
@@ -106,6 +82,12 @@ final class ProjectManagerViewController: UIViewController, TaskAddDelegate , De
             doneCollectionView.reloadData()
         }
     }
+    
+    @objc private func addTask() {
+        addTaskViewController.modalPresentationStyle = .formSheet
+        addTaskViewController.setState(mode: .add, state: .todo, data: nil, indexPath: nil)
+        present(UINavigationController(rootViewController: addTaskViewController), animated: true, completion: nil)
+    }
         
     func deleteTask(collectionView: UICollectionView, indexPath: IndexPath) {
         self.findViewModel(collectionView: collectionView)?.deleteTaskFromTaskList(index: indexPath.row)
@@ -113,7 +95,32 @@ final class ProjectManagerViewController: UIViewController, TaskAddDelegate , De
         self.updateCount(collectionView)
     }
     
-    private func setUpDelegate() {
+    private func projectManagerViewControllerConfigure() {
+        self.view.backgroundColor = .systemGray4
+        self.navigationController?.navigationBar.backgroundColor = .systemGray2
+        self.navigationItem.title = "Project Manager"
+        self.setDelegate()
+        self.setDataSource()
+    }
+
+    private func setAddTask() {
+        let addTaskItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTask))
+        self.navigationItem.rightBarButtonItem = addTaskItem
+    }
+    
+    private func setCollecionView() {
+        self.setToDoCollectionView()
+        self.setDoingCollectionView()
+        self.setDoneCollectionView()
+    }
+    
+    private func setHeaderView() {
+        self.setToDoHeader()
+        self.setDoingHeader()
+        self.setDoneHeader()
+    }
+    
+    private func setDelegate() {
         self.toDoCollectionView.delegate = self
         self.doingCollectionView.delegate = self
         self.doneCollectionView.delegate = self
@@ -123,15 +130,16 @@ final class ProjectManagerViewController: UIViewController, TaskAddDelegate , De
         self.toDoCollectionView.dropDelegate = self
         self.doingCollectionView.dropDelegate = self
         self.doneCollectionView.dropDelegate = self
+        self.addTaskViewController.taskDelegate = self
     }
     
-    private func setUpDataSource() {
+    private func setDataSource() {
         self.toDoCollectionView.dataSource = self
         self.doingCollectionView.dataSource = self
         self.doneCollectionView.dataSource = self
     }
     
-    private func setUpToDoHeader() {
+    private func setToDoHeader() {
         self.view.addSubview(toDoHeader)
         self.toDoHeader.updateCount(toDoViewModel.taskListCount())
         NSLayoutConstraint.activate([
@@ -142,7 +150,7 @@ final class ProjectManagerViewController: UIViewController, TaskAddDelegate , De
         ])
     }
     
-    private func setUpDoingHeader() {
+    private func setDoingHeader() {
         self.view.addSubview(doingHeader)
         self.doingHeader.updateCount(toDoViewModel.taskListCount())
         NSLayoutConstraint.activate([
@@ -153,7 +161,7 @@ final class ProjectManagerViewController: UIViewController, TaskAddDelegate , De
         ])
     }
     
-    private func setUpDoneHeader() {
+    private func setDoneHeader() {
         self.view.addSubview(doneHeader)
         self.doneHeader.updateCount(toDoViewModel.taskListCount())
         NSLayoutConstraint.activate([
@@ -164,7 +172,7 @@ final class ProjectManagerViewController: UIViewController, TaskAddDelegate , De
         ])
     }
     
-    private func setUpToDoCollectionView() {
+    private func setToDoCollectionView() {
         self.view.addSubview(toDoCollectionView)
         NSLayoutConstraint.activate([
             self.toDoCollectionView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 140),
@@ -174,7 +182,7 @@ final class ProjectManagerViewController: UIViewController, TaskAddDelegate , De
         ])
     }
     
-    private func setUpDoingCollectionView() {
+    private func setDoingCollectionView() {
         self.view.addSubview(doingCollectionView)
         NSLayoutConstraint.activate([
             self.doingCollectionView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 140),
@@ -184,7 +192,7 @@ final class ProjectManagerViewController: UIViewController, TaskAddDelegate , De
         ])
     }
     
-    private func setUpDoneCollectionView() {
+    private func setDoneCollectionView() {
         self.view.addSubview(doneCollectionView)
         NSLayoutConstraint.activate([
             self.doneCollectionView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 140),
