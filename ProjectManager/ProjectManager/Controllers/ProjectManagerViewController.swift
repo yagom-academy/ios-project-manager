@@ -64,6 +64,8 @@ final class ProjectManagerViewController: UIViewController, TaskAddDelegate, Del
     private var dragCollectionView: UICollectionView?
     private var dragCollectionViewIndexPath: IndexPath?
     
+    // MARK: - ViewController Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         projectManagerViewControllerConfigure()
@@ -133,6 +135,8 @@ final class ProjectManagerViewController: UIViewController, TaskAddDelegate, Del
         toDoViewModel.insertTaskIntoTaskList(index: 0, task: data)
     }
     
+    // MARK: - Initial Configure
+    
     private func projectManagerViewControllerConfigure() {
         self.view.backgroundColor = .systemGray4
         self.navigationController?.navigationBar.backgroundColor = .systemGray2
@@ -172,6 +176,8 @@ final class ProjectManagerViewController: UIViewController, TaskAddDelegate, Del
         self.doneCollectionView.dataSource = self
     }
     
+    // MARK: - HeaderView Constraint
+    
     private func setToDoHeader() {
         self.view.addSubview(toDoHeader)
         self.toDoHeader.updateCount(toDoViewModel.taskListCount())
@@ -206,6 +212,8 @@ final class ProjectManagerViewController: UIViewController, TaskAddDelegate, Del
         ])
     }
     
+    // MARK: - CollectionView Constraint
+    
     private func setToDoCollectionView() {
         self.view.addSubview(toDoCollectionView)
         NSLayoutConstraint.activate([
@@ -235,6 +243,8 @@ final class ProjectManagerViewController: UIViewController, TaskAddDelegate, Del
             self.doneCollectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
         ])
     }
+    
+    // MARK: - Find Method
     
     private func findTask(collectionView: UICollectionView, indexPath:IndexPath) -> Task? {
         switch collectionView {
@@ -275,6 +285,8 @@ final class ProjectManagerViewController: UIViewController, TaskAddDelegate, Del
         }
     }
     
+    // MARK: - Drag Method
+    
     private func removeDraggedCollectionViewItem() {
         guard let draggedCollectionView = self.dragCollectionView, let draggedCollectionViewIndexPath = self.dragCollectionViewIndexPath else {
             return
@@ -288,24 +300,7 @@ final class ProjectManagerViewController: UIViewController, TaskAddDelegate, Del
     }
 }
 
-extension ProjectManagerViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        addTaskViewController.mode = .edit
-        addTaskViewController.modalPresentationStyle = .formSheet
-        switch collectionView {
-        case toDoCollectionView:
-            addTaskViewController.setState(mode: .edit, state: .todo, data: toDoViewModel.referTask(at: indexPath), indexPath: indexPath)
-        case doingCollectionView:
-            addTaskViewController.setState(mode: .edit, state: .doing, data: doingViewModel.referTask(at: indexPath), indexPath: indexPath)
-        case doneCollectionView:
-            addTaskViewController.setState(mode: .edit, state: .done, data: doneViewModel.referTask(at: indexPath), indexPath: indexPath)
-        default:
-            return
-        }
-        
-        present(UINavigationController(rootViewController: addTaskViewController), animated: true, completion: nil)
-    }
-}
+// MARK: - CollectionView DataSource
 
 extension ProjectManagerViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -394,6 +389,8 @@ extension ProjectManagerViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
+// MARK: - CollectionView DragDelegate
+
 extension ProjectManagerViewController: UICollectionViewDragDelegate {
     func collectionView(_ collectionView: UICollectionView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
         guard let task = findTask(collectionView: collectionView, indexPath: indexPath) else { return [] }
@@ -404,6 +401,8 @@ extension ProjectManagerViewController: UICollectionViewDragDelegate {
         return [dragItem]
     }
 }
+
+// MARK: - CollectionView DropDelegate
 
 extension ProjectManagerViewController: UICollectionViewDropDelegate {
     func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator) {
