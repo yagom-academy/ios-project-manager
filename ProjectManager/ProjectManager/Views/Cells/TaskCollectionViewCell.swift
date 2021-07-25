@@ -108,7 +108,7 @@ final class TaskCollectionViewCell: UICollectionViewCell {
     private func setDeleteButton() {
         self.contentView.addSubview(self.deleteButton)
         self.contentView.bringSubviewToFront(swipeView)
-        self.deleteButton.addTarget(self, action: #selector(deleteTask), for: .touchDown)
+        self.deleteButton.addTarget(self, action: #selector(deleteTask), for: .touchUpInside)
         NSLayoutConstraint.activate([
             self.deleteButton.topAnchor.constraint(equalTo: contentView.topAnchor),
             self.deleteButton.trailingAnchor.constraint(equalTo: self.swipeView.trailingAnchor),

@@ -57,7 +57,7 @@ final class ProjectManagerViewController: UIViewController, TaskAddDelegate, Del
         header.translatesAutoresizingMaskIntoConstraints = false
         return header
     }()
-    private let addTaskViewController = AddTaskViewController()
+    private let addTaskViewController = TaskDetailViewController()
     private let toDoViewModel = TaskViewModel()
     private let doingViewModel = TaskViewModel()
     private let doneViewModel = TaskViewModel()
@@ -352,7 +352,6 @@ extension ProjectManagerViewController: UICollectionViewDataSource {
 
 extension ProjectManagerViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        addTaskViewController.mode = .edit
         addTaskViewController.modalPresentationStyle = .formSheet
         switch collectionView {
         case toDoCollectionView:
