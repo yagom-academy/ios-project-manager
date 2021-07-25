@@ -7,14 +7,7 @@
 
 import UIKit
 
-enum State {
-    case todo
-    case doing
-    case done
-}
-
-final class AddTaskViewController: UIViewController {
-    
+final class TaskDetailViewController: UIViewController {
     enum Mode {
         case add
         case edit
