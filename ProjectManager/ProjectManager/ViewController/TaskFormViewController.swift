@@ -101,7 +101,7 @@ class TaskFormViewController: UIViewController {
     
     @objc private func clinkEditButton() {
         self.view.isUserInteractionEnabled = true
-        //todo: 키보드 입력 후 datepicker 조정시 키보드가 내려가도록 설정
+        //TODO: 키보드 입력 후 datepicker 조정시 키보드가 내려가도록 설정
         self.titleTextField.becomeFirstResponder()
     }
     
@@ -116,7 +116,7 @@ class TaskFormViewController: UIViewController {
         let dateText = DateUtil.formatDate(datePicker.date)
         
         if let title = titleTextField.text, !title.isEmpty, let content = contentTextView.text, !content.isEmpty {
-            viewController.addNewTask(Task(title: title, content: content, deadLine: dateText, state: "todo"))
+            viewController.addNewTask(Task(title: title, content: content, deadLine: dateText, state: .todo))
             self.dismiss(animated: true, completion: nil)
         } else {
             let alert = UIAlertController(title: "제목과 내용이 비어있습니다", message: "제목과 내용을 모두 채워주세요", preferredStyle: .alert)
@@ -132,7 +132,7 @@ class TaskFormViewController: UIViewController {
         selectedTask?.title = titleTextField.text!
         selectedTask?.content = contentTextView.text!
         selectedTask?.deadLine = DateUtil.formatDate(datePicker.date)
-        viewController.updateEditedCell(state: selectedTask!.state)
+        viewController.updateEditedCell(state: selectedTask!.state.description)
         
         self.dismiss(animated: true, completion: nil)
     }
@@ -142,6 +142,6 @@ class TaskFormViewController: UIViewController {
         titleTextField.text = task.title
         contentTextView.text = task.content
         datePicker.date = DateUtil.parseDate(task.deadLine)
-        navigationItem.title = task.state.uppercased()
+        navigationItem.title = task.state.description
     }
 }

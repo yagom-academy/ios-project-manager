@@ -7,11 +7,8 @@
 
 import UIKit
 
-class TaskView: UIView {	
-    let type: String
-    
-    init(type: String) {
-        self.type = type
+class TaskView: UIView {
+    init() {
         super.init(frame: .zero)
         self.translatesAutoresizingMaskIntoConstraints = false
         self.backgroundColor = .systemGray6

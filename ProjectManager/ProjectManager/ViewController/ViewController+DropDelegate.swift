@@ -52,7 +52,7 @@ extension ViewController: UITableViewDropDelegate {
                 dragCoordinator.isReordering = false
                 if let task = item.dragItem.localObject as? Task,
                    let taskTableView = tableView as? TaskTableView {
-                    task.state = taskTableView.type
+                    task.state = taskTableView.state
                     dataSource.addTask(task, at: destinationIndexPath.row)
                     tableView.performBatchUpdates {
                         tableView.insertRows(at: [destinationIndexPath], with: .automatic)

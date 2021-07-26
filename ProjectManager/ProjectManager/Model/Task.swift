@@ -8,13 +8,13 @@
 import Foundation
 import MobileCoreServices
 
-final class Task: NSObject {
+final class Task: NSObject, Codable {
     var title: String
     var content: String
     var deadLine: String
-    var state: String
+    var state: State
     
-    init(title: String, content: String, deadLine: String, state: String) {
+    init(title: String, content: String, deadLine: String, state: State) {
         self.title = title
         self.content = content
         self.deadLine = deadLine
@@ -41,7 +41,7 @@ extension Task: NSItemProviderWriting {
     }
 }
 
-extension Task: Codable, NSItemProviderReading {
+extension Task: NSItemProviderReading {
     static var readableTypeIdentifiersForItemProvider: [String] {
         return [String(kUTTypeData)]
     }

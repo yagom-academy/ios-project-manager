@@ -8,10 +8,7 @@
 import UIKit
 
 class CountLabel: UILabel {
-    let type: String
-    
-    init(type: String) {
-        self.type = type
+    init() {
         super.init(frame: .zero)
         self.translatesAutoresizingMaskIntoConstraints = false
         self.backgroundColor = .black
@@ -19,6 +16,7 @@ class CountLabel: UILabel {
         self.text = "0"
         self.font = UIFont.preferredFont(forTextStyle: .title2)
         self.textAlignment = .center
+        self.layer.masksToBounds = true
     }
     
     required init?(coder: NSCoder) {

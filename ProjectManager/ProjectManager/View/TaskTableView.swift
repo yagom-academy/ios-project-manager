@@ -8,10 +8,9 @@
 import UIKit
 
 class TaskTableView: UITableView {
-    let type: String
-    
-    init(type: String) {
-        self.type = type
+    let state: State
+    init(state: State) {
+        self.state = state
         super.init(frame: .zero, style: .plain)
         self.translatesAutoresizingMaskIntoConstraints = false
         self.backgroundColor = .systemGray6
