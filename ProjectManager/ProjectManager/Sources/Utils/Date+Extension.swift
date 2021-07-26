@@ -15,4 +15,10 @@ extension Date {
         formatter.dateStyle = .medium
         return formatter.string(from: self)
     }
+
+    var date: Date? {
+        let components = Calendar.current.dateComponents([.year, .month, .day], from: self)
+        let currentDate = Calendar.current.date(from: components)
+        return currentDate
+    }
 }

@@ -66,7 +66,7 @@ final class TaskCell: UITableViewCell {
         setStyle(with: task)
     }
 
-    func setLayout() {
+    private func setLayout() {
         NSLayoutConstraint.activate([
             contentStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
             contentStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
@@ -75,15 +75,16 @@ final class TaskCell: UITableViewCell {
         ])
     }
 
-    func setSubviews() {
+    private func setSubviews() {
         contentStackView.addArrangedSubview(titleLabel)
         contentStackView.addArrangedSubview(bodyLabel)
         contentStackView.addArrangedSubview(dueDateLabel)
         contentView.addSubview(contentStackView)
     }
 
-    func setStyle(with task: Task?) {
-        guard let task = task else { return }
-        dueDateLabel.textColor = task.dueDate > Date() ? UIColor.label : UIColor.systemRed
+    private func setStyle(with task: Task?) {
+        guard let task = task,
+              let date = Date().date else { return }
+        dueDateLabel.textColor = (task.dueDate >= date) ? UIColor.label : UIColor.systemRed
     }
 }
