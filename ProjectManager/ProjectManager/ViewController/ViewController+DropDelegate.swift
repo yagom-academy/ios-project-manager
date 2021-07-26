@@ -50,7 +50,9 @@ extension ViewController: UITableViewDropDelegate {
             } else {
                 //다른 테이블뷰일때
                 dragCoordinator.isReordering = false
-                if let task = item.dragItem.localObject as? Task {
+                if let task = item.dragItem.localObject as? Task,
+                   let taskTableView = tableView as? TaskTableView {
+                    task.state = taskTableView.type
                     dataSource.addTask(task, at: destinationIndexPath.row)
                     tableView.performBatchUpdates {
                         tableView.insertRows(at: [destinationIndexPath], with: .automatic)
