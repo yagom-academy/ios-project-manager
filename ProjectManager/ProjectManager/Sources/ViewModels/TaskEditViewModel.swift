@@ -23,7 +23,8 @@ struct TaskEditViewModel {
     }
 
     mutating func create(title: String, dueDate: Date, body: String) {
-        task = Task(title: title, body: body, dueDate: dueDate, state: .todo)
+        guard let date = dueDate.date else { return }
+        task = Task(title: title, body: body, dueDate: date, state: .todo)
         guard let task = task else { return }
         created?(task)
     }
