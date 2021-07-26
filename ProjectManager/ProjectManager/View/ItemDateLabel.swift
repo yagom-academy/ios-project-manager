@@ -29,21 +29,18 @@ class ItemDateLabel: UILabel {
         self.font = UIFont.preferredFont(forTextStyle: .title1)
     }
     
-    func setText(_ date: Double) {
-        let currentDate = Date()
-        let current = Double(currentDate.timeIntervalSince1970)
-        if current > date {
-            self.textColor = .black
-        } else if current < date {
-            self.textColor = .systemRed
-        }
-        
+    func setText(_ date: String) {
         // TODO: 하나의 데이터 처리 객체 만들기
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: Locale.current.identifier)
         dateFormatter.dateFormat = "yyyy.MM.dd"
-        let dateText = dateFormatter.string(from: Date(timeIntervalSince1970: date))
+        let currentDate = dateFormatter.string(from: Date())
+        if currentDate <= date {
+            self.textColor = .black
+        } else {
+            self.textColor = .systemRed
+        }
         
-        self.text = dateText
+        self.text = date
     }
 }

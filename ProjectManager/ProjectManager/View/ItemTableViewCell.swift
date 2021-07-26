@@ -57,6 +57,6 @@ class ItemTableViewCell: UITableViewCell {
     func configure(task: Task) {
         titleLabel.text = task.title
         contentLabel.text = task.content
-        dateLabel.text = task.deadLine
+        dateLabel.setText(task.deadLine)
     }
 }
