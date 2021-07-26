@@ -218,10 +218,18 @@ final class TaskEditViewController: UIViewController {
 
     // MARK: Button Actions
 
-    @objc private func keyboardWillShow() {
+    @objc private func keyboardWillShow(_ notification: Notification) {
+        guard let userInfo = notification.userInfo,
+              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
+        let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardFrame.height + 6, right: 0)
+        contentScrollView.contentInset = contentInset
+        contentScrollView.scrollIndicatorInsets = contentInset
     }
 
     @objc private func keyboardWillHide() {
+        let contentInset = UIEdgeInsets.zero
+        contentScrollView.contentInset = contentInset
+        contentScrollView.scrollIndicatorInsets = contentInset
     }
 
     @objc private func editButtonTapped() {
