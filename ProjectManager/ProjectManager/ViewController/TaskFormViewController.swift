@@ -117,7 +117,7 @@ extension TaskFormViewController {
 extension TaskFormViewController {
     @objc private func clinkEditButton() {
         self.view.isUserInteractionEnabled = true
-        //TODO: 키보드 입력 후 datepicker 조정시 키보드가 내려가도록 설정
+        // TODO: 키보드 입력 후 datepicker 조정시 키보드가 내려가도록 설정
         self.titleTextField.becomeFirstResponder()
     }
     
@@ -136,8 +136,8 @@ extension TaskFormViewController {
             self.dismiss(animated: true, completion: nil)
         } else {
             let alert = UIAlertController(title: "제목과 내용이 비어있습니다", message: "제목과 내용을 모두 채워주세요", preferredStyle: .alert)
-            let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
-            alert.addAction(ok)
+            let okButton = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alert.addAction(okButton)
             self.present(alert, animated: true)
         }
     }
