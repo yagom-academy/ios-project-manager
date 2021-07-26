@@ -10,11 +10,12 @@ import UIKit
 final class TaskEditViewController: UIViewController {
 
     private enum Style {
-        static let defaultTitle = "TODO"
-        static let titleTextFieldPlaceholder = "Title"
-        static let editButtonTitle = "Edit"
-        static let doneButtonTitle = "Done"
-        static let cancelButtonTitle = "Cancel"
+        static let defaultTitle: String = "TODO"
+        static let titleTextFieldPlaceholder: String = "Title"
+        static let editButtonTitle: String = "Edit"
+        static let doneButtonTitle: String = "Done"
+        static let cancelButtonTitle: String = "Cancel"
+        static let bodyLengthLimit: Int = 1_000
     }
 
     enum EditMode {
@@ -50,6 +51,8 @@ final class TaskEditViewController: UIViewController {
         textField.layer.shadowOpacity = 1
         textField.layer.shadowOffset = CGSize(width: 0, height: 3)
         textField.font = UIFont.preferredFont(forTextStyle: .title1)
+        textField.setContentHuggingPriority(.required, for: .vertical)
+        textField.setContentCompressionResistancePriority(.required, for: .vertical)
         return textField
     }()
 
@@ -71,6 +74,7 @@ final class TaskEditViewController: UIViewController {
         textView.layer.shadowOffset = CGSize(width: 0, height: 3)
         textView.clipsToBounds = false
         textView.font = UIFont.preferredFont(forTextStyle: .title3)
+        textView.isScrollEnabled = false
         return textView
     }()
 
@@ -164,6 +168,7 @@ final class TaskEditViewController: UIViewController {
         titleTextField.text = task.title
         dueDatePicker.date = task.dueDate
         bodyTextView.text = task.body
+        bodyTextView.delegate = self
         toggleEditState()
     }
 
@@ -197,5 +202,16 @@ final class TaskEditViewController: UIViewController {
 
     @objc private func cancelButtonTapped() {
         dismiss(animated: true)
+    }
+}
+
+// MARK: - UITextViewDelegate
+
+extension TaskEditViewController: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        let originText: String = textView.text ?? ""
+        let isUnderLimit: Bool = originText.count + (text.count - range.length) <= Style.bodyLengthLimit
+
+        return isUnderLimit
     }
 }
