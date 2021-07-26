@@ -13,13 +13,12 @@ enum FormType {
 }
 
 class TaskFormViewController: UIViewController {
+    var selectedTask: Task?
     var type: FormType = .edit {
         didSet {
             configureLeftBarButtonItem(type: type)
         }
     }
-   
-    var selectedTask: Task?
     
     init(type: FormType) {
         self.type = type

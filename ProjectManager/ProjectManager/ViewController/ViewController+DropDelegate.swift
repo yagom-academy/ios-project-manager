@@ -8,10 +8,6 @@
 import UIKit
 
 extension ViewController: UITableViewDropDelegate {
-//    func tableView(_ tableView: UITableView, canHandle session: UIDropSession) -> Bool {
-//        return session.canLoadObjects(ofClass: Task.self)
-//    }
-
     func tableView(_ tableView: UITableView,
                    dropSessionDidUpdate session: UIDropSession,
                    withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
@@ -19,7 +15,6 @@ extension ViewController: UITableViewDropDelegate {
             return UITableViewDropProposal(operation: .copy, intent: .insertAtDestinationIndexPath)
         }
         guard session.items.count == 1 else { return UITableViewDropProposal(operation: .cancel) }
-        
         return UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
     }
     
@@ -40,7 +35,6 @@ extension ViewController: UITableViewDropDelegate {
                 return
             }
             if let sourceIndexPath = item.sourceIndexPath {
-                //같은 테이블뷰일때
                 dragCoordinator.isReordering = true
                 dataSource.moveTask(at: sourceIndexPath.row, to: destinationIndexPath.row)
                 tableView.performBatchUpdates {
@@ -48,7 +42,6 @@ extension ViewController: UITableViewDropDelegate {
                     tableView.insertRows(at: [destinationIndexPath], with: .automatic)
                 }
             } else {
-                //다른 테이블뷰일때
                 dragCoordinator.isReordering = false
                 if let task = item.dragItem.localObject as? Task,
                    let taskTableView = tableView as? TaskTableView {

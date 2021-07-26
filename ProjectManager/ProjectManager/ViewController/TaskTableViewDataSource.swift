@@ -8,13 +8,12 @@
 import UIKit
 
 class TaskTableViewDataSource: NSObject, UITableViewDataSource {
+    var onUpdated: () -> () = {}
     private var tasks: [Task] {
         didSet {
             onUpdated()
         }
     }
-    
-    var onUpdated: () -> () = {}
     var taskCount: Int {
         return tasks.count
     }
@@ -51,7 +50,6 @@ extension TaskTableViewDataSource {
         let itemProvider = NSItemProvider(object: task)
         let dragItem = UIDragItem(itemProvider: itemProvider)
         dragItem.localObject = task
-        
         return [dragItem]
     }
     

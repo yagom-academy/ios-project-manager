@@ -8,13 +8,11 @@
 import UIKit
 
 extension ViewController: UITableViewDragDelegate {
-    
     func tableView(_ tableView: UITableView,
                    itemsForBeginning session: UIDragSession,
                    at indexPath: IndexPath) -> [UIDragItem] {
         let dataSource = dataSourceForTableView(tableView)
         session.localContext = DragCoordinator(indexPath: indexPath)
-
         return dataSource.dragItems(for: indexPath)
     }
     

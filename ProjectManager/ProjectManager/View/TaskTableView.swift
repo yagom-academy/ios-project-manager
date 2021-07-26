@@ -9,6 +9,7 @@ import UIKit
 
 class TaskTableView: UITableView {
     let state: State
+    
     init(state: State) {
         self.state = state
         super.init(frame: .zero, style: .plain)
@@ -18,7 +19,8 @@ class TaskTableView: UITableView {
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        self.state = .todo
+        super.init(coder: coder)
     }
     
 }
