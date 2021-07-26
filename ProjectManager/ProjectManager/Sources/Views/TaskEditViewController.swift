@@ -255,6 +255,16 @@ final class TaskEditViewController: UIViewController {
     @objc private func cancelButtonTapped() {
         dismiss(animated: true)
     }
+
+    private func showMaxBodyLengthAlert() {
+        let alert = UIAlertController(title: "최대 글자수 초과",
+                                      message: "\(Style.bodyLengthLimit)자 이하로 작성해주세요.",
+                                      preferredStyle: .alert)
+        present(alert, animated: true)
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
+            alert.dismiss(animated: true)
+        }
+    }
 }
 
 // MARK: - UITextViewDelegate
@@ -263,6 +273,9 @@ extension TaskEditViewController: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         let originText: String = textView.text ?? ""
         let isUnderLimit: Bool = originText.count + (text.count - range.length) <= Style.bodyLengthLimit
+        if !isUnderLimit {
+            showMaxBodyLengthAlert()
+        }
 
         return isUnderLimit
     }
