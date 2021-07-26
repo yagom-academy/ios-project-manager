@@ -20,93 +20,19 @@ class ViewController: UIViewController {
     lazy var doingTableView: TaskTableView = TaskTableView(type: "doing")
     lazy var doneTableView: TaskTableView = TaskTableView(type: "done")
     
-    lazy var todoView: UIView = {
-        let todoView: UIView = UIView()
-        todoView.translatesAutoresizingMaskIntoConstraints = false
-        // 아래 코드는 구현을 위한 코드 (todoLabel frame)
-        // frame과 bounds 의 차이 -> todoLabel 오토레이아웃 관점에서 어떤식으로 하는게 더 좋을지?
-        todoView.backgroundColor = .systemGray6
-        return todoView
-    }()
+    lazy var todoView: TaskView = TaskView(type: "todo")
+    lazy var doingView: TaskView = TaskView(type: "doing")
+    lazy var doneView: TaskView = TaskView(type: "done")
     
-    lazy var todoLabel: UILabel = {
-        let todoLabel: UILabel = UILabel()
-        todoLabel.translatesAutoresizingMaskIntoConstraints = false
-        todoLabel.text = "TODO"
-        todoLabel.sizeToFit()
-//        todoLabel.font = todoLabel.font.withSize()
-        todoLabel.font = UIFont.preferredFont(forTextStyle: .largeTitle)
-        return todoLabel
-    }()
+    lazy var todoLabel: TitleLabel = TitleLabel(title: "TODO")
+    lazy var doingLabel: TitleLabel = TitleLabel(title: "DOING")
+    lazy var doneLabel: TitleLabel = TitleLabel(title: "DONE")
     
-    lazy var todoCountLabel: UILabel = {
-        let todoCountLabel: UILabel = UILabel()
-        todoCountLabel.translatesAutoresizingMaskIntoConstraints = false
-        todoCountLabel.backgroundColor = .black
-        todoCountLabel.textColor = .white
-        todoCountLabel.text = "0"
-        todoCountLabel.font = UIFont.preferredFont(forTextStyle: .title2)
-//        todoCountLabel.sizeToFit()
-        todoCountLabel.textAlignment = .center
-        return todoCountLabel
-    }()
     
-    lazy var doingView: UIView = {
-        let doingView: UIView = UIView()
-        doingView.translatesAutoresizingMaskIntoConstraints = false
-        doingView.backgroundColor = .systemGray6
-        return doingView
-    }()
-    
-    lazy var doingLabel: UILabel = {
-        let doingLabel: UILabel = UILabel()
-        doingLabel.translatesAutoresizingMaskIntoConstraints = false
-        doingLabel.text = "DOING"
-        doingLabel.sizeToFit()
-        doingLabel.font = UIFont.preferredFont(forTextStyle: .largeTitle)
-        return doingLabel
-    }()
-    
-    lazy var doingCountLabel: UILabel = {
-        let doingCountLabel: UILabel = UILabel()
-        doingCountLabel.translatesAutoresizingMaskIntoConstraints = false
-        doingCountLabel.backgroundColor = .black
-        doingCountLabel.textColor = .white
-        doingCountLabel.text = "0"
-        doingCountLabel.font = UIFont.preferredFont(forTextStyle: .title2)
-//        doingCountLabel.sizeToFit()
-        doingCountLabel.textAlignment = .center
-        return doingCountLabel
-    }()
-    
-    lazy var doneView: UIView = {
-        let doneView: UIView = UIView()
-        doneView.translatesAutoresizingMaskIntoConstraints = false
-        doneView.backgroundColor = .systemGray6
-        return doneView
-    }()
-    
-    lazy var doneLabel: UILabel = {
-        let doneLabel: UILabel = UILabel()
-        doneLabel.translatesAutoresizingMaskIntoConstraints = false
-        doneLabel.text = "DONE"
-        doneLabel.sizeToFit()
-        doneLabel.font = UIFont.preferredFont(forTextStyle: .largeTitle)
-        return doneLabel
-    }()
-    
-    lazy var doneCountLabel: UILabel = {
-        let doneCountLabel: UILabel = UILabel()
-        doneCountLabel.translatesAutoresizingMaskIntoConstraints = false
-        doneCountLabel.backgroundColor = .black
-        doneCountLabel.textColor = .white
-        doneCountLabel.text = "0"
-        doneCountLabel.font = UIFont.preferredFont(forTextStyle: .title2)
-//        doneCountLabel.sizeToFit()
-        doneCountLabel.textAlignment = .center
-        return doneCountLabel
-    }()
-    
+    lazy var todoCountLabel: CountLabel = CountLabel(type: "todo")
+    lazy var doingCountLabel: CountLabel = CountLabel(type: "doing")
+    lazy var doneCountLabel: CountLabel = CountLabel(type: "done")
+   
     lazy var titlesStackView: UIStackView = {
         let stackView: UIStackView = UIStackView(arrangedSubviews: [todoView, doingView, doneView])
         stackView.translatesAutoresizingMaskIntoConstraints = false
