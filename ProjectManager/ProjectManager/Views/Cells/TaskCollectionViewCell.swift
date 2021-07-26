@@ -211,14 +211,7 @@ extension TaskCollectionViewCell: UIGestureRecognizerDelegate {
     }
     
     override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        
-        if (panGestureRecognizer.velocity(in: panGestureRecognizer.view)).x < 0 {
-            return true
-        }
-        if self.swipeView.center.x < self.frame.width/2 && (panGestureRecognizer.velocity(in: panGestureRecognizer.view)).x > 0 {
-            return true
-        }
-        return false
+        return true
     }
     
     @objc func onPan(_ pan: UIPanGestureRecognizer) {
