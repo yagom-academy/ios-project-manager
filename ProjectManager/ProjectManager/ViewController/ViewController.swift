@@ -57,17 +57,10 @@ class ViewController: UIViewController {
             countLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 8).isActive = true
             countLabel.widthAnchor.constraint(equalTo: countLabel.heightAnchor).isActive = true
         }
-        
         for (titleLabel, view) in [(todoLabel, todoView), (doingLabel, doingView), (doneLabel, doneView)] {
             titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 10).isActive = true
             titleLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10).isActive = true
             titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
-        }
-    }
-    
-    override func viewDidLayoutSubviews() {
-        for countLabel in [todoCountLabel, doingCountLabel, doneCountLabel] {
-            countLabel.layer.cornerRadius = countLabel.frame.size.height / 2
         }
     }
     
@@ -118,15 +111,12 @@ class ViewController: UIViewController {
         super.viewDidAppear(animated)
         for countLabel in [todoCountLabel, doingCountLabel, doneCountLabel] {
             countLabel.layer.cornerRadius = countLabel.frame.size.height / 2
-            countLabel.layer.masksToBounds = true
         }
     }
     
     @objc func clickAddBarButton() {
-        print("addbuttonClick")
         let taskFormViewController = TaskFormViewController(type: .add)
         let navigationController = UINavigationController(rootViewController: taskFormViewController)
-        
         navigationController.modalPresentationStyle = .formSheet
         self.present(navigationController, animated: true, completion: nil)
         
@@ -135,7 +125,6 @@ class ViewController: UIViewController {
     func addNewTask(_ task: Task) {
         let numberOfTasks = todoTableView.numberOfRows(inSection: 0)
         todoTableViewDataSource.addTask(task, at: numberOfTasks)
-
         todoTableView.performBatchUpdates {
             todoTableView.insertRows(at: [IndexPath(row: numberOfTasks, section: 0)], with: .automatic)
         }

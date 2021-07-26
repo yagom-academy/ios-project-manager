@@ -12,7 +12,7 @@ class TitleLabel: UILabel {
         super.init(frame: .zero)
         self.translatesAutoresizingMaskIntoConstraints = false
         self.text = title
-        self.font = UIFont.preferredFont(forTextStyle: .largeTitle)
+        self.font = UIFont.preferredFont(forTextStyle: .title1)
     }
     
     required init?(coder: NSCoder) {

@@ -22,7 +22,7 @@ extension ViewController: UITableViewDragDelegate {
               dragCoordinator.isReordering == false else { return }
         let dataSource = dataSourceForTableView(tableView)
         dataSource.deleteTask(at: dragCoordinator.indexPath.row)
-        tableView.performBatchUpdates{
+        tableView.performBatchUpdates {
             tableView.deleteRows(at: [dragCoordinator.indexPath], with: .automatic)
         }
     }

@@ -47,10 +47,10 @@ class ItemTableViewCell: UITableViewCell {
     
     private func configureConstraints() {
         NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5),
-            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
-            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
-            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5)
+            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
+            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
+            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
         ])
     }
     

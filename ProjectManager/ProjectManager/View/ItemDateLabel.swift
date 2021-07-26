@@ -26,7 +26,7 @@ class ItemDateLabel: UILabel {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.numberOfLines = 1
         self.lineBreakMode = .byTruncatingTail
-        self.font = UIFont.preferredFont(forTextStyle: .title1)
+        self.font = UIFont.preferredFont(forTextStyle: .callout)
     }
     
     func setTextColor(by date: String) {
