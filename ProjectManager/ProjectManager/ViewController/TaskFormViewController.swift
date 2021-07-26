@@ -29,7 +29,7 @@ class TaskFormViewController: UIViewController {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-    
+    // TODO: 마진 추가
     private lazy var titleTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -45,7 +45,7 @@ class TaskFormViewController: UIViewController {
         datePicker.preferredDatePickerStyle = .wheels
         return datePicker
     }()
-    
+    // TODO: 마진 추가
     private lazy var contentTextView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
@@ -66,7 +66,7 @@ class TaskFormViewController: UIViewController {
         self.view.backgroundColor = .systemBackground
         view.addSubview(stackView)
         configureConstraints()
-        navigationItem.title = "TODO"
+        navigationItem.title = State.todo.description.uppercased()
     }
     
     private func configureConstraints() {

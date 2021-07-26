@@ -22,7 +22,7 @@ class ViewController: UIViewController {
     lazy var todoLabel: TitleLabel = TitleLabel(title: State.todo.description)
     lazy var doingLabel: TitleLabel = TitleLabel(title: State.doing.description)
     lazy var doneLabel: TitleLabel = TitleLabel(title: State.done.description)
-    
+    // TODO: 생성자로 처음 값 초기화 하기
     lazy var todoCountLabel: CountLabel = CountLabel()
     lazy var doingCountLabel: CountLabel = CountLabel()
     lazy var doneCountLabel: CountLabel = CountLabel()
