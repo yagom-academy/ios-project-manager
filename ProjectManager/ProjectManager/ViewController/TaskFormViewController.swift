@@ -130,7 +130,7 @@ extension TaskFormViewController {
               let viewController = navigationViewController.topViewController as? ViewController else { return }
         let dateText = DateUtil.formatDate(datePicker.date)
         guard let title = titleTextField.text, let content = contentTextView.text else { return }
-        if checkTitleContentIsEmpty() {
+        if !checkTitleContentIsEmpty() {
             viewController.addNewTask(Task(title: title, content: content, deadLine: dateText, state: .todo))
             self.dismiss(animated: true, completion: nil)
         } else {
@@ -142,7 +142,7 @@ extension TaskFormViewController {
         guard let navigationViewController = self.presentingViewController as? UINavigationController,
               let viewController = navigationViewController.topViewController as? ViewController else { return }
         guard let title = titleTextField.text, let content = contentTextView.text else { return }
-        if checkTitleContentIsEmpty() {
+        if !checkTitleContentIsEmpty() {
             selectedTask?.title = title
             selectedTask?.content = content
             selectedTask?.deadLine = DateUtil.formatDate(datePicker.date)
@@ -155,9 +155,9 @@ extension TaskFormViewController {
     
     private func checkTitleContentIsEmpty() -> Bool {
         if let title = titleTextField.text, !title.isEmpty, let content = contentTextView.text, !content.isEmpty {
-            return true
+            return false
         }
-        return false
+        return true
     }
     
     private func presentAlertForCompleteTask() {

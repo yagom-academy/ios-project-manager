@@ -137,15 +137,15 @@ extension ViewController {
     }
     
     func updateEditedCell(state: State) {
-        guard let todoTableViewSelectedRow = todoTableView.indexPathForSelectedRow else { return }
-        guard let doingTableViewSelectedRow = doingTableView.indexPathForSelectedRow else { return }
-        guard let doneTableViewSelectedRow = doneTableView.indexPathForSelectedRow else { return }
         switch state {
         case .todo:
+            guard let todoTableViewSelectedRow = todoTableView.indexPathForSelectedRow else { return }
             todoTableView.reloadRows(at: [todoTableViewSelectedRow], with: .automatic)
         case .doing:
+            guard let doingTableViewSelectedRow = doingTableView.indexPathForSelectedRow else { return }
             doingTableView.reloadRows(at: [doingTableViewSelectedRow], with: .automatic)
         case .done:
+            guard let doneTableViewSelectedRow = doneTableView.indexPathForSelectedRow else { return }
             doneTableView.reloadRows(at: [doneTableViewSelectedRow], with: .automatic)
         }
     }
