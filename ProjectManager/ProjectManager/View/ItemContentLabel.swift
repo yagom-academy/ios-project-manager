@@ -27,6 +27,6 @@ class ItemContentLabel: UILabel {
         self.numberOfLines = 3
         self.lineBreakMode = .byTruncatingTail
         self.font = UIFont.preferredFont(forTextStyle: .body)
-        self.textColor = .systemGray4
+        self.textColor = .systemGray2
     }
 }

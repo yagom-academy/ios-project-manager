@@ -36,12 +36,21 @@ class ItemTableViewCell: UITableViewCell {
         super.awakeFromNib()
     }
     
+    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+        super.setHighlighted(highlighted, animated: animated)
+        if highlighted {
+            self.backgroundColor = .systemGray
+        } else {
+            self.backgroundColor = .systemBackground
+        }
+    }
+    
     private func configureConstraints() {
         NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5),
-            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
-            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
-            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5)
+            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
+            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
+            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
         ])
     }
     
@@ -49,5 +58,8 @@ class ItemTableViewCell: UITableViewCell {
         titleLabel.text = task.title
         contentLabel.text = task.content
         dateLabel.text = task.deadLine
+        if task.state != .done {
+            dateLabel.setTextColor(by: task.deadLine)
+        }
     }
 }

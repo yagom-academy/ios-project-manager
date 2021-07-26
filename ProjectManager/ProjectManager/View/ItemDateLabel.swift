@@ -26,23 +26,15 @@ class ItemDateLabel: UILabel {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.numberOfLines = 1
         self.lineBreakMode = .byTruncatingTail
-        self.font = UIFont.preferredFont(forTextStyle: .title1)
+        self.font = UIFont.preferredFont(forTextStyle: .callout)
     }
     
-    func setText(_ date: Double) {
-        let currentDate = Date()
-        let current = Double(currentDate.timeIntervalSince1970)
-        if current > date {
+    func setTextColor(by date: String) {
+        let currentDate = DateUtil.formatDate(Date())
+        if currentDate <= date {
             self.textColor = .black
-        } else if current < date {
+        } else {
             self.textColor = .systemRed
         }
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: Locale.current.identifier)
-        dateFormatter.dateFormat = "yyyy.MM.dd"
-        let dateText = dateFormatter.string(from: Date(timeIntervalSince1970: date))
-        
-        self.text = dateText
     }
 }
