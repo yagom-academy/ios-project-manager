@@ -131,8 +131,7 @@ class TaskFormViewController: UIViewController {
         selectedTask?.title = titleTextField.text!
         selectedTask?.content = contentTextView.text!
         selectedTask?.deadLine = DateUtil.formatDate(datePicker.date)
-        viewController.updateEditedCell(state: selectedTask!.state.description)
-        
+        viewController.updateEditedCell(state: selectedTask!.state)
         self.dismiss(animated: true, completion: nil)
     }
     

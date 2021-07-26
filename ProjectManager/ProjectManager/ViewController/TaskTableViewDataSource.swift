@@ -8,7 +8,7 @@
 import UIKit
 
 class TaskTableViewDataSource: NSObject, UITableViewDataSource {
-    var onUpdated: () -> () = {}
+    var onUpdated: () -> Void = {}
     private var tasks: [Task] {
         didSet {
             onUpdated()

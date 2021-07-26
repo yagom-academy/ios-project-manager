@@ -146,12 +146,13 @@ class ViewController: UIViewController {
         }
     }
     
-    func updateEditedCell(state: String) {
-        if state == "todo" {
+    func updateEditedCell(state: State) {
+        switch state {
+        case .todo:
             todoTableView.reloadRows(at: [todoTableView.indexPathForSelectedRow!], with: .automatic)
-        } else if state == "doing" {
+        case .doing:
             doingTableView.reloadRows(at: [doingTableView.indexPathForSelectedRow!], with: .automatic)
-        } else {
+        case .done:
             doneTableView.reloadRows(at: [doneTableView.indexPathForSelectedRow!], with: .automatic)
         }
     }
