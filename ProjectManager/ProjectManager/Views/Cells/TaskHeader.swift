@@ -1,5 +1,5 @@
 //
-//  TaskCollectionViewHeaderCell.swift
+//  TaskHeader.swift
 //  ProjectManager
 //
 //  Created by Fezravien on 2021/07/21.
@@ -7,12 +7,7 @@
 
 import UIKit
 
-final class TaskCollectionViewHeaderCell: UIView {
-    static let identifier = "TaskCollectionViewHeaderCell"
-    
-    var status: String?
-    var count: Int?
-    
+final class TaskHeader: UIView {
     private let statusLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .left
@@ -37,29 +32,40 @@ final class TaskCollectionViewHeaderCell: UIView {
         return label
     }()
     
+    // MARK: - Initial TaskHeader
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setStatusLabelConstraint()
-        setCountViewConstraint()
-        setCountLabelConstraint()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
     
-    func initializeHeader(_ status: String, count: Int) {
-        backgroundColor = .systemGray6
-        statusLabel.text = status
-        countLabel.text = String(count)
+    init(title: String) {
+        super.init(frame: .zero)
+        setStatusLabelConstraint()
+        setCountViewConstraint()
+        setCountLabelConstraint()
+        initializeHeaderConfigure(title)
+    }
+    
+    // MARK: - TaskHeader Configure
+    
+    private func initializeHeaderConfigure(_ title: String) {
+        self.statusLabel.text = title
         self.layer.shadowOpacity = 1
         self.layer.shadowRadius = 2.0
         self.layer.shadowColor = UIColor.systemGray4.cgColor
     }
     
+    // MARK: - Outside Method - update count
+    
     func updateCount(_ count: Int) {
         countLabel.text = String(count)
     }
+    
+    // MARK: - Set Constraint
     
     private func setStatusLabelConstraint() {
         self.addSubview(statusLabel)
