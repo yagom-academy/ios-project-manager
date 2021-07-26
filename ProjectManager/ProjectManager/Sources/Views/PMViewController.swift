@@ -52,18 +52,6 @@ final class PMViewController: UIViewController {
             }
         }
 
-        viewModel.updated = { [weak self] state, row in
-            let indexPaths = [IndexPath(row: row, section: 0)]
-            switch state {
-            case .todo:
-                self?.todoStackView.stateTableView.reloadRows(at: indexPaths, with: .none)
-            case .doing:
-                self?.doingStackView.stateTableView.reloadRows(at: indexPaths, with: .none)
-            case .done:
-                self?.doneStackView.stateTableView.reloadRows(at: indexPaths, with: .none)
-            }
-        }
-
         viewModel.inserted = { [weak self] state, row in
             let indexPaths = [IndexPath(row: row, section: 0)]
             DispatchQueue.main.async {
@@ -106,6 +94,7 @@ final class PMViewController: UIViewController {
 
     @objc private func addButtonTapped() {
         guard let taskEditViewController = TaskEditViewController(editMode: .add) else { return }
+        taskEditViewController.delegate = self
 
         let presented = UINavigationController(rootViewController: taskEditViewController)
         present(presented, animated: true, completion: nil)
@@ -181,7 +170,9 @@ extension PMViewController: UITableViewDelegate {
         }
 
         tableView.deselectRow(at: indexPath, animated: true)
-        guard let taskEditViewController = TaskEditViewController(editMode: .update, task: task) else { return }
+        guard let task = task,
+            let taskEditViewController = TaskEditViewController(editMode: .update, task: (indexPath, task)) else { return }
+        taskEditViewController.delegate = self
         let presented = UINavigationController(rootViewController: taskEditViewController)
         present(presented, animated: true, completion: nil)
     }
@@ -204,6 +195,20 @@ extension PMViewController: UITableViewDelegate {
             default:
                 break
             }
+        }
+    }
+}
+
+extension PMViewController: TaskEditViewControllerDelegate {
+
+    func taskWillUpdate(_ task: Task, _ indexPath: IndexPath) {
+        switch task.state {
+        case .todo:
+            todoStackView.stateTableView.reloadRows(at: [indexPath], with: .automatic)
+        case .doing:
+            doingStackView.stateTableView.reloadRows(at: [indexPath], with: .automatic)
+        case .done:
+            doneStackView.stateTableView.reloadRows(at: [indexPath], with: .automatic)
         }
     }
 }

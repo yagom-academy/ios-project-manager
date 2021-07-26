@@ -11,7 +11,6 @@ struct TaskViewModel {
 
     var added: (() -> Void)?
     var removed: ((Task.State, Int) -> Void)?
-    var updated: ((Task.State, Int) -> Void)?
     var inserted: ((Task.State, Int) -> Void)?
 
     private let repository = TaskRepository()
@@ -77,20 +76,6 @@ struct TaskViewModel {
     mutating func move(_ task: Task, to state: Task.State, at destinationIndex: Int) {
         remove(task)
         insert(task, to: state, at: destinationIndex)
-    }
-
-    mutating func update(_ newTask: Task) {
-        guard let index = self.tasks.firstIndex(where: { $0.id == newTask.id }) else { return }
-        tasks[index] = newTask
-
-        switch newTask.state {
-        case .todo:
-            updated?(.todo, index)
-        case .doing:
-            updated?(.doing, index)
-        case .done:
-            updated?(.done, index)
-        }
     }
 
     private mutating func insert(_ task: Task, to state: Task.State, at destinationIndex: Int) {

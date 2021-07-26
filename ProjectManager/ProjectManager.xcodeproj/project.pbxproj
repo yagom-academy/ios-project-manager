@@ -22,6 +22,8 @@
 		AA32681826A94435007C2E60 /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA32681726A94435007C2E60 /* TaskCell.swift */; };
 		AA32681B26A945F7007C2E60 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA32681A26A945F7007C2E60 /* Date+Extension.swift */; };
 		AA6919A326AACA6100753919 /* TaskEditTitleTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6919A226AACA6100753919 /* TaskEditTitleTextField.swift */; };
+		AA9ACE3826AE9F03009115BD /* TaskEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9ACE3726AE9F03009115BD /* TaskEditViewModel.swift */; };
+		AA9ACE3B26AEA481009115BD /* TaskEditViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9ACE3A26AEA481009115BD /* TaskEditViewControllerDelegate.swift */; };
 		AA9F8CCD26A6A8D400467F34 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = AA9F8CCC26A6A8D400467F34 /* .swiftlint.yml */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
@@ -46,6 +48,8 @@
 		AA32681726A94435007C2E60 /* TaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
 		AA32681A26A945F7007C2E60 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		AA6919A226AACA6100753919 /* TaskEditTitleTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskEditTitleTextField.swift; sourceTree = "<group>"; };
+		AA9ACE3726AE9F03009115BD /* TaskEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskEditViewModel.swift; sourceTree = "<group>"; };
+		AA9ACE3A26AEA481009115BD /* TaskEditViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskEditViewControllerDelegate.swift; sourceTree = "<group>"; };
 		AA9F8CCC26A6A8D400467F34 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -82,6 +86,7 @@
 		02F2F4B526A7026000BBE874 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				AA9ACE3726AE9F03009115BD /* TaskEditViewModel.swift */,
 				02F2F4B726A7028000BBE874 /* TaskViewModel.swift */,
 			);
 			path = ViewModels;
@@ -121,9 +126,18 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		AA9ACE3926AEA44B009115BD /* Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				AA9ACE3A26AEA481009115BD /* TaskEditViewControllerDelegate.swift */,
+			);
+			path = Delegate;
+			sourceTree = "<group>";
+		};
 		AA9F8CCE26A6ABE300467F34 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				AA9ACE3926AEA44B009115BD /* Delegate */,
 				AA9F8CD126A6ACF300467F34 /* Entry */,
 				AA3267EF26A6FF87007C2E60 /* Errors */,
 				02F2F4AF26A6F06F00BBE874 /* Models */,
@@ -304,10 +318,12 @@
 				AA32681B26A945F7007C2E60 /* Date+Extension.swift in Sources */,
 				AA3267F126A6FFC3007C2E60 /* PMError.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* PMViewController.swift in Sources */,
+				AA9ACE3826AE9F03009115BD /* TaskEditViewModel.swift in Sources */,
 				AA32681826A94435007C2E60 /* TaskCell.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				AA126AC326A9756C00EF24ED /* Task+NSItemProviderWriting.swift in Sources */,
+				AA9ACE3B26AEA481009115BD /* TaskEditViewControllerDelegate.swift in Sources */,
 				AA3267EE26A6F607007C2E60 /* TaskRepository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

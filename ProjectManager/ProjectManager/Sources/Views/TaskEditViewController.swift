@@ -24,7 +24,8 @@ final class TaskEditViewController: UIViewController {
     // MARK: Properties
 
     private var editMode: EditMode?
-    private var task: Task?
+    private var taskEditViewModel: TaskEditViewModel = TaskEditViewModel()
+    weak var delegate: TaskEditViewControllerDelegate?
 
     // MARK: Views
 
@@ -84,12 +85,13 @@ final class TaskEditViewController: UIViewController {
 
     // MARK: Initializers
 
-    init?(editMode: EditMode, task: Task? = nil) {
+    init?(editMode: EditMode, task: (indexPath: IndexPath, task: Task)? = nil) {
         guard (editMode == .add && task == nil) ||
-              (editMode == .update && task != nil) else { return nil }
+                (editMode == .update && task != nil) else { return nil }
 
         self.editMode = editMode
-        self.task = task
+        self.taskEditViewModel.task = task?.task
+        self.taskEditViewModel.indexPath = task?.indexPath
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -106,12 +108,16 @@ final class TaskEditViewController: UIViewController {
         setSubviews()
         setLayouts()
         configure()
+
+        taskEditViewModel.updated = { (indexPath, task) -> Void in
+            self.delegate?.taskWillUpdate(task, indexPath)
+        }
     }
 
     // MARK: Configure
 
     private func setAttributes() {
-        if let state = task?.state {
+        if let state = taskEditViewModel.task?.state {
             title = "\(state)".uppercased()
         } else {
             title = Style.defaultTitle
@@ -149,7 +155,7 @@ final class TaskEditViewController: UIViewController {
 
     private func configure() {
         guard editMode == .update,
-              let task = task else { return }
+              let task = taskEditViewModel.task else { return }
 
         titleTextField.text = task.title
         dueDatePicker.date = task.dueDate
@@ -171,9 +177,9 @@ final class TaskEditViewController: UIViewController {
     }
 
     @objc private func doneButtonTapped() {
-        dismiss(animated: true) {
-
-        }
+        guard let title = titleTextField.text, let body = bodyTextView.text else { return }
+        taskEditViewModel.update(title: title, dueDate: dueDatePicker.date, body: body)
+        dismiss(animated: true)
     }
 
     @objc private func cancelButtonTapped() {
