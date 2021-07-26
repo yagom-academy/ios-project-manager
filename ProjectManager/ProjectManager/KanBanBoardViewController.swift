@@ -8,6 +8,8 @@ import UIKit
 import SnapKit
 
 final class KanBanBoardViewController: UIViewController {
+    private let loadingIndicator = UIActivityIndicatorView(style: .large)
+
     private let toDoHeaderView = TaskTableHeaderView()
 
     private let doingHeaderView = TaskTableHeaderView()
@@ -59,11 +61,33 @@ final class KanBanBoardViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        fetchTaskData()
         setUpView()
         setTableViewDelegate()
         setTableViewDataSource()
         setUpHeaderStackView()
         setUpTableStackView()
+        setUpLoadingIndicator()
+    }
+
+    private func fetchTaskData() {
+        DispatchQueue.global().async { [weak self] in
+            guard let self = self else { return }
+            do {
+                try TaskManager.shared.fetchTasks()
+                DispatchQueue.main.async {
+                    self.toDoTableView.reloadData()
+                    self.doingTableView.reloadData()
+                    self.doneTableView.reloadData()
+                    self.loadingIndicator.stopAnimating()
+                }
+            } catch {
+                let alert = UIAlertController(title: "데이터 불러오기 실패",
+                                              message: "데이터를 불러오는 과정에서 오류가 발생했어요😢",
+                                              preferredStyle: .alert)
+                self.present(alert, animated: true, completion: nil)
+            }
+        }
     }
 
     private func setUpView() {
@@ -136,6 +160,14 @@ final class KanBanBoardViewController: UIViewController {
         tableStackView.addArrangedSubview(toDoTableView)
         tableStackView.addArrangedSubview(doingTableView)
         tableStackView.addArrangedSubview(doneTableView)
+    }
+
+    private func setUpLoadingIndicator() {
+        view.addSubview(loadingIndicator)
+        loadingIndicator.snp.makeConstraints { loadingIndicator in
+            loadingIndicator.center.equalToSuperview()
+        }
+        loadingIndicator.startAnimating()
     }
 
     @objc func touchUpTaskAddButton() {
@@ -289,6 +321,7 @@ extension KanBanBoardViewController: UITableViewDragDelegate {
                 tableView.moveRow(at: localContext.sourceIndexPath, to: destinationIndexPath)
             }
 
+            TaskManager.shared.saveTasks()
             return
         }
 
@@ -302,6 +335,7 @@ extension KanBanBoardViewController: UITableViewDragDelegate {
         }
 
         tableView.deleteRows(at: [localContext.sourceIndexPath], with: .automatic)
+        TaskManager.shared.saveTasks()
     }
 }
 
@@ -325,12 +359,15 @@ extension KanBanBoardViewController: UITableViewDropDelegate {
 
         switch tableView.status {
         case .TODO:
+            dragTask.status = TaskStatus.TODO.rawValue
             TaskManager.shared.toDoTasks.insert(dragTask, at: destinationIndexPath.row)
             toDoTableView.insertRows(at: [destinationIndexPath], with: .automatic)
         case .DOING:
+            dragTask.status = TaskStatus.DOING.rawValue
             TaskManager.shared.doingTasks.insert(dragTask, at: destinationIndexPath.row)
             doingTableView.insertRows(at: [destinationIndexPath], with: .automatic)
         case .DONE:
+            dragTask.status = TaskStatus.DONE.rawValue
             TaskManager.shared.doneTasks.insert(dragTask, at: destinationIndexPath.row)
             doneTableView.insertRows(at: [destinationIndexPath], with: .automatic)
         }

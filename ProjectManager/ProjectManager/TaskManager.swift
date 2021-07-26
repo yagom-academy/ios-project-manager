@@ -5,14 +5,9 @@
 //  Created by 천수현 on 2021/07/20.
 //
 
-import Foundation
+import UIKit
 import CoreData
 
-/*
- 서버에 저장된 데이터(특정 시점을 잡아서 데이터를 보냄)
- 코어 데이터에 저장된 데이터 (전체 데이터를 보관하고 있음)
- 지금 당장 사용자에게 보여지고 있는 것 (코어데이터를 항상 반영함)
- */
 
 final class TaskManager {
     static let shared = TaskManager()
@@ -32,9 +27,7 @@ final class TaskManager {
     var doingTasks: [Task] = []
     var doneTasks: [Task] = []
 
-    private init() {
-        fetchTasks()
-    }
+    private init() { }
 
     func createTask(title: String, description: String, date: Date) {
         viewContext.perform { [weak self] in
@@ -42,19 +35,13 @@ final class TaskManager {
             let newTask = Task(context: self.viewContext)
             newTask.title = title
             newTask.body = description
-            newTask.status = "toDo"
+            newTask.status = "TODO"
             newTask.date = date.timeIntervalSince1970
 
             self.toDoTasks.insert(newTask, at: 0)
             self.taskManagerDelegate?.taskDidCreated()
-
-            do {
-                try self.viewContext.save()
-            } catch {
-
-            }
+            self.saveTasks()
         }
-
     }
 
     func editTask(indexPath: IndexPath, title: String, description: String, date: Date, status: TaskStatus) {
@@ -66,12 +53,7 @@ final class TaskManager {
                 self.toDoTasks[indexPath.row].body = description
                 self.toDoTasks[indexPath.row].date = date.timeIntervalSince1970
                 self.taskManagerDelegate?.taskDidEdited(indexPath: indexPath, status: .TODO)
-
-                do {
-                    try self.viewContext.save()
-                } catch {
-
-                }
+                self.saveTasks()
             }
         case .DOING:
             viewContext.perform { [weak self] in
@@ -80,12 +62,7 @@ final class TaskManager {
                 self.doingTasks[indexPath.row].body = description
                 self.doingTasks[indexPath.row].date = date.timeIntervalSince1970
                 self.taskManagerDelegate?.taskDidEdited(indexPath: indexPath, status: .DOING)
-
-                do {
-                    try self.viewContext.save()
-                } catch {
-
-                }
+                self.saveTasks()
             }
         case .DONE:
             viewContext.perform { [weak self] in
@@ -94,12 +71,7 @@ final class TaskManager {
                 self.doneTasks[indexPath.row].body = description
                 self.doneTasks[indexPath.row].date = date.timeIntervalSince1970
                 self.taskManagerDelegate?.taskDidEdited(indexPath: indexPath, status: .DONE)
-
-                do {
-                    try self.viewContext.save()
-                } catch {
-
-                }
+                self.saveTasks()
             }
         }
     }
@@ -113,11 +85,7 @@ final class TaskManager {
                 self.viewContext.delete(self.toDoTasks[indexPath.row])
                 self.toDoTasks.remove(at: indexPath.row)
                 self.taskManagerDelegate?.taskDidDeleted(indexPath: indexPath, status: .TODO)
-                do {
-                    try self.viewContext.save()
-                } catch {
-
-                }
+                self.saveTasks()
             }
         case .DOING:
             viewContext.perform { [weak self] in
@@ -125,11 +93,7 @@ final class TaskManager {
                 self.viewContext.delete(self.doingTasks[indexPath.row])
                 self.doingTasks.remove(at: indexPath.row)
                 self.taskManagerDelegate?.taskDidDeleted(indexPath: indexPath, status: .DOING)
-                do {
-                    try self.viewContext.save()
-                } catch {
-
-                }
+                self.saveTasks()
             }
         case .DONE:
             viewContext.perform { [weak self] in
@@ -137,24 +101,25 @@ final class TaskManager {
                 self.viewContext.delete(self.doneTasks[indexPath.row])
                 self.doneTasks.remove(at: indexPath.row)
                 self.taskManagerDelegate?.taskDidDeleted(indexPath: indexPath, status: .DONE)
-                do {
-                    try self.viewContext.save()
-                } catch {
-
-                }
+                self.saveTasks()
             }
         }
     }
 
-    private func fetchTasks() {
+    func fetchTasks() throws {
+        let request = Task.fetchRequest() as NSFetchRequest<Task>
+        let tasks = try viewContext.fetch(request)
+
+        self.toDoTasks = tasks.filter { $0.status == "TODO" }
+        self.doingTasks = tasks.filter { $0.status == "DOING" }
+        self.doneTasks = tasks.filter { $0.status == "DONE" }
+    }
+
+    func saveTasks() {
         do {
-            // TODO: 시작 때 비동기로 데이터 fetch하기 (completion Handler 제작 필요)
-            // TODO: cell 이동시마다 viewContext save하기
-            // TODO: save에 대한 오류처리
-            let request = Task.fetchRequest() as NSFetchRequest<Task>
-            self.toDoTasks = try viewContext.fetch(request)
+            try self.viewContext.save()
         } catch {
-            return
+            // TODO
         }
     }
 }
