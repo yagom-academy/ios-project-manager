@@ -107,6 +107,16 @@ class ViewController: UIViewController {
     private func configureTableViews() {
         for tableView in [todoTableView, doingTableView, doneTableView] {
             tableView.register(ItemTableViewCell.self, forCellReuseIdentifier: ItemTableViewCell.identifier)
+            let dataSource = dataSourceForTableView(tableView)
+            dataSource.onUpdated = { [weak self] in
+                if dataSource == self?.todoTableViewDataSource {
+                    self?.todoCountLabel.text = String(dataSource.taskCount)
+                } else if dataSource == self?.doingTableViewDataSource {
+                    self?.doingCountLabel.text = String(dataSource.taskCount)
+                } else {
+                    self?.doneCountLabel.text = String(dataSource.taskCount)
+                }
+            }
             tableView.dataSource = dataSourceForTableView(tableView)
             tableView.delegate = self
             tableView.dropDelegate = self
@@ -132,6 +142,9 @@ class ViewController: UIViewController {
         addSubViews()
         configureConstraints()
         configureTableViews()
+        self.todoCountLabel.text = String(todoTableViewDataSource.taskCount)
+        self.doingCountLabel.text = String(doingTableViewDataSource.taskCount)
+        self.doneCountLabel.text = String(doneTableViewDataSource.taskCount)
     }
     
     override func viewDidAppear(_ animated: Bool) {
