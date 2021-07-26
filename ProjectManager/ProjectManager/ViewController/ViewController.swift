@@ -16,23 +16,9 @@ class ViewController: UIViewController {
     var doingTableViewDataSource = TaskTableViewDataSource(tasks: [Task(title: "하고있는1", content: "하고있는일내용1", deadLine: "2021.07.23", state: "doing")])
     var doneTableViewDataSource = TaskTableViewDataSource(tasks: [Task(title: "한1", content: "한일내용1", deadLine: "2021.08.12", state: "done")])
     
-    lazy var todoTableView: UITableView = {
-        let todoTableView: UITableView = UITableView()
-        todoTableView.translatesAutoresizingMaskIntoConstraints = false
-        return todoTableView
-    }()
-    
-    lazy var doingTableView: UITableView = {
-        let doingTableView: UITableView = UITableView()
-        doingTableView.translatesAutoresizingMaskIntoConstraints = false
-        return doingTableView
-    }()
-    
-    lazy var doneTableView: UITableView = {
-        let doneTableView: UITableView = UITableView()
-        doneTableView.translatesAutoresizingMaskIntoConstraints = false
-        return doneTableView
-    }()
+    lazy var todoTableView: TaskTableView = TaskTableView(type: "todo")
+    lazy var doingTableView: TaskTableView = TaskTableView(type: "doing")
+    lazy var doneTableView: TaskTableView = TaskTableView(type: "done")
     
     lazy var todoView: UIView = {
         let todoView: UIView = UIView()
