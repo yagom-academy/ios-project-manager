@@ -19,9 +19,9 @@ class ViewController: UIViewController {
     lazy var doingView: TaskView = TaskView()
     lazy var doneView: TaskView = TaskView()
     
-    lazy var todoLabel: TitleLabel = TitleLabel(title: "TODO")
-    lazy var doingLabel: TitleLabel = TitleLabel(title: "DOING")
-    lazy var doneLabel: TitleLabel = TitleLabel(title: "DONE")
+    lazy var todoLabel: TitleLabel = TitleLabel(title: State.todo.description)
+    lazy var doingLabel: TitleLabel = TitleLabel(title: State.doing.description)
+    lazy var doneLabel: TitleLabel = TitleLabel(title: State.done.description)
     
     lazy var todoCountLabel: CountLabel = CountLabel()
     lazy var doingCountLabel: CountLabel = CountLabel()
@@ -67,12 +67,7 @@ class ViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         for countLabel in [todoCountLabel, doingCountLabel, doneCountLabel] {
-//            countLabel.setNeedsLayout()
-//            countLabel.layoutIfNeeded()
             countLabel.layer.cornerRadius = countLabel.frame.size.height / 2
-            // TODO: 라벨로 나중에 뺴줘야함
-            countLabel.layer.masksToBounds = true
-            print(countLabel.frame.size)
         }
     }
     
