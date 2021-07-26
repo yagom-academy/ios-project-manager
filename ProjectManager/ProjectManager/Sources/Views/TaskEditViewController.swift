@@ -222,7 +222,7 @@ final class TaskEditViewController: UIViewController {
     @objc private func keyboardWillShow(_ notification: Notification) {
         guard let userInfo = notification.userInfo,
               let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
-        let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardFrame.height + 6, right: 0)
+        let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardFrame.height, right: 0)
         contentScrollView.contentInset = contentInset
         contentScrollView.scrollIndicatorInsets = contentInset
     }
@@ -239,7 +239,13 @@ final class TaskEditViewController: UIViewController {
     }
 
     @objc private func doneButtonTapped() {
-        guard let title = titleTextField.text, let body = bodyTextView.text else { return }
+        guard let title = titleTextField.text,
+              let body = bodyTextView.text else { return }
+
+        guard !title.isEmpty else {
+            showTitleRequiredAlert()
+            return
+        }
 
         switch editMode {
         case .add:
@@ -265,6 +271,17 @@ final class TaskEditViewController: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
             alert.dismiss(animated: true)
         }
+    }
+
+    private func showTitleRequiredAlert() {
+        let alert = UIAlertController(title: "제목이 빠졌어요 😊",
+                                      message: "제목을 적어주세요.",
+                                      preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "확인", style: .default) { _ in
+            alert.dismiss(animated: true)
+        }
+        alert.addAction(okAction)
+        present(alert, animated: true)
     }
 }
 
