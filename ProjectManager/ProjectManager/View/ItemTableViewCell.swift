@@ -57,6 +57,9 @@ class ItemTableViewCell: UITableViewCell {
     func configure(task: Task) {
         titleLabel.text = task.title
         contentLabel.text = task.content
-        dateLabel.setText(task.deadLine)
+        dateLabel.text = task.deadLine
+        if task.state != "done" {
+            dateLabel.setTextColor(by: task.deadLine)
+        }
     }
 }

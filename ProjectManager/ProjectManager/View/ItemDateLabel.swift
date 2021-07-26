@@ -29,7 +29,7 @@ class ItemDateLabel: UILabel {
         self.font = UIFont.preferredFont(forTextStyle: .title1)
     }
     
-    func setText(_ date: String) {
+    func setTextColor(by date: String) {
         // TODO: 하나의 데이터 처리 객체 만들기
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: Locale.current.identifier)
@@ -40,7 +40,5 @@ class ItemDateLabel: UILabel {
         } else {
             self.textColor = .systemRed
         }
-        
-        self.text = date
     }
 }
