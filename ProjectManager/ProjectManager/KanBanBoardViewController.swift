@@ -86,6 +86,14 @@ final class KanBanBoardViewController: UIViewController {
         toDoTableView.delegate = self
         doingTableView.delegate = self
         doneTableView.delegate = self
+
+        toDoTableView.dragDelegate = self
+        doingTableView.dragDelegate = self
+        doneTableView.dragDelegate = self
+
+        toDoTableView.dropDelegate = self
+        doingTableView.dropDelegate = self
+        doneTableView.dropDelegate = self
     }
 
     private func setUpHeaderStackView() {
@@ -185,7 +193,7 @@ extension KanBanBoardViewController: UITableViewDelegate {
     }
 }
 
-// MARK: - TaskManagerDelegate
+// MARK: - TaskManager Delegate
 
 extension KanBanBoardViewController: TaskManagerDelegate {
     func taskDidCreated() {
@@ -219,5 +227,125 @@ extension KanBanBoardViewController: TaskManagerDelegate {
             doneTableView.deleteRows(at: [indexPath], with: .automatic)
             doneHeaderView.countLabel.text = TaskManager.shared.doneTasks.count.description
         }
+    }
+}
+
+// MARK: - Drag Delegate
+
+extension KanBanBoardViewController: UITableViewDragDelegate {
+    func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        guard let tableView = tableView as? KanBanTableView else { return [] }
+
+        switch tableView.status {
+        case .TODO:
+            let fileURL = TaskManager.shared.toDoTasks[indexPath.row].objectID.uriRepresentation()
+            guard let toDoItemProvider = NSItemProvider(contentsOf: fileURL) else { return [] }
+
+            let dragItem = UIDragItem(itemProvider: toDoItemProvider)
+            dragItem.localObject = TaskManager.shared.toDoTasks[indexPath.row]
+            session.localContext = DragSessionLocalContext(sourceIndexPath: indexPath)
+
+            return [dragItem]
+        case .DOING:
+            let fileURL = TaskManager.shared.doingTasks[indexPath.row].objectID.uriRepresentation()
+            guard let doingItemProvider = NSItemProvider(contentsOf: fileURL ) else { return [] }
+
+            let dragItem = UIDragItem(itemProvider: doingItemProvider)
+            dragItem.localObject = TaskManager.shared.doingTasks[indexPath.row]
+            session.localContext = DragSessionLocalContext(sourceIndexPath: indexPath)
+
+            return [dragItem]
+        case .DONE:
+            let fileURL = TaskManager.shared.doneTasks[indexPath.row].objectID.uriRepresentation()
+            guard let doneItemProvider = NSItemProvider(contentsOf: fileURL ) else { return [] }
+
+            let dragItem = UIDragItem(itemProvider: doneItemProvider)
+            dragItem.localObject = TaskManager.shared.doneTasks[indexPath.row]
+            session.localContext = DragSessionLocalContext(sourceIndexPath: indexPath)
+
+            return [dragItem]
+        }
+    }
+
+    func tableView(_ tableView: UITableView, dragSessionDidEnd session: UIDragSession) {
+        guard let localContext = session.localContext as? DragSessionLocalContext,
+              let tableView = tableView as? KanBanTableView,
+              localContext.didDragDropCompleted == true else { return }
+
+        if localContext.isReordering,
+           let destinationIndexPath = localContext.destinationIndexPath {
+            switch tableView.status {
+            case .TODO:
+                let task = TaskManager.shared.toDoTasks.remove(at: localContext.sourceIndexPath.row)
+                TaskManager.shared.toDoTasks.insert(task, at: destinationIndexPath.row)
+                tableView.moveRow(at: localContext.sourceIndexPath, to: destinationIndexPath)
+            case .DOING:
+                let task = TaskManager.shared.doingTasks.remove(at: localContext.sourceIndexPath.row)
+                TaskManager.shared.doingTasks.insert(task, at: destinationIndexPath.row)
+                tableView.moveRow(at: localContext.sourceIndexPath, to: destinationIndexPath)
+            case .DONE:
+                let task = TaskManager.shared.doneTasks.remove(at: localContext.sourceIndexPath.row)
+                TaskManager.shared.doneTasks.insert(task, at: destinationIndexPath.row)
+                tableView.moveRow(at: localContext.sourceIndexPath, to: destinationIndexPath)
+            }
+
+            return
+        }
+
+        switch tableView.status {
+        case .TODO:
+            TaskManager.shared.toDoTasks.remove(at: localContext.sourceIndexPath.row)
+        case .DOING:
+            TaskManager.shared.doingTasks.remove(at: localContext.sourceIndexPath.row)
+        case .DONE:
+            TaskManager.shared.doneTasks.remove(at: localContext.sourceIndexPath.row)
+        }
+
+        tableView.deleteRows(at: [localContext.sourceIndexPath], with: .automatic)
+    }
+}
+
+// MARK: - Drop Delegate
+
+extension KanBanBoardViewController: UITableViewDropDelegate {
+    func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
+        guard let localContext = coordinator.session.localDragSession?.localContext as? DragSessionLocalContext,
+              let item = coordinator.items.first,
+              let dragTask = item.dragItem.localObject as? Task,
+              let tableView = tableView as? KanBanTableView else { return }
+
+        let destinationIndexPath = coordinator.destinationIndexPath ?? IndexPath(row: 0, section: 0)
+
+        if item.sourceIndexPath != nil {
+            localContext.isReordering = true
+            localContext.destinationIndexPath = destinationIndexPath
+            localContext.didDragDropCompleted = true
+            return
+        }
+
+        switch tableView.status {
+        case .TODO:
+            TaskManager.shared.toDoTasks.insert(dragTask, at: destinationIndexPath.row)
+            toDoTableView.insertRows(at: [destinationIndexPath], with: .automatic)
+        case .DOING:
+            TaskManager.shared.doingTasks.insert(dragTask, at: destinationIndexPath.row)
+            doingTableView.insertRows(at: [destinationIndexPath], with: .automatic)
+        case .DONE:
+            TaskManager.shared.doneTasks.insert(dragTask, at: destinationIndexPath.row)
+            doneTableView.insertRows(at: [destinationIndexPath], with: .automatic)
+        }
+
+        switch coordinator.proposal.operation {
+        case .move:
+            coordinator.drop(item.dragItem, toRowAt: destinationIndexPath)
+        default:
+            return
+        }
+
+        localContext.didDragDropCompleted = true
+    }
+
+    func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
+        UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
     }
 }

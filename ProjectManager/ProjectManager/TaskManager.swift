@@ -28,9 +28,9 @@ final class TaskManager {
     }()
 
     lazy var viewContext = persistentContainer.viewContext
-    var toDoTasks: [ToDoTask] = []
-    var doingTasks: [DoingTask] = []
-    var doneTasks: [DoneTask] = []
+    var toDoTasks: [Task] = []
+    var doingTasks: [Task] = []
+    var doneTasks: [Task] = []
 
     private init() {
         fetchTasks()
@@ -39,7 +39,7 @@ final class TaskManager {
     func createTask(title: String, description: String, date: Date) {
         viewContext.perform { [weak self] in
             guard let self = self else { return }
-            let newTask = ToDoTask(context: self.viewContext)
+            let newTask = Task(context: self.viewContext)
             newTask.title = title
             newTask.body = description
             newTask.status = "toDo"
@@ -148,7 +148,10 @@ final class TaskManager {
 
     private func fetchTasks() {
         do {
-            let request = ToDoTask.fetchRequest() as NSFetchRequest<ToDoTask>
+            // TODO: 시작 때 비동기로 데이터 fetch하기 (completion Handler 제작 필요)
+            // TODO: cell 이동시마다 viewContext save하기
+            // TODO: save에 대한 오류처리
+            let request = Task.fetchRequest() as NSFetchRequest<Task>
             self.toDoTasks = try viewContext.fetch(request)
         } catch {
             return

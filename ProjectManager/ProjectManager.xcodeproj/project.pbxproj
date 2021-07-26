@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1C0E286526AEA2280009B631 /* DragSessionLocalContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0E286426AEA2280009B631 /* DragSessionLocalContext.swift */; };
 		1C82064F26A54B2C00BE904C /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 1C82064E26A54B2C00BE904C /* Alamofire */; };
 		1C82065126A54BDC00BE904C /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 1C82065026A54BDC00BE904C /* .swiftlint.yml */; };
 		1C82065426A54CFC00BE904C /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1C82065326A54CFC00BE904C /* SnapKit */; };
@@ -17,13 +18,8 @@
 		1C82066626A6985200BE904C /* TaskManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C82066526A6985200BE904C /* TaskManagerDelegate.swift */; };
 		1C82067526A69D6500BE904C /* Task.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1C82067326A69D6500BE904C /* Task.xcdatamodeld */; };
 		1CC7A6FC26A7A2FF0091C69D /* TaskStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC7A6FB26A7A2FF0091C69D /* TaskStatus.swift */; };
-		1CC7A70126A7A67B0091C69D /* ToDoTask+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC7A6FD26A7A67B0091C69D /* ToDoTask+CoreDataClass.swift */; };
-		1CC7A70226A7A67B0091C69D /* ToDoTask+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC7A6FE26A7A67B0091C69D /* ToDoTask+CoreDataProperties.swift */; };
-		1CC7A70326A7A67B0091C69D /* DoingTask+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC7A6FF26A7A67B0091C69D /* DoingTask+CoreDataClass.swift */; };
-		1CC7A70426A7A67B0091C69D /* DoingTask+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC7A70026A7A67B0091C69D /* DoingTask+CoreDataProperties.swift */; };
-		1CC7A70726A7A6BC0091C69D /* DoneTask+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC7A70526A7A6BC0091C69D /* DoneTask+CoreDataClass.swift */; };
-		1CC7A70826A7A6BC0091C69D /* DoneTask+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC7A70626A7A6BC0091C69D /* DoneTask+CoreDataProperties.swift */; };
-		1CC7A70A26A7A7550091C69D /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC7A70926A7A7550091C69D /* Task.swift */; };
+		1CC7A70126A7A67B0091C69D /* Task+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC7A6FD26A7A67B0091C69D /* Task+CoreDataClass.swift */; };
+		1CC7A70226A7A67B0091C69D /* Task+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC7A6FE26A7A67B0091C69D /* Task+CoreDataProperties.swift */; };
 		1CC7A70C26A7AFED0091C69D /* TaskTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC7A70B26A7AFED0091C69D /* TaskTableHeaderView.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
@@ -33,6 +29,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1C0E286426AEA2280009B631 /* DragSessionLocalContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragSessionLocalContext.swift; sourceTree = "<group>"; };
 		1C82065026A54BDC00BE904C /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		1C82065826A55F3A00BE904C /* KanBanBoardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KanBanBoardCell.swift; sourceTree = "<group>"; };
 		1C82065B26A657A800BE904C /* KanBanTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KanBanTableView.swift; sourceTree = "<group>"; };
@@ -41,13 +38,8 @@
 		1C82066526A6985200BE904C /* TaskManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManagerDelegate.swift; sourceTree = "<group>"; };
 		1C82067426A69D6500BE904C /* Task.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Task.xcdatamodel; sourceTree = "<group>"; };
 		1CC7A6FB26A7A2FF0091C69D /* TaskStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskStatus.swift; sourceTree = "<group>"; };
-		1CC7A6FD26A7A67B0091C69D /* ToDoTask+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ToDoTask+CoreDataClass.swift"; sourceTree = "<group>"; };
-		1CC7A6FE26A7A67B0091C69D /* ToDoTask+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ToDoTask+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		1CC7A6FF26A7A67B0091C69D /* DoingTask+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DoingTask+CoreDataClass.swift"; sourceTree = "<group>"; };
-		1CC7A70026A7A67B0091C69D /* DoingTask+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DoingTask+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		1CC7A70526A7A6BC0091C69D /* DoneTask+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DoneTask+CoreDataClass.swift"; sourceTree = "<group>"; };
-		1CC7A70626A7A6BC0091C69D /* DoneTask+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DoneTask+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		1CC7A70926A7A7550091C69D /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		1CC7A6FD26A7A67B0091C69D /* Task+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataClass.swift"; sourceTree = "<group>"; };
+		1CC7A6FE26A7A67B0091C69D /* Task+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		1CC7A70B26A7AFED0091C69D /* TaskTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableHeaderView.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -93,14 +85,9 @@
 		1C82066E26A69C4000BE904C /* CoreDataModel */ = {
 			isa = PBXGroup;
 			children = (
-				1CC7A70926A7A7550091C69D /* Task.swift */,
 				1C82067326A69D6500BE904C /* Task.xcdatamodeld */,
-				1CC7A6FD26A7A67B0091C69D /* ToDoTask+CoreDataClass.swift */,
-				1CC7A6FE26A7A67B0091C69D /* ToDoTask+CoreDataProperties.swift */,
-				1CC7A6FF26A7A67B0091C69D /* DoingTask+CoreDataClass.swift */,
-				1CC7A70026A7A67B0091C69D /* DoingTask+CoreDataProperties.swift */,
-				1CC7A70526A7A6BC0091C69D /* DoneTask+CoreDataClass.swift */,
-				1CC7A70626A7A6BC0091C69D /* DoneTask+CoreDataProperties.swift */,
+				1CC7A6FD26A7A67B0091C69D /* Task+CoreDataClass.swift */,
+				1CC7A6FE26A7A67B0091C69D /* Task+CoreDataProperties.swift */,
 			);
 			path = CoreDataModel;
 			sourceTree = "<group>";
@@ -131,6 +118,7 @@
 				1C82066326A6959100BE904C /* TaskManager.swift */,
 				1C82066526A6985200BE904C /* TaskManagerDelegate.swift */,
 				C7431F0925F51E1D0094C4CF /* KanBanBoardViewController.swift */,
+				1C0E286426AEA2280009B631 /* DragSessionLocalContext.swift */,
 				1CC7A70B26A7AFED0091C69D /* TaskTableHeaderView.swift */,
 				1C82066126A661F800BE904C /* TaskDetailViewController.swift */,
 				1C82065B26A657A800BE904C /* KanBanTableView.swift */,
@@ -239,23 +227,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1CC7A70826A7A6BC0091C69D /* DoneTask+CoreDataProperties.swift in Sources */,
-				1CC7A70726A7A6BC0091C69D /* DoneTask+CoreDataClass.swift in Sources */,
-				1CC7A70226A7A67B0091C69D /* ToDoTask+CoreDataProperties.swift in Sources */,
+				1CC7A70226A7A67B0091C69D /* Task+CoreDataProperties.swift in Sources */,
 				1C82066226A661F800BE904C /* TaskDetailViewController.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* KanBanBoardViewController.swift in Sources */,
-				1CC7A70126A7A67B0091C69D /* ToDoTask+CoreDataClass.swift in Sources */,
-				1CC7A70426A7A67B0091C69D /* DoingTask+CoreDataProperties.swift in Sources */,
+				1CC7A70126A7A67B0091C69D /* Task+CoreDataClass.swift in Sources */,
 				1C82066426A6959100BE904C /* TaskManager.swift in Sources */,
-				1CC7A70326A7A67B0091C69D /* DoingTask+CoreDataClass.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
+				1C0E286526AEA2280009B631 /* DragSessionLocalContext.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				1CC7A70C26A7AFED0091C69D /* TaskTableHeaderView.swift in Sources */,
 				1C82065C26A657A800BE904C /* KanBanTableView.swift in Sources */,
 				1CC7A6FC26A7A2FF0091C69D /* TaskStatus.swift in Sources */,
 				1C82066626A6985200BE904C /* TaskManagerDelegate.swift in Sources */,
 				1C82067526A69D6500BE904C /* Task.xcdatamodeld in Sources */,
-				1CC7A70A26A7A7550091C69D /* Task.swift in Sources */,
 				1C82065926A55F3A00BE904C /* KanBanBoardCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
