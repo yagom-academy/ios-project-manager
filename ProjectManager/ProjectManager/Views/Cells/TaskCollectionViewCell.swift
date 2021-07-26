@@ -59,6 +59,8 @@ final class TaskCollectionViewCell: UICollectionViewCell {
     private var panGestureRecognizer: UIPanGestureRecognizer!
     var deleteDelegate: DeleteDelegate?
     
+    // MARK: - Initial TaskCollectionViewCell
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setPanGestureRecognizer()
@@ -69,6 +71,8 @@ final class TaskCollectionViewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
+    
+    // MARK: - TaskCollecionViewCell Configure
     
     private func setPanGestureRecognizer() {
         self.panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(onPan(_:)))
@@ -91,6 +95,8 @@ final class TaskCollectionViewCell: UICollectionViewCell {
         setTaskDescriptionLabel()
         setTaskDeadlineLabel()
     }
+    
+    // MARK: - Constraint
     
     private func setSwipeView() {
         self.contentView.addSubview(self.swipeView)
@@ -143,19 +149,8 @@ final class TaskCollectionViewCell: UICollectionViewCell {
         ])
     }
     
-    @objc func deleteTask() {
-        guard let collectionView: UICollectionView = self.superview as? UICollectionView else { return }
-        guard let indexPath = collectionView.indexPathForItem(at: self.center) else { return }
-        deleteDelegate?.deleteTask(collectionView: collectionView, indexPath: indexPath)
-    }
-    
-    func closeSwipe() {
-        UIView.animate(withDuration: 0.2) {
-            self.swipeView.frame = CGRect(x:0, y: 0, width: self.contentView.frame.width, height: self.contentView.frame.height)
-            self.deleteButton.frame = CGRect(x: self.contentView.frame.width, y: 0, width: 150, height: self.contentView.frame.height)
-        }
-    }
-    
+    // MARK: - Convert Date
+        
     private func convertStringToTimeInterval1970(date: String) -> Double? {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "ko_kr")
@@ -178,6 +173,8 @@ final class TaskCollectionViewCell: UICollectionViewCell {
         return Date().timeIntervalSince1970 > deadline + 86400 ? true : false
     }
     
+    // MARK: - Outside Methd - initial Cell Configure
+    
     func configureCell(data: Task) {
         self.taskTitle.text = data.taskTitle
         self.taskDescription.text = data.taskDescription
@@ -188,7 +185,24 @@ final class TaskCollectionViewCell: UICollectionViewCell {
             taskDeadline.textColor = .red
         }
     }
+    
+    // MARK: - Swipe Action
+    
+    private func closeSwipe() {
+        UIView.animate(withDuration: 0.2) {
+            self.swipeView.frame = CGRect(x:0, y: 0, width: self.contentView.frame.width, height: self.contentView.frame.height)
+            self.deleteButton.frame = CGRect(x: self.contentView.frame.width, y: 0, width: 150, height: self.contentView.frame.height)
+        }
+    }
+    
+    @objc func deleteTask() {
+        guard let collectionView: UICollectionView = self.superview as? UICollectionView else { return }
+        guard let indexPath = collectionView.indexPathForItem(at: self.center) else { return }
+        deleteDelegate?.deleteTask(collectionView: collectionView, indexPath: indexPath)
+    }
 }
+
+// MAKR: - GestureRecognizer Delegate - Swipe
 
 extension TaskCollectionViewCell: UIGestureRecognizerDelegate {
     
@@ -216,9 +230,11 @@ extension TaskCollectionViewCell: UIGestureRecognizerDelegate {
         if self.swipeView.center.x < self.frame.width/2 - 150 {
             changedX = self.frame.width/2 - 120
         }
+        
         if self.swipeView.center.x > self.frame.width/2 {
             changedX = self.frame.width/2
         }
+        
         UIView.animate(withDuration: 0.2) {
             self.deleteButton.frame = CGRect(x: changedX + self.contentView.frame.width/2, y: 0, width: 120, height: self.contentView.frame.height)
             self.panGestureRecognizer.setTranslation(CGPoint.zero, in: self.deleteButton)
