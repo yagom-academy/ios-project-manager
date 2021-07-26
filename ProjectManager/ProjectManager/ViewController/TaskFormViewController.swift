@@ -119,11 +119,15 @@ class TaskFormViewController: UIViewController {
         dateFormatter.dateFormat = "yyyy.MM.dd"
         let dateText = dateFormatter.string(from: datePicker.date)
         
-        let task = Task(title: titleTextField.text!, content: contentTextView.text!, deadLine: dateText, state: "todo")
-        
-        viewController.addNewTask(task)
-        
-        self.dismiss(animated: true, completion: nil)
+        if let title = titleTextField.text, !title.isEmpty, let content = contentTextView.text, !content.isEmpty {
+            viewController.addNewTask(Task(title: title, content: content, deadLine: dateText, state: "todo"))
+            self.dismiss(animated: true, completion: nil)
+        } else {
+            let alert = UIAlertController(title: "제목과 내용이 비어있습니다", message: "제목과 내용을 모두 채워주세요", preferredStyle: .alert)
+            let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alert.addAction(ok)
+            self.present(alert, animated: true)
+        }
     }
     
     @objc private func clickEditDoneButton() {
