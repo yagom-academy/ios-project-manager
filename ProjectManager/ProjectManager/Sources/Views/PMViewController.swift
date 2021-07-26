@@ -33,9 +33,11 @@ final class PMViewController: UIViewController {
         pmStackView.addArrangedSubview(doneStackView)
 
         viewModel.added = { [weak self] in
-            guard let self = self else { return }
-            let indexPaths = [IndexPath(row: self.viewModel.taskOrder.todo.count, section: 0)]
-            self.todoStackView.stateTableView.insertRows(at: indexPaths, with: .none)
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+                let indexPaths = [IndexPath(row: self.viewModel.taskOrder.todo.count - 1, section: 0)]
+                self.todoStackView.stateTableView.insertRows(at: indexPaths, with: .none)
+            }
         }
 
         viewModel.removed = { [weak self] state, row in
@@ -210,5 +212,9 @@ extension PMViewController: TaskEditViewControllerDelegate {
         case .done:
             doneStackView.stateTableView.reloadRows(at: [indexPath], with: .automatic)
         }
+    }
+
+    func taskWillAdd(_ task: Task) {
+        viewModel.add(task)
     }
 }

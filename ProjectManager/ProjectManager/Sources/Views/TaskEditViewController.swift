@@ -112,6 +112,10 @@ final class TaskEditViewController: UIViewController {
         taskEditViewModel.updated = { (indexPath, task) -> Void in
             self.delegate?.taskWillUpdate(task, indexPath)
         }
+
+        taskEditViewModel.created = { (task) -> Void in
+            self.delegate?.taskWillAdd(task)
+        }
     }
 
     // MARK: Configure
@@ -178,7 +182,16 @@ final class TaskEditViewController: UIViewController {
 
     @objc private func doneButtonTapped() {
         guard let title = titleTextField.text, let body = bodyTextView.text else { return }
-        taskEditViewModel.update(title: title, dueDate: dueDatePicker.date, body: body)
+
+        switch editMode {
+        case .add:
+            taskEditViewModel.create(title: title, dueDate: dueDatePicker.date, body: body)
+        case .update:
+            taskEditViewModel.update(title: title, dueDate: dueDatePicker.date, body: body)
+        default:
+            break
+        }
+
         dismiss(animated: true)
     }
 

@@ -9,4 +9,5 @@ import UIKit
 
 protocol TaskEditViewControllerDelegate: AnyObject {
     func taskWillUpdate(_ task: Task, _ indexPath: IndexPath)
+    func taskWillAdd(_ task: Task)
 }
