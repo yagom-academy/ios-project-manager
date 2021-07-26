@@ -40,6 +40,14 @@ final class PMViewController: UIViewController {
             }
         }
 
+        viewModel.changed = { [weak self] taskOrder in
+            DispatchQueue.main.async {
+                self?.todoStackView.setTaskCountLabel(as: taskOrder.todo.count)
+                self?.doingStackView.setTaskCountLabel(as: taskOrder.doing.count)
+                self?.doneStackView.setTaskCountLabel(as: taskOrder.done.count)
+            }
+        }
+
         viewModel.removed = { [weak self] state, row in
             let indexPaths = [IndexPath(row: row, section: 0)]
             DispatchQueue.main.async {

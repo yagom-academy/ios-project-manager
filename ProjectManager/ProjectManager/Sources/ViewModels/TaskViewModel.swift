@@ -10,11 +10,18 @@ import Foundation
 struct TaskViewModel {
 
     var added: (() -> Void)?
-    var removed: ((Task.State, Int) -> Void)?
+    var changed: ((TaskOrder) -> Void)?
     var inserted: ((Task.State, Int) -> Void)?
+    var removed: ((Task.State, Int) -> Void)?
 
     private let repository = TaskRepository()
-    private(set) var taskOrder = TaskOrder()
+
+    private(set) var taskOrder = TaskOrder() {
+        didSet {
+            changed?(taskOrder)
+        }
+    }
+
     private var tasks: [Task] = []
 
     mutating func fetchTasks(completion: @escaping () -> Void) {
