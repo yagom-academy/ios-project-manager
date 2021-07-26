@@ -28,61 +28,9 @@ final class PMViewController: UIViewController {
         super.viewDidLoad()
         setNavigationBar()
         setSubView()
-        pmStackView.addArrangedSubview(todoStackView)
-        pmStackView.addArrangedSubview(doingStackView)
-        pmStackView.addArrangedSubview(doneStackView)
-
-        viewModel.added = { [weak self] in
-            DispatchQueue.main.async {
-                guard let self = self else { return }
-                let indexPaths = [IndexPath(row: self.viewModel.taskOrder.todo.count - 1, section: 0)]
-                self.todoStackView.stateTableView.insertRows(at: indexPaths, with: .none)
-            }
-        }
-
-        viewModel.changed = { [weak self] taskOrder in
-            DispatchQueue.main.async {
-                self?.todoStackView.setTaskCountLabel(as: taskOrder.todo.count)
-                self?.doingStackView.setTaskCountLabel(as: taskOrder.doing.count)
-                self?.doneStackView.setTaskCountLabel(as: taskOrder.done.count)
-            }
-        }
-
-        viewModel.removed = { [weak self] state, row in
-            let indexPaths = [IndexPath(row: row, section: 0)]
-            DispatchQueue.main.async {
-                switch state {
-                case .todo:
-                    self?.todoStackView.stateTableView.deleteRows(at: indexPaths, with: .none)
-                case .doing:
-                    self?.doingStackView.stateTableView.deleteRows(at: indexPaths, with: .none)
-                case .done:
-                    self?.doneStackView.stateTableView.deleteRows(at: indexPaths, with: .none)
-                }
-            }
-        }
-
-        viewModel.inserted = { [weak self] state, row in
-            let indexPaths = [IndexPath(row: row, section: 0)]
-            DispatchQueue.main.async {
-                switch state {
-                case .todo:
-                    self?.todoStackView.stateTableView.insertRows(at: indexPaths, with: .none)
-                case .doing:
-                    self?.doingStackView.stateTableView.insertRows(at: indexPaths, with: .none)
-                case .done:
-                    self?.doneStackView.stateTableView.insertRows(at: indexPaths, with: .none)
-                }
-            }
-        }
-
-        viewModel.fetchTasks {
-            DispatchQueue.main.async {
-                self.todoStackView.stateTableView.reloadData()
-                self.doingStackView.stateTableView.reloadData()
-                self.doneStackView.stateTableView.reloadData()
-            }
-        }
+        setPMStackView()
+        bindWithViewModel()
+        fetchTasks()
     }
 
     private func setNavigationBar() {
@@ -102,12 +50,74 @@ final class PMViewController: UIViewController {
         ])
     }
 
+    private func setPMStackView() {
+        pmStackView.addArrangedSubview(todoStackView)
+        pmStackView.addArrangedSubview(doingStackView)
+        pmStackView.addArrangedSubview(doneStackView)
+    }
+
+    private func fetchTasks() {
+        viewModel.fetchTasks {
+            DispatchQueue.main.async { [weak self] in
+                self?.todoStackView.stateTableView.reloadData()
+                self?.doingStackView.stateTableView.reloadData()
+                self?.doneStackView.stateTableView.reloadData()
+            }
+        }
+    }
+
     @objc private func addButtonTapped() {
         guard let taskEditViewController = TaskEditViewController(editMode: .add) else { return }
         taskEditViewController.delegate = self
 
         let presented = UINavigationController(rootViewController: taskEditViewController)
         present(presented, animated: true, completion: nil)
+    }
+
+    private func bindWithViewModel() {
+        viewModel.added = {
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                let indexPaths = [IndexPath(row: self.viewModel.taskOrder.todo.count - 1, section: 0)]
+                self.todoStackView.stateTableView.insertRows(at: indexPaths, with: .none)
+            }
+        }
+
+        viewModel.changed = { taskOrder in
+            DispatchQueue.main.async { [weak self] in
+                self?.todoStackView.setTaskCountLabel(as: taskOrder.todo.count)
+                self?.doingStackView.setTaskCountLabel(as: taskOrder.doing.count)
+                self?.doneStackView.setTaskCountLabel(as: taskOrder.done.count)
+            }
+        }
+
+        viewModel.removed = { state, row in
+            let indexPaths = [IndexPath(row: row, section: 0)]
+            DispatchQueue.main.async { [weak self] in
+                switch state {
+                case .todo:
+                    self?.todoStackView.stateTableView.deleteRows(at: indexPaths, with: .none)
+                case .doing:
+                    self?.doingStackView.stateTableView.deleteRows(at: indexPaths, with: .none)
+                case .done:
+                    self?.doneStackView.stateTableView.deleteRows(at: indexPaths, with: .none)
+                }
+            }
+        }
+
+        viewModel.inserted = { state, row in
+            let indexPaths = [IndexPath(row: row, section: 0)]
+            DispatchQueue.main.async { [weak self] in
+                switch state {
+                case .todo:
+                    self?.todoStackView.stateTableView.insertRows(at: indexPaths, with: .none)
+                case .doing:
+                    self?.doingStackView.stateTableView.insertRows(at: indexPaths, with: .none)
+                case .done:
+                    self?.doneStackView.stateTableView.insertRows(at: indexPaths, with: .none)
+                }
+            }
+        }
     }
 }
 
