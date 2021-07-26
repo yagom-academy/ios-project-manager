@@ -17,13 +17,14 @@ final class TaskEditViewController: UIViewController {
         static let cancelButtonTitle = "Cancel"
     }
 
+    enum EditMode {
+        case add, update
+    }
+
     // MARK: Properties
 
-    var task: Task? {
-        didSet {
-            toggleEditMode()
-        }
-    }
+    private var editMode: EditMode?
+    private var task: Task?
 
     // MARK: Views
 
@@ -81,6 +82,21 @@ final class TaskEditViewController: UIViewController {
         return stackView
     }()
 
+    // MARK: Initializers
+
+    init?(editMode: EditMode, task: Task? = nil) {
+        guard (editMode == .add && task == nil) ||
+              (editMode == .update && task != nil) else { return nil }
+
+        self.editMode = editMode
+        self.task = task
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+
     // MARK: View Lifecycle
 
     override func viewDidLoad() {
@@ -120,13 +136,38 @@ final class TaskEditViewController: UIViewController {
     }
 
     private func setNavigationBarItems() {
-        navigationItem.leftBarButtonItem = editButton
+        switch editMode {
+        case .add:
+            navigationItem.leftBarButtonItem = cancelButton
+        case .update:
+            navigationItem.leftBarButtonItem = editButton
+        case .none:
+            break
+        }
         navigationItem.rightBarButtonItem = doneButton
     }
 
+    private func configure() {
+        guard editMode == .update,
+              let task = task else { return }
+
+        titleTextField.text = task.title
+        dueDatePicker.date = task.dueDate
+        bodyTextView.text = task.body
+        toggleEditState()
+    }
+
+    private func toggleEditState() {
+        titleTextField.isUserInteractionEnabled.toggle()
+        dueDatePicker.isUserInteractionEnabled.toggle()
+        bodyTextView.isEditable.toggle()
+    }
+
+    // MARK: Button Actions
+
     @objc private func editButtonTapped() {
         navigationItem.leftBarButtonItem = cancelButton
-        toggleEditMode()
+        toggleEditState()
     }
 
     @objc private func doneButtonTapped() {
@@ -134,22 +175,8 @@ final class TaskEditViewController: UIViewController {
 
         }
     }
+
     @objc private func cancelButtonTapped() {
-        toggleEditMode()
-        configure()
-        navigationItem.leftBarButtonItem = editButton
-    }
-
-    private func configure() {
-        guard let task = task else { return }
-        titleTextField.text = task.title
-        dueDatePicker.date = task.dueDate
-        bodyTextView.text = task.body
-    }
-
-    private func toggleEditMode() {
-        titleTextField.isUserInteractionEnabled.toggle()
-        dueDatePicker.isUserInteractionEnabled.toggle()
-        bodyTextView.isEditable.toggle()
+        dismiss(animated: true)
     }
 }

@@ -105,8 +105,10 @@ final class PMViewController: UIViewController {
     }
 
     @objc private func addButtonTapped() {
-        let taskEditViewController = UINavigationController(rootViewController: TaskEditViewController())
-        present(taskEditViewController, animated: true, completion: nil)
+        guard let taskEditViewController = TaskEditViewController(editMode: .add) else { return }
+
+        let presented = UINavigationController(rootViewController: taskEditViewController)
+        present(presented, animated: true, completion: nil)
     }
 }
 
@@ -165,28 +167,32 @@ extension PMViewController: UITableViewDataSource {
 
 extension PMViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let taskEditViewController = TaskEditViewController()
+        var task: Task?
 
         switch tableView {
         case self.todoStackView.stateTableView:
-            taskEditViewController.task = viewModel.task(from: .todo, at: indexPath.row)
+            task = viewModel.task(from: .todo, at: indexPath.row)
         case self.doingStackView.stateTableView:
-            taskEditViewController.task = viewModel.task(from: .doing, at: indexPath.row)
+            task = viewModel.task(from: .doing, at: indexPath.row)
         case self.doneStackView.stateTableView:
-            taskEditViewController.task = viewModel.task(from: .done, at: indexPath.row)
+            task = viewModel.task(from: .done, at: indexPath.row)
         default:
             break
         }
 
-        present(UINavigationController(rootViewController: taskEditViewController), animated: true, completion: nil)
         tableView.deselectRow(at: indexPath, animated: true)
+        guard let taskEditViewController = TaskEditViewController(editMode: .update, task: task) else { return }
+        let presented = UINavigationController(rootViewController: taskEditViewController)
+        present(presented, animated: true, completion: nil)
     }
 
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
 
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView,
+                   commit editingStyle: UITableViewCell.EditingStyle,
+                   forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             switch tableView {
             case todoStackView.stateTableView:
