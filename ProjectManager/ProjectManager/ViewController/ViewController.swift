@@ -64,6 +64,29 @@ class ViewController: UIViewController {
         }
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.navigationItem.title = "Project Manager"
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(clickAddBarButton))
+        self.view.backgroundColor = .white
+        addSubViews()
+        configureConstraints()
+        configureTableViews()
+        self.todoCountLabel.text = String(todoTableViewDataSource.taskCount)
+        self.doingCountLabel.text = String(doingTableViewDataSource.taskCount)
+        self.doneCountLabel.text = String(doneTableViewDataSource.taskCount)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        for countLabel in [todoCountLabel, doingCountLabel, doneCountLabel] {
+            countLabel.layer.cornerRadius = countLabel.frame.size.height / 2
+        }
+    }
+}
+
+// MARK: TableView 관련 함수들
+extension ViewController {
     private func configureTableViews() {
         for tableView in [todoTableView, doingTableView, doneTableView] {
             tableView.register(ItemTableViewCell.self, forCellReuseIdentifier: ItemTableViewCell.identifier)
@@ -93,27 +116,10 @@ class ViewController: UIViewController {
             return doneTableViewDataSource
         }
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.navigationItem.title = "Project Manager"
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(clickAddBarButton))
-        self.view.backgroundColor = .white
-        addSubViews()
-        configureConstraints()
-        configureTableViews()
-        self.todoCountLabel.text = String(todoTableViewDataSource.taskCount)
-        self.doingCountLabel.text = String(doingTableViewDataSource.taskCount)
-        self.doneCountLabel.text = String(doneTableViewDataSource.taskCount)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        for countLabel in [todoCountLabel, doingCountLabel, doneCountLabel] {
-            countLabel.layer.cornerRadius = countLabel.frame.size.height / 2
-        }
-    }
-    
+}
+
+// MARK: TaskFormViewController에서 호출되거나 연관된 함수들
+extension ViewController {
     @objc func clickAddBarButton() {
         let taskFormViewController = TaskFormViewController(type: .add)
         let navigationController = UINavigationController(rootViewController: taskFormViewController)

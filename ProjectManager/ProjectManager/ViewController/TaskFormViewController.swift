@@ -25,26 +25,7 @@ class TaskFormViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         self.configureLeftBarButtonItem(type: type)
     }
-    
-    private func configureLeftBarButtonItem(type: FormType) {
-        switch type {
-        case .edit:
-            self.view.isUserInteractionEnabled = false
-            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Edit",
-                                                               style: .plain,
-                                                               target: self,
-                                                               action: #selector(clinkEditButton))
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector (clickEditDoneButton))
-        case .add:
-            self.view.isUserInteractionEnabled = true
-            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel",
-                                                               style: .plain,
-                                                               target: self,
-                                                               action: #selector(clickCancelButton))
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(clickAddDoneButton))
-        }
-    }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
@@ -97,7 +78,43 @@ class TaskFormViewController: UIViewController {
             stackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -10)
         ])
     }
-    
+}
+
+// MARK: ViewController가 호출하는 함수
+extension TaskFormViewController {
+    func configureViews(_ task: Task) {
+        selectedTask = task
+        titleTextField.text = task.title
+        contentTextView.text = task.content
+        datePicker.date = DateUtil.parseDate(task.deadLine)
+        navigationItem.title = task.state.description
+    }
+}
+
+// MARK: Navigation Bar 버튼 초기화
+extension TaskFormViewController {
+    private func configureLeftBarButtonItem(type: FormType) {
+        switch type {
+        case .edit:
+            self.view.isUserInteractionEnabled = false
+            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Edit",
+                                                               style: .plain,
+                                                               target: self,
+                                                               action: #selector(clinkEditButton))
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector (clickEditDoneButton))
+        case .add:
+            self.view.isUserInteractionEnabled = true
+            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel",
+                                                               style: .plain,
+                                                               target: self,
+                                                               action: #selector(clickCancelButton))
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(clickAddDoneButton))
+        }
+    }
+}
+
+// MARK: Navigation Bar 버튼들 selector 함수들
+extension TaskFormViewController {
     @objc private func clinkEditButton() {
         self.view.isUserInteractionEnabled = true
         //TODO: 키보드 입력 후 datepicker 조정시 키보드가 내려가도록 설정
@@ -133,13 +150,5 @@ class TaskFormViewController: UIViewController {
         selectedTask?.deadLine = DateUtil.formatDate(datePicker.date)
         viewController.updateEditedCell(state: selectedTask!.state)
         self.dismiss(animated: true, completion: nil)
-    }
-    
-    func configureViews(_ task: Task) {
-        selectedTask = task
-        titleTextField.text = task.title
-        contentTextView.text = task.content
-        datePicker.date = DateUtil.parseDate(task.deadLine)
-        navigationItem.title = task.state.description
     }
 }
