@@ -55,22 +55,17 @@ class ViewController: UIViewController {
             tablesStackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
             titlesStackView.topAnchor.constraint(equalTo: safeArea.topAnchor),
             titlesStackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
-            titlesStackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
-            
-            todoCountLabel.centerYAnchor.constraint(equalTo: todoLabel.centerYAnchor),
-            todoCountLabel.leadingAnchor.constraint(equalTo: todoLabel.trailingAnchor, constant: 8),
-            todoCountLabel.widthAnchor.constraint(equalTo: todoCountLabel.heightAnchor),
-            doingCountLabel.centerYAnchor.constraint(equalTo: doingLabel.centerYAnchor),
-            doingCountLabel.leadingAnchor.constraint(equalTo: doingLabel.trailingAnchor, constant: 8),
-            doingCountLabel.widthAnchor.constraint(equalTo: doingCountLabel.heightAnchor),
-            doneCountLabel.centerYAnchor.constraint(equalTo: doneLabel.centerYAnchor),
-            doneCountLabel.leadingAnchor.constraint(equalTo: doneLabel.trailingAnchor, constant: 8),
-            doneCountLabel.widthAnchor.constraint(equalTo: doneCountLabel.heightAnchor)
+            titlesStackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor)
         ])
+        for (countLabel, titleLabel) in [(todoCountLabel, todoLabel), (doingCountLabel, doingLabel), (doneCountLabel, doneLabel)] {
+            countLabel.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor).isActive = true
+            countLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 8).isActive = true
+            countLabel.widthAnchor.constraint(equalTo: countLabel.heightAnchor).isActive = true
+        }
         
         for (titleLabel, view) in [(todoLabel, todoView), (doingLabel, doingView), (doneLabel, doneView)] {
-            titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 15).isActive = true
-            titleLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -15).isActive = true
+            titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 10).isActive = true
+            titleLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10).isActive = true
             titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
         }
     }
@@ -152,7 +147,7 @@ class ViewController: UIViewController {
     func addNewTask(_ task: Task) {
         let numberOfTasks = todoTableView.numberOfRows(inSection: 0)
         todoTableViewDataSource.addTask(task, at: numberOfTasks)
-        
+
         todoTableView.performBatchUpdates {
             todoTableView.insertRows(at: [IndexPath(row: numberOfTasks, section: 0)], with: .automatic)
         }
