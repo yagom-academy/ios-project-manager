@@ -28,30 +28,12 @@ class ViewController: UIViewController {
     lazy var doingLabel: TitleLabel = TitleLabel(title: "DOING")
     lazy var doneLabel: TitleLabel = TitleLabel(title: "DONE")
     
-    
     lazy var todoCountLabel: CountLabel = CountLabel(type: "todo")
     lazy var doingCountLabel: CountLabel = CountLabel(type: "doing")
     lazy var doneCountLabel: CountLabel = CountLabel(type: "done")
-   
-    lazy var titlesStackView: UIStackView = {
-        let stackView: UIStackView = UIStackView(arrangedSubviews: [todoView, doingView, doneView])
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        stackView.spacing = 10
-        stackView.distribution = .fillEqually
-        stackView.backgroundColor = .systemGray4
-        return stackView
-    }()
     
-    lazy var tablesStackView: UIStackView = {
-        let stackView: UIStackView = UIStackView(arrangedSubviews: [todoTableView, doingTableView, doneTableView])
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        stackView.spacing = 10
-        stackView.distribution = .fillEqually
-        stackView.backgroundColor = .systemGray4
-        return stackView
-    }()
+    lazy var titlesStackView: StackView = StackView([todoView, doingView, doneView])
+    lazy var tablesStackView: StackView = StackView([todoTableView, doingTableView, doneTableView])
     
     private func addSubViews() {
         self.view.addSubview(titlesStackView)
