@@ -100,6 +100,7 @@ final class TaskEditViewController: UIViewController {
                 (editMode == .update && task != nil) else { return nil }
         super.init(nibName: nil, bundle: nil)
 
+        self.modalTransitionStyle = .flipHorizontal
         self.editMode = editMode
         self.taskEditViewModel.task = task?.task
         self.taskEditViewModel.indexPath = task?.indexPath
