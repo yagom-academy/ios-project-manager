@@ -87,16 +87,31 @@ final class TaskEditViewController: UIViewController {
         return stackView
     }()
 
+    private let contentScrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
+
     // MARK: Initializers
 
     init?(editMode: EditMode, task: (indexPath: IndexPath, task: Task)? = nil) {
         guard (editMode == .add && task == nil) ||
                 (editMode == .update && task != nil) else { return nil }
+        super.init(nibName: nil, bundle: nil)
 
         self.editMode = editMode
         self.taskEditViewModel.task = task?.task
         self.taskEditViewModel.indexPath = task?.indexPath
-        super.init(nibName: nil, bundle: nil)
+
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillShow),
+                                               name: UIResponder.keyboardWillShowNotification,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillHide),
+                                               name: UIResponder.keyboardWillHideNotification,
+                                               object: nil)
     }
 
     required init?(coder: NSCoder) {
@@ -137,15 +152,38 @@ final class TaskEditViewController: UIViewController {
         contentStackView.addArrangedSubview(titleTextField)
         contentStackView.addArrangedSubview(dueDatePicker)
         contentStackView.addArrangedSubview(bodyTextView)
-        view.addSubview(contentStackView)
+        contentScrollView.addSubview(contentStackView)
+        view.addSubview(contentScrollView)
     }
 
     private func setLayouts() {
+        setContentScrollViewLayout()
+        setContentStackViewLayout()
+    }
+
+    private func setContentScrollViewLayout() {
         NSLayoutConstraint.activate([
-            contentStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            contentStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            contentStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            contentStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20)
+            contentScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            contentScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            contentScrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            contentScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+    }
+
+    private func setContentStackViewLayout() {
+        let bottomConstraint = contentStackView.bottomAnchor.constraint(equalTo: contentScrollView.bottomAnchor,
+                                                                        constant: -20)
+        bottomConstraint.priority = .defaultLow
+        bottomConstraint.isActive = true
+
+        NSLayoutConstraint.activate([
+            contentStackView.leadingAnchor.constraint(equalTo: contentScrollView.leadingAnchor, constant: 20),
+            contentStackView.trailingAnchor.constraint(equalTo: contentScrollView.trailingAnchor, constant: -20),
+            contentStackView.topAnchor.constraint(equalTo: contentScrollView.topAnchor, constant: 20),
+            contentStackView.widthAnchor.constraint(equalTo: contentScrollView.widthAnchor, constant: -40),
+            contentStackView.heightAnchor.constraint(
+                greaterThanOrEqualTo: contentScrollView.frameLayoutGuide.heightAnchor,
+                constant: -40)
         ])
     }
 
@@ -179,6 +217,12 @@ final class TaskEditViewController: UIViewController {
     }
 
     // MARK: Button Actions
+
+    @objc private func keyboardWillShow() {
+    }
+
+    @objc private func keyboardWillHide() {
+    }
 
     @objc private func editButtonTapped() {
         navigationItem.leftBarButtonItem = cancelButton
