@@ -44,7 +44,6 @@ class TaskFormViewController: UIViewController {
                                                                action: #selector(clickCancelButton))
             navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(clickAddDoneButton))
         }
-//        let buttonTitle = type == .edit ? "Edit" : "Cancel"
     }
     
     required init?(coder: NSCoder) {
@@ -114,10 +113,7 @@ class TaskFormViewController: UIViewController {
         guard let navigationViewController = self.presentingViewController as? UINavigationController,
               let viewController = navigationViewController.topViewController as? ViewController else { return }
         
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: Locale.current.identifier)
-        dateFormatter.dateFormat = "yyyy.MM.dd"
-        let dateText = dateFormatter.string(from: datePicker.date)
+        let dateText = DateUtil.formatDate(datePicker.date)
         
         if let title = titleTextField.text, !title.isEmpty, let content = contentTextView.text, !content.isEmpty {
             viewController.addNewTask(Task(title: title, content: content, deadLine: dateText, state: "todo"))
@@ -135,10 +131,7 @@ class TaskFormViewController: UIViewController {
               let viewController = navigationViewController.topViewController as? ViewController else { return }
         selectedTask?.title = titleTextField.text!
         selectedTask?.content = contentTextView.text!
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy.MM.dd"
-        let date = dateFormatter.string(from: datePicker.date)
-        selectedTask?.deadLine = date
+        selectedTask?.deadLine = DateUtil.formatDate(datePicker.date)
         viewController.updateEditedCell(state: selectedTask!.state)
         
         self.dismiss(animated: true, completion: nil)
@@ -148,10 +141,7 @@ class TaskFormViewController: UIViewController {
         selectedTask = task
         titleTextField.text = task.title
         contentTextView.text = task.content
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy.MM.dd"
-        guard let date = dateFormatter.date(from: task.deadLine) else { return }
-        datePicker.date = date
+        datePicker.date = DateUtil.parseDate(task.deadLine)
         navigationItem.title = task.state.uppercased()
     }
 }

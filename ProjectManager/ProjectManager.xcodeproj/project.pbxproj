@@ -16,6 +16,7 @@
 		B08D8E1926AA5D39003CB311 /* ViewController+Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08D8E1826AA5D39003CB311 /* ViewController+Delegate.swift */; };
 		B08D8E1C26AA5F49003CB311 /* TaskFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08D8E1B26AA5F49003CB311 /* TaskFormViewController.swift */; };
 		B0C9A03E26AE7A350022FB00 /* TaskTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C9A03D26AE7A350022FB00 /* TaskTableView.swift */; };
+		B0C9A04426AED4AB0022FB00 /* DateUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C9A04326AED4AB0022FB00 /* DateUtil.swift */; };
 		C32DB10526AEAE7C004A3D25 /* StackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32DB10426AEAE7C004A3D25 /* StackView.swift */; };
 		C3484B7526A9822C0054C20A /* ViewController+DragDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3484B7426A9822C0054C20A /* ViewController+DragDelegate.swift */; };
 		C3484B7726A982360054C20A /* ViewController+DropDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3484B7626A982360054C20A /* ViewController+DropDelegate.swift */; };
@@ -43,6 +44,7 @@
 		B08D8E1826AA5D39003CB311 /* ViewController+Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Delegate.swift"; sourceTree = "<group>"; };
 		B08D8E1B26AA5F49003CB311 /* TaskFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskFormViewController.swift; sourceTree = "<group>"; };
 		B0C9A03D26AE7A350022FB00 /* TaskTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableView.swift; sourceTree = "<group>"; };
+		B0C9A04326AED4AB0022FB00 /* DateUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateUtil.swift; sourceTree = "<group>"; };
 		B1DD1443BF563C703D4187D0 /* Pods_ProjectManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B47A71D921688FA8F8871E6D /* Pods-ProjectManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.debug.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.debug.xcconfig"; sourceTree = "<group>"; };
 		C32DB10426AEAE7C004A3D25 /* StackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackView.swift; sourceTree = "<group>"; };
@@ -89,6 +91,14 @@
 				C3484B7826A9879F0054C20A /* DragCoordinator.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		B0C9A04226AED4580022FB00 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				B0C9A04326AED4AB0022FB00 /* DateUtil.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		C0963E7B6096B092C4ED0896 /* Pods */ = {
@@ -156,6 +166,7 @@
 				C3844F6D26A950AD00F91098 /* View */,
 				B05D4B5B26A957F200FA3560 /* Model */,
 				C3484B7126A981A80054C20A /* ViewController */,
+				B0C9A04226AED4580022FB00 /* Utils */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
@@ -278,6 +289,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				45F55FFB26AE832D0018E6EF /* CountLabel.swift in Sources */,
+				B0C9A04426AED4AB0022FB00 /* DateUtil.swift in Sources */,
 				B05D4B5926A9578500FA3560 /* Task.swift in Sources */,
 				C3844F6826A9469800F91098 /* ItemTitleLabel.swift in Sources */,
 				C3484B7726A982360054C20A /* ViewController+DropDelegate.swift in Sources */,
