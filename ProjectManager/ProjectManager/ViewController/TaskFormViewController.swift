@@ -128,27 +128,42 @@ extension TaskFormViewController {
     @objc private func clickAddDoneButton() {
         guard let navigationViewController = self.presentingViewController as? UINavigationController,
               let viewController = navigationViewController.topViewController as? ViewController else { return }
-        
         let dateText = DateUtil.formatDate(datePicker.date)
-        
-        if let title = titleTextField.text, !title.isEmpty, let content = contentTextView.text, !content.isEmpty {
+        guard let title = titleTextField.text, let content = contentTextView.text else { return }
+        if checkTitleContentIsEmpty() {
             viewController.addNewTask(Task(title: title, content: content, deadLine: dateText, state: .todo))
             self.dismiss(animated: true, completion: nil)
         } else {
-            let alert = UIAlertController(title: "제목과 내용이 비어있습니다", message: "제목과 내용을 모두 채워주세요", preferredStyle: .alert)
-            let okButton = UIAlertAction(title: "OK", style: .default, handler: nil)
-            alert.addAction(okButton)
-            self.present(alert, animated: true)
+            presentAlertForCompleteTask()
         }
     }
     
     @objc private func clickEditDoneButton() {
         guard let navigationViewController = self.presentingViewController as? UINavigationController,
               let viewController = navigationViewController.topViewController as? ViewController else { return }
-        selectedTask?.title = titleTextField.text!
-        selectedTask?.content = contentTextView.text!
-        selectedTask?.deadLine = DateUtil.formatDate(datePicker.date)
-        viewController.updateEditedCell(state: selectedTask!.state)
-        self.dismiss(animated: true, completion: nil)
+        guard let title = titleTextField.text, let content = contentTextView.text else { return }
+        if checkTitleContentIsEmpty() {
+            selectedTask?.title = title
+            selectedTask?.content = content
+            selectedTask?.deadLine = DateUtil.formatDate(datePicker.date)
+            viewController.updateEditedCell(state: selectedTask!.state)
+            self.dismiss(animated: true, completion: nil)
+        } else {
+            presentAlertForCompleteTask()
+        }
+    }
+    
+    private func checkTitleContentIsEmpty() -> Bool {
+        if let title = titleTextField.text, !title.isEmpty, let content = contentTextView.text, !content.isEmpty {
+            return true
+        }
+        return false
+    }
+    
+    private func presentAlertForCompleteTask() {
+        let alert = UIAlertController(title: "제목과 내용이 비어있습니다", message: "제목과 내용을 모두 채워주세요", preferredStyle: .alert)
+        let okButton = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alert.addAction(okButton)
+        self.present(alert, animated: true)
     }
 }
