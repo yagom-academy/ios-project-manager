@@ -8,7 +8,6 @@
 import UIKit
 import CoreData
 
-
 final class TaskManager {
     static let shared = TaskManager()
     weak var taskManagerDelegate: TaskManagerDelegate?
@@ -119,7 +118,7 @@ final class TaskManager {
         do {
             try self.viewContext.save()
         } catch {
-            // TODO save 실패 처리, count label 업데이트
+
         }
     }
 }

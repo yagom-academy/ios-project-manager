@@ -237,13 +237,10 @@ extension KanBanBoardViewController: TaskManagerDelegate {
         switch status {
         case .TODO:
             toDoTableView.reloadRows(at: [indexPath], with: .automatic)
-            toDoHeaderView.countLabel.text = TaskManager.shared.toDoTasks.count.description
         case .DOING:
             doingTableView.reloadRows(at: [indexPath], with: .automatic)
-            doingHeaderView.countLabel.text = TaskManager.shared.doingTasks.count.description
         case .DONE:
             doneTableView.reloadRows(at: [indexPath], with: .automatic)
-            doneHeaderView.countLabel.text = TaskManager.shared.doneTasks.count.description
         }
     }
 
@@ -328,10 +325,13 @@ extension KanBanBoardViewController: UITableViewDragDelegate {
         switch tableView.status {
         case .TODO:
             TaskManager.shared.toDoTasks.remove(at: localContext.sourceIndexPath.row)
+            toDoHeaderView.countLabel.text = TaskManager.shared.toDoTasks.count.description
         case .DOING:
             TaskManager.shared.doingTasks.remove(at: localContext.sourceIndexPath.row)
+            doingHeaderView.countLabel.text = TaskManager.shared.doingTasks.count.description
         case .DONE:
             TaskManager.shared.doneTasks.remove(at: localContext.sourceIndexPath.row)
+            doneHeaderView.countLabel.text = TaskManager.shared.doneTasks.count.description
         }
 
         tableView.deleteRows(at: [localContext.sourceIndexPath], with: .automatic)
@@ -362,14 +362,17 @@ extension KanBanBoardViewController: UITableViewDropDelegate {
             dragTask.status = TaskStatus.TODO.rawValue
             TaskManager.shared.toDoTasks.insert(dragTask, at: destinationIndexPath.row)
             toDoTableView.insertRows(at: [destinationIndexPath], with: .automatic)
+            toDoHeaderView.countLabel.text = TaskManager.shared.toDoTasks.count.description
         case .DOING:
             dragTask.status = TaskStatus.DOING.rawValue
             TaskManager.shared.doingTasks.insert(dragTask, at: destinationIndexPath.row)
             doingTableView.insertRows(at: [destinationIndexPath], with: .automatic)
+            doingHeaderView.countLabel.text = TaskManager.shared.doingTasks.count.description
         case .DONE:
             dragTask.status = TaskStatus.DONE.rawValue
             TaskManager.shared.doneTasks.insert(dragTask, at: destinationIndexPath.row)
             doneTableView.insertRows(at: [destinationIndexPath], with: .automatic)
+            doneHeaderView.countLabel.text = TaskManager.shared.doneTasks.count.description
         }
 
         switch coordinator.proposal.operation {
