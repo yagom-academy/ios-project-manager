@@ -8,6 +8,11 @@ import UIKit
 
 final class PMViewController: UIViewController {
 
+    private enum Style {
+
+        static let backgroundColor: UIColor = .systemGray4
+    }
+
     var viewModel = TaskViewModel()
 
     // MARK: Views
@@ -28,6 +33,7 @@ final class PMViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = Style.backgroundColor
         setNavigationBar()
         setStateStackViews()
         setPMStackView()
@@ -48,9 +54,9 @@ final class PMViewController: UIViewController {
 
     private func setStateStackViews() {
         stateStackViews.append(contentsOf: [
-            StateStackView(state: .todo, delegate: self),
-            StateStackView(state: .doing, delegate: self),
-            StateStackView(state: .done, delegate: self)
+            StateStackView(state: .todo, pmDelegate: self),
+            StateStackView(state: .doing, pmDelegate: self),
+            StateStackView(state: .done, pmDelegate: self)
         ])
     }
 
