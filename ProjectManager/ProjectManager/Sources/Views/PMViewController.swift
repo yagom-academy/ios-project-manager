@@ -10,6 +10,8 @@ final class PMViewController: UIViewController {
 
     var viewModel = TaskViewModel()
 
+    // MARK: Views
+
     let pmStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -20,24 +22,40 @@ final class PMViewController: UIViewController {
         return stackView
     }()
 
-    lazy var todoStackView: StateStackView = StateStackView(state: .todo, delegate: self)
-    lazy var doingStackView: StateStackView = StateStackView(state: .doing, delegate: self)
-    lazy var doneStackView: StateStackView = StateStackView(state: .done, delegate: self)
+    private var stateStackViews: [StateStackView] = []
+
+    // MARK: View Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setNavigationBar()
-        setSubView()
+        setStateStackViews()
         setPMStackView()
+        setSubView()
+
         bindWithViewModel()
         fetchTasks()
     }
+
+    // MARK: Configure View
 
     private func setNavigationBar() {
         title = "Project Manager"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
                                                             target: self,
                                                             action: #selector(addButtonTapped))
+    }
+
+    private func setStateStackViews() {
+        stateStackViews.append(contentsOf: [
+            StateStackView(state: .todo, delegate: self),
+            StateStackView(state: .doing, delegate: self),
+            StateStackView(state: .done, delegate: self)
+        ])
+    }
+
+    private func setPMStackView() {
+        stateStackViews.forEach { pmStackView.addArrangedSubview($0) }
     }
 
     private func setSubView() {
@@ -50,21 +68,52 @@ final class PMViewController: UIViewController {
         ])
     }
 
-    private func setPMStackView() {
-        pmStackView.addArrangedSubview(todoStackView)
-        pmStackView.addArrangedSubview(doingStackView)
-        pmStackView.addArrangedSubview(doneStackView)
+    private func bindWithViewModel() {
+        viewModel.added = { index in
+            DispatchQueue.main.async { [weak self] in
+                let indexPaths = [IndexPath(row: index, section: 0)]
+                let todoStackView = self?.stateStackViews.filter { $0.state == .todo }.first
+                todoStackView?.stateTableView.insertRows(at: indexPaths, with: .none)
+            }
+        }
+
+        viewModel.changed = {
+            DispatchQueue.main.async { [weak self] in
+                self?.stateStackViews.forEach {
+                    guard let state = $0.state,
+                          let taskCount = self?.viewModel.count(of: state) else { return }
+
+                    $0.setTaskCountLabel(as: taskCount)
+                }
+            }
+        }
+
+        viewModel.removed = { state, row in
+            let indexPaths = [IndexPath(row: row, section: 0)]
+            DispatchQueue.main.async { [weak self] in
+                let stackView = self?.stateStackViews.filter { $0.state == state }.first
+                stackView?.stateTableView.deleteRows(at: indexPaths, with: .none)
+            }
+        }
+
+        viewModel.inserted = { state, row in
+            let indexPaths = [IndexPath(row: row, section: 0)]
+            DispatchQueue.main.async { [weak self] in
+                let stackView = self?.stateStackViews.filter { $0.state == state }.first
+                stackView?.stateTableView.insertRows(at: indexPaths, with: .none)
+            }
+        }
     }
 
     private func fetchTasks() {
         viewModel.fetchTasks {
             DispatchQueue.main.async { [weak self] in
-                self?.todoStackView.stateTableView.reloadData()
-                self?.doingStackView.stateTableView.reloadData()
-                self?.doneStackView.stateTableView.reloadData()
+                self?.stateStackViews.forEach { $0.stateTableView.reloadData() }
             }
         }
     }
+
+    // MARK: Button Actions
 
     @objc private func addButtonTapped() {
         guard let taskEditViewController = TaskEditViewController(editMode: .add) else { return }
@@ -73,85 +122,24 @@ final class PMViewController: UIViewController {
         let presented = UINavigationController(rootViewController: taskEditViewController)
         present(presented, animated: true, completion: nil)
     }
-
-    private func bindWithViewModel() {
-        viewModel.added = { index in
-            DispatchQueue.main.async { [weak self] in
-                guard let self = self else { return }
-                let indexPaths = [IndexPath(row: index, section: 0)]
-                self.todoStackView.stateTableView.insertRows(at: indexPaths, with: .none)
-            }
-        }
-
-        viewModel.changed = { taskListCounts in
-            DispatchQueue.main.async { [weak self] in
-                self?.todoStackView.setTaskCountLabel(as: taskListCounts.todo)
-                self?.doingStackView.setTaskCountLabel(as: taskListCounts.doing)
-                self?.doneStackView.setTaskCountLabel(as: taskListCounts.done)
-            }
-        }
-
-        viewModel.removed = { state, row in
-            let indexPaths = [IndexPath(row: row, section: 0)]
-            DispatchQueue.main.async { [weak self] in
-                switch state {
-                case .todo:
-                    self?.todoStackView.stateTableView.deleteRows(at: indexPaths, with: .none)
-                case .doing:
-                    self?.doingStackView.stateTableView.deleteRows(at: indexPaths, with: .none)
-                case .done:
-                    self?.doneStackView.stateTableView.deleteRows(at: indexPaths, with: .none)
-                }
-            }
-        }
-
-        viewModel.inserted = { state, row in
-            let indexPaths = [IndexPath(row: row, section: 0)]
-            DispatchQueue.main.async { [weak self] in
-                switch state {
-                case .todo:
-                    self?.todoStackView.stateTableView.insertRows(at: indexPaths, with: .none)
-                case .doing:
-                    self?.doingStackView.stateTableView.insertRows(at: indexPaths, with: .none)
-                case .done:
-                    self?.doneStackView.stateTableView.insertRows(at: indexPaths, with: .none)
-                }
-            }
-        }
-    }
 }
 
 extension PMViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch tableView {
-        case todoStackView.stateTableView:
-            return viewModel.taskList.counts.todo
-        case doingStackView.stateTableView:
-            return viewModel.taskList.counts.doing
-        case doneStackView.stateTableView:
-            return viewModel.taskList.counts.done
-        default:
-            return 0
-        }
+        guard let stateTableView = tableView as? StateTableView,
+              let state = stateTableView.state else { return 0 }
+
+        return viewModel.taskList[state].count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let taskCell = tableView.dequeueReusableCell(withIdentifier: TaskCell.reuseIdentifier,
+        guard let stateTableView = tableView as? StateTableView,
+              let state = stateTableView.state,
+              let taskCell = tableView.dequeueReusableCell(withIdentifier: TaskCell.reuseIdentifier,
                                                            for: indexPath) as? TaskCell else { return TaskCell() }
 
-        switch tableView {
-        case todoStackView.stateTableView:
-            let todoTask = viewModel.task(from: .todo, at: indexPath.row)
-            taskCell.configure(with: todoTask)
-        case doingStackView.stateTableView:
-            let doingTask = viewModel.task(from: .doing, at: indexPath.row)
-            taskCell.configure(with: doingTask)
-        case doneStackView.stateTableView:
-            let doneTask = viewModel.task(from: .done, at: indexPath.row)
-            taskCell.configure(with: doneTask)
-        default:
-            break
-        }
+        let task = viewModel.task(from: state, at: indexPath.row)
+        taskCell.configure(with: task)
 
         return taskCell
     }
@@ -161,38 +149,26 @@ extension PMViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        switch tableView {
-        case self.todoStackView.stateTableView:
-            self.viewModel.move(in: .todo, from: sourceIndexPath.row, to: destinationIndexPath.row)
-        case self.doingStackView.stateTableView:
-            self.viewModel.move(in: .doing, from: sourceIndexPath.row, to: destinationIndexPath.row)
-        case self.doneStackView.stateTableView:
-            self.viewModel.move(in: .done, from: sourceIndexPath.row, to: destinationIndexPath.row)
-        default:
-            break
-        }
+        guard let stateTableView = tableView as? StateTableView,
+              let state = stateTableView.state else { return }
+
+        viewModel.move(in: state, from: sourceIndexPath.row, to: destinationIndexPath.row)
     }
 }
 
 extension PMViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        var task: Task?
+        guard let stateTableView = tableView as? StateTableView,
+              let state = stateTableView.state else { return }
 
-        switch tableView {
-        case self.todoStackView.stateTableView:
-            task = viewModel.task(from: .todo, at: indexPath.row)
-        case self.doingStackView.stateTableView:
-            task = viewModel.task(from: .doing, at: indexPath.row)
-        case self.doneStackView.stateTableView:
-            task = viewModel.task(from: .done, at: indexPath.row)
-        default:
-            break
-        }
+        stateTableView.deselectRow(at: indexPath, animated: true)
 
-        tableView.deselectRow(at: indexPath, animated: true)
-        guard let task = task,
-            let taskEditViewController = TaskEditViewController(editMode: .update, task: (indexPath, task)) else { return }
+        guard let task = viewModel.task(from: state, at: indexPath.row),
+            let taskEditViewController = TaskEditViewController(editMode: .update,
+                                                                task: (indexPath, task)) else { return }
+
         taskEditViewController.delegate = self
+
         let presented = UINavigationController(rootViewController: taskEditViewController)
         present(presented, animated: true, completion: nil)
     }
@@ -205,16 +181,9 @@ extension PMViewController: UITableViewDelegate {
                    commit editingStyle: UITableViewCell.EditingStyle,
                    forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            switch tableView {
-            case todoStackView.stateTableView:
-                viewModel.remove(state: .todo, at: indexPath.row)
-            case doingStackView.stateTableView:
-                viewModel.remove(state: .doing, at: indexPath.row)
-            case doneStackView.stateTableView:
-                viewModel.remove(state: .done, at: indexPath.row)
-            default:
-                break
-            }
+            guard let stateTableView = tableView as? StateTableView,
+                  let state = stateTableView.state else { return }
+            viewModel.remove(state: state, at: indexPath.row)
         }
     }
 }
@@ -222,14 +191,8 @@ extension PMViewController: UITableViewDelegate {
 extension PMViewController: TaskEditViewControllerDelegate {
 
     func taskWillUpdate(_ task: Task, _ indexPath: IndexPath) {
-        switch task.state {
-        case .todo:
-            todoStackView.stateTableView.reloadRows(at: [indexPath], with: .automatic)
-        case .doing:
-            doingStackView.stateTableView.reloadRows(at: [indexPath], with: .automatic)
-        case .done:
-            doneStackView.stateTableView.reloadRows(at: [indexPath], with: .automatic)
-        }
+        let stackView = stateStackViews.filter { $0.state == task.state }.first
+        stackView?.stateTableView.reloadRows(at: [indexPath], with: .automatic)
     }
 
     func taskWillAdd(_ task: Task) {

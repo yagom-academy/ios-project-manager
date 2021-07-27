@@ -20,7 +20,7 @@ final class StateStackView: UIStackView {
 
     // MARK: Properties
 
-    private var state: Task.State?
+    private(set) var state: Task.State?
 
     // MARK: Views
 
@@ -50,8 +50,8 @@ final class StateStackView: UIStackView {
         return label
     }()
 
-    let stateTableView: UITableView = {
-        let tableView = UITableView()
+    lazy var stateTableView: StateTableView = {
+        let tableView = StateTableView(state: state)
         tableView.backgroundColor = .systemGray6
         tableView.tableFooterView = UIView()
         return tableView
@@ -61,11 +61,11 @@ final class StateStackView: UIStackView {
 
     init(state: Task.State, delegate: PMDelegate) {
         super.init(frame: .zero)
+        self.state = state
         stateTableView.dataSource = delegate
         stateTableView.delegate = delegate
         stateTableView.dragDelegate = delegate
         stateTableView.dropDelegate = delegate
-        self.state = state
         setAttributes()
         setSubviews()
         setStateLabel()

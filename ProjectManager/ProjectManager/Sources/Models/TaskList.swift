@@ -13,10 +13,6 @@ struct TaskList: Codable {
     private(set) var doings: [Task] = []
     private(set) var dones: [Task] = []
 
-    var counts: Count {
-        return (todos.count, doings.count, dones.count)
-    }
-
     subscript(state: Task.State) -> [Task] {
         get {
             switch state {

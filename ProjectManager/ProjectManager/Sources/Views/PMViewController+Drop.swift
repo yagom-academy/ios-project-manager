@@ -33,19 +33,11 @@ extension PMViewController: UITableViewDropDelegate {
 
         dropItem?.dragItem.itemProvider.loadObject(ofClass: Task.self) { [weak self] (data, error) in
             guard let task = data as? Task,
-                  error == nil,
-                  let self = self else { return }
+                  let stateTableView = tableView as? StateTableView,
+                  let state = stateTableView.state,
+                  error == nil else { return }
 
-            switch tableView {
-            case self.todoStackView.stateTableView:
-                self.viewModel.move(task, to: .todo, at: destinationIndexPath.row)
-            case self.doingStackView.stateTableView:
-                self.viewModel.move(task, to: .doing, at: destinationIndexPath.row)
-            case self.doneStackView.stateTableView:
-                self.viewModel.move(task, to: .done, at: destinationIndexPath.row)
-            default:
-                return
-            }
+            self?.viewModel.move(task, to: state, at: destinationIndexPath.row)
         }
     }
 }

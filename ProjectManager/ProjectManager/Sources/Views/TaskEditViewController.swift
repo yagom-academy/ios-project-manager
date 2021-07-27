@@ -127,15 +127,9 @@ final class TaskEditViewController: UIViewController {
         setNavigationBarItems()
         setSubviews()
         setLayouts()
+
         configure()
-
-        taskEditViewModel.updated = { (indexPath, task) -> Void in
-            self.delegate?.taskWillUpdate(task, indexPath)
-        }
-
-        taskEditViewModel.created = { (task) -> Void in
-            self.delegate?.taskWillAdd(task)
-        }
+        bindWithViewModel()
     }
 
     // MARK: Configure
@@ -147,6 +141,18 @@ final class TaskEditViewController: UIViewController {
             title = Style.defaultTitle
         }
         view.backgroundColor = .systemBackground
+    }
+
+    private func setNavigationBarItems() {
+        switch editMode {
+        case .add:
+            navigationItem.leftBarButtonItem = cancelButton
+        case .update:
+            navigationItem.leftBarButtonItem = editButton
+        case .none:
+            break
+        }
+        navigationItem.rightBarButtonItem = doneButton
     }
 
     private func setSubviews() {
@@ -188,18 +194,6 @@ final class TaskEditViewController: UIViewController {
         ])
     }
 
-    private func setNavigationBarItems() {
-        switch editMode {
-        case .add:
-            navigationItem.leftBarButtonItem = cancelButton
-        case .update:
-            navigationItem.leftBarButtonItem = editButton
-        case .none:
-            break
-        }
-        navigationItem.rightBarButtonItem = doneButton
-    }
-
     private func configure() {
         guard editMode == .update,
               let task = taskEditViewModel.task else { return }
@@ -211,6 +205,16 @@ final class TaskEditViewController: UIViewController {
         toggleEditState()
     }
 
+    private func bindWithViewModel() {
+        taskEditViewModel.updated = { (indexPath, task) -> Void in
+            self.delegate?.taskWillUpdate(task, indexPath)
+        }
+
+        taskEditViewModel.created = { (task) -> Void in
+            self.delegate?.taskWillAdd(task)
+        }
+    }
+
     private func toggleEditState() {
         titleTextField.isUserInteractionEnabled.toggle()
         dueDatePicker.isUserInteractionEnabled.toggle()
@@ -218,20 +222,6 @@ final class TaskEditViewController: UIViewController {
     }
 
     // MARK: Button Actions
-
-    @objc private func keyboardWillShow(_ notification: Notification) {
-        guard let userInfo = notification.userInfo,
-              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
-        let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardFrame.height, right: 0)
-        contentScrollView.contentInset = contentInset
-        contentScrollView.scrollIndicatorInsets = contentInset
-    }
-
-    @objc private func keyboardWillHide() {
-        let contentInset = UIEdgeInsets.zero
-        contentScrollView.contentInset = contentInset
-        contentScrollView.scrollIndicatorInsets = contentInset
-    }
 
     @objc private func editButtonTapped() {
         navigationItem.leftBarButtonItem = cancelButton
@@ -263,6 +253,8 @@ final class TaskEditViewController: UIViewController {
         dismiss(animated: true)
     }
 
+    // MARK: Alerts
+
     private func showMaxBodyLengthAlert() {
         let alert = UIAlertController(title: "최대 글자수 초과",
                                       message: "\(Style.bodyLengthLimit)자 이하로 작성해주세요.",
@@ -282,6 +274,22 @@ final class TaskEditViewController: UIViewController {
         }
         alert.addAction(okAction)
         present(alert, animated: true)
+    }
+
+    // MARK: Configure View with Keyboard Notification
+
+    @objc private func keyboardWillShow(_ notification: Notification) {
+        guard let userInfo = notification.userInfo,
+              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
+        let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardFrame.height, right: 0)
+        contentScrollView.contentInset = contentInset
+        contentScrollView.scrollIndicatorInsets = contentInset
+    }
+
+    @objc private func keyboardWillHide() {
+        let contentInset = UIEdgeInsets.zero
+        contentScrollView.contentInset = contentInset
+        contentScrollView.scrollIndicatorInsets = contentInset
     }
 }
 

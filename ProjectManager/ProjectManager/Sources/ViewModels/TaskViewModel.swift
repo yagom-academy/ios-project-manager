@@ -10,7 +10,7 @@ import Foundation
 struct TaskViewModel {
 
     var added: ((_ index: Int) -> Void)?
-    var changed: ((_ taskListCounts: TaskList.Count) -> Void)?
+    var changed: (() -> Void)?
     var inserted: ((_ state: Task.State, _ index: Int) -> Void)?
     var removed: ((_ state: Task.State, _ index: Int) -> Void)?
 
@@ -18,7 +18,7 @@ struct TaskViewModel {
 
     private(set) var taskList = TaskList() {
         didSet {
-            changed?(taskList.counts)
+            changed?()
         }
     }
 
@@ -43,7 +43,7 @@ struct TaskViewModel {
     }
 
     mutating func add(_ task: Task) {
-        let index: Int = taskList.counts.todo
+        guard let index: Int = count(of: task.state) else { return }
         taskList[.todo].append(task)
         added?(index)
     }
@@ -101,5 +101,9 @@ struct TaskViewModel {
         taskList[state].insert(task, at: index)
         task.state = state
         inserted?(state, index)
+    }
+
+    func count(of state: Task.State) -> Int? {
+        return taskList[state].count
     }
 }
