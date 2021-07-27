@@ -130,35 +130,23 @@ extension ViewController: UITableViewDropDelegate {
                    withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
       return UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
     }
-    
-    func makePlaceholder(_ destinationIndexPath: IndexPath) -> UITableViewDropPlaceholder {
-        let placeholder = UITableViewDropPlaceholder(insertionIndexPath: destinationIndexPath,
-                                                     reuseIdentifier: TableViewCell.identifier,
-                                                     rowHeight: 150)
-        
-        placeholder.cellUpdateHandler = { cell in
-            if let cell = cell as? TableViewCell {
-                cell.contentLabel.text = ""
-                cell.dueDateLabel.text = ""
-            }
-        }
-        return placeholder
-    }
 
     func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
         let dataSource = dataSourceForTableView(tableView)
+        let item = coordinator.items[0]
         let destinationIndexPath: IndexPath
+        
         if let indexPath = coordinator.destinationIndexPath {
             destinationIndexPath = indexPath
         } else {
             destinationIndexPath = IndexPath(row: tableView.numberOfRows(inSection: 0), section: 0)
         }
-        let item = coordinator.items[0]
      
         switch coordinator.proposal.operation {
         case .move:
             guard let dragCoordinator = coordinator.session.localDragSession?.localContext as? TaskDragCoordinator
             else { return }
+            
             if let sourceIndexPath = item.sourceIndexPath {
                 dragCoordinator.isReordering = true
                 
@@ -167,9 +155,9 @@ extension ViewController: UITableViewDropDelegate {
                     tableView.deleteSections([sourceIndexPath.section, sourceIndexPath.section], with: .automatic)
                     tableView.insertSections([destinationIndexPath.section, destinationIndexPath.section], with: .automatic)
                 }
-                
             } else {
                 dragCoordinator.isReordering = false
+                
                 if let taskItem = item.dragItem.localObject as? Task {
                     tableView.performBatchUpdates {
                         dataSource.addTask(taskItem, at: destinationIndexPath.section)
@@ -177,6 +165,7 @@ extension ViewController: UITableViewDropDelegate {
                     }
                 }
             }
+            
             dragCoordinator.dragCompleted = true
             coordinator.drop(item.dragItem, toRowAt: destinationIndexPath)
         default:
