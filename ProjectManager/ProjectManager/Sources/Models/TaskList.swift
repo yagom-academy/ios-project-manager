@@ -7,11 +7,9 @@
 
 struct TaskList: Codable {
 
-    typealias Count = (todo: Int, doing: Int, done: Int)
-
-    private(set) var todos: [Task] = []
-    private(set) var doings: [Task] = []
-    private(set) var dones: [Task] = []
+    private var todos: [Task] = []
+    private var doings: [Task] = []
+    private var dones: [Task] = []
 
     subscript(state: Task.State) -> [Task] {
         get {
