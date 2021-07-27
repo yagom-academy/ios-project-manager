@@ -116,6 +116,21 @@ extension ViewController: UITableViewDragDelegate {
 
         return dataSource.dragItems(for: indexPath)
     }
+    
+    func tableView(_ tableView: UITableView, dragSessionDidEnd session: UIDragSession) {
+        guard let dragCoordinator = session.localContext as? TaskDragCoordinator,
+          dragCoordinator.dragCompleted == true,
+          dragCoordinator.isReordering == false
+        else { return }
+        let dataSource = dataSourceForTableView(tableView)
+        let sourceIndexPath = dragCoordinator.sourceIndexPath
+        
+        tableView.performBatchUpdates {
+            dataSource.deleteTask(at: sourceIndexPath.section)
+            tableView.deleteSections([sourceIndexPath.section, sourceIndexPath.section], with: .automatic)
+        }
+    }
+    
 }
 
 extension ViewController: UITableViewDropDelegate {
@@ -136,6 +151,7 @@ extension ViewController: UITableViewDropDelegate {
         return placeholder
     }
 
+    
     func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
         let dataSource = dataSourceForTableView(tableView)
         let destinationIndexPath: IndexPath
