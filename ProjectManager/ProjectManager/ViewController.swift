@@ -38,6 +38,7 @@ class ViewController: UIViewController {
     private func setTableView(_ tableView: UITableView, _ tasks: [Task]) {
         tableView.delegate = self
         tableView.dataSource = dataSourceForTableView(tableView)
+        tableView.dragDelegate = self
         tableView.register(cellNibName, forCellReuseIdentifier: TableViewCell.identifier)
     }
     
@@ -103,6 +104,14 @@ extension ViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 7
+    }
+}
+
+extension ViewController: UITableViewDragDelegate {
+    func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        let dataSource = dataSourceForTableView(tableView)
+        
+        return dataSource.dragItems(for: indexPath)
     }
 }
 
