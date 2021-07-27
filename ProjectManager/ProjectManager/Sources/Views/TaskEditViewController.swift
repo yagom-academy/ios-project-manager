@@ -42,19 +42,7 @@ final class TaskEditViewController: UIViewController {
                                                     target: self,
                                                     action: #selector(cancelButtonTapped))
 
-    private let titleTextField: TaskEditTitleTextField = {
-        let textField = TaskEditTitleTextField()
-        textField.placeholder = Style.titleTextFieldPlaceholder
-        textField.backgroundColor = .systemBackground
-        textField.layer.shadowRadius = 4
-        textField.layer.shadowColor = UIColor.systemGray3.cgColor
-        textField.layer.shadowOpacity = 1
-        textField.layer.shadowOffset = CGSize(width: 0, height: 3)
-        textField.font = UIFont.preferredFont(forTextStyle: .title1)
-        textField.setContentHuggingPriority(.required, for: .vertical)
-        textField.setContentCompressionResistancePriority(.required, for: .vertical)
-        return textField
-    }()
+    private let titleTextField = TaskEditTitleTextField()
 
     private let dueDatePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
