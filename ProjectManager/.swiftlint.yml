@@ -9,7 +9,7 @@ excluded: # 린트 과정에서 무시할 파일 경로. `included`보다 우선
 cyclomatic_complexity:
   ignores_case_statements: true
 line_length:
-  warning: 120
+  warning: 140
   ignores_function_declarations: true
   ignores_comments: true
   ignores_interpolated_strings: true

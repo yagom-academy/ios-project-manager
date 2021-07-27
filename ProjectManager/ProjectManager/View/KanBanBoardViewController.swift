@@ -350,6 +350,8 @@ extension KanBanBoardViewController: UITableViewDropDelegate {
     }
 }
 
+// MARK: - Extra Functions
+
 extension KanBanBoardViewController {
     private func kanBanTableView(of status: TaskStatus) -> KanBanTableView {
         switch status {

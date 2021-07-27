@@ -34,7 +34,7 @@ final class TaskManager {
             let newTask = Task(context: self.viewContext)
             newTask.title = title
             newTask.body = description
-            newTask.status = "TODO"
+            newTask.status = TaskStatus.TODO.rawValue
             newTask.date = date.timeIntervalSince1970
 
             self.toDoTasks.insert(newTask, at: 0)
@@ -115,7 +115,6 @@ final class TaskManager {
 
     func saveTasks() {
         do {
-            
             try self.viewContext.save()
         } catch {
 
