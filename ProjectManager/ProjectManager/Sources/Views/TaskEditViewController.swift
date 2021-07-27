@@ -11,11 +11,29 @@ final class TaskEditViewController: UIViewController {
 
     private enum Style {
         static let defaultTitle: String = "TODO"
-        static let titleTextFieldPlaceholder: String = "Title"
+
         static let editButtonTitle: String = "Edit"
         static let doneButtonTitle: String = "Done"
         static let cancelButtonTitle: String = "Cancel"
+
+        static let bodyTextViewBackgroundColor: UIColor = .systemBackground
+        static let bodyTextViewShadowColor: UIColor = .systemGray3
+        static let bodyTextViewShadowRadius: CGFloat = 4
+        static let bodyTextViewShadowOpacity: Float = 1
+        static let bodyTextViewShadowOffset: CGSize = CGSize(width: 0, height: 3)
+        static let bodyTextViewTextStyle: UIFont.TextStyle = .title3
+
+        static let maxBodyLengthAlertTitle: String = "최대 글자수 초과"
+        static let maxBodyLengthAlertMessage: String = "\(Style.bodyLengthLimit)자 이하로 작성해주세요."
+        static let maxBodyLengthAlertPresentTime: TimeInterval = 0.5
         static let bodyLengthLimit: Int = 1_000
+
+        static let titleRequiredAlertTitle: String = "제목이 빠졌어요 😊"
+        static let titleRequiredAlertMessage: String = "제목을 적어주세요."
+
+        static let okActionTitle: String = "확인"
+
+        static let contentStackViewInset: CGFloat = 20
     }
 
     enum EditMode {
@@ -56,12 +74,12 @@ final class TaskEditViewController: UIViewController {
     private let bodyTextView: UITextView = {
         let textView = UITextView()
         textView.backgroundColor = .systemBackground
-        textView.layer.shadowRadius = 4
-        textView.layer.shadowColor = UIColor.systemGray.cgColor
-        textView.layer.shadowOpacity = 1
-        textView.layer.shadowOffset = CGSize(width: 0, height: 3)
+        textView.layer.shadowRadius = Style.bodyTextViewShadowRadius
+        textView.layer.shadowColor = Style.bodyTextViewShadowColor.cgColor
+        textView.layer.shadowOpacity = Style.bodyTextViewShadowOpacity
+        textView.layer.shadowOffset = Style.bodyTextViewShadowOffset
+        textView.font = UIFont.preferredFont(forTextStyle: Style.bodyTextViewTextStyle)
         textView.clipsToBounds = false
-        textView.font = UIFont.preferredFont(forTextStyle: .title3)
         textView.isScrollEnabled = false
         return textView
     }()
@@ -167,18 +185,22 @@ final class TaskEditViewController: UIViewController {
 
     private func setContentStackViewLayout() {
         let bottomConstraint = contentStackView.bottomAnchor.constraint(equalTo: contentScrollView.bottomAnchor,
-                                                                        constant: -20)
+                                                                        constant: -Style.contentStackViewInset)
         bottomConstraint.priority = .defaultLow
         bottomConstraint.isActive = true
 
         NSLayoutConstraint.activate([
-            contentStackView.leadingAnchor.constraint(equalTo: contentScrollView.leadingAnchor, constant: 20),
-            contentStackView.trailingAnchor.constraint(equalTo: contentScrollView.trailingAnchor, constant: -20),
-            contentStackView.topAnchor.constraint(equalTo: contentScrollView.topAnchor, constant: 20),
-            contentStackView.widthAnchor.constraint(equalTo: contentScrollView.widthAnchor, constant: -40),
+            contentStackView.leadingAnchor.constraint(equalTo: contentScrollView.leadingAnchor,
+                                                      constant: Style.contentStackViewInset),
+            contentStackView.trailingAnchor.constraint(equalTo: contentScrollView.trailingAnchor,
+                                                       constant: -Style.contentStackViewInset),
+            contentStackView.topAnchor.constraint(equalTo: contentScrollView.topAnchor,
+                                                  constant: Style.contentStackViewInset),
+            contentStackView.widthAnchor.constraint(equalTo: contentScrollView.widthAnchor,
+                                                    constant: -Style.contentStackViewInset * 2),
             contentStackView.heightAnchor.constraint(
                 greaterThanOrEqualTo: contentScrollView.frameLayoutGuide.heightAnchor,
-                constant: -40)
+                constant: -Style.contentStackViewInset * 2)
         ])
     }
 
@@ -244,20 +266,20 @@ final class TaskEditViewController: UIViewController {
     // MARK: Alerts
 
     private func showMaxBodyLengthAlert() {
-        let alert = UIAlertController(title: "최대 글자수 초과",
-                                      message: "\(Style.bodyLengthLimit)자 이하로 작성해주세요.",
+        let alert = UIAlertController(title: Style.maxBodyLengthAlertTitle,
+                                      message: Style.maxBodyLengthAlertMessage,
                                       preferredStyle: .alert)
         present(alert, animated: true)
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Style.maxBodyLengthAlertPresentTime) {
             alert.dismiss(animated: true)
         }
     }
 
     private func showTitleRequiredAlert() {
-        let alert = UIAlertController(title: "제목이 빠졌어요 😊",
-                                      message: "제목을 적어주세요.",
+        let alert = UIAlertController(title: Style.titleRequiredAlertTitle,
+                                      message: Style.titleRequiredAlertMessage,
                                       preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "확인", style: .default) { _ in
+        let okAction = UIAlertAction(title: Style.okActionTitle, style: .default) { _ in
             alert.dismiss(animated: true)
         }
         alert.addAction(okAction)
@@ -269,7 +291,7 @@ final class TaskEditViewController: UIViewController {
     @objc private func keyboardWillShow(_ notification: Notification) {
         guard let userInfo = notification.userInfo,
               let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
-        let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardFrame.height, right: 0)
+        let contentInset = UIEdgeInsets(top: .zero, left: .zero, bottom: keyboardFrame.height, right: .zero)
         contentScrollView.contentInset = contentInset
         contentScrollView.scrollIndicatorInsets = contentInset
     }

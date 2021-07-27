@@ -27,8 +27,8 @@ extension PMViewController: UITableViewDropDelegate {
         if let indexPath = coordinator.destinationIndexPath {
             destinationIndexPath = indexPath
         } else {
-            let row = tableView.numberOfRows(inSection: 0)
-            destinationIndexPath = IndexPath(row: row, section: 0)
+            let row = tableView.numberOfRows(inSection: .zero)
+            destinationIndexPath = IndexPath(row: row, section: .zero)
         }
 
         dropItem?.dragItem.itemProvider.loadObject(ofClass: Task.self) { [weak self] (data, error) in

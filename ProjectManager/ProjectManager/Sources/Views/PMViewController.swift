@@ -9,8 +9,11 @@ import UIKit
 final class PMViewController: UIViewController {
 
     private enum Style {
-
         static let backgroundColor: UIColor = .systemGray4
+
+        static let pmStackViewSpacing: CGFloat = 10
+
+        static let navigationTitle: String = "Project Manager"
     }
 
     var viewModel = TaskViewModel()
@@ -21,7 +24,7 @@ final class PMViewController: UIViewController {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.alignment = .fill
-        stackView.spacing = 10
+        stackView.spacing = Style.pmStackViewSpacing
         stackView.distribution = .fillEqually
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
@@ -46,7 +49,7 @@ final class PMViewController: UIViewController {
     // MARK: Configure View
 
     private func setNavigationBar() {
-        title = "Project Manager"
+        title = Style.navigationTitle
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
                                                             target: self,
                                                             action: #selector(addButtonTapped))
@@ -77,7 +80,7 @@ final class PMViewController: UIViewController {
     private func bindWithViewModel() {
         viewModel.added = { index in
             DispatchQueue.main.async { [weak self] in
-                let indexPaths = [IndexPath(row: index, section: 0)]
+                let indexPaths = [IndexPath(row: index, section: .zero)]
                 let todoStackView = self?.stateStackViews.filter { $0.state == .todo }.first
                 todoStackView?.stateTableView.insertRows(at: indexPaths, with: .none)
             }
@@ -95,7 +98,7 @@ final class PMViewController: UIViewController {
         }
 
         viewModel.removed = { state, row in
-            let indexPaths = [IndexPath(row: row, section: 0)]
+            let indexPaths = [IndexPath(row: row, section: .zero)]
             DispatchQueue.main.async { [weak self] in
                 let stackView = self?.stateStackViews.filter { $0.state == state }.first
                 stackView?.stateTableView.deleteRows(at: indexPaths, with: .none)
@@ -103,7 +106,7 @@ final class PMViewController: UIViewController {
         }
 
         viewModel.inserted = { state, row in
-            let indexPaths = [IndexPath(row: row, section: 0)]
+            let indexPaths = [IndexPath(row: row, section: .zero)]
             DispatchQueue.main.async { [weak self] in
                 let stackView = self?.stateStackViews.filter { $0.state == state }.first
                 stackView?.stateTableView.insertRows(at: indexPaths, with: .none)
@@ -133,7 +136,7 @@ final class PMViewController: UIViewController {
 extension PMViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let stateTableView = tableView as? StateTableView,
-              let state = stateTableView.state else { return 0 }
+              let state = stateTableView.state else { return .zero }
 
         return viewModel.taskList[state].count
     }
