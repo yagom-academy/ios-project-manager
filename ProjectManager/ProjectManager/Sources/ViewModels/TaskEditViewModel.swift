@@ -8,6 +8,7 @@
 import Foundation
 
 struct TaskEditViewModel {
+
     var task: Task?
     var indexPath: IndexPath?
     var updated: ((IndexPath, Task) -> Void)?
@@ -16,6 +17,7 @@ struct TaskEditViewModel {
     mutating func update(title: String, dueDate: Date, body: String) {
         guard let task = task,
               let indexPath = indexPath else { return }
+
         task.title = title
         task.dueDate = dueDate
         task.body = body
@@ -24,8 +26,9 @@ struct TaskEditViewModel {
 
     mutating func create(title: String, dueDate: Date, body: String) {
         guard let date = dueDate.date else { return }
-        task = Task(title: title, body: body, dueDate: date, state: .todo)
-        guard let task = task else { return }
+
+        let task = Task(title: title, body: body, dueDate: date, state: .todo)
+        self.task = task
         created?(task)
     }
 }
