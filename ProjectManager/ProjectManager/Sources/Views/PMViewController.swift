@@ -43,7 +43,6 @@ final class PMViewController: UIViewController {
         setSubView()
 
         bindWithViewModel()
-        fetchTasks()
     }
 
     // MARK: Configure View
