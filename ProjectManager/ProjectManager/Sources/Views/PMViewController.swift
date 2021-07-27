@@ -75,19 +75,19 @@ final class PMViewController: UIViewController {
     }
 
     private func bindWithViewModel() {
-        viewModel.added = {
+        viewModel.added = { index in
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
-                let indexPaths = [IndexPath(row: self.viewModel.taskOrder.todo.count - 1, section: 0)]
+                let indexPaths = [IndexPath(row: index, section: 0)]
                 self.todoStackView.stateTableView.insertRows(at: indexPaths, with: .none)
             }
         }
 
-        viewModel.changed = { taskOrder in
+        viewModel.changed = { taskListCounts in
             DispatchQueue.main.async { [weak self] in
-                self?.todoStackView.setTaskCountLabel(as: taskOrder.todo.count)
-                self?.doingStackView.setTaskCountLabel(as: taskOrder.doing.count)
-                self?.doneStackView.setTaskCountLabel(as: taskOrder.done.count)
+                self?.todoStackView.setTaskCountLabel(as: taskListCounts.todo)
+                self?.doingStackView.setTaskCountLabel(as: taskListCounts.doing)
+                self?.doneStackView.setTaskCountLabel(as: taskListCounts.done)
             }
         }
 
@@ -125,11 +125,11 @@ extension PMViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch tableView {
         case todoStackView.stateTableView:
-            return viewModel.taskOrder[.todo].count
+            return viewModel.taskList.counts.todo
         case doingStackView.stateTableView:
-            return viewModel.taskOrder[.doing].count
+            return viewModel.taskList.counts.doing
         case doneStackView.stateTableView:
-            return viewModel.taskOrder[.done].count
+            return viewModel.taskList.counts.done
         default:
             return 0
         }

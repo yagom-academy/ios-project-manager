@@ -9,27 +9,24 @@ import Foundation
 
 struct TaskViewModel {
 
-    var added: (() -> Void)?
-    var changed: ((TaskOrder) -> Void)?
-    var inserted: ((Task.State, Int) -> Void)?
-    var removed: ((Task.State, Int) -> Void)?
+    var added: ((_ index: Int) -> Void)?
+    var changed: ((_ taskListCounts: TaskList.Count) -> Void)?
+    var inserted: ((_ state: Task.State, _ index: Int) -> Void)?
+    var removed: ((_ state: Task.State, _ index: Int) -> Void)?
 
     private let repository = TaskRepository()
 
-    private(set) var taskOrder = TaskOrder() {
+    private(set) var taskList = TaskList() {
         didSet {
-            changed?(taskOrder)
+            changed?(taskList.counts)
         }
     }
-
-    private var tasks: [Task] = []
 
     mutating func fetchTasks(completion: @escaping () -> Void) {
         repository.fetchTasks { result in
             switch result {
             case .success(let taskList):
-                taskOrder = taskList.taskOrder
-                tasks = taskList.tasks
+                self.taskList = taskList
                 completion()
             case .failure(let error):
                 print(error)
@@ -39,86 +36,70 @@ struct TaskViewModel {
     }
 
     func task(from state: Task.State, at index: Int) -> Task? {
-        let stateOrder: [UUID] = taskOrder[state]
-        guard index < stateOrder.count else { return nil }
-        let taskID = stateOrder[index]
+        let tasks: [Task] = taskList[state]
+        guard index < tasks.count else { return nil }
 
-        return task(by: taskID)
-    }
-
-    private func task(by id: UUID) -> Task? {
-        return tasks.filter { $0.id == id }.first
+        return tasks[index]
     }
 
     mutating func add(_ task: Task) {
-        tasks.append(task)
-        taskOrder.todo.append(task.id)
-        added?()
+        let index: Int = taskList.counts.todo
+        taskList[.todo].append(task)
+        added?(index)
     }
 
-    mutating func remove(_ task: Task) {
-        guard let index = taskOrder[task.state].firstIndex(of: task.id),
-              let indexInTasks = tasks.firstIndex(where: { $0.id == task.id }) else { return }
+    mutating func move(from sourceState: Task.State, at sourceIndex: Int,
+                       to destinationState: Task.State, at destinationIndex: Int) {
+        guard sourceState != destinationState,
+              destinationIndex <= taskList[destinationState].count else { return }
 
-        tasks.remove(at: indexInTasks)
-
-        switch task.state {
-        case .todo:
-            taskOrder.todo.remove(at: index)
-            removed?(.todo, index)
-        case .doing:
-            taskOrder.doing.remove(at: index)
-            removed?(.doing, index)
-        case .done:
-            taskOrder.done.remove(at: index)
-            removed?(.done, index)
+        if let removedTask: Task = remove(state: sourceState, at: sourceIndex) {
+            insert(removedTask, to: destinationState, at: destinationIndex)
         }
     }
 
-    mutating func remove(state: Task.State, at index: Int) {
-        guard let task = task(by: taskOrder[state][index]) else { return }
-        remove(task)
-    }
+    mutating func move(_ task: Task, to destinationState: Task.State, at destinationIndex: Int) {
+        guard task.state != destinationState,
+              destinationIndex <= taskList[destinationState].count else { return }
 
-    mutating func move(_ task: Task, to state: Task.State, at destinationIndex: Int) {
-        remove(task)
-        insert(task, to: state, at: destinationIndex)
-    }
-
-    private mutating func insert(_ task: Task, to state: Task.State, at destinationIndex: Int) {
-        let stateOrder: [UUID] = taskOrder[state]
-        guard destinationIndex <= stateOrder.count else { return }
-
-        tasks.append(task)
-
-        switch state {
-        case .todo:
-            taskOrder.todo.insert(task.id, at: destinationIndex)
-            inserted?(.todo, destinationIndex)
-        case .doing:
-            taskOrder.doing.insert(task.id, at: destinationIndex)
-            inserted?(.doing, destinationIndex)
-        case .done:
-            taskOrder.done.insert(task.id, at: destinationIndex)
-            inserted?(.done, destinationIndex)
+        if let removedTask: Task = remove(task) {
+            insert(removedTask, to: destinationState, at: destinationIndex)
         }
-
-        task.state = state
     }
 
     mutating func move(in state: Task.State, from sourceIndex: Int, to destinationIndex: Int) {
-        let taskID: UUID
+        let tasks: [Task] = taskList[state]
+        guard sourceIndex < tasks.count,
+              destinationIndex < tasks.count else { return }
 
-        switch state {
-        case .todo:
-            taskID = taskOrder.todo.remove(at: sourceIndex)
-            taskOrder.todo.insert(taskID, at: destinationIndex)
-        case .doing:
-            taskID = taskOrder.doing.remove(at: sourceIndex)
-            taskOrder.doing.insert(taskID, at: destinationIndex)
-        case .done:
-            taskID = taskOrder.done.remove(at: sourceIndex)
-            taskOrder.done.insert(taskID, at: destinationIndex)
-        }
+        let removedTask: Task = taskList[state].remove(at: sourceIndex)
+        taskList[state].insert(removedTask, at: destinationIndex)
+    }
+
+    @discardableResult
+    mutating func remove(state: Task.State, at index: Int) -> Task? {
+        guard index < taskList[state].count else { return nil }
+
+        let removedTask: Task = taskList[state].remove(at: index)
+        removed?(state, index)
+        return removedTask
+    }
+
+    @discardableResult
+    mutating func remove(_ task: Task) -> Task? {
+        let state: Task.State = task.state
+        guard let index: Int = taskList[state].firstIndex(where: { $0.id == task.id }) else { return nil }
+
+        let removedTask: Task = taskList[state].remove(at: index)
+        removed?(state, index)
+        return removedTask
+    }
+
+    private mutating func insert(_ task: Task, to state: Task.State, at index: Int) {
+        guard index <= taskList[state].count else { return }
+
+        taskList[state].insert(task, at: index)
+        task.state = state
+        inserted?(state, index)
     }
 }

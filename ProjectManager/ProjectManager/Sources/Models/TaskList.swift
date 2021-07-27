@@ -7,6 +7,37 @@
 
 struct TaskList: Codable {
 
-    var taskOrder: TaskOrder
-    var tasks: [Task]
+    typealias Count = (todo: Int, doing: Int, done: Int)
+
+    private(set) var todos: [Task] = []
+    private(set) var doings: [Task] = []
+    private(set) var dones: [Task] = []
+
+    var counts: Count {
+        return (todos.count, doings.count, dones.count)
+    }
+
+    subscript(state: Task.State) -> [Task] {
+        get {
+            switch state {
+            case .todo:
+                return self.todos
+            case .doing:
+                return self.doings
+            case .done:
+                return self.dones
+            }
+        }
+
+        set {
+            switch state {
+            case .todo:
+                todos = newValue
+            case .doing:
+                doings = newValue
+            case .done:
+                dones = newValue
+            }
+        }
+    }
 }

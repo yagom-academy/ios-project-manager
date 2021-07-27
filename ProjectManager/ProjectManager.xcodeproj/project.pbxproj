@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		02256B7F26A7A857001F177D /* TaskList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02256B7E26A7A857001F177D /* TaskList.swift */; };
-		02256B8126A7B325001F177D /* TaskOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02256B8026A7B325001F177D /* TaskOrder.swift */; };
 		023B32CB26A99D3C002FF20A /* PMViewController+Drop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023B32CA26A99D3C002FF20A /* PMViewController+Drop.swift */; };
 		02F2F4B126A6F08100BBE874 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F2F4B026A6F08100BBE874 /* Task.swift */; };
 		02F2F4B826A7028000BBE874 /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F2F4B726A7028000BBE874 /* TaskViewModel.swift */; };
@@ -34,7 +33,6 @@
 
 /* Begin PBXFileReference section */
 		02256B7E26A7A857001F177D /* TaskList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskList.swift; sourceTree = "<group>"; };
-		02256B8026A7B325001F177D /* TaskOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskOrder.swift; sourceTree = "<group>"; };
 		023B32CA26A99D3C002FF20A /* PMViewController+Drop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PMViewController+Drop.swift"; sourceTree = "<group>"; };
 		02F2F4B026A6F08100BBE874 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		02F2F4B726A7028000BBE874 /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
@@ -78,7 +76,6 @@
 				AA126AC026A9724000EF24ED /* Task+NSItemProviderReading.swift */,
 				AA126AC226A9756C00EF24ED /* Task+NSItemProviderWriting.swift */,
 				02256B7E26A7A857001F177D /* TaskList.swift */,
-				02256B8026A7B325001F177D /* TaskOrder.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -308,7 +305,6 @@
 				02256B7F26A7A857001F177D /* TaskList.swift in Sources */,
 				02F2F4B126A6F08100BBE874 /* Task.swift in Sources */,
 				023B32CB26A99D3C002FF20A /* PMViewController+Drop.swift in Sources */,
-				02256B8126A7B325001F177D /* TaskOrder.swift in Sources */,
 				AA3267F626A7F7F2007C2E60 /* StateStackView.swift in Sources */,
 				AA6919A326AACA6100753919 /* TaskEditTitleTextField.swift in Sources */,
 				AA126AC126A9724000EF24ED /* Task+NSItemProviderReading.swift in Sources */,
