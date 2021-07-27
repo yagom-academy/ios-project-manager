@@ -39,6 +39,7 @@ class ViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = dataSourceForTableView(tableView)
         tableView.dragDelegate = self
+        tableView.dropDelegate = self
         tableView.register(cellNibName, forCellReuseIdentifier: TableViewCell.identifier)
     }
     
@@ -110,8 +111,68 @@ extension ViewController: UITableViewDelegate {
 extension ViewController: UITableViewDragDelegate {
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
         let dataSource = dataSourceForTableView(tableView)
-        
+        let dragCoordinator = TaskDragCoordinator(sourceIndexPath: indexPath)
+        session.localContext = dragCoordinator
+
         return dataSource.dragItems(for: indexPath)
+    }
+}
+
+extension ViewController: UITableViewDropDelegate {
+    
+    func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
+      return UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
+    }
+    
+    func makePlaceholder(_ destinationIndexPath: IndexPath) -> UITableViewDropPlaceholder {
+        let placeholder = UITableViewDropPlaceholder(insertionIndexPath: destinationIndexPath, reuseIdentifier: TableViewCell.identifier, rowHeight: 150)
+        
+        placeholder.cellUpdateHandler = { cell in
+            if let cell = cell as? TableViewCell {
+                cell.contentLabel.text = ""
+                cell.dueDateLabel.text = ""
+            }
+        }
+        return placeholder
+    }
+
+    func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
+        let dataSource = dataSourceForTableView(tableView)
+        let destinationIndexPath: IndexPath
+        if let indexPath = coordinator.destinationIndexPath {
+            destinationIndexPath = indexPath
+        } else {
+            destinationIndexPath = IndexPath(row: tableView.numberOfRows(inSection: 0), section: 0)
+        }
+        let item = coordinator.items[0]
+     
+        switch coordinator.proposal.operation {
+        case .move:
+            guard let dragCoordinator = coordinator.session.localDragSession?.localContext as? TaskDragCoordinator
+            else { return }
+            if let sourceIndexPath = item.sourceIndexPath {
+                dragCoordinator.isReordering = true
+                
+                tableView.performBatchUpdates {
+                    dataSource.moveTask(at: sourceIndexPath.section, to: destinationIndexPath.section)
+                    tableView.deleteSections([sourceIndexPath.section, sourceIndexPath.section], with: .automatic)
+                    tableView.insertSections([destinationIndexPath.section, destinationIndexPath.section], with: .automatic)
+                }
+                
+            } else {
+                dragCoordinator.isReordering = false
+                if let taskItem = item.dragItem.localObject as? Task {
+                    tableView.performBatchUpdates {
+                        dataSource.addTask(taskItem, at: destinationIndexPath.section)
+                        tableView.insertSections([destinationIndexPath.section, destinationIndexPath.section], with: .automatic)
+                    }
+                }
+            }
+            dragCoordinator.dragCompleted = true
+            coordinator.drop(item.dragItem, toRowAt: destinationIndexPath)
+        default:
+            return
+        }
     }
 }
 

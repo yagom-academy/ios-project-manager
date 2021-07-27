@@ -9,7 +9,7 @@ import UIKit
 
 class TaskDataSource: NSObject, UITableViewDataSource {
     
-    let tasks: [Task]
+    var tasks: [Task]
     
     init(tasks: [Task]) {
         self.tasks = tasks
@@ -40,5 +40,21 @@ class TaskDataSource: NSObject, UITableViewDataSource {
         let dragItem = UIDragItem(itemProvider: itemProvider)
         dragItem.localObject = taskItem
         return [dragItem]
+    }
+    
+    func moveTask(at sourceIndex: Int, to destinationIndex: Int) {
+        guard sourceIndex != destinationIndex else { return }
+        
+        let task = tasks[sourceIndex]
+        tasks.remove(at: sourceIndex)
+        tasks.insert(task, at: destinationIndex)
+    }
+    
+    func addTask(_ newTask: Task, at index: Int) {
+        tasks.insert(newTask, at: index)
+    }
+
+    func deleteTask(at index: Int) {
+      tasks.remove(at: index)
     }
 }
