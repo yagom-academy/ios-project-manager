@@ -63,6 +63,36 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1C0E287926AF8BF00009B631 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0925F51E1D0094C4CF /* KanBanBoardViewController.swift */,
+				1C82066126A661F800BE904C /* TaskDetailViewController.swift */,
+				1CC7A70B26A7AFED0091C69D /* TaskTableHeaderView.swift */,
+				1C82065B26A657A800BE904C /* KanBanTableView.swift */,
+				1C82065826A55F3A00BE904C /* KanBanBoardCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		1C0E287A26AF8BFD0009B631 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1CC7A6FB26A7A2FF0091C69D /* TaskStatus.swift */,
+				1C82066326A6959100BE904C /* TaskManager.swift */,
+				1C0E286426AEA2280009B631 /* DragSessionLocalContext.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		1C0E287B26AF8C060009B631 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				1C82066526A6985200BE904C /* TaskManagerDelegate.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
 		1C82065F26A6600E00BE904C /* EntryPoint */ = {
 			isa = PBXGroup;
 			children = (
@@ -114,15 +144,9 @@
 			children = (
 				1C82066E26A69C4000BE904C /* CoreDataModel */,
 				1C82065F26A6600E00BE904C /* EntryPoint */,
-				1CC7A6FB26A7A2FF0091C69D /* TaskStatus.swift */,
-				1C82066326A6959100BE904C /* TaskManager.swift */,
-				1C82066526A6985200BE904C /* TaskManagerDelegate.swift */,
-				C7431F0925F51E1D0094C4CF /* KanBanBoardViewController.swift */,
-				1C0E286426AEA2280009B631 /* DragSessionLocalContext.swift */,
-				1CC7A70B26A7AFED0091C69D /* TaskTableHeaderView.swift */,
-				1C82066126A661F800BE904C /* TaskDetailViewController.swift */,
-				1C82065B26A657A800BE904C /* KanBanTableView.swift */,
-				1C82065826A55F3A00BE904C /* KanBanBoardCell.swift */,
+				1C0E287A26AF8BFD0009B631 /* Model */,
+				1C0E287B26AF8C060009B631 /* Protocol */,
+				1C0E287926AF8BF00009B631 /* View */,
 				1C82066026A6602300BE904C /* SupportingFiles */,
 			);
 			path = ProjectManager;
