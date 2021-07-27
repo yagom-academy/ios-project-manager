@@ -205,13 +205,14 @@ final class TaskEditViewController: UIViewController {
     }
 
     private func configure() {
+        bodyTextView.delegate = self
+
         guard editMode == .update,
               let task = viewModel.task else { return }
 
         titleTextField.text = task.title
         dueDatePicker.date = task.dueDate
         bodyTextView.text = task.body
-        bodyTextView.delegate = self
         toggleEditState()
     }
 
