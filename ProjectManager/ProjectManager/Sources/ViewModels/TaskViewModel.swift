@@ -35,6 +35,7 @@ struct TaskViewModel {
         }
     }
 
+    /// 지정한 state의 index에 해당하는 Task를 반환한다.
     func task(from state: Task.State, at index: Int) -> Task? {
         let tasks: [Task] = taskList[state]
         guard index < tasks.count else { return nil }
@@ -42,12 +43,14 @@ struct TaskViewModel {
         return tasks[index]
     }
 
+    /// 지정한 Task를 todo state에 추가한다.
     mutating func add(_ task: Task) {
         guard let index: Int = count(of: task.state) else { return }
         taskList[.todo].append(task)
         added?(index)
     }
 
+    /// 지정한 위치의 Task를 다른 state의 해당하는 index로 이동시킨다.
     mutating func move(from sourceState: Task.State, at sourceIndex: Int,
                        to destinationState: Task.State, at destinationIndex: Int) {
         guard sourceState != destinationState,
@@ -58,6 +61,7 @@ struct TaskViewModel {
         }
     }
 
+    /// 지정한 Task를 다른 state의 해당하는 index로 이동시킨다.
     mutating func move(_ task: Task, to destinationState: Task.State, at destinationIndex: Int) {
         guard task.state != destinationState,
               destinationIndex <= taskList[destinationState].count else { return }
@@ -67,6 +71,7 @@ struct TaskViewModel {
         }
     }
 
+    /// 지정한 위치의 Task를 같은 state의 해당하는 index로 이동시킨다.
     mutating func move(in state: Task.State, from sourceIndex: Int, to destinationIndex: Int) {
         let tasks: [Task] = taskList[state]
         guard sourceIndex < tasks.count,
@@ -76,6 +81,7 @@ struct TaskViewModel {
         taskList[state].insert(removedTask, at: destinationIndex)
     }
 
+    /// 지정한 위치의 Task를 삭제하고 이를 반환한다.
     @discardableResult
     mutating func remove(state: Task.State, at index: Int) -> Task? {
         guard index < taskList[state].count else { return nil }
@@ -85,6 +91,7 @@ struct TaskViewModel {
         return removedTask
     }
 
+    /// 지정한 Task를 삭제하고 이를 반환한다.
     @discardableResult
     mutating func remove(_ task: Task) -> Task? {
         let state: Task.State = task.state
@@ -95,6 +102,7 @@ struct TaskViewModel {
         return removedTask
     }
 
+    /// 지정한 Task를 지정한 state의 index에 삽입한다.
     private mutating func insert(_ task: Task, to state: Task.State, at index: Int) {
         guard index <= taskList[state].count else { return }
 
@@ -103,6 +111,7 @@ struct TaskViewModel {
         inserted?(state, index)
     }
 
+    /// 해당하는 state의 Task 개수를 반환한다.
     func count(of state: Task.State) -> Int? {
         return taskList[state].count
     }
