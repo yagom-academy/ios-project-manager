@@ -27,12 +27,14 @@ final class Task: NSObject, Codable {
     }
 }
 
+// MARK: - NSItemProviderWriting
 extension Task: NSItemProviderWriting {
     static var writableTypeIdentifiersForItemProvider: [String] {
         return [kUTTypePlainText as String]
     }
     
-    func loadData(withTypeIdentifier typeIdentifier: String, forItemProviderCompletionHandler completionHandler: @escaping (Data?, Error?) -> Void) -> Progress? {
+    func loadData(withTypeIdentifier typeIdentifier: String,
+                  forItemProviderCompletionHandler completionHandler: @escaping (Data?, Error?) -> Void) -> Progress? {
         do {
             let data = try JSONEncoder().encode(self)
             completionHandler(data, nil)
@@ -44,15 +46,16 @@ extension Task: NSItemProviderWriting {
     }
 }
 
+// MARK: - NSItemProviderReading
 extension Task: NSItemProviderReading {
     static var readableTypeIdentifiersForItemProvider: [String] {
         return [kUTTypePlainText as String]
     }
     
     static func object(withItemProviderData data: Data, typeIdentifier: String) throws -> Self {
-        guard let decodeData = try? JSONDecoder().decode(self, from: data)
+        guard let task = try? JSONDecoder().decode(self, from: data)
         else { throw TaskError.invalidData }
         
-        return decodeData
+        return task
     }
 }
