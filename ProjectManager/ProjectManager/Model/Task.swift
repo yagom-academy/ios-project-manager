@@ -54,7 +54,7 @@ extension Task: NSItemProviderReading {
     
     static func object(withItemProviderData data: Data, typeIdentifier: String) throws -> Self {
         guard let task = try? JSONDecoder().decode(self, from: data)
-        else { throw TaskError.invalidData }
+        else { throw TaskError.encodingFailure }
         
         return task
     }

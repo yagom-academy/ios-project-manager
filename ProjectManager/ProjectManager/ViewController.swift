@@ -73,7 +73,7 @@ class ViewController: UIViewController {
             doings = try decoder.decode([Task].self, from: doingData.data)
             dones = try decoder.decode([Task].self, from: doneData.data)
         } catch {
-            print("디코드에러")
+            print(TaskError.decodingFailure.localizedDescription)
         }
     }
     
@@ -126,7 +126,6 @@ extension ViewController: UITableViewDragDelegate {
 }
 
 extension ViewController: UITableViewDropDelegate {
-    
     func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession,
                    withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
       return UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
