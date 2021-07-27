@@ -9,6 +9,9 @@ import UIKit
 
 final class StateTableView: UITableView {
 
+    typealias PMDelegate = UITableViewDataSource & UITableViewDelegate &
+                           UITableViewDragDelegate & UITableViewDropDelegate
+
     // MARK: Properties
 
     var state: Task.State?
@@ -16,11 +19,21 @@ final class StateTableView: UITableView {
     // MARK: Initializers
 
     init(state: Task.State?) {
-        self.state = state
         super.init(frame: .zero, style: .plain)
+        self.state = state
+        register(TaskCell.self, forCellReuseIdentifier: TaskCell.reuseIdentifier)
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+    }
+
+    // MARK: Configures
+
+    func setDelegates(_ pmDelegate: PMDelegate) {
+        dataSource = pmDelegate
+        delegate = pmDelegate
+        dragDelegate = pmDelegate
+        dropDelegate = pmDelegate
     }
 }
