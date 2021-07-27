@@ -8,12 +8,12 @@
 import Foundation
 
 class DragSessionLocalContext {
-    let sourceIndexPath: IndexPath
+    let originIndexPath: IndexPath
     var destinationIndexPath: IndexPath?
     var isReordering: Bool = false
     var didDragDropCompleted: Bool = false
 
-    init(sourceIndexPath: IndexPath) {
-        self.sourceIndexPath = sourceIndexPath
+    init(originIndexPath: IndexPath) {
+        self.originIndexPath = originIndexPath
     }
 }

@@ -28,22 +28,8 @@ class TaskTableHeaderView: UIView {
     init() {
         super.init(frame: .zero)
         backgroundColor = .systemGray
-
-        addSubview(statusLabel)
-        statusLabel.snp.makeConstraints { label in
-            label.top.equalTo(self).inset(10)
-            label.leading.equalTo(self).inset(10)
-            label.centerY.equalTo(self)
-            label.bottom.equalTo(self).inset(10)
-        }
-
-        addSubview(countLabel)
-        countLabel.snp.makeConstraints { label in
-            label.leading.equalTo(statusLabel.snp.trailing).offset(10)
-            label.centerY.equalTo(self)
-            label.width.equalTo(25)
-            label.height.equalTo(25)
-        }
+        setUpStatusLabel()
+        setUpCountLabel()
     }
 
     required init?(coder: NSCoder) {
@@ -53,5 +39,25 @@ class TaskTableHeaderView: UIView {
     func setText(status: String, count: String) {
         statusLabel.text = status
         countLabel.text = count
+    }
+
+    private func setUpStatusLabel() {
+        addSubview(statusLabel)
+        statusLabel.snp.makeConstraints { label in
+            label.top.equalTo(self).inset(10)
+            label.leading.equalTo(self).inset(10)
+            label.centerY.equalTo(self)
+            label.bottom.equalTo(self).inset(10)
+        }
+    }
+
+    private func setUpCountLabel() {
+        addSubview(countLabel)
+        countLabel.snp.makeConstraints { label in
+            label.leading.equalTo(statusLabel.snp.trailing).offset(10)
+            label.centerY.equalTo(self)
+            label.width.equalTo(25)
+            label.height.equalTo(25)
+        }
     }
 }
