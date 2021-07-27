@@ -15,6 +15,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var doingCountLabel: UILabel!
     @IBOutlet weak var doneCountLabel: UILabel!
     
+    private lazy var todoDataSource: TaskDataSource = TaskDataSource(tasks: todos)
+    private lazy var doingDataSource: TaskDataSource = TaskDataSource(tasks: doings)
+    private lazy var doneDataSource: TaskDataSource = TaskDataSource(tasks: dones)
     private let cellNibName = UINib(nibName: TableViewCell.identifier, bundle: nil)
     var todos = [Task]()
     var doings = [Task]()
@@ -23,20 +26,31 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setTableView(todoTableView)
-        setTableView(doingTableView)
-        setTableView(doneTableView)
+        fetchData()
+        
+        setTableView(todoTableView, todos)
+        setTableView(doingTableView, doings)
+        setTableView(doneTableView, dones)
         
         setLabelToCircle()
-        
-        fetchData()
     }
     
-    private func setTableView(_ tableView: UITableView) {
+    private func setTableView(_ tableView: UITableView, _ tasks: [Task]) {
         tableView.delegate = self
-        tableView.dataSource = self
+        tableView.dataSource = dataSourceForTableView(tableView)
         tableView.register(cellNibName, forCellReuseIdentifier: TableViewCell.identifier)
     }
+    
+    private func dataSourceForTableView(_ tableView: UITableView) -> TaskDataSource {
+        if tableView == todoTableView {
+            return todoDataSource
+        } else if tableView == doingTableView {
+            return doingDataSource
+        } else {
+            return doneDataSource
+        }
+    }
+    
     
     private func setLabelToCircle() {
         todoCountLabel.layer.masksToBounds = true
@@ -87,39 +101,8 @@ extension ViewController: UITableViewDelegate {
         return headerView
     }
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        if tableView == todoTableView {
-            return todos.count
-        } else if tableView == doingTableView {
-            return doings.count
-        } else {
-            return dones.count
-        }
-    }
-    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 7
-    }
-}
-
-extension ViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: TableViewCell.identifier, for: indexPath) as? TableViewCell
-        else { return UITableViewCell() }
-        
-        if tableView == todoTableView {
-            cell.configure(todos[indexPath.section])
-        } else if tableView == doingTableView {
-            cell.configure(doings[indexPath.section])
-        } else {
-            cell.configure(dones[indexPath.section])
-        }
-        
-        return cell
     }
 }
 
