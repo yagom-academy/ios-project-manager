@@ -20,6 +20,7 @@
 		E2738BA526A56AAA00B54228 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = E2738BA426A56AAA00B54228 /* .swiftlint.yml */; };
 		E2738BA826A5CB5100B54228 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2738BA626A5CB5100B54228 /* TableViewCell.swift */; };
 		E2738BA926A5CB5100B54228 /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2738BA726A5CB5100B54228 /* TableViewCell.xib */; };
+		E293492426B07C0D00EC5CD1 /* TaskType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E293492326B07C0D00EC5CD1 /* TaskType.swift */; };
 		E2F9993326A9439D00E639BA /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F9993226A9439D00E639BA /* Task.swift */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +40,7 @@
 		E2738BA426A56AAA00B54228 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		E2738BA626A5CB5100B54228 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		E2738BA726A5CB5100B54228 /* TableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableViewCell.xib; sourceTree = "<group>"; };
+		E293492326B07C0D00EC5CD1 /* TaskType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskType.swift; sourceTree = "<group>"; };
 		E2F9993226A9439D00E639BA /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -125,6 +127,7 @@
 			isa = PBXGroup;
 			children = (
 				E2F9993226A9439D00E639BA /* Task.swift */,
+				E293492326B07C0D00EC5CD1 /* TaskType.swift */,
 				76A25D5826AFDC57005387DF /* TaskDataSource.swift */,
 				76A25D5D26AFEB8A005387DF /* TaskDragCoordinator.swift */,
 			);
@@ -226,6 +229,7 @@
 			files = (
 				C7431F0A25F51E1D0094C4CF /* TaskViewController.swift in Sources */,
 				E2738BA826A5CB5100B54228 /* TableViewCell.swift in Sources */,
+				E293492426B07C0D00EC5CD1 /* TaskType.swift in Sources */,
 				76F4BB5926A6C02300F78275 /* TaskAlertViewController.swift in Sources */,
 				76A25D5E26AFEB8A005387DF /* TaskDragCoordinator.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
