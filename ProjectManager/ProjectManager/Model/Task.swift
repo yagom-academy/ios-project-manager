@@ -6,8 +6,9 @@
 //
 
 import Foundation
+import MobileCoreServices
 
-struct Task: Codable {
+final class Task: NSObject, Codable {
     let id: String?
     let title: String
     let content: String
@@ -23,5 +24,35 @@ struct Task: Codable {
     private enum CodingKeys: String, CodingKey {
         case id, title, content, classification
         case deadLineDate = "deadline_date"
+    }
+}
+
+extension Task: NSItemProviderWriting {
+    static var writableTypeIdentifiersForItemProvider: [String] {
+        return [kUTTypePlainText as String]
+    }
+    
+    func loadData(withTypeIdentifier typeIdentifier: String, forItemProviderCompletionHandler completionHandler: @escaping (Data?, Error?) -> Void) -> Progress? {
+        do {
+            let data = try JSONEncoder().encode(self)
+            completionHandler(data, nil)
+        } catch {
+            completionHandler(nil, error)
+        }
+        
+        return nil
+    }
+}
+
+extension Task: NSItemProviderReading {
+    static var readableTypeIdentifiersForItemProvider: [String] {
+        return [kUTTypePlainText as String]
+    }
+    
+    static func object(withItemProviderData data: Data, typeIdentifier: String) throws -> Self {
+        guard let decodeData = try? JSONDecoder().decode(self, from: data)
+        else { throw TaskError.invalidData }
+        
+        return decodeData
     }
 }
