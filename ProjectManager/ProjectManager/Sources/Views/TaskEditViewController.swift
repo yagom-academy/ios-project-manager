@@ -43,7 +43,7 @@ final class TaskEditViewController: UIViewController {
     // MARK: Properties
 
     private var editMode: EditMode?
-    private var taskEditViewModel: TaskEditViewModel = TaskEditViewModel()
+    private var viewModel: TaskEditViewModel = TaskEditViewModel()
     weak var delegate: TaskEditViewControllerDelegate?
 
     // MARK: Views
@@ -108,8 +108,8 @@ final class TaskEditViewController: UIViewController {
 
         self.modalTransitionStyle = .flipHorizontal
         self.editMode = editMode
-        self.taskEditViewModel.task = task?.task
-        self.taskEditViewModel.indexPath = task?.indexPath
+        self.viewModel.task = task?.task
+        self.viewModel.indexPath = task?.indexPath
 
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(keyboardWillShow),
@@ -141,7 +141,7 @@ final class TaskEditViewController: UIViewController {
     // MARK: Configure
 
     private func setAttributes() {
-        if let state = taskEditViewModel.task?.state {
+        if let state = viewModel.task?.state {
             title = "\(state)".uppercased()
         } else {
             title = Style.defaultTitle
@@ -206,7 +206,7 @@ final class TaskEditViewController: UIViewController {
 
     private func configure() {
         guard editMode == .update,
-              let task = taskEditViewModel.task else { return }
+              let task = viewModel.task else { return }
 
         titleTextField.text = task.title
         dueDatePicker.date = task.dueDate
@@ -216,11 +216,11 @@ final class TaskEditViewController: UIViewController {
     }
 
     private func bindWithViewModel() {
-        taskEditViewModel.updated = { (indexPath, task) -> Void in
+        viewModel.updated = { (indexPath, task) -> Void in
             self.delegate?.taskWillUpdate(task, indexPath)
         }
 
-        taskEditViewModel.created = { (task) -> Void in
+        viewModel.created = { (task) -> Void in
             self.delegate?.taskWillAdd(task)
         }
     }
@@ -249,9 +249,9 @@ final class TaskEditViewController: UIViewController {
 
         switch editMode {
         case .add:
-            taskEditViewModel.create(title: title, dueDate: dueDatePicker.date, body: body)
+            viewModel.create(title: title, dueDate: dueDatePicker.date, body: body)
         case .update:
-            taskEditViewModel.update(title: title, dueDate: dueDatePicker.date, body: body)
+            viewModel.update(title: title, dueDate: dueDatePicker.date, body: body)
         default:
             break
         }
