@@ -9,11 +9,8 @@ import SnapKit
 
 final class KanBanBoardViewController: UIViewController {
     private let loadingIndicator = UIActivityIndicatorView(style: .large)
-
     private let toDoHeaderView = TaskTableHeaderView()
-
     private let doingHeaderView = TaskTableHeaderView()
-
     private let doneHeaderView = TaskTableHeaderView()
 
     private let headerStackView: UIStackView = {
@@ -234,28 +231,17 @@ extension KanBanBoardViewController: TaskManagerDelegate {
     }
 
     func taskDidEdited(indexPath: IndexPath, status: TaskStatus) {
-        switch status {
-        case .TODO:
-            toDoTableView.reloadRows(at: [indexPath], with: .automatic)
-        case .DOING:
-            doingTableView.reloadRows(at: [indexPath], with: .automatic)
-        case .DONE:
-            doneTableView.reloadRows(at: [indexPath], with: .automatic)
-        }
+        kanBanTableView(of: status).reloadRows(at: [indexPath], with: .automatic)
     }
 
     func taskDidDeleted(indexPath: IndexPath, status: TaskStatus) {
-        switch status {
-        case .TODO:
-            toDoTableView.deleteRows(at: [indexPath], with: .automatic)
-            toDoHeaderView.countLabel.text = TaskManager.shared.toDoTasks.count.description
-        case .DOING:
-            doingTableView.deleteRows(at: [indexPath], with: .automatic)
-            doingHeaderView.countLabel.text = TaskManager.shared.doingTasks.count.description
-        case .DONE:
-            doneTableView.deleteRows(at: [indexPath], with: .automatic)
-            doneHeaderView.countLabel.text = TaskManager.shared.doneTasks.count.description
-        }
+        kanBanTableView(of: status).deleteRows(at: [indexPath], with: .automatic)
+        taskTableHeaderView(of: status).countLabel.text = kanBanTableView(of: status).tasks.count.description
+    }
+
+    func taskDidInserted(indexPath: IndexPath, status: TaskStatus) {
+        kanBanTableView(of: status).insertRows(at: [indexPath], with: .automatic)
+        taskTableHeaderView(of: status).countLabel.text = kanBanTableView(of: status).tasks.count.description
     }
 }
 
@@ -265,35 +251,14 @@ extension KanBanBoardViewController: UITableViewDragDelegate {
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
         guard let tableView = tableView as? KanBanTableView else { return [] }
 
-        switch tableView.status {
-        case .TODO:
-            let fileURL = TaskManager.shared.toDoTasks[indexPath.row].objectID.uriRepresentation()
-            guard let toDoItemProvider = NSItemProvider(contentsOf: fileURL) else { return [] }
+        let fileURL = kanBanTableView(of: tableView.status).tasks[indexPath.row].objectID.uriRepresentation()
+        guard let itmeProvider = NSItemProvider(contentsOf: fileURL) else { return [] }
 
-            let dragItem = UIDragItem(itemProvider: toDoItemProvider)
-            dragItem.localObject = TaskManager.shared.toDoTasks[indexPath.row]
-            session.localContext = DragSessionLocalContext(sourceIndexPath: indexPath)
+        let dragItem = UIDragItem(itemProvider: itmeProvider)
+        dragItem.localObject = kanBanTableView(of: tableView.status).tasks[indexPath.row]
+        session.localContext = DragSessionLocalContext(sourceIndexPath: indexPath)
 
-            return [dragItem]
-        case .DOING:
-            let fileURL = TaskManager.shared.doingTasks[indexPath.row].objectID.uriRepresentation()
-            guard let doingItemProvider = NSItemProvider(contentsOf: fileURL ) else { return [] }
-
-            let dragItem = UIDragItem(itemProvider: doingItemProvider)
-            dragItem.localObject = TaskManager.shared.doingTasks[indexPath.row]
-            session.localContext = DragSessionLocalContext(sourceIndexPath: indexPath)
-
-            return [dragItem]
-        case .DONE:
-            let fileURL = TaskManager.shared.doneTasks[indexPath.row].objectID.uriRepresentation()
-            guard let doneItemProvider = NSItemProvider(contentsOf: fileURL ) else { return [] }
-
-            let dragItem = UIDragItem(itemProvider: doneItemProvider)
-            dragItem.localObject = TaskManager.shared.doneTasks[indexPath.row]
-            session.localContext = DragSessionLocalContext(sourceIndexPath: indexPath)
-
-            return [dragItem]
-        }
+        return [dragItem]
     }
 
     func tableView(_ tableView: UITableView, dragSessionDidEnd session: UIDragSession) {
@@ -303,21 +268,20 @@ extension KanBanBoardViewController: UITableViewDragDelegate {
 
         if localContext.isReordering,
            let destinationIndexPath = localContext.destinationIndexPath {
+
             switch tableView.status {
             case .TODO:
                 let task = TaskManager.shared.toDoTasks.remove(at: localContext.sourceIndexPath.row)
                 TaskManager.shared.toDoTasks.insert(task, at: destinationIndexPath.row)
-                tableView.moveRow(at: localContext.sourceIndexPath, to: destinationIndexPath)
             case .DOING:
                 let task = TaskManager.shared.doingTasks.remove(at: localContext.sourceIndexPath.row)
                 TaskManager.shared.doingTasks.insert(task, at: destinationIndexPath.row)
-                tableView.moveRow(at: localContext.sourceIndexPath, to: destinationIndexPath)
             case .DONE:
                 let task = TaskManager.shared.doneTasks.remove(at: localContext.sourceIndexPath.row)
                 TaskManager.shared.doneTasks.insert(task, at: destinationIndexPath.row)
-                tableView.moveRow(at: localContext.sourceIndexPath, to: destinationIndexPath)
             }
 
+            kanBanTableView(of: tableView.status).moveRow(at: localContext.sourceIndexPath, to: destinationIndexPath)
             TaskManager.shared.saveTasks()
             return
         }
@@ -335,6 +299,7 @@ extension KanBanBoardViewController: UITableViewDragDelegate {
         }
 
         tableView.deleteRows(at: [localContext.sourceIndexPath], with: .automatic)
+        taskTableHeaderView(of: tableView.status).countLabel.text = kanBanTableView(of: tableView.status).tasks.count.description
         TaskManager.shared.saveTasks()
     }
 }
@@ -359,21 +324,16 @@ extension KanBanBoardViewController: UITableViewDropDelegate {
 
         switch tableView.status {
         case .TODO:
-            dragTask.status = TaskStatus.TODO.rawValue
             TaskManager.shared.toDoTasks.insert(dragTask, at: destinationIndexPath.row)
-            toDoTableView.insertRows(at: [destinationIndexPath], with: .automatic)
-            toDoHeaderView.countLabel.text = TaskManager.shared.toDoTasks.count.description
         case .DOING:
-            dragTask.status = TaskStatus.DOING.rawValue
             TaskManager.shared.doingTasks.insert(dragTask, at: destinationIndexPath.row)
-            doingTableView.insertRows(at: [destinationIndexPath], with: .automatic)
-            doingHeaderView.countLabel.text = TaskManager.shared.doingTasks.count.description
         case .DONE:
-            dragTask.status = TaskStatus.DONE.rawValue
             TaskManager.shared.doneTasks.insert(dragTask, at: destinationIndexPath.row)
-            doneTableView.insertRows(at: [destinationIndexPath], with: .automatic)
-            doneHeaderView.countLabel.text = TaskManager.shared.doneTasks.count.description
         }
+
+        dragTask.status = tableView.status.rawValue
+        kanBanTableView(of: tableView.status).insertRows(at: [destinationIndexPath], with: .automatic)
+        taskTableHeaderView(of: tableView.status).countLabel.text = kanBanTableView(of: tableView.status).tasks.count.description
 
         switch coordinator.proposal.operation {
         case .move:
@@ -387,5 +347,29 @@ extension KanBanBoardViewController: UITableViewDropDelegate {
 
     func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
         UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
+    }
+}
+
+extension KanBanBoardViewController {
+    private func kanBanTableView(of status: TaskStatus) -> KanBanTableView {
+        switch status {
+        case .TODO:
+            return toDoTableView
+        case .DOING:
+            return doingTableView
+        case .DONE:
+            return doneTableView
+        }
+    }
+
+    private func taskTableHeaderView(of status: TaskStatus) -> TaskTableHeaderView {
+        switch status {
+        case .TODO:
+            return toDoHeaderView
+        case .DOING:
+            return doingHeaderView
+        case .DONE:
+            return doneHeaderView
+        }
     }
 }

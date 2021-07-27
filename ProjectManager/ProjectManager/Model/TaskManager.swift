@@ -76,7 +76,6 @@ final class TaskManager {
     }
 
     func deleteTask(indexPath: IndexPath, status: TaskStatus) {
-
         switch status {
         case .TODO:
             viewContext.perform { [weak self] in
@@ -116,6 +115,7 @@ final class TaskManager {
 
     func saveTasks() {
         do {
+            
             try self.viewContext.save()
         } catch {
 
