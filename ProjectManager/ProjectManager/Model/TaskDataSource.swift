@@ -9,9 +9,15 @@ import UIKit
 
 class TaskDataSource: NSObject, UITableViewDataSource {
     
-    var tasks: [Task]
+    var taskType: TaskType
+    var tasks: [Task] {
+        didSet {
+            NotificationCenter.default.post(name: Notification.Name("changedTasksValue"), object: self)
+        }
+    }
     
-    init(tasks: [Task]) {
+    init(taskType: TaskType, tasks: [Task]) {
+        self.taskType = taskType
         self.tasks = tasks
         super.init()
     }

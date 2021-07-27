@@ -15,9 +15,9 @@ class TaskViewController: UIViewController {
     @IBOutlet weak var doingCountLabel: UILabel!
     @IBOutlet weak var doneCountLabel: UILabel!
     
-    private lazy var todoDataSource: TaskDataSource = TaskDataSource(tasks: todos)
-    private lazy var doingDataSource: TaskDataSource = TaskDataSource(tasks: doings)
-    private lazy var doneDataSource: TaskDataSource = TaskDataSource(tasks: dones)
+    private lazy var todoDataSource: TaskDataSource = TaskDataSource(taskType: .todo, tasks: todos)
+    private lazy var doingDataSource: TaskDataSource = TaskDataSource(taskType: .doing, tasks: doings)
+    private lazy var doneDataSource: TaskDataSource = TaskDataSource(taskType: .done, tasks: dones)
     private let cellNibName = UINib(nibName: TableViewCell.identifier, bundle: nil)
     private var todos = [Task]()
     private var doings = [Task]()
@@ -33,6 +33,24 @@ class TaskViewController: UIViewController {
                                           (doneTableView, doneCountLabel ,dones)] {
             setTableView(tableView ?? UITableView(), tasks)
             setLabelToCircle(label ?? UILabel(), tasks.count)
+        }
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(didChangedCountLabel),
+                                               name: Notification.Name("changedTasksValue"),
+                                               object: nil)
+    }
+    
+    @objc func didChangedCountLabel(_ notification: Notification) {
+        guard let dataSource = notification.object as? TaskDataSource else { return }
+        
+        switch dataSource.taskType {
+        case .todo:
+            todoCountLabel.text = "\(dataSource.tasks.count)"
+        case .doing:
+            doingCountLabel.text = "\(dataSource.tasks.count)"
+        case .done:
+            doneCountLabel.text = "\(dataSource.tasks.count)"
         }
     }
     
