@@ -5,7 +5,6 @@
 //  Created by sookim on 2021/07/27.
 //
 
-import Foundation
 import UIKit
 
 class TaskDataSource: NSObject, UITableViewDataSource {
@@ -34,4 +33,12 @@ class TaskDataSource: NSObject, UITableViewDataSource {
         return cell
     }
     
+    func dragItems(for indexPath: IndexPath) -> [UIDragItem] {
+        let taskItem = tasks[indexPath.section]
+
+        let itemProvider = NSItemProvider(object: taskItem)
+        let dragItem = UIDragItem(itemProvider: itemProvider)
+        dragItem.localObject = taskItem
+        return [dragItem]
+    }
 }
