@@ -249,6 +249,7 @@ extension KanBanBoardViewController: TaskManagerDelegate {
 
 extension KanBanBoardViewController: UITableViewDragDelegate {
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        // dragItem에 task 자체와 DragSessionLocalContext를 담아서 리턴하는 함수
         guard let tableView = tableView as? KanBanTableView else { return [] }
 
         let fileURL = kanBanTableView(of: tableView.status).tasks[indexPath.row].objectID.uriRepresentation()
@@ -262,6 +263,7 @@ extension KanBanBoardViewController: UITableViewDragDelegate {
     }
 
     func tableView(_ tableView: UITableView, dragSessionDidEnd session: UIDragSession) {
+        // 드래그가 끝났을때 한 테이블 내의 이동인지 아닌지를 검사하여 알맞게 처리
         guard let localContext = session.localContext as? DragSessionLocalContext,
               let tableView = tableView as? KanBanTableView,
               localContext.didDragDropCompleted == true else { return }
@@ -271,14 +273,11 @@ extension KanBanBoardViewController: UITableViewDragDelegate {
 
             switch tableView.status {
             case .TODO:
-                let task = TaskManager.shared.toDoTasks.remove(at: localContext.sourceIndexPath.row)
-                TaskManager.shared.toDoTasks.insert(task, at: destinationIndexPath.row)
+                TaskManager.shared.toDoTasks.swapAt(localContext.sourceIndexPath.row, destinationIndexPath.row)
             case .DOING:
-                let task = TaskManager.shared.doingTasks.remove(at: localContext.sourceIndexPath.row)
-                TaskManager.shared.doingTasks.insert(task, at: destinationIndexPath.row)
+                TaskManager.shared.doingTasks.swapAt(localContext.sourceIndexPath.row, destinationIndexPath.row)
             case .DONE:
-                let task = TaskManager.shared.doneTasks.remove(at: localContext.sourceIndexPath.row)
-                TaskManager.shared.doneTasks.insert(task, at: destinationIndexPath.row)
+                TaskManager.shared.doneTasks.swapAt(localContext.sourceIndexPath.row, destinationIndexPath.row)
             }
 
             kanBanTableView(of: tableView.status).moveRow(at: localContext.sourceIndexPath, to: destinationIndexPath)
