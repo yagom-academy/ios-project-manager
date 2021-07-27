@@ -1,12 +1,12 @@
 //
-//  ProjectManager - ViewController.swift
+//  ProjectManager - TaskViewController.swift
 //  Created by yagom. 
 //  Copyright © yagom. All rights reserved.
 // 
 
 import UIKit
 
-class ViewController: UIViewController {
+class TaskViewController: UIViewController {
 
     @IBOutlet weak var todoTableView: UITableView!
     @IBOutlet weak var doingTableView: UITableView!
@@ -86,7 +86,7 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController: UITableViewDelegate {
+extension TaskViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 7))
 
@@ -100,7 +100,7 @@ extension ViewController: UITableViewDelegate {
     }
 }
 
-extension ViewController: UITableViewDragDelegate {
+extension TaskViewController: UITableViewDragDelegate {
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
         let dataSource = dataSourceForTableView(tableView)
         let dragCoordinator = TaskDragCoordinator(sourceIndexPath: indexPath)
@@ -125,7 +125,7 @@ extension ViewController: UITableViewDragDelegate {
     
 }
 
-extension ViewController: UITableViewDropDelegate {
+extension TaskViewController: UITableViewDropDelegate {
     func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession,
                    withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
       return UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
