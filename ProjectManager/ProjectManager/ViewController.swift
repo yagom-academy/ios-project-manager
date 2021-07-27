@@ -19,20 +19,21 @@ class ViewController: UIViewController {
     private lazy var doingDataSource: TaskDataSource = TaskDataSource(tasks: doings)
     private lazy var doneDataSource: TaskDataSource = TaskDataSource(tasks: dones)
     private let cellNibName = UINib(nibName: TableViewCell.identifier, bundle: nil)
-    var todos = [Task]()
-    var doings = [Task]()
-    var dones = [Task]()
+    private var todos = [Task]()
+    private var doings = [Task]()
+    private var dones = [Task]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         fetchData()
         
-        setTableView(todoTableView, todos)
-        setTableView(doingTableView, doings)
-        setTableView(doneTableView, dones)
-        
-        setLabelToCircle()
+        for (tableView, label, tasks) in [(todoTableView, todoCountLabel ,todos),
+                                          (doingTableView, doingCountLabel ,doings),
+                                          (doneTableView, doneCountLabel ,dones)] {
+            setTableView(tableView ?? UITableView(), tasks)
+            setLabelToCircle(label ?? UILabel(), tasks.count)
+        }
     }
     
     private func setTableView(_ tableView: UITableView, _ tasks: [Task]) {
@@ -53,19 +54,10 @@ class ViewController: UIViewController {
         }
     }
     
-    
-    private func setLabelToCircle() {
-        todoCountLabel.layer.masksToBounds = true
-        doingCountLabel.layer.masksToBounds = true
-        doneCountLabel.layer.masksToBounds = true
-        
-        todoCountLabel.layer.cornerRadius = 0.5 * todoCountLabel.bounds.size.width
-        doingCountLabel.layer.cornerRadius = 0.5 * doingCountLabel.bounds.size.width
-        doneCountLabel.layer.cornerRadius = 0.5 * doneCountLabel.bounds.size.width
-        
-        todoCountLabel.text = "\(todos.count)"
-        doingCountLabel.text = "\(doings.count)"
-        doneCountLabel.text = "\(dones.count)"
+    private func setLabelToCircle(_ label: UILabel, _ countNumber: Int) {
+        label.layer.masksToBounds = true
+        label.layer.cornerRadius = 0.5 * todoCountLabel.bounds.size.width
+        label.text = "\(countNumber)"
     }
     
     private func fetchData() {
@@ -135,12 +127,15 @@ extension ViewController: UITableViewDragDelegate {
 
 extension ViewController: UITableViewDropDelegate {
     
-    func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
+    func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession,
+                   withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
       return UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
     }
     
     func makePlaceholder(_ destinationIndexPath: IndexPath) -> UITableViewDropPlaceholder {
-        let placeholder = UITableViewDropPlaceholder(insertionIndexPath: destinationIndexPath, reuseIdentifier: TableViewCell.identifier, rowHeight: 150)
+        let placeholder = UITableViewDropPlaceholder(insertionIndexPath: destinationIndexPath,
+                                                     reuseIdentifier: TableViewCell.identifier,
+                                                     rowHeight: 150)
         
         placeholder.cellUpdateHandler = { cell in
             if let cell = cell as? TableViewCell {
@@ -151,7 +146,6 @@ extension ViewController: UITableViewDropDelegate {
         return placeholder
     }
 
-    
     func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
         let dataSource = dataSourceForTableView(tableView)
         let destinationIndexPath: IndexPath
