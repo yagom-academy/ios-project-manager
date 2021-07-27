@@ -133,6 +133,8 @@ final class PMViewController: UIViewController {
     }
 }
 
+// MARK: - UITableViewDataSource
+
 extension PMViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let stateTableView = tableView as? StateTableView,
@@ -165,6 +167,8 @@ extension PMViewController: UITableViewDataSource {
     }
 }
 
+// MARK: - UITableViewDelegate
+
 extension PMViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let stateTableView = tableView as? StateTableView,
@@ -196,6 +200,8 @@ extension PMViewController: UITableViewDelegate {
         }
     }
 }
+
+// MARK: - TaskEditViewControllerDelegate
 
 extension PMViewController: TaskEditViewControllerDelegate {
 
