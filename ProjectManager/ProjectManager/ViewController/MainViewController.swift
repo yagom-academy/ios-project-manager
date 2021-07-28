@@ -6,7 +6,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class MainViewController: UIViewController {
     let todoTableViewDataSource = TaskTableViewDataSource(tasks: [Task(title: "할일1", content: "할일내용1", deadLine: "2021.05.12", state: .todo)])
     let doingTableViewDataSource = TaskTableViewDataSource(tasks: [Task(title: "하고있는1", content: "하고있는일내용1", deadLine: "2021.07.23", state: .doing)])
     let doneTableViewDataSource = TaskTableViewDataSource(tasks: [Task(title: "한1", content: "한일내용1", deadLine: "2021.08.12", state: .done)])
@@ -96,7 +96,7 @@ class ViewController: UIViewController {
 }
 
 // MARK: TableView 관련 함수들
-extension ViewController {
+extension MainViewController {
     private func configureTableViews() {
         for tableView in [todoTableView, doingTableView, doneTableView] {
             tableView.register(ItemTableViewCell.self,
@@ -130,7 +130,7 @@ extension ViewController {
 }
 
 // MARK: TaskFormViewController에서 호출되거나 연관된 함수들
-extension ViewController: TaskFormViewControllerDelegate {
+extension MainViewController: TaskFormViewControllerDelegate {
     @objc func clickAddBarButton() {
         let taskFormViewController = TaskFormViewController(type: .add)
         taskFormViewController.delegate = self

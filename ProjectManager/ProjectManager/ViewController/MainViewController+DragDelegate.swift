@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension ViewController: UITableViewDragDelegate {
+extension MainViewController: UITableViewDragDelegate {
     func tableView(_ tableView: UITableView,
                    itemsForBeginning session: UIDragSession,
                    at indexPath: IndexPath) -> [UIDragItem] {

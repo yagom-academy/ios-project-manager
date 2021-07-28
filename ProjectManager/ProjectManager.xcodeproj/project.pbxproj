@@ -13,14 +13,14 @@
 		45F55FF926AE81940018E6EF /* TitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F55FF826AE81940018E6EF /* TitleLabel.swift */; };
 		45F55FFB26AE832D0018E6EF /* CountLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F55FFA26AE832D0018E6EF /* CountLabel.swift */; };
 		B05D4B5926A9578500FA3560 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05D4B5826A9578500FA3560 /* Task.swift */; };
-		B08D8E1926AA5D39003CB311 /* ViewController+Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08D8E1826AA5D39003CB311 /* ViewController+Delegate.swift */; };
+		B08D8E1926AA5D39003CB311 /* MainViewController+Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08D8E1826AA5D39003CB311 /* MainViewController+Delegate.swift */; };
 		B08D8E1C26AA5F49003CB311 /* TaskFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08D8E1B26AA5F49003CB311 /* TaskFormViewController.swift */; };
 		B0C9A03E26AE7A350022FB00 /* TaskTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C9A03D26AE7A350022FB00 /* TaskTableView.swift */; };
 		B0C9A04426AED4AB0022FB00 /* DateUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C9A04326AED4AB0022FB00 /* DateUtil.swift */; };
 		B0C9A04726AED8450022FB00 /* TaskType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C9A04626AED8450022FB00 /* TaskType.swift */; };
 		C32DB10526AEAE7C004A3D25 /* StackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32DB10426AEAE7C004A3D25 /* StackView.swift */; };
-		C3484B7526A9822C0054C20A /* ViewController+DragDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3484B7426A9822C0054C20A /* ViewController+DragDelegate.swift */; };
-		C3484B7726A982360054C20A /* ViewController+DropDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3484B7626A982360054C20A /* ViewController+DropDelegate.swift */; };
+		C3484B7526A9822C0054C20A /* MainViewController+DragDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3484B7426A9822C0054C20A /* MainViewController+DragDelegate.swift */; };
+		C3484B7726A982360054C20A /* MainViewController+DropDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3484B7626A982360054C20A /* MainViewController+DropDelegate.swift */; };
 		C3484B7926A9879F0054C20A /* DragCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3484B7826A9879F0054C20A /* DragCoordinator.swift */; };
 		C3844F6626A9461F00F91098 /* ItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3844F6526A9461F00F91098 /* ItemTableViewCell.swift */; };
 		C3844F6826A9469800F91098 /* ItemTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3844F6726A9469800F91098 /* ItemTitleLabel.swift */; };
@@ -28,7 +28,7 @@
 		C3844F6C26A94A1D00F91098 /* ItemDateLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3844F6B26A94A1D00F91098 /* ItemDateLabel.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
-		C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* ViewController.swift */; };
+		C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* MainViewController.swift */; };
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
 		CBD715736C7258B2B13C2325 /* Pods_ProjectManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1DD1443BF563C703D4187D0 /* Pods_ProjectManager.framework */; };
@@ -42,7 +42,7 @@
 		45F55FFA26AE832D0018E6EF /* CountLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountLabel.swift; sourceTree = "<group>"; };
 		6AA9ADBAB51EE60EC42D341C /* Pods-ProjectManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.release.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.release.xcconfig"; sourceTree = "<group>"; };
 		B05D4B5826A9578500FA3560 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
-		B08D8E1826AA5D39003CB311 /* ViewController+Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Delegate.swift"; sourceTree = "<group>"; };
+		B08D8E1826AA5D39003CB311 /* MainViewController+Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+Delegate.swift"; sourceTree = "<group>"; };
 		B08D8E1B26AA5F49003CB311 /* TaskFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskFormViewController.swift; sourceTree = "<group>"; };
 		B0C9A03D26AE7A350022FB00 /* TaskTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableView.swift; sourceTree = "<group>"; };
 		B0C9A04326AED4AB0022FB00 /* DateUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateUtil.swift; sourceTree = "<group>"; };
@@ -50,8 +50,8 @@
 		B1DD1443BF563C703D4187D0 /* Pods_ProjectManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B47A71D921688FA8F8871E6D /* Pods-ProjectManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.debug.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.debug.xcconfig"; sourceTree = "<group>"; };
 		C32DB10426AEAE7C004A3D25 /* StackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackView.swift; sourceTree = "<group>"; };
-		C3484B7426A9822C0054C20A /* ViewController+DragDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+DragDelegate.swift"; sourceTree = "<group>"; };
-		C3484B7626A982360054C20A /* ViewController+DropDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+DropDelegate.swift"; sourceTree = "<group>"; };
+		C3484B7426A9822C0054C20A /* MainViewController+DragDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+DragDelegate.swift"; sourceTree = "<group>"; };
+		C3484B7626A982360054C20A /* MainViewController+DropDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+DropDelegate.swift"; sourceTree = "<group>"; };
 		C3484B7826A9879F0054C20A /* DragCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragCoordinator.swift; sourceTree = "<group>"; };
 		C3844F6526A9461F00F91098 /* ItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTableViewCell.swift; sourceTree = "<group>"; };
 		C3844F6726A9469800F91098 /* ItemTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTitleLabel.swift; sourceTree = "<group>"; };
@@ -60,7 +60,7 @@
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		C7431F0925F51E1D0094C4CF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		C7431F0925F51E1D0094C4CF /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		C7431F0E25F51E1E0094C4CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C7431F1125F51E1E0094C4CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -116,10 +116,10 @@
 		C3484B7126A981A80054C20A /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				C7431F0925F51E1D0094C4CF /* ViewController.swift */,
-				B08D8E1826AA5D39003CB311 /* ViewController+Delegate.swift */,
-				C3484B7426A9822C0054C20A /* ViewController+DragDelegate.swift */,
-				C3484B7626A982360054C20A /* ViewController+DropDelegate.swift */,
+				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
+				B08D8E1826AA5D39003CB311 /* MainViewController+Delegate.swift */,
+				C3484B7426A9822C0054C20A /* MainViewController+DragDelegate.swift */,
+				C3484B7626A982360054C20A /* MainViewController+DropDelegate.swift */,
 				455C45D326AA4CDA0024C9D1 /* TaskTableViewDataSource.swift */,
 				B08D8E1B26AA5F49003CB311 /* TaskFormViewController.swift */,
 			);
@@ -295,20 +295,20 @@
 				B0C9A04426AED4AB0022FB00 /* DateUtil.swift in Sources */,
 				B05D4B5926A9578500FA3560 /* Task.swift in Sources */,
 				C3844F6826A9469800F91098 /* ItemTitleLabel.swift in Sources */,
-				C3484B7726A982360054C20A /* ViewController+DropDelegate.swift in Sources */,
+				C3484B7726A982360054C20A /* MainViewController+DropDelegate.swift in Sources */,
 				B0C9A04726AED8450022FB00 /* TaskType.swift in Sources */,
 				C3844F6626A9461F00F91098 /* ItemTableViewCell.swift in Sources */,
-				C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */,
+				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				455C45D426AA4CDA0024C9D1 /* TaskTableViewDataSource.swift in Sources */,
 				B0C9A03E26AE7A350022FB00 /* TaskTableView.swift in Sources */,
 				C32DB10526AEAE7C004A3D25 /* StackView.swift in Sources */,
 				45525EDC26AE7F6400F92909 /* TaskView.swift in Sources */,
-				C3484B7526A9822C0054C20A /* ViewController+DragDelegate.swift in Sources */,
+				C3484B7526A9822C0054C20A /* MainViewController+DragDelegate.swift in Sources */,
 				C3844F6A26A948C000F91098 /* ItemContentLabel.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				C3844F6C26A94A1D00F91098 /* ItemDateLabel.swift in Sources */,
-				B08D8E1926AA5D39003CB311 /* ViewController+Delegate.swift in Sources */,
+				B08D8E1926AA5D39003CB311 /* MainViewController+Delegate.swift in Sources */,
 				C3484B7926A9879F0054C20A /* DragCoordinator.swift in Sources */,
 				B08D8E1C26AA5F49003CB311 /* TaskFormViewController.swift in Sources */,
 				45F55FF926AE81940018E6EF /* TitleLabel.swift in Sources */,

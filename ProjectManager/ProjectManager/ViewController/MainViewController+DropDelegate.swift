@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension ViewController: UITableViewDropDelegate {
+extension MainViewController: UITableViewDropDelegate {
     func tableView(_ tableView: UITableView,
                    dropSessionDidUpdate session: UIDropSession,
                    withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
