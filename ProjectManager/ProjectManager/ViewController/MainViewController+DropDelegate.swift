@@ -40,8 +40,7 @@ extension MainViewController: UITableViewDropDelegate {
                 dragCoordinator.isReordering = true
                 dataSource.move(from: sourceIndexPath.row, to: destinationIndexPath.row)
                 tableView.performBatchUpdates {
-                    tableView.deleteRows(at: [sourceIndexPath], with: .automatic)
-                    tableView.insertRows(at: [destinationIndexPath], with: .automatic)
+                    tableView.moveRow(at: [sourceIndexPath.row], to: [destinationIndexPath.row])
                 }
             } else {
                 dragCoordinator.isReordering = false
