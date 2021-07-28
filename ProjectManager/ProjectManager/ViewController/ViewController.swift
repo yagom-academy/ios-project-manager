@@ -7,28 +7,28 @@
 import UIKit
 
 class ViewController: UIViewController {
-    var todoTableViewDataSource = TaskTableViewDataSource(tasks: [Task(title: "할일1", content: "할일내용1", deadLine: "2021.05.12", state: .todo)])
-    var doingTableViewDataSource = TaskTableViewDataSource(tasks: [Task(title: "하고있는1", content: "하고있는일내용1", deadLine: "2021.07.23", state: .doing)])
-    var doneTableViewDataSource = TaskTableViewDataSource(tasks: [Task(title: "한1", content: "한일내용1", deadLine: "2021.08.12", state: .done)])
+    let todoTableViewDataSource = TaskTableViewDataSource(tasks: [Task(title: "할일1", content: "할일내용1", deadLine: "2021.05.12", state: .todo)])
+    let doingTableViewDataSource = TaskTableViewDataSource(tasks: [Task(title: "하고있는1", content: "하고있는일내용1", deadLine: "2021.07.23", state: .doing)])
+    let doneTableViewDataSource = TaskTableViewDataSource(tasks: [Task(title: "한1", content: "한일내용1", deadLine: "2021.08.12", state: .done)])
     
-    lazy var todoTableView: TaskTableView = TaskTableView(state: .todo)
-    lazy var doingTableView: TaskTableView = TaskTableView(state: .doing)
-    lazy var doneTableView: TaskTableView = TaskTableView(state: .done)
+    private var todoTableView: TaskTableView = TaskTableView(state: .todo)
+    private var doingTableView: TaskTableView = TaskTableView(state: .doing)
+    private var doneTableView: TaskTableView = TaskTableView(state: .done)
     
-    lazy var todoView: TaskView = TaskView()
-    lazy var doingView: TaskView = TaskView()
-    lazy var doneView: TaskView = TaskView()
+    private var todoView: TaskView = TaskView()
+    private var doingView: TaskView = TaskView()
+    private var doneView: TaskView = TaskView()
     
-    lazy var todoLabel: TitleLabel = TitleLabel(title: TaskType.todo.description)
-    lazy var doingLabel: TitleLabel = TitleLabel(title: TaskType.doing.description)
-    lazy var doneLabel: TitleLabel = TitleLabel(title: TaskType.done.description)
+    private var todoLabel: TitleLabel = TitleLabel(title: TaskType.todo.description)
+    private var doingLabel: TitleLabel = TitleLabel(title: TaskType.doing.description)
+    private var doneLabel: TitleLabel = TitleLabel(title: TaskType.done.description)
     // TODO: 생성자로 처음 값 초기화 하기
-    lazy var todoCountLabel: CountLabel = CountLabel()
-    lazy var doingCountLabel: CountLabel = CountLabel()
-    lazy var doneCountLabel: CountLabel = CountLabel()
+    private var todoCountLabel: CountLabel = CountLabel()
+    private var doingCountLabel: CountLabel = CountLabel()
+    private var doneCountLabel: CountLabel = CountLabel()
     
-    lazy var titlesStackView: StackView = StackView([todoView, doingView, doneView])
-    lazy var tablesStackView: StackView = StackView([todoTableView, doingTableView, doneTableView])
+    private lazy var titlesStackView: StackView = StackView([todoView, doingView, doneView])
+    private lazy var tablesStackView: StackView = StackView([todoTableView, doingTableView, doneTableView])
     
     private func addSubViews() {
         self.view.addSubview(titlesStackView)
