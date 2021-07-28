@@ -6,3 +6,4 @@ included:
 excluded:
 - ProjectManager/AppDelegate.swift
 - ProjectManager/SceneDelegate.swift
+- Pods
