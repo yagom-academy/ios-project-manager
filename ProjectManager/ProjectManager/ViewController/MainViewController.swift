@@ -11,6 +11,11 @@ class MainViewController: UIViewController {
     let doingTableViewDataSource = TaskTableViewDataSource(tasks: [Task(title: "하고있는1", content: "하고있는일내용1", deadLine: "2021.07.23", state: .doing)])
     let doneTableViewDataSource = TaskTableViewDataSource(tasks: [Task(title: "한1", content: "한일내용1", deadLine: "2021.08.12", state: .done)])
     
+    private enum Style {
+        static let titleLabelMargin: CGFloat = 10
+        static let labelSpacing: CGFloat = 8
+    }
+    
     private var todoTableView: TaskTableView = TaskTableView(state: .todo)
     private var doingTableView: TaskTableView = TaskTableView(state: .doing)
     private var doneTableView: TaskTableView = TaskTableView(state: .done)
@@ -58,23 +63,23 @@ class MainViewController: UIViewController {
             countLabel.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor).isActive = true
             countLabel.widthAnchor.constraint(equalTo: countLabel.heightAnchor).isActive = true
             countLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor,
-                                                constant: 8).isActive = true
+                                                constant: Style.labelSpacing).isActive = true
         }
         for (titleLabel, view) in [(todoLabel, todoView),
                                    (doingLabel, doingView),
                                    (doneLabel, doneView)] {
             titleLabel.topAnchor.constraint(equalTo: view.topAnchor,
-                                            constant: 10).isActive = true
+                                            constant: Style.titleLabelMargin).isActive = true
             titleLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor,
-                                               constant: -10).isActive = true
+                                               constant: Style.titleLabelMargin).isActive = true
             titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor,
-                                                constant: 10).isActive = true
+                                                constant: Style.titleLabelMargin).isActive = true
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = "Project Manager"
+        self.navigationItem.title = Bundle.main.infoDictionary?["CFBundleName"] as? String
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
                                                                  target: self,
                                                                  action: #selector(clickAddBarButton))

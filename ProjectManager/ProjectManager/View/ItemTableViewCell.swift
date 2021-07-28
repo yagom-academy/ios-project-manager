@@ -8,6 +8,11 @@
 import UIKit
 
 class ItemTableViewCell: UITableViewCell {
+    
+    private enum Style {
+        static let margin: UIEdgeInsets = .init(top: 8, left: 8, bottom: 8, right: 8)
+    }
+    
     static let identifier = "itemTableViewCell"
     lazy var titleLabel: ItemTitleLabel = ItemTitleLabel()
     lazy var contentLabel: ItemContentLabel = ItemContentLabel()
@@ -43,10 +48,10 @@ class ItemTableViewCell: UITableViewCell {
     
     private func configureConstraints() {
         NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
-            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
-            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
+            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Style.margin.left),
+            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Style.margin.top),
+            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Style.margin.right),
+            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: Style.margin.bottom)
         ])
     }
     

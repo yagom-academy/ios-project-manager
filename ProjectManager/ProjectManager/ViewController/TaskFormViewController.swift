@@ -17,6 +17,10 @@ class TaskFormViewController: UIViewController {
     var selectedTask: Task?
     var type: FormType = .edit
     
+    private enum Style {
+        static let margin: UIEdgeInsets = .init(top: 8, left: 10, bottom: 10, right: 8)
+    }
+    
     init(type: FormType) {
         self.type = type
         super.init(nibName: nil, bundle: nil)
@@ -71,10 +75,10 @@ class TaskFormViewController: UIViewController {
     private func configureConstraints() {
         let safeArea = self.view.safeAreaLayoutGuide
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 8),
-            stackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -8),
-            stackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 10),
-            stackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -10)
+            stackView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: Style.margin.top),
+            stackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: Style.margin.bottom),
+            stackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: Style.margin.left),
+            stackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: Style.margin.right)
         ])
     }
 }
@@ -154,7 +158,7 @@ extension TaskFormViewController {
     }
     
     private func presentAlertForCompleteTask() {
-        let alert = UIAlertController(title: "제목과 내용이 비어있습니다",
+        let alert = UIAlertController(title: "제목 또는 내용이 비어있습니다",
                                       message: "제목과 내용을 모두 채워주세요",
                                       preferredStyle: .alert)
         let okButton = UIAlertAction(title: "OK", style: .default, handler: nil)
