@@ -10,7 +10,7 @@ import UIKit
 extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let dataSource = dataSourceForTableView(tableView)
-        let task = dataSource.getTask(indexPath)
+        let task = dataSource.task(at: indexPath)
         let taskFormViewController = TaskFormViewController(type: .edit)
         taskFormViewController.configureViews(task)
         let navigationController = UINavigationController(rootViewController: taskFormViewController)

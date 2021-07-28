@@ -21,7 +21,7 @@ extension ViewController: UITableViewDragDelegate {
               dragCoordinator.dragCompleted == true,
               dragCoordinator.isReordering == false else { return }
         let dataSource = dataSourceForTableView(tableView)
-        dataSource.deleteTask(at: dragCoordinator.indexPath.row)
+        dataSource.delete(at: dragCoordinator.indexPath.row)
         tableView.performBatchUpdates {
             tableView.deleteRows(at: [dragCoordinator.indexPath], with: .automatic)
         }

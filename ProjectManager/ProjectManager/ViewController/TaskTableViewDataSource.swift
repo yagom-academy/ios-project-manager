@@ -52,22 +52,22 @@ extension TaskTableViewDataSource {
         return [dragItem]
     }
     
-    func addTask(_ task: Task, at index: Int) {
+    func add(_ task: Task, at index: Int) {
         tasks.insert(task, at: index)
     }
     
-    func moveTask(at sourceIndex: Int, to destinationIndex: Int) {
+    func move(from sourceIndex: Int, to destinationIndex: Int) {
         guard sourceIndex != destinationIndex else { return }
         let task = tasks[sourceIndex]
         tasks.remove(at: sourceIndex)
         tasks.insert(task, at: destinationIndex)
     }
     
-    func deleteTask(at index: Int) {
+    func delete(at index: Int) {
         tasks.remove(at: index)
     }
     
-    func getTask(_ indexPath: IndexPath) -> Task {
+    func task(at indexPath: IndexPath) -> Task {
         return tasks[indexPath.row]
     }
 }

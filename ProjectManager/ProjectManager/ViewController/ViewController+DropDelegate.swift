@@ -36,7 +36,7 @@ extension ViewController: UITableViewDropDelegate {
             }
             if let sourceIndexPath = item.sourceIndexPath {
                 dragCoordinator.isReordering = true
-                dataSource.moveTask(at: sourceIndexPath.row, to: destinationIndexPath.row)
+                dataSource.move(from: sourceIndexPath.row, to: destinationIndexPath.row)
                 tableView.performBatchUpdates {
                     tableView.deleteRows(at: [sourceIndexPath], with: .automatic)
                     tableView.insertRows(at: [destinationIndexPath], with: .automatic)
@@ -46,7 +46,7 @@ extension ViewController: UITableViewDropDelegate {
                 if let task = item.dragItem.localObject as? Task,
                    let taskTableView = tableView as? TaskTableView {
                     task.state = taskTableView.state
-                    dataSource.addTask(task, at: destinationIndexPath.row)
+                    dataSource.add(task, at: destinationIndexPath.row)
                     tableView.performBatchUpdates {
                         tableView.insertRows(at: [destinationIndexPath], with: .automatic)
                     }

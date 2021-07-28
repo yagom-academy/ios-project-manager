@@ -130,7 +130,7 @@ extension ViewController {
     
     func addNewTask(_ task: Task) {
         let numberOfTasks = todoTableView.numberOfRows(inSection: 0)
-        todoTableViewDataSource.addTask(task, at: numberOfTasks)
+        todoTableViewDataSource.add(task, at: numberOfTasks)
         todoTableView.performBatchUpdates {
             todoTableView.insertRows(at: [IndexPath(row: numberOfTasks, section: 0)], with: .automatic)
         }
