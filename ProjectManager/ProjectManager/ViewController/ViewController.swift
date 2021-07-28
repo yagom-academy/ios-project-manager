@@ -19,9 +19,9 @@ class ViewController: UIViewController {
     lazy var doingView: TaskView = TaskView()
     lazy var doneView: TaskView = TaskView()
     
-    lazy var todoLabel: TitleLabel = TitleLabel(title: State.todo.description)
-    lazy var doingLabel: TitleLabel = TitleLabel(title: State.doing.description)
-    lazy var doneLabel: TitleLabel = TitleLabel(title: State.done.description)
+    lazy var todoLabel: TitleLabel = TitleLabel(title: TaskType.todo.description)
+    lazy var doingLabel: TitleLabel = TitleLabel(title: TaskType.doing.description)
+    lazy var doneLabel: TitleLabel = TitleLabel(title: TaskType.done.description)
     // TODO: 생성자로 처음 값 초기화 하기
     lazy var todoCountLabel: CountLabel = CountLabel()
     lazy var doingCountLabel: CountLabel = CountLabel()
@@ -148,7 +148,7 @@ extension ViewController: TaskFormViewControllerDelegate {
         }
     }
     
-    func updateEditedCell(state: State) {
+    func updateEditedCell(state: TaskType) {
         switch state {
         case .todo:
             guard let todoTableViewSelectedRow = todoTableView.indexPathForSelectedRow else { return }

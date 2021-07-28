@@ -64,7 +64,7 @@ class TaskFormViewController: UIViewController {
         self.view.backgroundColor = .systemBackground
         view.addSubview(stackView)
         configureConstraints()
-        navigationItem.title = State.todo.description.uppercased()
+        navigationItem.title = TaskType.todo.description.uppercased()
         configureBarButtonItem(type: type)
     }
     
@@ -164,6 +164,6 @@ extension TaskFormViewController {
 }
 
 protocol TaskFormViewControllerDelegate: NSObject {
-    func updateEditedCell(state: State)
+    func updateEditedCell(state: TaskType)
     func addNewTask(_ task: Task)
 }

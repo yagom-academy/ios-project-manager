@@ -12,9 +12,9 @@ final class Task: NSObject, Codable {
     var title: String
     var content: String
     var deadLine: String
-    var state: State
+    var state: TaskType
     
-    init(title: String, content: String, deadLine: String, state: State) {
+    init(title: String, content: String, deadLine: String, state: TaskType) {
         self.title = title
         self.content = content
         self.deadLine = deadLine
