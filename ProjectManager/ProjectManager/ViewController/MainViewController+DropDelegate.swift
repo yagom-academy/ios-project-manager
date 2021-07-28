@@ -11,9 +11,6 @@ extension MainViewController: UITableViewDropDelegate {
     func tableView(_ tableView: UITableView,
                    dropSessionDidUpdate session: UIDropSession,
                    withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
-        guard session.localDragSession != nil else {
-            return UITableViewDropProposal(operation: .copy, intent: .insertAtDestinationIndexPath)
-        }
         guard session.items.count == 1 else {
             return UITableViewDropProposal(operation: .cancel)
         }
