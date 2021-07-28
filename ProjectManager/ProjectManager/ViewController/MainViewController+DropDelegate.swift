@@ -36,9 +36,7 @@ extension MainViewController: UITableViewDropDelegate {
             if let sourceIndexPath = item.sourceIndexPath {
                 dragCoordinator.isReordering = true
                 dataSource.move(from: sourceIndexPath.row, to: destinationIndexPath.row)
-                tableView.performBatchUpdates {
-                    tableView.moveRow(at: [sourceIndexPath.row], to: [destinationIndexPath.row])
-                }
+                tableView.moveRow(at: sourceIndexPath, to: destinationIndexPath)
             } else {
                 dragCoordinator.isReordering = false
                 if let task = item.dragItem.localObject as? Task,
