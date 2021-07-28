@@ -63,7 +63,7 @@ class TaskFormViewController: UIViewController {
         view.addSubview(stackView)
         configureConstraints()
         navigationItem.title = State.todo.description.uppercased()
-        configureLeftBarButtonItem(type: type)
+        configureBarButtonItem(type: type)
     }
     
     private func configureConstraints() {
@@ -90,7 +90,7 @@ extension TaskFormViewController {
 
 // MARK: Navigation Bar 버튼 초기화
 extension TaskFormViewController {
-    private func configureLeftBarButtonItem(type: FormType) {
+    private func configureBarButtonItem(type: FormType) {
         switch type {
         case .edit:
             self.view.isUserInteractionEnabled = false
@@ -98,15 +98,17 @@ extension TaskFormViewController {
                                                                style: .plain,
                                                                target: self,
                                                                action: #selector(clinkEditButton))
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector (clickEditDoneButton))
         case .add:
             self.view.isUserInteractionEnabled = true
             navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel",
                                                                style: .plain,
                                                                target: self,
                                                                action: #selector(clickCancelButton))
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(clickAddDoneButton))
         }
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done",
+                                                            style: .plain,
+                                                            target: self,
+                                                            action: #selector (clickDoneButton))
     }
 }
 
@@ -122,31 +124,26 @@ extension TaskFormViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
-    @objc private func clickAddDoneButton() {
+    @objc private func clickDoneButton() {
+        guard let title = titleTextField.text, let content = contentTextView.text else { return }
         let dateText = DateUtil.formatDate(datePicker.date)
-        guard let title = titleTextField.text, let content = contentTextView.text else { return }
-        if !checkTitleContentIsEmpty() {
-            delegate?.addNewTask(Task(title: title, content: content, deadLine: dateText, state: .todo))
-            self.dismiss(animated: true, completion: nil)
-        } else {
+        if checkTitleContentIsEmpty() == true {
             presentAlertForCompleteTask()
+            return
         }
-    }
-    
-    @objc private func clickEditDoneButton() {
-        guard let title = titleTextField.text, let content = contentTextView.text else { return }
-        guard let selectedTask = selectedTask else { return }
-        if !checkTitleContentIsEmpty() {
+        switch type {
+        case .add:
+            delegate?.addNewTask(Task(title: title, content: content, deadLine: dateText, state: .todo))
+        case .edit:
+            guard let selectedTask = selectedTask else { return }
             selectedTask.title = title
             selectedTask.content = content
-            selectedTask.deadLine = DateUtil.formatDate(datePicker.date)
+            selectedTask.deadLine = dateText
             delegate?.updateEditedCell(state: selectedTask.state)
-            self.dismiss(animated: true, completion: nil)
-        } else {
-            presentAlertForCompleteTask()
         }
+        self.dismiss(animated: true, completion: nil)
     }
-    
+
     private func checkTitleContentIsEmpty() -> Bool {
         if let title = titleTextField.text, !title.isEmpty, let content = contentTextView.text, !content.isEmpty {
             return false
