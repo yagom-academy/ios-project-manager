@@ -52,22 +52,32 @@ class ViewController: UIViewController {
             titlesStackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
             titlesStackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor)
         ])
-        for (countLabel, titleLabel) in [(todoCountLabel, todoLabel), (doingCountLabel, doingLabel), (doneCountLabel, doneLabel)] {
+        for (countLabel, titleLabel) in [(todoCountLabel, todoLabel),
+                                         (doingCountLabel, doingLabel),
+                                         (doneCountLabel, doneLabel)] {
             countLabel.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor).isActive = true
-            countLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 8).isActive = true
             countLabel.widthAnchor.constraint(equalTo: countLabel.heightAnchor).isActive = true
+            countLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor,
+                                                constant: 8).isActive = true
         }
-        for (titleLabel, view) in [(todoLabel, todoView), (doingLabel, doingView), (doneLabel, doneView)] {
-            titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 10).isActive = true
-            titleLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10).isActive = true
-            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
+        for (titleLabel, view) in [(todoLabel, todoView),
+                                   (doingLabel, doingView),
+                                   (doneLabel, doneView)] {
+            titleLabel.topAnchor.constraint(equalTo: view.topAnchor,
+                                            constant: 10).isActive = true
+            titleLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor,
+                                               constant: -10).isActive = true
+            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor,
+                                                constant: 10).isActive = true
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "Project Manager"
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(clickAddBarButton))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
+                                                                 target: self,
+                                                                 action: #selector(clickAddBarButton))
         self.view.backgroundColor = .white
         addSubViews()
         configureConstraints()
@@ -89,7 +99,8 @@ class ViewController: UIViewController {
 extension ViewController {
     private func configureTableViews() {
         for tableView in [todoTableView, doingTableView, doneTableView] {
-            tableView.register(ItemTableViewCell.self, forCellReuseIdentifier: ItemTableViewCell.identifier)
+            tableView.register(ItemTableViewCell.self,
+                               forCellReuseIdentifier: ItemTableViewCell.identifier)
             let dataSource = dataSourceForTableView(tableView)
             dataSource.onUpdated = { [weak self] in
                 if dataSource == self?.todoTableViewDataSource {
@@ -126,14 +137,14 @@ extension ViewController: TaskFormViewControllerDelegate {
         let navigationController = UINavigationController(rootViewController: taskFormViewController)
         navigationController.modalPresentationStyle = .formSheet
         self.present(navigationController, animated: true, completion: nil)
-        
     }
     
     func addNewTask(_ task: Task) {
         let numberOfTasks = todoTableView.numberOfRows(inSection: 0)
         todoTableViewDataSource.add(task, at: numberOfTasks)
         todoTableView.performBatchUpdates {
-            todoTableView.insertRows(at: [IndexPath(row: numberOfTasks, section: 0)], with: .automatic)
+            todoTableView.insertRows(at: [IndexPath(row: numberOfTasks, section: 0)],
+                                     with: .automatic)
         }
     }
     

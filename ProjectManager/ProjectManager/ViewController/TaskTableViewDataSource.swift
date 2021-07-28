@@ -27,8 +27,12 @@ class TaskTableViewDataSource: NSObject, UITableViewDataSource {
         return tasks.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: ItemTableViewCell.identifier) as? ItemTableViewCell else { return UITableViewCell()}
+    func tableView(_ tableView: UITableView,
+                   cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ItemTableViewCell.identifier)
+                as? ItemTableViewCell else {
+            return UITableViewCell()
+        }
         cell.configure(task: tasks[indexPath.row])
         cell.selectionStyle = .none
         return cell

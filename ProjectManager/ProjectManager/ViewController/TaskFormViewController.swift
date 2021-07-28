@@ -49,7 +49,9 @@ class TaskFormViewController: UIViewController {
     }()
     
     private lazy var stackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [titleTextField, datePicker, contentTextView])
+        let stackView = UIStackView(arrangedSubviews: [titleTextField,
+                                                       datePicker,
+                                                       contentTextView])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.spacing = 10
@@ -133,7 +135,10 @@ extension TaskFormViewController {
         }
         switch type {
         case .add:
-            delegate?.addNewTask(Task(title: title, content: content, deadLine: dateText, state: .todo))
+            delegate?.addNewTask(Task(title: title,
+                                      content: content,
+                                      deadLine: dateText,
+                                      state: .todo))
         case .edit:
             guard let selectedTask = selectedTask else { return }
             selectedTask.title = title
@@ -149,7 +154,9 @@ extension TaskFormViewController {
     }
     
     private func presentAlertForCompleteTask() {
-        let alert = UIAlertController(title: "제목과 내용이 비어있습니다", message: "제목과 내용을 모두 채워주세요", preferredStyle: .alert)
+        let alert = UIAlertController(title: "제목과 내용이 비어있습니다",
+                                      message: "제목과 내용을 모두 채워주세요",
+                                      preferredStyle: .alert)
         let okButton = UIAlertAction(title: "OK", style: .default, handler: nil)
         alert.addAction(okButton)
         self.present(alert, animated: true)

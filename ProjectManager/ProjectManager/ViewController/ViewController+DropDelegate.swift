@@ -14,11 +14,14 @@ extension ViewController: UITableViewDropDelegate {
         guard session.localDragSession != nil else {
             return UITableViewDropProposal(operation: .copy, intent: .insertAtDestinationIndexPath)
         }
-        guard session.items.count == 1 else { return UITableViewDropProposal(operation: .cancel) }
+        guard session.items.count == 1 else {
+            return UITableViewDropProposal(operation: .cancel)
+        }
         return UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
     }
     
-    func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
+    func tableView(_ tableView: UITableView,
+                   performDropWith coordinator: UITableViewDropCoordinator) {
         let dataSource = dataSourceForTableView(tableView)
         let destinationIndexPath: IndexPath
         
@@ -31,9 +34,8 @@ extension ViewController: UITableViewDropDelegate {
         let item = coordinator.items[0]
         switch coordinator.proposal.operation {
         case .move:
-            guard let dragCoordinator = coordinator.session.localDragSession?.localContext as? DragCoordinator else {
-                return
-            }
+            guard let dragCoordinator = coordinator.session.localDragSession?.localContext
+                    as? DragCoordinator else { return }
             if let sourceIndexPath = item.sourceIndexPath {
                 dragCoordinator.isReordering = true
                 dataSource.move(from: sourceIndexPath.row, to: destinationIndexPath.row)
