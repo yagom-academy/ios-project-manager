@@ -127,7 +127,7 @@ extension TaskFormViewController {
     @objc private func clickDoneButton() {
         guard let title = titleTextField.text, let content = contentTextView.text else { return }
         let dateText = DateUtil.formatDate(datePicker.date)
-        if checkTitleContentIsEmpty() == true {
+        if isInputFormEmpty() == true {
             presentAlertForCompleteTask()
             return
         }
@@ -144,11 +144,8 @@ extension TaskFormViewController {
         self.dismiss(animated: true, completion: nil)
     }
 
-    private func checkTitleContentIsEmpty() -> Bool {
-        if let title = titleTextField.text, !title.isEmpty, let content = contentTextView.text, !content.isEmpty {
-            return false
-        }
-        return true
+    private func isInputFormEmpty() -> Bool {
+        return titleTextField.text?.isEmpty == true || contentTextView.text?.isEmpty == true
     }
     
     private func presentAlertForCompleteTask() {
