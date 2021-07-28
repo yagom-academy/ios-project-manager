@@ -7,9 +7,9 @@
 import UIKit
 
 class MainViewController: UIViewController {
-    let todoTableViewDataSource = TaskTableViewDataSource(tasks: [Task(title: "할일1", content: "할일내용1", deadLine: "2021.05.12", state: .todo)])
-    let doingTableViewDataSource = TaskTableViewDataSource(tasks: [Task(title: "하고있는1", content: "하고있는일내용1", deadLine: "2021.07.23", state: .doing)])
-    let doneTableViewDataSource = TaskTableViewDataSource(tasks: [Task(title: "한1", content: "한일내용1", deadLine: "2021.08.12", state: .done)])
+    let todoTableViewDataSource = TaskTableViewDataSource(tasks: [Task(title: "할일1", content: "할일내용1", deadLine: "2021.05.12", type: .todo)])
+    let doingTableViewDataSource = TaskTableViewDataSource(tasks: [Task(title: "하고있는1", content: "하고있는일내용1", deadLine: "2021.07.23", type: .doing)])
+    let doneTableViewDataSource = TaskTableViewDataSource(tasks: [Task(title: "한1", content: "한일내용1", deadLine: "2021.08.12", type: .done)])
     
     private enum Style {
         static let titleLabelMargin: CGFloat = 10
@@ -153,8 +153,8 @@ extension MainViewController: TaskFormViewControllerDelegate {
         }
     }
     
-    func updateEditedCell(state: TaskType) {
-        switch state {
+    func updateEditedCell(type: TaskType) {
+        switch type {
         case .todo:
             guard let todoTableViewSelectedRow = todoTableView.indexPathForSelectedRow else { return }
             todoTableView.reloadRows(at: [todoTableViewSelectedRow], with: .automatic)

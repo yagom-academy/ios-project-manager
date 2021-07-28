@@ -90,7 +90,7 @@ extension TaskFormViewController {
         titleTextField.text = task.title
         contentTextView.text = task.content
         datePicker.date = DateUtil.parseDate(task.deadLine)
-        navigationItem.title = task.state.description
+        navigationItem.title = task.type.description
     }
 }
 
@@ -142,13 +142,13 @@ extension TaskFormViewController {
             delegate?.addNewTask(Task(title: title,
                                       content: content,
                                       deadLine: dateText,
-                                      state: .todo))
+                                      type: .todo))
         case .edit:
             guard let selectedTask = selectedTask else { return }
             selectedTask.title = title
             selectedTask.content = content
             selectedTask.deadLine = dateText
-            delegate?.updateEditedCell(state: selectedTask.state)
+            delegate?.updateEditedCell(type: selectedTask.type)
         }
         self.dismiss(animated: true, completion: nil)
     }
@@ -168,6 +168,6 @@ extension TaskFormViewController {
 }
 
 protocol TaskFormViewControllerDelegate: NSObject {
-    func updateEditedCell(state: TaskType)
+    func updateEditedCell(type: TaskType)
     func addNewTask(_ task: Task)
 }
