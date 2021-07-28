@@ -101,7 +101,7 @@ extension ViewController {
         for tableView in [todoTableView, doingTableView, doneTableView] {
             tableView.register(ItemTableViewCell.self,
                                forCellReuseIdentifier: ItemTableViewCell.identifier)
-            let dataSource = dataSourceForTableView(tableView)
+            let dataSource = dataSource(for: tableView)
             dataSource.onUpdated = { [weak self] in
                 if dataSource == self?.todoTableViewDataSource {
                     self?.todoCountLabel.text = String(dataSource.taskCount)
@@ -118,7 +118,7 @@ extension ViewController {
         }
     }
     
-    func dataSourceForTableView(_ tableView: UITableView) -> TaskTableViewDataSource {
+    func dataSource(for tableView: UITableView) -> TaskTableViewDataSource {
         if tableView == todoTableView {
             return todoTableViewDataSource
         } else if tableView == doingTableView {

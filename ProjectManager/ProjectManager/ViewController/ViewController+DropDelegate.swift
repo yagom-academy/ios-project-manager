@@ -22,7 +22,7 @@ extension ViewController: UITableViewDropDelegate {
     
     func tableView(_ tableView: UITableView,
                    performDropWith coordinator: UITableViewDropCoordinator) {
-        let dataSource = dataSourceForTableView(tableView)
+        let dataSource = dataSource(for: tableView)
         let destinationIndexPath: IndexPath
         
         if let indexPath = coordinator.destinationIndexPath {
