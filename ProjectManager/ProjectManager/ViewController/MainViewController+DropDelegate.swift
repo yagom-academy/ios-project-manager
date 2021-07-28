@@ -34,11 +34,11 @@ extension MainViewController: UITableViewDropDelegate {
             guard let dragCoordinator = coordinator.session.localDragSession?.localContext
                     as? DragCoordinator else { return }
             if let sourceIndexPath = item.sourceIndexPath {
-                dragCoordinator.isReordering = true
+                dragCoordinator.shouldReordering = true
                 dataSource.move(from: sourceIndexPath.row, to: destinationIndexPath.row)
                 tableView.moveRow(at: sourceIndexPath, to: destinationIndexPath)
             } else {
-                dragCoordinator.isReordering = false
+                dragCoordinator.shouldReordering = false
                 if let task = item.dragItem.localObject as? Task,
                    let taskTableView = tableView as? TaskTableView {
                     task.state = taskTableView.state

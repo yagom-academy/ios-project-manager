@@ -19,7 +19,7 @@ extension MainViewController: UITableViewDragDelegate {
     func tableView(_ tableView: UITableView, dragSessionDidEnd session: UIDragSession) {
         guard let dragCoordinator = session.localContext as? DragCoordinator,
               dragCoordinator.dragCompleted == true,
-              dragCoordinator.isReordering == false else { return }
+              dragCoordinator.shouldReordering == false else { return }
         let dataSource = dataSource(for: tableView)
         dataSource.delete(at: dragCoordinator.indexPath.row)
         tableView.performBatchUpdates {
