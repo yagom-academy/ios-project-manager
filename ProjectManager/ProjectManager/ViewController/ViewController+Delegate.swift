@@ -12,6 +12,7 @@ extension ViewController: UITableViewDelegate {
         let dataSource = dataSourceForTableView(tableView)
         let task = dataSource.task(at: indexPath)
         let taskFormViewController = TaskFormViewController(type: .edit)
+        taskFormViewController.delegate = self
         taskFormViewController.configureViews(task)
         let navigationController = UINavigationController(rootViewController: taskFormViewController)
         navigationController.modalPresentationStyle = .formSheet

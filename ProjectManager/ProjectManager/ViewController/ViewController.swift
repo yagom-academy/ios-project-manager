@@ -119,9 +119,10 @@ extension ViewController {
 }
 
 // MARK: TaskFormViewController에서 호출되거나 연관된 함수들
-extension ViewController {
+extension ViewController: TaskFormViewControllerDelegate {
     @objc func clickAddBarButton() {
         let taskFormViewController = TaskFormViewController(type: .add)
+        taskFormViewController.delegate = self
         let navigationController = UINavigationController(rootViewController: taskFormViewController)
         navigationController.modalPresentationStyle = .formSheet
         self.present(navigationController, animated: true, completion: nil)

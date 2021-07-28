@@ -13,6 +13,7 @@ enum FormType {
 }
 
 class TaskFormViewController: UIViewController {
+    weak var delegate: TaskFormViewControllerDelegate?
     var selectedTask: Task?
     var type: FormType = .edit {
         didSet {
@@ -126,12 +127,10 @@ extension TaskFormViewController {
     }
     
     @objc private func clickAddDoneButton() {
-        guard let navigationViewController = self.presentingViewController as? UINavigationController,
-              let viewController = navigationViewController.topViewController as? ViewController else { return }
         let dateText = DateUtil.formatDate(datePicker.date)
         guard let title = titleTextField.text, let content = contentTextView.text else { return }
         if !checkTitleContentIsEmpty() {
-            viewController.addNewTask(Task(title: title, content: content, deadLine: dateText, state: .todo))
+            delegate?.addNewTask(Task(title: title, content: content, deadLine: dateText, state: .todo))
             self.dismiss(animated: true, completion: nil)
         } else {
             presentAlertForCompleteTask()
@@ -139,14 +138,13 @@ extension TaskFormViewController {
     }
     
     @objc private func clickEditDoneButton() {
-        guard let navigationViewController = self.presentingViewController as? UINavigationController,
-              let viewController = navigationViewController.topViewController as? ViewController else { return }
         guard let title = titleTextField.text, let content = contentTextView.text else { return }
+        guard let selectedTask = selectedTask else { return }
         if !checkTitleContentIsEmpty() {
-            selectedTask?.title = title
-            selectedTask?.content = content
-            selectedTask?.deadLine = DateUtil.formatDate(datePicker.date)
-            viewController.updateEditedCell(state: selectedTask!.state)
+            selectedTask.title = title
+            selectedTask.content = content
+            selectedTask.deadLine = DateUtil.formatDate(datePicker.date)
+            delegate?.updateEditedCell(state: selectedTask.state)
             self.dismiss(animated: true, completion: nil)
         } else {
             presentAlertForCompleteTask()
@@ -166,4 +164,9 @@ extension TaskFormViewController {
         alert.addAction(okButton)
         self.present(alert, animated: true)
     }
+}
+
+protocol TaskFormViewControllerDelegate: NSObject {
+    func updateEditedCell(state: State)
+    func addNewTask(_ task: Task)
 }
