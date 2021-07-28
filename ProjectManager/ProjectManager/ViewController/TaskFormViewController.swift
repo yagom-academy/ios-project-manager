@@ -68,7 +68,6 @@ class TaskFormViewController: UIViewController {
         self.view.backgroundColor = .systemBackground
         view.addSubview(stackView)
         configureConstraints()
-        navigationItem.title = TaskType.todo.description.uppercased()
         configureBarButtonItem(type: type)
     }
     
@@ -110,6 +109,7 @@ extension TaskFormViewController {
                                                                style: .plain,
                                                                target: self,
                                                                action: #selector(clickCancelButton))
+            navigationItem.title = TaskType.todo.description.uppercased()
         }
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done",
                                                             style: .plain,
