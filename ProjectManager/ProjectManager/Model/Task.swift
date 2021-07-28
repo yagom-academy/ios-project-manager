@@ -21,37 +21,3 @@ final class Task: NSObject, Codable {
         self.state = state
     }
 }
-
-extension Task: NSItemProviderWriting {
-    static var writableTypeIdentifiersForItemProvider: [String] {
-        return [String(kUTTypeData)]
-    }
-    
-    func loadData(withTypeIdentifier typeIdentifier: String,
-                  forItemProviderCompletionHandler completionHandler: @escaping (Data?, Error?) -> Void) -> Progress? {
-        let progress = Progress(totalUnitCount: 100)
-        do {
-            let data = try JSONEncoder().encode(self)
-            progress.completedUnitCount = 100
-            completionHandler(data, nil)
-        } catch {
-            completionHandler(nil, error)
-        }
-        return progress
-    }
-}
-
-extension Task: NSItemProviderReading {
-    static var readableTypeIdentifiersForItemProvider: [String] {
-        return [String(kUTTypeData)]
-    }
-    
-    static func object(withItemProviderData data: Data, typeIdentifier: String) throws -> Task {
-        do {
-            let task = try JSONDecoder().decode(Task.self, from: data)
-            return task
-        } catch {
-            fatalError()
-        }
-    }
-}
