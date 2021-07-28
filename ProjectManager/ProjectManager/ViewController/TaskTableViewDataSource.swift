@@ -8,12 +8,12 @@
 import UIKit
 
 class TaskTableViewDataSource: NSObject, UITableViewDataSource {
-    var onUpdated: () -> Void = {}
     private var tasks: [Task] {
         didSet {
             onUpdated()
         }
     }
+    var onUpdated: () -> Void = {}
     var taskCount: Int {
         return tasks.count
     }
