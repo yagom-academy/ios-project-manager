@@ -15,16 +15,11 @@ enum FormType {
 class TaskFormViewController: UIViewController {
     weak var delegate: TaskFormViewControllerDelegate?
     var selectedTask: Task?
-    var type: FormType = .edit {
-        didSet {
-            configureLeftBarButtonItem(type: type)
-        }
-    }
+    var type: FormType = .edit
     
     init(type: FormType) {
         self.type = type
         super.init(nibName: nil, bundle: nil)
-        self.configureLeftBarButtonItem(type: type)
     }
 
     required init?(coder: NSCoder) {
@@ -68,6 +63,7 @@ class TaskFormViewController: UIViewController {
         view.addSubview(stackView)
         configureConstraints()
         navigationItem.title = State.todo.description.uppercased()
+        configureLeftBarButtonItem(type: type)
     }
     
     private func configureConstraints() {
