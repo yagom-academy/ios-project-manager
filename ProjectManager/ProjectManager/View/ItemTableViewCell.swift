@@ -50,8 +50,8 @@ class ItemTableViewCell: UITableViewCell {
         NSLayoutConstraint.activate([
             stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Style.margin.left),
             stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Style.margin.top),
-            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Style.margin.right),
-            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: Style.margin.bottom)
+            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Style.margin.right),
+            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Style.margin.bottom)
         ])
     }
     

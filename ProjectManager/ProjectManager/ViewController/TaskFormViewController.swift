@@ -76,9 +76,9 @@ class TaskFormViewController: UIViewController {
         let safeArea = self.view.safeAreaLayoutGuide
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: Style.margin.top),
-            stackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: Style.margin.bottom),
+            stackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -Style.margin.bottom),
             stackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: Style.margin.left),
-            stackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: Style.margin.right)
+            stackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -Style.margin.right)
         ])
     }
 }

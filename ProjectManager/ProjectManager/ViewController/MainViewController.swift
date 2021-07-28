@@ -71,7 +71,7 @@ class MainViewController: UIViewController {
             titleLabel.topAnchor.constraint(equalTo: view.topAnchor,
                                             constant: Style.titleLabelMargin).isActive = true
             titleLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor,
-                                               constant: Style.titleLabelMargin).isActive = true
+                                               constant: -Style.titleLabelMargin).isActive = true
             titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor,
                                                 constant: Style.titleLabelMargin).isActive = true
         }
