@@ -19,9 +19,9 @@ class MainViewController: UIViewController {
     private var doingView: TaskView = TaskView()
     private var doneView: TaskView = TaskView()
     
-    private var todoLabel: TitleLabel = TitleLabel(title: TaskType.todo.description)
-    private var doingLabel: TitleLabel = TitleLabel(title: TaskType.doing.description)
-    private var doneLabel: TitleLabel = TitleLabel(title: TaskType.done.description)
+    private var todoLabel: TitleLabel = TitleLabel(title: "\(TaskType.todo)")
+    private var doingLabel: TitleLabel = TitleLabel(title: "\(TaskType.doing)")
+    private var doneLabel: TitleLabel = TitleLabel(title: "\(TaskType.done)")
     // TODO: 생성자로 처음 값 초기화 하기
     private var todoCountLabel: CountLabel = CountLabel()
     private var doingCountLabel: CountLabel = CountLabel()
