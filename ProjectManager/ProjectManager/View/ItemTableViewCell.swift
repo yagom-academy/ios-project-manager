@@ -14,9 +14,9 @@ class ItemTableViewCell: UITableViewCell {
     }
     
     static let identifier = "itemTableViewCell"
-    lazy var titleLabel: ItemTitleLabel = ItemTitleLabel()
-    lazy var contentLabel: ItemContentLabel = ItemContentLabel()
-    lazy var dateLabel: ItemDateLabel = ItemDateLabel()
+    private var titleLabel: UILabel = UILabel()
+    private var contentLabel: UILabel = UILabel()
+    private var dateLabel: UILabel = UILabel()
     
     lazy var stackView: UIStackView = {
         let stackView: UIStackView = UIStackView(arrangedSubviews: [titleLabel, contentLabel, dateLabel])
@@ -31,6 +31,9 @@ class ItemTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(stackView)
         configureConstraints()
+        configureTitleLabel()
+        configureContentLabel()
+        configureDateLabel()
     }
     
     required init?(coder: NSCoder) {
@@ -60,7 +63,38 @@ class ItemTableViewCell: UITableViewCell {
         contentLabel.text = task.content
         dateLabel.text = task.deadLine
         if task.type != .done {
-            dateLabel.setTextColor(by: task.deadLine)
+            let currentDate = DateUtil.formatDate(Date())
+            if currentDate <= task.deadLine {
+                dateLabel.textColor = .black
+            } else {
+                dateLabel.textColor = .systemRed
+            }
         }
     }
 }
+
+extension ItemTableViewCell {
+    
+    private func configureTitleLabel() {
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.numberOfLines = 1
+        titleLabel.lineBreakMode = .byTruncatingTail
+        titleLabel.font = UIFont.preferredFont(forTextStyle: .title3)
+    }
+    
+    private func configureContentLabel() {
+        contentLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentLabel.numberOfLines = 3
+        contentLabel.lineBreakMode = .byTruncatingTail
+        contentLabel.font = UIFont.preferredFont(forTextStyle: .body)
+        contentLabel.textColor = .systemGray2
+    }
+    
+    private func configureDateLabel() {
+        dateLabel.translatesAutoresizingMaskIntoConstraints = false
+        dateLabel.numberOfLines = 1
+        dateLabel.lineBreakMode = .byTruncatingTail
+        dateLabel.font = UIFont.preferredFont(forTextStyle: .callout)
+    }
+}
+
