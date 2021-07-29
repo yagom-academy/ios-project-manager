@@ -133,11 +133,11 @@
 				C3844F6B26A94A1D00F91098 /* ItemDateLabel.swift */,
 				C3844F6926A948C000F91098 /* ItemContentLabel.swift */,
 				C3844F6726A9469800F91098 /* ItemTitleLabel.swift */,
-				B0C9A03D26AE7A350022FB00 /* TaskTableView.swift */,
 				45525EDB26AE7F6400F92909 /* TaskView.swift */,
 				45F55FF826AE81940018E6EF /* TitleLabel.swift */,
 				45F55FFA26AE832D0018E6EF /* CountLabel.swift */,
 				C32DB10426AEAE7C004A3D25 /* StackView.swift */,
+				B0C9A03D26AE7A350022FB00 /* TaskTableView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";

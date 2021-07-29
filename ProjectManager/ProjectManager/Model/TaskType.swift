@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum TaskType: String, CustomStringConvertible, Codable {
+enum TaskType: String, CustomStringConvertible, Codable, CaseIterable {
     case todo
     case doing
     case done

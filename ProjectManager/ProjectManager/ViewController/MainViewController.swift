@@ -20,30 +20,34 @@ class MainViewController: UIViewController {
     private var doingTableView: TaskTableView = TaskTableView(state: .doing)
     private var doneTableView: TaskTableView = TaskTableView(state: .done)
     
-    private var todoView: TaskView = TaskView()
-    private var doingView: TaskView = TaskView()
-    private var doneView: TaskView = TaskView()
+    private var todoHeaderView: UIView = UIView()
+    private var doingHeaderView: UIView = UIView()
+    private var doneHeaderView: UIView = UIView()
     
-    private var todoLabel: TitleLabel = TitleLabel(title: "\(TaskType.todo)")
-    private var doingLabel: TitleLabel = TitleLabel(title: "\(TaskType.doing)")
-    private var doneLabel: TitleLabel = TitleLabel(title: "\(TaskType.done)")
+    private var todoTitleLabel: UILabel = UILabel()
+    private var doingTitleLabel: UILabel = UILabel()
+    private var doneTitleLabel: UILabel = UILabel()
     // TODO: 생성자로 처음 값 초기화 하기
-    private var todoCountLabel: CountLabel = CountLabel()
-    private var doingCountLabel: CountLabel = CountLabel()
-    private var doneCountLabel: CountLabel = CountLabel()
+    private var todoCountLabel: UILabel = UILabel()
+    private var doingCountLabel: UILabel = UILabel()
+    private var doneCountLabel: UILabel = UILabel()
     
-    private lazy var titlesStackView: StackView = StackView([todoView, doingView, doneView])
-    private lazy var tablesStackView: StackView = StackView([todoTableView, doingTableView, doneTableView])
+    private lazy var titlesStackView: UIStackView = UIStackView(arrangedSubviews: [todoHeaderView,
+                                                                                   doingHeaderView,
+                                                                                   doneHeaderView])
+    private lazy var tablesStackView: UIStackView = UIStackView(arrangedSubviews: [todoTableView,
+                                                                                   doingTableView,
+                                                                                   doneTableView])
     
     private func addSubViews() {
         self.view.addSubview(titlesStackView)
         self.view.addSubview(tablesStackView)
-        self.todoView.addSubview(todoLabel)
-        self.doingView.addSubview(doingLabel)
-        self.doneView.addSubview(doneLabel)
-        self.todoView.addSubview(todoCountLabel)
-        self.doingView.addSubview(doingCountLabel)
-        self.doneView.addSubview(doneCountLabel)
+        self.todoHeaderView.addSubview(todoTitleLabel)
+        self.doingHeaderView.addSubview(doingTitleLabel)
+        self.doneHeaderView.addSubview(doneTitleLabel)
+        self.todoHeaderView.addSubview(todoCountLabel)
+        self.doingHeaderView.addSubview(doingCountLabel)
+        self.doneHeaderView.addSubview(doneCountLabel)
     }
     
     private func configureConstraints() {
@@ -57,17 +61,17 @@ class MainViewController: UIViewController {
             titlesStackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
             titlesStackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor)
         ])
-        for (countLabel, titleLabel) in [(todoCountLabel, todoLabel),
-                                         (doingCountLabel, doingLabel),
-                                         (doneCountLabel, doneLabel)] {
+        for (countLabel, titleLabel) in [(todoCountLabel, todoTitleLabel),
+                                         (doingCountLabel, doingTitleLabel),
+                                         (doneCountLabel, doneTitleLabel)] {
             countLabel.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor).isActive = true
             countLabel.widthAnchor.constraint(equalTo: countLabel.heightAnchor).isActive = true
             countLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor,
                                                 constant: Style.labelSpacing).isActive = true
         }
-        for (titleLabel, view) in [(todoLabel, todoView),
-                                   (doingLabel, doingView),
-                                   (doneLabel, doneView)] {
+        for (titleLabel, view) in [(todoTitleLabel, todoHeaderView),
+                                   (doingTitleLabel, doingHeaderView),
+                                   (doneTitleLabel, doneHeaderView)] {
             titleLabel.topAnchor.constraint(equalTo: view.topAnchor,
                                             constant: Style.titleLabelMargin).isActive = true
             titleLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor,
@@ -84,18 +88,61 @@ class MainViewController: UIViewController {
                                                                  target: self,
                                                                  action: #selector(clickAddBarButton))
         self.view.backgroundColor = .white
-        addSubViews()
-        configureConstraints()
-        configureTableViews()
         self.todoCountLabel.text = String(todoTableViewDataSource.taskCount)
         self.doingCountLabel.text = String(doingTableViewDataSource.taskCount)
         self.doneCountLabel.text = String(doneTableViewDataSource.taskCount)
+        addSubViews()
+        configureConstraints()
+        configureStackViews()
+        configureHeaderViews()
+        configureCountLabels()
+        configureTitleLabels()
+        configureTableViews()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         for countLabel in [todoCountLabel, doingCountLabel, doneCountLabel] {
             countLabel.layer.cornerRadius = countLabel.frame.size.height / 2
+        }
+    }
+}
+
+// MARK: View들 Layout 속성 지정 함수들
+extension MainViewController {
+    private func configureStackViews() {
+        for stackView in [tablesStackView, titlesStackView] {
+            stackView.translatesAutoresizingMaskIntoConstraints = false
+            stackView.axis = .horizontal
+            stackView.spacing = 10
+            stackView.distribution = .fillEqually
+            stackView.backgroundColor = .systemGray4
+        }
+    }
+    
+    private func configureHeaderViews() {
+        for view in [todoHeaderView, doingHeaderView, doneHeaderView] {
+            view.translatesAutoresizingMaskIntoConstraints = false
+            view.backgroundColor = .systemGray6
+        }
+    }
+    
+    private func configureCountLabels() {
+        for label in [todoCountLabel, doingCountLabel, doneCountLabel] {
+            label.translatesAutoresizingMaskIntoConstraints = false
+            label.backgroundColor = .black
+            label.textColor = .white
+            label.font = UIFont.preferredFont(forTextStyle: .title2)
+            label.textAlignment = .center
+            label.layer.masksToBounds = true
+        }
+    }
+    
+    private func configureTitleLabels() {
+        for (type, label) in zip(TaskType.allCases, [todoTitleLabel, doingTitleLabel, doneTitleLabel]) {
+            label.translatesAutoresizingMaskIntoConstraints = false
+            label.text = "\(type)"
+            label.font = UIFont.preferredFont(forTextStyle: .title1)
         }
     }
 }
