@@ -231,7 +231,7 @@
             <objects>
                 <viewController storyboardIdentifier="TaskAlert" id="O8J-8T-QgR" customClass="TaskAlertViewController" customModule="ProjectManager" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8Cs-RN-AQq">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1366" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="zVE-Qe-fkN">
@@ -256,7 +256,11 @@
                                 <rect key="frame" x="0.0" y="0.0" width="1366" height="50"/>
                                 <items>
                                     <navigationItem title="Title" id="E0r-1u-c7d">
-                                        <barButtonItem key="leftBarButtonItem" title="Item" id="fiZ-At-OVf"/>
+                                        <barButtonItem key="leftBarButtonItem" title="Item" id="fiZ-At-OVf">
+                                            <connections>
+                                                <action selector="didTapLeftBarButton:" destination="O8J-8T-QgR" id="9ci-BG-Mhl"/>
+                                            </connections>
+                                        </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" title="Item" systemItem="done" id="Dxv-1v-v4O">
                                             <connections>
                                                 <action selector="finishEditTask:" destination="O8J-8T-QgR" id="RsJ-I3-tHE"/>
@@ -285,6 +289,9 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="datePicker" destination="zVE-Qe-fkN" id="6LY-8O-A3C"/>
+                        <outlet property="doneButton" destination="Dxv-1v-v4O" id="vIL-4B-J0t"/>
+                        <outlet property="leftBarButton" destination="fiZ-At-OVf" id="gbM-uJ-gyT"/>
                         <outlet property="taskTextField" destination="Fpw-Fc-P2W" id="tmx-xZ-qRZ"/>
                         <outlet property="taskTextView" destination="ZA4-H7-4Up" id="uTe-4s-otv"/>
                     </connections>

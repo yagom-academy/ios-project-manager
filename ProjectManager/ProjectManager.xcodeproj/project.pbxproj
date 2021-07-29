@@ -21,6 +21,7 @@
 		E2738BA826A5CB5100B54228 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2738BA626A5CB5100B54228 /* TableViewCell.swift */; };
 		E2738BA926A5CB5100B54228 /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2738BA726A5CB5100B54228 /* TableViewCell.xib */; };
 		E293492426B07C0D00EC5CD1 /* TaskType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E293492326B07C0D00EC5CD1 /* TaskType.swift */; };
+		E2DB8A9826B2DAAF00EFF826 /* TaskDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DB8A9726B2DAAF00EFF826 /* TaskDelegate.swift */; };
 		E2F9993326A9439D00E639BA /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F9993226A9439D00E639BA /* Task.swift */; };
 /* End PBXBuildFile section */
 
@@ -41,6 +42,7 @@
 		E2738BA626A5CB5100B54228 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		E2738BA726A5CB5100B54228 /* TableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableViewCell.xib; sourceTree = "<group>"; };
 		E293492326B07C0D00EC5CD1 /* TaskType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskType.swift; sourceTree = "<group>"; };
+		E2DB8A9726B2DAAF00EFF826 /* TaskDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDelegate.swift; sourceTree = "<group>"; };
 		E2F9993226A9439D00E639BA /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -99,6 +101,7 @@
 			children = (
 				C7431F0925F51E1D0094C4CF /* TaskViewController.swift */,
 				76F4BB5826A6C02300F78275 /* TaskAlertViewController.swift */,
+				E2DB8A9726B2DAAF00EFF826 /* TaskDelegate.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -235,6 +238,7 @@
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				E2F9993326A9439D00E639BA /* Task.swift in Sources */,
 				76A25D5926AFDC57005387DF /* TaskDataSource.swift in Sources */,
+				E2DB8A9826B2DAAF00EFF826 /* TaskDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				76A25D5C26AFE654005387DF /* TaskError.swift in Sources */,
 			);

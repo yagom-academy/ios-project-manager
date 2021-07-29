@@ -96,8 +96,11 @@ class TaskViewController: UIViewController {
     }
     
     @IBAction func addTask(_ sender: UIBarButtonItem) {
-        guard let taskAlertViewController = self.storyboard?.instantiateViewController(identifier: "TaskAlert") else { return }
+        guard let taskAlertViewController = self.storyboard?.instantiateViewController(identifier: "TaskAlert")  as? TaskAlertViewController
+        else { return }
         
+        taskAlertViewController.taskDelegate = self
+        taskAlertViewController.leftBarButtonName = "Cancel"
         taskAlertViewController.modalPresentationStyle = .formSheet
         taskAlertViewController.modalTransitionStyle =  .crossDissolve
         self.present(taskAlertViewController, animated: true, completion: nil)
@@ -199,6 +202,14 @@ extension TaskViewController: UITableViewDropDelegate {
         default:
             return
         }
+    }
+}
+
+extension TaskViewController: TaskDelegate {
+    func sendTask(task: Task) {
+        let dataSource = dataSourceForTableView(todoTableView)
+        dataSource.addTask(task, at: 0)
+        todoTableView.insertSections([0,0], with: .automatic)
     }
 }
 
