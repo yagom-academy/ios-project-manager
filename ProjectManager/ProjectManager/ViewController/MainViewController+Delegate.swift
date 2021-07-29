@@ -7,11 +7,12 @@
 
 import UIKit
 
-extension ViewController: UITableViewDelegate {
+extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let dataSource = dataSourceForTableView(tableView)
-        let task = dataSource.getTask(indexPath)
+        let dataSource = dataSource(for: tableView)
+        let task = dataSource.task(at: indexPath)
         let taskFormViewController = TaskFormViewController(type: .edit)
+        taskFormViewController.delegate = self
         taskFormViewController.configureViews(task)
         let navigationController = UINavigationController(rootViewController: taskFormViewController)
         navigationController.modalPresentationStyle = .formSheet

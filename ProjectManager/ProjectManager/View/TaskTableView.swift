@@ -8,9 +8,9 @@
 import UIKit
 
 class TaskTableView: UITableView {
-    let state: State
+    let state: TaskType
     
-    init(state: State) {
+    init(state: TaskType) {
         self.state = state
         super.init(frame: .zero, style: .plain)
         self.translatesAutoresizingMaskIntoConstraints = false

@@ -8,10 +8,15 @@
 import UIKit
 
 class ItemTableViewCell: UITableViewCell {
+    
+    private enum Style {
+        static let margin: UIEdgeInsets = .init(top: 8, left: 8, bottom: 8, right: 8)
+    }
+    
     static let identifier = "itemTableViewCell"
-    lazy var titleLabel: ItemTitleLabel = ItemTitleLabel()
-    lazy var contentLabel: ItemContentLabel = ItemContentLabel()
-    lazy var dateLabel: ItemDateLabel = ItemDateLabel()
+    private var titleLabel: UILabel = UILabel()
+    private var contentLabel: UILabel = UILabel()
+    private var dateLabel: UILabel = UILabel()
     
     lazy var stackView: UIStackView = {
         let stackView: UIStackView = UIStackView(arrangedSubviews: [titleLabel, contentLabel, dateLabel])
@@ -26,16 +31,15 @@ class ItemTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(stackView)
         configureConstraints()
+        configureTitleLabel()
+        configureContentLabel()
+        configureDateLabel()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-    
+
     override func setHighlighted(_ highlighted: Bool, animated: Bool) {
         super.setHighlighted(highlighted, animated: animated)
         if highlighted {
@@ -47,10 +51,10 @@ class ItemTableViewCell: UITableViewCell {
     
     private func configureConstraints() {
         NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
-            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
-            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
+            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Style.margin.left),
+            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Style.margin.top),
+            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Style.margin.right),
+            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Style.margin.bottom)
         ])
     }
     
@@ -58,8 +62,39 @@ class ItemTableViewCell: UITableViewCell {
         titleLabel.text = task.title
         contentLabel.text = task.content
         dateLabel.text = task.deadLine
-        if task.state != .done {
-            dateLabel.setTextColor(by: task.deadLine)
+        if task.type != .done {
+            let currentDate = DateUtil.formatDate(Date())
+            if currentDate <= task.deadLine {
+                dateLabel.textColor = .black
+            } else {
+                dateLabel.textColor = .systemRed
+            }
         }
     }
 }
+
+extension ItemTableViewCell {
+    
+    private func configureTitleLabel() {
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.numberOfLines = 1
+        titleLabel.lineBreakMode = .byTruncatingTail
+        titleLabel.font = UIFont.preferredFont(forTextStyle: .title3)
+    }
+    
+    private func configureContentLabel() {
+        contentLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentLabel.numberOfLines = 3
+        contentLabel.lineBreakMode = .byTruncatingTail
+        contentLabel.font = UIFont.preferredFont(forTextStyle: .body)
+        contentLabel.textColor = .systemGray2
+    }
+    
+    private func configureDateLabel() {
+        dateLabel.translatesAutoresizingMaskIntoConstraints = false
+        dateLabel.numberOfLines = 1
+        dateLabel.lineBreakMode = .byTruncatingTail
+        dateLabel.font = UIFont.preferredFont(forTextStyle: .callout)
+    }
+}
+

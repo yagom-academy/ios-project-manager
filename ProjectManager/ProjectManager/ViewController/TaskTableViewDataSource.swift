@@ -8,12 +8,12 @@
 import UIKit
 
 class TaskTableViewDataSource: NSObject, UITableViewDataSource {
-    var onUpdated: () -> Void = {}
     private var tasks: [Task] {
         didSet {
             onUpdated()
         }
     }
+    var onUpdated: () -> Void = {}
     var taskCount: Int {
         return tasks.count
     }
@@ -27,8 +27,12 @@ class TaskTableViewDataSource: NSObject, UITableViewDataSource {
         return tasks.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: ItemTableViewCell.identifier) as? ItemTableViewCell else { return UITableViewCell()}
+    func tableView(_ tableView: UITableView,
+                   cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ItemTableViewCell.identifier)
+                as? ItemTableViewCell else {
+            return UITableViewCell()
+        }
         cell.configure(task: tasks[indexPath.row])
         cell.selectionStyle = .none
         return cell
@@ -47,28 +51,27 @@ class TaskTableViewDataSource: NSObject, UITableViewDataSource {
 extension TaskTableViewDataSource {
     func dragItems(for indexPath: IndexPath) -> [UIDragItem] {
         let task: Task = tasks[indexPath.row]
-        let itemProvider = NSItemProvider(object: task)
-        let dragItem = UIDragItem(itemProvider: itemProvider)
+        let dragItem = UIDragItem(itemProvider: NSItemProvider())
         dragItem.localObject = task
         return [dragItem]
     }
     
-    func addTask(_ task: Task, at index: Int) {
+    func add(_ task: Task, at index: Int) {
         tasks.insert(task, at: index)
     }
     
-    func moveTask(at sourceIndex: Int, to destinationIndex: Int) {
+    func move(from sourceIndex: Int, to destinationIndex: Int) {
         guard sourceIndex != destinationIndex else { return }
         let task = tasks[sourceIndex]
         tasks.remove(at: sourceIndex)
         tasks.insert(task, at: destinationIndex)
     }
     
-    func deleteTask(at index: Int) {
+    func delete(at index: Int) {
         tasks.remove(at: index)
     }
     
-    func getTask(_ indexPath: IndexPath) -> Task {
+    func task(at indexPath: IndexPath) -> Task {
         return tasks[indexPath.row]
     }
 }
