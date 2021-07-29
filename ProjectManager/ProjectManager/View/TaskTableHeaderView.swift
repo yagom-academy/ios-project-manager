@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TaskTableHeaderView: UIView {
+final class TaskTableHeaderView: UIView {
     let statusLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .largeTitle)
