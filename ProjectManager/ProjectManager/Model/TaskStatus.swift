@@ -7,8 +7,19 @@
 
 import Foundation
 
-enum TaskStatus: String {
+enum TaskStatus {
     case TODO
     case DOING
     case DONE
+
+    var name: String {
+        switch self {
+        case .TODO:
+            return "TODO"
+        case .DOING:
+            return "DOING"
+        case .DONE:
+            return "DONE"
+        }
+    }
 }

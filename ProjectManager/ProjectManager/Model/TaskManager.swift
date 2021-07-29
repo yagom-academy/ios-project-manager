@@ -34,7 +34,7 @@ final class TaskManager {
             let newTask = Task(context: self.viewContext)
             newTask.title = title
             newTask.body = description
-            newTask.status = TaskStatus.TODO.rawValue
+            newTask.status = TaskStatus.TODO.name
             newTask.date = date.timeIntervalSince1970
 
             self.toDoTasks.insert(newTask, at: 0)

@@ -114,17 +114,17 @@ final class KanBanBoardViewController: UIViewController {
         headerStackView.addArrangedSubview(doneHeaderView)
 
         toDoHeaderView.setText(
-            status: TaskStatus.TODO.rawValue,
+            status: TaskStatus.TODO.name,
             count: TaskManager.shared.toDoTasks.count.description
         )
 
         doingHeaderView.setText(
-            status: TaskStatus.DOING.rawValue,
+            status: TaskStatus.DOING.name,
             count: TaskManager.shared.doingTasks.count.description
         )
 
         doneHeaderView.setText(
-            status: TaskStatus.DONE.rawValue,
+            status: TaskStatus.DONE.name,
             count: TaskManager.shared.doneTasks.count.description
         )
     }
@@ -303,7 +303,7 @@ extension KanBanBoardViewController: UITableViewDropDelegate {
 
             taskTableHeaderView(of: tableView.status).countLabel.text = tableView.tasks.count.description
 
-            dragTask.status = tableView.status.rawValue
+            dragTask.status = tableView.status.name
             kanBanTableView(of: tableView.status).insertRows(at: [destinationIndexPath], with: .automatic)
         }
 
