@@ -54,15 +54,18 @@ final class KanBanBoardViewController: UIViewController {
     }
 
     private func fetchTaskData() {
+        loadingIndicator.startAnimating()
+
         DispatchQueue.global().async { [weak self] in
             guard let self = self else { return }
             do {
-                try TaskManager.shared.fetchTasks()
-                DispatchQueue.main.async {
-                    self.toDoTableView.reloadData()
-                    self.doingTableView.reloadData()
-                    self.doneTableView.reloadData()
-                    self.loadingIndicator.stopAnimating()
+                try TaskManager.shared.fetchTasks {
+                    DispatchQueue.main.async {
+                        self.toDoTableView.reloadData()
+                        self.doingTableView.reloadData()
+                        self.doneTableView.reloadData()
+                        self.loadingIndicator.stopAnimating()
+                    }
                 }
             } catch {
                 let alert = UIAlertController(title: "데이터 불러오기 실패",
@@ -90,17 +93,11 @@ final class KanBanBoardViewController: UIViewController {
     }
 
     private func setTableViewDelegate() {
-        toDoTableView.delegate = self
-        doingTableView.delegate = self
-        doneTableView.delegate = self
-
-        toDoTableView.dragDelegate = self
-        doingTableView.dragDelegate = self
-        doneTableView.dragDelegate = self
-
-        toDoTableView.dropDelegate = self
-        doingTableView.dropDelegate = self
-        doneTableView.dropDelegate = self
+        [toDoTableView, doingTableView, doneTableView].forEach { tableView in
+            tableView.delegate = self
+            tableView.dragDelegate = self
+            tableView.dropDelegate = self
+        }
     }
 
     private func setUpHeaderStackView() {
@@ -118,7 +115,8 @@ final class KanBanBoardViewController: UIViewController {
 
         toDoHeaderView.setText(
             status: TaskStatus.TODO.rawValue,
-            count: TaskManager.shared.toDoTasks.count.description)
+            count: TaskManager.shared.toDoTasks.count.description
+        )
 
         doingHeaderView.setText(
             status: TaskStatus.DOING.rawValue,
@@ -150,7 +148,6 @@ final class KanBanBoardViewController: UIViewController {
         loadingIndicator.snp.makeConstraints { loadingIndicator in
             loadingIndicator.center.equalToSuperview()
         }
-        loadingIndicator.startAnimating()
     }
 
     @objc func touchUpTaskAddButton() {

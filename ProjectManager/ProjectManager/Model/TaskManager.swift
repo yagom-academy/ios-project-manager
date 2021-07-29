@@ -104,13 +104,15 @@ final class TaskManager {
         }
     }
 
-    func fetchTasks() throws {
+    func fetchTasks(_ completionHandler: @escaping () -> Void) throws {
         let request = Task.fetchRequest() as NSFetchRequest<Task>
         let tasks = try viewContext.fetch(request)
 
         self.toDoTasks = tasks.filter { $0.status == "TODO" }
         self.doingTasks = tasks.filter { $0.status == "DOING" }
         self.doneTasks = tasks.filter { $0.status == "DONE" }
+
+        completionHandler()
     }
 
     func saveTasks() {
