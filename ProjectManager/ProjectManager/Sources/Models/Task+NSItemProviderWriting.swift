@@ -10,12 +10,12 @@ import MobileCoreServices
 
 extension Task: NSItemProviderWriting {
 
-    static var writableTypeIdentifiersForItemProvider: [String] {
+    public static var writableTypeIdentifiersForItemProvider: [String] {
         return [kUTTypeJSON as String]
     }
 
-    func loadData(withTypeIdentifier typeIdentifier: String,
-                  forItemProviderCompletionHandler completionHandler: @escaping (Data?, Error?) -> Void) -> Progress? {
+    public func loadData(withTypeIdentifier typeIdentifier: String,
+                         forItemProviderCompletionHandler completionHandler: @escaping (Data?, Error?) -> Void) -> Progress? {
         if typeIdentifier == kUTTypeJSON as String {
             guard let draggedTask = try? JSONEncoder().encode(self) else {
                 completionHandler(nil, PMError.cannotEncodeToJSON)
