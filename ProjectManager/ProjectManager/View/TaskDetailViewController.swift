@@ -69,13 +69,13 @@ final class TaskDetailViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .done,
             target: self,
-            action: #selector(touchUpRightBarButton)
+            action: #selector(rightBarButtonDidTapped)
         )
 
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: leftBarButtonSystemItem,
             target: self,
-            action: #selector(touchUpLeftBarButton)
+            action: #selector(leftBarButtonDidTapped)
         )
     }
 
@@ -128,7 +128,7 @@ final class TaskDetailViewController: UIViewController {
         }
     }
 
-    @objc private func touchUpLeftBarButton() {
+    @objc private func leftBarButtonDidTapped() {
         switch self.mode {
         case .add:
             break
@@ -139,7 +139,7 @@ final class TaskDetailViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
 
-    @objc private func touchUpRightBarButton() {
+    @objc private func rightBarButtonDidTapped() {
         switch self.mode {
         case .add:
             addTask()

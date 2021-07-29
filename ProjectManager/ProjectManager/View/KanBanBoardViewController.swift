@@ -82,7 +82,7 @@ final class KanBanBoardViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .add,
             target: self,
-            action: #selector(touchUpTaskAddButton)
+            action: #selector(taskAddButtonDidTapped)
         )
     }
 
@@ -150,7 +150,7 @@ final class KanBanBoardViewController: UIViewController {
         }
     }
 
-    @objc func touchUpTaskAddButton() {
+    @objc func taskAddButtonDidTapped() {
         let taskDetailViewController = TaskDetailViewController(mode: .add)
         taskDetailViewController.view.backgroundColor = .systemBackground
         taskDetailViewController.modalPresentationStyle = .formSheet
