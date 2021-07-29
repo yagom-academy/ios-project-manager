@@ -21,23 +21,9 @@ final class KanBanBoardViewController: UIViewController {
         return stackView
     }()
 
-    private let toDoTableView: KanBanTableView = {
-        let tableView = KanBanTableView(status: .TODO)
-        tableView.register(KanBanBoardCell.self, forCellReuseIdentifier: KanBanBoardCell.reuseIdentifier)
-        return tableView
-    }()
-
-    private let doingTableView: KanBanTableView = {
-        let tableView = KanBanTableView(status: .DOING)
-        tableView.register(KanBanBoardCell.self, forCellReuseIdentifier: KanBanBoardCell.reuseIdentifier)
-        return tableView
-    }()
-
-    private let doneTableView: KanBanTableView = {
-        let tableView = KanBanTableView(status: .DONE)
-        tableView.register(KanBanBoardCell.self, forCellReuseIdentifier: KanBanBoardCell.reuseIdentifier)
-        return tableView
-    }()
+    private let toDoTableView = KanBanTableView(status: .TODO)
+    private let doingTableView = KanBanTableView(status: .DOING)
+    private let doneTableView = KanBanTableView(status: .DONE)
 
     private let tableStackView: UIStackView = {
         let stackView = UIStackView()
