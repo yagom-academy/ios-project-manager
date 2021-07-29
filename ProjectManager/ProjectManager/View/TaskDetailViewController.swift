@@ -64,7 +64,7 @@ final class TaskDetailViewController: UIViewController {
     }
 
     private func setUpNavigationItem() {
-        let leftBarButtonSystemItem: UIBarButtonItem.SystemItem = mode == .add ? .cancel : .edit
+        let leftBarButtonSystemItem: UIBarButtonItem.SystemItem = self.mode == .add ? .cancel : .edit
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .done,
@@ -110,7 +110,7 @@ final class TaskDetailViewController: UIViewController {
 
     private func fetchTaskData() {
         guard let indexPath = indexPath,
-              let status = status else { return }
+              let status = self.status else { return }
 
         switch status {
         case .TODO:
@@ -129,7 +129,7 @@ final class TaskDetailViewController: UIViewController {
     }
 
     @objc private func touchUpLeftBarButton() {
-        switch mode {
+        switch self.mode {
         case .add:
             break
         case .edit:
@@ -140,7 +140,7 @@ final class TaskDetailViewController: UIViewController {
     }
 
     @objc private func touchUpRightBarButton() {
-        switch mode {
+        switch self.mode {
         case .add:
             addTask()
         case .edit:
@@ -160,7 +160,7 @@ final class TaskDetailViewController: UIViewController {
 
     private func editTask() {
         guard let indexPath = indexPath,
-              let status = status else { return }
+              let status = self.status else { return }
 
         TaskManager.shared.editTask(
             indexPath: indexPath,

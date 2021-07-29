@@ -47,7 +47,6 @@ final class KanBanBoardCell: UITableViewCell {
         descriptionPreviewLabel.snp.makeConstraints { label in
             label.top.equalTo(titleLabel.snp.bottom).offset(10)
             label.leading.trailing.equalTo(contentView).inset(10)
-
         }
 
         dateLabel.snp.makeConstraints { label in
