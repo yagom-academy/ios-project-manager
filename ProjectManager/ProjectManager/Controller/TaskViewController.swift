@@ -206,7 +206,7 @@ extension TaskViewController: UITableViewDropDelegate {
 }
 
 extension TaskViewController: TaskDelegate {
-    func sendTask(task: Task) {
+    func sendTask(_ taskAlertViewController: TaskAlertViewController, task: Task) {
         let dataSource = dataSourceForTableView(todoTableView)
         dataSource.addTask(task, at: 0)
         todoTableView.insertSections([0,0], with: .automatic)

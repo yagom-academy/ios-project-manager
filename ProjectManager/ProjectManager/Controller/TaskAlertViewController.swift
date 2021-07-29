@@ -47,7 +47,7 @@ class TaskAlertViewController: UIViewController {
     @IBAction func finishEditTask(_ sender: Any) {
         if let title = taskTextField.text,
            title.isEmpty == false {
-            taskDelegate?.sendTask(task: Task(id: nil,
+            taskDelegate?.sendTask(self, task: Task(id: nil,
                                               title: title,
                                               content: taskTextView.text,
                                               deadLineDate: datePicker.date,

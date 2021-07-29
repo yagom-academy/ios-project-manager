@@ -8,5 +8,5 @@
 import Foundation
 
 protocol TaskDelegate: AnyObject {
-    func sendTask(task: Task)
+    func sendTask(_ taskAlertViewController: TaskAlertViewController, task: Task)
 }
