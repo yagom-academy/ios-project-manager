@@ -45,7 +45,7 @@ struct TaskViewModel {
 
     /// 지정한 Task를 todo state에 추가한다.
     mutating func add(_ task: Task) {
-        guard let index: Int = count(of: task.state) else { return }
+        guard let index: Int = count(of: task.taskState) else { return }
         taskList[.todo].append(task)
         added?(index)
     }
@@ -63,7 +63,7 @@ struct TaskViewModel {
 
     /// 지정한 Task를 다른 state의 해당하는 index로 이동시킨다.
     mutating func move(_ task: Task, to destinationState: Task.State, at destinationIndex: Int) {
-        guard task.state != destinationState,
+        guard task.taskState != destinationState,
               destinationIndex <= taskList[destinationState].count else { return }
 
         if let removedTask: Task = remove(task) {
@@ -94,7 +94,7 @@ struct TaskViewModel {
     /// 지정한 Task를 삭제하고 이를 반환한다.
     @discardableResult
     mutating func remove(_ task: Task) -> Task? {
-        let state: Task.State = task.state
+        let state: Task.State = task.taskState
         guard let index: Int = taskList[state].firstIndex(where: { $0.id == task.id }) else { return nil }
 
         let removedTask: Task = taskList[state].remove(at: index)
@@ -107,7 +107,7 @@ struct TaskViewModel {
         guard index <= taskList[state].count else { return }
 
         taskList[state].insert(task, at: index)
-        task.state = state
+        task.taskState = state
         inserted?(state, index)
     }
 

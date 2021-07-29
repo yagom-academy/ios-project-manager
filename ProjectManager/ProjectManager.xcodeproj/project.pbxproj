@@ -27,6 +27,7 @@
 		AAC4715726B2DFB8001D211C /* ProjectManager.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AAC4715526B2DFB8001D211C /* ProjectManager.xcdatamodeld */; };
 		AAC4715A26B2E017001D211C /* Task+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC4715826B2E017001D211C /* Task+CoreDataClass.swift */; };
 		AAC4715B26B2E017001D211C /* Task+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC4715926B2E017001D211C /* Task+CoreDataProperties.swift */; };
+		AAC4716226B2E3B1001D211C /* TaskCoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC4716126B2E3B1001D211C /* TaskCoreDataStack.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* PMViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* PMViewController.swift */; };
@@ -55,6 +56,7 @@
 		AAC4715626B2DFB8001D211C /* ProjectManager.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ProjectManager.xcdatamodel; sourceTree = "<group>"; };
 		AAC4715826B2E017001D211C /* Task+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		AAC4715926B2E017001D211C /* Task+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		AAC4716126B2E3B1001D211C /* TaskCoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCoreDataStack.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 		AA9F8CCE26A6ABE300467F34 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				AAC4715F26B2E399001D211C /* CoreData */,
 				AA9ACE3926AEA44B009115BD /* Delegate */,
 				AA9F8CD126A6ACF300467F34 /* Entry */,
 				AA3267EF26A6FF87007C2E60 /* Errors */,
@@ -191,6 +194,14 @@
 				AA126ACA26AAAED200EF24ED /* TaskEditViewController.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		AAC4715F26B2E399001D211C /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				AAC4716126B2E3B1001D211C /* TaskCoreDataStack.swift */,
+			);
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 		C7431EF925F51E1D0094C4CF = {
@@ -328,6 +339,7 @@
 				AA9ACE3826AE9F03009115BD /* TaskEditViewModel.swift in Sources */,
 				AA32681826A94435007C2E60 /* TaskCell.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
+				AAC4716226B2E3B1001D211C /* TaskCoreDataStack.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				AA126AC326A9756C00EF24ED /* Task+NSItemProviderWriting.swift in Sources */,
 				AA9ACE3B26AEA481009115BD /* TaskEditViewControllerDelegate.swift in Sources */,
