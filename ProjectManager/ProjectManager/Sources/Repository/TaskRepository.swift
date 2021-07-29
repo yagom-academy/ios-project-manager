@@ -17,10 +17,15 @@ struct TaskRepository {
             return
         }
 
-        guard let taskList = try? decoder.decode(TaskList.self, from: asset.data) else {
+        guard let tasks = try? decoder.decode([Task].self, from: asset.data) else {
             completion(.failure(.decodingFailed))
             return
         }
+
+        let todos = tasks.filter { $0.taskState == .todo }
+        let doings = tasks.filter { $0.taskState == .doing }
+        let dones = tasks.filter { $0.taskState == .done }
+        let taskList = TaskList(todos: todos, doings: doings, dones: dones)
 
         completion(.success(taskList))
     }

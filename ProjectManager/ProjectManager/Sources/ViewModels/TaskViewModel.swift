@@ -14,7 +14,8 @@ struct TaskViewModel {
     var inserted: ((_ state: Task.State, _ index: Int) -> Void)?
     var removed: ((_ state: Task.State, _ index: Int) -> Void)?
 
-    private let repository = TaskRepository()
+    private let taskRepository = TaskRepository()
+    private let taskManager = TaskManager()
 
     private(set) var taskList = TaskList() {
         didSet {
@@ -23,13 +24,14 @@ struct TaskViewModel {
     }
 
     mutating func fetchTasks(completion: @escaping () -> Void) {
-        repository.fetchTasks { result in
+        taskRepository.fetchTasks { result in
             switch result {
             case .success(let taskList):
                 self.taskList = taskList
                 completion()
             case .failure(let error):
                 print(error)
+                self.taskList = taskManager.read()
                 completion()
             }
         }
@@ -87,6 +89,7 @@ struct TaskViewModel {
         guard index < taskList[state].count else { return nil }
 
         let removedTask: Task = taskList[state].remove(at: index)
+        taskManager.delete(removedTask.objectID)
         removed?(state, index)
         return removedTask
     }
@@ -98,6 +101,7 @@ struct TaskViewModel {
         guard let index: Int = taskList[state].firstIndex(where: { $0.id == task.id }) else { return nil }
 
         let removedTask: Task = taskList[state].remove(at: index)
+        taskManager.delete(removedTask.objectID)
         removed?(state, index)
         return removedTask
     }

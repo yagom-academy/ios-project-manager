@@ -7,9 +7,15 @@
 
 struct TaskList: Codable {
 
-    private var todos: [Task] = []
-    private var doings: [Task] = []
-    private var dones: [Task] = []
+    private var todos: [Task]
+    private var doings: [Task]
+    private var dones: [Task]
+
+    init(todos: [Task] = [], doings: [Task] = [], dones: [Task] = []) {
+        self.todos = todos
+        self.doings = doings
+        self.dones = dones
+    }
 
     subscript(state: Task.State) -> [Task] {
         get {
