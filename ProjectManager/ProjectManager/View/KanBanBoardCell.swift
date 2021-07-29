@@ -10,6 +10,8 @@ import UIKit
 final class KanBanBoardCell: UITableViewCell {
     static let reuseIdentifier = "kanBanBoardCell"
 
+    private let dateFormatter = DateFormatter()
+
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "titleLabel"
@@ -69,12 +71,11 @@ final class KanBanBoardCell: UITableViewCell {
 
     private func convertDate(date: Double) -> String {
         let result = Date(timeIntervalSince1970: date)
-        let dateFormatter = DateFormatter()
 
-        dateFormatter.locale = Locale(identifier: Locale.preferredLanguages.first!)
-        dateFormatter.dateStyle = .long
+        self.dateFormatter.locale = Locale(identifier: Locale.preferredLanguages.first!)
+        self.dateFormatter.dateStyle = .long
 
-        return dateFormatter.string(from: result)
+        return self.dateFormatter.string(from: result)
     }
 
     private func isDueDateOver(dueDate: Double) -> Bool {
