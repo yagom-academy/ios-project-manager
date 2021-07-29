@@ -42,43 +42,43 @@ Tak, Kane, Steven
 <details>
   <summary>7/23(금)</summary>
   <p> 
-    - 할 일 입력창 구현
-    - View Draw cycle 공부
+    - 할 일 입력창 구현<br>
+    - View Draw cycle 공부<br>
     - swipe to delete 구현
   </p>
 </details>
 <details>
   <summary>7/26(월)</summary>
   <p> 
-    - 활동학습(ssl, tls, 소켓)
-    - 커스텀 Label, View 구현
-    - 데드라인이 지난 것은 빨간색으ㄹ 표시하게 구현(done일 때는 모두 검은색으로)
-    - TableView cell의 개수에 따라서 몇개 인지가 바뀌게 구현
-    - 날짜 포맷 기능을 분리
+    - 활동학습(ssl, tls, 소켓)<br>
+    - 커스텀 Label, View 구현<br>
+    - 데드라인이 지난 것은 빨간색으ㄹ 표시하게 구현(done일 때는 모두 검은색으로)<br>
+    - TableView cell의 개수에 따라서 몇개 인지가 바뀌게 구현<br>
+    - 날짜 포맷 기능을 분리<br>
     - Step1 PR 보냄
   </p>
 </details>
 <details>
   <summary>7/27(화)</summary>
   <p> 
-    - Alamofire와 URLSession 차이점 공부
-    - lottie 애니메이션 공부
+    - Alamofire와 URLSession 차이점 공부<br>
+    - lottie 애니메이션 공부<br>
     - 리뷰어에게 PR 리뷰 받고 면담
   </p>
 </details>
 <details>
   <summary>7/28(수)</summary>
   <p> 
-    - PR 리뷰를 바탕으로 코드 수정
-    - 코딩 컨벤션과 네이밍을 신경쓰면서 수정
+    - PR 리뷰를 바탕으로 코드 수정<br>
+    - 코딩 컨벤션과 네이밍을 신경쓰면서 수정<br>
     - 소스트리 적용
   </p>
 </details>
 <details>
   <summary>7/29(목)</summary>
   <p> 
-    - 활동학습(SwiftUI)
-    - 커스텀 뷰들을 ViewController의 메소드로 적용
+    - 활동학습(SwiftUI)<br>
+    - 커스텀 뷰들을 ViewController의 메소드로 적용<br>
     - Convenience init 공부
   </p>
 </details>
