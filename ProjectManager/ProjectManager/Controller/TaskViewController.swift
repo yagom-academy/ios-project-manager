@@ -116,6 +116,16 @@ extension TaskViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 7
     }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let dataSource = dataSourceForTableView(tableView)
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { _, _, completionHandler in
+            dataSource.deleteTask(at: indexPath.section)
+            tableView.deleteSections([indexPath.section, indexPath.section], with: .automatic)
+            completionHandler(true)
+        }
+        return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
 }
 
 extension TaskViewController: UITableViewDragDelegate {
