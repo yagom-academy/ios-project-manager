@@ -12,7 +12,7 @@ final class TaskManager {
     static let shared = TaskManager()
     weak var taskManagerDelegate: TaskManagerDelegate?
 
-    let persistentContainer: NSPersistentCloudKitContainer = {
+    private let persistentContainer: NSPersistentCloudKitContainer = {
         let container = NSPersistentCloudKitContainer(name: "Task")
         container.loadPersistentStores { (_, error) in
             if let error = error as NSError? {
