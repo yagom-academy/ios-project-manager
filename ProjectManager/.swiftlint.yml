@@ -1,0 +1,9 @@
+disabled_rules:
+- line_length
+- trailing_whitespace
+- todo
+included:
+excluded:
+- ProjectManager/AppDelegate.swift
+- ProjectManager/SceneDelegate.swift
+- Pods
