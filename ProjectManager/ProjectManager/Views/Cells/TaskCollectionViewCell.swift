@@ -179,6 +179,7 @@ final class TaskCollectionViewCell: UICollectionViewCell {
         self.taskTitle.text = data.taskTitle
         self.taskDescription.text = data.taskDescription
         self.taskDeadline.text = convertDateToString(data.taskDeadline)
+        self.deleteButton.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
         guard let isDeadlinePassed = checkIfDeadlineHasPassed(deadline: convertDateToString(data.taskDeadline)) else { return }
         taskDeadline.textColor = .black
         if isDeadlinePassed {
