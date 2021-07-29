@@ -415,7 +415,6 @@ extension ProjectManagerViewController: UICollectionViewDropDelegate {
         switch coordinator.proposal.operation {
         case .move:
             guard let dragCoordinator = coordinator.session.localDragSession?.localContext as? TaskDragCoordinator else { return }
-//            guard let dragCoordinator = coordinator.session.localDragSession?.localContext else { return }
             if let sourceIndexPath = item.sourceIndexPath {
                 dragCoordinator.isReordering = true
                 collectionView.performBatchUpdates {
