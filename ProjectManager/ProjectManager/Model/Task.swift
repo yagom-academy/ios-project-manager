@@ -11,9 +11,9 @@ import MobileCoreServices
 final class Task: NSObject, Codable {
     let id: String?
     let title: String
-    let content: String
+    let content: String?
     let deadLineDate: Date
-    let classification: String
+    let category: TaskType
     var formattedDeadLineDate: String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
@@ -21,8 +21,16 @@ final class Task: NSObject, Codable {
         return dateFormatter.string(from: self.deadLineDate)
     }
     
+    init(id: String?, title: String, content: String?, deadLineDate: Date, category: TaskType) {
+        self.id = id
+        self.title = title
+        self.content = content
+        self.deadLineDate = deadLineDate
+        self.category = category
+    }
+    
     private enum CodingKeys: String, CodingKey {
-        case id, title, content, classification
+        case id, title, content, category
         case deadLineDate = "deadline_date"
     }
 }
