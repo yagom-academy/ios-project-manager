@@ -59,7 +59,6 @@ final class ProjectManagerViewController: UIViewController, TaskAddDelegate, Del
         header.translatesAutoresizingMaskIntoConstraints = false
         return header
     }()
-    private let addTaskViewController = TaskDetailViewController()
     private let toDoViewModel = TaskViewModel()
     private let doingViewModel = TaskViewModel()
     private let doneViewModel = TaskViewModel()
@@ -80,26 +79,26 @@ final class ProjectManagerViewController: UIViewController, TaskAddDelegate, Del
     private func setDataBindingWithViewModel() {
         toDoViewModel.updateTaskCollectionView = { [weak self] in
             self?.updateCount(self!.toDoCollectionView)
-            self?.toDoCollectionView.reloadData()
         }
         doingViewModel.updateTaskCollectionView = { [weak self] in
             self?.updateCount(self!.doingCollectionView)
-            self?.doingCollectionView.reloadData()
         }
         doneViewModel.updateTaskCollectionView = { [weak self] in
             self?.updateCount(self!.doneCollectionView)
-            self?.doneCollectionView.reloadData()
         }
     }
     
     func updateData(state: State, indexPath: IndexPath, _ data: Task) {
         switch state {
         case .todo:
-            toDoViewModel.updateTaskIntoTaskList(indexPath: indexPath, task: data)
+            self.toDoViewModel.updateTaskIntoTaskList(indexPath: indexPath, task: data)
+            self.toDoCollectionView.reloadItems(at: [indexPath])
         case .doing:
-            doingViewModel.updateTaskIntoTaskList(indexPath: indexPath, task: data)
+            self.doingViewModel.updateTaskIntoTaskList(indexPath: indexPath, task: data)
+            self.doingCollectionView.reloadItems(at: [indexPath])
         case .done:
-            doneViewModel.updateTaskIntoTaskList(indexPath: indexPath, task: data)
+            self.doneViewModel.updateTaskIntoTaskList(indexPath: indexPath, task: data)
+            self.doneCollectionView.reloadItems(at: [indexPath])
         }
     }
     
@@ -127,14 +126,16 @@ final class ProjectManagerViewController: UIViewController, TaskAddDelegate, Del
     }
     
     @objc private func addTask() {
+        let addTaskViewController = TaskDetailViewController()
+        addTaskViewController.taskDelegate = self
         addTaskViewController.modalPresentationStyle = .formSheet
         addTaskViewController.setState(mode: .add, state: .todo, data: nil, indexPath: nil)
         present(UINavigationController(rootViewController: addTaskViewController), animated: true, completion: nil)
     }
     
     func addData(_ data: Task) {
-        toDoViewModel.insertTaskIntoTaskList(index: 0, task: data)
-        toDoCollectionView.insertItems(at: [IndexPath(row: 0, section: 0)])
+        self.toDoViewModel.insertTaskIntoTaskList(index: 0, task: data)
+        self.toDoCollectionView.insertItems(at: [IndexPath(row: 0, section: 0)])
     }
     
     // MARK: - Initial Configure
@@ -169,7 +170,6 @@ final class ProjectManagerViewController: UIViewController, TaskAddDelegate, Del
         self.toDoCollectionView.dropDelegate = self
         self.doingCollectionView.dropDelegate = self
         self.doneCollectionView.dropDelegate = self
-        self.addTaskViewController.taskDelegate = self
     }
     
     private func setDataSource() {
@@ -340,7 +340,10 @@ extension ProjectManagerViewController: UICollectionViewDataSource {
 
 extension ProjectManagerViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let addTaskViewController = TaskDetailViewController()
+        addTaskViewController.taskDelegate = self
         addTaskViewController.modalPresentationStyle = .formSheet
+        
         switch collectionView {
         case toDoCollectionView:
             addTaskViewController.setState(mode: .edit, state: .todo, data: toDoViewModel.referTask(at: indexPath), indexPath: indexPath)
