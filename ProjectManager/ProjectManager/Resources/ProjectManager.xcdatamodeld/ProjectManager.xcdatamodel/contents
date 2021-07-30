@@ -3,7 +3,7 @@
     <entity name="Task" representedClassName="Task" syncable="YES">
         <attribute name="body" attributeType="String"/>
         <attribute name="dueDate" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="state" attributeType="String"/>
         <attribute name="title" attributeType="String"/>
     </entity>

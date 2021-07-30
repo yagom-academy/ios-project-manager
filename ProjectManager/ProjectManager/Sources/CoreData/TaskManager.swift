@@ -16,7 +16,6 @@ struct TaskManager {
         let context = coreDataStack.persistentContainer.viewContext
         let task = Task(context: context)
 
-        task.id = UUID()
         task.title = title
         task.body = body
         task.dueDate = dueDate
