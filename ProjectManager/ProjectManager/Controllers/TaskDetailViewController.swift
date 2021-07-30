@@ -70,7 +70,6 @@ final class TaskDetailViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setNavigationItem()
-        resetInitalConfigure()
         checkMode()
     }
     
@@ -79,14 +78,6 @@ final class TaskDetailViewController: UIViewController {
     private func setTaskDetailViewControllerConfigure() {
         self.view.backgroundColor = .white
         self.navigationItem.title = "TODO"
-    }
-    
-    private func resetInitalConfigure() {
-        self.titleTextField.text = nil
-        self.descriptionTextView.text = nil
-        self.todoTitle = nil
-        self.todoDescription = nil
-        self.deadLineDatePickerView.setDate(Date(), animated: true)
     }
     
     private func setDelegate() {
@@ -187,28 +178,26 @@ final class TaskDetailViewController: UIViewController {
     }
     
     @objc private func tapDoneButton() {
-        guard let todoTitle = self.todoTitle else {
+        guard let title = self.titleTextField.text, let description = self.descriptionTextView.text else { return }
+
+        if title.count > 100 {
+            taskDetailErrorAlert(title: "⚠️", message: "Title Error: 100자 이상")
+            return
+        } else if title.count == 0 {
             taskDetailErrorAlert(title: "⚠️", message: "Title Error: 비어있습니다.")
             return
         }
-        
-        guard let todoDescription = self.todoDescription else {
+
+        if description.count > 1000 {
+            taskDetailErrorAlert(title: "⚠️", message: "Description Error: 1000자 이상.")
+            return
+        } else if description.count == 0 {
             taskDetailErrorAlert(title: "⚠️", message: "Description Error: 비어있습니다.")
             return
         }
         
-        if todoTitle.count > 100 {
-            taskDetailErrorAlert(title: "⚠️", message: "Title Error: 100자 이상")
-            return
-        }
-
-        if todoDescription.count > 1000 {
-            taskDetailErrorAlert(title: "⚠️", message: "Description Error: 1000자 이상.")
-            return
-        }
-        
         dismiss(animated: true) {
-            let data = Task(taskTitle: todoTitle, taskDescription: todoDescription, taskDeadline: self.deadLineDatePickerView.date)
+            let data = Task(taskTitle: title, taskDescription: description, taskDeadline: self.deadLineDatePickerView.date)
             
             if self.mode == .add {
                 self.taskDelegate?.addData(data)
