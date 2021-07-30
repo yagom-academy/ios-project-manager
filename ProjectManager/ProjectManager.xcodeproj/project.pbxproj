@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		455C45D426AA4CDA0024C9D1 /* TaskTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455C45D326AA4CDA0024C9D1 /* TaskTableViewDataSource.swift */; };
 		4584667226A7C41D002BBA1C /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 4584667126A7C41D002BBA1C /* .swiftlint.yml */; };
+		4584741426B3C1C6008C9E62 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4584741326B3C1C6008C9E62 /* NetworkManager.swift */; };
 		B05D4B5926A9578500FA3560 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05D4B5826A9578500FA3560 /* Task.swift */; };
 		B08D8E1926AA5D39003CB311 /* MainViewController+Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08D8E1826AA5D39003CB311 /* MainViewController+Delegate.swift */; };
 		B08D8E1C26AA5F49003CB311 /* TaskFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08D8E1B26AA5F49003CB311 /* TaskFormViewController.swift */; };
@@ -30,6 +31,7 @@
 /* Begin PBXFileReference section */
 		455C45D326AA4CDA0024C9D1 /* TaskTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewDataSource.swift; sourceTree = "<group>"; };
 		4584667126A7C41D002BBA1C /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		4584741326B3C1C6008C9E62 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		6AA9ADBAB51EE60EC42D341C /* Pods-ProjectManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.release.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.release.xcconfig"; sourceTree = "<group>"; };
 		B05D4B5826A9578500FA3560 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		B08D8E1826AA5D39003CB311 /* MainViewController+Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+Delegate.swift"; sourceTree = "<group>"; };
@@ -70,6 +72,14 @@
 				B1DD1443BF563C703D4187D0 /* Pods_ProjectManager.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4584741526B3C1CF008C9E62 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				4584741326B3C1C6008C9E62 /* NetworkManager.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 		B05D4B5B26A957F200FA3560 /* Model */ = {
@@ -145,6 +155,7 @@
 			children = (
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
+				4584741526B3C1CF008C9E62 /* Network */,
 				C3844F6D26A950AD00F91098 /* View */,
 				B05D4B5B26A957F200FA3560 /* Model */,
 				C3484B7126A981A80054C20A /* ViewController */,
@@ -282,6 +293,7 @@
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				B08D8E1926AA5D39003CB311 /* MainViewController+Delegate.swift in Sources */,
+				4584741426B3C1C6008C9E62 /* NetworkManager.swift in Sources */,
 				C3484B7926A9879F0054C20A /* DragCoordinator.swift in Sources */,
 				B08D8E1C26AA5F49003CB311 /* TaskFormViewController.swift in Sources */,
 			);
