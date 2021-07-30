@@ -6,8 +6,9 @@
 //
 
 import UIKit
+import Network
 
-struct TaskRepository {
+final class TaskRepository {
 
     enum Endpoint {
         static let get: String = "/tasks"
@@ -16,20 +17,47 @@ struct TaskRepository {
         static let delete: String = "/task"
     }
 
+    weak var delegate: TaskRepositoryDelegate?
+
+    private let networkMonitor: NWPathMonitor = {
+        let nwPathMonitor = NWPathMonitor()
+        nwPathMonitor.start(queue: DispatchQueue.global(qos: .background))
+        return nwPathMonitor
+    }()
+
+    private(set) var isConnected: Bool = false {
+        didSet {
+            isConnected ? delegate?.networkDidConnect() : delegate?.networkDidDisConnect()
+        }
+    }
+
     private let base: String = "https://"
     private let session: URLSession = .shared
     private let okResponse: ClosedRange<Int> = (200...299)
     private let decoder: JSONDecoder = JSONDecoder()
     private let encoder: JSONEncoder = JSONEncoder()
 
+    init() {
+        networkMonitor.pathUpdateHandler = { [weak self] nwPath in
+            switch nwPath.status {
+            case .satisfied:
+                self?.isConnected = true
+            case .unsatisfied:
+                self?.isConnected = false
+            default:
+                break
+            }
+        }
+    }
+
     func fetchTasks(completion: @escaping (Result<TaskList, PMError>) -> Void) {
         guard let url = URL(string: base + Endpoint.get) else { return }
 
-        session.dataTask(with: url) { data, response, error in
-            checkSessionSucceed(error, response, data) { result in
+        session.dataTask(with: url) { [weak self] data, response, error in
+            self?.checkSessionSucceed(error, response, data) { result in
                 switch result {
                 case .success(let data):
-                    guard let tasks = try? decoder.decode([Task].self, from: data) else {
+                    guard let tasks = try? self?.decoder.decode([Task].self, from: data) else {
                         completion(.failure(.decodingFailed))
                         return
                     }
@@ -56,11 +84,11 @@ struct TaskRepository {
 
         let request = URLRequest(url: url, method: .post, contentType: .json, body: httpBody)
 
-        session.dataTask(with: request) { data, response, error in
-            checkSessionSucceed(error, response, data) { result in
+        session.dataTask(with: request) { [weak self] data, response, error in
+            self?.checkSessionSucceed(error, response, data) { result in
                 switch result {
                 case .success(let data):
-                    guard let task = try? decoder.decode(Task.self, from: data) else {
+                    guard let task = try? self?.decoder.decode(Task.self, from: data) else {
                         completion(.failure(.decodingFailed))
                         return
                     }
@@ -81,11 +109,11 @@ struct TaskRepository {
 
         let request = URLRequest(url: url, method: .patch, contentType: .json, body: httpBody)
 
-        session.dataTask(with: request) { data, response, error in
-            checkSessionSucceed(error, response, data) { result in
+        session.dataTask(with: request) { [weak self] data, response, error in
+            self?.checkSessionSucceed(error, response, data) { result in
                 switch result {
                 case .success(let data):
-                    guard let task = try? decoder.decode(Task.self, from: data) else {
+                    guard let task = try? self?.decoder.decode(Task.self, from: data) else {
                         completion(.failure(.decodingFailed))
                         return
                     }
@@ -106,8 +134,8 @@ struct TaskRepository {
 
         let request = URLRequest(url: url, method: .delete, contentType: .json, body: httpBody)
 
-        session.dataTask(with: request) { data, response, error in
-            checkSessionSucceed(error, response, data) { result in
+        session.dataTask(with: request) { [weak self] data, response, error in
+            self?.checkSessionSucceed(error, response, data) { result in
                 switch result {
                 case .success:
                     guard let id = task.id else { return }
