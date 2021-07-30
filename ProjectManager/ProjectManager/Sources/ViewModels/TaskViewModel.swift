@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TaskViewModel {
+final class TaskViewModel {
 
     var added: ((_ index: Int) -> Void)?
     var changed: (() -> Void)?
@@ -23,15 +23,16 @@ struct TaskViewModel {
         }
     }
 
-    mutating func fetchTasks(completion: @escaping () -> Void) {
-        taskRepository.fetchTasks { result in
+    func fetchTasks(completion: @escaping () -> Void) {
+        taskRepository.fetchTasks { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case .success(let taskList):
                 self.taskList = taskList
                 completion()
             case .failure(let error):
                 print(error)
-                self.taskList = taskManager.read()
+                self.taskList = self.taskManager.read()
                 completion()
             }
         }
@@ -46,14 +47,14 @@ struct TaskViewModel {
     }
 
     /// 지정한 Task를 todo state에 추가한다.
-    mutating func add(_ task: Task) {
+    func add(_ task: Task) {
         guard let index: Int = count(of: task.taskState) else { return }
         taskList[.todo].append(task)
         added?(index)
     }
 
     /// 지정한 Task를 다른 state의 해당하는 index로 이동시킨다.
-    mutating func move(_ task: Task, to destinationState: Task.State, at destinationIndex: Int) {
+    func move(_ task: Task, to destinationState: Task.State, at destinationIndex: Int) {
         guard task.taskState != destinationState,
               destinationIndex <= taskList[destinationState].count else { return }
 
@@ -63,7 +64,7 @@ struct TaskViewModel {
     }
 
     /// 지정한 위치의 Task를 같은 state의 해당하는 index로 이동시킨다.
-    mutating func move(in state: Task.State, from sourceIndex: Int, to destinationIndex: Int) {
+    func move(in state: Task.State, from sourceIndex: Int, to destinationIndex: Int) {
         let tasks: [Task] = taskList[state]
         guard sourceIndex < tasks.count,
               destinationIndex < tasks.count else { return }
@@ -74,7 +75,7 @@ struct TaskViewModel {
 
     /// 지정한 위치의 Task를 삭제하고 삭제한 Task의 제목을 반환한다.
     @discardableResult
-    mutating func remove(state: Task.State, at index: Int) -> String? {
+    func remove(state: Task.State, at index: Int) -> String? {
         guard index < taskList[state].count else { return nil }
 
         let removedTitle: String = taskList[state][index].title
@@ -86,7 +87,7 @@ struct TaskViewModel {
 
     /// 지정한 Task를 삭제하고 이를 반환한다.
     @discardableResult
-    mutating func remove(_ task: Task) -> Task? {
+    func remove(_ task: Task) -> Task? {
         let state: Task.State = task.taskState
         guard let index: Int = taskList[state].firstIndex(where: { $0.id == task.id }) else { return nil }
 
@@ -97,7 +98,7 @@ struct TaskViewModel {
     }
 
     /// 지정한 Task를 지정한 state의 index에 삽입한다.
-    private mutating func insert(_ task: Task, to state: Task.State, at index: Int) {
+    private func insert(_ task: Task, to state: Task.State, at index: Int) {
         guard index <= taskList[state].count else { return }
 
         taskList[state].insert(task, at: index)
