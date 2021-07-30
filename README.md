@@ -82,3 +82,10 @@ Tak, Kane, Steven
     - Convenience init 공부
   </p>
 </details>
+<details>
+  <summary>7/30(금)</summary>
+  <p> 
+    - 서버 api에 맞게 모델 수정<br>
+    - NetworkManager task 조회 구현
+  </p>
+</details>
