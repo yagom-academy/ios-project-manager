@@ -8,8 +8,6 @@ import UIKit
 
 final class ProjectManagerViewController: UIViewController, TaskAddDelegate, DeleteDelegate {
     
-    var dragCollectionView: UICollectionView?
-    var dragCollectionViewIndexPath: IndexPath?
     enum Style {
         static let headerViewWidthMultiplier: CGFloat = 1/3
         static let headerViewEachMargin: CGFloat = -20/3
@@ -383,10 +381,9 @@ extension ProjectManagerViewController: UICollectionViewDragDelegate {
         guard let task = findTask(collectionView: collectionView, indexPath: indexPath) else {
             return []
         }
+        session.localContext = TaskDragCoordinator(sourceIndexPath: indexPath, draggedCollectionView: collectionView)
         let itemProvider = NSItemProvider(object: task as Task)
         let dragItem = UIDragItem(itemProvider: itemProvider)
-        dragCollectionView = collectionView
-        dragCollectionViewIndexPath = indexPath
         return [dragItem]
     }
 }
@@ -394,37 +391,23 @@ extension ProjectManagerViewController: UICollectionViewDragDelegate {
 // MARK: - CollectionView DropDelegate
 
 extension ProjectManagerViewController: UICollectionViewDropDelegate {
-    
-    private func removeDraggedCollectionViewItem() {
-        guard let draggedCollectionView = self.dragCollectionView, let draggedCollectionViewIndexPath = self.dragCollectionViewIndexPath else {
-            return
-        }
-        self.findViewModel(collectionView: draggedCollectionView)?.deleteTaskFromTaskList(index: draggedCollectionViewIndexPath.row)
-    }
-    
-    private func setDraggedItemToNil() {
-        self.dragCollectionView = nil
-        self.dragCollectionViewIndexPath = nil
-    }
-    
+
     func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator) {
         let destinationIndexPath = coordinator.destinationIndexPath ?? IndexPath(item: collectionView.numberOfItems(inSection: 0), section: 0)
-               
-//        let item = coordinator.items[0]
-        
+        guard let dragCoordinator = coordinator.session.localDragSession?.localContext as? TaskDragCoordinator else { return }
+        let draggedCollectionView = dragCoordinator.draggedCollectionView
+        let sourceIndexPath = dragCoordinator.sourceIndexPath
         coordinator.session.loadObjects(ofClass: Task.self) { [weak self] taskList in
             collectionView.performBatchUpdates({
                 guard let task = taskList[0] as? Task,
-                      let dropViewModel = self?.findViewModel(collectionView: collectionView),
-                      let dragCollectionViewIndexPath = self?.dragCollectionViewIndexPath
+                      let dropViewModel = self?.findViewModel(collectionView: collectionView)
                 else {
                     return
                 }
-                self?.dragCollectionView?.deleteItems(at: [dragCollectionViewIndexPath])
+                dragCoordinator.draggedCollectionView.deleteItems(at: [sourceIndexPath])
                 collectionView.insertItems(at: [destinationIndexPath])
-                self?.removeDraggedCollectionViewItem()
+                self?.findViewModel(collectionView: draggedCollectionView)?.deleteTaskFromTaskList(index: sourceIndexPath.row)
                 dropViewModel.insertTaskIntoTaskList(index: destinationIndexPath.row, task: Task(taskTitle: task.taskTitle, taskDescription: task.taskDescription, taskDeadline: task.taskDeadline))
-                self?.setDraggedItemToNil()
             })
         }
     }

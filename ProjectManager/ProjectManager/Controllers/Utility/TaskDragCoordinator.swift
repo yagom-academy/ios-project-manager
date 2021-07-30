@@ -4,15 +4,15 @@
 //
 //  Created by Fezravien on 2021/07/28.
 //
-
+import UIKit
 import Foundation
 
 final class TaskDragCoordinator {
     let sourceIndexPath: IndexPath
-    var dragCompleted = false
-    var isReordering = false
+    let draggedCollectionView: UICollectionView
     
-    init(sourceIndexPath: IndexPath) {
+    init(sourceIndexPath: IndexPath, draggedCollectionView: UICollectionView) {
         self.sourceIndexPath = sourceIndexPath
+        self.draggedCollectionView = draggedCollectionView
     }
 }
