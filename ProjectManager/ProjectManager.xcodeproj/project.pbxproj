@@ -17,6 +17,8 @@
 		B0C9A03E26AE7A350022FB00 /* TaskTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C9A03D26AE7A350022FB00 /* TaskTableView.swift */; };
 		B0C9A04426AED4AB0022FB00 /* DateUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C9A04326AED4AB0022FB00 /* DateUtil.swift */; };
 		B0C9A04726AED8450022FB00 /* TaskType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C9A04626AED8450022FB00 /* TaskType.swift */; };
+		C325CC2326B4191A00129517 /* RequestMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C325CC2226B4191A00129517 /* RequestMaker.swift */; };
+		C325CC2526B41A4B00129517 /* RequestTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = C325CC2426B41A4B00129517 /* RequestTask.swift */; };
 		C3484B7526A9822C0054C20A /* MainViewController+DragDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3484B7426A9822C0054C20A /* MainViewController+DragDelegate.swift */; };
 		C3484B7726A982360054C20A /* MainViewController+DropDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3484B7626A982360054C20A /* MainViewController+DropDelegate.swift */; };
 		C3484B7926A9879F0054C20A /* DragCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3484B7826A9879F0054C20A /* DragCoordinator.swift */; };
@@ -55,6 +57,8 @@
 		B0C9A04626AED8450022FB00 /* TaskType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskType.swift; sourceTree = "<group>"; };
 		B1DD1443BF563C703D4187D0 /* Pods_ProjectManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B47A71D921688FA8F8871E6D /* Pods-ProjectManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.debug.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.debug.xcconfig"; sourceTree = "<group>"; };
+		C325CC2226B4191A00129517 /* RequestMaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestMaker.swift; sourceTree = "<group>"; };
+		C325CC2426B41A4B00129517 /* RequestTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestTask.swift; sourceTree = "<group>"; };
 		C3484B7426A9822C0054C20A /* MainViewController+DragDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+DragDelegate.swift"; sourceTree = "<group>"; };
 		C3484B7626A982360054C20A /* MainViewController+DropDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+DropDelegate.swift"; sourceTree = "<group>"; };
 		C3484B7826A9879F0054C20A /* DragCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragCoordinator.swift; sourceTree = "<group>"; };
@@ -99,6 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				4584741326B3C1C6008C9E62 /* NetworkManager.swift */,
+				C325CC2226B4191A00129517 /* RequestMaker.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -118,6 +123,7 @@
 				B05D4B5826A9578500FA3560 /* Task.swift */,
 				C3484B7826A9879F0054C20A /* DragCoordinator.swift */,
 				B0C9A04626AED8450022FB00 /* TaskType.swift */,
+				C325CC2426B41A4B00129517 /* RequestTask.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -359,10 +365,12 @@
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				455C45D426AA4CDA0024C9D1 /* TaskTableViewDataSource.swift in Sources */,
 				B0C9A03E26AE7A350022FB00 /* TaskTableView.swift in Sources */,
+				C325CC2326B4191A00129517 /* RequestMaker.swift in Sources */,
 				C3484B7526A9822C0054C20A /* MainViewController+DragDelegate.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				B08D8E1926AA5D39003CB311 /* MainViewController+Delegate.swift in Sources */,
+				C325CC2526B41A4B00129517 /* RequestTask.swift in Sources */,
 				4584741426B3C1C6008C9E62 /* NetworkManager.swift in Sources */,
 				C3484B7926A9879F0054C20A /* DragCoordinator.swift in Sources */,
 				B08D8E1C26AA5F49003CB311 /* TaskFormViewController.swift in Sources */,
