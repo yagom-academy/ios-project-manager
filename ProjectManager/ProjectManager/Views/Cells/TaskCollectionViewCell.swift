@@ -10,8 +10,7 @@ import UIKit
 
 final class TaskCollectionViewCell: UICollectionViewCell {
     static let identifier = "TaskCollectionViewCell"
-    var estimatedSize: CGSize = CGSize(width: 0, height: 0)
-    var isDragged = false
+    
     enum Style {
         static let titleLabelMargin: UIEdgeInsets = .init(top: 5, left: 10, bottom: -5, right: -10)
         static let descriptionLabelMargin: UIEdgeInsets = .init(top: 5, left: 10, bottom: -5, right: -10)
@@ -59,7 +58,12 @@ final class TaskCollectionViewCell: UICollectionViewCell {
         return button
     }()
     private var panGestureRecognizer: UIPanGestureRecognizer!
+    private var estimatedSize: CGSize = CGSize(width: 0, height: 0)
+    private var isDragged = false
+    private var taskID: String = ""
     var deleteDelegate: DeleteDelegate?
+    
+    
     
     // MARK: - Initial TaskCollectionViewCell
     
@@ -181,6 +185,7 @@ final class TaskCollectionViewCell: UICollectionViewCell {
         self.taskTitle.text = data.taskTitle
         self.taskDescription.text = data.taskDescription
         self.taskDeadline.text = convertDateToString(data.taskDeadline)
+        self.taskID = data.taskID
         self.swipeView.layoutIfNeeded()
         self.estimatedSize = self.swipeView.systemLayoutSizeFitting(sizeThatFits(CGSize(width: self.contentView.frame.width, height: 500.0)))
         self.deleteButton.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
@@ -203,7 +208,7 @@ final class TaskCollectionViewCell: UICollectionViewCell {
     @objc func deleteTask() {
         guard let collectionView: UICollectionView = self.superview as? UICollectionView else { return }
         guard let indexPath = collectionView.indexPathForItem(at: self.center) else { return }
-        deleteDelegate?.deleteTask(collectionView: collectionView, indexPath: indexPath)
+        deleteDelegate?.deleteTask(collectionView: collectionView, indexPath: indexPath, taskID: self.taskID)
     }
 }
 

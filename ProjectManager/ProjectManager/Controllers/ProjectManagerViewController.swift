@@ -102,8 +102,8 @@ final class ProjectManagerViewController: UIViewController, TaskAddDelegate, Del
     
     // MARK: - Cell Update & Delete
     
-    func deleteTask(collectionView: UICollectionView, indexPath: IndexPath) {
-        self.findViewModel(collectionView: collectionView)?.deleteTaskFromTaskList(index: indexPath.row)
+    func deleteTask(collectionView: UICollectionView, indexPath: IndexPath, taskID: String) {
+        self.findViewModel(collectionView: collectionView)?.deleteTaskFromTaskList(index: indexPath.row, taskID: taskID)
         collectionView.deleteItems(at: [indexPath])
     }
     
@@ -134,6 +134,17 @@ final class ProjectManagerViewController: UIViewController, TaskAddDelegate, Del
     func addData(_ data: Task) {
         self.toDoViewModel.insertTaskIntoTaskList(index: 0, task: data)
         self.toDoCollectionView.insertItems(at: [IndexPath(row: 0, section: 0)])
+    }
+    
+    // MARK: - SuperView History Button Action
+    
+    private func setHistory() {
+        let historyItem = UIBarButtonItem(title: "History", style: .plain, target: self, action: #selector(taskHistory))
+        self.navigationItem.leftBarButtonItem = historyItem
+    }
+    
+    @objc private func taskHistory() {
+        
     }
     
     // MARK: - Initial Configure
@@ -409,8 +420,8 @@ extension ProjectManagerViewController: UICollectionViewDropDelegate {
                 }
                 dragCoordinator.draggedCollectionView.deleteItems(at: [sourceIndexPath])
                 collectionView.insertItems(at: [destinationIndexPath])
-                self?.findViewModel(collectionView: draggedCollectionView)?.deleteTaskFromTaskList(index: sourceIndexPath.row)
-                dropViewModel.insertTaskIntoTaskList(index: destinationIndexPath.row, task: Task(taskTitle: task.taskTitle, taskDescription: task.taskDescription, taskDeadline: task.taskDeadline))
+                self?.findViewModel(collectionView: draggedCollectionView)?.deleteTaskFromTaskList(index: sourceIndexPath.row, taskID: task.taskID)
+                dropViewModel.insertTaskIntoTaskList(index: destinationIndexPath.row, task: Task(taskTitle: task.taskTitle, taskDescription: task.taskDescription, taskDeadline: task.taskDeadline, taskID: task.taskID))
             })
         }
     }

@@ -9,5 +9,5 @@ import Foundation
 import UIKit
 
 protocol DeleteDelegate {
-    func deleteTask(collectionView: UICollectionView, indexPath: IndexPath)
+    func deleteTask(collectionView: UICollectionView, indexPath: IndexPath, taskID: String)
 }

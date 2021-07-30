@@ -17,8 +17,9 @@ final class TaskDetailViewController: UIViewController {
         static let descriptionContent: UIEdgeInsets = .init(top: 10, left: 20, bottom: 10, right: 20)
     }
     
-    private var todoTitle: String?
-    private var todoDescription: String?
+    private var taskTitle: String?
+    private var taskDescription: String?
+    private var taskID: String?
     private let titleTextField: UITextField = {
         let title = UITextField(frame: .zero)
         title.placeholder = "Write Title ..."
@@ -77,7 +78,7 @@ final class TaskDetailViewController: UIViewController {
     
     private func setTaskDetailViewControllerConfigure() {
         self.view.backgroundColor = .white
-        self.navigationItem.title = "TODO"
+//        self.navigationItem.title = "TODO"
     }
     
     private func setDelegate() {
@@ -162,6 +163,9 @@ final class TaskDetailViewController: UIViewController {
         self.state = state
         self.currentData = data
         self.editIndexPath = indexPath
+        if let taskID = data?.taskID {
+            self.taskID = taskID
+        }
     }
  
     // MARK: - Button Event
@@ -197,13 +201,14 @@ final class TaskDetailViewController: UIViewController {
         }
         
         dismiss(animated: true) {
-            let data = Task(taskTitle: title, taskDescription: description, taskDeadline: self.deadLineDatePickerView.date)
-            
             if self.mode == .add {
+                let data = Task(taskTitle: title, taskDescription: description, taskDeadline: self.deadLineDatePickerView.date, taskID: UUID().uuidString)
                 self.taskDelegate?.addData(data)
             }
             
             if self.mode == .edit {
+                guard let identifier = self.taskID else { return }
+                let data = Task(taskTitle: title, taskDescription: description, taskDeadline: self.deadLineDatePickerView.date, taskID: identifier)
                 guard let indexPath = self.editIndexPath else { return }
                 switch self.state {
                 case .todo:
@@ -237,7 +242,7 @@ extension TaskDetailViewController: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         guard let text = textField.text else { return }
-        todoTitle = text
+        taskTitle = text
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -251,6 +256,6 @@ extension TaskDetailViewController: UITextFieldDelegate {
 extension TaskDetailViewController: UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
         guard let text = textView.text else { return }
-        todoDescription = text
+        taskDescription = text
     }
 }
