@@ -7,16 +7,16 @@
 
 final class HistoryViewModel {
 
-    var updated: ((_ index: Int) -> Void)?
+    var updated: (() -> Void)?
 
     private(set) var histories: [History] = [] {
         didSet {
-            updated?(histories.count - 1)
+            updated?()
         }
     }
 
     func create(history: History) {
-        histories.append(history)
+        histories.insert(history, at: .zero)
     }
 
     func history(at index: Int) -> (title: String, subtitle: String)? {

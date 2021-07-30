@@ -10,8 +10,13 @@ import UIKit
 final class HistoryViewController: UIViewController {
 
     private enum Style {
+        static let backgroundColor: UIColor = .systemBackground
         static let inset: CGFloat = 8
+
+        static let subtitleTextColor: UIColor = .systemGray
     }
+
+    let reusableCellIdentifier: String = "historyCell"
 
     var viewModel: HistoryViewModel?
 
@@ -20,7 +25,8 @@ final class HistoryViewController: UIViewController {
     private let tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.backgroundColor = .systemBackground
+        tableView.backgroundColor = Style.backgroundColor
+        tableView.tableFooterView = UIView()
         return tableView
     }()
 
@@ -31,8 +37,8 @@ final class HistoryViewController: UIViewController {
         tableView.dataSource = self
         setTableView()
 
-        viewModel?.updated = { [weak self] index in
-            let insertedIndexPaths = [IndexPath(row: index, section: 0)]
+        viewModel?.updated = { [weak self] in
+            let insertedIndexPaths = [IndexPath(row: .zero, section: .zero)]
             DispatchQueue.main.async {
                 self?.tableView.insertRows(at: insertedIndexPaths, with: .automatic)
             }
@@ -58,12 +64,20 @@ final class HistoryViewController: UIViewController {
 extension HistoryViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 100
+        return viewModel?.histories.count ?? .zero
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "historyCell")
-            ?? UITableViewCell(style: .subtitle, reuseIdentifier: "historyCell")
+        let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: reusableCellIdentifier)
+            ?? UITableViewCell(style: .subtitle, reuseIdentifier: reusableCellIdentifier)
+        let history = viewModel?.history(at: indexPath.row)
+        configure(cell, title: history?.title, subtitle: history?.subtitle)
         return cell
+    }
+
+    private func configure(_ cell: UITableViewCell, title: String?, subtitle: String?) {
+        cell.textLabel?.text = title
+        cell.detailTextLabel?.text = subtitle
+        cell.detailTextLabel?.textColor = Style.subtitleTextColor
     }
 }

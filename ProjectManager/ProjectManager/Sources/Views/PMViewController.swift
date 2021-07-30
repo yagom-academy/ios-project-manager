@@ -15,12 +15,23 @@ final class PMViewController: UIViewController {
 
         static let navigationTitle: String = "Project Manager"
         static let navigationLeftBarButtonTitle: String = "History"
+
+        static let historyViewSize = CGSize(width: UIScreen.main.bounds.width * 0.4,
+                                            height: UIScreen.main.bounds.height * 0.6)
     }
 
     var viewModel = TaskViewModel()
     let historyViewModel = HistoryViewModel()
 
     // MARK: Views
+
+    private lazy var historyViewController: HistoryViewController = {
+        let historyViewController = HistoryViewController()
+        historyViewController.modalPresentationStyle = .popover
+        historyViewController.preferredContentSize = Style.historyViewSize
+        historyViewController.viewModel = historyViewModel
+        return historyViewController
+    }()
 
     let pmStackView: UIStackView = {
         let stackView = UIStackView()
@@ -138,10 +149,7 @@ final class PMViewController: UIViewController {
     }
 
     @objc private func historyButtonTapped() {
-        let historyViewController = HistoryViewController()
-        historyViewController.modalPresentationStyle = .popover
         historyViewController.popoverPresentationController?.barButtonItem = navigationItem.leftBarButtonItem
-        historyViewController.viewModel = historyViewModel
         present(historyViewController, animated: true, completion: nil)
     }
 }
