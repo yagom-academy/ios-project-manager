@@ -52,24 +52,13 @@ struct TaskViewModel {
         added?(index)
     }
 
-    /// 지정한 위치의 Task를 다른 state의 해당하는 index로 이동시킨다.
-    mutating func move(from sourceState: Task.State, at sourceIndex: Int,
-                       to destinationState: Task.State, at destinationIndex: Int) {
-        guard sourceState != destinationState,
-              destinationIndex <= taskList[destinationState].count else { return }
-
-        if let removedTask: Task = remove(state: sourceState, at: sourceIndex) {
-            insert(removedTask, to: destinationState, at: destinationIndex)
-        }
-    }
-
     /// 지정한 Task를 다른 state의 해당하는 index로 이동시킨다.
     mutating func move(_ task: Task, to destinationState: Task.State, at destinationIndex: Int) {
         guard task.taskState != destinationState,
               destinationIndex <= taskList[destinationState].count else { return }
 
-        if let removedTask: Task = remove(task) {
-            insert(removedTask, to: destinationState, at: destinationIndex)
+        if remove(task) != nil {
+            insert(task, to: destinationState, at: destinationIndex)
         }
     }
 
@@ -111,7 +100,7 @@ struct TaskViewModel {
         guard index <= taskList[state].count else { return }
 
         taskList[state].insert(task, at: index)
-        task.taskState = state
+        taskManager.update(id: task.objectID, state: state)
         inserted?(state, index)
     }
 
