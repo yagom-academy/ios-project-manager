@@ -11,6 +11,7 @@ import UIKit
 final class TaskCollectionViewCell: UICollectionViewCell {
     static let identifier = "TaskCollectionViewCell"
     var estimatedSize: CGSize = CGSize(width: 0, height: 0)
+    var isDragged = false
     enum Style {
         static let titleLabelMargin: UIEdgeInsets = .init(top: 5, left: 10, bottom: -5, right: -10)
         static let descriptionLabelMargin: UIEdgeInsets = .init(top: 5, left: 10, bottom: -5, right: -10)
@@ -210,12 +211,30 @@ final class TaskCollectionViewCell: UICollectionViewCell {
 
 extension TaskCollectionViewCell: UIGestureRecognizerDelegate {
     
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
-    }
+    override func dragStateDidChange(_ dragState: UICollectionViewCell.DragState) {
+            switch dragState {
+            case .lifting:
+                self.isDragged = true
+            case .none:
+                self.isDragged = false
+            case .dragging:
+                return
+            default:
+                return
+            }
+        }
     
     override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
+        if isDragged {
+            return false
+        }
+        if (panGestureRecognizer.velocity(in: panGestureRecognizer.view)).x < 0 {
+            return true
+        }
+        if self.swipeView.center.x < self.frame.width/2 && (panGestureRecognizer.velocity(in: panGestureRecognizer.view)).x > 0 {
+            return true
+        }
+        return false
     }
     
     @objc func onPan(_ pan: UIPanGestureRecognizer) {
