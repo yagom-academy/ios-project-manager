@@ -55,7 +55,7 @@ enum ServerAPI {
 
 class NetworkManager {
     let session: URLSession
-    let requestBodyMaker: RequestBodyMaker = RequestBodyMaker()
+    let requestBodyMaker: RequestMaker = RequestMaker()
     
     init(session: URLSession = .shared) {
         self.session = session
