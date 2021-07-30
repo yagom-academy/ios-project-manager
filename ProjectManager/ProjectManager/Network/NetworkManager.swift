@@ -41,7 +41,7 @@ class NetworkManager {
         let dataTask = session.dataTask(with: request) { data, response, error in
             guard let response = response as? HTTPURLResponse,
                   (200...299).contains(response.statusCode) else {
-                completion(.failure(fatalError()))
+                completion(.failure(error!))
                 return
             }
             
