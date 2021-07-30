@@ -78,15 +78,12 @@ final class ProjectManagerViewController: UIViewController, TaskAddDelegate, Del
     private func setDataBindingWithViewModel() {
         toDoViewModel.updateTaskCollectionView = { [weak self] in
             self?.updateCount(self!.toDoCollectionView)
-            self?.toDoCollectionView.reloadData()
         }
         doingViewModel.updateTaskCollectionView = { [weak self] in
             self?.updateCount(self!.doingCollectionView)
-            self?.doingCollectionView.reloadData()
         }
         doneViewModel.updateTaskCollectionView = { [weak self] in
             self?.updateCount(self!.doneCollectionView)
-            self?.doneCollectionView.reloadData()
         }
     }
     
