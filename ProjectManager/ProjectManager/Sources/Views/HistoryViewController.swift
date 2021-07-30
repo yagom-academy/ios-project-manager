@@ -13,6 +13,8 @@ final class HistoryViewController: UIViewController {
         static let inset: CGFloat = 8
     }
 
+    var viewModel: HistoryViewModel?
+
     // MARK: Views
 
     private let tableView: UITableView = {
@@ -28,6 +30,13 @@ final class HistoryViewController: UIViewController {
         view.backgroundColor = .systemGray6
         tableView.dataSource = self
         setTableView()
+
+        viewModel?.updated = { [weak self] index in
+            let insertedIndexPaths = [IndexPath(row: index, section: 0)]
+            DispatchQueue.main.async {
+                self?.tableView.insertRows(at: insertedIndexPaths, with: .automatic)
+            }
+        }
     }
 
     // MARK: Configure

@@ -18,6 +18,7 @@ final class PMViewController: UIViewController {
     }
 
     var viewModel = TaskViewModel()
+    let historyViewModel = HistoryViewModel()
 
     // MARK: Views
 
@@ -140,7 +141,7 @@ final class PMViewController: UIViewController {
         let historyViewController = HistoryViewController()
         historyViewController.modalPresentationStyle = .popover
         historyViewController.popoverPresentationController?.barButtonItem = navigationItem.leftBarButtonItem
-
+        historyViewController.viewModel = historyViewModel
         present(historyViewController, animated: true, completion: nil)
     }
 }
@@ -205,10 +206,13 @@ extension PMViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView,
                    commit editingStyle: UITableViewCell.EditingStyle,
                    forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            guard let stateTableView = tableView as? StateTableView,
-                  let state = stateTableView.state else { return }
-            viewModel.remove(state: state, at: indexPath.row)
+        guard editingStyle == .delete,
+              let stateTableView = tableView as? StateTableView,
+              let state = stateTableView.state else { return }
+
+        if let removedTitle = viewModel.remove(state: state, at: indexPath.row) {
+            historyViewModel.create(history: History(method: .removed(title: removedTitle,
+                                                                      sourceState: state)))
         }
     }
 }
@@ -224,5 +228,6 @@ extension PMViewController: TaskEditViewControllerDelegate {
 
     func taskWillAdd(_ task: Task) {
         viewModel.add(task)
+        historyViewModel.create(history: History(method: .added(title: task.title)))
     }
 }

@@ -72,15 +72,16 @@ struct TaskViewModel {
         taskList[state].insert(removedTask, at: destinationIndex)
     }
 
-    /// 지정한 위치의 Task를 삭제하고 이를 반환한다.
+    /// 지정한 위치의 Task를 삭제하고 삭제한 Task의 제목을 반환한다.
     @discardableResult
-    mutating func remove(state: Task.State, at index: Int) -> Task? {
+    mutating func remove(state: Task.State, at index: Int) -> String? {
         guard index < taskList[state].count else { return nil }
 
+        let removedTitle: String = taskList[state][index].title
         let removedTask: Task = taskList[state].remove(at: index)
         taskManager.delete(removedTask.objectID)
         removed?(state, index)
-        return removedTask
+        return removedTitle
     }
 
     /// 지정한 Task를 삭제하고 이를 반환한다.

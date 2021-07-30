@@ -34,10 +34,14 @@ extension PMViewController: UITableViewDropDelegate {
         dropItem?.dragItem.itemProvider.loadObject(ofClass: Task.self) { [weak self] (data, error) in
             guard let task = data as? Task,
                   let stateTableView = tableView as? StateTableView,
-                  let state = stateTableView.state,
+                  let destinationState = stateTableView.state,
                   error == nil else { return }
 
-            self?.viewModel.move(task, to: state, at: destinationIndexPath.row)
+            let sourceState = task.taskState
+            self?.viewModel.move(task, to: destinationState, at: destinationIndexPath.row)
+            self?.historyViewModel.create(history: History(method: .moved(title: task.title,
+                                                             sourceState: sourceState,
+                                                             desinationState: task.taskState)))
         }
     }
 }

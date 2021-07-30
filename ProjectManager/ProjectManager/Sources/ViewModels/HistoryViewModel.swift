@@ -5,11 +5,17 @@
 //  Created by duckbok, Ryan-Son on 2021/07/30.
 //
 
-struct HistoryViewModel {
+final class HistoryViewModel {
 
-    private var histories: [History] = []
+    var updated: ((_ index: Int) -> Void)?
 
-    mutating func create(history: History) {
+    private(set) var histories: [History] = [] {
+        didSet {
+            updated?(histories.count - 1)
+        }
+    }
+
+    func create(history: History) {
         histories.append(history)
     }
 
@@ -27,7 +33,7 @@ struct HistoryViewModel {
             return "Added '\(title)'"
         case let .removed(title, sourceState):
             let formattedSourceState = sourceState.rawValue.uppercased()
-            return "Removed '\(title) from \(formattedSourceState)"
+            return "Removed '\(title)' from \(formattedSourceState)"
         case let .moved(title, sourceState, destinationState):
             let formattedSourceState = sourceState.rawValue.uppercased()
             let formattedDestinationState = destinationState.rawValue.uppercased()
