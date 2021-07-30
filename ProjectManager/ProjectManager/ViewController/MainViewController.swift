@@ -7,9 +7,9 @@
 import UIKit
 
 class MainViewController: UIViewController {
-    let todoTableViewDataSource = TaskTableViewDataSource(tasks: [Task(title: "할일1", content: "할일내용1", deadLine: "2021.05.12", type: .todo)])
-    let doingTableViewDataSource = TaskTableViewDataSource(tasks: [Task(title: "하고있는1", content: "하고있는일내용1", deadLine: "2021.07.23", type: .doing)])
-    let doneTableViewDataSource = TaskTableViewDataSource(tasks: [Task(title: "한1", content: "한일내용1", deadLine: "2021.08.12", type: .done)])
+    let todoTableViewDataSource = TaskTableViewDataSource(tasks: [Task(id: "", title: "할일1", content: "할일내용1", deadLine: 1622153990.0, type: .todo)])
+    let doingTableViewDataSource = TaskTableViewDataSource(tasks: [Task(id: "", title: "하고있는1", content: "하고있는일내용1", deadLine: 1622153990.0, type: .doing)])
+    let doneTableViewDataSource = TaskTableViewDataSource(tasks: [Task(id: "", title: "한1", content: "한일내용1", deadLine: 1630102790.0, type: .done)])
     
     private enum Style {
         static let titleLabelMargin: CGFloat = 10

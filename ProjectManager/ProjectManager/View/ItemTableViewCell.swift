@@ -59,12 +59,13 @@ class ItemTableViewCell: UITableViewCell {
     }
     
     func configure(task: Task) {
+        let deadLineText = DateUtil.formatDate(Date(timeIntervalSince1970: task.deadLine))
         titleLabel.text = task.title
         contentLabel.text = task.content
-        dateLabel.text = task.deadLine
+        dateLabel.text = deadLineText
         if task.type != .done {
             let currentDate = DateUtil.formatDate(Date())
-            if currentDate <= task.deadLine {
+            if currentDate <= deadLineText {
                 dateLabel.textColor = .black
             } else {
                 dateLabel.textColor = .systemRed

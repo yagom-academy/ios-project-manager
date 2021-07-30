@@ -88,7 +88,7 @@ extension TaskFormViewController {
         selectedTask = task
         titleTextField.text = task.title
         contentTextView.text = task.content
-        datePicker.date = DateUtil.parseDate(task.deadLine)
+        datePicker.date = Date(timeIntervalSince1970: task.deadLine)
         navigationItem.title = task.type.description
     }
 }
@@ -132,22 +132,23 @@ extension TaskFormViewController {
     
     @objc private func clickDoneButton() {
         guard let title = titleTextField.text, let content = contentTextView.text else { return }
-        let dateText = DateUtil.formatDate(datePicker.date)
+        let date = datePicker.date.timeIntervalSince1970
         if isInputFormEmpty() == true {
             presentAlertForCompleteTask()
             return
         }
         switch type {
         case .add:
-            delegate?.addNewTask(Task(title: title,
+            delegate?.addNewTask(Task(id: "",
+                                      title: title,
                                       content: content,
-                                      deadLine: dateText,
+                                      deadLine: date,
                                       type: .todo))
         case .edit:
             guard let selectedTask = selectedTask else { return }
             selectedTask.title = title
             selectedTask.content = content
-            selectedTask.deadLine = dateText
+            selectedTask.deadLine = date
             delegate?.updateEditedCell(type: selectedTask.type)
         }
         self.dismiss(animated: true, completion: nil)
