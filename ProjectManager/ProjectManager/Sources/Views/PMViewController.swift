@@ -14,6 +14,7 @@ final class PMViewController: UIViewController {
         static let pmStackViewSpacing: CGFloat = 10
 
         static let navigationTitle: String = "Project Manager"
+        static let navigationLeftBarButtonTitle: String = "History"
     }
 
     var viewModel = TaskViewModel()
@@ -52,6 +53,10 @@ final class PMViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
                                                             target: self,
                                                             action: #selector(addButtonTapped))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: Style.navigationLeftBarButtonTitle,
+                                                           style: .plain,
+                                                           target: self,
+                                                           action: #selector(historyButtonTapped))
     }
 
     private func setStateStackViews() {
@@ -129,6 +134,14 @@ final class PMViewController: UIViewController {
 
         let presented = UINavigationController(rootViewController: taskEditViewController)
         present(presented, animated: true, completion: nil)
+    }
+
+    @objc private func historyButtonTapped() {
+        let historyViewController = HistoryViewController()
+        historyViewController.modalPresentationStyle = .popover
+        historyViewController.popoverPresentationController?.barButtonItem = navigationItem.leftBarButtonItem
+
+        present(historyViewController, animated: true, completion: nil)
     }
 }
 

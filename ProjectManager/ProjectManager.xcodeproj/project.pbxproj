@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		021AA29026B3970100E2EEEC /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021AA28F26B3970100E2EEEC /* HistoryViewController.swift */; };
 		02256B7F26A7A857001F177D /* TaskList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02256B7E26A7A857001F177D /* TaskList.swift */; };
 		023B32CB26A99D3C002FF20A /* PMViewController+Drop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023B32CA26A99D3C002FF20A /* PMViewController+Drop.swift */; };
 		02F2F4B826A7028000BBE874 /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F2F4B726A7028000BBE874 /* TaskViewModel.swift */; };
@@ -37,6 +38,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		021AA28F26B3970100E2EEEC /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		02256B7E26A7A857001F177D /* TaskList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskList.swift; sourceTree = "<group>"; };
 		023B32CA26A99D3C002FF20A /* PMViewController+Drop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PMViewController+Drop.swift"; sourceTree = "<group>"; };
 		02F2F4B726A7028000BBE874 /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 				AA126AC426A97A5500EF24ED /* PMViewController+Drag.swift */,
 				023B32CA26A99D3C002FF20A /* PMViewController+Drop.swift */,
 				AA126ACA26AAAED200EF24ED /* TaskEditViewController.swift */,
+				021AA28F26B3970100E2EEEC /* HistoryViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -341,6 +344,7 @@
 				C7431F0A25F51E1D0094C4CF /* PMViewController.swift in Sources */,
 				AA9ACE3826AE9F03009115BD /* TaskEditViewModel.swift in Sources */,
 				AA32681826A94435007C2E60 /* TaskCell.swift in Sources */,
+				021AA29026B3970100E2EEEC /* HistoryViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				AAC4716226B2E3B1001D211C /* TaskCoreDataStack.swift in Sources */,
 				AAC4716426B2E4E1001D211C /* TaskManager.swift in Sources */,
