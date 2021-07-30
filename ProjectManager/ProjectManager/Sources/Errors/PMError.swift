@@ -11,7 +11,7 @@ enum PMError: Error {
 
     case decodingFailed
     case invalidTypeIdentifier
-    case cannotEncodeToJSON
+    case cannotEncodeToJSON(String)
     case requestFailed(Error)
     case failureResponse(Int)
     case dataNotFound
@@ -24,8 +24,8 @@ extension PMError: CustomStringConvertible {
             return "디코딩 작업에 실패하였어요."
         case .invalidTypeIdentifier:
             return "유효하지 않은 Type Identifier네요."
-        case .cannotEncodeToJSON:
-            return "JSON으로의 인코딩 작업에 실패하였어요."
+        case .cannotEncodeToJSON(let location):
+            return "JSON으로의 인코딩 작업에 실패하였어요. Location: \(location)"
         case .requestFailed(let error):
             return "요청 실패! 인터넷이 연결되어 있는지 확인하세요. Error: \(error)"
         case .failureResponse(let statusCode):

@@ -19,7 +19,7 @@ extension Task: NSItemProviderWriting {
         forItemProviderCompletionHandler completionHandler: @escaping (Data?, Error?) -> Void) -> Progress? {
         if typeIdentifier == kUTTypeJSON as String {
             guard let draggedTask = try? JSONEncoder().encode(self) else {
-                completionHandler(nil, PMError.cannotEncodeToJSON)
+                completionHandler(nil, PMError.cannotEncodeToJSON(#function))
                 return nil
             }
             completionHandler(draggedTask, nil)
