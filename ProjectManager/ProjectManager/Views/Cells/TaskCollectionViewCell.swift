@@ -10,6 +10,7 @@ import UIKit
 
 final class TaskCollectionViewCell: UICollectionViewCell {
     static let identifier = "TaskCollectionViewCell"
+    var estimatedSize: CGSize = CGSize(width: 0, height: 0)
     enum Style {
         static let titleLabelMargin: UIEdgeInsets = .init(top: 5, left: 10, bottom: -5, right: -10)
         static let descriptionLabelMargin: UIEdgeInsets = .init(top: 5, left: 10, bottom: -5, right: -10)
@@ -179,6 +180,8 @@ final class TaskCollectionViewCell: UICollectionViewCell {
         self.taskTitle.text = data.taskTitle
         self.taskDescription.text = data.taskDescription
         self.taskDeadline.text = convertDateToString(data.taskDeadline)
+        self.swipeView.layoutIfNeeded()
+        self.estimatedSize = self.swipeView.systemLayoutSizeFitting(sizeThatFits(CGSize(width: self.contentView.frame.width, height: 500.0)))
         self.deleteButton.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
         guard let isDeadlinePassed = checkIfDeadlineHasPassed(deadline: convertDateToString(data.taskDeadline)) else { return }
         taskDeadline.textColor = .black
