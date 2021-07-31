@@ -7,8 +7,8 @@
 
 import Foundation
 
-enum State {
-    case todo
-    case doing
-    case done
+enum State: String {
+    case todo = "ToDo"
+    case doing = "Doing"
+    case done = "Done"
 }
