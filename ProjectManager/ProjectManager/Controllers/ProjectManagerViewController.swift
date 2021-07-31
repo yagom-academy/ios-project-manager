@@ -12,7 +12,7 @@ final class ProjectManagerViewController: UIViewController, TaskAddDelegate, Del
         static let headerViewWidthMultiplier: CGFloat = 1/3
         static let headerViewEachMargin: CGFloat = -20/3
         static let headerViewHeightMultiplier: CGFloat = 1/16
-        static let collecionAndHeaderSpace: CGFloat = 3
+        static let collectionAndHeaderSpace: CGFloat = 3
     }
     
     private let toDoCollectionView: UICollectionView = {
@@ -67,6 +67,7 @@ final class ProjectManagerViewController: UIViewController, TaskAddDelegate, Del
         super.viewDidLoad()
         projectManagerViewControllerConfigure()
         setAddTask()
+        setHistory()
         setHeaderView()
         setCollecionView()
         setDataBindingWithViewModel()
@@ -139,12 +140,16 @@ final class ProjectManagerViewController: UIViewController, TaskAddDelegate, Del
     // MARK: - SuperView History Button Action
     
     private func setHistory() {
-        let historyItem = UIBarButtonItem(title: "History", style: .plain, target: self, action: #selector(taskHistory))
+        let historyItem = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(taskHistory))
         self.navigationItem.leftBarButtonItem = historyItem
     }
     
     @objc private func taskHistory() {
+        let historyViewController = TaskHistoryViewController()
+        historyViewController.modalPresentationStyle = .popover
+        historyViewController.popoverPresentationController?.barButtonItem = self.navigationItem.leftBarButtonItem
         
+        self.present(historyViewController, animated: true, completion: nil)
     }
     
     // MARK: - Initial Configure
@@ -228,7 +233,7 @@ final class ProjectManagerViewController: UIViewController, TaskAddDelegate, Del
     private func setToDoCollectionView() {
         self.view.addSubview(toDoCollectionView)
         NSLayoutConstraint.activate([
-            self.toDoCollectionView.topAnchor.constraint(equalTo: toDoHeader.bottomAnchor, constant: Style.collecionAndHeaderSpace),
+            self.toDoCollectionView.topAnchor.constraint(equalTo: toDoHeader.bottomAnchor, constant: Style.collectionAndHeaderSpace),
             self.toDoCollectionView.centerXAnchor.constraint(equalTo: toDoHeader.centerXAnchor),
             self.toDoCollectionView.widthAnchor.constraint(equalTo: toDoHeader.widthAnchor),
             self.toDoCollectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
@@ -238,7 +243,7 @@ final class ProjectManagerViewController: UIViewController, TaskAddDelegate, Del
     private func setDoingCollectionView() {
         self.view.addSubview(doingCollectionView)
         NSLayoutConstraint.activate([
-            self.doingCollectionView.topAnchor.constraint(equalTo: doingHeader.bottomAnchor, constant: Style.collecionAndHeaderSpace),
+            self.doingCollectionView.topAnchor.constraint(equalTo: doingHeader.bottomAnchor, constant: Style.collectionAndHeaderSpace),
             self.doingCollectionView.centerXAnchor.constraint(equalTo: doingHeader.centerXAnchor),
             self.doingCollectionView.widthAnchor.constraint(equalTo: doingHeader.widthAnchor),
             self.doingCollectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
@@ -248,7 +253,7 @@ final class ProjectManagerViewController: UIViewController, TaskAddDelegate, Del
     private func setDoneCollectionView() {
         self.view.addSubview(doneCollectionView)
         NSLayoutConstraint.activate([
-            self.doneCollectionView.topAnchor.constraint(equalTo: doneHeader.bottomAnchor, constant: Style.collecionAndHeaderSpace),
+            self.doneCollectionView.topAnchor.constraint(equalTo: doneHeader.bottomAnchor, constant: Style.collectionAndHeaderSpace),
             self.doneCollectionView.centerXAnchor.constraint(equalTo: doneHeader.centerXAnchor),
             self.doneCollectionView.widthAnchor.constraint(equalTo: doneHeader.widthAnchor),
             self.doneCollectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
