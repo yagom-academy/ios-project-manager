@@ -8,14 +8,25 @@ import Foundation
 import MobileCoreServices
 
 class Task: NSObject, Codable {
-    var taskTitle: String
-    var taskDescription: String
-    var taskDeadline: Date
+    var title: String
+    var detail: String
+    var deadline: Double
+    var status: String
+    var id: String
     
-    init(taskTitle: String, taskDescription: String, taskDeadline: Date) {
-        self.taskTitle = taskTitle
-        self.taskDescription = taskDescription
-        self.taskDeadline = taskDeadline
+    enum CodingKeys: String, CodingKey {
+        case title 
+        case detail = "description"
+        case deadline = "date"
+        case status
+        case id
+    }
+    init(title: String, detail: String, deadline: Double, status: String, id: String) {
+        self.title = title
+        self.detail = detail
+        self.deadline = deadline
+        self.status = status
+        self.id = id
     }
 }
 
