@@ -72,6 +72,7 @@ final class ProjectManagerViewController: UIViewController, TaskAddDelegate, Del
         setHeaderView()
         setCollecionView()
         setDataBindingWithViewModel()
+        setUpNotificationCenter()
     }
     
     // MARK: - Data Binding
@@ -82,7 +83,6 @@ final class ProjectManagerViewController: UIViewController, TaskAddDelegate, Del
                 return
             }
             self.updateCount(self.toDoCollectionView)
-            self.setUpNetworkStatus()
             guard self.updatedCount < 3 else {
                 return
             }
@@ -180,13 +180,12 @@ final class ProjectManagerViewController: UIViewController, TaskAddDelegate, Del
     
     // MARK: - Initial Configure
     
-    private func getTaskList() {
-        self.toDoViewModel.getTask(status: .todo)
-        self.doingViewModel.getTask(status: .doing)
-        self.doneViewModel.getTask(status: .done)
+    private func setUpNotificationCenter() {
+        let networkStatusNotification = NSNotification.Name.init("network Status")
+        NotificationCenter.default.addObserver(self, selector: #selector(updateNetworkStatus), name: networkStatusNotification, object: nil)
     }
     
-    func setUpNetworkStatus() {
+    @objc func updateNetworkStatus() {
         DispatchQueue.main.async {
             if ProjectManagerViewController.networkStatus == .connection {
                 self.navigationItem.title = "Project Manager 📡 ✅ "
@@ -195,6 +194,13 @@ final class ProjectManagerViewController: UIViewController, TaskAddDelegate, Del
             self.navigationItem.title = "Project Manager 📡 ❌"
         }
     }
+    
+    private func getTaskList() {
+        self.toDoViewModel.getTask(status: .todo)
+        self.doingViewModel.getTask(status: .doing)
+        self.doneViewModel.getTask(status: .done)
+    }
+    
     
     private func projectManagerViewControllerConfigure() {
         self.view.backgroundColor = .systemGray4

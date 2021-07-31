@@ -9,6 +9,7 @@ import Foundation
 
 struct NetworkManager {
     private let baseURL = "https://vaporpms.herokuapp.com"
+    private let indicatorView = IndicatorView()
     
     private func checkValidation(data: Data?, response: URLResponse?, error: Error?) {
         if let error = error {
@@ -17,22 +18,34 @@ struct NetworkManager {
         
         guard let httpResponse = response as? HTTPURLResponse else {
             print("Invalid Response")
+            self.indicatorView.dismiss()
             ProjectManagerViewController.networkStatus = .disconnection
+            setUpNotificationCenterPost()
             return
         }
         
         guard (200...299).contains(httpResponse.statusCode) else {
             print("Status Code: \(httpResponse.statusCode)")
+            self.indicatorView.dismiss()
             ProjectManagerViewController.networkStatus = .disconnection
+            setUpNotificationCenterPost()
             return
         }
         
         guard let _ = data else {
             print("Invalid Data")
+            self.indicatorView.dismiss()
             ProjectManagerViewController.networkStatus = .disconnection
+            setUpNotificationCenterPost()
             return
         }
         ProjectManagerViewController.networkStatus = .connection
+        setUpNotificationCenterPost()
+    }
+    
+    private func setUpNotificationCenterPost() {
+        let networkStatusNotification = NSNotification.Name.init("network Status")
+        NotificationCenter.default.post(name: networkStatusNotification, object: nil)
     }
     
     private func encodedData<T>(data: T) -> Data? where T: Encodable{
@@ -45,13 +58,12 @@ struct NetworkManager {
         guard let url = URL(string: urlString) else {
             return
         }
-        let indicatorView = IndicatorView()
-        indicatorView.showIndicator()
+        self.indicatorView.showIndicator()
         URLSession.shared.dataTask(with: url) { data, response, error in
             self.checkValidation(data: data, response: response, error: error)
             guard let data = data else { return }
             guard let tasks = try? JSONDecoder().decode([Task].self, from: data) else { return }
-            indicatorView.dismiss()
+            self.indicatorView.dismiss()
             completion(tasks)
         }.resume()
     }
