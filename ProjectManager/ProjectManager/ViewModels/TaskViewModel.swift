@@ -8,26 +8,9 @@
 import Foundation
 
 final class TaskViewModel {
-    private let networkManager = NetworkManager()
+    private let service = Service()
     var updateTaskCollectionView : () -> Void = {}
-    private var taskList: [Task] = [Task(taskTitle: "1 ToDoViewModel",
-                                         taskDescription: "ToDoViewModel",
-                                         taskDeadline: Date()),
-                                    Task(taskTitle: "2 ToDoViewModel",
-                                         taskDescription: "ToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModel",
-                                         taskDeadline: Date()),
-                                    Task(taskTitle: "3 ToDoViewModel",
-                                         taskDescription: "ToDoViewModel",
-                                         taskDeadline: Date()),
-                                    Task(taskTitle: "4 ToDoViewModel",
-                                         taskDescription: "ToDoViewModel",
-                                         taskDeadline: Date()),
-                                    Task(taskTitle: "5 ToDoViewModel",
-                                         taskDescription: "ToDoViewModel",
-                                         taskDeadline: Date()),
-                                    Task(taskTitle: "6 ToDoViewModel",
-                                         taskDescription: "ToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModelToDoViewModel",
-                                         taskDeadline: Date())] {
+    private var taskList: [Task] = [] {
         didSet {
             updateTaskCollectionView()
         }
@@ -60,25 +43,25 @@ final class TaskViewModel {
         taskList[indexPath.row] = task
     }
     
-    func getTask() {
-        networkManager.get { taskList in
-            self.taskList.append(contentsOf: taskList)
+    func getTask(status: State) {
+        service.getTask(status: status) { [weak self] tasks in
+            self?.taskList.append(contentsOf: tasks)
         }
     }
     
-    func postTask() {
-        networkManager.post() { Task in
+    func postTask(task: Task) {
+        service.postTask(task: task) { Task in
             
         }
     }
     
-    func patchTask() {
-        networkManager.patch() {
+    func patchTask(task: Task) {
+        service.patchTask(task: task) {
         }
     }
     
-    func deleteTask() {
-        networkManager.delete() {
+    func deleteTask(id: String) {
+        service.deleteTask(id: id) {
         }
     }
 }

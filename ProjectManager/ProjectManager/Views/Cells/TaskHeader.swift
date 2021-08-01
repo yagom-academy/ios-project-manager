@@ -62,7 +62,9 @@ final class TaskHeader: UIView {
     // MARK: - Outside Method - update count
     
     func updateCount(_ count: Int) {
-        countLabel.text = String(count)
+        DispatchQueue.main.async { [weak self] in
+            self?.countLabel.text = String(count)
+        }
     }
     
     // MARK: - Set Constraint
