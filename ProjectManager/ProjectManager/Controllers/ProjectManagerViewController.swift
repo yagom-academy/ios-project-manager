@@ -144,13 +144,13 @@ final class ProjectManagerViewController: UIViewController, TaskAddDelegate, Del
 
 //         self.findViewModel(collectionView: collectionView)?.deleteTaskFromTaskList(index: indexPath.row, taskID: taskID)
         
-    func deleteTask(collectionView: UICollectionView, indexPath: IndexPath) {
+    func deleteTask(collectionView: UICollectionView, indexPath: IndexPath, taskID: String, taskTitle: String) {
         guard let viewModel = self.findViewModel(collectionView: collectionView),
               let taskId = viewModel.referTask(at: indexPath)?.id else {
             return
         }
         viewModel.deleteTask(id: taskId)
-        viewModel.deleteTaskFromTaskList(index: indexPath.row)
+        viewModel.deleteTaskFromTaskList(index: indexPath.row, taskID: taskId)
         switch collectionView {
         case toDoCollectionView:
             taskHistoryViewModel.deleted(title: taskTitle, from: .todo)
@@ -539,10 +539,8 @@ extension ProjectManagerViewController: UICollectionViewDropDelegate {
                 let patchTask = Task(title: task.title, detail: task.detail, deadline: task.deadline, status: status.rawValue, id: task.id)
                 dragCoordinator.draggedCollectionView.deleteItems(at: [sourceIndexPath])
                 collectionView.insertItems(at: [destinationIndexPath])
-//                 self?.findViewModel(collectionView: draggedCollectionView)?.deleteTaskFromTaskList(index: sourceIndexPath.row, taskID: task.taskID)
-//                 dropViewModel.insertTaskIntoTaskList(index: destinationIndexPath.row, task: Task(taskTitle: task.taskTitle, taskDescription: task.taskDescription, taskDeadline: task.taskDeadline, taskID: task.taskID))
-                self?.taskHistoryViewModel.moved(title: task.taskTitle, at: dragCollectionView, to: dropCollectionView)
-                self?.findViewModel(collectionView: draggedCollectionView)?.deleteTaskFromTaskList(index: sourceIndexPath.row)
+                self?.taskHistoryViewModel.moved(title: task.title, at: dragCollectionView, to: dropCollectionView)
+                self?.findViewModel(collectionView: draggedCollectionView)?.deleteTaskFromTaskList(index: sourceIndexPath.row, taskID: patchTask.id)
                 dropViewModel.insertTaskIntoTaskList(index: destinationIndexPath.row, task: patchTask)
                 dropViewModel.patchTask(task: patchTask)
 

@@ -167,7 +167,7 @@ final class TaskDetailViewController: UIViewController {
         self.state = state
         self.currentData = data
         self.editIndexPath = indexPath
-        if let taskID = data?.taskID {
+        if let taskID = data?.id {
             self.taskID = taskID
         }
     }
@@ -220,10 +220,9 @@ final class TaskDetailViewController: UIViewController {
                 
             }
             let deadline = self.deadLineDatePickerView.date.timeIntervalSince1970
-            let data = Task(title: title, detail: detail, deadline: deadline, status: state.rawValue, id: id)
 
             if self.mode == .add {
-                let data = Task(taskTitle: title, taskDescription: description, taskDeadline: self.deadLineDatePickerView.date, taskID: UUID().uuidString)
+                let data = Task(title: title, detail: detail, deadline: deadline, status: State.todo.rawValue, id: id)
                 self.taskHistoryDelegate?.addedHistory(title: title)
                 self.taskDelegate?.addData(data)
             }
@@ -235,16 +234,16 @@ final class TaskDetailViewController: UIViewController {
                     
                     return
                 }
-                let data = Task(taskTitle: title, taskDescription: description, taskDeadline: self.deadLineDatePickerView.date, taskID: identifier)
+                let data = Task(title: title, detail: detail, deadline: deadline, status: state.rawValue, id: identifier)
                 switch self.state {
                 case .todo:
-                    self.taskHistoryDelegate?.updatedHistory(atTitle: beforeData.taskTitle, toTitle: title, from: .todo)
+                    self.taskHistoryDelegate?.updatedHistory(atTitle: beforeData.title, toTitle: title, from: .todo)
                     self.taskDelegate?.updateData(state: .todo, indexPath: indexPath, data)
                 case .doing:
-                    self.taskHistoryDelegate?.updatedHistory(atTitle: beforeData.taskTitle, toTitle: title, from: .doing)
+                    self.taskHistoryDelegate?.updatedHistory(atTitle: beforeData.title, toTitle: title, from: .doing)
                     self.taskDelegate?.updateData(state: .doing, indexPath: indexPath, data)
                 case .done:
-                    self.taskHistoryDelegate?.updatedHistory(atTitle: beforeData.taskTitle, toTitle: title, from: .done)
+                    self.taskHistoryDelegate?.updatedHistory(atTitle: beforeData.title, toTitle: title, from: .done)
                     self.taskDelegate?.updateData(state: .done, indexPath: indexPath, data)
                 case .none:
                     return

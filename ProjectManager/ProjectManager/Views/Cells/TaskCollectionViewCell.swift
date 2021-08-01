@@ -179,6 +179,7 @@ final class TaskCollectionViewCell: UICollectionViewCell {
     // MARK: - Outside Methd - initial Cell Configure
     
     func configureCell(data: Task) {
+        self.taskID = data.id
         let deadline = Date(timeIntervalSince1970: data.deadline)
         self.taskTitle.text = data.title
         self.taskDescription.text = data.detail

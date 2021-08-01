@@ -34,8 +34,8 @@ final class TaskViewModel {
     }
     
     func insertTaskIntoTaskList(index: Int, task: Task) {
-        taskList.insert(task.taskID, at: index)
-        taskCache.setObject(task, forKey: task.taskID as NSString)
+        taskList.insert(task.id, at: index)
+        taskCache.setObject(task, forKey: task.id as NSString)
     }
     
     func deleteTaskFromTaskList(index: Int, taskID: String) {
@@ -44,14 +44,19 @@ final class TaskViewModel {
     }
     
     func updateTaskIntoTaskList(indexPath: IndexPath, task: Task) {
-        taskList[indexPath.row] = task.taskID
-        taskCache.setObject(task, forKey: task.taskID as NSString)
+        taskList[indexPath.row] = task.id
+        taskCache.setObject(task, forKey: task.id as NSString)
     }
     
     func getTask(status: State) {
         service.getTask(status: status) { [weak self] tasks in
              // TODO: - Task에 ID만 따로 배열로 만들어야함
-            self?.taskList.append(contentsOf: tasks)
+            let taskIds = tasks.map { $0.id }
+            self?.taskList.append(contentsOf: taskIds)
+            for task in tasks {
+                self?.taskCache.setObject(task, forKey: task.id as NSString)
+            }
+            
         }
     }
     
