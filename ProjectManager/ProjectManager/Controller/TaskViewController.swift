@@ -105,6 +105,17 @@ class TaskViewController: UIViewController {
         taskAlertViewController.modalTransitionStyle =  .crossDissolve
         self.present(taskAlertViewController, animated: true, completion: nil)
     }
+    
+    func changeViewController() {
+        guard let taskAlertViewController = self.storyboard?.instantiateViewController(identifier: "TaskAlert")  as? TaskAlertViewController
+        else { return }
+        
+        taskAlertViewController.taskDelegate = self
+        taskAlertViewController.leftBarButtonName = "Cancel"
+        taskAlertViewController.modalPresentationStyle = .formSheet
+        taskAlertViewController.modalTransitionStyle =  .crossDissolve
+        self.present(taskAlertViewController, animated: true, completion: nil)
+    }
 }
 
 extension TaskViewController: UITableViewDelegate {
@@ -128,6 +139,22 @@ extension TaskViewController: UITableViewDelegate {
             completionHandler(true)
         }
         return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let dataSource = dataSourceForTableView(tableView)
+        let task = dataSource.tasks[indexPath.section]
+        guard let taskAlertViewController = self.storyboard?.instantiateViewController(identifier: "TaskAlert")  as? TaskAlertViewController
+        else { return }
+        
+        taskAlertViewController.taskDelegate = self
+        taskAlertViewController.leftBarButtonName = "Edit"
+        taskAlertViewController.modalPresentationStyle = .formSheet
+        taskAlertViewController.modalTransitionStyle =  .crossDissolve
+        
+        taskAlertViewController.selectTask = task
+        
+        self.present(taskAlertViewController, animated: true, completion: nil)
     }
 }
 

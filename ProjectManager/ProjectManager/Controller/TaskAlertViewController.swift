@@ -14,12 +14,14 @@ class TaskAlertViewController: UIViewController {
     @IBOutlet weak var leftBarButton: UIBarButtonItem!
     @IBOutlet weak var doneButton: UIBarButtonItem!
     @IBOutlet weak var datePicker: UIDatePicker!
+    @IBOutlet weak var alertNavigationBar: UINavigationBar!
     
     weak var taskDelegate: TaskDelegate?
     
-    var tempTitle: String?
-    var tempBody: String?
-    var tempDeadLine: Date?
+    var selectTitle: String?
+    var selectBody: String?
+    var selectDeadLine: Date?
+    var selectTask: Task?
     
     var leftBarButtonName: String?
     
@@ -34,14 +36,25 @@ class TaskAlertViewController: UIViewController {
         
         taskTextView.delegate = self
         taskTextField.addTarget(self, action: #selector(changedTextField), for: .editingChanged)
+        
+        setSelectTask()
+    }
+    
+    private func setSelectTask() {
+        guard let selectTask = selectTask else { return }
+        
+        taskTextField.text = selectTask.title
+        taskTextView.text = selectTask.content
+        datePicker.date = selectTask.deadLineDate
+        self.alertNavigationBar.topItem?.title = selectTask.category.rawValue.uppercased()
     }
     
     @objc func changedTextField() {
-        tempTitle = taskTextField.text
+        selectTitle = taskTextField.text
     }
     
     @IBAction func getDeadLine(_ sender: UIDatePicker) {
-        tempDeadLine = sender.date
+        selectDeadLine = sender.date
     }
     
     @IBAction func finishEditTask(_ sender: Any) {
@@ -63,6 +76,6 @@ class TaskAlertViewController: UIViewController {
 
 extension TaskAlertViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
-        tempBody = self.taskTextView.text
+        selectBody = self.taskTextView.text
     }
 }

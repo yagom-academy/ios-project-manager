@@ -71,7 +71,7 @@
                                                     <constraint firstItem="ny9-QD-wLp" firstAttribute="leading" secondItem="Nvm-zb-tOY" secondAttribute="leading" id="d05-zR-cwP"/>
                                                 </constraints>
                                             </view>
-                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2VI-fl-ctH">
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2VI-fl-ctH">
                                                 <rect key="frame" x="0.0" y="80" width="450.5" height="874"/>
                                                 <color key="backgroundColor" systemColor="systemGray6Color"/>
                                             </tableView>
@@ -129,7 +129,7 @@
                                                     <constraint firstItem="KLL-a2-7uE" firstAttribute="leading" secondItem="h75-pO-sRP" secondAttribute="leading" id="zKR-Bx-l6d"/>
                                                 </constraints>
                                             </view>
-                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="OSk-7P-gmK">
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="OSk-7P-gmK">
                                                 <rect key="frame" x="0.0" y="80" width="451" height="874"/>
                                                 <color key="backgroundColor" systemColor="systemGray6Color"/>
                                             </tableView>
@@ -187,7 +187,7 @@
                                                     <constraint firstAttribute="bottom" secondItem="mdW-sk-kz2" secondAttribute="bottom" id="dIZ-XD-vam"/>
                                                 </constraints>
                                             </view>
-                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dOG-3e-frv">
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dOG-3e-frv">
                                                 <rect key="frame" x="0.0" y="80" width="450.5" height="874"/>
                                                 <color key="backgroundColor" systemColor="systemGray6Color"/>
                                             </tableView>
@@ -289,6 +289,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="alertNavigationBar" destination="2DU-Sx-Kbc" id="5h8-Iu-co3"/>
                         <outlet property="datePicker" destination="zVE-Qe-fkN" id="6LY-8O-A3C"/>
                         <outlet property="doneButton" destination="Dxv-1v-v4O" id="vIL-4B-J0t"/>
                         <outlet property="leftBarButton" destination="fiZ-At-OVf" id="gbM-uJ-gyT"/>
