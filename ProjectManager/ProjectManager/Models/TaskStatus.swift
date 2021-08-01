@@ -7,13 +7,13 @@
 
 import Foundation
 
-enum State {
-    case todo
-    case doing
-    case done
+enum State: String {
+    case todo = "TODO"
+    case doing = "DOING"
+    case done = "DONE"
 }
 
-enum History: CustomStringConvertible {
+enum HistoryState: CustomStringConvertible {
     case added(title: String)
     case moved(title: String, at: State, to: State)
     case updated(atTitle: String, toTitle: String, from: State)
@@ -24,11 +24,11 @@ enum History: CustomStringConvertible {
         case .added(title: let addTitle):
             return "Added '\(addTitle)'"
         case .moved(title: let moveTitle, at: let atState, to: let toState):
-            return "Moved '\(moveTitle)' from \(atState) to \(toState)"
+            return "Moved '\(moveTitle)' from \(atState.rawValue) to \(toState.rawValue)"
         case .updated(atTitle: let updateAtTitle, toTitle: let updatedTitle, from: let fromState):
-            return "Updated '\(updateAtTitle)' to '\(updatedTitle)' from \(fromState)"
+            return "Updated '\(updateAtTitle)' to '\(updatedTitle)' from \(fromState.rawValue)"
         case .deleted(title: let deleteTitle, from: let fromState):
-            return "Deleted '\(deleteTitle)' from \(fromState)"
+            return "Deleted '\(deleteTitle)' from \(fromState.rawValue)"
         }
     }
 }

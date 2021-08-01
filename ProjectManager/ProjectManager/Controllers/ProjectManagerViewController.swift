@@ -6,8 +6,7 @@
 
 import UIKit
 
-final class ProjectManagerViewController: UIViewController, TaskAddDelegate, DeleteDelegate {
-    
+final class ProjectManagerViewController: UIViewController, TaskAddDelegate, DeleteDelegate, TaskHistoryDelegate {
     enum Style {
         static let headerViewWidthMultiplier: CGFloat = 1/3
         static let headerViewEachMargin: CGFloat = -20/3
@@ -60,6 +59,7 @@ final class ProjectManagerViewController: UIViewController, TaskAddDelegate, Del
     private let toDoViewModel = TaskViewModel()
     private let doingViewModel = TaskViewModel()
     private let doneViewModel = TaskViewModel()
+    private var taskHistoryViewModel = TaskHistoryViewModel()
     
     // MARK: - ViewController Life Cycle
     
@@ -103,8 +103,18 @@ final class ProjectManagerViewController: UIViewController, TaskAddDelegate, Del
     
     // MARK: - Cell Update & Delete
     
-    func deleteTask(collectionView: UICollectionView, indexPath: IndexPath, taskID: String) {
+    func deleteTask(collectionView: UICollectionView, indexPath: IndexPath, taskID: String, taskTitle: String) {
         self.findViewModel(collectionView: collectionView)?.deleteTaskFromTaskList(index: indexPath.row, taskID: taskID)
+        switch collectionView {
+        case toDoCollectionView:
+            taskHistoryViewModel.deleted(title: taskTitle, from: .todo)
+        case doingCollectionView:
+            taskHistoryViewModel.deleted(title: taskTitle, from: .doing)
+        case doneCollectionView:
+            taskHistoryViewModel.deleted(title: taskTitle, from: .done)
+        default:
+            return
+        }
         collectionView.deleteItems(at: [indexPath])
     }
     
@@ -127,6 +137,7 @@ final class ProjectManagerViewController: UIViewController, TaskAddDelegate, Del
     @objc private func addTask() {
         let addTaskViewController = TaskDetailViewController()
         addTaskViewController.taskDelegate = self
+        addTaskViewController.taskHistoryDelegate = self
         addTaskViewController.modalPresentationStyle = .formSheet
         addTaskViewController.setState(mode: .add, state: .todo, data: nil, indexPath: nil)
         present(UINavigationController(rootViewController: addTaskViewController), animated: true, completion: nil)
@@ -146,10 +157,28 @@ final class ProjectManagerViewController: UIViewController, TaskAddDelegate, Del
     
     @objc private func taskHistory() {
         let historyViewController = TaskHistoryViewController()
+        historyViewController.taskHistoryDelegate = self
         historyViewController.modalPresentationStyle = .popover
+        historyViewController.preferredContentSize = CGSize(width: self.view.frame.width * 3/7, height: self.view.frame.height * 3/5)
         historyViewController.popoverPresentationController?.barButtonItem = self.navigationItem.leftBarButtonItem
         
         self.present(historyViewController, animated: true, completion: nil)
+    }
+    
+    func addedHistory(title: String) {
+        self.taskHistoryViewModel.added(title: title)
+    }
+    
+    func updatedHistory(atTitle: String, toTitle: String, from: State) {
+        self.taskHistoryViewModel.updated(atTitle: atTitle, toTitle: toTitle, from: from)
+    }
+    
+    func historyCount() -> Int {
+        self.taskHistoryViewModel.taskHistoryCount
+    }
+    
+    func referHistory(index: IndexPath) -> TaskHistory {
+        self.taskHistoryViewModel.referTaskHistory(index: index)
     }
     
     // MARK: - Initial Configure
@@ -356,6 +385,7 @@ extension ProjectManagerViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let addTaskViewController = TaskDetailViewController()
         addTaskViewController.taskDelegate = self
+        addTaskViewController.taskHistoryDelegate = self
         addTaskViewController.modalPresentationStyle = .formSheet
         
         switch collectionView {
@@ -416,6 +446,7 @@ extension ProjectManagerViewController: UICollectionViewDropDelegate {
         guard let dragCoordinator = coordinator.session.localDragSession?.localContext as? TaskDragCoordinator else { return }
         let draggedCollectionView = dragCoordinator.draggedCollectionView
         let sourceIndexPath = dragCoordinator.sourceIndexPath
+        guard let dragCollectionView = judgeCollecionView(draggedCollectionView), let dropCollectionView = judgeCollecionView(collectionView) else { return }
         coordinator.session.loadObjects(ofClass: Task.self) { [weak self] taskList in
             collectionView.performBatchUpdates({
                 guard let task = taskList[0] as? Task,
@@ -427,7 +458,21 @@ extension ProjectManagerViewController: UICollectionViewDropDelegate {
                 collectionView.insertItems(at: [destinationIndexPath])
                 self?.findViewModel(collectionView: draggedCollectionView)?.deleteTaskFromTaskList(index: sourceIndexPath.row, taskID: task.taskID)
                 dropViewModel.insertTaskIntoTaskList(index: destinationIndexPath.row, task: Task(taskTitle: task.taskTitle, taskDescription: task.taskDescription, taskDeadline: task.taskDeadline, taskID: task.taskID))
+                self?.taskHistoryViewModel.moved(title: task.taskTitle, at: dragCollectionView, to: dropCollectionView)
             })
+        }
+    }
+    
+    private func judgeCollecionView(_ collectionView: UICollectionView) -> State? {
+        switch collectionView {
+        case toDoCollectionView:
+            return .todo
+        case doingCollectionView:
+            return .doing
+        case doneCollectionView:
+            return .done
+        default:
+            return nil
         }
     }
         

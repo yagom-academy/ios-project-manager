@@ -8,27 +8,27 @@
 import UIKit
 
 final class TaskHistoryCollecionViewCell: UICollectionViewCell {
-    static let identifier = "TaskCollectionViewCell"
+    static let identifier = "TaskHistoryCollectionViewCell"
     
     private let histortTitle: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .title3)
-        label.numberOfLines = 1
+        label.numberOfLines = 2
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     private let histortDate: UILabel = {
         let label = UILabel()
-        label.font = UIFont.preferredFont(forTextStyle: .footnote)
+        label.font = UIFont.preferredFont(forTextStyle: .subheadline)
         label.numberOfLines = 1
         label.textColor = .systemGray2
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    private var estimatedSize: CGSize = CGSize(width: 0, height: 0)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = .orange
         setHistoryTitleConstraint()
         setHistoryDateConstraint()
     }
@@ -38,20 +38,21 @@ final class TaskHistoryCollecionViewCell: UICollectionViewCell {
     }
     
     private func setHistoryTitleConstraint() {
-        self.addSubview(histortTitle)
+        self.contentView.addSubview(self.histortTitle)
         NSLayoutConstraint.activate([
             self.histortTitle.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 5),
             self.histortTitle.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 5),
-            self.histortTitle.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: 5),
+            self.histortTitle.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -5),
         ])
     }
     
     private func setHistoryDateConstraint() {
-        self.addSubview(histortDate)
+        self.contentView.addSubview(self.histortDate)
         NSLayoutConstraint.activate([
             self.histortDate.leadingAnchor.constraint(equalTo: self.histortTitle.leadingAnchor),
-            self.histortDate.topAnchor.constraint(equalTo: self.histortTitle.topAnchor, constant: 3),
-            self.histortDate.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: 5),
+            self.histortDate.topAnchor.constraint(equalTo: self.histortTitle.bottomAnchor, constant: 5),
+            self.histortDate.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -5),
+            self.histortDate.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -10)
         ])
     }
     
@@ -61,9 +62,9 @@ final class TaskHistoryCollecionViewCell: UICollectionViewCell {
         return dateFormatter.string(from: date)
     }
     
-    func configureCell() {
-        self.histortTitle.text = "asdqiowmdqmdqkdq"
-        self.histortDate.text = "MAY 28, 2021 3:53:32 PM"
+    func configureCell(data: TaskHistory) {
+        self.histortTitle.text = data.title
+        self.histortDate.text = convertDateToString(data.date)
     }
     
 }

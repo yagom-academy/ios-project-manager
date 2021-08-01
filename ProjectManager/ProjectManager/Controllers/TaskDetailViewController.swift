@@ -53,6 +53,7 @@ final class TaskDetailViewController: UIViewController {
         return description
     }()
     var taskDelegate: TaskAddDelegate?
+    var taskHistoryDelegate: TaskHistoryDelegate?
     private var mode: Mode?
     private var state: State?
     private var currentData: Task?
@@ -203,19 +204,27 @@ final class TaskDetailViewController: UIViewController {
         dismiss(animated: true) {
             if self.mode == .add {
                 let data = Task(taskTitle: title, taskDescription: description, taskDeadline: self.deadLineDatePickerView.date, taskID: UUID().uuidString)
+                self.taskHistoryDelegate?.addedHistory(title: title)
                 self.taskDelegate?.addData(data)
             }
             
             if self.mode == .edit {
-                guard let identifier = self.taskID else { return }
+                guard let identifier = self.taskID,
+                      let indexPath = self.editIndexPath,
+                      let beforeData = self.currentData else {
+                    
+                    return
+                }
                 let data = Task(taskTitle: title, taskDescription: description, taskDeadline: self.deadLineDatePickerView.date, taskID: identifier)
-                guard let indexPath = self.editIndexPath else { return }
                 switch self.state {
                 case .todo:
+                    self.taskHistoryDelegate?.updatedHistory(atTitle: beforeData.taskTitle, toTitle: title, from: .todo)
                     self.taskDelegate?.updateData(state: .todo, indexPath: indexPath, data)
                 case .doing:
+                    self.taskHistoryDelegate?.updatedHistory(atTitle: beforeData.taskTitle, toTitle: title, from: .doing)
                     self.taskDelegate?.updateData(state: .doing, indexPath: indexPath, data)
                 case .done:
+                    self.taskHistoryDelegate?.updatedHistory(atTitle: beforeData.taskTitle, toTitle: title, from: .done)
                     self.taskDelegate?.updateData(state: .done, indexPath: indexPath, data)
                 case .none:
                     return

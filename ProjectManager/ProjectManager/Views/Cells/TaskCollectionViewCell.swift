@@ -63,8 +63,6 @@ final class TaskCollectionViewCell: UICollectionViewCell {
     private var taskID: String = ""
     var deleteDelegate: DeleteDelegate?
     
-    
-    
     // MARK: - Initial TaskCollectionViewCell
     
     override init(frame: CGRect) {
@@ -206,9 +204,14 @@ final class TaskCollectionViewCell: UICollectionViewCell {
     }
     
     @objc func deleteTask() {
-        guard let collectionView: UICollectionView = self.superview as? UICollectionView else { return }
-        guard let indexPath = collectionView.indexPathForItem(at: self.center) else { return }
-        deleteDelegate?.deleteTask(collectionView: collectionView, indexPath: indexPath, taskID: self.taskID)
+        guard let collectionView: UICollectionView = self.superview as? UICollectionView,
+              let indexPath = collectionView.indexPathForItem(at: self.center),
+              let title = taskTitle.text else {
+            
+            return
+        }
+
+        deleteDelegate?.deleteTask(collectionView: collectionView, indexPath: indexPath, taskID: self.taskID, taskTitle: title)
     }
 }
 
