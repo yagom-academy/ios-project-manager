@@ -8,9 +8,9 @@
 import Foundation
 
 enum State: String {
-    case todo = "TODO"
-    case doing = "DOING"
-    case done = "DONE"
+    case todo = "ToDo"
+    case doing = "Doing"
+    case done = "Done"
 }
 
 enum HistoryState: CustomStringConvertible {
@@ -31,4 +31,5 @@ enum HistoryState: CustomStringConvertible {
             return "Deleted '\(deleteTitle)' from \(fromState.rawValue)"
         }
     }
+
 }

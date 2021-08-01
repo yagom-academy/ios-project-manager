@@ -8,10 +8,11 @@
 import Foundation
 
 final class TaskViewModel {
-    private let networkManager = NetworkManager()
+    private let service = Service()
     private let taskCache = NSCache<NSString, Task>()
     var updateTaskCollectionView : () -> Void = {}
     private var taskList: [String] = [] {
+
         didSet {
             updateTaskCollectionView()
         }
@@ -47,25 +48,26 @@ final class TaskViewModel {
         taskCache.setObject(task, forKey: task.taskID as NSString)
     }
     
-    func getTask() {
-        networkManager.get { taskList in
+    func getTask(status: State) {
+        service.getTask(status: status) { [weak self] tasks in
+             // TODO: - Task에 ID만 따로 배열로 만들어야함
+            self?.taskList.append(contentsOf: tasks)
+        }
+    }
+    
+    func postTask(task: Task) {
+        service.postTask(task: task) { Task in
             
         }
     }
     
-    func postTask() {
-        networkManager.post() { Task in
-            
+    func patchTask(task: Task) {
+        service.patchTask(task: task) {
         }
     }
     
-    func patchTask() {
-        networkManager.patch() {
-        }
-    }
-    
-    func deleteTask() {
-        networkManager.delete() {
+    func deleteTask(id: String) {
+        service.deleteTask(id: id) {
         }
     }
 }

@@ -94,12 +94,15 @@ final class TaskDetailViewController: UIViewController {
     }
     
     private func checkMode() {
+        guard let currentData = self.currentData else {
+            return
+        }
         if self.mode == .edit {
-            self.titleTextField.text = currentData?.taskTitle
+            self.titleTextField.text = currentData.title
             self.titleTextField.isEnabled = false
-            self.descriptionTextView.text = currentData?.taskDescription
+            self.descriptionTextView.text = currentData.detail
             self.descriptionTextView.isEditable = false
-            self.deadLineDatePickerView.setDate(currentData?.taskDeadline ?? Date(), animated: true)
+            self.deadLineDatePickerView.setDate(Date(timeIntervalSince1970: currentData.deadline), animated: true)
             self.deadLineDatePickerView.isEnabled = false
             return
         }
@@ -183,7 +186,7 @@ final class TaskDetailViewController: UIViewController {
     }
     
     @objc private func tapDoneButton() {
-        guard let title = self.titleTextField.text, let description = self.descriptionTextView.text else { return }
+        guard let title = self.titleTextField.text, let detail = self.descriptionTextView.text else { return }
 
         if title.count > 100 {
             taskDetailErrorAlert(title: "⚠️", message: "Title Error: 100자 이상")
@@ -193,15 +196,32 @@ final class TaskDetailViewController: UIViewController {
             return
         }
 
-        if description.count > 1000 {
+        if detail.count > 1000 {
             taskDetailErrorAlert(title: "⚠️", message: "Description Error: 1000자 이상.")
             return
-        } else if description.count == 0 {
+        } else if detail.count == 0 {
             taskDetailErrorAlert(title: "⚠️", message: "Description Error: 비어있습니다.")
             return
         }
         
+        if deadLineDatePickerView.date < Date(timeIntervalSince1970: 1625497069) {
+            taskDetailErrorAlert(title: "⚠️", message: "Date Error: 2021년 7월 6일 이후로 시간을 설정해주세요")
+            return
+        }
+        
         dismiss(animated: true) {
+            guard let state = self.state else {
+                return
+            }
+            var id = self.generateId()
+            if let taskId = self.currentData?.id {
+                id = taskId
+            } else {
+                
+            }
+            let deadline = self.deadLineDatePickerView.date.timeIntervalSince1970
+            let data = Task(title: title, detail: detail, deadline: deadline, status: state.rawValue, id: id)
+
             if self.mode == .add {
                 let data = Task(taskTitle: title, taskDescription: description, taskDeadline: self.deadLineDatePickerView.date, taskID: UUID().uuidString)
                 self.taskHistoryDelegate?.addedHistory(title: title)
@@ -231,6 +251,18 @@ final class TaskDetailViewController: UIViewController {
                 }
             }
         }
+    }
+    
+    private func validateId(uuid: String) -> Bool {
+        return true
+    }
+    
+    private func generateId() -> String {
+        let id = UUID().uuidString
+        if validateId(uuid: id) {
+            return id
+        }
+        return generateId()
     }
     
     private func taskDetailErrorAlert(title: String, message: String) {

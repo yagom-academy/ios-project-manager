@@ -7,6 +7,9 @@
 import UIKit
 
 final class ProjectManagerViewController: UIViewController, TaskAddDelegate, DeleteDelegate, TaskHistoryDelegate {
+    static var networkStatus: NetworkStatus = .disconnection
+    private var updatedCount = 0
+
     enum Style {
         static let headerViewWidthMultiplier: CGFloat = 1/3
         static let headerViewEachMargin: CGFloat = -20/3
@@ -65,25 +68,57 @@ final class ProjectManagerViewController: UIViewController, TaskAddDelegate, Del
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        getTaskList() 
         projectManagerViewControllerConfigure()
         setAddTask()
         setHistory()
         setHeaderView()
         setCollecionView()
         setDataBindingWithViewModel()
+        setUpNotificationCenter()
     }
     
     // MARK: - Data Binding
     
     private func setDataBindingWithViewModel() {
         toDoViewModel.updateTaskCollectionView = { [weak self] in
-            self?.updateCount(self!.toDoCollectionView)
+            guard let self = self else {
+                return
+            }
+            self.updateCount(self.toDoCollectionView)
+            guard self.updatedCount < 3 else {
+                return
+            }
+            DispatchQueue.main.async {
+                self.toDoCollectionView.reloadData()
+                self.updatedCount += 1
+            }
         }
         doingViewModel.updateTaskCollectionView = { [weak self] in
-            self?.updateCount(self!.doingCollectionView)
+            guard let self = self else {
+                return
+            }
+            self.updateCount(self.doingCollectionView)
+            guard self.updatedCount < 3 else {
+                return
+            }
+            DispatchQueue.main.async {
+                self.doingCollectionView.reloadData()
+                self.updatedCount += 1
+            }
         }
         doneViewModel.updateTaskCollectionView = { [weak self] in
-            self?.updateCount(self!.doneCollectionView)
+            guard let self = self else {
+                return
+            }
+            self.updateCount(self.doneCollectionView)
+            guard self.updatedCount < 3 else {
+                return
+            }
+            DispatchQueue.main.async {
+                self.doneCollectionView.reloadData()
+                self.updatedCount += 1
+            }
         }
     }
     
@@ -92,19 +127,30 @@ final class ProjectManagerViewController: UIViewController, TaskAddDelegate, Del
         case .todo:
             self.toDoViewModel.updateTaskIntoTaskList(indexPath: indexPath, task: data)
             self.toDoCollectionView.reloadItems(at: [indexPath])
+            self.toDoViewModel.patchTask(task: data)
         case .doing:
             self.doingViewModel.updateTaskIntoTaskList(indexPath: indexPath, task: data)
             self.doingCollectionView.reloadItems(at: [indexPath])
+            self.doingViewModel.patchTask(task: data)
         case .done:
             self.doneViewModel.updateTaskIntoTaskList(indexPath: indexPath, task: data)
             self.doneCollectionView.reloadItems(at: [indexPath])
+            self.doneViewModel.patchTask(task: data)
         }
     }
     
     // MARK: - Cell Update & Delete
     
-    func deleteTask(collectionView: UICollectionView, indexPath: IndexPath, taskID: String, taskTitle: String) {
-        self.findViewModel(collectionView: collectionView)?.deleteTaskFromTaskList(index: indexPath.row, taskID: taskID)
+
+//         self.findViewModel(collectionView: collectionView)?.deleteTaskFromTaskList(index: indexPath.row, taskID: taskID)
+        
+    func deleteTask(collectionView: UICollectionView, indexPath: IndexPath) {
+        guard let viewModel = self.findViewModel(collectionView: collectionView),
+              let taskId = viewModel.referTask(at: indexPath)?.id else {
+            return
+        }
+        viewModel.deleteTask(id: taskId)
+        viewModel.deleteTaskFromTaskList(index: indexPath.row)
         switch collectionView {
         case toDoCollectionView:
             taskHistoryViewModel.deleted(title: taskTitle, from: .todo)
@@ -146,6 +192,7 @@ final class ProjectManagerViewController: UIViewController, TaskAddDelegate, Del
     func addData(_ data: Task) {
         self.toDoViewModel.insertTaskIntoTaskList(index: 0, task: data)
         self.toDoCollectionView.insertItems(at: [IndexPath(row: 0, section: 0)])
+        self.toDoViewModel.postTask(task: data)
     }
     
     // MARK: - SuperView History Button Action
@@ -183,10 +230,32 @@ final class ProjectManagerViewController: UIViewController, TaskAddDelegate, Del
     
     // MARK: - Initial Configure
     
+    private func setUpNotificationCenter() {
+        let networkStatusNotification = NSNotification.Name.init("network Status")
+        NotificationCenter.default.addObserver(self, selector: #selector(updateNetworkStatus), name: networkStatusNotification, object: nil)
+    }
+    
+    @objc func updateNetworkStatus() {
+        DispatchQueue.main.async {
+            if ProjectManagerViewController.networkStatus == .connection {
+                self.navigationItem.title = "Project Manager 📡 ✅ "
+                return
+            }
+            self.navigationItem.title = "Project Manager 📡 ❌"
+        }
+    }
+    
+    private func getTaskList() {
+        self.toDoViewModel.getTask(status: .todo)
+        self.doingViewModel.getTask(status: .doing)
+        self.doneViewModel.getTask(status: .done)
+    }
+    
+    
     private func projectManagerViewControllerConfigure() {
         self.view.backgroundColor = .systemGray4
         self.navigationController?.navigationBar.backgroundColor = .systemGray2
-        self.navigationItem.title = "Project Manager"
+        self.navigationItem.title = "Project Manager 📡"
         self.setDelegate()
         self.setDataSource()
     }
@@ -329,6 +398,19 @@ final class ProjectManagerViewController: UIViewController, TaskAddDelegate, Del
             return nil
         }
     }
+    
+    func findStatus(collectionView: UICollectionView) -> State? {
+        switch collectionView {
+        case toDoCollectionView:
+            return .todo
+        case doingCollectionView:
+            return .doing
+        case doneCollectionView:
+            return .done
+        default:
+            return nil
+        }
+    }
 }
 
 // MARK: - CollectionView DataSource
@@ -440,7 +522,6 @@ extension ProjectManagerViewController: UICollectionViewDragDelegate {
 // MARK: - CollectionView DropDelegate
 
 extension ProjectManagerViewController: UICollectionViewDropDelegate {
-
     func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator) {
         let destinationIndexPath = coordinator.destinationIndexPath ?? IndexPath(item: collectionView.numberOfItems(inSection: 0), section: 0)
         guard let dragCoordinator = coordinator.session.localDragSession?.localContext as? TaskDragCoordinator else { return }
@@ -450,15 +531,21 @@ extension ProjectManagerViewController: UICollectionViewDropDelegate {
         coordinator.session.loadObjects(ofClass: Task.self) { [weak self] taskList in
             collectionView.performBatchUpdates({
                 guard let task = taskList[0] as? Task,
-                      let dropViewModel = self?.findViewModel(collectionView: collectionView)
+                      let dropViewModel = self?.findViewModel(collectionView: collectionView),
+                      let status = self?.findStatus(collectionView: collectionView)
                 else {
                     return
                 }
+                let patchTask = Task(title: task.title, detail: task.detail, deadline: task.deadline, status: status.rawValue, id: task.id)
                 dragCoordinator.draggedCollectionView.deleteItems(at: [sourceIndexPath])
                 collectionView.insertItems(at: [destinationIndexPath])
-                self?.findViewModel(collectionView: draggedCollectionView)?.deleteTaskFromTaskList(index: sourceIndexPath.row, taskID: task.taskID)
-                dropViewModel.insertTaskIntoTaskList(index: destinationIndexPath.row, task: Task(taskTitle: task.taskTitle, taskDescription: task.taskDescription, taskDeadline: task.taskDeadline, taskID: task.taskID))
+//                 self?.findViewModel(collectionView: draggedCollectionView)?.deleteTaskFromTaskList(index: sourceIndexPath.row, taskID: task.taskID)
+//                 dropViewModel.insertTaskIntoTaskList(index: destinationIndexPath.row, task: Task(taskTitle: task.taskTitle, taskDescription: task.taskDescription, taskDeadline: task.taskDeadline, taskID: task.taskID))
                 self?.taskHistoryViewModel.moved(title: task.taskTitle, at: dragCollectionView, to: dropCollectionView)
+                self?.findViewModel(collectionView: draggedCollectionView)?.deleteTaskFromTaskList(index: sourceIndexPath.row)
+                dropViewModel.insertTaskIntoTaskList(index: destinationIndexPath.row, task: patchTask)
+                dropViewModel.patchTask(task: patchTask)
+
             })
         }
     }

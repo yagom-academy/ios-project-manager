@@ -170,7 +170,6 @@ final class TaskCollectionViewCell: UICollectionViewCell {
         dateFormatter.dateFormat = "yyyy.MM.dd"
         return dateFormatter.string(from: date)
     }
-
     
     private func checkIfDeadlineHasPassed(deadline: String) -> Bool? {
         guard let deadline = convertStringToTimeInterval1970(date: deadline) else { return nil }
@@ -180,14 +179,14 @@ final class TaskCollectionViewCell: UICollectionViewCell {
     // MARK: - Outside Methd - initial Cell Configure
     
     func configureCell(data: Task) {
-        self.taskTitle.text = data.taskTitle
-        self.taskDescription.text = data.taskDescription
-        self.taskDeadline.text = convertDateToString(data.taskDeadline)
-        self.taskID = data.taskID
+        let deadline = Date(timeIntervalSince1970: data.deadline)
+        self.taskTitle.text = data.title
+        self.taskDescription.text = data.detail
+        self.taskDeadline.text = convertDateToString(deadline)
         self.swipeView.layoutIfNeeded()
         self.estimatedSize = self.swipeView.systemLayoutSizeFitting(sizeThatFits(CGSize(width: self.contentView.frame.width, height: 500.0)))
         self.deleteButton.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
-        guard let isDeadlinePassed = checkIfDeadlineHasPassed(deadline: convertDateToString(data.taskDeadline)) else { return }
+        guard let isDeadlinePassed = checkIfDeadlineHasPassed(deadline: convertDateToString(deadline)) else { return }
         taskDeadline.textColor = .black
         if isDeadlinePassed {
             taskDeadline.textColor = .red
@@ -281,3 +280,4 @@ extension TaskCollectionViewCell: UIGestureRecognizerDelegate {
         }
     }
 }
+
