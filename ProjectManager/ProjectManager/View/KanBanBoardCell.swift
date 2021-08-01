@@ -14,14 +14,14 @@ final class KanBanBoardCell: UITableViewCell {
 
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "titleLabel"
+        label.text = "title placeholder"
         label.font = UIFont.preferredFont(forTextStyle: .title2)
         return label
     }()
 
     private let descriptionPreviewLabel: UILabel = {
         let label = UILabel()
-        label.text = "descriptionPreviewLabel"
+        label.text = "description placeholder"
         label.font = UIFont.preferredFont(forTextStyle: .body)
         label.numberOfLines = 3
         return label
@@ -29,7 +29,7 @@ final class KanBanBoardCell: UITableViewCell {
 
     private let dateLabel: UILabel = {
         let label = UILabel()
-        label.text = "dateLabel"
+        label.text = "date placeholder"
         label.font = UIFont.preferredFont(forTextStyle: .subheadline)
         return label
     }()
