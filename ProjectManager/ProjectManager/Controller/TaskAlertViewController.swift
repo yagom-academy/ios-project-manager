@@ -47,6 +47,10 @@ class TaskAlertViewController: UIViewController {
         taskTextView.text = selectTask.content
         datePicker.date = selectTask.deadLineDate
         self.alertNavigationBar.topItem?.title = selectTask.category.rawValue.uppercased()
+        
+        taskTextField.isEnabled = false
+        taskTextView.isEditable = false
+        datePicker.isEnabled = false
     }
     
     @objc func changedTextField() {
@@ -70,7 +74,14 @@ class TaskAlertViewController: UIViewController {
     }
     
     @IBAction func didTapLeftBarButton(_ sender: Any) {
-        self.dismiss(animated: true)
+        if self.leftBarButtonName == "Edit" {
+            taskTextField.isEnabled = true
+            taskTextView.isEditable = true
+            datePicker.isEnabled = true
+        }
+        else {
+            self.dismiss(animated: true)
+        }
     }
 }
 
