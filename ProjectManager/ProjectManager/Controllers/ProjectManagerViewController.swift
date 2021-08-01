@@ -524,10 +524,14 @@ extension ProjectManagerViewController: UICollectionViewDragDelegate {
 extension ProjectManagerViewController: UICollectionViewDropDelegate {
     func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator) {
         let destinationIndexPath = coordinator.destinationIndexPath ?? IndexPath(item: collectionView.numberOfItems(inSection: 0), section: 0)
-        guard let dragCoordinator = coordinator.session.localDragSession?.localContext as? TaskDragCoordinator else { return }
+        guard let dragCoordinator = coordinator.session.localDragSession?.localContext as? TaskDragCoordinator else {
+            return
+        }
         let draggedCollectionView = dragCoordinator.draggedCollectionView
         let sourceIndexPath = dragCoordinator.sourceIndexPath
-        guard let dragCollectionView = judgeCollecionView(draggedCollectionView), let dropCollectionView = judgeCollecionView(collectionView) else { return }
+        guard let dragCollectionView = judgeCollecionView(draggedCollectionView), let dropCollectionView = judgeCollecionView(collectionView) else {
+            return
+        }
         coordinator.session.loadObjects(ofClass: Task.self) { [weak self] taskList in
             collectionView.performBatchUpdates({
                 guard let task = taskList[0] as? Task,
