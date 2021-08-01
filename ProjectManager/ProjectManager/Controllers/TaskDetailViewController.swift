@@ -17,8 +17,9 @@ final class TaskDetailViewController: UIViewController {
         static let descriptionContent: UIEdgeInsets = .init(top: 10, left: 20, bottom: 10, right: 20)
     }
     
-    private var todoTitle: String?
-    private var todoDescription: String?
+    private var taskTitle: String?
+    private var taskDescription: String?
+    private var taskID: String?
     private let titleTextField: UITextField = {
         let title = UITextField(frame: .zero)
         title.placeholder = "Write Title ..."
@@ -52,6 +53,7 @@ final class TaskDetailViewController: UIViewController {
         return description
     }()
     var taskDelegate: TaskAddDelegate?
+    var taskHistoryDelegate: TaskHistoryDelegate?
     private var mode: Mode?
     private var state: State?
     private var currentData: Task?
@@ -77,7 +79,7 @@ final class TaskDetailViewController: UIViewController {
     
     private func setTaskDetailViewControllerConfigure() {
         self.view.backgroundColor = .white
-        self.navigationItem.title = "TODO"
+//        self.navigationItem.title = "TODO"
     }
     
     private func setDelegate() {
@@ -165,6 +167,9 @@ final class TaskDetailViewController: UIViewController {
         self.state = state
         self.currentData = data
         self.editIndexPath = indexPath
+        if let taskID = data?.taskID {
+            self.taskID = taskID
+        }
     }
  
     // MARK: - Button Event
@@ -216,19 +221,30 @@ final class TaskDetailViewController: UIViewController {
             }
             let deadline = self.deadLineDatePickerView.date.timeIntervalSince1970
             let data = Task(title: title, detail: detail, deadline: deadline, status: state.rawValue, id: id)
-            
+
             if self.mode == .add {
+                let data = Task(taskTitle: title, taskDescription: description, taskDeadline: self.deadLineDatePickerView.date, taskID: UUID().uuidString)
+                self.taskHistoryDelegate?.addedHistory(title: title)
                 self.taskDelegate?.addData(data)
             }
             
             if self.mode == .edit {
-                guard let indexPath = self.editIndexPath else { return }
+                guard let identifier = self.taskID,
+                      let indexPath = self.editIndexPath,
+                      let beforeData = self.currentData else {
+                    
+                    return
+                }
+                let data = Task(taskTitle: title, taskDescription: description, taskDeadline: self.deadLineDatePickerView.date, taskID: identifier)
                 switch self.state {
                 case .todo:
+                    self.taskHistoryDelegate?.updatedHistory(atTitle: beforeData.taskTitle, toTitle: title, from: .todo)
                     self.taskDelegate?.updateData(state: .todo, indexPath: indexPath, data)
                 case .doing:
+                    self.taskHistoryDelegate?.updatedHistory(atTitle: beforeData.taskTitle, toTitle: title, from: .doing)
                     self.taskDelegate?.updateData(state: .doing, indexPath: indexPath, data)
                 case .done:
+                    self.taskHistoryDelegate?.updatedHistory(atTitle: beforeData.taskTitle, toTitle: title, from: .done)
                     self.taskDelegate?.updateData(state: .done, indexPath: indexPath, data)
                 case .none:
                     return
@@ -267,7 +283,7 @@ extension TaskDetailViewController: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         guard let text = textField.text else { return }
-        todoTitle = text
+        taskTitle = text
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -281,6 +297,6 @@ extension TaskDetailViewController: UITextFieldDelegate {
 extension TaskDetailViewController: UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
         guard let text = textView.text else { return }
-        todoDescription = text
+        taskDescription = text
     }
 }

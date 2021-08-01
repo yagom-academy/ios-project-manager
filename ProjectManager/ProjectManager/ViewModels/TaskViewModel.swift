@@ -9,22 +9,24 @@ import Foundation
 
 final class TaskViewModel {
     private let service = Service()
+    private let taskCache = NSCache<NSString, Task>()
     var updateTaskCollectionView : () -> Void = {}
-    private var taskList: [Task] = [] {
+    private var taskList: [String] = [] {
+
         didSet {
             updateTaskCollectionView()
         }
     }
     
-    func referTask(at: IndexPath) -> Task? {
-        if taskList.count > at.row {
-            return taskList[at.row]
-        }
-        return nil
+    init() {
+        taskCache.evictsObjectsWithDiscardedContent = false
     }
     
-    func swapTask(firstItemOfIndex: Int, secondItemOfIndex: Int) {
-        self.taskList.swapAt(firstItemOfIndex, secondItemOfIndex)
+    func referTask(at: IndexPath) -> Task? {
+        if taskList.count > at.row {
+            return taskCache.object(forKey: taskList[at.row] as NSString)
+        }
+        return nil
     }
     
     func taskListCount() -> Int {
@@ -32,19 +34,23 @@ final class TaskViewModel {
     }
     
     func insertTaskIntoTaskList(index: Int, task: Task) {
-        taskList.insert(task, at: index)
+        taskList.insert(task.taskID, at: index)
+        taskCache.setObject(task, forKey: task.taskID as NSString)
     }
     
-    func deleteTaskFromTaskList(index: Int) {
+    func deleteTaskFromTaskList(index: Int, taskID: String) {
         taskList.remove(at: index)
+        taskCache.removeObject(forKey: taskID as NSString)
     }
     
     func updateTaskIntoTaskList(indexPath: IndexPath, task: Task) {
-        taskList[indexPath.row] = task
+        taskList[indexPath.row] = task.taskID
+        taskCache.setObject(task, forKey: task.taskID as NSString)
     }
     
     func getTask(status: State) {
         service.getTask(status: status) { [weak self] tasks in
+             // TODO: - Task에 ID만 따로 배열로 만들어야함
             self?.taskList.append(contentsOf: tasks)
         }
     }
