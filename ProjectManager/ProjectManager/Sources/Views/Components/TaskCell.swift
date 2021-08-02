@@ -110,9 +110,8 @@ final class TaskCell: UITableViewCell {
     }
 
     private func setStyle(with task: Task?) {
-        guard let task = task,
-              let date = Date().date else { return }
+        guard let isExpired = task?.isExpired else { return }
 
-        dueDateLabel.textColor = (task.dueDate >= date) ? Style.dueDateTextColor : Style.expiredDateTextColor
+        dueDateLabel.textColor = isExpired ? Style.expiredDateTextColor : Style.dueDateTextColor
     }
 }
