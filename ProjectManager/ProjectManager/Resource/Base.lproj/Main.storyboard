@@ -234,21 +234,26 @@
                         <rect key="frame" x="0.0" y="0.0" width="1366" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="zVE-Qe-fkN">
-                                <rect key="frame" x="0.0" y="109.5" width="1366" height="216"/>
-                            </datePicker>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Fpw-Fc-P2W">
-                                <rect key="frame" x="30" y="60" width="1306" height="39.5"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ZA4-H7-4Up">
-                                <rect key="frame" x="30" y="355.5" width="1306" height="638.5"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <color key="textColor" systemColor="labelColor"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="lTo-zW-oHD">
+                                <rect key="frame" x="20" y="60" width="1326" height="924"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Title" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Fpw-Fc-P2W">
+                                        <rect key="frame" x="0.0" y="0.0" width="1326" height="54"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="zVE-Qe-fkN">
+                                        <rect key="frame" x="0.0" y="64" width="1326" height="216"/>
+                                    </datePicker>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ZA4-H7-4Up">
+                                        <rect key="frame" x="0.0" y="290" width="1326" height="634"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="textColor" systemColor="labelColor"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                </subviews>
+                            </stackView>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2DU-Sx-Kbc">
                                 <rect key="frame" x="0.0" y="0.0" width="1366" height="50"/>
                                 <items>
@@ -258,7 +263,7 @@
                                                 <action selector="didTapLeftBarButton:" destination="O8J-8T-QgR" id="9ci-BG-Mhl"/>
                                             </connections>
                                         </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" title="Item" systemItem="done" id="Dxv-1v-v4O">
+                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="Dxv-1v-v4O">
                                             <connections>
                                                 <action selector="finishEditTask:" destination="O8J-8T-QgR" id="RsJ-I3-tHE"/>
                                             </connections>
@@ -270,19 +275,13 @@
                         <viewLayoutGuide key="safeArea" id="mhy-ou-7fa"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="ZA4-H7-4Up" firstAttribute="top" secondItem="zVE-Qe-fkN" secondAttribute="bottom" constant="30" id="0Fn-Ev-k1p"/>
-                            <constraint firstItem="ZA4-H7-4Up" firstAttribute="leading" secondItem="mhy-ou-7fa" secondAttribute="leading" constant="30" id="7ah-By-0Ao"/>
-                            <constraint firstItem="2DU-Sx-Kbc" firstAttribute="top" secondItem="mhy-ou-7fa" secondAttribute="top" id="B1c-cR-eSS"/>
-                            <constraint firstItem="Fpw-Fc-P2W" firstAttribute="top" secondItem="2DU-Sx-Kbc" secondAttribute="bottom" constant="10" id="LsZ-aZ-WSg"/>
-                            <constraint firstItem="zVE-Qe-fkN" firstAttribute="trailing" secondItem="mhy-ou-7fa" secondAttribute="trailing" id="QL3-ze-YwH"/>
-                            <constraint firstItem="2DU-Sx-Kbc" firstAttribute="trailing" secondItem="mhy-ou-7fa" secondAttribute="trailing" id="RtG-0a-RdN"/>
-                            <constraint firstItem="zVE-Qe-fkN" firstAttribute="leading" secondItem="mhy-ou-7fa" secondAttribute="leading" id="UaG-ki-oag"/>
-                            <constraint firstAttribute="bottom" secondItem="ZA4-H7-4Up" secondAttribute="bottom" priority="999" constant="30" id="Vzq-0D-7CU"/>
-                            <constraint firstItem="Fpw-Fc-P2W" firstAttribute="leading" secondItem="mhy-ou-7fa" secondAttribute="leading" constant="30" id="bJl-uS-eQD"/>
-                            <constraint firstItem="ZA4-H7-4Up" firstAttribute="trailing" secondItem="mhy-ou-7fa" secondAttribute="trailing" constant="-30" id="fcJ-IV-H4t"/>
-                            <constraint firstItem="Fpw-Fc-P2W" firstAttribute="trailing" secondItem="mhy-ou-7fa" secondAttribute="trailing" constant="-30" id="gCb-4m-laY"/>
-                            <constraint firstItem="2DU-Sx-Kbc" firstAttribute="leading" secondItem="mhy-ou-7fa" secondAttribute="leading" id="ks6-QE-jHr"/>
-                            <constraint firstItem="zVE-Qe-fkN" firstAttribute="top" secondItem="Fpw-Fc-P2W" secondAttribute="bottom" priority="750" constant="10" id="tEn-x3-ehq"/>
+                            <constraint firstItem="2DU-Sx-Kbc" firstAttribute="leading" secondItem="mhy-ou-7fa" secondAttribute="leading" id="8u0-49-JfN"/>
+                            <constraint firstItem="mhy-ou-7fa" firstAttribute="bottom" secondItem="lTo-zW-oHD" secondAttribute="bottom" constant="20" id="Avk-Qv-3Vi"/>
+                            <constraint firstItem="mhy-ou-7fa" firstAttribute="trailing" secondItem="lTo-zW-oHD" secondAttribute="trailing" constant="20" id="FjI-1a-RsO"/>
+                            <constraint firstItem="2DU-Sx-Kbc" firstAttribute="top" secondItem="mhy-ou-7fa" secondAttribute="top" id="WIb-W2-Hu8"/>
+                            <constraint firstItem="2DU-Sx-Kbc" firstAttribute="trailing" secondItem="mhy-ou-7fa" secondAttribute="trailing" id="mpj-1t-0Qg"/>
+                            <constraint firstItem="lTo-zW-oHD" firstAttribute="leading" secondItem="mhy-ou-7fa" secondAttribute="leading" constant="20" id="yYl-nc-f78"/>
+                            <constraint firstItem="lTo-zW-oHD" firstAttribute="top" secondItem="2DU-Sx-Kbc" secondAttribute="bottom" constant="10" id="yzt-dA-b13"/>
                         </constraints>
                     </view>
                     <connections>
