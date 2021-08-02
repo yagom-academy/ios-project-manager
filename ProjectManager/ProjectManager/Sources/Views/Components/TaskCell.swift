@@ -59,7 +59,7 @@ final class TaskCell: UITableViewCell {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.alignment = .fill
-        stackView.distribution = .fill
+        stackView.distribution = .equalSpacing
         stackView.spacing = Style.spacing
         return stackView
     }()
