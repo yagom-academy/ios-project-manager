@@ -17,9 +17,7 @@ class TaskAlertViewController: UIViewController {
     @IBOutlet weak var alertNavigationBar: UINavigationBar!
     
     weak var taskDelegate: TaskDelegate?
-    
     var selectTask: Task?
-    
     var leftBarButtonName: String?
     
     override func viewDidLoad() {
@@ -32,6 +30,7 @@ class TaskAlertViewController: UIViewController {
         self.leftBarButton.title = leftBarButtonName
         
         setSelectTask()
+        setBorderStyle()
     }
     
     private func setSelectTask() {
@@ -45,6 +44,15 @@ class TaskAlertViewController: UIViewController {
         taskTextField.isEnabled = false
         taskTextView.isEditable = false
         datePicker.isEnabled = false
+    }
+    
+    private func setBorderStyle() {
+        taskTextView.clipsToBounds = false
+        taskTextView.layer.shadowOpacity = 0.4
+        taskTextView.layer.shadowOffset = CGSize(width: 3, height: 3)
+        taskTextField.clipsToBounds = false
+        taskTextField.layer.shadowOpacity = 0.4
+        taskTextField.layer.shadowOffset = CGSize(width: 3, height: 3)
     }
     
     @IBAction func finishEditTask(_ sender: Any) {
@@ -65,11 +73,11 @@ class TaskAlertViewController: UIViewController {
                 return
             }
             
-            taskDelegate?.patchTask(title: selectTitle,
-                                    content: selectBody,
-                                    deadLine: datePicker.date,
-                                    category: selectTask.category
-                                    )
+            taskDelegate?.patchTask(self, task: Task(id: nil,
+                                                     title: selectTitle,
+                                                     content: selectBody,
+                                                     deadLineDate: datePicker.date,
+                                                     category: selectTask.category))
         }
         
         self.dismiss(animated: true)

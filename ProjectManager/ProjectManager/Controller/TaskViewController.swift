@@ -233,14 +233,11 @@ extension TaskViewController: UITableViewDropDelegate {
 }
 
 extension TaskViewController: TaskDelegate {
-    func patchTask(title: String, content: String, deadLine: Date, category: TaskType) {
-        let selectTableView = tableViewForCategoryType(category)
+    func patchTask(_ taskAlertViewController: TaskAlertViewController, task: Task) {
+        let selectTableView = tableViewForCategoryType(task.category)
         let dataSource = dataSourceForTableView(selectTableView)
-        dataSource.tasks[indexNum].title = title
-        dataSource.tasks[indexNum].content = content
-        dataSource.tasks[indexNum].deadLineDate = deadLine
-        
-        selectTableView.reloadData()
+        dataSource.tasks[indexNum] = task
+        selectTableView.reloadSections([indexNum, indexNum], with: .automatic)
     }
     
     func addTask(_ taskAlertViewController: TaskAlertViewController, task: Task) {
