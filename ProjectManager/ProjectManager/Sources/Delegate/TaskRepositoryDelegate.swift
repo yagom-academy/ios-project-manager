@@ -8,5 +8,5 @@
 protocol TaskRepositoryDelegate: AnyObject {
 
     func networkDidConnect()
-    func networkDidDisConnect()
+    func networkDidDisconnect()
 }

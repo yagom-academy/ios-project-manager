@@ -27,7 +27,7 @@ final class TaskRepository {
 
     private(set) var isConnected: Bool = false {
         didSet {
-            isConnected ? delegate?.networkDidConnect() : delegate?.networkDidDisConnect()
+            isConnected ? delegate?.networkDidConnect() : delegate?.networkDidDisconnect()
         }
     }
 

@@ -12,7 +12,7 @@ struct TaskCoreDataStack {
     static let persistentContainerName = "ProjectManager"
     static let shared = TaskCoreDataStack()
 
-    var persistentContainer: NSPersistentContainer = {
+    private var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: TaskCoreDataStack.persistentContainerName)
         container.loadPersistentStores { (_, error) in
             container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
@@ -24,11 +24,13 @@ struct TaskCoreDataStack {
         return container
     }()
 
+    var context: NSManagedObjectContext {
+        return persistentContainer.viewContext
+    }
+
     private init() { }
 
     func saveContext() {
-        let context = persistentContainer.viewContext
-
         if context.hasChanges {
             do {
                 try context.save()
@@ -41,10 +43,9 @@ struct TaskCoreDataStack {
 
     func parse(_ jsonData: Data) -> Bool {
         do {
-            let managedObjectContext = persistentContainer.viewContext
             let decoder = JSONDecoder()
             _ = try decoder.decode([Task].self, from: jsonData)
-            try managedObjectContext.save()
+            try context.save()
 
             return true
         } catch {
@@ -54,11 +55,10 @@ struct TaskCoreDataStack {
     }
 
     func fetchTasks() -> [Task] {
-        let managedObjectContext = persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<Task>(entityName: Task.entityName)
 
         do {
-            let tasks = try managedObjectContext.fetch(fetchRequest)
+            let tasks = try context.fetch(fetchRequest)
             return tasks
         } catch let error {
             print(error)

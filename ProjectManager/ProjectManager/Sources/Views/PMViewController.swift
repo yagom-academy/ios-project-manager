@@ -134,14 +134,6 @@ final class PMViewController: UIViewController {
         }
     }
 
-    private func fetchTasks() {
-        viewModel.fetchTasks {
-            DispatchQueue.main.async { [weak self] in
-                self?.stateStackViews.forEach { $0.stateTableView.reloadData() }
-            }
-        }
-    }
-
     // MARK: Button Actions
 
     @objc private func addButtonTapped() {

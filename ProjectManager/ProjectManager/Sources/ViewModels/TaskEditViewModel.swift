@@ -19,7 +19,7 @@ struct TaskEditViewModel {
         guard let task = task,
               let indexPath = indexPath else { return }
 
-        taskManager.update(id: task.objectID, title: title, dueDate: dueDate, body: body)
+        taskManager.update(objectID: task.objectID, title: title, dueDate: dueDate, body: body)
         updated?(indexPath, task)
     }
 

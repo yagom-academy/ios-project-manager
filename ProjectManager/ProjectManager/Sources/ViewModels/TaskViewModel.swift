@@ -14,27 +14,15 @@ final class TaskViewModel {
     var inserted: ((_ state: Task.State, _ index: Int) -> Void)?
     var removed: ((_ state: Task.State, _ index: Int) -> Void)?
 
+    var networkConnected: (() -> Void)?
+    var networkDisconnected: (() -> Void)?
+
     private let taskRepository = TaskRepository()
     private let taskManager = TaskManager()
 
     private(set) var taskList = TaskList() {
         didSet {
             changed?()
-        }
-    }
-
-    func fetchTasks(completion: @escaping () -> Void) {
-        taskRepository.fetchTasks { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let taskList):
-                self.taskList = taskList
-                completion()
-            case .failure(let error):
-                print(error)
-                self.taskList = self.taskManager.read()
-                completion()
-            }
         }
     }
 
@@ -138,7 +126,7 @@ final class TaskViewModel {
         guard index <= taskList[state].count else { return }
 
         taskList[state].insert(task, at: index)
-        taskManager.update(id: task.objectID, state: state)
+        taskManager.update(objectID: task.objectID, state: state)
         inserted?(state, index)
     }
 
@@ -149,5 +137,47 @@ final class TaskViewModel {
      */
     func count(of state: Task.State) -> Int? {
         return taskList[state].count
+    }
+}
+
+// MARK: - TaskRepositoryDelegate
+
+extension TaskViewModel: TaskRepositoryDelegate {
+
+    func networkDidConnect() {
+        taskRepository.fetchTasks { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let taskList):
+                self.taskList = self.taskManager.isEmpty ? taskList : self.taskManager.read()
+                self.taskManager.pendingObjectIDs.forEach { taskObjectID in
+                    guard let task = self.taskManager.task(with: taskObjectID) else { return }
+
+                    if task.id == nil && !task.isRemoved {
+                        self.taskRepository.post(task: task) { result in
+                            switch result {
+                            case .success(let task):
+                                self.taskManager.update(objectID: taskObjectID, id: task.id)
+                            case .failure(let error):
+                                print(error)
+                            }
+                        }
+                    } else if task.id != nil && !task.isRemoved {
+                        self.taskRepository.patch(task: task) { _ in }
+                    } else if task.id != nil && task.isRemoved {
+                        self.taskRepository.delete(task: task) { _ in }
+                    }
+                }
+            case .failure(let error):
+                self.taskList = self.taskManager.read()
+                print(error)
+            }
+        }
+        networkConnected?()
+    }
+
+    func networkDidDisconnect() {
+        self.taskList = self.taskManager.read()
+        networkDisconnected?()
     }
 }
