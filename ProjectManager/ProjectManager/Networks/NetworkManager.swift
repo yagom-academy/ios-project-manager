@@ -8,12 +8,16 @@
 import Foundation
 
 struct NetworkManager {
-    private let baseURL = "https://vaporpms.herokuapp.com"
+    private let baseURL = "https://vaporpms.herokuapp.comd"
     private let indicatorView = IndicatorView()
     
     private func checkValidation(data: Data?, response: URLResponse?, error: Error?) -> Bool {
         if let error = error {
-            fatalError("\(error)")
+            self.indicatorView.dismiss()
+            ProjectManagerViewController.networkStatus = .disconnection
+            setUpNotificationCenterPost()
+            print("\nError: \(error)\n")
+            return false
         }
         
         guard let httpResponse = response as? HTTPURLResponse else {

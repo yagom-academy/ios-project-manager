@@ -29,10 +29,11 @@ struct Service {
     }
     
     func postTask(task: Task, completion: @escaping (Task) -> ()) {
-        coreDataManager.createNewTask(task: task)
-        networkManager.post(task: task) { task in
-            guard let _ = task else {
+        coreDataManager.createTask(task: task)
+        networkManager.post(task: task) { taskResult in
+            guard let _ = taskResult else {
                 // 서버와 연결이 끊긴 경우이므로 버퍼에 저장한다.
+                pushIntoBuffer(task: task, httpMethod: "POST")
                 return
             }
         }
@@ -40,9 +41,10 @@ struct Service {
     
     func patchTask(task: Task, completion: @escaping () -> ()) {
         coreDataManager.patchData(task: task)
-        networkManager.patch(task: task) { task in
-            guard let _ = task else {
+        networkManager.patch(task: task) { taskResult in
+            guard let _ = taskResult else {
                 // 서버와 연결이 끊긴 경우이므로 버퍼에 저장한다.
+                pushIntoBuffer(task: task, httpMethod: "PATCH")
                 return
             }
         }
@@ -53,6 +55,8 @@ struct Service {
         networkManager.delete(id: id) { networkStatus in
             guard networkStatus else {
                 // 서버와 연결이 끊긴 경우이므로 버퍼에 저장한다.
+                let mockTask = Task(title: "", detail: "", deadline: 0, status: "", id: id)
+                pushIntoBuffer(task: mockTask, httpMethod: "DELETE")
                 return
             }
         }
@@ -88,5 +92,13 @@ struct Service {
             taskList.append(taskData)
         }
         return taskList
+    }
+    
+    func pushIntoBuffer(task: Task, httpMethod: String) {
+        coreDataManager.pushTask(task: task, httpMethod: httpMethod)
+    }
+    
+    func popFromBuffer(id: String) {
+        coreDataManager.popTask(id: id)
     }
 }

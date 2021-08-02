@@ -26,7 +26,7 @@ struct CoreData {
         }
     }
     
-    func createNewTask(task: Task){
+    func createTask(task: Task){
         let newTask = TaskData(context: context)
         newTask.title = task.title
         newTask.detail = task.detail
@@ -45,6 +45,9 @@ struct CoreData {
         fetchRequest.predicate = NSPredicate(format: "id = %@", id)
         do {
             let taskList = try context.fetch(fetchRequest)
+            if taskList.count == 0 {
+                return
+            }
             let objectDelete = taskList[0] as! NSManagedObject
             context.delete(objectDelete)
             do {
@@ -62,6 +65,9 @@ struct CoreData {
         fetchRequest.predicate = NSPredicate(format: "id = %@", task.id)
         do {
             let taskList = try context.fetch(fetchRequest)
+            if taskList.count == 0 {
+                return
+            }
             let objectUpdate = taskList[0] as! NSManagedObject
             objectUpdate.setValue(task.title, forKey: "title")
             objectUpdate.setValue(task.deadline, forKey: "deadline")
@@ -77,32 +83,40 @@ struct CoreData {
         }
     }
 
-    
-//    
-//    func resetUpdatedFileListItem(files: [TaskData]) {
-//        for file in files {
-//            context.delete(file)
-//        }
-//        do {
-//            try context.save()
-//        } catch {
-//            print(DataError.resetItems)
-//        }
-//    }
-//    
-//    func convertMemoTypeToMemoListItemType(memoList: [Memo], completion: (@escaping Handler) = { _ in }) {
-//        for memo in memoList {
-//            let newItem = MemoListItem(context: context)
-//            newItem.title = memo.title
-//            newItem.body = memo.body
-//            newItem.lastModifiedDate = Date(timeIntervalSince1970: TimeInterval(memo.lastModified))
-//            newItem.allText = memo.title + "\n" + memo.body
-//        }
-//        do {
-//            try context.save()
-//            getAllMemoListItems()
-//        } catch {
-//            print(DataError.convertItem)
-//        }
-//    }
+    func pushTask(task: Task, httpMethod: String){
+        let newBufferTask = TaskBuffer(context: context)
+        newBufferTask.title = task.title
+        newBufferTask.detail = task.detail
+        newBufferTask.deadline = task.deadline
+        newBufferTask.status = task.status
+        newBufferTask.id = task.id
+        newBufferTask.httpMethod = httpMethod
+        do {
+            try context.save()
+        } catch {
+            print(error)
+        }
+    }
+
+    func popTask(id: String) {
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "TaskData")
+        fetchRequest.predicate = NSPredicate(format: "id = %@", id)
+        do {
+            let taskList = try context.fetch(fetchRequest)
+            if taskList.count == 0 {
+                return
+            }
+            print("\n POP \n")
+            let objectDelete = taskList[0] as! NSManagedObject
+            context.delete(objectDelete)
+            do {
+                try context.save()
+            } catch {
+                print(error)
+            }
+        } catch {
+            print(error)
+        }
+    }
+
 }

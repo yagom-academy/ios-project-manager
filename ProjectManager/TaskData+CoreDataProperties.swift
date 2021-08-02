@@ -9,7 +9,6 @@
 import Foundation
 import CoreData
 
-
 extension TaskData {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<TaskData> {
