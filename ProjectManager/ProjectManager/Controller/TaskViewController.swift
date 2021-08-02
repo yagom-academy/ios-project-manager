@@ -117,16 +117,6 @@ class TaskViewController: UIViewController {
         self.present(taskAlertViewController, animated: true, completion: nil)
     }
     
-    func changeViewController() {
-        guard let taskAlertViewController = self.storyboard?.instantiateViewController(identifier: "TaskAlert")  as? TaskAlertViewController
-        else { return }
-        
-        taskAlertViewController.taskDelegate = self
-        taskAlertViewController.leftBarButtonName = "Cancel"
-        taskAlertViewController.modalPresentationStyle = .formSheet
-        taskAlertViewController.modalTransitionStyle =  .crossDissolve
-        self.present(taskAlertViewController, animated: true, completion: nil)
-    }
 }
 
 extension TaskViewController: UITableViewDelegate {
