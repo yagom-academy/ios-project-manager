@@ -18,9 +18,6 @@ class TaskAlertViewController: UIViewController {
     
     weak var taskDelegate: TaskDelegate?
     
-    var selectTitle: String?
-    var selectBody: String?
-    var selectDeadLine: Date?
     var selectTask: Task?
     
     var leftBarButtonName: String?
@@ -33,9 +30,6 @@ class TaskAlertViewController: UIViewController {
         self.view.layer.borderColor = UIColor.white.cgColor
         
         self.leftBarButton.title = leftBarButtonName
-        
-        taskTextView.delegate = self
-        taskTextField.addTarget(self, action: #selector(changedTextField), for: .editingChanged)
         
         setSelectTask()
     }
@@ -53,23 +47,32 @@ class TaskAlertViewController: UIViewController {
         datePicker.isEnabled = false
     }
     
-    @objc func changedTextField() {
-        selectTitle = taskTextField.text
-    }
-    
-    @IBAction func getDeadLine(_ sender: UIDatePicker) {
-        selectDeadLine = sender.date
-    }
-    
     @IBAction func finishEditTask(_ sender: Any) {
-        if let title = taskTextField.text,
-           title.isEmpty == false {
+        guard let title = taskTextField.text else { return }
+           
+        if title.isEmpty == false && self.leftBarButtonName == "Cancel" {
             taskDelegate?.sendTask(self, task: Task(id: nil,
                                               title: title,
                                               content: taskTextView.text,
                                               deadLineDate: datePicker.date,
                                               category: .todo))
         }
+        else if self.leftBarButtonName == "Edit" {
+            guard let selectTitle = taskTextField.text,
+                  let selectBody = taskTextView.text,
+                  let selectTask = selectTask
+            else {
+                self.dismiss(animated: true)
+                return
+            }
+            
+            taskDelegate?.patchTask(title: selectTitle,
+                                    content: selectBody,
+                                    deadLine: datePicker.date,
+                                    category: selectTask.category
+                                    )
+        }
+        
         self.dismiss(animated: true)
     }
     
@@ -82,11 +85,5 @@ class TaskAlertViewController: UIViewController {
         else {
             self.dismiss(animated: true)
         }
-    }
-}
-
-extension TaskAlertViewController: UITextViewDelegate {
-    func textViewDidChange(_ textView: UITextView) {
-        selectBody = self.taskTextView.text
     }
 }

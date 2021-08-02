@@ -9,4 +9,9 @@ import Foundation
 
 protocol TaskDelegate: AnyObject {
     func sendTask(_ taskAlertViewController: TaskAlertViewController, task: Task)
+    func patchTask(title: String,
+                   content: String,
+                   deadLine: Date,
+                   category: TaskType
+                   )
 }

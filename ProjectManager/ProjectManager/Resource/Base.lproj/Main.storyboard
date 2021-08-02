@@ -236,9 +236,6 @@
                         <subviews>
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="zVE-Qe-fkN">
                                 <rect key="frame" x="0.0" y="116.5" width="1366" height="216"/>
-                                <connections>
-                                    <action selector="getDeadLine:" destination="O8J-8T-QgR" eventType="valueChanged" id="OXN-to-IyC"/>
-                                </connections>
                             </datePicker>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Fpw-Fc-P2W">
                                 <rect key="frame" x="0.0" y="60" width="1366" height="46.5"/>

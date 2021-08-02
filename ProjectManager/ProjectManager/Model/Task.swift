@@ -9,11 +9,11 @@ import Foundation
 import MobileCoreServices
 
 final class Task: NSObject, Codable {
-    let id: String?
-    let title: String
-    let content: String?
-    let deadLineDate: Date
-    let category: TaskType
+    var id: String?
+    var title: String
+    var content: String?
+    var deadLineDate: Date
+    var category: TaskType
     var formattedDeadLineDate: String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium

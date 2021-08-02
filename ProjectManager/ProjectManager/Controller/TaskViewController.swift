@@ -22,6 +22,7 @@ class TaskViewController: UIViewController {
     private var todos = [Task]()
     private var doings = [Task]()
     private var dones = [Task]()
+    private var indexNum = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,6 +70,16 @@ class TaskViewController: UIViewController {
             return doingDataSource
         } else {
             return doneDataSource
+        }
+    }
+    
+    private func tableViewForCategoryType(_ category: TaskType) -> UITableView {
+        if category == .todo {
+            return todoTableView
+        } else if category == .doing {
+            return doingTableView
+        } else {
+            return doneTableView
         }
     }
     
@@ -151,8 +162,8 @@ extension TaskViewController: UITableViewDelegate {
         taskAlertViewController.leftBarButtonName = "Edit"
         taskAlertViewController.modalPresentationStyle = .formSheet
         taskAlertViewController.modalTransitionStyle =  .crossDissolve
-        
         taskAlertViewController.selectTask = task
+        indexNum = indexPath.section
         
         self.present(taskAlertViewController, animated: true, completion: nil)
     }
@@ -233,6 +244,16 @@ extension TaskViewController: UITableViewDropDelegate {
 }
 
 extension TaskViewController: TaskDelegate {
+    func patchTask(title: String, content: String, deadLine: Date, category: TaskType) {
+        let selectTableView = tableViewForCategoryType(category)
+        let dataSource = dataSourceForTableView(selectTableView)
+        dataSource.tasks[indexNum].title = title
+        dataSource.tasks[indexNum].content = content
+        dataSource.tasks[indexNum].deadLineDate = deadLine
+        
+        selectTableView.reloadData()
+    }
+    
     func sendTask(_ taskAlertViewController: TaskAlertViewController, task: Task) {
         let dataSource = dataSourceForTableView(todoTableView)
         dataSource.addTask(task, at: 0)
