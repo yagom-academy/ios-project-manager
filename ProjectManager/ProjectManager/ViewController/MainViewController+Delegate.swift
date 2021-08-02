@@ -9,7 +9,7 @@ import UIKit
 
 extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let dataSource = dataSource(for: tableView)
+        let dataSource = dataSources(for: tableView)
         let task = dataSource.task(at: indexPath)
         let taskFormViewController = TaskFormViewController(type: .edit)
         taskFormViewController.delegate = self
