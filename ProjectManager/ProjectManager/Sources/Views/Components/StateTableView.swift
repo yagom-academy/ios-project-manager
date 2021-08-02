@@ -14,7 +14,7 @@ final class StateTableView: UITableView {
 
     // MARK: Properties
 
-    var state: Task.State?
+    private(set) var state: Task.State?
 
     // MARK: Initializers
 

@@ -26,22 +26,16 @@ final class TaskEditTitleTextField: UITextField {
 
     init() {
         super.init(frame: .zero)
-        backgroundColor = Style.backgroundColor
-        font = UIFont.preferredFont(forTextStyle: Style.textStyle)
-        layer.shadowColor = Style.shadowColor.cgColor
-        layer.shadowOffset = Style.shadowOffset
-        layer.shadowOpacity = Style.shadowOpacity
-        layer.shadowRadius = Style.shadowRadius
-        placeholder = Style.textPlaceholder
-        setContentHuggingPriority(.required, for: .vertical)
-        setContentCompressionResistancePriority(.required, for: .vertical)
+        setAttributes()
+        setShadowStyle()
+        setPriorities()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
 
-    // MARK: Configure bounds
+    // MARK: Configure
 
     override func textRect(forBounds bounds: CGRect) -> CGRect {
         let rect = super.textRect(forBounds: bounds)
@@ -51,5 +45,23 @@ final class TaskEditTitleTextField: UITextField {
     override func editingRect(forBounds bounds: CGRect) -> CGRect {
         let rect = super.editingRect(forBounds: bounds)
         return rect.inset(by: Style.textPadding)
+    }
+
+    private func setAttributes() {
+        backgroundColor = Style.backgroundColor
+        font = UIFont.preferredFont(forTextStyle: Style.textStyle)
+        placeholder = Style.textPlaceholder
+    }
+
+    private func setShadowStyle() {
+        layer.shadowColor = Style.shadowColor.cgColor
+        layer.shadowOffset = Style.shadowOffset
+        layer.shadowOpacity = Style.shadowOpacity
+        layer.shadowRadius = Style.shadowRadius
+    }
+
+    private func setPriorities() {
+        setContentHuggingPriority(.required, for: .vertical)
+        setContentCompressionResistancePriority(.required, for: .vertical)
     }
 }
