@@ -68,7 +68,7 @@ class NetworkManager {
     }
     
     func post<T: Codable>(url: URL, _ item: T, completion: @escaping (Result<Task, Error>) -> Void) {
-        guard let request = requestBodyMaker.postJsonRequest(url, item, .post) else {
+        guard let request = requestBodyMaker.generate(url, item, .post) else {
             completion(.failure(fatalError()))
         }
         let dataTask = session.dataTask(with: request) { data, response, error in
@@ -78,6 +78,26 @@ class NetworkManager {
                 return
             }
             
+            if let data = data, let task = try? JSONDecoder().decode(Task.self, from: data) {
+                completion(.success(task))
+                return
+            }
+            completion(.failure(fatalError()))
+        }
+        dataTask.resume()
+    }
+    
+    func put<T: Codable>(url: URL, _ item: T, completion: @escaping (Result<Task, Error>) -> Void) {
+        guard let request = requestBodyMaker.generate(url, item, .put) else {
+            completion(.failure(fatalError()))
+        }
+        let dataTask = session.dataTask(with: request) { data, response, error in
+            guard let response = response as? HTTPURLResponse,
+                  (200...299).contains(response.statusCode) else {
+                completion(.failure(fatalError()))
+                return
+            }
+
             if let data = data, let task = try? JSONDecoder().decode(Task.self, from: data) {
                 completion(.success(task))
                 return

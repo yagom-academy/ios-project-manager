@@ -12,7 +12,7 @@ enum ProjectManagerError: Error {
 }
 
 struct RequestMaker {
-    func postJsonRequest<T: Codable>(_ url: URL, _ item: T, _ httpMethod: HTTPMethod) -> URLRequest? {
+    func generate<T: Codable>(_ url: URL, _ item: T, _ httpMethod: HTTPMethod) -> URLRequest? {
         var request: URLRequest = URLRequest(url: url)
         request.httpMethod = "\(httpMethod)"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
