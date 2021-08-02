@@ -74,11 +74,12 @@ class TaskViewController: UIViewController {
     }
     
     private func tableViewForCategoryType(_ category: TaskType) -> UITableView {
-        if category == .todo {
+        switch category {
+        case .todo:
             return todoTableView
-        } else if category == .doing {
+        case .doing:
             return doingTableView
-        } else {
+        case .done:
             return doneTableView
         }
     }
