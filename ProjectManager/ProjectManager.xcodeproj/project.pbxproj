@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7648CDC526B82C2F00EF568A /* DateFormatter+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7648CDC426B82C2F00EF568A /* DateFormatter+Ext.swift */; };
 		76A25D5926AFDC57005387DF /* TaskDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A25D5826AFDC57005387DF /* TaskDataSource.swift */; };
 		76A25D5C26AFE654005387DF /* TaskError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A25D5B26AFE654005387DF /* TaskError.swift */; };
 		76A25D5E26AFEB8A005387DF /* TaskDragCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A25D5D26AFEB8A005387DF /* TaskDragCoordinator.swift */; };
@@ -26,6 +27,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7648CDC426B82C2F00EF568A /* DateFormatter+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Ext.swift"; sourceTree = "<group>"; };
 		76A25D5826AFDC57005387DF /* TaskDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDataSource.swift; sourceTree = "<group>"; };
 		76A25D5B26AFE654005387DF /* TaskError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskError.swift; sourceTree = "<group>"; };
 		76A25D5D26AFEB8A005387DF /* TaskDragCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDragCoordinator.swift; sourceTree = "<group>"; };
@@ -57,6 +59,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7648CDC326B82C1C00EF568A /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				7648CDC426B82C2F00EF568A /* DateFormatter+Ext.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		76A25D5A26AFE646005387DF /* Error */ = {
 			isa = PBXGroup;
 			children = (
@@ -85,10 +95,11 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
+				7648CDC326B82C1C00EF568A /* Extension */,
 				E28CA39826B0236800847215 /* Resource */,
 				E2F9993426A943AD00E639BA /* Model */,
 				E28CA39726B022CD00847215 /* Controller */,
-				E28CA39926B023E600847215 /* Cell */,
+				E28CA39926B023E600847215 /* View */,
 				76A25D5A26AFE646005387DF /* Error */,
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
@@ -117,13 +128,13 @@
 			path = Resource;
 			sourceTree = "<group>";
 		};
-		E28CA39926B023E600847215 /* Cell */ = {
+		E28CA39926B023E600847215 /* View */ = {
 			isa = PBXGroup;
 			children = (
 				E2738BA626A5CB5100B54228 /* TableViewCell.swift */,
 				E2738BA726A5CB5100B54228 /* TableViewCell.xib */,
 			);
-			path = Cell;
+			path = View;
 			sourceTree = "<group>";
 		};
 		E2F9993426A943AD00E639BA /* Model */ = {
@@ -238,6 +249,7 @@
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				E2F9993326A9439D00E639BA /* Task.swift in Sources */,
 				76A25D5926AFDC57005387DF /* TaskDataSource.swift in Sources */,
+				7648CDC526B82C2F00EF568A /* DateFormatter+Ext.swift in Sources */,
 				E2DB8A9826B2DAAF00EFF826 /* TaskDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				76A25D5C26AFE654005387DF /* TaskError.swift in Sources */,

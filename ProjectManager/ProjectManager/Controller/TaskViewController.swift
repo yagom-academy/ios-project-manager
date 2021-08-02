@@ -246,11 +246,3 @@ extension TaskViewController: TaskDelegate {
         todoTableView.insertSections([0,0], with: .automatic)
     }
 }
-
-extension DateFormatter {
-  static let iso8601Full: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
-    return formatter
-  }()
-}
