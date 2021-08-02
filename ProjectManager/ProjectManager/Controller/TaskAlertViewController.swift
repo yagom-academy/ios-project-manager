@@ -51,13 +51,12 @@ class TaskAlertViewController: UIViewController {
         guard let title = taskTextField.text else { return }
            
         if title.isEmpty == false && self.leftBarButtonName == "Cancel" {
-            taskDelegate?.sendTask(self, task: Task(id: nil,
+            taskDelegate?.addTask(self, task: Task(id: nil,
                                               title: title,
                                               content: taskTextView.text,
                                               deadLineDate: datePicker.date,
                                               category: .todo))
-        }
-        else if self.leftBarButtonName == "Edit" {
+        } else if self.leftBarButtonName == "Edit" {
             guard let selectTitle = taskTextField.text,
                   let selectBody = taskTextView.text,
                   let selectTask = selectTask
@@ -81,8 +80,7 @@ class TaskAlertViewController: UIViewController {
             taskTextField.isEnabled = true
             taskTextView.isEditable = true
             datePicker.isEnabled = true
-        }
-        else {
+        } else {
             self.dismiss(animated: true)
         }
     }

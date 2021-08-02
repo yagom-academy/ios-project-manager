@@ -181,7 +181,6 @@ extension TaskViewController: UITableViewDragDelegate {
             tableView.deleteSections([sourceIndexPath.section, sourceIndexPath.section], with: .automatic)
         }
     }
-    
 }
 
 extension TaskViewController: UITableViewDropDelegate {
@@ -244,7 +243,7 @@ extension TaskViewController: TaskDelegate {
         selectTableView.reloadData()
     }
     
-    func sendTask(_ taskAlertViewController: TaskAlertViewController, task: Task) {
+    func addTask(_ taskAlertViewController: TaskAlertViewController, task: Task) {
         let dataSource = dataSourceForTableView(todoTableView)
         dataSource.addTask(task, at: 0)
         todoTableView.insertSections([0,0], with: .automatic)
