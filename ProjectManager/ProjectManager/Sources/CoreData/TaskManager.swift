@@ -32,9 +32,9 @@ struct TaskManager {
 
     func read() -> TaskList {
         let tasks = coreDataStack.fetchTasks()
-        let todos = tasks.filter { $0.taskState == .todo }
-        let doings = tasks.filter { $0.taskState == .doing }
-        let dones = tasks.filter { $0.taskState == .done }
+        let todos = tasks.filter { $0.taskState == .todo && !$0.isRemoved }
+        let doings = tasks.filter { $0.taskState == .doing && !$0.isRemoved }
+        let dones = tasks.filter { $0.taskState == .done && !$0.isRemoved }
 
         return TaskList(todos: todos, doings: doings, dones: dones)
     }
@@ -51,6 +51,18 @@ struct TaskManager {
         task.body = body ?? task.body
         task.dueDate = dueDate ?? task.dueDate
         task.taskState = state ?? task.taskState
+
+        do {
+            try context.save()
+        } catch {
+            print(error)
+        }
+    }
+
+    func softDelete(_ id: NSManagedObjectID) {
+        let context = coreDataStack.persistentContainer.viewContext
+        guard let task = context.object(with: id) as? Task else { return }
+        task.isRemoved = true
 
         do {
             try context.save()
