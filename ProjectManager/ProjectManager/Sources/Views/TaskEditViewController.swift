@@ -102,8 +102,10 @@ final class TaskEditViewController: UIViewController {
     // MARK: Initializers
 
     init?(editMode: EditMode, task: (indexPath: IndexPath, task: Task)? = nil) {
-        guard (editMode == .add && task == nil) ||
-                (editMode == .update && task != nil) else { return nil }
+        let hasNoTaskAtAdd: Bool = (editMode == .add && task == nil)
+        let hasTaskAtUpdate: Bool = (editMode == .update && task != nil)
+
+        guard hasNoTaskAtAdd || hasTaskAtUpdate else { return nil }
         super.init(nibName: nil, bundle: nil)
 
         self.modalTransitionStyle = .flipHorizontal

@@ -49,7 +49,7 @@ final class PMViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = Style.backgroundColor
+        setAttributes()
         setNavigationBar()
         setStateStackViews()
         setPMStackView()
@@ -59,6 +59,10 @@ final class PMViewController: UIViewController {
     }
 
     // MARK: Configure View
+
+    private func setAttributes() {
+        view.backgroundColor = Style.backgroundColor
+    }
 
     private func setNavigationBar() {
         title = Style.navigationTitle

@@ -21,6 +21,11 @@ extension Task {
     @NSManaged public var dueDate: Date
     @NSManaged public var state: String
 
+    var isExpired: Bool? {
+        guard let currentDate = Date().date else { return nil }
+        return dueDate < currentDate
+    }
+
     var taskState: State {
         get {
             return State(rawValue: state) ?? .todo
