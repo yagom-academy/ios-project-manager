@@ -4,10 +4,11 @@
         <attribute name="body" attributeType="String"/>
         <attribute name="dueDate" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="isRemoved" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="state" attributeType="String"/>
         <attribute name="title" attributeType="String"/>
     </entity>
     <elements>
-        <element name="Task" positionX="-63" positionY="-18" width="128" height="104"/>
+        <element name="Task" positionX="-63" positionY="-18" width="128" height="119"/>
     </elements>
 </model>

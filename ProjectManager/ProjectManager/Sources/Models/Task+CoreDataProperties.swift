@@ -20,6 +20,7 @@ extension Task {
     @NSManaged public var body: String
     @NSManaged public var dueDate: Date
     @NSManaged public var state: String
+    @NSManaged public var isRemoved: Bool
 
     var isExpired: Bool? {
         guard let currentDate = Date().date else { return nil }

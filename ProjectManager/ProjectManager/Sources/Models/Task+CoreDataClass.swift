@@ -19,7 +19,7 @@ public final class Task: NSManagedObject, Codable {
     }
 
     enum CodingKeys: String, CodingKey {
-        case id, title, body, dueDate, state
+        case id, title, body, dueDate, state, isRemoved
     }
 
     public convenience init(from decoder: Decoder) throws {
@@ -37,6 +37,7 @@ public final class Task: NSManagedObject, Codable {
         self.body = try container.decode(String.self, forKey: .body)
         self.dueDate = try container.decode(Date.self, forKey: .dueDate)
         self.state = try container.decode(String.self, forKey: .state)
+        self.isRemoved = try container.decode(Bool.self, forKey: .isRemoved)
 
         try managedObjectContext.save()
     }
@@ -48,5 +49,6 @@ public final class Task: NSManagedObject, Codable {
         try container.encode(body, forKey: .body)
         try container.encode(dueDate, forKey: .dueDate)
         try container.encode(state, forKey: .state)
+        try container.encode(isRemoved, forKey: .isRemoved)
     }
 }
