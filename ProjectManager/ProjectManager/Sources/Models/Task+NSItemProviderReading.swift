@@ -10,11 +10,11 @@ import MobileCoreServices
 
 extension Task: NSItemProviderReading {
 
-    static var readableTypeIdentifiersForItemProvider: [String] {
+    public static var readableTypeIdentifiersForItemProvider: [String] {
         return [kUTTypeJSON as String]
     }
 
-    static func object(withItemProviderData data: Data, typeIdentifier: String) throws -> Task {
+    public static func object(withItemProviderData data: Data, typeIdentifier: String) throws -> Task {
         if typeIdentifier == kUTTypeJSON as String {
             let droppedTask = try JSONDecoder().decode(Task.self, from: data)
             return droppedTask

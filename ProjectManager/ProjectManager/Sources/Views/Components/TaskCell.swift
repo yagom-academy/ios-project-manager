@@ -88,7 +88,7 @@ final class TaskCell: UITableViewCell {
     func configure(with task: Task?) {
         titleLabel.text = task?.title
         bodyLabel.text = task?.body
-        dueDateLabel.text = task?.dueDate.formatted
+        dueDateLabel.text = task?.dueDate.taskFormat
         setStyle(with: task)
     }
 

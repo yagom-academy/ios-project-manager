@@ -9,23 +9,29 @@ import Foundation
 
 enum PMError: Error {
 
-    case invalidAsset
     case decodingFailed
     case invalidTypeIdentifier
-    case cannotEncodeToJSON
+    case cannotEncodeToJSON(String)
+    case requestFailed(Error)
+    case failureResponse(Int)
+    case dataNotFound
 }
 
 extension PMError: CustomStringConvertible {
     var description: String {
         switch self {
-        case .invalidAsset:
-            return "유효하지 않은 파일 이름입니다."
         case .decodingFailed:
-            return "디코딩 작업에 실패하였습니다."
+            return "디코딩 작업에 실패하였어요."
         case .invalidTypeIdentifier:
-            return "유효하지 않은 Type Identifier입니다."
-        case .cannotEncodeToJSON:
-            return "JSON으로의 인코딩 작업에 실패하였습니다."
+            return "유효하지 않은 Type Identifier네요."
+        case .cannotEncodeToJSON(let location):
+            return "JSON으로의 인코딩 작업에 실패하였어요. Location: \(location)"
+        case .requestFailed(let error):
+            return "요청 실패! 인터넷이 연결되어 있는지 확인하세요. Error: \(error)"
+        case .failureResponse(let statusCode):
+            return "실패한 응답을 받았어요. \(statusCode)"
+        case .dataNotFound:
+            return "데이터가 없어요."
         }
     }
 }

@@ -9,10 +9,18 @@ import Foundation
 
 extension Date {
 
-    var formatted: String {
+    var taskFormat: String {
         let formatter = DateFormatter()
         formatter.locale = Locale.current
         formatter.dateStyle = .medium
+        return formatter.string(from: self)
+    }
+
+    var historyFormat: String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale.current
+        formatter.dateStyle = .long
+        formatter.timeStyle = .medium
         return formatter.string(from: self)
     }
 

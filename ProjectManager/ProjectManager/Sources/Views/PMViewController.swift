@@ -14,11 +14,24 @@ final class PMViewController: UIViewController {
         static let pmStackViewSpacing: CGFloat = 10
 
         static let navigationTitle: String = "Project Manager"
+        static let navigationLeftBarButtonTitle: String = "History"
+
+        static let historyViewSize = CGSize(width: UIScreen.main.bounds.width * 0.4,
+                                            height: UIScreen.main.bounds.height * 0.6)
     }
 
     var viewModel = TaskViewModel()
+    let historyViewModel = HistoryViewModel()
 
     // MARK: Views
+
+    private lazy var historyViewController: HistoryViewController = {
+        let historyViewController = HistoryViewController()
+        historyViewController.modalPresentationStyle = .popover
+        historyViewController.preferredContentSize = Style.historyViewSize
+        historyViewController.viewModel = historyViewModel
+        return historyViewController
+    }()
 
     let pmStackView: UIStackView = {
         let stackView = UIStackView()
@@ -56,6 +69,10 @@ final class PMViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
                                                             target: self,
                                                             action: #selector(addButtonTapped))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: Style.navigationLeftBarButtonTitle,
+                                                           style: .plain,
+                                                           target: self,
+                                                           action: #selector(historyButtonTapped))
     }
 
     private func setStateStackViews() {
@@ -134,6 +151,11 @@ final class PMViewController: UIViewController {
         let presented = UINavigationController(rootViewController: taskEditViewController)
         present(presented, animated: true, completion: nil)
     }
+
+    @objc private func historyButtonTapped() {
+        historyViewController.popoverPresentationController?.barButtonItem = navigationItem.leftBarButtonItem
+        present(historyViewController, animated: true, completion: nil)
+    }
 }
 
 // MARK: - UITableViewDataSource
@@ -196,10 +218,13 @@ extension PMViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView,
                    commit editingStyle: UITableViewCell.EditingStyle,
                    forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            guard let stateTableView = tableView as? StateTableView,
-                  let state = stateTableView.state else { return }
-            viewModel.remove(state: state, at: indexPath.row)
+        guard editingStyle == .delete,
+              let stateTableView = tableView as? StateTableView,
+              let state = stateTableView.state else { return }
+
+        if let removedTitle = viewModel.remove(state: state, at: indexPath.row) {
+            historyViewModel.create(history: History(method: .removed(title: removedTitle,
+                                                                      sourceState: state)))
         }
     }
 }
@@ -209,11 +234,12 @@ extension PMViewController: UITableViewDelegate {
 extension PMViewController: TaskEditViewControllerDelegate {
 
     func taskWillUpdate(_ task: Task, _ indexPath: IndexPath) {
-        let stackView = stateStackViews.filter { $0.state == task.state }.first
+        let stackView = stateStackViews.filter { $0.state == task.taskState }.first
         stackView?.stateTableView.reloadRows(at: [indexPath], with: .automatic)
     }
 
     func taskWillAdd(_ task: Task) {
         viewModel.add(task)
+        historyViewModel.create(history: History(method: .added(title: task.title)))
     }
 }

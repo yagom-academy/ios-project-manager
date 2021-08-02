@@ -7,14 +7,15 @@
 
 import Foundation
 
-struct TaskViewModel {
+final class TaskViewModel {
 
     var added: ((_ index: Int) -> Void)?
     var changed: (() -> Void)?
     var inserted: ((_ state: Task.State, _ index: Int) -> Void)?
     var removed: ((_ state: Task.State, _ index: Int) -> Void)?
 
-    private let repository = TaskRepository()
+    private let taskRepository = TaskRepository()
+    private let taskManager = TaskManager()
 
     private(set) var taskList = TaskList() {
         didSet {
@@ -22,18 +23,21 @@ struct TaskViewModel {
         }
     }
 
-    mutating func fetchTasks(completion: @escaping () -> Void) {
-        repository.fetchTasks { result in
+    func fetchTasks(completion: @escaping () -> Void) {
+        taskRepository.fetchTasks { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case .success(let taskList):
                 self.taskList = taskList
                 completion()
             case .failure(let error):
                 print(error)
+                self.taskList = self.taskManager.read()
                 completion()
             }
         }
     }
+
     /**
      지정한 state의 index에 해당하는 Task를 반환한다.
 
@@ -52,28 +56,10 @@ struct TaskViewModel {
 
      - Parameter task: 추가할 task
      */
-    mutating func add(_ task: Task) {
-        guard let index: Int = count(of: task.state) else { return }
+    func add(_ task: Task) {
+        guard let index: Int = count(of: task.taskState) else { return }
         taskList[.todo].append(task)
         added?(index)
-    }
-
-    /**
-     지정한 위치의 Task를 다른 state의 해당하는 index로 이동시킨다.
-
-     - Parameter sourceState: task의 기존 상태
-     - Parameter sourceIndex: 기존 상태 내 task의 index
-     - Parameter destinationState: task의 이동할 상태
-     - Parameter destinationIndex: 이동할 상태 내 task의 index
-     */
-    mutating func move(from sourceState: Task.State, at sourceIndex: Int,
-                       to destinationState: Task.State, at destinationIndex: Int) {
-        guard sourceState != destinationState,
-              destinationIndex <= taskList[destinationState].count else { return }
-
-        if let removedTask: Task = remove(state: sourceState, at: sourceIndex) {
-            insert(removedTask, to: destinationState, at: destinationIndex)
-        }
     }
 
     /**
@@ -82,24 +68,24 @@ struct TaskViewModel {
      - Parameter task: 이동할 task
      - Parameter destinationState: task의 이동할 상태
      - Parameter destinationIndex: 이동할 상태 내 task의 index
-     */
-    mutating func move(_ task: Task, to destinationState: Task.State, at destinationIndex: Int) {
-        guard task.state != destinationState,
+    */
+    func move(_ task: Task, to destinationState: Task.State, at destinationIndex: Int) {
+        guard task.taskState != destinationState,
               destinationIndex <= taskList[destinationState].count else { return }
 
-        if let removedTask: Task = remove(task) {
-            insert(removedTask, to: destinationState, at: destinationIndex)
+        if remove(task) != nil {
+            insert(task, to: destinationState, at: destinationIndex)
         }
     }
 
     /**
-     지정한 위치의 Task를 같은 state의 해당하는 index로 이동시킨다.
+    지정한 위치의 Task를 같은 state의 해당하는 index로 이동시킨다.
 
-     - Parameter state: 이동할 task
-     - Parameter sourceIndex: task의 기존 index
-     - Parameter destinationIndex: task의 이동 후 index
-     */
-    mutating func move(in state: Task.State, from sourceIndex: Int, to destinationIndex: Int) {
+    - Parameter state: 이동할 task
+    - Parameter sourceIndex: task의 기존 index
+    - Parameter destinationIndex: task의 이동 후 index
+    */
+    func move(in state: Task.State, from sourceIndex: Int, to destinationIndex: Int) {
         let tasks: [Task] = taskList[state]
         guard sourceIndex < tasks.count,
               destinationIndex < tasks.count else { return }
@@ -115,12 +101,14 @@ struct TaskViewModel {
      - Parameter index: 삭제할 task의 상태 내 index
      */
     @discardableResult
-    mutating func remove(state: Task.State, at index: Int) -> Task? {
+    func remove(state: Task.State, at index: Int) -> String? {
         guard index < taskList[state].count else { return nil }
 
+        let removedTitle: String = taskList[state][index].title
         let removedTask: Task = taskList[state].remove(at: index)
+        taskManager.delete(removedTask.objectID)
         removed?(state, index)
-        return removedTask
+        return removedTitle
     }
 
     /**
@@ -129,11 +117,12 @@ struct TaskViewModel {
      - Parameter task: 삭제할 task
      */
     @discardableResult
-    mutating func remove(_ task: Task) -> Task? {
-        let state: Task.State = task.state
+    func remove(_ task: Task) -> Task? {
+        let state: Task.State = task.taskState
         guard let index: Int = taskList[state].firstIndex(where: { $0.id == task.id }) else { return nil }
 
         let removedTask: Task = taskList[state].remove(at: index)
+        taskManager.delete(removedTask.objectID)
         removed?(state, index)
         return removedTask
     }
@@ -145,11 +134,11 @@ struct TaskViewModel {
      - Parameter state: task를 삽입할 상태
      - Parameter index: 삽입할 상태 내 task의 index
      */
-    private mutating func insert(_ task: Task, to state: Task.State, at index: Int) {
+    private func insert(_ task: Task, to state: Task.State, at index: Int) {
         guard index <= taskList[state].count else { return }
 
         taskList[state].insert(task, at: index)
-        task.state = state
+        taskManager.update(id: task.objectID, state: state)
         inserted?(state, index)
     }
 
