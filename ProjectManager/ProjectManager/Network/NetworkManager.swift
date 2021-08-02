@@ -25,19 +25,6 @@ enum ServerAPI {
     case read
     case update(id: String)
     case delete(id: String)
-    
-    var httpMethod: HTTPMethod {
-        switch self {
-        case .create:
-            return .post
-        case .read:
-            return .get
-        case .update:
-            return .put
-        case .delete:
-            return .delete
-        }
-    }
 
     var url: URL? {
         switch self {
