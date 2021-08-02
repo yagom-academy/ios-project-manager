@@ -82,8 +82,17 @@ struct CoreData {
             print(error)
         }
     }
+    
+    func getBufferItems() -> [TaskBuffer]? {
+        do {
+            return try context.fetch(TaskBuffer.fetchRequest())
+        } catch {
+            print(error)
+            return nil
+        }
+    }
 
-    func pushTask(task: Task, httpMethod: String){
+    func pushIntoBuffer(task: Task, httpMethod: String){
         let newBufferTask = TaskBuffer(context: context)
         newBufferTask.title = task.title
         newBufferTask.detail = task.detail
@@ -98,15 +107,15 @@ struct CoreData {
         }
     }
 
-    func popTask(id: String) {
-        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "TaskData")
+    func popFromBuffer(id: String) {
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "TaskBuffer")
         fetchRequest.predicate = NSPredicate(format: "id = %@", id)
         do {
             let taskList = try context.fetch(fetchRequest)
             if taskList.count == 0 {
+                print("buffer is empty")
                 return
             }
-            print("\n POP \n")
             let objectDelete = taskList[0] as! NSManagedObject
             context.delete(objectDelete)
             do {

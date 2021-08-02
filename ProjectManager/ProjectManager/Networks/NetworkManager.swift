@@ -8,7 +8,7 @@
 import Foundation
 
 struct NetworkManager {
-    private let baseURL = "https://vaporpms.herokuapp.comd"
+    private let baseURL = "https://vaporpms.herokuapp.com"
     private let indicatorView = IndicatorView()
     
     private func checkValidation(data: Data?, response: URLResponse?, error: Error?) -> Bool {

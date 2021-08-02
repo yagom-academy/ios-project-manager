@@ -12,13 +12,13 @@ struct Service {
     private let coreDataManager = CoreData()
     
     func getTask(status: State, completion: @escaping ([Task]) -> ()) {
+        requestOperationstoServerInBuffer()
         networkManager.get { tasks in
             guard let diskCacheTaskDataList = coreDataManager.getTaskList(),
                   let disCacheTaskList = convertTaskDataListToTaskList(taskDataList: diskCacheTaskDataList) else {
                 return
             }
             guard let tasks = tasks else {
-                // 서버와 연결이 끊긴 경우이므로 코어데이터에 있는 데이터를 넘겨준다.
                 let filteredTaskList = filterTaskData(status: status, taskList: disCacheTaskList)
                 completion(filteredTaskList)
                 return
@@ -29,10 +29,10 @@ struct Service {
     }
     
     func postTask(task: Task, completion: @escaping (Task) -> ()) {
+        requestOperationstoServerInBuffer()
         coreDataManager.createTask(task: task)
         networkManager.post(task: task) { taskResult in
             guard let _ = taskResult else {
-                // 서버와 연결이 끊긴 경우이므로 버퍼에 저장한다.
                 pushIntoBuffer(task: task, httpMethod: "POST")
                 return
             }
@@ -40,10 +40,10 @@ struct Service {
     }
     
     func patchTask(task: Task, completion: @escaping () -> ()) {
+        requestOperationstoServerInBuffer()
         coreDataManager.patchData(task: task)
         networkManager.patch(task: task) { taskResult in
             guard let _ = taskResult else {
-                // 서버와 연결이 끊긴 경우이므로 버퍼에 저장한다.
                 pushIntoBuffer(task: task, httpMethod: "PATCH")
                 return
             }
@@ -51,10 +51,10 @@ struct Service {
     }
     
     func deleteTask(id: String, completion: @escaping () -> ()) {
+        requestOperationstoServerInBuffer()
         coreDataManager.deleteTask(id: id)
         networkManager.delete(id: id) { networkStatus in
             guard networkStatus else {
-                // 서버와 연결이 끊긴 경우이므로 버퍼에 저장한다.
                 let mockTask = Task(title: "", detail: "", deadline: 0, status: "", id: id)
                 pushIntoBuffer(task: mockTask, httpMethod: "DELETE")
                 return
@@ -70,6 +70,51 @@ struct Service {
             return taskList.filter{$0.status == State.doing.rawValue}
         case .done:
             return taskList.filter{$0.status == State.done.rawValue}
+        }
+    }
+    
+    func requestOperationstoServerInBuffer() {
+        guard let bufferItems = coreDataManager.getBufferItems() else {
+            return
+        }
+        for bufferItem in bufferItems {
+            guard let title = bufferItem.title,
+                  let detail = bufferItem.detail,
+                  let status = bufferItem.status,
+                  let id = bufferItem.id,
+                  let httpMethod = bufferItem.httpMethod else {
+                return
+            }
+            let task = Task(title: title, detail: detail, deadline: bufferItem.deadline, status: status, id: id)
+            performHttpMethodAction(task: task, httpMethod: httpMethod)
+        }
+    }
+    
+    func performHttpMethodAction(task: Task, httpMethod: String) {
+        switch httpMethod {
+        case "POST":
+            networkManager.post(task: task) { taskResult in
+                guard let _ = taskResult else {
+                    return
+                }
+                coreDataManager.popFromBuffer(id: task.id)
+            }
+        case "PATCH":
+            networkManager.patch(task: task) { taskResult in
+                guard let _ = taskResult else {
+                    return
+                }
+                coreDataManager.popFromBuffer(id: task.id)
+            }
+        case "DELETE":
+            networkManager.delete(id: task.id) { networkStatus in
+                guard networkStatus else {
+                    return
+                }
+                coreDataManager.popFromBuffer(id: task.id)
+            }
+        default:
+            return
         }
     }
     
@@ -95,10 +140,10 @@ struct Service {
     }
     
     func pushIntoBuffer(task: Task, httpMethod: String) {
-        coreDataManager.pushTask(task: task, httpMethod: httpMethod)
+        coreDataManager.pushIntoBuffer(task: task, httpMethod: httpMethod)
     }
     
     func popFromBuffer(id: String) {
-        coreDataManager.popTask(id: id)
+        coreDataManager.popFromBuffer(id: id)
     }
 }
