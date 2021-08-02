@@ -11,9 +11,13 @@ struct NetworkManager {
     private let baseURL = "https://vaporpms.herokuapp.com"
     private let indicatorView = IndicatorView()
     
-    private func checkValidation(data: Data?, response: URLResponse?, error: Error?) {
+    private func checkValidation(data: Data?, response: URLResponse?, error: Error?) -> Bool {
         if let error = error {
-            fatalError("\(error)")
+            self.indicatorView.dismiss()
+            ProjectManagerViewController.networkStatus = .disconnection
+            setUpNotificationCenterPost()
+            print("\nError: \(error)\n")
+            return false
         }
         
         guard let httpResponse = response as? HTTPURLResponse else {
@@ -21,7 +25,7 @@ struct NetworkManager {
             self.indicatorView.dismiss()
             ProjectManagerViewController.networkStatus = .disconnection
             setUpNotificationCenterPost()
-            return
+            return false
         }
         
         guard (200...299).contains(httpResponse.statusCode) else {
@@ -29,7 +33,7 @@ struct NetworkManager {
             self.indicatorView.dismiss()
             ProjectManagerViewController.networkStatus = .disconnection
             setUpNotificationCenterPost()
-            return
+            return false
         }
         
         guard let _ = data else {
@@ -37,10 +41,11 @@ struct NetworkManager {
             self.indicatorView.dismiss()
             ProjectManagerViewController.networkStatus = .disconnection
             setUpNotificationCenterPost()
-            return
+            return false
         }
         ProjectManagerViewController.networkStatus = .connection
         setUpNotificationCenterPost()
+        return true
     }
     
     private func setUpNotificationCenterPost() {
@@ -53,14 +58,17 @@ struct NetworkManager {
         return try? encoder.encode(data)
     }
     
-    func get(completion: @escaping ([Task]) -> ()) {
+    func get(completion: @escaping ([Task]?) -> ()) {
         let urlString = baseURL + "/tasks"
         guard let url = URL(string: urlString) else {
             return
         }
         self.indicatorView.showIndicator()
         URLSession.shared.dataTask(with: url) { data, response, error in
-            self.checkValidation(data: data, response: response, error: error)
+            guard self.checkValidation(data: data, response: response, error: error) else {
+                completion(nil)
+                return
+            }
             guard let data = data else { return }
             guard let tasks = try? JSONDecoder().decode([Task].self, from: data) else { return }
             self.indicatorView.dismiss()
@@ -68,7 +76,7 @@ struct NetworkManager {
         }.resume()
     }
     
-    func post(task: Task, completion: @escaping (Task) -> ()) {
+    func post(task: Task, completion: @escaping (Task?) -> ()) {
         let urlString = baseURL + "/tasks"
         guard let url = URL(string: urlString) else {
             return
@@ -81,14 +89,17 @@ struct NetworkManager {
         requset.httpBody = encodedData(data: task)
         
         URLSession.shared.dataTask(with: requset) { data, response, error in
-            self.checkValidation(data: data, response: response, error: error)
+            guard self.checkValidation(data: data, response: response, error: error) else {
+                completion(nil)
+                return
+            }
             guard let data = data else { return }
             guard let task = try? JSONDecoder().decode(Task.self, from: data) else { return }
             completion(task)
         }.resume()
     }
     
-    func patch(task: Task, completion: @escaping (Task) -> ()) {
+    func patch(task: Task, completion: @escaping (Task?) -> ()) {
         let urlString = baseURL + "/tasks" + "/\(task.id)"
         guard let url = URL(string: urlString) else {
             return
@@ -101,14 +112,17 @@ struct NetworkManager {
         requset.httpBody = encodedData(data: task)
         
         URLSession.shared.dataTask(with: requset) { data, response, error in
-            self.checkValidation(data: data, response: response, error: error)
+            guard self.checkValidation(data: data, response: response, error: error) else {
+                completion(nil)
+                return
+            }
             guard let data = data else { return }
             guard let task = try? JSONDecoder().decode(Task.self, from: data) else { return }
             completion(task)
         }.resume()
     }
     
-    func delete(id: String, completion: @escaping () -> ()) {
+    func delete(id: String, completion: @escaping (Bool) -> ()) {
         let urlString = baseURL + "/tasks" + "/\(id)"
         guard let url = URL(string: urlString) else {
             return
@@ -120,9 +134,11 @@ struct NetworkManager {
         requset.httpMethod = "DELETE"
                 
         URLSession.shared.dataTask(with: requset) { data, response, error in
-            self.checkValidation(data: data, response: response, error: error)
+            guard self.checkValidation(data: data, response: response, error: error) else {
+                completion(false)
+                return
+            }
+            completion(true)
         }.resume()
     }
-    
-    
 }
