@@ -7,102 +7,62 @@
 
 import Foundation
 
-enum HTTPMethod: String, CustomStringConvertible {
-    case get
-    case post
-    case put
-    case delete
+final class NetworkManager {
+    let session: URLSessionProtocol
+    let requestMaker: RequestMaker = RequestMaker()
     
-    var description: String {
-        return self.rawValue.uppercased()
-    }
-}
-
-enum ServerAPI {
-    static let baseURL = "https://projectmanager-great.herokuapp.com/tasks"
-    
-    case create
-    case read
-    case update(id: String)
-    case delete(id: String)
-
-    var url: URL? {
-        switch self {
-        case .create:
-            return URL(string: Self.baseURL)
-        case .read:
-            return URL(string: Self.baseURL)
-        case .update(let id):
-            return URL(string: Self.baseURL + "/" + id)
-        case .delete(let id):
-            return URL(string: Self.baseURL + "/" + id)
-        }
-    }
-}
-
-class NetworkManager {
-    let session: URLSession
-    let requestBodyMaker: RequestMaker = RequestMaker()
-    
-    init(session: URLSession = .shared) {
+    init(session: URLSessionProtocol = URLSession.shared) {
         self.session = session
     }
     
-    func get(url: URL, completion: @escaping (Result<[Task], Error>) -> Void) {
-        let request = URLRequest(url: url)
+//    func get(url: URL, completion: @escaping (Result<[Task], NetworkError>) -> Void) {
+//        let request = URLRequest(url: url)
+//        dataTask(request: request, completion: completion)
+//    }
+        
+    func post(url: URL, _ item: Task, completion: @escaping (Result<Task, NetworkError>) -> Void) {
+        guard let request = requestMaker.generate(url, item, .post) else {
+            completion(.failure(.invalidRequest))
+            return
+        }
+        dataTask(request: request, completion: completion)
+    }
+    
+    func put(url: URL, _ item: Task, completion: @escaping (Result<Task, NetworkError>) -> Void) {
+        guard let request = requestMaker.generate(url, item, .put) else {
+            completion(.failure(.invalidRequest))
+            return
+        }
+        dataTask(request: request, completion: completion)
+    }
+    
+    func dataTask(request: URLRequest, completion: @escaping (Result<Task, NetworkError>) -> Void) {
         let dataTask = session.dataTask(with: request) { data, response, error in
-            guard let response = response as? HTTPURLResponse,
-                  (200...299).contains(response.statusCode) else {
-                completion(.failure(error!))
+            if let error = error {
+                completion(.failure(.error(error)))
+            }
+            
+            guard let response = response as? HTTPURLResponse else {
+                completion(.failure(.invalidResponse))
                 return
             }
             
-            if let data = data,
-               let tasks = try? JSONDecoder().decode([Task].self, from: data) {
-                completion(.success(tasks))
+            guard (200...299).contains(response.statusCode) else {
+                completion(.failure(.invalidStatusCode(response.statusCode)))
                 return
             }
-            completion(.failure(fatalError()))
-        }
-        dataTask.resume()
-    }
-    
-    func post<T: Codable>(url: URL, _ item: T, completion: @escaping (Result<Task, Error>) -> Void) {
-        guard let request = requestBodyMaker.generate(url, item, .post) else {
-            completion(.failure(fatalError()))
-        }
-        let dataTask = session.dataTask(with: request) { data, response, error in
-            guard let response = response as? HTTPURLResponse,
-                  (200...299).contains(response.statusCode) else {
-                completion(.failure(fatalError()))
+                
+            guard let data = data else {
+                completion(.failure(.emptyData))
                 return
             }
             
-            if let data = data, let task = try? JSONDecoder().decode(Task.self, from: data) {
-                completion(.success(task))
+            guard let decodedData = try? JSONDecoder().decode(Task.self, from: data) else {
+                completion(.failure(.decodingError))
                 return
             }
-            completion(.failure(fatalError()))
-        }
-        dataTask.resume()
-    }
-    
-    func put<T: Codable>(url: URL, _ item: T, completion: @escaping (Result<Task, Error>) -> Void) {
-        guard let request = requestBodyMaker.generate(url, item, .put) else {
-            completion(.failure(fatalError()))
-        }
-        let dataTask = session.dataTask(with: request) { data, response, error in
-            guard let response = response as? HTTPURLResponse,
-                  (200...299).contains(response.statusCode) else {
-                completion(.failure(fatalError()))
-                return
-            }
-
-            if let data = data, let task = try? JSONDecoder().decode(Task.self, from: data) {
-                completion(.success(task))
-                return
-            }
-            completion(.failure(fatalError()))
+            
+            completion(.success(decodedData))
         }
         dataTask.resume()
     }

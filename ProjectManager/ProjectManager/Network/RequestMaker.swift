@@ -7,10 +7,6 @@
 
 import Foundation
 
-enum ProjectManagerError: Error {
-    case invalidURL
-}
-
 struct RequestMaker {
     func generate<T: Codable>(_ url: URL, _ item: T, _ httpMethod: HTTPMethod) -> URLRequest? {
         var request: URLRequest = URLRequest(url: url)
