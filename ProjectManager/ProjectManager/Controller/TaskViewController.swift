@@ -211,8 +211,7 @@ extension TaskViewController: UITableViewDropDelegate {
                 
                 tableView.performBatchUpdates {
                     dataSource.moveTask(at: sourceIndexPath.section, to: destinationIndexPath.section)
-                    tableView.deleteSections([sourceIndexPath.section, sourceIndexPath.section], with: .automatic)
-                    tableView.insertSections([destinationIndexPath.section, destinationIndexPath.section], with: .automatic)
+                    tableView.moveSection(sourceIndexPath.section, toSection: destinationIndexPath.section)
                 }
             } else {
                 dragCoordinator.isReordering = false
