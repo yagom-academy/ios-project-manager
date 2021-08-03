@@ -14,8 +14,7 @@ final class TaskViewModel {
     var inserted: ((_ state: Task.State, _ index: Int) -> Void)?
     var removed: ((_ state: Task.State, _ index: Int) -> Void)?
 
-    var networkConnected: (() -> Void)?
-    var networkDisconnected: (() -> Void)?
+    var networkStatusChanged: (() -> Void)?
 
     private let taskRepository = TaskRepository()
     private var taskManager = TaskManager()
@@ -196,7 +195,7 @@ final class TaskViewModel {
     func networkDidConnect() {
         taskRepository.fetchTasks { [weak self] result in
             guard let self = self else { return }
-            defer { self.networkConnected?() }
+            defer { self.networkStatusChanged?() }
             switch result {
             case .success(let taskList):
                 self.taskList = self.taskManager.isEmpty ? taskList : self.taskManager.read()
@@ -224,6 +223,6 @@ final class TaskViewModel {
 
     func networkDidDisconnect() {
         taskList = self.taskManager.read()
-        networkDisconnected?()
+        networkStatusChanged?()
     }
 }

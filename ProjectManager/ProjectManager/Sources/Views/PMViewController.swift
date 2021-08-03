@@ -171,13 +171,7 @@ final class PMViewController: UIViewController {
             }
         }
 
-        viewModel.networkConnected = {
-            DispatchQueue.main.async { [weak self] in
-                self?.stateStackViews.forEach { $0.stateTableView.reloadData() }
-            }
-        }
-
-        viewModel.networkDisconnected = {
+        viewModel.networkStatusChanged = {
             DispatchQueue.main.async { [weak self] in
                 self?.stateStackViews.forEach { $0.stateTableView.reloadData() }
             }
