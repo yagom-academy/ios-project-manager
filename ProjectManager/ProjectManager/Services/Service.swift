@@ -28,7 +28,7 @@ struct Service {
         }
     }
     
-    func postTask(task: Task, completion: @escaping (Task) -> ()) {
+    func postTask(task: Task) {
         requestOperationstoServerInBuffer()
         coreDataManager.createTask(task: task)
         networkManager.post(task: task) { taskResult in
@@ -39,7 +39,7 @@ struct Service {
         }
     }
     
-    func patchTask(task: Task, completion: @escaping () -> ()) {
+    func patchTask(task: Task) {
         requestOperationstoServerInBuffer()
         coreDataManager.patchData(task: task)
         networkManager.patch(task: task) { taskResult in
@@ -50,7 +50,7 @@ struct Service {
         }
     }
     
-    func deleteTask(id: String, completion: @escaping () -> ()) {
+    func deleteTask(id: String) {
         requestOperationstoServerInBuffer()
         coreDataManager.deleteTask(id: id)
         networkManager.delete(id: id) { networkStatus in
