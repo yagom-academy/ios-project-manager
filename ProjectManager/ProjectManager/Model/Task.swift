@@ -11,5 +11,4 @@ struct Task {
     private let title: String
     private let context: String
     private let deadline: Date
-    private let classification: TaskClassification
 }
