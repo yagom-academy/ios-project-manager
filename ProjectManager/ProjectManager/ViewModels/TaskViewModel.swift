@@ -9,16 +9,12 @@ import Foundation
 
 final class TaskViewModel {
     private let service = Service()
-    var updateTaskCollectionView : () -> Void = {}
+    var updateTaskCollectionView : (_ oldValue:[Task], _ newValue: [Task]) -> Void = {_,_ in }
 
     private var taskList: [Task] = [] {
         didSet {
-            updateTaskCollectionView()
+            updateTaskCollectionView(oldValue, taskList)
         }
-    }
-    
-    func initTaskList(taskList: [String]) {
-        
     }
     
     func referTask(at: IndexPath) -> Task? {
@@ -51,18 +47,14 @@ final class TaskViewModel {
     }
     
     func postTask(task: Task) {
-        service.postTask(task: task) { Task in
-            
-        }
+        service.postTask(task: task)
     }
     
     func patchTask(task: Task) {
-        service.patchTask(task: task) {
-        }
+        service.patchTask(task: task)
     }
     
     func deleteTask(id: String) {
-        service.deleteTask(id: id) {
-        }
+        service.deleteTask(id: id)
     }
 }

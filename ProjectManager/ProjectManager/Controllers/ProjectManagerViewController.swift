@@ -80,44 +80,107 @@ final class ProjectManagerViewController: UIViewController, TaskAddDelegate, Del
     
     // MARK: - Data Binding
     
+    private func findDifferenceBetweenArrays<T>(minuendArray: [T], subtrahendArray: [T]) -> [Int] where T: Hashable {
+        let set1 = Set(minuendArray)
+        let set2 = Set(subtrahendArray)
+        let differenceOfSets = set1.subtracting(set2)
+        var differenceIndexList: [Int] = []
+        
+        for element in differenceOfSets {
+            if let element = minuendArray.firstIndex(of: element) {
+                differenceIndexList.append(element)
+            }
+        }
+        return differenceIndexList
+    }
+    
+    private func insertElementIntoCollectionView(collectionView: UICollectionView, indexPath: IndexPath) {
+        DispatchQueue.main.async {
+            collectionView.performBatchUpdates({
+                collectionView.insertItems(at: [indexPath])
+            })
+        }
+    }
+    
+    private func deleteElementIntoCollectionView(collectionView: UICollectionView, indexPath: IndexPath) {
+        collectionView.performBatchUpdates({
+            collectionView.deleteItems(at: [indexPath])
+        })
+    }
+    
     private func setDataBindingWithViewModel() {
-        toDoViewModel.updateTaskCollectionView = { [weak self] in
+        toDoViewModel.updateTaskCollectionView = { [weak self] old, new in
             guard let self = self else {
                 return
             }
             self.updateCount(self.toDoCollectionView)
-            guard self.updatedCount < 3 else {
-                return
+            if old.count > new.count {
+                let differenceIndexList = self.findDifferenceBetweenArrays(minuendArray: old, subtrahendArray: new)
+                for index in differenceIndexList {
+                    self.deleteElementIntoCollectionView(collectionView: self.toDoCollectionView, indexPath: IndexPath(item: index, section: .zero))
+                }
             }
-            DispatchQueue.main.async {
-                self.toDoCollectionView.reloadData()
-                self.updatedCount += 1
+            if old.count == new.count {
+                let differenceIndexList = self.findDifferenceBetweenArrays(minuendArray: old, subtrahendArray: new)
+                for index in differenceIndexList {
+                    self.toDoCollectionView.reloadItems(at: [IndexPath(item: index, section: .zero)])
+                }
+            }
+            if old.count < new.count {
+                let differenceIndexList = self.findDifferenceBetweenArrays(minuendArray: new, subtrahendArray: old)
+                for index in differenceIndexList {
+                    self.insertElementIntoCollectionView(collectionView: self.toDoCollectionView, indexPath: IndexPath(item: index, section: .zero))
+                }
             }
         }
-        doingViewModel.updateTaskCollectionView = { [weak self] in
+        
+        doingViewModel.updateTaskCollectionView = { [weak self] old, new in
             guard let self = self else {
                 return
             }
-            self.updateCount(self.doingCollectionView)
-            guard self.updatedCount < 3 else {
-                return
+            self.updateCount(self.toDoCollectionView)
+            if old.count > new.count {
+                let differenceIndexList = self.findDifferenceBetweenArrays(minuendArray: old, subtrahendArray: new)
+                for index in differenceIndexList {
+                    self.deleteElementIntoCollectionView(collectionView: self.doingCollectionView, indexPath: IndexPath(item: index, section: .zero))
+                }
             }
-            DispatchQueue.main.async {
-                self.doingCollectionView.reloadData()
-                self.updatedCount += 1
+            if old.count == new.count {
+                let differenceIndexList = self.findDifferenceBetweenArrays(minuendArray: old, subtrahendArray: new)
+                for index in differenceIndexList {
+                    self.doingCollectionView.reloadItems(at: [IndexPath(item: index, section: .zero)])
+                }
+            }
+            if old.count < new.count {
+                let differenceIndexList = self.findDifferenceBetweenArrays(minuendArray: new, subtrahendArray: old)
+                for index in differenceIndexList {
+                    self.insertElementIntoCollectionView(collectionView: self.doingCollectionView, indexPath: IndexPath(item: index, section: .zero))
+                }
             }
         }
-        doneViewModel.updateTaskCollectionView = { [weak self] in
+        
+        doneViewModel.updateTaskCollectionView = { [weak self] old, new in
             guard let self = self else {
                 return
             }
-            self.updateCount(self.doneCollectionView)
-            guard self.updatedCount < 3 else {
-                return
+            self.updateCount(self.toDoCollectionView)
+            if old.count > new.count {
+                let differenceIndexList = self.findDifferenceBetweenArrays(minuendArray: old, subtrahendArray: new)
+                for index in differenceIndexList {
+                    self.deleteElementIntoCollectionView(collectionView: self.doneCollectionView, indexPath: IndexPath(item: index, section: .zero))
+                }
             }
-            DispatchQueue.main.async {
-                self.doneCollectionView.reloadData()
-                self.updatedCount += 1
+            if old.count == new.count {
+                let differenceIndexList = self.findDifferenceBetweenArrays(minuendArray: old, subtrahendArray: new)
+                for index in differenceIndexList {
+                    self.doneCollectionView.reloadItems(at: [IndexPath(item: index, section: .zero)])
+                }
+            }
+            if old.count < new.count {
+                let differenceIndexList = self.findDifferenceBetweenArrays(minuendArray: new, subtrahendArray: old)
+                for index in differenceIndexList {
+                    self.insertElementIntoCollectionView(collectionView: self.doneCollectionView, indexPath: IndexPath(item: index, section: .zero))
+                }
             }
         }
     }
@@ -141,9 +204,6 @@ final class ProjectManagerViewController: UIViewController, TaskAddDelegate, Del
     
     // MARK: - Cell Update & Delete
     
-
-//         self.findViewModel(collectionView: collectionView)?.deleteTaskFromTaskList(index: indexPath.row, taskID: taskID)
-        
     func deleteTask(collectionView: UICollectionView, indexPath: IndexPath, taskID: String, taskTitle: String) {
         guard let viewModel = self.findViewModel(collectionView: collectionView),
               let taskId = viewModel.referTask(at: indexPath)?.id else {
@@ -161,7 +221,6 @@ final class ProjectManagerViewController: UIViewController, TaskAddDelegate, Del
         default:
             return
         }
-        collectionView.deleteItems(at: [indexPath])
     }
     
     private func updateCount(_ collectionView: UICollectionView) {
@@ -191,7 +250,6 @@ final class ProjectManagerViewController: UIViewController, TaskAddDelegate, Del
     
     func addData(_ data: Task) {
         self.toDoViewModel.insertTaskIntoTaskList(index: 0, task: data)
-        self.toDoCollectionView.insertItems(at: [IndexPath(row: 0, section: 0)])
         self.toDoViewModel.postTask(task: data)
     }
     
@@ -533,22 +591,17 @@ extension ProjectManagerViewController: UICollectionViewDropDelegate {
             return
         }
         coordinator.session.loadObjects(ofClass: Task.self) { [weak self] taskList in
-            collectionView.performBatchUpdates({
-                guard let task = taskList[0] as? Task,
-                      let dropViewModel = self?.findViewModel(collectionView: collectionView),
-                      let status = self?.findStatus(collectionView: collectionView)
-                else {
-                    return
-                }
-                let patchTask = Task(title: task.title, detail: task.detail, deadline: task.deadline, status: status.rawValue, id: task.id)
-                dragCoordinator.draggedCollectionView.deleteItems(at: [sourceIndexPath])
-                collectionView.insertItems(at: [destinationIndexPath])
-                self?.taskHistoryViewModel.moved(title: task.title, at: dragCollectionView, to: dropCollectionView)
-                self?.findViewModel(collectionView: draggedCollectionView)?.deleteTaskFromTaskList(index: sourceIndexPath.row, taskID: patchTask.id)
-                dropViewModel.insertTaskIntoTaskList(index: destinationIndexPath.row, task: patchTask)
-                dropViewModel.patchTask(task: patchTask)
-
-            })
+            guard let task = taskList[0] as? Task,
+                  let dropViewModel = self?.findViewModel(collectionView: collectionView),
+                  let status = self?.findStatus(collectionView: collectionView)
+            else {
+                return
+            }
+            let patchTask = Task(title: task.title, detail: task.detail, deadline: task.deadline, status: status.rawValue, id: task.id)
+            self?.taskHistoryViewModel.moved(title: task.title, at: dragCollectionView, to: dropCollectionView)
+            self?.findViewModel(collectionView: draggedCollectionView)?.deleteTaskFromTaskList(index: sourceIndexPath.row, taskID: patchTask.id)
+            dropViewModel.insertTaskIntoTaskList(index: destinationIndexPath.row, task: patchTask)
+            dropViewModel.patchTask(task: patchTask)
         }
     }
     
