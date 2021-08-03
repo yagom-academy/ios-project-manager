@@ -34,6 +34,7 @@ class TaskDataSource: NSObject, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TableViewCell.identifier, for: indexPath) as? TableViewCell
         else { return UITableViewCell() }
         
+        cell.selectionStyle = .none
         cell.configure(tasks[indexPath.section])
         
         return cell
