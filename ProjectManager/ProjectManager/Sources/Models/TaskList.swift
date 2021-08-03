@@ -5,6 +5,8 @@
 //  Created by duckbok, Ryan-Son on 2021/07/21.
 //
 
+import Foundation
+
 struct TaskList: Codable {
 
     private var todos: [Task]
@@ -15,6 +17,14 @@ struct TaskList: Codable {
         self.todos = todos
         self.doings = doings
         self.dones = dones
+    }
+
+    var ids: Set<UUID> {
+        var result: Set<UUID> = []
+        todos.forEach { result.insert($0.id) }
+        doings.forEach { result.insert($0.id) }
+        dones.forEach { result.insert($0.id) }
+        return result
     }
 
     subscript(state: Task.State) -> [Task] {

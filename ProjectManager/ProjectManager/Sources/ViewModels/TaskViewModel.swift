@@ -192,9 +192,9 @@ final class TaskViewModel {
                 self.taskManager.pendingObjectIDs.forEach { taskObjectID in
                     guard let task = self.taskManager.task(with: taskObjectID) else { return }
 
-                    let isCreated: Bool = task.id == nil && !task.isRemoved
-                    let isPatched: Bool = task.id != nil && !task.isRemoved
-                    let isDeleted: Bool = task.id != nil && task.isRemoved
+                    let isCreated: Bool = !taskList.ids.contains(task.id) && !task.isRemoved
+                    let isPatched: Bool = !isCreated && !task.isRemoved
+                    let isDeleted: Bool = !isCreated && task.isRemoved
 
                     if isCreated {
                         self.post(task)

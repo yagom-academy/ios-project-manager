@@ -111,8 +111,7 @@ final class TaskRepository {
             self?.checkSessionSucceed(error, response, data) { result in
                 switch result {
                 case .success:
-                    guard let id = task.id else { return }
-                    completion(.success(id))
+                    completion(.success(task.id))
                 case .failure(let pmError):
                     completion(.failure(pmError))
                 }
