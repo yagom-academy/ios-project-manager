@@ -5,6 +5,7 @@
 // 
 
 import UIKit
+import Network
 
 final class PMViewController: UIViewController {
 
@@ -18,10 +19,22 @@ final class PMViewController: UIViewController {
 
         static let historyViewSize = CGSize(width: UIScreen.main.bounds.width * 0.4,
                                             height: UIScreen.main.bounds.height * 0.6)
+
+        static let networkDisconnectedText: String = "😵 현재 오프라인 상태입니다."
+        static let networkStatusLabelPresentTime: TimeInterval = 0.3
+        static let networkQueueName: String = "Network"
     }
 
     var viewModel = TaskViewModel()
     let historyViewModel = HistoryViewModel()
+    private var stateStackViews: [StateStackView] = []
+
+    private(set) var isConnected: Bool = false {
+        didSet {
+            isConnected ? viewModel.networkDidConnect() : viewModel.networkDidDisconnect()
+            showNetworkStatus(at: isConnected)
+        }
+    }
 
     // MARK: Views
 
@@ -39,11 +52,29 @@ final class PMViewController: UIViewController {
         stackView.alignment = .fill
         stackView.spacing = Style.pmStackViewSpacing
         stackView.distribution = .fillEqually
+        stackView.backgroundColor = Style.backgroundColor
+        return stackView
+    }()
+
+    let rootStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.alignment = .fill
+        stackView.distribution = .fill
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
 
-    private var stateStackViews: [StateStackView] = []
+    let networkStatusLabel: UILabel = {
+        let label = UILabel()
+        label.backgroundColor = .systemIndigo
+        label.textColor = .white
+        label.font = UIFont.preferredFont(forTextStyle: .title1)
+        label.text = Style.networkDisconnectedText
+        label.textAlignment = .center
+        label.isHidden = true
+        return label
+    }()
 
     // MARK: View Lifecycle
 
@@ -53,9 +84,11 @@ final class PMViewController: UIViewController {
         setNavigationBar()
         setStateStackViews()
         setPMStackView()
+        setRootStackView()
         setSubView()
 
         bindWithViewModel()
+        monitorNetwork()
     }
 
     // MARK: Configure View
@@ -87,13 +120,18 @@ final class PMViewController: UIViewController {
         stateStackViews.forEach { pmStackView.addArrangedSubview($0) }
     }
 
+    private func setRootStackView() {
+        rootStackView.addArrangedSubview(networkStatusLabel)
+        rootStackView.addArrangedSubview(pmStackView)
+    }
+
     private func setSubView() {
-        view.addSubview(pmStackView)
+        view.addSubview(rootStackView)
         NSLayoutConstraint.activate([
-            pmStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            pmStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            pmStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            pmStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            rootStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            rootStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            rootStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            rootStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
 
@@ -132,6 +170,18 @@ final class PMViewController: UIViewController {
                 stackView?.stateTableView.insertRows(at: indexPaths, with: .none)
             }
         }
+
+        viewModel.networkConnected = {
+            DispatchQueue.main.async { [weak self] in
+                self?.stateStackViews.forEach { $0.stateTableView.reloadData() }
+            }
+        }
+
+        viewModel.networkDisconnected = {
+            DispatchQueue.main.async { [weak self] in
+                self?.stateStackViews.forEach { $0.stateTableView.reloadData() }
+            }
+        }
     }
 
     // MARK: Button Actions
@@ -147,6 +197,33 @@ final class PMViewController: UIViewController {
     @objc private func historyButtonTapped() {
         historyViewController.popoverPresentationController?.barButtonItem = navigationItem.leftBarButtonItem
         present(historyViewController, animated: true, completion: nil)
+    }
+
+    // MARK: Network Monitoring
+
+    private func monitorNetwork() {
+        let networkMonitor = NWPathMonitor()
+
+        networkMonitor.pathUpdateHandler = { [weak self] nwPath in
+            switch nwPath.status {
+            case .satisfied:
+                self?.isConnected = true
+            case .unsatisfied:
+                self?.isConnected = false
+            default:
+                break
+            }
+        }
+        let networkQueue = DispatchQueue(label: Style.networkQueueName)
+        networkMonitor.start(queue: networkQueue)
+    }
+
+    private func showNetworkStatus(at status: Bool) {
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: Style.networkStatusLabelPresentTime) { [weak self] in
+                self?.networkStatusLabel.isHidden = status
+            }
+        }
     }
 }
 
@@ -215,8 +292,7 @@ extension PMViewController: UITableViewDelegate {
               let state = stateTableView.state else { return }
 
         if let removedTitle = viewModel.remove(state: state, at: indexPath.row) {
-            historyViewModel.create(history: History(method: .removed(title: removedTitle,
-                                                                      sourceState: state)))
+            historyViewModel.create(history: History(method: .removed(title: removedTitle, sourceState: state)))
         }
     }
 }

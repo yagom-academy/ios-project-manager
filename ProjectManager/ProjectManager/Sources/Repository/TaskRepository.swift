@@ -17,38 +17,11 @@ final class TaskRepository {
         static let delete: String = "/task"
     }
 
-    weak var delegate: TaskRepositoryDelegate?
-
-    private let networkMonitor: NWPathMonitor = {
-        let nwPathMonitor = NWPathMonitor()
-        nwPathMonitor.start(queue: DispatchQueue.global(qos: .background))
-        return nwPathMonitor
-    }()
-
-    private(set) var isConnected: Bool = false {
-        didSet {
-            isConnected ? delegate?.networkDidConnect() : delegate?.networkDidDisconnect()
-        }
-    }
-
     private let base: String = "https://"
     private let session: URLSession = .shared
     private let okResponse: ClosedRange<Int> = (200...299)
     private let decoder: JSONDecoder = JSONDecoder()
     private let encoder: JSONEncoder = JSONEncoder()
-
-    init() {
-        networkMonitor.pathUpdateHandler = { [weak self] nwPath in
-            switch nwPath.status {
-            case .satisfied:
-                self?.isConnected = true
-            case .unsatisfied:
-                self?.isConnected = false
-            default:
-                break
-            }
-        }
-    }
 
     func fetchTasks(completion: @escaping (Result<TaskList, PMError>) -> Void) {
         guard let url = URL(string: base + Endpoint.get) else { return }
@@ -72,7 +45,7 @@ final class TaskRepository {
                     completion(.failure(pmError))
                 }
             }
-        }
+        }.resume()
     }
 
     func post(task: Task, completion: @escaping (Result<Task, PMError>) -> Void) {
@@ -97,7 +70,7 @@ final class TaskRepository {
                     completion(.failure(pmError))
                 }
             }
-        }
+        }.resume()
     }
 
     func patch(task: Task, completion: @escaping (Result<Task, PMError>) -> Void) {
@@ -122,7 +95,7 @@ final class TaskRepository {
                     completion(.failure(pmError))
                 }
             }
-        }
+        }.resume()
     }
 
     func delete(task: Task, completion: @escaping (Result<UUID, PMError>) -> Void) {
@@ -144,7 +117,7 @@ final class TaskRepository {
                     completion(.failure(pmError))
                 }
             }
-        }
+        }.resume()
     }
 
     private func checkSessionSucceed(_ error: Error?,

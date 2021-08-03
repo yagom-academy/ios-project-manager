@@ -14,16 +14,16 @@ struct TaskManager {
     var pendingObjectIDs: Set<NSManagedObjectID> = []
 
     var isEmpty: Bool {
-        return coreDataStack.fetchTasks().count == 0
+        return coreDataStack.persistentContainer.viewContext.registeredObjects.count == 0
     }
 
     func task(with objectID: NSManagedObjectID) -> Task? {
-        return try? coreDataStack.context.existingObject(with: objectID) as? Task
+        return try? coreDataStack.persistentContainer.viewContext.existingObject(with: objectID) as? Task
     }
 
     func create(title: String, body: String, dueDate: Date, state: Task.State) throws -> Task {
-        let context = coreDataStack.context
-        let task = Task(context: context)
+        let context = coreDataStack.persistentContainer.viewContext
+        let task = Task(context: coreDataStack.persistentContainer.viewContext)
 
         task.title = title
         task.body = body
@@ -54,7 +54,7 @@ struct TaskManager {
                 dueDate: Date? = nil,
                 body: String? = nil,
                 state: Task.State? = nil) {
-        let context = coreDataStack.context
+        let context = coreDataStack.persistentContainer.viewContext
         guard let task = context.object(with: objectID) as? Task else { return }
 
         task.title = title ?? task.title
@@ -70,7 +70,7 @@ struct TaskManager {
     }
 
     func softDelete(_ id: NSManagedObjectID) {
-        let context = coreDataStack.context
+        let context = coreDataStack.persistentContainer.viewContext
         guard let task = context.object(with: id) as? Task else { return }
         task.isRemoved = true
 
@@ -82,7 +82,7 @@ struct TaskManager {
     }
 
     func delete(_ id: NSManagedObjectID) {
-        let context = coreDataStack.context
+        let context = coreDataStack.persistentContainer.viewContext
         guard let task = context.object(with: id) as? Task else { return }
         context.delete(task)
 

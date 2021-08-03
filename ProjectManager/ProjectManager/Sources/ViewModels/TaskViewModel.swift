@@ -18,7 +18,7 @@ final class TaskViewModel {
     var networkDisconnected: (() -> Void)?
 
     private let taskRepository = TaskRepository()
-    private let taskManager = TaskManager()
+    private var taskManager = TaskManager()
 
     private(set) var taskList = TaskList() {
         didSet {
@@ -48,6 +48,16 @@ final class TaskViewModel {
         guard let index: Int = count(of: task.taskState) else { return }
         taskList[.todo].append(task)
         added?(index)
+
+        taskRepository.post(task: task) { [weak self] result in
+            switch result {
+            case .success(let responseTask):
+                self?.taskManager.update(objectID: task.objectID, id: responseTask.id)
+            case .failure(let error):
+                self?.taskManager.pendingObjectIDs.insert(task.objectID)
+                print(error)
+            }
+        }
     }
 
     /**
@@ -147,13 +157,18 @@ extension TaskViewModel: TaskRepositoryDelegate {
     func networkDidConnect() {
         taskRepository.fetchTasks { [weak self] result in
             guard let self = self else { return }
+            defer { self.networkConnected?() }
             switch result {
             case .success(let taskList):
                 self.taskList = self.taskManager.isEmpty ? taskList : self.taskManager.read()
                 self.taskManager.pendingObjectIDs.forEach { taskObjectID in
                     guard let task = self.taskManager.task(with: taskObjectID) else { return }
 
-                    if task.id == nil && !task.isRemoved {
+                    let isCreated: Bool = task.id == nil && !task.isRemoved
+                    let isPatched: Bool = task.id != nil && !task.isRemoved
+                    let isDeleted: Bool = task.id != nil && task.isRemoved
+
+                    if isCreated {
                         self.taskRepository.post(task: task) { result in
                             switch result {
                             case .success(let task):
@@ -162,9 +177,9 @@ extension TaskViewModel: TaskRepositoryDelegate {
                                 print(error)
                             }
                         }
-                    } else if task.id != nil && !task.isRemoved {
+                    } else if isPatched {
                         self.taskRepository.patch(task: task) { _ in }
-                    } else if task.id != nil && task.isRemoved {
+                    } else if isDeleted {
                         self.taskRepository.delete(task: task) { _ in }
                     }
                 }
@@ -173,11 +188,10 @@ extension TaskViewModel: TaskRepositoryDelegate {
                 print(error)
             }
         }
-        networkConnected?()
     }
 
     func networkDidDisconnect() {
-        self.taskList = self.taskManager.read()
+        taskList = self.taskManager.read()
         networkDisconnected?()
     }
 }
