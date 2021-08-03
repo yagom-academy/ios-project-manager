@@ -28,6 +28,7 @@ class TaskAlertViewController: UIViewController {
         self.view.layer.borderColor = UIColor.white.cgColor
         
         self.leftBarButton.title = leftBarButtonName
+        self.alertNavigationBar.topItem?.title = "TODO"
         
         setSelectTask()
         setBorderStyle()
