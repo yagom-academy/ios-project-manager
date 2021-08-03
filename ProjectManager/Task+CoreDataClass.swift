@@ -2,7 +2,7 @@
 //  Task+CoreDataClass.swift
 //  ProjectManager
 //
-//  Created by Ryan-Son on 2021/07/29.
+//  Created by duckbok, Ryan-Son on 2021/08/03.
 //
 //
 

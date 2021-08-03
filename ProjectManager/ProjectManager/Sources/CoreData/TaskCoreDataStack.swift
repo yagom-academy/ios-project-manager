@@ -2,7 +2,7 @@
 //  TaskCoreDataStack.swift
 //  ProjectManager
 //
-//  Created by Ryan-Son on 2021/07/29.
+//  Created by duckbok, Ryan-Son on 2021/07/29.
 //
 
 import CoreData
@@ -56,6 +56,18 @@ struct TaskCoreDataStack {
         do {
             let tasks = try persistentContainer.viewContext.fetch(fetchRequest)
             return tasks
+        } catch let error {
+            print(error)
+            return []
+        }
+    }
+
+    func fetchPendingTaskList() -> [PendingTaskList] {
+        let fetchRequest = NSFetchRequest<PendingTaskList>(entityName: PendingTaskList.entityName)
+
+        do {
+            let pendingTaskList = try persistentContainer.viewContext.fetch(fetchRequest)
+            return pendingTaskList
         } catch let error {
             print(error)
             return []

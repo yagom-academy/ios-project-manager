@@ -157,9 +157,9 @@ final class TaskViewModel {
         taskRepository.post(task: task) { [weak self] result in
             switch result {
             case .success:
-                self?.taskManager.pendingObjectIDs.remove(task.objectID)
+                self?.taskManager.deleteFromPendingTaskList(task)
             case .failure(let error):
-                self?.taskManager.pendingObjectIDs.insert(task.objectID)
+                self?.taskManager.insertFromPendingTaskList(task)
                 print(error)
             }
         }
@@ -170,9 +170,9 @@ final class TaskViewModel {
             switch result {
             case .success:
                 print("Patch Succeed!")
-                self?.taskManager.pendingObjectIDs.remove(task.objectID)
+                self?.taskManager.deleteFromPendingTaskList(task)
             case .failure(let error):
-                self?.taskManager.pendingObjectIDs.insert(task.objectID)
+                self?.taskManager.insertFromPendingTaskList(task)
                 print(error)
             }
         }
@@ -183,10 +183,10 @@ final class TaskViewModel {
             switch result {
             case .success(let id):
                 self?.taskManager.delete(removedTask.objectID)
-                self?.taskManager.pendingObjectIDs.remove(removedTask.objectID)
+                self?.taskManager.deleteFromPendingTaskList(removedTask)
                 print("Deletion succeed! ID: \(id)")
             case .failure(let error):
-                self?.taskManager.pendingObjectIDs.insert(removedTask.objectID)
+                self?.taskManager.insertFromPendingTaskList(removedTask)
                 print(error)
             }
         }
@@ -199,8 +199,7 @@ final class TaskViewModel {
             switch result {
             case .success(let taskList):
                 self.taskList = self.taskManager.isEmpty ? taskList : self.taskManager.read()
-                self.taskManager.pendingObjectIDs.forEach { taskObjectID in
-                    guard let task = self.taskManager.task(with: taskObjectID) else { return }
+                self.taskManager.readPendingTasks()?.forEach { task in
 
                     let isCreated: Bool = !taskList.ids.contains(task.id) && !task.isRemoved
                     let isPatched: Bool = !isCreated && !task.isRemoved
