@@ -86,6 +86,15 @@ final class TaskViewModel {
     }
 
     /**
+    변경된 Task를 서버에 갱신한다.
+
+    - Parameter task: 변경된 Task
+    */
+    func update(_ task: Task) {
+        patch(task)
+    }
+
+    /**
      지정한 위치의 Task를 삭제하고 이를 반환한다.
 
      - Parameter state: 삭제할 task가 위치한 상태
@@ -148,8 +157,8 @@ final class TaskViewModel {
     private func post(_ task: Task) {
         taskRepository.post(task: task) { [weak self] result in
             switch result {
-            case .success(let responseTask):
-                self?.taskManager.update(objectID: task.objectID, id: responseTask.id)
+            case .success:
+                self?.taskManager.pendingObjectIDs.remove(task.objectID)
             case .failure(let error):
                 self?.taskManager.pendingObjectIDs.insert(task.objectID)
                 print(error)
@@ -162,6 +171,7 @@ final class TaskViewModel {
             switch result {
             case .success:
                 print("Patch Succeed!")
+                self?.taskManager.pendingObjectIDs.remove(task.objectID)
             case .failure(let error):
                 self?.taskManager.pendingObjectIDs.insert(task.objectID)
                 print(error)
@@ -174,6 +184,7 @@ final class TaskViewModel {
             switch result {
             case .success(let id):
                 self?.taskManager.delete(removedTask.objectID)
+                self?.taskManager.pendingObjectIDs.remove(removedTask.objectID)
                 print("Deletion succeed! ID: \(id)")
             case .failure(let error):
                 self?.taskManager.pendingObjectIDs.insert(removedTask.objectID)

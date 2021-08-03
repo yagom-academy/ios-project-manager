@@ -302,6 +302,7 @@ extension PMViewController: UITableViewDelegate {
 extension PMViewController: TaskEditViewControllerDelegate {
 
     func taskWillUpdate(_ task: Task, _ indexPath: IndexPath) {
+        viewModel.update(task)
         let stackView = stateStackViews.filter { $0.state == task.taskState }.first
         stackView?.stateTableView.reloadRows(at: [indexPath], with: .automatic)
     }
