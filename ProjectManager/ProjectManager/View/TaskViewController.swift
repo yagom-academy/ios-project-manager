@@ -7,7 +7,7 @@
 import UIKit
 import SnapKit
 
-class MainViewController: UIViewController {
+class TaskViewController: UIViewController {
     private let todoHeadView = HeadView()
     private let doingHeadView = HeadView()
     private let doneHeadView = HeadView()
@@ -20,9 +20,9 @@ class MainViewController: UIViewController {
         return stackView
     }()
 
-    private let todoTableView = UITableView()
-    private let doingTableView = UITableView()
-    private let doneTableView = UITableView()
+    private let todoTableView = TaskTableView()
+    private let doingTableView = TaskTableView()
+    private let doneTableView = TaskTableView()
 
     private let tableStackView: UIStackView = {
         let stackView = UIStackView()
@@ -45,26 +45,36 @@ class MainViewController: UIViewController {
         self.view.backgroundColor = .systemBackground
     }
 
-    private func setTableView() {
-        [todoTableView, doingTableView, doneTableView].forEach { tableView in
-            tableStackView.addArrangedSubview(tableView)
-            tableView.delegate = self
-        }
-
-        [todoHeadView, doingHeadView, doneHeadView].forEach { headView in
-            self.headStackView.addArrangedSubview(headView)
-        }
-    }
-
     private func setHeadView() {
         // TODO: setLabelText 메서드의 countNumber를 tableView의 자료 갯수만큼 카운트 하도록 변경 필요
-        todoHeadView.setLabelText(classification: "TODO", countNumber: "1")
-        doingHeadView.setLabelText(classification: "DOING", countNumber: "2")
-        doneHeadView.setLabelText(classification: "DONE", countNumber: "3")
+        todoHeadView.setLabelText(classification: "TODO",
+                                  countNumber: todoTableView.countTasks().description)
+        doingHeadView.setLabelText(classification: "DOING",
+                                   countNumber: doingTableView.countTasks().description)
+        doneHeadView.setLabelText(classification: "DONE",
+                                  countNumber: doneTableView.countTasks().description)
 
-        headStackView.addArrangedSubview(todoHeadView)
-        headStackView.addArrangedSubview(doingHeadView)
-        headStackView.addArrangedSubview(doneHeadView)
+        [todoHeadView, doingHeadView, doneHeadView].forEach { headView in
+            headStackView.addArrangedSubview(headView)
+        }
+
+        headStackView.snp.makeConstraints { stackView in
+            stackView.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+        }
+
+    }
+
+    private func setTableView() {
+        [todoTableView, doingTableView, doneTableView].forEach { tableView in
+            self.tableStackView.addArrangedSubview(tableView)
+            tableView.delegate = self
+            tableView.dataSource = self
+        }
+
+        tableStackView.snp.makeConstraints { stackView in
+            stackView.top.equalTo(headStackView.snp.bottom)
+            stackView.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
     }
 
     override func viewDidLoad() {
@@ -72,33 +82,31 @@ class MainViewController: UIViewController {
 
         setNavigation()
         setMainView()
-
-        headStackView.snp.makeConstraints { stackView in
-            stackView.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-        }
-
-        tableStackView.snp.makeConstraints { stackView in
-            stackView.top.equalTo(headStackView.snp.bottom)
-            stackView.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
-        }
-
         setHeadView()
         setTableView()
     }
 }
 
 // MARK: - TableView Delegate
-extension MainViewController: UITableViewDelegate {
+extension TaskViewController: UITableViewDelegate {
 
 }
 
 // MARK: - TableView DataSource
-extension MainViewController: UITableViewDataSource {
+extension TaskViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        0
+        guard let taskTableView = tableView as? TaskTableView else { return 0 }
+
+        return taskTableView.countTasks()
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: TaskTableViewCell.reuseIdentifier,
+                                                       for: indexPath) as? TaskTableViewCell,
+              let taskTableView = tableView as? TaskTableView else { return UITableViewCell()}
+
+        let task = taskTableView.checkTask(index: indexPath.row)
+        cell.setLabelText(title: task.title, context: task.context, deadline: task.deadline)
+        return cell
     }
 }

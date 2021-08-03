@@ -7,8 +7,14 @@
 
 import Foundation
 
-struct Task {
-    private let title: String
-    private let context: String
-    private let deadline: Date
+final class Task {
+    let title: String
+    let context: String
+    let deadline: Date
+
+    init(title: String, context: String, deadline: Date) {
+        self.title = title
+        self.context = context
+        self.deadline = deadline
+    }
 }
