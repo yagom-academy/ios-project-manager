@@ -34,6 +34,9 @@ class MainViewController: UIViewController {
 
     private func setNavigation() {
         self.navigationItem.title = "Project Manager"
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
+                                                                 target: nil,
+                                                                 action: nil)
     }
 
     private func setMainView() {
