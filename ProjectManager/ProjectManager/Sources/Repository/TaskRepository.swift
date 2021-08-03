@@ -17,7 +17,7 @@ final class TaskRepository {
         static let delete: String = "/task"
     }
 
-    private let base: String = "https://"
+    private let base: String = "https://bobian.herokuapp.com"
     private let session: URLSession = .shared
     private let okResponse: ClosedRange<Int> = (200...299)
     private let decoder: JSONDecoder = JSONDecoder()
@@ -100,7 +100,7 @@ final class TaskRepository {
 
     func delete(task: Task, completion: @escaping (Result<UUID, PMError>) -> Void) {
         guard let url = URL(string: base + Endpoint.delete) else { return }
-        guard let httpBody = try? encoder.encode(task.id) else {
+        guard let httpBody = try? encoder.encode(task) else {
             completion(.failure(.cannotEncodeToJSON(#function)))
             return
         }

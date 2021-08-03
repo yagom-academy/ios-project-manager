@@ -10,7 +10,6 @@
 		021AA29026B3970100E2EEEC /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021AA28F26B3970100E2EEEC /* HistoryViewController.swift */; };
 		021AA29426B3C67400E2EEEC /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021AA29326B3C67400E2EEEC /* History.swift */; };
 		021AA29626B3CA3A00E2EEEC /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021AA29526B3CA3A00E2EEEC /* HistoryViewModel.swift */; };
-		021AA29A26B4322300E2EEEC /* TaskRepositoryDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021AA29926B4322300E2EEEC /* TaskRepositoryDelegate.swift */; };
 		02256B7F26A7A857001F177D /* TaskList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02256B7E26A7A857001F177D /* TaskList.swift */; };
 		022ED55526B80DE3000B378A /* Task+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022ED55326B80DE3000B378A /* Task+CoreDataClass.swift */; };
 		022ED55626B80DE3000B378A /* Task+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022ED55426B80DE3000B378A /* Task+CoreDataProperties.swift */; };
@@ -45,7 +44,6 @@
 		021AA28F26B3970100E2EEEC /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		021AA29326B3C67400E2EEEC /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
 		021AA29526B3CA3A00E2EEEC /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
-		021AA29926B4322300E2EEEC /* TaskRepositoryDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRepositoryDelegate.swift; sourceTree = "<group>"; };
 		02256B7E26A7A857001F177D /* TaskList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskList.swift; sourceTree = "<group>"; };
 		022ED55326B80DE3000B378A /* Task+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataClass.swift"; sourceTree = "<group>"; };
 		022ED55426B80DE3000B378A /* Task+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -152,7 +150,6 @@
 			isa = PBXGroup;
 			children = (
 				AA9ACE3A26AEA481009115BD /* TaskEditViewControllerDelegate.swift */,
-				021AA29926B4322300E2EEEC /* TaskRepositoryDelegate.swift */,
 			);
 			path = Delegate;
 			sourceTree = "<group>";
@@ -358,7 +355,6 @@
 				AAC4716626B40310001D211C /* URLRequest+init.swift in Sources */,
 				022ED55526B80DE3000B378A /* Task+CoreDataClass.swift in Sources */,
 				AA9ACE3826AE9F03009115BD /* TaskEditViewModel.swift in Sources */,
-				021AA29A26B4322300E2EEEC /* TaskRepositoryDelegate.swift in Sources */,
 				AA32681826A94435007C2E60 /* TaskCell.swift in Sources */,
 				021AA29026B3970100E2EEEC /* HistoryViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,

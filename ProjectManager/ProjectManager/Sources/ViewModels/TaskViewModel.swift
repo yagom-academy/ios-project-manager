@@ -48,16 +48,7 @@ final class TaskViewModel {
         guard let index: Int = count(of: task.taskState) else { return }
         taskList[.todo].append(task)
         added?(index)
-
-        taskRepository.post(task: task) { [weak self] result in
-            switch result {
-            case .success(let responseTask):
-                self?.taskManager.update(objectID: task.objectID, id: responseTask.id)
-            case .failure(let error):
-                self?.taskManager.pendingObjectIDs.insert(task.objectID)
-                print(error)
-            }
-        }
+        post(task)
     }
 
     /**
@@ -74,6 +65,8 @@ final class TaskViewModel {
         if remove(task) != nil {
             insert(task, to: destinationState, at: destinationIndex)
         }
+
+        patch(task)
     }
 
     /**
@@ -104,8 +97,9 @@ final class TaskViewModel {
 
         let removedTitle: String = taskList[state][index].title
         let removedTask: Task = taskList[state].remove(at: index)
-        taskManager.delete(removedTask.objectID)
+        taskManager.softDelete(removedTask.objectID)
         removed?(state, index)
+        delete(removedTask)
         return removedTitle
     }
 
@@ -115,7 +109,7 @@ final class TaskViewModel {
      - Parameter task: 삭제할 task
      */
     @discardableResult
-    func remove(_ task: Task) -> Task? {
+    private func remove(_ task: Task) -> Task? {
         let state: Task.State = task.taskState
         guard let index: Int = taskList[state].firstIndex(where: { $0.id == task.id }) else { return nil }
 
@@ -148,11 +142,45 @@ final class TaskViewModel {
     func count(of state: Task.State) -> Int? {
         return taskList[state].count
     }
-}
 
-// MARK: - TaskRepositoryDelegate
+    // MARK: Networking
 
-extension TaskViewModel: TaskRepositoryDelegate {
+    private func post(_ task: Task) {
+        taskRepository.post(task: task) { [weak self] result in
+            switch result {
+            case .success(let responseTask):
+                self?.taskManager.update(objectID: task.objectID, id: responseTask.id)
+            case .failure(let error):
+                self?.taskManager.pendingObjectIDs.insert(task.objectID)
+                print(error)
+            }
+        }
+    }
+
+    private func patch(_ task: Task) {
+        taskRepository.patch(task: task) { [weak self] result in
+            switch result {
+            case .success:
+                print("Patch Succeed!")
+            case .failure(let error):
+                self?.taskManager.pendingObjectIDs.insert(task.objectID)
+                print(error)
+            }
+        }
+    }
+
+    private func delete(_ removedTask: Task) {
+        taskRepository.delete(task: removedTask) { [weak self] result in
+            switch result {
+            case .success(let id):
+                self?.taskManager.delete(removedTask.objectID)
+                print("Deletion succeed! ID: \(id)")
+            case .failure(let error):
+                self?.taskManager.pendingObjectIDs.insert(removedTask.objectID)
+                print(error)
+            }
+        }
+    }
 
     func networkDidConnect() {
         taskRepository.fetchTasks { [weak self] result in
@@ -169,18 +197,11 @@ extension TaskViewModel: TaskRepositoryDelegate {
                     let isDeleted: Bool = task.id != nil && task.isRemoved
 
                     if isCreated {
-                        self.taskRepository.post(task: task) { result in
-                            switch result {
-                            case .success(let task):
-                                self.taskManager.update(objectID: taskObjectID, id: task.id)
-                            case .failure(let error):
-                                print(error)
-                            }
-                        }
+                        self.post(task)
                     } else if isPatched {
-                        self.taskRepository.patch(task: task) { _ in }
+                        self.patch(task)
                     } else if isDeleted {
-                        self.taskRepository.delete(task: task) { _ in }
+                        self.delete(task)
                     }
                 }
             case .failure(let error):
