@@ -8,9 +8,9 @@
 import Foundation
 
 enum TaskType: String, CustomStringConvertible, Codable, CaseIterable {
-    case todo = "TODO"
-    case doing = "DOING"
-    case done = "DONE"
+    case todo
+    case doing
+    case done
     
     var description: String {
         return self.rawValue
