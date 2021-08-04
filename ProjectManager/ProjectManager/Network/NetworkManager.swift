@@ -25,8 +25,9 @@ final class NetworkManager {
         }
         
         let dataTask = session.dataTask(with: request) { data, response, error in
-            if let error = error {
-                completion(.failure(.error(error)))
+            if let _ = error {
+                completion(.failure(.error))
+                return
             }
             
             guard let response = response as? HTTPURLResponse else {

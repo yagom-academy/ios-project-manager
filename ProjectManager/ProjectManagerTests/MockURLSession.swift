@@ -10,20 +10,22 @@ import XCTest
 @testable import ProjectManager
 
 class MockURLSession: URLSessionProtocol {
-    var url: URL!
+    var url: URL?
     var data: Data?
-    var response: HTTPURLResponse
+    var response: HTTPURLResponse?
+    var error: NetworkError?
     
-    init(response: HTTPURLResponse, data: Data?) {
+    init(response: HTTPURLResponse?, data: Data?, error: NetworkError?) {
         self.response = response
         self.data = data
+        self.error = error
     }
     
     func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
         self.url = request.url
         
         return FakeDataTask {
-            completionHandler(self.data, self.response, nil)
+            completionHandler(self.data, self.response, self.error)
         }
     }
     

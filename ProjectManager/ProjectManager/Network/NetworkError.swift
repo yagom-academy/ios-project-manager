@@ -12,7 +12,7 @@ enum NetworkError: Error {
     case invalidStatusCode(_ code: Int)
     case emptyData
     case decodingError
-    case error(_ error: Error)
+    case error
     case invalidRequest
 }
 
@@ -29,8 +29,8 @@ extension NetworkError: CustomStringConvertible {
             return "decoding Error"
         case .invalidRequest:
             return "invalidRequest"
-        case .error(let error):
-            return "error \(error.localizedDescription)"
+        case .error:
+            return "error"
         }
     }
 }

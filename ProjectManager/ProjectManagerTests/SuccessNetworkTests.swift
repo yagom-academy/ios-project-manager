@@ -26,7 +26,7 @@ class SuccessNetworkTests: XCTestCase {
             return
         }
         let expectTasks = try? JSONDecoder().decode([Task].self, from: dummyDatas)
-        urlSession = MockURLSession(response: expectResponse, data: dummyDatas)
+        urlSession = MockURLSession(response: expectResponse, data: dummyDatas, error: nil)
         networkManager = NetworkManager(session: urlSession)
         let expectation = XCTestExpectation()
         
