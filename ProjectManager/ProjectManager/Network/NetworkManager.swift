@@ -19,7 +19,7 @@ final class NetworkManager {
                              _ item: T?,
                              httpMethod: HTTPMethod,
                              completion: @escaping (Result<T, NetworkError>) -> Void) {
-        guard let request = generate(url, item, httpMethod) else {
+        guard let request = generateURLRequest(url, item, httpMethod) else {
             completion(.failure(.invalidRequest))
             return
         }
@@ -55,7 +55,7 @@ final class NetworkManager {
         dataTask.resume()
     }
     
-    private func generate<T: Codable>(_ url: URL, _ item: T?, _ httpMethod: HTTPMethod) -> URLRequest? {
+    private func generateURLRequest<T: Codable>(_ url: URL, _ item: T?, _ httpMethod: HTTPMethod) -> URLRequest? {
         var request: URLRequest = URLRequest(url: url)
         if httpMethod == .get {
             return request

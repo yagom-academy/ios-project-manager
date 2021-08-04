@@ -79,7 +79,7 @@ class FailureNetworkTests: XCTestCase {
     func test_when_tasks조회요청_expect_emptyDataError() {
         // given
         guard let readURL = ServerAPI.read.url else {
-            XCTFail("url is nil")
+            XCTFail("URLError")
             return
         }
         guard let expectResponse = HTTPURLResponse(url: readURL, statusCode: 200, httpVersion: nil, headerFields: nil) else {

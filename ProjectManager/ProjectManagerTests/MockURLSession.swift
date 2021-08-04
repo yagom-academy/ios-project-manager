@@ -24,6 +24,14 @@ class MockURLSession: URLSessionProtocol {
     func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
         self.url = request.url
         
+        // post: 직접 구현한 enum의 case
+        // POST: 이미 구현되어있는 실제 httpMethod의 내부 상태
+        // 등록 요청시에는 requestTask를 encoding한게 httpbody로 들어옴
+        // 서버에 잘 등록이 되었다면 등록된 task에 JSON을 data로 반환
+        // TODO: requestTask에는 id가 없기 때문에 Task를 encoding해서 보내줘야 함
+        if request.httpMethod == "POST" {
+            self.data = request.httpBody
+        }
         return FakeDataTask {
             completionHandler(self.data, self.response, self.error)
         }
