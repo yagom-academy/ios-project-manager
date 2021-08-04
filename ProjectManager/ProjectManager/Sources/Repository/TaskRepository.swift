@@ -50,7 +50,7 @@ final class TaskRepository {
 
     func post(task: Task, completion: @escaping (Result<Task, PMError>) -> Void) {
         guard let url = URL(string: base + Endpoint.post) else { return }
-        guard let httpBody = try? encoder.encode(task) else {
+        guard let httpBody = try? encoder.encode(PostTask(by: task)) else {
             completion(.failure(.cannotEncodeToJSON(#function)))
             return
         }
