@@ -30,14 +30,14 @@ final class TaskRepository {
             self?.checkSessionSucceed(error, response, data) { result in
                 switch result {
                 case .success(let data):
-                    guard let tasks = try? self?.decoder.decode([Task].self, from: data) else {
+                    guard let responseTasks = try? self?.decoder.decode([ResponseTask].self, from: data) else {
                         completion(.failure(.decodingFailed))
                         return
                     }
 
-                    let todos = tasks.filter { $0.taskState == .todo }
-                    let doings = tasks.filter { $0.taskState == .doing }
-                    let dones = tasks.filter { $0.taskState == .done }
+                    let todos = responseTasks.filter { $0.state == .todo }.map { $0.task }
+                    let doings = responseTasks.filter { $0.state == .doing }.map { $0.task }
+                    let dones = responseTasks.filter { $0.state == .done }.map { $0.task }
                     let taskList = TaskList(todos: todos, doings: doings, dones: dones)
 
                     completion(.success(taskList))
@@ -61,11 +61,11 @@ final class TaskRepository {
             self?.checkSessionSucceed(error, response, data) { result in
                 switch result {
                 case .success(let data):
-                    guard let task = try? self?.decoder.decode(Task.self, from: data) else {
+                    guard let responseTask = try? self?.decoder.decode(ResponseTask.self, from: data) else {
                         completion(.failure(.decodingFailed))
                         return
                     }
-                    completion(.success(task))
+                    completion(.success(responseTask.task))
                 case .failure(let pmError):
                     completion(.failure(pmError))
                 }
@@ -86,11 +86,11 @@ final class TaskRepository {
             self?.checkSessionSucceed(error, response, data) { result in
                 switch result {
                 case .success(let data):
-                    guard let task = try? self?.decoder.decode(Task.self, from: data) else {
+                    guard let responseTask = try? self?.decoder.decode(ResponseTask.self, from: data) else {
                         completion(.failure(.decodingFailed))
                         return
                     }
-                    completion(.success(task))
+                    completion(.success(responseTask.task))
                 case .failure(let pmError):
                     completion(.failure(pmError))
                 }
