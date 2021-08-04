@@ -100,7 +100,7 @@ final class TaskRepository {
 
     func delete(task: Task, completion: @escaping (Result<UUID, PMError>) -> Void) {
         guard let url = URL(string: base + Endpoint.delete) else { return }
-        guard let httpBody = try? encoder.encode(task) else {
+        guard let httpBody = try? encoder.encode(DeleteTask(by: task)) else {
             completion(.failure(.cannotEncodeToJSON(#function)))
             return
         }
