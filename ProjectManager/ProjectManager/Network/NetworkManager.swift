@@ -15,28 +15,15 @@ final class NetworkManager {
         self.session = session
     }
     
-//    func get(url: URL, completion: @escaping (Result<[Task], NetworkError>) -> Void) {
-//        let request = URLRequest(url: url)
-//        dataTask(request: request, completion: completion)
-//    }
-        
-    func post(url: URL, _ item: Task, completion: @escaping (Result<Task, NetworkError>) -> Void) {
-        guard let request = requestMaker.generate(url, item, .post) else {
+    func request<T: Codable>(url: URL, _ item: T, httpMethod: HTTPMethod, completion: @escaping (Result<T, NetworkError>) -> Void) {
+        guard let request = requestMaker.generate(url, item, httpMethod) else {
             completion(.failure(.invalidRequest))
             return
         }
         dataTask(request: request, completion: completion)
     }
-    
-    func put(url: URL, _ item: Task, completion: @escaping (Result<Task, NetworkError>) -> Void) {
-        guard let request = requestMaker.generate(url, item, .put) else {
-            completion(.failure(.invalidRequest))
-            return
-        }
-        dataTask(request: request, completion: completion)
-    }
-    
-    func dataTask(request: URLRequest, completion: @escaping (Result<Task, NetworkError>) -> Void) {
+
+    func dataTask<T: Codable>(request: URLRequest, completion: @escaping (Result<T, NetworkError>) -> Void) {
         let dataTask = session.dataTask(with: request) { data, response, error in
             if let error = error {
                 completion(.failure(.error(error)))
@@ -57,7 +44,7 @@ final class NetworkManager {
                 return
             }
             
-            guard let decodedData = try? JSONDecoder().decode(Task.self, from: data) else {
+            guard let decodedData = try? JSONDecoder().decode(T.self, from: data) else {
                 completion(.failure(.decodingError))
                 return
             }

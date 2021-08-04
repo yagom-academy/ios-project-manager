@@ -23,7 +23,7 @@ class MockURLSession: URLSessionProtocol {
         self.url = request.url
         
         return FakeDataTask {
-            completionHandler(nil, self.response, nil)
+            completionHandler(self.data, self.response, nil)
         }
     }
     
