@@ -29,3 +29,13 @@ final class Task: Codable {
         case type = "status"
     }
 }
+
+extension Task: Equatable {
+    static func == (lhs: Task, rhs: Task) -> Bool {
+        return lhs.id == rhs.id &&
+            lhs.title == rhs.title &&
+            lhs.content == rhs.content &&
+            lhs.deadLine == rhs.deadLine &&
+            lhs.type == rhs.type
+    }
+}
