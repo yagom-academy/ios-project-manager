@@ -8,13 +8,20 @@
 import UIKit
 
 class TaskTableView: UITableView {
-    private var tasks: [Task] = [Task(title: "TestTitle", context: "TestContext", deadline: Date())]
+    private var tasks: [Task] = []
 
-    func addTask(title: String, context: String, deadline: Date) {
-        tasks.insert(Task(title: title,
-                          context: context,
-                          deadline: deadline),
-                     at: 0)
+    init() {
+        super.init(frame: .zero, style: .grouped)
+
+        self.register(TaskTableViewCell.self, forCellReuseIdentifier: TaskTableViewCell.reuseIdentifier)
+        self.contentInset.top = -27 // swift 버그로 tableView의 top spacing을 수정
+    }
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+
+    func createTask(task: Task) {
+        tasks.insert(task, at: 0)
     }
 
     func deleteTask(index: Int) {
@@ -27,15 +34,5 @@ class TaskTableView: UITableView {
 
     func checkTask(index: Int) -> Task {
         return tasks[index]
-    }
-
-    init() {
-        super.init(frame: .zero, style: .grouped)
-
-        self.register(TaskTableViewCell.self, forCellReuseIdentifier: TaskTableViewCell.reuseIdentifier)
-        self.contentInset.top = -27 // swift 버그로 tableView의 top spacing을 수정
-    }
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
     }
 }

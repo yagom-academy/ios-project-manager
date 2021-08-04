@@ -15,33 +15,35 @@ class TaskTableViewCell: UITableViewCell {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .title3)
-        label.text = "placeholderTitle"
+        label.text = "placeholder Title"
         return label
     }()
 
     private let contextLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .body)
-        label.text = "placeholderContext"
+        label.text = "placeholder Context"
         return label
     }()
 
     private let deadlineLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .subheadline)
-        label.text = "placeholderDeadline"
+        label.text = "placeholder Deadline"
         return label
     }()
-
-    func setLabelText(title: String, context: String, deadline: Date) {
-        titleLabel.text = title
-        contextLabel.text = context
-        deadlineLabel.text = dateToString(date: deadline)
-    }
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
+        setLabels()
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+
+    private func setLabels() {
         contentView.addSubview(titleLabel)
         contentView.addSubview(contextLabel)
         contentView.addSubview(deadlineLabel)
@@ -62,8 +64,10 @@ class TaskTableViewCell: UITableViewCell {
         }
     }
 
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
+    func setLabelText(title: String, context: String, deadline: Date) {
+        titleLabel.text = title
+        contextLabel.text = context
+        deadlineLabel.text = dateToString(date: deadline)
     }
 }
 

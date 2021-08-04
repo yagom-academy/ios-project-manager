@@ -8,9 +8,9 @@ import UIKit
 import SnapKit
 
 class TaskViewController: UIViewController {
-    private let todoHeadView = HeadView()
-    private let doingHeadView = HeadView()
-    private let doneHeadView = HeadView()
+    private let todoHeadView = TaskHeadView(classification: "TODO")
+    private let doingHeadView = TaskHeadView(classification: "DOING")
+    private let doneHeadView = TaskHeadView(classification: "DONE")
 
     private let headStackView: UIStackView = {
         let stackView = UIStackView()
@@ -32,11 +32,20 @@ class TaskViewController: UIViewController {
         return stackView
     }()
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        setNavigation()
+        setMainView()
+        setHeadView()
+        setTableView()
+    }
+
     private func setNavigation() {
         self.navigationItem.title = "Project Manager"
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
-                                                                 target: nil,
-                                                                 action: nil)
+                                                                 target: self,
+                                                                 action: #selector(didTapAddButton))
     }
 
     private func setMainView() {
@@ -47,12 +56,9 @@ class TaskViewController: UIViewController {
 
     private func setHeadView() {
         // TODO: setLabelText 메서드의 countNumber를 tableView의 자료 갯수만큼 카운트 하도록 변경 필요
-        todoHeadView.setLabelText(classification: "TODO",
-                                  countNumber: todoTableView.countTasks().description)
-        doingHeadView.setLabelText(classification: "DOING",
-                                   countNumber: doingTableView.countTasks().description)
-        doneHeadView.setLabelText(classification: "DONE",
-                                  countNumber: doneTableView.countTasks().description)
+        todoHeadView.setCountNumberLabelText(countNumber: todoTableView.countTasks().description)
+        doingHeadView.setCountNumberLabelText(countNumber: doingTableView.countTasks().description)
+        doneHeadView.setCountNumberLabelText(countNumber: doneTableView.countTasks().description)
 
         [todoHeadView, doingHeadView, doneHeadView].forEach { headView in
             headStackView.addArrangedSubview(headView)
@@ -77,13 +83,32 @@ class TaskViewController: UIViewController {
         }
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    @objc func didTapAddButton() {
+        let makeTaskViewController = TaskDetailView()
+        makeTaskViewController.modalPresentationStyle = .formSheet
+        makeTaskViewController.delegate = self
+        present(UINavigationController(rootViewController: makeTaskViewController),
+                animated: true,
+                completion: nil)
+    }
+}
 
-        setNavigation()
-        setMainView()
-        setHeadView()
-        setTableView()
+protocol TaskViewControllerDelegate {
+    func createTodoTask(task: Task)
+    func countheadViewNumber()
+}
+
+// MARK: - TaskViewController Delegate
+extension TaskViewController: TaskViewControllerDelegate {
+    func createTodoTask(task: Task) {
+        todoTableView.createTask(task: task)
+        todoTableView.reloadData()
+    }
+
+    func countheadViewNumber() {
+        todoHeadView.setCountNumberLabelText(countNumber: todoTableView.countTasks().description)
+        doingHeadView.setCountNumberLabelText(countNumber: doingTableView.countTasks().description)
+        doneHeadView.setCountNumberLabelText(countNumber: doneTableView.countTasks().description)
     }
 }
 

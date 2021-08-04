@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class HeadView: UIView {
+class TaskHeadView: UIView {
     private let classificationLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .largeTitle)
@@ -25,6 +25,18 @@ class HeadView: UIView {
         label.layer.borderColor = UIColor.black.cgColor
         return label
     }()
+
+    init(classification: String) {
+        super.init(frame: .zero)
+        classificationLabel.text = classification
+        self.backgroundColor = .systemGray
+        setLabel()
+
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
 
     private func setLabel() {
         self.addSubview(classificationLabel)
@@ -44,20 +56,7 @@ class HeadView: UIView {
         }
     }
 
-    func setLabelText(classification: String, countNumber: String) {
-        classificationLabel.text = classification
+    func setCountNumberLabelText(countNumber: String) {
         countNumberLabel.text = countNumber
-    }
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-
-        self.backgroundColor = .systemGray
-        setLabel()
-
-    }
-
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
     }
 }
