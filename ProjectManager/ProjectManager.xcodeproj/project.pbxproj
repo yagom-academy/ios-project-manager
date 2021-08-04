@@ -127,9 +127,9 @@
 			isa = PBXGroup;
 			children = (
 				C3DAE84F26B8D1A9001C6A2E /* SuccessNetworkTests.swift */,
-				C3C2B47226BA3A9400CC38BD /* DummyJsonData.swift */,
 				C3C2B48226BA5F5F00CC38BD /* FailureNetworkTests.swift */,
 				4584741E26B3C94C008C9E62 /* Info.plist */,
+				C3C2B47226BA3A9400CC38BD /* DummyJsonData.swift */,
 				C3C6857326B804390080AED9 /* MockURLSession.swift */,
 			);
 			path = ProjectManagerTests;

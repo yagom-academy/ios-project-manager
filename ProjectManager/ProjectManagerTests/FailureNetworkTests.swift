@@ -51,4 +51,28 @@ class FailureNetworkTests: XCTestCase {
         }
         wait(for: [expectation], timeout: 2.0)
     }
+    
+    func test_when_tasks조회요청_expect_invalidStatusCodeError() {
+        //given
+        guard let expectResponse = HTTPURLResponse(url: URL(string: "www")!, statusCode: 404, httpVersion: nil, headerFields: nil) else {
+            XCTFail()
+            return
+        }
+        urlSession = MockURLSession(response: expectResponse, data: nil, error: nil)
+        networkManager = NetworkManager(session: urlSession)
+        let expectation = XCTestExpectation(description: "404 Status Code")
+        
+        //when
+        networkManager.request(url: URL(string: "www")!, [Task].self, nil, httpMethod: .get) { result in
+            switch result {
+            //then
+            case .success(_):
+                XCTFail()
+            case .failure(let error):
+                XCTAssertEqual(error, NetworkError.invalidStatusCode(404))
+                expectation.fulfill()
+            }
+        }
+        wait(for: [expectation], timeout: 2.0)
+    }
 }
