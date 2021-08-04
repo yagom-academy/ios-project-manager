@@ -3,3 +3,4 @@ disabled_rules:
   - identifier_name
 
 excluded:
+  - ProjectManagerTests/
