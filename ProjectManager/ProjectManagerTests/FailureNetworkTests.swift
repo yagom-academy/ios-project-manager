@@ -13,17 +13,17 @@ class FailureNetworkTests: XCTestCase {
     var networkManager: NetworkManager!
 
     func test_when_tasks조회요청_expect_networkError() {
-        //given
+        // given
         urlSession = MockURLSession(response: nil, data: nil, error: NetworkError.error)
         networkManager = NetworkManager(session: urlSession)
         let expectation = XCTestExpectation(description: "Error exist!")
         
-        //when
+        // when
         networkManager.request(url: URL(string: "www")!, [Task].self, nil, httpMethod: .get) { result in
             switch result {
-            //then
+            // then
             case .success(_):
-                XCTFail()
+                XCTFail("success")
             case .failure(let error):
                 XCTAssertEqual(error, NetworkError.error)
                 expectation.fulfill()
@@ -33,17 +33,17 @@ class FailureNetworkTests: XCTestCase {
     }
     
     func test_when_tasks조회요청_expect_invalidResponseError() {
-        //given
+        // given
         urlSession = MockURLSession(response: nil, data: nil, error: nil)
         networkManager = NetworkManager(session: urlSession)
         let expectation = XCTestExpectation(description: "response is nil")
         
-        //when
+        // when
         networkManager.request(url: URL(string: "www")!, [Task].self, nil, httpMethod: .get) { result in
             switch result {
-            //then
+            // then
             case .success(_):
-                XCTFail()
+                XCTFail("success")
             case .failure(let error):
                 XCTAssertEqual(error, NetworkError.invalidResponse)
                 expectation.fulfill()
@@ -53,23 +53,51 @@ class FailureNetworkTests: XCTestCase {
     }
     
     func test_when_tasks조회요청_expect_invalidStatusCodeError() {
-        //given
+        // given
         guard let expectResponse = HTTPURLResponse(url: URL(string: "www")!, statusCode: 404, httpVersion: nil, headerFields: nil) else {
-            XCTFail()
+            XCTFail("response is nil")
             return
         }
         urlSession = MockURLSession(response: expectResponse, data: nil, error: nil)
         networkManager = NetworkManager(session: urlSession)
         let expectation = XCTestExpectation(description: "404 Status Code")
         
-        //when
+        // when
         networkManager.request(url: URL(string: "www")!, [Task].self, nil, httpMethod: .get) { result in
             switch result {
-            //then
+            // then
             case .success(_):
-                XCTFail()
+                XCTFail("success")
             case .failure(let error):
                 XCTAssertEqual(error, NetworkError.invalidStatusCode(404))
+                expectation.fulfill()
+            }
+        }
+        wait(for: [expectation], timeout: 2.0)
+    }
+    
+    func test_when_tasks조회요청_expect_emptyDataError() {
+        // given
+        guard let readURL = ServerAPI.read.url else {
+            XCTFail("url is nil")
+            return
+        }
+        guard let expectResponse = HTTPURLResponse(url: readURL, statusCode: 200, httpVersion: nil, headerFields: nil) else {
+            XCTFail("response is nil")
+            return
+        }
+        urlSession = MockURLSession(response: expectResponse, data: nil, error: nil)
+        networkManager = NetworkManager(session: urlSession)
+        let expectation = XCTestExpectation(description: "emptyData!")
+        
+        // when
+        networkManager.request(url: readURL, [Task].self, nil, httpMethod: .get) { result in
+            switch result {
+            // then
+            case .success(_):
+                XCTFail("success")
+            case .failure(let error):
+                XCTAssertEqual(error, NetworkError.emptyData)
                 expectation.fulfill()
             }
         }
