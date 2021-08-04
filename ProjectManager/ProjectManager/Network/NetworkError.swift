@@ -16,6 +16,25 @@ enum NetworkError: Error {
     case invalidRequest
 }
 
+extension NetworkError: CustomStringConvertible {
+    var description: String {
+        switch self {
+        case .invalidResponse:
+            return "invalidResponse"
+        case .invalidStatusCode(let code):
+            return "invalidStatusCode \(code)"
+        case .emptyData:
+            return "emptyData"
+        case .decodingError:
+            return "decoding Error"
+        case .invalidRequest:
+            return "invalidRequest"
+        case .error(let error):
+            return "error \(error.localizedDescription)"
+        }
+    }
+}
+
 extension NetworkError: Equatable {
     public static func == (lhs: Self, rhs: Self) -> Bool {
         switch (lhs, rhs) {
