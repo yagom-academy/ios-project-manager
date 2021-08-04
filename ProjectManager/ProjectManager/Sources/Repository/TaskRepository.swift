@@ -20,8 +20,18 @@ final class TaskRepository {
     private let base: String = "https://bobian.herokuapp.com"
     private let session: URLSession = .shared
     private let okResponse: ClosedRange<Int> = (200...299)
-    private let decoder: JSONDecoder = JSONDecoder()
-    private let encoder: JSONEncoder = JSONEncoder()
+
+    private let decoder: JSONDecoder = {
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        return decoder
+    }()
+
+    private let encoder: JSONEncoder = {
+        let encoder = JSONEncoder()
+        encoder.keyEncodingStrategy = .convertToSnakeCase
+        return encoder
+    }()
 
     func fetchTasks(completion: @escaping (Result<TaskList, PMError>) -> Void) {
         guard let url = URL(string: base + Endpoint.get) else { return }
