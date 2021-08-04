@@ -23,13 +23,13 @@ public final class Task: NSManagedObject, Codable {
     }
 
     public convenience init(from decoder: Decoder) throws {
-        let managedObjectContext = TaskCoreDataStack.shared.persistentContainer.viewContext
-        guard let entity = NSEntityDescription.entity(forEntityName: Task.entityName, in: managedObjectContext) else {
+        let context = TaskCoreDataStack.shared.context
+        guard let entity = NSEntityDescription.entity(forEntityName: Task.entityName, in: context) else {
             print("Failed to retrieve managed object context.")
             throw PMError.decodingFailed
         }
 
-        self.init(entity: entity, insertInto: managedObjectContext)
+        self.init(entity: entity, insertInto: context)
 
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.id = try container.decode(UUID.self, forKey: .id)
@@ -39,7 +39,7 @@ public final class Task: NSManagedObject, Codable {
         self.state = try container.decode(String.self, forKey: .state)
         self.isRemoved = try container.decode(Bool.self, forKey: .isRemoved)
 
-        try managedObjectContext.save()
+        try context.save()
     }
 
     public func encode(to encoder: Encoder) throws {

@@ -17,7 +17,7 @@ final class TaskViewModel {
     var networkStatusChanged: (() -> Void)?
 
     private let taskRepository = TaskRepository()
-    private var taskManager = TaskManager()
+    private var taskManager = TaskManager(coreDataStack: TaskCoreDataStack.shared)
 
     private(set) var taskList = TaskList() {
         didSet {

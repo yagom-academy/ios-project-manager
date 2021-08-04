@@ -10,15 +10,17 @@ import CoreData
 
 struct TaskManager {
 
-    let coreDataStack: TaskCoreDataStack = .shared
+    var coreDataStack: CoreDataStack
 
     var isEmpty: Bool {
-        return coreDataStack.persistentContainer.viewContext.registeredObjects.count == 0
+        return coreDataStack.context.registeredObjects.count == 0
     }
 
-    init() {
+    init(coreDataStack: CoreDataStack = TaskCoreDataStack.shared) {
+        self.coreDataStack = coreDataStack
+
         if readPendingTaskList() == nil {
-            let context = coreDataStack.persistentContainer.viewContext
+            let context = coreDataStack.context
             let list = PendingTaskList(context: context)
             list.tasks = []
 
@@ -36,12 +38,12 @@ struct TaskManager {
     }
 
     func task(with objectID: NSManagedObjectID) -> Task? {
-        return try? coreDataStack.persistentContainer.viewContext.existingObject(with: objectID) as? Task
+        return try? coreDataStack.context.existingObject(with: objectID) as? Task
     }
 
     func create(title: String, body: String, dueDate: Date, state: Task.State) throws -> Task {
-        let context = coreDataStack.persistentContainer.viewContext
-        let task = Task(context: coreDataStack.persistentContainer.viewContext)
+        let context = coreDataStack.context
+        let task = Task(context: context)
 
         task.id = UUID()
         task.title = title
@@ -58,7 +60,7 @@ struct TaskManager {
         return task
     }
 
-    func read() -> TaskList {
+    mutating func read() -> TaskList {
         let tasks = coreDataStack.fetchTasks()
         let todos = tasks.filter { $0.taskState == .todo && !$0.isRemoved }
         let doings = tasks.filter { $0.taskState == .doing && !$0.isRemoved }
@@ -73,7 +75,7 @@ struct TaskManager {
                 dueDate: Date? = nil,
                 body: String? = nil,
                 state: Task.State? = nil) {
-        let context = coreDataStack.persistentContainer.viewContext
+        let context = coreDataStack.context
         guard let task = context.object(with: objectID) as? Task else { return }
 
         task.title = title ?? task.title
@@ -89,7 +91,7 @@ struct TaskManager {
     }
 
     func softDelete(_ id: NSManagedObjectID) {
-        let context = coreDataStack.persistentContainer.viewContext
+        let context = coreDataStack.context
         guard let task = context.object(with: id) as? Task else { return }
         task.isRemoved = true
 
@@ -101,7 +103,7 @@ struct TaskManager {
     }
 
     func delete(_ id: NSManagedObjectID) {
-        let context = coreDataStack.persistentContainer.viewContext
+        let context = coreDataStack.context
         guard let task = context.object(with: id) as? Task else { return }
         context.delete(task)
 
@@ -121,7 +123,7 @@ extension TaskManager {
     }
 
     mutating func deleteFromPendingTaskList(_ task: Task) {
-        let context = coreDataStack.persistentContainer.viewContext
+        let context = coreDataStack.context
         readPendingTaskList()?.removeFromTasks(task)
 
         do {
@@ -132,7 +134,7 @@ extension TaskManager {
     }
 
     mutating func insertFromPendingTaskList(_ task: Task) {
-        let context = coreDataStack.persistentContainer.viewContext
+        let context = coreDataStack.context
         readPendingTaskList()?.addToTasks(task)
 
         do {

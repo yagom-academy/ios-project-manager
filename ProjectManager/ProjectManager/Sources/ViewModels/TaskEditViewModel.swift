@@ -9,7 +9,7 @@ import Foundation
 
 struct TaskEditViewModel {
 
-    let taskManager = TaskManager()
+    let taskManager = TaskManager(coreDataStack: TaskCoreDataStack.shared)
     var task: Task?
     var indexPath: IndexPath?
     var updated: ((IndexPath, Task) -> Void)?
