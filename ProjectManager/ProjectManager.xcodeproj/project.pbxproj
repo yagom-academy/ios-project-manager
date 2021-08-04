@@ -72,10 +72,10 @@
 		AA32681726A94435007C2E60 /* TaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
 		AA32681A26A945F7007C2E60 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		AA6919A226AACA6100753919 /* TaskEditTitleTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskEditTitleTextField.swift; sourceTree = "<group>"; };
-		AA8C638226B97A0C00B31864 /* Task+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		AA8C638326B97A0C00B31864 /* Task+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
-		AA8C638426B97A0C00B31864 /* PendingTaskList+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PendingTaskList+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		AA8C638526B97A0C00B31864 /* PendingTaskList+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PendingTaskList+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		AA8C638226B97A0C00B31864 /* Task+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Task+CoreDataClass.swift"; path = "ProjectManager/Sources/Models/Task/Task+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		AA8C638326B97A0C00B31864 /* Task+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Task+CoreDataProperties.swift"; path = "ProjectManager/Sources/Models/Task/Task+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		AA8C638426B97A0C00B31864 /* PendingTaskList+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "PendingTaskList+CoreDataClass.swift"; path = "ProjectManager/Sources/Models/PendingTaskList/PendingTaskList+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		AA8C638526B97A0C00B31864 /* PendingTaskList+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "PendingTaskList+CoreDataProperties.swift"; path = "ProjectManager/Sources/Models/PendingTaskList/PendingTaskList+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		AA9ACE3726AE9F03009115BD /* TaskEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskEditViewModel.swift; sourceTree = "<group>"; };
 		AA9ACE3A26AEA481009115BD /* TaskEditViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskEditViewControllerDelegate.swift; sourceTree = "<group>"; };
 		AA9F8CCC26A6A8D400467F34 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
@@ -116,16 +116,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		02F2F4AF26A6F06F00BBE874 /* Models */ = {
+		023AFC5B26BA785500B4E5CF /* Task */ = {
 			isa = PBXGroup;
 			children = (
-				021AA29326B3C67400E2EEEC /* History.swift */,
-				AA8C638426B97A0C00B31864 /* PendingTaskList+CoreDataClass.swift */,
-				AA8C638526B97A0C00B31864 /* PendingTaskList+CoreDataProperties.swift */,
 				AA8C638226B97A0C00B31864 /* Task+CoreDataClass.swift */,
 				AA8C638326B97A0C00B31864 /* Task+CoreDataProperties.swift */,
 				AA126AC026A9724000EF24ED /* Task+NSItemProviderReading.swift */,
 				AA126AC226A9756C00EF24ED /* Task+NSItemProviderWriting.swift */,
+			);
+			path = Task;
+			sourceTree = "<group>";
+		};
+		023AFC5D26BA788000B4E5CF /* PendingTaskList */ = {
+			isa = PBXGroup;
+			children = (
+				AA8C638426B97A0C00B31864 /* PendingTaskList+CoreDataClass.swift */,
+				AA8C638526B97A0C00B31864 /* PendingTaskList+CoreDataProperties.swift */,
+			);
+			path = PendingTaskList;
+			sourceTree = "<group>";
+		};
+		02F2F4AF26A6F06F00BBE874 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				023AFC5D26BA788000B4E5CF /* PendingTaskList */,
+				023AFC5B26BA785500B4E5CF /* Task */,
+				021AA29326B3C67400E2EEEC /* History.swift */,
 				02256B7E26A7A857001F177D /* TaskList.swift */,
 			);
 			path = Models;
