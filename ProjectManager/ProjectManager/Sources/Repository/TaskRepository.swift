@@ -75,7 +75,7 @@ final class TaskRepository {
 
     func patch(task: Task, completion: @escaping (Result<Task, PMError>) -> Void) {
         guard let url = URL(string: base + Endpoint.patch) else { return }
-        guard let httpBody = try? encoder.encode(task) else {
+        guard let httpBody = try? encoder.encode(PatchTask(by: task)) else {
             completion(.failure(.cannotEncodeToJSON(#function)))
             return
         }
