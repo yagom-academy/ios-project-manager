@@ -9,21 +9,21 @@ import Foundation
 
 final class NetworkManager {
     let session: URLSessionProtocol
-    let requestMaker: RequestMaker = RequestMaker()
     
     init(session: URLSessionProtocol = URLSession.shared) {
         self.session = session
     }
     
-    func request<T: Codable>(url: URL, _ item: T, httpMethod: HTTPMethod, completion: @escaping (Result<T, NetworkError>) -> Void) {
-        guard let request = requestMaker.generate(url, item, httpMethod) else {
+    func request<T: Codable>(url: URL,
+                             _ type: T.Type,
+                             _ item: T?,
+                             httpMethod: HTTPMethod,
+                             completion: @escaping (Result<T, NetworkError>) -> Void) {
+        guard let request = generate(url, item, httpMethod) else {
             completion(.failure(.invalidRequest))
             return
         }
-        dataTask(request: request, completion: completion)
-    }
-
-    func dataTask<T: Codable>(request: URLRequest, completion: @escaping (Result<T, NetworkError>) -> Void) {
+        
         let dataTask = session.dataTask(with: request) { data, response, error in
             if let error = error {
                 completion(.failure(.error(error)))
@@ -44,7 +44,7 @@ final class NetworkManager {
                 return
             }
             
-            guard let decodedData = try? JSONDecoder().decode(T.self, from: data) else {
+            guard let decodedData = try? JSONDecoder().decode(type, from: data) else {
                 completion(.failure(.decodingError))
                 return
             }
@@ -52,5 +52,21 @@ final class NetworkManager {
             completion(.success(decodedData))
         }
         dataTask.resume()
+    }
+    
+    private func generate<T: Codable>(_ url: URL, _ item: T?, _ httpMethod: HTTPMethod) -> URLRequest? {
+        var request: URLRequest = URLRequest(url: url)
+        if httpMethod == .get {
+            return request
+        }
+        request.httpMethod = "\(httpMethod)"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        do {
+            let data = try JSONEncoder().encode(item)
+            request.httpBody = data
+        } catch {
+            print(error.localizedDescription)
+        }
+        return request
     }
 }
