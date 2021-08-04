@@ -22,5 +22,4 @@ class TaskTableView: UITableView {
         self.state = .todo
         super.init(coder: coder)
     }
-    
 }

@@ -42,7 +42,6 @@ class SuccessNetworkTests: XCTestCase {
                 XCTFail(error.description)
             }
         }
-        
         wait(for: [expectation], timeout: 2.0)
     }
 }

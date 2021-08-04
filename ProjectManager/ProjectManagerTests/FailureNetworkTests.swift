@@ -16,7 +16,7 @@ class FailureNetworkTests: XCTestCase {
         //given
         urlSession = MockURLSession(response: nil, data: nil, error: NetworkError.error)
         networkManager = NetworkManager(session: urlSession)
-        let expectation = XCTestExpectation()
+        let expectation = XCTestExpectation(description: "Error exist!")
         
         //when
         networkManager.request(url: URL(string: "www")!, [Task].self, nil, httpMethod: .get) { result in
@@ -29,8 +29,26 @@ class FailureNetworkTests: XCTestCase {
                 expectation.fulfill()
             }
         }
-        
         wait(for: [expectation], timeout: 2.0)
     }
-
+    
+    func test_when_tasks조회요청_expect_invalidResponseError() {
+        //given
+        urlSession = MockURLSession(response: nil, data: nil, error: nil)
+        networkManager = NetworkManager(session: urlSession)
+        let expectation = XCTestExpectation(description: "response is nil")
+        
+        //when
+        networkManager.request(url: URL(string: "www")!, [Task].self, nil, httpMethod: .get) { result in
+            switch result {
+            //then
+            case .success(_):
+                XCTFail()
+            case .failure(let error):
+                XCTAssertEqual(error, NetworkError.invalidResponse)
+                expectation.fulfill()
+            }
+        }
+        wait(for: [expectation], timeout: 2.0)
+    }
 }
