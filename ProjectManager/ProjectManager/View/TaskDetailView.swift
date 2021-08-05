@@ -17,7 +17,7 @@ final class TaskDetailView: UIViewController {
     var delegate: TaskViewControllerDelegate?
     private var mode: Mode = .add
     private var index: Int?
-    private var classification: Classification? = .todo
+    private var classification: String? = Classification.todo.name
 
     let completion: ((_ task: Task) -> Void) = { task in
         print(task.title)
@@ -49,7 +49,7 @@ final class TaskDetailView: UIViewController {
         return textView
     }()
 
-    init(delegate: TaskViewControllerDelegate, mode: Mode, index: Int?, classification: Classification?) {
+    init(delegate: TaskViewControllerDelegate, mode: Mode, index: Int?, classification: String?) {
         super.init(nibName: nil, bundle: nil)
         self.delegate = delegate
         self.mode = mode
@@ -107,14 +107,15 @@ final class TaskDetailView: UIViewController {
     }
 
     @objc func didTapRightButton() {
-        guard let classification = self.classification else { return }
+        guard let classification = self.classification,
+              let index = self.index else { return }
         let task = Task(title: titleTextfield.text!,
                         context: contentTextView.text,
                         deadline: datePicker.date,
                         classification: classification)
 
         if mode == .add {
-            delegate?.createTodoTask(task: task)
+            delegate?.createTodoTask(task: task, index: index)
             delegate?.countHeadViewNumber()
         } else {
             guard let index = self.index else { return }

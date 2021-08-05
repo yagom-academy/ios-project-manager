@@ -11,4 +11,15 @@ enum Classification {
     case todo
     case doing
     case done
+
+    var name: String {
+        switch self {
+        case .todo:
+            return "todo"
+        case .doing:
+            return "doing"
+        case .done:
+            return "done"
+        }
+    }
 }
