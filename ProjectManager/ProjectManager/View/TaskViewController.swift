@@ -83,6 +83,17 @@ final class TaskViewController: UIViewController {
         }
     }
 
+    private func switchClassification(classification: String) -> TaskTableView {
+        switch classification {
+        case Classification.todo.name:
+            return todoTableView
+        case Classification.doing.name:
+            return doingTableView
+        default:
+            return doneTableView
+        }
+    }
+
     @objc func didTapAddButton() {
         let detailView = TaskDetailView(delegate: self,
                                         mode: .add,
@@ -110,14 +121,15 @@ extension TaskViewController: TaskViewControllerDelegate {
     }
 
     func updateTask(task: Task, index: Int) {
-        let tableView = switchTableView(task: task)
+        let tableView = switchClassification(classification: task.classification)
         tableView.updateTask(index: index, task: task)
         tableView.reloadData()
     }
 
     func deleteTask(index: Int, status: String) {
-        let tableView = switchStatus(status: status)
+        let tableView = switchClassification(classification: status)
         tableView.deleteTask(index: index)
+        tableView.reloadData()
     }
 
     func countHeadViewNumber() {
@@ -174,13 +186,13 @@ extension TaskViewController: UITableViewDataSource {
 extension TaskViewController: UITableViewDragDelegate {
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
         guard let tableView = tableView as? TaskTableView else { return [] }
-        let subject = tableView.readTask(index: indexPath.row)
-        let itemProvider = NSItemProvider(object: subject)
+        let task = tableView.readTask(index: indexPath.row)
+        let itemProvider = NSItemProvider(object: task)
 
         let dragItem = UIDragItem(itemProvider: itemProvider)
         dragItem.localObject = tableView.readTask(index: indexPath.row)
         session.localContext = DragSessionLocalContext(originIndexPath: indexPath)
-        
+
         return [dragItem]
     }
 
@@ -217,7 +229,7 @@ extension TaskViewController: UITableViewDropDelegate {
             tableView.createTask(task: dragTask, index: destinationIndexPath.row)
 
             countHeadViewNumber()
-            dragTask.classification = tableView.status
+            dragTask.classification = tableView.classification
             tableView.insertRows(at: [destinationIndexPath], with: .automatic)
         }
 
@@ -232,30 +244,5 @@ extension TaskViewController: UITableViewDropDelegate {
 
     func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
         UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
-    }
-}
-
-// MARK: - Extra Func
-extension TaskViewController {
-    func switchTableView(task: Task) -> TaskTableView {
-        switch task.classification {
-        case Classification.todo.name:
-            return todoTableView
-        case Classification.doing.name:
-            return doingTableView
-        default:
-            return doneTableView
-        }
-    }
-
-    func switchStatus(status: String) -> TaskTableView {
-        switch status {
-        case Classification.todo.name:
-            return todoTableView
-        case Classification.doing.name:
-            return doingTableView
-        default:
-            return doneTableView
-        }
     }
 }

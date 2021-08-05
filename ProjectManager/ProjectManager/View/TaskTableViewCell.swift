@@ -73,7 +73,7 @@ final class TaskTableViewCell: UITableViewCell {
 
 // MARK: - DateFormatter
 extension TaskTableViewCell {
-    func dateToString(date: Date) -> String {
+    private func dateToString(date: Date) -> String {
         dateFormatter.dateFormat = "yyyy-mm-dd"
         let dateString = dateFormatter.string(from: date)
 

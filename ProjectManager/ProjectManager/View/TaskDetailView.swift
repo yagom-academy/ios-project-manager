@@ -14,16 +14,12 @@ final class TaskDetailView: UIViewController {
         case edit
     }
 
-    var delegate: TaskViewControllerDelegate?
+    private var delegate: TaskViewControllerDelegate?
     private var mode: Mode = .add
     private var index: Int?
     private var classification: String? = Classification.todo.name
 
-    let completion: ((_ task: Task) -> Void) = { task in
-        print(task.title)
-    }
-
-    let titleTextfield: UITextField = {
+    private let titleTextfield: UITextField = {
         let textfield = UITextField()
         textfield.placeholder = "Title"
         textfield.font = UIFont.preferredFont(forTextStyle: .title2)
@@ -33,7 +29,7 @@ final class TaskDetailView: UIViewController {
         return textfield
     }()
 
-    let datePicker: UIDatePicker = {
+    private let datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.preferredDatePickerStyle = .wheels
         datePicker.datePickerMode = .date
@@ -41,7 +37,7 @@ final class TaskDetailView: UIViewController {
 
     }()
 
-    let contentTextView: UITextView = {
+    private let contentTextView: UITextView = {
         let textView = UITextView()
         textView.font = UIFont.preferredFont(forTextStyle: .body)
         textView.layer.borderColor = UIColor.systemGray3.cgColor

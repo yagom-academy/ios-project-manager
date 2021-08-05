@@ -9,10 +9,10 @@ import UIKit
 
 final class TaskTableView: UITableView {
     private var tasks: [Task] = []
-    var status: String = Classification.todo.name
+    var classification: String = Classification.todo.name
 
     init(status: String) {
-        self.status = status
+        self.classification = status
         super.init(frame: .zero, style: .grouped)
         self.register(TaskTableViewCell.self, forCellReuseIdentifier: TaskTableViewCell.reuseIdentifier)
         self.contentInset.top = -27 // swift 버그로 tableView의 top spacing을 수정
