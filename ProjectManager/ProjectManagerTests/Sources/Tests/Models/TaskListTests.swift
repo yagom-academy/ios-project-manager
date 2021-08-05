@@ -18,25 +18,9 @@ final class TaskListTests: XCTestCase {
         try super.setUpWithError()
         mockCoreDataStack = MockCoreDataStack()
         let context = mockCoreDataStack.context
-
-        tasks.append(Task(context: context))
-        tasks[0].id = UUID()
-        tasks[0].title = "A"
-        tasks[0].dueDate = Date()
-        tasks[0].taskState = .todo
-
-        tasks.append(Task(context: context))
-        tasks[1].id = UUID()
-        tasks[1].title = "B"
-        tasks[1].dueDate = Date()
-        tasks[1].taskState = .doing
-
-        tasks.append(Task(context: context))
-        tasks[2].id = UUID()
-        tasks[2].title = "C"
-        tasks[2].dueDate = Date()
-        tasks[2].taskState = .done
-
+        tasks.append(Task(context: context, title: "A", body: nil, dueDate: Date(), state: .todo))
+        tasks.append(Task(context: context, title: "B", body: nil, dueDate: Date(), state: .doing))
+        tasks.append(Task(context: context, title: "C", body: nil, dueDate: Date(), state: .done))
         try context.save()
 
         sutTaskList = TaskList(todos: [tasks[0]], doings: [tasks[1]], dones: [tasks[2]])
