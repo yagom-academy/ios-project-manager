@@ -32,7 +32,17 @@ class TaskAlertViewController: UIViewController {
         
         setSelectTask()
         setBorderStyle()
+        taskTextView.delegate = self
+        taskTextField.addTarget(self, action: #selector(changedTextField), for: .editingChanged)
     }
+    
+    @IBAction func changedDatePicker(_ sender: UIDatePicker) {
+    }
+    
+    @objc func changedTextField(_ sender: Any?) {
+        
+    }
+
     
     private func setSelectTask() {
         guard let selectTask = selectTask else { return }
@@ -92,5 +102,11 @@ class TaskAlertViewController: UIViewController {
         } else {
             self.dismiss(animated: true)
         }
+    }
+}
+
+extension TaskAlertViewController: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        
     }
 }

@@ -37,12 +37,12 @@ class TaskViewController: UIViewController {
         }
         
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(didChangedCountLabel),
+                                               selector: #selector(didChangeTaskCount),
                                                name: Notification.Name("changedTasksValue"),
                                                object: nil)
     }
     
-    @objc func didChangedCountLabel(_ notification: Notification) {
+    @objc func didChangeTaskCount(_ notification: Notification) {
         guard let dataSource = notification.object as? TaskDataSource else { return }
         
         switch dataSource.taskType {
@@ -238,13 +238,11 @@ extension TaskViewController: TaskDelegate {
         let dataSource = dataSourceForTableView(selectTableView)
         dataSource.tasks[indexNum.row] = task
         selectTableView.reloadRows(at: [indexNum], with: .automatic)
-//        selectTableView.reloadSections([indexNum, indexNum], with: .automatic)
     }
     
     func addTask(_ taskAlertViewController: TaskAlertViewController, task: Task) {
         let dataSource = dataSourceForTableView(todoTableView)
         dataSource.addTask(task, at: 0)
         todoTableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
-//        todoTableView.insertSections([0,0], with: .automatic)
     }
 }

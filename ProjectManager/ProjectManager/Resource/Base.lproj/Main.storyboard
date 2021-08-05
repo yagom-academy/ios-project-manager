@@ -244,6 +244,9 @@
                                     </textField>
                                     <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="zVE-Qe-fkN">
                                         <rect key="frame" x="0.0" y="64" width="1326" height="216"/>
+                                        <connections>
+                                            <action selector="changedDatePicker:" destination="O8J-8T-QgR" eventType="valueChanged" id="hct-rQ-gJi"/>
+                                        </connections>
                                     </datePicker>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ZA4-H7-4Up">
                                         <rect key="frame" x="0.0" y="290" width="1326" height="634"/>
