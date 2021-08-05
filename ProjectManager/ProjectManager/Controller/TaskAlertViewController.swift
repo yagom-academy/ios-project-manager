@@ -32,9 +32,12 @@ class TaskAlertViewController: UIViewController {
         self.view.layer.borderWidth = 2
         self.view.layer.borderColor = UIColor.white.cgColor
         
-        self.alertNavigationBar.topItem?.title = "TODO"
+        if selectTask == nil {
+            alertNavigationBar.topItem?.title = TaskType.todo.rawValue.uppercased()
+        } else {
+            setSelectTask()
+        }
         
-        setSelectTask()
         setBorderStyle()
         taskTextView.delegate = self
         taskTextField.addTarget(self, action: #selector(changedTextField), for: .editingChanged)
@@ -75,13 +78,13 @@ class TaskAlertViewController: UIViewController {
     @objc func didTapDoneButton(_ sender: Any) {
         guard let title = taskTextField.text else { return }
         
-        if alertNavigationBar.items?[0] == cancelBarButton && title.isEmpty == false {
+        if navigationItem.leftBarButtonItem == cancelBarButton && title.isEmpty == false {
             taskDelegate?.addTask(self, task: Task(id: nil,
                                               title: title,
                                               content: taskTextView.text,
                                               deadLineDate: datePicker.date,
                                               category: .todo))
-        } else if alertNavigationBar.items?[0] == editBarButton {
+        } else if navigationItem.leftBarButtonItem == editBarButton {
             guard let selectTitle = taskTextField.text,
                   let selectBody = taskTextView.text,
                   let selectTask = selectTask
