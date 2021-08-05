@@ -15,7 +15,7 @@
 		023AFC6326BA7BA000B4E5CF /* PatchTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023AFC6226BA7BA000B4E5CF /* PatchTask.swift */; };
 		023AFC6626BA7DFF00B4E5CF /* DeleteTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023AFC6526BA7DFF00B4E5CF /* DeleteTask.swift */; };
 		023AFC6826BA7E7400B4E5CF /* ResponseTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023AFC6726BA7E7400B4E5CF /* ResponseTask.swift */; };
-		023AFC6C26BA853F00B4E5CF /* TaskManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023AFC6B26BA853F00B4E5CF /* TaskManagerTests.swift */; };
+		023AFC6C26BA853F00B4E5CF /* TaskCoreDataRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023AFC6B26BA853F00B4E5CF /* TaskCoreDataRepositoryTests.swift */; };
 		023AFC6E26BA85E600B4E5CF /* TaskTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023AFC6D26BA85E600B4E5CF /* TaskTests.swift */; };
 		023AFC7126BA863100B4E5CF /* TaskListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023AFC7026BA863100B4E5CF /* TaskListTests.swift */; };
 		023AFC7326BA869600B4E5CF /* TaskRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023AFC7226BA869600B4E5CF /* TaskRepositoryTests.swift */; };
@@ -50,7 +50,7 @@
 		AAA6132926AFD9030058F33A /* StateTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA6132826AFD9030058F33A /* StateTableView.swift */; };
 		AAC4715726B2DFB8001D211C /* ProjectManager.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AAC4715526B2DFB8001D211C /* ProjectManager.xcdatamodeld */; };
 		AAC4716226B2E3B1001D211C /* TaskCoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC4716126B2E3B1001D211C /* TaskCoreDataStack.swift */; };
-		AAC4716426B2E4E1001D211C /* TaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC4716326B2E4E1001D211C /* TaskManager.swift */; };
+		AAC4716426B2E4E1001D211C /* TaskCoreDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC4716326B2E4E1001D211C /* TaskCoreDataRepository.swift */; };
 		AAC4716626B40310001D211C /* URLRequest+init.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC4716526B40310001D211C /* URLRequest+init.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
@@ -78,7 +78,7 @@
 		023AFC6226BA7BA000B4E5CF /* PatchTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatchTask.swift; sourceTree = "<group>"; };
 		023AFC6526BA7DFF00B4E5CF /* DeleteTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteTask.swift; sourceTree = "<group>"; };
 		023AFC6726BA7E7400B4E5CF /* ResponseTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseTask.swift; sourceTree = "<group>"; };
-		023AFC6B26BA853F00B4E5CF /* TaskManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManagerTests.swift; sourceTree = "<group>"; };
+		023AFC6B26BA853F00B4E5CF /* TaskCoreDataRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCoreDataRepositoryTests.swift; sourceTree = "<group>"; };
 		023AFC6D26BA85E600B4E5CF /* TaskTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTests.swift; sourceTree = "<group>"; };
 		023AFC7026BA863100B4E5CF /* TaskListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListTests.swift; sourceTree = "<group>"; };
 		023AFC7226BA869600B4E5CF /* TaskRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRepositoryTests.swift; sourceTree = "<group>"; };
@@ -115,7 +115,7 @@
 		AAA6132826AFD9030058F33A /* StateTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateTableView.swift; sourceTree = "<group>"; };
 		AAC4715626B2DFB8001D211C /* ProjectManager.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ProjectManager.xcdatamodel; sourceTree = "<group>"; };
 		AAC4716126B2E3B1001D211C /* TaskCoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCoreDataStack.swift; sourceTree = "<group>"; };
-		AAC4716326B2E4E1001D211C /* TaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManager.swift; sourceTree = "<group>"; };
+		AAC4716326B2E4E1001D211C /* TaskCoreDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCoreDataRepository.swift; sourceTree = "<group>"; };
 		AAC4716526B40310001D211C /* URLRequest+init.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest+init.swift"; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -180,7 +180,7 @@
 			children = (
 				023AFC7D26BA87D600B4E5CF /* Models */,
 				023AFC7C26BA87B000B4E5CF /* ViewModels */,
-				023AFC6B26BA853F00B4E5CF /* TaskManagerTests.swift */,
+				023AFC6B26BA853F00B4E5CF /* TaskCoreDataRepositoryTests.swift */,
 				023AFC7226BA869600B4E5CF /* TaskRepositoryTests.swift */,
 				023AFC7426BA86DC00B4E5CF /* UtilTests.swift */,
 			);
@@ -368,9 +368,9 @@
 		AAC4715F26B2E399001D211C /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				AAC4716326B2E4E1001D211C /* TaskCoreDataRepository.swift */,
 				AAC4716126B2E3B1001D211C /* TaskCoreDataStack.swift */,
 				AAA4ABA726BA70A70093427D /* TaskCoreDataStackProtocol.swift */,
-				AAC4716326B2E4E1001D211C /* TaskManager.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -528,7 +528,7 @@
 				023AFC7126BA863100B4E5CF /* TaskListTests.swift in Sources */,
 				023AFC7526BA86DC00B4E5CF /* UtilTests.swift in Sources */,
 				0249BFFC26BBD9DE00E3146D /* MockURLProtocol.swift in Sources */,
-				023AFC6C26BA853F00B4E5CF /* TaskManagerTests.swift in Sources */,
+				023AFC6C26BA853F00B4E5CF /* TaskCoreDataRepositoryTests.swift in Sources */,
 				0249BFFA26BBD91A00E3146D /* SpyTaskRepository.swift in Sources */,
 				023AFC7326BA869600B4E5CF /* TaskRepositoryTests.swift in Sources */,
 				AAA4ABC826BA729F0093427D /* MockTaskCoreDataStack.swift in Sources */,
@@ -573,7 +573,7 @@
 				AA8C638826B97A0C00B31864 /* PendingTaskList+CoreDataClass.swift in Sources */,
 				AAC4716226B2E3B1001D211C /* TaskCoreDataStack.swift in Sources */,
 				AA8C638926B97A0C00B31864 /* PendingTaskList+CoreDataProperties.swift in Sources */,
-				AAC4716426B2E4E1001D211C /* TaskManager.swift in Sources */,
+				AAC4716426B2E4E1001D211C /* TaskCoreDataRepository.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				0249BFF826BBD7D400E3146D /* TaskRepositoryProtocol.swift in Sources */,
 				AA126AC326A9756C00EF24ED /* Task+NSItemProviderWriting.swift in Sources */,

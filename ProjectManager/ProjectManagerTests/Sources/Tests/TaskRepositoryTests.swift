@@ -11,7 +11,7 @@ import XCTest
 final class TaskRepositoryTests: XCTestCase {
 
     private var sutTaskRepository: TaskRepository!
-    private var taskManger: TaskManager!
+    private var taskCoreDataRepository: TaskCoreDataRepository!
 
     override func setUpWithError() throws {
         try super.setUpWithError()
@@ -20,12 +20,12 @@ final class TaskRepositoryTests: XCTestCase {
         let urlSession = URLSession(configuration: configuration)
         sutTaskRepository = TaskRepository(session: urlSession)
 
-        taskManger = TaskManager(coreDataStack: MockTaskCoreDataStack())
+        taskCoreDataRepository = TaskCoreDataRepository(coreDataStack: MockTaskCoreDataStack())
     }
 
     override func tearDownWithError() throws {
         MockURLProtocol.loadingHandler = nil
-        taskManger = nil
+        taskCoreDataRepository = nil
         try super.tearDownWithError()
     }
 
@@ -41,7 +41,7 @@ final class TaskRepositoryTests: XCTestCase {
         sutTaskRepository.fetchTasks { result in
             switch result {
             case .success(let responseTasks):
-                let taskList = TaskList(context: self.taskManger.coreDataStack.context, responseTasks: responseTasks)
+                let taskList = TaskList(context: self.taskCoreDataRepository.coreDataStack.context, responseTasks: responseTasks)
                 XCTAssertEqual(taskList[.todo].first?.id, todoTask.id)
                 XCTAssertEqual(taskList[.todo].first?.title, todoTask.title)
                 XCTAssertEqual(taskList[.todo].first?.body, todoTask.body)
