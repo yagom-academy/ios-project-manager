@@ -112,7 +112,7 @@ class TaskViewController: UIViewController {
         else { return }
         
         taskAlertViewController.taskDelegate = self
-        taskAlertViewController.leftBarButtonName = "Cancel"
+        taskAlertViewController.leftBarButton = taskAlertViewController.cancelBarButton
         taskAlertViewController.modalPresentationStyle = .formSheet
         taskAlertViewController.modalTransitionStyle =  .crossDissolve
         self.present(taskAlertViewController, animated: true, completion: nil)
@@ -150,7 +150,7 @@ extension TaskViewController: UITableViewDelegate {
         else { return }
         
         taskAlertViewController.taskDelegate = self
-        taskAlertViewController.leftBarButtonName = "Edit"
+        taskAlertViewController.leftBarButton = taskAlertViewController.editBarButton
         taskAlertViewController.modalPresentationStyle = .formSheet
         taskAlertViewController.modalTransitionStyle =  .crossDissolve
         taskAlertViewController.selectTask = task
