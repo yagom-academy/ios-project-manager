@@ -24,11 +24,7 @@ struct TaskManager {
             let list = PendingTaskList(context: context)
             list.tasks = []
 
-            do {
-                try context.save()
-            } catch {
-                print(error)
-            }
+            self.coreDataStack.saveContext()
         }
     }
 
@@ -41,22 +37,9 @@ struct TaskManager {
         return try? coreDataStack.context.existingObject(with: objectID) as? Task
     }
 
-    func create(title: String, body: String, dueDate: Date, state: Task.State) throws -> Task {
-        let context = coreDataStack.context
-        let task = Task(context: context)
-
-        task.id = UUID()
-        task.title = title
-        task.body = body
-        task.dueDate = dueDate
-        task.taskState = state
-
-        do {
-            try context.save()
-        } catch {
-            print(error)
-        }
-
+    mutating func create(title: String, body: String, dueDate: Date, state: Task.State) throws -> Task {
+        let task = Task(context: coreDataStack.context, title: title, body: body, dueDate: dueDate, state: state)
+        self.coreDataStack.saveContext()
         return task
     }
 
@@ -69,12 +52,12 @@ struct TaskManager {
         return TaskList(todos: todos, doings: doings, dones: dones)
     }
 
-    func update(objectID: NSManagedObjectID,
-                id: UUID? = nil,
-                title: String? = nil,
-                dueDate: Date? = nil,
-                body: String? = nil,
-                state: Task.State? = nil) {
+    mutating func update(objectID: NSManagedObjectID,
+                         id: UUID? = nil,
+                         title: String? = nil,
+                         dueDate: Date? = nil,
+                         body: String? = nil,
+                         state: Task.State? = nil) {
         let context = coreDataStack.context
         guard let task = context.object(with: objectID) as? Task else { return }
 
@@ -83,35 +66,23 @@ struct TaskManager {
         task.dueDate = dueDate ?? task.dueDate
         task.taskState = state ?? task.taskState
 
-        do {
-            try context.save()
-        } catch {
-            print(error)
-        }
+        self.coreDataStack.saveContext()
     }
 
-    func softDelete(_ id: NSManagedObjectID) {
+    mutating func softDelete(_ id: NSManagedObjectID) {
         let context = coreDataStack.context
         guard let task = context.object(with: id) as? Task else { return }
         task.isRemoved = true
 
-        do {
-            try context.save()
-        } catch {
-            print(error)
-        }
+        self.coreDataStack.saveContext()
     }
 
-    func delete(_ id: NSManagedObjectID) {
+    mutating func delete(_ id: NSManagedObjectID) {
         let context = coreDataStack.context
         guard let task = context.object(with: id) as? Task else { return }
         context.delete(task)
 
-        do {
-            try context.save()
-        } catch {
-            print(error)
-        }
+        self.coreDataStack.saveContext()
     }
 }
 
@@ -123,24 +94,14 @@ extension TaskManager {
     }
 
     mutating func deleteFromPendingTaskList(_ task: Task) {
-        let context = coreDataStack.context
         readPendingTaskList()?.removeFromTasks(task)
 
-        do {
-            try context.save()
-        } catch {
-            print(error)
-        }
+        coreDataStack.saveContext()
     }
 
     mutating func insertFromPendingTaskList(_ task: Task) {
-        let context = coreDataStack.context
         readPendingTaskList()?.addToTasks(task)
 
-        do {
-            try context.save()
-        } catch {
-            print(error)
-        }
+        coreDataStack.saveContext()
     }
 }

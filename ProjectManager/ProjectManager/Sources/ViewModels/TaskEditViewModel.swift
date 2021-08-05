@@ -14,7 +14,7 @@ struct TaskEditViewModel {
 
     private(set) var task: Task?
     private(set) var indexPath: IndexPath?
-    private let taskManager: TaskManager
+    private var taskManager: TaskManager
 
     init(coreDataStack: TaskCoreDataStackProtocol = TaskCoreDataStack.shared) {
         self.taskManager = TaskManager(coreDataStack: coreDataStack)

@@ -37,7 +37,7 @@ final class TaskRepository: TaskRepositoryProtocol {
         self.session = session
     }
 
-    func fetchTasks(completion: @escaping (Result<TaskList, PMError>) -> Void) {
+    func fetchTasks(completion: @escaping (Result<[ResponseTask], PMError>) -> Void) {
         guard let url = URL(string: base + Endpoint.get) else { return }
 
         session.dataTask(with: url) { [weak self] data, response, error in
@@ -48,13 +48,7 @@ final class TaskRepository: TaskRepositoryProtocol {
                         completion(.failure(.decodingFailed))
                         return
                     }
-
-                    let todos = responseTasks.filter { $0.state == .todo }.map { $0.task }
-                    let doings = responseTasks.filter { $0.state == .doing }.map { $0.task }
-                    let dones = responseTasks.filter { $0.state == .done }.map { $0.task }
-                    let taskList = TaskList(todos: todos, doings: doings, dones: dones)
-
-                    completion(.success(taskList))
+                    completion(.success(responseTasks))
                 case .failure(let pmError):
                     completion(.failure(pmError))
                 }
@@ -62,7 +56,7 @@ final class TaskRepository: TaskRepositoryProtocol {
         }.resume()
     }
 
-    func post(task: Task, completion: @escaping (Result<Task, PMError>) -> Void) {
+    func post(task: Task, completion: @escaping (Result<ResponseTask, PMError>) -> Void) {
         guard let url = URL(string: base + Endpoint.post) else { return }
         guard let httpBody = try? encoder.encode(PostTask(by: task)) else {
             completion(.failure(.cannotEncodeToJSON(#function)))
@@ -79,7 +73,7 @@ final class TaskRepository: TaskRepositoryProtocol {
                         completion(.failure(.decodingFailed))
                         return
                     }
-                    completion(.success(responseTask.task))
+                    completion(.success(responseTask))
                 case .failure(let pmError):
                     completion(.failure(pmError))
                 }
@@ -87,7 +81,7 @@ final class TaskRepository: TaskRepositoryProtocol {
         }.resume()
     }
 
-    func patch(task: Task, completion: @escaping (Result<Task, PMError>) -> Void) {
+    func patch(task: Task, completion: @escaping (Result<ResponseTask, PMError>) -> Void) {
         guard let url = URL(string: base + Endpoint.patch) else { return }
         guard let httpBody = try? encoder.encode(PatchTask(by: task)) else {
             completion(.failure(.cannotEncodeToJSON(#function)))
@@ -104,7 +98,7 @@ final class TaskRepository: TaskRepositoryProtocol {
                         completion(.failure(.decodingFailed))
                         return
                     }
-                    completion(.success(responseTask.task))
+                    completion(.success(responseTask))
                 case .failure(let pmError):
                     completion(.failure(pmError))
                 }

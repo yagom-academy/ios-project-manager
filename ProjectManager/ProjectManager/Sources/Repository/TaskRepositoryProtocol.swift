@@ -9,8 +9,8 @@ import Foundation
 
 protocol TaskRepositoryProtocol: AnyObject {
 
-    func fetchTasks(completion: @escaping (Result<TaskList, PMError>) -> Void)
-    func post(task: Task, completion: @escaping (Result<Task, PMError>) -> Void)
-    func patch(task: Task, completion: @escaping (Result<Task, PMError>) -> Void)
+    func fetchTasks(completion: @escaping (Result<[ResponseTask], PMError>) -> Void)
+    func post(task: Task, completion: @escaping (Result<ResponseTask, PMError>) -> Void)
+    func patch(task: Task, completion: @escaping (Result<ResponseTask, PMError>) -> Void)
     func delete(task: Task, completion: @escaping (Result<UUID, PMError>) -> Void)
 }

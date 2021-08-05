@@ -49,12 +49,6 @@ final class TaskListTests: XCTestCase {
         try super.tearDownWithError()
     }
 
-    func test_ids로연산하면_모든상태의Task의id들의Set을반환한다() {
-        let expected: Set<UUID> = Set(tasks.map { $0.id })
-
-        XCTAssertEqual(sutTaskList.ids, expected)
-    }
-
     func test_state로접근하면_해당state의Task의배열을반환한다() {
         let expected: [Task] = [tasks[0]]
 

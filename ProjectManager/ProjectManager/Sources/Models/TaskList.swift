@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreData
 
 struct TaskList: Codable {
 
@@ -17,14 +18,6 @@ struct TaskList: Codable {
         self.todos = todos
         self.doings = doings
         self.dones = dones
-    }
-
-    var ids: Set<UUID> {
-        var result: Set<UUID> = []
-        todos.forEach { result.insert($0.id) }
-        doings.forEach { result.insert($0.id) }
-        dones.forEach { result.insert($0.id) }
-        return result
     }
 
     subscript(state: Task.State) -> [Task] {
@@ -49,5 +42,21 @@ struct TaskList: Codable {
                 dones = newValue
             }
         }
+    }
+}
+
+extension TaskList {
+
+    init(context: NSManagedObjectContext, responseTasks: [ResponseTask]) {
+
+        let responseTodos = responseTasks.filter { $0.state == .todo }
+        let responseDoings = responseTasks.filter { $0.state == .doing }
+        let responseDones = responseTasks.filter { $0.state == .done }
+
+        let todos = responseTodos.map { Task(context: context, responseTask: $0) }
+        let doings = responseDoings.map { Task(context: context, responseTask: $0) }
+        let dones = responseDones.map { Task(context: context, responseTask: $0) }
+
+        self.init(todos: todos, doings: doings, dones: dones)
     }
 }

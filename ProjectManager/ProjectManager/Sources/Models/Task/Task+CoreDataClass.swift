@@ -51,4 +51,27 @@ public final class Task: NSManagedObject, Codable {
         try container.encode(state, forKey: .state)
         try container.encode(isRemoved, forKey: .isRemoved)
     }
+
+    convenience init(context: NSManagedObjectContext,
+                     id: UUID = UUID(),
+                     title: String,
+                     body: String?,
+                     dueDate: Date,
+                     state: State) {
+        self.init(context: context)
+        self.id = id
+        self.title = title
+        self.body = body
+        self.dueDate = dueDate
+        self.state = state.rawValue
+    }
+
+    convenience init(context: NSManagedObjectContext, responseTask: ResponseTask) {
+        self.init(context: context)
+        self.id = responseTask.id
+        self.title = responseTask.title
+        self.body = responseTask.body
+        self.dueDate = Date(timeIntervalSince1970: Double(responseTask.dueDate))
+        self.state = responseTask.state.rawValue
+    }
 }

@@ -156,8 +156,11 @@ final class TaskViewModel {
     func count(of state: Task.State) -> Int? {
         return taskList[state].count
     }
+}
 
-    // MARK: Networking
+// MARK: - Networking
+
+extension TaskViewModel {
 
     private func post(_ task: Task) {
         taskRepository.post(task: task) { [weak self] result in
@@ -203,22 +206,12 @@ final class TaskViewModel {
             guard let self = self else { return }
             defer { self.networkStatusChanged?() }
             switch result {
-            case .success(let taskList):
-                self.taskList = self.taskManager.isEmpty ? taskList : self.taskManager.read()
-                self.taskManager.readPendingTasks()?.forEach { task in
+            case .success(let responseTasks):
+                self.taskList = self.taskManager.isEmpty
+                    ? TaskList(context: self.taskManager.coreDataStack.context, responseTasks: responseTasks)
+                    : self.taskManager.read()
 
-                    let isCreated: Bool = !taskList.ids.contains(task.id) && !task.isRemoved
-                    let isPatched: Bool = !isCreated && !task.isRemoved
-                    let isDeleted: Bool = !isCreated && task.isRemoved
-
-                    if isCreated {
-                        self.post(task)
-                    } else if isPatched {
-                        self.patch(task)
-                    } else if isDeleted {
-                        self.delete(task)
-                    }
-                }
+                self.handlePendingTasks(responseTasks: responseTasks)
             case .failure(let error):
                 self.taskList = self.taskManager.read()
                 print(error)
@@ -229,5 +222,22 @@ final class TaskViewModel {
     func networkDidDisconnect() {
         taskList = self.taskManager.read()
         networkStatusChanged?()
+    }
+
+    private func handlePendingTasks(responseTasks: [ResponseTask]) {
+        taskManager.readPendingTasks()?.forEach { task in
+            let responseTaskIDs = responseTasks.map { $0.id }
+            let isCreated: Bool = !responseTaskIDs.contains(task.id) && !task.isRemoved
+            let isPatched: Bool = !isCreated && !task.isRemoved
+            let isDeleted: Bool = !isCreated && task.isRemoved
+
+            if isCreated {
+                post(task)
+            } else if isPatched {
+                patch(task)
+            } else if isDeleted {
+                delete(task)
+            }
+        }
     }
 }

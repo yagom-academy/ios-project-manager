@@ -6,22 +6,13 @@
 //
 
 import Foundation
+import CoreData
 
-struct ResponseTask: Decodable {
+struct ResponseTask: Codable {
 
     let id: UUID
     let title: String
     let body: String?
     let dueDate: Int
     let state: Task.State
-
-    var task: Task {
-        let task = Task()
-        task.id = id
-        task.title = title
-        task.body = body
-        task.dueDate = Date(timeIntervalSince1970: TimeInterval(dueDate))
-        task.taskState = state
-        return task
-    }
 }

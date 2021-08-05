@@ -11,6 +11,7 @@ protocol TaskCoreDataStackProtocol {
 
     var context: NSManagedObjectContext { get set }
 
+    mutating func saveContext()
     mutating func fetchTasks() -> [Task]
     mutating func fetchPendingTaskList() -> [PendingTaskList]
 }
