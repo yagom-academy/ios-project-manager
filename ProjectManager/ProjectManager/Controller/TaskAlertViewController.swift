@@ -100,40 +100,12 @@ class TaskAlertViewController: UIViewController {
         self.dismiss(animated: true)
     }
     
-    @IBAction func changedDatePicker(_ sender: UIDatePicker) {
-        
-    }
-    
     @objc func changedTextField(_ sender: Any?) {
         
     }
     
-    @IBAction func finishEditTask(_ sender: Any) {
-        guard let title = taskTextField.text else { return }
-           
-        if self.navigationItem.leftBarButtonItem == cancelBarButton && title.isEmpty == false {
-            taskDelegate?.addTask(self, task: Task(id: nil,
-                                              title: title,
-                                              content: taskTextView.text,
-                                              deadLineDate: datePicker.date,
-                                              category: .todo))
-        } else if self.navigationItem.leftBarButtonItem == editBarButton {
-            guard let selectTitle = taskTextField.text,
-                  let selectBody = taskTextView.text,
-                  let selectTask = selectTask
-            else {
-                self.dismiss(animated: true)
-                return
-            }
-            
-            taskDelegate?.patchTask(self, task: Task(id: nil,
-                                                     title: selectTitle,
-                                                     content: selectBody,
-                                                     deadLineDate: datePicker.date,
-                                                     category: selectTask.category))
-        }
+    @IBAction func changedDatePicker(_ sender: UIDatePicker) {
         
-        self.dismiss(animated: true)
     }
 }
 
