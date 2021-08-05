@@ -9,11 +9,21 @@ import Foundation
 
 struct TaskEditViewModel {
 
-    let taskManager = TaskManager(coreDataStack: TaskCoreDataStack.shared)
-    var task: Task?
-    var indexPath: IndexPath?
     var updated: ((IndexPath, Task) -> Void)?
     var created: ((Task) -> Void)?
+
+    private(set) var task: Task?
+    private(set) var indexPath: IndexPath?
+    private let taskManager: TaskManager
+
+    init(coreDataStack: TaskCoreDataStackProtocol = TaskCoreDataStack.shared) {
+        self.taskManager = TaskManager(coreDataStack: coreDataStack)
+    }
+
+    mutating func setTask(_ task: Task?, indexPath: IndexPath?) {
+        self.task = task
+        self.indexPath = indexPath
+    }
 
     mutating func update(title: String, dueDate: Date, body: String) {
         guard let task = task,

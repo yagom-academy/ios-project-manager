@@ -16,13 +16,19 @@ final class TaskViewModel {
 
     var networkStatusChanged: (() -> Void)?
 
-    private let taskRepository = TaskRepository()
-    private var taskManager = TaskManager(coreDataStack: TaskCoreDataStack.shared)
+    private let taskRepository: TaskRepositoryProtocol
+    private var taskManager: TaskManager
 
     private(set) var taskList = TaskList() {
         didSet {
             changed?()
         }
+    }
+
+    init(taskRepository: TaskRepositoryProtocol = TaskRepository(),
+         coreDataStack: TaskCoreDataStackProtocol = TaskCoreDataStack.shared) {
+        self.taskRepository = taskRepository
+        self.taskManager = TaskManager(coreDataStack: coreDataStack)
     }
 
     /**
