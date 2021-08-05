@@ -179,9 +179,8 @@
 			isa = PBXGroup;
 			children = (
 				023AFC7D26BA87D600B4E5CF /* Models */,
+				0267801926BC2EF8007CFA14 /* Repositories */,
 				023AFC7C26BA87B000B4E5CF /* ViewModels */,
-				023AFC6B26BA853F00B4E5CF /* TaskCoreDataRepositoryTests.swift */,
-				023AFC7226BA869600B4E5CF /* TaskRepositoryTests.swift */,
 				023AFC7426BA86DC00B4E5CF /* UtilTests.swift */,
 			);
 			path = Tests;
@@ -215,6 +214,15 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		0267801926BC2EF8007CFA14 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				023AFC6B26BA853F00B4E5CF /* TaskCoreDataRepositoryTests.swift */,
+				023AFC7226BA869600B4E5CF /* TaskRepositoryTests.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
 		02F2F4AF26A6F06F00BBE874 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -237,13 +245,14 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
-		AA3267EC26A6F5EC007C2E60 /* Repository */ = {
+		AA3267EC26A6F5EC007C2E60 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				AAC4716326B2E4E1001D211C /* TaskCoreDataRepository.swift */,
 				AA3267ED26A6F607007C2E60 /* TaskRepository.swift */,
 				0249BFF726BBD7D400E3146D /* TaskRepositoryProtocol.swift */,
 			);
-			path = Repository;
+			path = Repositories;
 			sourceTree = "<group>";
 		};
 		AA3267EF26A6FF87007C2E60 /* Errors */ = {
@@ -290,7 +299,7 @@
 				AA9F8CD126A6ACF300467F34 /* Entry */,
 				AA3267EF26A6FF87007C2E60 /* Errors */,
 				02F2F4AF26A6F06F00BBE874 /* Models */,
-				AA3267EC26A6F5EC007C2E60 /* Repository */,
+				AA3267EC26A6F5EC007C2E60 /* Repositories */,
 				AA32681926A945D3007C2E60 /* Utils */,
 				02F2F4B526A7026000BBE874 /* ViewModels */,
 				AA9F8CD226A6AD1200467F34 /* Views */,
@@ -368,7 +377,6 @@
 		AAC4715F26B2E399001D211C /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				AAC4716326B2E4E1001D211C /* TaskCoreDataRepository.swift */,
 				AAC4716126B2E3B1001D211C /* TaskCoreDataStack.swift */,
 				AAA4ABA726BA70A70093427D /* TaskCoreDataStackProtocol.swift */,
 			);
