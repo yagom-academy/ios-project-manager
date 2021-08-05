@@ -1,5 +1,5 @@
 //
-//  TaskCoreDataStackProtocol.swift
+//  CoreDataStackProtocol.swift
 //  ProjectManager
 //
 //  Created by duckbok, Ryan-Son on 2021/08/04.
@@ -7,7 +7,7 @@
 
 import CoreData
 
-protocol TaskCoreDataStackProtocol {
+protocol CoreDataStackProtocol {
 
     var context: NSManagedObjectContext { get set }
 

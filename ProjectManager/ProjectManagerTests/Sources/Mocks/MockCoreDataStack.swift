@@ -1,31 +1,36 @@
 //
-//  TaskCoreDataStack.swift
-//  ProjectManager
+//  MockCoreDataStack.swift
+//  ProjectManagerTests
 //
-//  Created by duckbok, Ryan-Son on 2021/07/29.
+//  Created by duckbok, Ryan-Son on 2021/08/04.
 //
 
 import CoreData
+@testable import ProjectManager
 
-struct TaskCoreDataStack: TaskCoreDataStackProtocol {
+struct MockCoreDataStack: CoreDataStackProtocol {
 
     static let persistentContainerName = "ProjectManager"
-    static let shared = TaskCoreDataStack()
 
     private var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: TaskCoreDataStack.persistentContainerName)
-        container.loadPersistentStores { (_, error) in
-            container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        let container = NSPersistentContainer(name: CoreDataStack.persistentContainerName)
+        let description = NSPersistentStoreDescription()
+        description.type = NSInMemoryStoreType
+        description.shouldAddStoreAsynchronously = false
+
+        container.persistentStoreDescriptions = [description]
+        container.loadPersistentStores { (description, error) in
+            precondition(description.type == NSInMemoryStoreType)
 
             if let error = error {
-                fatalError("Persistent store 로드에 실패했어요. \(error)")
+                fatalError("\(error)")
             }
         }
         return container
     }()
     var context: NSManagedObjectContext
 
-    private init() {
+    init() {
         context = persistentContainer.viewContext
     }
 

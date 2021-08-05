@@ -11,22 +11,22 @@ import MobileCoreServices
 
 final class TaskTests: XCTestCase {
 
-    private var taskCoreDataRepository: TaskCoreDataRepository!
+    private var coreDataRepository: CoreDataRepository!
     private var sutTask: Task!
 
     override func setUpWithError() throws {
         try super.setUpWithError()
-        taskCoreDataRepository = TaskCoreDataRepository(coreDataStack: MockTaskCoreDataStack())
+        coreDataRepository = CoreDataRepository(coreDataStack: MockCoreDataStack())
         guard let today = Calendar.current.date(byAdding: .day, value: 0, to: Date()) else {
             XCTFail("날짜를 가져오지 못했습니다.")
             return
         }
-        sutTask = try taskCoreDataRepository.create(title: "ABC", body: "123", dueDate: today, state: .todo)
+        sutTask = try coreDataRepository.create(title: "ABC", body: "123", dueDate: today, state: .todo)
     }
 
     override func tearDownWithError() throws {
         sutTask = nil
-        taskCoreDataRepository = nil
+        coreDataRepository = nil
         try super.tearDownWithError()
     }
 

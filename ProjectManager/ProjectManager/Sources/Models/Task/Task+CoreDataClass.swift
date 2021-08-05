@@ -23,7 +23,7 @@ public final class Task: NSManagedObject, Codable {
     }
 
     public convenience init(from decoder: Decoder) throws {
-        let context = TaskCoreDataStack.shared.context
+        let context = CoreDataStack.shared.context
         guard let entity = NSEntityDescription.entity(forEntityName: Task.entityName, in: context) else {
             print("Failed to retrieve managed object context.")
             throw PMError.decodingFailed

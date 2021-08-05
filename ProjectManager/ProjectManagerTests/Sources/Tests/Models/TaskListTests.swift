@@ -11,13 +11,13 @@ import XCTest
 final class TaskListTests: XCTestCase {
 
     var sutTaskList: TaskList!
-    var mockTaskCoreDataStack: TaskCoreDataStackProtocol!
+    var mockCoreDataStack: CoreDataStackProtocol!
     var tasks: [Task] = []
 
     override func setUpWithError() throws {
         try super.setUpWithError()
-        mockTaskCoreDataStack = MockTaskCoreDataStack()
-        let context = mockTaskCoreDataStack.context
+        mockCoreDataStack = MockCoreDataStack()
+        let context = mockCoreDataStack.context
 
         tasks.append(Task(context: context))
         tasks[0].id = UUID()
@@ -44,7 +44,7 @@ final class TaskListTests: XCTestCase {
 
     override func tearDownWithError() throws {
         sutTaskList = nil
-        mockTaskCoreDataStack = nil
+        mockCoreDataStack = nil
         tasks = []
         try super.tearDownWithError()
     }

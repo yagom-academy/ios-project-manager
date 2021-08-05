@@ -17,7 +17,7 @@ final class TaskViewModel {
     var networkStatusChanged: (() -> Void)?
 
     private let taskRepository: TaskRepositoryProtocol
-    private var taskCoreDataRepository: TaskCoreDataRepository
+    private var coreDataRepository: CoreDataRepository
 
     private(set) var taskList = TaskList() {
         didSet {
@@ -26,9 +26,9 @@ final class TaskViewModel {
     }
 
     init(taskRepository: TaskRepositoryProtocol = TaskRepository(),
-         coreDataStack: TaskCoreDataStackProtocol = TaskCoreDataStack.shared) {
+         coreDataStack: CoreDataStackProtocol = CoreDataStack.shared) {
         self.taskRepository = taskRepository
-        self.taskCoreDataRepository = TaskCoreDataRepository(coreDataStack: coreDataStack)
+        self.coreDataRepository = CoreDataRepository(coreDataStack: coreDataStack)
     }
 
     /**
@@ -111,7 +111,7 @@ final class TaskViewModel {
 
         let removedTitle: String = taskList[state][index].title
         let removedTask: Task = taskList[state].remove(at: index)
-        taskCoreDataRepository.softDelete(removedTask.objectID)
+        coreDataRepository.softDelete(removedTask.objectID)
         removed?(state, index)
         delete(removedTask)
         return removedTitle
@@ -128,7 +128,7 @@ final class TaskViewModel {
         guard let index: Int = taskList[state].firstIndex(where: { $0.id == task.id }) else { return nil }
 
         let removedTask: Task = taskList[state].remove(at: index)
-        taskCoreDataRepository.delete(removedTask.objectID)
+        coreDataRepository.delete(removedTask.objectID)
         removed?(state, index)
         return removedTask
     }
@@ -144,7 +144,7 @@ final class TaskViewModel {
         guard index <= taskList[state].count else { return }
 
         taskList[state].insert(task, at: index)
-        taskCoreDataRepository.update(objectID: task.objectID, state: state)
+        coreDataRepository.update(objectID: task.objectID, state: state)
         inserted?(state, index)
     }
 
@@ -166,9 +166,9 @@ extension TaskViewModel {
         taskRepository.post(task: task) { [weak self] result in
             switch result {
             case .success:
-                self?.taskCoreDataRepository.deleteFromPendingTaskList(task)
+                self?.coreDataRepository.deleteFromPendingTaskList(task)
             case .failure(let error):
-                self?.taskCoreDataRepository.insertFromPendingTaskList(task)
+                self?.coreDataRepository.insertFromPendingTaskList(task)
                 print(error)
             }
         }
@@ -179,9 +179,9 @@ extension TaskViewModel {
             switch result {
             case .success:
                 print("Patch Succeed!")
-                self?.taskCoreDataRepository.deleteFromPendingTaskList(task)
+                self?.coreDataRepository.deleteFromPendingTaskList(task)
             case .failure(let error):
-                self?.taskCoreDataRepository.insertFromPendingTaskList(task)
+                self?.coreDataRepository.insertFromPendingTaskList(task)
                 print(error)
             }
         }
@@ -191,11 +191,11 @@ extension TaskViewModel {
         taskRepository.delete(task: removedTask) { [weak self] result in
             switch result {
             case .success(let id):
-                self?.taskCoreDataRepository.delete(removedTask.objectID)
-                self?.taskCoreDataRepository.deleteFromPendingTaskList(removedTask)
+                self?.coreDataRepository.delete(removedTask.objectID)
+                self?.coreDataRepository.deleteFromPendingTaskList(removedTask)
                 print("Deletion succeed! ID: \(id)")
             case .failure(let error):
-                self?.taskCoreDataRepository.insertFromPendingTaskList(removedTask)
+                self?.coreDataRepository.insertFromPendingTaskList(removedTask)
                 print(error)
             }
         }
@@ -207,25 +207,25 @@ extension TaskViewModel {
             defer { self.networkStatusChanged?() }
             switch result {
             case .success(let responseTasks):
-                self.taskList = self.taskCoreDataRepository.isEmpty
-                    ? TaskList(context: self.taskCoreDataRepository.coreDataStack.context, responseTasks: responseTasks)
-                    : self.taskCoreDataRepository.read()
+                self.taskList = self.coreDataRepository.isEmpty
+                    ? TaskList(context: self.coreDataRepository.coreDataStack.context, responseTasks: responseTasks)
+                    : self.coreDataRepository.read()
 
                 self.handlePendingTasks(responseTasks: responseTasks)
             case .failure(let error):
-                self.taskList = self.taskCoreDataRepository.read()
+                self.taskList = self.coreDataRepository.read()
                 print(error)
             }
         }
     }
 
     func networkDidDisconnect() {
-        taskList = self.taskCoreDataRepository.read()
+        taskList = self.coreDataRepository.read()
         networkStatusChanged?()
     }
 
     private func handlePendingTasks(responseTasks: [ResponseTask]) {
-        taskCoreDataRepository.readPendingTasks()?.forEach { task in
+        coreDataRepository.readPendingTasks()?.forEach { task in
             let responseTaskIDs = responseTasks.map { $0.id }
             let isCreated: Bool = !responseTaskIDs.contains(task.id) && !task.isRemoved
             let isPatched: Bool = !isCreated && !task.isRemoved

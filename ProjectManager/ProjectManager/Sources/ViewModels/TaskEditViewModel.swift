@@ -14,10 +14,10 @@ struct TaskEditViewModel {
 
     private(set) var task: Task?
     private(set) var indexPath: IndexPath?
-    private var taskCoreDataRepository: TaskCoreDataRepository
+    private var coreDataRepository: CoreDataRepository
 
-    init(coreDataStack: TaskCoreDataStackProtocol = TaskCoreDataStack.shared) {
-        self.taskCoreDataRepository = TaskCoreDataRepository(coreDataStack: coreDataStack)
+    init(coreDataStack: CoreDataStackProtocol = CoreDataStack.shared) {
+        self.coreDataRepository = CoreDataRepository(coreDataStack: coreDataStack)
     }
 
     mutating func setTask(_ task: Task?, indexPath: IndexPath?) {
@@ -32,14 +32,14 @@ struct TaskEditViewModel {
         let isChanged: Bool = task.title != title || task.dueDate != dueDate || task.body != body
         guard isChanged else { return }
 
-        taskCoreDataRepository.update(objectID: task.objectID, title: title, dueDate: dueDate, body: body)
+        coreDataRepository.update(objectID: task.objectID, title: title, dueDate: dueDate, body: body)
         updated?(indexPath, task)
     }
 
     mutating func create(title: String, dueDate: Date, body: String) {
         guard let date = dueDate.date else { return }
 
-        if let task = try? taskCoreDataRepository.create(title: title, body: body, dueDate: date, state: .todo) {
+        if let task = try? coreDataRepository.create(title: title, body: body, dueDate: date, state: .todo) {
             self.task = task
             created?(task)
         }

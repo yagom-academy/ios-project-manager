@@ -1,5 +1,5 @@
 //
-//  TaskCoreDataRepository.swift
+//  CoreDataRepository.swift
 //  ProjectManager
 //
 //  Created by duckbok, Ryan-Son on 2021/07/29.
@@ -8,15 +8,15 @@
 import Foundation
 import CoreData
 
-struct TaskCoreDataRepository {
+struct CoreDataRepository {
 
-    var coreDataStack: TaskCoreDataStackProtocol
+    var coreDataStack: CoreDataStackProtocol
 
     var isEmpty: Bool {
         return coreDataStack.context.registeredObjects.count == 0
     }
 
-    init(coreDataStack: TaskCoreDataStackProtocol = TaskCoreDataStack.shared) {
+    init(coreDataStack: CoreDataStackProtocol = CoreDataStack.shared) {
         self.coreDataStack = coreDataStack
 
         if readPendingTaskList() == nil {
@@ -86,7 +86,7 @@ struct TaskCoreDataRepository {
     }
 }
 
-extension TaskCoreDataRepository {
+extension CoreDataRepository {
 
     mutating func readPendingTasks() -> [Task]? {
         guard let pendingTasks = readPendingTaskList()?.tasks?.array.compactMap({ $0 as? Task }) else { return nil }
