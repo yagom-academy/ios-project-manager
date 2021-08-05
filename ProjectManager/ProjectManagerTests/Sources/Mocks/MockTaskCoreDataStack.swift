@@ -30,7 +30,7 @@ struct MockTaskCoreDataStack: CoreDataStack {
     }()
     var context: NSManagedObjectContext
 
-    private init() {
+    init() {
         context = persistentContainer.viewContext
     }
 
