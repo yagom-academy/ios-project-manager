@@ -47,11 +47,9 @@ class TableViewCell: UITableViewCell {
     }
     
     private func isOutDated(_ date: Date) -> Bool {
-        let currentDate = Date()
-
-        let interval = date.timeIntervalSince(currentDate)
-        let days = Int(interval / 86400)
-
-        return days < 0
+        let currentDate = Calendar.current.startOfDay(for: Date())
+        let deadline = Calendar.current.startOfDay(for: date)
+        
+        return currentDate > deadline
     }
 }
