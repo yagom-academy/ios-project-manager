@@ -22,7 +22,7 @@ class TaskViewController: UIViewController {
     private var todos = [Task]()
     private var doings = [Task]()
     private var dones = [Task]()
-    private var indexNum = 0
+    private var indexNum: IndexPath = IndexPath()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -122,7 +122,7 @@ class TaskViewController: UIViewController {
 
 extension TaskViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 7))
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 0))
 
         headerView.backgroundColor = .systemGray6
         
@@ -136,8 +136,8 @@ extension TaskViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let dataSource = dataSourceForTableView(tableView)
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { _, _, completionHandler in
-            dataSource.deleteTask(at: indexPath.section)
-            tableView.deleteSections([indexPath.section, indexPath.section], with: .automatic)
+            dataSource.deleteTask(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
             completionHandler(true)
         }
         return UISwipeActionsConfiguration(actions: [deleteAction])
@@ -145,7 +145,7 @@ extension TaskViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let dataSource = dataSourceForTableView(tableView)
-        let task = dataSource.tasks[indexPath.section]
+        let task = dataSource.tasks[indexPath.row]
         guard let taskAlertViewController = self.storyboard?.instantiateViewController(identifier: "TaskAlert")  as? TaskAlertViewController
         else { return }
         
@@ -154,7 +154,7 @@ extension TaskViewController: UITableViewDelegate {
         taskAlertViewController.modalPresentationStyle = .formSheet
         taskAlertViewController.modalTransitionStyle =  .crossDissolve
         taskAlertViewController.selectTask = task
-        indexNum = indexPath.section
+        indexNum = indexPath
         
         self.present(taskAlertViewController, animated: true, completion: nil)
     }
@@ -178,8 +178,8 @@ extension TaskViewController: UITableViewDragDelegate {
         let sourceIndexPath = dragCoordinator.sourceIndexPath
         
         tableView.performBatchUpdates {
-            dataSource.deleteTask(at: sourceIndexPath.section)
-            tableView.deleteSections([sourceIndexPath.section, sourceIndexPath.section], with: .automatic)
+            dataSource.deleteTask(at: sourceIndexPath.row)
+            tableView.deleteRows(at: [sourceIndexPath], with: .automatic)
         }
     }
 }
@@ -210,16 +210,16 @@ extension TaskViewController: UITableViewDropDelegate {
                 dragCoordinator.isReordering = true
                 
                 tableView.performBatchUpdates {
-                    dataSource.moveTask(at: sourceIndexPath.section, to: destinationIndexPath.section)
-                    tableView.moveSection(sourceIndexPath.section, toSection: destinationIndexPath.section)
+                    dataSource.moveTask(at: sourceIndexPath.row, to: destinationIndexPath.row)
+                    tableView.moveRow(at: sourceIndexPath, to: destinationIndexPath)
                 }
             } else {
                 dragCoordinator.isReordering = false
                 
                 if let taskItem = item.dragItem.localObject as? Task {
                     tableView.performBatchUpdates {
-                        dataSource.addTask(taskItem, at: destinationIndexPath.section)
-                        tableView.insertSections([destinationIndexPath.section, destinationIndexPath.section], with: .automatic)
+                        dataSource.addTask(taskItem, at: destinationIndexPath.row)
+                        tableView.insertRows(at: [destinationIndexPath], with: .automatic)
                     }
                 }
             }
@@ -236,13 +236,15 @@ extension TaskViewController: TaskDelegate {
     func patchTask(_ taskAlertViewController: TaskAlertViewController, task: Task) {
         let selectTableView = tableViewForCategoryType(task.category)
         let dataSource = dataSourceForTableView(selectTableView)
-        dataSource.tasks[indexNum] = task
-        selectTableView.reloadSections([indexNum, indexNum], with: .automatic)
+        dataSource.tasks[indexNum.row] = task
+        selectTableView.reloadRows(at: [indexNum], with: .automatic)
+//        selectTableView.reloadSections([indexNum, indexNum], with: .automatic)
     }
     
     func addTask(_ taskAlertViewController: TaskAlertViewController, task: Task) {
         let dataSource = dataSourceForTableView(todoTableView)
         dataSource.addTask(task, at: 0)
-        todoTableView.insertSections([0,0], with: .automatic)
+        todoTableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
+//        todoTableView.insertSections([0,0], with: .automatic)
     }
 }

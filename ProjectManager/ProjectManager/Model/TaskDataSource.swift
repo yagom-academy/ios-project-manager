@@ -22,12 +22,8 @@ class TaskDataSource: NSObject, UITableViewDataSource {
         super.init()
     }
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return tasks.count
-    }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return tasks.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -35,13 +31,13 @@ class TaskDataSource: NSObject, UITableViewDataSource {
         else { return UITableViewCell() }
         
         cell.selectionStyle = .none
-        cell.configure(tasks[indexPath.section])
+        cell.configure(tasks[indexPath.row])
         
         return cell
     }
     
     func dragItems(for indexPath: IndexPath) -> [UIDragItem] {
-        let taskItem = tasks[indexPath.section]
+        let taskItem = tasks[indexPath.row]
         let itemProvider = NSItemProvider(object: taskItem)
         let dragItem = UIDragItem(itemProvider: itemProvider)
         
