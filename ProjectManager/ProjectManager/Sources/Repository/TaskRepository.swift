@@ -8,7 +8,7 @@
 import UIKit
 import Network
 
-final class TaskRepository {
+final class TaskRepository: TaskRepositoryProtocol {
 
     enum Endpoint {
         static let get: String = "/tasks"
@@ -18,7 +18,7 @@ final class TaskRepository {
     }
 
     private let base: String = "https://bobian.herokuapp.com"
-    private let session: URLSession = .shared
+    private let session: URLSession
     private let okResponse: ClosedRange<Int> = (200...299)
 
     private let decoder: JSONDecoder = {
@@ -32,6 +32,10 @@ final class TaskRepository {
         encoder.keyEncodingStrategy = .convertToSnakeCase
         return encoder
     }()
+
+    init(session: URLSession = .shared) {
+        self.session = session
+    }
 
     func fetchTasks(completion: @escaping (Result<TaskList, PMError>) -> Void) {
         guard let url = URL(string: base + Endpoint.get) else { return }
