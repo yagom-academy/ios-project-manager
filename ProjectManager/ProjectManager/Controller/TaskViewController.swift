@@ -217,6 +217,7 @@ extension TaskViewController: UITableViewDropDelegate {
                 dragCoordinator.isReordering = false
                 
                 if let taskItem = item.dragItem.localObject as? Task {
+                    taskItem.category = getCategory(tableView)
                     tableView.performBatchUpdates {
                         dataSource.addTask(taskItem, at: destinationIndexPath.row)
                         tableView.insertRows(at: [destinationIndexPath], with: .automatic)
@@ -228,6 +229,16 @@ extension TaskViewController: UITableViewDropDelegate {
             coordinator.drop(item.dragItem, toRowAt: destinationIndexPath)
         default:
             return
+        }
+    }
+    
+    func getCategory(_ tableView: UITableView) -> TaskType {
+        if tableView == todoTableView {
+            return .todo
+        } else if tableView == doingTableView {
+            return .doing
+        } else {
+            return .done
         }
     }
 }
