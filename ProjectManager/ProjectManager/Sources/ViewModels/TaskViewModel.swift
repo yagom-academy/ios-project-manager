@@ -10,18 +10,16 @@ import Foundation
 final class TaskViewModel {
 
     var added: ((_ index: Int) -> Void)?
-    var changed: (() -> Void)?
+    var changed: ((_ frontCount: Int) -> Void)?
     var inserted: ((_ state: Task.State, _ index: Int) -> Void)?
     var removed: ((_ state: Task.State, _ index: Int) -> Void)?
-
-    var networkStatusChanged: (() -> Void)?
 
     private let networkRepository: NetworkRepositoryProtocol
     private var coreDataRepository: CoreDataRepository
 
     private(set) var taskList = TaskList() {
         didSet {
-            changed?()
+            changed?(oldValue.count)
         }
     }
 
@@ -204,7 +202,6 @@ extension TaskViewModel {
     func networkDidConnect() {
         networkRepository.fetchTasks { [weak self] result in
             guard let self = self else { return }
-            defer { self.networkStatusChanged?() }
             switch result {
             case .success(let responseTasks):
                 self.taskList = self.coreDataRepository.isEmpty
@@ -221,7 +218,6 @@ extension TaskViewModel {
 
     func networkDidDisconnect() {
         taskList = self.coreDataRepository.read()
-        networkStatusChanged?()
     }
 
     private func handlePendingTasks(responseTasks: [ResponseTask]) {

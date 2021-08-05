@@ -144,8 +144,15 @@ final class PMViewController: UIViewController {
             }
         }
 
-        viewModel.changed = {
+        viewModel.changed = { frontCount in
             DispatchQueue.main.async { [weak self] in
+                if frontCount == 0 {
+                    self?.stateStackViews.forEach { stateStackView in
+                        stateStackView.showTaskCountLabel()
+                        stateStackView.stateTableView.reloadSections(IndexSet(0...0), with: .automatic)
+                    }
+                }
+
                 self?.stateStackViews.forEach {
                     guard let state = $0.state,
                           let taskCount = self?.viewModel.count(of: state) else { return }
@@ -168,12 +175,6 @@ final class PMViewController: UIViewController {
             DispatchQueue.main.async { [weak self] in
                 let stackView = self?.stateStackViews.filter { $0.state == state }.first
                 stackView?.stateTableView.insertRows(at: indexPaths, with: .none)
-            }
-        }
-
-        viewModel.networkStatusChanged = {
-            DispatchQueue.main.async { [weak self] in
-                self?.stateStackViews.forEach { $0.stateTableView.reloadData() }
             }
         }
     }

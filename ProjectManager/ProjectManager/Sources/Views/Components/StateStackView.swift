@@ -18,6 +18,7 @@ final class StateStackView: UIStackView {
 
         static let stateTextStyle: UIFont.TextStyle = .largeTitle
 
+        static let taskCountAlphaRange: (transparent: CGFloat, opaque: CGFloat) = (0, 1)
         static let taskCountBackgroundColor: UIColor = .label
         static let taskCountCornerRadius: CGFloat = 13
         static let taskCountInitialText: String = "0"
@@ -53,6 +54,7 @@ final class StateStackView: UIStackView {
         label.font = UIFont.preferredFont(forTextStyle: Style.taskCountTextStyle)
         label.textAlignment = .center
         label.backgroundColor = Style.taskCountBackgroundColor
+        label.alpha = Style.taskCountAlphaRange.transparent
         label.text = Style.taskCountInitialText
         label.textColor = Style.taskCountTextColor
         label.layer.cornerRadius = Style.taskCountCornerRadius
@@ -87,6 +89,12 @@ final class StateStackView: UIStackView {
 
     func setTaskCountLabel(as value: Int) {
         taskCountLabel.text = "\(value)"
+    }
+
+    func showTaskCountLabel() {
+        UIView.animate(withDuration: 0.5) {
+            self.taskCountLabel.alpha = Style.taskCountAlphaRange.opaque
+        }
     }
 
     private func setAttributes() {

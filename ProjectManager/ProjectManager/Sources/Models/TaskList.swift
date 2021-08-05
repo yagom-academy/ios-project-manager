@@ -43,6 +43,10 @@ struct TaskList: Codable {
             }
         }
     }
+
+    var count: Int {
+        return todos.count + doings.count + dones.count
+    }
 }
 
 extension TaskList {
