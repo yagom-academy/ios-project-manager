@@ -135,12 +135,19 @@ extension TaskViewController: UITableViewDelegate {
                                         mode: .edit,
                                         index: indexPath.row,
                                         classification: classification)
-//        detailView.delegate = self
 
         detailView.setTextAndDate(task: tableView.readTask(index: indexPath.row))
         present(UINavigationController(rootViewController: detailView),
                 animated: true,
                 completion: nil)
+    }
+
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        guard let tableView = tableView as? TaskTableView else { return }
+        if editingStyle == .delete {
+            tableView.deleteTask(index: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
     }
 }
 
