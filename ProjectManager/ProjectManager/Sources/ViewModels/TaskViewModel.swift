@@ -10,16 +10,17 @@ import Foundation
 final class TaskViewModel {
 
     var added: ((_ index: Int) -> Void)?
-    var changed: ((_ frontCount: Int) -> Void)?
+    var changed: (() -> Void)?
     var inserted: ((_ state: Task.State, _ index: Int) -> Void)?
     var removed: ((_ state: Task.State, _ index: Int) -> Void)?
+
 
     private let networkRepository: NetworkRepositoryProtocol
     private var coreDataRepository: CoreDataRepository
 
     private(set) var taskList = TaskList() {
         didSet {
-            changed?(oldValue.count)
+            changed?()
         }
     }
 

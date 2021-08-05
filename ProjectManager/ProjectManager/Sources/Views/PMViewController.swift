@@ -35,6 +35,7 @@ final class PMViewController: UIViewController {
             showNetworkStatus(at: isConnected)
         }
     }
+    private var isFirstLoad: Bool = true
 
     // MARK: Views
 
@@ -144,18 +145,20 @@ final class PMViewController: UIViewController {
             }
         }
 
-        viewModel.changed = { frontCount in
+        viewModel.changed = {
             DispatchQueue.main.async { [weak self] in
-                if frontCount == 0 {
-                    self?.stateStackViews.forEach { stateStackView in
+                guard let self = self else { return }
+                if self.isFirstLoad {
+                    self.stateStackViews.forEach { stateStackView in
                         stateStackView.showTaskCountLabel()
                         stateStackView.stateTableView.reloadSections(IndexSet(0...0), with: .automatic)
                     }
+                    self.isFirstLoad.toggle()
                 }
 
-                self?.stateStackViews.forEach {
+                self.stateStackViews.forEach {
                     guard let state = $0.state,
-                          let taskCount = self?.viewModel.count(of: state) else { return }
+                          let taskCount = self.viewModel.count(of: state) else { return }
 
                     $0.setTaskCountLabel(as: taskCount)
                 }
@@ -227,7 +230,8 @@ final class PMViewController: UIViewController {
 extension PMViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let stateTableView = tableView as? StateTableView,
-              let state = stateTableView.state else { return .zero }
+              let state = stateTableView.state else {
+            return .zero }
 
         return viewModel.taskList[state].count
     }
