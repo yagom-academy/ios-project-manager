@@ -11,7 +11,7 @@ import XCTest
 final class TaskListTests: XCTestCase {
 
     var sutTaskList: TaskList!
-    var mockTaskCoreDataStack: CoreDataStack!
+    var mockTaskCoreDataStack: TaskCoreDataStackProtocol!
     var tasks: [Task] = []
 
     override func setUpWithError() throws {

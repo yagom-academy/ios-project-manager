@@ -7,7 +7,7 @@
 
 import CoreData
 
-struct TaskCoreDataStack: CoreDataStack {
+struct TaskCoreDataStack: TaskCoreDataStackProtocol {
 
     static let persistentContainerName = "ProjectManager"
     static let shared = TaskCoreDataStack()

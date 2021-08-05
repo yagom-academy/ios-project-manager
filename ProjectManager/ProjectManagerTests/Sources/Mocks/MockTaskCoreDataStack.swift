@@ -8,7 +8,7 @@
 import CoreData
 @testable import ProjectManager
 
-struct MockTaskCoreDataStack: CoreDataStack {
+struct MockTaskCoreDataStack: TaskCoreDataStackProtocol {
 
     static let persistentContainerName = "ProjectManager"
 

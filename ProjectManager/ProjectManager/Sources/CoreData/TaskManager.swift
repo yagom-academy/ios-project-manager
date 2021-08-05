@@ -10,13 +10,13 @@ import CoreData
 
 struct TaskManager {
 
-    var coreDataStack: CoreDataStack
+    var coreDataStack: TaskCoreDataStackProtocol
 
     var isEmpty: Bool {
         return coreDataStack.context.registeredObjects.count == 0
     }
 
-    init(coreDataStack: CoreDataStack = TaskCoreDataStack.shared) {
+    init(coreDataStack: TaskCoreDataStackProtocol = TaskCoreDataStack.shared) {
         self.coreDataStack = coreDataStack
 
         if readPendingTaskList() == nil {
