@@ -201,17 +201,18 @@ extension TaskViewModel {
     }
 
     func networkDidConnect() {
+        taskList = coreDataRepository.read()
         networkRepository.fetchTasks { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let responseTasks):
-                self.taskList = self.coreDataRepository.isEmpty
-                    ? TaskList(context: self.coreDataRepository.coreDataStack.context, responseTasks: responseTasks)
-                    : self.coreDataRepository.read()
+                if self.coreDataRepository.isEmpty {
+                    self.taskList = TaskList(context: self.coreDataRepository.coreDataStack.context,
+                                             responseTasks: responseTasks)
+                }
 
                 self.handlePendingTasks(responseTasks: responseTasks)
             case .failure(let error):
-                self.taskList = self.coreDataRepository.read()
                 print(error)
             }
         }
