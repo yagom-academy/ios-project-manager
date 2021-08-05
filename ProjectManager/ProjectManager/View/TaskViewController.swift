@@ -7,7 +7,7 @@
 import UIKit
 import SnapKit
 
-class TaskViewController: UIViewController {
+final class TaskViewController: UIViewController {
     private let todoHeadView = TaskHeadView(classification: "TODO")
     private let doingHeadView = TaskHeadView(classification: "DOING")
     private let doneHeadView = TaskHeadView(classification: "DONE")
@@ -55,10 +55,7 @@ class TaskViewController: UIViewController {
     }
 
     private func setHeadView() {
-        // TODO: setLabelText 메서드의 countNumber를 tableView의 자료 갯수만큼 카운트 하도록 변경 필요
-        todoHeadView.setCountNumberLabelText(countNumber: todoTableView.countTasks().description)
-        doingHeadView.setCountNumberLabelText(countNumber: doingTableView.countTasks().description)
-        doneHeadView.setCountNumberLabelText(countNumber: doneTableView.countTasks().description)
+        countHeadViewNumber()
 
         [todoHeadView, doingHeadView, doneHeadView].forEach { headView in
             headStackView.addArrangedSubview(headView)
@@ -84,10 +81,12 @@ class TaskViewController: UIViewController {
     }
 
     @objc func didTapAddButton() {
-        let makeTaskViewController = TaskDetailView()
-        makeTaskViewController.modalPresentationStyle = .formSheet
-        makeTaskViewController.delegate = self
-        present(UINavigationController(rootViewController: makeTaskViewController),
+        let detailView = TaskDetailView(delegate: self,
+                                        mode: .add,
+                                        index: nil,
+                                        classification: .todo)
+        detailView.modalPresentationStyle = .formSheet
+        present(UINavigationController(rootViewController: detailView),
                 animated: true,
                 completion: nil)
     }
@@ -95,7 +94,8 @@ class TaskViewController: UIViewController {
 
 protocol TaskViewControllerDelegate {
     func createTodoTask(task: Task)
-    func countheadViewNumber()
+    func updateTask(task: Task, index: Int)
+    func countHeadViewNumber()
 }
 
 // MARK: - TaskViewController Delegate
@@ -105,7 +105,21 @@ extension TaskViewController: TaskViewControllerDelegate {
         todoTableView.reloadData()
     }
 
-    func countheadViewNumber() {
+    func updateTask(task: Task, index: Int) {
+        switch task.classification {
+        case .todo:
+            todoTableView.updateTask(index: index, task: task)
+            todoTableView.reloadData()
+        case .doing:
+            doingTableView.updateTask(index: index, task: task)
+            doingTableView.reloadData()
+        case .done:
+            doneTableView.updateTask(index: index, task: task)
+            doneTableView.reloadData()
+        }
+    }
+
+    func countHeadViewNumber() {
         todoHeadView.setCountNumberLabelText(countNumber: todoTableView.countTasks().description)
         doingHeadView.setCountNumberLabelText(countNumber: doingTableView.countTasks().description)
         doneHeadView.setCountNumberLabelText(countNumber: doneTableView.countTasks().description)
@@ -114,14 +128,26 @@ extension TaskViewController: TaskViewControllerDelegate {
 
 // MARK: - TableView Delegate
 extension TaskViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let tableView = tableView as? TaskTableView else { return }
+        let classification: Classification = tableView.readTask(index: indexPath.row).classification
+        let detailView = TaskDetailView(delegate: self,
+                                        mode: .edit,
+                                        index: indexPath.row,
+                                        classification: classification)
+//        detailView.delegate = self
 
+        detailView.setTextAndDate(task: tableView.readTask(index: indexPath.row))
+        present(UINavigationController(rootViewController: detailView),
+                animated: true,
+                completion: nil)
+    }
 }
 
 // MARK: - TableView DataSource
 extension TaskViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let taskTableView = tableView as? TaskTableView else { return 0 }
-
         return taskTableView.countTasks()
     }
 
@@ -130,7 +156,7 @@ extension TaskViewController: UITableViewDataSource {
                                                        for: indexPath) as? TaskTableViewCell,
               let taskTableView = tableView as? TaskTableView else { return UITableViewCell()}
 
-        let task = taskTableView.checkTask(index: indexPath.row)
+        let task = taskTableView.readTask(index: indexPath.row)
         cell.setLabelText(title: task.title, context: task.context, deadline: task.deadline)
         return cell
     }

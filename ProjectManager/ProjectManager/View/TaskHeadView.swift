@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class TaskHeadView: UIView {
+final class TaskHeadView: UIView {
     private let classificationLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .largeTitle)

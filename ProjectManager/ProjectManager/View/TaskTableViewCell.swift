@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TaskTableViewCell: UITableViewCell {
+final class TaskTableViewCell: UITableViewCell {
     static let reuseIdentifier = "TaskTableViewCell"
 
     private let dateFormatter = DateFormatter()

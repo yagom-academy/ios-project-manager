@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TaskTableView: UITableView {
+final class TaskTableView: UITableView {
     private var tasks: [Task] = []
 
     init() {
@@ -24,15 +24,19 @@ class TaskTableView: UITableView {
         tasks.insert(task, at: 0)
     }
 
+    func readTask(index: Int) -> Task {
+        return tasks[index]
+    }
+
+    func updateTask(index: Int, task: Task) {
+        tasks[index] = task
+    }
+
     func deleteTask(index: Int) {
         tasks.remove(at: index)
     }
 
     func countTasks() -> Int {
         return tasks.count
-    }
-
-    func checkTask(index: Int) -> Task {
-        return tasks[index]
     }
 }

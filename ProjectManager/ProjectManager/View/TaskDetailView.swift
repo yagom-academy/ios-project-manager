@@ -8,8 +8,20 @@
 import UIKit
 import SnapKit
 
-class TaskDetailView: UIViewController {
+final class TaskDetailView: UIViewController {
+    enum Mode {
+        case add
+        case edit
+    }
+
     var delegate: TaskViewControllerDelegate?
+    private var mode: Mode = .add
+    private var index: Int?
+    private var classification: Classification? = .todo
+
+    let completion: ((_ task: Task) -> Void) = { task in
+        print(task.title)
+    }
 
     let titleTextfield: UITextField = {
         let textfield = UITextField()
@@ -31,10 +43,23 @@ class TaskDetailView: UIViewController {
 
     let contentTextView: UITextView = {
         let textView = UITextView()
+        textView.font = UIFont.preferredFont(forTextStyle: .body)
         textView.layer.borderColor = UIColor.systemGray3.cgColor
         textView.layer.borderWidth = 2.0
         return textView
     }()
+
+    init(delegate: TaskViewControllerDelegate, mode: Mode, index: Int?, classification: Classification?) {
+        super.init(nibName: nil, bundle: nil)
+        self.delegate = delegate
+        self.mode = mode
+        self.index = index
+        self.classification = classification
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,20 +89,37 @@ class TaskDetailView: UIViewController {
     }
 
     private func setNavigationBar() {
+        let rightBarButtonSystemItem: UIBarButtonItem.SystemItem = self.mode == .add ? .done : .edit
         navigationItem.title = "TODO"
+
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel,
                                                            target: self,
                                                            action: nil)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done,
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: rightBarButtonSystemItem,
                                                             target: self,
-                                                            action: #selector(didTapDoneButton))
+                                                            action: #selector(didTapRightButton))
     }
 
-    @objc func didTapDoneButton() {
-        let task = Task(title: titleTextfield.text!, context: contentTextView.text, deadline: datePicker.date)
+    func setTextAndDate(task: Task) {
+        titleTextfield.text = task.title
+        contentTextView.text = task.context
+        datePicker.date = task.deadline
+    }
 
-        delegate?.createTodoTask(task: task)
-        delegate?.countheadViewNumber()
+    @objc func didTapRightButton() {
+        guard let classification = self.classification else { return }
+        let task = Task(title: titleTextfield.text!,
+                        context: contentTextView.text,
+                        deadline: datePicker.date,
+                        classification: classification)
+
+        if mode == .add {
+            delegate?.createTodoTask(task: task)
+            delegate?.countHeadViewNumber()
+        } else {
+            guard let index = self.index else { return }
+            delegate?.updateTask(task: task, index: index)
+        }
 
         dismiss(animated: true, completion: nil)
     }
