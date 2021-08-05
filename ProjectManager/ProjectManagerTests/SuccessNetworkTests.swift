@@ -10,7 +10,7 @@ import XCTest
 
 class SuccessNetworkTests: XCTestCase {
     var urlSession: MockURLSession!
-    var networkManager: NetworkManager!
+    var networkManager: NetworkManager<Task>!
 
     func test_when_tasks조회요청_expect_taskDecoding성공() {
         // given
@@ -26,22 +26,22 @@ class SuccessNetworkTests: XCTestCase {
             XCTFail("response is nil")
             return
         }
-        let expectTasks = try? JSONDecoder().decode([Task].self, from: dummyDatas)
         urlSession = MockURLSession(response: expectResponse, data: dummyDatas, error: nil)
         networkManager = NetworkManager(session: urlSession)
         let expectation = XCTestExpectation(description: "tasks read success")
         
         // when
-        networkManager.request(url: readURL, [Task].self, nil, httpMethod: .get) { result in
+        networkManager.get(url: readURL) { result in
             switch result {
-            // then
-            case .success(let tasks):
-                XCTAssertEqual(expectTasks, tasks)
+            //then
+            case .success(let data):
+                XCTAssertEqual(data, dummyDatas)
                 self.urlSession.verifyDataTask(url: readURL)
                 expectation.fulfill()
             case .failure(let error):
                 XCTFail(error.description)
             }
+            
         }
         wait(for: [expectation], timeout: 2.0)
     }
@@ -52,27 +52,31 @@ class SuccessNetworkTests: XCTestCase {
             XCTFail("URLError")
             return
         }
+        guard let responseDummyData = DummyJsonData.responseTask.data else {
+            XCTFail("invalid dummyData")
+            return
+        }
         guard let expectResponse = HTTPURLResponse(url: createURL, statusCode: 200, httpVersion: nil, headerFields: nil) else {
             XCTFail("response is nil")
             return
         }
-        let requestTask = RequestTask(title: "title", content: "content", deadLine: 123.0, type: .todo)
-        urlSession = MockURLSession(response: expectResponse, data: nil, error: nil)
+        let dummyTask = Task(title: "책상정리", content: "집중이 안될땐 역시나 책상정리", deadLine: 1624933807.141012, type: .todo)
+        urlSession = MockURLSession(response: expectResponse, data: responseDummyData, error: nil)
         networkManager = NetworkManager(session: urlSession)
         let expectation = XCTestExpectation(description: "task post success")
-        
+
         // when
-        networkManager.request(url: createURL, RequestTask.self, requestTask, httpMethod: .post) { result in
+        networkManager.post(url: createURL, item: dummyTask) { result in
             switch result {
-            // then
-            case .success(let task):
-                XCTAssertEqual(requestTask.title, task.title)
-                /*
-                 task가 현재 RequestTask타입이라 id 접근 불가
-                 Task타입으로 통합해야하는지? -> id를 빼?, 옵셔널?
-                 Taskable 프로토콜 생성?
-                 */
-                expectation.fulfill()
+            //then
+            case .success(let data):
+                do {
+                    let task = try JSONDecoder().decode(Task.self, from: data)
+                    XCTAssertEqual(task.title, dummyTask.title)
+                    expectation.fulfill()
+                } catch {
+                    XCTFail(String(describing: NetworkError.decodingError))
+                }
             case .failure(let error):
                 XCTFail(error.description)
             }

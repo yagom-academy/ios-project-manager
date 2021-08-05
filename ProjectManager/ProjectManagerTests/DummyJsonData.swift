@@ -9,6 +9,8 @@ import Foundation
 
 enum DummyJsonData {
     case tasks
+    case requestTask
+    case responseTask
 }
 
 extension DummyJsonData: CustomStringConvertible {
@@ -33,13 +35,29 @@ extension DummyJsonData: CustomStringConvertible {
                  }
             ]
             """
+        case .requestTask:
+            return """
+            {
+                "title" : "책상정리",
+                "description" : "집중이 안될땐 역시나 책상정리",
+                "dueDate" : 1624933807.141012,
+                "status" : "todo",
+            }
+            """
+        case .responseTask:
+            return """
+            {
+                "title" : "책상정리",
+                "description" : "집중이 안될땐 역시나 책상정리",
+                "dueDate" : 1624933807.141012,
+                "status" : "todo",
+                "id" : "1731F34B-C6B5-40DD-B07E-6CBDC444382C"
+            }
+            """
         }
     }
     
     var data: Data? {
-        switch self {
-        case .tasks:
-            return self.description.data(using: .utf8)
-        }
+        self.description.data(using: .utf8)
     }
 }
