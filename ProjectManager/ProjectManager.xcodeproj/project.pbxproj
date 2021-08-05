@@ -18,21 +18,21 @@
 		023AFC6C26BA853F00B4E5CF /* CoreDataRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023AFC6B26BA853F00B4E5CF /* CoreDataRepositoryTests.swift */; };
 		023AFC6E26BA85E600B4E5CF /* TaskTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023AFC6D26BA85E600B4E5CF /* TaskTests.swift */; };
 		023AFC7126BA863100B4E5CF /* TaskListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023AFC7026BA863100B4E5CF /* TaskListTests.swift */; };
-		023AFC7326BA869600B4E5CF /* TaskRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023AFC7226BA869600B4E5CF /* TaskRepositoryTests.swift */; };
+		023AFC7326BA869600B4E5CF /* NetworkRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023AFC7226BA869600B4E5CF /* NetworkRepositoryTests.swift */; };
 		023AFC7526BA86DC00B4E5CF /* UtilTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023AFC7426BA86DC00B4E5CF /* UtilTests.swift */; };
 		023AFC7726BA872D00B4E5CF /* HistoryViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023AFC7626BA872D00B4E5CF /* HistoryViewModelTests.swift */; };
 		023AFC7926BA874E00B4E5CF /* TaskEditViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023AFC7826BA874E00B4E5CF /* TaskEditViewModelTests.swift */; };
 		023AFC7B26BA879A00B4E5CF /* TaskViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023AFC7A26BA879A00B4E5CF /* TaskViewModelTests.swift */; };
 		023B32CB26A99D3C002FF20A /* PMViewController+Drop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023B32CA26A99D3C002FF20A /* PMViewController+Drop.swift */; };
-		0249BFF826BBD7D400E3146D /* TaskRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0249BFF726BBD7D400E3146D /* TaskRepositoryProtocol.swift */; };
-		0249BFFA26BBD91A00E3146D /* SpyTaskRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0249BFF926BBD91A00E3146D /* SpyTaskRepository.swift */; };
+		0249BFF826BBD7D400E3146D /* NetworkRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0249BFF726BBD7D400E3146D /* NetworkRepositoryProtocol.swift */; };
+		0249BFFA26BBD91A00E3146D /* SpyNetworkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0249BFF926BBD91A00E3146D /* SpyNetworkRepository.swift */; };
 		0249BFFC26BBD9DE00E3146D /* MockURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0249BFFB26BBD9DE00E3146D /* MockURLProtocol.swift */; };
 		02F2F4B826A7028000BBE874 /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F2F4B726A7028000BBE874 /* TaskViewModel.swift */; };
 		AA126AC126A9724000EF24ED /* Task+NSItemProviderReading.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA126AC026A9724000EF24ED /* Task+NSItemProviderReading.swift */; };
 		AA126AC326A9756C00EF24ED /* Task+NSItemProviderWriting.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA126AC226A9756C00EF24ED /* Task+NSItemProviderWriting.swift */; };
 		AA126AC526A97A5500EF24ED /* PMViewController+Drag.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA126AC426A97A5500EF24ED /* PMViewController+Drag.swift */; };
 		AA126ACB26AAAED200EF24ED /* TaskEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA126ACA26AAAED200EF24ED /* TaskEditViewController.swift */; };
-		AA3267EE26A6F607007C2E60 /* TaskRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3267ED26A6F607007C2E60 /* TaskRepository.swift */; };
+		AA3267EE26A6F607007C2E60 /* NetworkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3267ED26A6F607007C2E60 /* NetworkRepository.swift */; };
 		AA3267F126A6FFC3007C2E60 /* PMError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3267F026A6FFC3007C2E60 /* PMError.swift */; };
 		AA3267F626A7F7F2007C2E60 /* StateStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3267F526A7F7F2007C2E60 /* StateStackView.swift */; };
 		AA32681826A94435007C2E60 /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA32681726A94435007C2E60 /* TaskCell.swift */; };
@@ -81,21 +81,21 @@
 		023AFC6B26BA853F00B4E5CF /* CoreDataRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataRepositoryTests.swift; sourceTree = "<group>"; };
 		023AFC6D26BA85E600B4E5CF /* TaskTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTests.swift; sourceTree = "<group>"; };
 		023AFC7026BA863100B4E5CF /* TaskListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListTests.swift; sourceTree = "<group>"; };
-		023AFC7226BA869600B4E5CF /* TaskRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRepositoryTests.swift; sourceTree = "<group>"; };
+		023AFC7226BA869600B4E5CF /* NetworkRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRepositoryTests.swift; sourceTree = "<group>"; };
 		023AFC7426BA86DC00B4E5CF /* UtilTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilTests.swift; sourceTree = "<group>"; };
 		023AFC7626BA872D00B4E5CF /* HistoryViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModelTests.swift; sourceTree = "<group>"; };
 		023AFC7826BA874E00B4E5CF /* TaskEditViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskEditViewModelTests.swift; sourceTree = "<group>"; };
 		023AFC7A26BA879A00B4E5CF /* TaskViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModelTests.swift; sourceTree = "<group>"; };
 		023B32CA26A99D3C002FF20A /* PMViewController+Drop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PMViewController+Drop.swift"; sourceTree = "<group>"; };
-		0249BFF726BBD7D400E3146D /* TaskRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRepositoryProtocol.swift; sourceTree = "<group>"; };
-		0249BFF926BBD91A00E3146D /* SpyTaskRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpyTaskRepository.swift; sourceTree = "<group>"; };
+		0249BFF726BBD7D400E3146D /* NetworkRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRepositoryProtocol.swift; sourceTree = "<group>"; };
+		0249BFF926BBD91A00E3146D /* SpyNetworkRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpyNetworkRepository.swift; sourceTree = "<group>"; };
 		0249BFFB26BBD9DE00E3146D /* MockURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLProtocol.swift; sourceTree = "<group>"; };
 		02F2F4B726A7028000BBE874 /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
 		AA126AC026A9724000EF24ED /* Task+NSItemProviderReading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+NSItemProviderReading.swift"; sourceTree = "<group>"; };
 		AA126AC226A9756C00EF24ED /* Task+NSItemProviderWriting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+NSItemProviderWriting.swift"; sourceTree = "<group>"; };
 		AA126AC426A97A5500EF24ED /* PMViewController+Drag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PMViewController+Drag.swift"; sourceTree = "<group>"; };
 		AA126ACA26AAAED200EF24ED /* TaskEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskEditViewController.swift; sourceTree = "<group>"; };
-		AA3267ED26A6F607007C2E60 /* TaskRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRepository.swift; sourceTree = "<group>"; };
+		AA3267ED26A6F607007C2E60 /* NetworkRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRepository.swift; sourceTree = "<group>"; };
 		AA3267F026A6FFC3007C2E60 /* PMError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PMError.swift; sourceTree = "<group>"; };
 		AA3267F526A7F7F2007C2E60 /* StateStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateStackView.swift; sourceTree = "<group>"; };
 		AA32681726A94435007C2E60 /* TaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
@@ -218,7 +218,7 @@
 			isa = PBXGroup;
 			children = (
 				023AFC6B26BA853F00B4E5CF /* CoreDataRepositoryTests.swift */,
-				023AFC7226BA869600B4E5CF /* TaskRepositoryTests.swift */,
+				023AFC7226BA869600B4E5CF /* NetworkRepositoryTests.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -249,8 +249,8 @@
 			isa = PBXGroup;
 			children = (
 				AAC4716326B2E4E1001D211C /* CoreDataRepository.swift */,
-				AA3267ED26A6F607007C2E60 /* TaskRepository.swift */,
-				0249BFF726BBD7D400E3146D /* TaskRepositoryProtocol.swift */,
+				AA3267ED26A6F607007C2E60 /* NetworkRepository.swift */,
+				0249BFF726BBD7D400E3146D /* NetworkRepositoryProtocol.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -361,7 +361,7 @@
 			children = (
 				AAA4ABC726BA729F0093427D /* MockCoreDataStack.swift */,
 				0249BFFB26BBD9DE00E3146D /* MockURLProtocol.swift */,
-				0249BFF926BBD91A00E3146D /* SpyTaskRepository.swift */,
+				0249BFF926BBD91A00E3146D /* SpyNetworkRepository.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -537,8 +537,8 @@
 				023AFC7526BA86DC00B4E5CF /* UtilTests.swift in Sources */,
 				0249BFFC26BBD9DE00E3146D /* MockURLProtocol.swift in Sources */,
 				023AFC6C26BA853F00B4E5CF /* CoreDataRepositoryTests.swift in Sources */,
-				0249BFFA26BBD91A00E3146D /* SpyTaskRepository.swift in Sources */,
-				023AFC7326BA869600B4E5CF /* TaskRepositoryTests.swift in Sources */,
+				0249BFFA26BBD91A00E3146D /* SpyNetworkRepository.swift in Sources */,
+				023AFC7326BA869600B4E5CF /* NetworkRepositoryTests.swift in Sources */,
 				AAA4ABC826BA729F0093427D /* MockCoreDataStack.swift in Sources */,
 				023AFC7726BA872D00B4E5CF /* HistoryViewModelTests.swift in Sources */,
 				023AFC7B26BA879A00B4E5CF /* TaskViewModelTests.swift in Sources */,
@@ -583,10 +583,10 @@
 				AA8C638926B97A0C00B31864 /* PendingTaskList+CoreDataProperties.swift in Sources */,
 				AAC4716426B2E4E1001D211C /* CoreDataRepository.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
-				0249BFF826BBD7D400E3146D /* TaskRepositoryProtocol.swift in Sources */,
+				0249BFF826BBD7D400E3146D /* NetworkRepositoryProtocol.swift in Sources */,
 				AA126AC326A9756C00EF24ED /* Task+NSItemProviderWriting.swift in Sources */,
 				AA9ACE3B26AEA481009115BD /* TaskEditViewControllerDelegate.swift in Sources */,
-				AA3267EE26A6F607007C2E60 /* TaskRepository.swift in Sources */,
+				AA3267EE26A6F607007C2E60 /* NetworkRepository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

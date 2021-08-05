@@ -1,5 +1,5 @@
 //
-//  SpyTaskRepository.swift
+//  SpyNetworkRepository.swift
 //  ProjectManagerTests
 //
 //  Created by duckbok, Ryan-Son on 2021/08/05.
@@ -8,7 +8,7 @@
 import Foundation
 @testable import ProjectManager
 
-final class SpyTaskRepository: TaskRepositoryProtocol {
+final class SpyNetworkRepository: NetworkRepositoryProtocol {
 
     func fetchTasks(completion: @escaping (Result<[ResponseTask], PMError>) -> Void) { }
     

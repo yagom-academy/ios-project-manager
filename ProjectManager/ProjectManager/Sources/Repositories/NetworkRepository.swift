@@ -1,5 +1,5 @@
 //
-//  TaskRepository.swift
+//  NetworkRepository.swift
 //  ProjectManager
 //
 //  Created by duckbok, Ryan-Son on 2021/07/20.
@@ -8,7 +8,7 @@
 import UIKit
 import Network
 
-final class TaskRepository: TaskRepositoryProtocol {
+final class NetworkRepository: NetworkRepositoryProtocol {
 
     enum Endpoint {
         static let get: String = "/tasks"

@@ -1,5 +1,5 @@
 //
-//  TaskRepositoryTests.swift
+//  NetworkRepositoryTests.swift
 //  ProjectManagerTests
 //
 //  Created by duckbok, Ryan-Son on 2021/08/04.
@@ -8,9 +8,9 @@
 import XCTest
 @testable import ProjectManager
 
-final class TaskRepositoryTests: XCTestCase {
+final class NetworkRepositoryTests: XCTestCase {
 
-    private var sutTaskRepository: TaskRepository!
+    private var sutNetworkRepository: NetworkRepository!
     private var coreDataRepository: CoreDataRepository!
 
     override func setUpWithError() throws {
@@ -18,7 +18,7 @@ final class TaskRepositoryTests: XCTestCase {
         let configuration: URLSessionConfiguration = .ephemeral
         configuration.protocolClasses = [MockURLProtocol.self]
         let urlSession = URLSession(configuration: configuration)
-        sutTaskRepository = TaskRepository(session: urlSession)
+        sutNetworkRepository = NetworkRepository(session: urlSession)
 
         coreDataRepository = CoreDataRepository(coreDataStack: MockCoreDataStack())
     }
@@ -38,7 +38,7 @@ final class TaskRepositoryTests: XCTestCase {
         
         let expectation = XCTestExpectation(description: "Fetch test")
         
-        sutTaskRepository.fetchTasks { result in
+        sutNetworkRepository.fetchTasks { result in
             switch result {
             case .success(let responseTasks):
                 let taskList = TaskList(context: self.coreDataRepository.coreDataStack.context, responseTasks: responseTasks)
@@ -58,7 +58,7 @@ final class TaskRepositoryTests: XCTestCase {
 
 // MARK: - Private methods for testing
 
-extension TaskRepositoryTests {
+extension NetworkRepositoryTests {
     private func setLoadingHandler(_ networkShouldSuccess: Bool, _ data: Data) {
         MockURLProtocol.loadingHandler = { request in
             let response: HTTPURLResponse

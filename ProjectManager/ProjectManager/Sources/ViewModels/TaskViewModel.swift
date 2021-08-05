@@ -16,7 +16,7 @@ final class TaskViewModel {
 
     var networkStatusChanged: (() -> Void)?
 
-    private let taskRepository: TaskRepositoryProtocol
+    private let networkRepository: NetworkRepositoryProtocol
     private var coreDataRepository: CoreDataRepository
 
     private(set) var taskList = TaskList() {
@@ -25,9 +25,9 @@ final class TaskViewModel {
         }
     }
 
-    init(taskRepository: TaskRepositoryProtocol = TaskRepository(),
+    init(networkRepository: NetworkRepositoryProtocol = NetworkRepository(),
          coreDataStack: CoreDataStackProtocol = CoreDataStack.shared) {
-        self.taskRepository = taskRepository
+        self.networkRepository = networkRepository
         self.coreDataRepository = CoreDataRepository(coreDataStack: coreDataStack)
     }
 
@@ -163,7 +163,7 @@ final class TaskViewModel {
 extension TaskViewModel {
 
     private func post(_ task: Task) {
-        taskRepository.post(task: task) { [weak self] result in
+        networkRepository.post(task: task) { [weak self] result in
             switch result {
             case .success:
                 self?.coreDataRepository.deleteFromPendingTaskList(task)
@@ -175,7 +175,7 @@ extension TaskViewModel {
     }
 
     private func patch(_ task: Task) {
-        taskRepository.patch(task: task) { [weak self] result in
+        networkRepository.patch(task: task) { [weak self] result in
             switch result {
             case .success:
                 print("Patch Succeed!")
@@ -188,7 +188,7 @@ extension TaskViewModel {
     }
 
     private func delete(_ removedTask: Task) {
-        taskRepository.delete(task: removedTask) { [weak self] result in
+        networkRepository.delete(task: removedTask) { [weak self] result in
             switch result {
             case .success(let id):
                 self?.coreDataRepository.delete(removedTask.objectID)
@@ -202,7 +202,7 @@ extension TaskViewModel {
     }
 
     func networkDidConnect() {
-        taskRepository.fetchTasks { [weak self] result in
+        networkRepository.fetchTasks { [weak self] result in
             guard let self = self else { return }
             defer { self.networkStatusChanged?() }
             switch result {
