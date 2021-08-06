@@ -13,7 +13,7 @@ struct MockCoreDataStack: CoreDataStackProtocol {
     static let persistentContainerName = "ProjectManager"
 
     private var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: CoreDataStack.persistentContainerName)
+        let container = NSPersistentContainer(name: MockCoreDataStack.persistentContainerName)
         let description = NSPersistentStoreDescription()
         description.type = NSInMemoryStoreType
         description.shouldAddStoreAsynchronously = false

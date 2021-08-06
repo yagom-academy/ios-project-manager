@@ -85,21 +85,6 @@ final class TaskTests: XCTestCase {
         }
     }
 
-    func test_drop시호출된object는_성공시디코딩된task를반환한다() throws {
-        let encodedTask = try JSONEncoder().encode(sutTask)
-        guard let typeIdentifier = Task.readableTypeIdentifiersForItemProvider.first else {
-            XCTFail("지정된 type identifier가 없습니다.")
-            return
-        }
-
-        let droppedTask = try Task.object(withItemProviderData: encodedTask, typeIdentifier: typeIdentifier)
-        XCTAssertEqual(droppedTask.id, sutTask.id)
-        XCTAssertEqual(droppedTask.title, sutTask.title)
-        XCTAssertEqual(droppedTask.body, sutTask.body)
-        XCTAssertEqual(droppedTask.dueDate, sutTask.dueDate)
-        XCTAssertEqual(droppedTask.taskState, sutTask.taskState)
-    }
-
     func test_object에유효하지않은typeIdentifier를전달하면_invalidTypeIdentifier에러를던진다() throws {
         let encodedTask = try JSONEncoder().encode(sutTask)
         let invalidTypeIdentifier = kUTTypePlainText as String
@@ -107,7 +92,6 @@ final class TaskTests: XCTestCase {
         XCTAssertThrowsError(try Task.object(withItemProviderData: encodedTask, typeIdentifier: invalidTypeIdentifier)) { error in
             XCTAssertEqual(error as? PMError, .invalidTypeIdentifier)
         }
-        
     }
 }
 
