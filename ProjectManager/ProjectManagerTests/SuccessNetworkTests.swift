@@ -51,6 +51,7 @@ final class SuccessNetworkTests: XCTestCase {
                 do {
                     let task = try JSONDecoder().decode(Task.self, from: data)
                     XCTAssertEqual(task.title, self.dummyTask.title)
+                    XCTAssertNotNil(task.id)
                     expectation.fulfill()
                 } catch {
                     XCTFail(String(describing: NetworkError.decodingError))

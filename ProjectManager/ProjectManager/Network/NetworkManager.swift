@@ -31,7 +31,8 @@ final class NetworkManager<T: Codable> {
         guard let request: URLRequest = generateURLRequest(url: url,
                                                            item: item,
                                                            method: .delete,
-                                                           headers: [.contentType(key: HTTPHeader.applicationJson)]) else {            completion(.failure(.invalidRequest))
+                                                           headers: [.contentType(key: HTTPHeader.applicationJson)]) else {
+            completion(.failure(.invalidRequest))
             return
         }
         dataTask(with: request) { result in
@@ -48,7 +49,8 @@ final class NetworkManager<T: Codable> {
         guard let request: URLRequest = generateURLRequest(url: url,
                                                            item: item,
                                                            method: .delete,
-                                                           headers: [.contentType(key: HTTPHeader.applicationJson)]) else {            completion(.failure(.invalidRequest))
+                                                           headers: [.contentType(key: HTTPHeader.applicationJson)]) else {
+            completion(.failure(.invalidRequest))
             return
         }
         dataTask(with: request) { result in
@@ -110,7 +112,7 @@ final class NetworkManager<T: Codable> {
         var request: URLRequest = URLRequest(url: url)
 
         request.httpMethod = "\(method)"
-        headers?.forEach{
+        headers?.forEach {
             $0.header.forEach { field, value in
                 request.addValue(value, forHTTPHeaderField: field)
             }

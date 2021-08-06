@@ -98,4 +98,3 @@ extension ItemTableViewCell {
         dateLabel.font = UIFont.preferredFont(forTextStyle: .callout)
     }
 }
-
