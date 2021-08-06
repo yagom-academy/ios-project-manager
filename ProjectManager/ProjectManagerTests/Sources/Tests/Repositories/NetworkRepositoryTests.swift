@@ -30,9 +30,7 @@ final class NetworkRepositoryTests: XCTestCase {
     }
 
     func test_fetchTasks를통해_서버에저장된task들을가져올수있다() throws {
-        guard let today: TimeInterval = Date().date?.timeIntervalSince1970 else { return }
-        let mockResponseTask = ResponseTask(id: UUID(), title: "ABC", body: "123", dueDate: Int(today), state: .todo)
-        let expectedHTTPBodyResponse = try JSONEncoder().encode([mockResponseTask])
+        let expectedHTTPBodyResponse = try JSONEncoder().encode([TestAsset.dummyTodoResponseTask])
 
         setLoadingHandler(true, expectedHTTPBodyResponse)
         
@@ -41,11 +39,11 @@ final class NetworkRepositoryTests: XCTestCase {
             switch result {
             case .success(let responseTasks):
                 let taskList = TaskList(context: self.coreDataRepository.coreDataStack.context, responseTasks: responseTasks)
-                XCTAssertEqual(taskList[.todo].first?.id, mockResponseTask.id)
-                XCTAssertEqual(taskList[.todo].first?.title, mockResponseTask.title)
-                XCTAssertEqual(taskList[.todo].first?.body, mockResponseTask.body)
-                XCTAssertEqual(taskList[.todo].first?.dueDate, Date(timeIntervalSince1970: Double(today)))
-                XCTAssertEqual(taskList[.todo].first?.taskState, mockResponseTask.state)
+                XCTAssertEqual(taskList[.todo].first?.id, TestAsset.dummyTodoResponseTask.id)
+                XCTAssertEqual(taskList[.todo].first?.title, TestAsset.dummyTodoResponseTask.title)
+                XCTAssertEqual(taskList[.todo].first?.body, TestAsset.dummyTodoResponseTask.body)
+                XCTAssertEqual(taskList[.todo].first?.dueDate, Date(timeIntervalSince1970: Double(TestAsset.dummyTodoResponseTask.dueDate)))
+                XCTAssertEqual(taskList[.todo].first?.taskState, TestAsset.dummyTodoResponseTask.state)
                 expectation.fulfill()
             case .failure:
                 XCTFail("Fetch 하지 못하였습니다.")
@@ -55,23 +53,9 @@ final class NetworkRepositoryTests: XCTestCase {
     }
 
     func test_post에task를전달하면_전달한task를서버DB에저장할수있다() throws {
-        let expectedID = UUID()
-        let expectedTitle: String = "POST"
-        let expectedBody: String = "TEST"
-        guard let expectedDueDate = Date().date else { return }
-        let expectedState: Task.State = .todo
         let task = Task(context: coreDataRepository.coreDataStack.context,
-                        id: expectedID,
-                        title: expectedTitle,
-                        body: expectedBody,
-                        dueDate: expectedDueDate,
-                        state: expectedState)
+                        responseTask: TestAsset.dummyTodoResponseTask)
         let postTask = PostTask(by: task)
-        let expectedResponseTask = ResponseTask(id: expectedID,
-                                                title: expectedTitle,
-                                                body: expectedBody,
-                                                dueDate: Int(expectedDueDate.timeIntervalSince1970),
-                                                state: expectedState)
         let expectedHTTPBodyResponse = try JSONEncoder().encode(postTask)
 
         setLoadingHandler(true, expectedHTTPBodyResponse)
@@ -80,11 +64,11 @@ final class NetworkRepositoryTests: XCTestCase {
         sutNetworkRepository.post(task: task) { result in
             switch result {
             case .success(let responseTask):
-                XCTAssertEqual(responseTask.id, expectedResponseTask.id)
-                XCTAssertEqual(responseTask.title, expectedResponseTask.title)
-                XCTAssertEqual(responseTask.body, expectedResponseTask.body)
-                XCTAssertEqual(responseTask.dueDate, expectedResponseTask.dueDate)
-                XCTAssertEqual(responseTask.state, expectedResponseTask.state)
+                XCTAssertEqual(responseTask.id, TestAsset.dummyTodoResponseTask.id)
+                XCTAssertEqual(responseTask.title, TestAsset.dummyTodoResponseTask.title)
+                XCTAssertEqual(responseTask.body, TestAsset.dummyTodoResponseTask.body)
+                XCTAssertEqual(responseTask.dueDate, TestAsset.dummyTodoResponseTask.dueDate)
+                XCTAssertEqual(responseTask.state, TestAsset.dummyTodoResponseTask.state)
                 expectation.fulfill()
             case .failure(let error):
                 XCTFail("Post에 실패하였습니다. \(error)")
@@ -94,23 +78,9 @@ final class NetworkRepositoryTests: XCTestCase {
     }
 
     func test_patch를통해수정된task를전달하면_서버DB에저장된task를수정할수있다() throws {
-        let expectedID = UUID()
-        let expectedTitle: String = "PATCH"
-        let expectedBody: String = "TEST"
-        guard let expectedDueDate = Date().date else { return }
-        let expectedState: Task.State = .todo
         let task = Task(context: coreDataRepository.coreDataStack.context,
-                        id: expectedID,
-                        title: expectedTitle,
-                        body: expectedBody,
-                        dueDate: expectedDueDate,
-                        state: expectedState)
+                        responseTask: TestAsset.dummyTodoResponseTask)
         let patchTask = PatchTask(by: task)
-        let expectedResponseTask = ResponseTask(id: expectedID,
-                                                title: expectedTitle,
-                                                body: expectedBody,
-                                                dueDate: Int(expectedDueDate.timeIntervalSince1970),
-                                                state: expectedState)
         let expectedHTTPBodyResponse = try JSONEncoder().encode(patchTask)
 
         setLoadingHandler(true, expectedHTTPBodyResponse)
@@ -119,11 +89,11 @@ final class NetworkRepositoryTests: XCTestCase {
         sutNetworkRepository.patch(task: task) { result in
             switch result {
             case .success(let responseTask):
-                XCTAssertEqual(responseTask.id, expectedResponseTask.id)
-                XCTAssertEqual(responseTask.title, expectedResponseTask.title)
-                XCTAssertEqual(responseTask.body, expectedResponseTask.body)
-                XCTAssertEqual(responseTask.dueDate, expectedResponseTask.dueDate)
-                XCTAssertEqual(responseTask.state, expectedResponseTask.state)
+                XCTAssertEqual(responseTask.id, TestAsset.dummyTodoResponseTask.id)
+                XCTAssertEqual(responseTask.title, TestAsset.dummyTodoResponseTask.title)
+                XCTAssertEqual(responseTask.body, TestAsset.dummyTodoResponseTask.body)
+                XCTAssertEqual(responseTask.dueDate, TestAsset.dummyTodoResponseTask.dueDate)
+                XCTAssertEqual(responseTask.state, TestAsset.dummyTodoResponseTask.state)
                 expectation.fulfill()
             case .failure:
                 XCTFail("Patch에 실패하였습니다.")
@@ -133,14 +103,8 @@ final class NetworkRepositoryTests: XCTestCase {
     }
 
     func test_delete를통해삭제할task를전달하면_서버DB에저장된task를삭제할수있다() throws {
-        let expectedID = UUID()
-        guard let dueDate = Date().date else { return }
         let task = Task(context: coreDataRepository.coreDataStack.context,
-                        id: expectedID,
-                        title: "DELETE",
-                        body: "TEST",
-                        dueDate: dueDate,
-                        state: .done)
+                        responseTask: TestAsset.dummyTodoResponseTask)
         let deleteTask = DeleteTask(by: task)
         let expectedHTTPBodyResponse = try JSONEncoder().encode(deleteTask)
 
