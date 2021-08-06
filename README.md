@@ -89,3 +89,39 @@ Tak, Kane, Steven
     - NetworkManager task 조회 구현
   </p>
 </details>
+<details>
+  <summary>8/2(월)</summary>
+  <p> 
+    - NetworkManager 구현<br>
+    - 네트워크에 의존하지 않는 Test 학습(with 올라프)
+  </p>
+</details>
+<details>
+  <summary>8/3(화)</summary>
+  <p> 
+    - Mock, Fake, Stub 학습<br>
+    - MockURLSession, FakeDataTask 구현<br>
+    - Test Code 구현
+  </p>
+</details>
+<details>
+  <summary>8/4(수)</summary>
+  <p> 
+    - NetworkManager 리펙토링
+  </p>
+</details>
+<details>
+  <summary>8/5(목)</summary>
+  <p> 
+    - 로컬 디스크 캐싱 설계<br>
+    - 코어데이터 공부
+  </p>
+</details>
+<details>
+  <summary>8/6(금)</summary>
+  <p> 
+    - Step2 PR<br>
+    - 코어데이터와 서버 통신 모델을 하나로 합치기
+  </p>
+</details>
+
