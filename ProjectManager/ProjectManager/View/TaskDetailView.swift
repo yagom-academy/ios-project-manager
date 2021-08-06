@@ -74,7 +74,7 @@ final class TaskDetailView: UIViewController {
 
         datePicker.snp.makeConstraints { datePicker in
             datePicker.top.equalTo(titleTextfield.snp.bottom).offset(10)
-            datePicker.centerX.equalTo(view)
+            datePicker.leading.trailing.equalTo(view).inset(10)
         }
 
         contentTextView.snp.makeConstraints { textView in
