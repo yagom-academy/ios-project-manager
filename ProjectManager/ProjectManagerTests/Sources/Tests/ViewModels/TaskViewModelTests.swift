@@ -19,7 +19,6 @@ final class TaskViewModelTests: XCTestCase {
     var insertedStateAndIndex: (state: Task.State, index: Int)!
     var removedStateAndIndex: (state: Task.State, index: Int)!
 
-    // TODO: SpyTaskRepository 이니셜라이저 변경
     override func setUpWithError() throws {
         try super.setUpWithError()
         mockCoreDataStack = MockCoreDataStack()
@@ -71,7 +70,52 @@ final class TaskViewModelTests: XCTestCase {
         XCTAssertTrue(isChanged)
         XCTAssertTrue(stubNetworkRepository.isPostCalled)
     }
-    
+
+    func test_state와index를통해_해당task를반환한다() throws {
+        let expectedTask = Task(context: mockCoreDataStack.context,
+                                responseTask: TestAsset.dummyTodoResponseTask)
+
+        stubNetworkRepository.expectedResponseTask = TestAsset.dummyTodoResponseTask
+        sutTaskViewModel.add(expectedTask)
+
+        XCTAssertEqual(sutTaskViewModel.task(from: .todo, at: 0), expectedTask)
+    }
+
+    func test_존재하지않는index로_task를호출할때_nil을반환한다() throws {
+        XCTAssertNil(sutTaskViewModel.task(from: .todo, at: 0))
+    }
+
+    func test_같은state내의move시에_이전index에서지우고_새index에삽입한다() throws {
+        let tasks: [Task] = TestAsset.dummyThreeTodoResponseTasks.map { (dummyTodoResponseTask) in
+            Task(context: mockCoreDataStack.context, responseTask: dummyTodoResponseTask)
+        }
+        let expectedTasks: [Task] = [tasks[2], tasks[0], tasks[1]]
+
+        for index in (0..<tasks.count) {
+            stubNetworkRepository.expectedResponseTask = TestAsset.dummyThreeTodoResponseTasks[index]
+            sutTaskViewModel.add(tasks[index])
+        }
+
+        sutTaskViewModel.move(in: .todo, from: 2, to: 0)
+
+        XCTAssertEqual(sutTaskViewModel.taskList[.todo], expectedTasks)
+    }
+
+    func test_존재하지않는index들로_같은state내의move시에_동작하지않는다() throws {
+        let expectedTasks: [Task] = TestAsset.dummyThreeTodoResponseTasks.map { (dummyTodoResponseTask) in
+            Task(context: mockCoreDataStack.context, responseTask: dummyTodoResponseTask)
+        }
+
+        for index in (0..<expectedTasks.count) {
+            stubNetworkRepository.expectedResponseTask = TestAsset.dummyThreeTodoResponseTasks[index]
+            sutTaskViewModel.add(expectedTasks[index])
+        }
+
+        sutTaskViewModel.move(in: .todo, from: 3, to: 0)
+
+        XCTAssertEqual(sutTaskViewModel.taskList[.todo], expectedTasks)
+    }
+
     func test_네트워크가연결되지않았을때_remove에삭제할task의state와index를전달하면_task를softDelete할수있다() {
         let expectedResponseTask = TestAsset.dummyTodoResponseTask
         let expectedResponseStatusCode = 400
@@ -118,5 +162,28 @@ final class TaskViewModelTests: XCTestCase {
         XCTAssertEqual(removedStateAndIndex.state, .todo)
         XCTAssertEqual(removedStateAndIndex.index, .zero)
         XCTAssertTrue(stubNetworkRepository.isDeleteCalled)
+    }
+
+    func test_state를통해_count를반환한다() {
+        let expectedCount: Int = 1
+
+        let task = Task(context: mockCoreDataStack.context, responseTask: TestAsset.dummyTodoResponseTask)
+        stubNetworkRepository.expectedResponseTask = TestAsset.dummyTodoResponseTask
+        sutTaskViewModel.add(task)
+
+        XCTAssertEqual(sutTaskViewModel.count(of: .todo), expectedCount)
+    }
+
+    func test_network가연결되면_taskList를CoreData에서읽어온다() {
+        stubNetworkRepository.expectedResponseTasks = TestAsset.dummyThreeTodoResponseTasks
+        sutTaskViewModel.networkDidConnect()
+
+        XCTAssertTrue(isChanged)
+    }
+
+    func test_network가끊기면_taskList를CoreData에서읽어온다() {
+        sutTaskViewModel.networkDidDisconnect()
+
+        XCTAssertTrue(isChanged)
     }
 }
