@@ -16,5 +16,5 @@ final class SpyNetworkRepository: TaskNetworkRepositoryProtocol {
     
     func patch(task: Task, completion: @escaping (Result<ResponseTask, PMError>) -> Void) { }
     
-    func delete(task: Task, completion: @escaping (Result<UUID, PMError>) -> Void) { }
+    func delete(task: Task, completion: @escaping (Result<HTTPStatusCode, PMError>) -> Void) { }
 }

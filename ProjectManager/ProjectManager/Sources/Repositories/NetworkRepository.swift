@@ -10,7 +10,9 @@ import Network
 
 final class NetworkRepository {
 
-    enum Endpoint {
+    typealias SucceedResult = Result<(response: HTTPURLResponse, data: Data?), PMError>
+
+    private enum Endpoint {
         static let get: String = "/tasks"
         static let post: String = "/task"
         static let patch: String = "/task"
@@ -40,7 +42,7 @@ final class NetworkRepository {
     private func checkSessionSucceed(_ error: Error?,
                                      _ response: URLResponse?,
                                      _ data: Data?,
-                                     completion: @escaping (Result<Data, PMError>) -> Void) {
+                                     completion: @escaping ((SucceedResult) -> Void)) {
         if let error = error {
             completion(.failure(.requestFailed(error)))
             return
@@ -53,12 +55,7 @@ final class NetworkRepository {
             return
         }
 
-        guard let data = data else {
-            completion(.failure(.dataNotFound))
-            return
-        }
-
-        completion(.success(data))
+        completion(.success((response, data)))
     }
 }
 
@@ -72,11 +69,16 @@ extension NetworkRepository: TaskNetworkRepositoryProtocol {
         session.dataTask(with: url) { [weak self] data, response, error in
             self?.checkSessionSucceed(error, response, data) { result in
                 switch result {
-                case .success(let data):
+                case .success(let succeed):
+                    guard let data = succeed.data else {
+                        completion(.failure(.dataNotFound))
+                        return
+                    }
                     guard let responseTasks = try? self?.decoder.decode([ResponseTask].self, from: data) else {
                         completion(.failure(.decodingFailed))
                         return
                     }
+
                     completion(.success(responseTasks))
                 case .failure(let pmError):
                     completion(.failure(pmError))
@@ -97,11 +99,20 @@ extension NetworkRepository: TaskNetworkRepositoryProtocol {
         session.dataTask(with: request) { [weak self] data, response, error in
             self?.checkSessionSucceed(error, response, data) { result in
                 switch result {
-                case .success(let data):
+                case .success(let succeed):
+                    guard succeed.response.statusCode == 201 else {
+                        completion(.failure(.failureResponse(succeed.response.statusCode)))
+                        return
+                    }
+                    guard let data = succeed.data else {
+                        completion(.failure(.dataNotFound))
+                        return
+                    }
                     guard let responseTask = try? self?.decoder.decode(ResponseTask.self, from: data) else {
                         completion(.failure(.decodingFailed))
                         return
                     }
+
                     completion(.success(responseTask))
                 case .failure(let pmError):
                     completion(.failure(pmError))
@@ -122,11 +133,16 @@ extension NetworkRepository: TaskNetworkRepositoryProtocol {
         session.dataTask(with: request) { [weak self] data, response, error in
             self?.checkSessionSucceed(error, response, data) { result in
                 switch result {
-                case .success(let data):
+                case .success(let succeed):
+                    guard let data = succeed.data else {
+                        completion(.failure(.dataNotFound))
+                        return
+                    }
                     guard let responseTask = try? self?.decoder.decode(ResponseTask.self, from: data) else {
                         completion(.failure(.decodingFailed))
                         return
                     }
+
                     completion(.success(responseTask))
                 case .failure(let pmError):
                     completion(.failure(pmError))
@@ -135,7 +151,7 @@ extension NetworkRepository: TaskNetworkRepositoryProtocol {
         }.resume()
     }
 
-    func delete(task: Task, completion: @escaping (Result<UUID, PMError>) -> Void) {
+    func delete(task: Task, completion: @escaping (Result<HTTPStatusCode, PMError>) -> Void) {
         guard let url = URL(string: base + Endpoint.delete) else { return }
         guard let httpBody = try? encoder.encode(DeleteTask(by: task)) else {
             completion(.failure(.cannotEncodeToJSON(#function)))
@@ -147,8 +163,12 @@ extension NetworkRepository: TaskNetworkRepositoryProtocol {
         session.dataTask(with: request) { [weak self] data, response, error in
             self?.checkSessionSucceed(error, response, data) { result in
                 switch result {
-                case .success:
-                    completion(.success(task.id))
+                case .success(let succeed):
+                    guard succeed.response.statusCode == 204 else {
+                        completion(.failure(.failureResponse(succeed.response.statusCode)))
+                        return
+                    }
+                    completion(.success(succeed.response.statusCode))
                 case .failure(let pmError):
                     completion(.failure(pmError))
                 }
