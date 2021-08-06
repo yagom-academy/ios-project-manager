@@ -8,9 +8,14 @@
 import XCTest
 @testable import ProjectManager
 
-class FailureNetworkTests: XCTestCase {
-    var urlSession: MockURLSession!
-    var networkManager: NetworkManager<Task>!
+final class FailureNetworkTests: XCTestCase {
+    private let dummyURL: URL = URL(string: "www")!
+    private let dummyTask: Task = Task(title: "dummy", content: "dummy", deadLine: 123.123, type: .todo)
+    private lazy var dummySuccessResponse = HTTPURLResponse(url: dummyURL, statusCode: 200, httpVersion: nil, headerFields: nil)
+    private lazy var dummyFailureResponse = HTTPURLResponse(url: dummyURL, statusCode: 404, httpVersion: nil, headerFields: nil)
+
+    private var urlSession: MockURLSession!
+    private var networkManager: NetworkManager<Task>!
 
     func test_when_tasks조회요청_expect_networkError() {
         // given
@@ -19,9 +24,9 @@ class FailureNetworkTests: XCTestCase {
         let expectation = XCTestExpectation(description: "Error exist!")
         
         // when
-        networkManager.get(url: URL(string: "www")!) { result in
+        networkManager.fetch(url: dummyURL) { result in
             switch result {
-            //then
+            // then
             case .success(_):
                 XCTFail("Not intent to success")
             case .failure(let error):
@@ -32,16 +37,16 @@ class FailureNetworkTests: XCTestCase {
         wait(for: [expectation], timeout: 2.0)
     }
     
-    func test_when_tasks조회요청_expect_invalidResponseError() {
+    func test_when_task삭제요청_expect_invalidResponseError() {
         // given
         urlSession = MockURLSession(response: nil, data: nil, error: nil)
         networkManager = NetworkManager(session: urlSession)
         let expectation = XCTestExpectation(description: "response is nil")
         
         // when
-        networkManager.get(url: URL(string: "www")!) { result in
+        networkManager.delete(url: dummyURL, item: dummyTask) { result in
             switch result {
-            //then
+            // then
             case .success(_):
                 XCTFail("success")
             case .failure(let error):
@@ -52,18 +57,14 @@ class FailureNetworkTests: XCTestCase {
         wait(for: [expectation], timeout: 2.0)
     }
     
-    func test_when_tasks조회요청_expect_invalidStatusCodeError() {
+    func test_when_task생성요청_expect_invalidStatusCodeError() {
         // given
-        guard let expectResponse = HTTPURLResponse(url: URL(string: "www")!, statusCode: 404, httpVersion: nil, headerFields: nil) else {
-            XCTFail("response is nil")
-            return
-        }
-        urlSession = MockURLSession(response: expectResponse, data: nil, error: nil)
+        urlSession = MockURLSession(response: dummyFailureResponse, data: nil, error: nil)
         networkManager = NetworkManager(session: urlSession)
         let expectation = XCTestExpectation(description: "404 Status Code")
         
         // when
-        networkManager.get(url: URL(string: "www")!) { result in
+        networkManager.post(url: dummyURL, item: dummyTask) { result in
             switch result {
             case .success(_):
                 XCTFail("success")
@@ -75,22 +76,14 @@ class FailureNetworkTests: XCTestCase {
         wait(for: [expectation], timeout: 2.0)
     }
     
-    func test_when_tasks조회요청_expect_emptyDataError() {
+    func test_when_task수정요청_expect_emptyDataError() {
         // given
-        guard let readURL = ServerAPI.read.url else {
-            XCTFail("URLError")
-            return
-        }
-        guard let expectResponse = HTTPURLResponse(url: readURL, statusCode: 200, httpVersion: nil, headerFields: nil) else {
-            XCTFail("response is nil")
-            return
-        }
-        urlSession = MockURLSession(response: expectResponse, data: nil, error: nil)
+        urlSession = MockURLSession(response: dummySuccessResponse, data: nil, error: nil)
         networkManager = NetworkManager(session: urlSession)
         let expectation = XCTestExpectation(description: "emptyData!")
         
         // when
-        networkManager.get(url: readURL) { result in
+        networkManager.put(url: dummyURL, item: dummyTask) { result in
             switch result {
             // then
             case .success(_):
