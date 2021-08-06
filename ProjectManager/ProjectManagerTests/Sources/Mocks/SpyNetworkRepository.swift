@@ -8,7 +8,7 @@
 import Foundation
 @testable import ProjectManager
 
-final class SpyNetworkRepository: NetworkRepositoryProtocol {
+final class SpyNetworkRepository: TaskNetworkRepositoryProtocol {
 
     func fetchTasks(completion: @escaping (Result<[ResponseTask], PMError>) -> Void) { }
     

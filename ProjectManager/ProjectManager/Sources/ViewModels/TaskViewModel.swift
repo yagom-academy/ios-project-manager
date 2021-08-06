@@ -14,7 +14,7 @@ final class TaskViewModel {
     var inserted: ((_ state: Task.State, _ index: Int) -> Void)?
     var removed: ((_ state: Task.State, _ index: Int) -> Void)?
 
-    private let networkRepository: NetworkRepositoryProtocol
+    private let networkRepository: TaskNetworkRepositoryProtocol
     private var coreDataRepository: CoreDataRepository
 
     private(set) var taskList = TaskList() {
@@ -23,7 +23,7 @@ final class TaskViewModel {
         }
     }
 
-    init(networkRepository: NetworkRepositoryProtocol = NetworkRepository(),
+    init(networkRepository: TaskNetworkRepositoryProtocol = NetworkRepository(),
          coreDataStack: CoreDataStackProtocol = CoreDataStack.shared) {
         self.networkRepository = networkRepository
         self.coreDataRepository = CoreDataRepository(coreDataStack: coreDataStack)

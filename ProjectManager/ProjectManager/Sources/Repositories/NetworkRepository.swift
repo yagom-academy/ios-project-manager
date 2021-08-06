@@ -8,7 +8,7 @@
 import UIKit
 import Network
 
-final class NetworkRepository: NetworkRepositoryProtocol {
+final class NetworkRepository {
 
     enum Endpoint {
         static let get: String = "/tasks"
@@ -36,6 +36,35 @@ final class NetworkRepository: NetworkRepositoryProtocol {
     init(session: URLSession = .shared) {
         self.session = session
     }
+
+    private func checkSessionSucceed(_ error: Error?,
+                                     _ response: URLResponse?,
+                                     _ data: Data?,
+                                     completion: @escaping (Result<Data, PMError>) -> Void) {
+        if let error = error {
+            completion(.failure(.requestFailed(error)))
+            return
+        }
+
+        guard let response = response as? HTTPURLResponse else { return }
+
+        guard okResponse.contains(response.statusCode) else {
+            completion(.failure(.failureResponse(response.statusCode)))
+            return
+        }
+
+        guard let data = data else {
+            completion(.failure(.dataNotFound))
+            return
+        }
+
+        completion(.success(data))
+    }
+}
+
+// MARK: - TaskNetworkRepositoryProtocol
+
+extension NetworkRepository: TaskNetworkRepositoryProtocol {
 
     func fetchTasks(completion: @escaping (Result<[ResponseTask], PMError>) -> Void) {
         guard let url = URL(string: base + Endpoint.get) else { return }
@@ -125,29 +154,5 @@ final class NetworkRepository: NetworkRepositoryProtocol {
                 }
             }
         }.resume()
-    }
-
-    private func checkSessionSucceed(_ error: Error?,
-                                     _ response: URLResponse?,
-                                     _ data: Data?,
-                                     completion: @escaping (Result<Data, PMError>) -> Void) {
-        if let error = error {
-            completion(.failure(.requestFailed(error)))
-            return
-        }
-
-        guard let response = response as? HTTPURLResponse else { return }
-
-        guard okResponse.contains(response.statusCode) else {
-            completion(.failure(.failureResponse(response.statusCode)))
-            return
-        }
-
-        guard let data = data else {
-            completion(.failure(.dataNotFound))
-            return
-        }
-
-        completion(.success(data))
     }
 }
