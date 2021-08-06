@@ -22,6 +22,11 @@ class TableViewCell: UITableViewCell {
         return dateFormatter
     }
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        self.separatorInset = .zero
+    }
+    
     override func prepareForReuse() {
         self.dueDateLabel.textColor = .black
     }
