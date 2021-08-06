@@ -17,14 +17,7 @@ final class NetworkManager<T: Codable> {
     
     func fetch(url: URL, completion: @escaping (Result<Data, NetworkError>) -> Void) {
         let request: URLRequest = URLRequest(url: url)
-        dataTask(with: request) { result in
-            switch result {
-            case .success(let data):
-                completion(.success(data))
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
+        retrieveData(with: request, completion: completion)
     }
     
     func post(url: URL, item: T, completion: @escaping (Result<Data, NetworkError>) -> Void) {
@@ -35,14 +28,7 @@ final class NetworkManager<T: Codable> {
             completion(.failure(.invalidRequest))
             return
         }
-        dataTask(with: request) { result in
-            switch result {
-            case .success(let data):
-                completion(.success(data))
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
+        retrieveData(with: request, completion: completion)
     }
     
     func put(url: URL, item: T, completion: @escaping (Result<Data, NetworkError>) -> Void) {
@@ -53,14 +39,7 @@ final class NetworkManager<T: Codable> {
             completion(.failure(.invalidRequest))
             return
         }
-        dataTask(with: request) { result in
-            switch result {
-            case .success(let data):
-                completion(.success(data))
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
+        retrieveData(with: request, completion: completion)
     }
     
     func delete(url: URL, item: T, completion: @escaping (Result<Data, NetworkError>) -> Void) {
@@ -71,17 +50,10 @@ final class NetworkManager<T: Codable> {
             completion(.failure(.invalidRequest))
             return
         }
-        dataTask(with: request) { result in
-            switch result {
-            case .success(let data):
-                completion(.success(data))
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
+        retrieveData(with: request, completion: completion)
     }
     
-    private func dataTask(with request: URLRequest, completion: @escaping (Result<Data, NetworkError>) -> Void) {
+    private func retrieveData(with request: URLRequest, completion: @escaping (Result<Data, NetworkError>) -> Void) {
         let dataTask = session.dataTask(with: request) { data, response, error in
             if error != nil {
                 completion(.failure(.error))
@@ -110,7 +82,6 @@ final class NetworkManager<T: Codable> {
     
     private func generateURLRequest(url: URL, item: T?, method: HTTPMethod, headers: [HTTPHeader]?) -> URLRequest? {
         var request: URLRequest = URLRequest(url: url)
-
         request.httpMethod = "\(method)"
         headers?.forEach {
             $0.header.forEach { field, value in
