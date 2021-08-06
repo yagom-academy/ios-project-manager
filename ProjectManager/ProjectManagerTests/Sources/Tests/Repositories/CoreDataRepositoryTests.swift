@@ -12,24 +12,26 @@ import CoreData
 final class CoreDataRepositoryTests: XCTestCase {
 
     private var sutCoreDataRepository: CoreDataRepository!
+    private var context: NSManagedObjectContext!
     
     override func setUpWithError() throws {
         try super.setUpWithError()
         sutCoreDataRepository = CoreDataRepository(coreDataStack: MockCoreDataStack())
+        context = sutCoreDataRepository.coreDataStack.context
     }
     
     override func tearDownWithError() throws {
+        context = nil
         sutCoreDataRepository = nil
         try super.tearDownWithError()
     }
     
     func test_context에save하면_task가저장된다() throws {
-        let context = sutCoreDataRepository.coreDataStack.context
-
         expectation(forNotification: .NSManagedObjectContextDidSave, object: context) { _ in
             return true
         }
-        let task = try sutCoreDataRepository.create(title: "ABC", body: "123", dueDate: Date(), state: .doing)
+        let task = Task(context: context, responseTask: TestAsset.dummyTodoResponseTask)
+        sutCoreDataRepository.coreDataStack.saveContext()
         waitForExpectations(timeout: 2) { error in
             XCTAssertNil(error, "Save did not occur")
         }
