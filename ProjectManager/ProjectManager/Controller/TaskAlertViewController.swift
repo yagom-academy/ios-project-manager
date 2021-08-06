@@ -20,6 +20,7 @@ class TaskAlertViewController: UIViewController {
     let editBarButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(didTapEditButton))
     let doneBarButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(didTapDoneButton))
     var leftBarButton: UIBarButtonItem?
+    var changeSwitch: Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,44 +77,34 @@ class TaskAlertViewController: UIViewController {
     }
     
     @objc func didTapDoneButton(_ sender: Any) {
-        guard let title = taskTextField.text else { return }
+        guard let selectTitle = taskTextField.text,
+              let selectBody = taskTextView.text
+        else { return }
         
-        if navigationItem.leftBarButtonItem == cancelBarButton && title.isEmpty == false {
-            taskDelegate?.addTask(self, task: Task(id: nil,
-                                              title: title,
-                                              content: taskTextView.text,
-                                              deadLineDate: datePicker.date,
-                                              category: .todo))
-        } else if navigationItem.leftBarButtonItem == editBarButton {
-            guard let selectTitle = taskTextField.text,
-                  let selectBody = taskTextView.text,
-                  let selectTask = selectTask
-            else {
-                self.dismiss(animated: true)
-                return
-            }
-            
-            taskDelegate?.patchTask(self, task: Task(id: nil,
-                                                     title: selectTitle,
-                                                     content: selectBody,
-                                                     deadLineDate: datePicker.date,
-                                                     category: selectTask.category))
+        let task = Task(id: nil, title: selectTitle, content: selectBody, deadLineDate: datePicker.date, category: .todo)
+        
+        if navigationItem.leftBarButtonItem == cancelBarButton && selectTitle.isEmpty == false {
+            taskDelegate?.addTask(self, task: task)
+        } else if navigationItem.leftBarButtonItem == editBarButton && !changeSwitch {
+            guard let selectTask = selectTask else { return }
+            task.category = selectTask.category
+            taskDelegate?.patchTask(self, task: task)
         }
         
         self.dismiss(animated: true)
     }
     
     @objc func changedTextField(_ sender: Any?) {
-        
+        changeSwitch = false
     }
     
     @IBAction func changedDatePicker(_ sender: UIDatePicker) {
-        
+        changeSwitch = false
     }
 }
 
 extension TaskAlertViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
-        
+        changeSwitch = false
     }
 }
