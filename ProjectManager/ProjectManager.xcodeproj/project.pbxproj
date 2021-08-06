@@ -25,7 +25,7 @@
 		023AFC7B26BA879A00B4E5CF /* TaskViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023AFC7A26BA879A00B4E5CF /* TaskViewModelTests.swift */; };
 		023B32CB26A99D3C002FF20A /* PMViewController+Drop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023B32CA26A99D3C002FF20A /* PMViewController+Drop.swift */; };
 		0249BFF826BBD7D400E3146D /* TaskNetworkRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0249BFF726BBD7D400E3146D /* TaskNetworkRepositoryProtocol.swift */; };
-		0249BFFA26BBD91A00E3146D /* SpyNetworkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0249BFF926BBD91A00E3146D /* SpyNetworkRepository.swift */; };
+		0249BFFA26BBD91A00E3146D /* StubNetworkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0249BFF926BBD91A00E3146D /* StubNetworkRepository.swift */; };
 		0249BFFC26BBD9DE00E3146D /* MockURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0249BFFB26BBD9DE00E3146D /* MockURLProtocol.swift */; };
 		02F2F4B826A7028000BBE874 /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F2F4B726A7028000BBE874 /* TaskViewModel.swift */; };
 		AA126AC126A9724000EF24ED /* Task+NSItemProviderReading.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA126AC026A9724000EF24ED /* Task+NSItemProviderReading.swift */; };
@@ -88,7 +88,7 @@
 		023AFC7A26BA879A00B4E5CF /* TaskViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModelTests.swift; sourceTree = "<group>"; };
 		023B32CA26A99D3C002FF20A /* PMViewController+Drop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PMViewController+Drop.swift"; sourceTree = "<group>"; };
 		0249BFF726BBD7D400E3146D /* TaskNetworkRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskNetworkRepositoryProtocol.swift; sourceTree = "<group>"; };
-		0249BFF926BBD91A00E3146D /* SpyNetworkRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpyNetworkRepository.swift; sourceTree = "<group>"; };
+		0249BFF926BBD91A00E3146D /* StubNetworkRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubNetworkRepository.swift; sourceTree = "<group>"; };
 		0249BFFB26BBD9DE00E3146D /* MockURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLProtocol.swift; sourceTree = "<group>"; };
 		02F2F4B726A7028000BBE874 /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
 		AA126AC026A9724000EF24ED /* Task+NSItemProviderReading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+NSItemProviderReading.swift"; sourceTree = "<group>"; };
@@ -361,7 +361,7 @@
 			children = (
 				AAA4ABC726BA729F0093427D /* MockCoreDataStack.swift */,
 				0249BFFB26BBD9DE00E3146D /* MockURLProtocol.swift */,
-				0249BFF926BBD91A00E3146D /* SpyNetworkRepository.swift */,
+				0249BFF926BBD91A00E3146D /* StubNetworkRepository.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -537,7 +537,7 @@
 				023AFC7526BA86DC00B4E5CF /* UtilTests.swift in Sources */,
 				0249BFFC26BBD9DE00E3146D /* MockURLProtocol.swift in Sources */,
 				023AFC6C26BA853F00B4E5CF /* CoreDataRepositoryTests.swift in Sources */,
-				0249BFFA26BBD91A00E3146D /* SpyNetworkRepository.swift in Sources */,
+				0249BFFA26BBD91A00E3146D /* StubNetworkRepository.swift in Sources */,
 				023AFC7326BA869600B4E5CF /* NetworkRepositoryTests.swift in Sources */,
 				AAA4ABC826BA729F0093427D /* MockCoreDataStack.swift in Sources */,
 				023AFC7726BA872D00B4E5CF /* HistoryViewModelTests.swift in Sources */,

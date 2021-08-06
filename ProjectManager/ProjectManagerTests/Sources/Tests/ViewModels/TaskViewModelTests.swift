@@ -12,6 +12,7 @@ private final class TaskViewModelTests: XCTestCase {
 
     var sutTaskViewModel: TaskViewModel!
     var mockCoreDataStack: CoreDataStackProtocol!
+    var stubNetworkRepository: StubNetworkRepository!
 
     var addedIndex: Int!
     var isChanged: Bool!
@@ -22,7 +23,8 @@ private final class TaskViewModelTests: XCTestCase {
     override func setUpWithError() throws {
         try super.setUpWithError()
         mockCoreDataStack = MockCoreDataStack()
-        sutTaskViewModel = TaskViewModel(networkRepository: SpyNetworkRepository(), coreDataStack: mockCoreDataStack)
+        stubNetworkRepository = StubNetworkRepository()
+        sutTaskViewModel = TaskViewModel(networkRepository: stubNetworkRepository, coreDataStack: mockCoreDataStack)
 
         sutTaskViewModel.added = { (index) in
             self.addedIndex = index
@@ -43,6 +45,7 @@ private final class TaskViewModelTests: XCTestCase {
     override func tearDownWithError() throws {
         sutTaskViewModel = nil
         mockCoreDataStack = nil
+        stubNetworkRepository = nil
         addedIndex = nil
         isChanged = nil
         insertedStateAndIndex = nil
@@ -61,4 +64,6 @@ private final class TaskViewModelTests: XCTestCase {
 
 //        sutTaskViewModel.task(from: ., at: <#T##Int#>)
     }
+
+    
 }
