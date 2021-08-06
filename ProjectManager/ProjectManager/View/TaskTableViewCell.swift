@@ -23,6 +23,7 @@ final class TaskTableViewCell: UITableViewCell {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .body)
         label.text = "placeholder Context"
+        label.numberOfLines = 3
         return label
     }()
 
@@ -67,16 +68,30 @@ final class TaskTableViewCell: UITableViewCell {
     func setLabelText(title: String, context: String, deadline: Date) {
         titleLabel.text = title
         contextLabel.text = context
-        deadlineLabel.text = dateToString(date: deadline)
+        deadlineLabel.text = convertDate(date: deadline)
+        deadlineLabel.textColor = compareDate(deadline: deadline) ? .systemRed : .black
+
     }
 }
 
 // MARK: - DateFormatter
 extension TaskTableViewCell {
-    private func dateToString(date: Date) -> String {
-        dateFormatter.dateFormat = "yyyy-mm-dd"
-        let dateString = dateFormatter.string(from: date)
+    private func convertDate(date: Date) -> String {
+        dateFormatter.locale = Locale(identifier: Locale.preferredLanguages.first!)
+        dateFormatter.dateStyle = .long
 
-        return dateString
+        return dateFormatter.string(from: date)
+    }
+
+    private func compareDate(deadline: Date) -> Bool {
+        let nowDate = Date()
+        let components = Calendar.current.dateComponents([.day], from: nowDate, to: deadline)
+        guard let result = components.day else { return false }
+
+        if result < 0 {
+            return true
+        } else {
+            return false
+        }
     }
 }

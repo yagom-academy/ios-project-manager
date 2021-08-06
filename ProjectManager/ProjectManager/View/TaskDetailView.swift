@@ -33,6 +33,7 @@ final class TaskDetailView: UIViewController {
         let datePicker = UIDatePicker()
         datePicker.preferredDatePickerStyle = .wheels
         datePicker.datePickerMode = .date
+        datePicker.locale = Locale(identifier: Locale.preferredLanguages.first!)
         return datePicker
 
     }()

@@ -64,9 +64,9 @@
 			isa = PBXGroup;
 			children = (
 				C7431F0925F51E1D0094C4CF /* TaskViewController.swift */,
+				7080E49126B926F100580E96 /* TaskTableViewCell.swift */,
 				7080E48D26B8D24800580E96 /* TaskHeadView.swift */,
 				7080E48F26B924CD00580E96 /* TaskTableView.swift */,
-				7080E49126B926F100580E96 /* TaskTableViewCell.swift */,
 				7080E49326BA081100580E96 /* TaskDetailView.swift */,
 			);
 			path = View;
