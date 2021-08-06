@@ -11,22 +11,23 @@ import MobileCoreServices
 
 final class TaskTests: XCTestCase {
 
-    private var coreDataRepository: CoreDataRepository!
+    private var mockCoreDataStack: MockCoreDataStack!
     private var sutTask: Task!
 
     override func setUpWithError() throws {
         try super.setUpWithError()
-        coreDataRepository = CoreDataRepository(coreDataStack: MockCoreDataStack())
+        mockCoreDataStack = MockCoreDataStack()
         guard let today = Calendar.current.date(byAdding: .day, value: 0, to: Date()) else {
             XCTFail("날짜를 가져오지 못했습니다.")
             return
         }
-        sutTask = try coreDataRepository.create(title: "ABC", body: "123", dueDate: today, state: .todo)
+        sutTask = Task(context: mockCoreDataStack.context, responseTask: TestAsset.dummyTodoResponseTask)
+        sutTask.dueDate = today
     }
 
     override func tearDownWithError() throws {
         sutTask = nil
-        coreDataRepository = nil
+        mockCoreDataStack = nil
         try super.tearDownWithError()
     }
 
@@ -46,8 +47,6 @@ final class TaskTests: XCTestCase {
             return
         }
         sutTask.dueDate = pastDate
-
-        print("요기용",sutTask.dueDate, Date())
         
         XCTAssertEqual(sutTask.isExpired, true)
     }
