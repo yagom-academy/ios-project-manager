@@ -28,8 +28,10 @@ final class NetworkManager<T: Codable> {
     }
     
     func post(url: URL, item: T, completion: @escaping (Result<Data, NetworkError>) -> Void) {
-        guard let request: URLRequest =  generateURLRequest(url, item, .post) else {
-            completion(.failure(.invalidRequest))
+        guard let request: URLRequest = generateURLRequest(url: url,
+                                                           item: item,
+                                                           method: .delete,
+                                                           headers: [.contentType(key: HTTPHeader.applicationJson)]) else {            completion(.failure(.invalidRequest))
             return
         }
         dataTask(with: request) { result in
@@ -43,8 +45,10 @@ final class NetworkManager<T: Codable> {
     }
     
     func put(url: URL, item: T, completion: @escaping (Result<Data, NetworkError>) -> Void) {
-        guard let request: URLRequest = generateURLRequest(url, item, .put) else {
-            completion(.failure(.invalidRequest))
+        guard let request: URLRequest = generateURLRequest(url: url,
+                                                           item: item,
+                                                           method: .delete,
+                                                           headers: [.contentType(key: HTTPHeader.applicationJson)]) else {            completion(.failure(.invalidRequest))
             return
         }
         dataTask(with: request) { result in
@@ -58,7 +62,10 @@ final class NetworkManager<T: Codable> {
     }
     
     func delete(url: URL, item: T, completion: @escaping (Result<Data, NetworkError>) -> Void) {
-        guard let request: URLRequest = generateURLRequest(url, item, .delete) else {
+        guard let request: URLRequest = generateURLRequest(url: url,
+                                                           item: item,
+                                                           method: .delete,
+                                                           headers: [.contentType(key: HTTPHeader.applicationJson)]) else {
             completion(.failure(.invalidRequest))
             return
         }
@@ -99,16 +106,21 @@ final class NetworkManager<T: Codable> {
         dataTask.resume()
     }
     
-    private func generateURLRequest(_ url: URL, _ item: T?, _ httpMethod: HTTPMethod) -> URLRequest? {
+    private func generateURLRequest(url: URL, item: T?, method: HTTPMethod, headers: [HTTPHeader]?) -> URLRequest? {
         var request: URLRequest = URLRequest(url: url)
 
-        request.httpMethod = "\(httpMethod)"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "\(method)"
+        headers?.forEach{
+            $0.header.forEach { field, value in
+                request.addValue(value, forHTTPHeaderField: field)
+            }
+        }
         do {
             let data = try JSONEncoder().encode(item)
             request.httpBody = data
         } catch {
             print(error.localizedDescription)
+            return nil
         }
         return request
     }

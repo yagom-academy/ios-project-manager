@@ -21,6 +21,7 @@
 		C3484B7926A9879F0054C20A /* DragCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3484B7826A9879F0054C20A /* DragCoordinator.swift */; };
 		C3844F6626A9461F00F91098 /* ItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3844F6526A9461F00F91098 /* ItemTableViewCell.swift */; };
 		C3A702BF26B900DE0019A928 /* URLSessionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A702BE26B900DE0019A928 /* URLSessionProtocol.swift */; };
+		C3B33FBC26BD1421003875AD /* HTTPHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B33FBB26BD1421003875AD /* HTTPHeader.swift */; };
 		C3C2B47326BA3A9400CC38BD /* DummyJsonData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C2B47226BA3A9400CC38BD /* DummyJsonData.swift */; };
 		C3C2B48326BA5F5F00CC38BD /* FailureNetworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C2B48226BA5F5F00CC38BD /* FailureNetworkTests.swift */; };
 		C3C6857426B804390080AED9 /* MockURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C6857326B804390080AED9 /* MockURLSession.swift */; };
@@ -66,6 +67,7 @@
 		C3484B7826A9879F0054C20A /* DragCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragCoordinator.swift; sourceTree = "<group>"; };
 		C3844F6526A9461F00F91098 /* ItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTableViewCell.swift; sourceTree = "<group>"; };
 		C3A702BE26B900DE0019A928 /* URLSessionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionProtocol.swift; sourceTree = "<group>"; };
+		C3B33FBB26BD1421003875AD /* HTTPHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPHeader.swift; sourceTree = "<group>"; };
 		C3C2B47226BA3A9400CC38BD /* DummyJsonData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyJsonData.swift; sourceTree = "<group>"; };
 		C3C2B48226BA5F5F00CC38BD /* FailureNetworkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailureNetworkTests.swift; sourceTree = "<group>"; };
 		C3C6857326B804390080AED9 /* MockURLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLSession.swift; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 				C3A702BE26B900DE0019A928 /* URLSessionProtocol.swift */,
 				C3DAE84126B85B2D001C6A2E /* ServerAPI.swift */,
 				C3DAE84326B85B4E001C6A2E /* HttpMethod.swift */,
+				C3B33FBB26BD1421003875AD /* HTTPHeader.swift */,
 				C3DAE84926B8C5A6001C6A2E /* NetworkError.swift */,
 			);
 			path = Network;
@@ -387,6 +390,7 @@
 				B0C9A03E26AE7A350022FB00 /* TaskTableView.swift in Sources */,
 				C3DAE84426B85B4E001C6A2E /* HttpMethod.swift in Sources */,
 				C3484B7526A9822C0054C20A /* MainViewController+DragDelegate.swift in Sources */,
+				C3B33FBC26BD1421003875AD /* HTTPHeader.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				C3A702BF26B900DE0019A928 /* URLSessionProtocol.swift in Sources */,
