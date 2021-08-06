@@ -8,17 +8,15 @@
 import Foundation
 
 final class NetworkManager<T: Codable> {
-    let session: URLSessionProtocol
+    private let session: URLSessionProtocol
+    private let okResponseStatusCode: ClosedRange<Int> = (200...299)
     
     init(session: URLSessionProtocol = URLSession.shared) {
         self.session = session
     }
     
-    func get(url: URL, completion: @escaping (Result<Data, NetworkError>) -> Void) {
-        guard let request: URLRequest = generateURLRequest(url, nil, .get) else {
-            completion(.failure(.invalidRequest))
-            return
-        }
+    func fetch(url: URL, completion: @escaping (Result<Data, NetworkError>) -> Void) {
+        let request: URLRequest = URLRequest(url: url)
         dataTask(with: request) { result in
             switch result {
             case .success(let data):
@@ -76,7 +74,7 @@ final class NetworkManager<T: Codable> {
     
     private func dataTask(with request: URLRequest, completion: @escaping (Result<Data, NetworkError>) -> Void) {
         let dataTask = session.dataTask(with: request) { data, response, error in
-            if let _ = error {
+            if error != nil {
                 completion(.failure(.error))
                 return
             }
@@ -86,7 +84,7 @@ final class NetworkManager<T: Codable> {
                 return
             }
             
-            guard (200...299).contains(response.statusCode) else {
+            guard self.okResponseStatusCode.contains(response.statusCode) else {
                 completion(.failure(.invalidStatusCode(response.statusCode)))
                 return
             }
