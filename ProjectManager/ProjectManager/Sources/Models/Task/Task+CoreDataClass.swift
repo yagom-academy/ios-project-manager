@@ -55,7 +55,7 @@ public final class Task: NSManagedObject, Codable {
     convenience init(context: NSManagedObjectContext,
                      id: UUID = UUID(),
                      title: String,
-                     body: String?,
+                     body: String? = nil,
                      dueDate: Date,
                      state: State) {
         self.init(context: context)

@@ -12,34 +12,33 @@ struct CoreDataRepository {
 
     var coreDataStack: CoreDataStackProtocol
 
-    var isEmpty: Bool {
-        return coreDataStack.context.registeredObjects.count == 0
-    }
-
     init(coreDataStack: CoreDataStackProtocol = CoreDataStack.shared) {
         self.coreDataStack = coreDataStack
 
-        if readPendingTaskList() == nil {
-            let context = coreDataStack.context
-            let list = PendingTaskList(context: context)
+        if pendingTaskList() == nil {
+            let list = PendingTaskList(context: self.coreDataStack.context)
             list.tasks = []
 
             self.coreDataStack.saveContext()
         }
     }
+}
 
-    private mutating func readPendingTaskList() -> PendingTaskList? {
-        guard let pendingTaskList = coreDataStack.fetchPendingTaskList().first else { return nil }
-        return pendingTaskList
+// MARK: - Task
+
+extension CoreDataRepository {
+
+    var isEmpty: Bool {
+        return coreDataStack.context.registeredObjects.count == 0
     }
 
     func task(with objectID: NSManagedObjectID) -> Task? {
         return try? coreDataStack.context.existingObject(with: objectID) as? Task
     }
 
-    mutating func create(title: String, body: String, dueDate: Date, state: Task.State) throws -> Task {
+    mutating func create(title: String, body: String? = nil, dueDate: Date, state: Task.State) throws -> Task {
         let task = Task(context: coreDataStack.context, title: title, body: body, dueDate: dueDate, state: state)
-        self.coreDataStack.saveContext()
+        coreDataStack.saveContext()
         return task
     }
 
@@ -58,50 +57,57 @@ struct CoreDataRepository {
                          dueDate: Date? = nil,
                          body: String? = nil,
                          state: Task.State? = nil) {
-        let context = coreDataStack.context
-        guard let task = context.object(with: objectID) as? Task else { return }
+        guard let task = coreDataStack.context.object(with: objectID) as? Task else { return }
 
         task.title = title ?? task.title
-        task.body = body ?? task.body
         task.dueDate = dueDate ?? task.dueDate
         task.taskState = state ?? task.taskState
 
-        self.coreDataStack.saveContext()
+        if let body = body {
+            task.body = body.isEmpty ? nil : body
+        }
+
+        coreDataStack.saveContext()
     }
 
     mutating func softDelete(_ id: NSManagedObjectID) {
-        let context = coreDataStack.context
-        guard let task = context.object(with: id) as? Task else { return }
+        guard let task = coreDataStack.context.object(with: id) as? Task else { return }
         task.isRemoved = true
 
         self.coreDataStack.saveContext()
     }
 
     mutating func delete(_ id: NSManagedObjectID) {
-        let context = coreDataStack.context
-        guard let task = context.object(with: id) as? Task else { return }
-        context.delete(task)
+        guard let task = coreDataStack.context.object(with: id) as? Task else { return }
+        coreDataStack.context.delete(task)
 
-        self.coreDataStack.saveContext()
+        coreDataStack.saveContext()
     }
 }
+
+// MARK: - PendingTaskList
 
 extension CoreDataRepository {
 
     mutating func readPendingTasks() -> [Task]? {
-        guard let pendingTasks = readPendingTaskList()?.tasks?.array.compactMap({ $0 as? Task }) else { return nil }
+        guard let pendingTasks = pendingTaskList()?.tasks?.array.compactMap({ $0 as? Task }) else { return nil }
         return pendingTasks
     }
 
-    mutating func deleteFromPendingTaskList(_ task: Task) {
-        readPendingTaskList()?.removeFromTasks(task)
+    mutating func insertFromPendingTaskList(_ task: Task) {
+        pendingTaskList()?.addToTasks(task)
 
         coreDataStack.saveContext()
     }
 
-    mutating func insertFromPendingTaskList(_ task: Task) {
-        readPendingTaskList()?.addToTasks(task)
+    mutating func deleteFromPendingTaskList(_ task: Task) {
+        pendingTaskList()?.removeFromTasks(task)
 
         coreDataStack.saveContext()
+    }
+
+    private mutating func pendingTaskList() -> PendingTaskList? {
+        guard let pendingTaskList = coreDataStack.fetchPendingTaskList().first else { return nil }
+        return pendingTaskList
     }
 }

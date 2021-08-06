@@ -29,7 +29,11 @@ struct TaskEditViewModel {
         guard let task = task,
               let indexPath = indexPath else { return }
 
-        let isChanged: Bool = task.title != title || task.dueDate != dueDate || task.body != body
+        let title: String? = (task.title == title) ? nil : title
+        let dueDate: Date? = (task.dueDate == dueDate) ? nil : dueDate
+        let body: String? = (task.body == body) ? nil : body
+
+        let isChanged: Bool = title != nil || dueDate != nil || body != nil
         guard isChanged else { return }
 
         coreDataRepository.update(objectID: task.objectID, title: title, dueDate: dueDate, body: body)
@@ -38,6 +42,7 @@ struct TaskEditViewModel {
 
     mutating func create(title: String, dueDate: Date, body: String) {
         guard let date = dueDate.date else { return }
+        let body: String? = body.isEmpty ? nil : body
 
         if let task = try? coreDataRepository.create(title: title, body: body, dueDate: date, state: .todo) {
             self.task = task
