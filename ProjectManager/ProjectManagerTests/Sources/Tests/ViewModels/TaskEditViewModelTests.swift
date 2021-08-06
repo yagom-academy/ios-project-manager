@@ -54,11 +54,7 @@ final class TaskEditViewModelTests: XCTestCase {
     func test_update시에_변한값이없다면_동작하지않는다() throws {
         sutTaskEditViewModel.setTask(dummyTask, indexPath: IndexPath(row: 0, section: 0))
 
-        guard let dummyTask = dummyTask else {
-            XCTFail("dummyTask가 사라짐")
-            return
-        }
-        sutTaskEditViewModel.update(title: dummyTask.title, dueDate: dummyTask.dueDate, body: dummyTask.body ?? "")
+        sutTaskEditViewModel.update(title: dummyTask.title, dueDate: dummyTask.dueDate, body: dummyTask.body!)
 
         XCTAssertNil(updatedTaskAndIndexPath)
     }
@@ -66,19 +62,23 @@ final class TaskEditViewModelTests: XCTestCase {
     func test_update를호출하면_해당task과indexPath를updated로넘겨준다() {
         sutTaskEditViewModel.setTask(dummyTask, indexPath: IndexPath(row: 0, section: 0))
 
-        guard let dummyTask = dummyTask else {
-            XCTFail("dummyTask가 사라짐")
-            return
-        }
-        sutTaskEditViewModel.update(title: "업데이트됨", dueDate: dummyTask.dueDate, body: dummyTask.body ?? "")
+        sutTaskEditViewModel.update(title: "업데이트됨", dueDate: Date(), body: "")
 
         XCTAssertEqual(updatedTaskAndIndexPath?.indexPath, sutTaskEditViewModel.indexPath)
         XCTAssertEqual(updatedTaskAndIndexPath?.task, sutTaskEditViewModel.task)
     }
 
-    func test_create를호출하면_해당task를프로퍼티로저장하고created로넘겨준다() {
+    func test_빈body로_create를호출하면_해당task를프로퍼티로저장하고created로넘겨준다() {
         sutTaskEditViewModel.create(title: "아무튼 생성됨", dueDate: Date(), body: "")
 
+        XCTAssertNil(sutTaskEditViewModel.task!.body)
+        XCTAssertEqual(createdTask, sutTaskEditViewModel.task)
+    }
+
+    func test_내용있는body로_create를호출하면_해당task를프로퍼티로저장하고created로넘겨준다() {
+        sutTaskEditViewModel.create(title: "아무튼 생성됨", dueDate: Date(), body: "내용왜용")
+
+        XCTAssertNotNil(sutTaskEditViewModel.task!.body)
         XCTAssertEqual(createdTask, sutTaskEditViewModel.task)
     }
 }

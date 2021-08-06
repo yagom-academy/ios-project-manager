@@ -33,10 +33,16 @@ final class TaskListTests: XCTestCase {
         try super.tearDownWithError()
     }
 
-    func test_state로접근하면_해당state의Task의배열을반환한다() {
-        let expected: [Task] = [tasks[0]]
+    func test_count는_모든state의개수를반환한다() {
+        let expectedCount: Int = 3
 
-        XCTAssertEqual(sutTaskList[.todo], expected)
+        XCTAssertEqual(sutTaskList.count, expectedCount)
+    }
+
+    func test_state로접근하면_해당state의Task의배열을반환한다() {
+        let expectedTasks: [Task] = [tasks[0]]
+
+        XCTAssertEqual(sutTaskList[.todo], expectedTasks)
     }
 
     func test_state로접근하여_수정하면_해당state의Task에반영된다() {
