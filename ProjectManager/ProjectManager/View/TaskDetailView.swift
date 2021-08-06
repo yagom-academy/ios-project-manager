@@ -86,8 +86,9 @@ final class TaskDetailView: UIViewController {
     }
 
     private func setNavigationBar() {
+        guard let classification = self.classification else { return }
         let rightBarButtonSystemItem: UIBarButtonItem.SystemItem = self.mode == .add ? .done : .edit
-        navigationItem.title = "TODO"
+        navigationItem.title = classification.uppercased()
 
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel,
                                                            target: self,

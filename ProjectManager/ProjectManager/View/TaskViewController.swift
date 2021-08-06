@@ -8,9 +8,9 @@ import UIKit
 import SnapKit
 
 final class TaskViewController: UIViewController {
-    private let todoHeadView = TaskHeadView(classification: "TODO")
-    private let doingHeadView = TaskHeadView(classification: "DOING")
-    private let doneHeadView = TaskHeadView(classification: "DONE")
+    private let todoHeadView = TaskHeadView(classification: Classification.todo.name.uppercased())
+    private let doingHeadView = TaskHeadView(classification: Classification.doing.name.uppercased())
+    private let doneHeadView = TaskHeadView(classification: Classification.done.name.uppercased())
 
     private let headStackView: UIStackView = {
         let stackView = UIStackView()
