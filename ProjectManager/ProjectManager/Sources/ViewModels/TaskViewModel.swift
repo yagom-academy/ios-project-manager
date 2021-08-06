@@ -48,9 +48,9 @@ final class TaskViewModel {
      - Parameter task: 추가할 task
      */
     func add(_ task: Task) {
-        guard let index: Int = count(of: task.taskState) else { return }
+        let addedIndex: Int = count(of: .todo)
         taskList[.todo].append(task)
-        added?(index)
+        added?(addedIndex)
         post(task)
     }
 
@@ -151,7 +151,7 @@ final class TaskViewModel {
 
      - Parameter state: task 개수를 알려줄 상태
      */
-    func count(of state: Task.State) -> Int? {
+    func count(of state: Task.State) -> Int {
         return taskList[state].count
     }
 }

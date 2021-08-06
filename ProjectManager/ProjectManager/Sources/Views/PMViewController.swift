@@ -148,6 +148,7 @@ final class PMViewController: UIViewController {
         viewModel.changed = {
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
+
                 if self.isFirstLoad {
                     self.stateStackViews.forEach { stateStackView in
                         stateStackView.showTaskCountLabel()
@@ -157,9 +158,9 @@ final class PMViewController: UIViewController {
                 }
 
                 self.stateStackViews.forEach {
-                    guard let state = $0.state,
-                          let taskCount = self.viewModel.count(of: state) else { return }
+                    guard let state = $0.state else { return }
 
+                    let taskCount = self.viewModel.count(of: state)
                     $0.setTaskCountLabel(as: taskCount)
                 }
             }
