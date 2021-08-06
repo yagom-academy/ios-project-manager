@@ -1,5 +1,5 @@
 //
-//  TaskCoreDataStack.swift
+//  CoreDataStack.swift
 //  ProjectManager
 //
 //  Created by duckbok, Ryan-Son on 2021/07/29.
@@ -7,26 +7,29 @@
 
 import CoreData
 
-struct TaskCoreDataStack {
+struct CoreDataStack: CoreDataStackProtocol {
 
     static let persistentContainerName = "ProjectManager"
-    static var shared = TaskCoreDataStack()
+    static let shared = CoreDataStack()
 
-    var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: TaskCoreDataStack.persistentContainerName)
+    private var persistentContainer: NSPersistentContainer = {
+        let container = NSPersistentContainer(name: CoreDataStack.persistentContainerName)
         container.loadPersistentStores { (_, error) in
             container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
 
-            if let error = error as NSError? {
-                print(error)
+            if let error = error {
+                fatalError("Persistent store 로드에 실패했어요. \(error)")
             }
         }
         return container
     }()
+    var context: NSManagedObjectContext
 
-    private init() { }
+    private init() {
+        context = persistentContainer.viewContext
+    }
 
-    func saveContext() {
+    mutating func saveContext() {
         if persistentContainer.viewContext.hasChanges {
             do {
                 try persistentContainer.viewContext.save()
@@ -37,20 +40,7 @@ struct TaskCoreDataStack {
         }
     }
 
-    func parse(_ jsonData: Data) -> Bool {
-        do {
-            let decoder = JSONDecoder()
-            _ = try decoder.decode([Task].self, from: jsonData)
-            try persistentContainer.viewContext.save()
-
-            return true
-        } catch {
-            print(error)
-            return false
-        }
-    }
-
-    func fetchTasks() -> [Task] {
+    mutating func fetchTasks() -> [Task] {
         let fetchRequest = NSFetchRequest<Task>(entityName: Task.entityName)
 
         do {
@@ -62,7 +52,7 @@ struct TaskCoreDataStack {
         }
     }
 
-    func fetchPendingTaskList() -> [PendingTaskList] {
+    mutating func fetchPendingTaskList() -> [PendingTaskList] {
         let fetchRequest = NSFetchRequest<PendingTaskList>(entityName: PendingTaskList.entityName)
 
         do {

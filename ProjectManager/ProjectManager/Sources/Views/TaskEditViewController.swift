@@ -110,8 +110,7 @@ final class TaskEditViewController: UIViewController {
 
         self.modalTransitionStyle = .flipHorizontal
         self.editMode = editMode
-        self.viewModel.task = task?.task
-        self.viewModel.indexPath = task?.indexPath
+        self.viewModel.setTask(task?.task, indexPath: task?.indexPath)
 
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(keyboardWillShow),

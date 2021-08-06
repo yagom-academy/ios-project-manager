@@ -23,23 +23,23 @@ public final class Task: NSManagedObject, Codable {
     }
 
     public convenience init(from decoder: Decoder) throws {
-        let managedObjectContext = TaskCoreDataStack.shared.persistentContainer.viewContext
-        guard let entity = NSEntityDescription.entity(forEntityName: Task.entityName, in: managedObjectContext) else {
+        let context = CoreDataStack.shared.context
+        guard let entity = NSEntityDescription.entity(forEntityName: Task.entityName, in: context) else {
             print("Failed to retrieve managed object context.")
             throw PMError.decodingFailed
         }
 
-        self.init(entity: entity, insertInto: managedObjectContext)
+        self.init(entity: entity, insertInto: context)
 
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.id = try container.decode(UUID.self, forKey: .id)
         self.title = try container.decode(String.self, forKey: .title)
-        self.body = try container.decode(String.self, forKey: .body)
+        self.body = try container.decode(String?.self, forKey: .body)
         self.dueDate = try container.decode(Date.self, forKey: .dueDate)
         self.state = try container.decode(String.self, forKey: .state)
         self.isRemoved = try container.decode(Bool.self, forKey: .isRemoved)
 
-        try managedObjectContext.save()
+        try context.save()
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -50,5 +50,28 @@ public final class Task: NSManagedObject, Codable {
         try container.encode(dueDate, forKey: .dueDate)
         try container.encode(state, forKey: .state)
         try container.encode(isRemoved, forKey: .isRemoved)
+    }
+
+    convenience init(context: NSManagedObjectContext,
+                     id: UUID = UUID(),
+                     title: String,
+                     body: String? = nil,
+                     dueDate: Date,
+                     state: State) {
+        self.init(context: context)
+        self.id = id
+        self.title = title
+        self.body = body
+        self.dueDate = dueDate
+        self.state = state.rawValue
+    }
+
+    convenience init(context: NSManagedObjectContext, responseTask: ResponseTask) {
+        self.init(context: context)
+        self.id = responseTask.id
+        self.title = responseTask.title
+        self.body = responseTask.body
+        self.dueDate = Date(timeIntervalSince1970: Double(responseTask.dueDate))
+        self.state = responseTask.state.rawValue
     }
 }

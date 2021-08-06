@@ -35,6 +35,7 @@ final class PMViewController: UIViewController {
             showNetworkStatus(at: isConnected)
         }
     }
+    private var isFirstLoad: Bool = true
 
     // MARK: Views
 
@@ -146,10 +147,20 @@ final class PMViewController: UIViewController {
 
         viewModel.changed = {
             DispatchQueue.main.async { [weak self] in
-                self?.stateStackViews.forEach {
-                    guard let state = $0.state,
-                          let taskCount = self?.viewModel.count(of: state) else { return }
+                guard let self = self else { return }
 
+                if self.isFirstLoad {
+                    self.stateStackViews.forEach { stateStackView in
+                        stateStackView.showTaskCountLabel()
+                        stateStackView.stateTableView.reloadSections(IndexSet(0...0), with: .automatic)
+                    }
+                    self.isFirstLoad.toggle()
+                }
+
+                self.stateStackViews.forEach {
+                    guard let state = $0.state else { return }
+
+                    let taskCount = self.viewModel.count(of: state)
                     $0.setTaskCountLabel(as: taskCount)
                 }
             }
@@ -168,12 +179,6 @@ final class PMViewController: UIViewController {
             DispatchQueue.main.async { [weak self] in
                 let stackView = self?.stateStackViews.filter { $0.state == state }.first
                 stackView?.stateTableView.insertRows(at: indexPaths, with: .none)
-            }
-        }
-
-        viewModel.networkStatusChanged = {
-            DispatchQueue.main.async { [weak self] in
-                self?.stateStackViews.forEach { $0.stateTableView.reloadData() }
             }
         }
     }
@@ -226,7 +231,8 @@ final class PMViewController: UIViewController {
 extension PMViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let stateTableView = tableView as? StateTableView,
-              let state = stateTableView.state else { return .zero }
+              let state = stateTableView.state else {
+            return .zero }
 
         return viewModel.taskList[state].count
     }

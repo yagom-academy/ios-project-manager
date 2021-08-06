@@ -10,6 +10,7 @@ import Foundation
 enum PMError: Error {
 
     case decodingFailed
+    case foundInvalidUserInfoKeyWhileDecoding
     case invalidTypeIdentifier
     case cannotEncodeToJSON(String)
     case requestFailed(Error)
@@ -22,6 +23,8 @@ extension PMError: CustomStringConvertible {
         switch self {
         case .decodingFailed:
             return "디코딩 작업에 실패하였어요."
+        case .foundInvalidUserInfoKeyWhileDecoding:
+            return "디코딩 작업 중 유효하지 않은 UserInfoKey를 발견했어요. NSManagedObjectContext 타입인지 확인하세요."
         case .invalidTypeIdentifier:
             return "유효하지 않은 Type Identifier네요."
         case .cannotEncodeToJSON(let location):

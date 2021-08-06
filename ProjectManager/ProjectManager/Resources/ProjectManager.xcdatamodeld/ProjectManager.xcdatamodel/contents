@@ -4,7 +4,7 @@
         <relationship name="tasks" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Task" inverseName="pendingTaskList" inverseEntity="Task"/>
     </entity>
     <entity name="Task" representedClassName="Task" syncable="YES">
-        <attribute name="body" attributeType="String"/>
+        <attribute name="body" optional="YES" attributeType="String"/>
         <attribute name="dueDate" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="isRemoved" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
@@ -14,6 +14,6 @@
     </entity>
     <elements>
         <element name="PendingTaskList" positionX="-63.94842529296875" positionY="180.7860107421875" width="128" height="58"/>
-        <element name="Task" positionX="-63" positionY="-18" width="128" height="148"/>
+        <element name="Task" positionX="-63" positionY="-18" width="128" height="134"/>
     </elements>
 </model>

@@ -45,6 +45,11 @@ final class HistoryViewController: UIViewController {
         }
     }
 
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        tableView.setContentOffset(.zero, animated: false)
+    }
+
     // MARK: Configure
 
     private func setTableView() {
