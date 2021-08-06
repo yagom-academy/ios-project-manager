@@ -20,7 +20,7 @@ class TaskAlertViewController: UIViewController {
     let editBarButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(didTapEditButton))
     let doneBarButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(didTapDoneButton))
     var leftBarButton: UIBarButtonItem?
-    var changeSwitch: Bool = true
+    var isChanged: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,26 +85,26 @@ class TaskAlertViewController: UIViewController {
         
         if navigationItem.leftBarButtonItem == cancelBarButton && selectTitle.isEmpty == false {
             taskDelegate?.addTask(self, task: task)
-        } else if navigationItem.leftBarButtonItem == editBarButton && !changeSwitch {
+        } else if navigationItem.leftBarButtonItem == editBarButton && isChanged {
             guard let selectTask = selectTask else { return }
             task.category = selectTask.category
-            taskDelegate?.patchTask(self, task: task)
+            taskDelegate?.modifiedTask(self, task: task)
         }
         
         self.dismiss(animated: true)
     }
     
     @objc func changedTextField(_ sender: Any?) {
-        changeSwitch = false
+        isChanged = true
     }
     
     @IBAction func changedDatePicker(_ sender: UIDatePicker) {
-        changeSwitch = false
+        isChanged = true
     }
 }
 
 extension TaskAlertViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
-        changeSwitch = false
+        isChanged = true
     }
 }

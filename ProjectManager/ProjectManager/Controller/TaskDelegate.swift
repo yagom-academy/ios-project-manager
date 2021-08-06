@@ -9,5 +9,5 @@ import Foundation
 
 protocol TaskDelegate: AnyObject {
     func addTask(_ taskAlertViewController: TaskAlertViewController, task: Task)
-    func patchTask(_ taskAlertViewController: TaskAlertViewController, task: Task)
+    func modifiedTask(_ taskAlertViewController: TaskAlertViewController, task: Task)
 }

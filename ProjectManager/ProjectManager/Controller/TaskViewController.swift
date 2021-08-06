@@ -244,7 +244,7 @@ extension TaskViewController: UITableViewDropDelegate {
 }
 
 extension TaskViewController: TaskDelegate {
-    func patchTask(_ taskAlertViewController: TaskAlertViewController, task: Task) {
+    func modifiedTask(_ taskAlertViewController: TaskAlertViewController, task: Task) {
         let selectTableView = tableViewForCategoryType(task.category)
         let dataSource = dataSourceForTableView(selectTableView)
         dataSource.tasks[indexNum.row] = task
