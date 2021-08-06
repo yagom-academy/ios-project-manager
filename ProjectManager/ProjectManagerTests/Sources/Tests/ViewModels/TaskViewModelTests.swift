@@ -27,7 +27,7 @@ private final class TaskViewModelTests: XCTestCase {
         sutTaskViewModel.added = { (index) in
             self.addedIndex = index
         }
-        sutTaskViewModel.changed = { frontCount in
+        sutTaskViewModel.changed = {
             self.isChanged = true
         }
         sutTaskViewModel.inserted = { (state, index) in

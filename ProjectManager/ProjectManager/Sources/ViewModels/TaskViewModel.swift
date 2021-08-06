@@ -14,7 +14,6 @@ final class TaskViewModel {
     var inserted: ((_ state: Task.State, _ index: Int) -> Void)?
     var removed: ((_ state: Task.State, _ index: Int) -> Void)?
 
-
     private let networkRepository: NetworkRepositoryProtocol
     private var coreDataRepository: CoreDataRepository
 
