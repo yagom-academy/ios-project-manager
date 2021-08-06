@@ -168,10 +168,10 @@ extension NetworkRepositoryTests {
             let response: HTTPURLResponse
 
             if networkShouldSuccess {
-                if request.httpMethod == URLRequest.HTTPMethod.delete.rawValue {
+                if request.httpMethod == URLRequest.HTTPMethod.delete.rawValue.uppercased() {
                     response = HTTPURLResponse(url: request.url!, statusCode: 204, httpVersion: nil, headerFields: nil)!
                     return (response, nil)
-                } else if request.httpMethod == URLRequest.HTTPMethod.post.rawValue {
+                } else if request.httpMethod == URLRequest.HTTPMethod.post.rawValue.uppercased() {
                     response = HTTPURLResponse(url: request.url!, statusCode: 201, httpVersion: nil, headerFields: nil)!
                     return (response, data)
                 } else {
