@@ -100,6 +100,16 @@ final class TaskTests: XCTestCase {
         XCTAssertEqual(droppedTask.dueDate, sutTask.dueDate)
         XCTAssertEqual(droppedTask.taskState, sutTask.taskState)
     }
+
+    func test_object에유효하지않은typeIdentifier를전달하면_invalidTypeIdentifier에러를던진다() throws {
+        let encodedTask = try JSONEncoder().encode(sutTask)
+        let invalidTypeIdentifier = kUTTypePlainText as String
+
+        XCTAssertThrowsError(try Task.object(withItemProviderData: encodedTask, typeIdentifier: invalidTypeIdentifier)) { error in
+            XCTAssertEqual(error as? PMError, .invalidTypeIdentifier)
+        }
+        
+    }
 }
 
 extension PMError: Equatable {
