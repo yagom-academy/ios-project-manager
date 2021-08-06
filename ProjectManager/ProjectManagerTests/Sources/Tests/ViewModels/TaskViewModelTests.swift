@@ -54,10 +54,6 @@ private final class TaskViewModelTests: XCTestCase {
     }
 
     func test_task를_todo에_추가한다() throws {
-//        let task: Task = Task(context: mockCoreDataStack.context)
-
-//        try mockCoreDataStack.context.save()
-//        sutTaskViewModel.add()
     }
 
     func test_state와index를통해_해당task를반환한다() {

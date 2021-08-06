@@ -21,24 +21,28 @@ final class StubNetworkRepository: TaskNetworkRepositoryProtocol {
     var expectedPMError: PMError!
 
     func fetchTasks(completion: @escaping (Result<[ResponseTask], PMError>) -> Void) {
+        isFetchTaskCalled = true
         expectedPMError == nil
             ? completion(.success(expectedResponseTasks))
             : completion(.failure(expectedPMError))
     }
     
     func post(task: Task, completion: @escaping (Result<ResponseTask, PMError>) -> Void) {
+        isPostCalled = true
         expectedPMError == nil
             ? completion(.success(expectedResponseTask))
             : completion(.failure(expectedPMError))
     }
     
     func patch(task: Task, completion: @escaping (Result<ResponseTask, PMError>) -> Void) {
+        isPatchCalled = true
         expectedPMError == nil
             ? completion(.success(expectedResponseTask))
             : completion(.failure(expectedPMError))
     }
     
     func delete(task: Task, completion: @escaping (Result<HTTPStatusCode, PMError>) -> Void) {
+        isDeleteCalled = true
         expectedPMError == nil
             ? completion(.success(expectedResponseStatusCode))
             : completion(.failure(expectedPMError))
