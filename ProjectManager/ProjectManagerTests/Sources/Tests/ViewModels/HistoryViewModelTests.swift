@@ -12,17 +12,11 @@ final class HistoryViewModelTests: XCTestCase {
 
     var sutHistoryViewModel: HistoryViewModel!
     var isUpdated: Bool!
-    var dummyAddedHistory: History!
-    var dummyRemovedHistory: History!
-    var dummyMovedHistory: History!
 
     override func setUpWithError() throws {
         try super.setUpWithError()
         sutHistoryViewModel = HistoryViewModel()
         isUpdated = false
-        dummyAddedHistory = History(method: .added(title: "난 더해져요"))
-        dummyRemovedHistory = History(method: .removed(title: "난 삭제돼요", sourceState: .done))
-        dummyMovedHistory = History(method: .moved(title: "난 움직여요", sourceState: .todo, desinationState: .doing))
 
         sutHistoryViewModel.updated = { [weak self] in
             self?.isUpdated = true
@@ -32,17 +26,14 @@ final class HistoryViewModelTests: XCTestCase {
     override func tearDownWithError() throws {
         sutHistoryViewModel = nil
         isUpdated = nil
-        dummyAddedHistory = nil
-        dummyRemovedHistory = nil
-        dummyMovedHistory = nil
         try super.tearDownWithError()
     }
 
     func test_history를받아create를호출하면_histories맨앞에삽입된다() {
         let expectedCount: Int = 2
-        let expectedFirstHistory: History = dummyMovedHistory
+        let expectedFirstHistory: History = TestAsset.dummyMovedHistory
 
-        sutHistoryViewModel.create(history: dummyAddedHistory)
+        sutHistoryViewModel.create(history: TestAsset.dummyAddedHistory)
         sutHistoryViewModel.create(history: expectedFirstHistory)
 
         XCTAssertEqual(sutHistoryViewModel.histories.count, expectedCount)
@@ -50,16 +41,16 @@ final class HistoryViewModelTests: XCTestCase {
     }
 
     func test_histories가변경되면_updated가호출된다() {
-        sutHistoryViewModel.create(history: dummyAddedHistory)
+        sutHistoryViewModel.create(history: TestAsset.dummyAddedHistory)
 
         XCTAssertTrue(isUpdated)
     }
 
     func test_added가들어있는_index를받아history를호출하면_view가사용할두문자열을Tuple로반환한다() {
         let expectedTitle: String = "Added '난 더해져요'"
-        let expectedSubTitle: String = dummyAddedHistory.date.historyFormat
+        let expectedSubTitle: String = TestAsset.dummyAddedHistory.date.historyFormat
 
-        sutHistoryViewModel.create(history: dummyAddedHistory)
+        sutHistoryViewModel.create(history: TestAsset.dummyAddedHistory)
 
         XCTAssertEqual(sutHistoryViewModel.history(at: 0)!.title, expectedTitle)
         XCTAssertEqual(sutHistoryViewModel.history(at: 0)!.subtitle, expectedSubTitle)
@@ -67,9 +58,9 @@ final class HistoryViewModelTests: XCTestCase {
 
     func test_removed가들어있는_index를받아history를호출하면_view가사용할두문자열을Tuple로반환한다() {
         let expectedTitle: String = "Removed '난 삭제돼요' from DONE"
-        let expectedSubTitle: String = dummyRemovedHistory.date.historyFormat
+        let expectedSubTitle: String = TestAsset.dummyRemovedHistory.date.historyFormat
 
-        sutHistoryViewModel.create(history: dummyRemovedHistory)
+        sutHistoryViewModel.create(history: TestAsset.dummyRemovedHistory)
 
         XCTAssertEqual(sutHistoryViewModel.history(at: 0)!.title, expectedTitle)
         XCTAssertEqual(sutHistoryViewModel.history(at: 0)!.subtitle, expectedSubTitle)
@@ -77,9 +68,9 @@ final class HistoryViewModelTests: XCTestCase {
 
     func test_moved가들어있는_index를받아history를호출하면_view가사용할두문자열을Tuple로반환한다() {
         let expectedTitle: String = "Moved '난 움직여요' from TODO to DOING"
-        let expectedSubTitle: String = dummyMovedHistory.date.historyFormat
+        let expectedSubTitle: String = TestAsset.dummyMovedHistory.date.historyFormat
 
-        sutHistoryViewModel.create(history: dummyMovedHistory)
+        sutHistoryViewModel.create(history: TestAsset.dummyMovedHistory)
 
         XCTAssertEqual(sutHistoryViewModel.history(at: 0)!.title, expectedTitle)
         XCTAssertEqual(sutHistoryViewModel.history(at: 0)!.subtitle, expectedSubTitle)

@@ -15,4 +15,12 @@ struct ResponseTask: Codable {
     let body: String?
     let dueDate: Int
     let state: Task.State
+
+    init(id: UUID, title: String, body: String? = nil, dueDate: Int, state: Task.State) {
+        self.id = id
+        self.title = title
+        self.body = body
+        self.dueDate = dueDate
+        self.state = state
+    }
 }
