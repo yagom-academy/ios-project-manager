@@ -88,7 +88,7 @@ final class TaskTests: XCTestCase {
 
     func test_drop시호출된object는_성공시디코딩된task를반환한다() throws {
         let encodedTask = try JSONEncoder().encode(sutTask)
-        guard let typeIdentifier = Task.writableTypeIdentifiersForItemProvider.first else {
+        guard let typeIdentifier = Task.readableTypeIdentifiersForItemProvider.first else {
             XCTFail("지정된 type identifier가 없습니다.")
             return
         }
