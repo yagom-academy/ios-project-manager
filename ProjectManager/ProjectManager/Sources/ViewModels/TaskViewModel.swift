@@ -210,6 +210,7 @@ extension TaskViewModel {
                 if self.coreDataRepository.isEmpty {
                     self.taskList = TaskList(context: self.coreDataRepository.coreDataStack.context,
                                              responseTasks: responseTasks)
+                    self.coreDataRepository.coreDataStack.saveContext()
                     self.networkConnected?()
                 }
 
