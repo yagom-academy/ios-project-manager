@@ -19,7 +19,7 @@ final class NetworkRepository {
         static let delete: String = "/task"
     }
 
-    private let base: String = "https://bobian.herokuapp.com"
+    private let base: String = "https://project-manager-app-server.herokuapp.com"
     private let session: URLSession
     private let okResponse: ClosedRange<Int> = (200...299)
 
@@ -100,10 +100,6 @@ extension NetworkRepository: TaskNetworkRepositoryProtocol {
             self?.checkSessionSucceed(error, response, data) { result in
                 switch result {
                 case .success(let succeed):
-                    guard succeed.response.statusCode == 201 else {
-                        completion(.failure(.failureResponse(succeed.response.statusCode)))
-                        return
-                    }
                     guard let data = succeed.data else {
                         completion(.failure(.dataNotFound))
                         return
@@ -164,10 +160,6 @@ extension NetworkRepository: TaskNetworkRepositoryProtocol {
             self?.checkSessionSucceed(error, response, data) { result in
                 switch result {
                 case .success(let succeed):
-                    guard succeed.response.statusCode == 204 else {
-                        completion(.failure(.failureResponse(succeed.response.statusCode)))
-                        return
-                    }
                     completion(.success(succeed.response.statusCode))
                 case .failure(let pmError):
                     completion(.failure(pmError))

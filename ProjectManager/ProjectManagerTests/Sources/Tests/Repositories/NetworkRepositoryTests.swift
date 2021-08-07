@@ -114,7 +114,7 @@ final class NetworkRepositoryTests: XCTestCase {
         sutNetworkRepository.delete(task: task) { result in
             switch result {
             case .success(let responseStatusCode):
-                XCTAssertEqual(responseStatusCode, 204)
+                XCTAssertEqual(responseStatusCode, 200)
                 expectation.fulfill()
             case .failure:
                 XCTFail("Delete에 실패하였습니다.")
@@ -132,16 +132,8 @@ extension NetworkRepositoryTests {
             let response: HTTPURLResponse
 
             if networkShouldSuccess {
-                if request.httpMethod == URLRequest.HTTPMethod.delete.rawValue.uppercased() {
-                    response = HTTPURLResponse(url: request.url!, statusCode: 204, httpVersion: nil, headerFields: nil)!
-                    return (response, nil)
-                } else if request.httpMethod == URLRequest.HTTPMethod.post.rawValue.uppercased() {
-                    response = HTTPURLResponse(url: request.url!, statusCode: 201, httpVersion: nil, headerFields: nil)!
-                    return (response, data)
-                } else {
-                    response = HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: nil, headerFields: nil)!
-                    return (response, data)
-                }
+                response = HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: nil, headerFields: nil)!
+                return (response, data)
             } else {
                 response = HTTPURLResponse(url: request.url!, statusCode: 404, httpVersion: nil, headerFields: nil)!
                 return (response, nil)
