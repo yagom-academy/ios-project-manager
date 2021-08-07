@@ -14,6 +14,8 @@ final class TaskViewModel {
     var inserted: ((_ state: Task.State, _ index: Int) -> Void)?
     var removed: ((_ state: Task.State, _ index: Int) -> Void)?
 
+    var networkConnected: (() -> Void)?
+
     private let networkRepository: TaskNetworkRepositoryProtocol
     private var coreDataRepository: CoreDataRepository
 
@@ -208,6 +210,7 @@ extension TaskViewModel {
                 if self.coreDataRepository.isEmpty {
                     self.taskList = TaskList(context: self.coreDataRepository.coreDataStack.context,
                                              responseTasks: responseTasks)
+                    self.networkConnected?()
                 }
 
                 self.handlePendingTasks(responseTasks: responseTasks)

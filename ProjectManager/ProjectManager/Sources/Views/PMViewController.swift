@@ -181,6 +181,12 @@ final class PMViewController: UIViewController {
                 stackView?.stateTableView.insertRows(at: indexPaths, with: .none)
             }
         }
+
+        viewModel.networkConnected = {
+            DispatchQueue.main.async { [weak self] in
+                self?.stateStackViews.forEach { $0.stateTableView.reloadSections(IndexSet(0...0), with: .automatic) }
+            }
+        }
     }
 
     // MARK: Button Actions
