@@ -14,4 +14,5 @@ protocol CoreDataStackProtocol {
     mutating func saveContext()
     mutating func fetchTasks() -> [Task]
     mutating func fetchPendingTaskList() -> [PendingTaskList]
+    func count(of entity: String) -> Int?
 }

@@ -23,6 +23,11 @@ final class PMViewController: UIViewController {
         static let networkDisconnectedText: String = "😵 현재 오프라인 상태입니다."
         static let networkStatusLabelPresentTime: TimeInterval = 0.3
         static let networkQueueName: String = "Network"
+
+        static let activityIndicatorViewFrame: CGRect = CGRect(x: .zero, y: .zero, width: 50, height: 50)
+        static let activityIndicatorBlurViewColor: UIColor = .white.withAlphaComponent(0.8)
+        static let activityIndicatorBlurViewAlpha: CGFloat = 0.8
+        static let activityIndicatorHidingAnimationRunningTime: TimeInterval = 1.5
     }
 
     var viewModel = TaskViewModel()
@@ -77,6 +82,23 @@ final class PMViewController: UIViewController {
         return label
     }()
 
+    lazy var activityIndicatorView: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView()
+        indicator.frame = Style.activityIndicatorViewFrame
+        indicator.center = view.center
+        indicator.hidesWhenStopped = true
+        indicator.style = .large
+        indicator.startAnimating()
+        return indicator
+    }()
+
+    var blurView: UIView = {
+        let view = UIView()
+        view.backgroundColor = Style.activityIndicatorBlurViewColor
+        view.alpha = Style.activityIndicatorBlurViewAlpha
+        return view
+    }()
+
     // MARK: View Lifecycle
 
     override func viewDidLoad() {
@@ -87,6 +109,7 @@ final class PMViewController: UIViewController {
         setPMStackView()
         setRootStackView()
         setSubView()
+        showActivityIndicatorView()
 
         bindWithViewModel()
         monitorNetwork()
@@ -136,6 +159,20 @@ final class PMViewController: UIViewController {
         ])
     }
 
+    private func showActivityIndicatorView() {
+        blurView.frame = view.bounds
+        activityIndicatorView.center = view.center
+        blurView.addSubview(activityIndicatorView)
+        view.addSubview(blurView)
+    }
+
+    private func hideActivityIndicatorView() {
+        activityIndicatorView.stopAnimating()
+        UIView.animate(withDuration: Style.activityIndicatorHidingAnimationRunningTime) { [weak self] in
+            self?.blurView.removeFromSuperview()
+        }
+    }
+
     private func bindWithViewModel() {
         viewModel.added = { index in
             DispatchQueue.main.async { [weak self] in
@@ -182,9 +219,10 @@ final class PMViewController: UIViewController {
             }
         }
 
-        viewModel.networkConnected = {
+        viewModel.fetchingFinished = {
             DispatchQueue.main.async { [weak self] in
                 self?.stateStackViews.forEach { $0.stateTableView.reloadSections(IndexSet(0...0), with: .automatic) }
+                self?.hideActivityIndicatorView()
             }
         }
     }

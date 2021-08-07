@@ -29,7 +29,7 @@ struct CoreDataRepository {
 extension CoreDataRepository {
 
     var isEmpty: Bool {
-        return coreDataStack.context.registeredObjects.count == 0
+        return coreDataStack.count(of: Task.entityName) == 0
     }
 
     func task(with objectID: NSManagedObjectID) -> Task? {
@@ -47,7 +47,6 @@ extension CoreDataRepository {
         let todos = tasks.filter { $0.taskState == .todo && !$0.isRemoved }
         let doings = tasks.filter { $0.taskState == .doing && !$0.isRemoved }
         let dones = tasks.filter { $0.taskState == .done && !$0.isRemoved }
-
         return TaskList(todos: todos, doings: doings, dones: dones)
     }
 
@@ -73,14 +72,12 @@ extension CoreDataRepository {
     mutating func softDelete(_ id: NSManagedObjectID) {
         guard let task = coreDataStack.context.object(with: id) as? Task else { return }
         task.isRemoved = true
-
         self.coreDataStack.saveContext()
     }
 
     mutating func delete(_ id: NSManagedObjectID) {
         guard let task = coreDataStack.context.object(with: id) as? Task else { return }
         coreDataStack.context.delete(task)
-
         coreDataStack.saveContext()
     }
 }
@@ -96,13 +93,11 @@ extension CoreDataRepository {
 
     mutating func insertFromPendingTaskList(_ task: Task) {
         pendingTaskList()?.addToTasks(task)
-
         coreDataStack.saveContext()
     }
 
     mutating func deleteFromPendingTaskList(_ task: Task) {
         pendingTaskList()?.removeFromTasks(task)
-
         coreDataStack.saveContext()
     }
 

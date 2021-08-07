@@ -14,7 +14,7 @@ final class TaskViewModel {
     var inserted: ((_ state: Task.State, _ index: Int) -> Void)?
     var removed: ((_ state: Task.State, _ index: Int) -> Void)?
 
-    var networkConnected: (() -> Void)?
+    var fetchingFinished: (() -> Void)?
 
     private let networkRepository: TaskNetworkRepositoryProtocol
     private var coreDataRepository: CoreDataRepository
@@ -202,7 +202,11 @@ extension TaskViewModel {
     }
 
     func networkDidConnect() {
-        taskList = coreDataRepository.read()
+        if !coreDataRepository.isEmpty {
+            taskList = coreDataRepository.read()
+            fetchingFinished?()
+        }
+
         networkRepository.fetchTasks { [weak self] result in
             guard let self = self else { return }
             switch result {
@@ -211,9 +215,9 @@ extension TaskViewModel {
                     self.taskList = TaskList(context: self.coreDataRepository.coreDataStack.context,
                                              responseTasks: responseTasks)
                     self.coreDataRepository.coreDataStack.saveContext()
-                    self.networkConnected?()
                 }
 
+                self.fetchingFinished?()
                 self.handlePendingTasks(responseTasks: responseTasks)
             case .failure(let error):
                 print(error)
@@ -223,6 +227,7 @@ extension TaskViewModel {
 
     func networkDidDisconnect() {
         taskList = self.coreDataRepository.read()
+        fetchingFinished?()
     }
 
     private func handlePendingTasks(responseTasks: [ResponseTask]) {

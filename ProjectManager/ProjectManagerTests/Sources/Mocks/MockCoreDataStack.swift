@@ -68,4 +68,15 @@ struct MockCoreDataStack: CoreDataStackProtocol {
             return []
         }
     }
+
+    func count(of entity: String) -> Int? {
+        let fetchRequest = NSFetchRequest<Task>(entityName: entity)
+
+        do {
+            return try context.count(for: fetchRequest)
+        } catch {
+            print(error)
+            return nil
+        }
+    }
 }
