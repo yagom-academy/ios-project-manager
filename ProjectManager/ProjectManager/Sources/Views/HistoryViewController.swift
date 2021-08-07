@@ -35,6 +35,7 @@ final class HistoryViewController: UIViewController {
     override func viewDidLoad() {
         view.backgroundColor = .systemGray6
         tableView.dataSource = self
+        tableView.delegate = self
         setTableView()
 
         viewModel?.updated = { [weak self] in
@@ -84,5 +85,13 @@ extension HistoryViewController: UITableViewDataSource {
         cell.textLabel?.text = title
         cell.detailTextLabel?.text = subtitle
         cell.detailTextLabel?.textColor = Style.subtitleTextColor
+    }
+}
+
+// MARK: - UITableViewDelegate
+
+extension HistoryViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
