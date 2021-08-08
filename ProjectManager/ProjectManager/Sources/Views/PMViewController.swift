@@ -275,8 +275,7 @@ final class PMViewController: UIViewController {
 extension PMViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let stateTableView = tableView as? StateTableView,
-              let state = stateTableView.state else {
-            return .zero }
+              let state = stateTableView.state else { return .zero }
 
         return viewModel.taskList[state].count
     }
