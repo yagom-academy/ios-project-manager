@@ -95,7 +95,7 @@ final class TaskViewController: UIViewController {
     }
 
     @objc func didTapAddButton() {
-        let detailView = TaskDetailView(delegate: self,
+        let detailView = TaskDetailViewController(delegate: self,
                                         mode: .add,
                                         index: 0,
                                         classification: Classification.todo.name)
@@ -144,7 +144,7 @@ extension TaskViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let tableView = tableView as? TaskTableView else { return }
         let classification: String = tableView.readTask(index: indexPath.row).classification
-        let detailView = TaskDetailView(delegate: self,
+        let detailView = TaskDetailViewController(delegate: self,
                                         mode: .edit,
                                         index: indexPath.row,
                                         classification: classification)
@@ -160,6 +160,7 @@ extension TaskViewController: UITableViewDelegate {
         if editingStyle == .delete {
             tableView.deleteTask(index: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
+            countHeadViewNumber()
         }
     }
 }

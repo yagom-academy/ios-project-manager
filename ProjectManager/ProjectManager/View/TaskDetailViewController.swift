@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class TaskDetailView: UIViewController {
+final class TaskDetailViewController: UIViewController {
     enum Mode {
         case add
         case edit
@@ -35,7 +35,6 @@ final class TaskDetailView: UIViewController {
         datePicker.datePickerMode = .date
         datePicker.locale = Locale(identifier: Locale.preferredLanguages.first!)
         return datePicker
-
     }()
 
     private let contentTextView: UITextView = {
@@ -95,7 +94,7 @@ final class TaskDetailView: UIViewController {
                                                            action: nil)
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: rightBarButtonSystemItem,
                                                             target: self,
-                                                            action: #selector(didTapRightButton))
+                                                            action: #selector(doSomething))
     }
 
     func setTextAndDate(task: Task) {
@@ -104,7 +103,7 @@ final class TaskDetailView: UIViewController {
         datePicker.date = task.deadline
     }
 
-    @objc func didTapRightButton() {
+    @objc func doSomething() {
         guard let classification = self.classification,
               let index = self.index else { return }
         let task = Task(title: titleTextfield.text!,
@@ -126,7 +125,8 @@ final class TaskDetailView: UIViewController {
 
 // MARK: - UITextField func
 extension UITextField {
-    func addLeftPadding() {
+    // 모든 텍스트필드에서 확장 메서드가 필요한게 아니기 때문에 filepricate 접근 제어 설정
+    fileprivate func addLeftPadding() {
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: self.frame.height))
         self.leftView = paddingView
         self.leftViewMode = ViewMode.always
