@@ -10,7 +10,6 @@
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
-		D18387C0272832650095E24F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D18387BF272832650095E24F /* GoogleService-Info.plist */; };
 		D18387C3272834350095E24F /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = D18387C2272834350095E24F /* FirebaseFirestore */; };
 		D18387C5272834350095E24F /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = D18387C4272834350095E24F /* FirebaseFirestoreSwift-Beta */; };
 		D18387C7272836B40095E24F /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18387C6272836B40095E24F /* SwiftUIView.swift */; };
@@ -22,7 +21,6 @@
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		C7431F0E25F51E1E0094C4CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D18387BF272832650095E24F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D18387C6272836B40095E24F /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -78,7 +76,6 @@
 			isa = PBXGroup;
 			children = (
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
-				D18387BF272832650095E24F /* GoogleService-Info.plist */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 			);
 			path = SupportingFiles;
@@ -149,7 +146,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */,
-				D18387C0272832650095E24F /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
