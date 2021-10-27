@@ -47,6 +47,21 @@
 			name = "Preview Content";
 			sourceTree = "<group>";
 		};
+		79DC190E27292ADA00C8281B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				79289E2F2727DA3600F7A2C3 /* ContentView.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		79DC190F27292AE100C8281B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		C7431EF925F51E1D0094C4CF = {
 			isa = PBXGroup;
 			children = (
@@ -67,7 +82,8 @@
 			isa = PBXGroup;
 			children = (
 				79289E2D2727D99000F7A2C3 /* ProjectManagerApp.swift */,
-				79289E2F2727DA3600F7A2C3 /* ContentView.swift */,
+				79DC190F27292AE100C8281B /* Model */,
+				79DC190E27292ADA00C8281B /* Views */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
 				79289E382727E65300F7A2C3 /* GoogleService-Info.plist */,
