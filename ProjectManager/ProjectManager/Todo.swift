@@ -8,10 +8,21 @@
 import Foundation
 
 struct Todo {
-    enum Completion: CaseIterable {
+    enum Completion: CaseIterable, CustomStringConvertible {
         case todo
         case doing
         case done
+        
+        var description: String {
+            switch self {
+            case .todo:
+                return "TODO"
+            case .doing:
+                return "DOING"
+            case .done:
+                return "DONE"
+            }
+        }
     }
     
     var title: String

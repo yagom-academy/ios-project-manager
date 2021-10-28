@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct TodoList: View {
+    var completionState: Todo.Completion
+    
     var body: some View {
         List {
             Section(
@@ -16,7 +18,7 @@ struct TodoList: View {
                 },
                 header: {
                     HStack {
-                        Text("TODO")
+                        Text(completionState.description)
                             .font(.title)
                             .foregroundColor(.black)
                         ZStack {
@@ -36,6 +38,6 @@ struct TodoList: View {
 
 struct TodoList_Previews: PreviewProvider {
     static var previews: some View {
-        TodoList()
+        TodoList(completionState: .done)
     }
 }
