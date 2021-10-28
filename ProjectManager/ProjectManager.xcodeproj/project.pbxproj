@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3F76A9F2272A6444007AE039 /* ToDoRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F76A9F1272A6444007AE039 /* ToDoRow.swift */; };
+		3F76A9F6272AA52A007AE039 /* ToDoHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F76A9F5272AA52A007AE039 /* ToDoHeader.swift */; };
 		3FB2CF012727D5C700272707 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3FB2CF002727D5C700272707 /* GoogleService-Info.plist */; };
 		3FB2CF052727D83100272707 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 3FB2CF042727D83100272707 /* FirebaseFirestore */; };
 		3FB2CF072727D83100272707 /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 3FB2CF062727D83100272707 /* FirebaseFirestoreSwift-Beta */; };
@@ -23,6 +24,7 @@
 
 /* Begin PBXFileReference section */
 		3F76A9F1272A6444007AE039 /* ToDoRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoRow.swift; sourceTree = "<group>"; };
+		3F76A9F5272AA52A007AE039 /* ToDoHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoHeader.swift; sourceTree = "<group>"; };
 		3FB2CF002727D5C700272707 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -56,6 +58,7 @@
 				3F76A9F1272A6444007AE039 /* ToDoRow.swift */,
 				C9FD5113272A71BD00CD92AE /* ToDoList.swift */,
 				C9FD5117272A86FA00CD92AE /* ToDoDetail.swift */,
+				3F76A9F5272AA52A007AE039 /* ToDoHeader.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -186,6 +189,7 @@
 			files = (
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C9FD5114272A71BD00CD92AE /* ToDoList.swift in Sources */,
+				3F76A9F6272AA52A007AE039 /* ToDoHeader.swift in Sources */,
 				C9F015852727E01400A0E259 /* ContentView.swift in Sources */,
 				C9FD5118272A86FA00CD92AE /* ToDoDetail.swift in Sources */,
 				3F76A9F2272A6444007AE039 /* ToDoRow.swift in Sources */,

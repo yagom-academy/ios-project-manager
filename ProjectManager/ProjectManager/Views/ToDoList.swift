@@ -10,13 +10,13 @@ import SwiftUI
 struct ToDoList: View {
     var body: some View {
         List {
-            Text("TODO")
-                .font(.largeTitle)
+            ToDoHeader(headerTitle: "TODO", rowCount: "12")
             
             ForEach(dummyToDos) { toDo in
                 ToDoRow(toDo: toDo)
             }
         }
+        .listStyle(.plain)
     }
 }
 

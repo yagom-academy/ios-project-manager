@@ -28,11 +28,21 @@ struct ContentView: View {
                 }
                 .padding()
             }
-            HStack {
+            HStack(spacing: 0) {
                 ToDoList()
+                Divider()
+                    .opacity(0)
+                    .frame(width: 10)
+                    .background(Color(UIColor.systemGray3))
                 ToDoList()
+                Divider()
+                    .opacity(0)
+                    .frame(width: 10)
+                    .background(Color(UIColor.systemGray3))
                 ToDoList()
             }
+            .background(Color(UIColor.systemGray6))
+            .edgesIgnoringSafeArea(.bottom)
         }
     }
 }
