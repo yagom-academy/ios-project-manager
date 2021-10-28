@@ -18,6 +18,7 @@
 		C9F015852727E01400A0E259 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F015842727E01400A0E259 /* ContentView.swift */; };
 		C9FD5112272A679000CD92AE /* ToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FD5111272A679000CD92AE /* ToDo.swift */; };
 		C9FD5114272A71BD00CD92AE /* ToDoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FD5113272A71BD00CD92AE /* ToDoList.swift */; };
+		C9FD5118272A86FA00CD92AE /* ToDoDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FD5117272A86FA00CD92AE /* ToDoDetail.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		C9F015842727E01400A0E259 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		C9FD5111272A679000CD92AE /* ToDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDo.swift; sourceTree = "<group>"; };
 		C9FD5113272A71BD00CD92AE /* ToDoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoList.swift; sourceTree = "<group>"; };
+		C9FD5117272A86FA00CD92AE /* ToDoDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoDetail.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +55,7 @@
 				C9F015842727E01400A0E259 /* ContentView.swift */,
 				3F76A9F1272A6444007AE039 /* ToDoRow.swift */,
 				C9FD5113272A71BD00CD92AE /* ToDoList.swift */,
+				C9FD5117272A86FA00CD92AE /* ToDoDetail.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -184,6 +187,7 @@
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C9FD5114272A71BD00CD92AE /* ToDoList.swift in Sources */,
 				C9F015852727E01400A0E259 /* ContentView.swift in Sources */,
+				C9FD5118272A86FA00CD92AE /* ToDoDetail.swift in Sources */,
 				3F76A9F2272A6444007AE039 /* ToDoRow.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				C9FD5112272A679000CD92AE /* ToDo.swift in Sources */,
