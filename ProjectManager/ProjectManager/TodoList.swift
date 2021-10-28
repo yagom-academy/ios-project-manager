@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct TodoList: View {
+    @EnvironmentObject private var todoViewModel: TodoViewModel
     var completionState: Todo.Completion
     
     var body: some View {
@@ -39,5 +40,6 @@ struct TodoList: View {
 struct TodoList_Previews: PreviewProvider {
     static var previews: some View {
         TodoList(completionState: .done)
+            .environmentObject(TodoViewModel())
     }
 }
