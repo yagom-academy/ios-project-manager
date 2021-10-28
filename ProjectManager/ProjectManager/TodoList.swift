@@ -12,7 +12,7 @@ struct TodoList: View {
         List {
             Section(
                 content: {
-                    Text("cell 1")
+                    TodoRow()
                 },
                 header: {
                     HStack {
