@@ -20,8 +20,11 @@ struct TodoRow: View {
                 .foregroundColor(.gray)
                 .padding(.bottom, 1.0)
                 .lineLimit(3)
-            Text(todo.endDate.description)
+            let todayDate: TimeInterval = Date().timeIntervalSince1970
+            let checkDeadline: Bool = todo.completionState != .done && todayDate > todo.endDate
+            Text(todo.endDate.dateFormatString())
                 .font(.footnote)
+                .foregroundColor(checkDeadline ? .red : .black)
         }
         .truncationMode(/*@START_MENU_TOKEN@*/.tail/*@END_MENU_TOKEN@*/)
     }
@@ -33,7 +36,7 @@ struct TodoRow_Previews: PreviewProvider {
             id: 1,
             title: "테스트 제목",
             detail: "테스트 본문",
-            endDate: Date(),
+            endDate: Date().timeIntervalSince1970,
             completionState: .done))
     }
 }

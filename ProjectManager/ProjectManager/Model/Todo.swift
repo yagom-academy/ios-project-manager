@@ -28,6 +28,6 @@ struct Todo: Identifiable {
     let id: Int
     var title: String
     var detail: String
-    var endDate: Date
+    var endDate: TimeInterval
     var completionState: Completion
 }
