@@ -11,6 +11,12 @@ struct TodoList: View {
     @EnvironmentObject private var todoViewModel: TodoViewModel
     var completionState: Todo.Completion
     
+    private var filteredTodos: [Todo] {
+        todoViewModel.todos.filter { todo in
+            todo.completionState == self.completionState
+        }
+    }
+    
     var body: some View {
         List {
             Section(
@@ -27,7 +33,7 @@ struct TodoList: View {
                         ZStack {
                             Image(systemName: "circle.fill")
                                 .foregroundColor(.black)
-                            Text("1")
+                            Text(filteredTodos.count.description)
                                 .foregroundColor(.white)
                         }
                         .font(.title2)
