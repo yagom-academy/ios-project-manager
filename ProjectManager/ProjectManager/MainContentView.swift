@@ -9,8 +9,11 @@ import SwiftUI
 
 struct MainContentView: View {
     var body: some View {
-        Text("Hello World")
-            .font(.largeTitle)
+        HStack {
+            ForEach(Todo.Completion.allCases, id: \.self) { eachCase in
+                TodoList()
+            }
+        }
     }
 }
 

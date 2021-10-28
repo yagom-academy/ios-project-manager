@@ -8,7 +8,7 @@
 import Foundation
 
 struct Todo {
-    enum Completion {
+    enum Completion: CaseIterable {
         case todo
         case doing
         case done
