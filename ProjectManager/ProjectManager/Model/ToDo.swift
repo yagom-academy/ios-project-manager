@@ -19,7 +19,8 @@ enum ToDoStatus {
     case done
 }
 
-struct ToDo {
+struct ToDo: Identifiable {
+    var id = UUID()
     var title: String
     var description: String
     var date: String
