@@ -29,16 +29,20 @@ struct ToDoDetail: View {
                     Text("Done")
                 }
             }
-            TextField("Title", text: $title)
-                .padding()
-                .background(Color.white.shadow(color: .gray, radius: 3, x: 1, y: 4))
-            DatePicker(selection: $date, label: {})
-                .datePickerStyle(.wheel)
-                .labelsHidden()
-            TextEditor(text: $description)
-                .background(Color.white.shadow(color: .gray, radius: 3, x: 1, y: 4))
+            .padding()
+            .background(Color(UIColor.systemGray6))
+            VStack {
+                TextField("Title", text: $title)
+                    .padding()
+                    .background(Color.white.shadow(color: .gray, radius: 3, x: 1, y: 4))
+                DatePicker(selection: $date, label: {})
+                    .datePickerStyle(.wheel)
+                    .labelsHidden()
+                TextEditor(text: $description)
+                    .background(Color.white.shadow(color: .gray, radius: 3, x: 1, y: 4))
+            }
+            .padding()
         }
-        .padding()
     }
 }
 
