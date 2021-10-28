@@ -8,14 +8,16 @@
 import SwiftUI
 
 struct ToDoRow: View {
+    let toDo: ToDo
+    
     var body: some View {
         VStack(alignment: .leading) {
-            Text("제목")
+            Text(toDo.title)
                 .font(.title)
-            Text("설명")
+            Text(toDo.description)
                 .font(.body)
                 .foregroundColor(.gray)
-            Text("기한")
+            Text(toDo.date)
                 .font(.caption)
         }
     }
@@ -23,6 +25,6 @@ struct ToDoRow: View {
 
 struct ToDoRow_Previews: PreviewProvider {
     static var previews: some View {
-        ToDoRow()
+        ToDoRow(toDo: dummyToDos[0])
     }
 }
