@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var isDetailViewPresented = false
+    
     var body: some View {
         
         VStack {
@@ -16,9 +18,12 @@ struct ContentView: View {
                 HStack {
                     Spacer()
                     Button {
-                        
+                        self.isDetailViewPresented = true
                     } label: {
                         Image(systemName: "plus")
+                    }
+                    .sheet(isPresented: $isDetailViewPresented) {
+                        ToDoDetail()
                     }
                 }
                 .padding()
