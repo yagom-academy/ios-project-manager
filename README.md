@@ -2,6 +2,17 @@
 
 ### 프로젝트 관리 앱 저장소
 
-- 이 저장소를 자신의 저장소로 fork하여 프로젝트를 진행합니다
+## 기술스택
+### FrameWork
+- SwiftUI
+- Foundation
 
+### Database
+- Local - Core Data
+- Remote - Cloud Firestore
 
+### Server
+- Firebase
+## 프로젝트 일정
+- Step1: 211025 - 211027
+- Step2: 211028 - 211103
