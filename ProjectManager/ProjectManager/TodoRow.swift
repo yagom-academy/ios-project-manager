@@ -8,17 +8,19 @@
 import SwiftUI
 
 struct TodoRow: View {
+    var todo: Todo
+    
     var body: some View {
         VStack(alignment: .leading) {
-            Text("제목")
+            Text(todo.title)
                 .font(.title3)
                 .lineLimit(1)
-            Text("본문을 이렇게 많이 써볼려고 함")
+            Text(todo.detail)
                 .font(.body)
                 .foregroundColor(.gray)
                 .padding(.bottom, 1.0)
                 .lineLimit(3)
-            Text("2021. 10. 28.")
+            Text(todo.endDate.description)
                 .font(.footnote)
         }
         .truncationMode(/*@START_MENU_TOKEN@*/.tail/*@END_MENU_TOKEN@*/)
@@ -27,6 +29,11 @@ struct TodoRow: View {
 
 struct TodoRow_Previews: PreviewProvider {
     static var previews: some View {
-        TodoRow()
+        TodoRow(todo: Todo(
+            id: 1,
+            title: "테스트 제목",
+            detail: "테스트 본문",
+            endDate: Date(),
+            completionState: .done))
     }
 }
