@@ -50,6 +50,7 @@
 		3F76A9F0272A63FC007AE039 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C9F015842727E01400A0E259 /* ContentView.swift */,
 				3F76A9F1272A6444007AE039 /* ToDoRow.swift */,
 				C9FD5113272A71BD00CD92AE /* ToDoList.swift */,
 			);
@@ -89,7 +90,6 @@
 				3F76A9F0272A63FC007AE039 /* Views */,
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
-				C9F015842727E01400A0E259 /* ContentView.swift */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 			);
