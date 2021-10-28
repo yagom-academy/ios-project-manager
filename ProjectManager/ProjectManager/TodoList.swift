@@ -15,7 +15,9 @@ struct TodoList: View {
         List {
             Section(
                 content: {
-                    TodoRow()
+                    ForEach(filteredTodos) { todo in
+                        TodoRow(todo: todo)
+                    }
                 },
                 header: {
                     HStack {

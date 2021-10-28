@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Todo {
+struct Todo: Identifiable {
     enum Completion: CaseIterable, CustomStringConvertible {
         case todo
         case doing
@@ -25,6 +25,7 @@ struct Todo {
         }
     }
     
+    let id: Int
     var title: String
     var detail: String
     var endDate: Date
