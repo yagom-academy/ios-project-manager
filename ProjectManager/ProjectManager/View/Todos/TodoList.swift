@@ -24,6 +24,7 @@ struct TodoList: View {
                     ForEach(filteredTodos) { todo in
                         TodoRow(todo: todo)
                     }
+                    .onDelete(perform: self.delete)
                 },
                 header: {
                     HStack {
@@ -42,6 +43,18 @@ struct TodoList: View {
             )
         }
         .listStyle(.grouped)
+    }
+    
+    func delete(_ indexSet: IndexSet) {
+        let TodoIds = indexSet.map { filteredTodos[$0].id }
+        TodoIds.forEach { todoId in
+            guard let index = todoViewModel.lookForTodoIndex(by: todoId) else {
+                NSLog("ID \(todoId) 에 해당하는 Todo를 찾지 못했습니다.")
+                return
+            }
+            todoViewModel.todos.remove(at: index)
+        }
+        
     }
 }
 

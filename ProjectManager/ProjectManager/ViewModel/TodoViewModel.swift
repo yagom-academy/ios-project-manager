@@ -35,4 +35,8 @@ final class TodoViewModel: ObservableObject {
              endDate: 1640460153,
              completionState: .doing)
     ]
+    
+    func lookForTodoIndex(by id: Int) -> Int? {
+        return self.todos.firstIndex(where: { $0.id == id })
+    }
 }
