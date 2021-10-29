@@ -95,12 +95,11 @@ playground.xcworkspace
 # Pods/
 
 # Carthage
-#
 # Add this line if you want to avoid checking in source code from Carthage dependencies.
-# Carthage/Checkouts
-
-Carthage/Build
-
+#Carthage/Checkouts
+#Carthage/Build
+ProjectManager/Carthage/
+ProjectManager/Cartfile.resolved
 # fastlane
 #
 # It is recommended to not store the screenshots in the git repo. Instead, use fastlane to re-generate the
