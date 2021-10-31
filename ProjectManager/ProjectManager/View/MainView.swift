@@ -13,31 +13,37 @@ struct MainView: View {
     var body: some View {
         NavigationView {
             HStack {
-                Section {
-                    List(viewModel.jobs) {
-                        if $0.state == .ToDo {
-                            EventView(title: $0.title, description: $0.description, date: "\($0.date)")
-                        }
+                VStack {
+                    Section(header: Text("ToDo")
+                                .font(.title)) {
                     }
-                }
-                Section {
-                      List(self.viewModel.jobs) {
-                          if $0.state == .Doing {
-                              EventView(title: $0.title, description: $0.description, date: "\($0.date)")
-                          }
-                      }
+                    EventListView(events: self.viewModel.jobs, state: .ToDo)
+                        .listStyle(GroupedListStyle())
                 }
                 
-                Section {
-                    List(self.viewModel.jobs) {
-                        if $0.state == .Done {
-                            EventView(title: $0.title, description: $0.description, date: "\($0.date)")
-                        }
+                VStack {
+                    Section(header: Text("Doing")
+                                .font(.title)) {
                     }
+                    EventListView(events: self.viewModel.jobs, state: .Doing)
+                        .listStyle(GroupedListStyle())
                 }
+                
+                VStack {
+                    Section(header: Text("Done")
+                                .font(.title)) {
+                    }
+                    EventListView(events: self.viewModel.jobs, state: .Done)
+                        .listStyle(GroupedListStyle())
+                    }
             }
-            .navigationBarTitle(Text("프로젝트 관리").font(.title))
+            .navigationBarTitle("프로젝트 관리")
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar(content: {
+                Button("+") {
+                    print("hey")
+                }
+            })
         }.navigationViewStyle(StackNavigationViewStyle())
     }
 }
