@@ -13,4 +13,11 @@ struct Task {
     var description: String
     var date: Date
     let id = UUID()
+    var state: State
+    
+    enum State {
+        case todo
+        case doing
+        case done
+    }
 }
