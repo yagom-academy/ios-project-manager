@@ -4,13 +4,16 @@
 //  Copyright © yagom. All rights reserved.
 // 
 
-import UIKit
+import SwiftUI
 
 class ViewController: UIViewController {
 
+    @IBSegueAction func show(_ coder: NSCoder) -> UIViewController? {
+        return UIHostingController(coder: coder, rootView: MainView())
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
     }
 
 
