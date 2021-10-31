@@ -9,8 +9,8 @@ import Foundation
 
 struct Task {
     
-    let title: String
-    let description: String
-    let date: Date
-    let id: UUID
+    var title: String
+    var description: String
+    var date: Date
+    let id = UUID()
 }
