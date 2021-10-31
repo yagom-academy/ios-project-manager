@@ -7,6 +7,20 @@
 
 import SwiftUI
 
+struct AddEventButton: View {
+    @State private var isButtonTabbed: Bool = false
+    var body: some View {
+        Button("+") {
+            isButtonTabbed.toggle()
+            print("NewEvent")
+        }.sheet(isPresented: $isButtonTabbed, onDismiss: {
+            
+        }, content: {
+            DetailEventView()
+        })
+    }
+}
+
 struct MainView: View {
     @ObservedObject var viewModel = ProjectLists()
     
@@ -40,9 +54,7 @@ struct MainView: View {
             .navigationBarTitle("프로젝트 관리")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: {
-                Button("+") {
-                    print("hey")
-                }
+               AddEventButton()
             })
         }.navigationViewStyle(StackNavigationViewStyle())
     }

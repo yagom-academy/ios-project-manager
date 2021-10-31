@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct DetailEventView: View {
-    @State private var title: String = ""
+   // private let title: String
+    
     var body: some View {
-
-        Text("dddd")
+        Text("ddd")
     }
 }
 
