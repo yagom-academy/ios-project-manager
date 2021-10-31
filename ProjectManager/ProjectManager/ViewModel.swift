@@ -43,7 +43,6 @@ struct Input {
     var descriptionText: String?
     var dateText: Date
     var state: ListState
-    var id: UUID
 }
 
 struct Output {

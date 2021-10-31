@@ -11,22 +11,20 @@ struct MainView: View {
     @ObservedObject var viewModel = ProjectLists()
     var body: some View {
         HStack {
-            ForEach(viewModel.jobs) {
-                event in
-                if event.state == .ToDo {
-                EventView(title: event.title, description: event.description, date: "\(event.date)")
+            List(self.viewModel.jobs) {
+                if $0.state == .ToDo {
+                    EventView(title: $0.title, description: $0.description, date: "\($0.date)")
                 }
             }
-            ForEach(viewModel.jobs) {
-                event in
-                if event.state == .Doing {
-                    EventView(title: event.title, description: event.description, date: "\(event.date)")
+            List(self.viewModel.jobs) {
+                if $0.state == .Doing {
+                    EventView(title: $0.title, description: $0.description, date: "\($0.date)")
                 }
             }
-            ForEach(viewModel.jobs) {
-                event in
-                if event.state == .Done {
-                EventView(title: event.title, description: event.description, date: "\(event.date)")
+            
+            List(self.viewModel.jobs) {
+                if $0.state == .Done {
+                    EventView(title: $0.title, description: $0.description, date: "\($0.date)")
                 }
             }
         }
