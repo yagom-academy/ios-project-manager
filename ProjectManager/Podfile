@@ -6,7 +6,6 @@ target 'ProjectManager' do
   use_frameworks!
 
   # Pods for ProjectManager
-  pod 'Firebase/Analytics'
   pod 'Firebase/Firestore'
 
 end
