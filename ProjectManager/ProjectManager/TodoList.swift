@@ -10,8 +10,10 @@ import SwiftUI
 struct TodoList: View {
     var body: some View {
         List {
-            ForEach(testData) { data in
-                TodoCellView(memo: data)
+            Section(header: ToDoListHeaderView()) {
+                ForEach(testData) { data in
+                    TodoCellView(memo: data)
+                }
             }
         }
     }
