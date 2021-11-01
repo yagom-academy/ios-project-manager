@@ -12,6 +12,9 @@ struct Task {
     var title: String
     var description: String
     var date: Date
+    var localizedDate: String {
+        date.format()
+    }
     let id = UUID()
     var state: State
     
