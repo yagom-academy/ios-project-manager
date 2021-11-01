@@ -8,22 +8,29 @@
 import SwiftUI
 
 struct TodoCellView: View {
+    var memo: Memo
     var body: some View {
         VStack(alignment: .leading) {
-            Text("Test")
+            Text(memo.title)
                 .font(.title)
                 .bold()
-            Text("blablalbalbalbalblablabla")
+            Text(memo.description)
                 .font(.body)
                 .foregroundColor(Color.gray)
-            Text("2021-10-21")
+            Text("\(memo.date)")
                 .font(.caption)
         }
     }
 }
 
+let testData = [
+    Memo(title: "title1", description: "description", date: Date(), state: .todo),
+    Memo(title: "title2", description: "description", date: Date(), state: .todo),
+    Memo(title: "title", description: "description", date: Date(), state: .todo)
+]
+
 struct TodoListView_Previews: PreviewProvider {
     static var previews: some View {
-        TodoCellView()
+        TodoCellView(memo: testData[0])
     }
 }

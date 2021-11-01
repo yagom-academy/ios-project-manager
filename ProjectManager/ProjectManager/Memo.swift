@@ -7,13 +7,13 @@
 
 import Foundation
 
-struct Memo {
+struct Memo: Identifiable {
     enum State {
         case todo
         case doing
         case done
     }
-    
+    var id = UUID()
     var title: String
     var description: String
     var date: Date
