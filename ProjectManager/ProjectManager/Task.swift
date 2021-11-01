@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Task {
+struct Task: Identifiable {
     
     var title: String
     var description: String
