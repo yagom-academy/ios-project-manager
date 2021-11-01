@@ -9,7 +9,9 @@ import SwiftUI
 import Firebase
 
 @main
-struct TestApp: App {
+struct ProjectManagerApp: App {
+    
+    @StateObject private var viewModel = TaskViewModel()
     
     init() {
         FirebaseApp.configure()
@@ -18,6 +20,7 @@ struct TestApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(viewModel)
         }
     }
 }
