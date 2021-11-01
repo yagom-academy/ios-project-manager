@@ -7,12 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		791A6BB52730299600833820 /* TodoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791A6BB42730299600833820 /* TodoItem.swift */; };
 		79C32E972729882D001BB246 /* ProjectManagerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C32E962729882D001BB246 /* ProjectManagerApp.swift */; };
 		79C32E992729885C001BB246 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C32E982729885C001BB246 /* ContentView.swift */; };
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		791A6BB42730299600833820 /* TodoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.swift; sourceTree = "<group>"; };
 		79C32E962729882D001BB246 /* ProjectManagerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerApp.swift; sourceTree = "<group>"; };
 		79C32E982729885C001BB246 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -31,6 +33,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		791A6BB32730288300833820 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				79C32E982729885C001BB246 /* ContentView.swift */,
+				791A6BB42730299600833820 /* TodoItem.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		C7431EF925F51E1D0094C4CF = {
 			isa = PBXGroup;
 			children = (
@@ -50,10 +61,10 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
+				791A6BB32730288300833820 /* Views */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
 				79C32E962729882D001BB246 /* ProjectManagerApp.swift */,
-				79C32E982729885C001BB246 /* ContentView.swift */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
@@ -127,6 +138,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				79C32E992729885C001BB246 /* ContentView.swift in Sources */,
+				791A6BB52730299600833820 /* TodoItem.swift in Sources */,
 				79C32E972729882D001BB246 /* ProjectManagerApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
