@@ -8,21 +8,50 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var isEdited = false
+
     var body: some View {
-        HStack(
-            alignment: .center,
-            spacing: 6
-        ) {
-            Spacer(minLength: 50)
-            MemoList(title: "TODO")
-            MemoList(title: "DOING")
-            MemoList(title: "DONE")
+        NavigationView {
+            HStack(
+                alignment: .center,
+                spacing: UIStyle.minInsetAmount
+            ) {
+                MemoList(title: "TODO")
+                    .backgroundColor(.basic)
+                MemoList(title: "DOING")
+                    .backgroundColor(.basic)
+                MemoList(title: "DONE")
+                    .backgroundColor(.basic)
+            }
+            .backgroundColor(
+                .myGray
+            )
+            .navigationTitle("Project Manager")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        isEdited.toggle()
+                    } label: {
+                        Image(systemName: "plus")
+                    }
+                }
+            }
         }
+        .navigationViewStyle(.stack)
+        .sheet(
+            isPresented: $isEdited,
+            onDismiss: {
+                print("!")
+            },
+            content: {
+                MemoView()
+            }
+        )
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
-
     static var previews: some View {
         ContentView()
     }
