@@ -16,11 +16,5 @@ struct Task: Identifiable {
         date.format()
     }
     let id = UUID()
-    var state: State
-    
-    enum State {
-        case todo
-        case doing
-        case done
-    }
+    var state: TaskState
 }
