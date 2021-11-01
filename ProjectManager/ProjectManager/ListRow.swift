@@ -15,8 +15,10 @@ struct ListRow: View {
         HStack {
             VStack(alignment: .leading, spacing: 8) {
                 Text(task.title)
+                    .font(.title3)
                 Text(task.description)
                     .lineLimit(3)
+                    .foregroundColor(.gray)
                 if task.date <= Date() {
                     Text(task.localizedDate)
                         .foregroundColor(.red)
