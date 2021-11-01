@@ -8,16 +8,13 @@
 import SwiftUI
 
 struct DetailEventView: View {
-    @State private var eventTitle: String = "eventTitle"
-    @State private var navigationTitle: String = "asdf"
-    @State private var description: String = "description"
+    @State private var eventTitle: String = ""
+    @State private var navigationTitle: String = "ToDo"
+    @State private var description: String = ""
     @State private var selectedDate: Date = Date()
     
-    init(eventTitle: String, navigationTitle: String, description: String) {
-        self.eventTitle = eventTitle
-        self.navigationTitle = navigationTitle
-        self.description = description
-    }
+    @EnvironmentObject var viewModel: ProjectLists
+    @State var dismissSheet: Bool = false
     
     var body: some View {
         NavigationView {
@@ -25,34 +22,41 @@ struct DetailEventView: View {
                 VStack(alignment:.center) {
                     Form {
                         TextField(eventTitle, text: $eventTitle)
-                            .frame(height: geometry.size.height * 0.05, alignment: .center)
-                            .font(.title)
                             .background(Color.white)
                             .compositingGroup()
-                            .shadow(color: Color.red, radius: 5, x: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/, y: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/)
+                            .shadow(color: Color.red, radius: 10, x: 0, y: 0)
+                            .frame(height: geometry.size.height * 0.05, alignment: .center)
+                            .font(.title)
+                        
                         HStack {
                             Spacer()
                             DatePicker("",
                                        selection: $selectedDate,
                                        displayedComponents: [.date])
                                 .datePickerStyle(WheelDatePickerStyle())
-                                .fixedSize(horizontal: true, vertical: false)
+                                .fixedSize()
                             Spacer()
                         }
                         
-                        TextField(description, text: $description)
+                        TextField(description, text: $description, onCommit: {
+                            self.viewModel.input.descriptionText = description
+                        })
                             .frame(height: geometry.size.height * 0.5, alignment: .center)
                             .background(Color.white)
                             .compositingGroup()
-                            .shadow(color: Color.red, radius: 5, x: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/, y: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/)
+                            .shadow(color: Color.red, radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/, x: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/, y: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/)
                     }
                 }
             }
-        }.navigationViewStyle(StackNavigationViewStyle())
+            .toolbar(content: {
+                DoneEventButton()
+                    .environmentObject(viewModel)
+                
+            })
+        }
+        .navigationViewStyle(StackNavigationViewStyle())
         .navigationBarTitle(Text(navigationTitle))
         .navigationBarTitleDisplayMode(.inline)
-        .toolbar(content: {
-        })
-        
     }
 }
+

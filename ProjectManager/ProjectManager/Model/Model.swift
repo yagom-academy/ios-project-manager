@@ -22,6 +22,10 @@ struct Event: Identifiable {
     var id = UUID()
 }
 
+enum EventError: Error {
+    case noEvent
+}
+
 struct EventManager {
     private(set) var lists: [Event]
     
@@ -29,12 +33,11 @@ struct EventManager {
         self.lists.append(list)
     }
     
-    func read(list: Event) -> Event? {
+    func read(list: Event) -> Result<Event, EventError> {
         guard let index = find(list: list) else {
-            return nil
+            return .failure(.noEvent)
         }
-        
-        return self.lists[index]
+        return .success(self.lists[index])
     }
     
     private func find(list: Event) -> Int? {
@@ -47,8 +50,14 @@ struct EventManager {
     }
     
     mutating func update(list: Event) {
-        var targetList = read(list: list)
-        targetList = list
+        let targetEvent = read(list: list)
+        
+        switch targetEvent {
+        case .failure(let error):
+            print(error)
+        case .success(var event):
+            event = list
+        }
     }
     
     mutating func delete(list: Event) {

@@ -9,7 +9,8 @@ import SwiftUI
 
 struct AddEventButton: View {
     @State private var isButtonTabbed: Bool = false
-    
+    @EnvironmentObject var viewModel: ProjectLists
+
     var body: some View {
         Button("+") {
             isButtonTabbed.toggle()
@@ -17,13 +18,23 @@ struct AddEventButton: View {
         }.sheet(isPresented: $isButtonTabbed, onDismiss: {
             
         }, content: {
-            DetailEventView()
+            DetailEventView().environmentObject(viewModel)
         })
     }
 }
 
-struct ButtonView_Previews: PreviewProvider {
-    static var previews: some View {
-        AddEventButton()
+struct DoneEventButton: View {
+    @EnvironmentObject var viewModel: ProjectLists
+    @Environment(\.presentationMode) var presentationMode
+    
+    var body: some View {
+        if #available(iOS 15.0, *) {
+            Button("Done", role: .none) {
+                self.viewModel.create()
+                self.presentationMode.wrappedValue.dismiss()
+            }
+        } else {
+            
+        }
     }
 }

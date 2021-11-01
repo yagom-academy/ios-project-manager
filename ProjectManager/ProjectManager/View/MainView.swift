@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MainView: View {
-    @ObservedObject var viewModel = ProjectLists()
+    @EnvironmentObject var viewModel: ProjectLists
     
     var body: some View {
         NavigationView {
@@ -41,7 +41,8 @@ struct MainView: View {
             .navigationBarTitle("프로젝트 관리")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: {
-               AddEventButton()
+                AddEventButton()
+                    .environmentObject(self.viewModel)
             })
         }.navigationViewStyle(StackNavigationViewStyle())
     }
@@ -50,5 +51,6 @@ struct MainView: View {
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
         MainView()
+            .environmentObject(ProjectLists())
     }
 }
