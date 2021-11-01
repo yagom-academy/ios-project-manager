@@ -20,6 +20,7 @@ struct ToDoListHeaderView: View {
                     .frame(width: 30, height: 30)
                 Text("\(testData.count)")
                     .foregroundColor(.white)
+                    .font(.body)
             }
         }
     }
