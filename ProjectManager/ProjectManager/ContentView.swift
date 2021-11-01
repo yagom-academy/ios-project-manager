@@ -27,6 +27,13 @@ struct ContentView: View {
         }
     }
     
+    init() {
+        UITableView.appearance().backgroundColor = UIColor(red: 242 / 255,
+                                                         green: 242 / 255,
+                                                         blue: 247 / 255,
+                                                         alpha: 1.0)
+    }
+    
     var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
             HStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/, spacing: 8) {
