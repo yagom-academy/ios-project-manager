@@ -13,6 +13,7 @@
 		79289E392727E65300F7A2C3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 79289E382727E65300F7A2C3 /* GoogleService-Info.plist */; };
 		79289E3C2727F8C400F7A2C3 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 79289E3B2727F8C400F7A2C3 /* FirebaseFirestore */; };
 		79289E3E2727F8C400F7A2C3 /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 79289E3D2727F8C400F7A2C3 /* FirebaseFirestoreSwift-Beta */; };
+		79C84577272B1F8B00EDAF9F /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C84576272B1F8B00EDAF9F /* TaskViewModel.swift */; };
 		79C8457C272B33BF00EDAF9F /* ListTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C8457B272B33BF00EDAF9F /* ListTitle.swift */; };
 		79DC191127292B2C00C8281B /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DC191027292B2C00C8281B /* Task.swift */; };
 		79DC191327292CDF00C8281B /* ListColumn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DC191227292CDF00C8281B /* ListColumn.swift */; };
@@ -25,6 +26,7 @@
 		79289E2F2727DA3600F7A2C3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		79289E332727DBB000F7A2C3 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		79289E382727E65300F7A2C3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		79C84576272B1F8B00EDAF9F /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
 		79C8457B272B33BF00EDAF9F /* ListTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTitle.swift; sourceTree = "<group>"; };
 		79DC191027292B2C00C8281B /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		79DC191227292CDF00C8281B /* ListColumn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListColumn.swift; sourceTree = "<group>"; };
@@ -70,6 +72,7 @@
 			isa = PBXGroup;
 			children = (
 				79DC191027292B2C00C8281B /* Task.swift */,
+				79C84576272B1F8B00EDAF9F /* TaskViewModel.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -183,6 +186,7 @@
 			files = (
 				79C8457C272B33BF00EDAF9F /* ListTitle.swift in Sources */,
 				79DC191327292CDF00C8281B /* ListColumn.swift in Sources */,
+				79C84577272B1F8B00EDAF9F /* TaskViewModel.swift in Sources */,
 				79289E302727DA3600F7A2C3 /* ContentView.swift in Sources */,
 				79DC191127292B2C00C8281B /* Task.swift in Sources */,
 				79DC191527292CFF00C8281B /* ListRow.swift in Sources */,
