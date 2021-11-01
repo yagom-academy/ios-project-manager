@@ -1,5 +1,5 @@
 //
-//  UIColor.swift
+//  Color.swift
 //  ProjectManager
 //
 //  Created by kjs on 2021/10/31.
