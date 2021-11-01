@@ -36,18 +36,24 @@ struct MemoList: View {
             Divider()
                 .foregroundColor(.myGray)
 
-            List {
-                ForEach(0..<9) { _ in
-                    MemoListItem()
-                        .onTapGesture(perform: onTap)
-                        .onLongPressGesture(perform: onLongPress)
+            ScrollView {
+                LazyVStack(
+                    alignment: .leading,
+                    spacing: UIStyle.minInsetAmount,
+                    pinnedViews: PinnedScrollableViews()
+                ) {
+                    Group {
+                        ForEach(0..<9) { _ in
+                            MemoListItem()
+                                .padding(.bottom, UIStyle.minInsetAmount)
+                                .onTapGesture(perform: onTap)
+                                .onLongPressGesture(perform: onLongPress)
+
+                        }
+                        // TODO: - add a swipe action to delete
+                    }
                 }
-                .onDelete { indexSet in
-                    print(indexSet.first)
-                }
-                .listRowInsets(EdgeInsets())
             }
-            .listStyle(.inset)
         }
     }
 }
