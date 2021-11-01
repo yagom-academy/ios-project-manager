@@ -15,13 +15,12 @@ struct ListTitle: View {
                 .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
             ZStack {
                 Capsule()
-                    .frame(width: 44, height: 32, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                    .frame(width: 28, height: 28, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                 Text("1")
                     .foregroundColor(Color.white)
             }
             Spacer()
         })
-        .padding()
     }
 }
 
