@@ -10,10 +10,11 @@ import SwiftUI
 struct ListColumn: View {
     
     var tasks: [Task]
+    var taskState: TaskState
     
     var body: some View {
         List {
-            ListTitle()
+            ListTitle(title: String(describing: taskState))
             ForEach(tasks) { task in
                 ListRow(task: task)
                     .listRowInsets(EdgeInsets(top: 8,
@@ -27,10 +28,12 @@ struct ListColumn: View {
 
 struct ListView_Previews: PreviewProvider {
     static var previews: some View {
-        ListColumn(tasks: [
-            Task(title: "test", description: "descp", date: Date(), state: .doing),
-            Task(title: "test", description: "descp", date: Date(), state: .doing),
-            Task(title: "test", description: "descp", date: Date(), state: .doing)
-        ])
+        ListColumn(
+            tasks: [
+                Task(title: "test", description: "descp", date: Date(), state: .doing),
+                Task(title: "test", description: "descp", date: Date(), state: .doing),
+                Task(title: "test", description: "descp", date: Date(), state: .doing)
+            ],
+            taskState: TaskState.todo)
     }
 }
