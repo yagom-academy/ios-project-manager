@@ -16,6 +16,10 @@ struct ListColumn: View {
             ListTitle()
             ForEach(tasks) { task in
                 ListRow(task: task)
+                    .listRowInsets(EdgeInsets(top: 8,
+                                              leading: 0,
+                                              bottom: 0,
+                                              trailing: 0))
             }
         }
     }
