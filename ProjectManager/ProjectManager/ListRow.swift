@@ -17,7 +17,12 @@ struct ListRow: View {
                 Text(task.title)
                 Text(task.description)
                     .lineLimit(3)
-                Text(task.localizedDate)
+                if task.date <= Date() {
+                    Text(task.localizedDate)
+                        .foregroundColor(.red)
+                } else {
+                    Text(task.localizedDate)
+                }
             }
             Spacer()
         }
