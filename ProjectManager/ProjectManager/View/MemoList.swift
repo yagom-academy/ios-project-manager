@@ -36,23 +36,18 @@ struct MemoList: View {
             Divider()
                 .foregroundColor(.myGray)
 
-            ScrollView {
-                LazyVStack(
-                    alignment: .leading,
-                    spacing: UIStyle.minInsetAmount,
-                    pinnedViews: PinnedScrollableViews()
-                ) {
-                    Group {
-                        ForEach(0..<9) { _ in
-                            MemoListItem()
-                                .padding(.bottom, UIStyle.minInsetAmount)
-                                .onTapGesture(perform: onTap)
-                                .onLongPressGesture(perform: onLongPress)
-
-                        }
-                    }
+            List {
+                ForEach(0..<9) { _ in
+                    MemoListItem()
+                        .onTapGesture(perform: onTap)
+                        .onLongPressGesture(perform: onLongPress)
                 }
+                .onDelete { indexSet in
+                    print(indexSet.first)
+                }
+                .listRowInsets(EdgeInsets())
             }
+            .listStyle(.inset)
         }
     }
 }
