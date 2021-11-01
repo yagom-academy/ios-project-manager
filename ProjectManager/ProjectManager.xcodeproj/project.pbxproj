@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		03AE91FCFABF8488C7E762CE /* Pods_ProjectManager_ProjectManagerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 756BF59FB67C4149A0CF3EFA /* Pods_ProjectManager_ProjectManagerUITests.framework */; };
+		631FA84E272FF97B00F43207 /* Modifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631FA84D272FF97B00F43207 /* Modifier.swift */; };
+		631FA850272FFD0800F43207 /* UIStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631FA84F272FFD0800F43207 /* UIStyle.swift */; };
+		633301B32730128A004FA11A /* MemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633301B22730128A004FA11A /* MemoView.swift */; };
 		633FA382272861F800BFBCE9 /* MemoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633FA381272861F800BFBCE9 /* MemoList.swift */; };
 		636A39A227284AE9000C0D64 /* MemoListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636A39A127284AE9000C0D64 /* MemoListItem.swift */; };
 		6397939627280B2B0060E63B /* ProjectManagerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6397939527280B2B0060E63B /* ProjectManagerApp.swift */; };
@@ -48,6 +51,9 @@
 		0EFEE4A0A70FB0D19187CEF8 /* Pods-ProjectManager-ProjectManagerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager-ProjectManagerUITests.debug.xcconfig"; path = "Target Support Files/Pods-ProjectManager-ProjectManagerUITests/Pods-ProjectManager-ProjectManagerUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		1D1C04A1E2D8E67D2EEFECC8 /* Pods_ProjectManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6074EFA42955DDE281916BF0 /* Pods-ProjectManagerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManagerTests.release.xcconfig"; path = "Target Support Files/Pods-ProjectManagerTests/Pods-ProjectManagerTests.release.xcconfig"; sourceTree = "<group>"; };
+		631FA84D272FF97B00F43207 /* Modifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modifier.swift; sourceTree = "<group>"; };
+		631FA84F272FFD0800F43207 /* UIStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStyle.swift; sourceTree = "<group>"; };
+		633301B22730128A004FA11A /* MemoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoView.swift; sourceTree = "<group>"; };
 		633FA381272861F800BFBCE9 /* MemoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoList.swift; sourceTree = "<group>"; };
 		636A39A127284AE9000C0D64 /* MemoListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoListItem.swift; sourceTree = "<group>"; };
 		6397939227280B2B0060E63B /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -112,13 +118,25 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		631FA851272FFD0C00F43207 /* Style */ = {
+			isa = PBXGroup;
+			children = (
+				631FA84D272FF97B00F43207 /* Modifier.swift */,
+				63A0F28F272ED8D4004B8E58 /* Color.swift */,
+				631FA84F272FFD0800F43207 /* UIStyle.swift */,
+			);
+			path = Style;
+			sourceTree = "<group>";
+		};
 		636A39A327284AEB000C0D64 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				63A0F28B272EBDE4004B8E58 /* Component */,
+				631FA851272FFD0C00F43207 /* Style */,
+				63A0F28B272EBDE4004B8E58 /* Components */,
 				6397939727280B2B0060E63B /* ContentView.swift */,
 				636A39A127284AE9000C0D64 /* MemoListItem.swift */,
 				63A0F289272EB974004B8E58 /* MemoListHeader.swift */,
+				633301B22730128A004FA11A /* MemoView.swift */,
 				633FA381272861F800BFBCE9 /* MemoList.swift */,
 			);
 			path = View;
@@ -150,7 +168,6 @@
 		6397939427280B2B0060E63B /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
-				63A0F28E272ED8CB004B8E58 /* Extension */,
 				63A0F286272E8D36004B8E58 /* Resource */,
 				63A0F284272E8D20004B8E58 /* CoreData */,
 				63A0F285272E8D25004B8E58 /* Model */,
@@ -210,20 +227,12 @@
 			path = Resource;
 			sourceTree = "<group>";
 		};
-		63A0F28B272EBDE4004B8E58 /* Component */ = {
+		63A0F28B272EBDE4004B8E58 /* Components */ = {
 			isa = PBXGroup;
 			children = (
 				63A0F28C272EBE03004B8E58 /* NumberBall.swift */,
 			);
-			path = Component;
-			sourceTree = "<group>";
-		};
-		63A0F28E272ED8CB004B8E58 /* Extension */ = {
-			isa = PBXGroup;
-			children = (
-				63A0F28F272ED8D4004B8E58 /* Color.swift */,
-			);
-			path = Extension;
+			path = Components;
 			sourceTree = "<group>";
 		};
 		63A0F291272EDD1B004B8E58 /* ViewModel */ = {
@@ -475,12 +484,15 @@
 			files = (
 				63A0F28A272EB974004B8E58 /* MemoListHeader.swift in Sources */,
 				636A39A227284AE9000C0D64 /* MemoListItem.swift in Sources */,
+				631FA84E272FF97B00F43207 /* Modifier.swift in Sources */,
 				63A0F28D272EBE03004B8E58 /* NumberBall.swift in Sources */,
 				6397939F27280B2C0060E63B /* PersistenceController.swift in Sources */,
+				631FA850272FFD0800F43207 /* UIStyle.swift in Sources */,
 				63A0F290272ED8D4004B8E58 /* Color.swift in Sources */,
 				633FA382272861F800BFBCE9 /* MemoList.swift in Sources */,
 				639793A227280B2C0060E63B /* ProjectManager.xcdatamodeld in Sources */,
 				6397939827280B2B0060E63B /* ContentView.swift in Sources */,
+				633301B32730128A004FA11A /* MemoView.swift in Sources */,
 				6397939627280B2B0060E63B /* ProjectManagerApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

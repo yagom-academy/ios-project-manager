@@ -16,8 +16,7 @@ struct NumberBall: View {
             .padding(10)
             .foregroundColor(.white)
             .background(
-                Circle()
-                    .foregroundColor(.black)
+                Circle().foregroundColor(.black)
             )
     }
 }
