@@ -11,17 +11,17 @@ struct ContentView: View {
     
     @EnvironmentObject var taskViewModel: TaskViewModel
     
-    var todoTask: [Task] {
+    var todoTasks: [Task] {
         taskViewModel.tasks.filter { task in
             task.state == .todo
         }
     }
-    var doingTask: [Task] {
+    var doingTasks: [Task] {
         taskViewModel.tasks.filter { task in
             task.state == .doing
         }
     }
-    var doneTask: [Task] {
+    var doneTasks: [Task] {
         taskViewModel.tasks.filter { task in
             task.state == .done
         }
@@ -37,9 +37,9 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             HStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/, spacing: 8) {
-                ListColumn(tasks: todoTask, taskState: TaskState.todo)
-                ListColumn(tasks: doingTask, taskState: TaskState.doing)
-                ListColumn(tasks: doneTask, taskState: TaskState.done)
+                ListColumn(tasks: todoTasks, taskState: TaskState.todo)
+                ListColumn(tasks: doingTasks, taskState: TaskState.doing)
+                ListColumn(tasks: doneTasks, taskState: TaskState.done)
             }
             .background(Color(red: 216 / 255, green: 216 / 255, blue: 216 / 255))
             .navigationTitle("Project Manager")
