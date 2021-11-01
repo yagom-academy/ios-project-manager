@@ -10,6 +10,7 @@ import SwiftUI
 struct ListTitle: View {
     
     var title: String
+    var countOfTask: String
     
     var body: some View {
         ZStack {
@@ -20,7 +21,7 @@ struct ListTitle: View {
                 ZStack {
                     Capsule()
                         .frame(width: 28, height: 28, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                    Text("1")
+                    Text(countOfTask)
                         .foregroundColor(Color.white)
                 }
                 Spacer()
@@ -32,7 +33,7 @@ struct ListTitle: View {
 
 struct ListTitle_Previews: PreviewProvider {
     static var previews: some View {
-        ListTitle(title: String(describing: TaskState.todo))
+        ListTitle(title: String(describing: TaskState.todo), countOfTask: "1")
             .previewLayout(.fixed(width: 400, height: 40))
     }
 }

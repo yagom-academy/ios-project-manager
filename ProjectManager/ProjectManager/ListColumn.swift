@@ -14,7 +14,8 @@ struct ListColumn: View {
     
     var body: some View {
         List {
-            ListTitle(title: String(describing: taskState))
+            ListTitle(title: String(describing: taskState),
+                      countOfTask: tasks.count.description)
                 .listRowInsets(EdgeInsets())
             ForEach(tasks) { task in
                 ListRow(task: task)
