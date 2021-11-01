@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct MemoView: View {
+    @Binding var isEdited: Bool
+    
     @State private var date = Date(timeIntervalSinceNow: 0)
     @State private var title = ""
     @State private var text = ""
@@ -40,6 +42,28 @@ struct MemoView: View {
             .padding()
             .navigationTitle("Edit")
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(
+                    placement: .navigationBarLeading
+                ) {
+                    Button {
+                        isEdited = false
+                    } label: {
+                        Text("Cancel")
+                    }
+                }
+            }
+            .toolbar {
+                ToolbarItem(
+                    placement: .navigationBarTrailing
+                ) {
+                    Button {
+                        print("DONE")
+                    } label: {
+                        Text("DONE")
+                    }
+                }
+            }
         }
         .navigationViewStyle(.stack)
     }
@@ -47,6 +71,6 @@ struct MemoView: View {
 
 struct MemoView_Previews: PreviewProvider {
     static var previews: some View {
-        MemoView()
+        MemoView(isEdited: .constant(true))
     }
 }

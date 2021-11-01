@@ -16,11 +16,37 @@ struct ContentView: View {
                 alignment: .center,
                 spacing: UIStyle.minInsetAmount
             ) {
-                MemoList(title: "TODO")
+                MemoList(
+                    title: "TODO",
+                    onTap: {
+                        isEdited.toggle()
+                    },
+                    onLongPress: {
+
+                    }
+                )
                     .backgroundColor(.basic)
-                MemoList(title: "DOING")
+
+                MemoList(
+                    title: "DOING",
+                    onTap: {
+                        isEdited.toggle()
+                    },
+                    onLongPress: {
+
+                    }
+                )
                     .backgroundColor(.basic)
-                MemoList(title: "DONE")
+
+                MemoList(
+                    title: "DONE",
+                    onTap: {
+                        isEdited.toggle()
+                    },
+                    onLongPress: {
+
+                    }
+                )
                     .backgroundColor(.basic)
             }
             .backgroundColor(
@@ -42,10 +68,10 @@ struct ContentView: View {
         .sheet(
             isPresented: $isEdited,
             onDismiss: {
-                print("!")
+                // TODO: - when sheet is closed
             },
             content: {
-                MemoView()
+                MemoView(isEdited: $isEdited)
             }
         )
     }

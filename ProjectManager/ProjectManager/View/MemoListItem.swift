@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct MemoListItem: View {
-
     var body: some View {
         ZStack(alignment: .leading) {
             Rectangle()
