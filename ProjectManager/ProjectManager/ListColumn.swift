@@ -15,6 +15,7 @@ struct ListColumn: View {
     var body: some View {
         List {
             ListTitle(title: String(describing: taskState))
+                .listRowInsets(EdgeInsets())
             ForEach(tasks) { task in
                 ListRow(task: task)
                     .listRowInsets(EdgeInsets(top: 8,

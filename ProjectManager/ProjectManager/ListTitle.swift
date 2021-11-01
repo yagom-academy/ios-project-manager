@@ -12,17 +12,21 @@ struct ListTitle: View {
     var title: String
     
     var body: some View {
-        HStack(alignment: .center, spacing: /*@START_MENU_TOKEN@*/nil/*@END_MENU_TOKEN@*/, content: {
-            Text(title)
-                .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
-            ZStack {
-                Capsule()
-                    .frame(width: 28, height: 28, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                Text("1")
-                    .foregroundColor(Color.white)
+        ZStack {
+            Color(red: 242 / 255, green: 242 / 255, blue: 247 / 255)
+            HStack(alignment: .center, spacing: /*@START_MENU_TOKEN@*/nil/*@END_MENU_TOKEN@*/) {
+                Text(title)
+                    .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                ZStack {
+                    Capsule()
+                        .frame(width: 28, height: 28, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                    Text("1")
+                        .foregroundColor(Color.white)
+                }
+                Spacer()
             }
-            Spacer()
-        })
+            .padding()
+        }
     }
 }
 
