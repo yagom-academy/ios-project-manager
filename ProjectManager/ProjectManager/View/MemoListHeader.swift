@@ -14,7 +14,6 @@ struct MemoListHeader: View {
         HStack {
             Text(title)
                 .font(.largeTitle)
-                .bold()
 
             NumberBall(number: 1)
         }
