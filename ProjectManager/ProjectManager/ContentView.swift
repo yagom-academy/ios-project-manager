@@ -37,9 +37,9 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             HStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/, spacing: 8) {
-                ListColumn(tasks: todoTask)
-                ListColumn(tasks: doingTask)
-                ListColumn(tasks: doneTask)
+                ListColumn(tasks: todoTask, taskState: TaskState.todo)
+                ListColumn(tasks: doingTask, taskState: TaskState.doing)
+                ListColumn(tasks: doneTask, taskState: TaskState.done)
             }
             .background(Color(red: 216 / 255, green: 216 / 255, blue: 216 / 255))
             .navigationTitle("Project Manager")
