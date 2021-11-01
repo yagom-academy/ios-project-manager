@@ -16,6 +16,7 @@ struct ListRow: View {
             VStack(alignment: .leading, spacing: 8) {
                 Text(task.title)
                 Text(task.description)
+                    .lineLimit(3)
                 Text(task.localizedDate)
             }
             Spacer()
@@ -28,5 +29,6 @@ struct ListRow: View {
 struct ListCell_Previews: PreviewProvider {
     static var previews: some View {
         ListRow(task: TaskViewModel().tasks[0])
+            .previewLayout(.fixed(width: 400, height: 200))
     }
 }
