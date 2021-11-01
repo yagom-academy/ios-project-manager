@@ -7,20 +7,6 @@
 
 import SwiftUI
 
-struct AddEventButton: View {
-    @State private var isButtonTabbed: Bool = false
-    var body: some View {
-        Button("+") {
-            isButtonTabbed.toggle()
-            print("NewEvent")
-        }.sheet(isPresented: $isButtonTabbed, onDismiss: {
-            
-        }, content: {
-            DetailEventView()
-        })
-    }
-}
-
 struct MainView: View {
     @ObservedObject var viewModel = ProjectLists()
     
@@ -39,7 +25,8 @@ struct MainView: View {
                     Section(header: Text("Doing")
                                 .font(.title)) {
                     }
-                    EventListView(events: self.viewModel.jobs, state: .Doing)
+                    EventListView(events: self.viewModel.jobs,
+                                  state: .Doing)
                         .listStyle(GroupedListStyle())
                 }
                 

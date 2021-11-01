@@ -15,7 +15,9 @@ struct EventListView: View {
         List {
             ForEach(events) { event in
                 if event.state == state {
-                    EventView(title: event.title, description: event.description, date: "\(event.date)")
+                    EventView(title: event.title,
+                              description: event.description,
+                              date: "\(event.date)")
                 }
             }
         }
