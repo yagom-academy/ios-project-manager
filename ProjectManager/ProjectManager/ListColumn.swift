@@ -16,15 +16,19 @@ struct ListColumn: View {
         List {
             ListTitle(title: String(describing: taskState),
                       countOfTask: tasks.count.description)
-                .listRowInsets(EdgeInsets())
+                .listRowInsets(EdgeInsets(top: 0,
+                                          leading: -16,
+                                          bottom: 0,
+                                          trailing: -16))
             ForEach(tasks) { task in
                 ListRow(task: task)
                     .listRowInsets(EdgeInsets(top: 8,
-                                              leading: 0,
+                                              leading: -16,
                                               bottom: 0,
-                                              trailing: 0))
+                                              trailing: -16))
             }
         }
+        .listStyle(InsetListStyle())
     }
 }
 
