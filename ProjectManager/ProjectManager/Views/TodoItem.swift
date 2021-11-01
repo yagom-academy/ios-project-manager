@@ -24,7 +24,6 @@ struct TodoItem: View {
                 .foregroundColor(.red)
         }
         .padding()
-        
     }
 }
 
