@@ -10,6 +10,7 @@ import SwiftUI
 struct ContentView: View {
     
     @EnvironmentObject var taskViewModel: TaskViewModel
+    @State var isShowModal: Bool = false
     
     var todoTasks: [Task] {
         taskViewModel.tasks.filter { task in
@@ -44,6 +45,14 @@ struct ContentView: View {
             .background(Color(red: 216 / 255, green: 216 / 255, blue: 216 / 255))
             .navigationTitle("Project Manager")
             .navigationBarTitleDisplayMode(.inline)
+            .navigationBarItems(trailing: Button(action: {
+                self.isShowModal = true
+            }, label: {
+                Image(systemName: "plus")
+            }))
+            .sheet(isPresented: self.$isShowModal, content: {
+                ModalView()
+            })
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }
