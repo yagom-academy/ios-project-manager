@@ -14,19 +14,21 @@ struct TodoCellView: View {
             Text(memo.title)
                 .font(.title)
                 .bold()
+                .lineLimit(1)
             Text(memo.description)
                 .font(.body)
                 .foregroundColor(Color.gray)
-            Text("\(memo.date)")
+                .lineLimit(3)
+            Text("\(memo.date.formatDate())")
                 .font(.caption)
         }
     }
 }
 
 let testData = [
-    Memo(title: "title1", description: "description", date: Date(), state: .todo),
-    Memo(title: "title2", description: "description", date: Date(), state: .todo),
-    Memo(title: "title", description: "description", date: Date(), state: .todo)
+    Memo(title: "title1", description: "descriptionsadfadsfdsafasdfdasfdsfasdfdsfasdfsadfdsfsadfdsafsdfsdf", date: Date(), state: .todo),
+    Memo(title: "title2", description: "descriptionsadfadsfdsafasdfdasfdsfasdfdfsgdfsg", date: Date(), state: .todo),
+    Memo(title: "titledescriptionsadfadsfdsafasdfdasfdsfasdfdsfasdfsadfdsfsadfdsafsdfsdf", description: "descriptionsadfadsfdsafasdfdasfdsfasdfdsfasdfsadfdsfsadfdsafsdfsdfdescriptionsadfadsfdsafasdfdasfdsfasdfdsfasdfsadfdsfsadfdsafsdfsdf", date: Date(), state: .todo)
 ]
 
 struct TodoListView_Previews: PreviewProvider {
