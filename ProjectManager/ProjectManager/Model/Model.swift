@@ -22,19 +22,15 @@ struct Event: Identifiable {
     var id = UUID()
 }
 
-enum EventError: Error {
-    case noEvent
-}
-
 struct EventManager {
-    private(set) var lists: [Event]
+    private(set) var events: [Event]
     
     mutating func create(list: Event) {
-        self.lists.append(list)
+        self.events.append(list)
     }
     
     func read(_ id: UUID) -> Event? {
-        let event = self.lists.filter { event in
+        let event = self.events.filter { event in
             event.id == id
         }.first
         
@@ -42,8 +38,8 @@ struct EventManager {
     }
     
     private func find(list: Event) -> Int? {
-        for index in 0...self.lists.count - 1 {
-            if self.lists[index].id == list.id {
+        for index in 0...self.events.count - 1 {
+            if self.events[index].id == list.id {
                 return index
             }
         }
@@ -52,18 +48,18 @@ struct EventManager {
     
     mutating func update(list: Event) {
         let targetEventIndex = find(list: list)
-        self.lists[targetEventIndex ?? .zero] = list
+        self.events[targetEventIndex ?? .zero] = list
     }
     
     mutating func delete(list: Event) {
         guard let index = find(list: list) else {
             return
         }
-        self.lists.remove(at: index)
+        self.events.remove(at: index)
     }
    
     init() {
-        self.lists = [Event(title: "제목을 써주세요",
+        self.events = [Event(title: "제목을 써주세요",
                           description: "자세한 설명을 추가 해 볼까요?",
                           date: Date(),
                           state: .ToDo)]

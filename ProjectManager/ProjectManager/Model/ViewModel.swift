@@ -19,7 +19,7 @@ class ProjectLists: ObservableObject, ViewModelAble {
     @Published private(set) var manager: EventManager = EventManager()
     
     var jobs: [Event] {
-        return self.manager.lists
+        return self.manager.events
     }
     
     var input: Input = Input(titleText: "",
