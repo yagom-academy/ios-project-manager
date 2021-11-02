@@ -8,9 +8,27 @@
 import SwiftUI
 
 struct TodoModalView: View {
+    @State private var todoTitle: String = ""
+    @State private var endDate: Date = Date()
+    @State private var todoDetail: String = ""
     
     var body: some View {
-        Text("ModalView")
+        NavigationView {
+            VStack {
+                TextField("Title", text: $todoTitle)
+                    .border(.black)
+                DatePicker("", selection: $endDate, displayedComponents: [.date])
+                    .datePickerStyle(.wheel)
+                    .fixedSize()
+                TextEditor(text: $todoDetail)
+                    .border(.black)
+                    .padding(.bottom)
+            }
+            .padding(.horizontal)
+            .navigationTitle("Todo")
+            .navigationBarTitleDisplayMode(.inline)
+        }
+        .navigationViewStyle(.stack)
     }
 }
 
