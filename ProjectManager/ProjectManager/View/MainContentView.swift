@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct MainContentView: View {
+    @State var showModalView = false
+    
     var body: some View {
         NavigationView {
             HStack {
@@ -19,18 +21,17 @@ struct MainContentView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
-                    Button(action: addItem){
-                        Label("", systemImage: "plus")
-                    }
+                    Button(
+                        action: { self.showModalView.toggle() },
+                         label: { Label("", systemImage: "plus") }
+                    )
+                        .sheet(isPresented: self.$showModalView) {
+                            TodoModalView()
+                        }
                 }
             }
-            
         }
         .navigationViewStyle(.stack)
-    }
-    
-    func addItem() {
-        print("추가 버튼 클릭됨")
     }
 }
 
