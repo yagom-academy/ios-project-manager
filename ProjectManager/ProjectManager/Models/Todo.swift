@@ -7,13 +7,21 @@
 
 import Foundation
 
-struct Todo: Identifiable, Hashable {
-    enum TodoStatus {
-        case todo
-        case doing
-        case done
-    }
+enum TodoStatus {
+    case todo
+    case doing
+    case done
     
+    var title: String {
+        switch self {
+        case .todo: return "TODO"
+        case .doing: return "DOING"
+        case .done: return "DONE"
+        }
+    }
+}
+
+struct Todo: Identifiable, Hashable {
     let id = UUID()
     var title: String
     var description: String
