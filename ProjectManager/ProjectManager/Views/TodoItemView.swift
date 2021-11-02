@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TodoItem: View {
+struct TodoItemView: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text("Hello, World! Hello, World! Hello, World! Hello, World! Hello, World! Hello, World! 2222Hello, World! Hello, World! Hello")
@@ -29,7 +29,7 @@ struct TodoItem: View {
 
 struct TodoItem_Previews: PreviewProvider {
     static var previews: some View {
-        TodoItem()
+        TodoItemView()
             .previewLayout(.fixed(width: 400, height: 300))
     }
 }

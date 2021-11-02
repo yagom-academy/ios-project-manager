@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		791A6BB52730299600833820 /* TodoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791A6BB42730299600833820 /* TodoItem.swift */; };
+		791A6BB52730299600833820 /* TodoItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791A6BB42730299600833820 /* TodoItemView.swift */; };
 		791A6BBA27304F7000833820 /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791A6BB927304F7000833820 /* Todo.swift */; };
 		791A6BBD27312F0900833820 /* TodoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791A6BBC27312F0900833820 /* TodoViewModel.swift */; };
 		791A6BBF2731371200833820 /* TodoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791A6BBE2731371200833820 /* TodoListViewModel.swift */; };
@@ -17,7 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		791A6BB42730299600833820 /* TodoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.swift; sourceTree = "<group>"; };
+		791A6BB42730299600833820 /* TodoItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItemView.swift; sourceTree = "<group>"; };
 		791A6BB927304F7000833820 /* Todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
 		791A6BBC27312F0900833820 /* TodoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoViewModel.swift; sourceTree = "<group>"; };
 		791A6BBE2731371200833820 /* TodoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListViewModel.swift; sourceTree = "<group>"; };
@@ -43,7 +43,7 @@
 			isa = PBXGroup;
 			children = (
 				79C32E982729885C001BB246 /* ContentView.swift */,
-				791A6BB42730299600833820 /* TodoItem.swift */,
+				791A6BB42730299600833820 /* TodoItemView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -163,7 +163,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				79C32E992729885C001BB246 /* ContentView.swift in Sources */,
-				791A6BB52730299600833820 /* TodoItem.swift in Sources */,
+				791A6BB52730299600833820 /* TodoItemView.swift in Sources */,
 				79C32E972729882D001BB246 /* ProjectManagerApp.swift in Sources */,
 				791A6BBD27312F0900833820 /* TodoViewModel.swift in Sources */,
 				791A6BBF2731371200833820 /* TodoListViewModel.swift in Sources */,
