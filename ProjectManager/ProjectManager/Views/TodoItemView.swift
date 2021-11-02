@@ -25,7 +25,7 @@ struct TodoItemView: View {
                     .padding(EdgeInsets(top: 1, leading: 0, bottom: 3, trailing: 0))
                 
                 Text(todo.dueDate)
-                    .foregroundColor(.red)
+                    .foregroundColor(todo.isExpired ? .red : .black)
             }
             
             Spacer()
@@ -39,7 +39,7 @@ struct TodoItem_Previews: PreviewProvider {
     static var previews: some View {
         TodoItemView(todo: TodoViewModel.init(todo: Todo(title: "책상정리",
                                                          description: "집중이 안될 땐 역시나 책상정리",
-                                                         dueDate: Date(year: 2021, month: 11, day: 5)!,
+                                                         dueDate: Date(year: 2021, month: 12, day: 5)!,
                                                          status: .todo)))
             .previewLayout(.fixed(width: 500, height: 300))
     }

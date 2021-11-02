@@ -19,13 +19,21 @@ struct TodoViewModel: Identifiable {
         return todo.description
     }
     var dueDate: String {
-        return todo.dueDate.description
+        return convertDateType2String(todo.dueDate)
     }
     var status: TodoStatus {
         return todo.status
     }
     
-    func convertDateType2String(_ date: Date) -> String {
+    var isExpired: Bool {
+        let currentTime = Date(timeIntervalSince1970: Date().timeIntervalSince1970)
+        let today = Date().timeIntervalSince(currentTime)
+        let dueDay = Date().timeIntervalSince(todo.dueDate)
+        
+        return today > dueDay
+    }
+    
+    private func convertDateType2String(_ date: Date) -> String {
         let dateFommatter = DateFormatter()
         dateFommatter.locale = Locale(identifier: "ko_KR")
         dateFommatter.timeZone = TimeZone(abbreviation: "KST")
@@ -33,4 +41,6 @@ struct TodoViewModel: Identifiable {
         
         return dateFommatter.string(from: date)
     }
+    
+    
 }
