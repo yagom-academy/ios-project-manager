@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AddEventButton: View {
     @State private var isButtonTabbed: Bool = false
-    @EnvironmentObject var viewModel: ProjectLists
+    @EnvironmentObject var viewModel: EventsList
 
     var body: some View {
         Button("+") {

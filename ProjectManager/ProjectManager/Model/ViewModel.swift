@@ -15,7 +15,7 @@ protocol ViewModelAble {
 }
 
 //MARK: -ViewModel
-class ProjectLists: ObservableObject, ViewModelAble {
+class EventsList: ObservableObject, ViewModelAble {
     @Published private(set) var manager: EventManager = EventManager()
     
     var jobs: [Event] {

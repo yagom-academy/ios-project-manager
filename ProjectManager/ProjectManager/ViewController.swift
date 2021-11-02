@@ -9,7 +9,7 @@ import SwiftUI
 class ViewController: UIViewController {
 
     @IBSegueAction func show(_ coder: NSCoder) -> UIViewController? {
-        return UIHostingController(coder: coder, rootView: MainView().environmentObject(ProjectLists()))
+        return UIHostingController(coder: coder, rootView: MainView().environmentObject(EventsList()))
     }
     
     override func viewDidLoad() {
