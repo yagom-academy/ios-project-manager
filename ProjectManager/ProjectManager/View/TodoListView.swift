@@ -8,7 +8,8 @@
 import SwiftUI
 
 
-struct TodoListView: View {
+struct TodoListView<T>: View where T: ViewModel {
+   @ObservedObject var viewModel: T
     var body: some View {
         List {
             Section {
@@ -18,21 +19,22 @@ struct TodoListView: View {
             } header: {
                 HStack {
                     Text("TODO")
-                    ZStack {
-                        Text("3")
+                    Text("3")
                         .foregroundColor(.white)
+                        .padding(5)
                         .background(Circle())
-                    }
-                    Spacer()
                 }
                 .font(.title)
+                .foregroundColor(.black)
             }
         }
+        .listStyle(.grouped)
+        .padding(1)
     }
 }
 
 struct TodoListView_Previews: PreviewProvider {
     static var previews: some View {
-        TodoListView()
+        TodoListView(viewModel: ToDoListViewModel())
     }
 }

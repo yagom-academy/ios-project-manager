@@ -12,10 +12,11 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             HStack {
-                TodoListView()
-                TodoListView()
-                TodoListView()
+                TodoListView(viewModel: ToDoListViewModel())
+                TodoListView(viewModel: ToDoListViewModel())
+                TodoListView(viewModel: ToDoListViewModel())
             }
+            .background(Color.gray)
             .navigationTitle("Project Manager")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
