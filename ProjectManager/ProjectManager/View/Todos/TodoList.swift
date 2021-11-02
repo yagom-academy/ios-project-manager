@@ -21,7 +21,7 @@ struct TodoList: View {
         List {
             Section(
                 content: {
-                    ForEach(filteredTodos) { todo in
+                    ForEach(filteredTodos, id: \.self) { todo in
                         TodoRow(todo: todo)
                     }
                     .onDelete(perform: self.delete)
@@ -46,15 +46,14 @@ struct TodoList: View {
     }
     
     func delete(_ indexSet: IndexSet) {
-        let TodoIds = indexSet.map { filteredTodos[$0].id }
-        TodoIds.forEach { todoId in
-            guard let index = todoViewModel.lookForTodoIndex(by: todoId) else {
-                NSLog("ID \(todoId) 에 해당하는 Todo를 찾지 못했습니다.")
+        indexSet.forEach { index in
+            let removingTodo = filteredTodos[index]
+            guard let firstIndex = todoViewModel.todos.firstIndex(of: removingTodo) else {
+                NSLog("해당 투두를 찾을 수 없음")
                 return
             }
-            todoViewModel.todos.remove(at: index)
+            todoViewModel.todos.remove(at: firstIndex)
         }
-        
     }
 }
 

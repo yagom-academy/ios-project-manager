@@ -33,7 +33,6 @@ struct TodoRow: View {
 struct TodoRow_Previews: PreviewProvider {
     static var previews: some View {
         TodoRow(todo: Todo(
-            id: 1,
             title: "테스트 제목",
             detail: "테스트 본문",
             endDate: Date().timeIntervalSince1970,
