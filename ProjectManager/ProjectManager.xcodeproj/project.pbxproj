@@ -10,6 +10,8 @@
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
 		DFBEEAEA273013BD004FE2CA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBEEAE9273013BD004FE2CA /* ContentView.swift */; };
 		DFBEEAF02730D03C004FE2CA /* ProjectManagerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBEEAEF2730D03C004FE2CA /* ProjectManagerApp.swift */; };
+		DFBEEAF8273175B8004FE2CA /* PlanListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBEEAF7273175B8004FE2CA /* PlanListView.swift */; };
+		DFBEEAFA273175D8004FE2CA /* DetailPlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBEEAF9273175D8004FE2CA /* DetailPlanView.swift */; };
 		DFBFEBC52729615F005BA42C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DFBFEBC42729615F005BA42C /* GoogleService-Info.plist */; };
 		E8118154E1C29C0C90B33324 /* Pods_ProjectManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 621D82BA19D41DEE4BECDD58 /* Pods_ProjectManager.framework */; };
 /* End PBXBuildFile section */
@@ -23,6 +25,8 @@
 		CD6D53862A159EAFEB9DA5C6 /* Pods-ProjectManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.debug.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.debug.xcconfig"; sourceTree = "<group>"; };
 		DFBEEAE9273013BD004FE2CA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		DFBEEAEF2730D03C004FE2CA /* ProjectManagerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerApp.swift; sourceTree = "<group>"; };
+		DFBEEAF7273175B8004FE2CA /* PlanListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanListView.swift; sourceTree = "<group>"; };
+		DFBEEAF9273175D8004FE2CA /* DetailPlanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPlanView.swift; sourceTree = "<group>"; };
 		DFBFEBC42729615F005BA42C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -77,12 +81,22 @@
 			isa = PBXGroup;
 			children = (
 				DFBEEAEF2730D03C004FE2CA /* ProjectManagerApp.swift */,
-				DFBEEAE9273013BD004FE2CA /* ContentView.swift */,
+				DFBEEAF627317582004FE2CA /* View */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
 				DFBFEBC42729615F005BA42C /* GoogleService-Info.plist */,
 			);
 			path = ProjectManager;
+			sourceTree = "<group>";
+		};
+		DFBEEAF627317582004FE2CA /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DFBEEAE9273013BD004FE2CA /* ContentView.swift */,
+				DFBEEAF7273175B8004FE2CA /* PlanListView.swift */,
+				DFBEEAF9273175D8004FE2CA /* DetailPlanView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -198,8 +212,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DFBEEAFA273175D8004FE2CA /* DetailPlanView.swift in Sources */,
 				DFBEEAF02730D03C004FE2CA /* ProjectManagerApp.swift in Sources */,
 				DFBEEAEA273013BD004FE2CA /* ContentView.swift in Sources */,
+				DFBEEAF8273175B8004FE2CA /* PlanListView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
