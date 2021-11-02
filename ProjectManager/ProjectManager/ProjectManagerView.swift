@@ -22,6 +22,7 @@ struct ProjectManagerView: View {
 }
 
 struct ProjectManagerHeader: View {
+    @State private var showModal = false
     var body: some View {
         HStack {
             Spacer()
@@ -32,10 +33,13 @@ struct ProjectManagerHeader: View {
                 .padding()
             Spacer()
             Button {
-                
+                showModal.toggle()
             } label: {
                 Image(systemName: "plus")
             }.padding()
+                .sheet(isPresented: self.$showModal) {
+                    TodoEditView()
+                }
         }
     }
 }
