@@ -12,9 +12,9 @@ struct ProjectManagerView: View {
         VStack {
             ProjectManagerHeader()
             HStack{
-                TodoList()
-                TodoList()
-                TodoList()
+                TodoList(todoState: .todo)
+                TodoList(todoState: .doing)
+                TodoList(todoState: .done)
             }
         }.background(Color(UIColor.systemGray5))
             .edgesIgnoringSafeArea(.all)

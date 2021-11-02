@@ -9,9 +9,10 @@ import SwiftUI
 
 struct TodoList: View {
     @EnvironmentObject var todoList: TodoViewModel
+    var todoState: TodoState
     var body: some View {
         List {
-            Section(header: ToDoListHeaderView()) {
+            Section(header: ToDoListHeaderView(todoState: todoState)) {
                 ForEach(todoList.memo) { data in
                     TodoCellView(memo: data)
                 }
@@ -22,6 +23,6 @@ struct TodoList: View {
 
 struct TodoList_Previews: PreviewProvider {
     static var previews: some View {
-        TodoList()
+        TodoList(todoState: .todo)
     }
 }

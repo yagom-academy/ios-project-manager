@@ -15,4 +15,5 @@ final class TodoViewModel: ObservableObject {
     func create(todo: Memo) {
         memo.append(todo)
     }
+    
 }

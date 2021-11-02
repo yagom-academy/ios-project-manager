@@ -61,7 +61,7 @@ struct ToDoEditText: View {
         }
         .onDisappear {
             if todoList.isEdited {
-                todoList.create(todo: Memo(title: title, description: description, date: date, state: .todo))
+                todoList.create(todo: Memo(title: title, description: description, date: date, state: TodoState.todo))
             }
         }
     }
