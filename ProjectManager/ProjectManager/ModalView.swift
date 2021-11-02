@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ModalView: View {
 
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @State private var title: String = ""
     @State private var description: String = ""
     @State private var date = Date()
@@ -42,6 +43,13 @@ struct ModalView: View {
             }
             .navigationTitle("TODO")
             .navigationBarTitleDisplayMode(.inline)
+            .navigationBarItems(
+                leading: Button("Cancel") {
+                    self.presentationMode.wrappedValue.dismiss()
+                },
+                trailing: Button("Done"){
+                    self.presentationMode.wrappedValue.dismiss()
+            })
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }
