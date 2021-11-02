@@ -27,6 +27,24 @@ struct TodoModalView: View {
             .padding(.horizontal)
             .navigationTitle("Todo")
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(
+                        action: {
+                            print("Cancel 버튼") },
+                        label: {
+                            Text("Cancel") }
+                    )
+                }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(
+                        action: {
+                            print("Done 버튼") },
+                        label: {
+                            Text("Done") }
+                    )
+                }
+            }
         }
         .navigationViewStyle(.stack)
     }
