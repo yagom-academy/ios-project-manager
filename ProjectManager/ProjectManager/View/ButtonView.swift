@@ -14,27 +14,14 @@ struct AddEventButton: View {
     var body: some View {
         Button("+") {
             isButtonTabbed.toggle()
-            print("NewEvent")
-        }.sheet(isPresented: $isButtonTabbed, onDismiss: {
+            self.viewModel.create()
+        }.sheet(isPresented: $isButtonTabbed,
+                onDismiss: {
             
         }, content: {
-            DetailEventView().environmentObject(viewModel)
+            DetailEventView(navigationTitle: "ToDo")
+                .environmentObject(viewModel)
         })
     }
 }
 
-struct DoneEventButton: View {
-    @EnvironmentObject var viewModel: ProjectLists
-    @Environment(\.presentationMode) var presentationMode
-    
-    var body: some View {
-        if #available(iOS 15.0, *) {
-            Button("Done", role: .none) {
-                self.viewModel.create()
-                self.presentationMode.wrappedValue.dismiss()
-            }
-        } else {
-            
-        }
-    }
-}

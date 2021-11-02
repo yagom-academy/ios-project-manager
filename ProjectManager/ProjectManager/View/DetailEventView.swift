@@ -14,20 +14,29 @@ struct DetailEventView: View {
     @State private var selectedDate: Date = Date()
     
     @EnvironmentObject var viewModel: ProjectLists
-    @State var dismissSheet: Bool = false
+    
+    init(navigationTitle: String) {
+        self.navigationTitle = navigationTitle
+    }
     
     var body: some View {
         NavigationView {
             GeometryReader { geometry in
                 VStack(alignment:.center) {
                     Form {
-                        TextField(eventTitle, text: $eventTitle)
+                        TextField(eventTitle,
+                                  text: $eventTitle,
+                                  onCommit: {
+                            self.viewModel.input.titleText = eventTitle
+                        })
                             .background(Color.white)
-                            .compositingGroup()
-                            .shadow(color: Color.red, radius: 10, x: 0, y: 0)
-                            .frame(height: geometry.size.height * 0.05, alignment: .center)
                             .font(.title)
-                        
+                            .frame(height: geometry.size.height * 0.05,
+                                   alignment: .center)
+                            .compositingGroup()
+                            .shadow(color: Color.red,
+                                    radius: 10,
+                                    x: 0, y: 0)
                         HStack {
                             Spacer()
                             DatePicker("",
@@ -38,25 +47,69 @@ struct DetailEventView: View {
                             Spacer()
                         }
                         
-                        TextField(description, text: $description, onCommit: {
+                        TextField(description,
+                                  text: $description,
+                                  onCommit: {
                             self.viewModel.input.descriptionText = description
                         })
-                            .frame(height: geometry.size.height * 0.5, alignment: .center)
+                            .frame(height: geometry.size.height * 0.5,
+                                   alignment: .center)
                             .background(Color.white)
                             .compositingGroup()
-                            .shadow(color: Color.red, radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/, x: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/, y: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/)
+                            .shadow(color: Color.red,
+                                    radius: 10,
+                                    x: 0, y: 0)
                     }
                 }
             }
-            .toolbar(content: {
-                DoneEventButton()
-                    .environmentObject(viewModel)
-                
-            })
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    EditButtonView()
+                }
+            }
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    DoneEventButton()
+                }
+            }
         }
         .navigationViewStyle(StackNavigationViewStyle())
         .navigationBarTitle(Text(navigationTitle))
         .navigationBarTitleDisplayMode(.inline)
+    }
+}
+
+struct DoneEventButton: View {
+    @EnvironmentObject var viewModel: ProjectLists
+    @Environment(\.presentationMode) var presentationMode
+    
+    var body: some View {
+        if #available(iOS 15.0, *) {
+            Button("Done", role: .none) {
+                self.viewModel.update()
+                self.presentationMode.wrappedValue.dismiss()
+            }
+        } else {
+            
+        }
+    }
+}
+
+struct EditButtonView: View {
+    @Environment(\.presentationMode) var presentationMode
+    @EnvironmentObject var viewModel: ProjectLists
+    
+    @State var showEditButton: Bool = false
+    @State var title: String = "Cancel"
+    var body: some View {
+        
+        Button {
+            self.showEditButton.toggle()
+            self.title = "Edit"
+            self.viewModel.update()
+        } label: {
+            Text(title)
+        }
     }
 }
 

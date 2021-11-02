@@ -17,8 +17,9 @@ struct MainView: View {
                     Section(header: Text("ToDo")
                                 .font(.title)) {
                     }
-                    EventListView(events: self.viewModel.jobs, state: .ToDo)
-                        .listStyle(GroupedListStyle())
+                    EventListView(events: self.viewModel.jobs,
+                                  state: .ToDo)
+                        .listStyle(.grouped)
                 }
                 
                 VStack {
@@ -27,7 +28,7 @@ struct MainView: View {
                     }
                     EventListView(events: self.viewModel.jobs,
                                   state: .Doing)
-                        .listStyle(GroupedListStyle())
+                        .listStyle(.grouped)
                 }
                 
                 VStack {
@@ -35,7 +36,7 @@ struct MainView: View {
                                 .font(.title)) {
                     }
                     EventListView(events: self.viewModel.jobs, state: .Done)
-                        .listStyle(GroupedListStyle())
+                        .listStyle(.grouped)
                     }
             }
             .navigationBarTitle("프로젝트 관리")
@@ -44,7 +45,7 @@ struct MainView: View {
                 AddEventButton()
                     .environmentObject(self.viewModel)
             })
-        }.navigationViewStyle(StackNavigationViewStyle())
+        }.navigationViewStyle(.stack)
     }
 }
 

@@ -33,13 +33,6 @@ struct EventManager {
         self.lists.append(list)
     }
     
-    func read(list: Event) -> Result<Event, EventError> {
-        guard let index = find(list: list) else {
-            return .failure(.noEvent)
-        }
-        return .success(self.lists[index])
-    }
-    
     private func find(list: Event) -> Int? {
         for index in 0...self.lists.count - 1 {
             if self.lists[index].id == list.id {
@@ -50,14 +43,8 @@ struct EventManager {
     }
     
     mutating func update(list: Event) {
-        let targetEvent = read(list: list)
-        
-        switch targetEvent {
-        case .failure(let error):
-            print(error)
-        case .success(var event):
-            event = list
-        }
+        let targetEventIndex = find(list: list)
+        self.lists[targetEventIndex ?? .zero] = list
     }
     
     mutating func delete(list: Event) {
