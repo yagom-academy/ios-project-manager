@@ -25,14 +25,8 @@ struct TodoCellView: View {
     }
 }
 
-let testData = [
-    Memo(title: "title1", description: "descriptionsadfadsfdsafasdfdasfdsfasdfdsfasdfsadfdsfsadfdsafsdfsdf", date: Date(), state: .todo),
-    Memo(title: "title2", description: "descriptionsadfadsfdsafasdfdasfdsfasdfdfsgdfsg", date: Date(), state: .todo),
-    Memo(title: "titledescriptionsadfadsfdsafasdfdasfdsfasdfdsfasdfsadfdsfsadfdsafsdfsdf", description: "descriptionsadfadsfdsafasdfdasfdsfasdfdsfasdfsadfdsfsadfdsafsdfsdfdescriptionsadfadsfdsafasdfdasfdsfasdfdsfasdfsadfdsfsadfdsafsdfsdf", date: Date(), state: .todo)
-]
-
 struct TodoListView_Previews: PreviewProvider {
     static var previews: some View {
-        TodoCellView(memo: testData[0])
+        TodoCellView(memo: Memo(title: "title", description: "des", date: Date(), state: .todo))
     }
 }

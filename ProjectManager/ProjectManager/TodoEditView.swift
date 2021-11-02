@@ -18,9 +18,11 @@ struct TodoEditView: View {
 
 struct ToDoEditBar: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @EnvironmentObject var todoList: TodoViewModel
     var body: some View {
         HStack {
             Button {
+                todoList.isEdited = false
                 self.presentationMode.wrappedValue.dismiss()
             } label: {
                 Text("Cancel")
@@ -29,7 +31,8 @@ struct ToDoEditBar: View {
             Text("ToDo")
             Spacer()
             Button {
-                
+                todoList.isEdited = true
+                self.presentationMode.wrappedValue.dismiss()
             } label: {
                 Text("Done")
             }
@@ -43,6 +46,7 @@ struct ToDoEditText: View {
     @State private var title = ""
     @State private var date = Date()
     @State private var description = ""
+    @EnvironmentObject var todoList: TodoViewModel
     var body: some View {
         VStack {
             TextField("Title", text: $title)
@@ -54,6 +58,11 @@ struct ToDoEditText: View {
             TextEditor(text: $description)
                 .background(Color.white)
                 .shadow(color: .gray, radius: 5)
+        }
+        .onDisappear {
+            if todoList.isEdited {
+                todoList.create(todo: Memo(title: title, description: description, date: date, state: .todo))
+            }
         }
     }
 }

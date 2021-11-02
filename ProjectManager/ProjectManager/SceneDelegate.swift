@@ -18,7 +18,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
-            window.rootViewController = UIHostingController(rootView: ProjectManagerView())
+            let viewModel = TodoViewModel()
+//                    let contentView = ContentView().environmentObject(viewModel)
+            window.rootViewController = UIHostingController(rootView: ProjectManagerView().environmentObject(viewModel))
             self.window = window
             window.makeKeyAndVisible()
         }

@@ -8,10 +8,11 @@
 import SwiftUI
 
 struct TodoList: View {
+    @EnvironmentObject var todoList: TodoViewModel
     var body: some View {
         List {
             Section(header: ToDoListHeaderView()) {
-                ForEach(testData) { data in
+                ForEach(todoList.memo) { data in
                     TodoCellView(memo: data)
                 }
             }

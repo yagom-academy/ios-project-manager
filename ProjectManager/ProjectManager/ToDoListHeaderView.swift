@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ToDoListHeaderView: View {
+    @EnvironmentObject var todoList: TodoViewModel
     var body: some View {
         HStack {
             Text("todo")
@@ -18,7 +19,7 @@ struct ToDoListHeaderView: View {
                 Circle()
                     .foregroundColor(.black)
                     .frame(width: 30, height: 30)
-                Text("\(testData.count)")
+                Text("\(todoList.memo.count)")
                     .foregroundColor(.white)
                     .font(.body)
             }
