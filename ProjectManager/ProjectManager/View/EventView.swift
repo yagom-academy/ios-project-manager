@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct EventView: View {
+    @State var isPresented = false
+    
     var title: String
     var description: String
     var date: String
@@ -17,6 +19,17 @@ struct EventView: View {
             Text(description)
             Text(date)
         }
+        .onTapGesture {
+            isPresented.toggle()
+        }
+        .sheet(isPresented: $isPresented) {
+            //
+        } content: {
+            DetailEventView(navigationTitle: "몰랑")
+        }
+
+        
+
     }
 }
 
