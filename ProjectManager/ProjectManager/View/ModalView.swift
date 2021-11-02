@@ -20,6 +20,7 @@ struct ModalView: View {
     @Binding var isDone: Bool
     @EnvironmentObject var todoListViewModel: ToDoListViewModel
     var modalViewType: ModalType = .add
+    var currentTodo: Todo?
     
     var customButton: some View {
         switch modalViewType {
@@ -29,7 +30,7 @@ struct ModalView: View {
             } label: {
                 isEdit ? Text("Cancel"): Text("Edit")
             }
-
+            
         case .add:
             return Button {
                 isDone = false
@@ -57,24 +58,37 @@ struct ModalView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                       isDone = false
+                        if modalViewType == .add {
+                            todoListViewModel.action(.create(todo: Todo(title: title, description: description, date: date, type: .toDo)))
+                            
+                        } else if isEdit && modalViewType == .edit {
+                            currentTodo?.title = title
+                            currentTodo?.date = date
+                            currentTodo?.description = description
+                            todoListViewModel.action(.update(todo: Todo(title: title, description: description, date: date, type: .toDo)))
+                        }
+                        isDone = false
                     } label: {
                         Text("Done")
                     }
                 }
                 ToolbarItem(placement: .navigationBarLeading) {
                     customButton
-                    }
                 }
             }
-        .onDisappear {
-            todoListViewModel.action(.create(todo: Todo(title: title, description: description, date: date, type: .toDo)))
+        }
+        
+        .onAppear {
+            guard let currentTodo = currentTodo else { return }
+            self.title = currentTodo.title
+            self.date = currentTodo.date
+            self.description = currentTodo.description
         }
     }
 }
 
-struct NewTodoView_Previews: PreviewProvider {
-    static var previews: some View {
-        ModalView(isDone: .constant(false))
-    }
-}
+//struct NewTodoView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ModalView(isDone: .constant(false))
+//    }
+//}

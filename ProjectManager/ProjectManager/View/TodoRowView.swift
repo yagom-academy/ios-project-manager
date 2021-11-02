@@ -20,7 +20,7 @@ struct TodoRowView: View {
                     .font(.subheadline)
                     .foregroundColor(.gray)
                     .lineLimit(3)
-                Text(DateFormatter.convertDate(date: todo.date) )
+                Text(DateFormatter.convertDate(date: todo.date))
                     .foregroundColor(judjedRemainingDate(todo: todo))
                     .font(.footnote)
             }.lineLimit(1)
@@ -29,7 +29,7 @@ struct TodoRowView: View {
             .onTapGesture {
                 isPresented.toggle()
             }.sheet(isPresented: $isPresented) {
-                ModalView(isDone: $isPresented, modalViewType: .edit)
+                ModalView(isDone: $isPresented, modalViewType: .edit, currentTodo: todo)
             }
     }
     
@@ -45,11 +45,11 @@ struct TodoRowView: View {
 
 
 
-struct TodoRowView_Previews: PreviewProvider {
-    static var previews: some View {
-        TodoRowView(todo: Todo(title: "할일",
-                               description: "오늘은 설거지를 할게여",
-                               date: Date(), type: .toDo))
-        //            .previewLayout(.sizeThatFits)
-    }
-}
+//struct TodoRowView_Previews: PreviewProvider {
+//    static var previews: some View {
+////        TodoRowView(todo: Todo(title: "할일",
+////                               description: "오늘은 설거지를 할게여",
+////                               date: Date(), type: .toDo))
+//        //            .previewLayout(.sizeThatFits)
+//    }
+//}

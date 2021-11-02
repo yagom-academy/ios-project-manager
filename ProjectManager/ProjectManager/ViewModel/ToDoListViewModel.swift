@@ -10,6 +10,7 @@ import Foundation
 enum Action  {
     case create(todo: Todo)
     case delete(indexSet: IndexSet)
+    case update(todo: Todo)
 }
 
 final class ToDoListViewModel: ObservableObject{
@@ -21,6 +22,9 @@ final class ToDoListViewModel: ObservableObject{
             toDoList.append(todo)
         case .delete(let indexSet):
             toDoList.remove(atOffsets: indexSet)
+        case .update(let todo):
+            let index = toDoList.firstIndex { $0.id == todo.id }
+            toDoList[index!] = todo
         }
     }
     func fetchList(type: SortType) -> [Todo] {
