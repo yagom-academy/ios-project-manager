@@ -18,8 +18,12 @@ struct TodoListView: View {
     }
     
     var body: some View {
-        List(todoList) { todoItem in
-            TodoItemView(todo: todoItem)
+        VStack {
+            TodoListHeaderView(title: todoStatus.title, count: todoList.count)
+            
+            List(todoList) { todoItem in
+                TodoItemView(todo: todoItem)
+            }
         }
     }
 }
