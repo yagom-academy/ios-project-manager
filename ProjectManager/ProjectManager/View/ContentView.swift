@@ -27,7 +27,7 @@ struct ContentView: View {
                     } label: {
                         Image(systemName: "plus")
                     }.sheet(isPresented: $isPresented) {
-                        NewTodoView(isDone: $isPresented)
+                        ModalView(isDone: $isPresented, modalViewType: .add)
                     }
                 }
             }

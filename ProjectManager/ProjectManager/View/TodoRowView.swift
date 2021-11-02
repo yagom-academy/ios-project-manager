@@ -9,18 +9,27 @@ import SwiftUI
 
 struct TodoRowView: View {
     var todo: Todo
+    @State private var isPresented: Bool = false
 
     var body: some View {
-        VStack(alignment: .leading) {
-            Text(todo.title)
-                .font(.title3)
-            Text(todo.description)
-                .font(.subheadline)
-                .foregroundColor(.gray)
-                .lineLimit(3)
-//            Text(String(todo.date))
-//                .font(.footnote)
-        }.lineLimit(1)
+        HStack {
+            VStack(alignment: .leading) {
+                Text(todo.title)
+                    .font(.title3)
+                Text(todo.description)
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
+                    .lineLimit(3)
+                Text(DateFormatter().string(from: todo.date))
+                    .font(.footnote)
+            }.lineLimit(1)
+            Spacer()
+        }.contentShape(Rectangle())
+            .onTapGesture {
+                isPresented.toggle()
+            }.sheet(isPresented: $isPresented) {
+                ModalView(isDone: $isPresented, modalViewType: .edit)
+    }
     }
 }
 

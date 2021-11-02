@@ -9,7 +9,8 @@ import SwiftUI
 
 
 struct TodoListView: View {
-   @ObservedObject var viewModel: ToDoListViewModel
+    @ObservedObject var viewModel: ToDoListViewModel
+    @State private var isPresented: Bool = false
     let type: SortType
     var body: some View {
         List {
@@ -20,7 +21,7 @@ struct TodoListView: View {
             } header: {
                 HStack {
                     Text(type.description)
-                    Text("3")
+                    Text(viewModel.todoCount(type: type))
                         .foregroundColor(.white)
                         .padding(5)
                         .background(Circle())
@@ -28,7 +29,7 @@ struct TodoListView: View {
                 .font(.title)
                 .foregroundColor(.black)
             }
-        }
+         }
         .listStyle(.grouped)
         .padding(1)
     }
