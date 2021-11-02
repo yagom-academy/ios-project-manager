@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ListColumn: View {
     
+    @State var isShowModal: Bool = false
+    
     var tasks: [Task]
     var taskState: TaskState
     
@@ -26,6 +28,12 @@ struct ListColumn: View {
                                               leading: -16,
                                               bottom: 0,
                                               trailing: -16))
+                    .onTapGesture {
+                        self.isShowModal = true
+                    }
+                    .sheet(isPresented: self.$isShowModal, content: {
+                        ModalView()
+                    })
             }
         }
         .listStyle(InsetListStyle())
