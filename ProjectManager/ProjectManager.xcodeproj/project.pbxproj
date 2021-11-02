@@ -13,8 +13,9 @@
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
 		F939AF39272FA30A00F7880F /* EditPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = F939AF38272FA30A00F7880F /* EditPopover.swift */; };
 		F939AF3B273023A300F7880F /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F939AF3A273023A300F7880F /* ListView.swift */; };
+		F9690C712730F69700D16C69 /* ProjectModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9690C702730F69700D16C69 /* ProjectModel.swift */; };
 		F9833FA32728224400FB2580 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F9833FA22728224400FB2580 /* GoogleService-Info.plist */; };
-		F98A88F3272806940005A8B6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98A88F2272806940005A8B6 /* ContentView.swift */; };
+		F98A88F3272806940005A8B6 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98A88F2272806940005A8B6 /* MainView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,8 +29,9 @@
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F939AF38272FA30A00F7880F /* EditPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPopover.swift; sourceTree = "<group>"; };
 		F939AF3A273023A300F7880F /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
+		F9690C702730F69700D16C69 /* ProjectModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectModel.swift; sourceTree = "<group>"; };
 		F9833FA22728224400FB2580 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		F98A88F2272806940005A8B6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		F98A88F2272806940005A8B6 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +84,7 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
+				F9690C6F2730F5EC00D16C69 /* Model */,
 				F939AF37272F9BCD00F7880F /* View */,
 				F939AF36272F9BAA00F7880F /* Resource */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
@@ -103,11 +106,19 @@
 		F939AF37272F9BCD00F7880F /* View */ = {
 			isa = PBXGroup;
 			children = (
-				F98A88F2272806940005A8B6 /* ContentView.swift */,
+				F98A88F2272806940005A8B6 /* MainView.swift */,
 				F939AF38272FA30A00F7880F /* EditPopover.swift */,
 				F939AF3A273023A300F7880F /* ListView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		F9690C6F2730F5EC00D16C69 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F9690C702730F69700D16C69 /* ProjectModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -226,8 +237,9 @@
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				F939AF39272FA30A00F7880F /* EditPopover.swift in Sources */,
 				F939AF3B273023A300F7880F /* ListView.swift in Sources */,
-				F98A88F3272806940005A8B6 /* ContentView.swift in Sources */,
+				F98A88F3272806940005A8B6 /* MainView.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
+				F9690C712730F69700D16C69 /* ProjectModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
