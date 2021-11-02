@@ -9,20 +9,24 @@ import SwiftUI
 
 struct MemoListHeader: View {
     let title: String
+    var number: Int
 
     var body: some View {
         HStack {
             Text(title)
                 .font(.largeTitle)
 
-            NumberBall(number: 1)
+            NumberBall(number: number)
         }
     }
 }
 
 struct MemoListHeader_Previews: PreviewProvider {
     static var previews: some View {
-        MemoListHeader(title: "TODO")
+        MemoListHeader(
+            title: "TODO",
+            number: 1
+        )
             .previewLayout(.fixed(width: 200, height: 100))
     }
 }

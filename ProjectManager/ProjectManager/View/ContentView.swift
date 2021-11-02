@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject private var viewModel = MemoViewModel()
     @State var isEdited = false
 
     var body: some View {
@@ -16,38 +17,19 @@ struct ContentView: View {
                 alignment: .center,
                 spacing: UIStyle.minInsetAmount
             ) {
-                MemoList(
-                    title: "TODO",
-                    onTap: {
-                        isEdited.toggle()
-                    },
-                    onLongPress: {
-
-                    }
-                )
-                    .backgroundColor(.basic)
-
-                MemoList(
-                    title: "DOING",
-                    onTap: {
-                        isEdited.toggle()
-                    },
-                    onLongPress: {
-
-                    }
-                )
-                    .backgroundColor(.basic)
-
-                MemoList(
-                    title: "DONE",
-                    onTap: {
-                        isEdited.toggle()
-                    },
-                    onLongPress: {
-
-                    }
-                )
-                    .backgroundColor(.basic)
+                ForEach(Memo.State.allCases) {
+                    MemoList(
+                        viewModel: viewModel,
+                        state: $0,
+                        onTap: {
+                            isEdited.toggle()
+                        },
+                        onLongPress: {
+                            print("longPress")
+                        }
+                    )
+                        .backgroundColor(.basic)
+                }
             }
             .backgroundColor(
                 .myGray

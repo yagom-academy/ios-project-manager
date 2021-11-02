@@ -8,27 +8,24 @@
 import SwiftUI
 
 struct MemoList: View {
-    private let onTap: () -> Void
-    private let onLongPress: () -> Void
-    let title: String
+    @ObservedObject var viewModel: MemoViewModel
+    let state: Memo.State
+    let onTap: () -> Void
+    let onLongPress: () -> Void
 
-    init(
-        title: String,
-        onTap: @escaping () -> Void,
-        onLongPress: @escaping () -> Void
-    ) {
-        self.title = title
-        self.onTap = onTap
-        self.onLongPress = onLongPress
+    private var items: [Memo] {
+        viewModel.list(about: state)
     }
 
-    // TODO: - add a press action, a longPress actions and a swipe action to each item
     var body: some View {
         VStack(
             alignment: .leading,
             spacing: UIStyle.minInsetAmount
         ) {
-            MemoListHeader(title: title)
+            MemoListHeader(
+                title: state.description,
+                number: items.count
+            )
                 .padding(
                     UIStyle.minInsetAmount
                 )
@@ -43,14 +40,19 @@ struct MemoList: View {
                     pinnedViews: PinnedScrollableViews()
                 ) {
                     Group {
-                        ForEach(0..<9) { _ in
-                            MemoListItem()
+                        ForEach(items) { item in
+                            MemoListItem(item: item)
                                 .padding(.bottom, UIStyle.minInsetAmount)
                                 .onTapGesture(perform: onTap)
                                 .onLongPressGesture(perform: onLongPress)
+                                .swipe {
+                                    guard let index = items.firstIndex(of: item) else {
+                                        return
+                                    }
 
+                                    viewModel.delete(at: index, from: state)
+                                }
                         }
-                        // TODO: - add a swipe action to delete
                     }
                 }
             }
@@ -61,13 +63,10 @@ struct MemoList: View {
 struct List_Previews: PreviewProvider {
     static var previews: some View {
         MemoList(
-            title: "TODO",
-            onTap: {
-                print("!")
-            },
-            onLongPress: {
-                print("?")
-            }
+            viewModel: .init(),
+            state: .todo,
+            onTap: {},
+            onLongPress: {}
         )
             .previewLayout(
                 .fixed(

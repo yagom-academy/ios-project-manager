@@ -8,25 +8,29 @@
 import SwiftUI
 
 class MemoViewModel: ObservableObject {
-    var memoList = [Memo]() {
-        didSet {
-            todoList = memoList.filter({ memo in
-                memo.state == .todo
-            })
-            doingList = memoList.filter({ memo in
-                memo.state == .doing
-            })
-            doneList = memoList.filter({ memo in
-                memo.state == .done
-            })
+
+    init() {
+        (0...30).forEach { int in
+            let randomRawValue = Int.random(in: 0..<Memo.State.allCases.count)
+            let state = Memo.State(rawValue: randomRawValue)!
+            let memo = Memo(
+                id: UUID(),
+                title: int.description,
+                body: (int * 9999999999999).description,
+                date: Date(),
+                state: state
+            )
+            memoList[randomRawValue].append(memo)
         }
     }
 
-    var todoList = [Memo]()
-    var doingList = [Memo]()
-    var doneList = [Memo]()
+    @Published var memoList: [[Memo]] = [[], [], []]
 
-    func focus(memo: Memo?) {
-        
+    func list(about state: Memo.State) -> [Memo] {
+        return memoList[state.rawValue]
+    }
+
+    func delete(at index: Int, from state: Memo.State) {
+        memoList[state.rawValue].remove(at: index)
     }
 }

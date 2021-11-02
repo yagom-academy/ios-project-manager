@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MemoListItem: View {
+    var item: Memo
     var body: some View {
         ZStack(alignment: .leading) {
             Rectangle()
@@ -17,26 +18,21 @@ struct MemoListItem: View {
                 alignment: .leading,
                 spacing: 1
             ) {
-                Text("title")
+                Text(item.title)
                     .font(.title3)
                     .lineLimit(1)
                     .padding(
                         UIStyle.minInsetAmount
                     )
 
-                Text("""
-    asdafasdsaf
-    asdsafasfasd
-    asfasdsadf
-    asdasfafasf
-    """)
+                Text(item.body)
                     .font(.body)
                     .lineLimit(3)
                     .padding(
                         UIStyle.minInsetAmount
                     )
 
-                Text("2021.01.01")
+                Text(item.date.description)
                     .font(.callout)
                     .padding(
                         UIStyle.minInsetAmount
@@ -48,7 +44,13 @@ struct MemoListItem: View {
 
 struct ListItem_Previews: PreviewProvider {
     static var previews: some View {
-        MemoListItem()
+        MemoListItem(item: Memo(
+            id: UUID(),
+            title: "test",
+            body: "body",
+            date: Date(),
+            state: .todo
+        ))
             .previewLayout(
                 .fixed(width: 200, height: 200)
             )
