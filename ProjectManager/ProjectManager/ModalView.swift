@@ -9,8 +9,41 @@ import SwiftUI
 
 struct ModalView: View {
 
+    @State private var title: String = ""
+    @State private var description: String = ""
+    @State private var date = Date()
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationView {
+            VStack {
+                TextField(
+                    "Title",
+                    text: $title
+                )
+                .frame(height: 44)
+                .background(Color.white)
+                .shadow(color: .gray, radius: 3, x: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/, y: 2.0)
+                .padding(.horizontal)
+                DatePicker(
+                    "",
+                    selection: $date,
+                    displayedComponents: [.date]
+                )
+                .datePickerStyle(WheelDatePickerStyle())
+                .labelsHidden()
+                TextField(
+                    "Description",
+                    text: $description
+                )
+                .frame(height: 300, alignment: .top)
+                .background(Color.white)
+                .shadow(color: .gray, radius: 3, x: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/, y: 2.0)
+                .padding(.horizontal)
+            }
+            .navigationTitle("TODO")
+            .navigationBarTitleDisplayMode(.inline)
+        }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 
