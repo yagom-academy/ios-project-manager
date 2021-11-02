@@ -7,7 +7,6 @@
 
 import Foundation
 
-//MARK: -Model
 enum ListState {
     case ToDo
     case Doing
@@ -24,6 +23,13 @@ struct Event: Identifiable {
 
 struct EventManager {
     private(set) var events: [Event]
+    
+    init() {
+        self.events = [Event(title: "제목을 써주세요",
+                             description: "자세한 설명을 추가 해 볼까요?",
+                             date: Date(),
+                             state: .ToDo)]
+    }
     
     mutating func create(list: Event) {
         self.events.append(list)
@@ -56,12 +62,5 @@ struct EventManager {
             return
         }
         self.events.remove(at: index)
-    }
-   
-    init() {
-        self.events = [Event(title: "제목을 써주세요",
-                          description: "자세한 설명을 추가 해 볼까요?",
-                          date: Date(),
-                          state: .ToDo)]
     }
 }

@@ -10,12 +10,24 @@ import SwiftUI
 
 protocol ViewModelAble {
     associatedtype Input
+    
     var input: Input { get }
-   // var output: Output { get }
+}
+
+struct Output {
+    var isOutDated: Bool
 }
 
 //MARK: -ViewModel
 class EventsList: ObservableObject, ViewModelAble {
+    struct Input {
+        var titleText: String
+        var descriptionText: String
+        var dateText: Date
+        var state: ListState
+        var id = UUID()
+    }
+    
     @Published private(set) var manager: EventManager = EventManager()
     
     var jobs: [Event] {
@@ -32,7 +44,6 @@ class EventsList: ObservableObject, ViewModelAble {
     }
     
     func create() {
-        let emptyString = ""
         let newEvent = Event(title: input.titleText,
                              description: input.descriptionText,
                              date: input.dateText,
@@ -53,16 +64,4 @@ class EventsList: ObservableObject, ViewModelAble {
                            dateText: Date(),
                            state: .ToDo)
     }
-    
-    struct Input {
-        var titleText: String
-        var descriptionText: String
-        var dateText: Date
-        var state: ListState
-        var id = UUID()
-    }
-}
-
-struct Output {
-    var isOutDated: Bool
 }
