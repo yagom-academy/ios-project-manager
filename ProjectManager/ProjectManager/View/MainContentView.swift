@@ -9,11 +9,28 @@ import SwiftUI
 
 struct MainContentView: View {
     var body: some View {
-        HStack {
-            ForEach(Todo.Completion.allCases, id: \.self) { eachCase in
-                TodoList(completionState: eachCase)
+        NavigationView {
+            HStack {
+                ForEach(Todo.Completion.allCases, id: \.self) { eachCase in
+                    TodoList(completionState: eachCase)
+                }
             }
+            .navigationTitle("Project Manager")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .primaryAction) {
+                    Button(action: addItem){
+                        Label("", systemImage: "plus")
+                    }
+                }
+            }
+            
         }
+        .navigationViewStyle(.stack)
+    }
+    
+    func addItem() {
+        print("추가 버튼 클릭됨")
     }
 }
 
