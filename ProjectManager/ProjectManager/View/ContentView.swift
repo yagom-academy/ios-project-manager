@@ -9,12 +9,13 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var isPresented: Bool = false
+    @EnvironmentObject var todoListViewModel: ToDoListViewModel
     var body: some View {
         NavigationView {
             HStack {
-                TodoListView(viewModel: ToDoListViewModel())
-                TodoListView(viewModel: ToDoListViewModel())
-                TodoListView(viewModel: ToDoListViewModel())
+                TodoListView(viewModel: todoListViewModel, type: .toDo)
+                TodoListView(viewModel: todoListViewModel, type: .doing)
+                TodoListView(viewModel: todoListViewModel, type: .done)
             }
             .background(Color.gray)
             .navigationTitle("Project Manager")
@@ -26,7 +27,7 @@ struct ContentView: View {
                     } label: {
                         Image(systemName: "plus")
                     }.sheet(isPresented: $isPresented) {
-                        NewTodoView()
+                        NewTodoView(isDone: $isPresented)
                     }
                 }
             }

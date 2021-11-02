@@ -12,7 +12,8 @@ struct NewTodoView: View {
     @State private var date: Date = Date()
     @State private var description: String = ""
     @State private var isEdit: Bool = false
-    @State private var isDone: Bool = false
+    @Binding var isDone: Bool
+    @EnvironmentObject var todoListViewModel: ToDoListViewModel
 
     var body: some View {
         NavigationView {
@@ -31,7 +32,8 @@ struct NewTodoView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        isEdit.toggle()
+                       
+                       isDone = false
                     } label: {
                         Text("Done")
                     }
@@ -45,11 +47,14 @@ struct NewTodoView: View {
                 }
             }
         }
+        .onDisappear {
+            todoListViewModel.action(.create(todo: Todo(title: title, description: description, date: date, type: .toDo)))
+        }
     }
 }
 
 struct NewTodoView_Previews: PreviewProvider {
     static var previews: some View {
-        NewTodoView()
+        NewTodoView(isDone: .constant(false))
     }
 }

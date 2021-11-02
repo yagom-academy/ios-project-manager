@@ -8,17 +8,18 @@
 import SwiftUI
 
 
-struct TodoListView<T>: View where T: ViewModel {
-   @ObservedObject var viewModel: T
+struct TodoListView: View {
+   @ObservedObject var viewModel: ToDoListViewModel
+    let type: SortType
     var body: some View {
         List {
             Section {
-                ForEach(Todo.dummyToDoList) { todo in
+                ForEach(viewModel.fetchList(type: type)) { todo in
                     TodoRowView(todo: todo)
                 }
             } header: {
                 HStack {
-                    Text("TODO")
+                    Text(type.description)
                     Text("3")
                         .foregroundColor(.white)
                         .padding(5)
@@ -35,6 +36,6 @@ struct TodoListView<T>: View where T: ViewModel {
 
 struct TodoListView_Previews: PreviewProvider {
     static var previews: some View {
-        TodoListView(viewModel: ToDoListViewModel())
+        TodoListView(viewModel: ToDoListViewModel(), type: .done)
     }
 }

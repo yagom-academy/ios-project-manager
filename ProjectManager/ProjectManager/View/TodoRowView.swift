@@ -18,8 +18,8 @@ struct TodoRowView: View {
                 .font(.subheadline)
                 .foregroundColor(.gray)
                 .lineLimit(3)
-            Text(String(todo.date))
-                .font(.footnote)
+//            Text(String(todo.date))
+//                .font(.footnote)
         }.lineLimit(1)
     }
 }
@@ -27,9 +27,9 @@ struct TodoRowView: View {
 
 struct TodoRowView_Previews: PreviewProvider {
     static var previews: some View {
-        TodoRowView(todo: Todo(id: UUID(), title: "할일",
+        TodoRowView(todo: Todo(title: "할일",
                                            description: "오늘은 설거지를 할게여",
-                                           date: 1635405050, type: .toDo))
+                                           date: Date(), type: .toDo))
 //            .previewLayout(.sizeThatFits)
     }
 }
