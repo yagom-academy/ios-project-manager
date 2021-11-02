@@ -33,6 +33,14 @@ struct EventManager {
         self.lists.append(list)
     }
     
+    func read(_ id: UUID) -> Event? {
+        let event = self.lists.filter { event in
+            event.id == id
+        }.first
+        
+        return event
+    }
+    
     private func find(list: Event) -> Int? {
         for index in 0...self.lists.count - 1 {
             if self.lists[index].id == list.id {

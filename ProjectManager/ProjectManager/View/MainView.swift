@@ -17,26 +17,27 @@ struct MainView: View {
                     Section(header: Text("ToDo")
                                 .font(.title)) {
                     }
-                    EventListView(events: self.viewModel.jobs,
-                                  state: .ToDo)
+                    EventListView(state: .ToDo)
                         .listStyle(.grouped)
+                        .environmentObject(viewModel)
                 }
                 
                 VStack {
                     Section(header: Text("Doing")
                                 .font(.title)) {
                     }
-                    EventListView(events: self.viewModel.jobs,
-                                  state: .Doing)
+                    EventListView(state: .Doing)
                         .listStyle(.grouped)
+                        .environmentObject(viewModel)
                 }
                 
                 VStack {
                     Section(header: Text("Done")
                                 .font(.title)) {
                     }
-                    EventListView(events: self.viewModel.jobs, state: .Done)
+                    EventListView(state: .Done)
                         .listStyle(.grouped)
+                        .environmentObject(viewModel)
                     }
             }
             .navigationBarTitle("프로젝트 관리")

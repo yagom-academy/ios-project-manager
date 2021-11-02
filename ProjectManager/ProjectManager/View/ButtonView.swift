@@ -19,7 +19,7 @@ struct AddEventButton: View {
                 onDismiss: {
             
         }, content: {
-            DetailEventView(navigationTitle: "ToDo")
+            DetailEventView(id: UUID())
                 .environmentObject(viewModel)
         })
     }

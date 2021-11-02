@@ -11,20 +11,18 @@ struct DetailEventView: View {
     @State private var eventTitle: String = ""
     @State private var navigationTitle: String = "ToDo"
     @State private var description: String = ""
-    @State private var selectedDate: Date = Date()
+    //@State private var selectedDate: Date = Date()
     
     @EnvironmentObject var viewModel: ProjectLists
     
-    init(navigationTitle: String) {
-        self.navigationTitle = navigationTitle
-    }
-    
+    var id: UUID
+    private let emptyString = ""
     var body: some View {
         NavigationView {
             GeometryReader { geometry in
                 VStack(alignment:.center) {
                     Form {
-                        TextField(eventTitle,
+                        TextField(viewModel.manager.read(id)?.title ?? emptyString,
                                   text: $eventTitle,
                                   onCommit: {
                             self.viewModel.input.titleText = eventTitle
@@ -40,14 +38,14 @@ struct DetailEventView: View {
                         HStack {
                             Spacer()
                             DatePicker("",
-                                       selection: $selectedDate,
+                                       selection: $viewModel.input.dateText,
                                        displayedComponents: [.date])
                                 .datePickerStyle(WheelDatePickerStyle())
                                 .fixedSize()
                             Spacer()
                         }
                         
-                        TextField(description,
+                        TextField(viewModel.manager.read(id)?.description ?? emptyString,
                                   text: $description,
                                   onCommit: {
                             self.viewModel.input.descriptionText = description

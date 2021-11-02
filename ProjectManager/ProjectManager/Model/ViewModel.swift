@@ -27,6 +27,10 @@ class ProjectLists: ObservableObject, ViewModelAble {
                              dateText: Date(),
                              state: .ToDo)
     
+    func read(_ id: UUID) -> Event? {
+        return self.manager.read(id)
+    }
+    
     func create() {
         let emptyString = ""
         let newEvent = Event(title: input.titleText,
