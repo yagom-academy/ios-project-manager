@@ -21,8 +21,7 @@ enum TodoStatus {
     }
 }
 
-struct Todo: Identifiable, Hashable {
-    let id = UUID()
+struct Todo {
     var title: String
     var description: String
     var dueDate: Date
