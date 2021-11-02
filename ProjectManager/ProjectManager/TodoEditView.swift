@@ -17,10 +17,11 @@ struct TodoEditView: View {
 }
 
 struct ToDoEditBar: View {
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     var body: some View {
         HStack {
             Button {
-                
+                self.presentationMode.wrappedValue.dismiss()
             } label: {
                 Text("Cancel")
             }
