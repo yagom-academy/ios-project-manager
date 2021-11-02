@@ -18,20 +18,27 @@ struct TodoListView: View {
     }
     
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             TodoListHeaderView(title: todoStatus.title, count: todoList.count)
             
-            List(todoList) { todoItem in
+            ForEach(todoList) { todoItem in
                 TodoItemView(todo: todoItem)
+                    .padding([.bottom])
             }
+            
+            Spacer()
         }
+        .background(Color.init(UIColor(red: 239/256,
+                                       green: 239/256,
+                                       blue: 239/256,
+                                       alpha: 1)))
     }
 }
 
 struct TodoList_Previews: PreviewProvider {
     static var previews: some View {
-        TodoListView(todoStatus: .todo,
+        TodoListView(todoStatus: .doing,
                      todoList: Todo.generateMockTodos().map(TodoViewModel.init))
-            .previewLayout(.fixed(width: 400, height: 1200))
+            .previewLayout(.fixed(width: 500, height: 1200))
     }
 }

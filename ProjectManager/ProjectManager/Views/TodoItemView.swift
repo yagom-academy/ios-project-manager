@@ -12,21 +12,26 @@ struct TodoItemView: View {
     let todo: TodoViewModel
     
     var body: some View {
-        VStack(alignment: .leading) {
-            Text(todo.title)
-                .lineLimit(1)
-                .font(.title)
-                .foregroundColor(.primary)
-        
-            Text(todo.description)
-                .lineLimit(3)
-                .foregroundColor(.secondary)
-                .padding(EdgeInsets(top: 1, leading: 0, bottom: 3, trailing: 0))
+        HStack {
+            VStack(alignment: .leading) {
+                Text(todo.title)
+                    .lineLimit(1)
+                    .font(.title)
+                    .foregroundColor(.primary)
             
-            Text(todo.dueDate)
-                .foregroundColor(.red)
+                Text(todo.description)
+                    .lineLimit(3)
+                    .foregroundColor(.secondary)
+                    .padding(EdgeInsets(top: 1, leading: 0, bottom: 3, trailing: 0))
+                
+                Text(todo.dueDate)
+                    .foregroundColor(.red)
+            }
+            
+            Spacer()
         }
         .padding()
+        .background(Color.white)
     }
 }
 
@@ -36,6 +41,6 @@ struct TodoItem_Previews: PreviewProvider {
                                                          description: "집중이 안될 땐 역시나 책상정리",
                                                          dueDate: Date(year: 2021, month: 11, day: 5)!,
                                                          status: .todo)))
-            .previewLayout(.fixed(width: 400, height: 300))
+            .previewLayout(.fixed(width: 500, height: 300))
     }
 }
