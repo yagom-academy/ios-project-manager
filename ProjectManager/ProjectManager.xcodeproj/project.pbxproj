@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D07ED18273176CF002D4DBC /* Extension + DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D07ED17273176CF002D4DBC /* Extension + DateFormatter.swift */; };
+		4D07ED19273176CF002D4DBC /* Extension + DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D07ED17273176CF002D4DBC /* Extension + DateFormatter.swift */; };
 		4DBCB3D327301F98008474D6 /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBCB3D227301F98008474D6 /* Todo.swift */; };
 		4DBCB3D427301F98008474D6 /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBCB3D227301F98008474D6 /* Todo.swift */; };
 		74311C24273017F400951DC3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74311C23273017F400951DC3 /* ContentView.swift */; };
@@ -29,6 +31,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4D07ED17273176CF002D4DBC /* Extension + DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension + DateFormatter.swift"; sourceTree = "<group>"; };
 		4DBCB3D027301935008474D6 /* NonFirebase-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "NonFirebase-Info.plist"; sourceTree = "<group>"; };
 		4DBCB3D227301F98008474D6 /* Todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
 		74311C23273017F400951DC3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -63,6 +66,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4D07ED1627317697002D4DBC /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				4D07ED17273176CF002D4DBC /* Extension + DateFormatter.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		4DBCB3D127301F06008474D6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -111,6 +122,7 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
+				4D07ED1627317697002D4DBC /* Extension */,
 				4DBCB3D127301F06008474D6 /* Model */,
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
@@ -225,6 +237,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				74311C3B273104E400951DC3 /* ToDoListViewModel.swift in Sources */,
+				4D07ED19273176CF002D4DBC /* Extension + DateFormatter.swift in Sources */,
 				89FDAD2727302B840017A197 /* ModalView.swift in Sources */,
 				89FDAD242730256E0017A197 /* TodoRowView.swift in Sources */,
 				74311C292730181A00951DC3 /* AppDelegate.swift in Sources */,
@@ -240,6 +253,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				74311C3A273104E400951DC3 /* ToDoListViewModel.swift in Sources */,
+				4D07ED18273176CF002D4DBC /* Extension + DateFormatter.swift in Sources */,
 				89FDAD2627302B840017A197 /* ModalView.swift in Sources */,
 				89FDAD232730256E0017A197 /* TodoRowView.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,

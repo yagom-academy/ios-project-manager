@@ -18,6 +18,7 @@ struct TodoListView: View {
                 ForEach(viewModel.fetchList(type: type)) { todo in
                     TodoRowView(todo: todo)
                 }
+                .onDelete { indexSet in viewModel.action(.delete(indexSet: indexSet))}
             } header: {
                 HStack {
                     Text(type.description)

@@ -9,7 +9,7 @@ import Foundation
 
 enum Action  {
     case create(todo: Todo)
-    case onAppear
+    case delete(indexSet: IndexSet)
 }
 
 final class ToDoListViewModel: ObservableObject{
@@ -19,8 +19,8 @@ final class ToDoListViewModel: ObservableObject{
         switch action {
         case .create(let todo):
             toDoList.append(todo)
-        case .onAppear:
-            print("asdasd")
+        case .delete(let indexSet):
+            toDoList.remove(atOffsets: indexSet)
         }
     }
     func fetchList(type: SortType) -> [Todo] {
