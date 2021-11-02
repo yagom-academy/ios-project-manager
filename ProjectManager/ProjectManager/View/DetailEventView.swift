@@ -13,7 +13,7 @@ struct DetailEventView: View {
     @State private var description: String = ""
     //@State private var selectedDate: Date = Date()
     
-    @EnvironmentObject var viewModel: EventsList
+    @EnvironmentObject var viewModel: ProjectEventsManager
     
     var id: UUID
     private let emptyString = ""
@@ -78,7 +78,7 @@ struct DetailEventView: View {
 }
 
 struct DoneEventButton: View {
-    @EnvironmentObject var viewModel: EventsList
+    @EnvironmentObject var viewModel: ProjectEventsManager
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
@@ -95,7 +95,7 @@ struct DoneEventButton: View {
 
 struct EditButtonView: View {
     @Environment(\.presentationMode) var presentationMode
-    @EnvironmentObject var viewModel: EventsList
+    @EnvironmentObject var viewModel: ProjectEventsManager
     
     @State var showEditButton: Bool = false
     @State var title: String = "Cancel"

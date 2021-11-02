@@ -9,7 +9,7 @@ import SwiftUI
 
 struct EventListView: View {
     let state: ListState
-    @EnvironmentObject var viewModels: EventsList
+    @EnvironmentObject var viewModels: ProjectEventsManager
     @State var isPresented = false
     
     var body: some View {

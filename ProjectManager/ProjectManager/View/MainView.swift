@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MainView: View {
-    @EnvironmentObject var viewModel: EventsList
+    @EnvironmentObject var viewModel: ProjectEventsManager
     
     var body: some View {
         NavigationView {
@@ -53,6 +53,6 @@ struct MainView: View {
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
         MainView()
-            .environmentObject(EventsList())
+            .environmentObject(ProjectEventsManager())
     }
 }

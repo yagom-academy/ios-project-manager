@@ -19,7 +19,7 @@ struct Output {
 }
 
 //MARK: -ViewModel
-class EventsList: ObservableObject, ViewModelAble {
+class ProjectEventsManager: ObservableObject, ViewModelAble {
     struct Input {
         var titleText: String
         var descriptionText: String
