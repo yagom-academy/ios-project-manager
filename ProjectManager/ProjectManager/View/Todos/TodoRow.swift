@@ -23,11 +23,10 @@ struct TodoRow: View {
                 .foregroundColor(.gray)
                 .padding(.bottom, 1.0)
                 .lineLimit(3)
-            let todayDate: TimeInterval = Date().timeIntervalSince1970
-            let checkDeadline: Bool = todo.completionState != .done && todayDate > todo.endDate
-            Text(todo.endDate.dateFormatString())
+            let isAfterDeadline: Bool = todo.completionState != .done && todo.endDate.isAfterDue
+            Text(todo.endDate.formattedString)
                 .font(.footnote)
-                .foregroundColor(checkDeadline ? .red : .black)
+                .foregroundColor(isAfterDeadline ? .red : .black)
         }
         .truncationMode(/*@START_MENU_TOKEN@*/.tail/*@END_MENU_TOKEN@*/)
         .onTapGesture { self.isShowingModalView.toggle() }
