@@ -24,14 +24,14 @@ struct TodoModalView: View {
         NavigationView {
             VStack {
                 TextField("Title", text: $todoTitle)
-                    .border(.black)
+                    .textFieldStyle(.roundedBorder)
                 DatePicker("", selection: $todoEndDate, displayedComponents: [.date])
                     .datePickerStyle(.wheel)
                     .fixedSize()
                 TextEditor(text: $todoDetail)
-                    .border(.black)
                     .padding(.bottom)
             }
+            .shadow(radius: 10)
             .padding(.horizontal)
             .navigationTitle("Todo")
             .navigationBarTitleDisplayMode(.inline)
