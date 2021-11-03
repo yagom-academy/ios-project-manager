@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct TodoModalView: View {
+    @Binding var isPresented: Bool
     @State private var todoTitle: String = ""
     @State private var endDate: Date = Date()
     @State private var todoDetail: String = ""
@@ -31,7 +32,9 @@ struct TodoModalView: View {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(
                         action: {
-                            print("Cancel 버튼") },
+                            print("Cancel 버튼")
+                            isPresented.toggle()
+                        },
                         label: {
                             Text("Cancel") }
                     )
@@ -51,7 +54,9 @@ struct TodoModalView: View {
 }
 
 struct AddTodoView_Previews: PreviewProvider {
+    @State static var showingDetail = false
+    
     static var previews: some View {
-        TodoModalView()
+        TodoModalView(isPresented: $showingDetail)
     }
 }

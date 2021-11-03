@@ -26,7 +26,7 @@ struct MainContentView: View {
                          label: { Label("", systemImage: "plus") }
                     )
                         .sheet(isPresented: self.$showModalView) {
-                            TodoModalView()
+                            TodoModalView(isPresented: $showModalView)
                         }
                 }
             }
