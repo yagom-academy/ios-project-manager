@@ -19,8 +19,10 @@ struct ToDoHeader: View {
                 .font(.title3)
                 .foregroundColor(.white)
                 .background(Color.black).clipShape(Circle())
-                
+            Spacer()
         }
+        .padding()
+        .background(Color(UIColor.systemGray6))
     }
 }
 

@@ -11,17 +11,20 @@ struct ToDoList: View {
     @Binding var isDetailViewPresented: Bool
     
     var body: some View {
-        List {
+        VStack(alignment: .leading, spacing: 3) {
             ToDoHeader(headerTitle: "TODO", rowCount: "12")
             
-            ForEach(dummyToDos) { toDo in
-                ToDoRow(toDo: toDo)
-                    .onTapGesture {
-                        isDetailViewPresented = true
-                    }
+            List {
+                ForEach(dummyToDos) { toDo in
+                    ToDoRow(toDo: toDo)
+                        .onTapGesture {
+                            isDetailViewPresented = true
+                        }
+                }
             }
+            .listStyle(.plain)
+            .background(Color(UIColor.systemGray6))
         }
-        .listStyle(.plain)
     }
 }
 

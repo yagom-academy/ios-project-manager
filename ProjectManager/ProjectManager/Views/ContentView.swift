@@ -10,15 +10,16 @@ import SwiftUI
 struct ContentView: View {
     @State private var isDetailViewPresented = false
     
+    init() {
+        UINavigationBar.appearance().backgroundColor = .systemGray5
+    }
+    
     var body: some View {
         NavigationView {
             HStack(spacing: 10) {
                 ToDoList(isDetailViewPresented: $isDetailViewPresented)
-                    .background(Color(UIColor.systemGray6))
                 ToDoList(isDetailViewPresented: $isDetailViewPresented)
-                    .background(Color(UIColor.systemGray6))
                 ToDoList(isDetailViewPresented: $isDetailViewPresented)
-                    .background(Color(UIColor.systemGray6))
             }
             .background(Color(UIColor.systemGray3))
             .navigationTitle(Text("Project Manager"))
