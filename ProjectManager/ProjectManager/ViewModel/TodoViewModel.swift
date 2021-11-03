@@ -42,7 +42,7 @@ final class TodoViewModel: ObservableObject {
         todos.append(newTodo)
     }
     
-    func delete(todo: Todo) {
+    func deleteTodo(_ todo: Todo) {
         guard let firstIndex = todos.firstIndex(of: todo) else {
             NSLog("해당 투두를 찾을 수 없음")
             return

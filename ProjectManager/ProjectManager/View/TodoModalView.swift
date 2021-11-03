@@ -65,9 +65,8 @@ struct TodoModalView: View {
 
 extension TodoModalView {
     private func setUpTodo() {
-        guard let todo = selectedTodo else {
-            return
-        }
+        guard let todo = selectedTodo else { return }
+        
         self.todoTitle = todo.title
         self.todoEndDate = Date(timeIntervalSince1970: todo.endDate)
         self.todoDetail = todo.detail
@@ -92,11 +91,11 @@ extension TodoModalView {
             guard !self.todoTitle.isEmpty, !self.todoDetail.isEmpty else {
                 return
             }
-            todoViewModel.addTodo(title: self.todoTitle, endDate: self.todoEndDate, detail: self.todoDetail)
-        case .show:
-            print("확인")
+            todoViewModel.addTodo(title: self.todoTitle,
+                                  endDate: self.todoEndDate,
+                                  detail: self.todoDetail)
         case .edit:
-            print("수정 완료")
+            print("확인완료")
         }
         isPresented.toggle()
     }
