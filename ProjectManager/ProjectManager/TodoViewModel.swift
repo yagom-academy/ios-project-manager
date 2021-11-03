@@ -15,6 +15,9 @@ final class TodoViewModel: ObservableObject {
     func create(todo: Memo) {
         memo.append(todo)
     }
+    func delete(index: IndexSet) {
+        memo.remove(atOffsets: index)
+    }
     func classifyMemo(state: TodoState) -> [Memo] {
         return memo.filter {
             $0.state == state

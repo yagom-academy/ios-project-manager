@@ -15,6 +15,8 @@ struct TodoList: View {
             Section(header: ToDoListHeaderView(todoState: todoState)) {
                 ForEach(todoList.classifyMemo(state: todoState)) { data in
                     TodoCellView(memo: data, todoViewModel: todoList)
+                }.onDelete { indexSet in
+                    todoList.delete(index: indexSet)
                 }
             }
         }
