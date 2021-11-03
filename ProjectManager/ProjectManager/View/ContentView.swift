@@ -17,6 +17,7 @@ struct ContentView: View {
                     ProjectList(projects: projects.doings, status: .doing)
                     ProjectList(projects: projects.dones, status: .done)
                 }
+                .environmentObject(projects)
                 .background(Color(.systemGray4))
                 .navigationTitle("Project Manager").font(.title3)
             }

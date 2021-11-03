@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ProjectList: View {
+    @EnvironmentObject var viewModel: Project
     var projects: [ProjectModel.Project]
     var status: ProjectModel.Status
     
@@ -17,6 +18,9 @@ struct ProjectList: View {
                 ForEach(projects) { project in
                     ProjectRow(project: project)
                 }
+                .onDelete(perform: { indexSet in
+                    viewModel.delete(status, at: indexSet.first)
+                })
             }
         }
         .listStyle(GroupedListStyle())

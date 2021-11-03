@@ -82,4 +82,10 @@ class Project: ObservableObject {
     var dones: [ProjectModel.Project] {
         model.projects.filter { $0.status == .done }
     }
+    
+    func delete(_ status: ProjectModel.Status, at index: Int?) {
+        guard let index = index else { return }
+        let projectID = model.projects.filter({ $0.status == status })[index].id
+        model.deleteProject(with: projectID)
+    }
 }

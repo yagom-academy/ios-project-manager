@@ -32,4 +32,13 @@ struct ProjectModel {
             return self.rawValue.uppercased()
         }
     }
+    
+    mutating func deleteProject(with id: UUID) {
+        for index in projects.indices {
+            if projects[index].id == id {
+                projects.remove(at: index)
+                return
+            }
+        }
+    }
 }
