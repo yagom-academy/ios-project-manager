@@ -23,6 +23,24 @@ struct MemoListItem: View {
         return dateFormatter.string(from: date)
     }
 
+    private var dateColor: Color {
+        guard memo.state != .done else {
+            return .black
+        }
+
+        let currentDate = yyyyMMdd(about: Date())
+        let describedDate = yyyyMMdd(about: memo.date)
+
+        let currentTime = dateFormatter.date(from: currentDate)
+        let describedTime = dateFormatter.date(from: describedDate)
+
+        if describedTime! < currentTime! {
+            return .red
+        } else {
+            return .black
+        }
+    }
+
     var body: some View {
         ZStack(alignment: .leading) {
             Rectangle()
@@ -48,6 +66,7 @@ struct MemoListItem: View {
 
                 Text(yyyyMMdd(about: memo.date))
                     .font(.callout)
+                    .foregroundColor(dateColor)
                     .padding(
                         UIStyle.minInsetAmount
                     )
