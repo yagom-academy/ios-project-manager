@@ -13,6 +13,7 @@
 		D46424CD272A6E62007C6FFD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46424CC272A6E62007C6FFD /* ContentView.swift */; };
 		D464251C2730BF8B007C6FFD /* ProjectRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D464251B2730BF8B007C6FFD /* ProjectRow.swift */; };
 		D464251F2730CDBE007C6FFD /* ProjectList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D464251E2730CDBE007C6FFD /* ProjectList.swift */; };
+		D46425232730D228007C6FFD /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46425222730D228007C6FFD /* Project.swift */; };
 		D46425272730F96E007C6FFD /* ProjectModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46425262730F96E007C6FFD /* ProjectModel.swift */; };
 		D86027E6643D4E5529083153 /* Pods_ProjectManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00E962D5CC6FF9365A0E805C /* Pods_ProjectManager.framework */; };
 /* End PBXBuildFile section */
@@ -29,6 +30,7 @@
 		D46424CC272A6E62007C6FFD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D464251B2730BF8B007C6FFD /* ProjectRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectRow.swift; sourceTree = "<group>"; };
 		D464251E2730CDBE007C6FFD /* ProjectList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectList.swift; sourceTree = "<group>"; };
+		D46425222730D228007C6FFD /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		D46425262730F96E007C6FFD /* ProjectModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -82,14 +84,41 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
-				D46424C6272A6E12007C6FFD /* ProjectManager.swift */,
-				D46424CC272A6E62007C6FFD /* ContentView.swift */,
+				D4642529273108FF007C6FFD /* Model */,
+				D464252C27310914007C6FFD /* View */,
+				D464252B2731090B007C6FFD /* ViewModel */,
 				D46424C6272A6E12007C6FFD /* ProjectManagerApp.swift */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				D46424A0272A2AEC007C6FFD /* GoogleService-Info.plist */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
 			);
 			path = ProjectManager;
+			sourceTree = "<group>";
+		};
+		D4642529273108FF007C6FFD /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D46425262730F96E007C6FFD /* ProjectModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		D464252B2731090B007C6FFD /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				D46425222730D228007C6FFD /* Project.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		D464252C27310914007C6FFD /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D46424CC272A6E62007C6FFD /* ContentView.swift */,
+				D464251E2730CDBE007C6FFD /* ProjectList.swift */,
+				D464251B2730BF8B007C6FFD /* ProjectRow.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -207,6 +236,7 @@
 			files = (
 				D464251C2730BF8B007C6FFD /* ProjectRow.swift in Sources */,
 				D46424C7272A6E12007C6FFD /* ProjectManagerApp.swift in Sources */,
+				D46425232730D228007C6FFD /* Project.swift in Sources */,
 				D46424CD272A6E62007C6FFD /* ContentView.swift in Sources */,
 				D464251F2730CDBE007C6FFD /* ProjectList.swift in Sources */,
 				D46425272730F96E007C6FFD /* ProjectModel.swift in Sources */,
