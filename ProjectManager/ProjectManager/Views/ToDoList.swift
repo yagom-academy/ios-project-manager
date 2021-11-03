@@ -21,6 +21,9 @@ struct ToDoList: View {
                             isDetailViewPresented = true
                         }
                 }
+                .onDelete { indexSet in
+                    
+                }
             }
             .listStyle(.plain)
             .background(Color(UIColor.systemGray6))

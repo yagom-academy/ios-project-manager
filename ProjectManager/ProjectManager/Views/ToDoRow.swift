@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ToDoRow: View {
     let toDo: ToDo
+    @State private var isPopoverShown = false
     
     var body: some View {
         HStack {
@@ -22,6 +23,12 @@ struct ToDoRow: View {
                     .font(.caption)
             }
             Spacer()
+        }
+        .onLongPressGesture {
+            isPopoverShown = true
+        }
+        .popover(isPresented: $isPopoverShown) {
+            ToDoPopover()
         }
     }
 }
