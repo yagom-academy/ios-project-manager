@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-class Project {
-    private var model: ProjectModel = ProjectModel(projects: [
+class Project: ObservableObject {
+    @Published private var model: ProjectModel = ProjectModel(projects: [
         ProjectModel.Project(id: UUID(),
                              title: "책상정리",
                              content: "집중이 안될땐 역시나 책상정리",
@@ -70,4 +70,16 @@ class Project {
                              created: Date(timeIntervalSince1970: 1449651333),
                              status: .done),
     ])
+    
+    var todos: [ProjectModel.Project] {
+        model.projects.filter { $0.status == .todo }
+    }
+    
+    var doings: [ProjectModel.Project] {
+        model.projects.filter { $0.status == .doing }
+    }
+    
+    var dones: [ProjectModel.Project] {
+        model.projects.filter { $0.status == .done }
+    }
 }

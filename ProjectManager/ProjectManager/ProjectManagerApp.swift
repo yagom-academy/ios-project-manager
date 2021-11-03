@@ -9,10 +9,11 @@ import SwiftUI
 
 @main
 struct ProjectManagerApp: App {
+    let viewModel = Project()
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(projects: viewModel)
     
         }
     }

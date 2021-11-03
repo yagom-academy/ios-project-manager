@@ -8,13 +8,14 @@
 import SwiftUI
 
 struct ContentView: View {
+    @ObservedObject var projects: Project
     
     var body: some View {
             NavigationView {
                 HStack {
-                    ProjectList()
-                    ProjectList()
-                    ProjectList()
+                    ProjectList(projects: projects.todos)
+                    ProjectList(projects: projects.doings)
+                    ProjectList(projects: projects.dones)
                 }
                 .background(Color(.systemGray4))
                 .navigationTitle("Project Manager").font(.title3)
@@ -25,7 +26,7 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(projects: Project())
             .previewLayout(.fixed(width: 1136, height: 820))
             .environment(\.horizontalSizeClass, .regular)
             .environment(\.verticalSizeClass, .compact)
