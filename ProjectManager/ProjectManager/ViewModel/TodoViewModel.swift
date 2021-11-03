@@ -60,4 +60,15 @@ final class TodoViewModel: ObservableObject {
                               completionState: todo.completionState)
         todos[firstIndex] = editedTodo
     }
+    
+    func changeCompletionState(baseTodo todo: Todo, to ChangedState: Todo.Completion) {
+        guard let firstIndex = todos.firstIndex(of: todo) else {
+            NSLog("해당 투두를 찾을 수 없음")
+            return
+        }
+        let editedTodo = Todo(title: todo.title, detail: todo.detail,
+                              endDate: todo.endDate,
+                              completionState: ChangedState)
+        todos[firstIndex] = editedTodo
+    }
 }

@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct TodoRow: View {
+    @EnvironmentObject private var todoViewModel: TodoViewModel
     @State private var isShowingModalView: Bool = false
+    @State private var isShowingActionSheet: Bool = false
     var todo: Todo
     
     var body: some View {
@@ -28,12 +30,28 @@ struct TodoRow: View {
                 .foregroundColor(checkDeadline ? .red : .black)
         }
         .truncationMode(/*@START_MENU_TOKEN@*/.tail/*@END_MENU_TOKEN@*/)
-        .onTapGesture {
-            self.isShowingModalView.toggle()
-        }
+        .onTapGesture { self.isShowingModalView.toggle() }
         .sheet(isPresented: $isShowingModalView) {
             TodoModalView(isPresented: $isShowingModalView, modalType: .edit, selectedTodo: self.todo)
         }
+        .onLongPressGesture { self.isShowingActionSheet.toggle() }
+        .actionSheet(isPresented: $isShowingActionSheet) {
+            ActionSheet(title: Text("Todo의 상태를 변경하세요"), buttons: makeActionSheetButtons())
+        }
+    }
+}
+
+extension TodoRow {
+    private func makeActionSheetButtons() -> [ActionSheet.Button] {
+        let selections: [Todo.Completion] = Todo.Completion.allCases.filter { state in
+            return state != todo.completionState
+        }
+        let buttons: [ActionSheet.Button] = selections.map { state in
+            return ActionSheet.Button.default(Text("Movo to \(state.description)")) {
+                todoViewModel.changeCompletionState(baseTodo: todo, to: state)
+            }
+        }
+        return buttons
     }
 }
 

@@ -50,7 +50,7 @@ extension TodoList {
     private func delete(_ indexSet: IndexSet) {
         indexSet.forEach { index in
             let removingTodo = filteredTodos[index]
-            todoViewModel.delete(todo: removingTodo)
+            todoViewModel.deleteTodo(removingTodo)
         }
     }
 }
