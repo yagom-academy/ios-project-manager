@@ -9,14 +9,14 @@ import SwiftUI
 
 
 struct TodoListView: View {
-    @EnvironmentObject var viewModel: ToDoListViewModel
+    @EnvironmentObject var todoListViewModel: ToDoListViewModel
     let type: SortType
     var body: some View {
         VStack {
             HStack {
                 Text(type.description)
                     .padding(.leading)
-                Text(viewModel.todoCount(type: type))
+                Text(todoListViewModel.todoCount(type: type))
                     .foregroundColor(.white)
                     .padding(5)
                     .background(Circle())
@@ -25,10 +25,12 @@ struct TodoListView: View {
             .font(.title)
             .foregroundColor(.black)
             List {
-                    ForEach(viewModel.fetchList(type: type)) { todo in
+                    ForEach(todoListViewModel.fetchList(type: type)) { todo in
                         TodoRowView(todo: todo)
                     }
-                    .onDelete { indexSet in viewModel.action(.delete(indexSet: indexSet))}
+                    .onDelete { indexSet in todoListViewModel.action(
+                        .delete(indexSet: indexSet))
+                    }
              }
             .listStyle(.plain)
         }

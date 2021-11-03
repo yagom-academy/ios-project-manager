@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var isPresented: Bool = false
+    @State private var isModalViewPresented: Bool = false
     var body: some View {
         NavigationView {
             HStack {
@@ -25,11 +25,13 @@ struct ContentView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        isPresented.toggle()
+                        isModalViewPresented.toggle()
                     } label: {
                         Image(systemName: "plus")
-                    }.sheet(isPresented: $isPresented) {
-                        ModalView(isDone: $isPresented, modalViewType: .add)
+                    }.sheet(isPresented: $isModalViewPresented) {
+                        ModalView(isDone: $isModalViewPresented,
+                                  modalViewType: .add,
+                                  currentTodo: nil)
                     }
                 }
             }

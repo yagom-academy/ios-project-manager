@@ -14,7 +14,11 @@ struct Todo: Identifiable {
     var date: Date
     var type: SortType
     
-    init(id: UUID = UUID(), title: String, description: String, date: Date, type: SortType) {
+    init(id: UUID = UUID(),
+         title: String,
+         description: String,
+         date: Date,
+         type: SortType) {
         self.id = id
         self.title = title
         self.description = description
