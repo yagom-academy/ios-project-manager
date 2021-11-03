@@ -8,17 +8,20 @@
 import SwiftUI
 
 struct MemoView: View {
+    @ObservedObject var viewModel: MemoViewModel
     @Binding var isEdited: Bool
-    
-    @State private var date = Date(timeIntervalSinceNow: 0)
+
     @State private var title = ""
-    @State private var text = ""
+    @State private var description = ""
+    @State private var date = Date()
 
     var body: some View {
         UINavigationBar.appearance().backgroundColor = UIColor(cgColor: Color.basic.cgColor!)
 
         return NavigationView {
-            VStack(alignment: .center, spacing: UIStyle.minInsetAmount
+            VStack(
+                alignment: .center,
+                spacing: UIStyle.minInsetAmount
             ) {
                 TextField(
                     "Title",
@@ -35,7 +38,7 @@ struct MemoView: View {
                     .labelsHidden()
                     .datePickerStyle(.wheel)
 
-                TextEditor(text: $text)
+                TextEditor(text: $description)
                     .padding()
                     .border(.red)
             }
@@ -71,6 +74,9 @@ struct MemoView: View {
 
 struct MemoView_Previews: PreviewProvider {
     static var previews: some View {
-        MemoView(isEdited: .constant(true))
+        MemoView(
+            viewModel: MemoViewModel(),
+            isEdited: .constant(true)
+        )
     }
 }

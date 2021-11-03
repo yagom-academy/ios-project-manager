@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  MainContainer.swift
 //  ProjectManager
 //
 //  Created by kjs on 2021/10/26.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct MainContainer: View {
     @StateObject private var viewModel = MemoViewModel()
     @State var isEdited = false
 
@@ -23,9 +23,6 @@ struct ContentView: View {
                         state: $0,
                         onTap: {
                             isEdited.toggle()
-                        },
-                        onLongPress: {
-                            print("longPress")
                         }
                     )
                         .backgroundColor(.basic)
@@ -40,6 +37,7 @@ struct ContentView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
                         isEdited.toggle()
+                        viewModel.createMemo()
                     } label: {
                         Image(systemName: "plus")
                     }
@@ -50,10 +48,10 @@ struct ContentView: View {
         .sheet(
             isPresented: $isEdited,
             onDismiss: {
-                // TODO: - when sheet is closed
+                viewModel.afterEdit()
             },
             content: {
-                MemoView(isEdited: $isEdited)
+                MemoView(viewModel: viewModel, isEdited: $isEdited)
             }
         )
     }
@@ -61,6 +59,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        MainContainer()
     }
 }

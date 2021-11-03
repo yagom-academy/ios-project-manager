@@ -11,7 +11,6 @@ struct MemoList: View {
     @ObservedObject var viewModel: MemoViewModel
     let state: Memo.State
     let onTap: () -> Void
-    let onLongPress: () -> Void
 
     private var items: [Memo] {
         viewModel.list(about: state)
@@ -40,13 +39,18 @@ struct MemoList: View {
                     pinnedViews: PinnedScrollableViews()
                 ) {
                     Group {
-                        ForEach(items) { item in
-                            MemoListItem(item: item)
+                        ForEach(items) { memo in
+                            MemoListItem(item: memo)
                                 .padding(.bottom, UIStyle.minInsetAmount)
-                                .onTapGesture(perform: onTap)
-                                .onLongPressGesture(perform: onLongPress)
-                                .swipe {
-                                    guard let index = items.firstIndex(of: item) else {
+                                .onTapGesture {
+                                    viewModel.update(memo)
+                                    onTap()
+                                }
+                                .onLongPressGesture {
+
+                                }
+                                .swipeToDelete {
+                                    guard let index = items.firstIndex(of: memo) else {
                                         return
                                     }
 
@@ -65,8 +69,7 @@ struct List_Previews: PreviewProvider {
         MemoList(
             viewModel: .init(),
             state: .todo,
-            onTap: {},
-            onLongPress: {}
+            onTap: {}
         )
             .previewLayout(
                 .fixed(

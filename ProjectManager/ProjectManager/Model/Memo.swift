@@ -18,6 +18,10 @@ struct Memo: Identifiable, Equatable {
     var date: Date
     var state: State
 
+    var isEmpty: Bool {
+        return title.isEmpty && body.isEmpty
+    }
+
     enum State: Int, CaseIterable, Identifiable, CustomStringConvertible {
         case todo = 0
         case done = 1

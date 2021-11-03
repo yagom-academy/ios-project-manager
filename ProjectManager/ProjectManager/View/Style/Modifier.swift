@@ -12,7 +12,7 @@ extension View {
         self.background(Rectangle().foregroundColor(color))
     }
 
-    func swipe(deleteAction: @escaping () -> Void) -> some View {
+    func swipeToDelete(deleteAction: @escaping () -> Void) -> some View {
         self.modifier(DeleteSwiper(delete: deleteAction))
     }
 }
