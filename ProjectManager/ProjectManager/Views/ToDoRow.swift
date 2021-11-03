@@ -11,14 +11,17 @@ struct ToDoRow: View {
     let toDo: ToDo
     
     var body: some View {
-        VStack(alignment: .leading) {
-            Text(toDo.title)
-                .font(.title)
-            Text(toDo.description)
-                .font(.body)
-                .foregroundColor(.gray)
-            Text(toDo.date)
-                .font(.caption)
+        HStack {
+            VStack(alignment: .leading) {
+                Text(toDo.title)
+                    .font(.title)
+                Text(toDo.description)
+                    .font(.body)
+                    .foregroundColor(.gray)
+                Text(toDo.date)
+                    .font(.caption)
+            }
+            Spacer()
         }
     }
 }

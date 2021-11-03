@@ -8,12 +8,17 @@
 import SwiftUI
 
 struct ToDoList: View {
+    @Binding var isDetailViewPresented: Bool
+    
     var body: some View {
         List {
             ToDoHeader(headerTitle: "TODO", rowCount: "12")
             
             ForEach(dummyToDos) { toDo in
                 ToDoRow(toDo: toDo)
+                    .onTapGesture {
+                        isDetailViewPresented = true
+                    }
             }
         }
         .listStyle(.plain)
@@ -22,6 +27,6 @@ struct ToDoList: View {
 
 struct ToDoList_Previews: PreviewProvider {
     static var previews: some View {
-        ToDoList()
+        ToDoList(isDetailViewPresented: .constant(false))
     }
 }

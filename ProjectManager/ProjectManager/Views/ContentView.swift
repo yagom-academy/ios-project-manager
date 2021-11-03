@@ -29,17 +29,17 @@ struct ContentView: View {
                 .padding()
             }
             HStack(spacing: 0) {
-                ToDoList()
+                ToDoList(isDetailViewPresented: $isDetailViewPresented)
                 Divider()
                     .opacity(0)
                     .frame(width: 10)
                     .background(Color(UIColor.systemGray3))
-                ToDoList()
+                ToDoList(isDetailViewPresented: $isDetailViewPresented)
                 Divider()
                     .opacity(0)
                     .frame(width: 10)
                     .background(Color(UIColor.systemGray3))
-                ToDoList()
+                ToDoList(isDetailViewPresented: $isDetailViewPresented)
             }
             .background(Color(UIColor.systemGray6))
             .edgesIgnoringSafeArea(.bottom)
