@@ -13,7 +13,7 @@ struct TodoList: View {
     var body: some View {
         List {
             Section(header: ToDoListHeaderView(todoState: todoState)) {
-                ForEach(todoList.memo) { data in
+                ForEach(todoList.classifyMemo(state: todoState)) { data in
                     TodoCellView(memo: data)
                 }
             }
