@@ -12,21 +12,6 @@ struct ContentView: View {
     @EnvironmentObject var taskViewModel: TaskViewModel
     @State var isShowModal: Bool = false
     
-    var todoTasks: [Task] {
-        taskViewModel.tasks.filter { task in
-            task.state == .todo
-        }
-    }
-    var doingTasks: [Task] {
-        taskViewModel.tasks.filter { task in
-            task.state == .doing
-        }
-    }
-    var doneTasks: [Task] {
-        taskViewModel.tasks.filter { task in
-            task.state == .done
-        }
-    }
     
     init() {
         UITableView.appearance().backgroundColor = UIColor(red: 242 / 255,
@@ -38,9 +23,9 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             HStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/, spacing: 8) {
-                ListColumn(tasks: todoTasks, taskState: TaskState.todo)
-                ListColumn(tasks: doingTasks, taskState: TaskState.doing)
-                ListColumn(tasks: doneTasks, taskState: TaskState.done)
+                ListColumn(taskState: TaskState.todo)
+                ListColumn(taskState: TaskState.doing)
+                ListColumn(taskState: TaskState.done)
             }
             .background(Color(red: 216 / 255, green: 216 / 255, blue: 216 / 255))
             .navigationTitle("Project Manager")
