@@ -23,10 +23,10 @@ final class ToDoListViewModel: ObservableObject{
         case .delete(let indexSet):
             toDoList.remove(atOffsets: indexSet)
         case .update(let todo):
-            let index = toDoList.firstIndex { $0.id == todo.id }
-            toDoList[index!] = todo
+            toDoList.firstIndex { $0.id == todo.id }.flatMap { toDoList[$0] = todo }
         }
     }
+
     func fetchList(type: SortType) -> [Todo] {
         return toDoList.filter {
             $0.type == type

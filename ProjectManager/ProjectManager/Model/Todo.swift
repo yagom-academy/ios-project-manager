@@ -8,11 +8,19 @@
 import Foundation
 
 struct Todo: Identifiable {
-    let id = UUID()
+    let id: UUID
     var title: String
     var description: String
     var date: Date
     var type: SortType
+    
+    init(id: UUID = UUID(), title: String, description: String, date: Date, type: SortType) {
+        self.id = id
+        self.title = title
+        self.description = description
+        self.date = date
+        self.type = type
+    }
 }
 
 enum SortType: CustomStringConvertible {

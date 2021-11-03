@@ -9,35 +9,34 @@ import SwiftUI
 
 
 struct TodoListView: View {
-    @ObservedObject var viewModel: ToDoListViewModel
-    @State private var isPresented: Bool = false
+    @EnvironmentObject var viewModel: ToDoListViewModel
     let type: SortType
     var body: some View {
-        List {
-            Section {
-                ForEach(viewModel.fetchList(type: type)) { todo in
-                    TodoRowView(todo: todo)
-                }
-                .onDelete { indexSet in viewModel.action(.delete(indexSet: indexSet))}
-            } header: {
-                HStack {
-                    Text(type.description)
-                    Text(viewModel.todoCount(type: type))
-                        .foregroundColor(.white)
-                        .padding(5)
-                        .background(Circle())
-                }
-                .font(.title)
-                .foregroundColor(.black)
+        VStack {
+            HStack {
+                Text(type.description)
+                    .padding(.leading)
+                Text(viewModel.todoCount(type: type))
+                    .foregroundColor(.white)
+                    .padding(5)
+                    .background(Circle())
+                Spacer()
             }
-         }
-        .listStyle(.grouped)
-        .padding(1)
+            .font(.title)
+            .foregroundColor(.black)
+            List {
+                    ForEach(viewModel.fetchList(type: type)) { todo in
+                        TodoRowView(todo: todo)
+                    }
+                    .onDelete { indexSet in viewModel.action(.delete(indexSet: indexSet))}
+             }
+            .listStyle(.plain)
+        }
     }
 }
 
 struct TodoListView_Previews: PreviewProvider {
     static var previews: some View {
-        TodoListView(viewModel: ToDoListViewModel(), type: .done)
+        TodoListView(type: .done)
     }
 }

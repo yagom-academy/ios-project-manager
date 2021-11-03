@@ -9,15 +9,17 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var isPresented: Bool = false
-    @EnvironmentObject var todoListViewModel: ToDoListViewModel
     var body: some View {
         NavigationView {
             HStack {
-                TodoListView(viewModel: todoListViewModel, type: .toDo)
-                TodoListView(viewModel: todoListViewModel, type: .doing)
-                TodoListView(viewModel: todoListViewModel, type: .done)
+                TodoListView(type: .toDo)
+                Divider().frame(width: 10)
+                    .background(Color.gray)
+                TodoListView(type: .doing)
+                Divider().frame(width: 10)
+                    .background(Color.gray)
+                TodoListView(type: .done)
             }
-            .background(Color.gray)
             .navigationTitle("Project Manager")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

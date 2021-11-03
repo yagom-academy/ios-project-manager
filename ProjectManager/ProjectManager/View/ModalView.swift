@@ -19,10 +19,10 @@ struct ModalView: View {
     @State private var isEdit: Bool = false
     @Binding var isDone: Bool
     @EnvironmentObject var todoListViewModel: ToDoListViewModel
-    var modalViewType: ModalType = .add
+    let modalViewType: ModalType
     var currentTodo: Todo?
-    
-    var customButton: some View {
+
+    private var customLeadingButton: some View {
         switch modalViewType {
         case .edit:
             return Button {
@@ -30,7 +30,6 @@ struct ModalView: View {
             } label: {
                 isEdit ? Text("Cancel"): Text("Edit")
             }
-            
         case .add:
             return Button {
                 isDone = false
@@ -39,7 +38,27 @@ struct ModalView: View {
             }
         }
     }
-    
+
+    private var customTrailingButton: some View {
+        Button {
+            if modalViewType == .add {
+                todoListViewModel.action(.create(todo: Todo(title: title, description: description, date: date, type: .toDo)))
+            } else if isEdit && modalViewType == .edit {
+                guard let currentTodo = currentTodo else {
+                    return
+                }
+                todoListViewModel.action(.update(todo: Todo(id: currentTodo.id,
+                                                            title: title,
+                                                            description: description,
+                                                            date: date,
+                                                            type: currentTodo.type)))
+            }
+            isDone = false
+        } label: {
+            Text("Done")
+        }
+    }
+
     var body: some View {
         NavigationView {
             VStack {
@@ -57,27 +76,14 @@ struct ModalView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        if modalViewType == .add {
-                            todoListViewModel.action(.create(todo: Todo(title: title, description: description, date: date, type: .toDo)))
-                            
-                        } else if isEdit && modalViewType == .edit {
-                            currentTodo?.title = title
-                            currentTodo?.date = date
-                            currentTodo?.description = description
-                            todoListViewModel.action(.update(todo: Todo(title: title, description: description, date: date, type: .toDo)))
-                        }
-                        isDone = false
-                    } label: {
-                        Text("Done")
-                    }
+                    customTrailingButton
                 }
                 ToolbarItem(placement: .navigationBarLeading) {
-                    customButton
+                    customLeadingButton
                 }
             }
         }
-        
+
         .onAppear {
             guard let currentTodo = currentTodo else { return }
             self.title = currentTodo.title

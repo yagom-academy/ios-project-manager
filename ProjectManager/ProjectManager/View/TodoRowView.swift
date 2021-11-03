@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct TodoRowView: View {
-    var todo: Todo
     @State private var isPresented: Bool = false
-    
+    var todo: Todo
+
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
