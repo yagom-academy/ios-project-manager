@@ -19,6 +19,7 @@ struct TodoModalView: View {
     @State private var todoTitle: String = ""
     @State private var todoEndDate: Date = Date()
     @State private var todoDetail: String = ""
+    let selectedTodo: Todo?
     
     var body: some View {
         NavigationView {
@@ -31,6 +32,7 @@ struct TodoModalView: View {
                 TextEditor(text: $todoDetail)
                     .padding(.bottom)
             }
+            .onAppear(perform: setUpTodo)
             .shadow(radius: 10)
             .padding(.horizontal)
             .navigationTitle("Todo")
@@ -63,6 +65,15 @@ struct TodoModalView: View {
 }
 
 extension TodoModalView {
+    private func setUpTodo() {
+        guard let todo = selectedTodo else {
+            return
+        }
+        self.todoTitle = todo.title
+        self.todoEndDate = Date(timeIntervalSince1970: todo.endDate)
+        self.todoDetail = todo.detail
+    }
+    
     private func doneButtonAction() {
         switch modalType {
         case .add:
@@ -83,7 +94,7 @@ struct AddTodoView_Previews: PreviewProvider {
     @State static var showingDetail = false
     
     static var previews: some View {
-        TodoModalView(isPresented: $showingDetail, modalType: .add)
+        TodoModalView(isPresented: $showingDetail, modalType: .add, selectedTodo: nil)
             .previewLayout(.sizeThatFits)
     }
 }

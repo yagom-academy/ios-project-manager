@@ -57,7 +57,7 @@ extension TodoList {
 
 struct TodoList_Previews: PreviewProvider {
     static var previews: some View {
-        TodoList(completionState: .done)
+        TodoList(completionState: .doing)
             .environmentObject(TodoViewModel())
             .previewLayout(.sizeThatFits)
     }

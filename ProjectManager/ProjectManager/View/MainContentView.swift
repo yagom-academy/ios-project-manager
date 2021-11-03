@@ -26,7 +26,7 @@ struct MainContentView: View {
                          label: { Label("", systemImage: "plus") }
                     )
                     .sheet(isPresented: self.$isShowingModalView) {
-                        TodoModalView(isPresented: $isShowingModalView, modalType: .add)
+                        TodoModalView(isPresented: $isShowingModalView, modalType: .add, selectedTodo: nil)
                     }
                 }
             }

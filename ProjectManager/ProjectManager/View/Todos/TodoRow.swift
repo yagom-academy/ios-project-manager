@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct TodoRow: View {
+    @State private var isShowingModalView: Bool = false
     var todo: Todo
     
     var body: some View {
@@ -27,6 +28,12 @@ struct TodoRow: View {
                 .foregroundColor(checkDeadline ? .red : .black)
         }
         .truncationMode(/*@START_MENU_TOKEN@*/.tail/*@END_MENU_TOKEN@*/)
+        .onTapGesture {
+            self.isShowingModalView.toggle()
+        }
+        .sheet(isPresented: $isShowingModalView) {
+            TodoModalView(isPresented: $isShowingModalView, modalType: .show, selectedTodo: self.todo)
+        }
     }
 }
 
