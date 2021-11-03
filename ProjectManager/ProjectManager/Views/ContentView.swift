@@ -11,39 +11,30 @@ struct ContentView: View {
     @State private var isDetailViewPresented = false
     
     var body: some View {
-        
-        VStack {
-            ZStack {
-                Text("Project Manager")
-                HStack {
-                    Spacer()
-                    Button {
-                        self.isDetailViewPresented = true
-                    } label: {
-                        Image(systemName: "plus")
-                    }
-                    .sheet(isPresented: $isDetailViewPresented) {
-                        ToDoDetail()
-                    }
+        NavigationView {
+            HStack(spacing: 10) {
+                ToDoList(isDetailViewPresented: $isDetailViewPresented)
+                    .background(Color(UIColor.systemGray6))
+                ToDoList(isDetailViewPresented: $isDetailViewPresented)
+                    .background(Color(UIColor.systemGray6))
+                ToDoList(isDetailViewPresented: $isDetailViewPresented)
+                    .background(Color(UIColor.systemGray6))
+            }
+            .background(Color(UIColor.systemGray3))
+            .navigationTitle(Text("Project Manager"))
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar(content: {
+                Button {
+                    self.isDetailViewPresented = true
+                } label: {
+                    Image(systemName: "plus")
                 }
-                .padding()
-            }
-            HStack(spacing: 0) {
-                ToDoList(isDetailViewPresented: $isDetailViewPresented)
-                Divider()
-                    .opacity(0)
-                    .frame(width: 10)
-                    .background(Color(UIColor.systemGray3))
-                ToDoList(isDetailViewPresented: $isDetailViewPresented)
-                Divider()
-                    .opacity(0)
-                    .frame(width: 10)
-                    .background(Color(UIColor.systemGray3))
-                ToDoList(isDetailViewPresented: $isDetailViewPresented)
-            }
-            .background(Color(UIColor.systemGray6))
-            .edgesIgnoringSafeArea(.bottom)
+                .sheet(isPresented: $isDetailViewPresented) {
+                    ToDoDetail()
+                }
+            })
         }
+        .navigationViewStyle(.stack)
     }
 }
 
