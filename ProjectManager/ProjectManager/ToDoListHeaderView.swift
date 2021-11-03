@@ -20,7 +20,7 @@ struct ToDoListHeaderView: View {
                 Circle()
                     .foregroundColor(.black)
                     .frame(width: 30, height: 30)
-                Text("\(todoList.memo.count)")
+                Text("\(todoList.countTodoCell(state: todoState))")
                     .foregroundColor(.white)
                     .font(.body)
             }

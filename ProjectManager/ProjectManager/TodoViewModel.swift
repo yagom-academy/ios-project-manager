@@ -20,4 +20,9 @@ final class TodoViewModel: ObservableObject {
             $0.state == state
         }
     }
+    func countTodoCell(state: TodoState) -> Int {
+        return memo.filter {
+            $0.state == state
+        }.count
+    }
 }
