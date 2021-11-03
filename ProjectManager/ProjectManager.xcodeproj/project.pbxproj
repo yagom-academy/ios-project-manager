@@ -12,6 +12,9 @@
 		DFBEEAF02730D03C004FE2CA /* ProjectManagerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBEEAEF2730D03C004FE2CA /* ProjectManagerApp.swift */; };
 		DFBEEAF8273175B8004FE2CA /* PlanListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBEEAF7273175B8004FE2CA /* PlanListView.swift */; };
 		DFBEEAFA273175D8004FE2CA /* DetailPlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBEEAF9273175D8004FE2CA /* DetailPlanView.swift */; };
+		DFBEEAFD273215E6004FE2CA /* ProjectToDoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBEEAFC273215E5004FE2CA /* ProjectToDoList.swift */; };
+		DFBEEAFF2732293F004FE2CA /* ProjectPlanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBEEAFE2732293E004FE2CA /* ProjectPlanViewModel.swift */; };
+		DFBEEB0127323CC6004FE2CA /* DummyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBEEB0027323CC6004FE2CA /* DummyData.swift */; };
 		DFBFEBC52729615F005BA42C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DFBFEBC42729615F005BA42C /* GoogleService-Info.plist */; };
 		E8118154E1C29C0C90B33324 /* Pods_ProjectManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 621D82BA19D41DEE4BECDD58 /* Pods_ProjectManager.framework */; };
 /* End PBXBuildFile section */
@@ -27,6 +30,9 @@
 		DFBEEAEF2730D03C004FE2CA /* ProjectManagerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerApp.swift; sourceTree = "<group>"; };
 		DFBEEAF7273175B8004FE2CA /* PlanListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanListView.swift; sourceTree = "<group>"; };
 		DFBEEAF9273175D8004FE2CA /* DetailPlanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPlanView.swift; sourceTree = "<group>"; };
+		DFBEEAFC273215E5004FE2CA /* ProjectToDoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectToDoList.swift; sourceTree = "<group>"; };
+		DFBEEAFE2732293E004FE2CA /* ProjectPlanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectPlanViewModel.swift; sourceTree = "<group>"; };
+		DFBEEB0027323CC6004FE2CA /* DummyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyData.swift; sourceTree = "<group>"; };
 		DFBFEBC42729615F005BA42C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -81,6 +87,7 @@
 			isa = PBXGroup;
 			children = (
 				DFBEEAEF2730D03C004FE2CA /* ProjectManagerApp.swift */,
+				DFBEEAFB273213DF004FE2CA /* Model */,
 				DFBEEAF627317582004FE2CA /* View */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
@@ -95,8 +102,18 @@
 				DFBEEAE9273013BD004FE2CA /* ContentView.swift */,
 				DFBEEAF7273175B8004FE2CA /* PlanListView.swift */,
 				DFBEEAF9273175D8004FE2CA /* DetailPlanView.swift */,
+				DFBEEAFE2732293E004FE2CA /* ProjectPlanViewModel.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		DFBEEAFB273213DF004FE2CA /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				DFBEEAFC273215E5004FE2CA /* ProjectToDoList.swift */,
+				DFBEEB0027323CC6004FE2CA /* DummyData.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -214,8 +231,11 @@
 			files = (
 				DFBEEAFA273175D8004FE2CA /* DetailPlanView.swift in Sources */,
 				DFBEEAF02730D03C004FE2CA /* ProjectManagerApp.swift in Sources */,
+				DFBEEAFD273215E6004FE2CA /* ProjectToDoList.swift in Sources */,
+				DFBEEB0127323CC6004FE2CA /* DummyData.swift in Sources */,
 				DFBEEAEA273013BD004FE2CA /* ContentView.swift in Sources */,
 				DFBEEAF8273175B8004FE2CA /* PlanListView.swift in Sources */,
+				DFBEEAFF2732293F004FE2CA /* ProjectPlanViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
