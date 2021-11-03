@@ -12,7 +12,7 @@ struct TodoRow: View {
     @State private var isShowingModalView: Bool = false
     @State private var isShowingActionSheet: Bool = false
     var todo: Todo
-    var isAfterDeadline: Bool {
+    private var isAfterDeadline: Bool {
         return todo.completionState != .done && todo.endDate.isAfterDue
     }
     
@@ -31,11 +31,11 @@ struct TodoRow: View {
                 .foregroundColor(isAfterDeadline ? .red : .black)
         }
         .truncationMode(/*@START_MENU_TOKEN@*/.tail/*@END_MENU_TOKEN@*/)
-        .onTapGesture { self.isShowingModalView.toggle() }
+        .onTapGesture { isShowingModalView.toggle() }
         .sheet(isPresented: $isShowingModalView) {
             TodoModalView(isPresented: $isShowingModalView, modalType: .edit, selectedTodo: self.todo)
         }
-        .onLongPressGesture { self.isShowingActionSheet.toggle() }
+        .onLongPressGesture { isShowingActionSheet.toggle() }
         .actionSheet(isPresented: $isShowingActionSheet) {
             ActionSheet(title: Text("Todo의 상태를 변경하세요"), buttons: makeActionSheetButtons())
         }

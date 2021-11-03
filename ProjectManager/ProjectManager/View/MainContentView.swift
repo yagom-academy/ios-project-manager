@@ -22,10 +22,10 @@ struct MainContentView: View {
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Button(
-                        action: { self.isShowingModalView.toggle() },
+                        action: { isShowingModalView.toggle() },
                          label: { Label("", systemImage: "plus") }
                     )
-                    .sheet(isPresented: self.$isShowingModalView) {
+                    .sheet(isPresented: $isShowingModalView) {
                         TodoModalView(isPresented: $isShowingModalView, modalType: .add, selectedTodo: nil)
                     }
                 }
