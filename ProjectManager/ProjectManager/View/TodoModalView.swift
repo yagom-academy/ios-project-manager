@@ -13,6 +13,7 @@ struct TodoModalView: View {
         case show
         case edit
     }
+    @EnvironmentObject private var todoViewModel: TodoViewModel
     @Binding var isPresented: Bool
     @State var modalType: TodoModal
     @State private var todoTitle: String = ""
@@ -61,12 +62,13 @@ struct TodoModalView: View {
                             switch modalType {
                             case .add:
                                 print("Todo 추가")
+                                addTodo()
                             case .show:
                                 print("확인")
-                                isPresented.toggle()
                             case .edit:
                                 print("수정 완료")
                             }
+                            isPresented.toggle()
                         },
                         label: { Text("Done") }
                     )
@@ -74,6 +76,15 @@ struct TodoModalView: View {
             }
         }
         .navigationViewStyle(.stack)
+    }
+    
+    func addTodo() {
+        let newTodo = Todo(
+            title: self.todoTitle,
+            detail: self.todoDetail,
+            endDate: self.todoEndDate.timeIntervalSince1970,
+            completionState: .todo)
+        todoViewModel.todos.append(newTodo)
     }
 }
 
