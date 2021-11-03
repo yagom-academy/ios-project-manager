@@ -12,7 +12,7 @@ struct MemoView: View {
     @Binding var isEdited: Bool
 
     @State private var title = ""
-    @State private var description = ""
+    @State private var description = "입력가능한 숫자는 1000글자로 제한합니다"
     @State private var date = Date()
 
     var body: some View {
@@ -25,7 +25,12 @@ struct MemoView: View {
             ) {
                 TextField("Title", text: $title)
                     .padding()
-                    .border(.red)
+                    .border(.gray)
+                    .background(
+                        Rectangle()
+                            .fill(.white)
+                            .shadow(radius: UIStyle.shadowAmount)
+                    )
 
                 DatePicker(
                     "Start date",
@@ -37,7 +42,12 @@ struct MemoView: View {
 
                 TextEditor(text: $description)
                     .padding()
-                    .border(.red)
+                    .border(.gray)
+                    .background(
+                        Rectangle()
+                            .fill(.white)
+                            .shadow(radius: UIStyle.shadowAmount)
+                    )
             }
             .padding()
             .navigationTitle("Edit")
