@@ -12,6 +12,9 @@ struct TodoRow: View {
     @State private var isShowingModalView: Bool = false
     @State private var isShowingActionSheet: Bool = false
     var todo: Todo
+    var isAfterDeadline: Bool {
+        return todo.completionState != .done && todo.endDate.isAfterDue
+    }
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -23,7 +26,6 @@ struct TodoRow: View {
                 .foregroundColor(.gray)
                 .padding(.bottom, 1.0)
                 .lineLimit(3)
-            let isAfterDeadline: Bool = todo.completionState != .done && todo.endDate.isAfterDue
             Text(todo.endDate.formattedString)
                 .font(.footnote)
                 .foregroundColor(isAfterDeadline ? .red : .black)
