@@ -48,11 +48,7 @@ struct TodoList: View {
     func delete(_ indexSet: IndexSet) {
         indexSet.forEach { index in
             let removingTodo = filteredTodos[index]
-            guard let firstIndex = todoViewModel.todos.firstIndex(of: removingTodo) else {
-                NSLog("해당 투두를 찾을 수 없음")
-                return
-            }
-            todoViewModel.todos.remove(at: firstIndex)
+            todoViewModel.delete(todo: removingTodo)
         }
     }
 }

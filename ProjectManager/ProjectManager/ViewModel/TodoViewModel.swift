@@ -36,12 +36,17 @@ final class TodoViewModel: ObservableObject {
              completionState: .doing)
     ]
     
-    func addTodo(title: String, endDate: TimeInterval, detail: String) {
-        let newTodo = Todo(
-            title: title,
-            detail: detail,
-            endDate: endDate,
-            completionState: .todo)
+    func addTodo(title: String, endDate: Date, detail: String) {
+        let convertedDate = endDate.timeIntervalSince1970
+        let newTodo = Todo(title: title, detail: detail, endDate: convertedDate, completionState: .todo)
         todos.append(newTodo)
+    }
+    
+    func delete(todo: Todo) {
+        guard let firstIndex = todos.firstIndex(of: todo) else {
+            NSLog("해당 투두를 찾을 수 없음")
+            return
+        }
+        todos.remove(at: firstIndex)
     }
 }

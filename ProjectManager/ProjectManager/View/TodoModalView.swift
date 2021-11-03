@@ -52,10 +52,7 @@ struct TodoModalView: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(
-                        action: {
-                            doneButtonAction()
-                            isPresented.toggle()
-                        },
+                        action: doneButtonAction,
                         label: { Text("Done") }
                     )
                 }
@@ -67,15 +64,13 @@ struct TodoModalView: View {
     func doneButtonAction() {
         switch modalType {
         case .add:
-            let convertedDate = self.todoEndDate.timeIntervalSince1970
-            todoViewModel.addTodo(title: self.todoTitle,
-                                  endDate: convertedDate,
-                                  detail: self.todoDetail)
+            todoViewModel.addTodo(title: self.todoTitle, endDate: self.todoEndDate, detail: self.todoDetail)
         case .show:
             print("확인")
         case .edit:
             print("수정 완료")
         }
+        isPresented.toggle()
     }
 }
 
