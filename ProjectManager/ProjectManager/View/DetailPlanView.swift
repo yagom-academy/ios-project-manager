@@ -8,13 +8,15 @@
 import SwiftUI
 
 struct DetailPlanView: View {
+    let plan: ProjectToDoList.Plan
+    
     var body: some View {
         VStack(alignment: .leading) {
-            Text("마라탕먹기")
+            Text(plan.title)
                 .font(.title3)
-            Text("마라탕 먹고싶다. 내일 마라탕 먹으러 가야지")
+            Text(plan.description)
                 .foregroundColor(.gray)
-            Text("2021. 11. 3.")
+            Text(plan.deadline.description)
                 .padding(.top, 1.0)
                 .font(.footnote)
         }
@@ -23,6 +25,6 @@ struct DetailPlanView: View {
 
 struct DetailPlanView_Previews: PreviewProvider {
     static var previews: some View {
-        DetailPlanView()
+        DetailPlanView(plan: DummyData().data[0])
     }
 }

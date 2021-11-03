@@ -8,11 +8,14 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject var viewModel: ProjectPlanViewModel
+    let planStates = ProjectToDoList.Plan.State.allCases
+    
     var body: some View {
         NavigationView {
             HStack {
-                ForEach(0...2, id: \.self) {_ in
-                    PlanListView()
+                ForEach(planStates, id: \.self) { planState in
+                    PlanListView(viewModel: viewModel, projectState: planState.description)
                 }
             }
             .navigationTitle("Project Manager")
@@ -26,7 +29,7 @@ struct ContentView: View {
 @available(iOS 15.0, *)
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(viewModel: ProjectPlanViewModel())
             .previewInterfaceOrientation(.landscapeRight)
     }
 }

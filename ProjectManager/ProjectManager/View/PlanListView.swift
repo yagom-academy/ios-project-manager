@@ -8,12 +8,19 @@
 import SwiftUI
 
 struct PlanListView: View {
+    @ObservedObject var viewModel: ProjectPlanViewModel
+    let projectState: String
+    
     var body: some View {
         List {
             Section {
-                DetailPlanView()
+                ForEach(viewModel.plans) { plan in
+                    if plan.state.description == projectState {
+                        DetailPlanView(plan: plan)
+                    }
+                }
             } header: {
-                Text("TODO")
+                Text(projectState)
                     .foregroundColor(.black)
                     .font(.largeTitle)
             }
@@ -24,6 +31,6 @@ struct PlanListView: View {
 
 struct PlanListView_Previews: PreviewProvider {
     static var previews: some View {
-        PlanListView()
+        PlanListView(viewModel: ProjectPlanViewModel(), projectState: "TODO")
     }
 }

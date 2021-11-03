@@ -11,7 +11,7 @@ import SwiftUI
 struct ProjectManagerApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(viewModel: ProjectPlanViewModel())
         }
     }
 }
