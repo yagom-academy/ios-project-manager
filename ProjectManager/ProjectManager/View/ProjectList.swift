@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ProjectList: View {
     var projects: [ProjectModel.Project]
+    var status: ProjectModel.Status
     
     var body: some View {
         List {
@@ -24,7 +25,7 @@ struct ProjectList: View {
     
     var header: some View {
         HStack {
-            Text(projects[0].status.header)
+            Text(status.header)
                         .foregroundColor(.primary)
                         .font(.title)
             Image(systemName: "\(projects.count).circle.fill")
@@ -67,6 +68,6 @@ struct ProjectList_Previews: PreviewProvider {
                                  dueDate: Date(timeIntervalSince1970: 1694223600),
                                  created: Date(timeIntervalSince1970: 1554223600),
                                  status: .todo)
-        ])
+        ], status: .todo)
     }
 }

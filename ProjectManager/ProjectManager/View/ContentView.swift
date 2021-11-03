@@ -13,9 +13,9 @@ struct ContentView: View {
     var body: some View {
             NavigationView {
                 HStack {
-                    ProjectList(projects: projects.todos)
-                    ProjectList(projects: projects.doings)
-                    ProjectList(projects: projects.dones)
+                    ProjectList(projects: projects.todos, status: .todo)
+                    ProjectList(projects: projects.doings, status: .doing)
+                    ProjectList(projects: projects.dones, status: .done)
                 }
                 .background(Color(.systemGray4))
                 .navigationTitle("Project Manager").font(.title3)
