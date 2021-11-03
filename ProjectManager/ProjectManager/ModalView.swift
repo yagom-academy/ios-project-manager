@@ -9,32 +9,37 @@ import SwiftUI
 
 struct ModalView: View {
 
+    @EnvironmentObject var taskViewModel: TaskViewModel
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    @State private var title: String = ""
-    @State private var description: String = ""
-    @State private var date = Date()
+    
+    var task: Task
+    var taskIndex: Int {
+        taskViewModel.tasks.firstIndex(where: { $0.id == task.id }) ?? 0
+    }
     
     var body: some View {
         NavigationView {
             VStack {
                 TextField(
                     "Title",
-                    text: $title
+                    text: $taskViewModel.tasks[taskIndex].title
                 )
                 .frame(height: 44)
                 .background(Color.white)
                 .shadow(color: .gray, radius: 3, x: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/, y: 2.0)
                 .padding(.horizontal)
+                
                 DatePicker(
                     "",
-                    selection: $date,
+                    selection: $taskViewModel.tasks[taskIndex].date,
                     displayedComponents: [.date]
                 )
                 .datePickerStyle(WheelDatePickerStyle())
                 .labelsHidden()
+                
                 TextField(
                     "Description",
-                    text: $description
+                    text: $taskViewModel.tasks[taskIndex].description
                 )
                 .frame(height: 300, alignment: .top)
                 .background(Color.white)
@@ -49,14 +54,16 @@ struct ModalView: View {
                 },
                 trailing: Button("Done"){
                     self.presentationMode.wrappedValue.dismiss()
-            })
+                })
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 
 struct ModalView_Previews: PreviewProvider {
+    static let viewModel = TaskViewModel()
     static var previews: some View {
-        ModalView()
+        ModalView(task: viewModel.tasks[0])
+            .environmentObject(viewModel)
     }
 }
