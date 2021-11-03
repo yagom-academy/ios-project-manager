@@ -52,7 +52,7 @@ struct ToDoEditText: View {
             TextField("Title", text: $title)
                 .padding()
                 .background(Color.white.shadow(color: .gray, radius: 3, x: 1, y: 4))
-            DatePicker(selection: $date, label: {})
+            DatePicker("Date", selection: $date, displayedComponents: .date)
                 .datePickerStyle(.wheel)
                 .labelsHidden()
             TextEditor(text: $description)
