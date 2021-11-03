@@ -9,6 +9,7 @@ import SwiftUI
 
 struct TodoCellView: View {
     var memo: Memo
+    var todoViewModel: TodoViewModel
     var body: some View {
         VStack(alignment: .leading) {
             Text(memo.title)
@@ -21,12 +22,13 @@ struct TodoCellView: View {
                 .lineLimit(3)
             Text("\(memo.date.formatDate())")
                 .font(.caption)
+                .foregroundColor(todoViewModel.changeDateColor(date: memo.date, state: memo.state))
         }
     }
 }
 
-struct TodoListView_Previews: PreviewProvider {
-    static var previews: some View {
-        TodoCellView(memo: Memo(title: "title", description: "des", date: Date(), state: .todo))
-    }
-}
+//struct TodoListView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        TodoCellView(memo: Memo(title: "title", description: "des", date: Date(), state: .todo), todoViewModel: todoViewModel)
+//    }
+//}

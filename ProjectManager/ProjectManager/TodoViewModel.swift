@@ -25,4 +25,10 @@ final class TodoViewModel: ObservableObject {
             $0.state == state
         }.count
     }
+    func changeDateColor(date: Date, state: TodoState) -> Color? {
+        if state != TodoState.done && date < Date() {
+            return Color.red
+        }
+        return Color.black
+    }
 }
