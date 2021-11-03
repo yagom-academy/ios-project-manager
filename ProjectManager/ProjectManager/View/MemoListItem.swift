@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MemoListItem: View {
+    @ObservedObject var viewModel: MemoViewModel
     var item: Memo
     var body: some View {
         ZStack(alignment: .leading) {
@@ -44,13 +45,16 @@ struct MemoListItem: View {
 
 struct ListItem_Previews: PreviewProvider {
     static var previews: some View {
-        MemoListItem(item: Memo(
-            id: UUID(),
-            title: "test",
-            body: "body",
-            date: Date(),
-            state: .todo
-        ))
+        MemoListItem(
+            viewModel: .init(),
+            item: Memo(
+                id: UUID(),
+                title: "test",
+                body: "body",
+                date: Date(),
+                state: .todo
+            )
+        )
             .previewLayout(
                 .fixed(width: 200, height: 200)
             )

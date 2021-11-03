@@ -23,10 +23,7 @@ struct MemoView: View {
                 alignment: .center,
                 spacing: UIStyle.minInsetAmount
             ) {
-                TextField(
-                    "Title",
-                    text: $title
-                )
+                TextField("Title", text: $title)
                     .padding()
                     .border(.red)
 
@@ -46,25 +43,36 @@ struct MemoView: View {
             .navigationTitle("Edit")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(
-                    placement: .navigationBarLeading
-                ) {
+                ToolbarItem(placement: .navigationBarLeading) {
                     Button {
                         isEdited = false
                     } label: {
                         Text("Cancel")
                     }
                 }
-            }
-            .toolbar {
-                ToolbarItem(
-                    placement: .navigationBarTrailing
-                ) {
+
+                ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        print("DONE")
+                        let memo = Memo(
+                            id: UUID(),
+                            title: title,
+                            body: description,
+                            date: date,
+                            state: .todo
+                        )
+
+                        viewModel.edit(memo)
+                        isEdited = false
                     } label: {
                         Text("DONE")
                     }
+                }
+            }
+            .onAppear {
+                if let memo = viewModel.memoToEdit() {
+                    title = memo.title
+                    description = memo.body
+                    date = memo.date
                 }
             }
         }
@@ -74,7 +82,7 @@ struct MemoView: View {
 
 struct MemoView_Previews: PreviewProvider {
     static var previews: some View {
-        MemoView(
+        MemoView.init(
             viewModel: MemoViewModel(),
             isEdited: .constant(true)
         )

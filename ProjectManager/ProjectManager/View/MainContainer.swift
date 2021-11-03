@@ -37,7 +37,7 @@ struct MainContainer: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
                         isEdited.toggle()
-                        viewModel.createMemo()
+                        viewModel.joinToCreateMemo()
                     } label: {
                         Image(systemName: "plus")
                     }

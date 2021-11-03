@@ -12,12 +12,10 @@ struct MemoList: View {
     let state: Memo.State
     let onTap: () -> Void
 
-    private var items: [Memo] {
-        viewModel.list(about: state)
-    }
-
     var body: some View {
-        VStack(
+        let items = viewModel.list(about: state)
+
+        return VStack(
             alignment: .leading,
             spacing: UIStyle.minInsetAmount
         ) {
@@ -38,25 +36,23 @@ struct MemoList: View {
                     spacing: UIStyle.minInsetAmount,
                     pinnedViews: PinnedScrollableViews()
                 ) {
-                    Group {
-                        ForEach(items) { memo in
-                            MemoListItem(item: memo)
-                                .padding(.bottom, UIStyle.minInsetAmount)
-                                .onTapGesture {
-                                    viewModel.update(memo)
-                                    onTap()
-                                }
-                                .onLongPressGesture {
+                    ForEach(items, id: \.id) { memo in
+                        MemoListItem(viewModel: viewModel, item: memo)
+                            .padding(.bottom, UIStyle.minInsetAmount)
+                            .onTapGesture {
+                                viewModel.joinToUpdate(memo)
+                                onTap()
+                            }
+                            .onLongPressGesture {
 
+                            }
+                            .swipeToDelete {
+                                guard let index = items.firstIndex(of: memo) else {
+                                    return
                                 }
-                                .swipeToDelete {
-                                    guard let index = items.firstIndex(of: memo) else {
-                                        return
-                                    }
 
-                                    viewModel.delete(at: index, from: state)
-                                }
-                        }
+                                viewModel.delete(at: index, from: state)
+                            }
                     }
                 }
             }
