@@ -11,36 +11,6 @@ struct MemoListItem: View {
     @ObservedObject var viewModel: MemoViewModel
     var memo: Memo
 
-    private let dateFormatter: DateFormatter = {
-        let result = DateFormatter()
-        result.locale = Locale.current
-        result.dateStyle = .medium
-        result.timeStyle = .none
-        return result
-    }()
-
-    private func yyyyMMdd(about date: Date) -> String {
-        return dateFormatter.string(from: date)
-    }
-
-    private var dateColor: Color {
-        guard memo.state != .done else {
-            return .black
-        }
-
-        let currentDate = yyyyMMdd(about: Date())
-        let describedDate = yyyyMMdd(about: memo.date)
-
-        let currentTime = dateFormatter.date(from: currentDate)
-        let describedTime = dateFormatter.date(from: describedDate)
-
-        if describedTime! < currentTime! {
-            return .red
-        } else {
-            return .black
-        }
-    }
-
     var body: some View {
         ZStack(alignment: .leading) {
             Rectangle()
@@ -64,9 +34,9 @@ struct MemoListItem: View {
                         UIStyle.minInsetAmount
                     )
 
-                Text(yyyyMMdd(about: memo.date))
+                Text(viewModel.yyyyMMdd(about: memo.date))
                     .font(.callout)
-                    .foregroundColor(dateColor)
+                    .foregroundColor(viewModel.color(about: memo))
                     .padding(
                         UIStyle.minInsetAmount
                     )

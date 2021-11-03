@@ -13,7 +13,7 @@ struct MemoList: View {
     let onTap: () -> Void
 
     var body: some View {
-        let list = viewModel.list(about: state)
+        let memoList = viewModel.list(about: state)
 
         return VStack(
             alignment: .leading,
@@ -21,7 +21,7 @@ struct MemoList: View {
         ) {
             MemoListHeader(
                 title: state.description,
-                number: list.count
+                number: memoList.count
             )
                 .padding(
                     UIStyle.minInsetAmount
@@ -36,18 +36,15 @@ struct MemoList: View {
                     spacing: UIStyle.minInsetAmount,
                     pinnedViews: PinnedScrollableViews()
                 ) {
-                    ForEach(list) { memo in
+                    ForEach(memoList) { memo in
                         MemoListItem(viewModel: viewModel, memo: memo)
                             .padding(.bottom, UIStyle.minInsetAmount)
                             .onTapGesture {
                                 viewModel.joinToUpdate(memo)
                                 onTap()
                             }
-                            .onLongPressGesture {
-
-                            }
                             .swipeToDelete {
-                                guard let index = list.firstIndex(of: memo) else {
+                                guard let index = memoList.firstIndex(of: memo) else {
                                     return
                                 }
 

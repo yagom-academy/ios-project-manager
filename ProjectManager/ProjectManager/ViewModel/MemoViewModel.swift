@@ -11,11 +11,49 @@ protocol AlertControllerable {
     func show(with: Error)
 }
 
-class MemoViewModel: ObservableObject {
-    var alertController: AlertControllerable?
+final class MemoViewModel: ObservableObject {
     @Published private(set) var memoList: [[Memo]] = [[], [], []]
-    private var currentState: ActionState = .read
 
+    private var currentState: ActionState = .read
+    private let dateFormatter: DateFormatter = {
+        let result = DateFormatter()
+        result.locale = Locale.current
+        result.dateStyle = .medium
+        result.timeStyle = .none
+        return result
+    }()
+
+    var alertController: AlertControllerable?
+
+    // TODO: - Delete someday
+    init() {
+        (0...30).forEach { int in
+            let randomRawValue = Int.random(in: 0..<Memo.State.allCases.count)
+            let state = Memo.State(rawValue: randomRawValue)!
+            let memo = Memo(
+                id: UUID(),
+                title: int.description,
+                body: (int * 9999999999999).description,
+                date: Date(),
+                state: state
+            )
+            memoList[randomRawValue].append(memo)
+        }
+    }
+
+    enum OpaqueError: Error {
+        case stateError
+    }
+
+    enum ActionState {
+        case read
+        case create
+        case update(Memo)
+    }
+}
+
+// MARK: - CRUD
+extension MemoViewModel {
     func list(about state: Memo.State) -> [Memo] {
         return memoList[state.rawValue]
     }
@@ -27,7 +65,7 @@ class MemoViewModel: ObservableObject {
     func joinToUpdate(_ memo: Memo) {
         currentState = .update(memo)
     }
-
+    
     func edit(_ memo: Memo) {
         if case .create = currentState {
             insert(memo)
@@ -72,30 +110,29 @@ class MemoViewModel: ObservableObject {
             memoList[state][target].date = new.date
         }
     }
+}
 
-    // TODO: - Delete someday
-    init() {
-        (0...30).forEach { int in
-            let randomRawValue = Int.random(in: 0..<Memo.State.allCases.count)
-            let state = Memo.State(rawValue: randomRawValue)!
-            let memo = Memo(
-                id: UUID(),
-                title: int.description,
-                body: (int * 9999999999999).description,
-                date: Date(),
-                state: state
-            )
-            memoList[randomRawValue].append(memo)
+// MARK: - Style
+extension MemoViewModel {
+    func yyyyMMdd(about date: Date) -> String {
+        return dateFormatter.string(from: date)
+    }
+
+    func color(about memo: Memo) -> Color {
+        guard memo.state != .done else {
+            return .black
         }
-    }
 
-    enum OpaqueError: Error {
-        case stateError
-    }
+        let currentDate = yyyyMMdd(about: Date())
+        let describedDate = yyyyMMdd(about: memo.date)
 
-    enum ActionState {
-        case read
-        case create
-        case update(Memo)
+        let currentTime = dateFormatter.date(from: currentDate)
+        let describedTime = dateFormatter.date(from: describedDate)
+
+        if describedTime! < currentTime! {
+            return .red
+        } else {
+            return .black
+        }
     }
 }
