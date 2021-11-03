@@ -16,7 +16,7 @@ struct TodoModalView: View {
     @Binding var isPresented: Bool
     @State var modalType: TodoModal
     @State private var todoTitle: String = ""
-    @State private var endDate: Date = Date()
+    @State private var todoEndDate: Date = Date()
     @State private var todoDetail: String = ""
     
     var body: some View {
@@ -24,7 +24,7 @@ struct TodoModalView: View {
             VStack {
                 TextField("Title", text: $todoTitle)
                     .border(.black)
-                DatePicker("", selection: $endDate, displayedComponents: [.date])
+                DatePicker("", selection: $todoEndDate, displayedComponents: [.date])
                     .datePickerStyle(.wheel)
                     .fixedSize()
                 TextEditor(text: $todoDetail)
