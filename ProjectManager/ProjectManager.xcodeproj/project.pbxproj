@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
 		D46424A1272A2AEC007C6FFD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D46424A0272A2AEC007C6FFD /* GoogleService-Info.plist */; };
-		D46424C7272A6E12007C6FFD /* ProjectManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46424C6272A6E12007C6FFD /* ProjectManager.swift */; };
+		D46424C7272A6E12007C6FFD /* ProjectManagerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46424C6272A6E12007C6FFD /* ProjectManagerApp.swift */; };
 		D46424CD272A6E62007C6FFD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46424CC272A6E62007C6FFD /* ContentView.swift */; };
 		D464251C2730BF8B007C6FFD /* ProjectRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D464251B2730BF8B007C6FFD /* ProjectRow.swift */; };
 		D464251F2730CDBE007C6FFD /* ProjectList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D464251E2730CDBE007C6FFD /* ProjectList.swift */; };
@@ -24,7 +24,7 @@
 		C7431F0E25F51E1E0094C4CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D46424A0272A2AEC007C6FFD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		D46424C6272A6E12007C6FFD /* ProjectManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManager.swift; sourceTree = "<group>"; };
+		D46424C6272A6E12007C6FFD /* ProjectManagerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerApp.swift; sourceTree = "<group>"; };
 		D46424CC272A6E62007C6FFD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D464251B2730BF8B007C6FFD /* ProjectRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectRow.swift; sourceTree = "<group>"; };
 		D464251E2730CDBE007C6FFD /* ProjectList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectList.swift; sourceTree = "<group>"; };
@@ -82,6 +82,7 @@
 			children = (
 				D46424C6272A6E12007C6FFD /* ProjectManager.swift */,
 				D46424CC272A6E62007C6FFD /* ContentView.swift */,
+				D46424C6272A6E12007C6FFD /* ProjectManagerApp.swift */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				D46424A0272A2AEC007C6FFD /* GoogleService-Info.plist */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
@@ -203,6 +204,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D464251C2730BF8B007C6FFD /* ProjectRow.swift in Sources */,
+				D46424C7272A6E12007C6FFD /* ProjectManagerApp.swift in Sources */,
 				D46424CD272A6E62007C6FFD /* ContentView.swift in Sources */,
 				D464251F2730CDBE007C6FFD /* ProjectList.swift in Sources */,
 			);
