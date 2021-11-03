@@ -10,8 +10,9 @@ import SwiftUI
 struct MainContentView: View {
     @EnvironmentObject var listViewModel: ListViewModel
     @State private var isPopoverPresented = false
-    
     var body: some View {
+        
+        
         VStack {
             HStack {
                 Spacer()
@@ -31,28 +32,11 @@ struct MainContentView: View {
                 }
             }
             .background(Color(white: 0.93))
+            
             HStack {
-                List {
-                    ForEach(listViewModel.todo, id: \.title) {
-                        ProjectMangerRow(project: $0)
-                    }
-                    .onDelete(perform: listViewModel.deleteTask)
-                }
-                .background(Color("backgroundGray"))
-                List {
-                    ForEach(listViewModel.doing, id: \.title) {
-                        ProjectMangerRow(project: $0)
-                    }
-                    .onDelete(perform: listViewModel.deleteTask)
-                }
-                .background(Color("backgroundGray"))
-                List {
-                    ForEach(listViewModel.done, id: \.title) {
-                        ProjectMangerRow(project: $0)
-                    }
-                    .onDelete(perform: listViewModel.deleteTask)
-                }
-                .background(Color("backgroundGray"))
+                ListView(status: listViewModel.todo)
+                ListView(status: listViewModel.doing)
+                ListView(status: listViewModel.done)
             }
             .background(Color(white: 0.8))
             .listStyle(PlainListStyle())
