@@ -9,8 +9,7 @@ import SwiftUI
 
 struct MemoView: View {
     @ObservedObject var viewModel: MemoViewModel
-    @Binding var isEdited: Bool
-
+    @Binding var isShow: Bool
     @State private var title = ""
     @State private var description = "입력가능한 숫자는 1000글자로 제한합니다"
     @State private var date = Date()
@@ -48,6 +47,12 @@ struct MemoView: View {
                             .fill(.white)
                             .shadow(radius: UIStyle.shadowAmount)
                     )
+                    .onTapGesture {
+                        let placeholder = "입력가능한 숫자는 1000글자로 제한합니다"
+                        if description == placeholder {
+                            description = ""
+                        }
+                    }
             }
             .padding()
             .navigationTitle("Edit")
@@ -55,7 +60,7 @@ struct MemoView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button {
-                        isEdited = false
+                        isShow = false
                     } label: {
                         Text("Cancel")
                     }
@@ -72,7 +77,7 @@ struct MemoView: View {
                         )
 
                         viewModel.edit(memo)
-                        isEdited = false
+                        isShow = false
                     } label: {
                         Text("DONE")
                     }
@@ -94,7 +99,7 @@ struct MemoView_Previews: PreviewProvider {
     static var previews: some View {
         MemoView.init(
             viewModel: MemoViewModel(),
-            isEdited: .constant(true)
+            isShow: .constant(true)
         )
     }
 }
