@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct ProjectModel {
+struct ProjectModel: Identifiable {
+    var id: String = UUID().uuidString
     let title: String
     let description: String
     let date: Date

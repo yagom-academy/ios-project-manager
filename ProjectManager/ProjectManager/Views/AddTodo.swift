@@ -7,30 +7,32 @@
 
 import SwiftUI
 
-struct EditPopover: View {
-    @State private var date = Date()
-    @State private var title = ""
-    @State private var detail = ""
-
+struct AddTodo: View {
     
-    @Binding var isPresented: Bool
+    @EnvironmentObject var listViewModel: ListViewModel
+    @State private var title = ""
+    @State private var description = ""
+    @State private var date = Date()
+    @Binding var isModalPresented: Bool
     
     var body: some View {
         VStack {
                 HStack {
                     Button {
-                        print()
+                        isModalPresented = false
                     } label: {
-                        Text("Edit")
+                        Text("Cancel")
                             .font(.title3)
                             .padding(.leading)
                     }
                     Spacer()
                     Text("TODO")
                         .font(.title2)
+                        .padding(.top)
                     Spacer()
                     Button {
-                        isPresented = false
+                        addTodoAction()
+                        isModalPresented = false
                     } label: {
                         Text("Done")
                             .font(.title3)
@@ -50,18 +52,24 @@ struct EditPopover: View {
                     .labelsHidden()
                     .datePickerStyle(.wheel)
                     
-                TextEditor(text: $detail)
+                TextEditor(text: $description)
                     .textFieldStyle(.roundedBorder)
                     .shadow(color: .gray, radius: 5)
             }
             .padding(/*@START_MENU_TOKEN@*/[.leading, .bottom, .trailing]/*@END_MENU_TOKEN@*/)
         }
     }
-}
-
-struct EditPopover_Previews: PreviewProvider {
-    static var previews: some View {
-        EditPopover(isPresented: .constant(false))
-.previewInterfaceOrientation(.landscapeLeft)
+    
+    private func addTodoAction() {
+        if checkEmptyLabel() {
+            listViewModel.addTodo(title: title, description: description, date: date)
+        }        
+    }
+    
+    func checkEmptyLabel() -> Bool {
+        if title.count == 0 || description.count == 0 {
+            return false
+        }
+            return true
     }
 }
