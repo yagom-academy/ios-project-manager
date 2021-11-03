@@ -24,8 +24,8 @@ struct Todo: Hashable {
             }
         }
     }
-    var title: String
-    var detail: String
-    var endDate: TimeInterval
-    var completionState: Completion
+    let title: String
+    let detail: String
+    let endDate: TimeInterval
+    let completionState: Completion
 }
