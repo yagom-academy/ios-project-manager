@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ListRow: View {
     
+    @State private var isShowModal: Bool = false
+    
     var task: Task
     
     var body: some View {
@@ -28,6 +30,12 @@ struct ListRow: View {
             }
             Spacer()
         }
+        .onTapGesture {
+            self.isShowModal = true
+        }
+        .sheet(isPresented: self.$isShowModal, content: {
+            ModalView(task: task)
+        })
         .padding()
         .background(Color.white)
     }
