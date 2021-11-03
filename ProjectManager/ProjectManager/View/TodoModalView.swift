@@ -60,10 +60,15 @@ struct TodoModalView: View {
         }
         .navigationViewStyle(.stack)
     }
-    
-    func doneButtonAction() {
+}
+
+extension TodoModalView {
+    private func doneButtonAction() {
         switch modalType {
         case .add:
+            guard !self.todoTitle.isEmpty, !self.todoDetail.isEmpty else {
+                return
+            }
             todoViewModel.addTodo(title: self.todoTitle, endDate: self.todoEndDate, detail: self.todoDetail)
         case .show:
             print("확인")
@@ -79,5 +84,6 @@ struct AddTodoView_Previews: PreviewProvider {
     
     static var previews: some View {
         TodoModalView(isPresented: $showingDetail, modalType: .add)
+            .previewLayout(.sizeThatFits)
     }
 }

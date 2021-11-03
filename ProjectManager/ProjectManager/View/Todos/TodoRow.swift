@@ -37,5 +37,6 @@ struct TodoRow_Previews: PreviewProvider {
             detail: "테스트 본문",
             endDate: Date().timeIntervalSince1970,
             completionState: .done))
+            .previewLayout(.sizeThatFits)
     }
 }

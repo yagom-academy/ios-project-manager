@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MainContentView: View {
-    @State var showModalView = false
+    @State private var isShowingModalView: Bool = false
     
     var body: some View {
         NavigationView {
@@ -22,12 +22,12 @@ struct MainContentView: View {
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Button(
-                        action: { self.showModalView.toggle() },
+                        action: { self.isShowingModalView.toggle() },
                          label: { Label("", systemImage: "plus") }
                     )
-                        .sheet(isPresented: self.$showModalView) {
-                            TodoModalView(isPresented: $showModalView, modalType: .add)
-                        }
+                    .sheet(isPresented: self.$isShowingModalView) {
+                        TodoModalView(isPresented: $isShowingModalView, modalType: .add)
+                    }
                 }
             }
         }

@@ -44,8 +44,10 @@ struct TodoList: View {
         }
         .listStyle(.grouped)
     }
-    
-    func delete(_ indexSet: IndexSet) {
+}
+
+extension TodoList {
+    private func delete(_ indexSet: IndexSet) {
         indexSet.forEach { index in
             let removingTodo = filteredTodos[index]
             todoViewModel.delete(todo: removingTodo)
@@ -57,5 +59,6 @@ struct TodoList_Previews: PreviewProvider {
     static var previews: some View {
         TodoList(completionState: .done)
             .environmentObject(TodoViewModel())
+            .previewLayout(.sizeThatFits)
     }
 }
