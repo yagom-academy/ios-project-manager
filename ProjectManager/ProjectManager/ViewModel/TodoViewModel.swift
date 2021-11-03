@@ -35,4 +35,13 @@ final class TodoViewModel: ObservableObject {
              endDate: 1640460153,
              completionState: .doing)
     ]
+    
+    func addTodo(title: String, endDate: TimeInterval, detail: String) {
+        let newTodo = Todo(
+            title: title,
+            detail: detail,
+            endDate: endDate,
+            completionState: .todo)
+        todos.append(newTodo)
+    }
 }

@@ -40,18 +40,12 @@ struct TodoModalView: View {
                     switch modalType {
                     case .show:
                         Button(
-                            action: {
-                                print("Edit 버튼")
-                                modalType = .edit
-                            },
+                            action: { modalType = .edit },
                             label: { Text("Edit") }
                         )
                     default:
                         Button(
-                            action: {
-                                print("Cancel 버튼")
-                                isPresented.toggle()
-                            },
+                            action: { isPresented.toggle() },
                             label: { Text("Cancel") }
                         )
                     }
@@ -59,15 +53,7 @@ struct TodoModalView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(
                         action: {
-                            switch modalType {
-                            case .add:
-                                print("Todo 추가")
-                                addTodo()
-                            case .show:
-                                print("확인")
-                            case .edit:
-                                print("수정 완료")
-                            }
+                            doneButtonAction()
                             isPresented.toggle()
                         },
                         label: { Text("Done") }
@@ -78,13 +64,18 @@ struct TodoModalView: View {
         .navigationViewStyle(.stack)
     }
     
-    func addTodo() {
-        let newTodo = Todo(
-            title: self.todoTitle,
-            detail: self.todoDetail,
-            endDate: self.todoEndDate.timeIntervalSince1970,
-            completionState: .todo)
-        todoViewModel.todos.append(newTodo)
+    func doneButtonAction() {
+        switch modalType {
+        case .add:
+            let convertedDate = self.todoEndDate.timeIntervalSince1970
+            todoViewModel.addTodo(title: self.todoTitle,
+                                  endDate: convertedDate,
+                                  detail: self.todoDetail)
+        case .show:
+            print("확인")
+        case .edit:
+            print("수정 완료")
+        }
     }
 }
 
