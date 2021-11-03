@@ -32,7 +32,7 @@ struct TodoRow: View {
             self.isShowingModalView.toggle()
         }
         .sheet(isPresented: $isShowingModalView) {
-            TodoModalView(isPresented: $isShowingModalView, modalType: .show, selectedTodo: self.todo)
+            TodoModalView(isPresented: $isShowingModalView, modalType: .edit, selectedTodo: self.todo)
         }
     }
 }

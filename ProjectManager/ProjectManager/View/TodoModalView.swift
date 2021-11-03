@@ -10,7 +10,6 @@ import SwiftUI
 struct TodoModalView: View {
     enum TodoModal {
         case add
-        case show
         case edit
     }
     @EnvironmentObject private var todoViewModel: TodoViewModel
@@ -40,15 +39,15 @@ struct TodoModalView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     switch modalType {
-                    case .show:
-                        Button(
-                            action: { modalType = .edit },
-                            label: { Text("Edit") }
-                        )
-                    default:
+                    case .add:
                         Button(
                             action: { isPresented.toggle() },
                             label: { Text("Cancel") }
+                        )
+                    case .edit:
+                        Button(
+                            action: editButtonAction,
+                            label: { Text("Edit") }
                         )
                     }
                 }
@@ -72,6 +71,19 @@ extension TodoModalView {
         self.todoTitle = todo.title
         self.todoEndDate = Date(timeIntervalSince1970: todo.endDate)
         self.todoDetail = todo.detail
+    }
+    
+    private func editButtonAction() {
+        guard let todo = selectedTodo else { return }
+        if !(todo.title == todoTitle &&
+             todo.detail == todoDetail &&
+             todo.endDate == todoEndDate.timeIntervalSince1970) {
+            todoViewModel.editTodo(baseTodo: todo,
+                                   title: self.todoTitle,
+                                   endDate: self.todoEndDate,
+                                   detail: self.todoDetail)
+        }
+        isPresented.toggle()
     }
     
     private func doneButtonAction() {

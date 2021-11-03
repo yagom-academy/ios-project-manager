@@ -49,4 +49,15 @@ final class TodoViewModel: ObservableObject {
         }
         todos.remove(at: firstIndex)
     }
+    
+    func editTodo(baseTodo todo: Todo, title: String, endDate: Date, detail: String) {
+        guard let firstIndex = todos.firstIndex(of: todo) else {
+            NSLog("해당 투두를 찾을 수 없음")
+            return
+        }
+        let editedTodo = Todo(title: title, detail: detail,
+                              endDate: endDate.timeIntervalSince1970,
+                              completionState: todo.completionState)
+        todos[firstIndex] = editedTodo
+    }
 }
