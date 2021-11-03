@@ -11,6 +11,7 @@ enum Action  {
     case create(todo: Todo)
     case delete(indexSet: IndexSet)
     case update(todo: Todo)
+    case changeType(id: UUID, type: SortType)
 }
 
 final class ToDoListViewModel: ObservableObject{
@@ -24,6 +25,8 @@ final class ToDoListViewModel: ObservableObject{
             toDoList.remove(atOffsets: indexSet)
         case .update(let todo):
             toDoList.firstIndex { $0.id == todo.id }.flatMap { toDoList[$0] = todo }
+        case .changeType(let id, let type):
+            toDoList.firstIndex { $0.id == id }.flatMap { toDoList[$0].type = type }
         }
     }
 

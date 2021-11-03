@@ -23,7 +23,7 @@ struct Todo: Identifiable {
     }
 }
 
-enum SortType: CustomStringConvertible {
+enum SortType: CustomStringConvertible, CaseIterable {
     case toDo
     case doing
     case done

@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct TodoRowView: View {
+    @EnvironmentObject var toDoViewModel: ToDoListViewModel
     @State private var isPresented: Bool = false
+    @State private var isLongPressed: Bool = false
     var todo: Todo
-
+    
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
@@ -28,9 +30,30 @@ struct TodoRowView: View {
         }.contentShape(Rectangle())
             .onTapGesture {
                 isPresented.toggle()
-            }.sheet(isPresented: $isPresented) {
+            }
+            .onLongPressGesture {
+                isLongPressed.toggle()
+            }
+            .popover(isPresented: $isLongPressed, attachmentAnchor: .point(.center)) {
+                let type = SortType.allCases.filter { $0 != todo.type }
+                ForEach(type, id: \.self) {
+                    moveButton(type: $0)
+                }
+            }
+            .sheet(isPresented: $isPresented) {
                 ModalView(isDone: $isPresented, modalViewType: .edit, currentTodo: todo)
             }
+    }
+    
+    private func moveButton(type: SortType) -> some View {
+            ZStack {
+                Button {
+                    toDoViewModel.action(.changeType(id: todo.id, type: type))
+                } label: {
+                    Text("Move to \(type.description)")
+                }
+                .padding()
+        }
     }
     
     private func judjedRemainingDate(todo: Todo) -> Color? {
@@ -42,6 +65,7 @@ struct TodoRowView: View {
         }
     }
 }
+
 
 
 
