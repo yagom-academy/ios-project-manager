@@ -30,7 +30,7 @@ struct TodoViewModel: Identifiable {
         let today = Date().timeIntervalSince(currentTime)
         let dueDay = Date().timeIntervalSince(todo.dueDate)
         
-        return today > dueDay
+        return today < dueDay
     }
     
     private func convertDateType2String(_ date: Date) -> String {
