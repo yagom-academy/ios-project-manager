@@ -9,7 +9,7 @@ import Foundation
 
 protocol MemoViewModelInput {
     func add(_ memo: Memo)
-    func delete()
+    func delete(_ memo: Memo)
     func moveColumn()
     func modify()
 }
@@ -32,8 +32,8 @@ extension MemoViewModel: MemoViewModelInput {
         model.add(memo)
     }
     
-    func delete() {
-        
+    func delete(_ memo: Memo) {
+        model.delete(memo)
     }
     
     func moveColumn() {
