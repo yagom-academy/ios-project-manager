@@ -42,6 +42,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		433DE32F2733D04B006EDEC8 /* LifeCycle */ = {
+			isa = PBXGroup;
+			children = (
+				433DE32D2733CF9F006EDEC8 /* ProjectManagerApp.swift */,
+			);
+			path = LifeCycle;
+			sourceTree = "<group>";
+		};
+		433DE3302733D061006EDEC8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				43A6ABDF2728B50C0042BB0C /* ContentView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		433DE3312733D07A006EDEC8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		43BDBC7D2729F0990068ED03 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -72,8 +95,9 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
-				433DE32D2733CF9F006EDEC8 /* ProjectManagerApp.swift */,
-				43A6ABDF2728B50C0042BB0C /* ContentView.swift */,
+				433DE32F2733D04B006EDEC8 /* LifeCycle */,
+				433DE3312733D07A006EDEC8 /* Model */,
+				433DE3302733D061006EDEC8 /* View */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
 				43A6ABE12728BDBD0042BB0C /* GoogleService-Info.plist */,
