@@ -126,10 +126,9 @@ extension MemoViewModel {
         let currentDate = yyyyMMdd(about: Date())
         let describedDate = yyyyMMdd(about: memo.date)
 
-        let currentTime = dateFormatter.date(from: currentDate)
-        let describedTime = dateFormatter.date(from: describedDate)
-
-        if describedTime! < currentTime! {
+        if let currentTime = dateFormatter.date(from: currentDate),
+           let describedTime = dateFormatter.date(from: describedDate),
+           describedTime < currentTime {
             return .red
         } else {
             return .black
