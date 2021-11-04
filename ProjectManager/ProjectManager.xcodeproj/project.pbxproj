@@ -7,37 +7,37 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3F76A9F2272A6444007AE039 /* ToDoRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F76A9F1272A6444007AE039 /* ToDoRow.swift */; };
-		3F76A9F6272AA52A007AE039 /* ToDoHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F76A9F5272AA52A007AE039 /* ToDoHeader.swift */; };
 		3FB2CF012727D5C700272707 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3FB2CF002727D5C700272707 /* GoogleService-Info.plist */; };
 		3FB2CF052727D83100272707 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 3FB2CF042727D83100272707 /* FirebaseFirestore */; };
 		3FB2CF072727D83100272707 /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 3FB2CF062727D83100272707 /* FirebaseFirestoreSwift-Beta */; };
-		3FE3794827327B00000D8247 /* ToDoPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE3794727327B00000D8247 /* ToDoPopover.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
+		C90881C62733E20A00F99E3C /* Memo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90881C52733E20A00F99E3C /* Memo.swift */; };
+		C90881CC2733E21700F99E3C /* MemoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90881C72733E21600F99E3C /* MemoList.swift */; };
+		C90881CD2733E21700F99E3C /* MemoPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90881C82733E21600F99E3C /* MemoPopover.swift */; };
+		C90881CE2733E21700F99E3C /* MemoRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90881C92733E21600F99E3C /* MemoRow.swift */; };
+		C90881CF2733E21700F99E3C /* MemoDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90881CA2733E21700F99E3C /* MemoDetail.swift */; };
+		C90881D02733E21700F99E3C /* MemoHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90881CB2733E21700F99E3C /* MemoHeader.swift */; };
 		C9F015852727E01400A0E259 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F015842727E01400A0E259 /* ContentView.swift */; };
-		C9FD5112272A679000CD92AE /* ToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FD5111272A679000CD92AE /* ToDo.swift */; };
-		C9FD5114272A71BD00CD92AE /* ToDoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FD5113272A71BD00CD92AE /* ToDoList.swift */; };
-		C9FD5118272A86FA00CD92AE /* ToDoDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FD5117272A86FA00CD92AE /* ToDoDetail.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3F76A9F1272A6444007AE039 /* ToDoRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoRow.swift; sourceTree = "<group>"; };
-		3F76A9F5272AA52A007AE039 /* ToDoHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoHeader.swift; sourceTree = "<group>"; };
 		3FB2CF002727D5C700272707 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		3FE3794727327B00000D8247 /* ToDoPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoPopover.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		C7431F0E25F51E1E0094C4CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C7431F1125F51E1E0094C4CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = Plist/Info.plist; sourceTree = SOURCE_ROOT; };
+		C90881C52733E20A00F99E3C /* Memo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Memo.swift; sourceTree = "<group>"; };
+		C90881C72733E21600F99E3C /* MemoList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoList.swift; sourceTree = "<group>"; };
+		C90881C82733E21600F99E3C /* MemoPopover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoPopover.swift; sourceTree = "<group>"; };
+		C90881C92733E21600F99E3C /* MemoRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoRow.swift; sourceTree = "<group>"; };
+		C90881CA2733E21700F99E3C /* MemoDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoDetail.swift; sourceTree = "<group>"; };
+		C90881CB2733E21700F99E3C /* MemoHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoHeader.swift; sourceTree = "<group>"; };
 		C9F015842727E01400A0E259 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		C9FD5111272A679000CD92AE /* ToDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDo.swift; sourceTree = "<group>"; };
-		C9FD5113272A71BD00CD92AE /* ToDoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoList.swift; sourceTree = "<group>"; };
-		C9FD5117272A86FA00CD92AE /* ToDoDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoDetail.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,12 +56,12 @@
 		3F76A9F0272A63FC007AE039 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C90881CA2733E21700F99E3C /* MemoDetail.swift */,
+				C90881CB2733E21700F99E3C /* MemoHeader.swift */,
+				C90881C72733E21600F99E3C /* MemoList.swift */,
+				C90881C82733E21600F99E3C /* MemoPopover.swift */,
+				C90881C92733E21600F99E3C /* MemoRow.swift */,
 				C9F015842727E01400A0E259 /* ContentView.swift */,
-				3F76A9F1272A6444007AE039 /* ToDoRow.swift */,
-				C9FD5113272A71BD00CD92AE /* ToDoList.swift */,
-				C9FD5117272A86FA00CD92AE /* ToDoDetail.swift */,
-				3F76A9F5272AA52A007AE039 /* ToDoHeader.swift */,
-				3FE3794727327B00000D8247 /* ToDoPopover.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -108,7 +108,7 @@
 		C9FD5110272A676D00CD92AE /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				C9FD5111272A679000CD92AE /* ToDo.swift */,
+				C90881C52733E20A00F99E3C /* Memo.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -191,14 +191,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
-				3FE3794827327B00000D8247 /* ToDoPopover.swift in Sources */,
-				C9FD5114272A71BD00CD92AE /* ToDoList.swift in Sources */,
-				3F76A9F6272AA52A007AE039 /* ToDoHeader.swift in Sources */,
+				C90881CD2733E21700F99E3C /* MemoPopover.swift in Sources */,
+				C90881D02733E21700F99E3C /* MemoHeader.swift in Sources */,
+				C90881CE2733E21700F99E3C /* MemoRow.swift in Sources */,
 				C9F015852727E01400A0E259 /* ContentView.swift in Sources */,
-				C9FD5118272A86FA00CD92AE /* ToDoDetail.swift in Sources */,
-				3F76A9F2272A6444007AE039 /* ToDoRow.swift in Sources */,
+				C90881CF2733E21700F99E3C /* MemoDetail.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
-				C9FD5112272A679000CD92AE /* ToDo.swift in Sources */,
+				C90881CC2733E21700F99E3C /* MemoList.swift in Sources */,
+				C90881C62733E20A00F99E3C /* Memo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

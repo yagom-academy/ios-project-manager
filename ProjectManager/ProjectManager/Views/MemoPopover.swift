@@ -1,5 +1,5 @@
 //
-//  ToDoPopover.swift
+//  MemoPopover.swift
 //  ProjectManager
 //
 //  Created by Kim Do hyung on 2021/11/03.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ToDoPopover: View {
+struct MemoPopover: View {
     var body: some View {
         VStack(spacing: 10) {
             Button {
@@ -33,8 +33,8 @@ struct ToDoPopover: View {
     }
 }
 
-struct ToDoPopover_Previews: PreviewProvider {
+struct MemoPopover_Previews: PreviewProvider {
     static var previews: some View {
-        ToDoPopover()
+        MemoPopover()
     }
 }

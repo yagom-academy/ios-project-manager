@@ -1,5 +1,5 @@
 //
-//  ToDoDetail.swift
+//  MemoDetail.swift
 //  ProjectManager
 //
 //  Created by JINHONG AN on 2021/10/28.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ToDoDetail: View {
+struct MemoDetail: View {
     @State private var title = ""
     @State private var date = Date()
     @State private var description = ""
@@ -46,8 +46,8 @@ struct ToDoDetail: View {
     }
 }
 
-struct ToDoDetail_Previews: PreviewProvider {
+struct MemoDetail_Previews: PreviewProvider {
     static var previews: some View {
-        ToDoDetail()
+        MemoDetail()
     }
 }

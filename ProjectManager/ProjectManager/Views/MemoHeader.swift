@@ -1,5 +1,5 @@
 //
-//  ToDoHeader.swift
+//  MemoHeader.swift
 //  ProjectManager
 //
 //  Created by Kim Do hyung on 2021/10/28.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ToDoHeader: View {
+struct MemoHeader: View {
     let headerTitle: String
     var rowCount: String
     
@@ -26,8 +26,8 @@ struct ToDoHeader: View {
     }
 }
 
-struct ToDoHeader_Previews: PreviewProvider {
+struct MemoHeader_Previews: PreviewProvider {
     static var previews: some View {
-        ToDoHeader(headerTitle: "TODO", rowCount: "23")
+        MemoHeader(headerTitle: "TODO", rowCount: "23")
     }
 }

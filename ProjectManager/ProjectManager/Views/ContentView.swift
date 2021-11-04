@@ -17,9 +17,9 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             HStack(spacing: 10) {
-                ToDoList(isDetailViewPresented: $isDetailViewPresented)
-                ToDoList(isDetailViewPresented: $isDetailViewPresented)
-                ToDoList(isDetailViewPresented: $isDetailViewPresented)
+                MemoList(isDetailViewPresented: $isDetailViewPresented)
+                MemoList(isDetailViewPresented: $isDetailViewPresented)
+                MemoList(isDetailViewPresented: $isDetailViewPresented)
             }
             .background(Color(UIColor.systemGray3))
             .navigationTitle(Text("Project Manager"))
@@ -31,7 +31,7 @@ struct ContentView: View {
                     Image(systemName: "plus")
                 }
                 .sheet(isPresented: $isDetailViewPresented) {
-                    ToDoDetail()
+                    MemoDetail()
                 }
             })
         }

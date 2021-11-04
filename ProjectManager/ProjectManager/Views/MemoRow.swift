@@ -1,5 +1,5 @@
 //
-//  ToDoRow.swift
+//  MemoRow.swift
 //  ProjectManager
 //
 //  Created by Kim Do hyung on 2021/10/28.
@@ -7,19 +7,19 @@
 
 import SwiftUI
 
-struct ToDoRow: View {
-    let toDo: ToDo
+struct MemoRow: View {
+    let memo: Memo
     @State private var isPopoverShown = false
     
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
-                Text(toDo.title)
+                Text(memo.title)
                     .font(.title)
-                Text(toDo.description)
+                Text(memo.description)
                     .font(.body)
                     .foregroundColor(.gray)
-                Text(toDo.date)
+                Text(memo.date)
                     .font(.caption)
             }
             Spacer()
@@ -28,13 +28,13 @@ struct ToDoRow: View {
             isPopoverShown = true
         }
         .popover(isPresented: $isPopoverShown) {
-            ToDoPopover()
+            MemoPopover()
         }
     }
 }
 
-struct ToDoRow_Previews: PreviewProvider {
+struct MemoRow_Previews: PreviewProvider {
     static var previews: some View {
-        ToDoRow(toDo: dummyToDos[0])
+        MemoRow(memo: dummyMemos[0])
     }
 }
