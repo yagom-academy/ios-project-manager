@@ -29,28 +29,33 @@ struct MemoDetail: View {
     @State var accessMode: AccessMode
     
     var body: some View {
-        VStack {
-            HStack {
-                leftButton
-                Spacer()
-                Text("TODO")
-                Spacer()
-                rightButton
-            }
-            .padding()
-            .background(Color(UIColor.systemGray6))
-            VStack {
-                TextField("Title", text: $memo.title)
+        GeometryReader { geometry in
+            ScrollView {
+                VStack {
+                    HStack {
+                        leftButton
+                        Spacer()
+                        Text("TODO")
+                        Spacer()
+                        rightButton
+                    }
                     .padding()
-                    .background(Color.white.shadow(color: .gray, radius: 3, x: 1, y: 4))
-                DatePicker(selection: $memo.date, label: {})
-                    .datePickerStyle(.wheel)
-                    .labelsHidden()
-                TextEditor(text: $memo.description)
-                    .background(Color.white.shadow(color: .gray, radius: 3, x: 1, y: 4))
+                    .background(Color(UIColor.systemGray6))
+                    VStack {
+                        TextField("Title", text: $memo.title)
+                            .padding()
+                            .background(Color.white.shadow(color: .gray, radius: 3, x: 1, y: 4))
+                        DatePicker(selection: $memo.date, label: {})
+                            .datePickerStyle(.wheel)
+                            .labelsHidden()
+                        TextEditor(text: $memo.description)
+                            .background(Color.white.shadow(color: .gray, radius: 3, x: 1, y: 4))
+                            .frame(height: geometry.size.height * 0.65)
+                    }
+                    .disabled(!accessMode.isEditable)
+                    .padding()
+                }
             }
-            .disabled(!accessMode.isEditable)
-            .padding()
         }
     }
     
@@ -87,7 +92,7 @@ struct MemoDetail: View {
         }
     }
 }
-    
+
 struct MemoDetail_Previews: PreviewProvider {
     static var previews: some View {
         MemoDetail(memo: Memo(), isDetailViewPresented: .constant(true), accessMode: .read)
