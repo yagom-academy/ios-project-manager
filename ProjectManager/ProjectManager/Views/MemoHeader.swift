@@ -18,7 +18,8 @@ struct MemoHeader: View {
             Text(rowCount)
                 .font(.title3)
                 .foregroundColor(.white)
-                .background(Color.black).clipShape(Circle())
+                .padding()
+                .background(Circle())
             Spacer()
         }
         .padding()
