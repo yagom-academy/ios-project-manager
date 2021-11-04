@@ -7,25 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		433DE32E2733CF9F006EDEC8 /* ProjectManagerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433DE32D2733CF9F006EDEC8 /* ProjectManagerApp.swift */; };
 		43A6ABE02728B50C0042BB0C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A6ABDF2728B50C0042BB0C /* ContentView.swift */; };
 		43A6ABE22728BDBD0042BB0C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 43A6ABE12728BDBD0042BB0C /* GoogleService-Info.plist */; };
 		43BDBC7F2729F0990068ED03 /* Firebase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43BDBC7E2729F0990068ED03 /* Firebase.framework */; };
 		43BDBC842729F0B70068ED03 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 43BDBC832729F0B70068ED03 /* Alamofire */; };
 		43BDBC872729F0E60068ED03 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 43BDBC862729F0E60068ED03 /* SwiftyJSON */; };
-		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
-		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		433DE32D2733CF9F006EDEC8 /* ProjectManagerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerApp.swift; sourceTree = "<group>"; };
 		43A6ABDF2728B50C0042BB0C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		43A6ABE12728BDBD0042BB0C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		43BDBC7E2729F0990068ED03 /* Firebase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Firebase.framework; path = Carthage/Build/iOS/Firebase.framework; sourceTree = "<group>"; };
 		43BDBC822729F0A60068ED03 /* Alamofire */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Alamofire; path = Carthage/Checkouts/Alamofire; sourceTree = "<group>"; };
 		43BDBC852729F0D40068ED03 /* SwiftyJSON */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SwiftyJSON; path = Carthage/Checkouts/SwiftyJSON; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		C7431F0E25F51E1E0094C4CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -74,8 +72,7 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
-				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
-				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
+				433DE32D2733CF9F006EDEC8 /* ProjectManagerApp.swift */,
 				43A6ABDF2728B50C0042BB0C /* ContentView.swift */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
@@ -157,9 +154,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
-				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				43A6ABE02728B50C0042BB0C /* ContentView.swift in Sources */,
+				433DE32E2733CF9F006EDEC8 /* ProjectManagerApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
