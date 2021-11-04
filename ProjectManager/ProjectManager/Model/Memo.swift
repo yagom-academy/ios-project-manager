@@ -8,10 +8,6 @@
 import SwiftUI
 
 struct Memo: Identifiable, Equatable {
-    static func == (lhs: Self, rhs: Self) -> Bool {
-        lhs.id == rhs.id
-    }
-
     var id: UUID
     var title: String
     var body: String
@@ -21,16 +17,16 @@ struct Memo: Identifiable, Equatable {
     var isEmpty: Bool {
         return title.isEmpty && body.isEmpty
     }
+    
+    static func == (lhs: Self, rhs: Self) -> Bool {
+        lhs.id == rhs.id
+    }
 
-    enum State: Int, CaseIterable, Identifiable, CustomStringConvertible {
+    enum State: Int, CaseIterable, CustomStringConvertible {
         case todo = 0
         case done = 1
         case doing = 2
-
-        var id: Int {
-            self.rawValue
-        }
-
+        
         var description: String {
             switch self {
             case .todo:

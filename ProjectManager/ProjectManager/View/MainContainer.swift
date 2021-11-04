@@ -17,7 +17,7 @@ struct MainContainer: View {
                 alignment: .center,
                 spacing: UIStyle.minInsetAmount
             ) {
-                ForEach(Memo.State.allCases) {
+                ForEach(Memo.State.allCases, id: \.rawValue) {
                     MemoList(
                         viewModel: viewModel,
                         state: $0,
