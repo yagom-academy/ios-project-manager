@@ -13,4 +13,11 @@ struct MemoModel {
     mutating func add(_ memo: Memo) {
         memos[memo.status.indexValue].append(memo)
     }
+    
+    mutating func delete(column: MemoState, indexSet: IndexSet) {
+        guard let index = indexSet.first else {
+            return
+        }
+        memos[column.indexValue].remove(at: index)
+    }
 }
