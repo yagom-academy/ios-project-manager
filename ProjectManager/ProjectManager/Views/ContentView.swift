@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var isDetailViewPresented = false
+    @StateObject var viewModel = MemoViewModel()
     
     init() {
         UINavigationBar.appearance().backgroundColor = .systemGray5
@@ -17,9 +18,9 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             HStack(spacing: 10) {
-                MemoList(isDetailViewPresented: $isDetailViewPresented)
-                MemoList(isDetailViewPresented: $isDetailViewPresented)
-                MemoList(isDetailViewPresented: $isDetailViewPresented)
+                ForEach(MemoState.allCases, id: \.self) { state in
+                    MemoList(isDetailViewPresented: $isDetailViewPresented, state: state)
+                }
             }
             .background(Color(UIColor.systemGray3))
             .navigationTitle(Text("Project Manager"))
@@ -36,6 +37,7 @@ struct ContentView: View {
             })
         }
         .navigationViewStyle(.stack)
+        .environmentObject(viewModel)
     }
 }
 

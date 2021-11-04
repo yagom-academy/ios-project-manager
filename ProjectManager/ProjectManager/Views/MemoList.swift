@@ -9,13 +9,16 @@ import SwiftUI
 
 struct MemoList: View {
     @Binding var isDetailViewPresented: Bool
+    let state: MemoState
+    @EnvironmentObject var viewModel: MemoViewModel
     
     var body: some View {
+        let list = viewModel.memos[state.indexValue]
         VStack(alignment: .leading, spacing: 3) {
-            MemoHeader(headerTitle: "TODO", rowCount: "12")
+            MemoHeader(headerTitle: state.description, rowCount: list.count.description)
             
             List {
-                ForEach(dummyMemos) { memo in
+                ForEach(list) { memo in
                     MemoRow(memo: memo)
                         .onTapGesture {
                             isDetailViewPresented = true
@@ -33,6 +36,6 @@ struct MemoList: View {
 
 struct MemoList_Previews: PreviewProvider {
     static var previews: some View {
-        MemoList(isDetailViewPresented: .constant(false))
+        MemoList(isDetailViewPresented: .constant(false), state: .toDo)
     }
 }

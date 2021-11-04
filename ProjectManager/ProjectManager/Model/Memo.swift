@@ -7,12 +7,6 @@
 
 import Foundation
 
-let dummyMemos: [Memo] = [
-    Memo(title: "제목 1", description: "asdf", date: "asdf"),
-    Memo(title: "제목 2", description: "asdf", date: "asdf", status: .doing),
-    Memo(title: "제목 3", description: "asdf", date: "asdf", status: .done)
-]
-
 enum MemoState: String, CaseIterable {
     case toDo = "TODO"
     case doing = "DOING"
