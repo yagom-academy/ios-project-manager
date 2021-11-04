@@ -39,4 +39,13 @@ struct MemoModel {
         memo.status = newState
         add(memo)
     }
+    
+    mutating func modify(_ memo: Memo) {
+        guard let index = find(memo) else {
+            return
+        }
+        memos[memo.status.indexValue][index].title = memo.title
+        memos[memo.status.indexValue][index].date = memo.date
+        memos[memo.status.indexValue][index].description = memo.description
+    }
 }
