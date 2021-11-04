@@ -8,7 +8,7 @@
 import CoreGraphics
 
 enum UIStyle {
-    static let shadowAmount: CGFloat = 3
-    static let minInsetAmount: CGFloat = 4
-    static let buttonWidth: CGFloat = 60
+    static let shadowAmount: CGFloat = 3.0
+    static let minInsetAmount: CGFloat = 4.0
+    static let buttonWidth: CGFloat = 60.0
 }
