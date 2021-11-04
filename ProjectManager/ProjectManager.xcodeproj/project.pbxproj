@@ -81,12 +81,12 @@
 				433DE3402733D2E7006EDEC8 /* DatePicker */,
 				433DE33B2733D271006EDEC8 /* TextField */,
 				433DE3342733D138006EDEC8 /* Button */,
-				43A6ABDF2728B50C0042BB0C /* ContentView.swift */,
 				433DE3432733D37C006EDEC8 /* TodoListRow.swift */,
 				433DE3452733D3F5006EDEC8 /* TodoList.swift */,
 				433DE3472733D3FC006EDEC8 /* DoingList.swift */,
 				433DE3492733D402006EDEC8 /* DoneList.swift */,
 				433DE34B2733D44D006EDEC8 /* AddItemView.swift */,
+				43A6ABDF2728B50C0042BB0C /* ContentView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
