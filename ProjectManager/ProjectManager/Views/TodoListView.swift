@@ -23,7 +23,7 @@ struct TodoListView: View {
             ScrollView() {
                 ForEach(todoList) { todoItem in
                     TodoItemView(todo: todoItem)
-                        .padding([.bottom])
+                        .padding([.bottom], 5)
                 }
             }
             Spacer()
