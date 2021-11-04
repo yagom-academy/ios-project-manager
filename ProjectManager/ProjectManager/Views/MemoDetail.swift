@@ -7,28 +7,35 @@
 
 import SwiftUI
 
+enum AccessMode {
+    case add
+    case read
+    case write
+    
+    var isEditable: Bool {
+        switch self {
+        case .add, .write:
+            return true
+        case .read:
+            return false
+        }
+    }
+}
+
 struct MemoDetail: View {
     @State var memo: Memo
     @Binding var isDetailViewPresented: Bool
     @EnvironmentObject var viewModel: MemoViewModel
+    @State var accessMode: AccessMode
     
     var body: some View {
         VStack {
             HStack {
-                Button {
-                    
-                } label: {
-                    Text("Edit")
-                }
+                leftButton
                 Spacer()
                 Text("TODO")
                 Spacer()
-                Button {
-                    viewModel.add(memo)
-                    isDetailViewPresented = false
-                } label: {
-                    Text("Done")
-                }
+                rightButton
             }
             .padding()
             .background(Color(UIColor.systemGray6))
@@ -42,13 +49,47 @@ struct MemoDetail: View {
                 TextEditor(text: $memo.description)
                     .background(Color.white.shadow(color: .gray, radius: 3, x: 1, y: 4))
             }
+            .disabled(!accessMode.isEditable)
             .padding()
         }
     }
+    
+    var rightButton: some View {
+        return Button {
+            switch accessMode {
+            case .add:
+                viewModel.add(memo)
+            case .read:
+                break
+            case .write:
+                viewModel.modify(memo)
+            }
+            isDetailViewPresented = false
+        } label: {
+            Text("Done")
+        }
+    }
+    
+    var leftButton: some View {
+        switch accessMode {
+        case .add, .write:
+            return Button {
+                isDetailViewPresented = false
+            } label: {
+                Text("Cancel")
+            }
+        case .read:
+            return Button {
+                accessMode = .write
+            } label: {
+                Text("Edit")
+            }
+        }
+    }
 }
-
+    
 struct MemoDetail_Previews: PreviewProvider {
     static var previews: some View {
-        MemoDetail(memo: Memo(), isDetailViewPresented: .constant(true))
+        MemoDetail(memo: Memo(), isDetailViewPresented: .constant(true), accessMode: .read)
     }
 }

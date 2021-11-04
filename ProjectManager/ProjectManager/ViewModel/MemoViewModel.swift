@@ -12,10 +12,14 @@ protocol MemoViewModelInput {
     func delete(_ memo: Memo)
     func moveColumn(memo: Memo, to newState: MemoState)
     func modify(_ memo: Memo)
+    func readyForAdd()
+    func readyForRead(_ memo: Memo)
 }
 
 protocol MemoViewModelOutput {
     var memos: [[Memo]] { get }
+    var presentedMemo: Memo { get }
+    var accessMode: AccessMode { get }
 }
 
 final class MemoViewModel: ObservableObject, MemoViewModelOutput {
@@ -24,6 +28,14 @@ final class MemoViewModel: ObservableObject, MemoViewModelOutput {
     
     var memos: [[Memo]] {
         return model.memos
+    }
+    
+    var presentedMemo: Memo {
+        return model.presentedMemo
+    }
+    
+    var accessMode: AccessMode {
+        return model.accessMode
     }
 }
 
@@ -44,5 +56,11 @@ extension MemoViewModel: MemoViewModelInput {
         model.modify(memo)
     }
     
+    func readyForAdd() {
+        model.resetPresentedMemo()
+    }
     
+    func readyForRead(_ memo: Memo) {
+        model.setUpPresentedMemo(memo)
+    }
 }

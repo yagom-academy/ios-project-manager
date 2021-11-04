@@ -28,11 +28,12 @@ struct ContentView: View {
             .toolbar(content: {
                 Button {
                     self.isDetailViewPresented = true
+                    viewModel.readyForAdd()
                 } label: {
                     Image(systemName: "plus")
                 }
                 .sheet(isPresented: $isDetailViewPresented) {
-                    MemoDetail(memo: Memo(), isDetailViewPresented: $isDetailViewPresented)
+                    MemoDetail(memo: viewModel.presentedMemo, isDetailViewPresented: $isDetailViewPresented, accessMode: viewModel.accessMode)
                 }
             })
         }

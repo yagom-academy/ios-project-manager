@@ -22,6 +22,7 @@ struct MemoList: View {
                     MemoRow(memo: memo)
                         .onTapGesture {
                             isDetailViewPresented = true
+                            viewModel.readyForRead(memo)
                         }
                 }
                 .onDelete { indexSet in

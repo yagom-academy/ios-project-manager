@@ -9,6 +9,8 @@ import Foundation
 
 struct MemoModel {
     private(set) var memos: [[Memo]] = [[],[],[]]
+    private(set) var presentedMemo = Memo()
+    private(set) var accessMode = AccessMode.add
 
     private func find(_ memo: Memo) -> Int? {
         let specificStateMemoList = memos[memo.status.indexValue]
@@ -47,5 +49,15 @@ struct MemoModel {
         memos[memo.status.indexValue][index].title = memo.title
         memos[memo.status.indexValue][index].date = memo.date
         memos[memo.status.indexValue][index].description = memo.description
+    }
+    
+    mutating func resetPresentedMemo() {
+        presentedMemo = Memo()
+        accessMode = .add
+    }
+    
+    mutating func setUpPresentedMemo(_ memo: Memo) {
+        presentedMemo = memo
+        accessMode = .read
     }
 }
