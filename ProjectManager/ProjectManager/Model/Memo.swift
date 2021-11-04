@@ -13,10 +13,25 @@ let dummyMemos: [Memo] = [
     Memo(title: "제목 3", description: "asdf", date: "asdf", status: .done)
 ]
 
-enum MemoState {
-    case toDo
-    case doing
-    case done
+enum MemoState: String, CaseIterable {
+    case toDo = "TODO"
+    case doing = "DOING"
+    case done = "DONE"
+    
+    var description: String {
+        return self.rawValue
+    }
+    
+    var indexValue: Int {
+        switch self {
+        case .toDo:
+            return 0
+        case .doing:
+            return 1
+        case .done:
+            return 2
+        }
+    }
 }
 
 struct Memo: Identifiable {
