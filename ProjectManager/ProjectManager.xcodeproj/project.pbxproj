@@ -16,6 +16,9 @@
 		433DE33F2733D2B7006EDEC8 /* TodoListDescTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433DE33E2733D2B7006EDEC8 /* TodoListDescTextField.swift */; };
 		433DE3422733D32A006EDEC8 /* TodoListDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433DE3412733D32A006EDEC8 /* TodoListDatePicker.swift */; };
 		433DE3442733D37C006EDEC8 /* TodoListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433DE3432733D37C006EDEC8 /* TodoListRow.swift */; };
+		433DE3462733D3F5006EDEC8 /* TodoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433DE3452733D3F5006EDEC8 /* TodoList.swift */; };
+		433DE3482733D3FC006EDEC8 /* DoingList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433DE3472733D3FC006EDEC8 /* DoingList.swift */; };
+		433DE34A2733D402006EDEC8 /* DoneList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433DE3492733D402006EDEC8 /* DoneList.swift */; };
 		43A6ABE02728B50C0042BB0C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A6ABDF2728B50C0042BB0C /* ContentView.swift */; };
 		43A6ABE22728BDBD0042BB0C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 43A6ABE12728BDBD0042BB0C /* GoogleService-Info.plist */; };
 		43BDBC7F2729F0990068ED03 /* Firebase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43BDBC7E2729F0990068ED03 /* Firebase.framework */; };
@@ -34,6 +37,9 @@
 		433DE33E2733D2B7006EDEC8 /* TodoListDescTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListDescTextField.swift; sourceTree = "<group>"; };
 		433DE3412733D32A006EDEC8 /* TodoListDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListDatePicker.swift; sourceTree = "<group>"; };
 		433DE3432733D37C006EDEC8 /* TodoListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListRow.swift; sourceTree = "<group>"; };
+		433DE3452733D3F5006EDEC8 /* TodoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoList.swift; sourceTree = "<group>"; };
+		433DE3472733D3FC006EDEC8 /* DoingList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoingList.swift; sourceTree = "<group>"; };
+		433DE3492733D402006EDEC8 /* DoneList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneList.swift; sourceTree = "<group>"; };
 		43A6ABDF2728B50C0042BB0C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		43A6ABE12728BDBD0042BB0C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		43BDBC7E2729F0990068ED03 /* Firebase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Firebase.framework; path = Carthage/Build/iOS/Firebase.framework; sourceTree = "<group>"; };
@@ -75,6 +81,9 @@
 				433DE3342733D138006EDEC8 /* Button */,
 				43A6ABDF2728B50C0042BB0C /* ContentView.swift */,
 				433DE3432733D37C006EDEC8 /* TodoListRow.swift */,
+				433DE3452733D3F5006EDEC8 /* TodoList.swift */,
+				433DE3472733D3FC006EDEC8 /* DoingList.swift */,
+				433DE3492733D402006EDEC8 /* DoneList.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -227,11 +236,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				433DE33F2733D2B7006EDEC8 /* TodoListDescTextField.swift in Sources */,
+				433DE3462733D3F5006EDEC8 /* TodoList.swift in Sources */,
 				433DE3332733D101006EDEC8 /* TodoListItem.swift in Sources */,
+				433DE34A2733D402006EDEC8 /* DoneList.swift in Sources */,
 				433DE3442733D37C006EDEC8 /* TodoListRow.swift in Sources */,
 				433DE3382733D163006EDEC8 /* TodoListTextButton.swift in Sources */,
 				433DE33D2733D28E006EDEC8 /* TodoListTitleTextField.swift in Sources */,
 				433DE3362733D14B006EDEC8 /* TodoListImageButton.swift in Sources */,
+				433DE3482733D3FC006EDEC8 /* DoingList.swift in Sources */,
 				43A6ABE02728B50C0042BB0C /* ContentView.swift in Sources */,
 				433DE33A2733D1C2006EDEC8 /* TodoListViewModel.swift in Sources */,
 				433DE3422733D32A006EDEC8 /* TodoListDatePicker.swift in Sources */,
