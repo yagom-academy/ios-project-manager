@@ -19,5 +19,6 @@ protocol MemoViewModelOutput {
 }
 
 final class MemoViewModel: ObservableObject {
-    
+    @Published
+    private(set) var model = MemoModel()
 }
