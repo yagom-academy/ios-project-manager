@@ -28,7 +28,7 @@ struct MemoRow: View {
             isPopoverShown = true
         }
         .popover(isPresented: $isPopoverShown) {
-            MemoPopover()
+            MemoPopover(isPopoverShown: $isPopoverShown, selectedMemo: memo)
         }
     }
 }

@@ -25,7 +25,9 @@ struct MemoList: View {
                         }
                 }
                 .onDelete { indexSet in
-                    
+                    if let index = indexSet.first {
+                        viewModel.delete(list[index])
+                    }
                 }
             }
             .listStyle(.plain)
