@@ -61,9 +61,9 @@
 		433DE3302733D061006EDEC8 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				433DE3392733D1C2006EDEC8 /* TodoListViewModel.swift */,
 				433DE3342733D138006EDEC8 /* Button */,
 				43A6ABDF2728B50C0042BB0C /* ContentView.swift */,
-				433DE3392733D1C2006EDEC8 /* TodoListViewModel.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
