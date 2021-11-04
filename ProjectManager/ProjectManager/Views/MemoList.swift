@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct MemoList: View {
+    @EnvironmentObject var viewModel: MemoViewModel
     @Binding var isDetailViewPresented: Bool
     let state: MemoState
-    @EnvironmentObject var viewModel: MemoViewModel
     
     var body: some View {
         let list = viewModel.memos[state.indexValue]

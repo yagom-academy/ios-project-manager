@@ -19,7 +19,7 @@ struct MemoRow: View {
                 Text(memo.description)
                     .font(.body)
                     .foregroundColor(.gray)
-                Text(memo.date)
+                Text(memo.date.description)
                     .font(.caption)
             }
             Spacer()
@@ -35,6 +35,6 @@ struct MemoRow: View {
 
 struct MemoRow_Previews: PreviewProvider {
     static var previews: some View {
-        MemoRow(memo: Memo(title: "", description: "", date: ""))
+        MemoRow(memo: Memo(title: "", description: "", date: Date()))
     }
 }

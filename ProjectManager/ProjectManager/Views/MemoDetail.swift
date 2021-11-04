@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct MemoDetail: View {
-    @State private var title = ""
-    @State private var date = Date()
-    @State private var description = ""
+    @State var memo: Memo
+    @Binding var isDetailViewPresented: Bool
+    @EnvironmentObject var viewModel: MemoViewModel
     
     var body: some View {
         VStack {
@@ -24,7 +24,8 @@ struct MemoDetail: View {
                 Text("TODO")
                 Spacer()
                 Button {
-                    
+                    viewModel.add(memo)
+                    isDetailViewPresented = false
                 } label: {
                     Text("Done")
                 }
@@ -32,13 +33,13 @@ struct MemoDetail: View {
             .padding()
             .background(Color(UIColor.systemGray6))
             VStack {
-                TextField("Title", text: $title)
+                TextField("Title", text: $memo.title)
                     .padding()
                     .background(Color.white.shadow(color: .gray, radius: 3, x: 1, y: 4))
-                DatePicker(selection: $date, label: {})
+                DatePicker(selection: $memo.date, label: {})
                     .datePickerStyle(.wheel)
                     .labelsHidden()
-                TextEditor(text: $description)
+                TextEditor(text: $memo.description)
                     .background(Color.white.shadow(color: .gray, radius: 3, x: 1, y: 4))
             }
             .padding()
@@ -48,6 +49,6 @@ struct MemoDetail: View {
 
 struct MemoDetail_Previews: PreviewProvider {
     static var previews: some View {
-        MemoDetail()
+        MemoDetail(memo: Memo(), isDetailViewPresented: .constant(true))
     }
 }
