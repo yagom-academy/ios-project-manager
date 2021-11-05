@@ -25,7 +25,7 @@ struct MainContainer: View {
                         itemCount: memoList.count
                     ) {
                         ForEach(memoList) { memo in
-                            MemoListItem(viewModel: viewModel, memo: memo)
+                            MemoListItem(memo: memo)
                                 .padding(.bottom, UIStyle.minInsetAmount)
                                 .onTapGesture {
                                     viewModel.joinToUpdate(memo)

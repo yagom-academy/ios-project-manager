@@ -15,14 +15,6 @@ final class MemoViewModel: ObservableObject {
     @Published private var currentState: ActionState = .read
     private(set) var memoList: [[Memo]] = .init(repeating: [], count: Memo.State.allCases.count)
 
-    private let dateFormatter: DateFormatter = {
-        let result = DateFormatter()
-        result.locale = Locale.current
-        result.dateStyle = .medium
-        result.timeStyle = .none
-        return result
-    }()
-
     var alertController: AlertControllerable?
 
     // TODO: - Delete someday
@@ -111,30 +103,6 @@ extension MemoViewModel {
             memoList[state][target].title = new.title
             memoList[state][target].body = new.body
             memoList[state][target].date = new.date
-        }
-    }
-}
-
-// MARK: - Style
-extension MemoViewModel {
-    func yyyyMMdd(about date: Date) -> String {
-        return dateFormatter.string(from: date)
-    }
-
-    func color(about memo: Memo) -> Color {
-        guard memo.state != .done else {
-            return .black
-        }
-
-        let currentDate = yyyyMMdd(about: Date())
-        let describedDate = yyyyMMdd(about: memo.date)
-
-        if let currentTime = dateFormatter.date(from: currentDate),
-           let describedTime = dateFormatter.date(from: describedDate),
-           describedTime < currentTime {
-            return .red
-        } else {
-            return .black
         }
     }
 }

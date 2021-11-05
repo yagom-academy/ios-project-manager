@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct MemoListItem: View {
-    @ObservedObject var viewModel: MemoViewModel
     var memo: Memo
 
     var body: some View {
@@ -34,9 +33,9 @@ struct MemoListItem: View {
                         UIStyle.minInsetAmount
                     )
 
-                Text(viewModel.yyyyMMdd(about: memo.date))
+                Text(UIStyle.yyyyMMdd(about: memo.date))
                     .font(.callout)
-                    .foregroundColor(viewModel.color(about: memo))
+                    .foregroundColor(UIStyle.color(about: memo))
                     .padding(
                         UIStyle.minInsetAmount
                     )
@@ -48,7 +47,6 @@ struct MemoListItem: View {
 struct ListItem_Previews: PreviewProvider {
     static var previews: some View {
         MemoListItem(
-            viewModel: .init(),
             memo: Memo(
                 id: UUID(),
                 title: "test",
