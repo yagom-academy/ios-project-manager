@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@available(iOS 15.0, *)
 struct RowView: View {
     @ObservedObject var viewModel: TaskListViewModel
     @State var task: TLTask
@@ -43,6 +44,13 @@ struct RowView: View {
                 Text("Move to Done").padding()
             }
         })
+            .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                Button(role: .destructive) {
+                    viewModel.delete(task: task)
+                } label: {
+                    Label("Delete", systemImage: "trash.fill")
+                }
+            }
     }
 }
 
