@@ -9,7 +9,8 @@ import SwiftUI
 
 struct MemoRow: View {
     let memo: Memo
-    
+    @State private var isPopoverShown = false
+
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
@@ -28,6 +29,12 @@ struct MemoRow: View {
                 }
             }
             Spacer()
+        }
+        .onLongPressGesture {
+            isPopoverShown = true
+        }
+        .popover(isPresented: $isPopoverShown) {
+            MemoPopover(isPopoverShown: $isPopoverShown, selectedMemo: memo)
         }
     }
     

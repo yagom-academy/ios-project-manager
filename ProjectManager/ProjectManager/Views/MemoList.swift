@@ -10,7 +10,6 @@ import SwiftUI
 struct MemoList: View {
     @EnvironmentObject var viewModel: MemoViewModel
     @Binding var isDetailViewPresented: Bool
-    @State private var isPopoverShown = false
     let state: MemoState
     
     var body: some View {
@@ -21,16 +20,11 @@ struct MemoList: View {
             List {
                 ForEach(list) { memo in
                     MemoRow(memo: memo)
-                        .onTapGesture {
+                        .highPriorityGesture(TapGesture()
+                                                .onEnded({ _ in
                             isDetailViewPresented = true
                             viewModel.readyForRead(memo)
-                        }
-                        .onLongPressGesture {
-                            isPopoverShown = true
-                        }
-                        .popover(isPresented: $isPopoverShown) {
-                            MemoPopover(isPopoverShown: $isPopoverShown, selectedMemo: memo)
-                        }
+                        }))
                 }
                 .onDelete { indexSet in
                     if let index = indexSet.first {
