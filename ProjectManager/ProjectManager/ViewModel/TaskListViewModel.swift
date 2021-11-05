@@ -35,6 +35,7 @@ final class TaskListViewModel: ObservableObject {
 extension TaskListViewModel: TaskListViewModelProtocol {
     func fetchTasks() {
         tasks = dataManager.fetchTask
+        filterStatus(of: tasks)
     }
     
     func filterStatus(of task: [TLTask]) {

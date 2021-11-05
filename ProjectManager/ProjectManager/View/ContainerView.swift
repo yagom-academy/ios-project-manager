@@ -25,6 +25,9 @@ struct ContainerView: View {
             .navigationBarTitleDisplayMode(.inline)
         }
         .navigationViewStyle(StackNavigationViewStyle())
+        .sheet(isPresented: $isShowingAddNew) {
+            ManageTaskView(viewModel: viewModel)
+        }
     }
     
     private var addNewButton: some View {
