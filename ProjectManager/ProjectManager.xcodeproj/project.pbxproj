@@ -75,6 +75,34 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		7584B3C92735116D009B6AFD /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				7578F05227300D1200D33365 /* Memo.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		7584B3CA27351185009B6AFD /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				75A6E11B27318A3F00419ED4 /* TodoViewModel.swift */,
+			);
+			name = ViewModel;
+			sourceTree = "<group>";
+		};
+		7584B3CB273511B4009B6AFD /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7578F056273022EC00D33365 /* TodoList.swift */,
+				7578F058273037D800D33365 /* ToDoListHeaderView.swift */,
+				758039C92729694100F6612F /* ProjectManagerView.swift */,
+				7578F0542730102800D33365 /* TodoCellView.swift */,
+				756E17B1272F71B4004C7CF8 /* TodoEditView.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
 		C7431EF925F51E1D0094C4CF = {
 			isa = PBXGroup;
 			children = (
@@ -104,13 +132,9 @@
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
 				758039C5272815E500F6612F /* GoogleService-Info.plist */,
-				758039C92729694100F6612F /* ProjectManagerView.swift */,
-				756E17B1272F71B4004C7CF8 /* TodoEditView.swift */,
-				7578F05227300D1200D33365 /* Memo.swift */,
-				7578F0542730102800D33365 /* TodoCellView.swift */,
-				7578F056273022EC00D33365 /* TodoList.swift */,
-				7578F058273037D800D33365 /* ToDoListHeaderView.swift */,
-				75A6E11B27318A3F00419ED4 /* TodoViewModel.swift */,
+				7584B3C92735116D009B6AFD /* Model */,
+				7584B3CA27351185009B6AFD /* ViewModel */,
+				7584B3CB273511B4009B6AFD /* View */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
