@@ -8,11 +8,7 @@
 import SwiftUI
 
 struct ProjectRow: View {
-    let dateFormatter: DateFormatter = {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy. MM. d"
-        return dateFormatter
-    }()
+    
     let project: ProjectModel.Project
     
     var body: some View {
@@ -23,8 +19,9 @@ struct ProjectRow: View {
                 Text(project.content)
                     .foregroundColor(.secondary)
                     .padding(.bottom, 5)
-                Text(dateFormatter.string(from: project.dueDate))
+                Text(project.dueDate.formatted)
                     .font(.callout)
+                    .foregroundColor(project.dueDate.isExpired ? .red : .black)
             }
             Spacer()
         }
