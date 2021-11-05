@@ -72,17 +72,29 @@ struct ToDoEditText: View {
     @State private var description = ""
     @EnvironmentObject var todoList: TodoViewModel
     @Binding var editState: EditState
+    
+    private func isLocked(for editState: EditState) -> Bool {
+        switch editState {
+        case .add:
+            return false
+        case .revise(_, let isRevised):
+            return !isRevised
+        }
+    }
     var body: some View {
         VStack {
             TextField("Title", text: $title)
                 .padding()
                 .background(Color.white.shadow(color: .gray, radius: 3, x: 1, y: 4))
+                .disabled(isLocked(for: editState))
             DatePicker("Date", selection: $date, displayedComponents: .date)
                 .datePickerStyle(.wheel)
                 .labelsHidden()
+                .disabled(isLocked(for: editState))
             TextEditor(text: $description)
                 .background(Color.white)
                 .shadow(color: .gray, radius: 5)
+                .disabled(isLocked(for: editState))
         }
         .onAppear {
             switch editState {
