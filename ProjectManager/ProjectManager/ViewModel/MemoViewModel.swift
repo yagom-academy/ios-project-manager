@@ -9,7 +9,7 @@ import SwiftUI
 
 final class MemoViewModel: ObservableObject {
     @Published private var currentState: ActionState = .read
-    private(set) var memoList: [[Memo]] = .init(repeating: [], count: Memo.State.allCases.count)
+    private(set) var memoList: [[Memo]] = Array(repeating: [], count: Memo.State.allCases.count)
 
     // TODO: - Delete someday
     init() {
