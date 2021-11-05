@@ -13,6 +13,7 @@ protocol TaskListViewModelProtocol {
     func filterStatus(of task: [TLTask])
     func addNewTask(title: String, message: String, date: Date, status: Status)
     func updateTaskList(task: TLTask?, status: Status, title: String, message: String, date: Date)
+    func delete(task: TLTask)
 }
 
 final class TaskListViewModel: ObservableObject {
@@ -55,6 +56,11 @@ extension TaskListViewModel: TaskListViewModelProtocol {
     
     func updateTaskList(task: TLTask?, status: Status, title: String, message: String, date: Date) {
         dataManager.updateTaskList(task: task, status: status, title: title, message: message, date: date)
+        fetchTasks()
+    }
+    
+    func delete(task: TLTask) {
+        dataManager.deleteTask(task: task)
         fetchTasks()
     }
 }
