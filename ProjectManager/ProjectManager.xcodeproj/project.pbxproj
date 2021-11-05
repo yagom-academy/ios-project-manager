@@ -11,6 +11,7 @@
 		E685CAC52735335C0052A795 /* TLTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E685CAC42735335C0052A795 /* TLTask.swift */; };
 		E685CAC8273535C10052A795 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E685CAC7273535C10052A795 /* DataManager.swift */; };
 		E685CACC273538C10052A795 /* DateFormatter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E685CACB273538C10052A795 /* DateFormatter+Extension.swift */; };
+		E685CACF27353A5F0052A795 /* TaskListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E685CACE27353A5F0052A795 /* TaskListViewModel.swift */; };
 		E6B2B210272E8C8A00016A0F /* ProjectManagerContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6B2B20F272E8C8A00016A0F /* ProjectManagerContentView.swift */; };
 		E6B2B212272E8CA100016A0F /* ProjectManagerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6B2B211272E8CA100016A0F /* ProjectManagerApp.swift */; };
 /* End PBXBuildFile section */
@@ -22,6 +23,7 @@
 		E685CAC42735335C0052A795 /* TLTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLTask.swift; sourceTree = "<group>"; };
 		E685CAC7273535C10052A795 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		E685CACB273538C10052A795 /* DateFormatter+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Extension.swift"; sourceTree = "<group>"; };
+		E685CACE27353A5F0052A795 /* TaskListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListViewModel.swift; sourceTree = "<group>"; };
 		E6B2B20F272E8C8A00016A0F /* ProjectManagerContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerContentView.swift; sourceTree = "<group>"; };
 		E6B2B211272E8CA100016A0F /* ProjectManagerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerApp.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -56,6 +58,7 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
+				E685CACD27353A280052A795 /* ViewModel */,
 				E685CAC6273535AD0052A795 /* Utils */,
 				E685CAC3273533120052A795 /* Model */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
@@ -81,6 +84,14 @@
 				E685CACB273538C10052A795 /* DateFormatter+Extension.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		E685CACD27353A280052A795 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				E685CACE27353A5F0052A795 /* TaskListViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -157,6 +168,7 @@
 				E6B2B210272E8C8A00016A0F /* ProjectManagerContentView.swift in Sources */,
 				E685CACC273538C10052A795 /* DateFormatter+Extension.swift in Sources */,
 				E6B2B212272E8CA100016A0F /* ProjectManagerApp.swift in Sources */,
+				E685CACF27353A5F0052A795 /* TaskListViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
