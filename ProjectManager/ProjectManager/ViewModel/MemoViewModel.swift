@@ -7,15 +7,9 @@
 
 import SwiftUI
 
-protocol AlertControllerable {
-    func show(with: Error)
-}
-
 final class MemoViewModel: ObservableObject {
     @Published private var currentState: ActionState = .read
     private(set) var memoList: [[Memo]] = .init(repeating: [], count: Memo.State.allCases.count)
-
-    var alertController: AlertControllerable?
 
     // TODO: - Delete someday
     init() {
