@@ -11,6 +11,7 @@ protocol TaskListViewModelProtocol {
     var tasks: [TLTask] { get set }
     func fetchTasks()
     func filterStatus(of task: [TLTask])
+    func selectTaskList(through status: Status) -> [TLTask]
     func addNewTask(title: String, message: String, date: Date, status: Status)
     func updateTaskList(task: TLTask?, status: Status, title: String, message: String, date: Date)
     func delete(task: TLTask)
@@ -46,6 +47,17 @@ extension TaskListViewModel: TaskListViewModelProtocol {
             case .DONE:
                 completeTasks = tasks.filter { $0.status == .DONE }.sorted{ $0.date < $1.date}
             }
+        }
+    }
+    
+    func selectTaskList(through status: Status) -> [TLTask] {
+        switch status {
+        case .TODO:
+            return todoTasks
+        case .DOING:
+            return doingTasks
+        case .DONE:
+            return completeTasks
         }
     }
     
