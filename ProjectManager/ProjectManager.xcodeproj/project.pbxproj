@@ -16,13 +16,15 @@
 		74311C2A2730181A00951DC3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		74311C2B2730181A00951DC3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74311C23273017F400951DC3 /* ContentView.swift */; };
 		74311C2F2730181A00951DC3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
-		74311C3A273104E400951DC3 /* ToDoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74311C39273104E400951DC3 /* ToDoListViewModel.swift */; };
-		74311C3B273104E400951DC3 /* ToDoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74311C39273104E400951DC3 /* ToDoListViewModel.swift */; };
+		74311C3A273104E400951DC3 /* ProjectListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74311C39273104E400951DC3 /* ProjectListViewModel.swift */; };
+		74311C3B273104E400951DC3 /* ProjectListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74311C39273104E400951DC3 /* ProjectListViewModel.swift */; };
 		74892C2F27283CEC00748767 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 74892C2E27283CEC00748767 /* FirebaseFirestore */; };
-		89FDAD20273022F90017A197 /* TodoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FDAD1F273022F90017A197 /* TodoListView.swift */; };
-		89FDAD21273022F90017A197 /* TodoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FDAD1F273022F90017A197 /* TodoListView.swift */; };
-		89FDAD232730256E0017A197 /* TodoRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FDAD222730256E0017A197 /* TodoRowView.swift */; };
-		89FDAD242730256E0017A197 /* TodoRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FDAD222730256E0017A197 /* TodoRowView.swift */; };
+		89782B0D273456F600F972C7 /* AdaptsToKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89782B0C273456F600F972C7 /* AdaptsToKeyboard.swift */; };
+		89782B0E273459CB00F972C7 /* AdaptsToKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89782B0C273456F600F972C7 /* AdaptsToKeyboard.swift */; };
+		89FDAD20273022F90017A197 /* ProjectListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FDAD1F273022F90017A197 /* ProjectListView.swift */; };
+		89FDAD21273022F90017A197 /* ProjectListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FDAD1F273022F90017A197 /* ProjectListView.swift */; };
+		89FDAD232730256E0017A197 /* ProjectRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FDAD222730256E0017A197 /* ProjectRowView.swift */; };
+		89FDAD242730256E0017A197 /* ProjectRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FDAD222730256E0017A197 /* ProjectRowView.swift */; };
 		89FDAD2627302B840017A197 /* ModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FDAD2527302B840017A197 /* ModalView.swift */; };
 		89FDAD2727302B840017A197 /* ModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FDAD2527302B840017A197 /* ModalView.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
@@ -36,9 +38,10 @@
 		4DBCB3D227301F98008474D6 /* Todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
 		74311C23273017F400951DC3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		74311C332730181A00951DC3 /* NonFirebase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NonFirebase.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		74311C39273104E400951DC3 /* ToDoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListViewModel.swift; sourceTree = "<group>"; };
-		89FDAD1F273022F90017A197 /* TodoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListView.swift; sourceTree = "<group>"; };
-		89FDAD222730256E0017A197 /* TodoRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoRowView.swift; sourceTree = "<group>"; };
+		74311C39273104E400951DC3 /* ProjectListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListViewModel.swift; sourceTree = "<group>"; };
+		89782B0C273456F600F972C7 /* AdaptsToKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptsToKeyboard.swift; sourceTree = "<group>"; };
+		89FDAD1F273022F90017A197 /* ProjectListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListView.swift; sourceTree = "<group>"; };
+		89FDAD222730256E0017A197 /* ProjectRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectRowView.swift; sourceTree = "<group>"; };
 		89FDAD2527302B840017A197 /* ModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalView.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -85,7 +88,7 @@
 		74311C38273104A400951DC3 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				74311C39273104E400951DC3 /* ToDoListViewModel.swift */,
+				74311C39273104E400951DC3 /* ProjectListViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -94,9 +97,10 @@
 			isa = PBXGroup;
 			children = (
 				74311C23273017F400951DC3 /* ContentView.swift */,
-				89FDAD1F273022F90017A197 /* TodoListView.swift */,
-				89FDAD222730256E0017A197 /* TodoRowView.swift */,
+				89FDAD1F273022F90017A197 /* ProjectListView.swift */,
+				89FDAD222730256E0017A197 /* ProjectRowView.swift */,
 				89FDAD2527302B840017A197 /* ModalView.swift */,
+				89782B0C273456F600F972C7 /* AdaptsToKeyboard.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -107,6 +111,10 @@
 				C7431F0425F51E1D0094C4CF /* ProjectManager */,
 				C7431F0325F51E1D0094C4CF /* Products */,
 				4DBCB3D027301935008474D6 /* NonFirebase-Info.plist */,
+				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
+				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
+				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
+				C7431F1325F51E1E0094C4CF /* Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -124,10 +132,6 @@
 			children = (
 				4D07ED1627317697002D4DBC /* Extension */,
 				4DBCB3D127301F06008474D6 /* Model */,
-				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
-				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
-				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
-				C7431F1325F51E1E0094C4CF /* Info.plist */,
 				74311C38273104A400951DC3 /* ViewModel */,
 				89FDAD1E273021630017A197 /* View */,
 			);
@@ -236,13 +240,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				74311C3B273104E400951DC3 /* ToDoListViewModel.swift in Sources */,
+				74311C3B273104E400951DC3 /* ProjectListViewModel.swift in Sources */,
 				4D07ED19273176CF002D4DBC /* Extension + DateFormatter.swift in Sources */,
 				89FDAD2727302B840017A197 /* ModalView.swift in Sources */,
-				89FDAD242730256E0017A197 /* TodoRowView.swift in Sources */,
+				89FDAD242730256E0017A197 /* ProjectRowView.swift in Sources */,
+				89782B0E273459CB00F972C7 /* AdaptsToKeyboard.swift in Sources */,
 				74311C292730181A00951DC3 /* AppDelegate.swift in Sources */,
 				74311C2A2730181A00951DC3 /* SceneDelegate.swift in Sources */,
-				89FDAD21273022F90017A197 /* TodoListView.swift in Sources */,
+				89FDAD21273022F90017A197 /* ProjectListView.swift in Sources */,
 				74311C2B2730181A00951DC3 /* ContentView.swift in Sources */,
 				4DBCB3D427301F98008474D6 /* Todo.swift in Sources */,
 			);
@@ -252,13 +257,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				74311C3A273104E400951DC3 /* ToDoListViewModel.swift in Sources */,
+				74311C3A273104E400951DC3 /* ProjectListViewModel.swift in Sources */,
 				4D07ED18273176CF002D4DBC /* Extension + DateFormatter.swift in Sources */,
 				89FDAD2627302B840017A197 /* ModalView.swift in Sources */,
-				89FDAD232730256E0017A197 /* TodoRowView.swift in Sources */,
+				89FDAD232730256E0017A197 /* ProjectRowView.swift in Sources */,
+				89782B0D273456F600F972C7 /* AdaptsToKeyboard.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
-				89FDAD20273022F90017A197 /* TodoListView.swift in Sources */,
+				89FDAD20273022F90017A197 /* ProjectListView.swift in Sources */,
 				74311C24273017F400951DC3 /* ContentView.swift in Sources */,
 				4DBCB3D327301F98008474D6 /* Todo.swift in Sources */,
 			);
@@ -273,13 +279,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 67D46DJNPH;
 				INFOPLIST_FILE = "$(SRCROOT)/NonFirebase-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = net.yagom.ProjectManager;
+				PRODUCT_BUNDLE_IDENTIFIER = net.yescoach.projectmanager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
@@ -292,13 +299,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 67D46DJNPH;
 				INFOPLIST_FILE = "$(SRCROOT)/NonFirebase-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = net.yagom.ProjectManager;
+				PRODUCT_BUNDLE_IDENTIFIER = net.yescoach.projectmanager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;

@@ -8,15 +8,15 @@
 import SwiftUI
 
 
-struct TodoListView: View {
-    @EnvironmentObject var todoListViewModel: ToDoListViewModel
-    let type: SortType
+struct ProjectListView: View {
+    @EnvironmentObject var projectListViewModel: ProjectListViewModel
+    let type: ProjectStatus
     var body: some View {
         VStack {
             HStack {
                 Text(type.description)
                     .padding(.leading)
-                Text(todoListViewModel.todoCount(type: type))
+                Text(projectListViewModel.todoCount(type: type))
                     .foregroundColor(.white)
                     .padding(5)
                     .background(Circle())
@@ -25,10 +25,10 @@ struct TodoListView: View {
             .font(.title)
             .foregroundColor(.black)
             List {
-                    ForEach(todoListViewModel.fetchList(type: type)) { todo in
-                        TodoRowView(todo: todo)
+                ForEach(projectListViewModel.filteredList(type: type)) { todo in
+                        ProjectRowView(project: todo)
                     }
-                    .onDelete { indexSet in todoListViewModel.action(
+                    .onDelete { indexSet in projectListViewModel.action(
                         .delete(indexSet: indexSet))
                     }
              }
@@ -39,6 +39,6 @@ struct TodoListView: View {
 
 struct TodoListView_Previews: PreviewProvider {
     static var previews: some View {
-        TodoListView(type: .done)
+        ProjectListView(type: .done)
     }
 }

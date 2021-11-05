@@ -13,14 +13,14 @@ struct ModalView: View {
         case edit
     }
     
-    @EnvironmentObject var todoListViewModel: ToDoListViewModel
+    @EnvironmentObject var todoListViewModel: ProjectListViewModel
     @Binding var isDone: Bool
     @State private var title: String = ""
     @State private var date: Date = Date()
     @State private var description: String = ""
     @State private var isEdit: Bool = false
     let modalViewType: ModalType
-    let currentTodo: Todo?
+    let currentProject: Project?
     
     var body: some View {
         NavigationView {
@@ -48,11 +48,12 @@ struct ModalView: View {
                 }
             }
         }
+        .adaptsToKeyboard()
         .onAppear {
-            guard let currentTodo = currentTodo else { return }
-            self.title = currentTodo.title
-            self.date = currentTodo.date
-            self.description = currentTodo.description
+            guard let currentProject = currentProject else { return }
+            self.title = currentProject.title
+            self.date = currentProject.date
+            self.description = currentProject.description
         }
     }
 }
@@ -79,14 +80,14 @@ extension ModalView {
         Button {
             if modalViewType == .add {
                 todoListViewModel.action(
-                    .create(todo: Todo(title: title,
+                    .create(project: Project(title: title,
                                        description: description,
                                        date: date,
-                                       type: .toDo)))
+                                       type: .todo)))
             } else if isEdit && modalViewType == .edit,
-                      let currentTodo = currentTodo {
+                      let currentTodo = currentProject {
                 todoListViewModel.action(
-                    .update(todo: Todo(id: currentTodo.id,
+                    .update(project: Project(id: currentTodo.id,
                                        title: title,
                                        description: description,
                                        date: date,
@@ -104,6 +105,6 @@ struct NewTodoView_Previews: PreviewProvider {
     static var previews: some View {
         ModalView(isDone: .constant(false),
                   modalViewType: .add,
-                  currentTodo: nil)
+                  currentProject: nil)
     }
 }

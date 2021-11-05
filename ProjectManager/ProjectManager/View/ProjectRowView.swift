@@ -7,23 +7,23 @@
 
 import SwiftUI
 
-struct TodoRowView: View {
-    @EnvironmentObject var todoListViewModel: ToDoListViewModel
+struct ProjectRowView: View {
+    @EnvironmentObject var projectListViewModel: ProjectListViewModel
     @State private var isModalViewPresented: Bool = false
     @State private var isLongPressed: Bool = false
-    var todo: Todo
+    var project: Project
 
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
-                Text(todo.title)
+                Text(project.title)
                     .font(.title3)
-                Text(todo.description)
+                Text(project.description)
                     .font(.subheadline)
                     .foregroundColor(.gray)
                     .lineLimit(3)
-                Text(DateFormatter.convertDate(date: todo.date))
-                    .foregroundColor(judjedRemainingDateColor(todo: todo))
+                Text(DateFormatter.convertDate(date: project.date))
+                    .foregroundColor(project.isOutDated ? Color.red: Color.black)
                     .font(.footnote)
             }.lineLimit(1)
             Spacer()
@@ -36,46 +36,37 @@ struct TodoRowView: View {
             }
             .popover(isPresented: $isLongPressed,
                      attachmentAnchor: .point(.center)) {
-                let type = SortType.allCases.filter { $0 != todo.type }
-                ForEach(type, id: \.self) {
+                ForEach(projectListViewModel.transitionType(type: project.type), id: \.self) {
                     moveButton(type: $0)
                 }
             }
             .sheet(isPresented: $isModalViewPresented) {
                 ModalView(isDone: $isModalViewPresented,
                           modalViewType: .edit,
-                          currentTodo: todo)
+                          currentProject: project)
             }
     }
 }
 
-extension TodoRowView {
-    private func moveButton(type: SortType) -> some View {
+extension ProjectRowView {
+    private func moveButton(type: ProjectStatus) -> some View {
             ZStack {
                 Button {
-                    todoListViewModel.action(.changeType(id: todo.id, type: type))
+                    projectListViewModel.action(.changeType(id: project.id, type: type))
+                    isLongPressed.toggle()
                 } label: {
                     Text("Move to \(type.description)")
                 }
                 .padding()
         }
     }
-
-    private func judjedRemainingDateColor(todo: Todo) -> Color? {
-        switch todo.type {
-        case .toDo, .doing:
-            return todo.date > Date() ? Color.red : Color.black
-        default:
-            return nil
-        }
-    }
 }
 
 struct TodoRowView_Previews: PreviewProvider {
     static var previews: some View {
-        TodoRowView(todo: Todo(title: "할일",
+        ProjectRowView(project: Project(title: "할일",
                                description: "오늘은 설거지를 할게여",
-                               date: Date(), type: .toDo))
+                               date: Date(), type: .todo))
                     .previewLayout(.sizeThatFits)
     }
 }

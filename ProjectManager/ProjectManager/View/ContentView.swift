@@ -12,13 +12,13 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             HStack {
-                TodoListView(type: .toDo)
+                ProjectListView(type: .todo)
                 Divider().frame(width: 10)
                     .background(Color.gray)
-                TodoListView(type: .doing)
+                ProjectListView(type: .doing)
                 Divider().frame(width: 10)
                     .background(Color.gray)
-                TodoListView(type: .done)
+                ProjectListView(type: .done)
             }
             .navigationTitle("Project Manager")
             .navigationBarTitleDisplayMode(.inline)
@@ -31,7 +31,7 @@ struct ContentView: View {
                     }.sheet(isPresented: $isModalViewPresented) {
                         ModalView(isDone: $isModalViewPresented,
                                   modalViewType: .add,
-                                  currentTodo: nil)
+                                  currentProject: nil)
                     }
                 }
             }
