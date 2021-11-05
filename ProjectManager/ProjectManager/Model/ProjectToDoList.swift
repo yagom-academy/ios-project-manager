@@ -10,8 +10,8 @@ import Foundation
 struct ProjectToDoList {
     var plans: Array<Plan>
     
-    func add(_ plan: Plan) {
-        
+    mutating func add(_ plan: Plan) {
+        plans.append(plan)
     }
     
     func edit(_ paln: Plan) {
@@ -37,7 +37,7 @@ struct ProjectToDoList {
         var title: String
         var description: String
         var deadline: Date
-        var isOverdue: Bool
+        var isOverdue: Bool = false
         var id = UUID()
     }
 }

@@ -7,10 +7,14 @@
 
 import SwiftUI
 
-class ProjectPlanViewModel: ObservableObject {
+final class ProjectPlanViewModel: ObservableObject {
     @Published private var model: ProjectToDoList = ProjectToDoList(plans: DummyData().data)
-    
+
     var plans: Array<ProjectToDoList.Plan> {
         model.plans
+    }
+    
+    func add(_ plan: ProjectToDoList.Plan) {
+        model.add(plan)
     }
 }
