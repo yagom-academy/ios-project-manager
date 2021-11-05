@@ -11,6 +11,7 @@ protocol TaskListViewModelProtocol {
     var tasks: [TLTask] { get set }
     func fetchTasks()
     func filterStatus(of task: [TLTask])
+    func addNewTask(title: String, message: String, date: Date, status: Status)
 }
 
 final class TaskListViewModel: ObservableObject {
@@ -44,6 +45,11 @@ extension TaskListViewModel: TaskListViewModelProtocol {
                 completeTasks = tasks.filter { $0.status == .DONE }.sorted{ $0.date < $1.date}
             }
         }
+    }
+    
+    func addNewTask(title: String, message: String, date: Date, status: Status) {
+        dataManager.addTask(title: title, message: message, date: date, status: status)
+        fetchTasks()
     }
 }
 
