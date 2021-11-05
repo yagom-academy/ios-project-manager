@@ -51,6 +51,9 @@ struct MemoDetail: View {
                         TextEditor(text: $memo.description)
                             .background(Color.white.shadow(color: .gray, radius: 3, x: 1, y: 4))
                             .frame(height: geometry.size.height * 0.65)
+                            .onChange(of: memo.description, perform: {
+                                memo.description = String($0.prefix(1000))
+                            })
                     }
                     .disabled(!accessMode.isEditable)
                     .padding()

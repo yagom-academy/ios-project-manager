@@ -16,9 +16,11 @@ struct MemoRow: View {
             VStack(alignment: .leading) {
                 Text(memo.title)
                     .font(.title)
+                    .lineLimit(1)
                 Text(memo.description)
                     .font(.body)
                     .foregroundColor(.gray)
+                    .lineLimit(3)
                 if isPastDeadline() {
                     Text(memo.date, style: .date)
                         .font(.caption)
