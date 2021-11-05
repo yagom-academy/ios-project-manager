@@ -7,21 +7,19 @@
 
 import SwiftUI
 
-struct MemoList: View {
-    @ObservedObject var viewModel: MemoViewModel
-    let state: Memo.State
-    let onTap: () -> Void
+struct MemoList<ItemView>: View where ItemView: View {
+    let title: String
+    let itemCount: Int
+    @ViewBuilder let builder: () -> ItemView
 
     var body: some View {
-        let memoList = viewModel.list(about: state)
-
-        return VStack(
+        VStack(
             alignment: .leading,
             spacing: UIStyle.minInsetAmount
         ) {
             MemoListHeader(
-                title: state.description,
-                number: memoList.count
+                title: title,
+                number: itemCount
             )
                 .padding(
                     UIStyle.minInsetAmount
@@ -36,21 +34,7 @@ struct MemoList: View {
                     spacing: UIStyle.minInsetAmount,
                     pinnedViews: PinnedScrollableViews()
                 ) {
-                    ForEach(memoList) { memo in
-                        MemoListItem(viewModel: viewModel, memo: memo)
-                            .padding(.bottom, UIStyle.minInsetAmount)
-                            .onTapGesture {
-                                viewModel.joinToUpdate(memo)
-                                onTap()
-                            }
-                            .swipeToDelete {
-                                guard let index = memoList.firstIndex(of: memo) else {
-                                    return
-                                }
-
-                                viewModel.delete(at: index, from: state)
-                            }
-                    }
+                    builder()
                 }
             }
         }
@@ -60,9 +44,11 @@ struct MemoList: View {
 struct List_Previews: PreviewProvider {
     static var previews: some View {
         MemoList(
-            viewModel: .init(),
-            state: .todo,
-            onTap: {}
+            title: "TODO",
+            itemCount: 1,
+            builder: {
+                Text("?")
+            }
         )
             .previewLayout(
                 .fixed(

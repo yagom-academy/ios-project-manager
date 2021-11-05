@@ -12,9 +12,9 @@ protocol AlertControllerable {
 }
 
 final class MemoViewModel: ObservableObject {
-    @Published private(set) var memoList: [[Memo]] = [[], [], []]
+    @Published private var currentState: ActionState = .read
+    private(set) var memoList: [[Memo]] = .init(repeating: [], count: Memo.State.allCases.count)
 
-    private var currentState: ActionState = .read
     private let dateFormatter: DateFormatter = {
         let result = DateFormatter()
         result.locale = Locale.current
@@ -49,6 +49,7 @@ final class MemoViewModel: ObservableObject {
         case read
         case create
         case update(Memo)
+        case delete
     }
 }
 
@@ -89,7 +90,9 @@ extension MemoViewModel {
     }
 
     func delete(at index: Int, from state: Memo.State) {
+        currentState = .delete
         memoList[state.rawValue].remove(at: index)
+        currentState = .read
     }
 
     private func insert(_ memo: Memo) {

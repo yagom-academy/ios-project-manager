@@ -17,15 +17,30 @@ struct MainContainer: View {
                 alignment: .center,
                 spacing: UIStyle.minInsetAmount
             ) {
-                ForEach(Memo.State.allCases, id: \.rawValue) {
+                ForEach(Memo.State.allCases, id: \.self) { state in
+                    let memoList = viewModel.list(about: state)
+
                     MemoList(
-                        viewModel: viewModel,
-                        state: $0,
-                        onTap: {
-                            isEdited.toggle()
+                        title: state.description,
+                        itemCount: memoList.count
+                    ) {
+                        ForEach(memoList) { memo in
+                            MemoListItem(viewModel: viewModel, memo: memo)
+                                .padding(.bottom, UIStyle.minInsetAmount)
+                                .onTapGesture {
+                                    viewModel.joinToUpdate(memo)
+                                    isEdited.toggle()
+                                }
+                                .swipeToDelete {
+                                    guard let index = memoList.firstIndex(of: memo) else {
+                                        return
+                                    }
+
+                                    viewModel.delete(at: index, from: state)
+                                }
                         }
-                    )
-                        .backgroundColor(.basic)
+                    }
+                    .backgroundColor(.basic)
                 }
             }
             .backgroundColor(
