@@ -76,5 +76,9 @@ extension TaskListViewModel: TaskListViewModelProtocol {
         dataManager.deleteTask(task: task)
         fetchTasks()
     }
+    
+    func deadlineOver(date: Date) -> Bool {
+        date < Date() ? true : false
+    }
 }
 

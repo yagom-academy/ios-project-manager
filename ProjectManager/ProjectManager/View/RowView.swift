@@ -16,6 +16,7 @@ struct RowView: View {
             VStack(alignment:.leading) {
                 Text(task.title).font(.title3)
                 Text(task.message)
+                Text(DateFormatter.format(date: task.date)).foregroundColor(viewModel.deadlineOver(date: task.date) ? Color.red : Color.black)
             }
             Spacer()
         }}
