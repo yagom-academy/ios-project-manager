@@ -7,11 +7,17 @@
 
 import SwiftUI
 
+enum EditState {
+    case add(Bool)
+    case revise(Int, Bool)
+}
+
 struct TodoEditView: View {
+    @State var editState: EditState
     var body: some View {
         VStack {
-            ToDoEditBar()
-            ToDoEditText()
+            ToDoEditBar(editState: $editState)
+            ToDoEditText(editState: $editState)
         }
     }
 }
@@ -19,11 +25,11 @@ struct TodoEditView: View {
 struct ToDoEditBar: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var todoList: TodoViewModel
+    @Binding var editState: EditState
     var body: some View {
         HStack {
             Button {
-                todoList.isEdited = false
-                self.presentationMode.wrappedValue.dismiss()
+                presentationMode.wrappedValue.dismiss()
             } label: {
                 Text("Cancel")
             }
@@ -31,10 +37,28 @@ struct ToDoEditBar: View {
             Text("ToDo")
             Spacer()
             Button {
-                todoList.isEdited = true
-                self.presentationMode.wrappedValue.dismiss()
+                switch editState {
+                case .add:
+                    editState = .add(true)
+                    presentationMode.wrappedValue.dismiss()
+                case .revise(let index, let isRevised):
+                    if isRevised {
+                        presentationMode.wrappedValue.dismiss()
+                    } else {
+                        editState = .revise(index, true)
+                    }
+                }
             } label: {
-                Text("Done")
+                switch editState {
+                case .add:
+                    Text("Done")
+                case .revise(_, let isRevised):
+                    if isRevised {
+                        Text("Done")
+                    } else {
+                        Text("Edit")
+                    }
+                }
             }
         }
         .padding()
@@ -47,6 +71,7 @@ struct ToDoEditText: View {
     @State private var date = Date()
     @State private var description = ""
     @EnvironmentObject var todoList: TodoViewModel
+    @Binding var editState: EditState
     var body: some View {
         VStack {
             TextField("Title", text: $title)
@@ -59,9 +84,27 @@ struct ToDoEditText: View {
                 .background(Color.white)
                 .shadow(color: .gray, radius: 5)
         }
+        .onAppear {
+            switch editState {
+            case .revise(let index, _):
+                let memo = todoList.memoList[index]
+                title = memo.title
+                date = memo.date
+                description = memo.description
+            default:
+                break
+            }
+        }
         .onDisappear {
-            if todoList.isEdited {
-                todoList.create(todo: Memo(title: title, description: description, date: date, state: TodoState.todo))
+            switch editState {
+            case .add(let isAdded):
+                if isAdded {
+                    todoList.create(todo: Memo(title: title, description: description, date: date, state: .todo))
+                }
+            case .revise(let index, let isRevised):
+                if isRevised {
+                    todoList.update(at: index, todo: Memo(title: title, description: description, date: date, state: .todo))
+                }
             }
         }
     }
@@ -69,6 +112,6 @@ struct ToDoEditText: View {
 
 struct TodoEditView_Previews: PreviewProvider {
     static var previews: some View {
-        TodoEditView()
+        TodoEditView(editState: .add(false))
     }
 }

@@ -16,8 +16,9 @@ struct ProjectManagerView: View {
                 TodoList(todoState: .doing)
                 TodoList(todoState: .done)
             }
-        }.background(Color(UIColor.systemGray5))
-            .edgesIgnoringSafeArea(.all)
+        }
+        .background(Color(UIColor.systemGray5))
+        .edgesIgnoringSafeArea(.all)
     }
 }
 
@@ -36,10 +37,11 @@ struct ProjectManagerHeader: View {
                 showModal.toggle()
             } label: {
                 Image(systemName: "plus")
-            }.padding()
-                .sheet(isPresented: self.$showModal) {
-                    TodoEditView()
-                }
+            }
+            .padding()
+            .sheet(isPresented: $showModal) {
+                TodoEditView(editState: .add(false))
+            }
         }
     }
 }

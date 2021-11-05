@@ -13,10 +13,10 @@ struct TodoList: View {
     var body: some View {
         List {
             Section(header: ToDoListHeaderView(todoState: todoState)) {
-                ForEach(todoList.classifyMemo(state: todoState)) { data in
+                ForEach(todoList.classifyMemoList(state: todoState)) { data in
                     TodoCellView(memo: data, todoViewModel: todoList)
-                }.onDelete { indexSet in
-                    todoList.delete(index: indexSet)
+                }.onDelete { indecies in
+                    todoList.delete(atOffsets: indecies)
                 }
             }
         }

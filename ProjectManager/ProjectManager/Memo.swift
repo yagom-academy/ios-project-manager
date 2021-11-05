@@ -24,12 +24,16 @@ enum TodoState {
     }
 }
 
-struct Memo: Identifiable {
-    var id = UUID()
+struct Memo: Identifiable, Equatable {
+    let id = UUID()
     var title: String
     var description: String
     var date: Date
     var state: TodoState
+    
+    static func == (lhs: Memo, rhs: Memo) -> Bool {
+        return lhs.id == rhs.id
+    }
 }
 
 extension Date {

@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct TodoCellView: View {
-    var memo: Memo
+    @State var memo: Memo
     var todoViewModel: TodoViewModel
+    @State var isSheet = false
     var body: some View {
         VStack(alignment: .leading) {
             Text(memo.title)
@@ -23,6 +24,14 @@ struct TodoCellView: View {
             Text("\(memo.date.formatDate())")
                 .font(.caption)
                 .foregroundColor(todoViewModel.changeDateColor(date: memo.date, state: memo.state))
+        }
+        .onTapGesture {
+            isSheet = true
+        }
+        .sheet(isPresented: $isSheet) {
+            if let index = todoViewModel.memoList.firstIndex(of: memo) {
+                TodoEditView(editState: .revise(index, false))
+            }
         }
     }
 }
