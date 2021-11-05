@@ -11,17 +11,27 @@ struct ContentView: View {
     @ObservedObject var projects: Project
     
     var body: some View {
-            NavigationView {
-                HStack {
-                    ProjectList(projects: projects.todos, status: .todo)
-                    ProjectList(projects: projects.doings, status: .doing)
-                    ProjectList(projects: projects.dones, status: .done)
-                }
-                .environmentObject(projects)
-                .background(Color(.systemGray4))
-                .navigationTitle("Project Manager").font(.title3)
+        NavigationView {
+            HStack {
+                ProjectList(projects: projects.todos, status: .todo)
+                ProjectList(projects: projects.doings, status: .doing)
+                ProjectList(projects: projects.dones, status: .done)
             }
-            .navigationViewStyle(StackNavigationViewStyle())
+            .environmentObject(projects)
+            .background(Color(.systemGray4))
+            .navigationTitle("Project Manager")
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarItems(trailing: addButton)
+        }
+        .navigationViewStyle(StackNavigationViewStyle())
+    }
+    
+    var addButton: some View {
+        Button {
+            print("hi")
+        } label: {
+            Image(systemName: "plus.circle")
+        }
     }
 }
 
