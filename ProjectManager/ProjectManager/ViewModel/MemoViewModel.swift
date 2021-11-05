@@ -27,10 +27,6 @@ final class MemoViewModel: ObservableObject {
         }
     }
 
-    enum OpaqueError: Error {
-        case stateError
-    }
-
     enum ActionState {
         case read
         case create
