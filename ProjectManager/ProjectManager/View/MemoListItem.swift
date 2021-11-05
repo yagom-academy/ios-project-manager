@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MemoListItem: View {
+    @ObservedObject var viewModel: MemoViewModel
     var memo: Memo
 
     var body: some View {
@@ -15,30 +16,21 @@ struct MemoListItem: View {
             Rectangle()
                 .foregroundColor(.white)
 
-            VStack(
-                alignment: .leading,
-                spacing: 1
-            ) {
+            VStack(alignment: .leading, spacing: 1) {
                 Text(memo.title)
                     .font(.title3)
                     .lineLimit(1)
-                    .padding(
-                        UIStyle.minInsetAmount
-                    )
+                    .padding(UIStyle.minInsetAmount)
 
                 Text(memo.body)
                     .font(.body)
                     .lineLimit(3)
-                    .padding(
-                        UIStyle.minInsetAmount
-                    )
+                    .padding(UIStyle.minInsetAmount)
 
                 Text(UIStyle.yyyyMMdd(about: memo.date))
                     .font(.callout)
                     .foregroundColor(UIStyle.color(about: memo))
-                    .padding(
-                        UIStyle.minInsetAmount
-                    )
+                    .padding(UIStyle.minInsetAmount)
             }
         }
     }
@@ -47,6 +39,7 @@ struct MemoListItem: View {
 struct ListItem_Previews: PreviewProvider {
     static var previews: some View {
         MemoListItem(
+            viewModel: .init(),
             memo: Memo(
                 id: UUID(),
                 title: "test",

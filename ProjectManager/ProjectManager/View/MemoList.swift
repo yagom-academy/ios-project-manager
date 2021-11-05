@@ -17,13 +17,8 @@ struct MemoList<ItemView>: View where ItemView: View {
             alignment: .leading,
             spacing: UIStyle.minInsetAmount
         ) {
-            MemoListHeader(
-                title: title,
-                number: itemCount
-            )
-                .padding(
-                    UIStyle.minInsetAmount
-                )
+            MemoListHeader(title: title, number: itemCount)
+                .padding(UIStyle.minInsetAmount)
 
             Divider()
                 .foregroundColor(.myGray)

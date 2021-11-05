@@ -25,7 +25,7 @@ struct MainContainer: View {
                         itemCount: memoList.count
                     ) {
                         ForEach(memoList) { memo in
-                            MemoListItem(memo: memo)
+                            MemoListItem(viewModel: viewModel, memo: memo)
                                 .padding(.bottom, UIStyle.minInsetAmount)
                                 .onTapGesture {
                                     viewModel.joinToUpdate(memo)
@@ -43,9 +43,7 @@ struct MainContainer: View {
                     .backgroundColor(.basic)
                 }
             }
-            .backgroundColor(
-                .myGray
-            )
+            .backgroundColor(.myGray)
             .navigationTitle("Project Manager")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
