@@ -23,16 +23,25 @@ struct ModalView: View {
     let currentProject: Project?
     
     var body: some View {
-        NavigationView {
-            VStack {
-                TextField("Title", text: $title)
-                    .textFieldStyle(.roundedBorder)
-                DatePicker("Title",
-                           selection: $date,
-                           displayedComponents: .date)
-                    .datePickerStyle(.wheel)
-                    .labelsHidden()
-                TextEditor(text: $description)
+            NavigationView {
+                GeometryReader { geometry in
+                VStack {
+                    ScrollView {
+                        TextField("Title", text: $title)
+                            .textFieldStyle(.roundedBorder)
+                        DatePicker("Title",
+                                   selection: $date,
+                                   displayedComponents: .date)
+                            .datePickerStyle(.wheel)
+                            .labelsHidden()
+                        
+                        TextEditor(text: $description)
+                            .frame(width: geometry.size.width,
+                                   height: geometry.size.height * 0.65,
+                                   alignment: .center)
+                    }
+                    
+                }
             }
             .shadow(radius: 5)
             .disabled(modalViewType == .add ? isEdit: !isEdit)
@@ -48,7 +57,6 @@ struct ModalView: View {
                 }
             }
         }
-        .adaptsToKeyboard()
         .onAppear {
             guard let currentProject = currentProject else { return }
             self.title = currentProject.title
@@ -81,17 +89,17 @@ extension ModalView {
             if modalViewType == .add {
                 todoListViewModel.action(
                     .create(project: Project(title: title,
-                                       description: description,
-                                       date: date,
-                                       type: .todo)))
+                                             description: description,
+                                             date: date,
+                                             type: .todo)))
             } else if isEdit && modalViewType == .edit,
                       let currentTodo = currentProject {
                 todoListViewModel.action(
                     .update(project: Project(id: currentTodo.id,
-                                       title: title,
-                                       description: description,
-                                       date: date,
-                                       type: currentTodo.type)))
+                                             title: title,
+                                             description: description,
+                                             date: date,
+                                             type: currentTodo.type)))
             }
             isDone = false
         } label: {
