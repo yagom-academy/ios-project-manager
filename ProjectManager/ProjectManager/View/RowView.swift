@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-@available(iOS 15.0, *)
 struct RowView: View {
     @ObservedObject var viewModel: TaskListViewModel
     @State var task: TLTask

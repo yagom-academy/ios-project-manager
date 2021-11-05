@@ -21,3 +21,10 @@ struct TaskListView: View {
         }
     }
 }
+
+struct TaskListView_Previews: PreviewProvider {
+    static var previews: some View {
+        TaskListView(taskStatus: .TODO, viewModel: TaskListViewModel(dataManager: MockData())).previewInterfaceOrientation(.landscapeRight)
+
+    }
+}
