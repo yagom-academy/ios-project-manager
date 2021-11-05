@@ -10,6 +10,7 @@ import SwiftUI
 struct ContentView: View {
     @StateObject var viewModel: ProjectPlanViewModel
     let planStates = ProjectToDoList.Plan.State.allCases
+    @State var showsAddView = false
     
     var body: some View {
         NavigationView {
@@ -18,11 +19,23 @@ struct ContentView: View {
                     PlanListView(viewModel: viewModel, projectState: planState.description)
                 }
             }
+            .padding(0.2)
             .navigationTitle("Project Manager")
             .navigationBarTitleDisplayMode(.inline)
-            .padding(0.2)
+            .toolbar {
+                ToolbarItem {
+                    Button() {
+                        self.showsAddView.toggle()
+                    } label: {
+                        Image(systemName: "plus")
+                    }
+                }
+            }
         }
         .navigationViewStyle(StackNavigationViewStyle())
+        .sheet(isPresented: $showsAddView) {
+            AddPlanView(showsAddView: self.$showsAddView)
+        }
     }
 }
 
