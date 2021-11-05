@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
 		E685CAC52735335C0052A795 /* TLTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E685CAC42735335C0052A795 /* TLTask.swift */; };
+		E685CAC8273535C10052A795 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E685CAC7273535C10052A795 /* DataManager.swift */; };
 		E6B2B210272E8C8A00016A0F /* ProjectManagerContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6B2B20F272E8C8A00016A0F /* ProjectManagerContentView.swift */; };
 		E6B2B212272E8CA100016A0F /* ProjectManagerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6B2B211272E8CA100016A0F /* ProjectManagerApp.swift */; };
 /* End PBXBuildFile section */
@@ -18,6 +19,7 @@
 		C7431F0E25F51E1E0094C4CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E685CAC42735335C0052A795 /* TLTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLTask.swift; sourceTree = "<group>"; };
+		E685CAC7273535C10052A795 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		E6B2B20F272E8C8A00016A0F /* ProjectManagerContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerContentView.swift; sourceTree = "<group>"; };
 		E6B2B211272E8CA100016A0F /* ProjectManagerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerApp.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -52,6 +54,7 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
+				E685CAC6273535AD0052A795 /* Utils */,
 				E685CAC3273533120052A795 /* Model */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
@@ -67,6 +70,14 @@
 				E685CAC42735335C0052A795 /* TLTask.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		E685CAC6273535AD0052A795 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				E685CAC7273535C10052A795 /* DataManager.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -139,6 +150,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E685CAC52735335C0052A795 /* TLTask.swift in Sources */,
+				E685CAC8273535C10052A795 /* DataManager.swift in Sources */,
 				E6B2B210272E8C8A00016A0F /* ProjectManagerContentView.swift in Sources */,
 				E6B2B212272E8CA100016A0F /* ProjectManagerApp.swift in Sources */,
 			);

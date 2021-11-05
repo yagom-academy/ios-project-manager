@@ -15,7 +15,6 @@ struct TLTask: Identifiable, Hashable {
     var status: Status
 }
 
-
 enum Status: String, CaseIterable {
     case TODO = "TODO"
     case DOING = "DOING"
