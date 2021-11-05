@@ -11,6 +11,7 @@ struct TodoCellView: View {
     @State var memo: Memo
     var todoViewModel: TodoViewModel
     @State var isSheet = false
+    @State var isPopOver = false
     var body: some View {
         VStack(alignment: .leading) {
             Text(memo.title)
@@ -24,6 +25,7 @@ struct TodoCellView: View {
             Text("\(memo.date.formatDate())")
                 .font(.caption)
                 .foregroundColor(todoViewModel.changeDateColor(date: memo.date, state: memo.state))
+            let _ = print( "create \(memo)")
         }
         .onTapGesture {
             isSheet = true
@@ -32,6 +34,12 @@ struct TodoCellView: View {
             if let index = todoViewModel.memoList.firstIndex(of: memo) {
                 TodoEditView(editState: .revise(index, false))
             }
+        }
+        .onLongPressGesture {
+            isPopOver = true
+        }
+        .popover(isPresented: $isPopOver) {
+            TodoPopOverView(memo: memo)
         }
     }
 }

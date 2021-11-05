@@ -15,6 +15,7 @@
 		7578F059273037D800D33365 /* ToDoListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7578F058273037D800D33365 /* ToDoListHeaderView.swift */; };
 		758039C6272815E500F6612F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 758039C5272815E500F6612F /* GoogleService-Info.plist */; };
 		758039CA2729694100F6612F /* ProjectManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758039C92729694100F6612F /* ProjectManagerView.swift */; };
+		7584B3CD273555F6009B6AFD /* TodoPopOverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7584B3CC273555F6009B6AFD /* TodoPopOverView.swift */; };
 		75A6E11C27318A3F00419ED4 /* TodoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A6E11B27318A3F00419ED4 /* TodoViewModel.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
@@ -33,6 +34,7 @@
 		7578F058273037D800D33365 /* ToDoListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListHeaderView.swift; sourceTree = "<group>"; };
 		758039C5272815E500F6612F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		758039C92729694100F6612F /* ProjectManagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerView.swift; sourceTree = "<group>"; };
+		7584B3CC273555F6009B6AFD /* TodoPopOverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoPopOverView.swift; sourceTree = "<group>"; };
 		75A6E11B27318A3F00419ED4 /* TodoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoViewModel.swift; sourceTree = "<group>"; };
 		9DC53855AB4F4D2102408CD5 /* Pods-ProjectManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.debug.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.debug.xcconfig"; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -99,6 +101,7 @@
 				758039C92729694100F6612F /* ProjectManagerView.swift */,
 				7578F0542730102800D33365 /* TodoCellView.swift */,
 				756E17B1272F71B4004C7CF8 /* TodoEditView.swift */,
+				7584B3CC273555F6009B6AFD /* TodoPopOverView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -254,6 +257,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7584B3CD273555F6009B6AFD /* TodoPopOverView.swift in Sources */,
 				7578F059273037D800D33365 /* ToDoListHeaderView.swift in Sources */,
 				7578F05327300D1200D33365 /* Memo.swift in Sources */,
 				7578F0552730102800D33365 /* TodoCellView.swift in Sources */,

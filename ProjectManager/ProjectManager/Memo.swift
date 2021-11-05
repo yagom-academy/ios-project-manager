@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum TodoState {
+enum TodoState: CaseIterable {
     case todo
     case doing
     case done

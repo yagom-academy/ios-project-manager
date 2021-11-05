@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TodoList: View {
     @EnvironmentObject var todoList: TodoViewModel
-    var todoState: TodoState
+    @State var todoState: TodoState
     var body: some View {
         List {
             Section(header: ToDoListHeaderView(todoState: todoState)) {
