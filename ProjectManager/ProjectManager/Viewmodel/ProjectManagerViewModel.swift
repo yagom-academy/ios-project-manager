@@ -7,7 +7,13 @@
 
 import Foundation
 
-class ListViewModel: ObservableObject {
+class ProjectManagerViewModel: ObservableObject {
+    
+    enum TaskStatus {
+        case todo
+        case doing
+        case done
+    }
     
     @Published var todo: [ProjectModel] = []
     @Published var doing: [ProjectModel] = []
@@ -15,8 +21,6 @@ class ListViewModel: ObservableObject {
     
     init() {
         todo = defaultItems()
-        doing = defaultItems()
-        done = defaultItems()
     }
     
     func defaultItems() -> [ProjectModel] {
@@ -32,8 +36,12 @@ class ListViewModel: ObservableObject {
             title: "제주도 놀러가기",
             description: "제주도 한달살기 해보고싶다.제주도 한달살기 해보고싶다.제주도 한달살기 해보고싶다.제주도 한달살기 해보고싶다.제주도 한달살기 해보고싶다.제주도 한달살기 해보고싶다.",
             date: Date(timeIntervalSinceNow: 0))
+        let todo4 = ProjectModel(
+            title: "제주도 놀러가기",
+            description: "제주도 한달살기 해보고싶다.제주도 한달살기 해보고싶다.제주도 한달살기 해보고싶다.제주도 한달살기 해보고싶다.제주도 한달살기 해보고싶다.제주도 한달살기 해보고싶다.",
+            date: Date(timeIntervalSinceNow: 0))
         
-        return [todo1, todo2, todo3]
+        return [todo1, todo2, todo3, todo4]
     }
     
     func addTodo(title: String, description: String, date: Date) {

@@ -8,11 +8,9 @@
 import SwiftUI
 
 struct MainContentView: View {
-    @EnvironmentObject var listViewModel: ListViewModel
+    @EnvironmentObject var listViewModel: ProjectManagerViewModel
     @State private var isPopoverPresented = false
     var body: some View {
-        
-        
         VStack {
             HStack {
                 Spacer()
@@ -28,15 +26,15 @@ struct MainContentView: View {
                 }
                 .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
                 .sheet(isPresented: $isPopoverPresented) {
-                    AddTodo(isModalPresented: $isPopoverPresented)
+                    ModalView(isModalPresented: $isPopoverPresented)
                 }
             }
             .background(Color(white: 0.93))
-            
+            .font(.title)
             HStack {
-                ListView(status: listViewModel.todo)
-                ListView(status: listViewModel.doing)
-                ListView(status: listViewModel.done)
+                ListView(value: .todo, status: listViewModel.todo)
+                ListView(value: .doing, status: listViewModel.doing)
+                ListView(value: .done, status: listViewModel.done)
             }
             .background(Color(white: 0.8))
             .listStyle(PlainListStyle())
@@ -47,7 +45,7 @@ struct MainContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         MainContentView()
-            .environmentObject(ListViewModel())
+            .environmentObject(ProjectManagerViewModel())
             .previewInterfaceOrientation(.landscapeLeft)
     }
 }

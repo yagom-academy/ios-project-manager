@@ -13,3 +13,20 @@ struct ProjectModel: Identifiable {
     let description: String
     let date: Date
 }
+
+enum TaskStatus: CaseIterable, CustomStringConvertible {
+    case todo
+    case doing
+    case done
+    
+    var description: String {
+        switch self {
+        case .todo:
+            return "TODO"
+        case .doing:
+            return "DOING"
+        case .done:
+            return "DONE"
+        }
+           }
+}

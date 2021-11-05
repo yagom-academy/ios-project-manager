@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ProjectMangerRow: View {
+struct ListDetailRow: View {
     let project: ProjectModel
     let currentDate = Self.dateFormatter.string(from: Date())
     

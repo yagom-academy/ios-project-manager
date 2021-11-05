@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct AddTodo: View {
+struct ModalView: View {
     
-    @EnvironmentObject var listViewModel: ListViewModel
+    @EnvironmentObject var listViewModel: ProjectManagerViewModel
     @State private var title = ""
     @State private var description = ""
     @State private var date = Date()
