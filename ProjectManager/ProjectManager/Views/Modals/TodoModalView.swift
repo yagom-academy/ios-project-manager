@@ -8,16 +8,23 @@
 import SwiftUI
 
 struct TodoModalView: View {
+    enum TodoModalType {
+        case new
+        case detail
+        case edit
+    }
     
     @State private var title: String
     @State private var dueDate: Date
     @State private var description: String
     @Binding private var showPopover: Bool
+    @State private var modalType: TodoModalType
     
     init(showPopover: Binding<Bool>) {
         _title = State(initialValue: "")
         _dueDate = State(initialValue: Date())
         _description = State(initialValue: "")
+        _modalType = State(initialValue: .detail)
         _showPopover = showPopover
     }
     
@@ -25,6 +32,7 @@ struct TodoModalView: View {
         _title = State(initialValue: todoVM.title)
         _dueDate = State(initialValue: todoVM.dueDate)
         _description = State(initialValue: todoVM.description)
+        _modalType = State(initialValue: .detail)
         _showPopover = showPopover
     }
     
@@ -34,6 +42,7 @@ struct TodoModalView: View {
                 TextField("Title", text: $title)
                     .font(.title2)
                     .textFieldStyle(TodoTextFieldStyle())
+                    
                 
                 DatePicker(selection: $dueDate,
                            displayedComponents: [.date, .hourAndMinute],
@@ -52,25 +61,39 @@ struct TodoModalView: View {
             .padding()
             .navigationBarTitle(Text("TODO"))
             .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button(action: {
-                        self.showPopover = false
-                    }, label: {
-                        Text("Cancel")
-                    })
-                }
-                
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {
-                        self.showPopover = false
-                    }, label: {
-                        Text("Done")
-                    })
-                }
-            }
+            .navigationBarItems(leading: leadingButton,
+                                trailing: doneButton)
         }
         .navigationViewStyle(StackNavigationViewStyle())
+    }
+}
+
+extension TodoModalView {
+    var leadingButton: some View {
+        switch modalType {
+        case .new, .edit:
+            return AnyView(cancelButton)
+        case .detail:
+            return AnyView(editButton)
+        }
+    }
+    
+    var cancelButton: some View {
+        Button("Cancel") {
+            self.showPopover = false
+        }
+    }
+    
+    var editButton: some View {
+        Button("Edit") {
+            self.modalType = .edit
+        }
+    }
+    
+    var doneButton: some View {
+        Button("Done") {
+            self.showPopover = false
+        }
     }
 }
 
@@ -83,7 +106,6 @@ struct TodoTextFieldStyle: TextFieldStyle {
                 RoundedRectangle(cornerRadius: 10, style: .continuous)
                     .stroke(Color.gray, lineWidth: 1)
             )
-            
     }
 }
 
