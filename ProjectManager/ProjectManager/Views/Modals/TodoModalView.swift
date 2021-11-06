@@ -14,10 +14,17 @@ struct TodoModalView: View {
     @State private var description: String
     @Binding private var showPopover: Bool
     
-    init(title: String = "", dueDate: Date = Date(), description: String = "", showPopover: Binding<Bool>) {
-        _title = State(initialValue: title)
-        _dueDate = State(initialValue: dueDate)
-        _description = State(initialValue: description)
+    init(showPopover: Binding<Bool>) {
+        _title = State(initialValue: "")
+        _dueDate = State(initialValue: Date())
+        _description = State(initialValue: "")
+        _showPopover = showPopover
+    }
+    
+    init(todoVM: TodoViewModel, showPopover: Binding<Bool>) {
+        _title = State(initialValue: todoVM.title)
+        _dueDate = State(initialValue: todoVM.dueDate)
+        _description = State(initialValue: todoVM.description)
         _showPopover = showPopover
     }
     

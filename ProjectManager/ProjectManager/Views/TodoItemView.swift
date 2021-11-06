@@ -24,7 +24,7 @@ struct TodoItemView: View {
                     .foregroundColor(.secondary)
                     .padding(EdgeInsets(top: 1, leading: 0, bottom: 3, trailing: 0))
                 
-                Text(todo.dueDate)
+                Text(todo.dueDateFormatted)
                     .foregroundColor(todo.isExpired ? .red : .black)
             }
             

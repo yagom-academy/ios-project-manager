@@ -18,7 +18,10 @@ struct TodoViewModel: Identifiable {
     var description: String {
         return todo.description
     }
-    var dueDate: String {
+    var dueDate: Date {
+        return todo.dueDate
+    }
+    var dueDateFormatted: String {
         return convertDateType2String(todo.dueDate)
     }
     var status: TodoStatus {
