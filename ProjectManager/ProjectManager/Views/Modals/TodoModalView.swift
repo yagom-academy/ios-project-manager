@@ -62,7 +62,7 @@ struct TodoModalView: View {
             .navigationBarTitle(Text("TODO"))
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarItems(leading: leadingButton,
-                                trailing: doneButton)
+                                trailing: trailingButton)
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }
@@ -78,6 +78,17 @@ extension TodoModalView {
         }
     }
     
+    var trailingButton: some View {
+        switch modalType {
+        case .new:
+            return AnyView(newDoneButton)
+        case .edit:
+            return AnyView(editDoneButton)
+        case .detail:
+            return AnyView(detailDoneButton)
+        }
+    }
+    
     var cancelButton: some View {
         Button("Cancel") {
             self.showPopover = false
@@ -90,7 +101,19 @@ extension TodoModalView {
         }
     }
     
-    var doneButton: some View {
+    var newDoneButton: some View {
+        Button("Done") {
+            self.showPopover = false
+        }
+    }
+    
+    var editDoneButton: some View {
+        Button("Done") {
+            self.showPopover = false
+        }
+    }
+    
+    var detailDoneButton: some View {
         Button("Done") {
             self.showPopover = false
         }
