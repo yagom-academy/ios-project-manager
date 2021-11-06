@@ -64,7 +64,7 @@ struct MemoView: View {
     }
 }
 
-// MARK: - each components
+// MARK: - View components
 extension MemoView {
     private var titleView: some View {
         TextField("Title", text: $title)

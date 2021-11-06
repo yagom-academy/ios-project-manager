@@ -18,29 +18,7 @@ struct MainContainer: View {
                 spacing: UIStyle.minInsetAmount
             ) {
                 ForEach(Memo.State.allCases, id: \.self) { state in
-                    let memoList = viewModel.list(about: state)
-
-                    MemoList(
-                        title: state.description,
-                        itemCount: memoList.count
-                    ) {
-                        ForEach(memoList) { memo in
-                            MemoListItem(viewModel: viewModel, memo: memo)
-                                .padding(.bottom, UIStyle.minInsetAmount)
-                                .onTapGesture {
-                                    viewModel.joinToUpdate(memo)
-                                    isEdited.toggle()
-                                }
-                                .swipeToDelete {
-                                    guard let index = memoList.firstIndex(of: memo) else {
-                                        return
-                                    }
-
-                                    viewModel.delete(at: index, from: state)
-                                }
-                        }
-                    }
-                    .backgroundColor(.basic)
+                    memoListView(about: state)
                 }
             }
             .backgroundColor(.myGray)
@@ -67,6 +45,32 @@ struct MainContainer: View {
                 MemoView(viewModel: viewModel, isShow: $isEdited)
             }
         )
+    }
+}
+
+// MARK: - View components
+extension MainContainer {
+    private func memoListView(about state: Memo.State) -> some View {
+        let memoList = viewModel.list(about: state)
+        
+        return MemoList(title: state.description, itemCount: memoList.count) {
+            ForEach(memoList) { memo in
+                MemoListItem(viewModel: viewModel, memo: memo)
+                    .padding(.bottom, UIStyle.minInsetAmount)
+                    .onTapGesture {
+                        viewModel.joinToUpdate(memo)
+                        isEdited.toggle()
+                    }
+                    .swipeToDelete {
+                        guard let index = memoList.firstIndex(of: memo) else {
+                            return
+                        }
+
+                        viewModel.delete(at: index, from: state)
+                    }
+            }
+        }
+        .backgroundColor(.basic)
     }
 }
 
