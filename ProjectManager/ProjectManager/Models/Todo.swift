@@ -7,10 +7,14 @@
 
 import Foundation
 
-enum TodoStatus {
+enum TodoStatus: Identifiable {
     case todo
     case doing
     case done
+    
+    var id: String {
+        return self.title
+    }
     
     var title: String {
         switch self {
