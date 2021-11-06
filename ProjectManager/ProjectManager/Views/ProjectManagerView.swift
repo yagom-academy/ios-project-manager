@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ProjectManagerView: View {
-    @State private var showPopover = false
+    @State private var showModal = false
     @ObservedObject private var todoListVM = TodoListViewModel()
     
     init() {
@@ -33,12 +33,12 @@ struct ProjectManagerView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                        self.showPopover = true
+                        self.showModal = true
                     }, label: {
                         Image(systemName: "plus")
                     })
-                    .sheet(isPresented: $showPopover, content: {
-                        TodoModalView(showPopover: $showPopover)
+                    .sheet(isPresented: $showModal, content: {
+                        TodoModalView(showModal: $showModal)
                     })
                 }
             }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TodoItemView: View {
-    
+    @State private var showModal = false
     let todo: TodoViewModel
     
     var body: some View {
@@ -32,6 +32,12 @@ struct TodoItemView: View {
         }
         .padding()
         .background(Color.white)
+        .onTapGesture() {
+            self.showModal = true
+        }
+        .sheet(isPresented: $showModal, content: {
+            TodoModalView(todoVM: todo, showModal: $showModal)
+        })
     }
 }
 

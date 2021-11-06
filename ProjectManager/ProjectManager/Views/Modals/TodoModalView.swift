@@ -17,23 +17,23 @@ struct TodoModalView: View {
     @State private var title: String
     @State private var dueDate: Date
     @State private var description: String
-    @Binding private var showPopover: Bool
+    @Binding private var showModal: Bool
     @State private var modalType: TodoModalType
     
-    init(showPopover: Binding<Bool>) {
+    init(showModal: Binding<Bool>) {
         _title = State(initialValue: "")
         _dueDate = State(initialValue: Date())
         _description = State(initialValue: "")
         _modalType = State(initialValue: .detail)
-        _showPopover = showPopover
+        _showModal = showModal
     }
     
-    init(todoVM: TodoViewModel, showPopover: Binding<Bool>) {
+    init(todoVM: TodoViewModel, showModal: Binding<Bool>) {
         _title = State(initialValue: todoVM.title)
         _dueDate = State(initialValue: todoVM.dueDate)
         _description = State(initialValue: todoVM.description)
         _modalType = State(initialValue: .detail)
-        _showPopover = showPopover
+        _showModal = showModal
     }
     
     var body: some View {
@@ -91,7 +91,7 @@ extension TodoModalView {
     
     var cancelButton: some View {
         Button("Cancel") {
-            self.showPopover = false
+            self.showModal = false
         }
     }
     
@@ -103,19 +103,19 @@ extension TodoModalView {
     
     var newDoneButton: some View {
         Button("Done") {
-            self.showPopover = false
+            self.showModal = false
         }
     }
     
     var editDoneButton: some View {
         Button("Done") {
-            self.showPopover = false
+            self.showModal = false
         }
     }
     
     var detailDoneButton: some View {
         Button("Done") {
-            self.showPopover = false
+            self.showModal = false
         }
     }
 }
@@ -134,7 +134,7 @@ struct TodoTextFieldStyle: TextFieldStyle {
 
 struct ModalView_Previews: PreviewProvider {
     static var previews: some View {
-        TodoModalView(showPopover: .constant(true))
+        TodoModalView(showModal: .constant(true))
             .previewLayout(.fixed(width: 800, height: 600))
     }
 }
