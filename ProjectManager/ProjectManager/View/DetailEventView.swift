@@ -12,10 +12,10 @@ struct DetailEventView<T: DetailViewModelable>: View {
     @State private var eventTitle: String = ""
     @State private var navigationTitle: String = "ToDo"
     @State private var description: String = ""
-
-    //@ObservedObject var detailViewModel: T
+    
+    var delegate: Delegatable
     var detailViewModel: T
-
+    
     var id: UUID
     private let emptyString = ""
     
@@ -24,15 +24,12 @@ struct DetailEventView<T: DetailViewModelable>: View {
             GeometryReader { geometry in
                 VStack(alignment: .center) {
                     Form {
-                        TextField("title",
+                        TextField("\(detailViewModel.output.event.id)",
                                   text: $eventTitle,
                                   onCommit: {
                             detailViewModel.input.onSaveTitle(title: eventTitle)
-                            // 이놈이 문제??
-                            
-//                            self.detailViewModel.input.onCommit(eventTitle)
+                            delegate.test()
                         })
-                        
                             .background(Color.white)
                             .font(.title)
                             .frame(height: geometry.size.height * 0.05,
@@ -41,39 +38,41 @@ struct DetailEventView<T: DetailViewModelable>: View {
                             .shadow(color: Color.red,
                                     radius: 10,
                                     x: 0, y: 0)
-//                        HStack {
-//                            Spacer()
-//                            DatePicker("",
-//                                       selection: $viewModel.input.dateText,
-//                                       displayedComponents: [.date])
-//                                .datePickerStyle(WheelDatePickerStyle())
-//                                .fixedSize()
-//                            Spacer()
-//                        }
-//
-//                        TextField(viewModel.manager.read(id)?.description ?? emptyString,
-//                                  text: $description,
-//                                  onCommit: {
-//                            self.viewModel.input.descriptionText = description
-//                        })
-//                            .frame(height: geometry.size.height * 0.5,
-//                                   alignment: .center)
-//                            .background(Color.white)
-//                            .compositingGroup()
-//                            .shadow(color: Color.red,
-//                                    radius: 10,
-//                                    x: 0, y: 0)
+                        //                        HStack {
+                        //                            Spacer()
+                        //                            DatePicker(selection: $detailViewModel.output.event.date, label: {})
+                        //                                .datePickerStyle(.wheel)
+                        //                                .labelsHidden()
+                        //                            Spacer()
+                        //                        }
+                        TextEditor(text: $description)
+                            .onChange(of: description) {
+                                delegate.test()
+
+                                detailViewModel
+                                    .input
+                                    .onSaveDescription(description:
+                                                        String($0.prefix(1000)))
+                                
+                            }
+                            .frame(height: geometry.size.height * 0.5,
+                                   alignment: .center)
+                            .background(Color.white)
+                            .compositingGroup()
+                            .shadow(color: Color.red,
+                                    radius: 10,
+                                    x: 0, y: 0)
                     }
                 }
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
-                   // EditButtonView()
+                    // EditButtonView()
                 }
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                  //  DoneEventButton()
+                    //  DoneEventButton()
                 }
             }
         }

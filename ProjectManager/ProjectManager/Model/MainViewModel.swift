@@ -18,12 +18,15 @@ struct Event: Identifiable {
     var title: String
     var description: String
     var date: Date
+    var state: EventState
     var id: UUID
     
-    init(title: String, description: String, date: Date, id: UUID) {
+    init(title: String, description: String,
+         date: Date, state: EventState, id: UUID) {
         self.title = title
         self.description = description
         self.date = date
+        self.state = state
         self.id = id
     }
 }

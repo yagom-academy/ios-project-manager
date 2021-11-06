@@ -10,6 +10,7 @@ import SwiftUI
 
 protocol DetailViewModelInputInterface {
     func onSaveTitle(title: String)
+    func onSaveDescription(description: String)
     func onTouchCancel()
 }
 
@@ -38,6 +39,16 @@ class DetailViewModel: DetailViewModelable, Identifiable {
 extension DetailViewModel: DetailViewModelInputInterface {
     func onSaveTitle(title: String) {
         self.event.title = title
+     //   objectWillChange.send()
+    }
+    
+    func onSaveDescription(description: String) {
+        self.event.description = description
+     //   objectWillChange.send()
+    }
+    
+    func onSaveDate(date: Date) {
+        self.event.date = date
      //   objectWillChange.send()
     }
     

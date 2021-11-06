@@ -12,12 +12,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        let viewModel = ListRowViewModel(isOnTest: true)
-        let mainView =  ListRowView(listRowViewModel: viewModel, detailViewModel: viewModel.detailViewModel)
+//        let viewModel = DetailViewModel(event: Event(title: "asdf", description: "asdf", date: Date(), state: .ToDo, id: UUID()))
+      //  let mainView =  EventListRowView(listRowViewModel: viewModel)
+        let listView = EventListRowView(listRowViewModel: ListRowViewModel(isOnTest: true))
         
         guard let scene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: scene)
-        window.rootViewController = UIHostingController(rootView: mainView)
+        window.rootViewController = UIHostingController(rootView: listView)
         window.makeKeyAndVisible()
 
         self.window = window
