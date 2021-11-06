@@ -22,6 +22,12 @@ struct ProjectToDoList {
         
     }
     
+    mutating func change(_ plan: Plan, to state: Plan.State) {
+        if let index = plans.firstIndex(where: { $0.id == plan.id }) {
+            plans[index].state = state
+        }
+    }
+    
     struct Plan: Identifiable {
         enum State: String, CaseIterable {
             case toDo = "TODO"

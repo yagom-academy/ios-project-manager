@@ -16,7 +16,7 @@ struct PlanListView: View {
             Section {
                 ForEach(viewModel.plans) { plan in
                     if plan.state.description == projectState {
-                        DetailPlanView(plan: plan)
+                        DetailPlanView(plan: plan, viewModel: viewModel)
                     }
                 }
             } header: {

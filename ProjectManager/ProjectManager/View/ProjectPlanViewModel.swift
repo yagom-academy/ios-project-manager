@@ -17,4 +17,8 @@ final class ProjectPlanViewModel: ObservableObject {
     func add(_ plan: ProjectToDoList.Plan) {
         model.add(plan)
     }
+    
+    func change(_ plan: ProjectToDoList.Plan, to state: ProjectToDoList.Plan.State) {
+        model.change(plan, to: state)
+    }
 }

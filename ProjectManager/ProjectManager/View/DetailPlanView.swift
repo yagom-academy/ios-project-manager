@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct DetailPlanView: View {
-    let plan: ProjectToDoList.Plan
+    var plan: ProjectToDoList.Plan
+    @State var isPlanTapped = false
+    @ObservedObject var viewModel: ProjectPlanViewModel
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -20,11 +22,17 @@ struct DetailPlanView: View {
                 .padding(.top, 1.0)
                 .font(.footnote)
         }
+        .onLongPressGesture(perform: {
+            self.isPlanTapped.toggle()
+        })
+        .popover(isPresented: $isPlanTapped) {
+            PopOverView(plan: plan, viewModel: viewModel)
+        }
     }
 }
 
-struct DetailPlanView_Previews: PreviewProvider {
-    static var previews: some View {
-        DetailPlanView(plan: DummyData().data[0])
-    }
-}
+//struct DetailPlanView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        DetailPlanView(plan: DummyData().data[0])
+//    }
+//}
