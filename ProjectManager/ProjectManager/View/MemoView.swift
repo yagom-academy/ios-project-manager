@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MemoView: View {
-    @ObservedObject var viewModel: MemoViewModel
+    @ObservedObject var viewModel: MemoListViewModel
     @Binding var isShow: Bool
 
     @State private var blockToUpdate = false
@@ -141,7 +141,7 @@ extension MemoView {
 struct MemoView_Previews: PreviewProvider {
     static var previews: some View {
         MemoView.init(
-            viewModel: MemoViewModel(),
+            viewModel: MemoListViewModel(),
             isShow: .constant(true)
         )
     }
