@@ -1,5 +1,5 @@
 //
-//  MemoListItem.swift
+//  MemoRow.swift
 //  ProjectManager
 //
 //  Created by kjs on 2021/10/26.
@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct MemoListItem: View {
-    @ObservedObject var viewModel: MemoListItemViewModel
+struct MemoRow: View {
+    @ObservedObject var viewModel: MemoRowViewModel
 
     var body: some View {
         ZStack(alignment: .leading) {
@@ -37,7 +37,7 @@ struct MemoListItem: View {
 
 struct ListItem_Previews: PreviewProvider {
     static var previews: some View {
-        MemoListItem(
+        MemoRow(
             viewModel: .init(memo: Memo(
                 id: UUID(),
                 title: "title",

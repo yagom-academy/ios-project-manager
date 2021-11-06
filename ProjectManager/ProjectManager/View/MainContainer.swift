@@ -55,7 +55,7 @@ extension MainContainer {
         
         return MemoList(title: state.description, itemCount: memoList.count) {
             ForEach(memoList) { memo in
-                MemoListItem(viewModel: .init(memo: memo))
+                MemoRow(viewModel: .init(memo: memo))
                     .padding(.bottom, UIStyle.minInsetAmount)
                     .onTapGesture {
                         viewModel.joinToUpdate(memo)

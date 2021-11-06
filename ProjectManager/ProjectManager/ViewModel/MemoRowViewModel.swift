@@ -1,5 +1,5 @@
 //
-//  MemoListItemViewModel.swift
+//  MemoRowViewModel.swift
 //  ProjectManager
 //
 //  Created by kjs on 2021/11/07.
@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-final class MemoListItemViewModel: ObservableObject {
-    @Published var memo: Memo
+final class MemoRowViewModel: ObservableObject {
+    @Published private(set) var memo: Memo
 
     private let dateFormatter: DateFormatter = {
         let result = DateFormatter()
