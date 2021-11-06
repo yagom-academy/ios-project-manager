@@ -11,6 +11,14 @@ final class MemoViewModel: ObservableObject {
     @Published private var currentState: ActionState = .read
     private(set) var memoList: [[Memo]] = Array(repeating: [], count: Memo.State.allCases.count)
 
+    var memoToEdit: Memo? {
+        guard case .update(let memo) = currentState else {
+            return nil
+        }
+
+        return memo
+    }
+
     // TODO: - Delete someday
     init() {
         (0...30).forEach { int in
@@ -48,7 +56,7 @@ extension MemoViewModel {
     func joinToUpdate(_ memo: Memo) {
         currentState = .update(memo)
     }
-    
+
     func edit(_ memo: Memo) {
         if case .create = currentState {
             insert(memo)
@@ -61,14 +69,6 @@ extension MemoViewModel {
 
     func afterEdit() {
         currentState = .read
-    }
-
-    func memoToEdit() -> Memo? {
-        guard case .update(let memo) = currentState else {
-            return nil
-        }
-
-        return memo
     }
 
     func delete(at index: Int, from state: Memo.State) {
