@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MainContainer: View {
-    @StateObject private var viewModel = MemoViewModel()
+    @StateObject private var viewModel = MemoListViewModel()
     @State var isEdited = false
 
     var body: some View {
@@ -55,7 +55,7 @@ extension MainContainer {
         
         return MemoList(title: state.description, itemCount: memoList.count) {
             ForEach(memoList) { memo in
-                MemoListItem(viewModel: viewModel, memo: memo)
+                MemoListItem(viewModel: .init(memo: memo))
                     .padding(.bottom, UIStyle.minInsetAmount)
                     .onTapGesture {
                         viewModel.joinToUpdate(memo)

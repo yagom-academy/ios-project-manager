@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-final class MemoViewModel: ObservableObject {
+final class MemoListViewModel: ObservableObject {
     @Published private var currentState: ActionState = .read
     private(set) var memoList: [[Memo]] = Array(repeating: [], count: Memo.State.allCases.count)
 
@@ -44,7 +44,7 @@ final class MemoViewModel: ObservableObject {
 }
 
 // MARK: - CRUD
-extension MemoViewModel {
+extension MemoListViewModel {
     func list(about state: Memo.State) -> [Memo] {
         return memoList[state.rawValue]
     }
