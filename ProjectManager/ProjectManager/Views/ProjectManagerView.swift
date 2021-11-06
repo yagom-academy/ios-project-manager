@@ -9,20 +9,16 @@ import SwiftUI
 
 struct ProjectManagerView: View {
     @State private var showModal = false
-    @ObservedObject private var todoListVM = TodoListViewModel()
+    @EnvironmentObject var todoListVM: TodoListViewModel
     
-    init() {
-        todoListVM.load()
-    }
+    let todoStatusList: [TodoStatus] = [.todo, .doing, .done]
     
     var body: some View {
         NavigationView {
             HStack {
-                TodoListView(todoStatus: .todo, todoList: todoListVM.todos)
-                
-                TodoListView(todoStatus: .doing, todoList: todoListVM.todos)
-                
-                TodoListView(todoStatus: .done, todoList: todoListVM.todos)
+                ForEach(todoStatusList) { todoStatus in
+                    TodoListView(todoStatus: todoStatus, todoList: todoListVM.todos)
+                }
             }
             .background(Color.init(UIColor(red: 210/256,
                                            green: 210/256,
@@ -44,12 +40,12 @@ struct ProjectManagerView: View {
             }
         }
         .navigationViewStyle(StackNavigationViewStyle())
-        
     }
 }
 
 struct ProjectManagerView_Previews: PreviewProvider {
     static var previews: some View {
         ProjectManagerView()
+            .environmentObject(TodoListViewModel())
     }
 }

@@ -8,7 +8,6 @@
 import Foundation
 
 struct TodoViewModel: Identifiable {
-    
     let todo: Todo
     
     let id = UUID()
@@ -44,6 +43,4 @@ struct TodoViewModel: Identifiable {
         
         return dateFommatter.string(from: date)
     }
-    
-    
 }

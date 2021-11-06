@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TodoListView: View {
-    
+    @EnvironmentObject var todoListVM: TodoListViewModel
     let todoStatus: TodoStatus
     let todoList: [TodoViewModel]
     
