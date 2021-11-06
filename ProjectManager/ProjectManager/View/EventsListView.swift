@@ -1,34 +1,43 @@
+////
+////  ListView.swift
+////  ProjectManager
+////
+////  Created by Do Yi Lee on 2021/10/31.
+////
 //
-//  ListView.swift
-//  ProjectManager
-//
-//  Created by Do Yi Lee on 2021/10/31.
-//
-
 import SwiftUI
 
-struct EventListView: View {
-    let state: ListState
-    @EnvironmentObject var viewModels: ProjectEventsManager
-    @State var isPresented = false
-    
+//struct EventListView<T: EventListViewModelable>: View {
+//    let state: EventState
+//    var eventListviewModels: T
+//   
+//    var body: some View {
+//        List {
+//            VStack {
+//                ForEach(eventListviewModels.output.events[state] ?? []) { event in
+//                    EventListItemView(title: event.title,
+//                                      description: event.description,
+//                                      date: event.date.description)
+//                }
+//            }.listStyle(.insetGrouped)
+//            
+//        }
+//    }
+//}
+
+struct EventListItemView: View {
+    var title: String
+    var description: String
+    var date: String
     var body: some View {
-        List {
-            ForEach(viewModels.jobs) { event in
-                if event.state == state {
-                    EventView(title: event.title,
-                              description: event.description,
-                              date: "\(event.date)")
-                        .onTapGesture {
-                            isPresented.toggle()
-                        }
-                        .sheet(isPresented: $isPresented) {
-                        } content: {
-                            DetailEventView(id: event.id)
-                                .environmentObject(viewModels)
-                        }
-                }
-            }
+        VStack {
+            Text(title)
+                .font(.title)
+            Text(description)
+                .font(.body)
+                .foregroundColor(.gray)
+            Text(date)
         }
     }
 }
+

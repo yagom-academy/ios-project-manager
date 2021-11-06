@@ -8,51 +8,54 @@
 import SwiftUI
 
 struct MainView: View {
-    @EnvironmentObject var viewModel: ProjectEventsManager
-    
+    //@ObservedObject var mainViewModel: T
+    //@ObservedObject var detailViewModel: DetailViewModel
     var body: some View {
         NavigationView {
             HStack {
-                VStack {
-                    Section(header: Text("ToDo")
-                                .font(.title)) {
-                    }
-                    EventListView(state: .ToDo)
-                        .listStyle(.grouped)
-                        .environmentObject(viewModel)
-                }
-                
-                VStack {
-                    Section(header: Text("Doing")
-                                .font(.title)) {
-                    }
-                    EventListView(state: .Doing)
-                        .listStyle(.grouped)
-                        .environmentObject(viewModel)
-                }
-                
-                VStack {
-                    Section(header: Text("Done")
-                                .font(.title)) {
-                    }
-                    EventListView(state: .Done)
-                        .listStyle(.grouped)
-                        .environmentObject(viewModel)
-                    }
+//                EventListView(state: .ToDo, eventListviewModels: mainViewModel)
+//                EventListView(state: .Done, eventListviewModels: mainViewModel)
+//                EventListView(state: .Doing, eventListviewModels: mainViewModel)
             }
-            .navigationBarTitle("프로젝트 관리")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar(content: {
-                AddEventButton()
-                    .environmentObject(self.viewModel)
-            })
         }.navigationViewStyle(.stack)
     }
 }
+//            HStack {
+//                VStack {
+//                    Section(header: Text("ToDo")
+//                                .font(.title)) {
+//                    }
+//                    EventListView(state: .ToDo)
+//                        .listStyle(.grouped)
+//                }
+//
+//                VStack {
+//                    Section(header: Text("Doing")
+//                                .font(.title)) {
+//                    }
+//                    EventListView(state: .Doing)
+//                        .listStyle(.grouped)
+//                }
+//
+//                VStack {
+//                    Section(header: Text("Done")
+//                                .font(.title)) {
+//                    }
+//                    EventListView(state: .Done)
+//                        .listStyle(.grouped)
+//                    }
+//            }
+//            .navigationBarTitle("프로젝트 관리")
+//            .navigationBarTitleDisplayMode(.inline)
+//            .toolbar(content: {
+//                AddEventButton()
+//            })
+//        }.navigationViewStyle(.stack)
+//    }
+//}
 
-struct MainView_Previews: PreviewProvider {
-    static var previews: some View {
-        MainView()
-            .environmentObject(ProjectEventsManager())
-    }
-}
+//struct MainView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        MainView(mainViewModel: ProjectManager(isOnTest: true))
+//    }
+//}
