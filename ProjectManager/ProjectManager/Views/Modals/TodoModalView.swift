@@ -8,43 +8,29 @@
 import SwiftUI
 
 struct TodoModalView: View {
-    enum TodoModalType {
-        case new
-        case detail
-        case edit
-    }
-    
-    @State private var title: String
-    @State private var dueDate: Date
-    @State private var description: String
+    @ObservedObject var todoModalVM: TodoModalViewModel
     @Binding private var showModal: Bool
-    @State private var modalType: TodoModalType
     
     init(showModal: Binding<Bool>) {
-        _title = State(initialValue: "")
-        _dueDate = State(initialValue: Date())
-        _description = State(initialValue: "")
-        _modalType = State(initialValue: .detail)
         _showModal = showModal
+        self.todoModalVM = TodoModalViewModel()
     }
     
     init(todoVM: TodoViewModel, showModal: Binding<Bool>) {
-        _title = State(initialValue: todoVM.title)
-        _dueDate = State(initialValue: todoVM.dueDate)
-        _description = State(initialValue: todoVM.description)
-        _modalType = State(initialValue: .detail)
         _showModal = showModal
+        self.todoModalVM = TodoModalViewModel(todoVM)
     }
     
     var body: some View {
         NavigationView {
             VStack {
-                TextField("Title", text: $title)
+                TextField("Title", text: $todoModalVM.title)
                     .font(.title2)
                     .textFieldStyle(TodoTextFieldStyle())
+                    .disabled(todoModalVM.isDisabled)
                     
                 
-                DatePicker(selection: $dueDate,
+                DatePicker(selection: $todoModalVM.dueDate,
                            displayedComponents: [.date, .hourAndMinute],
                            label: {
                             Text("Select Date")
@@ -52,11 +38,13 @@ struct TodoModalView: View {
                     .datePickerStyle(WheelDatePickerStyle())
                     .labelsHidden()
                     .padding([.leading, .trailing])
+                    .disabled(todoModalVM.isDisabled)
                 
-                TextEditor(text: $description)
+                TextEditor(text: $todoModalVM.description)
                     .padding()
                     .font(.title3)
                     .border(Color.gray, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
+                    .disabled(todoModalVM.isDisabled)
             }
             .padding()
             .navigationBarTitle(Text("TODO"))
@@ -70,7 +58,7 @@ struct TodoModalView: View {
 
 extension TodoModalView {
     var leadingButton: some View {
-        switch modalType {
+        switch todoModalVM.modalType {
         case .new, .edit:
             return AnyView(cancelButton)
         case .detail:
@@ -79,7 +67,7 @@ extension TodoModalView {
     }
     
     var trailingButton: some View {
-        switch modalType {
+        switch todoModalVM.modalType {
         case .new:
             return AnyView(newDoneButton)
         case .edit:
@@ -97,7 +85,7 @@ extension TodoModalView {
     
     var editButton: some View {
         Button("Edit") {
-            self.modalType = .edit
+            todoModalVM.updateModalType(modalType: .edit)
         }
     }
     
