@@ -12,9 +12,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        let listViewModel = EventListViewModel()
-        let listView = EventListView(eventListviewModels: listViewModel)
+        let listViewModel = ProjectManager()
+        let listView = MainView(viewModel: listViewModel)
         guard let scene = (scene as? UIWindowScene) else { return }
+        
         let window = UIWindow(windowScene: scene)
         window.rootViewController = UIHostingController(rootView: listView)
         window.makeKeyAndVisible()

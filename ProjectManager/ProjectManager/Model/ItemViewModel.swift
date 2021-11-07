@@ -35,8 +35,8 @@ class ItemViewModel: ItemViewModelable, Delegatable, Identifiable {
     var input: ItemViewModelInputInterface { return self }
     var output: ItemViewModelOutputInterface { return self }
     
-    let modalViewModel: DetailViewModel =  DetailViewModel(event: Event(title: "디테일",
-                                                                                 description: "디테일",
+    let modalViewModel: DetailViewModel =  DetailViewModel(event: Event(title: "제목을 입력해 주세요",
+                                                                                 description: "1000자까지 입력해 주세요",
                                                                                  date: Date(),
                                                                                  state: .ToDo,
                                                                                  id: UUID()))

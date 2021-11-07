@@ -8,9 +8,9 @@
 import Foundation
 import UIKit
 
-
 protocol ListViewModelInputInterface {
     func onDeleteRow(at indexSet: IndexSet)
+    func onAddEvent() 
 }
 
 protocol ListViewModelOutputInterface {
@@ -33,6 +33,10 @@ extension EventListViewModel: ListViewModelInputInterface {
     func onDeleteRow(at indexSet: IndexSet) {
         self.itemViewModels.remove(atOffsets: indexSet)
         print("셀 삭제")
+    }
+    
+    func onAddEvent() {
+        self.itemViewModels.append(ItemViewModel(isOnTest: true))
     }
 }
 
