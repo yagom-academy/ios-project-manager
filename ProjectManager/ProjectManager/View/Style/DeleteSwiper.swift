@@ -85,7 +85,7 @@ struct DeleteSwiper: ViewModifier {
                 .font(.footnote)
                 .foregroundColor(.white)
                 .frame(width: UIStyle.buttonWidth, height: cellHeight)
-                .backgroundColor(.red)
+                .background(Color.red)
         }
     }
 }

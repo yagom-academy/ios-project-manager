@@ -21,7 +21,7 @@ struct MainContainer: View {
                     memoListView(about: state)
                 }
             }
-            .backgroundColor(.myGray)
+            .background(Color.myGray)
             .navigationTitle("Project Manager")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -70,7 +70,7 @@ extension MainContainer {
                     }
             }
         }
-        .backgroundColor(.basic)
+        .background(Color.basic)
     }
 }
 
