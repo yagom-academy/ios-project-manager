@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import CoreGraphics
 
 enum UIStyle {
     static let shadowAmount: CGFloat = 3.0
