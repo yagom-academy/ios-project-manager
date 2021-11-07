@@ -9,23 +9,24 @@
 import SwiftUI
 // delegate여기서 채택
 struct DetailEventView<T: DetailViewModelable>: View {
+    @Environment(\.presentationMode) private var presentationMode
+    
     @State private var eventTitle: String = ""
     @State private var navigationTitle: String = "ToDo"
     @State private var description: String = ""
     
-    var detailViewModel: T // rc
+    @State private var isInteractionDisabled: Bool = true
+    
+    var detailViewModel: T
     var id: UUID
-        
+    
     var body: some View {
         NavigationView {
             GeometryReader { geometry in
                 VStack(alignment: .center) {
                     Form {
                         TextField("title",
-                                  text: $eventTitle,
-                                  onCommit: {
-                            detailViewModel.input.onSaveTitle(title: eventTitle)
-                        })
+                                  text: $eventTitle)
                             .background(Color.white)
                             .font(.title)
                             .frame(height: geometry.size.height * 0.05,
@@ -42,13 +43,6 @@ struct DetailEventView<T: DetailViewModelable>: View {
                         //                            Spacer()
                         //                        }
                         TextEditor(text: $description)
-                            .onChange(of: description) {
-                                detailViewModel
-                                    .input
-                                    .onSaveDescription(description:
-                                                        String($0.prefix(1000)))
-                                
-                            }
                             .frame(height: geometry.size.height * 0.5,
                                    alignment: .center)
                             .background(Color.white)
@@ -56,17 +50,17 @@ struct DetailEventView<T: DetailViewModelable>: View {
                             .shadow(color: Color.red,
                                     radius: 10,
                                     x: 0, y: 0)
-                    }
+                    }.disabled(isInteractionDisabled)
                 }
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
-                    // EditButtonView()
+                    editButton
                 }
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    //  DoneEventButton()
+                    cancelButton
                 }
             }
         }
@@ -74,58 +68,50 @@ struct DetailEventView<T: DetailViewModelable>: View {
             self.eventTitle = detailViewModel.output.event.title
             self.description = detailViewModel.output.event.description
         })
-        .navigationViewStyle(StackNavigationViewStyle())
+        .navigationViewStyle(.stack)
         .navigationBarTitleDisplayMode(.inline)
     }
+    
+    var cancelButton: some View {
+        Button(ButtonTitle.cancel.rawValue) {
+            self.presentationMode.wrappedValue.dismiss()
+        }
+    }
+    
+    var editButtonTitle: String {
+        get {
+            if self.isInteractionDisabled {
+                return ButtonTitle.edit.rawValue
+            } else {
+                return ButtonTitle.done.rawValue
+            }
+        }
+    }
+    
+    var editButton: some View {
+        Button(editButtonTitle) {
+            self.isInteractionDisabled.toggle()
+        }
+        .onChange(of: isInteractionDisabled) { newValue in
+            if newValue {
+                saveEvent()
+            }
+        }
+    }
+    
+    private func saveEvent() {
+        detailViewModel
+            .input
+            .onSaveDescription(description: String(self.description.prefix(1000)))
+        detailViewModel
+            .input
+            .onSaveTitle(title: self.eventTitle)
+    }
+    
+    enum ButtonTitle: String {
+        case cancel
+        case done
+        case edit
+    }
 }
-//
-//struct DoneEventButton: View {
-//    @EnvironmentObject var viewModel: ProjectManager
-//    @Environment(\.presentationMode) var presentationMode
-//    
-//    var body: some View {
-//        if #available(iOS 15.0, *) {
-//            Button("Done", role: .none) {
-//                self.viewModel.update()
-//                self.presentationMode.wrappedValue.dismiss()
-//            }
-//        } else {
-//            
-//        }
-//    }
-//}
-//
-//struct EditButtonView: View {
-//    @Environment(\.presentationMode) var presentationMode
-//    @EnvironmentObject var viewModel: ProjectManager
-//    
-//    @State var showEditButton: Bool = false
-//    @State var title: String = "Cancel"
-//    var body: some View {
-//        
-//        Button {
-//            self.showEditButton.toggle()
-//            self.title = "Edit"
-//            self.viewModel.update()
-//        } label: {
-//            Text(title)
-//        }
-//    }
-//}
-//struct AddEventButton: View {
-//    @State private var isButtonTabbed: Bool = false
-//    @EnvironmentObject var viewModel: ProjectManager
-//
-//    var body: some View {
-//        Button("+") {
-//            isButtonTabbed.toggle()
-//            self.viewModel.create()
-//        }.sheet(isPresented: $isButtonTabbed,
-//                onDismiss: {
-//
-//        }, content: {
-//            DetailEventView(id: UUID())
-//                .environmentObject(viewModel)
-//        })
-//    }
-//}
+

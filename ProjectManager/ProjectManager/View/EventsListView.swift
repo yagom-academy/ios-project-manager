@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct EventListView<T: ListViewModelable>: View {
-    let state: EventState
    @ObservedObject var eventListviewModels: T
     
     var body: some View {
@@ -17,7 +16,7 @@ struct EventListView<T: ListViewModelable>: View {
             ForEach(eventListviewModels.output.itemViewModels) { event in
                 EventListRowView(listRowViewModel: event)
             }.onDelete { indexSet in
-                eventListviewModels.input.onDeleteRow(indexSet: indexSet)
+                eventListviewModels.input.onDeleteRow(at: indexSet)
             }
         }
     }

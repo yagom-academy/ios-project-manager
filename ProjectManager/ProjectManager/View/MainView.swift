@@ -7,15 +7,15 @@
 
 import SwiftUI
 
-struct MainView: View {
-    var body: some View {
-        NavigationView {
-            HStack {
-
-            }
-        }.navigationViewStyle(.stack)
-    }
-}
+//struct MainView: View {
+//    var body: some View {
+//        NavigationView {
+//            HStack {
+//
+//            }
+//        }.navigationViewStyle(.stack)
+//    }
+//}
 //            HStack {
 //                VStack {
 //                    Section(header: Text("ToDo")
@@ -53,5 +53,23 @@ struct MainView: View {
 //struct MainView_Previews: PreviewProvider {
 //    static var previews: some View {
 //        MainView(mainViewModel: ProjectManager(isOnTest: true))
+//    }
+//}
+
+//struct AddEventButton: View {
+//    @State private var isButtonTabbed: Bool = false
+//    @EnvironmentObject var viewModel: ProjectManager
+//
+//    var body: some View {
+//        Button("+") {
+//            isButtonTabbed.toggle()
+//            self.viewModel.create()
+//        }.sheet(isPresented: $isButtonTabbed,
+//                onDismiss: {
+//
+//        }, content: {
+//            DetailEventView(id: UUID())
+//                .environmentObject(viewModel)
+//        })
 //    }
 //}

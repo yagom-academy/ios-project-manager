@@ -10,7 +10,7 @@ import UIKit
 
 
 protocol ListViewModelInputInterface {
-    func onDeleteRow(indexSet: IndexSet)
+    func onDeleteRow(at indexSet: IndexSet)
 }
 
 protocol ListViewModelOutputInterface {
@@ -30,7 +30,7 @@ class EventListViewModel: ListViewModelable {
 }
 
 extension EventListViewModel: ListViewModelInputInterface {
-    func onDeleteRow(indexSet: IndexSet) {
+    func onDeleteRow(at indexSet: IndexSet) {
         self.itemViewModels.remove(atOffsets: indexSet)
         print("셀 삭제")
     }

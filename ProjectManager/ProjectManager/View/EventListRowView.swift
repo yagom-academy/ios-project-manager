@@ -13,7 +13,6 @@ struct EventListRowView<Value: ItemViewModelable>: View {
     
     var body: some View {
         print("EventListRowView",#function)
-
         return VStack {
             Text(listRowViewModel.output.currentEvent.title)
                 .font(.title)
