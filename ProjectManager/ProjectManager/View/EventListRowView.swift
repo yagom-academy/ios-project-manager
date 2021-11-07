@@ -33,6 +33,6 @@ struct EventListRowView<Value: ItemViewModelable>: View {
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        EventListRowView(listRowViewModel: ItemViewModel(isOnTest: true))
+        EventListRowView(listRowViewModel: ItemViewModel())
     }
 }

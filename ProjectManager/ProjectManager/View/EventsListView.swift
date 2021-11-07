@@ -8,15 +8,18 @@
 import SwiftUI
 
 struct EventListView<T: ListViewModelable>: View {
-   @ObservedObject var eventListviewModels: T
+   @ObservedObject var eventListViewModels: T
+    var state: EventState
     
     var body: some View {
         print("EventListView",#function)
         return List {
-            ForEach(eventListviewModels.output.itemViewModels) { event in
-                EventListRowView(listRowViewModel: event)
+            ForEach(eventListViewModels.output.itemViewModels) { event in
+                if event.output.currentEvent.state == state {
+                    EventListRowView(listRowViewModel: event)
+                }
             }.onDelete { indexSet in
-                eventListviewModels.input.onDeleteRow(at: indexSet)
+                eventListViewModels.input.onDeleteRow(at: indexSet)
             }
         }
     }

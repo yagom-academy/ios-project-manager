@@ -10,7 +10,7 @@ import UIKit
 
 protocol ListViewModelInputInterface {
     func onDeleteRow(at indexSet: IndexSet)
-    func onAddEvent() 
+    func onAddEvent()
 }
 
 protocol ListViewModelOutputInterface {
@@ -26,7 +26,7 @@ class EventListViewModel: ListViewModelable {
     var input: ListViewModelInputInterface { return self }
     var output: ListViewModelOutputInterface { return self }
 
-    @Published var itemViewModels = [ItemViewModel(isOnTest: true)]
+    @Published var itemViewModels = [ItemViewModel()]
 }
 
 extension EventListViewModel: ListViewModelInputInterface {
@@ -36,7 +36,7 @@ extension EventListViewModel: ListViewModelInputInterface {
     }
     
     func onAddEvent() {
-        self.itemViewModels.append(ItemViewModel(isOnTest: true))
+        self.itemViewModels.append(ItemViewModel())
     }
 }
 

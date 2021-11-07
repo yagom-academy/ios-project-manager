@@ -44,7 +44,7 @@ class ItemViewModel: ItemViewModelable, Delegatable, Identifiable {
         modalViewModel.output.event
     }
     
-    init(isOnTest: Bool) {
+    init() {
         modalViewModel.delegate = self
     } 
 }

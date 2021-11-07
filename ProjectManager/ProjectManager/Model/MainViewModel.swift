@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-enum EventState: String {
+enum EventState: String, CaseIterable {
     case ToDo
     case Doing
     case Done
@@ -59,7 +59,6 @@ class ProjectManager: MainViewModelable {
 extension ProjectManager: MainViewModelInputInterface {
     func onTouchEventCreateButton() {
         self.eventListViewModel.input.onAddEvent()
-        //self.eventListViewModel.input.
     }
 }
 
