@@ -11,6 +11,7 @@ import UIKit
 protocol ListViewModelInputInterface {
     func onDeleteRow(at indexSet: IndexSet)
     func onAddEvent()
+    func onCountEventNumber(eventState: EventState) -> Int
 }
 
 protocol ListViewModelOutputInterface {
@@ -27,6 +28,7 @@ class EventListViewModel: ListViewModelable {
     var output: ListViewModelOutputInterface { return self }
 
     @Published var itemViewModels = [ItemViewModel()]
+
 }
 
 extension EventListViewModel: ListViewModelInputInterface {
@@ -37,6 +39,12 @@ extension EventListViewModel: ListViewModelInputInterface {
     
     func onAddEvent() {
         self.itemViewModels.append(ItemViewModel())
+    }
+    
+    func onCountEventNumber(eventState: EventState) -> Int {
+        return self.itemViewModels.filter { item in
+            item.currentEvent.state == eventState
+        }.count
     }
 }
 

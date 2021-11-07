@@ -8,12 +8,14 @@
 import SwiftUI
 
 struct EventListView<T: ListViewModelable>: View {
-   @ObservedObject var eventListViewModels: T
+    @ObservedObject var eventListViewModels: T
     var state: EventState
     
     var body: some View {
-        print("EventListView",#function)
-        return List {
+        List {
+            EventListHeader(eventTitle: state.rawValue,
+                            eventNumber: "\(eventListViewModels.input.onCountEventNumber(eventState: state))")
+            
             ForEach(eventListViewModels.output.itemViewModels) { event in
                 if event.output.currentEvent.state == state {
                     EventListRowView(listRowViewModel: event)

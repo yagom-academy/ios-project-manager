@@ -16,7 +16,7 @@ struct MainView<T: MainViewModelable>: View {
                 HStack {
                     ForEach(EventState.allCases, id: \.self) {
                         EventListView(eventListViewModels: viewModel.output.eventListViewModel, state: $0)
-
+                            .listStyle(.insetGrouped)
                     }
                 }
                 .navigationBarTitle("프로젝트 관리")
