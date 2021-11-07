@@ -7,27 +7,17 @@
 
 import SwiftUI
 
-protocol Delegatable {
-    func test()
-}
-
-struct EventListRowView<Value: ListRowViewModelable>: View, Delegatable {
-    func test() {
-      //  print("ㅜㅠㅜㅠㅜㅠㅜ")
-        listRowViewModel.output.detailViewModel.objectWillChange.send()
-        print(listRowViewModel.output.detailViewModel.event.title, "👍")
-    }
-    
+struct EventListRowView<Value: ItemViewModelable>: View {
     @ObservedObject var listRowViewModel: Value
-    //@ObservedObject var detailViewModel: Value
-    
     @State var isPresented: Bool = false
+    
     var body: some View {
-        print(#function)
+        print("EventListRowView",#function)
+
         return VStack {
-            Text(listRowViewModel.output.detailViewModel.event.title)
+            Text(listRowViewModel.output.currentEvent.title)
                 .font(.title)
-            Text(listRowViewModel.output.detailViewModel.event.description)
+            Text(listRowViewModel.output.currentEvent.description)
                 .font(.body)
                 .foregroundColor(.gray)
         }.onTapGesture {
@@ -36,8 +26,7 @@ struct EventListRowView<Value: ListRowViewModelable>: View, Delegatable {
         .sheet(isPresented: $isPresented) {
             self.isPresented = false
         } content: {
-            DetailEventView(delegate: self,
-                            detailViewModel: listRowViewModel.output.detailViewModel,
+            DetailEventView(detailViewModel: listRowViewModel.output.modalViewModel,
                             id: UUID())
         }
     }
@@ -45,6 +34,6 @@ struct EventListRowView<Value: ListRowViewModelable>: View, Delegatable {
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        EventListRowView(listRowViewModel: ListRowViewModel(isOnTest: true))
+        EventListRowView(listRowViewModel: ItemViewModel(isOnTest: true))
     }
 }

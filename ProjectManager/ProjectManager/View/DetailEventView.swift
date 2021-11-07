@@ -7,28 +7,24 @@
 //
 
 import SwiftUI
-
+// delegate여기서 채택
 struct DetailEventView<T: DetailViewModelable>: View {
     @State private var eventTitle: String = ""
     @State private var navigationTitle: String = "ToDo"
     @State private var description: String = ""
     
-    var delegate: Delegatable
-    var detailViewModel: T
-    
+    var detailViewModel: T // rc
     var id: UUID
-    private let emptyString = ""
-    
+        
     var body: some View {
         NavigationView {
             GeometryReader { geometry in
                 VStack(alignment: .center) {
                     Form {
-                        TextField("\(detailViewModel.output.event.id)",
+                        TextField("title",
                                   text: $eventTitle,
                                   onCommit: {
                             detailViewModel.input.onSaveTitle(title: eventTitle)
-                            delegate.test()
                         })
                             .background(Color.white)
                             .font(.title)
@@ -47,8 +43,6 @@ struct DetailEventView<T: DetailViewModelable>: View {
                         //                        }
                         TextEditor(text: $description)
                             .onChange(of: description) {
-                                delegate.test()
-
                                 detailViewModel
                                     .input
                                     .onSaveDescription(description:
@@ -76,8 +70,11 @@ struct DetailEventView<T: DetailViewModelable>: View {
                 }
             }
         }
+        .onAppear(perform: {
+            self.eventTitle = detailViewModel.output.event.title
+            self.description = detailViewModel.output.event.description
+        })
         .navigationViewStyle(StackNavigationViewStyle())
-        .navigationBarTitle(Text(detailViewModel.output.event.title))
         .navigationBarTitleDisplayMode(.inline)
     }
 }
@@ -132,17 +129,3 @@ struct DetailEventView<T: DetailViewModelable>: View {
 //        })
 //    }
 //}
-//
-//public protocol MyProtocol {
-//    var _person: Published<Person> { get set }
-//}
-//
-//class MyClass: MyProtocol, ObservableObject {
-//    @Published var person: Person
-//
-//    public init(person: Published<Person>) {
-//        self._person = person
-//    }
-//}
-//
-//

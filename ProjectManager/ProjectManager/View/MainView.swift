@@ -8,14 +8,10 @@
 import SwiftUI
 
 struct MainView: View {
-    //@ObservedObject var mainViewModel: T
-    //@ObservedObject var detailViewModel: DetailViewModel
     var body: some View {
         NavigationView {
             HStack {
-//                EventListView(state: .ToDo, eventListviewModels: mainViewModel)
-//                EventListView(state: .Done, eventListviewModels: mainViewModel)
-//                EventListView(state: .Doing, eventListviewModels: mainViewModel)
+
             }
         }.navigationViewStyle(.stack)
     }

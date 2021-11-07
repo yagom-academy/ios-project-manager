@@ -1,28 +1,24 @@
-////
-////  ListView.swift
-////  ProjectManager
-////
-////  Created by Do Yi Lee on 2021/10/31.
-////
 //
+//  ListView.swift
+//  ProjectManager
+//
+//  Created by Do Yi Lee on 2021/10/31.
+//
+
 import SwiftUI
 
-struct EventListView<T: ListRowViewModelable>: View {
+struct EventListView<T: ListViewModelable>: View {
     let state: EventState
-    var eventListviewModels: T
-   // var viewModel: ListRowViewModelable
+   @ObservedObject var eventListviewModels: T
     
     var body: some View {
-        List {
-            VStack {
-//                ForEach(eventListviewModels.output.events) { event in
-//                    EventListRowView(listRowViewModel: viewModel)
-//                }.onDelete { indexSet in
-//                    indexSet
-//                }
-            }.listStyle(.insetGrouped)
-            
-            
+        print("EventListView",#function)
+        return List {
+            ForEach(eventListviewModels.output.itemViewModels) { event in
+                EventListRowView(listRowViewModel: event)
+            }.onDelete { indexSet in
+                eventListviewModels.input.onDeleteRow(indexSet: indexSet)
+            }
         }
     }
 }

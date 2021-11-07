@@ -6,41 +6,35 @@
 ////
 //
 import Foundation
+import UIKit
 
 
-protocol EventListViewModelInputInterface {
-    func onDeleteRow()
+protocol ListViewModelInputInterface {
+    func onDeleteRow(indexSet: IndexSet)
 }
 
-protocol EventListViewModelOutputInterface {
-    var events: [Event] { get }
+protocol ListViewModelOutputInterface {
+    var itemViewModels: [ItemViewModel] { get }
 }
 
-protocol EventListViewModelable: ObservableObject {
-    var input: EventListViewModelInputInterface { get }
-    var output: EventListViewModelOutputInterface { get }
+protocol ListViewModelable: ObservableObject {
+    var input: ListViewModelInputInterface { get }
+    var output: ListViewModelOutputInterface { get }
 }
 
-class EventListViewModel: EventListViewModelable {
-    var input: EventListViewModelInputInterface { return self }
-    var output: EventListViewModelOutputInterface { return self }
+class EventListViewModel: ListViewModelable {
+    var input: ListViewModelInputInterface { return self }
+    var output: ListViewModelOutputInterface { return self }
 
-    @Published var events: [Event]
-    
-    init(isTestView: Bool) {
-        if isTestView {
-            self.events = [Event(title: "a", description: "a", date: Date(), state: .ToDo, id: UUID())]
-            return
-        }
-        self.events = [Event]()
+    @Published var itemViewModels = [ItemViewModel(isOnTest: true)]
+}
+
+extension EventListViewModel: ListViewModelInputInterface {
+    func onDeleteRow(indexSet: IndexSet) {
+        self.itemViewModels.remove(atOffsets: indexSet)
+        print("셀 삭제")
     }
 }
 
-extension EventListViewModel: EventListViewModelInputInterface {
-    func onDeleteRow() {
-        //
-    }
-}
-
-extension EventListViewModel: EventListViewModelOutputInterface {
+extension EventListViewModel: ListViewModelOutputInterface {
 }
