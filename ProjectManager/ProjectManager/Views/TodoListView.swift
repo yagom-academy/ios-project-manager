@@ -18,11 +18,18 @@ struct TodoListView: View {
     }
     
     var body: some View {
-        VStack(spacing: 0) {
+        UITableView.appearance().backgroundColor = .clear
+        
+        return VStack(spacing: 0) {
             TodoListHeaderView(title: todoStatus.title, count: todoList.count)
             List {
                 ForEach(todoList) { todoItem in
                     TodoItemView(todo: todoItem)
+                        .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
+                        .listRowBackground(Color.init(UIColor(red: 239/256,
+                                                              green: 239/256,
+                                                              blue: 239/256,
+                                                              alpha: 1)))
                 }
                 .onDelete(perform: delete)
             }
