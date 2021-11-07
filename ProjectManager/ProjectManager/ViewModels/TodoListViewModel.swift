@@ -17,4 +17,20 @@ class TodoListViewModel: ObservableObject {
     private func generateMockTodos() {
         self.todos = Todo.generateMockTodos().map(TodoViewModel.init)
     }
+    
+    func addTodo(_ todoModalVM: TodoModalViewModel) {
+        let todo = Todo(title: todoModalVM.title,
+                        description: todoModalVM.description,
+                        dueDate: todoModalVM.dueDate,
+                        status: .todo)
+        todos.append(TodoViewModel(todo: todo))
+    }
+    
+    func updateTodo(_ todoModalVM: TodoModalViewModel) {
+        let todo = Todo(title: todoModalVM.title,
+                        description: todoModalVM.description,
+                        dueDate: todoModalVM.dueDate,
+                        status: .todo)
+        todos = todos.map { $0.id == todoModalVM.id ? TodoViewModel(todo: todo) : $0 }
+    }
 }

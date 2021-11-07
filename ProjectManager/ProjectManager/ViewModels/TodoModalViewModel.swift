@@ -14,6 +14,7 @@ enum TodoModalType {
 }
 
 class TodoModalViewModel: ObservableObject {
+    var id = UUID()
     @Published var title: String
     @Published var dueDate: Date
     @Published var description: String
@@ -31,6 +32,7 @@ class TodoModalViewModel: ObservableObject {
     }
     
     init(_ todoVM: TodoViewModel) {
+        self.id = todoVM.id
         self.title = todoVM.title
         self.dueDate = todoVM.dueDate
         self.description = todoVM.description

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct TodoModalView: View {
+    @EnvironmentObject var todoListVM: TodoListViewModel
     @ObservedObject var todoModalVM: TodoModalViewModel
     @Binding private var showModal: Bool
     
@@ -29,7 +30,6 @@ struct TodoModalView: View {
                     .textFieldStyle(TodoTextFieldStyle())
                     .disabled(todoModalVM.isDisabled)
                     
-                
                 DatePicker(selection: $todoModalVM.dueDate,
                            displayedComponents: [.date, .hourAndMinute],
                            label: {
@@ -90,21 +90,29 @@ extension TodoModalView {
     }
     
     var newDoneButton: some View {
-        Button("Done") {
-            self.showModal = false
-        }
+        Button("Done", action: addTodo)
     }
     
     var editDoneButton: some View {
-        Button("Done") {
-            self.showModal = false
-        }
+        Button("Done", action: updateTodo)
     }
     
     var detailDoneButton: some View {
         Button("Done") {
             self.showModal = false
         }
+    }
+}
+
+extension TodoModalView {
+    func addTodo() {
+        self.todoListVM.addTodo(todoModalVM)
+        self.showModal = false
+    }
+    
+    func updateTodo() {
+        self.todoListVM.updateTodo(todoModalVM)
+        self.showModal = false
     }
 }
 
