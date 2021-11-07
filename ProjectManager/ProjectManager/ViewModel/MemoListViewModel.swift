@@ -9,7 +9,7 @@ import SwiftUI
 
 final class MemoListViewModel: ObservableObject {
     @Published private var currentState: ActionState = .read
-    private(set) var memoList: [[Memo]] = Array(repeating: [], count: Memo.State.allCases.count)
+    private(set) var memoList: [Memo.State: [Memo]] = [:]
 
     var memoToEdit: Memo? {
         guard case .update(let memo) = currentState else {
@@ -21,9 +21,12 @@ final class MemoListViewModel: ObservableObject {
 
     // TODO: - Delete someday
     init() {
+        Memo.State.allCases.forEach { state in
+            memoList.updateValue([], forKey: state)
+        }
+
         (0...30).forEach { int in
-            let randomRawValue = Int.random(in: 0..<Memo.State.allCases.count)
-            let state = Memo.State(rawValue: randomRawValue)!
+            let state = Memo.State.allCases.randomElement()!
             let memo = Memo(
                 id: UUID(),
                 title: int.description,
@@ -31,7 +34,8 @@ final class MemoListViewModel: ObservableObject {
                 date: Date(),
                 state: state
             )
-            memoList[randomRawValue].append(memo)
+
+            memoList[state]?.append(memo)
         }
     }
 
@@ -46,7 +50,7 @@ final class MemoListViewModel: ObservableObject {
 // MARK: - CRUD
 extension MemoListViewModel {
     func list(about state: Memo.State) -> [Memo] {
-        return memoList[state.rawValue]
+        return memoList[state] ?? []
     }
 
     func joinToCreateMemo() {
@@ -73,7 +77,7 @@ extension MemoListViewModel {
 
     func delete(at index: Int, from state: Memo.State) {
         currentState = .delete
-        memoList[state.rawValue].remove(at: index)
+        memoList[state]?.remove(at: index)
         currentState = .read
     }
 
@@ -82,17 +86,16 @@ extension MemoListViewModel {
             return
         }
 
-        let todo = Memo.State.todo.rawValue
-        memoList[todo].insert(memo, at: .zero)
+        memoList[.todo]?.insert(memo, at: .zero)
     }
 
     private func update(from old: Memo, to new: Memo) {
-        let state = old.state.rawValue
+        let state = old.state
 
-        if let target = memoList[state].firstIndex(of: old) {
-            memoList[state][target].title = new.title
-            memoList[state][target].body = new.body
-            memoList[state][target].date = new.date
+        if let target = memoList[state]?.firstIndex(of: old) {
+            memoList[state]?[target].title = new.title
+            memoList[state]?[target].body = new.body
+            memoList[state]?[target].date = new.date
         }
     }
 }
