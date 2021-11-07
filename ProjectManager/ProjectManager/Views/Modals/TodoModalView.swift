@@ -9,28 +9,28 @@ import SwiftUI
 
 struct TodoModalView: View {
     @EnvironmentObject var todoListVM: TodoListViewModel
-    @ObservedObject var todoModalVM: TodoModalViewModel
+    @ObservedObject var todoFormVM: TodoFormViewModel
     @Binding private var showModal: Bool
     
     init(showModal: Binding<Bool>) {
         _showModal = showModal
-        self.todoModalVM = TodoModalViewModel()
+        self.todoFormVM = TodoFormViewModel()
     }
     
     init(todoVM: TodoViewModel, showModal: Binding<Bool>) {
         _showModal = showModal
-        self.todoModalVM = TodoModalViewModel(todoVM)
+        self.todoFormVM = TodoFormViewModel(todoVM)
     }
     
     var body: some View {
         NavigationView {
             VStack {
-                TextField("Title", text: $todoModalVM.title)
+                TextField("Title", text: $todoFormVM.title)
                     .font(.title2)
                     .textFieldStyle(TodoTextFieldStyle())
-                    .disabled(todoModalVM.isDisabled)
+                    .disabled(todoFormVM.isDisabled)
                     
-                DatePicker(selection: $todoModalVM.dueDate,
+                DatePicker(selection: $todoFormVM.dueDate,
                            displayedComponents: [.date, .hourAndMinute],
                            label: {
                             Text("Select Date")
@@ -38,13 +38,13 @@ struct TodoModalView: View {
                     .datePickerStyle(WheelDatePickerStyle())
                     .labelsHidden()
                     .padding([.leading, .trailing])
-                    .disabled(todoModalVM.isDisabled)
+                    .disabled(todoFormVM.isDisabled)
                 
-                TextEditor(text: $todoModalVM.description)
+                TextEditor(text: $todoFormVM.description)
                     .padding()
                     .font(.title3)
                     .border(Color.gray, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
-                    .disabled(todoModalVM.isDisabled)
+                    .disabled(todoFormVM.isDisabled)
             }
             .padding()
             .navigationBarTitle(Text("TODO"))
@@ -58,7 +58,7 @@ struct TodoModalView: View {
 
 extension TodoModalView {
     var leadingButton: some View {
-        switch todoModalVM.modalType {
+        switch todoFormVM.modalType {
         case .new, .edit:
             return AnyView(cancelButton)
         case .detail:
@@ -67,7 +67,7 @@ extension TodoModalView {
     }
     
     var trailingButton: some View {
-        switch todoModalVM.modalType {
+        switch todoFormVM.modalType {
         case .new:
             return AnyView(newDoneButton)
         case .edit:
@@ -85,7 +85,7 @@ extension TodoModalView {
     
     var editButton: some View {
         Button("Edit") {
-            todoModalVM.updateModalType(modalType: .edit)
+            todoFormVM.updateModalType(modalType: .edit)
         }
     }
     
@@ -106,12 +106,12 @@ extension TodoModalView {
 
 extension TodoModalView {
     func addTodo() {
-        self.todoListVM.addTodo(todoModalVM)
+        self.todoListVM.addTodo(todoFormVM)
         self.showModal = false
     }
     
     func updateTodo() {
-        self.todoListVM.updateTodo(todoModalVM)
+        self.todoListVM.updateTodo(todoFormVM)
         self.showModal = false
     }
 }

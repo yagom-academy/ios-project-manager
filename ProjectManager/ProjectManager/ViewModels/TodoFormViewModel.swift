@@ -13,7 +13,7 @@ enum TodoModalType {
     case edit
 }
 
-class TodoModalViewModel: ObservableObject {
+class TodoFormViewModel: ObservableObject {
     var id = UUID()
     @Published var title: String
     @Published var dueDate: Date

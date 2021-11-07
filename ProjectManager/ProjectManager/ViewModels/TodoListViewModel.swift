@@ -18,19 +18,19 @@ class TodoListViewModel: ObservableObject {
         self.todos = Todo.generateMockTodos().map(TodoViewModel.init)
     }
     
-    func addTodo(_ todoModalVM: TodoModalViewModel) {
-        let todo = Todo(title: todoModalVM.title,
-                        description: todoModalVM.description,
-                        dueDate: todoModalVM.dueDate,
+    func addTodo(_ todoFormVM: TodoFormViewModel) {
+        let todo = Todo(title: todoFormVM.title,
+                        description: todoFormVM.description,
+                        dueDate: todoFormVM.dueDate,
                         status: .todo)
         todos.append(TodoViewModel(todo: todo))
     }
     
-    func updateTodo(_ todoModalVM: TodoModalViewModel) {
-        let todo = Todo(title: todoModalVM.title,
-                        description: todoModalVM.description,
-                        dueDate: todoModalVM.dueDate,
+    func updateTodo(_ todoFormlVM: TodoFormViewModel) {
+        let todo = Todo(title: todoFormlVM.title,
+                        description: todoFormlVM.description,
+                        dueDate: todoFormlVM.dueDate,
                         status: .todo)
-        todos = todos.map { $0.id == todoModalVM.id ? TodoViewModel(todo: todo) : $0 }
+        todos = todos.map { $0.id == todoFormlVM.id ? TodoViewModel(todo: todo) : $0 }
     }
 }
