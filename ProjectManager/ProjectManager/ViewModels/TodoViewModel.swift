@@ -39,7 +39,7 @@ struct TodoViewModel: Identifiable {
         let dateFommatter = DateFormatter()
         dateFommatter.locale = Locale(identifier: "ko_KR")
         dateFommatter.timeZone = TimeZone(abbreviation: "KST")
-        dateFommatter.dateFormat = "yyyy. MM. dd."
+        dateFommatter.dateFormat = "yyyy. M. d."
         
         return dateFommatter.string(from: date)
     }
