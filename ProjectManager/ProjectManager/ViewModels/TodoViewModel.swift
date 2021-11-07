@@ -10,7 +10,7 @@ import Foundation
 struct TodoViewModel: Identifiable {
     let todo: Todo
     
-    let id = UUID()
+    let id = UUID().uuidString
     var title: String {
         return todo.title
     }

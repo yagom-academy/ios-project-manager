@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct TodoListView: View {
+    @EnvironmentObject var todoListVM: TodoListViewModel
     let todoStatus: TodoStatus
-    let todoList: [TodoViewModel]
+    var todoList: [TodoViewModel]
     
     init(todoStatus: TodoStatus, todoList: [TodoViewModel]) {
         self.todoStatus = todoStatus
@@ -19,11 +20,11 @@ struct TodoListView: View {
     var body: some View {
         VStack(spacing: 0) {
             TodoListHeaderView(title: todoStatus.title, count: todoList.count)
-            ScrollView() {
+            List {
                 ForEach(todoList) { todoItem in
                     TodoItemView(todo: todoItem)
-                        .padding([.bottom], 5)
                 }
+                .onDelete(perform: delete)
             }
             Spacer()
         }
@@ -31,6 +32,16 @@ struct TodoListView: View {
                                        green: 239/256,
                                        blue: 239/256,
                                        alpha: 1)))
+    }
+}
+
+extension TodoListView {
+    func delete(at offsets: IndexSet) {
+        guard let index = offsets.first else {
+            return
+        }
+        
+        todoListVM.deleteTodo(at: todoList[index].id)
     }
 }
 

@@ -33,4 +33,8 @@ class TodoListViewModel: ObservableObject {
                         status: .todo)
         todos = todos.map { $0.id == todoFormlVM.id ? TodoViewModel(todo: todo) : $0 }
     }
+    
+    func deleteTodo(at id: String) {
+        todos = todos.filter { $0.id != id }
+    }
 }

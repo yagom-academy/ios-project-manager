@@ -14,7 +14,7 @@ enum TodoModalType {
 }
 
 class TodoFormViewModel: ObservableObject {
-    var id = UUID()
+    var id = UUID().uuidString
     @Published var title: String
     @Published var dueDate: Date
     @Published var description: String
