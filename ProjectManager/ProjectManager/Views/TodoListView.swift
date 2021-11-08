@@ -18,20 +18,13 @@ struct TodoListView: View {
     }
     
     var body: some View {
-        UITableView.appearance().backgroundColor = .clear
-        
-        return VStack(spacing: 0) {
+        VStack(spacing: 0) {
             TodoListHeaderView(title: todoStatus.title, count: todoList.count)
-            List {
+            ScrollView {
                 ForEach(todoList) { todoItem in
                     TodoItemView(todo: todoItem)
-                        .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
-                        .listRowBackground(Color.init(UIColor(red: 239/256,
-                                                              green: 239/256,
-                                                              blue: 239/256,
-                                                              alpha: 1)))
+                        .padding([.bottom], 5)
                 }
-                .onDelete(perform: delete)
             }
             Spacer()
         }
@@ -55,7 +48,7 @@ extension TodoListView {
 struct TodoList_Previews: PreviewProvider {
     static var previews: some View {
         TodoListView(todoStatus: .todo,
-                     todoList: Todo.generateMockTodos().map(TodoViewModel.init))
+                     todoList: Todo.generateMockTodos().map { TodoViewModel(todo: $0) })
             .previewLayout(.fixed(width: 500, height: 1200))
     }
 }
