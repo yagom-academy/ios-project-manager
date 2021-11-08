@@ -10,7 +10,7 @@ import SwiftUI
 struct EventListView<T: ListViewModelable>: View {
     @ObservedObject var eventListViewModels: T
     var state: EventState
-    
+
     var body: some View {
         List {
             EventListHeader(eventTitle: state.rawValue,

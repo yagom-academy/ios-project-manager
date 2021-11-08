@@ -11,12 +11,10 @@ import SwiftUI
 protocol DetailViewModelInputInterface {
     func onSaveTitle(title: String)
     func onSaveDescription(description: String)
-    func onTouchCancel()
 }
 
 protocol DetailViewModelOutputInterface {
     var event: Event { get }
-    var isCancelled: Bool { get }
 }
 
 protocol DetailViewModelable: ObservableObject {
@@ -34,7 +32,6 @@ class DetailViewModel: DetailViewModelable {
         }
     }
     
-    @State var isCancelled: Bool = false
     var delegate: Delegatable?
     
     init(event: Event) {
@@ -54,10 +51,7 @@ extension DetailViewModel: DetailViewModelInputInterface {
     func onSaveDate(date: Date) {
         self.event.date = date
     }
-    
-    func onTouchCancel() {
-        self.isCancelled = true
-    }
+
 }
 
 extension DetailViewModel: DetailViewModelOutputInterface {

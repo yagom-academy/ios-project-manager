@@ -12,6 +12,17 @@ enum EventState: String, CaseIterable {
     case ToDo
     case Doing
     case Done
+    
+    var popOverButtonState: (EventState, EventState) {
+        switch self {
+        case .ToDo:
+            return (.Doing, .Done)
+        case .Doing:
+            return(.ToDo, .Done)
+        case .Done:
+            return(.ToDo, .Doing)
+        }
+    }
 }
 
 struct Event: Identifiable {
@@ -52,7 +63,7 @@ class ProjectManager: MainViewModelable {
     @Published var eventListViewModel = EventListViewModel()
     
     var currentEvetDetailViewModel: DetailViewModel? {
-        self.eventListViewModel.output.itemViewModels.last!.modalViewModel
+        self.eventListViewModel.output.itemViewModels.last!.detailViewModel
     }
 }
 

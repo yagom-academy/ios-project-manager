@@ -23,12 +23,25 @@ protocol ListViewModelable: ObservableObject {
     var output: ListViewModelOutputInterface { get }
 }
 
-class EventListViewModel: ListViewModelable {
+class EventListViewModel: ListViewModelable, Delegatable {
+    func notifyChange() {
+        objectWillChange.send()
+    }
+    
+
     var input: ListViewModelInputInterface { return self }
     var output: ListViewModelOutputInterface { return self }
 
     @Published var itemViewModels = [ItemViewModel()]
+    
+    init() {
+        for vm in itemViewModels {
+            vm.delegate = self
+        }
+    }
+}
 
+extension EventListViewModel {
 }
 
 extension EventListViewModel: ListViewModelInputInterface {

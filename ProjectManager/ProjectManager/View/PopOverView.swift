@@ -7,14 +7,22 @@
 
 import SwiftUI
 
-struct PopOverView: View {
+
+
+struct PopOverView<T: ItemViewModelable>: View {
+    
+    @State var state: EventState
+    var viewModel: T
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            Button(state.popOverButtonState.0.rawValue) {
+                self.viewModel.input.onChangeEventState(to: state.popOverButtonState.0)
+            }
+            Button(state.popOverButtonState.1.rawValue) {
+                self.viewModel.input.onChangeEventState(to: state.popOverButtonState.1)
+            }
+        }
     }
 }
 
-struct PopOverView_Previews: PreviewProvider {
-    static var previews: some View {
-        PopOverView()
-    }
-}

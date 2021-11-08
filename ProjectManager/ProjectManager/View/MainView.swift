@@ -10,13 +10,17 @@ import SwiftUI
 struct MainView<T: MainViewModelable>: View {
     @ObservedObject var viewModel: T
     @State var isButtonTabbed: Bool = false
-
+    
+    init(viewModel: T) {
+        UINavigationBar.appearance().backgroundColor = .systemGray5
+        self.viewModel = viewModel
+    }
+    
     var body: some View {
         NavigationView {
                 HStack {
                     ForEach(EventState.allCases, id: \.self) {
                         EventListView(eventListViewModels: viewModel.output.eventListViewModel, state: $0)
-                            .listStyle(.insetGrouped)
                     }
                 }
                 .navigationBarTitle("프로젝트 관리")
