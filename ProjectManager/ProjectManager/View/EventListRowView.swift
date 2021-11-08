@@ -10,16 +10,29 @@ import SwiftUI
 struct EventListRowView<Value: ItemViewModelable>: View {
     @ObservedObject var listRowViewModel: Value
     @State var isPresented: Bool = false
+    
     @State var isPopOvered: Bool = false
-
+    
+    private func decideDateTextColor() -> Color {
+        if self.listRowViewModel.output.isOutDated {
+            return Color.red
+        }
+        return .black
+    }
+    
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             Text(listRowViewModel.output.currentEvent.title)
                 .font(.title)
             Text(listRowViewModel.output.currentEvent.description)
+                .frame(height: 30, alignment: .leading)
                 .font(.body)
                 .foregroundColor(.gray)
-        }.onTapGesture {
+            Text(listRowViewModel.output.currentEvent.date, style: .date)
+                .font(.callout)
+                .foregroundColor(decideDateTextColor())
+        }
+        .onTapGesture {
             self.isPresented = true
         }
         .sheet(isPresented: $isPresented) {

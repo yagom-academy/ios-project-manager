@@ -18,17 +18,17 @@ struct MainView<T: MainViewModelable>: View {
     
     var body: some View {
         NavigationView {
-                HStack {
-                    ForEach(EventState.allCases, id: \.self) {
-                        EventListView(eventListViewModels: viewModel.output.eventListViewModel, state: $0)
-                    }
+            HStack {
+                ForEach(EventState.allCases, id: \.self) {
+                    EventListView(eventListViewModels: viewModel.output.eventListViewModel, state: $0)
                 }
-                .navigationBarTitle("프로젝트 관리")
-                .navigationBarTitleDisplayMode(.inline)
-                .navigationBarItems(trailing: button)
             }
-            .navigationViewStyle(.stack)
+            .navigationBarTitle("프로젝트 관리")
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarItems(trailing: button)
         }
+        .navigationViewStyle(.stack)
+    }
     
     var button: some View {
         Button("+") {

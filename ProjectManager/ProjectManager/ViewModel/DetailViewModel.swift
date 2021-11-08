@@ -11,6 +11,7 @@ import SwiftUI
 protocol DetailViewModelInputInterface {
     func onSaveTitle(title: String)
     func onSaveDescription(description: String)
+    func onSaveDate(date: Date)
 }
 
 protocol DetailViewModelOutputInterface {
@@ -26,13 +27,14 @@ class DetailViewModel: DetailViewModelable {
     var input: DetailViewModelInputInterface { return self }
     var output: DetailViewModelOutputInterface { return self }
     
+    var delegate: Delegatable?
+    var isOutDated: Bool = false
+    
     var event: Event {
         didSet {
             delegate?.notifyChange()
         }
     }
-    
-    var delegate: Delegatable?
     
     init(event: Event) {
         self.event = event
@@ -49,9 +51,13 @@ extension DetailViewModel: DetailViewModelInputInterface {
     }
     
     func onSaveDate(date: Date) {
+        let today = Date()
+        let calendar = Calendar.current
+        if calendar.compare(today, to: date, toGranularity: .day) == .orderedDescending {
+            self.isOutDated = true
+        }
         self.event.date = date
     }
-
 }
 
 extension DetailViewModel: DetailViewModelOutputInterface {

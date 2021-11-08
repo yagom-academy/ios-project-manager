@@ -29,9 +29,9 @@ class ProjectManager: MainViewModelable {
     
     var output: MainViewModelOutputInterface { return self }
     var input: MainViewModelInputInterface { return self }
-
+        
     @Published var eventListViewModel = EventListViewModel()
-    
+
     var currentEvetDetailViewModel: DetailViewModel? {
         self.eventListViewModel.output.itemViewModels.last!.detailViewModel
     }

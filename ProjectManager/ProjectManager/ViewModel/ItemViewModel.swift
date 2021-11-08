@@ -9,13 +9,12 @@ import Foundation
 
 protocol ItemViewModelInputInterface {
     func onChangeEventState(to eventState: EventState)
-    
-    
 }
 
 protocol ItemViewModelOutputInterface {
     var detailViewModel: DetailViewModel { get }
     var currentEvent: Event { get }
+    var isOutDated: Bool { get }
     var delegate: Delegatable? { get }
 }
 
@@ -39,6 +38,7 @@ class ItemViewModel: ItemViewModelable, Delegatable, Identifiable {
     var output: ItemViewModelOutputInterface { return self }
     var delegate: Delegatable?
     
+    @Published var isPresented: Bool = false
     @Published var detailViewModel = DetailViewModel(event: Event(title: "제목을 입력해 주세요",
                                                                                    description: "1000자까지 입력해 주세요",
                                                                                    date: Date(),
@@ -46,6 +46,10 @@ class ItemViewModel: ItemViewModelable, Delegatable, Identifiable {
                                                                                    id: UUID()))
     var currentEvent: Event {
         detailViewModel.output.event
+    }
+    
+    var isOutDated: Bool {
+        self.detailViewModel.isOutDated
     }
     
     init() {

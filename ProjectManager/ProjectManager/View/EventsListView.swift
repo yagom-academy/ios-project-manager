@@ -10,18 +10,19 @@ import SwiftUI
 struct EventListView<T: ListViewModelable>: View {
     @ObservedObject var eventListViewModels: T
     var state: EventState
-
+    
     var body: some View {
-        List {
+        VStack {
             EventListHeader(eventTitle: state.rawValue,
                             eventNumber: "\(eventListViewModels.input.onCountEventNumber(eventState: state))")
-                .listStyle(.plain)
-            ForEach(eventListViewModels.output.itemViewModels) { event in
-                if event.output.currentEvent.state == state {
-                    EventListRowView(listRowViewModel: event)
+            List {
+                ForEach(eventListViewModels.output.itemViewModels) { itemViewModel in
+                    if itemViewModel.output.currentEvent.state == state {
+                        EventListRowView(listRowViewModel: itemViewModel)
+                    }
+                }.onDelete { indexSet in
+                    eventListViewModels.input.onDeleteRow(at: indexSet)
                 }
-            }.onDelete { indexSet in
-                eventListViewModels.input.onDeleteRow(at: indexSet)
             }
         }
     }

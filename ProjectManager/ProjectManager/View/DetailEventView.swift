@@ -7,13 +7,14 @@
 //
 
 import SwiftUI
-// delegate여기서 채택
+
 struct DetailEventView<T: DetailViewModelable>: View {
     @Environment(\.presentationMode) private var presentationMode
     
     @State private var eventTitle: String = ""
     @State private var navigationTitle: String = "ToDo"
     @State private var description: String = ""
+    @State private var date: Date = Date()
     
     @State private var isInteractionDisabled: Bool = true
     
@@ -27,29 +28,22 @@ struct DetailEventView<T: DetailViewModelable>: View {
                     Form {
                         TextField("title",
                                   text: $eventTitle)
-                            .background(Color.white)
                             .font(.title)
-                            .frame(height: geometry.size.height * 0.05,
-                                   alignment: .center)
-                            .compositingGroup()
-                            .shadow(color: Color.red,
-                                    radius: 10,
-                                    x: 0, y: 0)
-                        //                        HStack {
-                        //                            Spacer()
-                        //                            DatePicker(selection: $detailViewModel.output.event.date, label: {})
-                        //                                .datePickerStyle(.wheel)
-                        //                                .labelsHidden()
-                        //                            Spacer()
-                        //                        }
+                            .padding()
+                            .background(Color.white.shadow(color: .gray, radius: 3, x: 1, y: 4))
+                        HStack {
+                            Spacer()
+                            DatePicker(selection: $date, label: {})
+                                .datePickerStyle(.wheel)
+                                .labelsHidden()
+                            Spacer()
+                        }
                         TextEditor(text: $description)
                             .frame(height: geometry.size.height * 0.5,
                                    alignment: .center)
-                            .background(Color.white)
-                            .compositingGroup()
-                            .shadow(color: Color.red,
-                                    radius: 10,
-                                    x: 0, y: 0)
+                            .font(.title)
+                            .padding()
+                            .background(Color.white.shadow(color: .gray, radius: 3, x: 1, y: 4))
                     }.disabled(isInteractionDisabled)
                 }
             }
@@ -67,6 +61,7 @@ struct DetailEventView<T: DetailViewModelable>: View {
         .onAppear(perform: {
             self.eventTitle = detailViewModel.output.event.title
             self.description = detailViewModel.output.event.description
+            self.date = detailViewModel.output.event.date
         })
         .navigationViewStyle(.stack)
         .navigationBarTitleDisplayMode(.inline)
@@ -106,12 +101,13 @@ struct DetailEventView<T: DetailViewModelable>: View {
         detailViewModel
             .input
             .onSaveTitle(title: self.eventTitle)
+        detailViewModel.input.onSaveDate(date: self.date)
     }
     
     enum ButtonTitle: String {
-        case cancel
-        case done
-        case edit
+        case cancel = "Cancel"
+        case done = "Done"
+        case edit = "Edit"
     }
 }
 
