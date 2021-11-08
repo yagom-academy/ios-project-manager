@@ -25,7 +25,7 @@ enum AccessMode {
 struct MemoDetail: View {
     @State var memo: Memo
     @Binding var isDetailViewPresented: Bool
-    @EnvironmentObject var viewModel: MemoViewModel
+    @EnvironmentObject var viewModel: MemoListViewModel
     @State var accessMode: AccessMode
     
     var body: some View {

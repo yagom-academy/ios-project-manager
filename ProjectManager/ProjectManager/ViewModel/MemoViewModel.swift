@@ -2,65 +2,46 @@
 //  MemoViewModel.swift
 //  ProjectManager
 //
-//  Created by Kim Do hyung on 2021/11/04.
+//  Created by JINHONG AN on 2021/11/08.
 //
 
 import Foundation
 
-protocol MemoViewModelInput {
-    func add(_ memo: Memo)
-    func delete(_ memo: Memo)
-    func moveColumn(memo: Memo, to newState: MemoState)
-    func modify(_ memo: Memo)
-    func readyForAdd()
-    func readyForRead(_ memo: Memo)
-}
-
-protocol MemoViewModelOutput {
-    var memos: [[Memo]] { get }
-    var presentedMemo: Memo { get }
-    var accessMode: AccessMode { get }
-}
-
-final class MemoViewModel: ObservableObject, MemoViewModelOutput {
-    @Published
-    private(set) var model = MemoModel()
-    
-    var memos: [[Memo]] {
-        return model.memos
+struct MemoViewModel {
+    private var memo = Memo()
+    var memoTitle: String {
+        set {
+            memo.title = newValue
+        }
+        get {
+            return memo.title
+        }
     }
-    
-    var presentedMemo: Memo {
-        return model.presentedMemo
+    var memoDescription: String {
+        set {
+            memo.description = newValue
+        }
+        get {
+            return memo.description
+        }
     }
-    
-    var accessMode: AccessMode {
-        return model.accessMode
+    var memoDate: Date {
+        set {
+            memo.date = newValue
+        }
+        get {
+            return memo.date
+        }
     }
-}
-
-extension MemoViewModel: MemoViewModelInput {
-    func add(_ memo: Memo) {
-        model.add(memo)
+    var memoId: UUID {
+        return memo.id
     }
-    
-    func delete(_ memo: Memo) {
-        model.delete(memo)
-    }
-    
-    func moveColumn(memo: Memo, to newState: MemoState) {
-        model.moveColumn(memo: memo, to: newState)
-    }
-    
-    func modify(_ memo: Memo) {
-        model.modify(memo)
-    }
-    
-    func readyForAdd() {
-        model.resetPresentedMemo()
-    }
-    
-    func readyForRead(_ memo: Memo) {
-        model.setUpPresentedMemo(memo)
+    var memoStatus: MemoState {
+        set {
+            memo.status = newValue
+        }
+        get {
+            return memo.status
+        }
     }
 }

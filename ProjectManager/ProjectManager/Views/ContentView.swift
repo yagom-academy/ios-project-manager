@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var isDetailViewPresented = false
-    @StateObject var viewModel = MemoViewModel()
+    @StateObject var viewModel = MemoListViewModel()
     
     init() {
         UINavigationBar.appearance().backgroundColor = .systemGray5

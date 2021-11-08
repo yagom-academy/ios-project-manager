@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MemoList: View {
-    @EnvironmentObject var viewModel: MemoViewModel
+    @EnvironmentObject var viewModel: MemoListViewModel
     @Binding var isDetailViewPresented: Bool
     let state: MemoState
     

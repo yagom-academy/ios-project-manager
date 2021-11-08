@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MemoPopover: View {
-    @EnvironmentObject var viewModel: MemoViewModel
+    @EnvironmentObject var viewModel: MemoListViewModel
     @Binding var isPopoverShown: Bool
     let selectedMemo: Memo
     
