@@ -9,26 +9,24 @@ import SwiftUI
 
 struct MemoList: View {
     @EnvironmentObject var viewModel: MemoListViewModel
-    @Binding var isDetailViewPresented: Bool
     let state: MemoState
     
     var body: some View {
-        let list = viewModel.memos[state.indexValue]
+        let list = viewModel.memoViewModels[state.indexValue]
         VStack(alignment: .leading, spacing: 3) {
             MemoHeader(headerTitle: state.description, rowCount: list.count.description)
             
             List {
-                ForEach(list) { memo in
+                ForEach(list, id: \.memoId) { memo in
                     MemoRow(memo: memo)
                         .highPriorityGesture(TapGesture()
                                                 .onEnded({ _ in
-                            isDetailViewPresented = true
-                            viewModel.readyForRead(memo)
+                            viewModel.didTouchUpCell(memo)
                         }))
                 }
                 .onDelete { indexSet in
                     if let index = indexSet.first {
-                        viewModel.delete(list[index])
+                        viewModel.didSwipeCell(list[index])
                     }
                 }
             }
@@ -40,6 +38,6 @@ struct MemoList: View {
 
 struct MemoList_Previews: PreviewProvider {
     static var previews: some View {
-        MemoList(isDetailViewPresented: .constant(false), state: .toDo)
+        MemoList(state: .toDo)
     }
 }

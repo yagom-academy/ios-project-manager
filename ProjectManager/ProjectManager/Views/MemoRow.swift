@@ -8,25 +8,25 @@
 import SwiftUI
 
 struct MemoRow: View {
-    let memo: Memo
+    let memo: MemoViewModel
     @State private var isPopoverShown = false
 
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
-                Text(memo.title)
+                Text(memo.memoTitle)
                     .font(.title)
                     .lineLimit(1)
-                Text(memo.description)
+                Text(memo.memoDescription)
                     .font(.body)
                     .foregroundColor(.gray)
                     .lineLimit(3)
                 if isPastDeadline() {
-                    Text(memo.date, style: .date)
+                    Text(memo.memoDate, style: .date)
                         .font(.caption)
                         .foregroundColor(.red)
                 } else {
-                    Text(memo.date, style: .date)
+                    Text(memo.memoDate, style: .date)
                         .font(.caption)
                 }
             }
@@ -42,7 +42,7 @@ struct MemoRow: View {
     
     private func isPastDeadline() -> Bool {
         let today = Date()
-        let memoDate = memo.date
+        let memoDate = memo.memoDate
         let calendar = Calendar.current
         if calendar.compare(today, to: memoDate, toGranularity: .day) == .orderedDescending {
             return true
@@ -53,6 +53,6 @@ struct MemoRow: View {
 
 struct MemoRow_Previews: PreviewProvider {
     static var previews: some View {
-        MemoRow(memo: Memo(title: "", description: "", date: Date()))
+        MemoRow(memo: MemoViewModel())
     }
 }

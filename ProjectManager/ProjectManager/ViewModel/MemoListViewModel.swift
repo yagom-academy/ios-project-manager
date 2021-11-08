@@ -7,10 +7,26 @@
 
 import Foundation
 
+enum AccessMode {
+    case add
+    case read
+    case write
+    
+    var isEditable: Bool {
+        switch self {
+        case .add, .write:
+            return true
+        case .read:
+            return false
+        }
+    }
+}
+
 protocol MemoListViewModelInput {
     func didTouchUpPlusButton()
-    func didTouchUpDoneButton(_ memo: MemoViewModel) //모달
-    func didSwipeCell(_ memo: MemoViewModel) //삭제
+    func didTouchUpDetailViewLeftButton()
+    func didTouchUpDoneButton(_ memo: MemoViewModel)
+    func didSwipeCell(_ memo: MemoViewModel)
     func didTouchUpCell(_ memo: MemoViewModel)
     func didTouchUpPopoverButton(_ memo: MemoViewModel, newState: MemoState)
 }
@@ -18,19 +34,38 @@ protocol MemoListViewModelInput {
 protocol MemoListViewModelOutput {
     var memoViewModels: [[MemoViewModel]] { get }
     var presentedMemo: MemoViewModel { get }
-    var presentedMemoAccessMode: AccessMode { get }
+    var isDetaileViewPresented: Bool { get }
+    var detailViewLeftButtonTitle: String { get }
+    var isDetailViewEditable: Bool { get }
 }
 
 final class MemoListViewModel: ObservableObject, MemoListViewModelOutput {
     @Published
     private(set) var memoViewModels: [[MemoViewModel]] = [[], [], []] 
     private(set) var presentedMemo = MemoViewModel()
-    private(set) var presentedMemoAccessMode: AccessMode = .add
+    @Published
+    var isDetaileViewPresented = false
+    @Published
+    var detailViewLeftButtonTitle = ""
+    @Published
+    private(set) var isDetailViewEditable = false
+    private var presentedMemoAccessMode: AccessMode = .add
 }
 
 extension MemoListViewModel: MemoListViewModelInput {
     func didTouchUpPlusButton() {
         readyForAdd()
+    }
+    
+    func didTouchUpDetailViewLeftButton() {
+        switch presentedMemoAccessMode {
+        case .add, .write:
+            isDetaileViewPresented = false
+        case .read:
+            presentedMemoAccessMode = .write
+            isDetailViewEditable = true
+            detailViewLeftButtonTitle = "Cancel"
+        }
     }
     
     func didTouchUpDoneButton(_ memo: MemoViewModel) {
@@ -42,6 +77,7 @@ extension MemoListViewModel: MemoListViewModelInput {
         case .write:
             modify(memo)
         }
+        isDetaileViewPresented = false
     }
     
     func didSwipeCell(_ memo: MemoViewModel) {
@@ -90,11 +126,17 @@ extension MemoListViewModel {
     private func readyForAdd() {
         presentedMemo = MemoViewModel()
         presentedMemoAccessMode = .add
+        isDetaileViewPresented = true
+        detailViewLeftButtonTitle = "Cancel"
+        isDetailViewEditable = true
     }
 
     private func readyForRead(_ viewModel: MemoViewModel) {
         presentedMemo = viewModel
         presentedMemoAccessMode = .read
+        isDetaileViewPresented = true
+        detailViewLeftButtonTitle = "Edit"
+        isDetailViewEditable = false
     }
     
     private func find(_ viewModel: MemoViewModel) -> Int? {

@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var isDetailViewPresented = false
     @StateObject var viewModel = MemoListViewModel()
     
     init() {
@@ -19,7 +18,7 @@ struct ContentView: View {
         NavigationView {
             HStack(spacing: 10) {
                 ForEach(MemoState.allCases, id: \.self) { state in
-                    MemoList(isDetailViewPresented: $isDetailViewPresented, state: state)
+                    MemoList(state: state)
                 }
             }
             .background(Color(UIColor.systemGray3))
@@ -27,13 +26,12 @@ struct ContentView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: {
                 Button {
-                    self.isDetailViewPresented = true
-                    viewModel.readyForAdd()
+                    viewModel.didTouchUpPlusButton()
                 } label: {
                     Image(systemName: "plus")
                 }
-                .sheet(isPresented: $isDetailViewPresented) {
-                    MemoDetail(memo: viewModel.presentedMemo, isDetailViewPresented: $isDetailViewPresented, accessMode: viewModel.accessMode)
+                .sheet(isPresented: $viewModel.isDetaileViewPresented) {
+                    MemoDetail(memo: viewModel.presentedMemo)
                 }
             })
         }

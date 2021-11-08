@@ -7,26 +7,9 @@
 
 import SwiftUI
 
-enum AccessMode {
-    case add
-    case read
-    case write
-    
-    var isEditable: Bool {
-        switch self {
-        case .add, .write:
-            return true
-        case .read:
-            return false
-        }
-    }
-}
-
 struct MemoDetail: View {
-    @State var memo: Memo
-    @Binding var isDetailViewPresented: Bool
+    @State var memo: MemoViewModel
     @EnvironmentObject var viewModel: MemoListViewModel
-    @State var accessMode: AccessMode
     
     var body: some View {
         GeometryReader { geometry in
@@ -42,20 +25,20 @@ struct MemoDetail: View {
                     .padding()
                     .background(Color(UIColor.systemGray6))
                     VStack {
-                        TextField("Title", text: $memo.title)
+                        TextField("Title", text: $memo.memoTitle)
                             .padding()
                             .background(Color.white.shadow(color: .gray, radius: 3, x: 1, y: 4))
-                        DatePicker(selection: $memo.date, label: {})
+                        DatePicker(selection: $memo.memoDate, label: {})
                             .datePickerStyle(.wheel)
                             .labelsHidden()
-                        TextEditor(text: $memo.description)
+                        TextEditor(text: $memo.memoDescription)
                             .background(Color.white.shadow(color: .gray, radius: 3, x: 1, y: 4))
                             .frame(height: geometry.size.height * 0.65)
-                            .onChange(of: memo.description, perform: {
-                                memo.description = String($0.prefix(1000))
+                            .onChange(of: memo.memoDescription, perform: {
+                                memo.memoDescription = String($0.prefix(1000))
                             })
                     }
-                    .disabled(!accessMode.isEditable)
+                    .disabled(!viewModel.isDetailViewEditable)
                     .padding()
                 }
             }
@@ -64,40 +47,23 @@ struct MemoDetail: View {
     
     var rightButton: some View {
         return Button {
-            switch accessMode {
-            case .add:
-                viewModel.add(memo)
-            case .read:
-                break
-            case .write:
-                viewModel.modify(memo)
-            }
-            isDetailViewPresented = false
+            viewModel.didTouchUpDoneButton(memo)
         } label: {
             Text("Done")
         }
     }
     
     var leftButton: some View {
-        switch accessMode {
-        case .add, .write:
-            return Button {
-                isDetailViewPresented = false
-            } label: {
-                Text("Cancel")
-            }
-        case .read:
-            return Button {
-                accessMode = .write
-            } label: {
-                Text("Edit")
-            }
+        return Button {
+            viewModel.didTouchUpDetailViewLeftButton()
+        } label: {
+            Text(viewModel.detailViewLeftButtonTitle)
         }
     }
 }
 
 struct MemoDetail_Previews: PreviewProvider {
     static var previews: some View {
-        MemoDetail(memo: Memo(), isDetailViewPresented: .constant(true), accessMode: .read)
+        MemoDetail(memo: MemoViewModel())
     }
 }

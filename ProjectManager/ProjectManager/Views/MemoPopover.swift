@@ -10,13 +10,13 @@ import SwiftUI
 struct MemoPopover: View {
     @EnvironmentObject var viewModel: MemoListViewModel
     @Binding var isPopoverShown: Bool
-    let selectedMemo: Memo
+    let selectedMemo: MemoViewModel
     
     var body: some View {
         VStack(spacing: 10) {
             ForEach(filterOutState(), id: \.self) { state in
                 Button {
-                    viewModel.moveColumn(memo: selectedMemo, to: state)
+                    viewModel.didTouchUpPopoverButton(selectedMemo, newState: state)
                     isPopoverShown = false
                 } label: {
                     Text("Move to \(state.description)")
@@ -32,13 +32,13 @@ struct MemoPopover: View {
     
     private func filterOutState() -> [MemoState] {
         var states = MemoState.allCases
-        states.remove(at: selectedMemo.status.indexValue)
+        states.remove(at: selectedMemo.memoStatus.indexValue)
         return states
     }
 }
 
 struct MemoPopover_Previews: PreviewProvider {
     static var previews: some View {
-        MemoPopover(isPopoverShown: .constant(true), selectedMemo: Memo())
+        MemoPopover(isPopoverShown: .constant(true), selectedMemo: MemoViewModel())
     }
 }
