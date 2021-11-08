@@ -17,6 +17,7 @@ struct MainContentView: View {
                     TodoList(completionState: eachCase)
                 }
             }
+            .background(Color.gray.opacity(0.3))
             .navigationTitle("Project Manager")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
