@@ -8,40 +8,6 @@
 import Foundation
 import SwiftUI
 
-enum EventState: String, CaseIterable {
-    case ToDo
-    case Doing
-    case Done
-    
-    var popOverButtonOptions: (top: EventState, bottom: EventState) {
-        switch self {
-        case .ToDo:
-            return (.Doing, .Done)
-        case .Doing:
-            return(.ToDo, .Done)
-        case .Done:
-            return(.ToDo, .Doing)
-        }
-    }
-}
-
-struct Event: Identifiable {
-    var title: String
-    var description: String
-    var date: Date
-    var state: EventState
-    var id: UUID
-    
-    init(title: String, description: String,
-         date: Date, state: EventState, id: UUID) {
-        self.title = title
-        self.description = description
-        self.date = date
-        self.state = state
-        self.id = id
-    }
-}
-
 protocol MainViewModelInputInterface {
     func onTouchEventCreateButton()
 }
@@ -56,7 +22,7 @@ protocol MainViewModelable: ObservableObject {
     var output: MainViewModelOutputInterface { get }
 }
 
-class ProjectManager: MainViewModelable, Delegatable {
+class ProjectManager: MainViewModelable {
     func notifyChange() {
         objectWillChange.send()
     }
@@ -69,11 +35,8 @@ class ProjectManager: MainViewModelable, Delegatable {
     var currentEvetDetailViewModel: DetailViewModel? {
         self.eventListViewModel.output.itemViewModels.last!.detailViewModel
     }
-    
-    init() {
-        self.eventListViewModel.delegate = self
-    }
 }
+
 extension ProjectManager: MainViewModelInputInterface {
     func onTouchEventCreateButton() {
         self.eventListViewModel.input.onAddEvent()

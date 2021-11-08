@@ -14,6 +14,7 @@
 		A8B6A37B27337CB9009B0A50 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B6A37A27337CB9009B0A50 /* DetailViewModel.swift */; };
 		A8C3A9632738164F0077BE92 /* PopOverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C3A9622738164F0077BE92 /* PopOverView.swift */; };
 		A8C3A96527381B310077BE92 /* EventListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C3A96427381B310077BE92 /* EventListHeaderView.swift */; };
+		A8C3A967273913490077BE92 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C3A966273913490077BE92 /* Event.swift */; };
 		A8CACDCB2733E50C0010CE9A /* ItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CACDCA2733E50C0010CE9A /* ItemViewModel.swift */; };
 		A8CACDCD2733EF970010CE9A /* EventListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CACDCC2733EF970010CE9A /* EventListViewModel.swift */; };
 		A8F5A5A22735586A009A0458 /* EventListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8F5A5A12735586A009A0458 /* EventListRowView.swift */; };
@@ -31,6 +32,7 @@
 		A8B6A37A27337CB9009B0A50 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		A8C3A9622738164F0077BE92 /* PopOverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopOverView.swift; sourceTree = "<group>"; };
 		A8C3A96427381B310077BE92 /* EventListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListHeaderView.swift; sourceTree = "<group>"; };
+		A8C3A966273913490077BE92 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		A8CACDCA2733E50C0010CE9A /* ItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemViewModel.swift; sourceTree = "<group>"; };
 		A8CACDCC2733EF970010CE9A /* EventListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListViewModel.swift; sourceTree = "<group>"; };
 		A8F5A5A12735586A009A0458 /* EventListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListRowView.swift; sourceTree = "<group>"; };
@@ -60,8 +62,8 @@
 				A88E022D272ECEC8006DD8C2 /* EventsListView.swift */,
 				A8F5A5A12735586A009A0458 /* EventListRowView.swift */,
 				A820E20C272EBBE6000E9E51 /* DetailEventView.swift */,
-				A8C3A9622738164F0077BE92 /* PopOverView.swift */,
 				A8C3A96427381B310077BE92 /* EventListHeaderView.swift */,
+				A8C3A9622738164F0077BE92 /* PopOverView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -69,10 +71,7 @@
 		A88E0231272F802D006DD8C2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				A820E203272E2030000E9E51 /* MainViewModel.swift */,
-				A8CACDCC2733EF970010CE9A /* EventListViewModel.swift */,
-				A8CACDCA2733E50C0010CE9A /* ItemViewModel.swift */,
-				A8B6A37A27337CB9009B0A50 /* DetailViewModel.swift */,
+				A8C3A966273913490077BE92 /* Event.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -84,6 +83,17 @@
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
 			);
 			path = LifeCycle;
+			sourceTree = "<group>";
+		};
+		A8C3A9682739134F0077BE92 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				A820E203272E2030000E9E51 /* MainViewModel.swift */,
+				A8CACDCC2733EF970010CE9A /* EventListViewModel.swift */,
+				A8CACDCA2733E50C0010CE9A /* ItemViewModel.swift */,
+				A8B6A37A27337CB9009B0A50 /* DetailViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		C7431EF925F51E1D0094C4CF = {
@@ -106,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				A8C14C01273120410067693D /* LifeCycle */,
+				A8C3A9682739134F0077BE92 /* ViewModel */,
 				A88E0231272F802D006DD8C2 /* Model */,
 				A820E207272E92A0000E9E51 /* View */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
@@ -196,6 +207,7 @@
 				A88E022E272ECEC8006DD8C2 /* EventsListView.swift in Sources */,
 				A8C3A96527381B310077BE92 /* EventListHeaderView.swift in Sources */,
 				A8C3A9632738164F0077BE92 /* PopOverView.swift in Sources */,
+				A8C3A967273913490077BE92 /* Event.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,10 +1,10 @@
-////
-////  EventListViewModel.swift
-////  ProjectManager
-////
-////  Created by Do Yi Lee on 2021/11/04.
-////
 //
+//  EventListViewModel.swift
+//  ProjectManager
+//
+//  Created by Do Yi Lee on 2021/11/04.
+//
+
 import Foundation
 import UIKit
 
@@ -24,10 +24,6 @@ protocol ListViewModelable: ObservableObject {
 }
 
 class EventListViewModel: ListViewModelable, Delegatable {
-    func notifyChange() {
-        objectWillChange.send()
-    }
-
     var input: ListViewModelInputInterface { return self }
     var output: ListViewModelOutputInterface { return self }
 
@@ -38,11 +34,12 @@ class EventListViewModel: ListViewModelable, Delegatable {
         itemViewModel.delegate = self
         self.itemViewModels.append(itemViewModel)
     }
-    
-    var delegate: Delegatable?
 }
 
 extension EventListViewModel {
+    func notifyChange() {
+        objectWillChange.send()
+    }
 }
 
 extension EventListViewModel: ListViewModelInputInterface {
@@ -54,8 +51,6 @@ extension EventListViewModel: ListViewModelInputInterface {
         let itemViewModel = ItemViewModel()
         itemViewModel.delegate = self
         self.itemViewModels.append(itemViewModel)
-        
-        
     }
     
     func onCountEventNumber(eventState: EventState) -> Int {

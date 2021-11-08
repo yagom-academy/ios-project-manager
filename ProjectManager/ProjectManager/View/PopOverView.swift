@@ -11,7 +11,7 @@ import SwiftUI
 
 struct PopOverView<T: ItemViewModelable>: View {
     @State var eventState: EventState
-    @ObservedObject var viewModel: T
+    var viewModel: T
     
     var body: some View {
         VStack(spacing: 10) {
