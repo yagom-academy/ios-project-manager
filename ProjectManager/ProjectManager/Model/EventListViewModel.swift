@@ -31,14 +31,12 @@ class EventListViewModel: ListViewModelable, Delegatable {
     var input: ListViewModelInputInterface { return self }
     var output: ListViewModelOutputInterface { return self }
 
-    @Published var itemViewModels: [ItemViewModel] {
-        didSet {
-            delegate?.notifyChange()
-        }
-    }
+    @Published var itemViewModels: [ItemViewModel] = []
 
     init() {
-        self.itemViewModels = []
+        let itemViewModel = ItemViewModel()
+        itemViewModel.delegate = self
+        self.itemViewModels.append(itemViewModel)
     }
     
     var delegate: Delegatable?
@@ -50,11 +48,14 @@ extension EventListViewModel {
 extension EventListViewModel: ListViewModelInputInterface {
     func onDeleteRow(at indexSet: IndexSet) {
         self.itemViewModels.remove(atOffsets: indexSet)
-        print("셀 삭제")
     }
     
     func onAddEvent() {
-        self.itemViewModels.append(ItemViewModel(delegate: self))
+        let itemViewModel = ItemViewModel()
+        itemViewModel.delegate = self
+        self.itemViewModels.append(itemViewModel)
+        
+        
     }
     
     func onCountEventNumber(eventState: EventState) -> Int {

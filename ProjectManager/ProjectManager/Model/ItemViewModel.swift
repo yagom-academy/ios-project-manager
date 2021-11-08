@@ -9,8 +9,8 @@ import Foundation
 
 protocol ItemViewModelInputInterface {
     func onChangeEventState(to eventState: EventState)
-
-
+    
+    
 }
 
 protocol ItemViewModelOutputInterface {
@@ -39,28 +39,24 @@ class ItemViewModel: ItemViewModelable, Delegatable, Identifiable {
     var output: ItemViewModelOutputInterface { return self }
     var delegate: Delegatable?
     
-    @Published var detailViewModel: DetailViewModel {
-        didSet {
-            self.delegate?.notifyChange()
-        }
-    }
+    @Published var detailViewModel = DetailViewModel(event: Event(title: "제목을 입력해 주세요",
+                                                                                   description: "1000자까지 입력해 주세요",
+                                                                                   date: Date(),
+                                                                                   state: .ToDo,
+                                                                                   id: UUID()))
     var currentEvent: Event {
         detailViewModel.output.event
     }
     
-    init(delegate: Delegatable) {
-        self.detailViewModel =  DetailViewModel(event: Event(title: "제목을 입력해 주세요",
-                                                             description: "1000자까지 입력해 주세요",
-                                                             date: Date(),
-                                                             state: .ToDo,
-                                                             id: UUID()))
+    init() {
         detailViewModel.delegate = self
-    } 
+    }
 }
 
 extension ItemViewModel: ItemViewModelInputInterface {
     func onChangeEventState(to eventState: EventState) {
         self.detailViewModel.event.state = eventState
+        self.delegate?.notifyChange()
     }
 }
 
