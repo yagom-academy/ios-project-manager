@@ -36,10 +36,6 @@ final class ProjectListViewModel: ObservableObject{
         }
     }
     
-//    func todoCount(type: ProjectStatus) -> String {
-//        return projectList.filter { $0.type == type }.count.description
-//    }
-    
     func transitionType(type: ProjectStatus) -> [ProjectStatus] {
         return ProjectStatus.allCases.filter { $0 != type }
     }
