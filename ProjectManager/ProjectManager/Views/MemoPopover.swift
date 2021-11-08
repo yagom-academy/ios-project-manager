@@ -14,7 +14,7 @@ struct MemoPopover: View {
     
     var body: some View {
         VStack(spacing: 10) {
-            ForEach(filterOutState(), id: \.self) { state in
+            ForEach(selectedMemo.filterOutState(), id: \.self) { state in
                 Button {
                     viewModel.didTouchUpPopoverButton(selectedMemo, newState: state)
                     isPopoverShown = false
@@ -28,12 +28,6 @@ struct MemoPopover: View {
         }
         .padding()
         .background(Color(UIColor.systemGray6))
-    }
-    
-    private func filterOutState() -> [MemoState] {
-        var states = MemoState.allCases
-        states.remove(at: selectedMemo.memoStatus.indexValue)
-        return states
     }
 }
 

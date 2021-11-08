@@ -33,9 +33,6 @@ struct MemoDetail: View {
                         TextEditor(text: $viewModel.presentedMemo.memoDescription)
                             .background(Color.white.shadow(color: .gray, radius: 3, x: 1, y: 4))
                             .frame(height: geometry.size.height * 0.65)
-                            .onChange(of: viewModel.presentedMemo.memoDescription, perform: {
-                                viewModel.presentedMemo.memoDescription = String($0.prefix(1000))
-                            })
                     }
                     .disabled(!viewModel.isDetailViewEditable)
                     .padding()

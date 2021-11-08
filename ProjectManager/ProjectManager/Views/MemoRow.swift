@@ -21,7 +21,7 @@ struct MemoRow: View {
                     .font(.body)
                     .foregroundColor(.gray)
                     .lineLimit(3)
-                if isPastDeadline() {
+                if memo.isPastDeadline() {
                     Text(memo.memoDate, style: .date)
                         .font(.caption)
                         .foregroundColor(.red)
@@ -38,16 +38,6 @@ struct MemoRow: View {
         .popover(isPresented: $isPopoverShown) {
             MemoPopover(isPopoverShown: $isPopoverShown, selectedMemo: memo)
         }
-    }
-    
-    private func isPastDeadline() -> Bool {
-        let today = Date()
-        let memoDate = memo.memoDate
-        let calendar = Calendar.current
-        if calendar.compare(today, to: memoDate, toGranularity: .day) == .orderedDescending {
-            return true
-        }
-        return false
     }
 }
 

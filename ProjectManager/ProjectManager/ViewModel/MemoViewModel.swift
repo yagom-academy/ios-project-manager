@@ -8,6 +8,7 @@
 import Foundation
 
 struct MemoViewModel {
+    private let charactorLimit = 1000
     private var memo = Memo()
     var memoTitle: String {
         set {
@@ -19,7 +20,9 @@ struct MemoViewModel {
     }
     var memoDescription: String {
         set {
-            memo.description = newValue
+            if newValue.count <= charactorLimit {
+                memo.description = newValue
+            }
         }
         get {
             return memo.description
@@ -43,5 +46,20 @@ struct MemoViewModel {
         get {
             return memo.status
         }
+    }
+    
+    func isPastDeadline() -> Bool {
+        let today = Date()
+        let calendar = Calendar.current
+        if calendar.compare(today, to: memoDate, toGranularity: .day) == .orderedDescending {
+            return true
+        }
+        return false
+    }
+    
+    func filterOutState() -> [MemoState] {
+        var states = MemoState.allCases
+        states.remove(at: memoStatus.indexValue)
+        return states
     }
 }
