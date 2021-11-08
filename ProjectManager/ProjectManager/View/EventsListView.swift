@@ -15,7 +15,7 @@ struct EventListView<T: ListViewModelable>: View {
         List {
             EventListHeader(eventTitle: state.rawValue,
                             eventNumber: "\(eventListViewModels.input.onCountEventNumber(eventState: state))")
-            
+                .listStyle(.plain)
             ForEach(eventListViewModels.output.itemViewModels) { event in
                 if event.output.currentEvent.state == state {
                     EventListRowView(listRowViewModel: event)

@@ -13,7 +13,7 @@ enum EventState: String, CaseIterable {
     case Doing
     case Done
     
-    var popOverButtonState: (EventState, EventState) {
+    var popOverButtonOptions: (top: EventState, bottom: EventState) {
         switch self {
         case .ToDo:
             return (.Doing, .Done)
@@ -56,7 +56,11 @@ protocol MainViewModelable: ObservableObject {
     var output: MainViewModelOutputInterface { get }
 }
 
-class ProjectManager: MainViewModelable {
+class ProjectManager: MainViewModelable, Delegatable {
+    func notifyChange() {
+        objectWillChange.send()
+    }
+    
     var output: MainViewModelOutputInterface { return self }
     var input: MainViewModelInputInterface { return self }
 
@@ -65,8 +69,11 @@ class ProjectManager: MainViewModelable {
     var currentEvetDetailViewModel: DetailViewModel? {
         self.eventListViewModel.output.itemViewModels.last!.detailViewModel
     }
+    
+    init() {
+        self.eventListViewModel.delegate = self
+    }
 }
-
 extension ProjectManager: MainViewModelInputInterface {
     func onTouchEventCreateButton() {
         self.eventListViewModel.input.onAddEvent()

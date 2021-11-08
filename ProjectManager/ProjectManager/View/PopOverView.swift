@@ -10,19 +10,20 @@ import SwiftUI
 
 
 struct PopOverView<T: ItemViewModelable>: View {
-    
-    @State var state: EventState
-    var viewModel: T
+    @State var eventState: EventState
+    @ObservedObject var viewModel: T
     
     var body: some View {
-        VStack {
-            Button(state.popOverButtonState.0.rawValue) {
-                self.viewModel.input.onChangeEventState(to: state.popOverButtonState.0)
+        VStack(spacing: 10) {
+            Button(eventState.popOverButtonOptions.top.rawValue) {
+                self.viewModel.input.onChangeEventState(to: eventState.popOverButtonOptions.top)
             }
-            Button(state.popOverButtonState.1.rawValue) {
-                self.viewModel.input.onChangeEventState(to: state.popOverButtonState.1)
+            Button(eventState.popOverButtonOptions.bottom.rawValue) {
+                self.viewModel.input.onChangeEventState(to: eventState.popOverButtonOptions.bottom)
             }
         }
+        .padding()
+        .background(Color.white)
     }
 }
 

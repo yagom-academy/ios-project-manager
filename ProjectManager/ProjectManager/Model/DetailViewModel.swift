@@ -26,7 +26,7 @@ class DetailViewModel: DetailViewModelable {
     var input: DetailViewModelInputInterface { return self }
     var output: DetailViewModelOutputInterface { return self }
     
-    @Published var event: Event {
+    var event: Event {
         didSet {
             delegate?.notifyChange()
         }

@@ -27,18 +27,21 @@ class EventListViewModel: ListViewModelable, Delegatable {
     func notifyChange() {
         objectWillChange.send()
     }
-    
 
     var input: ListViewModelInputInterface { return self }
     var output: ListViewModelOutputInterface { return self }
 
-    @Published var itemViewModels = [ItemViewModel()]
-    
-    init() {
-        for vm in itemViewModels {
-            vm.delegate = self
+    @Published var itemViewModels: [ItemViewModel] {
+        didSet {
+            delegate?.notifyChange()
         }
     }
+
+    init() {
+        self.itemViewModels = []
+    }
+    
+    var delegate: Delegatable?
 }
 
 extension EventListViewModel {
@@ -51,7 +54,7 @@ extension EventListViewModel: ListViewModelInputInterface {
     }
     
     func onAddEvent() {
-        self.itemViewModels.append(ItemViewModel())
+        self.itemViewModels.append(ItemViewModel(delegate: self))
     }
     
     func onCountEventNumber(eventState: EventState) -> Int {

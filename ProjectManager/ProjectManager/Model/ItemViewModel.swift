@@ -39,27 +39,29 @@ class ItemViewModel: ItemViewModelable, Delegatable, Identifiable {
     var output: ItemViewModelOutputInterface { return self }
     var delegate: Delegatable?
     
-    let detailViewModel: DetailViewModel =  DetailViewModel(event: Event(title: "제목을 입력해 주세요",
-                                                                                 description: "1000자까지 입력해 주세요",
-                                                                                 date: Date(),
-                                                                                 state: .ToDo,
-                                                                                 id: UUID()))
+    @Published var detailViewModel: DetailViewModel {
+        didSet {
+            self.delegate?.notifyChange()
+        }
+    }
     var currentEvent: Event {
         detailViewModel.output.event
     }
     
-    init() {
+    init(delegate: Delegatable) {
+        self.detailViewModel =  DetailViewModel(event: Event(title: "제목을 입력해 주세요",
+                                                             description: "1000자까지 입력해 주세요",
+                                                             date: Date(),
+                                                             state: .ToDo,
+                                                             id: UUID()))
         detailViewModel.delegate = self
     } 
 }
 
 extension ItemViewModel: ItemViewModelInputInterface {
-    
     func onChangeEventState(to eventState: EventState) {
         self.detailViewModel.event.state = eventState
-        self.delegate?.notifyChange()
     }
-
 }
 
 extension ItemViewModel: ItemViewModelOutputInterface {
