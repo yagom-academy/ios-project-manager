@@ -1,5 +1,5 @@
 //
-//  TodoListView.swift
+//  ProjectListView.swift
 //  ProjectManager
 //
 //  Created by 박태현 on 2021/11/01.
@@ -12,11 +12,12 @@ struct ProjectListView: View {
     @EnvironmentObject var projectListViewModel: ProjectListViewModel
     let type: ProjectStatus
     var body: some View {
+        let projectList = projectListViewModel.filteredList(type: type)
         VStack {
             HStack {
                 Text(type.description)
                     .padding(.leading)
-                Text(projectListViewModel.todoCount(type: type))
+                Text(projectList.count.description)
                     .foregroundColor(.white)
                     .padding(5)
                     .background(Circle())
@@ -25,7 +26,7 @@ struct ProjectListView: View {
             .font(.title)
             .foregroundColor(.black)
             List {
-                ForEach(projectListViewModel.filteredList(type: type)) { todo in
+                ForEach(projectList) { todo in
                         ProjectRowView(project: todo)
                     }
                     .onDelete { indexSet in projectListViewModel.action(

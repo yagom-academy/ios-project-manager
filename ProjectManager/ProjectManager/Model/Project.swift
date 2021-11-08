@@ -1,5 +1,5 @@
 //
-//  Todo.swift
+//  Project.swift
 //  ProjectManager
 //
 //  Created by tae hoon park on 2021/11/01.
@@ -13,19 +13,6 @@ struct Project: Identifiable {
     var description: String
     var date: Date
     var type: ProjectStatus
-    var isOutDated: Bool {
-        let calendar = Calendar.current
-        switch type {
-        case .todo, .doing:
-            if calendar.compare(date, to: Date(), toGranularity: .day) == .orderedAscending {
-                return true
-            } else {
-                return false
-            }
-        case .done:
-            return false
-        }
-    }
 
     init(id: UUID = UUID(),
          title: String,

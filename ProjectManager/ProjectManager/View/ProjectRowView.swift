@@ -1,5 +1,5 @@
 //
-//  TodoRowView.swift
+//  ProjectRowView.swift
 //  ProjectManager
 //
 //  Created by 박태현 on 2021/11/01.
@@ -23,7 +23,7 @@ struct ProjectRowView: View {
                     .foregroundColor(.gray)
                     .lineLimit(3)
                 Text(DateFormatter.convertDate(date: project.date))
-                    .foregroundColor(project.isOutDated ? Color.red: Color.black)
+                    .foregroundColor(projectListViewModel.dateFontColor(project))
                     .font(.footnote)
             }.lineLimit(1)
             Spacer()

@@ -1,5 +1,5 @@
 //
-//  NewTodoView.swift
+//  ModalView.swift
 //  ProjectManager
 //
 //  Created by 박태현 on 2021/11/01.
@@ -13,7 +13,7 @@ struct ModalView: View {
         case edit
     }
     
-    @EnvironmentObject var todoListViewModel: ProjectListViewModel
+    @EnvironmentObject var projectListViewModel: ProjectListViewModel
     @Binding var isDone: Bool
     @State private var title: String = ""
     @State private var date: Date = Date()
@@ -87,19 +87,19 @@ extension ModalView {
     private var customTrailingButton: some View {
         Button {
             if modalViewType == .add {
-                todoListViewModel.action(
+                projectListViewModel.action(
                     .create(project: Project(title: title,
                                              description: description,
                                              date: date,
                                              type: .todo)))
             } else if isEdit && modalViewType == .edit,
-                      let currentTodo = currentProject {
-                todoListViewModel.action(
-                    .update(project: Project(id: currentTodo.id,
+                      let currentProject = currentProject {
+                projectListViewModel.action(
+                    .update(project: Project(id: currentProject.id,
                                              title: title,
                                              description: description,
                                              date: date,
-                                             type: currentTodo.type)))
+                                             type: currentProject.type)))
             }
             isDone = false
         } label: {
