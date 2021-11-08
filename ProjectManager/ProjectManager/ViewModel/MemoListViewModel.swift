@@ -39,24 +39,6 @@ final class MemoListViewModel: ObservableObject {
         }
     }
 
-    private func insert(_ memo: Memo) {
-        if memo.isEmpty {
-            return
-        }
-
-        memoList[.todo]?.insert(memo, at: .zero)
-    }
-
-    private func update(from old: Memo, to new: Memo) {
-        let state = old.state
-
-        if let target = memoList[state]?.firstIndex(of: old) {
-            memoList[state]?[target].title = new.title
-            memoList[state]?[target].body = new.body
-            memoList[state]?[target].date = new.date
-        }
-    }
-
     enum ActionState {
         case read
         case create
@@ -65,7 +47,7 @@ final class MemoListViewModel: ObservableObject {
     }
 }
 
-// MARK: - CRUD
+// MARK: - CRUD Interface
 extension MemoListViewModel {
     func list(about state: Memo.State) -> [Memo] {
         return memoList[state] ?? []
@@ -97,5 +79,26 @@ extension MemoListViewModel {
         currentState = .delete
         memoList[state]?.remove(at: index)
         currentState = .read
+    }
+}
+
+// MARK: - CRUD Logic
+extension MemoListViewModel {
+    private func insert(_ memo: Memo) {
+        if memo.isEmpty {
+            return
+        }
+
+        memoList[.todo]?.insert(memo, at: .zero)
+    }
+
+    private func update(from old: Memo, to new: Memo) {
+        let state = old.state
+
+        if let target = memoList[state]?.firstIndex(of: old) {
+            memoList[state]?[target].title = new.title
+            memoList[state]?[target].body = new.body
+            memoList[state]?[target].date = new.date
+        }
     }
 }
