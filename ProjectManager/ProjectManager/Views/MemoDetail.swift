@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct MemoDetail: View {
-    @State var memo: MemoViewModel
     @EnvironmentObject var viewModel: MemoListViewModel
     
     var body: some View {
@@ -25,17 +24,17 @@ struct MemoDetail: View {
                     .padding()
                     .background(Color(UIColor.systemGray6))
                     VStack {
-                        TextField("Title", text: $memo.memoTitle)
+                        TextField("Title", text: $viewModel.presentedMemo.memoTitle)
                             .padding()
                             .background(Color.white.shadow(color: .gray, radius: 3, x: 1, y: 4))
-                        DatePicker(selection: $memo.memoDate, label: {})
+                        DatePicker(selection: $viewModel.presentedMemo.memoDate, label: {})
                             .datePickerStyle(.wheel)
                             .labelsHidden()
-                        TextEditor(text: $memo.memoDescription)
+                        TextEditor(text: $viewModel.presentedMemo.memoDescription)
                             .background(Color.white.shadow(color: .gray, radius: 3, x: 1, y: 4))
                             .frame(height: geometry.size.height * 0.65)
-                            .onChange(of: memo.memoDescription, perform: {
-                                memo.memoDescription = String($0.prefix(1000))
+                            .onChange(of: viewModel.presentedMemo.memoDescription, perform: {
+                                viewModel.presentedMemo.memoDescription = String($0.prefix(1000))
                             })
                     }
                     .disabled(!viewModel.isDetailViewEditable)
@@ -47,7 +46,7 @@ struct MemoDetail: View {
     
     var rightButton: some View {
         return Button {
-            viewModel.didTouchUpDoneButton(memo)
+            viewModel.didTouchUpDoneButton()
         } label: {
             Text("Done")
         }
@@ -64,6 +63,6 @@ struct MemoDetail: View {
 
 struct MemoDetail_Previews: PreviewProvider {
     static var previews: some View {
-        MemoDetail(memo: MemoViewModel())
+        MemoDetail()
     }
 }

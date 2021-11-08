@@ -25,7 +25,7 @@ enum AccessMode {
 protocol MemoListViewModelInput {
     func didTouchUpPlusButton()
     func didTouchUpDetailViewLeftButton()
-    func didTouchUpDoneButton(_ memo: MemoViewModel)
+    func didTouchUpDoneButton()
     func didSwipeCell(_ memo: MemoViewModel)
     func didTouchUpCell(_ memo: MemoViewModel)
     func didTouchUpPopoverButton(_ memo: MemoViewModel, newState: MemoState)
@@ -41,8 +41,9 @@ protocol MemoListViewModelOutput {
 
 final class MemoListViewModel: ObservableObject, MemoListViewModelOutput {
     @Published
-    private(set) var memoViewModels: [[MemoViewModel]] = [[], [], []] 
-    private(set) var presentedMemo = MemoViewModel()
+    private(set) var memoViewModels: [[MemoViewModel]] = [[], [], []]
+    @Published
+    var presentedMemo = MemoViewModel()
     @Published
     var isDetaileViewPresented = false
     @Published
@@ -68,14 +69,14 @@ extension MemoListViewModel: MemoListViewModelInput {
         }
     }
     
-    func didTouchUpDoneButton(_ memo: MemoViewModel) {
+    func didTouchUpDoneButton() {
         switch presentedMemoAccessMode {
         case .read:
             break
         case .add:
-            add(memo)
+            add()
         case .write:
-            modify(memo)
+            modify()
         }
         isDetaileViewPresented = false
     }
@@ -94,8 +95,8 @@ extension MemoListViewModel: MemoListViewModelInput {
 }
 
 extension MemoListViewModel {
-    private func add(_ viewModel: MemoViewModel) {
-        memoViewModels[viewModel.memoStatus.indexValue].append(viewModel)
+    private func add() {
+        memoViewModels[presentedMemo.memoStatus.indexValue].append(presentedMemo)
     }
     
     @discardableResult
@@ -111,16 +112,16 @@ extension MemoListViewModel {
             return
         }
         viewModel.memoStatus = newState
-        add(viewModel)
+        memoViewModels[viewModel.memoStatus.indexValue].append(viewModel)
     }
     
-    private func modify(_ viewModel: MemoViewModel) {
-        guard let index = find(viewModel) else {
+    private func modify() {
+        guard let index = find(presentedMemo) else {
             return
         }
-        memoViewModels[viewModel.memoStatus.indexValue][index].memoTitle = viewModel.memoTitle
-        memoViewModels[viewModel.memoStatus.indexValue][index].memoDate = viewModel.memoDate
-        memoViewModels[viewModel.memoStatus.indexValue][index].memoDescription = viewModel.memoDescription
+        memoViewModels[presentedMemo.memoStatus.indexValue][index].memoTitle = presentedMemo.memoTitle
+        memoViewModels[presentedMemo.memoStatus.indexValue][index].memoDate = presentedMemo.memoDate
+        memoViewModels[presentedMemo.memoStatus.indexValue][index].memoDescription = presentedMemo.memoDescription
     }
     
     private func readyForAdd() {

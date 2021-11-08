@@ -31,7 +31,7 @@ struct ContentView: View {
                     Image(systemName: "plus")
                 }
                 .sheet(isPresented: $viewModel.isDetaileViewPresented) {
-                    MemoDetail(memo: viewModel.presentedMemo)
+                    MemoDetail()
                 }
             })
         }
