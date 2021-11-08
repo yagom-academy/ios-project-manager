@@ -8,9 +8,9 @@
 import Foundation
 
 struct TodoViewModel: Identifiable {
-    let todo: Todo
+    var todo: Todo
     
-    let id = UUID().uuidString
+    var id = UUID().uuidString
     var title: String {
         return todo.title
     }
