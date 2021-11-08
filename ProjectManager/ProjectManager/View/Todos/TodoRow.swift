@@ -30,7 +30,7 @@ struct TodoRow: View {
                 .font(.footnote)
                 .foregroundColor(isAfterDeadline ? .red : .black)
         }
-        .truncationMode(/*@START_MENU_TOKEN@*/.tail/*@END_MENU_TOKEN@*/)
+        .truncationMode(.tail)
         .onTapGesture { isShowingModalView.toggle() }
         .sheet(isPresented: $isShowingModalView) {
             TodoModalView(isPresented: $isShowingModalView, modalType: .edit, selectedTodo: self.todo)
