@@ -1,5 +1,5 @@
 //
-//  AddTodoView.swift
+//  TodoModalView.swift
 //  ProjectManager
 //
 //  Created by Yongwoo Marco on 2021/11/02.
@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct TodoModalView: View {
-    enum TodoModal {
+    enum Purpose {
         case add
         case edit
     }
     @EnvironmentObject private var viewModel: TodoViewModel
     @Binding var isPresented: Bool
-    @State var modalType: TodoModal
+    @State var viewPurpose: Purpose
     @State var todo: Todo
     
     var body: some View {
@@ -34,7 +34,7 @@ struct TodoModalView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
-                    switch modalType {
+                    switch viewPurpose {
                     case .add:
                         Button(
                             action: { isPresented.toggle() },
@@ -66,7 +66,7 @@ extension TodoModalView {
     }
     
     private func doneButtonAction() {
-        switch modalType {
+        switch viewPurpose {
         case .add:
             guard !todo.title.isEmpty, !todo.detail.isEmpty else {
                 return
@@ -79,11 +79,11 @@ extension TodoModalView {
     }
 }
 
-struct AddTodoView_Previews: PreviewProvider {
+struct TodoModalView_Previews: PreviewProvider {
     @State static var showingDetail = false
     
     static var previews: some View {
-        TodoModalView(isPresented: $showingDetail, modalType: .add, todo: Todo())
+        TodoModalView(isPresented: $showingDetail, viewPurpose: .add, todo: Todo())
             .previewLayout(.sizeThatFits)
     }
 }

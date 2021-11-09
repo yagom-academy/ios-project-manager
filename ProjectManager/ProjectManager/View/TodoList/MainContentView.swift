@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  MainContentView.swift
 //  ProjectManager
 //
 //  Created by Yongwoo Marco on 2021/10/26.
@@ -14,8 +14,8 @@ struct MainContentView: View {
     var body: some View {
         NavigationView {
             HStack {
-                ForEach(TodoList.Completion.allCases, id: \.self) { eachCase in
-                    TodoStateList(completionState: eachCase)
+                ForEach(TodoList.State.allCases, id: \.self) { eachCase in
+                    TodoStateList(todoState: eachCase)
                         .environmentObject(viewModel)
                 }
             }
@@ -29,7 +29,7 @@ struct MainContentView: View {
                          label: { Label("", systemImage: "plus") }
                     )
                     .sheet(isPresented: $isShowingModalView) {
-                        TodoModalView(isPresented: $isShowingModalView, modalType: .add, todo: Todo())
+                        TodoModalView(isPresented: $isShowingModalView, viewPurpose: .add, todo: Todo())
                             .environmentObject(viewModel)
                     }
                 }

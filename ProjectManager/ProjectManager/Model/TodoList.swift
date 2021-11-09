@@ -8,8 +8,8 @@
 import Foundation
 
 struct TodoList {
-    enum Completion: Int, CaseIterable, CustomStringConvertible {
-        case todo = 1
+    enum State: Int, CaseIterable, CustomStringConvertible {
+        case todo
         case doing
         case done
         
@@ -26,8 +26,8 @@ struct TodoList {
     }
     
     private(set) var todoList: [Todo]
-    subscript(_ state: Completion) -> [Todo] {
-        todoList.filter{ $0.completionState == state }
+    subscript(_ state: State) -> [Todo] {
+        todoList.filter{ $0.state == state }
     }
 }
 
@@ -53,11 +53,11 @@ extension TodoList {
         todoList[foundIndex] = editedTodo
     }
     
-    mutating func changeTodoState(_ todo: Todo, to ChangedState: Completion) {
+    mutating func changeTodoState(_ todo: Todo, to ChangedState: State) {
         guard let foundIndex = todoList.firstIndex(where: { $0.id == todo.id }) else {
             NSLog("해당 Todo를 찾을 수 없음")
             return
         }
-        todoList[foundIndex].completionState = ChangedState
+        todoList[foundIndex].state = ChangedState
     }
 }

@@ -1,5 +1,5 @@
 //
-//  TodoList.swift
+//  TodoStateList.swift
 //  ProjectManager
 //
 //  Created by Yongwoo Marco on 2021/10/28.
@@ -9,20 +9,20 @@ import SwiftUI
 
 struct TodoStateList: View {
     @EnvironmentObject private var viewModel: TodoViewModel
-    var completionState: TodoList.Completion
+    var todoState: TodoList.State
     
     var body: some View {
         List {
             Section(
                 content: {
-                    ForEach(viewModel.eachStateTodoList(completionState)) { todo in
-                        TodoRow(todo: todo)
+                    ForEach(viewModel.filteredList(of: todoState)) { todo in
+                        TodoStateRow(todo: todo)
                     }
                     .onDelete(perform: self.delete)
                 },
                 header: {
-                    TodoStateHeader(headerTitle: completionState.description,
-                                    todoListCount: viewModel.eachStateTodoList(completionState).count.description)
+                    TodoStateHeader(headerTitle: todoState.description,
+                                    todoListCount: viewModel.filteredList(of: todoState).count.description)
                 }
             )
         }
@@ -33,15 +33,15 @@ struct TodoStateList: View {
 extension TodoStateList {
     private func delete(_ indexSet: IndexSet) {
         indexSet.forEach { index in
-            let removingTodo = viewModel.eachStateTodoList(completionState)[index]
+            let removingTodo = viewModel.filteredList(of: todoState)[index]
             viewModel.deleteItem(removingTodo)
         }
     }
 }
 
-struct TodoList_Previews: PreviewProvider {
+struct TodoStateList_Previews: PreviewProvider {
     static var previews: some View {
-        TodoStateList(completionState: .doing)
+        TodoStateList(todoState: .doing)
             .environmentObject(TodoViewModel())
             .previewLayout(.sizeThatFits)
     }

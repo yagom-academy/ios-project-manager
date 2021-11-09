@@ -10,7 +10,7 @@ import Foundation
 final class TodoViewModel: ObservableObject {
     @Published var todoList: TodoList = TodoList(todoList: [])
     
-    func eachStateTodoList(_ state: TodoList.Completion) -> [Todo] {
+    func filteredList(of state: TodoList.State) -> [Todo] {
         todoList[state]
     }
     
@@ -26,7 +26,7 @@ final class TodoViewModel: ObservableObject {
         todoList.editTodo(todo)
     }
     
-    func changeTodoState(_ todo: Todo, to changedState: TodoList.Completion) {
+    func changeTodoState(_ todo: Todo, to changedState: TodoList.State) {
         todoList.changeTodoState(todo, to: changedState)
     }
 }

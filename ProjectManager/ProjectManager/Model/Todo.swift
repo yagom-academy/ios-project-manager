@@ -12,5 +12,5 @@ struct Todo: Identifiable {
     var title: String = ""
     var detail: String = ""
     var endDate: Date = Date()
-    var completionState: TodoList.Completion = .todo
+    var state: TodoList.State = .todo
 }
