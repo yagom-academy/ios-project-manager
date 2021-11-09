@@ -11,46 +11,35 @@ enum Action  {
     case create(project: Project)
     case delete(indexSet: IndexSet)
     case update(project: Project)
-    case changeType(id: UUID, type: ProjectStatus)
 }
 
 final class ProjectListViewModel: ObservableObject{
-    @Published private(set) var projectList: [Project] = []
-    
+    @Published private(set) var projectList: [ProjectRowViewModel] = []
+
     func action(_ action: Action) {
+        let projectRowViewModel: ProjectRowViewModel
         switch action {
         case .create(let project):
-            projectList.append(project)
+            projectRowViewModel = ProjectRowViewModel(project: project)
+            projectRowViewModel.delegate = self
+            projectList.append(projectRowViewModel)
         case .delete(let indexSet):
             projectList.remove(atOffsets: indexSet)
         case .update(let project):
-            projectList.firstIndex { $0.id == project.id }.flatMap { projectList[$0] = project }
-        case .changeType(let id, let type):
-            projectList.firstIndex { $0.id == id }.flatMap { projectList[$0].type = type }
+            projectRowViewModel = ProjectRowViewModel(project: project)
+            projectList.firstIndex { $0.id == projectRowViewModel.id }.flatMap { projectList[$0] = projectRowViewModel }
         }
     }
-    
-    func filteredList(type: ProjectStatus) -> [Project] {
+
+    func filteredList(type: ProjectStatus) -> [ProjectRowViewModel] {
         return projectList.filter {
             $0.type == type
         }
     }
-    
-    func transitionType(type: ProjectStatus) -> [ProjectStatus] {
-        return ProjectStatus.allCases.filter { $0 != type }
-    }
-    
-    func dateFontColor(_ project: Project) -> Color {
-        let calendar = Calendar.current
-        switch project.type {
-        case .todo, .doing:
-            if calendar.compare(project.date, to: Date(), toGranularity: .day) == .orderedAscending {
-                return .red
-            } else {
-                return .black
-            }
-        case .done:
-            return .black
-        }
+}
+
+extension ProjectListViewModel: ProjectRowViewModelDelegate {
+    func updateViewModel() {
+        objectWillChange.send()
     }
 }

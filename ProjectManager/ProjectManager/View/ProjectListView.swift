@@ -27,7 +27,7 @@ struct ProjectListView: View {
             .foregroundColor(.black)
             List {
                 ForEach(projectList) { todo in
-                        ProjectRowView(project: todo)
+                        ProjectRowView(viewModel: todo)
                     }
                     .onDelete { indexSet in projectListViewModel.action(
                         .delete(indexSet: indexSet))

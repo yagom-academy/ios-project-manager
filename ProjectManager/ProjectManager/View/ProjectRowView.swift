@@ -8,22 +8,21 @@
 import SwiftUI
 
 struct ProjectRowView: View {
-    @EnvironmentObject var projectListViewModel: ProjectListViewModel
+    @StateObject var viewModel: ProjectRowViewModel
     @State private var isModalViewPresented: Bool = false
     @State private var isLongPressed: Bool = false
-    var project: Project
 
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
-                Text(project.title)
+                Text(viewModel.title)
                     .font(.title3)
-                Text(project.description)
+                Text(viewModel.description)
                     .font(.subheadline)
                     .foregroundColor(.gray)
                     .lineLimit(3)
-                Text(DateFormatter.convertDate(date: project.date))
-                    .foregroundColor(projectListViewModel.dateFontColor(project))
+                Text(viewModel.date)
+                    .foregroundColor(viewModel.dateFontColor)
                     .font(.footnote)
             }.lineLimit(1)
             Spacer()
@@ -36,15 +35,15 @@ struct ProjectRowView: View {
             }
             .popover(isPresented: $isLongPressed,
                      attachmentAnchor: .point(.center)) {
-                ForEach(projectListViewModel.transitionType(type: project.type), id: \.self) {
+                ForEach(viewModel.transitionType, id: \.self) {
                     moveButton(type: $0)
                 }
             }
-            .sheet(isPresented: $isModalViewPresented) {
-                ModalView(isDone: $isModalViewPresented,
-                          modalViewType: .edit,
-                          currentProject: project)
-            }
+//            .sheet(isPresented: $isModalViewPresented) {
+//                ModalView(isDone: $isModalViewPresented,
+//                          modalViewType: .edit,
+//                          currentProject: project)
+//            }
     }
 }
 
@@ -52,7 +51,7 @@ extension ProjectRowView {
     private func moveButton(type: ProjectStatus) -> some View {
             ZStack {
                 Button {
-                    projectListViewModel.action(.changeType(id: project.id, type: type))
+                    viewModel.action(.changeType(type: type))
                     isLongPressed.toggle()
                 } label: {
                     Text("Move to \(type.description)")
@@ -62,11 +61,11 @@ extension ProjectRowView {
     }
 }
 
-struct TodoRowView_Previews: PreviewProvider {
-    static var previews: some View {
-        ProjectRowView(project: Project(title: "할일",
-                               description: "오늘은 설거지를 할게여",
-                               date: Date(), type: .todo))
-                    .previewLayout(.sizeThatFits)
-    }
-}
+//struct TodoRowView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ProjectRowView(project: Project(title: "할일",
+//                               description: "오늘은 설거지를 할게여",
+//                               date: Date(), type: .todo))
+//                    .previewLayout(.sizeThatFits)
+//    }
+//}

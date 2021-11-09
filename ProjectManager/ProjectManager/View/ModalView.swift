@@ -12,7 +12,6 @@ struct ModalView: View {
         case add
         case edit
     }
-    
     @EnvironmentObject var projectListViewModel: ProjectListViewModel
     @Binding var isDone: Bool
     @State private var title: String = ""

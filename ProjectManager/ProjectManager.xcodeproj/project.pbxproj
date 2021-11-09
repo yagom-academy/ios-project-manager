@@ -19,6 +19,8 @@
 		74311C3A273104E400951DC3 /* ProjectListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74311C39273104E400951DC3 /* ProjectListViewModel.swift */; };
 		74311C3B273104E400951DC3 /* ProjectListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74311C39273104E400951DC3 /* ProjectListViewModel.swift */; };
 		74892C2F27283CEC00748767 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 74892C2E27283CEC00748767 /* FirebaseFirestore */; };
+		89F7D396273A3EBE004E7E9D /* ProjectRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F7D395273A3EBE004E7E9D /* ProjectRowViewModel.swift */; };
+		89F7D397273A3FEA004E7E9D /* ProjectRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F7D395273A3EBE004E7E9D /* ProjectRowViewModel.swift */; };
 		89FDAD20273022F90017A197 /* ProjectListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FDAD1F273022F90017A197 /* ProjectListView.swift */; };
 		89FDAD21273022F90017A197 /* ProjectListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FDAD1F273022F90017A197 /* ProjectListView.swift */; };
 		89FDAD232730256E0017A197 /* ProjectRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FDAD222730256E0017A197 /* ProjectRowView.swift */; };
@@ -37,6 +39,7 @@
 		74311C23273017F400951DC3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		74311C332730181A00951DC3 /* NonFirebase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NonFirebase.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		74311C39273104E400951DC3 /* ProjectListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListViewModel.swift; sourceTree = "<group>"; };
+		89F7D395273A3EBE004E7E9D /* ProjectRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectRowViewModel.swift; sourceTree = "<group>"; };
 		89FDAD1F273022F90017A197 /* ProjectListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListView.swift; sourceTree = "<group>"; };
 		89FDAD222730256E0017A197 /* ProjectRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectRowView.swift; sourceTree = "<group>"; };
 		89FDAD2527302B840017A197 /* ModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalView.swift; sourceTree = "<group>"; };
@@ -86,6 +89,7 @@
 			isa = PBXGroup;
 			children = (
 				74311C39273104E400951DC3 /* ProjectListViewModel.swift */,
+				89F7D395273A3EBE004E7E9D /* ProjectRowViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -239,6 +243,7 @@
 				74311C3B273104E400951DC3 /* ProjectListViewModel.swift in Sources */,
 				4D07ED19273176CF002D4DBC /* Extension + DateFormatter.swift in Sources */,
 				89FDAD2727302B840017A197 /* ModalView.swift in Sources */,
+				89F7D397273A3FEA004E7E9D /* ProjectRowViewModel.swift in Sources */,
 				89FDAD242730256E0017A197 /* ProjectRowView.swift in Sources */,
 				74311C292730181A00951DC3 /* AppDelegate.swift in Sources */,
 				74311C2A2730181A00951DC3 /* SceneDelegate.swift in Sources */,
@@ -255,6 +260,7 @@
 				74311C3A273104E400951DC3 /* ProjectListViewModel.swift in Sources */,
 				4D07ED18273176CF002D4DBC /* Extension + DateFormatter.swift in Sources */,
 				89FDAD2627302B840017A197 /* ModalView.swift in Sources */,
+				89F7D396273A3EBE004E7E9D /* ProjectRowViewModel.swift in Sources */,
 				89FDAD232730256E0017A197 /* ProjectRowView.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
