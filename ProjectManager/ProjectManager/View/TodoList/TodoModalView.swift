@@ -10,6 +10,7 @@ import SwiftUI
 struct TodoModalView: View {
     enum Purpose {
         case add
+        case show
         case edit
     }
     @EnvironmentObject private var viewModel: TodoViewModel
@@ -28,52 +29,48 @@ struct TodoModalView: View {
                 TextEditor(text: $todo.detail)
                     .padding(.bottom)
             }
+            .disabled(viewPurpose == .show)
             .shadow(radius: 10)
             .padding(.horizontal)
             .navigationTitle("Todo")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
-                    switch viewPurpose {
-                    case .add:
-                        Button(
-                            action: { isPresented.toggle() },
-                            label: { Text("Cancel") }
-                        )
-                    case .edit:
-                        Button(
-                            action: editButtonAction,
-                            label: { Text("Edit") }
-                        )
-                    }
+                    leadingButton
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(
-                        action: doneButtonAction,
-                        label: { Text("Done") }
-                    )
+                    trailingButton
+                        .disabled($todo.title.wrappedValue.isEmpty)
                 }
             }
         }
         .navigationViewStyle(.stack)
     }
+    
+    private var leadingButton: some View {
+        return Button(
+            action: viewPurpose == .show ? { viewPurpose = .edit } : { isPresented.toggle() },
+            label: { Text(viewPurpose == .show ? "Edit" : "Cancel") }
+        )
+    }
+    
+    private var trailingButton: some View {
+        return Button(
+            action: doneButtonAction,
+            label: { Text("Done") }
+        )
+    }
 }
 
 extension TodoModalView {
-    private func editButtonAction() {
-        viewModel.editItem(todo)
-        isPresented.toggle()
-    }
-    
     private func doneButtonAction() {
         switch viewPurpose {
         case .add:
-            guard !todo.title.isEmpty, !todo.detail.isEmpty else {
-                return
-            }
             viewModel.addItem(todo)
+        case .show :
+            break
         case .edit:
-            print("확인완료")
+            viewModel.editItem(todo)
         }
         isPresented.toggle()
     }
