@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct Todo: Hashable {
+struct Todo: Identifiable {
+    let id: UUID = UUID()
     var title: String = ""
     var detail: String = ""
     var endDate: Date = Date()
