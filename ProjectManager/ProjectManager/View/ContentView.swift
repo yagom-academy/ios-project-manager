@@ -16,7 +16,7 @@ struct ContentView: View {
         NavigationView {
             HStack {
                 ForEach(planStates, id: \.self) { planState in
-                    PlanListView(viewModel: viewModel, projectState: planState.description)
+                    PlanListView(viewModel: viewModel, showsAddView: self.$showsAddView, projectState: planState.description)
                 }
             }
             .padding(0.2)
@@ -34,7 +34,7 @@ struct ContentView: View {
         }
         .navigationViewStyle(StackNavigationViewStyle())
         .sheet(isPresented: $showsAddView) {
-            AddPlanView(showsAddView: self.$showsAddView, viewModel: viewModel)
+            AddPlanView(plan: nil, showsAddView: $showsAddView, viewModel: viewModel, editType: .add)
         }
     }
 }

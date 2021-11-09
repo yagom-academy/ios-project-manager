@@ -9,6 +9,7 @@ import SwiftUI
 
 struct PlanListView: View {
     @ObservedObject var viewModel: ProjectPlanViewModel
+    @Binding var showsAddView: Bool
     let projectState: String
     
     var body: some View {
@@ -29,8 +30,8 @@ struct PlanListView: View {
     }
 }
 
-struct PlanListView_Previews: PreviewProvider {
-    static var previews: some View {
-        PlanListView(viewModel: ProjectPlanViewModel(), projectState: "TODO")
-    }
-}
+//struct PlanListView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        PlanListView(viewModel: ProjectPlanViewModel(), projectState: "TODO")
+//    }
+//}

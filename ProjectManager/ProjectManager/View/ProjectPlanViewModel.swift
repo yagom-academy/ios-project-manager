@@ -8,14 +8,18 @@
 import SwiftUI
 
 final class ProjectPlanViewModel: ObservableObject {
-    @Published private var model: ProjectToDoList = ProjectToDoList(plans: DummyData().data)
+    @Published private var model = ProjectToDoList(plans: DummyData().data)
 
     var plans: Array<ProjectToDoList.Plan> {
         model.plans
     }
+
+    func add(title: String, description: String, deadline: Date) {
+        model.add(title: title, description: description, deadline: deadline)
+    }
     
-    func add(_ plan: ProjectToDoList.Plan) {
-        model.add(plan)
+    func edit(_ plan: ProjectToDoList.Plan, title: String, description: String, deadline: Date) {
+        model.edit(plan, title: title, description: description, deadline: deadline)
     }
     
     func change(_ plan: ProjectToDoList.Plan, to state: ProjectToDoList.Plan.State) {

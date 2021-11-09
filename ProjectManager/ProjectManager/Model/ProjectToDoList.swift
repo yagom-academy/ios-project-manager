@@ -8,14 +8,19 @@
 import Foundation
 
 struct ProjectToDoList {
-    var plans: Array<Plan>
+    private(set) var plans: Array<Plan>
     
-    mutating func add(_ plan: Plan) {
-        plans.append(plan)
+    mutating func add(title: String, description: String, deadline: Date) {
+        let newPlan = Plan(state: .toDo, title: title, description: description, deadline: deadline)
+        plans.append(newPlan)
     }
     
-    func edit(_ paln: Plan) {
-        
+    mutating func edit(_ plan: Plan, title: String, description: String, deadline: Date) {
+        if let index = plans.firstIndex(where: { $0.id == plan.id }) {
+            plans[index].title = title
+            plans[index].description = description
+            plans[index].deadline = deadline
+        }
     }
     
     func delete(at offsets: IndexSet) {

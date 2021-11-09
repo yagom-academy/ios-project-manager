@@ -8,17 +8,21 @@
 import SwiftUI
 
 struct AddPlanView: View {
+    enum EditType {
+        case add
+        case edit
+    }
+    
+    let plan: ProjectToDoList.Plan?
     @Binding var showsAddView: Bool
     @ObservedObject var viewModel: ProjectPlanViewModel
+    var editType: EditType
     @State private var title = ""
     @State private var deadline = Date()
     @State private var description = """
     기분 좋은 하루 보내고 있나요?
     할 일을 입력해주세요.
     """
-    private var newPlan: ProjectToDoList.Plan {
-        return ProjectToDoList.Plan(state: .toDo, title: title, description: description, deadline: deadline)
-    }
     
     var body: some View {
         NavigationView {
@@ -47,11 +51,26 @@ struct AddPlanView: View {
                     }
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Done") {
-                        viewModel.add(newPlan)
-                        self.showsAddView = false
+                    switch editType {
+                    case .add:
+                        Button("Done") {
+                            viewModel.add(title: title, description: description, deadline: deadline)
+                            self.showsAddView = false
+                        }
+                    case .edit:
+                        Button("Edit") {
+                            guard let chosenPlan = plan else { return }
+                            viewModel.edit(chosenPlan, title: title, description: description, deadline: deadline)
+                            self.showsAddView = false
+                        }
                     }
                 }
+            }
+            .onAppear {
+                guard let chosenPlan = plan else { return }
+                self.title = chosenPlan.title
+                self.description = chosenPlan.description
+                self.deadline = chosenPlan.deadline
             }
         }
         .navigationViewStyle(.stack)

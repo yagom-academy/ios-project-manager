@@ -9,7 +9,8 @@ import SwiftUI
 
 struct DetailPlanView: View {
     var plan: ProjectToDoList.Plan
-    @State var isPlanTapped = false
+    @State var showsPopOverView = false
+    @State var showsEditView: Bool = false
     @ObservedObject var viewModel: ProjectPlanViewModel
     
     var body: some View {
@@ -22,10 +23,16 @@ struct DetailPlanView: View {
                 .padding(.top, 1.0)
                 .font(.footnote)
         }
+        .onTapGesture {
+            self.showsEditView.toggle()
+        }
+        .sheet(isPresented: $showsEditView) {
+            AddPlanView(plan: plan, showsAddView: $showsEditView, viewModel: viewModel, editType: .edit)
+        }
         .onLongPressGesture(perform: {
-            self.isPlanTapped.toggle()
+            self.showsPopOverView.toggle()
         })
-        .popover(isPresented: $isPlanTapped) {
+        .popover(isPresented: $showsPopOverView) {
             PopOverView(plan: plan, viewModel: viewModel)
         }
     }
