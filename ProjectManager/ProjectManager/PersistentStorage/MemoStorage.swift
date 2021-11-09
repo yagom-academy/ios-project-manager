@@ -9,7 +9,8 @@ import Foundation
 import CoreData
 
 final class MemoStorage {
-    private let entityName = "MemoEntity"
+    static let shared = MemoStorage()
+
     private var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "MemoStorage")
         container.loadPersistentStores { storeDescription, error in
@@ -19,4 +20,17 @@ final class MemoStorage {
         }
         return container
     }()
+    
+    private init() { }
+    
+    func saveContext() {
+        let context = persistentContainer.viewContext
+        if context.hasChanges {
+            do {
+                try context.save()
+            } catch {
+                fatalError(error.localizedDescription)
+            }
+        }
+    }
 }
