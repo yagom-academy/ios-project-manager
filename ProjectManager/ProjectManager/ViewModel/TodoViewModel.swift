@@ -14,19 +14,19 @@ final class TodoViewModel: ObservableObject {
         todoList[state]
     }
     
-    func addTodo(title: String, endDate: Date, detail: String) {
-        todoList.addTodo(title, endDate, detail)
+    func addItem(_ todo: Todo) {
+        todoList.addTodo(todo)
     }
     
-    func deleteTodo(_ todo: Todo) {
+    func deleteItem(_ todo: Todo) {
         todoList.deleteTodo(todo)
     }
     
-    func editTodo(baseTodo todo: Todo, title: String, endDate: Date, detail: String) {
-        todoList.editTodo(base: todo, title, endDate, detail)
+    func editItem(_ todo: Todo) {
+        todoList.editTodo(todo)
     }
     
-    func changeTodoState(baseTodo todo: Todo, to changedState: TodoList.Completion) {
-        todoList.changeTodoState(base: todo, to: changedState)
+    func changeTodoState(_ todo: Todo, to changedState: TodoList.Completion) {
+        todoList.changeTodoState(todo, to: changedState)
     }
 }
