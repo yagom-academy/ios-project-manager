@@ -15,23 +15,19 @@ struct TodoModalView: View {
     @EnvironmentObject private var todoViewModel: TodoViewModel
     @Binding var isPresented: Bool
     @State var modalType: TodoModal
-    @State private var todoTitle: String = ""
-    @State private var todoEndDate: Date = Date()
-    @State private var todoDetail: String = ""
-    let selectedTodo: Todo?
+    @State var todo: Todo
     
     var body: some View {
         NavigationView {
             VStack {
-                TextField("Title", text: $todoTitle)
+                TextField("Title", text: $todo.title)
                     .textFieldStyle(.roundedBorder)
-                DatePicker("", selection: $todoEndDate, displayedComponents: [.date])
+                DatePicker("", selection: $todo.endDate, displayedComponents: [.date])
                     .datePickerStyle(.wheel)
                     .fixedSize()
-                TextEditor(text: $todoDetail)
+                TextEditor(text: $todo.detail)
                     .padding(.bottom)
             }
-            .onAppear(perform: setUpTodo)
             .shadow(radius: 10)
             .padding(.horizontal)
             .navigationTitle("Todo")
@@ -64,14 +60,6 @@ struct TodoModalView: View {
 }
 
 extension TodoModalView {
-    private func setUpTodo() {
-        guard let todo = selectedTodo else { return }
-        
-        self.todoTitle = todo.title
-        self.todoEndDate = Date(timeIntervalSince1970: todo.endDate)
-        self.todoDetail = todo.detail
-    }
-    
     private func editButtonAction() {
         guard let todo = selectedTodo else { return }
         if !(todo.title == todoTitle &&
@@ -105,7 +93,7 @@ struct AddTodoView_Previews: PreviewProvider {
     @State static var showingDetail = false
     
     static var previews: some View {
-        TodoModalView(isPresented: $showingDetail, modalType: .add, selectedTodo: nil)
+        TodoModalView(isPresented: $showingDetail, modalType: .add, todo: Todo())
             .previewLayout(.sizeThatFits)
     }
 }
