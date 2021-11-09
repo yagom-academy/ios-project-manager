@@ -50,20 +50,20 @@
 		A90D16FF272AA15F006813F1 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				A956A80327284B0B00468536 /* MainContentView.swift */,
-				A9F71603273172B600E45F85 /* TodoModalView.swift */,
-				A90D1700272AA169006813F1 /* Todos */,
+				A90D1700272AA169006813F1 /* TodoList */,
 			);
 			path = View;
 			sourceTree = "<group>";
 		};
-		A90D1700272AA169006813F1 /* Todos */ = {
+		A90D1700272AA169006813F1 /* TodoList */ = {
 			isa = PBXGroup;
 			children = (
+				A956A80327284B0B00468536 /* MainContentView.swift */,
+				A9F71603273172B600E45F85 /* TodoModalView.swift */,
 				A90D16F7272A8DFB006813F1 /* TodoStateList.swift */,
 				A90D16F9272A9169006813F1 /* TodoRow.swift */,
 			);
-			path = Todos;
+			path = TodoList;
 			sourceTree = "<group>";
 		};
 		A90D1701272AA17C006813F1 /* Model */ = {
