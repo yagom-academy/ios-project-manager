@@ -36,7 +36,7 @@ struct ContentView: View {
                 Image(systemName: "plus")
             }))
             .sheet(isPresented: self.$isShowModal, content: {
-                ModalView()
+                ModalView(task: placeHolderTask, modalState: .add)
             })
         }
         .navigationViewStyle(StackNavigationViewStyle())
