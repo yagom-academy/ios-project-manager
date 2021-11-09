@@ -17,8 +17,10 @@ struct DetailPlanView: View {
         VStack(alignment: .leading) {
             Text(plan.title)
                 .font(.title3)
+                .lineLimit(1)
             Text(plan.description)
                 .foregroundColor(.gray)
+                .lineLimit(3)
             Text(plan.deadline.description)
                 .padding(.top, 1.0)
                 .font(.footnote)
