@@ -20,12 +20,14 @@ struct TodoListView: View {
     var body: some View {
         VStack(spacing: 0) {
             TodoListHeaderView(title: todoStatus.title, count: todoList.count)
-            ScrollView {
+            List {
                 ForEach(todoList) { todoItem in
                     TodoItemView(todo: todoItem)
-                        .padding([.bottom], 5)
                 }
+                .onDelete(perform: delete)
             }
+            .listStyle(PlainListStyle())
+            
             Spacer()
         }
         .background(Color.init(UIColor(red: 239/256,
