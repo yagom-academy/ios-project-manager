@@ -15,7 +15,6 @@ struct DetailEventView<T: DetailViewModelable>: View {
     @State private var navigationTitle: String = "ToDo"
     @State private var description: String = ""
     @State private var date: Date = Date()
-    
     @State private var isInteractionDisabled: Bool = true
     
     var detailViewModel: T
@@ -67,13 +66,19 @@ struct DetailEventView<T: DetailViewModelable>: View {
         .navigationBarTitleDisplayMode(.inline)
     }
     
+    enum ButtonTitle: String {
+        case cancel = "Cancel"
+        case done = "Done"
+        case edit = "Edit"
+    }
+    
     var cancelButton: some View {
         Button(ButtonTitle.cancel.rawValue) {
             self.presentationMode.wrappedValue.dismiss()
         }
     }
     
-    var editButtonTitle: String {
+    var editAndDoneButtonTitle: String {
         get {
             if self.isInteractionDisabled {
                 return ButtonTitle.edit.rawValue
@@ -84,7 +89,7 @@ struct DetailEventView<T: DetailViewModelable>: View {
     }
     
     var editButton: some View {
-        Button(editButtonTitle) {
+        Button(editAndDoneButtonTitle) {
             self.isInteractionDisabled.toggle()
         }
         .onChange(of: isInteractionDisabled) { newValue in
@@ -102,12 +107,6 @@ struct DetailEventView<T: DetailViewModelable>: View {
             .input
             .onSaveTitle(title: self.eventTitle)
         detailViewModel.input.onSaveDate(date: self.date)
-    }
-    
-    enum ButtonTitle: String {
-        case cancel = "Cancel"
-        case done = "Done"
-        case edit = "Edit"
     }
 }
 

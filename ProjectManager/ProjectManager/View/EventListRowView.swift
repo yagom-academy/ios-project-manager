@@ -10,7 +10,6 @@ import SwiftUI
 struct EventListRowView<Value: ItemViewModelable>: View {
     @ObservedObject var listRowViewModel: Value
     @State var isPresented: Bool = false
-    
     @State var isPopOvered: Bool = false
     
     private func decideDateTextColor() -> Color {
