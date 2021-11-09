@@ -14,7 +14,7 @@ struct MainContentView: View {
         NavigationView {
             HStack {
                 ForEach(Todo.Completion.allCases, id: \.self) { eachCase in
-                    TodoList(completionState: eachCase)
+                    TodoStateList(completionState: eachCase)
                 }
             }
             .background(Color.gray.opacity(0.3))

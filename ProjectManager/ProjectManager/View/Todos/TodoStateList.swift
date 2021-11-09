@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TodoList: View {
+struct TodoStateList: View {
     @EnvironmentObject private var todoViewModel: TodoViewModel
     var completionState: Todo.Completion
     
@@ -46,7 +46,7 @@ struct TodoList: View {
     }
 }
 
-extension TodoList {
+extension TodoStateList {
     private func delete(_ indexSet: IndexSet) {
         indexSet.forEach { index in
             let removingTodo = filteredTodos[index]
@@ -57,7 +57,7 @@ extension TodoList {
 
 struct TodoList_Previews: PreviewProvider {
     static var previews: some View {
-        TodoList(completionState: .doing)
+        TodoStateList(completionState: .doing)
             .environmentObject(TodoViewModel())
             .previewLayout(.sizeThatFits)
     }
