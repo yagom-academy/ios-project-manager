@@ -12,7 +12,7 @@ struct TodoModalView: View {
         case add
         case edit
     }
-    @EnvironmentObject private var todoViewModel: TodoViewModel
+    @EnvironmentObject private var viewModel: TodoViewModel
     @Binding var isPresented: Bool
     @State var modalType: TodoModal
     @State var todo: Todo
@@ -61,27 +61,17 @@ struct TodoModalView: View {
 
 extension TodoModalView {
     private func editButtonAction() {
-        guard let todo = selectedTodo else { return }
-        if !(todo.title == todoTitle &&
-             todo.detail == todoDetail &&
-             todo.endDate == todoEndDate.timeIntervalSince1970) {
-            todoViewModel.editTodo(baseTodo: todo,
-                                   title: self.todoTitle,
-                                   endDate: self.todoEndDate,
-                                   detail: self.todoDetail)
-        }
+        viewModel.editItem(todo)
         isPresented.toggle()
     }
     
     private func doneButtonAction() {
         switch modalType {
         case .add:
-            guard !self.todoTitle.isEmpty, !self.todoDetail.isEmpty else {
+            guard !todo.title.isEmpty, !todo.detail.isEmpty else {
                 return
             }
-            todoViewModel.addTodo(title: self.todoTitle,
-                                  endDate: self.todoEndDate,
-                                  detail: self.todoDetail)
+            viewModel.addItem(todo)
         case .edit:
             print("확인완료")
         }

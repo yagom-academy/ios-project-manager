@@ -15,7 +15,7 @@ struct TodoStateList: View {
         List {
             Section(
                 content: {
-                    ForEach(viewModel.eachStateTodoList(completionState), id: \.self) { todo in
+                    ForEach(viewModel.eachStateTodoList(completionState)) { todo in
                         TodoRow(todo: todo)
                     }
                     .onDelete(perform: self.delete)
@@ -44,7 +44,7 @@ extension TodoStateList {
     private func delete(_ indexSet: IndexSet) {
         indexSet.forEach { index in
             let removingTodo = viewModel.eachStateTodoList(completionState)[index]
-            viewModel.deleteTodo(removingTodo)
+            viewModel.deleteItem(removingTodo)
         }
     }
 }

@@ -13,7 +13,7 @@ struct TodoRow: View {
     @State private var isShowingActionSheet: Bool = false
     var todo: Todo
     private var isAfterDeadline: Bool {
-        return todo.completionState != TodoList.Completion.done.rawValue && todo.endDate.isAfterDue
+        return todo.completionState != TodoList.Completion.done && todo.endDate.isAfterDue
     }
     
     var body: some View {
@@ -33,7 +33,8 @@ struct TodoRow: View {
         .truncationMode(.tail)
         .onTapGesture { isShowingModalView.toggle() }
         .sheet(isPresented: $isShowingModalView) {
-            TodoModalView(isPresented: $isShowingModalView, modalType: .edit, selectedTodo: self.todo)
+            TodoModalView(isPresented: $isShowingModalView, modalType: .edit, todo: todo)
+                .environmentObject(viewModel)
         }
         .onLongPressGesture { isShowingActionSheet.toggle() }
         .actionSheet(isPresented: $isShowingActionSheet) {
@@ -45,11 +46,11 @@ struct TodoRow: View {
 extension TodoRow {
     private func makeActionSheetButtons() -> [ActionSheet.Button] {
         let selections: [TodoList.Completion] = TodoList.Completion.allCases.filter { state in
-            return state.rawValue != todo.completionState
+            return state != todo.completionState
         }
         let buttons: [ActionSheet.Button] = selections.map { state in
             return ActionSheet.Button.default(Text("Movo to \(state.description)")) {
-                viewModel.changeTodoState(baseTodo: todo, to: state)
+                viewModel.changeTodoState(todo, to: state)
             }
         }
         return buttons
@@ -61,8 +62,8 @@ struct TodoRow_Previews: PreviewProvider {
         TodoRow(todo: Todo(
             title: "테스트 제목",
             detail: "테스트 본문",
-            endDate: Date().timeIntervalSince1970,
-            completionState: TodoList.Completion.done.rawValue))
+            endDate: Date(),
+            completionState: .done))
             .previewLayout(.sizeThatFits)
     }
 }
