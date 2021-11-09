@@ -10,6 +10,10 @@ import Foundation
 final class TodoViewModel: ObservableObject {
     @Published var todoList: TodoList = TodoList(todoList: [])
     
+    func eachStateTodoList(_ state: TodoList.Completion) -> [Todo] {
+        todoList[state]
+    }
+    
     func addTodo(title: String, endDate: Date, detail: String) {
         todoList.addTodo(title, endDate, detail)
     }

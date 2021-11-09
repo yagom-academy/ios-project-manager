@@ -26,6 +26,9 @@ struct TodoList {
     }
     
     private(set) var todoList: [Todo]
+    subscript(_ state: Completion) -> [Todo] {
+        todoList.filter{ $0.completionState == state.rawValue }
+    }
 }
 
 // MARK: - Mutating Methods
