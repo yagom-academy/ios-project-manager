@@ -9,13 +9,12 @@ import SwiftUI
 
 @main
 struct ProjectManagerApp: App {
-    @StateObject var listViewModel: ListViewModel = ListViewModel()
+    @StateObject var listViewModel: ProjectManagerViewModel = ProjectManagerViewModel()
     
     var body: some Scene {
         WindowGroup {
             MainContentView()
                 .environmentObject(listViewModel)
-        }
-        
+        }        
     }
 }

@@ -9,7 +9,8 @@ import SwiftUI
 
 struct MainContentView: View {
     @EnvironmentObject var listViewModel: ProjectManagerViewModel
-    @State private var isPopoverPresented = false
+    @State private var isPopoverPresented: Bool = false
+
     var body: some View {
         VStack {
             HStack {
@@ -25,16 +26,16 @@ struct MainContentView: View {
                         .font(.largeTitle)
                 }
                 .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
-                .sheet(isPresented: $isPopoverPresented) {
-                    ModalView(isModalPresented: $isPopoverPresented)
-                }
             }
-            .background(Color(white: 0.93))
+            .background(Color(white: 0.94))
             .font(.title)
             HStack {
-                ListView(value: .todo, status: listViewModel.todo)
-                ListView(value: .doing, status: listViewModel.doing)
-                ListView(value: .done, status: listViewModel.done)
+                ListView(
+                    isModalShowed: isPopoverPresented, taskStatus: .todo, listStatus: listViewModel.todo)
+                ListView(
+                    isModalShowed: isPopoverPresented, taskStatus: .doing, listStatus: listViewModel.doing)
+                ListView(
+                    isModalShowed: isPopoverPresented, taskStatus: .done, listStatus: listViewModel.done)
             }
             .background(Color(white: 0.8))
             .listStyle(PlainListStyle())

@@ -8,40 +8,13 @@
 import Foundation
 
 class ProjectManagerViewModel: ObservableObject {
-    
-    enum TaskStatus {
-        case todo
-        case doing
-        case done
-    }
-    
     @Published var todo: [ProjectModel] = []
     @Published var doing: [ProjectModel] = []
     @Published var done: [ProjectModel] = []
+    let defaultItems = MockData.defaultItems
     
     init() {
-        todo = defaultItems()
-    }
-    
-    func defaultItems() -> [ProjectModel] {
-        let todo1 = ProjectModel(
-            title: "이터널스 보러가기",
-            description: "용산 4d로 보고싶다",
-            date: Date(timeIntervalSinceNow: 1000000000))
-        let todo2 = ProjectModel(
-            title: "듄 또 보고싶다",
-            description: "용산 아이맥스로 보고싶다",
-            date: Date(timeIntervalSinceNow: -100000000))
-        let todo3 = ProjectModel(
-            title: "제주도 놀러가기",
-            description: "제주도 한달살기 해보고싶다.제주도 한달살기 해보고싶다.제주도 한달살기 해보고싶다.제주도 한달살기 해보고싶다.제주도 한달살기 해보고싶다.제주도 한달살기 해보고싶다.",
-            date: Date(timeIntervalSinceNow: 0))
-        let todo4 = ProjectModel(
-            title: "제주도 놀러가기",
-            description: "제주도 한달살기 해보고싶다.제주도 한달살기 해보고싶다.제주도 한달살기 해보고싶다.제주도 한달살기 해보고싶다.제주도 한달살기 해보고싶다.제주도 한달살기 해보고싶다.",
-            date: Date(timeIntervalSinceNow: 0))
-        
-        return [todo1, todo2, todo3, todo4]
+        todo = defaultItems
     }
     
     func addTodo(title: String, description: String, date: Date) {

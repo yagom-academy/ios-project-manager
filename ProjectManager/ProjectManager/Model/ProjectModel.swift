@@ -28,5 +28,6 @@ enum TaskStatus: CaseIterable, CustomStringConvertible {
         case .done:
             return "DONE"
         }
-           }
+    }
 }
+
