@@ -30,6 +30,7 @@ struct MainContentView: View {
                     )
                     .sheet(isPresented: $isShowingModalView) {
                         TodoModalView(isPresented: $isShowingModalView, modalType: .add, selectedTodo: nil)
+                            .environmentObject(viewModel)
                     }
                 }
             }
