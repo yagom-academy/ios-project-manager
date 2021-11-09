@@ -22,7 +22,7 @@ final class TodoViewModel: ObservableObject {
         todoList.editTodo(base: todo, title, endDate, detail)
     }
     
-    func changeTodoState(baseTodo todo: Todo, to changedState: Todo.Completion) {
+    func changeTodoState(baseTodo todo: Todo, to changedState: TodoList.Completion) {
         todoList.changeTodoState(base: todo, to: changedState)
     }
 }
