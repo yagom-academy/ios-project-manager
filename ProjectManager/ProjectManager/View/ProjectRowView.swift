@@ -21,7 +21,7 @@ struct ProjectRowView: View {
                     .font(.subheadline)
                     .foregroundColor(.gray)
                     .lineLimit(3)
-                Text(viewModel.date)
+                Text(viewModel.convertedDate)
                     .foregroundColor(viewModel.dateFontColor)
                     .font(.footnote)
             }.lineLimit(1)
@@ -39,11 +39,11 @@ struct ProjectRowView: View {
                     moveButton(type: $0)
                 }
             }
-//            .sheet(isPresented: $isModalViewPresented) {
-//                ModalView(isDone: $isModalViewPresented,
-//                          modalViewType: .edit,
-//                          currentProject: project)
-//            }
+            .sheet(isPresented: $isModalViewPresented) {
+                ModalView(isDone: $isModalViewPresented,
+                          modalViewType: .edit,
+                          projectID: viewModel.id)
+            }
     }
 }
 

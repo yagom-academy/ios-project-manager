@@ -31,7 +31,7 @@ struct ContentView: View {
                     }.sheet(isPresented: $isModalViewPresented) {
                         ModalView(isDone: $isModalViewPresented,
                                   modalViewType: .add,
-                                  currentProject: nil)
+                                  projectID: nil)
                     }
                 }
             }

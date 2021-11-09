@@ -31,8 +31,12 @@ final class ProjectRowViewModel: ObservableObject, Identifiable {
         return project.title
     }
 
-    var date: String {
+    var convertedDate: String {
         return DateFormatter.convertDate(date: project.date)
+    }
+
+    var date: Date {
+        return project.date
     }
 
     var description: String {
