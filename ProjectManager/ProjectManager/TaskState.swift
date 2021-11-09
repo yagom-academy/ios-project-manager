@@ -16,4 +16,3 @@ enum TaskState: String, CustomStringConvertible {
         return self.rawValue.uppercased()
     }
 }
-
