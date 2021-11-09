@@ -114,8 +114,6 @@
 		C7431EF925F51E1D0094C4CF = {
 			isa = PBXGroup;
 			children = (
-				C9074F76273AC557000A8F61 /* MemoEntity+CoreDataClass.swift */,
-				C9074F77273AC557000A8F61 /* MemoEntity+CoreDataProperties.swift */,
 				3FB2CF022727D60400272707 /* Plist */,
 				C7431F0425F51E1D0094C4CF /* ProjectManager */,
 				C7431F0325F51E1D0094C4CF /* Products */,
@@ -149,6 +147,8 @@
 		C918542F273AB0DC00B13A0A /* PersistentStorage */ = {
 			isa = PBXGroup;
 			children = (
+				C9074F76273AC557000A8F61 /* MemoEntity+CoreDataClass.swift */,
+				C9074F77273AC557000A8F61 /* MemoEntity+CoreDataProperties.swift */,
 				C9185433273AB24F00B13A0A /* CoreDataStorage.swift */,
 				C9074F73273AC4E4000A8F61 /* CoreDataStorage.xcdatamodeld */,
 				C9185438273ABD8100B13A0A /* MemoStorage.swift */,
