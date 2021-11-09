@@ -8,8 +8,8 @@
 import Foundation
 
 struct Todo: Hashable {
-    let title: String
-    let detail: String
-    let endDate: Double
-    let completionState: Int
+    var title: String
+    var detail: String
+    var endDate: Double
+    var completionState: Int
 }
