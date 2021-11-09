@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MainContentView: View {
+    @StateObject var viewModel: TodoViewModel
     @State private var isShowingModalView: Bool = false
     
     var body: some View {
@@ -38,7 +39,6 @@ struct MainContentView: View {
 
 struct MainContentView_Previews: PreviewProvider {
     static var previews: some View {
-        MainContentView()
-            .environmentObject(TodoViewModel())
+        MainContentView(viewModel: TodoViewModel())
     }
 }
