@@ -14,8 +14,9 @@ struct MainContentView: View {
     var body: some View {
         NavigationView {
             HStack {
-                ForEach(Todo.Completion.allCases, id: \.self) { eachCase in
+                ForEach(TodoList.Completion.allCases, id: \.self) { eachCase in
                     TodoStateList(completionState: eachCase)
+                        .environmentObject(viewModel)
                 }
             }
             .background(Color.gray.opacity(0.3))

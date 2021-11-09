@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct TodoRow: View {
-    @EnvironmentObject private var todoViewModel: TodoViewModel
+    @EnvironmentObject private var viewModel: TodoViewModel
     @State private var isShowingModalView: Bool = false
     @State private var isShowingActionSheet: Bool = false
     var todo: Todo
     private var isAfterDeadline: Bool {
-        return todo.completionState != .done && todo.endDate.isAfterDue
+        return todo.completionState != TodoList.Completion.done.rawValue && todo.endDate.isAfterDue
     }
     
     var body: some View {
@@ -44,12 +44,12 @@ struct TodoRow: View {
 
 extension TodoRow {
     private func makeActionSheetButtons() -> [ActionSheet.Button] {
-        let selections: [Todo.Completion] = Todo.Completion.allCases.filter { state in
-            return state != todo.completionState
+        let selections: [TodoList.Completion] = TodoList.Completion.allCases.filter { state in
+            return state.rawValue != todo.completionState
         }
         let buttons: [ActionSheet.Button] = selections.map { state in
             return ActionSheet.Button.default(Text("Movo to \(state.description)")) {
-                todoViewModel.changeCompletionState(baseTodo: todo, to: state)
+                viewModel.changeTodoState(baseTodo: todo, to: state)
             }
         }
         return buttons
@@ -62,7 +62,7 @@ struct TodoRow_Previews: PreviewProvider {
             title: "테스트 제목",
             detail: "테스트 본문",
             endDate: Date().timeIntervalSince1970,
-            completionState: .done))
+            completionState: TodoList.Completion.done.rawValue))
             .previewLayout(.sizeThatFits)
     }
 }
