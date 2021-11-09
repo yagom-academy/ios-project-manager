@@ -21,18 +21,8 @@ struct TodoStateList: View {
                     .onDelete(perform: self.delete)
                 },
                 header: {
-                    HStack {
-                        Text(completionState.description)
-                            .font(.title)
-                            .foregroundColor(.black)
-                        ZStack {
-                            Image(systemName: "circle.fill")
-                                .foregroundColor(.black)
-                            Text(viewModel.eachStateTodoList(completionState).count.description)
-                                .foregroundColor(.white)
-                        }
-                        .font(.title2)
-                    }
+                    TodoStateHeader(headerTitle: completionState.description,
+                                    todoListCount: viewModel.eachStateTodoList(completionState).count.description)
                 }
             )
         }
