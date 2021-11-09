@@ -16,6 +16,9 @@
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
+		C9074F78273AC557000A8F61 /* MemoEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9074F76273AC557000A8F61 /* MemoEntity+CoreDataClass.swift */; };
+		C9074F79273AC557000A8F61 /* MemoEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9074F77273AC557000A8F61 /* MemoEntity+CoreDataProperties.swift */; };
+		C9074F7A273AC60C000A8F61 /* CoreDataStorage.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C9074F73273AC4E4000A8F61 /* CoreDataStorage.xcdatamodeld */; };
 		C90881C62733E20A00F99E3C /* Memo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90881C52733E20A00F99E3C /* Memo.swift */; };
 		C90881CC2733E21700F99E3C /* MemoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90881C72733E21600F99E3C /* MemoList.swift */; };
 		C90881CD2733E21700F99E3C /* MemoPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90881C82733E21600F99E3C /* MemoPopover.swift */; };
@@ -23,8 +26,9 @@
 		C90881CF2733E21700F99E3C /* MemoDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90881CA2733E21700F99E3C /* MemoDetail.swift */; };
 		C90881D02733E21700F99E3C /* MemoHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90881CB2733E21700F99E3C /* MemoHeader.swift */; };
 		C91524672738ED8500E1D0A6 /* MemoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91524662738ED8500E1D0A6 /* MemoViewModel.swift */; };
-		C9185432273AB16F00B13A0A /* MemoStorage.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C9185430273AB16F00B13A0A /* MemoStorage.xcdatamodeld */; };
-		C9185434273AB24F00B13A0A /* MemoStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9185433273AB24F00B13A0A /* MemoStorage.swift */; };
+		C9185434273AB24F00B13A0A /* CoreDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9185433273AB24F00B13A0A /* CoreDataStorage.swift */; };
+		C9185439273ABD8100B13A0A /* MemoStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9185438273ABD8100B13A0A /* MemoStorage.swift */; };
+		C918543B273ABF4D00B13A0A /* MemoEntity+Mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = C918543A273ABF4D00B13A0A /* MemoEntity+Mapping.swift */; };
 		C9F015852727E01400A0E259 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F015842727E01400A0E259 /* ContentView.swift */; };
 /* End PBXBuildFile section */
 
@@ -38,6 +42,9 @@
 		C7431F0E25F51E1E0094C4CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C7431F1125F51E1E0094C4CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = Plist/Info.plist; sourceTree = SOURCE_ROOT; };
+		C9074F74273AC4E4000A8F61 /* CoreDataStorage.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataStorage.xcdatamodel; sourceTree = "<group>"; };
+		C9074F76273AC557000A8F61 /* MemoEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MemoEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		C9074F77273AC557000A8F61 /* MemoEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MemoEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		C90881C52733E20A00F99E3C /* Memo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Memo.swift; sourceTree = "<group>"; };
 		C90881C72733E21600F99E3C /* MemoList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoList.swift; sourceTree = "<group>"; };
 		C90881C82733E21600F99E3C /* MemoPopover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoPopover.swift; sourceTree = "<group>"; };
@@ -46,8 +53,9 @@
 		C90881CB2733E21700F99E3C /* MemoHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoHeader.swift; sourceTree = "<group>"; };
 		C90881D12734FA6900F99E3C /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		C91524662738ED8500E1D0A6 /* MemoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoViewModel.swift; sourceTree = "<group>"; };
-		C9185431273AB16F00B13A0A /* MemoStorage.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MemoStorage.xcdatamodel; sourceTree = "<group>"; };
-		C9185433273AB24F00B13A0A /* MemoStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoStorage.swift; sourceTree = "<group>"; };
+		C9185433273AB24F00B13A0A /* CoreDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStorage.swift; sourceTree = "<group>"; };
+		C9185438273ABD8100B13A0A /* MemoStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoStorage.swift; sourceTree = "<group>"; };
+		C918543A273ABF4D00B13A0A /* MemoEntity+Mapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MemoEntity+Mapping.swift"; sourceTree = "<group>"; };
 		C9F015842727E01400A0E259 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -106,6 +114,8 @@
 		C7431EF925F51E1D0094C4CF = {
 			isa = PBXGroup;
 			children = (
+				C9074F76273AC557000A8F61 /* MemoEntity+CoreDataClass.swift */,
+				C9074F77273AC557000A8F61 /* MemoEntity+CoreDataProperties.swift */,
 				3FB2CF022727D60400272707 /* Plist */,
 				C7431F0425F51E1D0094C4CF /* ProjectManager */,
 				C7431F0325F51E1D0094C4CF /* Products */,
@@ -139,8 +149,10 @@
 		C918542F273AB0DC00B13A0A /* PersistentStorage */ = {
 			isa = PBXGroup;
 			children = (
-				C9185430273AB16F00B13A0A /* MemoStorage.xcdatamodeld */,
-				C9185433273AB24F00B13A0A /* MemoStorage.swift */,
+				C9185433273AB24F00B13A0A /* CoreDataStorage.swift */,
+				C9074F73273AC4E4000A8F61 /* CoreDataStorage.xcdatamodeld */,
+				C9185438273ABD8100B13A0A /* MemoStorage.swift */,
+				C918543A273ABF4D00B13A0A /* MemoEntity+Mapping.swift */,
 			);
 			path = PersistentStorage;
 			sourceTree = "<group>";
@@ -232,19 +244,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				C91524672738ED8500E1D0A6 /* MemoViewModel.swift in Sources */,
+				C9185439273ABD8100B13A0A /* MemoStorage.swift in Sources */,
+				C9074F79273AC557000A8F61 /* MemoEntity+CoreDataProperties.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C90881CD2733E21700F99E3C /* MemoPopover.swift in Sources */,
 				3FE379502733E2B1000D8247 /* MemoListViewModel.swift in Sources */,
+				C918543B273ABF4D00B13A0A /* MemoEntity+Mapping.swift in Sources */,
 				C90881D02733E21700F99E3C /* MemoHeader.swift in Sources */,
 				C90881CE2733E21700F99E3C /* MemoRow.swift in Sources */,
-				C9185432273AB16F00B13A0A /* MemoStorage.xcdatamodeld in Sources */,
+				C9074F78273AC557000A8F61 /* MemoEntity+CoreDataClass.swift in Sources */,
 				C9F015852727E01400A0E259 /* ContentView.swift in Sources */,
 				3F62B92E273A9DD500C024ED /* MemoUseCase.swift in Sources */,
 				C90881CF2733E21700F99E3C /* MemoDetail.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				C90881CC2733E21700F99E3C /* MemoList.swift in Sources */,
 				C90881C62733E20A00F99E3C /* Memo.swift in Sources */,
-				C9185434273AB24F00B13A0A /* MemoStorage.swift in Sources */,
+				C9074F7A273AC60C000A8F61 /* CoreDataStorage.xcdatamodeld in Sources */,
+				C9185434273AB24F00B13A0A /* CoreDataStorage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -467,13 +483,13 @@
 /* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
-		C9185430273AB16F00B13A0A /* MemoStorage.xcdatamodeld */ = {
+		C9074F73273AC4E4000A8F61 /* CoreDataStorage.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				C9185431273AB16F00B13A0A /* MemoStorage.xcdatamodel */,
+				C9074F74273AC4E4000A8F61 /* CoreDataStorage.xcdatamodel */,
 			);
-			currentVersion = C9185431273AB16F00B13A0A /* MemoStorage.xcdatamodel */;
-			path = MemoStorage.xcdatamodeld;
+			currentVersion = C9074F74273AC4E4000A8F61 /* CoreDataStorage.xcdatamodel */;
+			path = CoreDataStorage.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

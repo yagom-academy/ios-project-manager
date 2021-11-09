@@ -6,31 +6,11 @@
 //
 
 import Foundation
-import CoreData
 
 final class MemoStorage {
-    static let shared = MemoStorage()
-
-    private var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "MemoStorage")
-        container.loadPersistentStores { storeDescription, error in
-            if let error = error as NSError? {
-                fatalError("\(error.userInfo)")
-            }
-        }
-        return container
-    }()
+    private let coreDataStorage = CoreDataStorage.shared
     
-    private init() { }
-    
-    func saveContext() {
-        let context = persistentContainer.viewContext
-        if context.hasChanges {
-            do {
-                try context.save()
-            } catch {
-                fatalError(error.localizedDescription)
-            }
-        }
+    func add() {
+        //Memo Model -> Data Entity
     }
 }
