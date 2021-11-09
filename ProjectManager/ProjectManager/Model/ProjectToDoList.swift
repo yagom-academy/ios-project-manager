@@ -23,8 +23,8 @@ struct ProjectToDoList {
         }
     }
     
-    func delete(at offsets: IndexSet) {
-        
+    mutating func delete(at indexSet: IndexSet) {
+        plans.remove(atOffsets: indexSet)
     }
     
     mutating func change(_ plan: Plan, to state: Plan.State) {

@@ -20,6 +20,9 @@ struct PlanListView: View {
                         DetailPlanView(plan: plan, viewModel: viewModel)
                     }
                 }
+                .onDelete { indexSet in
+                    viewModel.delete(at: indexSet)
+                }
             } header: {
                 Text(projectState)
                     .foregroundColor(.black)

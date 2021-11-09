@@ -22,6 +22,10 @@ final class ProjectPlanViewModel: ObservableObject {
         model.edit(plan, title: title, description: description, deadline: deadline)
     }
     
+    func delete(at indexSet: IndexSet) {
+        model.delete(at: indexSet)
+    }
+    
     func change(_ plan: ProjectToDoList.Plan, to state: ProjectToDoList.Plan.State) {
         model.change(plan, to: state)
     }
