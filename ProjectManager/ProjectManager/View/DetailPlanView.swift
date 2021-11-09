@@ -27,7 +27,7 @@ struct DetailPlanView: View {
             self.showsEditView.toggle()
         }
         .sheet(isPresented: $showsEditView) {
-            AddPlanView(plan: plan, showsAddView: $showsEditView, viewModel: viewModel, editType: .edit)
+            AddPlanView(plan: plan, editType: .edit, showsAddView: $showsEditView, viewModel: viewModel)
         }
         .onLongPressGesture(perform: {
             self.showsPopOverView.toggle()

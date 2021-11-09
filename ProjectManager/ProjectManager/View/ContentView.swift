@@ -34,7 +34,7 @@ struct ContentView: View {
         }
         .navigationViewStyle(StackNavigationViewStyle())
         .sheet(isPresented: $showsAddView) {
-            AddPlanView(plan: nil, showsAddView: $showsAddView, viewModel: viewModel, editType: .add)
+            AddPlanView(plan: nil, editType: .add, showsAddView: $showsAddView, viewModel: viewModel)
         }
     }
 }

@@ -13,16 +13,30 @@ struct AddPlanView: View {
         case edit
     }
     
-    let plan: ProjectToDoList.Plan?
+    let plan: ProjectToDoList.Plan
+    var editType: EditType
     @Binding var showsAddView: Bool
     @ObservedObject var viewModel: ProjectPlanViewModel
-    var editType: EditType
     @State private var title = ""
     @State private var deadline = Date()
     @State private var description = """
     기분 좋은 하루 보내고 있나요?
     할 일을 입력해주세요.
     """
+    
+    init(plan: ProjectToDoList.Plan?, editType: EditType, showsAddView: Binding<Bool>, viewModel: ProjectPlanViewModel) {
+        if let plan = plan {
+            self.plan = plan
+            _title = State(initialValue: plan.title)
+            _deadline = State(initialValue: plan.deadline)
+            _description = State(initialValue: plan.description)
+        } else {
+            self.plan = ProjectToDoList.Plan(state: .toDo, title: "", description: "", deadline: Date())
+        }
+        self.editType = editType
+        _showsAddView = showsAddView
+        self.viewModel = viewModel
+    }
     
     var body: some View {
         NavigationView {
@@ -59,18 +73,11 @@ struct AddPlanView: View {
                         }
                     case .edit:
                         Button("Edit") {
-                            guard let chosenPlan = plan else { return }
-                            viewModel.edit(chosenPlan, title: title, description: description, deadline: deadline)
+                            viewModel.edit(plan, title: title, description: description, deadline: deadline)
                             self.showsAddView = false
                         }
                     }
                 }
-            }
-            .onAppear {
-                guard let chosenPlan = plan else { return }
-                self.title = chosenPlan.title
-                self.description = chosenPlan.description
-                self.deadline = chosenPlan.deadline
             }
         }
         .navigationViewStyle(.stack)
