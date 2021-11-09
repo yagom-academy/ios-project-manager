@@ -8,8 +8,8 @@
 import Foundation
 
 struct Todo: Hashable {
-    var title: String
-    var detail: String
-    var endDate: Double
-    var completionState: Int
+    var title: String = ""
+    var detail: String = ""
+    var endDate: Date = Date()
+    var completionState: TodoList.Completion = .todo
 }
