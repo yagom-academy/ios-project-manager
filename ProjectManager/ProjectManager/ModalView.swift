@@ -7,6 +7,12 @@
 
 import SwiftUI
 
+enum ModalState {
+    case add
+    case edit
+    case inquire
+}
+
 struct ModalView: View {
 
     @EnvironmentObject var taskViewModel: TaskViewModel
@@ -16,6 +22,7 @@ struct ModalView: View {
     var taskIndex: Int {
         taskViewModel.tasks.firstIndex(where: { $0.id == task.id }) ?? 0
     }
+    @State var modalState: ModalState
     
     var body: some View {
         NavigationView {
@@ -63,7 +70,7 @@ struct ModalView: View {
 struct ModalView_Previews: PreviewProvider {
     static let viewModel = TaskViewModel()
     static var previews: some View {
-        ModalView(task: viewModel.tasks[0])
+        ModalView(task: viewModel.tasks[0], modalState: .inquire)
             .environmentObject(viewModel)
     }
 }
