@@ -17,6 +17,10 @@ protocol UseCase {
 
 struct MemoUseCase: UseCase {
     private let repository: Repositoryable
+    
+    init(repository: Repositoryable = MemoRepository()) {
+        self.repository = repository
+    }
 
     func add(_ memo: Memo, completion: @escaping Completion) {
         repository.add(memo: memo) { result in

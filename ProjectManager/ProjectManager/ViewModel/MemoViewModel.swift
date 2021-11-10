@@ -9,7 +9,7 @@ import Foundation
 
 struct MemoViewModel {
     private let charactorLimit = 1000
-    private var memo = Memo()
+    private(set) var memo: Memo
     var memoTitle: String {
         set {
             memo.title = newValue
@@ -46,6 +46,10 @@ struct MemoViewModel {
         get {
             return memo.status
         }
+    }
+    
+    init(memo: Memo = Memo()) {
+        self.memo = memo
     }
     
     func isPastDeadline() -> Bool {

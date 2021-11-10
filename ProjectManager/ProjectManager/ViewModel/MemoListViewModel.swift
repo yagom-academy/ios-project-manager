@@ -51,6 +51,11 @@ final class MemoListViewModel: ObservableObject, MemoListViewModelOutput {
     @Published
     private(set) var isDetailViewEditable = false
     private var presentedMemoAccessMode: AccessMode = .add
+    private let memoUseCase: UseCase
+    
+    init(memoUseCase: UseCase = MemoUseCase()) {
+        self.memoUseCase = memoUseCase
+    }
 }
 
 extension MemoListViewModel: MemoListViewModelInput {
@@ -96,7 +101,17 @@ extension MemoListViewModel: MemoListViewModelInput {
 
 extension MemoListViewModel {
     private func add() {
-        memoViewModels[presentedMemo.memoStatus.indexValue].append(presentedMemo)
+        memoUseCase.add(presentedMemo.memo) { [weak self] result in
+            guard let self = self else {
+                return
+            }
+            switch result {
+            case .success(let memo):
+                self.memoViewModels[memo.status.indexValue].append(MemoViewModel(memo: memo))
+            case .failure(let error):
+                fatalError(error.localizedDescription)
+            }
+        }
     }
     
     @discardableResult
