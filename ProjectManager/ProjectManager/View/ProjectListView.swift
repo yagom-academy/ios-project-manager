@@ -38,8 +38,3 @@ struct ProjectListView: View {
     }
 }
 
-struct TodoListView_Previews: PreviewProvider {
-    static var previews: some View {
-        ProjectListView(type: .done)
-    }
-}

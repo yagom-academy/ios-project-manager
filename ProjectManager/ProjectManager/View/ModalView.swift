@@ -12,9 +12,8 @@ struct ModalView: View {
         case add
         case edit
     }
-
+    
     @EnvironmentObject var projectListViewModel: ProjectListViewModel
-//    @StateObject var viewModel: ProjectRowViewModel
     @Binding var isDone: Bool
     @State private var title: String = ""
     @State private var date: Date = Date()
@@ -22,10 +21,10 @@ struct ModalView: View {
     @State private var isEdit: Bool = false
     let modalViewType: ModalType
     let projectID: UUID?
-
+    
     var body: some View {
-            NavigationView {
-                GeometryReader { geometry in
+        NavigationView {
+            GeometryReader { geometry in
                 VStack {
                     ScrollView {
                         TextField("Title", text: $title)
@@ -58,13 +57,15 @@ struct ModalView: View {
                 }
             }
         }
-            .onAppear() {
-                guard let id = projectID else { return }
-                guard let viewModel = projectListViewModel.showProject(from: id) else { return }
-                self.title = viewModel.title
-                self.date = viewModel.date
-                self.description = viewModel.description
-            }
+        .onAppear() {
+            guard let id = projectID,
+                    let viewModel = projectListViewModel.selectedProject(from: id) else {
+                        return
+                    }
+            self.title = viewModel.title
+            self.date = viewModel.date
+            self.description = viewModel.description
+        }
     }
 }
 
@@ -95,15 +96,16 @@ extension ModalView {
                                              date: date,
                                              type: .todo)))
             } else if isEdit && modalViewType == .edit {
-                guard let id = projectID else { return }
-                guard let viewModel = projectListViewModel.showProject(from: id) else { return }
+                guard let id = projectID,
+                        let viewModel = projectListViewModel.selectedProject(from: id) else {
+                            return
+                        }
                 projectListViewModel.action(
                     .update(project: Project(id: id,
                                              title: title,
                                              description: description,
                                              date: date,
                                              type: viewModel.type)))
-                print(title)
             }
             isDone = false
         } label: {
@@ -112,11 +114,3 @@ extension ModalView {
     }
 }
 
-//
-//struct NewTodoView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ModalView(isDone: .constant(false),
-//                  modalViewType: .add,
-//                  currentProject: )
-//    }
-//}

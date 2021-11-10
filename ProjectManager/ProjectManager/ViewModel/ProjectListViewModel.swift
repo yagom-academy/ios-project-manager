@@ -27,13 +27,11 @@ final class ProjectListViewModel: ObservableObject{
             projectList.remove(atOffsets: indexSet)
         case .update(let project):
             projectRowViewModel = ProjectRowViewModel(project: project)
-            projectRowViewModel.delegate = self
             projectList.firstIndex { $0.id == projectRowViewModel.id }.flatMap { projectList[$0] = projectRowViewModel }
-            objectWillChange.send()
         }
     }
 
-    func showProject(from id: UUID?) -> ProjectRowViewModel? {
+    func selectedProject(from id: UUID?) -> ProjectRowViewModel? {
         if let id = id, let index = projectList.firstIndex(where: { $0.id == id }) {
             return projectList[index]
         }

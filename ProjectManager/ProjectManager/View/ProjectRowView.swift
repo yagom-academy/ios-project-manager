@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ProjectRowView: View {
-    @StateObject var viewModel: ProjectRowViewModel
+    @ObservedObject var viewModel: ProjectRowViewModel
     @State private var isModalViewPresented: Bool = false
     @State private var isLongPressed: Bool = false
 
@@ -61,11 +61,3 @@ extension ProjectRowView {
     }
 }
 
-//struct TodoRowView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ProjectRowView(project: Project(title: "할일",
-//                               description: "오늘은 설거지를 할게여",
-//                               date: Date(), type: .todo))
-//                    .previewLayout(.sizeThatFits)
-//    }
-//}
