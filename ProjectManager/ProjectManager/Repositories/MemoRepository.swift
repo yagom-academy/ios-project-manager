@@ -52,8 +52,8 @@ extension MemoRepository: Repositoryable {
     func fetch(completion: @escaping (Result<[Memo], Error>) -> Void) {
         memoStorage.fetch { result in
             switch result {
-            case .success(let memo):
-                completion(.success(memo))
+            case .success(let memos):
+                completion(.success(memos))
             case .failure(let error):
                 completion(.failure(error))
             }
