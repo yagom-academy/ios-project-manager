@@ -17,6 +17,7 @@
 		DFBEEB0127323CC6004FE2CA /* DummyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBEEB0027323CC6004FE2CA /* DummyData.swift */; };
 		DFBEEB032732A86F004FE2CA /* AddPlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBEEB022732A86E004FE2CA /* AddPlanView.swift */; };
 		DFBFEBC52729615F005BA42C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DFBFEBC42729615F005BA42C /* GoogleService-Info.plist */; };
+		DFD85AE2273AC7D300BD376F /* PlanNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD85AE1273AC7D200BD376F /* PlanNumberView.swift */; };
 		DFDE898227369AE9006F3A44 /* PopOverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDE898127369AE9006F3A44 /* PopOverView.swift */; };
 		E8118154E1C29C0C90B33324 /* Pods_ProjectManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 621D82BA19D41DEE4BECDD58 /* Pods_ProjectManager.framework */; };
 /* End PBXBuildFile section */
@@ -37,6 +38,7 @@
 		DFBEEB0027323CC6004FE2CA /* DummyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyData.swift; sourceTree = "<group>"; };
 		DFBEEB022732A86E004FE2CA /* AddPlanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlanView.swift; sourceTree = "<group>"; };
 		DFBFEBC42729615F005BA42C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		DFD85AE1273AC7D200BD376F /* PlanNumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanNumberView.swift; sourceTree = "<group>"; };
 		DFDE898127369AE9006F3A44 /* PopOverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopOverView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -108,6 +110,7 @@
 				DFBEEAF9273175D8004FE2CA /* DetailPlanView.swift */,
 				DFDE898127369AE9006F3A44 /* PopOverView.swift */,
 				DFBEEB022732A86E004FE2CA /* AddPlanView.swift */,
+				DFD85AE1273AC7D200BD376F /* PlanNumberView.swift */,
 				DFBEEAFE2732293E004FE2CA /* ProjectPlanViewModel.swift */,
 			);
 			path = View;
@@ -243,6 +246,7 @@
 				DFDE898227369AE9006F3A44 /* PopOverView.swift in Sources */,
 				DFBEEAEA273013BD004FE2CA /* ContentView.swift in Sources */,
 				DFBEEAF8273175B8004FE2CA /* PlanListView.swift in Sources */,
+				DFD85AE2273AC7D300BD376F /* PlanNumberView.swift in Sources */,
 				DFBEEAFF2732293F004FE2CA /* ProjectPlanViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -24,17 +24,20 @@ struct PlanListView: View {
                     viewModel.delete(at: indexSet)
                 }
             } header: {
-                Text(projectState)
-                    .foregroundColor(.black)
-                    .font(.largeTitle)
+                HStack {
+                    Text(projectState)
+                        .foregroundColor(.black)
+                        .font(.largeTitle)
+                    PlanNumberView(numberOfPlans: viewModel.number(of: projectState))
+                }
             }
         }
         .listStyle(.grouped)
     }
 }
 
-//struct PlanListView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        PlanListView(viewModel: ProjectPlanViewModel(), projectState: "TODO")
-//    }
-//}
+struct PlanListView_Previews: PreviewProvider {
+    static var previews: some View {
+        PlanListView(viewModel: ProjectPlanViewModel(), showsAddView: .constant(true), projectState: "TODO")
+    }
+}

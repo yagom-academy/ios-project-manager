@@ -29,4 +29,8 @@ final class ProjectPlanViewModel: ObservableObject {
     func change(_ plan: ProjectToDoList.Plan, to state: ProjectToDoList.Plan.State) {
         model.change(plan, to: state)
     }
+    
+    func number(of state: String) -> Int {
+        plans.filter({ $0.state.description == state }).count
+    }
 }
