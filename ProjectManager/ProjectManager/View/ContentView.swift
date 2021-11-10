@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject var viewModel: ProjectPlanViewModel
     let planStates = ProjectToDoList.Plan.State.allCases
+    @StateObject var viewModel: ProjectPlanViewModel
     @State var showsAddView = false
     
     var body: some View {
@@ -34,7 +34,7 @@ struct ContentView: View {
         }
         .navigationViewStyle(StackNavigationViewStyle())
         .sheet(isPresented: $showsAddView) {
-            AddPlanView(plan: nil, editType: .add, showsAddView: $showsAddView, viewModel: viewModel)
+            EditModalView(plan: nil, editType: .add, showsAddView: $showsAddView, viewModel: viewModel)
         }
     }
 }

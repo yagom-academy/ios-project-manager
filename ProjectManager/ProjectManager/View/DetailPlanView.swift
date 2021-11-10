@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DetailPlanView: View {
-    var plan: ProjectToDoList.Plan
+    let plan: ProjectToDoList.Plan
     @State var showsPopOverView = false
     @State var showsEditView: Bool = false
     @ObservedObject var viewModel: ProjectPlanViewModel
@@ -36,7 +36,7 @@ struct DetailPlanView: View {
             self.showsEditView.toggle()
         }
         .sheet(isPresented: $showsEditView) {
-            AddPlanView(plan: plan, editType: .edit, showsAddView: $showsEditView, viewModel: viewModel)
+            EditModalView(plan: plan, editType: .edit, showsAddView: $showsEditView, viewModel: viewModel)
         }
         .onLongPressGesture(perform: {
             self.showsPopOverView.toggle()

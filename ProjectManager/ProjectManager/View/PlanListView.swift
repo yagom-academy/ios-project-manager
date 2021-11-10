@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct PlanListView: View {
+    let projectState: String
     @ObservedObject var viewModel: ProjectPlanViewModel
     @Binding var showsAddView: Bool
-    let projectState: String
     
     var body: some View {
         List {

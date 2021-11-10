@@ -1,5 +1,5 @@
 //
-//  AddPlanView.swift
+//  EditModalView.swift
 //  ProjectManager
 //
 //  Created by 이윤주 on 2021/11/03.
@@ -7,14 +7,14 @@
 
 import SwiftUI
 
-struct AddPlanView: View {
+struct EditModalView: View {
     enum EditType {
         case add
         case edit
     }
     
     let plan: ProjectToDoList.Plan
-    var editType: EditType
+    let editType: EditType
     @Binding var showsAddView: Bool
     @ObservedObject var viewModel: ProjectPlanViewModel
     @State private var isEditable = false
@@ -98,7 +98,7 @@ struct AddPlanView: View {
 
 struct AddPlanView_Previews: PreviewProvider {
     static var previews: some View {
-        AddPlanView(plan: ProjectToDoList.Plan(state: .toDo,
+        EditModalView(plan: ProjectToDoList.Plan(state: .toDo,
                                                title: "마라탕 먹기",
                                                description: "마라탕 먹으러가야지",
                                                deadline: Date()),
