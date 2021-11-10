@@ -24,6 +24,29 @@ enum MemoStorageError: Error, LocalizedError {
 final class MemoStorage {
     private let coreDataStorage = CoreDataStorage.shared
     
+    private func find(memo: Memo, completion: @escaping (Result<MemoEntity, Error>) -> Void) {
+        coreDataStorage.performBackgroundTask { context in
+            let predicate = NSPredicate(format: "id == %@", memo.id as CVarArg)
+            let fetchRequest = MemoEntity.fetchRequest()
+            fetchRequest.predicate = predicate
+            
+            do {
+                let fetchResult = try context.fetch(fetchRequest)
+                guard fetchResult.count < 2 else {
+                    throw MemoStorageError.multipleDuplicateResultsFound
+                }
+                guard let memoEntity = fetchResult.first else {
+                    throw MemoStorageError.notFound
+                }
+                completion(.success(memoEntity))
+            } catch  {
+                completion(.failure(error))
+            }
+        }
+    }
+}
+
+extension MemoStorage {
     func create(memo: Memo, completion: @escaping (Result<Memo, Error>) -> Void) {
         coreDataStorage.performBackgroundTask { context in
             let memoEntity = MemoEntity(memo: memo, insertInto: context)
@@ -51,25 +74,25 @@ final class MemoStorage {
         }
     }
     
-    private func find(memo: Memo, completion: @escaping (Result<Memo, Error>) -> Void) {
-        coreDataStorage.performBackgroundTask { context in
-            let predicate = NSPredicate(format: "id == %@", memo.id as CVarArg)
-            let fetchRequest = MemoEntity.fetchRequest()
-            fetchRequest.predicate = predicate
-            
-            do {
-                let fetchResult = try context.fetch(fetchRequest)
-                guard fetchResult.count < 2 else {
-                    throw MemoStorageError.multipleDuplicateResultsFound
+    func delete(memo: Memo, completion: @escaping (Result<Memo, Error>) -> Void) {
+        coreDataStorage.performBackgroundTask { [weak self] context in
+            guard let self = self else {
+                return
+            }
+            self.find(memo: memo) { result in
+                switch result {
+                case .success(let memoEntity):
+                    context.delete(memoEntity)
+                    do {
+                        try context.save()
+                        completion(.success(memo))
+                    } catch {
+                        completion(.failure(error))
+                    }
+                case .failure(let error):
+                    completion(.failure(error))
                 }
-                guard let memoEntity = fetchResult.first else {
-                    throw MemoStorageError.notFound
-                }
-                completion(.success(memoEntity.toDomain()))
-            } catch  {
-                completion(.failure(error))
             }
         }
-        
     }
 }
