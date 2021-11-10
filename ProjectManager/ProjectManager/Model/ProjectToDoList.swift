@@ -33,6 +33,17 @@ struct ProjectToDoList {
         }
     }
     
+    mutating func checkDeadline(_ plan: Plan) -> Bool {
+        guard let index = plans.firstIndex(where: { $0.id == plan.id }) else { return false }
+        let current = Date()
+        let calendar = Calendar.current
+        if calendar.compare(current, to: plans[index].deadline, toGranularity: .day) == .orderedDescending {
+            plans[index].isOverdue = true
+        }
+        return plans[index].isOverdue
+        return true
+    }
+    
     struct Plan: Identifiable {
         enum State: String, CaseIterable {
             case toDo = "TODO"

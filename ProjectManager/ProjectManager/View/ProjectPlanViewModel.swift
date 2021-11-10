@@ -9,7 +9,15 @@ import SwiftUI
 
 final class ProjectPlanViewModel: ObservableObject {
     @Published private var model = ProjectToDoList(plans: DummyData().data)
-
+    
+    private let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.locale = Locale.current
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .none
+        return formatter
+    }()
+    
     var plans: Array<ProjectToDoList.Plan> {
         model.plans
     }
@@ -28,6 +36,19 @@ final class ProjectPlanViewModel: ObservableObject {
     
     func change(_ plan: ProjectToDoList.Plan, to state: ProjectToDoList.Plan.State) {
         model.change(plan, to: state)
+    }
+    
+    func isOverdue(_ plan: ProjectToDoList.Plan) -> Bool {
+        let current = Date()
+        let calendar = Calendar.current
+        if calendar.compare(current, to: plan.deadline, toGranularity: .day) == .orderedDescending {
+            return true
+        }
+        return false
+    }
+    
+    func format(date: Date) -> String {
+        dateFormatter.string(from: date)
     }
     
     func number(of state: String) -> Int {

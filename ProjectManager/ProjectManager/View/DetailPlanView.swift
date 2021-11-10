@@ -21,9 +21,16 @@ struct DetailPlanView: View {
             Text(plan.description)
                 .foregroundColor(.gray)
                 .lineLimit(3)
-            Text(plan.deadline.description)
-                .padding(.top, 1.0)
-                .font(.footnote)
+            if viewModel.isOverdue(plan) {
+                Text(viewModel.format(date: plan.deadline))
+                    .foregroundColor(.red)
+                    .padding(.top, 1.0)
+                    .font(.footnote)
+            } else {
+                Text(viewModel.format(date: plan.deadline))
+                    .padding(.top, 1.0)
+                    .font(.footnote)
+            }
         }
         .onTapGesture {
             self.showsEditView.toggle()
