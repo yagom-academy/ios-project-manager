@@ -37,6 +37,9 @@ struct ContentView: View {
         }
         .navigationViewStyle(.stack)
         .environmentObject(viewModel)
+        .onAppear {
+            viewModel.viewOnAppear()
+        }
     }
 }
 

@@ -23,6 +23,7 @@ enum AccessMode {
 }
 
 protocol MemoListViewModelInput {
+    func viewOnAppear()
     func didTouchUpPlusButton()
     func didTouchUpDetailViewLeftButton()
     func didTouchUpDoneButton()
@@ -59,6 +60,10 @@ final class MemoListViewModel: ObservableObject, MemoListViewModelOutput {
 }
 
 extension MemoListViewModel: MemoListViewModelInput {
+    func viewOnAppear() {
+        fetch()
+    }
+    
     func didTouchUpPlusButton() {
         readyForAdd()
     }
@@ -100,6 +105,22 @@ extension MemoListViewModel: MemoListViewModelInput {
 }
 
 extension MemoListViewModel {
+    private func fetch() {
+        memoUseCase.fetch { [weak self] result in
+            guard let self = self else {
+                return
+            }
+            switch result {
+            case .success(let memos):
+                memos
+                    .map { MemoViewModel(memo: $0) }
+                    .forEach { self.memoViewModels[$0.memoStatus.indexValue].append($0) }
+            case .failure(let error):
+                fatalError(error.localizedDescription)
+            }
+        }
+    }
+    
     private func add() {
         memoUseCase.add(presentedMemo.memo) { [weak self] result in
             guard let self = self else {
