@@ -38,6 +38,8 @@ struct PlanListView: View {
 
 struct PlanListView_Previews: PreviewProvider {
     static var previews: some View {
-        PlanListView(viewModel: ProjectPlanViewModel(), showsAddView: .constant(true), projectState: "TODO")
+        PlanListView(projectState: "TODO",
+                     viewModel: ProjectPlanViewModel(),
+                     showsAddView: .constant(true))
     }
 }

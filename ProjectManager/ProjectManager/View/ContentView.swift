@@ -16,7 +16,7 @@ struct ContentView: View {
         NavigationView {
             HStack {
                 ForEach(planStates, id: \.self) { planState in
-                    PlanListView(viewModel: viewModel, showsAddView: self.$showsAddView, projectState: planState.description)
+                    PlanListView(projectState: planState.description, viewModel: viewModel, showsAddView: self.$showsAddView)
                 }
             }
             .padding(0.2)
