@@ -13,10 +13,14 @@ struct MainContentView: View {
     
     var body: some View {
         NavigationView {
-            HStack {
-                ForEach(TodoList.State.allCases, id: \.self) { eachCase in
-                    TodoStateList(todoState: eachCase)
-                        .environmentObject(viewModel)
+            GeometryReader { geometry in
+                ScrollView(.horizontal) {
+                    HStack {
+                        ForEach(TodoList.State.allCases, id: \.self) { eachCase in
+                            TodoStateList(todoState: eachCase)
+                        }
+                    }
+                    .frame(width: geometry.size.width, height: geometry.size.height)
                 }
             }
             .background(Color.gray.opacity(0.3))
@@ -30,12 +34,12 @@ struct MainContentView: View {
                     )
                     .sheet(isPresented: $isShowingModalView) {
                         TodoModalView(isPresented: $isShowingModalView, viewPurpose: .add, todo: Todo())
-                            .environmentObject(viewModel)
                     }
                 }
             }
         }
         .navigationViewStyle(.stack)
+        .environmentObject(viewModel)
     }
 }
 
