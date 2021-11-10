@@ -12,8 +12,8 @@ protocol ProjectRowViewModelDelegate: AnyObject {
     func updateViewModel()
 }
 
-final class ProjectRowViewModel: ObservableObject, Identifiable {
-    @Published private var project: Project
+final class ProjectRowViewModel: Identifiable {
+    private var project: Project
     weak var delegate: ProjectRowViewModelDelegate?
     enum Action {
         case changeType(type: ProjectStatus)

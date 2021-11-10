@@ -27,6 +27,7 @@ final class ProjectListViewModel: ObservableObject{
             projectList.remove(atOffsets: indexSet)
         case .update(let project):
             projectRowViewModel = ProjectRowViewModel(project: project)
+            projectRowViewModel.delegate = self
             projectList.firstIndex { $0.id == projectRowViewModel.id }.flatMap { projectList[$0] = projectRowViewModel }
         }
     }

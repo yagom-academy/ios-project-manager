@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ProjectRowView: View {
-    @ObservedObject var viewModel: ProjectRowViewModel
+    var viewModel: ProjectRowViewModel
     @State private var isModalViewPresented: Bool = false
     @State private var isLongPressed: Bool = false
 
