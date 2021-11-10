@@ -17,6 +17,7 @@ struct AddPlanView: View {
     var editType: EditType
     @Binding var showsAddView: Bool
     @ObservedObject var viewModel: ProjectPlanViewModel
+    @State private var isEditable = false
     @State private var title = ""
     @State private var deadline = Date()
     @State private var description = """
@@ -56,6 +57,7 @@ struct AddPlanView: View {
                     )
                 Spacer()
             }
+            .disabled(!isEditable)
             .navigationTitle("TODO")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -72,9 +74,19 @@ struct AddPlanView: View {
                             self.showsAddView = false
                         }
                     case .edit:
-                        Button("Edit") {
-                            viewModel.edit(plan, title: title, description: description, deadline: deadline)
-                            self.showsAddView = false
+                        Button {
+                            if isEditable {
+                                viewModel.edit(plan, title: title, description: description, deadline: deadline)
+                                self.showsAddView = false
+                            } else {
+                                self.isEditable.toggle()
+                            }
+                        } label: {
+                            if isEditable {
+                                Text("Done")
+                            } else {
+                                Text("Edit")
+                            }
                         }
                     }
                 }
