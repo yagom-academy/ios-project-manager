@@ -46,7 +46,7 @@ final class MemoStorage {
     }
 }
 
-extension MemoStorage {
+extension MemoStorage: MemoStorageable {
     func create(memo: Memo, completion: @escaping (Result<Memo, Error>) -> Void) {
         coreDataStorage.performBackgroundTask { context in
             let memoEntity = MemoEntity(memo: memo, insertInto: context)

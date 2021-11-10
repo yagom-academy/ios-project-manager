@@ -16,6 +16,7 @@ protocol UseCase {
 }
 
 struct MemoUseCase: UseCase {
+    let repository: Repositoryable
 
     func add(_ memo: Memo, completion: @escaping Completion) {
     }
