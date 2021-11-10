@@ -16,19 +16,47 @@ final class MemoRepository {
 }
 
 extension MemoRepository: Repositoryable {
-    func add() {
-        
+    func add(memo: Memo, completion: @escaping (Result<Memo, Error>) -> Void) {
+        memoStorage.create(memo: memo) { result in
+            switch result {
+            case .success(let memo):
+                completion(.success(memo))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
     }
     
-    func delete() {
-        
+    func delete(memo: Memo, completion: @escaping (Result<Memo, Error>) -> Void) {
+        memoStorage.delete(memo: memo) { result in
+            switch result {
+            case .success(let memo):
+                completion(.success(memo))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
     }
     
-    func update() {
-        
+    func update(memo: Memo, completion: @escaping (Result<Memo, Error>) -> Void) {
+        memoStorage.update(memo: memo) { result in
+            switch result {
+            case .success(let memo):
+                completion(.success(memo))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
     }
     
-    func fetch() {
-        
+    func fetch(completion: @escaping (Result<[Memo], Error>) -> Void) {
+        memoStorage.fetch { result in
+            switch result {
+            case .success(let memo):
+                completion(.success(memo))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
     }
 }

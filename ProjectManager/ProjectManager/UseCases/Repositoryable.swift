@@ -8,8 +8,8 @@
 import Foundation
 
 protocol Repositoryable {
-    func add()
-    func delete()
-    func update()
-    func fetch()
+    func add(memo: Memo, completion: @escaping (Result<Memo, Error>) -> Void)
+    func delete(memo: Memo, completion: @escaping (Result<Memo, Error>) -> Void)
+    func update(memo: Memo, completion: @escaping (Result<Memo, Error>) -> Void)
+    func fetch(completion: @escaping (Result<[Memo], Error>) -> Void)
 }
