@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3F62B92E273A9DD500C024ED /* MemoUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F62B92D273A9DD500C024ED /* MemoUseCase.swift */; };
+		3F63BC1C273C274C009A6545 /* MemoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F63BC1B273C274C009A6545 /* MemoRepository.swift */; };
 		3FB2CF012727D5C700272707 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3FB2CF002727D5C700272707 /* GoogleService-Info.plist */; };
 		3FB2CF052727D83100272707 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 3FB2CF042727D83100272707 /* FirebaseFirestore */; };
 		3FB2CF072727D83100272707 /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 3FB2CF062727D83100272707 /* FirebaseFirestoreSwift-Beta */; };
@@ -36,6 +37,7 @@
 
 /* Begin PBXFileReference section */
 		3F62B92D273A9DD500C024ED /* MemoUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoUseCase.swift; sourceTree = "<group>"; };
+		3F63BC1B273C274C009A6545 /* MemoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoRepository.swift; sourceTree = "<group>"; };
 		3FB2CF002727D5C700272707 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3FE3794F2733E2B1000D8247 /* MemoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoListViewModel.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -83,6 +85,14 @@
 				C9074F7E273C231A000A8F61 /* Repositoryable.swift */,
 			);
 			path = UseCases;
+			sourceTree = "<group>";
+		};
+		3F63BC1A273C272F009A6545 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				3F63BC1B273C274C009A6545 /* MemoRepository.swift */,
+			);
+			path = Repositories;
 			sourceTree = "<group>";
 		};
 		3F76A9F0272A63FC007AE039 /* Views */ = {
@@ -136,7 +146,7 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
-				C9074F7D273C22A7000A8F61 /* Reopositories */,
+				3F63BC1A273C272F009A6545 /* Repositories */,
 				C918542F273AB0DC00B13A0A /* PersistentStorage */,
 				3F62B92C273A9DBB00C024ED /* UseCases */,
 				3FE3794E2733E299000D8247 /* ViewModel */,
@@ -148,13 +158,6 @@
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 			);
 			path = ProjectManager;
-			sourceTree = "<group>";
-		};
-		C9074F7D273C22A7000A8F61 /* Reopositories */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Reopositories;
 			sourceTree = "<group>";
 		};
 		C918542F273AB0DC00B13A0A /* PersistentStorage */ = {
@@ -270,6 +273,7 @@
 				C9074F78273AC557000A8F61 /* MemoEntity+CoreDataClass.swift in Sources */,
 				C9F015852727E01400A0E259 /* ContentView.swift in Sources */,
 				3F62B92E273A9DD500C024ED /* MemoUseCase.swift in Sources */,
+				3F63BC1C273C274C009A6545 /* MemoRepository.swift in Sources */,
 				C90881CF2733E21700F99E3C /* MemoDetail.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				C90881CC2733E21700F99E3C /* MemoList.swift in Sources */,
