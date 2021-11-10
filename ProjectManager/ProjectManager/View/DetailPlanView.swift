@@ -47,8 +47,8 @@ struct DetailPlanView: View {
     }
 }
 
-//struct DetailPlanView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        DetailPlanView(plan: DummyData().data[0])
-//    }
-//}
+struct DetailPlanView_Previews: PreviewProvider {
+    static var previews: some View {
+        DetailPlanView(plan: DummyData().data[0], viewModel: ProjectPlanViewModel())
+    }
+}

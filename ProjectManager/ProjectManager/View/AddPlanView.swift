@@ -95,3 +95,16 @@ struct AddPlanView: View {
         .navigationViewStyle(.stack)
     }
 }
+
+struct AddPlanView_Previews: PreviewProvider {
+    static var previews: some View {
+        AddPlanView(plan: ProjectToDoList.Plan(state: .toDo,
+                                               title: "마라탕 먹기",
+                                               description: "마라탕 먹으러가야지",
+                                               deadline: Date()),
+                    editType: .add,
+                    showsAddView: .constant(true),
+                    viewModel: ProjectPlanViewModel()
+        )
+    }
+}
