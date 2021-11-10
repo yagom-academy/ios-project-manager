@@ -95,4 +95,26 @@ extension MemoStorage {
             }
         }
     }
+    
+    func update(memo: Memo, completion: @escaping (Result<Memo, Error>) -> Void) {
+        coreDataStorage.performBackgroundTask { [weak self] context in
+            guard let self = self else {
+                return
+            }
+            self.find(memo: memo) { result in
+                switch result {
+                case .success(let memoEntity):
+                    memoEntity.change(to: memo)
+                    do {
+                        try context.save()
+                        completion(.success(memo))
+                    } catch {
+                        completion(.failure(error))
+                    }
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+        }
+    }
 }

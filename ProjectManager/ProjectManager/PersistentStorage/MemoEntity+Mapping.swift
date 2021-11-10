@@ -17,6 +17,13 @@ extension MemoEntity {
         date = memo.date
         state = memo.status.description
     }
+    
+    func change(to memo: Memo) {
+        setValue(memo.title, forKey: "title")
+        setValue(memo.status, forKey: "state")
+        setValue(memo.description, forKey: "body")
+        setValue(memo.date, forKey: "date")
+    }
 }
 
 extension MemoEntity {
