@@ -20,7 +20,7 @@ extension MemoEntity {
     
     func change(to memo: Memo) {
         setValue(memo.title, forKey: "title")
-        setValue(memo.status, forKey: "state")
+        setValue(memo.status.description, forKey: "state")
         setValue(memo.description, forKey: "body")
         setValue(memo.date, forKey: "date")
     }

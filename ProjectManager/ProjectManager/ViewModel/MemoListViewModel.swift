@@ -159,11 +159,22 @@ extension MemoListViewModel {
     }
     
     private func moveColumn(viewModel: MemoViewModel, to newState: MemoState) {
-//        guard var viewModel = delete(viewModel) else {
-//            return
-//        }
-//        viewModel.memoStatus = newState
-//        memoViewModels[viewModel.memoStatus.indexValue].append(viewModel)
+        var newViewModel = viewModel
+        newViewModel.memoStatus = newState
+        memoUseCase.modify(newViewModel.memo) { result in
+            switch result {
+            case .success(let memo):
+                guard let oldViewModelIndex = self.find(viewModel) else {
+                    return
+                }
+                DispatchQueue.main.async {
+                    self.memoViewModels[viewModel.memoStatus.indexValue].remove(at: oldViewModelIndex)
+                    self.memoViewModels[memo.status.indexValue].append(MemoViewModel(memo: memo))
+                }
+            case .failure(let error):
+                fatalError(error.localizedDescription)
+            }
+        }
     }
     
     private func modify() {
