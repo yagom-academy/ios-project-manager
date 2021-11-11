@@ -49,7 +49,7 @@ struct TodoModalView: View {
     
     private var leadingButton: some View {
         return Button(
-            action: viewPurpose == .show ? { viewPurpose = .edit } : { isPresented.toggle() },
+            action: viewPurpose == .show ? { viewPurpose = .edit } : dismissCurrentView,
             label: { Text(viewPurpose == .show ? "Edit" : "Cancel") }
         )
     }
@@ -66,12 +66,24 @@ extension TodoModalView {
     private func doneButtonAction() {
         switch viewPurpose {
         case .add:
-            viewModel.addItem(todo)
+            addData()
         case .show :
             break
         case .edit:
-            viewModel.editItem(todo)
+            editData()
         }
+        dismissCurrentView()
+    }
+    
+    private func addData() {
+        viewModel.addItem(todo)
+    }
+    
+    private func editData() {
+        viewModel.editItem(todo)
+    }
+    
+    private func dismissCurrentView() {
         isPresented.toggle()
     }
 }
