@@ -8,7 +8,7 @@
 import Foundation
 
 final class TodoViewModel: ObservableObject {
-    @Published var todoList: TodoList = TodoList(todoList: [])
+    @Published private var todoList: TodoList = TodoList(todoList: [])
     
     func filteredList(of state: TodoList.State) -> [Todo] {
         todoList[state]

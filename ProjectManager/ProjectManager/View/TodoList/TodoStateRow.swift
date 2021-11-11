@@ -11,7 +11,7 @@ struct TodoStateRow: View {
     @EnvironmentObject private var viewModel: TodoViewModel
     @State private var isShowingModalView: Bool = false
     @State private var isShowingActionSheet: Bool = false
-    var todo: Todo
+    private(set) var todo: Todo
     private var isAfterDeadline: Bool {
         return todo.state != TodoList.State.done && todo.endDate.isAfterDue
     }
