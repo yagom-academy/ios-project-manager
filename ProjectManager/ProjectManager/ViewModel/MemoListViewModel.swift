@@ -161,7 +161,10 @@ extension MemoListViewModel {
     private func moveColumn(viewModel: MemoViewModel, to newState: MemoState) {
         var newViewModel = viewModel
         newViewModel.memoStatus = newState
-        memoUseCase.modify(newViewModel.memo) { result in
+        memoUseCase.modify(newViewModel.memo) { [weak self] result in
+            guard let self = self else {
+                return
+            }
             switch result {
             case .success(let memo):
                 guard let oldViewModelIndex = self.find(viewModel) else {
@@ -178,12 +181,25 @@ extension MemoListViewModel {
     }
     
     private func modify() {
-        guard let index = find(presentedMemo) else {
-            return
+        memoUseCase.modify(presentedMemo.memo) { [weak self] result in
+            guard let self = self else {
+                return
+            }
+            switch result {
+            case .success(let memo):
+                let memoViewModel = MemoViewModel(memo: memo)
+                guard let index = self.find(memoViewModel) else {
+                    return
+                }
+                DispatchQueue.main.async {
+                    self.memoViewModels[memoViewModel.memoStatus.indexValue][index].memoTitle = memoViewModel.memoTitle
+                    self.memoViewModels[memoViewModel.memoStatus.indexValue][index].memoDate = memoViewModel.memoDate
+                    self.memoViewModels[memoViewModel.memoStatus.indexValue][index].memoDescription = memoViewModel.memoDescription
+                }
+            case .failure(let error):
+                fatalError(error.localizedDescription)
+            }
         }
-        memoViewModels[presentedMemo.memoStatus.indexValue][index].memoTitle = presentedMemo.memoTitle
-        memoViewModels[presentedMemo.memoStatus.indexValue][index].memoDate = presentedMemo.memoDate
-        memoViewModels[presentedMemo.memoStatus.indexValue][index].memoDescription = presentedMemo.memoDescription
     }
     
     private func readyForAdd() {
