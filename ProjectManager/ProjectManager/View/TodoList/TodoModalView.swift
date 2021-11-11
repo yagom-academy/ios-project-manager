@@ -30,7 +30,7 @@ struct TodoModalView: View {
                     .padding(.bottom)
             }
             .disabled(viewPurpose == .show)
-            .shadow(radius: 10)
+            .shadow(color: viewPurpose == .show ? .gray : .blue ,radius: 10)
             .padding(.horizontal)
             .navigationTitle("Todo")
             .navigationBarTitleDisplayMode(.inline)
