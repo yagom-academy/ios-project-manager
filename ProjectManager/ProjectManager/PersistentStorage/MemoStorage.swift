@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreData
 
 enum MemoStorageError: Error, LocalizedError {
     case notFound
@@ -24,24 +25,22 @@ enum MemoStorageError: Error, LocalizedError {
 final class MemoStorage {
     private let coreDataStorage = CoreDataStorage.shared
     
-    private func find(memo: Memo, completion: @escaping (Result<MemoEntity, Error>) -> Void) {
-        coreDataStorage.performBackgroundTask { context in
-            let predicate = NSPredicate(format: "id == %@", memo.id as CVarArg)
-            let fetchRequest = MemoEntity.fetchRequest()
-            fetchRequest.predicate = predicate
-            
-            do {
-                let fetchResult = try context.fetch(fetchRequest)
-                guard fetchResult.count < 2 else {
-                    throw MemoStorageError.multipleDuplicateResultsFound
-                }
-                guard let memoEntity = fetchResult.first else {
-                    throw MemoStorageError.notFound
-                }
-                completion(.success(memoEntity))
-            } catch  {
-                completion(.failure(error))
+    private func find(memo: Memo, in context: NSManagedObjectContext) -> Result<MemoEntity, Error> {
+        let predicate = NSPredicate(format: "id == %@", memo.id as CVarArg)
+        let fetchRequest = MemoEntity.fetchRequest()
+        fetchRequest.predicate = predicate
+        
+        do {
+            let fetchResult = try context.fetch(fetchRequest)
+            guard fetchResult.count < 2 else {
+                throw MemoStorageError.multipleDuplicateResultsFound
             }
+            guard let memoEntity = fetchResult.first else {
+                throw MemoStorageError.notFound
+            }
+            return .success(memoEntity)
+        } catch  {
+            return .failure(error)
         }
     }
 }
@@ -79,19 +78,18 @@ extension MemoStorage: MemoStorageable {
             guard let self = self else {
                 return
             }
-            self.find(memo: memo) { result in
-                switch result {
-                case .success(let memoEntity):
-                    context.delete(memoEntity)
-                    do {
-                        try context.save()
-                        completion(.success(memo))
-                    } catch {
-                        completion(.failure(error))
-                    }
-                case .failure(let error):
+            let result = self.find(memo: memo, in: context)
+            switch result {
+            case .success(let memoEntity):
+                context.delete(memoEntity)
+                do {
+                    try context.save()
+                    completion(.success(memo))
+                } catch {
                     completion(.failure(error))
                 }
+            case .failure(let error):
+                completion(.failure(error))
             }
         }
     }
@@ -101,19 +99,18 @@ extension MemoStorage: MemoStorageable {
             guard let self = self else {
                 return
             }
-            self.find(memo: memo) { result in
-                switch result {
-                case .success(let memoEntity):
-                    memoEntity.change(to: memo)
-                    do {
-                        try context.save()
-                        completion(.success(memo))
-                    } catch {
-                        completion(.failure(error))
-                    }
-                case .failure(let error):
+            let result = self.find(memo: memo, in: context)
+            switch result {
+            case .success(let memoEntity):
+                memoEntity.change(to: memo)
+                do {
+                    try context.save()
+                    completion(.success(memoEntity.toDomain()))
+                } catch {
                     completion(.failure(error))
                 }
+            case .failure(let error):
+                completion(.failure(error))
             }
         }
     }

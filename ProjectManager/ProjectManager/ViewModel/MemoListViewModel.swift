@@ -112,9 +112,11 @@ extension MemoListViewModel {
             }
             switch result {
             case .success(let memos):
-                memos
-                    .map { MemoViewModel(memo: $0) }
-                    .forEach { self.memoViewModels[$0.memoStatus.indexValue].append($0) }
+                DispatchQueue.main.async {
+                    memos
+                        .map { MemoViewModel(memo: $0) }
+                        .forEach { self.memoViewModels[$0.memoStatus.indexValue].append($0) }
+                }
             case .failure(let error):
                 fatalError(error.localizedDescription)
             }
@@ -128,27 +130,40 @@ extension MemoListViewModel {
             }
             switch result {
             case .success(let memo):
-                self.memoViewModels[memo.status.indexValue].append(MemoViewModel(memo: memo))
+                DispatchQueue.main.async {
+                    self.memoViewModels[memo.status.indexValue].append(MemoViewModel(memo: memo))
+                }
             case .failure(let error):
                 fatalError(error.localizedDescription)
             }
         }
     }
     
-    @discardableResult
-    private func delete(_ viewModel: MemoViewModel) -> MemoViewModel? {
-        guard let index = find(viewModel) else {
-            return nil
+    private func delete(_ viewModel: MemoViewModel) {
+        memoUseCase.delete(viewModel.memo) { [weak self] result in
+            guard let self = self else {
+                return
+            }
+            switch result {
+            case .success(let memo):
+                guard let index = self.find(MemoViewModel(memo: memo)) else {
+                    return
+                }
+                DispatchQueue.main.async {
+                    self.memoViewModels[memo.status.indexValue].remove(at: index)
+                }
+            case .failure(let error):
+                fatalError(error.localizedDescription)
+            }
         }
-        return memoViewModels[viewModel.memoStatus.indexValue].remove(at: index)
     }
     
     private func moveColumn(viewModel: MemoViewModel, to newState: MemoState) {
-        guard var viewModel = delete(viewModel) else {
-            return
-        }
-        viewModel.memoStatus = newState
-        memoViewModels[viewModel.memoStatus.indexValue].append(viewModel)
+//        guard var viewModel = delete(viewModel) else {
+//            return
+//        }
+//        viewModel.memoStatus = newState
+//        memoViewModels[viewModel.memoStatus.indexValue].append(viewModel)
     }
     
     private func modify() {
