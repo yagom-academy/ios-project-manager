@@ -9,6 +9,7 @@ import Foundation
 
 final class MemoRepository {
     private let memoStorage: MemoStorageable
+    let firestorage = FirebaseStorage()
     
     init(memoStorage: MemoStorageable = MemoStorage()) {
         self.memoStorage = memoStorage
@@ -25,6 +26,10 @@ extension MemoRepository: Repositoryable {
                 completion(.failure(error))
             }
         }
+        
+        firestorage.create(memo) { result in
+            print(result)
+        }
     }
     
     func delete(memo: Memo, completion: @escaping (Result<Memo, Error>) -> Void) {
@@ -35,6 +40,10 @@ extension MemoRepository: Repositoryable {
             case .failure(let error):
                 completion(.failure(error))
             }
+        }
+        
+        firestorage.delete(memo) { result in
+            print(result)
         }
     }
     

@@ -42,4 +42,22 @@ final class FirebaseStorage {
             completion(.failure(error))
         }
     }
+    
+    func delete(_ memo: Memo, completion: @escaping (Result<Memo, Error>) -> Void) {
+        guard let uid = userId else {
+            return completion(.failure(FirebaseError.signingFailed))
+        }
+        
+        dbCollectionRef
+            .document(uid)
+            .collection("UserMemos")
+            .document(memo.id.uuidString)
+            .delete { error in
+                if let error = error {
+                    completion(.failure(error))
+                } else {
+                    completion(.success(memo))
+                }
+            }
+    }
 }
