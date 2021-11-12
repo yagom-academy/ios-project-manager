@@ -20,10 +20,6 @@ struct MockData {
         ProjectModel(
             title: "제주도 놀러가기",
             description: "제주도 한달살기 해보고싶다.제주도 한달살기 해보고싶다.제주도 한달살기 해보고싶다.제주도 한달살기 해보고싶다.제주도 한달살기 해보고싶다.제주도 한달살기 해보고싶다.",
-            date: Date(timeIntervalSinceNow: 0)),
-        ProjectModel(
-            title: "제주도 놀러가기",
-            description: "제주도 한달살기 해보고싶다.제주도 한달살기 해보고싶다.제주도 한달살기 해보고싶다.제주도 한달살기 해보고싶다.제주도 한달살기 해보고싶다.제주도 한달살기 해보고싶다.",
             date: Date(timeIntervalSinceNow: 0))
     ]
 }

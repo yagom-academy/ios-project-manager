@@ -10,11 +10,13 @@ import SwiftUI
 struct ModalView: View {
     
     @EnvironmentObject var listViewModel: ProjectManagerViewModel
+    @State var projectModel: ProjectModel
     @State private var title = ""
     @State private var description = ""
     @State private var date = Date()
     @Binding var isModalPresented: Bool
-    @State var projectModel: ProjectModel
+    @Environment(\.presentationMode) var presentationMode
+    
     
     var status: ModalStatus
 
@@ -48,7 +50,7 @@ struct ModalView: View {
                 Button {
                     switch status {
                     case .edit:
-                        isModalPresented = false
+                        presentationMode.wrappedValue.dismiss()
                     case .add:
                         addTodoAction()
                         isModalPresented = false
@@ -82,9 +84,8 @@ struct ModalView: View {
             }
         }
     }
-        
-    
-    func editTodoAction() {
+            
+    private func editTodoAction() {
         title = projectModel.title
         description = projectModel.description
         date = projectModel.date

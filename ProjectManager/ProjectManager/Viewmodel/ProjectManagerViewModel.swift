@@ -8,17 +8,20 @@
 import Foundation
 
 class ProjectManagerViewModel: ObservableObject {
-    @Published var todo: [ProjectModel] = []
-    @Published var doing: [ProjectModel] = []
-    @Published var done: [ProjectModel] = []
+    @Published var list: [[ProjectModel]] = [[],[],[]]
+    
     let defaultItems = MockData.defaultItems
     
     init() {
-        todo = defaultItems
+        list[0] = defaultItems
     }
     
     func addTodo(title: String, description: String, date: Date) {
         let newTodo = ProjectModel(title: title, description: description, date: date)
-        todo.append(newTodo)
-    }    
+        list[0].append(newTodo)
+    }
+    
+    func deleteItem(offsets: IndexSet) {
+        list[0].remove(atOffsets: offsets)
+    }
 }

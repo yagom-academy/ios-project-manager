@@ -26,16 +26,19 @@ struct MainContentView: View {
                         .font(.largeTitle)
                 }
                 .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+                .sheet(isPresented: $isPopoverPresented) {
+                    ModalView(projectModel: .init(title: "", description: "", date: Date()), isModalPresented: $isPopoverPresented, status: .add)
+                }
             }
             .background(Color(white: 0.94))
             .font(.title)
             HStack {
                 ListView(
-                    isModalShowed: isPopoverPresented, taskStatus: .todo, listStatus: listViewModel.todo)
+                    isModalShowed: isPopoverPresented, taskStatus: .todo, listStatus: listViewModel.list[0])
                 ListView(
-                    isModalShowed: isPopoverPresented, taskStatus: .doing, listStatus: listViewModel.doing)
+                    isModalShowed: isPopoverPresented, taskStatus: .doing, listStatus: listViewModel.list[1])
                 ListView(
-                    isModalShowed: isPopoverPresented, taskStatus: .done, listStatus: listViewModel.done)
+                    isModalShowed: isPopoverPresented, taskStatus: .done, listStatus: listViewModel.list[2])
             }
             .background(Color(white: 0.8))
             .listStyle(PlainListStyle())
