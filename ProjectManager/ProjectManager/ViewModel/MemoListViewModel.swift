@@ -30,7 +30,6 @@ protocol MemoListViewModelInput {
     func didSwipeCell(_ memo: MemoViewModel)
     func didTouchUpCell(_ memo: MemoViewModel)
     func didTouchUpPopoverButton(_ memo: MemoViewModel, newState: MemoState)
-    func didTouchUpHistoryButton()
 }
 
 protocol MemoListViewModelOutput {
@@ -39,7 +38,6 @@ protocol MemoListViewModelOutput {
     var isDetaileViewPresented: Bool { get }
     var detailViewLeftButtonTitle: String { get }
     var isDetailViewEditable: Bool { get }
-    var isHistoryPopoverShown: Bool { get }
 }
 
 final class MemoListViewModel: ObservableObject, MemoListViewModelOutput {
@@ -53,8 +51,6 @@ final class MemoListViewModel: ObservableObject, MemoListViewModelOutput {
     var detailViewLeftButtonTitle = ""
     @Published
     private(set) var isDetailViewEditable = false
-    @Published
-    var isHistoryPopoverShown = false
     private var presentedMemoAccessMode: AccessMode = .add
     private let memoUseCase: UseCase
     
@@ -105,10 +101,6 @@ extension MemoListViewModel: MemoListViewModelInput {
     
     func didTouchUpPopoverButton(_ memo: MemoViewModel, newState: MemoState) {
         moveColumn(viewModel: memo, to: newState)
-    }
-    
-    func didTouchUpHistoryButton() {
-        isHistoryPopoverShown = true
     }
 }
 

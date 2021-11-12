@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject var viewModel = MemoListViewModel()
+    @StateObject var historyListViewModel = HistoryListViewModel()
     
     init() {
         UINavigationBar.appearance().backgroundColor = .systemGray5
@@ -27,11 +28,11 @@ struct ContentView: View {
             .toolbar(content: {
                 ToolbarItemGroup(placement: .navigationBarLeading) {
                     Button {
-                        viewModel.didTouchUpHistoryButton()
+                        historyListViewModel.didTouchUpHistoryButton()
                     } label: {
                         Text("History")
                     }
-                    .popover(isPresented: $viewModel.isHistoryPopoverShown) {
+                    .popover(isPresented: $historyListViewModel.isHistoryPopoverShown) {
                         HistoryPopover()
                     }
                 }

@@ -18,6 +18,8 @@
 		3FFB70BD273EBC9300146834 /* CoreDataStorage.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C9074F73273AC4E4000A8F61 /* CoreDataStorage.xcdatamodeld */; };
 		3FFB70C0273EBCE800146834 /* HistoryEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFB70BE273EBCE800146834 /* HistoryEntity+CoreDataClass.swift */; };
 		3FFB70C2273EBD0500146834 /* HistoryEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFB70BF273EBCE800146834 /* HistoryEntity+CoreDataProperties.swift */; };
+		3FFB70C4273ED08800146834 /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFB70C3273ED08800146834 /* HistoryViewModel.swift */; };
+		3FFB70C6273ED21F00146834 /* HistoryListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFB70C5273ED21F00146834 /* HistoryListViewModel.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
@@ -51,6 +53,8 @@
 		3FFB70B9273E406500146834 /* FirebaseStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorage.swift; sourceTree = "<group>"; };
 		3FFB70BE273EBCE800146834 /* HistoryEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HistoryEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		3FFB70BF273EBCE800146834 /* HistoryEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HistoryEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		3FFB70C3273ED08800146834 /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
+		3FFB70C5273ED21F00146834 /* HistoryListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryListViewModel.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -140,6 +144,8 @@
 			children = (
 				3FE3794F2733E2B1000D8247 /* MemoListViewModel.swift */,
 				C91524662738ED8500E1D0A6 /* MemoViewModel.swift */,
+				3FFB70C5273ED21F00146834 /* HistoryListViewModel.swift */,
+				3FFB70C3273ED08800146834 /* HistoryViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -295,10 +301,12 @@
 				C91524672738ED8500E1D0A6 /* MemoViewModel.swift in Sources */,
 				C9185439273ABD8100B13A0A /* MemoStorage.swift in Sources */,
 				3FFB70BA273E406500146834 /* FirebaseStorage.swift in Sources */,
+				3FFB70C6273ED21F00146834 /* HistoryListViewModel.swift in Sources */,
 				C9074F79273AC557000A8F61 /* MemoEntity+CoreDataProperties.swift in Sources */,
 				3FFB70BD273EBC9300146834 /* CoreDataStorage.xcdatamodeld in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C90881CD2733E21700F99E3C /* MemoPopover.swift in Sources */,
+				3FFB70C4273ED08800146834 /* HistoryViewModel.swift in Sources */,
 				C9074F7C273C224B000A8F61 /* MemoStorageable.swift in Sources */,
 				3FE379502733E2B1000D8247 /* MemoListViewModel.swift in Sources */,
 				C99516F5273EC58700710EF9 /* HistoryRow.swift in Sources */,
