@@ -30,10 +30,10 @@ enum MemoState: String, CaseIterable, Codable {
 
 struct Memo: Identifiable, Codable {
     var id = UUID()
-    var title: String = ""
-    var description: String = ""
-    var date: Date = Date()
-    var status: MemoState = .toDo
+    var title = ""
+    var description = ""
+    var date = Date()
+    var status = MemoState.toDo
 }
 
 

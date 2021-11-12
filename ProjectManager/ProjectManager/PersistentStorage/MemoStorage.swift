@@ -43,12 +43,21 @@ final class MemoStorage {
             return .failure(error)
         }
     }
+    
+    private func createHistory(of memo: Memo, updateType: UpdateType, in context: NSManagedObjectContext) {
+        let history = History(title: memo.title, updateType: updateType)
+        _ = HistoryEntity(history: history, insertInto: context)
+    }
 }
 
 extension MemoStorage: MemoStorageable {
     func create(memo: Memo, completion: @escaping (Result<Memo, Error>) -> Void) {
-        coreDataStorage.performBackgroundTask { context in
+        coreDataStorage.performBackgroundTask { [weak self] context in
+            guard let self = self else {
+                return
+            }
             let memoEntity = MemoEntity(memo: memo, insertInto: context)
+            self.createHistory(of: memo, updateType: .create, in: context)
             
             do {
                 try context.save()

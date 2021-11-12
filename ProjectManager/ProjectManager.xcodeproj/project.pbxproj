@@ -30,6 +30,8 @@
 		C90881CE2733E21700F99E3C /* MemoRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90881C92733E21600F99E3C /* MemoRow.swift */; };
 		C90881CF2733E21700F99E3C /* MemoDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90881CA2733E21700F99E3C /* MemoDetail.swift */; };
 		C90881D02733E21700F99E3C /* MemoHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90881CB2733E21700F99E3C /* MemoHeader.swift */; };
+		C91273AF273EA88F000EAC4F /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91273AE273EA88F000EAC4F /* History.swift */; };
+		C91273B1273EAA85000EAC4F /* HistoryEntity+Mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91273B0273EAA85000EAC4F /* HistoryEntity+Mapping.swift */; };
 		C91524672738ED8500E1D0A6 /* MemoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91524662738ED8500E1D0A6 /* MemoViewModel.swift */; };
 		C9185434273AB24F00B13A0A /* CoreDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9185433273AB24F00B13A0A /* CoreDataStorage.swift */; };
 		C9185439273ABD8100B13A0A /* MemoStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9185438273ABD8100B13A0A /* MemoStorage.swift */; };
@@ -61,6 +63,8 @@
 		C90881CA2733E21700F99E3C /* MemoDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoDetail.swift; sourceTree = "<group>"; };
 		C90881CB2733E21700F99E3C /* MemoHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoHeader.swift; sourceTree = "<group>"; };
 		C90881D12734FA6900F99E3C /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		C91273AE273EA88F000EAC4F /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
+		C91273B0273EAA85000EAC4F /* HistoryEntity+Mapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HistoryEntity+Mapping.swift"; sourceTree = "<group>"; };
 		C91524662738ED8500E1D0A6 /* MemoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoViewModel.swift; sourceTree = "<group>"; };
 		C9185433273AB24F00B13A0A /* CoreDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStorage.swift; sourceTree = "<group>"; };
 		C9185438273ABD8100B13A0A /* MemoStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoStorage.swift; sourceTree = "<group>"; };
@@ -183,6 +187,7 @@
 				C9185438273ABD8100B13A0A /* MemoStorage.swift */,
 				C918543A273ABF4D00B13A0A /* MemoEntity+Mapping.swift */,
 				C9074F7B273C224B000A8F61 /* MemoStorageable.swift */,
+				C91273B0273EAA85000EAC4F /* HistoryEntity+Mapping.swift */,
 			);
 			path = PersistentStorage;
 			sourceTree = "<group>";
@@ -191,6 +196,7 @@
 			isa = PBXGroup;
 			children = (
 				C90881C52733E20A00F99E3C /* Memo.swift */,
+				C91273AE273EA88F000EAC4F /* History.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -287,12 +293,14 @@
 				C90881CE2733E21700F99E3C /* MemoRow.swift in Sources */,
 				C9074F78273AC557000A8F61 /* MemoEntity+CoreDataClass.swift in Sources */,
 				C9F015852727E01400A0E259 /* ContentView.swift in Sources */,
+				C91273AF273EA88F000EAC4F /* History.swift in Sources */,
 				3F62B92E273A9DD500C024ED /* MemoUseCase.swift in Sources */,
 				3F63BC1C273C274C009A6545 /* MemoRepository.swift in Sources */,
 				C90881CF2733E21700F99E3C /* MemoDetail.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				C90881CC2733E21700F99E3C /* MemoList.swift in Sources */,
 				C90881C62733E20A00F99E3C /* Memo.swift in Sources */,
+				C91273B1273EAA85000EAC4F /* HistoryEntity+Mapping.swift in Sources */,
 				C9074F7A273AC60C000A8F61 /* CoreDataStorage.xcdatamodeld in Sources */,
 				C9185434273AB24F00B13A0A /* CoreDataStorage.swift in Sources */,
 				C9074F7F273C231A000A8F61 /* Repositoryable.swift in Sources */,

@@ -22,7 +22,7 @@ final class FirebaseStorage {
         dbCollectionRef = db.collection("Memos")
     }
     
-    func create(_ memo: Memo, completion: @escaping (Result<Memo, Error>) -> Void) {
+    func put(_ memo: Memo, completion: @escaping (Result<Memo, Error>) -> Void) {
         Auth.auth().signInAnonymously { [self] result, _ in
             guard let uid = result?.user.uid else {
                 return completion(.failure(FirebaseError.signingFailed))

@@ -27,7 +27,7 @@ extension MemoRepository: Repositoryable {
             }
         }
         
-        firestorage.create(memo) { result in
+        firestorage.put(memo) { result in
             print(result)
         }
     }
