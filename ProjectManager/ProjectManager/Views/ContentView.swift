@@ -25,13 +25,25 @@ struct ContentView: View {
             .navigationTitle(Text("Project Manager"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: {
-                Button {
-                    viewModel.didTouchUpPlusButton()
-                } label: {
-                    Image(systemName: "plus")
+                ToolbarItemGroup(placement: .navigationBarLeading) {
+                    Button {
+                        viewModel.didTouchUpHistoryButton()
+                    } label: {
+                        Text("History")
+                    }
+                    .popover(isPresented: $viewModel.isHistoryPopoverShown) {
+                        HistoryPopover()
+                    }
                 }
-                .sheet(isPresented: $viewModel.isDetaileViewPresented) {
-                    MemoDetail()
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                    Button {
+                        viewModel.didTouchUpPlusButton()
+                    } label: {
+                        Image(systemName: "plus")
+                    }
+                    .sheet(isPresented: $viewModel.isDetaileViewPresented) {
+                        MemoDetail()
+                    }
                 }
             })
         }

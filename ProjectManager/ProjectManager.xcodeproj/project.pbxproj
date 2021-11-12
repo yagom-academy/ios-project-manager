@@ -38,6 +38,8 @@
 		C9185434273AB24F00B13A0A /* CoreDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9185433273AB24F00B13A0A /* CoreDataStorage.swift */; };
 		C9185439273ABD8100B13A0A /* MemoStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9185438273ABD8100B13A0A /* MemoStorage.swift */; };
 		C918543B273ABF4D00B13A0A /* MemoEntity+Mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = C918543A273ABF4D00B13A0A /* MemoEntity+Mapping.swift */; };
+		C99516F3273EC4F100710EF9 /* HistoryPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99516F2273EC4F100710EF9 /* HistoryPopover.swift */; };
+		C99516F5273EC58700710EF9 /* HistoryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99516F4273EC58700710EF9 /* HistoryRow.swift */; };
 		C9F015852727E01400A0E259 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F015842727E01400A0E259 /* ContentView.swift */; };
 /* End PBXBuildFile section */
 
@@ -73,6 +75,8 @@
 		C9185433273AB24F00B13A0A /* CoreDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStorage.swift; sourceTree = "<group>"; };
 		C9185438273ABD8100B13A0A /* MemoStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoStorage.swift; sourceTree = "<group>"; };
 		C918543A273ABF4D00B13A0A /* MemoEntity+Mapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MemoEntity+Mapping.swift"; sourceTree = "<group>"; };
+		C99516F2273EC4F100710EF9 /* HistoryPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryPopover.swift; sourceTree = "<group>"; };
+		C99516F4273EC58700710EF9 /* HistoryRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryRow.swift; sourceTree = "<group>"; };
 		C9F015842727E01400A0E259 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -114,6 +118,8 @@
 				C90881CB2733E21700F99E3C /* MemoHeader.swift */,
 				C90881C72733E21600F99E3C /* MemoList.swift */,
 				C90881C82733E21600F99E3C /* MemoPopover.swift */,
+				C99516F2273EC4F100710EF9 /* HistoryPopover.swift */,
+				C99516F4273EC58700710EF9 /* HistoryRow.swift */,
 				C90881C92733E21600F99E3C /* MemoRow.swift */,
 				C9F015842727E01400A0E259 /* ContentView.swift */,
 			);
@@ -295,6 +301,7 @@
 				C90881CD2733E21700F99E3C /* MemoPopover.swift in Sources */,
 				C9074F7C273C224B000A8F61 /* MemoStorageable.swift in Sources */,
 				3FE379502733E2B1000D8247 /* MemoListViewModel.swift in Sources */,
+				C99516F5273EC58700710EF9 /* HistoryRow.swift in Sources */,
 				C918543B273ABF4D00B13A0A /* MemoEntity+Mapping.swift in Sources */,
 				3FFB70C0273EBCE800146834 /* HistoryEntity+CoreDataClass.swift in Sources */,
 				C90881D02733E21700F99E3C /* MemoHeader.swift in Sources */,
@@ -308,6 +315,7 @@
 				C90881CF2733E21700F99E3C /* MemoDetail.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				C90881CC2733E21700F99E3C /* MemoList.swift in Sources */,
+				C99516F3273EC4F100710EF9 /* HistoryPopover.swift in Sources */,
 				C90881C62733E20A00F99E3C /* Memo.swift in Sources */,
 				C91273B1273EAA85000EAC4F /* HistoryEntity+Mapping.swift in Sources */,
 				C9185434273AB24F00B13A0A /* CoreDataStorage.swift in Sources */,
