@@ -17,3 +17,9 @@ extension HistoryEntity {
         updateType = history.updateType.description
     }
 }
+
+extension HistoryEntity {
+    func toDomain() -> History {
+        return History(id: id, title: title, date: date, updateType: UpdateType(rawValue: updateType) ?? .modify)
+    }
+}

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19461" systemVersion="21A559" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="HistoryEntity" representedClassName="HistoryEntity" syncable="YES" codeGenerationType="class">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19206" systemVersion="20F71" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="HistoryEntity" representedClassName="HistoryEntity" syncable="YES">
         <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="title" attributeType="String"/>
@@ -14,7 +14,7 @@
         <attribute name="title" attributeType="String"/>
     </entity>
     <elements>
+        <element name="HistoryEntity" positionX="-216.81640625" positionY="13.15625" width="128" height="14"/>
         <element name="MemoEntity" positionX="52.390625" positionY="-12.32421875" width="128" height="104"/>
-        <element name="HistoryEntity" positionX="-216.81640625" positionY="13.15625" width="128" height="103"/>
     </elements>
 </model>

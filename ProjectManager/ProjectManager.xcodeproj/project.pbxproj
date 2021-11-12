@@ -15,13 +15,15 @@
 		3FFB70B5273E3E2F00146834 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 3FFB70B4273E3E2F00146834 /* FirebaseFirestore */; };
 		3FFB70B7273E3E2F00146834 /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 3FFB70B6273E3E2F00146834 /* FirebaseFirestoreSwift-Beta */; };
 		3FFB70BA273E406500146834 /* FirebaseStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFB70B9273E406500146834 /* FirebaseStorage.swift */; };
+		3FFB70BD273EBC9300146834 /* CoreDataStorage.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C9074F73273AC4E4000A8F61 /* CoreDataStorage.xcdatamodeld */; };
+		3FFB70C0273EBCE800146834 /* HistoryEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFB70BE273EBCE800146834 /* HistoryEntity+CoreDataClass.swift */; };
+		3FFB70C2273EBD0500146834 /* HistoryEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFB70BF273EBCE800146834 /* HistoryEntity+CoreDataProperties.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
 		C9074F78273AC557000A8F61 /* MemoEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9074F76273AC557000A8F61 /* MemoEntity+CoreDataClass.swift */; };
 		C9074F79273AC557000A8F61 /* MemoEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9074F77273AC557000A8F61 /* MemoEntity+CoreDataProperties.swift */; };
-		C9074F7A273AC60C000A8F61 /* CoreDataStorage.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C9074F73273AC4E4000A8F61 /* CoreDataStorage.xcdatamodeld */; };
 		C9074F7C273C224B000A8F61 /* MemoStorageable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9074F7B273C224B000A8F61 /* MemoStorageable.swift */; };
 		C9074F7F273C231A000A8F61 /* Repositoryable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9074F7E273C231A000A8F61 /* Repositoryable.swift */; };
 		C90881C62733E20A00F99E3C /* Memo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90881C52733E20A00F99E3C /* Memo.swift */; };
@@ -45,6 +47,8 @@
 		3FB2CF002727D5C700272707 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3FE3794F2733E2B1000D8247 /* MemoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoListViewModel.swift; sourceTree = "<group>"; };
 		3FFB70B9273E406500146834 /* FirebaseStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorage.swift; sourceTree = "<group>"; };
+		3FFB70BE273EBCE800146834 /* HistoryEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HistoryEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		3FFB70BF273EBCE800146834 /* HistoryEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HistoryEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -180,14 +184,16 @@
 		C918542F273AB0DC00B13A0A /* PersistentStorage */ = {
 			isa = PBXGroup;
 			children = (
+				3FFB70BE273EBCE800146834 /* HistoryEntity+CoreDataClass.swift */,
+				3FFB70BF273EBCE800146834 /* HistoryEntity+CoreDataProperties.swift */,
 				C9074F76273AC557000A8F61 /* MemoEntity+CoreDataClass.swift */,
 				C9074F77273AC557000A8F61 /* MemoEntity+CoreDataProperties.swift */,
-				C9185433273AB24F00B13A0A /* CoreDataStorage.swift */,
-				C9074F73273AC4E4000A8F61 /* CoreDataStorage.xcdatamodeld */,
-				C9185438273ABD8100B13A0A /* MemoStorage.swift */,
 				C918543A273ABF4D00B13A0A /* MemoEntity+Mapping.swift */,
-				C9074F7B273C224B000A8F61 /* MemoStorageable.swift */,
 				C91273B0273EAA85000EAC4F /* HistoryEntity+Mapping.swift */,
+				C9074F73273AC4E4000A8F61 /* CoreDataStorage.xcdatamodeld */,
+				C9185433273AB24F00B13A0A /* CoreDataStorage.swift */,
+				C9185438273ABD8100B13A0A /* MemoStorage.swift */,
+				C9074F7B273C224B000A8F61 /* MemoStorageable.swift */,
 			);
 			path = PersistentStorage;
 			sourceTree = "<group>";
@@ -284,13 +290,16 @@
 				C9185439273ABD8100B13A0A /* MemoStorage.swift in Sources */,
 				3FFB70BA273E406500146834 /* FirebaseStorage.swift in Sources */,
 				C9074F79273AC557000A8F61 /* MemoEntity+CoreDataProperties.swift in Sources */,
+				3FFB70BD273EBC9300146834 /* CoreDataStorage.xcdatamodeld in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C90881CD2733E21700F99E3C /* MemoPopover.swift in Sources */,
 				C9074F7C273C224B000A8F61 /* MemoStorageable.swift in Sources */,
 				3FE379502733E2B1000D8247 /* MemoListViewModel.swift in Sources */,
 				C918543B273ABF4D00B13A0A /* MemoEntity+Mapping.swift in Sources */,
+				3FFB70C0273EBCE800146834 /* HistoryEntity+CoreDataClass.swift in Sources */,
 				C90881D02733E21700F99E3C /* MemoHeader.swift in Sources */,
 				C90881CE2733E21700F99E3C /* MemoRow.swift in Sources */,
+				3FFB70C2273EBD0500146834 /* HistoryEntity+CoreDataProperties.swift in Sources */,
 				C9074F78273AC557000A8F61 /* MemoEntity+CoreDataClass.swift in Sources */,
 				C9F015852727E01400A0E259 /* ContentView.swift in Sources */,
 				C91273AF273EA88F000EAC4F /* History.swift in Sources */,
@@ -301,7 +310,6 @@
 				C90881CC2733E21700F99E3C /* MemoList.swift in Sources */,
 				C90881C62733E20A00F99E3C /* Memo.swift in Sources */,
 				C91273B1273EAA85000EAC4F /* HistoryEntity+Mapping.swift in Sources */,
-				C9074F7A273AC60C000A8F61 /* CoreDataStorage.xcdatamodeld in Sources */,
 				C9185434273AB24F00B13A0A /* CoreDataStorage.swift in Sources */,
 				C9074F7F273C231A000A8F61 /* Repositoryable.swift in Sources */,
 			);
