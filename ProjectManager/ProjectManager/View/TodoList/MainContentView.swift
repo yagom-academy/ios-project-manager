@@ -14,7 +14,7 @@ struct MainContentView: View {
     var body: some View {
         NavigationView {
             GeometryReader { geometry in
-                ScrollView(.horizontal) {
+                ScrollView([]) {
                     HStack {
                         ForEach(TodoList.State.allCases, id: \.self) { eachCase in
                             TodoStateList(todoState: eachCase)
