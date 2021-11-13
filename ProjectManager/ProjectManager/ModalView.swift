@@ -69,13 +69,8 @@ struct ModalView: View {
             }
             .navigationTitle("TODO")
             .navigationBarTitleDisplayMode(.inline)
-            .navigationBarItems(
-                leading: Button("Cancel") {
-                    self.presentationMode.wrappedValue.dismiss()
-                },
-                trailing: Button("Done"){
-                    self.presentationMode.wrappedValue.dismiss()
-                })
+            .navigationBarItems(leading: customLeadingButton,
+                                trailing: customTrailingButton)
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }
