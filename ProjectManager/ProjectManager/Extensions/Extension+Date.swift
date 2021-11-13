@@ -19,6 +19,6 @@ extension Date {
     var isAfterDue: Bool {
         let calender = Calendar.current
         let today = Date()
-        return calender.compare(today, to: self, toGranularity: .day)  == .orderedDescending
+        return calender.compare(today, to: self, toGranularity: .day) == .orderedDescending
     }
 }
