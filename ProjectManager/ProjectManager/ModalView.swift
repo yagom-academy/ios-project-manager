@@ -83,6 +83,22 @@ struct ModalView: View {
 
 extension ModalView {
     
+    private func saveNewTask() {
+        let newTask = Task(title: title,
+                           description: description,
+                           date: date,
+                           state: .todo)
+        taskViewModel.addTask(task: newTask)
+    }
+    
+    private func updateTask() {
+        taskViewModel.updateTask(id: task.id,
+                                 title: title,
+                                 description: description,
+                                 date: date,
+                                 state: state)
+    }
+    
     private var customLeadingButton: some View {
         switch modalState {
         case .add, .edit:
