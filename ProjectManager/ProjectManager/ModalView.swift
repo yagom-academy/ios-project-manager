@@ -45,6 +45,7 @@ struct ModalView: View {
                     "Title",
                     text: $title
                 )
+                .disabled(modalState == .inquire)
                 .frame(height: 44)
                 .background(Color.white)
                 .shadow(color: .gray, radius: 3, x: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/, y: 2.0)
@@ -55,6 +56,7 @@ struct ModalView: View {
                     selection: $date,
                     displayedComponents: [.date]
                 )
+                .disabled(modalState == .inquire)
                 .datePickerStyle(WheelDatePickerStyle())
                 .labelsHidden()
                 
@@ -62,6 +64,7 @@ struct ModalView: View {
                     "Description",
                     text: $description
                 )
+                .disabled(modalState == .inquire)
                 .frame(height: 300, alignment: .top)
                 .background(Color.white)
                 .shadow(color: .gray, radius: 3, x: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/, y: 2.0)
