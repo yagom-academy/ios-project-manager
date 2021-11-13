@@ -81,6 +81,37 @@ struct ModalView: View {
     }
 }
 
+extension ModalView {
+    
+    private var customLeadingButton: some View {
+        switch modalState {
+        case .add, .edit:
+            return Button("Cancel") {
+                self.presentationMode.wrappedValue.dismiss()
+            }
+        case .inquire:
+            return Button("Edit") {
+                modalState = .edit
+            }
+        }
+    }
+    
+    private var customTrailingButton: some View {
+        switch modalState {
+        case .add:
+            return Button("Done"){
+                saveNewTask()
+                self.presentationMode.wrappedValue.dismiss()
+            }
+        case .edit, .inquire:
+            return Button("Done"){
+                self.updateTask()
+                self.presentationMode.wrappedValue.dismiss()
+            }
+        }
+    }
+}
+
 struct ModalView_Previews: PreviewProvider {
     static let viewModel = TaskViewModel()
     static var previews: some View {
