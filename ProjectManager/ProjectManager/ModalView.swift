@@ -16,7 +16,10 @@ enum ModalState {
 struct ModalView: View {
 
     @EnvironmentObject var taskViewModel: TaskViewModel
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @Environment(\.presentationMode) var presentationMode
+    
+    @State var modalState: ModalState
+    
     @State private var title: String
     @State private var date: Date
     @State private var description: String
@@ -26,7 +29,6 @@ struct ModalView: View {
     var taskIndex: Int {
         taskViewModel.tasks.firstIndex(where: { $0.id == task.id }) ?? 0
     }
-    @State var modalState: ModalState
     
     init(modalState: ModalState, task: Task) {
         _modalState = State(initialValue: modalState)
@@ -113,7 +115,7 @@ extension ModalView {
 struct ModalView_Previews: PreviewProvider {
     static let viewModel = TaskViewModel()
     static var previews: some View {
-        ModalView(task: viewModel.tasks[0], modalState: .inquire)
+        ModalView(modalState: .inquire, task: viewModel.tasks[0])
             .environmentObject(viewModel)
     }
 }

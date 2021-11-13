@@ -34,7 +34,7 @@ struct ListRow: View {
             self.isShowModal = true
         }
         .sheet(isPresented: self.$isShowModal, content: {
-            ModalView(task: task, modalState: .inquire)
+            ModalView(modalState: .inquire, task: task)
         })
         .padding()
         .background(Color.white)
