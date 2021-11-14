@@ -30,4 +30,8 @@ struct HistoryViewModel {
             return .red
         }
     }
+    
+    init(history: History) {
+        self.histroy = history
+    }
 }

@@ -21,17 +21,34 @@ final class HistoryListViewModel: ObservableObject, HistoryListViewModelOutPut {
     private(set) var historyViewModels: [HistoryViewModel] = []
     @Published
     var isHistoryPopoverShown = false
+    private let historyUseCase: HistoryUseCaseable
+    
+    init(historyUseCase: HistoryUseCaseable = HistoryUseCase()) {
+        self.historyUseCase = historyUseCase
+    }
 }
 
 extension HistoryListViewModel: HistoryListViewModelInput {
     func didTouchUpHistoryButton() {
         isHistoryPopoverShown = true
+        fetch()
     }
 }
 
-extension HistoryViewModel {
+extension HistoryListViewModel {
     private func fetch() {
-        
+        historyUseCase.fetch { [weak self] result in
+            guard let self = self else {
+                return
+            }
+            switch result {
+            case .success(let histories):
+                DispatchQueue.main.async {
+                    self.historyViewModels = histories.map { HistoryViewModel(history: $0) }
+                }
+            case.failure(let error):
+                fatalError(error.localizedDescription)
+            }
+        }
     }
 }
-//TODO: Use Case, Repository, Storage 분리해서 History에 대한 flow 따로 구현하자. 
