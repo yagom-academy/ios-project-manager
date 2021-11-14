@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PopOverView: View {
-    let plan: ProjectToDoList.Plan
+    let plan: Plan
     @ObservedObject var viewModel: ProjectPlanViewModel
     
     var body: some View {
@@ -41,6 +41,6 @@ struct PopOverView: View {
 
 struct PopOverView_Previews: PreviewProvider {
     static var previews: some View {
-        PopOverView(plan: ProjectToDoList.Plan(state: .toDo, title: "a", description: "b", deadline: Date()), viewModel: ProjectPlanViewModel())
+        PopOverView(plan: Plan(state: .toDo, title: "a", description: "b", deadline: Date()), viewModel: ProjectPlanViewModel())
     }
 } 

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
+		DFBAA50A2741D2960039BE98 /* Plan.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBAA5092741D2960039BE98 /* Plan.swift */; };
 		DFBEEAEA273013BD004FE2CA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBEEAE9273013BD004FE2CA /* ContentView.swift */; };
 		DFBEEAF02730D03C004FE2CA /* ProjectManagerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBEEAEF2730D03C004FE2CA /* ProjectManagerApp.swift */; };
 		DFBEEAF8273175B8004FE2CA /* PlanListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBEEAF7273175B8004FE2CA /* PlanListView.swift */; };
@@ -29,6 +30,7 @@
 		C7431F0E25F51E1E0094C4CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CD6D53862A159EAFEB9DA5C6 /* Pods-ProjectManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.debug.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.debug.xcconfig"; sourceTree = "<group>"; };
+		DFBAA5092741D2960039BE98 /* Plan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plan.swift; sourceTree = "<group>"; };
 		DFBEEAE9273013BD004FE2CA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		DFBEEAEF2730D03C004FE2CA /* ProjectManagerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerApp.swift; sourceTree = "<group>"; };
 		DFBEEAF7273175B8004FE2CA /* PlanListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanListView.swift; sourceTree = "<group>"; };
@@ -119,6 +121,7 @@
 		DFBEEAFB273213DF004FE2CA /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				DFBAA5092741D2960039BE98 /* Plan.swift */,
 				DFBEEAFC273215E5004FE2CA /* ProjectToDoList.swift */,
 				DFBEEB0027323CC6004FE2CA /* DummyData.swift */,
 			);
@@ -242,6 +245,7 @@
 				DFBEEAF02730D03C004FE2CA /* ProjectManagerApp.swift in Sources */,
 				DFBEEAFD273215E6004FE2CA /* ProjectToDoList.swift in Sources */,
 				DFBEEB032732A86F004FE2CA /* EditModalView.swift in Sources */,
+				DFBAA50A2741D2960039BE98 /* Plan.swift in Sources */,
 				DFBEEB0127323CC6004FE2CA /* DummyData.swift in Sources */,
 				DFDE898227369AE9006F3A44 /* PopOverView.swift in Sources */,
 				DFBEEAEA273013BD004FE2CA /* ContentView.swift in Sources */,

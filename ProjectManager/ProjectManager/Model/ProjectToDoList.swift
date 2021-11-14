@@ -32,23 +32,4 @@ struct ProjectToDoList {
             plans[index].state = state
         }
     }
-    
-    struct Plan: Identifiable {
-        enum State: String, CaseIterable {
-            case toDo = "TODO"
-            case doing = "DOING"
-            case done = "DONE"
-            
-            var description: String {
-                return self.rawValue
-            }
-        }
-        
-        var state: State
-        var title: String
-        var description: String
-        var deadline: Date
-        var isOverdue: Bool = false
-        var id = UUID()
-    }
 }

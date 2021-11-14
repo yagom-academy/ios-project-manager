@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    let planStates = ProjectToDoList.Plan.State.allCases
+    let planStates = Plan.State.allCases
     @StateObject var viewModel: ProjectPlanViewModel
     @State var showsAddView = false
     

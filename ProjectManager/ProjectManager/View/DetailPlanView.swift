@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DetailPlanView: View {
-    let plan: ProjectToDoList.Plan
+    let plan: Plan
     @State var showsPopOverView = false
     @State var showsEditView: Bool = false
     @ObservedObject var viewModel: ProjectPlanViewModel

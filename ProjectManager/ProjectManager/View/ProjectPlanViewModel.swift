@@ -18,7 +18,7 @@ final class ProjectPlanViewModel: ObservableObject {
         return formatter
     }()
     
-    var plans: Array<ProjectToDoList.Plan> {
+    var plans: Array<Plan> {
         model.plans
     }
 
@@ -34,11 +34,11 @@ final class ProjectPlanViewModel: ObservableObject {
         model.delete(at: indexSet)
     }
     
-    func change(_ plan: ProjectToDoList.Plan, to state: ProjectToDoList.Plan.State) {
+    func change(_ plan: Plan, to state: Plan.State) {
         model.change(plan, to: state)
     }
     
-    func isOverdue(_ plan: ProjectToDoList.Plan) -> Bool {
+    func isOverdue(_ plan: Plan) -> Bool {
         let current = Date()
         let calendar = Calendar.current
         if calendar.compare(current, to: plan.deadline, toGranularity: .day) == .orderedDescending {

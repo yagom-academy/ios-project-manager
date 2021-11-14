@@ -13,7 +13,7 @@ struct EditModalView: View {
         case edit
     }
     
-    let plan: ProjectToDoList.Plan
+    let plan: Plan
     let editType: EditType
     @Binding var showsAddView: Bool
     @ObservedObject var viewModel: ProjectPlanViewModel
@@ -25,14 +25,14 @@ struct EditModalView: View {
     할 일을 입력해주세요.
     """
     
-    init(plan: ProjectToDoList.Plan?, editType: EditType, showsAddView: Binding<Bool>, viewModel: ProjectPlanViewModel) {
+    init(plan: Plan?, editType: EditType, showsAddView: Binding<Bool>, viewModel: ProjectPlanViewModel) {
         if let plan = plan {
             self.plan = plan
             _title = State(initialValue: plan.title)
             _deadline = State(initialValue: plan.deadline)
             _description = State(initialValue: plan.description)
         } else {
-            self.plan = ProjectToDoList.Plan(state: .toDo, title: "", description: "", deadline: Date())
+            self.plan = Plan(state: .toDo, title: "", description: "", deadline: Date())
         }
         self.editType = editType
         _showsAddView = showsAddView
@@ -98,7 +98,7 @@ struct EditModalView: View {
 
 struct AddPlanView_Previews: PreviewProvider {
     static var previews: some View {
-        EditModalView(plan: ProjectToDoList.Plan(state: .toDo,
+        EditModalView(plan: Plan(state: .toDo,
                                                title: "마라탕 먹기",
                                                description: "마라탕 먹으러가야지",
                                                deadline: Date()),
