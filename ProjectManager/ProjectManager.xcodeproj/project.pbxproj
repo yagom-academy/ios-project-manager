@@ -10,6 +10,8 @@
 		3F62B92E273A9DD500C024ED /* MemoUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F62B92D273A9DD500C024ED /* MemoUseCase.swift */; };
 		3F63BC1C273C274C009A6545 /* MemoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F63BC1B273C274C009A6545 /* MemoRepository.swift */; };
 		3FB2CF012727D5C700272707 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3FB2CF002727D5C700272707 /* GoogleService-Info.plist */; };
+		3FC0B44F274146EA0082F27F /* HistoryRepositoryable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC0B44E274146EA0082F27F /* HistoryRepositoryable.swift */; };
+		3FC0B4512741471D0082F27F /* HistoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC0B4502741471D0082F27F /* HistoryRepository.swift */; };
 		3FE379502733E2B1000D8247 /* MemoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE3794F2733E2B1000D8247 /* MemoListViewModel.swift */; };
 		3FFB70B3273E3E2F00146834 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 3FFB70B2273E3E2F00146834 /* FirebaseAuth */; };
 		3FFB70B5273E3E2F00146834 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 3FFB70B4273E3E2F00146834 /* FirebaseFirestore */; };
@@ -50,6 +52,8 @@
 		3F62B92D273A9DD500C024ED /* MemoUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoUseCase.swift; sourceTree = "<group>"; };
 		3F63BC1B273C274C009A6545 /* MemoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoRepository.swift; sourceTree = "<group>"; };
 		3FB2CF002727D5C700272707 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		3FC0B44E274146EA0082F27F /* HistoryRepositoryable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryRepositoryable.swift; sourceTree = "<group>"; };
+		3FC0B4502741471D0082F27F /* HistoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryRepository.swift; sourceTree = "<group>"; };
 		3FE3794F2733E2B1000D8247 /* MemoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoListViewModel.swift; sourceTree = "<group>"; };
 		3FFB70B9273E406500146834 /* FirebaseStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorage.swift; sourceTree = "<group>"; };
 		3FFB70BE273EBCE800146834 /* HistoryEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HistoryEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -106,6 +110,7 @@
 				3F62B92D273A9DD500C024ED /* MemoUseCase.swift */,
 				C9074F7E273C231A000A8F61 /* Repositoryable.swift */,
 				C938B4832741457100B40F40 /* HistoryUseCase.swift */,
+				3FC0B44E274146EA0082F27F /* HistoryRepositoryable.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -114,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				3F63BC1B273C274C009A6545 /* MemoRepository.swift */,
+				3FC0B4502741471D0082F27F /* HistoryRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -329,8 +335,10 @@
 				C99516F3273EC4F100710EF9 /* HistoryPopover.swift in Sources */,
 				C90881C62733E20A00F99E3C /* Memo.swift in Sources */,
 				C91273B1273EAA85000EAC4F /* HistoryEntity+Mapping.swift in Sources */,
+				3FC0B44F274146EA0082F27F /* HistoryRepositoryable.swift in Sources */,
 				C9185434273AB24F00B13A0A /* CoreDataStorage.swift in Sources */,
 				C938B4842741457100B40F40 /* HistoryUseCase.swift in Sources */,
+				3FC0B4512741471D0082F27F /* HistoryRepository.swift in Sources */,
 				C9074F7F273C231A000A8F61 /* Repositoryable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
