@@ -76,7 +76,7 @@ struct EditModalView: View {
                     case .edit:
                         Button {
                             if isEditable {
-                                viewModel.edit(plan, title: title, description: description, deadline: deadline)
+                                viewModel.edit(plan.id, title: title, description: description, deadline: deadline)
                                 self.showsAddView = false
                             } else {
                                 self.isEditable.toggle()

@@ -26,8 +26,8 @@ final class ProjectPlanViewModel: ObservableObject {
         model.add(title: title, description: description, deadline: deadline)
     }
     
-    func edit(_ plan: ProjectToDoList.Plan, title: String, description: String, deadline: Date) {
-        model.edit(plan, title: title, description: description, deadline: deadline)
+    func edit(_ planID: UUID, title: String, description: String, deadline: Date) {
+        model.edit(planID, title: title, description: description, deadline: deadline)
     }
     
     func delete(at indexSet: IndexSet) {

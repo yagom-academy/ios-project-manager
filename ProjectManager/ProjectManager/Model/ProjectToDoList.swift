@@ -15,8 +15,8 @@ struct ProjectToDoList {
         plans.append(newPlan)
     }
     
-    mutating func edit(_ plan: Plan, title: String, description: String, deadline: Date) {
-        if let index = plans.firstIndex(where: { $0.id == plan.id }) {
+    mutating func edit(_ planID: UUID, title: String, description: String, deadline: Date) {
+        if let index = plans.firstIndex(where: { $0.id == planID }) {
             plans[index].title = title
             plans[index].description = description
             plans[index].deadline = deadline
