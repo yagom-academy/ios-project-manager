@@ -8,25 +8,23 @@
 import SwiftUI
 
 struct HistoryRow: View {
-    private let title = "갓피로2"
-    private let date = Date()
-    private let updateType = UpdateType.modify
+    let history: HistoryViewModel
     
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
-                Text(title)
+                Text(history.modifiedMemoTitle)
                     .font(.title2)
                     .foregroundColor(.blue)
                 Text("메모를")
-                Text(updateType.description)
+                Text(history.modifiedType.description)
                     .font(.title3)
-                    .foregroundColor(.orange)
+                    .foregroundColor(history.modifiedTypeColor)
                 Text("하였습니다.")
             }
             HStack {
-                Text(date, style: .date)
-                Text(date, style: .time)
+                Text(history.modifiedDate, style: .date)
+                Text(history.modifiedDate, style: .time)
             }
             .foregroundColor(.gray)
         }
@@ -36,6 +34,6 @@ struct HistoryRow: View {
 
 struct HistoryRow_Previews: PreviewProvider {
     static var previews: some View {
-        HistoryRow()
+        HistoryRow(history: HistoryViewModel(history: History()))
     }
 }

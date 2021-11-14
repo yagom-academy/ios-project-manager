@@ -25,10 +25,13 @@ struct HistoryViewModel {
         case .modify:
             return .orange
         case .create:
-            return .pink
+            return .green
         case .delete:
             return .red
         }
+    }
+    var id: UUID {
+        return histroy.id
     }
     
     init(history: History) {

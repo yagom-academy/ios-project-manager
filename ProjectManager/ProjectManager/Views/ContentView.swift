@@ -33,7 +33,7 @@ struct ContentView: View {
                         Text("History")
                     }
                     .popover(isPresented: $historyListViewModel.isHistoryPopoverShown) {
-                        HistoryPopover()
+                        HistoryPopover(historyListViewModel: historyListViewModel)
                     }
                 }
                 ToolbarItemGroup(placement: .navigationBarTrailing) {

@@ -8,22 +8,22 @@
 import SwiftUI
 
 struct HistoryPopover: View {
-    @EnvironmentObject var viewModel: MemoListViewModel
+    @ObservedObject var historyListViewModel: HistoryListViewModel
     
     var body: some View {
-        VStack {
-            HistoryRow()
-            HistoryRow()
-            HistoryRow()
-            HistoryRow()
-            HistoryRow()
+        ScrollView {
+            VStack {
+                ForEach(historyListViewModel.historyViewModels, id: \.id) { history in
+                    HistoryRow(history: history)
+                }
+            }
+            .padding()
         }
-        .padding()
     }
 }
 
 struct HistoryPopover_Previews: PreviewProvider {
     static var previews: some View {
-        HistoryPopover()
+        HistoryPopover(historyListViewModel: HistoryListViewModel())
     }
 }
