@@ -26,10 +26,6 @@ extension MemoRepository: Repositoryable {
                 completion(.failure(error))
             }
         }
-        
-        firestorage.put(memo) { result in
-            print(result)
-        }
     }
     
     func delete(memo: Memo, completion: @escaping (Result<Memo, Error>) -> Void) {
@@ -40,10 +36,6 @@ extension MemoRepository: Repositoryable {
             case .failure(let error):
                 completion(.failure(error))
             }
-        }
-        
-        firestorage.delete(memo) { result in
-            print(result)
         }
     }
     
