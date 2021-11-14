@@ -12,7 +12,7 @@ struct HistoryPopover: View {
     
     var body: some View {
         ScrollView {
-            VStack {
+            VStack(alignment: .leading) {
                 ForEach(historyListViewModel.historyViewModels, id: \.id) { history in
                     HistoryRow(history: history)
                 }

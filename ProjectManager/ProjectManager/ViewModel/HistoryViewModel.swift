@@ -10,8 +10,12 @@ import SwiftUI
 
 struct HistoryViewModel {
     private let histroy: History
+    private let characterLimit = 15
     
     var modifiedMemoTitle: String {
+        if histroy.title.count >= characterLimit {
+            return histroy.title.prefix(characterLimit) + "..."
+        }
         return histroy.title
     }
     var modifiedDate: Date {

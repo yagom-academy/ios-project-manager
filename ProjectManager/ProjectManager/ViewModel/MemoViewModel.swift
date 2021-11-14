@@ -8,7 +8,7 @@
 import Foundation
 
 struct MemoViewModel {
-    private let charactorLimit = 1000
+    private let characterLimit = 1000
     private(set) var memo: Memo
     var memoTitle: String {
         set {
@@ -20,7 +20,7 @@ struct MemoViewModel {
     }
     var memoDescription: String {
         set {
-            if newValue.count <= charactorLimit {
+            if newValue.count <= characterLimit {
                 memo.description = newValue
             }
         }

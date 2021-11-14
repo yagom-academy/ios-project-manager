@@ -13,6 +13,7 @@ final class HistoryStorage: HistoryStorageable {
     func fetch(completion: @escaping(Result<[History], Error>) -> Void) {
         coreDataStorage.performBackgroundTask { context in
             let fetchRequest = HistoryEntity.fetchRequest()
+            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
             
             do {
                 let fetchResult = try context.fetch(fetchRequest)
