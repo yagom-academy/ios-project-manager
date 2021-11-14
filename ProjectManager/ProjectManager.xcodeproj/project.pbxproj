@@ -43,6 +43,8 @@
 		C9185439273ABD8100B13A0A /* MemoStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9185438273ABD8100B13A0A /* MemoStorage.swift */; };
 		C918543B273ABF4D00B13A0A /* MemoEntity+Mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = C918543A273ABF4D00B13A0A /* MemoEntity+Mapping.swift */; };
 		C938B4842741457100B40F40 /* HistoryUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C938B4832741457100B40F40 /* HistoryUseCase.swift */; };
+		C938B4862741494F00B40F40 /* HistoryStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C938B4852741494F00B40F40 /* HistoryStorage.swift */; };
+		C938B488274149D400B40F40 /* HistoryStorageable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C938B487274149D400B40F40 /* HistoryStorageable.swift */; };
 		C99516F3273EC4F100710EF9 /* HistoryPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99516F2273EC4F100710EF9 /* HistoryPopover.swift */; };
 		C99516F5273EC58700710EF9 /* HistoryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99516F4273EC58700710EF9 /* HistoryRow.swift */; };
 		C9F015852727E01400A0E259 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F015842727E01400A0E259 /* ContentView.swift */; };
@@ -85,6 +87,8 @@
 		C9185438273ABD8100B13A0A /* MemoStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoStorage.swift; sourceTree = "<group>"; };
 		C918543A273ABF4D00B13A0A /* MemoEntity+Mapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MemoEntity+Mapping.swift"; sourceTree = "<group>"; };
 		C938B4832741457100B40F40 /* HistoryUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryUseCase.swift; sourceTree = "<group>"; };
+		C938B4852741494F00B40F40 /* HistoryStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryStorage.swift; sourceTree = "<group>"; };
+		C938B487274149D400B40F40 /* HistoryStorageable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryStorageable.swift; sourceTree = "<group>"; };
 		C99516F2273EC4F100710EF9 /* HistoryPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryPopover.swift; sourceTree = "<group>"; };
 		C99516F4273EC58700710EF9 /* HistoryRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryRow.swift; sourceTree = "<group>"; };
 		C9F015842727E01400A0E259 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -119,7 +123,9 @@
 			isa = PBXGroup;
 			children = (
 				3F63BC1B273C274C009A6545 /* MemoRepository.swift */,
+				C9074F7B273C224B000A8F61 /* MemoStorageable.swift */,
 				3FC0B4502741471D0082F27F /* HistoryRepository.swift */,
+				C938B487274149D400B40F40 /* HistoryStorageable.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -214,7 +220,7 @@
 				C9074F73273AC4E4000A8F61 /* CoreDataStorage.xcdatamodeld */,
 				C9185433273AB24F00B13A0A /* CoreDataStorage.swift */,
 				C9185438273ABD8100B13A0A /* MemoStorage.swift */,
-				C9074F7B273C224B000A8F61 /* MemoStorageable.swift */,
+				C938B4852741494F00B40F40 /* HistoryStorage.swift */,
 			);
 			path = PersistentStorage;
 			sourceTree = "<group>";
@@ -309,6 +315,7 @@
 			files = (
 				C91524672738ED8500E1D0A6 /* MemoViewModel.swift in Sources */,
 				C9185439273ABD8100B13A0A /* MemoStorage.swift in Sources */,
+				C938B4862741494F00B40F40 /* HistoryStorage.swift in Sources */,
 				3FFB70BA273E406500146834 /* FirebaseStorage.swift in Sources */,
 				3FFB70C6273ED21F00146834 /* HistoryListViewModel.swift in Sources */,
 				C9074F79273AC557000A8F61 /* MemoEntity+CoreDataProperties.swift in Sources */,
@@ -340,6 +347,7 @@
 				C938B4842741457100B40F40 /* HistoryUseCase.swift in Sources */,
 				3FC0B4512741471D0082F27F /* HistoryRepository.swift in Sources */,
 				C9074F7F273C231A000A8F61 /* Repositoryable.swift in Sources */,
+				C938B488274149D400B40F40 /* HistoryStorageable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

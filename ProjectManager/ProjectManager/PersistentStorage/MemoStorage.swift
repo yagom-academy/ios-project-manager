@@ -82,20 +82,6 @@ extension MemoStorage: MemoStorageable {
         }
     }
     
-    func fetchHistories(completion: @escaping(Result<[History], Error>) -> Void) {
-        coreDataStorage.performBackgroundTask { context in
-            let fetchRequest = HistoryEntity.fetchRequest()
-            
-            do {
-                let fetchResult = try context.fetch(fetchRequest)
-                let historyList = fetchResult.map { $0.toDomain() }
-                completion(.success(historyList))
-            } catch  {
-                completion(.failure(error))
-            }
-        }
-    }
-    
     func delete(memo: Memo, completion: @escaping (Result<Memo, Error>) -> Void) {
         coreDataStorage.performBackgroundTask { [weak self] context in
             guard let self = self else {
