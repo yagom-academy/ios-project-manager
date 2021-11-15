@@ -10,9 +10,7 @@ import SwiftUI
 struct ListRow: View {
     
     @EnvironmentObject var taskViewModel: TaskViewModel
-    
     @State var isShowPopover: Bool = false
-    
     @State private var isShowModal: Bool = false
     
     var task: Task

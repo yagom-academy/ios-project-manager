@@ -10,7 +10,7 @@ import Foundation
 final class TaskViewModel: ObservableObject {
     
     @Published var tasks: [Task] = []
-
+    
     func add(task: Task) {
         tasks.append(task)
     }

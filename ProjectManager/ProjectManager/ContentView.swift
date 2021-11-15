@@ -12,7 +12,6 @@ struct ContentView: View {
     @EnvironmentObject var taskViewModel: TaskViewModel
     @State var isShowModal: Bool = false
     
-    
     init() {
         UITableView.appearance().backgroundColor = UIColor(red: 242 / 255,
                                                            green: 242 / 255,

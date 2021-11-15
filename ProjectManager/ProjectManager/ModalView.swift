@@ -14,12 +14,10 @@ enum ModalState {
 }
 
 struct ModalView: View {
-
+    
     @EnvironmentObject var taskViewModel: TaskViewModel
     @Environment(\.presentationMode) var presentationMode
-    
     @State var modalState: ModalState
-    
     @State private var title: String
     @State private var date: Date
     @State private var description: String
@@ -47,30 +45,30 @@ struct ModalView: View {
                     "Title",
                     text: $title
                 )
-                .disabled(modalState == .inquire)
-                .frame(height: 44)
-                .background(Color.white)
-                .shadow(color: .gray, radius: 3, x: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/, y: 2.0)
-                .padding(.horizontal)
+                    .disabled(modalState == .inquire)
+                    .frame(height: 44)
+                    .background(Color.white)
+                    .shadow(color: .gray, radius: 3, x: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/, y: 2.0)
+                    .padding(.horizontal)
                 
                 DatePicker(
                     "",
                     selection: $date,
                     displayedComponents: [.date]
                 )
-                .disabled(modalState == .inquire)
-                .datePickerStyle(WheelDatePickerStyle())
-                .labelsHidden()
+                    .disabled(modalState == .inquire)
+                    .datePickerStyle(WheelDatePickerStyle())
+                    .labelsHidden()
                 
                 TextField(
                     "Description",
                     text: $description
                 )
-                .disabled(modalState == .inquire)
-                .frame(height: 300, alignment: .top)
-                .background(Color.white)
-                .shadow(color: .gray, radius: 3, x: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/, y: 2.0)
-                .padding(.horizontal)
+                    .disabled(modalState == .inquire)
+                    .frame(height: 300, alignment: .top)
+                    .background(Color.white)
+                    .shadow(color: .gray, radius: 3, x: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/, y: 2.0)
+                    .padding(.horizontal)
             }
             .navigationTitle("TODO")
             .navigationBarTitleDisplayMode(.inline)
