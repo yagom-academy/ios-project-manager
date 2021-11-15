@@ -17,7 +17,7 @@ struct EditModalView: View {
     let editType: EditType
     @Binding var showsAddView: Bool
     @ObservedObject var viewModel: ProjectPlanViewModel
-    @State private var isEditable = false
+    @State private var isEditable = true
     @State private var title = ""
     @State private var deadline = Date()
     @State private var description = """
@@ -28,6 +28,7 @@ struct EditModalView: View {
     init(plan: Plan?, editType: EditType, showsAddView: Binding<Bool>, viewModel: ProjectPlanViewModel) {
         if let plan = plan {
             self.plan = plan
+            _isEditable = State(initialValue: false)
             _title = State(initialValue: plan.title)
             _deadline = State(initialValue: plan.deadline)
             _description = State(initialValue: plan.description)
