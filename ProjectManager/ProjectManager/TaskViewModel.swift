@@ -41,4 +41,13 @@ final class TaskViewModel: ObservableObject {
         }
         tasks[index].state = state
     }
+    
+    func delete(task: Task) {
+        if let index = tasks.firstIndex(where: { $0.id == task.id }) {
+            tasks.remove(at: index)
+            print("Index: \(index)번째 task가 지워짐")
+            return
+        }
+        print("아무 task도 지워지지 않음")
+    }
 }
