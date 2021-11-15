@@ -11,6 +11,8 @@ struct ListRow: View {
     
     @EnvironmentObject var taskViewModel: TaskViewModel
     
+    @State var isShowPopover: Bool = false
+    
     @State private var isShowModal: Bool = false
     
     var task: Task
@@ -37,6 +39,28 @@ struct ListRow: View {
         }
         .sheet(isPresented: self.$isShowModal, content: {
             ModalView(modalState: .inquire, task: task)
+        })
+        .onLongPressGesture {
+            self.isShowPopover = true
+        }
+        .popover(isPresented: $isShowPopover, content: {
+            switch task.state {
+            case .todo:
+                VStack {
+                    moveToDoingButton
+                    moveToDoneButton
+                }
+            case .doing:
+                VStack {
+                    moveToTodoButton
+                    moveToDoneButton
+                }
+            case .done:
+                VStack {
+                    moveToTodoButton
+                    moveToDoingButton
+                }
+            }
         })
         .padding()
         .background(Color.white)
