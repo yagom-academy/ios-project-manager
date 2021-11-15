@@ -9,4 +9,5 @@ import Foundation
 
 protocol HistoryStorageable {
     func fetch(completion: @escaping(Result<[History], Error>) -> Void)
+    func fetchLast(completion: @escaping(Result<History?, Error>) -> Void)
 }
