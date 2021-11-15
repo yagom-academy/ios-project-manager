@@ -11,7 +11,7 @@ final class TaskViewModel: ObservableObject {
     
     @Published var tasks: [Task] = []
 
-    func addTask(task: Task) {
+    func add(task: Task) {
         tasks.append(task)
     }
     

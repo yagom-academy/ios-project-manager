@@ -88,7 +88,7 @@ extension ModalView {
                            description: description,
                            date: date,
                            state: .todo)
-        taskViewModel.addTask(task: newTask)
+        taskViewModel.add(task: newTask)
     }
     
     private func updateTask() {
