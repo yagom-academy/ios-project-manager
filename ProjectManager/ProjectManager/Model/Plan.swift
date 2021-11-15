@@ -9,12 +9,19 @@ import Foundation
 
 struct Plan: Identifiable {
     enum State: String, CaseIterable {
-        case toDo = "TODO"
-        case doing = "DOING"
-        case done = "DONE"
+        case toDo
+        case doing
+        case done
         
         var description: String {
-            return self.rawValue
+            switch self {
+            case .toDo:
+                return "TODO"
+            case .doing:
+                return "DOING"
+            case .done:
+                return "DONE"
+            }
         }
     }
     
