@@ -33,4 +33,12 @@ final class TaskViewModel: ObservableObject {
         tasks[index].date = date
         tasks[index].state = state
     }
+    
+    func updateTask(id: UUID, state: TaskState) {
+        guard let index = tasks.firstIndex(where: { $0.id == id }) else {
+            print("해당 task가 존재하지 않음")
+            return
+        }
+        tasks[index].state = state
+    }
 }
