@@ -63,6 +63,14 @@
 			name = "Preview Content";
 			sourceTree = "<group>";
 		};
+		79A13C5A2742D175004DA494 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				79C84576272B1F8B00EDAF9F /* TaskViewModel.swift */,
+			);
+			name = ViewModels;
+			sourceTree = "<group>";
+		};
 		79C84578272B218000EDAF9F /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -87,7 +95,6 @@
 			isa = PBXGroup;
 			children = (
 				79DC191027292B2C00C8281B /* Task.swift */,
-				79C84576272B1F8B00EDAF9F /* TaskViewModel.swift */,
 				790A446927302982008F1B22 /* TaskState.swift */,
 			);
 			name = Model;
@@ -114,6 +121,7 @@
 			children = (
 				79289E2D2727D99000F7A2C3 /* ProjectManagerApp.swift */,
 				79DC190F27292AE100C8281B /* Model */,
+				79A13C5A2742D175004DA494 /* ViewModels */,
 				79DC190E27292ADA00C8281B /* Views */,
 				79C84578272B218000EDAF9F /* Utils */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
