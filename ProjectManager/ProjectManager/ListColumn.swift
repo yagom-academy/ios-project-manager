@@ -33,8 +33,20 @@ struct ListColumn: View {
                                               bottom: 0,
                                               trailing: -16))
             }
+            .onDelete(perform: delete)
         }
         .listStyle(InsetListStyle())
+    }
+}
+
+extension ListColumn {
+    
+    private func delete(at offsets: IndexSet) {
+        offsets.map {
+            filteredTasks[$0]
+        }.forEach { task in
+            taskViewModel.delete(task: task)
+        }
     }
 }
 
