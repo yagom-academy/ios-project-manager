@@ -1,5 +1,5 @@
 //
-//  ProjectToDoList.swift
+//  ProjectPlanList.swift
 //  ProjectManager
 //
 //  Created by 이윤주 on 2021/11/03.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ProjectToDoList {
+struct ProjectPlanList {
     private(set) var plans: Array<Plan>
     
     mutating func add(title: String, description: String, deadline: Date) {

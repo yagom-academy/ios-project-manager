@@ -8,7 +8,7 @@
 import SwiftUI
 
 final class ProjectPlanViewModel: ObservableObject {
-    @Published private var model = ProjectToDoList(plans: DummyData().data)
+    @Published private var model = ProjectPlanList(plans: DummyData().data)
     
     private let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
