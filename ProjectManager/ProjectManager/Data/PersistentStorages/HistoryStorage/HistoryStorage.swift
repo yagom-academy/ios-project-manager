@@ -24,4 +24,20 @@ final class HistoryStorage: HistoryStorageable {
             }
         }
     }
+    
+    func fetchLast(completion: @escaping(Result<History?, Error>) -> Void) {
+        coreDataStorage.performBackgroundTask { context in
+            let fetchRequest = HistoryEntity.fetchRequest()
+            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
+            fetchRequest.fetchLimit = 1
+
+            do {
+                let fetchResult = try context.fetch(fetchRequest)
+                let historyList = fetchResult.map { $0.toDomain() }
+                completion(.success(historyList.first))
+            } catch  {
+                completion(.failure(error))
+            }
+        }
+    }
 }
