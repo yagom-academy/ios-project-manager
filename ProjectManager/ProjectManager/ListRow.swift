@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ListRow: View {
     
+    @EnvironmentObject var taskViewModel: TaskViewModel
+    
     @State private var isShowModal: Bool = false
     
     var task: Task
@@ -38,6 +40,39 @@ struct ListRow: View {
         })
         .padding()
         .background(Color.white)
+    }
+}
+
+extension ListRow {
+    
+    private var moveToTodoButton: some View {
+        Button(action: {
+            taskViewModel.updateTask(id: task.id, state: .todo)
+        }) {
+            Text("Move to TODO")
+        }
+        .frame(minWidth: 0, maxWidth: .infinity)
+        .padding()
+    }
+    
+    private var moveToDoingButton: some View {
+        Button(action: {
+            taskViewModel.updateTask(id: task.id, state: .doing)
+        }) {
+            Text("Move to DOING")
+        }
+        .frame(minWidth: 0, maxWidth: .infinity)
+        .padding()
+    }
+    
+    private var moveToDoneButton: some View {
+        Button(action: {
+            taskViewModel.updateTask(id: task.id, state: .done)
+        }) {
+            Text("Move to DONE")
+        }
+        .frame(minWidth: 0, maxWidth: .infinity)
+        .padding()
     }
 }
 
