@@ -19,8 +19,10 @@ struct PopOverView: View {
         .padding()
         .background(Color(red: 228 / 255, green: 230 / 255, blue: 235 / 255))
     }
-    
-    var moveToDoing: some View {
+}
+
+extension PopOverView {
+    private var moveToDoing: some View {
         Button("Move to DOING") {
             viewModel.change(plan, to: .doing)
         }
@@ -29,7 +31,7 @@ struct PopOverView: View {
         .background(Color.white)
     }
     
-    var moveToDone: some View {
+    private var moveToDone: some View {
         Button("Move to DONE") {
             viewModel.change(plan, to: .done)
         }
@@ -37,6 +39,7 @@ struct PopOverView: View {
         .padding(.vertical, 15.0)
         .background(Color.white)
     }
+
 }
 
 struct PopOverView_Previews: PreviewProvider {

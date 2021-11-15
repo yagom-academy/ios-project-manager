@@ -42,19 +42,9 @@ struct EditModalView: View {
     var body: some View {
         NavigationView {
             VStack {
-                TextField("Title", text: $title)
-                    .padding()
-                    .textFieldStyle(.roundedBorder)
-                DatePicker("", selection: $deadline)
-                    .datePickerStyle(.wheel)
-                    .fixedSize()
-                TextEditor(text: $description)
-                    .padding(.horizontal)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 6)
-                            .stroke(Color(.systemGray5), lineWidth: 1.0)
-                            .padding(.horizontal)
-                    )
+                titleTextField
+                datePicker
+                descriptionTextEditor
                 Spacer()
             }
             .disabled(!isEditable)
@@ -62,32 +52,14 @@ struct EditModalView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
-                    Button("Cancel") {
-                        self.showsAddView = false
-                    }
+                    cancelButton
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     switch editType {
                     case .add:
-                        Button("Done") {
-                            viewModel.add(title: title, description: description, deadline: deadline)
-                            self.showsAddView = false
-                        }
+                        doneButton
                     case .edit:
-                        Button {
-                            if isEditable {
-                                viewModel.edit(plan.id, title: title, description: description, deadline: deadline)
-                                self.showsAddView = false
-                            } else {
-                                self.isEditable.toggle()
-                            }
-                        } label: {
-                            if isEditable {
-                                Text("Done")
-                            } else {
-                                Text("Edit")
-                            }
-                        }
+                        editButton
                     }
                 }
             }
@@ -96,12 +68,67 @@ struct EditModalView: View {
     }
 }
 
-struct AddPlanView_Previews: PreviewProvider {
+extension EditModalView {
+    private var titleTextField: some View {
+        TextField("Title", text: $title)
+            .padding()
+            .textFieldStyle(.roundedBorder)
+    }
+    
+    private var datePicker: some View {
+        DatePicker("", selection: $deadline)
+            .datePickerStyle(.wheel)
+            .fixedSize()
+    }
+    
+    private var descriptionTextEditor: some View {
+        TextEditor(text: $description)
+            .padding(.horizontal)
+            .overlay(
+                RoundedRectangle(cornerRadius: 6)
+                    .stroke(Color(.systemGray5), lineWidth: 1.0)
+                    .padding(.horizontal)
+            )
+    }
+    
+    private var cancelButton: some View {
+        Button("Cancel") {
+            self.showsAddView = false
+        }
+    }
+    
+    private var doneButton: some View {
+        Button("Done") {
+            viewModel.add(title: title,
+                          description: description,
+                          deadline: deadline)
+            self.showsAddView = false
+        }
+    }
+    
+    private var editButton: some View {
+        Button {
+            if isEditable {
+                viewModel.edit(plan.id,
+                               title: title,
+                               description: description,
+                               deadline: deadline)
+                self.showsAddView = false
+            } else {
+                self.isEditable.toggle()
+            }
+        } label: {
+            isEditable ? Text("Done") : Text("Edit")
+        }
+    }
+}
+
+struct EditModalView_Previews: PreviewProvider {
     static var previews: some View {
         EditModalView(plan: Plan(state: .toDo,
-                                               title: "마라탕 먹기",
-                                               description: "마라탕 먹으러가야지",
-                                               deadline: Date()),
+                                 title: "마라탕 먹기",
+                                 description: "마라탕 먹으러가야지",
+                                 deadline: Date()),
                     editType: .add,
                     showsAddView: .constant(true),
                     viewModel: ProjectPlanViewModel()

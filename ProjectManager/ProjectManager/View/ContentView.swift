@@ -16,7 +16,9 @@ struct ContentView: View {
         NavigationView {
             HStack {
                 ForEach(planStates, id: \.self) { planState in
-                    PlanListView(projectState: planState.description, viewModel: viewModel, showsAddView: self.$showsAddView)
+                    PlanListView(projectState: planState.description,
+                                 viewModel: viewModel,
+                                 showsAddView: self.$showsAddView)
                 }
             }
             .padding(0.2)
@@ -24,17 +26,26 @@ struct ContentView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem {
-                    Button() {
-                        self.showsAddView.toggle()
-                    } label: {
-                        Image(systemName: "plus")
-                    }
+                    plusButton
                 }
             }
         }
         .navigationViewStyle(StackNavigationViewStyle())
         .sheet(isPresented: $showsAddView) {
-            EditModalView(plan: nil, editType: .add, showsAddView: $showsAddView, viewModel: viewModel)
+            EditModalView(plan: nil,
+                          editType: .add,
+                          showsAddView: $showsAddView,
+                          viewModel: viewModel)
+        }
+    }
+}
+
+extension ContentView {
+    private var plusButton: some View {
+        Button() {
+            self.showsAddView.toggle()
+        } label: {
+            Image(systemName: "plus")
         }
     }
 }

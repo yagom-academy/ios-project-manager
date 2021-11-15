@@ -15,34 +15,51 @@ struct DetailPlanView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text(plan.title)
-                .font(.title3)
-                .lineLimit(1)
-            Text(plan.description)
-                .foregroundColor(.gray)
-                .lineLimit(3)
-            if viewModel.isOverdue(plan) {
-                Text(viewModel.format(date: plan.deadline))
-                    .foregroundColor(.red)
-                    .padding(.top, 1.0)
-                    .font(.footnote)
-            } else {
-                Text(viewModel.format(date: plan.deadline))
-                    .padding(.top, 1.0)
-                    .font(.footnote)
-            }
+            titleTextView
+            descriptionTextView
+            deadlineTextView
         }
         .onTapGesture {
             self.showsEditView.toggle()
         }
         .sheet(isPresented: $showsEditView) {
-            EditModalView(plan: plan, editType: .edit, showsAddView: $showsEditView, viewModel: viewModel)
+            EditModalView(plan: plan,
+                          editType: .edit,
+                          showsAddView: $showsEditView,
+                          viewModel: viewModel)
         }
         .onLongPressGesture(perform: {
             self.showsPopOverView.toggle()
         })
         .popover(isPresented: $showsPopOverView) {
             PopOverView(plan: plan, viewModel: viewModel)
+        }
+    }
+}
+
+extension DetailPlanView {
+    private var titleTextView: some View {
+        Text(plan.title)
+            .font(.title3)
+            .lineLimit(1)
+    }
+    
+    private var descriptionTextView: some View {
+        Text(plan.description)
+            .foregroundColor(.gray)
+            .lineLimit(3)
+    }
+    
+    private var deadlineTextView: some View {
+        if viewModel.isOverdue(plan) {
+            return Text(viewModel.format(date: plan.deadline))
+                .foregroundColor(.red)
+                .padding(.top, 1.0)
+                .font(.footnote)
+        } else {
+            return Text(viewModel.format(date: plan.deadline))
+                .padding(.top, 1.0)
+                .font(.footnote)
         }
     }
 }

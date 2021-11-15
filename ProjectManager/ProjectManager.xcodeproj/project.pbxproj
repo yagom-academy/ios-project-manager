@@ -13,7 +13,7 @@
 		DFBEEAF02730D03C004FE2CA /* ProjectManagerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBEEAEF2730D03C004FE2CA /* ProjectManagerApp.swift */; };
 		DFBEEAF8273175B8004FE2CA /* PlanListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBEEAF7273175B8004FE2CA /* PlanListView.swift */; };
 		DFBEEAFA273175D8004FE2CA /* DetailPlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBEEAF9273175D8004FE2CA /* DetailPlanView.swift */; };
-		DFBEEAFD273215E6004FE2CA /* ProjectToDoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBEEAFC273215E5004FE2CA /* ProjectToDoList.swift */; };
+		DFBEEAFD273215E6004FE2CA /* ProjectPlanList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBEEAFC273215E5004FE2CA /* ProjectPlanList.swift */; };
 		DFBEEAFF2732293F004FE2CA /* ProjectPlanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBEEAFE2732293E004FE2CA /* ProjectPlanViewModel.swift */; };
 		DFBEEB0127323CC6004FE2CA /* DummyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBEEB0027323CC6004FE2CA /* DummyData.swift */; };
 		DFBEEB032732A86F004FE2CA /* EditModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBEEB022732A86E004FE2CA /* EditModalView.swift */; };
@@ -35,7 +35,7 @@
 		DFBEEAEF2730D03C004FE2CA /* ProjectManagerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerApp.swift; sourceTree = "<group>"; };
 		DFBEEAF7273175B8004FE2CA /* PlanListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanListView.swift; sourceTree = "<group>"; };
 		DFBEEAF9273175D8004FE2CA /* DetailPlanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPlanView.swift; sourceTree = "<group>"; };
-		DFBEEAFC273215E5004FE2CA /* ProjectToDoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectToDoList.swift; sourceTree = "<group>"; };
+		DFBEEAFC273215E5004FE2CA /* ProjectPlanList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectPlanList.swift; sourceTree = "<group>"; };
 		DFBEEAFE2732293E004FE2CA /* ProjectPlanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectPlanViewModel.swift; sourceTree = "<group>"; };
 		DFBEEB0027323CC6004FE2CA /* DummyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyData.swift; sourceTree = "<group>"; };
 		DFBEEB022732A86E004FE2CA /* EditModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditModalView.swift; sourceTree = "<group>"; };
@@ -122,7 +122,7 @@
 			isa = PBXGroup;
 			children = (
 				DFBAA5092741D2960039BE98 /* Plan.swift */,
-				DFBEEAFC273215E5004FE2CA /* ProjectToDoList.swift */,
+				DFBEEAFC273215E5004FE2CA /* ProjectPlanList.swift */,
 				DFBEEB0027323CC6004FE2CA /* DummyData.swift */,
 			);
 			path = Model;
@@ -243,7 +243,7 @@
 			files = (
 				DFBEEAFA273175D8004FE2CA /* DetailPlanView.swift in Sources */,
 				DFBEEAF02730D03C004FE2CA /* ProjectManagerApp.swift in Sources */,
-				DFBEEAFD273215E6004FE2CA /* ProjectToDoList.swift in Sources */,
+				DFBEEAFD273215E6004FE2CA /* ProjectPlanList.swift in Sources */,
 				DFBEEB032732A86F004FE2CA /* EditModalView.swift in Sources */,
 				DFBAA50A2741D2960039BE98 /* Plan.swift in Sources */,
 				DFBEEB0127323CC6004FE2CA /* DummyData.swift in Sources */,
