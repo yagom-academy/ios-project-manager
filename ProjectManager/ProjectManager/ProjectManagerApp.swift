@@ -9,7 +9,7 @@ import SwiftUI
 
 @main
 struct ProjectManagerApp: App {
-    let viewModel = Project()
+    let viewModel = ManagerViewModel()
     
     var body: some Scene {
         WindowGroup {
