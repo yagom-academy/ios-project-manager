@@ -15,6 +15,7 @@ struct ProjectList: View {
             Section(header: header) {
                 ForEach(viewModel.projects) { project in
                     ProjectRow(viewModel: viewModel.projectViewModel(project))
+                        .fixedSize(horizontal: false, vertical: true)
                 }
                 .onDelete(perform: { indexSet in
                     viewModel.delete(at: indexSet.first)
