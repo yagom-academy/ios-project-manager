@@ -7,7 +7,7 @@
 
 import Foundation
 
-class ListViewModel: ObservableObject {
+class ListViewModel {
     private weak var managerViewModel: ManagerViewModel?
     private(set) var projects: [Project]
     private(set) var status: Project.Status

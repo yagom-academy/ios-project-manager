@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ProjectList: View {
-    @ObservedObject var viewModel: ListViewModel
+    var viewModel: ListViewModel
 
     var body: some View {
         List {

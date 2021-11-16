@@ -7,7 +7,7 @@
 
 import Foundation
 
-class PopOverViewModel: ObservableObject {
+class PopOverViewModel {
     private weak var projectViewModel: ProjectViewModel?
     private var status: Project.Status
     

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PopOver: View {
-    @ObservedObject var viewModel: PopOverViewModel
+    var viewModel: PopOverViewModel
     
     var body: some View {
         ZStack {
