@@ -17,9 +17,11 @@
 		D46425272730F96E007C6FFD /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46425262730F96E007C6FFD /* Project.swift */; };
 		D46426072734F956007C6FFD /* ProjectDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46426062734F955007C6FFD /* ProjectDetail.swift */; };
 		D464260A2735295D007C6FFD /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46426092735295C007C6FFD /* Date+Extension.swift */; };
+		D464261127353219007C6FFD /* PopOver.swift in Sources */ = {isa = PBXBuildFile; fileRef = D464261027353219007C6FFD /* PopOver.swift */; };
 		D497062F273E2B88007EE49C /* ProjectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D497062E273E2B88007EE49C /* ProjectViewModel.swift */; };
 		D4970631273EA2E0007EE49C /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4970630273EA2E0007EE49C /* ListViewModel.swift */; };
 		D4970633273EA652007EE49C /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4970632273EA652007EE49C /* DetailViewModel.swift */; };
+		D4970635273EAA33007EE49C /* PopOverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4970634273EAA33007EE49C /* PopOverViewModel.swift */; };
 		D86027E6643D4E5529083153 /* Pods_ProjectManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00E962D5CC6FF9365A0E805C /* Pods_ProjectManager.framework */; };
 /* End PBXBuildFile section */
 
@@ -39,9 +41,11 @@
 		D46425262730F96E007C6FFD /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		D46426062734F955007C6FFD /* ProjectDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDetail.swift; sourceTree = "<group>"; };
 		D46426092735295C007C6FFD /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
+		D464261027353219007C6FFD /* PopOver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopOver.swift; sourceTree = "<group>"; };
 		D497062E273E2B88007EE49C /* ProjectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectViewModel.swift; sourceTree = "<group>"; };
 		D4970630273EA2E0007EE49C /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
 		D4970632273EA652007EE49C /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
+		D4970634273EAA33007EE49C /* PopOverViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopOverViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +125,7 @@
 				D4970630273EA2E0007EE49C /* ListViewModel.swift */,
 				D497062E273E2B88007EE49C /* ProjectViewModel.swift */,
 				D4970632273EA652007EE49C /* DetailViewModel.swift */,
+				D4970634273EAA33007EE49C /* PopOverViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -130,6 +135,7 @@
 			children = (
 				D46424CC272A6E62007C6FFD /* ProjectManagerView.swift */,
 				D464251E2730CDBE007C6FFD /* ProjectList.swift */,
+				D464261027353219007C6FFD /* PopOver.swift */,
 				D464251B2730BF8B007C6FFD /* ProjectRow.swift */,
 				D46426062734F955007C6FFD /* ProjectDetail.swift */,
 			);
@@ -253,11 +259,12 @@
 				D4970631273EA2E0007EE49C /* ListViewModel.swift in Sources */,
 				D46424C7272A6E12007C6FFD /* ProjectManagerApp.swift in Sources */,
 				D46425232730D228007C6FFD /* ManagerViewModel.swift in Sources */,
-				D46424CD272A6E62007C6FFD /* ContentView.swift in Sources */,
+				D4970635273EAA33007EE49C /* PopOverViewModel.swift in Sources */,
 				D46426072734F956007C6FFD /* ProjectDetail.swift in Sources */,
 				D497062F273E2B88007EE49C /* ProjectViewModel.swift in Sources */,
 				D46424CD272A6E62007C6FFD /* ProjectManagerView.swift in Sources */,
 				D4970633273EA652007EE49C /* DetailViewModel.swift in Sources */,
+				D464261127353219007C6FFD /* PopOver.swift in Sources */,
 				D464260A2735295D007C6FFD /* Date+Extension.swift in Sources */,
 				D464251F2730CDBE007C6FFD /* ProjectList.swift in Sources */,
 				D46425272730F96E007C6FFD /* Project.swift in Sources */,

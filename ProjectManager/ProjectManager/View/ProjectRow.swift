@@ -41,6 +41,9 @@ struct ProjectRow: View {
         .sheet(isPresented: $viewModel.tapped, content: {
             ProjectDetail(viewModel: viewModel.detailViewModel)
         })
+        .popover(isPresented: $viewModel.longPressed) {
+            PopOver(viewModel: viewModel.popOverViewModel)
+        }
     }
 }
 

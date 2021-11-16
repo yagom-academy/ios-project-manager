@@ -40,6 +40,10 @@ class ProjectViewModel: ObservableObject {
         return DetailViewModel(self, title: project.title, selectedDate: project.dueDate, content: project.content)
     }
     
+    var popOverViewModel: PopOverViewModel {
+        return PopOverViewModel(self, status: project.status)
+    }
+    
     func update(_ newStatus: Project.Status) {
         listViewModel?.update(newStatus, of: project.id)
     }
