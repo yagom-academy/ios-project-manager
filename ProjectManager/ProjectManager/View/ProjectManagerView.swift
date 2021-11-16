@@ -7,28 +7,29 @@
 
 import SwiftUI
 
-struct ContentView: View {
-    @ObservedObject var projects: Project
+struct ProjectManagerView: View {
+    @ObservedObject var viewModel: ManagerViewModel
     
     var body: some View {
         NavigationView {
             HStack {
-                ProjectList(projects: projects.todos, status: .todo)
-                ProjectList(projects: projects.doings, status: .doing)
-                ProjectList(projects: projects.dones, status: .done)
+                ForEach(Project.Status.allCases, id: \.self) { status in
+                    ProjectList(viewModel: viewModel.listViewModel(of: status))
+                }
             }
-            .environmentObject(projects)
+            .padding(0.2)
             .background(Color(.systemGray4))
             .navigationTitle("Project Manager")
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarItems(trailing: addButton)
         }
         .navigationViewStyle(StackNavigationViewStyle())
+        .environmentObject(viewModel)
     }
     
     var addButton: some View {
         Button {
-            print("hi")
+            viewModel.addTapped = true
         } label: {
             Image(systemName: "plus.circle")
         }
@@ -37,7 +38,7 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(projects: Project())
+        ProjectManagerView(viewModel: ManagerViewModel())
             .previewLayout(.fixed(width: 1136, height: 820))
             .environment(\.horizontalSizeClass, .regular)
             .environment(\.verticalSizeClass, .compact)
