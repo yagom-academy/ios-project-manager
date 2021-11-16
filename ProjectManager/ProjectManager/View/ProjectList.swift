@@ -13,8 +13,8 @@ struct ProjectList: View {
     var body: some View {
         List {
             Section(header: header) {
-                ForEach(projects) { project in
-                    ProjectRow(project: project)
+                ForEach(viewModel.projects) { project in
+                    ProjectRow(viewModel: viewModel.projectViewModel(project))
                 }
                 .onDelete(perform: { indexSet in
                     viewModel.delete(at: indexSet.first)

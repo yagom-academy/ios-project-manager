@@ -30,6 +30,10 @@ class ListViewModel: ObservableObject {
         return projects.count
     }
     
+    func projectViewModel(_ project: Project) -> ProjectViewModel {
+        return ProjectViewModel(self, project: project)
+    }
+    
     func update(_ newStatus: Project.Status, of projectID: UUID) {
         managerViewModel?.update(newStatus, of: projectID)
     }
