@@ -36,6 +36,10 @@ class ProjectViewModel: ObservableObject {
         return project.dueDate.isExpired
     }
     
+    var detailViewModel: DetailViewModel {
+        return DetailViewModel(self, title: project.title, selectedDate: project.dueDate, content: project.content)
+    }
+    
     func update(_ newStatus: Project.Status) {
         listViewModel?.update(newStatus, of: project.id)
     }

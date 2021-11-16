@@ -33,6 +33,9 @@ struct ProjectManagerView: View {
         } label: {
             Image(systemName: "plus.circle")
         }
+        .sheet(isPresented: $viewModel.addTapped) {
+            ProjectDetail(viewModel: DetailViewModel(viewModel))
+        }
     }
 }
 

@@ -38,6 +38,9 @@ struct ProjectRow: View {
         }
         .background(Color.white)
         .gesture(combinedGesture)
+        .sheet(isPresented: $viewModel.tapped, content: {
+            ProjectDetail(viewModel: viewModel.detailViewModel)
+        })
     }
 }
 
