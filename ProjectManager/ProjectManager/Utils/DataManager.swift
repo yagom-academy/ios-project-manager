@@ -36,7 +36,7 @@ extension DataManager: DataManagerProtocol {
     }
     
     func deleteTask(task: TLTask) {
-        tasks.firstIndex { $0.id == task.id }.flatMap { tasks.remove(at: $0) }
+        tasks = tasks.filter{$0.id != task.id}
     }
 }
 
