@@ -16,6 +16,7 @@
 		D46425232730D228007C6FFD /* ManagerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46425222730D228007C6FFD /* ManagerViewModel.swift */; };
 		D46425272730F96E007C6FFD /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46425262730F96E007C6FFD /* Project.swift */; };
 		D464260A2735295D007C6FFD /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D46426092735295C007C6FFD /* Date+Extension.swift */; };
+		D4970631273EA2E0007EE49C /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4970630273EA2E0007EE49C /* ListViewModel.swift */; };
 		D86027E6643D4E5529083153 /* Pods_ProjectManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00E962D5CC6FF9365A0E805C /* Pods_ProjectManager.framework */; };
 /* End PBXBuildFile section */
 
@@ -34,6 +35,7 @@
 		D46425222730D228007C6FFD /* ManagerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerViewModel.swift; sourceTree = "<group>"; };
 		D46425262730F96E007C6FFD /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		D46426092735295C007C6FFD /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
+		D4970630273EA2E0007EE49C /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +112,7 @@
 			isa = PBXGroup;
 			children = (
 				D46425222730D228007C6FFD /* ManagerViewModel.swift */,
+				D4970630273EA2E0007EE49C /* ListViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -238,6 +241,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D464251C2730BF8B007C6FFD /* ProjectRow.swift in Sources */,
+				D4970631273EA2E0007EE49C /* ListViewModel.swift in Sources */,
 				D46424C7272A6E12007C6FFD /* ProjectManagerApp.swift in Sources */,
 				D46425232730D228007C6FFD /* ManagerViewModel.swift in Sources */,
 				D46424CD272A6E62007C6FFD /* ContentView.swift in Sources */,
