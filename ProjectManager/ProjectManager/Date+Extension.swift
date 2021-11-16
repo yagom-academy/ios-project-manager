@@ -11,7 +11,7 @@ extension Date {
     var formatted: String {
         let dateFormatter: DateFormatter = {
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy. MM. d"
+            dateFormatter.dateFormat = "yyyy. M. d"
             return dateFormatter
         }()
         
