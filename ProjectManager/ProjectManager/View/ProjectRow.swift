@@ -11,16 +11,6 @@ struct ProjectRow: View {
     @ObservedObject var viewModel: ProjectViewModel
     
     var body: some View {
-        let tapGesture = TapGesture().onEnded { _ in
-            viewModel.tapped.toggle()
-        }
-        
-        let longPressGesture = LongPressGesture().onEnded { _ in
-            viewModel.longPressed.toggle()
-        }
-        
-        let combinedGesture = tapGesture.simultaneously(with: longPressGesture)
-        
         HStack {
             VStack(alignment: .leading) {
                 Text(viewModel.title)
@@ -37,7 +27,12 @@ struct ProjectRow: View {
             Spacer()
         }
         .background(Color.white)
-        .gesture(combinedGesture)
+        .onTapGesture {
+            viewModel.tapped.toggle()
+        }
+        .onLongPressGesture(perform: {
+            viewModel.longPressed.toggle()
+        })
         .sheet(isPresented: $viewModel.tapped, content: {
             ProjectDetail(viewModel: viewModel.detailViewModel)
         })
