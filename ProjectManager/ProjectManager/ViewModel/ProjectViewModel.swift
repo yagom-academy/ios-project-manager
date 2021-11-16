@@ -37,7 +37,10 @@ class ProjectViewModel: ObservableObject {
     }
     
     var detailViewModel: DetailViewModel {
-        return DetailViewModel(self, title: project.title, selectedDate: project.dueDate, content: project.content)
+        return DetailViewModel(self,
+                               title: project.title,
+                               selectedDate: project.dueDate,
+                               content: project.content)
     }
     
     var popOverViewModel: PopOverViewModel {
@@ -49,7 +52,12 @@ class ProjectViewModel: ObservableObject {
     }
     
     func update(_ title: String, _ selectedDate: Date, _ content: String) {
-        let newProject = Project(id: project.id, title: title, content: content, dueDate: selectedDate, created: project.created, status: project.status)
+        let newProject = Project(id: project.id,
+                                 title: title,
+                                 content: content,
+                                 dueDate: selectedDate,
+                                 created: project.created,
+                                 status: project.status)
         listViewModel?.update(newProject, of: project.id)
     }
 }

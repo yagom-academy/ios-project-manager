@@ -33,7 +33,13 @@ struct Project: Identifiable {
         self.status = newStatus
     }
     
-    init(id: UUID = UUID(), title: String, content: String, dueDate: Date, created: Date = Date(), status: Status = .todo) {
+    init(id: UUID = UUID(),
+         title: String,
+         content: String,
+         dueDate: Date,
+         created: Date = Date(),
+         status: Status = .todo)
+    {
         self.id = id
         self.title = title
         self.content = content
