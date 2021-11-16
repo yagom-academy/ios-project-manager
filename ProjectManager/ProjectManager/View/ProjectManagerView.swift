@@ -24,7 +24,6 @@ struct ProjectManagerView: View {
             .navigationBarItems(trailing: addButton)
         }
         .navigationViewStyle(StackNavigationViewStyle())
-        .environmentObject(viewModel)
     }
     
     var addButton: some View {
@@ -36,6 +35,15 @@ struct ProjectManagerView: View {
         .sheet(isPresented: $viewModel.addTapped) {
             ProjectDetail(viewModel: DetailViewModel(viewModel))
         }
+    }
+    
+    init(viewModel: ManagerViewModel) {
+        self.viewModel = viewModel
+        let backgroundColor = UIColor(red: 249.0/255.0,
+                                      green: 249.0/255.0,
+                                      blue: 249.0/255.0,
+                                      alpha: 1)
+        UINavigationBar.appearance().backgroundColor = backgroundColor
     }
 }
 

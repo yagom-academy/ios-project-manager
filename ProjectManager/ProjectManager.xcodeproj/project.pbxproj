@@ -102,10 +102,10 @@
 				D464252C27310914007C6FFD /* View */,
 				D464252B2731090B007C6FFD /* ViewModel */,
 				D46424C6272A6E12007C6FFD /* ProjectManagerApp.swift */,
+				D46426092735295C007C6FFD /* Date+Extension.swift */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				D46424A0272A2AEC007C6FFD /* GoogleService-Info.plist */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
-				D46426092735295C007C6FFD /* Date+Extension.swift */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
