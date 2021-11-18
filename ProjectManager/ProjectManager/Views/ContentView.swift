@@ -8,8 +8,15 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject var todoListVM: TodoListViewModel = {
+        let todoListDataStore = TodoListViewModel()
+        todoListDataStore.load()
+        return todoListDataStore
+    }()
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ProjectManagerView()
+            .environmentObject(todoListVM)
     }
 }
 
