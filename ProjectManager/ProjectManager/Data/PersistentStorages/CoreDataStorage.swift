@@ -10,6 +10,7 @@ import CoreData
 
 final class CoreDataStorage {
     static let shared = CoreDataStorage()
+    private let coreDataSerialQueue = DispatchQueue(label: "CoreDataStorage")
 
     private var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "CoreDataStorage")
@@ -35,6 +36,11 @@ final class CoreDataStorage {
     }
     
     func performBackgroundTask(_ block: @escaping (NSManagedObjectContext) -> Void) {
-        persistentContainer.performBackgroundTask(block)
+        coreDataSerialQueue.async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            self.persistentContainer.performBackgroundTask(block)
+        }
     }
 }
