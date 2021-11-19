@@ -17,36 +17,42 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView {
-            HStack(spacing: 10) {
-                ForEach(MemoState.allCases, id: \.self) { state in
-                    MemoList(state: state)
+            ZStack {
+                HStack(spacing: 10) {
+                    ForEach(MemoState.allCases, id: \.self) { state in
+                        MemoList(state: state)
+                    }
+                }
+                .background(Color(UIColor.systemGray3))
+                .navigationTitle(Text("Project Manager"))
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar(content: {
+                    ToolbarItemGroup(placement: .navigationBarLeading) {
+                        Button {
+                            historyListViewModel.didTouchUpHistoryButton()
+                        } label: {
+                            Text("History")
+                        }
+                        .popover(isPresented: $historyListViewModel.isHistoryPopoverShown) {
+                            HistoryPopover(historyListViewModel: historyListViewModel)
+                        }
+                    }
+                    ToolbarItemGroup(placement: .navigationBarTrailing) {
+                        Button {
+                            viewModel.didTouchUpPlusButton()
+                        } label: {
+                            Image(systemName: "plus")
+                        }
+                        .sheet(isPresented: $viewModel.isDetaileViewPresented) {
+                            MemoDetail()
+                        }
+                    }
+                })
+                if viewModel.memoLoadingState == .loading {
+                    ProgressView()
+                        .scaleEffect(2, anchor: .center)
                 }
             }
-            .background(Color(UIColor.systemGray3))
-            .navigationTitle(Text("Project Manager"))
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar(content: {
-                ToolbarItemGroup(placement: .navigationBarLeading) {
-                    Button {
-                        historyListViewModel.didTouchUpHistoryButton()
-                    } label: {
-                        Text("History")
-                    }
-                    .popover(isPresented: $historyListViewModel.isHistoryPopoverShown) {
-                        HistoryPopover(historyListViewModel: historyListViewModel)
-                    }
-                }
-                ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    Button {
-                        viewModel.didTouchUpPlusButton()
-                    } label: {
-                        Image(systemName: "plus")
-                    }
-                    .sheet(isPresented: $viewModel.isDetaileViewPresented) {
-                        MemoDetail()
-                    }
-                }
-            })
         }
         .navigationViewStyle(.stack)
         .environmentObject(viewModel)
