@@ -22,6 +22,11 @@ enum AccessMode {
     }
 }
 
+enum MemoLoadingState {
+    case loading
+    case done
+}
+
 protocol MemoListViewModelInput {
     func viewOnAppear()
     func didTouchUpPlusButton()
@@ -33,6 +38,7 @@ protocol MemoListViewModelInput {
 }
 
 protocol MemoListViewModelOutput {
+    var memoLoadingState: MemoLoadingState { get }
     var memoViewModels: [[MemoViewModel]] { get }
     var presentedMemo: MemoViewModel { get }
     var isDetaileViewPresented: Bool { get }
@@ -41,6 +47,8 @@ protocol MemoListViewModelOutput {
 }
 
 final class MemoListViewModel: ObservableObject, MemoListViewModelOutput {
+    @Published
+    private(set) var memoLoadingState: MemoLoadingState = .loading
     @Published
     private(set) var memoViewModels: [[MemoViewModel]] = [[], [], []]
     @Published
@@ -119,6 +127,9 @@ extension MemoListViewModel {
                 }
             case .failure(let error):
                 fatalError(error.localizedDescription)
+            }
+            DispatchQueue.main.async {
+                self.memoLoadingState = .done
             }
         }
     }
