@@ -37,7 +37,7 @@ extension HistoryListViewModel: HistoryListViewModelInput {
 
 extension HistoryListViewModel {
     private func fetch() {
-        historyUseCase.fetch { [weak self] result in
+        historyUseCase.bringChangeHistory { [weak self] result in
             guard let self = self else {
                 return
             }

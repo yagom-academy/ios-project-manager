@@ -9,10 +9,10 @@ import Foundation
 
 protocol UseCase {
     typealias Completion = (Result<Memo, Error>) -> Void
-    func add(_ memo: Memo, completion: @escaping Completion)
-    func modify(_ memo: Memo, completion: @escaping Completion)
-    func delete(_ memo: Memo, completion: @escaping Completion)
-    func fetch(completion: @escaping (Result<[Memo], Error>) -> Void)
+    func createNewMemo(_ memo: Memo, completion: @escaping Completion)
+    func reviseMemo(_ memo: Memo, completion: @escaping Completion)
+    func deleteMemo(_ memo: Memo, completion: @escaping Completion)
+    func bringMemos(completion: @escaping (Result<[Memo], Error>) -> Void)
 }
 
 struct MemoUseCase: UseCase {
@@ -22,7 +22,7 @@ struct MemoUseCase: UseCase {
         self.repository = repository
     }
 
-    func add(_ memo: Memo, completion: @escaping Completion) {
+    func createNewMemo(_ memo: Memo, completion: @escaping Completion) {
         repository.add(memo: memo) { result in
             switch result {
             case .success(let memo):
@@ -33,7 +33,7 @@ struct MemoUseCase: UseCase {
         }
     }
     
-    func modify(_ memo: Memo, completion: @escaping Completion) {
+    func reviseMemo(_ memo: Memo, completion: @escaping Completion) {
         repository.update(memo: memo) { result in
             switch result {
             case .success(let memo):
@@ -44,7 +44,7 @@ struct MemoUseCase: UseCase {
         }
     }
     
-    func delete(_ memo: Memo, completion: @escaping Completion) {
+    func deleteMemo(_ memo: Memo, completion: @escaping Completion) {
         repository.delete(memo: memo) { result in
             switch result {
             case .success(let memo):
@@ -55,7 +55,7 @@ struct MemoUseCase: UseCase {
         }
     }
     
-    func fetch(completion: @escaping (Result<[Memo], Error>) -> Void) {
+    func bringMemos(completion: @escaping (Result<[Memo], Error>) -> Void) {
         repository.fetch { result in
             switch result {
             case .success(let memos):

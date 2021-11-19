@@ -106,7 +106,7 @@ extension MemoListViewModel: MemoListViewModelInput {
 
 extension MemoListViewModel {
     private func fetch() {
-        memoUseCase.fetch { [weak self] result in
+        memoUseCase.bringMemos { [weak self] result in
             guard let self = self else {
                 return
             }
@@ -124,7 +124,7 @@ extension MemoListViewModel {
     }
     
     private func add() {
-        memoUseCase.add(presentedMemo.memo) { [weak self] result in
+        memoUseCase.createNewMemo(presentedMemo.memo) { [weak self] result in
             guard let self = self else {
                 return
             }
@@ -140,7 +140,7 @@ extension MemoListViewModel {
     }
     
     private func delete(_ viewModel: MemoViewModel) {
-        memoUseCase.delete(viewModel.memo) { [weak self] result in
+        memoUseCase.deleteMemo(viewModel.memo) { [weak self] result in
             guard let self = self else {
                 return
             }
@@ -161,7 +161,7 @@ extension MemoListViewModel {
     private func moveColumn(viewModel: MemoViewModel, to newState: MemoState) {
         var newViewModel = viewModel
         newViewModel.memoStatus = newState
-        memoUseCase.modify(newViewModel.memo) { [weak self] result in
+        memoUseCase.reviseMemo(newViewModel.memo) { [weak self] result in
             guard let self = self else {
                 return
             }
@@ -181,7 +181,7 @@ extension MemoListViewModel {
     }
     
     private func modify() {
-        memoUseCase.modify(presentedMemo.memo) { [weak self] result in
+        memoUseCase.reviseMemo(presentedMemo.memo) { [weak self] result in
             guard let self = self else {
                 return
             }

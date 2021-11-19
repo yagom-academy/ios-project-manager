@@ -8,7 +8,7 @@
 import Foundation
 
 protocol HistoryUseCaseable {
-    func fetch(completion: @escaping (Result<[History], Error>) -> Void)
+    func bringChangeHistory(completion: @escaping (Result<[History], Error>) -> Void)
 }
 
 struct HistoryUseCase: HistoryUseCaseable {
@@ -18,7 +18,7 @@ struct HistoryUseCase: HistoryUseCaseable {
         self.repository = repository
     }
     
-    func fetch(completion: @escaping (Result<[History], Error>) -> Void) {
+    func bringChangeHistory(completion: @escaping (Result<[History], Error>) -> Void) {
         repository.fetch { result in
             switch result {
             case .success(let histories):
