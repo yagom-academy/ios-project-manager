@@ -7,33 +7,72 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F62B92E273A9DD500C024ED /* MemoUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F62B92D273A9DD500C024ED /* MemoUseCase.swift */; };
+		3F63BC1C273C274C009A6545 /* MemoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F63BC1B273C274C009A6545 /* MemoRepository.swift */; };
 		3FB2CF012727D5C700272707 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3FB2CF002727D5C700272707 /* GoogleService-Info.plist */; };
-		3FB2CF052727D83100272707 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 3FB2CF042727D83100272707 /* FirebaseFirestore */; };
-		3FB2CF072727D83100272707 /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 3FB2CF062727D83100272707 /* FirebaseFirestoreSwift-Beta */; };
+		3FC0B44F274146EA0082F27F /* HistoryRepositoryable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC0B44E274146EA0082F27F /* HistoryRepositoryable.swift */; };
+		3FC0B4512741471D0082F27F /* HistoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC0B4502741471D0082F27F /* HistoryRepository.swift */; };
 		3FE379502733E2B1000D8247 /* MemoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE3794F2733E2B1000D8247 /* MemoListViewModel.swift */; };
+		3FFB70B3273E3E2F00146834 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 3FFB70B2273E3E2F00146834 /* FirebaseAuth */; };
+		3FFB70B5273E3E2F00146834 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 3FFB70B4273E3E2F00146834 /* FirebaseFirestore */; };
+		3FFB70B7273E3E2F00146834 /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 3FFB70B6273E3E2F00146834 /* FirebaseFirestoreSwift-Beta */; };
+		3FFB70BA273E406500146834 /* FirebaseStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFB70B9273E406500146834 /* FirebaseStorage.swift */; };
+		3FFB70BD273EBC9300146834 /* CoreDataStorage.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C9074F73273AC4E4000A8F61 /* CoreDataStorage.xcdatamodeld */; };
+		3FFB70C0273EBCE800146834 /* HistoryEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFB70BE273EBCE800146834 /* HistoryEntity+CoreDataClass.swift */; };
+		3FFB70C2273EBD0500146834 /* HistoryEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFB70BF273EBCE800146834 /* HistoryEntity+CoreDataProperties.swift */; };
+		3FFB70C4273ED08800146834 /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFB70C3273ED08800146834 /* HistoryViewModel.swift */; };
+		3FFB70C6273ED21F00146834 /* HistoryListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFB70C5273ED21F00146834 /* HistoryListViewModel.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
+		C9074F78273AC557000A8F61 /* MemoEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9074F76273AC557000A8F61 /* MemoEntity+CoreDataClass.swift */; };
+		C9074F79273AC557000A8F61 /* MemoEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9074F77273AC557000A8F61 /* MemoEntity+CoreDataProperties.swift */; };
+		C9074F7C273C224B000A8F61 /* MemoStorageable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9074F7B273C224B000A8F61 /* MemoStorageable.swift */; };
+		C9074F7F273C231A000A8F61 /* Repositoryable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9074F7E273C231A000A8F61 /* Repositoryable.swift */; };
 		C90881C62733E20A00F99E3C /* Memo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90881C52733E20A00F99E3C /* Memo.swift */; };
 		C90881CC2733E21700F99E3C /* MemoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90881C72733E21600F99E3C /* MemoList.swift */; };
 		C90881CD2733E21700F99E3C /* MemoPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90881C82733E21600F99E3C /* MemoPopover.swift */; };
 		C90881CE2733E21700F99E3C /* MemoRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90881C92733E21600F99E3C /* MemoRow.swift */; };
 		C90881CF2733E21700F99E3C /* MemoDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90881CA2733E21700F99E3C /* MemoDetail.swift */; };
 		C90881D02733E21700F99E3C /* MemoHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90881CB2733E21700F99E3C /* MemoHeader.swift */; };
+		C91273AF273EA88F000EAC4F /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91273AE273EA88F000EAC4F /* History.swift */; };
+		C91273B1273EAA85000EAC4F /* HistoryEntity+Mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91273B0273EAA85000EAC4F /* HistoryEntity+Mapping.swift */; };
 		C91524672738ED8500E1D0A6 /* MemoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91524662738ED8500E1D0A6 /* MemoViewModel.swift */; };
+		C9185434273AB24F00B13A0A /* CoreDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9185433273AB24F00B13A0A /* CoreDataStorage.swift */; };
+		C9185439273ABD8100B13A0A /* MemoStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9185438273ABD8100B13A0A /* MemoStorage.swift */; };
+		C918543B273ABF4D00B13A0A /* MemoEntity+Mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = C918543A273ABF4D00B13A0A /* MemoEntity+Mapping.swift */; };
+		C938B4842741457100B40F40 /* HistoryUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C938B4832741457100B40F40 /* HistoryUseCase.swift */; };
+		C938B4862741494F00B40F40 /* HistoryStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C938B4852741494F00B40F40 /* HistoryStorage.swift */; };
+		C938B488274149D400B40F40 /* HistoryStorageable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C938B487274149D400B40F40 /* HistoryStorageable.swift */; };
+		C99516F3273EC4F100710EF9 /* HistoryPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99516F2273EC4F100710EF9 /* HistoryPopover.swift */; };
+		C99516F5273EC58700710EF9 /* HistoryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99516F4273EC58700710EF9 /* HistoryRow.swift */; };
 		C9F015852727E01400A0E259 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F015842727E01400A0E259 /* ContentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3F62B92D273A9DD500C024ED /* MemoUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoUseCase.swift; sourceTree = "<group>"; };
+		3F63BC1B273C274C009A6545 /* MemoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoRepository.swift; sourceTree = "<group>"; };
 		3FB2CF002727D5C700272707 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		3FC0B44E274146EA0082F27F /* HistoryRepositoryable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryRepositoryable.swift; sourceTree = "<group>"; };
+		3FC0B4502741471D0082F27F /* HistoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryRepository.swift; sourceTree = "<group>"; };
 		3FE3794F2733E2B1000D8247 /* MemoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoListViewModel.swift; sourceTree = "<group>"; };
+		3FFB70B9273E406500146834 /* FirebaseStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorage.swift; sourceTree = "<group>"; };
+		3FFB70BE273EBCE800146834 /* HistoryEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HistoryEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		3FFB70BF273EBCE800146834 /* HistoryEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HistoryEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		3FFB70C3273ED08800146834 /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
+		3FFB70C5273ED21F00146834 /* HistoryListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryListViewModel.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		C7431F0E25F51E1E0094C4CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C7431F1125F51E1E0094C4CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = Plist/Info.plist; sourceTree = SOURCE_ROOT; };
+		C9074F74273AC4E4000A8F61 /* CoreDataStorage.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataStorage.xcdatamodel; sourceTree = "<group>"; };
+		C9074F76273AC557000A8F61 /* MemoEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MemoEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		C9074F77273AC557000A8F61 /* MemoEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MemoEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		C9074F7B273C224B000A8F61 /* MemoStorageable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoStorageable.swift; sourceTree = "<group>"; };
+		C9074F7E273C231A000A8F61 /* Repositoryable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repositoryable.swift; sourceTree = "<group>"; };
 		C90881C52733E20A00F99E3C /* Memo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Memo.swift; sourceTree = "<group>"; };
 		C90881C72733E21600F99E3C /* MemoList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoList.swift; sourceTree = "<group>"; };
 		C90881C82733E21600F99E3C /* MemoPopover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoPopover.swift; sourceTree = "<group>"; };
@@ -41,7 +80,17 @@
 		C90881CA2733E21700F99E3C /* MemoDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoDetail.swift; sourceTree = "<group>"; };
 		C90881CB2733E21700F99E3C /* MemoHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoHeader.swift; sourceTree = "<group>"; };
 		C90881D12734FA6900F99E3C /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		C91273AE273EA88F000EAC4F /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
+		C91273B0273EAA85000EAC4F /* HistoryEntity+Mapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HistoryEntity+Mapping.swift"; sourceTree = "<group>"; };
 		C91524662738ED8500E1D0A6 /* MemoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoViewModel.swift; sourceTree = "<group>"; };
+		C9185433273AB24F00B13A0A /* CoreDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStorage.swift; sourceTree = "<group>"; };
+		C9185438273ABD8100B13A0A /* MemoStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoStorage.swift; sourceTree = "<group>"; };
+		C918543A273ABF4D00B13A0A /* MemoEntity+Mapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MemoEntity+Mapping.swift"; sourceTree = "<group>"; };
+		C938B4832741457100B40F40 /* HistoryUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryUseCase.swift; sourceTree = "<group>"; };
+		C938B4852741494F00B40F40 /* HistoryStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryStorage.swift; sourceTree = "<group>"; };
+		C938B487274149D400B40F40 /* HistoryStorageable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryStorageable.swift; sourceTree = "<group>"; };
+		C99516F2273EC4F100710EF9 /* HistoryPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryPopover.swift; sourceTree = "<group>"; };
+		C99516F4273EC58700710EF9 /* HistoryRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryRow.swift; sourceTree = "<group>"; };
 		C9F015842727E01400A0E259 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -50,23 +99,45 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3FB2CF052727D83100272707 /* FirebaseFirestore in Frameworks */,
-				3FB2CF072727D83100272707 /* FirebaseFirestoreSwift-Beta in Frameworks */,
+				3FFB70B7273E3E2F00146834 /* FirebaseFirestoreSwift-Beta in Frameworks */,
+				3FFB70B3273E3E2F00146834 /* FirebaseAuth in Frameworks */,
+				3FFB70B5273E3E2F00146834 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3F62B92C273A9DBB00C024ED /* UseCases */ = {
+			isa = PBXGroup;
+			children = (
+				3F62B92D273A9DD500C024ED /* MemoUseCase.swift */,
+				C938B4832741457100B40F40 /* HistoryUseCase.swift */,
+			);
+			path = UseCases;
+			sourceTree = "<group>";
+		};
+		3F63BC1A273C272F009A6545 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				3F63BC1B273C274C009A6545 /* MemoRepository.swift */,
+				3FC0B4502741471D0082F27F /* HistoryRepository.swift */,
+				C938B48E27415EDB00B40F40 /* Interfaces */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
 		3F76A9F0272A63FC007AE039 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				C90881CA2733E21700F99E3C /* MemoDetail.swift */,
+				C9F015842727E01400A0E259 /* ContentView.swift */,
 				C90881CB2733E21700F99E3C /* MemoHeader.swift */,
 				C90881C72733E21600F99E3C /* MemoList.swift */,
-				C90881C82733E21600F99E3C /* MemoPopover.swift */,
 				C90881C92733E21600F99E3C /* MemoRow.swift */,
-				C9F015842727E01400A0E259 /* ContentView.swift */,
+				C90881CA2733E21700F99E3C /* MemoDetail.swift */,
+				C90881C82733E21600F99E3C /* MemoPopover.swift */,
+				C99516F2273EC4F100710EF9 /* HistoryPopover.swift */,
+				C99516F4273EC58700710EF9 /* HistoryRow.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -85,8 +156,18 @@
 			children = (
 				3FE3794F2733E2B1000D8247 /* MemoListViewModel.swift */,
 				C91524662738ED8500E1D0A6 /* MemoViewModel.swift */,
+				3FFB70C5273ED21F00146834 /* HistoryListViewModel.swift */,
+				3FFB70C3273ED08800146834 /* HistoryViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		3FFB70B8273E404E00146834 /* RemoteStorages */ = {
+			isa = PBXGroup;
+			children = (
+				3FFB70B9273E406500146834 /* FirebaseStorage.swift */,
+			);
+			path = RemoteStorages;
 			sourceTree = "<group>";
 		};
 		C7431EF925F51E1D0094C4CF = {
@@ -109,23 +190,136 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
-				3FE3794E2733E299000D8247 /* ViewModel */,
-				C9FD5110272A676D00CD92AE /* Model */,
-				3F76A9F0272A63FC007AE039 /* Views */,
-				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
-				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
-				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
-				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
+				C938B49327415FB900B40F40 /* Application */,
+				C938B48927415D0B00B40F40 /* Presentation */,
+				C938B48A27415D1100B40F40 /* Domain */,
+				C938B48B27415D1600B40F40 /* Data */,
+				C938B49427415FC800B40F40 /* Resources */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
 		};
-		C9FD5110272A676D00CD92AE /* Model */ = {
+		C918542F273AB0DC00B13A0A /* PersistentStorages */ = {
+			isa = PBXGroup;
+			children = (
+				C9074F73273AC4E4000A8F61 /* CoreDataStorage.xcdatamodeld */,
+				C9185433273AB24F00B13A0A /* CoreDataStorage.swift */,
+				C938B48F27415F0200B40F40 /* MemoStorage */,
+				C938B49027415F4400B40F40 /* HistoryStorage */,
+			);
+			path = PersistentStorages;
+			sourceTree = "<group>";
+		};
+		C938B48927415D0B00B40F40 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				3FE3794E2733E299000D8247 /* ViewModel */,
+				3F76A9F0272A63FC007AE039 /* Views */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		C938B48A27415D1100B40F40 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				C9FD5110272A676D00CD92AE /* Entities */,
+				3F62B92C273A9DBB00C024ED /* UseCases */,
+				C938B48D27415DF400B40F40 /* Interfaces */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		C938B48B27415D1600B40F40 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				3F63BC1A273C272F009A6545 /* Repositories */,
+				C918542F273AB0DC00B13A0A /* PersistentStorages */,
+				3FFB70B8273E404E00146834 /* RemoteStorages */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		C938B48D27415DF400B40F40 /* Interfaces */ = {
+			isa = PBXGroup;
+			children = (
+				C9074F7E273C231A000A8F61 /* Repositoryable.swift */,
+				3FC0B44E274146EA0082F27F /* HistoryRepositoryable.swift */,
+			);
+			path = Interfaces;
+			sourceTree = "<group>";
+		};
+		C938B48E27415EDB00B40F40 /* Interfaces */ = {
+			isa = PBXGroup;
+			children = (
+				C9074F7B273C224B000A8F61 /* MemoStorageable.swift */,
+				C938B487274149D400B40F40 /* HistoryStorageable.swift */,
+			);
+			path = Interfaces;
+			sourceTree = "<group>";
+		};
+		C938B48F27415F0200B40F40 /* MemoStorage */ = {
+			isa = PBXGroup;
+			children = (
+				C9185438273ABD8100B13A0A /* MemoStorage.swift */,
+				C938B49127415F5D00B40F40 /* MemoEntity */,
+			);
+			path = MemoStorage;
+			sourceTree = "<group>";
+		};
+		C938B49027415F4400B40F40 /* HistoryStorage */ = {
+			isa = PBXGroup;
+			children = (
+				C938B4852741494F00B40F40 /* HistoryStorage.swift */,
+				C938B49227415F6900B40F40 /* HistoryEntity */,
+			);
+			path = HistoryStorage;
+			sourceTree = "<group>";
+		};
+		C938B49127415F5D00B40F40 /* MemoEntity */ = {
+			isa = PBXGroup;
+			children = (
+				C9074F76273AC557000A8F61 /* MemoEntity+CoreDataClass.swift */,
+				C9074F77273AC557000A8F61 /* MemoEntity+CoreDataProperties.swift */,
+				C918543A273ABF4D00B13A0A /* MemoEntity+Mapping.swift */,
+			);
+			path = MemoEntity;
+			sourceTree = "<group>";
+		};
+		C938B49227415F6900B40F40 /* HistoryEntity */ = {
+			isa = PBXGroup;
+			children = (
+				3FFB70BE273EBCE800146834 /* HistoryEntity+CoreDataClass.swift */,
+				3FFB70BF273EBCE800146834 /* HistoryEntity+CoreDataProperties.swift */,
+				C91273B0273EAA85000EAC4F /* HistoryEntity+Mapping.swift */,
+			);
+			path = HistoryEntity;
+			sourceTree = "<group>";
+		};
+		C938B49327415FB900B40F40 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
+				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		C938B49427415FC800B40F40 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
+				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		C9FD5110272A676D00CD92AE /* Entities */ = {
 			isa = PBXGroup;
 			children = (
 				C90881C52733E20A00F99E3C /* Memo.swift */,
+				C91273AE273EA88F000EAC4F /* History.swift */,
 			);
-			path = Model;
+			path = Entities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -145,8 +339,9 @@
 			);
 			name = ProjectManager;
 			packageProductDependencies = (
-				3FB2CF042727D83100272707 /* FirebaseFirestore */,
-				3FB2CF062727D83100272707 /* FirebaseFirestoreSwift-Beta */,
+				3FFB70B2273E3E2F00146834 /* FirebaseAuth */,
+				3FFB70B4273E3E2F00146834 /* FirebaseFirestore */,
+				3FFB70B6273E3E2F00146834 /* FirebaseFirestoreSwift-Beta */,
 			);
 			productName = ProjectManager;
 			productReference = C7431F0225F51E1D0094C4CF /* ProjectManager.app */;
@@ -177,7 +372,7 @@
 			);
 			mainGroup = C7431EF925F51E1D0094C4CF;
 			packageReferences = (
-				3FB2CF032727D83100272707 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				3FFB70B1273E3E2F00146834 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = C7431F0325F51E1D0094C4CF /* Products */;
 			projectDirPath = "";
@@ -207,16 +402,40 @@
 			buildActionMask = 2147483647;
 			files = (
 				C91524672738ED8500E1D0A6 /* MemoViewModel.swift in Sources */,
+				C9185439273ABD8100B13A0A /* MemoStorage.swift in Sources */,
+				C938B4862741494F00B40F40 /* HistoryStorage.swift in Sources */,
+				3FFB70BA273E406500146834 /* FirebaseStorage.swift in Sources */,
+				3FFB70C6273ED21F00146834 /* HistoryListViewModel.swift in Sources */,
+				C9074F79273AC557000A8F61 /* MemoEntity+CoreDataProperties.swift in Sources */,
+				3FFB70BD273EBC9300146834 /* CoreDataStorage.xcdatamodeld in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C90881CD2733E21700F99E3C /* MemoPopover.swift in Sources */,
+				3FFB70C4273ED08800146834 /* HistoryViewModel.swift in Sources */,
+				C9074F7C273C224B000A8F61 /* MemoStorageable.swift in Sources */,
 				3FE379502733E2B1000D8247 /* MemoListViewModel.swift in Sources */,
+				C99516F5273EC58700710EF9 /* HistoryRow.swift in Sources */,
+				C918543B273ABF4D00B13A0A /* MemoEntity+Mapping.swift in Sources */,
+				3FFB70C0273EBCE800146834 /* HistoryEntity+CoreDataClass.swift in Sources */,
 				C90881D02733E21700F99E3C /* MemoHeader.swift in Sources */,
 				C90881CE2733E21700F99E3C /* MemoRow.swift in Sources */,
+				3FFB70C2273EBD0500146834 /* HistoryEntity+CoreDataProperties.swift in Sources */,
+				C9074F78273AC557000A8F61 /* MemoEntity+CoreDataClass.swift in Sources */,
 				C9F015852727E01400A0E259 /* ContentView.swift in Sources */,
+				C91273AF273EA88F000EAC4F /* History.swift in Sources */,
+				3F62B92E273A9DD500C024ED /* MemoUseCase.swift in Sources */,
+				3F63BC1C273C274C009A6545 /* MemoRepository.swift in Sources */,
 				C90881CF2733E21700F99E3C /* MemoDetail.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				C90881CC2733E21700F99E3C /* MemoList.swift in Sources */,
+				C99516F3273EC4F100710EF9 /* HistoryPopover.swift in Sources */,
 				C90881C62733E20A00F99E3C /* Memo.swift in Sources */,
+				C91273B1273EAA85000EAC4F /* HistoryEntity+Mapping.swift in Sources */,
+				3FC0B44F274146EA0082F27F /* HistoryRepositoryable.swift in Sources */,
+				C9185434273AB24F00B13A0A /* CoreDataStorage.swift in Sources */,
+				C938B4842741457100B40F40 /* HistoryUseCase.swift in Sources */,
+				3FC0B4512741471D0082F27F /* HistoryRepository.swift in Sources */,
+				C9074F7F273C231A000A8F61 /* Repositoryable.swift in Sources */,
+				C938B488274149D400B40F40 /* HistoryStorageable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -415,28 +634,46 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		3FB2CF032727D83100272707 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+		3FFB70B1273E3E2F00146834 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
 			requirement = {
 				kind = exactVersion;
-				version = 8.8.0;
+				version = 8.9.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		3FB2CF042727D83100272707 /* FirebaseFirestore */ = {
+		3FFB70B2273E3E2F00146834 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 3FB2CF032727D83100272707 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 3FFB70B1273E3E2F00146834 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		3FFB70B4273E3E2F00146834 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3FFB70B1273E3E2F00146834 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestore;
 		};
-		3FB2CF062727D83100272707 /* FirebaseFirestoreSwift-Beta */ = {
+		3FFB70B6273E3E2F00146834 /* FirebaseFirestoreSwift-Beta */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 3FB2CF032727D83100272707 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 3FFB70B1273E3E2F00146834 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = "FirebaseFirestoreSwift-Beta";
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		C9074F73273AC4E4000A8F61 /* CoreDataStorage.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				C9074F74273AC4E4000A8F61 /* CoreDataStorage.xcdatamodel */,
+			);
+			currentVersion = C9074F74273AC4E4000A8F61 /* CoreDataStorage.xcdatamodel */;
+			path = CoreDataStorage.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = C7431EFA25F51E1D0094C4CF /* Project object */;
 }

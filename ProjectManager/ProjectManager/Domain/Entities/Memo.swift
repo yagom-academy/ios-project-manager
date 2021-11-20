@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum MemoState: String, CaseIterable {
+enum MemoState: String, CaseIterable, Codable {
     case toDo = "TODO"
     case doing = "DOING"
     case done = "DONE"
@@ -28,12 +28,12 @@ enum MemoState: String, CaseIterable {
     }
 }
 
-struct Memo: Identifiable {
+struct Memo: Identifiable, Codable {
     var id = UUID()
-    var title: String = ""
-    var description: String = ""
-    var date: Date = Date()
-    var status: MemoState = .toDo
+    var title = ""
+    var description = ""
+    var date = Date()
+    var status = MemoState.toDo
 }
 
 
