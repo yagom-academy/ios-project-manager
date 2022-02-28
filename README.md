@@ -29,6 +29,9 @@
 
 
 ## ⌨️ 키워드
+* `Swift Package Manager`
+    * `RxSwift` `SwiftLint` `Firebase-cloud firestore`
+
 
 # STEP 1 : 프로젝트 적용기술 선정
 
