@@ -1,0 +1,6 @@
+included:
+    - ProjectManager
+excluded:
+    - ProjectManager/SupportingFiles
+disabled_rules:
+    - trailing_whitespace
