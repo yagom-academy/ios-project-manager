@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		9A40A06D27CCC81100A73BBA /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 9A40A06C27CCC81100A73BBA /* FirebaseFirestore */; };
 		9A40A06F27CCC81100A73BBA /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 9A40A06E27CCC81100A73BBA /* FirebaseFirestoreSwift-Beta */; };
+		9A40A07527CCDB8100A73BBA /* RxBlocking in Frameworks */ = {isa = PBXBuildFile; productRef = 9A40A07427CCDB8100A73BBA /* RxBlocking */; };
+		9A40A07727CCDB8100A73BBA /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 9A40A07627CCDB8100A73BBA /* RxCocoa */; };
+		9A40A07927CCDB8100A73BBA /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 9A40A07827CCDB8100A73BBA /* RxRelay */; };
+		9A40A07B27CCDB8100A73BBA /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9A40A07A27CCDB8100A73BBA /* RxSwift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* ViewController.swift */; };
@@ -33,7 +37,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A40A07B27CCDB8100A73BBA /* RxSwift in Frameworks */,
+				9A40A07927CCDB8100A73BBA /* RxRelay in Frameworks */,
 				9A40A06D27CCC81100A73BBA /* FirebaseFirestore in Frameworks */,
+				9A40A07527CCDB8100A73BBA /* RxBlocking in Frameworks */,
+				9A40A07727CCDB8100A73BBA /* RxCocoa in Frameworks */,
 				9A40A06F27CCC81100A73BBA /* FirebaseFirestoreSwift-Beta in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -91,6 +99,10 @@
 			packageProductDependencies = (
 				9A40A06C27CCC81100A73BBA /* FirebaseFirestore */,
 				9A40A06E27CCC81100A73BBA /* FirebaseFirestoreSwift-Beta */,
+				9A40A07427CCDB8100A73BBA /* RxBlocking */,
+				9A40A07627CCDB8100A73BBA /* RxCocoa */,
+				9A40A07827CCDB8100A73BBA /* RxRelay */,
+				9A40A07A27CCDB8100A73BBA /* RxSwift */,
 			);
 			productName = ProjectManager;
 			productReference = C7431F0225F51E1D0094C4CF /* ProjectManager.app */;
@@ -121,6 +133,7 @@
 			mainGroup = C7431EF925F51E1D0094C4CF;
 			packageReferences = (
 				9A40A06B27CCC81100A73BBA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				9A40A07327CCDB8000A73BBA /* XCRemoteSwiftPackageReference "RxSwift" */,
 			);
 			productRefGroup = C7431F0325F51E1D0094C4CF /* Products */;
 			projectDirPath = "";
@@ -384,6 +397,14 @@
 				minimumVersion = 8.0.0;
 			};
 		};
+		9A40A07327CCDB8000A73BBA /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -396,6 +417,26 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 9A40A06B27CCC81100A73BBA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = "FirebaseFirestoreSwift-Beta";
+		};
+		9A40A07427CCDB8100A73BBA /* RxBlocking */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9A40A07327CCDB8000A73BBA /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxBlocking;
+		};
+		9A40A07627CCDB8100A73BBA /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9A40A07327CCDB8000A73BBA /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		9A40A07827CCDB8100A73BBA /* RxRelay */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9A40A07327CCDB8000A73BBA /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxRelay;
+		};
+		9A40A07A27CCDB8100A73BBA /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9A40A07327CCDB8000A73BBA /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
