@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,6 +13,14 @@
 		C7431F0D25F51E1D0094C4CF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0B25F51E1D0094C4CF /* Main.storyboard */; };
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
+		E94F18CC27CD002700FF6DA1 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = E94F18CB27CD002700FF6DA1 /* FirebaseFirestore */; };
+		E94F18CE27CD002700FF6DA1 /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = E94F18CD27CD002700FF6DA1 /* FirebaseFirestoreSwift-Beta */; };
+		E94F18D227CD036D00FF6DA1 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = E94F18D127CD036D00FF6DA1 /* RxSwift */; };
+		E94F18D427CD036D00FF6DA1 /* RxTest in Frameworks */ = {isa = PBXBuildFile; productRef = E94F18D327CD036D00FF6DA1 /* RxTest */; };
+		E94F18D627CD036D00FF6DA1 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = E94F18D527CD036D00FF6DA1 /* RxRelay */; };
+		E94F18D827CD036D00FF6DA1 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = E94F18D727CD036D00FF6DA1 /* RxCocoa */; };
+		E94F18DA27CD036D00FF6DA1 /* RxBlocking in Frameworks */ = {isa = PBXBuildFile; productRef = E94F18D927CD036D00FF6DA1 /* RxBlocking */; };
+		E94F18DE27CD04A000FF6DA1 /* SwiftLintFramework in Frameworks */ = {isa = PBXBuildFile; productRef = E94F18DD27CD04A000FF6DA1 /* SwiftLintFramework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +39,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E94F18D827CD036D00FF6DA1 /* RxCocoa in Frameworks */,
+				E94F18D627CD036D00FF6DA1 /* RxRelay in Frameworks */,
+				E94F18D427CD036D00FF6DA1 /* RxTest in Frameworks */,
+				E94F18D227CD036D00FF6DA1 /* RxSwift in Frameworks */,
+				E94F18DE27CD04A000FF6DA1 /* SwiftLintFramework in Frameworks */,
+				E94F18CC27CD002700FF6DA1 /* FirebaseFirestore in Frameworks */,
+				E94F18CE27CD002700FF6DA1 /* FirebaseFirestoreSwift-Beta in Frameworks */,
+				E94F18DA27CD036D00FF6DA1 /* RxBlocking in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,6 +99,16 @@
 			dependencies = (
 			);
 			name = ProjectManager;
+			packageProductDependencies = (
+				E94F18CB27CD002700FF6DA1 /* FirebaseFirestore */,
+				E94F18CD27CD002700FF6DA1 /* FirebaseFirestoreSwift-Beta */,
+				E94F18D127CD036D00FF6DA1 /* RxSwift */,
+				E94F18D327CD036D00FF6DA1 /* RxTest */,
+				E94F18D527CD036D00FF6DA1 /* RxRelay */,
+				E94F18D727CD036D00FF6DA1 /* RxCocoa */,
+				E94F18D927CD036D00FF6DA1 /* RxBlocking */,
+				E94F18DD27CD04A000FF6DA1 /* SwiftLintFramework */,
+			);
 			productName = ProjectManager;
 			productReference = C7431F0225F51E1D0094C4CF /* ProjectManager.app */;
 			productType = "com.apple.product-type.application";
@@ -110,6 +136,11 @@
 				Base,
 			);
 			mainGroup = C7431EF925F51E1D0094C4CF;
+			packageReferences = (
+				E94F18CA27CD002700FF6DA1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				E94F18D027CD036D00FF6DA1 /* XCRemoteSwiftPackageReference "RxSwift" */,
+				E94F18DC27CD04A000FF6DA1 /* XCRemoteSwiftPackageReference "SwiftLint" */,
+			);
 			productRefGroup = C7431F0325F51E1D0094C4CF /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -341,6 +372,76 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E94F18CA27CD002700FF6DA1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = exactVersion;
+				version = 7.4.0;
+			};
+		};
+		E94F18D027CD036D00FF6DA1 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.5.0;
+			};
+		};
+		E94F18DC27CD04A000FF6DA1 /* XCRemoteSwiftPackageReference "SwiftLint" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/SwiftLint";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.46.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E94F18CB27CD002700FF6DA1 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E94F18CA27CD002700FF6DA1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		E94F18CD27CD002700FF6DA1 /* FirebaseFirestoreSwift-Beta */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E94F18CA27CD002700FF6DA1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseFirestoreSwift-Beta";
+		};
+		E94F18D127CD036D00FF6DA1 /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E94F18D027CD036D00FF6DA1 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
+		E94F18D327CD036D00FF6DA1 /* RxTest */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E94F18D027CD036D00FF6DA1 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxTest;
+		};
+		E94F18D527CD036D00FF6DA1 /* RxRelay */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E94F18D027CD036D00FF6DA1 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxRelay;
+		};
+		E94F18D727CD036D00FF6DA1 /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E94F18D027CD036D00FF6DA1 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		E94F18D927CD036D00FF6DA1 /* RxBlocking */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E94F18D027CD036D00FF6DA1 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxBlocking;
+		};
+		E94F18DD27CD04A000FF6DA1 /* SwiftLintFramework */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E94F18DC27CD04A000FF6DA1 /* XCRemoteSwiftPackageReference "SwiftLint" */;
+			productName = SwiftLintFramework;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C7431EFA25F51E1D0094C4CF /* Project object */;
 }
