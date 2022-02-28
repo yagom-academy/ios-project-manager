@@ -55,10 +55,9 @@
 
 ### [Step 1]
 
-- URLSession, URLDataTask를 활용하여 비동기 네트워크 통신을 이해합니다.
-- HTTP 프로토콜에 맞추어 자료 및 첨부파일을 송수신 할 수 있도록 설계합니다.
-- JSON 인코딩, 디코딩을 위한 Model Type을 설계합니다.
-- 네트워크 모듈을 손쉽게 사용하고 유지보수 할 수 있도록 추상화시킵니다.
+- Database 기술로 Firebase 의 FireStore, realm 을 선정합니다.
+- Firebase API 를 프로젝트에 연동합니다.
+- UIKit 환경에서 UIHostingController를 통해 SwiftUI 환경을 구현합니다.
 
 
 
