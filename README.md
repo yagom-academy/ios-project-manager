@@ -153,7 +153,6 @@ FireBase를 사용할 때, 백엔드와 관련된 컨트롤을 잃게 된다는 
 ### REST API가 무엇인가?
 REST(REpresentational State Transfer)는 distributed hypermedia systems의 아키텍처 스타일입니다. URI를 사용하여 액세스합니다. RESTful한 서비스 인터페이스가 되기 위해 원칙을 준수해야 합니다. 
 ### 왜 중요한가?
-각 요청이 어떤 동작이나 정보를 위한 것인지를 요청하는 모습 그 자체로 유추할 수 있습니다. 
 
 #### References
 - [REST API Tutorial](https://restfulapi.net/)
