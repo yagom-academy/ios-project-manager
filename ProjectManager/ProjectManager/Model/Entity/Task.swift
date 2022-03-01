@@ -16,3 +16,5 @@ struct Task: Identifiable {
     var status: WorkStatus
     
 }
+
+extension Task: Equatable { }

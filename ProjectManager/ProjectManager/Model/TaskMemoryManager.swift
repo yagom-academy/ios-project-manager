@@ -23,6 +23,10 @@ struct TaskMemoryManager: TaskManagerInterface {
         tasks.filter { $0.status == .done }
     }
     
+    init(tasks: [Task]) {
+        self.tasks = tasks
+    }
+    
     mutating func create(_ task: Task) throws {
         tasks.append(task)
     }
