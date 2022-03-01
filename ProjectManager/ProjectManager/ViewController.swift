@@ -1,18 +1,13 @@
-//
-//  ProjectManager - ViewController.swift
-//  Created by yagom. 
-//  Copyright © yagom. All rights reserved.
-// 
-
 import UIKit
+import Firebase
 
 class ViewController: UIViewController {
+    
+    lazy var rootReference = Database.database().reference()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        let itemReference = rootReference.child("test")
+        itemReference.setValue("데이터베이스 연동 테스트")
     }
-
-
 }
-
