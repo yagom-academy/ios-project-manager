@@ -28,14 +28,14 @@ struct TaskMemoryManager: TaskManagerInterface {
     }
     
     mutating func delete(_ task: Task) throws {
-        guard let index = tasks.firstIndex(of: task) else {
+        guard let index = tasks.firstIndex(where: { $0.id == task.id }) else {
             fatalError("\(#function) Error")
         }
         tasks.remove(at: index)
     }
     
     mutating func update(_ oldTask: Task, to newTask: Task) throws {
-        guard let index = tasks.firstIndex(of: oldTask) else {
+        guard let index = tasks.firstIndex(where: { $0.id == oldTask.id }) else {
             fatalError("\(#function) Error")
         }
         tasks[index].title = newTask.title
