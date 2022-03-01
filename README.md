@@ -19,7 +19,7 @@
 ### 해결 방법
 ---
 ## 기술 선택
-### **MVVM 패턴**
+## MVVM 패턴
 > 주로 MVC 패턴을 적용했습니다. 프로젝트 관리 앱에는 MVVM 패턴을 적용합니다. 
 ### MVC 패턴이 무엇인가?
 **MVC (Model-View-Controller) 패턴**은 유저 인터페이스, 데이터, 컨트롤하는 로직을 구현할 때 일반적으로 사용되는 소프트웨어 설계 패턴입니다.
@@ -97,7 +97,7 @@ MVVM 패턴의 구성요소, 종속성, 데이터의 흐름은 다음과 같습�
 - [Microsoft Enterprise Application Patterns using Xamarin.Forms eBook: The Model-View-ViewModel Pattern](https://docs.microsoft.com/en-us/xamarin/xamarin-forms/enterprise-application-patterns/mvvm)
 
 ---
-### **RxSwift, RxCocoa**
+## RxSwift, RxCocoa
 ### Functional Reactive Programming?
 - **Reactive Programming**이 무엇인가?
     - 데이터 스트림과 변화(변경사항)의 전파에 관련된 비동기식 프로그래밍 패러다임 
@@ -109,19 +109,23 @@ MVVM 패턴의 구성요소, 종속성, 데이터의 흐름은 다음과 같습�
 - **Functional Programming**이 무엇인가?
     - 수학의 함수와 유사하게 입력값을 넣으면 어떤 처리 과정을 거쳐서 결과값이 나오게 됩니다. 처리 과정은 파이프 라인과 유사하여 내부에서 외부를 접근하거나 외부에서 내부를 볼 수 없습니다. 이런 함수들을 묶어서 프로그램을 구성해나가는 것을 함수형 프로그래밍이라고 합니다. 
     - 특징 
-        1. Pure Functions
-        동일한 인자를 넣었을 때 항상 동일한 결과값을 반환해야 합니다. 
-        언제 선언되었는지 등 외부에 영향을 받지 않도록 작성해야 합니다.
+        1. Pure Functions  
 
-        2. Stateless, Immutability
-        인자로 전달된 데이터의 값을 변경할 일이 있다면, 새로운 개체를 만들어서 결과값으로 전달해야 합니다. 
-        외부의 상태나 인자로 전달된 데이터의 상태를 변경하지 않음으로써 side effect(함수를 호출하면 외부의 상태가 변경되거나 예상하지 못한 에러가 발생되는 등)를 만들지 않습니다. 이를 통해 멀티쓰레딩 환경 등에서도 안정적으로 동작할 수 있습니다.
+            동일한 인자를 넣었을 때 항상 동일한 결과값을 반환해야 합니다. 
+            언제 선언되었는지 등 외부에 영향을 받지 않도록 작성해야 합니다.
 
-        3. Expressions Only
-        if나 switch와 같은 표현을 사용하지 않야아 합니다.
+        2. Stateless, Immutability  
 
-        4. First-class and higher-order functions
-        함수를 변수에 할당하거나 함수에 인자로 전달하거나 리턴하는 등의 일들을 할 수 있는 First Class, 함수 자체를 인자로 전달하거나 함수에서 또 다른 함수를 리턴하는 고차함수 두 가지 속성을 가지고 있어야 합니다.
+            인자로 전달된 데이터의 값을 변경할 일이 있다면, 새로운 개체를 만들어서 결과값으로 전달해야 합니다. 
+            외부의 상태나 인자로 전달된 데이터의 상태를 변경하지 않음으로써 side effect(함수를 호출하면 외부의 상태가 변경되거나 예상하지 못한 에러가 발생되는 등)를 만들지 않습니다. 이를 통해 멀티쓰레딩 환경 등에서도 안정적으로 동작할 수 있습니다.
+
+        3. Expressions Only  
+
+            if나 switch와 같은 표현을 사용하지 않야아 합니다.
+
+        4. First-class and higher-order functions  
+        
+            함수를 변수에 할당하거나 함수에 인자로 전달하거나 리턴하는 등의 일들을 할 수 있는 First Class, 함수 자체를 인자로 전달하거나 함수에서 또 다른 함수를 리턴하는 고차함수 두 가지 속성을 가지고 있어야 합니다.
 
 ### FRP를 사용할 때 장점
 GCD, KVO, Delegate, Notification Center 등을 통해서 했던 비동기 처리를 일원화할 수 있습니다. 가독성이 높아지고, 유지보수성이 좋아진다고 합니다. 테스트하기 좋은 구조가 된다고 합니다. 
@@ -139,7 +143,7 @@ FP는 결과를 계산하는 것에 더 집중하는 것처럼 보여집니다. 
 
 
 ---
-### FireBase
+## FireBase
 #### 장점
  FireBase를 사용하면 서버 구축과 서버 인프라 없이, 무료로 앱을 만들어서 배포할 수 있다는 장점이 있습니다. 프로젝트 관리 앱 특성상 실시간으로 데이터가 동기화되는 것이 중요하다고 생각했습니다. 배포 후 분석, 앱 충돌 보고 등 앱 관련 데이터를 제공하며, GUI를 통해 확인할 수 있습니다. 
 #### 단점
