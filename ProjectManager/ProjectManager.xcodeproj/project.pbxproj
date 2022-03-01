@@ -18,6 +18,9 @@
 		FB85DA2A27CDE31F0065FD72 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = FB85DA2927CDE31F0065FD72 /* RxCocoa */; };
 		FB85DA2C27CDE31F0065FD72 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = FB85DA2B27CDE31F0065FD72 /* RxRelay */; };
 		FB85DA2E27CDE31F0065FD72 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FB85DA2D27CDE31F0065FD72 /* RxSwift */; };
+		FB85DA3427CDF8970065FD72 /* ToDo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FB85DA3227CDF8970065FD72 /* ToDo.xcdatamodeld */; };
+		FB85DA3727CDF91E0065FD72 /* ToDo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB85DA3527CDF91D0065FD72 /* ToDo+CoreDataClass.swift */; };
+		FB85DA3827CDF91E0065FD72 /* ToDo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB85DA3627CDF91E0065FD72 /* ToDo+CoreDataProperties.swift */; };
 		FBDBCF0027CDBAB80018B526 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FBDBCEFF27CDBAB80018B526 /* GoogleService-Info.plist */; };
 		FBDBCF0327CDBC3D0018B526 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = FBDBCF0227CDBC3D0018B526 /* FirebaseAnalytics */; };
 		FBDBCF0527CDBC3D0018B526 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = FBDBCF0427CDBC3D0018B526 /* FirebaseAuth */; };
@@ -36,6 +39,9 @@
 		C7431F0E25F51E1E0094C4CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C7431F1125F51E1E0094C4CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FB85DA3327CDF8970065FD72 /* ToDo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ToDo.xcdatamodel; sourceTree = "<group>"; };
+		FB85DA3527CDF91D0065FD72 /* ToDo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ToDo+CoreDataClass.swift"; sourceTree = "<group>"; };
+		FB85DA3627CDF91E0065FD72 /* ToDo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ToDo+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		FBDBCEFF27CDBAB80018B526 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -63,6 +69,9 @@
 			isa = PBXGroup;
 			children = (
 				47F8F60927CDEA96008919E3 /* CoreDataManager.swift */,
+				FB85DA3527CDF91D0065FD72 /* ToDo+CoreDataClass.swift */,
+				FB85DA3627CDF91E0065FD72 /* ToDo+CoreDataProperties.swift */,
+				FB85DA3227CDF8970065FD72 /* ToDo.xcdatamodeld */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -185,10 +194,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB85DA3427CDF8970065FD72 /* ToDo.xcdatamodeld in Sources */,
 				C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
+				FB85DA3827CDF91E0065FD72 /* ToDo+CoreDataProperties.swift in Sources */,
 				47F8F60A27CDEA96008919E3 /* CoreDataManager.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
+				FB85DA3727CDF91E0065FD72 /* ToDo+CoreDataClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -459,6 +471,19 @@
 			productName = FirebaseStorage;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		FB85DA3227CDF8970065FD72 /* ToDo.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				FB85DA3327CDF8970065FD72 /* ToDo.xcdatamodel */,
+			);
+			currentVersion = FB85DA3327CDF8970065FD72 /* ToDo.xcdatamodel */;
+			path = ToDo.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = C7431EFA25F51E1D0094C4CF /* Project object */;
 }
