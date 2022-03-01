@@ -35,7 +35,7 @@ func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options conn
 
 - 데이터 저장을 위해 사용할 Firebase, Realm 라이브러리를 `Swift Package Manager`를 통해 의존성 추가했습니다.
 
-<p align="left"><img src="https://user-images.githubusercontent.com/71127966/156116985-6d3c11b0-e4f4-41e7-8f3b-d0abb081439b.png" width="40%"></p> 
+<p align="left"><img src="https://user-images.githubusercontent.com/71127966/156151495-9c87e930-128c-451a-a4cd-12a5f2a88293.png" width="40%"></p>
 
 <br>
 
