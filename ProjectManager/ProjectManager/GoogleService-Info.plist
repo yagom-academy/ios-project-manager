@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>951080850197-1pgcasqo7v9e6ri8a9rab7e803fle1fb.apps.googleusercontent.com</string>
+	<string>507409488153-b0km2fc1plemk1s6misjek94m9ei0vv7.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.951080850197-1pgcasqo7v9e6ri8a9rab7e803fle1fb</string>
+	<string>com.googleusercontent.apps.507409488153-b0km2fc1plemk1s6misjek94m9ei0vv7</string>
 	<key>API_KEY</key>
-	<string>AIzaSyBWPVUqPgoKjENMkLcFMkcgINHdZ2t2U8g</string>
+	<string>AIzaSyAz75z7oB94FszhtXoQyiPtPhkaUR9OxRs</string>
 	<key>GCM_SENDER_ID</key>
-	<string>951080850197</string>
+	<string>507409488153</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.tistory.bicycleforthemind.ProjectManager</string>
 	<key>PROJECT_ID</key>
-	<string>jager-project-manager</string>
+	<string>jager-ios</string>
 	<key>STORAGE_BUCKET</key>
-	<string>jager-project-manager.appspot.com</string>
+	<string>jager-ios.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:951080850197:ios:c1e14bc22eb1cdd1b60f1c</string>
+	<string>1:507409488153:ios:f6a29094512afeb43a0d88</string>
 </dict>
 </plist>
