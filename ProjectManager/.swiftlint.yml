@@ -1,0 +1,32 @@
+disabled_rules:
+ - line_length
+ - trailing_whitespace
+
+included:
+ - ProjectManager
+
+opt_in_rules:
+ - attributes
+ - file_name_no_space
+ - force_unwrapping
+ - let_var_whitespace
+ - empty_count
+ - empty_string
+ - empty_collection_literal
+ - collection_alignment
+ - first_where
+ - last_where
+ - toggle_bool
+ - weak_delegate
+ - closure_spacing
+ - unneeded_parentheses_in_closure_argument
+ - prefer_self_in_static_references
+ - redundant_type_annotation
+ - prohibited_super_call
+ - anyobject_protocol
+ - fallthrough
+
+excluded:
+ - Pods
+ - ProjectManager/AppDelegate.swift
+ - ProjectManager/SceneDelegate.swift
