@@ -19,9 +19,9 @@
 ### 해결 방법
 ---
 ## 기술 선택
-### MVVM 패턴
-> 이전에는 주로 MVC 패턴을 적용했습니다. 프로젝트 관리 앱에는 MVVM 패턴을 적용합니다. 
-#### MVC 패턴이 무엇인가?
+### **MVVM 패턴**
+> 주로 MVC 패턴을 적용했습니다. 프로젝트 관리 앱에는 MVVM 패턴을 적용합니다. 
+### MVC 패턴이 무엇인가?
 **MVC (Model-View-Controller) 패턴**은 유저 인터페이스, 데이터, 컨트롤하는 로직을 구현할 때 일반적으로 사용되는 소프트웨어 설계 패턴입니다.
 
 MVC 패턴에서는,
@@ -49,23 +49,23 @@ Observer 패턴을 사용하게 되면 Model이 View를 알고 있게 됩니다.
   <img src="https://user-images.githubusercontent.com/60090790/156174459-79c124d5-ade1-4be9-848d-bb1eb1cf5b7c.png" width="667" />
 </p>
 
-#### MVVM 패턴을 고려하게 된 이유 
+### MVVM 패턴을 고려하게 된 이유 
 
 다수의 프로젝트에서 MVC패턴을 적용해본 결과 **풀리지 않는 문제**가 있었습니다.
 MVC패턴의 한계 중 하나를 직접 경험했습니다.  
 
-> 이 코드가 View나 Model인가? 🙅‍♀️
-> → Controller에 포함 → 이 코드가 Controller인가? 🤔 
-> → 그렇다고 이 코드가 View나 Model인가? 🙅‍♀️ → ..
+> 이 코드가 View나 Model인가? 🙅‍♀️  
+> → Controller에 포함 → 이 코드가 Controller인가? 🤔   
+> → 그렇다고 이 코드가 View나 Model인가? 🙅‍♀️ → ..  
 
 라는 뱅뱅 도는 고민의 결과, **Controller가 비대해졌습니다**.  
 
 
-#### MVVM 패턴이 무엇이길래? 
+### MVVM 패턴이 무엇이길래? 
 
 **MVVM (Model-View-ViewModel) 패턴**은 MVC패턴에서 발전했습니다. 그 후 2004년 MVP 패턴이 발표되고, 이를 개선한(Martin Fowler는 개선이 아니라 동일하다고 말한) MVVM 패턴이 발표가 됩니다. 
 
-MVVM 패턴의 목적은 비즈니스 로직, 프리젠테이션 로직과 화면을 그리는 UI를 분리하는 것입니다. 
+MVVM 패턴의 목적은 **비즈니스 로직, 프리젠테이션 로직과 화면을 그리는 UI를 분리**하는 것입니다. 
 
 <p align="center">
     <img src="https://user-images.githubusercontent.com/60090790/156177740-4a66f786-1189-449b-9ed6-ddfd7bb9bc0f.png" width = "667" />
@@ -88,7 +88,7 @@ MVVM 패턴의 구성요소, 종속성, 데이터의 흐름은 다음과 같습�
 
 
 
-##### References
+#### References
 
 - [mozilla: MVC](https://developer.mozilla.org/en-US/docs/Glossary/MVC)
 - [Concepts in Objective-C Programming: Model-View-Controller](https://developer.apple.com/library/archive/documentation/General/Conceptual/CocoaEncyclopedia/Model-View-Controller/Model-View-Controller.html)
@@ -97,40 +97,41 @@ MVVM 패턴의 구성요소, 종속성, 데이터의 흐름은 다음과 같습�
 - [Microsoft Enterprise Application Patterns using Xamarin.Forms eBook: The Model-View-ViewModel Pattern](https://docs.microsoft.com/en-us/xamarin/xamarin-forms/enterprise-application-patterns/mvvm)
 
 ---
-### RxSwift, RxCocoa
-#### Functional Reactive Programming?
+### **RxSwift, RxCocoa**
+### Functional Reactive Programming?
+- **Reactive Programming**이 무엇인가?
+    - 데이터 스트림과 변화(변경사항)의 전파에 관련된 비동기식 프로그래밍 패러다임 
+- **Stream**
+    - 스트림은 시간 순에 따라 진행 중인 이벤트의 시퀀스입니다. 값, 에러, 완료 신호를 방출할 수 있습니다.
+    터치 이벤트, 텍스트 타이핑 등 모든 종류의 사용자 상호 작용이나 개체의 변경사항이 실제로 비동기 스트림입니다. 
+    RP에서 모든 것이 스트림이라고 생각해 볼 수 있습니다. 프로퍼티, 자료구조 등 모든 것이 사용자의 입력이나 터치에서 생성된 이벤트 스트림과 같은 스트림입니다. 
 
-##### Reactive Programming이 무엇인가?
-Reactive Programming은 데이터 스트림과 변화(변경사항)의 전파에 관련된 비동기식 프로그래밍 패러다임입니다. 
-##### Stream(스트림)은 무엇인가?
+- **Functional Programming**이 무엇인가?
+    - 수학의 함수와 유사하게 입력값을 넣으면 어떤 처리 과정을 거쳐서 결과값이 나오게 됩니다. 처리 과정은 파이프 라인과 유사하여 내부에서 외부를 접근하거나 외부에서 내부를 볼 수 없습니다. 이런 함수들을 묶어서 프로그램을 구성해나가는 것을 함수형 프로그래밍이라고 합니다. 
+    - 특징 
+        1. Pure Functions
+        동일한 인자를 넣었을 때 항상 동일한 결과값을 반환해야 합니다. 
+        언제 선언되었는지 등 외부에 영향을 받지 않도록 작성해야 합니다.
 
-스트림은 시간 순에 따라 진행 중인 이벤트의 시퀀스입니다. 값, 에러, 완료 신호를 방출할 수 있습니다. 터치 이벤트, 텍스트 타이핑 등 모든 종류의 사용자 상호 작용이나 개체의 변경사항이 실제로 비동기 스트림입니다. RP에서 모든 것이 스트림이라고 생각해 볼 수 있습니다. 프로퍼티, 자료구조 등 모든 것이 사용자의 입력이나 터치에서 생성된 이벤트 스트림과 같은 스트림입니다. 
+        2. Stateless, Immutability
+        인자로 전달된 데이터의 값을 변경할 일이 있다면, 새로운 개체를 만들어서 결과값으로 전달해야 합니다. 
+        외부의 상태나 인자로 전달된 데이터의 상태를 변경하지 않음으로써 side effect(함수를 호출하면 외부의 상태가 변경되거나 예상하지 못한 에러가 발생되는 등)를 만들지 않습니다. 이를 통해 멀티쓰레딩 환경 등에서도 안정적으로 동작할 수 있습니다.
 
-##### Functional Programming이 무엇인가?
+        3. Expressions Only
+        if나 switch와 같은 표현을 사용하지 않야아 합니다.
 
-수학의 함수와 유사하게 입력값을 넣으면 어떤 처리 과정을 거쳐서 결과값이 나오게 됩니다. 처리 과정은 파이프 라인과 유사하여 내부에서 외부를 접근하거나 외부에서 내부를 볼 수 없습니다. 이런 함수들을 묶어서 프로그램을 구성해나가는 것을 **함수형 프로그래밍**이라고 합니다. 함수형 프로그래밍의 특징은 다음과 같습니다. 
+        4. First-class and higher-order functions
+        함수를 변수에 할당하거나 함수에 인자로 전달하거나 리턴하는 등의 일들을 할 수 있는 First Class, 함수 자체를 인자로 전달하거나 함수에서 또 다른 함수를 리턴하는 고차함수 두 가지 속성을 가지고 있어야 합니다.
 
-1. Pure Functions
-동일한 인자를 넣었을 때 항상 동일한 결과값을 반환해야 합니다. 언제 선언되었는지 등 외부에 영향을 받지 않도록 작성해야 합니다.
-
-2. Stateless, Immutability
-인자로 전달된 데이터의 값을 변경할 일이 있다면, 새로운 개체를 만들어서 결과값으로 전달해야 합니다. 외부의 상태나 인자로 전달된 데이터의 상태를 변경하지 않음으로써 side effect(함수를 호출하면 외부의 상태가 변경되거나 예상하지 못한 에러가 발생되는 등)를 만들지 않습니다. 이를 통해 멀티쓰레딩 환경 등에서도 안정적으로 동작할 수 있습니다.
-
-3. Expressions Only
-if나 switch와 같은 표현을 사용하지 않야아 합니다.
-
-4. First-class and higher-order functions
-함수를 변수에 할당하거나 함수에 인자로 전달하거나 리턴하는 등의 일들을 할 수 있는 First Class, 함수 자체를 인자로 전달하거나 함수에서 또 다른 함수를 리턴하는 고차함수 두 가지 속성을 가지고 있어야 합니다.
-
-#### FRP를 사용할 때 장점
+### FRP를 사용할 때 장점
 GCD, KVO, Delegate, Notification Center 등을 통해서 했던 비동기 처리를 일원화할 수 있습니다. 가독성이 높아지고, 유지보수성이 좋아진다고 합니다. 테스트하기 좋은 구조가 된다고 합니다. 
 
-#### OOP와 차이 
+### OOP와 차이 
 
 FP는 결과를 계산하는 것에 더 집중하는 것처럼 보여집니다. 그에 비해 OOP는 과정에 더 집중하는 것으로 보여집니다. 원하는 결과가 나온다고 해도 그 결과까지 계산하는 과정이 SOLID 원칙에 따라 적절하게 분리되지 않았다면 OOP를 잘 설계했다고 할 수 없습니다.     
 
 
-##### References
+#### References
 
 - [Functional Reactive Programming using Swift](https://flexiple.com/ios/functional-reactive-programming-using-swift/#section1)
 - [Introduction to Functional Programming using Swift](https://flexiple.com/ios/introduction-to-functional-programming-using-swift/)
@@ -154,6 +155,6 @@ REST(REpresentational State Transfer)는 distributed hypermedia systems의 아�
 ### 왜 중요한가?
 각 요청이 어떤 동작이나 정보를 위한 것인지를 요청하는 모습 그 자체로 유추할 수 있습니다. 
 
-##### References
+#### References
 - [REST API Tutorial](https://restfulapi.net/)
 ---
