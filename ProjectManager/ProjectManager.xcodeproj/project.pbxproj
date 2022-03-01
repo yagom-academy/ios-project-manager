@@ -98,12 +98,20 @@
 		C1216A8B27CE429A00398714 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				C1836B4C27CE43B0008D9F07 /* Task.swift */,
-				C139EF9127CE4539001079B6 /* WorkStatus.swift */,
+				C139EF9727CE5B2C001079B6 /* Entity */,
 				C139EF9327CE46EC001079B6 /* TaskMemoryManager.swift */,
 				C139EF9527CE48F0001079B6 /* TaskManagerInterface.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		C139EF9727CE5B2C001079B6 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				C1836B4C27CE43B0008D9F07 /* Task.swift */,
+				C139EF9127CE4539001079B6 /* WorkStatus.swift */,
+			);
+			path = Entity;
 			sourceTree = "<group>";
 		};
 		C7431EF925F51E1D0094C4CF = {
