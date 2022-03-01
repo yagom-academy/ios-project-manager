@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>388336700143-5fj39hd93ga3lnfpriv8tqge269ogi71.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.388336700143-5fj39hd93ga3lnfpriv8tqge269ogi71</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBLkJ6T5EpS8J4ARR3NYtgtHHv0qmFmPy0</string>
+	<key>GCM_SENDER_ID</key>
+	<string>388336700143</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>net.yagom.ProjectManager</string>
+	<key>PROJECT_ID</key>
+	<string>project-manager-july</string>
+	<key>STORAGE_BUCKET</key>
+	<string>project-manager-july.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:388336700143:ios:a7d7b4c68bb348fa87a91a</string>
+</dict>
+</plist>
