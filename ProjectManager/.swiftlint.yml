@@ -1,0 +1,10 @@
+disabled_rules:
+ - unused_optional_binding
+
+included:
+
+excluded:
+ - Pods
+
+trailing_whitespace:
+ ignores_empty_lines: true
