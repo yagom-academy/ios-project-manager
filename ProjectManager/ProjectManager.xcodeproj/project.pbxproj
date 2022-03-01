@@ -22,6 +22,8 @@
 		C105643827CCF6150018ACFE /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C105643727CCF6150018ACFE /* RealmSwift */; };
 		C105643C27CCF9CB0018ACFE /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = C105643B27CCF9CB0018ACFE /* .swiftlint.yml */; };
 		C139EF9227CE4539001079B6 /* WorkStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = C139EF9127CE4539001079B6 /* WorkStatus.swift */; };
+		C139EF9427CE46EC001079B6 /* TaskMemoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C139EF9327CE46EC001079B6 /* TaskMemoryManager.swift */; };
+		C139EF9627CE48F0001079B6 /* TaskManagerInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = C139EF9527CE48F0001079B6 /* TaskManagerInterface.swift */; };
 		C1836B4D27CE43B0008D9F07 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1836B4C27CE43B0008D9F07 /* Task.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
@@ -34,6 +36,8 @@
 		C105642927CCE91C0018ACFE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C105643B27CCF9CB0018ACFE /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		C139EF9127CE4539001079B6 /* WorkStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkStatus.swift; sourceTree = "<group>"; };
+		C139EF9327CE46EC001079B6 /* TaskMemoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskMemoryManager.swift; sourceTree = "<group>"; };
+		C139EF9527CE48F0001079B6 /* TaskManagerInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManagerInterface.swift; sourceTree = "<group>"; };
 		C1836B4C27CE43B0008D9F07 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -96,6 +100,8 @@
 			children = (
 				C1836B4C27CE43B0008D9F07 /* Task.swift */,
 				C139EF9127CE4539001079B6 /* WorkStatus.swift */,
+				C139EF9327CE46EC001079B6 /* TaskMemoryManager.swift */,
+				C139EF9527CE48F0001079B6 /* TaskManagerInterface.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -241,9 +247,11 @@
 			files = (
 				C1836B4D27CE43B0008D9F07 /* Task.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
+				C139EF9627CE48F0001079B6 /* TaskManagerInterface.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				C105641727CCE5A10018ACFE /* ContentView.swift in Sources */,
 				C139EF9227CE4539001079B6 /* WorkStatus.swift in Sources */,
+				C139EF9427CE46EC001079B6 /* TaskMemoryManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
