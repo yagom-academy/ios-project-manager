@@ -7,7 +7,7 @@
 
 import Foundation
 
-class TaskManager {
+class TaskManager: TaskManageable {
     
     private var tasks = [Task]()
     var todoTasks: [Task] {
