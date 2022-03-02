@@ -9,7 +9,11 @@ import Foundation
 
 class TaskManager: TaskManageable {
     
-    private var tasks = [Task]()
+    private var tasks = [Task]() {
+        didSet {
+            tasks.sort { $0.dueDate < $1.dueDate }
+        }
+    }
     var todoTasks: [Task] {
         return tasks.filter { $0.status == .todo }
     }
