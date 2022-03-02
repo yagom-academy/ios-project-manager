@@ -15,8 +15,10 @@
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
 		DE20A0BA27CDCD95004B93AC /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = DE20A0B927CDCD95004B93AC /* .swiftlint.yml */; };
 		DE20A0BC27CDD385004B93AC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DE20A0BB27CDD385004B93AC /* GoogleService-Info.plist */; };
-		DE843A4C27CE616A00F622E2 /* WorkList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE843A4B27CE616A00F622E2 /* WorkList.swift */; };
+		DE843A4C27CE616A00F622E2 /* Work.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE843A4B27CE616A00F622E2 /* Work.swift */; };
 		DE843A4F27CE641900F622E2 /* DateFormatter+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE843A4E27CE641900F622E2 /* DateFormatter+extension.swift */; };
+		DE843A5227CE6DD200F622E2 /* MemoryDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE843A5127CE6DD200F622E2 /* MemoryDataManager.swift */; };
+		DE843A5527CE6EA300F622E2 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE843A5427CE6EA300F622E2 /* DataManager.swift */; };
 		F30B76FC5BC81A5381504B03 /* Pods_ProjectManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 204B28057D7E57350830FB9D /* Pods_ProjectManager.framework */; };
 /* End PBXBuildFile section */
 
@@ -33,8 +35,10 @@
 		D483EBAF9774B03064F15941 /* Pods-ProjectManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.release.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.release.xcconfig"; sourceTree = "<group>"; };
 		DE20A0B927CDCD95004B93AC /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		DE20A0BB27CDD385004B93AC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
-		DE843A4B27CE616A00F622E2 /* WorkList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkList.swift; sourceTree = "<group>"; };
+		DE843A4B27CE616A00F622E2 /* Work.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Work.swift; sourceTree = "<group>"; };
 		DE843A4E27CE641900F622E2 /* DateFormatter+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+extension.swift"; sourceTree = "<group>"; };
+		DE843A5127CE6DD200F622E2 /* MemoryDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryDataManager.swift; sourceTree = "<group>"; };
+		DE843A5427CE6EA300F622E2 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		DE90137C33C61E09FB585FB1 /* Pods-ProjectManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.debug.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -89,8 +93,9 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
-				DE843A5027CE67FF00F622E2 /* Model */,
+				DE843A5327CE6E9500F622E2 /* Protocol */,
 				DE843A4D27CE640500F622E2 /* Extension */,
+				DE843A5027CE67FF00F622E2 /* Model */,
 				DE843A4927CE60F200F622E2 /* View */,
 				DE843A4A27CE612000F622E2 /* ViewModel */,
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
@@ -130,9 +135,18 @@
 		DE843A5027CE67FF00F622E2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				DE843A4B27CE616A00F622E2 /* WorkList.swift */,
+				DE843A4B27CE616A00F622E2 /* Work.swift */,
+				DE843A5127CE6DD200F622E2 /* MemoryDataManager.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		DE843A5327CE6E9500F622E2 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				DE843A5427CE6EA300F622E2 /* DataManager.swift */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -269,7 +283,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DE843A4C27CE616A00F622E2 /* WorkList.swift in Sources */,
+				DE843A5227CE6DD200F622E2 /* MemoryDataManager.swift in Sources */,
+				DE843A4C27CE616A00F622E2 /* Work.swift in Sources */,
+				DE843A5527CE6EA300F622E2 /* DataManager.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				DE843A4F27CE641900F622E2 /* DateFormatter+extension.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
