@@ -74,6 +74,22 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		C1FE9BBE27CFCC3600397B90 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		C1FE9BBF27CFCCD500397B90 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C182E78327CD0E9D00F6218C /* ContentView.swift */,
+				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		C7431EF925F51E1D0094C4CF = {
 			isa = PBXGroup;
 			children = (
@@ -96,10 +112,10 @@
 			isa = PBXGroup;
 			children = (
 				C1FE9BB727CFB57500397B90 /* Model */,
-				C182E78327CD0E9D00F6218C /* ContentView.swift */,
+				C1FE9BBE27CFCC3600397B90 /* Protocol */,
+				C1FE9BBF27CFCCD500397B90 /* View */,
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
-				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C182E7A027CDD57800F6218C /* GoogleService-Info.plist */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
