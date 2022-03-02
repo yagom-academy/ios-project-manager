@@ -8,10 +8,15 @@ import UIKit
 
 class MainViewController: UIViewController {
 
+    let todoViewController = ProjectListViewController()
+    let doingViewController = ProjectListViewController()
+    let doneViewController = ProjectListViewController()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureNavigationBar()
+        configureListViewLayout()
     }
 
     func configureNavigationBar() {
@@ -19,9 +24,31 @@ class MainViewController: UIViewController {
         
         navigationItem.rightBarButtonItem = addButton
         navigationItem.title = "Project Manager"
+        navigationController?.navigationBar.barTintColor = .systemGray6
     }
     
     @objc func addTodo() {
         print("addTodo")
+    }
+    
+    func configureListViewLayout() {
+        let todoTableView = todoViewController.tableView
+        let doingTableView = doingViewController.tableView
+        let doneTableView = doneViewController.tableView
+        let stackView = UIStackView(arrangedSubviews: [todoTableView, doingTableView, doneTableView])
+        
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.spacing = 10
+        stackView.distribution = .fillEqually
+        stackView.axis = .horizontal
+        stackView.backgroundColor = .systemGray4
+        view.addSubview(stackView)
+        
+        NSLayoutConstraint.activate([
+            stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            stackView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
     }
 }
