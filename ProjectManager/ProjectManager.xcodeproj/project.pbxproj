@@ -15,6 +15,7 @@
 		9A40A07B27CCDB8100A73BBA /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9A40A07A27CCDB8100A73BBA /* RxSwift */; };
 		9A40A07D27CF491900A73BBA /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A07C27CF491900A73BBA /* Project.swift */; };
 		9A40A09A27CF8BC100A73BBA /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A09927CF8BC100A73BBA /* Observable.swift */; };
+		9A40A09D27CF8C6700A73BBA /* ProjectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A09C27CF8C6700A73BBA /* ProjectViewModel.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* ViewController.swift */; };
@@ -26,6 +27,7 @@
 /* Begin PBXFileReference section */
 		9A40A07C27CF491900A73BBA /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		9A40A09927CF8BC100A73BBA /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		9A40A09C27CF8C6700A73BBA /* ProjectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectViewModel.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				9A40A09927CF8BC100A73BBA /* Observable.swift */,
+				9A40A09C27CF8C6700A73BBA /* ProjectViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -241,6 +244,7 @@
 				9A40A09A27CF8BC100A73BBA /* Observable.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
+				9A40A09D27CF8C6700A73BBA /* ProjectViewModel.swift in Sources */,
 				9A40A07D27CF491900A73BBA /* Project.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
