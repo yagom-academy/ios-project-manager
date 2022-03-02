@@ -9,6 +9,7 @@ import Foundation
 
 protocol ToDoMangeable {
     var repository: Repository { get set }
+    init(repository: Repository)
     
     func create(with todo: ToDo)
     func fetchAll() -> [ToDo]
