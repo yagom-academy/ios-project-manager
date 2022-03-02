@@ -20,6 +20,7 @@
 		C9C2614A27CE1E08002FA9F4 /* ToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C2614927CE1E08002FA9F4 /* ToDo.swift */; };
 		C9C2614D27CF3D9B002FA9F4 /* ToDoState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C2614C27CF3D99002FA9F4 /* ToDoState.swift */; };
 		C9C2615027CF3ED0002FA9F4 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C2614F27CF3ED0002FA9F4 /* ViewModel.swift */; };
+		C9C2615527CF5C69002FA9F4 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C2615427CF5C69002FA9F4 /* Repository.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 		C9C2614927CE1E08002FA9F4 /* ToDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDo.swift; sourceTree = "<group>"; };
 		C9C2614C27CF3D99002FA9F4 /* ToDoState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoState.swift; sourceTree = "<group>"; };
 		C9C2614F27CF3ED0002FA9F4 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		C9C2615427CF5C69002FA9F4 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				C9C2614F27CF3ED0002FA9F4 /* ViewModel.swift */,
+				C9C2615427CF5C69002FA9F4 /* Repository.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -208,6 +211,7 @@
 				C9C2615027CF3ED0002FA9F4 /* ViewModel.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
+				C9C2615527CF5C69002FA9F4 /* Repository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
