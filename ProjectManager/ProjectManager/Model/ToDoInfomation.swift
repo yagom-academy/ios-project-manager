@@ -11,4 +11,8 @@ struct ToDoInfomation {
     var title: String
     var explanation: String
     var deadline: Double
+    
+    var localizedDeadline: String {
+        return DateFormatter().localizedDateString(from: deadline)
+    }
 }
