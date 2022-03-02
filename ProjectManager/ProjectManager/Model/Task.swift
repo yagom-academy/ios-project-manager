@@ -7,13 +7,13 @@
 
 import Foundation
 
-struct Task {
+class Task: Equatable {
     
-    private let id: String
-    private var title: String
-    private var body: String
-    private var dueDate: TimeInterval
-    private var status: TaskStatus
+    let id: String
+    var title: String
+    var body: String
+    var dueDate: TimeInterval
+    var status: TaskStatus
     
     init(title: String, body: String, dueDate: Date) {
         self.id = UUID().uuidString
@@ -21,5 +21,9 @@ struct Task {
         self.body = body
         self.dueDate = dueDate.timeIntervalSince1970
         self.status = .todo
+    }
+    
+    static func == (lhs: Task, rhs: Task) -> Bool {
+        return lhs.id == rhs.id
     }
 }
