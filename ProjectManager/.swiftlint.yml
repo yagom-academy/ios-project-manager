@@ -1,0 +1,12 @@
+
+excluded:
+  - ProjectManager/AppDelegate.swift
+  - ProjectManager/SceneDelegate.swift
+
+
+function_body_length:
+    warning: 10
+    error: 15
+type_body_length:
+    warning: 200
+    error: 250

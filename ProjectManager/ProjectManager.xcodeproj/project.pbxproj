@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,6 +13,13 @@
 		C7431F0D25F51E1D0094C4CF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0B25F51E1D0094C4CF /* Main.storyboard */; };
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
+		E94F18CC27CD002700FF6DA1 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = E94F18CB27CD002700FF6DA1 /* FirebaseFirestore */; };
+		E94F18CE27CD002700FF6DA1 /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = E94F18CD27CD002700FF6DA1 /* FirebaseFirestoreSwift-Beta */; };
+		E94F18D227CD036D00FF6DA1 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = E94F18D127CD036D00FF6DA1 /* RxSwift */; };
+		E94F18D627CD036D00FF6DA1 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = E94F18D527CD036D00FF6DA1 /* RxRelay */; };
+		E94F18D827CD036D00FF6DA1 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = E94F18D727CD036D00FF6DA1 /* RxCocoa */; };
+		E94F18DA27CD036D00FF6DA1 /* RxBlocking in Frameworks */ = {isa = PBXBuildFile; productRef = E94F18D927CD036D00FF6DA1 /* RxBlocking */; };
+		E94F18E927CD0AF100FF6DA1 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = E94F18E827CD0AF100FF6DA1 /* .swiftlint.yml */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +31,7 @@
 		C7431F0E25F51E1E0094C4CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C7431F1125F51E1E0094C4CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E94F18E827CD0AF100FF6DA1 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +39,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E94F18D827CD036D00FF6DA1 /* RxCocoa in Frameworks */,
+				E94F18D627CD036D00FF6DA1 /* RxRelay in Frameworks */,
+				E94F18D227CD036D00FF6DA1 /* RxSwift in Frameworks */,
+				E94F18CC27CD002700FF6DA1 /* FirebaseFirestore in Frameworks */,
+				E94F18CE27CD002700FF6DA1 /* FirebaseFirestoreSwift-Beta in Frameworks */,
+				E94F18DA27CD036D00FF6DA1 /* RxBlocking in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +54,7 @@
 		C7431EF925F51E1D0094C4CF = {
 			isa = PBXGroup;
 			children = (
+				E94F18E827CD0AF100FF6DA1 /* .swiftlint.yml */,
 				C7431F0425F51E1D0094C4CF /* ProjectManager */,
 				C7431F0325F51E1D0094C4CF /* Products */,
 			);
@@ -77,12 +92,21 @@
 				C7431EFE25F51E1D0094C4CF /* Sources */,
 				C7431EFF25F51E1D0094C4CF /* Frameworks */,
 				C7431F0025F51E1D0094C4CF /* Resources */,
+				E94F18E627CD0A6600FF6DA1 /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = ProjectManager;
+			packageProductDependencies = (
+				E94F18CB27CD002700FF6DA1 /* FirebaseFirestore */,
+				E94F18CD27CD002700FF6DA1 /* FirebaseFirestoreSwift-Beta */,
+				E94F18D127CD036D00FF6DA1 /* RxSwift */,
+				E94F18D527CD036D00FF6DA1 /* RxRelay */,
+				E94F18D727CD036D00FF6DA1 /* RxCocoa */,
+				E94F18D927CD036D00FF6DA1 /* RxBlocking */,
+			);
 			productName = ProjectManager;
 			productReference = C7431F0225F51E1D0094C4CF /* ProjectManager.app */;
 			productType = "com.apple.product-type.application";
@@ -110,6 +134,10 @@
 				Base,
 			);
 			mainGroup = C7431EF925F51E1D0094C4CF;
+			packageReferences = (
+				E94F18CA27CD002700FF6DA1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				E94F18D027CD036D00FF6DA1 /* XCRemoteSwiftPackageReference "RxSwift" */,
+			);
 			productRefGroup = C7431F0325F51E1D0094C4CF /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -124,6 +152,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E94F18E927CD0AF100FF6DA1 /* .swiftlint.yml in Resources */,
 				C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */,
 				C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */,
 				C7431F0D25F51E1D0094C4CF /* Main.storyboard in Resources */,
@@ -131,6 +160,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		E94F18E627CD0A6600FF6DA1 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if test -d \"/opt/homebrew/bin/\"; then\n  PATH=\"/opt/homebrew/bin/:${PATH}\"\nfi\n\nexport PATH\n\nif which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C7431EFE25F51E1D0094C4CF /* Sources */ = {
@@ -341,6 +390,58 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E94F18CA27CD002700FF6DA1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = exactVersion;
+				version = 7.4.0;
+			};
+		};
+		E94F18D027CD036D00FF6DA1 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.5.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E94F18CB27CD002700FF6DA1 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E94F18CA27CD002700FF6DA1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		E94F18CD27CD002700FF6DA1 /* FirebaseFirestoreSwift-Beta */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E94F18CA27CD002700FF6DA1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseFirestoreSwift-Beta";
+		};
+		E94F18D127CD036D00FF6DA1 /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E94F18D027CD036D00FF6DA1 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
+		E94F18D527CD036D00FF6DA1 /* RxRelay */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E94F18D027CD036D00FF6DA1 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxRelay;
+		};
+		E94F18D727CD036D00FF6DA1 /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E94F18D027CD036D00FF6DA1 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		E94F18D927CD036D00FF6DA1 /* RxBlocking */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E94F18D027CD036D00FF6DA1 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxBlocking;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C7431EFA25F51E1D0094C4CF /* Project object */;
 }
