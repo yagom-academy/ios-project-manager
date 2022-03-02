@@ -21,6 +21,7 @@
 		C9C2614D27CF3D9B002FA9F4 /* ToDoState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C2614C27CF3D99002FA9F4 /* ToDoState.swift */; };
 		C9C2615027CF3ED0002FA9F4 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C2614F27CF3ED0002FA9F4 /* ViewModel.swift */; };
 		C9C2615527CF5C69002FA9F4 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C2615427CF5C69002FA9F4 /* Repository.swift */; };
+		C9C2615827CF5EF5002FA9F4 /* ToDoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C2615727CF5EF5002FA9F4 /* ToDoRepository.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,7 @@
 		C9C2614C27CF3D99002FA9F4 /* ToDoState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoState.swift; sourceTree = "<group>"; };
 		C9C2614F27CF3ED0002FA9F4 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		C9C2615427CF5C69002FA9F4 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
+		C9C2615727CF5EF5002FA9F4 /* ToDoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +78,7 @@
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
 				C7431F0925F51E1D0094C4CF /* ViewController.swift */,
+				C9C2615627CF5EE4002FA9F4 /* Service */,
 				C9C2614E27CF3EBE002FA9F4 /* Protocol */,
 				C9C2614B27CE1E30002FA9F4 /* Model */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
@@ -102,6 +105,14 @@
 				C9C2615427CF5C69002FA9F4 /* Repository.swift */,
 			);
 			path = Protocol;
+			sourceTree = "<group>";
+		};
+		C9C2615627CF5EE4002FA9F4 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				C9C2615727CF5EF5002FA9F4 /* ToDoRepository.swift */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -210,6 +221,7 @@
 				C9C2614D27CF3D9B002FA9F4 /* ToDoState.swift in Sources */,
 				C9C2615027CF3ED0002FA9F4 /* ViewModel.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
+				C9C2615827CF5EF5002FA9F4 /* ToDoRepository.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				C9C2615527CF5C69002FA9F4 /* Repository.swift in Sources */,
 			);
