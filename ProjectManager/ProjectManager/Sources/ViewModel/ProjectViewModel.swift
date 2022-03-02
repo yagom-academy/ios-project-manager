@@ -1,9 +1,5 @@
 import Foundation
 
-final class ProjectViewModel {
-    var project: Observable<Project>
-    
-    init(project: Project) {
-        self.project = Observable(project)
-    }
+final class ProjectListViewModel {
+    var projectList: Observable<[Project]> = Observable([])
 }
