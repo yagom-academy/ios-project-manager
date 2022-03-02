@@ -16,6 +16,4 @@ protocol ToDoMangeable {
     func update(with todo: ToDo)
     func delete(with todo: ToDo)
     func changeState(of todo: ToDo, to state: ToDoState)
-    func fetchToDo(at id: UUID) -> ToDo
-    func count(of state: ToDoState) -> Int
 }
