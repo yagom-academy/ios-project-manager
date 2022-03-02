@@ -9,7 +9,7 @@ import XCTest
 
 final class TaskMemoryManagerTests: XCTestCase {
     
-    private var sutTaskManager: TaskManagerInterface!
+    private var sutTaskManager: TaskManager!
 
     override func setUpWithError() throws {
         let initialTasks: [Task] = []
