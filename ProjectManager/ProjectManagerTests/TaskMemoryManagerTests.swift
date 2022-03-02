@@ -22,7 +22,13 @@ final class TaskMemoryManagerTests: XCTestCase {
 
     private func test_create_메서드_실행후_todoTasks의_첫번째_요소로_생성된_Task가_반환되어야한다() {
         // given
-        let newTask = Task(id: UUID(), title: "Hello", description: "World", dueDate: Date(), status: .todo)
+        let newTask = Task(
+            id: UUID(),
+            title: "Hello",
+            description: "World",
+            dueDate: Date(),
+            status: .todo
+        )
         
         // when
         try? sutTaskManager.create(newTask)
@@ -37,7 +43,13 @@ final class TaskMemoryManagerTests: XCTestCase {
     
     private func test_create_메서드_실행후_doingTasks의_첫번째_요소로_생성된_Task가_반환되어야한다() {
         // given
-        let newTask = Task(id: UUID(), title: "Hello", description: "World", dueDate: Date(), status: .doing)
+        let newTask = Task(
+            id: UUID(),
+            title: "Hello",
+            description: "World",
+            dueDate: Date(),
+            status: .doing
+        )
         
         // when
         try? sutTaskManager.create(newTask)
@@ -52,7 +64,13 @@ final class TaskMemoryManagerTests: XCTestCase {
     
     private func test_create_메서드_실행후_doneTasks의_첫번째_요소로_생성된_Task가_반환되어야한다() {
         // given
-        let newTask = Task(id: UUID(), title: "Hello", description: "World", dueDate: Date(), status: .done)
+        let newTask = Task(
+            id: UUID(),
+            title: "Hello",
+            description: "World",
+            dueDate: Date(),
+            status: .done
+        )
         
         // when
         try? sutTaskManager.create(newTask)
@@ -67,7 +85,14 @@ final class TaskMemoryManagerTests: XCTestCase {
     
     private func test_하나의_Task가_주어졌을때_delete_메서드를_실행하면_todoTasks에_빈배열이_반환되어야한다() {
         // given
-        let newTask = Task(id: UUID(), title: "Hello", description: "World", dueDate: Date(), status: .todo)
+        let newTask = Task(
+            id: UUID(),
+            title: "Hello",
+            description: "World",
+            dueDate: Date(),
+            status: .todo
+        )
+        
         try? sutTaskManager.create(newTask)
         
         // when
@@ -80,7 +105,14 @@ final class TaskMemoryManagerTests: XCTestCase {
     
     private func test_하나의_Task가_주어졌을때_delete_메서드를_실행하면_doingTasks에_빈배열이_반환되어야한다() {
         // given
-        let newTask = Task(id: UUID(), title: "Hello", description: "World", dueDate: Date(), status: .doing)
+        let newTask = Task(
+            id: UUID(),
+            title: "Hello",
+            description: "World",
+            dueDate: Date(),
+            status: .doing
+        )
+        
         try? sutTaskManager.create(newTask)
         
         // when
@@ -93,7 +125,14 @@ final class TaskMemoryManagerTests: XCTestCase {
     
     private func test_하나의_Task가_주어졌을때_delete_메서드를_실행하면_doneTasks에_빈배열이_반환되어야한다() {
         // given
-        let newTask = Task(id: UUID(), title: "Hello", description: "World", dueDate: Date(), status: .done)
+        let newTask = Task(
+            id: UUID(),
+            title: "Hello",
+            description: "World",
+            dueDate: Date(),
+            status: .done
+        )
+        
         try? sutTaskManager.create(newTask)
         
         // when
@@ -106,8 +145,22 @@ final class TaskMemoryManagerTests: XCTestCase {
     
     private func test_하나의_Task가_주어졌을때_update_메서드를_실행하면_todoTasks에_수정된_task가_반환되어야한다() {
         // given
-        let newTask = Task(id: UUID(), title: "Hello", description: "World", dueDate: Date(), status: .todo)
-        let changeTask = Task(id: newTask.id, title: "World", description: "Hello", dueDate: Date(), status: newTask.status)
+        let newTask = Task(
+            id: UUID(),
+            title: "Hello",
+            description: "World",
+            dueDate: Date(),
+            status: .todo
+        )
+        
+        let changeTask = Task(
+            id: newTask.id,
+            title: "World",
+            description: "Hello",
+            dueDate: Date(),
+            status: newTask.status
+        )
+        
         try? sutTaskManager.create(newTask)
         
         // when
