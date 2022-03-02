@@ -14,7 +14,7 @@ class ToDoRepository: Repository {
         todos[todo.id] = todo
     }
     
-    func fetch() -> [ToDo] {
+    func fetchAll() -> [ToDo] {
         return todos.map { $0.value }
     }
     

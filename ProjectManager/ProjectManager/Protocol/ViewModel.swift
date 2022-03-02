@@ -8,13 +8,10 @@
 import Foundation
 
 protocol ViewModel {
-    var todos: [ToDo] { get set }
-        
     func create(with todo: ToDo)
-    func fetchAll() -> [ToDo]
     func update(with todo: ToDo)
     func delete(with todo: ToDo)
     func changeState(of todo: ToDo, to state: ToDoState)
-    func fetchToDo(at id: UUID) -> ToDo
+    func fetchToDo(at index: Int, with state: ToDoState) -> ToDo
     func count(of state: ToDoState) -> Int
 }
