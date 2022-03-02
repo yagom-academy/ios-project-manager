@@ -19,8 +19,23 @@
 		DE843A4F27CE641900F622E2 /* DateFormatter+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE843A4E27CE641900F622E2 /* DateFormatter+extension.swift */; };
 		DE843A5227CE6DD200F622E2 /* MemoryDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE843A5127CE6DD200F622E2 /* MemoryDataManager.swift */; };
 		DE843A5527CE6EA300F622E2 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE843A5427CE6EA300F622E2 /* DataManager.swift */; };
+		DE8587AC27CF064200D4F4B7 /* ProjectManagerModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8587AB27CF064200D4F4B7 /* ProjectManagerModelTests.swift */; };
+		DE8587B427CF406100D4F4B7 /* MemoryDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE843A5127CE6DD200F622E2 /* MemoryDataManager.swift */; };
+		DE8587B527CF406500D4F4B7 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE843A5427CE6EA300F622E2 /* DataManager.swift */; };
+		DE8587B627CF406900D4F4B7 /* Work.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE843A4B27CE616A00F622E2 /* Work.swift */; };
+		DE8587B727CF407900D4F4B7 /* DateFormatter+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE843A4E27CE641900F622E2 /* DateFormatter+extension.swift */; };
 		F30B76FC5BC81A5381504B03 /* Pods_ProjectManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 204B28057D7E57350830FB9D /* Pods_ProjectManager.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DE8587AD27CF064200D4F4B7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C7431EFA25F51E1D0094C4CF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C7431F0125F51E1D0094C4CF;
+			remoteInfo = ProjectManager;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		204B28057D7E57350830FB9D /* Pods_ProjectManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -39,6 +54,8 @@
 		DE843A4E27CE641900F622E2 /* DateFormatter+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+extension.swift"; sourceTree = "<group>"; };
 		DE843A5127CE6DD200F622E2 /* MemoryDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryDataManager.swift; sourceTree = "<group>"; };
 		DE843A5427CE6EA300F622E2 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		DE8587A927CF064200D4F4B7 /* ProjectManagerModelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProjectManagerModelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DE8587AB27CF064200D4F4B7 /* ProjectManagerModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerModelTests.swift; sourceTree = "<group>"; };
 		DE90137C33C61E09FB585FB1 /* Pods-ProjectManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.debug.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -48,6 +65,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				F30B76FC5BC81A5381504B03 /* Pods_ProjectManager.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DE8587A627CF064200D4F4B7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,6 +100,7 @@
 			children = (
 				DE20A0B927CDCD95004B93AC /* .swiftlint.yml */,
 				C7431F0425F51E1D0094C4CF /* ProjectManager */,
+				DE8587AA27CF064200D4F4B7 /* ProjectManagerTests */,
 				C7431F0325F51E1D0094C4CF /* Products */,
 				9F6E49B96E03625328C22965 /* Pods */,
 				03656C190564C612118F5F3E /* Frameworks */,
@@ -86,6 +111,7 @@
 			isa = PBXGroup;
 			children = (
 				C7431F0225F51E1D0094C4CF /* ProjectManager.app */,
+				DE8587A927CF064200D4F4B7 /* ProjectManagerModelTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -149,6 +175,14 @@
 			path = Protocol;
 			sourceTree = "<group>";
 		};
+		DE8587AA27CF064200D4F4B7 /* ProjectManagerTests */ = {
+			isa = PBXGroup;
+			children = (
+				DE8587AB27CF064200D4F4B7 /* ProjectManagerModelTests.swift */,
+			);
+			path = ProjectManagerTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -172,17 +206,39 @@
 			productReference = C7431F0225F51E1D0094C4CF /* ProjectManager.app */;
 			productType = "com.apple.product-type.application";
 		};
+		DE8587A827CF064200D4F4B7 /* ProjectManagerModelTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DE8587AF27CF064200D4F4B7 /* Build configuration list for PBXNativeTarget "ProjectManagerModelTests" */;
+			buildPhases = (
+				DE8587A527CF064200D4F4B7 /* Sources */,
+				DE8587A627CF064200D4F4B7 /* Frameworks */,
+				DE8587A727CF064200D4F4B7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DE8587AE27CF064200D4F4B7 /* PBXTargetDependency */,
+			);
+			name = ProjectManagerModelTests;
+			productName = ProjectManagerModelTests;
+			productReference = DE8587A927CF064200D4F4B7 /* ProjectManagerModelTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		C7431EFA25F51E1D0094C4CF /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1240;
+				LastSwiftUpdateCheck = 1300;
 				LastUpgradeCheck = 1240;
 				TargetAttributes = {
 					C7431F0125F51E1D0094C4CF = {
 						CreatedOnToolsVersion = 12.4;
+					};
+					DE8587A827CF064200D4F4B7 = {
+						CreatedOnToolsVersion = 13.0;
+						TestTargetID = C7431F0125F51E1D0094C4CF;
 					};
 				};
 			};
@@ -200,6 +256,7 @@
 			projectRoot = "";
 			targets = (
 				C7431F0125F51E1D0094C4CF /* ProjectManager */,
+				DE8587A827CF064200D4F4B7 /* ProjectManagerModelTests */,
 			);
 		};
 /* End PBXProject section */
@@ -214,6 +271,13 @@
 				DE20A0BC27CDD385004B93AC /* GoogleService-Info.plist in Resources */,
 				C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */,
 				C7431F0D25F51E1D0094C4CF /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DE8587A727CF064200D4F4B7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -293,7 +357,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DE8587A527CF064200D4F4B7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DE8587B627CF406900D4F4B7 /* Work.swift in Sources */,
+				DE8587B427CF406100D4F4B7 /* MemoryDataManager.swift in Sources */,
+				DE8587B727CF407900D4F4B7 /* DateFormatter+extension.swift in Sources */,
+				DE8587B527CF406500D4F4B7 /* DataManager.swift in Sources */,
+				DE8587AC27CF064200D4F4B7 /* ProjectManagerModelTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DE8587AE27CF064200D4F4B7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C7431F0125F51E1D0094C4CF /* ProjectManager */;
+			targetProxy = DE8587AD27CF064200D4F4B7 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		C7431F0B25F51E1D0094C4CF /* Main.storyboard */ = {
@@ -471,6 +555,54 @@
 			};
 			name = Release;
 		};
+		DE8587B027CF064200D4F4B7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = net.yagom.ProjectManagerModelTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ProjectManager.app/ProjectManager";
+			};
+			name = Debug;
+		};
+		DE8587B127CF064200D4F4B7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = net.yagom.ProjectManagerModelTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ProjectManager.app/ProjectManager";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -488,6 +620,15 @@
 			buildConfigurations = (
 				C7431F1725F51E1E0094C4CF /* Debug */,
 				C7431F1825F51E1E0094C4CF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DE8587AF27CF064200D4F4B7 /* Build configuration list for PBXNativeTarget "ProjectManagerModelTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DE8587B027CF064200D4F4B7 /* Debug */,
+				DE8587B127CF064200D4F4B7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
