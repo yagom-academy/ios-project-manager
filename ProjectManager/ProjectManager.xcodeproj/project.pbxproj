@@ -17,7 +17,8 @@
 		C9C2614027CDE1F6002FA9F4 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C9C2613F27CDE1F6002FA9F4 /* RxSwift */; };
 		C9C2614327CDE4CB002FA9F4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C9C2614227CDE4CB002FA9F4 /* GoogleService-Info.plist */; };
 		C9C2614527CDE68C002FA9F4 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = C9C2614427CDE68C002FA9F4 /* .swiftlint.yml */; };
-		C9C2614A27CE1E08002FA9F4 /* Work.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C2614927CE1E08002FA9F4 /* Work.swift */; };
+		C9C2614A27CE1E08002FA9F4 /* ToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C2614927CE1E08002FA9F4 /* ToDo.swift */; };
+		C9C2614D27CF3D9B002FA9F4 /* ToDoState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C2614C27CF3D99002FA9F4 /* ToDoState.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,7 +31,8 @@
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9C2614227CDE4CB002FA9F4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C9C2614427CDE68C002FA9F4 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
-		C9C2614927CE1E08002FA9F4 /* Work.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Work.swift; sourceTree = "<group>"; };
+		C9C2614927CE1E08002FA9F4 /* ToDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDo.swift; sourceTree = "<group>"; };
+		C9C2614C27CF3D99002FA9F4 /* ToDoState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,7 +84,8 @@
 		C9C2614B27CE1E30002FA9F4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				C9C2614927CE1E08002FA9F4 /* Work.swift */,
+				C9C2614927CE1E08002FA9F4 /* ToDo.swift */,
+				C9C2614C27CF3D99002FA9F4 /* ToDoState.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -188,8 +191,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C9C2614A27CE1E08002FA9F4 /* Work.swift in Sources */,
+				C9C2614A27CE1E08002FA9F4 /* ToDo.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */,
+				C9C2614D27CF3D9B002FA9F4 /* ToDoState.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 			);
