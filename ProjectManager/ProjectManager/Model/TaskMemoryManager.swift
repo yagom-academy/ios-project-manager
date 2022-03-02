@@ -33,19 +33,25 @@ struct TaskMemoryManager: TaskManager {
     
     mutating func delete(_ task: Task) throws {
         guard let index = tasks.firstIndex(where: { $0.id == task.id }) else {
-            fatalError("\(#function) Error")
+            throw TaskMemoryManagerError.taskNotExist
         }
         tasks.remove(at: index)
     }
     
     mutating func update(_ oldTask: Task, to newTask: Task) throws {
         guard let index = tasks.firstIndex(where: { $0.id == oldTask.id }) else {
-            fatalError("\(#function) Error")
+            throw TaskMemoryManagerError.taskNotExist
         }
         tasks[index].title = newTask.title
         tasks[index].description = newTask.description
         tasks[index].dueDate = newTask.dueDate
         tasks[index].status = newTask.status
+    }
+    
+    enum TaskMemoryManagerError: Error {
+        
+        case taskNotExist
+        
     }
     
 }
