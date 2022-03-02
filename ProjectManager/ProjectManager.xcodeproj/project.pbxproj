@@ -12,6 +12,7 @@
 		0D8088D127CF9B1800199897 /* DateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8088D027CF9B1800199897 /* DateUtils.swift */; };
 		0D8088D427CFA0DB00199897 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8088D327CFA0DB00199897 /* Date+Extension.swift */; };
 		0D8088D627CFA0E500199897 /* Double+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8088D527CFA0E500199897 /* Double+Extension.swift */; };
+		0D8088E327CFC35E00199897 /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8088E227CFC35E00199897 /* UITableView+Extension.swift */; };
 		0DAF17B927CE6BBF0052968B /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 0DAF17B827CE6BBF0052968B /* .swiftlint.yml */; };
 		0DF3232E27CE63770062EE14 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0DF3232D27CE63770062EE14 /* GoogleService-Info.plist */; };
 		0DF3233127CE67020062EE14 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 0DF3233027CE67020062EE14 /* FirebaseAnalytics */; };
@@ -20,7 +21,7 @@
 		0DF3233727CE67020062EE14 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 0DF3233627CE67020062EE14 /* FirebaseStorage */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
-		C7431F0A25F51E1D0094C4CF /* SplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* SplitViewController.swift */; };
+		C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* MainViewController.swift */; };
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
 		D964BF4B8D339FB04DE72714 /* Pods_ProjectManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AFC7A98A9A8A090409EAEF6 /* Pods_ProjectManager.framework */; };
 /* End PBXBuildFile section */
@@ -32,6 +33,7 @@
 		0D8088D027CF9B1800199897 /* DateUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateUtils.swift; sourceTree = "<group>"; };
 		0D8088D327CFA0DB00199897 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		0D8088D527CFA0E500199897 /* Double+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extension.swift"; sourceTree = "<group>"; };
+		0D8088E227CFC35E00199897 /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
 		0DAF17B827CE6BBF0052968B /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		0DF3232D27CE63770062EE14 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2338273B7B269E2ED9E939FF /* Pods-ProjectManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.release.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.release.xcconfig"; sourceTree = "<group>"; };
@@ -39,7 +41,7 @@
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		C7431F0925F51E1D0094C4CF /* SplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitViewController.swift; sourceTree = "<group>"; };
+		C7431F0925F51E1D0094C4CF /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		C7431F0E25F51E1E0094C4CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -71,7 +73,7 @@
 		0D8088C727CF917400199897 /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				C7431F0925F51E1D0094C4CF /* SplitViewController.swift */,
+				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -105,6 +107,7 @@
 			children = (
 				0D8088D327CFA0DB00199897 /* Date+Extension.swift */,
 				0D8088D527CFA0E500199897 /* Double+Extension.swift */,
+				0D8088E227CFC35E00199897 /* UITableView+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -304,11 +307,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				0D8088CD27CF942600199897 /* TodoList.swift in Sources */,
-				C7431F0A25F51E1D0094C4CF /* SplitViewController.swift in Sources */,
+				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				0D8088D127CF9B1800199897 /* DateUtils.swift in Sources */,
 				0D8088D627CFA0E500199897 /* Double+Extension.swift in Sources */,
 				0D8088D427CFA0DB00199897 /* Date+Extension.swift in Sources */,
+				0D8088E327CFC35E00199897 /* UITableView+Extension.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				0D8088CA27CF91AA00199897 /* Todo.swift in Sources */,
 			);

@@ -24,7 +24,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
 
         window = UIWindow(windowScene: windowScene)
-        let mainViewController = SplitViewController(style: .tripleColumn)
+        let mainViewController = MainViewController()
         window?.rootViewController = mainViewController
         window?.makeKeyAndVisible()
     }
