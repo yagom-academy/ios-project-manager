@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ToDoInfomation {
+struct TaskInfomation {
     var title: String
     var explanation: String
     var deadline: Double
