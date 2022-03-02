@@ -14,9 +14,8 @@ struct ContentView: View {
             .font(.largeTitle)
             .onAppear {
                 print("💚 화면 두두등장!")
-                let rootRef = Database.database().reference()
-                let itemRef = rootRef.child("list")
-                itemRef.setValue("되나?")
+                // Firestore
+                // let database = Firestore.firestore()
             }
     }
 }
