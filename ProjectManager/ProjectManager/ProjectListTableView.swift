@@ -10,8 +10,10 @@ class ProjectListTableView: UITableView {
         fatalError()
     }
     
-    func configureUI() {
+    private func configureUI() {
+        self.backgroundColor = .systemGray6
         self.translatesAutoresizingMaskIntoConstraints = false
         self.register(ProjectTableViewCell.self, forCellReuseIdentifier: ProjectTableViewCell.identifier)
+        self.register(ProjectListTableHeaderView.self, forHeaderFooterViewReuseIdentifier: ProjectListTableHeaderView.identifier)
     }
 }

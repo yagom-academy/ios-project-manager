@@ -17,6 +17,7 @@
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
 		EA34A4ED27CCBEA7000F7676 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EA34A4EC27CCBEA7000F7676 /* GoogleService-Info.plist */; };
 		EAD690F927CE6F6E001DFDC8 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = EAD690F827CE6F6E001DFDC8 /* .swiftlint.yml */; };
+		EAD6911B27CF5B7C001DFDC8 /* ProjectListTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD6911A27CF5B7C001DFDC8 /* ProjectListTableHeaderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EA34A4EC27CCBEA7000F7676 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EAD690F827CE6F6E001DFDC8 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		EAD6911A27CF5B7C001DFDC8 /* ProjectListTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListTableHeaderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +97,7 @@
 				EA34A4EC27CCBEA7000F7676 /* GoogleService-Info.plist */,
 				EAD690F827CE6F6E001DFDC8 /* .swiftlint.yml */,
 				A6541F6C27CF3A3900F576D4 /* ProjectListTableView.swift */,
+				EAD6911A27CF5B7C001DFDC8 /* ProjectListTableHeaderView.swift */,
 				A6541F6E27CF3AC600F576D4 /* ProjectTableViewCell.swift */,
 			);
 			path = ProjectManager;
@@ -219,6 +222,7 @@
 				C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
+				EAD6911B27CF5B7C001DFDC8 /* ProjectListTableHeaderView.swift in Sources */,
 				A6541F6D27CF3A3900F576D4 /* ProjectListTableView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -361,7 +365,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = ProjectManager/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -381,7 +385,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = ProjectManager/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -1,36 +1,52 @@
 import UIKit
 
 class ViewController: UIViewController {
-    let todoTableView = ProjectListTableView()
-    let doingTableView = ProjectListTableView()
-    let doneTableView = ProjectListTableView()
+    private let todoTableView = ProjectListTableView()
+    private let doingTableView = ProjectListTableView()
+    private let doneTableView = ProjectListTableView()
     
-    lazy var entireStackView: UIStackView = {
-        let stackview = UIStackView(arrangedSubviews: [todoTableView, doingTableView, doneTableView])
-        stackview.axis = .horizontal
-        stackview.spacing = 5
-        stackview.distribution = .fillEqually
-        stackview.translatesAutoresizingMaskIntoConstraints = false
-        return stackview
+    private lazy var entireStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [todoTableView, doingTableView, doneTableView])
+        stackView.axis = .horizontal
+        stackView.spacing = 8
+        stackView.distribution = .fillEqually
+        stackView.backgroundColor = .systemGray5
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+        configureTableView()
     }
     
-    func configureUI() {
-        self.view.backgroundColor = .gray
-        self.navigationController?.isToolbarHidden = false
+    private func configureUI() {
+        self.view.backgroundColor = .systemBackground
+        configureNavigationBar()
         configureEntireStackView()
         configureLayout()
     }
     
-    func configureEntireStackView() {
+    private func configureNavigationBar() {
+        self.navigationController?.isToolbarHidden = false
+        self.navigationItem.title = "Project Manager"
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: nil)
+    }
+    
+    private func configureTableView() {
+        todoTableView.dataSource = self
+        todoTableView.delegate = self
+        if #available(iOS 15, *) {
+            todoTableView.sectionHeaderTopPadding = 1
+        }
+    }
+    
+    private func configureEntireStackView() {
         self.view.addSubview(entireStackView)
     }
 
-    func configureLayout() {
+    private func configureLayout() {
         NSLayoutConstraint.activate([
             self.entireStackView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
             self.entireStackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
@@ -40,3 +56,33 @@ class ViewController: UIViewController {
     }
 }
 
+extension ViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ProjectTableViewCell.identifier) as? ProjectTableViewCell else {
+            return UITableViewCell()
+        }
+        return cell
+    }
+}
+
+extension ViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 50
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: ProjectListTableHeaderView.identifier) as? ProjectListTableHeaderView else {
+            return UITableViewHeaderFooterView()
+        }
+        headerView.populateData(title: "TODO", count: 20)
+        return headerView
+    }
+}
