@@ -12,5 +12,6 @@ struct Todo {
     var title: String
     var content: String
     var deadline: Double
+    let uuid = UUID()
 
 }

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0D8088CA27CF91AA00199897 /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8088C927CF91AA00199897 /* Todo.swift */; };
+		0D8088CD27CF942600199897 /* TodoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8088CC27CF942600199897 /* TodoList.swift */; };
 		0DAF17B927CE6BBF0052968B /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 0DAF17B827CE6BBF0052968B /* .swiftlint.yml */; };
 		0DF3232E27CE63770062EE14 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0DF3232D27CE63770062EE14 /* GoogleService-Info.plist */; };
 		0DF3233127CE67020062EE14 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 0DF3233027CE67020062EE14 /* FirebaseAnalytics */; };
@@ -24,6 +25,7 @@
 /* Begin PBXFileReference section */
 		0613041D75E9C7CB38AD9021 /* Pods-ProjectManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.debug.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.debug.xcconfig"; sourceTree = "<group>"; };
 		0D8088C927CF91AA00199897 /* Todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
+		0D8088CC27CF942600199897 /* TodoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoList.swift; sourceTree = "<group>"; };
 		0DAF17B827CE6BBF0052968B /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		0DF3232D27CE63770062EE14 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2338273B7B269E2ED9E939FF /* Pods-ProjectManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.release.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.release.xcconfig"; sourceTree = "<group>"; };
@@ -76,6 +78,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		0D8088CE27CF9A3B00199897 /* DataBase */ = {
+			isa = PBXGroup;
+			children = (
+				0D8088CC27CF942600199897 /* TodoList.swift */,
+			);
+			path = DataBase;
+			sourceTree = "<group>";
+		};
 		5F27C38C168FFE7DA7F499DA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -110,6 +120,7 @@
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
 				0D8088C627CF915B00199897 /* Scene */,
 				0D8088C827CF918800199897 /* Model */,
+				0D8088CE27CF9A3B00199897 /* DataBase */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
 				0DF3232D27CE63770062EE14 /* GoogleService-Info.plist */,
@@ -267,6 +278,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0D8088CD27CF942600199897 /* TodoList.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* SplitViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
