@@ -9,7 +9,13 @@ class MainViewController: UIViewController {
     let memoryDataManager = MemoryDataManager()
     var test1: Work {
         let test = Work()
-        test.title = "a"
+        test.title = """
+                    sdlf
+                    dslfkjas
+                    dlfkajsd
+                    dfsadf
+                    sdafas
+                    """
         test.body = "a"
         test.date = Date()
         
@@ -22,6 +28,12 @@ class MainViewController: UIViewController {
                     sdlf
                     dslfkjas
                     dlfkajsd
+                    dfsadf
+                    sdafas
+                    asdfasdf
+                    asdfasdf
+                    asdfasdf
+                    asdfasdfa
                     """
         test.date = Date()
         
@@ -41,6 +53,10 @@ class MainViewController: UIViewController {
         memoryDataManager.create(test1)
         memoryDataManager.create(test2)
         todoTableView.dataSource = self
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
     }
 }
 
