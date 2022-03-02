@@ -16,6 +16,8 @@
 		C182E7BD27CE232900F6218C /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = C182E7BC27CE232900F6218C /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		C1F2B93027CE69D200B8FD51 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = C1F2B92F27CE69D100B8FD51 /* .swiftlint.yml */; };
 		C1F2B93227CF4A7700B8FD51 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = C1F2B93127CF4A7700B8FD51 /* FirebaseFirestore */; };
+		C1FE9BB927CFB64300397B90 /* TaskStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FE9BB827CFB64300397B90 /* TaskStatus.swift */; };
+		C1FE9BBB27CFB68600397B90 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FE9BBA27CFB68600397B90 /* Task.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
@@ -26,6 +28,8 @@
 		C182E78327CD0E9D00F6218C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		C182E7A027CDD57800F6218C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C1F2B92F27CE69D100B8FD51 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		C1FE9BB827CFB64300397B90 /* TaskStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskStatus.swift; sourceTree = "<group>"; };
+		C1FE9BBA27CFB68600397B90 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -58,6 +62,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		C1FE9BB727CFB57500397B90 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C1FE9BBA27CFB68600397B90 /* Task.swift */,
+				C1FE9BB827CFB64300397B90 /* TaskStatus.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		C7431EF925F51E1D0094C4CF = {
 			isa = PBXGroup;
 			children = (
@@ -79,6 +92,7 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
+				C1FE9BB727CFB57500397B90 /* Model */,
 				C182E78327CD0E9D00F6218C /* ContentView.swift */,
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
@@ -196,6 +210,8 @@
 			files = (
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C182E78427CD0E9D00F6218C /* ContentView.swift in Sources */,
+				C1FE9BBB27CFB68600397B90 /* Task.swift in Sources */,
+				C1FE9BB927CFB64300397B90 /* TaskStatus.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
