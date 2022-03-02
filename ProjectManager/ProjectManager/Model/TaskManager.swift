@@ -1,5 +1,5 @@
 //
-//  TaskManagerInterface.swift
+//  TaskManager.swift
 //  ProjectManager
 //
 //  Created by JeongTaek Han on 2022/03/01.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol TaskManagerInterface {
+protocol TaskManager {
     
     var todoTasks: [Task] { get }
     var doingTasks: [Task] { get }

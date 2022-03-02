@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TaskMemoryManager: TaskManagerInterface {
+struct TaskMemoryManager: TaskManager {
     
     private var tasks: [Task]
     
