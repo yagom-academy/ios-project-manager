@@ -13,7 +13,7 @@ struct Task: Identifiable {
     var title: String
     var description: String
     var dueDate: Date
-    var status: WorkStatus
+    var status: TaskStatus
     
 }
 
