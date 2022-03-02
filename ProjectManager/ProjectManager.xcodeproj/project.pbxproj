@@ -24,6 +24,8 @@
 		DE8587B527CF406500D4F4B7 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE843A5427CE6EA300F622E2 /* DataManager.swift */; };
 		DE8587B627CF406900D4F4B7 /* Work.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE843A4B27CE616A00F622E2 /* Work.swift */; };
 		DE8587B727CF407900D4F4B7 /* DateFormatter+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE843A4E27CE641900F622E2 /* DateFormatter+extension.swift */; };
+		DE8587BF27CF562200D4F4B7 /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DE8587BE27CF562200D4F4B7 /* TableViewCell.xib */; };
+		DE8587C127CF571E00D4F4B7 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8587C027CF571E00D4F4B7 /* TableViewCell.swift */; };
 		F30B76FC5BC81A5381504B03 /* Pods_ProjectManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 204B28057D7E57350830FB9D /* Pods_ProjectManager.framework */; };
 /* End PBXBuildFile section */
 
@@ -56,6 +58,8 @@
 		DE843A5427CE6EA300F622E2 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		DE8587A927CF064200D4F4B7 /* ProjectManagerModelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProjectManagerModelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE8587AB27CF064200D4F4B7 /* ProjectManagerModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerModelTests.swift; sourceTree = "<group>"; };
+		DE8587BE27CF562200D4F4B7 /* TableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableViewCell.xib; sourceTree = "<group>"; };
+		DE8587C027CF571E00D4F4B7 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		DE90137C33C61E09FB585FB1 /* Pods-ProjectManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.debug.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -138,6 +142,8 @@
 			children = (
 				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
 				C7431F0B25F51E1D0094C4CF /* Main.storyboard */,
+				DE8587C027CF571E00D4F4B7 /* TableViewCell.swift */,
+				DE8587BE27CF562200D4F4B7 /* TableViewCell.xib */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 			);
 			path = View;
@@ -146,6 +152,7 @@
 		DE843A4A27CE612000F622E2 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				DE843A4B27CE616A00F622E2 /* Work.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -161,7 +168,6 @@
 		DE843A5027CE67FF00F622E2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				DE843A4B27CE616A00F622E2 /* Work.swift */,
 				DE843A5127CE6DD200F622E2 /* MemoryDataManager.swift */,
 			);
 			path = Model;
@@ -267,6 +273,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DE20A0BA27CDCD95004B93AC /* .swiftlint.yml in Resources */,
+				DE8587BF27CF562200D4F4B7 /* TableViewCell.xib in Resources */,
 				C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */,
 				DE20A0BC27CDD385004B93AC /* GoogleService-Info.plist in Resources */,
 				C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */,
@@ -351,6 +358,7 @@
 				DE843A4C27CE616A00F622E2 /* Work.swift in Sources */,
 				DE843A5527CE6EA300F622E2 /* DataManager.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
+				DE8587C127CF571E00D4F4B7 /* TableViewCell.swift in Sources */,
 				DE843A4F27CE641900F622E2 /* DateFormatter+extension.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
