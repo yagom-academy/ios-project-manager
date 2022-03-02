@@ -12,7 +12,7 @@ protocol ViewModel {
         
     func create(with todo: ToDo)
     func fetchAll() -> [ToDo]
-    func update(at id: UUID)
+    func update(at id: UUID, todo: ToDo)
     func delete(at id: UUID)
     func changeState(of id: UUID, to state: ToDoState)
     func fetchToDo(at id: UUID) -> ToDo
