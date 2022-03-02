@@ -21,7 +21,8 @@ class TaskManager: TaskManageable {
     }
     
     func createTask(title: String, body: String, dueDate: Date) {
-        tasks.append(Task(title: title, body: body, dueDate: dueDate))
+        let newTask = Task(title: title, body: body, dueDate: dueDate)
+        tasks.append(newTask)
     }
     
     func modifyTask(target: Task, title: String, body: String, dueDate: Date) {
