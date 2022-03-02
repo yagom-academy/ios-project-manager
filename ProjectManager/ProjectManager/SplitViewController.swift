@@ -6,7 +6,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class SplitViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
