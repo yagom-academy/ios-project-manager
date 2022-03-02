@@ -9,7 +9,7 @@ import Foundation
 
 protocol Repository {
     func create(with todo: ToDo)
-    func fetch() -> [ToDo]
+    func fetchAll() -> [ToDo]
     func update(with todo: ToDo)
     func delete(with todo: ToDo)
 }
