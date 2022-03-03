@@ -24,6 +24,7 @@ class DataProvider {
             }
 
             self.updatedTodoList = list
+            print("리로드됨: \(self.updatedTodoList)")
         }
     }
 

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct DateUtils {
+enum DateUtils {
 
     static func deadlineFormat(date: Date) -> String {
         let dateFormatter = DateFormatter()

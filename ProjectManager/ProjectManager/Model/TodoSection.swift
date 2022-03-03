@@ -9,7 +9,7 @@ import Foundation
 
 enum TodoSection: Int {
 
-    case todo = 0
+    case todo
     case doing
     case done
 }

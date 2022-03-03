@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Todo {
+struct Todo: Equatable {
 
     var title: String
     var content: String

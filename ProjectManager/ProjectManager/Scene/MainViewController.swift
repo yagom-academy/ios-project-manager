@@ -10,7 +10,13 @@ class MainViewController: UIViewController {
 
 // MARK: - Properties
 
-    private var todoList = [[Todo]]()
+    private var todoList = [[Todo]]() {
+        didSet {
+            DispatchQueue.main.async {
+                self.reload()
+            }
+        }
+    }
 
     lazy var navigationBar: UINavigationBar = {
         let navigationBar = UINavigationBar(
@@ -41,25 +47,28 @@ class MainViewController: UIViewController {
 
     let todoTableView: UITableView = {
         let tableView = UITableView()
-        tableView.tag = 0
+        tableView.tag = TodoSection.todo.rawValue
         tableView.backgroundColor = MainVCColor.tableViewBackgroundColor
         tableView.translatesAutoresizingMaskIntoConstraints = false
+
         return tableView
     }()
 
     let doingTableView: UITableView = {
         let tableView = UITableView()
-        tableView.tag = 1
+        tableView.tag = TodoSection.doing.rawValue
         tableView.backgroundColor = MainVCColor.tableViewBackgroundColor
         tableView.translatesAutoresizingMaskIntoConstraints = false
+
         return tableView
     }()
 
     let doneTableView: UITableView = {
         let tableView = UITableView()
-        tableView.tag = 2
+        tableView.tag = TodoSection.done.rawValue
         tableView.backgroundColor = MainVCColor.tableViewBackgroundColor
         tableView.translatesAutoresizingMaskIntoConstraints = false
+
         return tableView
     }()
 
@@ -74,12 +83,13 @@ class MainViewController: UIViewController {
 
 // MARK: - SetUp Controller
 
-        private func setUpController() {
-            self.observeUpdate()
-            self.setUpView()
-            self.configureNavigationBar()
-            self.configureStackView()
-        }
+    private func setUpController() {
+        self.observeUpdate()
+        self.setUpView()
+        self.configureNavigationBar()
+        self.configureStackView()
+        self.setUpTableView()
+    }
 
 // MARK: - Observing Method(s)
 
@@ -91,6 +101,7 @@ class MainViewController: UIViewController {
                 }
 
                 self.todoList = self.dataProvider.updatedList()
+                print("업데이트됨: \(self.todoList)")
             }
         }
 
@@ -136,6 +147,54 @@ class MainViewController: UIViewController {
         self.stackView.addArrangedSubview(doingTableView)
         self.stackView.addArrangedSubview(doneTableView)
     }
+
+// MARK: - SetUp Table View
+
+    private func setUpTableView() {
+        self.todoTableView.dataSource = self
+        self.todoTableView.delegate = self
+        self.doingTableView.dataSource = self
+        self.doingTableView.delegate = self
+        self.doneTableView.dataSource = self
+        self.doneTableView.delegate = self
+
+        self.todoTableView.register(cellWithClass: MainTableViewCell.self)
+        self.doingTableView.register(cellWithClass: MainTableViewCell.self)
+        self.doneTableView.register(cellWithClass: MainTableViewCell.self)
+    }
+
+// MARK: - Reloading Method
+
+    private func reload() {
+        self.todoTableView.reloadData()
+        self.doingTableView.reloadData()
+        self.doneTableView.reloadData()
+    }
+}
+
+// MARK: - Table View DataSource
+
+extension MainViewController: UITableViewDataSource {
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard self.todoList != [] else {
+            return 0
+        }
+
+        return self.todoList[tableView.tag].count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withClass: MainTableViewCell.self)
+        cell.configureTodo(for: self.todoList[tableView.tag][indexPath.row])
+
+        return cell
+    }
+}
+
+// MARK: - Table View Delegate
+
+extension MainViewController: UITableViewDelegate {
 }
 
 // MARK: - Magic Numbers
