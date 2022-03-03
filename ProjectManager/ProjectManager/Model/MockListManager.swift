@@ -1,6 +1,6 @@
 import Foundation
 
-struct TodoListManager: ListManager {
+struct MockListManager: ListManager {
     
     var list: [Listable] = []
     
