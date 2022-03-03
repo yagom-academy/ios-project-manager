@@ -18,20 +18,20 @@ class MainViewController: UIViewController, UITableViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupNavigationBar()
+        setupNavigation()
         setupMainView()
         setupTaskStackView()
         setupConstraint()
     }
 
-    private func setupNavigationBar() {
-        self.navigationItem.title = "Project Manager"
+    private func setupNavigation() {
+        navigationItem.title = "Project Manager"
         let addButtonImage = UIImage(systemName: "plus")
         let rightButton = UIBarButtonItem(
           image: addButtonImage,
           style: .done,
           target: self,
-          action: nil
+          action: #selector(showEditView)
         )
         navigationItem.setRightBarButton(rightButton, animated: false)
     }
@@ -45,10 +45,10 @@ class MainViewController: UIViewController, UITableViewDelegate {
         doingView = doingViewController.view
         doneView = doneViewController.view
 
-        view.addSubview(taskStackView)
     }
 
     private func setupTaskStackView() {
+        view.addSubview(taskStackView)
         taskStackView.addArrangedSubview(toDoView)
         taskStackView.addArrangedSubview(doingView)
         taskStackView.addArrangedSubview(doneView)
@@ -68,6 +68,12 @@ class MainViewController: UIViewController, UITableViewDelegate {
             taskStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             taskStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
+    }
+    
+    @objc func showEditView() {
+        let editView = UINavigationController(rootViewController:  EditViewController())
+        editView.modalPresentationStyle = .automatic
+        self.present(editView, animated: true)
     }
 }
 
