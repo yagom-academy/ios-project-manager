@@ -20,6 +20,9 @@
 		F3C53F4327D06D4A00D7CE4E /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = F3C53F4227D06D4A00D7CE4E /* .swiftlint.yml */; };
 		F3C53F4727D0892400D7CE4E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F3C53F4627D0892400D7CE4E /* GoogleService-Info.plist */; };
 		F3C53F4D27D10AEA00D7CE4E /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C53F4C27D10AEA00D7CE4E /* Task.swift */; };
+		F3C53F5127D11FE800D7CE4E /* TaskType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C53F5027D11FE800D7CE4E /* TaskType.swift */; };
+		F3C53F5327D1200900D7CE4E /* TaskStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C53F5227D1200900D7CE4E /* TaskStore.swift */; };
+		F3C53F5527D1202300D7CE4E /* TaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C53F5427D1202300D7CE4E /* TaskManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +36,9 @@
 		F3C53F4227D06D4A00D7CE4E /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		F3C53F4627D0892400D7CE4E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F3C53F4C27D10AEA00D7CE4E /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		F3C53F5027D11FE800D7CE4E /* TaskType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskType.swift; sourceTree = "<group>"; };
+		F3C53F5227D1200900D7CE4E /* TaskStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskStore.swift; sourceTree = "<group>"; };
+		F3C53F5427D1202300D7CE4E /* TaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +109,9 @@
 			isa = PBXGroup;
 			children = (
 				F3C53F4C27D10AEA00D7CE4E /* Task.swift */,
+				F3C53F5027D11FE800D7CE4E /* TaskType.swift */,
+				F3C53F5227D1200900D7CE4E /* TaskStore.swift */,
+				F3C53F5427D1202300D7CE4E /* TaskManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -213,7 +222,10 @@
 			files = (
 				F3C53F4D27D10AEA00D7CE4E /* Task.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
+				F3C53F5327D1200900D7CE4E /* TaskStore.swift in Sources */,
+				F3C53F5127D11FE800D7CE4E /* TaskType.swift in Sources */,
 				F374A11627CDD3930083CC73 /* ContentView.swift in Sources */,
+				F3C53F5527D1202300D7CE4E /* TaskManager.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
