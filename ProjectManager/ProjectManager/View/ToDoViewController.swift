@@ -9,7 +9,7 @@ import UIKit
 
 class ToDoViewController: UIViewController {
     private let toDoTableView = UITableView()
-    lazy var dataSource = ToDoViewDataSource()
+    lazy var dataSource = TaskDataSource()
     
     override func viewDidLoad() {
         super.viewDidLoad()

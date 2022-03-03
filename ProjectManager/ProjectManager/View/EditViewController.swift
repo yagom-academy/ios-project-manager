@@ -30,7 +30,7 @@ class EditViewController: UIViewController {
         title: "Cancel",
         style: .done,
         target: self,
-        action: nil
+        action: #selector(touchUpCancelButton)
         )
         let rightButton = UIBarButtonItem(
         title: "Done",
@@ -78,5 +78,9 @@ class EditViewController: UIViewController {
     func setupDatePicker() {
         datePicker.preferredDatePickerStyle = .wheels
         datePicker.timeZone = NSTimeZone.local
+    }
+    
+    @objc func touchUpCancelButton() {
+        self.dismiss(animated: true, completion: nil)
     }
 }

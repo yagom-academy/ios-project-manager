@@ -7,16 +7,16 @@
 
 import UIKit
 
-final class ToDoViewDataSource: NSObject {
+final class TaskDataSource: NSObject {
     let testDataManager = TestDataManager()
 }
 
-extension ToDoViewDataSource: UITableViewDataSource {
+extension TaskDataSource: UITableViewDataSource {
     func tableView(
         _ tableView: UITableView,
         numberOfRowsInSection section: Int
     ) -> Int {
-        return 10
+        return testDataManager.dataList.count
     }
     
     func tableView(
