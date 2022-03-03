@@ -14,6 +14,10 @@
 		189DD4EE27CE011F00395CF4 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 189DD4ED27CE011F00395CF4 /* RxRelay */; };
 		189DD4F027CE011F00395CF4 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 189DD4EF27CE011F00395CF4 /* RxSwift */; };
 		189DD4F627D0FF8000395CF4 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189DD4F527D0FF7F00395CF4 /* Project.swift */; };
+		189DD4F827D1010400395CF4 /* Listable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189DD4F727D1010400395CF4 /* Listable.swift */; };
+		189DD4FA27D1015C00395CF4 /* ListManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189DD4F927D1015C00395CF4 /* ListManager.swift */; };
+		189DD4FC27D102B100395CF4 /* TodoListManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189DD4FB27D102B100395CF4 /* TodoListManager.swift */; };
+		189DD4FE27D1032900395CF4 /* DataStorable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189DD4FD27D1032900395CF4 /* DataStorable.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* MainViewController.swift */; };
@@ -24,6 +28,10 @@
 /* Begin PBXFileReference section */
 		189DD4E327CDF7F700395CF4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		189DD4F527D0FF7F00395CF4 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
+		189DD4F727D1010400395CF4 /* Listable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Listable.swift; sourceTree = "<group>"; };
+		189DD4F927D1015C00395CF4 /* ListManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListManager.swift; sourceTree = "<group>"; };
+		189DD4FB27D102B100395CF4 /* TodoListManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListManager.swift; sourceTree = "<group>"; };
+		189DD4FD27D1032900395CF4 /* DataStorable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStorable.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -69,7 +77,9 @@
 		189DD4F327D0FF1100395CF4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				189DD4FF27D1037200395CF4 /* Protocol */,
 				189DD4F527D0FF7F00395CF4 /* Project.swift */,
+				189DD4FB27D102B100395CF4 /* TodoListManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -79,6 +89,16 @@
 			children = (
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		189DD4FF27D1037200395CF4 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				189DD4F727D1010400395CF4 /* Listable.swift */,
+				189DD4F927D1015C00395CF4 /* ListManager.swift */,
+				189DD4FD27D1032900395CF4 /* DataStorable.swift */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 		C7431EF925F51E1D0094C4CF = {
@@ -194,8 +214,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
+				189DD4FA27D1015C00395CF4 /* ListManager.swift in Sources */,
+				189DD4F827D1010400395CF4 /* Listable.swift in Sources */,
+				189DD4FE27D1032900395CF4 /* DataStorable.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
+				189DD4FC27D102B100395CF4 /* TodoListManager.swift in Sources */,
 				189DD4F627D0FF8000395CF4 /* Project.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
