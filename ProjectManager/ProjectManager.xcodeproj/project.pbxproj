@@ -73,7 +73,6 @@
 			children = (
 				C1FE9BBA27CFB68600397B90 /* Task.swift */,
 				C1FE9BB827CFB64300397B90 /* TaskStatus.swift */,
-				C1FE9BBC27CFBD6300397B90 /* TaskManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -93,6 +92,14 @@
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		C1FE9BC427D06D5200397B90 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				C1FE9BBC27CFBD6300397B90 /* TaskManager.swift */,
+			);
+			path = Utility;
 			sourceTree = "<group>";
 		};
 		C7431EF925F51E1D0094C4CF = {
@@ -117,6 +124,7 @@
 			isa = PBXGroup;
 			children = (
 				C1FE9BB727CFB57500397B90 /* Model */,
+				C1FE9BC427D06D5200397B90 /* Utility */,
 				C1FE9BBE27CFCC3600397B90 /* Protocol */,
 				C1FE9BBF27CFCCD500397B90 /* View */,
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
