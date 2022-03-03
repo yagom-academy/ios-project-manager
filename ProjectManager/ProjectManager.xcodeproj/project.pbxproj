@@ -14,7 +14,6 @@
 		9A40A07927CCDB8100A73BBA /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 9A40A07827CCDB8100A73BBA /* RxRelay */; };
 		9A40A07B27CCDB8100A73BBA /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9A40A07A27CCDB8100A73BBA /* RxSwift */; };
 		9A40A07D27CF491900A73BBA /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A07C27CF491900A73BBA /* Project.swift */; };
-		9A40A09A27CF8BC100A73BBA /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A09927CF8BC100A73BBA /* Observable.swift */; };
 		9A40A09D27CF8C6700A73BBA /* ProjectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A09C27CF8C6700A73BBA /* ProjectViewModel.swift */; };
 		9A40A0A127CF9BB600A73BBA /* Date+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A0A027CF9BB600A73BBA /* Date+extension.swift */; };
 		9A40A0A427CFA13800A73BBA /* ProjectService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A0A327CFA13800A73BBA /* ProjectService.swift */; };
@@ -43,7 +42,6 @@
 
 /* Begin PBXFileReference section */
 		9A40A07C27CF491900A73BBA /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
-		9A40A09927CF8BC100A73BBA /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		9A40A09C27CF8C6700A73BBA /* ProjectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectViewModel.swift; sourceTree = "<group>"; };
 		9A40A0A027CF9BB600A73BBA /* Date+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+extension.swift"; sourceTree = "<group>"; };
 		9A40A0A327CFA13800A73BBA /* ProjectService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectService.swift; sourceTree = "<group>"; };
@@ -136,7 +134,6 @@
 		9A40A09B27CF8BCD00A73BBA /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				9A40A09927CF8BC100A73BBA /* Observable.swift */,
 				9A40A09C27CF8C6700A73BBA /* ProjectViewModel.swift */,
 			);
 			path = ViewModel;
@@ -340,7 +337,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */,
-				9A40A09A27CF8BC100A73BBA /* Observable.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				9A40A0A727CFA17700A73BBA /* MemoryRepository.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,

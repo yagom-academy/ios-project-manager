@@ -1,8 +1,8 @@
 included:
   - ProjectManager # 프로젝트 이름
 excluded: # 린트 과정에서 무시할 파일 경로. `included`보다 우선순위 높음
-  - ProjectManager/AppDelegate.swift
-  - ProjectManager/SceneDelegate.swift
+  - ProjectManager/Sources/AppDelegate.swift
+  - ProjectManager/Sources/SceneDelegate.swift
 function_body_length: # 함수 길이
     warning: 10
     error: 15
