@@ -15,13 +15,21 @@ extension MemoryUseCase: UseCase {
         }
     }
     
-    func update(_ project: Project, completion: ((Project?) -> Void)?) {
+    func update(_ project: Project?, completion: ((Project?) -> Void)?) {
+        guard let project = project else {
+            completion?(nil)
+            return
+        }
         repository.update(with: project) { project in
             completion?(project)
         }
     }
     
-    func delete(_ project: Project, completion: ((Project?) -> Void)?) {
+    func delete(_ project: Project?, completion: ((Project?) -> Void)?) {
+        guard let project = project else {
+            completion?(nil)
+            return
+        }
         repository.delete(project) { project in
             completion?(project)
         }
