@@ -1,6 +1,6 @@
 import UIKit
 
-class ViewController: UIViewController {
+class ProjectListViewController: UIViewController {
     private let todoTableView = ProjectListTableView()
     private let doingTableView = ProjectListTableView()
     private let doneTableView = ProjectListTableView()
@@ -31,7 +31,15 @@ class ViewController: UIViewController {
     private func configureNavigationBar() {
         self.navigationController?.isToolbarHidden = false
         self.navigationItem.title = "Project Manager"
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: nil)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAddProjectButton))
+    }
+    
+    @objc private func didTapAddProjectButton() {
+        let viewController = ProjectDetailViewController()
+        let destinationViewController = UINavigationController(rootViewController: viewController)
+
+        destinationViewController.modalPresentationStyle = .formSheet
+        present(destinationViewController, animated: true, completion:nil)
     }
     
     private func configureTableView() {
@@ -62,7 +70,7 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController: UITableViewDataSource {
+extension ProjectListViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -79,7 +87,7 @@ extension ViewController: UITableViewDataSource {
     }
 }
 
-extension ViewController: UITableViewDelegate {
+extension ProjectListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 50
     }
