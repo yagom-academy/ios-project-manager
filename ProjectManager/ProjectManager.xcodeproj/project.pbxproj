@@ -91,14 +91,14 @@
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
 				C7431F0925F51E1D0094C4CF /* ViewController.swift */,
+				A6541F6C27CF3A3900F576D4 /* ProjectListTableView.swift */,
+				EAD6911A27CF5B7C001DFDC8 /* ProjectListTableHeaderView.swift */,
+				A6541F6E27CF3AC600F576D4 /* ProjectTableViewCell.swift */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
 				EA34A4EC27CCBEA7000F7676 /* GoogleService-Info.plist */,
 				EAD690F827CE6F6E001DFDC8 /* .swiftlint.yml */,
-				A6541F6C27CF3A3900F576D4 /* ProjectListTableView.swift */,
-				EAD6911A27CF5B7C001DFDC8 /* ProjectListTableHeaderView.swift */,
-				A6541F6E27CF3AC600F576D4 /* ProjectTableViewCell.swift */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";

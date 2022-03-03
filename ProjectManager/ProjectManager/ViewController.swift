@@ -37,8 +37,14 @@ class ViewController: UIViewController {
     private func configureTableView() {
         todoTableView.dataSource = self
         todoTableView.delegate = self
+        doingTableView.delegate = self
+        doingTableView.dataSource = self
+        doneTableView.delegate = self
+        doneTableView.dataSource = self
         if #available(iOS 15, *) {
             todoTableView.sectionHeaderTopPadding = 1
+            doingTableView.sectionHeaderTopPadding = 1
+            doneTableView.sectionHeaderTopPadding = 1
         }
     }
     
