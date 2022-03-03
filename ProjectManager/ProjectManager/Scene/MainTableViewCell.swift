@@ -24,7 +24,7 @@ class MainTableViewCell: UITableViewCell {
 
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = .preferredFont(forTextStyle: MainCellFont.titleSize)
+        label.font = .preferredFont(forTextStyle: CellFont.titleSize)
         label.adjustsFontForContentSizeCategory = true
         label.textAlignment = .left
 
@@ -33,17 +33,23 @@ class MainTableViewCell: UITableViewCell {
 
     private let contentLabel: UILabel = {
         let label = UILabel()
-        label.font = .preferredFont(forTextStyle: MainCellFont.defaultSize)
-        label.textColor = MainCellColor.content
+        label.font = .preferredFont(forTextStyle: CellFont.defaultSize)
+        label.textColor = CellColor.content
         label.adjustsFontForContentSizeCategory = true
         label.textAlignment = .left
+        label.numberOfLines = CellConstant.numberOfLineForDynamicHeight
+
+        let dynamicSize = label.sizeThatFits(
+            CGSize(width: label.frame.width, height: CGFloat.greatestFiniteMagnitude)
+        )
+        label.frame.size.height = dynamicSize.height
 
         return label
     }()
 
     private let deadlineLabel: UILabel = {
         let label = UILabel()
-        label.font = .preferredFont(forTextStyle: MainCellFont.deadlineSize)
+        label.font = .preferredFont(forTextStyle: CellFont.deadlineSize)
         label.adjustsFontForContentSizeCategory = true
         label.textAlignment = .left
 
@@ -143,9 +149,6 @@ class MainTableViewCell: UITableViewCell {
             self.contentLabel.leadingAnchor.constraint(equalTo: self.cellStackView.leadingAnchor),
             self.contentLabel.trailingAnchor.constraint(
                 equalTo: self.cellStackView.trailingAnchor
-            ),
-            self.contentLabel.heightAnchor.constraint(
-                greaterThanOrEqualToConstant: CellConstraint.defaultFontHeight
             )
         ])
     }
@@ -171,12 +174,16 @@ private enum CellConstraint {
     static let defaultFontHeight: CGFloat = 20
 }
 
-private enum MainCellFont {
+private enum CellFont {
     static let titleSize: UIFont.TextStyle = .headline
     static let defaultSize: UIFont.TextStyle = .callout
     static let deadlineSize: UIFont.TextStyle = .subheadline
 }
 
-private enum MainCellColor {
+private enum CellColor {
     static let content: UIColor = .systemGray3
+}
+
+private enum CellConstant {
+    static let numberOfLineForDynamicHeight = 0
 }

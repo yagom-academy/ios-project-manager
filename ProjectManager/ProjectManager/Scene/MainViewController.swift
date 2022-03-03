@@ -50,6 +50,8 @@ class MainViewController: UIViewController {
         tableView.tag = TodoSection.todo.rawValue
         tableView.backgroundColor = MainVCColor.tableViewBackgroundColor
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.estimatedRowHeight = 100
+        tableView.rowHeight = UITableView.automaticDimension
 
         return tableView
     }()
@@ -59,6 +61,8 @@ class MainViewController: UIViewController {
         tableView.tag = TodoSection.doing.rawValue
         tableView.backgroundColor = MainVCColor.tableViewBackgroundColor
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.estimatedRowHeight = 100
+        tableView.rowHeight = UITableView.automaticDimension
 
         return tableView
     }()
@@ -68,6 +72,8 @@ class MainViewController: UIViewController {
         tableView.tag = TodoSection.done.rawValue
         tableView.backgroundColor = MainVCColor.tableViewBackgroundColor
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.estimatedRowHeight = 100
+        tableView.rowHeight = UITableView.automaticDimension
 
         return tableView
     }()

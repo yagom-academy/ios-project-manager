@@ -8,10 +8,10 @@
 import Foundation
 
 class TodoList {
-// 투두타이틀 잊지말고 고칠 것.....!!
-    private var todoList = [[Todo(title: "야호", content: TodoListScript.emptyTodo)],
-                            [Todo(title: "야호호", content: TodoListScript.emptyDoing)],
-                            [Todo(title: "야호호호", content: TodoListScript.emptyDone)]]
+
+    private var todoList = [[Todo(title: "기록된 정보가 없습니다", content: TodoListScript.emptyTodo)],
+                            [Todo(title: "기록된 정보가 없습니다", content: TodoListScript.emptyDoing)],
+                            [Todo(title: "기록된 정보가 없습니다", content: TodoListScript.emptyDone)]]
 
     @discardableResult
     func remove(at todo: Todo, in section: TodoSection) -> Bool {
