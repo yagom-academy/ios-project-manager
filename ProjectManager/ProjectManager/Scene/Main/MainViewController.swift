@@ -24,7 +24,7 @@ class MainViewController: UIViewController {
 
     private lazy var plusButton: UIBarButtonItem = {
         let button = UIBarButtonItem()
-        button.image = UIImage(systemName: "plus")
+        button.image = UIImage(systemName: MainVCScript.plusButtonImage)
         button.target = self
         button.action = #selector(plusButtonDidTap)
 
@@ -45,9 +45,9 @@ class MainViewController: UIViewController {
     private let todoTableView: UITableView = {
         let tableView = UITableView()
         tableView.tag = TodoSection.todo.rawValue
-        tableView.backgroundColor = MainVCColor.tableViewBackgroundColor
+        tableView.backgroundColor = MainVCColor.backgroundColor
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.estimatedRowHeight = 100
+        tableView.estimatedRowHeight = MainVCConstraint.estimatedCellHeight
         tableView.rowHeight = UITableView.automaticDimension
 
         return tableView
@@ -56,9 +56,9 @@ class MainViewController: UIViewController {
     private let doingTableView: UITableView = {
         let tableView = UITableView()
         tableView.tag = TodoSection.doing.rawValue
-        tableView.backgroundColor = MainVCColor.tableViewBackgroundColor
+        tableView.backgroundColor = MainVCColor.backgroundColor
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.estimatedRowHeight = 100
+        tableView.estimatedRowHeight = MainVCConstraint.estimatedCellHeight
         tableView.rowHeight = UITableView.automaticDimension
 
         return tableView
@@ -67,9 +67,9 @@ class MainViewController: UIViewController {
     private let doneTableView: UITableView = {
         let tableView = UITableView()
         tableView.tag = TodoSection.done.rawValue
-        tableView.backgroundColor = MainVCColor.tableViewBackgroundColor
+        tableView.backgroundColor = MainVCColor.backgroundColor
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.estimatedRowHeight = 100
+        tableView.estimatedRowHeight = MainVCConstraint.estimatedCellHeight
         tableView.rowHeight = UITableView.automaticDimension
 
         return tableView
@@ -115,11 +115,6 @@ class MainViewController: UIViewController {
         self.setStackViewConstraints()
     }
 
-    private func configureNavigationBar() {
-        self.title = MainVCScript.title
-        self.navigationItem.rightBarButtonItem = self.plusButton
-    }
-
     private func setStackViewConstraints() {
         NSLayoutConstraint.activate([
             self.stackView.topAnchor.constraint(
@@ -143,16 +138,40 @@ class MainViewController: UIViewController {
         self.stackView.addArrangedSubview(doneTableView)
     }
 
+// MARK: - Configure Navigation Bar
+
+    private func configureNavigationBar() {
+        self.title = MainVCScript.title
+        self.navigationItem.rightBarButtonItem = self.plusButton
+        self.setUpNavigationBarTintColor()
+    }
+
+    private func setUpNavigationBarTintColor() {
+        self.navigationController?.navigationBar.barTintColor = MainVCColor.backgroundColor
+    }
+
 // MARK: - SetUp Table View
 
     private func setUpTableView() {
-        self.todoTableView.dataSource = self
-        self.todoTableView.delegate = self
-        self.doingTableView.dataSource = self
-        self.doingTableView.delegate = self
-        self.doneTableView.dataSource = self
-        self.doneTableView.delegate = self
+        self.setUpTableViewDataSource()
+        self.setUpTableViewDelegate()
 
+        self.registerTableViewCell()
+    }
+
+    private func setUpTableViewDataSource() {
+        self.todoTableView.dataSource = self
+        self.doingTableView.dataSource = self
+        self.doneTableView.dataSource = self
+    }
+
+    private func setUpTableViewDelegate() {
+        self.todoTableView.delegate = self
+        self.doingTableView.delegate = self
+        self.doneTableView.delegate = self
+    }
+
+    private func registerTableViewCell() {
         self.todoTableView.register(cellWithClass: MainTableViewCell.self)
         self.doingTableView.register(cellWithClass: MainTableViewCell.self)
         self.doneTableView.register(cellWithClass: MainTableViewCell.self)
@@ -173,9 +192,11 @@ class MainViewController: UIViewController {
         let addTodoViewController = EditViewController()
         addTodoViewController.modalPresentationStyle = .formSheet
         addTodoViewController.modalTransitionStyle = .crossDissolve
+        
         let navigationController = UINavigationController(
             rootViewController: addTodoViewController
         )
+
         self.present(navigationController, animated: true, completion: nil)
     }
 }
@@ -210,12 +231,13 @@ extension MainViewController: UITableViewDelegate {
 private enum MainVCColor {
 
     static let viewBackgroundColor: UIColor = .white
-    static let stackViewSpaceColor: UIColor = .systemGray3
-    static let tableViewBackgroundColor: UIColor = .systemGray6
+    static let stackViewSpaceColor: UIColor = .systemGray4
+    static let backgroundColor: UIColor = .systemGray6
 }
 
 private enum MainVCScript {
     static let title = "Project Manager"
+    static let plusButtonImage = "plus"
 }
 
 private enum MainVCConstraint {
@@ -223,4 +245,5 @@ private enum MainVCConstraint {
     static let navigationBarHeight: CGFloat = 60
     static let stackViewSpace: CGFloat = 10
     static let stackViewTopAnchor: CGFloat = 26
+    static let estimatedCellHeight: CGFloat = 100
 }

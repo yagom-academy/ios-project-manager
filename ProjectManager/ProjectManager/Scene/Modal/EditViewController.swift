@@ -13,7 +13,7 @@ class EditViewController: UIViewController {
 
     private lazy var cancelButton: UIBarButtonItem = {
         let button = UIBarButtonItem()
-        button.title = EditTodoVCScript.cancel
+        button.title = EditVCScript.cancel
         button.target = self
         button.action = #selector(cancelButtonDidTap)
 
@@ -22,7 +22,7 @@ class EditViewController: UIViewController {
 
     private lazy var doneButton: UIBarButtonItem = {
         let button = UIBarButtonItem()
-        button.title = EditTodoVCScript.done
+        button.title = EditVCScript.done
         button.target = self
         button.action = #selector(doneButtonDidTap)
 
@@ -34,7 +34,7 @@ class EditViewController: UIViewController {
         stackView.axis = .vertical
         stackView.distribution = .fill
         stackView.alignment = .fill
-        stackView.spacing = EditTodoVCConstraint.spacing
+        stackView.spacing = EditVCConstraint.spacing
         stackView.translatesAutoresizingMaskIntoConstraints = false
 
         return stackView
@@ -42,7 +42,7 @@ class EditViewController: UIViewController {
 
     private let textField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = EditTodoVCScript.textFieldPlaceHolder
+        textField.placeholder = EditVCScript.textFieldPlaceHolder
         textField.styleWithShadow()
 
         return textField
@@ -72,7 +72,7 @@ class EditViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpController()
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = EditVCColor.background
     }
 
 // MARK: - SetUp Controller
@@ -85,8 +85,8 @@ class EditViewController: UIViewController {
 
     private func setUpTextView() {
         self.textView.delegate = self
-        self.textView.text = EditTodoVCScript.textViewPlaceHolder
-        self.textView.textColor = UIColor.lightGray
+        self.textView.text = EditVCScript.textViewPlaceHolder
+        self.textView.textColor = EditVCColor.placeHolderTextColor
     }
 
 // MARK: - Configure View
@@ -104,7 +104,7 @@ class EditViewController: UIViewController {
     }
 
     private func configureNavigationBar() {
-        self.title = EditTodoVCScript.title
+        self.title = EditVCScript.title
         self.navigationItem.leftBarButtonItem = self.cancelButton
         self.navigationItem.rightBarButtonItem = self.doneButton
     }
@@ -115,19 +115,19 @@ class EditViewController: UIViewController {
         NSLayoutConstraint.activate([
             self.stackView.topAnchor.constraint(
                 equalTo: self.view.safeAreaLayoutGuide.topAnchor,
-                constant: EditTodoVCConstraint.stackViewPadding
+                constant: EditVCConstraint.stackViewPadding
             ),
             self.stackView.bottomAnchor.constraint(
                 equalTo: self.view.bottomAnchor,
-                constant: -(EditTodoVCConstraint.stackViewBottomPadding)
+                constant: -(EditVCConstraint.stackViewBottomPadding)
             ),
             self.stackView.leadingAnchor.constraint(
                 equalTo: self.view.safeAreaLayoutGuide.leadingAnchor,
-                constant: EditTodoVCConstraint.stackViewPadding
+                constant: EditVCConstraint.stackViewPadding
             ),
             self.stackView.trailingAnchor.constraint(
                 equalTo: self.view.safeAreaLayoutGuide.trailingAnchor,
-                constant: -(EditTodoVCConstraint.stackViewPadding)
+                constant: -(EditVCConstraint.stackViewPadding)
             )
         ])
     }
@@ -139,7 +139,7 @@ class EditViewController: UIViewController {
             ),
             self.textField.bottomAnchor.constraint(
                 equalTo: self.stackView.topAnchor,
-                constant: EditTodoVCConstraint.textFieldHeight
+                constant: EditVCConstraint.textFieldHeight
             ),
             self.textField.leadingAnchor.constraint(
                 equalTo: self.stackView.leadingAnchor
@@ -154,11 +154,11 @@ class EditViewController: UIViewController {
         NSLayoutConstraint.activate([
             self.datePicker.topAnchor.constraint(
                 equalTo: self.stackView.topAnchor,
-                constant: EditTodoVCConstraint.textFieldHeight
+                constant: EditVCConstraint.textFieldHeight
             ),
             self.datePicker.bottomAnchor.constraint(
                 equalTo: self.stackView.bottomAnchor,
-                constant: EditTodoVCConstraint.textViewHeight
+                constant: EditVCConstraint.textViewHeight
             ),
             self.datePicker.leadingAnchor.constraint(
                 equalTo: self.stackView.leadingAnchor
@@ -173,7 +173,7 @@ class EditViewController: UIViewController {
         NSLayoutConstraint.activate([
             self.datePicker.topAnchor.constraint(
                 equalTo: self.stackView.bottomAnchor,
-                constant: EditTodoVCConstraint.textViewHeight
+                constant: EditVCConstraint.textViewHeight
             ),
             self.datePicker.bottomAnchor.constraint(
                 equalTo: self.stackView.bottomAnchor
@@ -198,26 +198,25 @@ class EditViewController: UIViewController {
     private func doneButtonDidTap() {
 
     }
-
 }
 
 extension EditViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.textColor == UIColor.lightGray {
+        if textView.textColor == EditVCColor.placeHolderTextColor {
             textView.text = nil
-            textView.textColor = UIColor.black
+            textView.textColor = EditVCColor.defaultTextColor
         }
     }
 
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.isEmpty {
-            textView.text = EditTodoVCScript.textViewPlaceHolder
-            textView.textColor = UIColor.lightGray
+            textView.text = EditVCScript.textViewPlaceHolder
+            textView.textColor = EditVCColor.placeHolderTextColor
         }
     }
 }
 
-private enum EditTodoVCScript {
+private enum EditVCScript {
     static let title = "TODO"
     static let cancel = "Cancel"
     static let done = "Done"
@@ -225,10 +224,16 @@ private enum EditTodoVCScript {
     static let textViewPlaceHolder = "1000자 이내로 입력해주세요"
 }
 
-private enum EditTodoVCConstraint {
+private enum EditVCConstraint {
     static let spacing: CGFloat = 10
     static let stackViewPadding: CGFloat = 10
     static let stackViewBottomPadding: CGFloat = 20
     static let textFieldHeight: CGFloat = 30
     static let textViewHeight: CGFloat = 120
+}
+
+private enum EditVCColor {
+    static let background: UIColor = .white
+    static let placeHolderTextColor: UIColor = .lightGray
+    static let defaultTextColor: UIColor = .black
 }
