@@ -8,7 +8,7 @@ final class MemoryRepository {
     }
 }
 
-extension MemoryRepository: ProjectService {
+extension MemoryRepository: Repositoryable {
     func create(_ item: Project, completion: ((Project?) -> Void)? = nil) {
         projects.append(item)
         completion?(item)
@@ -29,5 +29,9 @@ extension MemoryRepository: ProjectService {
             .flatMap {
                 completion?(projects.remove(at: $0))
             }
+    }
+    
+    func fetch() -> [Project] {
+        return projects
     }
 }

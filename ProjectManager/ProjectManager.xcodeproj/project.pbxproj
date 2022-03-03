@@ -16,12 +16,12 @@
 		9A40A07D27CF491900A73BBA /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A07C27CF491900A73BBA /* Project.swift */; };
 		9A40A09D27CF8C6700A73BBA /* ProjectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A09C27CF8C6700A73BBA /* ProjectViewModel.swift */; };
 		9A40A0A127CF9BB600A73BBA /* Date+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A0A027CF9BB600A73BBA /* Date+extension.swift */; };
-		9A40A0A427CFA13800A73BBA /* ProjectService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A0A327CFA13800A73BBA /* ProjectService.swift */; };
+		9A40A0A427CFA13800A73BBA /* Repositoryable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A0A327CFA13800A73BBA /* Repositoryable.swift */; };
 		9A40A0A727CFA17700A73BBA /* MemoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A0A627CFA17700A73BBA /* MemoryRepository.swift */; };
 		9A40A0BF27CFA82E00A73BBA /* MemoryRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A0BE27CFA82E00A73BBA /* MemoryRepositoryTests.swift */; };
 		9A40A0C527CFA84400A73BBA /* MemoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A0A627CFA17700A73BBA /* MemoryRepository.swift */; };
 		9A40A0C627CFA84600A73BBA /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A07C27CF491900A73BBA /* Project.swift */; };
-		9A40A0C827CFA86200A73BBA /* ProjectService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A0A327CFA13800A73BBA /* ProjectService.swift */; };
+		9A40A0C827CFA86200A73BBA /* Repositoryable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A0A327CFA13800A73BBA /* Repositoryable.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* ViewController.swift */; };
@@ -44,7 +44,7 @@
 		9A40A07C27CF491900A73BBA /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		9A40A09C27CF8C6700A73BBA /* ProjectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectViewModel.swift; sourceTree = "<group>"; };
 		9A40A0A027CF9BB600A73BBA /* Date+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+extension.swift"; sourceTree = "<group>"; };
-		9A40A0A327CFA13800A73BBA /* ProjectService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectService.swift; sourceTree = "<group>"; };
+		9A40A0A327CFA13800A73BBA /* Repositoryable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repositoryable.swift; sourceTree = "<group>"; };
 		9A40A0A627CFA17700A73BBA /* MemoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryRepository.swift; sourceTree = "<group>"; };
 		9A40A0BC27CFA82E00A73BBA /* ProjectRepositoryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProjectRepositoryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A40A0BE27CFA82E00A73BBA /* MemoryRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryRepositoryTests.swift; sourceTree = "<group>"; };
@@ -150,7 +150,7 @@
 		9A40A0A527CFA14500A73BBA /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				9A40A0A327CFA13800A73BBA /* ProjectService.swift */,
+				9A40A0A327CFA13800A73BBA /* Repositoryable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -328,7 +328,7 @@
 				9A40A0C527CFA84400A73BBA /* MemoryRepository.swift in Sources */,
 				9A40A0BF27CFA82E00A73BBA /* MemoryRepositoryTests.swift in Sources */,
 				9A40A0C627CFA84600A73BBA /* Project.swift in Sources */,
-				9A40A0C827CFA86200A73BBA /* ProjectService.swift in Sources */,
+				9A40A0C827CFA86200A73BBA /* Repositoryable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -343,7 +343,7 @@
 				9A40A0A127CF9BB600A73BBA /* Date+extension.swift in Sources */,
 				9A40A09D27CF8C6700A73BBA /* ProjectViewModel.swift in Sources */,
 				9A40A07D27CF491900A73BBA /* Project.swift in Sources */,
-				9A40A0A427CFA13800A73BBA /* ProjectService.swift in Sources */,
+				9A40A0A427CFA13800A73BBA /* Repositoryable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
