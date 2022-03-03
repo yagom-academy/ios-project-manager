@@ -25,7 +25,7 @@
 		C9C2615A27CF5FF7002FA9F4 /* ToDoMangeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C2615927CF5FF7002FA9F4 /* ToDoMangeable.swift */; };
 		C9C2616027CF635E002FA9F4 /* ToDoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C2615F27CF635D002FA9F4 /* ToDoManager.swift */; };
 		C9C2616327CF6531002FA9F4 /* ToDoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C2616227CF6531002FA9F4 /* ToDoViewModel.swift */; };
-		C9C2616B27CF7245002FA9F4 /* ProjectManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C2616A27CF7245002FA9F4 /* ProjectManagerTests.swift */; };
+		C9C2616B27CF7245002FA9F4 /* ToDoManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C2616A27CF7245002FA9F4 /* ToDoManagerTests.swift */; };
 		C9C2617627D0A18F002FA9F4 /* Array+safe.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C2617527D0A18F002FA9F4 /* Array+safe.swift */; };
 		C9C2617927D0A34E002FA9F4 /* CollectionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C2617827D0A34E002FA9F4 /* CollectionError.swift */; };
 /* End PBXBuildFile section */
@@ -59,7 +59,7 @@
 		C9C2615F27CF635D002FA9F4 /* ToDoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoManager.swift; sourceTree = "<group>"; };
 		C9C2616227CF6531002FA9F4 /* ToDoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoViewModel.swift; sourceTree = "<group>"; };
 		C9C2616827CF7245002FA9F4 /* ProjectManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProjectManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		C9C2616A27CF7245002FA9F4 /* ProjectManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerTests.swift; sourceTree = "<group>"; };
+		C9C2616A27CF7245002FA9F4 /* ToDoManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoManagerTests.swift; sourceTree = "<group>"; };
 		C9C2617527D0A18F002FA9F4 /* Array+safe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+safe.swift"; sourceTree = "<group>"; };
 		C9C2617827D0A34E002FA9F4 /* CollectionError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -163,7 +163,7 @@
 		C9C2616927CF7245002FA9F4 /* ProjectManagerTests */ = {
 			isa = PBXGroup;
 			children = (
-				C9C2616A27CF7245002FA9F4 /* ProjectManagerTests.swift */,
+				C9C2616A27CF7245002FA9F4 /* ToDoManagerTests.swift */,
 			);
 			path = ProjectManagerTests;
 			sourceTree = "<group>";
@@ -343,7 +343,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C9C2616B27CF7245002FA9F4 /* ProjectManagerTests.swift in Sources */,
+				C9C2616B27CF7245002FA9F4 /* ToDoManagerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
