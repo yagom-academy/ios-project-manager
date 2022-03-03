@@ -10,7 +10,7 @@
 		47F8F60A27CDEA96008919E3 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F8F60927CDEA96008919E3 /* CoreDataManager.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
-		C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* ViewController.swift */; };
+		C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* MainViewController.swift */; };
 		C7431F0D25F51E1D0094C4CF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0B25F51E1D0094C4CF /* Main.storyboard */; };
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
@@ -21,6 +21,7 @@
 		FB85DA3427CDF8970065FD72 /* ToDo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FB85DA3227CDF8970065FD72 /* ToDo.xcdatamodeld */; };
 		FB85DA3727CDF91E0065FD72 /* ToDo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB85DA3527CDF91D0065FD72 /* ToDo+CoreDataClass.swift */; };
 		FB85DA3827CDF91E0065FD72 /* ToDo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB85DA3627CDF91E0065FD72 /* ToDo+CoreDataProperties.swift */; };
+		FB85DA3A27D05CEE0065FD72 /* ProjectListTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB85DA3927D05CEE0065FD72 /* ProjectListTableView.swift */; };
 		FBDBCF0027CDBAB80018B526 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FBDBCEFF27CDBAB80018B526 /* GoogleService-Info.plist */; };
 		FBDBCF0327CDBC3D0018B526 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = FBDBCF0227CDBC3D0018B526 /* FirebaseAnalytics */; };
 		FBDBCF0527CDBC3D0018B526 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = FBDBCF0427CDBC3D0018B526 /* FirebaseAuth */; };
@@ -34,7 +35,7 @@
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		C7431F0925F51E1D0094C4CF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		C7431F0925F51E1D0094C4CF /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		C7431F0C25F51E1D0094C4CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C7431F0E25F51E1E0094C4CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C7431F1125F51E1E0094C4CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -42,6 +43,7 @@
 		FB85DA3327CDF8970065FD72 /* ToDo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ToDo.xcdatamodel; sourceTree = "<group>"; };
 		FB85DA3527CDF91D0065FD72 /* ToDo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ToDo+CoreDataClass.swift"; sourceTree = "<group>"; };
 		FB85DA3627CDF91E0065FD72 /* ToDo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ToDo+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		FB85DA3927D05CEE0065FD72 /* ProjectListTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListTableView.swift; sourceTree = "<group>"; };
 		FBDBCEFF27CDBAB80018B526 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -97,7 +99,8 @@
 			children = (
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
-				C7431F0925F51E1D0094C4CF /* ViewController.swift */,
+				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
+				FB85DA3927D05CEE0065FD72 /* ProjectListTableView.swift */,
 				47F8F60827CDEA70008919E3 /* CoreData */,
 				C7431F0B25F51E1D0094C4CF /* Main.storyboard */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
@@ -195,8 +198,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				FB85DA3427CDF8970065FD72 /* ToDo.xcdatamodeld in Sources */,
-				C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */,
+				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
+				FB85DA3A27D05CEE0065FD72 /* ProjectListTableView.swift in Sources */,
 				FB85DA3827CDF91E0065FD72 /* ToDo+CoreDataProperties.swift in Sources */,
 				47F8F60A27CDEA96008919E3 /* CoreDataManager.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
