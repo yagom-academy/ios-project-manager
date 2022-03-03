@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct TestDataList {
+struct TestDataManager {
     let dataList: [TaskInfomation] = []
 }
