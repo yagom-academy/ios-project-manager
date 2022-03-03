@@ -43,6 +43,7 @@ class AddTodoViewController: UIViewController {
     private let textField: UITextField = {
         let textField = UITextField()
         textField.placeholder = AddTodoVCScript.textFieldPlaceHolder
+        textField.styleWithShadow()
 
         return textField
     }()
@@ -61,6 +62,7 @@ class AddTodoViewController: UIViewController {
 
     private let textView: UITextView = {
         let textView = UITextView()
+        textView.styleWithShadow()
 
         return textView
     }()

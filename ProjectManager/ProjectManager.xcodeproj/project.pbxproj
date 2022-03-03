@@ -8,7 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0D36ADF927D0F68E00A93720 /* AddTodoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D36ADF827D0F68E00A93720 /* AddTodoViewController.swift */; };
-		0D36ADFB27D0FEBA00A93720 /* DateFormatter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D36ADFA27D0FEBA00A93720 /* DateFormatter+Extension.swift */; };
+		0D36ADFF27D108AD00A93720 /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D36ADFE27D108AD00A93720 /* UITextField+Extension.swift */; };
+		0D36AE0127D10B9E00A93720 /* UITextView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D36AE0027D10B9E00A93720 /* UITextView+Extension.swift */; };
 		0D7A352927D05184007F26F6 /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7A352827D05184007F26F6 /* DataProvider.swift */; };
 		0D7A352B27D05A19007F26F6 /* TodoSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7A352A27D05A19007F26F6 /* TodoSection.swift */; };
 		0D7A352D27D075D5007F26F6 /* MainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7A352C27D075D5007F26F6 /* MainTableViewCell.swift */; };
@@ -34,7 +35,8 @@
 /* Begin PBXFileReference section */
 		0613041D75E9C7CB38AD9021 /* Pods-ProjectManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.debug.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.debug.xcconfig"; sourceTree = "<group>"; };
 		0D36ADF827D0F68E00A93720 /* AddTodoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTodoViewController.swift; sourceTree = "<group>"; };
-		0D36ADFA27D0FEBA00A93720 /* DateFormatter+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Extension.swift"; sourceTree = "<group>"; };
+		0D36ADFE27D108AD00A93720 /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
+		0D36AE0027D10B9E00A93720 /* UITextView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Extension.swift"; sourceTree = "<group>"; };
 		0D7A352827D05184007F26F6 /* DataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
 		0D7A352A27D05A19007F26F6 /* TodoSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoSection.swift; sourceTree = "<group>"; };
 		0D7A352C27D075D5007F26F6 /* MainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
@@ -137,7 +139,8 @@
 				0D8088D327CFA0DB00199897 /* Date+Extension.swift */,
 				0D8088D527CFA0E500199897 /* Double+Extension.swift */,
 				0D8088E227CFC35E00199897 /* UITableView+Extension.swift */,
-				0D36ADFA27D0FEBA00A93720 /* DateFormatter+Extension.swift */,
+				0D36ADFE27D108AD00A93720 /* UITextField+Extension.swift */,
+				0D36AE0027D10B9E00A93720 /* UITextView+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -345,10 +348,11 @@
 				0D8088D127CF9B1800199897 /* DateUtils.swift in Sources */,
 				0D8088D627CFA0E500199897 /* Double+Extension.swift in Sources */,
 				0D8088D427CFA0DB00199897 /* Date+Extension.swift in Sources */,
+				0D36AE0127D10B9E00A93720 /* UITextView+Extension.swift in Sources */,
 				0D8088E327CFC35E00199897 /* UITableView+Extension.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
-				0D36ADFB27D0FEBA00A93720 /* DateFormatter+Extension.swift in Sources */,
 				0D7A352D27D075D5007F26F6 /* MainTableViewCell.swift in Sources */,
+				0D36ADFF27D108AD00A93720 /* UITextField+Extension.swift in Sources */,
 				0D36ADF927D0F68E00A93720 /* AddTodoViewController.swift in Sources */,
 				0D8088CA27CF91AA00199897 /* Todo.swift in Sources */,
 			);
