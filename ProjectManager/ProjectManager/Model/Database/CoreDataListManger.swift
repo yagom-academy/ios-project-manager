@@ -1,6 +1,7 @@
 import Foundation
 
 final class CoredataListManger: ListManager {
+    
     var list: [Listable] = []
     
     func creatProject(attributes: [String : [Any]]) -> Listable {

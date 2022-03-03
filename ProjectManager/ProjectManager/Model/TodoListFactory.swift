@@ -3,6 +3,7 @@ import Foundation
 final class TodoListFactory {
     
     public func assignListManger(database: DatabaseType) -> ListManager {
+        
         switch database {
         case .CoreData:
             return CoredataListManger()
