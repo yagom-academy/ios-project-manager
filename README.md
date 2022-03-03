@@ -4,6 +4,9 @@
 
 - [STEP 1](#STEP1)
   - [프로젝트 적용 기술 고민](#STEP1_1)
+- [STEP 2-1](#STEP2-1)
+  - [프로젝트 구조](#STEP2-1-구조)
+  - [고민했던 점](#STEP2-1-1)
 
 <a name="STEP1"></a>
 # 🤔 Step 1
@@ -62,3 +65,53 @@
         
     - 작은 크기의 데이터들이 CRUD된다는 점에서는 Realtime Database가 적합하다고 하나, 큰 용량의 데이터가 발생하지 않고, 서버에 큰 영향을 줄 정도의 CRUD가 아니기에 FireStore도 적합하다고 생각했습니다.
 
+<a name="STEP2-1"></a>
+
+# 🤔 STEP 2-1
+
+<a name="STEP2-1-구조"></a>
+
+## 📱 프로젝트 구조 
+
+![image](https://user-images.githubusercontent.com/45652743/156529468-3d97e908-2c3b-4328-9e9e-2a07625fc26e.png)
+
+
+<a name="STEP2-1-1"></a>
+
+## 🔥 고민했던 점
+
+### 1️⃣  MVVM 패턴의 구조
+
+MVVM 구조를 구현함에 있어 View ↔  ViewModel 사이에서 데이터 변화를 관측하고, 스스로 UI를 변경할 수 있도록 하기 위한 방법들에 대해 고민해봤습니다. 
+
+- Observable 구현
+    - Rx와 가장 닮아있는 방식이라고 생각했으며 동시에 Rx를 구현하는...? 방법이지 않을까 생각이 들었습니다.
+    - 이에 커스텀하게 Observable을 만들 경우, 추후에 operator를 직접 만들어야 하는 경우가 발생할 것 같아서 현재로서는 선택하지 않게 되었습니다.
+- Protocol
+    - Protocol을 통해 구현하는 방식은 delegate pattern 처럼 동작하고 있다고 생각했습니다.
+    - delegate를 할당해주어야 하며, 그나마 delegate pattern은 다른 부분에서 경험해본 방법이어서 이번에는 다른 방법을 사용해보려고 했습니다
+- Closure
+    - ViewModel내에 closure를 정의하고 호출이 필요한 곳에 위치시켜둔 후, ViewController에서 해당 클로저를 구현하여 작동하는 방식입니다.
+    - 여러 자료들을 봤을 때, Rx없이 구현하기에 가장 보편적인 방법이라고 생각했습니다.
+
+그래서 이번에 UIKit+MVVM으로 프로젝트를 구현하기 위해서는 closure 방식을 선택했습니다. 
+
+### 2️⃣  Clean Architecture
+
+MVVM에 대해 공부하다보니 Clean Architecture가 따라오는 것 같아 이를 함께 적용해봤습니다. 
+
+- ViewModel: 화면에 필요한 데이터를 제공하는 역할
+- Domain: 앱의 실행에 있어 필요한 비즈니스 로직을 수행하는 역할
+- Repository: 데이터를 불러오는 역할
+
+역할들을 나누어, View ↔ ViewModel ↔  Domain ↔  Repository 구조로 구성해보았습니다. 
+
+요구사항에 따라 현재는 memory 기반의 repository가 위치해있지만, 이후에 Local/Remote DB가 올 것을 대비하여 Repository 프로토콜을 구현하여 추상화 해주었습니다. 이러한 추상화를 통해 추후 Remote Repository가 위치했을 때에도 mock Repository를 두어 Domain의 로직을 테스트 할 수 있다는 장점이 있다는 것을 학습했습니다
+
+또한 Domain에 해당하는 `ToDoManager` 의 역할, ViewModel인 `ToDoViewModel` 도 마찬가지로 핵심 역할을 추상화하였습니다.   
+
+### 3️⃣ Unit Test 코드 작성
+
+비즈니스 로직을 담당하는 Domain의 `ToDoManager`의 Unit Test를 진행했습니다. 
+
+현재는 memory 기반의 repository이기 때문에 별도의 mock repository를 두지는 않았으며, 추후 remote repository가 위치하게 될 경우, unit test 코드 또한 변경해주고자 합니다.
