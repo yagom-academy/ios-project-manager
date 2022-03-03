@@ -18,23 +18,20 @@ class MainViewController: UIViewController {
         }
     }
 
-    lazy var navigationBar: UINavigationBar = {
-        let navigationBar = UINavigationBar(
-            frame: CGRect(
-                x: MainVCConstraint.navigationBarStartPoint,
-                y: MainVCConstraint.navigationBarStartPoint,
-                width: self.view.frame.size.width,
-                height: MainVCConstraint.navigationBarHeight
-            )
-        )
-        let navigationItem = UINavigationItem(title: MainVCScript.title)
+    private let dataProvider = DataProvider()
 
-        navigationBar.setItems([navigationItem], animated: false)
+// MARK: - View Components
 
-        return navigationBar
+    private lazy var plusButton: UIBarButtonItem = {
+        let button = UIBarButtonItem()
+        button.image = UIImage(systemName: "plus")
+        button.target = self
+        button.action = #selector(plusButtonDidTap)
+
+        return button
     }()
 
-    var stackView: UIStackView = {
+    private var stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
@@ -45,7 +42,7 @@ class MainViewController: UIViewController {
         return stackView
     }()
 
-    let todoTableView: UITableView = {
+    private let todoTableView: UITableView = {
         let tableView = UITableView()
         tableView.tag = TodoSection.todo.rawValue
         tableView.backgroundColor = MainVCColor.tableViewBackgroundColor
@@ -56,7 +53,7 @@ class MainViewController: UIViewController {
         return tableView
     }()
 
-    let doingTableView: UITableView = {
+    private let doingTableView: UITableView = {
         let tableView = UITableView()
         tableView.tag = TodoSection.doing.rawValue
         tableView.backgroundColor = MainVCColor.tableViewBackgroundColor
@@ -67,7 +64,7 @@ class MainViewController: UIViewController {
         return tableView
     }()
 
-    let doneTableView: UITableView = {
+    private let doneTableView: UITableView = {
         let tableView = UITableView()
         tableView.tag = TodoSection.done.rawValue
         tableView.backgroundColor = MainVCColor.tableViewBackgroundColor
@@ -77,8 +74,6 @@ class MainViewController: UIViewController {
 
         return tableView
     }()
-
-    private let dataProvider = DataProvider()
 
 // MARK: - Override Method(s)
 
@@ -91,9 +86,8 @@ class MainViewController: UIViewController {
 
     private func setUpController() {
         self.observeUpdate()
-        self.setUpView()
-        self.configureNavigationBar()
         self.configureStackView()
+        self.configureNavigationBar()
         self.setUpTableView()
     }
 
@@ -107,7 +101,6 @@ class MainViewController: UIViewController {
                 }
 
                 self.todoList = self.dataProvider.updatedList()
-                print("업데이트됨: \(self.todoList)")
             }
         }
 
@@ -116,25 +109,21 @@ class MainViewController: UIViewController {
 
 // MARK: - Configure Views
 
-    private func setUpView() {
-        self.view.backgroundColor = MainVCColor.viewBackgroundColor
-    }
-
-    private func configureNavigationBar() {
-        self.view.addSubview(self.navigationBar)
-    }
-
     private func configureStackView() {
         self.view.addSubview(self.stackView)
         self.addTableViewsToStackView()
         self.setStackViewConstraints()
     }
 
+    private func configureNavigationBar() {
+        self.title = MainVCScript.title
+        self.navigationItem.rightBarButtonItem = self.plusButton
+    }
+
     private func setStackViewConstraints() {
         NSLayoutConstraint.activate([
             self.stackView.topAnchor.constraint(
-                equalTo: self.view.safeAreaLayoutGuide.topAnchor,
-                constant: MainVCConstraint.stackViewTopAnchor
+                equalTo: self.view.safeAreaLayoutGuide.topAnchor
             ),
             self.stackView.bottomAnchor.constraint(
                 equalTo: self.view.bottomAnchor
@@ -175,6 +164,19 @@ class MainViewController: UIViewController {
         self.todoTableView.reloadData()
         self.doingTableView.reloadData()
         self.doneTableView.reloadData()
+    }
+
+// MARK: - Button Tap Actions
+
+    @objc
+    private func plusButtonDidTap() {
+        let addTodoViewController = AddTodoViewController()
+        addTodoViewController.modalPresentationStyle = .formSheet
+        addTodoViewController.modalTransitionStyle = .crossDissolve
+        let navigationController = UINavigationController(
+            rootViewController: addTodoViewController
+        )
+        self.present(navigationController, animated: true, completion: nil)
     }
 }
 
