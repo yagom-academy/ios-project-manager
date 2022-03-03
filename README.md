@@ -103,6 +103,18 @@ class TaskManager: TaskManageable {
 
 <br>
 
+### 3️⃣ TaskManager 기능에 대한 Unit Test 코드 작성
+
+- `setUpWithError`, `tearDownWithError` 메서드를 이용해서 각 케이스 메서드가 모두 동일한 조건에서 실행될 수 있도록 했습니다.
+- 테스트 메서드는 5개 작성했으며, 앞으로 추가될 수 있습니다. 😄
+  - Task 인스턴스 생성 검증
+  - TaskStatus 변경 검증
+  - Task 수정 검증
+  - TaskStatus 변경 후 삭제 검증
+  - Task 생성 후 dueDate 오래된 순서로 정렬 검증
+
+<br>
+
 # ⚙️ STEP 1 - 라이브러리 의존성 추가 및 환경 설정
 
 ### 1️⃣ SwiftUI -> UIKit Intergration
@@ -150,7 +162,7 @@ func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options conn
   - `Free tier`에서는 둘 다 약 1GB 정도의 데이터만 저장할 수 있습니다.
   - Firestore 는 `하루 CRUD 횟수`에 제한이 있고 Realtime 은 저장된 데이터 크기, 다운로드 크기에 제한이 있습니다.
   - 즉, 큰 단위의 데이터 요청이 자주 발생한다면 Firestore 가 유리하고, 가벼운 데이터이지만 CRUD 요청이 많이 발생한다면 Realtime 이 유리합니다.
-  - 이번 프로젝트에서 다루는 `데이터는 text 뿐`이고 이미지조차 없기 때문에, 데이터 크기는 작지만, CRUD 요청이 많이 발생할 것입니다.
+  - 이번 프로젝트에서 다루는 `데이터는 text 뿐`이고 이미지 조차 없기 때문에, 데이터 크기는 작지만, CRUD 요청이 많이 발생할 것입니다.
   - 만약 `과금 모델`만을 고려하면 Realtime 을 사용하는 게 유리한 선택이지만, 그럼에도 저는 Firebase 의 최신 DB인 `Firestore`를 선택해 경험해보고자 합니다.
 - Firebase SDK 중에서 `FirebaseFirestore`를 추가하고 `FirebaseDatabase`는 제거했습니다.
 - 간단한 연동 테스트를 진행했습니다.
