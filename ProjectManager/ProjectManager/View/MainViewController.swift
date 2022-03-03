@@ -18,21 +18,34 @@ class MainViewController: UIViewController, UITableViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupNavigationBar()
         setupMainView()
         setupTaskStackView()
         setupConstraint()
     }
 
+    private func setupNavigationBar() {
+        self.navigationItem.title = "Project Manager"
+        let addButtonImage = UIImage(systemName: "plus")
+        let rightButton = UIBarButtonItem(
+          image: addButtonImage,
+          style: .done,
+          target: self,
+          action: nil
+        )
+        navigationItem.setRightBarButton(rightButton, animated: false)
+    }
+    
     private func setupMainView() {
-        self.addChild(toDoViewController)
-        self.addChild(doingViewController)
-        self.addChild(doneViewController)
+        addChild(toDoViewController)
+        addChild(doingViewController)
+        addChild(doneViewController)
 
-        self.toDoView = toDoViewController.view
-        self.doingView = doingViewController.view
-        self.doneView = doneViewController.view
+        toDoView = toDoViewController.view
+        doingView = doingViewController.view
+        doneView = doneViewController.view
 
-        self.view.addSubview(taskStackView)
+        view.addSubview(taskStackView)
     }
 
     private func setupTaskStackView() {
@@ -42,6 +55,8 @@ class MainViewController: UIViewController, UITableViewDelegate {
 
         taskStackView.axis = .horizontal
         taskStackView.distribution = .fillEqually
+        taskStackView.backgroundColor = .systemGray
+        taskStackView.spacing = 10
     }
 
     private func setupConstraint() {

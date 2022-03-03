@@ -20,7 +20,10 @@ class ToDoViewController: UIViewController {
     private func setupToDoTableView() {
         view.addSubview(toDoTableView)
         toDoTableView.dataSource = dataSource
-        toDoTableView.register(ToDocell.self, forCellReuseIdentifier: "ToDocell")
+        toDoTableView.register(
+            ToDocell.self,
+            forCellReuseIdentifier: "ToDocell"
+        )
     }
     
     private func setupConstraints() {
