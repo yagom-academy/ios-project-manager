@@ -19,6 +19,7 @@
 		F374A12627CDE40D0083CC73 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F374A12527CDE40D0083CC73 /* RealmSwift */; };
 		F3C53F4327D06D4A00D7CE4E /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = F3C53F4227D06D4A00D7CE4E /* .swiftlint.yml */; };
 		F3C53F4727D0892400D7CE4E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F3C53F4627D0892400D7CE4E /* GoogleService-Info.plist */; };
+		F3C53F4D27D10AEA00D7CE4E /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C53F4C27D10AEA00D7CE4E /* Task.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		F374A11527CDD3930083CC73 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		F3C53F4227D06D4A00D7CE4E /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		F3C53F4627D0892400D7CE4E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		F3C53F4C27D10AEA00D7CE4E /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +71,7 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
+				F3C53F4B27D10AC600D7CE4E /* Model */,
 				F374A11727CDD4AE0083CC73 /* AppLifecycle */,
 				F374A11827CDD50E0083CC73 /* View */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
@@ -94,6 +97,14 @@
 				F374A11527CDD3930083CC73 /* ContentView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		F3C53F4B27D10AC600D7CE4E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F3C53F4C27D10AEA00D7CE4E /* Task.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -200,6 +211,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3C53F4D27D10AEA00D7CE4E /* Task.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				F374A11627CDD3930083CC73 /* ContentView.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,

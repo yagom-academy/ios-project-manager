@@ -13,3 +13,4 @@ identifier_name:
     error: 2
   excluded:
     - to
+    - id
