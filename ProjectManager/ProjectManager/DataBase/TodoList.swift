@@ -9,12 +9,14 @@ import Foundation
 
 class TodoList {
 
-    private var todoList = [Todo]()
+    private var todoList = [[Todo(title: "", content: TodoListScript.emptyTodo)],
+                            [Todo(title: "", content: TodoListScript.emptyDoing)],
+                            [Todo(title: "", content: TodoListScript.emptyDone)]]
 
     @discardableResult
-    func remove(at todo: Todo) -> Bool {
-        let deleteNoteIndex = self.todoList.firstIndex { todo in
-            todo.uuid == todo.uuid
+    func remove(at todo: Todo, in section: TodoSection) -> Bool {
+        let deleteNoteIndex = self.todoList[section.rawValue].firstIndex { someTodo in
+            someTodo.uuid == todo.uuid
         }
 
         guard let deleteNoteIndex = deleteNoteIndex else {
@@ -26,8 +28,24 @@ class TodoList {
         return true
     }
 
-    func add(Todo: Todo) {
-        self.todoList.append(Todo)
+    func add(Todo: Todo, in section: TodoSection) {
+        var todoListInSection = self.todoList[section.rawValue]
+
+        todoListInSection.append(Todo)
+
+        if todoListInSection.first?.deadline == nil {
+            todoListInSection.removeFirst()
+        }
     }
 
+    func fetch(completionHandler: @escaping ([[Todo]]) -> Void) {
+        completionHandler(self.todoList)
+    }
+}
+
+private enum TodoListScript {
+
+    static let emptyTodo = "해야할 일을 되돌아봐요"
+    static let emptyDoing = "어떤 일을 하고 있나요?"
+    static let emptyDone = "이부자리를 정리하고 이곳을 채워볼까요?💪"
 }

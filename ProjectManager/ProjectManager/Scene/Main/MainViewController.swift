@@ -8,6 +8,10 @@ import UIKit
 
 class MainViewController: UIViewController {
 
+// MARK: - Properties
+
+    private var todoList = [[Todo]]()
+
     lazy var navigationBar: UINavigationBar = {
         let navigationBar = UINavigationBar(
             frame: CGRect(
@@ -37,7 +41,7 @@ class MainViewController: UIViewController {
 
     let todoTableView: UITableView = {
         let tableView = UITableView()
-        tableView.tag = 1
+        tableView.tag = 0
         tableView.backgroundColor = MainVCColor.tableViewBackgroundColor
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
@@ -45,7 +49,7 @@ class MainViewController: UIViewController {
 
     let doingTableView: UITableView = {
         let tableView = UITableView()
-        tableView.tag = 2
+        tableView.tag = 1
         tableView.backgroundColor = MainVCColor.tableViewBackgroundColor
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
@@ -53,17 +57,50 @@ class MainViewController: UIViewController {
 
     let doneTableView: UITableView = {
         let tableView = UITableView()
-        tableView.tag = 3
+        tableView.tag = 2
         tableView.backgroundColor = MainVCColor.tableViewBackgroundColor
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
 
+    private let dataProvider = DataProvider()
+
+// MARK: - Override Method(s)
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.setUpController()
+    }
+
+// MARK: - SetUp Controller
+
+        private func setUpController() {
+            self.observeUpdate()
+            self.setUpView()
+            self.configureNavigationBar()
+            self.configureStackView()
+        }
+
+// MARK: - Observing Method(s)
+
+    private func observeUpdate() {
+        dataProvider.updated = { [weak self] in
+            DispatchQueue.main.async {
+                guard let self = self else {
+                    return
+                }
+
+                self.todoList = self.dataProvider.updatedList()
+            }
+        }
+
+        self.dataProvider.reload()
+    }
+
+// MARK: - Configure Views
+
+    private func setUpView() {
         self.view.backgroundColor = MainVCColor.viewBackgroundColor
-        self.configureNavigationBar()
-        self.configureStackView()
     }
 
     private func configureNavigationBar() {
@@ -100,6 +137,8 @@ class MainViewController: UIViewController {
         self.stackView.addArrangedSubview(doneTableView)
     }
 }
+
+// MARK: - Magic Numbers
 
 private enum MainVCColor {
 

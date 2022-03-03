@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D7A352927D05184007F26F6 /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7A352827D05184007F26F6 /* DataProvider.swift */; };
+		0D7A352B27D05A19007F26F6 /* TodoSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7A352A27D05A19007F26F6 /* TodoSection.swift */; };
 		0D8088CA27CF91AA00199897 /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8088C927CF91AA00199897 /* Todo.swift */; };
 		0D8088CD27CF942600199897 /* TodoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8088CC27CF942600199897 /* TodoList.swift */; };
 		0D8088D127CF9B1800199897 /* DateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8088D027CF9B1800199897 /* DateUtils.swift */; };
@@ -28,6 +30,8 @@
 
 /* Begin PBXFileReference section */
 		0613041D75E9C7CB38AD9021 /* Pods-ProjectManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.debug.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.debug.xcconfig"; sourceTree = "<group>"; };
+		0D7A352827D05184007F26F6 /* DataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
+		0D7A352A27D05A19007F26F6 /* TodoSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoSection.swift; sourceTree = "<group>"; };
 		0D8088C927CF91AA00199897 /* Todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
 		0D8088CC27CF942600199897 /* TodoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoList.swift; sourceTree = "<group>"; };
 		0D8088D027CF9B1800199897 /* DateUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateUtils.swift; sourceTree = "<group>"; };
@@ -62,6 +66,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0D7A352727D0514D007F26F6 /* Provider */ = {
+			isa = PBXGroup;
+			children = (
+				0D7A352827D05184007F26F6 /* DataProvider.swift */,
+			);
+			path = Provider;
+			sourceTree = "<group>";
+		};
 		0D8088C627CF915B00199897 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
@@ -82,6 +94,7 @@
 			isa = PBXGroup;
 			children = (
 				0D8088C927CF91AA00199897 /* Todo.swift */,
+				0D7A352A27D05A19007F26F6 /* TodoSection.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -145,6 +158,7 @@
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
 				0D8088C627CF915B00199897 /* Scene */,
+				0D7A352727D0514D007F26F6 /* Provider */,
 				0D8088C827CF918800199897 /* Model */,
 				0D8088CE27CF9A3B00199897 /* DataBase */,
 				0D8088CF27CF9AFF00199897 /* Util */,
@@ -308,7 +322,9 @@
 			files = (
 				0D8088CD27CF942600199897 /* TodoList.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
+				0D7A352927D05184007F26F6 /* DataProvider.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
+				0D7A352B27D05A19007F26F6 /* TodoSection.swift in Sources */,
 				0D8088D127CF9B1800199897 /* DateUtils.swift in Sources */,
 				0D8088D627CFA0E500199897 /* Double+Extension.swift in Sources */,
 				0D8088D427CFA0DB00199897 /* Date+Extension.swift in Sources */,
