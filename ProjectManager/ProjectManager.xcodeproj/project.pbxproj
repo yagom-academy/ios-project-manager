@@ -106,8 +106,9 @@
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
 				C7431F0925F51E1D0094C4CF /* ViewController.swift */,
-				C9C2615627CF5EE4002FA9F4 /* Service */,
 				C9C2614E27CF3EBE002FA9F4 /* Protocol */,
+				C9C2617127D061A9002FA9F4 /* Repository */,
+				C9C2615627CF5EE4002FA9F4 /* Service */,
 				C9C2616127CF6516002FA9F4 /* ViewModel */,
 				C9C2614B27CE1E30002FA9F4 /* Model */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
@@ -140,7 +141,6 @@
 		C9C2615627CF5EE4002FA9F4 /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				C9C2615727CF5EF5002FA9F4 /* ToDoRepository.swift */,
 				C9C2615F27CF635D002FA9F4 /* ToDoManager.swift */,
 			);
 			path = Service;
@@ -160,6 +160,14 @@
 				C9C2616A27CF7245002FA9F4 /* ProjectManagerTests.swift */,
 			);
 			path = ProjectManagerTests;
+			sourceTree = "<group>";
+		};
+		C9C2617127D061A9002FA9F4 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				C9C2615727CF5EF5002FA9F4 /* ToDoRepository.swift */,
+			);
+			path = Repository;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
