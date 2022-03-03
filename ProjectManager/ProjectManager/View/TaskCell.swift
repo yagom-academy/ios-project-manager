@@ -7,7 +7,8 @@
 
 import UIKit
 
-class ToDocell: UITableViewCell {
+class TaskCell: UITableViewCell {
+    let taskCellViewModel = TaskCellViewModel()
     private let cellStackView = UIStackView()
     private let titleLable = UILabel()
     private let explanationLabel = UILabel()
@@ -40,5 +41,11 @@ class ToDocell: UITableViewCell {
             cellStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             cellStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
         ])
+    }
+    
+    func configure(with indexPath: Int) {
+        titleLable.text = taskCellViewModel.cellData(indexPath: indexPath).title
+        explanationLabel.text = taskCellViewModel.cellData(indexPath: indexPath).explanation
+        deadLineLabel.text = taskCellViewModel.cellData(indexPath: indexPath).localizedDeadline
     }
 }

@@ -21,7 +21,7 @@ class DoneViewController: UIViewController {
         view.addSubview(doneTableView)
         doneTableView.dataSource = dataSource
         doneTableView.register(
-            ToDocell.self,
+            TaskCell.self,
             forCellReuseIdentifier: "ToDocell"
         )
     }

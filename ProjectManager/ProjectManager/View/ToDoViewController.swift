@@ -8,6 +8,7 @@
 import UIKit
 
 class ToDoViewController: UIViewController {
+    let toDoViewModel = ToDoViewModel()
     private let toDoTableView = UITableView()
     lazy var dataSource = TaskDataSource()
     
@@ -21,7 +22,7 @@ class ToDoViewController: UIViewController {
         view.addSubview(toDoTableView)
         toDoTableView.dataSource = dataSource
         toDoTableView.register(
-            ToDocell.self,
+            TaskCell.self,
             forCellReuseIdentifier: "ToDocell"
         )
     }
@@ -36,5 +37,6 @@ class ToDoViewController: UIViewController {
             toDoTableView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor)
         ])
     }
+    
 }
 

@@ -23,9 +23,11 @@ extension TaskDataSource: UITableViewDataSource {
         _ tableView: UITableView,
         cellForRowAt indexPath: IndexPath
     ) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ToDocell", for: indexPath) as? ToDocell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "TaskCell", for: indexPath) as? TaskCell else {
             return UITableViewCell()
         }
+        
+        cell.configure(with: indexPath.row)
         return cell
     }
 }

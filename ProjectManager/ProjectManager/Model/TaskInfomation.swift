@@ -8,7 +8,7 @@
 import Foundation
 
 struct TaskInfomation {
-    let uuid: UUID
+    let uuid: UUID?
     var title: String
     var explanation: String
     var deadline: Double
