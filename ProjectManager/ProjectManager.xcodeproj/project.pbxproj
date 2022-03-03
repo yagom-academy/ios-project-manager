@@ -12,12 +12,12 @@
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
 		F374A11627CDD3930083CC73 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F374A11527CDD3930083CC73 /* ContentView.swift */; };
-		F374A11A27CDDFC50083CC73 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F374A11927CDDFC50083CC73 /* GoogleService-Info.plist */; };
 		F374A11D27CDE1A40083CC73 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = F374A11C27CDE1A40083CC73 /* FirebaseAnalytics */; };
 		F374A11F27CDE1A40083CC73 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = F374A11E27CDE1A40083CC73 /* FirebaseFirestore */; };
 		F374A12127CDE1A40083CC73 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = F374A12027CDE1A40083CC73 /* FirebaseMessaging */; };
 		F374A12427CDE40D0083CC73 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = F374A12327CDE40D0083CC73 /* Realm */; };
 		F374A12627CDE40D0083CC73 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F374A12527CDE40D0083CC73 /* RealmSwift */; };
+		F3C53F4327D06D4A00D7CE4E /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = F3C53F4227D06D4A00D7CE4E /* .swiftlint.yml */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,7 +28,7 @@
 		C7431F1125F51E1E0094C4CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F374A11527CDD3930083CC73 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		F374A11927CDDFC50083CC73 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../Desktop/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		F3C53F4227D06D4A00D7CE4E /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +50,7 @@
 		C7431EF925F51E1D0094C4CF = {
 			isa = PBXGroup;
 			children = (
+				F3C53F4227D06D4A00D7CE4E /* .swiftlint.yml */,
 				C7431F0425F51E1D0094C4CF /* ProjectManager */,
 				C7431F0325F51E1D0094C4CF /* Products */,
 			);
@@ -71,7 +72,6 @@
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
-				F374A11927CDDFC50083CC73 /* GoogleService-Info.plist */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
@@ -103,6 +103,7 @@
 				C7431EFE25F51E1D0094C4CF /* Sources */,
 				C7431EFF25F51E1D0094C4CF /* Frameworks */,
 				C7431F0025F51E1D0094C4CF /* Resources */,
+				F3C53F4127D06D0400D7CE4E /* Swift Lint */,
 			);
 			buildRules = (
 			);
@@ -161,13 +162,34 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3C53F4327D06D4A00D7CE4E /* .swiftlint.yml in Resources */,
 				C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */,
 				C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */,
-				F374A11A27CDDFC50083CC73 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		F3C53F4127D06D0400D7CE4E /* Swift Lint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Swift Lint";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if test -d \"/opt/homebrew/bin/\"; then\n  PATH=\"/opt/homebrew/bin/:${PATH}\"\nfi\n\nif test -d \"$HOME/.mint/bin\"; then\n  PATH=\"$HOME/.mint/bin:${PATH}\"\nfi\n\nexport PATH\n\nif which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, run setup.sh (or download from https://github.com/realm/SwiftLint)\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C7431EFE25F51E1D0094C4CF /* Sources */ = {
