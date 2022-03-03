@@ -8,41 +8,65 @@
 import Foundation
 
 class ToDoViewModel: ViewModel {
+    var todoDidUpdated: (() -> Void)?
+    var didSelectTodo: ((ToDo) -> Void)?
+    
     private var todoManager: ToDoManager
-    private var todos = [ToDo]()
+    private(set) var todos = [ToDo]() {
+        didSet {
+            todos.sort { $0.deadline < $1.deadline }
+        }
+    }
     
     init(todoManager: ToDoManager) {
         self.todoManager = todoManager
-        self.refreshTodos()
     }
     
-    private func refreshTodos() {
+    func didLoaded() {
+        updateTodos()
+    }
+    
+    private func updateTodos() {
         todos = todoManager.fetchAll()
+        todoDidUpdated?()
     }
     
     func create(with todo: ToDo) {
         todoManager.create(with: todo)
-        refreshTodos()
+        updateTodos()
     }
     
     func update(with todo: ToDo) {
         todoManager.update(with: todo)
-        refreshTodos()
+        updateTodos()
     }
     
     func delete(with todo: ToDo) {
         todoManager.delete(with: todo)
-        refreshTodos()
+        updateTodos()
     }
     
     func changeState(of todo: ToDo, to state: ToDoState) {
         todoManager.changeState(of: todo, to: state)
-        refreshTodos()
+        updateTodos()
     }
     
-    func fetchToDo(at index: Int, with state: ToDoState) -> ToDo {
+    func fetch(at index: Int, with state: ToDoState) throws -> ToDo {
         let filteredTodos = todos.filter { $0.state == state }
-        return filteredTodos[index]
+        guard let fetchedTodo = filteredTodos[safe: index] else {
+            throw CollectionError.indexOutOfRange
+        }
+        
+        return fetchedTodo
+    }
+    
+    func didSelectRow(at index: Int, with state: ToDoState) {
+        let filteredTodos = todos.filter { $0.state == state }
+        guard let selectedTodo = filteredTodos[safe: index] else {
+            return
+        }
+        
+        didSelectTodo?(selectedTodo)
     }
     
     func count(of state: ToDoState) -> Int {

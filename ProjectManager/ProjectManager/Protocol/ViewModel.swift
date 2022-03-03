@@ -12,6 +12,7 @@ protocol ViewModel {
     func update(with todo: ToDo)
     func delete(with todo: ToDo)
     func changeState(of todo: ToDo, to state: ToDoState)
-    func fetchToDo(at index: Int, with state: ToDoState) -> ToDo
+    func fetch(at index: Int, with state: ToDoState) throws -> ToDo
+    func didSelectRow(at index: Int, with state: ToDoState)
     func count(of state: ToDoState) -> Int
 }
