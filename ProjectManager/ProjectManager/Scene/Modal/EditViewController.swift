@@ -1,5 +1,5 @@
 //
-//  AddTodoViewController.swift
+//  EditViewController.swift
 //  ProjectManager
 //
 //  Created by 고은 on 2022/03/03.
@@ -7,13 +7,13 @@
 
 import UIKit
 
-class AddTodoViewController: UIViewController {
+class EditViewController: UIViewController {
 
 // MARK: - View Components
 
     private lazy var cancelButton: UIBarButtonItem = {
         let button = UIBarButtonItem()
-        button.title = AddTodoVCScript.cancel
+        button.title = EditTodoVCScript.cancel
         button.target = self
         button.action = #selector(cancelButtonDidTap)
 
@@ -22,7 +22,7 @@ class AddTodoViewController: UIViewController {
 
     private lazy var doneButton: UIBarButtonItem = {
         let button = UIBarButtonItem()
-        button.title = AddTodoVCScript.done
+        button.title = EditTodoVCScript.done
         button.target = self
         button.action = #selector(doneButtonDidTap)
 
@@ -34,7 +34,7 @@ class AddTodoViewController: UIViewController {
         stackView.axis = .vertical
         stackView.distribution = .fill
         stackView.alignment = .fill
-        stackView.spacing = AddTodoVCConstraint.spacing
+        stackView.spacing = EditTodoVCConstraint.spacing
         stackView.translatesAutoresizingMaskIntoConstraints = false
 
         return stackView
@@ -42,7 +42,7 @@ class AddTodoViewController: UIViewController {
 
     private let textField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = AddTodoVCScript.textFieldPlaceHolder
+        textField.placeholder = EditTodoVCScript.textFieldPlaceHolder
         textField.styleWithShadow()
 
         return textField
@@ -85,7 +85,7 @@ class AddTodoViewController: UIViewController {
 
     private func setUpTextView() {
         self.textView.delegate = self
-        self.textView.text = AddTodoVCScript.textViewPlaceHolder
+        self.textView.text = EditTodoVCScript.textViewPlaceHolder
         self.textView.textColor = UIColor.lightGray
     }
 
@@ -104,7 +104,7 @@ class AddTodoViewController: UIViewController {
     }
 
     private func configureNavigationBar() {
-        self.title = AddTodoVCScript.title
+        self.title = EditTodoVCScript.title
         self.navigationItem.leftBarButtonItem = self.cancelButton
         self.navigationItem.rightBarButtonItem = self.doneButton
     }
@@ -115,19 +115,19 @@ class AddTodoViewController: UIViewController {
         NSLayoutConstraint.activate([
             self.stackView.topAnchor.constraint(
                 equalTo: self.view.safeAreaLayoutGuide.topAnchor,
-                constant: AddTodoVCConstraint.stackViewPadding
+                constant: EditTodoVCConstraint.stackViewPadding
             ),
             self.stackView.bottomAnchor.constraint(
                 equalTo: self.view.bottomAnchor,
-                constant: -(AddTodoVCConstraint.stackViewBottomPadding)
+                constant: -(EditTodoVCConstraint.stackViewBottomPadding)
             ),
             self.stackView.leadingAnchor.constraint(
                 equalTo: self.view.safeAreaLayoutGuide.leadingAnchor,
-                constant: AddTodoVCConstraint.stackViewPadding
+                constant: EditTodoVCConstraint.stackViewPadding
             ),
             self.stackView.trailingAnchor.constraint(
                 equalTo: self.view.safeAreaLayoutGuide.trailingAnchor,
-                constant: -(AddTodoVCConstraint.stackViewPadding)
+                constant: -(EditTodoVCConstraint.stackViewPadding)
             )
         ])
     }
@@ -139,7 +139,7 @@ class AddTodoViewController: UIViewController {
             ),
             self.textField.bottomAnchor.constraint(
                 equalTo: self.stackView.topAnchor,
-                constant: AddTodoVCConstraint.textFieldHeight
+                constant: EditTodoVCConstraint.textFieldHeight
             ),
             self.textField.leadingAnchor.constraint(
                 equalTo: self.stackView.leadingAnchor
@@ -154,11 +154,11 @@ class AddTodoViewController: UIViewController {
         NSLayoutConstraint.activate([
             self.datePicker.topAnchor.constraint(
                 equalTo: self.stackView.topAnchor,
-                constant: AddTodoVCConstraint.textFieldHeight
+                constant: EditTodoVCConstraint.textFieldHeight
             ),
             self.datePicker.bottomAnchor.constraint(
                 equalTo: self.stackView.bottomAnchor,
-                constant: AddTodoVCConstraint.textViewHeight
+                constant: EditTodoVCConstraint.textViewHeight
             ),
             self.datePicker.leadingAnchor.constraint(
                 equalTo: self.stackView.leadingAnchor
@@ -173,7 +173,7 @@ class AddTodoViewController: UIViewController {
         NSLayoutConstraint.activate([
             self.datePicker.topAnchor.constraint(
                 equalTo: self.stackView.bottomAnchor,
-                constant: AddTodoVCConstraint.textViewHeight
+                constant: EditTodoVCConstraint.textViewHeight
             ),
             self.datePicker.bottomAnchor.constraint(
                 equalTo: self.stackView.bottomAnchor
@@ -201,7 +201,7 @@ class AddTodoViewController: UIViewController {
 
 }
 
-extension AddTodoViewController: UITextViewDelegate {
+extension EditViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.textColor == UIColor.lightGray {
             textView.text = nil
@@ -211,13 +211,13 @@ extension AddTodoViewController: UITextViewDelegate {
 
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.isEmpty {
-            textView.text = AddTodoVCScript.textViewPlaceHolder
+            textView.text = EditTodoVCScript.textViewPlaceHolder
             textView.textColor = UIColor.lightGray
         }
     }
 }
 
-private enum AddTodoVCScript {
+private enum EditTodoVCScript {
     static let title = "TODO"
     static let cancel = "Cancel"
     static let done = "Done"
@@ -225,7 +225,7 @@ private enum AddTodoVCScript {
     static let textViewPlaceHolder = "1000자 이내로 입력해주세요"
 }
 
-private enum AddTodoVCConstraint {
+private enum EditTodoVCConstraint {
     static let spacing: CGFloat = 10
     static let stackViewPadding: CGFloat = 10
     static let stackViewBottomPadding: CGFloat = 20

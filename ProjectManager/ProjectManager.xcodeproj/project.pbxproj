@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0D36ADF927D0F68E00A93720 /* AddTodoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D36ADF827D0F68E00A93720 /* AddTodoViewController.swift */; };
+		0D36ADF927D0F68E00A93720 /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D36ADF827D0F68E00A93720 /* EditViewController.swift */; };
 		0D36ADFF27D108AD00A93720 /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D36ADFE27D108AD00A93720 /* UITextField+Extension.swift */; };
 		0D36AE0127D10B9E00A93720 /* UITextView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D36AE0027D10B9E00A93720 /* UITextView+Extension.swift */; };
 		0D7A352927D05184007F26F6 /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7A352827D05184007F26F6 /* DataProvider.swift */; };
@@ -34,7 +34,7 @@
 
 /* Begin PBXFileReference section */
 		0613041D75E9C7CB38AD9021 /* Pods-ProjectManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.debug.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.debug.xcconfig"; sourceTree = "<group>"; };
-		0D36ADF827D0F68E00A93720 /* AddTodoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTodoViewController.swift; sourceTree = "<group>"; };
+		0D36ADF827D0F68E00A93720 /* EditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
 		0D36ADFE27D108AD00A93720 /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		0D36AE0027D10B9E00A93720 /* UITextView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Extension.swift"; sourceTree = "<group>"; };
 		0D7A352827D05184007F26F6 /* DataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
@@ -86,7 +86,7 @@
 		0D36ADFD27D1062E00A93720 /* Modal */ = {
 			isa = PBXGroup;
 			children = (
-				0D36ADF827D0F68E00A93720 /* AddTodoViewController.swift */,
+				0D36ADF827D0F68E00A93720 /* EditViewController.swift */,
 			);
 			path = Modal;
 			sourceTree = "<group>";
@@ -353,7 +353,7 @@
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				0D7A352D27D075D5007F26F6 /* MainTableViewCell.swift in Sources */,
 				0D36ADFF27D108AD00A93720 /* UITextField+Extension.swift in Sources */,
-				0D36ADF927D0F68E00A93720 /* AddTodoViewController.swift in Sources */,
+				0D36ADF927D0F68E00A93720 /* EditViewController.swift in Sources */,
 				0D8088CA27CF91AA00199897 /* Todo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

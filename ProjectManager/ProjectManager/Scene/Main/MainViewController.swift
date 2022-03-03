@@ -170,7 +170,7 @@ class MainViewController: UIViewController {
 
     @objc
     private func plusButtonDidTap() {
-        let addTodoViewController = AddTodoViewController()
+        let addTodoViewController = EditViewController()
         addTodoViewController.modalPresentationStyle = .formSheet
         addTodoViewController.modalTransitionStyle = .crossDissolve
         let navigationController = UINavigationController(
