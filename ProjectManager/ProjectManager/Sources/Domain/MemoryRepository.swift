@@ -1,37 +1,33 @@
 import Foundation
 
 final class MemoryRepository {
-    private(set) var projects: [Project]
-    
-    init(projects: [Project] = []) {
-        self.projects = projects
+    private let storage: Storageable
+
+    init(storage: Storageable = MemoryStorage()) {
+        self.storage = storage
     }
 }
 
 extension MemoryRepository: Repositoryable {
-    func create(_ item: Project, completion: ((Project?) -> Void)? = nil) {
-        projects.append(item)
-        completion?(item)
+    func create(_ item: Project, completion: ((Project?) -> Void)?) {
+        storage.create(item) { item in
+            completion?(item)
+        }
     }
     
-    func update(with item: Project, completion: ((Project?) -> Void)? = nil) {
-        _ = projects.indices
-            .filter { projects[$0].id == item.id }.first
-            .flatMap {
-                projects[$0] = item
-                completion?(projects[$0])
-            }
+    func update(with item: Project, completion: ((Project?) -> Void)?) {
+        storage.update(item) { item in
+            completion?(item)
+        }
     }
     
-    func delete(_ item: Project, completion: ((Project?) -> Void)? = nil) {
-        _ = projects.indices
-            .filter { projects[$0].id == item.id }.first
-            .flatMap {
-                completion?(projects.remove(at: $0))
-            }
+    func delete(_ item: Project, completion: ((Project?) -> Void)?) {
+        storage.delete(item) { item in
+            completion?(item)
+        }
     }
     
     func fetch() -> [Project] {
-        return projects
+        return storage.fetch()
     }
 }
