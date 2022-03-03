@@ -32,6 +32,10 @@
 		9A40A0E027D101C800A73BBA /* Storageable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A0D427D0CC5200A73BBA /* Storageable.swift */; };
 		9A40A0E427D11B4B00A73BBA /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A0E327D11B4B00A73BBA /* Observable.swift */; };
 		9A40A0E827D11D7300A73BBA /* Collection+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A0E727D11D7300A73BBA /* Collection+extension.swift */; };
+		9A40A0EA27D14A7500A73BBA /* ProjectListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A0E927D14A7500A73BBA /* ProjectListViewModelTests.swift */; };
+		9A40A0EB27D14A7B00A73BBA /* ProjectListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A09C27CF8C6700A73BBA /* ProjectListViewModel.swift */; };
+		9A40A0EC27D14B3700A73BBA /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A0E327D11B4B00A73BBA /* Observable.swift */; };
+		9A40A0ED27D14B7E00A73BBA /* Collection+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A0E727D11D7300A73BBA /* Collection+extension.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* ViewController.swift */; };
@@ -64,6 +68,7 @@
 		9A40A0D627D0CCF600A73BBA /* MemoryStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryStorage.swift; sourceTree = "<group>"; };
 		9A40A0E327D11B4B00A73BBA /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		9A40A0E727D11D7300A73BBA /* Collection+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+extension.swift"; sourceTree = "<group>"; };
+		9A40A0E927D14A7500A73BBA /* ProjectListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListViewModelTests.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -168,6 +173,7 @@
 			isa = PBXGroup;
 			children = (
 				9A40A0BE27CFA82E00A73BBA /* MemoryUseCaseTests.swift */,
+				9A40A0E927D14A7500A73BBA /* ProjectListViewModelTests.swift */,
 			);
 			path = ProjectManagerTests;
 			sourceTree = "<group>";
@@ -403,10 +409,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A40A0EC27D14B3700A73BBA /* Observable.swift in Sources */,
+				9A40A0ED27D14B7E00A73BBA /* Collection+extension.swift in Sources */,
 				9A40A0D327D0CBBA00A73BBA /* UseCase.swift in Sources */,
 				9A40A0DF27D101C700A73BBA /* MemoryStorage.swift in Sources */,
 				9A40A0D227D0CBB100A73BBA /* MemoryUseCase.swift in Sources */,
 				9A40A0C527CFA84400A73BBA /* MemoryRepository.swift in Sources */,
+				9A40A0EB27D14A7B00A73BBA /* ProjectListViewModel.swift in Sources */,
+				9A40A0EA27D14A7500A73BBA /* ProjectListViewModelTests.swift in Sources */,
 				9A40A0BF27CFA82E00A73BBA /* MemoryUseCaseTests.swift in Sources */,
 				9A40A0E027D101C800A73BBA /* Storageable.swift in Sources */,
 				9A40A0C827CFA86200A73BBA /* Repositoryable.swift in Sources */,

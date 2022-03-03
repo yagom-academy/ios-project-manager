@@ -26,8 +26,8 @@ final class ProjectListViewModel {
         }
     }
     
-    func update(_ indexPath: IndexPath) {
-        useCase.update(projects[safe: indexPath.row]) { item in
+    func update(_ project: Project, indexPath: IndexPath) {
+        useCase.update(project) { item in
             guard item != nil else {
                 self.errorMessage.value = "존재하지 않는 Project 입니다."
                 return

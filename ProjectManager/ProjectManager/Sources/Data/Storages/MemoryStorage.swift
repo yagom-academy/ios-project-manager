@@ -15,7 +15,7 @@ extension MemoryStorage: Storageable {
     }
     
     func update(_ item: Project, completion: ((Project?) -> Void)?) {
-        _ = projects.indices
+        projects.indices
             .filter { projects[$0].id == item.id }.first
             .flatMap {
                 projects[$0] = item
@@ -24,7 +24,7 @@ extension MemoryStorage: Storageable {
     }
     
     func delete(_ item: Project, completion: ((Project?) -> Void)?) {
-        _ = projects.indices
+        projects.indices
             .filter { projects[$0].id == item.id }.first
             .flatMap {
                 completion?(projects.remove(at: $0))
