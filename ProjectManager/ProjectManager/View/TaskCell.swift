@@ -8,10 +8,9 @@
 import UIKit
 
 class TaskCell: UITableViewCell {
-    let taskCellViewModel = ToDoViewModel()
     private let cellStackView = UIStackView()
     private let titleLable = UILabel()
-    private let explanationLabel = UILabel()
+    private let discriptionLabel = UILabel()
     private let deadLineLabel = UILabel()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -30,8 +29,10 @@ class TaskCell: UITableViewCell {
     func setupCellStackView() {
         contentView.addSubview(cellStackView)
         cellStackView.addArrangedSubview(titleLable)
-        cellStackView.addArrangedSubview(explanationLabel)
+        cellStackView.addArrangedSubview(discriptionLabel)
         cellStackView.addArrangedSubview(deadLineLabel)
+        cellStackView.axis = .vertical
+        
     }
     
     func setupCellConstraints() {
@@ -45,7 +46,9 @@ class TaskCell: UITableViewCell {
         ])
     }
     
-    func configure(with indexPath: Int) {
-        
+    func configure(with todo: ToDoInfomation) {
+        titleLable.text = todo.title
+        discriptionLabel.text = todo.discription
+        deadLineLabel.text = todo.localizedDateString
     }
 }

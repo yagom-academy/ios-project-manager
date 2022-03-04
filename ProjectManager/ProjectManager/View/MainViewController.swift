@@ -7,6 +7,7 @@
 import UIKit
 
 class MainViewController: UIViewController, UITableViewDelegate {
+    let todoViewModel = ToDoViewModel()
     private let taskStackView = UIStackView()
     private let toDoTableView = UITableView()
     private let doingTableView = UITableView()
@@ -19,6 +20,13 @@ class MainViewController: UIViewController, UITableViewDelegate {
         setupTaskStackView()
         setupConstraint()
         setupTableView()
+        todoViewModel.reload()
+        todoViewModel.todoOnUpdated = { [weak self] in
+                self?.toDoTableView.reloadData()
+                self?.doingTableView.reloadData()
+                self?.doneTableView.reloadData()
+        }
+        todoViewModel.reload()
     }
 
     private func setupNavigation() {
@@ -89,7 +97,7 @@ extension MainViewController: UITableViewDataSource {
         _ tableView: UITableView,
         numberOfRowsInSection section: Int
     ) -> Int {
-        return dataManager.dataList.count
+        return todoViewModel.todos.count
     }
     
     func tableView(
@@ -103,7 +111,7 @@ extension MainViewController: UITableViewDataSource {
             return UITableViewCell()
         }
 
-        cell.configure(with: indexPath.row)
+        cell.configure(with: todoViewModel.todos[indexPath.row])
         
         return cell
     }

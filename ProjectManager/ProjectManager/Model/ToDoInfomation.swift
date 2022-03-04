@@ -11,6 +11,9 @@ struct ToDoInfomation: Identifiable {
     let id: UUID
     let title: String
     let discription: String
-    let deadline: TimeInterval
-    let state: ToDoPosition
+    let deadline: Double
+    var position: ToDoPosition
+    var localizedDateString: String {
+        return DateFormatter().localizedDateString(from: deadline)
+    }
 }
