@@ -49,6 +49,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2570E6DA27D2264C002984D2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2570E6D027D224D4002984D2 /* Task.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		2570E6DB27D2266A002984D2 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				2570E6D627D225BB002984D2 /* TaskManager.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		2570E6DC27D22676002984D2 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				2570E6D827D225F6002984D2 /* TaskListViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		2570E6DD27D22685002984D2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				25D60D7E27CD2D8000D3D39D /* ContentView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		25D60D8427CD3A8F00D3D39D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -76,15 +108,15 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
+				2570E6DD27D22685002984D2 /* View */,
+				2570E6DC27D22676002984D2 /* ViewModel */,
+				2570E6DB27D2266A002984D2 /* Service */,
+				2570E6DA27D2264C002984D2 /* Model */,
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
-				25D60D7E27CD2D8000D3D39D /* ContentView.swift */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
 				2570E6A127CDE284002984D2 /* GoogleService-Info.plist */,
-				2570E6D027D224D4002984D2 /* Task.swift */,
-				2570E6D627D225BB002984D2 /* TaskManager.swift */,
-				2570E6D827D225F6002984D2 /* TaskListViewModel.swift */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
