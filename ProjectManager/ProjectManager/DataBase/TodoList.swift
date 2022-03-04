@@ -43,15 +43,23 @@ class TodoList {
         return true
     }
 
-    func add(todo: Todo, in section: TodoSection) {
+    func add(todo: Todo) {
         self.todoList.append(todo)
         let dummyTodo = self.todoList.filter { someTodo in
-            someTodo.section == section && someTodo.deadline == nil
+            someTodo.section == todo.section && someTodo.deadline == nil
         }
 
         if let dummy = dummyTodo.first {
             self.remove(at: dummy)
         }
+    }
+
+    func edit(todo: Todo, in section: TodoSection) {
+        self.remove(at: todo)
+
+        var newTodo = todo
+        newTodo.section = section
+        self.add(todo: newTodo)
     }
 
     func fetch(completionHandler: @escaping ([Todo]) -> Void) {

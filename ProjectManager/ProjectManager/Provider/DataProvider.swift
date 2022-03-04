@@ -30,13 +30,18 @@ class DataProvider {
         self.updatedTodoList
     }
 
-    func update(todo: Todo, in section: TodoSection) {
-        self.todoList.add(todo: todo, in: section)
+    func update(todo: Todo) {
+        self.todoList.add(todo: todo)
         self.reload()
     }
 
     func delete(todo: Todo) {
         self.todoList.remove(at: todo)
+        self.reload()
+    }
+
+    func edit(todo: Todo, in section: TodoSection) {
+        self.todoList.edit(todo: todo, in: section)
         self.reload()
     }
 }

@@ -232,7 +232,7 @@ class EditViewController: UIViewController, UIAdaptivePresentationControllerDele
             uuid: UUID()
         )
 
-        dataProvider.update(todo: todo, in: .todo)
+        dataProvider.update(todo: todo)
 
         self.mainViewDelegate?.editViewControllerDidFinish(self)
     }

@@ -7,9 +7,9 @@
 
 import Foundation
 
-enum TodoSection: CaseIterable {
+enum TodoSection: String, CaseIterable {
 
-    case todo
-    case doing
-    case done
+    case todo = "TODO"
+    case doing = "DOING"
+    case done = "DONE"
 }

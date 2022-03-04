@@ -95,6 +95,7 @@ class MainViewController: UIViewController {
         self.configureNavigationBar()
         self.setUpTableView()
         self.setUpDelegate()
+        self.setUpTableViewGesture()
     }
 
 // MARK: - Observing Method(s)
@@ -192,6 +193,51 @@ class MainViewController: UIViewController {
         self.doneTableView.register(cellWithClass: MainTableViewCell.self)
     }
 
+// MARK: - SetUp TableView LongPressGesture
+
+    private func setUpTableViewGesture() {
+        self.todoTableViewAddGestureRecognizer()
+        self.doingTableViewAddGestureRecognizer()
+        self.doneTableViewAddGestureRecognizer()
+    }
+
+    private func todoTableViewAddGestureRecognizer() {
+        let todoLongPress = UILongPressGestureRecognizer(
+            target: self, action: #selector(todoTableViewLongPressed(sender:))
+        )
+        todoLongPress.minimumPressDuration = MainVCMagicNumber.minimumPressDuration
+        self.todoTableView.addGestureRecognizer(todoLongPress)
+    }
+
+    private func doingTableViewAddGestureRecognizer() {
+        let doingLongPress = UILongPressGestureRecognizer(
+            target: self, action: #selector(doingTableViewLongPressed(sender:))
+        )
+        doingLongPress.minimumPressDuration = MainVCMagicNumber.minimumPressDuration
+        self.doingTableView.addGestureRecognizer(doingLongPress)
+    }
+
+    private func doneTableViewAddGestureRecognizer() {
+        let doneLongPress = UILongPressGestureRecognizer(
+            target: self, action: #selector(doneTableViewLongPressed(sender:))
+        )
+        doneLongPress.minimumPressDuration = MainVCMagicNumber.minimumPressDuration
+        self.doneTableView.addGestureRecognizer(doneLongPress)
+    }
+
+// MARK: - SetUp ActionSheet
+
+    private func setUpActionSheet(
+        in indexPath: IndexPath,
+        of tableView: UITableView
+    ) -> UIAlertController {
+        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        actionSheet.popoverPresentationController?.sourceView = tableView
+        actionSheet.popoverPresentationController?.sourceRect = tableView.rectForRow(at: indexPath)
+
+        return actionSheet
+    }
+
 // MARK: - Button Tap Actions
 
     @objc
@@ -204,9 +250,55 @@ class MainViewController: UIViewController {
         self.present(navigationController, animated: true, completion: nil)
     }
 
-// MARK: - Show Alert Method(s)
+    @objc
+    private func todoTableViewLongPressed(sender: UILongPressGestureRecognizer) {
+        if sender.state == .began {
+            let touchPoint = sender.location(in: self.todoTableView)
+            self.presentLongPressActionSheet(at: touchPoint, in: self.todoTableView)
+        }
+    }
 
-    private func showDeleteAlert(indexPath: IndexPath, inSection tableView: UITableView) {
+    @objc
+    private func doingTableViewLongPressed(sender: UILongPressGestureRecognizer) {
+        if sender.state == .began {
+            let touchPoint = sender.location(in: self.doingTableView)
+            self.presentLongPressActionSheet(at: touchPoint, in: self.doingTableView)
+        }
+    }
+
+    @objc
+    private func doneTableViewLongPressed(sender: UILongPressGestureRecognizer) {
+        if sender.state == .began {
+            let touchPoint = sender.location(in: self.doneTableView)
+            self.presentLongPressActionSheet(at: touchPoint, in: self.doneTableView)
+        }
+    }
+
+    private func presentLongPressActionSheet(at touchPoint: CGPoint, in tableView: UITableView) {
+        if let indexPath = tableView.indexPathForRow(at: touchPoint) {
+            let pressedTodo = self.divideData(as: tableView)[indexPath.row]
+            let otherSections = TodoSection.allCases.filter { section in
+                section != pressedTodo.section
+            }
+            let actionSheet = self.setUpActionSheet(in: indexPath, of: tableView)
+
+            otherSections.forEach { section in
+                let action = UIAlertAction(
+                    title: MainVCScript.moveTo + section.rawValue, style: .default
+                ) { _ in
+                    self.dataProvider.edit(todo: pressedTodo, in: section)
+                }
+
+                actionSheet.addAction(action)
+            }
+
+            self.present(actionSheet, animated: true, completion: nil)
+        }
+    }
+
+// MARK: - Present Alert Method(s)
+
+    private func presentDeleteAlert(indexPath: IndexPath, inSection tableView: UITableView) {
         let alert = UIAlertController(
             title: MainVCScript.deleteConfirmMessage, message: nil, preferredStyle: .alert
         )
@@ -224,7 +316,7 @@ class MainViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
 
-    private func showFailureAlert() {
+    private func presentFailureAlert() {
         let alert = UIAlertController(
             title: MainVCScript.failureMessage, message: nil, preferredStyle: .alert
         )
@@ -275,7 +367,7 @@ extension MainViewController: UITableViewDataSource {
     ) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withClass: MainTableViewCell.self)
         let todo = self.divideData(as: tableView)[indexPath.row]
-        
+
         cell.configureTodo(for: todo)
 
         return cell
@@ -293,13 +385,17 @@ extension MainViewController: UITableViewDelegate {
         let delete = UIContextualAction(
             style: .destructive, title: MainVCScript.delete
         ) { _, _, completionHandler in
-            self.showDeleteAlert(indexPath: indexPath, inSection: tableView)
+            self.presentDeleteAlert(indexPath: indexPath, inSection: tableView)
             completionHandler(true)
         }
 
         delete.image = UIImage(named: MainVCImageName.deleteImage)
 
         return UISwipeActionsConfiguration(actions: [delete])
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 
@@ -333,6 +429,7 @@ private enum MainVCScript {
     static let delete = "삭제"
     static let confirm = "확인"
     static let failureMessage = "요청하신 작업을 실패하였습니다"
+    static let moveTo = "Move to "
 }
 
 private enum MainVCConstraint {
@@ -346,4 +443,8 @@ private enum MainVCConstraint {
 private enum MainVCImageName {
     static let plusButtonImage = "plus"
     static let deleteImage = "trash.circle"
+}
+
+private enum MainVCMagicNumber {
+    static let minimumPressDuration: TimeInterval = 2
 }
