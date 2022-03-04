@@ -59,6 +59,9 @@ class MainViewController: UIViewController, UITableViewDelegate {
             TaskCell.self,
             forCellReuseIdentifier: "TaskCell"
         )
+        toDoTableView.backgroundColor = .systemGray6
+        doingTableView.backgroundColor = .systemGray6
+        doneTableView.backgroundColor = .systemGray6
     }
 
     private func setupTaskStackView() {
@@ -117,9 +120,8 @@ extension MainViewController: UITableViewDataSource {
         ) as? TaskCell else {
             return UITableViewCell()
         }
-
-        cell.configure(with: todoViewModel.todos[indexPath.row])
-        
+        let todo = todoViewModel.todos[indexPath.row]
+        cell.configure(with: todo)
         return cell
     }
     

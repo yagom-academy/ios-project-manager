@@ -10,8 +10,8 @@ import Foundation
 extension DateFormatter {
     func localizedDateString(from timeInterval: TimeInterval) -> String {
         let convertedDate = Date(timeIntervalSince1970: timeInterval)
-        self.dateStyle = .medium
-        self.timeStyle = .none
+        self.dateFormat = "yyyy. MM. dd."
+
         self.locale = Locale.current
         
         return self.string(from: convertedDate)
