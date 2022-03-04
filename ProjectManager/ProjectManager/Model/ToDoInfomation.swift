@@ -7,13 +7,10 @@
 
 import Foundation
 
-struct ToDoInfomation {
-    let uuid: UUID?
-    var title: String
-    var discription: String
-    var deadline: Double
-    
-    var localizedDeadline: String {
-        return DateFormatter().localizedDateString(from: deadline)
-    }
+struct ToDoInfomation: Identifiable {
+    let id: UUID
+    let title: String
+    let discription: String
+    let deadline: TimeInterval
+    let state: ToDoPosition
 }
