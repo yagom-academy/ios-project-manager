@@ -1,5 +1,17 @@
 import UIKit
 
+private enum LayoutConstant {
+    static let totalCountLabelTopMargin: CGFloat = 10
+    static let totalCountLabelBottomMargin: CGFloat = -10
+    static let entireStackViewLeadingMargin: CGFloat = 10
+}
+
+private enum Design {
+    static let totalCountLabelBounds: CGRect = CGRect(x: 0, y: 0, width: 30, height: 30)
+    static let totalCountLabelCornerRadius: CGFloat = 30/2
+    static let entireStackViewSpacing: CGFloat = 10
+}
+
 class ProjectListTableHeaderView: UITableViewHeaderFooterView {
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -16,8 +28,8 @@ class ProjectListTableHeaderView: UITableViewHeaderFooterView {
         label.textColor = .white
         label.textAlignment = .center
         label.font = .preferredFont(forTextStyle: .callout)
-        label.bounds = CGRect(x: 0, y: 0, width: 30, height: 30)
-        label.layer.cornerRadius = 30 / 2
+        label.bounds = Design.totalCountLabelBounds
+        label.layer.cornerRadius = Design.totalCountLabelCornerRadius
         label.layer.masksToBounds = true
         return label
     }()
@@ -29,19 +41,19 @@ class ProjectListTableHeaderView: UITableViewHeaderFooterView {
         return view
     }()
     
-    private lazy var stackView: UIStackView = {
+    private lazy var entireStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [titleLabel, totalCountLabel, spacerView])
         stackView.axis = .horizontal
         stackView.alignment = .center
         stackView.distribution = .fill
-        stackView.spacing = 10
+        stackView.spacing = Design.entireStackViewSpacing
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
     
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
-        self.addSubview(stackView)
+        self.addSubview(entireStackView)
         configureUI()
     }
 
@@ -56,12 +68,12 @@ class ProjectListTableHeaderView: UITableViewHeaderFooterView {
     private func configureLayout() {
         NSLayoutConstraint.activate([
             totalCountLabel.widthAnchor.constraint(equalTo: totalCountLabel.heightAnchor),
-            totalCountLabel.topAnchor.constraint(equalTo: stackView.topAnchor, constant: 10),
-            totalCountLabel.bottomAnchor.constraint(equalTo: stackView.bottomAnchor, constant: -10),
-            stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
-            stackView.topAnchor.constraint(equalTo: self.topAnchor),
-            stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor)
+            totalCountLabel.topAnchor.constraint(equalTo: entireStackView.topAnchor, constant: LayoutConstant.totalCountLabelTopMargin),
+            totalCountLabel.bottomAnchor.constraint(equalTo: entireStackView.bottomAnchor, constant: LayoutConstant.totalCountLabelBottomMargin),
+            entireStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: LayoutConstant.entireStackViewLeadingMargin),
+            entireStackView.topAnchor.constraint(equalTo: self.topAnchor),
+            entireStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            entireStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor)
         ])
     }
     

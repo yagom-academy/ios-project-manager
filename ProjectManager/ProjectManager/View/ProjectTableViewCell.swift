@@ -1,5 +1,17 @@
 import UIKit
 
+private enum LayoutConstant {
+    static let entireStackViewTopMargin: CGFloat = 15
+    static let entireStackViewTrailingMargin: CGFloat = -15
+    static let entireStackViewBottomMargin: CGFloat = -15
+    static let entireStackViewLeadingMargin: CGFloat = 15
+}
+
+private enum Design {
+    static let entireStackViewSpacing: CGFloat = 10
+    static let cellContentViewFrameInset: UIEdgeInsets = UIEdgeInsets(top: 7, left: 0, bottom: 0, right: 0)
+}
+
 class ProjectTableViewCell: UITableViewCell {
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -31,7 +43,7 @@ class ProjectTableViewCell: UITableViewCell {
         let stackView = UIStackView(arrangedSubviews: [titleLabel, bodyLabel, dateLabel])
         stackView.axis = .vertical
         stackView.alignment = .leading
-        stackView.spacing = 5
+        stackView.spacing = Design.entireStackViewSpacing
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
@@ -47,7 +59,7 @@ class ProjectTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.contentView.frame = self.contentView.frame.inset(by: UIEdgeInsets(top: 7, left: 0, bottom: 0, right: 0))
+        self.contentView.frame = self.contentView.frame.inset(by: Design.cellContentViewFrameInset)
         contentView.backgroundColor = .white
         self.backgroundColor = .systemGray6
     }
@@ -59,10 +71,10 @@ class ProjectTableViewCell: UITableViewCell {
     
     private func configureLayout() {
         NSLayoutConstraint.activate([
-            self.entireStackView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 15),
-            self.entireStackView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -15),
-            self.entireStackView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -15),
-            self.entireStackView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 15)
+            self.entireStackView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: LayoutConstant.entireStackViewTopMargin),
+            self.entireStackView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: LayoutConstant.entireStackViewTrailingMargin),
+            self.entireStackView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: LayoutConstant.entireStackViewBottomMargin),
+            self.entireStackView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: LayoutConstant.entireStackViewLeadingMargin)
         ])
     }
 }

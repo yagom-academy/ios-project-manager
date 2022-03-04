@@ -1,6 +1,11 @@
 import UIKit
+
 private enum Placeholder {
     static let titleTextFieldPlaceholder = "Title"
+}
+
+private enum TitleText {
+    static let navigationBarTitle = "TODO"
 }
 
 private enum LayoutConstant {
@@ -83,7 +88,7 @@ class ProjectDetailViewController: UIViewController {
     
     private func configureLayout() {
         NSLayoutConstraint.activate([
-            self.entireStackView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 5),
+            self.entireStackView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: LayoutConstant.entireStackViewTopMargin),
             self.entireStackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: LayoutConstant.entireStackViewtrailingMargin),
             self.entireStackView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: LayoutConstant.entireStackViewBottomMargin),
             self.entireStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: LayoutConstant.entireStackViewLeadingMargin),
@@ -92,9 +97,17 @@ class ProjectDetailViewController: UIViewController {
     }
     
     private func configureNavigationBar() {
-        self.navigationItem.title = "TODO"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: nil)
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: nil)
+        self.navigationItem.title = TitleText.navigationBarTitle
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(didTapDoneButton))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(didTapDoneButton))
         navigationController?.navigationBar.backgroundColor = .systemGray6
+    }
+    
+    @objc private func didTapDoneButton() {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @objc private func didTapCancelButton() {
+        self.dismiss(animated: true, completion: nil)
     }
 }

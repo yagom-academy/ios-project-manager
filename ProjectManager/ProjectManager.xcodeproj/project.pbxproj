@@ -126,9 +126,9 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
-				C7431F1325F51E1E0094C4CF /* Info.plist */,
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
+				C7431F1325F51E1E0094C4CF /* Info.plist */,
 				A62BB68027D1B5B9009395D8 /* View */,
 				A62BB67E27D1B553009395D8 /* Extension */,
 				A62BB67F27D1B57F009395D8 /* Resource */,
