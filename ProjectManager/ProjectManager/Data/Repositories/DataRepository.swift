@@ -17,18 +17,18 @@ class DataRepository: Repository {
     }
 
     func fetch() -> Observable<[Schedule]> {
-        return dataSource.fetch()
+        return dataSource.rxFetch()
     }
 
     func create(_ schedule: Schedule) -> Observable<Schedule> {
-        return dataSource.create(schedule)
+        return dataSource.rxCreate(schedule)
     }
 
     func delete(_ scheduleID: UUID) -> Observable<Bool> {
-        return dataSource.delete(scheduleID)
+        return dataSource.rxDelete(scheduleID)
     }
 
     func update(_ schedule: Schedule) -> Observable<Schedule> {
-        return dataSource.update(schedule)
+        return dataSource.rxUpdate(schedule)
     }
 }

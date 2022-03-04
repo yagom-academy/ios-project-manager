@@ -10,11 +10,11 @@ import RxSwift
 
 protocol DataSource {
 
-    func fetch() -> Observable<[Schedule]>
+    func rxFetch() -> Observable<[Schedule]>
 
-    func create(_ schedule: Schedule) -> Observable<Schedule>
+    func rxCreate(_ schedule: Schedule) -> Observable<Schedule>
 
-    func delete(_ scheduleID: UUID) -> Observable<Bool>
+    func rxDelete(_ scheduleID: UUID) -> Observable<Bool>
 
-    func update(_ schedule: Schedule) -> Observable<Schedule>
+    func rxUpdate(_ schedule: Schedule) -> Observable<Schedule>
 }
