@@ -7,7 +7,7 @@
 
 import Foundation
 
-class ToDoManager: ToDoMangeable {
+final class ToDoManager: ToDoMangeable {
     var repository: Repository
     
     required init(repository: Repository) {

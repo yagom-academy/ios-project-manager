@@ -7,7 +7,7 @@
 
 import Foundation
 
-class ToDoRepository: Repository {
+final class ToDoRepository: Repository {
     private var todos = [UUID: ToDo]()
     
     func create(with todo: ToDo) {

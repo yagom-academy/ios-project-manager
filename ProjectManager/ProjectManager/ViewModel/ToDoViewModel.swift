@@ -7,7 +7,7 @@
 
 import Foundation
 
-class ToDoViewModel: ViewModel {
+final class ToDoViewModel: ViewModel {
     var todoDidUpdated: (() -> Void)?
     var didSelectTodo: ((ToDo) -> Void)?
     
