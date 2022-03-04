@@ -28,7 +28,12 @@ class MainViewController: UIViewController {
     }
     
     @objc func addTodo() {
-        print("addTodo")
+        let todoViewController = TodoViewController()
+        todoViewController.popoverPresentationController?.sourceView = view
+        todoViewController.popoverPresentationController?.sourceRect = CGRect(x: view.frame.midX, y: view.frame.midY, width: 0, height: 0)
+        todoViewController.popoverPresentationController?.permittedArrowDirections = []
+        let popoverController = UINavigationController(rootViewController: todoViewController)
+        present(popoverController, animated: true, completion: nil)
     }
     
     func configureListViewLayout() {

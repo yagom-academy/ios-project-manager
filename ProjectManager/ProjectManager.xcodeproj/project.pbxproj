@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3B22E05B27CFB6030055E675 /* ProjectListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B22E05A27CFB6030055E675 /* ProjectListViewController.swift */; };
+		3B22E06B27D21B2B0055E675 /* TodoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B22E06A27D21B2B0055E675 /* TodoViewController.swift */; };
 		531A8DB427CE7E4D007943A0 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 531A8DB327CE7E4D007943A0 /* .swiftlint.yml */; };
 		53BFDF4C27D1E6DC00552260 /* TodoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BFDF4B27D1E6DC00552260 /* TodoCell.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
@@ -20,6 +21,7 @@
 
 /* Begin PBXFileReference section */
 		3B22E05A27CFB6030055E675 /* ProjectListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListViewController.swift; sourceTree = "<group>"; };
+		3B22E06A27D21B2B0055E675 /* TodoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoViewController.swift; sourceTree = "<group>"; };
 		4DDCD9C8CF3729D3039A0CDC /* Pods_ProjectManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		531A8DB327CE7E4D007943A0 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		53BFDF4B27D1E6DC00552260 /* TodoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoCell.swift; sourceTree = "<group>"; };
@@ -89,6 +91,7 @@
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
 				53BFDF4B27D1E6DC00552260 /* TodoCell.swift */,
 				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
+				3B22E06A27D21B2B0055E675 /* TodoViewController.swift */,
 				3B22E05A27CFB6030055E675 /* ProjectListViewController.swift */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
@@ -215,6 +218,7 @@
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				53BFDF4C27D1E6DC00552260 /* TodoCell.swift in Sources */,
+				3B22E06B27D21B2B0055E675 /* TodoViewController.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
