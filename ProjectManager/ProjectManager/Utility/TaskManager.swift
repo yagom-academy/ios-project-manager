@@ -6,12 +6,13 @@
 //
 
 import Foundation
+import Firebase
 
 class TaskManager: TaskManageable {
     
     private var tasks = [Task]() {
         didSet {
-            tasks.sort { $0.dueDate < $1.dueDate }
+            tasks.sort { $0.dueDate.nanoseconds < $1.dueDate.nanoseconds }
         }
     }
     var todoTasks: [Task] {
@@ -32,7 +33,7 @@ class TaskManager: TaskManageable {
     func modifyTask(target: Task, title: String, body: String, dueDate: Date) {
         target.title = title
         target.body = body
-        target.dueDate = dueDate.timeIntervalSince1970
+        target.dueDate = Timestamp(date: dueDate)
     }
     
     func changeTaskStatus(target: Task, to status: TaskStatus) {
