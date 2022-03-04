@@ -20,7 +20,9 @@ class ProjectViewController: UIViewController {
         let work = Work(title: "새로운 데이터", body: "새로운 바디", dueDate: Date(), sort: .doing)
         viewModel.addWork(work)
         let storyboard = UIStoryboard(name: "ActionView", bundle: nil)
-        let viewController = storyboard.instantiateViewController(withIdentifier: "ActionView")
+        let viewController = storyboard.instantiateViewController(identifier: "ActionView") { coder in
+            ActionViewController(coder: coder, viewModel: self.viewModel)
+        }
         viewController.modalPresentationStyle = .formSheet
         present(viewController, animated: true, completion: nil)
     }
