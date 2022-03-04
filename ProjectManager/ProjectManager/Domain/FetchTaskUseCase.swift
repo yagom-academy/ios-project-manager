@@ -14,7 +14,7 @@ final class FetchTaskUseCase: TaskUseCase {
     }
     
     func execute() -> [TaskEntity] {
-        repository.fetchTasks()
+        return repository.fetchTasks()
     }
     
     func changeStatus() {}
