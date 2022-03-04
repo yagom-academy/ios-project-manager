@@ -20,6 +20,7 @@
 		0D8088D627CFA0E500199897 /* Double+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8088D527CFA0E500199897 /* Double+Extension.swift */; };
 		0D8088E327CFC35E00199897 /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8088E227CFC35E00199897 /* UITableView+Extension.swift */; };
 		0DAF17B927CE6BBF0052968B /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 0DAF17B827CE6BBF0052968B /* .swiftlint.yml */; };
+		0DF22DE927D1E19F00CE0BD5 /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF22DE827D1E19F00CE0BD5 /* UIFont+Extension.swift */; };
 		0DF3232E27CE63770062EE14 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0DF3232D27CE63770062EE14 /* GoogleService-Info.plist */; };
 		0DF3233127CE67020062EE14 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 0DF3233027CE67020062EE14 /* FirebaseAnalytics */; };
 		0DF3233327CE67020062EE14 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 0DF3233227CE67020062EE14 /* FirebaseAuth */; };
@@ -47,6 +48,7 @@
 		0D8088D527CFA0E500199897 /* Double+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extension.swift"; sourceTree = "<group>"; };
 		0D8088E227CFC35E00199897 /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
 		0DAF17B827CE6BBF0052968B /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		0DF22DE827D1E19F00CE0BD5 /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		0DF3232D27CE63770062EE14 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2338273B7B269E2ED9E939FF /* Pods-ProjectManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.release.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.release.xcconfig"; sourceTree = "<group>"; };
 		7AFC7A98A9A8A090409EAEF6 /* Pods_ProjectManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -136,13 +138,30 @@
 		0D8088D227CFA0C800199897 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				0DF22DEA27D1E1AE00CE0BD5 /* Foundation */,
+				0DF22DEB27D1E1B600CE0BD5 /* UIKit */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		0DF22DEA27D1E1AE00CE0BD5 /* Foundation */ = {
+			isa = PBXGroup;
+			children = (
 				0D8088D327CFA0DB00199897 /* Date+Extension.swift */,
 				0D8088D527CFA0E500199897 /* Double+Extension.swift */,
+			);
+			path = Foundation;
+			sourceTree = "<group>";
+		};
+		0DF22DEB27D1E1B600CE0BD5 /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				0DF22DE827D1E19F00CE0BD5 /* UIFont+Extension.swift */,
 				0D8088E227CFC35E00199897 /* UITableView+Extension.swift */,
 				0D36ADFE27D108AD00A93720 /* UITextField+Extension.swift */,
 				0D36AE0027D10B9E00A93720 /* UITextView+Extension.swift */,
 			);
-			path = Extension;
+			path = UIKit;
 			sourceTree = "<group>";
 		};
 		5F27C38C168FFE7DA7F499DA /* Frameworks */ = {
@@ -354,6 +373,7 @@
 				0D7A352D27D075D5007F26F6 /* MainTableViewCell.swift in Sources */,
 				0D36ADFF27D108AD00A93720 /* UITextField+Extension.swift in Sources */,
 				0D36ADF927D0F68E00A93720 /* EditViewController.swift in Sources */,
+				0DF22DE927D1E19F00CE0BD5 /* UIFont+Extension.swift in Sources */,
 				0D8088CA27CF91AA00199897 /* Todo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

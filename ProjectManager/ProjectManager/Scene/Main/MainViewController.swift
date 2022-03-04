@@ -192,7 +192,7 @@ class MainViewController: UIViewController {
         let addTodoViewController = EditViewController()
         addTodoViewController.modalPresentationStyle = .formSheet
         addTodoViewController.modalTransitionStyle = .crossDissolve
-        
+
         let navigationController = UINavigationController(
             rootViewController: addTodoViewController
         )

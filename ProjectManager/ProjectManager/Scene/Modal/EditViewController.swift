@@ -42,7 +42,11 @@ class EditViewController: UIViewController {
 
     private let textField: UITextField = {
         let textField = UITextField()
+        textField.addConstraint(
+            textField.heightAnchor.constraint(equalToConstant: EditVCConstraint.textFieldHeight)
+        )
         textField.placeholder = EditVCScript.textFieldPlaceHolder
+        textField.font = EditVCFont.textField
         textField.styleWithShadow()
 
         return textField
@@ -62,6 +66,7 @@ class EditViewController: UIViewController {
 
     private let textView: UITextView = {
         let textView = UITextView()
+        textView.font = EditVCFont.textView
         textView.styleWithShadow()
 
         return textView
@@ -191,7 +196,7 @@ class EditViewController: UIViewController {
 
     @objc
     private func cancelButtonDidTap() {
-
+        self.dismiss(animated: true, completion: nil)
     }
 
     @objc
@@ -214,6 +219,16 @@ extension EditViewController: UITextViewDelegate {
             textView.textColor = EditVCColor.placeHolderTextColor
         }
     }
+
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        guard let textViewText = textView.text else {
+            return true
+        }
+
+        let newLength = textViewText.count + text.count - range.length
+
+        return newLength <= 1000
+    }
 }
 
 private enum EditVCScript {
@@ -228,12 +243,17 @@ private enum EditVCConstraint {
     static let spacing: CGFloat = 10
     static let stackViewPadding: CGFloat = 10
     static let stackViewBottomPadding: CGFloat = 20
-    static let textFieldHeight: CGFloat = 30
-    static let textViewHeight: CGFloat = 120
+    static let textFieldHeight: CGFloat = 36
+    static let textViewHeight: CGFloat = 100
 }
 
 private enum EditVCColor {
     static let background: UIColor = .white
     static let placeHolderTextColor: UIColor = .lightGray
     static let defaultTextColor: UIColor = .black
+}
+
+private enum EditVCFont {
+    static let textField: UIFont = UIFont.preferredFont(for: .body, weight: .regular)
+    static let textView: UIFont = UIFont.preferredFont(for: .body, weight: .thin)
 }
