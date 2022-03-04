@@ -11,12 +11,6 @@ class MainViewController: UIViewController {
     private let doingHeader = ProjectListHeaderView(title: "DOING")
     private let doneHeader = ProjectListHeaderView(title: "DONE")
     
-    private let addButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: nil)
-        
-        return button
-    }()
-    
     private lazy var toDoStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [toDoHeader, toDoTableView])
         stackView.axis = .vertical
@@ -51,6 +45,7 @@ class MainViewController: UIViewController {
         stackView.alignment = .top
         stackView.spacing = 5
         stackView.distribution = .fillEqually
+        stackView.backgroundColor = .systemGray3
         
         return stackView
     }()
@@ -77,6 +72,7 @@ class MainViewController: UIViewController {
     }
     
     private func setupNavigationBar() {
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showAddProjectView))
         navigationItem.title = "Project Manager"
         navigationItem.rightBarButtonItem = addButton
     }
@@ -94,5 +90,11 @@ class MainViewController: UIViewController {
         toDoTableView.register(ProjectListCell.self)
         doingTableView.register(ProjectListCell.self)
         doneTableView.register(ProjectListCell.self)
+    }
+    
+    @objc private func showAddProjectView() {
+        let viewController = AddProjectViewController()
+        viewController.modalPresentationStyle = .formSheet
+        present(viewController, animated: true, completion: nil)
     }
 }
