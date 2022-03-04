@@ -1,5 +1,5 @@
 //
-//  ToDo.swift
+//  Task.swift
 //  ProjectManager
 //
 //  Created by 이차민 on 2022/03/01.
@@ -7,10 +7,10 @@
 
 import Foundation
 
-struct ToDo: Identifiable {
+struct Task: Identifiable {
     let id: UUID
     let title: String
     let description: String
-    let deadline: TimeInterval
-    let state: ToDoState
+    let deadline: Date
+    let state: TaskState
 }

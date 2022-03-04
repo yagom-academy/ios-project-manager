@@ -8,11 +8,11 @@
 import Foundation
 
 protocol ViewModel {
-    func create(with todo: ToDo)
-    func update(with todo: ToDo)
-    func delete(with todo: ToDo)
-    func changeState(of todo: ToDo, to state: ToDoState)
-    func fetch(at index: Int, with state: ToDoState) throws -> ToDo
-    func didSelectRow(at index: Int, with state: ToDoState)
-    func count(of state: ToDoState) -> Int
+    func create(with task: Task)
+    func update(with task: Task)
+    func delete(with task: Task)
+    func changeState(of task: Task, to state: TaskState)
+    func fetch(at index: Int, with state: TaskState) throws -> Task
+    func didSelectRow(at index: Int, with state: TaskState)
+    func count(of state: TaskState) -> Int
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum ToDoState {
+enum TaskState {
     case waiting
     case progress
     case done

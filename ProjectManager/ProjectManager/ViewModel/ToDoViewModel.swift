@@ -1,5 +1,5 @@
 //
-//  ToDoViewModel.swift
+//  TaskViewModel.swift
 //  ProjectManager
 //
 //  Created by 이차민 on 2022/03/02.
@@ -7,69 +7,69 @@
 
 import Foundation
 
-final class ToDoViewModel: ViewModel {
-    var todoDidUpdated: (() -> Void)?
-    var didSelectTodo: ((ToDo) -> Void)?
+final class TaskViewModel: ViewModel {
+    var taskDidUpdated: (() -> Void)?
+    var didSelectTask: ((Task) -> Void)?
     
-    private var todoManager: ToDoManager
-    private(set) var todos = [ToDo]() {
+    private var taskManager: TaskManager
+    private(set) var tasks = [Task]() {
         didSet {
-            todos.sort { $0.deadline < $1.deadline }
+            tasks.sort { $0.deadline < $1.deadline }
         }
     }
     
-    init(todoManager: ToDoManager) {
-        self.todoManager = todoManager
+    init(taskManager: TaskManager) {
+        self.taskManager = taskManager
     }
     
     func didLoaded() {
-        updateTodos()
+        updateTasks()
     }
     
-    private func updateTodos() {
-        todos = todoManager.fetchAll()
-        todoDidUpdated?()
+    private func updateTasks() {
+        tasks = taskManager.fetchAll()
+        taskDidUpdated?()
     }
     
-    func create(with todo: ToDo) {
-        todoManager.create(with: todo)
-        updateTodos()
+    func create(with task: Task) {
+        taskManager.create(with: task)
+        updateTasks()
     }
     
-    func update(with todo: ToDo) {
-        todoManager.update(with: todo)
-        updateTodos()
+    func update(with task: Task) {
+        taskManager.update(with: task)
+        updateTasks()
     }
     
-    func delete(with todo: ToDo) {
-        todoManager.delete(with: todo)
-        updateTodos()
+    func delete(with task: Task) {
+        taskManager.delete(with: task)
+        updateTasks()
     }
     
-    func changeState(of todo: ToDo, to state: ToDoState) {
-        todoManager.changeState(of: todo, to: state)
-        updateTodos()
+    func changeState(of task: Task, to state: TaskState) {
+        taskManager.changeState(of: task, to: state)
+        updateTasks()
     }
     
-    func fetch(at index: Int, with state: ToDoState) throws -> ToDo {
-        let filteredTodos = todos.filter { $0.state == state }
-        guard let fetchedTodo = filteredTodos[safe: index] else {
+    func fetch(at index: Int, with state: TaskState) throws -> Task {
+        let filteredTasks = tasks.filter { $0.state == state }
+        guard let fetchedTask = filteredTasks[safe: index] else {
             throw CollectionError.indexOutOfRange
         }
         
-        return fetchedTodo
+        return fetchedTask
     }
     
-    func didSelectRow(at index: Int, with state: ToDoState) {
-        let filteredTodos = todos.filter { $0.state == state }
-        guard let selectedTodo = filteredTodos[safe: index] else {
+    func didSelectRow(at index: Int, with state: TaskState) {
+        let filteredTasks = tasks.filter { $0.state == state }
+        guard let selectedTask = filteredTasks[safe: index] else {
             return
         }
         
-        didSelectTodo?(selectedTodo)
+        didSelectTask?(selectedTask)
     }
     
-    func count(of state: ToDoState) -> Int {
-        return todos.filter { $0.state == state }.count
+    func count(of state: TaskState) -> Int {
+        return tasks.filter { $0.state == state }.count
     }
 }
