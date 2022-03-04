@@ -8,10 +8,11 @@ extension CDProject: Listable {
         return NSFetchRequest<CDProject>(entityName: "CDProject")
     }
 
-    @NSManaged public var name: String
+    @NSManaged public var name: String?
     @NSManaged public var identifier: UUID?
-    @NSManaged public var deadline: Date
-    @NSManaged public var detail: String
+    @NSManaged public var deadline: Date?
+    @NSManaged public var detail: String?
+    @NSManaged public var progressCondition: Int16
 
 }
 

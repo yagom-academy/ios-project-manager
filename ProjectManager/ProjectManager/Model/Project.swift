@@ -6,4 +6,5 @@ struct Project: Codable, Listable {
     var detail: String
     var deadline: Date
     var identifier: UUID?
+    var progressCondition: Int16
 }

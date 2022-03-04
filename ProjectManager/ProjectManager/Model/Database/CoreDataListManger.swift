@@ -5,7 +5,7 @@ import CoreData
 final class CoredataListManger: ListManager {
     
     private let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
-    lazy var fetchedController = createListFetchedResultsController()
+    private lazy var fetchedController = createListFetchedResultsController()
     var list: [Listable] = []
     
     func creatProject(attributes: [String : Any]) -> Listable {

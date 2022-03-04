@@ -4,15 +4,15 @@ final class FireBaseListManger: ListManager {
     
     var list: [Listable] = [] 
     
-    func creatProject(attributes: [String : [Any]]) -> Listable {
+    func creatProject(attributes: [String: Any]) -> Listable {
         <#code#>
     }
     
-    func readProject(index: Int) -> Listable {
+    func readProject(index: IndexPath) -> Listable {
         <#code#>
     }
     
-    func updateProject(to index: IndexPath, how attributes: [String : Any]) -> Listable {
+    func updateProject(to index: IndexPath, how attributes: [String: Any]) -> Listable {
         <#code#>
     }
     
