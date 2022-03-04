@@ -20,7 +20,6 @@ class MainViewController: UIViewController, UITableViewDelegate {
         setupTaskStackView()
         setupConstraint()
         setupTableView()
-        
         todoViewModel.todoOnUpdated = { [weak self] in
                 self?.toDoTableView.reloadData()
                 self?.doingTableView.reloadData()
@@ -96,7 +95,7 @@ class MainViewController: UIViewController, UITableViewDelegate {
 
 extension MainViewController: EditViewDelegate {
     func editViewDidDismiss(todo: ToDoInfomation) {
-        todoViewModel.save(todo: todo)
+        todoViewModel.save(with: todo)
     }
 }
 
@@ -122,5 +121,16 @@ extension MainViewController: UITableViewDataSource {
         cell.configure(with: todoViewModel.todos[indexPath.row])
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteTarget = todoViewModel.todos[indexPath.row]
+        let delete = UIContextualAction(style: .normal, title: "Delete") { _, _, _ in
+            self.todoViewModel.delete(with: deleteTarget)
+        }
+        delete.backgroundColor = .systemRed
+        delete.image = UIImage(systemName: "trash")
+        
+        return UISwipeActionsConfiguration(actions: [delete])
     }
 }

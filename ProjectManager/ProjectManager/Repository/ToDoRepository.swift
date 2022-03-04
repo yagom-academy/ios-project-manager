@@ -10,15 +10,15 @@ import Foundation
 class ToDoRepository {
     var todos = [UUID: ToDoInfomation]()    //데이터베이스 역할(엔티티)
     
-    func save(todo: ToDoInfomation) {
+    func save(with todo: ToDoInfomation) {
         todos[todo.id] = todo
     }
     
-    func delete(todo: ToDoInfomation) {
+    func delete(with todo: ToDoInfomation) {
         todos.removeValue(forKey: todo.id)
     }
     
-    func update(todo: ToDoInfomation) {
+    func update(with todo: ToDoInfomation) {
         todos.updateValue(todo, forKey: todo.id)
     }
     

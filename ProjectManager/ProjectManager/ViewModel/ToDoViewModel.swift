@@ -17,23 +17,23 @@ class ToDoViewModel {
         }
     }
         
-    func save(todo: ToDoInfomation) {
-        dataManager.save(todo: todo)
+    func save(with todo: ToDoInfomation) {
+        dataManager.save(with: todo)
         self.reload()
     }
     
-    func delete(todo: ToDoInfomation) {
-        dataManager.delete(at: todo)
+    func delete(with todo: ToDoInfomation) {
+        dataManager.delete(with: todo)
+        self.reload()
+    }
+                                                 
+    func update(with todo: ToDoInfomation) {
+        dataManager.update(with: todo)
         self.reload()
     }
     
-    func update(todo: ToDoInfomation) {
-        dataManager.update(todo: todo)
-        self.reload()
-    }
-    
-    func changePosition(todo: ToDoInfomation, position: ToDoPosition) {
-        dataManager.changePosition(todo: todo, position: position)
+    func changePosition(with todo: ToDoInfomation, at position: ToDoPosition) {
+        dataManager.changePosition(with: todo, at: position)
         self.reload()
     }
     

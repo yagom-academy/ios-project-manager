@@ -11,16 +11,16 @@ class TestDataManager {
     let todoRepository = ToDoRepository()
     var todoList: [ToDoInfomation] = []
     
-    func save(todo: ToDoInfomation) {
-        todoRepository.save(todo: todo)
+    func save(with todo: ToDoInfomation) {
+        todoRepository.save(with: todo)
     }
     
-    func delete(at deletTarget: ToDoInfomation) {
-        todoRepository.delete(todo: deletTarget)
+    func delete(with deletTarget: ToDoInfomation) {
+        todoRepository.delete(with: deletTarget)
     }
     
-    func update(todo: ToDoInfomation) {
-        todoRepository.update(todo: todo)
+    func update(with todo: ToDoInfomation) {
+        todoRepository.update(with: todo)
     }
     
     func fetch(onComleted: @escaping ([ToDoInfomation]) -> Void) {
@@ -31,9 +31,9 @@ class TestDataManager {
         }
     }
     
-    func changePosition(todo: ToDoInfomation, position: ToDoPosition) {
-        var changedToDO = todo
-        changedToDO.position = position
-        todoRepository.update(todo: changedToDO)
+    func changePosition(with todo: ToDoInfomation, at position: ToDoPosition) {
+        var changedToDo = todo
+        changedToDo.position = position
+        todoRepository.update(with: changedToDo)
     }
 }
