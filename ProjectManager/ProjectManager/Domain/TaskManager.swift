@@ -19,7 +19,8 @@ final class TaskManager: TaskMangeable {
     }
     
     func fetchAll() -> [Task] {
-        return taskRepository.fetchAll()
+        let tasks = taskRepository.fetchAll()
+        return tasks.sorted { $0.deadline < $1.deadline }
     }
     
     func update(with task: Task) {
