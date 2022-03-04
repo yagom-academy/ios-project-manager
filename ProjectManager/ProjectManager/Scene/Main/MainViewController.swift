@@ -10,10 +10,9 @@ class MainViewController: UIViewController {
 
 // MARK: - Properties
 
-    private var todoList = [[Todo]]() {
+    private var todoList = [Todo]() {
         didSet {
-            print("todoList 업데이트함: \(todoList)")
-            viewIfLoaded?.setNeedsLayout()
+            self.reloadTableView()
         }
     }
 
@@ -23,7 +22,7 @@ class MainViewController: UIViewController {
 
     private lazy var plusButton: UIBarButtonItem = {
         let button = UIBarButtonItem()
-        button.image = UIImage(systemName: MainVCScript.plusButtonImage)
+        button.image = UIImage(systemName: MainVCImageName.plusButtonImage)
         button.target = self
         button.action = #selector(plusButtonDidTap)
 
@@ -43,7 +42,6 @@ class MainViewController: UIViewController {
 
     private let todoTableView: UITableView = {
         let tableView = UITableView()
-        tableView.tag = TodoSection.todo.rawValue
         tableView.backgroundColor = MainVCColor.backgroundColor
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.estimatedRowHeight = MainVCConstraint.estimatedCellHeight
@@ -54,7 +52,6 @@ class MainViewController: UIViewController {
 
     private let doingTableView: UITableView = {
         let tableView = UITableView()
-        tableView.tag = TodoSection.doing.rawValue
         tableView.backgroundColor = MainVCColor.backgroundColor
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.estimatedRowHeight = MainVCConstraint.estimatedCellHeight
@@ -65,7 +62,6 @@ class MainViewController: UIViewController {
 
     private let doneTableView: UITableView = {
         let tableView = UITableView()
-        tableView.tag = TodoSection.done.rawValue
         tableView.backgroundColor = MainVCColor.backgroundColor
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.estimatedRowHeight = MainVCConstraint.estimatedCellHeight
@@ -101,12 +97,6 @@ class MainViewController: UIViewController {
         self.setUpDelegate()
     }
 
-// MARK: - Update Method
-
-    func updateAfterDismissEditView() {
-        self.todoList = self.dataProvider.updatedList()
-    }
-
 // MARK: - Observing Method(s)
 
     private func observeDateProvider() {
@@ -118,6 +108,14 @@ class MainViewController: UIViewController {
             self.todoList = self.dataProvider.updatedList()
         }
         self.dataProvider.reload()
+    }
+
+// MARK: - Reload View
+
+    private func reloadTableView() {
+        self.todoTableView.reloadData()
+        self.doingTableView.reloadData()
+        self.doneTableView.reloadData()
     }
 
 // MARK: - SetUp Delegate
@@ -151,9 +149,9 @@ class MainViewController: UIViewController {
     }
 
     private func addTableViewsToStackView() {
-        self.stackView.addArrangedSubview(todoTableView)
-        self.stackView.addArrangedSubview(doingTableView)
-        self.stackView.addArrangedSubview(doneTableView)
+        self.stackView.addArrangedSubview(self.todoTableView)
+        self.stackView.addArrangedSubview(self.doingTableView)
+        self.stackView.addArrangedSubview(self.doneTableView)
     }
 
 // MARK: - Configure Navigation Bar
@@ -173,7 +171,6 @@ class MainViewController: UIViewController {
     private func setUpTableView() {
         self.setUpTableViewDataSource()
         self.setUpTableViewDelegate()
-
         self.registerTableViewCell()
     }
 
@@ -199,12 +196,69 @@ class MainViewController: UIViewController {
 
     @objc
     private func plusButtonDidTap() {
+        self.editViewController.dataProvider = self.dataProvider
         let navigationController = UINavigationController(
             rootViewController: self.editViewController
         )
 
         self.present(navigationController, animated: true, completion: nil)
     }
+
+// MARK: - Show Alert Method(s)
+
+    private func showDeleteAlert(indexPath: IndexPath, inSection tableView: UITableView) {
+        let alert = UIAlertController(
+            title: MainVCScript.deleteConfirmMessage, message: nil, preferredStyle: .alert
+        )
+        let cancelAction = UIAlertAction(title: MainVCScript.cancel, style: .cancel) { _ in
+            self.dismiss(animated: true, completion: nil)
+        }
+        let deleteAction = UIAlertAction(title: MainVCScript.delete, style: .destructive) { _ in
+            let deleteTodo = self.divideData(as: tableView)[indexPath.row]
+            self.dataProvider.delete(todo: deleteTodo)
+        }
+
+        alert.addAction(cancelAction)
+        alert.addAction(deleteAction)
+
+        self.present(alert, animated: true, completion: nil)
+    }
+
+    private func showFailureAlert() {
+        let alert = UIAlertController(
+            title: MainVCScript.failureMessage, message: nil, preferredStyle: .alert
+        )
+        let okAction = UIAlertAction(title: MainVCScript.confirm, style: .default) { _ in
+            self.dismiss(animated: true, completion: nil)
+        }
+
+        alert.addAction(okAction)
+
+        self.present(alert, animated: true, completion: nil)
+    }
+
+    // MARK: - Form Data Methods
+
+        private func divideData(as tableView: UITableView) -> [Todo] {
+            switch tableView {
+            case self.todoTableView:
+                return self.filterSection(.todo)
+            case self.doingTableView:
+                return self.filterSection(.doing)
+            case self.doneTableView:
+                return self.filterSection(.done)
+            default:
+                return [Todo]()
+            }
+        }
+
+        private func filterSection(_ section: TodoSection) -> [Todo] {
+            let todos = self.todoList.filter { todo in
+                todo.section == section
+            }
+
+            return todos
+        }
 }
 
 // MARK: - Table View DataSource
@@ -212,16 +266,17 @@ class MainViewController: UIViewController {
 extension MainViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard self.todoList != [] else {
-            return 0
-        }
-
-        return self.todoList[tableView.tag].count
+        return self.divideData(as: tableView).count
     }
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(
+        _ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath
+    ) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withClass: MainTableViewCell.self)
-        cell.configureTodo(for: self.todoList[tableView.tag][indexPath.row])
+        let todo = self.divideData(as: tableView)[indexPath.row]
+        
+        cell.configureTodo(for: todo)
 
         return cell
     }
@@ -230,6 +285,22 @@ extension MainViewController: UITableViewDataSource {
 // MARK: - Table View Delegate
 
 extension MainViewController: UITableViewDelegate {
+
+    func tableView(
+        _ tableView: UITableView,
+        trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
+    ) -> UISwipeActionsConfiguration? {
+        let delete = UIContextualAction(
+            style: .destructive, title: MainVCScript.delete
+        ) { _, _, completionHandler in
+            self.showDeleteAlert(indexPath: indexPath, inSection: tableView)
+            completionHandler(true)
+        }
+
+        delete.image = UIImage(named: MainVCImageName.deleteImage)
+
+        return UISwipeActionsConfiguration(actions: [delete])
+    }
 }
 
 // MARK: - Edit ViewController Delegate Methods
@@ -237,13 +308,10 @@ extension MainViewController: UITableViewDelegate {
 extension MainViewController: EditViewControllerDelegate {
 
     func editViewControllerDidCancel(_ editViewController: EditViewController) {
-        print("DidCancel 호출")
         editViewController.dismiss(animated: true, completion: nil)
     }
 
     func editViewControllerDidFinish(_ editViewController: EditViewController) {
-        print("DidFinish 호출")
-//        self.dataProvider.reload()
         self.todoList = self.dataProvider.updatedList()
         editViewController.dismiss(animated: true, completion: nil)
     }
@@ -260,7 +328,11 @@ private enum MainVCColor {
 
 private enum MainVCScript {
     static let title = "Project Manager"
-    static let plusButtonImage = "plus"
+    static let deleteConfirmMessage = "정말 삭제하시나요?"
+    static let cancel = "취소"
+    static let delete = "삭제"
+    static let confirm = "확인"
+    static let failureMessage = "요청하신 작업을 실패하였습니다"
 }
 
 private enum MainVCConstraint {
@@ -269,4 +341,9 @@ private enum MainVCConstraint {
     static let stackViewSpace: CGFloat = 10
     static let stackViewTopAnchor: CGFloat = 26
     static let estimatedCellHeight: CGFloat = 100
+}
+
+private enum MainVCImageName {
+    static let plusButtonImage = "plus"
+    static let deleteImage = "trash.circle"
 }

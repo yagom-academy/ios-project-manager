@@ -14,7 +14,7 @@ class EditViewController: UIViewController, UIAdaptivePresentationControllerDele
     var hasChanges: Bool {
         return self.textField.text != nil
     }
-    private let dataProvider = DataProvider()
+    weak var dataProvider: DataProvider?
     weak var mainViewDelegate: EditViewControllerDelegate?
 
 // MARK: - View Components
@@ -220,14 +220,20 @@ class EditViewController: UIViewController, UIAdaptivePresentationControllerDele
 
     @objc
     private func doneButtonDidTap() {
+        guard let dataProvider = self.dataProvider else {
+            return
+        }
+
         let todo = Todo(
             title: self.textField.text ?? EditVCScript.untitled,
             content: self.textView.text,
             deadline: self.datePicker.date.double,
+            section: .todo,
             uuid: UUID()
         )
 
-        self.dataProvider.update(todo: todo, in: .todo)
+        dataProvider.update(todo: todo, in: .todo)
+
         self.mainViewDelegate?.editViewControllerDidFinish(self)
     }
 }
@@ -249,14 +255,18 @@ extension EditViewController: UITextViewDelegate {
         }
     }
 
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+    func textView(
+        _ textView: UITextView,
+        shouldChangeTextIn range: NSRange,
+        replacementText text: String
+    ) -> Bool {
         guard let textViewText = textView.text else {
             return true
         }
 
         let newLength = textViewText.count + text.count - range.length
 
-        return newLength <= 1000
+        return newLength <= EditVCConstraint.maximumTextLength
     }
 }
 
@@ -277,6 +287,7 @@ private enum EditVCConstraint {
     static let stackViewBottomPadding: CGFloat = 20
     static let textFieldHeight: CGFloat = 36
     static let textViewHeight: CGFloat = 100
+    static let maximumTextLength = 1000
 }
 
 private enum EditVCColor {

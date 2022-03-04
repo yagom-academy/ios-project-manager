@@ -9,25 +9,28 @@ import Foundation
 
 class TodoList {
 
-    private var todoList = [[Todo(
+    private var todoList = [Todo(
                                 title: "기록된 정보가 없습니다",
                                 content: TodoListScript.emptyTodo,
+                                section: .todo,
                                 uuid: UUID()
-                            )],
-                            [Todo(
+                            ),
+                            Todo(
                                 title: "기록된 정보가 없습니다",
                                 content: TodoListScript.emptyDoing,
+                                section: .doing,
                                 uuid: UUID()
-                            )],
-                            [Todo(
+                            ),
+                            Todo(
                                 title: "기록된 정보가 없습니다",
                                 content: TodoListScript.emptyDone,
+                                section: .done,
                                 uuid: UUID()
-                            )]]
+                            )]
 
     @discardableResult
-    func remove(at todo: Todo, in section: TodoSection) -> Bool {
-        let deleteNoteIndex = self.todoList[section.rawValue].firstIndex { someTodo in
+    func remove(at todo: Todo) -> Bool {
+        let deleteNoteIndex = self.todoList.firstIndex { someTodo in
             someTodo.uuid == todo.uuid
         }
 
@@ -41,18 +44,17 @@ class TodoList {
     }
 
     func add(todo: Todo, in section: TodoSection) {
-        var todoListInSection = self.todoList[section.rawValue]
-
-        todoListInSection.append(todo)
-        if todoListInSection.first?.deadline == nil {
-            todoListInSection.removeFirst()
+        self.todoList.append(todo)
+        let dummyTodo = self.todoList.filter { someTodo in
+            someTodo.section == section && someTodo.deadline == nil
         }
 
-        self.todoList[section.rawValue] = todoListInSection
+        if let dummy = dummyTodo.first {
+            self.remove(at: dummy)
+        }
     }
 
-    func fetch(completionHandler: @escaping ([[Todo]]) -> Void) {
-        print(self.todoList)
+    func fetch(completionHandler: @escaping ([Todo]) -> Void) {
         completionHandler(self.todoList)
     }
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum TodoSection: Int {
+enum TodoSection: CaseIterable {
 
     case todo
     case doing
