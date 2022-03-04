@@ -1,18 +1,36 @@
 import UIKit
+private enum Placeholder {
+    static let titleTextFieldPlaceholder = "Title"
+}
+
+private enum LayoutConstant {
+    static let entireStackViewTopMargin: CGFloat = 5
+    static let entireStackViewtrailingMargin: CGFloat = -20
+    static let entireStackViewBottomMargin: CGFloat = -20
+    static let entireStackViewLeadingMargin: CGFloat = 20
+    static let titleTextFieldHeight: CGFloat = 50
+}
+
+private enum Design {
+    static let cornerRadius: CGFloat = 5
+    static let shadowOffset: CGSize = CGSize(width: 0, height: 3)
+    static let shadowOpacity: Float = 0.5
+    static let shadowRadius: CGFloat = 4
+}
 
 class ProjectDetailViewController: UIViewController {
     private let titleTextField: UITextField = {
         let textField = UITextField()
         textField.font = .preferredFont(forTextStyle: .title2)
-        textField.placeholder = "Title"
+        textField.placeholder = Placeholder.titleTextFieldPlaceholder
         textField.dropShadow(
-            cornerRadius: 5.0,
+            cornerRadius: Design.cornerRadius,
             backgroundColor: UIColor.white.cgColor,
             borderColor: UIColor.clear.cgColor,
             shadowColor: UIColor.black.cgColor,
-            shadowOffset: CGSize(width: 0, height: 3),
-            shadowOpacity: 0.5,
-            shadowRadius: 4.0)
+            shadowOffset: Design.shadowOffset,
+            shadowOpacity: Design.shadowOpacity,
+            shadowRadius: Design.shadowRadius)
         let paddingView : UIView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: textField.frame.height))
         textField.leftView = paddingView
         textField.leftViewMode = UITextField.ViewMode.always
@@ -34,13 +52,13 @@ class ProjectDetailViewController: UIViewController {
         textView.text = "여기에는 할일 내용 입력하는 곳이지롱 \nㅋㅋ"
         textView.font = .preferredFont(forTextStyle: .title3)
         textView.dropShadow(
-            cornerRadius: 5.0,
+            cornerRadius: Design.cornerRadius,
             backgroundColor: UIColor.white.cgColor,
             borderColor: UIColor.clear.cgColor,
             shadowColor: UIColor.black.cgColor,
-            shadowOffset: CGSize(width: 0, height: 3),
-            shadowOpacity: 0.5,
-            shadowRadius: 4.0)
+            shadowOffset: Design.shadowOffset,
+            shadowOpacity: Design.shadowOpacity,
+            shadowRadius: Design.shadowRadius)
         return textView
     }()
     
@@ -66,10 +84,10 @@ class ProjectDetailViewController: UIViewController {
     private func configureLayout() {
         NSLayoutConstraint.activate([
             self.entireStackView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 5),
-            self.entireStackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
-            self.entireStackView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -20),
-            self.entireStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
-            self.titleTextField.heightAnchor.constraint(equalToConstant: 50)
+            self.entireStackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: LayoutConstant.entireStackViewtrailingMargin),
+            self.entireStackView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: LayoutConstant.entireStackViewBottomMargin),
+            self.entireStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: LayoutConstant.entireStackViewLeadingMargin),
+            self.titleTextField.heightAnchor.constraint(equalToConstant: LayoutConstant.titleTextFieldHeight)
         ])
     }
     

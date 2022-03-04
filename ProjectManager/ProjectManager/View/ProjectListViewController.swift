@@ -1,4 +1,16 @@
 import UIKit
+private enum TitleText {
+    static let navigationBarTitle = "Project Manager"
+    static let todoTableViewTitle = "TODO"
+    static let doingTableViewTitle = "DOING"
+    static let doneTableViewTitle = "DONE"
+}
+
+private enum Design {
+    static let entireStackViewSpacing: CGFloat = 8
+    static let tableViewSectionHeaderTopPadding: CGFloat = 1
+    static let tableViewHeightForHeaderInSection: CGFloat = 50
+}
 
 class ProjectListViewController: UIViewController {
     private let todoTableView = ProjectListTableView()
@@ -8,7 +20,7 @@ class ProjectListViewController: UIViewController {
     private lazy var entireStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [todoTableView, doingTableView, doneTableView])
         stackView.axis = .horizontal
-        stackView.spacing = 8
+        stackView.spacing = Design.entireStackViewSpacing
         stackView.distribution = .fillEqually
         stackView.backgroundColor = .systemGray5
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -30,7 +42,7 @@ class ProjectListViewController: UIViewController {
     
     private func configureNavigationBar() {
         self.navigationController?.isToolbarHidden = false
-        self.navigationItem.title = "Project Manager"
+        self.navigationItem.title = TitleText.navigationBarTitle
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAddProjectButton))
     }
     
@@ -50,9 +62,9 @@ class ProjectListViewController: UIViewController {
         doneTableView.delegate = self
         doneTableView.dataSource = self
         if #available(iOS 15, *) {
-            todoTableView.sectionHeaderTopPadding = 1
-            doingTableView.sectionHeaderTopPadding = 1
-            doneTableView.sectionHeaderTopPadding = 1
+            todoTableView.sectionHeaderTopPadding = Design.tableViewSectionHeaderTopPadding
+            doingTableView.sectionHeaderTopPadding = Design.tableViewSectionHeaderTopPadding
+            doneTableView.sectionHeaderTopPadding = Design.tableViewSectionHeaderTopPadding
         }
     }
     
@@ -71,10 +83,6 @@ class ProjectListViewController: UIViewController {
 }
 
 extension ProjectListViewController: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 10
     }
@@ -88,7 +96,7 @@ extension ProjectListViewController: UITableViewDataSource {
 
 extension ProjectListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 50
+        return Design.tableViewHeightForHeaderInSection
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -96,11 +104,11 @@ extension ProjectListViewController: UITableViewDelegate {
                 
         switch tableView {
         case todoTableView:
-            headerView.populateData(title: "TODO", count: 20)
+            headerView.populateData(title: TitleText.todoTableViewTitle, count: 20)
         case doingTableView:
-            headerView.populateData(title: "DOING", count: 30)
+            headerView.populateData(title: TitleText.doingTableViewTitle, count: 30)
         case doneTableView:
-            headerView.populateData(title: "DONE", count: 40)
+            headerView.populateData(title: TitleText.doneTableViewTitle, count: 40)
         default:
             fatalError()
         }

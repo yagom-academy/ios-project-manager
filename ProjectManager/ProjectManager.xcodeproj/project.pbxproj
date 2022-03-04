@@ -87,7 +87,6 @@
 			children = (
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
-				C7431F1325F51E1E0094C4CF /* Info.plist */,
 				EA34A4EC27CCBEA7000F7676 /* GoogleService-Info.plist */,
 				EAD690F827CE6F6E001DFDC8 /* .swiftlint.yml */,
 			);
@@ -127,6 +126,7 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
+				C7431F1325F51E1E0094C4CF /* Info.plist */,
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
 				A62BB68027D1B5B9009395D8 /* View */,
