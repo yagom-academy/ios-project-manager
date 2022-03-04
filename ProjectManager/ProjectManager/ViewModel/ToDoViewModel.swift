@@ -11,14 +11,14 @@ final class TaskViewModel: ViewModel {
     var taskDidUpdated: (() -> Void)?
     var didSelectTask: ((Task) -> Void)?
     
-    private var taskManager: TaskManager
+    private var taskManager: TaskMangeable
     private(set) var tasks = [Task]() {
         didSet {
             tasks.sort { $0.deadline < $1.deadline }
         }
     }
     
-    init(taskManager: TaskManager) {
+    init(taskManager: TaskMangeable) {
         self.taskManager = taskManager
     }
     

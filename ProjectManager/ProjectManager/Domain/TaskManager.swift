@@ -10,7 +10,7 @@ import Foundation
 final class TaskManager: TaskMangeable {
     var repository: Repository
     
-    required init(repository: Repository) {
+    init(repository: Repository) {
         self.repository = repository
     }
     
