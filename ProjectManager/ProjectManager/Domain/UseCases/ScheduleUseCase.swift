@@ -5,7 +5,6 @@
 //  Created by Jae-hoon Sim on 2022/03/04.
 //
 
-import Foundation
 import RxSwift
 
 class ScheduleUseCase {
@@ -51,15 +50,4 @@ private extension ScheduleUseCase {
             progress: progress
         )
     }
-}
-
-protocol Repository {
-    
-    func fetch() -> Observable<[Schedule]>
-    
-    func create(_ schedule: Schedule) -> Observable<Schedule>
-    
-    func delete(_ scheduleID: UUID) -> Observable<Bool>
-    
-    func update(_ schedule: Schedule) -> Observable<Schedule>
 }

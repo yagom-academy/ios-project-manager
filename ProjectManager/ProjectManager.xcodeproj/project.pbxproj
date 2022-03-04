@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		336E237227D1DC0000C40ECC /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 336E237127D1DC0000C40ECC /* Schedule.swift */; };
+		336E237627D1E6B200C40ECC /* DataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 336E237527D1E6B200C40ECC /* DataRepository.swift */; };
+		336E237827D1E7B300C40ECC /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 336E237727D1E7B300C40ECC /* DataSource.swift */; };
+		336E237B27D1E7DD00C40ECC /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 336E237A27D1E7DD00C40ECC /* Repository.swift */; };
 		37FB8D9727D1DE6100ED9AE2 /* ScheduleUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FB8D9627D1DE6100ED9AE2 /* ScheduleUseCase.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
@@ -24,6 +27,9 @@
 
 /* Begin PBXFileReference section */
 		336E237127D1DC0000C40ECC /* Schedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schedule.swift; sourceTree = "<group>"; };
+		336E237527D1E6B200C40ECC /* DataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataRepository.swift; sourceTree = "<group>"; };
+		336E237727D1E7B300C40ECC /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
+		336E237A27D1E7DD00C40ECC /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		37FB8D9627D1DE6100ED9AE2 /* ScheduleUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleUseCase.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -59,9 +65,43 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		336E237327D1E63800C40ECC /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				336E237C27D1E9E300C40ECC /* Repositories */,
+				336E237D27D1E9F100C40ECC /* DataSource */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		336E237927D1E7C600C40ECC /* Interface */ = {
+			isa = PBXGroup;
+			children = (
+				336E237A27D1E7DD00C40ECC /* Repository.swift */,
+			);
+			path = Interface;
+			sourceTree = "<group>";
+		};
+		336E237C27D1E9E300C40ECC /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				336E237527D1E6B200C40ECC /* DataRepository.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		336E237D27D1E9F100C40ECC /* DataSource */ = {
+			isa = PBXGroup;
+			children = (
+				336E237727D1E7B300C40ECC /* DataSource.swift */,
+			);
+			path = DataSource;
+			sourceTree = "<group>";
+		};
 		37FB8D9427D1DDF400ED9AE2 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				336E237927D1E7C600C40ECC /* Interface */,
 				37FB8D9527D1DE1D00ED9AE2 /* UseCases */,
 				336E237027D1DBF300C40ECC /* Model */,
 			);
@@ -96,10 +136,11 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
-				37FB8D9427D1DDF400ED9AE2 /* Domain */,
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
 				C7431F0925F51E1D0094C4CF /* ViewController.swift */,
+				37FB8D9427D1DDF400ED9AE2 /* Domain */,
+				336E237327D1E63800C40ECC /* Data */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
 			);
@@ -208,9 +249,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				336E237827D1E7B300C40ECC /* DataSource.swift in Sources */,
 				37FB8D9727D1DE6100ED9AE2 /* ScheduleUseCase.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */,
+				336E237B27D1E7DD00C40ECC /* Repository.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
+				336E237627D1E6B200C40ECC /* DataRepository.swift in Sources */,
 				336E237227D1DC0000C40ECC /* Schedule.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 			);
