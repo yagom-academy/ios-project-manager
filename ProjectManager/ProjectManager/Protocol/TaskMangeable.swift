@@ -8,7 +8,7 @@
 import Foundation
 
 protocol TaskMangeable {
-    var repository: Repository { get }
+    var taskRepository: TaskRepository { get }
     
     func create(with task: Task)
     func fetchAll() -> [Task]

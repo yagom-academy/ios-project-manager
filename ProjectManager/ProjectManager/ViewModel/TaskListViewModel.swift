@@ -1,5 +1,5 @@
 //
-//  TaskViewModel.swift
+//  TaskListViewModel.swift
 //  ProjectManager
 //
 //  Created by 이차민 on 2022/03/02.
@@ -7,11 +7,11 @@
 
 import Foundation
 
-final class TaskViewModel: ViewModel {
+final class TaskListViewModel: TaskViewModel {
     var taskDidUpdated: (() -> Void)?
     var didSelectTask: ((Task) -> Void)?
     
-    private var taskManager: TaskMangeable
+    private let taskManager: TaskMangeable
     private(set) var tasks = [Task]() {
         didSet {
             tasks.sort { $0.deadline < $1.deadline }

@@ -1,5 +1,5 @@
 //
-//  ViewModel.swift
+//  TaskListViewModel.swift
 //  ProjectManager
 //
 //  Created by 이차민 on 2022/03/02.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol ViewModel {
+protocol TaskViewModel {
     func create(with task: Task)
     func update(with task: Task)
     func delete(with task: Task)

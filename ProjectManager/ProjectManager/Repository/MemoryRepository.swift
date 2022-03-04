@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class MemoryRepository: Repository {
+final class MemoryRepository: TaskRepository {
     private var tasks = [UUID: Task]()
     
     func create(with task: Task) {

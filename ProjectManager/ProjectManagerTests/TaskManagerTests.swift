@@ -9,7 +9,7 @@ import XCTest
 @testable import ProjectManager
 
 class TaskManagerTests: XCTestCase {
-    var repository: Repository!
+    var repository: TaskRepository!
     var taskManager: TaskManager!
     
     override func setUp() {

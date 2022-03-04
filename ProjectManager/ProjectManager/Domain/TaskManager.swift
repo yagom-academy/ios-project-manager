@@ -8,26 +8,26 @@
 import Foundation
 
 final class TaskManager: TaskMangeable {
-    var repository: Repository
+    let taskRepository: TaskRepository
     
-    init(repository: Repository) {
-        self.repository = repository
+    init(taskRepository: TaskRepository) {
+        self.taskRepository = taskRepository
     }
     
     func create(with task: Task) {
-        repository.create(with: task)
+        taskRepository.create(with: task)
     }
     
     func fetchAll() -> [Task] {
-        return repository.fetchAll()
+        return taskRepository.fetchAll()
     }
     
     func update(with task: Task) {
-        repository.update(with: task)
+        taskRepository.update(with: task)
     }
     
     func delete(with task: Task) {
-        repository.delete(with: task)
+        taskRepository.delete(with: task)
     }
     
     func changeState(of task: Task, to state: TaskState) {
@@ -37,6 +37,6 @@ final class TaskManager: TaskMangeable {
                         deadline: task.deadline,
                         state: state)
         
-        repository.update(with: taskToChange)
+        taskRepository.update(with: taskToChange)
     }
 }
