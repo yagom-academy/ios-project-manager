@@ -9,7 +9,11 @@ import UIKit
 
 class ProjectListViewController: UIViewController {
     
-    let tableView = UITableView()
+    let tableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .grouped)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,12 +33,13 @@ class ProjectListViewController: UIViewController {
     func setupTableView() {
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.register(TodoCell.self, forCellReuseIdentifier: "Cell")
+        tableView.backgroundColor = .systemGray6
     }
     
     func configureTableViewLayout() {
         view.addSubview(tableView)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -52,9 +57,10 @@ extension ProjectListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as? TodoCell else {
             return UITableViewCell()
         }
+        cell.configureUI()
         return cell
     }
 }
