@@ -7,12 +7,16 @@
 
 import UIKit
 
+protocol EditViewDelegate: AnyObject {
+    func editViewDidDismiss(todo: ToDoInfomation)
+}
+
 class EditViewController: UIViewController {
-    let todoViewModel = ToDoViewModel()
     private let editStackView = UIStackView()
     private let titleTextField = UITextField()
     private let datePicker = UIDatePicker()
     private let contentTextView = UITextView()
+    var delegate: EditViewDelegate? 
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,7 +97,7 @@ class EditViewController: UIViewController {
             deadline: datePicker.date.timeIntervalSince1970,
             position: .ToDo
         )
-        todoViewModel.save(todo: saveToDo)
+        delegate?.editViewDidDismiss(todo: saveToDo)
         self.dismiss(animated: true, completion: nil)
     }
 }

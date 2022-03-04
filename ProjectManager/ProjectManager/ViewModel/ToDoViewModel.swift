@@ -45,5 +45,4 @@ class ToDoViewModel {
             self.todos = todoList
         }
     }
-    
 }

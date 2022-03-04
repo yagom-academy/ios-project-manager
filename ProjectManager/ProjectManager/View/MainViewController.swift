@@ -7,20 +7,20 @@
 import UIKit
 
 class MainViewController: UIViewController, UITableViewDelegate {
-    let todoViewModel = ToDoViewModel()
+    var todoViewModel = ToDoViewModel()
     private let taskStackView = UIStackView()
     private let toDoTableView = UITableView()
     private let doingTableView = UITableView()
     private let doneTableView = UITableView()
     let dataManager = TestDataManager()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigation()
         setupTaskStackView()
         setupConstraint()
         setupTableView()
-        todoViewModel.reload()
+        
         todoViewModel.todoOnUpdated = { [weak self] in
                 self?.toDoTableView.reloadData()
                 self?.doingTableView.reloadData()
@@ -28,7 +28,7 @@ class MainViewController: UIViewController, UITableViewDelegate {
         }
         todoViewModel.reload()
     }
-
+    
     private func setupNavigation() {
         navigationItem.title = "Project Manager"
         let addButtonImage = UIImage(systemName: "plus")
@@ -86,9 +86,17 @@ class MainViewController: UIViewController, UITableViewDelegate {
     }
     
     @objc func showEditView() {
-        let editView = UINavigationController(rootViewController: EditViewController())
-        editView.modalPresentationStyle = .automatic
-        self.present(editView, animated: true)
+        let editView = EditViewController()
+        editView.delegate = self
+        let modalView = UINavigationController(rootViewController: editView)
+        modalView.modalPresentationStyle = .automatic
+        self.present(modalView, animated: true)
+    }
+}
+
+extension MainViewController: EditViewDelegate {
+    func editViewDidDismiss(todo: ToDoInfomation) {
+        todoViewModel.save(todo: todo)
     }
 }
 
