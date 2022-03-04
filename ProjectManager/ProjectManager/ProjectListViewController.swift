@@ -8,6 +8,8 @@
 import UIKit
 
 class ProjectListViewController: UIViewController {
+
+    var todoList: [Todo] = []
     
     let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
@@ -53,7 +55,7 @@ class ProjectListViewController: UIViewController {
 
 extension ProjectListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return todoList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -106,5 +108,14 @@ extension ProjectListViewController: UITableViewDelegate {
         ])
         
         return headerView
+    }
+}
+
+// MARK: - TodoAddDelegate
+
+extension ProjectListViewController: TodoAddDelegate {
+    func addTodo(data: Todo) {
+        todoList.append(data)
+        tableView.reloadData()
     }
 }

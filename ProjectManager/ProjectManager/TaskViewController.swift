@@ -7,7 +7,13 @@
 
 import UIKit
 
-class TodoViewController: UIViewController {
+protocol TodoAddDelegate: AnyObject {
+    func addTodo(data: Todo)
+}
+
+class TaskViewController: UIViewController {
+    
+    weak var delegate: TodoAddDelegate?
     
     let entireStackView: UIStackView = {
         let stackView = UIStackView()
@@ -68,7 +74,15 @@ class TodoViewController: UIViewController {
     }
     
     @objc func addAction() {
-        print("Add action")
+        guard let title = titleTextField.text,
+              let body = bodyTextView.text else {
+            return
+        }
+        let deadline = datePicker.date
+        let todo = Todo(title: title, deadline: deadline, body: body)
+        
+        delegate?.addTodo(data: todo)
+        dismiss(animated: true, completion: nil)
     }
     
     @objc func cancelAction() {

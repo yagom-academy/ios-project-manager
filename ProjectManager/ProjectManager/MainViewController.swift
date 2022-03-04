@@ -28,11 +28,14 @@ class MainViewController: UIViewController {
     }
     
     @objc func addTodo() {
-        let todoViewController = TodoViewController()
-        todoViewController.popoverPresentationController?.sourceView = view
-        todoViewController.popoverPresentationController?.sourceRect = CGRect(x: view.frame.midX, y: view.frame.midY, width: 0, height: 0)
-        todoViewController.popoverPresentationController?.permittedArrowDirections = []
-        let popoverController = UINavigationController(rootViewController: todoViewController)
+        let taskViewController = TaskViewController()
+        taskViewController.delegate = todoViewController
+        taskViewController.popoverPresentationController?.sourceView = view
+        taskViewController.popoverPresentationController?.sourceRect = CGRect(x: view.frame.midX, y: view.frame.midY, width: 0, height: 0)
+        taskViewController.popoverPresentationController?.permittedArrowDirections = []
+        
+        let popoverController = UINavigationController(rootViewController: taskViewController)
+        
         present(popoverController, animated: true, completion: nil)
     }
     
