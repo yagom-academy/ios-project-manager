@@ -30,6 +30,7 @@ class MainViewController: UIViewController {
         setupTableView()
         setupNavigationBar()
         setupStackViewLayout()
+        registerProjectListCell()
     }
     
     private func setupStackViewLayout() {
@@ -58,5 +59,10 @@ class MainViewController: UIViewController {
         doneTableView.dataSource = doneDataSourceDelegate
         doneTableView.delegate = doneDataSourceDelegate
     }
-
+    
+    private func registerProjectListCell() {
+        toDoTableView.register(ProjectListCell.self)
+        doingTableView.register(ProjectListCell.self)
+        doneTableView.register(ProjectListCell.self)
+    }
 }

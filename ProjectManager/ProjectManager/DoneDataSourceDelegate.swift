@@ -7,9 +7,10 @@ class DoneDataSourceDelegate: NSObject, UITableViewDataSource, UITableViewDelega
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell =  tableView.dequeueReusableCell(ProjectListCell.self, for: indexPath) else {
+            return UITableViewCell()
+        }
         
-        return UITableViewCell()
+        return cell
     }
-    
-    
 }

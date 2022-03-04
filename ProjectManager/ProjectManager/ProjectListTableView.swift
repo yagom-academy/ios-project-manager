@@ -21,7 +21,7 @@ class ProjectListTableView: UITableView {
         let badgeLabel = UILabel()
         badgeLabel.translatesAutoresizingMaskIntoConstraints = false
         badgeLabel.font = .preferredFont(forTextStyle: .caption2)
-        badgeLabel.textColor = .white
+        badgeLabel.textColor = .systemBackground
         badgeLabel.textAlignment = .center
         badgeLabel.backgroundColor = .label
         badgeLabel.layer.masksToBounds = true
@@ -33,7 +33,6 @@ class ProjectListTableView: UITableView {
     
     private lazy var headerView: UIView = {
         let headerView = UIView()
-        
         headerView.backgroundColor = .secondarySystemBackground
         
         return headerView
@@ -42,19 +41,23 @@ class ProjectListTableView: UITableView {
     init(title: String) {
         super.init(frame: .zero, style: .grouped)
         titleLabel.text = title
-        setupHeaderView()
-        tableHeaderView = headerView
+        setupTableHeaderView()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupHeaderView() {
+    private func setupTableHeaderView() {
+        tableHeaderView = headerView
+        tableHeaderView?.frame.size.height = 55
+        setupHeaderViewLayout()
+    }
+    
+    private func setupHeaderViewLayout() {
         headerView.addSubview(titleLabel)
         headerView.addSubview(underLine)
         headerView.addSubview(badgeLabel)
-        headerView.frame.size.height = 55
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 10),
             titleLabel.centerYAnchor.constraint(equalTo: headerView.centerYAnchor, constant: -2.5),
@@ -72,5 +75,4 @@ class ProjectListTableView: UITableView {
     func countProject(number: Int) {
         badgeLabel.text = number.description
     }
-
 }

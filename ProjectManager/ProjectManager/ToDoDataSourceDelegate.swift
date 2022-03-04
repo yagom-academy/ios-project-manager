@@ -6,8 +6,10 @@ class ToDoDataSourceDelegate: NSObject, UITableViewDataSource, UITableViewDelega
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-        return UITableViewCell()
+        guard let cell =  tableView.dequeueReusableCell(ProjectListCell.self, for: indexPath) else {
+            return UITableViewCell()
+        }
+        
+        return cell
     }
-    
 }

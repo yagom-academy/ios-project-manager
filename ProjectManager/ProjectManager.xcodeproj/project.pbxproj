@@ -25,6 +25,8 @@
 		FB85DA3727CDF91E0065FD72 /* ToDo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB85DA3527CDF91D0065FD72 /* ToDo+CoreDataClass.swift */; };
 		FB85DA3827CDF91E0065FD72 /* ToDo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB85DA3627CDF91E0065FD72 /* ToDo+CoreDataProperties.swift */; };
 		FB85DA3A27D05CEE0065FD72 /* ProjectListTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB85DA3927D05CEE0065FD72 /* ProjectListTableView.swift */; };
+		FB85DA3C27D1AD430065FD72 /* ProjectListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB85DA3B27D1AD430065FD72 /* ProjectListCell.swift */; };
+		FB85DA3E27D1B2370065FD72 /* CellManagable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB85DA3D27D1B2370065FD72 /* CellManagable.swift */; };
 		FBDBCF0027CDBAB80018B526 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FBDBCEFF27CDBAB80018B526 /* GoogleService-Info.plist */; };
 		FBDBCF0327CDBC3D0018B526 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = FBDBCF0227CDBC3D0018B526 /* FirebaseAnalytics */; };
 		FBDBCF0527CDBC3D0018B526 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = FBDBCF0427CDBC3D0018B526 /* FirebaseAuth */; };
@@ -50,6 +52,8 @@
 		FB85DA3527CDF91D0065FD72 /* ToDo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ToDo+CoreDataClass.swift"; sourceTree = "<group>"; };
 		FB85DA3627CDF91E0065FD72 /* ToDo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ToDo+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		FB85DA3927D05CEE0065FD72 /* ProjectListTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListTableView.swift; sourceTree = "<group>"; };
+		FB85DA3B27D1AD430065FD72 /* ProjectListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListCell.swift; sourceTree = "<group>"; };
+		FB85DA3D27D1B2370065FD72 /* CellManagable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellManagable.swift; sourceTree = "<group>"; };
 		FBDBCEFF27CDBAB80018B526 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -105,8 +109,10 @@
 			children = (
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
+				FB85DA3D27D1B2370065FD72 /* CellManagable.swift */,
 				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
 				FB85DA3927D05CEE0065FD72 /* ProjectListTableView.swift */,
+				FB85DA3B27D1AD430065FD72 /* ProjectListCell.swift */,
 				47F9810627D096DF0046FE9E /* ToDoDataSourceDelegate.swift */,
 				47F9810827D096EC0046FE9E /* DoingDataSourceDelegate.swift */,
 				47F9810A27D096FA0046FE9E /* DoneDataSourceDelegate.swift */,
@@ -206,6 +212,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB85DA3E27D1B2370065FD72 /* CellManagable.swift in Sources */,
 				FB85DA3427CDF8970065FD72 /* ToDo.xcdatamodeld in Sources */,
 				47F9810B27D096FA0046FE9E /* DoneDataSourceDelegate.swift in Sources */,
 				47F9810727D096DF0046FE9E /* ToDoDataSourceDelegate.swift in Sources */,
@@ -213,6 +220,7 @@
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				FB85DA3A27D05CEE0065FD72 /* ProjectListTableView.swift in Sources */,
 				FB85DA3827CDF91E0065FD72 /* ToDo+CoreDataProperties.swift in Sources */,
+				FB85DA3C27D1AD430065FD72 /* ProjectListCell.swift in Sources */,
 				47F8F60A27CDEA96008919E3 /* CoreDataManager.swift in Sources */,
 				47F9810927D096EC0046FE9E /* DoingDataSourceDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
