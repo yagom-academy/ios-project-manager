@@ -5,7 +5,9 @@
 //  Created by Jae-hoon Sim on 2022/03/04.
 //
 
+import Foundation
 import RxSwift
+
 
 class ScheduleUseCase {
     let scheduleProvider: Repository

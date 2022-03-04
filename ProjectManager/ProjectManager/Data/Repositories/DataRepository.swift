@@ -5,6 +5,7 @@
 //  Created by 이승재 on 2022/03/04.
 //
 
+import Foundation
 import RxSwift
 
 class DataRepository: Repository {
