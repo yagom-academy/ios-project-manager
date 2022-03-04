@@ -1,5 +1,5 @@
 //
-//  MemoryRepository.swift
+//  TaskMemoryRepository.swift
 //  ProjectManager
 //
 //  Created by 이차민 on 2022/03/02.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class MemoryRepository: TaskRepository {
+final class TaskMemoryRepository: TaskRepository {
     private var tasks = [UUID: Task]()
     
     func create(with task: Task) {

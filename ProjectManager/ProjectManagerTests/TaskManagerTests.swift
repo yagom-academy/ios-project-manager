@@ -9,16 +9,16 @@ import XCTest
 @testable import ProjectManager
 
 class TaskManagerTests: XCTestCase {
-    var repository: TaskRepository!
+    var taskMemoryRepository: TaskRepository!
     var taskManager: TaskManager!
     
     override func setUp() {
-        repository = MemoryRepository()
-        taskManager = TaskManager(repository: repository)
+        taskMemoryRepository = TaskMemoryRepository()
+        taskManager = TaskManager(taskRepository: taskMemoryRepository)
     }
     
     override func tearDown() {
-        repository = nil
+        taskMemoryRepository = nil
         taskManager = nil
     }
     
@@ -30,7 +30,7 @@ class TaskManagerTests: XCTestCase {
                         state: .waiting)
         taskManager.create(with: task)
         
-        let tasks = repository.fetchAll()
+        let tasks = taskManager.fetchAll()
         XCTAssertEqual(tasks[0].title, "제목")
         XCTAssertEqual(tasks[0].description, "본문")
         XCTAssertEqual(tasks[0].state, .waiting)
