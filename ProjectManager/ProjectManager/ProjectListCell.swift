@@ -12,6 +12,7 @@ class ProjectListCell: UITableViewCell {
     
     private let previewLabel: UILabel = {
        let label = UILabel()
+        label.textColor = .secondaryLabel
         label.font = .preferredFont(forTextStyle: .callout)
         label.numberOfLines = 3
         label.lineBreakMode = .byTruncatingTail
