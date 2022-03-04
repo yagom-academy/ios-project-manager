@@ -1,6 +1,6 @@
 import Foundation
 
-final class TodoListFactory {
+final class ListManagerFactory {
     
     public func assignListManger(database: DatabaseType) -> ListManager {
         
