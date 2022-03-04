@@ -28,13 +28,13 @@ class TaskListViewController: UIViewController, TaskListDataSourceDelegate {
     
     @IBAction func touchUpAddButton(_ sender: UIBarButtonItem) {
         let newTask = Task(title: "123", body: "123", dueDate: Date())
-        taskListDataSource.create(task: newTask)
+        taskListDataSource.create(task: newTask, of: .todo)
         todoTableView.reloadData()
         
-        taskListDataSource.create(task: newTask)
+        taskListDataSource.create(task: newTask, of: .doing)
         doingTableView.reloadData()
         
-        taskListDataSource.create(task: newTask)
+        taskListDataSource.create(task: newTask, of: .done)
         doneTableView.reloadData()
     }
 }
@@ -43,11 +43,11 @@ extension TaskListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch tableView {
         case todoTableView:
-            return taskListDataSource.todoTasks.count ?? 0
+            return taskListDataSource.todoTasks.count
         case doingTableView:
-            return taskListDataSource.doingTasks.count ?? 0
+            return taskListDataSource.doingTasks.count
         case doneTableView:
-            return taskListDataSource.doneTasks.count ?? 0
+            return taskListDataSource.doneTasks.count 
         default:
             return 0
         }
@@ -62,14 +62,12 @@ extension TaskListViewController: UITableViewDataSource {
         case todoTableView:
             cell.applyDate(with: taskListDataSource.todoTasks[indexPath.row] )
         case doingTableView:
-            cell.applyDate(with: taskListDataSource.todoTasks[indexPath.row] )
+            cell.applyDate(with: taskListDataSource.doingTasks[indexPath.row] )
         case doneTableView:
-            cell.applyDate(with: taskListDataSource.todoTasks[indexPath.row] )
+            cell.applyDate(with: taskListDataSource.doneTasks[indexPath.row] )
         default:
             cell.applyDate(with: taskListDataSource.todoTasks[indexPath.row] )
         }
-        
-        cell.applyDate(with: taskListDataSource.todoTasks[indexPath.row] )
         
         return cell
     }
