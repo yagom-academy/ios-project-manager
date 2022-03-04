@@ -4,16 +4,16 @@ protocol ListManager {
     
     var list: [Listable] { get }
     
-    func creatProject(attributes: [String: [Any]]) -> Listable
+    func creatProject(attributes: [String: Any]) -> Listable
     
-    func readProject(index: Int) -> Listable
+    func readProject(index: IndexPath) -> Listable
     
     func updateProject(
-        to subject: Listable,
-        how attributes: [String: [Any]]
+        to index: IndexPath,
+        how attributes: [String: Any]
     ) -> Listable
     
-    func deleteProject(index: Int)
+    func deleteProject(index: IndexPath)
     
-    func save()
+    func fetch()
 }

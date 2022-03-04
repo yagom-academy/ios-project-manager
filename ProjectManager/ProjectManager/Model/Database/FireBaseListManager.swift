@@ -12,15 +12,15 @@ final class FireBaseListManger: ListManager {
         <#code#>
     }
     
-    func updateProject(to subject: Listable, how attributes: [String : [Any]]) -> Listable {
+    func updateProject(to index: IndexPath, how attributes: [String : Any]) -> Listable {
         <#code#>
     }
     
-    func deleteProject(index: Int) {
+    func deleteProject(index: IndexPath) {
         <#code#>
     }
     
-    func save() {
+    func fetch() {
         <#code#>
     }
 }
