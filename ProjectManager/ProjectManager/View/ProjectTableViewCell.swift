@@ -1,8 +1,6 @@
 import UIKit
 
 class ProjectTableViewCell: UITableViewCell {
-    static let identifier = String(describing: self)
-    
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .title3)

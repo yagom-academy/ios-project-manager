@@ -80,9 +80,8 @@ extension ProjectListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: ProjectTableViewCell.identifier) as? ProjectTableViewCell else {
-            return UITableViewCell()
-        }
+        let cell = tableView.dequeueReusableCell(withClass: ProjectTableViewCell.self)
+        
         return cell
     }
 }
@@ -93,10 +92,19 @@ extension ProjectListViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: ProjectListTableHeaderView.identifier) as? ProjectListTableHeaderView else {
-            return UITableViewHeaderFooterView()
+        let headerView = tableView.dequeueReusableHeaderFooterView(withClass: ProjectListTableHeaderView.self)
+                
+        switch tableView {
+        case todoTableView:
+            headerView.populateData(title: "TODO", count: 20)
+        case doingTableView:
+            headerView.populateData(title: "DOING", count: 30)
+        case doneTableView:
+            headerView.populateData(title: "DONE", count: 40)
+        default:
+            fatalError()
         }
-        headerView.populateData(title: "TODO", count: 20)
+        
         return headerView
     }
 }

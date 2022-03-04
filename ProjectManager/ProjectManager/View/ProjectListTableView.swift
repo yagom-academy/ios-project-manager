@@ -13,7 +13,7 @@ class ProjectListTableView: UITableView {
     private func configureUI() {
         self.backgroundColor = .systemGray6
         self.translatesAutoresizingMaskIntoConstraints = false
-        self.register(ProjectTableViewCell.self, forCellReuseIdentifier: ProjectTableViewCell.identifier)
-        self.register(ProjectListTableHeaderView.self, forHeaderFooterViewReuseIdentifier: ProjectListTableHeaderView.identifier)
+        self.registerCell(withClass: ProjectTableViewCell.self)
+        self.registerHeaderFooterView(withClass: ProjectListTableHeaderView.self)
     }
 }
