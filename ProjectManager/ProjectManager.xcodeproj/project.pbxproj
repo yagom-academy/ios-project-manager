@@ -11,6 +11,7 @@
 		2570E67D27CD48C2002984D2 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 2570E67C27CD48C2002984D2 /* FirebaseFirestore */; };
 		2570E6A227CDE284002984D2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2570E6A127CDE284002984D2 /* GoogleService-Info.plist */; };
 		2570E6D127D224D4002984D2 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2570E6D027D224D4002984D2 /* Task.swift */; };
+		2570E6D727D225BB002984D2 /* TaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2570E6D627D225BB002984D2 /* TaskManager.swift */; };
 		25D60D7427CD280800D3D39D /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 25D60D7327CD280800D3D39D /* Realm */; };
 		25D60D7627CD280800D3D39D /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 25D60D7527CD280800D3D39D /* RealmSwift */; };
 		25D60D7F27CD2D8000D3D39D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D60D7E27CD2D8000D3D39D /* ContentView.swift */; };
@@ -22,6 +23,7 @@
 /* Begin PBXFileReference section */
 		2570E6A127CDE284002984D2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2570E6D027D224D4002984D2 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		2570E6D627D225BB002984D2 /* TaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManager.swift; sourceTree = "<group>"; };
 		25D60D7E27CD2D8000D3D39D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -79,6 +81,7 @@
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
 				2570E6A127CDE284002984D2 /* GoogleService-Info.plist */,
 				2570E6D027D224D4002984D2 /* Task.swift */,
+				2570E6D627D225BB002984D2 /* TaskManager.swift */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
@@ -185,6 +188,7 @@
 			files = (
 				2570E6D127D224D4002984D2 /* Task.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
+				2570E6D727D225BB002984D2 /* TaskManager.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				25D60D7F27CD2D8000D3D39D /* ContentView.swift in Sources */,
 			);
