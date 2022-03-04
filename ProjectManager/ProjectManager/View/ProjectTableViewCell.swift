@@ -9,7 +9,7 @@ private enum LayoutConstant {
 
 private enum Design {
     static let entireStackViewSpacing: CGFloat = 10
-    static let cellContentViewFrameInset: UIEdgeInsets = UIEdgeInsets(top: 7, left: 0, bottom: 0, right: 0)
+    static let cellContentViewFrameInset: UIEdgeInsets = UIEdgeInsets(top: 3.5, left: 0, bottom: 3.5, right: 0)
 }
 
 class ProjectTableViewCell: UITableViewCell {
