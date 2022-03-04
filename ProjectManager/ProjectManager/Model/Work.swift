@@ -11,11 +11,11 @@ struct Work {
     var id: UUID = UUID()
     var title: String?
     var body: String?
-    var date: Date?
+    var dueDate: Date?
     var sort: Sort = .todo
     
     var convertedDate: String {
-        guard let currentDate = date else { return "" }
+        guard let currentDate = dueDate else { return "" }
         let dateFormatter = DateFormatter.shared
         
         return dateFormatter.string(from: currentDate)

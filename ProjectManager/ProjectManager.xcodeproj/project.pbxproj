@@ -18,10 +18,10 @@
 		DE5359EF27D097BF00FD7953 /* ProjectManagerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5359EE27D097BF00FD7953 /* ProjectManagerViewModel.swift */; };
 		DE843A4C27CE616A00F622E2 /* Work.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE843A4B27CE616A00F622E2 /* Work.swift */; };
 		DE843A4F27CE641900F622E2 /* DateFormatter+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE843A4E27CE641900F622E2 /* DateFormatter+extension.swift */; };
-		DE843A5227CE6DD200F622E2 /* MemoryDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE843A5127CE6DD200F622E2 /* MemoryDataManager.swift */; };
+		DE843A5227CE6DD200F622E2 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE843A5127CE6DD200F622E2 /* Repository.swift */; };
 		DE843A5527CE6EA300F622E2 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE843A5427CE6EA300F622E2 /* DataManager.swift */; };
 		DE8587AC27CF064200D4F4B7 /* ProjectManagerModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8587AB27CF064200D4F4B7 /* ProjectManagerModelTests.swift */; };
-		DE8587B427CF406100D4F4B7 /* MemoryDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE843A5127CE6DD200F622E2 /* MemoryDataManager.swift */; };
+		DE8587B427CF406100D4F4B7 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE843A5127CE6DD200F622E2 /* Repository.swift */; };
 		DE8587B527CF406500D4F4B7 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE843A5427CE6EA300F622E2 /* DataManager.swift */; };
 		DE8587B627CF406900D4F4B7 /* Work.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE843A4B27CE616A00F622E2 /* Work.swift */; };
 		DE8587B727CF407900D4F4B7 /* DateFormatter+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE843A4E27CE641900F622E2 /* DateFormatter+extension.swift */; };
@@ -56,7 +56,7 @@
 		DE5359EE27D097BF00FD7953 /* ProjectManagerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerViewModel.swift; sourceTree = "<group>"; };
 		DE843A4B27CE616A00F622E2 /* Work.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Work.swift; sourceTree = "<group>"; };
 		DE843A4E27CE641900F622E2 /* DateFormatter+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+extension.swift"; sourceTree = "<group>"; };
-		DE843A5127CE6DD200F622E2 /* MemoryDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryDataManager.swift; sourceTree = "<group>"; };
+		DE843A5127CE6DD200F622E2 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		DE843A5427CE6EA300F622E2 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		DE8587A927CF064200D4F4B7 /* ProjectManagerModelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProjectManagerModelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE8587AB27CF064200D4F4B7 /* ProjectManagerModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerModelTests.swift; sourceTree = "<group>"; };
@@ -211,7 +211,7 @@
 		DE9A0AA427D1C2C70095BBF9 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
-				DE843A5127CE6DD200F622E2 /* MemoryDataManager.swift */,
+				DE843A5127CE6DD200F622E2 /* Repository.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -382,7 +382,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DE5359EF27D097BF00FD7953 /* ProjectManagerViewModel.swift in Sources */,
-				DE843A5227CE6DD200F622E2 /* MemoryDataManager.swift in Sources */,
+				DE843A5227CE6DD200F622E2 /* Repository.swift in Sources */,
 				DE843A4C27CE616A00F622E2 /* Work.swift in Sources */,
 				DE843A5527CE6EA300F622E2 /* DataManager.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* ProjectViewController.swift in Sources */,
@@ -398,7 +398,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DE8587B627CF406900D4F4B7 /* Work.swift in Sources */,
-				DE8587B427CF406100D4F4B7 /* MemoryDataManager.swift in Sources */,
+				DE8587B427CF406100D4F4B7 /* Repository.swift in Sources */,
 				DE8587B727CF407900D4F4B7 /* DateFormatter+extension.swift in Sources */,
 				DE8587B527CF406500D4F4B7 /* DataManager.swift in Sources */,
 				DE8587AC27CF064200D4F4B7 /* ProjectManagerModelTests.swift in Sources */,

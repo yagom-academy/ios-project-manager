@@ -16,6 +16,11 @@ class ProjectViewController: UIViewController {
         setupTableViews()
     }
     
+    @IBAction func addNewWork(_ sender: UIBarButtonItem) {
+        let work = Work(title: "새로운 데이터", body: "새로운 바디", dueDate: Date(), sort: .doing)
+        viewModel.addWork(work)
+    }
+    
     private func setupView() {
         view.backgroundColor = .systemGray2
     }
@@ -64,22 +69,5 @@ class ProjectViewController: UIViewController {
         cell.titleLabel.text = item.title
         cell.bodyLabel.text = item.body
         cell.dateLabel.text = item.convertedDate
-    }
-}
-
-extension ProjectViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if tableView == todoTableView {
-            viewModel.todoList
-                .observe(on: MainScheduler.instance)
-                .bind(to: todoTableView.rx.items(cellIdentifier: "TableViewCell")) { _, item, _ in
-                    self.viewModel.delete(item)
-                }
-                .disposed(by: disposeBag)
-        } else if tableView == doingTableView {
-            
-        } else if tableView == doneTableView {
-            
-        }
     }
 }

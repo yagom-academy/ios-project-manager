@@ -45,7 +45,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Project Manager" id="HHX-nE-RlX">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="cOi-Eq-c0M"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="cOi-Eq-c0M">
+                            <connections>
+                                <action selector="addNewWork:" destination="BYZ-38-t0r" id="JMU-fq-qkq"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="doingTableView" destination="6ML-VG-Ttj" id="VKt-8h-3ur"/>
