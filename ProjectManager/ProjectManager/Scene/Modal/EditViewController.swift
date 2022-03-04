@@ -7,7 +7,15 @@
 
 import UIKit
 
-class EditViewController: UIViewController {
+class EditViewController: UIViewController, UIAdaptivePresentationControllerDelegate {
+
+// MARK: - Properties
+
+    var hasChanges: Bool {
+        return self.textField.text != nil
+    }
+    private let dataProvider = DataProvider()
+    weak var mainViewDelegate: EditViewControllerDelegate?
 
 // MARK: - View Components
 
@@ -52,7 +60,7 @@ class EditViewController: UIViewController {
         return textField
     }()
 
-    private let datePicker: UIDatePicker = {
+    private lazy var datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.preferredDatePickerStyle = .wheels
         datePicker.date = Date()
@@ -80,18 +88,29 @@ class EditViewController: UIViewController {
         self.view.backgroundColor = EditVCColor.background
     }
 
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        self.doneButton.isEnabled = hasChanges
+        self.isModalInPresentation = hasChanges
+    }
+
 // MARK: - SetUp Controller
 
     private func setUpController() {
         self.configureStackView()
         self.configureNavigationBar()
+        self.setUpDelegate()
         self.setUpTextView()
     }
 
     private func setUpTextView() {
-        self.textView.delegate = self
         self.textView.text = EditVCScript.textViewPlaceHolder
         self.textView.textColor = EditVCColor.placeHolderTextColor
+    }
+
+    private func setUpDelegate() {
+        self.textView.delegate = self
+        self.navigationController?.presentationController?.delegate = self
     }
 
 // MARK: - Configure View
@@ -192,18 +211,28 @@ class EditViewController: UIViewController {
         ])
     }
 
-// MARK: - Button Tap Actions
+// MARK: - Button Actions
 
     @objc
     private func cancelButtonDidTap() {
-        self.dismiss(animated: true, completion: nil)
+        self.mainViewDelegate?.editViewControllerDidCancel(self)
     }
 
     @objc
     private func doneButtonDidTap() {
+        let todo = Todo(
+            title: self.textField.text ?? EditVCScript.untitled,
+            content: self.textView.text,
+            deadline: self.datePicker.date.double,
+            uuid: UUID()
+        )
 
+        self.dataProvider.update(todo: todo, in: .todo)
+        self.mainViewDelegate?.editViewControllerDidFinish(self)
     }
 }
+
+// MARK: - TextView Delegate
 
 extension EditViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
@@ -231,12 +260,15 @@ extension EditViewController: UITextViewDelegate {
     }
 }
 
+// MARK: - Magic Numbers
+
 private enum EditVCScript {
     static let title = "TODO"
     static let cancel = "Cancel"
     static let done = "Done"
     static let textFieldPlaceHolder = "Title"
     static let textViewPlaceHolder = "1000자 이내로 입력해주세요"
+    static let untitled = "무제"
 }
 
 private enum EditVCConstraint {

@@ -12,6 +12,7 @@ class DataProvider {
     var updated: () -> Void = {}
     private var updatedTodoList = [[Todo]]() {
         didSet {
+            print("dataProvider didSet 불림: \(updatedTodoList)")
             updated()
         }
     }
@@ -22,13 +23,17 @@ class DataProvider {
             guard let self = self else {
                 return
             }
-
+            print("dataProvider reload 탔음: \(list)")
             self.updatedTodoList = list
-            print("리로드됨: \(self.updatedTodoList)")
         }
     }
 
     func updatedList() -> [[Todo]] {
         self.updatedTodoList
+    }
+
+    func update(todo: Todo, in section: TodoSection) {
+        self.todoList.add(todo: todo, in: section)
+        self.reload()
     }
 }

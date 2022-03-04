@@ -12,5 +12,5 @@ struct Todo: Equatable {
     var title: String
     var content: String
     var deadline: Double?
-    let uuid = UUID()
+    var uuid: UUID
 }

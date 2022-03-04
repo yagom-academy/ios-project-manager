@@ -77,8 +77,7 @@ class MainTableViewCell: UITableViewCell {
 
     func configureTodo(for todo: Todo) {
         let deadline = todo.deadline?.date ?? Date()
-
-        let date = DateUtils.deadlineFormat(date: deadline)
+        let date = DateFormatter.deadlineFormat.string(from: deadline)
 
         self.titleLabel.text = todo.title
         self.contentLabel.text = todo.content

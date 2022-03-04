@@ -12,9 +12,8 @@ class MainViewController: UIViewController {
 
     private var todoList = [[Todo]]() {
         didSet {
-            DispatchQueue.main.async {
-                self.reload()
-            }
+            print("todoList 업데이트함: \(todoList)")
+            viewIfLoaded?.setNeedsLayout()
         }
     }
 
@@ -75,6 +74,16 @@ class MainViewController: UIViewController {
         return tableView
     }()
 
+// MARK: - Modal View Controller
+
+    private let editViewController: EditViewController = {
+        let controller = EditViewController()
+        controller.modalPresentationStyle = .formSheet
+        controller.modalTransitionStyle = .crossDissolve
+
+        return controller
+    }()
+
 // MARK: - Override Method(s)
 
     override func viewDidLoad() {
@@ -85,26 +94,35 @@ class MainViewController: UIViewController {
 // MARK: - SetUp Controller
 
     private func setUpController() {
-        self.observeUpdate()
+        self.observeDateProvider()
         self.configureStackView()
         self.configureNavigationBar()
         self.setUpTableView()
+        self.setUpDelegate()
+    }
+
+// MARK: - Update Method
+
+    func updateAfterDismissEditView() {
+        self.todoList = self.dataProvider.updatedList()
     }
 
 // MARK: - Observing Method(s)
 
-    private func observeUpdate() {
+    private func observeDateProvider() {
         dataProvider.updated = { [weak self] in
-            DispatchQueue.main.async {
-                guard let self = self else {
-                    return
-                }
-
-                self.todoList = self.dataProvider.updatedList()
+            guard let self = self else {
+                return
             }
-        }
 
+            self.todoList = self.dataProvider.updatedList()
+        }
         self.dataProvider.reload()
+    }
+
+// MARK: - SetUp Delegate
+    private func setUpDelegate() {
+        self.editViewController.mainViewDelegate = self
     }
 
 // MARK: - Configure Views
@@ -177,24 +195,12 @@ class MainViewController: UIViewController {
         self.doneTableView.register(cellWithClass: MainTableViewCell.self)
     }
 
-// MARK: - Reloading Method
-
-    private func reload() {
-        self.todoTableView.reloadData()
-        self.doingTableView.reloadData()
-        self.doneTableView.reloadData()
-    }
-
 // MARK: - Button Tap Actions
 
     @objc
     private func plusButtonDidTap() {
-        let addTodoViewController = EditViewController()
-        addTodoViewController.modalPresentationStyle = .formSheet
-        addTodoViewController.modalTransitionStyle = .crossDissolve
-
         let navigationController = UINavigationController(
-            rootViewController: addTodoViewController
+            rootViewController: self.editViewController
         )
 
         self.present(navigationController, animated: true, completion: nil)
@@ -224,6 +230,23 @@ extension MainViewController: UITableViewDataSource {
 // MARK: - Table View Delegate
 
 extension MainViewController: UITableViewDelegate {
+}
+
+// MARK: - Edit ViewController Delegate Methods
+
+extension MainViewController: EditViewControllerDelegate {
+
+    func editViewControllerDidCancel(_ editViewController: EditViewController) {
+        print("DidCancel 호출")
+        editViewController.dismiss(animated: true, completion: nil)
+    }
+
+    func editViewControllerDidFinish(_ editViewController: EditViewController) {
+        print("DidFinish 호출")
+//        self.dataProvider.reload()
+        self.todoList = self.dataProvider.updatedList()
+        editViewController.dismiss(animated: true, completion: nil)
+    }
 }
 
 // MARK: - Magic Numbers

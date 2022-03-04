@@ -9,9 +9,21 @@ import Foundation
 
 class TodoList {
 
-    private var todoList = [[Todo(title: "기록된 정보가 없습니다", content: TodoListScript.emptyTodo)],
-                            [Todo(title: "기록된 정보가 없습니다", content: TodoListScript.emptyDoing)],
-                            [Todo(title: "기록된 정보가 없습니다", content: TodoListScript.emptyDone)]]
+    private var todoList = [[Todo(
+                                title: "기록된 정보가 없습니다",
+                                content: TodoListScript.emptyTodo,
+                                uuid: UUID()
+                            )],
+                            [Todo(
+                                title: "기록된 정보가 없습니다",
+                                content: TodoListScript.emptyDoing,
+                                uuid: UUID()
+                            )],
+                            [Todo(
+                                title: "기록된 정보가 없습니다",
+                                content: TodoListScript.emptyDone,
+                                uuid: UUID()
+                            )]]
 
     @discardableResult
     func remove(at todo: Todo, in section: TodoSection) -> Bool {
@@ -28,17 +40,19 @@ class TodoList {
         return true
     }
 
-    func add(Todo: Todo, in section: TodoSection) {
+    func add(todo: Todo, in section: TodoSection) {
         var todoListInSection = self.todoList[section.rawValue]
 
-        todoListInSection.append(Todo)
-
+        todoListInSection.append(todo)
         if todoListInSection.first?.deadline == nil {
             todoListInSection.removeFirst()
         }
+
+        self.todoList[section.rawValue] = todoListInSection
     }
 
     func fetch(completionHandler: @escaping ([[Todo]]) -> Void) {
+        print(self.todoList)
         completionHandler(self.todoList)
     }
 }
