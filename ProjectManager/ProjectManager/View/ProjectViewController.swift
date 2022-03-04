@@ -19,6 +19,10 @@ class ProjectViewController: UIViewController {
     @IBAction func addNewWork(_ sender: UIBarButtonItem) {
         let work = Work(title: "새로운 데이터", body: "새로운 바디", dueDate: Date(), sort: .doing)
         viewModel.addWork(work)
+        let storyboard = UIStoryboard(name: "ActionView", bundle: nil)
+        let viewController = storyboard.instantiateViewController(withIdentifier: "ActionView")
+        viewController.modalPresentationStyle = .formSheet
+        present(viewController, animated: true, completion: nil)
     }
     
     private func setupView() {
