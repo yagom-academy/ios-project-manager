@@ -1,6 +1,6 @@
 import Foundation
 
-class Work {
+struct Work {
     
     enum Sort {
         case todo

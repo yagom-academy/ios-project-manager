@@ -17,22 +17,22 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="WyA-ZI-I1J">
-                        <rect key="frame" x="15" y="0.0" width="399" height="96"/>
+                        <rect key="frame" x="15" y="5" width="399" height="86"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iap-sM-TUT">
-                                <rect key="frame" x="0.0" y="0.0" width="399" height="36.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="399" height="33"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="djm-qv-Ejf">
-                                <rect key="frame" x="0.0" y="42.5" width="399" height="25.5"/>
+                                <rect key="frame" x="0.0" y="39" width="399" height="22.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jxs-L4-Cnj">
-                                <rect key="frame" x="0.0" y="74" width="399" height="22"/>
+                                <rect key="frame" x="0.0" y="67.5" width="399" height="18.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -42,9 +42,9 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="WyA-ZI-I1J" firstAttribute="leading" secondItem="r87-6X-zkj" secondAttribute="leading" constant="15" id="8rG-lE-mQe"/>
-                    <constraint firstAttribute="bottom" secondItem="WyA-ZI-I1J" secondAttribute="bottom" id="Yvb-zO-agq"/>
+                    <constraint firstAttribute="bottom" secondItem="WyA-ZI-I1J" secondAttribute="bottom" constant="5" id="Yvb-zO-agq"/>
                     <constraint firstAttribute="trailing" secondItem="WyA-ZI-I1J" secondAttribute="trailing" id="emk-Ry-QAg"/>
-                    <constraint firstItem="WyA-ZI-I1J" firstAttribute="top" secondItem="r87-6X-zkj" secondAttribute="top" id="s1D-6u-b5A"/>
+                    <constraint firstItem="WyA-ZI-I1J" firstAttribute="top" secondItem="r87-6X-zkj" secondAttribute="top" constant="5" id="s1D-6u-b5A"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
