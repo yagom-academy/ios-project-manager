@@ -1,8 +1,8 @@
 import UIKit
 
 // TaskListDataSource의 View를 그리는 delegate가 TaskListViewController이다.
-class TaskListViewController: UIViewController, TaskListDataSourceDelegate {
-    private let taskListDataSource = TaskListDataSource()
+class TaskListViewController: UIViewController, TaskListViewProtocol {
+    private let taskListViewModel = TaskListViewModel()
     
     @IBOutlet weak var todoTableView: UITableView!
     @IBOutlet weak var doingTableView: UITableView!
@@ -11,7 +11,7 @@ class TaskListViewController: UIViewController, TaskListDataSourceDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        taskListDataSource.delegate = self // 이렇게 지정
+        taskListViewModel.delegate = self // 이렇게 지정
         
         todoTableView.dataSource = self
         let nib1 = UINib(nibName: "TaskTableViewCell", bundle: nil)
@@ -28,13 +28,13 @@ class TaskListViewController: UIViewController, TaskListDataSourceDelegate {
     
     @IBAction func touchUpAddButton(_ sender: UIBarButtonItem) {
         let newTask = Task(title: "123", body: "123", dueDate: Date())
-        taskListDataSource.create(task: newTask, of: .todo)
+        taskListViewModel.create(task: newTask, of: .todo)
         todoTableView.reloadData()
         
-        taskListDataSource.create(task: newTask, of: .doing)
+        taskListViewModel.create(task: newTask, of: .doing)
         doingTableView.reloadData()
         
-        taskListDataSource.create(task: newTask, of: .done)
+        taskListViewModel.create(task: newTask, of: .done)
         doneTableView.reloadData()
     }
 }
@@ -43,11 +43,11 @@ extension TaskListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch tableView {
         case todoTableView:
-            return taskListDataSource.todoTasks.count
+            return taskListViewModel.todoTasks.count
         case doingTableView:
-            return taskListDataSource.doingTasks.count
+            return taskListViewModel.doingTasks.count
         case doneTableView:
-            return taskListDataSource.doneTasks.count 
+            return taskListViewModel.doneTasks.count 
         default:
             return 0
         }
@@ -60,13 +60,13 @@ extension TaskListViewController: UITableViewDataSource {
         
         switch tableView {
         case todoTableView:
-            cell.applyDate(with: taskListDataSource.todoTasks[indexPath.row] )
+            cell.applyDate(with: taskListViewModel.todoTasks[indexPath.row] )
         case doingTableView:
-            cell.applyDate(with: taskListDataSource.doingTasks[indexPath.row] )
+            cell.applyDate(with: taskListViewModel.doingTasks[indexPath.row] )
         case doneTableView:
-            cell.applyDate(with: taskListDataSource.doneTasks[indexPath.row] )
+            cell.applyDate(with: taskListViewModel.doneTasks[indexPath.row] )
         default:
-            cell.applyDate(with: taskListDataSource.todoTasks[indexPath.row] )
+            cell.applyDate(with: taskListViewModel.todoTasks[indexPath.row] )
         }
         
         return cell

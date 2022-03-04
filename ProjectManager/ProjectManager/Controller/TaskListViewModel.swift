@@ -1,10 +1,10 @@
 import Foundation
 
-protocol TaskListDataSourceDelegate: AnyObject {
+protocol TaskListViewProtocol: AnyObject {
     
 }
 
-protocol TaskListDataSourceProtocol: AnyObject {
+protocol TaskListViewModelProtocol: AnyObject {
     var todoTasks: [Task] { get }
     var doingTasks: [Task] { get }
     var doneTasks: [Task] { get }
@@ -15,8 +15,8 @@ protocol TaskListDataSourceProtocol: AnyObject {
     func changeProcessStatus(of task: Task, to newProcessStatus: ProcessStatus)
 }
 
-class TaskListDataSource: TaskListDataSourceProtocol {
-    weak var delegate: TaskListDataSourceDelegate?
+class TaskListViewModel: TaskListViewModelProtocol {
+    weak var delegate: TaskListViewProtocol?
     
     var todoTasks: [Task] = []
     var doingTasks: [Task] = []
