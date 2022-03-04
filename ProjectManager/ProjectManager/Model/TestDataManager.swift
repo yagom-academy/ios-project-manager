@@ -8,15 +8,15 @@
 import Foundation
 
 class TestDataManager {
-    lazy var dataList: [TaskInfomation] = self.fetch()
+    lazy var dataList: [ToDoInfomation] = self.fetch()
     
-    func save(taskInfomation: TaskInfomation) {
+    func save(taskInfomation: ToDoInfomation) {
         dataList.append(taskInfomation)
     }
     
-    func delete(at deletTarget: TaskInfomation) {
-        let deleteTargetIndex = dataList.firstIndex { taskInfomation in
-            deletTarget.uuid == taskInfomation.uuid
+    func delete(at deletTarget: ToDoInfomation) {
+        let deleteTargetIndex = dataList.firstIndex { todoInfomation in
+            deletTarget.uuid == todoInfomation.uuid
         }
         guard let deleteTargetIndex = deleteTargetIndex else {
             return
@@ -24,7 +24,7 @@ class TestDataManager {
         self.dataList.remove(at: deleteTargetIndex)
     }
     
-    func fetch() -> [TaskInfomation] {
+    func fetch() -> [ToDoInfomation] {
         let sortedData = dataList.sorted { $0.deadline > $1.deadline }
         return sortedData
     }

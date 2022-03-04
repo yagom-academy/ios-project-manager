@@ -8,7 +8,7 @@
 import UIKit
 
 class TaskCell: UITableViewCell {
-    let taskCellViewModel = TaskCellViewModel()
+    let taskCellViewModel = ToDoViewModel()
     private let cellStackView = UIStackView()
     private let titleLable = UILabel()
     private let explanationLabel = UILabel()
@@ -19,7 +19,8 @@ class TaskCell: UITableViewCell {
           style: style,
           reuseIdentifier: reuseIdentifier
         )
-        contentView.addSubview(cellStackView)
+        setupCellStackView()
+        setupCellConstraints()
     }
     
     required init?(coder: NSCoder) {
@@ -27,6 +28,7 @@ class TaskCell: UITableViewCell {
     }
     
     func setupCellStackView() {
+        contentView.addSubview(cellStackView)
         cellStackView.addArrangedSubview(titleLable)
         cellStackView.addArrangedSubview(explanationLabel)
         cellStackView.addArrangedSubview(deadLineLabel)
@@ -44,8 +46,6 @@ class TaskCell: UITableViewCell {
     }
     
     func configure(with indexPath: Int) {
-        titleLable.text = taskCellViewModel.cellData(indexPath: indexPath).title
-        explanationLabel.text = taskCellViewModel.cellData(indexPath: indexPath).explanation
-        deadLineLabel.text = taskCellViewModel.cellData(indexPath: indexPath).localizedDeadline
+        
     }
 }

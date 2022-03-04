@@ -7,10 +7,10 @@
 
 import Foundation
 
-struct TaskInfomation {
+struct ToDoInfomation {
     let uuid: UUID?
     var title: String
-    var explanation: String
+    var discription: String
     var deadline: Double
     
     var localizedDeadline: String {
