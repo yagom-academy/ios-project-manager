@@ -11,7 +11,7 @@ enum CollectionError: Error {
     case indexOutOfRange
 }
 
-extension CollectionError {
+extension CollectionError: LocalizedError {
     var description: String {
         switch self {
         case .indexOutOfRange:
