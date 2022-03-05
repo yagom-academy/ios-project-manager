@@ -172,7 +172,7 @@ class MainViewController: UIViewController {
     private func setUpTableView() {
         self.setUpTableViewDataSource()
         self.setUpTableViewDelegate()
-        self.registerTableViewCell()
+        self.registerTableView()
     }
 
     private func setUpTableViewDataSource() {
@@ -187,10 +187,21 @@ class MainViewController: UIViewController {
         self.doneTableView.delegate = self
     }
 
+    private func registerTableView() {
+        self.registerTableViewCell()
+        self.registerTableViewHeader()
+    }
+
     private func registerTableViewCell() {
         self.todoTableView.register(cellWithClass: MainTableViewCell.self)
         self.doingTableView.register(cellWithClass: MainTableViewCell.self)
         self.doneTableView.register(cellWithClass: MainTableViewCell.self)
+    }
+
+    private func registerTableViewHeader() {
+        self.todoTableView.register(headerFooterViewClassWith: MainTableViewHeaderView.self)
+        self.doingTableView.register(headerFooterViewClassWith: MainTableViewHeaderView.self)
+        self.doneTableView.register(headerFooterViewClassWith: MainTableViewHeaderView.self)
     }
 
 // MARK: - SetUp TableView LongPressGesture
@@ -397,6 +408,23 @@ extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
+
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header = tableView.dequeueReusableHeaderFooterView(withClass: MainTableViewHeaderView.self)
+        let todoCountInSection = self.divideData(as: tableView).count
+
+        guard let setUpSection = self.divideData(as: tableView).first?.section else {
+            return header
+        }
+
+        header.configureContents(todoCount: todoCountInSection, in: setUpSection.rawValue)
+
+        return header
+    }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return MainVCConstraint.headerHeight
+    }
 }
 
 // MARK: - Edit ViewController Delegate Methods
@@ -438,6 +466,7 @@ private enum MainVCConstraint {
     static let stackViewSpace: CGFloat = 10
     static let stackViewTopAnchor: CGFloat = 26
     static let estimatedCellHeight: CGFloat = 100
+    static let headerHeight: CGFloat = 33
 }
 
 private enum MainVCImageName {

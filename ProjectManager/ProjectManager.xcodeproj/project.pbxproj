@@ -10,6 +10,8 @@
 		0D36ADF927D0F68E00A93720 /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D36ADF827D0F68E00A93720 /* EditViewController.swift */; };
 		0D36ADFF27D108AD00A93720 /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D36ADFE27D108AD00A93720 /* UITextField+Extension.swift */; };
 		0D36AE0127D10B9E00A93720 /* UITextView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D36AE0027D10B9E00A93720 /* UITextView+Extension.swift */; };
+		0D5B293927D35C8100F30925 /* MainTableViewHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5B293827D35C8100F30925 /* MainTableViewHeaderView.swift */; };
+		0D5B293B27D35DEF00F30925 /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5B293A27D35DEF00F30925 /* UILabel+Extension.swift */; };
 		0D7A352927D05184007F26F6 /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7A352827D05184007F26F6 /* DataProvider.swift */; };
 		0D7A352B27D05A19007F26F6 /* TodoSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7A352A27D05A19007F26F6 /* TodoSection.swift */; };
 		0D7A352D27D075D5007F26F6 /* MainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7A352C27D075D5007F26F6 /* MainTableViewCell.swift */; };
@@ -39,6 +41,8 @@
 		0D36ADF827D0F68E00A93720 /* EditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
 		0D36ADFE27D108AD00A93720 /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		0D36AE0027D10B9E00A93720 /* UITextView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Extension.swift"; sourceTree = "<group>"; };
+		0D5B293827D35C8100F30925 /* MainTableViewHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewHeaderView.swift; sourceTree = "<group>"; };
+		0D5B293A27D35DEF00F30925 /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
 		0D7A352827D05184007F26F6 /* DataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
 		0D7A352A27D05A19007F26F6 /* TodoSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoSection.swift; sourceTree = "<group>"; };
 		0D7A352C27D075D5007F26F6 /* MainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
@@ -83,6 +87,7 @@
 			children = (
 				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
 				0D7A352C27D075D5007F26F6 /* MainTableViewCell.swift */,
+				0D5B293827D35C8100F30925 /* MainTableViewHeaderView.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -156,6 +161,7 @@
 				0D8088E227CFC35E00199897 /* UITableView+Extension.swift */,
 				0D36ADFE27D108AD00A93720 /* UITextField+Extension.swift */,
 				0D36AE0027D10B9E00A93720 /* UITextView+Extension.swift */,
+				0D5B293A27D35DEF00F30925 /* UILabel+Extension.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -360,7 +366,9 @@
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				0D7A352B27D05A19007F26F6 /* TodoSection.swift in Sources */,
 				0DF22DEF27D2122200CE0BD5 /* EditViewControllerDelegate.swift in Sources */,
+				0D5B293927D35C8100F30925 /* MainTableViewHeaderView.swift in Sources */,
 				0D8088D627CFA0E500199897 /* Double+Extension.swift in Sources */,
+				0D5B293B27D35DEF00F30925 /* UILabel+Extension.swift in Sources */,
 				0D8088D427CFA0DB00199897 /* Date+Extension.swift in Sources */,
 				0D36AE0127D10B9E00A93720 /* UITextView+Extension.swift in Sources */,
 				0D8088E327CFC35E00199897 /* UITableView+Extension.swift in Sources */,

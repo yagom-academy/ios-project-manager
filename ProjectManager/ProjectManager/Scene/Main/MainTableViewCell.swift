@@ -9,7 +9,7 @@ import UIKit
 
 class MainTableViewCell: UITableViewCell {
 
-// MARK: - View Component
+// MARK: - View Components
 
     private let cellStackView: UIStackView = {
         let stackView = UIStackView()
@@ -76,8 +76,15 @@ class MainTableViewCell: UITableViewCell {
 // MARK: - Configure Contents
 
     func configureTodo(for todo: Todo) {
-        let deadline = todo.deadline?.date ?? Date()
+        let today = Date()
+        let deadline = todo.deadline?.date ?? today
         let date = DateFormatter.deadlineFormat.string(from: deadline)
+
+        if deadline < today {
+            self.deadlineLabel.textColor = .systemRed
+        } else if deadline == today {
+            self.deadlineLabel.textColor = .systemBlue
+        }
 
         self.titleLabel.text = todo.title
         self.contentLabel.text = todo.content
