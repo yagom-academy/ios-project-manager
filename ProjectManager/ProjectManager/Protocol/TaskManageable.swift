@@ -16,5 +16,5 @@ protocol TaskManageable: AnyObject {
     func createTask(title: String, body: String, dueDate: Date)
     func modifyTask(target: Task?, title: String, body: String, dueDate: Date) throws
     func changeTaskStatus(target: Task?, to status: TaskStatus) throws
-    func deleteTask(target: Task) throws
+    func deleteTask(target: Task?) throws
 }

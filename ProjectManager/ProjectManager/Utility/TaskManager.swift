@@ -47,11 +47,11 @@ class TaskManager: TaskManageable {
         target.status = status
     }
     
-    func deleteTask(target: Task) throws {
-        guard let targetIndex = tasks.firstIndex(of: target) else {
-            throw TaskManagerError.noTaskFound
+    func deleteTask(target: Task?) throws {
+        guard let target = target else {
+            throw TaskManagerError.taskIsNil
         }
         
-        tasks.remove(at: targetIndex)
+        tasks.removeAll(where: { $0 == target })
     }
 }

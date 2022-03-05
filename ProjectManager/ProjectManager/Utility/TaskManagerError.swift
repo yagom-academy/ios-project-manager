@@ -8,6 +8,5 @@
 import Foundation
 
 enum TaskManagerError: Error {
-    case noTaskFound
     case taskIsNil
 }
