@@ -29,17 +29,29 @@ class TaskManager: TaskManageable {
         tasks.append(newTask)
     }
     
-    func modifyTask(target: Task, title: String, body: String, dueDate: Date) {
+    func modifyTask(target: Task?, title: String, body: String, dueDate: Date) throws {
+        guard let target = target else {
+            throw TaskManagerError.taskIsNil
+        }
+        
         target.title = title
         target.body = body
         target.dueDate = dueDate
     }
     
-    func changeTaskStatus(target: Task, to status: TaskStatus) {
+    func changeTaskStatus(target: Task?, to status: TaskStatus) throws {
+        guard let target = target else {
+            throw TaskManagerError.taskIsNil
+        }
+        
         target.status = status
     }
     
-    func deleteTask(target: Task) {
-        tasks.removeAll(where: { $0 == target })
+    func deleteTask(target: Task) throws {
+        guard let targetIndex = tasks.firstIndex(of: target) else {
+            throw TaskManagerError.noTaskFound
+        }
+        
+        tasks.remove(at: targetIndex)
     }
 }

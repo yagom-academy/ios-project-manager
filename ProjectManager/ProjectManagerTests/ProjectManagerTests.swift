@@ -35,24 +35,24 @@ class ProjectManagerTests: XCTestCase {
     func test_Task_status_변경_검증() {
         let doingTarget = taskManager.todoTasks.first!
         let doneTarget = taskManager.todoTasks.last!
-        taskManager.changeTaskStatus(target: doingTarget, to: .doing)
-        taskManager.changeTaskStatus(target: doneTarget, to: .done)
+        XCTAssertNoThrow(try taskManager.changeTaskStatus(target: doingTarget, to: .doing))
+        XCTAssertNoThrow(try taskManager.changeTaskStatus(target: doneTarget, to: .done))
         XCTAssertTrue(taskManager.doingTasks.first! == doingTarget)
         XCTAssertTrue(taskManager.doneTasks.first! == doneTarget)
     }
     
     func test_Task_수정_검증() {
         let target = taskManager.todoTasks.first!
-        taskManager.modifyTask(target: target, title: "제목 변경", body: "내용 변경", dueDate: Date(timeIntervalSince1970: 1646289747.609154))
+        XCTAssertNoThrow(try taskManager.modifyTask(target: target, title: "제목 변경", body: "내용 변경", dueDate: Date(timeIntervalSince1970: 1646289747.609154)))
         XCTAssertEqual(target.title, "제목 변경")
         XCTAssertEqual(target.body, "내용 변경")
         XCTAssertEqual(target.dueDate, Date(timeIntervalSince1970: 1646289747.609154))
     }
 
     func test_Task_status_변경_후_삭제_검증() {
-        taskManager.changeTaskStatus(target: taskManager.todoTasks.last!, to: .done)
+        XCTAssertNoThrow(try taskManager.changeTaskStatus(target: taskManager.todoTasks.last!, to: .done))
         let target = taskManager.doneTasks.first!
-        taskManager.deleteTask(target: target)
+        XCTAssertNoThrow(try taskManager.deleteTask(target: target))
         XCTAssertTrue(taskManager.doneTasks.isEmpty)
     }
     

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C101D2A527D341E200334F5C /* TaskManagerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C101D2A427D341E200334F5C /* TaskManagerError.swift */; };
 		C182E78427CD0E9D00F6218C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C182E78327CD0E9D00F6218C /* ContentView.swift */; };
 		C182E78727CD43DE00F6218C /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = C182E78627CD43DE00F6218C /* FirebaseAnalytics */; };
 		C182E7A127CDD57800F6218C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C182E7A027CDD57800F6218C /* GoogleService-Info.plist */; };
@@ -39,6 +40,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C101D2A427D341E200334F5C /* TaskManagerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManagerError.swift; sourceTree = "<group>"; };
 		C182E78327CD0E9D00F6218C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		C182E7A027CDD57800F6218C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C1F2B92F27CE69D100B8FD51 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 			isa = PBXGroup;
 			children = (
 				C1FE9BBC27CFBD6300397B90 /* TaskManager.swift */,
+				C101D2A427D341E200334F5C /* TaskManagerError.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -310,6 +313,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C1FE9BBD27CFBD6300397B90 /* TaskManager.swift in Sources */,
+				C101D2A527D341E200334F5C /* TaskManagerError.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C182E78427CD0E9D00F6218C /* ContentView.swift in Sources */,
 				C1FE9BBB27CFB68600397B90 /* Task.swift in Sources */,
