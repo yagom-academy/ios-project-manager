@@ -6,7 +6,6 @@
 //
 
 import XCTest
-import Firebase
 @testable import ProjectManager
 
 class ProjectManagerTests: XCTestCase {
@@ -47,7 +46,7 @@ class ProjectManagerTests: XCTestCase {
         taskManager.modifyTask(target: target, title: "제목 변경", body: "내용 변경", dueDate: Date(timeIntervalSince1970: 1646289747.609154))
         XCTAssertEqual(target.title, "제목 변경")
         XCTAssertEqual(target.body, "내용 변경")
-        XCTAssertEqual(target.dueDate, Timestamp(date: Date(timeIntervalSince1970: 1646289747.609154)))
+        XCTAssertEqual(target.dueDate, Date(timeIntervalSince1970: 1646289747.609154))
     }
 
     func test_Task_status_변경_후_삭제_검증() {
@@ -60,6 +59,6 @@ class ProjectManagerTests: XCTestCase {
     func test_Task_생성_후_dueDate_정렬_검증() {
         taskManager.createTask(title: "오래된 할일", body: "1991년 11월 6일에 저장한 할일", dueDate: Date(timeIntervalSince1970: 689400000))
         let target = taskManager.todoTasks.first!
-        XCTAssertTrue(target.dueDate == Timestamp(seconds: 689400000, nanoseconds: 0))
+        XCTAssertTrue(target.dueDate == Date(timeIntervalSince1970: 689400000))
     }
 }

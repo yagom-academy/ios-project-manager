@@ -6,21 +6,20 @@
 //
 
 import Foundation
-import Firebase
 
 class Task: Equatable {
     
     let id: String
     var title: String
     var body: String
-    var dueDate: Timestamp
+    var dueDate: Date
     var status: TaskStatus
     
     init(title: String, body: String, dueDate: Date) {
         self.id = UUID().uuidString
         self.title = title
         self.body = body
-        self.dueDate = Timestamp(date: dueDate)
+        self.dueDate = dueDate
         self.status = .todo
     }
     
