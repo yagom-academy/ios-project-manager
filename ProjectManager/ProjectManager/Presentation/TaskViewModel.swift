@@ -1,22 +1,26 @@
 import Foundation
 
 protocol TaskViewModelInput {
-    func executeFetch()
+    func didChangeStatus()
 }
 
 protocol TaskViewModelOutput {
-    var tasks: [TaskEntity] { get set }
+    var formattedTasks: [TaskEntity] { get set }
 }
 
-final class TaskViewModel: TaskViewModelInput, TaskViewModelOutput {
+protocol TaskViewModel: TaskViewModelInput, TaskViewModelOutput {}
+
+final class TasksViewModel: TaskViewModel {
     private var useCase: TaskUseCase
-    var tasks: [TaskEntity] = []
+    var formattedTasks: [TaskEntity] = []
 
     init(useCase: TaskUseCase) {
         self.useCase = useCase
     }
     
+    func didChangeStatus() {}
+    
     func executeFetch() {
-        tasks = useCase.execute()
+        formattedTasks = useCase.executeFetch()
     }
 }
