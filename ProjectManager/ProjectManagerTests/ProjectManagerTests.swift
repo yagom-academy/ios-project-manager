@@ -33,8 +33,8 @@ class ProjectManagerTests: XCTestCase {
     }
     
     func test_Task_status_변경_검증() {
-        let doingTarget = taskManager.todoTasks.first!
-        let doneTarget = taskManager.todoTasks.last!
+        let doingTarget = taskManager.todoTasks.first
+        let doneTarget = taskManager.todoTasks.last
         XCTAssertNoThrow(try taskManager.changeTaskStatus(target: doingTarget, to: .doing))
         XCTAssertNoThrow(try taskManager.changeTaskStatus(target: doneTarget, to: .done))
         XCTAssertTrue(taskManager.doingTasks.first! == doingTarget)
@@ -48,12 +48,30 @@ class ProjectManagerTests: XCTestCase {
         XCTAssertEqual(target.body, "내용 변경")
         XCTAssertEqual(target.dueDate, Date(timeIntervalSince1970: 1646289747.609154))
     }
+    
+    func test_Task_수정_실패하면_에러throw_검증() {
+        weak var target = taskManager.todoTasks.first
+        XCTAssertNoThrow(try taskManager.deleteTask(target: target))
+        XCTAssertThrowsError(try taskManager.modifyTask(target: target, title: "제목 변경", body: "내용 변경", dueDate: Date()))
+    }
 
     func test_Task_status_변경_후_삭제_검증() {
         XCTAssertNoThrow(try taskManager.changeTaskStatus(target: taskManager.todoTasks.last!, to: .done))
-        let target = taskManager.doneTasks.first!
+        let target = taskManager.doneTasks.first
         XCTAssertNoThrow(try taskManager.deleteTask(target: target))
         XCTAssertTrue(taskManager.doneTasks.isEmpty)
+    }
+    
+    func test_Task_status_변경_실패하면_에러throw_검증() {
+        weak var target = taskManager.todoTasks.first
+        XCTAssertNoThrow(try taskManager.deleteTask(target: target))
+        XCTAssertThrowsError(try taskManager.changeTaskStatus(target: target, to: .doing))
+    }
+    
+    func test_Task_삭제_실패하면_에러throw_검증() {
+        weak var target = taskManager.todoTasks.first
+        XCTAssertNoThrow(try taskManager.deleteTask(target: target))
+        XCTAssertThrowsError(try taskManager.deleteTask(target: target))
     }
     
     func test_Task_생성_후_dueDate_정렬_검증() {

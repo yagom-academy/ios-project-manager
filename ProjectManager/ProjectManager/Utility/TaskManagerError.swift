@@ -9,4 +9,5 @@ import Foundation
 
 enum TaskManagerError: Error {
     case taskIsNil
+    case noTaskFound
 }

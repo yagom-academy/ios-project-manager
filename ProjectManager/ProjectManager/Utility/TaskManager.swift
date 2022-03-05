@@ -52,6 +52,10 @@ class TaskManager: TaskManageable {
             throw TaskManagerError.taskIsNil
         }
         
-        tasks.removeAll(where: { $0 == target })
+        guard let targetIndex = tasks.firstIndex(of: target) else {
+            throw TaskManagerError.noTaskFound
+        }
+        
+        tasks.remove(at: targetIndex)
     }
 }
