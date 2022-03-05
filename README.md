@@ -8,16 +8,19 @@
 
 <br>
 
-# ⚙️ STEP 2 - 모델 타입 구현
+# ⚙️ [STEP 2-1] 모델 타입 구현
 
 ### 1️⃣ '할일'을 표현하기 위한 Task, TaskStatus 타입 구현
 
 - 이번 프로젝트에서 다뤄야 하는 주요 `Entity`는 `할일(Task)`입니다.
 - Entity 객체 간의 Identity 를 구별하기 위해 `id` 값을 let 프로퍼티로 선언했습니다.
 - 그 외의 title, body, dueDate, status 는 변경될 수 있는 값이므로, var 프로퍼티로 선언했습니다.
-- id 는 불변이지만, 그 외의 프로퍼티는 자주 수정될 수 있으므로, 값타입인 `구조체`에서 `mutating` 키워드를 붙이기 보다는, `클래스` 타입으로 모델을 구현했습니다.
+- id 는 불변이지만, 그 외의 프로퍼티는 자주 수정될 수 있습니다.
+값타입인 `구조체`에서 `mutating` 키워드를 붙이기 보다는, `클래스` 타입으로 모델을 구현했습니다.
+  - ⚠️ [모델을 클래스로 구현한 경우의 단점](https://github.com/yagom-academy/ios-project-manager/pull/81#discussion_r820076932)
 - Task 인스턴스가 생성될 때, id 는 String 타입으로 자동 생성되도록 `이니셜라이저`를 만들었습니다.
-- 기한(dueDate)은 `Firestore`와의 연동을 고려하여, Date 타입으로 입력 받은 후 `TimeInterval(Double)` 타입으로 변환합니다.
+- 기한(dueDate)은 모델에서 `Date` 타입으로 관리합니다.
+그러면 `Firebase`에 업로드할 땐 `Timestamp` 타입이 되고, 다운로드 할 때는 [dateValue()](https://firebase.google.com/docs/reference/swift/firebasefirestore/api/reference/Classes/Timestamp#datevalue) 메서드를 사용하여 다시 Date 타입으로 변환할 수 있습니다.
 - Task 가 생성될 때는 기본적으로 `TODO` status 로 설정됩니다.
 - Task 인스턴스 간의 `동일성(id 매칭)`을 확인할 때 `==` 연산자를 사용할 수 있도록 `Equatable` 프로토콜을 채택했습니다.
 
@@ -27,14 +30,14 @@ class Task: Equatable {
     let id: String
     var title: String
     var body: String
-    var dueDate: TimeInterval
+    var dueDate: Date
     var status: TaskStatus
     
     init(title: String, body: String, dueDate: Date) {
         self.id = UUID().uuidString
         self.title = title
         self.body = body
-        self.dueDate = dueDate.timeIntervalSince1970
+        self.dueDate = dueDate
         self.status = .todo
     }
     
@@ -61,6 +64,7 @@ enum TaskStatus {
 - 할일(Task)을 보여줄 때, dueDate 가 `오래된 순서대로 정렬`될 수 있도록, Property Observer `didSet`을 사용했습니다.
 - 전체 데이터에 해당하는 tasks 배열이 항상 오래된 순서대로 정렬되어 있으므로, 연산 프로퍼티의 리턴값으로 나오는 배열에서도 정렬을 유지할 것입니다.
 - TaskManager `기능의 추상화`를 위해 TaskManageable 프로토콜 구현했습니다.
+- Task 수정/삭제 메서드는 파라미터로 `옵셔널 Task?`를 받고, 내부에서 `옵셔널 바인딩`을 하고 에러를 던질 수 있습니다.
 
 ```swift
 class TaskManager: TaskManageable {
@@ -85,18 +89,34 @@ class TaskManager: TaskManageable {
         tasks.append(newTask)
     }
     
-    func modifyTask(target: Task, title: String, body: String, dueDate: Date) {
+    func modifyTask(target: Task?, title: String, body: String, dueDate: Date) throws {
+        guard let target = target else {
+            throw TaskManagerError.taskIsNil
+        }
+        
         target.title = title
         target.body = body
-        target.dueDate = dueDate.timeIntervalSince1970
+        target.dueDate = dueDate
     }
     
-    func changeTaskStatus(target: Task, to status: TaskStatus) {
+    func changeTaskStatus(target: Task?, to status: TaskStatus) throws {
+        guard let target = target else {
+            throw TaskManagerError.taskIsNil
+        }
+        
         target.status = status
     }
     
-    func deleteTask(target: Task) {
-        tasks.removeAll(where: { $0 == target })
+    func deleteTask(target: Task?) throws {
+        guard let target = target else {
+            throw TaskManagerError.taskIsNil
+        }
+        
+        guard let targetIndex = tasks.firstIndex(of: target) else {
+            throw TaskManagerError.noTaskFound
+        }
+        
+        tasks.remove(at: targetIndex)
     }
 }
 ```
@@ -106,16 +126,19 @@ class TaskManager: TaskManageable {
 ### 3️⃣ TaskManager 기능에 대한 Unit Test 코드 작성
 
 - `setUpWithError`, `tearDownWithError` 메서드를 이용해서 각 케이스 메서드가 모두 동일한 조건에서 실행될 수 있도록 했습니다.
-- 테스트 메서드는 5개 작성했으며, 앞으로 추가될 수 있습니다. 😄
+- 테스트 메서드는 8개 작성했으며, 앞으로 추가될 수 있습니다. 😄
   - Task 인스턴스 생성 검증
   - TaskStatus 변경 검증
   - Task 수정 검증
+  - Task 수정 실패(에러) 검증
   - TaskStatus 변경 후 삭제 검증
+  - TaskStatus 변경 실패(에러) 검증
+  - Task 삭제 실패(에러) 검증Task 생성 후 dueDate 오래된 순서로 정렬 검증
   - Task 생성 후 dueDate 오래된 순서로 정렬 검증
 
 <br>
 
-# ⚙️ STEP 1 - 라이브러리 의존성 추가 및 환경 설정
+# ⚙️ [STEP 1] 라이브러리 의존성 추가 및 환경 설정
 
 ### 1️⃣ SwiftUI -> UIKit Intergration
 
