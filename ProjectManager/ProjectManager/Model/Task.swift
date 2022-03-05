@@ -12,13 +12,18 @@ class Task: Identifiable {
     var title: String
     var content: String
     var limitDate: Date
+    var status: TaskStatus
+    var statusModifiedDate: TimeInterval
     
-    init(id: UUID = UUID(), title: String, content: String, limitDate: Date) {
+    init(id: UUID = UUID(), title: String, content: String, limitDate: Date, status: TaskStatus, statusModifiedDate: TimeInterval) {
         self.id = id
         self.title = title
         self.content = content
         self.limitDate = limitDate
+        self.status = status
+        self.statusModifiedDate = statusModifiedDate
     }
+    
 }
 
 extension Task: Equatable {

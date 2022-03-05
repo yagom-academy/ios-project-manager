@@ -8,9 +8,27 @@
 import Foundation
 
 class TaskManager {
-    func insert(taskType: TaskType, task: Task) {
-        var store = taskType.store
-        store.insert(Task(title: "test2", content: "test content2", limitDate: Date()), at: 0)
+    private var tasks: [Task] = []
+    
+    var todoTasks: [Task] {
+        return tasks.filter { $0.status == .todo }
+    }
+    var doingTasks: [Task] {
+        return tasks.filter { $0.status == .doing }
+    }
+    var doneTasks: [Task] {
+        return tasks.filter { $0.status == .done }
+    }
+    
+    func insert(title: String, content: String, date: Date) {
+        let task = Task(
+            title: title,
+            content: content,
+            limitDate: date,
+            status: .todo,
+            statusModifiedDate: Date().timeIntervalSince1970
+        )
+        tasks.insert(task, at: 0)
     }
     
     func update(task: Task?, title: String, content: String, date: Date) {
@@ -22,8 +40,11 @@ class TaskManager {
         task.limitDate = date
     }
     
-    func delete(taskType: TaskType, task: Task) {
-        var store = taskType.store
-        store.removeAll { $0 == task }
+    func delete(task: Task) {
+        tasks.removeAll { $0 == task }
+    }
+    
+    func changeStatus( task: Task, _ taskStatus: TaskStatus) {
+        task.status = taskStatus
     }
 }
