@@ -1,7 +1,7 @@
 import Foundation
 
 protocol TaskUseCase {
-    func execute() -> [TaskEntity]
+    func executeFetch() -> [TaskEntity]
     func changeStatus()
     func delete()
 }
@@ -13,8 +13,8 @@ final class FetchTaskUseCase: TaskUseCase {
         self.repository = repository
     }
     
-    func execute() -> [TaskEntity] {
-        return repository.fetchTasks()
+    func executeFetch() -> [TaskEntity] {
+        return repository.readAll()
     }
     
     func changeStatus() {}
