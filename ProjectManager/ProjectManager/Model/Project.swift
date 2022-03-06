@@ -9,7 +9,7 @@ import Foundation
 
 struct Project {
     // MARK: - Property
-    private (set) let identifier: UUID?
+    let identifier: UUID?
     private (set) var title: String?
     private (set) var deadline: Date?
     private (set) var description: String?

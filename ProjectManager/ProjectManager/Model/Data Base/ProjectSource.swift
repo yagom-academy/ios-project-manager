@@ -7,7 +7,7 @@
 
 import Foundation
 
-class ProjectSource<T: Hashable>: LocalDataBase {
+final class ProjectSource<T: Hashable>: LocalDataBase {
     
     typealias Item = Project
     
@@ -33,6 +33,10 @@ class ProjectSource<T: Hashable>: LocalDataBase {
         return projects[identifierString]
     }
     
+    func read(of status: Status) -> [Project]? {
+        return projects.values.filter { project in project.status == status }
+    }
+    
     func update<T>(of identifier: T, with content: [String : Any]) where T : Hashable {
         guard let identifierString = identifier as? String,
               var updatingProject = projects[identifierString] else {
@@ -40,6 +44,16 @@ class ProjectSource<T: Hashable>: LocalDataBase {
         }
         
         updatingProject.updateContent(with: content)
+        projects.updateValue(updatingProject, forKey: identifierString)
+    }
+    
+    func update<T>(of identifier: T, with status: Status) where T : Hashable {
+        guard let identifierString = identifier as? String,
+              var updatingProject = projects[identifierString] else {
+            return
+        }
+        
+        updatingProject.updateStatus(with: status)
         projects.updateValue(updatingProject, forKey: identifierString)
     }
     
