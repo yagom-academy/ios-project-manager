@@ -12,11 +12,23 @@ struct TaskListView: View {
     let tasks: [Task]
     
     var body: some View {
-        List {
-            ForEach(tasks) { task in
-                TaskListCellView(task: task)
+        VStack {
+            HStack(spacing: 10) {
+                Text("TODO")
+                    .font(.largeTitle)
+                Circle()
+                    .frame(width: 25, height: 25)
+                    .foregroundColor(.primary)
+                Spacer()
             }
+            .padding(EdgeInsets(top: 11, leading: 21, bottom: -1, trailing: 21))
+            List {
+                ForEach(tasks) { task in
+                    TaskListCellView(task: task)
+                }
+            }
+            .listStyle(.plain)
         }
-        .listStyle(.grouped)
+        .background(Color(UIColor.systemGray6))
     }
 }

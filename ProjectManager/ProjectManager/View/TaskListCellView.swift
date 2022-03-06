@@ -19,13 +19,13 @@ struct TaskListCellView: View {
                 .truncationMode(.tail)
             Text(task.body)
                 .font(.body)
-                .foregroundColor(.gray)
+                .foregroundColor(.secondary)
                 .lineLimit(3)
                 .truncationMode(.tail)
             Text(task.dueDate.dateString)
                 .font(.callout)
-                .foregroundColor(task.dueDate.isOverdue ? .red : .black)
+                .foregroundColor(task.dueDate.isOverdue ? .red : .primary)
         }
-        .padding(.all, 10)
+        .padding(.all, 5)
     }
 }
