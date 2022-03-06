@@ -26,14 +26,7 @@ class TaskStorage {
         return tasks.filter { $0.status == .done }
     }
     
-    func insert(title: String, content: String, date: Date) {
-        let task = Task(
-            title: title,
-            content: content,
-            limitDate: date,
-            status: .todo,
-            statusModifiedDate: Date().timeIntervalSince1970
-        )
+    func insert(_ task: Task) {
         tasks.insert(task, at: 0)
     }
     
@@ -46,7 +39,10 @@ class TaskStorage {
         task.limitDate = date
     }
     
-    func delete(task: Task) {
+    func delete(task: Task?) {
+        guard let task = task else {
+            return
+        }
         tasks.removeAll { $0 == task }
     }
     
