@@ -50,6 +50,7 @@ class ProjectManagerViewModel: ObservableObject {
         )
         try? model.update(task, to: newTask)
     }
+    
 }
 
 extension ProjectManagerViewModel {
