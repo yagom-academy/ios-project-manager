@@ -9,10 +9,11 @@ import Foundation
 
 struct Project {
     // MARK: - Property
-    private var title: String?
-    private var deadline: Date?
-    private var description: String?
-    private var status: Status
+    private (set) let identifier: UUID?
+    private (set) var title: String?
+    private (set) var deadline: Date?
+    private (set) var description: String?
+    private (set) var status: Status
     
     var isExpired: Bool {
         let currentDate = Date()
