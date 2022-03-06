@@ -21,8 +21,10 @@
 		F3C53F4727D0892400D7CE4E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F3C53F4627D0892400D7CE4E /* GoogleService-Info.plist */; };
 		F3C53F4D27D10AEA00D7CE4E /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C53F4C27D10AEA00D7CE4E /* Task.swift */; };
 		F3C53F5127D11FE800D7CE4E /* TaskStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C53F5027D11FE800D7CE4E /* TaskStatus.swift */; };
-		F3C53F5527D1202300D7CE4E /* TaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C53F5427D1202300D7CE4E /* TaskManager.swift */; };
+		F3C53F5527D1202300D7CE4E /* TaskStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C53F5427D1202300D7CE4E /* TaskStorage.swift */; };
 		F3C53F7527D1FCD800D7CE4E /* ProjectManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C53F7427D1FCD800D7CE4E /* ProjectManagerTests.swift */; };
+		F3C53F7D27D5227F00D7CE4E /* TaskInteractors.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C53F7C27D5227F00D7CE4E /* TaskInteractors.swift */; };
+		F3C53F7F27D5251600D7CE4E /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C53F7E27D5251500D7CE4E /* AppState.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,9 +49,11 @@
 		F3C53F4627D0892400D7CE4E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F3C53F4C27D10AEA00D7CE4E /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		F3C53F5027D11FE800D7CE4E /* TaskStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskStatus.swift; sourceTree = "<group>"; };
-		F3C53F5427D1202300D7CE4E /* TaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManager.swift; sourceTree = "<group>"; };
+		F3C53F5427D1202300D7CE4E /* TaskStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskStorage.swift; sourceTree = "<group>"; };
 		F3C53F6B27D1FCBE00D7CE4E /* ProjectManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProjectManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3C53F7427D1FCD800D7CE4E /* ProjectManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectManagerTests.swift; sourceTree = "<group>"; };
+		F3C53F7C27D5227F00D7CE4E /* TaskInteractors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskInteractors.swift; sourceTree = "<group>"; };
+		F3C53F7E27D5251500D7CE4E /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +101,7 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
+				F3C53F7B27D521CC00D7CE4E /* ViewModel */,
 				F3C53F4B27D10AC600D7CE4E /* Model */,
 				F374A11727CDD4AE0083CC73 /* AppLifecycle */,
 				F374A11827CDD50E0083CC73 /* View */,
@@ -130,7 +135,7 @@
 			children = (
 				F3C53F4C27D10AEA00D7CE4E /* Task.swift */,
 				F3C53F5027D11FE800D7CE4E /* TaskStatus.swift */,
-				F3C53F5427D1202300D7CE4E /* TaskManager.swift */,
+				F3C53F5427D1202300D7CE4E /* TaskStorage.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -141,6 +146,15 @@
 				F3C53F7427D1FCD800D7CE4E /* ProjectManagerTests.swift */,
 			);
 			path = ProjectManagerTests;
+			sourceTree = "<group>";
+		};
+		F3C53F7B27D521CC00D7CE4E /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				F3C53F7C27D5227F00D7CE4E /* TaskInteractors.swift */,
+				F3C53F7E27D5251500D7CE4E /* AppState.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -280,8 +294,10 @@
 				F3C53F4D27D10AEA00D7CE4E /* Task.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				F3C53F5127D11FE800D7CE4E /* TaskStatus.swift in Sources */,
+				F3C53F7F27D5251600D7CE4E /* AppState.swift in Sources */,
+				F3C53F7D27D5227F00D7CE4E /* TaskInteractors.swift in Sources */,
 				F374A11627CDD3930083CC73 /* ContentView.swift in Sources */,
-				F3C53F5527D1202300D7CE4E /* TaskManager.swift in Sources */,
+				F3C53F5527D1202300D7CE4E /* TaskStorage.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

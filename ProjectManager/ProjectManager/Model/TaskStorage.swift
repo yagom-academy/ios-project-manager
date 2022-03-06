@@ -7,15 +7,21 @@
 
 import Foundation
 
-class TaskManager {
-    private var tasks: [Task] = []
+class TaskStorage {
+    private var tasks: [Task]
     
     var todoTasks: [Task] {
         return tasks.filter { $0.status == .todo }
     }
+    
     var doingTasks: [Task] {
         return tasks.filter { $0.status == .doing }
     }
+    
+    init() {
+        tasks = []
+    }
+    
     var doneTasks: [Task] {
         return tasks.filter { $0.status == .done }
     }
@@ -44,7 +50,10 @@ class TaskManager {
         tasks.removeAll { $0 == task }
     }
     
-    func changeStatus( task: Task, _ taskStatus: TaskStatus) {
+    func changeStatus( task: Task?, _ taskStatus: TaskStatus) {
+        guard let task = task else {
+            return
+        }
         task.status = taskStatus
     }
 }

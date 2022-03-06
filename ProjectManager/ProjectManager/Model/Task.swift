@@ -15,7 +15,14 @@ class Task: Identifiable {
     var status: TaskStatus
     var statusModifiedDate: TimeInterval
     
-    init(id: UUID = UUID(), title: String, content: String, limitDate: Date, status: TaskStatus, statusModifiedDate: TimeInterval) {
+    init(
+        id: UUID = UUID(),
+        title: String,
+        content: String,
+        limitDate: Date,
+        status: TaskStatus,
+        statusModifiedDate: TimeInterval
+    ) {
         self.id = id
         self.title = title
         self.content = content
