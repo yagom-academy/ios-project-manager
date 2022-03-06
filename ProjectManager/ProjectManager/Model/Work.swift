@@ -15,9 +15,16 @@ struct Work {
     var sort: Sort = .todo
     
     var convertedDate: String {
-        guard let currentDate = dueDate else { return "" }
+        guard let dueDate = dueDate else { return "" }
         let dateFormatter = DateFormatter.shared
         
-        return dateFormatter.string(from: currentDate)
+        return dateFormatter.string(from: dueDate)
+    }
+    var isExpired: Bool {
+        let dateFormatter = DateFormatter.common
+        if convertedDate < dateFormatter.string(from: Date()) {
+            return true
+        }
+        return false
     }
 }

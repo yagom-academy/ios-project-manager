@@ -7,8 +7,9 @@ class ProjectViewController: UIViewController {
     @IBOutlet weak var doingTableView: UITableView!
     @IBOutlet weak var doneTableView: UITableView!
     
-    let viewModel = ProjectViewModel()
-    var disposeBag = DisposeBag()
+    private let viewModel = ProjectViewModel()
+    private var disposeBag = DisposeBag()
+    private let actionViewStorboardName = "ActionView"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,8 +18,10 @@ class ProjectViewController: UIViewController {
     }
     
     @IBAction func addNewWork(_ sender: UIBarButtonItem) {
-        let storyboard = UIStoryboard(name: "ActionView", bundle: nil)
-        let viewController = storyboard.instantiateViewController(identifier: "ActionView") { coder in
+        let storyboard = UIStoryboard(name: actionViewStorboardName, bundle: nil)
+        let viewController = storyboard.instantiateViewController(
+            identifier: String(describing: ActionViewController.self)
+        ) { coder in
             ActionViewController(coder: coder, viewModel: self.viewModel)
         }
         viewController.modalPresentationStyle = .formSheet
@@ -30,18 +33,18 @@ class ProjectViewController: UIViewController {
     }
     
     private func setupTableViews() {
-        let nibName = UINib(nibName: "TableViewCell", bundle: nil)
-        todoTableView.register(nibName, forCellReuseIdentifier: "TableViewCell")
-        doingTableView.register(nibName, forCellReuseIdentifier: "TableViewCell")
-        doneTableView.register(nibName, forCellReuseIdentifier: "TableViewCell")
-        todoTableView.backgroundColor = .systemGray5
-        doingTableView.backgroundColor = .systemGray5
-        doneTableView.backgroundColor = .systemGray5
-        
+        configureTableViewCell()
         configureTableViews()
         configureHeader(for: todoTableView, text: "  Todo")
         configureHeader(for: doingTableView, text: "  Doing")
         configureHeader(for: doneTableView, text: "  Done")
+    }
+    
+    private func configureTableViewCell() {
+        let nibName = UINib(nibName: String(describing: TableViewCell.self), bundle: nil)
+        todoTableView.register(nibName, forCellReuseIdentifier: String(describing: TableViewCell.self))
+        doingTableView.register(nibName, forCellReuseIdentifier: String(describing: TableViewCell.self))
+        doneTableView.register(nibName, forCellReuseIdentifier: String(describing: TableViewCell.self))
     }
     
     private func configureHeader(for tableView: UITableView, text: String) {
@@ -62,35 +65,43 @@ class ProjectViewController: UIViewController {
         viewModel.todoList
             .observe(on: MainScheduler.instance)
             .bind(to: todoTableView.rx.items(
-                cellIdentifier: TableViewCell.identifier,
+                cellIdentifier: String(describing: TableViewCell.self),
                 cellType: TableViewCell.self
             )) { _, item, cell in
-                self.configureCell(cell, for: item)
+                self.configureCellContent(cell, for: item)
             }
             .disposed(by: disposeBag)
         viewModel.doingList
             .observe(on: MainScheduler.instance)
             .bind(to: doingTableView.rx.items(
-                cellIdentifier: TableViewCell.identifier,
+                cellIdentifier: String(describing: TableViewCell.self),
                 cellType: TableViewCell.self
             )) { _, item, cell in
-                self.configureCell(cell, for: item)
+                self.configureCellContent(cell, for: item)
             }
             .disposed(by: disposeBag)
         viewModel.doneList
             .observe(on: MainScheduler.instance)
             .bind(to: doneTableView.rx.items(
-                cellIdentifier: TableViewCell.identifier,
+                cellIdentifier: String(describing: TableViewCell.self),
                 cellType: TableViewCell.self
             )) { _, item, cell in
-                self.configureCell(cell, for: item)
+                self.configureCellContent(cell, for: item)
             }
             .disposed(by: disposeBag)
+        
+        todoTableView.backgroundColor = .systemGray5
+        doingTableView.backgroundColor = .systemGray5
+        doneTableView.backgroundColor = .systemGray5
     }
     
-    private func configureCell(_ cell: TableViewCell, for item: Work) {
+    private func configureCellContent(_ cell: TableViewCell, for item: Work) {
         cell.titleLabel.text = item.title
         cell.bodyLabel.text = item.body
         cell.dateLabel.text = item.convertedDate
+        
+        if item.isExpired {
+            cell.dateLabel.textColor = .systemRed
+        }
     }
 }
