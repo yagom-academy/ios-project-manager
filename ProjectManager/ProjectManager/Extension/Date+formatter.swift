@@ -22,6 +22,8 @@ extension Date {
     }
     
     var isOverdue: Bool {
-        return self.dateString < Date().dateString
+        let targetDate = Self.dateFormatter.date(from: self.dateString) ?? Date(timeIntervalSince1970: self.timeIntervalSince1970)
+        let currentDate = Self.dateFormatter.date(from: Date().dateString) ?? Date()
+        return targetDate < currentDate
     }
 }
