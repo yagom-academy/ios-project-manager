@@ -24,6 +24,10 @@ class TaskManager: TaskManageable {
         return tasks.filter { $0.status == .done }
     }
     
+    init(tasks: [Task]) {
+        self.tasks = tasks.sorted { $0.dueDate < $1.dueDate }
+    }
+    
     func createTask(title: String, body: String, dueDate: Date) {
         let newTask = Task(title: title, body: body, dueDate: dueDate)
         tasks.append(newTask)

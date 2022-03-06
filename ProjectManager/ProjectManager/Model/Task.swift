@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Task: Equatable {
+class Task: Identifiable, Equatable {
     
     let id: String
     var title: String
