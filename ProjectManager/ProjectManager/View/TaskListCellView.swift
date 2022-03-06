@@ -26,5 +26,6 @@ struct TaskListCellView: View {
                 .font(.callout)
                 .foregroundColor(task.dueDate.isOverdue ? .red : .black)
         }
+        .padding(.all, 10)
     }
 }

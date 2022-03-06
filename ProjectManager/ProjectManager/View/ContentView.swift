@@ -19,21 +19,9 @@ struct ContentView: View {
     
     var body: some View {
         HStack {
-            List {
-                ForEach(taskManager.todoTasks) { task in
-                    TaskListCellView(task: task)
-                }
-            }
-            List {
-                ForEach(taskManager.todoTasks) { task in
-                    TaskListCellView(task: task)
-                }
-            }
-            List {
-                ForEach(taskManager.todoTasks) { task in
-                    TaskListCellView(task: task)
-                }
-            }
+            TaskListView(tasks: taskManager.todoTasks)
+            TaskListView(tasks: taskManager.todoTasks)
+            TaskListView(tasks: taskManager.todoTasks)
         }
     }
 }
