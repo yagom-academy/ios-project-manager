@@ -1,6 +1,20 @@
 import Foundation
+import Firebase
+import FirebaseFirestoreSwift
 
-final class FireBaseListManger: ListManager {
+final class FireBaseListManger: DataRepository, FireStoreUseCase {
+    
+    var path: String = "ProjectManager/Project"
+    var dataBase = Firestore.firestore()
+    
+    func subscribe() {
+        <#code#>
+    }
+    
+    func removeDataBase() {
+        <#code#>
+    }
+    
     
     var list: [Listable] = [] 
     

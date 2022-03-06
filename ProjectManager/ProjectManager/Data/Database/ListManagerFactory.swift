@@ -2,7 +2,7 @@ import Foundation
 
 final class ListManagerFactory {
     
-    public func assignListManger(database: DatabaseType) -> ListManager {
+    public func assignListManger(database: DatabaseType) -> DataRepository {
         
         switch database {
         case .CoreData:

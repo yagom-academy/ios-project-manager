@@ -3,6 +3,6 @@ import Foundation
 enum DatabaseType {
     
     case CoreData
-    case FireBase
+    case FireStore 
     case Mock
 }

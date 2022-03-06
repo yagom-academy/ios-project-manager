@@ -5,9 +5,8 @@
         <attribute name="detail" optional="YES" attributeType="String"/>
         <attribute name="identifier" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" optional="YES" attributeType="String"/>
-        <attribute name="progressCondition" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
     <elements>
-        <element name="CDProject" positionX="-63" positionY="-18" width="128" height="104"/>
+        <element name="CDProject" positionX="-63" positionY="-18" width="128" height="89"/>
     </elements>
 </model>

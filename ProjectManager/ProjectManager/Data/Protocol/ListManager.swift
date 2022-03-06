@@ -1,6 +1,6 @@
 import Foundation
 
-protocol ListManager {
+protocol DataRepository {
     
     var list: [Listable] { get }
     

@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 import CoreData
 
-final class CoredataListManger: ListManager {
+final class CoredataListManger: DataRepository {
     
     private let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
     private lazy var fetchedController = createListFetchedResultsController()

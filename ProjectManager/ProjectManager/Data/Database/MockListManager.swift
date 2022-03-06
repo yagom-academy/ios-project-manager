@@ -1,6 +1,6 @@
 import Foundation
 
-struct MockListManager: ListManager {
+struct MockListManager: DataRepository {
     
     var list: [Listable] = []
     
