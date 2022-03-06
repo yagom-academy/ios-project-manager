@@ -59,24 +59,6 @@ struct ContentView: View {
     
 }
 
-struct TaskRowView: View {
-    
-    let task: Task
-    
-    var body: some View {
-        
-        VStack(alignment: .leading) {
-            Text(task.title)
-                .font(.headline)
-            Text(task.description)
-                .font(.subheadline)
-            Text(task.dueDate.description)
-        }
-        
-    }
-    
-}
-
 struct ContentView_Previews: PreviewProvider {
     
     static var previews: some View {
