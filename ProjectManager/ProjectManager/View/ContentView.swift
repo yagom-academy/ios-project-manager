@@ -11,6 +11,8 @@ struct ContentView: View {
     
     @ObservedObject var viewModel: ProjectManagerViewModel
     
+    @State var isShowingAddSheet = false
+    
     var body: some View {
         
         NavigationView {
@@ -23,8 +25,14 @@ struct ContentView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: { print("add Button Clicked") }) {
+                    Button(action: {
+                        isShowingAddSheet.toggle()
+                    }) {
                         Image(systemName: "plus")
+                    }
+                    .sheet(isPresented: $isShowingAddSheet,
+                           onDismiss: nil) {
+                        TaskDetailView(task: nil, isShowingAddSheet: $isShowingAddSheet)
                     }
                 }
             }
@@ -55,6 +63,32 @@ struct ContentView: View {
                 TaskRowView(task: task)
             }
         }
+    }
+    
+}
+
+struct TaskDetailView: View {
+    
+    let task: Task?
+    
+    @State var isEditingMode = false
+    @Binding var isShowingAddSheet: Bool
+    
+    var body: some View {
+        
+        NavigationView {
+            Text("Hello World")
+                .navigationTitle("TODO")
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button(action: { isShowingAddSheet.toggle() }) {
+                            Text("Done")
+                        }
+                    }
+                }
+        }
+        
     }
     
 }

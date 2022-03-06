@@ -4,3 +4,4 @@ excluded:
     - ProjectManager/SupportingFiles
 disabled_rules:
     - trailing_whitespace
+    - multiple_closures_with_trailing_closure
