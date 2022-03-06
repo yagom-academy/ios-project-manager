@@ -21,8 +21,9 @@ struct Work {
         return dateFormatter.string(from: dueDate)
     }
     var isExpired: Bool {
+        guard let dueDate = dueDate else { return false }
         let dateFormatter = DateFormatter.common
-        if convertedDate < dateFormatter.string(from: Date()) {
+        if dateFormatter.string(from: dueDate) < dateFormatter.string(from: Date()) {
             return true
         }
         return false

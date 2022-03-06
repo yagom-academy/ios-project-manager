@@ -9,4 +9,16 @@ final class TableViewCell: UITableViewCell {
     override func prepareForReuse() {
         dateLabel.textColor = .label
     }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.contentView.frame = self.contentView.frame.inset(by: UIEdgeInsets(
+            top: 3,
+            left: 0,
+            bottom: 3,
+            right: 0)
+        )
+        contentView.backgroundColor = .white
+        self.backgroundColor = .systemGray5
+    }
 }
