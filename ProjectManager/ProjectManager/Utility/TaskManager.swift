@@ -53,7 +53,7 @@ class TaskManager: TaskManageable {
         }
         
         guard let targetIndex = tasks.firstIndex(of: target) else {
-            throw TaskManagerError.noTaskFound
+            throw TaskManagerError.taskIsNil
         }
         
         tasks.remove(at: targetIndex)
