@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		C101D2A527D341E200334F5C /* TaskManagerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C101D2A427D341E200334F5C /* TaskManagerError.swift */; };
+		C101D2C327D4DB2D00334F5C /* TaskListCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C101D2C227D4DB2D00334F5C /* TaskListCellView.swift */; };
+		C101D2C627D4DC4600334F5C /* Date+formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C101D2C527D4DC4600334F5C /* Date+formatter.swift */; };
 		C182E78427CD0E9D00F6218C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C182E78327CD0E9D00F6218C /* ContentView.swift */; };
 		C182E78727CD43DE00F6218C /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = C182E78627CD43DE00F6218C /* FirebaseAnalytics */; };
 		C182E7A127CDD57800F6218C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C182E7A027CDD57800F6218C /* GoogleService-Info.plist */; };
@@ -41,6 +43,8 @@
 
 /* Begin PBXFileReference section */
 		C101D2A427D341E200334F5C /* TaskManagerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManagerError.swift; sourceTree = "<group>"; };
+		C101D2C227D4DB2D00334F5C /* TaskListCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListCellView.swift; sourceTree = "<group>"; };
+		C101D2C527D4DC4600334F5C /* Date+formatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+formatter.swift"; sourceTree = "<group>"; };
 		C182E78327CD0E9D00F6218C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		C182E7A027CDD57800F6218C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C1F2B92F27CE69D100B8FD51 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
@@ -83,6 +87,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C101D2C427D4DC1500334F5C /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				C101D2C527D4DC4600334F5C /* Date+formatter.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		C182E79027CD539900F6218C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -111,6 +123,7 @@
 			isa = PBXGroup;
 			children = (
 				C182E78327CD0E9D00F6218C /* ContentView.swift */,
+				C101D2C227D4DB2D00334F5C /* TaskListCellView.swift */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 			);
 			path = View;
@@ -159,6 +172,7 @@
 				C1FE9BB727CFB57500397B90 /* Model */,
 				C1FE9BC427D06D5200397B90 /* Utility */,
 				C1FE9BBE27CFCC3600397B90 /* Protocol */,
+				C101D2C427D4DC1500334F5C /* Extension */,
 				C1FE9BBF27CFCCD500397B90 /* View */,
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
@@ -314,11 +328,13 @@
 			files = (
 				C1FE9BBD27CFBD6300397B90 /* TaskManager.swift in Sources */,
 				C101D2A527D341E200334F5C /* TaskManagerError.swift in Sources */,
+				C101D2C327D4DB2D00334F5C /* TaskListCellView.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C182E78427CD0E9D00F6218C /* ContentView.swift in Sources */,
 				C1FE9BBB27CFB68600397B90 /* Task.swift in Sources */,
 				C1FE9BB927CFB64300397B90 /* TaskStatus.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
+				C101D2C627D4DC4600334F5C /* Date+formatter.swift in Sources */,
 				C1FE9BC127CFCD3500397B90 /* TaskManageable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

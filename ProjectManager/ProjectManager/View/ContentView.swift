@@ -8,9 +8,33 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    let taskManager = TaskManager(tasks: [
+        Task(title: "긴 제목 긴 제목 긴 제목 긴 제목 긴 제목 긴 제목 긴 제목 긴 제목", body: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.", dueDate: Date()),
+        Task(title: "1번 할일", body: "1줄\n2줄\n3줄", dueDate: Date(timeIntervalSinceNow: -86400 * 2)),
+        Task(title: "2번 할일", body: "1줄\n2줄", dueDate: Date(timeIntervalSinceNow: -86400)),
+        Task(title: "3번 할일", body: "1줄", dueDate: Date(timeIntervalSinceNow: 86400)),
+        Task(title: "4번 할일", body: "1줄\n2줄\n3줄\n4줄", dueDate: Date(timeIntervalSinceNow: 86400 * 2))
+    ])
+    
     var body: some View {
-        Text("프로젝트 관리 앱")
-            .font(.largeTitle)
+        HStack {
+            List {
+                ForEach(taskManager.todoTasks) { task in
+                    TaskListCellView(task: task)
+                }
+            }
+            List {
+                ForEach(taskManager.todoTasks) { task in
+                    TaskListCellView(task: task)
+                }
+            }
+            List {
+                ForEach(taskManager.todoTasks) { task in
+                    TaskListCellView(task: task)
+                }
+            }
+        }
     }
 }
 
