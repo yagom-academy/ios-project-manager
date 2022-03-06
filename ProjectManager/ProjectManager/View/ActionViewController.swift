@@ -19,4 +19,15 @@ class ActionViewController: UIViewController {
         bodyTextView.layer.borderColor = UIColor.systemGray6.cgColor
         bodyTextView.layer.borderWidth = 1
     }
+    
+    @IBAction func touchUpDoneButton(_ sender: UIBarButtonItem) {
+        guard let viewModel = viewModel else { return }
+        let work = Work(title: titleTextField.text, body: bodyTextView.text, dueDate: datePicker.date)
+        viewModel.addWork(work)
+        
+        dismiss(animated: true, completion: nil)
+    }
+    @IBAction func touchUpCancelButton(_ sender: UIBarButtonItem) {
+        dismiss(animated: true, completion: nil)
+    }
 }

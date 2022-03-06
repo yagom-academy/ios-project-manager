@@ -17,8 +17,6 @@ class ProjectViewController: UIViewController {
     }
     
     @IBAction func addNewWork(_ sender: UIBarButtonItem) {
-        let work = Work(title: "새로운 데이터", body: "새로운 바디", dueDate: Date(), sort: .doing)
-        viewModel.addWork(work)
         let storyboard = UIStoryboard(name: "ActionView", bundle: nil)
         let viewController = storyboard.instantiateViewController(identifier: "ActionView") { coder in
             ActionViewController(coder: coder, viewModel: self.viewModel)
@@ -37,15 +35,34 @@ class ProjectViewController: UIViewController {
         doingTableView.register(nibName, forCellReuseIdentifier: "TableViewCell")
         doneTableView.register(nibName, forCellReuseIdentifier: "TableViewCell")
         todoTableView.backgroundColor = .systemGray5
+        doingTableView.backgroundColor = .systemGray5
+        doneTableView.backgroundColor = .systemGray5
         
         configureTableViews()
+        configureHeader(for: todoTableView, text: "  Todo")
+        configureHeader(for: doingTableView, text: "  Doing")
+        configureHeader(for: doneTableView, text: "  Done")
+    }
+    
+    private func configureHeader(for tableView: UITableView, text: String) {
+        let header = UIView(frame: CGRect(
+            x: .zero,
+            y: .zero,
+            width: tableView.frame.width,
+            height: tableView.frame.height * 0.05
+        ))
+        let label = UILabel(frame: header.bounds)
+        label.text = text
+        label.font = .preferredFont(forTextStyle: .largeTitle)
+        header.addSubview(label)
+        tableView.tableHeaderView = header
     }
     
     private func configureTableViews() {
         viewModel.todoList
             .observe(on: MainScheduler.instance)
             .bind(to: todoTableView.rx.items(
-                cellIdentifier: "TableViewCell",
+                cellIdentifier: TableViewCell.identifier,
                 cellType: TableViewCell.self
             )) { _, item, cell in
                 self.configureCell(cell, for: item)
@@ -54,7 +71,7 @@ class ProjectViewController: UIViewController {
         viewModel.doingList
             .observe(on: MainScheduler.instance)
             .bind(to: doingTableView.rx.items(
-                cellIdentifier: "TableViewCell",
+                cellIdentifier: TableViewCell.identifier,
                 cellType: TableViewCell.self
             )) { _, item, cell in
                 self.configureCell(cell, for: item)
@@ -63,7 +80,7 @@ class ProjectViewController: UIViewController {
         viewModel.doneList
             .observe(on: MainScheduler.instance)
             .bind(to: doneTableView.rx.items(
-                cellIdentifier: "TableViewCell",
+                cellIdentifier: TableViewCell.identifier,
                 cellType: TableViewCell.self
             )) { _, item, cell in
                 self.configureCell(cell, for: item)

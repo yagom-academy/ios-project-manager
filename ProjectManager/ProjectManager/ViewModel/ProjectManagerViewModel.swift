@@ -16,7 +16,6 @@ class ProjectViewModel {
     
     func addWork(_ data: Work) {
         memoryDataManager.create(data)
-        let addedWorkList = memoryDataManager.fetchAll()
         switch data.sort {
         case .todo:
             todoList.onNext(memoryDataManager.todoList)
@@ -28,32 +27,10 @@ class ProjectViewModel {
     }
 
     func removeWork(_ data: Work) {
-//        _ = workList
-//            .map { works in
-//                works.filter { work in
-//                    data.id != work.id
-//                }
-//            }
-//            .take(1)
-//            .subscribe(onNext: {
-//                self.workList.onNext($0)
-//            })
+
     }
     
     func updateWork(_ data: Work, title: String, body: String, date: Date, sort: Work.Sort) {
-//        _ = workList
-//            .map({ works in
-//                works.map { work -> Work in
-//                    if work.id == data.id {
-//                        return Work(title: title, body: body, dueDate: date, sort: sort)
-//                    } else {
-//                        return Work(title: work.title, body: work.body, dueDate: work.dueDate, sort: work.sort)
-//                    }
-//                }
-//            })
-//            .take(1)
-//            .subscribe(onNext: {
-//                self.workList.onNext($0)
-//            })
+
     }
 }

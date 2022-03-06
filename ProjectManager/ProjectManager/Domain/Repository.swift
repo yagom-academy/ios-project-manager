@@ -54,9 +54,10 @@ class Repository: DataManager {
     
     func update(_ data: Work, title: String?, body: String?, date: Date?) {
         guard let index = workList.firstIndex(where: { $0.id == data.id }) else { return }
-        workList[index].title = title
-        workList[index].body = body
-        workList[index].dueDate = date
+        guard var work = workList[safe: index] else { return }
+        work.title = title
+        work.body = body
+        work.dueDate = date
     }
     
     func fetchAll() -> [Work] {

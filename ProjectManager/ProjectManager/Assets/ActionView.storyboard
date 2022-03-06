@@ -21,8 +21,16 @@
                                 <rect key="frame" x="0.0" y="20" width="1366" height="50"/>
                                 <items>
                                     <navigationItem title="Todo" id="rDg-vd-8nG">
-                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="A5y-Of-Yj1"/>
-                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="rHS-q6-TNR"/>
+                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="A5y-Of-Yj1">
+                                            <connections>
+                                                <action selector="touchUpCancelButton:" destination="08C-19-pPa" id="FVy-3S-dde"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="rHS-q6-TNR">
+                                            <connections>
+                                                <action selector="touchUpDoneButton:" destination="08C-19-pPa" id="N7h-Uc-XZe"/>
+                                            </connections>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
@@ -35,7 +43,7 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="SRd-Kq-6qP">
-                                        <rect key="frame" x="0.0" y="113" width="1346" height="277"/>
+                                        <rect key="frame" x="0.0" y="112.5" width="1346" height="277"/>
                                     </datePicker>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="bgO-94-4or">
                                         <rect key="frame" x="0.0" y="409.5" width="1346" height="514.5"/>
