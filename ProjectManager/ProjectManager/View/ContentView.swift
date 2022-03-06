@@ -18,11 +18,29 @@ struct ContentView: View {
     ])
     
     var body: some View {
-        HStack {
-            TaskListView(tasks: taskManager.todoTasks)
-            TaskListView(tasks: taskManager.todoTasks)
-            TaskListView(tasks: taskManager.todoTasks)
+        VStack {
+            Section {
+                HStack {
+                    Text("Project Manager")
+                        .font(.title3)
+                        .bold()
+                    Button {
+                        print("할일 추가 버튼 눌림!")
+                    } label: {
+                        Image(systemName: "plus")
+                            .font(.title2)
+                            .foregroundColor(.blue)
+                    }
+                }
+            }
+            HStack {
+                TaskListView(tasks: taskManager.todoTasks)
+                TaskListView(tasks: taskManager.todoTasks)
+                TaskListView(tasks: taskManager.todoTasks)
+            }
+            .background(Color(UIColor.systemGray4))
         }
+        .edgesIgnoringSafeArea(.bottom)
     }
 }
 
