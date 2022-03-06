@@ -19,6 +19,7 @@ class ActionViewController: UIViewController {
     
     private func setupTextField() {
         configureTextFieldShadow()
+        configureTextFieldLeftView()
     }
     
     private func setupTextView() {
@@ -31,6 +32,17 @@ class ActionViewController: UIViewController {
         titleTextField.layer.shadowOffset = CGSize(width: 0, height: 5)
         titleTextField.layer.shadowOpacity = 0.3
         titleTextField.layer.shadowRadius = 5.0
+    }
+    
+    private func configureTextFieldLeftView() {
+        let leftView = UIView(frame: CGRect(
+            x: .zero,
+            y: .zero,
+            width: 10,
+            height: titleTextField.frame.height
+        ))
+        titleTextField.leftView = leftView
+        titleTextField.leftViewMode = .always
     }
     
     private func configureTextViewShadow() {
