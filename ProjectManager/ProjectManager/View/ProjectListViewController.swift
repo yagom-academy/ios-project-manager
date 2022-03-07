@@ -97,6 +97,16 @@ extension ProjectListViewController: UITableViewDelegate {
         
         return headerView
     }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: nil) { _, _, _ in
+            print("DeleteAction")
+        }
+        
+        deleteAction.image = UIImage(systemName: "trash")
+        
+        return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
 }
 
 //MARK: - Constants
