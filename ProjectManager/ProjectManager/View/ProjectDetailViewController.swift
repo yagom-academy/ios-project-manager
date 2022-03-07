@@ -28,10 +28,8 @@ class ProjectDetailViewController: UIViewController {
         let textField = UITextField()
         textField.font = .preferredFont(forTextStyle: .title2)
         textField.placeholder = Placeholder.titleTextFieldPlaceholder
+        textField.borderStyle = .roundedRect
         textField.dropShadow(
-            cornerRadius: Design.cornerRadius,
-            backgroundColor: UIColor.white.cgColor,
-            borderColor: UIColor.clear.cgColor,
             shadowColor: UIColor.black.cgColor,
             shadowOffset: Design.shadowOffset,
             shadowOpacity: Design.shadowOpacity,
@@ -57,9 +55,6 @@ class ProjectDetailViewController: UIViewController {
         textView.text = "여기에는 할일 내용 입력하는 곳이지롱 \nㅋㅋ"
         textView.font = .preferredFont(forTextStyle: .title3)
         textView.dropShadow(
-            cornerRadius: Design.cornerRadius,
-            backgroundColor: UIColor.white.cgColor,
-            borderColor: UIColor.clear.cgColor,
             shadowColor: UIColor.black.cgColor,
             shadowOffset: Design.shadowOffset,
             shadowOpacity: Design.shadowOpacity,
