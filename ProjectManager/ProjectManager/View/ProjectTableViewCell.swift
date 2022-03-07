@@ -39,8 +39,8 @@ class ProjectTableViewCell: UITableViewCell {
         return label
     }()
     
-    private lazy var entireStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [titleLabel, bodyLabel, dateLabel])
+    private let entireStackView: UIStackView = {
+        let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.alignment = .leading
         stackView.spacing = Design.entireStackViewSpacing
@@ -66,7 +66,14 @@ class ProjectTableViewCell: UITableViewCell {
     
     private func configureUI() {
         self.contentView.addSubview(entireStackView)
+        configureEntireStackView()
         configureLayout()
+    }
+    
+    private func configureEntireStackView() {
+        [titleLabel, bodyLabel, dateLabel].forEach {
+            entireStackView.addArrangedSubview($0)
+        }
     }
     
     private func configureLayout() {

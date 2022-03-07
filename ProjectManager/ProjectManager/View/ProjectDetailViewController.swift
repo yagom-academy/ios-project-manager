@@ -67,8 +67,8 @@ class ProjectDetailViewController: UIViewController {
         return textView
     }()
     
-    private lazy var entireStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [titleTextField, datePicker, bodyTextView])
+    private let entireStackView: UIStackView = {
+        let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
@@ -82,10 +82,17 @@ class ProjectDetailViewController: UIViewController {
     private func configureUI() {
         view.backgroundColor = .white
         self.view.addSubview(entireStackView)
+        configureEntireStackView()
         configureLayout()
         configureNavigationBar()
     }
     
+    private func configureEntireStackView() {
+        [titleTextField, datePicker, bodyTextView].forEach {
+            entireStackView.addArrangedSubview($0)
+        }
+    }
+
     private func configureLayout() {
         NSLayoutConstraint.activate([
             self.entireStackView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: LayoutConstant.entireStackViewTopMargin),

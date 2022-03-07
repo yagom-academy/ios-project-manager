@@ -41,8 +41,8 @@ class ProjectListTableHeaderView: UITableViewHeaderFooterView {
         return view
     }()
     
-    private lazy var entireStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [titleLabel, totalCountLabel, spacerView])
+    private let entireStackView: UIStackView = {
+        let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.alignment = .center
         stackView.distribution = .fill
@@ -62,7 +62,14 @@ class ProjectListTableHeaderView: UITableViewHeaderFooterView {
     }
     
     private func configureUI() {
+        configureEntireStackView()
         configureLayout()
+    }
+
+    private func configureEntireStackView() {
+        [titleLabel, totalCountLabel, spacerView].forEach {
+            entireStackView.addArrangedSubview($0)
+        }
     }
     
     private func configureLayout() {

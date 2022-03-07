@@ -120,7 +120,7 @@ extension ProjectListViewController: UITableViewDelegate {
         case doneTableView:
             headerView.populateData(title: TitleText.doneTableViewTitle, count: 40)
         default:
-            fatalError()
+            break
         }
         
         return headerView
