@@ -68,11 +68,11 @@ class ProjectDetailViewController: UIViewController {
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done,
                                          target: self,
                                          action: nil)
-        let editButton = UIBarButtonItem(barButtonSystemItem: .edit,
+        let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel,
                                          target: self,
-                                         action: nil)
+                                         action: #selector(dismissWithoutCreation))
         navigationItem.rightBarButtonItem = doneButton
-        navigationItem.leftBarButtonItem = editButton
+        navigationItem.leftBarButtonItem = cancelButton
         
         navigationBar.items = [navigationItem]
     }
@@ -98,5 +98,11 @@ class ProjectDetailViewController: UIViewController {
             stackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 15),
             stackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -15)
         ])
+    }
+    
+    // MARK: - @objc Method
+    @objc
+    func dismissWithoutCreation() {
+        dismiss(animated: false, completion: nil)
     }
 }
