@@ -1,16 +1,4 @@
 import UIKit
-private enum TitleText {
-    static let navigationBarTitle = "Project Manager"
-    static let todoTableViewTitle = "TODO"
-    static let doingTableViewTitle = "DOING"
-    static let doneTableViewTitle = "DONE"
-}
-
-private enum Design {
-    static let entireStackViewSpacing: CGFloat = 8
-    static let tableViewSectionHeaderTopPadding: CGFloat = 1
-    static let tableViewHeightForHeaderInSection: CGFloat = 50
-}
 
 class ProjectListViewController: UIViewController {
     private let todoTableView = ProjectListTableView()
@@ -18,7 +6,7 @@ class ProjectListViewController: UIViewController {
     private let doneTableView = ProjectListTableView()
     
     private lazy var entireStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [todoTableView, doingTableView, doneTableView])
+        let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.spacing = Design.entireStackViewSpacing
         stackView.distribution = .fillEqually
@@ -55,21 +43,21 @@ class ProjectListViewController: UIViewController {
     }
     
     private func configureTableView() {
-        todoTableView.dataSource = self
-        todoTableView.delegate = self
-        doingTableView.delegate = self
-        doingTableView.dataSource = self
-        doneTableView.delegate = self
-        doneTableView.dataSource = self
-        if #available(iOS 15, *) {
-            todoTableView.sectionHeaderTopPadding = Design.tableViewSectionHeaderTopPadding
-            doingTableView.sectionHeaderTopPadding = Design.tableViewSectionHeaderTopPadding
-            doneTableView.sectionHeaderTopPadding = Design.tableViewSectionHeaderTopPadding
+        [todoTableView, doingTableView, doneTableView].forEach {
+            $0.delegate = self
+            $0.dataSource = self
+            
+            if #available(iOS 15, *) {
+                $0.sectionHeaderTopPadding = Design.tableViewSectionHeaderTopPadding
+            }
         }
     }
     
     private func configureEntireStackView() {
         self.view.addSubview(entireStackView)
+        [todoTableView, doingTableView, doneTableView].forEach {
+            self.entireStackView.addArrangedSubview($0)
+        }
     }
 
     private func configureLayout() {
@@ -125,4 +113,22 @@ extension ProjectListViewController: UITableViewDelegate {
         
         return headerView
     }
+}
+
+//MARK: - Constants
+
+private extension ProjectListViewController {
+    enum TitleText {
+        static let navigationBarTitle = "Project Manager"
+        static let todoTableViewTitle = "TODO"
+        static let doingTableViewTitle = "DOING"
+        static let doneTableViewTitle = "DONE"
+    }
+
+    enum Design {
+        static let entireStackViewSpacing: CGFloat = 8
+        static let tableViewSectionHeaderTopPadding: CGFloat = 1
+        static let tableViewHeightForHeaderInSection: CGFloat = 50
+    }
+
 }

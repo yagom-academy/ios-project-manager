@@ -1,28 +1,5 @@
 import UIKit
 
-private enum Placeholder {
-    static let titleTextFieldPlaceholder = "Title"
-}
-
-private enum TitleText {
-    static let navigationBarTitle = "TODO"
-}
-
-private enum LayoutConstant {
-    static let entireStackViewTopMargin: CGFloat = 5
-    static let entireStackViewtrailingMargin: CGFloat = -20
-    static let entireStackViewBottomMargin: CGFloat = -20
-    static let entireStackViewLeadingMargin: CGFloat = 20
-    static let titleTextFieldHeight: CGFloat = 50
-}
-
-private enum Design {
-    static let cornerRadius: CGFloat = 5
-    static let shadowOffset: CGSize = CGSize(width: 0, height: 3)
-    static let shadowOpacity: Float = 0.5
-    static let shadowRadius: CGFloat = 4
-}
-
 class ProjectDetailViewController: UIViewController {
     private let titleTextField: UITextField = {
         let textField = UITextField()
@@ -111,5 +88,32 @@ class ProjectDetailViewController: UIViewController {
     
     @objc private func didTapCancelButton() {
         self.dismiss(animated: true, completion: nil)
+    }
+}
+
+//MARK: - Constants
+
+private extension ProjectDetailViewController {
+    enum Placeholder {
+        static let titleTextFieldPlaceholder = "Title"
+    }
+
+    enum TitleText {
+        static let navigationBarTitle = "TODO"
+    }
+
+    enum LayoutConstant {
+        static let entireStackViewTopMargin: CGFloat = 5
+        static let entireStackViewtrailingMargin: CGFloat = -20
+        static let entireStackViewBottomMargin: CGFloat = -20
+        static let entireStackViewLeadingMargin: CGFloat = 20
+        static let titleTextFieldHeight: CGFloat = 50
+    }
+
+    enum Design {
+        static let cornerRadius: CGFloat = 5
+        static let shadowOffset: CGSize = CGSize(width: 0, height: 3)
+        static let shadowOpacity: Float = 0.5
+        static let shadowRadius: CGFloat = 4
     }
 }

@@ -1,17 +1,5 @@
 import UIKit
 
-private enum LayoutConstant {
-    static let totalCountLabelTopMargin: CGFloat = 10
-    static let totalCountLabelBottomMargin: CGFloat = -10
-    static let entireStackViewLeadingMargin: CGFloat = 10
-}
-
-private enum Design {
-    static let totalCountLabelBounds: CGRect = CGRect(x: 0, y: 0, width: 30, height: 30)
-    static let totalCountLabelCornerRadius: CGFloat = 30/2
-    static let entireStackViewSpacing: CGFloat = 10
-}
-
 class ProjectListTableHeaderView: UITableViewHeaderFooterView {
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -87,5 +75,21 @@ class ProjectListTableHeaderView: UITableViewHeaderFooterView {
     func populateData(title: String, count: Int) {
         titleLabel.text = title
         totalCountLabel.text = "\(count)"
+    }
+}
+
+//MARK: - Constants
+
+private extension ProjectListTableHeaderView {
+    enum LayoutConstant {
+        static let totalCountLabelTopMargin: CGFloat = 10
+        static let totalCountLabelBottomMargin: CGFloat = -10
+        static let entireStackViewLeadingMargin: CGFloat = 10
+    }
+
+    enum Design {
+        static let totalCountLabelBounds: CGRect = CGRect(x: 0, y: 0, width: 30, height: 30)
+        static let totalCountLabelCornerRadius: CGFloat = 30/2
+        static let entireStackViewSpacing: CGFloat = 10
     }
 }

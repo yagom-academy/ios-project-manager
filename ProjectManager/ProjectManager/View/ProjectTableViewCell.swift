@@ -1,17 +1,5 @@
 import UIKit
 
-private enum LayoutConstant {
-    static let entireStackViewTopMargin: CGFloat = 15
-    static let entireStackViewTrailingMargin: CGFloat = -15
-    static let entireStackViewBottomMargin: CGFloat = -15
-    static let entireStackViewLeadingMargin: CGFloat = 15
-}
-
-private enum Design {
-    static let entireStackViewSpacing: CGFloat = 10
-    static let cellContentViewFrameInset: UIEdgeInsets = UIEdgeInsets(top: 3.5, left: 0, bottom: 3.5, right: 0)
-}
-
 class ProjectTableViewCell: UITableViewCell {
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -83,5 +71,21 @@ class ProjectTableViewCell: UITableViewCell {
             self.entireStackView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: LayoutConstant.entireStackViewBottomMargin),
             self.entireStackView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: LayoutConstant.entireStackViewLeadingMargin)
         ])
+    }
+}
+
+//MARK: - Constants
+
+private extension ProjectTableViewCell {
+    enum LayoutConstant {
+        static let entireStackViewTopMargin: CGFloat = 15
+        static let entireStackViewTrailingMargin: CGFloat = -15
+        static let entireStackViewBottomMargin: CGFloat = -15
+        static let entireStackViewLeadingMargin: CGFloat = 15
+    }
+
+    enum Design {
+        static let entireStackViewSpacing: CGFloat = 10
+        static let cellContentViewFrameInset: UIEdgeInsets = UIEdgeInsets(top: 3.5, left: 0, bottom: 3.5, right: 0)
     }
 }
