@@ -3,7 +3,7 @@ import UIKit
 class AddProjectViewController: UIViewController {
     private let addView = ProjectFormView()
     
-    let navigationBar: UINavigationBar = {
+    private let navigationBar: UINavigationBar = {
         let navigationBar = UINavigationBar(frame: .zero)
         navigationBar.translatesAutoresizingMaskIntoConstraints = false
         

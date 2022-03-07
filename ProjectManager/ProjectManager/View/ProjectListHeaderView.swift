@@ -1,7 +1,7 @@
 import UIKit
 
 class ProjectListHeaderView: UIView {
-    let titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.font = .preferredFont(forTextStyle: .largeTitle)
@@ -9,7 +9,7 @@ class ProjectListHeaderView: UIView {
         return titleLabel
     }()
     
-    let underLine: UIView = {
+    private let underLine: UIView = {
         let underLine = UIView()
         underLine.translatesAutoresizingMaskIntoConstraints = false
         underLine.backgroundColor = .systemGray2
@@ -17,7 +17,7 @@ class ProjectListHeaderView: UIView {
         return underLine
     }()
     
-    let badgeLabel: UILabel = {
+    private let badgeLabel: UILabel = {
         let badgeLabel = UILabel()
         badgeLabel.translatesAutoresizingMaskIntoConstraints = false
         badgeLabel.font = .preferredFont(forTextStyle: .caption2)

@@ -4,9 +4,11 @@ class MainViewController: UIViewController {
     private let toDoTableView = ProjectListTableView()
     private let doingTableView = ProjectListTableView()
     private let doneTableView = ProjectListTableView()
-    private let toDoDataSourceDelegate = ToDoDataSource()
-    private let doingDataSourceDelegate = DoingDataSource()
-    private let doneDataSourceDelegate = DoneDataSource()
+    
+    private let toDoDataSource = ToDoDataSource()
+    private let doingDataSource = DoingDataSource()
+    private let doneDataSource = DoneDataSource()
+    
     private let toDoHeader = ProjectListHeaderView(title: "TODO")
     private let doingHeader = ProjectListHeaderView(title: "DOING")
     private let doneHeader = ProjectListHeaderView(title: "DONE")
@@ -82,9 +84,9 @@ class MainViewController: UIViewController {
         toDoTableView.delegate = self
         doingTableView.delegate = self
         doneTableView.delegate = self
-        toDoTableView.dataSource = toDoDataSourceDelegate
-        doingTableView.dataSource = doingDataSourceDelegate
-        doneTableView.dataSource = doneDataSourceDelegate
+        toDoTableView.dataSource = toDoDataSource
+        doingTableView.dataSource = doingDataSource
+        doneTableView.dataSource = doneDataSource
     }
     
     private func registerProjectListCell() {
@@ -99,6 +101,8 @@ class MainViewController: UIViewController {
         present(viewController, animated: true, completion: nil)
     }
 }
+
+// MARK: - UITableViewDelegate
 
 extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -117,8 +121,9 @@ extension MainViewController: UITableViewDelegate {
         let viewController = EditProjectViewController()
         viewController.modalPresentationStyle = .formSheet
         present(viewController, animated: true, completion: nil)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
-    
+        
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { _, _, _  in
             print("Delete project")
@@ -128,8 +133,9 @@ extension MainViewController: UITableViewDelegate {
     }
 }
 
+// MARK: - LongPressGesture
+
 extension MainViewController {
-    
     private func addLongPressGesture() {
         let todoLongPressGestrue = UILongPressGestureRecognizer(target: self, action: #selector(presentToDoLongPressMenu(_:)))
         let doingLongPressGestrue = UILongPressGestureRecognizer(target: self, action: #selector(presentDoingLongPressMenu(_:)))
