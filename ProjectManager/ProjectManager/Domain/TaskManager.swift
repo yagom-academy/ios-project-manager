@@ -23,6 +23,12 @@ final class TaskManager: TaskMangeable {
         return tasks.sorted { $0.deadline < $1.deadline }
     }
     
+    func fetch(at index: Int, with state: TaskState) -> Task? {
+        let tasks = taskRepository.fetchAll()
+        let filteredTasks = tasks.filter { $0.state == state }
+        return filteredTasks[safe: index]
+    }
+    
     func update(with task: Task) {
         taskRepository.update(with: task)
     }

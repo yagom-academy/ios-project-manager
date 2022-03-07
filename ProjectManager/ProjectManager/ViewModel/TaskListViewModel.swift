@@ -27,42 +27,45 @@ final class TaskListViewModel: TaskViewModel {
         taskDidUpdated?()
     }
     
-    func create(with task: Task) {
-        taskManager.create(with: task)
+    func createTask(title: String, description: String, deadline: Date) {
+        let newTask = Task(id: UUID(),
+                           title: title,
+                           description: description,
+                           deadline: deadline,
+                           state: .waiting)
+        taskManager.create(with: newTask)
         updateTasks()
     }
     
-    func update(with task: Task) {
+    func updateRow(with task: Task) {
         taskManager.update(with: task)
         updateTasks()
     }
     
-    func delete(with task: Task) {
+    func deleteRow(with task: Task) {
         taskManager.delete(with: task)
         updateTasks()
     }
     
-    func changeState(of task: Task, to state: TaskState) {
+    func move(task: Task, to state: TaskState) {
         taskManager.changeState(of: task, to: state)
         updateTasks()
     }
     
-    func fetch(at index: Int, with state: TaskState) throws -> Task {
-        let filteredTasks = tasks.filter { $0.state == state }
-        guard let fetchedTask = filteredTasks[safe: index] else {
-            throw CollectionError.indexOutOfRange
+    func task(at index: Int, with state: TaskState, completion: (Task) -> Void) {
+        guard let fetchedTask = taskManager.fetch(at: index, with: state) else {
+            return 
         }
         
-        return fetchedTask
+        completion(fetchedTask)
     }
     
     func didSelectRow(at index: Int, with state: TaskState) {
-        let filteredTasks = tasks.filter { $0.state == state }
-        guard let selectedTask = filteredTasks[safe: index] else {
+        guard let fetchedTask = taskManager.fetch(at: index, with: state) else {
             return
         }
         
-        didSelectTask?(selectedTask)
+        didSelectTask?(fetchedTask)
     }
     
     func count(of state: TaskState) -> Int {
