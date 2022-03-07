@@ -41,9 +41,9 @@ struct ContentView: View {
                 }
             }
             HStack {
-                TaskListView(tasks: taskManager.todoTasks)
-                TaskListView(tasks: taskManager.todoTasks)
-                TaskListView(tasks: taskManager.todoTasks)
+                TaskListView(tasks: taskManager.todoTasks, taskStatus: .todo)
+                TaskListView(tasks: taskManager.todoTasks, taskStatus: .doing)
+                TaskListView(tasks: taskManager.todoTasks, taskStatus: .done)
             }
             .background(Color(UIColor.systemGray4))
         }

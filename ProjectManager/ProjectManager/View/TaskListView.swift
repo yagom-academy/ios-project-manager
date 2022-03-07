@@ -10,11 +10,22 @@ import SwiftUI
 struct TaskListView: View {
     
     let tasks: [Task]
+    let taskStatus: TaskStatus
+    var taskListHeader: String {
+        switch taskStatus {
+        case .todo:
+            return "TODO"
+        case .doing:
+            return "DOING"
+        case .done:
+            return "DONE"
+        }
+    }
     
     var body: some View {
         VStack {
             HStack(spacing: 10) {
-                Text("TODO")
+                Text(taskListHeader)
                     .font(.largeTitle)
                 Text(tasks.count / 100 < 1 ? "\(tasks.count)" : "\(Image(systemName: "infinity"))")
                     .frame(width: 28.5, height: 24)
