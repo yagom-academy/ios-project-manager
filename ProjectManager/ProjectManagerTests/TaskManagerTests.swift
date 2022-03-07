@@ -9,16 +9,16 @@ import XCTest
 @testable import ProjectManager
 
 class TaskManagerTests: XCTestCase {
-    var taskMemoryRepository: TaskRepository!
+    var mockTaskMemoryRepository: TaskRepository!
     var taskManager: TaskManager!
     
     override func setUp() {
-        taskMemoryRepository = TaskMemoryRepository()
-        taskManager = TaskManager(taskRepository: taskMemoryRepository)
+        mockTaskMemoryRepository = MockTaskMemoryRepository()
+        taskManager = TaskManager(taskRepository: mockTaskMemoryRepository)
     }
     
     override func tearDown() {
-        taskMemoryRepository = nil
+        mockTaskMemoryRepository = nil
         taskManager = nil
     }
     
@@ -31,9 +31,7 @@ class TaskManagerTests: XCTestCase {
         taskManager.create(with: task)
         
         let tasks = taskManager.fetchAll()
-        XCTAssertEqual(tasks[0].title, "제목")
-        XCTAssertEqual(tasks[0].description, "본문")
-        XCTAssertEqual(tasks[0].state, .waiting)
+        XCTAssertEqual(tasks[0], task)
     }
     
     func test_task_만들고_삭제하기() {
@@ -65,7 +63,7 @@ class TaskManagerTests: XCTestCase {
         taskManager.update(with: changedTask)
 
         let result = taskManager.fetchAll()
-        XCTAssertEqual(result[0].title, "바뀐제목")
+        XCTAssertEqual(result[0], changedTask)
     }
     
     func test_task_만들고_상태_변경하기() {
@@ -80,5 +78,32 @@ class TaskManagerTests: XCTestCase {
 
         let result = taskManager.fetchAll()
         XCTAssertEqual(result[0].state, .done)
+    }
+    
+    func test_상태가_다른_task를_3개_만들고_진행중인_0번째_task_가져오기() {
+        let taskWaiting = Task(id: UUID(),
+                        title: "대기중",
+                        description: "본문",
+                        deadline: Date(),
+                        state: .waiting)
+    
+        let taskProgress = Task(id: UUID(),
+                        title: "진행중",
+                        description: "본문",
+                        deadline: Date(),
+                        state: .progress)
+        
+        let taskDone = Task(id: UUID(),
+                        title: "완료",
+                        description: "본문",
+                        deadline: Date(),
+                        state: .progress)
+        
+        [taskWaiting, taskProgress, taskDone].forEach {
+            taskManager.create(with: $0)
+        }
+        
+        let result = taskManager.fetch(at: 0, with: .progress)
+        XCTAssertEqual(result, taskProgress)
     }
 }
