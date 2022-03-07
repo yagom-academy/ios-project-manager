@@ -99,10 +99,10 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
+				F374A11827CDD50E0083CC73 /* View */,
 				F3C53F7B27D521CC00D7CE4E /* ViewModel */,
 				F3C53F4B27D10AC600D7CE4E /* Model */,
 				F374A11727CDD4AE0083CC73 /* AppLifecycle */,
-				F374A11827CDD50E0083CC73 /* View */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
