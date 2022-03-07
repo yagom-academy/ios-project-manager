@@ -1,5 +1,4 @@
 import UIKit
-import RxCocoa
 
 final class TableViewCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!

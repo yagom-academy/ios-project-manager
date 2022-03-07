@@ -30,6 +30,7 @@
 		DE8587C127CF571E00D4F4B7 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8587C027CF571E00D4F4B7 /* TableViewCell.swift */; };
 		DE9A0AAA27D21CE10095BBF9 /* ActionView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE9A0AA927D21CE10095BBF9 /* ActionView.storyboard */; };
 		DE9A0AAC27D228400095BBF9 /* ActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9A0AAB27D228400095BBF9 /* ActionViewController.swift */; };
+		DEE3C45327D5EFC4002D014B /* Array+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE44BF8727D4A23F006E9010 /* Array+extension.swift */; };
 		F30B76FC5BC81A5381504B03 /* Pods_ProjectManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 204B28057D7E57350830FB9D /* Pods_ProjectManager.framework */; };
 /* End PBXBuildFile section */
 
@@ -412,6 +413,7 @@
 				DE8587B627CF406900D4F4B7 /* Work.swift in Sources */,
 				DE8587B427CF406100D4F4B7 /* Repository.swift in Sources */,
 				DE8587B727CF407900D4F4B7 /* DateFormatter+extension.swift in Sources */,
+				DEE3C45327D5EFC4002D014B /* Array+extension.swift in Sources */,
 				DE8587B527CF406500D4F4B7 /* DataManager.swift in Sources */,
 				DE8587AC27CF064200D4F4B7 /* ProjectManagerModelTests.swift in Sources */,
 			);

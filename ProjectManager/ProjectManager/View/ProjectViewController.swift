@@ -3,9 +3,15 @@ import RxSwift
 import RxCocoa
 
 class ProjectViewController: UIViewController {
-    @IBOutlet weak var todoTableView: UITableView!
-    @IBOutlet weak var doingTableView: UITableView!
-    @IBOutlet weak var doneTableView: UITableView!
+    @IBOutlet weak private var todoTableView: UITableView!
+    @IBOutlet weak private var doingTableView: UITableView!
+    @IBOutlet weak private var doneTableView: UITableView!
+    @IBOutlet weak private var todoTitleLabel: UILabel!
+    @IBOutlet weak private var todoCountLabel: UILabel!
+    @IBOutlet weak private var doingTitleLabel: UILabel!
+    @IBOutlet weak private var doingCountLabel: UILabel!
+    @IBOutlet weak private var doneTitleLabel: UILabel!
+    @IBOutlet weak private var doneCountLabel: UILabel!
     
     private let viewModel = ProjectViewModel()
     private var disposeBag = DisposeBag()
@@ -17,7 +23,7 @@ class ProjectViewController: UIViewController {
         setupTableViews()
     }
     
-    @IBAction func addNewWork(_ sender: UIBarButtonItem) {
+    @IBAction private func addNewWork(_ sender: UIBarButtonItem) {
         let storyboard = UIStoryboard(name: actionViewStorboardName, bundle: nil)
         let viewController = storyboard.instantiateViewController(
             identifier: String(describing: ActionViewController.self)
@@ -33,32 +39,38 @@ class ProjectViewController: UIViewController {
     }
     
     private func setupTableViews() {
-        configureTableViewCell()
+        configureTableViewCells()
         configureTableViews()
-        configureHeader(for: todoTableView, text: "  Todo")
-        configureHeader(for: doingTableView, text: "  Doing")
-        configureHeader(for: doneTableView, text: "  Done")
+        configureHeaders()
     }
     
-    private func configureTableViewCell() {
+    private func configureTableViewCells() {
         let nibName = UINib(nibName: String(describing: TableViewCell.self), bundle: nil)
         todoTableView.register(nibName, forCellReuseIdentifier: String(describing: TableViewCell.self))
         doingTableView.register(nibName, forCellReuseIdentifier: String(describing: TableViewCell.self))
         doneTableView.register(nibName, forCellReuseIdentifier: String(describing: TableViewCell.self))
     }
     
-    private func configureHeader(for tableView: UITableView, text: String) {
-        let header = UIView(frame: CGRect(
-            x: .zero,
-            y: .zero,
-            width: tableView.frame.width,
-            height: tableView.frame.height * 0.05
-        ))
-        let label = UILabel(frame: header.bounds)
-        label.text = text
-        label.font = .preferredFont(forTextStyle: .largeTitle)
-        header.addSubview(label)
-        tableView.tableHeaderView = header
+    private func configureHeaders() {
+        todoTitleLabel.text = "TODO"
+        doingTitleLabel.text = "DOING"
+        doneTitleLabel.text = "DONE"
+        todoCountLabel.layer.cornerRadius = 12
+        doingCountLabel.layer.cornerRadius = 12
+        doneCountLabel.layer.cornerRadius = 12
+        todoCountLabel.layer.masksToBounds = true
+        doingCountLabel.layer.masksToBounds = true
+        doneCountLabel.layer.masksToBounds = true
+        
+        _ = viewModel.todoCount.subscribe(onNext: {
+            self.todoCountLabel.text = $0.description
+        })
+        _ = viewModel.doingCount.subscribe(onNext: {
+            self.doingCountLabel.text = $0.description
+        })
+        _ = viewModel.doneCount.subscribe(onNext: {
+            self.doneCountLabel.text = $0.description
+        })
     }
     
     private func configureTableViews() {

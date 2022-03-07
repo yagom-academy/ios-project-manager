@@ -1,11 +1,11 @@
 import XCTest
 
 class ProjectManagerModelTests: XCTestCase {
-    var sut: MemoryDataManager?
+    var sut: Repository?
     
     override func setUpWithError() throws {
         try super.setUpWithError()
-        sut = MemoryDataManager()
+        sut = Repository()
     }
 
     override func tearDownWithError() throws {
@@ -15,10 +15,10 @@ class ProjectManagerModelTests: XCTestCase {
     
     // MARK: - create 메서드 검증
     func test_create_will_make_appropriate_Work_instance_in_todo_storage() {
-        let firstWork = Work()
+        var firstWork = Work()
         firstWork.title = "a"
         firstWork.body = "a"
-        firstWork.date = Date()
+        firstWork.dueDate = Date()
         sut?.create(firstWork)
         
         XCTAssertFalse(sut?.todoList == nil)
@@ -26,10 +26,7 @@ class ProjectManagerModelTests: XCTestCase {
     }
     
     func test_create_will_not_make_Work_instance_in_doing_storage() {
-        let firstWork = Work()
-        firstWork.title = "a"
-        firstWork.body = "a"
-        firstWork.date = Date()
+        let firstWork = Work(title: "a", body: "a", dueDate: Date())
         sut?.create(firstWork)
         guard let sut = sut else { return }
 
@@ -75,10 +72,10 @@ class ProjectManagerModelTests: XCTestCase {
     
     // MARK: - update 메서드 검증
     func test_update_will_change_right_property() {
-        let firstWork = Work()
+        var firstWork = Work()
         firstWork.title = "a"
         firstWork.body = "가나다"
-        firstWork.date = Date()
+        firstWork.dueDate = Date()
         sut?.create(firstWork)
         sut?.update(firstWork, title: "b", body: "가나다", date: Date())
         

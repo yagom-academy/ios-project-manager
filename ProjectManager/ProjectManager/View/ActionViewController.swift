@@ -2,9 +2,9 @@ import UIKit
 
 class ActionViewController: UIViewController {
     private var viewModel: ProjectViewModel?
-    @IBOutlet weak var titleTextField: UITextField!
-    @IBOutlet weak var datePicker: UIDatePicker!
-    @IBOutlet weak var bodyTextView: UITextView!
+    @IBOutlet weak private var titleTextField: UITextField!
+    @IBOutlet weak private var datePicker: UIDatePicker!
+    @IBOutlet weak private var bodyTextView: UITextView!
     
     convenience init?(coder: NSCoder, viewModel: ProjectViewModel) {
         self.init(coder: coder)
@@ -15,6 +15,18 @@ class ActionViewController: UIViewController {
         super.viewDidLoad()
         setupTextField()
         setupTextView()
+    }
+    
+    @IBAction private func touchUpDoneButton(_ sender: UIBarButtonItem) {
+        guard let viewModel = viewModel else { return }
+        let work = Work(title: titleTextField.text, body: bodyTextView.text, dueDate: datePicker.date)
+        viewModel.addWork(work)
+        
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction private func touchUpCancelButton(_ sender: UIBarButtonItem) {
+        dismiss(animated: true, completion: nil)
     }
     
     private func setupTextField() {
@@ -52,17 +64,5 @@ class ActionViewController: UIViewController {
         bodyTextView.layer.shadowOffset = CGSize(width: 0, height: 5)
         bodyTextView.layer.shadowOpacity = 0.3
         bodyTextView.layer.shadowRadius = 5.0
-    }
-    
-    @IBAction func touchUpDoneButton(_ sender: UIBarButtonItem) {
-        guard let viewModel = viewModel else { return }
-        let work = Work(title: titleTextField.text, body: bodyTextView.text, dueDate: datePicker.date)
-        viewModel.addWork(work)
-        
-        dismiss(animated: true, completion: nil)
-    }
-    
-    @IBAction func touchUpCancelButton(_ sender: UIBarButtonItem) {
-        dismiss(animated: true, completion: nil)
     }
 }

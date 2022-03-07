@@ -3,26 +3,29 @@ import RxSwift
 import RxRelay
 
 class ProjectViewModel {
-    let memoryDataManager = Repository()
+    let repository = Repository()
     var todoList = BehaviorSubject<[Work]>(value: [])
-    var doingList = BehaviorSubject<[Work]>(value: [])
+    var doingList = BehaviorSubject<[Work]>(value: []) // notify , 데이터를 들고 있을 수 있다. 
     var doneList = BehaviorSubject<[Work]>(value: [])
+    lazy var todoCount = todoList.map { $0.count }
+    lazy var doingCount = doingList.map { $0.count }
+    lazy var doneCount = doneList.map { $0.count }
     
     init() {
-        todoList.onNext(memoryDataManager.todoList)
-        doingList.onNext(memoryDataManager.doingList)
-        doneList.onNext(memoryDataManager.doneList)
+        todoList.onNext(repository.todoList)
+        doingList.onNext(repository.doingList)
+        doneList.onNext(repository.doneList)
     }
     
     func addWork(_ data: Work) {
-        memoryDataManager.create(data)
+        repository.create(data)
         switch data.sort {
         case .todo:
-            todoList.onNext(memoryDataManager.todoList)
+            todoList.onNext(repository.todoList)
         case .doing:
-            doingList.onNext(memoryDataManager.doingList)
+            doingList.onNext(repository.doingList)
         case .done:
-            doneList.onNext(memoryDataManager.doneList)
+            doneList.onNext(repository.doneList)
         }
     }
 
