@@ -31,7 +31,9 @@ class ProjectBoardViewController: UIViewController {
     // MARK: - Configure View
     private func configureNavigationItem() {
         let navigationItem = UINavigationItem(title: "Project Manager")
-        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: nil)
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add,
+                                        target: self,
+                                        action: #selector(presentProjectDetailViewController))
         navigationItem.rightBarButtonItem = addButton
         
         navigationBar.items = [navigationItem]
@@ -43,6 +45,13 @@ class ProjectBoardViewController: UIViewController {
         navigationBar.topAnchor.constraint(equalTo: safeArea.topAnchor).isActive = true
         navigationBar.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor).isActive = true
         navigationBar.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor).isActive = true
+    }
+    
+    @objc
+    func presentProjectDetailViewController() {
+        let detailViewController = ProjectDetailViewController()
+        detailViewController.modalPresentationStyle = .formSheet
+        present(detailViewController, animated: false, completion: nil)
     }
 }
 
