@@ -19,27 +19,7 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            Section {
-                HStack {
-                    Image(systemName: "plus")
-                        .font(.title)
-                        .padding(.leading, 30)
-                        .hidden()
-                    Spacer()
-                    Text("Project Manager")
-                        .font(.title3)
-                        .bold()
-                    Spacer()
-                    Button {
-                        print("할일 추가 버튼 눌림!")
-                    } label: {
-                        Image(systemName: "plus")
-                            .font(.title)
-                            .foregroundColor(.blue)
-                    }
-                    .padding(.trailing, 30)
-                }
-            }
+            MainHeaderView()
             HStack {
                 TaskListView(tasks: taskManager.todoTasks, taskStatus: .todo)
                 TaskListView(tasks: taskManager.todoTasks, taskStatus: .doing)
