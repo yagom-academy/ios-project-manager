@@ -31,6 +31,13 @@ class ProjectDetailViewController: UIViewController {
         datePicker.translatesAutoresizingMaskIntoConstraints = false
         datePicker.datePickerMode = .date
         datePicker.preferredDatePickerStyle = .wheels
+        var preferredLanguage = Locale.preferredLanguages.first
+        let currentRegionIdentifier: Substring? = NSLocale.current.identifier.split(separator: "_").last
+        if let languageCode = preferredLanguage, let regionCode = currentRegionIdentifier {
+            let deviceLocaleIdentifier = "\(languageCode)_\(regionCode)"
+            datePicker.locale = Locale(identifier: deviceLocaleIdentifier)
+            return datePicker
+        }
         return datePicker
     }()
     
@@ -69,8 +76,8 @@ class ProjectDetailViewController: UIViewController {
                                          target: self,
                                          action: nil)
         let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel,
-                                         target: self,
-                                         action: #selector(dismissWithoutCreation))
+                                           target: self,
+                                           action: #selector(dismissWithoutCreation))
         navigationItem.rightBarButtonItem = doneButton
         navigationItem.leftBarButtonItem = cancelButton
         
