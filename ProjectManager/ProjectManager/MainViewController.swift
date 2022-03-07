@@ -4,9 +4,9 @@ class MainViewController: UIViewController {
     private let toDoTableView = ProjectListTableView()
     private let doingTableView = ProjectListTableView()
     private let doneTableView = ProjectListTableView()
-    private let toDoDataSourceDelegate = ToDoDataSourceDelegate()
-    private let doingDataSourceDelegate = DoingDataSourceDelegate()
-    private let doneDataSourceDelegate = DoneDataSourceDelegate()
+    private let toDoDataSourceDelegate = ToDoDataSource()
+    private let doingDataSourceDelegate = DoingDataSource()
+    private let doneDataSourceDelegate = DoneDataSource()
     private let toDoHeader = ProjectListHeaderView(title: "TODO")
     private let doingHeader = ProjectListHeaderView(title: "DOING")
     private let doneHeader = ProjectListHeaderView(title: "DONE")
@@ -78,12 +78,12 @@ class MainViewController: UIViewController {
     }
     
     private func setupTableView() {
+        toDoTableView.delegate = self
+        doingTableView.delegate = self
+        doneTableView.delegate = self
         toDoTableView.dataSource = toDoDataSourceDelegate
-        toDoTableView.delegate = toDoDataSourceDelegate
         doingTableView.dataSource = doingDataSourceDelegate
-        doingTableView.delegate = doingDataSourceDelegate
         doneTableView.dataSource = doneDataSourceDelegate
-        doneTableView.delegate = doneDataSourceDelegate
     }
     
     private func registerProjectListCell() {
@@ -96,5 +96,33 @@ class MainViewController: UIViewController {
         let viewController = AddProjectViewController()
         viewController.modalPresentationStyle = .formSheet
         present(viewController, animated: true, completion: nil)
+    }
+}
+
+extension MainViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 7
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return UIView()
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return nil
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let viewController = EditProjectViewController()
+        viewController.modalPresentationStyle = .formSheet
+        present(viewController, animated: true, completion: nil)
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { _, _, _  in
+            print("Delete project")
+        }
+        
+        return UISwipeActionsConfiguration(actions: [deleteAction])
     }
 }

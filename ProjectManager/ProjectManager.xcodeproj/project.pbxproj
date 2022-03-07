@@ -8,9 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		47F8F60A27CDEA96008919E3 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F8F60927CDEA96008919E3 /* CoreDataManager.swift */; };
-		47F9810727D096DF0046FE9E /* ToDoDataSourceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F9810627D096DF0046FE9E /* ToDoDataSourceDelegate.swift */; };
-		47F9810927D096EC0046FE9E /* DoingDataSourceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F9810827D096EC0046FE9E /* DoingDataSourceDelegate.swift */; };
-		47F9810B27D096FA0046FE9E /* DoneDataSourceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F9810A27D096FA0046FE9E /* DoneDataSourceDelegate.swift */; };
+		47F9810727D096DF0046FE9E /* ToDoDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F9810627D096DF0046FE9E /* ToDoDataSource.swift */; };
+		47F9810927D096EC0046FE9E /* DoingDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F9810827D096EC0046FE9E /* DoingDataSource.swift */; };
+		47F9810B27D096FA0046FE9E /* DoneDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F9810A27D096FA0046FE9E /* DoneDataSource.swift */; };
 		47F9812D27D1F6550046FE9E /* ProjectListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F9812C27D1F6550046FE9E /* ProjectListHeaderView.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
@@ -29,6 +29,7 @@
 		FB85DA3A27D05CEE0065FD72 /* ProjectListTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB85DA3927D05CEE0065FD72 /* ProjectListTableView.swift */; };
 		FB85DA3C27D1AD430065FD72 /* ProjectListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB85DA3B27D1AD430065FD72 /* ProjectListCell.swift */; };
 		FB85DA3E27D1B2370065FD72 /* CellManagable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB85DA3D27D1B2370065FD72 /* CellManagable.swift */; };
+		FB9EDAB127D5FBE300C78BE1 /* EditProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9EDAB027D5FBE300C78BE1 /* EditProjectViewController.swift */; };
 		FBD493FB27D2095200BA412F /* ProjectFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD493FA27D2095200BA412F /* ProjectFormView.swift */; };
 		FBDBCF0027CDBAB80018B526 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FBDBCEFF27CDBAB80018B526 /* GoogleService-Info.plist */; };
 		FBDBCF0327CDBC3D0018B526 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = FBDBCF0227CDBC3D0018B526 /* FirebaseAnalytics */; };
@@ -40,9 +41,9 @@
 
 /* Begin PBXFileReference section */
 		47F8F60927CDEA96008919E3 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
-		47F9810627D096DF0046FE9E /* ToDoDataSourceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoDataSourceDelegate.swift; sourceTree = "<group>"; };
-		47F9810827D096EC0046FE9E /* DoingDataSourceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoingDataSourceDelegate.swift; sourceTree = "<group>"; };
-		47F9810A27D096FA0046FE9E /* DoneDataSourceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneDataSourceDelegate.swift; sourceTree = "<group>"; };
+		47F9810627D096DF0046FE9E /* ToDoDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoDataSource.swift; sourceTree = "<group>"; };
+		47F9810827D096EC0046FE9E /* DoingDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoingDataSource.swift; sourceTree = "<group>"; };
+		47F9810A27D096FA0046FE9E /* DoneDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneDataSource.swift; sourceTree = "<group>"; };
 		47F9812C27D1F6550046FE9E /* ProjectListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListHeaderView.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -59,6 +60,7 @@
 		FB85DA3927D05CEE0065FD72 /* ProjectListTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListTableView.swift; sourceTree = "<group>"; };
 		FB85DA3B27D1AD430065FD72 /* ProjectListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListCell.swift; sourceTree = "<group>"; };
 		FB85DA3D27D1B2370065FD72 /* CellManagable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellManagable.swift; sourceTree = "<group>"; };
+		FB9EDAB027D5FBE300C78BE1 /* EditProjectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProjectViewController.swift; sourceTree = "<group>"; };
 		FBD493FA27D2095200BA412F /* ProjectFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectFormView.swift; sourceTree = "<group>"; };
 		FBDBCEFF27CDBAB80018B526 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -122,15 +124,16 @@
 				FB85DA3927D05CEE0065FD72 /* ProjectListTableView.swift */,
 				FB85DA3B27D1AD430065FD72 /* ProjectListCell.swift */,
 				FBD493FA27D2095200BA412F /* ProjectFormView.swift */,
-				47F9810627D096DF0046FE9E /* ToDoDataSourceDelegate.swift */,
-				47F9810827D096EC0046FE9E /* DoingDataSourceDelegate.swift */,
-				47F9810A27D096FA0046FE9E /* DoneDataSourceDelegate.swift */,
+				47F9810627D096DF0046FE9E /* ToDoDataSource.swift */,
+				47F9810827D096EC0046FE9E /* DoingDataSource.swift */,
+				47F9810A27D096FA0046FE9E /* DoneDataSource.swift */,
 				47F8F60827CDEA70008919E3 /* CoreData */,
 				C7431F0B25F51E1D0094C4CF /* Main.storyboard */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
 				FBDBCEFF27CDBAB80018B526 /* GoogleService-Info.plist */,
+				FB9EDAB027D5FBE300C78BE1 /* EditProjectViewController.swift */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
@@ -225,8 +228,9 @@
 				47F9812D27D1F6550046FE9E /* ProjectListHeaderView.swift in Sources */,
 				FB85DA3427CDF8970065FD72 /* ToDo.xcdatamodeld in Sources */,
 				FB16501227D2066D00C145D6 /* AddProjectViewController.swift in Sources */,
-				47F9810B27D096FA0046FE9E /* DoneDataSourceDelegate.swift in Sources */,
-				47F9810727D096DF0046FE9E /* ToDoDataSourceDelegate.swift in Sources */,
+				47F9810B27D096FA0046FE9E /* DoneDataSource.swift in Sources */,
+				FB9EDAB127D5FBE300C78BE1 /* EditProjectViewController.swift in Sources */,
+				47F9810727D096DF0046FE9E /* ToDoDataSource.swift in Sources */,
 				FBD493FB27D2095200BA412F /* ProjectFormView.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
@@ -234,7 +238,7 @@
 				FB85DA3827CDF91E0065FD72 /* ToDo+CoreDataProperties.swift in Sources */,
 				FB85DA3C27D1AD430065FD72 /* ProjectListCell.swift in Sources */,
 				47F8F60A27CDEA96008919E3 /* CoreDataManager.swift in Sources */,
-				47F9810927D096EC0046FE9E /* DoingDataSourceDelegate.swift in Sources */,
+				47F9810927D096EC0046FE9E /* DoingDataSource.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				FB85DA3727CDF91E0065FD72 /* ToDo+CoreDataClass.swift in Sources */,
 			);
