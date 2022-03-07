@@ -24,10 +24,14 @@ struct TaskListView: View {
             .padding(EdgeInsets(top: 11, leading: 21, bottom: -1, trailing: 21))
             List {
                 ForEach(tasks) { task in
-                    TaskListCellView(task: task)
+                    TaskListRowView(task: task)
+                    Spacer()
+                        .frame(height: 0)
+                        .background(Color.clear)
                 }
             }
             .listStyle(.plain)
+            .environment(\.defaultMinListRowHeight, 0)
         }
         .background(Color(UIColor.systemGray6))
     }

@@ -1,5 +1,5 @@
 //
-//  TaskListCellView.swift
+//  TaskListRowView.swift
 //  ProjectManager
 //
 //  Created by 예거 on 2022/03/06.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TaskListCellView: View {
+struct TaskListRowView: View {
     
     let task: Task
     
