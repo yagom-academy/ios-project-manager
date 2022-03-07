@@ -7,9 +7,17 @@
 
 import UIKit
 
+protocol ProjectDetailViewControllerDelegate {
+    func createProject(with content: [String: Any])
+}
+
 class ProjectDetailViewController: UIViewController {
     
+    // MARK: - Property
     var project: Project?
+    weak var delegate: ProjectBoardViewController?
+    
+    // MARK: - UI Property
     private var navigationBar: UINavigationBar = {
         let navigationBar = UINavigationBar()
         navigationBar.translatesAutoresizingMaskIntoConstraints = false
@@ -58,6 +66,7 @@ class ProjectDetailViewController: UIViewController {
         return stackView
     }()
     
+    // MARK: - View Life Cycle
     override func loadView() {
         self.view = .init()
         self.view.backgroundColor = .white
@@ -74,7 +83,7 @@ class ProjectDetailViewController: UIViewController {
         let navigationItem = UINavigationItem()
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done,
                                          target: self,
-                                         action: nil)
+                                         action: #selector(dismissWithCreation))
         let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel,
                                            target: self,
                                            action: #selector(dismissWithoutCreation))
@@ -108,8 +117,16 @@ class ProjectDetailViewController: UIViewController {
     }
     
     // MARK: - @objc Method
-    @objc
-    func dismissWithoutCreation() {
+    @objc func dismissWithoutCreation() {
+        dismiss(animated: false, completion: nil)
+    }
+    
+    @objc func dismissWithCreation() {
+        var content: [String: Any] = [:]
+        content.updateValue(titleTextField.text as Any, forKey: "title")
+        content.updateValue(datePicker.date as Any, forKey: "deadline")
+        content.updateValue(descriptionTextView.text as Any, forKey: "description")
+        delegate?.createProject(with: content)
         dismiss(animated: false, completion: nil)
     }
 }

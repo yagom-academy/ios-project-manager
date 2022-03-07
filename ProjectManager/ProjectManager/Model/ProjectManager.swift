@@ -13,8 +13,8 @@ final class ProjectManager {
     private let projectSource = ProjectSource<UUID>()
     
     // MARK: - Method
-    func create() {
-        projectSource.create()
+    func create(with content: [String: Any]) {
+        projectSource.create(with: content)
     }
     
     func readProject(of identifier: UUID) -> Project? {

@@ -9,6 +9,9 @@ import UIKit
 class ProjectBoardViewController: UIViewController {
     
     // MARK: - Property
+    private let projectManager = ProjectManager()
+    
+    // MARK: - UI Property
     private var navigationBar: UINavigationBar = {
         let navigationBar = UINavigationBar()
         navigationBar.translatesAutoresizingMaskIntoConstraints = false
@@ -47,10 +50,11 @@ class ProjectBoardViewController: UIViewController {
         navigationBar.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor).isActive = true
     }
     
-    @objc
-    func presentProjectDetailViewController() {
+    // MARK: - @objc Method
+    @objc func presentProjectDetailViewController() {
         let detailViewController = ProjectDetailViewController()
         detailViewController.modalPresentationStyle = .formSheet
+        detailViewController.delegate = self
         present(detailViewController, animated: false, completion: nil)
     }
 }
@@ -59,5 +63,12 @@ class ProjectBoardViewController: UIViewController {
 extension ProjectBoardViewController: UINavigationBarDelegate {
     func position(for bar: UIBarPositioning) -> UIBarPosition {
         return UIBarPosition.topAttached
+    }
+}
+
+// MARK: - ProjectDetailViewControllerDelegate
+extension ProjectBoardViewController: ProjectDetailViewControllerDelegate {
+    func createProject(with content: [String: Any]) {
+        self.projectManager.create(with: content)
     }
 }

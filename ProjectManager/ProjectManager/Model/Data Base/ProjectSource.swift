@@ -15,12 +15,12 @@ final class ProjectSource<T: Hashable>: LocalDataBase {
     private var projects: [String: Project] = [:]
     
     // MARK: - Method
-    func create() {
+    func create(with content: [String: Any]) {
         let identifier = UUID()
-        let newProject = Project(identifier: identifier,
-                                 title: nil,
-                                 deadline: Date(),
-                                 description: nil,
+        let newProject = Project(identifier: UUID(),
+                                 title: content["title"] as? String,
+                                 deadline: content["deadline"] as? Date,
+                                 description: content["description"] as? String,
                                  status: .todo)
         projects.updateValue(newProject, forKey: identifier.uuidString)
     }

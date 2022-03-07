@@ -11,7 +11,7 @@ protocol LocalDataBase {
     
     associatedtype Item
 
-    func create()
+    func create(with content: [String: Any])
         
     func read<T: Hashable>(of identifier: T) -> Item?
         
