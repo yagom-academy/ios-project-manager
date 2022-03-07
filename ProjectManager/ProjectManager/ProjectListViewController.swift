@@ -7,9 +7,14 @@
 
 import UIKit
 
+protocol TodoEditDelegate: AnyObject {
+    func showTaskView()
+}
+
 class ProjectListViewController: UIViewController {
 
     var todoList: [Todo] = []
+    weak var delegate: TodoEditDelegate?
     let step: Step
     let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
@@ -109,6 +114,10 @@ extension ProjectListViewController: UITableViewDelegate {
         ])
         
         return headerView
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        delegate?.showTaskView()
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {

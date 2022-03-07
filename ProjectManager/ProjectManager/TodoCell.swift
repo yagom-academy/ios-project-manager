@@ -82,11 +82,13 @@ class TodoCell: UITableViewCell {
     func configureDataLabel(deadline: Date) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
-        
         dateFormatter.timeZone = .autoupdatingCurrent
         dateFormatter.locale = .autoupdatingCurrent
         
-        dateLabel.text = dateFormatter.string(from: deadline)
-        dateLabel.textColor = deadline < Date() ? .red : .black
+        let deadlineTime = dateFormatter.string(from: deadline)
+        let currentTime = dateFormatter.string(from: Date())
+        
+        dateLabel.text = deadlineTime
+        dateLabel.textColor = deadlineTime < currentTime ? .red : .black
     }
 }

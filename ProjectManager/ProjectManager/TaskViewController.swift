@@ -60,6 +60,14 @@ class TaskViewController: UIViewController {
         return button
     }()
     
+    lazy var editBarButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(title: "Edit",
+                                     style: .plain,
+                                     target: self,
+                                     action: #selector(editAction))
+        return button
+    }()
+    
     lazy var doneBarButton: UIBarButtonItem = {
         let button = UIBarButtonItem(title: "Done",
                                      style: .done,
@@ -98,6 +106,10 @@ class TaskViewController: UIViewController {
     
     @objc func cancelAction() {
         dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func editAction() {
+        print("edit 기능 구현")
     }
     
     @objc func textFieldDidChange(_ textField: UITextField) {

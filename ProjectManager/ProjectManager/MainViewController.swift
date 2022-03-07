@@ -17,6 +17,8 @@ class MainViewController: UIViewController {
         
         configureNavigationBar()
         configureListViewLayout()
+        configureToolBar()
+        registerDelegate()
     }
 
     func configureNavigationBar() {
@@ -25,6 +27,15 @@ class MainViewController: UIViewController {
         navigationItem.rightBarButtonItem = addButton
         navigationItem.title = "Project Manager"
         navigationController?.navigationBar.barTintColor = .systemGray6
+    }
+    
+    func configureToolBar() {
+        navigationController?.isToolbarHidden = false
+        navigationController?.toolbar.barTintColor = .systemGray5
+    }
+    
+    func registerDelegate() {
+        todoViewController.delegate = self
     }
     
     @objc func addTodo() {
@@ -58,5 +69,13 @@ class MainViewController: UIViewController {
             stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             stackView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+    }
+}
+
+// MARK: - TodoEditDelegate
+
+extension MainViewController: TodoEditDelegate {
+    func showTaskView() {
+        addTodo()
     }
 }
