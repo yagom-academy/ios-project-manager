@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TaskListView: View {
     
-    let tasks: [Task]
+    @State var tasks: [Task]
     let taskStatus: TaskStatus
     var taskListHeader: String {
         switch taskStatus {
@@ -43,13 +43,14 @@ struct TaskListView: View {
             List {
                 ForEach(tasks) { task in
                     TaskListRowView(task: task)
-                    Spacer()
-                        .frame(height: 0)
-                        .background(Color.clear)
+                }
+                .onDelete { indexSet in
+                    print("💚 할일 삭제 버튼 눌림!") // TODO: 할일 인스턴스 삭제 로직 연결
+                    tasks.remove(atOffsets: indexSet)
+                    // 캡쳐된 연산 프로퍼티인 tasks 배열 내에서만 삭제되므로, 할일 인스턴스는 완전 삭제되지 않은 상태임
                 }
             }
             .listStyle(.plain)
-            .environment(\.defaultMinListRowHeight, 0)
         }
         .background(Color(UIColor.systemGray6))
     }

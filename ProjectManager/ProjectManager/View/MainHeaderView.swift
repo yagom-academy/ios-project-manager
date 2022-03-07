@@ -21,7 +21,7 @@ struct MainHeaderView: View {
                     .bold()
                 Spacer()
                 Button {
-                    print("할일 추가 버튼 눌림!") // TODO: 할일 추가 화면 연결
+                    print("💚 할일 추가 버튼 눌림!") // TODO: 할일 추가 화면 연결
                 } label: {
                     Image(systemName: "plus")
                         .font(.title)

@@ -23,6 +23,11 @@ class Task: Identifiable, Equatable {
         self.status = .todo
     }
     
+    // !!!: 할일 인스턴스 deinit 확인용 코드
+    deinit {
+        print("🍓 할일 인스턴스 삭제됨!")
+    }
+    
     static func == (lhs: Task, rhs: Task) -> Bool {
         return lhs.id == rhs.id
     }
