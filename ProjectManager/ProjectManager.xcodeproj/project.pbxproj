@@ -100,9 +100,7 @@
 		84A5997A27D21351004E5054 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
-				C7431F1325F51E1E0094C4CF /* Info.plist */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -133,6 +131,8 @@
 				84A5995D27D20E7B004E5054 /* Domain */,
 				84A5997327D2126B004E5054 /* Presentation */,
 				84A5997A27D21351004E5054 /* Supporting Files */,
+				C7431F1325F51E1E0094C4CF /* Info.plist */,
+				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
