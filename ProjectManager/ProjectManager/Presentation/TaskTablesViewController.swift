@@ -1,15 +1,15 @@
 import UIKit
 
-class TaskTablesViewController: UIViewController {
-    var viewModel: TaskViewModel
+class TaskTablesViewController: UICollectionViewController {
+    var viewModel: TaskViewModel?
     
-    init(viewModel: TaskViewModel) {
+    init?(coder: NSCoder, viewModel: TaskViewModel) {
         self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
+        super.init(coder: coder)
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
     }
     
     override func viewDidLoad() {
