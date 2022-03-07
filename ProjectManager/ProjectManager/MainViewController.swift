@@ -8,9 +8,9 @@ import UIKit
 
 class MainViewController: UIViewController {
 
-    let todoViewController = ProjectListViewController()
-    let doingViewController = ProjectListViewController()
-    let doneViewController = ProjectListViewController()
+    let todoViewController = ProjectListViewController(step: .todo)
+    let doingViewController = ProjectListViewController(step: .doing)
+    let doneViewController = ProjectListViewController(step: .done)
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -10,7 +10,7 @@ import UIKit
 class ProjectListViewController: UIViewController {
 
     var todoList: [Todo] = []
-    
+    let step: Step
     let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -22,7 +22,8 @@ class ProjectListViewController: UIViewController {
         
     }
     
-    init() {
+    init(step: Step) {
+        self.step = step
         super.init(nibName: nil, bundle: nil)
         setupTableView()
         configureTableViewLayout()
@@ -79,7 +80,7 @@ extension ProjectListViewController: UITableViewDelegate {
         headerView.backgroundColor = .systemGray6
         
         let titleLabel = UILabel()
-        titleLabel.text = "TODO"
+        titleLabel.text = step.rawValue
         titleLabel.font = .preferredFont(forTextStyle: .title1)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         headerView.addSubview(titleLabel)
@@ -91,7 +92,7 @@ extension ProjectListViewController: UITableViewDelegate {
         ])
         
         let countLabel = UILabel()
-        countLabel.text = "5"
+        countLabel.text = String(todoList.count)
         countLabel.textColor = .white
         countLabel.backgroundColor = .black
         countLabel.textAlignment = .center
@@ -108,6 +109,16 @@ extension ProjectListViewController: UITableViewDelegate {
         ])
         
         return headerView
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { _, _, _ in
+            self.todoList.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .bottom)
+            tableView.reloadData()
+        }
+        
+        return UISwipeActionsConfiguration(actions: [deleteAction])
     }
 }
 
