@@ -56,6 +56,7 @@ class MainViewController: UIViewController {
         setupNavigationBar()
         setupStackViewLayout()
         registerProjectListCell()
+        addLongPressGesture()
     }
     
     private func setupStackViewLayout() {
@@ -124,5 +125,63 @@ extension MainViewController: UITableViewDelegate {
         }
         
         return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
+}
+
+extension MainViewController {
+    
+    private func addLongPressGesture() {
+        let todoLongPressGestrue = UILongPressGestureRecognizer(target: self, action: #selector(presentToDoLongPressMenu(_:)))
+        let doingLongPressGestrue = UILongPressGestureRecognizer(target: self, action: #selector(presentDoingLongPressMenu(_:)))
+        let doneLongPressGestrue = UILongPressGestureRecognizer(target: self, action: #selector(presentDoneLongPressMenu(_:)))
+        toDoTableView.addGestureRecognizer(todoLongPressGestrue)
+        doingTableView.addGestureRecognizer(doingLongPressGestrue)
+        doneTableView.addGestureRecognizer(doneLongPressGestrue)
+    }
+    
+    private func makePopoverAlert(with sectionTitles: [String]) -> UIAlertController {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let moveToFirstSectionAction = UIAlertAction(title: sectionTitles[0], style: .default)
+        let moveToSecondSectionAction = UIAlertAction(title: sectionTitles[1], style: .default)
+        alert.addAction(moveToFirstSectionAction)
+        alert.addAction(moveToSecondSectionAction)
+        
+        return alert
+    }
+
+    @objc private func presentToDoLongPressMenu(_ longPresss: UILongPressGestureRecognizer) {
+        let sectionTitles = ["Move To DOING", "Move To DONE"]
+        let locationInView = longPresss.location(in: toDoTableView)
+        guard let indexPath = toDoTableView.indexPathForRow(at: locationInView) else { return }
+
+        if longPresss.state == .began {
+            let alert = makePopoverAlert(with: sectionTitles)
+            alert.popoverPresentationController?.sourceView = toDoTableView.cellForRow(at: indexPath)
+            present(alert, animated: true)
+        }
+    }
+
+    @objc private func presentDoingLongPressMenu(_ longPresss: UILongPressGestureRecognizer) {
+        let sectionTitles = ["Move To TODO", "Move To DONE"]
+        let locationInView = longPresss.location(in: doingTableView)
+        guard let indexPath = doingTableView.indexPathForRow(at: locationInView) else { return }
+
+        if longPresss.state == .began {
+            let alert = makePopoverAlert(with: sectionTitles)
+            alert.popoverPresentationController?.sourceView = doingTableView.cellForRow(at: indexPath)
+            present(alert, animated: true)
+        }
+    }
+
+    @objc private func presentDoneLongPressMenu(_ longPresss: UILongPressGestureRecognizer) {
+        let sectionTitles = ["Move To TODO", "Move To DOING"]
+        let locationInView = longPresss.location(in: doneTableView)
+        guard let indexPath = doneTableView.indexPathForRow(at: locationInView) else { return }
+
+        if longPresss.state == .began {
+            let alert = makePopoverAlert(with: sectionTitles)
+            alert.popoverPresentationController?.sourceView = doneTableView.cellForRow(at: indexPath)
+            present(alert, animated: true)
+        }
     }
 }

@@ -118,8 +118,9 @@
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
 				FB85DA3D27D1B2370065FD72 /* CellManagable.swift */,
-				FB16501127D2066D00C145D6 /* AddProjectViewController.swift */,
 				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
+				FB16501127D2066D00C145D6 /* AddProjectViewController.swift */,
+				FB9EDAB027D5FBE300C78BE1 /* EditProjectViewController.swift */,
 				47F9812C27D1F6550046FE9E /* ProjectListHeaderView.swift */,
 				FB85DA3927D05CEE0065FD72 /* ProjectListTableView.swift */,
 				FB85DA3B27D1AD430065FD72 /* ProjectListCell.swift */,
@@ -133,7 +134,6 @@
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
 				FBDBCEFF27CDBAB80018B526 /* GoogleService-Info.plist */,
-				FB9EDAB027D5FBE300C78BE1 /* EditProjectViewController.swift */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
