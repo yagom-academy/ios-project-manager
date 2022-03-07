@@ -27,8 +27,8 @@ struct TaskListView: View {
             HStack(spacing: 10) {
                 Text(taskListHeader)
                     .font(.largeTitle)
-                Text(tasks.count / 100 < 1 ? "\(tasks.count)" : "\(Image(systemName: "infinity"))")
-                    .frame(width: 28.5, height: 24)
+                Text(tasks.count / 100 < 1 ? "\(tasks.count)" : "99+")
+                    .frame(width: 30, height: 24)
                     .font(.title3)
                     .lineLimit(1)
                     .foregroundColor(.primary)
