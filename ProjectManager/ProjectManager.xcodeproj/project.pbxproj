@@ -3,31 +3,51 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		70C75EF4C0698925773860FB /* Pods_ProjectManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13E353B5FABF07E6030E5DDB /* Pods_ProjectManager.framework */; };
+		A62BB67D27D1B532009395D8 /* UITableView+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62BB67C27D1B532009395D8 /* UITableView+extension.swift */; };
+		A6541F6D27CF3A3900F576D4 /* ProjectListTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6541F6C27CF3A3900F576D4 /* ProjectListTableView.swift */; };
+		A6541F6F27CF3AC600F576D4 /* ProjectTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6541F6E27CF3AC600F576D4 /* ProjectTableViewCell.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
-		C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* ViewController.swift */; };
+		C7431F0A25F51E1D0094C4CF /* ProjectListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* ProjectListViewController.swift */; };
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
 		EA34A4ED27CCBEA7000F7676 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EA34A4EC27CCBEA7000F7676 /* GoogleService-Info.plist */; };
+		EA4C96DF27D091BE002929B8 /* ProjectDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4C96DE27D091BE002929B8 /* ProjectDetailViewController.swift */; };
+		EA4C96E127D0A562002929B8 /* UIView+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4C96E027D0A562002929B8 /* UIView+extension.swift */; };
+		EA4C970327D5EFBF002929B8 /* TodoDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4C970227D5EFBF002929B8 /* TodoDatasource.swift */; };
+		EA4C970527D5F164002929B8 /* DoingDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4C970427D5F164002929B8 /* DoingDataSource.swift */; };
+		EA4C970727D5F17A002929B8 /* DoneDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4C970627D5F17A002929B8 /* DoneDataSource.swift */; };
+		EAD690F927CE6F6E001DFDC8 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = EAD690F827CE6F6E001DFDC8 /* .swiftlint.yml */; };
+		EAD6911B27CF5B7C001DFDC8 /* ProjectListTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD6911A27CF5B7C001DFDC8 /* ProjectListTableHeaderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		13E353B5FABF07E6030E5DDB /* Pods_ProjectManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1EFDCFB1981E5910DB11494D /* Pods-ProjectManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.debug.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.debug.xcconfig"; sourceTree = "<group>"; };
 		416D60185AC222D4405EC374 /* Pods-ProjectManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.release.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.release.xcconfig"; sourceTree = "<group>"; };
+		A62BB67C27D1B532009395D8 /* UITableView+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+extension.swift"; sourceTree = "<group>"; };
+		A6541F6C27CF3A3900F576D4 /* ProjectListTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListTableView.swift; sourceTree = "<group>"; };
+		A6541F6E27CF3AC600F576D4 /* ProjectTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTableViewCell.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		C7431F0925F51E1D0094C4CF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		C7431F0925F51E1D0094C4CF /* ProjectListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListViewController.swift; sourceTree = "<group>"; };
 		C7431F0E25F51E1E0094C4CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C7431F1125F51E1E0094C4CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EA34A4EC27CCBEA7000F7676 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		EA4C96DE27D091BE002929B8 /* ProjectDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDetailViewController.swift; sourceTree = "<group>"; };
+		EA4C96E027D0A562002929B8 /* UIView+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+extension.swift"; sourceTree = "<group>"; };
+		EA4C970227D5EFBF002929B8 /* TodoDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDatasource.swift; sourceTree = "<group>"; };
+		EA4C970427D5F164002929B8 /* DoingDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoingDataSource.swift; sourceTree = "<group>"; };
+		EA4C970627D5F17A002929B8 /* DoneDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneDataSource.swift; sourceTree = "<group>"; };
+		EAD690F827CE6F6E001DFDC8 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		EAD6911A27CF5B7C001DFDC8 /* ProjectListTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListTableHeaderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,8 +76,39 @@
 				1EFDCFB1981E5910DB11494D /* Pods-ProjectManager.debug.xcconfig */,
 				416D60185AC222D4405EC374 /* Pods-ProjectManager.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		A62BB67E27D1B553009395D8 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				EA4C96E027D0A562002929B8 /* UIView+extension.swift */,
+				A62BB67C27D1B532009395D8 /* UITableView+extension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		A62BB67F27D1B57F009395D8 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
+				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
+				EA34A4EC27CCBEA7000F7676 /* GoogleService-Info.plist */,
+				EAD690F827CE6F6E001DFDC8 /* .swiftlint.yml */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		A62BB68027D1B5B9009395D8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0925F51E1D0094C4CF /* ProjectListViewController.swift */,
+				EA4C96DE27D091BE002929B8 /* ProjectDetailViewController.swift */,
+				A6541F6C27CF3A3900F576D4 /* ProjectListTableView.swift */,
+				EAD6911A27CF5B7C001DFDC8 /* ProjectListTableHeaderView.swift */,
+				A6541F6E27CF3AC600F576D4 /* ProjectTableViewCell.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		C7431EF925F51E1D0094C4CF = {
@@ -83,11 +134,13 @@
 			children = (
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
-				C7431F0925F51E1D0094C4CF /* ViewController.swift */,
-				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
-				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
+				EA4C970227D5EFBF002929B8 /* TodoDatasource.swift */,
+				EA4C970427D5F164002929B8 /* DoingDataSource.swift */,
+				EA4C970627D5F17A002929B8 /* DoneDataSource.swift */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
-				EA34A4EC27CCBEA7000F7676 /* GoogleService-Info.plist */,
+				A62BB68027D1B5B9009395D8 /* View */,
+				A62BB67E27D1B553009395D8 /* Extension */,
+				A62BB67F27D1B57F009395D8 /* Resource */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
@@ -151,6 +204,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EAD690F927CE6F6E001DFDC8 /* .swiftlint.yml in Resources */,
 				C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */,
 				C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */,
 				EA34A4ED27CCBEA7000F7676 /* GoogleService-Info.plist in Resources */,
@@ -206,9 +260,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */,
+				EA4C970327D5EFBF002929B8 /* TodoDatasource.swift in Sources */,
+				A62BB67D27D1B532009395D8 /* UITableView+extension.swift in Sources */,
+				A6541F6F27CF3AC600F576D4 /* ProjectTableViewCell.swift in Sources */,
+				C7431F0A25F51E1D0094C4CF /* ProjectListViewController.swift in Sources */,
+				EA4C970727D5F17A002929B8 /* DoneDataSource.swift in Sources */,
+				EA4C96E127D0A562002929B8 /* UIView+extension.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
+				EA4C96DF27D091BE002929B8 /* ProjectDetailViewController.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
+				EAD6911B27CF5B7C001DFDC8 /* ProjectListTableHeaderView.swift in Sources */,
+				A6541F6D27CF3A3900F576D4 /* ProjectListTableView.swift in Sources */,
+				EA4C970527D5F164002929B8 /* DoingDataSource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -350,7 +413,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = ProjectManager/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -370,7 +433,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = ProjectManager/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
