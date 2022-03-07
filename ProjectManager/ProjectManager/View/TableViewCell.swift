@@ -1,9 +1,9 @@
 import UIKit
 
 final class TableViewCell: UITableViewCell {
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var bodyLabel: UILabel!
-    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak private var titleLabel: UILabel!
+    @IBOutlet weak private var bodyLabel: UILabel!
+    @IBOutlet weak private var dateLabel: UILabel!
     
     override func prepareForReuse() {
         dateLabel.textColor = .label
@@ -19,5 +19,15 @@ final class TableViewCell: UITableViewCell {
         )
         contentView.backgroundColor = .white
         self.backgroundColor = .systemGray5
+    }
+    
+    func configureCellContent(for item: Work) {
+        titleLabel.text = item.title
+        bodyLabel.text = item.body
+        dateLabel.text = item.convertedDate
+        
+        if item.isExpired {
+            dateLabel.textColor = .systemRed
+        }
     }
 }

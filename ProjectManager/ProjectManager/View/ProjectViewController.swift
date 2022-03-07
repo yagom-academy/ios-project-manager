@@ -35,7 +35,7 @@ class ProjectViewController: UIViewController {
     }
     
     private func setupView() {
-        view.backgroundColor = .systemGray2
+        view.backgroundColor = .systemGray6
     }
     
     private func setupTableViews() {
@@ -62,15 +62,21 @@ class ProjectViewController: UIViewController {
         doingCountLabel.layer.masksToBounds = true
         doneCountLabel.layer.masksToBounds = true
         
-        _ = viewModel.todoCount.subscribe(onNext: {
-            self.todoCountLabel.text = $0.description
-        })
-        _ = viewModel.doingCount.subscribe(onNext: {
-            self.doingCountLabel.text = $0.description
-        })
-        _ = viewModel.doneCount.subscribe(onNext: {
-            self.doneCountLabel.text = $0.description
-        })
+        _ = viewModel.todoCount
+            .subscribe(onNext: {
+                self.todoCountLabel.text = $0.description
+            })
+            .disposed(by: disposeBag)
+        _ = viewModel.doingCount
+            .subscribe(onNext: {
+                self.doingCountLabel.text = $0.description
+            })
+            .disposed(by: disposeBag)
+        _ = viewModel.doneCount
+            .subscribe(onNext: {
+                self.doneCountLabel.text = $0.description
+            })
+            .disposed(by: disposeBag)
     }
     
     private func configureTableViews() {
@@ -80,7 +86,7 @@ class ProjectViewController: UIViewController {
                 cellIdentifier: String(describing: TableViewCell.self),
                 cellType: TableViewCell.self
             )) { _, item, cell in
-                self.configureCellContent(cell, for: item)
+                cell.configureCellContent(for: item)
             }
             .disposed(by: disposeBag)
         viewModel.doingList
@@ -89,7 +95,7 @@ class ProjectViewController: UIViewController {
                 cellIdentifier: String(describing: TableViewCell.self),
                 cellType: TableViewCell.self
             )) { _, item, cell in
-                self.configureCellContent(cell, for: item)
+                cell.configureCellContent(for: item)
             }
             .disposed(by: disposeBag)
         viewModel.doneList
@@ -98,22 +104,12 @@ class ProjectViewController: UIViewController {
                 cellIdentifier: String(describing: TableViewCell.self),
                 cellType: TableViewCell.self
             )) { _, item, cell in
-                self.configureCellContent(cell, for: item)
+                cell.configureCellContent(for: item)
             }
             .disposed(by: disposeBag)
         
         todoTableView.backgroundColor = .systemGray5
         doingTableView.backgroundColor = .systemGray5
         doneTableView.backgroundColor = .systemGray5
-    }
-    
-    private func configureCellContent(_ cell: TableViewCell, for item: Work) {
-        cell.titleLabel.text = item.title
-        cell.bodyLabel.text = item.body
-        cell.dateLabel.text = item.convertedDate
-        
-        if item.isExpired {
-            cell.dateLabel.textColor = .systemRed
-        }
     }
 }

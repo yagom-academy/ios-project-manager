@@ -1,11 +1,10 @@
 import Foundation
 import RxSwift
-import RxRelay
 
 class ProjectViewModel {
     private let repository = Repository()
     var todoList = BehaviorSubject<[Work]>(value: [])
-    var doingList = BehaviorSubject<[Work]>(value: []) 
+    var doingList = BehaviorSubject<[Work]>(value: [])
     var doneList = BehaviorSubject<[Work]>(value: [])
     lazy var todoCount = todoList.map { $0.count }
     lazy var doingCount = doingList.map { $0.count }
