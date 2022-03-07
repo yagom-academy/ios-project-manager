@@ -20,10 +20,11 @@ class MainViewController: UIViewController, UITableViewDelegate {
         setupTaskStackView()
         setupConstraint()
         setupTableView()
+        setupLongPressRecognizer()
         todoViewModel.todoOnUpdated = { [weak self] in
-                self?.toDoTableView.reloadData()
-                self?.doingTableView.reloadData()
-                self?.doneTableView.reloadData()
+            self?.toDoTableView.reloadData()
+            self?.doingTableView.reloadData()
+            self?.doneTableView.reloadData()
         }
         todoViewModel.reload()
     }
@@ -86,6 +87,55 @@ class MainViewController: UIViewController, UITableViewDelegate {
             taskStackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor)
         ])
     }
+    
+    private func setupLongPressRecognizer() {
+        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPress(sender:)))
+        self.view.addGestureRecognizer(longPressRecognizer)
+    }
+    
+    @objc func longPress(sender: UILongPressGestureRecognizer) {
+        if sender.state == UIGestureRecognizer.State.began {
+            let toDoTouchPoint = sender.location(in: self.toDoTableView)
+            let doingTouchPoint = sender.location(in: self.doingTableView)
+            let doneTouchPoint = sender.location(in: self.doneTableView)
+
+            if let toDoIndexPath = toDoTableView.indexPathForRow(at: toDoTouchPoint) {
+                print(toDoIndexPath)
+                showActionSheet(firstSeleteTitle: "Move to DOING", secondSeleteTitle: "Move to DONE", tableViewSection: toDoTableView, indexPath: toDoIndexPath)
+            }
+            if let doingIndexPath = doingTableView.indexPathForRow(at: doingTouchPoint) {
+                print(doingIndexPath)
+                showActionSheet(firstSeleteTitle: "Move to TODO", secondSeleteTitle: "Move to DONE", tableViewSection: doingTableView, indexPath: doingIndexPath)
+            }
+            if let doneIndexPath = doneTableView.indexPathForRow(at: doneTouchPoint) {
+                print(doneIndexPath)
+                showActionSheet(firstSeleteTitle: "Move to TODO", secondSeleteTitle: "Move to DOING", tableViewSection: doneTableView, indexPath: doneIndexPath)
+            }
+        }
+    }
+    
+    func showActionSheet(
+        firstSeleteTitle: String,
+        secondSeleteTitle: String,
+        tableViewSection: UITableView,
+        indexPath: IndexPath
+    ) {
+        let firstAction = UIAlertAction(title: firstSeleteTitle, style: .default)
+        let secondAction = UIAlertAction(title: secondSeleteTitle, style: .default)
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        let popover = alert.popoverPresentationController
+        popover?.sourceView = tableViewSection
+        
+        let rowRect = tableViewSection.rectForRow(at: indexPath)
+        let rowCenterRect = rowRect.offsetBy(dx: 0, dy: -rowRect.height/2)
+        popover?.sourceRect = rowCenterRect
+        
+        alert.addAction(firstAction)
+        alert.addAction(secondAction)
+        self.present(alert, animated: true)
+    }
+
     
     @objc func showEditView() {
         let editView = EditViewController()

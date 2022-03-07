@@ -21,11 +21,15 @@ class TaskCell: UITableViewCell {
         setupCellStackView()
         setupCellConstraints()
         setupCellContent()
+
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    
+
     
     func setupCellStackView() {
         contentView.addSubview(cellStackView)
@@ -64,7 +68,7 @@ class TaskCell: UITableViewCell {
         discriptionLabel.font = .preferredFont(forTextStyle: .body)
         discriptionLabel.textColor = .gray
         discriptionLabel.numberOfLines = 3
-        
+  
     }
     
     func configure(with todo: ToDoInfomation) {
@@ -75,4 +79,6 @@ class TaskCell: UITableViewCell {
             deadLineLabel.textColor = .red
         }
     }
+    
+   
 }
