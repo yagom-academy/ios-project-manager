@@ -8,11 +8,11 @@
 import UIKit
 
 protocol TodoEditDelegate: AnyObject {
-    func showTaskView()
+    func showTaskViewController(with: Todo)
 }
 
 class ProjectListViewController: UIViewController {
-
+    
     var todoList: [Todo] = []
     weak var delegate: TodoEditDelegate?
     let step: Step
@@ -117,7 +117,8 @@ extension ProjectListViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        delegate?.showTaskView()
+        let todo = todoList[indexPath.row]
+        delegate?.showTaskViewController(with: todo)
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {

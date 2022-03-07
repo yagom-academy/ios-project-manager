@@ -39,7 +39,11 @@ class MainViewController: UIViewController {
     }
     
     @objc func addTodo() {
-        let taskViewController = TaskViewController()
+        showTaskViewController(for: .add)
+    }
+    
+    func showTaskViewController(for task: Task, todo: Todo? = nil) {
+        let taskViewController = TaskViewController(task: task, todo: todo)
         taskViewController.delegate = todoViewController
         taskViewController.popoverPresentationController?.sourceView = view
         taskViewController.popoverPresentationController?.sourceRect = CGRect(x: view.frame.midX, y: view.frame.midY, width: 0, height: 0)
@@ -75,7 +79,7 @@ class MainViewController: UIViewController {
 // MARK: - TodoEditDelegate
 
 extension MainViewController: TodoEditDelegate {
-    func showTaskView() {
-        addTodo()
+    func showTaskViewController(with todo: Todo) {
+        showTaskViewController(for: .edit, todo: todo)
     }
 }

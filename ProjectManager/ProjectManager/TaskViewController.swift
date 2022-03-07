@@ -13,6 +13,7 @@ protocol TodoAddDelegate: AnyObject {
 
 class TaskViewController: UIViewController {
     
+    let task: Task
     weak var delegate: TodoAddDelegate?
     
     let entireStackView: UIStackView = {
@@ -86,9 +87,22 @@ class TaskViewController: UIViewController {
         bodyTextView.delegate = self
     }
     
+    init(task: Task, todo: Todo?) {
+        self.task = task
+        super.init(nibName: nil, bundle: nil)
+        
+        titleTextField.text = todo?.title
+        bodyTextView.text = todo?.body
+        datePicker.date = todo?.deadline ?? Date()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     func configureNavigationBar() {
         navigationItem.rightBarButtonItem = doneBarButton
-        navigationItem.leftBarButtonItem = cancelBarButton
+        navigationItem.leftBarButtonItem = task == .add ? cancelBarButton : editBarButton
         navigationItem.title = "TODO"
     }
     
