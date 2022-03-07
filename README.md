@@ -131,7 +131,7 @@ console.log( add(10 , 5) );    // 출력값 15
 
 ### MVVM vs MVC
 
-![Untitled](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/a606622f-dac0-42ec-9206-112cd25db805/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220301%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220301T083333Z&X-Amz-Expires=86400&X-Amz-Signature=02585bb8ec1fe9f34f51db33572502058a9eecd420ee86c3ca4d3c72c4a136c1&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject)
+![image](https://user-images.githubusercontent.com/70251136/157047963-3cac5caa-bf0f-44ff-b8cc-c1e4faca59d9.png)
 
 [이미지 출처](https://ichi.pro/ko/swift-mich-mvvm-dijain-paeteon-eul-sayonghan-logeu-in-hwamyeon-guhyeon-74723834678771)
 
@@ -212,3 +212,210 @@ Rest를 기반으로 제작된 API입니다.
 - 뷰모델을 테스트하려면 DI라는 것이 필요한데 이건 무슨 개념일까?
 - Rx + MVVM이 왜 좋을까? 아니 MVVM을 정의대로 구현하려면 Rx가 필요한건가
 - UITableViewDataSource가 ViewModel의 역할을 할수 있지 않을까?
+
+## Step 2
+
+- **STEP 2-1** UI 구현
+- **STEP 2-2** 데이터 전달
+- **STEP 2-3** Rx적용
+
+## Step 2-1 : UI 구현
+
+![Simulator Screen Recording - iPad (9th generation) - 2022-03-07 at 22 31 45](https://user-images.githubusercontent.com/70251136/157047799-add8dfc1-8e0f-4fe9-ba23-e3119d0797cf.gif)
+
+## 🍎 Lazy 키워드 사용에 대한 고민
+
+```swift
+private lazy var entireStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [titleLabel, totalCountLabel, spacerView])
+        stackView.axis = .horizontal
+        stackView.alignment = .center
+        stackView.distribution = .fill
+        stackView.spacing = Design.entireStackViewSpacing
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+```
+
+Lazy 키워드의 사용 용도는 처음부터 메모리에 올리지 않고, 호출시 메모리에 올리기 위해 사용하는 것이다.
+
+Lazy 키워드를 사용시 주의할 점에 대해서 고민해보았다. 
+
+1. 메모리 누수
+
+첫번째로 변수에 클로저의 실행 결과를 할당하는 경우는 메모리 누수의 위험이 없다.
+
+두번째로 변수의 타입을 클로저로 설정하여 클로저 실행의 결과가 아닌 클로저 자체를 담고 있는 변수라면 메모리 누수의 위험성이 있어서 [weak self]로 메모리 누수를 방지해줘야한다.
+
+```swift
+lazy var greeting: String = {
+    return "Hello my name is \((self.name))"
+}()
+```
+
+```swift
+lazy var greeting: () -> String = { [weak self] in
+    return "Hello my name is \(((self?.name))!)"
+}
+```
+
+사용시 주의할 점은 만일 해당 클로저에서 self를 참조할 시 메모리 누수가 발생할 수 있다는 점이 있다.
+
+또한 swift 코드는 기본적으로 thread-safe 하지 않기 때문에 여러 스레드가 동시에 해당 lazy var 변수에 접근한다면 해당 lazy 변수가 여러번 생성될 위험이 있으므로 lazy var 는 멀티 스레드 환경에서 접근하면 안된다. 
+
+위 사항들에 대해 고민해본 결과 해당 코드는 메모리 누수될 일이 없음을 확인하였고, lazy의 용도와 달리 stackView는 처음부터 메모리에 올려야되는 뷰이므로 쓸 필요가 없어보여 제거하였음
+
+```swift
+private let entireStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.alignment = .center
+        stackView.distribution = .fill
+        stackView.spacing = Design.entireStackViewSpacing
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+```
+
+참고 링크: [https://www.avanderlee.com/swift/lazy-var-property/](https://www.avanderlee.com/swift/lazy-var-property/)
+
+## 🍎 View 부분 문제 해결
+
+### sectionHeaderTopPadding
+
+![image](https://user-images.githubusercontent.com/70251136/157048130-3fc6a2c8-8fac-4ab8-bde9-1a8b73d2beaa.png)
+
+![image](https://user-images.githubusercontent.com/70251136/157048192-37629794-1f23-4ff6-86db-5e0269b83875.png)
+
+
+iOS 15부터 tableView의 HeaderView 윗부분에 공백이 생겼다.
+
+iOS 15부터 생긴 sectionHeaderTopPadding을 설정하여 공벡을 없애 위 문제 해결
+
+[https://medium.com/@GalvinLi/fix-the-table-header-gap-in-ios-15-197debb92608](https://medium.com/@GalvinLi/fix-the-table-header-gap-in-ios-15-197debb92608)
+
+```swift
+if #available(iOS 15, *) {
+    todoTableView.sectionHeaderTopPadding = 1
+}
+```
+
+### 셀의 contentView와 view
+
+셀의 contentView와 view는 다른 것이었다.
+
+cell의 contentView에 inset을 10만큼 줬더니 view와 구분되게 되었다. 
+
+![image](https://user-images.githubusercontent.com/70251136/157048286-7f8b1bbe-d464-4634-93e9-7382ac6b027c.png)
+
+코드
+
+```swift
+class ProjectTableViewCell: UITableViewCell {
+		override func layoutSubviews() {
+		    super.layoutSubviews()
+		    self.contentView.frame = self.contentView.frame.inset(by: UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0))
+		    contentView.backgroundColor = .white
+		    self.backgroundColor = .yellow
+		}
+}
+```
+
+- cell contentView - white
+- cell view - yellow
+- tableView - green
+
+### 빈 뷰를 활용하여 레이블이 줄어드는 현상 해결
+
+![image](https://user-images.githubusercontent.com/70251136/157048341-35fbbcaa-86d3-45ff-87c4-d37f344a5ddd.png)
+
+스택뷰의 Leading쪽으로 컴포넌트(label)들을 몰아야했지만 스택뷰의 공간이 남아 두 컴포넌트가 스택뷰를 전부 차지하는 상황이 발생했다.
+
+이를 해결하기 위해 Spacer(빈 뷰)를 넣어 스택뷰의 남는 공간을 차지하게 하였다.
+
+### 문제 상황
+
+컴포넌트들을 leading 쪽으로 몰기 위해 스택뷰의 traling과 셀의 trailing 사이에 간격을 길게 줬다.
+
+```swift
+stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -200)
+```
+
+그러나 간격(constraint)이 고정되어있어 화면이 작아지면 DOING 레이블이 줄어들어서 DO... 가 되기에 모든 기기에 대응하지 못했다. 
+
+### 1차 시도
+
+스택뷰 안에 DOING 레이블의 CompressionResistancePriority를 높여서 화면이 줄어들때 레이블이 줄어들지 못하도록 하려 했으나 실패했다.
+
+실패한 이유는 trailing에 준 간격(constraint)이 고정되어있기 때문이었다.
+
+### 해결
+
+스택뷰의 trailing과 셀의 trailing 사이에 간격 대신에 빈 뷰를 스택뷰에 넣고 **HuggingPriority**와 **CompressionResistancePriority**를 애플이 제공하는 Priority중 가장 낮은 값인 **fittingSizeLevel**로 두어 화면이 작아지고 커질 때 빈 뷰가 줄어들고 늘어나게 하여 레이블이 줄어드는 것을 해결했다
+
+```swift
+let spacerView: UIView = {
+    let view = UIView()
+    view.setContentHuggingPriority(.fittingSizeLevel, for: .horizontal)
+    view.setContentCompressionResistancePriority(.fittingSizeLevel, for: .horizontal)
+    return view
+}()
+```
+
+![image](https://user-images.githubusercontent.com/70251136/157048383-e15c98a6-62e9-482f-89b4-48c66ffbc771.png)
+
+레이블의 텍스트를 길게 적어도 숫자 레이블이 안깨지는 모습을 볼 수 있다.
+
+## 🍎 View 부분 추가 구현 사항
+
+### label 동그랗게 만드는 방법
+
+너비와 높이를 같게 주고, cornerRadius는 너비의 절반으로 하면 된다
+
+```swift
+label.bounds = CGRect(x: 0, y: 0, width: 30, height: 30)
+label.layer.cornerRadius = 30 / 2
+label.layer.masksToBounds = true
+```
+
+### 텍스트필드 drop shadow 적용
+
+UITextField에는 backgroundColor와 borderColor를 주지 않으면 텍스트 필드 테두리의 shadow가 생기는 대신 텍스트 자체의 shadow가 생기는 문제가 있었다.
+
+문서를 찾아 보니 UITextField의 borderStyle 프로퍼티의 기본값이 .none이라서 borderStyle을 .roundedRect로 줬더니 해결되었다.
+
+```swift
+extension UIView {
+    func dropShadow(
+        shadowColor: CGColor,
+        shadowOffset: CGSize,
+        shadowOpacity: Float,
+        shadowRadius: CGFloat) {
+        self.layer.masksToBounds = false
+        self.layer.shadowColor = shadowColor
+        self.layer.shadowOffset = shadowOffset
+        self.layer.shadowOpacity = shadowOpacity
+        self.layer.shadowRadius = shadowRadius
+    }
+}
+```
+
+```swift
+textField.borderStyle = .roundedRect
+```
+
+## 🍎 오토레이아웃 알게된 부분
+
+### **Constraint Priorites**
+
+- required 1000
+- high 750
+- low 250
+- fittingSizeLevel 50
+
+`Hugging` 의 기본값 : 250 (대부분)
+
+`Compression Resistance` 의 기본값 : 750 (대부분)
+
+참고 링크: 
+[https://stackoverflow.com/questions/36924093/what-are-the-default-auto-layout-content-hugging-and-content-compression-resista](https://stackoverflow.com/questions/36924093/what-are-the-default-auto-layout-content-hugging-and-content-compression-resista)
