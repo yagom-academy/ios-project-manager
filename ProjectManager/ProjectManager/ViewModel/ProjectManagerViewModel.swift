@@ -3,9 +3,9 @@ import RxSwift
 import RxRelay
 
 class ProjectViewModel {
-    let repository = Repository()
+    private let repository = Repository()
     var todoList = BehaviorSubject<[Work]>(value: [])
-    var doingList = BehaviorSubject<[Work]>(value: []) // notify , 데이터를 들고 있을 수 있다. 
+    var doingList = BehaviorSubject<[Work]>(value: []) 
     var doneList = BehaviorSubject<[Work]>(value: [])
     lazy var todoCount = todoList.map { $0.count }
     lazy var doingCount = doingList.map { $0.count }
