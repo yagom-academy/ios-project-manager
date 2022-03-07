@@ -16,9 +16,16 @@ struct TaskListView: View {
             HStack(spacing: 10) {
                 Text("TODO")
                     .font(.largeTitle)
-                Circle()
-                    .frame(width: 25, height: 25)
+                Text(tasks.count / 100 < 1 ? "\(tasks.count)" : "\(Image(systemName: "infinity"))")
+                    .frame(width: 28.5, height: 24)
+                    .font(.title3)
+                    .lineLimit(1)
                     .foregroundColor(.primary)
+                    .colorInvert()
+                    .padding(.all, 5)
+                    .background(Color.primary)
+                    .clipShape(Circle())
+                    .minimumScaleFactor(0.8)
                 Spacer()
             }
             .padding(EdgeInsets(top: 11, leading: 21, bottom: -1, trailing: 21))
