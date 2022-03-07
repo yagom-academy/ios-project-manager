@@ -24,7 +24,7 @@ class TaskViewController: UIViewController {
         return stackView
     }()
     
-    let titleTextField: UITextField = {
+    lazy var titleTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Title"
         textField.borderStyle = .bezel
@@ -33,6 +33,7 @@ class TaskViewController: UIViewController {
         let emptyView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
         textField.leftView = emptyView
         textField.leftViewMode = .always
+        textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         return textField
     }()
     
@@ -51,33 +52,43 @@ class TaskViewController: UIViewController {
         return textView
     }()
     
+    lazy var cancelBarButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(title: "Cancel",
+                                     style: .plain,
+                                     target: self,
+                                     action: #selector(cancelAction))
+        return button
+    }()
+    
+    lazy var doneBarButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(title: "Done",
+                                     style: .done,
+                                     target: self,
+                                     action: #selector(addAction))
+        button.isEnabled = false
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .white
         configureNavigationBar()
         configureUI()
+        bodyTextView.delegate = self
     }
     
     func configureNavigationBar() {
-        let doneButton = UIBarButtonItem(title: "Done",
-                                         style: .done,
-                                         target: self,
-                                         action: #selector(addAction))
-        let cancelButton = UIBarButtonItem(title: "Cancel",
-                                           style: .plain,
-                                           target: self,
-                                           action: #selector(cancelAction))
-        navigationItem.rightBarButtonItem = doneButton
-        navigationItem.leftBarButtonItem = cancelButton
+        navigationItem.rightBarButtonItem = doneBarButton
+        navigationItem.leftBarButtonItem = cancelBarButton
         navigationItem.title = "TODO"
     }
     
     @objc func addAction() {
         guard let title = titleTextField.text,
               let body = bodyTextView.text else {
-            return
-        }
+                  return
+              }
         let deadline = datePicker.date
         let todo = Todo(title: title, deadline: deadline, body: body)
         
@@ -87,6 +98,14 @@ class TaskViewController: UIViewController {
     
     @objc func cancelAction() {
         dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        if titleTextField.text == "" || bodyTextView.text == "" {
+            doneBarButton.isEnabled = false
+        } else {
+            doneBarButton.isEnabled = true
+        }
     }
     
     func configureUI() {
@@ -112,5 +131,17 @@ class TaskViewController: UIViewController {
         NSLayoutConstraint.activate([
             titleTextField.heightAnchor.constraint(equalTo: entireStackView.heightAnchor, multiplier: 0.06)
         ])
+    }
+}
+
+// MARK: - UITextViewDelegate
+
+extension TaskViewController: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        if titleTextField.text == "" || bodyTextView.text == "" {
+            doneBarButton.isEnabled = false
+        } else {
+            doneBarButton.isEnabled = true
+        }
     }
 }

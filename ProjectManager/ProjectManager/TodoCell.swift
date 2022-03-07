@@ -48,11 +48,11 @@ class TodoCell: UITableViewCell {
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 6, left: 0, bottom: 0, right: 0))
     }
     
-    func configureUI() {
+    func configureUI(todo: Todo) {
         configureStackViewLayout()
-        configureTitleLabel()
-        configureBodyLabel()
-        configureDataLabel()
+        configureTitleLabel(title: todo.title)
+        configureBodyLabel(body: todo.body)
+        configureDataLabel(deadline: todo.deadline)
         contentView.backgroundColor = .white
         backgroundColor = .systemGray6
     }
@@ -71,15 +71,22 @@ class TodoCell: UITableViewCell {
         ])
     }
     
-    func configureTitleLabel() {
-        titleLabel.text = "짜장면먹으러가기"
+    func configureTitleLabel(title: String) {
+        titleLabel.text = title
     }
     
-    func configureBodyLabel() {
-        bodyLabel.text = "fjdskdjhffflksdjfsljdjfdfjsdjfsdjfklfjskdjfsfjdskdjhffflksdjfsljdjfdfjsdjfsdjfklfjskdjfsfjdskdjhffflksdjfsljdjfdfjsdjfsdjfklfjskdjfsfjdskdjhffflksdjfsljdjfdfjsdjfsdjfklfjskdjfsfjdskdjhffflksdjfsljdjfdfjsdjfsdjfklfjskdjfsfjdskdjhffflksdjfsljdjfdfjsdjfsdjfklfjskdjfsfjdskdjhffflksdjfsljdjfdfjsdjfsdjfklfjskdjfs"
+    func configureBodyLabel(body: String) {
+        bodyLabel.text = body
     }
     
-    func configureDataLabel() {
-        dateLabel.text = "2022. 3. 9."
+    func configureDataLabel(deadline: Date) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        
+        dateFormatter.timeZone = .autoupdatingCurrent
+        dateFormatter.locale = .autoupdatingCurrent
+        
+        dateLabel.text = dateFormatter.string(from: deadline)
+        dateLabel.textColor = deadline < Date() ? .red : .black
     }
 }

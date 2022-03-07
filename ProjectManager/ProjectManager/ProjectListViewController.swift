@@ -62,7 +62,7 @@ extension ProjectListViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as? TodoCell else {
             return UITableViewCell()
         }
-        cell.configureUI()
+        cell.configureUI(todo: todoList[indexPath.row])
         return cell
     }
 }
