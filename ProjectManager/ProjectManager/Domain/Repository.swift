@@ -58,8 +58,4 @@ class Repository: DataManager {
         workList[index].body = body
         workList[index].dueDate = date
     }
-    
-    func fetchAll() -> [Work] {
-        return workList
-    }
 }

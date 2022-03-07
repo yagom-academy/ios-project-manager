@@ -10,5 +10,4 @@ protocol DataManager {
     func create(_ data: StorageType)
     func delete(_ data: StorageType) throws
     func update(_ data: StorageType, title: String?, body: String?, date: Date?)
-    func fetchAll() -> [StorageType]
 }
