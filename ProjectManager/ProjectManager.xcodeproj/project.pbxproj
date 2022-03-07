@@ -19,6 +19,9 @@
 		EA34A4ED27CCBEA7000F7676 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EA34A4EC27CCBEA7000F7676 /* GoogleService-Info.plist */; };
 		EA4C96DF27D091BE002929B8 /* ProjectDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4C96DE27D091BE002929B8 /* ProjectDetailViewController.swift */; };
 		EA4C96E127D0A562002929B8 /* UIView+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4C96E027D0A562002929B8 /* UIView+extension.swift */; };
+		EA4C970327D5EFBF002929B8 /* TodoDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4C970227D5EFBF002929B8 /* TodoDatasource.swift */; };
+		EA4C970527D5F164002929B8 /* DoingDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4C970427D5F164002929B8 /* DoingDataSource.swift */; };
+		EA4C970727D5F17A002929B8 /* DoneDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4C970627D5F17A002929B8 /* DoneDataSource.swift */; };
 		EAD690F927CE6F6E001DFDC8 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = EAD690F827CE6F6E001DFDC8 /* .swiftlint.yml */; };
 		EAD6911B27CF5B7C001DFDC8 /* ProjectListTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD6911A27CF5B7C001DFDC8 /* ProjectListTableHeaderView.swift */; };
 /* End PBXBuildFile section */
@@ -40,6 +43,9 @@
 		EA34A4EC27CCBEA7000F7676 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EA4C96DE27D091BE002929B8 /* ProjectDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDetailViewController.swift; sourceTree = "<group>"; };
 		EA4C96E027D0A562002929B8 /* UIView+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+extension.swift"; sourceTree = "<group>"; };
+		EA4C970227D5EFBF002929B8 /* TodoDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDatasource.swift; sourceTree = "<group>"; };
+		EA4C970427D5F164002929B8 /* DoingDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoingDataSource.swift; sourceTree = "<group>"; };
+		EA4C970627D5F17A002929B8 /* DoneDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneDataSource.swift; sourceTree = "<group>"; };
 		EAD690F827CE6F6E001DFDC8 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		EAD6911A27CF5B7C001DFDC8 /* ProjectListTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListTableHeaderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -128,6 +134,9 @@
 			children = (
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
+				EA4C970227D5EFBF002929B8 /* TodoDatasource.swift */,
+				EA4C970427D5F164002929B8 /* DoingDataSource.swift */,
+				EA4C970627D5F17A002929B8 /* DoneDataSource.swift */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
 				A62BB68027D1B5B9009395D8 /* View */,
 				A62BB67E27D1B553009395D8 /* Extension */,
@@ -251,15 +260,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA4C970327D5EFBF002929B8 /* TodoDatasource.swift in Sources */,
 				A62BB67D27D1B532009395D8 /* UITableView+extension.swift in Sources */,
 				A6541F6F27CF3AC600F576D4 /* ProjectTableViewCell.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* ProjectListViewController.swift in Sources */,
+				EA4C970727D5F17A002929B8 /* DoneDataSource.swift in Sources */,
 				EA4C96E127D0A562002929B8 /* UIView+extension.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				EA4C96DF27D091BE002929B8 /* ProjectDetailViewController.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				EAD6911B27CF5B7C001DFDC8 /* ProjectListTableHeaderView.swift in Sources */,
 				A6541F6D27CF3A3900F576D4 /* ProjectListTableView.swift in Sources */,
+				EA4C970527D5F164002929B8 /* DoingDataSource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

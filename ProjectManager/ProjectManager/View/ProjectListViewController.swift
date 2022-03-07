@@ -5,6 +5,10 @@ class ProjectListViewController: UIViewController {
     private let doingTableView = ProjectListTableView()
     private let doneTableView = ProjectListTableView()
     
+    private let tododataSource = TodoDataSource()
+    private let doingDataSource = DoingDataSource()
+    private let doneDataSource = DoneDataSource()
+    
     private lazy var entireStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -45,12 +49,14 @@ class ProjectListViewController: UIViewController {
     private func configureTableView() {
         [todoTableView, doingTableView, doneTableView].forEach {
             $0.delegate = self
-            $0.dataSource = self
             
             if #available(iOS 15, *) {
                 $0.sectionHeaderTopPadding = Design.tableViewSectionHeaderTopPadding
             }
         }
+        todoTableView.dataSource = tododataSource
+        doingTableView.dataSource = doingDataSource
+        doneTableView.dataSource = doneDataSource
     }
     
     private func configureEntireStackView() {
@@ -67,28 +73,6 @@ class ProjectListViewController: UIViewController {
             self.entireStackView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
             self.entireStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor)
         ])
-    }
-}
-
-extension ProjectListViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withClass: ProjectTableViewCell.self)
-        
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteAction = UIContextualAction(style: .destructive, title: nil) { _, _, _ in
-            print("DeleteAction")
-        }
-        
-        deleteAction.image = UIImage(systemName: "trash")
-        
-        return UISwipeActionsConfiguration(actions: [deleteAction])
     }
 }
 
