@@ -5,7 +5,7 @@ class ProjectListViewController: UIViewController {
     private let doingTableView = ProjectListTableView()
     private let doneTableView = ProjectListTableView()
     
-    private let tododataSource = TodoDataSource()
+    private let todoDataSource = TodoDataSource()
     private let doingDataSource = DoingDataSource()
     private let doneDataSource = DoneDataSource()
     
@@ -54,7 +54,7 @@ class ProjectListViewController: UIViewController {
                 $0.sectionHeaderTopPadding = Design.tableViewSectionHeaderTopPadding
             }
         }
-        todoTableView.dataSource = tododataSource
+        todoTableView.dataSource = todoDataSource
         doingTableView.dataSource = doingDataSource
         doneTableView.dataSource = doneDataSource
     }

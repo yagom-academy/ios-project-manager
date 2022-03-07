@@ -31,11 +31,15 @@ class ProjectDetailViewController: UIViewController {
         let textView = UITextView()
         textView.text = "여기에는 할일 내용 입력하는 곳이지롱 \nㅋㅋ"
         textView.font = .preferredFont(forTextStyle: .title3)
+        textView.layer.borderColor = UIColor.systemGray5.cgColor
+        textView.layer.borderWidth = Design.borderWidth
+        textView.layer.cornerRadius = Design.cornerRadius
         textView.dropShadow(
             shadowColor: UIColor.black.cgColor,
             shadowOffset: Design.shadowOffset,
             shadowOpacity: Design.shadowOpacity,
             shadowRadius: Design.shadowRadius)
+        textView.isScrollEnabled = false
         return textView
     }()
     
@@ -46,6 +50,13 @@ class ProjectDetailViewController: UIViewController {
         return stackView
     }()
     
+    private let entireScrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
@@ -53,7 +64,8 @@ class ProjectDetailViewController: UIViewController {
     
     private func configureUI() {
         view.backgroundColor = .white
-        self.view.addSubview(entireStackView)
+        self.view.addSubview(entireScrollView)
+        entireScrollView.addSubview(entireStackView)
         configureEntireStackView()
         configureLayout()
         configureNavigationBar()
@@ -67,10 +79,15 @@ class ProjectDetailViewController: UIViewController {
 
     private func configureLayout() {
         NSLayoutConstraint.activate([
-            self.entireStackView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: LayoutConstant.entireStackViewTopMargin),
-            self.entireStackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: LayoutConstant.entireStackViewtrailingMargin),
-            self.entireStackView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: LayoutConstant.entireStackViewBottomMargin),
-            self.entireStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: LayoutConstant.entireStackViewLeadingMargin),
+            self.entireScrollView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            self.entireScrollView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: LayoutConstant.entireScrollViewTrailingMargin),
+            self.entireScrollView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: LayoutConstant.entireScrollViewBottomMargin),
+            self.entireScrollView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: LayoutConstant.entireScrollViewLeadingMargin),
+            self.entireStackView.topAnchor.constraint(equalTo: self.entireScrollView.contentLayoutGuide.topAnchor, constant: LayoutConstant.entireStackViewTopMargin),
+            self.entireStackView.trailingAnchor.constraint(equalTo: self.entireScrollView.contentLayoutGuide.trailingAnchor),
+            self.entireStackView.bottomAnchor.constraint(equalTo: self.entireScrollView.contentLayoutGuide.bottomAnchor),
+            self.entireStackView.leadingAnchor.constraint(equalTo: self.entireScrollView.contentLayoutGuide.leadingAnchor),
+            self.entireStackView.widthAnchor.constraint(equalTo: self.entireScrollView.frameLayoutGuide.widthAnchor),
             self.titleTextField.heightAnchor.constraint(equalToConstant: LayoutConstant.titleTextFieldHeight)
         ])
     }
@@ -103,10 +120,10 @@ private extension ProjectDetailViewController {
     }
 
     enum LayoutConstant {
+        static let entireScrollViewTrailingMargin: CGFloat = -10
+        static let entireScrollViewBottomMargin: CGFloat = -10
+        static let entireScrollViewLeadingMargin: CGFloat = 10
         static let entireStackViewTopMargin: CGFloat = 5
-        static let entireStackViewtrailingMargin: CGFloat = -20
-        static let entireStackViewBottomMargin: CGFloat = -20
-        static let entireStackViewLeadingMargin: CGFloat = 20
         static let titleTextFieldHeight: CGFloat = 50
     }
 
@@ -115,5 +132,6 @@ private extension ProjectDetailViewController {
         static let shadowOffset: CGSize = CGSize(width: 0, height: 3)
         static let shadowOpacity: Float = 0.5
         static let shadowRadius: CGFloat = 4
+        static let borderWidth: CGFloat = 1
     }
 }
