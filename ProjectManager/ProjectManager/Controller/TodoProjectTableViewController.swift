@@ -65,7 +65,7 @@ class TodoProjectTableViewController: UIViewController {
             let projectCell = self.projectTableView.dequeueReusableCell(withClass: ProjectTableViewCell.self, for: indexPath)
             projectCell.updateContent(title: project.title,
                                       description: project.description,
-                                      deadline: project.deadline?.description,
+                                      deadline: project.deadline?.localeString(),
                                       with: project.isExpired ? .red : .black)
             return projectCell
         }
