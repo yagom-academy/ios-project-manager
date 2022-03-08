@@ -27,6 +27,7 @@
 		F3C53FF827D72FE100D7CE4E /* ProjectManagerEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C53FF727D72FE000D7CE4E /* ProjectManagerEnvironment.swift */; };
 		F3C53FFC27D737F500D7CE4E /* TaskStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C53FFB27D737F500D7CE4E /* TaskStatus.swift */; };
 		F3C53FFF27D7501400D7CE4E /* TaskListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C53FFE27D7501300D7CE4E /* TaskListView.swift */; };
+		F3C5400627D75EEC00D7CE4E /* TaskCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C5400527D75EEC00D7CE4E /* TaskCellView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,7 @@
 		F3C53FF727D72FE000D7CE4E /* ProjectManagerEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerEnvironment.swift; sourceTree = "<group>"; };
 		F3C53FFB27D737F500D7CE4E /* TaskStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskStatus.swift; sourceTree = "<group>"; };
 		F3C53FFE27D7501300D7CE4E /* TaskListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListView.swift; sourceTree = "<group>"; };
+		F3C5400527D75EEC00D7CE4E /* TaskCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCellView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -175,6 +177,7 @@
 			isa = PBXGroup;
 			children = (
 				F3C53FFE27D7501300D7CE4E /* TaskListView.swift */,
+				F3C5400527D75EEC00D7CE4E /* TaskCellView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -321,6 +324,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3C5400627D75EEC00D7CE4E /* TaskCellView.swift in Sources */,
 				F3C53FF627D725E600D7CE4E /* Task.swift in Sources */,
 				F3C53F4D27D10AEA00D7CE4E /* TaskEntity.swift in Sources */,
 				F3C53FF827D72FE100D7CE4E /* ProjectManagerEnvironment.swift in Sources */,

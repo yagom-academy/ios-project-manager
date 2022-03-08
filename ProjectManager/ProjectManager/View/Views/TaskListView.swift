@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TaskListView: View {
-    var items: [Task]
+    var tasks: [Task]
     var listName: String
     
     var body: some View {
@@ -26,8 +26,8 @@ struct TaskListView: View {
     }
     
     var list: some View {
-        List(items) { item in
-            Text(item.title)
+        List(tasks) { task in
+            TaskCellView(task: task)
         }
     }
 }

@@ -13,9 +13,9 @@ struct MainScene: View {
     var body: some View {
         NavigationView {
             HStack {
-                TaskListView(items: viewModel.todoTasks, listName: TaskStatus.todo.title)
-                TaskListView(items: viewModel.doingTasks, listName: TaskStatus.doing.title)
-                TaskListView(items: viewModel.doneTasks, listName: TaskStatus.done.title)
+                TaskListView(tasks: viewModel.todoTasks, listName: TaskStatus.todo.title)
+                TaskListView(tasks: viewModel.doingTasks, listName: TaskStatus.doing.title)
+                TaskListView(tasks: viewModel.doneTasks, listName: TaskStatus.done.title)
             }.navigationBarTitle("Project Manager", displayMode: .inline)
         }.navigationViewStyle(.stack)
     }
