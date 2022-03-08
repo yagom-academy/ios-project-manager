@@ -10,3 +10,9 @@ import Foundation
 enum TaskStatus {
     case todo, doing, done
 }
+
+extension TaskStatus {
+    var title: String {
+        return String(describing: self).uppercased()
+    }
+}

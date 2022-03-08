@@ -17,7 +17,14 @@ class TaskRepository {
     var tasks: [TaskEntity]
     
     init() {
-        tasks = []
+        tasks = [
+            TaskEntity(title: "test1", content: "test1 contetn", limitDate: Date(), status: .todo, statusModifiedDate: Date().timeIntervalSince1970),
+            TaskEntity(title: "test2", content: "test2 contetn", limitDate: Date(), status: .todo, statusModifiedDate: Date().timeIntervalSince1970),
+            TaskEntity(title: "test3", content: "test3 contetn", limitDate: Date(), status: .doing, statusModifiedDate: Date().timeIntervalSince1970),
+            TaskEntity(title: "test4", content: "test4 contetn", limitDate: Date(), status: .doing, statusModifiedDate: Date().timeIntervalSince1970),
+            TaskEntity(title: "test5", content: "test5 contetn", limitDate: Date(), status: .done, statusModifiedDate: Date().timeIntervalSince1970),
+            TaskEntity(title: "test6", content: "test6 contetn", limitDate: Date(), status: .done, statusModifiedDate: Date().timeIntervalSince1970)
+        ]
     }
     
     func insert(_ task: TaskEntity) {

@@ -8,35 +8,24 @@
 import SwiftUI
 
 struct MainScene: View {
-    var body: some View {
-        NavigationView {
-            VStack {
-                
-            }.navigationBarTitle("Project Manager", displayMode: .inline)
-        }.navigationViewStyle(.stack)
-    }
-}
-
-struct ListView: View {
-    var items: [TaskEntity]
+    @ObservedObject var viewModel: ProjectManagerViewModel
     
     var body: some View {
-        VStack {
+        NavigationView {
             HStack {
-                Text("todo")
-                    .font(.largeTitle)
-            }
-            
-            List {
-            }
-        }
+                TaskListView(items: viewModel.todoTasks, listName: TaskStatus.todo.title)
+                TaskListView(items: viewModel.doingTasks, listName: TaskStatus.doing.title)
+                TaskListView(items: viewModel.doneTasks, listName: TaskStatus.done.title)
+            }.navigationBarTitle("Project Manager", displayMode: .inline)
+        }.navigationViewStyle(.stack)
     }
 }
 
 @available(iOS 15.0, *)
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        MainScene()
+        let viewModel = ProjectManagerViewModel()
+        MainScene(viewModel: viewModel)
             .previewDevice(PreviewDevice(rawValue: "iPad Pro (12.9-inch)"))
             .previewDisplayName("iPad Pro (12.9-inch)")
             .previewInterfaceOrientation(.landscapeLeft)
