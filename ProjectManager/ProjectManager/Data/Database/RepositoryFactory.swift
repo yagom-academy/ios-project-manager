@@ -2,15 +2,13 @@ import Foundation
 
 final class RepositoryFactory {
     
-    public func assignListManger(database: RepositoryType) -> DataRepository {
+    public func assignListManger(repository: RepositoryType) -> DataRepository {
         
-        switch database {
+        switch repository {
         case .CoreData:
             return CoredataRepository()
         case .FireStore:
             return FireStoreRepository()
-        case .Mock:
-            return MockListManager() 
         }
     }
 }

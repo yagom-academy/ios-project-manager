@@ -14,3 +14,9 @@ struct Project: Listable, Codable {
         self.deadline = deadline
     }
 }
+
+extension Project {
+    static func == (lhs: Project, rhs: Project) -> Bool {
+        return lhs.identifier == rhs.identifier
+    }
+}

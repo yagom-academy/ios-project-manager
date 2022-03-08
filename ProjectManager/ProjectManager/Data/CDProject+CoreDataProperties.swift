@@ -1,7 +1,6 @@
 import Foundation
 import CoreData
 
-
 extension CDProject: Listable {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<CDProject> {
