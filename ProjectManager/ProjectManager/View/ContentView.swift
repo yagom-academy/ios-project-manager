@@ -41,25 +41,40 @@ struct ContentView: View {
     }
     
     var todoList: some View {
-        List {
-            ForEach(viewModel.todoTasks) { task in
-                TaskRowView(task: task)
+        VStack(alignment: .leading) {
+            Text("TODO \(viewModel.todoTasks.count)")
+                .font(.largeTitle)
+                .padding()
+            List {
+                ForEach(viewModel.todoTasks) { task in
+                    TaskRowView(task: task)
+                }
             }
         }
     }
     
     var doingList: some View {
-        List {
-            ForEach(viewModel.doingTasks) { task in
-                TaskRowView(task: task)
+        VStack(alignment: .leading) {
+            Text("DOING \(viewModel.doingTasks.count)")
+                .font(.largeTitle)
+                .padding()
+            List {
+                ForEach(viewModel.doingTasks) { task in
+                    TaskRowView(task: task)
+                }
             }
         }
     }
     
     var doneList: some View {
-        List {
-            ForEach(viewModel.doneTasks) { task in
-                TaskRowView(task: task)
+        VStack(alignment: .leading) {
+            Text("DOING \(viewModel.doneTasks.count)")
+                .font(.largeTitle)
+                .padding()
+            List {
+                ForEach(viewModel.doneTasks) { task in
+                    TaskRowView(task: task)
+                }
             }
         }
     }
