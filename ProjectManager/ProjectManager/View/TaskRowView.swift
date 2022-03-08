@@ -46,12 +46,12 @@ struct TaskRowView: View {
         
         if task.dueDate < validDate, task.status != .done {
             return dateView
-                        .foregroundColor(.red)
-                        .font(.subheadline)
+                .foregroundColor(.red)
+                .font(.subheadline)
         } else {
             return dateView
                 .foregroundColor(.primary)
-                        .font(.subheadline)
+                .font(.subheadline)
         }
     }
     

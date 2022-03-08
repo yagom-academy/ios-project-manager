@@ -13,7 +13,8 @@ struct TaskListView: View {
     let taskType: TaskStatus
     
     @EnvironmentObject private var viewModel: ProjectManagerViewModel
-    @State private var isShowingPopover = false
+//    @Binding var isShowingSheet: Bool
+    @State var isShowingSheet = false
     
     private var tasks: [Task] {
         switch taskType {
@@ -51,17 +52,18 @@ struct TaskListView: View {
         List {
             ForEach(tasks) { task in
                 Button(action: {
-                    self.isShowingPopover.toggle()
+                    self.isShowingSheet.toggle()
                 }) {
                     TaskRowView(task: task)
                         .contextMenu {
-                            ForEach(TaskStatus.allCases) { status in
-                                if status != taskType {
-                                    Button(action: { viewModel.update(task, taskStatus: status) }) {
-                                        Text("Move to \(status.description)")
-                                    }
-                                }
-                            }
+                            contextMenuView(task, taskType)
+                        }
+                        .sheet(isPresented: $isShowingSheet, onDismiss: nil) {
+                            TaskDetailView(
+                                task: task,
+                                viewModel: viewModel,
+                                isShowingSheet: $isShowingSheet
+                            )
                         }
                 }
             }
@@ -70,6 +72,16 @@ struct TaskListView: View {
             }
         }
         
+    }
+    
+    func contextMenuView(_ task: Task, _ taskType: TaskStatus) -> some View {
+        ForEach(TaskStatus.allCases) { status in
+            if status != taskType {
+                Button(action: { viewModel.update(task, taskStatus: status) }) {
+                    Text("Move to \(status.description)")
+                }
+            }
+        }
     }
     
 }
