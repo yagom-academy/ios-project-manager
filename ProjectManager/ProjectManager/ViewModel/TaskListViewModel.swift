@@ -78,4 +78,7 @@ final class TaskListViewModel: TaskListViewModelProtocol {
             return "\(ProcessStatus.done.description) \(doneTasksObservable.value.count)"
         }
     }
+    
+    // MARK: - TaskDetailView
+    
 }

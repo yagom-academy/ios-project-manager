@@ -8,7 +8,9 @@ final class TaskTableViewCell: UITableViewCell {
     func applyDate(with task: Task) {
         titleLabel.text = task.title
         bodyLabel.text = task.body
-        dateLabel.text = "\(task.dueDate)"
+        
+        let date = DateFormatter.convertToString(from: task.dueDate)
+        dateLabel.text = date
     }
     
     override func awakeFromNib() {
