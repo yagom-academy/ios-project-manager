@@ -6,7 +6,7 @@ enum ProgressStatus {
     case done
 }
 
-class Task: ObservableObject, Identifiable {
+struct Task {
     var id: UUID
     var title: String
     var deadline: TimeInterval
