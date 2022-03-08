@@ -23,9 +23,7 @@ struct TaskDetailView: View {
         NavigationView {
             VStack(alignment: .center, spacing: 20.0) {
                 TextField("Text", text: $title)
-                    .background(Rectangle()
-                            .shadow(radius: 5)
-                            .foregroundColor(.white))
+                    .border(.gray)
                 DatePicker(
                     "",
                     selection: $date,

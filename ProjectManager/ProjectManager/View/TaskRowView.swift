@@ -44,9 +44,13 @@ struct TaskRowView: View {
         let validDate = Date() - 1
         
         if task.dueDate < validDate, task.status != .done {
-            return dateView.foregroundColor(.red)
+            return dateView
+                        .foregroundColor(.red)
+                        .font(.subheadline)
         } else {
-            return dateView.foregroundColor(.black)
+            return dateView
+                        .foregroundColor(.black)
+                        .font(.subheadline)
         }
     }
     
