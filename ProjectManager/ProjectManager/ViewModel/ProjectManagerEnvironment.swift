@@ -30,6 +30,14 @@ struct ProjectManagerEnvironment {
         } catch {
             print(error.localizedDescription)
         }
-        
+    }
+    
+    func deleteTask(task: Task) {
+        let taskEntity = taskRepository.tasks.filter { $0.id == task.id }.first
+        do {
+            try taskRepository.delete(task: taskEntity)
+        } catch {
+            print(error.localizedDescription)
+        }
     }
 }
