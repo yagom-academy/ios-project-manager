@@ -53,8 +53,6 @@ final class TaskListViewController: UIViewController {
             self?.doneTableView.reloadData()
         }
     }
-    
-    
 }
 
 // MARK: - IBAction
@@ -63,6 +61,15 @@ extension TaskListViewController {
         let newTask = Task(title: "새로운 작업", body: "작업 내용을 입력해주세요.", dueDate: Date())
         taskListViewModel.create(task: newTask, of: .todo)
 //        todoTableView.reloadData() // Observable 덕분에 todoTasksObservable 값이 변경되면 자동으로 reloadData가 호출됨
+        
+        let storyboard = UIStoryboard(name: "TaskDetailView", bundle: nil)
+        let taskDetailController = storyboard.instantiateViewController(withIdentifier: "TaskDetailView")
+        
+        taskDetailController.modalPresentationStyle = .popover
+        taskDetailController.popoverPresentationController?.barButtonItem = sender
+
+        self.present(UINavigationController(rootViewController: taskDetailController), animated: true) {
+        }
     }
 }
 
