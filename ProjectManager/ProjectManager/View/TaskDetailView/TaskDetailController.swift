@@ -12,14 +12,6 @@ class TaskDetailController: UIViewController {
         self.taskListViewModel = taskListViewModel
     }
     
-    private func createTask() -> Task {
-        let inputTitle = titleLabel.text ?? ""
-        let inputDate = datePicker.date
-        let inputBody = bodyTextView.text ?? ""
-        
-        return Task(title: inputTitle, body: inputBody, dueDate: inputDate)
-    }
-    
     @IBAction private func touchUpCancelButton(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
     }
@@ -28,5 +20,13 @@ class TaskDetailController: UIViewController {
         let newTask = createTask()
         taskListViewModel?.create(task: newTask)
         dismiss(animated: true, completion: nil)
+    }
+    
+    private func createTask() -> Task {
+        let inputTitle = titleLabel.text ?? ""
+        let inputDate = datePicker.date
+        let inputBody = bodyTextView.text ?? ""
+        
+        return Task(title: inputTitle, body: inputBody, dueDate: inputDate)
     }
 }

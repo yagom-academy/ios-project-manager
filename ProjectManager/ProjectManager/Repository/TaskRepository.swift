@@ -7,7 +7,7 @@ protocol TaskRepositoryProtocol {
     var doneTasks: [Task] { get }
     
     func create(task: Task)
-    func update(task: Task, title: String, body: String, dueDate: Date, processStatus: ProcessStatus)
+    func update(task: Task, newTitle: String, newBody: String, newDueDate: Date, newProcessStatus: ProcessStatus)
     func delete(task: Task)
 }
 
@@ -25,16 +25,14 @@ final class TaskRepository: TaskRepositoryProtocol {
     }
     
     init(entireTasks: [Task] = []) {
-        // Test
-        let exampleTask = Task(title: "테스트", body: "테스트용입니다.", dueDate: Date())
-        self.entireTasks = [exampleTask]
+        self.entireTasks = []
     }
     
     func create(task: Task) {
         entireTasks.append(task)
     }
     
-    func update(task: Task, title: String, body: String, dueDate: Date, processStatus: ProcessStatus) {
+    func update(task: Task, newTitle title: String, newBody body: String, newDueDate dueDate: Date, newProcessStatus processStatus: ProcessStatus) {
         guard let index = entireTasks.firstIndex(where: { $0.id == task.id }) else {
             print(TaskManagerError.taskNotFound)
             return

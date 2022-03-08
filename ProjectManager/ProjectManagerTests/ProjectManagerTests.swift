@@ -6,7 +6,7 @@ class ProjectManagerTests: XCTestCase {
 
     override func setUpWithError() throws {
         taskRepository = TaskRepository()
-        taskListViewModel = TaskListViewModel(taskRepository: taskRepository!)
+        taskListViewModel = TaskListViewModel()
     }
 //    func create(task: Task, of processStatus: ProcessStatus)
 //    func updateTask(of task: Task, title: String, body: String, dueDate: Date)
@@ -22,6 +22,5 @@ class ProjectManagerTests: XCTestCase {
 
     func test_TaskListViewModel_새로운Task를_create하면_Task배열에_추가된다() {
         let newTask = Task(title: "1", body: "1", dueDate: Date())
-        taskView
     }
 }

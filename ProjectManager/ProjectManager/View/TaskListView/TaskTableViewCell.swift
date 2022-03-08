@@ -5,6 +5,11 @@ final class TaskTableViewCell: UITableViewCell {
     @IBOutlet private weak var bodyLabel: UILabel!
     @IBOutlet private weak var dateLabel: UILabel!
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        dateLabel.textColor = .black
+    }
+    
     func applyDate(with task: Task) {
         titleLabel.text = task.title
         bodyLabel.text = task.body
@@ -12,9 +17,5 @@ final class TaskTableViewCell: UITableViewCell {
         let date = DateFormatter.convertToString(from: task.dueDate)
         dateLabel.text = date
     }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        dateLabel.textColor = .black
-    }
+
 }
