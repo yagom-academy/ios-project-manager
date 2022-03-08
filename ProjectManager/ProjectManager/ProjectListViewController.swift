@@ -9,6 +9,9 @@ import UIKit
 
 protocol TodoEditDelegate: AnyObject {
     func showTaskViewController(with: Todo)
+    func moveToTodo(with: Todo)
+    func moveToDoing(with: Todo)
+    func moveToDone(with: Todo)
 }
 
 class ProjectListViewController: UIViewController {
@@ -32,6 +35,7 @@ class ProjectListViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         setupTableView()
         configureTableViewLayout()
+        addLongPressGestureRecognizer()
     }
     
     required init?(coder: NSCoder) {
@@ -54,6 +58,76 @@ class ProjectListViewController: UIViewController {
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+    }
+    
+    func append(_ todo: Todo) {
+        todoList.append(todo)
+        tableView.reloadData()
+    }
+    
+    func addLongPressGestureRecognizer() {
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressGesture))
+        tableView.addGestureRecognizer(longPress)
+    }
+    
+    @objc func handleLongPressGesture(sender: UILongPressGestureRecognizer) {
+        if sender.state == .began {
+            let touchPoint = sender.location(in: tableView)
+            if let indexPath = tableView.indexPathForRow(at: touchPoint) {
+                showRelocateMenu(touchPoint: touchPoint, indexPath: indexPath)
+            }
+        }
+    }
+    
+    func showRelocateMenu(touchPoint: CGPoint, indexPath: IndexPath) {
+        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        let todo = todoList[indexPath.row]
+        
+        let firstAction = UIAlertAction(title: "Move to Doing", style: .default) { _ in
+            switch self.step {
+            case .todo:
+                self.delegate?.moveToDoing(with: todo)
+            case .doing:
+                self.delegate?.moveToDone(with: todo)
+            case .done:
+                self.delegate?.moveToTodo(with: todo)
+            }
+            
+            self.todoList.remove(at: indexPath.row)
+            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+        
+        let secondAction = UIAlertAction(title: "Move to Done", style: .default) { _ in
+            switch self.step {
+            case .todo:
+                self.delegate?.moveToDone(with: todo)
+            case .doing:
+                self.delegate?.moveToTodo(with: todo)
+            case .done:
+                self.delegate?.moveToDoing(with: todo)
+            }
+            
+            self.todoList.remove(at: indexPath.row)
+            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+        
+        actionSheet.addAction(firstAction)
+        actionSheet.addAction(secondAction)
+        actionSheet.popoverPresentationController?.sourceView = tableView
+        actionSheet.popoverPresentationController?.sourceRect = CGRect(x: touchPoint.x, y: touchPoint.y, width: 0, height: 0)
+        actionSheet.popoverPresentationController?.permittedArrowDirections = [.up]
+        
+        if var topController = UIApplication.shared.connectedScenes
+                                                    .compactMap({ $0 as? UIWindowScene })
+                                                    .flatMap({ $0.windows })
+                                                    .first(where: { $0.isKeyWindow })?
+                                                    .rootViewController {
+            while let presentedViewController = topController.presentedViewController {
+                topController = presentedViewController
+            }
+            topController.present(actionSheet, animated: true, completion: nil)
+        }
     }
 }
 

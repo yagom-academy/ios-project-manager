@@ -36,6 +36,8 @@ class MainViewController: UIViewController {
     
     func registerDelegate() {
         todoViewController.delegate = self
+        doingViewController.delegate = self
+        doneViewController.delegate = self
     }
     
     @objc func addTodo() {
@@ -81,5 +83,17 @@ class MainViewController: UIViewController {
 extension MainViewController: TodoEditDelegate {
     func showTaskViewController(with todo: Todo) {
         showTaskViewController(for: .edit, todo: todo)
+    }
+    
+    func moveToTodo(with todo: Todo) {
+        todoViewController.append(todo)
+    }
+    
+    func moveToDoing(with todo: Todo) {
+        doingViewController.append(todo)
+    }
+    
+    func moveToDone(with todo: Todo) {
+        doneViewController.append(todo)
     }
 }
