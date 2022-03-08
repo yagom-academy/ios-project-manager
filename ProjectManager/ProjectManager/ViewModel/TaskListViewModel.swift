@@ -57,15 +57,14 @@ final class TaskListViewModel: TaskListViewModelProtocol {
             todoTasksObservable.value[index].processStatus = newProcessStatus
             
             // TODO: update 메서드 개선 필요
-            let removedTask = todoTasksObservable.value.remove(at: index)
-            
             switch newProcessStatus {
             case .todo:
-                print(TaskManagerError.unchangedProcessStatus)
                 return
             case .doing:
+                let removedTask = todoTasksObservable.value.remove(at: index)
                 doingTasksObservable.value.append(removedTask)
             case .done:
+                let removedTask = todoTasksObservable.value.remove(at: index)
                 doneTasksObservable.value.append(removedTask)
             }
         case .doing:
@@ -77,6 +76,17 @@ final class TaskListViewModel: TaskListViewModelProtocol {
             doingTasksObservable.value[index].body = newBody
             doingTasksObservable.value[index].dueDate = newDueDate
             doingTasksObservable.value[index].processStatus = newProcessStatus
+            
+            switch newProcessStatus {
+            case .todo:
+                let removedTask = doingTasksObservable.value.remove(at: index)
+                todoTasksObservable.value.append(removedTask)
+            case .doing:
+                return
+            case .done:
+                let removedTask = doingTasksObservable.value.remove(at: index)
+                doneTasksObservable.value.append(removedTask)
+            }
         case .done:
             guard let index = doneTasksObservable.value.firstIndex(where: { $0.id == task.id }) else {
                 print(TaskManagerError.taskNotFound)
@@ -86,6 +96,17 @@ final class TaskListViewModel: TaskListViewModelProtocol {
             doneTasksObservable.value[index].body = newBody
             doneTasksObservable.value[index].dueDate = newDueDate
             doneTasksObservable.value[index].processStatus = newProcessStatus
+            
+            switch newProcessStatus {
+            case .todo:
+                let removedTask = doneTasksObservable.value.remove(at: index)
+                todoTasksObservable.value.append(removedTask)
+            case .doing:
+                let removedTask = doneTasksObservable.value.remove(at: index)
+                doingTasksObservable.value.append(removedTask)
+            case .done:
+                return
+            }
         }
 
         taskRepository.update(task: task, newTitle: newTitle, newBody: newBody, newDueDate: newDueDate, newProcessStatus: newProcessStatus)
