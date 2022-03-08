@@ -41,7 +41,7 @@ struct TaskListView: View {
             
             Text(String(tasks.count))
                 .font(.headline)
-                .foregroundColor(.white)
+                .colorInvert()
                 .padding(10)
                 .background(Circle())
         }

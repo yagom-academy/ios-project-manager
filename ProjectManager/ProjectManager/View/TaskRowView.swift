@@ -29,19 +29,20 @@ struct TaskRowView: View {
     var title: some View {
         Text(task.title)
             .font(.headline)
+            .foregroundColor(.primary)
             .lineLimit(0)
     }
     
     var description: some View {
         Text(task.description)
             .font(.subheadline)
-            .foregroundColor(.gray)
+            .foregroundColor(.secondary)
             .lineLimit(3)
     }
     
     var dueDate: some View {
         let dateView = Text(Self.dateFormatter.string(from: task.dueDate))
-        let validDate = Date() - 1
+        let validDate = Date() - 1.5
         
         if task.dueDate < validDate, task.status != .done {
             return dateView
@@ -49,7 +50,7 @@ struct TaskRowView: View {
                         .font(.subheadline)
         } else {
             return dateView
-                        .foregroundColor(.black)
+                .foregroundColor(.primary)
                         .font(.subheadline)
         }
     }
