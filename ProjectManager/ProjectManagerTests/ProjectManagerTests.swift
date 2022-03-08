@@ -14,7 +14,7 @@ class ProjectManagerTests: XCTestCase {
 
     override func setUpWithError() throws {
         try super.setUpWithError()
-        taskManager = TaskManager()
+        taskManager = TaskManager(tasks: [])
         taskManager.createTask(title: "0번 할일", body: "할일 내용0", dueDate: Date())
         taskManager.createTask(title: "1번 할일", body: "할일 내용1", dueDate: Date())
         taskManager.createTask(title: "2번 할일", body: "할일 내용2", dueDate: Date())
