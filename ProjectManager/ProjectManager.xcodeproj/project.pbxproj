@@ -28,6 +28,7 @@
 		F3C53FFC27D737F500D7CE4E /* TaskStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C53FFB27D737F500D7CE4E /* TaskStatus.swift */; };
 		F3C53FFF27D7501400D7CE4E /* TaskListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C53FFE27D7501300D7CE4E /* TaskListView.swift */; };
 		F3C5400627D75EEC00D7CE4E /* TaskCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C5400527D75EEC00D7CE4E /* TaskCellView.swift */; };
+		F3C5400827D784CD00D7CE4E /* AddButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C5400727D784CC00D7CE4E /* AddButtonView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +61,7 @@
 		F3C53FFB27D737F500D7CE4E /* TaskStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskStatus.swift; sourceTree = "<group>"; };
 		F3C53FFE27D7501300D7CE4E /* TaskListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListView.swift; sourceTree = "<group>"; };
 		F3C5400527D75EEC00D7CE4E /* TaskCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCellView.swift; sourceTree = "<group>"; };
+		F3C5400727D784CC00D7CE4E /* AddButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddButtonView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,6 +180,7 @@
 			children = (
 				F3C53FFE27D7501300D7CE4E /* TaskListView.swift */,
 				F3C5400527D75EEC00D7CE4E /* TaskCellView.swift */,
+				F3C5400727D784CC00D7CE4E /* AddButtonView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -334,6 +337,7 @@
 				F3C53FFC27D737F500D7CE4E /* TaskStatus.swift in Sources */,
 				F3C53FFF27D7501400D7CE4E /* TaskListView.swift in Sources */,
 				F3C53F5527D1202300D7CE4E /* TaskRepository.swift in Sources */,
+				F3C5400827D784CD00D7CE4E /* AddButtonView.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

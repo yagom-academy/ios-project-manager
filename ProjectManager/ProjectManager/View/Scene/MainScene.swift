@@ -10,13 +10,24 @@ import SwiftUI
 struct MainScene: View {
     @ObservedObject var viewModel: ProjectManagerViewModel
     
+    @State var isShowAddScene: Bool = false
+    
     var body: some View {
         NavigationView {
             HStack {
                 TaskListView(tasks: viewModel.todoTasks, listName: TaskStatus.todo.title)
                 TaskListView(tasks: viewModel.doingTasks, listName: TaskStatus.doing.title)
                 TaskListView(tasks: viewModel.doneTasks, listName: TaskStatus.done.title)
-            }.navigationBarTitle("Project Manager", displayMode: .inline)
+            }
+            .navigationBarTitle("Project Manager", displayMode: .inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    AddButtonView(show: $isShowAddScene)
+                        .sheet(isPresented: $isShowAddScene, onDismiss: nil) {
+                            // AddScene
+                        }
+                }
+            }
         }.navigationViewStyle(.stack)
     }
 }
