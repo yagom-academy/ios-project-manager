@@ -7,12 +7,11 @@
 import UIKit
 
 class MainViewController: UIViewController, UITableViewDelegate {
-    var todoViewModel = ToDoViewModel()
+    private var todoViewModel = ToDoViewModel()
     private let taskStackView = UIStackView()
     private let toDoTableView = UITableView()
     private let doingTableView = UITableView()
     private let doneTableView = UITableView()
-    let dataManager = TestDataManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
