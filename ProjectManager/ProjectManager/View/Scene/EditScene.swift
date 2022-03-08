@@ -47,6 +47,6 @@ struct EditScene: View {
             self.title = self.task?.title ?? ""
             self.content = self.task?.content ?? ""
             self.limitDate = self.task?.limitDate ?? Date()
-        }
+        }.navigationViewStyle(.stack)
     }
 }
