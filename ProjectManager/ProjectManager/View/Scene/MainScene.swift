@@ -7,7 +7,9 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct MainScene: View {
+    @ObservedObject var taskService = TaskService()
+    
     var body: some View {
         NavigationView{
             VStack {
@@ -17,10 +19,29 @@ struct ContentView: View {
     }
 }
 
+struct ListView: View {
+    var items: [Task]
+    
+    var body: some View {
+        VStack {
+            HStack {
+                Text("todo")
+                    .font(.largeTitle)
+            }
+            
+            List {
+                ForEach(items) { item in
+                    Text(item.title)
+                }
+            }
+        }
+    }
+}
+
 @available(iOS 15.0, *)
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        MainScene()
             .previewDevice(PreviewDevice(rawValue: "iPad Pro (12.9-inch)"))
             .previewDisplayName("iPad Pro (12.9-inch)")
             .previewInterfaceOrientation(.landscapeLeft)
