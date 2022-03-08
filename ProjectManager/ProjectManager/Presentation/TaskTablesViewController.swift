@@ -1,6 +1,6 @@
 import UIKit
 
-class TaskTablesViewController: UICollectionViewController {
+class TaskTablesViewController: UIViewController {
     var viewModel: TaskViewModel?
     
     init?(coder: NSCoder, viewModel: TaskViewModel) {
