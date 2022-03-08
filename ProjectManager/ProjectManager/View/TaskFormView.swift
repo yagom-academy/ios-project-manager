@@ -57,32 +57,33 @@ struct TaskDetailView: View {
     @State var isEditingMode = false
     
     var body: some View {
-        let taskForm = TaskFormView()
+        let taskForm = TaskFormView(task: task)
         
         NavigationView {
             taskForm
                 .padding()
+                .disabled(!isEditingMode)
                 .navigationTitle("TODO")
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
-                        if isEditingMode {
-                            Button(action: {
-                                isShowingSheet.toggle()
-                            }) {
+                        Button(action: {
+                            isEditingMode.toggle()
+                        }) {
+                            if isEditingMode {
                                 Text("Cancel")
-                            }
-                        } else {
-                            Button(action: {
-                                isEditingMode.toggle()
-                            }) {
+                            } else {
                                 Text("Edit")
                             }
                         }
                     }
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button(action: {
-                            isShowingSheet.toggle()
+                            if isEditingMode {
+                                isEditingMode.toggle()
+                            } else {
+                                isShowingSheet.toggle()
+                            }
                         }) {
                             Text("Done")
                         }
@@ -96,14 +97,16 @@ struct TaskDetailView: View {
 
 struct TaskFormView: View {
     
-    @State var title = String()
-    @State var date = Date()
-    @State var description = String()
+    let task: Task? = nil
+    
+    @State var title: String
+    @State var date: Date
+    @State var description: String
     
     init(task: Task? = nil) {
-        self.title = task?.title ?? ""
-        self.date = task?.dueDate ?? Date()
-        self.description = task?.description ?? ""
+        _title = State(initialValue: task?.title ?? "")
+        _date = State(initialValue: task?.dueDate ?? Date())
+        _description = State(initialValue: task?.description ?? "")
     }
     
     var body: some View {
@@ -115,7 +118,7 @@ struct TaskFormView: View {
     }
     
     var titleField: some View {
-        TextField("Text", text: $title)
+        TextField(task?.title ?? "Title", text: $title)
             .border(.gray)
     }
     

@@ -13,7 +13,6 @@ struct TaskListView: View {
     let taskType: TaskStatus
     
     @EnvironmentObject private var viewModel: ProjectManagerViewModel
-//    @Binding var isShowingSheet: Bool
     @State var isShowingSheet = false
     
     private var tasks: [Task] {
