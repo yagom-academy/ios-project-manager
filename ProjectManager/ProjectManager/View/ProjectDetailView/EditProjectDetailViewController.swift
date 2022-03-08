@@ -20,6 +20,10 @@ class EditProjectDetailViewController: ProjectDetailViewController {
     @objc private func didTapEditButton() {
         self.dismiss(animated: true, completion: nil)
     }
+    
+    func populateView(with data: Project?) {
+        projectDetailView.populateData(with: data)
+    }
 }
 
 //MARK: - Constants

@@ -94,6 +94,15 @@ class ProjectDetailView: UIView {
             self.titleTextField.heightAnchor.constraint(equalToConstant: LayoutConstant.titleTextFieldHeight)
         ])
     }
+    
+    func populateData(with data: Project?) {
+        guard let date = data?.date else {
+            return
+        }
+        titleTextField.text = data?.title
+        bodyTextView.text = data?.body
+        datePicker.setDate(date, animated: true)
+    }
 }
 
 //MARK: - Constants

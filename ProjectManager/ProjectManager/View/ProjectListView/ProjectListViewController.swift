@@ -4,7 +4,7 @@ class ProjectListViewController: UIViewController {
     private let todoTableView = ProjectListTableView()
     private let doingTableView = ProjectListTableView()
     private let doneTableView = ProjectListTableView()
-    private var dataSource: ProjectListDataSource?
+    private var dataSource: ProjectViewModel?
     private lazy var tableViews = [todoTableView, doingTableView, doneTableView]
     
     private let entireStackView: UIStackView = {
@@ -57,7 +57,7 @@ class ProjectListViewController: UIViewController {
     }
     
     private func configureDataSource() {
-        dataSource = ProjectListDataSource(tableView: tableViews)
+        dataSource = ProjectViewModel(tableView: tableViews)
     }
     
     private func configureEntireStackView() {
@@ -84,7 +84,6 @@ extension ProjectListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = tableView.dequeueReusableHeaderFooterView(withClass: ProjectListTableHeaderView.self)
-                
         switch tableView {
         case todoTableView:
             headerView.populateData(title: TitleText.todoTableViewTitle, count: 20)
@@ -110,7 +109,20 @@ extension ProjectListViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        var data: Project?
+        switch tableView {
+        case todoTableView:
+            data = dataSource?.todoProjects[indexPath.row]
+        case doingTableView:
+            data = dataSource?.doingProjects[indexPath.row]
+        case doneTableView:
+            data = dataSource?.doneProjects[indexPath.row]
+        default:
+            break
+        }
+        
         let viewController = EditProjectDetailViewController()
+        viewController.populateView(with: data)
         let destinationViewController = UINavigationController(rootViewController: viewController)
 
         destinationViewController.modalPresentationStyle = .formSheet
