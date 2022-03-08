@@ -34,9 +34,17 @@ struct TaskListView: View {
     }
     
     var title: some View {
-        Text("\(name) \(tasks.count)")
-            .font(.largeTitle)
-            .padding()
+        HStack {
+            Text(name)
+                .font(.largeTitle)
+                .padding([.leading])
+            
+            Text(String(tasks.count))
+                .font(.headline)
+                .foregroundColor(.white)
+                .padding(10)
+                .background(Circle())
+        }
     }
     
     var taskList: some View {
@@ -54,7 +62,6 @@ struct TaskListView: View {
                                     }
                                 }
                             }
-                            
                         }
                 }
             }
