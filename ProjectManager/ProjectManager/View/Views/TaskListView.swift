@@ -10,6 +10,7 @@ import SwiftUI
 struct TaskListView: View {
     @ObservedObject var viewModel: ProjectManagerViewModel
     @State var isShowDetailScene: Bool = false
+    @State var isShowPopover: Bool = false
     var tasks: [Task]
     var listName: String
     
@@ -40,8 +41,17 @@ struct TaskListView: View {
                 } content: {
                     DetailScene(viewModel: viewModel, task: task, showDetailScene: $isShowDetailScene)
                 }
-            }.onDelete { indexSet in
+            }
+            .onDelete { indexSet in
                 self.viewModel.deleteTask(task: tasks[indexSet.first!])
+            }
+            .onLongPressGesture {
+                print("show popover")
+                self.isShowPopover = true
+            }
+            .popover(isPresented: $isShowPopover) {
+                Text("go to Doing")
+                Text("go to Done")
             }
         }
     }
