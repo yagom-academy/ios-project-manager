@@ -30,6 +30,15 @@ class TaskEntity {
         self.status = status
         self.statusModifiedDate = statusModifiedDate
     }
+    
+    init(from viewModel: Task) {
+        self.id = viewModel.id
+        self.title = viewModel.title
+        self.content = viewModel.content
+        self.limitDate = viewModel.limitDate
+        self.status = viewModel.status
+        self.statusModifiedDate = Date().timeIntervalSince1970
+    }
 }
 
 extension TaskEntity {

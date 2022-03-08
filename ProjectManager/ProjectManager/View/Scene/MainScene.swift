@@ -24,7 +24,7 @@ struct MainScene: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     AddButtonView(show: $isShowEditScene)
                         .sheet(isPresented: $isShowEditScene, onDismiss: nil) {
-                            EditScene(viewModal: viewModel, showEditScene: $isShowEditScene)
+                            EditScene(viewModel: viewModel, showEditScene: $isShowEditScene)
                         }
                 }
             }

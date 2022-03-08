@@ -17,4 +17,9 @@ struct ProjectManagerEnvironment {
     func getTaskList() -> [Task] {
         return taskRepository.tasks.map { $0.toViewModel() }
     }
+    
+    func createTask(task: Task) {
+        let taskEntity = TaskEntity(from: task)
+        taskRepository.insert(taskEntity)
+    }
 }
