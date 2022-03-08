@@ -18,10 +18,10 @@ final class TaskRepository: TaskRepositoryProtocol {
         return entireTasks.filter { $0.processStatus == .todo }
     }
     var doingTasks: [Task] {
-        return entireTasks.filter { $0.processStatus == .todo }
+        return entireTasks.filter { $0.processStatus == .doing }
     }
     var doneTasks: [Task] {
-        return entireTasks.filter { $0.processStatus == .todo }
+        return entireTasks.filter { $0.processStatus == .done }
     }
     
     init(entireTasks: [Task] = []) {
