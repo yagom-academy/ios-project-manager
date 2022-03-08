@@ -1,6 +1,6 @@
 import Foundation
 
-enum DatabaseType {
+enum RepositoryType {
     
     case CoreData
     case FireStore 

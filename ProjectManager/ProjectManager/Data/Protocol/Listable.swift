@@ -5,5 +5,6 @@ protocol Listable {
     var name: String { get }
     var detail: String { get }
     var deadline: Date { get }
-    var identifier: UUID? { get }
+    var identifier: String? { get set }
+    var progressState: String { get set }
 }

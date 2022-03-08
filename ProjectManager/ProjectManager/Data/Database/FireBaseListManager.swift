@@ -1,40 +1,40 @@
 import Foundation
 import Firebase
-import FirebaseFirestoreSwift
+import FirebaseFirestore
 
-final class FireBaseListManger: DataRepository, FireStoreUseCase {
+final class FireStoreRepository: DataRepository {
     
-    var path: String = "ProjectManager/Project"
     var dataBase = Firestore.firestore()
-    
-    func subscribe() {
-        <#code#>
-    }
-    
-    func removeDataBase() {
-        <#code#>
-    }
-    
-    
     var list: [Listable] = [] 
     
-    func creatProject(attributes: [String: Any]) -> Listable {
-        <#code#>
+    func creatProject(attributes: [String: Any])  {
+        let add = reference().addDocument(data: attributes)
+        let documentId = add.documentID
+        reference().document("\(documentId)").setValuesForKeys(["identifier": documentId])
     }
     
-    func readProject(index: IndexPath) -> Listable {
-        <#code#>
+    func readProject(index: IndexPath) -> Listable? {
+//        reference().document("123").getDocuments { (snaphot, _ ) in
+//            guard let snapshot = snaphot
+//            else {
+//                return nil
+//            }
+//        }
     }
     
-    func updateProject(to index: IndexPath, how attributes: [String: Any]) -> Listable {
-        <#code#>
+    func updateProject(to index: IndexPath, how attributes: [String: Any])  {
+        reference().document("id").setData(attributes)
     }
     
     func deleteProject(index: IndexPath) {
-        <#code#>
+        reference().document("id").delete()
     }
     
     func fetch() {
         <#code#>
+    }
+    
+    private func reference(to collectionReference: String = "ProjectManager") -> CollectionReference {
+        return Firestore.firestore().collection("\(collectionReference)")
     }
 }

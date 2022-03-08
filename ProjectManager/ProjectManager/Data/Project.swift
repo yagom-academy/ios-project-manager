@@ -1,11 +1,12 @@
 import Foundation
 
-struct Project: Codable, Listable {
+struct Project: Listable, Codable {
     
     var name: String
     var detail: String
     var deadline: Date
-    var identifier: UUID?
+    var identifier: String?
+    var progressState: String
     
     init(name: String, detail: String, deadline: Date, indentifier: UUID? = nil) {
         self.name = name

@@ -4,14 +4,14 @@ protocol DataRepository {
     
     var list: [Listable] { get }
     
-    func creatProject(attributes: [String: Any]) -> Listable
+    func creatProject(attributes: [String: Any])
     
-    func readProject(index: IndexPath) -> Listable
+    func readProject(index: IndexPath) -> Listable?
     
     func updateProject(
         to index: IndexPath,
         how attributes: [String: Any]
-    ) -> Listable
+    ) 
     
     func deleteProject(index: IndexPath)
     

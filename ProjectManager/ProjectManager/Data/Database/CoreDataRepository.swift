@@ -2,25 +2,23 @@ import Foundation
 import UIKit
 import CoreData
 
-final class CoredataListManger: DataRepository {
+final class CoredataRepository: DataRepository {
     
     private let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
     private lazy var fetchedController = createListFetchedResultsController()
     var list: [Listable] = []
     
-    func creatProject(attributes: [String : Any]) -> Listable {
+    func creatProject(attributes: [String : Any]) {
         let projectToCreate = self.createCDProject(attributes: attributes)
         self.fetch()
-        
-        return projectToCreate
+    
     }
     
-    func readProject(index: IndexPath) -> Listable {
+    func readProject(index: IndexPath) -> Listable? {
         self.fetchedController.object(at: index)
-        self.fetch()
     }
     
-    func updateProject(to index: IndexPath, how attributes: [String : Any]) -> Listable {
+    func updateProject(to index: IndexPath, how attributes: [String : Any]) {
         let projectToUpdate = self.fetchedController.object(at: index)
         attributes.forEach { (key: String, value: Any) in
             projectToUpdate.setValue(value, forKey: key)
@@ -45,16 +43,16 @@ final class CoredataListManger: DataRepository {
         list = fetchedList
     }
     
-    private func createCDProject(attributes: [String: Any]) -> CDProject {
+    private func createCDProject(attributes: [String: Any]) {
         
         guard let context = self.context
         else {
-            return CDProject()
+            return
         }
         
         guard let entity = NSEntityDescription.entity(forEntityName: String(describing: CDProject.self), in: context)
         else {
-            return CDProject()
+            return
         }
         
         let project = NSManagedObject(entity: entity, insertInto: context)
