@@ -8,9 +8,9 @@ protocol TaskViewModelOutput {
     var formattedTasks: [TaskEntity] { get set }
 }
 
-protocol TaskViewModel: TaskViewModelInput, TaskViewModelOutput {}
+protocol TaskViewModelable: TaskViewModelInput, TaskViewModelOutput {}
 
-final class TasksViewModel: TaskViewModel {
+final class TaskViewModel: TaskViewModelable {
     private var useCase: TaskUseCase
     var formattedTasks: [TaskEntity] = []
 
