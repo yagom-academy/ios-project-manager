@@ -29,12 +29,14 @@ struct TaskRowView: View {
     var title: some View {
         Text(task.title)
             .font(.headline)
+            .lineLimit(0)
     }
     
     var description: some View {
         Text(task.description)
             .font(.subheadline)
             .foregroundColor(.gray)
+            .lineLimit(3)
     }
     
     var dueDate: some View {
