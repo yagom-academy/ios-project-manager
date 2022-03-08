@@ -11,7 +11,7 @@ struct TaskListView: View {
     
     @State var tasks: [Task]
     let taskStatus: TaskStatus
-    var taskListHeader: String {
+    private var taskListHeader: String {
         switch taskStatus {
         case .todo:
             return "TODO"
