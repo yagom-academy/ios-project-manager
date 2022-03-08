@@ -13,7 +13,7 @@ extension Date {
     
     var isPastDeadline: Bool {
         let today = Date()
-        let calendar = Calendar.current
+        let calendar = Calendar.autoupdatingCurrent
         return calendar.compare(today, to: self, toGranularity: .day) == .orderedDescending
     }
 }
