@@ -30,9 +30,20 @@ final class TaskListViewController: UIViewController {
     }
     
     func setupBindings() {
-        taskListViewModel.todoTasksObservable.bind { [weak self] todoTask in
+        taskListViewModel.todoTasksObservable.bind { [weak self] task in
             print("test: todoTasksObservable 변경으로 인해 listener(value)를 실행")
+//            todoTitle.text = task.count
             self?.todoTableView.reloadData()
+        }
+        
+        taskListViewModel.doingTasksObservable.bind { [weak self] todoTask in
+            print("test: doingTasksObservable 변경으로 인해 listener(value)를 실행")
+            self?.doingTableView.reloadData()
+        }
+        
+        taskListViewModel.doneTasksObservable.bind { [weak self] todoTask in
+            print("test: doneTasksObservable 변경으로 인해 listener(value)를 실행")
+            self?.doneTableView.reloadData()
         }
     }
     
@@ -44,7 +55,7 @@ extension TaskListViewController {
     @IBAction func touchUpAddButton(_ sender: UIBarButtonItem) {
         let newTask = Task(title: "새로운 작업", body: "작업 내용을 입력해주세요.", dueDate: Date())
         taskListViewModel.create(task: newTask, of: .todo)
-        todoTableView.reloadData()
+//        todoTableView.reloadData() // Observable 덕분에 todoTasksObservable 값이 변경되면 자동으로 reloadData가 호출됨
     }
 }
 
@@ -71,14 +82,14 @@ extension TaskListViewController: UITableViewDataSource {
         
         switch tableView {
         case todoTableView:
-            cell.applyDate(with: taskListViewModel.todoTasks[indexPath.row])
+            cell.applyDate(with: taskListViewModel.todoTasksObservable.value[indexPath.row])
         case doingTableView:
-            cell.applyDate(with: taskListViewModel.doingTasks[indexPath.row])
+            cell.applyDate(with: taskListViewModel.doingTasksObservable.value[indexPath.row])
         case doneTableView:
-            cell.applyDate(with: taskListViewModel.doneTasks[indexPath.row])
+            cell.applyDate(with: taskListViewModel.doneTasksObservable.value[indexPath.row])
         default:
             print(TableViewError.invalidTableView.description)
-            cell.applyDate(with: taskListViewModel.todoTasks[indexPath.row])
+            cell.applyDate(with: taskListViewModel.todoTasksObservable.value[indexPath.row])
         }
         
         return cell
@@ -100,3 +111,21 @@ extension TaskListViewController: UITableViewDataSource {
 //        }
 //    }
 //}
+
+// MARK: - TableView Header
+extension TaskListViewController {
+    // TODO: Custom HeaderView 추가
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch tableView {
+        case todoTableView:
+            return taskListViewModel.titleForHeaderInSection(forTableOf: .todo)
+        case doingTableView:
+            return taskListViewModel.titleForHeaderInSection(forTableOf: .doing)
+        case doneTableView:
+            return taskListViewModel.titleForHeaderInSection(forTableOf: .done)
+        default:
+            print(TableViewError.invalidTableView.description)
+            return ""
+        }
+    }
+}

@@ -78,4 +78,15 @@ final class TaskListViewModel {
             return doneTasksObservable.value.count
         }
     }
+    
+    func titleForHeaderInSection(forTableOf processStatus: ProcessStatus) -> String {
+        switch processStatus {
+        case .todo:
+            return "\(ProcessStatus.todo.description) \(todoTasksObservable.value.count)"
+        case .doing:
+            return "\(ProcessStatus.doing.description) \(doingTasksObservable.value.count)"
+        case .done:
+            return "\(ProcessStatus.done.description) \(doneTasksObservable.value.count)"
+        }
+    }
 }
