@@ -28,9 +28,6 @@ class TaskCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
-
-    
     func setupCellStackView() {
         contentView.addSubview(cellStackView)
         cellStackView.addArrangedSubview(titleLable)
@@ -43,7 +40,6 @@ class TaskCell: UITableViewCell {
     
     func setupCellConstraints() {
         cellStackView.translatesAutoresizingMaskIntoConstraints = false
-        
         NSLayoutConstraint.activate([
             cellStackView.topAnchor.constraint(
                 equalTo: contentView.topAnchor,
@@ -63,22 +59,20 @@ class TaskCell: UITableViewCell {
             )
         ])
     }
+    
     func setupCellContent() {
         titleLable.font = .preferredFont(forTextStyle: .headline)
         discriptionLabel.font = .preferredFont(forTextStyle: .body)
         discriptionLabel.textColor = .gray
         discriptionLabel.numberOfLines = 3
-  
     }
     
     func configure(with todo: ToDoInfomation) {
         titleLable.text = todo.title
         discriptionLabel.text = todo.discription
         deadLineLabel.text = todo.localizedDateString
-        if todo.deadline < NSTimeIntervalSince1970 {
+        if todo.position != .Done && todo.deadline < Date().timeIntervalSince1970 {
             deadLineLabel.textColor = .red
         }
     }
-    
-   
 }

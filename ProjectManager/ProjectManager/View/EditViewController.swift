@@ -83,6 +83,7 @@ class EditViewController: UIViewController {
     func setupDatePicker() {
         datePicker.preferredDatePickerStyle = .wheels
         datePicker.timeZone = NSTimeZone.local
+        datePicker.datePickerMode = .date
     }
     
     @objc func touchUpCancelButton() {
