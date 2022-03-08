@@ -40,4 +40,11 @@ class ProjectManagerViewModel: ObservableObject {
         task.limitDate = limitDate
         enviroment.updateTask(task: task, title: title, content: content, limitDate: limitDate)
     }
+    
+    func deleteTask(task: Task) {
+        guard let index = tasks.firstIndex(where: { $0.id == task.id }) else {
+            return
+        }
+        tasks.remove(at: index)
+    }
 }

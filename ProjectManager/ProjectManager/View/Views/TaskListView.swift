@@ -29,15 +29,19 @@ struct TaskListView: View {
     }
     
     var list: some View {
-        List(tasks) { task in
-            Button {
-                self.isShowDetailScene.toggle()
-            } label: {
-                TaskCellView(task: task)
-            }.sheet(isPresented: $isShowDetailScene) {
-                // viewUpdate
-            } content: {
-                DetailScene(viewModel: viewModel, task: task, showDetailScene: $isShowDetailScene)
+        List {
+            ForEach(tasks) { task in
+                Button {
+                    self.isShowDetailScene.toggle()
+                } label: {
+                    TaskCellView(task: task)
+                }.sheet(isPresented: $isShowDetailScene) {
+                    // viewUpdate
+                } content: {
+                    DetailScene(viewModel: viewModel, task: task, showDetailScene: $isShowDetailScene)
+                }
+            }.onDelete { indexSet in
+                self.viewModel.deleteTask(task: tasks[indexSet.first!])
             }
         }
     }
