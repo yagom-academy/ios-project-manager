@@ -17,9 +17,9 @@ struct ContentView: View {
         
         NavigationView {
             HStack {
-                todoList
-                doingList
-                doneList
+                TaskListView(name: "TODO", tasks: viewModel.todoTasks)
+                TaskListView(name: "DOING", tasks: viewModel.doingTasks)
+                TaskListView(name: "DONE", tasks: viewModel.doneTasks)
             }
             .navigationTitle("Project Manager")
             .navigationBarTitleDisplayMode(.inline)
@@ -38,45 +38,6 @@ struct ContentView: View {
         }
         .navigationViewStyle(.stack)
         
-    }
-    
-    var todoList: some View {
-        VStack(alignment: .leading) {
-            Text("TODO \(viewModel.todoTasks.count)")
-                .font(.largeTitle)
-                .padding()
-            List {
-                ForEach(viewModel.todoTasks) { task in
-                    TaskRowView(task: task)
-                }
-            }
-        }
-    }
-    
-    var doingList: some View {
-        VStack(alignment: .leading) {
-            Text("DOING \(viewModel.doingTasks.count)")
-                .font(.largeTitle)
-                .padding()
-            List {
-                ForEach(viewModel.doingTasks) { task in
-                    TaskRowView(task: task)
-                }
-            }
-        }
-    }
-    
-    var doneList: some View {
-        VStack(alignment: .leading) {
-            Text("DOING \(viewModel.doneTasks.count)")
-                .font(.largeTitle)
-                .padding()
-            List {
-                ForEach(viewModel.doneTasks) { task in
-                    TaskRowView(task: task)
-                }
-            }
-        }
     }
     
 }

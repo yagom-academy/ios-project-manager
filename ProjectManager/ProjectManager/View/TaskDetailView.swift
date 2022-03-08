@@ -19,20 +19,11 @@ struct TaskDetailView: View {
     @State private var description = ""
     
     var body: some View {
-        
         NavigationView {
             VStack(alignment: .center, spacing: 20.0) {
-                TextField("Text", text: $title)
-                    .border(.gray)
-                DatePicker(
-                    "",
-                    selection: $date,
-                    displayedComponents: [.date]
-                )
-                .datePickerStyle(.wheel)
-                .labelsHidden()
-                TextEditor(text: $description)
-                    .shadow(radius: 5)
+                titleField
+                dueDatePicker
+                descriptionEditor
             }
             .padding()
             .navigationTitle("TODO")
@@ -48,7 +39,26 @@ struct TaskDetailView: View {
                 }
             }
         }
-        
+    }
+    
+    var titleField: some View {
+        TextField("Text", text: $title)
+            .border(.gray)
+    }
+    
+    var dueDatePicker: some View {
+        DatePicker(
+            "",
+            selection: $date,
+            displayedComponents: [.date]
+        )
+        .datePickerStyle(.wheel)
+        .labelsHidden()
+    }
+    
+    var descriptionEditor: some View {
+        TextEditor(text: $description)
+            .shadow(radius: 5)
     }
     
 }

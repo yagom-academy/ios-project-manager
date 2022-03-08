@@ -19,13 +19,11 @@ struct TaskRowView: View {
     }()
     
     var body: some View {
-        
         VStack(alignment: .leading) {
             title
             description
             dueDate
         }
-        
     }
     
     var title: some View {
