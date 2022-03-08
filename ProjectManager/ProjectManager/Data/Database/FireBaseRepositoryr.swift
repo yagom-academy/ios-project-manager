@@ -5,7 +5,7 @@ import FirebaseFirestore
 final class FireStoreRepository: DataRepository {
     
     var dataBase = Firestore.firestore()
-    var list: [Listable] = [] 
+    var list = [Listable]()
     
     func creat(attributes: [String: Any]) {
         var attibutesToMerge = attributes
@@ -20,9 +20,9 @@ final class FireStoreRepository: DataRepository {
     }
     
     func update(identifier: String, how attributes: [String: Any])  {
-        reference().document(identifier).getDocument { (document , error) in
-            if let document = document, document.exists {
-                let documentDescription = document.data().map(String.init(describing:)) ?? "nil"
+        reference().document(identifier).updateData(attributes) { error in
+            if let error = error {
+                print(error.localizedDescription)
             }
         }
     }
@@ -32,18 +32,22 @@ final class FireStoreRepository: DataRepository {
     }
     
     func fetch() {
-        <#code#>
-    }
-    
-    private func reference(to collectionReference: String = "ProjectManager") -> CollectionReference {
-        return Firestore.firestore().collection(collectionReference)
-    }
-    
-    private func subscibe() {
-        reference().addSnapshotListener { (snapshot, error) in
+        var lists = [Listable]()
+        reference().getDocuments { (snapshot, _) in
             if let snapshot = snapshot, !snapshot.isEmpty {
-                self.list = snapshot.documents
+                snapshot.documents.forEach { document in
+                    let data = document.data()
+                    let project = Project.convertDictionaryToInstance(attributes: data)
+                    lists.append(project ?? Project(name: "", detail: "", deadline: Date(), indentifier: nil))
+                }
             }
         }
+        self.list = lists
+    }
+    
+    private func reference(
+        to collectionReference: String = "ProjectManager"
+    ) -> CollectionReference {
+        return Firestore.firestore().collection(collectionReference)
     }
 }

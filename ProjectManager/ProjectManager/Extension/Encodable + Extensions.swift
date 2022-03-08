@@ -22,3 +22,24 @@ extension Encodable {
         return json
     }
 }
+
+extension Project {
+    
+    static func convertDictionaryToInstance(attributes: [String: Any]) -> Listable? {
+        
+        guard let json = try? JSONSerialization.data(withJSONObject: attributes)
+        else {
+            return nil
+        }
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        
+        guard let project = try? decoder.decode(Project.self, from: json)
+        else {
+            return nil
+        }
+        
+        return project
+    }
+}
+

@@ -4,12 +4,11 @@ import CoreData
 final class CoredataRepository: DataRepository {
     
     private let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
-    var list: [Listable] = []
+    var list = [Listable]()
     
     func creat(attributes: [String : Any]) {
         let projectToCreate = self.createCDProject(attributes: attributes)
         self.fetch()
-    
     }
     
     func read(identifier: String) -> Listable? {
@@ -41,9 +40,19 @@ final class CoredataRepository: DataRepository {
     }
     
     func fetch() {
+        
+        guard let context = self.context
+        else {
+            return
+            }
+        
+        guard let data = try? context.fetch(CDProject.fetchRequest())
+        else {
+            return
+        }
+        
+        self.list = data
         self.saveContext()
-        let sortDescriptor = NSSortDescriptor(key: "deadline", ascending: true)
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "CDProject")
     }
     
     private func createCDProject(attributes: [String: Any]) {
@@ -62,7 +71,6 @@ final class CoredataRepository: DataRepository {
         }
         
         let project = NSManagedObject(entity: entity, insertInto: context)
-        
         attributes.forEach { (key: String, value: Any) in
             project.setValue(value, forKey: key)
         }

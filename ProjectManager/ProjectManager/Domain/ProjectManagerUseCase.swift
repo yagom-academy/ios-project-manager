@@ -3,9 +3,9 @@ import Foundation
 final class ProjectManagerUseCase: CRUDUseCase {
     
     var repository: DataRepository?
-    var todoProjects: [Listable] 
-    var doingProjects: [Listable]
-    var doneProjects: [Listable]
+    var todoProjects = [Listable]()
+    var doingProjects = [Listable]()
+    var doneProjects = [Listable]()
     
     init(repository: DataRepository) {
         self.repository = repository
