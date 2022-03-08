@@ -9,6 +9,7 @@ import UIKit
 class MainViewController: UIViewController {
 
     var viewModel: MainViewModel
+    let tableView = UITableView()
 
     init(viewModel: MainViewModel) {
         self.viewModel = viewModel
@@ -21,8 +22,21 @@ class MainViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        self.configure()
     }
 
+    func configure() {
+        self.view.backgroundColor = .white
+        self.title = "ProjectManager"
+
+        self.view.addSubview(self.tableView)
+        self.tableView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            self.tableView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            self.tableView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+            self.tableView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.3),
+            self.tableView.heightAnchor.constraint(equalTo: self.view.heightAnchor)
+        ])
+    }
 
 }
