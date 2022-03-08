@@ -4,9 +4,10 @@ final class TaskListViewController: UIViewController {
     // MARK: - Properties
     private var taskListViewModel: TaskListViewModelProtocol!
     
-    @IBOutlet weak var todoTableView: UITableView!
-    @IBOutlet weak var doingTableView: UITableView!
-    @IBOutlet weak var doneTableView: UITableView!
+    @IBOutlet private weak var todoTableView: UITableView!
+    @IBOutlet private weak var doingTableView: UITableView!
+    @IBOutlet private weak var doneTableView: UITableView!
+    private lazy var tableViews = [todoTableView, doingTableView, doneTableView]
     
     // MARK: - Methods
     override func viewDidLoad() {
@@ -16,40 +17,29 @@ final class TaskListViewController: UIViewController {
         setupBindings()
     }
     
-    func setupViewModel() {
+    private func setupViewModel() {
         self.taskListViewModel = TaskListViewModel()
     }
     
-    func setupTableViews() {
-//        taskListViewModel.delegate = self  // binding으로 대체
-        
-        todoTableView.dataSource = self  // 이 이후에 numberOfRowsInSection 메서드가 호출됨
-        let nib1 = UINib(nibName: TaskTableViewCell.reuseIdentifier, bundle: nil)
-        todoTableView.register(nib1, forCellReuseIdentifier: TaskTableViewCell.reuseIdentifier)
-        
-        doingTableView.dataSource = self
-        let nib2 = UINib(nibName: TaskTableViewCell.reuseIdentifier, bundle: nil)
-        doingTableView.register(nib2, forCellReuseIdentifier: TaskTableViewCell.reuseIdentifier)
-
-        doneTableView.dataSource = self
-        let nib3 = UINib(nibName: TaskTableViewCell.reuseIdentifier, bundle: nil)
-        doneTableView.register(nib3, forCellReuseIdentifier: TaskTableViewCell.reuseIdentifier)
+    private func setupTableViews() {
+        tableViews.forEach { tableView in
+            tableView?.dataSource = self
+            tableView?.delegate = self
+            let nib = UINib(nibName: TaskTableViewCell.reuseIdentifier, bundle: nil)
+            todoTableView.register(nib, forCellReuseIdentifier: TaskTableViewCell.reuseIdentifier)
+        }
     }
     
-    func setupBindings() {
+    private func setupBindings() {
         taskListViewModel.todoTasksObservable.bind { [weak self] task in
-            print("test: todoTasksObservable 변경으로 인해 listener(value)를 실행")
-//            todoTitle.text = task.count
             self?.todoTableView.reloadData()
         }
         
-        taskListViewModel.doingTasksObservable.bind { [weak self] todoTask in
-            print("test: doingTasksObservable 변경으로 인해 listener(value)를 실행")
+        taskListViewModel.doingTasksObservable.bind { [weak self] task in
             self?.doingTableView.reloadData()
         }
         
-        taskListViewModel.doneTasksObservable.bind { [weak self] todoTask in
-            print("test: doneTasksObservable 변경으로 인해 listener(value)를 실행")
+        taskListViewModel.doneTasksObservable.bind { [weak self] task in
             self?.doneTableView.reloadData()
         }
     }
@@ -57,13 +47,11 @@ final class TaskListViewController: UIViewController {
 
 // MARK: - IBAction
 extension TaskListViewController {
-    @IBAction func touchUpAddButton(_ sender: UIBarButtonItem) {
-        let newTask = Task(title: "새로운 작업", body: "작업 내용을 입력해주세요.", dueDate: Date())
-        taskListViewModel.create(task: newTask, of: .todo)
-//        todoTableView.reloadData() // Observable 덕분에 todoTasksObservable 값이 변경되면 자동으로 reloadData가 호출됨
-        
+    @IBAction private func touchUpAddButton(_ sender: UIBarButtonItem) {
         let storyboard = UIStoryboard(name: "TaskDetailView", bundle: nil)
-        let taskDetailController = storyboard.instantiateViewController(withIdentifier: "TaskDetailView")
+        let taskDetailController = storyboard.instantiateViewController(identifier: "TaskDetailView") { coder in
+            TaskDetailController(coder: coder, taskListViewModel: self.taskListViewModel)
+        }
         
         taskDetailController.modalPresentationStyle = .popover
         taskDetailController.popoverPresentationController?.barButtonItem = sender
@@ -109,20 +97,18 @@ extension TaskListViewController: UITableViewDataSource {
 }
 
 // MARK: - TableView Delegate
-//extension TaskListViewController: UITableViewDelegate {
+extension TaskListViewController: UITableViewDelegate {
+    // TODO: Cell을 탭하면 Popover 표시
 //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //        switch tableView {
 //        case todoTableView:
-////            cell.applyDate(with: taskListViewModel.todoTasks[indexPath.row])
 //        case doingTableView:
-////            cell.applyDate(with: taskListViewModel.doingTasks[indexPath.row])
 //        case doneTableView:
-////            cell.applyDate(with: taskListViewModel.doneTasks[indexPath.row])
 //        default:
 //            print(TableViewError.invalidTableView.description)
 //        }
 //    }
-//}
+}
 
 // MARK: - TableView Header
 extension TaskListViewController {

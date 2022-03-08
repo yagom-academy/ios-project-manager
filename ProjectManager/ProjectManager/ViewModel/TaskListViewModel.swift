@@ -1,20 +1,12 @@
 import Foundation
 
-protocol TaskListViewProtocol: AnyObject {
-    
-}
-
 protocol TaskListViewModelProtocol: AnyObject {
-    // TODO: 데이터는 Repository 타입으로 구분할 예정
-//    var todoTasks: [Task] { get }
-//    var doingTasks: [Task] { get }
-//    var doneTasks: [Task] { get }
-
+    // TODO: Task 데이터는 Repository 타입으로 분리
     var todoTasksObservable: MockObservable<[Task]> { get }
     var doingTasksObservable: MockObservable<[Task]> { get }
     var doneTasksObservable: MockObservable<[Task]> { get }
     
-    // TODO: Storage Protocol에서 CRUD 메서드를 정의하고, Repository(?)가 채택할 예정
+    // TODO: Storage Protocol에서 CRUD 메서드를 정의하여 분리 (Repository가 프로토콜을 채택)
     func create(task: Task, of processStatus: ProcessStatus)
     func updateTask(of task: Task, title: String, body: String, dueDate: Date)
     func delete(task: Task, of processStatus: ProcessStatus)
@@ -26,12 +18,6 @@ protocol TaskListViewModelProtocol: AnyObject {
 }
 
 final class TaskListViewModel: TaskListViewModelProtocol {
-//final class TaskListViewModel {
-//    var todoTasks: [Task] = []
-//    var doingTasks: [Task] = []
-//    var doneTasks: [Task] = []
-    
-//    weak var delegate: TaskListViewProtocol?  // MVVM에서는 View/ViewModel binding으로 대체
     let todoTasksObservable = MockObservable<[Task]>([])
     let doingTasksObservable = MockObservable<[Task]>([])
     let doneTasksObservable = MockObservable<[Task]>([])
@@ -40,13 +26,10 @@ final class TaskListViewModel: TaskListViewModelProtocol {
         switch processStatus {
         case .todo:
             todoTasksObservable.value.append(task)
-//            todoTasks.append(task)
         case .doing:
             doingTasksObservable.value.append(task)
-//            doingTasks.append(task)
         case .done:
             doneTasksObservable.value.append(task)
-//            doneTasks.append(task)
         }
     }
     
@@ -73,6 +56,7 @@ final class TaskListViewModel: TaskListViewModelProtocol {
         task.processStatus = newProcessStatus
     }
     
+    // MARK: - TaskListView
     func numberOfRowsInSection(forTableOf processStatus: ProcessStatus) -> Int {
         switch processStatus {
         case .todo:
