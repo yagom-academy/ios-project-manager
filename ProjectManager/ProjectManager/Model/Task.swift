@@ -1,6 +1,6 @@
 import Foundation
 
-class Task: Codable {
+final class Task: Codable {
     let id: UUID
     var title: String
     var body: String

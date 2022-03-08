@@ -52,10 +52,7 @@ extension TaskListViewController {
         let taskDetailController = storyboard.instantiateViewController(identifier: "TaskDetailView") { coder in
             TaskDetailController(coder: coder, taskListViewModel: self.taskListViewModel)
         }
-        
         taskDetailController.modalPresentationStyle = .popover
-        taskDetailController.popoverPresentationController?.barButtonItem = sender
-
         self.present(UINavigationController(rootViewController: taskDetailController), animated: true) {
         }
     }
@@ -89,7 +86,6 @@ extension TaskListViewController: UITableViewDataSource {
             cell.applyDate(with: taskListViewModel.doneTasksObservable.value[indexPath.row])
         default:
             print(TableViewError.invalidTableView.description)
-            cell.applyDate(with: taskListViewModel.todoTasksObservable.value[indexPath.row])
         }
         
         return cell
