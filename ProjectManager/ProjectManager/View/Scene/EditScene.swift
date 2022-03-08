@@ -15,6 +15,8 @@ struct EditScene: View {
     
     @Binding var showEditScene: Bool
     
+    var task: Task? = nil
+    
     var body: some View {
         NavigationView {
             VStack(alignment: .center) {
@@ -33,13 +35,18 @@ struct EditScene: View {
                         title: $title,
                         content: $content,
                         limitDate: $limitDate,
-                        viewModel: viewModel
+                        viewModel: viewModel,
+                        task: task
                     )
                 }
                 ToolbarItem(placement: .navigationBarLeading) {
                     DismissButtonView(show: $showEditScene)
                 }
             }
+        }.onAppear {
+            self.title = self.task?.title ?? ""
+            self.content = self.task?.content ?? ""
+            self.limitDate = self.task?.limitDate ?? Date()
         }
     }
 }

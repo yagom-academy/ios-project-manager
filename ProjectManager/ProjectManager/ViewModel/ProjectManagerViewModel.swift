@@ -33,4 +33,11 @@ class ProjectManagerViewModel: ObservableObject {
         tasks.insert(task, at: 0)
         enviroment.createTask(task: task)
     }
+    
+    func updateTask(task: Task, title: String, content: String, limitDate: Date) {
+        task.title = title
+        task.content = content
+        task.limitDate = limitDate
+        enviroment.updateTask(task: task, title: title, content: content, limitDate: limitDate)
+    }
 }

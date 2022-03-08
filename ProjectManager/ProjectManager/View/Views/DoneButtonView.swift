@@ -15,9 +15,15 @@ struct DoneButtonView: View {
     
     @ObservedObject var viewModel: ProjectManagerViewModel
     
+    var task: Task?
+    
     var body: some View {
         Button {
-            self.viewModel.createTask(title: title, content: content, limitDate: limitDate)
+            if let task = task {
+                self.viewModel.updateTask(task: task, title: title, content: content, limitDate: limitDate)
+            } else {
+                self.viewModel.createTask(title: title, content: content, limitDate: limitDate)
+            }
             self.show = false
         } label: {
             Text("Done")

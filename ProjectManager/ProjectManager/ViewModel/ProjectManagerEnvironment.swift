@@ -22,4 +22,14 @@ struct ProjectManagerEnvironment {
         let taskEntity = TaskEntity(from: task)
         taskRepository.insert(taskEntity)
     }
+    
+    func updateTask(task: Task, title: String, content: String, limitDate: Date) {
+        let taskEntity = taskRepository.tasks.filter { $0.id == task.id }.first
+        do {
+            try taskRepository.update(task: taskEntity, title: title, content: content, date: limitDate)
+        } catch {
+            print(error.localizedDescription)
+        }
+        
+    }
 }

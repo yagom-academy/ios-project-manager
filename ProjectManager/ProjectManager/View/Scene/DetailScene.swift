@@ -27,9 +27,9 @@ struct DetailScene: View {
             .navigationBarTitle("TODO", displayMode: .inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButtonView(show: $showDetailScene)
+                    EditButtonView(show: $isShowEditScene)
                         .sheet(isPresented: $isShowEditScene, onDismiss: nil) {
-                            EditScene(viewModel: viewModel, showEditScene: $isShowEditScene)
+                            EditScene(viewModel: viewModel, showEditScene: $isShowEditScene, task: task)
                         }
                 }
                 ToolbarItem(placement: .navigationBarLeading) {
