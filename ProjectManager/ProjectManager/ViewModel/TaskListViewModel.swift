@@ -23,8 +23,8 @@ final class TaskListViewModel: TaskListViewModelProtocol {
     let doneTasksObservable: MockObservable<[Task]>!
     
     // MARK: - Initializers
-    init() {
-        self.taskRepository = TaskRepository()
+    init(taskRepository: TaskRepositoryProtocol = TaskRepository()) {
+        self.taskRepository = taskRepository
         self.todoTasksObservable = MockObservable<[Task]>(taskRepository.todoTasks)
         self.doingTasksObservable = MockObservable<[Task]>(taskRepository.doingTasks)
         self.doneTasksObservable = MockObservable<[Task]>(taskRepository.doneTasks)
