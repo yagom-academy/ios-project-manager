@@ -51,6 +51,10 @@ final class TodoCell: UITableViewCell {
         contentView.frame = contentView.frame.inset(by: inset)
     }
     
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(false, animated: animated)
+    }
+    
     func configureUI(todo: Todo) {
         configureBackgroundColor()
         configureStackViewLayout()
