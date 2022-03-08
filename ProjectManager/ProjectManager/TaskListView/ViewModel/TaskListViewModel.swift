@@ -6,10 +6,14 @@ protocol TaskListViewProtocol: AnyObject {
 
 protocol TaskListViewModelProtocol: AnyObject {
     // TODO: 데이터는 Repository 타입으로 구분할 예정
-    var todoTasks: [Task] { get }
-    var doingTasks: [Task] { get }
-    var doneTasks: [Task] { get }
+//    var todoTasks: [Task] { get }
+//    var doingTasks: [Task] { get }
+//    var doneTasks: [Task] { get }
 
+    var todoTasksObservable: MockObservable<[Task]> { get }
+    var doingTasksObservable: MockObservable<[Task]> { get }
+    var doneTasksObservable: MockObservable<[Task]> { get }
+    
     // TODO: Storage Protocol에서 CRUD 메서드를 정의하고, Repository(?)가 채택할 예정
     func create(task: Task, of processStatus: ProcessStatus)
     func updateTask(of task: Task, title: String, body: String, dueDate: Date)
@@ -18,10 +22,11 @@ protocol TaskListViewModelProtocol: AnyObject {
     
 //    func viewDidLoad()
     func numberOfRowsInSection(forTableOf processStatus: ProcessStatus) -> Int
+    func titleForHeaderInSection(forTableOf processStatus: ProcessStatus) -> String
 }
 
-//final class TaskListViewModel: TaskListViewModelProtocol {
-final class TaskListViewModel {
+final class TaskListViewModel: TaskListViewModelProtocol {
+//final class TaskListViewModel {
 //    var todoTasks: [Task] = []
 //    var doingTasks: [Task] = []
 //    var doneTasks: [Task] = []
@@ -30,7 +35,7 @@ final class TaskListViewModel {
     let todoTasksObservable = MockObservable<[Task]>([])
     let doingTasksObservable = MockObservable<[Task]>([])
     let doneTasksObservable = MockObservable<[Task]>([])
-
+    
     func create(task: Task, of processStatus: ProcessStatus) {
         switch processStatus {
         case .todo:

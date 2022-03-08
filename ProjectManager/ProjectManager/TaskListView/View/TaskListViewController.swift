@@ -1,32 +1,39 @@
 import UIKit
 
 final class TaskListViewController: UIViewController {
-    private let taskListViewModel = TaskListViewModel()
+    // MARK: - Properties
+    private var taskListViewModel: TaskListViewModelProtocol!
     
     @IBOutlet weak var todoTableView: UITableView!
     @IBOutlet weak var doingTableView: UITableView!
     @IBOutlet weak var doneTableView: UITableView!
     
+    // MARK: - Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupViewModel()
         setupTableViews()
         setupBindings()
+    }
+    
+    func setupViewModel() {
+        self.taskListViewModel = TaskListViewModel()
     }
     
     func setupTableViews() {
 //        taskListViewModel.delegate = self  // binding으로 대체
         
         todoTableView.dataSource = self  // 이 이후에 numberOfRowsInSection 메서드가 호출됨
-        let nib1 = UINib(nibName: "TaskTableViewCell", bundle: nil)
-        todoTableView.register(nib1, forCellReuseIdentifier: "TaskTableViewCell")
+        let nib1 = UINib(nibName: TaskTableViewCell.reuseIdentifier, bundle: nil)
+        todoTableView.register(nib1, forCellReuseIdentifier: TaskTableViewCell.reuseIdentifier)
         
         doingTableView.dataSource = self
-        let nib2 = UINib(nibName: "TaskTableViewCell", bundle: nil)
-        doingTableView.register(nib2, forCellReuseIdentifier: "TaskTableViewCell")
+        let nib2 = UINib(nibName: TaskTableViewCell.reuseIdentifier, bundle: nil)
+        doingTableView.register(nib2, forCellReuseIdentifier: TaskTableViewCell.reuseIdentifier)
 
         doneTableView.dataSource = self
-        let nib3 = UINib(nibName: "TaskTableViewCell", bundle: nil)
-        doneTableView.register(nib3, forCellReuseIdentifier: "TaskTableViewCell")
+        let nib3 = UINib(nibName: TaskTableViewCell.reuseIdentifier, bundle: nil)
+        doneTableView.register(nib3, forCellReuseIdentifier: TaskTableViewCell.reuseIdentifier)
     }
     
     func setupBindings() {
