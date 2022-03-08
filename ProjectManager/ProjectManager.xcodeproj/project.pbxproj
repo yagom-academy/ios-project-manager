@@ -30,6 +30,8 @@
 		F3C5400627D75EEC00D7CE4E /* TaskCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C5400527D75EEC00D7CE4E /* TaskCellView.swift */; };
 		F3C5400827D784CD00D7CE4E /* AddButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C5400727D784CC00D7CE4E /* AddButtonView.swift */; };
 		F3C5400A27D78C6F00D7CE4E /* EditScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C5400927D78C6C00D7CE4E /* EditScene.swift */; };
+		F3C5400C27D7908600D7CE4E /* DoneButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C5400B27D7908600D7CE4E /* DoneButtonView.swift */; };
+		F3C5400E27D790AF00D7CE4E /* DismissButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C5400D27D790AF00D7CE4E /* DismissButtonView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +66,8 @@
 		F3C5400527D75EEC00D7CE4E /* TaskCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCellView.swift; sourceTree = "<group>"; };
 		F3C5400727D784CC00D7CE4E /* AddButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddButtonView.swift; sourceTree = "<group>"; };
 		F3C5400927D78C6C00D7CE4E /* EditScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditScene.swift; sourceTree = "<group>"; };
+		F3C5400B27D7908600D7CE4E /* DoneButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneButtonView.swift; sourceTree = "<group>"; };
+		F3C5400D27D790AF00D7CE4E /* DismissButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissButtonView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -184,6 +188,8 @@
 				F3C53FFE27D7501300D7CE4E /* TaskListView.swift */,
 				F3C5400527D75EEC00D7CE4E /* TaskCellView.swift */,
 				F3C5400727D784CC00D7CE4E /* AddButtonView.swift */,
+				F3C5400B27D7908600D7CE4E /* DoneButtonView.swift */,
+				F3C5400D27D790AF00D7CE4E /* DismissButtonView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -330,6 +336,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3C5400C27D7908600D7CE4E /* DoneButtonView.swift in Sources */,
 				F3C5400627D75EEC00D7CE4E /* TaskCellView.swift in Sources */,
 				F3C53FF627D725E600D7CE4E /* Task.swift in Sources */,
 				F3C53F4D27D10AEA00D7CE4E /* TaskEntity.swift in Sources */,
@@ -339,6 +346,7 @@
 				F374A11627CDD3930083CC73 /* MainScene.swift in Sources */,
 				F3C53FFC27D737F500D7CE4E /* TaskStatus.swift in Sources */,
 				F3C53FFF27D7501400D7CE4E /* TaskListView.swift in Sources */,
+				F3C5400E27D790AF00D7CE4E /* DismissButtonView.swift in Sources */,
 				F3C5400A27D78C6F00D7CE4E /* EditScene.swift in Sources */,
 				F3C53F5527D1202300D7CE4E /* TaskRepository.swift in Sources */,
 				F3C5400827D784CD00D7CE4E /* AddButtonView.swift in Sources */,

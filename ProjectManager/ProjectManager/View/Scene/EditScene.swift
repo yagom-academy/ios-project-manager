@@ -13,6 +13,8 @@ struct EditScene: View {
     @State private var content: String = ""
     @State private var limitDate: Date = Date()
     
+    @Binding var showEditScene: Bool
+    
     var body: some View {
         NavigationView {
             VStack(alignment: .center) {
@@ -22,12 +24,20 @@ struct EditScene: View {
             }
             .padding()
             .navigationBarTitle("TODO", displayMode: .inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    DoneButtonView(show: $showEditScene)
+                }
+                ToolbarItem(placement: .navigationBarLeading) {
+                    DismissButtonView(show: $showEditScene)
+                }
+            }
         }
     }
     
     var titleTextField: some View {
         TextField("Title", text: $title)
-            .border(.gray)
+            .textFieldStyle(.roundedBorder)
     }
     
     var limitDatePicker: some View {
