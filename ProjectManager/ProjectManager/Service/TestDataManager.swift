@@ -31,9 +31,10 @@ class TestDataManager {
         }
     }
     
-    func changePosition(with todo: ToDoInfomation, at position: ToDoPosition) {
-        var changedToDo = todo
-        changedToDo.position = position
-        todoRepository.update(with: changedToDo)
+    func changePosition(
+        to position: ToDoPosition,
+        target id: UUID
+    ) {
+        todoRepository.changePosition(to: position, target: id)
     }
 }

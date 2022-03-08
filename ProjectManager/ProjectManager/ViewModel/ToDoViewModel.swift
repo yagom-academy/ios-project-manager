@@ -32,8 +32,17 @@ class ToDoViewModel {
         self.reload()
     }
     
-    func changePosition(with todo: ToDoInfomation, at position: ToDoPosition) {
-        dataManager.changePosition(with: todo, at: position)
+    func changePosition(
+        from berforePosition: ToDoPosition,
+        to afterPosition: ToDoPosition,
+        currentIndexPath: Int
+    ) {
+        let beforePositionList = todos.filter{ $0.position == berforePosition }
+        let targetId = beforePositionList[currentIndexPath].id
+        dataManager.changePosition(
+            to: afterPosition,
+            target: targetId
+        )
         self.reload()
     }
     
