@@ -1,5 +1,16 @@
 import Foundation
 
+enum TaskManagerError: Error {
+    case taskNotFound
+    
+    var description: String {
+        switch self {
+        case .taskNotFound:
+            return "존재하지 않는 Task입니다."
+        }
+    }
+}
+
 protocol TaskListViewModelProtocol: AnyObject {
     var todoTasksObservable: MockObservable<[Task]>! { get }
     var doingTasksObservable: MockObservable<[Task]>! { get }
@@ -75,17 +86,23 @@ final class TaskListViewModel: TaskListViewModelProtocol {
         
         switch processStatus {
         case .todo:
-            if let index = todoTasksObservable.value.firstIndex(where: { $0.id == id }) {
-                todoTasksObservable.value.remove(at: index)
+            guard let index = todoTasksObservable.value.firstIndex(where: { $0.id == id }) else {
+                print(TaskManagerError.taskNotFound)
+                return
             }
+            todoTasksObservable.value.remove(at: index)
         case .doing:
-            if let index = todoTasksObservable.value.firstIndex(where: { $0.id == id }) {
-                todoTasksObservable.value.remove(at: index)
+            guard let index = doingTasksObservable.value.firstIndex(where: { $0.id == id }) else {
+                print(TaskManagerError.taskNotFound)
+                return
             }
+            doingTasksObservable.value.remove(at: index)
         case .done:
-            if let index = todoTasksObservable.value.firstIndex(where: { $0.id == id }) {
-                todoTasksObservable.value.remove(at: index)
+            guard let index = doneTasksObservable.value.firstIndex(where: { $0.id == id }) else {
+                print(TaskManagerError.taskNotFound)
+                return
             }
+            doneTasksObservable.value.remove(at: index)
         }
     }
     
