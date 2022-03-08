@@ -7,11 +7,11 @@ final class Task: Codable {
     var dueDate: Date
     var processStatus: ProcessStatus
     
-    init(title: String, body: String, dueDate: Date) {
+    init(title: String, body: String, dueDate: Date, processStatus: ProcessStatus = .todo) {
         self.id = UUID()
         self.title = title
         self.body = body
         self.dueDate = dueDate
-        self.processStatus = .todo
+        self.processStatus = processStatus
     }
 }

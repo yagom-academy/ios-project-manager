@@ -5,10 +5,10 @@ protocol TaskListViewModelProtocol: AnyObject {
     var doingTasksObservable: MockObservable<[Task]>! { get }
     var doneTasksObservable: MockObservable<[Task]>! { get }
     
-    func create(task: Task, of processStatus: ProcessStatus)
-    func updateTask(of task: Task, title: String, body: String, dueDate: Date)
-    func delete(task: Task, of processStatus: ProcessStatus)
-    func changeProcessStatus(of task: Task, to newProcessStatus: ProcessStatus)
+    func create(task: Task)
+//    func updateTask(of task: Task, title: String, body: String, dueDate: Date)
+//    func delete(task: Task)
+//    func changeProcessStatus(of task: Task, to newProcessStatus: ProcessStatus)
     
     func numberOfRowsInSection(forTableOf processStatus: ProcessStatus) -> Int
     func titleForHeaderInSection(forTableOf processStatus: ProcessStatus) -> String
@@ -53,8 +53,8 @@ final class TaskListViewModel: TaskListViewModelProtocol {
     }
     
     // MARK: - Methods
-    func create(task: Task, of processStatus: ProcessStatus) {
-        switch processStatus {
+    func create(task: Task) {
+        switch task.processStatus {
         case .todo:
             todoTasksObservable.value.append(task)
         case .doing:
@@ -62,6 +62,7 @@ final class TaskListViewModel: TaskListViewModelProtocol {
         case .done:
             doneTasksObservable.value.append(task)
         }
+        taskRepository.create(task: task)
     }
     
     func updateTask(of task: Task, title: String, body: String, dueDate: Date) {
@@ -70,10 +71,10 @@ final class TaskListViewModel: TaskListViewModelProtocol {
         task.dueDate = dueDate
     }
     
-    func delete(task: Task, of processStatus: ProcessStatus) {
+    func delete(task: Task) {
         let id = task.id
         
-        switch processStatus {
+        switch task.processStatus {
         case .todo:
             guard let index = todoTasksObservable.value.firstIndex(where: { $0.id == id }) else {
                 print(TaskManagerError.taskNotFound)

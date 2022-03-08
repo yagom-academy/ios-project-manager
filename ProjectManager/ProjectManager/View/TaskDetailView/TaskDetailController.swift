@@ -26,7 +26,7 @@ class TaskDetailController: UIViewController {
     
     @IBAction private func touchUpDoneButton(_ sender: UIBarButtonItem) {
         let newTask = createTask()
-        taskListViewModel?.create(task: newTask, of: .todo)
+        taskListViewModel?.create(task: newTask)
         dismiss(animated: true, completion: nil)
     }
 }
