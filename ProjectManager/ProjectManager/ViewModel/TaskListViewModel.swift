@@ -55,6 +55,19 @@ final class TaskListViewModel: TaskListViewModelProtocol {
             todoTasksObservable.value[index].body = newBody
             todoTasksObservable.value[index].dueDate = newDueDate
             todoTasksObservable.value[index].processStatus = newProcessStatus
+            
+            // TODO: update 메서드 개선 필요
+            let removedTask = todoTasksObservable.value.remove(at: index)
+            
+            switch newProcessStatus {
+            case .todo:
+                print(TaskManagerError.unchangedProcessStatus)
+                return
+            case .doing:
+                doingTasksObservable.value.append(removedTask)
+            case .done:
+                doneTasksObservable.value.append(removedTask)
+            }
         case .doing:
             guard let index = doingTasksObservable.value.firstIndex(where: { $0.id == task.id }) else {
                 print(TaskManagerError.taskNotFound)
@@ -136,6 +149,11 @@ final class TaskListViewModel: TaskListViewModelProtocol {
     
     // TODO: Popover에서 ProcessStatus Edit 기능 구현
     func edit(task: Task, newProcessStatus: ProcessStatus) {
+        guard task.processStatus != newProcessStatus else {
+            print(TaskManagerError.unchangedProcessStatus)
+            return
+        }
+        
         update(task: task, newTitle: task.title, newBody: task.body, newDueDate: task.dueDate, newProcessStatus: newProcessStatus)
         
         taskRepository.update(task: task, newTitle: task.title, newBody: task.body, newDueDate: task.dueDate, newProcessStatus: newProcessStatus)

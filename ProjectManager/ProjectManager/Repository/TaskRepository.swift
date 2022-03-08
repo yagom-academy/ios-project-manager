@@ -25,22 +25,22 @@ final class TaskRepository: TaskRepositoryProtocol {
     }
     
     init(entireTasks: [Task] = []) {
-        self.entireTasks = []
+        self.entireTasks = entireTasks
     }
     
     func create(task: Task) {
         entireTasks.append(task)
     }
     
-    func update(task: Task, newTitle title: String, newBody body: String, newDueDate dueDate: Date, newProcessStatus processStatus: ProcessStatus) {
+    func update(task: Task, newTitle: String, newBody: String, newDueDate: Date, newProcessStatus: ProcessStatus) {
         guard let index = entireTasks.firstIndex(where: { $0.id == task.id }) else {
             print(TaskManagerError.taskNotFound)
             return
         }
-        entireTasks[index].title = title
-        entireTasks[index].body = body
-        entireTasks[index].dueDate = dueDate
-        entireTasks[index].processStatus = processStatus
+        entireTasks[index].title = newTitle
+        entireTasks[index].body = newBody
+        entireTasks[index].dueDate = newDueDate
+        entireTasks[index].processStatus = newProcessStatus
     }
     
     func delete(task: Task) {
