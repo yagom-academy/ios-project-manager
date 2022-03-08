@@ -9,7 +9,6 @@ import SwiftUI
 
 struct MainScene: View {
     @ObservedObject var viewModel: ProjectManagerViewModel
-    
     @State var isShowEditScene: Bool = false
     
     var body: some View {

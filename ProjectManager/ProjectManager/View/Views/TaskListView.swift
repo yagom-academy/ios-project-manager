@@ -34,7 +34,9 @@ struct TaskListView: View {
                 self.isShowDetailScene.toggle()
             } label: {
                 TaskCellView(task: task)
-            }.sheet(isPresented: $isShowDetailScene, onDismiss: nil) {
+            }.sheet(isPresented: $isShowDetailScene) {
+                // viewUpdate
+            } content: {
                 DetailScene(viewModel: viewModel, task: task, showDetailScene: $isShowDetailScene)
             }
         }

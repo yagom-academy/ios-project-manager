@@ -12,7 +12,6 @@ struct EditScene: View {
     @State private var title: String = ""
     @State private var content: String = ""
     @State private var limitDate: Date = Date()
-    
     @Binding var showEditScene: Bool
     
     var task: Task? = nil

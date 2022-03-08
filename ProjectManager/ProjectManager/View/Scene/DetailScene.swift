@@ -10,7 +10,6 @@ import SwiftUI
 struct DetailScene: View {
     @ObservedObject var viewModel: ProjectManagerViewModel
     @ObservedObject var task: Task
-    
     @Binding var showDetailScene: Bool
     @State var isShowEditScene: Bool = false
     
