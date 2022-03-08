@@ -40,6 +40,8 @@ class TodoProjectTableViewController: UIViewController {
     }
     
     private func configureTableView() {
+        projectTableView.delegate = self
+        projectTableView.register(headerFooterViewClassWith: ProjectTableViewHeaderView.self)
         projectTableView.register(cellWithClass: ProjectTableViewCell.self)
         projectTableView.translatesAutoresizingMaskIntoConstraints = false
         projectTableView.backgroundColor = .clear
@@ -81,5 +83,25 @@ class TodoProjectTableViewController: UIViewController {
         snapShot.appendItems(projects, toSection: .main)
         
         dataSource.apply(snapShot, animatingDifferences: true, completion: nil)
+    }
+}
+
+// MARK: - UITableViewDelegate
+extension TodoProjectTableViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header = projectTableView.dequeueReusableHeaderFooterView(
+            withClass: ProjectTableViewHeaderView.self)
+        
+        let snapshot = dataSource.snapshot()
+        let projectCount = snapshot.numberOfItems(inSection: .main)
+        
+        header.configureContent(status: String(describing: Status.todo),
+                                projectCount: String(projectCount))
+        return header
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 60
     }
 }

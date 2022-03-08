@@ -18,8 +18,9 @@ class ProjectTableViewHeaderView: UITableViewHeaderFooterView {
         return label
     }()
     
+    // TODO: - 동그라미 레이블로 수정
     private let projectCountLabel: UILabel = {
-        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 15, height: 15))
         label.translatesAutoresizingMaskIntoConstraints = false
         label.layer.cornerRadius = label.bounds.size.width * 0.5
         label.backgroundColor = .black
@@ -29,18 +30,11 @@ class ProjectTableViewHeaderView: UITableViewHeaderFooterView {
         return label
     }()
     
-    private lazy var stackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [statusLabel, projectCountLabel])
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        stackView.alignment = .center
-        stackView.distribution = .fill
-        return stackView
-    }()
-    
     // MARK: - Initializer
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
+        self.contentView.addSubview(statusLabel)
+        self.contentView.addSubview(projectCountLabel)
         configureLayout()
     }
     
@@ -51,8 +45,13 @@ class ProjectTableViewHeaderView: UITableViewHeaderFooterView {
     // MARK: - Configure Layout
     private func configureLayout() {
         NSLayoutConstraint.activate([
-            projectCountLabel.leadingAnchor.constraint(equalTo: statusLabel.readableContentGuide.trailingAnchor),
-            projectCountLabel.bottomAnchor.constraint(equalTo: statusLabel.firstBaselineAnchor)
+            statusLabel.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 15),
+            statusLabel.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 15),
+            statusLabel.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -15)
+        ])
+        NSLayoutConstraint.activate([
+            projectCountLabel.leadingAnchor.constraint(equalTo: statusLabel.trailingAnchor, constant: 7),
+            projectCountLabel.centerYAnchor.constraint(equalTo: statusLabel.centerYAnchor)
         ])
     }
     

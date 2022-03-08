@@ -8,9 +8,22 @@
 import UIKit
 
 extension UITableView {
+    func register<T: UITableViewHeaderFooterView>(headerFooterViewClassWith name: T.Type) {
+            register(T.self, forHeaderFooterViewReuseIdentifier: String(describing: name))
+        }
     
     func register<T: UITableViewCell>(cellWithClass name: T.Type) {
             register(T.self, forCellReuseIdentifier: String(describing: name))
+        }
+   
+    func dequeueReusableHeaderFooterView<T: UITableViewHeaderFooterView>(
+        withClass name: T.Type) -> T {
+            guard let headerFooterView = dequeueReusableHeaderFooterView(
+                withIdentifier: String(describing: name)) as? T else {
+                fatalError(
+                    "Couldn't find UITableViewHeaderFooterView for \(String(describing: name)), make sure the view is registered with table view")
+            }
+            return headerFooterView
         }
     
     func dequeueReusableCell<T: UITableViewCell>(
@@ -26,4 +39,5 @@ extension UITableView {
             }
             return cell
         }
+    
 }

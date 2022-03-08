@@ -36,6 +36,7 @@ class ProjectBoardViewController: UIViewController {
     // MARK: - Configure UI
     private func configureView() {
         self.view = .init()
+        self.view.translatesAutoresizingMaskIntoConstraints = false
         self.view.backgroundColor = .systemGray3
     }
     
