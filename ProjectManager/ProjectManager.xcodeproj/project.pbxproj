@@ -208,12 +208,12 @@
 			isa = PBXGroup;
 			children = (
 				C105641827CCE6C60018ACFE /* SupportingFiles */,
+				C13F86E727D75535004070AE /* Utilities */,
 				C105641927CCE6D40018ACFE /* View */,
 				C1216A8B27CE429A00398714 /* Model */,
 				C17D656C27D483C600C54EC6 /* ViewModel */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
 				C105642927CCE91C0018ACFE /* GoogleService-Info.plist */,
-				C13F86E727D75535004070AE /* Utilities */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";

@@ -9,8 +9,8 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @EnvironmentObject var viewModel: ProjectManagerViewModel
-    @State var isShowingSheet = false
+    @EnvironmentObject private var viewModel: ProjectManagerViewModel
+    @State private var isShowingSheet = false
     
     var body: some View {
         

@@ -13,7 +13,7 @@ struct TaskListView: View {
     let taskType: TaskStatus
     
     @EnvironmentObject private var viewModel: ProjectManagerViewModel
-    @State var isShowingSheet = false
+    @State private var isShowingSheet = false
     
     private var tasks: [Task] {
         switch taskType {
@@ -33,7 +33,7 @@ struct TaskListView: View {
         }
     }
     
-    var title: some View {
+    private var title: some View {
         HStack {
             Text(name)
                 .font(.largeTitle)
@@ -47,7 +47,7 @@ struct TaskListView: View {
         }
     }
     
-    var taskList: some View {
+    private var taskList: some View {
         List {
             ForEach(tasks) { task in
                 Button(action: {
@@ -72,7 +72,7 @@ struct TaskListView: View {
         
     }
     
-    func contextMenuView(_ task: Task, _ taskType: TaskStatus) -> some View {
+    private func contextMenuView(_ task: Task, _ taskType: TaskStatus) -> some View {
         ForEach(TaskStatus.allCases) { status in
             if status != taskType {
                 Button(action: { viewModel.update(task, taskStatus: status) }) {

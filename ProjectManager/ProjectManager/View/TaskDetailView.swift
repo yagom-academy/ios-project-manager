@@ -11,14 +11,14 @@ struct TaskDetailView: View {
     
     let task: Task
     
-    @EnvironmentObject var viewModel: ProjectManagerViewModel
+    @EnvironmentObject private var viewModel: ProjectManagerViewModel
     @Binding var isShowingSheet: Bool
     
-    @State var title: String
-    @State var date: Date
-    @State var description: String
+    @State private var title: String
+    @State private var date: Date
+    @State private var description: String
     
-    @State var isEditingMode = false
+    @State private var isEditingMode = false
     
     init(task: Task, isShowingSheet: Binding<Bool>) {
         _isShowingSheet = isShowingSheet

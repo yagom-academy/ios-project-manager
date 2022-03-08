@@ -9,12 +9,12 @@ import SwiftUI
 
 struct TaskCreateView: View {
     
-    @EnvironmentObject var viewModel: ProjectManagerViewModel
+    @EnvironmentObject private var viewModel: ProjectManagerViewModel
     @Binding var isShowingSheet: Bool
     
-    @State var title = String()
-    @State var date = Date()
-    @State var description = String()
+    @State private var title = String()
+    @State private var date = Date()
+    @State private var description = String()
     
     var body: some View {
         let taskForm = TaskFormView(title: $title, date: $date, description: $description)

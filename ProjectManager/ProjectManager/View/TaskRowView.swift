@@ -26,21 +26,21 @@ struct TaskRowView: View {
         }
     }
     
-    var title: some View {
+    private var title: some View {
         Text(task.title)
             .font(.headline)
             .foregroundColor(.primary)
             .lineLimit(0)
     }
     
-    var description: some View {
+    private var description: some View {
         Text(task.description)
             .font(.subheadline)
             .foregroundColor(.secondary)
             .lineLimit(3)
     }
     
-    var dueDate: some View {
+    private var dueDate: some View {
         let dateView = Text(Self.dateFormatter.string(from: task.dueDate))
         let validDate = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
         

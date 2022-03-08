@@ -21,12 +21,12 @@ struct TaskFormView: View {
         }
     }
     
-    var titleField: some View {
+    private var titleField: some View {
         TextField("Title", text: $title)
             .border(.gray)
     }
     
-    var dueDatePicker: some View {
+    private var dueDatePicker: some View {
         DatePicker(
             "",
             selection: $date,
@@ -36,7 +36,7 @@ struct TaskFormView: View {
             .labelsHidden()
     }
     
-    var descriptionEditor: some View {
+    private var descriptionEditor: some View {
         TextEditor(text: $description)
             .shadow(radius: 5)
     }

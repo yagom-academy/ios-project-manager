@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-class ProjectManagerViewModel: ObservableObject {
+final class ProjectManagerViewModel: ObservableObject {
     
-    @Published var model = TaskMemoryManager(tasks: projectTasks)
+    @Published private var model = TaskMemoryManager(tasks: projectTasks)
     
     var todoTasks: [Task] {
         model.todoTasks
