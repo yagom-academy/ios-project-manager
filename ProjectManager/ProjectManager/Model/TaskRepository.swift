@@ -16,18 +16,6 @@ enum TaskRepositoryError: Error {
 class TaskRepository {
     var tasks: [TaskEntity]
     
-    var todoTasks: [TaskEntity] {
-        return tasks.filter { $0.status == .todo }
-    }
-    
-    var doingTasks: [TaskEntity] {
-        return tasks.filter { $0.status == .doing }
-    }
-    
-    var doneTasks: [TaskEntity] {
-        return tasks.filter { $0.status == .done }
-    }
-    
     init() {
         tasks = []
     }

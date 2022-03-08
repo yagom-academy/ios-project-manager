@@ -12,16 +12,19 @@ class Task: Identifiable, ObservableObject {
     @Published var title: String
     @Published var content: String
     @Published var limitDate: Date
+    var status: TaskStatus
     
     init(
         id: UUID = UUID(),
         title: String,
         content: String,
-        limitDate: Date
+        limitDate: Date,
+        status: TaskStatus
     ) {
         self.id = id
         self.title = title
         self.content = content
         self.limitDate = limitDate
+        self.status = status
     }
 }

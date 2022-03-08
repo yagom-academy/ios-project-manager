@@ -37,7 +37,8 @@ extension TaskEntity {
         return Task(
             title: self.title,
             content: self.content,
-            limitDate: self.limitDate
+            limitDate: self.limitDate,
+            status: self.status
         )
     }
 }

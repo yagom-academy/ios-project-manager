@@ -8,10 +8,8 @@
 import SwiftUI
 
 struct MainScene: View {
-    @ObservedObject var taskService = TaskService()
-    
     var body: some View {
-        NavigationView{
+        NavigationView {
             VStack {
                 
             }.navigationBarTitle("Project Manager", displayMode: .inline)
@@ -30,9 +28,6 @@ struct ListView: View {
             }
             
             List {
-                ForEach(items) { item in
-                    Text(item.title)
-                }
             }
         }
     }
