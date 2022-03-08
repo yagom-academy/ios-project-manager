@@ -34,7 +34,7 @@ class ProjectTableViewCell: UITableViewCell {
     private var deadlineLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .preferredFont(forTextStyle: .body)
+        label.font = .preferredFont(forTextStyle: .caption1)
         label.textColor = .black
         label.textAlignment = .left
         return label
@@ -48,6 +48,8 @@ class ProjectTableViewCell: UITableViewCell {
         stackView.axis = .vertical
         stackView.alignment = .fill
         stackView.distribution = .fill
+        stackView.setCustomSpacing(3, after: titleLabel)
+        stackView.setCustomSpacing(7, after: descpritionLabel)
         return stackView
     }()
     
@@ -58,21 +60,21 @@ class ProjectTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.addSubview(stackView)
+        self.contentView.addSubview(stackView)
         self.configureLayout()
     }
     
     // MARK: - Configure View
+    private func configureCellUI() {
+        self.backgroundColor = .white
+    }
+    
     private func configureLayout() {
         NSLayoutConstraint.activate([
-            titleLabel.bottomAnchor.constraint(equalTo: descpritionLabel.topAnchor, constant: 3),
-            descpritionLabel.bottomAnchor.constraint(equalTo: deadlineLabel.topAnchor, constant: 5)
-        ])
-        NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 7),
-            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -7),
-            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 7),
-            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -7)
+            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
+            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -15),
+            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
+            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15)
         ])
     }
     
