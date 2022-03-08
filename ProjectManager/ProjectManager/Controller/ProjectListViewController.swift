@@ -14,11 +14,12 @@ protocol TodoEditDelegate: AnyObject {
     func moveToDone(with: Todo)
 }
 
-class ProjectListViewController: UIViewController {
+final class ProjectListViewController: UIViewController {
     
-    var todoList: [Todo] = []
+    private let step: Step
+    private var todoList: [Todo] = []
     weak var delegate: TodoEditDelegate?
-    let step: Step
+    
     let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -28,28 +29,22 @@ class ProjectListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupTableView()
+        addLongPressGestureRecognizer()
     }
     
     init(step: Step) {
         self.step = step
         super.init(nibName: nil, bundle: nil)
-        setupTableView()
+        
         configureTableViewLayout()
-        addLongPressGestureRecognizer()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupTableView() {
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.register(TodoCell.self, forCellReuseIdentifier: "Cell")
-        tableView.backgroundColor = .systemGray6
-    }
-    
-    func configureTableViewLayout() {
+    private func configureTableViewLayout() {
         view.addSubview(tableView)
         
         NSLayoutConstraint.activate([
@@ -60,28 +55,33 @@ class ProjectListViewController: UIViewController {
         ])
     }
     
-    func append(_ todo: Todo) {
-        todoList.append(todo)
-        tableView.reloadData()
+    private func setupTableView() {
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.register(TodoCell.self, forCellReuseIdentifier: TodoCell.identifier)
+        tableView.backgroundColor = .systemGray6
     }
     
-    func addLongPressGestureRecognizer() {
-        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressGesture))
+    private func addLongPressGestureRecognizer() {
+        let longPress = UILongPressGestureRecognizer(target: self,
+                                                     action: #selector(handleLongPressGesture))
         tableView.addGestureRecognizer(longPress)
     }
     
-    @objc func handleLongPressGesture(sender: UILongPressGestureRecognizer) {
+    @objc private func handleLongPressGesture(sender: UILongPressGestureRecognizer) {
         if sender.state == .began {
             let touchPoint = sender.location(in: tableView)
-            if let indexPath = tableView.indexPathForRow(at: touchPoint) {
-                showRelocateMenu(touchPoint: touchPoint, indexPath: indexPath)
+            guard let indexPath = tableView.indexPathForRow(at: touchPoint) else {
+                return
             }
+            showRelocateMenu(touchPoint: touchPoint, indexPath: indexPath)
         }
     }
     
-    func showRelocateMenu(touchPoint: CGPoint, indexPath: IndexPath) {
-        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        
+    private func showRelocateMenu(touchPoint: CGPoint, indexPath: IndexPath) {
+        let actionSheet = UIAlertController(title: nil,
+                                            message: nil,
+                                            preferredStyle: .actionSheet)
         let todo = todoList[indexPath.row]
         
         let firstAction = UIAlertAction(title: "Move to Doing", style: .default) { _ in
@@ -115,7 +115,10 @@ class ProjectListViewController: UIViewController {
         actionSheet.addAction(firstAction)
         actionSheet.addAction(secondAction)
         actionSheet.popoverPresentationController?.sourceView = tableView
-        actionSheet.popoverPresentationController?.sourceRect = CGRect(x: touchPoint.x, y: touchPoint.y, width: 0, height: 0)
+        actionSheet.popoverPresentationController?.sourceRect = CGRect(x: touchPoint.x,
+                                                                       y: touchPoint.y,
+                                                                       width: 0,
+                                                                       height: 0)
         actionSheet.popoverPresentationController?.permittedArrowDirections = [.up]
         
         if var topController = UIApplication.shared.connectedScenes
@@ -129,6 +132,11 @@ class ProjectListViewController: UIViewController {
             topController.present(actionSheet, animated: true, completion: nil)
         }
     }
+    
+    func append(_ todo: Todo) {
+        todoList.append(todo)
+        tableView.reloadData()
+    }
 }
 
 // MARK: - UITableViewDataSource
@@ -139,7 +147,7 @@ extension ProjectListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as? TodoCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: TodoCell.identifier) as? TodoCell else {
             return UITableViewCell()
         }
         cell.configureUI(todo: todoList[indexPath.row])
@@ -210,7 +218,6 @@ extension ProjectListViewController: UITableViewDelegate {
 
 extension ProjectListViewController: TodoAddDelegate {
     func addTodo(data: Todo) {
-        todoList.append(data)
-        tableView.reloadData()
+        append(data)
     }
 }

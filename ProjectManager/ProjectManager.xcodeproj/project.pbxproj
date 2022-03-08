@@ -62,6 +62,34 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		3B22E08727D7AE560055E675 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				53BFDF4B27D1E6DC00552260 /* TodoCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		3B22E08827D7AE5E0055E675 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				53BFDF4D27D2616D00552260 /* Todo.swift */,
+				53BFDF6F27D6435600552260 /* Step.swift */,
+				3B22E08527D68F9D0055E675 /* Task.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		3B22E08927D7AE650055E675 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
+				3B22E06A27D21B2B0055E675 /* TaskViewController.swift */,
+				3B22E05A27CFB6030055E675 /* ProjectListViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		B1DA38A1A121663D98E373C4 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -93,17 +121,13 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
+				3B22E08727D7AE560055E675 /* View */,
+				3B22E08827D7AE5E0055E675 /* Model */,
+				3B22E08927D7AE650055E675 /* Controller */,
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
-				53BFDF4B27D1E6DC00552260 /* TodoCell.swift */,
-				53BFDF4D27D2616D00552260 /* Todo.swift */,
-				53BFDF6F27D6435600552260 /* Step.swift */,
-				3B22E08527D68F9D0055E675 /* Task.swift */,
-				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
-				3B22E06A27D21B2B0055E675 /* TaskViewController.swift */,
-				3B22E05A27CFB6030055E675 /* ProjectListViewController.swift */,
-				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
+				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
 			);
 			path = ProjectManager;

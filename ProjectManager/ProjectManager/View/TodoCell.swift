@@ -7,9 +7,11 @@
 
 import UIKit
 
-class TodoCell: UITableViewCell {
+final class TodoCell: UITableViewCell {
     
-    let labelStackView: UIStackView = {
+    static let identifier = "TodoCell"
+    
+    private let labelStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.distribution = .fill
@@ -18,7 +20,7 @@ class TodoCell: UITableViewCell {
         return stackView
     }()
     
-    let titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .title3)
         label.adjustsFontForContentSizeCategory = true
@@ -26,7 +28,7 @@ class TodoCell: UITableViewCell {
         return label
     }()
     
-    let bodyLabel: UILabel = {
+    private let bodyLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .body)
         label.textColor = .systemGray2
@@ -35,7 +37,7 @@ class TodoCell: UITableViewCell {
         return label
     }()
     
-    let dateLabel: UILabel = {
+    private let dateLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .caption1)
         label.adjustsFontForContentSizeCategory = true
@@ -45,19 +47,24 @@ class TodoCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 6, left: 0, bottom: 0, right: 0))
+        let inset = UIEdgeInsets(top: 6, left: 0, bottom: 0, right: 0)
+        contentView.frame = contentView.frame.inset(by: inset)
     }
     
     func configureUI(todo: Todo) {
+        configureBackgroundColor()
         configureStackViewLayout()
         configureTitleLabel(title: todo.title)
         configureBodyLabel(body: todo.body)
         configureDataLabel(deadline: todo.deadline)
+    }
+    
+    private func configureBackgroundColor() {
         contentView.backgroundColor = .white
         backgroundColor = .systemGray6
     }
     
-    func configureStackViewLayout() {
+    private func configureStackViewLayout() {
         contentView.addSubview(labelStackView)
         labelStackView.addArrangedSubview(titleLabel)
         labelStackView.addArrangedSubview(bodyLabel)
@@ -71,15 +78,15 @@ class TodoCell: UITableViewCell {
         ])
     }
     
-    func configureTitleLabel(title: String) {
+    private func configureTitleLabel(title: String) {
         titleLabel.text = title
     }
     
-    func configureBodyLabel(body: String) {
+    private func configureBodyLabel(body: String) {
         bodyLabel.text = body
     }
     
-    func configureDataLabel(deadline: Date) {
+    private func configureDataLabel(deadline: Date) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
         dateFormatter.timeZone = .autoupdatingCurrent

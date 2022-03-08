@@ -11,12 +11,12 @@ protocol TodoAddDelegate: AnyObject {
     func addTodo(data: Todo)
 }
 
-class TaskViewController: UIViewController {
+final class TaskViewController: UIViewController {
     
-    let task: Task
+    private let task: Task
     weak var delegate: TodoAddDelegate?
     
-    let entireStackView: UIStackView = {
+    private let entireStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.distribution = .fill
@@ -25,7 +25,7 @@ class TaskViewController: UIViewController {
         return stackView
     }()
     
-    lazy var titleTextField: UITextField = {
+    private lazy var titleTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Title"
         textField.borderStyle = .bezel
@@ -38,14 +38,14 @@ class TaskViewController: UIViewController {
         return textField
     }()
     
-    let datePicker: UIDatePicker = {
+    private let datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .date
         datePicker.preferredDatePickerStyle = .wheels
         return datePicker
     }()
     
-    let bodyTextView: UITextView = {
+    private let bodyTextView: UITextView = {
         let textView = UITextView()
         textView.font = .preferredFont(forTextStyle: .title2)
         textView.layer.borderWidth = 0.5
@@ -53,7 +53,7 @@ class TaskViewController: UIViewController {
         return textView
     }()
     
-    lazy var cancelBarButton: UIBarButtonItem = {
+    private lazy var cancelBarButton: UIBarButtonItem = {
         let button = UIBarButtonItem(title: "Cancel",
                                      style: .plain,
                                      target: self,
@@ -61,7 +61,7 @@ class TaskViewController: UIViewController {
         return button
     }()
     
-    lazy var editBarButton: UIBarButtonItem = {
+    private lazy var editBarButton: UIBarButtonItem = {
         let button = UIBarButtonItem(title: "Edit",
                                      style: .plain,
                                      target: self,
@@ -69,7 +69,7 @@ class TaskViewController: UIViewController {
         return button
     }()
     
-    lazy var doneBarButton: UIBarButtonItem = {
+    private lazy var doneBarButton: UIBarButtonItem = {
         let button = UIBarButtonItem(title: "Done",
                                      style: .done,
                                      target: self,
@@ -81,66 +81,45 @@ class TaskViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
         configureNavigationBar()
         configureUI()
-        bodyTextView.delegate = self
+        registerDelegate()
     }
     
     init(task: Task, todo: Todo?) {
         self.task = task
         super.init(nibName: nil, bundle: nil)
         
-        titleTextField.text = todo?.title
-        bodyTextView.text = todo?.body
-        datePicker.date = todo?.deadline ?? Date()
+        setIntialValue(with: todo)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureNavigationBar() {
+    private func setIntialValue(with todo: Todo?) {
+        titleTextField.text = todo?.title
+        bodyTextView.text = todo?.body
+        datePicker.date = todo?.deadline ?? Date()
+    }
+    
+    private func configureNavigationBar() {
         navigationItem.rightBarButtonItem = doneBarButton
         navigationItem.leftBarButtonItem = task == .add ? cancelBarButton : editBarButton
         navigationItem.title = "TODO"
     }
     
-    @objc func addAction() {
-        guard let title = titleTextField.text,
-              let body = bodyTextView.text else {
-                  return
-              }
-        let deadline = datePicker.date
-        let todo = Todo(title: title, deadline: deadline, body: body)
-        
-        delegate?.addTodo(data: todo)
-        dismiss(animated: true, completion: nil)
-    }
-    
-    @objc func cancelAction() {
-        dismiss(animated: true, completion: nil)
-    }
-    
-    @objc func editAction() {
-        print("edit 기능 구현")
-        //edit일 경우 해당 cell에 저장
-    }
-    
-    @objc func textFieldDidChange(_ textField: UITextField) {
-        if titleTextField.text == "" || bodyTextView.text == "" {
-            doneBarButton.isEnabled = false
-        } else {
-            doneBarButton.isEnabled = true
-        }
-    }
-    
-    func configureUI() {
+    private func configureUI() {
+        configureBackgroundColor()
         configureStackView()
         configureTextFieldLayout()
     }
     
-    func configureStackView() {
+    private func configureBackgroundColor() {
+        view.backgroundColor = .white
+    }
+    
+    private func configureStackView() {
         view.addSubview(entireStackView)
         entireStackView.addArrangedSubview(titleTextField)
         entireStackView.addArrangedSubview(datePicker)
@@ -154,10 +133,42 @@ class TaskViewController: UIViewController {
         ])
     }
     
-    func configureTextFieldLayout() {
+    private func configureTextFieldLayout() {
         NSLayoutConstraint.activate([
             titleTextField.heightAnchor.constraint(equalTo: entireStackView.heightAnchor, multiplier: 0.06)
         ])
+    }
+    
+    private func registerDelegate() {
+        bodyTextView.delegate = self
+    }
+    
+    @objc private func textFieldDidChange(_ textField: UITextField) {
+        if titleTextField.text == "" || bodyTextView.text == "" {
+            doneBarButton.isEnabled = false
+        } else {
+            doneBarButton.isEnabled = true
+        }
+    }
+    
+    @objc private func cancelAction() {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @objc private func editAction() {
+        print("edit 기능 구현")
+    }
+    
+    @objc private func addAction() {
+        guard let title = titleTextField.text,
+              let body = bodyTextView.text else {
+                  return
+              }
+        let deadline = datePicker.date
+        let todo = Todo(title: title, deadline: deadline, body: body)
+        
+        delegate?.addTodo(data: todo)
+        dismiss(animated: true, completion: nil)
     }
 }
 
