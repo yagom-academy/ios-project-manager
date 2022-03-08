@@ -18,32 +18,32 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="4nn-dK-L5J">
-                                <rect key="frame" x="5" y="79" width="1184" height="730"/>
+                                <rect key="frame" x="15" y="79" width="1164" height="730"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="252" verticalCompressionResistancePriority="752" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Title" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="htV-8l-uvY">
-                                        <rect key="frame" x="0.0" y="0.0" width="1184" height="34"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="1164" height="34"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="Qca-TF-nMf">
-                                        <rect key="frame" x="0.0" y="44" width="1184" height="216"/>
+                                        <rect key="frame" x="0.0" y="44" width="1164" height="216"/>
                                     </datePicker>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="249" horizontalCompressionResistancePriority="751" text="Task 내용을 입력하세요." adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vRw-q9-dUR">
-                                        <rect key="frame" x="0.0" y="270" width="1184" height="460"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <rect key="frame" x="0.0" y="270" width="1164" height="460"/>
+                                        <color key="backgroundColor" systemColor="systemGray5Color"/>
                                         <color key="textColor" systemColor="labelColor"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                 </subviews>
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
-                        <color key="backgroundColor" red="0.7254902124" green="0.81960785390000002" blue="0.80392158030000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="4nn-dK-L5J" secondAttribute="bottom" constant="5" id="JUV-Po-rvy"/>
-                            <constraint firstItem="4nn-dK-L5J" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="5" id="UrJ-UR-ORr"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="4nn-dK-L5J" secondAttribute="trailing" constant="5" id="cG1-Vu-M9f"/>
+                            <constraint firstItem="4nn-dK-L5J" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="15" id="UrJ-UR-ORr"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="4nn-dK-L5J" secondAttribute="trailing" constant="15" id="cG1-Vu-M9f"/>
                             <constraint firstItem="4nn-dK-L5J" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="5" id="ujc-or-5Cp"/>
                         </constraints>
                     </view>
@@ -94,6 +94,9 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray5Color">
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
