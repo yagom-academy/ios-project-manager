@@ -103,6 +103,12 @@ class ProjectDetailView: UIView {
         bodyTextView.text = data?.body
         datePicker.setDate(date, animated: true)
     }
+    
+    func setEditingMode(to state: Bool) {
+        titleTextField.isEnabled = state
+        bodyTextView.isEditable = state
+        datePicker.isUserInteractionEnabled = state
+    }
 }
 
 //MARK: - Constants

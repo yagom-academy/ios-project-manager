@@ -4,20 +4,26 @@ class EditProjectDetailViewController: ProjectDetailViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavigationBar()
+        projectDetailView.setEditingMode(to: false)
     }
 
     private func configureNavigationBar() {
         self.navigationItem.title = TitleText.navigationBarTitle
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(didTapDoneButton))
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(didTapEditButton))
+        navigationItem.rightBarButtonItem = editButtonItem
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(didTapCancelButton))
         navigationController?.navigationBar.backgroundColor = .systemGray6
     }
     
-    @objc private func didTapDoneButton() {
-        self.dismiss(animated: true, completion: nil)
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        if editing {
+            projectDetailView.setEditingMode(to: true)
+        } else {
+            projectDetailView.setEditingMode(to: false)
+        }
     }
     
-    @objc private func didTapEditButton() {
+    @objc private func didTapCancelButton() {
         self.dismiss(animated: true, completion: nil)
     }
     

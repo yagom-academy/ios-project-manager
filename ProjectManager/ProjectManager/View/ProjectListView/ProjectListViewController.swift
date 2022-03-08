@@ -110,6 +110,7 @@ extension ProjectListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         var data: Project?
+        
         switch tableView {
         case todoTableView:
             data = dataSource?.todoProjects[indexPath.row]
@@ -121,10 +122,10 @@ extension ProjectListViewController: UITableViewDelegate {
             break
         }
         
-        let viewController = EditProjectDetailViewController()
-        viewController.populateView(with: data)
-        let destinationViewController = UINavigationController(rootViewController: viewController)
-
+        let editViewController = EditProjectDetailViewController()
+        editViewController.populateView(with: data)
+        
+        let destinationViewController = UINavigationController(rootViewController: editViewController)
         destinationViewController.modalPresentationStyle = .formSheet
         present(destinationViewController, animated: true, completion: nil)
     }
