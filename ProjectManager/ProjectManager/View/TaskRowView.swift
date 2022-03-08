@@ -21,13 +21,33 @@ struct TaskRowView: View {
     var body: some View {
         
         VStack(alignment: .leading) {
-            Text(task.title)
-                .font(.headline)
-            Text(task.description)
-                .font(.subheadline)
-            Text(Self.dateFormatter.string(from: task.dueDate))
+            title
+            description
+            dueDate
         }
         
+    }
+    
+    var title: some View {
+        Text(task.title)
+            .font(.headline)
+    }
+    
+    var description: some View {
+        Text(task.description)
+            .font(.subheadline)
+            .foregroundColor(.gray)
+    }
+    
+    var dueDate: some View {
+        let dateView = Text(Self.dateFormatter.string(from: task.dueDate))
+        let validDate = Date() - 1
+        
+        if task.dueDate < validDate, task.status != .done {
+            return dateView.foregroundColor(.red)
+        } else {
+            return dateView.foregroundColor(.black)
+        }
     }
     
 }
