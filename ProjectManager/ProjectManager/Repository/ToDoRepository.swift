@@ -8,7 +8,7 @@
 import Foundation
 
 class ToDoRepository {
-    var todos = [UUID: ToDoInfomation]()    //데이터베이스 역할(엔티티)
+    private var todos = [UUID: ToDoInfomation]()    //데이터베이스 역할(엔티티)
     
     func save(with todo: ToDoInfomation) {
         if todos.contains(where: { $0.key == todo.id }) {
@@ -22,7 +22,7 @@ class ToDoRepository {
         todos.removeValue(forKey: todo.id)
     }
     
-    func update(with todo: ToDoInfomation) {
+    private func update(with todo: ToDoInfomation) {
         todos.updateValue(todo, forKey: todo.id)
     }
     

@@ -8,8 +8,8 @@
 import Foundation
 
 class TestDataManager {
-    let todoRepository = ToDoRepository()
-    var todoList: [ToDoInfomation] = []
+    private let todoRepository = ToDoRepository()
+    private var todoList: [ToDoInfomation] = []
     
     func save(with todo: ToDoInfomation) {
         todoRepository.save(with: todo)
@@ -18,10 +18,6 @@ class TestDataManager {
     func delete(with deletTarget: ToDoInfomation) {
         todoRepository.delete(with: deletTarget)
     }
-    
-//    func update(with todo: ToDoInfomation) {
-//        todoRepository.update(with: todo)
-//    }
     
     func fetch(onComleted: @escaping ([ToDoInfomation]) -> Void) {
         todoRepository.fetch { [weak self] todoData in

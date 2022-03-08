@@ -97,7 +97,7 @@ class MainViewController: UIViewController, UITableViewDelegate {
         self.view.addGestureRecognizer(longPressRecognizer)
     }
     
-    @objc func showEditView() {
+    @objc private func showEditView() {
         let editView = EditViewController()
         editView.delegate = self
         let modalView = UINavigationController(rootViewController: editView)
@@ -105,7 +105,7 @@ class MainViewController: UIViewController, UITableViewDelegate {
         self.present(modalView, animated: true)
     }
     
-    @objc func longPress(sender: UILongPressGestureRecognizer) {
+    @objc private func longPress(sender: UILongPressGestureRecognizer) {
         if sender.state == UIGestureRecognizer.State.began {
             let touchPoint = sender.location(in: self.taskStackView)
             let sectionSize = self.taskStackView.frame.width / 3
@@ -128,7 +128,7 @@ class MainViewController: UIViewController, UITableViewDelegate {
         }
     }
     
-    func setupPopover(
+    private func setupPopover(
         tableView: UITableView,
         touchYPoint: CGPoint
     ) {
@@ -175,7 +175,7 @@ class MainViewController: UIViewController, UITableViewDelegate {
         }
     }
     
-    func showPopover(
+    private func showPopover(
         firstSelectTitle: String,
         secondSelectTitle: String,
         tableView: UITableView,

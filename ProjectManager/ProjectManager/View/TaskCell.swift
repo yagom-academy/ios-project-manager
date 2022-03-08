@@ -28,7 +28,7 @@ class TaskCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupCellStackView() {
+    private func setupCellStackView() {
         contentView.addSubview(cellStackView)
         cellStackView.addArrangedSubview(titleLable)
         cellStackView.addArrangedSubview(discriptionLabel)
@@ -38,7 +38,7 @@ class TaskCell: UITableViewCell {
         cellStackView.spacing = 5
     }
     
-    func setupCellConstraints() {
+    private func setupCellConstraints() {
         cellStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             cellStackView.topAnchor.constraint(
@@ -60,7 +60,7 @@ class TaskCell: UITableViewCell {
         ])
     }
     
-    func setupCellContent() {
+    private func setupCellContent() {
         titleLable.font = .preferredFont(forTextStyle: .headline)
         discriptionLabel.font = .preferredFont(forTextStyle: .body)
         discriptionLabel.textColor = .gray

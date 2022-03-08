@@ -17,7 +17,7 @@ class EditViewController: UIViewController {
     private let datePicker = UIDatePicker()
     private let contentTextView = UITextView()
     var delegate: EditViewDelegate?
-    var updateToDoId: UUID?
+    private var updateToDoId: UUID?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +30,7 @@ class EditViewController: UIViewController {
         view.backgroundColor = .white
     }
     
-    func setupNavigation() {
+    private func setupNavigation() {
         navigationItem.title = "TODO"
         let leftButton = UIBarButtonItem(
         title: "Cancel",
@@ -48,7 +48,7 @@ class EditViewController: UIViewController {
         navigationItem.setRightBarButton(rightButton, animated: false)
     }
 
-    func setupStackView() {
+    private func setupStackView() {
         view.addSubview(editStackView)
         editStackView.addArrangedSubview(titleTextField)
         editStackView.addArrangedSubview(datePicker)
@@ -59,7 +59,7 @@ class EditViewController: UIViewController {
         editStackView.spacing = 20
     }
     
-    func setupStackViewConstraints() {
+    private func setupStackViewConstraints() {
         let safeArea = view.safeAreaLayoutGuide
         editStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -70,28 +70,28 @@ class EditViewController: UIViewController {
         ])
     }
     
-    func setupChildViewConstraints() {
+    private func setupChildViewConstraints() {
         titleTextField.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             titleTextField.heightAnchor.constraint(equalToConstant: 150),
         ])
     }
     
-    func setuptitleTextField() {
+    private func setuptitleTextField() {
         titleTextField.placeholder = "Title"
     }
     
-    func setupDatePicker() {
+    private func setupDatePicker() {
         datePicker.preferredDatePickerStyle = .wheels
         datePicker.timeZone = NSTimeZone.local
         datePicker.datePickerMode = .date
     }
     
-    @objc func touchUpCancelButton() {
+    @objc private func touchUpCancelButton() {
         self.dismiss(animated: true, completion: nil)
     }
     
-    @objc func touchUpDoneButton() {
+    @objc private func touchUpDoneButton() {
         var saveToDo = ToDoInfomation(
             id: UUID(),
             title: titleTextField.text ?? "",

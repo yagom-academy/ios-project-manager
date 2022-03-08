@@ -8,7 +8,7 @@
 import Foundation
 
 class ToDoViewModel {
-    let dataManager = TestDataManager()
+    private let dataManager = TestDataManager()
     var todoOnUpdated: (() -> Void) = {}
     var todos = [ToDoInfomation]() {
         didSet {
