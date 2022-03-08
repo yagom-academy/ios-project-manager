@@ -42,7 +42,7 @@ struct TaskRowView: View {
     
     var dueDate: some View {
         let dateView = Text(Self.dateFormatter.string(from: task.dueDate))
-        let validDate = Date() - 1.5
+        let validDate = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
         
         if task.dueDate < validDate, task.status != .done {
             return dateView
