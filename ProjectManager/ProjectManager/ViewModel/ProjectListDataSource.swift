@@ -23,7 +23,7 @@ class ProjectListDataSource: NSObject, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withClass: ProjectTableViewCell.self)
+        let cell = tableView.dequeueReusableCell(withClass: ProjectListTableViewCell.self)
         
         return cell
     }

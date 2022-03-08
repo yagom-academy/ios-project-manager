@@ -1,6 +1,6 @@
 import UIKit
 
-class ProjectTableViewCell: UITableViewCell {
+class ProjectListTableViewCell: UITableViewCell {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .title3)
@@ -76,7 +76,7 @@ class ProjectTableViewCell: UITableViewCell {
 
 //MARK: - Constants
 
-private extension ProjectTableViewCell {
+private extension ProjectListTableViewCell {
     enum LayoutConstant {
         static let entireStackViewTopMargin: CGFloat = 15
         static let entireStackViewTrailingMargin: CGFloat = -15

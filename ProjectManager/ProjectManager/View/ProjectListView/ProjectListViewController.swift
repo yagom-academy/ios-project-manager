@@ -28,7 +28,6 @@ class ProjectListViewController: UIViewController {
         configureNavigationBar()
         configureEntireStackView()
         configureLayout()
-
     }
     
     private func configureNavigationBar() {
@@ -38,11 +37,11 @@ class ProjectListViewController: UIViewController {
     }
     
     @objc private func didTapAddProjectButton() {
-        let viewController = ProjectDetailViewController()
+        let viewController = AddProjectDetailViewController()
         let destinationViewController = UINavigationController(rootViewController: viewController)
 
         destinationViewController.modalPresentationStyle = .formSheet
-        present(destinationViewController, animated: true, completion:nil)
+        present(destinationViewController, animated: true, completion: nil)
     }
     
     private func configureTableView() {
@@ -109,6 +108,14 @@ extension ProjectListViewController: UITableViewDelegate {
         
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let viewController = EditProjectDetailViewController()
+        let destinationViewController = UINavigationController(rootViewController: viewController)
+
+        destinationViewController.modalPresentationStyle = .formSheet
+        present(destinationViewController, animated: true, completion: nil)
+    }
 }
 
 //MARK: - Constants
@@ -126,5 +133,4 @@ private extension ProjectListViewController {
         static let tableViewSectionHeaderTopPadding: CGFloat = 1
         static let tableViewHeightForHeaderInSection: CGFloat = 50
     }
-
 }
