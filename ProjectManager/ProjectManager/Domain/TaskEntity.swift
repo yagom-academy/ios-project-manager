@@ -1,19 +1,24 @@
 import Foundation
 
-enum TaskStatus {
-    case ToDo
-    case InProgress
-    case Done
-}
-
 struct TaskEntity: Identifiable {
+    
+    enum Status {
+        case ToDo
+        case InProgress
+        case Done
+    }
+    
     var id: UUID
     var title: String
     var body: String
-    var status: TaskStatus
+    var status: Status
     var dueDate: Date?
 
-    init(title: String, body: String = "", status: TaskStatus = .ToDo, dueDate: Date? = nil) {
+    init(title: String,
+         body: String = "",
+         status: Status = .ToDo,
+         dueDate: Date? = nil
+    ) {
         self.id = UUID()
         self.title = title
         self.body = body
