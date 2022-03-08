@@ -30,9 +30,8 @@ struct ContentView: View {
                     }) {
                         Image(systemName: "plus")
                     }
-                    .sheet(isPresented: $isShowingAddSheet,
-                           onDismiss: nil) {
-                        TaskDetailView(isShowingAddSheet: $isShowingAddSheet)
+                    .sheet(isPresented: $isShowingAddSheet, onDismiss: nil) {
+                        TaskDetailView(viewModel: viewModel, isShowingAddSheet: $isShowingAddSheet)
                     }
                 }
             }

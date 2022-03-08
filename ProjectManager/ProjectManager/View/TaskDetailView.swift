@@ -9,9 +9,10 @@ import SwiftUI
 
 struct TaskDetailView: View {
     
-    let task: Task? = nil
-    
+    @ObservedObject var viewModel: ProjectManagerViewModel
     @Binding var isShowingAddSheet: Bool
+    
+    let task: Task? = nil
     
     @State private var title = ""
     @State private var date = Date()
@@ -40,7 +41,10 @@ struct TaskDetailView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: { isShowingAddSheet.toggle() }) {
+                    Button(action: {
+                        viewModel.create(title: title, description: description, dueDate: date)
+                        isShowingAddSheet.toggle()
+                    }) {
                         Text("Done")
                     }
                 }
