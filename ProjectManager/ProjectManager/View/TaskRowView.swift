@@ -11,6 +11,13 @@ struct TaskRowView: View {
     
     let task: Task
     
+    static let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.locale = Locale.current
+        return formatter
+    }()
+    
     var body: some View {
         
         VStack(alignment: .leading) {
@@ -18,7 +25,7 @@ struct TaskRowView: View {
                 .font(.headline)
             Text(task.description)
                 .font(.subheadline)
-            Text(task.dueDate.description)
+            Text(Self.dateFormatter.string(from: task.dueDate))
         }
         
     }
