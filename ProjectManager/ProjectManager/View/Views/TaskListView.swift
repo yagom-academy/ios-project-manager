@@ -24,7 +24,8 @@ struct TaskListView: View {
         HStack {
             Text(listName)
                 .font(.title)
-        }
+            Spacer()
+        }.padding()
     }
     
     var list: some View {
