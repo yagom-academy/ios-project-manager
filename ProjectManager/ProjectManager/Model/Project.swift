@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Project {
+struct Project: Hashable {
     // MARK: - Property
     let identifier: UUID?
     private (set) var title: String?
@@ -24,20 +24,8 @@ struct Project {
     }
     
     // MARK: - Method
-    func readTitle() -> String? {
-        return self.title
-    }
-    
-    func readDeadline() -> Date? {
-        return self.deadline
-    }
-    
-    func readDescription() -> String? {
-        return self.description
-    }
-    
-    func readStatus() -> Status {
-        return self.status
+    static func == (lhs: Project, rhs: Project) -> Bool {
+        return lhs.identifier == rhs.identifier
     }
     
     mutating func updateContent(with input: [String: Any]) {
