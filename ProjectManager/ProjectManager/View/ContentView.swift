@@ -32,7 +32,7 @@ struct ContentView: View {
                     }
                     .sheet(isPresented: $isShowingAddSheet,
                            onDismiss: nil) {
-                        TaskDetailView(task: nil, isShowingAddSheet: $isShowingAddSheet)
+                        TaskDetailView(isShowingAddSheet: $isShowingAddSheet)
                     }
                 }
             }
@@ -63,32 +63,6 @@ struct ContentView: View {
                 TaskRowView(task: task)
             }
         }
-    }
-    
-}
-
-struct TaskDetailView: View {
-    
-    let task: Task?
-    
-    @State var isEditingMode = false
-    @Binding var isShowingAddSheet: Bool
-    
-    var body: some View {
-        
-        NavigationView {
-            Text("Hello World")
-                .navigationTitle("TODO")
-                .navigationBarTitleDisplayMode(.inline)
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button(action: { isShowingAddSheet.toggle() }) {
-                            Text("Done")
-                        }
-                    }
-                }
-        }
-        
     }
     
 }
