@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 
-class DataRepository: Repository {
+final class DataRepository: Repository {
 
     var dataSource: DataSource
 

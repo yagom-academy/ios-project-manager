@@ -8,10 +8,13 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class MainViewController: UIViewController {
+final class MainViewController: UIViewController {
 
-    private let viewModel: MainViewModel
+// MARK: - Properties
+
     private let bag = DisposeBag()
+    private let viewModel: MainViewModel
+
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -20,10 +23,13 @@ class MainViewController: UIViewController {
         stackView.spacing = 2.0
         return stackView
     }()
-    private let tableViews = [UITableView(), UITableView(), UITableView()]
+    private let tableViews: [UITableView]
+
+// MARK: - Initializer
 
     init(viewModel: MainViewModel) {
         self.viewModel = viewModel
+        self.tableViews = self.viewModel.schedules.map { _ in UITableView() }
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -31,84 +37,91 @@ class MainViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+// MARK: - Methods
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configure()
 
         self.viewModel.fetch()
     }
+}
 
-    private func configure() {
+// MARK: - Private Methods
+
+private extension MainViewController {
+
+    func configure() {
         self.view.backgroundColor = .white
         self.title = "ProjectManager"
 
         self.configureSubView()
-        self.configureConstraint()
     }
 
-    private func configureSubView() {
-        self.view.addSubview(stackView)
-        self.tableViews.forEach { tableView in
-            self.stackView.addArrangedSubview(tableView)
-        }
+    func configureSubView() {
+        self.configureHierarchy()
+        self.configureConstraint()
         self.configureTableView()
         self.binding()
     }
 
-    private func configureConstraint() {
+    func configureHierarchy() {
+        self.view.addSubview(stackView)
+        self.tableViews.forEach { tableView in
+            self.stackView.addArrangedSubview(tableView)
+        }
+    }
+
+    func configureConstraint() {
+        let safeAreaLayoutGuide = self.view.safeAreaLayoutGuide
         self.stackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            self.stackView.leadingAnchor.constraint(
-                equalTo: self.view.safeAreaLayoutGuide.leadingAnchor
-            ),
-            self.stackView.trailingAnchor.constraint(
-                equalTo: self.view.safeAreaLayoutGuide.trailingAnchor
-            ),
-            self.stackView.topAnchor.constraint(
-                equalTo: self.view.safeAreaLayoutGuide.topAnchor
-            ),
-            self.stackView.bottomAnchor.constraint(
-                equalTo: self.view.safeAreaLayoutGuide.bottomAnchor
-            )
+            self.stackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
+            self.stackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
+            self.stackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            self.stackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
         ])
     }
 
-    private func configureTableView() {
+    func configureTableView() {
         self.tableViews.forEach { tableView in
             tableView.register(cellWithClass: ScheduleListCell.self)
         }
     }
 
-    private func binding() {
+    func binding() {
         self.tableViewBinding()
     }
 
-    private func tableViewBinding() {
+    func tableViewBinding() {
         self.tableViews.enumerated().forEach { index, tableView in
-            self.viewModel.schedules
-                .map { $0[index] }
-                .drive(
-                    tableView.rx.items(
-                        cellIdentifier: "ScheduleListCell",
-                        cellType: ScheduleListCell.self
-                    )
-                ) { _, item, cell in
-                    cell.titleLabel.text = item.title
-                    cell.bodyLabel.text = item.body
-                    cell.dateLabel.text = item.formattedDateString
-                }
-                .disposed(by: bag)
-
-            tableView.rx
-                .modelDeleted(Schedule.self)
-                .subscribe(onNext: { schedule in
-                    self.deleteSchedule(id: schedule.id)
-                })
-                .disposed(by: bag)
+            self.setDataSource(with: index, for: tableView)
+            self.setDeleteAction(for: tableView)
         }
     }
 
-    private func deleteSchedule(id: UUID) {
+    func setDataSource(with index: Int, for tableView: UITableView) {
+        self.viewModel.schedules[index]
+            .drive(
+                tableView.rx.items(cellIdentifier: "ScheduleListCell",
+                                   cellType: ScheduleListCell.self
+                                  )
+            ) { _, item, cell in
+                cell.configureContent(with: item)
+            }
+            .disposed(by: bag)
+    }
+
+    func setDeleteAction(for tableView: UITableView) {
+        tableView.rx
+            .modelDeleted(Schedule.self)
+            .subscribe(onNext: { schedule in
+                self.deleteSchedule(id: schedule.id)
+            })
+            .disposed(by: bag)
+    }
+
+    func deleteSchedule(id: UUID) {
         self.viewModel.delete(id: id)
     }
 }

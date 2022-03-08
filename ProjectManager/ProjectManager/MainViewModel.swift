@@ -10,43 +10,32 @@ import RxSwift
 import RxRelay
 import RxCocoa
 
-class MainViewModel {
+final class MainViewModel {
 
-    let useCase: ScheduleUseCase
-    let bag = DisposeBag()
+// MARK: - Properties
 
-    //MARK: - Input
-    let scheduleList = BehaviorRelay<[Schedule]>(value: [])
+    var schedules = [Driver<[Schedule]>]()
 
-    //MARK: - Output
-    var schedules: Driver<[[Schedule]]>
+    private let bag = DisposeBag()
+    private let useCase: ScheduleUseCase
+    private let scheduleList = BehaviorRelay<[Schedule]>(value: [])
+
+// MARK: - Initializer
 
     init(useCase: ScheduleUseCase) {
         self.useCase = useCase
-        self.schedules = scheduleList.map { schedules in
-            schedules
-                .reduce([[Schedule](), [Schedule](), [Schedule]()]) { partialResult, schedule in
-                    var new = partialResult
-                    switch schedule.progress {
-                    case .todo:
-                        new[0].append(schedule)
-                    case .doing:
-                        new[1].append(schedule)
-                    case .done:
-                        new[2].append(schedule)
-                    }
-                    return new
-                }
-        }
-        .asDriver(onErrorJustReturn: [[]])
+
+        self.bindOutput()
     }
 
+// MARK: - Methods
+
     func fetch() {
-        useCase.fetch()
+        self.useCase.fetch()
             .subscribe { event in
                 self.scheduleList.accept(event)
             }
-            .disposed(by: bag)
+            .disposed(by: self.bag)
     }
 
     func delete(id: UUID) {
@@ -58,7 +47,22 @@ class MainViewModel {
                 }
                 self.scheduleList.accept(schedules)
             })
-            .disposed(by: bag)
+            .disposed(by: self.bag)
+    }
+}
+
+// MARK: - Private Methods
+
+private extension MainViewModel {
+
+    func bindOutput() {
+        Progress.allCases.forEach { progress in
+            self.schedules.append(
+                self.scheduleList
+                    .map { $0.filter { schedule in schedule.progress == progress } }
+                    .asDriver(onErrorJustReturn: [])
+            )
+        }
     }
 }
 

@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 
-class MemoryDataSource: DataSource {
+final class MemoryDataSource: DataSource {
     var storage = [Schedule]()
 
     func rxFetch() -> Observable<[Schedule]> {

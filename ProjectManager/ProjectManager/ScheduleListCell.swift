@@ -7,31 +7,35 @@
 
 import UIKit
 
-class ScheduleListCell: UITableViewCell {
+final class ScheduleListCell: UITableViewCell {
 
-    let titleLabel: UILabel = {
-        let label = UILabel()
-        label.font = .preferredFont(forTextStyle: .headline)
-        return label
-    }()
+// MARK: - Properties
 
-    let bodyLabel: UILabel = {
-        let label = UILabel()
-        label.font = .preferredFont(forTextStyle: .subheadline)
-        return label
-    }()
-
-    let dateLabel: UILabel = {
-        let label = UILabel()
-        label.font = .preferredFont(forTextStyle: .footnote)
-        return label
-    }()
-    
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         return stackView
     }()
+
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.font = .preferredFont(forTextStyle: .headline)
+        return label
+    }()
+
+    private let bodyLabel: UILabel = {
+        let label = UILabel()
+        label.font = .preferredFont(forTextStyle: .subheadline)
+        return label
+    }()
+
+    private let dateLabel: UILabel = {
+        let label = UILabel()
+        label.font = .preferredFont(forTextStyle: .footnote)
+        return label
+    }()
+
+// MARK: - Initializer
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -43,9 +47,22 @@ class ScheduleListCell: UITableViewCell {
         self.commonInit()
     }
 
+// MARK: - Methods
+
+    func configureContent(with item: Schedule) {
+        self.titleLabel.text = item.title
+        self.bodyLabel.text = item.body
+        self.dateLabel.text = item.formattedDateString
+    }
+}
+
+// MARK: - Private Methods
+
+extension ScheduleListCell {
+
     private func commonInit() {
-        configureHierarchy()
-        configureConstraint()
+        self.configureHierarchy()
+        self.configureConstraint()
     }
 
     private func configureHierarchy() {
@@ -64,5 +81,4 @@ class ScheduleListCell: UITableViewCell {
             self.stackView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor)
         ])
     }
-
 }

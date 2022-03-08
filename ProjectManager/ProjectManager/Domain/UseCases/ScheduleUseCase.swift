@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 
-class ScheduleUseCase {
+final class ScheduleUseCase {
     let scheduleProvider: Repository
 
     init(repository: Repository) {

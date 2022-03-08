@@ -15,7 +15,7 @@ struct Schedule {
     var progress: Progress
 }
 
-enum Progress {
+enum Progress: CaseIterable {
     case todo
     case doing
     case done
