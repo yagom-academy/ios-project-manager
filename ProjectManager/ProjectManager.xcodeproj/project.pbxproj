@@ -16,6 +16,7 @@
 		25D60D7427CD280800D3D39D /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 25D60D7327CD280800D3D39D /* Realm */; };
 		25D60D7627CD280800D3D39D /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 25D60D7527CD280800D3D39D /* RealmSwift */; };
 		25D60D7F27CD2D8000D3D39D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D60D7E27CD2D8000D3D39D /* ContentView.swift */; };
+		25F993E627D6F7A9007F5975 /* TimeInterval+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F993E527D6F7A9007F5975 /* TimeInterval+extension.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
@@ -27,6 +28,7 @@
 		2570E6D627D225BB002984D2 /* TaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManager.swift; sourceTree = "<group>"; };
 		2570E6D827D225F6002984D2 /* TaskListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListViewModel.swift; sourceTree = "<group>"; };
 		25D60D7E27CD2D8000D3D39D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		25F993E527D6F7A9007F5975 /* TimeInterval+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInterval+extension.swift"; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -88,6 +90,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		25F993E427D6F78F007F5975 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				25F993E527D6F7A9007F5975 /* TimeInterval+extension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		C7431EF925F51E1D0094C4CF = {
 			isa = PBXGroup;
 			children = (
@@ -108,6 +118,7 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
+				25F993E427D6F78F007F5975 /* Extension */,
 				2570E6DD27D22685002984D2 /* View */,
 				2570E6DC27D22676002984D2 /* ViewModel */,
 				2570E6DB27D2266A002984D2 /* Service */,
@@ -222,6 +233,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2570E6D127D224D4002984D2 /* Task.swift in Sources */,
+				25F993E627D6F7A9007F5975 /* TimeInterval+extension.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				2570E6D727D225BB002984D2 /* TaskManager.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
