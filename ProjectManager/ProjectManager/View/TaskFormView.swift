@@ -12,8 +12,12 @@ struct TaskCreateView: View {
     @EnvironmentObject var viewModel: ProjectManagerViewModel
     @Binding var isShowingSheet: Bool
     
+    @State var title = String()
+    @State var date = Date()
+    @State var description = String()
+    
     var body: some View {
-        let taskForm = TaskFormView()
+        let taskForm = TaskFormView(title: $title, date: $date, description: $description)
         
         NavigationView {
             taskForm
@@ -51,13 +55,25 @@ struct TaskDetailView: View {
     
     let task: Task
     
-    @ObservedObject var viewModel: ProjectManagerViewModel
+    @EnvironmentObject var viewModel: ProjectManagerViewModel
     @Binding var isShowingSheet: Bool
+    
+    @State var title: String
+    @State var date: Date
+    @State var description: String
     
     @State var isEditingMode = false
     
+    init(task: Task, isShowingSheet: Binding<Bool>) {
+        _isShowingSheet = isShowingSheet
+        _title = State(initialValue: task.title)
+        _date = State(initialValue: task.dueDate)
+        _description = State(initialValue: task.description)
+        self.task = task
+    }
+    
     var body: some View {
-        let taskForm = TaskFormView(task: task)
+        let taskForm = TaskFormView(title: $title, date: $date, description: $description)
         
         NavigationView {
             taskForm
@@ -97,17 +113,9 @@ struct TaskDetailView: View {
 
 struct TaskFormView: View {
     
-    let task: Task? = nil
-    
-    @State var title: String
-    @State var date: Date
-    @State var description: String
-    
-    init(task: Task? = nil) {
-        _title = State(initialValue: task?.title ?? "")
-        _date = State(initialValue: task?.dueDate ?? Date())
-        _description = State(initialValue: task?.description ?? "")
-    }
+    @Binding var title: String
+    @Binding var date: Date
+    @Binding var description: String
     
     var body: some View {
         VStack(alignment: .center, spacing: 20.0) {
@@ -118,7 +126,7 @@ struct TaskFormView: View {
     }
     
     var titleField: some View {
-        TextField(task?.title ?? "Title", text: $title)
+        TextField("Title", text: $title)
             .border(.gray)
     }
     

@@ -60,7 +60,6 @@ struct TaskListView: View {
                         .sheet(isPresented: $isShowingSheet, onDismiss: nil) {
                             TaskDetailView(
                                 task: task,
-                                viewModel: viewModel,
                                 isShowingSheet: $isShowingSheet
                             )
                         }

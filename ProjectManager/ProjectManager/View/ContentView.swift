@@ -30,7 +30,7 @@ struct ContentView: View {
                         Image(systemName: "plus")
                     }
                     .sheet(isPresented: $isShowingSheet, onDismiss: nil) {
-                        TaskCreateView(viewModel: _viewModel, isShowingSheet: $isShowingSheet)
+                        TaskCreateView(isShowingSheet: $isShowingSheet)
                     }
                 }
             }
