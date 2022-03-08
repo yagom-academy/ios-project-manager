@@ -47,5 +47,11 @@ class MainViewModel {
             })
             .disposed(by: bag)
     }
+}
 
+extension Schedule {
+
+    var formattedDateString: String {
+        return DateFormatter.dueDate.string(from: self.dueDate)
+    }
 }
