@@ -4,12 +4,10 @@ class ProjectListViewController: UIViewController {
     private let todoTableView = ProjectListTableView()
     private let doingTableView = ProjectListTableView()
     private let doneTableView = ProjectListTableView()
+    private var dataSource: ProjectListDataSource?
+    private lazy var tableViews = [todoTableView, doingTableView, doneTableView]
     
-    private let todoDataSource = TodoDataSource()
-    private let doingDataSource = DoingDataSource()
-    private let doneDataSource = DoneDataSource()
-    
-    private lazy var entireStackView: UIStackView = {
+    private let entireStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.spacing = Design.entireStackViewSpacing
@@ -30,6 +28,7 @@ class ProjectListViewController: UIViewController {
         configureNavigationBar()
         configureEntireStackView()
         configureLayout()
+
     }
     
     private func configureNavigationBar() {
@@ -47,21 +46,24 @@ class ProjectListViewController: UIViewController {
     }
     
     private func configureTableView() {
-        [todoTableView, doingTableView, doneTableView].forEach {
+        configureDataSource()
+        tableViews.forEach {
             $0.delegate = self
+            $0.dataSource = dataSource
             
             if #available(iOS 15, *) {
                 $0.sectionHeaderTopPadding = Design.tableViewSectionHeaderTopPadding
             }
         }
-        todoTableView.dataSource = todoDataSource
-        doingTableView.dataSource = doingDataSource
-        doneTableView.dataSource = doneDataSource
+    }
+    
+    private func configureDataSource() {
+        dataSource = ProjectListDataSource(tableView: tableViews)
     }
     
     private func configureEntireStackView() {
         self.view.addSubview(entireStackView)
-        [todoTableView, doingTableView, doneTableView].forEach {
+        tableViews.forEach {
             self.entireStackView.addArrangedSubview($0)
         }
     }
