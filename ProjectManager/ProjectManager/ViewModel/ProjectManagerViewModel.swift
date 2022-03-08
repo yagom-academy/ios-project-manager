@@ -38,6 +38,12 @@ class ProjectManagerViewModel: ObservableObject {
         try? model.delete(task)
     }
     
+    func remove(_ tasks: [Task]) {
+        tasks.forEach { task in
+            remove(task)
+        }
+    }
+    
     func update(_ task: Task,
                 title: String? = nil, description: String? = nil, dueDate: Date? = nil,
                 taskStatus: TaskStatus? = nil) {

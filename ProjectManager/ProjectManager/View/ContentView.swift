@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @ObservedObject var viewModel: ProjectManagerViewModel
+    @EnvironmentObject var viewModel: ProjectManagerViewModel
     
     @State var isShowingAddSheet = false
     
@@ -17,9 +17,9 @@ struct ContentView: View {
         
         NavigationView {
             HStack {
-                TaskListView(name: "TODO", tasks: viewModel.todoTasks)
-                TaskListView(name: "DOING", tasks: viewModel.doingTasks)
-                TaskListView(name: "DONE", tasks: viewModel.doneTasks)
+                TaskListView(name: "TODO", taskType: .todo)
+                TaskListView(name: "DOING", taskType: .doing)
+                TaskListView(name: "DONE", taskType: .done)
             }
             .navigationTitle("Project Manager")
             .navigationBarTitleDisplayMode(.inline)
@@ -46,7 +46,8 @@ struct ContentView_Previews: PreviewProvider {
     
     static var previews: some View {
         let viewModel = ProjectManagerViewModel()
-        ContentView(viewModel: viewModel)
+        ContentView()
+            .environmentObject(viewModel)
     }
     
 }

@@ -10,9 +10,21 @@ import SwiftUI
 struct TaskListView: View {
     
     let name: String
-    let tasks: [Task]
+    let taskType: TaskStatus
     
+    @EnvironmentObject private var viewModel: ProjectManagerViewModel
     @State private var isShowingPopover = false
+    
+    private var tasks: [Task] {
+        switch taskType {
+        case .todo:
+            return viewModel.todoTasks
+        case .doing:
+            return viewModel.doingTasks
+        case .done:
+            return viewModel.doneTasks
+        }
+    }
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -32,12 +44,16 @@ struct TaskListView: View {
             ForEach(tasks) { task in
                 Button(action: {
                     self.isShowingPopover.toggle()
+                    print(isShowingPopover)
                 }) {
                     TaskRowView(task: task)
-                }.popover(isPresented: $isShowingPopover) {
-                    Text("Hello World")
-                        .padding()
                 }
+                .popover(isPresented: $isShowingPopover, attachmentAnchor: .point(.center), arrowEdge: .top, content: {
+                    Text("Hello World")
+                })
+            }
+            .onDelete { indexSet in
+                viewModel.remove(tasks[indexSet])
             }
         }
     }
