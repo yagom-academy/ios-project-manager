@@ -1,8 +1,9 @@
 import Foundation
+import RxSwift
 
 protocol Repositoryable {
-    func create(_ item: Project, completion: ((Project?) -> Void)?)
-    func update(with item: Project, completion: ((Project?) -> Void)?)
-    func delete(_ item: Project, completion: ((Project?) -> Void)?)
-    func fetch() -> [Project]
+    func create(_ item: Project) -> Single<Project>
+    func update(with item: Project?) -> Single<Project>
+    func delete(_ item: Project?) -> Single<Project>
+    func fetch() -> BehaviorSubject<[Project]>
 }

@@ -4,50 +4,46 @@ import RxSwift
 final class ProjectListViewModel {
     private(set) var projects = [Project]()
     private let useCase: UseCase
+    private let disposeBag = DisposeBag()
     
     init(useCase: UseCase = MemoryUseCase()) {
         self.useCase = useCase
+        
+        useCase.fetch().subscribe(onNext: { newProjects in
+            self.projects = newProjects
+        }).disposed(by: disposeBag)
     }
-
+    
     // MARK: - Output
-    var inserted = PublishSubject<Bool>()
-    var updated = PublishSubject<IndexPath>()
-    var deleted = PublishSubject<IndexPath>()
     var errorMessage = PublishSubject<String>()
 
-    // MARK: - input
+    // MARK: - Input
+    var inserted = PublishSubject<Project>()
+    var updated = PublishSubject<IndexPath>()
+    var deleted = PublishSubject<IndexPath>()
+    
     func add(_ project: Project) {
-        useCase.create(project) { item in
-            guard item != nil else {
-                self.errorMessage.onNext("알 수 없는 에러가 발생했습니다.")
-                return
-            }
-            self.projects = self.useCase.fetch()
-            self.inserted.onNext(true)
-        }
+        useCase.create(project).subscribe(onSuccess: { project in
+            self.inserted.onNext(project)
+        }).disposed(by: disposeBag)
     }
     
     func update(_ project: Project, indexPath: IndexPath) {
-        useCase.update(project) { item in
-            guard item != nil else {
-                self.errorMessage.onNext("존재하지 않는 Project 입니다.")
-                return
-            }
-            self.projects = self.useCase.fetch()
-            self.updated.onNext(indexPath)
-        }
+        useCase.update(project)
+            .subscribe(onSuccess: { _ in
+                self.updated.onNext(indexPath)
+            }, onFailure: { error in
+                self.errorMessage.onNext(error.localizedDescription)
+            }).disposed(by: disposeBag)
     }
     
-    func delete(_ indexPath: IndexPath, completion: ((Project?) -> Void)?) {
-        useCase.delete(projects[safe: indexPath.row]) { item in
-            guard let item = item else {
-                self.errorMessage.onNext("삭제를 실패했습니다.")
-                completion?(nil)
-                return
-            }
-            self.projects = self.useCase.fetch()
-            self.deleted.onNext(indexPath)
-            completion?(item)
-        }
+    func delete(_ indexPath: IndexPath) {
+        useCase.delete(projects[safe: indexPath.row])
+            .subscribe(onSuccess: { _ in
+                self.deleted.onNext(indexPath)
+            }, onFailure: { error in
+                self.errorMessage.onNext(error.localizedDescription)
+            })
+            .disposed(by: disposeBag)
     }
 }

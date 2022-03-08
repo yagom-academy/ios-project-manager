@@ -1,4 +1,5 @@
 import Foundation
+import RxSwift
 
 struct MemoryUseCase {
     private let repository: Repositoryable
@@ -9,33 +10,19 @@ struct MemoryUseCase {
 }
 
 extension MemoryUseCase: UseCase {
-    func create(_ project: Project, completion: ((Project?) -> Void)?) {
-        repository.create(project) { project in
-            completion?(project)
-        }
+    func create(_ project: Project) -> Single<Project> {
+        repository.create(project)
     }
     
-    func update(_ project: Project?, completion: ((Project?) -> Void)?) {
-        guard let project = project else {
-            completion?(nil)
-            return
-        }
-        repository.update(with: project) { project in
-            completion?(project)
-        }
+    func update(_ project: Project?) -> Single<Project> {
+        repository.update(with: project)
     }
     
-    func delete(_ project: Project?, completion: ((Project?) -> Void)?) {
-        guard let project = project else {
-            completion?(nil)
-            return
-        }
-        repository.delete(project) { project in
-            completion?(project)
-        }
+    func delete(_ project: Project?) -> Single<Project> {
+        repository.delete(project)
     }
     
-    func fetch() -> [Project] {
+    func fetch() -> BehaviorSubject<[Project]> {
         return repository.fetch()
     }
 }

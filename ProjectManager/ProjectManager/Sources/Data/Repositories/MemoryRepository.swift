@@ -1,7 +1,9 @@
 import Foundation
+import RxSwift
 
 final class MemoryRepository {
     private let storage: Storageable
+    let disposeBag = DisposeBag()
 
     init(storage: Storageable = MemoryStorage()) {
         self.storage = storage
@@ -9,25 +11,19 @@ final class MemoryRepository {
 }
 
 extension MemoryRepository: Repositoryable {
-    func create(_ item: Project, completion: ((Project?) -> Void)?) {
-        storage.create(item) { item in
-            completion?(item)
-        }
+    func create(_ item: Project) -> Single<Project> {
+        storage.create(item)
     }
     
-    func update(with item: Project, completion: ((Project?) -> Void)?) {
-        storage.update(item) { item in
-            completion?(item)
-        }
+    func update(with item: Project?) -> Single<Project> {
+        storage.update(item)
     }
     
-    func delete(_ item: Project, completion: ((Project?) -> Void)?) {
-        storage.delete(item) { item in
-            completion?(item)
-        }
+    func delete(_ item: Project?) -> Single<Project> {
+        storage.delete(item)
     }
     
-    func fetch() -> [Project] {
+    func fetch() -> BehaviorSubject<[Project]> {
         return storage.fetch()
     }
 }

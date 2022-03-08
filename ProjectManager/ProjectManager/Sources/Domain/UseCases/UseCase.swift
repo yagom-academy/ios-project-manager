@@ -1,8 +1,9 @@
 import Foundation
+import RxSwift
 
 protocol UseCase {
-    func create(_ project: Project, completion: ((Project?) -> Void)?)
-    func update(_ project: Project?, completion: ((Project?) -> Void)?)
-    func delete(_ project: Project?, completion: ((Project?) -> Void)?)
-    func fetch() -> [Project]
+    func create(_ item: Project) -> Single<Project>
+    func update(_ item: Project?) -> Single<Project>
+    func delete(_ item: Project?) -> Single<Project>
+    func fetch() -> BehaviorSubject<[Project]>
 }
