@@ -44,18 +44,25 @@ struct TaskListView: View {
             ForEach(tasks) { task in
                 Button(action: {
                     self.isShowingPopover.toggle()
-                    print(isShowingPopover)
                 }) {
                     TaskRowView(task: task)
+                        .contextMenu {
+                            ForEach(TaskStatus.allCases) { status in
+                                if status != taskType {
+                                    Button(action: { viewModel.update(task, taskStatus: status) }) {
+                                        Text("Move to \(status.description)")
+                                    }
+                                }
+                            }
+                            
+                        }
                 }
-                .popover(isPresented: $isShowingPopover, attachmentAnchor: .point(.center), arrowEdge: .top, content: {
-                    Text("Hello World")
-                })
             }
             .onDelete { indexSet in
                 viewModel.remove(tasks[indexSet])
             }
         }
+        
     }
     
 }
