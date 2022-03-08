@@ -1,14 +1,14 @@
 //
-//  ProjectBoardView.swift
+//  ProjectTableViewHeaderView.swift
 //  ProjectManager
 //
-//  Created by 1 on 2022/03/07.
+//  Created by 1 on 2022/03/08.
 //
 
 import UIKit
 
-class ProjectBoardSectionView: UIView {
-    
+class ProjectTableViewHeaderView: UITableViewHeaderFooterView {
+
     // MARK: - UIProperty
     private let statusLabel: UILabel = {
         let label = UILabel()
@@ -39,8 +39,8 @@ class ProjectBoardSectionView: UIView {
     }()
     
     // MARK: - Initializer
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override init(reuseIdentifier: String?) {
+        super.init(reuseIdentifier: reuseIdentifier)
         configureLayout()
     }
     
