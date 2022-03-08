@@ -26,11 +26,6 @@ class ToDoViewModel {
         dataManager.delete(with: todo)
         self.reload()
     }
-                                                 
-    func update(with todo: ToDoInfomation) {
-        dataManager.update(with: todo)
-        self.reload()
-    }
     
     func changePosition(
         from berforePosition: ToDoPosition,

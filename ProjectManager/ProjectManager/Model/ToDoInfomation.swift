@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct ToDoInfomation: Identifiable {
-    let id: UUID
+struct ToDoInfomation {
+    var id: UUID
     let title: String
     let discription: String
     let deadline: Double

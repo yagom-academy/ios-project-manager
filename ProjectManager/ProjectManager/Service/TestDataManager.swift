@@ -19,9 +19,9 @@ class TestDataManager {
         todoRepository.delete(with: deletTarget)
     }
     
-    func update(with todo: ToDoInfomation) {
-        todoRepository.update(with: todo)
-    }
+//    func update(with todo: ToDoInfomation) {
+//        todoRepository.update(with: todo)
+//    }
     
     func fetch(onComleted: @escaping ([ToDoInfomation]) -> Void) {
         todoRepository.fetch { [weak self] todoData in

@@ -257,6 +257,24 @@ extension MainViewController: UITableViewDataSource {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let todo: ToDoInfomation
+        if tableView == toDoTableView {
+            todo = todoViewModel.todos.filter{ $0.position == .ToDo }[indexPath.row]
+        } else if tableView == doingTableView {
+            todo = todoViewModel.todos.filter { $0.position == .Doing }[indexPath.row]
+        } else {
+            todo = todoViewModel.todos.filter { $0.position == .Done }[indexPath.row]
+        }
+        
+        let editView = EditViewController()
+        editView.configure(todo: todo)
+        editView.delegate = self
+        let modalView = UINavigationController(rootViewController: editView)
+        modalView.modalPresentationStyle = .automatic
+        self.present(modalView, animated: true)
+    }
+    
     func tableView(
         _ tableView: UITableView,
         trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath

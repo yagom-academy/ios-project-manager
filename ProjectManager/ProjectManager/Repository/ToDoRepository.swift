@@ -11,7 +11,11 @@ class ToDoRepository {
     var todos = [UUID: ToDoInfomation]()    //데이터베이스 역할(엔티티)
     
     func save(with todo: ToDoInfomation) {
-        todos[todo.id] = todo
+        if todos.contains(where: { $0.key == todo.id }) {
+            self.update(with: todo)
+        } else {
+            todos[todo.id] = todo
+        }
     }
     
     func delete(with todo: ToDoInfomation) {
