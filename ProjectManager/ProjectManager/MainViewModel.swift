@@ -15,17 +15,30 @@ class MainViewModel {
     let useCase: ScheduleUseCase
     let bag = DisposeBag()
 
-    //MARK: Input
+    //MARK: - Input
     let scheduleList = BehaviorRelay<[Schedule]>(value: [])
 
-
-    //MARK: Output
-
-    var schedules: Driver<[Schedule]>
+    //MARK: - Output
+    var schedules: Driver<[[Schedule]]>
 
     init(useCase: ScheduleUseCase) {
         self.useCase = useCase
-        self.schedules = scheduleList.asDriver()
+        self.schedules = scheduleList.map { schedules in
+            schedules
+                .reduce([[Schedule](), [Schedule](), [Schedule]()]) { partialResult, schedule in
+                    var new = partialResult
+                    switch schedule.progress {
+                    case .todo:
+                        new[0].append(schedule)
+                    case .doing:
+                        new[1].append(schedule)
+                    case .done:
+                        new[2].append(schedule)
+                    }
+                    return new
+                }
+        }
+        .asDriver(onErrorJustReturn: [[]])
     }
 
     func fetch() {
@@ -36,14 +49,14 @@ class MainViewModel {
             .disposed(by: bag)
     }
 
-    func delete(scheduleID: UUID) {
-        useCase.delete(scheduleID)
+    func delete(id: UUID) {
+        self.useCase.delete(id)
             .filter { $0 }
-            .subscribe(onNext: { result in
-                let new = self.scheduleList.value.filter { schedule in
-                    schedule.id != scheduleID
+            .subscribe(onNext: { _ in
+                let schedules = self.scheduleList.value.filter { schedule in
+                    schedule.id != id
                 }
-                self.scheduleList.accept(new)
+                self.scheduleList.accept(schedules)
             })
             .disposed(by: bag)
     }
