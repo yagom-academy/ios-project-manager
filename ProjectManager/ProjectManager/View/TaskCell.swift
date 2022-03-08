@@ -21,7 +21,6 @@ class TaskCell: UITableViewCell {
         setupCellStackView()
         setupCellConstraints()
         setupCellContent()
-
     }
     
     required init?(coder: NSCoder) {

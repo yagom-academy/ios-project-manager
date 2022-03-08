@@ -11,9 +11,7 @@ extension DateFormatter {
     func localizedDateString(from timeInterval: TimeInterval) -> String {
         let convertedDate = Date(timeIntervalSince1970: timeInterval)
         self.dateFormat = "yyyy. MM. dd."
-
         self.locale = Locale.current
-        
         return self.string(from: convertedDate)
     }
 }
