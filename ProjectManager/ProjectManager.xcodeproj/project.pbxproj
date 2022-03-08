@@ -35,6 +35,9 @@
 		C17D656B27D483B800C54EC6 /* ProjectManagerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17D656A27D483B800C54EC6 /* ProjectManagerViewModel.swift */; };
 		C17D656E27D4A53C00C54EC6 /* TaskRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17D656D27D4A53C00C54EC6 /* TaskRowView.swift */; };
 		C1836B4D27CE43B0008D9F07 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1836B4C27CE43B0008D9F07 /* Task.swift */; };
+		C1E42BF527D7EE0500700BB4 /* Utilities+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E42BF427D7EE0500700BB4 /* Utilities+UIKit.swift */; };
+		C1E42BF727D7EE5600700BB4 /* TaskCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E42BF627D7EE5600700BB4 /* TaskCreateView.swift */; };
+		C1E42BF927D7EE8300700BB4 /* TaskDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E42BF827D7EE8300700BB4 /* TaskDetailView.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
@@ -66,6 +69,9 @@
 		C17D656A27D483B800C54EC6 /* ProjectManagerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerViewModel.swift; sourceTree = "<group>"; };
 		C17D656D27D4A53C00C54EC6 /* TaskRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRowView.swift; sourceTree = "<group>"; };
 		C1836B4C27CE43B0008D9F07 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		C1E42BF427D7EE0500700BB4 /* Utilities+UIKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Utilities+UIKit.swift"; sourceTree = "<group>"; };
+		C1E42BF627D7EE5600700BB4 /* TaskCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCreateView.swift; sourceTree = "<group>"; };
+		C1E42BF827D7EE8300700BB4 /* TaskDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailView.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -121,6 +127,8 @@
 				C13F86E327D73524004070AE /* TaskListView.swift */,
 				C17D656D27D4A53C00C54EC6 /* TaskRowView.swift */,
 				C13F86E127D71472004070AE /* TaskFormView.swift */,
+				C1E42BF827D7EE8300700BB4 /* TaskDetailView.swift */,
+				C1E42BF627D7EE5600700BB4 /* TaskCreateView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -163,6 +171,7 @@
 			isa = PBXGroup;
 			children = (
 				C13F86E527D7511E004070AE /* Utilities+Foundation.swift */,
+				C1E42BF427D7EE0500700BB4 /* Utilities+UIKit.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -371,7 +380,10 @@
 				C105641727CCE5A10018ACFE /* ContentView.swift in Sources */,
 				C139EF9227CE4539001079B6 /* TaskStatus.swift in Sources */,
 				C17D656B27D483B800C54EC6 /* ProjectManagerViewModel.swift in Sources */,
+				C1E42BF727D7EE5600700BB4 /* TaskCreateView.swift in Sources */,
 				C139EF9427CE46EC001079B6 /* TaskMemoryManager.swift in Sources */,
+				C1E42BF527D7EE0500700BB4 /* Utilities+UIKit.swift in Sources */,
+				C1E42BF927D7EE8300700BB4 /* TaskDetailView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
