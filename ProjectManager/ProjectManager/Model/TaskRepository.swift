@@ -14,7 +14,7 @@ enum TaskRepositoryError: Error {
 }
 
 class TaskRepository {
-    private var tasks: [TaskEntity]
+    var tasks: [TaskEntity]
     
     var todoTasks: [TaskEntity] {
         return tasks.filter { $0.status == .todo }

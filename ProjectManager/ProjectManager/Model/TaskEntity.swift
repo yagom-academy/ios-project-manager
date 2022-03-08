@@ -5,7 +5,7 @@
 //  Created by 이호영 on 2022/03/03.
 //
 
-import SwiftUI
+import Foundation
 
 class TaskEntity {
     let id: UUID

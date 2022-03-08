@@ -7,11 +7,11 @@
 
 import Foundation
 
-class Task: Identifiable {
+class Task: Identifiable, ObservableObject {
     let id: UUID
-    var title: String
-    var content: String
-    var limitDate: Date
+    @Published var title: String
+    @Published var content: String
+    @Published var limitDate: Date
     
     init(
         id: UUID = UUID(),
