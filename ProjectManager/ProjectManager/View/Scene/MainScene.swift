@@ -20,7 +20,7 @@ struct MainScene: View {
 }
 
 struct ListView: View {
-    var items: [Task]
+    var items: [TaskEntity]
     
     var body: some View {
         VStack {

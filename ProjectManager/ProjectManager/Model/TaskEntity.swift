@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-class Task: Identifiable {
+class TaskEntity {
     let id: UUID
     var title: String
     var content: String
@@ -30,11 +30,20 @@ class Task: Identifiable {
         self.status = status
         self.statusModifiedDate = statusModifiedDate
     }
-    
 }
 
-extension Task: Equatable {
-    static func == (lhs: Task, rhs: Task) -> Bool {
+extension TaskEntity {
+    func toViewModel() -> Task {
+        return Task(
+            title: self.title,
+            content: self.content,
+            limitDate: self.limitDate
+        )
+    }
+}
+
+extension TaskEntity: Equatable {
+    static func == (lhs: TaskEntity, rhs: TaskEntity) -> Bool {
         return lhs.id == rhs.id
     }
 }

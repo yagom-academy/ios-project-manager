@@ -8,10 +8,10 @@
 import Foundation
 
 class TaskService: ObservableObject {
-    @Published var taskStorage = TaskStorage()
+    @Published var taskStorage = TaskRepository()
     
     func createTask(title: String, content: String, date: Date) {
-        let task = Task(
+        let task = TaskEntity(
             title: title,
             content: content,
             limitDate: date,
@@ -21,7 +21,7 @@ class TaskService: ObservableObject {
         taskStorage.insert(task)
     }
     
-    func deleteTask(task: Task?) {
+    func deleteTask(task: TaskEntity?) {
         taskStorage.delete(task: task)
     }
 }
