@@ -21,11 +21,13 @@ struct TaskCellView: View {
         VStack(alignment: .leading) {
             Text(task.title)
                 .font(.system(size: 28, weight: .semibold, design: .default))
+                .foregroundColor(.black)
             Text(task.content)
                 .font(.title3)
                 .foregroundColor(.gray)
             Text(task.limitDate, formatter: taskLimitDateFormatter)
                 .font(.body)
+                .foregroundColor(.black)
         }
     }
 }

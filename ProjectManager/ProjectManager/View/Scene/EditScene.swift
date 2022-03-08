@@ -18,9 +18,11 @@ struct EditScene: View {
     var body: some View {
         NavigationView {
             VStack(alignment: .center) {
-                titleTextField
-                limitDatePicker
-                contentEditor
+                TaskEditView(
+                    title: $title,
+                    content: $content,
+                    limitDate: $limitDate
+                )
             }
             .padding()
             .navigationBarTitle("TODO", displayMode: .inline)
@@ -39,25 +41,5 @@ struct EditScene: View {
                 }
             }
         }
-    }
-    
-    var titleTextField: some View {
-        TextField("Title", text: $title)
-            .textFieldStyle(.roundedBorder)
-    }
-    
-    var limitDatePicker: some View {
-        DatePicker(
-            "",
-            selection: $limitDate,
-            displayedComponents: [.date]
-        )
-        .datePickerStyle(.wheel)
-        .labelsHidden()
-    }
-    
-    var contentEditor: some View {
-        TextEditor(text: $content)
-            .shadow(radius: 5)
     }
 }

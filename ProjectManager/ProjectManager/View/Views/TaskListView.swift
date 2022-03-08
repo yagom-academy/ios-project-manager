@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct TaskListView: View {
+    @ObservedObject var viewModel: ProjectManagerViewModel
+    @State var isShowDetailScene: Bool = false
     var tasks: [Task]
     var listName: String
     
@@ -27,7 +29,13 @@ struct TaskListView: View {
     
     var list: some View {
         List(tasks) { task in
-            TaskCellView(task: task)
+            Button {
+                self.isShowDetailScene.toggle()
+            } label: {
+                TaskCellView(task: task)
+            }.sheet(isPresented: $isShowDetailScene, onDismiss: nil) {
+                DetailScene(viewModel: viewModel, task: task, showDetailScene: $isShowDetailScene)
+            }
         }
     }
 }

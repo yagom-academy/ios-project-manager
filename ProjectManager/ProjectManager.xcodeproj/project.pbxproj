@@ -32,6 +32,10 @@
 		F3C5400A27D78C6F00D7CE4E /* EditScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C5400927D78C6C00D7CE4E /* EditScene.swift */; };
 		F3C5400C27D7908600D7CE4E /* DoneButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C5400B27D7908600D7CE4E /* DoneButtonView.swift */; };
 		F3C5400E27D790AF00D7CE4E /* DismissButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C5400D27D790AF00D7CE4E /* DismissButtonView.swift */; };
+		F3C5401027D7A07900D7CE4E /* TaskEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C5400F27D7A07600D7CE4E /* TaskEditView.swift */; };
+		F3C5401227D7A3E300D7CE4E /* DetailScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C5401127D7A3E200D7CE4E /* DetailScene.swift */; };
+		F3C5401427D7A4F900D7CE4E /* TaskDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C5401327D7A4F800D7CE4E /* TaskDetailView.swift */; };
+		F3C5401627D7A87600D7CE4E /* EditButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C5401527D7A87500D7CE4E /* EditButtonView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +72,10 @@
 		F3C5400927D78C6C00D7CE4E /* EditScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditScene.swift; sourceTree = "<group>"; };
 		F3C5400B27D7908600D7CE4E /* DoneButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneButtonView.swift; sourceTree = "<group>"; };
 		F3C5400D27D790AF00D7CE4E /* DismissButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissButtonView.swift; sourceTree = "<group>"; };
+		F3C5400F27D7A07600D7CE4E /* TaskEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskEditView.swift; sourceTree = "<group>"; };
+		F3C5401127D7A3E200D7CE4E /* DetailScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailScene.swift; sourceTree = "<group>"; };
+		F3C5401327D7A4F800D7CE4E /* TaskDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailView.swift; sourceTree = "<group>"; };
+		F3C5401527D7A87500D7CE4E /* EditButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditButtonView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,6 +186,7 @@
 			children = (
 				F374A11527CDD3930083CC73 /* MainScene.swift */,
 				F3C5400927D78C6C00D7CE4E /* EditScene.swift */,
+				F3C5401127D7A3E200D7CE4E /* DetailScene.swift */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -190,6 +199,9 @@
 				F3C5400727D784CC00D7CE4E /* AddButtonView.swift */,
 				F3C5400B27D7908600D7CE4E /* DoneButtonView.swift */,
 				F3C5400D27D790AF00D7CE4E /* DismissButtonView.swift */,
+				F3C5400F27D7A07600D7CE4E /* TaskEditView.swift */,
+				F3C5401327D7A4F800D7CE4E /* TaskDetailView.swift */,
+				F3C5401527D7A87500D7CE4E /* EditButtonView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -337,20 +349,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				F3C5400C27D7908600D7CE4E /* DoneButtonView.swift in Sources */,
+				F3C5401027D7A07900D7CE4E /* TaskEditView.swift in Sources */,
 				F3C5400627D75EEC00D7CE4E /* TaskCellView.swift in Sources */,
 				F3C53FF627D725E600D7CE4E /* Task.swift in Sources */,
 				F3C53F4D27D10AEA00D7CE4E /* TaskEntity.swift in Sources */,
 				F3C53FF827D72FE100D7CE4E /* ProjectManagerEnvironment.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				F3C53F7D27D5227F00D7CE4E /* ProjectManagerViewModel.swift in Sources */,
+				F3C5401427D7A4F900D7CE4E /* TaskDetailView.swift in Sources */,
 				F374A11627CDD3930083CC73 /* MainScene.swift in Sources */,
 				F3C53FFC27D737F500D7CE4E /* TaskStatus.swift in Sources */,
 				F3C53FFF27D7501400D7CE4E /* TaskListView.swift in Sources */,
+				F3C5401227D7A3E300D7CE4E /* DetailScene.swift in Sources */,
 				F3C5400E27D790AF00D7CE4E /* DismissButtonView.swift in Sources */,
 				F3C5400A27D78C6F00D7CE4E /* EditScene.swift in Sources */,
 				F3C53F5527D1202300D7CE4E /* TaskRepository.swift in Sources */,
 				F3C5400827D784CD00D7CE4E /* AddButtonView.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
+				F3C5401627D7A87600D7CE4E /* EditButtonView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
