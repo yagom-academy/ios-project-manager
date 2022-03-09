@@ -134,14 +134,7 @@ extension MainTaskViewController: UITableViewDataSource {
             return .zero
         }
         
-        switch taskTableView.state {
-        case .waiting:
-            return taskListViewModel.count(of: .waiting)
-        case .progress:
-            return taskListViewModel.count(of: .progress)
-        case .done:
-            return taskListViewModel.count(of: .done)
-        }
+        return taskListViewModel.count(of: taskTableView.state)
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

@@ -75,6 +75,19 @@ class TaskTableViewCell: UITableViewCell {
     func configureCell(title: String, description: String, deadline: Date) {
         titleLabel.text = title
         descriptionLabel.text = description
-        deadlineLabel.text = deadline.description
+        deadlineLabel.text = deadline.dateString
+    }
+}
+
+private extension Date {
+    static let dateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .short
+        dateFormatter.locale = .current
+        return dateFormatter
+    }()
+    
+    var dateString: String {
+        return Self.dateFormatter.string(from: self)
     }
 }

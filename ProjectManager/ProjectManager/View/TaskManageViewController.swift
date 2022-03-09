@@ -47,7 +47,6 @@ class TaskManageViewController: UIViewController {
         textField.layer.shadowOpacity = 0.5
         textField.layer.shadowColor = UIColor.black.cgColor
         textField.layer.shadowOffset = CGSize(width: 0, height: 3)
-        textField.layer.masksToBounds = false
         return textField
     }()
     
@@ -63,10 +62,6 @@ class TaskManageViewController: UIViewController {
         textView.font = .preferredFont(forTextStyle: .title3)
         textView.layer.borderColor = UIColor.lightGray.cgColor
         textView.layer.borderWidth = 0.3
-        textView.layer.shadowOpacity = 0.5
-        textView.layer.shadowColor = UIColor.black.cgColor
-        textView.layer.shadowOffset = CGSize(width: 0, height: 3)
-        textView.layer.masksToBounds = false
         return textView
     }()
         
@@ -193,5 +188,3 @@ class TaskManageViewController: UIViewController {
         }        
     }
 }
-
-
