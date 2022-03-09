@@ -18,7 +18,7 @@
 		9A40A0A127CF9BB600A73BBA /* Date+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A0A027CF9BB600A73BBA /* Date+extension.swift */; };
 		9A40A0A427CFA13800A73BBA /* ProjectRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A0A327CFA13800A73BBA /* ProjectRepository.swift */; };
 		9A40A0A727CFA17700A73BBA /* DefaultProjectRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A0A627CFA17700A73BBA /* DefaultProjectRepository.swift */; };
-		9A40A0BF27CFA82E00A73BBA /* MemoryUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A0BE27CFA82E00A73BBA /* MemoryUseCaseTests.swift */; };
+		9A40A0BF27CFA82E00A73BBA /* DefaultProjectListUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A0BE27CFA82E00A73BBA /* DefaultProjectListUseCaseTests.swift */; };
 		9A40A0C527CFA84400A73BBA /* DefaultProjectRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A0A627CFA17700A73BBA /* DefaultProjectRepository.swift */; };
 		9A40A0C827CFA86200A73BBA /* ProjectRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A0A327CFA13800A73BBA /* ProjectRepository.swift */; };
 		9A40A0CC27D0C70E00A73BBA /* DefaultProjectListUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A0CB27D0C70E00A73BBA /* DefaultProjectListUseCase.swift */; };
@@ -59,7 +59,7 @@
 		9A40A0A327CFA13800A73BBA /* ProjectRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectRepository.swift; sourceTree = "<group>"; };
 		9A40A0A627CFA17700A73BBA /* DefaultProjectRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultProjectRepository.swift; sourceTree = "<group>"; };
 		9A40A0BC27CFA82E00A73BBA /* ProjectRepositoryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProjectRepositoryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		9A40A0BE27CFA82E00A73BBA /* MemoryUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryUseCaseTests.swift; sourceTree = "<group>"; };
+		9A40A0BE27CFA82E00A73BBA /* DefaultProjectListUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultProjectListUseCaseTests.swift; sourceTree = "<group>"; };
 		9A40A0CB27D0C70E00A73BBA /* DefaultProjectListUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultProjectListUseCase.swift; sourceTree = "<group>"; };
 		9A40A0CE27D0CA7E00A73BBA /* ProjectListUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListUseCase.swift; sourceTree = "<group>"; };
 		9A40A0D427D0CC5200A73BBA /* ProjectStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectStorage.swift; sourceTree = "<group>"; };
@@ -168,7 +168,7 @@
 		9A40A0BD27CFA82E00A73BBA /* ProjectManagerTests */ = {
 			isa = PBXGroup;
 			children = (
-				9A40A0BE27CFA82E00A73BBA /* MemoryUseCaseTests.swift */,
+				9A40A0BE27CFA82E00A73BBA /* DefaultProjectListUseCaseTests.swift */,
 				9A40A0E927D14A7500A73BBA /* ProjectListViewModelTests.swift */,
 			);
 			path = ProjectManagerTests;
@@ -412,7 +412,7 @@
 				9A40A0C527CFA84400A73BBA /* DefaultProjectRepository.swift in Sources */,
 				9A40A0EB27D14A7B00A73BBA /* ProjectListViewModel.swift in Sources */,
 				9A40A0EA27D14A7500A73BBA /* ProjectListViewModelTests.swift in Sources */,
-				9A40A0BF27CFA82E00A73BBA /* MemoryUseCaseTests.swift in Sources */,
+				9A40A0BF27CFA82E00A73BBA /* DefaultProjectListUseCaseTests.swift in Sources */,
 				9A40A0E027D101C800A73BBA /* ProjectStorage.swift in Sources */,
 				9A40A0C827CFA86200A73BBA /* ProjectRepository.swift in Sources */,
 				9A40A0D827D0FF8100A73BBA /* Project.swift in Sources */,

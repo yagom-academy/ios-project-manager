@@ -3,10 +3,10 @@ import RxBlocking
 
 class MemoryUseCaseTests: XCTestCase {
 
-    var sut: VolatileMemoryUseCase?
+    var sut: ProjectListUseCase?
     
     override func setUpWithError() throws {
-        sut = VolatileMemoryUseCase()
+        sut = DefaultProjectListUseCase()
     }
     
     override func tearDownWithError() throws {
@@ -18,12 +18,12 @@ class MemoryUseCaseTests: XCTestCase {
         let project = Project(title: "제목", description: "상세 내용", date: Date())
         
         // when
-        sut?.create(project)
-        let result = try! sut?.fetch().toBlocking(timeout: 1).first()
+        let result = try? sut?.create(project).toBlocking(timeout: 1).toArray()
+        let fetch = try! sut?.fetch().toBlocking(timeout: 1).first()
         
         // then
-        XCTAssertTrue(result?.count == 1)
-        XCTAssertTrue(result?.first?.id == project.id)
+        XCTAssertTrue(fetch?.count == 1)
+        XCTAssertTrue(fetch?.first?.id == result?.first?.id)
     }
     
     func test_프로젝트3개를_create하면_데이터의갯수가_3개이다() {
@@ -76,7 +76,7 @@ class MemoryUseCaseTests: XCTestCase {
         sut?.create(project)
         
         // when
-        let result = try? sut?.delete(project2).toBlocking().first()
+        let result = try? sut?.delete(project2.id).toBlocking().first()
         
         // then
         XCTAssertNotNil(result)
@@ -93,7 +93,7 @@ class MemoryUseCaseTests: XCTestCase {
         let project3 = Project(title: "실패", description: "실패 내용", date: Date())
         
         // when
-        let result = try? sut?.delete(project3).toBlocking().first()
+        let result = try? sut?.delete(project3.id).toBlocking().first()
 
         // then
         XCTAssertNil(result)
