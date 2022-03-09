@@ -17,6 +17,7 @@ struct TaskListCellView: View {
             deadline
         }
         .frame(maxWidth: .infinity, alignment: .leading)
+        .contentShape(Rectangle())
         .onTapGesture {
             self.isPopoverPresentedForUpdateTaskState = false
             self.isPopoverPresentedForUpdateTask = true
