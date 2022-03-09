@@ -46,6 +46,7 @@ class ProjectManagerViewModel: ObservableObject {
             return
         }
         tasks.remove(at: index)
+        enviroment.deleteTask(task)
     }
     
     func changeStatus(task: Task, to taskStatus: TaskStatus) {
