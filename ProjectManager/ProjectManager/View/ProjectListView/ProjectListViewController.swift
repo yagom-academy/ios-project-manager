@@ -4,7 +4,7 @@ class ProjectListViewController: UIViewController {
     private let todoTableView = ProjectListTableView()
     private let doingTableView = ProjectListTableView()
     private let doneTableView = ProjectListTableView()
-    private var dataSource: ProjectViewModel?
+    private var viewModel: ProjectViewModel?
     private lazy var tableViews = [todoTableView, doingTableView, doneTableView]
     
     private let entireStackView: UIStackView = {
@@ -48,7 +48,7 @@ class ProjectListViewController: UIViewController {
         configureDataSource()
         tableViews.forEach {
             $0.delegate = self
-            $0.dataSource = dataSource
+            $0.dataSource = viewModel
             
             if #available(iOS 15, *) {
                 $0.sectionHeaderTopPadding = Design.tableViewSectionHeaderTopPadding
@@ -57,7 +57,7 @@ class ProjectListViewController: UIViewController {
     }
     
     private func configureDataSource() {
-        dataSource = ProjectViewModel(tableView: tableViews)
+        viewModel = ProjectViewModel(tableView: tableViews)
     }
     
     private func configureEntireStackView() {
@@ -113,17 +113,28 @@ extension ProjectListViewController: UITableViewDelegate {
         
         switch tableView {
         case todoTableView:
-            data = dataSource?.todoProjects[indexPath.row]
+            data = viewModel?.todoProjects[indexPath.row]
         case doingTableView:
-            data = dataSource?.doingProjects[indexPath.row]
+            data = viewModel?.doingProjects[indexPath.row]
         case doneTableView:
-            data = dataSource?.doneProjects[indexPath.row]
+            data = viewModel?.doneProjects[indexPath.row]
         default:
             break
         }
         
-        let editViewController = EditProjectDetailViewController()
-        editViewController.populateView(with: data)
+        guard let data = data else {
+            return
+        }
+        showEditViewController(index: indexPath, state: data.state)
+    }
+    
+    func showEditViewController(index: IndexPath, state: Project.State) {
+        let editViewController = EditProjectDetailViewController(viewModel: viewModel)
+        
+        viewModel?.onSelected = { project in
+            editViewController.populateView(with: project)
+        }
+        viewModel?.didSelectRow(index: index, state: state)
         
         let destinationViewController = UINavigationController(rootViewController: editViewController)
         destinationViewController.modalPresentationStyle = .formSheet

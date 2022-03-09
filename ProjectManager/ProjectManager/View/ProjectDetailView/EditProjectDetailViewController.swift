@@ -1,12 +1,23 @@
 import UIKit
 
 class EditProjectDetailViewController: ProjectDetailViewController {
+    var viewModel: ProjectViewModel?
+    
+    init(viewModel: ProjectViewModel?) {
+        super.init(nibName: nil, bundle: nil)
+        self.viewModel = viewModel
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavigationBar()
         projectDetailView.setEditingMode(to: false)
     }
-
+    
     private func configureNavigationBar() {
         self.navigationItem.title = TitleText.navigationBarTitle
         navigationItem.rightBarButtonItem = editButtonItem
