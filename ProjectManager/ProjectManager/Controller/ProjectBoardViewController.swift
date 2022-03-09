@@ -97,31 +97,26 @@ extension ProjectBoardViewController: ProjectCreatorViewControllerDelegate {
         self.projectManager.create(with: content)
         todoViewController.applySnapshot()
     }
-    
-    func updateProject(of identifier: UUID, with content: [String : Any]) {
-        self.projectManager.updateProject(of: identifier, with: content)
-        todoViewController.applySnapshot()
-    }
 }
 
-// MARK: - TodoProjectTableViewControllerDelegate
-extension ProjectBoardViewController: TodoProjectTableViewControllerDelegate {
+// MARK: - ProjectTableViewControllerDelegate
+extension ProjectBoardViewController: ProjectTableViewControllerDelegate {
     func readProject(of status: Status) -> [Project]? {
         return projectManager.readProject(of: status)
     }
     
-    func updateStatus(of identifier: UUID, with status: Status) {
+    func updateProjectStatus(of identifier: UUID, with status: Status) {
         projectManager.updateProjectStatus(of: identifier, with: status)
     }
     
-    func update(of identifier: UUID, with content: [String : Any]) {
+    func updateProject(of identifier: UUID, with content: [String : Any]) {
         projectManager.updateProject(of: identifier, with: content)
         todoViewController.applySnapshot()
         // doingViewController.applySnapshot
         // doneViewController.applySnapshot
     }
     
-    func delete(of identifier: UUID) {
+    func deleteProject(of identifier: UUID) {
         projectManager.delete(of: identifier)
     }
 }

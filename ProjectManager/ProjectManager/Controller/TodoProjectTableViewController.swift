@@ -7,18 +7,6 @@
 
 import UIKit
 
-// MARK: - TodoProjectTableViewControllerDelegate
-protocol TodoProjectTableViewControllerDelegate {
-    
-    func readProject(of status: Status) -> [Project]?
-    
-    func update(of identifier: UUID, with content: [String: Any])
-    
-    func updateStatus(of identifier: UUID, with status: Status)
-    
-    func delete(of identifier: UUID)
-}
-
 // MARK: - TodoProjectTableViewController
 class TodoProjectTableViewController: UIViewController {
     
@@ -31,7 +19,7 @@ class TodoProjectTableViewController: UIViewController {
     private let projectTableView = UITableView()
     private var dataSource: UITableViewDiffableDataSource<Section,Project>!
     private let longPressGestureRecognizer = UILongPressGestureRecognizer()
-    weak var delegate: ProjectBoardViewController?
+    weak var delegate: ProjectTableViewControllerDelegate?
     
     // MARK: - View Life Cycle
     override func loadView() {
@@ -127,12 +115,12 @@ class TodoProjectTableViewController: UIViewController {
                                                       preferredStyle: .actionSheet)
         let transitionToDoing = UIAlertAction(title: "move to \(String(describing: Status.doing))",
                                               style: .default) { [weak self] _ in
-            self?.delegate?.updateStatus(of: identifier, with: .doing)
+            self?.delegate?.updateProjectStatus(of: identifier, with: .doing)
             self?.applySnapshot()
         }
         let transitionToDone = UIAlertAction(title: "move to \(String(describing: Status.done))",
                                              style: .default) { [weak self] _ in
-            self?.delegate?.updateStatus(of: identifier, with: .done)
+            self?.delegate?.updateProjectStatus(of: identifier, with: .done)
             self?.applySnapshot()
         }
         actionSheetController.addAction(transitionToDoing)
@@ -193,7 +181,7 @@ extension TodoProjectTableViewController: UITableViewDelegate {
                   let identifier = project.identifier else {
                 return
             }
-            self?.delegate?.delete(of: identifier)
+            self?.delegate?.deleteProject(of: identifier)
             self?.applySnapshot()
         }
         deleteAction.image = UIImage(systemName: "trash.fill")
