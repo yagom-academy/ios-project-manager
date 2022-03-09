@@ -9,10 +9,10 @@ import Foundation
 
 protocol TaskViewModel {
     func createTask(title: String, description: String, deadline: Date)
-    func updateRow(with task: Task)
-    func deleteRow(with task: Task)
-    func move(task: Task, to state: TaskState)
-    func task(at index: Int, with state: TaskState, completion: (Task) -> Void)
-    func didSelectRow(at index: Int, with state: TaskState)
+    func updateRow(at index: Int, from state: TaskState)
+    func deleteRow(at index: Int, from state: TaskState)
+    func move(at index: Int, to state: TaskState)
+    func task(at index: Int, from state: TaskState)
+    func didSelectRow(at index: Int, from state: TaskState)
     func count(of state: TaskState) -> Int
 }

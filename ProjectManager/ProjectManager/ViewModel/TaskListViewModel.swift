@@ -8,7 +8,14 @@
 import Foundation
 
 final class TaskListViewModel: TaskViewModel {
-    var taskDidUpdated: (() -> Void)?
+    // MARK: - Output
+    var presentErrorAlert: ((Error) -> Void)?
+    var taskDidCreated: (() -> Void)?
+    var taskDidLoaded: ((Task) -> Void)?
+    var taskDidDeleted: ((Int) -> Void)?
+    var taskDidChanged: ((Int) -> Void)?
+    var taskDidMoved: ((Int, TaskState) -> Void)?
+    var tasksDidUpdated: (() -> Void)?
     var didSelectTask: ((Task) -> Void)?
     
     private let taskManager: TaskMangeable
@@ -20,11 +27,11 @@ final class TaskListViewModel: TaskViewModel {
     
     func didLoaded() {
         updateTasks()
+        tasksDidUpdated?()
     }
     
     private func updateTasks() {
         tasks = taskManager.fetchAll()
-        taskDidUpdated?()
     }
     
     func createTask(title: String, description: String, deadline: Date) {
@@ -34,34 +41,38 @@ final class TaskListViewModel: TaskViewModel {
                            deadline: deadline,
                            state: .waiting)
         taskManager.create(with: newTask)
+        taskDidCreated?()
         updateTasks()
     }
     
-    func updateRow(with task: Task) {
-        taskManager.update(with: task)
+    func updateRow(at index: Int, from state: TaskState) {
+        taskManager.update(at: index, from: state)
+        taskDidChanged?(index)
+    }
+    
+    func deleteRow(at index: Int, from state: TaskState) {
+        taskManager.delete(at: index, from: state)
+        taskDidDeleted?(index)
         updateTasks()
     }
     
-    func deleteRow(with task: Task) {
-        taskManager.delete(with: task)
-        updateTasks()
+    func move(at index: Int, to state: TaskState) {
+        taskManager.changeState(at: index, to: state)
+        taskDidMoved?(index, state)
     }
     
-    func move(task: Task, to state: TaskState) {
-        taskManager.changeState(of: task, to: state)
-        updateTasks()
-    }
-    
-    func task(at index: Int, with state: TaskState, completion: (Task) -> Void) {
-        guard let fetchedTask = taskManager.fetch(at: index, with: state) else {
-            return 
+    func task(at index: Int, from state: TaskState) {
+        guard let fetchedTask = taskManager.fetch(at: index, from: state) else {
+            presentErrorAlert?(CollectionError.indexOutOfRange)
+            return
         }
         
-        completion(fetchedTask)
+        taskDidLoaded?(fetchedTask)
     }
     
-    func didSelectRow(at index: Int, with state: TaskState) {
-        guard let fetchedTask = taskManager.fetch(at: index, with: state) else {
+    func didSelectRow(at index: Int, from state: TaskState) {
+        guard let fetchedTask = taskManager.fetch(at: index, from: state) else {
+            presentErrorAlert?(CollectionError.indexOutOfRange)
             return
         }
         

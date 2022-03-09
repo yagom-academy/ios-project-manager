@@ -10,8 +10,8 @@ import Foundation
 protocol TaskMangeable {
     func create(with task: Task)
     func fetchAll() -> [Task]
-    func fetch(at index: Int, with state: TaskState) -> Task?
-    func update(with task: Task)
-    func delete(with task: Task)
-    func changeState(of task: Task, to state: TaskState)
+    func fetch(at index: Int, from state: TaskState) -> Task?
+    func update(at index: Int, from state: TaskState)
+    func delete(at index: Int, from state: TaskState)
+    func changeState(at index: Int, to state: TaskState)
 }

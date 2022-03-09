@@ -23,25 +23,37 @@ final class TaskManager: TaskMangeable {
         return tasks.sorted { $0.deadline < $1.deadline }
     }
     
-    func fetch(at index: Int, with state: TaskState) -> Task? {
-        let tasks = taskRepository.fetchAll()
+    func fetch(at index: Int, from state: TaskState) -> Task? {
+        let tasks = fetchAll()
         let filteredTasks = tasks.filter { $0.state == state }
         return filteredTasks[safe: index]
     }
     
-    func update(with task: Task) {
-        taskRepository.update(with: task)
+    func update(at index: Int, from state: TaskState) {
+        guard let selectedTask = fetch(at: index, from: state) else {
+            return
+        }
+        
+        taskRepository.update(with: selectedTask)
     }
     
-    func delete(with task: Task) {
-        taskRepository.delete(with: task)
+    func delete(at index: Int, from state: TaskState) {
+        guard let selectedTask = fetch(at: index, from: state) else {
+            return
+        }
+        
+        taskRepository.delete(with: selectedTask)
     }
     
-    func changeState(of task: Task, to state: TaskState) {
-        let taskToChange = Task(id: task.id,
-                        title: task.title,
-                        description: task.description,
-                        deadline: task.deadline,
+    func changeState(at index: Int, to state: TaskState) {
+        guard let selectedTask = fetch(at: index, from: state) else {
+            return
+        }
+        
+        let taskToChange = Task(id: selectedTask.id,
+                        title: selectedTask.title,
+                        description: selectedTask.description,
+                        deadline: selectedTask.deadline,
                         state: state)
         
         taskRepository.update(with: taskToChange)
