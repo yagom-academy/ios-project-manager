@@ -9,30 +9,66 @@ import SwiftUI
 
 struct DetailScene: View {
     @EnvironmentObject var viewModel: ProjectManagerViewModel
-    @ObservedObject var task: Task
+
+    @State private var title: String
+    @State private var content: String
+    @State private var limitDate: Date
+    
     @Binding var showDetailScene: Bool
-    @State var isShowEditScene: Bool = false
+    @State var isEditingMode: Bool = false
+    
+    var task: Task
+    
+    init(task: Task, showDetailScene: Binding<Bool>) {
+        _showDetailScene = showDetailScene
+        _title = State(initialValue: task.title)
+        _content = State(initialValue: task.content)
+        _limitDate = State(initialValue: task.limitDate)
+        self.task = task
+    }
     
     var body: some View {
         NavigationView {
             VStack(alignment: .center) {
-                TaskDetailView(
-                    title: $task.title,
-                    content: $task.content,
-                    limitDate: $task.limitDate
-                )
+                TaskEditView(
+                    title: $title,
+                    content: $content,
+                    limitDate: $limitDate
+                ).disabled(!isEditingMode)
             }
             .padding()
             .navigationBarTitle("TODO", displayMode: .inline)
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButtonView(show: $isShowEditScene)
-                        .sheet(isPresented: $isShowEditScene, onDismiss: nil) {
-                            EditScene(showEditScene: $isShowEditScene, task: task)
-                        }
-                }
                 ToolbarItem(placement: .navigationBarLeading) {
-                    DismissButtonView(show: $showDetailScene)
+                    Button {
+                        if isEditingMode {
+                            title = task.title
+                            content = task.content
+                            limitDate = task.limitDate
+                        }
+                        isEditingMode.toggle()
+                    } label: {
+                        if isEditingMode {
+                            Text("Cancel")
+                        } else {
+                            Text("Edit")
+                        }
+                    }
+                }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        if isEditingMode {
+                            self.viewModel.updateTask(
+                                task: task,
+                                title: $title.wrappedValue,
+                                content: $content.wrappedValue,
+                                limitDate: $limitDate.wrappedValue
+                            )
+                        }
+                        showDetailScene = false
+                    } label: {
+                        Text("Done")
+                    }
                 }
             }
         }

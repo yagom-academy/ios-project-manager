@@ -7,14 +7,12 @@
 
 import SwiftUI
 
-struct EditScene: View {
+struct AddScene: View {
     @EnvironmentObject var viewModel: ProjectManagerViewModel
     @State private var title: String = ""
     @State private var content: String = ""
     @State private var limitDate: Date = Date()
-    @Binding var showEditScene: Bool
-    
-    var task: Task? = nil
+    @Binding var showAddScene: Bool
     
     var body: some View {
         NavigationView {
@@ -30,22 +28,16 @@ struct EditScene: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     DoneButtonView(
-                        show: $showEditScene,
+                        show: $showAddScene,
                         title: $title,
                         content: $content,
-                        limitDate: $limitDate,
-                        task: task
+                        limitDate: $limitDate
                     )
                 }
                 ToolbarItem(placement: .navigationBarLeading) {
-                    DismissButtonView(show: $showEditScene)
+                    DismissButtonView(show: $showAddScene)
                 }
             }
-        }
-        .onAppear {
-            self.title = self.task?.title ?? ""
-            self.content = self.task?.content ?? ""
-            self.limitDate = self.task?.limitDate ?? Date()
         }
         .navigationViewStyle(.stack)
     }

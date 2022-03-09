@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MainScene: View {
     @EnvironmentObject var viewModel: ProjectManagerViewModel
-    @State var isShowEditScene: Bool = false
+    @State var isShowAddScene: Bool = false
     
     var body: some View {
         NavigationView {
@@ -21,9 +21,9 @@ struct MainScene: View {
             .navigationBarTitle("Project Manager", displayMode: .inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    AddButtonView(show: $isShowEditScene)
-                        .sheet(isPresented: $isShowEditScene, onDismiss: nil) {
-                            EditScene(showEditScene: $isShowEditScene)
+                    AddButtonView(show: $isShowAddScene)
+                        .sheet(isPresented: $isShowAddScene, onDismiss: nil) {
+                            AddScene(showAddScene: $isShowAddScene)
                         }
                 }
             }
