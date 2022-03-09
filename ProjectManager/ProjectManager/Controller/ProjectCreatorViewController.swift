@@ -7,17 +7,16 @@
 
 import UIKit
 
-protocol ProjectDetailViewControllerDelegate {
+// MARK: - ProjectCreatorViewControllerDelegate
+protocol ProjectCreatorViewControllerDelegate {
     
     func createProject(with content: [String: Any])
-    
-    func updateProject(of identifier: UUID, with content: [String: Any])
 }
 
-class ProjectDetailViewController: UIViewController {
+// MARK: - ProjectCreatorViewController
+class ProjectCreatorViewController: UIViewController {
     
     // MARK: - Property
-    var project: Project?
     weak var delegate: ProjectBoardViewController?
     
     // MARK: - UI Property
@@ -79,7 +78,6 @@ class ProjectDetailViewController: UIViewController {
         self.configureNavigationItem()
         self.configureNavigationBarLayout()
         self.configureStackViewLayout()
-        self.configureContent()
     }
     
     // MARK: - Configure View
@@ -118,15 +116,6 @@ class ProjectDetailViewController: UIViewController {
             stackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 15),
             stackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -15)
         ])
-    }
-    
-    private func configureContent() {
-        guard project != nil else {
-            return
-        }
-        self.titleTextField.text = project?.title
-        self.datePicker.date = project?.deadline ?? Date()
-        self.descriptionTextView.text = project?.description
     }
     
     // MARK: - @objc Method

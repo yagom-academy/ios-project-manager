@@ -13,14 +13,7 @@ extension Date {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .none
-        
-        var preferredLanguage = Locale.preferredLanguages.first
-        let currentRegionIdentifier: Substring? = NSLocale.current.identifier.split(separator: "_").last
-        if let languageCode = preferredLanguage, let regionCode = currentRegionIdentifier {
-            let deviceLocaleIdentifier = "\(languageCode)_\(regionCode)"
-            dateFormatter.locale = Locale(identifier: deviceLocaleIdentifier)
-            return dateFormatter
-        }
+        dateFormatter.setLocalizedDateFormatFromTemplate("yyyy.MM.dd")
         dateFormatter.locale = .autoupdatingCurrent
         return dateFormatter
     }()

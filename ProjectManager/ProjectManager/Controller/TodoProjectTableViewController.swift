@@ -7,16 +7,26 @@
 
 import UIKit
 
-enum Section {
-    case main
+// MARK: - TodoProjectTableViewControllerDelegate
+protocol TodoProjectTableViewControllerDelegate {
+    
+    func update(of identifier: UUID, with content: [String: Any])
 }
 
+// MARK: - TodoProjectTableViewController
 class TodoProjectTableViewController: UIViewController {
+    
+    // MARK: - DiffableDataSource Identfier
+    enum Section {
+        case main
+    }
     
     // MARK: - Property
     weak var projectManager: ProjectManager?
     private let projectTableView = UITableView()
     private var dataSource: UITableViewDiffableDataSource<Section,Project>!
+    private let longPressGestureRecognizer = UILongPressGestureRecognizer()
+    weak var delegate: ProjectBoardViewController?
     
     // MARK: - View Life Cycle
     override func loadView() {
@@ -32,7 +42,7 @@ class TodoProjectTableViewController: UIViewController {
         self.applySnapshot()
     }
     
-    // MARK: - Configure UI
+    // MARK: - Configure View
     private func configureView() {
         self.view = .init()
         self.view.backgroundColor = .systemGray6
@@ -59,6 +69,7 @@ class TodoProjectTableViewController: UIViewController {
         ])
     }
     
+   
     // MARK: - TableView
     private func configureDataSource() {
         dataSource = UITableViewDiffableDataSource<Section, Project>(tableView: projectTableView) { (tableView: UITableView, indexPath: IndexPath, project: Project) -> UITableViewCell? in
@@ -84,6 +95,10 @@ class TodoProjectTableViewController: UIViewController {
         
         dataSource.apply(snapShot, animatingDifferences: true, completion: nil)
     }
+    
+    func delegateUpdateProject(of identifier: UUID, with content: [String: Any]) {
+        delegate?.updateProject(of: identifier, with: content)
+    }
 }
 
 // MARK: - UITableViewDelegate
@@ -103,5 +118,17 @@ extension TodoProjectTableViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 60
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let selectedProject = dataSource.itemIdentifier(for: indexPath) else {
+            return
+        }
+        
+        let detailViewController = ProjectDetailViewController()
+        detailViewController.modalPresentationStyle = .formSheet
+        detailViewController.project = selectedProject
+        
+        self.present(detailViewController, animated: false, completion: nil)
     }
 }

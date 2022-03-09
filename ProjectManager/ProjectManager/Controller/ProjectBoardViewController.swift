@@ -31,6 +31,7 @@ class ProjectBoardViewController: UIViewController {
         self.configureNavigationBarLayout()
         self.todoViewController.projectManager = projectManager
         self.configurTodoProjectviewControllerLayout()
+        self.configureDelegate()
     }
      
     // MARK: - Configure UI
@@ -44,7 +45,7 @@ class ProjectBoardViewController: UIViewController {
         let navigationItem = UINavigationItem(title: "Project Manager")
         let addButton = UIBarButtonItem(barButtonSystemItem: .add,
                                         target: self,
-                                        action: #selector(presentProjectDetailViewController))
+                                        action: #selector(presentProjectCreatorViewController))
         navigationItem.rightBarButtonItem = addButton
         
         navigationBar.items = [navigationItem]
@@ -69,12 +70,17 @@ class ProjectBoardViewController: UIViewController {
         ])
     }
     
+    // MARK: - Configure Controller
+    private func configureDelegate() {
+        todoViewController.delegate = self
+    }
+    
     // MARK: - @objc Method
-    @objc func presentProjectDetailViewController() {
-        let detailViewController = ProjectDetailViewController()
-        detailViewController.modalPresentationStyle = .formSheet
-        detailViewController.delegate = self
-        present(detailViewController, animated: false, completion: nil)
+    @objc func presentProjectCreatorViewController() {
+        let creatorViewController = ProjectCreatorViewController()
+        creatorViewController.modalPresentationStyle = .formSheet
+        creatorViewController.delegate = self
+        present(creatorViewController, animated: false, completion: nil)
     }
 }
 
@@ -86,9 +92,25 @@ extension ProjectBoardViewController: UINavigationBarDelegate {
 }
 
 // MARK: - ProjectDetailViewControllerDelegate
-extension ProjectBoardViewController: ProjectDetailViewControllerDelegate {
+extension ProjectBoardViewController: ProjectCreatorViewControllerDelegate {
+ 
     func createProject(with content: [String: Any]) {
         self.projectManager.create(with: content)
         todoViewController.applySnapshot()
+    }
+    
+    func updateProject(of identifier: UUID, with content: [String : Any]) {
+        self.projectManager.updateProject(of: identifier, with: content)
+        todoViewController.applySnapshot()
+    }
+}
+
+// MARK: - TodoProjectTableViewControllerDelegate
+extension ProjectBoardViewController: TodoProjectTableViewControllerDelegate {
+    func update(of identifier: UUID, with content: [String : Any]) {
+        projectManager.updateProject(of: identifier, with: content)
+        todoViewController.applySnapshot()
+        // doingViewController.applySnapshot
+        // doneViewController.applySnapshot
     }
 }
