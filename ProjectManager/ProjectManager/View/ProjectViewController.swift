@@ -3,11 +3,24 @@ import RxSwift
 import RxCocoa
 
 
-class ProjectViewController: UIViewController {
+private enum Content {
+    static let workFormViewStoryboardName = "WorkFormView"
+    static let todoTitle = "TODO"
+    static let doingTitle = "DOING"
+    static let doneTitle = "DONE"
+}
+
+private enum Design {
+    static let tableViewBackgroundColor: UIColor = .systemGray5
+    static let viewBackgroundColor: UIColor = .systemGray6
+    static let countLabelCornerRadius: CGFloat = 12
+}
+
+final class ProjectViewController: UIViewController {
     
     private let viewModel = ProjectViewModel()
     private var disposeBag = DisposeBag()
-    private let formSheetViewStorboardName = "WorkFormView"
+    private let formSheetViewStorboardName = Content.workFormViewStoryboardName
     
     @IBOutlet weak private var todoTableView: UITableView!
     @IBOutlet weak private var doingTableView: UITableView!
@@ -38,7 +51,7 @@ class ProjectViewController: UIViewController {
     }
     
     private func setupView() {
-        view.backgroundColor = .systemGray6
+        view.backgroundColor = Design.viewBackgroundColor
     }
     
     private func setupTableViews() {
@@ -56,13 +69,13 @@ class ProjectViewController: UIViewController {
     }
     
     private func configureHeaders() {
-        todoTitleLabel.text = "TODO"
-        doingTitleLabel.text = "DOING"
-        doneTitleLabel.text = "DONE"
+        todoTitleLabel.text = Content.todoTitle
+        doingTitleLabel.text = Content.doingTitle
+        doneTitleLabel.text = Content.doneTitle
         
-        todoCountLabel.layer.cornerRadius = 12
-        doingCountLabel.layer.cornerRadius = 12
-        doneCountLabel.layer.cornerRadius = 12
+        todoCountLabel.layer.cornerRadius = Design.countLabelCornerRadius
+        doingCountLabel.layer.cornerRadius = Design.countLabelCornerRadius
+        doneCountLabel.layer.cornerRadius = Design.countLabelCornerRadius
         
         todoCountLabel.layer.masksToBounds = true
         doingCountLabel.layer.masksToBounds = true
@@ -118,9 +131,9 @@ class ProjectViewController: UIViewController {
             }
             .disposed(by: disposeBag)
         
-        todoTableView.backgroundColor = .systemGray5
-        doingTableView.backgroundColor = .systemGray5
-        doneTableView.backgroundColor = .systemGray5
+        todoTableView.backgroundColor = Design.tableViewBackgroundColor
+        doingTableView.backgroundColor = Design.tableViewBackgroundColor
+        doneTableView.backgroundColor = Design.tableViewBackgroundColor
     }
     
 }

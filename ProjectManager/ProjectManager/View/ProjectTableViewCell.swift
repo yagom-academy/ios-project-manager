@@ -1,6 +1,14 @@
 import UIKit
 
 
+private enum Design {
+    static let verticalInset: CGFloat = 2
+    static let tableViewBackgroundColor: UIColor = .systemGray5
+    static let cellBackgroundColor: UIColor = .white
+    static let textColor: UIColor = .label
+    static let expiredDateColor: UIColor = .systemRed
+}
+
 final class ProjectTableViewCell: UITableViewCell {
     
     @IBOutlet weak private var titleLabel: UILabel!
@@ -8,7 +16,7 @@ final class ProjectTableViewCell: UITableViewCell {
     @IBOutlet weak private var dateLabel: UILabel!
     
     override func prepareForReuse() {
-        dateLabel.textColor = .label
+        dateLabel.textColor = Design.textColor
         
         titleLabel.text = nil
         bodyLabel.text = nil
@@ -18,13 +26,13 @@ final class ProjectTableViewCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         self.contentView.frame = self.contentView.frame.inset(by: UIEdgeInsets(
-            top: 3,
-            left: 0,
-            bottom: 3,
-            right: 0)
+            top: Design.verticalInset,
+            left: .zero,
+            bottom: Design.verticalInset,
+            right: .zero)
         )
-        contentView.backgroundColor = .white
-        self.backgroundColor = .systemGray5
+        contentView.backgroundColor = Design.cellBackgroundColor
+        self.backgroundColor = Design.tableViewBackgroundColor
     }
     
     func configureCellContent(for item: Work) {
@@ -33,7 +41,7 @@ final class ProjectTableViewCell: UITableViewCell {
         dateLabel.text = item.convertedDate
         
         if item.isExpired {
-            dateLabel.textColor = .systemRed
+            dateLabel.textColor = Design.expiredDateColor
         }
     }
     

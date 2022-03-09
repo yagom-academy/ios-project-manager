@@ -140,10 +140,6 @@
                                         </subviews>
                                     </stackView>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="6ML-VG-Ttj" secondAttribute="width" multiplier="3.0221" id="aix-md-2Uw"/>
-                                    <constraint firstAttribute="width" secondItem="lgn-Rv-31K" secondAttribute="width" multiplier="3.0221" id="e8A-gO-naJ"/>
-                                </constraints>
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>

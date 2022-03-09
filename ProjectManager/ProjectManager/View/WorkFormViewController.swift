@@ -1,6 +1,17 @@
 import UIKit
 
-class WorkFormViewController: UIViewController {
+
+private enum Design {
+    static let shadowColor: CGColor = UIColor.black.cgColor
+    static let shadowOffset = CGSize(width: 0, height: 5)
+    static let shadowOpacity: Float = 0.3
+    static let shadowRadius: CGFloat = 5.0
+    
+    static let textInputBackgroundColor = UIColor.white.cgColor
+    static let textFieldLeftPadding: CGFloat = 10
+}
+
+final class WorkFormViewController: UIViewController {
     
     private var viewModel: ProjectViewModel?
     
@@ -41,19 +52,19 @@ class WorkFormViewController: UIViewController {
     }
     
     private func configureTextFieldShadow() {
-        titleTextField.layer.backgroundColor = UIColor.white.cgColor
+        titleTextField.layer.backgroundColor = Design.textInputBackgroundColor
         
-        titleTextField.layer.shadowColor = UIColor.black.cgColor
-        titleTextField.layer.shadowOffset = CGSize(width: 0, height: 5)
-        titleTextField.layer.shadowOpacity = 0.3
-        titleTextField.layer.shadowRadius = 5.0
+        titleTextField.layer.shadowColor = Design.shadowColor
+        titleTextField.layer.shadowOffset = Design.shadowOffset
+        titleTextField.layer.shadowOpacity = Design.shadowOpacity
+        titleTextField.layer.shadowRadius = Design.shadowRadius
     }
     
     private func configureTextFieldLeftView() {
         let leftView = UIView(frame: CGRect(
             x: .zero,
             y: .zero,
-            width: 10,
+            width: Design.textFieldLeftPadding,
             height: titleTextField.frame.height
         ))
         titleTextField.leftView = leftView
@@ -63,12 +74,12 @@ class WorkFormViewController: UIViewController {
     private func configureTextViewShadow() {
         bodyTextView.layer.masksToBounds = false
         
-        bodyTextView.layer.backgroundColor = UIColor.white.cgColor
+        bodyTextView.layer.backgroundColor = Design.textInputBackgroundColor
         
-        bodyTextView.layer.shadowColor = UIColor.black.cgColor
-        bodyTextView.layer.shadowOffset = CGSize(width: 0, height: 5)
-        bodyTextView.layer.shadowOpacity = 0.3
-        bodyTextView.layer.shadowRadius = 5.0
+        bodyTextView.layer.shadowColor = Design.shadowColor
+        bodyTextView.layer.shadowOffset = Design.shadowOffset
+        bodyTextView.layer.shadowOpacity = Design.shadowOpacity
+        bodyTextView.layer.shadowRadius = Design.shadowRadius
     }
     
 }

@@ -3,7 +3,7 @@ import RxSwift
 import UIKit
 
 
-class ProjectViewModel {
+final class ProjectViewModel {
     
     private let repository = WorkMemoryManager()
     
