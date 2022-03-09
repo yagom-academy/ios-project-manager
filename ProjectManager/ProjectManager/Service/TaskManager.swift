@@ -25,7 +25,6 @@ class TaskManager {
             .indices
             .filter { taskList[$0].id == newTask.id }
             .forEach {
-                taskList[$0].progressStatus = newTask.progressStatus
                 taskList[$0].title = newTask.title
                 taskList[$0].deadline = newTask.deadline
                 taskList[$0].description = newTask.description
