@@ -42,14 +42,38 @@ class MainTaskViewController: UIViewController {
         taskListViewModel.didLoaded()
     }
     
+    private func configureTaskListViewModel() {
+        // TODO: - ViewModel 셋업
+        taskListViewModel.taskDidCreated = { [weak self] in
+            guard let self = self else {
+                return
+            }
+            let waitingTaskCounts = self.taskListViewModel.count(of: .waiting) - 1
+            self.taskInWaitingTableView.insertRows(at: [IndexPath(row: waitingTaskCounts, section: 0)], with: .fade)
+        }
+        
+        taskListViewModel.taskDidDeleted = { [weak self] (index, state) in
+            guard let self = self else {
+                return
+            }
+            
+            let indexPath = IndexPath(row: index, section: 0)
+            
+            switch state {
+            case .waiting:
+                self.taskInWaitingTableView.deleteRows(at: [indexPath], with: .fade)
+            case .progress:
+                self.taskInProgressTableView.deleteRows(at: [indexPath], with: .fade)
+            case .done:
+                self.taskInDoneTableView.deleteRows(at: [indexPath], with: .fade)
+            }
+        }
+    }
+    
     private func configureUI() {
         configureNavigationController()
         configureTableView()
         configureLayout()
-    }
-    
-    private func configureNavigationController() {
-        navigationItem.title = "Project Manager"
     }
     
     private func configureTableView() {
@@ -73,8 +97,17 @@ class MainTaskViewController: UIViewController {
         ])
     }
     
-    private func configureTaskListViewModel() {
-        // TODO: - ViewModel 셋업
+    private func configureNavigationController() {
+        navigationItem.title = "Project Manager"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTask))
+    }
+    
+    @objc func addTask() {
+        let taskManageViewController = TaskManageViewController(manageType: .add, taskListViewModel: taskListViewModel)
+        let taskManageNavigationViewController = UINavigationController(rootViewController: taskManageViewController)
+        taskManageNavigationViewController.modalPresentationStyle = .formSheet
+        
+        self.present(taskManageNavigationViewController, animated: true, completion: nil)
     }
 }
 

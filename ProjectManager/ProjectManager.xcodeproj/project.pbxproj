@@ -32,6 +32,7 @@
 		C9ECBF2727D889D700E49ED4 /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9ECBF2627D889D700E49ED4 /* TaskTableViewCell.swift */; };
 		C9ECBF2927D88DBD00E49ED4 /* TaskTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9ECBF2827D88DBD00E49ED4 /* TaskTableView.swift */; };
 		C9ECBF2B27D88E6E00E49ED4 /* UITableView+dequeue.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9ECBF2A27D88E6E00E49ED4 /* UITableView+dequeue.swift */; };
+		C9ECBF2D27D8A9F900E49ED4 /* TaskManageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9ECBF2C27D8A9F900E49ED4 /* TaskManageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +71,7 @@
 		C9ECBF2627D889D700E49ED4 /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
 		C9ECBF2827D88DBD00E49ED4 /* TaskTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableView.swift; sourceTree = "<group>"; };
 		C9ECBF2A27D88E6E00E49ED4 /* UITableView+dequeue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+dequeue.swift"; sourceTree = "<group>"; };
+		C9ECBF2C27D8A9F900E49ED4 /* TaskManageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManageViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -216,6 +218,7 @@
 				C9ECBF2527D889BC00E49ED4 /* Cell */,
 				C9ECBF2827D88DBD00E49ED4 /* TaskTableView.swift */,
 				C7431F0925F51E1D0094C4CF /* MainTaskViewController.swift */,
+				C9ECBF2C27D8A9F900E49ED4 /* TaskManageViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -375,6 +378,7 @@
 				C9C2615527CF5C69002FA9F4 /* TaskRepository.swift in Sources */,
 				C9ECBF2B27D88E6E00E49ED4 /* UITableView+dequeue.swift in Sources */,
 				C9C2616027CF635E002FA9F4 /* TaskManager.swift in Sources */,
+				C9ECBF2D27D8A9F900E49ED4 /* TaskManageViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

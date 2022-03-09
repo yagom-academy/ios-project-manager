@@ -17,6 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
         
         window = UIWindow(windowScene: windowScene)
+        window?.backgroundColor = .systemBackground
         let taskMemoryRepository = TaskMemoryRepository()
         let taskManager = TaskManager(taskRepository: taskMemoryRepository)
         let taskListViewModel = TaskListViewModel(taskManager: taskManager)

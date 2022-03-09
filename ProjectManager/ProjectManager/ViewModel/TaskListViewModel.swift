@@ -12,7 +12,7 @@ final class TaskListViewModel: TaskViewModel {
     var presentErrorAlert: ((Error) -> Void)?
     var taskDidCreated: (() -> Void)?
 //    var taskDidFetched: ((Task) -> Void)?
-    var taskDidDeleted: ((Int) -> Void)?
+    var taskDidDeleted: ((Int, TaskState) -> Void)?
     var taskDidChanged: ((Int) -> Void)?
     var taskDidMoved: ((Int, TaskState) -> Void)?
     var tasksDidUpdated: (() -> Void)?
@@ -36,8 +36,8 @@ final class TaskListViewModel: TaskViewModel {
     
     func createTask(title: String, description: String, deadline: Date) {
         taskManager.create(title: title, description: description, deadline: deadline)
-        taskDidCreated?()
         updateTasks()
+        taskDidCreated?()        
     }
     
     func updateRow(at index: Int, title: String, description: String, deadline: Date, from state: TaskState) {
@@ -47,8 +47,8 @@ final class TaskListViewModel: TaskViewModel {
     
     func deleteRow(at index: Int, from state: TaskState) {
         taskManager.delete(at: index, from: state)
-        taskDidDeleted?(index)
         updateTasks()
+        taskDidDeleted?(index, state)
     }
     
     func move(at index: Int, to state: TaskState) {
