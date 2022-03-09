@@ -29,7 +29,7 @@ final class MainViewController: UIViewController {
 
     init(viewModel: MainViewModel) {
         self.viewModel = viewModel
-        self.tableViews = self.viewModel.schedules.map { _ in UITableView() }
+        self.tableViews = Progress.allCases.map { _ in UITableView() }
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -42,8 +42,6 @@ final class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configure()
-
-        self.viewModel.fetch()
     }
 }
 
@@ -94,34 +92,27 @@ private extension MainViewController {
     }
 
     func tableViewBinding() {
-        self.tableViews.enumerated().forEach { index, tableView in
-            self.setDataSource(with: index, for: tableView)
-            self.setDeleteAction(for: tableView)
+        let input = MainViewModel.Input(
+            viewWillAppear: self.rx.methodInvoked(#selector(UIViewController.viewWillAppear))
+                .map { _ in },
+            cellDidTap: tableViews.map { $0.rx.modelSelected(Schedule.self).asObservable() },
+            cellDelete: tableViews.map { $0.rx.modelDeleted(Schedule.self).map { $0.id } },
+            addButtonDidTap: Observable.of()
+        )
+
+        let output = self.viewModel.transform(input: input, disposeBag: self.bag)
+
+        output.scheduleLists.enumerated().forEach { index, observable in
+            observable.asDriver()
+                .drive(
+                    self.tableViews[index].rx.items(
+                        cellIdentifier: "ScheduleListCell",
+                        cellType: ScheduleListCell.self
+                    )
+                ) { _, item, cell in
+                    cell.configureContent(with: item)
+                }
+                .disposed(by: bag)
         }
-    }
-
-    func setDataSource(with index: Int, for tableView: UITableView) {
-        self.viewModel.schedules[index]
-            .drive(
-                tableView.rx.items(cellIdentifier: "ScheduleListCell",
-                                   cellType: ScheduleListCell.self
-                                  )
-            ) { _, item, cell in
-                cell.configureContent(with: item)
-            }
-            .disposed(by: bag)
-    }
-
-    func setDeleteAction(for tableView: UITableView) {
-        tableView.rx
-            .modelDeleted(Schedule.self)
-            .subscribe(onNext: { schedule in
-                self.deleteSchedule(id: schedule.id)
-            })
-            .disposed(by: bag)
-    }
-
-    func deleteSchedule(id: UUID) {
-        self.viewModel.delete(id: id)
     }
 }

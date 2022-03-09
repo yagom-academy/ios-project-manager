@@ -24,6 +24,7 @@
 		33B6322327D7554C00EB169D /* DateFormatter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33B6322227D7554C00EB169D /* DateFormatter+Extension.swift */; };
 		376D6FB527D734950097D31A /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 376D6FB427D734950097D31A /* MainViewModel.swift */; };
 		37CC921827D74D15003F1122 /* ScheduleListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CC921727D74D15003F1122 /* ScheduleListCell.swift */; };
+		37CC921F27D87105003F1122 /* ScheduleDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CC921E27D87105003F1122 /* ScheduleDetailViewController.swift */; };
 		37FB8D9727D1DE6100ED9AE2 /* ScheduleUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FB8D9627D1DE6100ED9AE2 /* ScheduleUseCase.swift */; };
 		37FB8D9927D1EDD400ED9AE2 /* MemoryDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FB8D9827D1EDD400ED9AE2 /* MemoryDataSource.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
@@ -61,6 +62,7 @@
 		33B6322227D7554C00EB169D /* DateFormatter+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Extension.swift"; sourceTree = "<group>"; };
 		376D6FB427D734950097D31A /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		37CC921727D74D15003F1122 /* ScheduleListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleListCell.swift; sourceTree = "<group>"; };
+		37CC921E27D87105003F1122 /* ScheduleDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleDetailViewController.swift; sourceTree = "<group>"; };
 		37FB8D9627D1DE6100ED9AE2 /* ScheduleUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleUseCase.swift; sourceTree = "<group>"; };
 		37FB8D9827D1EDD400ED9AE2 /* MemoryDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryDataSource.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -164,6 +166,49 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
+		37CC921927D86FF7003F1122 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				37CC921D27D870DB003F1122 /* ScheduleDetail */,
+				37CC921A27D870A4003F1122 /* Main */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		37CC921A27D870A4003F1122 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				37CC921C27D870CC003F1122 /* View */,
+				37CC921B27D870C3003F1122 /* ViewModel */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		37CC921B27D870C3003F1122 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				376D6FB427D734950097D31A /* MainViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		37CC921C27D870CC003F1122 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
+				37CC921727D74D15003F1122 /* ScheduleListCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		37CC921D27D870DB003F1122 /* ScheduleDetail */ = {
+			isa = PBXGroup;
+			children = (
+				37CC921E27D87105003F1122 /* ScheduleDetailViewController.swift */,
+			);
+			path = ScheduleDetail;
+			sourceTree = "<group>";
+		};
 		37FB8D9427D1DDF400ED9AE2 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
@@ -207,9 +252,7 @@
 				33B6321F27D7527800EB169D /* Extension */,
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
-				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
-				376D6FB427D734950097D31A /* MainViewModel.swift */,
-				37CC921727D74D15003F1122 /* ScheduleListCell.swift */,
+				37CC921927D86FF7003F1122 /* Presentation */,
 				37FB8D9427D1DDF400ED9AE2 /* Domain */,
 				336E237327D1E63800C40ECC /* Data */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
@@ -372,6 +415,7 @@
 				37FB8D9727D1DE6100ED9AE2 /* ScheduleUseCase.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				336E237B27D1E7DD00C40ECC /* Repository.swift in Sources */,
+				37CC921F27D87105003F1122 /* ScheduleDetailViewController.swift in Sources */,
 				376D6FB527D734950097D31A /* MainViewModel.swift in Sources */,
 				33B6322127D7528700EB169D /* TableView+Extension.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
