@@ -7,7 +7,7 @@ class ProjectViewController: UIViewController {
     
     private let viewModel = ProjectViewModel()
     private var disposeBag = DisposeBag()
-    private let actionViewStorboardName = "ActionView"
+    private let formSheetViewStorboardName = "WorkFormView"
     
     @IBOutlet weak private var todoTableView: UITableView!
     @IBOutlet weak private var doingTableView: UITableView!
@@ -26,11 +26,11 @@ class ProjectViewController: UIViewController {
     }
     
     @IBAction private func addNewWork(_ sender: UIBarButtonItem) {
-        let storyboard = UIStoryboard(name: actionViewStorboardName, bundle: nil)
+        let storyboard = UIStoryboard(name: formSheetViewStorboardName, bundle: nil)
         let viewController = storyboard.instantiateViewController(
-            identifier: String(describing: ActionViewController.self)
+            identifier: String(describing: WorkFormViewController.self)
         ) { coder in
-            ActionViewController(coder: coder, viewModel: self.viewModel)
+            WorkFormViewController(coder: coder, viewModel: self.viewModel)
         }
         viewController.modalPresentationStyle = .formSheet
         
@@ -48,11 +48,11 @@ class ProjectViewController: UIViewController {
     }
     
     private func configureTableViewCells() {
-        let nibName = UINib(nibName: String(describing: TableViewCell.self), bundle: nil)
+        let nibName = UINib(nibName: String(describing: ProjectTableViewCell.self), bundle: nil)
         
-        todoTableView.register(nibName, forCellReuseIdentifier: String(describing: TableViewCell.self))
-        doingTableView.register(nibName, forCellReuseIdentifier: String(describing: TableViewCell.self))
-        doneTableView.register(nibName, forCellReuseIdentifier: String(describing: TableViewCell.self))
+        todoTableView.register(nibName, forCellReuseIdentifier: String(describing: ProjectTableViewCell.self))
+        doingTableView.register(nibName, forCellReuseIdentifier: String(describing: ProjectTableViewCell.self))
+        doneTableView.register(nibName, forCellReuseIdentifier: String(describing: ProjectTableViewCell.self))
     }
     
     private func configureHeaders() {
@@ -89,8 +89,8 @@ class ProjectViewController: UIViewController {
         viewModel.todoList
             .observe(on: MainScheduler.instance)
             .bind(to: todoTableView.rx.items(
-                cellIdentifier: String(describing: TableViewCell.self),
-                cellType: TableViewCell.self
+                cellIdentifier: String(describing: ProjectTableViewCell.self),
+                cellType: ProjectTableViewCell.self
             )) { _, item, cell in
                 cell.configureCellContent(for: item)
             }
@@ -98,8 +98,8 @@ class ProjectViewController: UIViewController {
         viewModel.doingList
             .observe(on: MainScheduler.instance)
             .bind(to: doingTableView.rx.items(
-                cellIdentifier: String(describing: TableViewCell.self),
-                cellType: TableViewCell.self
+                cellIdentifier: String(describing: ProjectTableViewCell.self),
+                cellType: ProjectTableViewCell.self
             )) { _, item, cell in
                 cell.configureCellContent(for: item)
             }
@@ -107,8 +107,8 @@ class ProjectViewController: UIViewController {
         viewModel.doneList
             .observe(on: MainScheduler.instance)
             .bind(to: doneTableView.rx.items(
-                cellIdentifier: String(describing: TableViewCell.self),
-                cellType: TableViewCell.self
+                cellIdentifier: String(describing: ProjectTableViewCell.self),
+                cellType: ProjectTableViewCell.self
             )) { _, item, cell in
                 cell.configureCellContent(for: item)
             }

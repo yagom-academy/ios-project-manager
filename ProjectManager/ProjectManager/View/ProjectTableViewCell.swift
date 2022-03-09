@@ -1,7 +1,8 @@
 import UIKit
 
 
-final class TableViewCell: UITableViewCell {
+final class ProjectTableViewCell: UITableViewCell {
+    
     @IBOutlet weak private var titleLabel: UILabel!
     @IBOutlet weak private var bodyLabel: UILabel!
     @IBOutlet weak private var dateLabel: UILabel!

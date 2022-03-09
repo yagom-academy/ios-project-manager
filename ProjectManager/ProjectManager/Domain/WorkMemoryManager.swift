@@ -1,23 +1,23 @@
 import Foundation
 
 
-class Repository: DataManager {
+class WorkMemoryManager: WorkManagable {
     
     private var workList: [Work] = []
     
     var todoList: [Work] {
         workList.filter { work in
-            work.sort == .todo
+            work.category == .todo
         }
     }
     var doingList: [Work] {
         workList.filter { work in
-            work.sort == .doing
+            work.category == .doing
         }
     }
     var doneList: [Work] {
         workList.filter { work in
-            work.sort == .done
+            work.category == .done
         }
     }
     
@@ -39,8 +39,8 @@ class Repository: DataManager {
                        asddfa
                        """,
                  dueDate: Date()),
-            Work(title: "b", body: "c", dueDate: Date(), sort: .doing),
-            Work(title: "bbbbb", body: "xxxxx", dueDate: Date(), sort: .done)
+            Work(title: "b", body: "c", dueDate: Date(), category: .doing),
+            Work(title: "bbbbb", body: "xxxxx", dueDate: Date(), category: .done)
         ]
         
         workList = works

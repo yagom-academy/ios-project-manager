@@ -3,11 +3,11 @@ import XCTest
 
 class ProjectManagerModelTests: XCTestCase {
     
-    var sut: Repository?
+    var sut: WorkMemoryManager?
     
     override func setUpWithError() throws {
         try super.setUpWithError()
-        sut = Repository()
+        sut = WorkMemoryManager()
     }
 
     override func tearDownWithError() throws {

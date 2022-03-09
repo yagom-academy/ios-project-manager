@@ -19,17 +19,17 @@
 		DE5359EF27D097BF00FD7953 /* ProjectManagerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5359EE27D097BF00FD7953 /* ProjectManagerViewModel.swift */; };
 		DE843A4C27CE616A00F622E2 /* Work.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE843A4B27CE616A00F622E2 /* Work.swift */; };
 		DE843A4F27CE641900F622E2 /* DateFormatter+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE843A4E27CE641900F622E2 /* DateFormatter+extension.swift */; };
-		DE843A5227CE6DD200F622E2 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE843A5127CE6DD200F622E2 /* Repository.swift */; };
-		DE843A5527CE6EA300F622E2 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE843A5427CE6EA300F622E2 /* DataManager.swift */; };
+		DE843A5227CE6DD200F622E2 /* WorkMemoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE843A5127CE6DD200F622E2 /* WorkMemoryManager.swift */; };
+		DE843A5527CE6EA300F622E2 /* WorkManagable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE843A5427CE6EA300F622E2 /* WorkManagable.swift */; };
 		DE8587AC27CF064200D4F4B7 /* ProjectManagerModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8587AB27CF064200D4F4B7 /* ProjectManagerModelTests.swift */; };
-		DE8587B427CF406100D4F4B7 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE843A5127CE6DD200F622E2 /* Repository.swift */; };
-		DE8587B527CF406500D4F4B7 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE843A5427CE6EA300F622E2 /* DataManager.swift */; };
+		DE8587B427CF406100D4F4B7 /* WorkMemoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE843A5127CE6DD200F622E2 /* WorkMemoryManager.swift */; };
+		DE8587B527CF406500D4F4B7 /* WorkManagable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE843A5427CE6EA300F622E2 /* WorkManagable.swift */; };
 		DE8587B627CF406900D4F4B7 /* Work.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE843A4B27CE616A00F622E2 /* Work.swift */; };
 		DE8587B727CF407900D4F4B7 /* DateFormatter+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE843A4E27CE641900F622E2 /* DateFormatter+extension.swift */; };
-		DE8587BF27CF562200D4F4B7 /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DE8587BE27CF562200D4F4B7 /* TableViewCell.xib */; };
-		DE8587C127CF571E00D4F4B7 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8587C027CF571E00D4F4B7 /* TableViewCell.swift */; };
-		DE9A0AAA27D21CE10095BBF9 /* ActionView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE9A0AA927D21CE10095BBF9 /* ActionView.storyboard */; };
-		DE9A0AAC27D228400095BBF9 /* ActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9A0AAB27D228400095BBF9 /* ActionViewController.swift */; };
+		DE8587BF27CF562200D4F4B7 /* ProjectTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DE8587BE27CF562200D4F4B7 /* ProjectTableViewCell.xib */; };
+		DE8587C127CF571E00D4F4B7 /* ProjectTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8587C027CF571E00D4F4B7 /* ProjectTableViewCell.swift */; };
+		DE9A0AAA27D21CE10095BBF9 /* WorkFormView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE9A0AA927D21CE10095BBF9 /* WorkFormView.storyboard */; };
+		DE9A0AAC27D228400095BBF9 /* WorkFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9A0AAB27D228400095BBF9 /* WorkFormViewController.swift */; };
 		DEE3C45327D5EFC4002D014B /* Array+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE44BF8727D4A23F006E9010 /* Array+extension.swift */; };
 		F30B76FC5BC81A5381504B03 /* Pods_ProjectManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 204B28057D7E57350830FB9D /* Pods_ProjectManager.framework */; };
 /* End PBXBuildFile section */
@@ -61,15 +61,15 @@
 		DE5359EE27D097BF00FD7953 /* ProjectManagerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerViewModel.swift; sourceTree = "<group>"; };
 		DE843A4B27CE616A00F622E2 /* Work.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Work.swift; sourceTree = "<group>"; };
 		DE843A4E27CE641900F622E2 /* DateFormatter+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+extension.swift"; sourceTree = "<group>"; };
-		DE843A5127CE6DD200F622E2 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
-		DE843A5427CE6EA300F622E2 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		DE843A5127CE6DD200F622E2 /* WorkMemoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkMemoryManager.swift; sourceTree = "<group>"; };
+		DE843A5427CE6EA300F622E2 /* WorkManagable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkManagable.swift; sourceTree = "<group>"; };
 		DE8587A927CF064200D4F4B7 /* ProjectManagerModelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProjectManagerModelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE8587AB27CF064200D4F4B7 /* ProjectManagerModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerModelTests.swift; sourceTree = "<group>"; };
-		DE8587BE27CF562200D4F4B7 /* TableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableViewCell.xib; sourceTree = "<group>"; };
-		DE8587C027CF571E00D4F4B7 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		DE8587BE27CF562200D4F4B7 /* ProjectTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProjectTableViewCell.xib; sourceTree = "<group>"; };
+		DE8587C027CF571E00D4F4B7 /* ProjectTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTableViewCell.swift; sourceTree = "<group>"; };
 		DE90137C33C61E09FB585FB1 /* Pods-ProjectManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.debug.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.debug.xcconfig"; sourceTree = "<group>"; };
-		DE9A0AA927D21CE10095BBF9 /* ActionView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ActionView.storyboard; sourceTree = "<group>"; };
-		DE9A0AAB27D228400095BBF9 /* ActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionViewController.swift; sourceTree = "<group>"; };
+		DE9A0AA927D21CE10095BBF9 /* WorkFormView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = WorkFormView.storyboard; sourceTree = "<group>"; };
+		DE9A0AAB27D228400095BBF9 /* WorkFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkFormViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,8 +160,8 @@
 			children = (
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F0B25F51E1D0094C4CF /* Main.storyboard */,
-				DE8587BE27CF562200D4F4B7 /* TableViewCell.xib */,
-				DE9A0AA927D21CE10095BBF9 /* ActionView.storyboard */,
+				DE8587BE27CF562200D4F4B7 /* ProjectTableViewCell.xib */,
+				DE9A0AA927D21CE10095BBF9 /* WorkFormView.storyboard */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 			);
 			path = Assets;
@@ -171,8 +171,8 @@
 			isa = PBXGroup;
 			children = (
 				C7431F0925F51E1D0094C4CF /* ProjectViewController.swift */,
-				DE8587C027CF571E00D4F4B7 /* TableViewCell.swift */,
-				DE9A0AAB27D228400095BBF9 /* ActionViewController.swift */,
+				DE8587C027CF571E00D4F4B7 /* ProjectTableViewCell.swift */,
+				DE9A0AAB27D228400095BBF9 /* WorkFormViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -205,7 +205,7 @@
 		DE843A5327CE6E9500F622E2 /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
-				DE843A5427CE6EA300F622E2 /* DataManager.swift */,
+				DE843A5427CE6EA300F622E2 /* WorkManagable.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -221,7 +221,7 @@
 		DE9A0AA427D1C2C70095BBF9 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
-				DE843A5127CE6DD200F622E2 /* Repository.swift */,
+				DE843A5127CE6DD200F622E2 /* WorkMemoryManager.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -310,10 +310,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				DE20A0BA27CDCD95004B93AC /* .swiftlint.yml in Resources */,
-				DE8587BF27CF562200D4F4B7 /* TableViewCell.xib in Resources */,
+				DE8587BF27CF562200D4F4B7 /* ProjectTableViewCell.xib in Resources */,
 				C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */,
 				DE20A0BC27CDD385004B93AC /* GoogleService-Info.plist in Resources */,
-				DE9A0AAA27D21CE10095BBF9 /* ActionView.storyboard in Resources */,
+				DE9A0AAA27D21CE10095BBF9 /* WorkFormView.storyboard in Resources */,
 				C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */,
 				C7431F0D25F51E1D0094C4CF /* Main.storyboard in Resources */,
 			);
@@ -393,12 +393,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				DE5359EF27D097BF00FD7953 /* ProjectManagerViewModel.swift in Sources */,
-				DE843A5227CE6DD200F622E2 /* Repository.swift in Sources */,
+				DE843A5227CE6DD200F622E2 /* WorkMemoryManager.swift in Sources */,
 				DE843A4C27CE616A00F622E2 /* Work.swift in Sources */,
-				DE843A5527CE6EA300F622E2 /* DataManager.swift in Sources */,
-				DE9A0AAC27D228400095BBF9 /* ActionViewController.swift in Sources */,
+				DE843A5527CE6EA300F622E2 /* WorkManagable.swift in Sources */,
+				DE9A0AAC27D228400095BBF9 /* WorkFormViewController.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* ProjectViewController.swift in Sources */,
-				DE8587C127CF571E00D4F4B7 /* TableViewCell.swift in Sources */,
+				DE8587C127CF571E00D4F4B7 /* ProjectTableViewCell.swift in Sources */,
 				DE843A4F27CE641900F622E2 /* DateFormatter+extension.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
@@ -411,10 +411,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				DE8587B627CF406900D4F4B7 /* Work.swift in Sources */,
-				DE8587B427CF406100D4F4B7 /* Repository.swift in Sources */,
+				DE8587B427CF406100D4F4B7 /* WorkMemoryManager.swift in Sources */,
 				DE8587B727CF407900D4F4B7 /* DateFormatter+extension.swift in Sources */,
 				DEE3C45327D5EFC4002D014B /* Array+extension.swift in Sources */,
-				DE8587B527CF406500D4F4B7 /* DataManager.swift in Sources */,
+				DE8587B527CF406500D4F4B7 /* WorkManagable.swift in Sources */,
 				DE8587AC27CF064200D4F4B7 /* ProjectManagerModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

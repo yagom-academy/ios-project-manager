@@ -3,7 +3,7 @@ import Foundation
 
 struct Work {
     
-    enum Sort {
+    enum Category {
         case todo
         case doing
         case done
@@ -13,7 +13,7 @@ struct Work {
     var title: String?
     var body: String?
     var dueDate: Date?
-    var sort: Sort = .todo
+    var category: Category = .todo
     
     var convertedDate: String {
         guard let dueDate = dueDate else { return "" }

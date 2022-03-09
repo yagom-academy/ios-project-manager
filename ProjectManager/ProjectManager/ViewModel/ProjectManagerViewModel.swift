@@ -4,7 +4,7 @@ import RxSwift
 
 class ProjectViewModel {
     
-    private let repository = Repository()
+    private let repository = WorkMemoryManager()
     
     var todoList = BehaviorSubject<[Work]>(value: [])
     var doingList = BehaviorSubject<[Work]>(value: [])
@@ -23,7 +23,7 @@ class ProjectViewModel {
     func addWork(_ data: Work) {
         repository.create(data)
         
-        switch data.sort {
+        switch data.category {
         case .todo:
             todoList.onNext(repository.todoList)
         case .doing:
@@ -36,7 +36,7 @@ class ProjectViewModel {
     func removeWork(_ data: Work) {
     }
     
-    func updateWork(_ data: Work, title: String, body: String, date: Date, sort: Work.Sort) {
+    func updateWork(_ data: Work, title: String, body: String, date: Date, sort: Work.Category) {
     }
     
 }

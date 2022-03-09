@@ -1,7 +1,7 @@
 import Foundation
 
 
-protocol DataManager {
+protocol WorkManagable {
     
     associatedtype StorageType
     
