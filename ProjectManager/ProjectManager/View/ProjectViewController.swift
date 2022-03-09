@@ -69,18 +69,18 @@ class ProjectViewController: UIViewController {
         doneCountLabel.layer.masksToBounds = true
         
         _ = viewModel.todoCount
-            .subscribe(onNext: {
-                self.todoCountLabel.text = $0.description
+            .subscribe(onNext: { [weak self] in
+                self?.todoCountLabel.text = $0.description
             })
             .disposed(by: disposeBag)
         _ = viewModel.doingCount
-            .subscribe(onNext: {
-                self.doingCountLabel.text = $0.description
+            .subscribe(onNext: { [weak self] in
+                self?.doingCountLabel.text = $0.description
             })
             .disposed(by: disposeBag)
         _ = viewModel.doneCount
-            .subscribe(onNext: {
-                self.doneCountLabel.text = $0.description
+            .subscribe(onNext: { [weak self] in
+                self?.doneCountLabel.text = $0.description
             })
             .disposed(by: disposeBag)
     }
