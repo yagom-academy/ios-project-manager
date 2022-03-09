@@ -27,7 +27,7 @@ struct TaskListView: View {
         List {
             Section(header: Text("\(progressStatus.name) (\(taskList.count))").font(.title2)) {
                 ForEach(taskList) { task in
-                    TaskListCellView()
+                    TaskListCellView(task: task)
                 }
             }
         }
