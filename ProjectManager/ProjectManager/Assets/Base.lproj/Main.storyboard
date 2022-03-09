@@ -17,6 +17,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="1366" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SI1-JE-OPa">
+                                <rect key="frame" x="0.0" y="70" width="1367.5" height="954"/>
+                                <color key="backgroundColor" systemColor="systemGray3Color"/>
+                            </view>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="T18-03-VZC">
                                 <rect key="frame" x="0.0" y="70" width="1367.5" height="954"/>
                                 <subviews>
@@ -136,14 +140,22 @@
                                         </subviews>
                                     </stackView>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="6ML-VG-Ttj" secondAttribute="width" multiplier="3.0221" id="aix-md-2Uw"/>
+                                    <constraint firstAttribute="width" secondItem="lgn-Rv-31K" secondAttribute="width" multiplier="3.0221" id="e8A-gO-naJ"/>
+                                </constraints>
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="T18-03-VZC" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="0oi-Zr-d9v"/>
+                            <constraint firstItem="SI1-JE-OPa" firstAttribute="centerY" secondItem="T18-03-VZC" secondAttribute="centerY" id="6Es-2z-k5P"/>
+                            <constraint firstItem="SI1-JE-OPa" firstAttribute="width" secondItem="T18-03-VZC" secondAttribute="width" id="R4y-3D-Fmr"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="T18-03-VZC" secondAttribute="bottom" id="j4M-T6-gH3"/>
                             <constraint firstItem="T18-03-VZC" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" constant="1.5" id="oi9-N6-IC0"/>
+                            <constraint firstItem="SI1-JE-OPa" firstAttribute="centerX" secondItem="T18-03-VZC" secondAttribute="centerX" id="om0-FD-7PF"/>
+                            <constraint firstItem="SI1-JE-OPa" firstAttribute="height" secondItem="T18-03-VZC" secondAttribute="height" id="sTk-ra-M89"/>
                             <constraint firstItem="T18-03-VZC" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="y5X-t1-w8E"/>
                         </constraints>
                     </view>
@@ -196,6 +208,9 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray3Color">
+            <color red="0.7803921568627451" green="0.7803921568627451" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray5Color">
             <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
