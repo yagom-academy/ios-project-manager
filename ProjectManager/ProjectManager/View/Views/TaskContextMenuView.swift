@@ -8,18 +8,18 @@
 import SwiftUI
 
 struct TaskContextMenuView: View {
-    @EnvironmentObject private var viewModel: ProjectManagerViewModel
+    @EnvironmentObject private var taskViewModel: TaskViewModel
     @ObservedObject var task: Task
     var taskStatus: TaskStatus
     
     var body: some View {
         Button {
-            viewModel.changeStatus(task: task, to: taskStatus.moveToStatus[0])
+            self.taskViewModel.changeStatus(task: task, to: taskStatus.moveToStatus[0])
         } label: {
             Text(taskStatus.moveToStatus[0].moveToText)
         }
         Button {
-            viewModel.changeStatus(task: task, to: taskStatus.moveToStatus[1])
+            self.taskViewModel.changeStatus(task: task, to: taskStatus.moveToStatus[1])
         } label: {
             Text(taskStatus.moveToStatus[1].moveToText)
         }

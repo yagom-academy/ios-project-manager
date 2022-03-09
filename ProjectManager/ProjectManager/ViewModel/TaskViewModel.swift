@@ -1,5 +1,5 @@
 //
-//  ProjectManagerViewModel.swift
+//  TaskViewModel.swift
 //  ProjectManager
 //
 //  Created by 이호영 on 2022/03/07.
@@ -7,8 +7,8 @@
 
 import Foundation
 
-class ProjectManagerViewModel: ObservableObject {
-    private let enviroment = ProjectManagerEnvironment(taskRepository: TaskRepository())
+class TaskViewModel: ObservableObject {
+    private let enviroment = TaskEnvironment(taskRepository: TaskRepository())
     
     @Published var tasks: [Task]
     

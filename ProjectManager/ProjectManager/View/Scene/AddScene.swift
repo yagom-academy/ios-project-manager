@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AddScene: View {
-    @EnvironmentObject private var viewModel: ProjectManagerViewModel
+    @EnvironmentObject private var taskViewModel: TaskViewModel
     @State private var title: String = ""
     @State private var content: String = ""
     @State private var limitDate: Date = Date()

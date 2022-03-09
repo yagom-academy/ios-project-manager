@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DetailScene: View {
-    @EnvironmentObject private var viewModel: ProjectManagerViewModel
+    @EnvironmentObject private var taskViewModel: TaskViewModel
 
     @State private var title: String
     @State private var content: String
@@ -59,7 +59,7 @@ struct DetailScene: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
                         if isEditingMode {
-                            self.viewModel.updateTask(
+                            self.taskViewModel.updateTask(
                                 task: task,
                                 title: $title.wrappedValue,
                                 content: $content.wrappedValue,

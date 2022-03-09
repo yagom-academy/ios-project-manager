@@ -1,5 +1,5 @@
 //
-//  ProjectManagerEnvironment.swift
+//  TaskEnvironment.swift
 //  ProjectManager
 //
 //  Created by 이호영 on 2022/03/08.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ProjectManagerEnvironment {
+struct TaskEnvironment {
     private var taskRepository: TaskRepository
     
     init(taskRepository: TaskRepository) {

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TaskListView: View {
-    @EnvironmentObject private var viewModel: ProjectManagerViewModel
+    @EnvironmentObject private var taskViewModel: TaskViewModel
     @State private var isShowDetailScene: Bool = false
     @State private var isShowPopover: Bool = false
     let taskStatus: TaskStatus
@@ -16,11 +16,11 @@ struct TaskListView: View {
     private var tasks: [Task] {
         switch taskStatus {
         case .todo:
-            return viewModel.todoTasks
+            return taskViewModel.todoTasks
         case .doing:
-            return viewModel.doingTasks
+            return taskViewModel.doingTasks
         case .done:
-            return viewModel.doneTasks
+            return taskViewModel.doneTasks
         }
     }
     
@@ -52,11 +52,11 @@ struct TaskListView: View {
                         .contextMenu {
                             TaskContextMenuView(task: task, taskStatus: taskStatus)
                         }
-                        .environmentObject(viewModel)
+                        .environmentObject(taskViewModel)
                 }
             }
             .onDelete { indexSet in
-                self.viewModel.deleteTask(task: tasks[indexSet.first!])
+                self.taskViewModel.deleteTask(task: tasks[indexSet.first!])
             }
         }
     }

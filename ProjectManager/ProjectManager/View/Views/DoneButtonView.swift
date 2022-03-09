@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DoneButtonView: View {
-    @EnvironmentObject private var viewModel: ProjectManagerViewModel
+    @EnvironmentObject private var taskViewModel: TaskViewModel
     
     @Binding var show: Bool
     @Binding var title: String
@@ -17,7 +17,7 @@ struct DoneButtonView: View {
     
     var body: some View {
         Button {
-            self.viewModel.createTask(title: title, content: content, limitDate: limitDate)
+            self.taskViewModel.createTask(title: title, content: content, limitDate: limitDate)
             self.show = false
         } label: {
             Text("Done")

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MainScene: View {
-    @EnvironmentObject private var viewModel: ProjectManagerViewModel
+    @EnvironmentObject private var taskViewModel: TaskViewModel
     @State private var isShowAddScene: Bool = false
     
     var body: some View {
@@ -34,7 +34,7 @@ struct MainScene: View {
 @available(iOS 15.0, *)
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        let viewModel = ProjectManagerViewModel()
+        let viewModel = TaskViewModel()
         MainScene()
             .environmentObject(viewModel)
             .previewDevice(PreviewDevice(rawValue: "iPad Pro (12.9-inch)"))
