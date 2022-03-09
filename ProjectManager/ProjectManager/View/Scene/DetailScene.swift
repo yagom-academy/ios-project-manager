@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DetailScene: View {
-    @ObservedObject var viewModel: ProjectManagerViewModel
+    @EnvironmentObject var viewModel: ProjectManagerViewModel
     @ObservedObject var task: Task
     @Binding var showDetailScene: Bool
     @State var isShowEditScene: Bool = false
@@ -28,7 +28,7 @@ struct DetailScene: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     EditButtonView(show: $isShowEditScene)
                         .sheet(isPresented: $isShowEditScene, onDismiss: nil) {
-                            EditScene(viewModel: viewModel, showEditScene: $isShowEditScene, task: task)
+                            EditScene(showEditScene: $isShowEditScene, task: task)
                         }
                 }
                 ToolbarItem(placement: .navigationBarLeading) {

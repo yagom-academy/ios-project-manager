@@ -17,6 +17,7 @@
 		F374A12127CDE1A40083CC73 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = F374A12027CDE1A40083CC73 /* FirebaseMessaging */; };
 		F374A12427CDE40D0083CC73 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = F374A12327CDE40D0083CC73 /* Realm */; };
 		F374A12627CDE40D0083CC73 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F374A12527CDE40D0083CC73 /* RealmSwift */; };
+		F376E0D127D85F3E00C04734 /* TaskContextMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F376E0D027D85F3E00C04734 /* TaskContextMenuView.swift */; };
 		F3C53F4327D06D4A00D7CE4E /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = F3C53F4227D06D4A00D7CE4E /* .swiftlint.yml */; };
 		F3C53F4727D0892400D7CE4E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F3C53F4627D0892400D7CE4E /* GoogleService-Info.plist */; };
 		F3C53F4D27D10AEA00D7CE4E /* TaskEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C53F4C27D10AEA00D7CE4E /* TaskEntity.swift */; };
@@ -56,6 +57,7 @@
 		C7431F1125F51E1E0094C4CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F374A11527CDD3930083CC73 /* MainScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScene.swift; sourceTree = "<group>"; };
+		F376E0D027D85F3E00C04734 /* TaskContextMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskContextMenuView.swift; sourceTree = "<group>"; };
 		F3C53F4227D06D4A00D7CE4E /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		F3C53F4627D0892400D7CE4E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F3C53F4C27D10AEA00D7CE4E /* TaskEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskEntity.swift; sourceTree = "<group>"; };
@@ -199,9 +201,10 @@
 				F3C5400727D784CC00D7CE4E /* AddButtonView.swift */,
 				F3C5400B27D7908600D7CE4E /* DoneButtonView.swift */,
 				F3C5400D27D790AF00D7CE4E /* DismissButtonView.swift */,
+				F3C5401527D7A87500D7CE4E /* EditButtonView.swift */,
 				F3C5400F27D7A07600D7CE4E /* TaskEditView.swift */,
 				F3C5401327D7A4F800D7CE4E /* TaskDetailView.swift */,
-				F3C5401527D7A87500D7CE4E /* EditButtonView.swift */,
+				F376E0D027D85F3E00C04734 /* TaskContextMenuView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -358,6 +361,7 @@
 				F3C53F7D27D5227F00D7CE4E /* ProjectManagerViewModel.swift in Sources */,
 				F3C5401427D7A4F900D7CE4E /* TaskDetailView.swift in Sources */,
 				F374A11627CDD3930083CC73 /* MainScene.swift in Sources */,
+				F376E0D127D85F3E00C04734 /* TaskContextMenuView.swift in Sources */,
 				F3C53FFC27D737F500D7CE4E /* TaskStatus.swift in Sources */,
 				F3C53FFF27D7501400D7CE4E /* TaskListView.swift in Sources */,
 				F3C5401227D7A3E300D7CE4E /* DetailScene.swift in Sources */,

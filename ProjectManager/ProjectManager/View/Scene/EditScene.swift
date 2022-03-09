@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct EditScene: View {
-    @ObservedObject var viewModel: ProjectManagerViewModel
+    @EnvironmentObject var viewModel: ProjectManagerViewModel
     @State private var title: String = ""
     @State private var content: String = ""
     @State private var limitDate: Date = Date()
@@ -34,7 +34,6 @@ struct EditScene: View {
                         title: $title,
                         content: $content,
                         limitDate: $limitDate,
-                        viewModel: viewModel,
                         task: task
                     )
                 }
@@ -42,10 +41,12 @@ struct EditScene: View {
                     DismissButtonView(show: $showEditScene)
                 }
             }
-        }.onAppear {
+        }
+        .onAppear {
             self.title = self.task?.title ?? ""
             self.content = self.task?.content ?? ""
             self.limitDate = self.task?.limitDate ?? Date()
-        }.navigationViewStyle(.stack)
+        }
+        .navigationViewStyle(.stack)
     }
 }

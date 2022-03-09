@@ -8,11 +8,21 @@
 import SwiftUI
 
 struct TaskListView: View {
-    @ObservedObject var viewModel: ProjectManagerViewModel
+    @EnvironmentObject var viewModel: ProjectManagerViewModel
     @State var isShowDetailScene: Bool = false
     @State var isShowPopover: Bool = false
-    var tasks: [Task]
-    var listName: String
+    let taskStatus: TaskStatus
+    
+    var tasks: [Task] {
+        switch taskStatus {
+        case .todo:
+            return viewModel.todoTasks
+        case .doing:
+            return viewModel.doingTasks
+        case .done:
+            return viewModel.doneTasks
+        }
+    }
     
     var body: some View {
         VStack {
@@ -23,7 +33,7 @@ struct TaskListView: View {
     
     var listTitle: some View {
         HStack {
-            Text(listName)
+            Text(taskStatus.title)
                 .font(.title)
             Spacer()
         }.padding()
@@ -39,19 +49,11 @@ struct TaskListView: View {
                 }.sheet(isPresented: $isShowDetailScene) {
                     // viewUpdate
                 } content: {
-                    DetailScene(viewModel: viewModel, task: task, showDetailScene: $isShowDetailScene)
+                    DetailScene(task: task, showDetailScene: $isShowDetailScene)
                 }
             }
             .onDelete { indexSet in
                 self.viewModel.deleteTask(task: tasks[indexSet.first!])
-            }
-            .onLongPressGesture {
-                print("show popover")
-                self.isShowPopover = true
-            }
-            .popover(isPresented: $isShowPopover) {
-                Text("go to Doing")
-                Text("go to Done")
             }
         }
     }

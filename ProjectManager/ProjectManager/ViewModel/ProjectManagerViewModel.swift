@@ -31,14 +31,14 @@ class ProjectManagerViewModel: ObservableObject {
     func createTask(title: String, content: String, limitDate: Date) {
         let task = Task(title: title, content: content, limitDate: limitDate, status: .todo)
         tasks.insert(task, at: 0)
-        enviroment.createTask(task: task)
+        enviroment.createTask(task)
     }
     
     func updateTask(task: Task, title: String, content: String, limitDate: Date) {
         task.title = title
         task.content = content
         task.limitDate = limitDate
-        enviroment.updateTask(task: task, title: title, content: content, limitDate: limitDate)
+        enviroment.updateTask(task, title: title, content: content, limitDate: limitDate)
     }
     
     func deleteTask(task: Task) {
@@ -46,5 +46,9 @@ class ProjectManagerViewModel: ObservableObject {
             return
         }
         tasks.remove(at: index)
+    }
+    
+    func changeStatus(task: Task, to taskStatus: TaskStatus) {
+        task.status = taskStatus
     }
 }

@@ -13,7 +13,7 @@ struct DoneButtonView: View {
     @Binding var content: String
     @Binding var limitDate: Date
     
-    @ObservedObject var viewModel: ProjectManagerViewModel
+    @EnvironmentObject var viewModel: ProjectManagerViewModel
     
     var task: Task?
     

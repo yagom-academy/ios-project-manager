@@ -18,12 +18,12 @@ struct ProjectManagerEnvironment {
         return taskRepository.tasks.map { $0.toViewModel() }
     }
     
-    func createTask(task: Task) {
+    func createTask(_ task: Task) {
         let taskEntity = TaskEntity(from: task)
         taskRepository.insert(taskEntity)
     }
     
-    func updateTask(task: Task, title: String, content: String, limitDate: Date) {
+    func updateTask(_ task: Task, title: String, content: String, limitDate: Date) {
         let taskEntity = taskRepository.tasks.filter { $0.id == task.id }.first
         do {
             try taskRepository.update(task: taskEntity, title: title, content: content, date: limitDate)
@@ -32,7 +32,7 @@ struct ProjectManagerEnvironment {
         }
     }
     
-    func deleteTask(task: Task) {
+    func deleteTask(_ task: Task) {
         let taskEntity = taskRepository.tasks.filter { $0.id == task.id }.first
         do {
             try taskRepository.delete(task: taskEntity)

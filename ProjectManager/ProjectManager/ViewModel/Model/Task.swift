@@ -12,7 +12,7 @@ class Task: Identifiable, ObservableObject {
     @Published var title: String
     @Published var content: String
     @Published var limitDate: Date
-    var status: TaskStatus
+    @Published var status: TaskStatus
     
     init(
         id: UUID = UUID(),
