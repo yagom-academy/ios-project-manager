@@ -7,17 +7,23 @@
 
 import Foundation
 import RxSwift
+import RxRelay
 
 final class ScheduleUseCase {
-    let scheduleProvider: Repository
+    private let bag = DisposeBag()
+    private let scheduleProvider: Repository
+    let schedules = BehaviorRelay<[Schedule]>(value: [])
 
     init(repository: Repository) {
         self.scheduleProvider = repository
     }
 
-    func fetch() -> Observable<[Schedule]> {
-
-        return scheduleProvider.fetch()
+    func fetch() {
+        scheduleProvider.fetch()
+            .subscribe(onNext: { event in
+                self.schedules.accept(event)
+            })
+            .disposed(by: bag)
     }
 
     func create(_ schedule: Schedule) -> Observable<Schedule> {
@@ -25,9 +31,15 @@ final class ScheduleUseCase {
         return scheduleProvider.create(schedule)
     }
 
-    func delete(_ scheduleID: UUID) -> Observable<Bool> {
-
-        return scheduleProvider.delete(scheduleID)
+    func delete(_ scheduleID: UUID) {
+        scheduleProvider.delete(scheduleID)
+            .subscribe(onNext: { _ in
+                let schedules = self.schedules.value.filter { schedule in
+                    schedule.id != scheduleID
+                }
+                self.schedules.accept(schedules)
+            })
+            .disposed(by: bag)
     }
 
     func update(_ schedule: Schedule) -> Observable<Schedule> {

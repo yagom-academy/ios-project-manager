@@ -42,36 +42,35 @@ final class MainViewModel {
 
     func transform(input: Input, disposeBag: DisposeBag) -> Output {
         let output = Output()
+        bindOutput(output: output, disposeBag: disposeBag)
 
         input.viewWillAppear
             .subscribe(onNext: {
                 self.useCase.fetch()
-                    .subscribe(onNext: { event in
-                        Progress.allCases.enumerated().forEach { index, progress in
-                            let filtered = event.filter { schedule in schedule.progress == progress }
-                            output.scheduleLists[index].accept(filtered)
-                        }
-                    })
-                    .disposed(by: self.bag)
             })
             .disposed(by: disposeBag)
 
-        input.cellDelete.enumerated().forEach { index, observable in
+        input.cellDelete.forEach { observable in
             observable.subscribe(onNext: { id in
                 self.useCase.delete(id)
-                    .filter { $0 }
-                    .subscribe(onNext: { _ in
-                        let schedules = output.scheduleLists[index].value.filter { schedule in
-                            schedule.id != id
-                        }
-                        output.scheduleLists[index].accept(schedules)
-                    })
-                    .disposed(by: self.bag)
             })
                 .disposed(by: disposeBag)
         }
 
         return output
+    }
+}
+
+private extension MainViewModel {
+    func bindOutput(output: Output, disposeBag: DisposeBag) {
+        self.useCase.schedules
+            .subscribe(onNext: { schedules in
+                Progress.allCases.enumerated().forEach { index, progress in
+                    let filtered = schedules.filter { schedule in schedule.progress == progress }
+                    output.scheduleLists[index].accept(filtered)
+                }
+            })
+            .disposed(by: disposeBag)
     }
 }
 
