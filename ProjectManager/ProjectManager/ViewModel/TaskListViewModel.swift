@@ -1,7 +1,6 @@
 import Foundation
 
 class TaskListViewModel: ObservableObject {
-    
     @Published var todoTaskList = [Task]()
     @Published var doingTaskList = [Task]()
     @Published var doneTaskList = [Task]()

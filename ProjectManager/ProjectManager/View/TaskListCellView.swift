@@ -1,12 +1,12 @@
 import SwiftUI
 
 struct TaskListCellView: View {
-    @EnvironmentObject var viewModel: TaskListViewModel
+    @EnvironmentObject private var viewModel: TaskListViewModel
     
-    @State var isPopoverPresentedForUpdateTask = false
-    @State var isPopoverPresentedForUpdateTaskState = false
-    @State var firstMoveStatus: ProgressStatus = .doing
-    @State var secondMoveStatus: ProgressStatus = .done
+    @State private var isPopoverPresentedForUpdateTask = false
+    @State private var isPopoverPresentedForUpdateTaskState = false
+    @State private var firstMoveStatus: ProgressStatus = .doing
+    @State private var secondMoveStatus: ProgressStatus = .done
     
     var task: Task
     
@@ -33,20 +33,20 @@ struct TaskListCellView: View {
         }
     }
     
-    var title: some View {
+    private var title: some View {
         Text(task.title)
             .font(.system(size: 20, weight: .bold, design: .rounded))
             .lineLimit(1)
     }
     
-    var descrition: some View {
+    private var descrition: some View {
         Text(task.description)
             .font(.system(size: 17, weight: .regular, design: .rounded))
             .foregroundColor(.gray)
             .lineLimit(3)
     }
     
-    var deadline: some View {
+    private var deadline: some View {
         let deadlineText = Text(task.deadline.formattedDate)
         let currentTime = Date().timeIntervalSince1970
         
@@ -60,7 +60,7 @@ struct TaskListCellView: View {
         }
     }
     
-    var statusChangePopover: some View {
+    private var statusChangePopover: some View {
         VStack {
             Button("Move to \(firstMoveStatus.name)") {
                 viewModel.updateState(firstMoveStatus, to: task)
@@ -78,7 +78,7 @@ struct TaskListCellView: View {
         }
     }
     
-    func setButtonTitle() {
+    private func setButtonTitle() {
         switch task.progressStatus {
         case .todo:
             firstMoveStatus = .doing

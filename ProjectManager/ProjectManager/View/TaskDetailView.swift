@@ -1,13 +1,13 @@
 import SwiftUI
 
 struct TaskDetailView: View {
-    
-    @Environment(\.presentationMode) var presentationMode
-    @EnvironmentObject var viewModel: TaskListViewModel
+    @Environment(\.presentationMode) private var presentationMode
+    @EnvironmentObject private var viewModel: TaskListViewModel
     
     @State private var title = ""
     @State private var description = ""
     @State private var deadline = Date()
+    
     @State private var isdisabled = false
     @State private var isEditing = false
     
@@ -31,7 +31,7 @@ struct TaskDetailView: View {
         }
     }
     
-    var headerView: some View {
+    private var headerView: some View {
         HStack {
             leadingButton
             Spacer()
@@ -45,7 +45,7 @@ struct TaskDetailView: View {
         .padding(10)
     }
     
-    var leadingButton: some View {
+    private var leadingButton: some View {
         Button(action: {
             if task.title.isEmpty {
                 self.presentationMode.wrappedValue.dismiss()
@@ -58,7 +58,7 @@ struct TaskDetailView: View {
         })
     }
     
-    var trailingButton: some View {
+    private var trailingButton: some View {
         Button("Done") {
             if isEditing {
                 viewModel.updateTask(task, title: title, description: description, deadline: deadline)
@@ -70,7 +70,7 @@ struct TaskDetailView: View {
         }
     }
     
-    var titleTextField: some View {
+    private var titleTextField: some View {
         TextField(task.title, text: $title)
             .multilineTextAlignment(.leading)
             .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -78,13 +78,13 @@ struct TaskDetailView: View {
             .disabled(isdisabled)
     }
     
-    var deadLineView: some View {
+    private var deadLineView: some View {
         DatePicker("deadline", selection: $deadline, displayedComponents: .date)
             .datePickerStyle(WheelDatePickerStyle()).labelsHidden()
             .disabled(isdisabled)
     }
     
-    var descriptionTextEditor: some View {
+    private var descriptionTextEditor: some View {
         TextEditor(text: $description)
             .multilineTextAlignment(.leading)
             .lineLimit(10)

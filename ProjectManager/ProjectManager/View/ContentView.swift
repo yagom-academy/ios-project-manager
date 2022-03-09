@@ -1,8 +1,8 @@
 import SwiftUI
 
 struct ContentView: View {
-    @EnvironmentObject var viewModel: TaskListViewModel
-    @State var isPopoverPresentedForCreateTask = false
+    @EnvironmentObject private var viewModel: TaskListViewModel
+    @State private var isPopoverPresentedForCreateTask = false
     
     var body: some View {
         VStack {
@@ -12,7 +12,7 @@ struct ContentView: View {
         }
     }
     
-    var title: some View {
+    private var title: some View {
         HStack {
             Spacer()
             Text("Project Manager")
@@ -31,7 +31,7 @@ struct ContentView: View {
         .padding(.top)
     }
     
-    var content: some View {
+    private var content: some View {
         HStack {
             TaskListView(progressStatus: .todo)
             Divider()

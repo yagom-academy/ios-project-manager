@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct TaskListView: View {
-    @EnvironmentObject var viewModel: TaskListViewModel
+    @EnvironmentObject private var viewModel: TaskListViewModel
     
     let progressStatus: ProgressStatus
     
@@ -23,7 +23,7 @@ struct TaskListView: View {
         }
     }
     
-    var title: some View {
+    private var title: some View {
         HStack {
             Text("\(progressStatus.name)")
                 .font(.title2)
@@ -37,7 +37,7 @@ struct TaskListView: View {
         .frame(maxWidth: .infinity, alignment: .leading)
     }
     
-    var listView: some View {
+    private var listView: some View {
         List {
             ForEach(taskList) { task in
                 TaskListCellView(task: task)
