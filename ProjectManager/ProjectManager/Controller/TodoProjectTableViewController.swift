@@ -11,6 +11,8 @@ import UIKit
 protocol TodoProjectTableViewControllerDelegate {
     
     func update(of identifier: UUID, with content: [String: Any])
+    
+    func updateStatus(of identifier: UUID, with status: Status)
 }
 
 // MARK: - TodoProjectTableViewController
@@ -40,6 +42,7 @@ class TodoProjectTableViewController: UIViewController {
         self.configureLayout()
         self.configureDataSource()
         self.applySnapshot()
+        self.setupLongGestureRecognizerOnTableView()
     }
     
     // MARK: - Configure View
@@ -69,7 +72,56 @@ class TodoProjectTableViewController: UIViewController {
         ])
     }
     
-   
+    // MARK: - Configure Controller
+       private func setupLongGestureRecognizerOnTableView() {
+           self.longPressGestureRecognizer.minimumPressDuration = 0.5
+           self.longPressGestureRecognizer.delaysTouchesBegan = true
+
+           self.projectTableView.addGestureRecognizer(longPressGestureRecognizer)
+           self.longPressGestureRecognizer.addTarget(self, action: #selector(presentEditPopover))
+       }
+    
+    // MARK: - Method
+    @objc func presentEditPopover() {
+        let location = longPressGestureRecognizer.location(in: projectTableView)
+        guard let project = longPressedProject(at: location),
+              let identifier = project.identifier else {
+            return
+        }
+        
+        let actionSheetController = UIAlertController(title: nil,
+                                                      message: nil,
+                                                      preferredStyle: .actionSheet)
+        let transitionToDoing = UIAlertAction(title: "move to \(String(describing: Status.doing))",
+                                              style: .default) { [weak self] _ in
+            self?.delegate?.updateStatus(of: identifier, with: .doing)
+            self?.applySnapshot()
+        }
+        let transitionToDone = UIAlertAction(title: "move to \(String(describing: Status.done))",
+                                             style: .default) { [weak self] _ in
+            self?.delegate?.updateStatus(of: identifier, with: .done)
+            self?.applySnapshot()
+        }
+        actionSheetController.addAction(transitionToDoing)
+        actionSheetController.addAction(transitionToDone)
+        
+        if let popoverController = actionSheetController.popoverPresentationController {
+            popoverController.sourceView = self.projectTableView
+            popoverController.sourceRect = CGRect(origin: location, size: .zero)
+        }
+        
+        self.present(actionSheetController, animated: true, completion: nil)
+    }
+    
+    private func longPressedProject(at point: CGPoint) -> Project? {
+        let CellIndexPath = projectTableView.indexPathForRow(at: point)
+        guard let indexPath = CellIndexPath else {
+            return nil
+        }
+        
+        return self.dataSource.itemIdentifier(for: indexPath)
+    }
+    
     // MARK: - TableView
     private func configureDataSource() {
         dataSource = UITableViewDiffableDataSource<Section, Project>(tableView: projectTableView) { (tableView: UITableView, indexPath: IndexPath, project: Project) -> UITableViewCell? in

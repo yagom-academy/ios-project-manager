@@ -107,6 +107,11 @@ extension ProjectBoardViewController: ProjectCreatorViewControllerDelegate {
 
 // MARK: - TodoProjectTableViewControllerDelegate
 extension ProjectBoardViewController: TodoProjectTableViewControllerDelegate {
+    
+    func updateStatus(of identifier: UUID, with status: Status) {
+        projectManager.updateProjectStatus(of: identifier, with: status)
+    }
+    
     func update(of identifier: UUID, with content: [String : Any]) {
         projectManager.updateProject(of: identifier, with: content)
         todoViewController.applySnapshot()
