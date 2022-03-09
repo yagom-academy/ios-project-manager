@@ -35,6 +35,7 @@ class MainTaskViewController: UIViewController {
         super.viewDidLoad()
         configureUI()
         configureTaskListViewModel()
+        setupLongPressGesture()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -84,6 +85,32 @@ class MainTaskViewController: UIViewController {
                 self.taskInDoneTableView.reloadRows(at: [indexPath], with: .fade)
             }
         }
+        
+        taskListViewModel.taskDidMoved = { [weak self] (index, oldState, newState) in
+            guard let self = self else {
+                return
+            }
+            
+            let indexPath = IndexPath(row: index, section: 0)
+            
+            switch oldState {
+            case .waiting:
+                self.taskInWaitingTableView.cellForRow(at: indexPath)?.isHidden = true
+            case .progress:
+                self.taskInProgressTableView.cellForRow(at: indexPath)?.isHidden = true
+            case .done:
+                self.taskInDoneTableView.cellForRow(at: indexPath)?.isHidden = true
+            }
+            
+            switch newState {
+            case .waiting:
+                self.taskInWaitingTableView.reloadData()
+            case .progress:
+                self.taskInProgressTableView.reloadData()
+            case .done:
+                self.taskInDoneTableView.reloadData()
+            }
+        }
     }
     
     private func configureUI() {
@@ -119,7 +146,58 @@ class MainTaskViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTask))
     }
     
-    @objc func addTask() {
+    private func createAlert(with newStates: [TaskState], completion: @escaping (TaskState) -> Void) -> UIAlertController {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        newStates.forEach { state in
+            let moveAction = UIAlertAction(title: state.relocation, style: .default) { _ in
+                completion(state)
+            }
+            alert.addAction(moveAction)
+        }
+        
+        return alert
+    }
+    
+    private func setupLongPressGesture() {
+        let longPressOnWaiting = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressOnWaiting(_:)))
+        let longPressOnProgress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressOnProgress(_:)))
+        let longPressOnDone = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressOnDone(_:)))
+
+        taskInWaitingTableView.addGestureRecognizer(longPressOnWaiting)
+        taskInProgressTableView.addGestureRecognizer(longPressOnProgress)
+        taskInDoneTableView.addGestureRecognizer(longPressOnDone)
+    }
+    
+    private func longPressToMove(gesture: UILongPressGestureRecognizer, tableView: TaskTableView, from oldState: TaskState, to newStates: [TaskState]) {
+        let touchPoint = gesture.location(in: tableView)
+        guard let indexPath = tableView.indexPathForRow(at: touchPoint) else {
+            return
+        }
+        
+        if gesture.state == .began {
+            let alert = createAlert(with: newStates) { state in
+                self.taskListViewModel.move(at: indexPath.row, from: oldState, to: state)
+            }
+
+            alert.popoverPresentationController?.sourceView = tableView.cellForRow(at: indexPath)
+            self.present(alert, animated: true)
+        }
+    }
+    
+    @objc private func handleLongPressOnWaiting(_ sender: UILongPressGestureRecognizer) {
+        longPressToMove(gesture: sender, tableView: taskInWaitingTableView, from: .waiting, to: [.progress, .done])
+    }
+    
+    @objc private func handleLongPressOnProgress(_ sender: UILongPressGestureRecognizer) {
+        longPressToMove(gesture: sender, tableView: taskInProgressTableView, from: .progress, to: [.waiting, .done])
+    }
+    
+    @objc private func handleLongPressOnDone(_ sender: UILongPressGestureRecognizer) {
+        longPressToMove(gesture: sender, tableView: taskInDoneTableView, from: .done, to: [.waiting, .progress])
+    }
+    
+    @objc private func addTask() {
         let taskManageViewController = TaskManageViewController(manageType: .add, taskListViewModel: taskListViewModel)
         let taskManageNavigationViewController = UINavigationController(rootViewController: taskManageViewController)
         taskManageNavigationViewController.modalPresentationStyle = .formSheet

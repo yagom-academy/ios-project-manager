@@ -56,8 +56,8 @@ final class TaskManager: TaskMangeable {
         taskRepository.delete(with: selectedTask)
     }
     
-    func changeState(at index: Int, to state: TaskState) {
-        guard let selectedTask = fetch(at: index, from: state) else {
+    func changeState(at index: Int, from oldState: TaskState, to newState: TaskState) {
+        guard let selectedTask = fetch(at: index, from: oldState) else {
             return
         }
         
@@ -65,7 +65,7 @@ final class TaskManager: TaskMangeable {
                         title: selectedTask.title,
                         description: selectedTask.description,
                         deadline: selectedTask.deadline,
-                        state: state)
+                        state: newState)
         
         taskRepository.update(with: taskToChange)
     }

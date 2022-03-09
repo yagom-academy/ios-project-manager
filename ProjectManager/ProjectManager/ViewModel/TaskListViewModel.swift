@@ -14,7 +14,7 @@ final class TaskListViewModel: TaskViewModel {
 //    var taskDidFetched: ((Task) -> Void)?
     var taskDidDeleted: ((Int, TaskState) -> Void)?
     var taskDidChanged: ((Int, TaskState) -> Void)?
-    var taskDidMoved: ((Int, TaskState) -> Void)?
+    var taskDidMoved: ((Int, TaskState, TaskState) -> Void)?
     var tasksDidUpdated: (() -> Void)?
     var didSelectTask: ((Task) -> Void)?
     
@@ -51,9 +51,10 @@ final class TaskListViewModel: TaskViewModel {
         taskDidDeleted?(index, state)
     }
     
-    func move(at index: Int, to state: TaskState) {
-        taskManager.changeState(at: index, to: state)
-        taskDidMoved?(index, state)
+    func move(at index: Int, from oldState: TaskState, to newState: TaskState) {
+        taskManager.changeState(at: index, from: oldState, to: newState)
+        updateTasks()
+        taskDidMoved?(index, oldState, newState)
     }
     
     func task(at index: Int, from state: TaskState) -> Task? {

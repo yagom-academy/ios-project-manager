@@ -13,7 +13,7 @@ protocol TaskViewModel {
 //    var taskDidFetched: ((Task) -> Void)? { get set }
     var taskDidDeleted: ((Int, TaskState) -> Void)? { get set }
     var taskDidChanged: ((Int, TaskState) -> Void)? { get set }
-    var taskDidMoved: ((Int, TaskState) -> Void)? { get set }
+    var taskDidMoved: ((Int, TaskState, TaskState) -> Void)? { get set }
     var tasksDidUpdated: (() -> Void)? { get set }
     var didSelectTask: ((Task) -> Void)? { get set }
     
@@ -21,7 +21,7 @@ protocol TaskViewModel {
     func createTask(title: String, description: String, deadline: Date)
     func updateRow(at index: Int, title: String, description: String, deadline: Date, from state: TaskState)
     func deleteRow(at index: Int, from state: TaskState)
-    func move(at index: Int, to state: TaskState)
+    func move(at index: Int, from oldState: TaskState, to newState: TaskState)
     func task(at index: Int, from state: TaskState) -> Task?
     func didSelectRow(at index: Int, from state: TaskState)
     func count(of state: TaskState) -> Int
