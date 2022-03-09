@@ -9,11 +9,16 @@ import XCTest
 @testable import ProjectManager
 
 class TaskManagerTests: XCTestCase {
-    var mockTaskMemoryRepository: TaskRepository!
+    var mockTaskMemoryRepository: MockTaskMemoryRepository!
     var taskManager: TaskManager!
     
     override func setUp() {
-        mockTaskMemoryRepository = MockTaskMemoryRepository()
+        let mockTasks = [
+            Task(id: UUID(), title: "대기중", description: "대기중_본문", deadline: Date(), state: .waiting),
+            Task(id: UUID(), title: "진행중", description: "진행중_본문", deadline: Date(), state: .progress),
+            Task(id: UUID(), title: "완료", description: "완료_본문", deadline: Date(), state: .done),
+        ]
+        mockTaskMemoryRepository = MockTaskMemoryRepository(mockTasks: mockTasks)
         taskManager = TaskManager(taskRepository: mockTaskMemoryRepository)
     }
     
@@ -30,80 +35,32 @@ class TaskManagerTests: XCTestCase {
                         state: .waiting)
         taskManager.create(with: task)
         
-        let tasks = taskManager.fetchAll()
-        XCTAssertEqual(tasks[0], task)
+        let cretedTask = mockTaskMemoryRepository.createdTask[0]
+        XCTAssertEqual(cretedTask, task)
     }
     
-    func test_task_만들고_삭제하기() {
-        let task = Task(id: UUID(),
-                        title: "제목",
-                        description: "본문",
-                        deadline: Date(),
-                        state: .waiting)
-        taskManager.create(with: task)
-        
-        taskManager.delete(with: task)
-        let result = taskManager.fetchAll()
-        XCTAssertEqual(result.count, 0)
+    func test_특정_위치의_task_삭제하기() {
+        taskManager.delete(at: 0, from: .waiting)
+        let deletedTask = mockTaskMemoryRepository.deletedTask
+        XCTAssertEqual(deletedTask.count, 1)
     }
     
     func test_task_만들고_제목_변경하기() {
-        let task = Task(id: UUID(),
-                        title: "제목",
-                        description: "본문",
-                        deadline: Date(),
-                        state: .waiting)
-        taskManager.create(with: task)
+        taskManager.update(at: 0, from: .waiting)
 
-        let changedTask = Task(id: task.id,
-                           title: "바뀐제목",
-                           description: task.description,
-                           deadline: task.deadline,
-                           state: task.state)
-        taskManager.update(with: changedTask)
-
-        let result = taskManager.fetchAll()
-        XCTAssertEqual(result[0], changedTask)
+        let updatedTask = mockTaskMemoryRepository.updatedTask
+        XCTAssertEqual(updatedTask.count, 1)
     }
     
-    func test_task_만들고_상태_변경하기() {
-        let task = Task(id: UUID(),
-                        title: "제목",
-                        description: "본문",
-                        deadline: Date(),
-                        state: .waiting)
-        taskManager.create(with: task)
+    func test_task_상태_변경하기() {
+        taskManager.changeState(at: 0, to: .done)
 
-        taskManager.changeState(of: task, to: .done)
-
-        let result = taskManager.fetchAll()
-        XCTAssertEqual(result[0].state, .done)
+        let updatedTask = mockTaskMemoryRepository.updatedTask[0]
+        XCTAssertEqual(updatedTask.state, .done)
     }
     
-    func test_상태가_다른_task를_3개_만들고_진행중인_0번째_task_가져오기() {
-        let taskWaiting = Task(id: UUID(),
-                        title: "대기중",
-                        description: "본문",
-                        deadline: Date(),
-                        state: .waiting)
-    
-        let taskProgress = Task(id: UUID(),
-                        title: "진행중",
-                        description: "본문",
-                        deadline: Date(),
-                        state: .progress)
-        
-        let taskDone = Task(id: UUID(),
-                        title: "완료",
-                        description: "본문",
-                        deadline: Date(),
-                        state: .progress)
-        
-        [taskWaiting, taskProgress, taskDone].forEach {
-            taskManager.create(with: $0)
-        }
-        
-        let result = taskManager.fetch(at: 0, with: .progress)
-        XCTAssertEqual(result, taskProgress)
+    func test_진행중인_0번째_task_가져오기() {
+        let fetchedTask = taskManager.fetch(at: 0, from: .progress)
+        XCTAssertEqual(fetchedTask?.state, .progress)
     }
 }

@@ -19,21 +19,28 @@ extension Task: Equatable {
 }
 
 class MockTaskMemoryRepository: TaskRepository {
-    var mockTasks = [UUID: Task]()
+    var mockTasks: [Task]
+    var createdTask = [Task]()
+    var updatedTask = [Task]()
+    var deletedTask = [Task]()
+    
+    init(mockTasks: [Task]) {
+        self.mockTasks = mockTasks
+    }
     
     func create(with task: Task) {
-        mockTasks[task.id] = task
+        createdTask.append(task)
     }
     
     func fetchAll() -> [Task] {
-        return mockTasks.map { $0.value }
+        return mockTasks
     }
     
     func update(with task: Task) {
-        mockTasks.updateValue(task, forKey: task.id)
+        updatedTask.append(task)
     }
     
     func delete(with task: Task) {
-        mockTasks.removeValue(forKey: task.id)
+        deletedTask.append(task)
     }
 }
