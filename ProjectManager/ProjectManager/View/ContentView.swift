@@ -6,7 +6,10 @@ struct ContentView: View {
     @State var isPopoverPresentedForCreateTask = false
     
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            title
+            content
+        }
     }
     
     var title: some View {
@@ -27,6 +30,14 @@ struct ContentView: View {
             })
         }
         .padding()
+    }
+    
+    var content: some View {
+        HStack {
+            TaskListView(progressStatus: .todo)
+            TaskListView(progressStatus: .doing)
+            TaskListView(progressStatus: .done)
+        }
     }
 }
 

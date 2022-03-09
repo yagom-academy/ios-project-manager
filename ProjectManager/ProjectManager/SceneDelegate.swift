@@ -9,7 +9,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = scene as? UIWindowScene else {
             return
         }
-        let contentView = ContentView()
+        let taskViewModel = TaskListViewModel()
+        let contentView = ContentView().environmentObject(taskViewModel)
         let window = UIWindow(windowScene: windowScene)
         
         window.rootViewController = UIHostingController(rootView: contentView)

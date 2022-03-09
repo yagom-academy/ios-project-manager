@@ -1,12 +1,6 @@
 import Foundation
 
-enum ProgressStatus {
-    case todo
-    case doing
-    case done
-}
-
-struct Task {
+struct Task: Identifiable {
     var id: UUID
     var title: String
     var deadline: TimeInterval
