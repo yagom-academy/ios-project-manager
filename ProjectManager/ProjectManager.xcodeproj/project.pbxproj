@@ -98,6 +98,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		334BADE927D89F0A0098F448 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				37CC921E27D87105003F1122 /* ScheduleDetailViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		334BADEA27D89F130098F448 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		336E237027D1DBF300C40ECC /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -204,7 +219,8 @@
 		37CC921D27D870DB003F1122 /* ScheduleDetail */ = {
 			isa = PBXGroup;
 			children = (
-				37CC921E27D87105003F1122 /* ScheduleDetailViewController.swift */,
+				334BADEA27D89F130098F448 /* ViewModel */,
+				334BADE927D89F0A0098F448 /* View */,
 			);
 			path = ScheduleDetail;
 			sourceTree = "<group>";

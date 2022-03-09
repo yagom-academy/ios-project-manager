@@ -34,6 +34,18 @@ class ScheduleDetailViewController: UIViewController {
         return textField
     }()
 
+    private let rightBarButton: UIBarButtonItem = {
+        let barButtonItem = UIBarButtonItem()
+        barButtonItem.title = "완료"
+        return barButtonItem
+    }()
+
+    private let leftBarButton: UIBarButtonItem = {
+        let barButtonItem = UIBarButtonItem()
+        barButtonItem.title = "취소"
+        return barButtonItem
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
@@ -42,7 +54,9 @@ class ScheduleDetailViewController: UIViewController {
 
 private extension ScheduleDetailViewController {
     func configure() {
-
+        configureHierarchy()
+        configureConstraint()
+        configureNavigationBar()
     }
 
     func configureHierarchy() {
@@ -54,6 +68,8 @@ private extension ScheduleDetailViewController {
 
     func configureConstraint() {
         let safeAreaLayoutGuide = self.view.safeAreaLayoutGuide
+        self.stackView.translatesAutoresizingMaskIntoConstraints = false
+        self.bodyTextView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             self.stackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
             self.stackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
@@ -63,5 +79,11 @@ private extension ScheduleDetailViewController {
                 equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 0.5
             )
         ])
+    }
+
+    func configureNavigationBar() {
+        self.title = "TODO"
+        self.navigationItem.rightBarButtonItem = rightBarButton
+        self.navigationItem.leftBarButtonItem = leftBarButton
     }
 }
