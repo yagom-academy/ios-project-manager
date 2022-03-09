@@ -73,11 +73,13 @@ class ProjectViewController: UIViewController {
                 self?.todoCountLabel.text = $0.description
             })
             .disposed(by: disposeBag)
+        
         _ = viewModel.doingCount
             .subscribe(onNext: { [weak self] in
                 self?.doingCountLabel.text = $0.description
             })
             .disposed(by: disposeBag)
+        
         _ = viewModel.doneCount
             .subscribe(onNext: { [weak self] in
                 self?.doneCountLabel.text = $0.description
@@ -95,6 +97,7 @@ class ProjectViewController: UIViewController {
                 cell.configureCellContent(for: item)
             }
             .disposed(by: disposeBag)
+        
         viewModel.doingList
             .observe(on: MainScheduler.instance)
             .bind(to: doingTableView.rx.items(
@@ -104,6 +107,7 @@ class ProjectViewController: UIViewController {
                 cell.configureCellContent(for: item)
             }
             .disposed(by: disposeBag)
+        
         viewModel.doneList
             .observe(on: MainScheduler.instance)
             .bind(to: doneTableView.rx.items(
