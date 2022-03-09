@@ -9,6 +9,10 @@ final class ProjectTableViewCell: UITableViewCell {
     
     override func prepareForReuse() {
         dateLabel.textColor = .label
+        
+        titleLabel.text = nil
+        bodyLabel.text = nil
+        dateLabel.text = nil
     }
     
     override func layoutSubviews() {
