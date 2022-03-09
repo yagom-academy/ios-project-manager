@@ -15,12 +15,9 @@ struct ContentView: View {
     var title: some View {
         HStack {
             Spacer()
-            
             Text("Project Manager")
                 .padding(.leading)
-            
             Spacer()
-            
             Button(action: {
                 isPopoverPresentedForCreateTask = true
             }, label: {

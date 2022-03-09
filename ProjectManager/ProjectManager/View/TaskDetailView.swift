@@ -15,7 +15,7 @@ struct TaskDetailView: View {
     
     var body: some View {
         VStack {
-            titleView
+            headerView
             titleTextField
             deadLineView
             descriptionTextEditor
@@ -31,42 +31,43 @@ struct TaskDetailView: View {
         }
     }
     
-    var titleView: some View {
+    var headerView: some View {
         HStack {
-            if task.title == "" {
-                Button("Cancel") {
-                    self.presentationMode.wrappedValue.dismiss()
-                }
-            } else {
-                Button("Edit") {
-                    self.isdisabled = false
-                    self.isEditing = true
-                }
-            }
-            
+            leadingButton
             Spacer()
-            
             Text("TODO")
                 .font(.title2)
                 .foregroundColor(.black)
                 .bold()
-            
             Spacer()
-            
-            if self.isEditing == true {
-                Button("Done") {
-                    viewModel.updateTask(task, title: title, description: description, deadline: deadline)
-                    self.presentationMode.wrappedValue.dismiss()
-                }
-            } else {
-                Button("Done") {
-                    let task = Task(title: title, description: description, deadline: deadline)
-                    viewModel.createTask(task)
-                    self.presentationMode.wrappedValue.dismiss()
-                }
-            }
+            trailingButton
         }
         .padding(10)
+    }
+    
+    var leadingButton: some View {
+        Button(action: {
+            if task.title.isEmpty {
+                self.presentationMode.wrappedValue.dismiss()
+            } else {
+                self.isdisabled = false
+                self.isEditing = true
+            }
+        }, label: {
+            task.title.isEmpty ? Text("Cancel") : Text("Edit")
+        })
+    }
+    
+    var trailingButton: some View {
+        Button("Done") {
+            if isEditing {
+                viewModel.updateTask(task, title: title, description: description, deadline: deadline)
+            } else {
+                let task = Task(title: title, description: description, deadline: deadline)
+                viewModel.createTask(task)
+            }
+            self.presentationMode.wrappedValue.dismiss()
+        }
     }
     
     var titleTextField: some View {
