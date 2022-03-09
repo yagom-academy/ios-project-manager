@@ -11,7 +11,7 @@ struct TaskListView: View {
     
     @State var tasks: [Task]
     let taskStatus: TaskStatus
-    private var taskListHeader: String {
+    private var taskListHeaderTitle: String {
         switch taskStatus {
         case .todo:
             return "TODO"
@@ -25,7 +25,7 @@ struct TaskListView: View {
     var body: some View {
         VStack {
             HStack(spacing: 10) {
-                Text(taskListHeader)
+                Text(taskListHeaderTitle)
                     .font(.largeTitle)
                 Text(tasks.count / 100 < 1 ? "\(tasks.count)" : "99+")
                     .frame(width: 30, height: 24)
