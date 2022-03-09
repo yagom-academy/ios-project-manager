@@ -7,10 +7,18 @@
 
 import UIKit
 
+// MARK: - ProjectDetailViewControllerDelegate
+protocol ProjectDetailViewControllerDelegate: AnyObject {
+    
+    func delegateUpdateProject(of identifier: UUID, with content: [String: Any])
+}
+
+// MARK: - ProjectDetailViewController
 class ProjectDetailViewController: UIViewController {
     
     // MARK: - Property
     var project: Project?
+    weak var delegate: ProjectDetailViewControllerDelegate?
     
     // MARK: - UI Property
     private var navigationBar: UINavigationBar = {
@@ -141,7 +149,7 @@ class ProjectDetailViewController: UIViewController {
         content.updateValue(titleTextField.text as Any, forKey: "title")
         content.updateValue(datePicker.date as Any, forKey: "deadline")
         content.updateValue(descriptionTextView.text as Any, forKey: "description")
-        guard let todoProjecTableViewController = presentingViewController as? TodoProjectTableViewController,
+        guard let todoProjecTableViewController = presentingViewController as? ProjectDetailViewControllerDelegate,
               let identifier = project?.identifier else {
             return
         }

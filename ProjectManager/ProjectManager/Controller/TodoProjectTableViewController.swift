@@ -98,10 +98,6 @@ class TodoProjectTableViewController: UIViewController {
         dataSource.apply(snapShot, animatingDifferences: true, completion: nil)
     }
     
-    func delegateUpdateProject(of identifier: UUID, with content: [String: Any]) {
-        delegate?.updateProject(of: identifier, with: content)
-    }
-    
     // MARK: - Method
     @objc func presentEditPopover() {
         let location = longPressGestureRecognizer.location(in: projectTableView)
@@ -171,6 +167,7 @@ extension TodoProjectTableViewController: UITableViewDelegate {
         let detailViewController = ProjectDetailViewController()
         detailViewController.modalPresentationStyle = .formSheet
         detailViewController.project = selectedProject
+        detailViewController.delegate = self
         
         self.present(detailViewController, animated: false, completion: nil)
     }
@@ -188,5 +185,13 @@ extension TodoProjectTableViewController: UITableViewDelegate {
         
         let actionConfigurations = UISwipeActionsConfiguration(actions: [deleteAction])
         return actionConfigurations
+    }
+}
+
+// MARK: - ProjectDetailViewControllerDelegate
+extension TodoProjectTableViewController: ProjectDetailViewControllerDelegate {
+    
+    func delegateUpdateProject(of identifier: UUID, with content: [String: Any]) {
+        delegate?.updateProject(of: identifier, with: content)
     }
 }

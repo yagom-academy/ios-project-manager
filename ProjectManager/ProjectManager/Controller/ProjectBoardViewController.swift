@@ -11,12 +11,25 @@ class ProjectBoardViewController: UIViewController {
     // MARK: - Property
     private let projectManager = ProjectManager()
     private let todoViewController = TodoProjectTableViewController()
+    private let doingViewController = DoingProjectTableViewController()
+    private let doneViewController = DoneProjectTableViewController()
     
     // MARK: - UI Property
     private var navigationBar: UINavigationBar = {
         let navigationBar = UINavigationBar()
         navigationBar.translatesAutoresizingMaskIntoConstraints = false
         return navigationBar
+    }()
+    
+    private lazy var stackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [todoViewController.view,
+                                                       doingViewController.view,
+                                                       doneViewController.view])
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        stackView.alignment = .fill
+        return stackView
     }()
     
     // MARK: - View Life Cycle
@@ -29,8 +42,9 @@ class ProjectBoardViewController: UIViewController {
         self.navigationBar.delegate = self
         self.configureNavigationItem()
         self.configureNavigationBarLayout()
-        self.configurTodoProjectviewControllerLayout()
+//        self.configurTodoProjectviewControllerLayout()
         self.configureDelegate()
+        self.configureStackViewLayout()
     }
      
     // MARK: - Configure UI
@@ -58,20 +72,33 @@ class ProjectBoardViewController: UIViewController {
         navigationBar.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor).isActive = true
     }
     
-    private func configurTodoProjectviewControllerLayout() {
-        self.view.addSubview(todoViewController.view)
+    private func configureStackViewLayout() {
+        self.view.addSubview(stackView)
         let safeArea = self.view.safeAreaLayoutGuide
         NSLayoutConstraint.activate([
-            todoViewController.view.topAnchor.constraint(equalTo: navigationBar.bottomAnchor),
-            todoViewController.view.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
-            todoViewController.view.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
-            todoViewController.view.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor)
+            stackView.topAnchor.constraint(equalTo: navigationBar.bottomAnchor),
+            stackView.leftAnchor.constraint(equalTo: safeArea.leftAnchor),
+            stackView.rightAnchor.constraint(equalTo: safeArea.rightAnchor),
+            stackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
         ])
     }
     
+//    private func configurTodoProjectviewControllerLayout() {
+//        self.view.addSubview(todoViewController.view)
+//        let safeArea = self.view.safeAreaLayoutGuide
+//        NSLayoutConstraint.activate([
+//            todoViewController.view.topAnchor.constraint(equalTo: navigationBar.bottomAnchor),
+//            todoViewController.view.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
+//            todoViewController.view.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+//            todoViewController.view.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor)
+//        ])
+//    }
+    
     // MARK: - Configure Controller
     private func configureDelegate() {
-        todoViewController.delegate = self
+        self.todoViewController.delegate = self
+        self.doingViewController.delegate = self
+        self.doneViewController.delegate = self
     }
     
     // MARK: - @objc Method
@@ -106,17 +133,20 @@ extension ProjectBoardViewController: ProjectTableViewControllerDelegate {
     }
     
     func updateProjectStatus(of identifier: UUID, with status: Status) {
-        projectManager.updateProjectStatus(of: identifier, with: status)
+        self.projectManager.updateProjectStatus(of: identifier, with: status)
+        self.todoViewController.applySnapshot()
+        self.doingViewController.applySnapshot()
+        self.doneViewController.applySnapshot()
     }
     
     func updateProject(of identifier: UUID, with content: [String : Any]) {
-        projectManager.updateProject(of: identifier, with: content)
-        todoViewController.applySnapshot()
-        // doingViewController.applySnapshot
-        // doneViewController.applySnapshot
+        self.projectManager.updateProject(of: identifier, with: content)
+        self.todoViewController.applySnapshot()
+        self.doingViewController.applySnapshot()
+        self.doneViewController.applySnapshot()
     }
     
     func deleteProject(of identifier: UUID) {
-        projectManager.delete(of: identifier)
+        self.projectManager.delete(of: identifier)
     }
 }
