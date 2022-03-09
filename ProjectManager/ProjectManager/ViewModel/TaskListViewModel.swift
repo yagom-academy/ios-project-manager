@@ -25,8 +25,8 @@ class TaskListViewModel: ObservableObject {
         reload()
     }
     
-    func updateTask(newTask: Task) {
-        manager.updateTask(newTask: newTask)
+    func updateTask(_ task: Task, title: String, description: String, deadline: Date) {
+        manager.updateTask(task, title: title, description: description, deadline: deadline)
         reload()
     }
     

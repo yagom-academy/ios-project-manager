@@ -20,14 +20,14 @@ class TaskManager {
             }
     }
     
-    func updateTask(newTask: Task) {
+    func updateTask(_ task: Task, title: String, description: String, deadline: Date) {
         taskList
             .indices
-            .filter { taskList[$0].id == newTask.id }
+            .filter { taskList[$0].id == task.id }
             .forEach {
-                taskList[$0].title = newTask.title
-                taskList[$0].deadline = newTask.deadline
-                taskList[$0].description = newTask.description
+                taskList[$0].title = title
+                taskList[$0].description = description
+                taskList[$0].deadline = deadline.timeIntervalSince1970
             }
     }
     
