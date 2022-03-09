@@ -118,4 +118,8 @@ extension ProjectBoardViewController: TodoProjectTableViewControllerDelegate {
         // doingViewController.applySnapshot
         // doneViewController.applySnapshot
     }
+    
+    func delete(of identifier: UUID) {
+        projectManager.delete(of: identifier)
+    }
 }

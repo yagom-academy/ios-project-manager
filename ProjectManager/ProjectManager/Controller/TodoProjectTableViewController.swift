@@ -13,6 +13,8 @@ protocol TodoProjectTableViewControllerDelegate {
     func update(of identifier: UUID, with content: [String: Any])
     
     func updateStatus(of identifier: UUID, with status: Status)
+    
+    func delete(of identifier: UUID)
 }
 
 // MARK: - TodoProjectTableViewController
@@ -182,5 +184,20 @@ extension TodoProjectTableViewController: UITableViewDelegate {
         detailViewController.project = selectedProject
         
         self.present(detailViewController, animated: false, completion: nil)
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: nil) {  [weak self] _, _, _ in
+            guard let project = self?.dataSource.itemIdentifier(for: indexPath),
+                  let identifier = project.identifier else {
+                return
+            }
+            self?.delegate?.delete(of: identifier)
+            self?.applySnapshot()
+        }
+        deleteAction.image = UIImage(systemName: "trash.fill")
+        
+        let actionConfigurations = UISwipeActionsConfiguration(actions: [deleteAction])
+        return actionConfigurations
     }
 }
