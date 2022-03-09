@@ -22,6 +22,9 @@ struct TaskListView: View {
                 ForEach(taskList) { task in
                     TaskListCellView(task: task)
                 }
+                .onDelete { indexSet in
+                    viewModel.deleteTask(taskList[indexSet.index])
+                }
             }
         }
     }

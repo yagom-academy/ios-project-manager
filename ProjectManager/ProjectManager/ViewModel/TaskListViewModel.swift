@@ -30,8 +30,8 @@ class TaskListViewModel: ObservableObject {
         reload()
     }
     
-    func deleteTask(_ id: UUID) {
-        manager.deleteTask(id)
+    func deleteTask(_ task: Task) {
+        manager.deleteTask(task.id)
         reload()
     }
 }
