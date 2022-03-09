@@ -40,8 +40,8 @@ final class TaskListViewModel: TaskViewModel {
         updateTasks()
     }
     
-    func updateRow(at index: Int, title: String, description: String, deadline: Date, state: TaskState) {
-        taskManager.update(at: index, title: title, description: description, deadline: deadline, state: state)
+    func updateRow(at index: Int, title: String, description: String, deadline: Date, from state: TaskState) {
+        taskManager.update(at: index, title: title, description: description, deadline: deadline, from: state)
         taskDidChanged?(index)
     }
     

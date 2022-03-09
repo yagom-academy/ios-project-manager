@@ -11,7 +11,7 @@ protocol TaskMangeable {
     func create(title: String, description: String, deadline: Date)
     func fetchAll() -> [Task]
     func fetch(at index: Int, from state: TaskState) -> Task?
-    func update(at index: Int, title: String, description: String, deadline: Date, state: TaskState)
+    func update(at index: Int, title: String, description: String, deadline: Date, from state: TaskState)
     func delete(at index: Int, from state: TaskState)
     func changeState(at index: Int, to state: TaskState)
 }

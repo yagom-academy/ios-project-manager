@@ -28,15 +28,13 @@ class TaskManagerTests: XCTestCase {
     }
     
     func test_task_만들고_확인하기() {
-        let task = Task(id: UUID(),
-                        title: "제목",
-                        description: "본문",
-                        deadline: Date(),
-                        state: .waiting)
-        taskManager.create(with: task)
+        let date = Date()
+        taskManager.create(title: "새제목", description: "새내용", deadline: date)
         
         let cretedTask = mockTaskMemoryRepository.createdTask[0]
-        XCTAssertEqual(cretedTask, task)
+        XCTAssertEqual(cretedTask.title, "새제목")
+        XCTAssertEqual(cretedTask.description, "새내용")
+        XCTAssertEqual(cretedTask.deadline, date)
     }
     
     func test_특정_위치의_task_삭제하기() {
@@ -45,11 +43,11 @@ class TaskManagerTests: XCTestCase {
         XCTAssertEqual(deletedTask.count, 1)
     }
     
-    func test_task_만들고_제목_변경하기() {
-        taskManager.update(at: 0, from: .waiting)
+    func test_준비중인_첫_번째_task_제목_변경하기() {
+        taskManager.update(at: 0, title: "바뀐제목", description: "바뀐내용", deadline: Date(), from: .waiting)
 
-        let updatedTask = mockTaskMemoryRepository.updatedTask
-        XCTAssertEqual(updatedTask.count, 1)
+        let updatedTask = mockTaskMemoryRepository.updatedTask[0]
+        XCTAssertEqual(updatedTask.title, "바뀐제목")
     }
     
     func test_task_상태_변경하기() {

@@ -34,7 +34,7 @@ final class TaskManager: TaskMangeable {
         return filteredTasks[safe: index]
     }
     
-    func update(at index: Int, title: String, description: String, deadline: Date, state: TaskState) {
+    func update(at index: Int, title: String, description: String, deadline: Date, from state: TaskState) {
         guard let selectedTask = fetch(at: index, from: state) else {
             return
         }
