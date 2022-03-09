@@ -13,13 +13,15 @@ import RxCocoa
 final class MainViewModel {
 
     // MARK: - Properties
+    var coordinator: MainViewCoordinator
 
     private let bag = DisposeBag()
     private let useCase: ScheduleUseCase
 
     // MARK: - Initializer
 
-    init(useCase: ScheduleUseCase) {
+    init(coordinator: MainViewCoordinator, useCase: ScheduleUseCase) {
+        self.coordinator = coordinator
         self.useCase = useCase
     }
 
@@ -49,6 +51,14 @@ final class MainViewModel {
                 self.useCase.fetch()
             })
             .disposed(by: disposeBag)
+
+        input.cellDidTap.forEach { observable in
+            observable
+                .subscribe(onNext: { schedule in
+                    self.coordinator.presentScheduleDetailViewController()
+                })
+                .disposed(by: disposeBag)
+        }
 
         input.cellDelete.forEach { observable in
             observable.subscribe(onNext: { id in

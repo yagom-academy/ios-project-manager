@@ -11,10 +11,10 @@ import RxCocoa
 final class MainViewController: UIViewController {
 
 // MARK: - Properties
+    var viewModel: MainViewModel?
 
     private let bag = DisposeBag()
-    private let viewModel: MainViewModel
-
+    
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -23,19 +23,7 @@ final class MainViewController: UIViewController {
         stackView.spacing = 2.0
         return stackView
     }()
-    private let tableViews: [UITableView]
-
-// MARK: - Initializer
-
-    init(viewModel: MainViewModel) {
-        self.viewModel = viewModel
-        self.tableViews = Progress.allCases.map { _ in UITableView() }
-        super.init(nibName: nil, bundle: nil)
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    private let tableViews: [UITableView] = Progress.allCases.map { _ in UITableView() }
 
 // MARK: - Methods
 
@@ -100,7 +88,9 @@ private extension MainViewController {
             addButtonDidTap: Observable.of()
         )
 
-        let output = self.viewModel.transform(input: input, disposeBag: self.bag)
+        guard  let output = self.viewModel?.transform(input: input, disposeBag: self.bag) else {
+            return
+        }
 
         output.scheduleLists.enumerated().forEach { index, observable in
             observable.asDriver()

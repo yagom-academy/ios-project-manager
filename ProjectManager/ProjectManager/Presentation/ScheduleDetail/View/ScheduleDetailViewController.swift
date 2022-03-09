@@ -14,24 +14,36 @@ class ScheduleDetailViewController: UIViewController {
         stackView.axis = .vertical
         stackView.alignment = .fill
         stackView.distribution = .fill
-        stackView.spacing = 10
+        stackView.spacing = 5
         return stackView
     }()
 
     private let titleTextField: UITextField = {
         let textField = UITextField()
+        textField.placeholder = "Title"
+        textField.shadow()
+        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: textField.frame.height))
+        textField.leftView = paddingView
+        textField.leftViewMode = .always
+
         return textField
     }()
 
-    private let datePicker: UIDatePicker = {
-        let datePicker = UIDatePicker()
+    private lazy var datePicker: UIDatePicker = {
+        let datePicker = UIDatePicker(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 300))
         datePicker.datePickerMode = .date
+        if #available(iOS 13.5, *) {
+            datePicker.preferredDatePickerStyle = .wheels
+            }
         return datePicker
     }()
 
-    private let bodyTextView: UITextField = {
-        let textField = UITextField()
-        return textField
+    private let bodyTextView: UITextView = {
+        let textView = UITextView()
+        textView.layer.masksToBounds = false
+        textView.shadow()
+
+        return textView
     }()
 
     private let rightBarButton: UIBarButtonItem = {
@@ -54,6 +66,7 @@ class ScheduleDetailViewController: UIViewController {
 
 private extension ScheduleDetailViewController {
     func configure() {
+        self.view.backgroundColor = .white
         configureHierarchy()
         configureConstraint()
         configureNavigationBar()
@@ -71,12 +84,15 @@ private extension ScheduleDetailViewController {
         self.stackView.translatesAutoresizingMaskIntoConstraints = false
         self.bodyTextView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            self.stackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
-            self.stackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
-            self.stackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-            self.stackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
+            self.stackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 10),
+            self.stackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -10),
+            self.stackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 4),
+            self.stackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            self.titleTextField.heightAnchor.constraint(
+                equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 0.08
+            ),
             self.bodyTextView.heightAnchor.constraint(
-                equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 0.5
+                equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 0.55
             )
         ])
     }
@@ -85,5 +101,19 @@ private extension ScheduleDetailViewController {
         self.title = "TODO"
         self.navigationItem.rightBarButtonItem = rightBarButton
         self.navigationItem.leftBarButtonItem = leftBarButton
+    }
+}
+
+extension UIView {
+    func shadow() {
+        self.backgroundColor = .white
+        self.layer.borderColor = UIColor.systemGray4.cgColor
+        self.layer.borderWidth = 0.5
+        self.layer.cornerRadius = 1
+
+        self.layer.shadowColor = UIColor.systemGray.cgColor
+        self.layer.shadowOpacity = 1.0
+        self.layer.shadowRadius = 2
+        self.layer.shadowOffset = CGSize(width: 1, height: 2)
     }
 }

@@ -14,19 +14,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-        let dataSource = MemoryDataSource()
-        dataSource.storage = [
-            Schedule(title: "1번 스케줄", body: "ㅇㅇㅇ", dueDate: Date(), progress: .doing),
-            Schedule(title: "2번 스케줄", body: "ㅇㅇㅇ", dueDate: Date(), progress: .done),
-            Schedule(title: "3번 스케줄", body: "ㅇㅇㅇ", dueDate: Date(), progress: .doing),
-            Schedule(title: "4번 스케줄", body: "ㅇㅇㅇ", dueDate: Date(), progress: .todo),
-            Schedule(title: "5번 스케줄", body: "ㅇㅇㅇ", dueDate: Date(), progress: .doing)
-        ]
-
-        let rootViewController = MainViewController(viewModel: MainViewModel(useCase: ScheduleUseCase(repository: DataRepository(dataSource: dataSource))))
-        let navigationController = UINavigationController(rootViewController: rootViewController)
+        let navigationController = UINavigationController()
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
+
+        let coordinator = MainViewCoordinator(navigationController)
+        coordinator.start()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
