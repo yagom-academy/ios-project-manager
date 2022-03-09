@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class ProjectSource<T: Hashable>: LocalDataBase {
+final class ProjectSource<T: Hashable & CustomStringConvertible>: LocalDataBase {
     
     typealias Item = Project
     
@@ -17,7 +17,7 @@ final class ProjectSource<T: Hashable>: LocalDataBase {
     // MARK: - Method
     func create(with content: [String: Any]) {
         let identifier = UUID()
-        let newProject = Project(identifier: UUID(),
+        let newProject = Project(identifier: identifier,
                                  title: content["title"] as? String,
                                  deadline: content["deadline"] as? Date,
                                  description: content["description"] as? String,
@@ -25,11 +25,8 @@ final class ProjectSource<T: Hashable>: LocalDataBase {
         projects.updateValue(newProject, forKey: identifier.uuidString)
     }
     
-    func read<T>(of identifier: T) -> Project? where T : Hashable {
-        guard let identifierString = identifier as? String else {
-            return nil
-        }
-        
+    func read<T>(of identifier: T) -> Project? where T : Hashable & CustomStringConvertible {
+        let identifierString = String(describing: identifier)
         return projects[identifierString]
     }
     
@@ -37,9 +34,10 @@ final class ProjectSource<T: Hashable>: LocalDataBase {
         return projects.values.filter { project in project.status == status }
     }
     
-    func update<T>(of identifier: T, with content: [String : Any]) where T : Hashable {
-        guard let identifierString = identifier as? String,
-              var updatingProject = projects[identifierString] else {
+    func update<T>(of identifier: T, with content: [String : Any]) where T : Hashable & CustomStringConvertible {
+        let identifierString = String(describing: identifier)
+        
+        guard var updatingProject = projects[identifierString] else {
             return
         }
         
@@ -47,9 +45,9 @@ final class ProjectSource<T: Hashable>: LocalDataBase {
         projects.updateValue(updatingProject, forKey: identifierString)
     }
     
-    func update<T>(of identifier: T, with status: Status) where T : Hashable {
-        guard let identifierString = identifier as? String,
-              var updatingProject = projects[identifierString] else {
+    func update<T>(of identifier: T, with status: Status) where T : Hashable & CustomStringConvertible {
+        let identifierString = String(describing: identifier)
+        guard var updatingProject = projects[identifierString] else {
             return
         }
         
@@ -57,11 +55,8 @@ final class ProjectSource<T: Hashable>: LocalDataBase {
         projects.updateValue(updatingProject, forKey: identifierString)
     }
     
-    func delete<T>(of identifier: T) where T : Hashable {
-        guard let identifierString = identifier as? String else {
-            return
-        }
-        
+    func delete<T>(of identifier: T) where T : Hashable & CustomStringConvertible  {
+        let identifierString = String(describing: identifier)
         projects.removeValue(forKey: identifierString)
     }
 }
