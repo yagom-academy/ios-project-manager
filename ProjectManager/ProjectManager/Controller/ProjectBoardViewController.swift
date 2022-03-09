@@ -21,6 +21,13 @@ class ProjectBoardViewController: UIViewController {
         return navigationBar
     }()
     
+    private let stackViewBackgroundView: UIView = {
+       let backgroundView = UIView()
+        backgroundView.translatesAutoresizingMaskIntoConstraints = false
+        backgroundView.backgroundColor = .systemGray4
+        return backgroundView
+    }()
+    
     private lazy var stackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [todoViewController.view,
                                                        doingViewController.view,
@@ -29,9 +36,10 @@ class ProjectBoardViewController: UIViewController {
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
         stackView.alignment = .fill
+        stackView.spacing = 7
         return stackView
     }()
-    
+
     // MARK: - View Life Cycle
     override func loadView() {
         self.configureView()
@@ -39,18 +47,25 @@ class ProjectBoardViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.configureSubviews()
         self.navigationBar.delegate = self
         self.configureNavigationItem()
         self.configureNavigationBarLayout()
         self.configureDelegate()
+        self.configureStackViewBackgroundViewLayout()
         self.configureStackViewLayout()
     }
      
-    // MARK: - Configure UI
+    // MARK: - Configure View
     private func configureView() {
         self.view = .init()
         self.view.translatesAutoresizingMaskIntoConstraints = false
-        self.view.backgroundColor = .systemGray3
+        self.view.backgroundColor = .systemGray6
+    }
+    
+    private func configureSubviews() {
+        self.view.addSubview(navigationBar)
+        self.view.addSubview(stackViewBackgroundView)
     }
     
     private func configureNavigationItem() {
@@ -64,21 +79,29 @@ class ProjectBoardViewController: UIViewController {
     }
     
     private func configureNavigationBarLayout() {
-        self.view.addSubview(navigationBar)
         let safeArea = self.view.safeAreaLayoutGuide
         navigationBar.topAnchor.constraint(equalTo: safeArea.topAnchor).isActive = true
         navigationBar.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor).isActive = true
         navigationBar.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor).isActive = true
     }
     
-    private func configureStackViewLayout() {
-        self.view.addSubview(stackView)
+    private func configureStackViewBackgroundViewLayout() {
         let safeArea = self.view.safeAreaLayoutGuide
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: navigationBar.bottomAnchor),
-            stackView.leftAnchor.constraint(equalTo: safeArea.leftAnchor),
-            stackView.rightAnchor.constraint(equalTo: safeArea.rightAnchor),
-            stackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
+            stackViewBackgroundView.topAnchor.constraint(equalTo: navigationBar.bottomAnchor),
+            stackViewBackgroundView.leftAnchor.constraint(equalTo: safeArea.leftAnchor),
+            stackViewBackgroundView.rightAnchor.constraint(equalTo: safeArea.rightAnchor),
+            stackViewBackgroundView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -40)
+        ])
+    }
+    
+    private func configureStackViewLayout() {
+        self.stackViewBackgroundView.addSubview(stackView)
+        NSLayoutConstraint.activate([
+            stackView.topAnchor.constraint(equalTo: stackViewBackgroundView.topAnchor),
+            stackView.leftAnchor.constraint(equalTo: stackViewBackgroundView.leftAnchor),
+            stackView.rightAnchor.constraint(equalTo: stackViewBackgroundView.rightAnchor),
+            stackView.bottomAnchor.constraint(equalTo: stackViewBackgroundView.bottomAnchor)
         ])
     }
     

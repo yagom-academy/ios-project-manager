@@ -39,7 +39,7 @@ class DoneProjectTableViewController: UIViewController {
     // MARK: - Configure View
     private func configureView() {
         self.view = .init()
-        self.view.backgroundColor = .systemGray6
+        self.view.backgroundColor = .systemGray5
         self.view.translatesAutoresizingMaskIntoConstraints = false
     }
     
