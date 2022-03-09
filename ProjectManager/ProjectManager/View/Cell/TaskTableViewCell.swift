@@ -7,6 +7,18 @@
 
 import UIKit
 
+private enum TextAttribute {
+    static let overDeadline = [
+        NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .subheadline),
+        NSAttributedString.Key.foregroundColor: UIColor.red
+    ]
+    
+    static let underDeadline = [
+        NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .subheadline),
+        NSAttributedString.Key.foregroundColor: UIColor.label
+    ]
+}
+
 private enum Design {
     static let leadingMargin: CGFloat = 10
     static let trailingMargin: CGFloat = -10
@@ -36,6 +48,7 @@ class TaskTableViewCell: UITableViewCell {
     let descriptionLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .body)
+        label.textColor = .systemGray
         label.numberOfLines = 3
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -72,10 +85,15 @@ class TaskTableViewCell: UITableViewCell {
         ])
     }
     
-    func configureCell(title: String, description: String, deadline: Date) {
+    func configureCell(title: String, description: String, deadline: Date, state: TaskState) {
         titleLabel.text = title
         descriptionLabel.text = description
-        deadlineLabel.text = deadline.dateString
+        if [.waiting, .progress].contains(state) && deadline < Date() {
+            deadlineLabel.attributedText = NSAttributedString(string: deadline.dateString, attributes: TextAttribute.overDeadline)
+            return
+        }
+        
+        deadlineLabel.attributedText = NSAttributedString(string: deadline.dateString, attributes: TextAttribute.underDeadline)
     }
 }
 
