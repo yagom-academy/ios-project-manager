@@ -29,7 +29,6 @@ class ProjectBoardViewController: UIViewController {
         self.navigationBar.delegate = self
         self.configureNavigationItem()
         self.configureNavigationBarLayout()
-        self.todoViewController.projectManager = projectManager
         self.configurTodoProjectviewControllerLayout()
         self.configureDelegate()
     }
@@ -107,6 +106,9 @@ extension ProjectBoardViewController: ProjectCreatorViewControllerDelegate {
 
 // MARK: - TodoProjectTableViewControllerDelegate
 extension ProjectBoardViewController: TodoProjectTableViewControllerDelegate {
+    func readProject(of status: Status) -> [Project]? {
+        return projectManager.readProject(of: status)
+    }
     
     func updateStatus(of identifier: UUID, with status: Status) {
         projectManager.updateProjectStatus(of: identifier, with: status)

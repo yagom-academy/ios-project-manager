@@ -10,6 +10,8 @@ import UIKit
 // MARK: - TodoProjectTableViewControllerDelegate
 protocol TodoProjectTableViewControllerDelegate {
     
+    func readProject(of status: Status) -> [Project]?
+    
     func update(of identifier: UUID, with content: [String: Any])
     
     func updateStatus(of identifier: UUID, with status: Status)
@@ -26,7 +28,6 @@ class TodoProjectTableViewController: UIViewController {
     }
     
     // MARK: - Property
-    weak var projectManager: ProjectManager?
     private let projectTableView = UITableView()
     private var dataSource: UITableViewDiffableDataSource<Section,Project>!
     private let longPressGestureRecognizer = UILongPressGestureRecognizer()
@@ -83,6 +84,36 @@ class TodoProjectTableViewController: UIViewController {
            self.longPressGestureRecognizer.addTarget(self, action: #selector(presentEditPopover))
        }
     
+    // MARK: - TableView
+    private func configureDataSource() {
+        dataSource = UITableViewDiffableDataSource<Section, Project>(tableView: projectTableView) { (tableView: UITableView, indexPath: IndexPath, project: Project) -> UITableViewCell? in
+            let projectCell = self.projectTableView.dequeueReusableCell(withClass: ProjectTableViewCell.self, for: indexPath)
+            projectCell.updateContent(title: project.title,
+                                      description: project.description,
+                                      deadline: project.deadline?.localeString(),
+                                      with: project.isExpired ? .red : .black)
+            return projectCell
+        }
+    }
+    
+    func applySnapshot() {
+        let projects = delegate?.readProject(of: .todo)
+        
+        guard let projects = projects else {
+            return
+        }
+        
+        var snapShot = NSDiffableDataSourceSnapshot<Section, Project>()
+        snapShot.appendSections([.main])
+        snapShot.appendItems(projects, toSection: .main)
+        
+        dataSource.apply(snapShot, animatingDifferences: true, completion: nil)
+    }
+    
+    func delegateUpdateProject(of identifier: UUID, with content: [String: Any]) {
+        delegate?.updateProject(of: identifier, with: content)
+    }
+    
     // MARK: - Method
     @objc func presentEditPopover() {
         let location = longPressGestureRecognizer.location(in: projectTableView)
@@ -122,36 +153,6 @@ class TodoProjectTableViewController: UIViewController {
         }
         
         return self.dataSource.itemIdentifier(for: indexPath)
-    }
-    
-    // MARK: - TableView
-    private func configureDataSource() {
-        dataSource = UITableViewDiffableDataSource<Section, Project>(tableView: projectTableView) { (tableView: UITableView, indexPath: IndexPath, project: Project) -> UITableViewCell? in
-            let projectCell = self.projectTableView.dequeueReusableCell(withClass: ProjectTableViewCell.self, for: indexPath)
-            projectCell.updateContent(title: project.title,
-                                      description: project.description,
-                                      deadline: project.deadline?.localeString(),
-                                      with: project.isExpired ? .red : .black)
-            return projectCell
-        }
-    }
-    
-    func applySnapshot() {
-        let projects = projectManager?.readProject(of: .todo)
-        
-        guard let projects = projects else {
-            return
-        }
-        
-        var snapShot = NSDiffableDataSourceSnapshot<Section, Project>()
-        snapShot.appendSections([.main])
-        snapShot.appendItems(projects, toSection: .main)
-        
-        dataSource.apply(snapShot, animatingDifferences: true, completion: nil)
-    }
-    
-    func delegateUpdateProject(of identifier: UUID, with content: [String: Any]) {
-        delegate?.updateProject(of: identifier, with: content)
     }
 }
 
