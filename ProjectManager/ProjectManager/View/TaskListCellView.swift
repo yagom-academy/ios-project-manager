@@ -3,6 +3,11 @@ import SwiftUI
 struct TaskListCellView: View {
     @EnvironmentObject var viewModel: TaskListViewModel
     
+    @State var isPopoverPresentedForUpdateTask = false
+    @State var isPopoverPresentedForUpdateTaskState = false
+    @State var firstMoveStatus: ProgressStatus = .doing
+    @State var secondMoveStatus: ProgressStatus = .done
+    
     var task: Task
     
     var body: some View {
@@ -10,6 +15,33 @@ struct TaskListCellView: View {
             title
             descrition
             deadline
+        }
+        .onTapGesture {
+            self.isPopoverPresentedForUpdateTaskState = false
+            self.isPopoverPresentedForUpdateTask = true
+        }
+        .sheet(isPresented: $isPopoverPresentedForUpdateTask, onDismiss: nil) {
+            TaskDetailView(task: task)
+        }
+        .onLongPressGesture {
+            self.isPopoverPresentedForUpdateTaskState = true
+        }
+        .popover(isPresented: $isPopoverPresentedForUpdateTaskState) {
+            VStack {
+                Button("Move to \(firstMoveStatus.name)") {
+                    viewModel.updateState(firstMoveStatus, to: task)
+                    self.isPopoverPresentedForUpdateTaskState = false
+                }
+                .padding()
+                Button("Move to \(secondMoveStatus.name)") {
+                    viewModel.updateState(secondMoveStatus, to: task)
+                    self.isPopoverPresentedForUpdateTaskState = false
+                }
+                .padding()
+                .onAppear {
+                    setButtonTitle()
+                }
+            }
         }
     }
     
@@ -37,6 +69,20 @@ struct TaskListCellView: View {
         } else {
             return deadlineText
                 .font(.system(size: 15, weight: .regular, design: .rounded))
+        }
+    }
+    
+    func setButtonTitle() {
+        switch task.progressStatus {
+        case .todo:
+            firstMoveStatus = .doing
+            secondMoveStatus = .done
+        case .doing:
+            firstMoveStatus = .todo
+            secondMoveStatus = .done
+        case .done:
+            firstMoveStatus = .todo
+            secondMoveStatus = .doing
         }
     }
 }
