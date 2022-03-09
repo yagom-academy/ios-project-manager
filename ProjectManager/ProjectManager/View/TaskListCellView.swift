@@ -27,21 +27,7 @@ struct TaskListCellView: View {
             self.isPopoverPresentedForUpdateTaskState = true
         }
         .popover(isPresented: $isPopoverPresentedForUpdateTaskState) {
-            VStack {
-                Button("Move to \(firstMoveStatus.name)") {
-                    viewModel.updateState(firstMoveStatus, to: task)
-                    self.isPopoverPresentedForUpdateTaskState = false
-                }
-                .padding()
-                Button("Move to \(secondMoveStatus.name)") {
-                    viewModel.updateState(secondMoveStatus, to: task)
-                    self.isPopoverPresentedForUpdateTaskState = false
-                }
-                .padding()
-                .onAppear {
-                    setButtonTitle()
-                }
-            }
+            statusChangePopover
         }
     }
     
@@ -69,6 +55,24 @@ struct TaskListCellView: View {
         } else {
             return deadlineText
                 .font(.system(size: 15, weight: .regular, design: .rounded))
+        }
+    }
+    
+    var statusChangePopover: some View {
+        VStack {
+            Button("Move to \(firstMoveStatus.name)") {
+                viewModel.updateState(firstMoveStatus, to: task)
+                self.isPopoverPresentedForUpdateTaskState = false
+            }
+            .padding()
+            Button("Move to \(secondMoveStatus.name)") {
+                viewModel.updateState(secondMoveStatus, to: task)
+                self.isPopoverPresentedForUpdateTaskState = false
+            }
+            .padding()
+            .onAppear {
+                setButtonTitle()
+            }
         }
     }
     
