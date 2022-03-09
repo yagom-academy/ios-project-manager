@@ -1,6 +1,8 @@
 import Foundation
 
+
 class Repository: DataManager {
+    
     private var workList: [Work] = []
     
     var todoList: [Work] {
@@ -40,6 +42,7 @@ class Repository: DataManager {
             Work(title: "b", body: "c", dueDate: Date(), sort: .doing),
             Work(title: "bbbbb", body: "xxxxx", dueDate: Date(), sort: .done)
         ]
+        
         workList = works
     }
     
@@ -58,4 +61,5 @@ class Repository: DataManager {
         workList[index].body = body
         workList[index].dueDate = date
     }
+    
 }

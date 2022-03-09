@@ -1,6 +1,8 @@
 import XCTest
 
+
 class ProjectManagerModelTests: XCTestCase {
+    
     var sut: Repository?
     
     override func setUpWithError() throws {
@@ -81,4 +83,5 @@ class ProjectManagerModelTests: XCTestCase {
         
         XCTAssertEqual(sut?.todoList[0].title, "b")
     }
+    
 }

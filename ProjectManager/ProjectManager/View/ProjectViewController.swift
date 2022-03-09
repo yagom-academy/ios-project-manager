@@ -2,7 +2,13 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+
 class ProjectViewController: UIViewController {
+    
+    private let viewModel = ProjectViewModel()
+    private var disposeBag = DisposeBag()
+    private let actionViewStorboardName = "ActionView"
+    
     @IBOutlet weak private var todoTableView: UITableView!
     @IBOutlet weak private var doingTableView: UITableView!
     @IBOutlet weak private var doneTableView: UITableView!
@@ -12,10 +18,6 @@ class ProjectViewController: UIViewController {
     @IBOutlet weak private var doingCountLabel: UILabel!
     @IBOutlet weak private var doneTitleLabel: UILabel!
     @IBOutlet weak private var doneCountLabel: UILabel!
-    
-    private let viewModel = ProjectViewModel()
-    private var disposeBag = DisposeBag()
-    private let actionViewStorboardName = "ActionView"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +33,7 @@ class ProjectViewController: UIViewController {
             ActionViewController(coder: coder, viewModel: self.viewModel)
         }
         viewController.modalPresentationStyle = .formSheet
+        
         present(viewController, animated: true, completion: nil)
     }
     
@@ -46,6 +49,7 @@ class ProjectViewController: UIViewController {
     
     private func configureTableViewCells() {
         let nibName = UINib(nibName: String(describing: TableViewCell.self), bundle: nil)
+        
         todoTableView.register(nibName, forCellReuseIdentifier: String(describing: TableViewCell.self))
         doingTableView.register(nibName, forCellReuseIdentifier: String(describing: TableViewCell.self))
         doneTableView.register(nibName, forCellReuseIdentifier: String(describing: TableViewCell.self))
@@ -55,9 +59,11 @@ class ProjectViewController: UIViewController {
         todoTitleLabel.text = "TODO"
         doingTitleLabel.text = "DOING"
         doneTitleLabel.text = "DONE"
+        
         todoCountLabel.layer.cornerRadius = 12
         doingCountLabel.layer.cornerRadius = 12
         doneCountLabel.layer.cornerRadius = 12
+        
         todoCountLabel.layer.masksToBounds = true
         doingCountLabel.layer.masksToBounds = true
         doneCountLabel.layer.masksToBounds = true
@@ -112,4 +118,5 @@ class ProjectViewController: UIViewController {
         doingTableView.backgroundColor = .systemGray5
         doneTableView.backgroundColor = .systemGray5
     }
+    
 }

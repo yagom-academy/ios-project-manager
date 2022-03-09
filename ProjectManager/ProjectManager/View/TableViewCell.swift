@@ -1,5 +1,6 @@
 import UIKit
 
+
 final class TableViewCell: UITableViewCell {
     @IBOutlet weak private var titleLabel: UILabel!
     @IBOutlet weak private var bodyLabel: UILabel!
@@ -30,4 +31,5 @@ final class TableViewCell: UITableViewCell {
             dateLabel.textColor = .systemRed
         }
     }
+    
 }

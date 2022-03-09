@@ -1,5 +1,6 @@
 import Foundation
 
+
 struct Work {
     
     enum Sort {
@@ -28,4 +29,5 @@ struct Work {
         }
         return false
     }
+    
 }

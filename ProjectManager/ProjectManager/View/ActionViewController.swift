@@ -1,7 +1,9 @@
 import UIKit
 
 class ActionViewController: UIViewController {
+    
     private var viewModel: ProjectViewModel?
+    
     @IBOutlet weak private var titleTextField: UITextField!
     @IBOutlet weak private var datePicker: UIDatePicker!
     @IBOutlet weak private var bodyTextView: UITextView!
@@ -65,4 +67,5 @@ class ActionViewController: UIViewController {
         bodyTextView.layer.shadowOpacity = 0.3
         bodyTextView.layer.shadowRadius = 5.0
     }
+    
 }

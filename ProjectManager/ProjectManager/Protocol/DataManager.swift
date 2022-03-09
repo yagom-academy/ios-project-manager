@@ -1,6 +1,8 @@
 import Foundation
 
+
 protocol DataManager {
+    
     associatedtype StorageType
     
     var todoList: [StorageType] { get }
@@ -10,4 +12,5 @@ protocol DataManager {
     func create(_ data: StorageType)
     func delete(_ data: StorageType) throws
     func update(_ data: StorageType, title: String?, body: String?, date: Date?)
+    
 }
