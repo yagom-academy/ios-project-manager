@@ -8,7 +8,7 @@
 import Foundation
 
 struct ProjectManagerEnvironment {
-    var taskRepository: TaskRepository
+    private var taskRepository: TaskRepository
     
     init(taskRepository: TaskRepository) {
         self.taskRepository = taskRepository

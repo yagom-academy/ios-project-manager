@@ -8,7 +8,7 @@
 import Foundation
 
 class ProjectManagerViewModel: ObservableObject {
-    let enviroment = ProjectManagerEnvironment(taskRepository: TaskRepository())
+    private let enviroment = ProjectManagerEnvironment(taskRepository: TaskRepository())
     
     @Published var tasks: [Task]
     

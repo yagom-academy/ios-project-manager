@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct TaskListView: View {
-    @EnvironmentObject var viewModel: ProjectManagerViewModel
-    @State var isShowDetailScene: Bool = false
-    @State var isShowPopover: Bool = false
+    @EnvironmentObject private var viewModel: ProjectManagerViewModel
+    @State private var isShowDetailScene: Bool = false
+    @State private var isShowPopover: Bool = false
     let taskStatus: TaskStatus
     
-    var tasks: [Task] {
+    private var tasks: [Task] {
         switch taskStatus {
         case .todo:
             return viewModel.todoTasks

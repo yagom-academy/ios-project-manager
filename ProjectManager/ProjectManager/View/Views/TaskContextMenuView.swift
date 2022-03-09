@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TaskContextMenuView: View {
-    @EnvironmentObject var viewModel: ProjectManagerViewModel
+    @EnvironmentObject private var viewModel: ProjectManagerViewModel
     @ObservedObject var task: Task
     var taskStatus: TaskStatus
     

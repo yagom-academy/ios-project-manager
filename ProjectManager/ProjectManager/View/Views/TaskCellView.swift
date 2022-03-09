@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TaskCellView: View {
-    let taskLimitDateFormatter: DateFormatter = {
+    private let taskLimitDateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .long
         dateFormatter.locale = Locale(identifier: "Ko_Kr")

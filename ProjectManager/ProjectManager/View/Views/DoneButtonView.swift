@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DoneButtonView: View {
-    @EnvironmentObject var viewModel: ProjectManagerViewModel
+    @EnvironmentObject private var viewModel: ProjectManagerViewModel
     
     @Binding var show: Bool
     @Binding var title: String

@@ -35,7 +35,6 @@
 		F3C5400E27D790AF00D7CE4E /* DismissButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C5400D27D790AF00D7CE4E /* DismissButtonView.swift */; };
 		F3C5401027D7A07900D7CE4E /* TaskEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C5400F27D7A07600D7CE4E /* TaskEditView.swift */; };
 		F3C5401227D7A3E300D7CE4E /* DetailScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C5401127D7A3E200D7CE4E /* DetailScene.swift */; };
-		F3C5401427D7A4F900D7CE4E /* TaskDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C5401327D7A4F800D7CE4E /* TaskDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,7 +74,6 @@
 		F3C5400D27D790AF00D7CE4E /* DismissButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissButtonView.swift; sourceTree = "<group>"; };
 		F3C5400F27D7A07600D7CE4E /* TaskEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskEditView.swift; sourceTree = "<group>"; };
 		F3C5401127D7A3E200D7CE4E /* DetailScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailScene.swift; sourceTree = "<group>"; };
-		F3C5401327D7A4F800D7CE4E /* TaskDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -200,7 +198,6 @@
 				F3C5400B27D7908600D7CE4E /* DoneButtonView.swift */,
 				F3C5400D27D790AF00D7CE4E /* DismissButtonView.swift */,
 				F3C5400F27D7A07600D7CE4E /* TaskEditView.swift */,
-				F3C5401327D7A4F800D7CE4E /* TaskDetailView.swift */,
 				F376E0D027D85F3E00C04734 /* TaskContextMenuView.swift */,
 			);
 			path = Views;
@@ -356,7 +353,6 @@
 				F3C53FF827D72FE100D7CE4E /* ProjectManagerEnvironment.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				F3C53F7D27D5227F00D7CE4E /* ProjectManagerViewModel.swift in Sources */,
-				F3C5401427D7A4F900D7CE4E /* TaskDetailView.swift in Sources */,
 				F374A11627CDD3930083CC73 /* MainScene.swift in Sources */,
 				F376E0D127D85F3E00C04734 /* TaskContextMenuView.swift in Sources */,
 				F3C53FFC27D737F500D7CE4E /* TaskStatus.swift in Sources */,

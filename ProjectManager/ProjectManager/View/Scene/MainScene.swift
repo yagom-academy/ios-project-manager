@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct MainScene: View {
-    @EnvironmentObject var viewModel: ProjectManagerViewModel
-    @State var isShowAddScene: Bool = false
+    @EnvironmentObject private var viewModel: ProjectManagerViewModel
+    @State private var isShowAddScene: Bool = false
     
     var body: some View {
         NavigationView {

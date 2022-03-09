@@ -8,16 +8,17 @@
 import SwiftUI
 
 struct DetailScene: View {
-    @EnvironmentObject var viewModel: ProjectManagerViewModel
+    @EnvironmentObject private var viewModel: ProjectManagerViewModel
 
     @State private var title: String
     @State private var content: String
     @State private var limitDate: Date
     
-    @Binding var showDetailScene: Bool
-    @State var isEditingMode: Bool = false
+    @State private var isEditingMode: Bool = false
     
-    var task: Task
+    @Binding var showDetailScene: Bool
+    
+    private var task: Task
     
     init(task: Task, showDetailScene: Binding<Bool>) {
         _showDetailScene = showDetailScene
