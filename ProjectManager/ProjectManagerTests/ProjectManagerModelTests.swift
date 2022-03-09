@@ -17,10 +17,8 @@ class ProjectManagerModelTests: XCTestCase {
     
     // MARK: - create 메서드 검증
     func test_create_will_make_appropriate_Work_instance_in_todo_storage() {
-        var firstWork = Work()
-        firstWork.title = "a"
-        firstWork.body = "a"
-        firstWork.dueDate = Date()
+        let firstWork = Work(title: "a", body: "a", dueDate: Date(), category: .todo)
+        
         sut?.create(firstWork)
         
         XCTAssertFalse(sut?.todoList == nil)
@@ -29,7 +27,9 @@ class ProjectManagerModelTests: XCTestCase {
     
     func test_create_will_not_make_Work_instance_in_doing_storage() {
         let firstWork = Work(title: "a", body: "a", dueDate: Date())
+        
         sut?.create(firstWork)
+        
         guard let sut = sut else { return }
 
         XCTAssertTrue(sut.doingList.isEmpty)
@@ -46,9 +46,11 @@ class ProjectManagerModelTests: XCTestCase {
     func test_delete_will_remove_right_data() {
         let firstWork = Work()
         let secondWork = Work()
+        
         sut?.create(firstWork)
         sut?.create(secondWork)
         try? sut?.delete(secondWork)
+        
         guard let sut = sut else { return }
         
         XCTAssertEqual(sut.todoList[0].id, firstWork.id)
@@ -60,11 +62,13 @@ class ProjectManagerModelTests: XCTestCase {
         let secondWork = Work()
         let thirdWork = Work()
         let fourthWork = Work()
+        
         sut?.create(firstWork)
         sut?.create(secondWork)
         sut?.create(thirdWork)
         sut?.create(fourthWork)
         try? sut?.delete(thirdWork)
+        
         guard let sut = sut else { return }
         
         XCTAssertEqual(sut.todoList[0].id, firstWork.id)
@@ -74,10 +78,8 @@ class ProjectManagerModelTests: XCTestCase {
     
     // MARK: - update 메서드 검증
     func test_update_will_change_right_property() {
-        var firstWork = Work()
-        firstWork.title = "a"
-        firstWork.body = "가나다"
-        firstWork.dueDate = Date()
+        let firstWork = Work(title: "A", body: "가나다", dueDate: Date(), category: .todo)
+        
         sut?.create(firstWork)
         sut?.update(firstWork, title: "b", body: "가나다", date: Date())
         

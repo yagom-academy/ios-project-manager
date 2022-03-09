@@ -9,7 +9,7 @@ struct Work {
         case done
     }
     
-    var id: UUID = UUID()
+    let id: UUID = UUID()
     var title: String?
     var body: String?
     var dueDate: Date?

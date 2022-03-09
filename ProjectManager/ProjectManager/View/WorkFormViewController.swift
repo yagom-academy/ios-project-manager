@@ -42,6 +42,7 @@ class WorkFormViewController: UIViewController {
     
     private func configureTextFieldShadow() {
         titleTextField.layer.backgroundColor = UIColor.white.cgColor
+        
         titleTextField.layer.shadowColor = UIColor.black.cgColor
         titleTextField.layer.shadowOffset = CGSize(width: 0, height: 5)
         titleTextField.layer.shadowOpacity = 0.3
@@ -61,7 +62,9 @@ class WorkFormViewController: UIViewController {
     
     private func configureTextViewShadow() {
         bodyTextView.layer.masksToBounds = false
+        
         bodyTextView.layer.backgroundColor = UIColor.white.cgColor
+        
         bodyTextView.layer.shadowColor = UIColor.black.cgColor
         bodyTextView.layer.shadowOffset = CGSize(width: 0, height: 5)
         bodyTextView.layer.shadowOpacity = 0.3
