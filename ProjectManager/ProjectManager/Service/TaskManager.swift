@@ -1,6 +1,6 @@
 import Foundation
 
-class TaskManager {
+class TaskManager: TaskManagable {
     var taskList = [Task]()
     
     func taskList(at status: ProgressStatus) -> [Task] {
