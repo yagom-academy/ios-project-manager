@@ -46,10 +46,11 @@ struct TaskListView: View {
                     self.isShowDetailScene.toggle()
                 } label: {
                     TaskCellView(task: task)
-                }.sheet(isPresented: $isShowDetailScene) {
-                    // viewUpdate
-                } content: {
+                }.sheet(isPresented: $isShowDetailScene, onDismiss: nil) {
                     DetailScene(task: task, showDetailScene: $isShowDetailScene)
+                        .contextMenu {
+                            TaskContextMenuView(task: task, taskStatus: taskStatus)
+                        }
                 }
             }
             .onDelete { indexSet in
