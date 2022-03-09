@@ -1,5 +1,4 @@
 import SwiftUI
-import Combine
 
 struct ContentView: View {
     @EnvironmentObject var viewModel: TaskListViewModel
@@ -26,6 +25,7 @@ struct ContentView: View {
             }, label: {
                 Image(systemName: "plus")
                 .sheet(isPresented: $isPopoverPresentedForCreateTask) {
+                    TaskDetailView()
                 }
             })
         }

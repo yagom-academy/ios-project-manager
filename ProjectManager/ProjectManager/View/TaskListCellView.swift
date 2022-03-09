@@ -1,10 +1,3 @@
-//
-//  TaskListCellView.swift
-//  ProjectManager
-//
-//  Created by 박병호 on 2022/03/09.
-//
-
 import SwiftUI
 
 struct TaskListCellView: View {
