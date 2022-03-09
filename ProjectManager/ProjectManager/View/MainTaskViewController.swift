@@ -95,11 +95,11 @@ class MainTaskViewController: UIViewController {
             
             switch oldState {
             case .waiting:
-                self.taskInWaitingTableView.cellForRow(at: indexPath)?.isHidden = true
+                self.taskInWaitingTableView.deleteRows(at: [indexPath], with: .fade)
             case .progress:
-                self.taskInProgressTableView.cellForRow(at: indexPath)?.isHidden = true
+                self.taskInProgressTableView.deleteRows(at: [indexPath], with: .fade)
             case .done:
-                self.taskInDoneTableView.cellForRow(at: indexPath)?.isHidden = true
+                self.taskInDoneTableView.deleteRows(at: [indexPath], with: .fade)
             }
             
             switch newState {
