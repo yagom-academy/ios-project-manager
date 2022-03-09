@@ -26,7 +26,7 @@ class ScheduleDetailViewModel {
     struct Input {
         let leftBarButtonDidTap: Observable<Void>
         let rightBarButtonDidTap: Observable<Void>
-        let textViewDidChange: Observable<String>
+        let textViewDidChange: Observable<String?>
     }
 
     struct Output {
@@ -39,6 +39,7 @@ class ScheduleDetailViewModel {
 
     func transform(input: Input, disposeBag: DisposeBag) -> Output {
         let output = Output()
+        bindOutput(output: output, disposeBag: disposeBag)
 
         input.leftBarButtonDidTap
             .subscribe(onNext: { _ in
@@ -55,13 +56,25 @@ class ScheduleDetailViewModel {
         input.textViewDidChange
             .subscribe(onNext: { string in
                 var string = string
-                if string.count >= 1000 {
-                    string.removeLast()
+                if string!.count >= 1000 {
+                    string!.removeLast()
                 }
-                output.scheduleBodyText.accept(string)
+                output.scheduleBodyText.accept(string!)
             })
             .disposed(by: disposeBag)
 
         return output
+    }
+}
+
+private extension ScheduleDetailViewModel {
+    func bindOutput(output: Output, disposeBag: DisposeBag) {
+        self.useCase.currentSchedule
+            .subscribe(onNext: { schedule in
+                output.scheduleTitleText.accept(schedule.title)
+                output.scheduleDate.accept(schedule.dueDate)
+                output.scheduleBodyText.accept(schedule.body)
+            })
+            .disposed(by: disposeBag)
     }
 }

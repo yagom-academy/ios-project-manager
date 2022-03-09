@@ -16,7 +16,7 @@ final class MainViewModel {
     var coordinator: MainViewCoordinator
 
     private let bag = DisposeBag()
-    private let useCase: ScheduleUseCase
+    let useCase: ScheduleUseCase
 
     // MARK: - Initializer
 
@@ -55,6 +55,7 @@ final class MainViewModel {
         input.cellDidTap.forEach { observable in
             observable
                 .subscribe(onNext: { schedule in
+                    self.useCase.setCurrentSchedule(schedule: schedule)
                     self.coordinator.presentScheduleDetailViewController()
                 })
                 .disposed(by: disposeBag)

@@ -6,9 +6,14 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class ScheduleDetailViewController: UIViewController {
 
+    private let viewModel: ScheduleDetailViewModel
+    private let bag = DisposeBag()
+    
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -58,6 +63,16 @@ class ScheduleDetailViewController: UIViewController {
         return barButtonItem
     }()
 
+    init(viewModel: ScheduleDetailViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
@@ -70,6 +85,7 @@ private extension ScheduleDetailViewController {
         configureHierarchy()
         configureConstraint()
         configureNavigationBar()
+        binding()
     }
 
     func configureHierarchy() {
@@ -101,6 +117,25 @@ private extension ScheduleDetailViewController {
         self.title = "TODO"
         self.navigationItem.rightBarButtonItem = rightBarButton
         self.navigationItem.leftBarButtonItem = leftBarButton
+    }
+
+    func binding() {
+        let input = ScheduleDetailViewModel.Input(
+            leftBarButtonDidTap: self.leftBarButton.rx.tap.asObservable(),
+            rightBarButtonDidTap: self.rightBarButton.rx.tap.asObservable(),
+            textViewDidChange: self.bodyTextView.rx.text.changed.asObservable()
+        )
+        let output = self.viewModel.transform(input: input, disposeBag: self.bag)
+
+        output.scheduleTitleText.asDriver()
+            .drive(self.titleTextField.rx.text)
+            .disposed(by: bag)
+        output.scheduleDate.asDriver()
+            .drive(self.datePicker.rx.date)
+            .disposed(by: bag)
+        output.scheduleBodyText.asDriver()
+            .drive(self.bodyTextView.rx.text)
+            .disposed(by: bag)
     }
 }
 

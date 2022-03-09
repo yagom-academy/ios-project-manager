@@ -13,6 +13,8 @@ final class ScheduleUseCase {
     private let bag = DisposeBag()
     private let scheduleProvider: Repository
     let schedules = BehaviorRelay<[Schedule]>(value: [])
+    let currentSchedule = BehaviorRelay<Schedule>(value:
+                                                    Schedule(title: "", body: "", dueDate: Date(), progress: .done))
 
     init(repository: Repository) {
         self.scheduleProvider = repository
@@ -50,6 +52,10 @@ final class ScheduleUseCase {
     func changeProgress(schedule: Schedule, progress: Progress) -> Observable<Schedule> {
 
         return scheduleProvider.update(convertedProgress(schedule: schedule, progress: progress))
+    }
+
+    func setCurrentSchedule(schedule: Schedule) {
+        self.currentSchedule.accept(schedule)
     }
 }
 
