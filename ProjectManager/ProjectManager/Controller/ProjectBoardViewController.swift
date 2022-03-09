@@ -42,7 +42,6 @@ class ProjectBoardViewController: UIViewController {
         self.navigationBar.delegate = self
         self.configureNavigationItem()
         self.configureNavigationBarLayout()
-//        self.configurTodoProjectviewControllerLayout()
         self.configureDelegate()
         self.configureStackViewLayout()
     }
@@ -82,17 +81,6 @@ class ProjectBoardViewController: UIViewController {
             stackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
         ])
     }
-    
-//    private func configurTodoProjectviewControllerLayout() {
-//        self.view.addSubview(todoViewController.view)
-//        let safeArea = self.view.safeAreaLayoutGuide
-//        NSLayoutConstraint.activate([
-//            todoViewController.view.topAnchor.constraint(equalTo: navigationBar.bottomAnchor),
-//            todoViewController.view.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
-//            todoViewController.view.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
-//            todoViewController.view.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor)
-//        ])
-//    }
     
     // MARK: - Configure Controller
     private func configureDelegate() {
