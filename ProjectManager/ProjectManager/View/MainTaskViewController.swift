@@ -34,11 +34,31 @@ class MainTaskViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+        configureTaskListViewModel()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         taskListViewModel.didLoaded()
-        navigationItem.title = "Project Manager"
     }
     
     private func configureUI() {
+        configureNavigationController()
+        configureTableView()
+        configureLayout()
+    }
+    
+    private func configureNavigationController() {
+        navigationItem.title = "Project Manager"
+    }
+    
+    private func configureTableView() {
+        [taskInWaitingTableView, taskInProgressTableView, taskInDoneTableView].forEach {
+            $0.dataSource = self
+        }
+    }
+    
+    private func configureLayout() {
         [taskInWaitingTableView, taskInProgressTableView, taskInDoneTableView].forEach {
             taskTableStackView.addArrangedSubview($0)
         }
@@ -51,6 +71,10 @@ class MainTaskViewController: UIViewController {
             taskTableStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             taskTableStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+    }
+    
+    private func configureTaskListViewModel() {
+        // TODO: - ViewModel 셋업
     }
 }
 
@@ -72,9 +96,22 @@ extension MainTaskViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withClass: TaskTableViewCell.self, for: indexPath)
+        guard let taskTableView = tableView as? TaskTableView else {
+            return TaskTableViewCell()
+        }
+        var task: Task!
         
-        taskListViewModel.task(at: indexPath.row, from: .waiting)
+        switch taskTableView.state {
+        case .waiting:
+            task = taskListViewModel.task(at: indexPath.row, from: .waiting)
+        case .progress:
+            task = taskListViewModel.task(at: indexPath.row, from: .progress)
+        case .done:
+            task = taskListViewModel.task(at: indexPath.row, from: .done)
+        }
         
-        return TaskTableViewCell()
+        cell.configureCell(title: task.title, description: task.description, deadline: task.deadline)
+        
+        return cell
     }
 }

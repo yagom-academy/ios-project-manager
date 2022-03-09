@@ -19,6 +19,7 @@ class TaskTableViewCell: UITableViewCell {
         let stackView = UIStackView()
         stackView.spacing = 5
         stackView.alignment = .leading
+        stackView.axis = .vertical
         stackView.distribution = .fill
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView

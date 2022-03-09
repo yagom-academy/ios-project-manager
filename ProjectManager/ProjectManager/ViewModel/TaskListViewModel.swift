@@ -11,7 +11,7 @@ final class TaskListViewModel: TaskViewModel {
     // MARK: - Output
     var presentErrorAlert: ((Error) -> Void)?
     var taskDidCreated: (() -> Void)?
-    var taskDidLoaded: ((Task) -> Void)?
+//    var taskDidFetched: ((Task) -> Void)?
     var taskDidDeleted: ((Int) -> Void)?
     var taskDidChanged: ((Int) -> Void)?
     var taskDidMoved: ((Int, TaskState) -> Void)?
@@ -56,13 +56,13 @@ final class TaskListViewModel: TaskViewModel {
         taskDidMoved?(index, state)
     }
     
-    func task(at index: Int, from state: TaskState) {
+    func task(at index: Int, from state: TaskState) -> Task? {
         guard let fetchedTask = taskManager.fetch(at: index, from: state) else {
             presentErrorAlert?(CollectionError.indexOutOfRange)
-            return
+            return nil
         }
         
-        taskDidLoaded?(fetchedTask)
+        return fetchedTask
     }
     
     func didSelectRow(at index: Int, from state: TaskState) {
