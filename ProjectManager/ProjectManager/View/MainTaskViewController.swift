@@ -48,8 +48,7 @@ class MainTaskViewController: UIViewController {
             guard let self = self else {
                 return
             }
-            let waitingTaskCounts = self.taskListViewModel.count(of: .waiting) - 1
-            self.taskInWaitingTableView.insertRows(at: [IndexPath(row: waitingTaskCounts, section: 0)], with: .fade)
+            self.taskInWaitingTableView.reloadData()
         }
         
         taskListViewModel.taskDidDeleted = { [weak self] (index, state) in
@@ -79,6 +78,7 @@ class MainTaskViewController: UIViewController {
     private func configureTableView() {
         [taskInWaitingTableView, taskInProgressTableView, taskInDoneTableView].forEach {
             $0.dataSource = self
+            $0.delegate = self
         }
     }
     
@@ -129,22 +129,30 @@ extension MainTaskViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withClass: TaskTableViewCell.self, for: indexPath)
-        guard let taskTableView = tableView as? TaskTableView else {
+        guard let taskTableView = tableView as? TaskTableView,
+              let task = taskListViewModel.task(at: indexPath.row, from: taskTableView.state) else {
             return TaskTableViewCell()
-        }
-        var task: Task!
-        
-        switch taskTableView.state {
-        case .waiting:
-            task = taskListViewModel.task(at: indexPath.row, from: .waiting)
-        case .progress:
-            task = taskListViewModel.task(at: indexPath.row, from: .progress)
-        case .done:
-            task = taskListViewModel.task(at: indexPath.row, from: .done)
         }
         
         cell.configureCell(title: task.title, description: task.description, deadline: task.deadline)
         
         return cell
+    }
+}
+
+extension MainTaskViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { _, _, completionHandler in
+            guard let state = (tableView as? TaskTableView)?.state else {
+                return
+            }
+            
+            self.taskListViewModel.deleteRow(at: indexPath.row, from: state)
+            completionHandler(true)
+        }
+        deleteAction.backgroundColor = .red
+        
+        let swipeActions = UISwipeActionsConfiguration(actions: [deleteAction])
+        return swipeActions
     }
 }
