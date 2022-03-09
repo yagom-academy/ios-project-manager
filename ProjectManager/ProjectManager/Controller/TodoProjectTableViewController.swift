@@ -16,6 +16,7 @@ class TodoProjectTableViewController: UIViewController {
     }
     
     // MARK: - Property
+    private let projectStatus = Status.todo
     private let projectTableView = UITableView()
     private var dataSource: UITableViewDiffableDataSource<Section,Project>!
     private let longPressGestureRecognizer = UILongPressGestureRecognizer()
@@ -85,7 +86,7 @@ class TodoProjectTableViewController: UIViewController {
     }
     
     func applySnapshot() {
-        let projects = delegate?.readProject(of: .todo)
+        let projects = delegate?.readProject(of: projectStatus)
         
         guard let projects = projects else {
             return
@@ -150,7 +151,7 @@ extension TodoProjectTableViewController: UITableViewDelegate {
         let snapshot = dataSource.snapshot()
         let projectCount = snapshot.numberOfItems(inSection: .main)
         
-        header.configureContent(status: String(describing: Status.todo),
+        header.configureContent(status: String(describing: projectStatus),
                                 projectCount: String(projectCount))
         return header
     }

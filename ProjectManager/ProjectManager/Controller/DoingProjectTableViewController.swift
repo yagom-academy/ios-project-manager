@@ -15,6 +15,7 @@ class DoingProjectTableViewController: UIViewController {
     }
     
     // MARK: - Property
+    private let projectStatus = Status.doing
     private let projectTableView = UITableView()
     private var dataSource: UITableViewDiffableDataSource<Section,Project>!
     private let longPressGestureRecognizer = UILongPressGestureRecognizer()
@@ -84,7 +85,7 @@ class DoingProjectTableViewController: UIViewController {
     }
     
     func applySnapshot() {
-        let projects = delegate?.readProject(of: .doing)
+        let projects = delegate?.readProject(of: projectStatus)
         
         guard let projects = projects else {
             return
@@ -149,7 +150,7 @@ extension DoingProjectTableViewController: UITableViewDelegate {
         let snapshot = dataSource.snapshot()
         let projectCount = snapshot.numberOfItems(inSection: .main)
         
-        header.configureContent(status: String(describing: Status.doing),
+        header.configureContent(status: String(describing: projectStatus),
                                 projectCount: String(projectCount))
         return header
     }
