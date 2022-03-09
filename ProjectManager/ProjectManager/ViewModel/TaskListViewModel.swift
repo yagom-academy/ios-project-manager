@@ -35,18 +35,13 @@ final class TaskListViewModel: TaskViewModel {
     }
     
     func createTask(title: String, description: String, deadline: Date) {
-        let newTask = Task(id: UUID(),
-                           title: title,
-                           description: description,
-                           deadline: deadline,
-                           state: .waiting)
-        taskManager.create(with: newTask)
+        taskManager.create(title: title, description: description, deadline: deadline)
         taskDidCreated?()
         updateTasks()
     }
     
-    func updateRow(at index: Int, from state: TaskState) {
-        taskManager.update(at: index, from: state)
+    func updateRow(at index: Int, title: String, description: String, deadline: Date, state: TaskState) {
+        taskManager.update(at: index, title: title, description: description, deadline: deadline, state: state)
         taskDidChanged?(index)
     }
     

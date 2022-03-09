@@ -14,8 +14,13 @@ final class TaskManager: TaskMangeable {
         self.taskRepository = taskRepository
     }
     
-    func create(with task: Task) {
-        taskRepository.create(with: task)
+    func create(title: String, description: String, deadline: Date) {
+        let newTask = Task(id: UUID(),
+                           title: title,
+                           description: description,
+                           deadline: deadline,
+                           state: .waiting)
+        taskRepository.create(with: newTask)
     }
     
     func fetchAll() -> [Task] {
@@ -29,12 +34,18 @@ final class TaskManager: TaskMangeable {
         return filteredTasks[safe: index]
     }
     
-    func update(at index: Int, from state: TaskState) {
+    func update(at index: Int, title: String, description: String, deadline: Date, state: TaskState) {
         guard let selectedTask = fetch(at: index, from: state) else {
             return
         }
         
-        taskRepository.update(with: selectedTask)
+        let taskToChange = Task(id: selectedTask.id,
+                                title: title,
+                                description: description,
+                                deadline: deadline,
+                                state: selectedTask.state)
+        
+        taskRepository.update(with: taskToChange)
     }
     
     func delete(at index: Int, from state: TaskState) {
