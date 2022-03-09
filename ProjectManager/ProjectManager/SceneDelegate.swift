@@ -17,7 +17,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
         
         window = UIWindow(windowScene: windowScene)
-        window?.rootViewController = MainTaskViewController()
+        let taskMemoryRepository = TaskMemoryRepository()
+        let taskManager = TaskManager(taskRepository: taskMemoryRepository)
+        let taskListViewModel = TaskListViewModel(taskManager: taskManager)
+        let rootViewController = UINavigationController(rootViewController: MainTaskViewController(taskListViewModel: taskListViewModel))
+        window?.rootViewController = rootViewController
         window?.makeKeyAndVisible()
     }
 

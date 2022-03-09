@@ -8,6 +8,7 @@
 import Foundation
 
 protocol TaskViewModel {
+    func didLoaded()
     func createTask(title: String, description: String, deadline: Date)
     func updateRow(at index: Int, title: String, description: String, deadline: Date, from state: TaskState)
     func deleteRow(at index: Int, from state: TaskState)
