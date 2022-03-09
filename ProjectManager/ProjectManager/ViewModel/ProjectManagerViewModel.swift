@@ -1,14 +1,15 @@
 import Foundation
 import RxSwift
+import UIKit
 
 
 class ProjectViewModel {
     
     private let repository = WorkMemoryManager()
     
-    var todoList = BehaviorSubject<[Work]>(value: [])
-    var doingList = BehaviorSubject<[Work]>(value: [])
-    var doneList = BehaviorSubject<[Work]>(value: [])
+    let todoList = BehaviorSubject<[Work]>(value: [])
+    let doingList = BehaviorSubject<[Work]>(value: [])
+    let doneList = BehaviorSubject<[Work]>(value: [])
     
     lazy var todoCount = todoList.map { $0.count }
     lazy var doingCount = doingList.map { $0.count }
