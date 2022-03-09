@@ -1,16 +1,16 @@
 import Foundation
 import RxSwift
 
-final class MemoryRepository {
-    private let storage: Storageable
+final class VolatileMemoryRepository {
+    private let storage: Storage
     let disposeBag = DisposeBag()
 
-    init(storage: Storageable = MemoryStorage()) {
+    init(storage: Storage = VolatileMemoryStorage()) {
         self.storage = storage
     }
 }
 
-extension MemoryRepository: Repositoryable {
+extension VolatileMemoryRepository: VolatileRepository {
     func create(_ item: Project) -> Single<Project> {
         storage.create(item)
     }

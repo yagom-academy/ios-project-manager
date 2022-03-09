@@ -1,15 +1,15 @@
 import Foundation
 import RxSwift
 
-struct MemoryUseCase {
-    private let repository: Repositoryable
+struct VolatileMemoryUseCase {
+    private let repository: VolatileRepository
     
-    init(repository: Repositoryable = MemoryRepository()) {
+    init(repository: VolatileRepository = VolatileMemoryRepository()) {
         self.repository = repository
     }
 }
 
-extension MemoryUseCase: UseCase {
+extension VolatileMemoryUseCase: ProjectListUseCase {
     func create(_ project: Project) -> Single<Project> {
         repository.create(project)
     }

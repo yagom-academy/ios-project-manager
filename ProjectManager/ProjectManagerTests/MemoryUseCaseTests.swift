@@ -3,10 +3,10 @@ import RxBlocking
 
 class MemoryUseCaseTests: XCTestCase {
 
-    var sut: MemoryUseCase?
+    var sut: VolatileMemoryUseCase?
     
     override func setUpWithError() throws {
-        sut = MemoryUseCase()
+        sut = VolatileMemoryUseCase()
     }
     
     override func tearDownWithError() throws {
@@ -19,7 +19,11 @@ class MemoryUseCaseTests: XCTestCase {
         
         // when
         sut?.create(project)
-        XCTAssertTrue(try! sut?.fetch().toBlocking(timeout: 1).first()?.count == 1)
+        let result = try! sut?.fetch().toBlocking(timeout: 1).first()
+        
+        // then
+        XCTAssertTrue(result?.count == 1)
+        XCTAssertTrue(result?.first?.id == project.id)
     }
     
     func test_프로젝트3개를_create하면_데이터의갯수가_3개이다() {

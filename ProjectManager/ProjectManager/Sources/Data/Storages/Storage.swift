@@ -1,7 +1,7 @@
 import Foundation
 import RxSwift
 
-protocol Storageable {
+protocol Storage {
     func create(_ item: Project) -> Single<Project>
     func update(_ project: Project?) -> Single<Project>
     func delete(_ project: Project?) -> Single<Project>

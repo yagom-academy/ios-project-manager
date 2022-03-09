@@ -16,20 +16,20 @@
 		9A40A07D27CF491900A73BBA /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A07C27CF491900A73BBA /* Project.swift */; };
 		9A40A09D27CF8C6700A73BBA /* ProjectListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A09C27CF8C6700A73BBA /* ProjectListViewModel.swift */; };
 		9A40A0A127CF9BB600A73BBA /* Date+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A0A027CF9BB600A73BBA /* Date+extension.swift */; };
-		9A40A0A427CFA13800A73BBA /* Repositoryable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A0A327CFA13800A73BBA /* Repositoryable.swift */; };
-		9A40A0A727CFA17700A73BBA /* MemoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A0A627CFA17700A73BBA /* MemoryRepository.swift */; };
+		9A40A0A427CFA13800A73BBA /* VolatileRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A0A327CFA13800A73BBA /* VolatileRepository.swift */; };
+		9A40A0A727CFA17700A73BBA /* VolatileMemoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A0A627CFA17700A73BBA /* VolatileMemoryRepository.swift */; };
 		9A40A0BF27CFA82E00A73BBA /* MemoryUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A0BE27CFA82E00A73BBA /* MemoryUseCaseTests.swift */; };
-		9A40A0C527CFA84400A73BBA /* MemoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A0A627CFA17700A73BBA /* MemoryRepository.swift */; };
-		9A40A0C827CFA86200A73BBA /* Repositoryable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A0A327CFA13800A73BBA /* Repositoryable.swift */; };
-		9A40A0CC27D0C70E00A73BBA /* MemoryUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A0CB27D0C70E00A73BBA /* MemoryUseCase.swift */; };
-		9A40A0CF27D0CA7E00A73BBA /* UseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A0CE27D0CA7E00A73BBA /* UseCase.swift */; };
-		9A40A0D227D0CBB100A73BBA /* MemoryUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A0CB27D0C70E00A73BBA /* MemoryUseCase.swift */; };
-		9A40A0D327D0CBBA00A73BBA /* UseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A0CE27D0CA7E00A73BBA /* UseCase.swift */; };
-		9A40A0D527D0CC5200A73BBA /* Storageable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A0D427D0CC5200A73BBA /* Storageable.swift */; };
-		9A40A0D727D0CCF600A73BBA /* MemoryStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A0D627D0CCF600A73BBA /* MemoryStorage.swift */; };
+		9A40A0C527CFA84400A73BBA /* VolatileMemoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A0A627CFA17700A73BBA /* VolatileMemoryRepository.swift */; };
+		9A40A0C827CFA86200A73BBA /* VolatileRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A0A327CFA13800A73BBA /* VolatileRepository.swift */; };
+		9A40A0CC27D0C70E00A73BBA /* VolatileMemoryUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A0CB27D0C70E00A73BBA /* VolatileMemoryUseCase.swift */; };
+		9A40A0CF27D0CA7E00A73BBA /* ProjectListUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A0CE27D0CA7E00A73BBA /* ProjectListUseCase.swift */; };
+		9A40A0D227D0CBB100A73BBA /* VolatileMemoryUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A0CB27D0C70E00A73BBA /* VolatileMemoryUseCase.swift */; };
+		9A40A0D327D0CBBA00A73BBA /* ProjectListUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A0CE27D0CA7E00A73BBA /* ProjectListUseCase.swift */; };
+		9A40A0D527D0CC5200A73BBA /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A0D427D0CC5200A73BBA /* Storage.swift */; };
+		9A40A0D727D0CCF600A73BBA /* VolatileMemoryStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A0D627D0CCF600A73BBA /* VolatileMemoryStorage.swift */; };
 		9A40A0D827D0FF8100A73BBA /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A07C27CF491900A73BBA /* Project.swift */; };
-		9A40A0DF27D101C700A73BBA /* MemoryStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A0D627D0CCF600A73BBA /* MemoryStorage.swift */; };
-		9A40A0E027D101C800A73BBA /* Storageable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A0D427D0CC5200A73BBA /* Storageable.swift */; };
+		9A40A0DF27D101C700A73BBA /* VolatileMemoryStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A0D627D0CCF600A73BBA /* VolatileMemoryStorage.swift */; };
+		9A40A0E027D101C800A73BBA /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A0D427D0CC5200A73BBA /* Storage.swift */; };
 		9A40A0E827D11D7300A73BBA /* Collection+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A0E727D11D7300A73BBA /* Collection+extension.swift */; };
 		9A40A0EA27D14A7500A73BBA /* ProjectListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A0E927D14A7500A73BBA /* ProjectListViewModelTests.swift */; };
 		9A40A0EB27D14A7B00A73BBA /* ProjectListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A40A09C27CF8C6700A73BBA /* ProjectListViewModel.swift */; };
@@ -56,14 +56,14 @@
 		9A40A07C27CF491900A73BBA /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		9A40A09C27CF8C6700A73BBA /* ProjectListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListViewModel.swift; sourceTree = "<group>"; };
 		9A40A0A027CF9BB600A73BBA /* Date+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+extension.swift"; sourceTree = "<group>"; };
-		9A40A0A327CFA13800A73BBA /* Repositoryable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repositoryable.swift; sourceTree = "<group>"; };
-		9A40A0A627CFA17700A73BBA /* MemoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryRepository.swift; sourceTree = "<group>"; };
+		9A40A0A327CFA13800A73BBA /* VolatileRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolatileRepository.swift; sourceTree = "<group>"; };
+		9A40A0A627CFA17700A73BBA /* VolatileMemoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolatileMemoryRepository.swift; sourceTree = "<group>"; };
 		9A40A0BC27CFA82E00A73BBA /* ProjectRepositoryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProjectRepositoryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A40A0BE27CFA82E00A73BBA /* MemoryUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryUseCaseTests.swift; sourceTree = "<group>"; };
-		9A40A0CB27D0C70E00A73BBA /* MemoryUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryUseCase.swift; sourceTree = "<group>"; };
-		9A40A0CE27D0CA7E00A73BBA /* UseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseCase.swift; sourceTree = "<group>"; };
-		9A40A0D427D0CC5200A73BBA /* Storageable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storageable.swift; sourceTree = "<group>"; };
-		9A40A0D627D0CCF600A73BBA /* MemoryStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryStorage.swift; sourceTree = "<group>"; };
+		9A40A0CB27D0C70E00A73BBA /* VolatileMemoryUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolatileMemoryUseCase.swift; sourceTree = "<group>"; };
+		9A40A0CE27D0CA7E00A73BBA /* ProjectListUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListUseCase.swift; sourceTree = "<group>"; };
+		9A40A0D427D0CC5200A73BBA /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
+		9A40A0D627D0CCF600A73BBA /* VolatileMemoryStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolatileMemoryStorage.swift; sourceTree = "<group>"; };
 		9A40A0E727D11D7300A73BBA /* Collection+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+extension.swift"; sourceTree = "<group>"; };
 		9A40A0E927D14A7500A73BBA /* ProjectListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListViewModelTests.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -204,7 +204,7 @@
 		9A40A0DA27D0FF9B00A73BBA /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
-				9A40A0A627CFA17700A73BBA /* MemoryRepository.swift */,
+				9A40A0A627CFA17700A73BBA /* VolatileMemoryRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -212,8 +212,8 @@
 		9A40A0DB27D0FFB000A73BBA /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
-				9A40A0CE27D0CA7E00A73BBA /* UseCase.swift */,
-				9A40A0CB27D0C70E00A73BBA /* MemoryUseCase.swift */,
+				9A40A0CE27D0CA7E00A73BBA /* ProjectListUseCase.swift */,
+				9A40A0CB27D0C70E00A73BBA /* VolatileMemoryUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -221,8 +221,8 @@
 		9A40A0DC27D0FFEF00A73BBA /* Storages */ = {
 			isa = PBXGroup;
 			children = (
-				9A40A0D427D0CC5200A73BBA /* Storageable.swift */,
-				9A40A0D627D0CCF600A73BBA /* MemoryStorage.swift */,
+				9A40A0D427D0CC5200A73BBA /* Storage.swift */,
+				9A40A0D627D0CCF600A73BBA /* VolatileMemoryStorage.swift */,
 			);
 			path = Storages;
 			sourceTree = "<group>";
@@ -230,7 +230,7 @@
 		9A40A0DD27D1000A00A73BBA /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
-				9A40A0A327CFA13800A73BBA /* Repositoryable.swift */,
+				9A40A0A327CFA13800A73BBA /* VolatileRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -406,15 +406,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				9A40A0ED27D14B7E00A73BBA /* Collection+extension.swift in Sources */,
-				9A40A0D327D0CBBA00A73BBA /* UseCase.swift in Sources */,
-				9A40A0DF27D101C700A73BBA /* MemoryStorage.swift in Sources */,
-				9A40A0D227D0CBB100A73BBA /* MemoryUseCase.swift in Sources */,
-				9A40A0C527CFA84400A73BBA /* MemoryRepository.swift in Sources */,
+				9A40A0D327D0CBBA00A73BBA /* ProjectListUseCase.swift in Sources */,
+				9A40A0DF27D101C700A73BBA /* VolatileMemoryStorage.swift in Sources */,
+				9A40A0D227D0CBB100A73BBA /* VolatileMemoryUseCase.swift in Sources */,
+				9A40A0C527CFA84400A73BBA /* VolatileMemoryRepository.swift in Sources */,
 				9A40A0EB27D14A7B00A73BBA /* ProjectListViewModel.swift in Sources */,
 				9A40A0EA27D14A7500A73BBA /* ProjectListViewModelTests.swift in Sources */,
 				9A40A0BF27CFA82E00A73BBA /* MemoryUseCaseTests.swift in Sources */,
-				9A40A0E027D101C800A73BBA /* Storageable.swift in Sources */,
-				9A40A0C827CFA86200A73BBA /* Repositoryable.swift in Sources */,
+				9A40A0E027D101C800A73BBA /* Storage.swift in Sources */,
+				9A40A0C827CFA86200A73BBA /* VolatileRepository.swift in Sources */,
 				9A40A0D827D0FF8100A73BBA /* Project.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -424,18 +424,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				9A40A0E827D11D7300A73BBA /* Collection+extension.swift in Sources */,
-				9A40A0D727D0CCF600A73BBA /* MemoryStorage.swift in Sources */,
+				9A40A0D727D0CCF600A73BBA /* VolatileMemoryStorage.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */,
-				9A40A0CC27D0C70E00A73BBA /* MemoryUseCase.swift in Sources */,
+				9A40A0CC27D0C70E00A73BBA /* VolatileMemoryUseCase.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
-				9A40A0A727CFA17700A73BBA /* MemoryRepository.swift in Sources */,
+				9A40A0A727CFA17700A73BBA /* VolatileMemoryRepository.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
-				9A40A0CF27D0CA7E00A73BBA /* UseCase.swift in Sources */,
+				9A40A0CF27D0CA7E00A73BBA /* ProjectListUseCase.swift in Sources */,
 				9A40A0A127CF9BB600A73BBA /* Date+extension.swift in Sources */,
 				9A40A09D27CF8C6700A73BBA /* ProjectListViewModel.swift in Sources */,
-				9A40A0D527D0CC5200A73BBA /* Storageable.swift in Sources */,
+				9A40A0D527D0CC5200A73BBA /* Storage.swift in Sources */,
 				9A40A07D27CF491900A73BBA /* Project.swift in Sources */,
-				9A40A0A427CFA13800A73BBA /* Repositoryable.swift in Sources */,
+				9A40A0A427CFA13800A73BBA /* VolatileRepository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

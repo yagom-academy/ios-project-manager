@@ -3,10 +3,10 @@ import RxSwift
 
 final class ProjectListViewModel {
     private(set) var projects = [Project]()
-    private let useCase: UseCase
+    private let useCase: ProjectListUseCase
     private let disposeBag = DisposeBag()
     
-    init(useCase: UseCase = MemoryUseCase()) {
+    init(useCase: ProjectListUseCase = VolatileMemoryUseCase()) {
         self.useCase = useCase
         
         useCase.fetch().subscribe(onNext: { newProjects in

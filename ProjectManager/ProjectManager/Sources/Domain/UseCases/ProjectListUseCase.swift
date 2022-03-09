@@ -1,7 +1,7 @@
 import Foundation
 import RxSwift
 
-protocol UseCase {
+protocol ProjectListUseCase {
     func create(_ item: Project) -> Single<Project>
     func update(_ item: Project?) -> Single<Project>
     func delete(_ item: Project?) -> Single<Project>

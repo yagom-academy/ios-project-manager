@@ -1,7 +1,7 @@
 import Foundation
 import RxSwift
 
-final class MemoryStorage {
+final class VolatileMemoryStorage {
     private(set) var projects: [Project]
     private let projectStore: BehaviorSubject<[Project]>
     
@@ -14,7 +14,7 @@ final class MemoryStorage {
     }
 }
 
-extension MemoryStorage: Storageable {
+extension VolatileMemoryStorage: Storage {
     func create(_ item: Project) -> Single<Project> {
         projects.append(item)
         projectStore.onNext(projects)
