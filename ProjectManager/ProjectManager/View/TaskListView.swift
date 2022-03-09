@@ -17,14 +17,33 @@ struct TaskListView: View {
     }
     
     var body: some View {
+        VStack {
+            title
+            listView
+        }
+    }
+    
+    var title: some View {
+        HStack {
+            Text("\(progressStatus.name)")
+                .font(.title2)
+                .padding(.leading)
+            Spacer()
+            Text("\(taskList.count)")
+                .font(.title2)
+                .foregroundColor(.gray)
+                .padding(.trailing)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+    }
+    
+    var listView: some View {
         List {
-            Section(header: Text("\(progressStatus.name) (\(taskList.count))").font(.title2)) {
-                ForEach(taskList) { task in
-                    TaskListCellView(task: task)
-                }
-                .onDelete { indexSet in
-                    viewModel.deleteTask(taskList[indexSet.index])
-                }
+            ForEach(taskList) { task in
+                TaskListCellView(task: task)
+            }
+            .onDelete { indexSet in
+                viewModel.deleteTask(taskList[indexSet.index])
             }
         }
     }

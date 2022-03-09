@@ -7,6 +7,7 @@ struct ContentView: View {
     var body: some View {
         VStack {
             title
+            Divider()
             content
         }
     }
@@ -29,13 +30,16 @@ struct ContentView: View {
                 }
             })
         }
-        .padding()
+        .padding(.horizontal)
+        .padding(.top)
     }
     
     var content: some View {
         HStack {
             TaskListView(progressStatus: .todo)
+            Divider()
             TaskListView(progressStatus: .doing)
+            Divider()
             TaskListView(progressStatus: .done)
         }
     }
