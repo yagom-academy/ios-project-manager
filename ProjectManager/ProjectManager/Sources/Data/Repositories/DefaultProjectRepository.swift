@@ -1,16 +1,16 @@
 import Foundation
 import RxSwift
 
-final class VolatileMemoryRepository {
-    private let storage: Storage
+final class DefaultProjectRepository {
+    private let storage: ProjectStorage
     let disposeBag = DisposeBag()
 
-    init(storage: Storage = VolatileMemoryStorage()) {
+    init(storage: ProjectStorage = DefaultProjectStorage()) {
         self.storage = storage
     }
 }
 
-extension VolatileMemoryRepository: VolatileRepository {
+extension DefaultProjectRepository: ProjectRepository {
     func create(_ item: Project) -> Single<Project> {
         storage.create(item)
     }
@@ -19,8 +19,8 @@ extension VolatileMemoryRepository: VolatileRepository {
         storage.update(item)
     }
     
-    func delete(_ item: Project?) -> Single<Project> {
-        storage.delete(item)
+    func delete(_ uuid: UUID) -> Single<Project> {
+        storage.delete(uuid)
     }
     
     func fetch() -> BehaviorSubject<[Project]> {

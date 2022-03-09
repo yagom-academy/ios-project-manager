@@ -1,9 +1,12 @@
 import Foundation
 import RxSwift
 
-protocol Storage {
+protocol ProjectStorage {
+    @discardableResult
     func create(_ item: Project) -> Single<Project>
+    @discardableResult
     func update(_ project: Project?) -> Single<Project>
-    func delete(_ project: Project?) -> Single<Project>
+    @discardableResult
+    func delete(_ uuid: UUID) -> Single<Project>
     func fetch() -> BehaviorSubject<[Project]>
 }

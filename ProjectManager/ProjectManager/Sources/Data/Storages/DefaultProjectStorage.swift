@@ -1,7 +1,7 @@
 import Foundation
 import RxSwift
 
-final class VolatileMemoryStorage {
+final class DefaultProjectStorage {
     private(set) var projects: [Project]
     private let projectStore: BehaviorSubject<[Project]>
     
@@ -14,7 +14,7 @@ final class VolatileMemoryStorage {
     }
 }
 
-extension VolatileMemoryStorage: Storage {
+extension DefaultProjectStorage: ProjectStorage {
     func create(_ item: Project) -> Single<Project> {
         projects.append(item)
         projectStore.onNext(projects)
@@ -36,9 +36,8 @@ extension VolatileMemoryStorage: Storage {
         }
     }
     
-    func delete(_ item: Project?) -> Single<Project> {
-        guard let item = item,
-              let index = projects.firstIndex(where: { $0.id == item.id }) else {
+    func delete(_ uuid: UUID) -> Single<Project> {
+        guard let index = projects.firstIndex(where: { $0.id == uuid }) else {
             return Single.create { observer in
             observer(.failure(StorageError.notFound))
             return Disposables.create()

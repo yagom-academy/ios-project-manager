@@ -6,7 +6,7 @@ final class ProjectListViewModel {
     private let useCase: ProjectListUseCase
     private let disposeBag = DisposeBag()
     
-    init(useCase: ProjectListUseCase = VolatileMemoryUseCase()) {
+    init(useCase: ProjectListUseCase = DefaultProjectListUseCase()) {
         self.useCase = useCase
         
         useCase.fetch().subscribe(onNext: { newProjects in
