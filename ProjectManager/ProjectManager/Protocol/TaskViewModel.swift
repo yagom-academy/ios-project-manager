@@ -12,7 +12,7 @@ protocol TaskViewModel {
     var taskDidCreated: (() -> Void)? { get set }
 //    var taskDidFetched: ((Task) -> Void)? { get set }
     var taskDidDeleted: ((Int, TaskState) -> Void)? { get set }
-    var taskDidChanged: ((Int) -> Void)? { get set }
+    var taskDidChanged: ((Int, TaskState) -> Void)? { get set }
     var taskDidMoved: ((Int, TaskState) -> Void)? { get set }
     var tasksDidUpdated: (() -> Void)? { get set }
     var didSelectTask: ((Task) -> Void)? { get set }

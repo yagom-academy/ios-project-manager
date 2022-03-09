@@ -69,7 +69,9 @@ class TaskManageViewController: UIViewController {
         textView.layer.masksToBounds = false
         return textView
     }()
-    
+        
+    var selectedIndex: Int?
+    var selectedTask: Task?
     var manageType: ManageType
     var taskListViewModel: TaskViewModel
     
@@ -79,6 +81,12 @@ class TaskManageViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
     
+    convenience init(manageType: ManageType, taskListViewModel: TaskViewModel, task: Task, selectedIndex: Int) {
+        self.init(manageType: manageType, taskListViewModel: taskListViewModel)
+        self.selectedTask = task
+        self.selectedIndex = selectedIndex
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("스토리보드 사용하지 않음")
     }
@@ -86,6 +94,8 @@ class TaskManageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+        setupData(from: selectedTask)
+        setupEditingState(from: manageType)
     }
     
     private func configureUI() {
@@ -109,6 +119,24 @@ class TaskManageViewController: UIViewController {
         ])
     }
     
+    private func setupEditingState(from manageType: ManageType) {
+        if manageType == .detail {
+            titleTextField.isUserInteractionEnabled.toggle()
+            deadlineDatePicker.isUserInteractionEnabled.toggle()
+            descriptionTextView.isUserInteractionEnabled.toggle()
+        }
+    }
+    
+    private func setupData(from task: Task?) {
+        guard let task = task else {
+            return
+        }
+
+        titleTextField.text = task.title
+        deadlineDatePicker.date = task.deadline
+        descriptionTextView.text = task.description
+    }
+    
     private func saveTask() {
         guard let title = titleTextField.text,
               let description = descriptionTextView.text else {
@@ -116,6 +144,21 @@ class TaskManageViewController: UIViewController {
         }
         
         taskListViewModel.createTask(title: title, description: description, deadline: deadlineDatePicker.date)
+    }
+    
+    private func updateTask() {
+        guard let title = titleTextField.text,
+              let description = descriptionTextView.text,
+              let selectedIndex = selectedIndex,
+              let selectedTask = selectedTask else {
+            return
+        }
+        
+        taskListViewModel.updateRow(at: selectedIndex,
+                                    title: title,
+                                    description: description,
+                                    deadline: deadlineDatePicker.date,
+                                    from: selectedTask.state)
     }
      
     private func configureNavigationBar() {
@@ -136,6 +179,7 @@ class TaskManageViewController: UIViewController {
     
     @objc func didTapEdit() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(didTapCancel))
+        setupEditingState(from: manageType)
     }
     
     @objc func didTapDone() {
@@ -144,6 +188,7 @@ class TaskManageViewController: UIViewController {
             saveTask()
             self.dismiss(animated: true, completion: nil)
         case .detail:
+            updateTask()
             self.dismiss(animated: true, completion: nil)
         }        
     }

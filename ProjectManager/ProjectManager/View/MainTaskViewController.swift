@@ -67,6 +67,23 @@ class MainTaskViewController: UIViewController {
                 self.taskInDoneTableView.deleteRows(at: [indexPath], with: .fade)
             }
         }
+        
+        taskListViewModel.taskDidChanged = { [weak self] (index, state) in
+            guard let self = self else {
+                return
+            }
+            
+            let indexPath = IndexPath(row: index, section: 0)
+            
+            switch state {
+            case .waiting:
+                self.taskInWaitingTableView.reloadRows(at: [indexPath], with: .fade)
+            case .progress:
+                self.taskInProgressTableView.reloadRows(at: [indexPath], with: .fade)
+            case .done:
+                self.taskInDoneTableView.reloadRows(at: [indexPath], with: .fade)
+            }
+        }
     }
     
     private func configureUI() {
@@ -141,6 +158,19 @@ extension MainTaskViewController: UITableViewDataSource {
 }
 
 extension MainTaskViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let state = (tableView as? TaskTableView)?.state,
+              let selectedTask = taskListViewModel.task(at: indexPath.row, from: state) else {
+            return
+        }
+                
+        let taskManageViewController = TaskManageViewController(manageType: .detail, taskListViewModel: taskListViewModel, task: selectedTask, selectedIndex: indexPath.row)
+        let taskManageNavigationViewController = UINavigationController(rootViewController: taskManageViewController)
+        taskManageNavigationViewController.modalPresentationStyle = .formSheet
+        
+        self.present(taskManageNavigationViewController, animated: true, completion: nil)
+    }
+    
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { _, _, completionHandler in
             guard let state = (tableView as? TaskTableView)?.state else {
