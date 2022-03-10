@@ -199,7 +199,7 @@ final class MainTaskViewController: UIViewController {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
         newStates.forEach { state in
-            let moveAction = UIAlertAction(title: state.relocation, style: .default) { _ in
+            let moveAction = UIAlertAction(title: state.relocationTitle, style: .default) { _ in
                 completion(state)
             }
             alert.addAction(moveAction)

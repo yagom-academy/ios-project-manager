@@ -23,7 +23,7 @@ enum TaskState {
         }
     }
     
-    var relocation: String {
+    var relocationTitle: String {
         switch self {
         case .waiting:
             return "Move to TODO"
