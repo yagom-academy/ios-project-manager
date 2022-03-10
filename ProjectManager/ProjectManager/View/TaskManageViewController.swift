@@ -30,6 +30,8 @@ enum ManageType {
 }
 
 final class TaskManageViewController: UIViewController {
+    // MARK: - Properties
+
     let taskStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -70,6 +72,8 @@ final class TaskManageViewController: UIViewController {
     var manageType: ManageType
     var taskListViewModel: TaskViewModel
     
+    // MARK: - Life Cycle
+
     init(manageType: ManageType, taskListViewModel: TaskViewModel) {
         self.manageType = manageType
         self.taskListViewModel = taskListViewModel
@@ -93,6 +97,8 @@ final class TaskManageViewController: UIViewController {
         setupEditingState(from: manageType)
     }
     
+    // MARK: - Configure UI
+
     private func configureUI() {
         view.backgroundColor = .systemBackground
         configureNavigationBar()
@@ -131,6 +137,20 @@ final class TaskManageViewController: UIViewController {
         deadlineDatePicker.date = task.deadline
         descriptionTextView.text = task.description
     }
+     
+    // MARK: - Configure Edit/Cancel/Add
+
+    private func configureNavigationBar() {
+        navigationItem.title = selectedTask?.state.title
+        
+        switch manageType {
+        case .add, .edit:
+            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: manageType.leftButtonItem, target: self, action: #selector(didTapCancel))
+        case .detail:
+            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: manageType.leftButtonItem, target: self, action: #selector(didTapEdit))
+        }
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(didTapDone))
+    }
     
     private func saveTask() {
         guard let title = titleTextField.text,
@@ -156,13 +176,6 @@ final class TaskManageViewController: UIViewController {
                                     from: selectedTask.state)
     }
     
-    private func presentAlert(title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let confirmAction = UIAlertAction(title: "확인", style: .default, handler: nil)
-        alert.addAction(confirmAction)
-        self.present(alert, animated: true, completion: nil)
-    }
-    
     private func checkValidInput() -> Bool {
         var invalidItems = [String]()
         if titleTextField.text == "" {
@@ -180,17 +193,12 @@ final class TaskManageViewController: UIViewController {
         presentAlert(title: "\(invalidItems.joined(separator: ", "))을 입력해주세요", message: "")
         return false
     }
-     
-    private func configureNavigationBar() {
-        navigationItem.title = selectedTask?.state.title
-        
-        switch manageType {
-        case .add, .edit:
-            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: manageType.leftButtonItem, target: self, action: #selector(didTapCancel))
-        case .detail:
-            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: manageType.leftButtonItem, target: self, action: #selector(didTapEdit))
-        }
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(didTapDone))
+    
+    private func presentAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let confirmAction = UIAlertAction(title: "확인", style: .default, handler: nil)
+        alert.addAction(confirmAction)
+        self.present(alert, animated: true, completion: nil)
     }
     
     @objc func didTapCancel() {
@@ -216,6 +224,8 @@ final class TaskManageViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
 }
+
+// MARK: - UITextViewDelegate
 
 extension TaskManageViewController: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {

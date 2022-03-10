@@ -7,6 +7,8 @@
 import UIKit
 
 final class MainTaskViewController: UIViewController {
+    // MARK: - Properties
+
     let taskTableStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -22,6 +24,8 @@ final class MainTaskViewController: UIViewController {
     
     private var taskListViewModel: TaskViewModel
     
+    // MARK: - Life Cycle
+
     init(taskListViewModel: TaskViewModel) {
         self.taskListViewModel = taskListViewModel
         super.init(nibName: nil, bundle: nil)
@@ -43,6 +47,8 @@ final class MainTaskViewController: UIViewController {
         taskListViewModel.didLoaded()
     }
     
+    // MARK: - Configure ViewModel
+
     private func configureTaskListViewModel() {
         taskListViewModel.tasksDidUpdated = { [weak self] in
             self?.taskInWaitingTableView.reloadData()
@@ -134,6 +140,8 @@ final class MainTaskViewController: UIViewController {
         taskTableHeaderView?.configureUI(state: state, count: taskCount)
     }
     
+    // MARK: - Configure UI
+    
     private func configureUI() {
         configureNavigationController()
         configureTableView()
@@ -167,6 +175,26 @@ final class MainTaskViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTask))
     }
     
+    @objc private func addTask() {
+        let taskManageViewController = TaskManageViewController(manageType: .add, taskListViewModel: taskListViewModel)
+        let taskManageNavigationViewController = UINavigationController(rootViewController: taskManageViewController)
+        taskManageNavigationViewController.modalPresentationStyle = .formSheet
+        
+        self.present(taskManageNavigationViewController, animated: true, completion: nil)
+    }
+    
+    // MARK: - Long Press Gesture
+
+    private func setupLongPressGesture() {
+        let longPressOnWaiting = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressOnWaiting(_:)))
+        let longPressOnProgress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressOnProgress(_:)))
+        let longPressOnDone = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressOnDone(_:)))
+
+        taskInWaitingTableView.addGestureRecognizer(longPressOnWaiting)
+        taskInProgressTableView.addGestureRecognizer(longPressOnProgress)
+        taskInDoneTableView.addGestureRecognizer(longPressOnDone)
+    }
+    
     private func createAlert(with newStates: [TaskState], completion: @escaping (TaskState) -> Void) -> UIAlertController {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
@@ -178,16 +206,6 @@ final class MainTaskViewController: UIViewController {
         }
         
         return alert
-    }
-    
-    private func setupLongPressGesture() {
-        let longPressOnWaiting = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressOnWaiting(_:)))
-        let longPressOnProgress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressOnProgress(_:)))
-        let longPressOnDone = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressOnDone(_:)))
-
-        taskInWaitingTableView.addGestureRecognizer(longPressOnWaiting)
-        taskInProgressTableView.addGestureRecognizer(longPressOnProgress)
-        taskInDoneTableView.addGestureRecognizer(longPressOnDone)
     }
     
     private func longPressToMove(gesture: UILongPressGestureRecognizer, tableView: TaskTableView, from oldState: TaskState, to newStates: [TaskState]) {
@@ -217,15 +235,9 @@ final class MainTaskViewController: UIViewController {
     @objc private func handleLongPressOnDone(_ sender: UILongPressGestureRecognizer) {
         longPressToMove(gesture: sender, tableView: taskInDoneTableView, from: .done, to: [.waiting, .progress])
     }
-    
-    @objc private func addTask() {
-        let taskManageViewController = TaskManageViewController(manageType: .add, taskListViewModel: taskListViewModel)
-        let taskManageNavigationViewController = UINavigationController(rootViewController: taskManageViewController)
-        taskManageNavigationViewController.modalPresentationStyle = .formSheet
-        
-        self.present(taskManageNavigationViewController, animated: true, completion: nil)
-    }
 }
+
+// MARK: - UITableViewDataSource
 
 extension MainTaskViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -260,6 +272,8 @@ extension MainTaskViewController: UITableViewDataSource {
         return headerView
     }
 }
+
+// MARK: - UITableViewDelegate
 
 extension MainTaskViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
