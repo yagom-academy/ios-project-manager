@@ -7,8 +7,8 @@ protocol TaskRepositoryProtocol {
     var doneTasks: [Task] { get }
     
     func create(task: Task)
-    func update(task: Task, newTitle: String, newBody: String, newDueDate: Date, newProcessStatus: ProcessStatus)
     func delete(task: Task)
+    func update(task: Task, to newTask: Task)
 }
 
 final class TaskRepository: TaskRepositoryProtocol {
@@ -32,22 +32,16 @@ final class TaskRepository: TaskRepositoryProtocol {
         entireTasks.append(task)
     }
     
-    func update(task: Task, newTitle: String, newBody: String, newDueDate: Date, newProcessStatus: ProcessStatus) {
-        guard let index = entireTasks.firstIndex(where: { $0.id == task.id }) else {
-            print(TaskManagerError.taskNotFound)
-            return
-        }
-        entireTasks[index].title = newTitle
-        entireTasks[index].body = newBody
-        entireTasks[index].dueDate = newDueDate
-        entireTasks[index].processStatus = newProcessStatus
-    }
-    
     func delete(task: Task) {
         guard let index = entireTasks.firstIndex(where: { $0.id == task.id }) else {
             print(TaskManagerError.taskNotFound)
             return
         }
         entireTasks.remove(at: index)
+    }
+    
+    func update(task: Task, to newTask: Task) {
+        delete(task: task)
+        create(task: newTask)
     }
 }

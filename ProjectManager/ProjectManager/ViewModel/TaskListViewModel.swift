@@ -1,4 +1,4 @@
-import Foundation
+import UIKit
 
 protocol TaskListViewModelProtocol: AnyObject {
     var todoTasksObservable: MockObservable<[Task]>! { get }
@@ -6,8 +6,8 @@ protocol TaskListViewModelProtocol: AnyObject {
     var doneTasksObservable: MockObservable<[Task]>! { get }
     
     func create(task: Task)
-    func update(task: Task, newTitle: String, newBody: String, newDueDate: Date, newProcessStatus: ProcessStatus)
     func delete(task: Task)
+    func update(task: Task, to newTask: Task)
     
     func numberOfRowsInSection(forTableOf processStatus: ProcessStatus) -> Int
     func titleForHeaderInSection(forTableOf processStatus: ProcessStatus) -> String
@@ -44,74 +44,6 @@ final class TaskListViewModel: TaskListViewModelProtocol {
         taskRepository.create(task: task)
     }
     
-    func update(task: Task, newTitle: String, newBody: String, newDueDate: Date, newProcessStatus: ProcessStatus) {
-        switch task.processStatus {
-        case .todo:
-            guard let index = todoTasksObservable.value.firstIndex(where: { $0.id == task.id }) else {
-                print(TaskManagerError.taskNotFound)
-                return
-            }
-            todoTasksObservable.value[index].title = newTitle
-            todoTasksObservable.value[index].body = newBody
-            todoTasksObservable.value[index].dueDate = newDueDate
-            todoTasksObservable.value[index].processStatus = newProcessStatus
-            
-            // TODO: update 메서드 개선 필요
-            switch newProcessStatus {
-            case .todo:
-                return
-            case .doing:
-                let removedTask = todoTasksObservable.value.remove(at: index)
-                doingTasksObservable.value.append(removedTask)
-            case .done:
-                let removedTask = todoTasksObservable.value.remove(at: index)
-                doneTasksObservable.value.append(removedTask)
-            }
-        case .doing:
-            guard let index = doingTasksObservable.value.firstIndex(where: { $0.id == task.id }) else {
-                print(TaskManagerError.taskNotFound)
-                return
-            }
-            doingTasksObservable.value[index].title = newTitle
-            doingTasksObservable.value[index].body = newBody
-            doingTasksObservable.value[index].dueDate = newDueDate
-            doingTasksObservable.value[index].processStatus = newProcessStatus
-            
-            switch newProcessStatus {
-            case .todo:
-                let removedTask = doingTasksObservable.value.remove(at: index)
-                todoTasksObservable.value.append(removedTask)
-            case .doing:
-                return
-            case .done:
-                let removedTask = doingTasksObservable.value.remove(at: index)
-                doneTasksObservable.value.append(removedTask)
-            }
-        case .done:
-            guard let index = doneTasksObservable.value.firstIndex(where: { $0.id == task.id }) else {
-                print(TaskManagerError.taskNotFound)
-                return
-            }
-            doneTasksObservable.value[index].title = newTitle
-            doneTasksObservable.value[index].body = newBody
-            doneTasksObservable.value[index].dueDate = newDueDate
-            doneTasksObservable.value[index].processStatus = newProcessStatus
-            
-            switch newProcessStatus {
-            case .todo:
-                let removedTask = doneTasksObservable.value.remove(at: index)
-                todoTasksObservable.value.append(removedTask)
-            case .doing:
-                let removedTask = doneTasksObservable.value.remove(at: index)
-                doingTasksObservable.value.append(removedTask)
-            case .done:
-                return
-            }
-        }
-
-        taskRepository.update(task: task, newTitle: newTitle, newBody: newBody, newDueDate: newDueDate, newProcessStatus: newProcessStatus)
-    }
-    
     func delete(task: Task) {
         switch task.processStatus {
         case .todo:
@@ -135,6 +67,13 @@ final class TaskListViewModel: TaskListViewModelProtocol {
         }
         
         taskRepository.delete(task: task)
+    }
+    
+    func update(task: Task, to newTask: Task) {
+        delete(task: task)
+        create(task: newTask)
+        
+        taskRepository.update(task: task, to: newTask)
     }
     
     // MARK: - TaskListView
@@ -163,9 +102,10 @@ final class TaskListViewModel: TaskListViewModelProtocol {
     // MARK: - TaskEditView
     // TODO: Popover에서 Title/Body/DueData Edit 기능 구현
     func edit(task: Task, newTitle: String, newBody: String, newDueDate: Date) {
-        update(task: task, newTitle: newTitle, newBody: newBody, newDueDate: newDueDate, newProcessStatus: task.processStatus)
+        let newTask = Task(title: newTitle, body: newBody, dueDate: newDueDate, processStatus: task.processStatus)
+        update(task: task, to: newTask)
         
-        taskRepository.update(task: task, newTitle: newTitle, newBody: newBody, newDueDate: newDueDate, newProcessStatus: task.processStatus)
+        taskRepository.update(task: task, to: newTask)
     }
     
     // TODO: Popover에서 ProcessStatus Edit 기능 구현
@@ -175,8 +115,9 @@ final class TaskListViewModel: TaskListViewModelProtocol {
             return
         }
         
-        update(task: task, newTitle: task.title, newBody: task.body, newDueDate: task.dueDate, newProcessStatus: newProcessStatus)
+        let newTask = Task(title: task.title, body: task.body, dueDate: task.dueDate, processStatus: newProcessStatus)
+        update(task: task, to: newTask)
         
-        taskRepository.update(task: task, newTitle: task.title, newBody: task.body, newDueDate: task.dueDate, newProcessStatus: newProcessStatus)
+        taskRepository.update(task: task, to: newTask)
     }
 }

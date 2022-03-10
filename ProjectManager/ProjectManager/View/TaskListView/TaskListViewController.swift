@@ -34,11 +34,9 @@ final class TaskListViewController: UIViewController {
         taskListViewModel.todoTasksObservable.bind { [weak self] task in
             self?.todoTableView.reloadData()
         }
-        
         taskListViewModel.doingTasksObservable.bind { [weak self] task in
             self?.doingTableView.reloadData()
         }
-        
         taskListViewModel.doneTasksObservable.bind { [weak self] task in
             self?.doneTableView.reloadData()
         }
