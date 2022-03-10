@@ -35,7 +35,7 @@
 		C139EFA627CE5E02001079B6 /* TaskStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = C139EF9127CE4539001079B6 /* TaskStatus.swift */; };
 		C139EFA727CE5E05001079B6 /* TaskMemoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C139EF9327CE46EC001079B6 /* TaskMemoryManager.swift */; };
 		C139EFA827CE5E08001079B6 /* TaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C139EF9527CE48F0001079B6 /* TaskManager.swift */; };
-		C13F86E227D71473004070AE /* TaskFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13F86E127D71472004070AE /* TaskFormView.swift */; };
+		C13F86E227D71473004070AE /* TaskFormContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13F86E127D71472004070AE /* TaskFormContainerView.swift */; };
 		C13F86E427D73524004070AE /* TaskListContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13F86E327D73524004070AE /* TaskListContainerView.swift */; };
 		C13F86E627D7511E004070AE /* Utilities+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13F86E527D7511E004070AE /* Utilities+Foundation.swift */; };
 		C17D656B27D483B800C54EC6 /* ProjectManagerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17D656A27D483B800C54EC6 /* ProjectManagerViewModel.swift */; };
@@ -75,7 +75,7 @@
 		C139EF9527CE48F0001079B6 /* TaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManager.swift; sourceTree = "<group>"; };
 		C139EF9C27CE5DF7001079B6 /* ProjectManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProjectManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C139EF9E27CE5DF7001079B6 /* TaskMemoryManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskMemoryManagerTests.swift; sourceTree = "<group>"; };
-		C13F86E127D71472004070AE /* TaskFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskFormView.swift; sourceTree = "<group>"; };
+		C13F86E127D71472004070AE /* TaskFormContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskFormContainerView.swift; sourceTree = "<group>"; };
 		C13F86E327D73524004070AE /* TaskListContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListContainerView.swift; sourceTree = "<group>"; };
 		C13F86E527D7511E004070AE /* Utilities+Foundation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Utilities+Foundation.swift"; sourceTree = "<group>"; };
 		C17D656A27D483B800C54EC6 /* ProjectManagerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerViewModel.swift; sourceTree = "<group>"; };
@@ -137,7 +137,7 @@
 			children = (
 				C105641627CCE5A10018ACFE /* ProjectManagerMainView.swift */,
 				C12BF48527D9DF3C00211C11 /* TaskListViewModule */,
-				C13F86E127D71472004070AE /* TaskFormView.swift */,
+				C1232DCE27DA179D007EE147 /* TaskFormViewModule */,
 				C1E42BF827D7EE8300700BB4 /* TaskDetailView.swift */,
 				C1E42BF627D7EE5600700BB4 /* TaskCreateView.swift */,
 			);
@@ -159,6 +159,14 @@
 				C139EF9527CE48F0001079B6 /* TaskManager.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		C1232DCE27DA179D007EE147 /* TaskFormViewModule */ = {
+			isa = PBXGroup;
+			children = (
+				C13F86E127D71472004070AE /* TaskFormContainerView.swift */,
+			);
+			path = TaskFormViewModule;
 			sourceTree = "<group>";
 		};
 		C12BF48527D9DF3C00211C11 /* TaskListViewModule */ = {
@@ -409,7 +417,7 @@
 				C12BF49227D9EEC900211C11 /* TaskListRowDateView.swift in Sources */,
 				C13F86E427D73524004070AE /* TaskListContainerView.swift in Sources */,
 				C139EF9627CE48F0001079B6 /* TaskManager.swift in Sources */,
-				C13F86E227D71473004070AE /* TaskFormView.swift in Sources */,
+				C13F86E227D71473004070AE /* TaskFormContainerView.swift in Sources */,
 				C12BF48B27D9E52400211C11 /* TaskListContextMenuView.swift in Sources */,
 				C13F86E627D7511E004070AE /* Utilities+Foundation.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,

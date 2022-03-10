@@ -17,7 +17,7 @@ struct TaskCreateView: View {
     @State private var description = String()
     
     var body: some View {
-        let taskForm = TaskFormView(title: $title, date: $date, description: $description)
+        let taskForm = TaskFormContainerView(title: $title, date: $date, description: $description)
         
         NavigationView {
             taskForm

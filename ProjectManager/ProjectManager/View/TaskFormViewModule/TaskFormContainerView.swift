@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TaskFormView: View {
+struct TaskFormContainerView: View {
     
     @Binding var title: String
     @Binding var date: Date
