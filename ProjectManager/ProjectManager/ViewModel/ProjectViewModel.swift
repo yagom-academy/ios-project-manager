@@ -5,7 +5,7 @@ import UIKit
 
 final class ProjectViewModel {
     
-    private let workMemoryManager = WorkMemoryManager()
+    let workMemoryManager = WorkMemoryManager()
     
     let todoList = BehaviorSubject<[Work]>(value: [])
     let doingList = BehaviorSubject<[Work]>(value: [])

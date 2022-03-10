@@ -4,19 +4,28 @@ import RxSwift
 
 final class WorkFormViewModel {
     
-    private let workMemoryManager = WorkMemoryManager()
-    
+    private let workMemoryManager: WorkMemoryManager?
     private let todoList: BehaviorSubject<[Work]>?
     private let doingList: BehaviorSubject<[Work]>?
     private let doneList: BehaviorSubject<[Work]>?
     
-    init(todoList: BehaviorSubject<[Work]>, doingList: BehaviorSubject<[Work]>, doneList: BehaviorSubject<[Work]>) {
+    init(
+        workMemoryManager: WorkMemoryManager,
+        todoList: BehaviorSubject<[Work]>,
+        doingList: BehaviorSubject<[Work]>,
+        doneList: BehaviorSubject<[Work]>
+    ) {
+        self.workMemoryManager = workMemoryManager
         self.todoList = todoList
         self.doingList = doingList
         self.doneList = doneList
     }
     
     func addWork(_ data: Work) {
+        guard let workMemoryManager = workMemoryManager else {
+            return
+        }
+        
         workMemoryManager.create(data)
         
         switch data.category {

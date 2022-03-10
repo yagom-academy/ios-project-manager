@@ -22,6 +22,7 @@ final class WorkFormViewController: UIViewController {
     convenience init?(coder: NSCoder, viewModel: ProjectViewModel) {
         self.init(coder: coder)
         self.viewModel = WorkFormViewModel(
+            workMemoryManager: viewModel.workMemoryManager,
             todoList: viewModel.todoList,
             doingList: viewModel.doingList,
             doneList: viewModel.doneList

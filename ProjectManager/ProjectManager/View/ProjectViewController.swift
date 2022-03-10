@@ -13,7 +13,6 @@ private enum Content {
 private enum Design {
     static let tableViewBackgroundColor: UIColor = .systemGray5
     static let viewBackgroundColor: UIColor = .systemGray6
-    static let countLabelCornerRadius: CGFloat = 12
 }
 
 final class ProjectViewController: UIViewController {
@@ -26,11 +25,11 @@ final class ProjectViewController: UIViewController {
     @IBOutlet weak private var doingTableView: UITableView!
     @IBOutlet weak private var doneTableView: UITableView!
     @IBOutlet weak private var todoTitleLabel: UILabel!
-    @IBOutlet weak private var todoCountLabel: UILabel!
+    @IBOutlet weak private var todoCountLabel: ProjectHeaderCircleLabel!
     @IBOutlet weak private var doingTitleLabel: UILabel!
-    @IBOutlet weak private var doingCountLabel: UILabel!
+    @IBOutlet weak private var doingCountLabel: ProjectHeaderCircleLabel!
     @IBOutlet weak private var doneTitleLabel: UILabel!
-    @IBOutlet weak private var doneCountLabel: UILabel!
+    @IBOutlet weak private var doneCountLabel: ProjectHeaderCircleLabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,14 +71,6 @@ final class ProjectViewController: UIViewController {
         todoTitleLabel.text = Content.todoTitle
         doingTitleLabel.text = Content.doingTitle
         doneTitleLabel.text = Content.doneTitle
-        
-        todoCountLabel.layer.cornerRadius = Design.countLabelCornerRadius
-        doingCountLabel.layer.cornerRadius = Design.countLabelCornerRadius
-        doneCountLabel.layer.cornerRadius = Design.countLabelCornerRadius
-        
-        todoCountLabel.layer.masksToBounds = true
-        doingCountLabel.layer.masksToBounds = true
-        doneCountLabel.layer.masksToBounds = true
         
         _ = viewModel.todoCount
             .subscribe(onNext: { [weak self] in
