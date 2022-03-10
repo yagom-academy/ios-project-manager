@@ -14,35 +14,10 @@ struct TaskListView: View {
     @EnvironmentObject private var viewModel: ProjectManagerViewModel
     @State private var isShowSheet = false
     
-    private var tasks: [Task] {
-        switch taskType {
-        case .todo:
-            return viewModel.todoTasks
-        case .doing:
-            return viewModel.doingTasks
-        case .done:
-            return viewModel.doneTasks
-        }
-    }
-    
     var body: some View {
         VStack(alignment: .leading) {
-            title
+            TaskListTitleView(taskType: taskType)
             taskList
-        }
-    }
-    
-    private var title: some View {
-        HStack {
-            Text(taskType.description)
-                .font(.largeTitle)
-                .padding([.leading])
-            
-            Text(String(tasks.count))
-                .font(.headline)
-                .colorInvert()
-                .padding(10)
-                .background(Circle())
         }
     }
     
@@ -69,6 +44,10 @@ struct TaskListView: View {
             }
         }
         
+    }
+    
+    private var tasks: [Task] {
+        viewModel.findTasks(of: taskType)
     }
     
     private func contextMenuView(_ task: Task, _ taskType: TaskStatus) -> some View {

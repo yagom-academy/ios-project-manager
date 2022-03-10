@@ -23,6 +23,17 @@ final class ProjectManagerViewModel: ObservableObject {
         model.doneTasks
     }
     
+    func findTasks(of type: TaskStatus) -> [Task] {
+        switch type {
+        case .todo:
+            return todoTasks
+        case .doing:
+            return doingTasks
+        case .done:
+            return doneTasks
+        }
+    }
+    
     func create(title: String, description: String, dueDate: Date) {
         let newTask = Task(
             id: UUID(),
