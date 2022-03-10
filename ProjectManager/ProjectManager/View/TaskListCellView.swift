@@ -3,7 +3,7 @@ import SwiftUI
 struct TaskListCellView: View {
     @EnvironmentObject private var viewModel: TaskListViewModel
     
-    @State var isShowTaskDetailView = false
+    @State private var isShowTaskDetailView = false
     @State private var isShowUpdateTaskState = false
     @State private var firstMoveStatus: ProgressStatus = .doing
     @State private var secondMoveStatus: ProgressStatus = .done
