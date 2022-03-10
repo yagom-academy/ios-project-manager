@@ -12,6 +12,7 @@ private enum Design {
     
     static let titleLeadingMargin: CGFloat = 10
     static let titleTopMargin: CGFloat = 10
+    static let titleBottomMargin: CGFloat = -10
 }
 
 class TaskTableHeaderView: UITableViewHeaderFooterView {
@@ -44,29 +45,30 @@ class TaskTableHeaderView: UITableViewHeaderFooterView {
     
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
-        configLayout()
+        configureLayout()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
     
-    private func configLayout() {
+    private func configureLayout() {
         [titleLabel, taskCountLabel].forEach {
             headerStackView.addArrangedSubview($0)
         }
+        
         contentView.addSubview(headerStackView)
         
         NSLayoutConstraint.activate([
             taskCountLabel.widthAnchor.constraint(equalToConstant: Design.taskCountLabelBounds.width),
             taskCountLabel.heightAnchor.constraint(equalTo: taskCountLabel.widthAnchor),
-            headerStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Design.titleTopMargin),
+            headerStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
             headerStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Design.titleLeadingMargin),
-            headerStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            headerStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: Design.titleBottomMargin)
         ])
     }
     
-    func configUI(state: TaskState, count: Int) {
+    func configureUI(state: TaskState, count: Int) {
         titleLabel.text = state.title
         taskCountLabel.text = count.description
     }

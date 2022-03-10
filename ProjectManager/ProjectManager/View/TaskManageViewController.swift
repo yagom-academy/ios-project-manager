@@ -155,9 +155,34 @@ class TaskManageViewController: UIViewController {
                                     deadline: deadlineDatePicker.date,
                                     from: selectedTask.state)
     }
+    
+    private func presentAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let confirmAction = UIAlertAction(title: "확인", style: .default, handler: nil)
+        alert.addAction(confirmAction)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    private func checkValidInput() -> Bool {
+        var invalidItems = [String]()
+        if titleTextField.text == "" {
+            invalidItems.append("제목")
+        }
+        
+        if descriptionTextView.text == "" {
+            invalidItems.append("내용")
+        }
+        
+        if invalidItems.isEmpty {
+            return true
+        }
+        
+        presentAlert(title: "\(invalidItems.joined(separator: ", "))을 입력해주세요", message: "")
+        return false
+    }
      
     private func configureNavigationBar() {
-        navigationItem.title = "TODO"
+        navigationItem.title = selectedTask?.state.title
         
         switch manageType {
         case .add, .edit:
@@ -178,13 +203,29 @@ class TaskManageViewController: UIViewController {
     }
     
     @objc func didTapDone() {
+        guard checkValidInput() else {
+            return
+        }
+        
         switch manageType {
         case .add, .edit:
             saveTask()
-            self.dismiss(animated: true, completion: nil)
         case .detail:
             updateTask()
-            self.dismiss(animated: true, completion: nil)
-        }        
+        }
+        self.dismiss(animated: true, completion: nil)
+    }
+}
+
+extension TaskManageViewController: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if range.location == 1000 {
+            presentAlert(title: "1", message: "1")
+            return false
+        }
+        if range.length > 0 {
+            return true
+        }
+        return range.location < 1000
     }
 }

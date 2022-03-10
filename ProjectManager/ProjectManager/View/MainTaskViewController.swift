@@ -141,7 +141,7 @@ class MainTaskViewController: UIViewController {
         
         let taskCount = taskListViewModel.count(of: state)
         let taskTableHeaderView = taskTableView.headerView(forSection: 0) as? TaskTableHeaderView
-        taskTableHeaderView?.configUI(state: state, count: taskCount)
+        taskTableHeaderView?.configureUI(state: state, count: taskCount)
     }
     
     private func configureUI() {
@@ -252,8 +252,8 @@ extension MainTaskViewController: UITableViewDataSource {
               let task = taskListViewModel.task(at: indexPath.row, from: state) else {
             return TaskTableViewCell()
         }
-        
-        cell.configureCell(title: task.title, description: task.description, deadline: task.deadline, state: state)
+                
+        cell.configureCell(title: task.title, description: task.description, deadline: task.deadline, state: state)                
         
         return cell
     }
@@ -266,7 +266,7 @@ extension MainTaskViewController: UITableViewDataSource {
         }
         
         let taskCounts = taskListViewModel.count(of: state)
-        headerView.configUI(state: state, count: taskCounts)
+        headerView.configureUI(state: state, count: taskCounts)
         return headerView
     }
 }

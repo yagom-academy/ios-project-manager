@@ -12,7 +12,7 @@ class TaskTableView: UITableView {
     
     init(state: TaskState) {
         self.state = state
-        super.init(frame: .zero, style: .grouped)
+        super.init(frame: .zero, style: .plain)
         backgroundColor = .systemGray5
         self.register(cellWithClass: TaskTableViewCell.self)
         self.register(headerFooterWithClass: TaskTableHeaderView.self)
