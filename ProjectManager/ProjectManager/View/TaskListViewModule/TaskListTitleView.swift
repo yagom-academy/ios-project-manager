@@ -16,7 +16,7 @@ struct TaskListTitleView: View {
         HStack {
             Text(taskTitle)
                 .font(.largeTitle)
-                .padding([.leading])
+                .padding(.leading)
             
             Text(taskCount)
                 .font(.headline)
