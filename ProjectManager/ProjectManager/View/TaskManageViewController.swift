@@ -220,7 +220,7 @@ class TaskManageViewController: UIViewController {
 extension TaskManageViewController: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if range.location == 1000 {
-            presentAlert(title: "1", message: "1")
+            presentAlert(title: "입력 초과", message: "1,000 글자 미만으로 입력해주세요")
             return false
         }
         if range.length > 0 {
