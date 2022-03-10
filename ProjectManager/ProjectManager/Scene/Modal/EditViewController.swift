@@ -14,6 +14,8 @@ class EditViewController: UIViewController, UIAdaptivePresentationControllerDele
     var hasChanges: Bool {
         return self.textField.text != nil
     }
+    var beingEditedTodoUUID: UUID?
+    var beingEditedTodoSection: TodoSection?
     weak var dataProvider: DataProvider?
     weak var mainViewDelegate: EditViewControllerDelegate?
 
@@ -37,6 +39,18 @@ class EditViewController: UIViewController, UIAdaptivePresentationControllerDele
         return button
     }()
 
+    private lazy var datePicker: UIDatePicker = {
+        let datePicker = UIDatePicker()
+        datePicker.preferredDatePickerStyle = .wheels
+        datePicker.date = Date()
+        datePicker.datePickerMode = .date
+
+        let locale = Locale.preferredLanguages.first ?? Locale.current.identifier
+        datePicker.locale = Locale(identifier: locale)
+
+        return datePicker
+    }()
+
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -58,18 +72,6 @@ class EditViewController: UIViewController, UIAdaptivePresentationControllerDele
         textField.styleWithShadow()
 
         return textField
-    }()
-
-    private lazy var datePicker: UIDatePicker = {
-        let datePicker = UIDatePicker()
-        datePicker.preferredDatePickerStyle = .wheels
-        datePicker.date = Date()
-        datePicker.datePickerMode = .date
-
-        let locale = Locale.preferredLanguages.first ?? Locale.current.identifier
-        datePicker.locale = Locale(identifier: locale)
-
-        return datePicker
     }()
 
     private let textView: UITextView = {
@@ -104,13 +106,32 @@ class EditViewController: UIViewController, UIAdaptivePresentationControllerDele
     }
 
     private func setUpTextView() {
-        self.textView.text = EditVCScript.textViewPlaceHolder
+        self.textView.text =  EditVCScript.textViewPlaceHolder
         self.textView.textColor = EditVCColor.placeHolderTextColor
     }
 
     private func setUpDelegate() {
         self.textView.delegate = self
         self.navigationController?.presentationController?.delegate = self
+    }
+
+// MARK: - SetUp Default Value
+
+    func setUpDefaultValue(todo: Todo) {
+        guard let date = todo.deadline?.date else {
+            return
+        }
+
+        self.textField.text = todo.title
+        self.datePicker.date = date
+        self.textView.text = todo.content
+    }
+
+    func resetToDefaultValue() {
+        self.textField.text = nil
+        self.datePicker.date = Date()
+        self.textView.text = EditVCScript.textViewPlaceHolder
+        self.textView.textColor = EditVCColor.placeHolderTextColor
     }
 
 // MARK: - Configure View
@@ -228,11 +249,17 @@ class EditViewController: UIViewController, UIAdaptivePresentationControllerDele
             title: self.textField.text ?? EditVCScript.untitled,
             content: self.textView.text,
             deadline: self.datePicker.date.double,
-            section: .todo,
-            uuid: UUID()
+            section: self.beingEditedTodoSection ?? .todo,
+            uuid: self.beingEditedTodoUUID ?? UUID()
         )
 
-        dataProvider.update(todo: todo)
+        if self.beingEditedTodoUUID != nil, self.beingEditedTodoSection != nil {
+            dataProvider.edit(todo: todo, in: todo.section)
+            self.beingEditedTodoUUID = nil
+            self.beingEditedTodoSection = nil
+        } else {
+            dataProvider.update(todo: todo)
+        }
 
         self.mainViewDelegate?.editViewControllerDidFinish(self)
     }
@@ -249,7 +276,7 @@ extension EditViewController: UITextViewDelegate {
     }
 
     func textViewDidEndEditing(_ textView: UITextView) {
-        if textView.text.isEmpty {
+        if textView.text.isEmpty || textView.text == "" {
             textView.text = EditVCScript.textViewPlaceHolder
             textView.textColor = EditVCColor.placeHolderTextColor
         }
