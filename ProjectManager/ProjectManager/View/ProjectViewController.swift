@@ -63,9 +63,9 @@ final class ProjectViewController: UIViewController {
     private func configureTableViewCells() {
         let nibName = UINib(nibName: String(describing: ProjectTableViewCell.self), bundle: nil)
         
-        todoTableView.register(nibName, forCellReuseIdentifier: String(describing: ProjectTableViewCell.self))
-        doingTableView.register(nibName, forCellReuseIdentifier: String(describing: ProjectTableViewCell.self))
-        doneTableView.register(nibName, forCellReuseIdentifier: String(describing: ProjectTableViewCell.self))
+        todoTableView.register(nibName, cellClass: ProjectTableViewCell.self)
+        doingTableView.register(nibName, cellClass: ProjectTableViewCell.self)
+        doneTableView.register(nibName, cellClass: ProjectTableViewCell.self)
     }
     
     private func configureHeaders() {
