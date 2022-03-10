@@ -1,5 +1,5 @@
 //
-//  TaskCreateView.swift
+//  TaskFormCreateSheetView.swift
 //  ProjectManager
 //
 //  Created by JeongTaek Han on 2022/03/09.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TaskCreateView: View {
+struct TaskFormCreateSheetView: View {
     
     @EnvironmentObject private var viewModel: ProjectManagerViewModel
     @Binding var isShowSheet: Bool
@@ -17,36 +17,41 @@ struct TaskCreateView: View {
     @State private var description = String()
     
     var body: some View {
-        let taskForm = TaskFormContainerView(title: $title, date: $date, description: $description)
-        
         NavigationView {
-            taskForm
+            TaskFormContainerView(title: $title, date: $date, description: $description)
                 .padding()
                 .navigationTitle("TODO")
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
-                        Button(action: {
-                            isShowSheet.toggle()
-                        }) {
+                        Button(action: toggleSheetCondition) {
                             Text("Cancel")
                         }
                     }
                     ToolbarItem(placement: .navigationBarTrailing) {
-                        Button(action: {
-                            viewModel.create(
-                                title: taskForm.title,
-                                description: taskForm.description,
-                                dueDate: taskForm.date
-                            )
-                            isShowSheet.toggle()
-                        }) {
+                        Button(action: createButtonClicked) {
                             Text("Done")
                         }
                     }
                 }
         }
-        
+    }
+    
+    private func createButtonClicked() {
+        createTask()
+        toggleSheetCondition()
+    }
+    
+    private func createTask() {
+        viewModel.create(
+            title: title,
+            description: description,
+            dueDate: date
+        )
+    }
+    
+    private func toggleSheetCondition() {
+        isShowSheet.toggle()
     }
     
 }
