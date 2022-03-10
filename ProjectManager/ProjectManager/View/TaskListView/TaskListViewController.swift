@@ -3,11 +3,11 @@ import UIKit
 final class TaskListViewController: UIViewController {
     // MARK: - Properties
     private var taskListViewModel: TaskListViewModelProtocol!
+    private lazy var tableViews = [todoTableView, doingTableView, doneTableView]
     
     @IBOutlet private weak var todoTableView: TaskTableView!
     @IBOutlet private weak var doingTableView: TaskTableView!
     @IBOutlet private weak var doneTableView: TaskTableView!
-    private lazy var tableViews = [todoTableView, doingTableView, doneTableView]
     
     // MARK: - Initializers
     convenience init?(coder: NSCoder, taskListViewModel: TaskListViewModelProtocol = TaskListViewModel()) {

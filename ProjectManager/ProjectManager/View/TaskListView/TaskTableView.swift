@@ -1,6 +1,6 @@
 import UIKit
 
-class TaskTableView: UITableView {
+final class TaskTableView: UITableView {
     var processStatus: ProcessStatus?
 }
 

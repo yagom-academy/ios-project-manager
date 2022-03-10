@@ -225,6 +225,8 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
+				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
+				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
 				369243F427D26777004F0FE4 /* Model */,
 				36C6FC4B27D7869A00B3057F /* Repository */,
 				369243F627D26781004F0FE4 /* ViewModel */,
@@ -233,8 +235,6 @@
 				36C6FC3B27D73E3300B3057F /* Extensions */,
 				36C6FC3627D72E3600B3057F /* Errors */,
 				369243F727D26788004F0FE4 /* Resources */,
-				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
-				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
 			);
 			path = ProjectManager;
