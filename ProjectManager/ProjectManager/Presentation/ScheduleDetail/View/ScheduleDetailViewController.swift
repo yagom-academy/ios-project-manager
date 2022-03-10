@@ -11,7 +11,7 @@ import RxCocoa
 
 class ScheduleDetailViewController: UIViewController {
 
-    private let viewModel: ScheduleDetailViewModel
+    var viewModel: ScheduleDetailViewModel?
     private let bag = DisposeBag()
     
     private let stackView: UIStackView = {
@@ -63,16 +63,6 @@ class ScheduleDetailViewController: UIViewController {
         return barButtonItem
     }()
 
-    init(viewModel: ScheduleDetailViewModel) {
-        self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
@@ -123,9 +113,14 @@ private extension ScheduleDetailViewController {
         let input = ScheduleDetailViewModel.Input(
             leftBarButtonDidTap: self.leftBarButton.rx.tap.asObservable(),
             rightBarButtonDidTap: self.rightBarButton.rx.tap.asObservable(),
-            textViewDidChange: self.bodyTextView.rx.text.changed.asObservable()
+            scheduleTitleTextDidChange: self.titleTextField.rx.text.orEmpty.asObservable(),
+            scheduleDateDidChange: self.datePicker.rx.date.asObservable(),
+            scheduleBodyTextDidChange: self.bodyTextView.rx.text.orEmpty.asObservable()
         )
-        let output = self.viewModel.transform(input: input, disposeBag: self.bag)
+
+        guard let output = self.viewModel?.transform(input: input, disposeBag: self.bag) else {
+            return
+        }
 
         output.scheduleTitleText.asDriver()
             .drive(self.titleTextField.rx.text)

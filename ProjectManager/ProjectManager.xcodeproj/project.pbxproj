@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		334BADEC27D8A0980098F448 /* ScheduleDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334BADEB27D8A0980098F448 /* ScheduleDetailViewModel.swift */; };
 		334BADEE27D8B1BC0098F448 /* MainViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334BADED27D8B1BC0098F448 /* MainViewCoordinator.swift */; };
+		334BADF027D8F2690098F448 /* ScheduleDetailCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334BADEF27D8F2690098F448 /* ScheduleDetailCoordinator.swift */; };
 		336E237227D1DC0000C40ECC /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 336E237127D1DC0000C40ECC /* Schedule.swift */; };
 		336E237627D1E6B200C40ECC /* DataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 336E237527D1E6B200C40ECC /* DataRepository.swift */; };
 		336E237827D1E7B300C40ECC /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 336E237727D1E7B300C40ECC /* DataSource.swift */; };
@@ -55,6 +56,7 @@
 /* Begin PBXFileReference section */
 		334BADEB27D8A0980098F448 /* ScheduleDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleDetailViewModel.swift; sourceTree = "<group>"; };
 		334BADED27D8B1BC0098F448 /* MainViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewCoordinator.swift; sourceTree = "<group>"; };
+		334BADEF27D8F2690098F448 /* ScheduleDetailCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleDetailCoordinator.swift; sourceTree = "<group>"; };
 		336E237127D1DC0000C40ECC /* Schedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schedule.swift; sourceTree = "<group>"; };
 		336E237527D1E6B200C40ECC /* DataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataRepository.swift; sourceTree = "<group>"; };
 		336E237727D1E7B300C40ECC /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
@@ -227,6 +229,7 @@
 			children = (
 				334BADEA27D89F130098F448 /* ViewModel */,
 				334BADE927D89F0A0098F448 /* View */,
+				334BADEF27D8F2690098F448 /* ScheduleDetailCoordinator.swift */,
 			);
 			path = ScheduleDetail;
 			sourceTree = "<group>";
@@ -440,6 +443,7 @@
 				334BADEC27D8A0980098F448 /* ScheduleDetailViewModel.swift in Sources */,
 				37CC921F27D87105003F1122 /* ScheduleDetailViewController.swift in Sources */,
 				334BADEE27D8B1BC0098F448 /* MainViewCoordinator.swift in Sources */,
+				334BADF027D8F2690098F448 /* ScheduleDetailCoordinator.swift in Sources */,
 				376D6FB527D734950097D31A /* MainViewModel.swift in Sources */,
 				33B6322127D7528700EB169D /* TableView+Extension.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,

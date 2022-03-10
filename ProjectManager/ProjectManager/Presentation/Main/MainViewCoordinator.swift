@@ -39,13 +39,13 @@ class MainViewCoordinator {
     }
 
     func presentScheduleDetailViewController() {
-        guard let useCase = mainViewController.viewModel?.useCase
-        else {
+        guard let useCase = mainViewController.viewModel?.useCase else {
             return
         }
-        let viewModel = ScheduleDetailViewModel(useCase: useCase)
-        let scheduleDetailViewController = ScheduleDetailViewController(viewModel: viewModel)
-        let navigationController = UINavigationController(rootViewController: scheduleDetailViewController)
-        self.mainViewController.present(navigationController, animated: true, completion: nil)
+
+        let scheduleDetailCoordinator = ScheduleDetailCoordinator()
+        scheduleDetailCoordinator.start(with: useCase)
+
+        self.mainViewController.present(scheduleDetailCoordinator.navigationController, animated: true, completion: nil)
     }
 }

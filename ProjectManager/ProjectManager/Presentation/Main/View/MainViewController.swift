@@ -84,7 +84,7 @@ private extension MainViewController {
             viewWillAppear: self.rx.methodInvoked(#selector(UIViewController.viewWillAppear))
                 .map { _ in },
             cellDidTap: tableViews.map { $0.rx.modelSelected(Schedule.self).asObservable() },
-            cellDelete: tableViews.map { $0.rx.modelDeleted(Schedule.self).map { $0.id } },
+            cellDelete: tableViews.map { $0.rx.modelDeleted(Schedule.self).map { $0.id! } },
             addButtonDidTap: Observable.of()
         )
 

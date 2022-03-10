@@ -28,9 +28,15 @@ final class ScheduleUseCase {
             .disposed(by: bag)
     }
 
-    func create(_ schedule: Schedule) -> Observable<Schedule> {
+    func create(_ schedule: Schedule) {
+        scheduleProvider.create(schedule)
+            .subscribe(onNext: { schedule in
+                var schedules = self.schedules.value
+                schedules.append(schedule)
 
-        return scheduleProvider.create(schedule)
+                self.schedules.accept(schedules)
+            })
+            .disposed(by: bag)
     }
 
     func delete(_ scheduleID: UUID) {
@@ -44,9 +50,21 @@ final class ScheduleUseCase {
             .disposed(by: bag)
     }
 
-    func update(_ schedule: Schedule) -> Observable<Schedule> {
+    func update(_ schedule: Schedule) {
+        scheduleProvider.update(schedule)
+            .subscribe(onNext: { newSchedule in
+                var schedules = self.schedules.value
+                let index = schedules.enumerated().filter { _, schedule in
+                    schedule.id == newSchedule.id
+                }.map { element in
+                    element.0
+                }.first
 
-        return scheduleProvider.update(schedule)
+                schedules[index!] = newSchedule
+
+                self.schedules.accept(schedules)
+            })
+            .disposed(by: bag)
     }
 
     func changeProgress(schedule: Schedule, progress: Progress) -> Observable<Schedule> {
