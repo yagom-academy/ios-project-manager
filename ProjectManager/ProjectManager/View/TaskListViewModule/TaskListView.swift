@@ -22,7 +22,7 @@ struct TaskListView: View {
                 }) {
                     TaskRowView(task: task)
                         .contextMenu {
-                            contextMenuView(task, taskType)
+                            TaskListContextMenuView(task: task)
                         }
                         .sheet(isPresented: $isShowSheet, onDismiss: nil) {
                             TaskDetailView(
@@ -40,16 +40,6 @@ struct TaskListView: View {
     
     private var tasks: [Task] {
         viewModel.findTasks(of: taskType)
-    }
-    
-    private func contextMenuView(_ task: Task, _ taskType: TaskStatus) -> some View {
-        ForEach(TaskStatus.allCases) { status in
-            if status != taskType {
-                Button(action: { viewModel.update(task, taskStatus: status) }) {
-                    Text("Move to \(status.description)")
-                }
-            }
-        }
     }
     
 }
