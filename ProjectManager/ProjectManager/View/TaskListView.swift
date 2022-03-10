@@ -22,23 +22,16 @@ struct TaskListView: View {
             return taskManager.doneTasks
         }
     }
-    private var taskListHeaderTitle: String {
-        switch taskStatus {
-        case .todo:
-            return "TODO"
-        case .doing:
-            return "DOING"
-        case .done:
-            return "DONE"
-        }
+    private var tasksCount: String {
+        return tasks.count / 100 < 1 ? "\(tasks.count)" : "99+"
     }
     
     var body: some View {
         VStack {
             HStack(spacing: 10) {
-                Text(taskListHeaderTitle)
+                Text(taskStatus.headerTitle)
                     .font(.largeTitle)
-                Text(tasks.count / 100 < 1 ? "\(tasks.count)" : "99+")
+                Text(tasksCount)
                     .frame(width: 30, height: 24)
                     .font(.title3)
                     .lineLimit(1)
