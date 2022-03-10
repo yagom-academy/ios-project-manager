@@ -125,6 +125,8 @@ class EditViewController: UIViewController, UIAdaptivePresentationControllerDele
         self.textField.text = todo.title
         self.datePicker.date = date
         self.textView.text = todo.content
+        self.beingEditedTodoSection = todo.section
+        self.beingEditedTodoUUID = todo.uuid
     }
 
     func resetToDefaultValue() {
