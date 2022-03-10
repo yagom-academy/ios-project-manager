@@ -4,9 +4,9 @@ final class TaskListViewController: UIViewController {
     // MARK: - Properties
     private var taskListViewModel: TaskListViewModelProtocol!
     
-    @IBOutlet private weak var todoTableView: UITableView!
-    @IBOutlet private weak var doingTableView: UITableView!
-    @IBOutlet private weak var doneTableView: UITableView!
+    @IBOutlet private weak var todoTableView: TaskTableView!
+    @IBOutlet private weak var doingTableView: TaskTableView!
+    @IBOutlet private weak var doneTableView: TaskTableView!
     private lazy var tableViews = [todoTableView, doingTableView, doneTableView]
     
     // MARK: - Initializers
@@ -23,6 +23,10 @@ final class TaskListViewController: UIViewController {
     }
         
     private func setupTableViews() {
+        todoTableView.processStatus = .todo
+        doingTableView.processStatus = .doing
+        doneTableView.processStatus = .done
+        
         tableViews.forEach { tableView in
             tableView?.dataSource = self
             tableView?.delegate = self
@@ -59,17 +63,12 @@ extension TaskListViewController {
 // MARK: - TableView DataSource
 extension TaskListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch tableView {
-        case todoTableView:
-            return taskListViewModel.numberOfRowsInSection(forTableOf: .todo)
-        case doingTableView:
-            return taskListViewModel.numberOfRowsInSection(forTableOf: .doing)
-        case doneTableView:
-            return taskListViewModel.numberOfRowsInSection(forTableOf: .done)
-        default:
-            print(TableViewError.invalidTableView.description)
+        guard let tableView = tableView as? TaskTableView else {
+            print(TableViewError.invalidTableView)
             return 0
         }
+        
+        return taskListViewModel.numberOfRowsInSection(for: tableView)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

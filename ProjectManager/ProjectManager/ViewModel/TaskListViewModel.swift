@@ -9,7 +9,7 @@ protocol TaskListViewModelProtocol {
     func delete(task: Task)
     func update(task: Task, to newTask: Task)
     
-    func numberOfRowsInSection(forTableOf processStatus: ProcessStatus) -> Int
+    func numberOfRowsInSection(for tableView: TaskTableView) -> Int
     func titleForHeaderInSection(forTableOf processStatus: ProcessStatus) -> String
     func edit(task: Task, newTitle: String, newBody: String, newDueDate: Date)
     func edit(task: Task, newProcessStatus: ProcessStatus)
@@ -77,14 +77,17 @@ final class TaskListViewModel: TaskListViewModelProtocol {
     }
     
     // MARK: - TaskListView
-    func numberOfRowsInSection(forTableOf processStatus: ProcessStatus) -> Int {
-        switch processStatus {
+    func numberOfRowsInSection(for tableView: TaskTableView) -> Int {
+        switch tableView.processStatus {
         case .todo:
             return todoTasksObservable?.value.count ?? 0
         case .doing:
             return doingTasksObservable?.value.count ?? 0
         case .done:
             return doneTasksObservable?.value.count ?? 0
+        default:
+            print(TableViewError.invalidTableView)
+            return 0
         }
     }
     
