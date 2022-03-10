@@ -18,7 +18,7 @@ struct TaskListView: View {
         List {
             ForEach(tasks) { task in
                 Button(action: toggleSheetCondition) {
-                    TaskRowView(task: task)
+                    TaskListRowView(task: task)
                         .contextMenu {
                             TaskListContextMenuView(task: task)
                         }

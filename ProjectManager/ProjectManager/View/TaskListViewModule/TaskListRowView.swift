@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TaskRowView: View {
+struct TaskListRowView: View {
     
     let task: Task
     
