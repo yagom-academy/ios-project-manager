@@ -15,9 +15,12 @@ class TodoProjectTableViewController: UIViewController {
         case main
     }
     
+    // MARK: - UI Property
+    private let headerView = ProjectTableViewHeaderView()
+    private let projectTableView = UITableView()
+    
     // MARK: - Property
     private let projectStatus = Status.todo
-    private let projectTableView = UITableView()
     private var dataSource: UITableViewDiffableDataSource<Section,Project>!
     private let longPressGestureRecognizer = UILongPressGestureRecognizer()
     weak var delegate: ProjectTableViewControllerDelegate?
@@ -33,7 +36,7 @@ class TodoProjectTableViewController: UIViewController {
         self.configureTableView()
         self.configureLayout()
         self.configureDataSource()
-        self.applySnapshot()
+        self.updateView()
         self.setupLongGestureRecognizerOnTableView()
     }
     
@@ -46,7 +49,6 @@ class TodoProjectTableViewController: UIViewController {
     
     private func configureTableView() {
         projectTableView.delegate = self
-        projectTableView.register(headerFooterViewClassWith: ProjectTableViewHeaderView.self)
         projectTableView.register(cellWithClass: ProjectTableViewCell.self)
         projectTableView.translatesAutoresizingMaskIntoConstraints = false
         projectTableView.backgroundColor = .clear
@@ -54,10 +56,18 @@ class TodoProjectTableViewController: UIViewController {
     }
     
     private func configureLayout() {
+        self.view.addSubview(headerView)
         self.view.addSubview(projectTableView)
         let safeArea = self.view.safeAreaLayoutGuide
+        
         NSLayoutConstraint.activate([
-            projectTableView.topAnchor.constraint(equalTo: safeArea.topAnchor),
+            headerView.heightAnchor.constraint(equalToConstant: 60),
+            headerView.topAnchor.constraint(equalTo: safeArea.topAnchor),
+            headerView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            headerView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
+            headerView.bottomAnchor.constraint(equalTo: projectTableView.topAnchor)])
+        
+        NSLayoutConstraint.activate([
             projectTableView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
             projectTableView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
             projectTableView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor)
@@ -73,7 +83,7 @@ class TodoProjectTableViewController: UIViewController {
            self.longPressGestureRecognizer.addTarget(self, action: #selector(presentEditPopover))
        }
     
-    // MARK: - TableView
+    // MARK: - TableView Method
     private func configureDataSource() {
         dataSource = UITableViewDiffableDataSource<Section, Project>(tableView: projectTableView) { (tableView: UITableView, indexPath: IndexPath, project: Project) -> UITableViewCell? in
             let projectCell = self.projectTableView.dequeueReusableCell(withClass: ProjectTableViewCell.self, for: indexPath)
@@ -85,7 +95,7 @@ class TodoProjectTableViewController: UIViewController {
         }
     }
     
-    func applySnapshot() {
+    func applySnapshotToCell() {
         let projects = delegate?.readProject(of: projectStatus)
         
         guard let projects = projects else {
@@ -100,6 +110,20 @@ class TodoProjectTableViewController: UIViewController {
     }
     
     // MARK: - Method
+    func updateView() {
+        applySnapshotToCell()
+        updateHeaderView()
+    }
+    
+    func updateHeaderView() {
+        guard let projects = delegate?.readProject(of: projectStatus) else {
+            return
+        }
+        
+        self.headerView.configureContent(status: String(describing: projectStatus),
+                                         projectCount: projects.count)
+    }
+    
     @objc func presentEditPopover() {
         let location = longPressGestureRecognizer.location(in: projectTableView)
         guard let project = longPressedProject(at: location),
@@ -113,12 +137,12 @@ class TodoProjectTableViewController: UIViewController {
         let transitionToDoing = UIAlertAction(title: "move to \(String(describing: Status.doing))",
                                               style: .default) { [weak self] _ in
             self?.delegate?.updateProjectStatus(of: identifier, with: .doing)
-            self?.applySnapshot()
+            self?.updateView()
         }
         let transitionToDone = UIAlertAction(title: "move to \(String(describing: Status.done))",
                                              style: .default) { [weak self] _ in
             self?.delegate?.updateProjectStatus(of: identifier, with: .done)
-            self?.applySnapshot()
+            self?.updateView()
         }
         actionSheetController.addAction(transitionToDoing)
         actionSheetController.addAction(transitionToDone)
@@ -143,23 +167,7 @@ class TodoProjectTableViewController: UIViewController {
 
 // MARK: - UITableViewDelegate
 extension TodoProjectTableViewController: UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let header = projectTableView.dequeueReusableHeaderFooterView(
-            withClass: ProjectTableViewHeaderView.self)
-        
-        let snapshot = dataSource.snapshot()
-        let projectCount = snapshot.numberOfItems(inSection: .main)
-        
-        header.configureContent(status: String(describing: projectStatus),
-                                projectCount: String(projectCount))
-        return header
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 60
-    }
-    
+   
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let selectedProject = dataSource.itemIdentifier(for: indexPath) else {
             return
@@ -180,7 +188,7 @@ extension TodoProjectTableViewController: UITableViewDelegate {
                 return
             }
             self?.delegate?.deleteProject(of: identifier)
-            self?.applySnapshot()
+            self?.updateView()
         }
         deleteAction.image = UIImage(systemName: "trash.fill")
         

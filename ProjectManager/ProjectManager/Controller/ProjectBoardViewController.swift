@@ -133,7 +133,7 @@ extension ProjectBoardViewController: ProjectCreatorViewControllerDelegate {
  
     func createProject(with content: [String: Any]) {
         self.projectManager.create(with: content)
-        todoViewController.applySnapshot()
+        todoViewController.updateView()
     }
 }
 
@@ -145,16 +145,16 @@ extension ProjectBoardViewController: ProjectTableViewControllerDelegate {
     
     func updateProjectStatus(of identifier: UUID, with status: Status) {
         self.projectManager.updateProjectStatus(of: identifier, with: status)
-        self.todoViewController.applySnapshot()
-        self.doingViewController.applySnapshot()
-        self.doneViewController.applySnapshot()
+        self.todoViewController.updateView()
+        self.doingViewController.updateView()
+        self.doneViewController.updateView()
     }
     
     func updateProject(of identifier: UUID, with content: [String : Any]) {
         self.projectManager.updateProject(of: identifier, with: content)
-        self.todoViewController.applySnapshot()
-        self.doingViewController.applySnapshot()
-        self.doneViewController.applySnapshot()
+        self.todoViewController.updateView()
+        self.doingViewController.updateView()
+        self.doneViewController.updateView()
     }
     
     func deleteProject(of identifier: UUID) {

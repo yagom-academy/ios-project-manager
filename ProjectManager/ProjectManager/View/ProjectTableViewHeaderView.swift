@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ProjectTableViewHeaderView: UITableViewHeaderFooterView {
+class ProjectTableViewHeaderView: UIView {
 
     // MARK: - UIProperty
     private let statusLabel: UILabel = {
@@ -31,13 +31,14 @@ class ProjectTableViewHeaderView: UITableViewHeaderFooterView {
     }()
     
     // MARK: - Initializer
-    override init(reuseIdentifier: String?) {
-        super.init(reuseIdentifier: reuseIdentifier)
-        self.contentView.addSubview(statusLabel)
-        self.contentView.addSubview(projectCountLabel)
-        configureLayout()
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(statusLabel)
+        self.addSubview(projectCountLabel)
+        self.configureLayout()
     }
-    
+  
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -45,9 +46,8 @@ class ProjectTableViewHeaderView: UITableViewHeaderFooterView {
     // MARK: - Configure Layout
     private func configureLayout() {
         NSLayoutConstraint.activate([
-            statusLabel.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 15),
-            statusLabel.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 15),
-            statusLabel.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -15)
+            statusLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            statusLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 7)
         ])
         NSLayoutConstraint.activate([
             projectCountLabel.leadingAnchor.constraint(equalTo: statusLabel.trailingAnchor, constant: 7),
@@ -56,8 +56,8 @@ class ProjectTableViewHeaderView: UITableViewHeaderFooterView {
     }
     
     // MARK: - API
-    func configureContent(status: String?, projectCount: String? ) {
+    func configureContent(status: String?, projectCount: Int ) {
         self.statusLabel.text = status
-        self.projectCountLabel.text = projectCount
+        self.projectCountLabel.text = String(projectCount)
     }
 }
