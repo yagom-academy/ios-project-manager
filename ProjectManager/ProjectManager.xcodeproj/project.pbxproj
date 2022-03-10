@@ -98,7 +98,6 @@
 				0DC8636B27D9F27B001E5DD8 /* MainTableView.swift */,
 				0D7A352C27D075D5007F26F6 /* MainTableViewCell.swift */,
 				0D5B293827D35C8100F30925 /* MainTableViewHeaderView.swift */,
-				0DC8637127DA5A8E001E5DD8 /* Protocol */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -107,7 +106,6 @@
 			isa = PBXGroup;
 			children = (
 				0DC8637527DA692E001E5DD8 /* EditView.swift */,
-				0DC8637227DA5A9E001E5DD8 /* Protocol */,
 			);
 			path = Modal;
 			sourceTree = "<group>";
@@ -162,25 +160,27 @@
 			children = (
 				C7431F0925F51E1D0094C4CF /* MainController.swift */,
 				0D36ADF827D0F68E00A93720 /* EditController.swift */,
+				0DC8637127DA5A8E001E5DD8 /* MainControllerProtocol */,
+				0DC8637227DA5A9E001E5DD8 /* EditControllerProtocol */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
 		};
-		0DC8637127DA5A8E001E5DD8 /* Protocol */ = {
+		0DC8637127DA5A8E001E5DD8 /* MainControllerProtocol */ = {
 			isa = PBXGroup;
 			children = (
 				0DC8636D27D9F9E0001E5DD8 /* ScenePresentable.swift */,
 				0DC8636F27DA4814001E5DD8 /* SectionDivided.swift */,
 			);
-			path = Protocol;
+			path = MainControllerProtocol;
 			sourceTree = "<group>";
 		};
-		0DC8637227DA5A9E001E5DD8 /* Protocol */ = {
+		0DC8637227DA5A9E001E5DD8 /* EditControllerProtocol */ = {
 			isa = PBXGroup;
 			children = (
 				0DF22DEE27D2122200CE0BD5 /* EditEventAvailable.swift */,
 			);
-			path = Protocol;
+			path = EditControllerProtocol;
 			sourceTree = "<group>";
 		};
 		0DF22DEA27D1E1AE00CE0BD5 /* Foundation */ = {
