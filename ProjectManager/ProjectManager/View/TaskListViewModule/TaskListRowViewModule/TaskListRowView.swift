@@ -21,16 +21,9 @@ struct TaskListRowView: View {
     var body: some View {
         VStack(alignment: .leading) {
             TaskListRowTitleView(task: task)
-            description
+            TaskListRowDescriptionView(task: task)
             dueDate
         }
-    }
-    
-    private var description: some View {
-        Text(task.description)
-            .font(.subheadline)
-            .foregroundColor(.secondary)
-            .lineLimit(3)
     }
     
     private var dueDate: some View {
