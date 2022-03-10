@@ -15,16 +15,17 @@ class ScheduleItemViewModel {
     enum Mode {
         case detail, edit, create
     }
-    let mode: BehaviorRelay<Mode>
-    let currentTitleText = BehaviorRelay<String>(value: "")
-    let currentDate = BehaviorRelay<Date>(value: Date())
-    let currentBodyText = BehaviorRelay<String>(value: "")
 
     // MARK: - Properties
-
     private let bag = DisposeBag()
     private let useCase: ScheduleUseCase
     private let coordinator: ScheduleItemCoordinator
+
+    private let mode: BehaviorRelay<Mode>
+    private let currentTitleText = BehaviorRelay<String>(value: "")
+    private let currentDate = BehaviorRelay<Date>(value: Date())
+    private let currentBodyText = BehaviorRelay<String>(value: "")
+    private let currentValidity: Observable<Bool>
 
     // MARK: - Initializer
 
@@ -32,6 +33,11 @@ class ScheduleItemViewModel {
         self.useCase = useCase
         self.coordinator = coordinator
         self.mode = BehaviorRelay<Mode>(value: mode)
+        self.currentValidity = Observable.combineLatest(
+            self.currentTitleText.map { !$0.isEmpty },
+            self.currentBodyText.map { !$0.isEmpty },
+            self.mode.map { $0 == .detail},
+            resultSelector: { $0 && $1 || $2 })
     }
 
     struct Input {
@@ -40,6 +46,7 @@ class ScheduleItemViewModel {
         let scheduleTitleTextDidChange: Observable<String>
         let scheduleDateDidChange: Observable<Date>
         let scheduleBodyTextDidChange: Observable<String>
+        let viewDidDisappear: Observable<Void>
     }
 
     struct Output {
@@ -50,6 +57,7 @@ class ScheduleItemViewModel {
         let leftBarButtonText = BehaviorRelay<String>(value: "")
         let rightBarButtonText = BehaviorRelay<String>(value: "")
         let editable = BehaviorRelay<Bool>(value: false)
+        let isValid = BehaviorRelay<Bool>(value: false)
     }
 
     // MARK: - Methods
@@ -64,7 +72,10 @@ class ScheduleItemViewModel {
                 case .detail:
                     self.mode.accept(.edit)
                 case .edit:
-                    self.useCase.setCurrentSchedule(schedule: self.useCase.currentSchedule.value)
+                    guard let schedule = self.useCase.currentSchedule.value else {
+                        return
+                    }
+                    self.useCase.setCurrentSchedule(schedule: schedule)
                     self.mode.accept(.detail)
                 case .create:
                     self.coordinator.dismiss()
@@ -73,27 +84,29 @@ class ScheduleItemViewModel {
             .disposed(by: disposeBag)
 
         input.rightBarButtonDidTap
-            .subscribe(onNext: { schedule in
+            .subscribe(onNext: { _ in
                 switch self.mode.value {
                 case .detail:
                     self.coordinator.dismiss()
                 case .edit:
-                    let schedule = Schedule(
-                        id: self.useCase.currentSchedule.value.id!,
+                    guard let schedule = self.useCase.currentSchedule.value else { return }
+                    let newSchedule = Schedule(
+                        id: schedule.id!,
                         title: self.currentTitleText.value,
                         body: self.currentBodyText.value,
                         dueDate: self.currentDate.value,
-                        progress: self.useCase.currentSchedule.value.progress)
-                    self.useCase.update(schedule)
+                        progress: schedule.progress)
+
+                    self.useCase.update(newSchedule)
                     self.coordinator.dismiss()
                 case .create:
-                    let schedule = Schedule(
-                        id: self.useCase.currentSchedule.value.id!,
+                    let newSchedule = Schedule(
                         title: self.currentTitleText.value,
                         body: self.currentBodyText.value,
                         dueDate: self.currentDate.value,
                         progress: .todo)
-                    self.useCase.create(schedule)
+
+                    self.useCase.create(newSchedule)
                     self.coordinator.dismiss()
                 }
             })
@@ -117,6 +130,12 @@ class ScheduleItemViewModel {
             })
             .disposed(by: disposeBag)
 
+        input.viewDidDisappear
+            .subscribe(onNext: { _ in
+                self.useCase.currentSchedule.accept(nil)
+            })
+            .disposed(by: disposeBag)
+
         return output
     }
 }
@@ -124,6 +143,7 @@ class ScheduleItemViewModel {
 private extension ScheduleItemViewModel {
     func bindOutput(output: Output, disposeBag: DisposeBag) {
         self.useCase.currentSchedule
+            .flatMap { Observable.from(optional: $0) }
             .subscribe(onNext: { schedule in
                 output.scheduleTitleText.accept(schedule.title)
                 output.scheduleDate.accept(schedule.dueDate)
@@ -144,6 +164,12 @@ private extension ScheduleItemViewModel {
                     output.leftBarButtonText.accept("취소")
                     output.rightBarButtonText.accept("완료")
                 }
+            })
+            .disposed(by: disposeBag)
+
+        self.currentValidity
+            .subscribe(onNext: { bool in
+                output.isValid.accept(bool)
             })
             .disposed(by: disposeBag)
     }

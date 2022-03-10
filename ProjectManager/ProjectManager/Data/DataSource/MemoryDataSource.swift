@@ -13,7 +13,7 @@ final class MemoryDataSource: DataSource {
 
     func rxFetch() -> Observable<[Schedule]> {
         return Observable.create { emitter in
-            self.fetch() { result in
+            self.fetch { result in
                 emitter.onNext(result)
             }
             return Disposables.create()
@@ -65,7 +65,7 @@ private extension MemoryDataSource {
     }
 
     func delete(_ scheduleID: UUID, completion: (Bool) -> Void) {
-        let index = storage.enumerated().filter { idx, schedule in
+        let index = storage.enumerated().filter { _, schedule in
             schedule.id == scheduleID
         }.map { element in
             element.0
@@ -80,7 +80,7 @@ private extension MemoryDataSource {
     }
 
     func update(_ schedule: Schedule, completion: (Schedule?) -> Void) {
-        let index = storage.enumerated().filter { idx, schedule in
+        let index = storage.enumerated().filter { _, schedule in
             schedule.id == schedule.id
         }.map { element in
             element.0

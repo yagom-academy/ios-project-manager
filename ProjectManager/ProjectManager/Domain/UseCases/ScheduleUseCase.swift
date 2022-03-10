@@ -13,8 +13,7 @@ final class ScheduleUseCase {
     private let bag = DisposeBag()
     private let scheduleProvider: Repository
     let schedules = BehaviorRelay<[Schedule]>(value: [])
-    let currentSchedule = BehaviorRelay<Schedule>(value:
-                                                    Schedule(title: "", body: "", dueDate: Date(), progress: .done))
+    let currentSchedule = BehaviorRelay<Schedule?>(value: nil)
 
     init(repository: Repository) {
         self.scheduleProvider = repository

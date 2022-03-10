@@ -13,7 +13,7 @@ class ScheduleItemViewController: UIViewController {
 
     var viewModel: ScheduleItemViewModel?
     private let bag = DisposeBag()
-    
+
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -115,7 +115,9 @@ private extension ScheduleItemViewController {
             rightBarButtonDidTap: self.rightBarButton.rx.tap.asObservable(),
             scheduleTitleTextDidChange: self.titleTextField.rx.text.orEmpty.asObservable(),
             scheduleDateDidChange: self.datePicker.rx.date.asObservable(),
-            scheduleBodyTextDidChange: self.bodyTextView.rx.text.orEmpty.asObservable()
+            scheduleBodyTextDidChange: self.bodyTextView.rx.text.orEmpty.asObservable(),
+            viewDidDisappear: self.rx.methodInvoked(#selector(UIViewController.viewDidDisappear))
+                .map { _ in }
         )
 
         guard let output = self.viewModel?.transform(input: input, disposeBag: self.bag) else {
@@ -144,6 +146,9 @@ private extension ScheduleItemViewController {
             .drive(self.titleTextField.rx.isEnabled,
                    self.datePicker.rx.isEnabled,
                    self.bodyTextView.rx.isEditable)
+            .disposed(by: bag)
+        output.isValid.asDriver()
+            .drive(self.rightBarButton.rx.isEnabled)
             .disposed(by: bag)
     }
 }
