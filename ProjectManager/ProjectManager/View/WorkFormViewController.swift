@@ -13,7 +13,7 @@ private enum Design {
 
 final class WorkFormViewController: UIViewController {
     
-    private var viewModel: ProjectViewModel?
+    private var viewModel: WorkFormViewModel?
     
     @IBOutlet weak private var titleTextField: UITextField!
     @IBOutlet weak private var datePicker: UIDatePicker!
@@ -21,7 +21,11 @@ final class WorkFormViewController: UIViewController {
     
     convenience init?(coder: NSCoder, viewModel: ProjectViewModel) {
         self.init(coder: coder)
-        self.viewModel = viewModel
+        self.viewModel = WorkFormViewModel(
+            todoList: viewModel.todoList,
+            doingList: viewModel.doingList,
+            doneList: viewModel.doneList
+        )
     }
     
     override func viewDidLoad() {
@@ -31,9 +35,8 @@ final class WorkFormViewController: UIViewController {
     }
     
     @IBAction private func touchUpDoneButton(_ sender: UIBarButtonItem) {
-        guard let viewModel = viewModel else { return }
         let work = Work(title: titleTextField.text, body: bodyTextView.text, dueDate: datePicker.date)
-        viewModel.addWork(work)
+        viewModel?.addWork(work)
         
         dismiss(animated: true, completion: nil)
     }
@@ -53,11 +56,7 @@ final class WorkFormViewController: UIViewController {
     
     private func configureTextFieldShadow() {
         titleTextField.layer.backgroundColor = Design.textInputBackgroundColor
-        
-        titleTextField.layer.shadowColor = Design.shadowColor
-        titleTextField.layer.shadowOffset = Design.shadowOffset
-        titleTextField.layer.shadowOpacity = Design.shadowOpacity
-        titleTextField.layer.shadowRadius = Design.shadowRadius
+        makeShadow(for: titleTextField)
     }
     
     private func configureTextFieldLeftView() {
@@ -73,13 +72,15 @@ final class WorkFormViewController: UIViewController {
     
     private func configureTextViewShadow() {
         bodyTextView.layer.masksToBounds = false
-        
         bodyTextView.layer.backgroundColor = Design.textInputBackgroundColor
-        
-        bodyTextView.layer.shadowColor = Design.shadowColor
-        bodyTextView.layer.shadowOffset = Design.shadowOffset
-        bodyTextView.layer.shadowOpacity = Design.shadowOpacity
-        bodyTextView.layer.shadowRadius = Design.shadowRadius
+        makeShadow(for: bodyTextView)
+    }
+    
+    private func makeShadow(for view: UIView) {
+        view.layer.shadowColor = Design.shadowColor
+        view.layer.shadowOffset = Design.shadowOffset
+        view.layer.shadowOpacity = Design.shadowOpacity
+        view.layer.shadowRadius = Design.shadowRadius
     }
     
 }

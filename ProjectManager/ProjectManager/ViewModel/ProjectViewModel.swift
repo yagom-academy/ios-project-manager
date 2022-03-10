@@ -5,7 +5,7 @@ import UIKit
 
 final class ProjectViewModel {
     
-    private let repository = WorkMemoryManager()
+    private let workMemoryManager = WorkMemoryManager()
     
     let todoList = BehaviorSubject<[Work]>(value: [])
     let doingList = BehaviorSubject<[Work]>(value: [])
@@ -16,21 +16,21 @@ final class ProjectViewModel {
     lazy var doneCount = doneList.map { $0.count }
     
     init() {
-        todoList.onNext(repository.todoList)
-        doingList.onNext(repository.doingList)
-        doneList.onNext(repository.doneList)
+        todoList.onNext(workMemoryManager.todoList)
+        doingList.onNext(workMemoryManager.doingList)
+        doneList.onNext(workMemoryManager.doneList)
     }
     
     func addWork(_ data: Work) {
-        repository.create(data)
+        workMemoryManager.create(data)
         
         switch data.category {
         case .todo:
-            todoList.onNext(repository.todoList)
+            todoList.onNext(workMemoryManager.todoList)
         case .doing:
-            doingList.onNext(repository.doingList)
+            doingList.onNext(workMemoryManager.doingList)
         case .done:
-            doneList.onNext(repository.doneList)
+            doneList.onNext(workMemoryManager.doneList)
         }
     }
 
