@@ -1,11 +1,11 @@
 import UIKit
 
-protocol CellManagable {
+protocol CellReusable {
     func register(_ cellClass: AnyClass?, forCellReuseIdentifier identifier: String)
     func dequeueReusableCell(withIdentifier identifier: String, for indexPath: IndexPath) -> UITableViewCell
 }
 
-extension CellManagable {
+extension CellReusable {
     func register<T: UITableViewCell>(_ cellClass: T.Type) {
         register(cellClass, forCellReuseIdentifier: String(describing: cellClass))
     }
@@ -19,4 +19,4 @@ extension CellManagable {
     }
 }
 
-extension UITableView: CellManagable { }
+extension UITableView: CellReusable { }

@@ -33,8 +33,7 @@ class ProjectListCell: UITableViewCell {
         let stackView = UIStackView(arrangedSubviews: [titleLabel, previewLabel, dateLabel])
         stackView.axis = .vertical
         stackView.alignment = .leading
-        stackView.distribution = .fillProportionally
-        stackView.spacing = 5
+        stackView.spacing = 10
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView
@@ -43,8 +42,15 @@ class ProjectListCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(labelStackView)
+        setupBackgroundColor()
         setupLabelStackViewLayout()
         configureSelectedBackgroundView()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0))
+
     }
     
     required init?(coder: NSCoder) {
@@ -54,14 +60,22 @@ class ProjectListCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         if selected {
+            contentView.layer.cornerRadius = 10
+            contentView.backgroundColor = .systemBlue
             titleLabel.textColor = .white
             previewLabel.textColor = .white
             dateLabel.textColor = .white
         } else {
+            contentView.backgroundColor = .systemBackground
             titleLabel.textColor = .label
             previewLabel.textColor = .systemGray
             dateLabel.textColor = .label
         }
+    }
+    
+    private func setupBackgroundColor() {
+        backgroundColor = .secondarySystemBackground
+        contentView.backgroundColor = .systemBackground
     }
     
     private func setupLabelStackViewLayout() {
@@ -76,7 +90,7 @@ class ProjectListCell: UITableViewCell {
     private func configureSelectedBackgroundView() {
         let backgroundView = UIView()
         backgroundView.layer.cornerRadius = 10
-        backgroundView.backgroundColor = .systemBlue
+        backgroundView.backgroundColor = .secondarySystemBackground
         selectedBackgroundView = backgroundView
     }
     

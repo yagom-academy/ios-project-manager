@@ -2,8 +2,7 @@ import UIKit
 
 class ProjectListTableView: UITableView {
     init() {
-        super.init(frame: .zero, style: .grouped)
-        sectionFooterHeight = 0
+        super.init(frame: .zero, style: .plain)
         backgroundColor = .secondarySystemBackground
     }
     

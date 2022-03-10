@@ -1,12 +1,8 @@
 import UIKit
 
 class ToDoDataSource: NSObject, UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 30
-    }
-
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return 10
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

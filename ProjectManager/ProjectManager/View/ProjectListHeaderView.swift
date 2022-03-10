@@ -64,7 +64,7 @@ class ProjectListHeaderView: UIView {
         ])
     }
     
-    func countProject(number: Int) {
-        badgeLabel.text = number.description
+    func updateProjectCount(_ count: Int) {
+        badgeLabel.text = count.description
     }
 }
