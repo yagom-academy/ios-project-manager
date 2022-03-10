@@ -9,14 +9,14 @@ import SwiftUI
 
 struct MainView: View {
     
-    let taskManager: TaskManager
+    @EnvironmentObject private var taskManager: TaskManager
     
     var body: some View {
         NavigationView {
             HStack {
-                TaskListView(tasks: taskManager.todoTasks, taskStatus: .todo)
-                TaskListView(tasks: taskManager.todoTasks, taskStatus: .doing)
-                TaskListView(tasks: taskManager.todoTasks, taskStatus: .done)
+                TaskListView(taskStatus: .todo)
+                TaskListView(taskStatus: .doing)
+                TaskListView(taskStatus: .done)
             }
             .navigationTitle("Project Manager")
             .navigationBarTitleDisplayMode(.inline)

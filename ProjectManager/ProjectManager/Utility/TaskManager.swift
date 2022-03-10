@@ -7,25 +7,22 @@
 
 import Foundation
 
-class TaskManager: TaskManageable {
+class TaskManager: ObservableObject, TaskManageable {
     
-    private var tasks = [Task]() {
-        didSet {
-            tasks.sort { $0.dueDate < $1.dueDate }
-        }
-    }
+    @Published private var tasks = [Task]()
+    
     var todoTasks: [Task] {
-        return tasks.filter { $0.status == .todo }
+        return tasks.filter { $0.status == .todo }.sorted { $0.dueDate < $1.dueDate }
     }
     var doingTasks: [Task] {
-        return tasks.filter { $0.status == .doing }
+        return tasks.filter { $0.status == .doing }.sorted { $0.dueDate < $1.dueDate }
     }
     var doneTasks: [Task] {
-        return tasks.filter { $0.status == .done }
+        return tasks.filter { $0.status == .done }.sorted { $0.dueDate < $1.dueDate }
     }
     
     init(tasks: [Task]) {
-        self.tasks = tasks.sorted { $0.dueDate < $1.dueDate }
+        self.tasks = tasks
     }
     
     func createTask(title: String, body: String, dueDate: Date) {

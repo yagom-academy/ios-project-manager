@@ -21,7 +21,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        let hostingVC = UIHostingController(rootView: MainView(taskManager: TaskManager(tasks: mockTasks)))
+        let mockTaskManager = TaskManager(tasks: mockTasks)
+        let hostingVC = UIHostingController(rootView: MainView().environmentObject(mockTaskManager))
         window = UIWindow(windowScene: windowScene)
         window?.rootViewController = hostingVC
         window?.makeKeyAndVisible()

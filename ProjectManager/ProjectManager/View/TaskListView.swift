@@ -9,8 +9,19 @@ import SwiftUI
 
 struct TaskListView: View {
     
-    @State var tasks: [Task]
+    @EnvironmentObject private var taskManager: TaskManager
+
     let taskStatus: TaskStatus
+    private var tasks: [Task] {
+        switch taskStatus {
+        case .todo:
+            return taskManager.todoTasks
+        case .doing:
+            return taskManager.doingTasks
+        case .done:
+            return taskManager.doneTasks
+        }
+    }
     private var taskListHeaderTitle: String {
         switch taskStatus {
         case .todo:
@@ -45,9 +56,8 @@ struct TaskListView: View {
                     TaskListRowView(task: task)
                 }
                 .onDelete { indexSet in
-                    print("💚 할일 삭제 버튼 눌림!") // TODO: 할일 인스턴스 삭제 로직 연결
-                    tasks.remove(atOffsets: indexSet)
-                    // 캡쳐된 연산 프로퍼티인 tasks 배열 내에서만 삭제되므로, 할일 인스턴스는 완전 삭제되지 않은 상태임
+                    guard let targetIndex = indexSet.first else { return }
+                    try? taskManager.deleteTask(target: tasks[targetIndex])
                 }
             }
             .listStyle(.plain)
