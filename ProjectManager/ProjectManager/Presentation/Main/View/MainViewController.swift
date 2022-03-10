@@ -81,6 +81,7 @@ private extension MainViewController {
     func configureTableView() {
         self.tableViews.forEach { tableView in
             tableView.register(cellWithClass: ScheduleListCell.self)
+            tableView.delegate = self
         }
     }
 
@@ -113,5 +114,13 @@ private extension MainViewController {
                 }
                 .disposed(by: bag)
         }
+    }
+}
+
+// MARK: - TableView Delegate Method
+
+extension MainViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
