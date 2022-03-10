@@ -1,12 +1,20 @@
 import Foundation
 
-enum ProgressState {
+enum ProgressState: CustomStringConvertible {
     
     case todo
     case doing
     case done
     
     var description: String {
-       self.description
+        switch self {
+        case .todo:
+            return "todo"
+        case .doing:
+            return "doing"
+        case .done:
+            return "done"
+        }
     }
 }
+

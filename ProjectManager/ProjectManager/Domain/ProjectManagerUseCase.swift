@@ -6,13 +6,13 @@ final class ProjectManagerUseCase: CRUDUseCase {
     var todoProjects = [Listable]()
     var doingProjects = [Listable]()
     var doneProjects = [Listable]()
-    
+
     init(repository: DataRepository) {
         self.repository = repository
     }
    
     func createProject(attributes: [String: Any]) {
-        self.repository?.creat(attributes: attributes)
+        self.repository?.create(attributes: attributes)
     }
     
     func readProject(identifier: String) -> Listable? {

@@ -3,10 +3,14 @@ import CoreData
 
 final class CoredataRepository: DataRepository {
     
-    private let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
-    var list = [Listable]()
+    private let context: NSManagedObjectContext?
+    private(set) var list = [Listable]()
     
-    func creat(attributes: [String : Any]) {
+    init(context: NSManagedObjectContext) {
+        self.context = context
+    }
+    
+    func create(attributes: [String : Any]) {
         let projectToCreate = self.createCDProject(attributes: attributes)
         self.fetch()
     }
@@ -88,7 +92,9 @@ final class CoredataRepository: DataRepository {
             do {
                 try context.save()
             } catch {
-                print(error.localizedDescription)
+                #if DEBUG
+                print("error")
+                #endif
             }
         }
     }

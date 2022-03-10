@@ -3,9 +3,9 @@ import Foundation
 protocol CRUDUseCase {
     
     var repository: DataRepository? { get set }
-    var todoProjects: [Listable] { get set }
-    var doingProjects: [Listable] { get set }
-    var doneProjects: [Listable] { get set }
+    var todoProjects: [Listable] { get }
+    var doingProjects: [Listable] { get }
+    var doneProjects: [Listable] { get }
     
     func createProject(attributes: [String: Any])
     

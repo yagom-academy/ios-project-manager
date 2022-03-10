@@ -1,8 +1,8 @@
 import Foundation
 
-class RepositoryChecker {
+final class RepositoryChecker {
     
-    static var currentRepository: RepositoryType = .CoreData
+    static var currentRepository: RepositoryType = .coreData
     
     private init() {
         

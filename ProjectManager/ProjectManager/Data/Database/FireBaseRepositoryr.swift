@@ -4,10 +4,14 @@ import FirebaseFirestore
 
 final class FireStoreRepository: DataRepository {
     
-    var dataBase = Firestore.firestore()
-    var list = [Listable]()
+    private let dataBase: Firestore?
+    private(set) var list = [Listable]()
     
-    func creat(attributes: [String: Any]) {
+    init(database: Firestore) {
+        self.dataBase = database
+    }
+    
+    func create(attributes: [String: Any]) {
         var attibutesToMerge = attributes
         let documentPath = UUID().uuidString
         attibutesToMerge.merge(["identifer": documentPath]) { _, _ in
@@ -22,7 +26,7 @@ final class FireStoreRepository: DataRepository {
     func update(identifier: String, how attributes: [String: Any])  {
         reference().document(identifier).updateData(attributes) { error in
             if let error = error {
-                print(error.localizedDescription)
+             
             }
         }
     }
@@ -38,7 +42,7 @@ final class FireStoreRepository: DataRepository {
                 snapshot.documents.forEach { document in
                     let data = document.data()
                     let project = Project.convertDictionaryToInstance(attributes: data)
-                    lists.append(project ?? Project(name: "", detail: "", deadline: Date(), indentifier: nil))
+                    lists.append(project ?? Project(name: "", detail: "", deadline: Date(), indentifier: "123", progressState: ProgressState.doing.description))
                 }
             }
         }
@@ -48,6 +52,12 @@ final class FireStoreRepository: DataRepository {
     private func reference(
         to collectionReference: String = "ProjectManager"
     ) -> CollectionReference {
-        return Firestore.firestore().collection(collectionReference)
+        
+        guard let dataBase = dataBase
+        else {
+            return Firestore.firestore().collection(collectionReference)
+        }
+
+        return dataBase.collection(collectionReference)
     }
 }

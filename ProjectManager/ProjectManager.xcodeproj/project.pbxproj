@@ -131,9 +131,9 @@
 			children = (
 				189DD50927D10C2900395CF4 /* CoreDataRepository.swift */,
 				189DD50B27D10C3600395CF4 /* FireBaseRepositoryr.swift */,
-				189DD50027D1050500395CF4 /* RepositoryType.swift */,
 				189DD50227D106FA00395CF4 /* RepositoryChecker.swift */,
 				189DD50727D10B6200395CF4 /* RepositoryFactory.swift */,
+				189DD50027D1050500395CF4 /* RepositoryType.swift */,
 			);
 			path = Database;
 			sourceTree = "<group>";

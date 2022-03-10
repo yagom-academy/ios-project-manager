@@ -2,6 +2,6 @@ import Foundation
 
 enum RepositoryType {
     
-    case CoreData
-    case FireStore 
+    case coreData
+    case fireStore 
 }

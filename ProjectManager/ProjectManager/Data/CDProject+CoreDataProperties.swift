@@ -9,7 +9,7 @@ extension CDProject: Listable {
 
     @NSManaged public var deadline: Date
     @NSManaged public var detail: String
-    @NSManaged public var identifier: String?
+    @NSManaged public var identifier: String
     @NSManaged public var name: String
     @NSManaged public var progressState: String
 

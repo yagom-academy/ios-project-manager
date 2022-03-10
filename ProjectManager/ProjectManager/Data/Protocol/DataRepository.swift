@@ -2,9 +2,7 @@ import Foundation
 
 protocol DataRepository {
     
-    var list: [Listable] { get set }
-    
-    func creat(attributes: [String: Any])
+    func create(attributes: [String: Any])
     
     func read(identifier: String) -> Listable?
     
