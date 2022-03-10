@@ -73,31 +73,50 @@ final class TaskListViewModel: TaskListViewModelProtocol {
             print(TaskManagerError.taskNotFound.description)
             return
         }
+        
         let oldTaskId = task.id
         newTask.changeId(to: oldTaskId)
-        todoTasksObservable?.value[index] = newTask
-
+        
         // 이중 switch문 추상화 개선
-        if task.processStatus != newTask.processStatus {
+        switch task.processStatus {
+        case .todo:
+            todoTasksObservable?.value[index] = newTask
+            moveTask(at: index, in: task.processStatus, to: newTask.processStatus)
+        case .doing:
+            doingTasksObservable?.value[index] = newTask
+            moveTask(at: index, in: task.processStatus, to: newTask.processStatus)
+        case .done:
+            doneTasksObservable?.value[index] = newTask
             moveTask(at: index, in: task.processStatus, to: newTask.processStatus)
         }
-
+        
         taskRepository?.update(task: task, to: newTask)
     }
     
-    func moveTask(at index: Int, in taskObservable: MockObservable<[Task]>?, to taskObservableOfNewProcessStatus: ProcessStatus) {
-        guard let removedTask = taskObservable?.value.remove(at: index) else {
-            print(TaskManagerError.taskNotFound)
+    func moveTask(at index: Int, in taskObservableOfProcessStatus: ProcessStatus, to taskObservableOfNewProcessStatus: ProcessStatus) {
+        guard taskObservableOfProcessStatus != taskObservableOfNewProcessStatus else {
+            print(TaskManagerError.unchangedProcessStatus)
             return
+        }
+        
+        var removedTask: Task?
+        
+        switch taskObservableOfProcessStatus {
+        case .todo:
+            removedTask = todoTasksObservable?.value.remove(at: index)
+        case .doing:
+            removedTask = doingTasksObservable?.value.remove(at: index)
+        case .done:
+            removedTask = doneTasksObservable?.value.remove(at: index)
         }
         
         switch taskObservableOfNewProcessStatus {
         case .todo:
-            todoTasksObservable?.value.append(removedTask)
+            todoTasksObservable?.value.append(removedTask!)
         case .doing:
-            doingTasksObservable?.value.append(removedTask)
+            doingTasksObservable?.value.append(removedTask!)
         case .done:
-            doneTasksObservable?.value.append(removedTask)
+            doneTasksObservable?.value.append(removedTask!)
         }
     }
     
