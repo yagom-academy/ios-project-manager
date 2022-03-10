@@ -9,18 +9,19 @@ final class TaskListViewController: UIViewController {
     @IBOutlet private weak var doneTableView: UITableView!
     private lazy var tableViews = [todoTableView, doingTableView, doneTableView]
     
+    // MARK: - Initializers
+    convenience init?(coder: NSCoder, taskListViewModel: TaskListViewModelProtocol = TaskListViewModel()) {
+        self.init(coder: coder)
+        self.taskListViewModel = taskListViewModel
+    }
+
     // MARK: - Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupViewModel()
         setupTableViews()
         setupBindings()
     }
-    
-    private func setupViewModel() {
-        self.taskListViewModel = TaskListViewModel()
-    }
-    
+        
     private func setupTableViews() {
         tableViews.forEach { tableView in
             tableView?.dataSource = self
@@ -48,7 +49,7 @@ extension TaskListViewController {
     @IBAction private func touchUpAddButton(_ sender: UIBarButtonItem) {
         let storyboard = UIStoryboard(name: "TaskDetailView", bundle: nil)
         let taskDetailController = storyboard.instantiateViewController(identifier: "TaskDetailView") { coder in
-            TaskDetailController(coder: coder, taskListViewModel: self.taskListViewModel)
+            return TaskDetailController(coder: coder, taskListViewModel: self.taskListViewModel)
         }
         taskDetailController.modalPresentationStyle = .popover
         self.present(UINavigationController(rootViewController: taskDetailController), animated: true)
