@@ -208,7 +208,7 @@ private enum EditControllerConstraint {
 }
 
 private enum EditControllerColor {
-    
+
     static let background: UIColor = .white
     static let placeHolderTextColor: UIColor = .lightGray
     static let defaultTextColor: UIColor = .black

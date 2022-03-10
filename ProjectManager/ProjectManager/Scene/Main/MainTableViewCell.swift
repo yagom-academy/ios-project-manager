@@ -81,9 +81,9 @@ class MainTableViewCell: UITableViewCell {
         let date = DateFormatter.deadlineFormat.string(from: deadline)
 
         if deadline < today {
-            self.deadlineLabel.textColor = .systemRed
+            self.deadlineLabel.textColor = CellColor.deadlinePassed
         } else if deadline == today {
-            self.deadlineLabel.textColor = .systemBlue
+            self.deadlineLabel.textColor = CellColor.deadlineTheVeryDay
         }
 
         self.titleLabel.text = todo.title
@@ -191,6 +191,8 @@ private enum CellFont {
 private enum CellColor {
 
     static let content: UIColor = .systemGray3
+    static let deadlinePassed: UIColor = .systemRed
+    static let deadlineTheVeryDay: UIColor = .systemBlue
 }
 
 private enum CellConstant {
