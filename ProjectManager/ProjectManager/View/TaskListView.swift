@@ -9,7 +9,6 @@ import SwiftUI
 
 struct TaskListView: View {
     
-    let name: String
     let taskType: TaskStatus
     
     @EnvironmentObject private var viewModel: ProjectManagerViewModel
@@ -35,7 +34,7 @@ struct TaskListView: View {
     
     private var title: some View {
         HStack {
-            Text(name)
+            Text(taskType.description)
                 .font(.largeTitle)
                 .padding([.leading])
             
