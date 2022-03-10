@@ -1,15 +1,15 @@
 import SwiftUI
 
 struct TaskDetailView: View {
-    @Environment(\.presentationMode) private var presentationMode
     @EnvironmentObject private var viewModel: TaskListViewModel
     
     @State private var title = ""
     @State private var description = ""
     @State private var deadline = Date()
-    
     @State private var isdisabled = false
     @State private var isEditing = false
+    
+    @Binding var isShowTaskDetailView: Bool
     
     var task: Task = Task(title: "", description: "", deadline: Date())
     
@@ -48,7 +48,7 @@ struct TaskDetailView: View {
     private var leadingButton: some View {
         Button(action: {
             if task.title.isEmpty {
-                self.presentationMode.wrappedValue.dismiss()
+                isShowTaskDetailView = false
             } else {
                 self.isdisabled = false
                 self.isEditing = true
@@ -66,7 +66,7 @@ struct TaskDetailView: View {
                 let task = Task(title: title, description: description, deadline: deadline)
                 viewModel.createTask(task)
             }
-            self.presentationMode.wrappedValue.dismiss()
+            isShowTaskDetailView = false
         }
     }
     
@@ -91,11 +91,5 @@ struct TaskDetailView: View {
             .foregroundColor(.black)
             .shadow(radius: 1)
             .disabled(isdisabled)
-    }
-}
-
-struct TaskDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        TaskDetailView(task: Task(title: "", description: "", deadline: Date()))
     }
 }

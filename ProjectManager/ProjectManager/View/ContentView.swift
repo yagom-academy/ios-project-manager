@@ -2,7 +2,7 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject private var viewModel: TaskListViewModel
-    @State private var isPopoverPresentedForCreateTask = false
+    @State private var isShowTaskDetailView = false
     
     var body: some View {
         VStack {
@@ -19,11 +19,11 @@ struct ContentView: View {
                 .padding(.leading)
             Spacer()
             Button(action: {
-                isPopoverPresentedForCreateTask = true
+                isShowTaskDetailView = true
             }, label: {
                 Image(systemName: "plus")
-                .sheet(isPresented: $isPopoverPresentedForCreateTask) {
-                    TaskDetailView()
+                .sheet(isPresented: $isShowTaskDetailView) {
+                    TaskDetailView(isShowTaskDetailView: $isShowTaskDetailView)
                 }
             })
         }

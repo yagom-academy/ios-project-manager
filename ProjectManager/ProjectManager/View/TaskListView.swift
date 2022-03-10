@@ -2,7 +2,6 @@ import SwiftUI
 
 struct TaskListView: View {
     @EnvironmentObject private var viewModel: TaskListViewModel
-    
     let progressStatus: ProgressStatus
     
     var taskList: [Task] {

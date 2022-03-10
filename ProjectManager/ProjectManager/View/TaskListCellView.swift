@@ -3,8 +3,8 @@ import SwiftUI
 struct TaskListCellView: View {
     @EnvironmentObject private var viewModel: TaskListViewModel
     
-    @State private var isPopoverPresentedForUpdateTask = false
-    @State private var isPopoverPresentedForUpdateTaskState = false
+    @State var isShowTaskDetailView = false
+    @State private var isShowUpdateTaskState = false
     @State private var firstMoveStatus: ProgressStatus = .doing
     @State private var secondMoveStatus: ProgressStatus = .done
     
@@ -19,16 +19,16 @@ struct TaskListCellView: View {
         .frame(maxWidth: .infinity, alignment: .leading)
         .contentShape(Rectangle())
         .onTapGesture {
-            self.isPopoverPresentedForUpdateTaskState = false
-            self.isPopoverPresentedForUpdateTask = true
+            self.isShowUpdateTaskState = false
+            self.isShowTaskDetailView = true
         }
-        .sheet(isPresented: $isPopoverPresentedForUpdateTask, onDismiss: nil) {
-            TaskDetailView(task: task)
+        .sheet(isPresented: $isShowTaskDetailView, onDismiss: nil) {
+            TaskDetailView(isShowTaskDetailView: $isShowTaskDetailView, task: task)
         }
         .onLongPressGesture {
-            self.isPopoverPresentedForUpdateTaskState = true
+            self.isShowUpdateTaskState = true
         }
-        .popover(isPresented: $isPopoverPresentedForUpdateTaskState) {
+        .popover(isPresented: $isShowUpdateTaskState) {
             statusChangePopover
         }
     }
@@ -64,12 +64,12 @@ struct TaskListCellView: View {
         VStack {
             Button("Move to \(firstMoveStatus.name)") {
                 viewModel.updateState(firstMoveStatus, to: task)
-                self.isPopoverPresentedForUpdateTaskState = false
+                self.isShowUpdateTaskState = false
             }
             .padding()
             Button("Move to \(secondMoveStatus.name)") {
                 viewModel.updateState(secondMoveStatus, to: task)
-                self.isPopoverPresentedForUpdateTaskState = false
+                self.isShowUpdateTaskState = false
             }
             .padding()
             .onAppear {
@@ -90,11 +90,5 @@ struct TaskListCellView: View {
             firstMoveStatus = .todo
             secondMoveStatus = .doing
         }
-    }
-}
-
-struct TaskListCellView_Previews: PreviewProvider {
-    static var previews: some View {
-        TaskListCellView(task: Task(title: "title", description: "description", deadline: Date()))
     }
 }
