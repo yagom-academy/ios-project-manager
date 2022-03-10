@@ -109,6 +109,15 @@ class ProjectDetailView: UIView {
         bodyTextView.isEditable = state
         datePicker.isUserInteractionEnabled = state
     }
+    
+    func retrieveViewData(with oldProject: Project) -> Project {
+        return Project(
+            id: oldProject.id,
+            state: oldProject.state,
+            title: titleTextField.text ?? "",
+            body: bodyTextView.text ?? "",
+            date: datePicker.date)
+    }
 }
 
 //MARK: - Constants

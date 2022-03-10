@@ -1,27 +1,27 @@
 import Foundation
 
 protocol ProjectUseCaseProtocol {
-    
+    func fetch(with id: UUID) -> Project
+    func update(with project: Project)
 }
 
-class ProjectUseCase {
+class ProjectUseCase: ProjectUseCaseProtocol {
     let projectRepository: ProjectRepositoryProtocol
     
     init(repository: ProjectRepositoryProtocol) {
         self.projectRepository = repository
     }
-//
-//    func fetch(index, state) -> Project {
-//        projectRepository.fetchAll()
-//        dd = fetchdata.filter( $0.state == state)
-//        return dd[index]
-//    }
-//
-//    func update(index: Int, title: String, body: String, date: Date, project: Project) {
-//        let project = fetch(index, project.state)
-//
-//        let project11 = Project(id: project.id, state: project.state, title: title, body: body, date: date)
-//
-//        repo.update(project11)
-//    }
+
+    func fetch(with id: UUID) -> Project {
+        let fetchedData = projectRepository.fetchAll()
+        
+        return fetchedData
+            .map { $0.value }
+            .filter{ $0.id == id }.first!
+    }
+
+    func update(with project: Project) {
+        let project = fetch(with: project.id)
+        projectRepository.update(with: project)
+    }
 }

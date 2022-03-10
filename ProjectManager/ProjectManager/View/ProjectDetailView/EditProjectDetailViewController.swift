@@ -1,11 +1,11 @@
 import UIKit
 
 class EditProjectDetailViewController: ProjectDetailViewController {
-    var viewModel: ProjectViewModel?
+    var viewModel: ProjectViewModelProtocol?
     var currentProject: Project?
     var currentIndex: Int?
     
-    init(viewModel: ProjectViewModel?, currentIndex: Int, currentProject: Project) {
+    init(viewModel: ProjectViewModelProtocol?, currentIndex: Int, currentProject: Project) {
         super.init(nibName: nil, bundle: nil)
         self.viewModel = viewModel
         self.currentProject = currentProject
@@ -36,7 +36,12 @@ class EditProjectDetailViewController: ProjectDetailViewController {
             projectDetailView.setEditingMode(to: true)
         } else {
             projectDetailView.setEditingMode(to: false)
-//            viewModel.update(index: currentIndex, title: projectDetailView., body: <#String#>, date: <#Date#>, currentProject: curentProject)
+            guard let currentProject = currentProject else {
+                return
+            }
+
+            let updatedProject = projectDetailView.retrieveViewData(with: currentProject)
+            viewModel?.update(with: updatedProject)
         }
     }
     

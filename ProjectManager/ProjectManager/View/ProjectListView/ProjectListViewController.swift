@@ -4,7 +4,7 @@ class ProjectListViewController: UIViewController {
     private let todoTableView = ProjectListTableView()
     private let doingTableView = ProjectListTableView()
     private let doneTableView = ProjectListTableView()
-    private var viewModel: ProjectViewModel?
+    private var viewModel: ProjectViewModelProtocol
     private lazy var tableViews = [todoTableView, doingTableView, doneTableView]
     
     private let entireStackView: UIStackView = {
@@ -16,12 +16,22 @@ class ProjectListViewController: UIViewController {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
+    
+    init(viewModel: ProjectViewModelProtocol) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
 
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
         configureTableView()
         configureBind()
+        viewModel.tableViews = tableViews
     }
     
     private func configureUI() {
@@ -46,7 +56,6 @@ class ProjectListViewController: UIViewController {
     }
     
     private func configureTableView() {
-        configureDataSource()
         tableViews.forEach {
             $0.delegate = self
             $0.dataSource = viewModel
@@ -55,10 +64,6 @@ class ProjectListViewController: UIViewController {
                 $0.sectionHeaderTopPadding = Design.tableViewSectionHeaderTopPadding
             }
         }
-    }
-    
-    private func configureDataSource() {
-        viewModel = ProjectViewModel(tableView: tableViews)
     }
     
     private func configureEntireStackView() {
@@ -87,11 +92,11 @@ extension ProjectListViewController: UITableViewDelegate {
         let headerView = tableView.dequeueReusableHeaderFooterView(withClass: ProjectListTableHeaderView.self)
         switch tableView {
         case todoTableView:
-            headerView.populateData(title: TitleText.todoTableViewTitle, count: viewModel?.todoProjects.count ?? 0)
+            headerView.populateData(title: TitleText.todoTableViewTitle, count: viewModel.todoProjects.count)
         case doingTableView:
-            headerView.populateData(title: TitleText.doingTableViewTitle, count: viewModel?.doingProjects.count ?? 0)
+            headerView.populateData(title: TitleText.doingTableViewTitle, count: viewModel.doingProjects.count)
         case doneTableView:
-            headerView.populateData(title: TitleText.doneTableViewTitle, count: viewModel?.doneProjects.count ?? 0)
+            headerView.populateData(title: TitleText.doneTableViewTitle, count: viewModel.doneProjects.count)
         default:
             break
         }
@@ -110,11 +115,11 @@ extension ProjectListViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        viewModel?.didSelectRow(index: indexPath, tableView: tableView)
+        viewModel.didSelectRow(index: indexPath, tableView: tableView)
     }
     
     func configureBind() {
-        viewModel?.onCellSelected = { [weak self] index, project in
+        viewModel.onCellSelected = { [weak self] index, project in
             guard let self = self else {
                 return
             }

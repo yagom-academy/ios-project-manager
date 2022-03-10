@@ -6,15 +6,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        
         guard let windowScene = (scene as? UIWindowScene) else {
             return
         }
         window = UIWindow(windowScene: windowScene)
-        let mainViewController = UINavigationController(rootViewController: ProjectListViewController())
+        let repository = ProjectRepository()
+        let useCase = ProjectUseCase(repository: repository)
+        let viewModel = ProjectViewModel(useCase: useCase)
+        
+        let mainViewController = UINavigationController(rootViewController: ProjectListViewController(viewModel: viewModel))
         window?.rootViewController = mainViewController
         window?.makeKeyAndVisible()
-    
+        
         guard let _ = (scene as? UIWindowScene) else { return }
     }
 

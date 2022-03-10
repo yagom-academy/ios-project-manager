@@ -1,6 +1,19 @@
 import UIKit
 
-class ProjectViewModel: NSObject {
+protocol ProjectViewModelProtocol: UITableViewDataSource {
+    var onCellSelected: ((Int, Project) -> Void)? { get set }
+    var todoProjects: [Project] { get }
+    var doingProjects: [Project] { get }
+    var doneProjects: [Project] { get }
+    var tableViews: [ProjectListTableView]? { get set }
+    
+    func didSelectRow(index: IndexPath, tableView: UITableView)
+    func update(with project: Project)
+}
+
+class ProjectViewModel: NSObject, ProjectViewModelProtocol {
+    let useCase: ProjectUseCaseProtocol
+
     var onCellSelected: ((Int, Project) -> Void)?
 //    var onUpdated: (() -> Void)?
     
@@ -8,10 +21,10 @@ class ProjectViewModel: NSObject {
                             Project(id: UUID(), state: .doing, title: "doing", body: "doingbody", date: Date()),
                             Project(id: UUID(), state: .done, title: "done", body: "donebody", date: Date())]
     
-    private var tableViews: [ProjectListTableView]
+    var tableViews: [ProjectListTableView]?
     
-    init(tableView: [ProjectListTableView]) {
-        self.tableViews = tableView
+    init(useCase: ProjectUseCaseProtocol) {
+        self.useCase = useCase
     }
     
     var todoProjects: [Project] {
@@ -26,18 +39,18 @@ class ProjectViewModel: NSObject {
         projects.filter { $0.state == .done }
     }
     
-    func update(index: Int, title: String, body: String, date: Date, project: Project) {
-        //        domain.update(index: index, title: title, body: body, date: date, project: project)
+    func update(with project: Project) {
+        useCase.update(with: project)
     }
     
     func didSelectRow(index: IndexPath, tableView: UITableView) {
         var selectedProject: Project?
         switch tableView {
-        case tableViews[0]:
+        case tableViews?[0]:
             selectedProject = todoProjects[index.row]
-        case tableViews[1]:
+        case tableViews?[1]:
             selectedProject = doingProjects[index.row]
-        case tableViews[2]:
+        case tableViews?[2]:
             selectedProject = doneProjects[index.row]
         default:
             break
@@ -50,15 +63,15 @@ class ProjectViewModel: NSObject {
     }
 }
 
-extension ProjectViewModel: UITableViewDataSource {
+extension ProjectViewModel {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var numberOfRows: Int = .zero
         switch tableView {
-        case tableViews[0]:
+        case tableViews?[0]:
             numberOfRows = todoProjects.count
-        case tableViews[1]:
+        case tableViews?[1]:
             numberOfRows = doingProjects.count
-        case tableViews[2]:
+        case tableViews?[2]:
             numberOfRows = doneProjects.count
         default:
             break
