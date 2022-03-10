@@ -7,6 +7,6 @@ protocol ProjectRepository {
     @discardableResult
     func update(with item: Project?) -> Single<Project>
     @discardableResult
-    func delete(_ uuid: UUID) -> Single<Project>
+    func delete(_ item: Project?) -> Single<Project>
     func fetch() -> BehaviorSubject<[Project]>
 }

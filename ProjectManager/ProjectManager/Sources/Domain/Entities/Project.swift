@@ -20,8 +20,19 @@ extension Project {
     }
 }
 
-enum ProjectState {
+enum ProjectState: CaseIterable {
     case todo
     case doing
     case done
+    
+    var index: Int {
+        switch self {
+        case .todo:
+            return 0
+        case .doing:
+            return 1
+        case .done:
+            return 2
+        }
+    }
 }

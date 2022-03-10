@@ -19,8 +19,8 @@ extension DefaultProjectRepository: ProjectRepository {
         storage.update(item)
     }
     
-    func delete(_ uuid: UUID) -> Single<Project> {
-        storage.delete(uuid)
+    func delete(_ item: Project?) -> Single<Project> {
+        storage.delete(item)
     }
     
     func fetch() -> BehaviorSubject<[Project]> {

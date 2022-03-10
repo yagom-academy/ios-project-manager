@@ -18,8 +18,8 @@ extension DefaultProjectListUseCase: ProjectListUseCase {
         repository.update(with: project)
     }
     
-    func delete(_ uuid: UUID) -> Single<Project> {
-        repository.delete(uuid)
+    func delete(_ item: Project?) -> Single<Project> {
+        repository.delete(item)
     }
     
     func fetch() -> BehaviorSubject<[Project]> {

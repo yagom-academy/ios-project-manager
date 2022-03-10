@@ -1,49 +1,66 @@
 import Foundation
 import RxSwift
+import RxCocoa
 
 final class ProjectListViewModel {
-    private(set) var projects = [Project]()
+    private var allProjects: [Project] = []
+    private var projectList: [[Project]] = [[], [], []]
     private let useCase: ProjectListUseCase
     private let disposeBag = DisposeBag()
     
     init(useCase: ProjectListUseCase = DefaultProjectListUseCase()) {
         self.useCase = useCase
+    }
+    
+    struct Input {
+        let didTapProjectCell: Observable<Int>
+        let didTapAddButton: Observable<Void>
+        let didTapPopoverButton: Observable<(Project, ProjectState)>
+        let didSwapeToTapDeleteButton: Observable<Project>
+    }
+    
+    struct Output {
+        let projectList = [
+            BehaviorRelay<[Project]>(value: []),
+            BehaviorRelay<[Project]>(value: []),
+            BehaviorRelay<[Project]>(value: [])
+        ]
+    }
+    
+    func transform(input: Input) -> Output {
+        let output = Output()
         
         useCase.fetch().subscribe(onNext: { newProjects in
-            self.projects = newProjects
+            self.allProjects = newProjects.sorted { $0.date < $1.date }
+            ProjectState.allCases.forEach { state in
+                let filteredData = self.allProjects.filter { $0.status == state }
+                self.projectList[state.index] = filteredData
+                output.projectList[state.index].accept(filteredData)
+            }
         }).disposed(by: disposeBag)
-    }
-    
-    // MARK: - Output
-    var errorMessage = PublishSubject<String>()
-
-    // MARK: - Input
-    var inserted = PublishSubject<Project>()
-    var updated = PublishSubject<IndexPath>()
-    var deleted = PublishSubject<IndexPath>()
-    
-    func add(_ project: Project) {
-        useCase.create(project).subscribe(onSuccess: { project in
-            self.inserted.onNext(project)
-        }).disposed(by: disposeBag)
-    }
-    
-    func update(_ project: Project, indexPath: IndexPath) {
-        useCase.update(project)
-            .subscribe(onSuccess: { _ in
-                self.updated.onNext(indexPath)
-            }, onFailure: { error in
-                self.errorMessage.onNext(error.localizedDescription)
+        
+        input.didTapProjectCell
+            .subscribe(onNext: { _ in
+                print("프로젝트 상세화면으로 이동")
             }).disposed(by: disposeBag)
-    }
-    
-    func delete(_ indexPath: IndexPath) {
-        useCase.delete(projects[safe: indexPath.row])
-            .subscribe(onSuccess: { _ in
-                self.deleted.onNext(indexPath)
-            }, onFailure: { error in
-                self.errorMessage.onNext(error.localizedDescription)
+        
+        input.didTapAddButton
+            .subscribe(onNext: { _ in
+                print("프로젝트 등록화면으로 이동")
+            }).disposed(by: disposeBag)
+        
+        input.didTapPopoverButton
+            .subscribe(onNext: { _ in
+                print("프로젝트를 유저가 선택한 state로 업데이트")
             })
             .disposed(by: disposeBag)
+        
+        input.didSwapeToTapDeleteButton
+            .subscribe(onNext: { project in
+                self.useCase.delete(project)
+            })
+            .disposed(by: disposeBag)
+
+        return output
     }
 }

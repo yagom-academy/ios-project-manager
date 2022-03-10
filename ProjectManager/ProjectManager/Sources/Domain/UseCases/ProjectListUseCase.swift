@@ -7,7 +7,7 @@ protocol ProjectListUseCase {
     @discardableResult
     func update(_ item: Project?) -> Single<Project>
     @discardableResult
-    func delete(_ uuid: UUID) -> Single<Project>
+    func delete(_ item: Project?) -> Single<Project>
     func fetch() -> BehaviorSubject<[Project]>
     @discardableResult
     func changedState(for project: Project, with state: ProjectState) -> Single<Project>
