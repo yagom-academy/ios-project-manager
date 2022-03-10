@@ -10,12 +10,12 @@ import RxSwift
 import RxRelay
 import UIKit
 
-class ScheduleDetailViewModel {
+class ScheduleItemViewModel {
 
     enum Mode {
         case detail, edit, create
     }
-    let mode = BehaviorRelay<Mode>(value: .edit)
+    let mode: BehaviorRelay<Mode>
     let currentTitleText = BehaviorRelay<String>(value: "")
     let currentDate = BehaviorRelay<Date>(value: Date())
     let currentBodyText = BehaviorRelay<String>(value: "")
@@ -24,13 +24,14 @@ class ScheduleDetailViewModel {
 
     private let bag = DisposeBag()
     private let useCase: ScheduleUseCase
-    private let coordinator: ScheduleDetailCoordinator
+    private let coordinator: ScheduleItemCoordinator
 
     // MARK: - Initializer
 
-    init(useCase: ScheduleUseCase, coordinator: ScheduleDetailCoordinator) {
+    init(useCase: ScheduleUseCase, coordinator: ScheduleItemCoordinator, mode: Mode) {
         self.useCase = useCase
         self.coordinator = coordinator
+        self.mode = BehaviorRelay<Mode>(value: mode)
     }
 
     struct Input {
@@ -42,6 +43,7 @@ class ScheduleDetailViewModel {
     }
 
     struct Output {
+        let scheduleProgress = BehaviorRelay<String>(value: "")
         let scheduleTitleText = BehaviorRelay<String>(value: "")
         let scheduleDate = BehaviorRelay<Date>(value: Date())
         let scheduleBodyText = BehaviorRelay<String>(value: "")
@@ -62,6 +64,7 @@ class ScheduleDetailViewModel {
                 case .detail:
                     self.mode.accept(.edit)
                 case .edit:
+                    self.useCase.setCurrentSchedule(schedule: self.useCase.currentSchedule.value)
                     self.mode.accept(.detail)
                 case .create:
                     self.coordinator.dismiss()
@@ -80,16 +83,16 @@ class ScheduleDetailViewModel {
                         title: self.currentTitleText.value,
                         body: self.currentBodyText.value,
                         dueDate: self.currentDate.value,
-                        progress: .doing)
+                        progress: self.useCase.currentSchedule.value.progress)
                     self.useCase.update(schedule)
-                    self.mode.accept(.detail)
+                    self.coordinator.dismiss()
                 case .create:
                     let schedule = Schedule(
                         id: self.useCase.currentSchedule.value.id!,
                         title: self.currentTitleText.value,
                         body: self.currentBodyText.value,
                         dueDate: self.currentDate.value,
-                        progress: .doing)
+                        progress: .todo)
                     self.useCase.create(schedule)
                     self.coordinator.dismiss()
                 }
@@ -118,13 +121,14 @@ class ScheduleDetailViewModel {
     }
 }
 
-private extension ScheduleDetailViewModel {
+private extension ScheduleItemViewModel {
     func bindOutput(output: Output, disposeBag: DisposeBag) {
         self.useCase.currentSchedule
             .subscribe(onNext: { schedule in
                 output.scheduleTitleText.accept(schedule.title)
                 output.scheduleDate.accept(schedule.dueDate)
                 output.scheduleBodyText.accept(schedule.body)
+                output.scheduleProgress.accept(schedule.progress.description)
             })
             .disposed(by: disposeBag)
 

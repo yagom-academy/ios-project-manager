@@ -23,8 +23,19 @@ struct Schedule {
     }
 }
 
-enum Progress: CaseIterable {
+enum Progress: CustomStringConvertible, CaseIterable {
     case todo
     case doing
     case done
+
+    var description: String {
+        switch self {
+        case .todo:
+            return "TODO"
+        case .doing:
+            return "DOING"
+        case .done:
+            return "DONE"
+        }
+    }
 }

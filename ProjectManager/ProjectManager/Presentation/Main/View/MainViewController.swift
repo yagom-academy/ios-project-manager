@@ -14,7 +14,7 @@ final class MainViewController: UIViewController {
     var viewModel: MainViewModel?
 
     private let bag = DisposeBag()
-    
+
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -24,6 +24,11 @@ final class MainViewController: UIViewController {
         return stackView
     }()
     private let tableViews: [UITableView] = Progress.allCases.map { _ in UITableView() }
+    private let addBarButton: UIBarButtonItem = {
+        let barButton = UIBarButtonItem()
+        barButton.title = "+"
+        return barButton
+    }()
 
 // MARK: - Methods
 
@@ -39,8 +44,7 @@ private extension MainViewController {
 
     func configure() {
         self.view.backgroundColor = .white
-        self.title = "ProjectManager"
-
+        self.configureNavigationBar()
         self.configureSubView()
     }
 
@@ -56,6 +60,11 @@ private extension MainViewController {
         self.tableViews.forEach { tableView in
             self.stackView.addArrangedSubview(tableView)
         }
+    }
+
+    func configureNavigationBar() {
+        self.title = "ProjectManager"
+        self.navigationItem.rightBarButtonItem = addBarButton
     }
 
     func configureConstraint() {
@@ -83,9 +92,9 @@ private extension MainViewController {
         let input = MainViewModel.Input(
             viewWillAppear: self.rx.methodInvoked(#selector(UIViewController.viewWillAppear))
                 .map { _ in },
-            cellDidTap: tableViews.map { $0.rx.modelSelected(Schedule.self).asObservable() },
-            cellDelete: tableViews.map { $0.rx.modelDeleted(Schedule.self).map { $0.id! } },
-            addButtonDidTap: Observable.of()
+            cellDidTap: self.tableViews.map { $0.rx.modelSelected(Schedule.self).asObservable() },
+            cellDelete: self.tableViews.map { $0.rx.modelDeleted(Schedule.self).map { $0.id! } },
+            addButtonDidTap: self.addBarButton.rx.tap.asObservable()
         )
 
         guard  let output = self.viewModel?.transform(input: input, disposeBag: self.bag) else {

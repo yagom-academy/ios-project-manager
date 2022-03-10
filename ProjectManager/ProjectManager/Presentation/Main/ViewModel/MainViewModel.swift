@@ -56,7 +56,7 @@ final class MainViewModel {
             observable
                 .subscribe(onNext: { schedule in
                     self.useCase.setCurrentSchedule(schedule: schedule)
-                    self.coordinator.presentScheduleDetailViewController()
+                    self.coordinator.presentScheduleItemViewController(mode: .detail)
                 })
                 .disposed(by: disposeBag)
         }
@@ -68,6 +68,11 @@ final class MainViewModel {
                 .disposed(by: disposeBag)
         }
 
+        input.addButtonDidTap
+            .subscribe(onNext: {
+                self.coordinator.presentScheduleItemViewController(mode: .create)
+            })
+            .disposed(by: bag)
         return output
     }
 }

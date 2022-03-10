@@ -9,9 +9,9 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class ScheduleDetailViewController: UIViewController {
+class ScheduleItemViewController: UIViewController {
 
-    var viewModel: ScheduleDetailViewModel?
+    var viewModel: ScheduleItemViewModel?
     private let bag = DisposeBag()
     
     private let stackView: UIStackView = {
@@ -69,7 +69,7 @@ class ScheduleDetailViewController: UIViewController {
     }
 }
 
-private extension ScheduleDetailViewController {
+private extension ScheduleItemViewController {
     func configure() {
         self.view.backgroundColor = .white
         configureHierarchy()
@@ -110,7 +110,7 @@ private extension ScheduleDetailViewController {
     }
 
     func binding() {
-        let input = ScheduleDetailViewModel.Input(
+        let input = ScheduleItemViewModel.Input(
             leftBarButtonDidTap: self.leftBarButton.rx.tap.asObservable(),
             rightBarButtonDidTap: self.rightBarButton.rx.tap.asObservable(),
             scheduleTitleTextDidChange: self.titleTextField.rx.text.orEmpty.asObservable(),
@@ -122,6 +122,9 @@ private extension ScheduleDetailViewController {
             return
         }
 
+        output.scheduleProgress.asDriver()
+            .drive(self.rx.title)
+            .disposed(by: bag)
         output.scheduleTitleText.asDriver()
             .drive(self.titleTextField.rx.text)
             .disposed(by: bag)
@@ -130,6 +133,17 @@ private extension ScheduleDetailViewController {
             .disposed(by: bag)
         output.scheduleBodyText.asDriver()
             .drive(self.bodyTextView.rx.text)
+            .disposed(by: bag)
+        output.leftBarButtonText.asDriver()
+            .drive(self.leftBarButton.rx.title)
+            .disposed(by: bag)
+        output.rightBarButtonText.asDriver()
+            .drive(self.rightBarButton.rx.title)
+            .disposed(by: bag)
+        output.editable.asDriver()
+            .drive(self.titleTextField.rx.isEnabled,
+                   self.datePicker.rx.isEnabled,
+                   self.bodyTextView.rx.isEditable)
             .disposed(by: bag)
     }
 }
