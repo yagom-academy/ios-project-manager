@@ -1,5 +1,5 @@
 //
-//  TaskListView.swift
+//  TaskListContainerView.swift
 //  ProjectManager
 //
 //  Created by JeongTaek Han on 2022/03/08.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TaskListView: View {
+struct TaskListContainerView: View {
     
     let taskType: TaskStatus
     

@@ -17,7 +17,7 @@ struct ProjectManagerMainView: View {
         NavigationView {
             HStack {
                 ForEach(TaskStatus.allCases) { status in
-                    TaskListView(taskType: status)
+                    TaskListContainerView(taskType: status)
                 }
             }
             .navigationTitle("Project Manager")
