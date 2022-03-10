@@ -46,7 +46,7 @@
 		C1836B4D27CE43B0008D9F07 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1836B4C27CE43B0008D9F07 /* Task.swift */; };
 		C1E42BF527D7EE0500700BB4 /* Utilities+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E42BF427D7EE0500700BB4 /* Utilities+UIKit.swift */; };
 		C1E42BF727D7EE5600700BB4 /* TaskFormCreateSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E42BF627D7EE5600700BB4 /* TaskFormCreateSheetView.swift */; };
-		C1E42BF927D7EE8300700BB4 /* TaskDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E42BF827D7EE8300700BB4 /* TaskDetailView.swift */; };
+		C1E42BF927D7EE8300700BB4 /* TaskFormDetailSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E42BF827D7EE8300700BB4 /* TaskFormDetailSheetView.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
@@ -89,7 +89,7 @@
 		C1836B4C27CE43B0008D9F07 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		C1E42BF427D7EE0500700BB4 /* Utilities+UIKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Utilities+UIKit.swift"; sourceTree = "<group>"; };
 		C1E42BF627D7EE5600700BB4 /* TaskFormCreateSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskFormCreateSheetView.swift; sourceTree = "<group>"; };
-		C1E42BF827D7EE8300700BB4 /* TaskDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailView.swift; sourceTree = "<group>"; };
+		C1E42BF827D7EE8300700BB4 /* TaskFormDetailSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskFormDetailSheetView.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -144,7 +144,7 @@
 				C105641627CCE5A10018ACFE /* ProjectManagerMainView.swift */,
 				C12BF48527D9DF3C00211C11 /* TaskListViewModule */,
 				C1232DCE27DA179D007EE147 /* TaskFormViewModule */,
-				C1E42BF827D7EE8300700BB4 /* TaskDetailView.swift */,
+				C1E42BF827D7EE8300700BB4 /* TaskFormDetailSheetView.swift */,
 				C1E42BF627D7EE5600700BB4 /* TaskFormCreateSheetView.swift */,
 			);
 			path = View;
@@ -443,7 +443,7 @@
 				C139EF9427CE46EC001079B6 /* TaskMemoryManager.swift in Sources */,
 				C1E42BF527D7EE0500700BB4 /* Utilities+UIKit.swift in Sources */,
 				C12BF48727D9DF7100211C11 /* TaskListTitleView.swift in Sources */,
-				C1E42BF927D7EE8300700BB4 /* TaskDetailView.swift in Sources */,
+				C1E42BF927D7EE8300700BB4 /* TaskFormDetailSheetView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

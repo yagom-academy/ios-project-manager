@@ -23,7 +23,7 @@ struct TaskListView: View {
                             TaskListContextMenuView(task: task)
                         }
                         .sheet(isPresented: $isShowSheet, onDismiss: nil) {
-                            TaskDetailView(task: task, isShowSheet: $isShowSheet)
+                            TaskFormDetailSheetView(task: task, isShowSheet: $isShowSheet)
                         }
                 }
             }
