@@ -180,7 +180,7 @@
                     <navigationItem key="navigationItem" title="Project Manager" id="Q9i-wa-jZY">
                         <barButtonItem key="rightBarButtonItem" image="plus" catalog="system" id="js4-RI-Ktx">
                             <connections>
-                                <action selector="addListBarButtonDidTap:" destination="GWZ-lm-FFG" id="bYB-xM-9qc"/>
+                                <action selector="addListBarButtonDidTap:" destination="GWZ-lm-FFG" id="KN3-SP-oPF"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

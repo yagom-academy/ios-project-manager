@@ -5,7 +5,7 @@ class TaskListEntity: Identifiable {
     var title: String
     var items: [TaskEntity]
 
-    init(id: UUID, title: String, items: [TaskEntity] = []) {
+    init(title: String, items: [TaskEntity] = []) {
         self.id = UUID()
         self.title = title
         self.items = items

@@ -7,7 +7,6 @@ class TaskCollectionViewController: UICollectionViewController {
 
     init?(viewModel: TaskViewModelable) {
         self.viewModel = viewModel
-        layout.itemSize = CGSize(width: 360, height: 900)
         super.init(collectionViewLayout: layout)
     }
 
@@ -33,4 +32,23 @@ class TaskCollectionViewController: UICollectionViewController {
     private func configureCollectionView(with size: CGSize) {
         layout.itemSize = CGSize(width: 360, height: size.height * 0.8)
     }
+
+    @IBAction func addListBarButtonDidTap(_ sender: Any) {
+        let alertController = UIAlertController(title: "Add A List", message: nil, preferredStyle: .alert)
+        alertController.addTextField(configurationHandler: nil)
+        alertController.addAction(UIAlertAction(title: "Add", style: .default, handler: { _ in
+            guard let titleName = alertController.textFields?.first?.text, titleName.isNotEmpty else { return }
+            self.viewModel?.taskLists.append(TaskListEntity(title: titleName))
+
+            let lastIndexPath = IndexPath(item: self.viewModel?.countTaskList() ?? .zero - 1, section: 0)
+            self.collectionView.insertItems(at: [lastIndexPath])
+            self.collectionView.scrollToItem(at: lastIndexPath,
+                                             at: UICollectionView.ScrollPosition.centeredHorizontally,
+                                             animated: true)
+        }))
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        present(alertController, animated: true)
+    }
 }
+
+
