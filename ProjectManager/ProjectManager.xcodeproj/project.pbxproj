@@ -87,9 +87,9 @@
 		84A5997327D2126B004E5054 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				84A5997727D21309004E5054 /* TaskViewModel.swift */,
 				C7431F0B25F51E1D0094C4CF /* Main.storyboard */,
 				C7431F0925F51E1D0094C4CF /* TaskTablesViewController.swift */,
-				84A5997727D21309004E5054 /* TaskViewModel.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";

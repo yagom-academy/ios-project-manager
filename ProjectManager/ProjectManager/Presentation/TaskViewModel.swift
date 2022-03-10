@@ -1,26 +1,61 @@
 import Foundation
 
-protocol TaskViewModelInput {
-    func didChangeStatus()
-}
+protocol TaskViewModelable {
+    var taskLists: [TaskListEntity] { get set }
 
-protocol TaskViewModelOutput {
-    var formattedTasks: [TaskEntity] { get set }
-}
+    func countTaskList() -> Int
+    func didLoaded()
+    func updateList()
 
-protocol TaskViewModelable: TaskViewModelInput, TaskViewModelOutput {}
+    func create(with title: String)
+    func update(taskList: TaskListEntity)
+    func delete(by id: UUID)
+    func createTask(_ task: TaskEntity, in taskList: String)
+}
 
 final class TaskViewModel: TaskViewModelable {
     private var useCase: TaskUseCase
-    var formattedTasks: [TaskEntity] = []
+    var taskLists: [TaskListEntity] = []
 
     init(useCase: TaskUseCase) {
         self.useCase = useCase
+        didLoaded()
     }
-    
-    func didChangeStatus() {}
-    
-    func executeFetch() {
-        formattedTasks = useCase.executeFetch()
+
+    func countTaskList() -> Int {
+        return taskLists.count
     }
+
+    func didLoaded() {
+        updateList()
+    }
+
+    func updateList() {
+        useCase.read { [weak self] tasks in
+            self?.taskLists = tasks
+        }
+    }
+
+    func create(with title: String) {
+        useCase.create(with: title) { [weak self] success in
+            guard success else { return }
+            self?.updateList()
+        }
+    }
+
+    func update(taskList: TaskListEntity) {
+        useCase.update(taskList: taskList) { [weak self] success in
+            guard success else { return }
+            self?.updateList()
+        }
+    }
+
+    func delete(by id: UUID) {
+        useCase.delete(by: id) { [weak self] success in
+            guard success else { return }
+            self?.updateList()
+        }
+    }
+
+    func createTask(_ task: TaskEntity, in taskList: String) {}
 }
