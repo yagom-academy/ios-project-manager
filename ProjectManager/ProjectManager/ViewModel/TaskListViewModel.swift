@@ -79,7 +79,7 @@ final class TaskListViewModel: TaskListViewModelProtocol {
 
         // 이중 switch문 추상화 개선
         if task.processStatus != newTask.processStatus {
-            moveTask(at: index, in: todoTasksObservable, to: newTask.processStatus)
+            moveTask(at: index, in: task.processStatus, to: newTask.processStatus)
         }
 
         taskRepository?.update(task: task, to: newTask)

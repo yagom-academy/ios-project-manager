@@ -32,6 +32,7 @@
 		36C6FC6727D7F08700B3057F /* TableViewError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C6FC3727D72E5300B3057F /* TableViewError.swift */; };
 		36C6FC6827D7F09800B3057F /* TaskManagerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C6FC5D27D7ACE900B3057F /* TaskManagerError.swift */; };
 		36C6FC6A27D9FD1500B3057F /* TaskTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C6FC6927D9FD1500B3057F /* TaskTableView.swift */; };
+		36C6FC6B27DA33A000B3057F /* TaskTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C6FC6927D9FD1500B3057F /* TaskTableView.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* TaskListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* TaskListViewController.swift */; };
@@ -343,6 +344,7 @@
 				36C6FC6327D7B36400B3057F /* ProcessStatus.swift in Sources */,
 				36C6FC6027D7B1B700B3057F /* TaskRepository.swift in Sources */,
 				36C6FC5727D7AC3D00B3057F /* ProjectManagerTests.swift in Sources */,
+				36C6FC6B27DA33A000B3057F /* TaskTableView.swift in Sources */,
 				36C6FC6627D7F07700B3057F /* MockObservable.swift in Sources */,
 				36C6FC6127D7B1ED00B3057F /* TaskListViewModel.swift in Sources */,
 			);
