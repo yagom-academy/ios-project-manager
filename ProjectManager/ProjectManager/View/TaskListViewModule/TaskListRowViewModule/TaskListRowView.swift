@@ -20,17 +20,10 @@ struct TaskListRowView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            title
+            TaskListRowTitleView(task: task)
             description
             dueDate
         }
-    }
-    
-    private var title: some View {
-        Text(task.title)
-            .font(.headline)
-            .foregroundColor(.primary)
-            .lineLimit(0)
     }
     
     private var description: some View {
