@@ -21,6 +21,7 @@ class ProjectListViewController: UIViewController {
         super.viewDidLoad()
         configureUI()
         configureTableView()
+        configureBind()
     }
     
     private func configureUI() {
@@ -86,11 +87,11 @@ extension ProjectListViewController: UITableViewDelegate {
         let headerView = tableView.dequeueReusableHeaderFooterView(withClass: ProjectListTableHeaderView.self)
         switch tableView {
         case todoTableView:
-            headerView.populateData(title: TitleText.todoTableViewTitle, count: 20)
+            headerView.populateData(title: TitleText.todoTableViewTitle, count: viewModel?.todoProjects.count ?? 0)
         case doingTableView:
-            headerView.populateData(title: TitleText.doingTableViewTitle, count: 30)
+            headerView.populateData(title: TitleText.doingTableViewTitle, count: viewModel?.doingProjects.count ?? 0)
         case doneTableView:
-            headerView.populateData(title: TitleText.doneTableViewTitle, count: 40)
+            headerView.populateData(title: TitleText.doneTableViewTitle, count: viewModel?.doneProjects.count ?? 0)
         default:
             break
         }
@@ -109,36 +110,19 @@ extension ProjectListViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        var data: Project?
-        
-        switch tableView {
-        case todoTableView:
-            data = viewModel?.todoProjects[indexPath.row]
-        case doingTableView:
-            data = viewModel?.doingProjects[indexPath.row]
-        case doneTableView:
-            data = viewModel?.doneProjects[indexPath.row]
-        default:
-            break
-        }
-        
-        guard let data = data else {
-            return
-        }
-        showEditViewController(index: indexPath, state: data.state)
+        viewModel?.didSelectRow(index: indexPath, tableView: tableView)
     }
     
-    func showEditViewController(index: IndexPath, state: Project.State) {
-        let editViewController = EditProjectDetailViewController(viewModel: viewModel)
-        
-        viewModel?.onSelected = { project in
-            editViewController.populateView(with: project)
+    func configureBind() {
+        viewModel?.onCellSelected = { [weak self] index, project in
+            guard let self = self else {
+                return
+            }
+            let editViewController = EditProjectDetailViewController(viewModel: self.viewModel, currentIndex: index, currentProject: project)
+            let destinationViewController = UINavigationController(rootViewController: editViewController)
+            destinationViewController.modalPresentationStyle = .formSheet
+            self.present(destinationViewController, animated: true, completion: nil)
         }
-        viewModel?.didSelectRow(index: index, state: state)
-        
-        let destinationViewController = UINavigationController(rootViewController: editViewController)
-        destinationViewController.modalPresentationStyle = .formSheet
-        present(destinationViewController, animated: true, completion: nil)
     }
 }
 

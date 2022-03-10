@@ -1,10 +1,12 @@
 import UIKit
 
 class ProjectViewModel: NSObject {
-    var onSelected: ((Project) -> Void)?
-    private var projects = [Project(state: .todo, title: "todo", body: "todobody", date: Date()),
-                            Project(state: .doing, title: "doing", body: "doingbody", date: Date()),
-                            Project(state: .done, title: "done", body: "donebody", date: Date())]
+    var onCellSelected: ((Int, Project) -> Void)?
+//    var onUpdated: (() -> Void)?
+    
+    private var projects = [Project(id: UUID(), state: .todo, title: "todo", body: "todobody", date: Date()),
+                            Project(id: UUID(), state: .doing, title: "doing", body: "doingbody", date: Date()),
+                            Project(id: UUID(), state: .done, title: "done", body: "donebody", date: Date())]
     
     private var tableViews: [ProjectListTableView]
     
@@ -24,21 +26,27 @@ class ProjectViewModel: NSObject {
         projects.filter { $0.state == .done }
     }
     
-    func didSelectRow(index: IndexPath, state: Project.State) {
-        let selectedProject: Project?
-        switch state {
-        case .todo:
+    func update(index: Int, title: String, body: String, date: Date, project: Project) {
+        //        domain.update(index: index, title: title, body: body, date: date, project: project)
+    }
+    
+    func didSelectRow(index: IndexPath, tableView: UITableView) {
+        var selectedProject: Project?
+        switch tableView {
+        case tableViews[0]:
             selectedProject = todoProjects[index.row]
-        case .doing:
+        case tableViews[1]:
             selectedProject = doingProjects[index.row]
-        case .done:
+        case tableViews[2]:
             selectedProject = doneProjects[index.row]
+        default:
+            break
         }
         
         guard let selectedProject = selectedProject else {
             return
         }
-        onSelected?(selectedProject)
+        onCellSelected?(index.row, selectedProject)
     }
 }
 

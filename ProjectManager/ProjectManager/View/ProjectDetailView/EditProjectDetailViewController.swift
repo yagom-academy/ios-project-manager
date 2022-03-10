@@ -2,10 +2,14 @@ import UIKit
 
 class EditProjectDetailViewController: ProjectDetailViewController {
     var viewModel: ProjectViewModel?
+    var currentProject: Project?
+    var currentIndex: Int?
     
-    init(viewModel: ProjectViewModel?) {
+    init(viewModel: ProjectViewModel?, currentIndex: Int, currentProject: Project) {
         super.init(nibName: nil, bundle: nil)
         self.viewModel = viewModel
+        self.currentProject = currentProject
+        self.currentIndex = currentIndex
     }
     
     required init?(coder: NSCoder) {
@@ -14,6 +18,7 @@ class EditProjectDetailViewController: ProjectDetailViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        populateView(with: currentProject)
         configureNavigationBar()
         projectDetailView.setEditingMode(to: false)
     }
@@ -31,6 +36,7 @@ class EditProjectDetailViewController: ProjectDetailViewController {
             projectDetailView.setEditingMode(to: true)
         } else {
             projectDetailView.setEditingMode(to: false)
+//            viewModel.update(index: currentIndex, title: projectDetailView., body: <#String#>, date: <#Date#>, currentProject: curentProject)
         }
     }
     

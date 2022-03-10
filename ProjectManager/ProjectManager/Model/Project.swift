@@ -6,6 +6,7 @@ struct Project {
         case doing
         case done
     }
+    let id: UUID
     let state: State
     let title: String
     let body: String
