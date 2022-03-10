@@ -24,121 +24,24 @@
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="T18-03-VZC">
                                 <rect key="frame" x="0.0" y="70" width="1367.5" height="954"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="X7o-bu-Pyr">
+                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MSk-rn-Duf">
                                         <rect key="frame" x="0.0" y="0.0" width="452.5" height="954"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UBI-R1-8ZK" customClass="HeaderView" customModule="ProjectManager" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="452.5" height="80"/>
-                                                <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7BF-Dn-vKP">
-                                                        <rect key="frame" x="15" y="21.5" width="73.5" height="37"/>
-                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A6T-Jx-CZL" customClass="ProjectHeaderCircleLabel" customModule="ProjectManager" customModuleProvider="target">
-                                                        <rect key="frame" x="98.5" y="30" width="20.5" height="20.5"/>
-                                                        <color key="backgroundColor" systemColor="labelColor"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" secondItem="A6T-Jx-CZL" secondAttribute="height" multiplier="1:1" id="aJ9-gD-qI0"/>
-                                                        </constraints>
-                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
-                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                </subviews>
-                                                <color key="backgroundColor" systemColor="systemGray5Color"/>
-                                                <constraints>
-                                                    <constraint firstItem="7BF-Dn-vKP" firstAttribute="centerY" secondItem="UBI-R1-8ZK" secondAttribute="centerY" id="Pjm-br-CjB"/>
-                                                    <constraint firstItem="A6T-Jx-CZL" firstAttribute="centerY" secondItem="UBI-R1-8ZK" secondAttribute="centerY" id="Wv0-bg-5WH"/>
-                                                    <constraint firstItem="A6T-Jx-CZL" firstAttribute="leading" secondItem="7BF-Dn-vKP" secondAttribute="trailing" constant="10" id="enR-LM-dnZ"/>
-                                                    <constraint firstAttribute="height" constant="80" id="ypc-Qf-RLx"/>
-                                                    <constraint firstItem="7BF-Dn-vKP" firstAttribute="leading" secondItem="UBI-R1-8ZK" secondAttribute="leading" constant="15" id="zBX-qx-rHO"/>
-                                                </constraints>
-                                            </view>
-                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="DC4-F6-584">
-                                                <rect key="frame" x="0.0" y="80" width="452.5" height="874"/>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                            </tableView>
-                                        </subviews>
-                                    </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" id="NMc-eQ-RMW">
+                                        <connections>
+                                            <segue destination="waq-w9-sfK" kind="embed" identifier="todoSegue" id="QSe-sY-oDV"/>
+                                        </connections>
+                                    </containerView>
+                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mgt-rD-51u">
                                         <rect key="frame" x="457.5" y="0.0" width="452.5" height="954"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Db-5l-4k2" customClass="HeaderView" customModule="ProjectManager" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="452.5" height="80"/>
-                                                <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="giE-nN-ORq">
-                                                        <rect key="frame" x="15" y="21.5" width="73.5" height="37"/>
-                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V0L-7O-e0m" customClass="ProjectHeaderCircleLabel" customModule="ProjectManager" customModuleProvider="target">
-                                                        <rect key="frame" x="98.5" y="30" width="20.5" height="20.5"/>
-                                                        <color key="backgroundColor" systemColor="labelColor"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" secondItem="V0L-7O-e0m" secondAttribute="height" multiplier="1:1" id="G7i-I2-5rt"/>
-                                                        </constraints>
-                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
-                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                </subviews>
-                                                <color key="backgroundColor" systemColor="systemGray5Color"/>
-                                                <constraints>
-                                                    <constraint firstItem="giE-nN-ORq" firstAttribute="centerY" secondItem="9Db-5l-4k2" secondAttribute="centerY" id="6BP-7W-vb1"/>
-                                                    <constraint firstItem="V0L-7O-e0m" firstAttribute="leading" secondItem="giE-nN-ORq" secondAttribute="trailing" constant="10" id="KZW-zi-CdW"/>
-                                                    <constraint firstItem="giE-nN-ORq" firstAttribute="leading" secondItem="9Db-5l-4k2" secondAttribute="leading" constant="15" id="aYv-qi-uHL"/>
-                                                    <constraint firstAttribute="height" constant="80" id="eG4-WW-Fa2"/>
-                                                    <constraint firstItem="V0L-7O-e0m" firstAttribute="centerY" secondItem="9Db-5l-4k2" secondAttribute="centerY" id="oZK-qC-iWw"/>
-                                                </constraints>
-                                            </view>
-                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="6ML-VG-Ttj">
-                                                <rect key="frame" x="0.0" y="80" width="452.5" height="874"/>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                            </tableView>
-                                        </subviews>
-                                    </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Ggg-QO-se2">
+                                        <connections>
+                                            <segue destination="waq-w9-sfK" kind="embed" identifier="doingSegue" id="mEX-ko-kcL"/>
+                                        </connections>
+                                    </containerView>
+                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q8i-zv-QbL">
                                         <rect key="frame" x="915" y="0.0" width="452.5" height="954"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bmj-nV-j3x" customClass="HeaderView" customModule="ProjectManager" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="452.5" height="80"/>
-                                                <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f9z-2z-jF1">
-                                                        <rect key="frame" x="15" y="21.5" width="73.5" height="37"/>
-                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O7v-xf-bmB" customClass="ProjectHeaderCircleLabel" customModule="ProjectManager" customModuleProvider="target">
-                                                        <rect key="frame" x="98.5" y="30" width="20.5" height="20.5"/>
-                                                        <color key="backgroundColor" systemColor="labelColor"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" secondItem="O7v-xf-bmB" secondAttribute="height" multiplier="1:1" id="6bF-RV-Pew"/>
-                                                        </constraints>
-                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
-                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                </subviews>
-                                                <color key="backgroundColor" systemColor="systemGray5Color"/>
-                                                <constraints>
-                                                    <constraint firstItem="f9z-2z-jF1" firstAttribute="leading" secondItem="bmj-nV-j3x" secondAttribute="leading" constant="15" id="87P-Js-qeD"/>
-                                                    <constraint firstItem="O7v-xf-bmB" firstAttribute="centerY" secondItem="bmj-nV-j3x" secondAttribute="centerY" id="Kgb-xK-ogl"/>
-                                                    <constraint firstItem="O7v-xf-bmB" firstAttribute="leading" secondItem="f9z-2z-jF1" secondAttribute="trailing" constant="10" id="PDo-Ca-QRf"/>
-                                                    <constraint firstItem="f9z-2z-jF1" firstAttribute="centerY" secondItem="bmj-nV-j3x" secondAttribute="centerY" id="eIQ-HT-Inf"/>
-                                                    <constraint firstAttribute="height" constant="80" id="egQ-CM-Cuc"/>
-                                                </constraints>
-                                            </view>
-                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="lgn-Rv-31K">
-                                                <rect key="frame" x="0.0" y="80" width="452.5" height="874"/>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                            </tableView>
-                                        </subviews>
-                                    </stackView>
+                                        <connections>
+                                            <segue destination="waq-w9-sfK" kind="embed" identifier="doneSegue" id="GXG-Ds-LRX"/>
+                                        </connections>
+                                    </containerView>
                                 </subviews>
                             </stackView>
                         </subviews>
@@ -162,21 +65,18 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <connections>
-                        <outlet property="doingCountLabel" destination="V0L-7O-e0m" id="0Hy-6H-gnx"/>
-                        <outlet property="doingTableView" destination="6ML-VG-Ttj" id="VKt-8h-3ur"/>
-                        <outlet property="doingTitleLabel" destination="giE-nN-ORq" id="RgS-NH-HJ2"/>
-                        <outlet property="doneCountLabel" destination="O7v-xf-bmB" id="YQr-6Q-6O6"/>
-                        <outlet property="doneTableView" destination="lgn-Rv-31K" id="upv-j7-d19"/>
-                        <outlet property="doneTitleLabel" destination="f9z-2z-jF1" id="eD6-NC-6Hh"/>
-                        <outlet property="todoCountLabel" destination="A6T-Jx-CZL" id="BH1-1z-TSj"/>
-                        <outlet property="todoTableView" destination="DC4-F6-584" id="MrI-wz-UCo"/>
-                        <outlet property="todoTitleLabel" destination="7BF-Dn-vKP" id="Jls-4N-KWR"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="763.83601756954602" y="19.921875"/>
+        </scene>
+        <!--ProjectTableViewController-->
+        <scene sceneID="6ai-C0-xWn">
+            <objects>
+                <viewControllerPlaceholder storyboardName="ProjectTableViewController" referencedIdentifier="ProjectTableViewController" id="waq-w9-sfK" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Unl-lb-3RL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="764" y="431"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="xy3-dF-mS7">
@@ -198,18 +98,15 @@
             <point key="canvasLocation" x="70.717423133235712" y="19.921875"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="GXG-Ds-LRX"/>
+    </inferredMetricsTieBreakers>
     <resources>
-        <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray3Color">
             <color red="0.7803921568627451" green="0.7803921568627451" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemGray5Color">
-            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray6Color">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
