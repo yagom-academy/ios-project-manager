@@ -3,9 +3,9 @@ import RxSwift
 
 class TodoListViewModel {
     
-    let useCase: CRUDUseCase
+    let useCase: ProjectManagingUseCase
     
-    init(useCase: CRUDUseCase) {
+    init(useCase: ProjectManagingUseCase) {
         self.useCase = useCase
     }
 }

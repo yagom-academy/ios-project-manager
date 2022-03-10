@@ -59,6 +59,11 @@ final class CoredataRepository: DataRepository {
         self.saveContext()
     }
     
+    func extractAll() -> [Listable] {
+        self.fetch()
+        return list
+    }
+    
     private func createCDProject(attributes: [String: Any]) {
         
         guard let context = self.context

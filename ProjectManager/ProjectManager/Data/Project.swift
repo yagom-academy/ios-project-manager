@@ -1,6 +1,6 @@
 import Foundation
 
-struct Project: Listable, Codable {
+struct Project: Listable, Codable, Equatable {
     
     var name: String
     var detail: String
@@ -14,11 +14,5 @@ struct Project: Listable, Codable {
         self.deadline = deadline
         self.identifier = indentifier
         self.progressState = progressState
-    }
-}
-
-extension Project {
-    static func == (lhs: Project, rhs: Project) -> Bool {
-        return lhs.identifier == rhs.identifier
     }
 }

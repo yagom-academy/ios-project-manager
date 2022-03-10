@@ -1,6 +1,6 @@
 import Foundation
 
-protocol CRUDUseCase {
+protocol ProjectManagingUseCase {
     
     var repository: DataRepository? { get set }
     var todoProjects: [Listable] { get }

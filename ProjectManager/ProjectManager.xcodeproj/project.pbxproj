@@ -24,7 +24,7 @@
 		189DD50F27D1110D00395CF4 /* TodoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189DD50E27D1110D00395CF4 /* TodoListViewModel.swift */; };
 		189DD51227D1F7D400395CF4 /* CDProject.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 189DD51027D1F7D400395CF4 /* CDProject.xcdatamodeld */; };
 		189DD55327D571D100395CF4 /* ProjectManagerUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189DD55227D571D100395CF4 /* ProjectManagerUseCase.swift */; };
-		189DD55527D5720300395CF4 /* CRUDUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189DD55427D5720300395CF4 /* CRUDUseCase.swift */; };
+		189DD55527D5720300395CF4 /* ProjectManagingUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189DD55427D5720300395CF4 /* ProjectManagingUseCase.swift */; };
 		189DD57C27D6995900395CF4 /* Encodable + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189DD57B27D6995900395CF4 /* Encodable + Extensions.swift */; };
 		189DD58D27D6FF8400395CF4 /* CDProject+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189DD58B27D6FF8400395CF4 /* CDProject+CoreDataClass.swift */; };
 		189DD58E27D6FF8400395CF4 /* CDProject+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189DD58C27D6FF8400395CF4 /* CDProject+CoreDataProperties.swift */; };
@@ -49,7 +49,7 @@
 		189DD50E27D1110D00395CF4 /* TodoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListViewModel.swift; sourceTree = "<group>"; };
 		189DD51127D1F7D400395CF4 /* CDProject.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CDProject.xcdatamodel; sourceTree = "<group>"; };
 		189DD55227D571D100395CF4 /* ProjectManagerUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerUseCase.swift; sourceTree = "<group>"; };
-		189DD55427D5720300395CF4 /* CRUDUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CRUDUseCase.swift; sourceTree = "<group>"; };
+		189DD55427D5720300395CF4 /* ProjectManagingUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagingUseCase.swift; sourceTree = "<group>"; };
 		189DD57B27D6995900395CF4 /* Encodable + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable + Extensions.swift"; sourceTree = "<group>"; };
 		189DD58B27D6FF8400395CF4 /* CDProject+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDProject+CoreDataClass.swift"; sourceTree = "<group>"; };
 		189DD58C27D6FF8400395CF4 /* CDProject+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDProject+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -159,7 +159,7 @@
 			isa = PBXGroup;
 			children = (
 				189DD55227D571D100395CF4 /* ProjectManagerUseCase.swift */,
-				189DD55427D5720300395CF4 /* CRUDUseCase.swift */,
+				189DD55427D5720300395CF4 /* ProjectManagingUseCase.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -301,7 +301,7 @@
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				189DD4FA27D1015C00395CF4 /* DataRepository.swift in Sources */,
 				189DD59127D7004F00395CF4 /* ProgressState.swift in Sources */,
-				189DD55527D5720300395CF4 /* CRUDUseCase.swift in Sources */,
+				189DD55527D5720300395CF4 /* ProjectManagingUseCase.swift in Sources */,
 				189DD4F827D1010400395CF4 /* Listable.swift in Sources */,
 				189DD51227D1F7D400395CF4 /* CDProject.xcdatamodeld in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,

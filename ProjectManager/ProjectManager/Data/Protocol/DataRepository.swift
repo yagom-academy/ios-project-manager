@@ -14,4 +14,6 @@ protocol DataRepository {
     func delete(identifier: String)
     
     func fetch()
+    
+    func extractAll() -> [Listable] 
 }

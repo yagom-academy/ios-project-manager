@@ -1,6 +1,6 @@
 import Foundation
 
-final class ProjectManagerUseCase: CRUDUseCase {
+final class ProjectManagerUseCase: ProjectManagingUseCase {
     
     var repository: DataRepository?
     var todoProjects = [Listable]()
@@ -31,6 +31,8 @@ final class ProjectManagerUseCase: CRUDUseCase {
     }
     
     func sortProjectProgressState(state: ProgressState) -> [Listable] {
-        self.repository?.list.filter{ $0.progressState == state.description } ?? []
+        let list = repository?.extractAll()
+        let filteredList = list?.filter{ $0.progressState == state.description } ?? []
+        return filteredList
     }
 }

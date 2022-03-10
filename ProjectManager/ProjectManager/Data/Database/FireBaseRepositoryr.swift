@@ -6,7 +6,7 @@ final class FireStoreRepository: DataRepository {
     
     private let dataBase: Firestore?
     private(set) var list = [Listable]()
-    
+    private let sampleList = Project(name: "", detail: "", deadline: Date(), indentifier: "123", progressState: ProgressState.doing.description)
     init(database: Firestore) {
         self.dataBase = database
     }
@@ -42,11 +42,16 @@ final class FireStoreRepository: DataRepository {
                 snapshot.documents.forEach { document in
                     let data = document.data()
                     let project = Project.convertDictionaryToInstance(attributes: data)
-                    lists.append(project ?? Project(name: "", detail: "", deadline: Date(), indentifier: "123", progressState: ProgressState.doing.description))
+                    lists.append(project ?? self.sampleList)
                 }
             }
         }
         self.list = lists
+    }
+    
+    func extractAll() -> [Listable] {
+        self.fetch()
+        return list
     }
     
     private func reference(
