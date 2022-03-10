@@ -66,7 +66,6 @@ class ProjectManagerTests: XCTestCase {
                        [task1, newTask])
         XCTAssertEqual(taskRepository.todoTasks,
                        [task1, newTask])
-//                        [task1, task2]) // task2 및 newTask의 메모리 위치는 다름 (newTask는 새로운 인스턴스이기 때문). 근데 entireTasks[index] = newTask를 했으니까 참조가 할당되어서 같은 메모리를 가르키고 있는거 아닌가? 그럼 equal인게 맞는데...?
     }
     
     func test_1과2가있는_TaskRepository에서_TaskListViewModel의_2의ProcessStatus를_edit하면_변경된다() {
@@ -87,15 +86,6 @@ class ProjectManagerTests: XCTestCase {
                        1)
         XCTAssertEqual(taskRepository.todoTasks.count,
                        1)
-
-        XCTAssertEqual(taskListViewModel.doneTasksObservable?.value[0],
-                       task2)
-        XCTAssertEqual(taskRepository.doneTasks[0],
-                       task2)   
-        XCTAssertEqual(taskListViewModel.doneTasksObservable?.value,
-                       [task2])
-        XCTAssertEqual(taskRepository.doneTasks,
-                       [task2])
     }
     
     func test_1과2가있는_TaskRepository에서_TaskListViewModel의_2의Title을_edit하면_변경된다() {
@@ -112,10 +102,5 @@ class ProjectManagerTests: XCTestCase {
                        "changed")
         XCTAssertEqual(taskRepository.todoTasks[1].title,
                        "changed")
-        
-        XCTAssertEqual(taskListViewModel.todoTasksObservable?.value,
-                       [task1, task2])
-        XCTAssertEqual(taskRepository.todoTasks,
-                       [task1, task2])
     }
 }
