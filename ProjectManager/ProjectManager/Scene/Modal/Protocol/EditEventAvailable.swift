@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol EditViewControllerDelegate: AnyObject {
+protocol EditEventAvailable: AnyObject {
 
     func editViewControllerDidCancel(_ editViewController: EditViewController)
     func editViewControllerDidFinish(_ editViewController: EditViewController)

@@ -11,19 +11,16 @@ class TodoList {
 
     private var todoList = [Todo]()
 
-    @discardableResult
-    func remove(at todo: Todo) -> Bool {
+    func remove(at todo: Todo) {
         let deleteNoteIndex = self.todoList.firstIndex { someTodo in
             someTodo.uuid == todo.uuid
         }
 
         guard let deleteNoteIndex = deleteNoteIndex else {
-            return false
+            return
         }
 
         self.todoList.remove(at: deleteNoteIndex)
-
-        return true
     }
 
     func add(todo: Todo) {

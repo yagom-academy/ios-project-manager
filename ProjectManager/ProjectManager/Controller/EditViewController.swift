@@ -17,7 +17,7 @@ class EditViewController: UIViewController, UIAdaptivePresentationControllerDele
     var beingEditedTodoUUID: UUID?
     var beingEditedTodoSection: TodoSection?
     weak var dataProvider: DataProvider?
-    weak var mainViewDelegate: EditViewControllerDelegate?
+    weak var mainViewDelegate: EditEventAvailable?
 
 // MARK: - View Components
 

@@ -7,10 +7,9 @@
 
 import Foundation
 
-// Refactoring MVC to MVVM 시도
+enum DataFormatter {
 
-struct DataFormatter {
-    func filterTodos(by section: TodoSection, in todos: [Todo]) -> [Todo] {
+    static func filterTodos(by section: TodoSection, in todos: [Todo]) -> [Todo] {
         let todos = todos.filter { todo in
             todo.section == section
         }

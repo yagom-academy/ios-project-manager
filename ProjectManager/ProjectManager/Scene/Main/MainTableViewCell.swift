@@ -175,21 +175,25 @@ class MainTableViewCell: UITableViewCell {
 }
 
 private enum CellConstraint {
+
     static let cellStackViewPadding: CGFloat = 15
     static let spacing: CGFloat = 5
     static let defaultFontHeight: CGFloat = 20
 }
 
 private enum CellFont {
+
     static let titleSize: UIFont.TextStyle = .headline
     static let defaultSize: UIFont.TextStyle = .callout
     static let deadlineSize: UIFont.TextStyle = .subheadline
 }
 
 private enum CellColor {
+
     static let content: UIColor = .systemGray3
 }
 
 private enum CellConstant {
+
     static let numberOfLineForDynamicHeight = 0
 }

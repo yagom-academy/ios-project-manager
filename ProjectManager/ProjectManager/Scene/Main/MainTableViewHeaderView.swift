@@ -118,6 +118,7 @@ class MainTableViewHeaderView: UITableViewHeaderFooterView {
 }
 
 private enum HeaderViewConstraints {
+
     static let circleWidth: CGFloat = 20
     static let spacing: CGFloat = 8
     static let defaultCount = 0
@@ -126,6 +127,7 @@ private enum HeaderViewConstraints {
 }
 
 private enum HeaderViewFont {
+
     static let sectionLabel = UIFont.preferredFont(for: .title3, weight: .regular)
     static let todoCountLabel = UIFont.preferredFont(for: .body, weight: .light)
 }
