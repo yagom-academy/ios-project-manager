@@ -26,7 +26,6 @@
 		FB85DA3427CDF8970065FD72 /* ToDo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FB85DA3227CDF8970065FD72 /* ToDo.xcdatamodeld */; };
 		FB85DA3727CDF91E0065FD72 /* ToDo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB85DA3527CDF91D0065FD72 /* ToDo+CoreDataClass.swift */; };
 		FB85DA3827CDF91E0065FD72 /* ToDo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB85DA3627CDF91E0065FD72 /* ToDo+CoreDataProperties.swift */; };
-		FB85DA3A27D05CEE0065FD72 /* ProjectListTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB85DA3927D05CEE0065FD72 /* ProjectListTableView.swift */; };
 		FB85DA3C27D1AD430065FD72 /* ProjectListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB85DA3B27D1AD430065FD72 /* ProjectListCell.swift */; };
 		FB85DA3E27D1B2370065FD72 /* CellReusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB85DA3D27D1B2370065FD72 /* CellReusable.swift */; };
 		FB9EDAB127D5FBE300C78BE1 /* EditProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9EDAB027D5FBE300C78BE1 /* EditProjectViewController.swift */; };
@@ -57,7 +56,6 @@
 		FB85DA3327CDF8970065FD72 /* ToDo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ToDo.xcdatamodel; sourceTree = "<group>"; };
 		FB85DA3527CDF91D0065FD72 /* ToDo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ToDo+CoreDataClass.swift"; sourceTree = "<group>"; };
 		FB85DA3627CDF91E0065FD72 /* ToDo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ToDo+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		FB85DA3927D05CEE0065FD72 /* ProjectListTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListTableView.swift; sourceTree = "<group>"; };
 		FB85DA3B27D1AD430065FD72 /* ProjectListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListCell.swift; sourceTree = "<group>"; };
 		FB85DA3D27D1B2370065FD72 /* CellReusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellReusable.swift; sourceTree = "<group>"; };
 		FB9EDAB027D5FBE300C78BE1 /* EditProjectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProjectViewController.swift; sourceTree = "<group>"; };
@@ -145,7 +143,6 @@
 			isa = PBXGroup;
 			children = (
 				47F9812C27D1F6550046FE9E /* ProjectListHeaderView.swift */,
-				FB85DA3927D05CEE0065FD72 /* ProjectListTableView.swift */,
 				FBD493FA27D2095200BA412F /* ProjectFormView.swift */,
 				FB85DA3B27D1AD430065FD72 /* ProjectListCell.swift */,
 			);
@@ -266,7 +263,6 @@
 				FBD493FB27D2095200BA412F /* ProjectFormView.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
-				FB85DA3A27D05CEE0065FD72 /* ProjectListTableView.swift in Sources */,
 				FB85DA3827CDF91E0065FD72 /* ToDo+CoreDataProperties.swift in Sources */,
 				FB85DA3C27D1AD430065FD72 /* ProjectListCell.swift in Sources */,
 				47F8F60A27CDEA96008919E3 /* CoreDataManager.swift in Sources */,

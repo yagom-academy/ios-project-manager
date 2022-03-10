@@ -41,20 +41,17 @@ class ProjectListCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        contentView.addSubview(labelStackView)
-        setupBackgroundColor()
-        setupLabelStackViewLayout()
-        configureSelectedBackgroundView()
+        commonInit()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        commonInit()
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0))
-
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -71,6 +68,19 @@ class ProjectListCell: UITableViewCell {
             previewLabel.textColor = .systemGray
             dateLabel.textColor = .label
         }
+    }
+    
+    func setupLabelText(title: String, preview: String, date: String) {
+        titleLabel.text = title
+        previewLabel.text = preview
+        dateLabel.text = date
+    }
+    
+    private func commonInit() {
+        contentView.addSubview(labelStackView)
+        setupBackgroundColor()
+        setupLabelStackViewLayout()
+        configureSelectedBackgroundView()
     }
     
     private func setupBackgroundColor() {
@@ -92,11 +102,5 @@ class ProjectListCell: UITableViewCell {
         backgroundView.layer.cornerRadius = 10
         backgroundView.backgroundColor = .secondarySystemBackground
         selectedBackgroundView = backgroundView
-    }
-    
-    func setupLabelText(title: String, preview: String, date: String) {
-        titleLabel.text = title
-        previewLabel.text = preview
-        dateLabel.text = date
     }
 }

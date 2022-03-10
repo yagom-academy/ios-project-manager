@@ -41,6 +41,10 @@ class ProjectListHeaderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func updateProjectCount(_ count: Int) {
+        badgeLabel.text = count.description
+    }
+    
     private func setupTableHeaderView() {
         backgroundColor = .secondarySystemBackground
         setupHeaderViewLayout()
@@ -62,9 +66,5 @@ class ProjectListHeaderView: UIView {
             underLine.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -5),
             underLine.heightAnchor.constraint(equalToConstant: 0.3)
         ])
-    }
-    
-    func updateProjectCount(_ count: Int) {
-        badgeLabel.text = count.description
     }
 }

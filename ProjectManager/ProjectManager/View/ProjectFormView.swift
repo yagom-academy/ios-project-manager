@@ -47,12 +47,21 @@ class ProjectFormView: UIView {
     
     init() {
         super.init(frame: .zero)
-        backgroundColor = .systemBackground
-        setupFormStackViewLayout()
+        commonInit()
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
+        commonInit()
+    }
+    
+    func getDateFromPicker() -> Date {
+        return datePicker.date
+    }
+    
+    private func commonInit() {
+        backgroundColor = .systemBackground
+        setupFormStackViewLayout()
     }
     
     private func setupFormStackViewLayout() {
@@ -63,9 +72,5 @@ class ProjectFormView: UIView {
             formStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
             formStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
         ])
-    }
-    
-    func getDateFromPicker() -> Date {
-        return datePicker.date
     }
 }

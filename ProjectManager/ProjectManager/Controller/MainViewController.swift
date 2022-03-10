@@ -1,9 +1,9 @@
 import UIKit
 
 class MainViewController: UIViewController {
-    private let toDoTableView = ProjectListTableView()
-    private let doingTableView = ProjectListTableView()
-    private let doneTableView = ProjectListTableView()
+    private let toDoTableView = UITableView()
+    private let doingTableView = UITableView()
+    private let doneTableView = UITableView()
     
     private let toDoDataSource = ToDoDataSource()
     private let doingDataSource = DoingDataSource()
