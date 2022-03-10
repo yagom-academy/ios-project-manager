@@ -10,7 +10,7 @@ import SwiftUI
 struct TaskFormCreateSheetView: View {
     
     @EnvironmentObject private var viewModel: ProjectManagerViewModel
-    @Binding var isShowSheet: Bool
+    @ObservedObject var mainViewModel: ProjectManagerMainViewModel
     
     @State private var title = String()
     @State private var date = Date()
@@ -24,7 +24,7 @@ struct TaskFormCreateSheetView: View {
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
-                        Button(action: toggleSheetCondition) {
+                        Button(action: mainViewModel.toggleSheetCondition) {
                             Text("Cancel")
                         }
                     }
@@ -39,7 +39,7 @@ struct TaskFormCreateSheetView: View {
     
     private func createButtonClicked() {
         createTask()
-        toggleSheetCondition()
+        mainViewModel.toggleSheetCondition()
     }
     
     private func createTask() {
@@ -48,10 +48,6 @@ struct TaskFormCreateSheetView: View {
             description: description,
             dueDate: date
         )
-    }
-    
-    private func toggleSheetCondition() {
-        isShowSheet.toggle()
     }
     
 }

@@ -10,7 +10,7 @@ import SwiftUI
 struct ProjectManagerMainView: View {
     
     @EnvironmentObject private var viewModel: ProjectManagerViewModel
-    @State private var isShowSheet = false
+    @StateObject private var mainViewModel = ProjectManagerMainViewModel()
     
     var body: some View {
         
@@ -24,13 +24,11 @@ struct ProjectManagerMainView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {
-                        isShowSheet.toggle()
-                    }) {
+                    Button(action: toggleSheetCondition) {
                         Image(systemName: "plus")
                     }
-                    .sheet(isPresented: $isShowSheet, onDismiss: nil) {
-                        TaskFormCreateSheetView(isShowSheet: $isShowSheet)
+                    .sheet(isPresented: $mainViewModel.isShowSheet, onDismiss: nil) {
+                        TaskFormCreateSheetView(mainViewModel: mainViewModel)
                     }
                 }
             }
@@ -39,14 +37,8 @@ struct ProjectManagerMainView: View {
         
     }
     
-}
-
-struct ContentView_Previews: PreviewProvider {
-    
-    static var previews: some View {
-        let viewModel = ProjectManagerViewModel()
-        ProjectManagerMainView()
-            .environmentObject(viewModel)
+    private func toggleSheetCondition() {
+        mainViewModel.toggleSheetCondition()
     }
     
 }
