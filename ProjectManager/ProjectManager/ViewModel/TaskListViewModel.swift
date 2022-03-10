@@ -16,7 +16,7 @@ final class TaskListViewModel: TaskViewModel {
     var taskDidChanged: ((Int, TaskState) -> Void)?
     var taskDidMoved: ((Int, TaskState, TaskState) -> Void)?
     var tasksDidUpdated: (() -> Void)?
-    var didSelectTask: ((Task) -> Void)?
+    var didSelectTask: ((Int, Task) -> Void)?
     
     private let taskManager: TaskMangeable
     private(set) var tasks = [Task]()
@@ -72,7 +72,7 @@ final class TaskListViewModel: TaskViewModel {
             return
         }
         
-        didSelectTask?(fetchedTask)
+        didSelectTask?(index, fetchedTask)
     }
     
     func count(of state: TaskState) -> Int {

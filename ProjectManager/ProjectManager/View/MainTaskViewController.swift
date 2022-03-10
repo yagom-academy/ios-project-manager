@@ -111,6 +111,18 @@ class MainTaskViewController: UIViewController {
                 self.taskInDoneTableView.reloadData()
             }
         }
+        
+        taskListViewModel.didSelectTask = { [weak self] (index, selectedTask) in
+            guard let self = self else {
+                return
+            }
+            
+            let taskManageViewController = TaskManageViewController(manageType: .detail, taskListViewModel: self.taskListViewModel, task: selectedTask, selectedIndex: index)
+            let taskManageNavigationViewController = UINavigationController(rootViewController: taskManageViewController)
+            taskManageNavigationViewController.modalPresentationStyle = .formSheet
+    
+            self.present(taskManageNavigationViewController, animated: true, completion: nil)
+        }
     }
     
     private func configureUI() {
@@ -208,21 +220,21 @@ class MainTaskViewController: UIViewController {
 
 extension MainTaskViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let taskTableView = tableView as? TaskTableView else {
+        guard let state = (tableView as? TaskTableView)?.state else {
             return .zero
         }
         
-        return taskListViewModel.count(of: taskTableView.state)
+        return taskListViewModel.count(of: state)
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withClass: TaskTableViewCell.self, for: indexPath)
-        guard let taskTableView = tableView as? TaskTableView,
-              let task = taskListViewModel.task(at: indexPath.row, from: taskTableView.state) else {
+        guard let state = (tableView as? TaskTableView)?.state,
+              let task = taskListViewModel.task(at: indexPath.row, from: state) else {
             return TaskTableViewCell()
         }
         
-        cell.configureCell(title: task.title, description: task.description, deadline: task.deadline, state: taskTableView.state)
+        cell.configureCell(title: task.title, description: task.description, deadline: task.deadline, state: state)
         
         return cell
     }
@@ -230,16 +242,11 @@ extension MainTaskViewController: UITableViewDataSource {
 
 extension MainTaskViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let state = (tableView as? TaskTableView)?.state,
-              let selectedTask = taskListViewModel.task(at: indexPath.row, from: state) else {
+        guard let state = (tableView as? TaskTableView)?.state else {
             return
         }
-                
-        let taskManageViewController = TaskManageViewController(manageType: .detail, taskListViewModel: taskListViewModel, task: selectedTask, selectedIndex: indexPath.row)
-        let taskManageNavigationViewController = UINavigationController(rootViewController: taskManageViewController)
-        taskManageNavigationViewController.modalPresentationStyle = .formSheet
         
-        self.present(taskManageNavigationViewController, animated: true, completion: nil)
+        taskListViewModel.didSelectRow(at: indexPath.row, from: state)        
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {

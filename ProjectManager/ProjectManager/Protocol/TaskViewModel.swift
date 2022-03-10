@@ -15,7 +15,7 @@ protocol TaskViewModel {
     var taskDidChanged: ((Int, TaskState) -> Void)? { get set }
     var taskDidMoved: ((Int, TaskState, TaskState) -> Void)? { get set }
     var tasksDidUpdated: (() -> Void)? { get set }
-    var didSelectTask: ((Task) -> Void)? { get set }
+    var didSelectTask: ((Int, Task) -> Void)? { get set }
     
     func didLoaded()
     func createTask(title: String, description: String, deadline: Date)
