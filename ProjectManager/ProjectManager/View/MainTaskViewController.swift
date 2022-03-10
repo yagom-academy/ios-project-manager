@@ -45,82 +45,64 @@ final class MainTaskViewController: UIViewController {
     
     private func configureTaskListViewModel() {
         taskListViewModel.tasksDidUpdated = { [weak self] in
-            guard let self = self else {
-                return
-            }
-            self.taskInWaitingTableView.reloadData()
-            self.taskInProgressTableView.reloadData()
-            self.taskInDoneTableView.reloadData()
+            self?.taskInWaitingTableView.reloadData()
+            self?.taskInProgressTableView.reloadData()
+            self?.taskInDoneTableView.reloadData()
         }
         
         taskListViewModel.taskDidCreated = { [weak self] in
-            guard let self = self else {
-                return
-            }
-            self.taskInWaitingTableView.reloadData()
+            self?.taskInWaitingTableView.reloadData()
         }
         
         taskListViewModel.taskDidDeleted = { [weak self] (index, state) in
-            guard let self = self else {
-                return
-            }
-            
             let indexPath = IndexPath(row: index, section: 0)
             switch state {
             case .waiting:
-                self.taskInWaitingTableView.deleteRows(at: [indexPath], with: .fade)
+                self?.taskInWaitingTableView.deleteRows(at: [indexPath], with: .fade)
             case .progress:
-                self.taskInProgressTableView.deleteRows(at: [indexPath], with: .fade)
+                self?.taskInProgressTableView.deleteRows(at: [indexPath], with: .fade)
             case .done:
-                self.taskInDoneTableView.deleteRows(at: [indexPath], with: .fade)
+                self?.taskInDoneTableView.deleteRows(at: [indexPath], with: .fade)
             }
-            self.refreshTaskTableHeader(state: state)
+            self?.refreshTaskTableHeader(state: state)
         }
         
         taskListViewModel.taskDidChanged = { [weak self] (index, state) in
-            guard let self = self else {
-                return
-            }
-            
             let indexPath = IndexPath(row: index, section: 0)
             
             switch state {
             case .waiting:
-                self.taskInWaitingTableView.reloadRows(at: [indexPath], with: .fade)
+                self?.taskInWaitingTableView.reloadRows(at: [indexPath], with: .fade)
             case .progress:
-                self.taskInProgressTableView.reloadRows(at: [indexPath], with: .fade)
+                self?.taskInProgressTableView.reloadRows(at: [indexPath], with: .fade)
             case .done:
-                self.taskInDoneTableView.reloadRows(at: [indexPath], with: .fade)
+                self?.taskInDoneTableView.reloadRows(at: [indexPath], with: .fade)
             }
-            self.refreshTaskTableHeader(state: state)
+            self?.refreshTaskTableHeader(state: state)
         }
         
         taskListViewModel.taskDidMoved = { [weak self] (index, oldState, newState) in
-            guard let self = self else {
-                return
-            }
-            
             let indexPath = IndexPath(row: index, section: 0)
             
             switch oldState {
             case .waiting:
-                self.taskInWaitingTableView.deleteRows(at: [indexPath], with: .fade)
+                self?.taskInWaitingTableView.deleteRows(at: [indexPath], with: .fade)
             case .progress:
-                self.taskInProgressTableView.deleteRows(at: [indexPath], with: .fade)
+                self?.taskInProgressTableView.deleteRows(at: [indexPath], with: .fade)
             case .done:
-                self.taskInDoneTableView.deleteRows(at: [indexPath], with: .fade)
+                self?.taskInDoneTableView.deleteRows(at: [indexPath], with: .fade)
             }
             
             switch newState {
             case .waiting:
-                self.taskInWaitingTableView.reloadData()
+                self?.taskInWaitingTableView.reloadData()
             case .progress:
-                self.taskInProgressTableView.reloadData()
+                self?.taskInProgressTableView.reloadData()
             case .done:
-                self.taskInDoneTableView.reloadData()
+                self?.taskInDoneTableView.reloadData()
             }
-            self.refreshTaskTableHeader(state: oldState)
-            self.refreshTaskTableHeader(state: newState)
+            self?.refreshTaskTableHeader(state: oldState)
+            self?.refreshTaskTableHeader(state: newState)
         }
         
         taskListViewModel.didSelectTask = { [weak self] (index, selectedTask) in
