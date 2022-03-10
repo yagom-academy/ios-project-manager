@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  ProjectManagerMainView.swift
 //  ProjectManager
 //
 //  Created by JeongTaek Han on 2022/02/28.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct ProjectManagerMainView: View {
     
     @EnvironmentObject private var viewModel: ProjectManagerViewModel
     @State private var isShowingSheet = false
@@ -45,7 +45,7 @@ struct ContentView_Previews: PreviewProvider {
     
     static var previews: some View {
         let viewModel = ProjectManagerViewModel()
-        ContentView()
+        ProjectManagerMainView()
             .environmentObject(viewModel)
     }
     
