@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18688D5227DA4160001A7C7A /* ProjectUITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18688D5127DA4160001A7C7A /* ProjectUITableViewCell.swift */; };
 		189DD4E427CDF7F700395CF4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 189DD4E327CDF7F700395CF4 /* GoogleService-Info.plist */; };
 		189DD4E727CDF93A00395CF4 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 189DD4E627CDF93A00395CF4 /* FirebaseFirestore */; };
 		189DD4E927CDF93A00395CF4 /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 189DD4E827CDF93A00395CF4 /* FirebaseFirestoreSwift-Beta */; };
@@ -37,6 +38,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		18688D5127DA4160001A7C7A /* ProjectUITableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectUITableViewCell.swift; sourceTree = "<group>"; };
 		189DD4E327CDF7F700395CF4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		189DD4F527D0FF7F00395CF4 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		189DD4F727D1010400395CF4 /* Listable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Listable.swift; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 			isa = PBXGroup;
 			children = (
 				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
+				18688D5127DA4160001A7C7A /* ProjectUITableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -313,6 +316,7 @@
 				189DD55327D571D100395CF4 /* ProjectManagerUseCase.swift in Sources */,
 				189DD57C27D6995900395CF4 /* Encodable + Extensions.swift in Sources */,
 				189DD58D27D6FF8400395CF4 /* CDProject+CoreDataClass.swift in Sources */,
+				18688D5227DA4160001A7C7A /* ProjectUITableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
