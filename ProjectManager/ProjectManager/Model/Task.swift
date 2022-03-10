@@ -1,6 +1,6 @@
 import Foundation
 
-final class Task: Codable, Equatable {
+final class Task: Codable {
     private(set) var id: UUID
     var title: String
     var body: String
@@ -14,7 +14,9 @@ final class Task: Codable, Equatable {
         self.dueDate = dueDate
         self.processStatus = processStatus
     }
-    
+}
+
+extension Task: Equatable {
     static func == (lhs: Task, rhs: Task) -> Bool {
         return lhs.id == rhs.id
                 && lhs.title == rhs.title
@@ -22,7 +24,9 @@ final class Task: Codable, Equatable {
                 && lhs.dueDate == rhs.dueDate
                 && lhs.processStatus == rhs.processStatus
     }
-    
+}
+
+extension Task {
     func changeId(to id: UUID) {
         self.id = id
     }

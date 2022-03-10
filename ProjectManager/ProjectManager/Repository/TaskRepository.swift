@@ -51,6 +51,7 @@ final class TaskRepository: TaskRepositoryProtocol {
             print(TaskManagerError.taskNotFound.description)
             return nil
         }
+        
         return index
     }
 }

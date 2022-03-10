@@ -68,16 +68,12 @@ final class TaskListViewModel: TaskListViewModelProtocol {
             print(TaskManagerError.updateNotFound.description)
             return
         }
-        
         guard let index = findIndex(of: task.processStatus, with: task.id) else {
             print(TaskManagerError.taskNotFound.description)
             return
         }
         
-        let oldTaskId = task.id
-        newTask.changeId(to: oldTaskId)
-        
-        // 이중 switch문 추상화 개선
+        newTask.changeId(to: task.id)
         switch task.processStatus {
         case .todo:
             todoTasksObservable?.value[index] = newTask
@@ -100,7 +96,6 @@ final class TaskListViewModel: TaskListViewModelProtocol {
         }
         
         var removedTask: Task?
-        
         switch taskObservableOfProcessStatus {
         case .todo:
             removedTask = todoTasksObservable?.value.remove(at: index)

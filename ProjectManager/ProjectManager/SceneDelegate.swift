@@ -17,13 +17,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let taskDetailController = storyboard.instantiateViewController(identifier: "Main") { coder in
-            let taskListViewModel = TaskListViewModel()
-            return TaskListViewController(coder: coder, taskListViewModel: taskListViewModel)
-        }
+        let taskListViewModel = TaskListViewModel()
+        let taskListViewController = ViewControllerFactory.createViewController(of: .taskList(viewModel: taskListViewModel))
         
-        window?.rootViewController = UINavigationController(rootViewController: taskDetailController)
+        window?.rootViewController = UINavigationController(rootViewController: taskListViewController)
         window?.makeKeyAndVisible()
     }
 

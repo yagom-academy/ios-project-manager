@@ -12,7 +12,7 @@
         <!--TODO-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController storyboardIdentifier="TaskDetailView" id="Y6W-OH-hqX" customClass="TaskDetailController" customModule="ProjectManager" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TaskDetail" id="Y6W-OH-hqX" customClass="TaskDetailController" customModule="ProjectManager" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="1194" height="834"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
