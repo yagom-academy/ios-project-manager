@@ -16,19 +16,9 @@ struct TaskFormContainerView: View {
     var body: some View {
         VStack(alignment: .center, spacing: 20.0) {
             TaskFormTitleFieldView(title: $title)
-            dueDatePicker
+            TaskFormDatePickerView(date: $date)
             descriptionEditor
         }
-    }
-    
-    private var dueDatePicker: some View {
-        DatePicker(
-            "",
-            selection: $date,
-            displayedComponents: [.date]
-        )
-            .datePickerStyle(.wheel)
-            .labelsHidden()
     }
     
     private var descriptionEditor: some View {
