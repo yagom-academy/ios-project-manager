@@ -10,12 +10,13 @@ final class TaskTableViewCell: UITableViewCell {
         dateLabel.textColor = .black
     }
     
-    func applyDate(with task: Task) {
-        titleLabel.text = task.title
-        bodyLabel.text = task.body
+    func applyDate(with task: Task?) {
+        titleLabel.text = task?.title
+        bodyLabel.text = task?.body
         
-        let date = DateFormatter.convertToString(from: task.dueDate)
-        dateLabel.text = date
+        if let dueDate = task?.dueDate {
+            let dateText = DateFormatter.convertToString(from: dueDate)
+            dateLabel.text = dateText
+        }
     }
-
 }

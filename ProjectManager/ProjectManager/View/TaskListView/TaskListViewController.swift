@@ -31,13 +31,13 @@ final class TaskListViewController: UIViewController {
     }
     
     private func setupBindings() {
-        taskListViewModel.todoTasksObservable.bind { [weak self] task in
+        taskListViewModel.todoTasksObservable?.bind { [weak self] task in
             self?.todoTableView.reloadData()
         }
-        taskListViewModel.doingTasksObservable.bind { [weak self] task in
+        taskListViewModel.doingTasksObservable?.bind { [weak self] task in
             self?.doingTableView.reloadData()
         }
-        taskListViewModel.doneTasksObservable.bind { [weak self] task in
+        taskListViewModel.doneTasksObservable?.bind { [weak self] task in
             self?.doneTableView.reloadData()
         }
     }
@@ -51,8 +51,7 @@ extension TaskListViewController {
             TaskDetailController(coder: coder, taskListViewModel: self.taskListViewModel)
         }
         taskDetailController.modalPresentationStyle = .popover
-        self.present(UINavigationController(rootViewController: taskDetailController), animated: true) {
-        }
+        self.present(UINavigationController(rootViewController: taskDetailController), animated: true)
     }
 }
 
@@ -77,11 +76,11 @@ extension TaskListViewController: UITableViewDataSource {
         
         switch tableView {
         case todoTableView:
-            cell.applyDate(with: taskListViewModel.todoTasksObservable.value[indexPath.row])
+            cell.applyDate(with: taskListViewModel.todoTasksObservable?.value[indexPath.row])
         case doingTableView:
-            cell.applyDate(with: taskListViewModel.doingTasksObservable.value[indexPath.row])
+            cell.applyDate(with: taskListViewModel.doingTasksObservable?.value[indexPath.row])
         case doneTableView:
-            cell.applyDate(with: taskListViewModel.doneTasksObservable.value[indexPath.row])
+            cell.applyDate(with: taskListViewModel.doneTasksObservable?.value[indexPath.row])
         default:
             print(TableViewError.invalidTableView.description)
         }
