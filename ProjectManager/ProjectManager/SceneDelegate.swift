@@ -9,10 +9,19 @@ import SwiftUI
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
+    private let mockTasks: [Task] = [
+        Task(title: "긴 제목 긴 제목 긴 제목 긴 제목 긴 제목 긴 제목 긴 제목 긴 제목", body: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.", dueDate: Date()),
+        Task(title: "1달 전 할일", body: "1줄\n2줄\n3줄", dueDate: Date(timeIntervalSinceNow: -86400 * 30)),
+        Task(title: "10일 전 할일", body: "1줄\n2줄", dueDate: Date(timeIntervalSinceNow: -86400 * 10)),
+        Task(title: "하루 전 할일", body: "1줄\n2줄\n3줄", dueDate: Date(timeIntervalSinceNow: -86400)),
+        Task(title: "하루 후 할일", body: "1줄\n2줄\n3줄", dueDate: Date(timeIntervalSinceNow: 86400)),
+        Task(title: "10일 후 할일", body: "1줄", dueDate: Date(timeIntervalSinceNow: 86400 * 10)),
+        Task(title: "1달 후 할일", body: "1줄\n2줄\n3줄\n4줄", dueDate: Date(timeIntervalSinceNow: 86400 * 30))
+    ]
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        let hostingVC = UIHostingController(rootView: MainView())
+        let hostingVC = UIHostingController(rootView: MainView(taskManager: TaskManager(tasks: mockTasks)))
         window = UIWindow(windowScene: windowScene)
         window?.rootViewController = hostingVC
         window?.makeKeyAndVisible()
