@@ -6,9 +6,9 @@ final class WorkFormViewModel {
     
     private let workMemoryManager = WorkMemoryManager()
     
-    let todoList: BehaviorSubject<[Work]>?
-    let doingList: BehaviorSubject<[Work]>?
-    let doneList: BehaviorSubject<[Work]>?
+    private let todoList: BehaviorSubject<[Work]>?
+    private let doingList: BehaviorSubject<[Work]>?
+    private let doneList: BehaviorSubject<[Work]>?
     
     init(todoList: BehaviorSubject<[Work]>, doingList: BehaviorSubject<[Work]>, doneList: BehaviorSubject<[Work]>) {
         self.todoList = todoList

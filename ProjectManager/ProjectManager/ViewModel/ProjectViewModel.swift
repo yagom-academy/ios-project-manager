@@ -11,9 +11,15 @@ final class ProjectViewModel {
     let doingList = BehaviorSubject<[Work]>(value: [])
     let doneList = BehaviorSubject<[Work]>(value: [])
     
-    lazy var todoCount = todoList.map { $0.count }
-    lazy var doingCount = doingList.map { $0.count }
-    lazy var doneCount = doneList.map { $0.count }
+    var todoCount: Observable<Int> {
+        todoList.map { $0.count }
+    }
+    var doingCount: Observable<Int> {
+        doingList.map { $0.count }
+    }
+    var doneCount: Observable<Int> {
+        doneList.map { $0.count }
+    }
     
     init() {
         todoList.onNext(workMemoryManager.todoList)
