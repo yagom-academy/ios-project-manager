@@ -11,6 +11,13 @@ final class ProjectManagerViewModel: ObservableObject {
     
     @Published private var model = TaskMemoryManager(tasks: projectTasks)
     
+    private let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.locale = Locale.current
+        return formatter
+    }()
+    
     var todoTasks: [Task] {
         model.todoTasks
     }
@@ -32,6 +39,10 @@ final class ProjectManagerViewModel: ObservableObject {
         case .done:
             return doneTasks
         }
+    }
+    
+    func formatDueDate(of task: Task) -> String {
+        return dateFormatter.string(from: task.dueDate)
     }
     
     func create(title: String, description: String, dueDate: Date) {

@@ -11,33 +11,11 @@ struct TaskListRowView: View {
     
     let task: Task
     
-    static let dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        formatter.locale = Locale.current
-        return formatter
-    }()
-    
     var body: some View {
         VStack(alignment: .leading) {
             TaskListRowTitleView(task: task)
             TaskListRowDescriptionView(task: task)
-            dueDate
-        }
-    }
-    
-    private var dueDate: some View {
-        let dateView = Text(Self.dateFormatter.string(from: task.dueDate))
-        let validDate = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
-        
-        if task.dueDate < validDate, task.status != .done {
-            return dateView
-                .foregroundColor(.red)
-                .font(.subheadline)
-        } else {
-            return dateView
-                .foregroundColor(.primary)
-                .font(.subheadline)
+            TaskListRowDateView(task: task)
         }
     }
     
