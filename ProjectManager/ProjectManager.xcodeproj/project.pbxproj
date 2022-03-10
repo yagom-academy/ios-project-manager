@@ -23,6 +23,7 @@
 		C105643C27CCF9CB0018ACFE /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = C105643B27CCF9CB0018ACFE /* .swiftlint.yml */; };
 		C1232DD027DA18CA007EE147 /* TaskFormTitleFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1232DCF27DA18C9007EE147 /* TaskFormTitleFieldView.swift */; };
 		C1232DD227DA19CA007EE147 /* TaskFormDatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1232DD127DA19CA007EE147 /* TaskFormDatePickerView.swift */; };
+		C1232DD427DA1AA1007EE147 /* TaskFormDescriptionEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1232DD327DA1AA1007EE147 /* TaskFormDescriptionEditorView.swift */; };
 		C12BF48727D9DF7100211C11 /* TaskListTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12BF48627D9DF7100211C11 /* TaskListTitleView.swift */; };
 		C12BF48927D9E3C700211C11 /* TaskListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12BF48827D9E3C700211C11 /* TaskListView.swift */; };
 		C12BF48B27D9E52400211C11 /* TaskListContextMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12BF48A27D9E52400211C11 /* TaskListContextMenuView.swift */; };
@@ -68,6 +69,7 @@
 		C105643B27CCF9CB0018ACFE /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		C1232DCF27DA18C9007EE147 /* TaskFormTitleFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskFormTitleFieldView.swift; sourceTree = "<group>"; };
 		C1232DD127DA19CA007EE147 /* TaskFormDatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskFormDatePickerView.swift; sourceTree = "<group>"; };
+		C1232DD327DA1AA1007EE147 /* TaskFormDescriptionEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskFormDescriptionEditorView.swift; sourceTree = "<group>"; };
 		C12BF48627D9DF7100211C11 /* TaskListTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListTitleView.swift; sourceTree = "<group>"; };
 		C12BF48827D9E3C700211C11 /* TaskListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListView.swift; sourceTree = "<group>"; };
 		C12BF48A27D9E52400211C11 /* TaskListContextMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListContextMenuView.swift; sourceTree = "<group>"; };
@@ -235,6 +237,7 @@
 		C7431EF925F51E1D0094C4CF = {
 			isa = PBXGroup;
 			children = (
+				C1232DD327DA1AA1007EE147 /* TaskFormDescriptionEditorView.swift */,
 				C105643B27CCF9CB0018ACFE /* .swiftlint.yml */,
 				C7431F0425F51E1D0094C4CF /* ProjectManager */,
 				C139EF9D27CE5DF7001079B6 /* ProjectManagerTests */,
@@ -436,6 +439,7 @@
 				C1232DD027DA18CA007EE147 /* TaskFormTitleFieldView.swift in Sources */,
 				C12BF48E27D9ED5400211C11 /* TaskListRowTitleView.swift in Sources */,
 				C12BF48927D9E3C700211C11 /* TaskListView.swift in Sources */,
+				C1232DD427DA1AA1007EE147 /* TaskFormDescriptionEditorView.swift in Sources */,
 				C139EF9427CE46EC001079B6 /* TaskMemoryManager.swift in Sources */,
 				C1E42BF527D7EE0500700BB4 /* Utilities+UIKit.swift in Sources */,
 				C12BF48727D9DF7100211C11 /* TaskListTitleView.swift in Sources */,

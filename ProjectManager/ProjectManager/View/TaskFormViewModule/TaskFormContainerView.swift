@@ -17,13 +17,8 @@ struct TaskFormContainerView: View {
         VStack(alignment: .center, spacing: 20.0) {
             TaskFormTitleFieldView(title: $title)
             TaskFormDatePickerView(date: $date)
-            descriptionEditor
+            TaskFormDescriptionEditorView(description: $description)
         }
-    }
-    
-    private var descriptionEditor: some View {
-        TextEditor(text: $description)
-            .shadow(radius: 5)
     }
     
 }
