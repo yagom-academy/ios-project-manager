@@ -3,14 +3,12 @@ import Foundation
 
 protocol WorkManagable {
     
-    associatedtype StorageType
+    var todoList: [Work] { get }
+    var doingList: [Work] { get }
+    var doneList: [Work] { get }
     
-    var todoList: [StorageType] { get }
-    var doingList: [StorageType] { get }
-    var doneList: [StorageType] { get }
-    
-    func create(_ data: StorageType)
-    func delete(_ data: StorageType) throws
-    func update(_ data: StorageType, title: String?, body: String?, date: Date?)
+    func create(_ data: Work)
+    func delete(_ data: Work) throws
+    func update(_ data: Work, title: String?, body: String?, date: Date?)
     
 }
