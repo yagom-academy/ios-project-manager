@@ -11,7 +11,6 @@ final class TaskListViewModel: TaskViewModel {
     // MARK: - Output
     var presentErrorAlert: ((Error) -> Void)?
     var taskDidCreated: (() -> Void)?
-//    var taskDidFetched: ((Task) -> Void)?
     var taskDidDeleted: ((Int, TaskState) -> Void)?
     var taskDidChanged: ((Int, TaskState) -> Void)?
     var taskDidMoved: ((Int, TaskState, TaskState) -> Void)?

@@ -12,11 +12,23 @@ extension UITableView {
         register(T.self, forCellReuseIdentifier: String(describing: name))
     }
     
+    func register<T: UITableViewHeaderFooterView>(headerFooterWithClass name: T.Type) {
+        register(T.self, forHeaderFooterViewReuseIdentifier: String(describing: name))
+    }
+    
     func dequeueReusableCell<T: UITableViewCell>(withClass name: T.Type, for indexPath: IndexPath) -> T {
         guard let cell = dequeueReusableCell(withIdentifier: String(describing: name), for: indexPath) as? T else {
             fatalError("cell dequeue failed")
         }
         
         return cell
+    }
+    
+    func dequeueReusableHeaderFooterView<T: UITableViewHeaderFooterView>(withClass name: T.Type) -> T {
+        guard let headerFooterView = dequeueReusableHeaderFooterView(withIdentifier: String(describing: name)) as? T else {
+            fatalError("Header/Footer dequeue failed")
+        }
+        
+        return headerFooterView
     }
 }

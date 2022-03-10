@@ -10,7 +10,6 @@ import Foundation
 protocol TaskViewModel {
     var presentErrorAlert: ((Error) -> Void)? { get set }
     var taskDidCreated: (() -> Void)? { get set }
-//    var taskDidFetched: ((Task) -> Void)? { get set }
     var taskDidDeleted: ((Int, TaskState) -> Void)? { get set }
     var taskDidChanged: ((Int, TaskState) -> Void)? { get set }
     var taskDidMoved: ((Int, TaskState, TaskState) -> Void)? { get set }

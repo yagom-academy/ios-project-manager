@@ -12,6 +12,17 @@ enum TaskState {
     case progress
     case done
     
+    var title: String {
+        switch self {
+        case .waiting:
+            return "TODO"
+        case .progress:
+            return "DOING"
+        case .done:
+            return "DONE"
+        }
+    }
+    
     var relocation: String {
         switch self {
         case .waiting:

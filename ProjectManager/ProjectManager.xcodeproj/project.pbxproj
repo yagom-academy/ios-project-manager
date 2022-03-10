@@ -13,6 +13,7 @@
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
 		C9ACBFBB27D5D52000935ECC /* MockTaskMemoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9ACBFBA27D5D52000935ECC /* MockTaskMemoryRepository.swift */; };
+		C9BB798127D9CB66005F0D81 /* TaskTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BB798027D9CB66005F0D81 /* TaskTableHeaderView.swift */; };
 		C9C2613727CDE08A002FA9F4 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = C9C2613627CDE08A002FA9F4 /* FirebaseFirestore */; };
 		C9C2613E27CDE1F6002FA9F4 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = C9C2613D27CDE1F6002FA9F4 /* RxCocoa */; };
 		C9C2614027CDE1F6002FA9F4 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C9C2613F27CDE1F6002FA9F4 /* RxSwift */; };
@@ -54,6 +55,7 @@
 		C7431F1125F51E1E0094C4CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9ACBFBA27D5D52000935ECC /* MockTaskMemoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTaskMemoryRepository.swift; sourceTree = "<group>"; };
+		C9BB798027D9CB66005F0D81 /* TaskTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableHeaderView.swift; sourceTree = "<group>"; };
 		C9C2614227CDE4CB002FA9F4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C9C2614427CDE68C002FA9F4 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		C9C2614927CE1E08002FA9F4 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
@@ -217,6 +219,7 @@
 			children = (
 				C9ECBF2527D889BC00E49ED4 /* Cell */,
 				C9ECBF2827D88DBD00E49ED4 /* TaskTableView.swift */,
+				C9BB798027D9CB66005F0D81 /* TaskTableHeaderView.swift */,
 				C7431F0925F51E1D0094C4CF /* MainTaskViewController.swift */,
 				C9ECBF2C27D8A9F900E49ED4 /* TaskManageViewController.swift */,
 			);
@@ -373,6 +376,7 @@
 				C9C2615027CF3ED0002FA9F4 /* TaskViewModel.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C9C2615827CF5EF5002FA9F4 /* TaskMemoryRepository.swift in Sources */,
+				C9BB798127D9CB66005F0D81 /* TaskTableHeaderView.swift in Sources */,
 				C9C2615A27CF5FF7002FA9F4 /* TaskMangeable.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				C9C2615527CF5C69002FA9F4 /* TaskRepository.swift in Sources */,

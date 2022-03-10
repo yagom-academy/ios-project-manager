@@ -58,7 +58,6 @@ class MainTaskViewController: UIViewController {
             }
             
             let indexPath = IndexPath(row: index, section: 0)
-            
             switch state {
             case .waiting:
                 self.taskInWaitingTableView.deleteRows(at: [indexPath], with: .fade)
@@ -67,6 +66,7 @@ class MainTaskViewController: UIViewController {
             case .done:
                 self.taskInDoneTableView.deleteRows(at: [indexPath], with: .fade)
             }
+            self.refreshTaskTableHeader(state: state)
         }
         
         taskListViewModel.taskDidChanged = { [weak self] (index, state) in
@@ -84,6 +84,7 @@ class MainTaskViewController: UIViewController {
             case .done:
                 self.taskInDoneTableView.reloadRows(at: [indexPath], with: .fade)
             }
+            self.refreshTaskTableHeader(state: state)
         }
         
         taskListViewModel.taskDidMoved = { [weak self] (index, oldState, newState) in
@@ -110,6 +111,8 @@ class MainTaskViewController: UIViewController {
             case .done:
                 self.taskInDoneTableView.reloadData()
             }
+            self.refreshTaskTableHeader(state: oldState)
+            self.refreshTaskTableHeader(state: newState)
         }
         
         taskListViewModel.didSelectTask = { [weak self] (index, selectedTask) in
@@ -123,6 +126,22 @@ class MainTaskViewController: UIViewController {
     
             self.present(taskManageNavigationViewController, animated: true, completion: nil)
         }
+    }
+    
+    private func refreshTaskTableHeader(state: TaskState) {
+        var taskTableView: TaskTableView!
+        switch state {
+        case .waiting:
+            taskTableView = taskInWaitingTableView
+        case .progress:
+            taskTableView = taskInProgressTableView
+        case .done:
+            taskTableView = taskInDoneTableView
+        }
+        
+        let taskCount = taskListViewModel.count(of: state)
+        let taskTableHeaderView = taskTableView.headerView(forSection: 0) as? TaskTableHeaderView
+        taskTableHeaderView?.configUI(state: state, count: taskCount)
     }
     
     private func configureUI() {
@@ -237,6 +256,18 @@ extension MainTaskViewController: UITableViewDataSource {
         cell.configureCell(title: task.title, description: task.description, deadline: task.deadline, state: state)
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = tableView.dequeueReusableHeaderFooterView(withClass: TaskTableHeaderView.self)
+        
+        guard let state = (tableView as? TaskTableView)?.state else {
+            return TaskTableHeaderView()
+        }
+        
+        let taskCounts = taskListViewModel.count(of: state)
+        headerView.configUI(state: state, count: taskCounts)
+        return headerView
     }
 }
 

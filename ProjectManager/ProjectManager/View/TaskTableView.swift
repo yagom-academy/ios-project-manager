@@ -15,6 +15,7 @@ class TaskTableView: UITableView {
         super.init(frame: .zero, style: .grouped)
         backgroundColor = .systemGray5
         self.register(cellWithClass: TaskTableViewCell.self)
+        self.register(headerFooterWithClass: TaskTableHeaderView.self)
     }
     
     required init?(coder: NSCoder) {
