@@ -6,7 +6,7 @@
 
 import UIKit
 
-class MainViewController: UIViewController, ScenePresentable {
+class MainController: UIViewController, ScenePresentable {
 
 // MARK: - Properties
 
@@ -46,8 +46,8 @@ class MainViewController: UIViewController, ScenePresentable {
 
 // MARK: - Modal View Controller
 
-    var editViewController: EditViewController = {
-        let controller = EditViewController()
+    var editViewController: EditController = {
+        let controller = EditController()
         controller.modalPresentationStyle = .formSheet
         controller.modalTransitionStyle = .crossDissolve
 
@@ -323,13 +323,13 @@ class MainViewController: UIViewController, ScenePresentable {
 
 // MARK: - Edit View Controller Delegate Methods
 
-extension MainViewController: EditEventAvailable {
+extension MainController: EditEventAvailable {
 
-    func editViewControllerDidCancel(_ editViewController: EditViewController) {
+    func editViewControllerDidCancel(_ editViewController: EditController) {
         editViewController.dismiss(animated: true, completion: nil)
     }
 
-    func editViewControllerDidFinish(_ editViewController: EditViewController) {
+    func editViewControllerDidFinish(_ editViewController: EditController) {
         self.todoTableView.reloadTodoList()
         self.doingTableView.reloadTodoList()
         self.doneTableView.reloadTodoList()

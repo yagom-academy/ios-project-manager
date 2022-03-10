@@ -9,7 +9,7 @@ import UIKit
 
 protocol ScenePresentable where Self: UIViewController {
 
-    var editViewController: EditViewController { get }
+    var editViewController: EditController { get }
 
     func presentDeleteAlert(indexPath: IndexPath, in tableView: MainTableView)
     func presentNavigationController()
