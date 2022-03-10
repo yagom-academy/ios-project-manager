@@ -10,10 +10,9 @@ import SwiftUI
 struct ProjectManagerMainView: View {
     
     @EnvironmentObject private var viewModel: ProjectManagerViewModel
-    @StateObject private var mainViewModel = ProjectManagerMainViewModel()
+    @StateObject private var sheetViewModel = TaskSheetViewModel()
     
     var body: some View {
-        
         NavigationView {
             HStack {
                 ForEach(TaskStatus.allCases) { status in
@@ -27,18 +26,17 @@ struct ProjectManagerMainView: View {
                     Button(action: toggleSheetCondition) {
                         Image(systemName: "plus")
                     }
-                    .sheet(isPresented: $mainViewModel.isShowSheet, onDismiss: nil) {
-                        TaskFormCreateSheetView(mainViewModel: mainViewModel)
+                    .sheet(isPresented: $sheetViewModel.isShowSheet, onDismiss: nil) {
+                        TaskFormCreateSheetView(sheetViewModel: sheetViewModel)
                     }
                 }
             }
         }
         .navigationViewStyle(.stack)
-        
     }
     
     private func toggleSheetCondition() {
-        mainViewModel.toggleSheetCondition()
+        sheetViewModel.toggleSheetCondition()
     }
     
 }

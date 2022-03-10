@@ -12,12 +12,12 @@ struct TaskListContainerView: View {
     let taskType: TaskStatus
     
     @EnvironmentObject private var viewModel: ProjectManagerViewModel
-    @State private var isShowSheet = false
+    @StateObject private var sheetViewModel = TaskSheetViewModel()
     
     var body: some View {
         VStack(alignment: .leading) {
             TaskListTitleView(taskType: taskType)
-            TaskListView(taskType: taskType, isShowSheet: $isShowSheet)
+            TaskListView(taskType: taskType, sheetViewModel: sheetViewModel)
         }
     }
     

@@ -10,21 +10,18 @@ import SwiftUI
 struct TaskFormCreateSheetView: View {
     
     @EnvironmentObject private var viewModel: ProjectManagerViewModel
-    @ObservedObject var mainViewModel: ProjectManagerMainViewModel
-    
-    @State private var title = String()
-    @State private var date = Date()
-    @State private var description = String()
+    @ObservedObject var sheetViewModel: TaskSheetViewModel
+    @StateObject var createViewModel = TaskFormViewModel()
     
     var body: some View {
         NavigationView {
-            TaskFormContainerView(title: $title, date: $date, description: $description)
+            TaskFormContainerView(formViewModel: createViewModel)
                 .padding()
                 .navigationTitle("TODO")
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
-                        Button(action: mainViewModel.toggleSheetCondition) {
+                        Button(action: sheetViewModel.toggleSheetCondition) {
                             Text("Cancel")
                         }
                     }
@@ -39,14 +36,14 @@ struct TaskFormCreateSheetView: View {
     
     private func createButtonClicked() {
         createTask()
-        mainViewModel.toggleSheetCondition()
+        sheetViewModel.toggleSheetCondition()
     }
     
     private func createTask() {
         viewModel.create(
-            title: title,
-            description: description,
-            dueDate: date
+            title: createViewModel.title,
+            description: createViewModel.description,
+            dueDate: createViewModel.date
         )
     }
     

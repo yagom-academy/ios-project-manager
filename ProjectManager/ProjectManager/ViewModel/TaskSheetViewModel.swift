@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class ProjectManagerMainViewModel: ObservableObject {
+final class TaskSheetViewModel: ObservableObject {
     
     @Published var isShowSheet = false
     

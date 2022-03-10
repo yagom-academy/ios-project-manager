@@ -12,27 +12,20 @@ struct TaskFormDetailSheetView: View {
     let task: Task
     
     @EnvironmentObject private var viewModel: ProjectManagerViewModel
-    @Binding var isShowSheet: Bool
+    @ObservedObject private var detailViewModel: TaskFormViewModel
+    @ObservedObject var sheetViewModel: TaskSheetViewModel
     
-    @State private var title: String
-    @State private var date: Date
-    @State private var description: String
-    
-    @State private var isEditingMode = false
-    
-    init(task: Task, isShowSheet: Binding<Bool>) {
-        _isShowSheet = isShowSheet
-        _title = State(initialValue: task.title)
-        _date = State(initialValue: task.dueDate)
-        _description = State(initialValue: task.description)
+    init(task: Task, sheetViewModel: TaskSheetViewModel) {
+        detailViewModel = TaskFormViewModel(task: task)
+        self.sheetViewModel = sheetViewModel
         self.task = task
     }
     
     var body: some View {
         NavigationView {
-            TaskFormContainerView(title: $title, date: $date, description: $description)
+            TaskFormContainerView(formViewModel: detailViewModel)
                 .padding()
-                .disabled(!isEditingMode)
+                .disabled(detailViewModel.isReadOnlyMode)
                 .navigationTitle("TODO")
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
@@ -48,45 +41,32 @@ struct TaskFormDetailSheetView: View {
                     }
                 }
         }
-        
     }
     
     private func toolbarTrailingButtonClicked() {
-        if isEditingMode {
+        if detailViewModel.isEditingMode {
             updateTask()
         }
-        toggleSheetCondition()
+        sheetViewModel.toggleSheetCondition()
     }
     
     private func toolbarLeadingButtonClicked() {
-        if isEditingMode {
-            resetForm()
+        detailViewModel.changeEditingMode(with: task) {
             UIApplication.shared.endEditing()
         }
-        toggleSheetCondition()
     }
     
     private var toolbarButtonText: String {
-        isEditingMode ? "Cancel" : "Edit"
-    }
-    
-    private func resetForm() {
-        title = task.title
-        date = task.dueDate
-        description = task.description
+        detailViewModel.isEditingMode ? "Cancel" : "Edit"
     }
     
     private func updateTask() {
         viewModel.update(
             task,
-            title: $title.wrappedValue,
-            description: $description.wrappedValue,
-            dueDate: $date.wrappedValue
+            title: detailViewModel.title,
+            description: detailViewModel.description,
+            dueDate: detailViewModel.date
         )
-    }
-    
-    private func toggleSheetCondition() {
-        isShowSheet.toggle()
     }
     
 }

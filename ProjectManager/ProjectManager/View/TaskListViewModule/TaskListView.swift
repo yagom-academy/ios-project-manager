@@ -12,18 +12,18 @@ struct TaskListView: View {
     let taskType: TaskStatus
     
     @EnvironmentObject private var viewModel: ProjectManagerViewModel
-    @Binding var isShowSheet: Bool
+    @ObservedObject var sheetViewModel: TaskSheetViewModel
     
     var body: some View {
         List {
             ForEach(tasks) { task in
-                Button(action: toggleSheetCondition) {
+                Button(action: sheetViewModel.toggleSheetCondition) {
                     TaskListRowView(task: task)
                         .contextMenu {
                             TaskListContextMenuView(task: task)
                         }
-                        .sheet(isPresented: $isShowSheet, onDismiss: nil) {
-                            TaskFormDetailSheetView(task: task, isShowSheet: $isShowSheet)
+                        .sheet(isPresented: $sheetViewModel.isShowSheet, onDismiss: nil) {
+                            TaskFormDetailSheetView(task: task, sheetViewModel: sheetViewModel)
                         }
                 }
             }
@@ -35,10 +35,6 @@ struct TaskListView: View {
     
     private var tasks: [Task] {
         viewModel.findTasks(of: taskType)
-    }
-    
-    private func toggleSheetCondition() {
-        isShowSheet.toggle()
     }
     
 }

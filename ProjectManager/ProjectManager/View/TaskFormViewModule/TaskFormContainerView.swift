@@ -9,15 +9,13 @@ import SwiftUI
 
 struct TaskFormContainerView: View {
     
-    @Binding var title: String
-    @Binding var date: Date
-    @Binding var description: String
+    @ObservedObject var formViewModel: TaskFormViewModel
     
     var body: some View {
         VStack(alignment: .center, spacing: 20.0) {
-            TaskFormTitleFieldView(title: $title)
-            TaskFormDatePickerView(date: $date)
-            TaskFormDescriptionEditorView(description: $description)
+            TaskFormTitleFieldView(title: $formViewModel.title)
+            TaskFormDatePickerView(date: $formViewModel.date)
+            TaskFormDescriptionEditorView(description: $formViewModel.description)
         }
     }
     
