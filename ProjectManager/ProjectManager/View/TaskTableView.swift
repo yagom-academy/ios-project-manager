@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TaskTableView: UITableView {
+final class TaskTableView: UITableView {
     var state: TaskState
     
     init(state: TaskState) {

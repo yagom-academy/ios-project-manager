@@ -26,7 +26,7 @@ private enum Design {
     static let bottomMargin: CGFloat = -10
 }
 
-class TaskTableViewCell: UITableViewCell {
+final class TaskTableViewCell: UITableViewCell {
     let taskStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.spacing = 5

@@ -15,7 +15,7 @@ private enum Design {
     static let titleBottomMargin: CGFloat = -10
 }
 
-class TaskTableHeaderView: UITableViewHeaderFooterView {
+final class TaskTableHeaderView: UITableViewHeaderFooterView {
     let headerStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.spacing = 10

@@ -29,7 +29,7 @@ enum ManageType {
     }
 }
 
-class TaskManageViewController: UIViewController {
+final class TaskManageViewController: UIViewController {
     let taskStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical

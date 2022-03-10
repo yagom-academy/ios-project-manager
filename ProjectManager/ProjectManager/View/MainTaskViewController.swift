@@ -6,7 +6,7 @@
 
 import UIKit
 
-class MainTaskViewController: UIViewController {
+final class MainTaskViewController: UIViewController {
     let taskTableStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -44,7 +44,15 @@ class MainTaskViewController: UIViewController {
     }
     
     private func configureTaskListViewModel() {
-        // TODO: - ViewModel 셋업
+        taskListViewModel.tasksDidUpdated = { [weak self] in
+            guard let self = self else {
+                return
+            }
+            self.taskInWaitingTableView.reloadData()
+            self.taskInProgressTableView.reloadData()
+            self.taskInDoneTableView.reloadData()
+        }
+        
         taskListViewModel.taskDidCreated = { [weak self] in
             guard let self = self else {
                 return
