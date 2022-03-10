@@ -18,6 +18,7 @@ class MainViewController: UIViewController {
         stackView.axis = .vertical
         toDoHeader.heightAnchor.constraint(equalToConstant: 55).isActive = true
         stackView.distribution = .fill
+        toDoTableView.backgroundColor = .secondarySystemBackground
         
         return stackView
     }()
@@ -27,6 +28,7 @@ class MainViewController: UIViewController {
         stackView.axis = .vertical
         doingHeader.heightAnchor.constraint(equalToConstant: 55).isActive = true
         stackView.distribution = .fill
+        doingTableView.backgroundColor = .secondarySystemBackground
         
         return stackView
     }()
@@ -36,6 +38,7 @@ class MainViewController: UIViewController {
         stackView.axis = .vertical
         doneHeader.heightAnchor.constraint(equalToConstant: 55).isActive = true
         stackView.distribution = .fill
+        doneTableView.backgroundColor = .secondarySystemBackground
         
         return stackView
     }()
