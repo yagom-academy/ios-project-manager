@@ -51,7 +51,7 @@ class TaskManagerTests: XCTestCase {
     }
     
     func test_task_상태_변경하기() {
-        taskManager.changeState(at: 0, to: .done)
+        taskManager.changeState(at: 0, from: .waiting, to: .done)
 
         let updatedTask = mockTaskMemoryRepository.updatedTask[0]
         XCTAssertEqual(updatedTask.state, .done)
