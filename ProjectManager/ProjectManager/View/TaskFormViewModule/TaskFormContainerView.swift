@@ -15,15 +15,10 @@ struct TaskFormContainerView: View {
     
     var body: some View {
         VStack(alignment: .center, spacing: 20.0) {
-            titleField
+            TaskFormTitleFieldView(title: $title)
             dueDatePicker
             descriptionEditor
         }
-    }
-    
-    private var titleField: some View {
-        TextField("Title", text: $title)
-            .border(.gray)
     }
     
     private var dueDatePicker: some View {
