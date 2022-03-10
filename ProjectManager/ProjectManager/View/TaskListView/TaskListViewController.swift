@@ -107,16 +107,11 @@ extension TaskListViewController: UITableViewDelegate {
 extension TaskListViewController {
     // TODO: Custom HeaderView 추가
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch tableView {
-        case todoTableView:
-            return taskListViewModel.titleForHeaderInSection(forTableOf: .todo)
-        case doingTableView:
-            return taskListViewModel.titleForHeaderInSection(forTableOf: .doing)
-        case doneTableView:
-            return taskListViewModel.titleForHeaderInSection(forTableOf: .done)
-        default:
-            print(TableViewError.invalidTableView.description)
+        guard let tableView = tableView as? TaskTableView else {
+            print(TableViewError.invalidTableView)
             return ""
         }
+        
+        return taskListViewModel.titleForHeaderInSection(for: tableView)
     }
 }

@@ -10,7 +10,7 @@ protocol TaskListViewModelProtocol {
     func update(task: Task, to newTask: Task)
     
     func numberOfRowsInSection(for tableView: TaskTableView) -> Int
-    func titleForHeaderInSection(forTableOf processStatus: ProcessStatus) -> String
+    func titleForHeaderInSection(for tableView: TaskTableView) -> String
     func edit(task: Task, newTitle: String, newBody: String, newDueDate: Date)
     func edit(task: Task, newProcessStatus: ProcessStatus)
 }
@@ -154,8 +154,8 @@ final class TaskListViewModel: TaskListViewModelProtocol {
         }
     }
     
-    func titleForHeaderInSection(forTableOf processStatus: ProcessStatus) -> String {
-        switch processStatus {
+    func titleForHeaderInSection(for tableView: TaskTableView) -> String {
+        switch tableView.processStatus {
         case .todo:
             guard let taskCount = todoTasksObservable?.value.count else {
                 print(TaskManagerError.taskNotFound)
@@ -167,13 +167,16 @@ final class TaskListViewModel: TaskListViewModelProtocol {
                 print(TaskManagerError.taskNotFound)
                 return ""
             }
-            return "\(ProcessStatus.todo.description) \(taskCount)"
+            return "\(ProcessStatus.doing.description) \(taskCount)"
         case .done:
             guard let taskCount = doneTasksObservable?.value.count else {
                 print(TaskManagerError.taskNotFound)
                 return ""
             }
-            return "\(ProcessStatus.todo.description) \(taskCount)"
+            return "\(ProcessStatus.done.description) \(taskCount)"
+        case .none:
+            print(TableViewError.invalidTableView)
+            return ""
         }
     }
     

@@ -1,7 +1,7 @@
 import Foundation
 
 final class Task: Codable, Equatable {
-    var id: UUID
+    private(set) var id: UUID
     var title: String
     var body: String
     var dueDate: Date
