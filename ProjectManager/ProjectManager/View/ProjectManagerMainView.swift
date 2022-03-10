@@ -10,7 +10,7 @@ import SwiftUI
 struct ProjectManagerMainView: View {
     
     @EnvironmentObject private var viewModel: ProjectManagerViewModel
-    @State private var isShowingSheet = false
+    @State private var isShowSheet = false
     
     var body: some View {
         
@@ -25,12 +25,12 @@ struct ProjectManagerMainView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                        isShowingSheet.toggle()
+                        isShowSheet.toggle()
                     }) {
                         Image(systemName: "plus")
                     }
-                    .sheet(isPresented: $isShowingSheet, onDismiss: nil) {
-                        TaskCreateView(isShowingSheet: $isShowingSheet)
+                    .sheet(isPresented: $isShowSheet, onDismiss: nil) {
+                        TaskCreateView(isShowSheet: $isShowSheet)
                     }
                 }
             }

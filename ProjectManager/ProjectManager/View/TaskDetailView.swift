@@ -12,7 +12,7 @@ struct TaskDetailView: View {
     let task: Task
     
     @EnvironmentObject private var viewModel: ProjectManagerViewModel
-    @Binding var isShowingSheet: Bool
+    @Binding var isShowSheet: Bool
     
     @State private var title: String
     @State private var date: Date
@@ -20,8 +20,8 @@ struct TaskDetailView: View {
     
     @State private var isEditingMode = false
     
-    init(task: Task, isShowingSheet: Binding<Bool>) {
-        _isShowingSheet = isShowingSheet
+    init(task: Task, isShowSheet: Binding<Bool>) {
+        _isShowSheet = isShowSheet
         _title = State(initialValue: task.title)
         _date = State(initialValue: task.dueDate)
         _description = State(initialValue: task.description)
@@ -65,7 +65,7 @@ struct TaskDetailView: View {
                                     dueDate: $date.wrappedValue
                                 )
                             }
-                            isShowingSheet = false
+                            isShowSheet = false
                         }) {
                             Text("Done")
                         }

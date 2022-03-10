@@ -10,7 +10,7 @@ import SwiftUI
 struct TaskCreateView: View {
     
     @EnvironmentObject private var viewModel: ProjectManagerViewModel
-    @Binding var isShowingSheet: Bool
+    @Binding var isShowSheet: Bool
     
     @State private var title = String()
     @State private var date = Date()
@@ -27,7 +27,7 @@ struct TaskCreateView: View {
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
                         Button(action: {
-                            isShowingSheet.toggle()
+                            isShowSheet.toggle()
                         }) {
                             Text("Cancel")
                         }
@@ -39,7 +39,7 @@ struct TaskCreateView: View {
                                 description: taskForm.description,
                                 dueDate: taskForm.date
                             )
-                            isShowingSheet.toggle()
+                            isShowSheet.toggle()
                         }) {
                             Text("Done")
                         }

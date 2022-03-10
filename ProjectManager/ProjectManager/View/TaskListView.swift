@@ -13,7 +13,7 @@ struct TaskListView: View {
     let taskType: TaskStatus
     
     @EnvironmentObject private var viewModel: ProjectManagerViewModel
-    @State private var isShowingSheet = false
+    @State private var isShowSheet = false
     
     private var tasks: [Task] {
         switch taskType {
@@ -51,16 +51,16 @@ struct TaskListView: View {
         List {
             ForEach(tasks) { task in
                 Button(action: {
-                    self.isShowingSheet.toggle()
+                    self.isShowSheet.toggle()
                 }) {
                     TaskRowView(task: task)
                         .contextMenu {
                             contextMenuView(task, taskType)
                         }
-                        .sheet(isPresented: $isShowingSheet, onDismiss: nil) {
+                        .sheet(isPresented: $isShowSheet, onDismiss: nil) {
                             TaskDetailView(
                                 task: task,
-                                isShowingSheet: $isShowingSheet
+                                isShowSheet: $isShowSheet
                             )
                         }
                 }
