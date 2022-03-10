@@ -45,6 +45,16 @@ final class ProjectManagerViewModel: ObservableObject {
         return dateFormatter.string(from: task.dueDate)
     }
     
+    func isValid(task: Task) -> Bool {
+        let calendar = Calendar.current
+        let today = Date()
+        guard let yesterday = calendar.date(
+            byAdding: .day, value: -1, to: today) else {
+            return false
+        }
+        return task.dueDate < yesterday && task.status != .done
+    }
+    
     func create(title: String, description: String, dueDate: Date) {
         let newTask = Task(
             id: UUID(),

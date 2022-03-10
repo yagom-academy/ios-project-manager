@@ -15,9 +15,8 @@ struct TaskListRowDateView: View {
     
     var body: some View {
         let dateView = Text(dueDate)
-        let validDate = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
         
-        if task.dueDate < validDate, task.status != .done {
+        if taskValidCondition {
             return dateView
                 .foregroundColor(.red)
                 .font(.subheadline)
@@ -26,6 +25,10 @@ struct TaskListRowDateView: View {
                 .foregroundColor(.primary)
                 .font(.subheadline)
         }
+    }
+    
+    private var taskValidCondition: Bool {
+        viewModel.isValid(task: task)
     }
     
     private var dueDate: String {
