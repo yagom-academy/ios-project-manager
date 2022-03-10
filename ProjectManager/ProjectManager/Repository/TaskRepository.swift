@@ -33,15 +33,24 @@ final class TaskRepository: TaskRepositoryProtocol {
     }
     
     func delete(task: Task) {
-        guard let index = entireTasks.firstIndex(where: { $0.id == task.id }) else {
-            print(TaskManagerError.taskNotFound)
-            return
+        if let index = findIndex(with: task.id) {
+            entireTasks.remove(at: index)
         }
-        entireTasks.remove(at: index)
     }
     
     func update(task: Task, to newTask: Task) {
-        delete(task: task)
-        create(task: newTask)
+        if let index = findIndex(with: task.id) {
+            let oldTaskId = task.id
+            newTask.changeId(to: oldTaskId)
+            entireTasks[index] = newTask
+        }
+    }
+    
+    func findIndex(with id: UUID) -> Int? {
+        guard let index = entireTasks.firstIndex(where: { $0.id == id }) else {
+            print(TaskManagerError.taskNotFound.description)
+            return nil
+        }
+        return index
     }
 }

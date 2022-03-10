@@ -1,7 +1,7 @@
 import Foundation
 
 final class Task: Codable, Equatable {
-    let id: UUID
+    var id: UUID
     var title: String
     var body: String
     var dueDate: Date
@@ -21,5 +21,9 @@ final class Task: Codable, Equatable {
                 && lhs.body == rhs.body
                 && lhs.dueDate == rhs.dueDate
                 && lhs.processStatus == rhs.processStatus
+    }
+    
+    func changeId(to id: UUID) {
+        self.id = id
     }
 }

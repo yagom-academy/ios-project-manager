@@ -47,33 +47,77 @@ final class TaskListViewModel: TaskListViewModelProtocol {
     func delete(task: Task) {
         switch task.processStatus {
         case .todo:
-            guard let index = todoTasksObservable?.value.firstIndex(where: { $0.id == task.id }) else {
-                print(TaskManagerError.taskNotFound)
-                return
+            if let index = findIndex(of: .todo, with: task.id) {
+                todoTasksObservable?.value.remove(at: index)
             }
-            todoTasksObservable?.value.remove(at: index)
         case .doing:
-            guard let index = doingTasksObservable?.value.firstIndex(where: { $0.id == task.id }) else {
-                print(TaskManagerError.taskNotFound)
-                return
+            if let index = findIndex(of: .doing, with: task.id) {
+                doingTasksObservable?.value.remove(at: index)
             }
-            doingTasksObservable?.value.remove(at: index)
         case .done:
-            guard let index = doneTasksObservable?.value.firstIndex(where: { $0.id == task.id }) else {
-                print(TaskManagerError.taskNotFound)
-                return
+            if let index = findIndex(of: .done, with: task.id) {
+                doneTasksObservable?.value.remove(at: index)
             }
-            doneTasksObservable?.value.remove(at: index)
         }
         
         taskRepository?.delete(task: task)
     }
     
     func update(task: Task, to newTask: Task) {
-        delete(task: task)
-        create(task: newTask)
+        guard task != newTask else {
+            print(TaskManagerError.updateNotFound.description)
+            return
+        }
         
+        guard let index = findIndex(of: task.processStatus, with: task.id) else {
+            print(TaskManagerError.taskNotFound.description)
+            return
+        }
+        let oldTaskId = task.id
+        newTask.changeId(to: oldTaskId)
+        todoTasksObservable?.value[index] = newTask
+
+        // 이중 switch문 추상화 개선
+        if task.processStatus != newTask.processStatus {
+            moveTask(at: index, in: todoTasksObservable, to: newTask.processStatus)
+        }
+
         taskRepository?.update(task: task, to: newTask)
+    }
+    
+    func moveTask(at index: Int, in taskObservable: MockObservable<[Task]>?, to taskObservableOfNewProcessStatus: ProcessStatus) {
+        guard let removedTask = taskObservable?.value.remove(at: index) else {
+            print(TaskManagerError.taskNotFound)
+            return
+        }
+        
+        switch taskObservableOfNewProcessStatus {
+        case .todo:
+            todoTasksObservable?.value.append(removedTask)
+        case .doing:
+            doingTasksObservable?.value.append(removedTask)
+        case .done:
+            doneTasksObservable?.value.append(removedTask)
+        }
+    }
+    
+    func findIndex(of taskObservableOfProcessStatus: ProcessStatus, with id: UUID) -> Int? {
+        switch taskObservableOfProcessStatus {
+        case .todo:
+            if let index = todoTasksObservable?.value.firstIndex(where: { $0.id == id }) {
+                return index
+            }
+        case .doing:
+            if let index = doingTasksObservable?.value.firstIndex(where: { $0.id == id }) {
+                return index
+            }
+        case .done:
+            if let index = doneTasksObservable?.value.firstIndex(where: { $0.id == id }) {
+                return index
+            }
+        }
+        
+        return nil
     }
     
     // MARK: - TaskListView

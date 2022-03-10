@@ -8,7 +8,7 @@ class ProjectManagerTests: XCTestCase {
         let task1 = Task(title: "1", body: "1", dueDate: Date())
         taskListViewModel.create(task: task1)
         
-        XCTAssertEqual(taskListViewModel.todoTasksObservable.value,
+        XCTAssertEqual(taskListViewModel.todoTasksObservable?.value,
                        [task1])
         XCTAssertEqual(taskRepository.todoTasks,
                        [task1])
@@ -24,7 +24,7 @@ class ProjectManagerTests: XCTestCase {
         let task3 = Task(title: "3", body: "3", dueDate: Date())
         taskListViewModel.create(task: task3)
         
-        XCTAssertEqual(taskListViewModel.todoTasksObservable.value,
+        XCTAssertEqual(taskListViewModel.todoTasksObservable?.value,
                        [task1, task2, task3])
         XCTAssertEqual(taskRepository.todoTasks,
                        [task1, task2, task3])
@@ -36,11 +36,11 @@ class ProjectManagerTests: XCTestCase {
         
         let taskRepository = TaskRepository(entireTasks: [task1, task2])
         let taskListViewModel = TaskListViewModel(taskRepository: taskRepository)
-        taskListViewModel.todoTasksObservable.value = [task1, task2]
+        taskListViewModel.todoTasksObservable?.value = [task1, task2]
         
         taskListViewModel.delete(task: task2)
         
-        XCTAssertEqual(taskListViewModel.todoTasksObservable.value,
+        XCTAssertEqual(taskListViewModel.todoTasksObservable?.value,
                        [task1])
         XCTAssertEqual(taskRepository.todoTasks,
                        [task1])
@@ -52,17 +52,17 @@ class ProjectManagerTests: XCTestCase {
         
         let taskRepository = TaskRepository(entireTasks: [task1, task2])
         let taskListViewModel = TaskListViewModel(taskRepository: taskRepository)
-        taskListViewModel.todoTasksObservable.value = [task1, task2]
+        taskListViewModel.todoTasksObservable?.value = [task1, task2]
         
         let newTask = Task(title: "changed", body: task2.body, dueDate: task2.dueDate, processStatus: task2.processStatus)
         taskListViewModel.update(task: task2, to: newTask)
         
-        XCTAssertEqual(taskListViewModel.todoTasksObservable.value[1].title,
+        XCTAssertEqual(taskListViewModel.todoTasksObservable?.value[1].title,
                        "changed")
         XCTAssertEqual(taskRepository.todoTasks[1].title,
                        "changed")
         
-        XCTAssertEqual(taskListViewModel.todoTasksObservable.value,
+        XCTAssertEqual(taskListViewModel.todoTasksObservable?.value,
                        [task1, task2])
         XCTAssertEqual(taskRepository.todoTasks,
                        [task1, task2])
@@ -74,24 +74,24 @@ class ProjectManagerTests: XCTestCase {
         
         let taskRepository = TaskRepository(entireTasks: [task1, task2])
         let taskListViewModel = TaskListViewModel(taskRepository: taskRepository)
-        taskListViewModel.todoTasksObservable.value = [task1, task2]
+        taskListViewModel.todoTasksObservable?.value = [task1, task2]
         
         taskListViewModel.edit(task: task2, newProcessStatus: .done) // todo -> done
         
-        XCTAssertEqual(taskListViewModel.todoTasksObservable.value[0],
+        XCTAssertEqual(taskListViewModel.todoTasksObservable?.value[0],
                        task1)
         XCTAssertEqual(taskRepository.todoTasks[0],
                        task1)
-        XCTAssertEqual(taskListViewModel.todoTasksObservable.value.count,
+        XCTAssertEqual(taskListViewModel.todoTasksObservable?.value.count,
                        1)
         XCTAssertEqual(taskRepository.todoTasks.count,
                        1)
 
-        XCTAssertEqual(taskListViewModel.doneTasksObservable.value[0],
+        XCTAssertEqual(taskListViewModel.doneTasksObservable?.value[0],
                        task2)
         XCTAssertEqual(taskRepository.doneTasks[0],
                        task2)   
-        XCTAssertEqual(taskListViewModel.doneTasksObservable.value,
+        XCTAssertEqual(taskListViewModel.doneTasksObservable?.value,
                        [task2])
         XCTAssertEqual(taskRepository.doneTasks,
                        [task2])
@@ -103,16 +103,16 @@ class ProjectManagerTests: XCTestCase {
         
         let taskRepository = TaskRepository(entireTasks: [task1, task2])
         let taskListViewModel = TaskListViewModel(taskRepository: taskRepository)
-        taskListViewModel.todoTasksObservable.value = [task1, task2]
+        taskListViewModel.todoTasksObservable?.value = [task1, task2]
         
         taskListViewModel.edit(task: task2, newTitle: "changed", newBody: task2.body, newDueDate: task2.dueDate)
         
-        XCTAssertEqual(taskListViewModel.todoTasksObservable.value[1].title,
+        XCTAssertEqual(taskListViewModel.todoTasksObservable?.value[1].title,
                        "changed")
         XCTAssertEqual(taskRepository.todoTasks[1].title,
                        "changed")
         
-        XCTAssertEqual(taskListViewModel.todoTasksObservable.value,
+        XCTAssertEqual(taskListViewModel.todoTasksObservable?.value,
                        [task1, task2])
         XCTAssertEqual(taskRepository.todoTasks,
                        [task1, task2])
