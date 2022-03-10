@@ -17,18 +17,13 @@ struct TaskListView: View {
     var body: some View {
         List {
             ForEach(tasks) { task in
-                Button(action: {
-                    self.isShowSheet.toggle()
-                }) {
+                Button(action: toggleSheetCondition) {
                     TaskRowView(task: task)
                         .contextMenu {
                             TaskListContextMenuView(task: task)
                         }
                         .sheet(isPresented: $isShowSheet, onDismiss: nil) {
-                            TaskDetailView(
-                                task: task,
-                                isShowSheet: $isShowSheet
-                            )
+                            TaskDetailView(task: task, isShowSheet: $isShowSheet)
                         }
                 }
             }
@@ -40,6 +35,10 @@ struct TaskListView: View {
     
     private var tasks: [Task] {
         viewModel.findTasks(of: taskType)
+    }
+    
+    private func toggleSheetCondition() {
+        isShowSheet.toggle()
     }
     
 }

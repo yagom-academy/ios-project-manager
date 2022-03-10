@@ -160,9 +160,9 @@
 			isa = PBXGroup;
 			children = (
 				C13F86E327D73524004070AE /* TaskListContainerView.swift */,
+				C12BF48627D9DF7100211C11 /* TaskListTitleView.swift */,
 				C12BF48827D9E3C700211C11 /* TaskListView.swift */,
 				C12BF48A27D9E52400211C11 /* TaskListContextMenuView.swift */,
-				C12BF48627D9DF7100211C11 /* TaskListTitleView.swift */,
 			);
 			path = TaskListViewModule;
 			sourceTree = "<group>";
