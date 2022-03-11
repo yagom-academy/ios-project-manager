@@ -1,0 +1,13 @@
+disabled_rules: # 실행에서 제외할 룰 식별자들
+  - trailing_whitespace
+  - private_over_fileprivate
+  - empty_enum_arguments
+  - line_length
+  
+included: # 린트 과정에 포함할 파일 경로. 이 항목이 존재하면 `--path`는 무시됨
+  - ProjectManager
+  
+excluded: # 린트 과정에서 무시할 파일 경로. `included`보다 우선순위 높음
+  #- Pods #설치한 Pod 파일 내부는 린트를 하지 않도록 설정
+  - ProjectManager/AppDelegate.swift
+  - ProjectManager/SceneDelegate.swift
