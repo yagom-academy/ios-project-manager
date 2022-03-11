@@ -55,6 +55,18 @@ class MainViewController: UIViewController {
         return stackView
     }()
     
+    private lazy var deselectCell = {
+        if let toDoIndex = self.toDoTableView.indexPathForSelectedRow {
+            self.toDoTableView.deselectRow(at: toDoIndex, animated: true)
+        }
+        if let doingIndex = self.doingTableView.indexPathForSelectedRow {
+            self.doingTableView.deselectRow(at: doingIndex, animated: true)
+        }
+        if let doneIndex = self.doneTableView.indexPathForSelectedRow {
+            self.doneTableView.deselectRow(at: doneIndex, animated: true)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
@@ -111,8 +123,8 @@ extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let viewController = EditProjectViewController()
         viewController.modalPresentationStyle = .formSheet
+        viewController.actionAfterDismiss = deselectCell
         present(viewController, animated: true, completion: nil)
-        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {

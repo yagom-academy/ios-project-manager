@@ -10,6 +10,8 @@ class EditProjectViewController: UIViewController {
         return navigationBar
     }()
 
+    var actionAfterDismiss = {}
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
@@ -48,5 +50,6 @@ class EditProjectViewController: UIViewController {
     
     @objc private func dismissView() {
         dismiss(animated: true)
+        actionAfterDismiss()
     }
 }

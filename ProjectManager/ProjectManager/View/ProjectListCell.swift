@@ -1,6 +1,13 @@
 import UIKit
 
 class ProjectListCell: UITableViewCell {
+    private let containerView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return view
+    }()
+    
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .title3)
@@ -12,7 +19,6 @@ class ProjectListCell: UITableViewCell {
     
     private let previewLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .secondaryLabel
         label.font = .preferredFont(forTextStyle: .callout)
         label.numberOfLines = 3
         label.lineBreakMode = .byTruncatingTail
@@ -33,6 +39,7 @@ class ProjectListCell: UITableViewCell {
         let stackView = UIStackView(arrangedSubviews: [titleLabel, previewLabel, dateLabel])
         stackView.axis = .vertical
         stackView.alignment = .leading
+        stackView.distribution = .fillProportionally
         stackView.spacing = 10
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -49,23 +56,19 @@ class ProjectListCell: UITableViewCell {
         commonInit()
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0))
-    }
-    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         if selected {
-            contentView.layer.cornerRadius = 10
-            contentView.backgroundColor = .systemBlue
+            containerView.layer.cornerRadius = 10
+            containerView.backgroundColor = .systemBlue
             titleLabel.textColor = .white
             previewLabel.textColor = .white
             dateLabel.textColor = .white
         } else {
-            contentView.backgroundColor = .systemBackground
+            containerView.layer.cornerRadius = 0
+            containerView.backgroundColor = .systemBackground
             titleLabel.textColor = .label
-            previewLabel.textColor = .systemGray
+            previewLabel.textColor = .secondaryLabel
             dateLabel.textColor = .label
         }
     }
@@ -80,27 +83,28 @@ class ProjectListCell: UITableViewCell {
         contentView.addSubview(labelStackView)
         setupBackgroundColor()
         setupLabelStackViewLayout()
-        configureSelectedBackgroundView()
     }
     
     private func setupBackgroundColor() {
-        backgroundColor = .secondarySystemBackground
-        contentView.backgroundColor = .systemBackground
+        contentView.backgroundColor = .secondarySystemBackground
     }
     
     private func setupLabelStackViewLayout() {
+        contentView.addSubview(containerView)
+        containerView.addSubview(labelStackView)
+        
         NSLayoutConstraint.activate([
-            labelStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            labelStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
-            labelStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-            labelStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10)
+            containerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
         ])
-    }
-    
-    private func configureSelectedBackgroundView() {
-        let backgroundView = UIView()
-        backgroundView.layer.cornerRadius = 10
-        backgroundView.backgroundColor = .secondarySystemBackground
-        selectedBackgroundView = backgroundView
+        
+        NSLayoutConstraint.activate([
+            labelStackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 10),
+            labelStackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -10),
+            labelStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 10),
+            labelStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -10)
+        ])
     }
 }
