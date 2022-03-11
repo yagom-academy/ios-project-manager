@@ -7,10 +7,12 @@ final class ProjectListViewModel {
     private var allProjects: [Project] = []
     private(set) var projectList: [[Project]] = [[], [], []]
     private let useCase: ProjectListUseCase
+    private let coordinator: MainCoordinator?
     private let disposeBag = DisposeBag()
     
-    init(useCase: ProjectListUseCase = DefaultProjectListUseCase()) {
+    init(useCase: ProjectListUseCase = DefaultProjectListUseCase(), coordinator: MainCoordinator) {
         self.useCase = useCase
+        self.coordinator = coordinator
     }
     
     struct Input {
@@ -40,12 +42,13 @@ final class ProjectListViewModel {
             }
         }).disposed(by: disposeBag)
         
-        input.didTapProjectCell
-            .forEach({ observable in
+        input.didTapProjectCell.enumerated()
+            .forEach({ column, observable in
                 observable
-                    .subscribe(onNext: { index in
+                    .subscribe(onNext: { row in
                         print("프로젝트 상세화면으로 이동")
-//                        self.useCase.update(<#T##item: Project?##Project?#>)
+                        let project = self.projectList[column][row]
+                        self.coordinator?.presentDetailViewController(project, useCase: self.useCase, mode: .read)
                     }).disposed(by: disposeBag)
             })
         

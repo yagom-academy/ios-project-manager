@@ -14,7 +14,7 @@ class MainViewController: UIViewController {
         return longPressGesture
     }
     
-    let viewModel = ProjectListViewModel()
+    var viewModel: ProjectListViewModel?
     private let bag = DisposeBag()
 
     override func viewDidLoad() {
@@ -59,7 +59,7 @@ class MainViewController: UIViewController {
                             return nil
                         }
                         if longPressGesture.state == .began,
-                           let indexPath = tableView.indexPathForRow(at: longPressGesture.location(in: tableView)){
+                           let indexPath = tableView.indexPathForRow(at: longPressGesture.location(in: tableView)) {
                                 return try tableView.rx.model(at: indexPath)
                         }
                         return nil
@@ -67,9 +67,9 @@ class MainViewController: UIViewController {
             },
             didSwapeToTapDeleteButton: tableViews.map { $0.rx.modelDeleted(Project.self).asObservable() }
         )
-        let output = viewModel.transform(input: input)
+        let output = viewModel?.transform(input: input)
         
-        output.projectList.enumerated().forEach { index, observable in
+        output?.projectList.enumerated().forEach { index, observable in
             let tableView = self.tableViews[index]
             observable.asDriver(onErrorJustReturn: [])
                 .drive(
@@ -94,17 +94,17 @@ extension MainViewController: UITableViewDelegate {
         case todoTableView:
             headerView.configure(
                 title: ProjectState.todo.rawValue,
-                count: viewModel.projectList[ProjectState.todo.index].count
+                count: viewModel?.projectList[ProjectState.todo.index].count ?? 0
             )
         case doingTableView:
             headerView.configure(
                 title: ProjectState.doing.rawValue,
-                count: viewModel.projectList[ProjectState.doing.index].count
+                count: viewModel?.projectList[ProjectState.doing.index].count ?? 0
             )
         case doneTableView:
             headerView.configure(
                 title: ProjectState.done.rawValue,
-                count: viewModel.projectList[ProjectState.done.index].count
+                count: viewModel?.projectList[ProjectState.done.index].count ?? 0
             )
         default:
             break
