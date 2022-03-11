@@ -42,12 +42,10 @@ protocol TaskViewModelable {
 
 final class TaskViewModel: TaskViewModelable {
     private var useCase: TaskUseCase
-    lazy var taskLists: [TaskList] = [
-        TaskList(title: "test",
-                 items: [Task(title: "task title",
-                              dueDate: formatDate(Date()),
-                              lastModifiedDate: formatDate(Date()))])
-    ]
+    lazy var taskLists: [TaskList] = [TaskList(title: "test",
+                                               items: [Task(title: "task title",
+                                                            dueDate: formatDate(Date()),
+                                                            lastModifiedDate: formatDate(Date()))])]
 
     private let formatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -74,9 +72,9 @@ final class TaskViewModel: TaskViewModelable {
     }
 
     private func updateList() {
-//        useCase.read { [weak self] tasks in
-//            self?.taskLists = tasks
-//        }
+        //        useCase.read { [weak self] tasks in
+        //            self?.taskLists = tasks
+        //        }
     }
 
     func create(with title: String) {

@@ -193,7 +193,7 @@
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="17q-Xf-knK">
                                             <connections>
-                                                <action selector="doneButtonDidTap:" destination="edw-6f-98c" id="IKa-4N-Yot"/>
+                                                <action selector="doneButtonDidTap:" destination="edw-6f-98c" id="xCb-Ra-7ma"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
