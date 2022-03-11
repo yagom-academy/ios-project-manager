@@ -35,6 +35,9 @@ class ProjectDetailViewController: UIViewController {
         textField.font = .preferredFont(forTextStyle: .body, compatibleWith: nil)
         textField.placeholder = "Title"
         textField.isEnabled = false
+        textField.layer.shadowOffset = CGSize(width: 3, height: 3)
+        textField.layer.shadowOpacity = 0.3
+        textField.layer.shadowRadius = 3
         return textField
     }()
     
@@ -54,17 +57,29 @@ class ProjectDetailViewController: UIViewController {
         return datePicker
     }()
     
+    private var descriptionTextViewContainer: UIView = {
+        let view = UIView(frame: .zero)
+        view.layer.shadowOffset = CGSize(width: 3, height: 3)
+        view.layer.shadowOpacity = 0.3
+        view.layer.shadowRadius = 3
+        view.layer.masksToBounds = false
+        return view
+    }()
+    
     private var descriptionTextView: UITextView = {
         let textView = UITextView(frame: .zero)
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.backgroundColor = .systemGray6
         textView.font = .preferredFont(forTextStyle: .body)
         textView.isEditable = false
+        textView.textContainerInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+        textView.layer.masksToBounds = true
         return textView
     }()
     
     private lazy var stackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [titleTextField, datePicker, descriptionTextView])
+        let stackView = UIStackView(arrangedSubviews:
+                                        [titleTextField, datePicker, descriptionTextViewContainer])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.alignment = .fill
@@ -109,11 +124,19 @@ class ProjectDetailViewController: UIViewController {
     }
     
     private func configureStackViewLayout() {
+        self.descriptionTextViewContainer.addSubview(descriptionTextView)
         self.view.addSubview(stackView)
         let safeArea = self.view.safeAreaLayoutGuide
+        
         NSLayoutConstraint.activate([
-            descriptionTextView.topAnchor.constraint(equalTo: datePicker.bottomAnchor),
-            descriptionTextView.bottomAnchor.constraint(equalTo: stackView.bottomAnchor)
+            descriptionTextView.topAnchor.constraint(equalTo: descriptionTextViewContainer.topAnchor),
+            descriptionTextView.bottomAnchor.constraint(equalTo: descriptionTextViewContainer.bottomAnchor),
+            descriptionTextView.leadingAnchor.constraint(equalTo: descriptionTextViewContainer.leadingAnchor),
+            descriptionTextView.trailingAnchor.constraint(equalTo: descriptionTextViewContainer.trailingAnchor)
+        ])
+        NSLayoutConstraint.activate([
+            descriptionTextViewContainer.topAnchor.constraint(equalTo: datePicker.bottomAnchor),
+            descriptionTextViewContainer.bottomAnchor.constraint(equalTo: stackView.bottomAnchor)
         ])
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: 15),
