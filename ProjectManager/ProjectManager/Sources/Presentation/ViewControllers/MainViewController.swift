@@ -8,6 +8,12 @@ class MainViewController: UIViewController {
     @IBOutlet private weak var doneTableView: UITableView!
     @IBOutlet private var tableViews: [UITableView]!
     @IBOutlet private weak var addButton: UIBarButtonItem!
+    private let longPressGesture: [UILongPressGestureRecognizer] = ProjectState.allCases.map { _ in
+        let longPressGesture = UILongPressGestureRecognizer()
+        longPressGesture.minimumPressDuration = 0.5
+        return longPressGesture
+    }
+    
     let viewModel = ProjectListViewModel()
     private let bag = DisposeBag()
 
@@ -18,32 +24,61 @@ class MainViewController: UIViewController {
     
     private func configure() {
         navigationItem.title = "Project Manager"
-        configureTableView()
+        setUpTableView()
+        setUpBindings()
     }
     
-    private func configureTableView() {
-        tableViews.forEach { tableView in
-            tableView.dataSource = self
+    @objc func handleLongPress(longPressGesture: UILongPressGestureRecognizer) {
+        print(#function)
+        if longPressGesture.state == .began {
+            let tableView = (longPressGesture.view as? UITableView)
+            _ = tableView.flatMap { longPressGesture.location(in: $0) }
+            .flatMap { tableView?.indexPathForRow(at: $0) }
+        }
+    }
+    
+    private func setUpTableView() {
+        tableViews.enumerated().forEach { index, tableView in
             tableView.delegate = self
-            let cellNib = UINib(nibName: "ProjectCell", bundle: .main)
-            tableView.register(cellNib, forCellReuseIdentifier: "projectCell")
-            let headerNib = UINib(nibName: "ProjectHeader", bundle: .main)
-            tableView.register(headerNib, forHeaderFooterViewReuseIdentifier: "projectHeader")
-            tableView.sectionHeaderHeight = 1
+            tableView.addGestureRecognizer(self.longPressGesture[index])
+            let cellNib = UINib(nibName: ProjectCell.nibName, bundle: .main)
+            tableView.register(cellNib, forCellReuseIdentifier: ProjectCell.identifier)
+            let headerNib = UINib(nibName: ProjectHeader.nibName, bundle: .main)
+            tableView.register(headerNib, forHeaderFooterViewReuseIdentifier: ProjectHeader.identifier)
         }
-    }
-}
-
-extension MainViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "projectCell", for: indexPath) as? ProjectCell else {
-            return UITableViewCell()
+    func setUpBindings() {
+        let input = ProjectListViewModel.Input(
+            didTapProjectCell: tableViews.map { $0.rx.itemSelected.map { $0.row } },
+            didTapAddButton: addButton.rx.tap.asObservable(),
+            didTapPopoverButton: longPressGesture.map {
+                $0.rx.event
+                    .map { (longPressGesture: UIGestureRecognizer) -> Project? in
+                        guard let tableView = longPressGesture.view as? UITableView else {
+                            return nil
+                        }
+                        if longPressGesture.state == .began,
+                           let indexPath = tableView.indexPathForRow(at: longPressGesture.location(in: tableView)){
+                                return try tableView.rx.model(at: indexPath)
+                        }
+                        return nil
+                    }.asObservable()
+            },
+            didSwapeToTapDeleteButton: tableViews.map { $0.rx.modelDeleted(Project.self).asObservable() }
+        )
+        let output = viewModel.transform(input: input)
+        
+        output.projectList.enumerated().forEach { index, observable in
+            let tableView = self.tableViews[index]
+            observable.asDriver(onErrorJustReturn: [])
+                .drive(
+                    tableView.rx.items(cellIdentifier: ProjectCell.identifier, cellType: ProjectCell.self)
+                ) { _, project, cell in
+                    cell.configure(project)
+            }
+            .disposed(by: bag)
         }
-        return cell
     }
 }
 
@@ -79,5 +114,9 @@ extension MainViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 45
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
