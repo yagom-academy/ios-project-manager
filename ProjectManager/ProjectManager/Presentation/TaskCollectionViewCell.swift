@@ -6,14 +6,14 @@ class TaskCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var TaskListCountImageView: UIImageView!
 
     weak var parentViewController: TaskCollectionViewController?
-    private var taskList: TaskListEntity?
+    private var taskList: TaskList?
 
     override func layoutSubviews() {
         super.layoutSubviews()
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 12, right: 0))
     }
 
-    func configure(with data: TaskListEntity) {
+    func configure(with data: TaskList) {
         self.taskList = data
         tableView.reloadData()
     }
@@ -34,7 +34,12 @@ extension TaskCollectionViewCell: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: "cell",
                 for: indexPath) as? TaskTableViewCell else { return UITableViewCell() }
-        cell.titleLabel?.text = "\(String(describing: taskList?.items[indexPath.row]))"
-        return cell
+        if let task = taskList?.items[indexPath.row] {
+            cell.titleLabel?.text = task.title
+            cell.bodyLabel?.text = task.body
+            cell.dateLabel?.text = task.dueDate
+            return cell
+        }
+        return UITableViewCell()
     }
 }

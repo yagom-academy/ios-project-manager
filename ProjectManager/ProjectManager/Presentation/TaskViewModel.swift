@@ -1,7 +1,35 @@
 import Foundation
 
+class TaskList: Identifiable {
+    var id: String
+    var title: String
+    var items: [Task]
+
+    init(title: String, items: [Task] = []) {
+        self.id = UUID().uuidString
+        self.title = title
+        self.items = items
+    }
+}
+
+class Task: Identifiable {
+    var id: String
+    var title: String
+    var body: String
+    var dueDate: String
+    var lastModifiedDate: String
+
+    init(title: String, dueDate: String, lastModifiedDate: String, body: String = "") {
+        self.id = UUID().uuidString
+        self.title = title
+        self.body = body
+        self.dueDate = dueDate
+        self.lastModifiedDate = lastModifiedDate
+    }
+}
+
 protocol TaskViewModelable {
-    var taskLists: [TaskListEntity] { get set }
+    var taskLists: [TaskList] { get set }
 
     func countTaskList() -> Int
     func didLoaded()
@@ -14,13 +42,27 @@ protocol TaskViewModelable {
 
 final class TaskViewModel: TaskViewModelable {
     private var useCase: TaskUseCase
-    var taskLists: [TaskListEntity] = [
-        TaskListEntity(title: "test", items: [TaskEntity(title: "task", dueDate: Date())])
-        ]
+    lazy var taskLists: [TaskList] = [
+        TaskList(title: "test",
+                 items: [Task(title: "task title",
+                              dueDate: formatDate(Date()),
+                              lastModifiedDate: formatDate(Date()))])
+    ]
+
+    private let formatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.setLocalizedDateFormatFromTemplate("yyyy MM dd")
+        formatter.locale = NSLocale.current
+        return formatter
+    }()
 
     init(useCase: TaskUseCase) {
         self.useCase = useCase
         didLoaded()
+    }
+
+    func formatDate(_ date: Date) -> String {
+        return formatter.string(from: date)
     }
 
     func countTaskList() -> Int {

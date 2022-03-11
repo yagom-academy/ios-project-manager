@@ -21,7 +21,7 @@ class TaskCollectionViewController: UICollectionViewController {
         alertController.addTextField(configurationHandler: nil)
         alertController.addAction(UIAlertAction(title: "Add", style: .default, handler: { _ in
             guard let titleName = alertController.textFields?.first?.text, titleName.isNotEmpty else { return }
-            self.viewModel?.taskLists.append(TaskListEntity(title: titleName))
+            self.viewModel?.taskLists.append(TaskList(title: titleName))
 
             let lastIndexOfTaskList = (self.viewModel?.countTaskList() ?? .zero) - 1
             let lastIndexPath = IndexPath(item: lastIndexOfTaskList, section: 0)
