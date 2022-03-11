@@ -17,7 +17,7 @@ final class MainViewModel {
 
     private let bag = DisposeBag()
     let useCase: ScheduleUseCase
-
+    private let indexPath = BehaviorRelay<IndexPath>(value: IndexPath(item: 0, section: 0))
     // MARK: - Initializer
 
     init(coordinator: MainViewCoordinator, useCase: ScheduleUseCase) {
@@ -27,6 +27,7 @@ final class MainViewModel {
 
     struct Input {
         let viewWillAppear: Observable<Void>
+        let tableViewLongPressed: [Observable<Schedule?>]
         let cellDidTap: [Observable<Schedule>]
         let cellDelete: [Observable<UUID>]
         let addButtonDidTap: Observable<Void>
@@ -73,6 +74,17 @@ final class MainViewModel {
                 self.coordinator.presentScheduleItemViewController(mode: .create)
             })
             .disposed(by: bag)
+
+        input.tableViewLongPressed.forEach { observable in
+            observable.subscribe(onNext: { schedule in
+                if schedule == nil {
+                    return
+                }
+                self.useCase.currentSchedule.accept(schedule)
+            })
+                .disposed(by: bag)
+        }
+
         return output
     }
 }

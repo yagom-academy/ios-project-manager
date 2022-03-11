@@ -2,7 +2,7 @@
 excluded:
   - ProjectManager/AppDelegate.swift
   - ProjectManager/SceneDelegate.swift
-
+  - ProjectManager/Presentation/Main/View/MainViewController.swift
 
 #function_body_length:
 #    warning: 10

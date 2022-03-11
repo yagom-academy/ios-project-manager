@@ -7,8 +7,9 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import CoreMIDI
 
-final class MainViewController: UIViewController {
+final class MainViewController: UIViewController, UIGestureRecognizerDelegate {
 
 // MARK: - Properties
     var viewModel: MainViewModel?
@@ -29,12 +30,23 @@ final class MainViewController: UIViewController {
         barButton.title = "+"
         return barButton
     }()
+    private let longPressGestureRecognizers: [UILongPressGestureRecognizer] = Progress.allCases.map { _ in
+        let longPressGestureRecognizer = UILongPressGestureRecognizer()
+        longPressGestureRecognizer.minimumPressDuration = 0.7
+        return longPressGestureRecognizer
+    }
 
 // MARK: - Methods
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         self.configure()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+
+
     }
 }
 
@@ -78,11 +90,39 @@ private extension MainViewController {
         ])
     }
 
+    @objc
+    func longPress(_ longPressGestureRecognizer: UILongPressGestureRecognizer) {
+        guard let tableView = longPressGestureRecognizer.view as? UITableView else {
+            return
+        }
+        if longPressGestureRecognizer.state == UIGestureRecognizer.State.began {
+            let touchPoint = longPressGestureRecognizer.location(in: tableView)
+            if let indexPath = tableView.indexPathForRow(at: touchPoint) {
+                tableView.deselectRow(at: indexPath, animated: true)
+            }
+        }
+    }
+
     func configureTableView() {
         self.tableViews.forEach { tableView in
             tableView.register(cellWithClass: ScheduleListCell.self)
             tableView.delegate = self
         }
+        self.configureTableViewGestureRecognizers()
+    }
+
+    func configureTableViewGestureRecognizers() {
+        self.tableViews.enumerated().forEach { index, tableView in
+            tableView.addGestureRecognizer(self.longPressGestureRecognizers[index])
+        }
+    }
+
+    func showActionSheet() {
+        let actionSheet = UIAlertController(title: "이동", message: nil, preferredStyle: .actionSheet)
+        let first = UIAlertAction(title: "Move to DOING", style: .default, handler: nil)
+        let second = UIAlertAction(title: "Move to DONE", style: .default, handler: nil)
+        actionSheet.addAction(first)
+        actionSheet.addAction(second)
     }
 
     func binding() {
@@ -90,15 +130,39 @@ private extension MainViewController {
     }
 
     func tableViewBinding() {
+
+        let longPressGesture: UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: nil)
+        longPressGesture.minimumPressDuration = 1.0
+
+        self.tableViews.forEach {
+            $0.addGestureRecognizer(longPressGesture)
+        }
         let input = MainViewModel.Input(
             viewWillAppear: self.rx.methodInvoked(#selector(UIViewController.viewWillAppear))
                 .map { _ in },
+            tableViewLongPressed: self.longPressGestureRecognizers.map { gestureRecognizer in
+                gestureRecognizer.rx.event
+                    .map { (gestureRecognizer: UIGestureRecognizer) -> Schedule? in
+                        guard let tableView = gestureRecognizer.view as? UITableView else {
+                            return nil
+                        }
+
+                        if gestureRecognizer.state == .ended {
+                            let touchPoint = gestureRecognizer.location(in: tableView)
+                            if let indexPath = tableView.indexPathForRow(at: touchPoint) {
+                                return try tableView.rx.model(at: indexPath)
+                            }
+                        }
+                        return nil
+                    }.asObservable()
+            }
+            ,
             cellDidTap: self.tableViews.map { $0.rx.modelSelected(Schedule.self).asObservable() },
             cellDelete: self.tableViews.map { $0.rx.modelDeleted(Schedule.self).map { $0.id! } },
             addButtonDidTap: self.addBarButton.rx.tap.asObservable()
         )
 
-        guard  let output = self.viewModel?.transform(input: input, disposeBag: self.bag) else {
+        guard let output = self.viewModel?.transform(input: input, disposeBag: self.bag) else {
             return
         }
 
