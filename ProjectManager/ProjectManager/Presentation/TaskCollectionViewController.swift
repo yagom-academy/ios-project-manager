@@ -1,36 +1,19 @@
 import UIKit
 
 class TaskCollectionViewController: UICollectionViewController {
-    var viewModel: TaskViewModelable?
-    private let layout = UICollectionViewFlowLayout()
-
-
-    init?(viewModel: TaskViewModelable) {
-        self.viewModel = viewModel
-        super.init(collectionViewLayout: layout)
-    }
-
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
+    private var viewModel: TaskViewModelable?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureCollectionView(with: view.bounds.size)
+        viewModel?.didLoaded()
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        viewModel?.didLoaded()
     }
 
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        configureCollectionView(with: size)
-    }
-
-    private func configureCollectionView(with size: CGSize) {
-        layout.itemSize = CGSize(width: 360, height: size.height * 0.8)
+    func setViewModel(_ viewModel: TaskViewModelable) {
+        self.viewModel = viewModel
     }
 
     @IBAction func addListBarButtonDidTap(_ sender: Any) {
@@ -51,4 +34,9 @@ class TaskCollectionViewController: UICollectionViewController {
     }
 }
 
+extension TaskCollectionViewController: UICollectionViewDelegateFlowLayout {
 
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 360, height: view.bounds.size.height * 0.8)
+    }
+}
