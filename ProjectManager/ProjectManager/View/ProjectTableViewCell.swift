@@ -60,21 +60,32 @@ class ProjectTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.contentView.addSubview(stackView)
+        self.configureCellUI()
         self.configureLayout()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 5,
+                                                                          left: 0,
+                                                                          bottom: 5,
+                                                                          right: 0))
     }
     
     // MARK: - Configure View
     private func configureCellUI() {
-        self.backgroundColor = .white
+        self.backgroundColor = .clear
+        self.contentView.backgroundColor = .white
     }
     
     private func configureLayout() {
+        self.contentView.addSubview(stackView)
+        let margin = CGFloat(15)
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
-            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -15),
-            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
-            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15)
+            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: margin),
+            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -margin),
+            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: margin),
+            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -margin)
         ])
     }
     
