@@ -80,11 +80,11 @@ private extension PopoverViewController {
         )
         guard let output = self.viewModel?.transform(input: input, disposeBag: bag) else { return }
 
-        output.topButtonTitleText.asDriver()
+        output.topButtonTitleText
             .drive(self.topButton.rx.title())
             .disposed(by: bag)
 
-        output.bottomButtonTitleText.asDriver()
+        output.bottomButtonTitleText
             .drive(self.bottomButton.rx.title())
             .disposed(by: bag)
     }

@@ -8,6 +8,7 @@
 import Foundation
 import RxSwift
 import RxRelay
+import RxCocoa
 import UIKit
 
 final class MainViewModel {
@@ -34,19 +35,12 @@ final class MainViewModel {
     }
 
     struct Output {
-        let scheduleLists = [
-            BehaviorRelay<[Schedule]>(value: []),
-            BehaviorRelay<[Schedule]>(value: []),
-            BehaviorRelay<[Schedule]>(value: [])
-        ]
+        let scheduleLists: [Observable<[Schedule]>]
     }
 
     // MARK: - Methods
 
     func transform(input: Input, disposeBag: DisposeBag) -> Output {
-        let output = Output()
-        bindOutput(output: output, disposeBag: disposeBag)
-
         input.viewWillAppear
             .subscribe(onNext: {
                 self.useCase.fetch()
@@ -86,20 +80,22 @@ final class MainViewModel {
                 .disposed(by: bag)
         }
 
-        return output
+        return bindOutput()
     }
 }
 
 private extension MainViewModel {
-    func bindOutput(output: Output, disposeBag: DisposeBag) {
-        self.useCase.schedules
-            .subscribe(onNext: { schedules in
-                Progress.allCases.enumerated().forEach { index, progress in
-                    let filtered = schedules.filter { schedule in schedule.progress == progress }
-                    output.scheduleLists[index].accept(filtered)
+    func bindOutput() -> Output {
+        let output = Output(
+            scheduleLists: Progress.allCases
+                .map { progress in
+                    self.useCase.schedules
+                        .map { schedules in
+                            return schedules.filter { schedule in schedule.progress == progress }
+                        }
                 }
-            })
-            .disposed(by: disposeBag)
+        )
+        return output
     }
 }
 

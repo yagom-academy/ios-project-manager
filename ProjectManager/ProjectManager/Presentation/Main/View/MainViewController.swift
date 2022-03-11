@@ -179,7 +179,7 @@ private extension MainViewController {
         }
 
         output.scheduleLists.enumerated().forEach { index, observable in
-            observable.asDriver()
+            observable.asDriver(onErrorJustReturn: [])
                 .drive(
                     self.tableViews[index].rx.items(
                         cellIdentifier: "ScheduleListCell",

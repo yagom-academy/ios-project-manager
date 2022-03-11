@@ -7,7 +7,7 @@
 
 import RxSwift
 import RxRelay
-import UIKit
+import RxCocoa
 
 class PopoverViewModel {
 
@@ -30,15 +30,13 @@ class PopoverViewModel {
     }
 
     struct Output {
-        let topButtonTitleText = BehaviorRelay<String>(value: "")
-        let bottomButtonTitleText = BehaviorRelay<String>(value: "")
+        let topButtonTitleText: Driver<String>
+        let bottomButtonTitleText: Driver<String>
     }
 
     // MARK: - Methods
 
     func transform(input: Input, disposeBag: DisposeBag) -> Output {
-        let output = Output()
-        bindOutput(output: output, disposeBag: disposeBag)
 
         let currentProgress = self.useCase.currentSchedule.value?.progress
         let targetProgressSet = Progress.allCases.filter { $0 != currentProgress }
@@ -65,18 +63,21 @@ class PopoverViewModel {
             })
             .disposed(by: disposeBag)
 
-        return output
+        return bindOutput()
     }
 }
 
 private extension PopoverViewModel {
-    func bindOutput(output: Output, disposeBag: DisposeBag) {
-        let currentProgress = self.useCase.currentSchedule.value?.progress
-        let targetProgressSet = Progress.allCases.filter { $0 != currentProgress }
-        guard let topButtonProgress = targetProgressSet.first else { return }
-        guard let bottomButtonProgress = targetProgressSet.last else { return }
-
-        output.topButtonTitleText.accept("Move to \(topButtonProgress.description)")
-        output.bottomButtonTitleText.accept("Move to \(bottomButtonProgress.description)")
+    func bindOutput() -> Output {
+        let topButtonTitleText = self.useCase.currentSchedule.map { (schedule) -> String in
+            let targetProgress = Progress.allCases.filter { progress in progress != schedule?.progress }
+            return "Move to \(targetProgress.first?.description ?? "")"
+        }
+        let bottomButtonTitleText = self.useCase.currentSchedule.map { (schedule) -> String in
+            let targetProgress = Progress.allCases.filter { progress in progress != schedule?.progress }
+            return "Move to \(targetProgress.last?.description ?? "")"
+        }
+        return Output(topButtonTitleText: topButtonTitleText.asDriver(onErrorJustReturn: ""),
+                      bottomButtonTitleText: bottomButtonTitleText.asDriver(onErrorJustReturn: ""))
     }
 }
