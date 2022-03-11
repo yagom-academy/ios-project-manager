@@ -15,9 +15,9 @@ extension TypeOfViewController {
     func fetchStoryboardInformation() -> StoryboardInformation {
         switch self {
         case .taskList:
-            return StoryboardInformation(bundle: nil, storyboardName: "Main", storyboardId: "Main")
+            return StoryboardInformation(bundle: nil, storyboardName: "TaskListViewController", storyboardId: "TaskListViewController")
         case .taskDetail:
-            return StoryboardInformation(bundle: nil, storyboardName: "TaskDetail", storyboardId: "TaskDetail")
+            return StoryboardInformation(bundle: nil, storyboardName: "TaskDetailController", storyboardId: "TaskDetailController")
         }
     }
 }
