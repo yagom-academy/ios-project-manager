@@ -81,6 +81,7 @@ final class MainViewModel {
                     return
                 }
                 self.useCase.currentSchedule.accept(schedule)
+                self.coordinator.presentPopoverViewController()
             })
                 .disposed(by: bag)
         }

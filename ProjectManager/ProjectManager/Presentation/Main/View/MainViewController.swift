@@ -147,7 +147,7 @@ private extension MainViewController {
                             return nil
                         }
 
-                        if gestureRecognizer.state == .ended {
+                        if gestureRecognizer.state == .began {
                             let touchPoint = gestureRecognizer.location(in: tableView)
                             if let indexPath = tableView.indexPathForRow(at: touchPoint) {
                                 return try tableView.rx.model(at: indexPath)
