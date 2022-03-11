@@ -1,6 +1,23 @@
 import Foundation
 
 struct Task: Identifiable {
+    enum ProgressStatus: String {
+        case todo
+        case doing
+        case done
+        
+        var name: String {
+            switch self {
+            case .todo:
+                return "Todo"
+            case .doing:
+                return "Doing"
+            case .done:
+                return "Done"
+            }
+        }
+    }
+    
     var id: UUID
     var title: String
     var deadline: TimeInterval

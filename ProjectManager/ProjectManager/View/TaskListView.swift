@@ -2,7 +2,7 @@ import SwiftUI
 
 struct TaskListView: View {
     @EnvironmentObject private var viewModel: TaskListViewModel
-    let progressStatus: ProgressStatus
+    let progressStatus: Task.ProgressStatus
     
     var taskList: [Task] {
         switch progressStatus {

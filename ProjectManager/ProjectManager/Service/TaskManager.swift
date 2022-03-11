@@ -3,7 +3,7 @@ import Foundation
 class TaskManager: TaskManagable {
     var taskList = [Task]()
     
-    func taskList(at status: ProgressStatus) -> [Task] {
+    func taskList(at status: Task.ProgressStatus) -> [Task] {
         return taskList.filter { $0.progressStatus == status }
     }
     
@@ -11,7 +11,7 @@ class TaskManager: TaskManagable {
         taskList.append(task)
     }
     
-    func updateTaskState(id: UUID, progressStatus: ProgressStatus) {
+    func updateTaskState(id: UUID, progressStatus: Task.ProgressStatus) {
         taskList
             .indices
             .filter { taskList[$0].id == id }
