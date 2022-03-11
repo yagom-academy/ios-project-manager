@@ -15,7 +15,7 @@ struct TaskDetailView: View {
     
     var body: some View {
         VStack {
-            HeaderView(
+            TaskDetailHeaderView(
                 viewModel: _viewModel,
                 title: $title, description: $description,
                 deadline: $deadline,
@@ -24,9 +24,9 @@ struct TaskDetailView: View {
                 isEditing: $isEditing,
                 isShowTaskDetailView: $isShowTaskDetailView
             )
-            titleTextField
-            deadLineView
-            descriptionTextEditor
+            TaskDetailTitleTextField(title: $title, isDisabled: $isDisabled)
+            TaskDetaildeadLineView(deadline: $deadline, isDisabled: $isDisabled)
+            TaskDetailDescriptionTextEditor(description: $description, isDisabled: $isDisabled)
         }
         .padding(.horizontal)
         .onAppear {
@@ -38,71 +38,9 @@ struct TaskDetailView: View {
             }
         }
     }
-    
-    private var headerView: some View {
-        HStack {
-            leadingButton
-            Spacer()
-            Text("TODO")
-                .font(.title2)
-                .foregroundColor(.black)
-                .bold()
-            Spacer()
-            trailingButton
-        }
-        .padding(10)
-    }
-    
-    private var leadingButton: some View {
-        Button(action: {
-            if task.title.isEmpty {
-                isShowTaskDetailView = false
-            } else {
-                self.isDisabled = false
-                self.isEditing = true
-            }
-        }, label: {
-            task.title.isEmpty ? Text("Cancel") : Text("Edit")
-        })
-    }
-    
-    private var trailingButton: some View {
-        Button("Done") {
-            if isEditing {
-                viewModel.updateTask(id: task.id, title: title, description: description, deadline: deadline)
-            } else {
-                let task = Task(title: title, description: description, deadline: deadline)
-                viewModel.createTask(task)
-            }
-            isShowTaskDetailView = false
-        }
-    }
-    
-    private var titleTextField: some View {
-        TextField(task.title, text: $title)
-            .multilineTextAlignment(.leading)
-            .textFieldStyle(RoundedBorderTextFieldStyle())
-            .foregroundColor(.black)
-            .disabled(isDisabled)
-    }
-    
-    private var deadLineView: some View {
-        DatePicker("deadline", selection: $deadline, displayedComponents: .date)
-            .datePickerStyle(WheelDatePickerStyle()).labelsHidden()
-            .disabled(isDisabled)
-    }
-    
-    private var descriptionTextEditor: some View {
-        TextEditor(text: $description)
-            .multilineTextAlignment(.leading)
-            .lineLimit(10)
-            .foregroundColor(.black)
-            .shadow(radius: 1)
-            .disabled(isDisabled)
-    }
 }
 
-struct HeaderView: View {
+struct TaskDetailHeaderView: View {
     @EnvironmentObject var viewModel: TaskListViewModel
     
     @Binding var title: String
@@ -116,20 +54,29 @@ struct HeaderView: View {
     
     var body: some View {
         HStack {
-            LeadingButton(isDisabled: $isDisabled, isEditing: $isEditing, isShowTaskDetailView: $isShowTaskDetailView, isEditMode: task.title.isEmpty)
+            TaskDetailLeadingButton(
+                isDisabled: $isDisabled,
+                isEditing: $isEditing,
+                isShowTaskDetailView: $isShowTaskDetailView,
+                isEditMode: task.title.isEmpty
+            )
             Spacer()
-            Text("TODO")
-                .font(.title2)
-                .foregroundColor(.black)
-                .bold()
+            TaskDetailTitleView()
             Spacer()
-            TrailingButton(viewModel: _viewModel, title: $title, description: $description, deadline: $deadline, task: $task, isEditing: $isEditing, isShowTaskDetailView: $isShowTaskDetailView)
+            TaskDetailTrailingButton(
+                title: $title,
+                description: $description,
+                deadline: $deadline,
+                task: $task,
+                isEditing: $isEditing,
+                isShowTaskDetailView: $isShowTaskDetailView
+            )
         }
         .padding(10)
     }
 }
 
-struct LeadingButton: View {
+struct TaskDetailLeadingButton: View {
     @Binding var isDisabled: Bool
     @Binding var isEditing: Bool
     @Binding var isShowTaskDetailView: Bool
@@ -149,7 +96,16 @@ struct LeadingButton: View {
     }
 }
 
-struct TrailingButton: View {
+struct TaskDetailTitleView: View {
+    var body: some View {
+        Text("TODO")
+            .font(.title2)
+            .foregroundColor(.black)
+            .bold()
+    }
+}
+
+struct TaskDetailTrailingButton: View {
     @EnvironmentObject var viewModel: TaskListViewModel
     
     @Binding var title: String
@@ -170,5 +126,42 @@ struct TrailingButton: View {
             }
             isShowTaskDetailView = false
         }
+    }
+}
+
+struct TaskDetailTitleTextField: View {
+    @Binding var title: String
+    @Binding var isDisabled: Bool
+    var body: some View {
+        TextField("Title", text: $title)
+            .multilineTextAlignment(.leading)
+            .textFieldStyle(RoundedBorderTextFieldStyle())
+            .foregroundColor(.black)
+            .disabled(isDisabled)
+    }
+}
+
+struct TaskDetaildeadLineView: View {
+    @Binding var deadline: Date
+    @Binding var isDisabled: Bool
+    
+    var body: some View {
+        DatePicker("deadline", selection: $deadline, displayedComponents: .date)
+            .datePickerStyle(WheelDatePickerStyle()).labelsHidden()
+            .disabled(isDisabled)
+    }
+}
+
+struct TaskDetailDescriptionTextEditor: View {
+    @Binding var description: String
+    @Binding var isDisabled: Bool
+    
+    var body: some View {
+        TextEditor(text: $description)
+            .multilineTextAlignment(.leading)
+            .lineLimit(10)
+            .foregroundColor(.black)
+            .shadow(radius: 1)
+            .disabled(isDisabled)
     }
 }
