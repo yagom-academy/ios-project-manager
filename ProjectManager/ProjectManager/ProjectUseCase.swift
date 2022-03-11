@@ -21,7 +21,9 @@ class ProjectUseCase: ProjectUseCaseProtocol {
     }
 
     func update(with project: Project) {
-        let project = fetch(with: project.id)
-        projectRepository.update(with: project)
+        let oldProject = fetch(with: project.id)
+        let newProject = Project(id: oldProject.id, state: oldProject.state, title: project.title, body: project.body, date: project.date)
+        
+        projectRepository.update(with: newProject)
     }
 }

@@ -4,7 +4,6 @@ class ProjectListTableViewCell: UITableViewCell {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .title3)
-        label.text = "책상정리"
         label.textAlignment = .left
         return label
     }()
@@ -12,7 +11,6 @@ class ProjectListTableViewCell: UITableViewCell {
     private let bodyLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .body)
-        label.text = "집중이 안될 땐 역시나 책상정리"
         label.numberOfLines = 3
         label.textColor = .gray
         label.textAlignment = .left
@@ -22,7 +20,6 @@ class ProjectListTableViewCell: UITableViewCell {
     private let dateLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .subheadline)
-        label.text = "2021.11.5."
         label.textAlignment = .left
         return label
     }()
@@ -72,6 +69,12 @@ class ProjectListTableViewCell: UITableViewCell {
             self.entireStackView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: LayoutConstant.entireStackViewLeadingMargin)
         ])
     }
+    
+    func populateData(title: String, body: String, date: Date) {
+        self.titleLabel.text = title
+        self.bodyLabel.text = body
+        self.dateLabel.text = date.description
+    }
 }
 
 //MARK: - Constants
@@ -85,7 +88,7 @@ private extension ProjectListTableViewCell {
     }
 
     enum Design {
-        static let entireStackViewSpacing: CGFloat = 10
+        static let entireStackViewSpacing: CGFloat = 5
         static let cellContentViewFrameInset: UIEdgeInsets = UIEdgeInsets(top: 3.5, left: 0, bottom: 3.5, right: 0)
     }
 }

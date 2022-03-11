@@ -84,6 +84,10 @@ class ProjectListViewController: UIViewController {
 }
 
 extension ProjectListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return Design.tableViewHeightForHeaderInSection
     }
@@ -127,6 +131,12 @@ extension ProjectListViewController: UITableViewDelegate {
             let destinationViewController = UINavigationController(rootViewController: editViewController)
             destinationViewController.modalPresentationStyle = .formSheet
             self.present(destinationViewController, animated: true, completion: nil)
+        }
+        
+        viewModel.onUpdated = {
+            self.tableViews.forEach {
+                $0.reloadData()
+            }
         }
     }
 }
