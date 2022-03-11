@@ -16,7 +16,7 @@ class MainViewController: UIViewController {
     private lazy var toDoStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [toDoHeader, toDoTableView])
         stackView.axis = .vertical
-        toDoHeader.heightAnchor.constraint(equalToConstant: 55).isActive = true
+        toDoHeader.heightAnchor.constraint(equalToConstant: Design.tableViewHeaderHeight).isActive = true
         stackView.distribution = .fill
         toDoTableView.backgroundColor = .secondarySystemBackground
         
@@ -26,7 +26,7 @@ class MainViewController: UIViewController {
     private lazy var doingStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [doingHeader, doingTableView])
         stackView.axis = .vertical
-        doingHeader.heightAnchor.constraint(equalToConstant: 55).isActive = true
+        doingHeader.heightAnchor.constraint(equalToConstant: Design.tableViewHeaderHeight).isActive = true
         stackView.distribution = .fill
         doingTableView.backgroundColor = .secondarySystemBackground
         
@@ -36,7 +36,7 @@ class MainViewController: UIViewController {
     private lazy var doneStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [doneHeader, doneTableView])
         stackView.axis = .vertical
-        doneHeader.heightAnchor.constraint(equalToConstant: 55).isActive = true
+        doneHeader.heightAnchor.constraint(equalToConstant: Design.tableViewHeaderHeight).isActive = true
         stackView.distribution = .fill
         doneTableView.backgroundColor = .secondarySystemBackground
         
@@ -48,7 +48,7 @@ class MainViewController: UIViewController {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.alignment = .top
-        stackView.spacing = 5
+        stackView.spacing = Design.mainStackViewSpacing
         stackView.distribution = .fillEqually
         stackView.backgroundColor = .systemGray3
         
@@ -91,7 +91,7 @@ class MainViewController: UIViewController {
     
     private func setupNavigationBar() {
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showAddProjectView))
-        navigationItem.title = "Project Manager"
+        navigationItem.title = Text.navigationTitle
         navigationItem.rightBarButtonItem = addButton
     }
     
@@ -128,7 +128,7 @@ extension MainViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { _, _, _  in
+        let deleteAction = UIContextualAction(style: .destructive, title: Text.deleteActionTitle) { _, _, _  in
             print("Delete project")
         }
         
@@ -193,4 +193,15 @@ extension MainViewController {
             present(alert, animated: true)
         }
     }
+}
+
+private enum Text {
+    static let navigationTitle = "Project Manager"
+    static let deleteActionTitle = "Delete"
+    
+}
+
+private enum Design {
+    static let tableViewHeaderHeight: CGFloat = 55
+    static let mainStackViewSpacing: CGFloat = 5
 }

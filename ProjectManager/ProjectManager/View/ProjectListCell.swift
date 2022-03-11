@@ -11,7 +11,7 @@ class ProjectListCell: UITableViewCell {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .title3)
-        label.numberOfLines = 1
+        label.numberOfLines = Design.defaultTextLine
         label.lineBreakMode = .byTruncatingTail
         
         return label
@@ -20,7 +20,7 @@ class ProjectListCell: UITableViewCell {
     private let previewLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .callout)
-        label.numberOfLines = 3
+        label.numberOfLines = Design.previewTextLine
         label.lineBreakMode = .byTruncatingTail
         
         return label
@@ -29,7 +29,7 @@ class ProjectListCell: UITableViewCell {
     private let dateLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .body)
-        label.numberOfLines = 1
+        label.numberOfLines = Design.defaultTextLine
         label.lineBreakMode = .byTruncatingTail
         
         return label
@@ -40,7 +40,7 @@ class ProjectListCell: UITableViewCell {
         stackView.axis = .vertical
         stackView.alignment = .leading
         stackView.distribution = .fillProportionally
-        stackView.spacing = 10
+        stackView.spacing = Design.stackViewSpacing
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView
@@ -59,13 +59,13 @@ class ProjectListCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         if selected {
-            containerView.layer.cornerRadius = 10
+            containerView.layer.cornerRadius = Design.selectedCornerRadius
             containerView.backgroundColor = .systemBlue
             titleLabel.textColor = .white
             previewLabel.textColor = .white
             dateLabel.textColor = .white
         } else {
-            containerView.layer.cornerRadius = 0
+            containerView.layer.cornerRadius = Design.defaultCornerRadius
             containerView.backgroundColor = .systemBackground
             titleLabel.textColor = .label
             previewLabel.textColor = .secondaryLabel
@@ -94,17 +94,26 @@ class ProjectListCell: UITableViewCell {
         containerView.addSubview(labelStackView)
         
         NSLayoutConstraint.activate([
-            containerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            containerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Design.layoutMargin),
             containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
         ])
         
         NSLayoutConstraint.activate([
-            labelStackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 10),
-            labelStackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -10),
-            labelStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 10),
-            labelStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -10)
+            labelStackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: Design.layoutMargin),
+            labelStackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -Design.layoutMargin),
+            labelStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: Design.layoutMargin),
+            labelStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -Design.layoutMargin)
         ])
     }
+}
+
+private enum Design {
+    static let defaultTextLine = 1
+    static let previewTextLine = 3
+    static let stackViewSpacing: CGFloat = 10
+    static let defaultCornerRadius: CGFloat = 0
+    static let selectedCornerRadius: CGFloat = 10
+    static let layoutMargin: CGFloat = 10
 }

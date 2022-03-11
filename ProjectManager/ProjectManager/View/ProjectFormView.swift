@@ -4,8 +4,8 @@ class ProjectFormView: UIView {
     private let titleTextField: UITextField = {
         let textField = UITextField()
         textField.font = .preferredFont(forTextStyle: .title2)
-        textField.placeholder = "Title"
-        textField.layer.borderWidth = 1
+        textField.placeholder = Text.textFieldPlaceholder
+        textField.layer.borderWidth = Design.borderWidth
         textField.layer.borderColor = UIColor.systemGray2.cgColor
         
         return textField
@@ -25,7 +25,7 @@ class ProjectFormView: UIView {
         let textView = UITextView()
         textView.text = "안녕하세요 앨리입니다. 당근마켓 가고시퍼요,,"
         textView.font = .preferredFont(forTextStyle: .title3)
-        textView.layer.borderWidth = 1
+        textView.layer.borderWidth = Design.borderWidth
         textView.layer.borderColor = UIColor.systemGray2.cgColor
         
         return textView
@@ -36,7 +36,7 @@ class ProjectFormView: UIView {
         stackView.axis = .vertical
         stackView.alignment = .center
         stackView.distribution = .fill
-        stackView.spacing = 10
+        stackView.spacing = Design.stackViewSpacing
         titleTextField.widthAnchor.constraint(equalTo: stackView.widthAnchor).isActive = true
         detailTextView.widthAnchor.constraint(equalTo: stackView.widthAnchor).isActive = true
         
@@ -67,10 +67,20 @@ class ProjectFormView: UIView {
     private func setupFormStackViewLayout() {
         addSubview(formStackView)
         NSLayoutConstraint.activate([
-            formStackView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
-            formStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
-            formStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
-            formStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
+            formStackView.topAnchor.constraint(equalTo: topAnchor, constant: Design.stackViewMargin),
+            formStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Design.stackViewMargin),
+            formStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Design.stackViewMargin),
+            formStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Design.stackViewMargin),
         ])
     }
+}
+
+private enum Text {
+    static let textFieldPlaceholder = "Title"
+}
+
+private enum Design {
+    static let borderWidth: CGFloat = 1
+    static let stackViewSpacing: CGFloat = 10
+    static let stackViewMargin: CGFloat = 10
 }

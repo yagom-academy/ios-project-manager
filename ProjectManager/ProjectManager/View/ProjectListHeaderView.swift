@@ -25,8 +25,8 @@ class ProjectListHeaderView: UIView {
         badgeLabel.textAlignment = .center
         badgeLabel.backgroundColor = .label
         badgeLabel.layer.masksToBounds = true
-        badgeLabel.layer.cornerRadius = 10
-        badgeLabel.text = "0"
+        badgeLabel.layer.cornerRadius = Design.badgeLabelCornerRadius
+        badgeLabel.text = Text.defaultBadgeLabel
         
         return badgeLabel
     }()
@@ -34,18 +34,19 @@ class ProjectListHeaderView: UIView {
     init(title: String) {
         super.init(frame: .zero)
         titleLabel.text = title
-        setupTableHeaderView()
+        commonInit()
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
+        commonInit()
     }
     
     func updateProjectCount(_ count: Int) {
         badgeLabel.text = count.description
     }
     
-    private func setupTableHeaderView() {
+    private func commonInit() {
         backgroundColor = .secondarySystemBackground
         setupHeaderViewLayout()
     }
@@ -55,16 +56,27 @@ class ProjectListHeaderView: UIView {
         addSubview(underLine)
         addSubview(badgeLabel)
         NSLayoutConstraint.activate([
-            titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
-            titleLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: -2.5),
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Design.labelMargin),
+            titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             badgeLabel.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
-            badgeLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 10),
-            badgeLabel.widthAnchor.constraint(equalToConstant: 20),
-            badgeLabel.heightAnchor.constraint(equalToConstant: 20),
-            underLine.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            underLine.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            underLine.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -5),
-            underLine.heightAnchor.constraint(equalToConstant: 0.3)
+            badgeLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: Design.labelMargin),
+            badgeLabel.widthAnchor.constraint(equalToConstant: Design.badgeLabelWidth),
+            badgeLabel.heightAnchor.constraint(equalTo: badgeLabel.widthAnchor),
+            underLine.leadingAnchor.constraint(equalTo: leadingAnchor),
+            underLine.trailingAnchor.constraint(equalTo: trailingAnchor),
+            underLine.bottomAnchor.constraint(equalTo: bottomAnchor),
+            underLine.heightAnchor.constraint(equalToConstant: Design.underLineHeight)
         ])
     }
+}
+
+private enum Text {
+    static let defaultBadgeLabel = "0"
+}
+
+private enum Design {
+    static let badgeLabelCornerRadius: CGFloat = 10
+    static let labelMargin: CGFloat = 10
+    static let badgeLabelWidth: CGFloat = 20
+    static let underLineHeight: CGFloat = 0.3
 }

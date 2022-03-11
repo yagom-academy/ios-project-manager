@@ -18,7 +18,7 @@ class AddProjectViewController: UIViewController {
     }
     
     private func setupNavigationBar() {
-        let navigationItem = UINavigationItem(title: "TODO")
+        let navigationItem = UINavigationItem(title: Text.navigationTitle)
         let cancleItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismissView))
         let doneItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: nil)
         navigationItem.leftBarButtonItem = cancleItem
@@ -49,4 +49,8 @@ class AddProjectViewController: UIViewController {
     @objc private func dismissView() {
         dismiss(animated: true)
     }
+}
+
+private enum Text {
+    static let navigationTitle = "TODO"
 }
