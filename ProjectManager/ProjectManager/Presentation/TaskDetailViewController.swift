@@ -10,4 +10,6 @@ class TaskDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
+
+    @IBAction func doneButtonDidTap(_ sender: Any) {}
 }
