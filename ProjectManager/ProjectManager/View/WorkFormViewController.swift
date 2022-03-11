@@ -1,5 +1,14 @@
 import UIKit
+import RxSwift
+import RxCocoa
 
+
+private enum Content {
+    static let isEmpty = ""
+    static let EmptyTitle = "제목을 입력해주세요"
+    static let editTitle = "Edit"
+    static let doneTitle = "Done"
+}
 
 private enum Design {
     static let shadowColor: CGColor = UIColor.black.cgColor
@@ -14,7 +23,10 @@ private enum Design {
 final class WorkFormViewController: UIViewController {
     
     private var viewModel: WorkFormViewModel?
+    private let disposeBag = DisposeBag()
+    private var passedWork: Work?
     
+    @IBOutlet weak var rightBarButtonItem: UIBarButtonItem!
     @IBOutlet weak private var titleTextField: UITextField!
     @IBOutlet weak private var datePicker: UIDatePicker!
     @IBOutlet weak private var bodyTextView: UITextView!
@@ -31,13 +43,29 @@ final class WorkFormViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupRightBarButtonItem()
         setupTextField()
+        setupDatePicker()
         setupTextView()
     }
     
     @IBAction private func touchUpDoneButton(_ sender: UIBarButtonItem) {
-        let work = Work(title: titleTextField.text, body: bodyTextView.text, dueDate: datePicker.date)
-        viewModel?.addWork(work)
+        if rightBarButtonItem.title == Content.doneTitle {
+            titleTextField.text = Content.EmptyTitle
+            
+            let work = Work(title: titleTextField.text, body: bodyTextView.text, dueDate: datePicker.date)
+            
+            viewModel?.addWork(work)
+        } else if rightBarButtonItem.title == Content.editTitle {
+            guard let passedWork = passedWork else { return }
+            
+            viewModel?.updateWork(
+                passedWork,
+                title: titleTextField.text,
+                body: bodyTextView.text,
+                date: datePicker.date
+            )
+        }
         
         dismiss(animated: true, completion: nil)
     }
@@ -45,14 +73,32 @@ final class WorkFormViewController: UIViewController {
     @IBAction private func touchUpCancelButton(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
     }
+
+    func setupContent(from work: Observable<Work?>) {
+        _ = work
+            .subscribe(onNext: { [weak self] in
+                self?.passedWork = $0
+            })
+    }
+
+    private func setupRightBarButtonItem() {
+        if passedWork?.title == nil {
+            rightBarButtonItem.title = Content.doneTitle
+        } else {
+            rightBarButtonItem.title = Content.editTitle
+        }
+    }
     
     private func setupTextField() {
+        configureTextFieldContent()
         configureTextFieldShadow()
         configureTextFieldLeftView()
     }
     
-    private func setupTextView() {
-        configureTextViewShadow()
+    private func configureTextFieldContent() {
+        if passedWork?.title != nil {
+            titleTextField.text = passedWork?.title
+        }
     }
     
     private func configureTextFieldShadow() {
@@ -69,6 +115,27 @@ final class WorkFormViewController: UIViewController {
         ))
         titleTextField.leftView = leftView
         titleTextField.leftViewMode = .always
+    }
+    
+    private func setupDatePicker() {
+        configureDatePickerContent()
+    }
+    
+    private func configureDatePickerContent() {
+        if let date = passedWork?.dueDate {
+            datePicker.date = date
+        }
+    }
+    
+    private func setupTextView() {
+        configureTextViewContent()
+        configureTextViewShadow()
+    }
+    
+    private func configureTextViewContent() {
+        if passedWork?.body != nil {
+            bodyTextView.text = passedWork?.body
+        }
     }
     
     private func configureTextViewShadow() {

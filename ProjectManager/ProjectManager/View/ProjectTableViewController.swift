@@ -3,12 +3,17 @@ import RxSwift
 import RxCocoa
 
 
+private enum UIName {
+    static let workFormViewStoryboard = "WorkFormView"
+}
+
 final class ProjectTableViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var countLabel: ProjectHeaderCircleLabel!
     @IBOutlet weak var tableView: UITableView!
     
     private let disposeBag = DisposeBag()
+    var viewModel: ProjectViewModel?
     var titleText: String?
     var count: Observable<Int>?
     var list: BehaviorSubject<[Work]>?
@@ -45,6 +50,8 @@ final class ProjectTableViewController: UIViewController {
     private func configureTableView() {
         guard let list = list else { return }
         
+        tableView.delegate = self
+        
         list.observe(on: MainScheduler.instance)
             .bind(to: tableView.rx.items(
                 cellIdentifier: String(describing: ProjectTableViewCell.self),
@@ -55,4 +62,28 @@ final class ProjectTableViewController: UIViewController {
             .disposed(by: disposeBag)
     }
 
+}
+
+extension ProjectTableViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let viewModel = viewModel else { return }
+        guard let list = list else { return }
+
+        var work: Observable<Work?> {
+            list.map { $0[safe: indexPath.row] }
+        }
+        
+        let storyboard = UIStoryboard(name: UIName.workFormViewStoryboard, bundle: nil)
+        let viewController = storyboard.instantiateViewController(
+            identifier: String(describing: WorkFormViewController.self)
+        ) { coder in
+            WorkFormViewController(coder: coder, viewModel: viewModel)
+        }
+        viewController.modalPresentationStyle = .formSheet
+        viewController.setupContent(from: work)
+        
+        present(viewController, animated: true, completion: nil)
+    }
+    
 }

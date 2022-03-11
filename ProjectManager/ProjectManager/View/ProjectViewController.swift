@@ -1,6 +1,5 @@
 import UIKit
 import RxSwift
-import RxCocoa
 
 
 private enum UIName {
@@ -25,7 +24,6 @@ final class ProjectViewController: UIViewController {
     
     private let viewModel = ProjectViewModel()
     private var disposeBag = DisposeBag()
-    private let formSheetViewStorboardName = UIName.workFormViewStoryboard
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,28 +31,30 @@ final class ProjectViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let test = segue.destination as? ProjectTableViewController else { return }
+        guard let viewController = segue.destination as? ProjectTableViewController else { return }
+        
+        viewController.viewModel = viewModel
 
         switch segue.identifier {
         case UIName.todoSegue:
-            test.titleText = Content.todoTitle
-            test.count = viewModel.todoCount
-            test.list = viewModel.todoList
+            viewController.titleText = Content.todoTitle
+            viewController.count = viewModel.todoCount
+            viewController.list = viewModel.todoList
         case UIName.doingSegue:
-            test.titleText = Content.doingTitle
-            test.count = viewModel.doingCount
-            test.list = viewModel.doingList
+            viewController.titleText = Content.doingTitle
+            viewController.count = viewModel.doingCount
+            viewController.list = viewModel.doingList
         case UIName.doneSegue:
-            test.titleText = Content.doneTitle
-            test.count = viewModel.doneCount
-            test.list = viewModel.doneList
+            viewController.titleText = Content.doneTitle
+            viewController.count = viewModel.doneCount
+            viewController.list = viewModel.doneList
         default:
             break
         }
     }
     
     @IBAction private func addNewWork(_ sender: UIBarButtonItem) {
-        let storyboard = UIStoryboard(name: formSheetViewStorboardName, bundle: nil)
+        let storyboard = UIStoryboard(name: UIName.workFormViewStoryboard, bundle: nil)
         let viewController = storyboard.instantiateViewController(
             identifier: String(describing: WorkFormViewController.self)
         ) { coder in
