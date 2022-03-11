@@ -68,12 +68,12 @@ final class TaskListViewModel: TaskListViewModelProtocol {
             print(TaskManagerError.updateNotFound.description)
             return
         }
+        
         guard let index = findIndex(of: task.processStatus, with: task.id) else {
             print(TaskManagerError.taskNotFound.description)
             return
         }
         
-        newTask.changeId(to: task.id)
         switch task.processStatus {
         case .todo:
             todoTasksObservable?.value[index] = newTask
@@ -178,7 +178,7 @@ final class TaskListViewModel: TaskListViewModelProtocol {
     // MARK: - TaskEditView
     // TODO: Popover에서 Title/Body/DueData Edit 기능 구현
     func edit(task: Task, newTitle: String, newBody: String, newDueDate: Date) {
-        let newTask = Task(title: newTitle, body: newBody, dueDate: newDueDate, processStatus: task.processStatus)
+        let newTask = Task(id: task.id, title: newTitle, body: newBody, dueDate: newDueDate, processStatus: task.processStatus)
         update(task: task, to: newTask)
         
         taskRepository?.update(task: task, to: newTask)
@@ -191,7 +191,7 @@ final class TaskListViewModel: TaskListViewModelProtocol {
             return
         }
         
-        let newTask = Task(title: task.title, body: task.body, dueDate: task.dueDate, processStatus: newProcessStatus)
+        let newTask = Task(id: task.id, title: task.title, body: task.body, dueDate: task.dueDate, processStatus: newProcessStatus)
         update(task: task, to: newTask)
         
         taskRepository?.update(task: task, to: newTask)

@@ -1,7 +1,5 @@
 import Foundation
 
-import Foundation
-
 extension DateFormatter {
     static let taskListViewStyle: DateFormatter = {
         let dateFormatter = DateFormatter()

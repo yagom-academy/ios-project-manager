@@ -40,8 +40,8 @@ final class TaskRepository: TaskRepositoryProtocol {
     
     func update(task: Task, to newTask: Task) {
         if let index = findIndex(with: task.id) {
-            let oldTaskId = task.id
-            newTask.changeId(to: oldTaskId)
+//            let oldTaskId = task.id
+//            newTask.changeId(to: oldTaskId)
             entireTasks[index] = newTask
         }
     }
