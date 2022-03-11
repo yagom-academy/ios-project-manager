@@ -40,6 +40,24 @@ class PopoverViewModel {
         let output = Output()
         bindOutput(output: output, disposeBag: disposeBag)
 
+        let currentProgress = self.useCase.currentSchedule.value?.progress
+        let targetProgressSet = Progress.allCases.filter { $0 != currentProgress }
+
+        input.topButtonDidTap
+            .subscribe(onNext: {
+                guard let topButtonProgress = targetProgressSet.first else { return }
+                self.useCase.changeProgress(progress: topButtonProgress)
+                self.coordinator.dismiss()
+            })
+            .disposed(by: disposeBag)
+
+        input.bottomButtonDidTap
+            .subscribe(onNext: {
+                guard let bottomButtonProgress = targetProgressSet.last else { return }
+                self.useCase.changeProgress(progress: bottomButtonProgress)
+                self.coordinator.dismiss()
+            })
+            .disposed(by: disposeBag)
 
         input.viewDidDisappear
             .subscribe(onNext: { _ in
@@ -53,6 +71,12 @@ class PopoverViewModel {
 
 private extension PopoverViewModel {
     func bindOutput(output: Output, disposeBag: DisposeBag) {
+        let currentProgress = self.useCase.currentSchedule.value?.progress
+        let targetProgressSet = Progress.allCases.filter { $0 != currentProgress }
+        guard let topButtonProgress = targetProgressSet.first else { return }
+        guard let bottomButtonProgress = targetProgressSet.last else { return }
 
+        output.topButtonTitleText.accept("Move to \(topButtonProgress.description)")
+        output.bottomButtonTitleText.accept("Move to \(bottomButtonProgress.description)")
     }
 }

@@ -159,7 +159,7 @@ private extension MainViewController {
             }
             ,
             cellDidTap: self.tableViews.map { $0.rx.modelSelected(Schedule.self).asObservable() },
-            cellDelete: self.tableViews.map { $0.rx.modelDeleted(Schedule.self).map { $0.id! } },
+            cellDelete: self.tableViews.map { $0.rx.modelDeleted(Schedule.self).map { $0.id } },
             addButtonDidTap: self.addBarButton.rx.tap.asObservable()
         )
 

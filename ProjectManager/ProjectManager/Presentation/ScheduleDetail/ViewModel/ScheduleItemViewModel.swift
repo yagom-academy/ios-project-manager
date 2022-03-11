@@ -91,7 +91,7 @@ class ScheduleItemViewModel {
                 case .edit:
                     guard let schedule = self.useCase.currentSchedule.value else { return }
                     let newSchedule = Schedule(
-                        id: schedule.id!,
+                        id: schedule.id,
                         title: self.currentTitleText.value,
                         body: self.currentBodyText.value,
                         dueDate: self.currentDate.value,

@@ -27,7 +27,6 @@ class PopoverViewController: UIViewController {
         let button = UIButton()
         button.backgroundColor = .white
         button.setTitleColor(.systemBlue, for: .normal)
-        button.setTitle("Move to DOING", for: .normal)
         button.titleLabel?.font = .preferredFont(forTextStyle: .subheadline)
         return button
     }()
@@ -36,13 +35,13 @@ class PopoverViewController: UIViewController {
         let button = UIButton()
         button.backgroundColor = .white
         button.setTitleColor(.systemBlue, for: .normal)
-        button.setTitle("Move to DOING", for: .normal)
         button.titleLabel?.font = .preferredFont(forTextStyle: .subheadline)
         return button
     }()
 
     override func viewDidLoad() {
         self.configure()
+        self.binding()
     }
 
 }
@@ -70,5 +69,23 @@ private extension PopoverViewController {
             self.stackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 8),
             self.stackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -8)
         ])
+    }
+
+    func binding() {
+        let input = PopoverViewModel.Input(
+            topButtonDidTap: self.topButton.rx.tap.asObservable(),
+            bottomButtonDidTap: self.bottomButton.rx.tap.asObservable(),
+            viewDidDisappear: self.rx.methodInvoked(#selector(UIViewController.viewDidDisappear))
+                .map { _ in }
+        )
+        guard let output = self.viewModel?.transform(input: input, disposeBag: bag) else { return }
+
+        output.topButtonTitleText.asDriver()
+            .drive(self.topButton.rx.title())
+            .disposed(by: bag)
+
+        output.bottomButtonTitleText.asDriver()
+            .drive(self.bottomButton.rx.title())
+            .disposed(by: bag)
     }
 }

@@ -66,9 +66,9 @@ final class ScheduleUseCase {
             .disposed(by: bag)
     }
 
-    func changeProgress(schedule: Schedule, progress: Progress) -> Observable<Schedule> {
-
-        return scheduleProvider.update(convertedProgress(schedule: schedule, progress: progress))
+    func changeProgress(progress: Progress) {
+        guard let schedule = self.currentSchedule.value else { return }
+        self.update(convert(schedule: schedule, for: progress))
     }
 
     func setCurrentSchedule(schedule: Schedule) {
@@ -78,8 +78,9 @@ final class ScheduleUseCase {
 
 private extension ScheduleUseCase {
 
-    func convertedProgress(schedule: Schedule, progress: Progress) -> Schedule {
+    func convert(schedule: Schedule, for progress: Progress) -> Schedule {
         return Schedule(
+            id: schedule.id,
             title: schedule.title,
             body: schedule.body,
             dueDate: schedule.dueDate,

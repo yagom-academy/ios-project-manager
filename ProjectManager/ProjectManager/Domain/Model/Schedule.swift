@@ -8,7 +8,7 @@
 import Foundation
 
 struct Schedule {
-    let id: UUID?
+    let id: UUID
     var title: String
     var body: String
     var dueDate: Date
