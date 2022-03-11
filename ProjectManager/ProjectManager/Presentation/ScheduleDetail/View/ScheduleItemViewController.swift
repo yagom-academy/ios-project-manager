@@ -43,11 +43,14 @@ class ScheduleItemViewController: UIViewController {
         return datePicker
     }()
 
+    private let textStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.shadow()
+        return stackView
+    }()
+
     private let bodyTextView: UITextView = {
         let textView = UITextView()
-        textView.layer.masksToBounds = false
-        textView.shadow()
-
         return textView
     }()
 
@@ -82,7 +85,8 @@ private extension ScheduleItemViewController {
         self.view.addSubview(stackView)
         self.stackView.addArrangedSubview(titleTextField)
         self.stackView.addArrangedSubview(datePicker)
-        self.stackView.addArrangedSubview(bodyTextView)
+        self.textStackView.addArrangedSubview(bodyTextView)
+        self.stackView.addArrangedSubview(textStackView)
     }
 
     func configureConstraint() {

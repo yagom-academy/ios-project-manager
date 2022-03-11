@@ -8,7 +8,6 @@
 import Foundation
 import RxSwift
 import RxRelay
-import UIKit
 
 class ScheduleItemViewModel {
 
@@ -70,6 +69,7 @@ class ScheduleItemViewModel {
             .subscribe(onNext: { _ in
                 switch self.mode.value {
                 case .detail:
+                    self.currentTitleText.accept(self.useCase.currentSchedule.value?.title ?? "")
                     self.mode.accept(.edit)
                 case .edit:
                     guard let schedule = self.useCase.currentSchedule.value else {
