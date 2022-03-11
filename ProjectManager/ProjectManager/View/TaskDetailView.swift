@@ -61,7 +61,7 @@ struct TaskDetailView: View {
     private var trailingButton: some View {
         Button("Done") {
             if isEditing {
-                viewModel.updateTask(task, title: title, description: description, deadline: deadline)
+                viewModel.updateTask(id: task.id, title: title, description: description, deadline: deadline)
             } else {
                 let task = Task(title: title, description: description, deadline: deadline)
                 viewModel.createTask(task)

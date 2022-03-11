@@ -18,13 +18,13 @@ class TaskListViewModel: ObservableObject {
         todoTaskList = manager.taskList(at: .todo)
     }
     
-    func updateState(_ state: ProgressStatus, to task: Task) {
-        manager.updateTaskState(to: task, from: state)
+    func updateState(id: UUID, progressStatus: ProgressStatus) {
+        manager.updateTaskState(id: id, progressStatus: progressStatus)
         reload()
     }
     
-    func updateTask(_ task: Task, title: String, description: String, deadline: Date) {
-        manager.updateTask(task, title: title, description: description, deadline: deadline)
+    func updateTask(id: UUID, title: String, description: String, deadline: Date) {
+        manager.updateTask(id: id, title: title, description: description, deadline: deadline)
         reload()
     }
     

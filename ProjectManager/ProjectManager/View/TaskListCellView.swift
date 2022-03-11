@@ -63,12 +63,12 @@ struct TaskListCellView: View {
     private var statusChangePopover: some View {
         VStack {
             Button("Move to \(firstMoveStatus.name)") {
-                viewModel.updateState(firstMoveStatus, to: task)
+                viewModel.updateState(id: task.id, progressStatus: firstMoveStatus)
                 self.isShowUpdateTaskState = false
             }
             .padding()
             Button("Move to \(secondMoveStatus.name)") {
-                viewModel.updateState(secondMoveStatus, to: task)
+                viewModel.updateState(id: task.id, progressStatus: secondMoveStatus)
                 self.isShowUpdateTaskState = false
             }
             .padding()

@@ -11,19 +11,19 @@ class TaskManager: TaskManagable {
         taskList.append(task)
     }
     
-    func updateTaskState(to task: Task, from progressStatus: ProgressStatus) {
+    func updateTaskState(id: UUID, progressStatus: ProgressStatus) {
         taskList
             .indices
-            .filter { taskList[$0].id == task.id }
+            .filter { taskList[$0].id == id }
             .forEach {
                 taskList[$0].progressStatus = progressStatus
             }
     }
     
-    func updateTask(_ task: Task, title: String, description: String, deadline: Date) {
+    func updateTask(id: UUID, title: String, description: String, deadline: Date) {
         taskList
             .indices
-            .filter { taskList[$0].id == task.id }
+            .filter { taskList[$0].id == id }
             .forEach {
                 taskList[$0].title = title
                 taskList[$0].description = description
