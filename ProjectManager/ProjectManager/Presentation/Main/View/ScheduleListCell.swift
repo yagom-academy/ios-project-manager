@@ -68,6 +68,7 @@ final class ScheduleListCell: UITableViewCell {
         self.titleLabel.text = item.title
         self.bodyLabel.text = item.body
         self.dateLabel.text = item.formattedDateString
+        self.dateLabel.textColor = dateLabelColor(for: item.dueDate)
     }
 }
 
@@ -97,5 +98,12 @@ extension ScheduleListCell {
             self.stackView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 6),
             self.stackView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor)
         ])
+    }
+
+    private func dateLabelColor(for date: Date) -> UIColor {
+        let outDated = Calendar.autoupdatingCurrent
+            .compare(Date(), to: date, toGranularity: .day) == .orderedDescending
+
+        return outDated ? .systemRed : .black
     }
 }

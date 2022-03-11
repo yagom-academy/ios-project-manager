@@ -7,7 +7,6 @@
 import UIKit
 import RxSwift
 import RxCocoa
-import CoreMIDI
 
 final class MainViewController: UIViewController, UIGestureRecognizerDelegate {
 
@@ -22,10 +21,11 @@ final class MainViewController: UIViewController, UIGestureRecognizerDelegate {
         stackView.distribution = .fillEqually
         stackView.alignment = .fill
         stackView.spacing = 7.0
+        stackView.weakShadow()
         stackView.backgroundColor = .systemGray4
         return stackView
     }()
-    private let tableViews: [UITableView] = Progress.allCases.map { _ in UITableView() }
+    private let tableViews: [UITableView] = Progress.allCases.map { _ in UITableView(frame: .zero, style: .plain) }
     private let addBarButton: UIBarButtonItem = {
         let barButton = UIBarButtonItem()
         barButton.title = "+"
@@ -35,6 +35,12 @@ final class MainViewController: UIViewController, UIGestureRecognizerDelegate {
         let longPressGestureRecognizer = UILongPressGestureRecognizer()
         longPressGestureRecognizer.minimumPressDuration = 0.7
         return longPressGestureRecognizer
+    }
+
+    private let headerViews: [ScheduleHeaderView] = Progress.allCases.map { progress in
+        let headerView = ScheduleHeaderView()
+        headerView.progressLabel.text = progress.description.uppercased()
+        return headerView
     }
 
 // MARK: - Methods
@@ -56,7 +62,7 @@ final class MainViewController: UIViewController, UIGestureRecognizerDelegate {
 private extension MainViewController {
 
     func configure() {
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = .systemGray5
         self.configureNavigationBar()
         self.configureSubView()
     }
@@ -87,7 +93,7 @@ private extension MainViewController {
             self.stackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
             self.stackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
             self.stackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-            self.stackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
+            self.stackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -30),
         ])
     }
 
@@ -105,11 +111,13 @@ private extension MainViewController {
     }
 
     func configureTableView() {
-        self.tableViews.forEach { tableView in
+        self.tableViews.enumerated().forEach { index, tableView in
             tableView.register(cellWithClass: ScheduleListCell.self)
             tableView.delegate = self
             tableView.backgroundColor = .systemGray6
             tableView.separatorStyle = .none
+            tableView.tableHeaderView = self.headerViews[index]
+            tableView.tableHeaderView!.frame.size.height = 45
         }
         self.configureTableViewGestureRecognizers()
     }
@@ -181,6 +189,13 @@ private extension MainViewController {
                     cell.configureContent(with: item)
                 }
                 .disposed(by: bag)
+
+            observable
+                .subscribe(onNext: { schedule in
+                    self.headerViews[index].countButton.setTitle("\(schedule.count)", for: .normal)
+                })
+                .disposed(by: bag)
+
         }
     }
 }
