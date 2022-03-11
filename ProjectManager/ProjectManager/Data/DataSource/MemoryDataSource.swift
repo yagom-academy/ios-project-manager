@@ -90,7 +90,7 @@ private extension MemoryDataSource {
             completion(nil)
             return
         }
-        storage[index] = schedule
-        completion(storage[index])
+        storage[safe: index] = schedule
+        completion(storage[safe: index])
     }
 }

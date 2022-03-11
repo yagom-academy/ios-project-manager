@@ -33,6 +33,8 @@
 		37CC922227DB1258003F1122 /* PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CC922127DB1258003F1122 /* PopoverViewController.swift */; };
 		37CC922427DB1267003F1122 /* PopoverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CC922327DB1267003F1122 /* PopoverViewModel.swift */; };
 		37CC922627DB168C003F1122 /* PopoverCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CC922527DB168C003F1122 /* PopoverCoordinator.swift */; };
+		37CC922827DBA84E003F1122 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CC922727DBA84E003F1122 /* Date+Extension.swift */; };
+		37CC922A27DBAB29003F1122 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CC922927DBAB29003F1122 /* Array+Extension.swift */; };
 		37FB8D9727D1DE6100ED9AE2 /* ScheduleUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FB8D9627D1DE6100ED9AE2 /* ScheduleUseCase.swift */; };
 		37FB8D9927D1EDD400ED9AE2 /* MemoryDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FB8D9827D1EDD400ED9AE2 /* MemoryDataSource.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
@@ -79,6 +81,8 @@
 		37CC922127DB1258003F1122 /* PopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverViewController.swift; sourceTree = "<group>"; };
 		37CC922327DB1267003F1122 /* PopoverViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverViewModel.swift; sourceTree = "<group>"; };
 		37CC922527DB168C003F1122 /* PopoverCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverCoordinator.swift; sourceTree = "<group>"; };
+		37CC922727DBA84E003F1122 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
+		37CC922927DBAB29003F1122 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		37FB8D9627D1DE6100ED9AE2 /* ScheduleUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleUseCase.swift; sourceTree = "<group>"; };
 		37FB8D9827D1EDD400ED9AE2 /* MemoryDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryDataSource.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -195,6 +199,8 @@
 				33B6322027D7528700EB169D /* TableView+Extension.swift */,
 				33B6322227D7554C00EB169D /* DateFormatter+Extension.swift */,
 				33D15E1527DBA724006407A9 /* UIView+Shadow.swift */,
+				37CC922727DBA84E003F1122 /* Date+Extension.swift */,
+				37CC922927DBAB29003F1122 /* Array+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -479,6 +485,7 @@
 				336E237827D1E7B300C40ECC /* DataSource.swift in Sources */,
 				37FB8D9927D1EDD400ED9AE2 /* MemoryDataSource.swift in Sources */,
 				37FB8D9727D1DE6100ED9AE2 /* ScheduleUseCase.swift in Sources */,
+				37CC922827DBA84E003F1122 /* Date+Extension.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				336E237B27D1E7DD00C40ECC /* Repository.swift in Sources */,
 				37CC922627DB168C003F1122 /* PopoverCoordinator.swift in Sources */,
@@ -487,6 +494,7 @@
 				334BADEE27D8B1BC0098F448 /* MainViewCoordinator.swift in Sources */,
 				37CC922427DB1267003F1122 /* PopoverViewModel.swift in Sources */,
 				334BADF027D8F2690098F448 /* ScheduleItemCoordinator.swift in Sources */,
+				37CC922A27DBAB29003F1122 /* Array+Extension.swift in Sources */,
 				376D6FB527D734950097D31A /* MainViewModel.swift in Sources */,
 				33B6322127D7528700EB169D /* TableView+Extension.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,

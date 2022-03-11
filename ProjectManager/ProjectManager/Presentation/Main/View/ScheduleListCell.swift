@@ -67,7 +67,7 @@ final class ScheduleListCell: UITableViewCell {
     func configureContent(with item: Schedule) {
         self.titleLabel.text = item.title
         self.bodyLabel.text = item.body
-        self.dateLabel.text = item.formattedDateString
+        self.dateLabel.text = item.dueDate.formattedDateString
         self.dateLabel.textColor = dateLabelColor(for: item.dueDate)
     }
 }

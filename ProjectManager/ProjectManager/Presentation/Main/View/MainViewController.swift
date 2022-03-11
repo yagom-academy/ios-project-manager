@@ -116,15 +116,16 @@ private extension MainViewController {
             tableView.delegate = self
             tableView.backgroundColor = .systemGray6
             tableView.separatorStyle = .none
-            tableView.tableHeaderView = self.headerViews[index]
-            tableView.tableHeaderView!.frame.size.height = 45
+            tableView.tableHeaderView = self.headerViews[safe: index]
+            tableView.tableHeaderView?.frame.size.height = 45
         }
         self.configureTableViewGestureRecognizers()
     }
 
     func configureTableViewGestureRecognizers() {
         self.tableViews.enumerated().forEach { index, tableView in
-            tableView.addGestureRecognizer(self.longPressGestureRecognizers[index])
+            guard let longRecognizer = self.longPressGestureRecognizers[safe: index] else { return }
+            tableView.addGestureRecognizer(longRecognizer)
         }
     }
 
@@ -161,7 +162,7 @@ private extension MainViewController {
                         if gestureRecognizer.state == .began {
                             let touchPoint = gestureRecognizer.location(in: tableView)
                             if let indexPath = tableView.indexPathForRow(at: touchPoint) {
-                                let cell = tableView.cellForRow(at: indexPath)!
+                                guard let cell = tableView.cellForRow(at: indexPath) else { fatalError() }
                                 return (cell, try tableView.rx.model(at: indexPath))
                             }
                         }
@@ -179,9 +180,10 @@ private extension MainViewController {
         }
 
         output.scheduleLists.enumerated().forEach { index, observable in
+            guard let tableView = self.tableViews[safe: index] else { return }
             observable.asDriver(onErrorJustReturn: [])
                 .drive(
-                    self.tableViews[index].rx.items(
+                    tableView.rx.items(
                         cellIdentifier: "ScheduleListCell",
                         cellType: ScheduleListCell.self
                     )
@@ -192,7 +194,7 @@ private extension MainViewController {
 
             observable
                 .subscribe(onNext: { schedule in
-                    self.headerViews[index].countButton.setTitle("\(schedule.count)", for: .normal)
+                    self.headerViews[safe: index]?.countButton.setTitle("\(schedule.count)", for: .normal)
                 })
                 .disposed(by: bag)
 

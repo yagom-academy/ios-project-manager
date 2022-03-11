@@ -53,13 +53,14 @@ final class ScheduleUseCase {
         scheduleProvider.update(schedule)
             .subscribe(onNext: { newSchedule in
                 var schedules = self.schedules.value
-                let index = schedules.enumerated().filter { _, schedule in
-                    schedule.id == newSchedule.id
-                }.map { element in
-                    element.0
-                }.first
+                guard let index = schedules.enumerated()
+                        .filter { _, schedule in
+                            schedule.id == newSchedule.id
+                        }.map { element in
+                            element.0
+                        }.first else { return }
 
-                schedules[index!] = newSchedule
+                schedules[safe: index] = newSchedule
 
                 self.schedules.accept(schedules)
             })
