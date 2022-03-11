@@ -62,7 +62,7 @@
                                                         </state>
                                                         <connections>
                                                             <action selector="addButtonDidTap:" destination="sgP-Mm-cbK" eventType="touchUpInside" id="ZA2-qO-xzK"/>
-                                                            <segue destination="edw-6f-98c" kind="presentation" modalPresentationStyle="formSheet" id="DcG-7w-vKv"/>
+                                                            <segue destination="edw-6f-98c" kind="presentation" modalPresentationStyle="formSheet" modalTransitionStyle="coverVertical" id="DcG-7w-vKv"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -120,7 +120,7 @@
                                                         <outlet property="bodyLabel" destination="2sU-5e-5ZL" id="tC1-sB-nwQ"/>
                                                         <outlet property="dateLabel" destination="Syg-tS-VTU" id="62o-fr-MNO"/>
                                                         <outlet property="titleLabel" destination="NTh-NM-edZ" id="PVZ-7e-ViA"/>
-                                                        <segue destination="edw-6f-98c" kind="presentation" destinationCreationSelector="editAction:" modalPresentationStyle="formSheet" id="zyq-pl-axu"/>
+                                                        <segue destination="edw-6f-98c" kind="presentation" modalPresentationStyle="formSheet" modalTransitionStyle="coverVertical" id="zyq-pl-axu"/>
                                                     </connections>
                                                 </tableViewCell>
                                             </prototypes>
@@ -271,7 +271,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="zyq-pl-axu"/>
+        <segue reference="DcG-7w-vKv"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="plus" catalog="system" width="128" height="113"/>
