@@ -1,7 +1,9 @@
 import Foundation
 
 struct Task: Identifiable {
-    enum ProgressStatus: String {
+    enum ProgressStatus: CaseIterable, Identifiable {
+        var id: UUID { UUID() }
+        
         case todo
         case doing
         case done
@@ -20,8 +22,8 @@ struct Task: Identifiable {
     
     var id: UUID
     var title: String
-    var deadline: TimeInterval
     var description: String
+    var deadline: TimeInterval
     var progressStatus: ProgressStatus
     
     init(title: String, description: String, deadline: Date) {

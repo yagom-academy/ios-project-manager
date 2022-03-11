@@ -6,16 +6,24 @@ struct TaskDetailView: View {
     @State private var title = ""
     @State private var description = ""
     @State private var deadline = Date()
-    @State private var isdisabled = false
+    @State private var isDisabled = false
     @State private var isEditing = false
     
     @Binding var isShowTaskDetailView: Bool
     
-    var task: Task = Task(title: "", description: "", deadline: Date())
+    @State var task: Task = Task(title: "", description: "", deadline: Date())
     
     var body: some View {
         VStack {
-            headerView
+            HeaderView(
+                viewModel: _viewModel,
+                title: $title, description: $description,
+                deadline: $deadline,
+                task: $task,
+                isDisabled: $isDisabled,
+                isEditing: $isEditing,
+                isShowTaskDetailView: $isShowTaskDetailView
+            )
             titleTextField
             deadLineView
             descriptionTextEditor
@@ -23,7 +31,7 @@ struct TaskDetailView: View {
         .padding(.horizontal)
         .onAppear {
             if task.title != "" {
-                isdisabled = true
+                isDisabled = true
                 title = task.title
                 description = task.description
                 deadline = Date(timeIntervalSince1970: task.deadline)
@@ -50,7 +58,7 @@ struct TaskDetailView: View {
             if task.title.isEmpty {
                 isShowTaskDetailView = false
             } else {
-                self.isdisabled = false
+                self.isDisabled = false
                 self.isEditing = true
             }
         }, label: {
@@ -75,13 +83,13 @@ struct TaskDetailView: View {
             .multilineTextAlignment(.leading)
             .textFieldStyle(RoundedBorderTextFieldStyle())
             .foregroundColor(.black)
-            .disabled(isdisabled)
+            .disabled(isDisabled)
     }
     
     private var deadLineView: some View {
         DatePicker("deadline", selection: $deadline, displayedComponents: .date)
             .datePickerStyle(WheelDatePickerStyle()).labelsHidden()
-            .disabled(isdisabled)
+            .disabled(isDisabled)
     }
     
     private var descriptionTextEditor: some View {
@@ -90,6 +98,77 @@ struct TaskDetailView: View {
             .lineLimit(10)
             .foregroundColor(.black)
             .shadow(radius: 1)
-            .disabled(isdisabled)
+            .disabled(isDisabled)
+    }
+}
+
+struct HeaderView: View {
+    @EnvironmentObject var viewModel: TaskListViewModel
+    
+    @Binding var title: String
+    @Binding var description: String
+    @Binding var deadline: Date
+    
+    @Binding var task: Task
+    @Binding var isDisabled: Bool
+    @Binding var isEditing: Bool
+    @Binding var isShowTaskDetailView: Bool
+    
+    var body: some View {
+        HStack {
+            LeadingButton(isDisabled: $isDisabled, isEditing: $isEditing, isShowTaskDetailView: $isShowTaskDetailView, isEditMode: task.title.isEmpty)
+            Spacer()
+            Text("TODO")
+                .font(.title2)
+                .foregroundColor(.black)
+                .bold()
+            Spacer()
+            TrailingButton(viewModel: _viewModel, title: $title, description: $description, deadline: $deadline, task: $task, isEditing: $isEditing, isShowTaskDetailView: $isShowTaskDetailView)
+        }
+        .padding(10)
+    }
+}
+
+struct LeadingButton: View {
+    @Binding var isDisabled: Bool
+    @Binding var isEditing: Bool
+    @Binding var isShowTaskDetailView: Bool
+    let isEditMode: Bool
+    
+    var body: some View {
+        Button(action: {
+            if isEditMode {
+                isShowTaskDetailView = false
+            } else {
+                self.isDisabled = false
+                self.isEditing = true
+            }
+        }, label: {
+            isEditMode ? Text("Cancel") : Text("Edit")
+        })
+    }
+}
+
+struct TrailingButton: View {
+    @EnvironmentObject var viewModel: TaskListViewModel
+    
+    @Binding var title: String
+    @Binding var description: String
+    @Binding var deadline: Date
+    
+    @Binding var task: Task
+    @Binding var isEditing: Bool
+    @Binding var isShowTaskDetailView: Bool
+    
+    var body: some View {
+        Button("Done") {
+            if isEditing {
+                viewModel.updateTask(id: task.id, title: title, description: description, deadline: deadline)
+            } else {
+                let task = Task(title: title, description: description, deadline: deadline)
+                viewModel.createTask(task)
+            }
+            isShowTaskDetailView = false
+        }
     }
 }

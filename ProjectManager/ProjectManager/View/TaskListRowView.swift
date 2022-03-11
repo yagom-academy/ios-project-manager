@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct TaskListCellView: View {
+struct TaskListRowView: View {
     @EnvironmentObject private var viewModel: TaskListViewModel
     
     @State private var isShowTaskDetailView = false
@@ -12,9 +12,9 @@ struct TaskListCellView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
-            title
-            descrition
-            deadline
+            TaskListRowTitleView(title: task.title)
+            TaskListRowDescriptionView(description: task.description)
+            TaskListRowDeadlineView(deadline: task.deadline, progressStatus: task.progressStatus)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .contentShape(Rectangle())
@@ -29,28 +29,48 @@ struct TaskListCellView: View {
             self.isShowUpdateTaskState = true
         }
         .popover(isPresented: $isShowUpdateTaskState) {
-            statusChangePopover
+            StatusChangePopoverView(
+                isShowTaskDetailView: $isShowTaskDetailView,
+                isShowUpdateTaskState: $isShowUpdateTaskState,
+                firstMoveStatus: $firstMoveStatus,
+                secondMoveStatus: $secondMoveStatus,
+                id: task.id,
+                progressStatus: task.progressStatus
+            )
         }
     }
+}
+
+struct TaskListRowTitleView: View {
+    let title: String
     
-    private var title: some View {
-        Text(task.title)
+    var body: some View {
+        Text(title)
             .font(.system(size: 20, weight: .bold, design: .rounded))
             .lineLimit(1)
     }
+}
+
+struct TaskListRowDescriptionView: View {
+    let description: String
     
-    private var descrition: some View {
-        Text(task.description)
+    var body: some View {
+        Text(description)
             .font(.system(size: 17, weight: .regular, design: .rounded))
             .foregroundColor(.gray)
             .lineLimit(3)
     }
+}
+
+struct TaskListRowDeadlineView: View {
+    let deadline: TimeInterval
+    let progressStatus: Task.ProgressStatus
     
-    private var deadline: some View {
-        let deadlineText = Text(task.deadline.formattedDate)
+    var body: some View {
+        let deadlineText = Text(deadline.formattedDate)
         let currentTime = Date().timeIntervalSince1970
         
-        if task.progressStatus != .done, task.deadline < currentTime {
+        if progressStatus != .done, deadline < currentTime {
             return deadlineText
                 .foregroundColor(Color.red)
                 .font(.system(size: 15, weight: .regular, design: .rounded))
@@ -59,16 +79,28 @@ struct TaskListCellView: View {
                 .font(.system(size: 15, weight: .regular, design: .rounded))
         }
     }
+}
+
+struct StatusChangePopoverView: View {
+    @EnvironmentObject private var viewModel: TaskListViewModel
     
-    private var statusChangePopover: some View {
+    @Binding var isShowTaskDetailView: Bool
+    @Binding var isShowUpdateTaskState: Bool
+    @Binding var firstMoveStatus: Task.ProgressStatus
+    @Binding var secondMoveStatus: Task.ProgressStatus
+    
+    let id: UUID
+    let progressStatus: Task.ProgressStatus
+    
+    var body: some View {
         VStack {
             Button("Move to \(firstMoveStatus.name)") {
-                viewModel.updateState(id: task.id, progressStatus: firstMoveStatus)
+                viewModel.updateState(id: id, progressStatus: firstMoveStatus)
                 self.isShowUpdateTaskState = false
             }
             .padding()
             Button("Move to \(secondMoveStatus.name)") {
-                viewModel.updateState(id: task.id, progressStatus: secondMoveStatus)
+                viewModel.updateState(id: id, progressStatus: secondMoveStatus)
                 self.isShowUpdateTaskState = false
             }
             .padding()
@@ -79,7 +111,7 @@ struct TaskListCellView: View {
     }
     
     private func setButtonTitle() {
-        switch task.progressStatus {
+        switch progressStatus {
         case .todo:
             firstMoveStatus = .doing
             secondMoveStatus = .done

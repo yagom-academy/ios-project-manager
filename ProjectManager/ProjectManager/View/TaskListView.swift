@@ -17,12 +17,17 @@ struct TaskListView: View {
     
     var body: some View {
         VStack {
-            title
-            listView
+            TaskListTitleView(progressStatus: progressStatus, taskList: taskList)
+            TaskListContentView(taskList: taskList)
         }
     }
+}
+
+struct TaskListTitleView: View {
+    let progressStatus: Task.ProgressStatus
+    let taskList: [Task]
     
-    private var title: some View {
+    var body: some View {
         HStack {
             Text("\(progressStatus.name)")
                 .font(.title2)
@@ -35,11 +40,16 @@ struct TaskListView: View {
         }
         .frame(maxWidth: .infinity, alignment: .leading)
     }
+}
+
+struct TaskListContentView: View {
+    @EnvironmentObject private var viewModel: TaskListViewModel
+    let taskList: [Task]
     
-    private var listView: some View {
+    var body: some View {
         List {
             ForEach(taskList) { task in
-                TaskListCellView(task: task)
+                TaskListRowView(task: task)
             }
             .onDelete { indexSet in
                 viewModel.deleteTask(taskList[indexSet.index])

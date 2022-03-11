@@ -10,7 +10,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return
         }
         let taskViewModel = TaskListViewModel()
-        let contentView = ContentView().environmentObject(taskViewModel)
+        let contentView = ProjectManagerMainView().environmentObject(taskViewModel)
         let window = UIWindow(windowScene: windowScene)
         
         window.rootViewController = UIHostingController(rootView: contentView)
