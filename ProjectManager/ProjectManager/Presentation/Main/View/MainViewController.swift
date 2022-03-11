@@ -142,7 +142,7 @@ private extension MainViewController {
                 .map { _ in },
             tableViewLongPressed: self.longPressGestureRecognizers.map { gestureRecognizer in
                 gestureRecognizer.rx.event
-                    .map { (gestureRecognizer: UIGestureRecognizer) -> Schedule? in
+                    .map { (gestureRecognizer: UIGestureRecognizer) -> (UITableViewCell, Schedule)? in
                         guard let tableView = gestureRecognizer.view as? UITableView else {
                             return nil
                         }
@@ -150,7 +150,8 @@ private extension MainViewController {
                         if gestureRecognizer.state == .began {
                             let touchPoint = gestureRecognizer.location(in: tableView)
                             if let indexPath = tableView.indexPathForRow(at: touchPoint) {
-                                return try tableView.rx.model(at: indexPath)
+                                let cell = tableView.cellForRow(at: indexPath)!
+                                return (cell, try tableView.rx.model(at: indexPath))
                             }
                         }
                         return nil

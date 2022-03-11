@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 import RxRelay
-import RxCocoa
+import UIKit
 
 final class MainViewModel {
 
@@ -27,7 +27,7 @@ final class MainViewModel {
 
     struct Input {
         let viewWillAppear: Observable<Void>
-        let tableViewLongPressed: [Observable<Schedule?>]
+        let tableViewLongPressed: [Observable<(UITableViewCell, Schedule)?>]
         let cellDidTap: [Observable<Schedule>]
         let cellDelete: [Observable<UUID>]
         let addButtonDidTap: Observable<Void>
@@ -76,12 +76,12 @@ final class MainViewModel {
             .disposed(by: bag)
 
         input.tableViewLongPressed.forEach { observable in
-            observable.subscribe(onNext: { schedule in
-                if schedule == nil {
+            observable.subscribe(onNext: { observable in
+                guard let (cell, schedule) = observable else {
                     return
                 }
                 self.useCase.currentSchedule.accept(schedule)
-                self.coordinator.presentPopoverViewController()
+                self.coordinator.presentPopoverViewController(at: cell)
             })
                 .disposed(by: bag)
         }

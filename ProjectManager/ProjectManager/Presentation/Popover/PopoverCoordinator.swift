@@ -17,12 +17,20 @@ class PopoverCoordinator {
         return viewController
     }()
 
-    func start(with useCase: ScheduleUseCase, sourceView: UIBarButtonItem) {
+    func start(with useCase: ScheduleUseCase, sourceView: UIView) {
         self.popoverViewController.viewModel = PopoverViewModel(
             useCase: useCase,
             coordinator: self
         )
-        self.popoverViewController.popoverPresentationController?.barButtonItem = sourceView
+        let sourceRect = CGRect(
+            origin: sourceView.center,
+            size: CGSize(
+                width: sourceView.bounds.size.width,
+                height: sourceView.bounds.size.height * 1/2
+            )
+        )
+        self.popoverViewController.popoverPresentationController?.sourceView = sourceView
+        self.popoverViewController.popoverPresentationController?.sourceRect = sourceRect
     }
 
     func dismiss() {
