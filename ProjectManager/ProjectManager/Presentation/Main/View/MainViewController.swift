@@ -21,7 +21,8 @@ final class MainViewController: UIViewController, UIGestureRecognizerDelegate {
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
         stackView.alignment = .fill
-        stackView.spacing = 2.0
+        stackView.spacing = 7.0
+        stackView.backgroundColor = .systemGray4
         return stackView
     }()
     private let tableViews: [UITableView] = Progress.allCases.map { _ in UITableView() }
@@ -107,6 +108,8 @@ private extension MainViewController {
         self.tableViews.forEach { tableView in
             tableView.register(cellWithClass: ScheduleListCell.self)
             tableView.delegate = self
+            tableView.backgroundColor = .systemGray6
+            tableView.separatorStyle = .none
         }
         self.configureTableViewGestureRecognizers()
     }

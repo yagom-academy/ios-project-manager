@@ -165,4 +165,16 @@ extension UIView {
         self.layer.shadowRadius = 2
         self.layer.shadowOffset = CGSize(width: 1, height: 2)
     }
+
+    func weakShadow() {
+        self.backgroundColor = .white
+        self.layer.borderColor = UIColor.clear.cgColor
+        self.layer.borderWidth = 0.5
+        self.layer.cornerRadius = 1
+
+        self.layer.shadowColor = UIColor.systemGray.cgColor
+        self.layer.shadowOpacity = 0.6
+        self.layer.shadowRadius = 0.5
+        self.layer.shadowOffset = CGSize(width: 0, height: 0.5)
+    }
 }
