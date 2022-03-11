@@ -31,7 +31,6 @@ class ProjectListViewController: UIViewController {
         configureUI()
         configureTableView()
         configureBind()
-        viewModel.tableViews = tableViews
     }
     
     private func configureUI() {
@@ -48,7 +47,7 @@ class ProjectListViewController: UIViewController {
     }
     
     @objc private func didTapAddProjectButton() {
-        let viewController = AddProjectDetailViewController()
+        let viewController = AddProjectDetailViewController(viewModel: self.viewModel)
         let destinationViewController = UINavigationController(rootViewController: viewController)
 
         destinationViewController.modalPresentationStyle = .formSheet
@@ -80,6 +79,27 @@ class ProjectListViewController: UIViewController {
             self.entireStackView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
             self.entireStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor)
         ])
+    }
+    
+    func configureBind() {
+        viewModel.tableViews = tableViews
+        viewModel.fetchAll()
+        
+        viewModel.onCellSelected = { [weak self] index, project in
+            guard let self = self else {
+                return
+            }
+            let editViewController = EditProjectDetailViewController(viewModel: self.viewModel, currentIndex: index, currentProject: project)
+            let destinationViewController = UINavigationController(rootViewController: editViewController)
+            destinationViewController.modalPresentationStyle = .formSheet
+            self.present(destinationViewController, animated: true, completion: nil)
+        }
+        
+        viewModel.onUpdated = {
+            self.tableViews.forEach {
+                $0.reloadData()
+            }
+        }
     }
 }
 
@@ -120,24 +140,6 @@ extension ProjectListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         viewModel.didSelectRow(index: indexPath, tableView: tableView)
-    }
-    
-    func configureBind() {
-        viewModel.onCellSelected = { [weak self] index, project in
-            guard let self = self else {
-                return
-            }
-            let editViewController = EditProjectDetailViewController(viewModel: self.viewModel, currentIndex: index, currentProject: project)
-            let destinationViewController = UINavigationController(rootViewController: editViewController)
-            destinationViewController.modalPresentationStyle = .formSheet
-            self.present(destinationViewController, animated: true, completion: nil)
-        }
-        
-        viewModel.onUpdated = {
-            self.tableViews.forEach {
-                $0.reloadData()
-            }
-        }
     }
 }
 

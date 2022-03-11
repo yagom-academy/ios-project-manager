@@ -110,6 +110,15 @@ class ProjectDetailView: UIView {
         datePicker.isUserInteractionEnabled = state
     }
     
+    func createViewData() -> Project {
+        return Project(
+            id: UUID(),
+            state: .todo,
+            title: titleTextField.text ?? "",
+            body: bodyTextView.text ?? "",
+            date: datePicker.date)
+    }
+    
     func retrieveViewData(with oldProject: Project) -> Project {
         return Project(
             id: oldProject.id,

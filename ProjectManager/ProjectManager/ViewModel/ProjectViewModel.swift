@@ -3,14 +3,16 @@ import UIKit
 protocol ProjectViewModelProtocol: UITableViewDataSource {
     var onCellSelected: ((Int, Project) -> Void)? { get set }
     var onUpdated: (() -> Void)? { get set }
-    
+//    var onCreated?:
     var todoProjects: [Project] { get }
     var doingProjects: [Project] { get }
     var doneProjects: [Project] { get }
     var tableViews: [ProjectListTableView]? { get set }
     
     func didSelectRow(index: IndexPath, tableView: UITableView)
+    func create(with project: Project)
     func update(with project: Project)
+    func fetchAll()
 }
 
 class ProjectViewModel: NSObject, ProjectViewModelProtocol {
@@ -19,11 +21,7 @@ class ProjectViewModel: NSObject, ProjectViewModelProtocol {
     var onCellSelected: ((Int, Project) -> Void)?
     var onUpdated: (() -> Void)?
     
-    static var projects = [Project(id: UUID(), state: .todo, title: "투두", body: "돈내놔", date: Date()),
-                            Project(id: UUID(), state: .doing, title: "두잉", body: "ㅇㅇㅂㅇㅂㅉㅇㅂㅇ", date: Date()),
-                            Project(id: UUID(), state: .done, title: "돈", body: "ㅇ애애ㅐ애애애애애앵ㅂㅈㅇㅂㅇㅂㅇ빙빙지이이잉이이ㅣ이잉이이이ㅣㅣ이ㅇㅈㅂ앱재앱ㅇ앵배아아배아ㅐ이이이이이이이", date: Date()),
-                            Project(id: UUID(), state: .done, title: "돈돈돈돋논돋논돈도돈도돋도도도도도도도ㅗ도도", body: "애ㅇㅂㅈㅇㅂㅇㅂㅇ앶뱆아ㅐㅂㅈ애앵배아아배아ㅐ이이이이이이이", date: Date())] // 테스트용 static
-    
+    var projects: [Project] = []
     var tableViews: [ProjectListTableView]?
     
     init(useCase: ProjectUseCaseProtocol) {
@@ -31,19 +29,30 @@ class ProjectViewModel: NSObject, ProjectViewModelProtocol {
     }
     
     var todoProjects: [Project] {
-        ProjectViewModel.projects.filter { $0.state == .todo }
+        projects.filter { $0.state == .todo }
     }
     
     var doingProjects: [Project] {
-        ProjectViewModel.projects.filter { $0.state == .doing }
+        projects.filter { $0.state == .doing }
     }
     
     var doneProjects: [Project] {
-        ProjectViewModel.projects.filter { $0.state == .done }
+        projects.filter { $0.state == .done }
+    }
+    
+    func fetchAll() {
+        projects = useCase.fetchAll()
+    }
+    
+    func create(with project: Project) {
+        useCase.create(with: project)
+        fetchAll()
+        onUpdated?()
     }
     
     func update(with project: Project) {
         useCase.update(with: project)
+        fetchAll()
         onUpdated?()
     }
     

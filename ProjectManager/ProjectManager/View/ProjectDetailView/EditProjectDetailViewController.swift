@@ -36,12 +36,14 @@ class EditProjectDetailViewController: ProjectDetailViewController {
             projectDetailView.setEditingMode(to: true)
         } else {
             projectDetailView.setEditingMode(to: false)
-            guard let currentProject = currentProject else {
-                return
+        
+            self.dismiss(animated: true) { [self] in
+                guard let currentProject = currentProject else {
+                    return
+                }
+                let updatedProject = projectDetailView.retrieveViewData(with: currentProject)
+                viewModel?.update(with: updatedProject)
             }
-
-            let updatedProject = projectDetailView.retrieveViewData(with: currentProject)
-            viewModel?.update(with: updatedProject)
         }
     }
     

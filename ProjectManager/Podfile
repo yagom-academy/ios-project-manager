@@ -8,8 +8,9 @@ target 'ProjectManager' do
   pod 'RxSwift', '~> 6.5.0'
   pod 'RxCocoa', '~> 6.5.0'
   pod 'SwiftLint'
-  pod 'Firebase/Core'
-  pod 'Firebase/Database'
+  pod 'Firebase/Analytics'
+  pod 'Firebase/Auth'
+  pod 'Firebase/Firestore'
 
   # Pods for ProjectManager
 

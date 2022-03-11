@@ -8,11 +8,15 @@ class MockProjectRepository: ProjectRepositoryProtocol {
         self.projects = projects
     }
     
-    func update(with project: Project) {
-        projects.updateValue(project, forKey: project.id)
-    }
-    
     func fetchAll() -> [UUID: Project] {
         return projects
+    }
+    
+    func create(with project: Project) {
+        projects[project.id] = project
+    }
+    
+    func update(with project: Project) {
+        projects.updateValue(project, forKey: project.id)
     }
 }

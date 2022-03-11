@@ -1,6 +1,17 @@
 import UIKit
 
 class AddProjectDetailViewController: ProjectDetailViewController {
+    var viewModel: ProjectViewModelProtocol?
+    
+    init(viewModel: ProjectViewModelProtocol?) {
+        super.init(nibName: nil, bundle: nil)
+        self.viewModel = viewModel
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavigationBar()
@@ -14,7 +25,10 @@ class AddProjectDetailViewController: ProjectDetailViewController {
     }
     
     @objc private func didTapDoneButton() {
-        self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true) {
+            let project = self.projectDetailView.createViewData()
+            self.viewModel?.create(with: project)
+        }
     }
     
     @objc private func didTapCancelButton() {
