@@ -1,19 +1,25 @@
 import UIKit
 
 class ProjectCell: UITableViewCell {
-    @IBOutlet var titleLabel: UILabel!
-    @IBOutlet var descriptionLabel: UILabel!
-    @IBOutlet var dateLabel: UILabel!
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    static let nibName = "ProjectCell"
+    static let identifier = "projectCell"
+    
+    @IBOutlet private var titleLabel: UILabel!
+    @IBOutlet private var descriptionLabel: UILabel!
+    @IBOutlet private var dateLabel: UILabel!
+    
+    func configure(_ project: Project) {
+        titleLabel.text = project.title
+        descriptionLabel.text = project.description
+        dateLabel.text = Date.formattedString(project.date)
+        changedDataColor(project.date)
     }
     
+    private func changedDataColor(_ date: Date) {
+        if date.isPastDeadline {
+            titleLabel.textColor = .systemRed
+        } else {
+            titleLabel.textColor = .black
+        }
+    }
 }

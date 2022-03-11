@@ -20,10 +20,10 @@ extension Project {
     }
 }
 
-enum ProjectState: CaseIterable {
-    case todo
-    case doing
-    case done
+enum ProjectState: String, CaseIterable {
+    case todo = "TODO"
+    case doing = "DOING"
+    case done = "DONE"
     
     var index: Int {
         switch self {

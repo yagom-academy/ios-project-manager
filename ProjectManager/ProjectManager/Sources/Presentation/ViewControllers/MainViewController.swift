@@ -1,4 +1,6 @@
 import UIKit
+import RxSwift
+import RxCocoa
 
 class MainViewController: UIViewController {
     @IBOutlet private weak var todoTableView: UITableView!
@@ -6,6 +8,8 @@ class MainViewController: UIViewController {
     @IBOutlet private weak var doneTableView: UITableView!
     @IBOutlet private var tableViews: [UITableView]!
     @IBOutlet private weak var addButton: UIBarButtonItem!
+    let viewModel = ProjectListViewModel()
+    private let bag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,10 +47,32 @@ extension MainViewController: UITableViewDataSource {
     }
 }
 
+// MARK: - UITableViewDelegate
 extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "projectHeader") as? ProjectHeader else {
+        guard let headerView = tableView.dequeueReusableHeaderFooterView(
+            withIdentifier: ProjectHeader.identifier
+        ) as? ProjectHeader else {
             return UIView()
+        }
+        switch tableView {
+        case todoTableView:
+            headerView.configure(
+                title: ProjectState.todo.rawValue,
+                count: viewModel.projectList[ProjectState.todo.index].count
+            )
+        case doingTableView:
+            headerView.configure(
+                title: ProjectState.doing.rawValue,
+                count: viewModel.projectList[ProjectState.doing.index].count
+            )
+        case doneTableView:
+            headerView.configure(
+                title: ProjectState.done.rawValue,
+                count: viewModel.projectList[ProjectState.done.index].count
+            )
+        default:
+            break
         }
         return headerView
     }

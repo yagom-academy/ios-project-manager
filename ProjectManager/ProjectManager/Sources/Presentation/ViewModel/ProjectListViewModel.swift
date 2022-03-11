@@ -4,7 +4,7 @@ import RxCocoa
 
 final class ProjectListViewModel {
     private var allProjects: [Project] = []
-    private var projectList: [[Project]] = [[], [], []]
+    private(set) var projectList: [[Project]] = [[], [], []]
     private let useCase: ProjectListUseCase
     private let disposeBag = DisposeBag()
     

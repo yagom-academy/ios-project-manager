@@ -9,6 +9,4 @@ protocol ProjectListUseCase {
     @discardableResult
     func delete(_ item: Project?) -> Single<Project>
     func fetch() -> BehaviorSubject<[Project]>
-    @discardableResult
-    func changedState(for project: Project, with state: ProjectState) -> Single<Project>
 }
