@@ -20,8 +20,9 @@ class ProjectTableViewHeaderView: UIView {
     
     // TODO: - 동그라미 레이블로 수정
     private let projectCountLabel: UILabel = {
-        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 15, height: 15))
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.invalidateIntrinsicContentSize()
         label.layer.cornerRadius = label.bounds.size.width * 0.5
         label.backgroundColor = .black
         label.font = .preferredFont(forTextStyle: .caption1)

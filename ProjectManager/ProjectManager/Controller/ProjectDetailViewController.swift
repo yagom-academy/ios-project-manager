@@ -144,6 +144,7 @@ class ProjectDetailViewController: UIViewController {
             stackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 15),
             stackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -15)
         ])
+        NSLayoutConstraint.activate([titleTextField.heightAnchor.constraint(equalToConstant: 45)])
     }
     
     private func configureContentWithProject() {
