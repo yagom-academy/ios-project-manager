@@ -130,7 +130,7 @@ extension ProjectListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: nil) { _, _, _ in
-            print("DeleteAction")
+            self.viewModel.delete(index: indexPath, tableView: tableView)
         }
         
         deleteAction.image = UIImage(systemName: "trash")

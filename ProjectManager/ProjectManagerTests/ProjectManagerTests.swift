@@ -2,18 +2,18 @@ import XCTest
 @testable import ProjectManager
 
 class ProjectManagerTests: XCTestCase {
-    var repo: MockProjectRepository!
+    var mockRepository: MockProjectRepository!
     var useCase: ProjectUseCase!
     let id = [UUID(), UUID(), UUID(), UUID()]
 
     override func setUp() {
         let projects = [id[0]: Project(id: id[0], state: .todo, title: "할일이다", body: "할일", date: Date(timeIntervalSince1970: 1000))]
-        repo = MockProjectRepository(projects: projects)
-        useCase = ProjectUseCase(repository: repo)
+        mockRepository = MockProjectRepository(projects: projects)
+        useCase = ProjectUseCase(repository: mockRepository)
     }
 
     override func tearDown() {
-        repo = nil
+        mockRepository = nil
         useCase = nil
     }
     
@@ -22,7 +22,7 @@ class ProjectManagerTests: XCTestCase {
 
         useCase.create(with: project)
         
-        XCTAssertEqual("새로운 할일", repo.projects[project.id]?.title)
+        XCTAssertEqual("새로운 할일", mockRepository.projects[project.id]?.title)
     }
     
     func test_repository에서_모든_프로젝트를_정상적으로_가져오는지() {
@@ -36,6 +36,14 @@ class ProjectManagerTests: XCTestCase {
         
         useCase.update(with: newProject)
         
-        XCTAssertEqual(newProject.body, repo.projects[id[0]]?.body)
+        XCTAssertEqual(newProject.body, mockRepository.projects[id[0]]?.body)
+    }
+    
+    func test_id가_같은_프로젝트가_정상적으로_삭제되는지() {
+        let projectToDelete = Project(id: id[0], state: .doing, title: "이제 하는 중이다.", body: "말걸지마라", date: Date())
+        
+        useCase.delete(with: projectToDelete)
+        
+        XCTAssertEqual(mockRepository.projects, [:])
     }
 }

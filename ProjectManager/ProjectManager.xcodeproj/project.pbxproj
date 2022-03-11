@@ -205,6 +205,14 @@
 			path = ProjectManager;
 			sourceTree = "<group>";
 		};
+		EA03AB2127DB4C8D00084E75 /* Test Double */ = {
+			isa = PBXGroup;
+			children = (
+				EA4C971C27DB0D52002929B8 /* MockProjectRepository.swift */,
+			);
+			path = "Test Double";
+			sourceTree = "<group>";
+		};
 		EA4C970A27D70EE8002929B8 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -225,7 +233,7 @@
 			isa = PBXGroup;
 			children = (
 				EA4C971227DB0B11002929B8 /* ProjectManagerTests.swift */,
-				EA4C971C27DB0D52002929B8 /* MockProjectRepository.swift */,
+				EA03AB2127DB4C8D00084E75 /* Test Double */,
 			);
 			path = ProjectManagerTests;
 			sourceTree = "<group>";

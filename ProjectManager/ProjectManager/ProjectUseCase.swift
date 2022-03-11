@@ -5,6 +5,7 @@ protocol ProjectUseCaseProtocol {
     func fetchAll() -> [Project]
     func create(with project: Project)
     func update(with project: Project)
+    func delete(with project: Project)
 }
 
 class ProjectUseCase: ProjectUseCaseProtocol {
@@ -37,5 +38,9 @@ class ProjectUseCase: ProjectUseCaseProtocol {
         let newProject = Project(id: oldProject.id, state: oldProject.state, title: project.title, body: project.body, date: project.date)
         
         projectRepository.update(with: newProject)
+    }
+    
+    func delete(with project: Project) {
+        projectRepository.delete(with: project)
     }
 }

@@ -19,4 +19,8 @@ class MockProjectRepository: ProjectRepositoryProtocol {
     func update(with project: Project) {
         projects.updateValue(project, forKey: project.id)
     }
+    
+    func delete(with project: Project) {
+        projects.removeValue(forKey: project.id)
+    }
 }

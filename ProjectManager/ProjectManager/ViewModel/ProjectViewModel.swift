@@ -10,9 +10,10 @@ protocol ProjectViewModelProtocol: UITableViewDataSource {
     var tableViews: [ProjectListTableView]? { get set }
     
     func didSelectRow(index: IndexPath, tableView: UITableView)
+    func fetchAll()
     func create(with project: Project)
     func update(with project: Project)
-    func fetchAll()
+    func delete(index: IndexPath, tableView: UITableView)
 }
 
 class ProjectViewModel: NSObject, ProjectViewModelProtocol {
@@ -40,6 +41,29 @@ class ProjectViewModel: NSObject, ProjectViewModelProtocol {
         projects.filter { $0.state == .done }
     }
     
+    func retrieveSelectedData(index: IndexPath, tableView: UITableView) -> Project? {
+        var selectedProject: Project?
+        switch tableView {
+        case tableViews?[0]:
+            selectedProject = todoProjects[index.row]
+        case tableViews?[1]:
+            selectedProject = doingProjects[index.row]
+        case tableViews?[2]:
+            selectedProject = doneProjects[index.row]
+        default:
+            break
+        }
+        
+        return selectedProject
+    }
+    
+    func didSelectRow(index: IndexPath, tableView: UITableView) {
+        guard let selectedProject = retrieveSelectedData(index: index, tableView: tableView) else {
+            return
+        }
+        onCellSelected?(index.row, selectedProject)
+    }
+    
     func fetchAll() {
         projects = useCase.fetchAll()
     }
@@ -56,23 +80,13 @@ class ProjectViewModel: NSObject, ProjectViewModelProtocol {
         onUpdated?()
     }
     
-    func didSelectRow(index: IndexPath, tableView: UITableView) {
-        var selectedProject: Project?
-        switch tableView {
-        case tableViews?[0]:
-            selectedProject = todoProjects[index.row]
-        case tableViews?[1]:
-            selectedProject = doingProjects[index.row]
-        case tableViews?[2]:
-            selectedProject = doneProjects[index.row]
-        default:
-            break
-        }
-        
-        guard let selectedProject = selectedProject else {
+    func delete(index: IndexPath, tableView: UITableView) {
+        guard let project = retrieveSelectedData(index: index, tableView: tableView) else {
             return
         }
-        onCellSelected?(index.row, selectedProject)
+        useCase.delete(with: project)
+        fetchAll()
+        onUpdated?()
     }
 }
 
