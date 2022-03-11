@@ -128,30 +128,30 @@ private extension ScheduleItemViewController {
             return
         }
 
-        output.scheduleProgress.asDriver()
+        output.scheduleProgress
             .drive(self.rx.title)
             .disposed(by: bag)
-        output.scheduleTitleText.asDriver()
+        output.scheduleTitleText
             .drive(self.titleTextField.rx.text)
             .disposed(by: bag)
-        output.scheduleDate.asDriver()
+        output.scheduleDate
             .drive(self.datePicker.rx.date)
             .disposed(by: bag)
-        output.scheduleBodyText.asDriver()
+        output.scheduleBodyText
             .drive(self.bodyTextView.rx.text)
             .disposed(by: bag)
-        output.leftBarButtonText.asDriver()
+        output.leftBarButtonText
             .drive(self.leftBarButton.rx.title)
             .disposed(by: bag)
-        output.rightBarButtonText.asDriver()
+        output.rightBarButtonText
             .drive(self.rightBarButton.rx.title)
             .disposed(by: bag)
-        output.editable.asDriver()
+        output.editable
             .drive(self.titleTextField.rx.isEnabled,
                    self.datePicker.rx.isEnabled,
                    self.bodyTextView.rx.isEditable)
             .disposed(by: bag)
-        output.isValid.asDriver()
+        output.isValid
             .drive(self.rightBarButton.rx.isEnabled)
             .disposed(by: bag)
     }

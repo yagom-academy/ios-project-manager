@@ -7,6 +7,7 @@
 
 import Foundation
 import RxSwift
+import RxCocoa
 import RxRelay
 
 class ScheduleItemViewModel {
@@ -24,7 +25,6 @@ class ScheduleItemViewModel {
     private let currentTitleText = BehaviorRelay<String>(value: "")
     private let currentDate = BehaviorRelay<Date>(value: Date())
     private let currentBodyText = BehaviorRelay<String>(value: "")
-    private let currentValidity: Observable<Bool>
 
     // MARK: - Initializer
 
@@ -32,11 +32,6 @@ class ScheduleItemViewModel {
         self.useCase = useCase
         self.coordinator = coordinator
         self.mode = BehaviorRelay<Mode>(value: mode)
-        self.currentValidity = Observable.combineLatest(
-            self.currentTitleText.map { !$0.isEmpty },
-            self.currentBodyText.map { !$0.isEmpty },
-            self.mode.map { $0 == .detail},
-            resultSelector: { $0 && $1 || $2 })
     }
 
     struct Input {
@@ -49,22 +44,20 @@ class ScheduleItemViewModel {
     }
 
     struct Output {
-        let scheduleProgress = BehaviorRelay<String>(value: "")
-        let scheduleTitleText = BehaviorRelay<String>(value: "")
-        let scheduleDate = BehaviorRelay<Date>(value: Date())
-        let scheduleBodyText = BehaviorRelay<String>(value: "")
-        let leftBarButtonText = BehaviorRelay<String>(value: "")
-        let rightBarButtonText = BehaviorRelay<String>(value: "")
-        let editable = BehaviorRelay<Bool>(value: false)
-        let isValid = BehaviorRelay<Bool>(value: false)
+        let scheduleProgress: Driver<String>
+        let scheduleTitleText: Driver<String>
+        let scheduleDate: Driver<Date>
+        let scheduleBodyText: Driver<String>
+        let leftBarButtonText: Driver<String>
+        let rightBarButtonText: Driver<String>
+        let editable: Driver<Bool>
+        let isValid: Driver<Bool>
     }
 
     // MARK: - Methods
 
     func transform(input: Input, disposeBag: DisposeBag) -> Output {
-        let output = Output()
-        bindOutput(output: output, disposeBag: disposeBag)
-
+        let output = bindOutput(disposeBag: disposeBag)
         input.leftBarButtonDidTap
             .subscribe(onNext: { _ in
                 switch self.mode.value {
@@ -141,36 +134,75 @@ class ScheduleItemViewModel {
 }
 
 private extension ScheduleItemViewModel {
-    func bindOutput(output: Output, disposeBag: DisposeBag) {
-        self.useCase.currentSchedule
-            .flatMap { Observable.from(optional: $0) }
-            .subscribe(onNext: { schedule in
-                output.scheduleTitleText.accept(schedule.title)
-                output.scheduleDate.accept(schedule.dueDate)
-                output.scheduleBodyText.accept(schedule.body)
-                output.scheduleProgress.accept(schedule.progress.description)
-            })
-            .disposed(by: disposeBag)
+    func bindOutput(disposeBag: DisposeBag) -> Output {
 
-        self.mode
-            .subscribe(onNext: { mode in
+        let scheduleTitleText = self.useCase.currentSchedule
+            .flatMap { Observable.from(optional: $0) }
+            .map { $0.title }
+            .asDriver(onErrorJustReturn: "제목을 표시할 수 없습니다.")
+
+        let scheduleDate = self.useCase.currentSchedule
+            .flatMap { Observable.from(optional: $0) }
+            .map { $0.dueDate }
+            .asDriver(onErrorJustReturn: Date())
+
+        let scheduleBodyText = self.useCase.currentSchedule
+            .flatMap { Observable.from(optional: $0) }
+            .map { $0.body }
+            .asDriver(onErrorJustReturn: "내용을 표시할 수 없습니다")
+
+        let scheduleProgress = self.useCase.currentSchedule
+            .flatMap { Observable.from(optional: $0) }
+            .map { $0.progress.description}
+            .asDriver(onErrorJustReturn: Progress.todo.description)
+
+        let editable = self.mode
+            .map { mode -> Bool in
                 switch mode {
                 case .detail:
-                    output.editable.accept(false)
-                    output.leftBarButtonText.accept("수정")
-                    output.rightBarButtonText.accept("완료")
+                    return false
                 case .edit, .create:
-                    output.editable.accept(true)
-                    output.leftBarButtonText.accept("취소")
-                    output.rightBarButtonText.accept("완료")
+                    return true
                 }
-            })
-            .disposed(by: disposeBag)
+            }.asDriver(onErrorJustReturn: false)
 
-        self.currentValidity
-            .subscribe(onNext: { bool in
-                output.isValid.accept(bool)
-            })
-            .disposed(by: disposeBag)
+        let leftBarButtonText = self.mode
+            .map { mode -> String in
+                switch mode {
+                case .detail:
+                    return "수정"
+                case .edit, .create:
+                    return "취소"
+                }
+            }.asDriver(onErrorJustReturn: "취소")
+
+        let rightBarButtonText = self.mode
+            .map { mode -> String in
+                switch mode {
+                case .detail:
+                    return "완료"
+                case .edit, .create:
+                    return "완료"
+                }
+            }.asDriver(onErrorJustReturn: "완료")
+
+        let isValid = Observable.combineLatest(
+            currentTitleText.map { !$0.isEmpty },
+            currentBodyText.map { !$0.isEmpty },
+            self.mode.map { $0 == .detail },
+            resultSelector: { $0 && $1 || $2 }
+        )
+            .asDriver(onErrorJustReturn: false)
+
+        return Output(
+            scheduleProgress: scheduleProgress,
+            scheduleTitleText: scheduleTitleText,
+            scheduleDate: scheduleDate,
+            scheduleBodyText: scheduleBodyText,
+            leftBarButtonText: leftBarButtonText,
+            rightBarButtonText: rightBarButtonText,
+            editable: editable,
+            isValid: isValid
+        )
     }
 }
