@@ -13,6 +13,8 @@ struct TaskFormCreateSheetView: View {
     @ObservedObject var sheetViewModel: TaskSheetViewModel
     @StateObject var createViewModel = TaskFormViewModel()
     
+    @State private var isShowAlert = false
+    
     var body: some View {
         NavigationView {
             TaskFormContainerView(formViewModel: createViewModel)
@@ -31,6 +33,12 @@ struct TaskFormCreateSheetView: View {
                         }
                     }
                 }
+                .alert(isPresented: $isShowAlert) {
+                    Alert(
+                        title: Text("Create Task Failed"),
+                        message: Text("Please retry create task!")
+                    )
+                }
         }
     }
     
@@ -40,11 +48,15 @@ struct TaskFormCreateSheetView: View {
     }
     
     private func createTask() {
-        viewModel.create(
-            title: createViewModel.title,
-            description: createViewModel.description,
-            dueDate: createViewModel.date
-        )
+        do {
+            try viewModel.create(
+                title: createViewModel.title,
+                description: createViewModel.description,
+                dueDate: createViewModel.date
+            )
+        } catch {
+            isShowAlert.toggle()
+        }
     }
     
 }

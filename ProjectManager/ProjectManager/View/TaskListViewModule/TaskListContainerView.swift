@@ -14,10 +14,12 @@ struct TaskListContainerView: View {
     @EnvironmentObject private var viewModel: ProjectManagerViewModel
     @StateObject private var sheetViewModel = TaskSheetViewModel()
     
+    @Binding var isShowAlert: Bool
+    
     var body: some View {
         VStack(alignment: .leading) {
             TaskListTitleView(taskType: taskType)
-            TaskListView(taskType: taskType, sheetViewModel: sheetViewModel)
+            TaskListView(taskType: taskType, sheetViewModel: sheetViewModel, isShowAlert: $isShowAlert)
         }
     }
     

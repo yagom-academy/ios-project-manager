@@ -12,11 +12,13 @@ struct ProjectManagerMainView: View {
     @EnvironmentObject private var viewModel: ProjectManagerViewModel
     @StateObject private var sheetViewModel = TaskSheetViewModel()
     
+    @State private var isShowAlert = false
+    
     var body: some View {
         NavigationView {
             HStack {
                 ForEach(TaskStatus.allCases) { status in
-                    TaskListContainerView(taskType: status)
+                    TaskListContainerView(taskType: status, isShowAlert: $isShowAlert)
                 }
             }
             .navigationTitle("Project Manager")

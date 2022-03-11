@@ -13,6 +13,8 @@ struct TaskListContextMenuView: View {
     
     @EnvironmentObject private var viewModel: ProjectManagerViewModel
     
+    @Binding var isShowAlert: Bool
+    
     var body: some View {
         ForEach(TaskStatus.allCases) { status in
             if status != task.status {
@@ -26,7 +28,11 @@ struct TaskListContextMenuView: View {
     }
     
     private func updateTaskStatus(to status: TaskStatus) {
-        viewModel.update(task, taskStatus: status)
+        do {
+            try viewModel.update(task, taskStatus: status)
+        } catch {
+            isShowAlert.toggle()
+        }
     }
     
 }

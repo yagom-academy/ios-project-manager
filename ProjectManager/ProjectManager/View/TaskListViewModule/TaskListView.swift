@@ -14,13 +14,15 @@ struct TaskListView: View {
     @EnvironmentObject private var viewModel: ProjectManagerViewModel
     @ObservedObject var sheetViewModel: TaskSheetViewModel
     
+    @Binding var isShowAlert: Bool
+    
     var body: some View {
         List {
             ForEach(tasks) { task in
                 Button(action: sheetViewModel.toggleSheetCondition) {
                     TaskListRowView(task: task)
                         .contextMenu {
-                            TaskListContextMenuView(task: task)
+                            TaskListContextMenuView(task: task, isShowAlert: $isShowAlert)
                         }
                         .sheet(isPresented: $sheetViewModel.isShowSheet, onDismiss: nil) {
                             TaskFormDetailSheetView(task: task, sheetViewModel: sheetViewModel)
@@ -28,7 +30,17 @@ struct TaskListView: View {
                 }
             }
             .onDelete { indexSet in
-                viewModel.remove(tasks[indexSet])
+                do {
+                    try viewModel.remove(tasks[indexSet])
+                } catch {
+                    isShowAlert.toggle()
+                }
+            }
+            .alert(isPresented: $isShowAlert) {
+                Alert(
+                    title: Text("update Task Failed"),
+                    message: Text("Please retry update task!")
+                )
             }
         }
     }

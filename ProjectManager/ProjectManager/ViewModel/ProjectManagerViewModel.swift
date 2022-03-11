@@ -55,7 +55,7 @@ final class ProjectManagerViewModel: ObservableObject {
         return task.dueDate < yesterday && task.status != .done
     }
     
-    func create(title: String, description: String, dueDate: Date) {
+    func create(title: String, description: String, dueDate: Date) throws {
         let newTask = Task(
             id: UUID(),
             title: title,
@@ -63,22 +63,22 @@ final class ProjectManagerViewModel: ObservableObject {
             dueDate: dueDate,
             status: .todo
         )
-        try? model.create(newTask)
+        try model.create(newTask)
     }
     
-    func remove(_ task: Task) {
-        try? model.delete(task)
+    func remove(_ task: Task) throws {
+        try model.delete(task)
     }
     
-    func remove(_ tasks: [Task]) {
-        tasks.forEach { task in
-            remove(task)
+    func remove(_ tasks: [Task]) throws {
+        for task in tasks {
+            try remove(task)
         }
     }
     
     func update(_ task: Task,
                 title: String? = nil, description: String? = nil, dueDate: Date? = nil,
-                taskStatus: TaskStatus? = nil) {
+                taskStatus: TaskStatus? = nil) throws {
         let newTask = Task(
             id: task.id,
             title: title ?? task.title,
@@ -86,7 +86,7 @@ final class ProjectManagerViewModel: ObservableObject {
             dueDate: dueDate ?? task.dueDate,
             status: taskStatus ?? task.status
         )
-        try? model.update(task, to: newTask)
+        try model.update(task, to: newTask)
     }
     
 }

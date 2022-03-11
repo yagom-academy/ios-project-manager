@@ -15,6 +15,8 @@ struct TaskFormDetailSheetView: View {
     @ObservedObject private var detailViewModel: TaskFormViewModel
     @ObservedObject var sheetViewModel: TaskSheetViewModel
     
+    @State private var isShowAlert = false
+    
     init(task: Task, sheetViewModel: TaskSheetViewModel) {
         detailViewModel = TaskFormViewModel(task: task)
         self.sheetViewModel = sheetViewModel
@@ -40,6 +42,13 @@ struct TaskFormDetailSheetView: View {
                         }
                     }
                 }
+                .alert(isPresented: $isShowAlert) {
+                    Alert(
+                        title: Text("Update Task Failed"),
+                        message: Text("Please retry update task!")
+                    )
+                }
+                
         }
     }
     
@@ -61,12 +70,16 @@ struct TaskFormDetailSheetView: View {
     }
     
     private func updateTask() {
-        viewModel.update(
-            task,
-            title: detailViewModel.title,
-            description: detailViewModel.description,
-            dueDate: detailViewModel.date
-        )
+        do {
+            try viewModel.update(
+                task,
+                title: detailViewModel.title,
+                description: detailViewModel.description,
+                dueDate: detailViewModel.date
+            )
+        } catch {
+            isShowAlert.toggle()
+        }
     }
     
 }
