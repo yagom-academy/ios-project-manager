@@ -5,7 +5,6 @@ protocol TaskViewModelable {
 
     func countTaskList() -> Int
     func didLoaded()
-    func updateList()
 
     func create(with title: String)
     func update(taskList: TaskListEntity)
@@ -15,7 +14,9 @@ protocol TaskViewModelable {
 
 final class TaskViewModel: TaskViewModelable {
     private var useCase: TaskUseCase
-    var taskLists: [TaskListEntity] = []
+    var taskLists: [TaskListEntity] = [
+        TaskListEntity(title: "test", items: [TaskEntity(title: "task", dueDate: Date())])
+        ]
 
     init(useCase: TaskUseCase) {
         self.useCase = useCase
@@ -30,10 +31,10 @@ final class TaskViewModel: TaskViewModelable {
         updateList()
     }
 
-    func updateList() {
-        useCase.read { [weak self] tasks in
-            self?.taskLists = tasks
-        }
+    private func updateList() {
+//        useCase.read { [weak self] tasks in
+//            self?.taskLists = tasks
+//        }
     }
 
     func create(with title: String) {

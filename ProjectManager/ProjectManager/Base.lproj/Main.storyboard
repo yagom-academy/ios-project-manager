@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="fVk-Zf-NzM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="XwZ-n9-Sve">
     <device id="ipad12_9" orientation="landscape" layout="fullscreen" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
@@ -10,32 +10,14 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Navigation Controller-->
-        <scene sceneID="FQS-7K-hpS">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fVk-Zf-NzM" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="ogx-7V-e3j">
-                        <rect key="frame" x="0.0" y="0.0" width="1366" height="50"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="GWZ-lm-FFG" kind="relationship" relationship="rootViewController" id="sNv-lI-jK1"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="TCw-Ug-f3O" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-39.195979899497488" y="-23.021582733812952"/>
-        </scene>
-        <!--Task Collection View Controller-->
+        <!--Project Manager-->
         <scene sceneID="mxa-mn-yY3">
             <objects>
-                <collectionViewController title="Task Collection View Controller" id="GWZ-lm-FFG" customClass="TaskCollectionViewController" customModule="ProjectManager" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController interfaceStyle="light" id="GWZ-lm-FFG" customClass="TaskCollectionViewController" customModule="ProjectManager" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" dataMode="prototypes" id="Ira-R5-5XC">
                         <rect key="frame" x="0.0" y="0.0" width="1366" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" systemColor="systemGray5Color"/>
                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="15" minimumInteritemSpacing="15" id="I4K-ih-N8Y">
                             <size key="itemSize" width="461" height="934"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -58,7 +40,7 @@
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="HfB-IW-hYL">
-                                                        <rect key="frame" x="10" y="7" width="203" height="50"/>
+                                                        <rect key="frame" x="25" y="7" width="203" height="50"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Task List's Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DgA-HJ-ASN">
                                                                 <rect key="frame" x="0.0" y="12" width="145" height="26.5"/>
@@ -90,7 +72,7 @@
                                                     <constraint firstAttribute="trailing" secondItem="972-D6-Dxo" secondAttribute="trailing" constant="12" id="c8C-V4-mFk"/>
                                                     <constraint firstItem="972-D6-Dxo" firstAttribute="centerY" secondItem="i32-Me-chr" secondAttribute="centerY" id="jvt-qc-XCi"/>
                                                     <constraint firstItem="HfB-IW-hYL" firstAttribute="centerY" secondItem="i32-Me-chr" secondAttribute="centerY" id="lF4-kM-StW"/>
-                                                    <constraint firstItem="HfB-IW-hYL" firstAttribute="leading" secondItem="i32-Me-chr" secondAttribute="leading" constant="10" id="s2Q-LK-Lhn"/>
+                                                    <constraint firstItem="HfB-IW-hYL" firstAttribute="leading" secondItem="i32-Me-chr" secondAttribute="leading" constant="25" id="s2Q-LK-Lhn"/>
                                                     <constraint firstItem="HfB-IW-hYL" firstAttribute="centerY" secondItem="i32-Me-chr" secondAttribute="centerY" id="sOk-Sl-vst"/>
                                                 </constraints>
                                             </view>
@@ -144,8 +126,8 @@
                                             </prototypes>
                                             <sections/>
                                             <connections>
-                                                <outlet property="dataSource" destination="yRC-Xj-HQg" id="glK-ry-cH6"/>
-                                                <outlet property="delegate" destination="yRC-Xj-HQg" id="0D8-ID-9oe"/>
+                                                <outlet property="dataSource" destination="yRC-Xj-HQg" id="DH4-rW-gxf"/>
+                                                <outlet property="delegate" destination="yRC-Xj-HQg" id="ON4-84-Pto"/>
                                             </connections>
                                         </tableView>
                                     </subviews>
@@ -184,6 +166,7 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LZQ-O6-pfH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="sgP-Mm-cbK" userLabel="Exit" sceneMemberID="exit"/>
@@ -193,7 +176,7 @@
         <!--Task Detail View Controller-->
         <scene sceneID="wii-J5-34e">
             <objects>
-                <viewController storyboardIdentifier="TaskDetailViewController" title="Modal View Controller" modalPresentationStyle="formSheet" id="edw-6f-98c" userLabel="Task Detail View Controller" customClass="TaskDetailViewController" customModule="ProjectManager" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TaskDetailViewController" modalPresentationStyle="formSheet" id="edw-6f-98c" userLabel="Task Detail View Controller" customClass="TaskDetailViewController" customModule="ProjectManager" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ltp-p7-9gv">
                         <rect key="frame" x="0.0" y="0.0" width="540" height="620"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -269,6 +252,23 @@
             </objects>
             <point key="canvasLocation" x="1340.9956076134699" y="-19.3359375"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="BTL-5H-jJL">
+            <objects>
+                <navigationController id="XwZ-n9-Sve" sceneMemberID="viewController">
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="EaP-B3-Jcx">
+                        <rect key="frame" x="0.0" y="0.0" width="1366" height="50"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="GWZ-lm-FFG" kind="relationship" relationship="rootViewController" id="MVK-xo-hkQ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dlb-XO-Njj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="11" y="-19"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="zyq-pl-axu"/>
@@ -286,6 +286,9 @@
         </systemColor>
         <systemColor name="systemGray3Color">
             <color red="0.7803921568627451" green="0.7803921568627451" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGray5Color">
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray6Color">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
