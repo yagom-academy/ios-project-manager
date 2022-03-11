@@ -4,11 +4,17 @@
 target 'ProjectManager' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
-  pod 'Firebase/Analytics'
+
   pod 'RxSwift', '~> 6.5.0'
   pod 'RxCocoa', '~> 6.5.0'
   pod 'SwiftLint'
+  pod 'Firebase/Core'
+  pod 'Firebase/Database'
 
   # Pods for ProjectManager
+
+	target 'ProjectManagerTests' do
+    		inherit! :search_paths
+	end
 
 end
