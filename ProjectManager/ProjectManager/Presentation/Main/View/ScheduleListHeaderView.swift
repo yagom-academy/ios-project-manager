@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ScheduleHeaderView: UITableViewHeaderFooterView {
+class ScheduleListHeaderView: UITableViewHeaderFooterView {
 
 // MARK: - Properties
 

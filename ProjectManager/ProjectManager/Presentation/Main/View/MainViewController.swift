@@ -37,8 +37,8 @@ final class MainViewController: UIViewController, UIGestureRecognizerDelegate {
         return longPressGestureRecognizer
     }
 
-    private let headerViews: [ScheduleHeaderView] = Progress.allCases.map { progress in
-        let headerView = ScheduleHeaderView()
+    private let headerViews: [ScheduleListHeaderView] = Progress.allCases.map { progress in
+        let headerView = ScheduleListHeaderView()
         headerView.progressLabel.text = progress.description.uppercased()
         return headerView
     }
