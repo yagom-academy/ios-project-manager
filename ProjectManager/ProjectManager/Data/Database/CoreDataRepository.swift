@@ -3,8 +3,8 @@ import CoreData
 
 final class CoredataRepository: DataRepository {
     
-    private let context: NSManagedObjectContext?
-    private(set) var list = [Listable]()
+    private let context: NSManagedObjectContext
+    private var list = [Listable]()
     
     init(context: NSManagedObjectContext) {
         self.context = context
@@ -39,16 +39,11 @@ final class CoredataRepository: DataRepository {
         else {
             return
         }
-        self.context?.delete(project)
+        self.context.delete(project)
         self.fetch()
     }
     
     func fetch() {
-        
-        guard let context = self.context
-        else {
-            return
-            }
         
         guard let data = try? context.fetch(CDProject.fetchRequest())
         else {
@@ -66,11 +61,6 @@ final class CoredataRepository: DataRepository {
     
     private func createCDProject(attributes: [String: Any]) {
         
-        guard let context = self.context
-        else {
-            return
-        }
-        
         guard let entity = NSEntityDescription.entity(
             forEntityName: String(describing: CDProject.self),
             in: context
@@ -87,12 +77,7 @@ final class CoredataRepository: DataRepository {
     }
     
     private func saveContext() {
-        
-        guard let context = self.context
-        else {
-            return
-        }
-        
+
         if context.hasChanges {
             do {
                 try context.save()

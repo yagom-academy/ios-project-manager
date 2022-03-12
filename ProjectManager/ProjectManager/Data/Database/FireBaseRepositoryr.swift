@@ -7,6 +7,7 @@ final class FireStoreRepository: DataRepository {
     private let dataBase: Firestore?
     private var list = [Listable]()
     private let sampleList = Project(name: "", detail: "", deadline: Date(), indentifier: "123", progressState: ProgressState.doing.description)
+    
     init(database: Firestore) {
         self.dataBase = database
     }

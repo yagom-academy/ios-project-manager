@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		18688D5227DA4160001A7C7A /* ProjectUITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18688D5127DA4160001A7C7A /* ProjectUITableViewCell.swift */; };
 		18688D5527DAF5B2001A7C7A /* ProjectAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18688D5427DAF5B2001A7C7A /* ProjectAddViewController.swift */; };
+		18688D5927DC9189001A7C7A /* MainViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18688D5827DC9188001A7C7A /* MainViewCoordinator.swift */; };
+		18688D5E27DD155B001A7C7A /* DetailUpdateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18688D5D27DD155B001A7C7A /* DetailUpdateViewController.swift */; };
+		18688D6327DD15ED001A7C7A /* ProjectDetailUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18688D6227DD15ED001A7C7A /* ProjectDetailUIView.swift */; };
 		189DD4E427CDF7F700395CF4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 189DD4E327CDF7F700395CF4 /* GoogleService-Info.plist */; };
 		189DD4E727CDF93A00395CF4 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 189DD4E627CDF93A00395CF4 /* FirebaseFirestore */; };
 		189DD4E927CDF93A00395CF4 /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 189DD4E827CDF93A00395CF4 /* FirebaseFirestoreSwift-Beta */; };
@@ -41,6 +44,9 @@
 /* Begin PBXFileReference section */
 		18688D5127DA4160001A7C7A /* ProjectUITableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectUITableViewCell.swift; sourceTree = "<group>"; };
 		18688D5427DAF5B2001A7C7A /* ProjectAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectAddViewController.swift; sourceTree = "<group>"; };
+		18688D5827DC9188001A7C7A /* MainViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewCoordinator.swift; sourceTree = "<group>"; };
+		18688D5D27DD155B001A7C7A /* DetailUpdateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailUpdateViewController.swift; sourceTree = "<group>"; };
+		18688D6227DD15ED001A7C7A /* ProjectDetailUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDetailUIView.swift; sourceTree = "<group>"; };
 		189DD4E327CDF7F700395CF4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		189DD4F527D0FF7F00395CF4 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		189DD4F727D1010400395CF4 /* Listable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Listable.swift; sourceTree = "<group>"; };
@@ -86,6 +92,7 @@
 		18688D5327DAF560001A7C7A /* DetailAddView */ = {
 			isa = PBXGroup;
 			children = (
+				18688D6027DD1577001A7C7A /* Coordinator */,
 				18688D5627DC7E35001A7C7A /* View */,
 				18688D5727DC7E3E001A7C7A /* ViewModel */,
 			);
@@ -96,6 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				18688D5427DAF5B2001A7C7A /* ProjectAddViewController.swift */,
+				18688D6227DD15ED001A7C7A /* ProjectDetailUIView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -107,11 +115,59 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		18688D5A27DD14B5001A7C7A /* DetailUpdateView */ = {
+			isa = PBXGroup;
+			children = (
+				18688D6127DD157D001A7C7A /* Coordinator */,
+				18688D5B27DD1525001A7C7A /* View */,
+				18688D5C27DD152C001A7C7A /* ViewModel */,
+			);
+			path = DetailUpdateView;
+			sourceTree = "<group>";
+		};
+		18688D5B27DD1525001A7C7A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				18688D5D27DD155B001A7C7A /* DetailUpdateViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		18688D5C27DD152C001A7C7A /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		18688D5F27DD1569001A7C7A /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				18688D5827DC9188001A7C7A /* MainViewCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		18688D6027DD1577001A7C7A /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		18688D6127DD157D001A7C7A /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
 		189DD4F127D0FEF200395CF4 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
 				189DD54F27D56FBA00395CF4 /* MainView */,
 				18688D5327DAF560001A7C7A /* DetailAddView */,
+				18688D5A27DD14B5001A7C7A /* DetailUpdateView */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -170,6 +226,7 @@
 		189DD54F27D56FBA00395CF4 /* MainView */ = {
 			isa = PBXGroup;
 			children = (
+				18688D5F27DD1569001A7C7A /* Coordinator */,
 				189DD55027D5702000395CF4 /* View */,
 				189DD4F427D0FF1C00395CF4 /* ViewModel */,
 			);
@@ -330,9 +387,12 @@
 				18688D5527DAF5B2001A7C7A /* ProjectAddViewController.swift in Sources */,
 				189DD50F27D1110D00395CF4 /* TodoListViewModel.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
+				18688D5927DC9189001A7C7A /* MainViewCoordinator.swift in Sources */,
+				18688D6327DD15ED001A7C7A /* ProjectDetailUIView.swift in Sources */,
 				189DD4FA27D1015C00395CF4 /* DataRepository.swift in Sources */,
 				189DD59127D7004F00395CF4 /* ProgressState.swift in Sources */,
 				189DD55527D5720300395CF4 /* ProjectManagingUseCase.swift in Sources */,
+				18688D5E27DD155B001A7C7A /* DetailUpdateViewController.swift in Sources */,
 				189DD4F827D1010400395CF4 /* Listable.swift in Sources */,
 				189DD51227D1F7D400395CF4 /* CDProject.xcdatamodeld in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
