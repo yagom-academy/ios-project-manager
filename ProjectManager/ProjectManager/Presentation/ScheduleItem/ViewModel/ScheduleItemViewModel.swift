@@ -31,9 +31,9 @@ class ScheduleItemViewModel {
     private let coordinator: ScheduleItemCoordinator
 
     private let mode: BehaviorRelay<Mode>
-    private let currentTitleText = BehaviorRelay<String>(value: String.empty)
+    private let currentTitleText = BehaviorRelay<String>(value: .empty)
     private let currentDate = BehaviorRelay<Date>(value: Date())
-    private let currentBodyText = BehaviorRelay<String>(value: String.empty)
+    private let currentBodyText = BehaviorRelay<String>(value: .empty)
 
     // MARK: - Initializer
 
@@ -104,7 +104,7 @@ private extension ScheduleItemViewModel {
     }
 
     func onLeftBarButtonDidTapWhenDetail() {
-        self.currentTitleText.accept(self.useCase.currentSchedule.value?.title ?? String.empty)
+        self.currentTitleText.accept(self.useCase.currentSchedule.value?.title ?? .empty)
         self.mode.accept(.edit)
     }
 
@@ -177,13 +177,13 @@ private extension ScheduleItemViewModel {
 
     func bindOutput(disposeBag: DisposeBag) -> Output {
         return Output(
-            scheduleProgress: scheduleProgress(),
-            scheduleTitleText: scheduleTitleText(),
-            scheduleDate: scheduleDate(),
-            scheduleBodyText: scheduleBodyText(),
-            leftBarButtonText: leftBarButtonText(),
-            editable: editable(),
-            isValid: isValid()
+            scheduleProgress: self.scheduleProgress(),
+            scheduleTitleText: self.scheduleTitleText(),
+            scheduleDate: self.scheduleDate(),
+            scheduleBodyText: self.scheduleBodyText(),
+            leftBarButtonText: self.leftBarButtonText(),
+            editable: self.editable(),
+            isValid: self.isValid()
         )
     }
 
@@ -229,8 +229,8 @@ private extension ScheduleItemViewModel {
 
     func isValid() -> Driver<Bool> {
         return Observable.combineLatest(
-            currentTitleText.map { !$0.isEmpty },
-            currentBodyText.map { !$0.isEmpty },
+            self.currentTitleText.map { !$0.isEmpty },
+            self.currentBodyText.map { !$0.isEmpty },
             self.mode.map { $0 == .detail },
             resultSelector: { $0 && $1 || $2 }
         )

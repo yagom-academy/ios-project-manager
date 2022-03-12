@@ -42,13 +42,13 @@ class PopoverViewModel {
 
     func transform(input: Input, disposeBag: DisposeBag) -> Output {
         [
-            onTopButtonDidTap(input.topButtonDidTap),
-            onBottomButtonDidTap(input.bottomButtonDidTap),
-            onViewDidDisappear(input.viewDidDisappear)
+            self.onTopButtonDidTap(input.topButtonDidTap),
+            self.onBottomButtonDidTap(input.bottomButtonDidTap),
+            self.onViewDidDisappear(input.viewDidDisappear)
         ]
             .forEach { $0.disposed(by: disposeBag) }
 
-        return bindingOutput()
+        return self.bindingOutput()
     }
 }
 
