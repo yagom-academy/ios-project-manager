@@ -1,7 +1,7 @@
 import Foundation
 import RxSwift
 
-class TodoListViewModel {
+class MainViewModel {
     
     let useCase: ProjectManagingUseCase
     

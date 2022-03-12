@@ -8,7 +8,7 @@ final class RepositoryFactory {
     private let defaultCoreDataContext = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
     private let defaultFireStore = Firestore.firestore()
     
-     func assignListManger(repository: RepositoryType) throws -> DataRepository {
+     func assignRepository(repository: RepositoryType) throws -> DataRepository {
          
          guard let context = defaultCoreDataContext
          else {

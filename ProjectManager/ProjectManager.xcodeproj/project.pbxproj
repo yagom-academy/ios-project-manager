@@ -12,6 +12,7 @@
 		18688D5927DC9189001A7C7A /* MainViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18688D5827DC9188001A7C7A /* MainViewCoordinator.swift */; };
 		18688D5E27DD155B001A7C7A /* DetailUpdateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18688D5D27DD155B001A7C7A /* DetailUpdateViewController.swift */; };
 		18688D6327DD15ED001A7C7A /* ProjectDetailUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18688D6227DD15ED001A7C7A /* ProjectDetailUIView.swift */; };
+		18688D6727DD1D19001A7C7A /* MainUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18688D6627DD1D19001A7C7A /* MainUIView.swift */; };
 		189DD4E427CDF7F700395CF4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 189DD4E327CDF7F700395CF4 /* GoogleService-Info.plist */; };
 		189DD4E727CDF93A00395CF4 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 189DD4E627CDF93A00395CF4 /* FirebaseFirestore */; };
 		189DD4E927CDF93A00395CF4 /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 189DD4E827CDF93A00395CF4 /* FirebaseFirestoreSwift-Beta */; };
@@ -26,7 +27,7 @@
 		189DD50827D10B6200395CF4 /* RepositoryFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189DD50727D10B6200395CF4 /* RepositoryFactory.swift */; };
 		189DD50A27D10C2900395CF4 /* CoreDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189DD50927D10C2900395CF4 /* CoreDataRepository.swift */; };
 		189DD50C27D10C3600395CF4 /* FireBaseRepositoryr.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189DD50B27D10C3600395CF4 /* FireBaseRepositoryr.swift */; };
-		189DD50F27D1110D00395CF4 /* TodoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189DD50E27D1110D00395CF4 /* TodoListViewModel.swift */; };
+		189DD50F27D1110D00395CF4 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189DD50E27D1110D00395CF4 /* MainViewModel.swift */; };
 		189DD51227D1F7D400395CF4 /* CDProject.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 189DD51027D1F7D400395CF4 /* CDProject.xcdatamodeld */; };
 		189DD55327D571D100395CF4 /* ProjectManagerUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189DD55227D571D100395CF4 /* ProjectManagerUseCase.swift */; };
 		189DD55527D5720300395CF4 /* ProjectManagingUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189DD55427D5720300395CF4 /* ProjectManagingUseCase.swift */; };
@@ -47,6 +48,7 @@
 		18688D5827DC9188001A7C7A /* MainViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewCoordinator.swift; sourceTree = "<group>"; };
 		18688D5D27DD155B001A7C7A /* DetailUpdateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailUpdateViewController.swift; sourceTree = "<group>"; };
 		18688D6227DD15ED001A7C7A /* ProjectDetailUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDetailUIView.swift; sourceTree = "<group>"; };
+		18688D6627DD1D19001A7C7A /* MainUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainUIView.swift; sourceTree = "<group>"; };
 		189DD4E327CDF7F700395CF4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		189DD4F527D0FF7F00395CF4 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		189DD4F727D1010400395CF4 /* Listable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Listable.swift; sourceTree = "<group>"; };
@@ -56,7 +58,7 @@
 		189DD50727D10B6200395CF4 /* RepositoryFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryFactory.swift; sourceTree = "<group>"; };
 		189DD50927D10C2900395CF4 /* CoreDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataRepository.swift; sourceTree = "<group>"; };
 		189DD50B27D10C3600395CF4 /* FireBaseRepositoryr.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireBaseRepositoryr.swift; sourceTree = "<group>"; };
-		189DD50E27D1110D00395CF4 /* TodoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListViewModel.swift; sourceTree = "<group>"; };
+		189DD50E27D1110D00395CF4 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		189DD51127D1F7D400395CF4 /* CDProject.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CDProject.xcdatamodel; sourceTree = "<group>"; };
 		189DD55227D571D100395CF4 /* ProjectManagerUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerUseCase.swift; sourceTree = "<group>"; };
 		189DD55427D5720300395CF4 /* ProjectManagingUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagingUseCase.swift; sourceTree = "<group>"; };
@@ -197,7 +199,7 @@
 		189DD4F427D0FF1C00395CF4 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				189DD50E27D1110D00395CF4 /* TodoListViewModel.swift */,
+				189DD50E27D1110D00395CF4 /* MainViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -238,6 +240,7 @@
 			children = (
 				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
 				18688D5127DA4160001A7C7A /* ProjectUITableViewCell.swift */,
+				18688D6627DD1D19001A7C7A /* MainUIView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -385,7 +388,7 @@
 				189DD50C27D10C3600395CF4 /* FireBaseRepositoryr.swift in Sources */,
 				189DD58E27D6FF8400395CF4 /* CDProject+CoreDataProperties.swift in Sources */,
 				18688D5527DAF5B2001A7C7A /* ProjectAddViewController.swift in Sources */,
-				189DD50F27D1110D00395CF4 /* TodoListViewModel.swift in Sources */,
+				189DD50F27D1110D00395CF4 /* MainViewModel.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				18688D5927DC9189001A7C7A /* MainViewCoordinator.swift in Sources */,
 				18688D6327DD15ED001A7C7A /* ProjectDetailUIView.swift in Sources */,
@@ -393,6 +396,7 @@
 				189DD59127D7004F00395CF4 /* ProgressState.swift in Sources */,
 				189DD55527D5720300395CF4 /* ProjectManagingUseCase.swift in Sources */,
 				18688D5E27DD155B001A7C7A /* DetailUpdateViewController.swift in Sources */,
+				18688D6727DD1D19001A7C7A /* MainUIView.swift in Sources */,
 				189DD4F827D1010400395CF4 /* Listable.swift in Sources */,
 				189DD51227D1F7D400395CF4 /* CDProject.xcdatamodeld in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
