@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		18688D5227DA4160001A7C7A /* ProjectUITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18688D5127DA4160001A7C7A /* ProjectUITableViewCell.swift */; };
+		18688D5527DAF5B2001A7C7A /* ProjectAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18688D5427DAF5B2001A7C7A /* ProjectAddViewController.swift */; };
 		189DD4E427CDF7F700395CF4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 189DD4E327CDF7F700395CF4 /* GoogleService-Info.plist */; };
 		189DD4E727CDF93A00395CF4 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 189DD4E627CDF93A00395CF4 /* FirebaseFirestore */; };
 		189DD4E927CDF93A00395CF4 /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 189DD4E827CDF93A00395CF4 /* FirebaseFirestoreSwift-Beta */; };
@@ -39,6 +40,7 @@
 
 /* Begin PBXFileReference section */
 		18688D5127DA4160001A7C7A /* ProjectUITableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectUITableViewCell.swift; sourceTree = "<group>"; };
+		18688D5427DAF5B2001A7C7A /* ProjectAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectAddViewController.swift; sourceTree = "<group>"; };
 		189DD4E327CDF7F700395CF4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		189DD4F527D0FF7F00395CF4 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		189DD4F727D1010400395CF4 /* Listable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Listable.swift; sourceTree = "<group>"; };
@@ -81,6 +83,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		18688D5327DAF560001A7C7A /* DetailAddView */ = {
+			isa = PBXGroup;
+			children = (
+				18688D5427DAF5B2001A7C7A /* ProjectAddViewController.swift */,
+			);
+			path = DetailAddView;
+			sourceTree = "<group>";
+		};
 		189DD4F127D0FEF200395CF4 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
@@ -208,6 +218,7 @@
 				189DD4F327D0FF1100395CF4 /* Data */,
 				189DD55127D571B700395CF4 /* Domain */,
 				189DD4F127D0FEF200395CF4 /* Presentation */,
+				18688D5327DAF560001A7C7A /* DetailAddView */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
@@ -300,6 +311,7 @@
 				189DD50A27D10C2900395CF4 /* CoreDataRepository.swift in Sources */,
 				189DD50C27D10C3600395CF4 /* FireBaseRepositoryr.swift in Sources */,
 				189DD58E27D6FF8400395CF4 /* CDProject+CoreDataProperties.swift in Sources */,
+				18688D5527DAF5B2001A7C7A /* ProjectAddViewController.swift in Sources */,
 				189DD50F27D1110D00395CF4 /* TodoListViewModel.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				189DD4FA27D1015C00395CF4 /* DataRepository.swift in Sources */,
