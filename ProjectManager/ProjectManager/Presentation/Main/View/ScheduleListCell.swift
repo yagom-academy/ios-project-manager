@@ -7,6 +7,21 @@
 
 import UIKit
 
+private enum Design {
+    static let cellBackgroundColor = UIColor.clear
+    static let stackViewSpacing = 2.0
+    static let stackViewLayoutMargins = UIEdgeInsets(top: 10, left: 13, bottom: 10, right: 13)
+    static let stackViewTopAnchorConstant = 0.8
+    static let titleLabelFont = UIFont.preferredFont(forTextStyle: .body)
+    static let bodyLabelFont = UIFont.preferredFont(forTextStyle: .footnote)
+    static let bodyLabelNumberOfLines = 3
+    static let bodyLabelColor = UIColor.systemGray
+    static let dateLabelFont = UIFont.preferredFont(forTextStyle: .caption2)
+    static let dateViewLayoutMargins = UIEdgeInsets(top: 3, left: 0, bottom: 0, right: 0)
+    static let dateLabelColor = UIColor.black
+    static let dateLabelColorWhenOutdated = UIColor.systemRed
+}
+
 final class ScheduleListCell: UITableViewCell {
 
 // MARK: - Properties
@@ -14,8 +29,8 @@ final class ScheduleListCell: UITableViewCell {
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.spacing = 2
-        stackView.layoutMargins = UIEdgeInsets(top: 10, left: 13, bottom: 10, right: 13)
+        stackView.spacing = Design.stackViewSpacing
+        stackView.layoutMargins = Design.stackViewLayoutMargins
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.backgroundColor = .white
         stackView.weakShadow()
@@ -25,28 +40,28 @@ final class ScheduleListCell: UITableViewCell {
     private let dateStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.layoutMargins = UIEdgeInsets(top: 3, left: 0, bottom: 0, right: 0)
+        stackView.layoutMargins = Design.stackViewLayoutMargins
         stackView.isLayoutMarginsRelativeArrangement = true
         return stackView
     }()
 
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = .preferredFont(forTextStyle: .body)
+        label.font = Design.titleLabelFont
         return label
     }()
 
     private let bodyLabel: UILabel = {
         let label = UILabel()
-        label.font = .preferredFont(forTextStyle: .footnote)
-        label.textColor = .systemGray
-        label.numberOfLines = 3
+        label.font = Design.bodyLabelFont
+        label.textColor = Design.bodyLabelColor
+        label.numberOfLines = Design.bodyLabelNumberOfLines
         return label
     }()
 
     private let dateLabel: UILabel = {
         let label = UILabel()
-        label.font = .preferredFont(forTextStyle: .caption2)
+        label.font = Design.dateLabelFont
         return label
     }()
 
@@ -54,11 +69,13 @@ final class ScheduleListCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+
         self.commonInit()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+
         self.commonInit()
     }
 
@@ -68,7 +85,7 @@ final class ScheduleListCell: UITableViewCell {
         self.titleLabel.text = item.title
         self.bodyLabel.text = item.body
         self.dateLabel.text = item.dueDate.formattedDateString
-        self.dateLabel.textColor = dateLabelColor(for: item.dueDate)
+        self.dateLabel.textColor = self.dateLabelColor(for: item.dueDate)
     }
 }
 
@@ -77,7 +94,7 @@ final class ScheduleListCell: UITableViewCell {
 extension ScheduleListCell {
 
     private func commonInit() {
-        self.backgroundColor = .clear
+        self.backgroundColor = Design.cellBackgroundColor
         self.configureHierarchy()
         self.configureConstraint()
     }
@@ -95,7 +112,10 @@ extension ScheduleListCell {
         NSLayoutConstraint.activate([
             self.stackView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor),
             self.stackView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor),
-            self.stackView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 6),
+            self.stackView.topAnchor.constraint(
+                equalTo: self.contentView.topAnchor,
+                constant: Design.stackViewTopAnchorConstant
+            ),
             self.stackView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor)
         ])
     }
@@ -104,6 +124,6 @@ extension ScheduleListCell {
         let outDated = Calendar.autoupdatingCurrent
             .compare(Date(), to: date, toGranularity: .day) == .orderedDescending
 
-        return outDated ? .systemRed : .black
+        return outDated ? Design.dateLabelColorWhenOutdated : Design.dateLabelColor
     }
 }
