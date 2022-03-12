@@ -5,8 +5,10 @@ class TaskListEntity: Identifiable {
     var title: String
     var items: [TaskEntity]
 
-    init(title: String, items: [TaskEntity] = []) {
-        self.id = UUID()
+    init(title: String,
+         id: UUID = UUID(),
+         items: [TaskEntity] = []) {
+        self.id = id
         self.title = title
         self.items = items
     }
@@ -19,8 +21,12 @@ public class TaskEntity: NSObject, Identifiable {
     var dueDate: Date
     var lastModifiedDate: Date
 
-    init(title: String, dueDate: Date, lastModifiedDate: Date = Date(), body: String = "") {
-        self.id = UUID()
+    init(title: String,
+         dueDate: Date,
+         id: UUID = UUID(),
+         body: String = "",
+         lastModifiedDate: Date = Date()) {
+        self.id = id
         self.title = title
         self.body = body
         self.dueDate = dueDate
