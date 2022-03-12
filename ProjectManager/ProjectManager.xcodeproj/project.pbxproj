@@ -86,15 +86,32 @@
 		18688D5327DAF560001A7C7A /* DetailAddView */ = {
 			isa = PBXGroup;
 			children = (
-				18688D5427DAF5B2001A7C7A /* ProjectAddViewController.swift */,
+				18688D5627DC7E35001A7C7A /* View */,
+				18688D5727DC7E3E001A7C7A /* ViewModel */,
 			);
 			path = DetailAddView;
+			sourceTree = "<group>";
+		};
+		18688D5627DC7E35001A7C7A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				18688D5427DAF5B2001A7C7A /* ProjectAddViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		18688D5727DC7E3E001A7C7A /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		189DD4F127D0FEF200395CF4 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
 				189DD54F27D56FBA00395CF4 /* MainView */,
+				18688D5327DAF560001A7C7A /* DetailAddView */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -218,7 +235,6 @@
 				189DD4F327D0FF1100395CF4 /* Data */,
 				189DD55127D571B700395CF4 /* Domain */,
 				189DD4F127D0FEF200395CF4 /* Presentation */,
-				18688D5327DAF560001A7C7A /* DetailAddView */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,

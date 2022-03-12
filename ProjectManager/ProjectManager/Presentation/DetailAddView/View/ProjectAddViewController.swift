@@ -18,6 +18,8 @@ class ProjectAddViewController: UIViewController {
     
     private let textView: UITextView = {
         let textView = UITextView(frame: .zero)
+        textView.layer.borderColor = UIColor.lightGray.cgColor
+        textView.layer.borderWidth = 0.5
         textView.translatesAutoresizingMaskIntoConstraints = false
         return textView
     }()

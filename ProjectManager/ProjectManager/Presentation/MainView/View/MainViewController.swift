@@ -1,24 +1,35 @@
 import UIKit
 
-class MainViewController: UIViewController {
+final class MainViewController: UIViewController {
+    
+    private let viewModel: TodoListViewModel
     
     private let todoTableView: UITableView = {
         let tableview = UITableView(frame: .zero)
-        tableview.register(ProjectUITableViewCell.self, forCellReuseIdentifier: String(describing: ProjectUITableViewCell()))
+        tableview.register(
+            ProjectUITableViewCell.self,
+            forCellReuseIdentifier: String(describing: ProjectUITableViewCell())
+        )
         tableview.translatesAutoresizingMaskIntoConstraints = false
         return tableview
     }()
     
     private let doingTableView: UITableView = {
         let tableview = UITableView()
-        tableview.register(ProjectUITableViewCell.self, forCellReuseIdentifier: String(describing: ProjectUITableViewCell()))
+        tableview.register(
+            ProjectUITableViewCell.self,
+            forCellReuseIdentifier: String(describing: ProjectUITableViewCell())
+        )
         tableview.translatesAutoresizingMaskIntoConstraints = false
         return tableview
     }()
     
     private let doneTableView: UITableView = {
         let tableview = UITableView()
-        tableview.register(ProjectUITableViewCell.self, forCellReuseIdentifier: String(describing: ProjectUITableViewCell()))
+        tableview.register(
+            ProjectUITableViewCell.self,
+            forCellReuseIdentifier: String(describing: ProjectUITableViewCell())
+        )
         tableview.translatesAutoresizingMaskIntoConstraints = false
         return tableview
     }()
@@ -38,25 +49,32 @@ class MainViewController: UIViewController {
         
         return stackView
     }()
+    // MARK: - initializer
+    init() {
+        super.init(nibName: nil, bundle: nil)
+    }
     
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
+        fatalError("init(coder:) has not been implemented")
     }
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        
+    convenience init(viewModel: TodoListViewModel) {
+        self.init(viewModel: viewModel)
     }
-    
+    // MARK: - lifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTableView()
         configureLayout()
     }
-    
+    // MARK: - method 
     private func configureNavigationItems() {
         self.navigationItem.title = "ProjectManager"
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didtappedRightBarButton))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .add,
+            target: self,
+            action: #selector(didtappedRightBarButton)
+        )
     }
     
     @objc func didtappedRightBarButton() {
