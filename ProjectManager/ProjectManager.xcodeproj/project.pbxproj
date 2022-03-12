@@ -117,6 +117,22 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		A61B438627DCAB39009DF5C5 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				A6B62A2527D9D1390080C0D5 /* ProjectUseCase.swift */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		A61B438727DCAB46009DF5C5 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				A6B62A2727D9D1D80080C0D5 /* ProjectRepository.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
 		A62BB67E27D1B553009395D8 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
@@ -193,12 +209,12 @@
 			children = (
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
-				A6B62A2527D9D1390080C0D5 /* ProjectUseCase.swift */,
-				A6B62A2727D9D1D80080C0D5 /* ProjectRepository.swift */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
 				EA4C970A27D70EE8002929B8 /* Model */,
-				EA4C970B27D70EF9002929B8 /* ViewModel */,
 				A62BB68027D1B5B9009395D8 /* View */,
+				EA4C970B27D70EF9002929B8 /* ViewModel */,
+				A61B438627DCAB39009DF5C5 /* Domain */,
+				A61B438727DCAB46009DF5C5 /* Repository */,
 				A62BB67E27D1B553009395D8 /* Extension */,
 				A62BB67F27D1B57F009395D8 /* Resource */,
 			);

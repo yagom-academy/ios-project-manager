@@ -3,13 +3,13 @@ import UIKit
 class EditProjectDetailViewController: ProjectDetailViewController {
     var viewModel: ProjectViewModelProtocol?
     var currentProject: Project?
-    var currentIndex: Int?
+//    var currentIndex: Int?
     
-    init(viewModel: ProjectViewModelProtocol?, currentIndex: Int, currentProject: Project) {
+    init(viewModel: ProjectViewModelProtocol?, currentProject: Project) {
         super.init(nibName: nil, bundle: nil)
         self.viewModel = viewModel
         self.currentProject = currentProject
-        self.currentIndex = currentIndex
+//        self.currentIndex = currentIndex
     }
     
     required init?(coder: NSCoder) {

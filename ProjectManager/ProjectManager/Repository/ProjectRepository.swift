@@ -1,10 +1,9 @@
 import Foundation
 
 protocol ProjectRepositoryProtocol {
-//    var projects: [UUID: Project] { get set }
     func fetchAll() -> [UUID: Project]
-    func update(with project: Project)
     func create(with project: Project)
+    func update(with project: Project)
     func delete(with project: Project)
 }
 
