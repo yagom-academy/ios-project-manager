@@ -11,7 +11,7 @@ private enum Design {
     static let cellBackgroundColor = UIColor.clear
     static let stackViewSpacing = 2.0
     static let stackViewLayoutMargins = UIEdgeInsets(top: 10, left: 13, bottom: 10, right: 13)
-    static let stackViewTopAnchorConstant = 0.8
+    static let stackViewTopAnchorConstant = 8.0
     static let stackViewBackgroundColor = UIColor.white
     static let titleLabelFont = UIFont.preferredFont(forTextStyle: .body)
     static let bodyLabelFont = UIFont.preferredFont(forTextStyle: .footnote)
