@@ -152,24 +152,9 @@ private extension MainViewController {
         let input = MainViewModel.Input(
             viewWillAppear: self.rx.methodInvoked(#selector(UIViewController.viewWillAppear))
                 .map { _ in },
-            tableViewLongPressed: self.longPressGestureRecognizers.map { gestureRecognizer in
-                gestureRecognizer.rx.event
-                    .map { (gestureRecognizer: UIGestureRecognizer) -> (UITableViewCell, Schedule)? in
-                        guard let tableView = gestureRecognizer.view as? UITableView else {
-                            return nil
-                        }
-
-                        if gestureRecognizer.state == .began {
-                            let touchPoint = gestureRecognizer.location(in: tableView)
-                            if let indexPath = tableView.indexPathForRow(at: touchPoint) {
-                                guard let cell = tableView.cellForRow(at: indexPath) else { fatalError() }
-                                return (cell, try tableView.rx.model(at: indexPath))
-                            }
-                        }
-                        return nil
-                    }.asObservable()
-            }
-            ,
+            tableViewLongPressed: self.longPressGestureRecognizers.map { $0.rx.event
+                .map(self.cellAndSchedule(from:)).asObservable()
+            },
             cellDidTap: self.tableViews.map { $0.rx.modelSelected(Schedule.self).asObservable() },
             cellDelete: self.tableViews.map { $0.rx.modelDeleted(Schedule.self).map { $0.id } },
             addButtonDidTap: self.addBarButton.rx.tap.asObservable()
@@ -181,7 +166,11 @@ private extension MainViewController {
 
         output.scheduleLists.enumerated().forEach { index, observable in
             guard let tableView = self.tableViews[safe: index] else { return }
-            observable.asDriver(onErrorJustReturn: [])
+            observable
+                .do(onNext: { schedule in
+                    self.headerViews[safe: index]?.countButton.setTitle("\(schedule.count)", for: .normal)
+                })
+                .asDriver(onErrorJustReturn: [])
                 .drive(
                     tableView.rx.items(
                         cellIdentifier: "ScheduleListCell",
@@ -191,14 +180,22 @@ private extension MainViewController {
                     cell.configureContent(with: item)
                 }
                 .disposed(by: bag)
-
-            observable
-                .subscribe(onNext: { schedule in
-                    self.headerViews[safe: index]?.countButton.setTitle("\(schedule.count)", for: .normal)
-                })
-                .disposed(by: bag)
-
         }
+    }
+
+    private func cellAndSchedule(from gestureRecognizer: UIGestureRecognizer) throws -> (UITableViewCell, Schedule)? {
+        guard let tableView = gestureRecognizer.view as? UITableView else {
+            return nil
+        }
+
+        if gestureRecognizer.state == .began {
+            let touchPoint = gestureRecognizer.location(in: tableView)
+            if let indexPath = tableView.indexPathForRow(at: touchPoint) {
+                guard let cell = tableView.cellForRow(at: indexPath) else { fatalError() }
+                return (cell, try tableView.rx.model(at: indexPath))
+            }
+        }
+        return nil
     }
 }
 

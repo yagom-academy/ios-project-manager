@@ -29,6 +29,8 @@ final class ScheduleUseCase {
 
     func create(_ schedule: Schedule) {
         scheduleProvider.create(schedule)
+        
+
             .subscribe(onNext: { schedule in
                 var schedules = self.schedules.value
                 schedules.append(schedule)

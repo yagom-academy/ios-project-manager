@@ -68,7 +68,7 @@ class ScheduleItemViewModel {
                     guard let schedule = self.useCase.currentSchedule.value else {
                         return
                     }
-                    self.useCase.setCurrentSchedule(schedule: schedule)
+//                    self.useCase.setCurrentSchedule(schedule: schedule)
                     self.mode.accept(.detail)
                 case .create:
                     self.coordinator.dismiss()

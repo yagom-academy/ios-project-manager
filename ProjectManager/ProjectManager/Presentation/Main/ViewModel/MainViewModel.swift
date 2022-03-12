@@ -49,10 +49,8 @@ final class MainViewModel {
 
         input.cellDidTap.forEach { observable in
             observable
-                .subscribe(onNext: { schedule in
-                    self.useCase.setCurrentSchedule(schedule: schedule)
-                    self.coordinator.presentScheduleItemViewController(mode: .detail)
-                })
+                .do(onNext: { _ in self.coordinator.presentScheduleItemViewController(mode: .detail) })
+                .bind(to: self.useCase.currentSchedule)
                 .disposed(by: disposeBag)
         }
 
