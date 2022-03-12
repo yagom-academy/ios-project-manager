@@ -12,6 +12,7 @@ private enum Design {
     static let stackViewSpacing = 2.0
     static let stackViewLayoutMargins = UIEdgeInsets(top: 10, left: 13, bottom: 10, right: 13)
     static let stackViewTopAnchorConstant = 0.8
+    static let stackViewBackgroundColor = UIColor.white
     static let titleLabelFont = UIFont.preferredFont(forTextStyle: .body)
     static let bodyLabelFont = UIFont.preferredFont(forTextStyle: .footnote)
     static let bodyLabelNumberOfLines = 3
@@ -32,7 +33,7 @@ final class ScheduleListCell: UITableViewCell {
         stackView.spacing = Design.stackViewSpacing
         stackView.layoutMargins = Design.stackViewLayoutMargins
         stackView.isLayoutMarginsRelativeArrangement = true
-        stackView.backgroundColor = .white
+        stackView.backgroundColor = Design.stackViewBackgroundColor
         stackView.weakShadow()
         return stackView
     }()

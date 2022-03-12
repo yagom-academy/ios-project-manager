@@ -39,7 +39,7 @@ class MainViewCoordinator {
     }
 
     func presentScheduleItemViewController(mode: ScheduleItemViewModel.Mode) {
-        guard let useCase = mainViewController.viewModel?.useCase else {
+        guard let useCase = self.mainViewController.viewModel?.useCase else {
             return
         }
 
@@ -50,7 +50,7 @@ class MainViewCoordinator {
     }
 
     func presentPopoverViewController(at sourceView: UIView) {
-        guard let useCase = mainViewController.viewModel?.useCase else {
+        guard let useCase = self.mainViewController.viewModel?.useCase else {
             return
         }
 

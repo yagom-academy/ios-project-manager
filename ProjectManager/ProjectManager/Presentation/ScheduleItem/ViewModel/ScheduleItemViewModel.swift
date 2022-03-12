@@ -77,7 +77,7 @@ class ScheduleItemViewModel {
         ]
             .forEach { $0.disposed(by: disposeBag)}
 
-        return bindOutput(disposeBag: disposeBag)
+        return self.bindOutput(disposeBag: disposeBag)
     }
 }
 

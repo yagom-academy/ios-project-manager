@@ -56,16 +56,16 @@ final class MemoryDataSource: DataSource {
 
 private extension MemoryDataSource {
     func fetch(completion: ([Schedule]) -> Void) {
-        completion(storage)
+        completion(self.storage)
     }
 
     func create(_ schedule: Schedule, completion: (Schedule) -> Void) {
-        storage.append(schedule)
+        self.storage.append(schedule)
         completion(schedule)
     }
 
     func delete(_ scheduleID: UUID, completion: (Bool) -> Void) {
-        let index = storage.enumerated().filter { _, schedule in
+        let index = self.storage.enumerated().filter { _, schedule in
             schedule.id == scheduleID
         }.map { element in
             element.0
@@ -75,12 +75,12 @@ private extension MemoryDataSource {
             completion(false)
             return
         }
-        storage.remove(at: index)
+        self.storage.remove(at: index)
         completion(true)
     }
 
     func update(_ schedule: Schedule, completion: (Schedule?) -> Void) {
-        let index = storage.enumerated().filter { _, schedule in
+        let index = self.storage.enumerated().filter { _, schedule in
             schedule.id == schedule.id
         }.map { element in
             element.0
@@ -90,7 +90,7 @@ private extension MemoryDataSource {
             completion(nil)
             return
         }
-        storage[safe: index] = schedule
-        completion(storage[safe: index])
+        self.storage[safe: index] = schedule
+        completion(self.storage[safe: index])
     }
 }

@@ -68,8 +68,8 @@ class ScheduleListHeaderView: UITableViewHeaderFooterView {
     }
 
     private func configureConstraint() {
-        progressLabel.translatesAutoresizingMaskIntoConstraints = false
-        countButton.translatesAutoresizingMaskIntoConstraints = false
+        self.progressLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.countButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             self.progressLabel.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor),
             self.progressLabel.leadingAnchor.constraint(

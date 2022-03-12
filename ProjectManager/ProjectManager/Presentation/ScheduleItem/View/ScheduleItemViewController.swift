@@ -115,8 +115,8 @@ private extension ScheduleItemViewController {
     }
 
     func configureConstraint() {
-        configureStackViewConstraint()
-        configureSubViewsConstraint()
+        self.configureStackViewConstraint()
+        self.configureSubViewsConstraint()
     }
 
     func configureStackViewConstraint() {
