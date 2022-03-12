@@ -62,7 +62,6 @@ class ScheduleItemViewController: UIViewController {
 
     private let leftBarButton: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem()
-        barButtonItem.title = "취소"
         return barButtonItem
     }()
 
@@ -142,9 +141,6 @@ private extension ScheduleItemViewController {
             .disposed(by: bag)
         output.leftBarButtonText
             .drive(self.leftBarButton.rx.title)
-            .disposed(by: bag)
-        output.rightBarButtonText
-            .drive(self.rightBarButton.rx.title)
             .disposed(by: bag)
         output.editable
             .drive(self.titleTextField.rx.isEnabled,

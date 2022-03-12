@@ -12,11 +12,14 @@ import RxRelay
 
 class ScheduleItemViewModel {
 
+    // MARK: - Nested
+
     enum Mode {
         case detail, edit, create
     }
 
     // MARK: - Properties
+
     private let bag = DisposeBag()
     private let useCase: ScheduleUseCase
     private let coordinator: ScheduleItemCoordinator
@@ -34,6 +37,8 @@ class ScheduleItemViewModel {
         self.mode = BehaviorRelay<Mode>(value: mode)
     }
 
+    // MARK: - Input/Output
+
     struct Input {
         let leftBarButtonDidTap: Observable<Void>
         let rightBarButtonDidTap: Observable<Void>
@@ -49,7 +54,6 @@ class ScheduleItemViewModel {
         let scheduleDate: Driver<Date>
         let scheduleBodyText: Driver<String>
         let leftBarButtonText: Driver<String>
-        let rightBarButtonText: Driver<String>
         let editable: Driver<Bool>
         let isValid: Driver<Bool>
     }
@@ -70,6 +74,8 @@ class ScheduleItemViewModel {
         return bindOutput(disposeBag: disposeBag)
     }
 }
+
+// MARK: - Private Methods
 
 private extension ScheduleItemViewModel {
 
@@ -98,7 +104,8 @@ private extension ScheduleItemViewModel {
                 switch self.mode.value {
                 case .detail:
                     self.coordinator.dismiss()
-                case .edit:guard let schedule = self.useCase.currentSchedule.value else { return }
+                case .edit:
+                    guard let schedule = self.useCase.currentSchedule.value else { return }
                     let newSchedule = Schedule(
                         id: schedule.id,
                         title: self.currentTitleText.value,
@@ -108,11 +115,13 @@ private extension ScheduleItemViewModel {
 
                     self.useCase.update(newSchedule)
                     self.coordinator.dismiss()
-                case .create:let newSchedule = Schedule(
-                    title: self.currentTitleText.value,
-                    body: self.currentBodyText.value,
-                    dueDate: self.currentDate.value,
-                    progress: .todo)
+                case .create:
+                    let newSchedule = Schedule(
+                        title: self.currentTitleText.value,
+                        body: self.currentBodyText.value,
+                        dueDate: self.currentDate.value,
+                        progress: .todo)
+
                     self.useCase.create(newSchedule)
                     self.coordinator.dismiss()
                 }
@@ -141,74 +150,64 @@ private extension ScheduleItemViewModel {
     }
 
     func bindOutput(disposeBag: DisposeBag) -> Output {
+        return Output(
+            scheduleProgress: scheduleProgress(),
+            scheduleTitleText: scheduleTitleText(),
+            scheduleDate: scheduleDate(),
+            scheduleBodyText: scheduleBodyText(),
+            leftBarButtonText: leftBarButtonText(),
+            editable: editable(),
+            isValid: isValid()
+        )
+    }
 
-        let scheduleTitleText = self.useCase.currentSchedule
-            .flatMap { Observable.from(optional: $0) }
+    func scheduleTitleText() -> Driver<String> {
+        return  self.useCase.currentSchedule
+            .flatMap(Observable.from(optional:))
             .map { $0.title }
             .asDriver(onErrorJustReturn: "제목을 표시할 수 없습니다.")
+    }
 
-        let scheduleDate = self.useCase.currentSchedule
-            .flatMap { Observable.from(optional: $0) }
+    func scheduleDate() -> Driver<Date> {
+        return  self.useCase.currentSchedule
+            .flatMap(Observable.from(optional:))
             .map { $0.dueDate }
             .asDriver(onErrorJustReturn: Date())
+    }
 
-        let scheduleBodyText = self.useCase.currentSchedule
-            .flatMap { Observable.from(optional: $0) }
+    func scheduleBodyText() -> Driver<String> {
+        return  self.useCase.currentSchedule
+            .flatMap(Observable.from(optional:))
             .map { $0.body }
             .asDriver(onErrorJustReturn: "내용을 표시할 수 없습니다")
+    }
 
-        let scheduleProgress = self.useCase.currentSchedule
-            .flatMap { Observable.from(optional: $0) }
-            .map { $0.progress.description}
+    func scheduleProgress() -> Driver<String> {
+        return  self.useCase.currentSchedule
+            .flatMap(Observable.from(optional:))
+            .map { $0.progress.description }
             .asDriver(onErrorJustReturn: Progress.todo.description)
+    }
 
-        let editable = self.mode
-            .map { mode -> Bool in
-                switch mode {
-                case .detail:
-                    return false
-                case .edit, .create:
-                    return true
-                }
-            }.asDriver(onErrorJustReturn: false)
+    func editable() -> Driver<Bool> {
+        return self.mode
+            .map { $0 != .detail }
+            .asDriver(onErrorJustReturn: false)
+    }
 
-        let leftBarButtonText = self.mode
-            .map { mode -> String in
-                switch mode {
-                case .detail:
-                    return "수정"
-                case .edit, .create:
-                    return "취소"
-                }
-            }.asDriver(onErrorJustReturn: "취소")
+    func leftBarButtonText() -> Driver<String> {
+        return self.mode
+            .map { $0 == .detail ? "수정" : "취소" }
+            .asDriver(onErrorJustReturn: "취소")
+    }
 
-        let rightBarButtonText = self.mode
-            .map { mode -> String in
-                switch mode {
-                case .detail:
-                    return "완료"
-                case .edit, .create:
-                    return "완료"
-                }
-            }.asDriver(onErrorJustReturn: "완료")
-
-        let isValid = Observable.combineLatest(
+    func isValid() -> Driver<Bool> {
+        return Observable.combineLatest(
             currentTitleText.map { !$0.isEmpty },
             currentBodyText.map { !$0.isEmpty },
             self.mode.map { $0 == .detail },
             resultSelector: { $0 && $1 || $2 }
         )
             .asDriver(onErrorJustReturn: false)
-
-        return Output(
-            scheduleProgress: scheduleProgress,
-            scheduleTitleText: scheduleTitleText,
-            scheduleDate: scheduleDate,
-            scheduleBodyText: scheduleBodyText,
-            leftBarButtonText: leftBarButtonText,
-            rightBarButtonText: rightBarButtonText,
-            editable: editable,
-            isValid: isValid
-        )
     }
 }
