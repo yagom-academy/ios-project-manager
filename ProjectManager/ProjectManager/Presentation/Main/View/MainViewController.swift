@@ -119,11 +119,13 @@ private extension MainViewController {
     func configureTableView() {
         self.tableViews.enumerated().forEach { index, tableView in
             tableView.register(cellWithClass: ScheduleListCell.self)
-            tableView.delegate = self
             tableView.backgroundColor = Design.tableViewBackgroundColor
             tableView.separatorStyle = .none
             tableView.tableHeaderView = self.headerViews[safe: index]
             tableView.tableHeaderView?.frame.size.height = Design.tableHeaderViewHeight
+            tableView.rx.itemSelected
+                .subscribe(onNext: { tableView.deselectRow(at: $0, animated: true) })
+                .disposed(by: self.bag)
         }
 
         self.configureTableViewGestureRecognizers()
@@ -198,13 +200,5 @@ private extension MainViewController {
             }
         }
         return nil
-    }
-}
-
-// MARK: - TableView Delegate Method
-
-extension MainViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
