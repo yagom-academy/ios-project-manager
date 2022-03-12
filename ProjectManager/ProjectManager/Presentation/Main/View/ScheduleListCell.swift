@@ -41,7 +41,7 @@ final class ScheduleListCell: UITableViewCell {
     private let dateStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.layoutMargins = Design.stackViewLayoutMargins
+        stackView.layoutMargins = Design.dateViewLayoutMargins
         stackView.isLayoutMarginsRelativeArrangement = true
         return stackView
     }()
