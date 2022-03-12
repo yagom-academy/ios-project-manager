@@ -79,13 +79,13 @@ private extension MainViewController {
     }
 
     func configureHierarchy() {
-        self.view.addSubview(stackView)
+        self.view.addSubview(self.stackView)
         self.tableViews.forEach(self.stackView.addArrangedSubview)
     }
 
     func configureNavigationBar() {
         self.title = Design.navigationBarTitle
-        self.navigationItem.rightBarButtonItem = addBarButton
+        self.navigationItem.rightBarButtonItem = self.addBarButton
     }
 
     func configureConstraint() {
