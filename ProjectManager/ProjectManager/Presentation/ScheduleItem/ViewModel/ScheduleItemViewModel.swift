@@ -79,23 +79,35 @@ class ScheduleItemViewModel {
 
 private extension ScheduleItemViewModel {
 
+    func dismiss() {
+        self.coordinator.dismiss()
+    }
+
     func onLeftBarButtonDidTap(_ input: Observable<Void>) -> Disposable {
         return input
             .subscribe(onNext: { _ in
                 switch self.mode.value {
                 case .detail:
-                    self.currentTitleText.accept(self.useCase.currentSchedule.value?.title ?? "")
-                    self.mode.accept(.edit)
+                    self.onLeftBarButtonDidTapWhenDetail()
                 case .edit:
-                    self.coordinator.dismiss()
+                    self.dismiss()
                 case .create:
-                    guard let schedule = self.useCase.currentSchedule.value else {
-                        return
-                    }
-                    self.useCase.setCurrentSchedule(schedule: schedule)
-                    self.mode.accept(.detail)
+                    self.onLeftBarButtonDidTapWhenCreate()
                 }
             })
+    }
+
+    func onLeftBarButtonDidTapWhenDetail() {
+        self.currentTitleText.accept(self.useCase.currentSchedule.value?.title ?? "")
+        self.mode.accept(.edit)
+    }
+
+    func onLeftBarButtonDidTapWhenCreate() {
+        guard let schedule = self.useCase.currentSchedule.value else {
+            return
+        }
+        self.useCase.currentSchedule.accept(schedule)
+        self.mode.accept(.detail)
     }
 
     func onRightBarButtonDidTap(_ input: Observable<Void>) -> Disposable {
@@ -103,29 +115,37 @@ private extension ScheduleItemViewModel {
             .subscribe(onNext: { _ in
                 switch self.mode.value {
                 case .detail:
-                    self.coordinator.dismiss()
+                    self.dismiss()
                 case .edit:
-                    guard let schedule = self.useCase.currentSchedule.value else { return }
-                    let newSchedule = Schedule(
-                        id: schedule.id,
-                        title: self.currentTitleText.value,
-                        body: self.currentBodyText.value,
-                        dueDate: self.currentDate.value,
-                        progress: schedule.progress)
-
-                    self.useCase.update(newSchedule)
-                    self.coordinator.dismiss()
+                    self.onRightBarButtonDidTapWhenEditMode()
                 case .create:
-                    let newSchedule = Schedule(
-                        title: self.currentTitleText.value,
-                        body: self.currentBodyText.value,
-                        dueDate: self.currentDate.value,
-                        progress: .todo)
-
-                    self.useCase.create(newSchedule)
-                    self.coordinator.dismiss()
+                    self.onRightBarButtonDidTapWhenCreateMode()
                 }
             })
+    }
+
+    func onRightBarButtonDidTapWhenEditMode() {
+        guard let schedule = self.useCase.currentSchedule.value else { return }
+        let newSchedule = Schedule(
+            id: schedule.id,
+            title: self.currentTitleText.value,
+            body: self.currentBodyText.value,
+            dueDate: self.currentDate.value,
+            progress: schedule.progress)
+
+        self.useCase.update(newSchedule)
+        self.coordinator.dismiss()
+    }
+
+    func onRightBarButtonDidTapWhenCreateMode() {
+        let newSchedule = Schedule(
+            title: self.currentTitleText.value,
+            body: self.currentBodyText.value,
+            dueDate: self.currentDate.value,
+            progress: .todo)
+
+        self.useCase.create(newSchedule)
+        self.coordinator.dismiss()
     }
 
     func onScheduleTitleTextDidChange(_ input: Observable<String>) -> Disposable {

@@ -29,8 +29,6 @@ final class ScheduleUseCase {
 
     func create(_ schedule: Schedule) {
         scheduleProvider.create(schedule)
-        
-
             .subscribe(onNext: { schedule in
                 var schedules = self.schedules.value
                 schedules.append(schedule)
@@ -72,10 +70,6 @@ final class ScheduleUseCase {
     func changeProgress(progress: Progress) {
         guard let schedule = self.currentSchedule.value else { return }
         self.update(convert(schedule: schedule, for: progress))
-    }
-
-    func setCurrentSchedule(schedule: Schedule) {
-        self.currentSchedule.accept(schedule)
     }
 }
 
