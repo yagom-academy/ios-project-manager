@@ -7,22 +7,33 @@
 
 import UIKit
 
+private enum Design {
+    static let progressLabelFont = UIFont.preferredFont(forTextStyle: .title1)
+    static let progressLabelLeadingAnchorConstant = 10.0
+    static let progressLabelTrailingAnchorConstant = 10.0
+    static let countButtonColor = UIColor.white
+    static let countButtonFont = UIFont.preferredFont(forTextStyle: .callout)
+    static let countButtonTintColor = UIColor.black
+    static let countButtonBackgroundImage = UIImage(systemName: "circle.fill")
+    static let contentViewBackgroundColor = UIColor.systemGray6
+}
+
 class ScheduleListHeaderView: UITableViewHeaderFooterView {
 
 // MARK: - Properties
 
     let progressLabel: UILabel = {
         let label = UILabel()
-        label.font = .preferredFont(forTextStyle: .title1)
+        label.font = Design.progressLabelFont
         return label
     }()
 
     let countButton: UIButton = {
         let button = UIButton()
-        button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = .preferredFont(forTextStyle: .callout)
-        button.tintColor = .black
-        button.setBackgroundImage(UIImage(systemName: "circle.fill"), for: .normal)
+        button.setTitleColor(Design.countButtonColor, for: .normal)
+        button.titleLabel?.font = Design.countButtonFont
+        button.tintColor = Design.countButtonTintColor
+        button.setBackgroundImage(Design.countButtonBackgroundImage, for: .normal)
         button.isUserInteractionEnabled = false
         return button
     }()
@@ -31,20 +42,21 @@ class ScheduleListHeaderView: UITableViewHeaderFooterView {
 
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
-        commonInit()
 
+        commonInit()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+
         commonInit()
     }
 
 // MARK: - Method
-    
+
     private func commonInit() {
         self.contentView.weakShadow()
-        self.contentView.backgroundColor = .systemGray6
+        self.contentView.backgroundColor = Design.contentViewBackgroundColor
         self.configureHierachy()
         self.configureConstraint()
     }
@@ -62,12 +74,14 @@ class ScheduleListHeaderView: UITableViewHeaderFooterView {
             self.progressLabel.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor),
             self.progressLabel.leadingAnchor.constraint(
                 equalTo: self.contentView.leadingAnchor,
-                constant: 10),
+                constant: Design.progressLabelLeadingAnchorConstant
+            ),
             self.countButton.heightAnchor.constraint(equalTo: self.countButton.widthAnchor),
             self.countButton.centerYAnchor.constraint(equalTo: self.progressLabel.centerYAnchor),
             self.countButton.leadingAnchor.constraint(
                 equalTo: self.progressLabel.trailingAnchor,
-                constant: 10)
+                constant: Design.progressLabelTrailingAnchorConstant
+            )
         ])
     }
 }
