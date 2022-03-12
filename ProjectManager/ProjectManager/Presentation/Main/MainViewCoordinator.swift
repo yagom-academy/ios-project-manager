@@ -46,7 +46,7 @@ class MainViewCoordinator {
         let scheduleDetailCoordinator = ScheduleItemCoordinator()
         scheduleDetailCoordinator.start(with: useCase, mode: mode)
 
-        self.mainViewController.present(scheduleDetailCoordinator.navigationController, animated: true, completion: nil)
+        self.present(scheduleDetailCoordinator.navigationController)
     }
 
     func presentPopoverViewController(at sourceView: UIView) {
@@ -55,9 +55,12 @@ class MainViewCoordinator {
         }
 
         let popoverCoordinator = PopoverCoordinator()
-
         popoverCoordinator.start(with: useCase, sourceView: sourceView)
 
-        self.mainViewController.present(popoverCoordinator.popoverViewController, animated: true, completion: nil)
+        self.present(popoverCoordinator.popoverViewController)
+    }
+
+    private func present(_ viewController: UIViewController) {
+        self.mainViewController.present(viewController, animated: true, completion: nil)
     }
 }
