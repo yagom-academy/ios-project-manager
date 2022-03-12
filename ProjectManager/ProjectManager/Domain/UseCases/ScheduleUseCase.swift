@@ -10,61 +10,66 @@ import RxSwift
 import RxRelay
 
 final class ScheduleUseCase {
-    private let bag = DisposeBag()
-    private let scheduleProvider: Repository
+
+    // MARK: - Properties
+
     let schedules = BehaviorRelay<[Schedule]>(value: [])
     let currentSchedule = BehaviorRelay<Schedule?>(value: nil)
+    private let bag = DisposeBag()
+    private let scheduleProvider: Repository
+
+    // MARK: - Initializer
 
     init(repository: Repository) {
         self.scheduleProvider = repository
     }
 
+    // MARK: - Methods
+
     func fetch() {
-        scheduleProvider.fetch()
+        self.scheduleProvider.fetch()
             .subscribe(onNext: { event in
                 self.schedules.accept(event)
             })
-            .disposed(by: bag)
+            .disposed(by: self.bag)
     }
 
     func create(_ schedule: Schedule) {
-        scheduleProvider.create(schedule)
+        self.scheduleProvider.create(schedule)
             .subscribe(onNext: { schedule in
                 var schedules = self.schedules.value
                 schedules.append(schedule)
 
                 self.schedules.accept(schedules)
             })
-            .disposed(by: bag)
+            .disposed(by: self.bag)
     }
 
     func delete(_ scheduleID: UUID) {
-        scheduleProvider.delete(scheduleID)
+        self.scheduleProvider.delete(scheduleID)
             .subscribe(onNext: { _ in
                 let schedules = self.schedules.value.filter { schedule in
                     schedule.id != scheduleID
                 }
                 self.schedules.accept(schedules)
             })
-            .disposed(by: bag)
+            .disposed(by: self.bag)
     }
 
     func update(_ schedule: Schedule) {
-        scheduleProvider.update(schedule)
+        self.scheduleProvider.update(schedule)
             .subscribe(onNext: { newSchedule in
                 var schedules = self.schedules.value
                 guard let index = schedules.enumerated()
-                        .filter { _, schedule in
-                            schedule.id == newSchedule.id
-                        }.map { element in
-                            element.0
-                        }.first else { return }
+                        .filter({ $0.element.id == newSchedule.id })
+                        .map({ $0.0 }).first
+                else { return }
 
                 schedules[safe: index] = newSchedule
 
                 self.schedules.accept(schedules)
             })
-            .disposed(by: bag)
+            .disposed(by: self.bag)
     }
 
     func changeProgress(progress: Progress) {
@@ -73,6 +78,7 @@ final class ScheduleUseCase {
     }
 }
 
+// MARK: - Private Methods
 private extension ScheduleUseCase {
 
     func convert(schedule: Schedule, for progress: Progress) -> Schedule {
