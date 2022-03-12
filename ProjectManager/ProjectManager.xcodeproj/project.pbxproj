@@ -225,7 +225,7 @@
 			isa = PBXGroup;
 			children = (
 				37CC921A27D870A4003F1122 /* Main */,
-				37CC921D27D870DB003F1122 /* ScheduleDetail */,
+				37CC921D27D870DB003F1122 /* ScheduleItem */,
 				37CC922027DB120C003F1122 /* Popover */,
 			);
 			path = Presentation;
@@ -259,14 +259,14 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		37CC921D27D870DB003F1122 /* ScheduleDetail */ = {
+		37CC921D27D870DB003F1122 /* ScheduleItem */ = {
 			isa = PBXGroup;
 			children = (
 				334BADE927D89F0A0098F448 /* View */,
 				334BADEA27D89F130098F448 /* ViewModel */,
 				334BADEF27D8F2690098F448 /* ScheduleItemCoordinator.swift */,
 			);
-			path = ScheduleDetail;
+			path = ScheduleItem;
 			sourceTree = "<group>";
 		};
 		37CC922027DB120C003F1122 /* Popover */ = {

@@ -9,6 +9,20 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+private enum Design {
+    static let stackViewSpacing = 5.0
+    static let titleTextFieldPlaceHolder = "Title"
+    static let titleTextFieldLeftPaddingWidth = 15.0
+    static let rightBarButtonTitle = "완료"
+    static let viewBackgroundColor = UIColor.white
+    static let stackViewLeadingAnchorConstant = 10.0
+    static let stackViewTrailingAnchorConstant = -10.0
+    static let stackViewTopAnchorConstant = 4.0
+    static let stackViewBottomAnchorConstant = -20.0
+    static let titleTextFieldHeightAnchorMultiplier = 0.08
+    static let bodyTextViewHeightAnchorMultiplier = 0.55
+}
+
 class ScheduleItemViewController: UIViewController {
 
     // MARK: - Properties
@@ -22,23 +36,27 @@ class ScheduleItemViewController: UIViewController {
         stackView.axis = .vertical
         stackView.alignment = .fill
         stackView.distribution = .fill
-        stackView.spacing = 5
+        stackView.spacing = Design.stackViewSpacing
         return stackView
     }()
 
     private let titleTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "Title"
+        textField.placeholder = Design.titleTextFieldPlaceHolder
         textField.shadow()
-        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: textField.frame.height))
-        textField.leftView = paddingView
+        let paddingSize: CGSize = CGSize(
+            width: Design.titleTextFieldLeftPaddingWidth,
+            height: textField.frame.height
+        )
+        let padding = UIView(frame: CGRect(origin: .zero, size: paddingSize))
+        textField.leftView = padding
         textField.leftViewMode = .always
 
         return textField
     }()
 
     private lazy var datePicker: UIDatePicker = {
-        let datePicker = UIDatePicker(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 300))
+        let datePicker = UIDatePicker()
         datePicker.datePickerMode = .date
         if #available(iOS 13.5, *) {
             datePicker.preferredDatePickerStyle = .wheels
@@ -57,14 +75,14 @@ class ScheduleItemViewController: UIViewController {
         return textView
     }()
 
-    private let rightBarButton: UIBarButtonItem = {
+    private let leftBarButton: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem()
-        barButtonItem.title = "완료"
         return barButtonItem
     }()
 
-    private let leftBarButton: UIBarButtonItem = {
+    private let rightBarButton: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem()
+        barButtonItem.title = Design.rightBarButtonTitle
         return barButtonItem
     }()
 
@@ -72,6 +90,7 @@ class ScheduleItemViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         self.configure()
     }
 }
@@ -80,41 +99,64 @@ class ScheduleItemViewController: UIViewController {
 
 private extension ScheduleItemViewController {
     func configure() {
-        self.view.backgroundColor = .white
-        configureHierarchy()
-        configureConstraint()
-        configureNavigationBar()
-        binding()
+        self.view.backgroundColor = Design.viewBackgroundColor
+        self.configureHierarchy()
+        self.configureConstraint()
+        self.configureNavigationBar()
+        self.binding()
     }
 
     func configureHierarchy() {
-        self.view.addSubview(stackView)
-        self.stackView.addArrangedSubview(titleTextField)
-        self.stackView.addArrangedSubview(datePicker)
-        self.textStackView.addArrangedSubview(bodyTextView)
-        self.stackView.addArrangedSubview(textStackView)
+        self.view.addSubview(self.stackView)
+        self.stackView.addArrangedSubview(self.titleTextField)
+        self.stackView.addArrangedSubview(self.datePicker)
+        self.textStackView.addArrangedSubview(self.bodyTextView)
+        self.stackView.addArrangedSubview(self.textStackView)
     }
 
     func configureConstraint() {
-        let safeAreaLayoutGuide = self.view.safeAreaLayoutGuide
+        configureStackViewConstraint()
+        configureSubViewsConstraint()
+    }
+
+    func configureStackViewConstraint() {
         self.stackView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            self.stackView.leadingAnchor.constraint(
+                equalTo: self.view.safeAreaLayoutGuide.leadingAnchor,
+                constant: Design.stackViewLeadingAnchorConstant
+            ),
+            self.stackView.trailingAnchor.constraint(
+                equalTo: self.view.safeAreaLayoutGuide.trailingAnchor,
+                constant: Design.stackViewTrailingAnchorConstant
+            ),
+            self.stackView.topAnchor.constraint(
+                equalTo: self.view.safeAreaLayoutGuide.topAnchor,
+                constant: Design.stackViewTopAnchorConstant
+            ),
+            self.stackView.bottomAnchor.constraint(
+                equalTo: self.view.safeAreaLayoutGuide.bottomAnchor,
+                constant: Design.stackViewBottomAnchorConstant
+            )
+        ])
+    }
+
+    func configureSubViewsConstraint() {
+        self.titleTextField.translatesAutoresizingMaskIntoConstraints = false
         self.bodyTextView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            self.stackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 10),
-            self.stackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -10),
-            self.stackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 4),
-            self.stackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -20),
             self.titleTextField.heightAnchor.constraint(
-                equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 0.08
+                equalTo: self.view.safeAreaLayoutGuide.heightAnchor,
+                multiplier: Design.titleTextFieldHeightAnchorMultiplier
             ),
             self.bodyTextView.heightAnchor.constraint(
-                equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 0.55
+                equalTo: self.view.safeAreaLayoutGuide.heightAnchor,
+                multiplier: Design.bodyTextViewHeightAnchorMultiplier
             )
         ])
     }
 
     func configureNavigationBar() {
-        self.title = "TODO"
         self.navigationItem.rightBarButtonItem = rightBarButton
         self.navigationItem.leftBarButtonItem = leftBarButton
     }
@@ -155,8 +197,8 @@ private extension ScheduleItemViewController {
 
         output.scheduleBodyText
             .drive(self.bodyTextView.rx.text)
-
             .disposed(by: bag)
+
         output.leftBarButtonText
             .drive(self.leftBarButton.rx.title)
             .disposed(by: bag)
