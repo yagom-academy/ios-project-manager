@@ -10,16 +10,16 @@ import UIKit
 class ScheduleItemCoordinator {
 
     let navigationController = UINavigationController()
-    private let scheduleDetailViewController = ScheduleItemViewController()
+    private let scheduleItemViewController = ScheduleItemViewController()
 
     func start(with useCase: ScheduleUseCase, mode: ScheduleItemViewModel.Mode) {
-        self.scheduleDetailViewController.viewModel = ScheduleItemViewModel(
+        self.scheduleItemViewController.viewModel = ScheduleItemViewModel(
             useCase: useCase,
             coordinator: self,
             mode: mode
         )
 
-        self.navigationController.viewControllers = [self.scheduleDetailViewController]
+        self.navigationController.viewControllers = [self.scheduleItemViewController]
     }
 
     func dismiss() {
