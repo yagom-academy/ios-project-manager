@@ -8,7 +8,13 @@
 import Foundation
 import RxSwift
 import RxCocoa
-import RxRelay
+
+private enum Name {
+    static let scheduleTitleTextOnError = "제목을 표시할 수 없습니다."
+    static let scheduleBodyTextOnError = "내용을 표시할 수 없습니다."
+    static let leftBarButtonTitle = "수정"
+    static let leftBarButtonTitleWhenEditing = "취소"
+}
 
 class ScheduleItemViewModel {
 
@@ -25,9 +31,9 @@ class ScheduleItemViewModel {
     private let coordinator: ScheduleItemCoordinator
 
     private let mode: BehaviorRelay<Mode>
-    private let currentTitleText = BehaviorRelay<String>(value: "")
+    private let currentTitleText = BehaviorRelay<String>(value: String.empty)
     private let currentDate = BehaviorRelay<Date>(value: Date())
-    private let currentBodyText = BehaviorRelay<String>(value: "")
+    private let currentBodyText = BehaviorRelay<String>(value: String.empty)
 
     // MARK: - Initializer
 
@@ -98,7 +104,7 @@ private extension ScheduleItemViewModel {
     }
 
     func onLeftBarButtonDidTapWhenDetail() {
-        self.currentTitleText.accept(self.useCase.currentSchedule.value?.title ?? "")
+        self.currentTitleText.accept(self.useCase.currentSchedule.value?.title ?? String.empty)
         self.mode.accept(.edit)
     }
 
@@ -185,7 +191,7 @@ private extension ScheduleItemViewModel {
         return  self.useCase.currentSchedule
             .flatMap(Observable.from(optional:))
             .map { $0.title }
-            .asDriver(onErrorJustReturn: "제목을 표시할 수 없습니다.")
+            .asDriver(onErrorJustReturn: Name.scheduleTitleTextOnError)
     }
 
     func scheduleDate() -> Driver<Date> {
@@ -199,7 +205,7 @@ private extension ScheduleItemViewModel {
         return  self.useCase.currentSchedule
             .flatMap(Observable.from(optional:))
             .map { $0.body }
-            .asDriver(onErrorJustReturn: "내용을 표시할 수 없습니다")
+            .asDriver(onErrorJustReturn: Name.scheduleBodyTextOnError)
     }
 
     func scheduleProgress() -> Driver<String> {
@@ -217,8 +223,8 @@ private extension ScheduleItemViewModel {
 
     func leftBarButtonText() -> Driver<String> {
         return self.mode
-            .map { $0 == .detail ? "수정" : "취소" }
-            .asDriver(onErrorJustReturn: "취소")
+            .map { $0 == .detail ? Name.leftBarButtonTitle : Name.leftBarButtonTitleWhenEditing }
+            .asDriver(onErrorJustReturn: Name.leftBarButtonTitleWhenEditing)
     }
 
     func isValid() -> Driver<Bool> {
