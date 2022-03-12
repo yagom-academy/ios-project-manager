@@ -37,38 +37,44 @@ class PopoverViewModel {
     // MARK: - Methods
 
     func transform(input: Input, disposeBag: DisposeBag) -> Output {
+        [
+            onTopButtonDidTap(input.topButtonDidTap),
+            onBottomButtonDidTap(input.bottomButtonDidTap),
+            onViewDidDisappear(input.viewDidDisappear)
+        ]
+            .forEach { $0.disposed(by: disposeBag) }
 
-        let currentProgress = self.useCase.currentSchedule.value?.progress
-        let targetProgressSet = Progress.allCases.filter { $0 != currentProgress }
-
-        input.topButtonDidTap
-            .subscribe(onNext: {
-                guard let topButtonProgress = targetProgressSet.first else { return }
-                self.useCase.changeProgress(progress: topButtonProgress)
-                self.coordinator.dismiss()
-            })
-            .disposed(by: disposeBag)
-
-        input.bottomButtonDidTap
-            .subscribe(onNext: {
-                guard let bottomButtonProgress = targetProgressSet.last else { return }
-                self.useCase.changeProgress(progress: bottomButtonProgress)
-                self.coordinator.dismiss()
-            })
-            .disposed(by: disposeBag)
-
-        input.viewDidDisappear
-            .subscribe(onNext: { _ in
-                self.useCase.currentSchedule.accept(nil)
-            })
-            .disposed(by: disposeBag)
-
-        return bindOutput()
+        return bindingOutput()
     }
 }
 
 private extension PopoverViewModel {
-    func bindOutput() -> Output {
+
+    func onTopButtonDidTap(_ input: Observable<Void>) -> Disposable {
+        let currentProgress = self.useCase.currentSchedule.value?.progress
+        let targetProgressSet = Progress.allCases.filter { $0 != currentProgress }
+        return input
+            .do(onNext: self.coordinator.dismiss)
+            .flatMap { Observable.from(optional: targetProgressSet.first) }
+            .bind(onNext: self.useCase.changeProgress(progress:))
+    }
+
+    func onBottomButtonDidTap(_ input: Observable<Void>) -> Disposable {
+        let currentProgress = self.useCase.currentSchedule.value?.progress
+        let targetProgressSet = Progress.allCases.filter { $0 != currentProgress }
+        return input
+            .do(onNext: self.coordinator.dismiss)
+            .flatMap { Observable.from(optional: targetProgressSet.last) }
+            .bind(onNext: self.useCase.changeProgress(progress:))
+    }
+
+    func onViewDidDisappear(_ input: Observable<Void>) -> Disposable {
+        return input
+            .map { nil }
+            .bind(to: self.useCase.currentSchedule)
+    }
+
+    func bindingOutput() -> Output {
         let topButtonTitleText = self.useCase.currentSchedule.map { (schedule) -> String in
             let targetProgress = Progress.allCases.filter { progress in progress != schedule?.progress }
             return "Move to \(targetProgress.first?.description ?? "")"
