@@ -5,7 +5,6 @@
 //  Created by Jae-hoon Sim on 2022/03/08.
 //
 
-import Foundation
 import RxSwift
 import RxRelay
 import RxCocoa
@@ -14,17 +13,19 @@ import UIKit
 final class MainViewModel {
 
     // MARK: - Properties
-    var coordinator: MainViewCoordinator
 
-    private let bag = DisposeBag()
     let useCase: ScheduleUseCase
-    private let indexPath = BehaviorRelay<IndexPath>(value: IndexPath(item: 0, section: 0))
+    private let coordinator: MainViewCoordinator
+    private let bag = DisposeBag()
+
     // MARK: - Initializer
 
     init(coordinator: MainViewCoordinator, useCase: ScheduleUseCase) {
         self.coordinator = coordinator
         self.useCase = useCase
     }
+
+    // MARK: - Input/Output
 
     struct Input {
         let viewWillAppear: Observable<Void>
@@ -41,58 +42,64 @@ final class MainViewModel {
     // MARK: - Methods
 
     func transform(input: Input, disposeBag: DisposeBag) -> Output {
-        input.viewWillAppear
-            .subscribe(onNext: {
-                self.useCase.fetch()
-            })
+        onViewWillAppear(input.viewWillAppear)
             .disposed(by: disposeBag)
 
-        input.cellDidTap.forEach { observable in
-            observable
-                .do(onNext: { _ in self.coordinator.presentScheduleItemViewController(mode: .detail) })
-                .bind(to: self.useCase.currentSchedule)
-                .disposed(by: disposeBag)
-        }
+        onAddButtonDidTap(input.addButtonDidTap)
+            .disposed(by: disposeBag)
 
-        input.cellDelete.forEach { observable in
-            observable.subscribe(onNext: { id in
-                self.useCase.delete(id)
-            })
-                .disposed(by: disposeBag)
-        }
+        input.cellDidTap.map(self.onCellDidTap(_:))
+            .forEach { $0.disposed(by: disposeBag) }
 
-        input.addButtonDidTap
-            .subscribe(onNext: {
-                self.coordinator.presentScheduleItemViewController(mode: .create)
-            })
-            .disposed(by: bag)
+        input.cellDelete.map(self.onCellDelete(_:))
+            .forEach { $0.disposed(by: disposeBag) }
 
-        input.tableViewLongPressed.forEach { observable in
-            observable.subscribe(onNext: { observable in
-                guard let (cell, schedule) = observable else {
-                    return
-                }
-                self.useCase.currentSchedule.accept(schedule)
-                self.coordinator.presentPopoverViewController(at: cell)
-            })
-                .disposed(by: bag)
-        }
+        input.tableViewLongPressed.map(self.onLongPressed(_:))
+            .forEach { $0.disposed(by: disposeBag) }
 
         return bindOutput()
     }
 }
 
 private extension MainViewModel {
+
+    func onViewWillAppear(_ input: Observable<Void>) -> Disposable {
+        return input
+            .subscribe(onNext: self.useCase.fetch)
+    }
+
+    func onAddButtonDidTap(_ input: Observable<Void>) -> Disposable {
+        return input
+            .subscribe(onNext: {
+                self.coordinator.presentScheduleItemViewController(mode: .create)
+            })
+    }
+
+    func onCellDidTap(_ input: Observable<Schedule>) -> Disposable {
+        return input
+            .do(onNext: { _ in self.coordinator.presentScheduleItemViewController(mode: .detail) })
+            .bind(to: self.useCase.currentSchedule)
+    }
+
+    func onCellDelete(_ input: Observable<UUID>) -> Disposable {
+        return input
+            .subscribe(onNext: self.useCase.delete(_:))
+    }
+
+    func onLongPressed(_ input: Observable<(UITableViewCell, Schedule)?>) -> Disposable {
+        return input
+            .flatMap(Observable.from(optional:))
+            .do(onNext: { self.coordinator.presentPopoverViewController(at: $0.0) })
+            .map { $0.1 }
+            .bind(to: self.useCase.currentSchedule)
+    }
+
     func bindOutput() -> Output {
-        let output = Output(
-            scheduleLists: Progress.allCases
-                .map { progress in
-                    self.useCase.schedules
-                        .map { schedules in
-                            return schedules.filter { schedule in schedule.progress == progress }
-                        }
-                }
-        )
-        return output
+        let scheduleLists = Progress.allCases
+            .map { progress in self.useCase.schedules
+                .map { $0.filter { $0.progress == progress } }
+            }
+
+        return Output(scheduleLists: scheduleLists)
     }
 }
