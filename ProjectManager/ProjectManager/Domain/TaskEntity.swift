@@ -12,8 +12,8 @@ class TaskListEntity: Identifiable {
     }
 }
 
-class TaskEntity: Identifiable {
-    var id: UUID
+public class TaskEntity: NSObject, Identifiable {
+    public var id: UUID
     var title: String
     var body: String
     var dueDate: Date

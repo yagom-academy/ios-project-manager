@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="19H1713" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="TaskDataModel" representedClassName="TaskDataModel" syncable="YES">
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="items" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[TaskEntity]"/>
+        <attribute name="title" attributeType="String"/>
+    </entity>
+    <elements>
+        <element name="TaskDataModel" positionX="-63" positionY="-18" width="128" height="88"/>
+    </elements>
+</model>
