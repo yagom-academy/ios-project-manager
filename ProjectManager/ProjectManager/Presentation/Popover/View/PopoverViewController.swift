@@ -9,6 +9,18 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+private enum Design {
+    static let stackViewSpacing = 4.0
+    static let buttonBackgroundColor = UIColor.white
+    static let buttonTitleColor = UIColor.systemBlue
+    static let buttonFont = UIFont.preferredFont(forTextStyle: .subheadline)
+    static let viewBackgroundColor = UIColor.systemGray6
+    static let stackViewLeadingAnchorConstant = 5.0
+    static let stackViewTrailingAnchorConstant = -5.0
+    static let stackViewTopAnchorConstant = 8.0
+    static let stackViewBottomAnchorConstant = -8.0
+}
+
 class PopoverViewController: UIViewController {
 
     var viewModel: PopoverViewModel?
@@ -19,27 +31,31 @@ class PopoverViewController: UIViewController {
         stackView.axis = .vertical
         stackView.alignment = .fill
         stackView.distribution = .fillEqually
-        stackView.spacing = 4
+        stackView.spacing = Design.stackViewSpacing
         return stackView
     }()
 
     let topButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .white
-        button.setTitleColor(.systemBlue, for: .normal)
-        button.titleLabel?.font = .preferredFont(forTextStyle: .subheadline)
+        button.backgroundColor = Design.buttonBackgroundColor
+        button.setTitleColor(Design.buttonTitleColor, for: .normal)
+        button.titleLabel?.font = Design.buttonFont
+        button.weakShadow()
         return button
     }()
 
     let bottomButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .white
-        button.setTitleColor(.systemBlue, for: .normal)
-        button.titleLabel?.font = .preferredFont(forTextStyle: .subheadline)
+        button.backgroundColor = Design.buttonBackgroundColor
+        button.setTitleColor(Design.buttonTitleColor, for: .normal)
+        button.titleLabel?.font = Design.buttonFont
+        button.weakShadow()
         return button
     }()
 
     override func viewDidLoad() {
+        super.viewDidLoad()
+
         self.configure()
         self.binding()
     }
@@ -48,15 +64,15 @@ class PopoverViewController: UIViewController {
 
 private extension PopoverViewController {
     func configure() {
-        self.view.backgroundColor = .systemGray6
+        self.view.backgroundColor = Design.viewBackgroundColor
         self.configureHierarchy()
         self.configureConstraint()
     }
 
     func configureHierarchy() {
-        self.view.addSubview(stackView)
-        self.stackView.addArrangedSubview(topButton)
-        self.stackView.addArrangedSubview(bottomButton)
+        self.view.addSubview(self.stackView)
+        self.stackView.addArrangedSubview(self.topButton)
+        self.stackView.addArrangedSubview(self.bottomButton)
     }
 
     func configureConstraint() {
@@ -64,10 +80,22 @@ private extension PopoverViewController {
 
         self.stackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            self.stackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 5),
-            self.stackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -5),
-            self.stackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 8),
-            self.stackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -8)
+            self.stackView.leadingAnchor.constraint(
+                equalTo: safeAreaLayoutGuide.leadingAnchor,
+                constant: Design.stackViewLeadingAnchorConstant
+            ),
+            self.stackView.trailingAnchor.constraint(
+                equalTo: safeAreaLayoutGuide.trailingAnchor,
+                constant: Design.stackViewTrailingAnchorConstant
+            ),
+            self.stackView.topAnchor.constraint(
+                equalTo: safeAreaLayoutGuide.topAnchor,
+                constant: Design.stackViewTopAnchorConstant
+            ),
+            self.stackView.bottomAnchor.constraint(
+                equalTo: safeAreaLayoutGuide.bottomAnchor,
+                constant: Design.stackViewBottomAnchorConstant
+            )
         ])
     }
 
