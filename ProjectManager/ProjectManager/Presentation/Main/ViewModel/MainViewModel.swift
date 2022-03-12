@@ -89,10 +89,9 @@ private extension MainViewModel {
     func onLongPressed(_ input: Observable<(UITableViewCell, Schedule)?>) -> Disposable {
         return input
             .flatMap(Observable.from(optional:))
-            .subscribe(onNext: { cell, schedule in
-                self.useCase.currentSchedule.accept(schedule)
-                self.coordinator.presentPopoverViewController(at: cell)
-            })
+            .do(afterNext: { self.coordinator.presentPopoverViewController(at: $0.0) })
+            .map { $0.1 }
+            .bind(to: self.useCase.currentSchedule)
     }
 
     func bindOutput() -> Output {
