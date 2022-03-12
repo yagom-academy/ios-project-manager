@@ -175,7 +175,7 @@ private extension MainViewController {
                 ) { _, item, cell in
                     cell.configureContent(with: item)
                 }
-                .disposed(by: bag)
+                .disposed(by: self.bag)
         }
     }
 

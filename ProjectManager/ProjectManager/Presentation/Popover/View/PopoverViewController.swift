@@ -120,10 +120,10 @@ private extension PopoverViewController {
     func bindingOutput(output: PopoverViewModel.Output) {
         output.topButtonTitleText
             .drive(self.topButton.rx.title())
-            .disposed(by: bag)
+            .disposed(by: self.bag)
 
         output.bottomButtonTitleText
             .drive(self.bottomButton.rx.title())
-            .disposed(by: bag)
+            .disposed(by: self.bag)
     }
 }

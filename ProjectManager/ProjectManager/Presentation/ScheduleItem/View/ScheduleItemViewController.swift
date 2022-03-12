@@ -185,32 +185,32 @@ private extension ScheduleItemViewController {
     func bindingOutput(output: ScheduleItemViewModel.Output) {
         output.scheduleProgress
             .drive(self.rx.title)
-            .disposed(by: bag)
+            .disposed(by: self.bag)
 
         output.scheduleTitleText
             .drive(self.titleTextField.rx.text)
-            .disposed(by: bag)
+            .disposed(by: self.bag)
 
         output.scheduleDate
             .drive(self.datePicker.rx.date)
-            .disposed(by: bag)
+            .disposed(by: self.bag)
 
         output.scheduleBodyText
             .drive(self.bodyTextView.rx.text)
-            .disposed(by: bag)
+            .disposed(by: self.bag)
 
         output.leftBarButtonText
             .drive(self.leftBarButton.rx.title)
-            .disposed(by: bag)
+            .disposed(by: self.bag)
 
         output.editable
             .drive(self.titleTextField.rx.isEnabled,
                    self.datePicker.rx.isEnabled,
                    self.bodyTextView.rx.isEditable)
-            .disposed(by: bag)
+            .disposed(by: self.bag)
 
         output.isValid
             .drive(self.rightBarButton.rx.isEnabled)
-            .disposed(by: bag)
+            .disposed(by: self.bag)
     }
 }
