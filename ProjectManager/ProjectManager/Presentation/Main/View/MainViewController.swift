@@ -138,18 +138,16 @@ private extension MainViewController {
     }
 
     func binding() {
-        self.tableViewBinding()
+        let input = self.setInput()
+        guard let output = self.viewModel?.transform(input: input, disposeBag: self.bag) else {
+            return
+        }
+
+        self.bindingOutput(output: output)
     }
 
-    func tableViewBinding() {
-
-        let longPressGesture: UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: nil)
-        longPressGesture.minimumPressDuration = 1.0
-
-        self.tableViews.forEach {
-            $0.addGestureRecognizer(longPressGesture)
-        }
-        let input = MainViewModel.Input(
+    func setInput() -> MainViewModel.Input {
+        return MainViewModel.Input(
             viewWillAppear: self.rx.methodInvoked(#selector(UIViewController.viewWillAppear))
                 .map { _ in },
             tableViewLongPressed: self.longPressGestureRecognizers.map { $0.rx.event
@@ -159,11 +157,9 @@ private extension MainViewController {
             cellDelete: self.tableViews.map { $0.rx.modelDeleted(Schedule.self).map { $0.id } },
             addButtonDidTap: self.addBarButton.rx.tap.asObservable()
         )
+    }
 
-        guard let output = self.viewModel?.transform(input: input, disposeBag: self.bag) else {
-            return
-        }
-
+    func bindingOutput(output: MainViewModel.Output) {
         output.scheduleLists.enumerated().forEach { index, observable in
             guard let tableView = self.tableViews[safe: index] else { return }
             observable

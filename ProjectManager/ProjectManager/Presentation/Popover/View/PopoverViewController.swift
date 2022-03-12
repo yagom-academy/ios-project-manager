@@ -72,14 +72,24 @@ private extension PopoverViewController {
     }
 
     func binding() {
-        let input = PopoverViewModel.Input(
+        let input = self.setInput()
+        guard let output = self.viewModel?.transform(input: input, disposeBag: self.bag) else {
+            return
+        }
+
+        self.bindingOutput(output: output)
+    }
+
+    func setInput() -> PopoverViewModel.Input {
+        return PopoverViewModel.Input(
             topButtonDidTap: self.topButton.rx.tap.asObservable(),
             bottomButtonDidTap: self.bottomButton.rx.tap.asObservable(),
             viewDidDisappear: self.rx.methodInvoked(#selector(UIViewController.viewDidDisappear))
                 .map { _ in }
         )
-        guard let output = self.viewModel?.transform(input: input, disposeBag: bag) else { return }
+    }
 
+    func bindingOutput(output: PopoverViewModel.Output) {
         output.topButtonTitleText
             .drive(self.topButton.rx.title())
             .disposed(by: bag)

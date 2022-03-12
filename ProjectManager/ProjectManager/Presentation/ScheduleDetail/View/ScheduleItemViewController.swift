@@ -11,7 +11,10 @@ import RxCocoa
 
 class ScheduleItemViewController: UIViewController {
 
+    // MARK: - Properties
+
     var viewModel: ScheduleItemViewModel?
+
     private let bag = DisposeBag()
 
     private let stackView: UIStackView = {
@@ -65,11 +68,15 @@ class ScheduleItemViewController: UIViewController {
         return barButtonItem
     }()
 
+    // MARK: - Methods
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        configure()
+        self.configure()
     }
 }
+
+// MARK: - Private Methods
 
 private extension ScheduleItemViewController {
     func configure() {
@@ -113,7 +120,16 @@ private extension ScheduleItemViewController {
     }
 
     func binding() {
-        let input = ScheduleItemViewModel.Input(
+        let input = setInput()
+        guard let output = self.viewModel?.transform(input: input, disposeBag: self.bag) else {
+            return
+        }
+
+        self.bindingOutput(output: output)
+    }
+
+    func setInput() -> ScheduleItemViewModel.Input {
+        return ScheduleItemViewModel.Input(
             leftBarButtonDidTap: self.leftBarButton.rx.tap.asObservable(),
             rightBarButtonDidTap: self.rightBarButton.rx.tap.asObservable(),
             scheduleTitleTextDidChange: self.titleTextField.rx.text.orEmpty.asObservable(),
@@ -122,31 +138,35 @@ private extension ScheduleItemViewController {
             viewDidDisappear: self.rx.methodInvoked(#selector(UIViewController.viewDidDisappear))
                 .map { _ in }
         )
+    }
 
-        guard let output = self.viewModel?.transform(input: input, disposeBag: self.bag) else {
-            return
-        }
-
+    func bindingOutput(output: ScheduleItemViewModel.Output) {
         output.scheduleProgress
             .drive(self.rx.title)
             .disposed(by: bag)
+
         output.scheduleTitleText
             .drive(self.titleTextField.rx.text)
             .disposed(by: bag)
+
         output.scheduleDate
             .drive(self.datePicker.rx.date)
             .disposed(by: bag)
+
         output.scheduleBodyText
             .drive(self.bodyTextView.rx.text)
+
             .disposed(by: bag)
         output.leftBarButtonText
             .drive(self.leftBarButton.rx.title)
             .disposed(by: bag)
+
         output.editable
             .drive(self.titleTextField.rx.isEnabled,
                    self.datePicker.rx.isEnabled,
                    self.bodyTextView.rx.isEditable)
             .disposed(by: bag)
+
         output.isValid
             .drive(self.rightBarButton.rx.isEnabled)
             .disposed(by: bag)
