@@ -9,6 +9,10 @@ import RxSwift
 import RxRelay
 import RxCocoa
 
+private enum Name {
+    static let progressText = "Move to "
+}
+
 class PopoverViewModel {
 
     // MARK: - Properties
@@ -76,14 +80,16 @@ private extension PopoverViewModel {
 
     func bindingOutput() -> Output {
         let topButtonTitleText = self.useCase.currentSchedule.map { (schedule) -> String in
-            let targetProgress = Progress.allCases.filter { progress in progress != schedule?.progress }
-            return "Move to \(targetProgress.first?.description ?? "")"
+            let targetProgress = Progress.allCases.filter { $0 != schedule?.progress }
+            return Name.progressText + (targetProgress.first?.description ?? .empty)
         }
         let bottomButtonTitleText = self.useCase.currentSchedule.map { (schedule) -> String in
-            let targetProgress = Progress.allCases.filter { progress in progress != schedule?.progress }
-            return "Move to \(targetProgress.last?.description ?? "")"
+            let targetProgress = Progress.allCases.filter { $0 != schedule?.progress }
+            return Name.progressText + (targetProgress.last?.description ?? .empty)
         }
-        return Output(topButtonTitleText: topButtonTitleText.asDriver(onErrorJustReturn: ""),
-                      bottomButtonTitleText: bottomButtonTitleText.asDriver(onErrorJustReturn: ""))
+        return Output(
+            topButtonTitleText: topButtonTitleText.asDriver(onErrorJustReturn: .empty),
+            bottomButtonTitleText: bottomButtonTitleText.asDriver(onErrorJustReturn: .empty)
+        )
     }
 }
