@@ -7,12 +7,16 @@
 
 import UIKit
 
+private enum Design {
+    static let viewControllerPrefferesContentSize = CGSize(width: 230, height: 100)
+}
+
 class PopoverCoordinator {
 
     let popoverViewController: PopoverViewController = {
         let viewController = PopoverViewController()
         viewController.modalPresentationStyle = .popover
-        viewController.preferredContentSize = CGSize(width: 230, height: 100)
+        viewController.preferredContentSize = Design.viewControllerPrefferesContentSize
         viewController.popoverPresentationController?.permittedArrowDirections = [.up, .down]
         return viewController
     }()
