@@ -57,32 +57,48 @@ class ScheduleItemViewModel {
     // MARK: - Methods
 
     func transform(input: Input, disposeBag: DisposeBag) -> Output {
-        let output = bindOutput(disposeBag: disposeBag)
-        input.leftBarButtonDidTap
+        [
+            self.onLeftBarButtonDidTap(input.leftBarButtonDidTap),
+            self.onRightBarButtonDidTap(input.rightBarButtonDidTap),
+            self.onScheduleTitleTextDidChange(input.scheduleTitleTextDidChange),
+            self.onScheduleDateDidChange(input.scheduleDateDidChange),
+            self.onScheduleBodyTextDidChange(input.scheduleBodyTextDidChange),
+            self.onViewDidDisappear(input.viewDidDisappear)
+        ]
+            .forEach { $0.disposed(by: disposeBag)}
+
+        return bindOutput(disposeBag: disposeBag)
+    }
+}
+
+private extension ScheduleItemViewModel {
+
+    func onLeftBarButtonDidTap(_ input: Observable<Void>) -> Disposable {
+        return input
             .subscribe(onNext: { _ in
                 switch self.mode.value {
                 case .detail:
                     self.currentTitleText.accept(self.useCase.currentSchedule.value?.title ?? "")
                     self.mode.accept(.edit)
                 case .edit:
+                    self.coordinator.dismiss()
+                case .create:
                     guard let schedule = self.useCase.currentSchedule.value else {
                         return
                     }
-//                    self.useCase.setCurrentSchedule(schedule: schedule)
+                    self.useCase.setCurrentSchedule(schedule: schedule)
                     self.mode.accept(.detail)
-                case .create:
-                    self.coordinator.dismiss()
                 }
             })
-            .disposed(by: disposeBag)
+    }
 
-        input.rightBarButtonDidTap
+    func onRightBarButtonDidTap(_ input: Observable<Void>) -> Disposable {
+        return input
             .subscribe(onNext: { _ in
                 switch self.mode.value {
                 case .detail:
                     self.coordinator.dismiss()
-                case .edit:
-                    guard let schedule = self.useCase.currentSchedule.value else { return }
+                case .edit:guard let schedule = self.useCase.currentSchedule.value else { return }
                     let newSchedule = Schedule(
                         id: schedule.id,
                         title: self.currentTitleText.value,
@@ -92,48 +108,38 @@ class ScheduleItemViewModel {
 
                     self.useCase.update(newSchedule)
                     self.coordinator.dismiss()
-                case .create:
-                    let newSchedule = Schedule(
-                        title: self.currentTitleText.value,
-                        body: self.currentBodyText.value,
-                        dueDate: self.currentDate.value,
-                        progress: .todo)
-
+                case .create:let newSchedule = Schedule(
+                    title: self.currentTitleText.value,
+                    body: self.currentBodyText.value,
+                    dueDate: self.currentDate.value,
+                    progress: .todo)
                     self.useCase.create(newSchedule)
                     self.coordinator.dismiss()
                 }
             })
-            .disposed(by: disposeBag)
-
-        input.scheduleTitleTextDidChange
-            .subscribe(onNext: { text in
-                self.currentTitleText.accept(text)
-            })
-            .disposed(by: disposeBag)
-
-        input.scheduleDateDidChange
-            .subscribe(onNext: { date in
-                self.currentDate.accept(date)
-            })
-            .disposed(by: disposeBag)
-
-        input.scheduleBodyTextDidChange
-            .subscribe(onNext: { text in
-                self.currentBodyText.accept(text)
-            })
-            .disposed(by: disposeBag)
-
-        input.viewDidDisappear
-            .subscribe(onNext: { _ in
-                self.useCase.currentSchedule.accept(nil)
-            })
-            .disposed(by: disposeBag)
-
-        return output
     }
-}
 
-private extension ScheduleItemViewModel {
+    func onScheduleTitleTextDidChange(_ input: Observable<String>) -> Disposable {
+        return input
+            .bind(to: self.currentTitleText)
+    }
+
+    func onScheduleDateDidChange(_ input: Observable<Date>) -> Disposable {
+        return input
+            .bind(to: self.currentDate)
+    }
+
+    func onScheduleBodyTextDidChange(_ input: Observable<String>) -> Disposable {
+        return input
+            .bind(to: self.currentBodyText)
+    }
+
+    func onViewDidDisappear(_ input: Observable<Void>) -> Disposable {
+        return input
+            .map { nil }
+            .bind(to: self.useCase.currentSchedule)
+    }
+
     func bindOutput(disposeBag: DisposeBag) -> Output {
 
         let scheduleTitleText = self.useCase.currentSchedule

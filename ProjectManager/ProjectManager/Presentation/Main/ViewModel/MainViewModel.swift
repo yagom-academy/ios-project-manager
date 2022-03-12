@@ -42,10 +42,10 @@ final class MainViewModel {
     // MARK: - Methods
 
     func transform(input: Input, disposeBag: DisposeBag) -> Output {
-        onViewWillAppear(input.viewWillAppear)
+        self.onViewWillAppear(input.viewWillAppear)
             .disposed(by: disposeBag)
 
-        onAddButtonDidTap(input.addButtonDidTap)
+        self.onAddButtonDidTap(input.addButtonDidTap)
             .disposed(by: disposeBag)
 
         input.cellDidTap.map(self.onCellDidTap(_:))
