@@ -2,73 +2,51 @@ import SwiftUI
 
 struct TaskDetailView: View {
     @EnvironmentObject private var viewModel: TaskListViewModel
-    
-    @State private var title = ""
-    @State private var description = ""
-    @State private var deadline = Date()
-    @State private var isDisabled = false
-    @State private var isEditing = false
-    
+    @StateObject var taskDetailViewModel = TaskDetailViewModel()
     @Binding var isShowTaskDetailView: Bool
-    
     @State var task: Task = Task(title: "", description: "", deadline: Date())
     
     var body: some View {
         VStack {
             TaskDetailHeaderView(
-                viewModel: _viewModel,
-                title: $title, description: $description,
-                deadline: $deadline,
+                taskDetailViewModel: taskDetailViewModel,
                 task: $task,
-                isDisabled: $isDisabled,
-                isEditing: $isEditing,
                 isShowTaskDetailView: $isShowTaskDetailView
             )
-            TaskDetailTitleTextField(title: $title, isDisabled: $isDisabled)
-            TaskDetaildeadLineView(deadline: $deadline, isDisabled: $isDisabled)
-            TaskDetailDescriptionTextEditor(description: $description, isDisabled: $isDisabled)
+            TaskDetailContentView(
+                taskDetailViewModel: taskDetailViewModel
+            )
         }
         .padding(.horizontal)
         .onAppear {
             if task.title != "" {
-                isDisabled = true
-                title = task.title
-                description = task.description
-                deadline = Date(timeIntervalSince1970: task.deadline)
+                taskDetailViewModel.isDisabled = true
+                taskDetailViewModel.title = task.title
+                taskDetailViewModel.description = task.description
+                taskDetailViewModel.deadline = Date(timeIntervalSince1970: task.deadline)
             }
         }
     }
 }
 
 struct TaskDetailHeaderView: View {
-    @EnvironmentObject var viewModel: TaskListViewModel
-    
-    @Binding var title: String
-    @Binding var description: String
-    @Binding var deadline: Date
-    
+    @ObservedObject var taskDetailViewModel: TaskDetailViewModel
     @Binding var task: Task
-    @Binding var isDisabled: Bool
-    @Binding var isEditing: Bool
     @Binding var isShowTaskDetailView: Bool
     
     var body: some View {
         HStack {
             TaskDetailLeadingButton(
-                isDisabled: $isDisabled,
-                isEditing: $isEditing,
+                taskDetailViewModel: taskDetailViewModel,
                 isShowTaskDetailView: $isShowTaskDetailView,
-                isEditMode: task.title.isEmpty
+                isEditMode: !task.title.isEmpty
             )
             Spacer()
             TaskDetailTitleView()
             Spacer()
             TaskDetailTrailingButton(
-                title: $title,
-                description: $description,
-                deadline: $deadline,
+                taskDetailViewModel: taskDetailViewModel,
                 task: $task,
-                isEditing: $isEditing,
                 isShowTaskDetailView: $isShowTaskDetailView
             )
         }
@@ -77,21 +55,20 @@ struct TaskDetailHeaderView: View {
 }
 
 struct TaskDetailLeadingButton: View {
-    @Binding var isDisabled: Bool
-    @Binding var isEditing: Bool
+    @ObservedObject var taskDetailViewModel: TaskDetailViewModel
     @Binding var isShowTaskDetailView: Bool
     let isEditMode: Bool
     
     var body: some View {
         Button(action: {
             if isEditMode {
-                isShowTaskDetailView = false
+                taskDetailViewModel.isDisabled = false
+                taskDetailViewModel.isEditing = true
             } else {
-                self.isDisabled = false
-                self.isEditing = true
+                isShowTaskDetailView = false
             }
         }, label: {
-            isEditMode ? Text("Cancel") : Text("Edit")
+            isEditMode ? Text("Edit") : Text("Cancel")
         })
     }
 }
@@ -107,21 +84,24 @@ struct TaskDetailTitleView: View {
 
 struct TaskDetailTrailingButton: View {
     @EnvironmentObject var viewModel: TaskListViewModel
-    
-    @Binding var title: String
-    @Binding var description: String
-    @Binding var deadline: Date
-    
+    @ObservedObject var taskDetailViewModel: TaskDetailViewModel
     @Binding var task: Task
-    @Binding var isEditing: Bool
     @Binding var isShowTaskDetailView: Bool
     
     var body: some View {
         Button("Done") {
-            if isEditing {
-                viewModel.updateTask(id: task.id, title: title, description: description, deadline: deadline)
+            if taskDetailViewModel.isEditing {
+                viewModel.updateTask(
+                    id: task.id,
+                    title: taskDetailViewModel.title,
+                    description: taskDetailViewModel.description,
+                    deadline: taskDetailViewModel.deadline)
             } else {
-                let task = Task(title: title, description: description, deadline: deadline)
+                let task = Task(
+                    title: taskDetailViewModel.title,
+                    description: taskDetailViewModel.description,
+                    deadline: taskDetailViewModel.deadline
+                )
                 viewModel.createTask(task)
             }
             isShowTaskDetailView = false
@@ -129,9 +109,31 @@ struct TaskDetailTrailingButton: View {
     }
 }
 
+struct TaskDetailContentView : View {
+    @ObservedObject var taskDetailViewModel: TaskDetailViewModel
+    
+    var body: some View {
+        VStack {
+            TaskDetailTitleTextField(
+                title: $taskDetailViewModel.title,
+                isDisabled: $taskDetailViewModel.isDisabled
+            )
+            TaskDetaildeadLineView(
+                deadline: $taskDetailViewModel.deadline,
+                isDisabled: $taskDetailViewModel.isDisabled
+            )
+            TaskDetailDescriptionTextEditor(
+                description: $taskDetailViewModel.description,
+                isDisabled: $taskDetailViewModel.isDisabled
+            )
+        }
+    }
+}
+
 struct TaskDetailTitleTextField: View {
     @Binding var title: String
     @Binding var isDisabled: Bool
+    
     var body: some View {
         TextField("Title", text: $title)
             .multilineTextAlignment(.leading)
@@ -159,8 +161,6 @@ struct TaskDetailDescriptionTextEditor: View {
     var body: some View {
         TextEditor(text: $description)
             .multilineTextAlignment(.leading)
-            .lineLimit(10)
-            .foregroundColor(.black)
             .shadow(radius: 1)
             .disabled(isDisabled)
     }

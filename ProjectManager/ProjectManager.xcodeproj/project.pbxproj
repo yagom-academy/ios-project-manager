@@ -13,6 +13,7 @@
 		2570E6D127D224D4002984D2 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2570E6D027D224D4002984D2 /* Task.swift */; };
 		2570E6D727D225BB002984D2 /* TaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2570E6D627D225BB002984D2 /* TaskManager.swift */; };
 		2570E6D927D225F6002984D2 /* TaskListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2570E6D827D225F6002984D2 /* TaskListViewModel.swift */; };
+		257E7D6727DDAD79009C4E9C /* TaskDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257E7D6627DDAD79009C4E9C /* TaskDetailViewModel.swift */; };
 		25D60D7427CD280800D3D39D /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 25D60D7327CD280800D3D39D /* Realm */; };
 		25D60D7627CD280800D3D39D /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 25D60D7527CD280800D3D39D /* RealmSwift */; };
 		25D60D7F27CD2D8000D3D39D /* ProjectManagerMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D60D7E27CD2D8000D3D39D /* ProjectManagerMainView.swift */; };
@@ -32,6 +33,7 @@
 		2570E6D027D224D4002984D2 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		2570E6D627D225BB002984D2 /* TaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManager.swift; sourceTree = "<group>"; };
 		2570E6D827D225F6002984D2 /* TaskListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListViewModel.swift; sourceTree = "<group>"; };
+		257E7D6627DDAD79009C4E9C /* TaskDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailViewModel.swift; sourceTree = "<group>"; };
 		25D60D7E27CD2D8000D3D39D /* ProjectManagerMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerMainView.swift; sourceTree = "<group>"; };
 		25F993E527D6F7A9007F5975 /* TimeInterval+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInterval+extension.swift"; sourceTree = "<group>"; };
 		25F993EB27D8A1B7007F5975 /* TaskManagable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManagable.swift; sourceTree = "<group>"; };
@@ -82,6 +84,7 @@
 			isa = PBXGroup;
 			children = (
 				2570E6D827D225F6002984D2 /* TaskListViewModel.swift */,
+				257E7D6627DDAD79009C4E9C /* TaskDetailViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -252,6 +255,7 @@
 				25F993F227D8A3ED007F5975 /* TaskListRowView.swift in Sources */,
 				25F993EE27D8A31C007F5975 /* TaskListView.swift in Sources */,
 				25F993E627D6F7A9007F5975 /* TimeInterval+extension.swift in Sources */,
+				257E7D6727DDAD79009C4E9C /* TaskDetailViewModel.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				2570E6D727D225BB002984D2 /* TaskManager.swift in Sources */,
 				25F993F427D8A6A7007F5975 /* TaskDetailView.swift in Sources */,
