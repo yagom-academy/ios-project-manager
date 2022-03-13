@@ -10,6 +10,7 @@ import SwiftUI
 struct TaskCreatingView: View {
     
     @EnvironmentObject private var taskManager: TaskManager
+    @Binding var isTaskCreatingViewShowing: Bool
     @State private var newTaskTitle: String = ""
     @State private var newTaskDueDate: Date = Date()
     @State private var newTaskBody: String = "입력 가능한 글자수는 1,000자로 제한합니다."
@@ -35,21 +36,22 @@ struct TaskCreatingView: View {
             .navigationTitle(TaskStatus.todo.headerTitle)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .confirmationAction) {
+                ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
                         print("Done 버튼 눌림!")
                     } label: {
                         Text("Done")
                     }
                 }
-                ToolbarItem(placement: .cancellationAction) {
+                ToolbarItem(placement: .navigationBarLeading) {
                     Button {
-                        print("Cancel 버튼 눌림!")
+                        isTaskCreatingViewShowing.toggle()
                     } label: {
                         Text("Cancel")
                     }
                 }
             }
+            .font(.title3)
         }
     }
 }

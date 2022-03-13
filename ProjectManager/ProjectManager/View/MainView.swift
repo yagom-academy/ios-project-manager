@@ -32,7 +32,7 @@ struct MainView: View {
                         .foregroundColor(.blue)
                 }
                 .sheet(isPresented: $isTaskCreatingViewShowing) {
-                    TaskCreatingView()
+                    TaskCreatingView(isTaskCreatingViewShowing: $isTaskCreatingViewShowing)
                 }
             }
         }
