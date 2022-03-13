@@ -21,7 +21,6 @@ opt_in_rules:
  - closure_spacing
  - unneeded_parentheses_in_closure_argument
  - prefer_self_in_static_references
- - redundant_type_annotation
  - prohibited_super_call
  - anyobject_protocol
  - fallthrough

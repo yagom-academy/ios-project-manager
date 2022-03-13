@@ -10,6 +10,7 @@ import SwiftUI
 struct MainView: View {
     
     @EnvironmentObject private var taskManager: TaskManager
+    @State private var isTaskCreatingViewShowing: Bool = false
     
     var body: some View {
         NavigationView {
@@ -24,11 +25,14 @@ struct MainView: View {
             .edgesIgnoringSafeArea(.bottom)
             .toolbar {
                 Button {
-                    print("💚 할일 추가 버튼 눌림!") // TODO: 할일 추가 화면 연결
+                    isTaskCreatingViewShowing.toggle()
                 } label: {
                     Image(systemName: "plus")
                         .font(.title2)
                         .foregroundColor(.blue)
+                }
+                .sheet(isPresented: $isTaskCreatingViewShowing) {
+                    TaskCreatingView()
                 }
             }
         }
