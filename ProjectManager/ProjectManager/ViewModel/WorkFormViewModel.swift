@@ -43,7 +43,7 @@ final class WorkFormViewModel {
             return
         }
         
-        workMemoryManager.update(data, title: title, body: body, date: date)
+        workMemoryManager.update(data, title: title, body: body, date: date, category: data.category)
         
         switch data.category {
         case .todo:

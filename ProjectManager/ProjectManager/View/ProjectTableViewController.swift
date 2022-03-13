@@ -12,23 +12,24 @@ private enum Content {
 }
 
 final class ProjectTableViewController: UIViewController {
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var countLabel: ProjectHeaderCircleLabel!
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak private var titleLabel: UILabel!
+    @IBOutlet weak private var countLabel: ProjectHeaderCircleLabel!
+    @IBOutlet weak private var tableView: UITableView!
     
-    private let disposeBag = DisposeBag()
     var viewModel: ProjectViewModel?
     var titleText: String?
     var count: Observable<Int>?
     var list: BehaviorSubject<[Work]>?
-    var selectedWork: Work?
+    
+    private let disposeBag = DisposeBag()
+    private var selectedWork: Work?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
     }
     
-    func setupView() {
+    private func setupView() {
         registerTableViewCell()
         configureHeader()
         configureTableView()
@@ -61,8 +62,12 @@ final class ProjectTableViewController: UIViewController {
             .bind(to: tableView.rx.items(
                 cellIdentifier: String(describing: ProjectTableViewCell.self),
                 cellType: ProjectTableViewCell.self
-            )) { _, item, cell in
+            )) { [weak self] row, item, cell in
                 cell.configureCellContent(for: item)
+                cell.work = list.map { $0[safe: row] }
+                cell.title = self?.titleText
+                cell.viewModel = self?.viewModel
+                cell.viewController = self
             }
             .disposed(by: disposeBag)
     }
@@ -70,7 +75,7 @@ final class ProjectTableViewController: UIViewController {
 }
 
 extension ProjectTableViewController: UITableViewDelegate {
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let viewModel = viewModel else { return }
         guard let list = list else { return }

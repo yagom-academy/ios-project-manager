@@ -49,7 +49,7 @@ final class WorkFormViewController: UIViewController {
         setupTextView()
     }
     
-    @IBAction private func touchUpDoneButton(_ sender: UIBarButtonItem) {
+    @IBAction private func touchUpRightBarButton(_ sender: UIBarButtonItem) {
         if rightBarButtonItem.title == Content.doneTitle {
             if titleTextField.text == Content.isEmpty {
                 titleTextField.text = Content.EmptyTitle

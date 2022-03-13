@@ -28,7 +28,7 @@
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" title="Done" id="Iav-rP-zI8">
                                             <connections>
-                                                <action selector="touchUpDoneButton:" destination="08C-19-pPa" id="qGQ-Q6-R5k"/>
+                                                <action selector="touchUpRightBarButton:" destination="08C-19-pPa" id="HeB-vV-g4z"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>

@@ -52,8 +52,8 @@ final class ProjectViewModel {
         }
     }
     
-    func updateWork(_ data: Work, title: String, body: String, date: Date) {
-        workMemoryManager.update(data, title: title, body: body, date: date)
+    func updateWork(_ data: Work, title: String?, body: String?, date: Date?, category: Work.Category) {
+        workMemoryManager.update(data, title: title, body: body, date: date, category: category)
         
         switch data.category {
         case .todo:
