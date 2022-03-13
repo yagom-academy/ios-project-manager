@@ -38,10 +38,12 @@ struct TaskCreatingView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        print("Done 버튼 눌림!")
+                        taskManager.createTask(title: newTaskTitle, body: newTaskBody, dueDate: newTaskDueDate)
+                        isTaskCreatingViewShowing.toggle()
                     } label: {
                         Text("Done")
                     }
+                    .disabled(!taskManager.validateNewTask(title: newTaskTitle, body: newTaskBody))
                 }
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button {

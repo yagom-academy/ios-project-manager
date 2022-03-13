@@ -25,6 +25,10 @@ class TaskManager: ObservableObject, TaskManageable {
         self.tasks = tasks
     }
     
+    func validateNewTask(title: String, body: String) -> Bool {
+        return title.isEmpty == false && body.count <= 1000
+    }
+    
     func createTask(title: String, body: String, dueDate: Date) {
         let newTask = Task(title: title, body: body, dueDate: dueDate)
         tasks.append(newTask)
