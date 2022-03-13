@@ -33,7 +33,7 @@ struct TaskListRowView: View {
 }
 
 struct TaskListRowTitleView: View {
-    let title: String
+    fileprivate let title: String
     
     var body: some View {
         Text(title)
@@ -43,7 +43,7 @@ struct TaskListRowTitleView: View {
 }
 
 struct TaskListRowDescriptionView: View {
-    let description: String
+    fileprivate let description: String
     
     var body: some View {
         Text(description)
@@ -54,8 +54,8 @@ struct TaskListRowDescriptionView: View {
 }
 
 struct TaskListRowDeadlineView: View {
-    let deadline: TimeInterval
-    let progressStatus: Task.ProgressStatus
+    fileprivate let deadline: TimeInterval
+    fileprivate let progressStatus: Task.ProgressStatus
     
     var body: some View {
         let deadlineText = Text(deadline.formattedDate)

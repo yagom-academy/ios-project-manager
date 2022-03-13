@@ -9,8 +9,8 @@ struct TaskDetailView: View {
         VStack {
             TaskDetailHeaderView(
                 taskDetailViewModel: taskDetailViewModel,
-                task: $task,
-                isShowTaskDetailView: $isShowTaskDetailView
+                isShowTaskDetailView: $isShowTaskDetailView,
+                task: $task
             )
             TaskDetailContentView(taskDetailViewModel: taskDetailViewModel)
         }
@@ -29,9 +29,9 @@ struct TaskDetailView: View {
 }
 
 struct TaskDetailHeaderView: View {
-    @ObservedObject var taskDetailViewModel: TaskDetailViewModel
-    @Binding var task: Task
-    @Binding var isShowTaskDetailView: Bool
+    @ObservedObject fileprivate var taskDetailViewModel: TaskDetailViewModel
+    @Binding fileprivate var isShowTaskDetailView: Bool
+    @Binding fileprivate var task: Task
     
     var body: some View {
         HStack {
@@ -44,8 +44,8 @@ struct TaskDetailHeaderView: View {
             Spacer()
             TaskDetailTrailingButton(
                 taskDetailViewModel: taskDetailViewModel,
-                task: $task,
-                isShowTaskDetailView: $isShowTaskDetailView
+                isShowTaskDetailView: $isShowTaskDetailView,
+                task: $task
             )
         }
         .padding(10)
@@ -53,8 +53,8 @@ struct TaskDetailHeaderView: View {
 }
 
 struct TaskDetailLeadingButton: View {
-    @ObservedObject var taskDetailViewModel: TaskDetailViewModel
-    @Binding var isShowTaskDetailView: Bool
+    @ObservedObject fileprivate var taskDetailViewModel: TaskDetailViewModel
+    @Binding fileprivate var isShowTaskDetailView: Bool
     
     var body: some View {
         Button(action: {
@@ -79,10 +79,10 @@ struct TaskDetailTitleView: View {
 }
 
 struct TaskDetailTrailingButton: View {
-    @EnvironmentObject var taskListViewModel: TaskListViewModel
-    @ObservedObject var taskDetailViewModel: TaskDetailViewModel
-    @Binding var task: Task
-    @Binding var isShowTaskDetailView: Bool
+    @EnvironmentObject private var taskListViewModel: TaskListViewModel
+    @ObservedObject fileprivate var taskDetailViewModel: TaskDetailViewModel
+    @Binding fileprivate var isShowTaskDetailView: Bool
+    @Binding fileprivate var task: Task
     
     var body: some View {
         Button("Done") {
@@ -106,7 +106,7 @@ struct TaskDetailTrailingButton: View {
 }
 
 struct TaskDetailContentView : View {
-    @ObservedObject var taskDetailViewModel: TaskDetailViewModel
+    @ObservedObject fileprivate var taskDetailViewModel: TaskDetailViewModel
     
     var body: some View {
         VStack {
@@ -118,7 +118,7 @@ struct TaskDetailContentView : View {
 }
 
 struct TaskDetailTitleTextField: View {
-    @ObservedObject var taskDetailViewModel: TaskDetailViewModel
+    @ObservedObject fileprivate var taskDetailViewModel: TaskDetailViewModel
     
     var body: some View {
         TextField("Title", text: $taskDetailViewModel.title)
@@ -130,7 +130,7 @@ struct TaskDetailTitleTextField: View {
 }
 
 struct TaskDetailDeadlineView: View {
-    @ObservedObject var taskDetailViewModel: TaskDetailViewModel
+    @ObservedObject fileprivate var taskDetailViewModel: TaskDetailViewModel
     
     var body: some View {
         DatePicker("deadline", selection: $taskDetailViewModel.deadline, displayedComponents: .date)
@@ -140,7 +140,7 @@ struct TaskDetailDeadlineView: View {
 }
 
 struct TaskDetailDescriptionTextEditor: View {
-    @ObservedObject var taskDetailViewModel: TaskDetailViewModel
+    @ObservedObject fileprivate var taskDetailViewModel: TaskDetailViewModel
     
     var body: some View {
         TextEditor(text: $taskDetailViewModel.description)

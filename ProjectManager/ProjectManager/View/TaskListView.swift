@@ -4,7 +4,7 @@ struct TaskListView: View {
     @EnvironmentObject private var taskListViewModel: TaskListViewModel
     let progressStatus: Task.ProgressStatus
     
-    var taskList: [Task] {
+    fileprivate var taskList: [Task] {
         switch progressStatus {
         case .todo:
             return taskListViewModel.todoTaskList
@@ -24,8 +24,8 @@ struct TaskListView: View {
 }
 
 struct TaskListTitleView: View {
-    let progressStatus: Task.ProgressStatus
-    let taskList: [Task]
+    fileprivate let progressStatus: Task.ProgressStatus
+    fileprivate let taskList: [Task]
     
     var body: some View {
         HStack {
@@ -44,7 +44,7 @@ struct TaskListTitleView: View {
 
 struct TaskListContentView: View {
     @EnvironmentObject private var taskListViewModel: TaskListViewModel
-    let taskList: [Task]
+    fileprivate let taskList: [Task]
     
     var body: some View {
         List {

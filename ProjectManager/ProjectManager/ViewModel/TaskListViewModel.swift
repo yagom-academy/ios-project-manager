@@ -7,7 +7,7 @@ class TaskListViewModel: ObservableObject {
     
     let manager = TaskManager()
 
-    func reload() {
+    private func reload() {
         todoTaskList = manager.taskList(at: .todo)
         doingTaskList = manager.taskList(at: .doing)
         doneTaskList = manager.taskList(at: .done)
