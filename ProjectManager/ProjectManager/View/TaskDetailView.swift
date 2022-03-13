@@ -28,7 +28,7 @@ struct TaskDetailView: View {
     }
 }
 
-struct TaskDetailHeaderView: View {
+private struct TaskDetailHeaderView: View {
     @ObservedObject fileprivate var taskDetailViewModel: TaskDetailViewModel
     @Binding fileprivate var isShowTaskDetailView: Bool
     @Binding fileprivate var task: Task
@@ -52,7 +52,7 @@ struct TaskDetailHeaderView: View {
     }
 }
 
-struct TaskDetailLeadingButton: View {
+private struct TaskDetailLeadingButton: View {
     @ObservedObject fileprivate var taskDetailViewModel: TaskDetailViewModel
     @Binding fileprivate var isShowTaskDetailView: Bool
     
@@ -69,7 +69,7 @@ struct TaskDetailLeadingButton: View {
     }
 }
 
-struct TaskDetailTitleView: View {
+private struct TaskDetailTitleView: View {
     var body: some View {
         Text("TODO")
             .font(.title2)
@@ -78,7 +78,7 @@ struct TaskDetailTitleView: View {
     }
 }
 
-struct TaskDetailTrailingButton: View {
+private struct TaskDetailTrailingButton: View {
     @EnvironmentObject private var taskListViewModel: TaskListViewModel
     @ObservedObject fileprivate var taskDetailViewModel: TaskDetailViewModel
     @Binding fileprivate var isShowTaskDetailView: Bool
@@ -105,7 +105,7 @@ struct TaskDetailTrailingButton: View {
     }
 }
 
-struct TaskDetailContentView : View {
+private struct TaskDetailContentView : View {
     @ObservedObject fileprivate var taskDetailViewModel: TaskDetailViewModel
     
     var body: some View {
@@ -117,7 +117,7 @@ struct TaskDetailContentView : View {
     }
 }
 
-struct TaskDetailTitleTextField: View {
+private struct TaskDetailTitleTextField: View {
     @ObservedObject fileprivate var taskDetailViewModel: TaskDetailViewModel
     
     var body: some View {
@@ -129,7 +129,7 @@ struct TaskDetailTitleTextField: View {
     }
 }
 
-struct TaskDetailDeadlineView: View {
+private struct TaskDetailDeadlineView: View {
     @ObservedObject fileprivate var taskDetailViewModel: TaskDetailViewModel
     
     var body: some View {
@@ -139,7 +139,7 @@ struct TaskDetailDeadlineView: View {
     }
 }
 
-struct TaskDetailDescriptionTextEditor: View {
+private struct TaskDetailDescriptionTextEditor: View {
     @ObservedObject fileprivate var taskDetailViewModel: TaskDetailViewModel
     
     var body: some View {

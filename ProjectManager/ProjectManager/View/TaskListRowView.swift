@@ -32,7 +32,7 @@ struct TaskListRowView: View {
     }
 }
 
-struct TaskListRowTitleView: View {
+private struct TaskListRowTitleView: View {
     fileprivate let title: String
     
     var body: some View {
@@ -42,7 +42,7 @@ struct TaskListRowTitleView: View {
     }
 }
 
-struct TaskListRowDescriptionView: View {
+private struct TaskListRowDescriptionView: View {
     fileprivate let description: String
     
     var body: some View {
@@ -53,7 +53,7 @@ struct TaskListRowDescriptionView: View {
     }
 }
 
-struct TaskListRowDeadlineView: View {
+private struct TaskListRowDeadlineView: View {
     fileprivate let deadline: TimeInterval
     fileprivate let progressStatus: Task.ProgressStatus
     
@@ -72,7 +72,7 @@ struct TaskListRowDeadlineView: View {
     }
 }
 
-struct StatusChangePopoverView: View {
+private struct StatusChangePopoverView: View {
     @EnvironmentObject private var taskListViewModel: TaskListViewModel
     @Binding var isShowUpdateTaskState: Bool
     let task: Task

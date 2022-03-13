@@ -23,7 +23,7 @@ struct TaskListView: View {
     }
 }
 
-struct TaskListTitleView: View {
+private struct TaskListTitleView: View {
     fileprivate let progressStatus: Task.ProgressStatus
     fileprivate let taskList: [Task]
     
@@ -42,7 +42,7 @@ struct TaskListTitleView: View {
     }
 }
 
-struct TaskListContentView: View {
+private struct TaskListContentView: View {
     @EnvironmentObject private var taskListViewModel: TaskListViewModel
     fileprivate let taskList: [Task]
     

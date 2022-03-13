@@ -12,7 +12,7 @@ struct ProjectManagerMainView: View {
     }
 }
 
-struct ProjectManagerMainTitleView: View {
+private struct ProjectManagerMainTitleView: View {
     @Binding var isShowTaskDetailView: Bool
     
     var body: some View {
@@ -34,7 +34,7 @@ struct ProjectManagerMainTitleView: View {
     }
 }
 
-struct ProjectManagerMainContentView: View {
+private struct ProjectManagerMainContentView: View {
     var body: some View {
         HStack {
             ForEach(Task.ProgressStatus.allCases) { status in
