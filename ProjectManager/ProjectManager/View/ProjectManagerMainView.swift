@@ -1,7 +1,6 @@
 import SwiftUI
 
 struct ProjectManagerMainView: View {
-    @EnvironmentObject private var viewModel: TaskListViewModel
     @State private var isShowTaskDetailView = false
     
     var body: some View {
@@ -31,8 +30,7 @@ struct ProjectManagerMainTitleView: View {
                 }
             })
         }
-        .padding(.horizontal)
-        .padding(.top)
+        .padding([.horizontal, .top])
     }
 }
 

@@ -1,8 +1,6 @@
 import SwiftUI
 
 struct TaskListRowView: View {
-    @EnvironmentObject private var viewModel: TaskListViewModel
-    
     @State private var isShowTaskDetailView = false
     @State private var isShowUpdateTaskState = false
     @State private var firstMoveStatus: Task.ProgressStatus = .doing
@@ -82,7 +80,7 @@ struct TaskListRowDeadlineView: View {
 }
 
 struct StatusChangePopoverView: View {
-    @EnvironmentObject private var viewModel: TaskListViewModel
+    @EnvironmentObject private var taskListViewiewModel: TaskListViewModel
     
     @Binding var isShowTaskDetailView: Bool
     @Binding var isShowUpdateTaskState: Bool
@@ -95,12 +93,12 @@ struct StatusChangePopoverView: View {
     var body: some View {
         VStack {
             Button("Move to \(firstMoveStatus.name)") {
-                viewModel.updateState(id: id, progressStatus: firstMoveStatus)
+                taskListViewiewModel.updateState(id: id, progressStatus: firstMoveStatus)
                 self.isShowUpdateTaskState = false
             }
             .padding()
             Button("Move to \(secondMoveStatus.name)") {
-                viewModel.updateState(id: id, progressStatus: secondMoveStatus)
+                taskListViewiewModel.updateState(id: id, progressStatus: secondMoveStatus)
                 self.isShowUpdateTaskState = false
             }
             .padding()

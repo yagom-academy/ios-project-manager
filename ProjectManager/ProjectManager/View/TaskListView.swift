@@ -1,17 +1,17 @@
 import SwiftUI
 
 struct TaskListView: View {
-    @EnvironmentObject private var viewModel: TaskListViewModel
+    @EnvironmentObject private var taskListViewiewModel: TaskListViewModel
     let progressStatus: Task.ProgressStatus
     
     var taskList: [Task] {
         switch progressStatus {
         case .todo:
-            return viewModel.todoTaskList
+            return taskListViewiewModel.todoTaskList
         case .doing:
-            return viewModel.doingTaskList
+            return taskListViewiewModel.doingTaskList
         case .done:
-            return viewModel.doneTaskList
+            return taskListViewiewModel.doneTaskList
         }
     }
     
@@ -43,7 +43,7 @@ struct TaskListTitleView: View {
 }
 
 struct TaskListContentView: View {
-    @EnvironmentObject private var viewModel: TaskListViewModel
+    @EnvironmentObject private var taskListViewiewModel: TaskListViewModel
     let taskList: [Task]
     
     var body: some View {
@@ -52,7 +52,7 @@ struct TaskListContentView: View {
                 TaskListRowView(task: task)
             }
             .onDelete { indexSet in
-                viewModel.deleteTask(taskList[indexSet.index])
+                taskListViewiewModel.deleteTask(taskList[indexSet.index])
             }
         }
     }

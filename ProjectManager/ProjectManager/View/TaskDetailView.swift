@@ -79,7 +79,7 @@ struct TaskDetailTitleView: View {
 }
 
 struct TaskDetailTrailingButton: View {
-    @EnvironmentObject var viewModel: TaskListViewModel
+    @EnvironmentObject var taskListViewiewModel: TaskListViewModel
     @ObservedObject var taskDetailViewModel: TaskDetailViewModel
     @Binding var task: Task
     @Binding var isShowTaskDetailView: Bool
@@ -87,7 +87,7 @@ struct TaskDetailTrailingButton: View {
     var body: some View {
         Button("Done") {
             if taskDetailViewModel.isEditing {
-                viewModel.updateTask(
+                taskListViewiewModel.updateTask(
                     id: task.id,
                     title: taskDetailViewModel.title,
                     description: taskDetailViewModel.description,
@@ -98,7 +98,7 @@ struct TaskDetailTrailingButton: View {
                     description: taskDetailViewModel.description,
                     deadline: taskDetailViewModel.deadline
                 )
-                viewModel.createTask(task)
+                taskListViewiewModel.createTask(task)
             }
             isShowTaskDetailView = false
         }
@@ -111,7 +111,7 @@ struct TaskDetailContentView : View {
     var body: some View {
         VStack {
             TaskDetailTitleTextField(taskDetailViewModel: taskDetailViewModel)
-            TaskDetaildeadLineView(taskDetailViewModel: taskDetailViewModel)
+            TaskDetailDeadlineView(taskDetailViewModel: taskDetailViewModel)
             TaskDetailDescriptionTextEditor(taskDetailViewModel: taskDetailViewModel)
         }
     }
@@ -129,7 +129,7 @@ struct TaskDetailTitleTextField: View {
     }
 }
 
-struct TaskDetaildeadLineView: View {
+struct TaskDetailDeadlineView: View {
     @ObservedObject var taskDetailViewModel: TaskDetailViewModel
     
     var body: some View {
