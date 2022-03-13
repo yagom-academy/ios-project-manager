@@ -8,7 +8,7 @@ protocol WorkManagable {
     var doneList: [Work] { get }
     
     func create(_ data: Work)
-    func delete(_ data: Work) throws
+    func delete(_ data: Work)
     func update(_ data: Work, title: String?, body: String?, date: Date?)
     
 }

@@ -26,7 +26,7 @@ final class WorkFormViewController: UIViewController {
     private let disposeBag = DisposeBag()
     private var passedWork: Work?
     
-    @IBOutlet weak var rightBarButtonItem: UIBarButtonItem!
+    @IBOutlet weak private var rightBarButtonItem: UIBarButtonItem!
     @IBOutlet weak private var titleTextField: UITextField!
     @IBOutlet weak private var datePicker: UIDatePicker!
     @IBOutlet weak private var bodyTextView: UITextView!
@@ -51,7 +51,9 @@ final class WorkFormViewController: UIViewController {
     
     @IBAction private func touchUpDoneButton(_ sender: UIBarButtonItem) {
         if rightBarButtonItem.title == Content.doneTitle {
-            titleTextField.text = Content.EmptyTitle
+            if titleTextField.text == Content.isEmpty {
+                titleTextField.text = Content.EmptyTitle
+            }
             
             let work = Work(title: titleTextField.text, body: bodyTextView.text, dueDate: datePicker.date)
             

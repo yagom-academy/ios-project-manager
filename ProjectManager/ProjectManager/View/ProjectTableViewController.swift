@@ -7,6 +7,10 @@ private enum UIName {
     static let workFormViewStoryboard = "WorkFormView"
 }
 
+private enum Content {
+    static let swipeDeleteTitle = "Delete"
+}
+
 final class ProjectTableViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var countLabel: ProjectHeaderCircleLabel!
@@ -17,6 +21,7 @@ final class ProjectTableViewController: UIViewController {
     var titleText: String?
     var count: Observable<Int>?
     var list: BehaviorSubject<[Work]>?
+    var selectedWork: Work?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,7 +75,7 @@ extension ProjectTableViewController: UITableViewDelegate {
         guard let viewModel = viewModel else { return }
         guard let list = list else { return }
 
-        var work: Observable<Work?> {
+        var selectedWork: Observable<Work?> {
             list.map { $0[safe: indexPath.row] }
         }
         
@@ -81,9 +86,33 @@ extension ProjectTableViewController: UITableViewDelegate {
             WorkFormViewController(coder: coder, viewModel: viewModel)
         }
         viewController.modalPresentationStyle = .formSheet
-        viewController.setupContent(from: work)
+        viewController.setupContent(from: selectedWork)
         
         present(viewController, animated: true, completion: nil)
+    }
+    
+    func tableView(
+        _ tableView: UITableView,
+        trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
+    ) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(
+            style: .destructive,
+            title: Content.swipeDeleteTitle
+        ) { [weak self] _, _, _ in
+            guard let viewModel = self?.viewModel else { return }
+            guard let list = self?.list else { return }
+            
+            var selectedWork: Observable<Work?> {
+                list.map { $0[safe: indexPath.row] }
+            }
+            _ = selectedWork.subscribe(onNext: { self?.selectedWork = $0 })
+
+            if let work = self?.selectedWork {
+                viewModel.removeWork(work)
+            }
+        }
+        
+        return UISwipeActionsConfiguration(actions: [deleteAction])
     }
     
 }

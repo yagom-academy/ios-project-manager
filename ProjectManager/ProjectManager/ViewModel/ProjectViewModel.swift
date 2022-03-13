@@ -40,6 +40,16 @@ final class ProjectViewModel {
     }
 
     func removeWork(_ data: Work) {
+        workMemoryManager.delete(data)
+        
+        switch data.category {
+        case .todo:
+            todoList.onNext(workMemoryManager.todoList)
+        case .doing:
+            doingList.onNext(workMemoryManager.doingList)
+        case .done:
+            doneList.onNext(workMemoryManager.doneList)
+        }
     }
     
     func updateWork(_ data: Work, title: String, body: String, date: Date) {
