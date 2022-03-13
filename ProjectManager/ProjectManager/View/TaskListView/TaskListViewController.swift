@@ -36,13 +36,13 @@ final class TaskListViewController: UIViewController {
     }
     
     private func setupBindings() {
-        taskListViewModel.todoTasksObservable?.bind { [weak self] task in
+        taskListViewModel.todoTasksObservable?.bind { [weak self] _ in
             self?.todoTableView.reloadData()
         }
-        taskListViewModel.doingTasksObservable?.bind { [weak self] task in
+        taskListViewModel.doingTasksObservable?.bind { [weak self] _ in
             self?.doingTableView.reloadData()
         }
-        taskListViewModel.doneTasksObservable?.bind { [weak self] task in
+        taskListViewModel.doneTasksObservable?.bind { [weak self] _ in
             self?.doneTableView.reloadData()
         }
     }
