@@ -32,4 +32,8 @@ class TaskListViewModel: ObservableObject {
         manager.deleteTask(task.id)
         reload()
     }
+    
+    func changeableStatusList(from status: Task.ProgressStatus) -> [Task.ProgressStatus] {
+        return Task.ProgressStatus.allCases.filter { $0 != status }
+    }
 }

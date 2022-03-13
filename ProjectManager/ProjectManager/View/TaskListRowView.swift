@@ -3,9 +3,6 @@ import SwiftUI
 struct TaskListRowView: View {
     @State private var isShowTaskDetailView = false
     @State private var isShowUpdateTaskState = false
-    @State private var firstMoveStatus: Task.ProgressStatus = .doing
-    @State private var secondMoveStatus: Task.ProgressStatus = .done
-    
     var task: Task
     
     var body: some View {
@@ -28,12 +25,8 @@ struct TaskListRowView: View {
         }
         .popover(isPresented: $isShowUpdateTaskState) {
             StatusChangePopoverView(
-                isShowTaskDetailView: $isShowTaskDetailView,
                 isShowUpdateTaskState: $isShowUpdateTaskState,
-                firstMoveStatus: $firstMoveStatus,
-                secondMoveStatus: $secondMoveStatus,
-                id: task.id,
-                progressStatus: task.progressStatus
+                task: task
             )
         }
     }
@@ -80,45 +73,19 @@ struct TaskListRowDeadlineView: View {
 }
 
 struct StatusChangePopoverView: View {
-    @EnvironmentObject private var taskListViewiewModel: TaskListViewModel
-    
-    @Binding var isShowTaskDetailView: Bool
+    @EnvironmentObject private var taskListViewModel: TaskListViewModel
     @Binding var isShowUpdateTaskState: Bool
-    @Binding var firstMoveStatus: Task.ProgressStatus
-    @Binding var secondMoveStatus: Task.ProgressStatus
-    
-    let id: UUID
-    let progressStatus: Task.ProgressStatus
+    let task: Task
     
     var body: some View {
         VStack {
-            Button("Move to \(firstMoveStatus.name)") {
-                taskListViewiewModel.updateState(id: id, progressStatus: firstMoveStatus)
-                self.isShowUpdateTaskState = false
+            ForEach(taskListViewModel.changeableStatusList(from: task.progressStatus)) { status in
+                Button("Move to \(status.name)") {
+                    taskListViewModel.updateState(id: task.id, progressStatus: status)
+                    self.isShowUpdateTaskState = false
+                }
+                .padding()
             }
-            .padding()
-            Button("Move to \(secondMoveStatus.name)") {
-                taskListViewiewModel.updateState(id: id, progressStatus: secondMoveStatus)
-                self.isShowUpdateTaskState = false
-            }
-            .padding()
-            .onAppear {
-                setButtonTitle()
-            }
-        }
-    }
-    
-    private func setButtonTitle() {
-        switch progressStatus {
-        case .todo:
-            firstMoveStatus = .doing
-            secondMoveStatus = .done
-        case .doing:
-            firstMoveStatus = .todo
-            secondMoveStatus = .done
-        case .done:
-            firstMoveStatus = .todo
-            secondMoveStatus = .doing
         }
     }
 }
