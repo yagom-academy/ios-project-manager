@@ -1,11 +1,10 @@
 import UIKit
 
-class TaskCollectionViewCell: UICollectionViewCell {
+class TaskCollectionViewCell: UICollectionViewCell, Reusable {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var taskListTitleLabel: UILabel!
     @IBOutlet weak var taskListCountImageView: UIImageView!
 
-    weak var parentViewController: TaskCollectionViewController?
     private var taskList: TaskList?
 
     override func layoutSubviews() {
@@ -32,14 +31,12 @@ extension TaskCollectionViewCell: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(
-                withIdentifier: "cell",
+                withIdentifier: TaskTableViewCell.reuseIdentifier,
                 for: indexPath) as? TaskTableViewCell else { return UITableViewCell() }
-        if let task = taskList?.items[indexPath.row] {
-            cell.titleLabel?.text = task.title
-            cell.bodyLabel?.text = task.body
-            cell.dateLabel?.text = task.dueDate
-            return cell
-        }
-        return UITableViewCell()
+        guard let task = taskList?.items[indexPath.row] else { return UITableViewCell() }
+        cell.titleLabel?.text = task.title
+        cell.bodyLabel?.text = task.body
+        cell.dateLabel?.text = task.dueDate
+        return cell
     }
 }

@@ -48,14 +48,11 @@ extension TaskCollectionViewController: UICollectionViewDelegateFlowLayout {
         cellForItemAt indexPath: IndexPath
     ) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: "cell",
+                withReuseIdentifier: TaskCollectionViewCell.reuseIdentifier,
                 for: indexPath) as? TaskCollectionViewCell else { return UICollectionViewCell() }
-        if let task = viewModel?.taskLists[indexPath.item] {
-            cell.configure(with: task)
-            cell.parentViewController = self
-            return cell
-        }
-        return UICollectionViewCell()
+        guard let task = viewModel?.taskLists[indexPath.item] else { return UICollectionViewCell() }
+        cell.configure(with: task)
+        return cell
     }
 
     func collectionView(_ collectionView: UICollectionView,
