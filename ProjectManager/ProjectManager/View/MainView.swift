@@ -9,7 +9,6 @@ import SwiftUI
 
 struct MainView: View {
     
-    @EnvironmentObject private var taskManager: TaskManager
     @State private var isTaskCreatingViewShowing: Bool = false
     
     var body: some View {
