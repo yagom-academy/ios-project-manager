@@ -44,6 +44,7 @@ class TaskEntity {
 extension TaskEntity {
     func toViewModel() -> Task {
         return Task(
+            id: self.id,
             title: self.title,
             content: self.content,
             limitDate: self.limitDate,

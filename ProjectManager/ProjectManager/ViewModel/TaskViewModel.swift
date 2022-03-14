@@ -30,8 +30,8 @@ class TaskViewModel: ObservableObject {
     
     func createTask(title: String, content: String, limitDate: Date) {
         let task = Task(title: title, content: content, limitDate: limitDate, status: .todo)
-        tasks.insert(task, at: 0)
         enviroment.createTask(task)
+        tasks = enviroment.getTaskList()
     }
     
     func updateTask(task: Task, title: String, content: String, limitDate: Date) {
@@ -42,11 +42,8 @@ class TaskViewModel: ObservableObject {
     }
     
     func deleteTask(task: Task) {
-        guard let index = tasks.firstIndex(where: { $0.id == task.id }) else {
-            return
-        }
-        tasks.remove(at: index)
         enviroment.deleteTask(task)
+        tasks = enviroment.getTaskList()
     }
     
     func changeStatus(task: Task, to taskStatus: TaskStatus) {
