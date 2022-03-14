@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum TaskStatus {
+enum TaskStatus: CaseIterable {
     
     case todo
     case doing

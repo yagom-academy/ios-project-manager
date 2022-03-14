@@ -9,6 +9,7 @@ import SwiftUI
 
 struct TaskListRowView: View {
     
+    @EnvironmentObject private var taskManager: TaskManager
     @ObservedObject var task: Task
     @State private var isTaskEditingViewShowing: Bool = false
     
@@ -37,6 +38,20 @@ struct TaskListRowView: View {
         }
         .sheet(isPresented: $isTaskEditingViewShowing) {
             TaskEditingView(selectedTask: task, isTaskEditingViewShowing: $isTaskEditingViewShowing)
+        }
+        .contextMenu {
+            ForEach(TaskStatus.allCases, id: \.self) { status in
+                if status != task.status {
+                    Button {
+                        withAnimation {
+                            taskManager.objectWillChange.send()
+                            try? taskManager.changeTaskStatus(target: task, to: status)
+                        }
+                    } label: {
+                        Text("Move to \(status.headerTitle)")
+                    }
+                }
+            }
         }
     }
 }
