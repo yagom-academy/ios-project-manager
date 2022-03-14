@@ -48,8 +48,10 @@ struct TaskEditingView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        taskManager.objectWillChange.send()
-                        try? taskManager.modifyTask(target: selectedTask, title: newTaskTitle, body: newTaskBody, dueDate: newTaskDueDate)
+                        withAnimation {
+                            taskManager.objectWillChange.send()
+                            try? taskManager.modifyTask(target: selectedTask, title: newTaskTitle, body: newTaskBody, dueDate: newTaskDueDate)
+                        }
                         isTaskEditingViewShowing.toggle()
                     } label: {
                         Text("Edit")
