@@ -8,6 +8,7 @@
 import Foundation
 
 struct Project: Hashable {
+    
     // MARK: - Property
     let identifier: UUID?
     private (set) var title: String?

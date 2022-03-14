@@ -8,6 +8,7 @@
 import UIKit
 
 extension UITableView {
+    
     func register<T: UITableViewHeaderFooterView>(headerFooterViewClassWith name: T.Type) {
             register(T.self, forHeaderFooterViewReuseIdentifier: String(describing: name))
         }
@@ -39,5 +40,4 @@ extension UITableView {
             }
             return cell
         }
-    
 }

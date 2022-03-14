@@ -6,6 +6,7 @@
 
 import UIKit
 
+// MARK: - ProjectBoardViewController
 class ProjectBoardViewController: UIViewController {
     
     // MARK: - Property
@@ -22,7 +23,7 @@ class ProjectBoardViewController: UIViewController {
     }()
     
     private let stackViewBackgroundView: UIView = {
-       let backgroundView = UIView()
+        let backgroundView = UIView()
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
         backgroundView.backgroundColor = .systemGray4
         return backgroundView
@@ -123,12 +124,13 @@ class ProjectBoardViewController: UIViewController {
 
 // MARK: - UINavigationBarDelegate
 extension ProjectBoardViewController: UINavigationBarDelegate {
+    
     func position(for bar: UIBarPositioning) -> UIBarPosition {
         return UIBarPosition.topAttached
     }
 }
 
-// MARK: - ProjectDetailViewControllerDelegate
+// MARK: - ProjectCreatorViewControllerDelegate
 extension ProjectBoardViewController: ProjectCreatorViewControllerDelegate {
  
     func createProject(with content: [String: Any]) {
@@ -139,6 +141,7 @@ extension ProjectBoardViewController: ProjectCreatorViewControllerDelegate {
 
 // MARK: - ProjectTableViewControllerDelegate
 extension ProjectBoardViewController: ProjectTableViewControllerDelegate {
+    
     func readProject(of status: Status) -> [Project]? {
         return projectManager.readProject(of: status)
     }
