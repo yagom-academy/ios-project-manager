@@ -56,13 +56,24 @@ final class TaskListViewModel: TaskViewModel {
         taskDidMoved?(index, oldState, newState)
     }
     
-    func task(at index: Int, from state: TaskState) -> Task? {
+    func task(at index: Int, from state: TaskState) -> TaskCell? {
         guard let fetchedTask = taskManager.fetch(at: index, from: state) else {
             presentErrorAlert?(CollectionError.indexOutOfRange)
             return nil
         }
         
-        return fetchedTask
+        var deadline: NSAttributedString
+        if [.waiting, .progress].contains(state) && fetchedTask.deadline < Date() {
+            deadline = NSAttributedString(string: fetchedTask.deadline.dateString, attributes: TextAttribute.overDeadline)
+        } else {
+            deadline = NSAttributedString(string: fetchedTask.deadline.dateString, attributes: TextAttribute.underDeadline)
+        }
+        
+        let taskCell = TaskCell(title: fetchedTask.title,
+                                description: fetchedTask.description,
+                                deadline: deadline)
+        
+        return taskCell
     }
     
     func didSelectRow(at index: Int, from state: TaskState) {
@@ -76,5 +87,18 @@ final class TaskListViewModel: TaskViewModel {
     
     func count(of state: TaskState) -> Int {
         return tasks.filter { $0.state == state }.count
+    }
+}
+
+private extension Date {
+    static let dateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .short
+        dateFormatter.locale = .current
+        return dateFormatter
+    }()
+    
+    var dateString: String {
+        return Self.dateFormatter.string(from: self)
     }
 }

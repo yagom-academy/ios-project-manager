@@ -7,18 +7,6 @@
 
 import UIKit
 
-private enum TextAttribute {
-    static let overDeadline = [
-        NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .subheadline),
-        NSAttributedString.Key.foregroundColor: UIColor.red
-    ]
-    
-    static let underDeadline = [
-        NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .subheadline),
-        NSAttributedString.Key.foregroundColor: UIColor.label
-    ]
-}
-
 private enum Design {
     static let leadingMargin: CGFloat = 10
     static let trailingMargin: CGFloat = -10
@@ -85,27 +73,9 @@ final class TaskTableViewCell: UITableViewCell {
         ])
     }
     
-    func configureCell(title: String, description: String, deadline: Date, state: TaskState) {
-        titleLabel.text = title
-        descriptionLabel.text = description
-        if [.waiting, .progress].contains(state) && deadline < Date() {
-            deadlineLabel.attributedText = NSAttributedString(string: deadline.dateString, attributes: TextAttribute.overDeadline)
-            return
-        }
-        
-        deadlineLabel.attributedText = NSAttributedString(string: deadline.dateString, attributes: TextAttribute.underDeadline)
-    }
-}
-
-private extension Date {
-    static let dateFormatter: DateFormatter = {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .short
-        dateFormatter.locale = .current
-        return dateFormatter
-    }()
-    
-    var dateString: String {
-        return Self.dateFormatter.string(from: self)
+    func configureCell(with task: TaskCell) {
+        titleLabel.text = task.title
+        descriptionLabel.text = task.description
+        deadlineLabel.attributedText = task.deadline
     }
 }

@@ -255,7 +255,7 @@ extension MainTaskViewController: UITableViewDataSource {
             return TaskTableViewCell()
         }
                 
-        cell.configureCell(title: task.title, description: task.description, deadline: task.deadline, state: state)                
+        cell.configureCell(with: task)
         
         return cell
     }

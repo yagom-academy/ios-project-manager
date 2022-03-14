@@ -13,6 +13,8 @@
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
 		C9ACBFBB27D5D52000935ECC /* MockTaskMemoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9ACBFBA27D5D52000935ECC /* MockTaskMemoryRepository.swift */; };
+		C9B1BD7F27DF055B009D1A61 /* TextAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B1BD7E27DF055B009D1A61 /* TextAttribute.swift */; };
+		C9B1BD8127DF0658009D1A61 /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B1BD8027DF0657009D1A61 /* TaskCell.swift */; };
 		C9BB798127D9CB66005F0D81 /* TaskTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BB798027D9CB66005F0D81 /* TaskTableHeaderView.swift */; };
 		C9C2613727CDE08A002FA9F4 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = C9C2613627CDE08A002FA9F4 /* FirebaseFirestore */; };
 		C9C2613E27CDE1F6002FA9F4 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = C9C2613D27CDE1F6002FA9F4 /* RxCocoa */; };
@@ -55,6 +57,8 @@
 		C7431F1125F51E1E0094C4CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9ACBFBA27D5D52000935ECC /* MockTaskMemoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTaskMemoryRepository.swift; sourceTree = "<group>"; };
+		C9B1BD7E27DF055B009D1A61 /* TextAttribute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAttribute.swift; sourceTree = "<group>"; };
+		C9B1BD8027DF0657009D1A61 /* TaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
 		C9BB798027D9CB66005F0D81 /* TaskTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableHeaderView.swift; sourceTree = "<group>"; };
 		C9C2614227CDE4CB002FA9F4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C9C2614427CDE68C002FA9F4 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
@@ -121,6 +125,7 @@
 			children = (
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
+				C9B1BD7D27DF0538009D1A61 /* Constants */,
 				C9C2617727D0A33B002FA9F4 /* Error */,
 				C9C2617427D0A178002FA9F4 /* Extension */,
 				C9C2614E27CF3EBE002FA9F4 /* Protocol */,
@@ -143,6 +148,14 @@
 				C9ACBFBA27D5D52000935ECC /* MockTaskMemoryRepository.swift */,
 			);
 			path = "Test Doubles";
+			sourceTree = "<group>";
+		};
+		C9B1BD7D27DF0538009D1A61 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				C9B1BD7E27DF055B009D1A61 /* TextAttribute.swift */,
+			);
+			path = Constants;
 			sourceTree = "<group>";
 		};
 		C9C2614B27CE1E30002FA9F4 /* Model */ = {
@@ -176,6 +189,7 @@
 			isa = PBXGroup;
 			children = (
 				C9C2616227CF6531002FA9F4 /* TaskListViewModel.swift */,
+				C9B1BD8027DF0657009D1A61 /* TaskCell.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -369,11 +383,13 @@
 				C9C2617627D0A18F002FA9F4 /* Array+safe.swift in Sources */,
 				C9C2614A27CE1E08002FA9F4 /* Task.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainTaskViewController.swift in Sources */,
+				C9B1BD8127DF0658009D1A61 /* TaskCell.swift in Sources */,
 				C9C2614D27CF3D9B002FA9F4 /* TaskState.swift in Sources */,
 				C9C2616327CF6531002FA9F4 /* TaskListViewModel.swift in Sources */,
 				C9ECBF2927D88DBD00E49ED4 /* TaskTableView.swift in Sources */,
 				C9C2617927D0A34E002FA9F4 /* CollectionError.swift in Sources */,
 				C9C2615027CF3ED0002FA9F4 /* TaskViewModel.swift in Sources */,
+				C9B1BD7F27DF055B009D1A61 /* TextAttribute.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C9C2615827CF5EF5002FA9F4 /* TaskMemoryRepository.swift in Sources */,
 				C9BB798127D9CB66005F0D81 /* TaskTableHeaderView.swift in Sources */,
