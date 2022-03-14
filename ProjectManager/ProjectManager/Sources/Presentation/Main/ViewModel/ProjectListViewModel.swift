@@ -1,6 +1,5 @@
 import Foundation
 import RxSwift
-import RxCocoa
 import UIKit
 
 final class ProjectListViewModel {

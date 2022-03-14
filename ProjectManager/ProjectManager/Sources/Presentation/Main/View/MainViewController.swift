@@ -37,7 +37,8 @@ class MainViewController: UIViewController {
             let headerNib = UINib(nibName: ProjectHeader.nibName, bundle: .main)
             tableView.register(headerNib, forHeaderFooterViewReuseIdentifier: ProjectHeader.identifier)
             tableView.rx.itemSelected
-                .subscribe(onNext: { tableView.deselectRow(at: $0, animated: true) }).disposed(by: disposeBag)
+                .subscribe(onNext: { tableView.deselectRow(at: $0, animated: true) })
+                .disposed(by: disposeBag)
         }
     }
     

@@ -3,12 +3,12 @@ import RxCocoa
 import RxSwift
 
 class DetailViewController: UIViewController {
-    
     @IBOutlet private weak var titleTextField: UITextField!
     @IBOutlet private weak var datePicker: UIDatePicker!
     @IBOutlet private weak var descriptionTextView: UITextView!
     @IBOutlet private weak var rightBarButton: UIBarButtonItem!
     @IBOutlet private weak var leftBarButton: UIBarButtonItem!
+    
     var viewModel: DetailViewModel?
     let disposeBag = DisposeBag()
 
