@@ -1,4 +1,5 @@
 import Foundation
+import Combine
 
 class TaskListViewModel: ObservableObject {
     @Published var todoTaskList = [Task]()
@@ -7,16 +8,27 @@ class TaskListViewModel: ObservableObject {
     
     let manager = TaskManager()
 
+    var cancellables = Set<AnyCancellable>()
+    
     init () {
         fetch()
     }
     
     func fetch() {
-        manager.fetch { _ in
-            self.todoTaskList = self.manager.taskList(at: .todo)
-            self.doingTaskList = self.manager.taskList(at: .doing)
-            self.doneTaskList = self.manager.taskList(at: .done)
-        }
+        manager.fetch()
+            .sink { complition in
+                switch complition {
+                case .failure(let error):
+                    print(error)
+                case .finished:
+                    return
+                }
+            } receiveValue: { taskList in
+                self.todoTaskList = taskList.filter { $0.progressStatus == .todo }
+                self.doingTaskList = taskList.filter { $0.progressStatus == .doing }
+                self.doneTaskList = taskList.filter { $0.progressStatus == .done }
+            }
+            .store(in: &cancellables)
     }
     
     func reload() {
@@ -27,7 +39,17 @@ class TaskListViewModel: ObservableObject {
     
     func createTask(_ task: Task) {
         manager.createTask(task)
-        todoTaskList = manager.taskList(at: .todo)
+            .sink { completion in
+                switch completion {
+                case .failure(let error):
+                    print(error)
+                case .finished:
+                    return
+                }
+            } receiveValue: { _ in
+                self.fetch()
+            }
+            .store(in: &cancellables)
     }
     
     func updateState(id: String, progressStatus: Task.ProgressStatus) {

@@ -1,37 +1,36 @@
 import Foundation
 import FirebaseFirestore
-import Firebase
 
 class TaskListRepository {
     var ref: DocumentReference?
-    let db = Firestore.firestore()
+    let store = Firestore.firestore()
     
-//    func insertData() {
-//        ref = db.collection("test").addDocument(data: [
-//            "id": task.id.uuidString,
-//            "title": task.title,
-//            "desc": task.description,
-//            "deadline": task.deadline,
-//            "status": task.progressStatus.name
-//        ]) { err in
-//            if let err = err {
-//                print("Error adding document: \(err)")
-//            } else {
-//                print("Document added with ID: \(self.ref!.documentID)")
-//            }
-//        }
-//    }
+    func createEntityTask(entityTask: EntityTask, complition: @escaping ([EntityTask]) -> Void) {
+        ref = store.collection("test").addDocument(data: [
+            "id": entityTask.id,
+            "title": entityTask.title,
+            "desc": entityTask.description,
+            "deadline": entityTask.deadline,
+            "status": entityTask.progressStatus
+        ]) { error in
+            if let error = error {
+                print("Error adding document: \(error)")
+            } else {
+                print("Document added with ID: \(self.ref!.documentID)")
+            }
+        }
+    }
     
-    func read(complition: @escaping ([EntityTask]) -> Void) {
+    func fetchEntityTask(complition: @escaping ([EntityTask]) -> Void) {
         var entityTaskList = [EntityTask]()
-        db.collection("test").getDocuments { querySnapshot, error in
+        store.collection("test").getDocuments { data, error in
             if let error = error {
                 print("Error getting documents: \(error)")
             } else {
-                guard let querySnapshot = querySnapshot else {
+                guard let data = data else {
                     return
                 }
-                for document in querySnapshot.documents {
+                for document in data.documents {
                     let id = document.data()["id"] as? String ?? ""
                     let title = document.data()["title"] as? String ?? ""
                     let description = document.data()["description"] as? String ?? ""
