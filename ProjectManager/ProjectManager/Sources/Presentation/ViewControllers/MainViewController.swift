@@ -45,6 +45,8 @@ class MainViewController: UIViewController {
             tableView.register(cellNib, forCellReuseIdentifier: ProjectCell.identifier)
             let headerNib = UINib(nibName: ProjectHeader.nibName, bundle: .main)
             tableView.register(headerNib, forHeaderFooterViewReuseIdentifier: ProjectHeader.identifier)
+            tableView.rx.itemSelected
+                .subscribe(onNext: { tableView.deselectRow(at: $0, animated: true) }).disposed(by: bag)
         }
     }
     
@@ -114,9 +116,5 @@ extension MainViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 45
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
