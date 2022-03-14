@@ -11,11 +11,13 @@ final class DetailViewModel {
     
     private(set) var project: Project
     private let useCase: ProjectListUseCase
+    private let coordinator: DetailCoordinator
     private var mode: DetailViewMode
     private let disposeBag = DisposeBag()
     
-    init(useCase: ProjectListUseCase, project: Project, mode: DetailViewMode) {
+    init(useCase: ProjectListUseCase, coordinator: DetailCoordinator, project: Project, mode: DetailViewMode) {
         self.useCase = useCase
+        self.coordinator = coordinator
         self.project = project
         self.mode = mode
     }

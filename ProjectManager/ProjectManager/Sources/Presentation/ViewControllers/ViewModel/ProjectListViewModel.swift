@@ -46,7 +46,6 @@ final class ProjectListViewModel {
             .forEach({ column, observable in
                 observable
                     .subscribe(onNext: { row in
-                        print("프로젝트 상세화면으로 이동")
                         let project = self.projectList[column][row]
                         self.coordinator?.presentDetailViewController(project, useCase: self.useCase, mode: .read)
                     }).disposed(by: disposeBag)
@@ -54,7 +53,8 @@ final class ProjectListViewModel {
         
         input.didTapAddButton
             .subscribe(onNext: { _ in
-                self.useCase.create(Project(title: "프로젝트 제목", description: ["내용", "내용\n내용\n내용\n내용", "내용\n내용"].randomElement()!, date: Date()))
+                let newProject = Project(title: "", description: "", date: Date())
+                self.coordinator?.presentDetailViewController(newProject, useCase: self.useCase, mode: .add)
             }).disposed(by: disposeBag)
         
         input.didTapPopoverButton.forEach {

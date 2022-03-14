@@ -11,24 +11,24 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="projectCell" rowHeight="101" id="KGk-i7-Jjw" customClass="ProjectCell" customModule="ProjectManager" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="393" height="101"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="projectCell" rowHeight="108" id="KGk-i7-Jjw" customClass="ProjectCell" customModule="ProjectManager" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="108"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="393" height="101"/>
+                <rect key="frame" x="0.0" y="0.0" width="393" height="108"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="DZx-KE-PbH">
-                        <rect key="frame" x="16" y="8" width="361" height="85"/>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="DZx-KE-PbH">
+                        <rect key="frame" x="16" y="8" width="361" height="90"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="프로젝트 제목" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="edt-Gn-iaf">
-                                <rect key="frame" x="0.0" y="0.0" width="361" height="19.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="361" height="20.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IXn-r7-pMs">
-                                <rect key="frame" x="0.0" y="19.5" width="361" height="52"/>
+                                <rect key="frame" x="0.0" y="20.5" width="361" height="55"/>
                                 <string key="text">프로젝트 내용
 내용
 내용
@@ -38,7 +38,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2022.03.10" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bwn-jj-69r">
-                                <rect key="frame" x="0.0" y="71.5" width="361" height="13.5"/>
+                                <rect key="frame" x="0.0" y="75.5" width="361" height="14.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -47,9 +47,9 @@
                     </stackView>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="DZx-KE-PbH" secondAttribute="bottom" constant="8" id="1Am-5x-53Q"/>
                     <constraint firstAttribute="trailing" secondItem="DZx-KE-PbH" secondAttribute="trailing" constant="16" id="AI7-ry-fGL"/>
                     <constraint firstItem="DZx-KE-PbH" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="NAn-Bi-Rij"/>
+                    <constraint firstItem="DZx-KE-PbH" firstAttribute="height" relation="lessThanOrEqual" secondItem="H2p-sc-9uM" secondAttribute="height" constant="-16" id="shW-Km-HmR"/>
                     <constraint firstItem="DZx-KE-PbH" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="wYi-7J-gop"/>
                 </constraints>
             </tableViewCellContentView>
@@ -59,7 +59,7 @@
                 <outlet property="descriptionLabel" destination="IXn-r7-pMs" id="t1U-wW-ILg"/>
                 <outlet property="titleLabel" destination="edt-Gn-iaf" id="bi4-qJ-ZIL"/>
             </connections>
-            <point key="canvasLocation" x="83.333333333333343" y="171.76339285714286"/>
+            <point key="canvasLocation" x="83.333333333333343" y="173.4375"/>
         </tableViewCell>
     </objects>
     <resources>

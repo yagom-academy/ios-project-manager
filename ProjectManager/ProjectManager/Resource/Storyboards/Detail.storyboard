@@ -12,7 +12,7 @@
         <!--Detail View Controller-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController id="Y6W-OH-hqX" customClass="DetailViewController" customModule="ProjectManager" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DetailViewController" id="Y6W-OH-hqX" customClass="DetailViewController" customModule="ProjectManager" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="1366" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -37,10 +37,9 @@
                                                     <constraint firstAttribute="height" constant="300" id="8av-vT-1U4"/>
                                                 </constraints>
                                             </datePicker>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Oje-cd-I3r">
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Oje-cd-I3r">
                                                 <rect key="frame" x="0.0" y="350" width="1334" height="564"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                 <color key="textColor" systemColor="labelColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -50,7 +49,7 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="zjj-8N-2sV" firstAttribute="top" secondItem="Wrz-3Q-cZW" secondAttribute="top" constant="8" id="B3p-fh-Sya"/>
-                                    <constraint firstItem="zjj-8N-2sV" firstAttribute="height" secondItem="6Lk-lk-4dD" secondAttribute="height" priority="750" constant="-16" id="aGB-2f-HwM"/>
+                                    <constraint firstItem="zjj-8N-2sV" firstAttribute="height" relation="greaterThanOrEqual" secondItem="Wrz-3Q-cZW" secondAttribute="height" constant="-16" id="aGB-2f-HwM"/>
                                     <constraint firstAttribute="bottom" secondItem="zjj-8N-2sV" secondAttribute="bottom" id="jtS-Oj-nId"/>
                                     <constraint firstItem="zjj-8N-2sV" firstAttribute="leading" secondItem="Wrz-3Q-cZW" secondAttribute="leading" constant="16" id="p40-dO-zfF"/>
                                     <constraint firstAttribute="trailing" secondItem="zjj-8N-2sV" secondAttribute="trailing" id="rVt-vJ-lnZ"/>
@@ -76,6 +75,8 @@
                     <connections>
                         <outlet property="datePicker" destination="nnG-2q-7Nn" id="Pcn-Ah-H2G"/>
                         <outlet property="descriptionTextView" destination="Oje-cd-I3r" id="Z8t-1R-pjo"/>
+                        <outlet property="leftBarButton" destination="wCz-So-9I6" id="1E0-CH-CuK"/>
+                        <outlet property="rightBarButton" destination="9Kr-9j-2qg" id="4Ch-gZ-xnf"/>
                         <outlet property="titleTextField" destination="mfV-fb-yuq" id="bRk-tE-yOp"/>
                     </connections>
                 </viewController>
@@ -86,7 +87,7 @@
         <!--Navigation Controller-->
         <scene sceneID="G05-6w-qnW">
             <objects>
-                <navigationController storyboardIdentifier="DetailViewController" automaticallyAdjustsScrollViewInsets="NO" id="kpz-IF-FdV" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="Detail" automaticallyAdjustsScrollViewInsets="NO" id="kpz-IF-FdV" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="OlW-c3-Gwn">
                         <rect key="frame" x="0.0" y="24" width="1366" height="50"/>

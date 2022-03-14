@@ -18,17 +18,17 @@ final class MainCoordinator {
         navigationController.pushViewController(main, animated: false)
     }
     
-    func presentDetailViewController(_ project: Project, useCase: ProjectListUseCase, mode: DetailViewModel.DetailViewMode) {
-        let storyboard = UIStoryboard(name: "Detail", bundle: .main)
-        guard let nextVC = storyboard.instantiateViewController(
-            withIdentifier: "DetailViewController"
-        ) as? UINavigationController,
-              let detail = nextVC.topViewController as? DetailViewController else {
-            return
-        }
-        detail.viewModel = DetailViewModel(useCase: useCase, project: project, mode: mode)
+    func presentDetailViewController(
+        _ project: Project,
+        useCase: ProjectListUseCase,
+        mode: DetailViewModel.DetailViewMode
+    ) {
+        let detailCoordinator = DetailCoordinator()
+        detailCoordinator.start(project, useCase: useCase, mode: mode)
         
-        navigationController.topViewController?.present(nextVC, animated: true, completion: nil)
-        
+        navigationController.topViewController?.present(
+            detailCoordinator.navigationController,
+            animated: true
+        )
     }
 }
