@@ -123,6 +123,8 @@ class ProjectCreatorViewController: UIViewController {
         self.view.addSubview(stackView)
         let safeArea = self.view.safeAreaLayoutGuide
         
+        NSLayoutConstraint.activate([titleTextField.heightAnchor.constraint(equalToConstant: 45)])
+        
         NSLayoutConstraint.activate([
             descriptionTextView.topAnchor.constraint(equalTo: descriptionTextViewContainer.topAnchor),
             descriptionTextView.bottomAnchor.constraint(equalTo: descriptionTextViewContainer.bottomAnchor),
@@ -139,7 +141,6 @@ class ProjectCreatorViewController: UIViewController {
             stackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 15),
             stackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -15)
         ])
-        NSLayoutConstraint.activate([titleTextField.heightAnchor.constraint(equalToConstant: 45)])
     }
     
     // MARK: - @objc Method
