@@ -9,7 +9,7 @@ import UIKit
 final class MainTaskViewController: UIViewController {
     // MARK: - Properties
 
-    let taskTableStackView: UIStackView = {
+    private let taskTableStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.spacing = 10
@@ -18,9 +18,9 @@ final class MainTaskViewController: UIViewController {
         return stackView
     }()
     
-    let taskInWaitingTableView = TaskTableView(state: .waiting)
-    let taskInProgressTableView = TaskTableView(state: .progress)
-    let taskInDoneTableView = TaskTableView(state: .done)
+    private let taskInWaitingTableView = TaskTableView(state: .waiting)
+    private let taskInProgressTableView = TaskTableView(state: .progress)
+    private let taskInDoneTableView = TaskTableView(state: .done)
     
     private var taskListViewModel: TaskViewModel
     

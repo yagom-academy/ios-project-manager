@@ -32,7 +32,7 @@ enum ManageType {
 final class TaskManageViewController: UIViewController {
     // MARK: - Properties
 
-    let taskStackView: UIStackView = {
+    private let taskStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.spacing = 10
@@ -40,7 +40,7 @@ final class TaskManageViewController: UIViewController {
         return stackView
     }()
     
-    let titleTextField: UITextField = {
+    private let titleTextField: UITextField = {
         let textField = UITextField()
         textField.borderStyle = .roundedRect
         textField.font = .preferredFont(forTextStyle: .title3)
@@ -52,14 +52,14 @@ final class TaskManageViewController: UIViewController {
         return textField
     }()
     
-    let deadlineDatePicker: UIDatePicker = {
+    private let deadlineDatePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.preferredDatePickerStyle = .wheels
         datePicker.datePickerMode = .date
         return datePicker
     }()
     
-    let descriptionTextView: UITextView = {
+    private let descriptionTextView: UITextView = {
         let textView = UITextView()
         textView.font = .preferredFont(forTextStyle: .title3)
         textView.layer.borderColor = UIColor.lightGray.cgColor
@@ -67,10 +67,10 @@ final class TaskManageViewController: UIViewController {
         return textView
     }()
         
-    var selectedIndex: Int?
-    var selectedTask: Task?
-    var manageType: ManageType
-    var taskListViewModel: TaskViewModel
+    private var selectedIndex: Int?
+    private var selectedTask: Task?
+    private let manageType: ManageType
+    private let taskListViewModel: TaskViewModel
     
     // MARK: - Life Cycle
 
@@ -201,16 +201,16 @@ final class TaskManageViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
-    @objc func didTapCancel() {
+    @objc private func didTapCancel() {
         self.dismiss(animated: true, completion: nil)
     }
     
-    @objc func didTapEdit() {
+    @objc private func didTapEdit() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(didTapCancel))
         setupEditingState(from: manageType)
     }
     
-    @objc func didTapDone() {
+    @objc private func didTapDone() {
         guard checkValidInput() else {
             return
         }
