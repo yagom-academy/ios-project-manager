@@ -12,7 +12,8 @@ final class FireStoreRepository: DataRepository {
         self.dataBase = database
     }
     
-    func create(attributes: [String: Any]) {
+    func create(object: Listable) {
+        let attributes = convertListToAttributes(from: object)
         var attibutesToMerge = attributes
         let documentPath = UUID().uuidString
         attibutesToMerge.merge(["identifer": documentPath]) { _, _ in
@@ -24,7 +25,8 @@ final class FireStoreRepository: DataRepository {
         self.list.filter { $0.identifier == identifier }.first
     }
     
-    func update(identifier: String, how attributes: [String: Any])  {
+    func update(identifier: String, how object: Listable)  {
+        let attributes = convertListToAttributes(from: object)
         reference().document(identifier).updateData(attributes) { error in
             if let error = error {
              
@@ -53,6 +55,14 @@ final class FireStoreRepository: DataRepository {
     func extractAll() -> [Listable] {
         self.fetch()
         return list
+    }
+    
+    private func convertListToAttributes(from list: Listable) -> [String: Any] {
+        guard let attributes = try? list.toJson()
+        else {
+            return [:]
+        }
+        return attributes
     }
     
     private func reference(

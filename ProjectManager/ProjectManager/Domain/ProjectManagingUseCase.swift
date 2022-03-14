@@ -7,13 +7,13 @@ protocol ProjectManagingUseCase {
     var doingProjects: [Listable] { get }
     var doneProjects: [Listable] { get }
     
-    func createProject(attributes: [String: Any])
+    func createProject(object: Listable)
     
     func readProject(identifier: String) -> Listable?
     
     func updateProject(
         identifier: String,
-        how attributes: [String: Any]
+        how object: Listable
     )
     
     func deleteProject(identifier: String)

@@ -1,6 +1,6 @@
 import Foundation
 
-protocol Listable {
+protocol Listable: Codable {
     
     var name: String { get set }
     var detail: String { get set }

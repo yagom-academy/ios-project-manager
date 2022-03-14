@@ -40,6 +40,7 @@
 		18D8A13A27DF03DB0002351F /* DetailAddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D8A13927DF03DB0002351F /* DetailAddViewModel.swift */; };
 		18D8A13C27DF19D70002351F /* MockDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D8A13B27DF19D70002351F /* MockDataRepository.swift */; };
 		18D8A16227DFC9C70002351F /* Dateformatter + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D8A16127DFC9C70002351F /* Dateformatter + Extension.swift */; };
+		18D8A16427DFD6B90002351F /* Collection + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D8A16327DFD6B90002351F /* Collection + Extension.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* MainViewController.swift */; };
@@ -76,6 +77,7 @@
 		18D8A13927DF03DB0002351F /* DetailAddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailAddViewModel.swift; sourceTree = "<group>"; };
 		18D8A13B27DF19D70002351F /* MockDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDataRepository.swift; sourceTree = "<group>"; };
 		18D8A16127DFC9C70002351F /* Dateformatter + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dateformatter + Extension.swift"; sourceTree = "<group>"; };
+		18D8A16327DFD6B90002351F /* Collection + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection + Extension.swift"; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -273,6 +275,7 @@
 			children = (
 				189DD57B27D6995900395CF4 /* Encodable + Extensions.swift */,
 				18D8A16127DFC9C70002351F /* Dateformatter + Extension.swift */,
+				18D8A16327DFD6B90002351F /* Collection + Extension.swift */,
 			);
 			path = "Extensions ";
 			sourceTree = "<group>";
@@ -403,6 +406,7 @@
 				18D8A13427DF00500002351F /* Coordinator.swift in Sources */,
 				189DD4FA27D1015C00395CF4 /* DataRepository.swift in Sources */,
 				189DD59127D7004F00395CF4 /* ProgressState.swift in Sources */,
+				18D8A16427DFD6B90002351F /* Collection + Extension.swift in Sources */,
 				189DD55527D5720300395CF4 /* ProjectManagingUseCase.swift in Sources */,
 				18688D5E27DD155B001A7C7A /* DetailUpdateViewController.swift in Sources */,
 				18688D6727DD1D19001A7C7A /* MainUIView.swift in Sources */,

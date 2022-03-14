@@ -2,13 +2,13 @@ import Foundation
 
 protocol DataRepository {
     
-    func create(attributes: [String: Any])
+    func create(object: Listable)
     
     func read(identifier: String) -> Listable?
     
     func update(
         identifier: String,
-        how attributes: [String: Any]
+        how object: Listable
     ) 
     
     func delete(identifier: String)

@@ -11,8 +11,8 @@ final class ProjectManagerUseCase: ProjectManagingUseCase {
         self.repository = repository
     }
    
-    func createProject(attributes: [String: Any]) {
-        self.repository?.create(attributes: attributes)
+    func createProject(object: Listable) {
+        self.repository?.create(object: object)
     }
     
     func readProject(identifier: String) -> Listable? {
@@ -21,9 +21,9 @@ final class ProjectManagerUseCase: ProjectManagingUseCase {
     
     func updateProject(
         identifier: String,
-        how attributes: [String: Any]
+        how object: Listable
     )  {
-        self.repository?.update(identifier: identifier, how: attributes)
+        self.repository?.update(identifier: identifier, how: object)
     }
     
     func deleteProject(identifier: String) {

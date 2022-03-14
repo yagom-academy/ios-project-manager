@@ -1,6 +1,6 @@
 import Foundation
 
-struct Project: Listable, Codable, Equatable {
+struct Project: Listable, Equatable {
     
     var name: String
     var detail: String
