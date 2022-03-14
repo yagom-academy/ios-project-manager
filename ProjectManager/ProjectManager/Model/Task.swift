@@ -7,13 +7,13 @@
 
 import Foundation
 
-class Task: Identifiable, Equatable {
+class Task: ObservableObject, Identifiable, Equatable {
     
     let id: String
-    var title: String
-    var body: String
-    var dueDate: Date
-    var status: TaskStatus
+    @Published var title: String
+    @Published var body: String
+    @Published var dueDate: Date
+    @Published var status: TaskStatus
     
     init(title: String, body: String, dueDate: Date) {
         self.id = UUID().uuidString
