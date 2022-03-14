@@ -18,7 +18,8 @@ extension UITableView {
     
     func dequeueReusableCell<T: UITableViewCell>(withClass name: T.Type, for indexPath: IndexPath) -> T {
         guard let cell = dequeueReusableCell(withIdentifier: String(describing: name), for: indexPath) as? T else {
-            fatalError("cell dequeue failed")
+            assertionFailure("cell dequeue failed")
+            return T()
         }
         
         return cell
@@ -26,7 +27,8 @@ extension UITableView {
     
     func dequeueReusableHeaderFooterView<T: UITableViewHeaderFooterView>(withClass name: T.Type) -> T {
         guard let headerFooterView = dequeueReusableHeaderFooterView(withIdentifier: String(describing: name)) as? T else {
-            fatalError("Header/Footer dequeue failed")
+            assertionFailure("header/footer dequeue failed")
+            return T()
         }
         
         return headerFooterView
