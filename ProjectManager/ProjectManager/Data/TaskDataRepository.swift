@@ -112,7 +112,7 @@ final class TaskDataRepository: TaskRepository {
         save(completed: completed)
     }
 
-    func setValue(to object: NSManagedObject, with taskList: TaskListEntity) {
+    private func setValue(to object: NSManagedObject, with taskList: TaskListEntity) {
         let managedObject = object
         [
             "id": taskList.id,
@@ -123,7 +123,7 @@ final class TaskDataRepository: TaskRepository {
         }
     }
 
-    func convertDataModelToEntity(dataModel: TaskDataModel) -> TaskListEntity {
+    private func convertDataModelToEntity(dataModel: TaskDataModel) -> TaskListEntity {
         var convertedItems = [TaskEntity]()
         dataModel.items.forEach { item in
             convertedItems.append(TaskEntity(title: item.title,

@@ -1,6 +1,6 @@
 import UIKit
 
-class TaskDetailViewController: UIViewController {
+final class TaskDetailViewController: UIViewController {
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var dueDatePicker: UIDatePicker!
     @IBOutlet weak var bodyTextView: UITextView!

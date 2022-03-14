@@ -1,6 +1,6 @@
 import UIKit
 
-class TaskCollectionViewController: UICollectionViewController {
+final class TaskCollectionViewController: UICollectionViewController {
     private var viewModel: TaskViewModelable?
 
     override func viewDidLoad() {

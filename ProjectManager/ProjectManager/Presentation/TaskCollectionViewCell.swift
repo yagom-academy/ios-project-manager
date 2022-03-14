@@ -1,6 +1,6 @@
 import UIKit
 
-class TaskCollectionViewCell: UICollectionViewCell, Reusable {
+final class TaskCollectionViewCell: UICollectionViewCell, Reusable {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var taskListTitleLabel: UILabel!
     @IBOutlet weak var taskListCountImageView: UIImageView!
