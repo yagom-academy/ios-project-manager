@@ -4,22 +4,28 @@ class ProjectDetailUIView: UIView {
     
     private let textfield: UITextField = {
         let textfield = UITextField(frame: .zero)
-        textfield.placeholder = "Input Name Here"
+        textfield.placeholder = "Title"
+        textfield.layer.borderColor = UIColor.gray.cgColor
+        textfield.layer.borderWidth = 0.5
         textfield.translatesAutoresizingMaskIntoConstraints = false
         return textfield
     }()
     
     private let datePicker: UIDatePicker = {
-        let datepicker = UIDatePicker(frame: .zero)
-        datepicker.datePickerMode = .date
-        datepicker.translatesAutoresizingMaskIntoConstraints = false
-        return datepicker
-    }()
+           let datePicker = UIDatePicker()
+           datePicker.datePickerMode = .date
+           if #available(iOS 13.5, *) {
+               datePicker.preferredDatePickerStyle = .wheels
+               }
+           return datePicker
+       }()
     
     private let textView: UITextView = {
-        let textView = UITextView(frame: .zero)
-        textView.layer.borderColor = UIColor.lightGray.cgColor
-        textView.layer.borderWidth = 0.5
+        let textView = UITextView()
+        textView.layer.borderWidth = 1.0
+        textView.layer.borderColor = UIColor.gray.cgColor
+        textView.font = .preferredFont(forTextStyle: .body)
+        textView.insertText("Body")
         textView.translatesAutoresizingMaskIntoConstraints = false
         return textView
     }()
@@ -33,8 +39,8 @@ class ProjectDetailUIView: UIView {
             ]
         )
         stackView.axis = .vertical
-        stackView.distribution = .equalSpacing
-        stackView.alignment = .fill
+        stackView.distribution = .fill
+        stackView.alignment = .center
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView
@@ -42,8 +48,8 @@ class ProjectDetailUIView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        addViews()
-        configureLayout()
+        self.addViews()
+        self.configureLayout()
     }
     
     required init?(coder: NSCoder) {
@@ -55,6 +61,14 @@ class ProjectDetailUIView: UIView {
     }
     
     private func configureLayout() {
+        
+        NSLayoutConstraint.activate([
+            self.textfield.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, multiplier: 0.9),
+            self.datePicker.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, multiplier: 1.0),
+            self.textView.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, multiplier: 0.9),
+            self.textView.heightAnchor.constraint(equalTo: self.safeAreaLayoutGuide.heightAnchor, multiplier: 0.6)
+        ])
+        
         NSLayoutConstraint.activate([
             self.stackView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 10),
             self.stackView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -10),

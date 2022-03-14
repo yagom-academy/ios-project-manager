@@ -16,7 +16,7 @@ class DetailAddViewController: UIViewController {
     }
     
     private func configureNavigationItem() {
-        self.navigationItem.title = "Todo"
+        self.navigationItem.title = "TODO"
         self.navigationController?.navigationBar.backgroundColor = .white
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(didtappedRightBarButton))
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(didtappedleftBarButton))

@@ -11,14 +11,8 @@ final class MainCoordinator: Coordinator {
     }
 
     func start() {
-        
-        guard let repository = try? repositoryFactory.assignRepository(repository: .mock)
-        else {
-            return
-        }
-        
         let viewController = MainViewController()
-        viewController.viewModel = MainViewModel(useCase: ProjectManagerUseCase(repository: repository), coordinator: self)
+        viewController.viewModel = MainViewModel(useCase: ProjectManagerUseCase(repository: currentRepository), coordinator: self)
         navigationController?.setViewControllers([viewController], animated: false)
 
     }
