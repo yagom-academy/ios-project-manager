@@ -9,19 +9,19 @@ import Foundation
 
 protocol TaskViewModel {
     var presentErrorAlert: ((Error) -> Void)? { get set }
-    var taskDidCreated: (() -> Void)? { get set }
-    var taskDidDeleted: ((Int, TaskState) -> Void)? { get set }
-    var taskDidChanged: ((Int, TaskState) -> Void)? { get set }
-    var taskDidMoved: ((Int, TaskState, TaskState) -> Void)? { get set }
-    var tasksDidUpdated: (() -> Void)? { get set }
-    var didSelectTask: ((Int, Task) -> Void)? { get set }
+    var reloadTableView: (() -> Void)? { get set }
+    var deleteRows: ((Int, TaskState) -> Void)? { get set }
+    var reloadRows: ((Int, TaskState) -> Void)? { get set }
+    var moveRows: ((Int, TaskState, TaskState) -> Void)? { get set }
+    var reloadTableViews: (() -> Void)? { get set }
+    var didSelectRows: ((Int, Task) -> Void)? { get set }
     
-    func viewWillAppear()
+    func onViewWillAppear()
     func createTask(title: String, description: String, deadline: Date)
-    func updateRow(at index: Int, title: String, description: String, deadline: Date, from state: TaskState)
-    func deleteRow(at index: Int, from state: TaskState)
-    func move(at index: Int, from oldState: TaskState, to newState: TaskState)
+    func updateTask(at index: Int, title: String, description: String, deadline: Date, from state: TaskState)
+    func deleteTask(at index: Int, from state: TaskState)
+    func moveTask(at index: Int, from oldState: TaskState, to newState: TaskState)
     func task(at index: Int, from state: TaskState) -> TaskCell?
-    func didSelectRow(at index: Int, from state: TaskState)
+    func selectTask(at index: Int, from state: TaskState)
     func count(of state: TaskState) -> Int
 }

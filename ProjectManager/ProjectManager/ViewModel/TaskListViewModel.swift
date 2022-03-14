@@ -10,12 +10,12 @@ import Foundation
 final class TaskListViewModel: TaskViewModel {
     // MARK: - Output
     var presentErrorAlert: ((Error) -> Void)?
-    var taskDidCreated: (() -> Void)?
-    var taskDidDeleted: ((Int, TaskState) -> Void)?
-    var taskDidChanged: ((Int, TaskState) -> Void)?
-    var taskDidMoved: ((Int, TaskState, TaskState) -> Void)?
-    var tasksDidUpdated: (() -> Void)?
-    var didSelectTask: ((Int, Task) -> Void)?
+    var reloadTableView: (() -> Void)?
+    var deleteRows: ((Int, TaskState) -> Void)?
+    var reloadRows: ((Int, TaskState) -> Void)?
+    var moveRows: ((Int, TaskState, TaskState) -> Void)?
+    var reloadTableViews: (() -> Void)?
+    var didSelectRows: ((Int, Task) -> Void)?
     
     private let taskManager: TaskMangeable
     private(set) var tasks = [Task]()
@@ -24,9 +24,9 @@ final class TaskListViewModel: TaskViewModel {
         self.taskManager = taskManager
     }
     
-    func viewWillAppear() {
+    func onViewWillAppear() {
         updateTasks()
-        tasksDidUpdated?()
+        reloadTableViews?()
     }
     
     private func updateTasks() {
@@ -36,24 +36,24 @@ final class TaskListViewModel: TaskViewModel {
     func createTask(title: String, description: String, deadline: Date) {
         taskManager.create(title: title, description: description, deadline: deadline)
         updateTasks()
-        taskDidCreated?()        
+        reloadTableView?()        
     }
     
-    func updateRow(at index: Int, title: String, description: String, deadline: Date, from state: TaskState) {
+    func updateTask(at index: Int, title: String, description: String, deadline: Date, from state: TaskState) {
         taskManager.update(at: index, title: title, description: description, deadline: deadline, from: state)
-        taskDidChanged?(index, state)
+        reloadRows?(index, state)
     }
     
-    func deleteRow(at index: Int, from state: TaskState) {
+    func deleteTask(at index: Int, from state: TaskState) {
         taskManager.delete(at: index, from: state)
         updateTasks()
-        taskDidDeleted?(index, state)
+        deleteRows?(index, state)
     }
     
-    func move(at index: Int, from oldState: TaskState, to newState: TaskState) {
+    func moveTask(at index: Int, from oldState: TaskState, to newState: TaskState) {
         taskManager.changeState(at: index, from: oldState, to: newState)
         updateTasks()
-        taskDidMoved?(index, oldState, newState)
+        moveRows?(index, oldState, newState)
     }
     
     func task(at index: Int, from state: TaskState) -> TaskCell? {
@@ -76,13 +76,13 @@ final class TaskListViewModel: TaskViewModel {
         return taskCell
     }
     
-    func didSelectRow(at index: Int, from state: TaskState) {
+    func selectTask(at index: Int, from state: TaskState) {
         guard let fetchedTask = taskManager.fetch(at: index, from: state) else {
             presentErrorAlert?(CollectionError.indexOutOfRange)
             return
         }
         
-        didSelectTask?(index, fetchedTask)
+        didSelectRows?(index, fetchedTask)
     }
     
     func count(of state: TaskState) -> Int {

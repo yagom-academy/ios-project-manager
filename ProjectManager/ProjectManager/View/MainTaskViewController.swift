@@ -44,37 +44,37 @@ final class MainTaskViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        taskListViewModel.viewWillAppear()
+        taskListViewModel.onViewWillAppear()
     }
     
     // MARK: - Configure ViewModel
 
     private func configureTaskListViewModel() {
-        taskListViewModel.tasksDidUpdated = { [weak self] in
+        taskListViewModel.reloadTableViews = { [weak self] in
             self?.taskInWaitingTableView.reloadData()
             self?.taskInProgressTableView.reloadData()
             self?.taskInDoneTableView.reloadData()
         }
         
-        taskListViewModel.taskDidCreated = { [weak self] in
+        taskListViewModel.reloadTableView = { [weak self] in
             self?.taskInWaitingTableView.reloadData()
         }
         
-        taskListViewModel.taskDidDeleted = { [weak self] (index, state) in
+        taskListViewModel.deleteRows = { [weak self] (index, state) in
             let indexPath = IndexPath(row: index, section: 0)
             let taskTableView = self?.fetchTaskTableView(with: state)
             taskTableView?.deleteRows(at: [indexPath], with: .fade)
             self?.refreshTaskTableHeader(state: state)
         }
         
-        taskListViewModel.taskDidChanged = { [weak self] (index, state) in
+        taskListViewModel.reloadRows = { [weak self] (index, state) in
             let indexPath = IndexPath(row: index, section: 0)
             let taskTableView = self?.fetchTaskTableView(with: state)
             taskTableView?.reloadRows(at: [indexPath], with: .fade)
             self?.refreshTaskTableHeader(state: state)
         }
         
-        taskListViewModel.taskDidMoved = { [weak self] (index, oldState, newState) in
+        taskListViewModel.moveRows = { [weak self] (index, oldState, newState) in
             let indexPath = IndexPath(row: index, section: 0)
             let prevTaskTableView = self?.fetchTaskTableView(with: oldState)
             prevTaskTableView?.deleteRows(at: [indexPath], with: .fade)
@@ -86,7 +86,7 @@ final class MainTaskViewController: UIViewController {
             self?.refreshTaskTableHeader(state: newState)
         }
         
-        taskListViewModel.didSelectTask = { [weak self] (index, selectedTask) in
+        taskListViewModel.didSelectRows = { [weak self] (index, selectedTask) in
             guard let self = self else {
                 return
             }
@@ -193,7 +193,7 @@ final class MainTaskViewController: UIViewController {
         
         if gesture.state == .began {
             let alert = createAlert(with: newStates) { state in
-                self.taskListViewModel.move(at: indexPath.row, from: oldState, to: state)
+                self.taskListViewModel.moveTask(at: indexPath.row, from: oldState, to: state)
             }
 
             alert.popoverPresentationController?.sourceView = tableView.cellForRow(at: indexPath)
@@ -258,7 +258,7 @@ extension MainTaskViewController: UITableViewDelegate {
             return
         }
         
-        taskListViewModel.didSelectRow(at: indexPath.row, from: state)        
+        taskListViewModel.selectTask(at: indexPath.row, from: state)        
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -267,7 +267,7 @@ extension MainTaskViewController: UITableViewDelegate {
                 return
             }
             
-            self.taskListViewModel.deleteRow(at: indexPath.row, from: state)
+            self.taskListViewModel.deleteTask(at: indexPath.row, from: state)
             completionHandler(true)
         }
         deleteAction.backgroundColor = .red

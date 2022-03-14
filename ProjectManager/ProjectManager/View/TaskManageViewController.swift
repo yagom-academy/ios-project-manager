@@ -199,7 +199,7 @@ final class TaskManageViewController: UIViewController {
             return
         }
         
-        taskListViewModel.updateRow(at: selectedIndex,
+        taskListViewModel.updateTask(at: selectedIndex,
                                     title: title,
                                     description: description,
                                     deadline: deadlineDatePicker.date,
