@@ -25,4 +25,8 @@ extension DefaultProjectListUseCase: ProjectListUseCase {
     func fetch() -> BehaviorSubject<[Project]> {
         return repository.fetch()
     }
+    
+    func fetch(id: UUID) -> Single<Project> {
+        return repository.fetch(id: id)
+    }
 }

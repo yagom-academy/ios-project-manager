@@ -26,4 +26,8 @@ extension DefaultProjectRepository: ProjectRepository {
     func fetch() -> BehaviorSubject<[Project]> {
         return storage.fetch()
     }
+    
+    func fetch(id: UUID) -> Single<Project> {
+        return storage.fetch(id: id)
+    }
 }

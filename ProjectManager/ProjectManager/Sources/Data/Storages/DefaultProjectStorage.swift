@@ -55,6 +55,19 @@ extension DefaultProjectStorage: ProjectStorage {
     func fetch() -> BehaviorSubject<[Project]> {
         return projectStore
     }
+    
+    func fetch(id: UUID) -> Single<Project> {
+        guard let project = projects.filter({ $0.id == id }).first else {
+            return Single.create { observer in
+                observer(.failure(StorageError.notFound))
+                return Disposables.create()
+            }
+        }
+        return Single.create { observer in
+            observer(.success(project))
+            return Disposables.create()
+        }
+    }
 }
 
 enum StorageError: LocalizedError {

@@ -12,14 +12,14 @@ class ProjectCell: UITableViewCell {
         titleLabel.text = project.title
         descriptionLabel.text = project.description
         dateLabel.text = Date.formattedString(project.date)
-        changedDataColor(project.date)
+        changedDateColor(project.date)
     }
     
-    private func changedDataColor(_ date: Date) {
+    private func changedDateColor(_ date: Date) {
         if date.isPastDeadline {
-            titleLabel.textColor = .systemRed
+            dateLabel.textColor = .systemRed
         } else {
-            titleLabel.textColor = .black
+            dateLabel.textColor = .black
         }
     }
 }

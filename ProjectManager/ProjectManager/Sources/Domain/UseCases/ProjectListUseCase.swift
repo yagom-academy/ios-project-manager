@@ -9,4 +9,5 @@ protocol ProjectListUseCase {
     @discardableResult
     func delete(_ item: Project?) -> Single<Project>
     func fetch() -> BehaviorSubject<[Project]>
+    func fetch(id: UUID) -> Single<Project>
 }
