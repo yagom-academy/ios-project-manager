@@ -44,7 +44,7 @@ final class MainTaskViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        taskListViewModel.didLoaded()
+        taskListViewModel.viewWillAppear()
     }
     
     // MARK: - Configure ViewModel

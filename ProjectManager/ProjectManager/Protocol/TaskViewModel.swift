@@ -16,7 +16,7 @@ protocol TaskViewModel {
     var tasksDidUpdated: (() -> Void)? { get set }
     var didSelectTask: ((Int, Task) -> Void)? { get set }
     
-    func didLoaded()
+    func viewWillAppear()
     func createTask(title: String, description: String, deadline: Date)
     func updateRow(at index: Int, title: String, description: String, deadline: Date, from state: TaskState)
     func deleteRow(at index: Int, from state: TaskState)

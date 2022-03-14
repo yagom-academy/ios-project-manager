@@ -24,7 +24,7 @@ final class TaskListViewModel: TaskViewModel {
         self.taskManager = taskManager
     }
     
-    func didLoaded() {
+    func viewWillAppear() {
         updateTasks()
         tasksDidUpdated?()
     }
