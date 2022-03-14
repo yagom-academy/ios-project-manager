@@ -47,7 +47,7 @@ final class DetailViewModel {
         
         input.didChangeTitleText
             .subscribe(onNext: { title in
-                currentTitle.accept(title ?? "")
+                currentTitle.accept(title)
             }).disposed(by: disposeBag)
         
         input.didChangeDatePicker
@@ -57,7 +57,7 @@ final class DetailViewModel {
         
         input.didChangeDescription
             .subscribe(onNext: { description in
-                currentDescription.accept(description ?? "")
+                currentDescription.accept(description)
             }).disposed(by: disposeBag)
         
         input.didTapRightBarButton
