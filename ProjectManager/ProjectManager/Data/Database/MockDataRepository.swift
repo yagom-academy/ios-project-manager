@@ -18,7 +18,6 @@ class MockDataRepository: DataRepository {
         (self.dataBase.filter{ $0.identifier == identifier }).first
     }
     
-    
     func update(identifier: String, how object: Listable) {
         let listToUpdatedIndex = self.dataBase.enumerated().filter{ $0.element.identifier == identifier }.map { $0.offset }.first
         self.dataBase[listToUpdatedIndex ?? .zero] = object

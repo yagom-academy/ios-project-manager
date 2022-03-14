@@ -10,4 +10,9 @@ class MainViewModel: ViewModel {
         self.useCase = useCase
         self.coordinator = coordinator
     }
+    
+    func viewWillAppear() {
+        let todo = useCase.sortProjectProgressState(state: ProgressState.todo)
+      
+    }
 }

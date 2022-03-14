@@ -1,11 +1,10 @@
 import Foundation
+import RxSwift
 
 final class ProjectManagerUseCase: ProjectManagingUseCase {
     
+    var differenceHistories: [(state: ManageState, identifier: String, object: Listable)] = [] 
     var repository: DataRepository?
-    var todoProjects = [Listable]()
-    var doingProjects = [Listable]()
-    var doneProjects = [Listable]()
 
     init(repository: DataRepository) {
         self.repository = repository
@@ -30,9 +29,14 @@ final class ProjectManagerUseCase: ProjectManagingUseCase {
         self.repository?.delete(identifier: identifier)
     }
     
-    func sortProjectProgressState(state: ProgressState) -> [Listable] {
+    func sortProjectProgressState(state: ProgressState) -> Observable<[Listable]> {
         let list = repository?.extractAll()
         let filteredList = list?.filter{ $0.progressState == state.description } ?? []
-        return filteredList
+        return Observable.of(filteredList)
     }
+    
+    func saveDifference(method: ManageState, identifier: String, object: Listable) {
+        differenceHistories.append((state: method, identifier: identifier, object: object))
+    }
+    
 }
