@@ -22,11 +22,11 @@ final class MainTaskViewController: UIViewController {
     private let taskInProgressTableView = TaskTableView(state: .progress)
     private let taskInDoneTableView = TaskTableView(state: .done)
     
-    private var taskListViewModel: TaskViewModel
+    private let taskListViewModel: TaskListViewModel
     
     // MARK: - Life Cycle
 
-    init(taskListViewModel: TaskViewModel) {
+    init(taskListViewModel: TaskListViewModel) {
         self.taskListViewModel = taskListViewModel
         super.init(nibName: nil, bundle: nil)
     }
