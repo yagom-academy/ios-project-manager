@@ -64,14 +64,12 @@ final class MainTaskViewController: UIViewController {
             let indexPath = IndexPath(row: index, section: 0)
             let taskTableView = self?.fetchTaskTableView(with: state)
             taskTableView?.deleteRows(at: [indexPath], with: .fade)
-            self?.refreshTaskTableHeader(state: state)
         }
         
         taskListViewModel.reloadRows = { [weak self] (index, state) in
             let indexPath = IndexPath(row: index, section: 0)
             let taskTableView = self?.fetchTaskTableView(with: state)
             taskTableView?.reloadRows(at: [indexPath], with: .fade)
-            self?.refreshTaskTableHeader(state: state)
         }
         
         taskListViewModel.moveRows = { [weak self] (index, oldState, newState) in
@@ -81,9 +79,6 @@ final class MainTaskViewController: UIViewController {
             
             let currentTaskTableView = self?.fetchTaskTableView(with: newState)
             currentTaskTableView?.reloadData()
-            
-            self?.refreshTaskTableHeader(state: oldState)
-            self?.refreshTaskTableHeader(state: newState)
         }
         
         taskListViewModel.didSelectRows = { [weak self] (index, selectedTask) in
@@ -96,6 +91,12 @@ final class MainTaskViewController: UIViewController {
             taskManageNavigationViewController.modalPresentationStyle = .formSheet
     
             self.present(taskManageNavigationViewController, animated: true, completion: nil)
+        }
+        
+        taskListViewModel.taskCount = { [weak self] items in
+            items.forEach {
+                self?.refreshTaskTableHeader(state: $0.state, count: $0.count)
+            }
         }
     }
     
@@ -110,11 +111,10 @@ final class MainTaskViewController: UIViewController {
         }
     }
     
-    private func refreshTaskTableHeader(state: TaskState) {
+    private func refreshTaskTableHeader(state: TaskState, count: Int) {
         let taskTableView = fetchTaskTableView(with: state)
-        let taskCount = taskListViewModel.count(of: state)
         let taskTableHeaderView = taskTableView.headerView(forSection: 0) as? TaskTableHeaderView
-        taskTableHeaderView?.configureUI(state: state, count: taskCount)
+        taskTableHeaderView?.configureUI(state: state, count: count)
     }
     
     // MARK: - Configure UI

@@ -16,6 +16,7 @@ final class TaskListViewModel: TaskViewModel {
     var moveRows: ((Int, TaskState, TaskState) -> Void)?
     var reloadTableViews: (() -> Void)?
     var didSelectRows: ((Int, Task) -> Void)?
+    var taskCount: (([(count: Int, state: TaskState)]) -> Void)?
     
     private let taskManager: TaskMangeable
     private(set) var tasks = [Task]()
@@ -36,7 +37,8 @@ final class TaskListViewModel: TaskViewModel {
     func createTask(title: String, description: String, deadline: Date) {
         taskManager.create(title: title, description: description, deadline: deadline)
         updateTasks()
-        reloadTableView?()        
+        reloadTableView?()
+        taskCount?([(count(of: .waiting), .waiting)])
     }
     
     func updateTask(at index: Int, title: String, description: String, deadline: Date, from state: TaskState) {
@@ -48,12 +50,14 @@ final class TaskListViewModel: TaskViewModel {
         taskManager.delete(at: index, from: state)
         updateTasks()
         deleteRows?(index, state)
+        taskCount?([(count(of: state), state)])
     }
     
     func moveTask(at index: Int, from oldState: TaskState, to newState: TaskState) {
         taskManager.changeState(at: index, from: oldState, to: newState)
         updateTasks()
         moveRows?(index, oldState, newState)
+        taskCount?([(count(of: oldState), oldState), (count(of: newState), newState)])
     }
     
     func task(at index: Int, from state: TaskState) -> TaskCell? {

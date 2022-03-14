@@ -15,6 +15,7 @@ protocol TaskViewModel {
     var moveRows: ((Int, TaskState, TaskState) -> Void)? { get set }
     var reloadTableViews: (() -> Void)? { get set }
     var didSelectRows: ((Int, Task) -> Void)? { get set }
+    var taskCount: (([(count: Int, state: TaskState)]) -> Void)? { get set }
     
     func onViewWillAppear()
     func createTask(title: String, description: String, deadline: Date)
