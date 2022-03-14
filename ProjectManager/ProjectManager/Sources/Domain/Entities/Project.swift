@@ -36,14 +36,14 @@ enum ProjectState: String, CaseIterable {
         }
     }
     
-    var excluded: (String, String) {
+    var excluded: [String] {
         switch self {
         case .todo:
-            return (ProjectState.doing.rawValue, ProjectState.done.rawValue)
+            return [ProjectState.doing.rawValue, ProjectState.done.rawValue]
         case .doing:
-            return (ProjectState.todo.rawValue, ProjectState.done.rawValue)
+            return [ProjectState.todo.rawValue, ProjectState.done.rawValue]
         case .done:
-            return (ProjectState.todo.rawValue, ProjectState.doing.rawValue)
+            return [ProjectState.todo.rawValue, ProjectState.doing.rawValue]
         }
     }
 }

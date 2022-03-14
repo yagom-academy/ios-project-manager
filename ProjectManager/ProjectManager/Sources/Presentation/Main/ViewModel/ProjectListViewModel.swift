@@ -58,23 +58,10 @@ final class ProjectListViewModel {
         input.didTapPopoverButton.forEach {
             $0.subscribe(onNext: { data in
                 data.flatMap { cell, project in
-                    
-                    self.coordinator?.showActionSheet(
-                        sourceView: cell,
-                        titles: project.status.excluded,
-                        topHandler: { _ in
-                            self.useCase.changedState(
-                                project,
-                                state: ProjectState(rawValue: project.status.excluded.0) ?? ProjectState.todo
-                            )
-                        },
-                        bottomHandler: { _ in
-                            self.useCase.changedState(
-                                project,
-                                state: ProjectState(rawValue: project.status.excluded.1) ?? ProjectState.todo
-                            )
-                        }
-                    )
+                    self.coordinator?.showActionSheet(sourceView: cell, titles: project.status.excluded)
+                        .subscribe(onNext: { state in
+                            self.useCase.changedState(project, state: state)
+                        }).disposed(by: disposeBag)
                 }
             }).disposed(by: disposeBag)
         }

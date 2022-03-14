@@ -1,4 +1,11 @@
 import UIKit
+import RxCocoa
+import RxSwift
+
+enum ActionType: CaseIterable {
+    case top
+    case bottom
+}
 
 final class MainCoordinator {
     let navigationController: UINavigationController
@@ -32,23 +39,32 @@ final class MainCoordinator {
         )
     }
     
-    func showActionSheet(
-        sourceView: UIView,
-        titles: (String, String),
-        topHandler: @escaping (UIAlertAction) -> Void,
-        bottomHandler: @escaping (UIAlertAction) -> Void
-    ) {
-        let topAction = UIAlertAction(title: "Move to \(titles.0)", style: .default, handler: topHandler)
-        let bottomAction = UIAlertAction(title: "Move to \(titles.1)", style: .default, handler: bottomHandler)
-        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        alert.addAction(topAction)
-        alert.addAction(bottomAction)
-        if let popoverController = alert.popoverPresentationController {
-            popoverController.sourceView = sourceView
-            let rect = CGRect(x: .zero, y: .zero, width: sourceView.bounds.width, height: sourceView.bounds.height / 2)
-            popoverController.sourceRect = rect
-            popoverController.permittedArrowDirections = [.up, .down]
+    func showActionSheet(sourceView: UIView, titles: [String]) -> Observable<ProjectState> {
+        return Observable.create { observer in
+            let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+            ActionType.allCases.enumerated().forEach { index, _ in
+                let action = UIAlertAction(title: "Move to \(titles[index])", style: .default) { _ in
+                    observer.onNext(ProjectState(rawValue: titles[index]) ?? ProjectState.todo)
+                    observer.onCompleted()
+                }
+                alert.addAction(action)
+            }
+            if let popoverController = alert.popoverPresentationController {
+                popoverController.sourceView = sourceView
+                let rect = CGRect(
+                    x: .zero,
+                    y: .zero,
+                    width: sourceView.bounds.width,
+                    height: sourceView.bounds.height / 2
+                )
+                popoverController.sourceRect = rect
+                popoverController.permittedArrowDirections = [.up, .down]
+            }
+            self.navigationController.topViewController?.present(alert, animated: true)
+            
+            return Disposables.create {
+                alert.dismiss(animated: true, completion: nil)
+            }
         }
-        navigationController.topViewController?.present(alert, animated: true)
     }
 }
