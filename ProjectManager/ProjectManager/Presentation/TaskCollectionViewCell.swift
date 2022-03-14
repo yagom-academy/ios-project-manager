@@ -2,8 +2,8 @@ import UIKit
 
 class TaskCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var TaskListTitleLabel: UILabel!
-    @IBOutlet weak var TaskListCountImageView: UIImageView!
+    @IBOutlet weak var taskListTitleLabel: UILabel!
+    @IBOutlet weak var taskListCountImageView: UIImageView!
 
     weak var parentViewController: TaskCollectionViewController?
     private var taskList: TaskList?
@@ -19,8 +19,8 @@ class TaskCollectionViewCell: UICollectionViewCell {
     }
 
     private func configureHeader() {
-        TaskListTitleLabel.text = taskList?.title
-        TaskListCountImageView.image = UIImage(systemName: "\(taskList?.items.count ?? 0).circle.fill")
+        taskListTitleLabel.text = taskList?.title
+        taskListCountImageView.image = UIImage(systemName: "\(taskList?.items.count ?? 0).circle.fill")
     }
 }
 

@@ -31,8 +31,8 @@ class Task: Identifiable {
 protocol TaskViewModelable {
     var taskLists: [TaskList] { get set }
 
-    func countTaskList() -> Int
-    func didLoaded()
+    func countOfTaskList() -> Int
+    func reloadTaskList()
 
     func create(with title: String)
     func update(taskList: TaskListEntity)
@@ -56,26 +56,22 @@ final class TaskViewModel: TaskViewModelable {
 
     init(useCase: TaskUseCase) {
         self.useCase = useCase
-        didLoaded()
+        self.reloadTaskList()
     }
 
     func formatDate(_ date: Date) -> String {
         return formatter.string(from: date)
     }
 
-    func countTaskList() -> Int {
+    func countOfTaskList() -> Int {
         return taskLists.count
     }
 
-    func didLoaded() {
+    func reloadTaskList() {
         updateList()
     }
 
-    private func updateList() {
-        //        useCase.read { [weak self] tasks in
-        //            self?.taskLists = tasks
-        //        }
-    }
+    private func updateList() {}
 
     func create(with title: String) {
         useCase.create(with: title) { [weak self] success in

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="XwZ-n9-Sve">
-    <device id="ipad12_9" orientation="landscape" layout="fullscreen" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Image references" minToolsVersion="12.0"/>
@@ -15,7 +14,7 @@
             <objects>
                 <collectionViewController interfaceStyle="light" id="GWZ-lm-FFG" customClass="TaskCollectionViewController" customModule="ProjectManager" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" dataMode="prototypes" id="Ira-R5-5XC">
-                        <rect key="frame" x="0.0" y="0.0" width="1366" height="1024"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemGray5Color"/>
                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="15" minimumInteritemSpacing="15" id="I4K-ih-N8Y">
@@ -26,7 +25,7 @@
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="yRC-Xj-HQg" userLabel="Collection View Cell" customClass="TaskCollectionViewCell" customModule="ProjectManager" customModuleProvider="target">
-                                <rect key="frame" x="15" y="20" width="461" height="934"/>
+                                <rect key="frame" x="15" y="-192" width="461" height="934"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="3M2-GY-2Ok">
                                     <rect key="frame" x="0.0" y="0.0" width="461" height="934"/>
@@ -148,9 +147,9 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <outlet property="TaskListCountImageView" destination="7tH-Pz-UF5" id="Tqi-Zw-5hQ"/>
-                                    <outlet property="TaskListTitleLabel" destination="DgA-HJ-ASN" id="11h-Pf-dJe"/>
                                     <outlet property="tableView" destination="DEB-nv-Jut" id="1yI-qh-7XG"/>
+                                    <outlet property="taskListCountImageView" destination="7tH-Pz-UF5" id="Tqi-Zw-5hQ"/>
+                                    <outlet property="taskListTitleLabel" destination="DgA-HJ-ASN" id="11h-Pf-dJe"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -178,11 +177,11 @@
             <objects>
                 <viewController storyboardIdentifier="TaskDetailViewController" modalPresentationStyle="formSheet" id="edw-6f-98c" userLabel="Task Detail View Controller" customClass="TaskDetailViewController" customModule="ProjectManager" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ltp-p7-9gv">
-                        <rect key="frame" x="0.0" y="0.0" width="540" height="620"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dRi-QN-iOZ">
-                                <rect key="frame" x="0.0" y="0.0" width="540" height="56"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="56"/>
                                 <items>
                                     <navigationItem title="Title" leftItemsSupplementBackButton="YES" id="LpQ-97-1QX">
                                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="1bT-6U-wmY">
@@ -200,12 +199,12 @@
                                 </items>
                             </navigationBar>
                             <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Title" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="No8-Ox-TGm">
-                                <rect key="frame" x="20" y="76" width="500" height="34"/>
+                                <rect key="frame" x="20" y="76" width="560" height="34"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <datePicker contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="RlZ-vU-BbI">
-                                <rect key="frame" x="110" y="120" width="320" height="216"/>
+                                <rect key="frame" x="140" y="120" width="320" height="216"/>
                                 <date key="minimumDate" timeIntervalSinceReferenceDate="-978267600">
                                     <!--1970-01-01 11:00:00 +0000-->
                                 </date>
@@ -214,7 +213,7 @@
                                 </date>
                             </datePicker>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aQC-8B-NRb">
-                                <rect key="frame" x="20" y="346" width="500" height="254"/>
+                                <rect key="frame" x="20" y="346" width="560" height="214"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <color key="textColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>

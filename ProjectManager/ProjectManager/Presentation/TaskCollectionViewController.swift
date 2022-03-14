@@ -5,7 +5,7 @@ class TaskCollectionViewController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel?.didLoaded()
+        viewModel?.reloadTaskList()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -23,7 +23,7 @@ class TaskCollectionViewController: UICollectionViewController {
             guard let titleName = alertController.textFields?.first?.text, titleName.isNotEmpty else { return }
             self.viewModel?.taskLists.append(TaskList(title: titleName))
 
-            let lastIndexOfTaskList = (self.viewModel?.countTaskList() ?? .zero) - 1
+            let lastIndexOfTaskList = (self.viewModel?.countOfTaskList() ?? .zero) - 1
             let lastIndexPath = IndexPath(item: lastIndexOfTaskList, section: 0)
 
             self.collectionView.insertItems(at: [lastIndexPath])
@@ -40,7 +40,7 @@ class TaskCollectionViewController: UICollectionViewController {
 
 extension TaskCollectionViewController: UICollectionViewDelegateFlowLayout {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel?.countTaskList() ?? .zero
+        return viewModel?.countOfTaskList() ?? .zero
     }
 
     override func collectionView(
