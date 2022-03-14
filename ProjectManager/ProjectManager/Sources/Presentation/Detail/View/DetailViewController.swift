@@ -21,9 +21,9 @@ class DetailViewController: UIViewController {
         let input = DetailViewModel.Input(
             didTapRightBarButton: rightBarButton.rx.tap.asObservable(),
             didTapLeftBarButton: leftBarButton.rx.tap.asObservable(),
-            didChangeTitleText: titleTextField.rx.text.asObservable(),
-            didChangeDatePicker: datePicker.rx.date.asObservable(),
-            didChangeDescription: descriptionTextView.rx.text.asObservable())
+            didChangeTitleText: titleTextField.rx.text.changed.asObservable(),
+            didChangeDatePicker: datePicker.rx.date.changed.asObservable(),
+            didChangeDescription: descriptionTextView.rx.text.changed.asObservable())
         let output = viewModel?.transform(input: input)
         
         output?.isEditable.subscribe(onNext: { isEditable in
@@ -44,7 +44,7 @@ class DetailViewController: UIViewController {
             .disposed(by: disposeBag)
         
         output?.projectTitle
-            .bind(to: titleTextField.rx.value)
+            .bind(to: titleTextField.rx.text)
             .disposed(by: disposeBag)
     
         output?.projectDate

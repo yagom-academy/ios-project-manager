@@ -41,9 +41,9 @@ final class DetailViewModel {
     
     func transform(input: Input) -> Output {
         let isEditable = BehaviorRelay<Bool>(value: mode == .add ? true : false)
-        let currentTitle = BehaviorRelay<String>(value: "")
-        let currentDate = BehaviorRelay<Date>(value: Date())
-        let currentDescription = BehaviorRelay<String>(value: "")
+        let currentTitle = BehaviorRelay<String?>(value: nil)
+        let currentDate = BehaviorRelay<Date?>(value: nil)
+        let currentDescription = BehaviorRelay<String?>(value: nil)
         
         input.didChangeTitleText
             .subscribe(onNext: { title in
@@ -65,9 +65,9 @@ final class DetailViewModel {
                 if isEditable.value {
                     let newProject = Project(
                         id: self.project.id,
-                        title: currentTitle.value,
-                        description: currentDescription.value,
-                        date: currentDate.value,
+                        title: currentTitle.value ?? self.project.title,
+                        description: currentDescription.value ?? self.project.description,
+                        date: currentDate.value ?? self.project.date,
                         status: self.project.status
                     )
                     if self.mode == .edit {
