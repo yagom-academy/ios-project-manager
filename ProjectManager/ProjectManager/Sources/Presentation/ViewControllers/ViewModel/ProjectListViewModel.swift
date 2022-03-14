@@ -8,7 +8,6 @@ final class ProjectListViewModel {
     private(set) var projectList: [[Project]] = [[], [], []]
     private let useCase: ProjectListUseCase
     private let coordinator: MainCoordinator?
-    private let disposeBag = DisposeBag()
     
     init(useCase: ProjectListUseCase = DefaultProjectListUseCase(), coordinator: MainCoordinator) {
         self.useCase = useCase
@@ -26,7 +25,7 @@ final class ProjectListViewModel {
         let projectList: [Observable<[Project]>]
     }
     
-    func transform(input: Input) -> Output {
+    func transform(input: Input, disposeBag: DisposeBag) -> Output {
         let projectList = [
                 BehaviorSubject<[Project]>(value: []),
                 BehaviorSubject<[Project]>(value: []),
@@ -78,7 +77,7 @@ final class ProjectListViewModel {
                         }
                     )
                 }
-            }).disposed(by: self.disposeBag)
+            }).disposed(by: disposeBag)
         }
         
         input.didSwapeToTapDeleteButton

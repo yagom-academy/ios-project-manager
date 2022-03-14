@@ -15,7 +15,7 @@ class MainViewController: UIViewController {
     }
     
     var viewModel: ProjectListViewModel?
-    private let bag = DisposeBag()
+    private let disposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +37,7 @@ class MainViewController: UIViewController {
             let headerNib = UINib(nibName: ProjectHeader.nibName, bundle: .main)
             tableView.register(headerNib, forHeaderFooterViewReuseIdentifier: ProjectHeader.identifier)
             tableView.rx.itemSelected
-                .subscribe(onNext: { tableView.deselectRow(at: $0, animated: true) }).disposed(by: bag)
+                .subscribe(onNext: { tableView.deselectRow(at: $0, animated: true) }).disposed(by: disposeBag)
         }
     }
     
@@ -47,7 +47,7 @@ class MainViewController: UIViewController {
             didTapAddButton: addButton.rx.tap.asObservable(),
             didTapPopoverButton: longPressGesture.map {
                 $0.rx.event
-                    .map { (longPressGesture: UIGestureRecognizer) -> (UITableViewCell ,Project)? in
+                    .map { (longPressGesture: UIGestureRecognizer) -> (UITableViewCell, Project)? in
                         guard let tableView = longPressGesture.view as? UITableView else {
                             return nil
                         }
@@ -61,7 +61,7 @@ class MainViewController: UIViewController {
             },
             didSwapeToTapDeleteButton: tableViews.map { $0.rx.modelDeleted(Project.self).asObservable() }
         )
-        let output = viewModel?.transform(input: input)
+        let output = viewModel?.transform(input: input, disposeBag: disposeBag)
         
         output?.projectList.enumerated().forEach { index, observable in
             let tableView = self.tableViews[index]
@@ -71,7 +71,7 @@ class MainViewController: UIViewController {
                 ) { _, project, cell in
                     cell.configure(project)
             }
-            .disposed(by: bag)
+            .disposed(by: disposeBag)
         }
     }
 }

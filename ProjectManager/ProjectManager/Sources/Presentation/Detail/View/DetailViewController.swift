@@ -24,7 +24,7 @@ class DetailViewController: UIViewController {
             didChangeTitleText: titleTextField.rx.text.changed.asObservable(),
             didChangeDatePicker: datePicker.rx.date.changed.asObservable(),
             didChangeDescription: descriptionTextView.rx.text.changed.asObservable())
-        let output = viewModel?.transform(input: input)
+        let output = viewModel?.transform(input: input, disposeBag: disposeBag)
         
         output?.isEditable
             .bind(to:

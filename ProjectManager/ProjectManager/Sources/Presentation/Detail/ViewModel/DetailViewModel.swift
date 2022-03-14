@@ -13,7 +13,6 @@ final class DetailViewModel {
     private var project: Project
     private let coordinator: DetailCoordinator
     private let useCase: ProjectListUseCase
-    private let disposeBag = DisposeBag()
     
     init(useCase: ProjectListUseCase, coordinator: DetailCoordinator, project: Project, mode: DetailViewMode) {
         self.useCase = useCase
@@ -39,7 +38,7 @@ final class DetailViewModel {
         let navigationTitle: Observable<String>
     }
     
-    func transform(input: Input) -> Output {
+    func transform(input: Input, disposeBag: DisposeBag) -> Output {
         let isEditable = BehaviorRelay<Bool>(value: mode == .add ? true : false)
         let currentTitle = BehaviorRelay<String?>(value: nil)
         let currentDate = BehaviorRelay<Date?>(value: nil)
@@ -70,20 +69,12 @@ final class DetailViewModel {
                         date: currentDate.value ?? self.project.date,
                         status: self.project.status
                     )
-                    if self.mode == .edit {
-                        self.useCase.update(newProject).subscribe(onSuccess: { project in
-                            self.project = project
-                        }, onFailure: { error in
-                            print(error.localizedDescription)
-                        }).disposed(by: self.disposeBag)
-                    } else {
-                        self.useCase.create(newProject).subscribe(onSuccess: { project in
-                            self.project = project
-                        }, onFailure: { error in
-                            print(error.localizedDescription)
-                        }).disposed(by: self.disposeBag)
-                    }
-                    
+                    let single = self.mode == .edit ? self.useCase.update(newProject) : self.useCase.create(newProject)
+                    single.subscribe(onSuccess: { project in
+                        self.project = project
+                    }, onFailure: { error in
+                        print(error.localizedDescription)
+                    }).disposed(by: disposeBag)
                 }
                 self.coordinator.dismiss()
             }).disposed(by: disposeBag)
