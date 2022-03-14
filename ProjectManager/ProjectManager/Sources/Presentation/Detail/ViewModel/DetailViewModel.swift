@@ -9,10 +9,10 @@ final class DetailViewModel {
         case edit
     }
     
-    private(set) var project: Project
-    private let useCase: ProjectListUseCase
-    private let coordinator: DetailCoordinator
     private var mode: DetailViewMode
+    private var project: Project
+    private let coordinator: DetailCoordinator
+    private let useCase: ProjectListUseCase
     private let disposeBag = DisposeBag()
     
     init(useCase: ProjectListUseCase, coordinator: DetailCoordinator, project: Project, mode: DetailViewMode) {
