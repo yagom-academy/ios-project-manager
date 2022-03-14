@@ -157,7 +157,7 @@ final class MainTaskViewController: UIViewController {
         let taskManageNavigationViewController = UINavigationController(rootViewController: taskManageViewController)
         taskManageNavigationViewController.modalPresentationStyle = .formSheet
         
-        self.present(taskManageNavigationViewController, animated: true, completion: nil)
+        present(taskManageNavigationViewController, animated: true, completion: nil)
     }
     
     // MARK: - Long Press Gesture
@@ -197,7 +197,7 @@ final class MainTaskViewController: UIViewController {
             }
 
             alert.popoverPresentationController?.sourceView = tableView.cellForRow(at: indexPath)
-            self.present(alert, animated: true)
+            present(alert, animated: true)
         }
     }
     
