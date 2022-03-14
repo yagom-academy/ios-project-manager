@@ -62,51 +62,26 @@ final class MainTaskViewController: UIViewController {
         
         taskListViewModel.taskDidDeleted = { [weak self] (index, state) in
             let indexPath = IndexPath(row: index, section: 0)
-            switch state {
-            case .waiting:
-                self?.taskInWaitingTableView.deleteRows(at: [indexPath], with: .fade)
-            case .progress:
-                self?.taskInProgressTableView.deleteRows(at: [indexPath], with: .fade)
-            case .done:
-                self?.taskInDoneTableView.deleteRows(at: [indexPath], with: .fade)
-            }
+            let taskTableView = self?.fetchTaskTableView(with: state)
+            taskTableView?.deleteRows(at: [indexPath], with: .fade)
             self?.refreshTaskTableHeader(state: state)
         }
         
         taskListViewModel.taskDidChanged = { [weak self] (index, state) in
             let indexPath = IndexPath(row: index, section: 0)
-            
-            switch state {
-            case .waiting:
-                self?.taskInWaitingTableView.reloadRows(at: [indexPath], with: .fade)
-            case .progress:
-                self?.taskInProgressTableView.reloadRows(at: [indexPath], with: .fade)
-            case .done:
-                self?.taskInDoneTableView.reloadRows(at: [indexPath], with: .fade)
-            }
+            let taskTableView = self?.fetchTaskTableView(with: state)
+            taskTableView?.reloadRows(at: [indexPath], with: .fade)
             self?.refreshTaskTableHeader(state: state)
         }
         
         taskListViewModel.taskDidMoved = { [weak self] (index, oldState, newState) in
             let indexPath = IndexPath(row: index, section: 0)
+            let prevTaskTableView = self?.fetchTaskTableView(with: oldState)
+            prevTaskTableView?.deleteRows(at: [indexPath], with: .fade)
             
-            switch oldState {
-            case .waiting:
-                self?.taskInWaitingTableView.deleteRows(at: [indexPath], with: .fade)
-            case .progress:
-                self?.taskInProgressTableView.deleteRows(at: [indexPath], with: .fade)
-            case .done:
-                self?.taskInDoneTableView.deleteRows(at: [indexPath], with: .fade)
-            }
+            let currentTaskTableView = self?.fetchTaskTableView(with: newState)
+            currentTaskTableView?.reloadData()
             
-            switch newState {
-            case .waiting:
-                self?.taskInWaitingTableView.reloadData()
-            case .progress:
-                self?.taskInProgressTableView.reloadData()
-            case .done:
-                self?.taskInDoneTableView.reloadData()
-            }
             self?.refreshTaskTableHeader(state: oldState)
             self?.refreshTaskTableHeader(state: newState)
         }
@@ -124,17 +99,19 @@ final class MainTaskViewController: UIViewController {
         }
     }
     
-    private func refreshTaskTableHeader(state: TaskState) {
-        var taskTableView: TaskTableView!
+    private func fetchTaskTableView(with state: TaskState) -> TaskTableView {
         switch state {
         case .waiting:
-            taskTableView = taskInWaitingTableView
+            return taskInWaitingTableView
         case .progress:
-            taskTableView = taskInProgressTableView
+            return taskInProgressTableView
         case .done:
-            taskTableView = taskInDoneTableView
+            return taskInDoneTableView
         }
-        
+    }
+    
+    private func refreshTaskTableHeader(state: TaskState) {
+        let taskTableView = fetchTaskTableView(with: state)
         let taskCount = taskListViewModel.count(of: state)
         let taskTableHeaderView = taskTableView.headerView(forSection: 0) as? TaskTableHeaderView
         taskTableHeaderView?.configureUI(state: state, count: taskCount)
