@@ -3,20 +3,26 @@ import RxSwift
 
 
 private enum Content {
+    
     static let todoTitle = "TODO"
     static let doingTitle = "DOING"
     static let doneTitle = "DONE"
+    
     static let moveToDoTitle = "Move to TODO"
     static let moveDoingTitle = "Move to DOING"
     static let moveDoneTitle = "Move to DONE"
+    
 }
 
 private enum Design {
+    
     static let verticalInset: CGFloat = 2
+    
     static let tableViewBackgroundColor: UIColor = .systemGray5
     static let cellBackgroundColor: UIColor = .white
     static let textColor: UIColor = .label
     static let expiredDateColor: UIColor = .systemRed
+    
 }
 
 final class ProjectTableViewCell: UITableViewCell {
@@ -30,14 +36,14 @@ final class ProjectTableViewCell: UITableViewCell {
     var work: Work?
     var viewController: ProjectTableViewController?
     
-    var firstTitle: String {
+    private var firstTitle: String {
         if title == Content.todoTitle {
             return Content.moveDoingTitle
         } else {
             return Content.moveToDoTitle
         }
     }
-    var secondTitle: String {
+    private var secondTitle: String {
         if title == Content.doneTitle {
             return Content.moveDoingTitle
         } else {
@@ -106,6 +112,7 @@ final class ProjectTableViewCell: UITableViewCell {
         alert.addAction(firstAction)
         alert.addAction(secondAction)
         alert.popoverPresentationController?.sourceView = self
+        
         viewController?.present(alert, animated: true)
     }
     

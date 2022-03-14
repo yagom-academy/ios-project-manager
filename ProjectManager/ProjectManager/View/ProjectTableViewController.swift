@@ -4,14 +4,19 @@ import RxCocoa
 
 
 private enum UIName {
+    
     static let workFormViewStoryboard = "WorkFormView"
+    
 }
 
 private enum Content {
+    
     static let swipeDeleteTitle = "Delete"
+    
 }
 
 final class ProjectTableViewController: UIViewController {
+    
     @IBOutlet weak private var titleLabel: UILabel!
     @IBOutlet weak private var countLabel: ProjectHeaderCircleLabel!
     @IBOutlet weak private var tableView: UITableView!
@@ -21,7 +26,7 @@ final class ProjectTableViewController: UIViewController {
     var count: Observable<Int>?
     var list: BehaviorSubject<[Work]>?
     
-    private let disposeBag = DisposeBag()
+    private var disposeBag = DisposeBag()
     private var selectedWork: Work?
     
     override func viewDidLoad() {
@@ -80,10 +85,6 @@ extension ProjectTableViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let viewModel = viewModel else { return }
         guard let list = list else { return }
-
-        var selectedWork: Observable<Work?> {
-            list.map { $0[safe: indexPath.row] }
-        }
         
         let storyboard = UIStoryboard(name: UIName.workFormViewStoryboard, bundle: nil)
         let viewController = storyboard.instantiateViewController(
@@ -91,6 +92,11 @@ extension ProjectTableViewController: UITableViewDelegate {
         ) { coder in
             WorkFormViewController(coder: coder, viewModel: viewModel)
         }
+        
+        var selectedWork: Observable<Work?> {
+            list.map { $0[safe: indexPath.row] }
+        }
+        
         viewController.modalPresentationStyle = .formSheet
         viewController.setupContent(from: selectedWork)
         
@@ -111,6 +117,7 @@ extension ProjectTableViewController: UITableViewDelegate {
             var selectedWork: Observable<Work?> {
                 list.map { $0[safe: indexPath.row] }
             }
+
             _ = selectedWork.subscribe(onNext: { self?.selectedWork = $0 })
 
             if let work = self?.selectedWork {

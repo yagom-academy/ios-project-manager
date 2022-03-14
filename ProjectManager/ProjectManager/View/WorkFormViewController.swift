@@ -22,14 +22,14 @@ private enum Design {
 
 final class WorkFormViewController: UIViewController {
     
-    private var viewModel: WorkFormViewModel?
-    private let disposeBag = DisposeBag()
-    private var passedWork: Work?
-    
     @IBOutlet weak private var rightBarButtonItem: UIBarButtonItem!
     @IBOutlet weak private var titleTextField: UITextField!
     @IBOutlet weak private var datePicker: UIDatePicker!
     @IBOutlet weak private var bodyTextView: UITextView!
+    
+    private var viewModel: WorkFormViewModel?
+    private let disposeBag = DisposeBag()
+    private var passedWork: Work?
     
     convenience init?(coder: NSCoder, viewModel: ProjectViewModel) {
         self.init(coder: coder)
@@ -47,6 +47,13 @@ final class WorkFormViewController: UIViewController {
         setupTextField()
         setupDatePicker()
         setupTextView()
+    }
+    
+    func setupContent(from work: Observable<Work?>) {
+        _ = work
+            .subscribe(onNext: { [weak self] in
+                self?.passedWork = $0
+            })
     }
     
     @IBAction private func touchUpRightBarButton(_ sender: UIBarButtonItem) {
@@ -74,13 +81,6 @@ final class WorkFormViewController: UIViewController {
     
     @IBAction private func touchUpCancelButton(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
-    }
-
-    func setupContent(from work: Observable<Work?>) {
-        _ = work
-            .subscribe(onNext: { [weak self] in
-                self?.passedWork = $0
-            })
     }
 
     private func setupRightBarButtonItem() {

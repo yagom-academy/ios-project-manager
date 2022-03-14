@@ -3,21 +3,27 @@ import RxSwift
 
 
 private enum UIName {
+    
     static let workFormViewStoryboard = "WorkFormView"
     static let todoSegue = "todoSegue"
     static let doingSegue = "doingSegue"
     static let doneSegue = "doneSegue"
+    
 }
 
 private enum Content {
+    
     static let todoTitle = "TODO"
     static let doingTitle = "DOING"
     static let doneTitle = "DONE"
+    
 }
 
 private enum Design {
+    
     static let tableViewBackgroundColor: UIColor = .systemGray5
     static let viewBackgroundColor: UIColor = .systemGray6
+    
 }
 
 final class ProjectViewController: UIViewController {

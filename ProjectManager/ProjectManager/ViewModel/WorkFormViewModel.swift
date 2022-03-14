@@ -5,6 +5,7 @@ import RxSwift
 final class WorkFormViewModel {
     
     private let workMemoryManager: WorkMemoryManager?
+    
     private let todoList: BehaviorSubject<[Work]>?
     private let doingList: BehaviorSubject<[Work]>?
     private let doneList: BehaviorSubject<[Work]>?
