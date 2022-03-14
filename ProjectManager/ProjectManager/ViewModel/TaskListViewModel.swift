@@ -54,7 +54,17 @@ class TaskListViewModel: ObservableObject {
     
     func updateState(id: String, progressStatus: Task.ProgressStatus) {
         manager.updateTaskState(id: id, progressStatus: progressStatus)
-        reload()
+            .sink { completion in
+                switch completion {
+                case .failure(let error):
+                    print(error)
+                case .finished:
+                    return
+                }
+            } receiveValue: { _ in
+                self.fetch()
+            }
+            .store(in: &cancellables)
     }
     
     func updateTask(id: String, title: String, description: String, deadline: Date) {

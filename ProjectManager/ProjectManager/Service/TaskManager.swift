@@ -13,8 +13,9 @@ class TaskManager: TaskManagable {
         Future<Void, Error> { promise in
             self.taskList.append(task)
             let entityTask = self.convertEntityTask(from: task)
-            self.taskListRepository.createEntityTask(entityTask: entityTask) { }
-            promise(.success(()))
+            self.taskListRepository.createEntityTask(entityTask: entityTask) {
+                promise(.success(()))
+            }
         }
         .eraseToAnyPublisher()
     }
@@ -26,6 +27,19 @@ class TaskManager: TaskManagable {
             .forEach {
                 taskList[$0].progressStatus = progressStatus
             }
+    }
+    
+    func updateTaskState(id: String, progressStatus: Task.ProgressStatus) -> AnyPublisher<Void, Error> {
+        Future<Void, Error> { promise in
+            let entityTaskStatus = progressStatus.rawValue
+            self.taskListRepository.updateEntityTaskStatus(
+                id: id,
+                status: entityTaskStatus
+            ) {
+                promise(.success(()))
+            }
+        }
+        .eraseToAnyPublisher()
     }
     
     func updateTask(id: String, title: String, description: String, deadline: Date) {
@@ -74,7 +88,7 @@ class TaskManager: TaskManagable {
         .eraseToAnyPublisher()
     }
     
-    func convertEntityTask(from task: Task) -> EntityTask {
+    private func convertEntityTask(from task: Task) -> EntityTask {
         let id = task.id
         let title = task.title
         let description = task.description
@@ -91,7 +105,7 @@ class TaskManager: TaskManagable {
         return entityTask
     }
     
-    func convertTask(from entityTask: EntityTask) -> Task {
+    private func convertTask(from entityTask: EntityTask) -> Task {
         let id = entityTask.id
         let title = entityTask.title
         let description = entityTask.description

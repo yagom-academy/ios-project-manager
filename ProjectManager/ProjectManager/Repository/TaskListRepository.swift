@@ -40,7 +40,7 @@ class TaskListRepository {
                     let title = document.data()["title"] as? String ?? ""
                     let description = document.data()["desc"] as? String ?? ""
                     let deadline = document.data()["deadline"] as? TimeInterval ?? 0
-                    let progressStatus = document.data()["progressStatus"] as? String ?? ""
+                    let progressStatus = document.data()["status"] as? String ?? ""
                     let entityTask = EntityTask(
                         id: id,
                         title: title,
@@ -74,6 +74,33 @@ class TaskListRepository {
                             "title": title,
                             "desc": description,
                             "deadline": deadline.timeIntervalSince1970
+                        ], merge: true) { error in
+                            if let error = error {
+                                print("Error adding document: \(error)")
+                            } else {
+                                print("Document updated with ID: \(document.documentID)")
+                                complition()
+                            }
+                        }
+                    }
+                }
+            }
+    }
+    
+    func updateEntityTaskStatus(
+        id: String,
+        status: String,
+        complition: @escaping () -> Void) {
+        store
+            .collection("test")
+            .whereField("id", isEqualTo: id)
+            .getDocuments { data, error in
+                if let error = error {
+                    print("Document error: \(error)")
+                } else {
+                    if let document = data?.documents.first {
+                        document.reference.setData([
+                            "status": status
                         ], merge: true) { error in
                             if let error = error {
                                 print("Error adding document: \(error)")
