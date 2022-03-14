@@ -9,8 +9,8 @@ class ProjectCell: UITableViewCell {
     @IBOutlet private var dateLabel: UILabel!
     
     func configure(_ project: Project) {
-        titleLabel.text = project.title
-        descriptionLabel.text = project.description
+        titleLabel.text = project.title == "" ? "New Project" : project.title
+        descriptionLabel.text = project.description == "" ? "No additional text" : project.description
         dateLabel.text = Date.formattedString(project.date)
         changedDateColor(project.date)
     }
