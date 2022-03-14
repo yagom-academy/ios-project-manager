@@ -113,4 +113,26 @@ class TaskListRepository {
                 }
             }
     }
+    
+    func deleteEntityTask(
+        id: String,
+        complition: @escaping () -> Void) {
+            store
+                .collection("test")
+                .whereField("id", isEqualTo: id)
+                .getDocuments { data, error in
+                    if let error = error {
+                        print("Document error: \(error)")
+                    } else {
+                        if let document = data?.documents.first {
+                            document.reference.delete { error in
+                                print("Error adding document: \(String(describing: error))")
+                                return
+                            }
+                            print("Document updated with ID: \(document.documentID)")
+                            complition()
+                        }
+                    }
+                }
+        }
 }

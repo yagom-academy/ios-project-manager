@@ -52,7 +52,7 @@ private struct TaskListContentView: View {
                 TaskListRowView(task: task)
             }
             .onDelete { indexSet in
-                taskListViewModel.deleteTask(taskList[indexSet.index])
+                taskListViewModel.deleteTask(taskList[indexSet.index].id)
             }
         }
     }

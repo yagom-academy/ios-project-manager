@@ -74,6 +74,15 @@ class TaskManager: TaskManagable {
             .forEach { taskList.remove(at: $0) }
     }
     
+    func deleteTask(_ id: String) -> AnyPublisher<Void, Error> {
+        Future<Void, Error> { promise in
+            self.taskListRepository.deleteEntityTask(id: id) {
+                promise(.success(()))
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+    
     func fetch() -> AnyPublisher<[Task], Error> {
         Future<[Task], Error> { promise in
             self.taskListRepository.fetchEntityTask { entityTaskList in

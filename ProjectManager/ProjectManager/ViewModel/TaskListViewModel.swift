@@ -82,9 +82,19 @@ class TaskListViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
-    func deleteTask(_ task: Task) {
-        manager.deleteTask(task.id)
-        reload()
+    func deleteTask(_ id: String) {
+        manager.deleteTask(id)
+            .sink { completion in
+                switch completion {
+                case .failure(let error):
+                    print(error)
+                case .finished:
+                    return
+                }
+            } receiveValue: { _ in
+                self.fetch()
+            }
+            .store(in: &cancellables)
     }
     
     func changeableStatusList(from status: Task.ProgressStatus) -> [Task.ProgressStatus] {
