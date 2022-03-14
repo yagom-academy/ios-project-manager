@@ -28,15 +28,6 @@ class MainViewController: UIViewController {
         setUpBindings()
     }
     
-    @objc func handleLongPress(longPressGesture: UILongPressGestureRecognizer) {
-        print(#function)
-        if longPressGesture.state == .began {
-            let tableView = (longPressGesture.view as? UITableView)
-            _ = tableView.flatMap { longPressGesture.location(in: $0) }
-            .flatMap { tableView?.indexPathForRow(at: $0) }
-        }
-    }
-    
     private func setUpTableView() {
         tableViews.enumerated().forEach { index, tableView in
             tableView.delegate = self
