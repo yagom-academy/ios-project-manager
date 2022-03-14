@@ -15,7 +15,7 @@ private enum Design {
 }
 
 final class TaskTableViewCell: UITableViewCell {
-    let taskStackView: UIStackView = {
+    private let taskStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.spacing = 5
         stackView.alignment = .leading
@@ -25,7 +25,7 @@ final class TaskTableViewCell: UITableViewCell {
         return stackView
     }()
     
-    let titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .headline)
         label.numberOfLines = 1
@@ -33,7 +33,7 @@ final class TaskTableViewCell: UITableViewCell {
         return label
     }()
     
-    let descriptionLabel: UILabel = {
+    private let descriptionLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .body)
         label.textColor = .systemGray
@@ -42,7 +42,7 @@ final class TaskTableViewCell: UITableViewCell {
         return label
     }()
     
-    let deadlineLabel: UILabel = {
+    private let deadlineLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .footnote)
         label.translatesAutoresizingMaskIntoConstraints = false

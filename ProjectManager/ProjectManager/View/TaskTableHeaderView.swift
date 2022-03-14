@@ -16,7 +16,7 @@ private enum Design {
 }
 
 final class TaskTableHeaderView: UITableViewHeaderFooterView {
-    let headerStackView: UIStackView = {
+    private let headerStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.spacing = 10
         stackView.alignment = .center
@@ -24,13 +24,13 @@ final class TaskTableHeaderView: UITableViewHeaderFooterView {
         return stackView
     }()
     
-    let titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .largeTitle)
         return label
     }()
     
-    let taskCountLabel: UILabel = {
+    private let taskCountLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .callout)
         label.textAlignment = .center
