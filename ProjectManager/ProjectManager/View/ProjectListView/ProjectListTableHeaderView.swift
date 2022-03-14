@@ -1,6 +1,6 @@
 import UIKit
 
-class ProjectListTableHeaderView: UITableViewHeaderFooterView {
+final class ProjectListTableHeaderView: UITableViewHeaderFooterView {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .largeTitle)

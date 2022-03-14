@@ -1,6 +1,6 @@
 import UIKit
 
-class ProjectListTableViewCell: UITableViewCell {
+final class ProjectListTableViewCell: UITableViewCell {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .title3)

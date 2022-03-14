@@ -1,6 +1,6 @@
 import UIKit
 
-class ProjectDetailView: UIView {
+final class ProjectDetailView: UIView {
     private let titleTextField: UITextField = {
         let textField = UITextField()
         textField.font = .preferredFont(forTextStyle: .title2)
@@ -119,7 +119,7 @@ class ProjectDetailView: UIView {
             date: datePicker.date)
     }
     
-    func retrieveViewData(with oldProject: Project) -> Project {
+    func updatedViewData(with oldProject: Project) -> Project {
         return Project(
             id: oldProject.id,
             state: oldProject.state,

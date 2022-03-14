@@ -2,12 +2,12 @@ import Foundation
 
 protocol ProjectRepositoryProtocol {
     func fetchAll() -> [UUID: Project]
-    func create(with project: Project)
-    func update(with project: Project)
-    func delete(with project: Project)
+    func append(_ project: Project)
+    func update(_ project: Project)
+    func delete(_ project: Project)
 }
 
-class ProjectRepository: ProjectRepositoryProtocol {
+final class ProjectRepository: ProjectRepositoryProtocol {
     let id = [UUID(), UUID(), UUID(), UUID()] // 테스트용
     
     private lazy var projects = [id[0]: Project(id: id[0], state: .todo, title: "투두", body: "앞으로 해야할 일", date: Date()),
@@ -19,15 +19,15 @@ class ProjectRepository: ProjectRepositoryProtocol {
         return projects
     }
     
-    func create(with project: Project) {
+    func append(_ project: Project) {
         projects[project.id] = project
     }
     
-    func update(with project: Project) {
+    func update(_ project: Project) {
         projects.updateValue(project, forKey: project.id)
     }
     
-    func delete(with project: Project) {
+    func delete(_ project: Project) {
         projects.removeValue(forKey: project.id)
     }
 }

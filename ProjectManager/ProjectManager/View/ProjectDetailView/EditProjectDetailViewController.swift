@@ -1,6 +1,6 @@
 import UIKit
 
-class EditProjectDetailViewController: ProjectDetailViewController {
+final class EditProjectDetailViewController: ProjectDetailViewController {
     var viewModel: ProjectViewModelProtocol?
     var currentProject: Project?
 
@@ -34,15 +34,18 @@ class EditProjectDetailViewController: ProjectDetailViewController {
             projectDetailView.setEditingMode(to: true)
         } else {
             projectDetailView.setEditingMode(to: false)
-        
-            self.dismiss(animated: true) { [self] in
-                guard let currentProject = currentProject else {
-                    return
-                }
-                let updatedProject = projectDetailView.retrieveViewData(with: currentProject)
-                viewModel?.update(with: updatedProject)
+            self.dismiss(animated: true) {
+                self.updateListView()
             }
         }
+    }
+    
+    private func updateListView() {
+        guard let currentProject = currentProject else {
+            return
+        }
+        let updatedProject = projectDetailView.updatedViewData(with: currentProject)
+        viewModel?.update(updatedProject)
     }
     
     @objc private func didTapCancelButton() {

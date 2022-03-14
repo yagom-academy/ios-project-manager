@@ -7,12 +7,12 @@ protocol ProjectViewModelProtocol: UITableViewDataSource {
     func didSelectRow(indexPath: IndexPath, state: ProjectState)
     func numberOfProjects(state: ProjectState) -> Int
     func fetchAll()
-    func create(with project: Project)
-    func update(with project: Project)
+    func append(_ project: Project)
+    func update(_ project: Project)
     func delete(indexPath: IndexPath, state: ProjectState)
 }
 
-class ProjectViewModel: NSObject, ProjectViewModelProtocol {
+final class ProjectViewModel: NSObject, ProjectViewModelProtocol {
     let useCase: ProjectUseCaseProtocol
 
     var onCellSelected: ((Int, Project) -> Void)?
@@ -72,14 +72,14 @@ class ProjectViewModel: NSObject, ProjectViewModelProtocol {
         projects = useCase.fetchAll()
     }
     
-    func create(with project: Project) {
-        useCase.create(with: project)
+    func append(_ project: Project) {
+        useCase.append(project)
         fetchAll()
         onUpdated?()
     }
     
-    func update(with project: Project) {
-        useCase.update(with: project)
+    func update(_ project: Project) {
+        useCase.update(project)
         fetchAll()
         onUpdated?()
     }
@@ -88,7 +88,7 @@ class ProjectViewModel: NSObject, ProjectViewModelProtocol {
         guard let project = retrieveSelectedData(indexPath: indexPath, state: state) else {
             return
         }
-        useCase.delete(with: project)
+        useCase.delete(project)
         fetchAll()
         onUpdated?()
     }

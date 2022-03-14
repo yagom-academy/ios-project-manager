@@ -1,6 +1,6 @@
 import UIKit
 
-class ProjectListViewController: UIViewController {
+final class ProjectListViewController: UIViewController {
     private let todoTableView = ProjectListTableView(state: .todo)
     private let doingTableView = ProjectListTableView(state: .doing)
     private let doneTableView = ProjectListTableView(state: .done)
@@ -152,9 +152,6 @@ extension ProjectListViewController: UITableViewDelegate {
 private extension ProjectListViewController {
     enum TitleText {
         static let navigationBarTitle = "Project Manager"
-        static let todoTableViewTitle = "TODO"
-        static let doingTableViewTitle = "DOING"
-        static let doneTableViewTitle = "DONE"
     }
 
     enum Design {

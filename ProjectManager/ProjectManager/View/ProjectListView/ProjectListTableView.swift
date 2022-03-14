@@ -1,6 +1,6 @@
 import UIKit
 
-class ProjectListTableView: UITableView {
+final class ProjectListTableView: UITableView {
     var state: ProjectState?
 
     init(state: ProjectState) {

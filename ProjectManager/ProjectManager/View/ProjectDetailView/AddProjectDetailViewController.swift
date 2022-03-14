@@ -1,6 +1,6 @@
 import UIKit
 
-class AddProjectDetailViewController: ProjectDetailViewController {
+final class AddProjectDetailViewController: ProjectDetailViewController {
     var viewModel: ProjectViewModelProtocol?
     
     init(viewModel: ProjectViewModelProtocol) {
@@ -27,7 +27,7 @@ class AddProjectDetailViewController: ProjectDetailViewController {
     @objc private func didTapDoneButton() {
         self.dismiss(animated: true) {
             let project = self.projectDetailView.createViewData()
-            self.viewModel?.create(with: project)
+            self.viewModel?.append(project)
         }
     }
     
