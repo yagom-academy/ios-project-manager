@@ -38,7 +38,9 @@ struct TaskCreatingView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        taskManager.createTask(title: newTaskTitle, body: newTaskBody, dueDate: newTaskDueDate)
+                        withAnimation {
+                            taskManager.createTask(title: newTaskTitle, body: newTaskBody, dueDate: newTaskDueDate)
+                        }
                         isTaskCreatingViewShowing.toggle()
                     } label: {
                         Text("Done")
