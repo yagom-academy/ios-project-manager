@@ -10,4 +10,5 @@ protocol ProjectListUseCase {
     func delete(_ item: Project?) -> Single<Project>
     func fetch() -> BehaviorSubject<[Project]>
     func fetch(id: UUID) -> Single<Project>
+    func changedState(_ project: Project, state: ProjectState)
 }

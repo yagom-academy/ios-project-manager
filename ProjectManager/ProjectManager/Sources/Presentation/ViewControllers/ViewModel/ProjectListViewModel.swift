@@ -18,7 +18,7 @@ final class ProjectListViewModel {
     struct Input {
         let didTapProjectCell: [Observable<Int>]
         let didTapAddButton: Observable<Void>
-        let didTapPopoverButton: [Observable<Project?>]
+        let didTapPopoverButton: [Observable<(UITableViewCell, Project)?>]
         let didSwapeToTapDeleteButton: [Observable<Project>]
     }
     
@@ -59,8 +59,24 @@ final class ProjectListViewModel {
         
         input.didTapPopoverButton.forEach {
             $0.subscribe(onNext: { data in
-                data.flatMap{ project in
-                    print("팝오버를 띄우거라")
+                data.flatMap { cell, project in
+                    
+                    self.coordinator?.showActionSheet(
+                        sourceView: cell,
+                        titles: project.status.excluded,
+                        topHandler: { _ in
+                            self.useCase.changedState(
+                                project,
+                                state: ProjectState(rawValue: project.status.excluded.0) ?? ProjectState.todo
+                            )
+                        },
+                        bottomHandler: { _ in
+                            self.useCase.changedState(
+                                project,
+                                state: ProjectState(rawValue: project.status.excluded.1) ?? ProjectState.todo
+                            )
+                        }
+                    )
                 }
             }).disposed(by: self.disposeBag)
         }

@@ -47,13 +47,14 @@ class MainViewController: UIViewController {
             didTapAddButton: addButton.rx.tap.asObservable(),
             didTapPopoverButton: longPressGesture.map {
                 $0.rx.event
-                    .map { (longPressGesture: UIGestureRecognizer) -> Project? in
+                    .map { (longPressGesture: UIGestureRecognizer) -> (UITableViewCell ,Project)? in
                         guard let tableView = longPressGesture.view as? UITableView else {
                             return nil
                         }
                         if longPressGesture.state == .began,
-                           let indexPath = tableView.indexPathForRow(at: longPressGesture.location(in: tableView)) {
-                                return try tableView.rx.model(at: indexPath)
+                           let indexPath = tableView.indexPathForRow(at: longPressGesture.location(in: tableView)),
+                           let cell = tableView.cellForRow(at: indexPath) {
+                                return (cell, try tableView.rx.model(at: indexPath))
                         }
                         return nil
                     }.asObservable()

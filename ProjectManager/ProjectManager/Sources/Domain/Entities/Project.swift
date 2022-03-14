@@ -35,4 +35,15 @@ enum ProjectState: String, CaseIterable {
             return 2
         }
     }
+    
+    var excluded: (String, String) {
+        switch self {
+        case .todo:
+            return (ProjectState.doing.rawValue, ProjectState.done.rawValue)
+        case .doing:
+            return (ProjectState.todo.rawValue, ProjectState.done.rawValue)
+        case .done:
+            return (ProjectState.todo.rawValue, ProjectState.doing.rawValue)
+        }
+    }
 }
