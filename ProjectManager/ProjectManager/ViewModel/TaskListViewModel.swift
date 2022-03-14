@@ -14,6 +14,12 @@ class TaskListViewModel: ObservableObject {
         fetch()
     }
     
+    func reload() {
+        self.todoTaskList = self.manager.taskList(at: .todo)
+        self.doingTaskList = self.manager.taskList(at: .doing)
+        self.doneTaskList = self.manager.taskList(at: .done)
+    }
+    
     func fetch() {
         manager.fetch()
             .sink { complition in
@@ -29,12 +35,6 @@ class TaskListViewModel: ObservableObject {
                 self.doneTaskList = taskList.filter { $0.progressStatus == .done }
             }
             .store(in: &cancellables)
-    }
-    
-    func reload() {
-        self.todoTaskList = self.manager.taskList(at: .todo)
-        self.doingTaskList = self.manager.taskList(at: .doing)
-        self.doneTaskList = self.manager.taskList(at: .done)
     }
     
     func createTask(_ task: Task) {
@@ -59,7 +59,17 @@ class TaskListViewModel: ObservableObject {
     
     func updateTask(id: String, title: String, description: String, deadline: Date) {
         manager.updateTask(id: id, title: title, description: description, deadline: deadline)
-        reload()
+            .sink { completion in
+                switch completion {
+                case .failure(let error):
+                    print(error)
+                case .finished:
+                    return
+                }
+            } receiveValue: { _ in
+                self.fetch()
+            }
+            .store(in: &cancellables)
     }
     
     func deleteTask(_ task: Task) {

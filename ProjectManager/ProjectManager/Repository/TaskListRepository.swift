@@ -5,8 +5,10 @@ class TaskListRepository {
     var ref: DocumentReference?
     let store = Firestore.firestore()
     
-    func createEntityTask(entityTask: EntityTask, complition: @escaping ([EntityTask]) -> Void) {
-        ref = store.collection("test").addDocument(data: [
+    func createEntityTask(entityTask: EntityTask, complition: @escaping () -> Void) {
+        ref = store
+            .collection("test")
+            .addDocument(data: [
             "id": entityTask.id,
             "title": entityTask.title,
             "desc": entityTask.description,
@@ -17,13 +19,16 @@ class TaskListRepository {
                 print("Error adding document: \(error)")
             } else {
                 print("Document added with ID: \(self.ref!.documentID)")
+                complition()
             }
         }
     }
     
     func fetchEntityTask(complition: @escaping ([EntityTask]) -> Void) {
         var entityTaskList = [EntityTask]()
-        store.collection("test").getDocuments { data, error in
+        store
+            .collection("test")
+            .getDocuments { data, error in
             if let error = error {
                 print("Error getting documents: \(error)")
             } else {
@@ -33,7 +38,7 @@ class TaskListRepository {
                 for document in data.documents {
                     let id = document.data()["id"] as? String ?? ""
                     let title = document.data()["title"] as? String ?? ""
-                    let description = document.data()["description"] as? String ?? ""
+                    let description = document.data()["desc"] as? String ?? ""
                     let deadline = document.data()["deadline"] as? TimeInterval ?? 0
                     let progressStatus = document.data()["progressStatus"] as? String ?? ""
                     let entityTask = EntityTask(
@@ -49,5 +54,36 @@ class TaskListRepository {
                 complition(entityTaskList)
             }
         }
+    }
+    
+    func updateEntityTask(
+        id: String,
+        title: String,
+        description: String,
+        deadline: Date,
+        complition: @escaping () -> Void) {
+        store
+            .collection("test")
+            .whereField("id", isEqualTo: id)
+            .getDocuments { data, error in
+                if let error = error {
+                    print("Document error: \(error)")
+                } else {
+                    if let document = data?.documents.first {
+                        document.reference.setData([
+                            "title": title,
+                            "desc": description,
+                            "deadline": deadline.timeIntervalSince1970
+                        ], merge: true) { error in
+                            if let error = error {
+                                print("Error adding document: \(error)")
+                            } else {
+                                print("Document updated with ID: \(document.documentID)")
+                                complition()
+                            }
+                        }
+                    }
+                }
+            }
     }
 }

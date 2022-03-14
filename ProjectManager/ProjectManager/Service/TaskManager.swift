@@ -13,9 +13,7 @@ class TaskManager: TaskManagable {
         Future<Void, Error> { promise in
             self.taskList.append(task)
             let entityTask = self.convertEntityTask(from: task)
-            self.taskListRepository.createEntityTask(entityTask: entityTask) { _ in
-                
-            }
+            self.taskListRepository.createEntityTask(entityTask: entityTask) { }
             promise(.success(()))
         }
         .eraseToAnyPublisher()
@@ -39,6 +37,20 @@ class TaskManager: TaskManagable {
                 taskList[$0].description = description
                 taskList[$0].deadline = deadline.timeIntervalSince1970
             }
+    }
+    
+    func updateTask(id: String, title: String, description: String, deadline: Date) -> AnyPublisher<Void, Error> {
+        Future<Void, Error> { promise in
+            self.taskListRepository.updateEntityTask(
+                id: id,
+                title: title,
+                description: description,
+                deadline: deadline
+            ) {
+                promise(.success(()))
+            }
+        }
+        .eraseToAnyPublisher()
     }
     
     func deleteTask(_ id: String) {
