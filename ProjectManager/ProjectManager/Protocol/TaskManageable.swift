@@ -15,7 +15,7 @@ protocol TaskManageable: AnyObject {
     
     func validateNewTask(title: String, body: String) -> Bool
     func createTask(title: String, body: String, dueDate: Date)
-    func modifyTask(target: Task?, title: String, body: String, dueDate: Date) throws
+    func editTask(target: Task?, title: String, body: String, dueDate: Date) throws
     func changeTaskStatus(target: Task?, to status: TaskStatus) throws
     func deleteTask(target: Task?) throws
 }

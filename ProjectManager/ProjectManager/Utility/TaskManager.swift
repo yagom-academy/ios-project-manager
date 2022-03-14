@@ -34,7 +34,7 @@ class TaskManager: ObservableObject, TaskManageable {
         tasks.append(newTask)
     }
     
-    func modifyTask(target: Task?, title: String, body: String, dueDate: Date) throws {
+    func editTask(target: Task?, title: String, body: String, dueDate: Date) throws {
         guard let target = target else {
             throw TaskManagerError.taskIsNil
         }

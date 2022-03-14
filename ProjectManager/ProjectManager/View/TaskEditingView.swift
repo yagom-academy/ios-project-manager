@@ -50,7 +50,7 @@ struct TaskEditingView: View {
                     Button {
                         withAnimation {
                             taskManager.objectWillChange.send()
-                            try? taskManager.modifyTask(target: selectedTask, title: newTaskTitle, body: newTaskBody, dueDate: newTaskDueDate)
+                            try? taskManager.editTask(target: selectedTask, title: newTaskTitle, body: newTaskBody, dueDate: newTaskDueDate)
                         }
                         isTaskEditingViewShowing.toggle()
                     } label: {
