@@ -1,8 +1,11 @@
 import UIKit
 
 class ProjectListTableView: UITableView {
-    override init(frame: CGRect, style: UITableView.Style) {
-        super.init(frame: frame, style: style)
+    var state: State
+
+    init(state: State) {
+        self.state = state
+        super.init(frame: .zero, style: .plain)
         configureUI()
     }
     

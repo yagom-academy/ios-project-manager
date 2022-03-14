@@ -3,13 +3,13 @@ import UIKit
 protocol ProjectViewModelProtocol: UITableViewDataSource {
     var onCellSelected: ((Int, Project) -> Void)? { get set }
     var onUpdated: (() -> Void)? { get set }
-//    var onCreated?:
     var todoProjects: [Project] { get }
     var doingProjects: [Project] { get }
     var doneProjects: [Project] { get }
     var tableViews: [ProjectListTableView]? { get set }
     
     func didSelectRow(index: IndexPath, tableView: UITableView)
+    func numberOfProjects(state: State) -> Int
     func fetchAll()
     func create(with project: Project)
     func update(with project: Project)
@@ -62,6 +62,17 @@ class ProjectViewModel: NSObject, ProjectViewModelProtocol {
             return
         }
         onCellSelected?(index.row, selectedProject)
+    }
+    
+    func numberOfProjects(state: State) -> Int {
+        switch state {
+        case .todo:
+            return todoProjects.count
+        case .doing:
+            return doingProjects.count
+        case .done:
+            return doneProjects.count
+        }
     }
     
     func fetchAll() {

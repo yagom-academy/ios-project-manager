@@ -1,9 +1,9 @@
 import UIKit
 
 class ProjectListViewController: UIViewController {
-    private let todoTableView = ProjectListTableView()
-    private let doingTableView = ProjectListTableView()
-    private let doneTableView = ProjectListTableView()
+    private let todoTableView = ProjectListTableView(state: .todo)
+    private let doingTableView = ProjectListTableView(state: .doing)
+    private let doneTableView = ProjectListTableView(state: .done)
     private var viewModel: ProjectViewModelProtocol
     private lazy var tableViews = [todoTableView, doingTableView, doneTableView]
     
@@ -89,7 +89,7 @@ class ProjectListViewController: UIViewController {
             guard let self = self else {
                 return
             }
-            let editViewController = EditProjectDetailViewController(viewModel: self.viewModel, currentIndex: index, currentProject: project)
+            let editViewController = EditProjectDetailViewController(viewModel: self.viewModel, currentProject: project)
             let destinationViewController = UINavigationController(rootViewController: editViewController)
             destinationViewController.modalPresentationStyle = .formSheet
             self.present(destinationViewController, animated: true, completion: nil)
@@ -113,17 +113,13 @@ extension ProjectListViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = tableView.dequeueReusableHeaderFooterView(withClass: ProjectListTableHeaderView.self)
-        switch tableView {
-        case todoTableView:
-            headerView.populateData(title: TitleText.todoTableViewTitle, count: viewModel.todoProjects.count)
-        case doingTableView:
-            headerView.populateData(title: TitleText.doingTableViewTitle, count: viewModel.doingProjects.count)
-        case doneTableView:
-            headerView.populateData(title: TitleText.doneTableViewTitle, count: viewModel.doneProjects.count)
-        default:
-            break
+        guard let state = (tableView as? ProjectListTableView)?.state else {
+            return UIView()
         }
+        let numberOfProjects = viewModel.numberOfProjects(state: state)
+        
+        let headerView = tableView.dequeueReusableHeaderFooterView(withClass: ProjectListTableHeaderView.self)
+        headerView.populateData(title: state.title, count: numberOfProjects)
         
         return headerView
     }
