@@ -26,18 +26,13 @@ class DetailViewController: UIViewController {
             didChangeDescription: descriptionTextView.rx.text.changed.asObservable())
         let output = viewModel?.transform(input: input)
         
-        output?.isEditable.subscribe(onNext: { isEditable in
-            if isEditable {
-                self.titleTextField.isEnabled = true
-                self.descriptionTextView.isEditable = true
-                self.datePicker.isEnabled = true
-                self.titleTextField.becomeFirstResponder()
-            } else {
-                self.titleTextField.isEnabled = false
-                self.descriptionTextView.isEditable = false
-                self.datePicker.isEnabled = false
-            }
-        }).disposed(by: disposeBag)
+        output?.isEditable
+            .bind(to:
+                titleTextField.rx.isEnabled.asObserver(),
+                datePicker.rx.isEnabled.asObserver(),
+                descriptionTextView.rx.isEditable.asObserver()
+            )
+            .disposed(by: disposeBag)
         
         output?.leftBarButtonText
             .bind(to: leftBarButton.rx.title)
