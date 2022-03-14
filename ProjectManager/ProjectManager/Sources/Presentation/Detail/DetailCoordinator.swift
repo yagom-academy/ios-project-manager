@@ -7,7 +7,7 @@ final class DetailCoordinator {
         self.navigationController = navigationController
     }
     
-    func start(_ project: Project, useCase: ProjectListUseCase, mode: DetailViewModel.DetailViewMode) {
+    func start(_ project: Project, useCase: ProjectListUseCase, mode: DetailViewModel.ViewMode) {
         let storyboard = UIStoryboard(name: "Detail", bundle: .main)
         guard let detailViewController = storyboard.instantiateViewController(
             withIdentifier: "DetailViewController"

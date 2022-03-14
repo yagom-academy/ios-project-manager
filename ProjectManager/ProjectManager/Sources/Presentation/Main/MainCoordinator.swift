@@ -21,7 +21,7 @@ final class MainCoordinator {
     func presentDetailViewController(
         _ project: Project,
         useCase: ProjectListUseCase,
-        mode: DetailViewModel.DetailViewMode
+        mode: DetailViewModel.ViewMode
     ) {
         let detailCoordinator = DetailCoordinator()
         detailCoordinator.start(project, useCase: useCase, mode: mode)

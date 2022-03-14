@@ -3,18 +3,18 @@ import RxSwift
 import RxCocoa
 
 final class DetailViewModel {
-    enum DetailViewMode {
+    enum ViewMode {
         case add
         case read
         case edit
     }
     
-    private var mode: DetailViewMode
+    private var mode: ViewMode
     private var project: Project
     private let coordinator: DetailCoordinator
     private let useCase: ProjectListUseCase
     
-    init(useCase: ProjectListUseCase, coordinator: DetailCoordinator, project: Project, mode: DetailViewMode) {
+    init(useCase: ProjectListUseCase, coordinator: DetailCoordinator, project: Project, mode: ViewMode) {
         self.useCase = useCase
         self.coordinator = coordinator
         self.project = project
