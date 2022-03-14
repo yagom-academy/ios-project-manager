@@ -7,10 +7,22 @@ class TaskListViewModel: ObservableObject {
     
     let manager = TaskManager()
 
-    private func reload() {
-        todoTaskList = manager.taskList(at: .todo)
-        doingTaskList = manager.taskList(at: .doing)
-        doneTaskList = manager.taskList(at: .done)
+    init () {
+        fetch()
+    }
+    
+    func fetch() {
+        manager.fetch { _ in
+            self.todoTaskList = self.manager.taskList(at: .todo)
+            self.doingTaskList = self.manager.taskList(at: .doing)
+            self.doneTaskList = self.manager.taskList(at: .done)
+        }
+    }
+    
+    func reload() {
+        self.todoTaskList = self.manager.taskList(at: .todo)
+        self.doingTaskList = self.manager.taskList(at: .doing)
+        self.doneTaskList = self.manager.taskList(at: .done)
     }
     
     func createTask(_ task: Task) {
@@ -18,12 +30,12 @@ class TaskListViewModel: ObservableObject {
         todoTaskList = manager.taskList(at: .todo)
     }
     
-    func updateState(id: UUID, progressStatus: Task.ProgressStatus) {
+    func updateState(id: String, progressStatus: Task.ProgressStatus) {
         manager.updateTaskState(id: id, progressStatus: progressStatus)
         reload()
     }
     
-    func updateTask(id: UUID, title: String, description: String, deadline: Date) {
+    func updateTask(id: String, title: String, description: String, deadline: Date) {
         manager.updateTask(id: id, title: title, description: description, deadline: deadline)
         reload()
     }
