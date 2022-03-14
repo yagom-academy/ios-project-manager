@@ -25,35 +25,27 @@ struct TaskListView: View {
     private var tasksCount: String {
         return tasks.count / 100 < 1 ? "\(tasks.count)" : "99+"
     }
+    private var isTasksNotEmpty: Bool {
+        return !tasks.isEmpty
+    }
     
     var body: some View {
         VStack {
-            HStack(spacing: 10) {
-                Text(taskStatus.headerTitle)
-                    .font(.largeTitle)
-                Text(tasksCount)
-                    .frame(width: 30, height: 24)
-                    .font(.title3)
-                    .lineLimit(1)
-                    .foregroundColor(.primary)
-                    .colorInvert()
-                    .padding(.all, 5)
-                    .background(Color.primary)
-                    .clipShape(Circle())
-                    .minimumScaleFactor(0.8)
-                Spacer()
-            }
-            .padding(EdgeInsets(top: 11, leading: 21, bottom: -1, trailing: 21))
-            List {
-                ForEach(tasks) { task in
-                    TaskListRowView(task: task)
+            TaskListHeaderView(taskStatus: taskStatus, tasksCount: tasksCount)
+            if isTasksNotEmpty {
+                List {
+                    ForEach(tasks) { task in
+                        TaskListRowView(task: task)
+                    }
+                    .onDelete { indexSet in
+                        guard let targetIndex = indexSet.first else { return }
+                        try? taskManager.deleteTask(target: tasks[targetIndex])
+                    }
                 }
-                .onDelete { indexSet in
-                    guard let targetIndex = indexSet.first else { return }
-                    try? taskManager.deleteTask(target: tasks[targetIndex])
-                }
+                .listStyle(.plain)
+            } else {
+                TaskListPlaceholderView(taskStatus: taskStatus)
             }
-            .listStyle(.plain)
         }
         .background(Color(UIColor.systemGray6))
     }
