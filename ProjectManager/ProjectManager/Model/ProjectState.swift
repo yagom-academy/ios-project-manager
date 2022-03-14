@@ -1,6 +1,6 @@
 import Foundation
 
-enum State {
+enum ProjectState {
     case todo
     case doing
     case done

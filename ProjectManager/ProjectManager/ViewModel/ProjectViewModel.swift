@@ -3,17 +3,13 @@ import UIKit
 protocol ProjectViewModelProtocol: UITableViewDataSource {
     var onCellSelected: ((Int, Project) -> Void)? { get set }
     var onUpdated: (() -> Void)? { get set }
-    var todoProjects: [Project] { get }
-    var doingProjects: [Project] { get }
-    var doneProjects: [Project] { get }
-    var tableViews: [ProjectListTableView]? { get set }
     
-    func didSelectRow(index: IndexPath, tableView: UITableView)
-    func numberOfProjects(state: State) -> Int
+    func didSelectRow(indexPath: IndexPath, state: ProjectState)
+    func numberOfProjects(state: ProjectState) -> Int
     func fetchAll()
     func create(with project: Project)
     func update(with project: Project)
-    func delete(index: IndexPath, tableView: UITableView)
+    func delete(indexPath: IndexPath, state: ProjectState)
 }
 
 class ProjectViewModel: NSObject, ProjectViewModelProtocol {
@@ -23,48 +19,45 @@ class ProjectViewModel: NSObject, ProjectViewModelProtocol {
     var onUpdated: (() -> Void)?
     
     var projects: [Project] = []
-    var tableViews: [ProjectListTableView]?
     
     init(useCase: ProjectUseCaseProtocol) {
         self.useCase = useCase
     }
     
-    var todoProjects: [Project] {
+    private var todoProjects: [Project] {
         projects.filter { $0.state == .todo }
     }
     
-    var doingProjects: [Project] {
+    private var doingProjects: [Project] {
         projects.filter { $0.state == .doing }
     }
     
-    var doneProjects: [Project] {
+    private var doneProjects: [Project] {
         projects.filter { $0.state == .done }
     }
     
-    func retrieveSelectedData(index: IndexPath, tableView: UITableView) -> Project? {
+    private func retrieveSelectedData(indexPath: IndexPath, state: ProjectState) -> Project? {
         var selectedProject: Project?
-        switch tableView {
-        case tableViews?[0]:
-            selectedProject = todoProjects[index.row]
-        case tableViews?[1]:
-            selectedProject = doingProjects[index.row]
-        case tableViews?[2]:
-            selectedProject = doneProjects[index.row]
-        default:
-            break
+        switch state {
+        case .todo:
+            selectedProject = todoProjects[indexPath.row]
+        case .doing:
+            selectedProject = doingProjects[indexPath.row]
+        case .done:
+            selectedProject = doneProjects[indexPath.row]
         }
         
         return selectedProject
     }
     
-    func didSelectRow(index: IndexPath, tableView: UITableView) {
-        guard let selectedProject = retrieveSelectedData(index: index, tableView: tableView) else {
+    func didSelectRow(indexPath: IndexPath, state: ProjectState) {
+        guard let selectedProject = retrieveSelectedData(indexPath: indexPath, state: state) else {
             return
         }
-        onCellSelected?(index.row, selectedProject)
+        onCellSelected?(indexPath.row, selectedProject)
     }
     
-    func numberOfProjects(state: State) -> Int {
+    func numberOfProjects(state: ProjectState) -> Int {
         switch state {
         case .todo:
             return todoProjects.count
@@ -91,8 +84,8 @@ class ProjectViewModel: NSObject, ProjectViewModelProtocol {
         onUpdated?()
     }
     
-    func delete(index: IndexPath, tableView: UITableView) {
-        guard let project = retrieveSelectedData(index: index, tableView: tableView) else {
+    func delete(indexPath: IndexPath, state: ProjectState) {
+        guard let project = retrieveSelectedData(indexPath: indexPath, state: state) else {
             return
         }
         useCase.delete(with: project)
@@ -103,38 +96,28 @@ class ProjectViewModel: NSObject, ProjectViewModelProtocol {
 
 extension ProjectViewModel {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        var numberOfRows: Int = .zero
-        switch tableView {
-        case tableViews?[0]:
-            numberOfRows = todoProjects.count
-        case tableViews?[1]:
-            numberOfRows = doingProjects.count
-        case tableViews?[2]:
-            numberOfRows = doneProjects.count
-        default:
-            break
+        guard let state = (tableView as? ProjectListTableView)?.state else {
+            return .zero
         }
-        return numberOfRows
+    
+        switch state {
+        case .todo:
+            return todoProjects.count
+        case .doing:
+            return doingProjects.count
+        case .done:
+            return doneProjects.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withClass: ProjectListTableViewCell.self)
-        var projects: [Project] = []
-        
-        switch tableView {
-        case tableViews?[0]:
-            projects = todoProjects
-        case tableViews?[1]:
-            projects = doingProjects
-        case tableViews?[2]:
-            projects = doneProjects
-        default:
-            break
+        guard let state = (tableView as? ProjectListTableView)?.state else {
+            return UITableViewCell()
         }
-        
-        let project = projects[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withClass: ProjectListTableViewCell.self)
+        let project = retrieveSelectedData(indexPath: indexPath, state: state)
 
-        cell.populateData(title: project.title, body: project.body, date: project.date)
+        cell.populateData(title: project?.title ?? "", body: project?.body ?? "", date: project?.date ?? Date())
         return cell
     }
 }

@@ -4,7 +4,7 @@ class ProjectListViewController: UIViewController {
     private let todoTableView = ProjectListTableView(state: .todo)
     private let doingTableView = ProjectListTableView(state: .doing)
     private let doneTableView = ProjectListTableView(state: .done)
-    private var viewModel: ProjectViewModelProtocol
+    private var viewModel: ProjectViewModelProtocol?
     private lazy var tableViews = [todoTableView, doingTableView, doneTableView]
     
     private let entireStackView: UIStackView = {
@@ -23,7 +23,7 @@ class ProjectListViewController: UIViewController {
     }
 
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
     }
     
     override func viewDidLoad() {
@@ -47,7 +47,10 @@ class ProjectListViewController: UIViewController {
     }
     
     @objc private func didTapAddProjectButton() {
-        let viewController = AddProjectDetailViewController(viewModel: self.viewModel)
+        guard let viewModel = viewModel else {
+            return
+        }
+        let viewController = AddProjectDetailViewController(viewModel: viewModel)
         let destinationViewController = UINavigationController(rootViewController: viewController)
 
         destinationViewController.modalPresentationStyle = .formSheet
@@ -82,20 +85,19 @@ class ProjectListViewController: UIViewController {
     }
     
     func configureBind() {
-        viewModel.tableViews = tableViews
-        viewModel.fetchAll()
+        viewModel?.fetchAll()
         
-        viewModel.onCellSelected = { [weak self] index, project in
-            guard let self = self else {
+        viewModel?.onCellSelected = { [weak self] index, project in
+            guard let self = self, let viewModel = self.viewModel else {
                 return
             }
-            let editViewController = EditProjectDetailViewController(viewModel: self.viewModel, currentProject: project)
+            let editViewController = EditProjectDetailViewController(viewModel: viewModel, currentProject: project)
             let destinationViewController = UINavigationController(rootViewController: editViewController)
             destinationViewController.modalPresentationStyle = .formSheet
             self.present(destinationViewController, animated: true, completion: nil)
         }
         
-        viewModel.onUpdated = {
+        viewModel?.onUpdated = {
             self.tableViews.forEach {
                 $0.reloadData()
             }
@@ -116,17 +118,20 @@ extension ProjectListViewController: UITableViewDelegate {
         guard let state = (tableView as? ProjectListTableView)?.state else {
             return UIView()
         }
-        let numberOfProjects = viewModel.numberOfProjects(state: state)
+        let numberOfProjects = viewModel?.numberOfProjects(state: state)
         
         let headerView = tableView.dequeueReusableHeaderFooterView(withClass: ProjectListTableHeaderView.self)
-        headerView.populateData(title: state.title, count: numberOfProjects)
+        headerView.populateData(title: state.title, count: numberOfProjects ?? .zero)
         
         return headerView
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: nil) { _, _, _ in
-            self.viewModel.delete(index: indexPath, tableView: tableView)
+            guard let state = (tableView as? ProjectListTableView)?.state else {
+                return
+            }
+            self.viewModel?.delete(indexPath: indexPath, state: state)
         }
         
         deleteAction.image = UIImage(systemName: "trash")
@@ -135,7 +140,10 @@ extension ProjectListViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        viewModel.didSelectRow(index: indexPath, tableView: tableView)
+        guard let state = (tableView as? ProjectListTableView)?.state else {
+            return
+        }
+        viewModel?.didSelectRow(indexPath: indexPath, state: state)
     }
 }
 

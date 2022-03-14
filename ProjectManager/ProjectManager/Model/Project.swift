@@ -2,7 +2,7 @@ import Foundation
 
 struct Project {
     let id: UUID
-    let state: State
+    let state: ProjectState
     let title: String
     let body: String
     let date: Date

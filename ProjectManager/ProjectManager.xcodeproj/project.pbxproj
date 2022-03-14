@@ -24,7 +24,7 @@
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
 		EA03AB1F27DB174500084E75 /* ProjectManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4C971227DB0B11002929B8 /* ProjectManagerTests.swift */; };
 		EA03AB2027DB174800084E75 /* MockProjectRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4C971C27DB0D52002929B8 /* MockProjectRepository.swift */; };
-		EA03AB2327DF1B1C00084E75 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA03AB2227DF1B1C00084E75 /* State.swift */; };
+		EA03AB2327DF1B1C00084E75 /* ProjectState.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA03AB2227DF1B1C00084E75 /* ProjectState.swift */; };
 		EA34A4ED27CCBEA7000F7676 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EA34A4EC27CCBEA7000F7676 /* GoogleService-Info.plist */; };
 		EA4C96DF27D091BE002929B8 /* AddProjectDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4C96DE27D091BE002929B8 /* AddProjectDetailViewController.swift */; };
 		EA4C96E127D0A562002929B8 /* UIView+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4C96E027D0A562002929B8 /* UIView+extension.swift */; };
@@ -65,7 +65,7 @@
 		C7431F1125F51E1E0094C4CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E2BC4EF963D2B452EAEBA8F3 /* Pods_ProjectManagerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectManagerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		EA03AB2227DF1B1C00084E75 /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
+		EA03AB2227DF1B1C00084E75 /* ProjectState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectState.swift; sourceTree = "<group>"; };
 		EA34A4EC27CCBEA7000F7676 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EA4C96DE27D091BE002929B8 /* AddProjectDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProjectDetailViewController.swift; sourceTree = "<group>"; };
 		EA4C96E027D0A562002929B8 /* UIView+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+extension.swift"; sourceTree = "<group>"; };
@@ -235,7 +235,7 @@
 			isa = PBXGroup;
 			children = (
 				EA4C970827D70E56002929B8 /* Project.swift */,
-				EA03AB2227DF1B1C00084E75 /* State.swift */,
+				EA03AB2227DF1B1C00084E75 /* ProjectState.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -438,7 +438,7 @@
 				A6B62A2627D9D1390080C0D5 /* ProjectUseCase.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				EAD6911B27CF5B7C001DFDC8 /* ProjectListTableHeaderView.swift in Sources */,
-				EA03AB2327DF1B1C00084E75 /* State.swift in Sources */,
+				EA03AB2327DF1B1C00084E75 /* ProjectState.swift in Sources */,
 				A6541F6D27CF3A3900F576D4 /* ProjectListTableView.swift in Sources */,
 				A6989AE827D71A4500E29876 /* ProjectDetailView.swift in Sources */,
 				A6989AEA27D71E1200E29876 /* EditProjectDetailViewController.swift in Sources */,
