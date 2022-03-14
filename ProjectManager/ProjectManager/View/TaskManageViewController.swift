@@ -69,8 +69,9 @@ final class TaskManageViewController: UIViewController {
         
     private var selectedIndex: Int?
     private var selectedTask: Task?
-    private let manageType: ManageType
+    private var manageType: ManageType
     private let taskListViewModel: TaskViewModel
+    private var taskManageViewModel = TaskManageViewModel()
     
     // MARK: - Life Cycle
 
@@ -92,9 +93,34 @@ final class TaskManageViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configTaskManageViewModel()
         configureUI()
         setupData(from: selectedTask)
         setupEditingState(from: manageType)
+    }
+    
+    // MARK: - Configure TaskManageViewModel
+    
+    private func configTaskManageViewModel() {
+        taskManageViewModel.manageTasks = { [weak self] manageType in
+            switch manageType {
+            case .add:
+                self?.createTask()
+            case .edit, .detail:
+                self?.updateTask()
+            }
+            
+            self?.dismiss(animated: true, completion: nil)
+        }
+        
+        taskManageViewModel.changeManageTypeToEdit = { [weak self] manageType in
+            guard let self = self else {
+                return
+            }
+            self.manageType = manageType
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.didTapCancel))
+            self.setupEditingState(from: manageType)
+        }
     }
     
     // MARK: - Configure UI
@@ -121,10 +147,14 @@ final class TaskManageViewController: UIViewController {
     }
     
     private func setupEditingState(from manageType: ManageType) {
-        if manageType == .detail {
-            titleTextField.isUserInteractionEnabled.toggle()
-            deadlineDatePicker.isUserInteractionEnabled.toggle()
-            descriptionTextView.isUserInteractionEnabled.toggle()
+        if manageType == .edit {
+            titleTextField.isUserInteractionEnabled = true
+            deadlineDatePicker.isUserInteractionEnabled = true
+            descriptionTextView.isUserInteractionEnabled = true
+        } else if manageType == .detail {
+            titleTextField.isUserInteractionEnabled = false
+            deadlineDatePicker.isUserInteractionEnabled = false
+            descriptionTextView.isUserInteractionEnabled = false
         }
     }
     
@@ -152,7 +182,7 @@ final class TaskManageViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(didTapDone))
     }
     
-    private func saveTask() {
+    private func createTask() {
         guard let title = titleTextField.text,
               let description = descriptionTextView.text else {
             return
@@ -176,24 +206,6 @@ final class TaskManageViewController: UIViewController {
                                     from: selectedTask.state)
     }
     
-    private func checkValidInput() -> Bool {
-        var invalidItems = [String]()
-        if titleTextField.text == "" {
-            invalidItems.append("제목")
-        }
-        
-        if descriptionTextView.text == "" {
-            invalidItems.append("내용")
-        }
-        
-        if invalidItems.isEmpty {
-            return true
-        }
-        
-        presentAlert(title: "\(invalidItems.joined(separator: ", "))을 입력해주세요", message: "")
-        return false
-    }
-    
     private func presentAlert(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let confirmAction = UIAlertAction(title: "확인", style: .default, handler: nil)
@@ -206,22 +218,20 @@ final class TaskManageViewController: UIViewController {
     }
     
     @objc private func didTapEdit() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(didTapCancel))
-        setupEditingState(from: manageType)
+        taskManageViewModel.changeToEditState()
     }
     
     @objc private func didTapDone() {
-        guard checkValidInput() else {
+        let title = titleTextField.text
+        let description = descriptionTextView.text
+        let (invalidItems, isValid) = taskManageViewModel.checkValidInput(title: title, description: description)
+        
+        if !isValid {
+            presentAlert(title: invalidItems, message: "")
             return
         }
         
-        switch manageType {
-        case .add, .edit:
-            saveTask()
-        case .detail:
-            updateTask()
-        }
-        dismiss(animated: true, completion: nil)
+        taskManageViewModel.didTapDoneButton(with: manageType)
     }
 }
 
@@ -229,13 +239,11 @@ final class TaskManageViewController: UIViewController {
 
 extension TaskManageViewController: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        if range.location == 1000 {
+        let isValidText = taskManageViewModel.checkValidTextLength(with: range, length: 1000)
+        if !isValidText {
             presentAlert(title: "입력 초과", message: "1,000 글자 미만으로 입력해주세요")
-            return false
         }
-        if range.length > 0 {
-            return true
-        }
-        return range.location < 1000
+        
+        return isValidText
     }
 }
