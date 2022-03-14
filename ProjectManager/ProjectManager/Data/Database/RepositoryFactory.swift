@@ -20,6 +20,8 @@ final class RepositoryFactory {
             return CoredataRepository(context: context)
         case .fireStore:
             return FireStoreRepository(database: self.defaultFireStore)
+        case .mock:
+            return MockDataRepository()
         }
     }
     

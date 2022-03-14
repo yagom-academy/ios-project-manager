@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		18688D5227DA4160001A7C7A /* ProjectUITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18688D5127DA4160001A7C7A /* ProjectUITableViewCell.swift */; };
-		18688D5527DAF5B2001A7C7A /* ProjectAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18688D5427DAF5B2001A7C7A /* ProjectAddViewController.swift */; };
-		18688D5927DC9189001A7C7A /* MainViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18688D5827DC9188001A7C7A /* MainViewCoordinator.swift */; };
+		18688D5527DAF5B2001A7C7A /* DetailAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18688D5427DAF5B2001A7C7A /* DetailAddViewController.swift */; };
+		18688D5927DC9189001A7C7A /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18688D5827DC9188001A7C7A /* MainCoordinator.swift */; };
 		18688D5E27DD155B001A7C7A /* DetailUpdateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18688D5D27DD155B001A7C7A /* DetailUpdateViewController.swift */; };
 		18688D6327DD15ED001A7C7A /* ProjectDetailUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18688D6227DD15ED001A7C7A /* ProjectDetailUIView.swift */; };
 		18688D6727DD1D19001A7C7A /* MainUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18688D6627DD1D19001A7C7A /* MainUIView.swift */; };
@@ -35,6 +35,10 @@
 		189DD58D27D6FF8400395CF4 /* CDProject+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189DD58B27D6FF8400395CF4 /* CDProject+CoreDataClass.swift */; };
 		189DD58E27D6FF8400395CF4 /* CDProject+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189DD58C27D6FF8400395CF4 /* CDProject+CoreDataProperties.swift */; };
 		189DD59127D7004F00395CF4 /* ProgressState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189DD59027D7004F00395CF4 /* ProgressState.swift */; };
+		18D8A13427DF00500002351F /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D8A13327DF00500002351F /* Coordinator.swift */; };
+		18D8A13827DF02260002351F /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D8A13727DF02260002351F /* ViewModel.swift */; };
+		18D8A13A27DF03DB0002351F /* DetailAddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D8A13927DF03DB0002351F /* DetailAddViewModel.swift */; };
+		18D8A13C27DF19D70002351F /* MockDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D8A13B27DF19D70002351F /* MockDataRepository.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* MainViewController.swift */; };
@@ -44,8 +48,8 @@
 
 /* Begin PBXFileReference section */
 		18688D5127DA4160001A7C7A /* ProjectUITableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectUITableViewCell.swift; sourceTree = "<group>"; };
-		18688D5427DAF5B2001A7C7A /* ProjectAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectAddViewController.swift; sourceTree = "<group>"; };
-		18688D5827DC9188001A7C7A /* MainViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewCoordinator.swift; sourceTree = "<group>"; };
+		18688D5427DAF5B2001A7C7A /* DetailAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailAddViewController.swift; sourceTree = "<group>"; };
+		18688D5827DC9188001A7C7A /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		18688D5D27DD155B001A7C7A /* DetailUpdateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailUpdateViewController.swift; sourceTree = "<group>"; };
 		18688D6227DD15ED001A7C7A /* ProjectDetailUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDetailUIView.swift; sourceTree = "<group>"; };
 		18688D6627DD1D19001A7C7A /* MainUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainUIView.swift; sourceTree = "<group>"; };
@@ -66,6 +70,10 @@
 		189DD58B27D6FF8400395CF4 /* CDProject+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDProject+CoreDataClass.swift"; sourceTree = "<group>"; };
 		189DD58C27D6FF8400395CF4 /* CDProject+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDProject+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		189DD59027D7004F00395CF4 /* ProgressState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressState.swift; sourceTree = "<group>"; };
+		18D8A13327DF00500002351F /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		18D8A13727DF02260002351F /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		18D8A13927DF03DB0002351F /* DetailAddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailAddViewModel.swift; sourceTree = "<group>"; };
+		18D8A13B27DF19D70002351F /* MockDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDataRepository.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -94,7 +102,6 @@
 		18688D5327DAF560001A7C7A /* DetailAddView */ = {
 			isa = PBXGroup;
 			children = (
-				18688D6027DD1577001A7C7A /* Coordinator */,
 				18688D5627DC7E35001A7C7A /* View */,
 				18688D5727DC7E3E001A7C7A /* ViewModel */,
 			);
@@ -104,7 +111,7 @@
 		18688D5627DC7E35001A7C7A /* View */ = {
 			isa = PBXGroup;
 			children = (
-				18688D5427DAF5B2001A7C7A /* ProjectAddViewController.swift */,
+				18688D5427DAF5B2001A7C7A /* DetailAddViewController.swift */,
 				18688D6227DD15ED001A7C7A /* ProjectDetailUIView.swift */,
 			);
 			path = View;
@@ -113,6 +120,7 @@
 		18688D5727DC7E3E001A7C7A /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				18D8A13927DF03DB0002351F /* DetailAddViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -120,7 +128,6 @@
 		18688D5A27DD14B5001A7C7A /* DetailUpdateView */ = {
 			isa = PBXGroup;
 			children = (
-				18688D6127DD157D001A7C7A /* Coordinator */,
 				18688D5B27DD1525001A7C7A /* View */,
 				18688D5C27DD152C001A7C7A /* ViewModel */,
 			);
@@ -145,21 +152,7 @@
 		18688D5F27DD1569001A7C7A /* Coordinator */ = {
 			isa = PBXGroup;
 			children = (
-				18688D5827DC9188001A7C7A /* MainViewCoordinator.swift */,
-			);
-			path = Coordinator;
-			sourceTree = "<group>";
-		};
-		18688D6027DD1577001A7C7A /* Coordinator */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Coordinator;
-			sourceTree = "<group>";
-		};
-		18688D6127DD157D001A7C7A /* Coordinator */ = {
-			isa = PBXGroup;
-			children = (
+				18688D5827DC9188001A7C7A /* MainCoordinator.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -167,6 +160,8 @@
 		189DD4F127D0FEF200395CF4 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				18688D5F27DD1569001A7C7A /* Coordinator */,
+				18D8A13227DF003B0002351F /* Protocol */,
 				189DD54F27D56FBA00395CF4 /* MainView */,
 				18688D5327DAF560001A7C7A /* DetailAddView */,
 				18688D5A27DD14B5001A7C7A /* DetailUpdateView */,
@@ -218,6 +213,7 @@
 			children = (
 				189DD50927D10C2900395CF4 /* CoreDataRepository.swift */,
 				189DD50B27D10C3600395CF4 /* FireBaseRepositoryr.swift */,
+				18D8A13B27DF19D70002351F /* MockDataRepository.swift */,
 				189DD50227D106FA00395CF4 /* RepositoryChecker.swift */,
 				189DD50727D10B6200395CF4 /* RepositoryFactory.swift */,
 				189DD50027D1050500395CF4 /* RepositoryType.swift */,
@@ -228,7 +224,6 @@
 		189DD54F27D56FBA00395CF4 /* MainView */ = {
 			isa = PBXGroup;
 			children = (
-				18688D5F27DD1569001A7C7A /* Coordinator */,
 				189DD55027D5702000395CF4 /* View */,
 				189DD4F427D0FF1C00395CF4 /* ViewModel */,
 			);
@@ -268,6 +263,15 @@
 				189DD59027D7004F00395CF4 /* ProgressState.swift */,
 			);
 			path = Util;
+			sourceTree = "<group>";
+		};
+		18D8A13227DF003B0002351F /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				18D8A13327DF00500002351F /* Coordinator.swift */,
+				18D8A13727DF02260002351F /* ViewModel.swift */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 		C7431EF925F51E1D0094C4CF = {
@@ -387,11 +391,13 @@
 				189DD50A27D10C2900395CF4 /* CoreDataRepository.swift in Sources */,
 				189DD50C27D10C3600395CF4 /* FireBaseRepositoryr.swift in Sources */,
 				189DD58E27D6FF8400395CF4 /* CDProject+CoreDataProperties.swift in Sources */,
-				18688D5527DAF5B2001A7C7A /* ProjectAddViewController.swift in Sources */,
+				18688D5527DAF5B2001A7C7A /* DetailAddViewController.swift in Sources */,
 				189DD50F27D1110D00395CF4 /* MainViewModel.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
-				18688D5927DC9189001A7C7A /* MainViewCoordinator.swift in Sources */,
+				18688D5927DC9189001A7C7A /* MainCoordinator.swift in Sources */,
 				18688D6327DD15ED001A7C7A /* ProjectDetailUIView.swift in Sources */,
+				18D8A13A27DF03DB0002351F /* DetailAddViewModel.swift in Sources */,
+				18D8A13427DF00500002351F /* Coordinator.swift in Sources */,
 				189DD4FA27D1015C00395CF4 /* DataRepository.swift in Sources */,
 				189DD59127D7004F00395CF4 /* ProgressState.swift in Sources */,
 				189DD55527D5720300395CF4 /* ProjectManagingUseCase.swift in Sources */,
@@ -404,10 +410,12 @@
 				189DD50327D106FA00395CF4 /* RepositoryChecker.swift in Sources */,
 				189DD50127D1050500395CF4 /* RepositoryType.swift in Sources */,
 				189DD4F627D0FF8000395CF4 /* Project.swift in Sources */,
+				18D8A13827DF02260002351F /* ViewModel.swift in Sources */,
 				189DD50827D10B6200395CF4 /* RepositoryFactory.swift in Sources */,
 				189DD55327D571D100395CF4 /* ProjectManagerUseCase.swift in Sources */,
 				189DD57C27D6995900395CF4 /* Encodable + Extensions.swift in Sources */,
 				189DD58D27D6FF8400395CF4 /* CDProject+CoreDataClass.swift in Sources */,
+				18D8A13C27DF19D70002351F /* MockDataRepository.swift in Sources */,
 				18688D5227DA4160001A7C7A /* ProjectUITableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

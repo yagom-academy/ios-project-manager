@@ -1,11 +1,13 @@
 import Foundation
 import RxSwift
 
-class MainViewModel {
+class MainViewModel: ViewModel {    
     
-    let useCase: ProjectManagingUseCase
+    var useCase: ProjectManagingUseCase
+    var coordinator: Coordinator?
     
-    init(useCase: ProjectManagingUseCase) {
+    init(useCase: ProjectManagingUseCase, coordinator: Coordinator) {
         self.useCase = useCase
+        self.coordinator = coordinator
     }
 }

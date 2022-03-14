@@ -18,7 +18,7 @@ final class MainViewController: UIViewController {
     // MARK: - method 
     private func configureNavigationItems() {
         self.navigationItem.title = "ProjectManager"
-        self.navigationController?.navigationBar.backgroundColor = .gray
+        self.navigationController?.navigationBar.backgroundColor = .white
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .add,
             target: self,
@@ -27,7 +27,7 @@ final class MainViewController: UIViewController {
     }
     
     @objc func didtappedRightBarButton() {
-        
+        viewModel?.coordinator?.occuredEvent(with: .buttonTapped)
     }
 }
     

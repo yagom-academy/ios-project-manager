@@ -3,5 +3,6 @@ import Foundation
 enum RepositoryType {
     
     case coreData
-    case fireStore 
+    case fireStore
+    case mock
 }
