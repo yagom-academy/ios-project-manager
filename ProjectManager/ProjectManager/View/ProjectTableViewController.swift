@@ -62,12 +62,13 @@ final class ProjectTableViewController: UIViewController {
             .bind(to: tableView.rx.items(
                 cellIdentifier: String(describing: ProjectTableViewCell.self),
                 cellType: ProjectTableViewCell.self
-            )) { [weak self] row, item, cell in
+            )) { [weak self] _, item, cell in
                 cell.configureCellContent(for: item)
-                cell.work = list.map { $0[safe: row] }
+                
                 cell.title = self?.titleText
                 cell.viewModel = self?.viewModel
                 cell.viewController = self
+                cell.work = item
             }
             .disposed(by: disposeBag)
     }

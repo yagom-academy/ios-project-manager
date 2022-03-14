@@ -27,7 +27,7 @@ final class ProjectTableViewCell: UITableViewCell {
     
     var title: String?
     var viewModel: ProjectViewModel?
-    var work: Observable<Work?>?
+    var work: Work?
     var viewController: ProjectTableViewController?
     
     var firstTitle: String {
@@ -80,29 +80,26 @@ final class ProjectTableViewCell: UITableViewCell {
     }
     
     @objc private func showPopupMenu() {
+        guard let viewModel = viewModel else { return }
+
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 
         let firstAction = UIAlertAction(title: firstTitle, style: .default) { [weak self] _ in
             if self?.firstTitle == Content.moveToDoTitle {
-                _ = self?.work?.subscribe(onNext: {
-                    self?.change($0, category: .todo)
-                })
-                
+                self?.change(category: .todo)
+                viewModel.todoList.onNext(viewModel.workMemoryManager.todoList)
             } else {
-                _ = self?.work?.subscribe(onNext: {
-                    self?.change($0, category: .doing)
-                })
+                self?.change(category: .doing)
+                viewModel.doingList.onNext(viewModel.workMemoryManager.doingList)
             }
         }
         let secondAction = UIAlertAction(title: secondTitle, style: .default) { [weak self] _ in
             if self?.secondTitle == Content.moveDoingTitle {
-                _ = self?.work?.subscribe(onNext: {
-                    self?.change($0, category: .doing)
-                })
+                self?.change(category: .doing)
+                viewModel.doingList.onNext(viewModel.workMemoryManager.doingList)
             } else {
-                _ = self?.work?.subscribe(onNext: {
-                    self?.change($0, category: .done)
-                })
+                self?.change(category: .done)
+                viewModel.doneList.onNext(viewModel.workMemoryManager.doneList)
             }
         }
 
@@ -112,7 +109,7 @@ final class ProjectTableViewCell: UITableViewCell {
         viewController?.present(alert, animated: true)
     }
     
-    private func change(_ work: Work?, category: Work.Category) {
+    private func change(category: Work.Category) {
         guard let work = work else { return }
 
         viewModel?.updateWork(
