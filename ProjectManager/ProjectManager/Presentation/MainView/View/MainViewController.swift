@@ -29,6 +29,10 @@ final class MainViewController: UIViewController {
     @objc func didtappedRightBarButton() {
         viewModel?.coordinator?.occuredEvent(with: .buttonTapped)
     }
+    
+    private func bind() {
+        
+    }
 }
     
 

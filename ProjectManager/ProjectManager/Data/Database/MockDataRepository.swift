@@ -1,16 +1,24 @@
 import Foundation
+import RxSwift
 
 class MockDataRepository: DataRepository {
-    private var dataBase = [Listable]()
+    
+    private var dataBase = PublishSubject<Listable>()
     
     func create(attributes: [String: Any]) {
         let uuid = UUID().uuidString
-        dataBase.append(Project(name: "프로젝트", detail: "실험데이터", deadline: Date(), indentifier: uuid, progressState: ProgressState.todo.description))
+        guard let projectMock = Project(name: "프로젝트", detail: "실험데이터", deadline: Date(), indentifier: uuid, progressState: ProgressState.todo.description) as? Listable
+        else {
+            return
+        }
+        dataBase.onNext(projectMock)
     }
     
     func read(identifier: String) -> Listable? {
-        dataBase.filter{ $0.identifier == identifier }.first
+       
+        return nil
     }
+    
     
     func update(identifier: String, how attributes: [String : Any]) {
         
@@ -23,10 +31,9 @@ class MockDataRepository: DataRepository {
     func fetch() {
         
     }
-    
+
     func extractAll() -> [Listable] {
-        return dataBase
+       return []
     }
-    
-    
 }
+

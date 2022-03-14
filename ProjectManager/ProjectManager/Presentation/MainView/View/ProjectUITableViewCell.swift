@@ -30,9 +30,9 @@ class ProjectUITableViewCell: UITableViewCell {
     private lazy var stackView: UIStackView = {
         let stackView = UIStackView(
             arrangedSubviews: [
-                nameLabel,
-                detailLabel,
-                deadLineLabel
+                self.nameLabel,
+                self.detailLabel,
+                self.deadLineLabel
             ]
         )
         stackView.axis = .vertical
