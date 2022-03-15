@@ -23,8 +23,4 @@ struct TaskListContainerView: View {
         }
     }
     
-    private var tasks: [Task] {
-        viewModel.findTasks(of: taskType)
-    }
-    
 }
