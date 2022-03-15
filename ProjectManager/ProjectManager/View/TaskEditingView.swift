@@ -35,8 +35,9 @@ struct TaskEditingView: View {
                 DatePicker("", selection: $newTaskDueDate, displayedComponents: .date)
                     .labelsHidden()
                     .datePickerStyle(.wheel)
-                    .scaleEffect(1.4)
-                    .padding(.vertical, 50)
+                    .scaleEffect(1.2)
+                    .padding(.vertical, 20)
+                    .environment(\.locale, Locale(identifier: Locale.preferredLanguages.first ?? "en"))
                 TextEditorWithPlaceholder(taskBody: $newTaskBody)
             }
             .padding(.all, 20)
