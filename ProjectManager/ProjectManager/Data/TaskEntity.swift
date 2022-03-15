@@ -4,13 +4,16 @@ struct TaskListModel: Identifiable {
     var id: UUID
     var title: String
     var items: [TaskModel]
+    var lastModifiedDate: Date
 
     init(title: String,
          id: UUID = UUID(),
-         items: [TaskModel] = []) {
+         items: [TaskModel] = [],
+         lastModifiedDate: Date = Date()) {
         self.id = id
         self.title = title
         self.items = items
+        self.lastModifiedDate = lastModifiedDate
     }
 }
 
