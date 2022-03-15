@@ -42,7 +42,7 @@ class ProjectBoardViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.configureDelegate()
+        self.configureProjectViewControllerDelegate()
         self.configureSubviews()
         self.navigationBar.delegate = self
         self.configureNavigationItem()
@@ -90,7 +90,7 @@ class ProjectBoardViewController: UIViewController {
     }
     
     // MARK: - Configure Controller
-    private func configureDelegate() {
+    private func configureProjectViewControllerDelegate() {
         self.todoViewController.delegate = self
         self.doingViewController.delegate = self
         self.doneViewController.delegate = self
