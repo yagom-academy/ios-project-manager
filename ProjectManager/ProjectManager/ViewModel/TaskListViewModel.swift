@@ -54,12 +54,13 @@ class TaskListViewModel: ObservableObject {
                     return
                 }
             } receiveValue: { _ in
-                self.fetch()
+                self.reload()
             }
             .store(in: &cancellables)
     }
     
     func updateState(id: String, progressStatus: Task.ProgressStatus) {
+        manager.updateRealmTaskState(id: id, progressStatus: progressStatus)
         manager.updateTaskState(id: id, progressStatus: progressStatus)
             .sink { completion in
                 switch completion {
@@ -69,12 +70,13 @@ class TaskListViewModel: ObservableObject {
                     return
                 }
             } receiveValue: { _ in
-                self.fetch()
+                self.reload()
             }
             .store(in: &cancellables)
     }
     
     func updateTask(id: String, title: String, description: String, deadline: Date) {
+        manager.updateRealmTask(id: id, title: title, description: description, deadline: deadline)
         manager.updateTask(id: id, title: title, description: description, deadline: deadline)
             .sink { completion in
                 switch completion {
@@ -84,7 +86,7 @@ class TaskListViewModel: ObservableObject {
                     return
                 }
             } receiveValue: { _ in
-                self.fetch()
+                self.reload()
             }
             .store(in: &cancellables)
     }
@@ -99,7 +101,7 @@ class TaskListViewModel: ObservableObject {
                     return
                 }
             } receiveValue: { _ in
-                self.fetch()
+                self.reload()
             }
             .store(in: &cancellables)
     }

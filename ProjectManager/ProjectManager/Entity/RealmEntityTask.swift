@@ -12,7 +12,7 @@ class RealmEntityTask: Object {
     @objc dynamic var title: String = ""
     @objc dynamic var desc: String = ""
     @objc dynamic var deadline: TimeInterval = 0
-    var progressStatus = ProgressStatus.todo.rawValue
+    @objc dynamic var progressStatus = ProgressStatus.todo.rawValue
     var progressStatusEnum: ProgressStatus {
         get {
             return ProgressStatus(rawValue: progressStatus) ?? .todo

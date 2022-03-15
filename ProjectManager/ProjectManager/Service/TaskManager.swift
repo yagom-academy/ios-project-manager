@@ -50,6 +50,14 @@ class TaskManager: TaskManagable {
         .eraseToAnyPublisher()
     }
     
+    func updateRealmTaskState(id: String, progressStatus: Task.ProgressStatus) {
+        realmTaskListRepository.updateTaskState(
+            id: id,
+            progressStatus: RealmEntityTask.ProgressStatus(rawValue: progressStatus.rawValue) ?? .todo
+        )
+        fetchRealm()
+    }
+    
     func updateTask(id: String, title: String, description: String, deadline: Date) {
         taskList
             .indices
@@ -73,6 +81,11 @@ class TaskManager: TaskManagable {
             }
         }
         .eraseToAnyPublisher()
+    }
+    
+    func updateRealmTask(id: String, title: String, description: String, deadline: Date) {
+        realmTaskListRepository.updateTask(id: id, title: title, description: description, deadline: deadline)
+        fetchRealm()
     }
     
     func deleteTask(_ id: String) {
@@ -106,8 +119,7 @@ class TaskManager: TaskManagable {
     }
     
     func fetchRealm() {
-        self.taskList = realmTaskListRepository
-            .fetch()
+        self.taskList = realmTaskListRepository.fetch()
             .map { convertTask(from: $0) }
     }
     

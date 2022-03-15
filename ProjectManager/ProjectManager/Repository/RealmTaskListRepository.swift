@@ -27,7 +27,35 @@ class RealmTaskListRepository {
         } catch let error {
             print(error)
         }
-        
+        print(Realm.Configuration.defaultConfiguration.fileURL!)
         return realmEntityTaskList
+    }
+    
+    func updateTask(id: String, title: String, description: String, deadline: Date) {
+        do {
+            let realm = try Realm()
+            let task = realm.objects(RealmEntityTask.self)
+                .filter { $0.id == id }
+            try realm.write {
+                task.first?.title = title
+                task.first?.desc = description
+                task.first?.deadline = deadline.timeIntervalSince1970
+            }
+        } catch let error {
+            print(error)
+        }
+    }
+    
+    func updateTaskState(id: String, progressStatus: RealmEntityTask.ProgressStatus) {
+        do {
+            let realm = try Realm()
+            let task = realm.objects(RealmEntityTask.self)
+                .filter { $0.id == id }
+            try realm.write {
+                task.first?.progressStatus = progressStatus.rawValue
+            }
+        } catch let error {
+            print(error)
+        }
     }
 }
