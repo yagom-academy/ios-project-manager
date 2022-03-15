@@ -21,17 +21,26 @@ final class ProjectTableViewController: UIViewController {
     @IBOutlet weak private var countLabel: ProjectHeaderCircleLabel!
     @IBOutlet weak private var tableView: UITableView!
     
-    var viewModel: ProjectViewModel?
-    var titleText: String?
-    var count: Observable<Int>?
-    var list: BehaviorSubject<[Work]>?
-    
     private var disposeBag = DisposeBag()
+    private var viewModel: ProjectViewModel?
+    private var titleText: String?
+    private var count: Observable<Int>?
+    private var list: BehaviorSubject<[Work]>?
     private var selectedWork: Work?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+    }
+    
+    func setup(viewModel: ProjectViewModel) {
+        self.viewModel = viewModel
+    }
+    
+    func setup(titleText: String, count: Observable<Int>, list: BehaviorSubject<[Work]>) {
+        self.titleText = titleText
+        self.count = count
+        self.list = list
     }
     
     private func setupView() {

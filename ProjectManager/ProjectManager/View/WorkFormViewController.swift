@@ -53,7 +53,6 @@ final class WorkFormViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
         delegate?.removeSelectedWork()
     }
     
