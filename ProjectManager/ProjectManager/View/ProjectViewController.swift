@@ -67,6 +67,7 @@ final class ProjectViewController: UIViewController {
             WorkFormViewController(coder: coder, viewModel: self.viewModel)
         }
         viewController.modalPresentationStyle = .formSheet
+        viewController.delegate = viewModel
         
         present(viewController, animated: true, completion: nil)
     }

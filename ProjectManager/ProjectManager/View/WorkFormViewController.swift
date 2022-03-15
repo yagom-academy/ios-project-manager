@@ -3,6 +3,10 @@ import RxSwift
 import RxCocoa
 
 
+protocol WorkFormViewControllerDelegate: AnyObject {
+    func removeSelectedWork()
+}
+
 private enum Content {
     static let isEmpty = ""
     static let EmptyTitle = "제목을 입력해주세요"
@@ -22,35 +26,41 @@ private enum Design {
 
 final class WorkFormViewController: UIViewController {
     
+    weak var delegate: WorkFormViewControllerDelegate?
+    
     @IBOutlet weak private var rightBarButtonItem: UIBarButtonItem!
     @IBOutlet weak private var titleTextField: UITextField!
     @IBOutlet weak private var datePicker: UIDatePicker!
     @IBOutlet weak private var bodyTextView: UITextView!
     
-    private var viewModel: WorkFormViewModel?
+    private var projectViewModel: ProjectViewModel?
     private let disposeBag = DisposeBag()
     private var passedWork: Work?
     
     convenience init?(coder: NSCoder, viewModel: ProjectViewModel) {
         self.init(coder: coder)
-        self.viewModel = WorkFormViewModel(
-            workMemoryManager: viewModel.workMemoryManager,
-            todoList: viewModel.todoList,
-            doingList: viewModel.doingList,
-            doneList: viewModel.doneList
-        )
+        self.projectViewModel = viewModel
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupContent()
         setupRightBarButtonItem()
         setupTextField()
         setupDatePicker()
         setupTextView()
     }
     
-    func setupContent(from work: Observable<Work?>) {
-        _ = work
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        delegate?.removeSelectedWork()
+    }
+    
+    func setupContent() {
+        guard let selectedWork = projectViewModel?.selectedWork else { return }
+        
+        _ = selectedWork
             .subscribe(onNext: { [weak self] in
                 self?.passedWork = $0
             })
@@ -64,15 +74,16 @@ final class WorkFormViewController: UIViewController {
             
             let work = Work(title: titleTextField.text, body: bodyTextView.text, dueDate: datePicker.date)
             
-            viewModel?.addWork(work)
+            projectViewModel?.addWork(work)
         } else if rightBarButtonItem.title == Content.editTitle {
             guard let passedWork = passedWork else { return }
             
-            viewModel?.updateWork(
+            projectViewModel?.updateWork(
                 passedWork,
                 title: titleTextField.text,
                 body: bodyTextView.text,
-                date: datePicker.date
+                date: datePicker.date,
+                category: passedWork.category
             )
         }
         
@@ -84,7 +95,7 @@ final class WorkFormViewController: UIViewController {
     }
 
     private func setupRightBarButtonItem() {
-        if passedWork?.title == nil {
+        if projectViewModel?.selectedWork == nil {
             rightBarButtonItem.title = Content.doneTitle
         } else {
             rightBarButtonItem.title = Content.editTitle

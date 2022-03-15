@@ -95,8 +95,9 @@ extension ProjectTableViewController: UITableViewDelegate {
             list.map { $0[safe: indexPath.row] }
         }
         
+        viewController.delegate = viewModel
         viewController.modalPresentationStyle = .formSheet
-        viewController.setupContent(from: selectedWork)
+        viewModel.selectedWork = selectedWork
         
         present(viewController, animated: true, completion: nil)
     }

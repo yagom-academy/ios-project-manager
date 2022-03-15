@@ -10,6 +10,8 @@ final class ProjectViewModel {
     let doingList = BehaviorSubject<[Work]>(value: [])
     let doneList = BehaviorSubject<[Work]>(value: [])
     
+    var selectedWork: Observable<Work?>?
+    
     var todoCount: Observable<Int> {
         todoList.map { $0.count }
     }
@@ -63,6 +65,16 @@ final class ProjectViewModel {
         case .done:
             doneList.onNext(workMemoryManager.doneList)
         }
+        
+        selectedWork = nil
     }
+    
+}
+
+extension ProjectViewModel: WorkFormViewControllerDelegate {
+    func removeSelectedWork() {
+        selectedWork = nil
+    }
+    
     
 }
