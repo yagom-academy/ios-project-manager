@@ -34,13 +34,13 @@ extension TaskCollectionViewCell: UITableViewDataSource {
                 withIdentifier: TaskTableViewCell.reuseIdentifier,
                 for: indexPath) as? TaskTableViewCell else { return UITableViewCell() }
         guard let task = taskList?.items[indexPath.row] else { return UITableViewCell() }
-        cell.update(with: task)
+        cell.updateData(with: task)
         return cell
     }
 }
 
 extension TaskTableViewCell {
-    func update(with task: Task) {
+    func updateData(with task: Task) {
         self.titleLabel?.text = task.title
         self.bodyLabel?.text = task.body
         self.dateLabel?.text = task.dueDate
