@@ -1,11 +1,12 @@
 import Foundation
 
 protocol TaskViewModelable {
+    var onUpdated: () -> Void { get set }
+
     var taskLists: [TaskList] { get set }
     var countOfTaskList: Int { get }
 
     func reloadTaskList()
-
     func fetchTaskList(at index: Int) -> TaskList?
     func fetchTask(at index: Int, in listTitle: String) -> Task?
 
@@ -17,15 +18,23 @@ protocol TaskViewModelable {
 }
 
 final class TaskViewModel: TaskViewModelable {
-    var taskLists: [TaskList] = []
-    var countOfTaskList: Int { taskLists.count }
-
     private var useCase: TaskUseCase
 
     init(useCase: TaskUseCase) {
         self.useCase = useCase
         loadTaskList()
     }
+
+    var onUpdated: () -> Void = {}
+
+    var taskLists: [TaskList] = []
+    {
+        didSet {
+            onUpdated()
+        }
+    }
+
+    var countOfTaskList: Int { taskLists.count }
 
     func reloadTaskList() {
         loadTaskList()
