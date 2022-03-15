@@ -65,4 +65,3 @@ class TaskTableHeaderView: UITableViewHeaderFooterView {
         countLabel.text = "\(count)"
     }
 }
-

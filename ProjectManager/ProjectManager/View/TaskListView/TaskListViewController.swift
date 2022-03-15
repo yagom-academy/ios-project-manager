@@ -6,6 +6,7 @@ final class TaskListViewController: UIViewController {
     // MARK: - Properties
     private var taskListViewModel: TaskListViewModelProtocol!
     private lazy var tableViews = [todoTableView, doingTableView, doneTableView]
+    private var headerViews: [TaskTableHeaderView]?
     var disposeBag = DisposeBag()
     
     @IBOutlet private weak var todoTableView: TaskTableView!
@@ -35,11 +36,11 @@ final class TaskListViewController: UIViewController {
     
     private func setupHeaderViews() {
         ProcessStatus.allCases.enumerated().forEach { index, processStatus in
-            let headerView = 
+            let headerView = TaskTableHeaderView(reuseIdentifier: TaskTableHeaderView.reuseIdentifier)
             tableViews[index]?.applyData(with: processStatus)
-//            tableViews[index]?.tableHeaderView?.frame.height = 
+            tableViews[index]?.tableHeaderView = headerView
+            headerViews?.append(headerView)
         }
-        
     }
     
     private func setupBindings() {
