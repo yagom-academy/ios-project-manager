@@ -8,10 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		63974A4527D8D5F600523B16 /* ProjectTableViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63974A4427D8D5F600523B16 /* ProjectTableViewControllerDelegate.swift */; };
-		63974A4727D8D9C500523B16 /* DoingProjectTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63974A4627D8D9C500523B16 /* DoingProjectTableViewController.swift */; };
-		63974A4927D8DB2200523B16 /* DoneProjectTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63974A4827D8DB2200523B16 /* DoneProjectTableViewController.swift */; };
 		63B96DA927E024AF00144F7C /* ProjectBoardScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B96DA827E024AF00144F7C /* ProjectBoardScene.swift */; };
 		63B96DAB27E0262800144F7C /* ProjectDetailScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B96DAA27E0262800144F7C /* ProjectDetailScene.swift */; };
+		63B96DAD27E028CF00144F7C /* ProjectTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B96DAC27E028CF00144F7C /* ProjectTableViewController.swift */; };
 		63D21E5E27D4691700E35D3B /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D21E5D27D4691700E35D3B /* Project.swift */; };
 		63D21E6027D4AC2E00E35D3B /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D21E5F27D4AC2E00E35D3B /* Status.swift */; };
 		63D21E6227D4B3A600E35D3B /* LocalDataBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D21E6127D4B3A600E35D3B /* LocalDataBase.swift */; };
@@ -19,7 +18,6 @@
 		63D21E6727D4F9B900E35D3B /* ProjectManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D21E6627D4F9B900E35D3B /* ProjectManager.swift */; };
 		63D21E6927D5305000E35D3B /* ProjectCreatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D21E6827D5305000E35D3B /* ProjectCreatorViewController.swift */; };
 		63D21E8B27D634FD00E35D3B /* ProjectTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D21E8A27D634FD00E35D3B /* ProjectTableViewCell.swift */; };
-		63D21E8F27D65BDB00E35D3B /* TodoProjectTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D21E8E27D65BDB00E35D3B /* TodoProjectTableViewController.swift */; };
 		63D21E9327D6604500E35D3B /* UITableVeiwCell+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D21E9227D6604500E35D3B /* UITableVeiwCell+Extension.swift */; };
 		63D21E9527D73CD200E35D3B /* ProjectTableViewHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D21E9427D73CD200E35D3B /* ProjectTableViewHeaderView.swift */; };
 		63D21E9927D7618300E35D3B /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D21E9827D7618300E35D3B /* Date+Extension.swift */; };
@@ -36,10 +34,9 @@
 
 /* Begin PBXFileReference section */
 		63974A4427D8D5F600523B16 /* ProjectTableViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTableViewControllerDelegate.swift; sourceTree = "<group>"; };
-		63974A4627D8D9C500523B16 /* DoingProjectTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoingProjectTableViewController.swift; sourceTree = "<group>"; };
-		63974A4827D8DB2200523B16 /* DoneProjectTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneProjectTableViewController.swift; sourceTree = "<group>"; };
 		63B96DA827E024AF00144F7C /* ProjectBoardScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectBoardScene.swift; sourceTree = "<group>"; };
 		63B96DAA27E0262800144F7C /* ProjectDetailScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDetailScene.swift; sourceTree = "<group>"; };
+		63B96DAC27E028CF00144F7C /* ProjectTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTableViewController.swift; sourceTree = "<group>"; };
 		63D21E5D27D4691700E35D3B /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		63D21E5F27D4AC2E00E35D3B /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
 		63D21E6127D4B3A600E35D3B /* LocalDataBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDataBase.swift; sourceTree = "<group>"; };
@@ -47,7 +44,6 @@
 		63D21E6627D4F9B900E35D3B /* ProjectManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManager.swift; sourceTree = "<group>"; };
 		63D21E6827D5305000E35D3B /* ProjectCreatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectCreatorViewController.swift; sourceTree = "<group>"; };
 		63D21E8A27D634FD00E35D3B /* ProjectTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTableViewCell.swift; sourceTree = "<group>"; };
-		63D21E8E27D65BDB00E35D3B /* TodoProjectTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoProjectTableViewController.swift; sourceTree = "<group>"; };
 		63D21E9227D6604500E35D3B /* UITableVeiwCell+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableVeiwCell+Extension.swift"; sourceTree = "<group>"; };
 		63D21E9427D73CD200E35D3B /* ProjectTableViewHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTableViewHeaderView.swift; sourceTree = "<group>"; };
 		63D21E9827D7618300E35D3B /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
@@ -111,10 +107,8 @@
 				C7431F0925F51E1D0094C4CF /* ProjectBoardViewController.swift */,
 				63D21E6827D5305000E35D3B /* ProjectCreatorViewController.swift */,
 				63D21E9A27D7CAD600E35D3B /* ProjectDetailViewController.swift */,
+				63B96DAC27E028CF00144F7C /* ProjectTableViewController.swift */,
 				63974A4427D8D5F600523B16 /* ProjectTableViewControllerDelegate.swift */,
-				63D21E8E27D65BDB00E35D3B /* TodoProjectTableViewController.swift */,
-				63974A4627D8D9C500523B16 /* DoingProjectTableViewController.swift */,
-				63974A4827D8DB2200523B16 /* DoneProjectTableViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -279,16 +273,14 @@
 				63D21E6227D4B3A600E35D3B /* LocalDataBase.swift in Sources */,
 				63B96DA927E024AF00144F7C /* ProjectBoardScene.swift in Sources */,
 				63D21E9527D73CD200E35D3B /* ProjectTableViewHeaderView.swift in Sources */,
-				63974A4727D8D9C500523B16 /* DoingProjectTableViewController.swift in Sources */,
 				63D21E8B27D634FD00E35D3B /* ProjectTableViewCell.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
+				63B96DAD27E028CF00144F7C /* ProjectTableViewController.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				63D21E6927D5305000E35D3B /* ProjectCreatorViewController.swift in Sources */,
-				63974A4927D8DB2200523B16 /* DoneProjectTableViewController.swift in Sources */,
 				63974A4527D8D5F600523B16 /* ProjectTableViewControllerDelegate.swift in Sources */,
 				63D21E9927D7618300E35D3B /* Date+Extension.swift in Sources */,
 				63D21E5E27D4691700E35D3B /* Project.swift in Sources */,
-				63D21E8F27D65BDB00E35D3B /* TodoProjectTableViewController.swift in Sources */,
 				63B96DAB27E0262800144F7C /* ProjectDetailScene.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

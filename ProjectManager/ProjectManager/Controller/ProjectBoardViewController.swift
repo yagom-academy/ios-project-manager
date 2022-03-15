@@ -11,9 +11,9 @@ class ProjectBoardViewController: UIViewController {
     
     // MARK: - Property
     private let projectManager = ProjectManager()
-    private let todoViewController = TodoProjectTableViewController()
-    private let doingViewController = DoingProjectTableViewController()
-    private let doneViewController = DoneProjectTableViewController()
+    private let todoViewController = ProjectTableViewController(status: .todo)
+    private let doingViewController = ProjectTableViewController(status: .doing)
+    private let doneViewController = ProjectTableViewController(status: .done)
     
     // MARK: - UI Property
     private var navigationBar: UINavigationBar = {

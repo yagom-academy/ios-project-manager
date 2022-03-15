@@ -1,14 +1,15 @@
 //
-//  DoingProjectTableViewController.swift
+//  ProjectTableViewController.swift
 //  ProjectManager
 //
-//  Created by 1 on 2022/03/09.
+//  Created by 1 on 2022/03/15.
 //
 
 import UIKit
 
-// MARK: - DoingProjectTableViewController
-class DoingProjectTableViewController: UIViewController {
+
+// MARK: - ProjectTableViewController
+class ProjectTableViewController: UIViewController {
     
     // MARK: - DiffableDataSource Identfier
     enum Section {
@@ -20,10 +21,20 @@ class DoingProjectTableViewController: UIViewController {
     private let projectTableView = UITableView()
     
     // MARK: - Property
-    private let projectStatus = Status.doing
+    var projectStatus: Status!
     private var dataSource: UITableViewDiffableDataSource<Section,Project>!
     private let longPressGestureRecognizer = UILongPressGestureRecognizer()
     weak var delegate: ProjectTableViewControllerDelegate?
+    
+    // MARK: - Initializer
+    init(status: Status) {
+        self.projectStatus = status
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
     
     // MARK: - View Life Cycle
     override func loadView() {
@@ -75,13 +86,13 @@ class DoingProjectTableViewController: UIViewController {
     }
     
     // MARK: - Configure Controller
-       private func setupLongGestureRecognizerOnTableView() {
-           self.longPressGestureRecognizer.minimumPressDuration = 0.5
-           self.longPressGestureRecognizer.delaysTouchesBegan = true
-
-           self.projectTableView.addGestureRecognizer(longPressGestureRecognizer)
-           self.longPressGestureRecognizer.addTarget(self, action: #selector(presentEditPopover))
-       }
+    private func setupLongGestureRecognizerOnTableView() {
+        self.longPressGestureRecognizer.minimumPressDuration = 0.5
+        self.longPressGestureRecognizer.delaysTouchesBegan = true
+        
+        self.projectTableView.addGestureRecognizer(longPressGestureRecognizer)
+        self.longPressGestureRecognizer.addTarget(self, action: #selector(presentStatusModificationPopover))
+    }
     
     // MARK: - TableView Method
     private func configureDataSource() {
@@ -108,7 +119,7 @@ class DoingProjectTableViewController: UIViewController {
         
         dataSource.apply(snapShot, animatingDifferences: true, completion: nil)
     }
-     
+    
     // MARK: - Method
     func updateView() {
         applySnapshotToCell()
@@ -116,36 +127,28 @@ class DoingProjectTableViewController: UIViewController {
     }
     
     func updateHeaderView() {
-        guard let projects = delegate?.readProject(of: projectStatus) else {
+        guard let projects = delegate?.readProject(of: projectStatus), let status = self.projectStatus else {
             return
         }
         
-        self.headerView.configureContent(status: String(describing: projectStatus),
+        self.headerView.configureContent(status: String(describing: status),
                                          projectCount: projects.count)
     }
     
-    @objc func presentEditPopover() {
+    @objc func presentStatusModificationPopover() {
         let location = longPressGestureRecognizer.location(in: projectTableView)
         guard let project = longPressedProject(at: location),
               let identifier = project.identifier else {
-            return
-        }
+                  return
+              }
         
         let actionSheetController = UIAlertController(title: nil,
                                                       message: nil,
                                                       preferredStyle: .actionSheet)
-        let transitionToToDo = UIAlertAction(title: ProjectBoardScene.statusModification.todo.rawValue,
-                                              style: .default) { [weak self] _ in
-            self?.delegate?.updateProjectStatus(of: identifier, with: .todo)
-            self?.updateView()
-        }
-        let transitionToDone = UIAlertAction(title: ProjectBoardScene.statusModification.done.rawValue,
-                                             style: .default) { [weak self] _ in
-            self?.delegate?.updateProjectStatus(of: identifier, with: .done)
-            self?.updateView()
-        }
-        actionSheetController.addAction(transitionToToDo)
-        actionSheetController.addAction(transitionToDone)
+        let firstAction = firstStatusModificationPopoverUIAlertAction(with: identifier)
+        let secondAction = secondStatusModificationPopoverUIAlertAction(with: identifier)
+        actionSheetController.addAction(firstAction)
+        actionSheetController.addAction(secondAction)
         
         if let popoverController = actionSheetController.popoverPresentationController {
             popoverController.sourceView = self.projectTableView
@@ -163,10 +166,68 @@ class DoingProjectTableViewController: UIViewController {
         
         return self.dataSource.itemIdentifier(for: indexPath)
     }
+    
+    private func firstStatusModificationPopoverUIAlertAction(with identifier: UUID) -> UIAlertAction {
+ 
+        switch projectStatus {
+        case .todo:
+            let fisrtAction = UIAlertAction(title: ProjectBoardScene.statusModification.doing.rawValue,
+                                style: .default) { [weak self] _ in
+                self?.delegate?.updateProjectStatus(of: identifier, with: .doing)
+                self?.updateView()
+            }
+            return fisrtAction
+        case .doing:
+            let fisrtAction = UIAlertAction(title: ProjectBoardScene.statusModification.todo.rawValue,
+                                style: .default) { [weak self] _ in
+                self?.delegate?.updateProjectStatus(of: identifier, with: .todo)
+                self?.updateView()
+            }
+            return fisrtAction
+        case .done:
+            let fisrtAction = UIAlertAction(title: ProjectBoardScene.statusModification.todo.rawValue,
+                                style: .default) { [weak self] _ in
+                self?.delegate?.updateProjectStatus(of: identifier, with: .todo)
+                self?.updateView()
+            }
+            return fisrtAction
+        case .none:
+            return UIAlertAction()
+        }
+    }
+    
+    private func secondStatusModificationPopoverUIAlertAction(with identifier: UUID) -> UIAlertAction {
+ 
+        switch projectStatus {
+        case .todo:
+            let secondAction = UIAlertAction(title: ProjectBoardScene.statusModification.done.rawValue,
+                                style: .default) { [weak self] _ in
+                self?.delegate?.updateProjectStatus(of: identifier, with: .done)
+                self?.updateView()
+            }
+            return secondAction
+        case .doing:
+            let secondAction = UIAlertAction(title: ProjectBoardScene.statusModification.done.rawValue,
+                                style: .default) { [weak self] _ in
+                self?.delegate?.updateProjectStatus(of: identifier, with: .done)
+                self?.updateView()
+            }
+            return secondAction
+        case .done:
+            let secondAction = UIAlertAction(title: ProjectBoardScene.statusModification.doing.rawValue,
+                                style: .default) { [weak self] _ in
+                self?.delegate?.updateProjectStatus(of: identifier, with: .doing)
+                self?.updateView()
+            }
+            return secondAction
+        case .none:
+            return UIAlertAction()
+        }
+    }
 }
 
 // MARK: - UITableViewDelegate
-extension DoingProjectTableViewController: UITableViewDelegate {
+extension ProjectTableViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let selectedProject = dataSource.itemIdentifier(for: indexPath) else {
@@ -185,8 +246,8 @@ extension DoingProjectTableViewController: UITableViewDelegate {
         let deleteAction = UIContextualAction(style: .destructive, title: nil) {  [weak self] _, _, _ in
             guard let project = self?.dataSource.itemIdentifier(for: indexPath),
                   let identifier = project.identifier else {
-                return
-            }
+                      return
+                  }
             self?.delegate?.deleteProject(of: identifier)
             self?.updateView()
         }
@@ -198,7 +259,7 @@ extension DoingProjectTableViewController: UITableViewDelegate {
 }
 
 // MARK: - ProjectDetailViewControllerDelegate
-extension DoingProjectTableViewController: ProjectDetailViewControllerDelegate {
+extension ProjectTableViewController: ProjectDetailViewControllerDelegate {
     
     func delegateUpdateProject(of identifier: UUID, with content: [String: Any]) {
         delegate?.updateProject(of: identifier, with: content)
