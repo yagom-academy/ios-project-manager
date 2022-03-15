@@ -34,9 +34,9 @@ protocol TaskViewModelable {
     func countOfTaskList() -> Int
     func reloadTaskList()
 
-    func create(with title: String)
-    func update(taskList: TaskListEntity)
-    func delete(by id: UUID)
+    func addNewTaskList(with title: String)
+    func updateTaskList(_ taskList: TaskListEntity)
+    func deleteTaskList(by id: UUID)
     func createTask(_ task: TaskEntity, in taskList: String)
 }
 
@@ -73,21 +73,21 @@ final class TaskViewModel: TaskViewModelable {
 
     private func updateList() {}
 
-    func create(with title: String) {
+    func addNewTaskList(with title: String) {
         useCase.create(with: title) { [weak self] success in
             guard success else { return }
             self?.updateList()
         }
     }
 
-    func update(taskList: TaskListEntity) {
+    func updateTaskList(_ taskList: TaskListEntity) {
         useCase.update(taskList: taskList) { [weak self] success in
             guard success else { return }
             self?.updateList()
         }
     }
 
-    func delete(by id: UUID) {
+    func deleteTaskList(by id: UUID) {
         useCase.delete(by: id) { [weak self] success in
             guard success else { return }
             self?.updateList()
