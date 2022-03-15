@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="XwZ-n9-Sve">
-    <device id="ipad12_9" orientation="landscape" layout="fullscreen" appearance="light"/>
+    <device id="ipad12_9rounded" orientation="landscape" layout="fullscreen" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Image references" minToolsVersion="12.0"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -26,7 +25,7 @@
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TaskCollectionViewCell" id="yRC-Xj-HQg" userLabel="Collection View Cell" customClass="TaskCollectionViewCell" customModule="ProjectManager" customModuleProvider="target">
-                                <rect key="frame" x="15" y="20" width="461" height="934"/>
+                                <rect key="frame" x="15" y="10" width="461" height="934"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="3M2-GY-2Ok">
                                     <rect key="frame" x="0.0" y="0.0" width="461" height="934"/>
@@ -62,7 +61,7 @@
                                                         </state>
                                                         <connections>
                                                             <action selector="addButtonDidTap:" destination="sgP-Mm-cbK" eventType="touchUpInside" id="ZA2-qO-xzK"/>
-                                                            <segue destination="edw-6f-98c" kind="presentation" modalPresentationStyle="formSheet" modalTransitionStyle="coverVertical" id="DcG-7w-vKv"/>
+                                                            <segue destination="wqS-cd-Fau" kind="presentation" modalPresentationStyle="formSheet" id="60S-x8-dRt"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -120,7 +119,7 @@
                                                         <outlet property="bodyLabel" destination="2sU-5e-5ZL" id="tC1-sB-nwQ"/>
                                                         <outlet property="dateLabel" destination="Syg-tS-VTU" id="62o-fr-MNO"/>
                                                         <outlet property="titleLabel" destination="NTh-NM-edZ" id="PVZ-7e-ViA"/>
-                                                        <segue destination="edw-6f-98c" kind="presentation" modalPresentationStyle="formSheet" modalTransitionStyle="coverVertical" id="zyq-pl-axu"/>
+                                                        <segue destination="wqS-cd-Fau" kind="presentation" modalPresentationStyle="formSheet" id="M5H-M2-Pac"/>
                                                     </connections>
                                                 </tableViewCell>
                                             </prototypes>
@@ -173,85 +172,6 @@
             </objects>
             <point key="canvasLocation" x="679.50219619326492" y="-18.75"/>
         </scene>
-        <!--Task Detail View Controller-->
-        <scene sceneID="wii-J5-34e">
-            <objects>
-                <viewController storyboardIdentifier="TaskDetailViewController" modalPresentationStyle="formSheet" id="edw-6f-98c" userLabel="Task Detail View Controller" customClass="TaskDetailViewController" customModule="ProjectManager" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Ltp-p7-9gv">
-                        <rect key="frame" x="0.0" y="0.0" width="540" height="620"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dRi-QN-iOZ">
-                                <rect key="frame" x="0.0" y="0.0" width="540" height="56"/>
-                                <items>
-                                    <navigationItem title="Title" leftItemsSupplementBackButton="YES" id="LpQ-97-1QX">
-                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="1bT-6U-wmY">
-                                            <connections>
-                                                <action selector="cancelButtonDidTap:" destination="wka-HO-KiQ" id="SK3-x0-IfS"/>
-                                                <segue destination="wka-HO-KiQ" kind="unwind" unwindAction="unwind:" id="GG2-S2-rgN"/>
-                                            </connections>
-                                        </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="17q-Xf-knK">
-                                            <connections>
-                                                <action selector="doneButtonDidTap:" destination="edw-6f-98c" id="dN7-JA-df6"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
-                            <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Title" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="No8-Ox-TGm">
-                                <rect key="frame" x="20" y="76" width="500" height="34"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <datePicker contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="RlZ-vU-BbI">
-                                <rect key="frame" x="110" y="120" width="320" height="216"/>
-                                <date key="minimumDate" timeIntervalSinceReferenceDate="-978267600">
-                                    <!--1970-01-01 11:00:00 +0000-->
-                                </date>
-                                <date key="maximumDate" timeIntervalSinceReferenceDate="1167562800">
-                                    <!--2037-12-31 11:00:00 +0000-->
-                                </date>
-                            </datePicker>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aQC-8B-NRb">
-                                <rect key="frame" x="20" y="346" width="500" height="254"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <color key="textColor" systemColor="labelColor"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="4sZ-wP-7OS"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="aQC-8B-NRb" firstAttribute="centerX" secondItem="4sZ-wP-7OS" secondAttribute="centerX" id="1Ag-aI-iY0"/>
-                            <constraint firstItem="No8-Ox-TGm" firstAttribute="centerX" secondItem="4sZ-wP-7OS" secondAttribute="centerX" id="1xk-Kl-5nC"/>
-                            <constraint firstItem="aQC-8B-NRb" firstAttribute="leading" secondItem="4sZ-wP-7OS" secondAttribute="leading" constant="20" id="2u7-iT-bNT"/>
-                            <constraint firstItem="No8-Ox-TGm" firstAttribute="top" secondItem="dRi-QN-iOZ" secondAttribute="bottom" constant="20" id="GVf-RI-GDd"/>
-                            <constraint firstItem="aQC-8B-NRb" firstAttribute="top" secondItem="RlZ-vU-BbI" secondAttribute="bottom" constant="10" id="Pzu-CJ-dSE"/>
-                            <constraint firstItem="4sZ-wP-7OS" firstAttribute="trailing" secondItem="aQC-8B-NRb" secondAttribute="trailing" constant="20" id="VBj-dh-Zo6"/>
-                            <constraint firstItem="dRi-QN-iOZ" firstAttribute="centerX" secondItem="4sZ-wP-7OS" secondAttribute="centerX" id="YbT-j9-K3D"/>
-                            <constraint firstItem="4sZ-wP-7OS" firstAttribute="trailing" secondItem="No8-Ox-TGm" secondAttribute="trailing" constant="20" id="bmz-z1-zZL"/>
-                            <constraint firstItem="RlZ-vU-BbI" firstAttribute="top" secondItem="No8-Ox-TGm" secondAttribute="bottom" constant="10" id="czK-KJ-IlX"/>
-                            <constraint firstItem="dRi-QN-iOZ" firstAttribute="top" secondItem="4sZ-wP-7OS" secondAttribute="top" id="iUl-9O-MrA"/>
-                            <constraint firstItem="No8-Ox-TGm" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="4sZ-wP-7OS" secondAttribute="leading" constant="20" id="nhx-Vl-d1N"/>
-                            <constraint firstItem="dRi-QN-iOZ" firstAttribute="leading" secondItem="4sZ-wP-7OS" secondAttribute="leading" id="npU-dS-5Sa"/>
-                            <constraint firstItem="RlZ-vU-BbI" firstAttribute="centerX" secondItem="4sZ-wP-7OS" secondAttribute="centerX" id="oan-rR-0GG"/>
-                            <constraint firstItem="4sZ-wP-7OS" firstAttribute="bottom" secondItem="aQC-8B-NRb" secondAttribute="bottom" constant="20" id="p2V-4m-Vcq"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="Cfw-Qp-vOP"/>
-                    <connections>
-                        <outlet property="bodyTextView" destination="aQC-8B-NRb" id="Cze-9r-IYF"/>
-                        <outlet property="dueDatePicker" destination="RlZ-vU-BbI" id="oGz-0f-htl"/>
-                        <outlet property="titleTextField" destination="No8-Ox-TGm" id="0KD-Vy-WkJ"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Isn-wg-bxf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <exit id="wka-HO-KiQ" userLabel="Exit" sceneMemberID="exit"/>
-            </objects>
-            <point key="canvasLocation" x="1340.9956076134699" y="-19.3359375"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="BTL-5H-jJL">
             <objects>
@@ -269,18 +189,20 @@
             </objects>
             <point key="canvasLocation" x="11" y="-19"/>
         </scene>
+        <!--TaskDetailViewController-->
+        <scene sceneID="DG8-2F-d0R">
+            <objects>
+                <viewControllerPlaceholder storyboardName="TaskDetailViewController" referencedIdentifier="TaskDetailViewController" id="wqS-cd-Fau" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="C9e-qY-7WD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1085" y="-19"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="DcG-7w-vKv"/>
+        <segue reference="M5H-M2-Pac"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="plus" catalog="system" width="128" height="113"/>
-        <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
         <systemColor name="systemGray2Color">
             <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

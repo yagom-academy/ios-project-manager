@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="eo5-aN-2hk">
+    <device id="ipad12_9rounded" orientation="landscape" layout="fullscreen" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Task Detail View Controller-->
+        <scene sceneID="aFl-KT-GFt">
+            <objects>
+                <viewController storyboardIdentifier="TaskDetailViewController" modalPresentationStyle="formSheet" id="eo5-aN-2hk" userLabel="Task Detail View Controller" customClass="TaskDetailViewController" customModule="ProjectManager" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="cWO-r5-Ef6">
+                        <rect key="frame" x="0.0" y="0.0" width="1366" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bQP-Em-8aS">
+                                <rect key="frame" x="0.0" y="0.0" width="1366" height="50"/>
+                                <items>
+                                    <navigationItem title="Title" leftItemsSupplementBackButton="YES" id="FvH-Sy-3fQ">
+                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="OR3-rV-giM">
+                                            <connections>
+                                                <action selector="cancelButtonDidTap:" destination="4Nm-Ro-htY" id="uhO-EE-EZ9"/>
+                                                <segue destination="4Nm-Ro-htY" kind="unwind" unwindAction="unwind:" id="zcK-Y3-GU3"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="Gru-1X-Pag">
+                                            <connections>
+                                                <action selector="doneButtonDidTap:" destination="eo5-aN-2hk" id="yNK-lW-pCJ"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Title" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mjL-2r-oXY">
+                                <rect key="frame" x="20" y="70" width="1326" height="34"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <datePicker contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="jCj-kj-j9M">
+                                <rect key="frame" x="523" y="114" width="320" height="216"/>
+                                <date key="minimumDate" timeIntervalSinceReferenceDate="-978267600">
+                                    <!--1970-01-01 11:00:00 +0000-->
+                                </date>
+                                <date key="maximumDate" timeIntervalSinceReferenceDate="1167562800">
+                                    <!--2037-12-31 11:00:00 +0000-->
+                                </date>
+                            </datePicker>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Oaw-ap-7C7">
+                                <rect key="frame" x="20" y="340" width="1326" height="644"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Yxb-lu-fTf"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Oaw-ap-7C7" firstAttribute="centerX" secondItem="Yxb-lu-fTf" secondAttribute="centerX" id="8Wb-GD-gNf"/>
+                            <constraint firstItem="mjL-2r-oXY" firstAttribute="centerX" secondItem="Yxb-lu-fTf" secondAttribute="centerX" id="BDn-r6-4d2"/>
+                            <constraint firstItem="bQP-Em-8aS" firstAttribute="leading" secondItem="Yxb-lu-fTf" secondAttribute="leading" id="EJr-sI-fMY"/>
+                            <constraint firstItem="bQP-Em-8aS" firstAttribute="centerX" secondItem="Yxb-lu-fTf" secondAttribute="centerX" id="Gvn-o2-6BL"/>
+                            <constraint firstItem="Oaw-ap-7C7" firstAttribute="top" secondItem="jCj-kj-j9M" secondAttribute="bottom" constant="10" id="S0M-Hr-76G"/>
+                            <constraint firstItem="Oaw-ap-7C7" firstAttribute="leading" secondItem="Yxb-lu-fTf" secondAttribute="leading" constant="20" id="Tr3-j0-Kx2"/>
+                            <constraint firstItem="bQP-Em-8aS" firstAttribute="top" secondItem="Yxb-lu-fTf" secondAttribute="top" id="aLI-Bb-v2V"/>
+                            <constraint firstItem="jCj-kj-j9M" firstAttribute="top" secondItem="mjL-2r-oXY" secondAttribute="bottom" constant="10" id="b5k-0a-eJd"/>
+                            <constraint firstItem="Yxb-lu-fTf" firstAttribute="trailing" secondItem="Oaw-ap-7C7" secondAttribute="trailing" constant="20" id="fPG-lU-wbV"/>
+                            <constraint firstItem="mjL-2r-oXY" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Yxb-lu-fTf" secondAttribute="leading" constant="20" id="fTu-jR-USx"/>
+                            <constraint firstItem="Yxb-lu-fTf" firstAttribute="trailing" secondItem="mjL-2r-oXY" secondAttribute="trailing" constant="20" id="qn2-4W-O6S"/>
+                            <constraint firstItem="mjL-2r-oXY" firstAttribute="top" secondItem="bQP-Em-8aS" secondAttribute="bottom" constant="20" id="r9B-Yg-mw4"/>
+                            <constraint firstItem="jCj-kj-j9M" firstAttribute="centerX" secondItem="Yxb-lu-fTf" secondAttribute="centerX" id="tDc-Ih-FG2"/>
+                            <constraint firstItem="Yxb-lu-fTf" firstAttribute="bottom" secondItem="Oaw-ap-7C7" secondAttribute="bottom" constant="20" id="zzD-IY-98J"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="7Mf-vs-oZC"/>
+                    <connections>
+                        <outlet property="bodyTextView" destination="Oaw-ap-7C7" id="ros-K4-0O7"/>
+                        <outlet property="dueDatePicker" destination="jCj-kj-j9M" id="jWR-CT-gYC"/>
+                        <outlet property="titleTextField" destination="mjL-2r-oXY" id="B7T-MO-NCn"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TCC-tG-idr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="4Nm-Ro-htY" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="1340.9956076134699" y="-19.3359375"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
