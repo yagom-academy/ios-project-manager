@@ -40,7 +40,7 @@ extension TaskCollectionViewCell: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: TaskTableViewCell.reuseIdentifier,
                 for: indexPath) as? TaskTableViewCell else { return UITableViewCell() }
-        guard let task = taskList?.items[indexPath.row] else { return UITableViewCell() }
+        guard let task = taskList?.items[safe: indexPath.row] else { return UITableViewCell() }
         cell.updateData(with: task)
         return cell
     }
