@@ -49,6 +49,7 @@ final class MainViewController: UIViewController {
         return headerView
     }
 
+    private let popoverView = PopoverView()
     private let longPressGestureRecognizers: [UILongPressGestureRecognizer] = Progress.allCases
         .map { _ in UILongPressGestureRecognizer() }
 
@@ -102,20 +103,6 @@ private extension MainViewController {
         ])
     }
 
-    @objc
-    func longPress(_ longPressGestureRecognizer: UILongPressGestureRecognizer) {
-        guard let tableView = longPressGestureRecognizer.view as? UITableView else {
-            return
-        }
-
-        if longPressGestureRecognizer.state == UIGestureRecognizer.State.began {
-            let touchPoint = longPressGestureRecognizer.location(in: tableView)
-            if let indexPath = tableView.indexPathForRow(at: touchPoint) {
-                tableView.deselectRow(at: indexPath, animated: true)
-            }
-        }
-    }
-
     func configureTableView() {
         self.tableViews.enumerated().forEach { index, tableView in
             tableView.register(cellWithClass: ScheduleListCell.self)
@@ -154,12 +141,20 @@ private extension MainViewController {
         return MainViewModel.Input(
             viewWillAppear: self.rx.methodInvoked(#selector(UIViewController.viewWillAppear))
                 .map { _ in },
-            tableViewLongPressed: self.longPressGestureRecognizers.map { $0.rx.event
-                    .map(self.cellAndSchedule(from:)).asObservable()
-            },
+            tableViewLongPressed: Observable.merge(self.longPressGestureRecognizers.enumerated().map { index, gesture in
+                gesture.rx.event
+                    .map(self.schedule(from:))
+                    .compactMap { $0 }
+                    .map { ($0.0, $0.1, index) }
+            })
+            ,
             cellDidTap: self.tableViews.map { $0.rx.modelSelected(Schedule.self).asObservable() },
             cellDelete: self.tableViews.map { $0.rx.modelDeleted(Schedule.self).map { $0.id } },
-            addButtonDidTap: self.addBarButton.rx.tap.asObservable()
+            addButtonDidTap: self.addBarButton.rx.tap.asObservable(),
+            popoverTopButtonDidTap: self.popoverView.topButton.rx.tap.asObservable()
+                .do(onNext: self.dismissPopover),
+            popoverBottomButtonDidTap: self.popoverView.bottomButton.rx.tap.asObservable()
+                .do(onNext: self.dismissPopover)
         )
     }
 
@@ -179,15 +174,36 @@ private extension MainViewController {
                 }
                 .disposed(by: self.bag)
         }
+
+        output.popoverShouldPresent
+                .subscribe(onNext: { indexPath, index in
+                    guard let tableView = self.tableViews[safe: index] else { return }
+                    guard let cell = tableView.cellForRow(at: indexPath) else {
+                        return
+                    }
+                    self.presentPopover(at: cell)
+                })
+                .disposed(by: self.bag)
+
+        output.popoverTopButtonTitle
+            .asDriver(onErrorJustReturn: .empty)
+                .drive(self.popoverView.topButton.rx.title())
+                .disposed(by: self.bag)
+
+        output.popoverBottomButtonTitle
+            .asDriver(onErrorJustReturn: .empty)
+                .drive(self.popoverView.bottomButton.rx.title())
+                .disposed(by: self.bag)
+
     }
 
     func setHeaderViewButtonTitle(for number: Int, at index: Int) {
         self.headerViews[safe: index]?.countButton.setTitle("\(number)", for: .normal)
     }
 
-    func cellAndSchedule(
+    func schedule(
         from gestureRecognizer: UIGestureRecognizer
-    ) throws -> (UITableViewCell, Schedule)? {
+    ) throws -> (Schedule, IndexPath)? {
         guard let tableView = gestureRecognizer.view as? UITableView else {
             return nil
         }
@@ -195,10 +211,27 @@ private extension MainViewController {
         if gestureRecognizer.state == .began {
             let touchPoint = gestureRecognizer.location(in: tableView)
             if let indexPath = tableView.indexPathForRow(at: touchPoint) {
-                guard let cell = tableView.cellForRow(at: indexPath) else { fatalError() }
-                return (cell, try tableView.rx.model(at: indexPath))
+                return (try tableView.rx.model(at: indexPath), indexPath)
             }
         }
         return nil
+    }
+
+    func presentPopover(at sourceView: UIView) {
+        let popoverViewController: UIViewController = {
+            let viewController = UIViewController()
+            viewController.view = self.popoverView
+            viewController.modalPresentationStyle = .popover
+            viewController.preferredContentSize = CGSize(width: 230, height: 100)
+            viewController.popoverPresentationController?.permittedArrowDirections = [.up, .down]
+            viewController.popoverPresentationController?.sourceView = sourceView
+            return viewController
+        }()
+
+        self.present(popoverViewController, animated: true)
+    }
+
+    func dismissPopover() {
+        self.presentedViewController?.dismiss(animated: true, completion: nil)
     }
 }

@@ -5,10 +5,14 @@
 //  Created by Jae-hoon Sim on 2022/03/08.
 //
 
+import Foundation
 import RxSwift
 import RxRelay
 import RxCocoa
-import UIKit
+
+private enum Name {
+    static let progressText = "Move to "
+}
 
 final class MainViewModel {
 
@@ -29,14 +33,19 @@ final class MainViewModel {
 
     struct Input {
         let viewWillAppear: Observable<Void>
-        let tableViewLongPressed: [Observable<(UITableViewCell, Schedule)?>]
+        let tableViewLongPressed: Observable<(Schedule, IndexPath, Int)?>
         let cellDidTap: [Observable<Schedule>]
         let cellDelete: [Observable<UUID>]
         let addButtonDidTap: Observable<Void>
+        let popoverTopButtonDidTap: Observable<Void>
+        let popoverBottomButtonDidTap: Observable<Void>
     }
 
     struct Output {
         let scheduleLists: [Observable<[Schedule]>]
+        let popoverShouldPresent: Observable<(IndexPath, Int)>
+        let popoverTopButtonTitle: Observable<String>
+        let popoverBottomButtonTitle: Observable<String>
     }
 
     // MARK: - Methods
@@ -54,10 +63,25 @@ final class MainViewModel {
         input.cellDelete.map(self.onCellDelete(_:))
             .forEach { $0.disposed(by: disposeBag) }
 
-        input.tableViewLongPressed.map(self.onLongPressed(_:))
-            .forEach { $0.disposed(by: disposeBag) }
+        input.popoverTopButtonDidTap
+            .withLatestFrom(input.tableViewLongPressed)
+            .compactMap { $0 }
+            .subscribe(onNext: { schedule, _, _ in
+                let targetProgress = Progress.allCases.filter { $0 != schedule.progress }.first
+                self.useCase.changeProgress(of: schedule, progress: targetProgress)
+            })
+            .disposed(by: disposeBag)
 
-        return bindOutput()
+        input.popoverBottomButtonDidTap
+            .withLatestFrom(input.tableViewLongPressed)
+            .compactMap { $0 }
+            .subscribe(onNext: { schedule, _, _ in
+                let targetProgress = Progress.allCases.filter { $0 != schedule.progress }.last
+                self.useCase.changeProgress(of: schedule, progress: targetProgress)
+            })
+            .disposed(by: disposeBag)
+
+        return bindOutput(input: input)
     }
 }
 
@@ -86,20 +110,35 @@ private extension MainViewModel {
             .subscribe(onNext: self.useCase.delete(_:))
     }
 
-    func onLongPressed(_ input: Observable<(UITableViewCell, Schedule)?>) -> Disposable {
-        return input
-            .flatMap(Observable.from(optional:))
-            .do(afterNext: { self.coordinator.presentPopoverViewController(at: $0.0) })
-            .map { $0.1 }
-            .bind(to: self.useCase.currentSchedule)
-    }
-
-    func bindOutput() -> Output {
+    func bindOutput(input: Input) -> Output {
         let scheduleLists = Progress.allCases
             .map { progress in self.useCase.schedules
                 .map { $0.filter { $0.progress == progress } }
             }
 
-        return Output(scheduleLists: scheduleLists)
+        let popoverViewEvent = input.tableViewLongPressed
+            .compactMap { $0 }
+            .map { ($0.1, $0.2) }
+
+        let popoverTopButtonTitle = input.tableViewLongPressed
+            .compactMap { $0?.0 }
+            .map { schedule -> String in
+                let targetProgress = Progress.allCases.filter { $0 != schedule.progress }
+                return Name.progressText + (targetProgress.first?.description ?? .empty)
+            }
+
+        let popoverBottomButtonTitle = input.tableViewLongPressed
+            .compactMap { $0?.0 }
+            .map { schedule -> String in
+                let targetProgress = Progress.allCases.filter { $0 != schedule.progress }
+                return Name.progressText + (targetProgress.last?.description ?? .empty)
+            }
+
+        return Output(
+            scheduleLists: scheduleLists,
+            popoverShouldPresent: popoverViewEvent,
+            popoverTopButtonTitle: popoverTopButtonTitle,
+            popoverBottomButtonTitle: popoverBottomButtonTitle
+        )
     }
 }

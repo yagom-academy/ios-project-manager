@@ -21,10 +21,7 @@ private enum Design {
     static let stackViewBottomAnchorConstant = -8.0
 }
 
-class PopoverViewController: UIViewController {
-
-    var viewModel: PopoverViewModel?
-    private let bag = DisposeBag()
+class PopoverView: UIView {
 
     let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -53,30 +50,36 @@ class PopoverViewController: UIViewController {
         return button
     }()
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        self.configure()
-        self.binding()
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.commonInit()
     }
 
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        self.commonInit()
+    }
 }
 
-private extension PopoverViewController {
+private extension PopoverView {
+    private func commonInit() {
+        self.configure()
+    }
+
     func configure() {
-        self.view.backgroundColor = Design.viewBackgroundColor
+        self.backgroundColor = Design.viewBackgroundColor
         self.configureHierarchy()
         self.configureConstraint()
     }
 
     func configureHierarchy() {
-        self.view.addSubview(self.stackView)
+        self.addSubview(self.stackView)
         self.stackView.addArrangedSubview(self.topButton)
         self.stackView.addArrangedSubview(self.bottomButton)
     }
 
     func configureConstraint() {
-        let safeAreaLayoutGuide = self.view.safeAreaLayoutGuide
+        let safeAreaLayoutGuide = self.safeAreaLayoutGuide
 
         self.stackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -97,33 +100,5 @@ private extension PopoverViewController {
                 constant: Design.stackViewBottomAnchorConstant
             )
         ])
-    }
-
-    func binding() {
-        let input = self.setInput()
-        guard let output = self.viewModel?.transform(input: input, disposeBag: self.bag) else {
-            return
-        }
-
-        self.bindingOutput(output: output)
-    }
-
-    func setInput() -> PopoverViewModel.Input {
-        return PopoverViewModel.Input(
-            topButtonDidTap: self.topButton.rx.tap.asObservable(),
-            bottomButtonDidTap: self.bottomButton.rx.tap.asObservable(),
-            viewDidDisappear: self.rx.methodInvoked(#selector(UIViewController.viewDidDisappear))
-                .map { _ in }
-        )
-    }
-
-    func bindingOutput(output: PopoverViewModel.Output) {
-        output.topButtonTitleText
-            .drive(self.topButton.rx.title())
-            .disposed(by: self.bag)
-
-        output.bottomButtonTitleText
-            .drive(self.bottomButton.rx.title())
-            .disposed(by: self.bag)
     }
 }

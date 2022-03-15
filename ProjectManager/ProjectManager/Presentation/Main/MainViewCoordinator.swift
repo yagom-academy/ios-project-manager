@@ -42,17 +42,6 @@ class MainViewCoordinator {
         self.present(scheduleDetailCoordinator.navigationController)
     }
 
-    func presentPopoverViewController(at sourceView: UIView) {
-        guard let useCase = self.mainViewController.viewModel?.useCase else {
-            return
-        }
-
-        let popoverCoordinator = PopoverCoordinator()
-        popoverCoordinator.start(with: useCase, sourceView: sourceView)
-
-        self.present(popoverCoordinator.popoverViewController)
-    }
-
     private func present(_ viewController: UIViewController) {
         self.mainViewController.present(viewController, animated: true, completion: nil)
     }
