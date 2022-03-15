@@ -25,7 +25,7 @@ struct ProjectManagerMainView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: toggleSheetCondition) {
+                    Button(action: { sheetViewModel.toggleSheetCondition() }) {
                         Image(systemName: "plus")
                     }
                     .sheet(isPresented: $sheetViewModel.isShowSheet, onDismiss: nil) {
@@ -35,10 +35,6 @@ struct ProjectManagerMainView: View {
             }
         }
         .navigationViewStyle(.stack)
-    }
-    
-    private func toggleSheetCondition() {
-        sheetViewModel.toggleSheetCondition()
     }
     
 }
