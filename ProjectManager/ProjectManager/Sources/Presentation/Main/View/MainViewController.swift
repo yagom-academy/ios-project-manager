@@ -3,6 +3,11 @@ import RxSwift
 import RxCocoa
 
 class MainViewController: UIViewController {
+    enum Constant {
+        static let navigationTitle = "Project Manager"
+        static let headerViewHeight: CGFloat = 45
+    }
+    
     @IBOutlet private weak var todoTableView: UITableView!
     @IBOutlet private weak var doingTableView: UITableView!
     @IBOutlet private weak var doneTableView: UITableView!
@@ -23,7 +28,7 @@ class MainViewController: UIViewController {
     }
     
     private func configure() {
-        navigationItem.title = "Project Manager"
+        navigationItem.title = Constant.navigationTitle
         setUpTableView()
         setUpBindings()
     }
@@ -108,6 +113,6 @@ extension MainViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 45
+        return Constant.headerViewHeight
     }
 }

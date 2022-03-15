@@ -1,6 +1,11 @@
 import UIKit
 
 final class DetailCoordinator: Coordinator {
+    enum Constant {
+        static let storyboardName = "Detail"
+        static let storyboardID = "DetailViewController"
+    }
+    
     var parentCoordinateor: Coordinator?
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
@@ -15,9 +20,9 @@ final class DetailCoordinator: Coordinator {
     }
     
     func start(_ project: Project, useCase: ProjectListUseCase, mode: DetailViewModel.ViewMode) {
-        let storyboard = UIStoryboard(name: "Detail", bundle: .main)
+        let storyboard = UIStoryboard(name: Constant.storyboardName, bundle: .main)
         guard let detailViewController = storyboard.instantiateViewController(
-            withIdentifier: "DetailViewController"
+            withIdentifier: Constant.storyboardID
         ) as? DetailViewController else {
             return
         }

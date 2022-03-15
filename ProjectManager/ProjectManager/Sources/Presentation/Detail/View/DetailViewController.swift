@@ -4,7 +4,7 @@ import RxSwift
 
 enum Placeholder {
     static let title = "Title"
-    static let body = "여기는 할일 내용을 입력하는 곳이지롱\n입력 가능한 글자수는 1000자로 제한합니다."
+    static let body = "1000 character limit"
 }
 
 class DetailViewController: UIViewController {

@@ -8,6 +8,12 @@ enum ActionType: CaseIterable {
 }
 
 final class MainCoordinator: Coordinator {
+    enum Constant {
+        static let storyboardName = "Main"
+        static let storyboardID = "MainViewController"
+        static let actionTitle = "Move to "
+    }
+    
     var parentCoordinateor: Coordinator?
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
@@ -18,9 +24,9 @@ final class MainCoordinator: Coordinator {
     }
     
     func storyboardStart() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let storyboard = UIStoryboard(name: Constant.storyboardName, bundle: nil)
         guard let main = storyboard.instantiateViewController(
-            withIdentifier: "MainViewController"
+            withIdentifier: Constant.storyboardID
         ) as? MainViewController else {
             return
         }
@@ -46,7 +52,7 @@ final class MainCoordinator: Coordinator {
         return Observable.create { observer in
             let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
             for index in 0..<ActionType.allCases.count {
-                let action = UIAlertAction(title: "Move to \(titles[index])", style: .default) { _ in
+                let action = UIAlertAction(title: "\(Constant.actionTitle)\(titles[index])", style: .default) { _ in
                     observer.onNext(ProjectState(rawValue: titles[index]) ?? ProjectState.todo)
                     observer.onCompleted()
                 }
