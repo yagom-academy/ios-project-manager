@@ -9,6 +9,9 @@ import Foundation
 
 struct TaskRepositoryManager: TaskManager {
     
+    let localRepository = TaskLocalDataSource<Task>()
+    let remoteRepository = TaskRemoteDataSource<Task>()
+    
     var todoTasks: [Task] {
         []
     }
@@ -31,6 +34,13 @@ struct TaskRepositoryManager: TaskManager {
     
     mutating func update(_ oldTask: Task, to newTask: Task) throws {
         print(#function)
+    }
+    
+    func sync() {
+        try? remoteRepository.removeAllRecords()
+        for record in localRepository.queryAllRecords {
+            try? remoteRepository.create(record)
+        }
     }
     
 }
