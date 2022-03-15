@@ -33,8 +33,8 @@ class MainViewController: UIViewController {
             tableView.delegate = self
             tableView.addGestureRecognizer(self.longPressGesture[index])
             let cellNib = UINib(nibName: ProjectCell.nibName, bundle: .main)
-            tableView.register(cellNib, forCellReuseIdentifier: ProjectCell.identifier)
             let headerNib = UINib(nibName: ProjectHeader.nibName, bundle: .main)
+            tableView.register(cellNib, forCellReuseIdentifier: ProjectCell.identifier)
             tableView.register(headerNib, forHeaderFooterViewReuseIdentifier: ProjectHeader.identifier)
             tableView.rx.itemSelected
                 .subscribe(onNext: { tableView.deselectRow(at: $0, animated: true) })
@@ -89,17 +89,17 @@ extension MainViewController: UITableViewDelegate {
         case todoTableView:
             headerView.configure(
                 title: ProjectState.todo.rawValue,
-                count: viewModel?.projectList[ProjectState.todo.index].count ?? 0
+                count: viewModel?.projectList[ProjectState.todo.index].count ?? .zero
             )
         case doingTableView:
             headerView.configure(
                 title: ProjectState.doing.rawValue,
-                count: viewModel?.projectList[ProjectState.doing.index].count ?? 0
+                count: viewModel?.projectList[ProjectState.doing.index].count ?? .zero
             )
         case doneTableView:
             headerView.configure(
                 title: ProjectState.done.rawValue,
-                count: viewModel?.projectList[ProjectState.done.index].count ?? 0
+                count: viewModel?.projectList[ProjectState.done.index].count ?? .zero
             )
         default:
             break
