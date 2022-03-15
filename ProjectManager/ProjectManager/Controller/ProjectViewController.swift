@@ -212,6 +212,7 @@ final class ProjectViewController: UIViewController {
         content.updateValue(titleTextField.text as Any, forKey: "title")
         content.updateValue(datePicker.date as Any, forKey: "deadline")
         content.updateValue(descriptionTextView.text as Any, forKey: "description")
+        content.updateValue(Status.todo, forKey: "status")
         projectCreationDelegate?.createProject(with: content)
         dismiss(animated: false, completion: nil)
     }

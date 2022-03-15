@@ -21,7 +21,7 @@ final class ProjectSource<T: Hashable & CustomStringConvertible>: LocalDataBase 
                                  title: content["title"] as? String,
                                  deadline: content["deadline"] as? Date,
                                  description: content["description"] as? String,
-                                 status: .todo)
+                                 status: content["status"] as? Status)
         projects.updateValue(newProject, forKey: identifier.uuidString)
     }
     

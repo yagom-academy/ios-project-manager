@@ -14,7 +14,7 @@ struct Project: Hashable {
     private (set) var title: String?
     private (set) var deadline: Date?
     private (set) var description: String?
-    private (set) var status: Status
+    private (set) var status: Status?
     
     var isExpired: Bool {
         let currentDate = Date()
