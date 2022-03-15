@@ -39,7 +39,7 @@ final class TaskCollectionViewController: UICollectionViewController {
     private func insertItem(in taskListTitle: String) {
         self.viewModel?.taskLists.append(TaskList(title: taskListTitle))
 
-        let lastIndexOfTaskList = (self.viewModel?.countOfTaskList() ?? .zero) - 1
+        let lastIndexOfTaskList = (self.viewModel?.countOfTaskList ?? .zero) - 1
         let lastIndexPath = IndexPath(item: lastIndexOfTaskList, section: 0)
 
         self.collectionView.insertItems(at: [lastIndexPath])
@@ -53,7 +53,7 @@ final class TaskCollectionViewController: UICollectionViewController {
 
 extension TaskCollectionViewController: UICollectionViewDelegateFlowLayout {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel?.countOfTaskList() ?? .zero
+        return viewModel?.countOfTaskList ?? .zero
     }
 
     override func collectionView(

@@ -2,10 +2,10 @@ import Foundation
 
 protocol TaskViewModelable {
     var taskLists: [TaskList] { get set }
+    var countOfTaskList: Int { get }
 
     func reloadTaskList()
 
-    func countOfTaskList() -> Int
     func fetchTaskList(at index: Int) -> TaskList?
     func fetchTask(at index: Int, in listTitle: String) -> Task?
 
@@ -18,6 +18,7 @@ protocol TaskViewModelable {
 
 final class TaskViewModel: TaskViewModelable {
     var taskLists: [TaskList] = []
+    var countOfTaskList: Int { taskLists.count }
 
     private var useCase: TaskUseCase
 
@@ -35,10 +36,6 @@ final class TaskViewModel: TaskViewModelable {
             guard let self = self else { return }
             self.taskLists = allTaskList
         }
-    }
-
-    func countOfTaskList() -> Int {
-        return taskLists.count
     }
 
     func fetchTaskList(at index: Int) -> TaskList? {
