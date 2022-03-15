@@ -92,6 +92,7 @@ class TaskListViewModel: ObservableObject {
     }
     
     func deleteTask(_ id: String) {
+        manager.deleteRealmTask(id)
         manager.deleteTask(id)
             .sink { completion in
                 switch completion {

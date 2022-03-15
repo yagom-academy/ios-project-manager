@@ -1,7 +1,7 @@
 import Foundation
 import Combine
 
-class TaskManager: TaskManagable {
+class TaskManager {
     let taskListRepository = TaskListRepository()
     let realmTaskListRepository = RealmTaskListRepository()
     var taskList = [Task]()
@@ -88,11 +88,10 @@ class TaskManager: TaskManagable {
         fetchRealm()
     }
     
-    func deleteTask(_ id: String) {
-        taskList
-            .indices
-            .filter { taskList[$0].id == id }
-            .forEach { taskList.remove(at: $0) }
+    func deleteRealmTask(_ id: String) {
+        realmTaskListRepository.deleteTask(id: id)
+        fetchRealm()
+        
     }
     
     func deleteTask(_ id: String) -> AnyPublisher<Void, Error> {

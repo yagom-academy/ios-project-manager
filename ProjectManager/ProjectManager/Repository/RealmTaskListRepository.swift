@@ -58,4 +58,17 @@ class RealmTaskListRepository {
             print(error)
         }
     }
+    
+    func deleteTask(id: String) {
+        do {
+            let realm = try Realm()
+            let task = realm.objects(RealmEntityTask.self)
+                .filter { $0.id == id }
+            try realm.write {
+                realm.delete(task.first ?? task[0])
+            }
+        } catch let error {
+            print(error)
+        }
+    }
 }
