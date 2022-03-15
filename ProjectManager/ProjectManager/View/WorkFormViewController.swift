@@ -33,8 +33,8 @@ final class WorkFormViewController: UIViewController {
     @IBOutlet weak private var datePicker: UIDatePicker!
     @IBOutlet weak private var bodyTextView: UITextView!
     
+    private var disposeBag = DisposeBag()
     private var projectViewModel: ProjectViewModel?
-    private let disposeBag = DisposeBag()
     private var passedWork: Work?
     
     convenience init?(coder: NSCoder, viewModel: ProjectViewModel) {

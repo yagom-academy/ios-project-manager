@@ -31,7 +31,34 @@ final class ProjectTableViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        let placeholder = UILabel(frame: tableView.bounds)
+        configurePlaceHolder(for: placeholder)
+        
+        _ = list?.subscribe(onNext: {
+            if $0.isEmpty {
+                placeholder.isHidden = false
+            } else {
+                placeholder.isHidden = true
+            }
+        })
     }
+    
+    private func configurePlaceHolder(for placeholder: UILabel) {
+            placeholder.text = "지금은 할 일이 없어요 😅"
+            placeholder.textColor = .systemGray
+            placeholder.font = UIFont.preferredFont(forTextStyle: .largeTitle)
+            placeholder.textAlignment = .center
+            
+            self.view.addSubview(placeholder)
+            
+            placeholder.translatesAutoresizingMaskIntoConstraints = false
+            placeholder.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+            placeholder.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+            placeholder.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+            placeholder.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+            
+            placeholder.isHidden = true
+        }
     
     func setup(viewModel: ProjectViewModel) {
         self.viewModel = viewModel
