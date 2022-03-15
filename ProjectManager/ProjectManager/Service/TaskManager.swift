@@ -105,6 +105,22 @@ class TaskManager: TaskManagable {
         .eraseToAnyPublisher()
     }
     
+    func fetchRealm() {
+        self.taskList = realmTaskListRepository
+            .fetch()
+            .map { convertTask(from: $0) }
+    }
+    
+    private func convertTask(from task: RealmEntityTask) -> Task {
+        return Task(
+            id: task.id,
+            title: task.title,
+            description: task.desc,
+            deadline: task.deadline,
+            progressStatus: Task.ProgressStatus(rawValue: task.progressStatus) ?? .todo
+        )
+    }
+    
     private func convertEntityTask(from task: Task) -> EntityTask {
         let id = task.id
         let title = task.title

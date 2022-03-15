@@ -11,10 +11,11 @@ class TaskListViewModel: ObservableObject {
     var cancellables = Set<AnyCancellable>()
     
     init () {
-        fetch()
+        //fetch()
+        fetchRealm()
     }
     
-    func reload() {
+    private func reload() {
         self.todoTaskList = self.manager.taskList(at: .todo)
         self.doingTaskList = self.manager.taskList(at: .doing)
         self.doneTaskList = self.manager.taskList(at: .done)
@@ -35,6 +36,11 @@ class TaskListViewModel: ObservableObject {
                 self.doneTaskList = taskList.filter { $0.progressStatus == .done }
             }
             .store(in: &cancellables)
+    }
+    
+    func fetchRealm() {
+        manager.fetchRealm()
+        reload()
     }
     
     func createTask(_ task: Task) {
