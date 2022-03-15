@@ -43,10 +43,7 @@ protocol TaskViewModelable {
 
 final class TaskViewModel: TaskViewModelable {
     private var useCase: TaskUseCase
-    lazy var taskLists: [TaskList] = [TaskList(title: "test",
-                                               items: [Task(title: "task title",
-                                                            dueDate: formatDate(Date()),
-                                                            lastModifiedDate: formatDate(Date()))])]
+    var taskLists: [TaskList] = []
 
     private let formatter: DateFormatter = {
         let formatter = DateFormatter()
