@@ -7,10 +7,25 @@
 
 import Foundation
 
-struct TaskManageViewModel {
+class TaskManageViewModel {
     // MARK: - Output
     var manageTasks: ((ManageType) -> Void)?
     var changeManageTypeToEdit: ((ManageType) -> Void)?
+    
+    // MARK: - Properties
+    var selectedIndex: Int?
+    var selectedTask: Task?
+    var manageType: ManageType
+    
+    init(manageType: ManageType) {
+        self.manageType = manageType
+    }
+    
+    convenience init(selectedIndex: Int, selectedTask: Task, manageType: ManageType) {
+        self.init(manageType: manageType)
+        self.selectedIndex = selectedIndex
+        self.selectedTask = selectedTask
+    }
     
     func checkValidInput(title: String?, description: String?) -> (String, Bool) {
         var invalidItems = [String]()
@@ -28,7 +43,7 @@ struct TaskManageViewModel {
         return ("\(invalidItems.joined(separator: ", "))을 입력해주세요", false)
     }
     
-    func didTapDoneButton(with manageType: ManageType) {
+    func didTapDoneButton() {
         manageTasks?(manageType)
     }
     

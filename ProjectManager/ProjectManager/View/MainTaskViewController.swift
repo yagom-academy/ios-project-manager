@@ -82,15 +82,8 @@ final class MainTaskViewController: UIViewController {
         }
         
         taskListViewModel.didSelectRows = { [weak self] (index, selectedTask) in
-            guard let self = self else {
-                return
-            }
-            
-            let taskManageViewController = TaskManageViewController(manageType: .detail, taskListViewModel: self.taskListViewModel, task: selectedTask, selectedIndex: index)
-            let taskManageNavigationViewController = UINavigationController(rootViewController: taskManageViewController)
-            taskManageNavigationViewController.modalPresentationStyle = .formSheet
-    
-            self.present(taskManageNavigationViewController, animated: true, completion: nil)
+            let taskManageViewModel = TaskManageViewModel(selectedIndex: index, selectedTask: selectedTask, manageType: .detail)
+            self?.presentTaskManageViewController(with: taskManageViewModel)
         }
         
         taskListViewModel.taskCount = { [weak self] items in
@@ -109,6 +102,14 @@ final class MainTaskViewController: UIViewController {
         case .done:
             return taskInDoneTableView
         }
+    }
+    
+    private func presentTaskManageViewController(with taskManageViewModel: TaskManageViewModel) {
+        let taskManageViewController = TaskManageViewController(taskManageViewModel: taskManageViewModel, delegate: self)
+        let taskManageNavigationViewController = UINavigationController(rootViewController: taskManageViewController)
+        taskManageNavigationViewController.modalPresentationStyle = .formSheet
+        
+        present(taskManageNavigationViewController, animated: true, completion: nil)
     }
     
     private func refreshTaskTableHeader(state: TaskState, count: Int) {
@@ -153,11 +154,8 @@ final class MainTaskViewController: UIViewController {
     }
     
     @objc private func addTask() {
-        let taskManageViewController = TaskManageViewController(manageType: .add, taskListViewModel: taskListViewModel)
-        let taskManageNavigationViewController = UINavigationController(rootViewController: taskManageViewController)
-        taskManageNavigationViewController.modalPresentationStyle = .formSheet
-        
-        present(taskManageNavigationViewController, animated: true, completion: nil)
+        let taskManageViewModel = TaskManageViewModel(manageType: .add)
+        presentTaskManageViewController(with: taskManageViewModel)
     }
     
     // MARK: - Long Press Gesture
@@ -274,5 +272,15 @@ extension MainTaskViewController: UITableViewDelegate {
         
         let swipeActions = UISwipeActionsConfiguration(actions: [deleteAction])
         return swipeActions
+    }
+}
+
+extension MainTaskViewController: TaskManageDelegate {
+    func create(title: String, description: String, deadline: Date) {
+        taskListViewModel.createTask(title: title, description: description, deadline: deadline)
+    }
+    
+    func update(at index: Int, title: String, description: String, deadline: Date, from state: TaskState) {
+        taskListViewModel.updateTask(at: index, title: title, description: description, deadline: deadline, from: state)
     }
 }

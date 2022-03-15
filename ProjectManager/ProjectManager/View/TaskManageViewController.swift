@@ -29,6 +29,11 @@ enum ManageType {
     }
 }
 
+protocol TaskManageDelegate: AnyObject {
+    func create(title: String, description: String, deadline: Date)
+    func update(at index: Int, title: String, description: String, deadline: Date, from state: TaskState)
+}
+
 final class TaskManageViewController: UIViewController {
     // MARK: - Properties
 
@@ -66,25 +71,16 @@ final class TaskManageViewController: UIViewController {
         textView.layer.borderWidth = 0.3
         return textView
     }()
-        
-    private var selectedIndex: Int?
-    private var selectedTask: Task?
-    private var manageType: ManageType
-    private let taskListViewModel: TaskViewModel
-    private var taskManageViewModel = TaskManageViewModel()
+
+    private let taskManageViewModel: TaskManageViewModel
+    private weak var delegate: TaskManageDelegate?
     
     // MARK: - Life Cycle
 
-    init(manageType: ManageType, taskListViewModel: TaskViewModel) {
-        self.manageType = manageType
-        self.taskListViewModel = taskListViewModel
+    init(taskManageViewModel: TaskManageViewModel, delegate: TaskManageDelegate) {
+        self.taskManageViewModel = taskManageViewModel
+        self.delegate = delegate
         super.init(nibName: nil, bundle: nil)
-    }
-    
-    convenience init(manageType: ManageType, taskListViewModel: TaskViewModel, task: Task, selectedIndex: Int) {
-        self.init(manageType: manageType, taskListViewModel: taskListViewModel)
-        self.selectedTask = task
-        self.selectedIndex = selectedIndex
     }
     
     required init?(coder: NSCoder) {
@@ -95,8 +91,8 @@ final class TaskManageViewController: UIViewController {
         super.viewDidLoad()
         configTaskManageViewModel()
         configureUI()
-        setupData(from: selectedTask)
-        setupEditingState(from: manageType)
+        setupData(from: taskManageViewModel.selectedTask)
+        setupEditingState(from: taskManageViewModel.manageType)
     }
     
     // MARK: - Configure TaskManageViewModel
@@ -117,7 +113,7 @@ final class TaskManageViewController: UIViewController {
             guard let self = self else {
                 return
             }
-            self.manageType = manageType
+
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.didTapCancel))
             self.setupEditingState(from: manageType)
         }
@@ -171,13 +167,13 @@ final class TaskManageViewController: UIViewController {
     // MARK: - Configure Edit/Cancel/Add
 
     private func configureNavigationBar() {
-        navigationItem.title = selectedTask?.state.title
+        navigationItem.title = taskManageViewModel.selectedTask?.state.title
         
-        switch manageType {
+        switch taskManageViewModel.manageType {
         case .add, .edit:
-            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: manageType.leftButtonItem, target: self, action: #selector(didTapCancel))
+            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: taskManageViewModel.manageType.leftButtonItem, target: self, action: #selector(didTapCancel))
         case .detail:
-            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: manageType.leftButtonItem, target: self, action: #selector(didTapEdit))
+            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: taskManageViewModel.manageType.leftButtonItem, target: self, action: #selector(didTapEdit))
         }
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(didTapDone))
     }
@@ -188,22 +184,22 @@ final class TaskManageViewController: UIViewController {
             return
         }
         
-        taskListViewModel.createTask(title: title, description: description, deadline: deadlineDatePicker.date)
+        delegate?.create(title: title, description: description, deadline: deadlineDatePicker.date)
     }
     
     private func updateTask() {
         guard let title = titleTextField.text,
               let description = descriptionTextView.text,
-              let selectedIndex = selectedIndex,
-              let selectedTask = selectedTask else {
+              let selectedIndex = taskManageViewModel.selectedIndex,
+              let selectedTask = taskManageViewModel.selectedTask else {
             return
         }
         
-        taskListViewModel.updateTask(at: selectedIndex,
-                                    title: title,
-                                    description: description,
-                                    deadline: deadlineDatePicker.date,
-                                    from: selectedTask.state)
+        delegate?.update(at: selectedIndex,
+                         title: title,
+                         description: description,
+                         deadline: deadlineDatePicker.date,
+                         from: selectedTask.state)
     }
     
     private func presentAlert(title: String, message: String) {
@@ -231,7 +227,7 @@ final class TaskManageViewController: UIViewController {
             return
         }
         
-        taskManageViewModel.didTapDoneButton(with: manageType)
+        taskManageViewModel.didTapDoneButton()
     }
 }
 
