@@ -3,6 +3,7 @@ import Combine
 
 class TaskManager: TaskManagable {
     let taskListRepository = TaskListRepository()
+    let realmTaskListRepository = RealmTaskListRepository()
     var taskList = [Task]()
     
     func taskList(at status: Task.ProgressStatus) -> [Task] {
@@ -18,6 +19,16 @@ class TaskManager: TaskManagable {
             }
         }
         .eraseToAnyPublisher()
+    }
+    
+    func createRealmTask(_ task: Task) {
+        let realmTask = RealmEntityTask()
+        realmTask.id = task.id
+        realmTask.title = task.title
+        realmTask.desc = task.description
+        realmTask.deadline = task.deadline
+        realmTask.progressStatus = task.progressStatus.rawValue
+        realmTaskListRepository.createEntityTask(task: realmTask)
     }
     
     func updateTaskState(id: String, progressStatus: Task.ProgressStatus) {

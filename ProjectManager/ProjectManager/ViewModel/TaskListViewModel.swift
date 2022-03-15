@@ -38,6 +38,7 @@ class TaskListViewModel: ObservableObject {
     }
     
     func createTask(_ task: Task) {
+        manager.createRealmTask(task)
         manager.createTask(task)
             .sink { completion in
                 switch completion {
