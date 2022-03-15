@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2538C37C27E04CDD00ECDFF8 /* RealmEntityTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2538C37B27E04CDD00ECDFF8 /* RealmEntityTask.swift */; };
 		2548212E27DF041300AA1CC4 /* TaskListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2548212D27DF041300AA1CC4 /* TaskListRepository.swift */; };
 		2548213127DF081F00AA1CC4 /* EntityTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2548213027DF081F00AA1CC4 /* EntityTask.swift */; };
 		2570E67B27CD48C2002984D2 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 2570E67A27CD48C2002984D2 /* FirebaseAnalytics */; };
@@ -31,6 +32,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2538C37B27E04CDD00ECDFF8 /* RealmEntityTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmEntityTask.swift; sourceTree = "<group>"; };
 		2548212D27DF041300AA1CC4 /* TaskListRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListRepository.swift; sourceTree = "<group>"; };
 		2548213027DF081F00AA1CC4 /* EntityTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityTask.swift; sourceTree = "<group>"; };
 		2570E6A127CDE284002984D2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -79,6 +81,7 @@
 			isa = PBXGroup;
 			children = (
 				2548213027DF081F00AA1CC4 /* EntityTask.swift */,
+				2538C37B27E04CDD00ECDFF8 /* RealmEntityTask.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -275,6 +278,7 @@
 				2570E6D127D224D4002984D2 /* Task.swift in Sources */,
 				2548213127DF081F00AA1CC4 /* EntityTask.swift in Sources */,
 				25F993EC27D8A1B7007F5975 /* TaskManagable.swift in Sources */,
+				2538C37C27E04CDD00ECDFF8 /* RealmEntityTask.swift in Sources */,
 				2548212E27DF041300AA1CC4 /* TaskListRepository.swift in Sources */,
 				25F993F227D8A3ED007F5975 /* TaskListRowView.swift in Sources */,
 				25F993EE27D8A31C007F5975 /* TaskListView.swift in Sources */,
