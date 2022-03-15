@@ -32,6 +32,7 @@ protocol TaskViewModelable {
     var taskLists: [TaskList] { get set }
 
     func countOfTaskList() -> Int
+    func fetchTaskList(at index: Int) -> TaskList
     func reloadTaskList()
 
     func addNewTaskList(with title: String)
@@ -65,6 +66,15 @@ final class TaskViewModel: TaskViewModelable {
 
     func countOfTaskList() -> Int {
         return taskLists.count
+    }
+
+    func fetchTaskList(at index: Int) -> TaskList {
+        return taskLists[index]
+    }
+
+    func fetchTask(at index: Int, in listTitle: String) -> Task? {
+        guard let listIndex = taskLists.firstIndex(where: { $0.title == listTitle }) else { return nil }
+        return taskLists[listIndex].items[index]
     }
 
     func reloadTaskList() {
