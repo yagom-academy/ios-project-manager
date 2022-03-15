@@ -10,8 +10,8 @@ import SwiftUI
 struct ProjectManagerMainView: View {
     
     @EnvironmentObject private var viewModel: ProjectManagerViewModel
-    @StateObject private var sheetViewModel = TaskSheetViewModel()
     
+    @State private var isShowSheet = false
     @State private var isShowAlert = false
     
     var body: some View {
@@ -25,11 +25,11 @@ struct ProjectManagerMainView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: { sheetViewModel.toggleSheetCondition() }) {
+                    Button(action: { isShowSheet.toggle() }) {
                         Image(systemName: "plus")
                     }
-                    .sheet(isPresented: $sheetViewModel.isShowSheet, onDismiss: nil) {
-                        TaskFormCreateSheetView(sheetViewModel: sheetViewModel)
+                    .sheet(isPresented: $isShowSheet, onDismiss: nil) {
+                        TaskFormCreateSheetView(isShowSheet: $isShowSheet)
                     }
                 }
             }

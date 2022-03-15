@@ -13,13 +13,13 @@ struct TaskFormDetailSheetView: View {
     
     @EnvironmentObject private var viewModel: ProjectManagerViewModel
     @ObservedObject private var detailViewModel: TaskFormViewModel
-    @ObservedObject var sheetViewModel: TaskSheetViewModel
     
+    @Binding var isShowSheet: Bool
     @State private var isShowAlert = false
     
-    init(task: Task, sheetViewModel: TaskSheetViewModel) {
+    init(task: Task, isShowSheet: Binding<Bool>) {
         detailViewModel = TaskFormViewModel(task: task)
-        self.sheetViewModel = sheetViewModel
+        _isShowSheet = isShowSheet
         self.task = task
     }
     
@@ -56,7 +56,7 @@ struct TaskFormDetailSheetView: View {
         if detailViewModel.isEditingMode {
             updateTask()
         }
-        sheetViewModel.toggleSheetCondition()
+        isShowSheet.toggle()
     }
     
     private func toolbarLeadingButtonClicked() {
