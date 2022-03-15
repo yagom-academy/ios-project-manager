@@ -134,12 +134,12 @@ class TodoProjectTableViewController: UIViewController {
         let actionSheetController = UIAlertController(title: nil,
                                                       message: nil,
                                                       preferredStyle: .actionSheet)
-        let transitionToDoing = UIAlertAction(title: "move to \(String(describing: Status.doing))",
+        let transitionToDoing = UIAlertAction(title: ProjectBoardScene.statusModification.doing.rawValue,
                                               style: .default) { [weak self] _ in
             self?.delegate?.updateProjectStatus(of: identifier, with: .doing)
             self?.updateView()
         }
-        let transitionToDone = UIAlertAction(title: "move to \(String(describing: Status.done))",
+        let transitionToDone = UIAlertAction(title: ProjectBoardScene.statusModification.done.rawValue,
                                              style: .default) { [weak self] _ in
             self?.delegate?.updateProjectStatus(of: identifier, with: .done)
             self?.updateView()

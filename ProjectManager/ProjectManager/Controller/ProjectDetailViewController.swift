@@ -33,7 +33,7 @@ class ProjectDetailViewController: UIViewController {
         textField.backgroundColor = .white
         textField.borderStyle = .roundedRect
         textField.font = .preferredFont(forTextStyle: .body, compatibleWith: nil)
-        textField.placeholder = "Title"
+        textField.placeholder = ProjectDetailScene.titleFieldPlaceholder.rawValue
         textField.isEnabled = false
         textField.layer.shadowOffset = CGSize(width: 3, height: 3)
         textField.layer.shadowOpacity = 0.3

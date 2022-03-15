@@ -63,7 +63,7 @@ class ProjectBoardViewController: UIViewController {
     }
     
     private func configureNavigationItem() {
-        let navigationItem = UINavigationItem(title: "Project Manager")
+        let navigationItem = UINavigationItem(title: ProjectBoardScene.mainTitle.rawValue)
         let addButton = UIBarButtonItem(barButtonSystemItem: .add,
                                         target: self,
                                         action: #selector(presentProjectCreatorViewController))
