@@ -189,29 +189,25 @@ private extension ScheduleItemViewModel {
 
     func scheduleTitleText() -> Driver<String> {
         return  self.useCase.currentSchedule
-            .flatMap(Observable.from(optional:))
-            .map { $0.title }
+            .compactMap { $0?.title }
             .asDriver(onErrorJustReturn: Name.scheduleTitleTextOnError)
     }
 
     func scheduleDate() -> Driver<Date> {
         return  self.useCase.currentSchedule
-            .flatMap(Observable.from(optional:))
-            .map { $0.dueDate }
+            .compactMap { $0?.dueDate }
             .asDriver(onErrorJustReturn: Date())
     }
 
     func scheduleBodyText() -> Driver<String> {
         return  self.useCase.currentSchedule
-            .flatMap(Observable.from(optional:))
-            .map { $0.body }
+            .compactMap { $0?.body }
             .asDriver(onErrorJustReturn: Name.scheduleBodyTextOnError)
     }
 
     func scheduleProgress() -> Driver<String> {
         return  self.useCase.currentSchedule
-            .flatMap(Observable.from(optional:))
-            .map { $0.progress.description }
+            .compactMap { $0?.progress.description }
             .asDriver(onErrorJustReturn: Progress.todo.description)
     }
 

@@ -143,8 +143,7 @@ private extension MainViewController {
                 .map { _ in },
             tableViewLongPressed: Observable.merge(self.longPressGestureRecognizers.enumerated().map { index, gesture in
                 gesture.rx.event
-                    .map(self.schedule(from:))
-                    .compactMap { $0 }
+                    .compactMap(self.schedule(from:))
                     .map { ($0.0, $0.1, index) }
             })
             ,
