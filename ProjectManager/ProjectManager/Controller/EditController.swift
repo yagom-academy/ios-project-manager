@@ -11,9 +11,6 @@ class EditController: UIViewController, UIAdaptivePresentationControllerDelegate
 
 // MARK: - Properties
 
-    var hasChanges: Bool {
-        return self.editView.textField.text != nil
-    }
     var beingEditedTodoUUID: UUID?
     var beingEditedTodoTask: TodoTasks?
     weak var dataProvider: DataProvider?
@@ -39,7 +36,7 @@ class EditController: UIViewController, UIAdaptivePresentationControllerDelegate
         return button
     }()
 
-    private var editView: EditView = {
+    private let editView: EditView = {
         let view = EditView()
         view.translatesAutoresizingMaskIntoConstraints = false
 
@@ -52,12 +49,6 @@ class EditController: UIViewController, UIAdaptivePresentationControllerDelegate
         super.viewDidLoad()
         self.setUpController()
         self.view.backgroundColor = EditControllerColor.background
-    }
-
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-//        self.doneButton.isEnabled = hasChanges
-        self.isModalInPresentation = hasChanges
     }
 
 // MARK: - SetUp Controller
@@ -81,13 +72,12 @@ class EditController: UIViewController, UIAdaptivePresentationControllerDelegate
     }
 
     private func setUpDelegate() {
-//        self.editView.textField.delegate = self
         self.editView.textView.delegate = self
         self.navigationController?.presentationController?.delegate = self
     }
 
     private func setUpDefaultStatus() {
-        self.isModalInPresentation = true
+        self.isModalInPresentation = false
         self.doneButton.isEnabled = false
         self.doneButton.customView?.alpha = 0.5
     }
@@ -183,9 +173,11 @@ class EditController: UIViewController, UIAdaptivePresentationControllerDelegate
 
         if textFieldIsEmpty {
             self.doneButton.isEnabled = false
+            self.isModalInPresentation = false
             self.doneButton.customView?.alpha = 0.5
         } else {
             self.doneButton.isEnabled = true
+            self.isModalInPresentation = true
             self.doneButton.customView?.alpha = 1.0
         }
     }
