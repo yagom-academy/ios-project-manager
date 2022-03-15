@@ -2,6 +2,10 @@ import UIKit
 import RxSwift
 
 
+protocol ProjectTableViewCellDelegate: AnyObject {
+    func present(alert: UIAlertController)
+}
+
 private enum Content {
     
     static let todoTitle = "TODO"
@@ -34,7 +38,7 @@ final class ProjectTableViewCell: UITableViewCell {
     var title: String?
     var viewModel: ProjectViewModel?
     var work: Work?
-    var viewController: ProjectTableViewController?
+    weak var delegate: ProjectTableViewCellDelegate?
     
     private var firstTitle: String {
         if title == Content.todoTitle {
@@ -113,7 +117,7 @@ final class ProjectTableViewCell: UITableViewCell {
         alert.addAction(secondAction)
         alert.popoverPresentationController?.sourceView = self
         
-        viewController?.present(alert, animated: true)
+        delegate?.present(alert: alert)
     }
     
     private func change(category: Work.Category) {

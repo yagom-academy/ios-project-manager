@@ -72,8 +72,8 @@ final class ProjectTableViewController: UIViewController {
                 
                 cell.title = self?.titleText
                 cell.viewModel = self?.viewModel
-                cell.viewController = self
                 cell.work = item
+                cell.delegate = self
             }
             .disposed(by: disposeBag)
     }
@@ -128,4 +128,10 @@ extension ProjectTableViewController: UITableViewDelegate {
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }
     
+}
+
+extension ProjectTableViewController: ProjectTableViewCellDelegate {
+    func present(alert: UIAlertController) {
+        present(alert, animated: true)
+    }
 }
