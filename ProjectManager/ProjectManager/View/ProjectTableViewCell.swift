@@ -31,14 +31,15 @@ private enum Design {
 
 final class ProjectTableViewCell: UITableViewCell {
     
+    weak var delegate: ProjectTableViewCellDelegate?
+    
     @IBOutlet weak private var titleLabel: UILabel!
     @IBOutlet weak private var bodyLabel: UILabel!
     @IBOutlet weak private var dateLabel: UILabel!
-    
-    var title: String?
-    var viewModel: ProjectViewModel?
-    var work: Work?
-    weak var delegate: ProjectTableViewCellDelegate?
+        
+    private var title: String?
+    private var viewModel: ProjectViewModel?
+    private var work: Work?
     
     private var firstTitle: String {
         if title == Content.todoTitle {
@@ -87,6 +88,12 @@ final class ProjectTableViewCell: UITableViewCell {
         if item.isExpired {
             dateLabel.textColor = Design.expiredDateColor
         }
+    }
+    
+    func setupData(title: String?, viewModel: ProjectViewModel?, work: Work?) {
+        self.title = title
+        self.viewModel = viewModel
+        self.work = work
     }
     
     @objc private func showPopupMenu() {

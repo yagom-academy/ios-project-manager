@@ -69,10 +69,8 @@ final class ProjectTableViewController: UIViewController {
                 cellType: ProjectTableViewCell.self
             )) { [weak self] _, item, cell in
                 cell.configureCellContent(for: item)
+                cell.setupData(title: self?.titleText, viewModel: self?.viewModel, work: item)
                 
-                cell.title = self?.titleText
-                cell.viewModel = self?.viewModel
-                cell.work = item
                 cell.delegate = self
             }
             .disposed(by: disposeBag)
