@@ -19,20 +19,33 @@ final class TaskCollectionViewController: UICollectionViewController {
     @IBAction func addListBarButtonDidTap(_ sender: Any) {
         let alertController = UIAlertController(title: "Add A List", message: nil, preferredStyle: .alert)
         alertController.addTextField(configurationHandler: nil)
-        alertController.addAction(UIAlertAction(title: "Add", style: .default, handler: { _ in
-            guard let titleName = alertController.textFields?.first?.text, titleName.isNotEmpty else { return }
-            self.viewModel?.taskLists.append(TaskList(title: titleName))
-
-            let lastIndexOfTaskList = (self.viewModel?.countOfTaskList() ?? .zero) - 1
-            let lastIndexPath = IndexPath(item: lastIndexOfTaskList, section: 0)
-
-            self.collectionView.insertItems(at: [lastIndexPath])
-            self.collectionView.scrollToItem(at: lastIndexPath,
-                                             at: UICollectionView.ScrollPosition.centeredHorizontally,
-                                             animated: true)
-        }))
-        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        configureCancelAction(in: alertController)
+        configureAddAction(in: alertController)
         present(alertController, animated: true)
+    }
+
+    private func configureCancelAction(in alertController: UIAlertController) {
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+    }
+
+    private func configureAddAction(in alertController: UIAlertController) {
+        alertController.addAction(UIAlertAction(title: "Add", style: .default) { _ in
+            guard let taskListTitle = alertController.textFields?.first?.text,
+                  taskListTitle.isNotEmpty else { return }
+            self.insertItem(in: taskListTitle)
+        })
+    }
+
+    private func insertItem(in taskListTitle: String) {
+        self.viewModel?.taskLists.append(TaskList(title: taskListTitle))
+
+        let lastIndexOfTaskList = (self.viewModel?.countOfTaskList() ?? .zero) - 1
+        let lastIndexPath = IndexPath(item: lastIndexOfTaskList, section: 0)
+
+        self.collectionView.insertItems(at: [lastIndexPath])
+        self.collectionView.scrollToItem(at: lastIndexPath,
+                                         at: UICollectionView.ScrollPosition.centeredHorizontally,
+                                         animated: true)
     }
 
     @IBAction func unwind(_ segue: UIStoryboardSegue) {}
