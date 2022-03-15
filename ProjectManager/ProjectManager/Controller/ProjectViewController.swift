@@ -1,24 +1,38 @@
 //
-//  ProjectDetailViewController.swift
+//  ProjectViewController.swift
 //  ProjectManager
 //
-//  Created by 1 on 2022/03/09.
+//  Created by 1 on 2022/03/15.
 //
 
 import UIKit
 
-// MARK: - ProjectDetailViewControllerDelegate
-protocol ProjectDetailViewControllerDelegate: AnyObject {
+// MARK: - ProjectCreationDelegate
+protocol ProjectCreationDelegate: AnyObject {
     
-    func delegateUpdateProject(of identifier: UUID, with content: [String: Any])
+    func createProject(with content: [String: Any])
 }
 
-// MARK: - ProjectDetailViewController
-class ProjectDetailViewController: UIViewController {
+// MARK: - ProjectEditDelegate
+protocol ProjectEditDelegate: AnyObject {
+    
+    func updateProject(of identifier: UUID, with content: [String: Any])
+}
+
+// MARK: - ProjectViewController
+final class ProjectViewController: UIViewController {
+    
+    // MARK: - Mode
+    enum Mode {
+        case creation
+        case edit
+    }
     
     // MARK: - Property
+    var mode: Mode?
     var project: Project?
-    weak var delegate: ProjectDetailViewControllerDelegate?
+    weak var projectCreationDelegate: ProjectCreationDelegate?
+    weak var projectEditDelegate: ProjectEditDelegate?
     
     // MARK: - UI Property
     private var navigationBar: UINavigationBar = {
@@ -33,8 +47,7 @@ class ProjectDetailViewController: UIViewController {
         textField.backgroundColor = .white
         textField.borderStyle = .roundedRect
         textField.font = .preferredFont(forTextStyle: .body, compatibleWith: nil)
-        textField.placeholder = ProjectDetailScene.titleFieldPlaceholder.rawValue
-        textField.isEnabled = false
+        textField.placeholder = "Title"
         textField.layer.shadowOffset = CGSize(width: 3, height: 3)
         textField.layer.shadowOpacity = 0.3
         textField.layer.shadowRadius = 3
@@ -46,7 +59,6 @@ class ProjectDetailViewController: UIViewController {
         datePicker.translatesAutoresizingMaskIntoConstraints = false
         datePicker.datePickerMode = .date
         datePicker.preferredDatePickerStyle = .wheels
-        datePicker.isEnabled = false
         var preferredLanguage = Locale.preferredLanguages.first
         let currentRegionIdentifier: Substring? = NSLocale.current.identifier.split(separator: "_").last
         if let languageCode = preferredLanguage, let regionCode = currentRegionIdentifier {
@@ -71,7 +83,6 @@ class ProjectDetailViewController: UIViewController {
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.backgroundColor = .systemGray6
         textView.font = .preferredFont(forTextStyle: .body)
-        textView.isEditable = false
         textView.textContainerInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
         textView.layer.masksToBounds = true
         return textView
@@ -87,6 +98,22 @@ class ProjectDetailViewController: UIViewController {
         return stackView
     }()
     
+    // MARK: - Initializer
+    init(mode: Mode,
+         project: Project?,
+         projectCreationDelegate: ProjectCreationDelegate?,
+         projectEditDelegate: ProjectEditDelegate?) {
+        self.mode = mode
+        self.project = project
+        self.projectCreationDelegate = projectCreationDelegate
+        self.projectEditDelegate = projectEditDelegate
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
     // MARK: - View Life Cycle
     override func loadView() {
         self.view = .init()
@@ -94,27 +121,12 @@ class ProjectDetailViewController: UIViewController {
     }
     
     override func viewDidLoad() {
-        self.configureNavigationItem()
         self.configureNavigationBarLayout()
         self.configureStackViewLayout()
-        self.configureContentWithProject()
+        self.configureMode()
     }
     
     // MARK: - Configure View
-    private func configureNavigationItem() {
-        let navigationItem = UINavigationItem()
-        let doneButton = UIBarButtonItem(barButtonSystemItem: .done,
-                                         target: self,
-                                         action: #selector(dismissWithUpdate))
-        let editButton = UIBarButtonItem(barButtonSystemItem: .edit,
-                                           target: self,
-                                           action: #selector(enableEdit))
-        navigationItem.rightBarButtonItem = doneButton
-        navigationItem.leftBarButtonItem = editButton
-        
-        navigationBar.items = [navigationItem]
-    }
-    
     private func configureNavigationBarLayout() {
         self.view.addSubview(navigationBar)
         let safeArea = self.view.safeAreaLayoutGuide
@@ -127,6 +139,8 @@ class ProjectDetailViewController: UIViewController {
         self.descriptionTextViewContainer.addSubview(descriptionTextView)
         self.view.addSubview(stackView)
         let safeArea = self.view.safeAreaLayoutGuide
+        
+        NSLayoutConstraint.activate([titleTextField.heightAnchor.constraint(equalToConstant: 45)])
         
         NSLayoutConstraint.activate([
             descriptionTextView.topAnchor.constraint(equalTo: descriptionTextViewContainer.topAnchor),
@@ -144,16 +158,72 @@ class ProjectDetailViewController: UIViewController {
             stackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 15),
             stackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -15)
         ])
-        NSLayoutConstraint.activate([titleTextField.heightAnchor.constraint(equalToConstant: 45)])
     }
     
-    private func configureContentWithProject() {
-        guard project != nil else {
+    // MARK: - Configure Mode
+    private func configureMode() {
+        switch mode {
+        case .creation:
+            self.configureNavigationItemWhenCreationMode()
+        case .edit:
+            self.configureNavigationItemWhenEditMode()
+            self.configureContentWithProject()
+            self.toggleEditMode()
+        default:
             return
         }
-        self.titleTextField.text = project?.title
-        self.datePicker.date = project?.deadline ?? Date()
-        self.descriptionTextView.text = project?.description
+    }
+    
+    private func configureNavigationItemWhenCreationMode() {
+        let navigationItem = UINavigationItem()
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done,
+                                         target: self,
+                                         action: #selector(dismissWithCreation))
+        let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel,
+                                           target: self,
+                                           action: #selector(dismissWithoutCreation))
+        navigationItem.rightBarButtonItem = doneButton
+        navigationItem.leftBarButtonItem = cancelButton
+        
+        navigationBar.items = [navigationItem]
+    }
+    
+    private func configureNavigationItemWhenEditMode() {
+        let navigationItem = UINavigationItem()
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done,
+                                         target: self,
+                                         action: #selector(dismissWithUpdate))
+        let editButton = UIBarButtonItem(barButtonSystemItem: .edit,
+                                           target: self,
+                                           action: #selector(enableEdit))
+        navigationItem.rightBarButtonItem = doneButton
+        navigationItem.leftBarButtonItem = editButton
+        
+        navigationBar.items = [navigationItem]
+    }
+    
+    // MARK: - Creation mode Method
+    @objc func dismissWithoutCreation() {
+        dismiss(animated: false, completion: nil)
+    }
+    
+    @objc func dismissWithCreation() {
+        var content: [String: Any] = [:]
+        content.updateValue(titleTextField.text as Any, forKey: "title")
+        content.updateValue(datePicker.date as Any, forKey: "deadline")
+        content.updateValue(descriptionTextView.text as Any, forKey: "description")
+        projectCreationDelegate?.createProject(with: content)
+        dismiss(animated: false, completion: nil)
+    }
+    
+    // MARK: - Edit mode Method
+    private func configureContentWithProject() {
+        guard self.project != nil else {
+            return
+        }
+        self.titleTextField.text = self.project?.title
+        self.datePicker.date = self.project?.deadline ?? Date()
+        self.descriptionTextView.text = self.project?.description
     }
     
     private func toggleEditMode() {
@@ -162,7 +232,6 @@ class ProjectDetailViewController: UIViewController {
         self.descriptionTextView.isEditable.toggle()
     }
     
-    // MARK: - @objc Method
     @objc func enableEdit() {
         toggleEditMode()
         titleTextField.becomeFirstResponder()
@@ -173,11 +242,12 @@ class ProjectDetailViewController: UIViewController {
         content.updateValue(titleTextField.text as Any, forKey: "title")
         content.updateValue(datePicker.date as Any, forKey: "deadline")
         content.updateValue(descriptionTextView.text as Any, forKey: "description")
-        guard let todoProjecTableViewController = presentingViewController as? ProjectDetailViewControllerDelegate,
-              let identifier = project?.identifier else {
+        guard let projectTableViewController = presentingViewController as?
+                ProjectEditDelegate,
+              let identifier = self.project?.identifier else {
             return
         }
-        todoProjecTableViewController.delegateUpdateProject(of: identifier, with: content)
+        projectTableViewController.updateProject(of: identifier, with: content)
         dismiss(animated: false, completion: nil)
     }
 }

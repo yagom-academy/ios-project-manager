@@ -234,10 +234,11 @@ extension ProjectTableViewController: UITableViewDelegate {
             return
         }
         
-        let detailViewController = ProjectDetailViewController()
+        let detailViewController = ProjectViewController(mode: .edit,
+                                                         project: selectedProject,
+                                                         projectCreationDelegate: nil,
+                                                         projectEditDelegate: self)
         detailViewController.modalPresentationStyle = .formSheet
-        detailViewController.project = selectedProject
-        detailViewController.delegate = self
         
         self.present(detailViewController, animated: false, completion: nil)
     }
@@ -258,10 +259,10 @@ extension ProjectTableViewController: UITableViewDelegate {
     }
 }
 
-// MARK: - ProjectDetailViewControllerDelegate
-extension ProjectTableViewController: ProjectDetailViewControllerDelegate {
+// MARK: - ProjectEditViewControllerDelegate
+extension ProjectTableViewController: ProjectEditDelegate {
     
-    func delegateUpdateProject(of identifier: UUID, with content: [String: Any]) {
+    func updateProject(of identifier: UUID, with content: [String: Any]) {
         delegate?.updateProject(of: identifier, with: content)
     }
 }

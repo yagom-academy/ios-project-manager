@@ -98,9 +98,11 @@ class ProjectBoardViewController: UIViewController {
     
     // MARK: - @objc Method
     @objc func presentProjectCreatorViewController() {
-        let creatorViewController = ProjectCreatorViewController()
+        let creatorViewController = ProjectViewController(mode: .creation,
+                                                          project: nil,
+                                                          projectCreationDelegate: self,
+                                                          projectEditDelegate: nil)
         creatorViewController.modalPresentationStyle = .formSheet
-        creatorViewController.delegate = self
         present(creatorViewController, animated: false, completion: nil)
     }
 }
@@ -113,13 +115,14 @@ extension ProjectBoardViewController: UINavigationBarDelegate {
     }
 }
 
-// MARK: - ProjectCreatorViewControllerDelegate
-extension ProjectBoardViewController: ProjectCreatorViewControllerDelegate {
- 
-    func createProject(with content: [String: Any]) {
+// MARK: - ProjectCreationViewControllerDelegate
+extension ProjectBoardViewController: ProjectCreationDelegate {
+    
+    func createProject(with content: [String : Any]) {
         self.projectManager.create(with: content)
-        todoViewController.updateView()
+        self.todoViewController.updateView()
     }
+
 }
 
 // MARK: - ProjectTableViewControllerDelegate

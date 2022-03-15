@@ -11,17 +11,16 @@
 		63B96DA927E024AF00144F7C /* ProjectBoardScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B96DA827E024AF00144F7C /* ProjectBoardScene.swift */; };
 		63B96DAB27E0262800144F7C /* ProjectDetailScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B96DAA27E0262800144F7C /* ProjectDetailScene.swift */; };
 		63B96DAD27E028CF00144F7C /* ProjectTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B96DAC27E028CF00144F7C /* ProjectTableViewController.swift */; };
+		63B96DAF27E067F600144F7C /* ProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B96DAE27E067F600144F7C /* ProjectViewController.swift */; };
 		63D21E5E27D4691700E35D3B /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D21E5D27D4691700E35D3B /* Project.swift */; };
 		63D21E6027D4AC2E00E35D3B /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D21E5F27D4AC2E00E35D3B /* Status.swift */; };
 		63D21E6227D4B3A600E35D3B /* LocalDataBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D21E6127D4B3A600E35D3B /* LocalDataBase.swift */; };
 		63D21E6427D4B61F00E35D3B /* ProjectSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D21E6327D4B61F00E35D3B /* ProjectSource.swift */; };
 		63D21E6727D4F9B900E35D3B /* ProjectManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D21E6627D4F9B900E35D3B /* ProjectManager.swift */; };
-		63D21E6927D5305000E35D3B /* ProjectCreatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D21E6827D5305000E35D3B /* ProjectCreatorViewController.swift */; };
 		63D21E8B27D634FD00E35D3B /* ProjectTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D21E8A27D634FD00E35D3B /* ProjectTableViewCell.swift */; };
 		63D21E9327D6604500E35D3B /* UITableVeiwCell+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D21E9227D6604500E35D3B /* UITableVeiwCell+Extension.swift */; };
 		63D21E9527D73CD200E35D3B /* ProjectTableViewHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D21E9427D73CD200E35D3B /* ProjectTableViewHeaderView.swift */; };
 		63D21E9927D7618300E35D3B /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D21E9827D7618300E35D3B /* Date+Extension.swift */; };
-		63D21E9B27D7CAD600E35D3B /* ProjectDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D21E9A27D7CAD600E35D3B /* ProjectDetailViewController.swift */; };
 		63E508A527CFAF9400A5A79A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 63E508A427CFAF9400A5A79A /* GoogleService-Info.plist */; };
 		63E508A827CFAFDC00A5A79A /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 63E508A727CFAFDC00A5A79A /* FirebaseAnalytics */; };
 		63E508AA27CFAFDC00A5A79A /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 63E508A927CFAFDC00A5A79A /* FirebaseAuth */; };
@@ -37,17 +36,16 @@
 		63B96DA827E024AF00144F7C /* ProjectBoardScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectBoardScene.swift; sourceTree = "<group>"; };
 		63B96DAA27E0262800144F7C /* ProjectDetailScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDetailScene.swift; sourceTree = "<group>"; };
 		63B96DAC27E028CF00144F7C /* ProjectTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTableViewController.swift; sourceTree = "<group>"; };
+		63B96DAE27E067F600144F7C /* ProjectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectViewController.swift; sourceTree = "<group>"; };
 		63D21E5D27D4691700E35D3B /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		63D21E5F27D4AC2E00E35D3B /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
 		63D21E6127D4B3A600E35D3B /* LocalDataBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDataBase.swift; sourceTree = "<group>"; };
 		63D21E6327D4B61F00E35D3B /* ProjectSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectSource.swift; sourceTree = "<group>"; };
 		63D21E6627D4F9B900E35D3B /* ProjectManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManager.swift; sourceTree = "<group>"; };
-		63D21E6827D5305000E35D3B /* ProjectCreatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectCreatorViewController.swift; sourceTree = "<group>"; };
 		63D21E8A27D634FD00E35D3B /* ProjectTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTableViewCell.swift; sourceTree = "<group>"; };
 		63D21E9227D6604500E35D3B /* UITableVeiwCell+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableVeiwCell+Extension.swift"; sourceTree = "<group>"; };
 		63D21E9427D73CD200E35D3B /* ProjectTableViewHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTableViewHeaderView.swift; sourceTree = "<group>"; };
 		63D21E9827D7618300E35D3B /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
-		63D21E9A27D7CAD600E35D3B /* ProjectDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDetailViewController.swift; sourceTree = "<group>"; };
 		63E508A427CFAF9400A5A79A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -105,8 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				C7431F0925F51E1D0094C4CF /* ProjectBoardViewController.swift */,
-				63D21E6827D5305000E35D3B /* ProjectCreatorViewController.swift */,
-				63D21E9A27D7CAD600E35D3B /* ProjectDetailViewController.swift */,
+				63B96DAE27E067F600144F7C /* ProjectViewController.swift */,
 				63B96DAC27E028CF00144F7C /* ProjectTableViewController.swift */,
 				63974A4427D8D5F600523B16 /* ProjectTableViewControllerDelegate.swift */,
 			);
@@ -265,7 +262,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7431F0A25F51E1D0094C4CF /* ProjectBoardViewController.swift in Sources */,
-				63D21E9B27D7CAD600E35D3B /* ProjectDetailViewController.swift in Sources */,
 				63D21E6727D4F9B900E35D3B /* ProjectManager.swift in Sources */,
 				63D21E9327D6604500E35D3B /* UITableVeiwCell+Extension.swift in Sources */,
 				63D21E6027D4AC2E00E35D3B /* Status.swift in Sources */,
@@ -275,9 +271,9 @@
 				63D21E9527D73CD200E35D3B /* ProjectTableViewHeaderView.swift in Sources */,
 				63D21E8B27D634FD00E35D3B /* ProjectTableViewCell.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
+				63B96DAF27E067F600144F7C /* ProjectViewController.swift in Sources */,
 				63B96DAD27E028CF00144F7C /* ProjectTableViewController.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
-				63D21E6927D5305000E35D3B /* ProjectCreatorViewController.swift in Sources */,
 				63974A4527D8D5F600523B16 /* ProjectTableViewControllerDelegate.swift in Sources */,
 				63D21E9927D7618300E35D3B /* Date+Extension.swift in Sources */,
 				63D21E5E27D4691700E35D3B /* Project.swift in Sources */,
