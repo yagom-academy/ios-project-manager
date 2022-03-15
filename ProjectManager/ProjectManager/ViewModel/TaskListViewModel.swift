@@ -6,13 +6,16 @@ protocol TaskListViewModelProtocol {
     var todoTasksObservable: BehaviorSubject<[Task]>? { get }
     var doingTasksObservable: BehaviorSubject<[Task]>? { get }
     var doneTasksObservable: BehaviorSubject<[Task]>? { get }
+    var todoTasksCount: Observable<Int> { get }
+    var doingTasksCount: Observable<Int> { get }
+    var doneTasksCount: Observable<Int> { get }
     
     func create(task: Task)
     func delete(task: Task)
     func update(task: Task, to newTask: Task)
     
-    func numberOfRowsInSection(for tableView: TaskTableView) -> Int
-    func titleForHeaderInSection(for tableView: TaskTableView) -> String
+    func numberOfRowsInSection(for tableView: TaskTableView) -> Observable<Int>
+    func titleForHeaderInSection(for tableView: TaskTableView) -> Observable<String>
     func edit(task: Task, newTitle: String, newBody: String, newDueDate: Date)
     func edit(task: Task, newProcessStatus: ProcessStatus)
 }
@@ -24,6 +27,16 @@ final class TaskListViewModel: TaskListViewModelProtocol {
     let todoTasksObservable: BehaviorSubject<[Task]>?
     let doingTasksObservable: BehaviorSubject<[Task]>?
     let doneTasksObservable: BehaviorSubject<[Task]>?
+    
+    lazy var todoTasksCount: Observable<Int> = todoTasksObservable!.map {
+        $0.count
+    }
+    lazy var doingTasksCount: Observable<Int> = doingTasksObservable!.map {
+        $0.count
+    }
+    lazy var doneTasksCount: Observable<Int> = doneTasksObservable!.map {
+        $0.count
+    }
     
     // MARK: - Initializers
     init(taskRepository: TaskRepositoryProtocol = TaskRepository()) {
@@ -93,43 +106,35 @@ final class TaskListViewModel: TaskListViewModelProtocol {
     }
     
     // MARK: - TaskListView
-    func numberOfRowsInSection(for tableView: TaskTableView) -> Int {
+    func numberOfRowsInSection(for tableView: TaskTableView) -> Observable<Int> {  // Int가 아니라 Observable<Int>로 보내는게 맞겠지? 변경사항을 View에 자동 반영하려면...?
         switch tableView.processStatus {
         case .todo:
-            return todoTasksObservable?.value.count ?? 0
+            return todoTasksCount
         case .doing:
-            return doingTasksObservable?.value.count ?? 0
+            return doingTasksCount
         case .done:
-            return doneTasksObservable?.value.count ?? 0
+            return doneTasksCount
         default:
             print(TableViewError.invalidTableView)
-            return 0
+            return todoTasksCount
         }
     }
     
-    func titleForHeaderInSection(for tableView: TaskTableView) -> String {
+    func titleForHeaderInSection(for tableView: TaskTableView) -> Observable<String> {
         switch tableView.processStatus {
         case .todo:
-            guard let taskCount = todoTasksObservable?.value.count else {
-                print(TaskManagerError.taskNotFound)
-                return ""
-            }
-            return "\(ProcessStatus.todo.description) \(taskCount)"
+            return todoTasksCount.map { "\(ProcessStatus.todo.description) \($0)" }
+//            return "\(ProcessStatus.todo.description) \(todoTasksCount)" // Observable<Int> 타입
+
+            //            let count = todoTasksCount.map { $0.description } // Int -> String 타입으로 꺼내줘야하나?
+//            return "\(ProcessStatus.todo.description) \(count)"
         case .doing:
-            guard let taskCount = doingTasksObservable?.value.count else {
-                print(TaskManagerError.taskNotFound)
-                return ""
-            }
-            return "\(ProcessStatus.doing.description) \(taskCount)"
+            return doingTasksCount.map { "\(ProcessStatus.doing.description) \($0)" }
         case .done:
-            guard let taskCount = doneTasksObservable?.value.count else {
-                print(TaskManagerError.taskNotFound)
-                return ""
-            }
-            return "\(ProcessStatus.done.description) \(taskCount)"
+            return doneTasksCount.map { "\(ProcessStatus.done.description) \($0)" }
         case .none:
             print(TableViewError.invalidTableView)
-            return ""
+            return todoTasksCount.map { "\(ProcessStatus.todo.description) \($0)" }
         }
     }
     
@@ -138,8 +143,6 @@ final class TaskListViewModel: TaskListViewModelProtocol {
     func edit(task: Task, newTitle: String, newBody: String, newDueDate: Date) {
         let newTask = Task(id: task.id, title: newTitle, body: newBody, dueDate: newDueDate, processStatus: task.processStatus)
         update(task: task, to: newTask)
-        
-        taskRepository?.update(task: task, to: newTask)
     }
     
     // TODO: Popover에서 ProcessStatus Edit 기능 구현
@@ -151,7 +154,5 @@ final class TaskListViewModel: TaskListViewModelProtocol {
         
         let newTask = Task(id: task.id, title: task.title, body: task.body, dueDate: task.dueDate, processStatus: newProcessStatus)
         update(task: task, to: newTask)
-        
-        taskRepository?.update(task: task, to: newTask)
     }
 }
