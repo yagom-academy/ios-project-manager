@@ -54,6 +54,8 @@
 		36D50A0F27DE64DC00CD61EF /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 36D50A0E27DE64DC00CD61EF /* RxCocoa */; };
 		36D50A1127DE64DC00CD61EF /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 36D50A1027DE64DC00CD61EF /* RxRelay */; };
 		36D50A1327DE64DC00CD61EF /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 36D50A1227DE64DC00CD61EF /* RxSwift */; };
+		36D50A3F27E0F90A00CD61EF /* TaskTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D50A3E27E0F90A00CD61EF /* TaskTableHeaderView.swift */; };
+		36D50A4227E10B0200CD61EF /* UITableViewHeaderFooterView+Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D50A4127E10B0200CD61EF /* UITableViewHeaderFooterView+Identifier.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* TaskListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* TaskListViewController.swift */; };
@@ -95,6 +97,8 @@
 		36C6FC6427D7C64100B3057F /* Array+SafeSubscript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+SafeSubscript.swift"; sourceTree = "<group>"; };
 		36C6FC6927D9FD1500B3057F /* TaskTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableView.swift; sourceTree = "<group>"; };
 		36C6FC6C27DA47C500B3057F /* ViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerFactory.swift; sourceTree = "<group>"; };
+		36D50A3E27E0F90A00CD61EF /* TaskTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableHeaderView.swift; sourceTree = "<group>"; };
+		36D50A4127E10B0200CD61EF /* UITableViewHeaderFooterView+Identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewHeaderFooterView+Identifier.swift"; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -169,10 +173,11 @@
 			isa = PBXGroup;
 			children = (
 				C7431F0925F51E1D0094C4CF /* TaskListViewController.swift */,
-				36C6FC6927D9FD1500B3057F /* TaskTableView.swift */,
 				C7431F0B25F51E1D0094C4CF /* TaskListViewController.storyboard */,
 				369243FC27D26A1E004F0FE4 /* TaskTableViewCell.swift */,
 				369243FD27D26A1E004F0FE4 /* TaskTableViewCell.xib */,
+				36C6FC6927D9FD1500B3057F /* TaskTableView.swift */,
+				36D50A3E27E0F90A00CD61EF /* TaskTableHeaderView.swift */,
 			);
 			path = TaskListView;
 			sourceTree = "<group>";
@@ -200,6 +205,7 @@
 			children = (
 				36C6FC3C27D73E5100B3057F /* UITableView+ReuseCell.swift */,
 				36C6FC3E27D73E8B00B3057F /* UITableViewCell+Identifier.swift */,
+				36D50A4127E10B0200CD61EF /* UITableViewHeaderFooterView+Identifier.swift */,
 				36C6FC4927D780BA00B3057F /* DateFormatter+Format.swift */,
 				36C6FC6427D7C64100B3057F /* Array+SafeSubscript.swift */,
 			);
@@ -441,7 +447,9 @@
 				36C6FC4427D7531C00B3057F /* TaskDetailController.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* TaskListViewController.swift in Sources */,
 				36C6FC3F27D73E8B00B3057F /* UITableViewCell+Identifier.swift in Sources */,
+				36D50A4227E10B0200CD61EF /* UITableViewHeaderFooterView+Identifier.swift in Sources */,
 				36C6FC6D27DA47C500B3057F /* ViewControllerFactory.swift in Sources */,
+				36D50A3F27E0F90A00CD61EF /* TaskTableHeaderView.swift in Sources */,
 				369243F927D26960004F0FE4 /* ProcessStatus.swift in Sources */,
 				36C6FC4F27D78BB500B3057F /* StorageProtocol.swift in Sources */,
 				36C6FC6527D7C64100B3057F /* Array+SafeSubscript.swift in Sources */,

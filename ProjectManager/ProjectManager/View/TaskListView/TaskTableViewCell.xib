@@ -50,6 +50,9 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <accessibility key="accessibilityConfiguration">
+                <bool key="isElement" value="YES"/>
+            </accessibility>
             <connections>
                 <outlet property="bodyLabel" destination="dRQ-1W-HPH" id="7Ns-Ms-3WS"/>
                 <outlet property="dateLabel" destination="ZnT-bK-dNT" id="rGn-QR-FZS"/>

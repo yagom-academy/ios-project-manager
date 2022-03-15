@@ -10,6 +10,12 @@ final class TaskTableViewCell: UITableViewCell {
         dateLabel.textColor = .black
     }
     
+    func setup() {
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = .systemBlue
+        selectedBackgroundView = backgroundView
+    }
+    
     func applyDate(with task: Task?) {
         titleLabel.text = task?.title
         bodyLabel.text = task?.body

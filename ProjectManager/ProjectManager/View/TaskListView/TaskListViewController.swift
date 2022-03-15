@@ -6,7 +6,6 @@ final class TaskListViewController: UIViewController {
     // MARK: - Properties
     private var taskListViewModel: TaskListViewModelProtocol!
     private lazy var tableViews = [todoTableView, doingTableView, doneTableView]
-    
     var disposeBag = DisposeBag()
     
     @IBOutlet private weak var todoTableView: TaskTableView!
@@ -23,25 +22,31 @@ final class TaskListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableViews()
+        setupHeaderViews()
         setupBindings()
     }
         
     private func setupTableViews() {
-        todoTableView.processStatus = .todo
-        doingTableView.processStatus = .doing
-        doneTableView.processStatus = .done
-        
         tableViews.forEach { tableView in
             let nib = UINib(nibName: TaskTableViewCell.reuseIdentifier, bundle: nil)
             tableView?.register(nib, forCellReuseIdentifier: TaskTableViewCell.reuseIdentifier)
         }
     }
     
+    private func setupHeaderViews() {
+        ProcessStatus.allCases.enumerated().forEach { index, processStatus in
+            let headerView = 
+            tableViews[index]?.applyData(with: processStatus)
+//            tableViews[index]?.tableHeaderView?.frame.height = 
+        }
+        
+    }
+    
     private func setupBindings() {
         setupTableViewsBinding()
         
         // TODO: todoTableView.rx.didSelectItem 활용해보기
-        // TODO: todoTableView.rx.tableHeaderView 활용해보기
+        // TODO: todoTableView.rx.tableHeaderView 활용해보기 - 모르겠음
     }
     
     private func setupTableViewsBinding() {
@@ -49,6 +54,7 @@ final class TaskListViewController: UIViewController {
             .asDriver(onErrorJustReturn: [])
             .drive(todoTableView.rx.items(cellIdentifier: TaskTableViewCell.reuseIdentifier,
                                           cellType: TaskTableViewCell.self)) { _, task, cell in
+                cell.setup()
                 cell.applyDate(with: task)
              }
              .disposed(by: disposeBag)
@@ -57,6 +63,7 @@ final class TaskListViewController: UIViewController {
             .asDriver(onErrorJustReturn: [])
             .drive(doingTableView.rx.items(cellIdentifier: TaskTableViewCell.reuseIdentifier,
                                           cellType: TaskTableViewCell.self)) { _, task, cell in
+                cell.setup()
                 cell.applyDate(with: task)
              }
              .disposed(by: disposeBag)
@@ -65,6 +72,7 @@ final class TaskListViewController: UIViewController {
             .asDriver(onErrorJustReturn: [])
             .drive(doneTableView.rx.items(cellIdentifier: TaskTableViewCell.reuseIdentifier,
                                           cellType: TaskTableViewCell.self)) { _, task, cell in
+                cell.setup()
                 cell.applyDate(with: task)
              }
              .disposed(by: disposeBag)
