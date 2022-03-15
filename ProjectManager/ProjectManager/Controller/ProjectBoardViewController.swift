@@ -7,7 +7,7 @@
 import UIKit
 
 // MARK: - ProjectBoardViewController
-class ProjectBoardViewController: UIViewController {
+final class ProjectBoardViewController: UIViewController {
     
     // MARK: - Property
     private let projectManager = ProjectManager()

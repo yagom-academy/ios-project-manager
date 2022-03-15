@@ -9,7 +9,7 @@ import UIKit
 
 
 // MARK: - ProjectTableViewController
-class ProjectTableViewController: UIViewController {
+final class ProjectTableViewController: UIViewController {
     
     // MARK: - DiffableDataSource Identfier
     enum Section {
