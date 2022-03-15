@@ -2,6 +2,11 @@ import UIKit
 import RxCocoa
 import RxSwift
 
+enum Placeholder {
+    static let title = "Title"
+    static let body = "여기는 할일 내용을 입력하는 곳이지롱\n입력 가능한 글자수는 1000자로 제한합니다."
+}
+
 class DetailViewController: UIViewController {
     @IBOutlet private weak var titleTextField: UITextField!
     @IBOutlet private weak var datePicker: UIDatePicker!
@@ -10,11 +15,29 @@ class DetailViewController: UIViewController {
     @IBOutlet private weak var leftBarButton: UIBarButtonItem!
     
     var viewModel: DetailViewModel?
-    let disposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        configure()
         setUpBindings()
+    }
+    
+    private func configure() {
+        titleTextField.placeholder = Placeholder.title
+        
+        descriptionTextView.rx.didEndEditing
+            .subscribe(onNext: { _ in
+                if self.descriptionTextView.text.isEmpty {
+                    self.descriptionTextView.text = Placeholder.body
+                }
+            }).disposed(by: disposeBag)
+        descriptionTextView.rx.didBeginEditing
+            .subscribe(onNext: { _ in
+                if self.descriptionTextView.text == Placeholder.body {
+                    self.descriptionTextView.text = nil
+                }
+            }).disposed(by: disposeBag)
     }
     
     private func setUpBindings() {
@@ -24,6 +47,7 @@ class DetailViewController: UIViewController {
             didChangeTitleText: titleTextField.rx.text.changed.asObservable(),
             didChangeDatePicker: datePicker.rx.date.changed.asObservable(),
             didChangeDescription: descriptionTextView.rx.text.changed.asObservable())
+        
         let output = viewModel?.transform(input: input, disposeBag: disposeBag)
         
         output?.isEditable
@@ -52,6 +76,10 @@ class DetailViewController: UIViewController {
     
         output?.navigationTitle
             .bind(to: navigationItem.rx.title)
+            .disposed(by: disposeBag)
+        
+        output?.isDescriptionTextValid
+            .bind(to: rightBarButton.rx.isEnabled)
             .disposed(by: disposeBag)
     }
 }

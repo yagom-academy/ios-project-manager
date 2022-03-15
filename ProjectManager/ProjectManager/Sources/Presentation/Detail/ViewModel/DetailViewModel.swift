@@ -32,10 +32,11 @@ final class DetailViewModel {
     struct Output {
         let projectTitle: Observable<String>
         let projectDate: Observable<Date>
-        let projectDescription: Observable<String>
+        let projectDescription: Observable<String?>
         let isEditable: Observable<Bool>
         let leftBarButtonText: Observable<String>
         let navigationTitle: Observable<String>
+        let isDescriptionTextValid: Observable<Bool>
     }
     
     func transform(input: Input, disposeBag: DisposeBag) -> Output {
@@ -43,20 +44,23 @@ final class DetailViewModel {
         let currentTitle = BehaviorRelay<String?>(value: nil)
         let currentDate = BehaviorRelay<Date?>(value: nil)
         let currentDescription = BehaviorRelay<String?>(value: nil)
+        let isDescriptionTextValid = BehaviorRelay<Bool>(value: false)
         
         input.didChangeTitleText
-            .subscribe(onNext: { title in
-                currentTitle.accept(title)
-            }).disposed(by: disposeBag)
+            .subscribe(onNext: { currentTitle.accept($0) }).disposed(by: disposeBag)
         
         input.didChangeDatePicker
-            .subscribe(onNext: { date in
-                currentDate.accept(date)
-            }).disposed(by: disposeBag)
+            .subscribe(onNext: { currentDate.accept($0) }).disposed(by: disposeBag)
         
         input.didChangeDescription
-            .subscribe(onNext: { description in
-                currentDescription.accept(description)
+            .subscribe(onNext: {
+                currentDescription.accept($0)
+                if $0?.count ?? .zero > 1000 || $0 == "" || $0 == Placeholder.body {
+                    isDescriptionTextValid.accept(false)
+                } else {
+                    isDescriptionTextValid.accept(true)
+                }
+                
             }).disposed(by: disposeBag)
         
         input.didTapRightBarButton
@@ -70,11 +74,10 @@ final class DetailViewModel {
                         status: self.project.status
                     )
                     let single = self.mode == .edit ? self.useCase.update(newProject) : self.useCase.create(newProject)
-                    single.subscribe(onSuccess: { project in
-                        self.project = project
-                    }, onFailure: { error in
-                        print(error.localizedDescription)
-                    }).disposed(by: disposeBag)
+                    single.subscribe(
+                        onSuccess: { self.project = $0 },
+                        onFailure: { print($0.localizedDescription) }
+                    ).disposed(by: disposeBag)
                 }
                 self.coordinator.dismiss()
             }).disposed(by: disposeBag)
@@ -96,10 +99,11 @@ final class DetailViewModel {
         let output = Output(
             projectTitle: Observable.just(project.title),
             projectDate: Observable.just(project.date),
-            projectDescription: Observable.just(project.description),
+            projectDescription: Observable.just(project.description == "" ? Placeholder.body : project.description),
             isEditable: isEditable.asObservable(),
             leftBarButtonText: mode == .add ? Observable.just("Cancel") : Observable.just("Edit"),
-            navigationTitle: Observable.just(project.status.rawValue)
+            navigationTitle: Observable.just(project.status.rawValue),
+            isDescriptionTextValid: isDescriptionTextValid.asObservable()
         )
         
         return output
