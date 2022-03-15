@@ -98,7 +98,7 @@ final class TaskManageViewController: UIViewController {
     // MARK: - Configure TaskManageViewModel
     
     private func configTaskManageViewModel() {
-        taskManageViewModel.manageTasks = { [weak self] manageType in
+        taskManageViewModel.dismiss = { [weak self] manageType in
             switch manageType {
             case .add:
                 self?.createTask()

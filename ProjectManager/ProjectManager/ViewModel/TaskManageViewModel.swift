@@ -9,7 +9,7 @@ import Foundation
 
 class TaskManageViewModel {
     // MARK: - Output
-    var manageTasks: ((ManageType) -> Void)?
+    var dismiss: ((ManageType) -> Void)?
     var changeManageTypeToEdit: ((ManageType) -> Void)?
     
     // MARK: - Properties
@@ -44,7 +44,7 @@ class TaskManageViewModel {
     }
     
     func didTapDoneButton() {
-        manageTasks?(manageType)
+        dismiss?(manageType)
     }
     
     func checkValidTextLength(with range: NSRange, length: Int) -> Bool {
