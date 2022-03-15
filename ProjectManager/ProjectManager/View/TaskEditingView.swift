@@ -37,10 +37,7 @@ struct TaskEditingView: View {
                     .datePickerStyle(.wheel)
                     .scaleEffect(1.4)
                     .padding(.vertical, 50)
-                TextEditor(text: $newTaskBody)
-                    .font(.title2)
-                    .padding(.all, 10)
-                    .border(.gray, width: 1)
+                TextEditorWithPlaceholder(taskBody: $newTaskBody)
             }
             .padding(.all, 20)
             .navigationTitle(selectedTask.status.headerTitle)

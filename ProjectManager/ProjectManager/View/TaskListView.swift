@@ -44,7 +44,7 @@ struct TaskListView: View {
                 }
                 .listStyle(.plain)
             } else {
-                TaskListPlaceholderView(taskStatus: taskStatus)
+                TaskListPlaceholder(taskStatus: taskStatus)
             }
         }
         .background(Color(UIColor.systemGray6))

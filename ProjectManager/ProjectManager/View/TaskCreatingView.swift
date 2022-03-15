@@ -13,7 +13,7 @@ struct TaskCreatingView: View {
     @Binding var isTaskCreatingViewShowing: Bool
     @State private var newTaskTitle: String = ""
     @State private var newTaskDueDate: Date = Date()
-    @State private var newTaskBody: String = "입력 가능한 글자수는 1,000자로 제한합니다."
+    @State private var newTaskBody: String = ""
     
     var body: some View {
         NavigationView {
@@ -27,10 +27,7 @@ struct TaskCreatingView: View {
                     .datePickerStyle(.wheel)
                     .scaleEffect(1.4)
                     .padding(.vertical, 50)
-                TextEditor(text: $newTaskBody)
-                    .font(.title2)
-                    .padding(.all, 10)
-                    .border(.gray, width: 1)
+                TextEditorWithPlaceholder(taskBody: $newTaskBody)
             }
             .padding(.all, 20)
             .navigationTitle(TaskStatus.todo.headerTitle)

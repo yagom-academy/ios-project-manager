@@ -20,8 +20,9 @@
 		C182E7BD27CE232900F6218C /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = C182E7BC27CE232900F6218C /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		C18B9F1927DE0EF900CF78F4 /* TaskCreatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18B9F1827DE0EF900CF78F4 /* TaskCreatingView.swift */; };
 		C18B9F1B27DE6F4100CF78F4 /* TaskEditingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18B9F1A27DE6F4100CF78F4 /* TaskEditingView.swift */; };
-		C18B9F1D27DF2DC700CF78F4 /* TaskListPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18B9F1C27DF2DC700CF78F4 /* TaskListPlaceholderView.swift */; };
+		C18B9F1D27DF2DC700CF78F4 /* TaskListPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18B9F1C27DF2DC700CF78F4 /* TaskListPlaceholder.swift */; };
 		C18B9F1F27DF2E2400CF78F4 /* TaskListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18B9F1E27DF2E2400CF78F4 /* TaskListHeaderView.swift */; };
+		C1B26D2B27E1005B0092E386 /* TextEditorWithPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B26D2A27E1005B0092E386 /* TextEditorWithPlaceholder.swift */; };
 		C1F2B93027CE69D200B8FD51 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = C1F2B92F27CE69D100B8FD51 /* .swiftlint.yml */; };
 		C1F2B93227CF4A7700B8FD51 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = C1F2B93127CF4A7700B8FD51 /* FirebaseFirestore */; };
 		C1FE9BB927CFB64300397B90 /* TaskStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FE9BB827CFB64300397B90 /* TaskStatus.swift */; };
@@ -55,8 +56,9 @@
 		C182E7A027CDD57800F6218C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C18B9F1827DE0EF900CF78F4 /* TaskCreatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCreatingView.swift; sourceTree = "<group>"; };
 		C18B9F1A27DE6F4100CF78F4 /* TaskEditingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskEditingView.swift; sourceTree = "<group>"; };
-		C18B9F1C27DF2DC700CF78F4 /* TaskListPlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListPlaceholderView.swift; sourceTree = "<group>"; };
+		C18B9F1C27DF2DC700CF78F4 /* TaskListPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListPlaceholder.swift; sourceTree = "<group>"; };
 		C18B9F1E27DF2E2400CF78F4 /* TaskListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListHeaderView.swift; sourceTree = "<group>"; };
+		C1B26D2A27E1005B0092E386 /* TextEditorWithPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditorWithPlaceholder.swift; sourceTree = "<group>"; };
 		C1F2B92F27CE69D100B8FD51 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		C1FE9BB827CFB64300397B90 /* TaskStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskStatus.swift; sourceTree = "<group>"; };
 		C1FE9BBA27CFB68600397B90 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
@@ -135,10 +137,11 @@
 				C182E78327CD0E9D00F6218C /* MainView.swift */,
 				C101D2C727D4DF8E00334F5C /* TaskListView.swift */,
 				C18B9F1E27DF2E2400CF78F4 /* TaskListHeaderView.swift */,
-				C18B9F1C27DF2DC700CF78F4 /* TaskListPlaceholderView.swift */,
 				C101D2C227D4DB2D00334F5C /* TaskListRowView.swift */,
 				C18B9F1827DE0EF900CF78F4 /* TaskCreatingView.swift */,
 				C18B9F1A27DE6F4100CF78F4 /* TaskEditingView.swift */,
+				C18B9F1C27DF2DC700CF78F4 /* TaskListPlaceholder.swift */,
+				C1B26D2A27E1005B0092E386 /* TextEditorWithPlaceholder.swift */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 			);
 			path = View;
@@ -346,6 +349,7 @@
 				C101D2C327D4DB2D00334F5C /* TaskListRowView.swift in Sources */,
 				C101D2C827D4DF8E00334F5C /* TaskListView.swift in Sources */,
 				C18B9F1927DE0EF900CF78F4 /* TaskCreatingView.swift in Sources */,
+				C1B26D2B27E1005B0092E386 /* TextEditorWithPlaceholder.swift in Sources */,
 				C18B9F1B27DE6F4100CF78F4 /* TaskEditingView.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C182E78427CD0E9D00F6218C /* MainView.swift in Sources */,
@@ -353,7 +357,7 @@
 				C1FE9BB927CFB64300397B90 /* TaskStatus.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				C101D2C627D4DC4600334F5C /* Date+formatter.swift in Sources */,
-				C18B9F1D27DF2DC700CF78F4 /* TaskListPlaceholderView.swift in Sources */,
+				C18B9F1D27DF2DC700CF78F4 /* TaskListPlaceholder.swift in Sources */,
 				C18B9F1F27DF2E2400CF78F4 /* TaskListHeaderView.swift in Sources */,
 				C1FE9BC127CFCD3500397B90 /* TaskManageable.swift in Sources */,
 			);

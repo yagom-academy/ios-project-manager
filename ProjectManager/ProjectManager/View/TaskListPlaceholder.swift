@@ -1,5 +1,5 @@
 //
-//  TaskListPlaceholderView.swift
+//  TaskListPlaceholder.swift
 //  ProjectManager
 //
 //  Created by 예거 on 2022/03/14.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TaskListPlaceholderView: View {
+struct TaskListPlaceholder: View {
     
     let taskStatus: TaskStatus
     
