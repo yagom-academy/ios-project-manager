@@ -14,9 +14,9 @@ struct MainView: View {
     var body: some View {
         NavigationView {
             HStack {
-                TaskListView(taskStatus: .todo)
-                TaskListView(taskStatus: .doing)
-                TaskListView(taskStatus: .done)
+                ForEach(TaskStatus.allCases, id: \.self) { status in
+                    TaskListView(taskStatus: status)
+                }
             }
             .navigationTitle("Project Manager")
             .navigationBarTitleDisplayMode(.inline)
