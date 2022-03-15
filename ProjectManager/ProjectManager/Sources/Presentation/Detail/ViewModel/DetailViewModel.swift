@@ -57,14 +57,13 @@ final class DetailViewModel {
             .subscribe(onNext: { currentDate.accept($0) }).disposed(by: disposeBag)
         
         input.didChangeDescription
-            .subscribe(onNext: {
-                currentDescription.accept($0)
-                if $0?.count ?? .zero > 1000 || $0 == "" || $0 == Placeholder.body {
+            .withUnretained(self).subscribe(onNext: { owner, text in
+                currentDescription.accept(text)
+                if owner.useCase.isNotValidate(text) {
                     isDescriptionTextValid.accept(false)
                 } else {
                     isDescriptionTextValid.accept(true)
                 }
-                
             }).disposed(by: disposeBag)
         
         input.didTapRightBarButton
@@ -77,7 +76,8 @@ final class DetailViewModel {
                         date: currentDate.value ?? owner.project.date,
                         status: owner.project.status
                     )
-                    let single = owner.mode == .edit ? owner.useCase.update(newProject) : owner.useCase.create(newProject)
+                    let single = owner.mode == .edit ?
+                                 owner.useCase.update(newProject) : owner.useCase.create(newProject)
                     single.subscribe(
                         onSuccess: { owner.project = $0 },
                         onFailure: { print($0.localizedDescription) }

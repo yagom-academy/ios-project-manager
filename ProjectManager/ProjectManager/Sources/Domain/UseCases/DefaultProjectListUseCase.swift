@@ -38,4 +38,8 @@ extension DefaultProjectListUseCase: ProjectListUseCase {
         newProject.status = state
         update(newProject)
     }
+    
+    func isNotValidate(_ text: String?) -> Bool {
+        return text?.count ?? .zero > 1000 || text == "" || text == Placeholder.body
+    }
 }

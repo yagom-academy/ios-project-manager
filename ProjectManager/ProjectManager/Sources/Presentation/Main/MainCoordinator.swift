@@ -9,11 +9,7 @@ enum ActionType: CaseIterable {
 
 final class MainCoordinator: Coordinator {
     var parentCoordinateor: Coordinator?
-    var childCoordinators: [Coordinator] = [] {
-        didSet {
-            print(childCoordinators.count)
-        }
-    }
+    var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
     var type: CoordinatorType = .main
     
