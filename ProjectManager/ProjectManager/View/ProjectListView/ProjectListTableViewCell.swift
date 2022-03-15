@@ -77,7 +77,7 @@ final class ProjectListTableViewCell: UITableViewCell {
         self.dateLabel.textColor = .black
     }
     
-    func populateDataWithRedDate(title: String, body: String, date: Date) {
+    func populateDataWithDate(title: String, body: String, date: Date) {
         self.titleLabel.text = title
         self.bodyLabel.text = body
         self.dateLabel.text = date.formattedDate

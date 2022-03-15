@@ -120,21 +120,17 @@ extension ProjectViewModel {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let state = (tableView as? ProjectListTableView)?.state else {
-            return UITableViewCell()
-        }
+        let state = ((tableView as? ProjectListTableView)?.state)!
         let cell = tableView.dequeueReusableCell(withClass: ProjectListTableViewCell.self)
         let project = retrieveSelectedData(indexPath: indexPath, state: state)
         
-        
         if (project?.date)! < Date() {
-            cell.populateDataWithRedDate(title: project?.title ?? "", body: project?.body ?? "", date: project?.date ?? Date())
+            cell.populateDataWithDate(title: project?.title ?? "", body: project?.body ?? "", date: project?.date ?? Date())
             print(Date())
         } else {
             cell.populateData(title: project?.title ?? "", body: project?.body ?? "", date: project?.date ?? Date())
         }
 
-        
         return cell
     }
 }

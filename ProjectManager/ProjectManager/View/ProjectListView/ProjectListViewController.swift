@@ -142,13 +142,15 @@ final class ProjectListViewController: UIViewController {
         }
     }
     
-    private func createAlert(for tableView: UITableView, on indexPath: IndexPath, moveTo state: [ProjectState]) -> UIAlertController {
+    private func createAlert(for tableView: UITableView, on indexPath: IndexPath, moveTo newState: [ProjectState]) -> UIAlertController {
+        let oldState = ((tableView as? ProjectListTableView)?.state)!
+        
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let moveToFirstStateAction = UIAlertAction(title: state[0].alertActionTitle, style: .default) { _ in
-            self.viewModel?.changeState(from: ((tableView as? ProjectListTableView)?.state)!, to: state[0], indexPath: indexPath)
+        let moveToFirstStateAction = UIAlertAction(title: newState[0].alertActionTitle, style: .default) { _ in
+            self.viewModel?.changeState(from: oldState, to: newState[0], indexPath: indexPath)
         }
-        let moveToSecondStateAction = UIAlertAction(title: state[1].alertActionTitle, style: .default) { _ in
-            self.viewModel?.changeState(from: ((tableView as? ProjectListTableView)?.state)!, to: state[1], indexPath: indexPath)
+        let moveToSecondStateAction = UIAlertAction(title: newState[1].alertActionTitle, style: .default) { _ in
+            self.viewModel?.changeState(from: oldState, to: newState[1], indexPath: indexPath)
         }
         
         alert.addAction(moveToFirstStateAction)

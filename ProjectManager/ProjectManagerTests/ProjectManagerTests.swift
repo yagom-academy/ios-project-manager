@@ -46,4 +46,12 @@ class ProjectManagerTests: XCTestCase {
         
         XCTAssertEqual(mockRepository.projects, [:])
     }
+    
+    func test_프로젝트의_상태가_정상적으로_수정되는지() {
+        let project = Project(id: id[0], state: .doing, title: "이제 하는 중이다.", body: "말걸지마라", date: Date())
+        
+        useCase.update(project, to: .done)
+        
+        XCTAssertEqual(mockRepository.projects[id[0]]?.state, .done)
+    }
 }
