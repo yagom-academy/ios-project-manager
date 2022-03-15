@@ -72,8 +72,8 @@ final class ScheduleUseCase {
             .disposed(by: self.bag)
     }
 
-    func changeProgress(progress: Progress) {
-        guard let schedule = self.currentSchedule.value else { return }
+    func changeProgress(of schedule: Schedule, progress: Progress?) {
+        guard let progress = progress else { return }
         self.update(convert(schedule: schedule, for: progress))
     }
 }
