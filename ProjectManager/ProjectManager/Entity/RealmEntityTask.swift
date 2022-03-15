@@ -21,8 +21,4 @@ class RealmEntityTask: Object {
             progressStatus = newValue.rawValue
         }
     }
-    
-    override class func primaryKey() -> String? { return
-        "id"
-    }
 }
