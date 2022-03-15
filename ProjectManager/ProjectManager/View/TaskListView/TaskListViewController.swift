@@ -6,8 +6,8 @@ final class TaskListViewController: UIViewController {
     // MARK: - Properties
     private var taskListViewModel: TaskListViewModelProtocol!
     private lazy var tableViews = [todoTableView, doingTableView, doneTableView]
-    private var headerViews: [TaskTableHeaderView]?
-    var disposeBag = DisposeBag()
+//    private var headerViews: [TaskTableHeaderView]?
+    private var disposeBag = DisposeBag()
     
     @IBOutlet private weak var todoTableView: TaskTableView!
     @IBOutlet private weak var doingTableView: TaskTableView!
@@ -35,13 +35,16 @@ final class TaskListViewController: UIViewController {
     }
     
     private func setupHeaderViews() {
-        ProcessStatus.allCases.enumerated().forEach { index, processStatus in
-            let headerView = TaskTableHeaderView(reuseIdentifier: TaskTableHeaderView.reuseIdentifier)
-            headerView.applyData(with: processStatus.description)
-            tableViews[index]?.applyData(with: processStatus)
-            tableViews[index]?.tableHeaderView = headerView
-            headerViews?.append(headerView)
-        }
+        let todoTaskHeaderView = TaskTableHeaderView(reuseIdentifier: TaskTableHeaderView.reuseIdentifier,
+                                             taskCountObservable: taskListViewModel.todoTasksCount, processStatus: .todo)
+        let doingTaskHeaderView = TaskTableHeaderView(reuseIdentifier: TaskTableHeaderView.reuseIdentifier,
+                                             taskCountObservable: taskListViewModel.doingTasksCount, processStatus: .doing)
+        let doneTaskHeaderView = TaskTableHeaderView(reuseIdentifier: TaskTableHeaderView.reuseIdentifier,
+                                             taskCountObservable: taskListViewModel.doneTasksCount, processStatus: .done)
+
+        todoTableView.tableHeaderView = todoTaskHeaderView
+        doingTableView.tableHeaderView = doingTaskHeaderView
+        doneTableView.tableHeaderView = doneTaskHeaderView
     }
     
     private func setupBindings() {

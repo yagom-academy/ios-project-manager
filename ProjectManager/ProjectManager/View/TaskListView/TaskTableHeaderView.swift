@@ -1,13 +1,18 @@
 import UIKit
+import RxSwift
+import RxCocoa
 
 class TaskTableHeaderView: UITableViewHeaderFooterView {
+    var taskCountObservable: Observable<Int>?
+    var processStatus: ProcessStatus?
+    var disposeBag = DisposeBag()
+    
     var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontSizeToFitWidth = true
         label.textAlignment = .center
         label.font = .preferredFont(forTextStyle: .title1)
-        label.text = ""
         
         return label
     }()
@@ -22,10 +27,14 @@ class TaskTableHeaderView: UITableViewHeaderFooterView {
         return label
     }()
     
-    override init(reuseIdentifier: String?) {
+    init(reuseIdentifier: String?, taskCountObservable: Observable<Int>, processStatus: ProcessStatus) { // ViewModel 간 의존성은 어떻게 처리?
         super.init(reuseIdentifier: reuseIdentifier)
+        self.taskCountObservable = taskCountObservable
+        self.processStatus = processStatus
+        
         setupUI()
-        setupHeight()
+        setupFrame()
+        setupLabels()
     }
 
     required init?(coder: NSCoder) {
@@ -40,6 +49,7 @@ class TaskTableHeaderView: UITableViewHeaderFooterView {
         stackView.alignment = .fill
         stackView.spacing = 10
         stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.setContentHuggingPriority(.defaultLow, for: .vertical)
         let inset = 10.0
         stackView.layoutMargins = UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset)
         
@@ -55,16 +65,18 @@ class TaskTableHeaderView: UITableViewHeaderFooterView {
         stackView.addArrangedSubview(countLabel)
     }
     
-    private func setupHeight() {
-        let height = 55.0 // TODO: dynamic height 지정
+    private func setupFrame() {
+        let height = 50.0 // TODO: dynamic height 지정
         self.frame = CGRect(x: 0, y: 0, width: contentView.bounds.width, height: height) // titleLabel.bounds.height는 왜 안되지?
     }
     
-    func applyData(with title: String) {
-        titleLabel.text = title
-    }
-    
-    func applyData(with count: Int) {
-        countLabel.text = "\(count)"
+    func setupLabels() {
+        titleLabel.text = processStatus?.description
+        
+        taskCountObservable?
+            .map { "\($0)" }
+            .asDriver(onErrorJustReturn: "")
+            .drive(countLabel.rx.text)
+            .disposed(by: disposeBag)
     }
 }
