@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct AddScene: View {
+    @EnvironmentObject private var taskViewModel: TaskViewModel
     @State private var title: String = ""
     @State private var content: String = ""
     @State private var limitDate: Date = Date()
@@ -26,12 +27,9 @@ struct AddScene: View {
             .navigationBarTitle("TODO", displayMode: .inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    DoneButtonView(
-                        show: $showAddScene,
-                        title: $title,
-                        content: $content,
-                        limitDate: $limitDate
-                    )
+                    DoneButtonView(show: $showAddScene) {
+                        taskViewModel.createTask(title: title, content: content, limitDate: limitDate)
+                    }
                 }
                 ToolbarItem(placement: .navigationBarLeading) {
                     DismissButtonView(show: $showAddScene)

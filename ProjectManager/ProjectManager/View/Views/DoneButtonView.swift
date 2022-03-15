@@ -8,17 +8,18 @@
 import SwiftUI
 
 struct DoneButtonView: View {
-    @EnvironmentObject private var taskViewModel: TaskViewModel
-    
     @Binding var show: Bool
-    @Binding var title: String
-    @Binding var content: String
-    @Binding var limitDate: Date
+    var action: () -> Void
+    
+    init(show: Binding<Bool>, action: @escaping () -> Void) {
+        self.action = action
+        self._show = show
+    }
     
     var body: some View {
         Button {
-            self.taskViewModel.createTask(title: title, content: content, limitDate: limitDate)
-            self.show = false
+            action()
+            show.toggle()
         } label: {
             Text("Done")
         }
