@@ -140,7 +140,7 @@ extension ProjectBoardViewController: ProjectTableViewControllerDelegate {
     }
     
     func updateProject(of identifier: UUID, with content: [String : Any]) {
-        self.projectManager.updateProject(of: identifier, with: content)
+        self.projectManager.updateProjectContent(of: identifier, with: content)
         self.todoViewController.updateView()
         self.doingViewController.updateView()
         self.doneViewController.updateView()

@@ -25,7 +25,7 @@ final class ProjectManager {
         return projectSource.read(of: status)
     }
     
-    func updateProject(of identifier: UUID, with content: [String: Any]) {
+    func updateProjectContent(of identifier: UUID, with content: [String: Any]) {
         projectSource.update(of: identifier, with: content)
     }
     
