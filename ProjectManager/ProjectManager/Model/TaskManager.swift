@@ -18,16 +18,3 @@ protocol TaskManager {
     mutating func update(_ oldTask: Task, to newTask: Task) throws
     
 }
-
-protocol RepositoryDataSource: AnyObject {
-    
-    associatedtype Element
-    
-    var queryAllRecords: [Element] { get }
-    
-    func create(_ object: Element) throws
-    func delete(_ object: Element) throws
-    func update(_ object: Element) throws
-    func removeAllRecords() throws
-    
-}
