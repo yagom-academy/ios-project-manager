@@ -51,7 +51,7 @@ class MainViewController: UIViewController {
         let input = ProjectListViewModel.Input(
             didTapProjectCell: tableViews.map { $0.rx.itemSelected.map { $0.row } },
             didTapAddButton: addButton.rx.tap.asObservable(),
-            didTapPopoverButton: longPressGesture.map {
+            didTapCellLongPress: longPressGesture.map {
                 $0.rx.event
                     .map { (longPressGesture: UIGestureRecognizer) -> (UITableViewCell, Project)? in
                         guard let tableView = longPressGesture.view as? UITableView else {

@@ -16,7 +16,7 @@ final class ProjectListViewModel {
     struct Input {
         let didTapProjectCell: [Observable<Int>]
         let didTapAddButton: Observable<Void>
-        let didTapPopoverButton: [Observable<(UITableViewCell, Project)?>]
+        let didTapCellLongPress: [Observable<(UITableViewCell, Project)?>]
         let didSwapeToTapDeleteButton: [Observable<Project>]
     }
     
@@ -57,7 +57,7 @@ final class ProjectListViewModel {
                 owner.coordinator?.presentDetailViewController(newProject, useCase: owner.useCase, mode: .add)
             }).disposed(by: disposeBag)
         
-        input.didTapPopoverButton.forEach {
+        input.didTapCellLongPress.forEach {
             $0.withUnretained(self).subscribe(onNext: { owner, data in
                 data.flatMap { cell, project in
                     owner.coordinator?.showActionSheet(sourceView: cell, titles: project.status.excluded)
