@@ -1,9 +1,11 @@
 import UIKit
+import RxSwift
+import RxCocoa
 
 protocol TaskListViewModelProtocol {
-    var todoTasksObservable: MockObservable<[Task]>? { get }
-    var doingTasksObservable: MockObservable<[Task]>? { get }
-    var doneTasksObservable: MockObservable<[Task]>? { get }
+    var todoTasksObservable: BehaviorSubject<[Task]>? { get }
+    var doingTasksObservable: BehaviorSubject<[Task]>? { get }
+    var doneTasksObservable: BehaviorSubject<[Task]>? { get }
     
     func create(task: Task)
     func delete(task: Task)
@@ -15,19 +17,20 @@ protocol TaskListViewModelProtocol {
     func edit(task: Task, newProcessStatus: ProcessStatus)
 }
 
+// TODO: MVVM - Input/Output 구분
 final class TaskListViewModel: TaskListViewModelProtocol {
     // MARK: - Properties
     private let taskRepository: TaskRepositoryProtocol?
-    let todoTasksObservable: MockObservable<[Task]>?
-    let doingTasksObservable: MockObservable<[Task]>?
-    let doneTasksObservable: MockObservable<[Task]>?
+    let todoTasksObservable: BehaviorSubject<[Task]>? 
+    let doingTasksObservable: BehaviorSubject<[Task]>?
+    let doneTasksObservable: BehaviorSubject<[Task]>?
     
     // MARK: - Initializers
     init(taskRepository: TaskRepositoryProtocol = TaskRepository()) {
         self.taskRepository = taskRepository
-        self.todoTasksObservable = MockObservable<[Task]>(taskRepository.todoTasks)
-        self.doingTasksObservable = MockObservable<[Task]>(taskRepository.doingTasks)
-        self.doneTasksObservable = MockObservable<[Task]>(taskRepository.doneTasks)
+        self.todoTasksObservable = BehaviorSubject<[Task]>(value: taskRepository.todoTasks)
+        self.doingTasksObservable = BehaviorSubject<[Task]>(value: taskRepository.doingTasks)
+        self.doneTasksObservable = BehaviorSubject<[Task]>(value: taskRepository.doneTasks)
     }
     
     // MARK: - Methods
