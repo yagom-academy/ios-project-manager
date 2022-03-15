@@ -8,17 +8,21 @@ protocol ProjectViewModelProtocol: UITableViewDataSource {
     func numberOfProjects(state: ProjectState) -> Int
     func fetchAll()
     func append(_ project: Project)
-    func update(_ project: Project)
+    func update(_ project: Project, state: ProjectState?)
     func delete(indexPath: IndexPath, state: ProjectState)
+    func changeState(from oldState: ProjectState, to newState: ProjectState, indexPath: IndexPath)
 }
 
 final class ProjectViewModel: NSObject, ProjectViewModelProtocol {
     let useCase: ProjectUseCaseProtocol
-
+    var projects: [Project] = [] {
+        didSet {
+            onUpdated?()
+        }
+    }
+    
     var onCellSelected: ((Int, Project) -> Void)?
     var onUpdated: (() -> Void)?
-    
-    var projects: [Project] = []
     
     init(useCase: ProjectUseCaseProtocol) {
         self.useCase = useCase
@@ -75,13 +79,11 @@ final class ProjectViewModel: NSObject, ProjectViewModelProtocol {
     func append(_ project: Project) {
         useCase.append(project)
         fetchAll()
-        onUpdated?()
     }
     
-    func update(_ project: Project) {
-        useCase.update(project)
+    func update(_ project: Project, state: ProjectState?) {
+        useCase.update(project, to: state)
         fetchAll()
-        onUpdated?()
     }
     
     func delete(indexPath: IndexPath, state: ProjectState) {
@@ -90,7 +92,13 @@ final class ProjectViewModel: NSObject, ProjectViewModelProtocol {
         }
         useCase.delete(project)
         fetchAll()
-        onUpdated?()
+    }
+    
+    func changeState(from oldState: ProjectState, to newState: ProjectState, indexPath: IndexPath) {
+        guard let project = retrieveSelectedData(indexPath: indexPath, state: oldState) else {
+            return
+        }
+        self.update(project, state: newState)
     }
 }
 

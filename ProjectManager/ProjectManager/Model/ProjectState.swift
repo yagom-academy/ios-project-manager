@@ -15,4 +15,15 @@ enum ProjectState {
             return "DONE"
         }
     }
+    
+    var alertActionTitle: String {
+        switch self {
+        case .todo:
+            return "Move to Todo"
+        case .doing:
+            return "Move to Doing"
+        case .done:
+            return "Move to Done"
+        }
+    }
 }

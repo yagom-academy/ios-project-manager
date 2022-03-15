@@ -45,7 +45,7 @@ final class EditProjectDetailViewController: ProjectDetailViewController {
             return
         }
         let updatedProject = projectDetailView.updatedViewData(with: currentProject)
-        viewModel?.update(updatedProject)
+        viewModel?.update(updatedProject, state: nil)
     }
     
     @objc private func didTapCancelButton() {

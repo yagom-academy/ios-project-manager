@@ -4,7 +4,7 @@ protocol ProjectUseCaseProtocol {
     func fetch(with id: UUID) -> Project
     func fetchAll() -> [Project]
     func append(_ project: Project)
-    func update(_ project: Project)
+    func update(_ project: Project, to state: ProjectState?)
     func delete(_ project: Project)
 }
 
@@ -33,13 +33,18 @@ final class ProjectUseCase: ProjectUseCaseProtocol {
         projectRepository.append(project)
     }
     
-    func update(_ project: Project) {
+    func update(_ project: Project, to state: ProjectState?) {
         let oldProject = fetch(with: project.id)
-        let newProject = Project(id: oldProject.id, state: oldProject.state, title: project.title, body: project.body, date: project.date)
+        var newProject = oldProject
         
+        if let updatedState = state {
+            newProject = Project(id: oldProject.id, state: updatedState, title: project.title, body: project.body, date: project.date)
+        } else {
+            newProject = Project(id: oldProject.id, state: project.state, title: project.title, body: project.body, date: project.date)
+        }
         projectRepository.update(newProject)
     }
-    
+
     func delete(_ project: Project) {
         projectRepository.delete(project)
     }

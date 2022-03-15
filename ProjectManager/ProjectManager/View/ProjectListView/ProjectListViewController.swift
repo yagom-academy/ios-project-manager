@@ -31,6 +31,7 @@ final class ProjectListViewController: UIViewController {
         configureUI()
         configureTableView()
         configureBind()
+        configureLongPressGesture()
     }
     
     private func configureUI() {
@@ -84,7 +85,7 @@ final class ProjectListViewController: UIViewController {
         ])
     }
     
-    func configureBind() {
+    private func configureBind() {
         viewModel?.fetchAll()
         
         viewModel?.onCellSelected = { [weak self] index, project in
@@ -103,6 +104,58 @@ final class ProjectListViewController: UIViewController {
             }
         }
     }
+    
+    private func configureLongPressGesture() {
+        let todoLongPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(handleTodoLongPressGesture))
+        let doingLongPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(handleDoingLongPressGesture))
+        let doneLongPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(handleDoneLongPressGesture))
+
+        todoTableView.addGestureRecognizer(todoLongPressRecognizer)
+        doingTableView.addGestureRecognizer(doingLongPressRecognizer)
+        doneTableView.addGestureRecognizer(doneLongPressRecognizer)
+    }
+    
+    @objc private func handleTodoLongPressGesture(sender: UILongPressGestureRecognizer) {
+        handleLongPressGesture(sender, tableView: todoTableView, moveTo: [.doing, .done])
+    }
+    
+    @objc private func handleDoingLongPressGesture(sender: UILongPressGestureRecognizer) {
+        handleLongPressGesture(sender, tableView: doingTableView, moveTo: [.todo, .done])
+    }
+    
+    @objc private func handleDoneLongPressGesture(sender: UILongPressGestureRecognizer) {
+        handleLongPressGesture(sender, tableView: doneTableView, moveTo: [.todo, .doing])
+    }
+    
+    private func handleLongPressGesture(_ sender: UILongPressGestureRecognizer, tableView: UITableView, moveTo state: [ProjectState]) {
+        if sender.state == .began {
+            let touchPoint = sender.location(in: tableView)
+
+            if let indexPath = tableView.indexPathForRow(at: touchPoint) {
+                let alert = createAlert(for: tableView, on: indexPath, moveTo: state)
+                present(alert, animated: true)
+            }
+        }
+    }
+    
+    private func createAlert(for tableView: UITableView, on indexPath: IndexPath, moveTo state: [ProjectState]) -> UIAlertController {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let moveToFirstStateAction = UIAlertAction(title: state[0].alertActionTitle, style: .default) { _ in
+            self.viewModel?.changeState(from: ((tableView as? ProjectListTableView)?.state)!, to: state[0], indexPath: indexPath)
+        }
+        let moveToSecondStateAction = UIAlertAction(title: state[1].alertActionTitle, style: .default) { _ in
+            self.viewModel?.changeState(from: ((tableView as? ProjectListTableView)?.state)!, to: state[1], indexPath: indexPath)
+        }
+        
+        alert.addAction(moveToFirstStateAction)
+        alert.addAction(moveToSecondStateAction)
+        
+        alert.popoverPresentationController?.sourceView = tableView.cellForRow(at: indexPath)
+        alert.popoverPresentationController?.permittedArrowDirections = .up
+        
+        return alert
+    }
+    
 }
 
 extension ProjectListViewController: UITableViewDelegate {
