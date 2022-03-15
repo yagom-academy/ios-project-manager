@@ -19,19 +19,15 @@ struct TaskListContextMenuView: View {
         ForEach(TaskStatus.allCases) { status in
             if status != task.status {
                 Button(action: {
-                    updateTaskStatus(to: status)
+                    do {
+                        try viewModel.update(task, taskStatus: status)
+                    } catch {
+                        isShowAlert.toggle()
+                    }
                 }) {
                     Text("Move to \(status.description)")
                 }
             }
-        }
-    }
-    
-    private func updateTaskStatus(to status: TaskStatus) {
-        do {
-            try viewModel.update(task, taskStatus: status)
-        } catch {
-            isShowAlert.toggle()
         }
     }
     
