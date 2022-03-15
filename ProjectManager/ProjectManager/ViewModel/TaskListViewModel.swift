@@ -6,6 +6,8 @@ protocol TaskListViewModelProtocol {
     var todoTasksObservable: BehaviorSubject<[Task]>? { get }
     var doingTasksObservable: BehaviorSubject<[Task]>? { get }
     var doneTasksObservable: BehaviorSubject<[Task]>? { get }
+    var tasksObservables: [BehaviorSubject<[Task]>?] { get }
+    
     var todoTasksCount: Observable<Int> { get }
     var doingTasksCount: Observable<Int> { get }
     var doneTasksCount: Observable<Int> { get }
@@ -27,6 +29,7 @@ final class TaskListViewModel: TaskListViewModelProtocol {
     let todoTasksObservable: BehaviorSubject<[Task]>?
     let doingTasksObservable: BehaviorSubject<[Task]>?
     let doneTasksObservable: BehaviorSubject<[Task]>?
+    lazy var tasksObservables = [todoTasksObservable, doingTasksObservable, doneTasksObservable]
     
     lazy var todoTasksCount: Observable<Int> = todoTasksObservable!.map {
         $0.count

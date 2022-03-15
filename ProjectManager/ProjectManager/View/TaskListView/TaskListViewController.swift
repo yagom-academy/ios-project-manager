@@ -1,9 +1,13 @@
 import UIKit
+import RxSwift
+import RxCocoa
 
 final class TaskListViewController: UIViewController {
     // MARK: - Properties
     private var taskListViewModel: TaskListViewModelProtocol!
     private lazy var tableViews = [todoTableView, doingTableView, doneTableView]
+    
+    var disposeBag = DisposeBag()
     
     @IBOutlet private weak var todoTableView: TaskTableView!
     @IBOutlet private weak var doingTableView: TaskTableView!
@@ -28,23 +32,42 @@ final class TaskListViewController: UIViewController {
         doneTableView.processStatus = .done
         
         tableViews.forEach { tableView in
-            tableView?.dataSource = self
-            tableView?.delegate = self
             let nib = UINib(nibName: TaskTableViewCell.reuseIdentifier, bundle: nil)
-            todoTableView.register(nib, forCellReuseIdentifier: TaskTableViewCell.reuseIdentifier)
+            tableView?.register(nib, forCellReuseIdentifier: TaskTableViewCell.reuseIdentifier)
         }
     }
     
     private func setupBindings() {
-        taskListViewModel.todoTasksObservable?.bind { [weak self] _ in
-            self?.todoTableView.reloadData()
-        }
-        taskListViewModel.doingTasksObservable?.bind { [weak self] _ in
-            self?.doingTableView.reloadData()
-        }
-        taskListViewModel.doneTasksObservable?.bind { [weak self] _ in
-            self?.doneTableView.reloadData()
-        }
+        setupTableViewsBinding()
+        
+        // TODO: todoTableView.rx.didSelectItem 활용해보기
+        // TODO: todoTableView.rx.tableHeaderView 활용해보기
+    }
+    
+    private func setupTableViewsBinding() {
+        taskListViewModel.todoTasksObservable?
+            .asDriver(onErrorJustReturn: [])
+            .drive(todoTableView.rx.items(cellIdentifier: TaskTableViewCell.reuseIdentifier,
+                                          cellType: TaskTableViewCell.self)) { _, task, cell in
+                cell.applyDate(with: task)
+             }
+             .disposed(by: disposeBag)
+        
+        taskListViewModel.doingTasksObservable?
+            .asDriver(onErrorJustReturn: [])
+            .drive(doingTableView.rx.items(cellIdentifier: TaskTableViewCell.reuseIdentifier,
+                                          cellType: TaskTableViewCell.self)) { _, task, cell in
+                cell.applyDate(with: task)
+             }
+             .disposed(by: disposeBag)
+
+        taskListViewModel.doneTasksObservable?
+            .asDriver(onErrorJustReturn: [])
+            .drive(doneTableView.rx.items(cellIdentifier: TaskTableViewCell.reuseIdentifier,
+                                          cellType: TaskTableViewCell.self)) { _, task, cell in
+                cell.applyDate(with: task)
+             }
+             .disposed(by: disposeBag)
     }
 }
 
@@ -58,37 +81,8 @@ extension TaskListViewController {
     }
 }
 
-// MARK: - TableView DataSource
-extension TaskListViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let tableView = tableView as? TaskTableView else {
-            print(TableViewError.invalidTableView)
-            return 0
-        }
-        
-        return taskListViewModel.numberOfRowsInSection(for: tableView)
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withClass: TaskTableViewCell.self, for: indexPath)
-        
-        switch tableView {
-        case todoTableView:
-            cell.applyDate(with: taskListViewModel.todoTasksObservable?.value[indexPath.row])
-        case doingTableView:
-            cell.applyDate(with: taskListViewModel.doingTasksObservable?.value[indexPath.row])
-        case doneTableView:
-            cell.applyDate(with: taskListViewModel.doneTasksObservable?.value[indexPath.row])
-        default:
-            print(TableViewError.invalidTableView.description)
-        }
-        
-        return cell
-    }
-}
-
 // MARK: - TableView Delegate
-extension TaskListViewController: UITableViewDelegate {
+//extension TaskListViewController: UITableViewDelegate {
     // TODO: Cell을 탭하면 Popover 표시
 //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //        switch tableView {
@@ -99,7 +93,7 @@ extension TaskListViewController: UITableViewDelegate {
 //            print(TableViewError.invalidTableView.description)
 //        }
 //    }
-}
+//}
 
 // MARK: - TableView Header
 extension TaskListViewController {
@@ -110,6 +104,13 @@ extension TaskListViewController {
             return ""
         }
         
-        return taskListViewModel.titleForHeaderInSection(for: tableView)
+        var title: String?
+        _ = taskListViewModel.titleForHeaderInSection(for: tableView)
+            .subscribe(onNext: {
+                title = $0.description
+            })
+            .disposed(by: disposeBag)
+        
+        return title
     }
 }
