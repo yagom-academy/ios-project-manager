@@ -3,9 +3,9 @@ import CoreData
 protocol TaskRepository {
     func saveContext()
 
-    func create(taskList: TaskListModel, completed: @escaping (Bool) -> Void)
+    func create(taskListModel: TaskListModel, completed: @escaping (Bool) -> Void)
     func read(completed: @escaping ([TaskListModel]) -> Void)
-    func update(taskList: TaskListModel, completed: @escaping (Bool) -> Void)
+    func update(taskListModel: TaskListModel, completed: @escaping (Bool) -> Void)
     func delete(by id: UUID, completed: @escaping (Bool) -> Void)
 }
 
@@ -61,36 +61,35 @@ final class TaskDataRepository: TaskRepository {
         }
     }
 
-    func create(taskList: TaskListModel, completed: @escaping (Bool) -> Void) {
-        let taskList = TaskListModel(title: taskList.title, items: taskList.items)
-        let fetchedRequest = TaskDataModel.fetchTaskRequest(with: taskList.id)
-        guard fetchedRequest.isNotInclude(input: taskList.id) else {
+    func create(taskListModel: TaskListModel, completed: @escaping (Bool) -> Void) {
+        let taskListModel = TaskListModel(title: taskListModel.title, items: taskListModel.items)
+        let fetchedRequest = TaskDataModel.fetchTaskRequest(with: taskListModel.id)
+        guard fetchedRequest.isNotInclude(input: taskListModel.id) else {
             completed(false)
             return
         }
 
         guard let entity = NSEntityDescription.entity(forEntityName: "TaskDataModel", in: context) else { return }
         let managedObject = NSManagedObject(entity: entity, insertInto: context)
-        setValue(to: managedObject, with: taskList)
+        setValue(to: managedObject, with: taskListModel)
         save(completed: completed)
     }
 
     func read(completed: @escaping ([TaskListModel]) -> Void) {
-        let convertedTasks = fetchedObjects.compactMap { dataModel in
-            convertDataModelToEntity(dataModel: dataModel) }
-        completed(convertedTasks)
+        let convertedEntity = fetchedObjects.compactMap { dataModel in convertToEntity(from: dataModel) }
+        completed(convertedEntity)
     }
 
-    func update(taskList: TaskListModel, completed: @escaping (Bool) -> Void) {
-        let fetchedRequest = TaskDataModel.fetchTaskRequest(with: taskList.id)
-        guard fetchedRequest.isNotInclude(input: taskList.id) else {
+    func update(taskListModel: TaskListModel, completed: @escaping (Bool) -> Void) {
+        let fetchedRequest = TaskDataModel.fetchTaskRequest(with: taskListModel.id)
+        guard fetchedRequest.isNotInclude(input: taskListModel.id) else {
             completed(false)
             return
         }
 
         guard let entity = NSEntityDescription.entity(forEntityName: "TaskDataModel", in: context) else { return }
         let managedObject = NSManagedObject(entity: entity, insertInto: context)
-        setValue(to: managedObject, with: taskList)
+        setValue(to: managedObject, with: taskListModel)
         save(completed: completed)
     }
 
@@ -112,25 +111,25 @@ final class TaskDataRepository: TaskRepository {
         save(completed: completed)
     }
 
-    private func setValue(to object: NSManagedObject, with taskList: TaskListModel) {
+    private func setValue(to object: NSManagedObject, with taskListModel: TaskListModel) {
         let managedObject = object
         [
-            "id": taskList.id,
-            "title": taskList.title,
-            "items": taskList.items
+            "id": taskListModel.id,
+            "title": taskListModel.title,
+            "items": taskListModel.items
         ].forEach { key, value in
             managedObject.setValue(value, forKey: key)
         }
     }
 
-    private func convertDataModelToEntity(dataModel: TaskDataModel) -> TaskListModel {
+    private func convertToEntity(from dataModel: TaskDataModel) -> TaskListModel {
         var convertedItems = [TaskModel]()
         dataModel.items.forEach { item in
             convertedItems.append(TaskModel(title: item.title,
-                                             dueDate: item.dueDate,
-                                             body: item.body,
-                                             lastModifiedDate: item.lastModifiedDate))
+                                            body: item.body,
+                                            dueDate: item.dueDate,
+                                            lastModifiedDate: item.lastModifiedDate))
         }
-        return TaskListModel(title: dataModel.title, id: dataModel.id, items: convertedItems)
+        return TaskListModel(id: dataModel.id, title: dataModel.title, items: convertedItems)
     }
 }

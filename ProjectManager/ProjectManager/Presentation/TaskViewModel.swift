@@ -3,36 +3,38 @@ import Foundation
 protocol TaskViewModelable {
     var taskLists: [TaskList] { get set }
 
+    func reloadTaskList()
+
     func countOfTaskList() -> Int
     func fetchTaskList(at index: Int) -> TaskList?
     func fetchTask(at index: Int, in listTitle: String) -> Task?
 
-    func reloadTaskList()
-
     func addNewTaskList(with title: String)
-    func updateTaskList(_ taskList: TaskListModel)
-    func deleteTaskList(by id: UUID)
-    func createTask(_ task: TaskModel, in taskList: String)
+    func updateTaskList(_ taskList: TaskList)
+    func deleteTaskList(by id: String)
+
+    func createTask(_ task: Task, in taskList: String)
 }
 
 final class TaskViewModel: TaskViewModelable {
-    private var useCase: TaskUseCase
     var taskLists: [TaskList] = []
 
-    private let formatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.setLocalizedDateFormatFromTemplate("yyyy MM dd")
-        formatter.locale = NSLocale.current
-        return formatter
-    }()
+    private var useCase: TaskUseCase
 
     init(useCase: TaskUseCase) {
         self.useCase = useCase
-        self.reloadTaskList()
+        loadTaskList()
     }
 
-    func formatDate(_ date: Date) -> String {
-        return formatter.string(from: date)
+    func reloadTaskList() {
+        loadTaskList()
+    }
+
+    private func loadTaskList() {
+        useCase.read { [weak self] allTaskList in
+            guard let self = self else { return }
+            self.taskLists = allTaskList
+        }
     }
 
     func countOfTaskList() -> Int {
@@ -48,32 +50,26 @@ final class TaskViewModel: TaskViewModelable {
         return taskLists[listIndex].items[safe: index]
     }
 
-    func reloadTaskList() {
-        updateList()
-    }
-
-    private func updateList() {}
-
     func addNewTaskList(with title: String) {
         useCase.create(with: title) { [weak self] success in
-            guard success else { return }
-            self?.updateList()
+            guard success, let self = self else { return }
+            self.loadTaskList()
         }
     }
 
-    func updateTaskList(_ taskList: TaskListModel) {
+    func updateTaskList(_ taskList: TaskList) {
         useCase.update(taskList: taskList) { [weak self] success in
-            guard success else { return }
-            self?.updateList()
+            guard success, let self = self else { return }
+            self.loadTaskList()
         }
     }
 
-    func deleteTaskList(by id: UUID) {
+    func deleteTaskList(by id: String) {
         useCase.delete(by: id) { [weak self] success in
-            guard success else { return }
-            self?.updateList()
+            guard success, let self = self else { return }
+            self.loadTaskList()
         }
     }
 
-    func createTask(_ task: TaskModel, in taskList: String) {}
+    func createTask(_ task: Task, in taskList: String) {}
 }

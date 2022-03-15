@@ -1,22 +1,5 @@
 import Foundation
 
-struct TaskListModel: Identifiable {
-    var id: UUID
-    var title: String
-    var items: [TaskModel]
-    var lastModifiedDate: Date
-
-    init(title: String,
-         id: UUID = UUID(),
-         items: [TaskModel] = [],
-         lastModifiedDate: Date = Date()) {
-        self.id = id
-        self.title = title
-        self.items = items
-        self.lastModifiedDate = lastModifiedDate
-    }
-}
-
 public class TaskModel: NSObject, Identifiable {
     public var id: UUID
     var title: String
@@ -25,9 +8,9 @@ public class TaskModel: NSObject, Identifiable {
     var lastModifiedDate: Date
 
     init(title: String,
-         dueDate: Date,
          id: UUID = UUID(),
          body: String = "",
+         dueDate: Date = Date(),
          lastModifiedDate: Date = Date()) {
         self.id = id
         self.title = title
