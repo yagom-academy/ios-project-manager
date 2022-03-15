@@ -14,12 +14,22 @@ enum TaskRepositoryError: Error {
 }
 
 class TaskRepository {
-    var tasks: [TaskEntity]
     
     init() {
         tasks = []
     }
     
+    // MARK: - properties
+    
+    private var tasks: [TaskEntity]
+    
+    var taskList: [TaskEntity] {
+        return tasks
+    }
+}
+
+// MARK: - methods
+extension TaskRepository {
     func insert(_ task: TaskEntity) {
         tasks.insert(task, at: 0)
     }
@@ -47,3 +57,4 @@ class TaskRepository {
         task.status = taskStatus
     }
 }
+
