@@ -31,7 +31,7 @@ class MainViewController: UIViewController {
     private func setUpTableView() {
         tableViews.enumerated().forEach { index, tableView in
             tableView.delegate = self
-            tableView.addGestureRecognizer(self.longPressGesture[index])
+            tableView.addGestureRecognizer(longPressGesture[index])
             let cellNib = UINib(nibName: ProjectCell.nibName, bundle: .main)
             let headerNib = UINib(nibName: ProjectHeader.nibName, bundle: .main)
             tableView.register(cellNib, forCellReuseIdentifier: ProjectCell.identifier)
@@ -65,7 +65,7 @@ class MainViewController: UIViewController {
         let output = viewModel?.transform(input: input, disposeBag: disposeBag)
         
         output?.projectList.enumerated().forEach { index, observable in
-            let tableView = self.tableViews[index]
+            let tableView = tableViews[index]
             observable.asDriver(onErrorJustReturn: [])
                 .drive(
                     tableView.rx.items(cellIdentifier: ProjectCell.identifier, cellType: ProjectCell.self)

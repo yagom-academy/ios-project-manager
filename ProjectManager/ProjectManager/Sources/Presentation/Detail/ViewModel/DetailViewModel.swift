@@ -21,6 +21,10 @@ final class DetailViewModel {
         self.mode = mode
     }
     
+    func dismiss() {
+        coordinator.dismiss()
+    }
+    
     struct Input {
         let didTapRightBarButton: Observable<Void>
         let didTapLeftBarButton: Observable<Void>
@@ -64,34 +68,34 @@ final class DetailViewModel {
             }).disposed(by: disposeBag)
         
         input.didTapRightBarButton
-            .subscribe(onNext: { _ in
+            .withUnretained(self).subscribe(onNext: { owner, _ in
                 if isEditable.value {
                     let newProject = Project(
-                        id: self.project.id,
-                        title: currentTitle.value ?? self.project.title,
-                        description: currentDescription.value ?? self.project.description,
-                        date: currentDate.value ?? self.project.date,
-                        status: self.project.status
+                        id: owner.project.id,
+                        title: currentTitle.value ?? owner.project.title,
+                        description: currentDescription.value ?? owner.project.description,
+                        date: currentDate.value ?? owner.project.date,
+                        status: owner.project.status
                     )
-                    let single = self.mode == .edit ? self.useCase.update(newProject) : self.useCase.create(newProject)
+                    let single = owner.mode == .edit ? owner.useCase.update(newProject) : owner.useCase.create(newProject)
                     single.subscribe(
-                        onSuccess: { self.project = $0 },
+                        onSuccess: { owner.project = $0 },
                         onFailure: { print($0.localizedDescription) }
                     ).disposed(by: disposeBag)
                 }
-                self.coordinator.dismiss()
+                owner.coordinator.dismiss()
             }).disposed(by: disposeBag)
         
         input.didTapLeftBarButton
-            .subscribe(onNext: { _ in
-                switch self.mode {
+            .withUnretained(self).subscribe(onNext: { owner, _ in
+                switch owner.mode {
                 case .read:
-                    self.mode = .edit
+                    owner.mode = .edit
                     isEditable.accept(true)
                 case .add:
-                    self.coordinator.dismiss()
+                    owner.coordinator.dismiss()
                 case .edit:
-                    self.mode = .read
+                    owner.mode = .read
                     isEditable.accept(false)
                 }
             }).disposed(by: disposeBag)

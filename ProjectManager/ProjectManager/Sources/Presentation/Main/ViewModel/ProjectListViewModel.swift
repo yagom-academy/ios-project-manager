@@ -43,24 +43,26 @@ final class ProjectListViewModel {
         input.didTapProjectCell.enumerated()
             .forEach({ column, observable in
                 observable
-                    .subscribe(onNext: { row in
-                        let project = self.projectList[column][row]
-                        self.coordinator?.presentDetailViewController(project, useCase: self.useCase, mode: .read)
+                    .withUnretained(self)
+                    .subscribe(onNext: { owner, row in
+                        let project = owner.projectList[column][row]
+                        owner.coordinator?.presentDetailViewController(project, useCase: owner.useCase, mode: .read)
                     }).disposed(by: disposeBag)
             })
         
         input.didTapAddButton
-            .subscribe(onNext: { _ in
+            .withUnretained(self)
+            .subscribe(onNext: { owner, _ in
                 let newProject = Project(title: "", description: "", date: Date())
-                self.coordinator?.presentDetailViewController(newProject, useCase: self.useCase, mode: .add)
+                owner.coordinator?.presentDetailViewController(newProject, useCase: owner.useCase, mode: .add)
             }).disposed(by: disposeBag)
         
         input.didTapPopoverButton.forEach {
-            $0.subscribe(onNext: { data in
+            $0.withUnretained(self).subscribe(onNext: { owner, data in
                 data.flatMap { cell, project in
-                    self.coordinator?.showActionSheet(sourceView: cell, titles: project.status.excluded)
+                    owner.coordinator?.showActionSheet(sourceView: cell, titles: project.status.excluded)
                         .subscribe(onNext: { state in
-                            self.useCase.changedState(project, state: state)
+                            owner.useCase.changedState(project, state: state)
                         }).disposed(by: disposeBag)
                 }
             }).disposed(by: disposeBag)
@@ -69,8 +71,8 @@ final class ProjectListViewModel {
         input.didSwapeToTapDeleteButton
             .forEach({ observable in
                 observable
-                    .subscribe(onNext: { project in
-                        self.useCase.delete(project)
+                    .withUnretained(self).subscribe(onNext: { owner, project in
+                        owner.useCase.delete(project)
                     })
                     .disposed(by: disposeBag)
             })

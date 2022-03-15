@@ -23,19 +23,25 @@ class DetailViewController: UIViewController {
         setUpBindings()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        viewModel?.dismiss()
+        viewModel = nil
+    }
+    
     private func configure() {
         titleTextField.placeholder = Placeholder.title
         
         descriptionTextView.rx.didEndEditing
-            .subscribe(onNext: { _ in
-                if self.descriptionTextView.text.isEmpty {
-                    self.descriptionTextView.text = Placeholder.body
+            .withUnretained(self).subscribe(onNext: { owner, _ in
+                if owner.descriptionTextView.text.isEmpty {
+                    owner.descriptionTextView.text = Placeholder.body
                 }
             }).disposed(by: disposeBag)
         descriptionTextView.rx.didBeginEditing
-            .subscribe(onNext: { _ in
-                if self.descriptionTextView.text == Placeholder.body {
-                    self.descriptionTextView.text = nil
+            .withUnretained(self).subscribe(onNext: { owner, _ in
+                if owner.descriptionTextView.text == Placeholder.body {
+                    owner.descriptionTextView.text = nil
                 }
             }).disposed(by: disposeBag)
     }

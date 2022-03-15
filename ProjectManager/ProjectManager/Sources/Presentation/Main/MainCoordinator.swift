@@ -7,14 +7,21 @@ enum ActionType: CaseIterable {
     case bottom
 }
 
-final class MainCoordinator {
-    private let navigationController: UINavigationController
+final class MainCoordinator: Coordinator {
+    var parentCoordinateor: Coordinator?
+    var childCoordinators: [Coordinator] = [] {
+        didSet {
+            print(childCoordinators.count)
+        }
+    }
+    var navigationController: UINavigationController
+    var type: CoordinatorType = .main
     
     init(_ navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
     
-    func start() {
+    func storyboardStart() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         guard let main = storyboard.instantiateViewController(
             withIdentifier: "MainViewController"
@@ -30,9 +37,9 @@ final class MainCoordinator {
         useCase: ProjectListUseCase,
         mode: DetailViewModel.ViewMode
     ) {
-        let detailCoordinator = DetailCoordinator()
+        let detailCoordinator = DetailCoordinator(parentCoordinateor: self)
+        childCoordinators.append(detailCoordinator)
         detailCoordinator.start(project, useCase: useCase, mode: mode)
-        
         navigationController.topViewController?.present(
             detailCoordinator.navigationController,
             animated: true
@@ -67,5 +74,10 @@ final class MainCoordinator {
                 alert.dismiss(animated: true, completion: nil)
             }
         }
+    }
+    
+    func remove(childCoordinator: Coordinator) {
+        _ = childCoordinators.firstIndex(where: { $0.type == childCoordinator.type})
+            .flatMap { childCoordinators.remove(at: $0) }
     }
 }
