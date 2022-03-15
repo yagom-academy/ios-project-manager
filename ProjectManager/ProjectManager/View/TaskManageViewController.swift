@@ -14,26 +14,6 @@ private enum Design {
     static let bottomMargin: CGFloat = -10
 }
 
-enum ManageType {
-    case add
-    case edit
-    case detail
-    
-    var leftButtonItem: UIBarButtonItem.SystemItem {
-        switch self {
-        case .add, .edit:
-            return .cancel
-        case .detail:
-            return .edit
-        }
-    }
-}
-
-protocol TaskManageDelegate: AnyObject {
-    func create(title: String, description: String, deadline: Date)
-    func update(at index: Int, title: String, description: String, deadline: Date, from state: TaskState)
-}
-
 final class TaskManageViewController: UIViewController {
     // MARK: - Properties
 
@@ -117,6 +97,10 @@ final class TaskManageViewController: UIViewController {
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.didTapCancel))
             self.setupEditingState(from: manageType)
         }
+        
+        taskManageViewModel.presentErrorAlert = { [weak self] error in
+            self?.presentAlert(title: error.localizedDescription, message: "")
+        }
     }
     
     // MARK: - Configure UI
@@ -124,7 +108,33 @@ final class TaskManageViewController: UIViewController {
     private func configureUI() {
         view.backgroundColor = .systemBackground
         configureNavigationBar()
+        setupTitleTextField()
+        setupDescriptionTextView()
+        setupDeadlineDatePicker()
         configureLayout()
+    }
+    
+    private func setupDescriptionTextView() {
+        descriptionTextView.delegate = self
+    }
+    
+    private func setupDeadlineDatePicker() {
+        deadlineDatePicker.addTarget(self, action: #selector(updateTaskManageViewModelDeadline), for: .valueChanged)
+    }
+    
+    @objc private func updateTaskManageViewModelDeadline(_ sender: UIDatePicker) {
+        taskManageViewModel.taskDeadline = sender.date
+    }
+    
+    private func setupTitleTextField() {
+        titleTextField.addTarget(self, action: #selector(updateTaskManageViewModelTitle), for: .editingChanged)
+    }
+    
+    @objc private func updateTaskManageViewModelTitle(_ sender: UITextField) {
+        guard let text = sender.text else {
+            return
+        }
+        taskManageViewModel.taskTitle = text
     }
     
     private func configureLayout() {
@@ -179,26 +189,21 @@ final class TaskManageViewController: UIViewController {
     }
     
     private func createTask() {
-        guard let title = titleTextField.text,
-              let description = descriptionTextView.text else {
-            return
-        }
-        
-        delegate?.create(title: title, description: description, deadline: deadlineDatePicker.date)
+        delegate?.create(title: taskManageViewModel.taskTitle,
+                         description: taskManageViewModel.taskDescription,
+                         deadline: taskManageViewModel.taskDeadline)
     }
     
     private func updateTask() {
-        guard let title = titleTextField.text,
-              let description = descriptionTextView.text,
-              let selectedIndex = taskManageViewModel.selectedIndex,
+        guard let selectedIndex = taskManageViewModel.selectedIndex,
               let selectedTask = taskManageViewModel.selectedTask else {
             return
         }
         
         delegate?.update(at: selectedIndex,
-                         title: title,
-                         description: description,
-                         deadline: deadlineDatePicker.date,
+                         title: taskManageViewModel.taskTitle,
+                         description: taskManageViewModel.taskDescription,
+                         deadline: taskManageViewModel.taskDeadline,
                          from: selectedTask.state)
     }
     
@@ -218,15 +223,6 @@ final class TaskManageViewController: UIViewController {
     }
     
     @objc private func didTapDone() {
-        let title = titleTextField.text
-        let description = descriptionTextView.text
-        let (invalidItems, isValid) = taskManageViewModel.checkValidInput(title: title, description: description)
-        
-        if !isValid {
-            presentAlert(title: invalidItems, message: "")
-            return
-        }
-        
         taskManageViewModel.didTapDoneButton()
     }
 }
@@ -235,11 +231,8 @@ final class TaskManageViewController: UIViewController {
 
 extension TaskManageViewController: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        taskManageViewModel.taskDescription = textView.text
         let isValidText = taskManageViewModel.checkValidTextLength(with: range, length: 1000)
-        if !isValidText {
-            presentAlert(title: "입력 초과", message: "1,000 글자 미만으로 입력해주세요")
-        }
-        
         return isValidText
     }
 }

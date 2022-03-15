@@ -9,10 +9,14 @@ import Foundation
 
 class TaskManageViewModel {
     // MARK: - Output
+    var presentErrorAlert: ((Error) -> Void)?
     var dismiss: ((ManageType) -> Void)?
     var changeManageTypeToEdit: ((ManageType) -> Void)?
     
     // MARK: - Properties
+    var taskTitle = ""
+    var taskDescription = ""
+    var taskDeadline = Date()
     var selectedIndex: Int?
     var selectedTask: Task?
     var manageType: ManageType
@@ -25,35 +29,41 @@ class TaskManageViewModel {
         self.init(manageType: manageType)
         self.selectedIndex = selectedIndex
         self.selectedTask = selectedTask
+        self.taskTitle = selectedTask.title
+        self.taskDescription = selectedTask.description
+        self.taskDeadline = selectedTask.deadline
     }
     
-    func checkValidInput(title: String?, description: String?) -> (String, Bool) {
-        var invalidItems = [String]()
-        if title == "" {
-            invalidItems.append("제목")
+    private func checkValidInput() -> Bool {
+        if taskTitle.isEmpty && taskDescription.isEmpty {
+            presentErrorAlert?(TextError.invalidTitleAndDescription)
+            return false
+        } else if taskTitle.isEmpty {
+            presentErrorAlert?(TextError.invalidTitle)
+            return false
+        } else if taskDescription.isEmpty {
+            presentErrorAlert?(TextError.invalidDescription)
+            return false
         }
         
-        if description == "" {
-            invalidItems.append("내용")
-        }
-        
-        if invalidItems.isEmpty {
-            return ("", true)
-        }
-        return ("\(invalidItems.joined(separator: ", "))을 입력해주세요", false)
+        return true
     }
     
     func didTapDoneButton() {
-        dismiss?(manageType)
+        if checkValidInput() {
+            dismiss?(manageType)
+        }
     }
     
     func checkValidTextLength(with range: NSRange, length: Int) -> Bool {
         if range.location == length {
+            presentErrorAlert?(TextError.outOfBounds(length))
             return false
         }
         if range.length > .zero {
             return true
         }
+        
         return range.location < length
     }
     
