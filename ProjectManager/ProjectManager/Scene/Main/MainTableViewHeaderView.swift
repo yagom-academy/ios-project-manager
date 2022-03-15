@@ -22,9 +22,9 @@ class MainTableViewHeaderView: UITableViewHeaderFooterView {
         return stackView
     }()
 
-    private let sectionLabel: UILabel = {
+    private let taskLabel: UILabel = {
         let label = UILabel()
-        label.font = HeaderViewFont.sectionLabel
+        label.font = HeaderViewFont.taskLabel
 
         return label
     }()
@@ -68,8 +68,8 @@ class MainTableViewHeaderView: UITableViewHeaderFooterView {
 
 // MARK: - Configure Contents
 
-    func configureContents(todoCount: Int, in section: String) {
-        self.sectionLabel.text = section
+    func configureContents(todoCount: Int, withTitle title: String) {
+        self.taskLabel.text = title
         self.todoCountLabel.text = String(todoCount)
     }
 
@@ -77,7 +77,7 @@ class MainTableViewHeaderView: UITableViewHeaderFooterView {
 
     private func configureHierarchy() {
         self.contentView.addSubview(self.stackView)
-        self.stackView.addArrangedSubview(self.sectionLabel)
+        self.stackView.addArrangedSubview(self.taskLabel)
         self.stackView.addArrangedSubview(self.todoCountLabel)
         self.stackView.addArrangedSubview(self.spacerView)
     }
@@ -128,6 +128,6 @@ private enum HeaderViewConstraints {
 
 private enum HeaderViewFont {
 
-    static let sectionLabel = UIFont.preferredFont(for: .title3, weight: .regular)
+    static let taskLabel = UIFont.preferredFont(for: .title3, weight: .regular)
     static let todoCountLabel = UIFont.preferredFont(for: .body, weight: .light)
 }

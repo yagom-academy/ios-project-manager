@@ -9,9 +9,9 @@ import Foundation
 
 enum DataFormatter {
 
-    static func filterTodos(by section: TodoSection, in todos: [Todo]) -> [Todo] {
+    static func filterTodos(by task: TodoTasks, in todos: [Todo]) -> [Todo] {
         let todos = todos.filter { todo in
-            todo.section == section
+            todo.task == task
         }
 
         return todos

@@ -26,7 +26,7 @@ class TodoList {
     func add(todo: Todo) {
         self.todoList.append(todo)
         let dummyTodo = self.todoList.filter { someTodo in
-            someTodo.section == todo.section && someTodo.deadline == nil
+            someTodo.task == todo.task && someTodo.deadline == nil
         }
 
         if let dummy = dummyTodo.first {
@@ -34,12 +34,12 @@ class TodoList {
         }
     }
 
-    func edit(todo: Todo, in section: TodoSection) {
+    func edit(todo: Todo, in task: TodoTasks) {
         let beingEditedTodoIndex = self.todoList.firstIndex { someTodo in
             someTodo.uuid == todo.uuid
         }
         var editedTodo = todo
-        editedTodo.section = section
+        editedTodo.task = task
 
         if let index = beingEditedTodoIndex {
             self.todoList[index] = editedTodo

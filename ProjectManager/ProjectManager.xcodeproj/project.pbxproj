@@ -7,13 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D1F48A127E06E07006C60B0 /* ViewConfigureError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1F48A027E06E06006C60B0 /* ViewConfigureError.swift */; };
 		0D36ADF927D0F68E00A93720 /* EditController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D36ADF827D0F68E00A93720 /* EditController.swift */; };
 		0D36ADFF27D108AD00A93720 /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D36ADFE27D108AD00A93720 /* UITextField+Extension.swift */; };
 		0D36AE0127D10B9E00A93720 /* UITextView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D36AE0027D10B9E00A93720 /* UITextView+Extension.swift */; };
 		0D5B293927D35C8100F30925 /* MainTableViewHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5B293827D35C8100F30925 /* MainTableViewHeaderView.swift */; };
 		0D5B293B27D35DEF00F30925 /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5B293A27D35DEF00F30925 /* UILabel+Extension.swift */; };
 		0D7A352927D05184007F26F6 /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7A352827D05184007F26F6 /* DataProvider.swift */; };
-		0D7A352B27D05A19007F26F6 /* TodoSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7A352A27D05A19007F26F6 /* TodoSection.swift */; };
+		0D7A352B27D05A19007F26F6 /* TodoTasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7A352A27D05A19007F26F6 /* TodoTasks.swift */; };
 		0D7A352D27D075D5007F26F6 /* MainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7A352C27D075D5007F26F6 /* MainTableViewCell.swift */; };
 		0D8088CA27CF91AA00199897 /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8088C927CF91AA00199897 /* Todo.swift */; };
 		0D8088CD27CF942600199897 /* TodoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8088CC27CF942600199897 /* TodoList.swift */; };
@@ -22,9 +23,6 @@
 		0D8088E327CFC35E00199897 /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8088E227CFC35E00199897 /* UITableView+Extension.swift */; };
 		0DAF17B927CE6BBF0052968B /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 0DAF17B827CE6BBF0052968B /* .swiftlint.yml */; };
 		0DC8636327D747B9001E5DD8 /* DataFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC8636227D747B9001E5DD8 /* DataFormatter.swift */; };
-		0DC8636C27D9F27B001E5DD8 /* MainTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC8636B27D9F27B001E5DD8 /* MainTableView.swift */; };
-		0DC8636E27D9F9E0001E5DD8 /* ScenePresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC8636D27D9F9E0001E5DD8 /* ScenePresentable.swift */; };
-		0DC8637027DA4814001E5DD8 /* SectionDivided.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC8636F27DA4814001E5DD8 /* SectionDivided.swift */; };
 		0DC8637627DA692E001E5DD8 /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC8637527DA692E001E5DD8 /* EditView.swift */; };
 		0DF22DE927D1E19F00CE0BD5 /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF22DE827D1E19F00CE0BD5 /* UIFont+Extension.swift */; };
 		0DF22DED27D1E81A00CE0BD5 /* DateFormatter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF22DEC27D1E81A00CE0BD5 /* DateFormatter+Extension.swift */; };
@@ -43,13 +41,14 @@
 
 /* Begin PBXFileReference section */
 		0613041D75E9C7CB38AD9021 /* Pods-ProjectManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.debug.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.debug.xcconfig"; sourceTree = "<group>"; };
+		0D1F48A027E06E06006C60B0 /* ViewConfigureError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewConfigureError.swift; sourceTree = "<group>"; };
 		0D36ADF827D0F68E00A93720 /* EditController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditController.swift; sourceTree = "<group>"; };
 		0D36ADFE27D108AD00A93720 /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		0D36AE0027D10B9E00A93720 /* UITextView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Extension.swift"; sourceTree = "<group>"; };
 		0D5B293827D35C8100F30925 /* MainTableViewHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewHeaderView.swift; sourceTree = "<group>"; };
 		0D5B293A27D35DEF00F30925 /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
 		0D7A352827D05184007F26F6 /* DataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
-		0D7A352A27D05A19007F26F6 /* TodoSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoSection.swift; sourceTree = "<group>"; };
+		0D7A352A27D05A19007F26F6 /* TodoTasks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTasks.swift; sourceTree = "<group>"; };
 		0D7A352C27D075D5007F26F6 /* MainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
 		0D8088C927CF91AA00199897 /* Todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
 		0D8088CC27CF942600199897 /* TodoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoList.swift; sourceTree = "<group>"; };
@@ -58,9 +57,6 @@
 		0D8088E227CFC35E00199897 /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
 		0DAF17B827CE6BBF0052968B /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		0DC8636227D747B9001E5DD8 /* DataFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataFormatter.swift; sourceTree = "<group>"; };
-		0DC8636B27D9F27B001E5DD8 /* MainTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableView.swift; sourceTree = "<group>"; };
-		0DC8636D27D9F9E0001E5DD8 /* ScenePresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScenePresentable.swift; sourceTree = "<group>"; };
-		0DC8636F27DA4814001E5DD8 /* SectionDivided.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionDivided.swift; sourceTree = "<group>"; };
 		0DC8637527DA692E001E5DD8 /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
 		0DF22DE827D1E19F00CE0BD5 /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		0DF22DEC27D1E81A00CE0BD5 /* DateFormatter+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Extension.swift"; sourceTree = "<group>"; };
@@ -95,7 +91,6 @@
 		0D36ADFC27D1062400A93720 /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				0DC8636B27D9F27B001E5DD8 /* MainTableView.swift */,
 				0D7A352C27D075D5007F26F6 /* MainTableViewCell.swift */,
 				0D5B293827D35C8100F30925 /* MainTableViewHeaderView.swift */,
 			);
@@ -132,7 +127,7 @@
 			isa = PBXGroup;
 			children = (
 				0D8088C927CF91AA00199897 /* Todo.swift */,
-				0D7A352A27D05A19007F26F6 /* TodoSection.swift */,
+				0D7A352A27D05A19007F26F6 /* TodoTasks.swift */,
 				0D8088CE27CF9A3B00199897 /* DataBase */,
 			);
 			path = Model;
@@ -160,19 +155,10 @@
 			children = (
 				C7431F0925F51E1D0094C4CF /* MainController.swift */,
 				0D36ADF827D0F68E00A93720 /* EditController.swift */,
-				0DC8637127DA5A8E001E5DD8 /* MainControllerProtocol */,
+				0D1F48A027E06E06006C60B0 /* ViewConfigureError.swift */,
 				0DC8637227DA5A9E001E5DD8 /* EditControllerProtocol */,
 			);
 			path = Controller;
-			sourceTree = "<group>";
-		};
-		0DC8637127DA5A8E001E5DD8 /* MainControllerProtocol */ = {
-			isa = PBXGroup;
-			children = (
-				0DC8636D27D9F9E0001E5DD8 /* ScenePresentable.swift */,
-				0DC8636F27DA4814001E5DD8 /* SectionDivided.swift */,
-			);
-			path = MainControllerProtocol;
 			sourceTree = "<group>";
 		};
 		0DC8637227DA5A9E001E5DD8 /* EditControllerProtocol */ = {
@@ -404,13 +390,12 @@
 				0DC8637627DA692E001E5DD8 /* EditView.swift in Sources */,
 				0D7A352927D05184007F26F6 /* DataProvider.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
-				0D7A352B27D05A19007F26F6 /* TodoSection.swift in Sources */,
+				0D7A352B27D05A19007F26F6 /* TodoTasks.swift in Sources */,
 				0DF22DEF27D2122200CE0BD5 /* EditEventAvailable.swift in Sources */,
-				0DC8636C27D9F27B001E5DD8 /* MainTableView.swift in Sources */,
 				0D5B293927D35C8100F30925 /* MainTableViewHeaderView.swift in Sources */,
+				0D1F48A127E06E07006C60B0 /* ViewConfigureError.swift in Sources */,
 				0D8088D627CFA0E500199897 /* Double+Extension.swift in Sources */,
 				0D5B293B27D35DEF00F30925 /* UILabel+Extension.swift in Sources */,
-				0DC8636E27D9F9E0001E5DD8 /* ScenePresentable.swift in Sources */,
 				0D8088D427CFA0DB00199897 /* Date+Extension.swift in Sources */,
 				0DC8636327D747B9001E5DD8 /* DataFormatter.swift in Sources */,
 				0D36AE0127D10B9E00A93720 /* UITextView+Extension.swift in Sources */,
@@ -420,7 +405,6 @@
 				0D36ADFF27D108AD00A93720 /* UITextField+Extension.swift in Sources */,
 				0D36ADF927D0F68E00A93720 /* EditController.swift in Sources */,
 				0DF22DED27D1E81A00CE0BD5 /* DateFormatter+Extension.swift in Sources */,
-				0DC8637027DA4814001E5DD8 /* SectionDivided.swift in Sources */,
 				0DF22DE927D1E19F00CE0BD5 /* UIFont+Extension.swift in Sources */,
 				0D8088CA27CF91AA00199897 /* Todo.swift in Sources */,
 			);

@@ -40,8 +40,8 @@ class DataProvider {
         self.reload()
     }
 
-    func edit(todo: Todo, in section: TodoSection) {
-        self.todoList.edit(todo: todo, in: section)
+    func edit(todo: Todo, in task: TodoTasks) {
+        self.todoList.edit(todo: todo, in: task)
         self.reload()
     }
 }

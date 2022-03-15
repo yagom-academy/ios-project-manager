@@ -6,11 +6,17 @@
 
 import UIKit
 
-class MainController: UIViewController, ScenePresentable {
+class MainController: UIViewController {
 
 // MARK: - Properties
 
-    let dataProvider = DataProvider()
+    private var todoList = [Todo]() {
+        didSet {
+            self.reloadTableViewData()
+        }
+    }
+
+    private let dataProvider = DataProvider()
 
 // MARK: - View Components
 
@@ -34,19 +40,19 @@ class MainController: UIViewController, ScenePresentable {
         return stackView
     }()
 
-    private lazy var todoTableView = MainTableView(
-        section: .todo, dataProvider: self.dataProvider
-    )
-    private lazy var doingTableView = MainTableView(
-        section: .doing, dataProvider: self.dataProvider
-    )
-    private lazy var doneTableView = MainTableView(
-        section: .done, dataProvider: self.dataProvider
-    )
+    private let sampleTableView: [UITableView] = TodoTasks.allCases.map { _ in
+        let tableView = UITableView()
+        tableView.backgroundColor = MainControllerColor.tableViewBackgroundColor
+        tableView.estimatedRowHeight = MainControllerConstraint.estimatedCellHeight
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+
+        return tableView
+    }
 
 // MARK: - Modal View Controller
 
-    var editViewController: EditController = {
+    private var editViewController: EditController = {
         let controller = EditController()
         controller.modalPresentationStyle = .formSheet
         controller.modalTransitionStyle = .crossDissolve
@@ -64,6 +70,7 @@ class MainController: UIViewController, ScenePresentable {
 // MARK: - SetUp Controller
 
     private func setUpController() {
+        self.observeDateProvider()
         self.configureStackView()
         self.configureNavigationBar()
         self.setUpTableView()
@@ -71,17 +78,30 @@ class MainController: UIViewController, ScenePresentable {
         self.setUpTableViewGesture()
     }
 
+// MARK: - Observing Method
+
+    private func observeDateProvider() {
+        self.dataProvider.updated = { [weak self] in
+            guard let self = self else {
+                return
+            }
+
+            self.todoList = self.dataProvider.updatedList()
+        }
+        self.dataProvider.reload()
+    }
+
 // MARK: - Reload View
 
     func reloadTableViewData() {
-        self.todoTableView.reloadTodoList()
-        self.doingTableView.reloadTodoList()
-        self.doneTableView.reloadTodoList()
+        self.sampleTableView.forEach { tableView in
+            tableView.reloadData()
+        }
     }
 
 // MARK: - Present Method(s)
 
-    func presentDeleteAlert(indexPath: IndexPath, in tableView: MainTableView) {
+    private func presentDeleteAlert(indexPath: IndexPath, in tableView: UITableView) {
         let alert = UIAlertController(
             title: MainControllerScript.deleteConfirmMessage, message: nil, preferredStyle: .alert
         )
@@ -97,12 +117,13 @@ class MainController: UIViewController, ScenePresentable {
         let deleteAction = UIAlertAction(
             title: MainControllerScript.delete, style: .destructive
         ) { [weak self] _ in
-            guard let self = self else {
+            guard let self = self,
+            let taskIndex = self.sampleTableView.firstIndex(of: tableView) else {
                 return
             }
 
             let deleteTodoInTodos = DataFormatter.filterTodos(
-                by: tableView.section, in: tableView.todoList
+                by: TodoTasks.getTask(taskIndex), in: self.todoList
             )
             let deleteTodo = deleteTodoInTodos[indexPath.row]
             self.dataProvider.delete(todo: deleteTodo)
@@ -114,7 +135,7 @@ class MainController: UIViewController, ScenePresentable {
         self.present(alert, animated: true, completion: nil)
     }
 
-    func presentNavigationController() {
+    private func presentNavigationController() {
         self.editViewController.dataProvider = self.dataProvider
         let navigationController = UINavigationController(
             rootViewController: self.editViewController
@@ -145,9 +166,6 @@ class MainController: UIViewController, ScenePresentable {
 // MARK: - SetUp Delegate
 
     private func setUpDelegate() {
-        self.todoTableView.setDelegate(delegate: self)
-        self.doingTableView.setDelegate(delegate: self)
-        self.doneTableView.setDelegate(delegate: self)
         self.editViewController.mainViewDelegate = self
     }
 
@@ -160,9 +178,9 @@ class MainController: UIViewController, ScenePresentable {
     }
 
     private func addTableViewsToStackView() {
-        self.stackView.addArrangedSubview(self.todoTableView.tableView)
-        self.stackView.addArrangedSubview(self.doingTableView.tableView)
-        self.stackView.addArrangedSubview(self.doneTableView.tableView)
+        self.sampleTableView.forEach { tableView in
+            self.stackView.addArrangedSubview(tableView)
+        }
     }
 
 // MARK: - Configure View Constraints
@@ -196,35 +214,48 @@ class MainController: UIViewController, ScenePresentable {
 
     private func setUpTableView() {
         self.registerTableViewHeader()
+        self.registerTableViewCell()
+
+        self.sampleTableView.forEach { tableView in
+            tableView.dataSource = self
+            tableView.delegate = self
+        }
     }
 
     private func registerTableViewHeader() {
-        self.todoTableView.tableView.register(
-            headerFooterViewClassWith: MainTableViewHeaderView.self
-        )
-        self.doingTableView.tableView.register(
-            headerFooterViewClassWith: MainTableViewHeaderView.self
-        )
-        self.doneTableView.tableView.register(
-            headerFooterViewClassWith: MainTableViewHeaderView.self
-        )
+        self.sampleTableView.forEach { tableView in
+            tableView.register(headerFooterViewClassWith: MainTableViewHeaderView.self)
+        }
+    }
+
+    private func registerTableViewCell() {
+        self.sampleTableView.forEach { tableView in
+            tableView.register(cellWithClass: MainTableViewCell.self)
+        }
     }
 
 // MARK: - SetUp TableView LongPressGesture
 
     private func setUpTableViewGesture() {
-        self.addLongPressGestureRecognizer(
-            tableView: self.todoTableView.tableView,
-            selector: #selector(todoTableViewLongPressed(sender:))
-        )
-        self.addLongPressGestureRecognizer(
-            tableView: self.doingTableView.tableView,
-            selector: #selector(doingTableViewLongPressed(sender:))
-        )
-        self.addLongPressGestureRecognizer(
-            tableView: self.doneTableView.tableView,
-            selector: #selector(doneTableViewLongPressed(sender:))
-        )
+        self.sampleTableView.enumerated().forEach { (index, tableView) in
+            switch TodoTasks.getTask(index) {
+            case .todo:
+                self.addLongPressGestureRecognizer(
+                    tableView: tableView,
+                    selector: #selector(todoTableViewLongPressed(sender:))
+                )
+            case .doing:
+                self.addLongPressGestureRecognizer(
+                    tableView: tableView,
+                    selector: #selector(doingTableViewLongPressed(sender:))
+                )
+            case .done:
+                self.addLongPressGestureRecognizer(
+                    tableView: tableView,
+                    selector: #selector(doneTableViewLongPressed(sender:))
+                )
+            }
+        }
     }
 
     private func addLongPressGestureRecognizer(tableView: UITableView, selector: Selector) {
@@ -243,46 +274,49 @@ class MainController: UIViewController, ScenePresentable {
 
     @objc
     private func todoTableViewLongPressed(sender: UILongPressGestureRecognizer) {
-        if sender.state == .began {
-            let touchPoint = sender.location(in: self.todoTableView.tableView)
-            self.presentSectionChangeActionSheet(at: touchPoint, in: self.todoTableView)
-        }
+        self.cellLongPressed(in: .todo, sender)
     }
 
     @objc
     private func doingTableViewLongPressed(sender: UILongPressGestureRecognizer) {
-        if sender.state == .began {
-            let touchPoint = sender.location(in: self.doingTableView.tableView)
-            self.presentSectionChangeActionSheet(at: touchPoint, in: self.doingTableView)
-        }
+        self.cellLongPressed(in: .doing, sender)
     }
 
     @objc
     private func doneTableViewLongPressed(sender: UILongPressGestureRecognizer) {
+        self.cellLongPressed(in: .done, sender)
+    }
+
+    private func cellLongPressed(in task: TodoTasks, _ sender: UILongPressGestureRecognizer) {
         if sender.state == .began {
-            let touchPoint = sender.location(in: self.doneTableView.tableView)
-            self.presentSectionChangeActionSheet(at: touchPoint, in: self.doneTableView)
+            do {
+                let tableView = try self.matchTableView(to: task)
+                let touchPoint = sender.location(in: tableView)
+                self.presentTaskChangeActionSheet(at: touchPoint, in: tableView)
+            } catch {
+                self.presentFailureAlert()
+            }
         }
     }
 
-    private func presentSectionChangeActionSheet(
-        at touchPoint: CGPoint, in tableView: SectionDivided
+    private func presentTaskChangeActionSheet(
+        at touchPoint: CGPoint, in tableView: UITableView
     ) {
-        guard let indexPath = tableView.tableView.indexPathForRow(at: touchPoint) else {
+        guard let indexPath = tableView.indexPathForRow(at: touchPoint), let taskIndex = self.sampleTableView.firstIndex(of: tableView) else {
             return
         }
 
         let selectedTodos = DataFormatter.filterTodos(
-            by: tableView.section, in: tableView.todoList
+            by: TodoTasks.getTask(taskIndex), in: self.todoList
         )
         let selectedTodo = selectedTodos[indexPath.row]
-        let otherSections = TodoSection.allCases.filter { section in
-            section != selectedTodo.section
+        let otherTasks = TodoTasks.allCases.filter { task in
+            task != selectedTodo.task
         }
-        let actionSheet = self.setUpActionSheet(in: indexPath, of: tableView.tableView)
+        let actionSheet = self.setUpActionSheet(in: indexPath, of: tableView)
 
-        self.setUpAlertActionWithOtherSections(
-            sections: otherSections, selectedTodo: selectedTodo, at: actionSheet
+        self.setUpAlertActionWithOtherTasks(
+            tasks: otherTasks, selectedTodo: selectedTodo, at: actionSheet
         )
 
         self.present(actionSheet, animated: true, completion: nil)
@@ -301,23 +335,129 @@ class MainController: UIViewController, ScenePresentable {
         return actionSheet
     }
 
-    private func setUpAlertActionWithOtherSections(
-        sections: [TodoSection], selectedTodo: Todo, at actionSheet: UIAlertController
+    private func setUpAlertActionWithOtherTasks(
+        tasks: [TodoTasks], selectedTodo: Todo, at actionSheet: UIAlertController
     ) {
-        sections.forEach { section in
+        tasks.forEach { task in
             let action = UIAlertAction(
-                title: MainControllerScript.moveTo + section.rawValue, style: .default
+                title: MainControllerScript.moveTo + task.rawValue, style: .default
             ) { [weak self] _ in
                 guard let self = self else {
                     return
                 }
 
-                self.dataProvider.edit(todo: selectedTodo, in: section)
+                self.dataProvider.edit(todo: selectedTodo, in: task)
                 self.reloadTableViewData()
             }
 
             actionSheet.addAction(action)
         }
+    }
+
+// MARK: - Match TableView to certain Task
+
+    private func matchTableView(to task: TodoTasks) throws -> UITableView {
+        let tableView = self.sampleTableView.enumerated().filter { (index, _) in
+            TodoTasks.getTask(index) == task
+        }
+
+        guard let tableView = tableView.first?.element else {
+            throw ViewConfigureError.invalidTask
+        }
+
+        return tableView
+    }
+}
+
+// MARK: - Table View DataSource
+extension MainController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let taskIndex = self.sampleTableView.firstIndex(of: tableView) else {
+            return 0
+        }
+
+        return DataFormatter.filterTodos(
+            by: TodoTasks.getTask(taskIndex), in: self.todoList
+        ).count
+    }
+
+    func tableView(
+        _ tableView: UITableView, cellForRowAt indexPath: IndexPath
+    ) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withClass: MainTableViewCell.self)
+
+        guard let taskIndex = self.sampleTableView.firstIndex(of: tableView) else {
+            return cell
+        }
+
+        let todos = DataFormatter.filterTodos(
+            by: TodoTasks.getTask(taskIndex), in: self.todoList
+        )
+        let todo = todos[indexPath.row]
+
+        cell.configureTodo(for: todo)
+
+        return cell
+    }
+}
+
+// MARK: - Table View Delegate
+
+extension MainController: UITableViewDelegate {
+    func tableView(
+        _ tableView: UITableView,
+        trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
+    ) -> UISwipeActionsConfiguration? {
+        let delete = UIContextualAction(
+            style: .destructive, title: MainControllerScript.delete
+        ) { [weak self] _, _, completionHandler in
+            guard let self = self else {
+                return
+            }
+
+            self.presentDeleteAlert(indexPath: indexPath, in: tableView)
+            completionHandler(true)
+        }
+
+        delete.image = UIImage(named: MainControllerImageName.deleteImage)
+
+        return UISwipeActionsConfiguration(actions: [delete])
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let taskIndex = self.sampleTableView.firstIndex(of: tableView) else {
+            return
+        }
+
+        self.presentNavigationController()
+
+        let todos = DataFormatter.filterTodos(
+            by: TodoTasks.getTask(taskIndex), in: self.todoList
+        )
+        let todo = todos[indexPath.row]
+        self.editViewController.setUpDefaultValue(todo: todo)
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let taskIndex = self.sampleTableView.firstIndex(of: tableView) else {
+            return nil
+        }
+
+        let task = TodoTasks.getTask(taskIndex)
+        let header = tableView.dequeueReusableHeaderFooterView(
+            withClass: MainTableViewHeaderView.self
+        )
+        let todoInTask = DataFormatter.filterTodos(by: task, in: self.todoList)
+        let todoCount = todoInTask.count
+
+        header.configureContents(todoCount: todoCount, withTitle: task.rawValue)
+
+        return header
+    }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return MainControllerConstraint.headerHeight
     }
 }
 
@@ -330,9 +470,7 @@ extension MainController: EditEventAvailable {
     }
 
     func editViewControllerDidFinish(_ editViewController: EditController) {
-        self.todoTableView.reloadTodoList()
-        self.doingTableView.reloadTodoList()
-        self.doneTableView.reloadTodoList()
+        self.reloadTableViewData()
 
         editViewController.dismiss(animated: true, completion: nil)
     }
@@ -344,6 +482,7 @@ private enum MainControllerColor {
 
     static let stackViewSpaceColor: UIColor = .systemGray4
     static let backgroundColor: UIColor = .systemGray6
+    static let tableViewBackgroundColor: UIColor = .white
 }
 
 private enum MainControllerScript {
@@ -360,11 +499,14 @@ private enum MainControllerScript {
 private enum MainControllerConstraint {
 
     static let stackViewSpace: CGFloat = 10
+    static let estimatedCellHeight: CGFloat = 100
+    static let headerHeight: CGFloat = 33
 }
 
 private enum MainControllerImageName {
 
     static let plusButtonImage = "plus"
+    static let deleteImage = "trash.circle"
 }
 
 private enum MainVCMagicNumber {

@@ -15,7 +15,7 @@ class EditController: UIViewController, UIAdaptivePresentationControllerDelegate
         return self.editView.textField.text != nil
     }
     var beingEditedTodoUUID: UUID?
-    var beingEditedTodoSection: TodoSection?
+    var beingEditedTodoTask: TodoTasks?
     weak var dataProvider: DataProvider?
     weak var mainViewDelegate: EditEventAvailable?
 
@@ -89,7 +89,7 @@ class EditController: UIViewController, UIAdaptivePresentationControllerDelegate
         self.editView.textField.text = todo.title
         self.editView.datePicker.date = date
         self.editView.textView.text = todo.content
-        self.beingEditedTodoSection = todo.section
+        self.beingEditedTodoTask = todo.task
         self.beingEditedTodoUUID = todo.uuid
     }
 
@@ -143,14 +143,14 @@ class EditController: UIViewController, UIAdaptivePresentationControllerDelegate
             title: self.editView.textField.text ?? EditControllerScript.untitled,
             content: self.editView.textView.text,
             deadline: self.editView.datePicker.date.double,
-            section: self.beingEditedTodoSection ?? .todo,
+            task: self.beingEditedTodoTask ?? .todo,
             uuid: self.beingEditedTodoUUID ?? UUID()
         )
 
-        if self.beingEditedTodoUUID != nil, self.beingEditedTodoSection != nil {
-            dataProvider.edit(todo: todo, in: todo.section)
+        if self.beingEditedTodoUUID != nil, self.beingEditedTodoTask != nil {
+            dataProvider.edit(todo: todo, in: todo.task)
             self.beingEditedTodoUUID = nil
-            self.beingEditedTodoSection = nil
+            self.beingEditedTodoTask = nil
         } else {
             dataProvider.update(todo: todo)
         }
