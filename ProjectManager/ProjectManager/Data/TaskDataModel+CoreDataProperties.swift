@@ -1,6 +1,4 @@
-import Foundation
 import CoreData
-
 
 extension TaskDataModel {
     @nonobjc public class func fetchTaskRequest() -> NSFetchRequest<TaskDataModel> {
