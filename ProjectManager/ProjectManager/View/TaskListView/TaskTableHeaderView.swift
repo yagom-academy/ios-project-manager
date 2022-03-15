@@ -39,6 +39,9 @@ class TaskTableHeaderView: UITableViewHeaderFooterView {
         stackView.distribution = .fill
         stackView.alignment = .fill
         stackView.spacing = 10
+        stackView.isLayoutMarginsRelativeArrangement = true
+        let inset = 10.0
+        stackView.layoutMargins = UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset)
         
         addSubview(stackView)
         NSLayoutConstraint.activate([
@@ -53,7 +56,7 @@ class TaskTableHeaderView: UITableViewHeaderFooterView {
     }
     
     private func setupHeight() {
-        let height = 35.0 // TODO: dynamic height 지정
+        let height = 55.0 // TODO: dynamic height 지정
         self.frame = CGRect(x: 0, y: 0, width: contentView.bounds.width, height: height) // titleLabel.bounds.height는 왜 안되지?
     }
     

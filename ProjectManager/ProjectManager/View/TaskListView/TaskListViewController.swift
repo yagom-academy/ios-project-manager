@@ -37,6 +37,7 @@ final class TaskListViewController: UIViewController {
     private func setupHeaderViews() {
         ProcessStatus.allCases.enumerated().forEach { index, processStatus in
             let headerView = TaskTableHeaderView(reuseIdentifier: TaskTableHeaderView.reuseIdentifier)
+            headerView.applyData(with: processStatus.description)
             tableViews[index]?.applyData(with: processStatus)
             tableViews[index]?.tableHeaderView = headerView
             headerViews?.append(headerView)
