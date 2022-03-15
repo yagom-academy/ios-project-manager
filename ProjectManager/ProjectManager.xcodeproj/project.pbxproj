@@ -46,6 +46,10 @@
 		C169A41227E0334200B82EC0 /* TaskLocalDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C169A41127E0334200B82EC0 /* TaskLocalDataSource.swift */; };
 		C169A41427E033D700B82EC0 /* RepositoryDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C169A41327E033D700B82EC0 /* RepositoryDataSource.swift */; };
 		C169A41627E0344E00B82EC0 /* TaskRemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C169A41527E0344E00B82EC0 /* TaskRemoteDataSource.swift */; };
+		C169A41827E0392B00B82EC0 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C169A41727E0392B00B82EC0 /* RealmManager.swift */; };
+		C169A41A27E07EAD00B82EC0 /* RealmTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = C169A41927E07EAD00B82EC0 /* RealmTask.swift */; };
+		C169A41B27E07EB500B82EC0 /* RealmTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = C169A41927E07EAD00B82EC0 /* RealmTask.swift */; };
+		C169A41D27E07F2E00B82EC0 /* RepositoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C169A41C27E07F2E00B82EC0 /* RepositoryManager.swift */; };
 		C17D656B27D483B800C54EC6 /* ProjectManagerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17D656A27D483B800C54EC6 /* ProjectManagerViewModel.swift */; };
 		C17D656E27D4A53C00C54EC6 /* TaskListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17D656D27D4A53C00C54EC6 /* TaskListRowView.swift */; };
 		C1836B4D27CE43B0008D9F07 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1836B4C27CE43B0008D9F07 /* Task.swift */; };
@@ -94,6 +98,9 @@
 		C169A41127E0334200B82EC0 /* TaskLocalDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskLocalDataSource.swift; sourceTree = "<group>"; };
 		C169A41327E033D700B82EC0 /* RepositoryDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryDataSource.swift; sourceTree = "<group>"; };
 		C169A41527E0344E00B82EC0 /* TaskRemoteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRemoteDataSource.swift; sourceTree = "<group>"; };
+		C169A41727E0392B00B82EC0 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
+		C169A41927E07EAD00B82EC0 /* RealmTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmTask.swift; sourceTree = "<group>"; };
+		C169A41C27E07F2E00B82EC0 /* RepositoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryManager.swift; sourceTree = "<group>"; };
 		C17D656A27D483B800C54EC6 /* ProjectManagerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerViewModel.swift; sourceTree = "<group>"; };
 		C17D656D27D4A53C00C54EC6 /* TaskListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListRowView.swift; sourceTree = "<group>"; };
 		C1836B4C27CE43B0008D9F07 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
@@ -171,12 +178,11 @@
 			isa = PBXGroup;
 			children = (
 				C139EF9727CE5B2C001079B6 /* Entity */,
-				C139EF9327CE46EC001079B6 /* TaskMemoryManager.swift */,
 				C139EF9527CE48F0001079B6 /* TaskManager.swift */,
-				C169A41327E033D700B82EC0 /* RepositoryDataSource.swift */,
-				C169A41127E0334200B82EC0 /* TaskLocalDataSource.swift */,
-				C169A41527E0344E00B82EC0 /* TaskRemoteDataSource.swift */,
 				C169A40F27E0242500B82EC0 /* TaskRepositoryManager.swift */,
+				C139EF9327CE46EC001079B6 /* TaskMemoryManager.swift */,
+				C169A41E27E0808200B82EC0 /* DataSource */,
+				C169A41F27E0821A00B82EC0 /* RepositoryModule */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -220,6 +226,7 @@
 			children = (
 				C1836B4C27CE43B0008D9F07 /* Task.swift */,
 				C139EF9127CE4539001079B6 /* TaskStatus.swift */,
+				C169A41927E07EAD00B82EC0 /* RealmTask.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -239,6 +246,25 @@
 				C1E42BF427D7EE0500700BB4 /* Utilities+UIKit.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		C169A41E27E0808200B82EC0 /* DataSource */ = {
+			isa = PBXGroup;
+			children = (
+				C169A41327E033D700B82EC0 /* RepositoryDataSource.swift */,
+				C169A41127E0334200B82EC0 /* TaskLocalDataSource.swift */,
+				C169A41527E0344E00B82EC0 /* TaskRemoteDataSource.swift */,
+			);
+			path = DataSource;
+			sourceTree = "<group>";
+		};
+		C169A41F27E0821A00B82EC0 /* RepositoryModule */ = {
+			isa = PBXGroup;
+			children = (
+				C169A41C27E07F2E00B82EC0 /* RepositoryManager.swift */,
+				C169A41727E0392B00B82EC0 /* RealmManager.swift */,
+			);
+			path = RepositoryModule;
 			sourceTree = "<group>";
 		};
 		C17D656C27D483C600C54EC6 /* ViewModel */ = {
@@ -425,6 +451,7 @@
 			files = (
 				C139EFA827CE5E08001079B6 /* TaskManager.swift in Sources */,
 				C139EFA527CE5DFE001079B6 /* Task.swift in Sources */,
+				C169A41B27E07EB500B82EC0 /* RealmTask.swift in Sources */,
 				C139EFA727CE5E05001079B6 /* TaskMemoryManager.swift in Sources */,
 				C139EF9F27CE5DF7001079B6 /* TaskMemoryManagerTests.swift in Sources */,
 				C139EFA627CE5E02001079B6 /* TaskStatus.swift in Sources */,
@@ -446,12 +473,15 @@
 				C169A41427E033D700B82EC0 /* RepositoryDataSource.swift in Sources */,
 				C12BF48B27D9E52400211C11 /* TaskListContextMenuView.swift in Sources */,
 				C13F86E627D7511E004070AE /* Utilities+Foundation.swift in Sources */,
+				C169A41A27E07EAD00B82EC0 /* RealmTask.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
+				C169A41D27E07F2E00B82EC0 /* RepositoryManager.swift in Sources */,
 				C169A41027E0242600B82EC0 /* TaskRepositoryManager.swift in Sources */,
 				C105641727CCE5A10018ACFE /* ProjectManagerMainView.swift in Sources */,
 				C12BF49027D9EE1000211C11 /* TaskListRowDescriptionView.swift in Sources */,
 				C139EF9227CE4539001079B6 /* TaskStatus.swift in Sources */,
 				C1232DD227DA19CA007EE147 /* TaskFormDatePickerView.swift in Sources */,
+				C169A41827E0392B00B82EC0 /* RealmManager.swift in Sources */,
 				C122BA3627DA465C00358056 /* TaskFormViewModel.swift in Sources */,
 				C17D656B27D483B800C54EC6 /* ProjectManagerViewModel.swift in Sources */,
 				C1E42BF727D7EE5600700BB4 /* TaskFormCreateSheetView.swift in Sources */,
