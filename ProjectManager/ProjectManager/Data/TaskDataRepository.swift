@@ -3,9 +3,9 @@ import CoreData
 protocol TaskRepository {
     func saveContext()
 
-    func create(taskList: TaskListEntity, completed: @escaping (Bool) -> Void)
-    func read(completed: @escaping ([TaskListEntity]) -> Void)
-    func update(taskList: TaskListEntity, completed: @escaping (Bool) -> Void)
+    func create(taskList: TaskListModel, completed: @escaping (Bool) -> Void)
+    func read(completed: @escaping ([TaskListModel]) -> Void)
+    func update(taskList: TaskListModel, completed: @escaping (Bool) -> Void)
     func delete(by id: UUID, completed: @escaping (Bool) -> Void)
 }
 
@@ -61,8 +61,8 @@ final class TaskDataRepository: TaskRepository {
         }
     }
 
-    func create(taskList: TaskListEntity, completed: @escaping (Bool) -> Void) {
-        let taskList = TaskListEntity(title: taskList.title, items: taskList.items)
+    func create(taskList: TaskListModel, completed: @escaping (Bool) -> Void) {
+        let taskList = TaskListModel(title: taskList.title, items: taskList.items)
         let fetchedRequest = TaskDataModel.fetchTaskRequest(with: taskList.id)
         guard fetchedRequest.isNotInclude(input: taskList.id) else {
             completed(false)
@@ -75,13 +75,13 @@ final class TaskDataRepository: TaskRepository {
         save(completed: completed)
     }
 
-    func read(completed: @escaping ([TaskListEntity]) -> Void) {
+    func read(completed: @escaping ([TaskListModel]) -> Void) {
         let convertedTasks = fetchedObjects.compactMap { dataModel in
             convertDataModelToEntity(dataModel: dataModel) }
         completed(convertedTasks)
     }
 
-    func update(taskList: TaskListEntity, completed: @escaping (Bool) -> Void) {
+    func update(taskList: TaskListModel, completed: @escaping (Bool) -> Void) {
         let fetchedRequest = TaskDataModel.fetchTaskRequest(with: taskList.id)
         guard fetchedRequest.isNotInclude(input: taskList.id) else {
             completed(false)
@@ -112,7 +112,7 @@ final class TaskDataRepository: TaskRepository {
         save(completed: completed)
     }
 
-    private func setValue(to object: NSManagedObject, with taskList: TaskListEntity) {
+    private func setValue(to object: NSManagedObject, with taskList: TaskListModel) {
         let managedObject = object
         [
             "id": taskList.id,
@@ -123,14 +123,14 @@ final class TaskDataRepository: TaskRepository {
         }
     }
 
-    private func convertDataModelToEntity(dataModel: TaskDataModel) -> TaskListEntity {
-        var convertedItems = [TaskEntity]()
+    private func convertDataModelToEntity(dataModel: TaskDataModel) -> TaskListModel {
+        var convertedItems = [TaskModel]()
         dataModel.items.forEach { item in
-            convertedItems.append(TaskEntity(title: item.title,
+            convertedItems.append(TaskModel(title: item.title,
                                              dueDate: item.dueDate,
                                              body: item.body,
                                              lastModifiedDate: item.lastModifiedDate))
         }
-        return TaskListEntity(title: dataModel.title, id: dataModel.id, items: convertedItems)
+        return TaskListModel(title: dataModel.title, id: dataModel.id, items: convertedItems)
     }
 }

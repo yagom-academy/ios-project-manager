@@ -16,6 +16,6 @@ extension TaskDataModel {
     }
 
     @NSManaged public var id: UUID
-    @NSManaged public var items: [TaskEntity]
+    @NSManaged public var items: [TaskModel]
     @NSManaged public var title: String
 }

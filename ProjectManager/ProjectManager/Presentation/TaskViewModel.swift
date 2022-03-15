@@ -6,13 +6,13 @@ protocol TaskViewModelable {
     func countOfTaskList() -> Int
     func fetchTaskList(at index: Int) -> TaskList?
     func fetchTask(at index: Int, in listTitle: String) -> Task?
-    
+
     func reloadTaskList()
 
     func addNewTaskList(with title: String)
-    func updateTaskList(_ taskList: TaskListEntity)
+    func updateTaskList(_ taskList: TaskListModel)
     func deleteTaskList(by id: UUID)
-    func createTask(_ task: TaskEntity, in taskList: String)
+    func createTask(_ task: TaskModel, in taskList: String)
 }
 
 final class TaskViewModel: TaskViewModelable {
@@ -61,7 +61,7 @@ final class TaskViewModel: TaskViewModelable {
         }
     }
 
-    func updateTaskList(_ taskList: TaskListEntity) {
+    func updateTaskList(_ taskList: TaskListModel) {
         useCase.update(taskList: taskList) { [weak self] success in
             guard success else { return }
             self?.updateList()
@@ -75,5 +75,5 @@ final class TaskViewModel: TaskViewModelable {
         }
     }
 
-    func createTask(_ task: TaskEntity, in taskList: String) {}
+    func createTask(_ task: TaskModel, in taskList: String) {}
 }

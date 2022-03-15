@@ -94,10 +94,9 @@
 		84A5995D27D20E7B004E5054 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
-				84A5995E27D20E8D004E5054 /* TaskEntity.swift */,
-				84A5996327D20F21004E5054 /* FetchTaskUseCase.swift */,
 				8462AB9027E09375008E17B4 /* Task.swift */,
 				8462AB9327E09385008E17B4 /* TaskList.swift */,
+				84A5996327D20F21004E5054 /* FetchTaskUseCase.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -105,6 +104,7 @@
 		84A5996727D20F7C004E5054 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				84A5995E27D20E8D004E5054 /* TaskEntity.swift */,
 				84A5996827D20F94004E5054 /* TaskDataRepository.swift */,
 				8493B02D27DC7C89009D1366 /* TaskDataModel.xcdatamodeld */,
 				8493B03127DC7E0A009D1366 /* TaskDataModel+CoreDataClass.swift */,

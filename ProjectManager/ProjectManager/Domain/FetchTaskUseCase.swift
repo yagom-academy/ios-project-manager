@@ -2,10 +2,10 @@ import CoreData
 
 protocol TaskUseCase {
     func create(with title: String, completed: @escaping (Bool) -> Void)
-    func read(completed: @escaping ([TaskListEntity]) -> Void)
-    func update(taskList: TaskListEntity, completed: @escaping (Bool) -> Void)
+    func read(completed: @escaping ([TaskListModel]) -> Void)
+    func update(taskList: TaskListModel, completed: @escaping (Bool) -> Void)
     func delete(by id: UUID, completed: @escaping (Bool) -> Void)
-    func createTask(_ task: TaskEntity, in taskList: TaskListEntity, completed: @escaping (Bool) -> Void)
+    func createTask(_ task: TaskModel, in taskList: TaskListModel, completed: @escaping (Bool) -> Void)
 }
 
 final class FetchTaskUseCase: TaskUseCase {
@@ -16,16 +16,16 @@ final class FetchTaskUseCase: TaskUseCase {
     }
 
     func create(with title: String, completed: @escaping (Bool) -> Void) {
-        let taskList = TaskListEntity(title: title)
+        let taskList = TaskListModel(title: title)
         repository.create(taskList: taskList, completed: completed)
     }
 
-    func read(completed: @escaping ([TaskListEntity]) -> Void) {
+    func read(completed: @escaping ([TaskListModel]) -> Void) {
         repository.read(completed: completed)
     }
 
-    func update(taskList: TaskListEntity, completed: @escaping (Bool) -> Void) {
-        let taskList = TaskListEntity(title: taskList.title,
+    func update(taskList: TaskListModel, completed: @escaping (Bool) -> Void) {
+        let taskList = TaskListModel(title: taskList.title,
                                       id: taskList.id,
                                       items: taskList.items)
         repository.update(taskList: taskList, completed: completed)
@@ -35,7 +35,8 @@ final class FetchTaskUseCase: TaskUseCase {
         repository.delete(by: id, completed: completed)
     }
 
-    func createTask(_ task: TaskEntity, in taskList: TaskListEntity, completed: @escaping (Bool) -> Void) {
+    func createTask(_ task: TaskModel, in taskList: TaskListModel, completed: @escaping (Bool) -> Void) {
+        var taskList = taskList
         taskList.items.append(task)
         update(taskList: taskList, completed: completed)
     }

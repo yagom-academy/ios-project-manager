@@ -5,7 +5,7 @@ final class TaskDetailViewController: UIViewController {
     @IBOutlet weak var dueDatePicker: UIDatePicker!
     @IBOutlet weak var bodyTextView: UITextView!
 
-    var updateItem: TaskEntity?
+    var updateItem: TaskModel?
 
     override func viewDidLoad() {
         super.viewDidLoad()

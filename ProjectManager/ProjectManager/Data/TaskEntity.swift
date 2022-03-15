@@ -1,20 +1,20 @@
 import Foundation
 
-class TaskListEntity: Identifiable {
+struct TaskListModel: Identifiable {
     var id: UUID
     var title: String
-    var items: [TaskEntity]
+    var items: [TaskModel]
 
     init(title: String,
          id: UUID = UUID(),
-         items: [TaskEntity] = []) {
+         items: [TaskModel] = []) {
         self.id = id
         self.title = title
         self.items = items
     }
 }
 
-public class TaskEntity: NSObject, Identifiable {
+public class TaskModel: NSObject, Identifiable {
     public var id: UUID
     var title: String
     var body: String
