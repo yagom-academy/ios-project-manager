@@ -124,9 +124,9 @@ extension ProjectViewModel {
         let cell = tableView.dequeueReusableCell(withClass: ProjectListTableViewCell.self)
         let project = retrieveSelectedData(indexPath: indexPath, state: state)
         
-        if (project?.date)! < Date() {
+        let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())
+        if (project?.date)! < yesterday! {
             cell.populateDataWithDate(title: project?.title ?? "", body: project?.body ?? "", date: project?.date ?? Date())
-            print(Date())
         } else {
             cell.populateData(title: project?.title ?? "", body: project?.body ?? "", date: project?.date ?? Date())
         }
