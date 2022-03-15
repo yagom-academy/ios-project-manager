@@ -32,10 +32,7 @@ class TaskManager: TaskManagable {
     func updateTaskState(id: String, progressStatus: Task.ProgressStatus) -> AnyPublisher<Void, Error> {
         Future<Void, Error> { promise in
             let entityTaskStatus = progressStatus.rawValue
-            self.taskListRepository.updateEntityTaskStatus(
-                id: id,
-                status: entityTaskStatus
-            ) {
+            self.taskListRepository.updateEntityTaskStatus(id: id, status: entityTaskStatus) {
                 promise(.success(()))
             }
         }
