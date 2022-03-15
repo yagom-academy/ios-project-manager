@@ -12,17 +12,7 @@ struct TaskListView: View {
     @State private var isShowDetailScene: Bool = false
     @State private var isShowPopover: Bool = false
     let taskStatus: TaskStatus
-    
-    private var tasks: [Task] {
-        switch taskStatus {
-        case .todo:
-            return taskViewModel.todoTasks
-        case .doing:
-            return taskViewModel.doingTasks
-        case .done:
-            return taskViewModel.doneTasks
-        }
-    }
+    var tasks: [Task]
     
     var body: some View {
         VStack {
