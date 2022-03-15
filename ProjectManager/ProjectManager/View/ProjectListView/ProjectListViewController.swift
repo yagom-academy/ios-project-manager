@@ -1,6 +1,8 @@
 import UIKit
 
 final class ProjectListViewController: UIViewController {
+    // MARK: - Property
+    
     private let todoTableView = ProjectListTableView(state: .todo)
     private let doingTableView = ProjectListTableView(state: .doing)
     private let doneTableView = ProjectListTableView(state: .done)
@@ -25,6 +27,8 @@ final class ProjectListViewController: UIViewController {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
+    
+    // MARK: - Life Cycle Method
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,17 +62,6 @@ final class ProjectListViewController: UIViewController {
         present(destinationViewController, animated: true, completion: nil)
     }
     
-    private func configureTableView() {
-        tableViews.forEach {
-            $0.delegate = self
-            $0.dataSource = viewModel
-            
-            if #available(iOS 15, *) {
-                $0.sectionHeaderTopPadding = Design.tableViewSectionHeaderTopPadding
-            }
-        }
-    }
-    
     private func configureEntireStackView() {
         self.view.addSubview(entireStackView)
         tableViews.forEach {
@@ -83,6 +76,17 @@ final class ProjectListViewController: UIViewController {
             self.entireStackView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
             self.entireStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor)
         ])
+    }
+    
+    private func configureTableView() {
+        tableViews.forEach {
+            $0.delegate = self
+            $0.dataSource = viewModel
+            
+            if #available(iOS 15, *) {
+                $0.sectionHeaderTopPadding = Design.tableViewSectionHeaderTopPadding
+            }
+        }
     }
     
     private func configureBind() {
@@ -157,6 +161,7 @@ final class ProjectListViewController: UIViewController {
     }
     
 }
+// MARK: - UITableViewDelegate
 
 extension ProjectListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

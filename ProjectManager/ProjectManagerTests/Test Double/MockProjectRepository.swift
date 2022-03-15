@@ -12,15 +12,15 @@ class MockProjectRepository: ProjectRepositoryProtocol {
         return projects
     }
     
-    func create(with project: Project) {
+    func append(_ project: Project) {
         projects[project.id] = project
     }
     
-    func update(with project: Project) {
+    func update(_ project: Project) {
         projects.updateValue(project, forKey: project.id)
     }
     
-    func delete(with project: Project) {
+    func delete(_ project: Project) {
         projects.removeValue(forKey: project.id)
     }
 }

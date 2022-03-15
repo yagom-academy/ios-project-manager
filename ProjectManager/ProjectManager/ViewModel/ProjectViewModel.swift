@@ -15,17 +15,18 @@ protocol ProjectViewModelProtocol: UITableViewDataSource {
 
 final class ProjectViewModel: NSObject, ProjectViewModelProtocol {
     let useCase: ProjectUseCaseProtocol
-    var projects: [Project] = [] {
-        didSet {
-            onUpdated?()
-        }
-    }
     
     var onCellSelected: ((Int, Project) -> Void)?
     var onUpdated: (() -> Void)?
     
     init(useCase: ProjectUseCaseProtocol) {
         self.useCase = useCase
+    }
+    
+    private var projects: [Project] = [] {
+        didSet {
+            onUpdated?()
+        }
     }
     
     private var todoProjects: [Project] {
@@ -124,8 +125,16 @@ extension ProjectViewModel {
         }
         let cell = tableView.dequeueReusableCell(withClass: ProjectListTableViewCell.self)
         let project = retrieveSelectedData(indexPath: indexPath, state: state)
+        
+        
+        if (project?.date)! < Date() {
+            cell.populateDataWithRedDate(title: project?.title ?? "", body: project?.body ?? "", date: project?.date ?? Date())
+            print(Date())
+        } else {
+            cell.populateData(title: project?.title ?? "", body: project?.body ?? "", date: project?.date ?? Date())
+        }
 
-        cell.populateData(title: project?.title ?? "", body: project?.body ?? "", date: project?.date ?? Date())
+        
         return cell
     }
 }

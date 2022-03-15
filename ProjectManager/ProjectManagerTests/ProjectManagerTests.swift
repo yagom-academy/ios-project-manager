@@ -20,7 +20,7 @@ class ProjectManagerTests: XCTestCase {
     func test_새로운_프로젝트가_정상적으로_생성되는지() {
         let project = Project(id: UUID(), state: .todo, title: "새로운 할일", body: "열심히하세요", date: Date())
 
-        useCase.create(with: project)
+        useCase.append(project)
         
         XCTAssertEqual("새로운 할일", mockRepository.projects[project.id]?.title)
     }
@@ -34,7 +34,7 @@ class ProjectManagerTests: XCTestCase {
     func test_id가_같은_프로젝트가_정상적으로_수정되는지() {
         let newProject = Project(id: id[0], state: .doing, title: "이제 하는 중이다.", body: "말걸지마라", date: Date())
         
-        useCase.update(with: newProject)
+        useCase.update(newProject, to: nil)
         
         XCTAssertEqual(newProject.body, mockRepository.projects[id[0]]?.body)
     }
@@ -42,7 +42,7 @@ class ProjectManagerTests: XCTestCase {
     func test_id가_같은_프로젝트가_정상적으로_삭제되는지() {
         let projectToDelete = Project(id: id[0], state: .doing, title: "이제 하는 중이다.", body: "말걸지마라", date: Date())
         
-        useCase.delete(with: projectToDelete)
+        useCase.delete(projectToDelete)
         
         XCTAssertEqual(mockRepository.projects, [:])
     }
