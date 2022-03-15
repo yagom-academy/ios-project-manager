@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3344F2F927E0369D003852E5 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 3344F2F827E0369D003852E5 /* Realm */; };
+		3344F2FB27E0369D003852E5 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3344F2FA27E0369D003852E5 /* RealmSwift */; };
 		334BADEC27D8A0980098F448 /* ScheduleItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334BADEB27D8A0980098F448 /* ScheduleItemViewModel.swift */; };
 		334BADEE27D8B1BC0098F448 /* MainViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334BADED27D8B1BC0098F448 /* MainViewCoordinator.swift */; };
 		334BADF027D8F2690098F448 /* ScheduleItemCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334BADEF27D8F2690098F448 /* ScheduleItemCoordinator.swift */; };
@@ -108,6 +110,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3344F2FB27E0369D003852E5 /* RealmSwift in Frameworks */,
+				3344F2F927E0369D003852E5 /* Realm in Frameworks */,
 				E94F18D827CD036D00FF6DA1 /* RxCocoa in Frameworks */,
 				E94F18D627CD036D00FF6DA1 /* RxRelay in Frameworks */,
 				E94F18D227CD036D00FF6DA1 /* RxSwift in Frameworks */,
@@ -376,6 +380,8 @@
 				E94F18D527CD036D00FF6DA1 /* RxRelay */,
 				E94F18D727CD036D00FF6DA1 /* RxCocoa */,
 				E94F18D927CD036D00FF6DA1 /* RxBlocking */,
+				3344F2F827E0369D003852E5 /* Realm */,
+				3344F2FA27E0369D003852E5 /* RealmSwift */,
 			);
 			productName = ProjectManager;
 			productReference = C7431F0225F51E1D0094C4CF /* ProjectManager.app */;
@@ -411,6 +417,7 @@
 			packageReferences = (
 				E94F18CA27CD002700FF6DA1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				E94F18D027CD036D00FF6DA1 /* XCRemoteSwiftPackageReference "RxSwift" */,
+				3344F2F727E0369D003852E5 /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = C7431F0325F51E1D0094C4CF /* Products */;
 			projectDirPath = "";
@@ -746,6 +753,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		3344F2F727E0369D003852E5 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		E94F18CA27CD002700FF6DA1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -765,6 +780,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		3344F2F827E0369D003852E5 /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3344F2F727E0369D003852E5 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
+		};
+		3344F2FA27E0369D003852E5 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3344F2F727E0369D003852E5 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
 		E94F18CB27CD002700FF6DA1 /* FirebaseFirestore */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = E94F18CA27CD002700FF6DA1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
