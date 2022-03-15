@@ -12,6 +12,13 @@ final class TaskCollectionViewCell: UICollectionViewCell, Reusable {
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 12, right: 0))
     }
 
+    override func prepareForReuse() {
+        super.prepareForReuse()
+
+        taskListTitleLabel.text = nil
+        taskListCountImageView = nil
+    }
+
     func configure(with data: TaskList) {
         self.taskList = data
         tableView.reloadData()
