@@ -16,8 +16,8 @@ protocol TaskListViewModelProtocol {
     func delete(task: Task)
     func update(task: Task, to newTask: Task)
     
-    func numberOfRowsInSection(for tableView: TaskTableView) -> Observable<Int>
-    func titleForHeaderInSection(for tableView: TaskTableView) -> Observable<String>
+//    func numberOfRowsInSection(for tableView: TaskTableView) -> Observable<Int>
+//    func titleForHeaderInSection(for tableView: TaskTableView) -> Observable<String>
     func edit(task: Task, newTitle: String, newBody: String, newDueDate: Date)
     func edit(task: Task, newProcessStatus: ProcessStatus)
 }
@@ -109,37 +109,37 @@ final class TaskListViewModel: TaskListViewModelProtocol {
     }
     
     // MARK: - TaskListView
-    func numberOfRowsInSection(for tableView: TaskTableView) -> Observable<Int> {  // Int가 아니라 Observable<Int>로 보내는게 맞겠지? 변경사항을 View에 자동 반영하려면...?
-        switch tableView.processStatus {
-        case .todo:
-            return todoTasksCount
-        case .doing:
-            return doingTasksCount
-        case .done:
-            return doneTasksCount
-        default:
-            print(TableViewError.invalidTableView)
-            return todoTasksCount
-        }
-    }
+//    func numberOfRowsInSection(for tableView: TaskTableView) -> Observable<Int> {  // Int가 아니라 Observable<Int>로 보내는게 맞겠지? 변경사항을 View에 자동 반영하려면...?
+//        switch tableView.processStatus {
+//        case .todo:
+//            return todoTasksCount
+//        case .doing:
+//            return doingTasksCount
+//        case .done:
+//            return doneTasksCount
+//        default:
+//            print(TableViewError.invalidTableView)
+//            return todoTasksCount
+//        }
+//    }
     
-    func titleForHeaderInSection(for tableView: TaskTableView) -> Observable<String> {
-        switch tableView.processStatus {
-        case .todo:
-            return todoTasksCount.map { "\(ProcessStatus.todo.description) \($0)" }
-//            return "\(ProcessStatus.todo.description) \(todoTasksCount)" // Observable<Int> 타입
-
-            //            let count = todoTasksCount.map { $0.description } // Int -> String 타입으로 꺼내줘야하나?
-//            return "\(ProcessStatus.todo.description) \(count)"
-        case .doing:
-            return doingTasksCount.map { "\(ProcessStatus.doing.description) \($0)" }
-        case .done:
-            return doneTasksCount.map { "\(ProcessStatus.done.description) \($0)" }
-        case .none:
-            print(TableViewError.invalidTableView)
-            return todoTasksCount.map { "\(ProcessStatus.todo.description) \($0)" }
-        }
-    }
+//    func titleForHeaderInSection(for tableView: TaskTableView) -> Observable<String> {
+//        switch tableView.processStatus {
+//        case .todo:
+//            return todoTasksCount.map { "\(ProcessStatus.todo.description) \($0)" }
+////            return "\(ProcessStatus.todo.description) \(todoTasksCount)" // Observable<Int> 타입
+//
+//            //            let count = todoTasksCount.map { $0.description } // Int -> String 타입으로 꺼내줘야하나?
+////            return "\(ProcessStatus.todo.description) \(count)"
+//        case .doing:
+//            return doingTasksCount.map { "\(ProcessStatus.doing.description) \($0)" }
+//        case .done:
+//            return doneTasksCount.map { "\(ProcessStatus.done.description) \($0)" }
+//        case .none:
+//            print(TableViewError.invalidTableView)
+//            return todoTasksCount.map { "\(ProcessStatus.todo.description) \($0)" }
+//        }
+//    }
     
     // MARK: - TaskEditView
     // TODO: Popover에서 Title/Body/DueData Edit 기능 구현

@@ -6,7 +6,6 @@ final class TaskListViewController: UIViewController {
     // MARK: - Properties
     private var taskListViewModel: TaskListViewModelProtocol!
     private lazy var tableViews = [todoTableView, doingTableView, doneTableView]
-//    private var headerViews: [TaskTableHeaderView]?
     private var disposeBag = DisposeBag()
     
     @IBOutlet private weak var todoTableView: TaskTableView!
@@ -29,18 +28,26 @@ final class TaskListViewController: UIViewController {
         
     private func setupTableViews() {
         tableViews.forEach { tableView in
-            let nib = UINib(nibName: TaskTableViewCell.reuseIdentifier, bundle: nil)
-            tableView?.register(nib, forCellReuseIdentifier: TaskTableViewCell.reuseIdentifier)
+            tableView?.setupTableViewCell()
+            tableView?.delegate = self
         }
+        
+        todoTableView.processStatus = .todo
+        doingTableView.processStatus = .doing
+        doneTableView.processStatus = .done
     }
     
     private func setupHeaderViews() {
+        // 이런 형태의 의존성 주입 괜찮나?
         let todoTaskHeaderView = TaskTableHeaderView(reuseIdentifier: TaskTableHeaderView.reuseIdentifier,
-                                             taskCountObservable: taskListViewModel.todoTasksCount, processStatus: .todo)
+                                                     taskCountObservable: taskListViewModel.todoTasksCount,
+                                                     processStatus: .todo)
         let doingTaskHeaderView = TaskTableHeaderView(reuseIdentifier: TaskTableHeaderView.reuseIdentifier,
-                                             taskCountObservable: taskListViewModel.doingTasksCount, processStatus: .doing)
+                                                      taskCountObservable: taskListViewModel.doingTasksCount,
+                                                      processStatus: .doing)
         let doneTaskHeaderView = TaskTableHeaderView(reuseIdentifier: TaskTableHeaderView.reuseIdentifier,
-                                             taskCountObservable: taskListViewModel.doneTasksCount, processStatus: .done)
+                                                     taskCountObservable: taskListViewModel.doneTasksCount,
+                                                     processStatus: .done)
 
         todoTableView.tableHeaderView = todoTaskHeaderView
         doingTableView.tableHeaderView = doingTaskHeaderView
@@ -87,7 +94,7 @@ final class TaskListViewController: UIViewController {
 // MARK: - IBAction
 extension TaskListViewController {
     @IBAction private func touchUpAddButton(_ sender: UIBarButtonItem) {
-        let taskDetailController = ViewControllerFactory.createViewController(of: .taskDetail(viewModel: self.taskListViewModel))
+        let taskDetailController = ViewControllerFactory.createViewController(of: .newTaskDetail(viewModel: self.taskListViewModel))
         taskDetailController.modalPresentationStyle = .popover
         
         self.present(UINavigationController(rootViewController: taskDetailController), animated: true)
@@ -95,35 +102,35 @@ extension TaskListViewController {
 }
 
 // MARK: - TableView Delegate
-//extension TaskListViewController: UITableViewDelegate {
-    // TODO: Cell을 탭하면 Popover 표시
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        switch tableView {
-//        case todoTableView:
-//        case doingTableView:
-//        case doneTableView:
-//        default:
+//extension TaskListViewController: UITableViewDelegate { // 쓸 수 있는건가?
+////     TODO: Cell을 탭하면 Popover 표시
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) { // editTaskDetail 띄우기
+//        self.tableView.rx.modelSelected(Task.self)
+//        .subscribe(onNext: { item in
+//           Observable.just(Reactor.Action.moveToDetail(item))
+//                     .bind(to: self.reactor!.action)
+//                     .disposed(by: self.disposeBag)
+//        }).disposed(by: self.disposeBag)
+//        
+//        
+//        
+//        guard let tableView = tableView as? TaskTableView else {
 //            print(TableViewError.invalidTableView.description)
+//            return
 //        }
+//        
+//        
+//        tableView.rx.itemSelected
+//            .observe(on: MainScheduler.instance)
+//            .subscribe(onNext: presentEditView(with: $0))
+//            .disposed(by: disposeBag)
+//    }
+//    
+//    func presentEditView(with indexPath: IndexPath) {
+//        let taskDetailController = ViewControllerFactory.createViewController(of: .editTaskDetail(viewModel: self.taskListViewModel,
+//                                                                                                  taskToEdit: tableView[indexPath]))
+//        taskDetailController.modalPresentationStyle = UIModalPresentationStyle.popover
+//        
+//        self.present(UINavigationController(rootViewController: taskDetailController), animated: true)
 //    }
 //}
-
-// MARK: - TableView Header
-extension TaskListViewController {
-    // TODO: Custom HeaderView 추가
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        guard let tableView = tableView as? TaskTableView else {
-            print(TableViewError.invalidTableView)
-            return ""
-        }
-        
-        var title: String?
-        _ = taskListViewModel.titleForHeaderInSection(for: tableView)
-            .subscribe(onNext: {
-                title = $0.description
-            })
-            .disposed(by: disposeBag)
-        
-        return title
-    }
-}

@@ -48,11 +48,6 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="TODO" id="Aco-tp-zTJ">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="VgC-AB-qXL">
-                            <connections>
-                                <action selector="touchUpCancelButton:" destination="Y6W-OH-hqX" id="8TE-7t-l4H"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="3ST-lV-HGb">
                             <connections>
                                 <action selector="touchUpDoneButton:" destination="Y6W-OH-hqX" id="eLZ-oY-1C6"/>
