@@ -39,7 +39,7 @@ class EditController: UIViewController, UIAdaptivePresentationControllerDelegate
         return button
     }()
 
-    private let editView: EditView = {
+    private var editView: EditView = {
         let view = EditView()
         view.translatesAutoresizingMaskIntoConstraints = false
 
@@ -56,7 +56,7 @@ class EditController: UIViewController, UIAdaptivePresentationControllerDelegate
 
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        self.doneButton.isEnabled = hasChanges
+//        self.doneButton.isEnabled = hasChanges
         self.isModalInPresentation = hasChanges
     }
 
@@ -66,7 +66,13 @@ class EditController: UIViewController, UIAdaptivePresentationControllerDelegate
         self.configureView()
         self.configureNavigationBar()
         self.setUpDelegate()
+        self.setUpTextField()
         self.setUpTextView()
+        self.setUpDefaultStatus()
+    }
+
+    private func setUpTextField() {
+        self.editView.textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     }
 
     private func setUpTextView() {
@@ -75,8 +81,15 @@ class EditController: UIViewController, UIAdaptivePresentationControllerDelegate
     }
 
     private func setUpDelegate() {
+//        self.editView.textField.delegate = self
         self.editView.textView.delegate = self
         self.navigationController?.presentationController?.delegate = self
+    }
+
+    private func setUpDefaultStatus() {
+        self.isModalInPresentation = true
+        self.doneButton.isEnabled = false
+        self.doneButton.customView?.alpha = 0.5
     }
 
 // MARK: - SetUp Default Value
@@ -139,6 +152,10 @@ class EditController: UIViewController, UIAdaptivePresentationControllerDelegate
             return
         }
 
+        if self.editView.textView.text == EditControllerScript.textViewPlaceHolder {
+            self.editView.textView.text = EditControllerScript.emptyText
+        }
+
         let todo = Todo(
             title: self.editView.textField.text ?? EditControllerScript.untitled,
             content: self.editView.textView.text,
@@ -156,6 +173,21 @@ class EditController: UIViewController, UIAdaptivePresentationControllerDelegate
         }
 
         self.mainViewDelegate?.editViewControllerDidFinish(self)
+    }
+
+    @objc
+    private func textFieldDidChange(_ textField: UITextField) {
+        guard let textFieldIsEmpty = self.editView.textField.text?.isEmpty else {
+            return
+        }
+
+        if textFieldIsEmpty {
+            self.doneButton.isEnabled = false
+            self.doneButton.customView?.alpha = 0.5
+        } else {
+            self.doneButton.isEnabled = true
+            self.doneButton.customView?.alpha = 1.0
+        }
     }
 }
 
@@ -200,6 +232,7 @@ private enum EditControllerScript {
     static let done = "Done"
     static let textViewPlaceHolder = "1000자 이내로 입력해주세요"
     static let untitled = "무제"
+    static let emptyText = ""
 }
 
 private enum EditControllerConstraint {
