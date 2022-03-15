@@ -22,7 +22,7 @@ protocol TaskViewModel {
     func updateTask(at index: Int, title: String, description: String, deadline: Date, from state: TaskState)
     func deleteTask(at index: Int, from state: TaskState)
     func moveTask(at index: Int, from oldState: TaskState, to newState: TaskState)
-    func task(at index: Int, from state: TaskState) -> TaskCell?
+    func task(at index: Int, from state: TaskState) -> TaskCellViewModel?
     func selectTask(at index: Int, from state: TaskState)
     func count(of state: TaskState) -> Int
 }

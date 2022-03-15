@@ -14,7 +14,7 @@
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
 		C9ACBFBB27D5D52000935ECC /* MockTaskMemoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9ACBFBA27D5D52000935ECC /* MockTaskMemoryRepository.swift */; };
 		C9B1BD7F27DF055B009D1A61 /* TextAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B1BD7E27DF055B009D1A61 /* TextAttribute.swift */; };
-		C9B1BD8127DF0658009D1A61 /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B1BD8027DF0657009D1A61 /* TaskCell.swift */; };
+		C9B1BD8127DF0658009D1A61 /* TaskCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B1BD8027DF0657009D1A61 /* TaskCellViewModel.swift */; };
 		C9B1BD8327DF0E87009D1A61 /* TaskManageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B1BD8227DF0E87009D1A61 /* TaskManageViewModel.swift */; };
 		C9BB798127D9CB66005F0D81 /* TaskTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BB798027D9CB66005F0D81 /* TaskTableHeaderView.swift */; };
 		C9C2613727CDE08A002FA9F4 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = C9C2613627CDE08A002FA9F4 /* FirebaseFirestore */; };
@@ -59,7 +59,7 @@
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9ACBFBA27D5D52000935ECC /* MockTaskMemoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTaskMemoryRepository.swift; sourceTree = "<group>"; };
 		C9B1BD7E27DF055B009D1A61 /* TextAttribute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAttribute.swift; sourceTree = "<group>"; };
-		C9B1BD8027DF0657009D1A61 /* TaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
+		C9B1BD8027DF0657009D1A61 /* TaskCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCellViewModel.swift; sourceTree = "<group>"; };
 		C9B1BD8227DF0E87009D1A61 /* TaskManageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManageViewModel.swift; sourceTree = "<group>"; };
 		C9BB798027D9CB66005F0D81 /* TaskTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableHeaderView.swift; sourceTree = "<group>"; };
 		C9C2614227CDE4CB002FA9F4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -192,7 +192,7 @@
 			children = (
 				C9C2616227CF6531002FA9F4 /* TaskListViewModel.swift */,
 				C9B1BD8227DF0E87009D1A61 /* TaskManageViewModel.swift */,
-				C9B1BD8027DF0657009D1A61 /* TaskCell.swift */,
+				C9B1BD8027DF0657009D1A61 /* TaskCellViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -386,7 +386,7 @@
 				C9C2617627D0A18F002FA9F4 /* Array+safe.swift in Sources */,
 				C9C2614A27CE1E08002FA9F4 /* Task.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainTaskViewController.swift in Sources */,
-				C9B1BD8127DF0658009D1A61 /* TaskCell.swift in Sources */,
+				C9B1BD8127DF0658009D1A61 /* TaskCellViewModel.swift in Sources */,
 				C9C2614D27CF3D9B002FA9F4 /* TaskState.swift in Sources */,
 				C9C2616327CF6531002FA9F4 /* TaskListViewModel.swift in Sources */,
 				C9ECBF2927D88DBD00E49ED4 /* TaskTableView.swift in Sources */,

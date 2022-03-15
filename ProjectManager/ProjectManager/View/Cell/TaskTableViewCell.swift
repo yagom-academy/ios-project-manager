@@ -73,9 +73,9 @@ final class TaskTableViewCell: UITableViewCell {
         ])
     }
     
-    func configureCell(with task: TaskCell) {
-        titleLabel.text = task.title
-        descriptionLabel.text = task.description
-        deadlineLabel.attributedText = task.deadline
+    func configureCell(with taskCellViewModel: TaskCellViewModel) {
+        titleLabel.text = taskCellViewModel.title
+        descriptionLabel.text = taskCellViewModel.description
+        deadlineLabel.attributedText = taskCellViewModel.deadline
     }
 }

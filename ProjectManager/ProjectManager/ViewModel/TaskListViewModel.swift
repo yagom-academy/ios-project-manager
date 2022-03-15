@@ -60,24 +60,18 @@ final class TaskListViewModel: TaskViewModel {
         taskCount?([(count(of: oldState), oldState), (count(of: newState), newState)])
     }
     
-    func task(at index: Int, from state: TaskState) -> TaskCell? {
+    func task(at index: Int, from state: TaskState) -> TaskCellViewModel? {
         guard let fetchedTask = taskManager.fetch(at: index, from: state) else {
             presentErrorAlert?(CollectionError.indexOutOfRange)
             return nil
         }
         
-        var deadline: NSAttributedString
-        if [.waiting, .progress].contains(state) && fetchedTask.deadline < Date() {
-            deadline = NSAttributedString(string: fetchedTask.deadline.dateString, attributes: TextAttribute.overDeadline)
-        } else {
-            deadline = NSAttributedString(string: fetchedTask.deadline.dateString, attributes: TextAttribute.underDeadline)
-        }
+        let taskCellViewModel = TaskCellViewModel(title: fetchedTask.title,
+                                                  description: fetchedTask.description,
+                                                  state: state,
+                                                  deadline: fetchedTask.deadline)
         
-        let taskCell = TaskCell(title: fetchedTask.title,
-                                description: fetchedTask.description,
-                                deadline: deadline)
-        
-        return taskCell
+        return taskCellViewModel
     }
     
     func selectTask(at index: Int, from state: TaskState) {
@@ -91,18 +85,5 @@ final class TaskListViewModel: TaskViewModel {
     
     func count(of state: TaskState) -> Int {
         return tasks.filter { $0.state == state }.count
-    }
-}
-
-private extension Date {
-    static let dateFormatter: DateFormatter = {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .short
-        dateFormatter.locale = .current
-        return dateFormatter
-    }()
-    
-    var dateString: String {
-        return Self.dateFormatter.string(from: self)
     }
 }
