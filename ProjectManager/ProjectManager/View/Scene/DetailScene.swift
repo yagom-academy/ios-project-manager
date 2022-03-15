@@ -60,7 +60,7 @@ struct DetailScene: View {
                     Button {
                         if isEditingMode {
                             self.taskViewModel.updateTask(
-                                task: task,
+                                taskID: task.id,
                                 title: $title.wrappedValue,
                                 content: $content.wrappedValue,
                                 limitDate: $limitDate.wrappedValue

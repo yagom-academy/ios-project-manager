@@ -56,7 +56,7 @@ struct TaskListView: View {
                 }
             }
             .onDelete { indexSet in
-                self.taskViewModel.deleteTask(task: tasks[indexSet.first!])
+                self.taskViewModel.deleteTask(taskID: tasks[indexSet.first!].id)
             }
         }
     }

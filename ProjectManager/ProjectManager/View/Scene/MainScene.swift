@@ -34,7 +34,8 @@ struct MainScene: View {
 @available(iOS 15.0, *)
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        let viewModel = TaskViewModel()
+        let repository = TaskRepository()
+        let viewModel = TaskViewModel(taskRepository: repository)
         MainScene()
             .environmentObject(viewModel)
             .previewDevice(PreviewDevice(rawValue: "iPad Pro (12.9-inch)"))

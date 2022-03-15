@@ -14,12 +14,12 @@ struct TaskContextMenuView: View {
     
     var body: some View {
         Button {
-            self.taskViewModel.changeStatus(task: task, to: taskStatus.moveToStatus[0])
+            self.taskViewModel.changeStatus(taskID: task.id, to: taskStatus.moveToStatus[0])
         } label: {
             Text(taskStatus.moveToStatus[0].moveToText)
         }
         Button {
-            self.taskViewModel.changeStatus(task: task, to: taskStatus.moveToStatus[1])
+            self.taskViewModel.changeStatus(taskID: task.id, to: taskStatus.moveToStatus[1])
         } label: {
             Text(taskStatus.moveToStatus[1].moveToText)
         }

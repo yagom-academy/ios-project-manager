@@ -8,10 +8,14 @@
 import Foundation
 
 class TaskViewModel: ObservableObject {
-    private let enviroment = TaskEnvironment(taskRepository: TaskRepository())
-    
+    private var taskRepository: TaskRepository
     @Published var tasks: [Task]
     
+    init(taskRepository: TaskRepository) {
+        self.taskRepository = taskRepository
+        tasks = taskRepository.tasks.map { $0.toViewModel() }
+    }
+
     var todoTasks: [Task] {
         return tasks.filter { $0.status == .todo }
     }
@@ -24,29 +28,44 @@ class TaskViewModel: ObservableObject {
         return tasks.filter { $0.status == .done }
     }
     
-    init() {
-        tasks = enviroment.getTaskList()
+    func getTaskList() -> [Task] {
+        return taskRepository.tasks.map { $0.toViewModel() }
     }
     
     func createTask(title: String, content: String, limitDate: Date) {
         let task = Task(title: title, content: content, limitDate: limitDate, status: .todo)
-        enviroment.createTask(task)
-        tasks = enviroment.getTaskList()
+        let taskEntity = TaskEntity(from: task)
+        taskRepository.insert(taskEntity)
+        tasks = getTaskList()
     }
     
-    func updateTask(task: Task, title: String, content: String, limitDate: Date) {
-        task.title = title
-        task.content = content
-        task.limitDate = limitDate
-        enviroment.updateTask(task, title: title, content: content, limitDate: limitDate)
+    func updateTask(taskID: UUID, title: String, content: String, limitDate: Date) {
+        let taskEntity = taskRepository.tasks.filter { $0.id == taskID }.first
+        do {
+            try taskRepository.update(task: taskEntity, title: title, content: content, date: limitDate)
+        } catch {
+            print(error.localizedDescription)
+        }
+        tasks = getTaskList()
     }
     
-    func deleteTask(task: Task) {
-        enviroment.deleteTask(task)
-        tasks = enviroment.getTaskList()
+    func deleteTask(taskID: UUID) {
+        let taskEntity = taskRepository.tasks.filter { $0.id == taskID }.first
+        do {
+            try taskRepository.delete(task: taskEntity)
+        } catch {
+            print(error.localizedDescription)
+        }
+        tasks = getTaskList()
     }
     
-    func changeStatus(task: Task, to taskStatus: TaskStatus) {
-        task.status = taskStatus
+    func changeStatus(taskID: UUID, to taskStatus: TaskStatus) {
+        let taskEntity = taskRepository.tasks.filter { $0.id == taskID }.first
+        do {
+            try taskRepository.changeStatus(task: taskEntity, taskStatus)
+        } catch {
+            print(error.localizedDescription)
+        }
+        tasks = getTaskList()
     }
 }
