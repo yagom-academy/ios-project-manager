@@ -111,7 +111,8 @@ private extension MainViewController {
             tableView.tableHeaderView = self.headerViews[safe: index]
             tableView.tableHeaderView?.frame.size.height = Design.tableHeaderViewHeight
             tableView.rx.itemSelected
-                .subscribe(onNext: { tableView.deselectRow(at: $0, animated: true) })
+                .subscribe(onNext: { [weak tableView] in
+                    tableView?.deselectRow(at: $0, animated: true) })
                 .disposed(by: self.bag)
         }
 
@@ -143,7 +144,8 @@ private extension MainViewController {
                 .map { _ in },
             tableViewLongPressed: Observable.merge(self.longPressGestureRecognizers.enumerated().map { index, gesture in
                 gesture.rx.event
-                    .compactMap(self.schedule(from:))
+                    .compactMap({ [weak self] in
+                        try self?.schedule(from: $0)})
                     .map { ($0.0, $0.1, index) }
             })
             ,
@@ -151,9 +153,11 @@ private extension MainViewController {
             cellDelete: self.tableViews.map { $0.rx.modelDeleted(Schedule.self).map { $0.id } },
             addButtonDidTap: self.addBarButton.rx.tap.asObservable(),
             popoverTopButtonDidTap: self.popoverView.topButton.rx.tap.asObservable()
-                .do(onNext: self.dismissPopover),
+                .do(onNext: { [weak self] in
+                    self?.dismissPopover() }),
             popoverBottomButtonDidTap: self.popoverView.bottomButton.rx.tap.asObservable()
-                .do(onNext: self.dismissPopover)
+                .do(onNext: { [weak self] in
+                    self?.dismissPopover() })
         )
     }
 
@@ -161,7 +165,8 @@ private extension MainViewController {
         output.scheduleLists.enumerated().forEach { index, observable in
             guard let tableView = self.tableViews[safe: index] else { return }
             observable
-                .do(onNext: { self.setHeaderViewButtonTitle(for: $0.count, at: index) })
+                .do(onNext: { [weak self] in
+                    self?.setHeaderViewButtonTitle(for: $0.count, at: index) })
                 .asDriver(onErrorJustReturn: [])
                 .drive(
                     tableView.rx.items(
@@ -175,12 +180,12 @@ private extension MainViewController {
         }
 
         output.popoverShouldPresent
-                .subscribe(onNext: { indexPath, index in
-                    guard let tableView = self.tableViews[safe: index] else { return }
+                .subscribe(onNext: { [weak self] indexPath, index in
+                    guard let tableView = self?.tableViews[safe: index] else { return }
                     guard let cell = tableView.cellForRow(at: indexPath) else {
                         return
                     }
-                    self.presentPopover(at: cell)
+                    self?.presentPopover(at: cell)
                 })
                 .disposed(by: self.bag)
 
