@@ -29,7 +29,6 @@ extension TaskManager: FirebaseTaskManagable {
     
     func createFirebaseTask(_ task: Task) -> AnyPublisher<Void, Error> {
         Future<Void, Error> { promise in
-            self.taskList.append(task)
             let entityTask = self.convertEntityTask(from: task)
             self.taskListRepository.createEntityTask(entityTask: entityTask) {
                 promise(.success(()))

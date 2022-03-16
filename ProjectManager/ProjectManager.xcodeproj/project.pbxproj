@@ -105,9 +105,9 @@
 			isa = PBXGroup;
 			children = (
 				2570E6D627D225BB002984D2 /* TaskManager.swift */,
+				2538C38227E1B75C00ECDFF8 /* NetworkCheckManager.swift */,
 				25F993EB27D8A1B7007F5975 /* FirebaseTaskManagable.swift */,
 				2538C38627E217B000ECDFF8 /* RealmTaskManagable.swift */,
-				2538C38227E1B75C00ECDFF8 /* NetworkCheckManager.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
