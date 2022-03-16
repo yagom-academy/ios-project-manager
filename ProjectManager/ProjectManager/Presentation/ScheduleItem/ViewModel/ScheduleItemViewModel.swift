@@ -91,14 +91,15 @@ private extension ScheduleItemViewModel {
 
     func onLeftBarButtonDidTap(_ input: Observable<Void>) -> Disposable {
         return input
-            .subscribe(onNext: { _ in
-                switch self.mode.value {
+            .subscribe(onNext: { [weak self] _ in
+                guard let mode = self?.mode.value else { return }
+                switch mode {
                 case .detail:
-                    self.onLeftBarButtonDidTapWhenDetail()
+                    self?.onLeftBarButtonDidTapWhenDetail()
                 case .edit:
-                    self.dismiss()
+                    self?.dismiss()
                 case .create:
-                    self.onLeftBarButtonDidTapWhenCreate()
+                    self?.onLeftBarButtonDidTapWhenCreate()
                 }
             })
     }
@@ -118,14 +119,15 @@ private extension ScheduleItemViewModel {
 
     func onRightBarButtonDidTap(_ input: Observable<Void>) -> Disposable {
         return input
-            .subscribe(onNext: { _ in
-                switch self.mode.value {
+            .subscribe(onNext: { [weak self] _ in
+                guard let mode = self?.mode.value else { return }
+                switch mode {
                 case .detail:
-                    self.dismiss()
+                    self?.dismiss()
                 case .edit:
-                    self.onRightBarButtonDidTapWhenEditMode()
+                    self?.onRightBarButtonDidTapWhenEditMode()
                 case .create:
-                    self.onRightBarButtonDidTapWhenCreateMode()
+                    self?.onRightBarButtonDidTapWhenCreateMode()
                 }
             })
     }
@@ -188,25 +190,25 @@ private extension ScheduleItemViewModel {
     }
 
     func scheduleTitleText() -> Driver<String> {
-        return  self.useCase.currentSchedule
+        return self.useCase.currentSchedule
             .compactMap { $0?.title }
             .asDriver(onErrorJustReturn: Name.scheduleTitleTextOnError)
     }
 
     func scheduleDate() -> Driver<Date> {
-        return  self.useCase.currentSchedule
+        return self.useCase.currentSchedule
             .compactMap { $0?.dueDate }
             .asDriver(onErrorJustReturn: Date())
     }
 
     func scheduleBodyText() -> Driver<String> {
-        return  self.useCase.currentSchedule
+        return self.useCase.currentSchedule
             .compactMap { $0?.body }
             .asDriver(onErrorJustReturn: Name.scheduleBodyTextOnError)
     }
 
     func scheduleProgress() -> Driver<String> {
-        return  self.useCase.currentSchedule
+        return self.useCase.currentSchedule
             .compactMap { $0?.progress.description }
             .asDriver(onErrorJustReturn: Progress.todo.description)
     }
