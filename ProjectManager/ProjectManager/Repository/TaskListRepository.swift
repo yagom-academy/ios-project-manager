@@ -13,7 +13,7 @@ class TaskListRepository {
     var ref: DocumentReference?
     let store = Firestore.firestore()
     
-    func createEntityTask(entityTask: EntityTask, complition: @escaping () -> Void) {
+    func createEntityTask(entityTask: FirebaseEntityTask, complition: @escaping () -> Void) {
         let createData: [String: Any] = [
             Contant.id: entityTask.id,
             Contant.title: entityTask.title,
@@ -34,8 +34,8 @@ class TaskListRepository {
             }
     }
     
-    func fetchEntityTask(complition: @escaping ([EntityTask]) -> Void) {
-        var entityTaskList = [EntityTask]()
+    func fetchEntityTask(complition: @escaping ([FirebaseEntityTask]) -> Void) {
+        var entityTaskList = [FirebaseEntityTask]()
         store
             .collection(Contant.collectionName)
             .getDocuments { data, error in
@@ -51,7 +51,7 @@ class TaskListRepository {
                         let description = document.data()[Contant.desc] as? String ?? ""
                         let deadline = document.data()[Contant.deadline] as? TimeInterval ?? 0
                         let progressStatus = document.data()[Contant.status] as? String ?? ""
-                        let entityTask = EntityTask(
+                        let entityTask = FirebaseEntityTask(
                             id: id,
                             title: title,
                             description: description,

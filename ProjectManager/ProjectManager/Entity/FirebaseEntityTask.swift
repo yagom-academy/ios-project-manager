@@ -1,6 +1,6 @@
 import Foundation
 
-struct EntityTask {
+struct FirebaseEntityTask {
     var id: String
     var title: String
     var description: String

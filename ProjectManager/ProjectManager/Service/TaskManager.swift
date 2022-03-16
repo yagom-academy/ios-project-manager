@@ -106,7 +106,6 @@ extension TaskManager {
     func deleteRealmTask(_ id: String) {
         realmTaskListRepository.deleteTask(id: id)
         fetchRealmTaskList()
-        
     }
 }
 
@@ -133,8 +132,8 @@ extension TaskManager {
         return realmTask
     }
     
-    private func convertEntityTask(from task: Task) -> EntityTask {
-        return EntityTask(
+    private func convertEntityTask(from task: Task) -> FirebaseEntityTask {
+        return FirebaseEntityTask(
             id: task.id,
             title: task.title,
             description: task.description,
@@ -143,7 +142,7 @@ extension TaskManager {
         )
     }
     
-    private func convertTask(from entityTask: EntityTask) -> Task {
+    private func convertTask(from entityTask: FirebaseEntityTask) -> Task {
         return Task(
             id: entityTask.id,
             title: entityTask.title,
