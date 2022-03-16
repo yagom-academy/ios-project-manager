@@ -110,6 +110,7 @@ class MemoryUseCaseTests: XCTestCase {
         // when
         let result = try? sut?.fetch().toBlocking(timeout: 1).first()
         
+        // then
         XCTAssertTrue(result?.count == 2)
     }
     
@@ -123,6 +124,54 @@ class MemoryUseCaseTests: XCTestCase {
         // when
         let result = try? sut?.fetch(id: project2.id).toBlocking(timeout: 1).first()
         
+        // then
         XCTAssertTrue(result?.id == project2.id)
+    }
+    
+    func test_프로젝트의_상태를_done으로_바꾸기성공() {
+        // given
+        let project = Project(title: "제목", description: "상세 내용", date: Date())
+        sut?.create(project)
+        
+        // when
+        sut?.changedState(project, state: .done)
+        let result = try? sut?.fetch(id: project.id).toBlocking(timeout: 1).first()
+        
+        // then
+        XCTAssertTrue(result?.status == .done)
+    }
+    
+    func test_프로젝트의_상태_변경하기_실패() {
+        // given
+        let project = Project(title: "제목", description: "상세 내용", date: Date())
+        
+        // when
+        sut?.changedState(project, state: .done)
+        let result = try? sut?.fetch(id: project.id).toBlocking(timeout: 1).first()
+        
+        // then
+        XCTAssertTrue(result?.status == nil)
+    }
+    
+    func test_1000자_미만일경우_false를_반환한다() {
+        // giver
+        let text = "1234567889"
+        
+        // when
+        let result = sut!.isNotValidate(text)
+        
+        // then
+        XCTAssertFalse(result)
+    }
+    
+    func test_1000자_이상일경우_true를_반환한다() {
+        // giver
+        let text = "123456788912345678891234567889123456788912345678891234567889123456788912345678891234567889123456788912345678891234567889123456788912345678891234567889123456788912345678891234567889123456788912345678891234567889123456788912345678891234567889123456788912345678891234567889123456788912345678891234567889123456788912345678891234567889123456788912345678891234567889123456788912345678891234567889123456788912345678891234567889123456788912345678891234567889123456788912345678891234567889123456788912345678891234567889123456788912345678891234567889123456788912345678891234567889123456788912345678891234567889123456788912345678891234567889123456788912345678891234567889123456788912345678891234567889123456788912345678891234567889123456788912345678891234567889123456788912345678891234567889123456788912345678891234567889123456788912345678891234567889123456788912345678891234567889123456788912345678891234567889123456788912345678891234567889123456788912345678891234567889123456788912345678891234567889123456788912345678891234567889123456788912345678891234567889123456788912345678891234567889123456788912345678891234567889123456788912345678891234567889123456788912345678891234567889123456788912345678891234567889"
+        
+        // when
+        let result = sut!.isNotValidate(text)
+        
+        // then
+        XCTAssertTrue(result)
     }
 }
