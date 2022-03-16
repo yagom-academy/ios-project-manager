@@ -12,7 +12,6 @@ class TaskListViewModel: ObservableObject {
     
     init () {
         synchronizeFirebaseWithRealm()
-        //fetchFirebase()
     }
     
     private func reload() {

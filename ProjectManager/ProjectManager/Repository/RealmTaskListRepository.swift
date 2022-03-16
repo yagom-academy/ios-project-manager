@@ -3,6 +3,17 @@ import RealmSwift
 
 class RealmTaskListRepository {
     
+    func syncTask(_ task: RealmEntityTask) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                realm.add(task, update: .modified)
+            }
+        } catch let error {
+            print(error)
+        }
+    }
+    
     func createEntityTask(task: RealmEntityTask) {
         do {
             let realm = try Realm()
@@ -53,17 +64,6 @@ class RealmTaskListRepository {
                 .filter { $0.id == id }
             try realm.write {
                 task.first?.progressStatus = progressStatus.rawValue
-            }
-        } catch let error {
-            print(error)
-        }
-    }
-    
-    func syncTask(_ task: RealmEntityTask) {
-        do {
-            let realm = try Realm()
-            try realm.write {
-                realm.add(task, update: .modified)
             }
         } catch let error {
             print(error)

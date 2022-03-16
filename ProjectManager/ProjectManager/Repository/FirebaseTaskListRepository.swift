@@ -13,6 +13,26 @@ class FirebaseTaskListRepository {
     var ref: DocumentReference?
     let store = Firestore.firestore()
     
+    
+    func syncTask(_ entityTask: FirebaseEntityTask) {
+        let createData: [String: Any] = [
+            Contant.id: entityTask.id,
+            Contant.title: entityTask.title,
+            Contant.desc: entityTask.description,
+            Contant.deadline: entityTask.deadline,
+            Contant.status: entityTask.progressStatus
+        ]
+        
+        store
+            .collection(Contant.collectionName)
+            .document(entityTask.id)
+            .setData(createData) { error in
+                if let error = error {
+                    print("Error adding document: \(String(describing: error))")
+                }
+            }
+    }
+    
     func createEntityTask(entityTask: FirebaseEntityTask, complition: @escaping () -> Void) {
         let createData: [String: Any] = [
             Contant.id: entityTask.id,
@@ -112,25 +132,6 @@ class FirebaseTaskListRepository {
                     return
                 }
                 complition()
-            }
-    }
-    
-    func syncTask(_ entityTask: FirebaseEntityTask) {
-        let createData: [String: Any] = [
-            Contant.id: entityTask.id,
-            Contant.title: entityTask.title,
-            Contant.desc: entityTask.description,
-            Contant.deadline: entityTask.deadline,
-            Contant.status: entityTask.progressStatus
-        ]
-        
-        store
-            .collection(Contant.collectionName)
-            .document(entityTask.id)
-            .setData(createData) { error in
-                if let error = error {
-                    print("Error adding document: \(String(describing: error))")
-                }
             }
     }
     

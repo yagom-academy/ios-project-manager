@@ -9,7 +9,10 @@ class TaskManager {
     func taskList(at status: Task.ProgressStatus) -> [Task] {
         return taskList.filter { $0.progressStatus == status }
     }
-    
+}
+
+// MARK: - Firebase CRUD Method
+extension TaskManager: FirebaseTaskManagable {
     func synchronizeFirebaseToRealm() -> AnyPublisher<Void, Error> {
         Future<Void, Error> { promise in
             self.firebaseTaskListRepository.fetchEntityTask { entityTaskList in
@@ -23,10 +26,8 @@ class TaskManager {
         }
         .eraseToAnyPublisher()
     }
-}
 
-// MARK: - Firebase CRUD Method
-extension TaskManager: FirebaseTaskManagable {
+    
     func fetchFirebaseTaskList() -> AnyPublisher<[Task], Error> {
         Future<[Task], Error> { promise in
             self.firebaseTaskListRepository.fetchEntityTask { entityTaskList in
