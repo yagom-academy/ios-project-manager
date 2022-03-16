@@ -38,7 +38,6 @@ final class TaskListViewController: UIViewController {
     }
     
     private func setupHeaderViews() {
-        // 이런 형태의 의존성 주입 괜찮나?
         let todoTaskHeaderView = TaskTableHeaderView(reuseIdentifier: TaskTableHeaderView.reuseIdentifier,
                                                      taskCountObservable: taskListViewModel.todoTasksCount,
                                                      processStatus: .todo)
@@ -56,9 +55,6 @@ final class TaskListViewController: UIViewController {
     
     private func setupBindings() {
         setupTableViewsBinding()
-        
-        // TODO: todoTableView.rx.didSelectItem 활용해보기 -> 어려움
-        // TODO: todoTableView.rx.tableHeaderView 활용해보기 -> 어려움
     }
     
     private func setupTableViewsBinding() {
@@ -93,15 +89,13 @@ extension TaskListViewController {
     @IBAction private func touchUpAddButton(_ sender: UIBarButtonItem) {
         let taskDetailController = ViewControllerFactory.createViewController(of: .newTaskDetail(viewModel: self.taskListViewModel))
         taskDetailController.modalPresentationStyle = .popover
-        
         self.present(UINavigationController(rootViewController: taskDetailController), animated: true)
     }
 }
 
 // MARK: - TableView Delegate
-extension TaskListViewController: UITableViewDelegate { // 쓸 수 있는건가?
-//     TODO: Cell을 탭하면 Popover 표시
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) { // editTaskDetail 띄우기, tableView.rx.itemSelected 활용하려고 했는데 어려움
+extension TaskListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let tableView = tableView as? TaskTableView,
               let selectedProcessStatus = tableView.processStatus else {
                   print(TableViewError.invalidTableView.description)
@@ -109,7 +103,6 @@ extension TaskListViewController: UITableViewDelegate { // 쓸 수 있는건가?
               }
 
         let taskDetailController = taskListViewModel.didSelectRow(at: indexPath.row, inTableViewOf: selectedProcessStatus)
-        
         self.present(UINavigationController(rootViewController: taskDetailController), animated: true)
     }
 }

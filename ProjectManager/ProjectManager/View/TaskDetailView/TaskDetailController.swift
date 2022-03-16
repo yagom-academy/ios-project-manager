@@ -54,10 +54,10 @@ class TaskDetailController: UIViewController {
         let newTask = createTaskWithUserInput()
         
         switch taskManagerAction {
-        case .add: // 완료 = 추가
+        case .add: // add
             taskListViewModel?.create(task: newTask)
             dismiss(animated: true, completion: nil)
-        case .edit: // 완료 = 수정 취소
+        case .edit: // cancel
             dismiss(animated: true, completion: nil)
         case .none:
             print(TaskManagerError.invalidTaskManagerAction)

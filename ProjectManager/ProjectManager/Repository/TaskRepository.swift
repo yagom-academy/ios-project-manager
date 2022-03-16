@@ -29,7 +29,7 @@ final class TaskRepository: TaskRepositoryProtocol {
         
         // Dummy Data
         self.entireTasks = [
-                                Task(title: "TODO-1", body: "Rx", dueDate: Date()),
+                                Task(title: "TODO-1", body: "Rx를 곁들인", dueDate: Date()),
                                 Task(title: "TODO-2", body: "RxSwift", dueDate: Date()),
                                 Task(title: "DOING-1", body: "RxCocoa", dueDate: Date(), processStatus: .doing),
                                 Task(title: "DONE-1", body: "MVVM", dueDate: Date(), processStatus: .done),

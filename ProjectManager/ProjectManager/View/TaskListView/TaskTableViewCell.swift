@@ -46,7 +46,6 @@ final class TaskTableViewCell: UITableViewCell {
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(didLongPressed))
         longPressRecognizer.numberOfTouchesRequired = 1
         longPressRecognizer.minimumPressDuration = 0.5
-        
         contentView.addGestureRecognizer(longPressRecognizer)
     }
     
@@ -66,7 +65,7 @@ final class TaskTableViewCell: UITableViewCell {
         let processStatusChangeOptions = currentProcessStatus.processStatusChangeOption
         let titleOfOptions = processStatusChangeOptions
             .map { "Move To \($0.description)"  }
-        // TODO: Handler 구현 (ViewModel의 edit 메서드에 접근해야 하는데...)
+        
         let option1Action = UIAlertAction(title: titleOfOptions[safe: 0], style: .default) { [weak self] _ in
             self?.taskListViewModel.edit(task: (self?.task!)!, newProcessStatus: processStatusChangeOptions[safe: 0]!)
         }
@@ -77,7 +76,6 @@ final class TaskTableViewCell: UITableViewCell {
         let alert = AlertFactory().createAlert(style: .actionSheet, actions: option1Action, option2Action)
         let alertPopover = alert.popoverPresentationController
         alertPopover?.sourceView = self
-
         popoverPresenter.present(alert, animated: true)
     }
 }

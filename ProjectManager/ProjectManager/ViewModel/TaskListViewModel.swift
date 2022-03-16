@@ -16,8 +16,6 @@ protocol TaskListViewModelProtocol {
     func delete(task: Task)
     func update(task: Task, to newTask: Task)
     
-//    func numberOfRowsInSection(for tableView: TaskTableView) -> Observable<Int>
-//    func titleForHeaderInSection(for tableView: TaskTableView) -> Observable<String>
     func edit(task: Task, newTitle: String, newBody: String, newDueDate: Date)
     func edit(task: Task, newProcessStatus: ProcessStatus)
     func didSelectRow(at row: Int, inTableViewOf: ProcessStatus) -> UIViewController
@@ -109,14 +107,13 @@ final class TaskListViewModel: TaskListViewModelProtocol {
         }
     }
     
-    // MARK: - TaskEditView
-    // TODO: Popover에서 Title/Body/DueData Edit 기능 구현
+    // MARK: - TaskDetailView
     func edit(task: Task, newTitle: String, newBody: String, newDueDate: Date) {
         let newTask = Task(id: task.id, title: newTitle, body: newBody, dueDate: newDueDate, processStatus: task.processStatus)
         update(task: task, to: newTask)
     }
     
-    // TODO: Popover에서 ProcessStatus Edit 기능 구현
+    // MARK: - Popover
     func edit(task: Task, newProcessStatus: ProcessStatus) {
         guard task.processStatus != newProcessStatus else {
             print(TaskManagerError.unchangedProcessStatus)
