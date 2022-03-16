@@ -12,14 +12,14 @@ struct TaskEditingView: View {
     let selectedTask: Task
     
     @EnvironmentObject private var taskManager: TaskManager
-    @Binding var isTaskEditingViewShowing: Bool
+    @Binding var isTaskEditing: Bool
     @State private var newTaskTitle: String
     @State private var newTaskDueDate: Date
     @State private var newTaskBody: String
     
     init(selectedTask: Task, isTaskEditingViewShowing: Binding<Bool>) {
         self.selectedTask = selectedTask
-        self._isTaskEditingViewShowing = isTaskEditingViewShowing
+        self._isTaskEditing = isTaskEditingViewShowing
         _newTaskTitle = State(wrappedValue: selectedTask.title)
         _newTaskDueDate = State(wrappedValue: selectedTask.dueDate)
         _newTaskBody = State(wrappedValue: selectedTask.body)
@@ -50,7 +50,7 @@ struct TaskEditingView: View {
                             taskManager.objectWillChange.send()
                             try? taskManager.editTask(target: selectedTask, title: newTaskTitle, body: newTaskBody, dueDate: newTaskDueDate)
                         }
-                        isTaskEditingViewShowing.toggle()
+                        isTaskEditing.toggle()
                     } label: {
                         Text("Edit")
                     }
@@ -58,7 +58,7 @@ struct TaskEditingView: View {
                 }
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button {
-                        isTaskEditingViewShowing.toggle()
+                        isTaskEditing.toggle()
                     } label: {
                         Text("Cancel")
                     }

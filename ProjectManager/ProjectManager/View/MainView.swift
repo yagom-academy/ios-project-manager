@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MainView: View {
     
-    @State private var isTaskCreatingViewShowing: Bool = false
+    @State private var isTaskCreating: Bool = false
     
     var body: some View {
         NavigationView {
@@ -24,14 +24,14 @@ struct MainView: View {
             .edgesIgnoringSafeArea(.bottom)
             .toolbar {
                 Button {
-                    isTaskCreatingViewShowing.toggle()
+                    isTaskCreating.toggle()
                 } label: {
                     Image(systemName: "plus")
                         .font(.title2)
                         .foregroundColor(.blue)
                 }
-                .sheet(isPresented: $isTaskCreatingViewShowing) {
-                    TaskCreatingView(isTaskCreatingViewShowing: $isTaskCreatingViewShowing)
+                .sheet(isPresented: $isTaskCreating) {
+                    TaskCreatingView(isTaskCreating: $isTaskCreating)
                 }
             }
         }

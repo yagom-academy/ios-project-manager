@@ -11,7 +11,7 @@ struct TaskListRowView: View {
     
     @EnvironmentObject private var taskManager: TaskManager
     @ObservedObject var task: Task
-    @State private var isTaskEditingViewShowing: Bool = false
+    @State private var isTaskEditing: Bool = false
     
     var body: some View {
         HStack {
@@ -34,10 +34,10 @@ struct TaskListRowView: View {
         .padding(.all, 5)
         .contentShape(Rectangle())
         .onTapGesture {
-            isTaskEditingViewShowing.toggle()
+            isTaskEditing.toggle()
         }
-        .sheet(isPresented: $isTaskEditingViewShowing) {
-            TaskEditingView(selectedTask: task, isTaskEditingViewShowing: $isTaskEditingViewShowing)
+        .sheet(isPresented: $isTaskEditing) {
+            TaskEditingView(selectedTask: task, isTaskEditingViewShowing: $isTaskEditing)
         }
         .contextMenu {
             ForEach(TaskStatus.allCases, id: \.self) { status in

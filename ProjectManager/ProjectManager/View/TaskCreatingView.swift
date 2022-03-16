@@ -10,7 +10,7 @@ import SwiftUI
 struct TaskCreatingView: View {
     
     @EnvironmentObject private var taskManager: TaskManager
-    @Binding var isTaskCreatingViewShowing: Bool
+    @Binding var isTaskCreating: Bool
     @State private var newTaskTitle: String = ""
     @State private var newTaskDueDate: Date = Date()
     @State private var newTaskBody: String = ""
@@ -39,7 +39,7 @@ struct TaskCreatingView: View {
                         withAnimation {
                             taskManager.createTask(title: newTaskTitle, body: newTaskBody, dueDate: newTaskDueDate)
                         }
-                        isTaskCreatingViewShowing.toggle()
+                        isTaskCreating.toggle()
                     } label: {
                         Text("Done")
                     }
@@ -47,7 +47,7 @@ struct TaskCreatingView: View {
                 }
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button {
-                        isTaskCreatingViewShowing.toggle()
+                        isTaskCreating.toggle()
                     } label: {
                         Text("Cancel")
                     }
