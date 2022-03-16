@@ -2,12 +2,26 @@ import Foundation
 import Combine
 
 class TaskManager {
-    let taskListRepository = TaskListRepository()
+    let taskListRepository = FirebaseTaskListRepository()
     let realmTaskListRepository = RealmTaskListRepository()
     var taskList = [Task]()
     
     func taskList(at status: Task.ProgressStatus) -> [Task] {
         return taskList.filter { $0.progressStatus == status }
+    }
+    
+    func synchronizeFirebaseWithRealm() -> AnyPublisher<Void, Error> {
+        Future<Void, Error> { promise in
+            self.taskListRepository.fetchEntityTask { entityTaskList in
+                entityTaskList.forEach { entityTask in
+                    let task = self.convertTask(from: entityTask)
+                    let realmTask = self.convertRealmEntityTask(from: task)
+                    self.realmTaskListRepository.syncTask(realmTask)
+                }
+                promise(.success(()))
+            }
+        }
+        .eraseToAnyPublisher()
     }
 }
 

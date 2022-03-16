@@ -59,6 +59,17 @@ class RealmTaskListRepository {
         }
     }
     
+    func syncTask(_ task: RealmEntityTask) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                realm.add(task, update: .modified)
+            }
+        } catch let error {
+            print(error)
+        }
+    }
+    
     func deleteTask(id: String) {
         do {
             let realm = try Realm()

@@ -1,7 +1,7 @@
 import Foundation
 import FirebaseFirestore
 
-class TaskListRepository {
+class FirebaseTaskListRepository {
     private enum Contant {
         static let collectionName = "ProjectManagerTaskList"
         static let id = "id"

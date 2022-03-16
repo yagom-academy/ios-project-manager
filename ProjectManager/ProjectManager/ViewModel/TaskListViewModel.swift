@@ -11,13 +11,28 @@ class TaskListViewModel: ObservableObject {
     var cancellables = Set<AnyCancellable>()
     
     init () {
-        fetchFirebase()
+        synchronizeFirebaseWithRealm()
     }
     
     private func reload() {
         self.todoTaskList = self.manager.taskList(at: .todo)
         self.doingTaskList = self.manager.taskList(at: .doing)
         self.doneTaskList = self.manager.taskList(at: .done)
+    }
+    
+    func synchronizeFirebaseWithRealm() {
+        manager.synchronizeFirebaseWithRealm()
+            .sink { complition in
+                switch complition {
+                case .failure(let error):
+                    print(error)
+                case .finished:
+                    return
+                }
+            } receiveValue: {
+                self.fetchRealm()
+            }
+            .store(in: &cancellables)
     }
     
     func fetchFirebase() {
@@ -52,7 +67,7 @@ class TaskListViewModel: ObservableObject {
                 case .finished:
                     return
                 }
-            } receiveValue: { _ in
+            } receiveValue: {
                 self.reload()
             }
             .store(in: &cancellables)
@@ -68,7 +83,7 @@ class TaskListViewModel: ObservableObject {
                 case .finished:
                     return
                 }
-            } receiveValue: { _ in
+            } receiveValue: {
                 self.reload()
             }
             .store(in: &cancellables)
@@ -84,7 +99,7 @@ class TaskListViewModel: ObservableObject {
                 case .finished:
                     return
                 }
-            } receiveValue: { _ in
+            } receiveValue: {
                 self.reload()
             }
             .store(in: &cancellables)
@@ -100,7 +115,7 @@ class TaskListViewModel: ObservableObject {
                 case .finished:
                     return
                 }
-            } receiveValue: { _ in
+            } receiveValue: {
                 self.reload()
             }
             .store(in: &cancellables)

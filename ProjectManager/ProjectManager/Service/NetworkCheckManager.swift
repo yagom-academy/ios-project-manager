@@ -4,17 +4,9 @@ import Network
 class NetworkCheckManager: ObservableObject {
     @Published var isConnected: Bool = true
     @Published var isNotConnected: Bool = false
-    @Published var connectionType: ConnectionType = .unknown
     
     let monitor: NWPathMonitor
     let queue = DispatchQueue(label: "monitor")
-    
-    enum ConnectionType {
-        case wifi
-        case cellular
-        case ethernet
-        case unknown
-    }
     
     init() {
         monitor = NWPathMonitor()
