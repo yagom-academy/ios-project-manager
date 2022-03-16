@@ -6,28 +6,27 @@
 //
 
 import Foundation
-import Metal
 
-final class TaskRemoteDataSource<Element>: RepositoryDataSource {
+final class TaskRemoteDataSource: TaskRepositoryDataSource {
     
-    var fetchAllRecords: [Element] {
+    var fetchAllRecords: [Task] {
         []
     }
     
-    func fetch(_ condition: ((Element) -> Bool)) throws -> [Element] {
+    func fetch(_ condition: ((Task) -> Bool)) throws -> [Task] {
         print(#function)
         return []
     }
     
-    func create(_ object: Element) throws {
+    func create(_ object: Task) throws {
         print(#function)
     }
     
-    func delete(_ object: Element) throws {
+    func delete(_ object: Task) throws {
         print(#function)
     }
     
-    func update(_ object: Element) throws {
+    func update(_ object: Task) throws {
         print(#function)
     }
     

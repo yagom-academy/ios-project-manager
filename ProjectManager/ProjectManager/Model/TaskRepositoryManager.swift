@@ -9,8 +9,8 @@ import Foundation
 
 struct TaskRepositoryManager: TaskManager {
     
-    let localRepository = TaskLocalDataSource<Task>()
-    let remoteRepository = TaskRemoteDataSource<Task>()
+    private let localRepository = TaskLocalDataSource()
+    private let remoteRepository = TaskRemoteDataSource()
     
     var todoTasks: [Task] {
         (try? localRepository.fetch { $0.status == .todo }) ?? []
@@ -36,10 +36,10 @@ struct TaskRepositoryManager: TaskManager {
         try localRepository.update(newTask)
     }
     
-    func sync() {
-        try? remoteRepository.removeAllRecords()
+    func sync() throws {
+        try remoteRepository.removeAllRecords()
         for record in localRepository.fetchAllRecords {
-            try? remoteRepository.create(record)
+            try remoteRepository.create(record)
         }
     }
     
