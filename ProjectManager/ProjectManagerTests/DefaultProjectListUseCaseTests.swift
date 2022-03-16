@@ -141,7 +141,7 @@ class MemoryUseCaseTests: XCTestCase {
         XCTAssertTrue(result?.status == .done)
     }
     
-    func test_프로젝트의_상태_변경하기_실패() {
+    func test_존재하지않는_프로젝트의_상태를_변경하면_실패한다() {
         // given
         let project = Project(title: "제목", description: "상세 내용", date: Date())
         
