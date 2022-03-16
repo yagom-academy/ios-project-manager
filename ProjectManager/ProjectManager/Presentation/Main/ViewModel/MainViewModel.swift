@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 import RxRelay
-import RxCocoa
+//import RxCocoa
 
 private enum Name {
     static let progressText = "Move to "
@@ -57,27 +57,27 @@ final class MainViewModel {
         self.onAddButtonDidTap(input.addButtonDidTap)
             .disposed(by: disposeBag)
 
-        input.cellDidTap.map(self.onCellDidTap(_:))
-            .forEach { $0.disposed(by: disposeBag) }
+        input.cellDidTap.map({ [weak self] in self?.onCellDidTap($0) })
+            .forEach { $0?.disposed(by: disposeBag) }
 
-        input.cellDelete.map(self.onCellDelete(_:))
-            .forEach { $0.disposed(by: disposeBag) }
+        input.cellDelete.map({ [weak self] in self?.onCellDelete($0) })
+            .forEach { $0?.disposed(by: disposeBag) }
 
         input.popoverTopButtonDidTap
             .withLatestFrom(input.tableViewLongPressed)
             .compactMap { $0 }
-            .subscribe(onNext: { schedule, _, _ in
+            .subscribe(onNext: { [weak self] schedule, _, _ in
                 let targetProgress = Progress.allCases.filter { $0 != schedule.progress }.first
-                self.useCase.changeProgress(of: schedule, progress: targetProgress)
+                self?.useCase.changeProgress(of: schedule, progress: targetProgress)
             })
             .disposed(by: disposeBag)
 
         input.popoverBottomButtonDidTap
             .withLatestFrom(input.tableViewLongPressed)
             .compactMap { $0 }
-            .subscribe(onNext: { schedule, _, _ in
+            .subscribe(onNext: { [weak self] schedule, _, _ in
                 let targetProgress = Progress.allCases.filter { $0 != schedule.progress }.last
-                self.useCase.changeProgress(of: schedule, progress: targetProgress)
+                self?.useCase.changeProgress(of: schedule, progress: targetProgress)
             })
             .disposed(by: disposeBag)
 
@@ -89,30 +89,32 @@ private extension MainViewModel {
 
     func onViewWillAppear(_ input: Observable<Void>) -> Disposable {
         return input
-            .subscribe(onNext: self.useCase.fetch)
+            .subscribe(onNext: { [weak self] in self?.useCase.fetch() })
     }
 
     func onAddButtonDidTap(_ input: Observable<Void>) -> Disposable {
         return input
-            .subscribe(onNext: {
-                self.coordinator.presentScheduleItemViewController(mode: .create)
+            .subscribe(onNext: { [weak self] in
+                self?.coordinator.presentScheduleItemViewController(mode: .create)
             })
     }
 
     func onCellDidTap(_ input: Observable<Schedule>) -> Disposable {
         return input
-            .do(onNext: { _ in self.coordinator.presentScheduleItemViewController(mode: .detail) })
+            .do(onNext: { [weak self] _ in
+                self?.coordinator.presentScheduleItemViewController(mode: .detail) })
             .bind(to: self.useCase.currentSchedule)
     }
 
     func onCellDelete(_ input: Observable<UUID>) -> Disposable {
         return input
-            .subscribe(onNext: self.useCase.delete(_:))
+            .subscribe(onNext: { [weak self] in self?.useCase.delete($0) })
     }
 
     func bindOutput(input: Input) -> Output {
         let scheduleLists = Progress.allCases
-            .map { progress in self.useCase.schedules
+            .compactMap { [weak self] progress in
+                self?.useCase.schedules
                 .map { $0.filter { $0.progress == progress } }
             }
 
