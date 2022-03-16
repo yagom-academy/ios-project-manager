@@ -13,27 +13,27 @@ struct TaskRepositoryManager: TaskManager {
     let remoteRepository = TaskRemoteDataSource<Task>()
     
     var todoTasks: [Task] {
-        localRepository.
+        (try? localRepository.fetch { $0.status == .todo }) ?? []
     }
     
     var doingTasks: [Task] {
-        []
+        (try? localRepository.fetch { $0.status == .doing }) ?? []
     }
     
     var doneTasks: [Task] {
-        []
+        (try? localRepository.fetch { $0.status == .done }) ?? []
     }
     
     mutating func create(_ task: Task) throws {
-        print(#function)
+        try localRepository.create(task)
     }
     
     mutating func delete(_ task: Task) throws {
-        print(#function)
+        try localRepository.delete(task)
     }
     
     mutating func update(_ oldTask: Task, to newTask: Task) throws {
-        print(#function)
+        try localRepository.update(newTask)
     }
     
     func sync() {
