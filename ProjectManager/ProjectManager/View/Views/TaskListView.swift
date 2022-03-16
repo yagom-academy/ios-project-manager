@@ -48,10 +48,28 @@ struct TaskListView: View {
                         .sheet(isPresented: $isShowDetailScene, onDismiss: nil) {
                             DetailScene(task: task, showDetailScene: $isShowDetailScene)
                         }
-                        .contextMenu {
-                            TaskContextMenuView(task: task, taskStatus: taskStatus)
-                        }
-                        .environmentObject(taskViewModel)
+                        .onLongPressGesture(minimumDuration: 0.5, maximumDistance: 10.0, perform: {
+                            isShowPopover.toggle()
+                        }, onPressingChanged: nil)
+                        .popover(
+                            isPresented: $isShowPopover,
+                            attachmentAnchor: .rect(Anchor<CGRect>.Source.bounds),
+                            content: {
+                            TaskPopoverView {
+                                self.taskViewModel.changeStatus(taskID: task.id, to: taskStatus.moveToStatus[0])
+                            } firstButtonLabel: {
+                                Text(taskStatus.moveToStatus[0].moveToText)
+                                    .font(.system(size: 25))
+                                    .frame(alignment: .center)
+                            } secondsButtonAction: {
+                                self.taskViewModel.changeStatus(taskID: task.id, to: taskStatus.moveToStatus[1])
+                            } secondsButtonLabel: {
+                                Text(taskStatus.moveToStatus[1].moveToText)
+                                    .font(.system(size: 25))
+                                    .frame(alignment: .center)
+                            }
+                            .frame(width: 280, height: 130)
+                        })
                 }
             }
             .onDelete { indexSet in
