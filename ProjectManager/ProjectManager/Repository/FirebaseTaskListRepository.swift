@@ -115,6 +115,25 @@ class FirebaseTaskListRepository {
             }
     }
     
+    func syncTask(_ entityTask: FirebaseEntityTask) {
+        let createData: [String: Any] = [
+            Contant.id: entityTask.id,
+            Contant.title: entityTask.title,
+            Contant.desc: entityTask.description,
+            Contant.deadline: entityTask.deadline,
+            Contant.status: entityTask.progressStatus
+        ]
+        
+        store
+            .collection(Contant.collectionName)
+            .document(entityTask.id)
+            .setData(createData) { error in
+                if let error = error {
+                    print("Error adding document: \(String(describing: error))")
+                }
+            }
+    }
+    
     func deleteEntityTask(id: String, complition: @escaping () -> Void) {
         store
             .collection(Contant.collectionName)

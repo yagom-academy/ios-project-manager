@@ -11,7 +11,8 @@ class TaskListViewModel: ObservableObject {
     var cancellables = Set<AnyCancellable>()
     
     init () {
-        fetchFirebase()
+        synchronizeFirebaseWithRealm()
+        //fetchFirebase()
     }
     
     private func reload() {
@@ -21,7 +22,8 @@ class TaskListViewModel: ObservableObject {
     }
     
     func synchronizeFirebaseWithRealm() {
-        manager.synchronizeFirebaseWithRealm()
+        manager.synchronizeRealmToFirebase()
+        manager.synchronizeFirebaseToRealm()
             .sink { complition in
                 switch complition {
                 case .failure(let error):

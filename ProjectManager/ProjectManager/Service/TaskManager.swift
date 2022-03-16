@@ -2,7 +2,7 @@ import Foundation
 import Combine
 
 class TaskManager {
-    let taskListRepository = FirebaseTaskListRepository()
+    let firebaseTaskListRepository = FirebaseTaskListRepository()
     let realmTaskListRepository = RealmTaskListRepository()
     var taskList = [Task]()
     
@@ -10,9 +10,9 @@ class TaskManager {
         return taskList.filter { $0.progressStatus == status }
     }
     
-    func synchronizeFirebaseWithRealm() -> AnyPublisher<Void, Error> {
+    func synchronizeFirebaseToRealm() -> AnyPublisher<Void, Error> {
         Future<Void, Error> { promise in
-            self.taskListRepository.fetchEntityTask { entityTaskList in
+            self.firebaseTaskListRepository.fetchEntityTask { entityTaskList in
                 entityTaskList.forEach { entityTask in
                     let task = self.convertTask(from: entityTask)
                     let realmTask = self.convertRealmEntityTask(from: task)
@@ -29,7 +29,7 @@ class TaskManager {
 extension TaskManager: FirebaseTaskManagable {
     func fetchFirebaseTaskList() -> AnyPublisher<[Task], Error> {
         Future<[Task], Error> { promise in
-            self.taskListRepository.fetchEntityTask { entityTaskList in
+            self.firebaseTaskListRepository.fetchEntityTask { entityTaskList in
                 var taskList = [Task]()
                 entityTaskList.forEach { entityTask in
                     let task = self.convertTask(from: entityTask)
@@ -43,8 +43,8 @@ extension TaskManager: FirebaseTaskManagable {
     
     func createFirebaseTask(_ task: Task) -> AnyPublisher<Void, Error> {
         Future<Void, Error> { promise in
-            let entityTask = self.convertEntityTask(from: task)
-            self.taskListRepository.createEntityTask(entityTask: entityTask) {
+            let entityTask = self.convertFirebaseEntityTask(from: task)
+            self.firebaseTaskListRepository.createEntityTask(entityTask: entityTask) {
                 promise(.success(()))
             }
         }
@@ -58,7 +58,7 @@ extension TaskManager: FirebaseTaskManagable {
         deadline: Date
     ) -> AnyPublisher<Void, Error> {
         Future<Void, Error> { promise in
-            self.taskListRepository.updateEntityTask(
+            self.firebaseTaskListRepository.updateEntityTask(
                 id: id,
                 title: title,
                 description: description,
@@ -73,7 +73,7 @@ extension TaskManager: FirebaseTaskManagable {
     func updateFirebaseTaskState(id: String, progressStatus: Task.ProgressStatus) -> AnyPublisher<Void, Error> {
         Future<Void, Error> { promise in
             let entityTaskStatus = progressStatus.rawValue
-            self.taskListRepository.updateEntityTaskStatus(id: id, status: entityTaskStatus) {
+            self.firebaseTaskListRepository.updateEntityTaskStatus(id: id, status: entityTaskStatus) {
                 promise(.success(()))
             }
         }
@@ -82,7 +82,7 @@ extension TaskManager: FirebaseTaskManagable {
     
     func deleteFirebaseTask(_ id: String) -> AnyPublisher<Void, Error> {
         Future<Void, Error> { promise in
-            self.taskListRepository.deleteEntityTask(id: id) {
+            self.firebaseTaskListRepository.deleteEntityTask(id: id) {
                 promise(.success(()))
             }
         }
@@ -92,6 +92,14 @@ extension TaskManager: FirebaseTaskManagable {
     
 // MARK: - Realm CRUD Method
 extension TaskManager: RealmTaskManagable {
+    func synchronizeRealmToFirebase() {
+        realmTaskListRepository.fetch().forEach { realmTask in
+            let task = convertTask(from: realmTask)
+            let firebaseTask = convertFirebaseEntityTask(from: task)
+            self.firebaseTaskListRepository.syncTask(firebaseTask)
+        }
+    }
+    
     func fetchRealmTaskList() {
         self.taskList = realmTaskListRepository.fetch()
             .map { convertTask(from: $0) }
@@ -145,7 +153,7 @@ extension TaskManager {
         return realmTask
     }
     
-    private func convertEntityTask(from task: Task) -> FirebaseEntityTask {
+    private func convertFirebaseEntityTask(from task: Task) -> FirebaseEntityTask {
         return FirebaseEntityTask(
             id: task.id,
             title: task.title,
