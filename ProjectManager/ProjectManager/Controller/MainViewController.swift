@@ -148,6 +148,7 @@ class MainViewController: UIViewController {
     @objc private func showAddProjectView() {
         let viewController = AddProjectViewController()
         viewController.modalPresentationStyle = .formSheet
+        viewController.viewModel = viewModel
         present(viewController, animated: true, completion: nil)
     }
 }

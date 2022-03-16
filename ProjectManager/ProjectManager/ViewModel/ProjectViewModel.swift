@@ -78,6 +78,12 @@ class ProjectViewModel: ViewModelDescribing {
         return output
     }
     
+    func addProject(title: String?, body: String?, date: TimeInterval) {
+        let newProject = Project(title: title, body: body, date: date)
+        projects.append(newProject)
+        reloadObserver.onNext(())
+    }
+    
     private func changeState(of project: Project, to state: ProjectState) {
         guard let index = projects.firstIndex(where: { $0 == project }) else { return }
         switch state {

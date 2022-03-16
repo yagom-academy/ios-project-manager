@@ -23,7 +23,6 @@ class ProjectFormView: UIView {
     
     private let detailTextView: UITextView = {
         let textView = UITextView()
-        textView.text = "안녕하세요 앨리입니다. 당근마켓 가고시퍼요,,"
         textView.font = .preferredFont(forTextStyle: .title3)
         textView.layer.borderWidth = Design.borderWidth
         textView.layer.borderColor = UIColor.systemGray2.cgColor
@@ -44,6 +43,16 @@ class ProjectFormView: UIView {
         
         return stackView
     }()
+    
+    var title: String {
+        return titleTextField.text ?? ""
+    }
+    var body: String {
+        return detailTextView.text ?? ""
+    }
+    var date: TimeInterval {
+        return datePicker.date.timeIntervalSince1970
+    }
     
     init() {
         super.init(frame: .zero)

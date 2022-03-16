@@ -7,7 +7,7 @@ struct Project: Equatable {
     var state: ProjectState
     var id: UUID?
     
-    init(title: String, body: String, date: TimeInterval) {
+    init(title: String?, body: String?, date: TimeInterval) {
         self.title = title
         self.body = body
         self.date = date

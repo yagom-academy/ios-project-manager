@@ -2,6 +2,7 @@ import UIKit
 
 class AddProjectViewController: UIViewController {
     private let addView = ProjectFormView()
+    weak var viewModel: ProjectViewModel?
     
     private let navigationBar: UINavigationBar = {
         let navigationBar = UINavigationBar(frame: .zero)
@@ -20,7 +21,7 @@ class AddProjectViewController: UIViewController {
     private func setupNavigationBar() {
         let navigationItem = UINavigationItem(title: Text.navigationTitle)
         let cancleItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismissView))
-        let doneItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: nil)
+        let doneItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(addProject))
         navigationItem.leftBarButtonItem = cancleItem
         navigationItem.rightBarButtonItem = doneItem
         navigationBar.setItems([navigationItem], animated: false)
@@ -49,6 +50,12 @@ class AddProjectViewController: UIViewController {
     @objc private func dismissView() {
         dismiss(animated: true)
     }
+    
+    @objc private func addProject() {
+        viewModel?.addProject(title: addView.title, body: addView.body, date: addView.date)
+        dismiss(animated: true)
+    }
+
 }
 
 private enum Text {
