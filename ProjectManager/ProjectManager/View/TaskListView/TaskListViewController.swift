@@ -24,8 +24,6 @@ final class TaskListViewController: UIViewController {
         setupTableViews()
         setupHeaderViews()
         setupBindings()
-        
-//        setupLongPressGesture()
     }
         
     private func setupTableViews() {
@@ -67,29 +65,27 @@ final class TaskListViewController: UIViewController {
         taskListViewModel.todoTasksObservable?
             .asDriver(onErrorJustReturn: [])
             .drive(todoTableView.rx.items(cellIdentifier: TaskTableViewCell.reuseIdentifier,
-                                          cellType: TaskTableViewCell.self)) { _, task, cell in
-                cell.setup(with: task, viewController: self)
+                                          cellType: TaskTableViewCell.self)) { [weak self] _, task, cell in
+                cell.setup(with: task, popoverPresenter: self!, viewModel: self!.taskListViewModel)
              }
              .disposed(by: disposeBag)
         
         taskListViewModel.doingTasksObservable?
             .asDriver(onErrorJustReturn: [])
             .drive(doingTableView.rx.items(cellIdentifier: TaskTableViewCell.reuseIdentifier,
-                                          cellType: TaskTableViewCell.self)) { _, task, cell in
-                cell.setup(with: task, viewController: self)
+                                           cellType: TaskTableViewCell.self)) { [weak self] _, task, cell in
+                cell.setup(with: task, popoverPresenter: self!, viewModel: self!.taskListViewModel)
              }
              .disposed(by: disposeBag)
 
         taskListViewModel.doneTasksObservable?
             .asDriver(onErrorJustReturn: [])
             .drive(doneTableView.rx.items(cellIdentifier: TaskTableViewCell.reuseIdentifier,
-                                          cellType: TaskTableViewCell.self)) { _, task, cell in
-                cell.setup(with: task, viewController: self)
+                                          cellType: TaskTableViewCell.self)) { [weak self] _, task, cell in
+                cell.setup(with: task, popoverPresenter: self!, viewModel: self!.taskListViewModel)
              }
              .disposed(by: disposeBag)
     }
-
-
 }
 
 // MARK: - IBAction
@@ -116,30 +112,4 @@ extension TaskListViewController: UITableViewDelegate { // 쓸 수 있는건가?
         
         self.present(UINavigationController(rootViewController: taskDetailController), animated: true)
     }
-    
-//    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-
-//    }
 }
-//        self.tableView.rx.modelSelected(Task.self)
-//        .subscribe(onNext: { item in
-//           Observable.just(Reactor.Action.moveToDetail(item))
-//                     .bind(to: self.reactor!.action)
-//                     .disposed(by: self.disposeBag)
-//        }).disposed(by: self.disposeBag)
-//        
-//        
-//        
-
-//        
-//        
-//        tableView.rx.itemSelected
-//            .observe(on: MainScheduler.instance)
-//            .subscribe(onNext: presentEditView(with: $0))
-//            .disposed(by: disposeBag)
-//    }
-//    
-//    func presentEditView(with indexPath: IndexPath) {
-
-//    }
-

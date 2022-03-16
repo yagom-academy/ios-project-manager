@@ -3,6 +3,7 @@ import UIKit
 final class TaskTableViewCell: UITableViewCell {
     var task: Task?
     var popoverPresenter: TaskListViewController!
+    var taskListViewModel: TaskListViewModelProtocol!
     
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var bodyLabel: UILabel!
@@ -13,9 +14,10 @@ final class TaskTableViewCell: UITableViewCell {
         task = nil
     }
     
-    func setup(with task: Task?, popoverPresenter: TaskListViewController) {
+    func setup(with task: Task?, popoverPresenter: TaskListViewController, viewModel: TaskListViewModelProtocol) {
         self.task = task
-        self.popoverPresenter = popoverPresenter // 일단은;
+        self.popoverPresenter = popoverPresenter
+        self.taskListViewModel = viewModel
         
         setupLabels()
         setupBackgroundView()
@@ -62,12 +64,17 @@ final class TaskTableViewCell: UITableViewCell {
         }
 
         let processStatusChangeOptions = currentProcessStatus.processStatusChangeOption
+        let titleOfOptions = processStatusChangeOptions
             .map { "Move To \($0.description)"  }
-        let optionActions = processStatusChangeOptions.map { option in
-            return UIAlertAction(title: option, style: .default, handler: nil) // TODO: Handler 구현
+        // TODO: Handler 구현 (ViewModel의 edit 메서드에 접근해야 하는데...)
+        let option1Action = UIAlertAction(title: titleOfOptions[safe: 0], style: .default) { [weak self] _ in
+            self?.taskListViewModel.edit(task: (self?.task!)!, newProcessStatus: processStatusChangeOptions[safe: 0]!)
+        }
+        let option2Action = UIAlertAction(title: titleOfOptions[safe: 1], style: .default) { [weak self] _ in
+            self?.taskListViewModel.edit(task: (self?.task!)!, newProcessStatus: processStatusChangeOptions[safe: 1]!)
         }
 
-        let alert = AlertFactory().createAlert(style: .actionSheet, actions: optionActions)
+        let alert = AlertFactory().createAlert(style: .actionSheet, actions: option1Action, option2Action)
         let alertPopover = alert.popoverPresentationController
         alertPopover?.sourceView = self
 
