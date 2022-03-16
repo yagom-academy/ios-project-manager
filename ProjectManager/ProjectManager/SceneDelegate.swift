@@ -12,7 +12,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         let repository = ProjectRepository()
         let useCase = ProjectUseCase(repository: repository)
-        let viewModel = ProjectViewModel(useCase: useCase)
+        let viewModel = ProjectListViewModel(useCase: useCase)
         
         let mainViewController = UINavigationController(rootViewController: ProjectListViewController(viewModel: viewModel))
         window?.rootViewController = mainViewController

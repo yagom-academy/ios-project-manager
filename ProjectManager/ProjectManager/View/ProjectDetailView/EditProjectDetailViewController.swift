@@ -1,13 +1,18 @@
 import UIKit
 
-final class EditProjectDetailViewController: ProjectDetailViewController {
-    var viewModel: ProjectViewModelProtocol?
-    var currentProject: Project?
+protocol ProjectDetailViewControllerDelegate: AnyObject {
+    func didUpdateProject(_ project: Project)
+    func didAppendProject(_ project: Project)
+}
 
-    init(viewModel: ProjectViewModelProtocol, currentProject: Project) {
+final class EditProjectDetailViewController: ProjectDetailViewController {
+    weak var delegate: ProjectDetailViewControllerDelegate?
+    var viewModel: EditProjectDetailViewModel?
+
+    init(viewModel: EditProjectDetailViewModel, delegate: ProjectDetailViewControllerDelegate) {
         super.init(nibName: nil, bundle: nil)
         self.viewModel = viewModel
-        self.currentProject = currentProject
+        self.delegate = delegate
     }
     
     required init?(coder: NSCoder) {
@@ -16,9 +21,13 @@ final class EditProjectDetailViewController: ProjectDetailViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        populateView(with: currentProject)
+        populateView(with: viewModel?.currentProject)
         configureNavigationBar()
         projectDetailView.setEditingMode(to: false)
+        
+        viewModel?.onUpdated = { project in
+            self.delegate?.didUpdateProject(project)
+        }
     }
     
     private func configureNavigationBar() {
@@ -41,11 +50,11 @@ final class EditProjectDetailViewController: ProjectDetailViewController {
     }
     
     private func updateListView() {
-        guard let currentProject = currentProject else {
+        guard let currentProject = viewModel?.currentProject else {
             return
         }
         let updatedProject = self.updatedViewData(with: currentProject)
-        viewModel?.update(updatedProject, state: nil)
+        viewModel?.didTapDoneButton(updatedProject)
     }
     
     @objc private func didTapCancelButton() {

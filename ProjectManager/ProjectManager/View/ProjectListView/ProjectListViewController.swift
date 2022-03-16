@@ -6,7 +6,7 @@ final class ProjectListViewController: UIViewController {
     private let todoTableView = ProjectListTableView(state: .todo)
     private let doingTableView = ProjectListTableView(state: .doing)
     private let doneTableView = ProjectListTableView(state: .done)
-    private var viewModel: ProjectViewModelProtocol?
+    private var viewModel: ProjectListViewModelProtocol?
     private lazy var tableViews = [todoTableView, doingTableView, doneTableView]
     
     private let entireStackView: UIStackView = {
@@ -19,7 +19,7 @@ final class ProjectListViewController: UIViewController {
         return stackView
     }()
     
-    init(viewModel: ProjectViewModelProtocol) {
+    init(viewModel: ProjectListViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -55,7 +55,8 @@ final class ProjectListViewController: UIViewController {
         guard let viewModel = viewModel else {
             return
         }
-        let viewController = AddProjectDetailViewController(viewModel: viewModel)
+        let addProjectDetailViewModel = viewModel.createAddDetailViewModel()
+        let viewController = AddProjectDetailViewController(viewModel: addProjectDetailViewModel, delegate: self)
         let destinationViewController = UINavigationController(rootViewController: viewController)
 
         destinationViewController.modalPresentationStyle = .formSheet
@@ -96,7 +97,8 @@ final class ProjectListViewController: UIViewController {
             guard let self = self, let viewModel = self.viewModel else {
                 return
             }
-            let editViewController = EditProjectDetailViewController(viewModel: viewModel, currentProject: project)
+            let editProjectDetailViewModel = viewModel.createEditDetailViewModel()
+            let editViewController = EditProjectDetailViewController(viewModel: editProjectDetailViewModel, delegate: self)
             let destinationViewController = UINavigationController(rootViewController: editViewController)
             destinationViewController.modalPresentationStyle = .formSheet
             self.present(destinationViewController, animated: true, completion: nil)
@@ -218,5 +220,15 @@ private extension ProjectListViewController {
         static let entireStackViewSpacing: CGFloat = 8
         static let tableViewSectionHeaderTopPadding: CGFloat = 1
         static let tableViewHeightForHeaderInSection: CGFloat = 50
+    }
+}
+
+extension ProjectListViewController: ProjectDetailViewControllerDelegate {
+    func didUpdateProject(_ project: Project) {
+        viewModel?.update(project, state: nil)
+    }
+    
+    func didAppendProject(_ project: Project) {
+        viewModel?.append(project)
     }
 }

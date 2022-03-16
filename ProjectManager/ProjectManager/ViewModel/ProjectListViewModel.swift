@@ -1,6 +1,6 @@
 import UIKit
 
-protocol ProjectViewModelProtocol: UITableViewDataSource {
+protocol ProjectListViewModelProtocol: UITableViewDataSource {
     var onCellSelected: ((Int, Project) -> Void)? { get set }
     var onUpdated: (() -> Void)? { get set }
     
@@ -11,10 +11,13 @@ protocol ProjectViewModelProtocol: UITableViewDataSource {
     func update(_ project: Project, state: ProjectState?)
     func delete(indexPath: IndexPath, state: ProjectState)
     func changeState(from oldState: ProjectState, to newState: ProjectState, indexPath: IndexPath)
+    func createEditDetailViewModel() -> EditProjectDetailViewModel
+    func createAddDetailViewModel() -> AddProjectDetailViewModel
 }
 
-final class ProjectViewModel: NSObject, ProjectViewModelProtocol {
+final class ProjectListViewModel: NSObject, ProjectListViewModelProtocol {
     let useCase: ProjectUseCaseProtocol
+    var selectedProject: Project?
     
     var onCellSelected: ((Int, Project) -> Void)?
     var onUpdated: (() -> Void)?
@@ -51,7 +54,7 @@ final class ProjectViewModel: NSObject, ProjectViewModelProtocol {
         case .done:
             selectedProject = doneProjects[indexPath.row]
         }
-        
+        self.selectedProject = selectedProject
         return selectedProject
     }
     
@@ -101,9 +104,19 @@ final class ProjectViewModel: NSObject, ProjectViewModelProtocol {
         }
         self.update(project, state: newState)
     }
+    
+    func createEditDetailViewModel() -> EditProjectDetailViewModel {
+        let project = selectedProject ?? Project(id: UUID(), state: .todo, title: "", body: "", date: Date())
+        return EditProjectDetailViewModel(currentProject: project)
+    }
+    
+    func createAddDetailViewModel() -> AddProjectDetailViewModel {
+        let project = selectedProject ?? Project(id: UUID(), state: .todo, title: "", body: "", date: Date())
+        return AddProjectDetailViewModel(currentProject: project)
+    }
 }
 
-extension ProjectViewModel {
+extension ProjectListViewModel {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let state = (tableView as? ProjectListTableView)?.state else {
             return .zero

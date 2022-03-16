@@ -1,11 +1,13 @@
 import UIKit
 
 final class AddProjectDetailViewController: ProjectDetailViewController {
-    var viewModel: ProjectViewModelProtocol?
+    weak var delegate: ProjectDetailViewControllerDelegate?
+    var viewModel: AddProjectDetailViewModel?
     
-    init(viewModel: ProjectViewModelProtocol) {
+    init(viewModel: AddProjectDetailViewModel, delegate: ProjectDetailViewControllerDelegate) {
         super.init(nibName: nil, bundle: nil)
         self.viewModel = viewModel
+        self.delegate = delegate
     }
     
     required init?(coder: NSCoder) {
@@ -15,6 +17,9 @@ final class AddProjectDetailViewController: ProjectDetailViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavigationBar()
+        viewModel?.onAppended = { project in
+            self.delegate?.didAppendProject(project)
+        }
     }
     
     private func configureNavigationBar() {
@@ -27,7 +32,7 @@ final class AddProjectDetailViewController: ProjectDetailViewController {
     @objc private func didTapDoneButton() {
         self.dismiss(animated: true) {
             let project = self.createViewData()
-            self.viewModel?.append(project)
+            self.viewModel?.didTapDoneButton(project)
         }
     }
     

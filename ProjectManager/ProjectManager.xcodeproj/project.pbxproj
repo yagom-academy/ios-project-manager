@@ -26,10 +26,12 @@
 		EA03AB2027DB174800084E75 /* MockProjectRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4C971C27DB0D52002929B8 /* MockProjectRepository.swift */; };
 		EA03AB2327DF1B1C00084E75 /* ProjectState.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA03AB2227DF1B1C00084E75 /* ProjectState.swift */; };
 		EA03AB5427E071CD00084E75 /* Date+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA03AB5327E071CD00084E75 /* Date+extension.swift */; };
+		EA03AB5D27E20C1700084E75 /* EditProjectDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA03AB5C27E20C1700084E75 /* EditProjectDetailViewModel.swift */; };
+		EA03AB5F27E234B200084E75 /* AddProjectDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA03AB5E27E234B200084E75 /* AddProjectDetailViewModel.swift */; };
 		EA34A4ED27CCBEA7000F7676 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EA34A4EC27CCBEA7000F7676 /* GoogleService-Info.plist */; };
 		EA4C96DF27D091BE002929B8 /* AddProjectDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4C96DE27D091BE002929B8 /* AddProjectDetailViewController.swift */; };
 		EA4C96E127D0A562002929B8 /* UIView+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4C96E027D0A562002929B8 /* UIView+extension.swift */; };
-		EA4C970327D5EFBF002929B8 /* ProjectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4C970227D5EFBF002929B8 /* ProjectViewModel.swift */; };
+		EA4C970327D5EFBF002929B8 /* ProjectListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4C970227D5EFBF002929B8 /* ProjectListViewModel.swift */; };
 		EA4C970927D70E56002929B8 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4C970827D70E56002929B8 /* Project.swift */; };
 		EAD690F927CE6F6E001DFDC8 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = EAD690F827CE6F6E001DFDC8 /* .swiftlint.yml */; };
 		EAD6911B27CF5B7C001DFDC8 /* ProjectListTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD6911A27CF5B7C001DFDC8 /* ProjectListTableHeaderView.swift */; };
@@ -68,10 +70,12 @@
 		E2BC4EF963D2B452EAEBA8F3 /* Pods_ProjectManagerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectManagerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA03AB2227DF1B1C00084E75 /* ProjectState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectState.swift; sourceTree = "<group>"; };
 		EA03AB5327E071CD00084E75 /* Date+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+extension.swift"; sourceTree = "<group>"; };
+		EA03AB5C27E20C1700084E75 /* EditProjectDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProjectDetailViewModel.swift; sourceTree = "<group>"; };
+		EA03AB5E27E234B200084E75 /* AddProjectDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProjectDetailViewModel.swift; sourceTree = "<group>"; };
 		EA34A4EC27CCBEA7000F7676 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EA4C96DE27D091BE002929B8 /* AddProjectDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProjectDetailViewController.swift; sourceTree = "<group>"; };
 		EA4C96E027D0A562002929B8 /* UIView+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+extension.swift"; sourceTree = "<group>"; };
-		EA4C970227D5EFBF002929B8 /* ProjectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectViewModel.swift; sourceTree = "<group>"; };
+		EA4C970227D5EFBF002929B8 /* ProjectListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListViewModel.swift; sourceTree = "<group>"; };
 		EA4C970827D70E56002929B8 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		EA4C971027DB0B11002929B8 /* ProjectManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProjectManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA4C971227DB0B11002929B8 /* ProjectManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerTests.swift; sourceTree = "<group>"; };
@@ -246,7 +250,9 @@
 		EA4C970B27D70EF9002929B8 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				EA4C970227D5EFBF002929B8 /* ProjectViewModel.swift */,
+				EA4C970227D5EFBF002929B8 /* ProjectListViewModel.swift */,
+				EA03AB5C27E20C1700084E75 /* EditProjectDetailViewModel.swift */,
+				EA03AB5E27E234B200084E75 /* AddProjectDetailViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -428,7 +434,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EA4C970327D5EFBF002929B8 /* ProjectViewModel.swift in Sources */,
+				EA4C970327D5EFBF002929B8 /* ProjectListViewModel.swift in Sources */,
 				EA03AB5427E071CD00084E75 /* Date+extension.swift in Sources */,
 				A62BB67D27D1B532009395D8 /* UITableView+extension.swift in Sources */,
 				A6541F6F27CF3AC600F576D4 /* ProjectListTableViewCell.swift in Sources */,
@@ -437,8 +443,10 @@
 				EA4C96E127D0A562002929B8 /* UIView+extension.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				EA4C96DF27D091BE002929B8 /* AddProjectDetailViewController.swift in Sources */,
+				EA03AB5F27E234B200084E75 /* AddProjectDetailViewModel.swift in Sources */,
 				EA4C970927D70E56002929B8 /* Project.swift in Sources */,
 				A6B62A2827D9D1D80080C0D5 /* ProjectRepository.swift in Sources */,
+				EA03AB5D27E20C1700084E75 /* EditProjectDetailViewModel.swift in Sources */,
 				A6B62A2627D9D1390080C0D5 /* ProjectUseCase.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				EAD6911B27CF5B7C001DFDC8 /* ProjectListTableHeaderView.swift in Sources */,
