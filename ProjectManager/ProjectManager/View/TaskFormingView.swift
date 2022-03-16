@@ -21,13 +21,11 @@ struct TaskFormingView: View {
         self._isModalShowing = isModalShowing
         
         if let selectedTask = selectedTask {
-            // selectedTask 가 nil 이 아닌 경우
             self.selectedTask = selectedTask
             _taskTitle = State(wrappedValue: selectedTask.title)
             _taskDueDate = State(wrappedValue: selectedTask.dueDate)
             _taskBody = State(wrappedValue: selectedTask.body)
         } else {
-            // selectedTask 가 nil 인 경우
             self.selectedTask = nil
             _taskTitle = State(initialValue: "")
             _taskDueDate = State(initialValue: Date())
@@ -68,7 +66,7 @@ struct TaskFormingView: View {
                     } label: {
                         Text(selectedTask == nil ? "Done" : "Edit")
                     }
-                    .disabled(!taskManager.validateNewTask(title: taskTitle, body: taskBody))
+                    .disabled(!taskManager.validateTask(title: taskTitle, body: taskBody))
                 }
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button {

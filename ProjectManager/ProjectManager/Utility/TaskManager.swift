@@ -25,7 +25,7 @@ class TaskManager: ObservableObject, TaskManageable {
         self.tasks = tasks
     }
     
-    func validateNewTask(title: String, body: String) -> Bool {
+    func validateTask(title: String, body: String) -> Bool {
         return title.isEmpty == false && body.count <= 1000
     }
     
