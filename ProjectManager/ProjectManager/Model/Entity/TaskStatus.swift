@@ -7,11 +7,11 @@
 
 import Foundation
 
-enum TaskStatus: CaseIterable {
+enum TaskStatus: Int, CaseIterable {
     
-    case todo
-    case doing
-    case done
+    case todo = 1
+    case doing = 2
+    case done = 3
     
 }
 

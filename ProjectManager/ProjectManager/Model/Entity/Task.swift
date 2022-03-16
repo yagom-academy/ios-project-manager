@@ -18,3 +18,15 @@ struct Task: Identifiable {
 }
 
 extension Task: Equatable { }
+
+extension Task {
+    
+    init(_ object: RealmTask) {
+        self.id = object.id
+        self.title = object.title
+        self.description = object.taskDescription
+        self.dueDate = object.dueDate
+        self.status = TaskStatus(rawValue: object.status) ?? .todo
+    }
+    
+}
