@@ -9,29 +9,32 @@ import Foundation
 
 final class TaskLocalDataSource: TaskRepositoryDataSource {
     
+    private let databaseModel = RealmManager<RealmTask>()
+    
     var fetchAllRecords: [Task] {
-        []
+        (try? databaseModel.fetch().map { Task($0) }) ?? []
     }
     
     func fetch(_ condition: ((Task) -> Bool)) throws -> [Task] {
-        print(#function)
-        return []
+        try databaseModel
+            .fetch { condition(Task($0)) }
+            .map { Task($0) }
     }
     
     func create(_ object: Task) throws {
-        print(#function)
+        try databaseModel.create(RealmTask(object))
     }
     
     func delete(_ object: Task) throws {
-        print(#function)
+        try databaseModel.create(RealmTask(object))
     }
     
     func update(_ object: Task) throws {
-        print(#function)
+        try databaseModel.update(RealmTask(object))
     }
     
     func removeAllRecords() throws {
-        print(#function)
+        try databaseModel.removeAll()
     }
     
 }

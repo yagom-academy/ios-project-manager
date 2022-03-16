@@ -17,8 +17,8 @@ protocol RepositoryManager {
     func fetch() throws -> [Element]
     func fetch(queryHandler: ((Element) -> Bool)) throws -> [Element]
     
-    func update(objects: [Element]) throws
-    func update(object: Element) throws
+    func update(_ objects: [Element]) throws
+    func update(_ object: Element) throws
     
     func remove(_ objects: [Element]) throws
     func remove(_ object: Element) throws

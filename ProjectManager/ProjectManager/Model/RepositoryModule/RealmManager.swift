@@ -43,13 +43,13 @@ final class RealmManager<Element: Object>: RepositoryManager {
         return Array(results)
     }
     
-    func update(objects: [Element]) throws {
+    func update(_ objects: [Element]) throws {
         try database.write {
             try database.add(objects, update: .modified)
         }
     }
     
-    func update(object: Element) throws {
+    func update(_ object: Element) throws {
         try database.write {
             try database.add(object, update: .modified)
         }
