@@ -38,7 +38,6 @@ class ProjectFormView: UIView {
         stackView.spacing = Design.stackViewSpacing
         titleTextField.widthAnchor.constraint(equalTo: stackView.widthAnchor).isActive = true
         detailTextView.widthAnchor.constraint(equalTo: stackView.widthAnchor).isActive = true
-        
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView

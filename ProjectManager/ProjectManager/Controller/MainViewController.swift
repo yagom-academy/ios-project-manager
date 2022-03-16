@@ -6,6 +6,8 @@ class MainViewController: UIViewController {
     private let moveToToDoObserver: PublishSubject<Project> = .init()
     private let moveToDoingObserver: PublishSubject<Project> = .init()
     private let moveToDoneObserver: PublishSubject<Project> = .init()
+    private let selectObserver = PublishSubject<Project>.init()
+    private let deleteObserver = PublishSubject<Project>.init()
     private let disposeBag: DisposeBag = .init()
     
     private let toDoTableView = UITableView()
@@ -90,9 +92,11 @@ class MainViewController: UIViewController {
     
     func bind() {
         let input = ProjectViewModel.Input(
-            moveToToDoObserver: self.moveToToDoObserver.asObservable(),
-            moveToDoingObserver: self.moveToDoingObserver.asObservable(),
-            moveToDoneObserver: self.moveToDoneObserver.asObservable()
+            moveToToDoObserver: moveToToDoObserver.asObservable(),
+            moveToDoingObserver: moveToDoingObserver.asObservable(),
+            moveToDoneObserver: moveToDoneObserver.asObservable(),
+            selectObserver: selectObserver.asObservable(),
+            deleteObserver: deleteObserver.asObservable()
         )
         
         let output = viewModel.transform(input)
@@ -195,19 +199,22 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let cell = tableView.cellForRow(at: indexPath) as? ProjectListCell else { return }
-        viewModel.setSelectedProject(with: cell.project)
+        guard let cell = tableView.cellForRow(at: indexPath) as? ProjectListCell,
+        let selectedProject = cell.project else { return }
+        selectObserver.onNext(selectedProject)
         let viewController = EditProjectViewController()
         viewController.modalPresentationStyle = .formSheet
         viewController.viewModel = viewModel
-        viewController.setupEditView(with: cell.project)
+        viewController.setupEditView(with: selectedProject)
         viewController.actionAfterDismiss = deselectCell
         present(viewController, animated: true, completion: nil)
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        guard let cell = tableView.cellForRow(at: indexPath) as? ProjectListCell,
+        let selectedProject = cell.project else { return nil }
         let deleteAction = UIContextualAction(style: .destructive, title: Text.deleteActionTitle) { _, _, _  in
-            print("Delete project")
+            self.deleteObserver.onNext(selectedProject)
         }
         
         return UISwipeActionsConfiguration(actions: [deleteAction])

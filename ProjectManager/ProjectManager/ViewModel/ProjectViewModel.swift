@@ -13,11 +13,15 @@ class ProjectViewModel: ViewModelDescribing {
         let moveToToDoObserver: Observable<Project>
         let moveToDoingObserver: Observable<Project>
         let moveToDoneObserver: Observable<Project>
+        let selectObserver: Observable<Project>
+        let deleteObserver: Observable<Project>
         
-        init(moveToToDoObserver: Observable<Project>, moveToDoingObserver: Observable<Project>, moveToDoneObserver: Observable<Project>) {
+        init(moveToToDoObserver: Observable<Project>, moveToDoingObserver: Observable<Project>, moveToDoneObserver: Observable<Project>, selectObserver: Observable<Project>, deleteObserver: Observable<Project>) {
             self.moveToToDoObserver = moveToToDoObserver
             self.moveToDoingObserver = moveToDoingObserver
             self.moveToDoneObserver = moveToDoneObserver
+            self.selectObserver = selectObserver
+            self.deleteObserver = deleteObserver
         }
     }
     
@@ -73,6 +77,18 @@ class ProjectViewModel: ViewModelDescribing {
                 self.reloadObserver.onNext(())
             })
             .disposed(by: disposeBag)
+        input
+            .selectObserver
+            .subscribe(onNext: { project in
+                self.selectedProject = project
+            })
+            .disposed(by: disposeBag)
+        input
+            .deleteObserver
+            .subscribe(onNext: { project in
+                self.deleteProject(project)
+            })
+            .disposed(by: disposeBag)
         
         let output = Output(reloadObserver: self.reloadObserver.asObservable())
         
@@ -83,10 +99,6 @@ class ProjectViewModel: ViewModelDescribing {
         let newProject = Project(title: title, body: body, date: date)
         projects.append(newProject)
         reloadObserver.onNext(())
-    }
-    
-    func setSelectedProject(with project: Project?) {
-        selectedProject = project
     }
     
     func editProject(title: String?, body: String?, date: TimeInterval) {
@@ -108,5 +120,11 @@ class ProjectViewModel: ViewModelDescribing {
         case .done:
             projects[index].state = .done
         }
+    }
+    
+    private func deleteProject(_ project: Project) {
+        guard let index = projects.firstIndex(where: { $0 == project }) else { return }
+        projects.remove(at: index)
+        reloadObserver.onNext(())
     }
 }

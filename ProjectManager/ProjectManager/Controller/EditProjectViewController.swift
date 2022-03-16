@@ -20,8 +20,7 @@ class EditProjectViewController: UIViewController {
         setupAddFormViewLayout()
     }
     
-    func setupEditView(with project: Project?) {
-        guard let project = project else { return }
+    func setupEditView(with project: Project) {
         editView.setupFormView(with: project)
     }
     
