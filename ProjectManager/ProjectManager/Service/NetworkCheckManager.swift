@@ -2,10 +2,11 @@ import Foundation
 import Network
 
 class NetworkCheckManager: ObservableObject {
-    let monitor: NWPathMonitor
     @Published var isConnected: Bool = true
     @Published var isNotConnected: Bool = false
     @Published var connectionType: ConnectionType = .unknown
+    
+    let monitor: NWPathMonitor
     let queue = DispatchQueue(label: "monitor")
     
     enum ConnectionType {
@@ -38,17 +39,5 @@ class NetworkCheckManager: ObservableObject {
     
     func stopMonitoring() {
         monitor.cancel()
-    }
-    
-    private func getConnectionType(_ path: NWPath) {
-        if path.usesInterfaceType(.wifi) {
-            connectionType = .wifi
-        } else if path.usesInterfaceType(.cellular) {
-            connectionType = .cellular
-        } else if path.usesInterfaceType(.wiredEthernet) {
-            connectionType = .ethernet
-        } else {
-            connectionType = .unknown
-        }
     }
 }

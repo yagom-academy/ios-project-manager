@@ -9,101 +9,11 @@ class TaskManager {
     func taskList(at status: Task.ProgressStatus) -> [Task] {
         return taskList.filter { $0.progressStatus == status }
     }
-    
-    func createTask(_ task: Task) -> AnyPublisher<Void, Error> {
-        Future<Void, Error> { promise in
-            self.taskList.append(task)
-            let entityTask = self.convertEntityTask(from: task)
-            self.taskListRepository.createEntityTask(entityTask: entityTask) {
-                promise(.success(()))
-            }
-        }
-        .eraseToAnyPublisher()
-    }
-    
-    func createRealmTask(_ task: Task) {
-        let realmTask = RealmEntityTask()
-        realmTask.id = task.id
-        realmTask.title = task.title
-        realmTask.desc = task.description
-        realmTask.deadline = task.deadline
-        realmTask.progressStatus = task.progressStatus.rawValue
-        realmTaskListRepository.createEntityTask(task: realmTask)
-    }
-    
-    func updateTaskState(id: String, progressStatus: Task.ProgressStatus) {
-        taskList
-            .indices
-            .filter { taskList[$0].id == id }
-            .forEach {
-                taskList[$0].progressStatus = progressStatus
-            }
-    }
-    
-    func updateTaskState(id: String, progressStatus: Task.ProgressStatus) -> AnyPublisher<Void, Error> {
-        Future<Void, Error> { promise in
-            let entityTaskStatus = progressStatus.rawValue
-            self.taskListRepository.updateEntityTaskStatus(id: id, status: entityTaskStatus) {
-                promise(.success(()))
-            }
-        }
-        .eraseToAnyPublisher()
-    }
-    
-    func updateRealmTaskState(id: String, progressStatus: Task.ProgressStatus) {
-        realmTaskListRepository.updateTaskState(
-            id: id,
-            progressStatus: RealmEntityTask.ProgressStatus(rawValue: progressStatus.rawValue) ?? .todo
-        )
-        fetchRealm()
-    }
-    
-    func updateTask(id: String, title: String, description: String, deadline: Date) {
-        taskList
-            .indices
-            .filter { taskList[$0].id == id }
-            .forEach {
-                taskList[$0].title = title
-                taskList[$0].description = description
-                taskList[$0].deadline = deadline.timeIntervalSince1970
-            }
-    }
-    
-    func updateTask(id: String, title: String, description: String, deadline: Date) -> AnyPublisher<Void, Error> {
-        Future<Void, Error> { promise in
-            self.taskListRepository.updateEntityTask(
-                id: id,
-                title: title,
-                description: description,
-                deadline: deadline
-            ) {
-                promise(.success(()))
-            }
-        }
-        .eraseToAnyPublisher()
-    }
-    
-    func updateRealmTask(id: String, title: String, description: String, deadline: Date) {
-        realmTaskListRepository.updateTask(id: id, title: title, description: description, deadline: deadline)
-        fetchRealm()
-    }
-    
-    func deleteRealmTask(_ id: String) {
-        realmTaskListRepository.deleteTask(id: id)
-        fetchRealm()
-        
-    }
-    
-    func deleteTask(_ id: String) -> AnyPublisher<Void, Error> {
-        Future<Void, Error> { promise in
-            self.taskListRepository.deleteEntityTask(id: id) {
-                promise(.success(()))
-            }
-        }
-        .eraseToAnyPublisher()
-    }
-    
-    func fetch() -> AnyPublisher<[Task], Error> {
+}
+
+// MARK: - Firebase CRUD Method
+extension TaskManager {
+    func fetchFirebaseTaskList() -> AnyPublisher<[Task], Error> {
         Future<[Task], Error> { promise in
             self.taskListRepository.fetchEntityTask { entityTaskList in
                 var taskList = [Task]()
@@ -117,11 +27,91 @@ class TaskManager {
         .eraseToAnyPublisher()
     }
     
-    func fetchRealm() {
+    func createFirebaseTask(_ task: Task) -> AnyPublisher<Void, Error> {
+        Future<Void, Error> { promise in
+            self.taskList.append(task)
+            let entityTask = self.convertEntityTask(from: task)
+            self.taskListRepository.createEntityTask(entityTask: entityTask) {
+                promise(.success(()))
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+    
+    func updateFirebaseTask(
+        id: String,
+        title: String,
+        description: String,
+        deadline: Date
+    ) -> AnyPublisher<Void, Error> {
+        Future<Void, Error> { promise in
+            self.taskListRepository.updateEntityTask(
+                id: id,
+                title: title,
+                description: description,
+                deadline: deadline
+            ) {
+                promise(.success(()))
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+    
+    func updateFirebaseTaskState(id: String, progressStatus: Task.ProgressStatus) -> AnyPublisher<Void, Error> {
+        Future<Void, Error> { promise in
+            let entityTaskStatus = progressStatus.rawValue
+            self.taskListRepository.updateEntityTaskStatus(id: id, status: entityTaskStatus) {
+                promise(.success(()))
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+    
+    func deleteFirebaseTask(_ id: String) -> AnyPublisher<Void, Error> {
+        Future<Void, Error> { promise in
+            self.taskListRepository.deleteEntityTask(id: id) {
+                promise(.success(()))
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+}
+    
+// MARK: - Realm CRUD Method
+extension TaskManager {
+    func fetchRealmTaskList() {
         self.taskList = realmTaskListRepository.fetch()
             .map { convertTask(from: $0) }
     }
     
+    func createRealmTask(_ task: Task) {
+        let realmTask = convertRealmEntityTask(from: task)
+        realmTaskListRepository.createEntityTask(task: realmTask)
+        fetchRealmTaskList()
+    }
+    
+    func updateRealmTask(id: String, title: String, description: String, deadline: Date) {
+        realmTaskListRepository.updateTask(id: id, title: title, description: description, deadline: deadline)
+        fetchRealmTaskList()
+    }
+    
+    func updateRealmTaskState(id: String, progressStatus: Task.ProgressStatus) {
+        realmTaskListRepository.updateTaskState(
+            id: id,
+            progressStatus: RealmEntityTask.ProgressStatus(rawValue: progressStatus.rawValue) ?? .todo
+        )
+        fetchRealmTaskList()
+    }
+    
+    func deleteRealmTask(_ id: String) {
+        realmTaskListRepository.deleteTask(id: id)
+        fetchRealmTaskList()
+        
+    }
+}
+
+// MARK: - Convert Model Method
+extension TaskManager {
     private func convertTask(from task: RealmEntityTask) -> Task {
         return Task(
             id: task.id,
@@ -132,37 +122,34 @@ class TaskManager {
         )
     }
     
-    private func convertEntityTask(from task: Task) -> EntityTask {
-        let id = task.id
-        let title = task.title
-        let description = task.description
-        let deadline = task.deadline
-        let progressStatus = task.progressStatus.rawValue
-        let entityTask = EntityTask(
-            id: id,
-            title: title,
-            description: description,
-            deadline: deadline,
-            progressStatus: progressStatus
-        )
+    private func convertRealmEntityTask(from task: Task) -> RealmEntityTask {
+        let realmTask = RealmEntityTask()
+        realmTask.id = task.id
+        realmTask.title = task.title
+        realmTask.desc = task.description
+        realmTask.deadline = task.deadline
+        realmTask.progressStatus = task.progressStatus.rawValue
         
-        return entityTask
+        return realmTask
+    }
+    
+    private func convertEntityTask(from task: Task) -> EntityTask {
+        return EntityTask(
+            id: task.id,
+            title: task.title,
+            description: task.description,
+            deadline: task.deadline,
+            progressStatus: task.progressStatus.rawValue
+        )
     }
     
     private func convertTask(from entityTask: EntityTask) -> Task {
-        let id = entityTask.id
-        let title = entityTask.title
-        let description = entityTask.description
-        let deadline = entityTask.deadline
-        let progressStatus = Task.ProgressStatus(rawValue: entityTask.progressStatus) ?? .todo
-        let task = Task(
-            id: id,
-            title: title,
-            description: description,
-            deadline: deadline,
-            progressStatus: progressStatus
+        return Task(
+            id: entityTask.id,
+            title: entityTask.title,
+            description: entityTask.description,
+            deadline: entityTask.deadline,
+            progressStatus: Task.ProgressStatus(rawValue: entityTask.progressStatus) ?? .todo
         )
-        
-        return task
     }
 }

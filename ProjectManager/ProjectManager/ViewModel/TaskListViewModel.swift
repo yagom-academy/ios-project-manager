@@ -21,7 +21,7 @@ class TaskListViewModel: ObservableObject {
     }
     
     func fetch() {
-        manager.fetch()
+        manager.fetchFirebaseTaskList()
             .sink { complition in
                 switch complition {
                 case .failure(let error):
@@ -38,13 +38,13 @@ class TaskListViewModel: ObservableObject {
     }
     
     func fetchRealm() {
-        manager.fetchRealm()
+        manager.fetchRealmTaskList()
         reload()
     }
     
     func createTask(_ task: Task) {
         manager.createRealmTask(task)
-        manager.createTask(task)
+        manager.createFirebaseTask(task)
             .sink { completion in
                 switch completion {
                 case .failure(let error):
@@ -60,7 +60,7 @@ class TaskListViewModel: ObservableObject {
     
     func updateState(id: String, progressStatus: Task.ProgressStatus) {
         manager.updateRealmTaskState(id: id, progressStatus: progressStatus)
-        manager.updateTaskState(id: id, progressStatus: progressStatus)
+        manager.updateFirebaseTaskState(id: id, progressStatus: progressStatus)
             .sink { completion in
                 switch completion {
                 case .failure(let error):
@@ -76,7 +76,7 @@ class TaskListViewModel: ObservableObject {
     
     func updateTask(id: String, title: String, description: String, deadline: Date) {
         manager.updateRealmTask(id: id, title: title, description: description, deadline: deadline)
-        manager.updateTask(id: id, title: title, description: description, deadline: deadline)
+        manager.updateFirebaseTask(id: id, title: title, description: description, deadline: deadline)
             .sink { completion in
                 switch completion {
                 case .failure(let error):
@@ -92,7 +92,7 @@ class TaskListViewModel: ObservableObject {
     
     func deleteTask(_ id: String) {
         manager.deleteRealmTask(id)
-        manager.deleteTask(id)
+        manager.deleteFirebaseTask(id)
             .sink { completion in
                 switch completion {
                 case .failure(let error):
