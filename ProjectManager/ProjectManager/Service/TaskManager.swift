@@ -12,7 +12,7 @@ class TaskManager {
 }
 
 // MARK: - Firebase CRUD Method
-extension TaskManager {
+extension TaskManager: FirebaseTaskManagable {
     func fetchFirebaseTaskList() -> AnyPublisher<[Task], Error> {
         Future<[Task], Error> { promise in
             self.taskListRepository.fetchEntityTask { entityTaskList in
@@ -78,7 +78,7 @@ extension TaskManager {
 }
     
 // MARK: - Realm CRUD Method
-extension TaskManager {
+extension TaskManager: RealmTaskManagable {
     func fetchRealmTaskList() {
         self.taskList = realmTaskListRepository.fetch()
             .map { convertTask(from: $0) }
