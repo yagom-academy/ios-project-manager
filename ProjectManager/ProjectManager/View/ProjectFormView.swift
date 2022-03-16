@@ -64,8 +64,10 @@ class ProjectFormView: UIView {
         commonInit()
     }
     
-    func getDateFromPicker() -> Date {
-        return datePicker.date
+    func setupFormView(with project: Project) {
+        titleTextField.text = project.title
+        datePicker.date = Date(timeIntervalSince1970: project.date)
+        detailTextView.text = project.body
     }
     
     private func commonInit() {

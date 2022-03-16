@@ -9,7 +9,7 @@ protocol ProjectListCellDelegate: AnyObject {
 
 class ProjectListCell: UITableViewCell {
     var delegate: ProjectListCellDelegate?
-    private var project: Project?
+    var project: Project?
     
     private let containerView: UIView = {
         let view = UIView()

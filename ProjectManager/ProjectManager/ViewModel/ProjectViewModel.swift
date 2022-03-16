@@ -32,6 +32,7 @@ class ProjectViewModel: ViewModelDescribing {
     private let reloadObserver: PublishSubject<Void> = .init()
     private let disposeBag: DisposeBag = .init()
     
+    private var selectedProject: Project?
     private var projects: [Project] = [
         Project(title: "1번", body: "프로젝트 1번 입니다", date: Date().timeIntervalSince1970),
         Project(title: "2번", body: "프로젝트 2번 입니다", date: Date().timeIntervalSince1970),
@@ -47,7 +48,7 @@ class ProjectViewModel: ViewModelDescribing {
     var doneProjects: [Project] {
         projects.filter { $0.state == .done }
     }
-    
+
     func transform(_ input: Input) -> Output {
         input
             .moveToToDoObserver
@@ -81,6 +82,19 @@ class ProjectViewModel: ViewModelDescribing {
     func addProject(title: String?, body: String?, date: TimeInterval) {
         let newProject = Project(title: title, body: body, date: date)
         projects.append(newProject)
+        reloadObserver.onNext(())
+    }
+    
+    func setSelectedProject(with project: Project?) {
+        selectedProject = project
+    }
+    
+    func editProject(title: String?, body: String?, date: TimeInterval) {
+        guard let selectedProject = selectedProject,
+              let index = projects.firstIndex(where: { $0 == selectedProject }) else { return }
+        projects[index].title = title
+        projects[index].body = body
+        projects[index].date = date
         reloadObserver.onNext(())
     }
     

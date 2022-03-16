@@ -2,6 +2,7 @@ import UIKit
 
 class EditProjectViewController: UIViewController {
     private let editView = ProjectFormView()
+    weak var viewModel: ProjectViewModel?
     
     private let navigationBar: UINavigationBar = {
         let navigationBar = UINavigationBar(frame: .zero)
@@ -19,12 +20,17 @@ class EditProjectViewController: UIViewController {
         setupAddFormViewLayout()
     }
     
+    func setupEditView(with project: Project?) {
+        guard let project = project else { return }
+        editView.setupFormView(with: project)
+    }
+    
     private func setupNavigationBar() {
-        let navigationItem = UINavigationItem(title: "TODO")
-        let editItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: nil)
-        let doneItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissView))
-        navigationItem.leftBarButtonItem = editItem
-        navigationItem.rightBarButtonItem = doneItem
+        let navigationItem = UINavigationItem(title: ProjectState.todo.title)
+        let cancelItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismissView))
+        let editItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(saveEditedProject))
+        navigationItem.leftBarButtonItem = cancelItem
+        navigationItem.rightBarButtonItem = editItem
         navigationBar.setItems([navigationItem], animated: false)
     }
     
@@ -47,9 +53,14 @@ class EditProjectViewController: UIViewController {
             editView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
         ])
     }
-    
+
     @objc private func dismissView() {
         dismiss(animated: true)
         actionAfterDismiss()
+    }
+    
+    @objc private func saveEditedProject() {
+        viewModel?.editProject(title: editView.title, body: editView.body, date: editView.date)
+        dismiss(animated: true)
     }
 }

@@ -195,8 +195,12 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) as? ProjectListCell else { return }
+        viewModel.setSelectedProject(with: cell.project)
         let viewController = EditProjectViewController()
         viewController.modalPresentationStyle = .formSheet
+        viewController.viewModel = viewModel
+        viewController.setupEditView(with: cell.project)
         viewController.actionAfterDismiss = deselectCell
         present(viewController, animated: true, completion: nil)
     }
