@@ -23,7 +23,8 @@ class MainViewCoordinator {
             coordinator: self,
             useCase: ScheduleUseCase(
                 repository: DataRepository(
-                    dataSource: dataSource
+                    dataSource: dataSource,
+                    remoteDataSource: FirestoreService()
                 )
             )
         )

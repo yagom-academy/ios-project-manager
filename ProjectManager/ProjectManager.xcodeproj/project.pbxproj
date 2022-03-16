@@ -29,6 +29,9 @@
 		33B6322327D7554C00EB169D /* DateFormatter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33B6322227D7554C00EB169D /* DateFormatter+Extension.swift */; };
 		33D15E1227DB47BD006407A9 /* ScheduleListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33D15E1127DB47BD006407A9 /* ScheduleListHeaderView.swift */; };
 		33D15E1627DBA724006407A9 /* UIView+Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33D15E1527DBA724006407A9 /* UIView+Shadow.swift */; };
+		33F62BCD27E1DC0700DF592F /* FirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F62BCC27E1DC0700DF592F /* FirestoreService.swift */; };
+		33F62BD227E1DD5F00DF592F /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F62BD127E1DD5F00DF592F /* NetworkService.swift */; };
+		33F62BD427E1E12500DF592F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 33F62BD327E1E12500DF592F /* GoogleService-Info.plist */; };
 		376D6FB527D734950097D31A /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 376D6FB427D734950097D31A /* MainViewModel.swift */; };
 		37CC921827D74D15003F1122 /* ScheduleListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CC921727D74D15003F1122 /* ScheduleListCell.swift */; };
 		37CC921F27D87105003F1122 /* ScheduleItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CC921E27D87105003F1122 /* ScheduleItemViewController.swift */; };
@@ -78,6 +81,9 @@
 		33B6322227D7554C00EB169D /* DateFormatter+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Extension.swift"; sourceTree = "<group>"; };
 		33D15E1127DB47BD006407A9 /* ScheduleListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleListHeaderView.swift; sourceTree = "<group>"; };
 		33D15E1527DBA724006407A9 /* UIView+Shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Shadow.swift"; sourceTree = "<group>"; };
+		33F62BCC27E1DC0700DF592F /* FirestoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreService.swift; sourceTree = "<group>"; };
+		33F62BD127E1DD5F00DF592F /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		33F62BD327E1E12500DF592F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		376D6FB427D734950097D31A /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		37CC921727D74D15003F1122 /* ScheduleListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleListCell.swift; sourceTree = "<group>"; };
 		37CC921E27D87105003F1122 /* ScheduleItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleItemViewController.swift; sourceTree = "<group>"; };
@@ -176,8 +182,8 @@
 		336E237D27D1E9F100C40ECC /* DataSource */ = {
 			isa = PBXGroup;
 			children = (
-				336E237727D1E7B300C40ECC /* DataSource.swift */,
-				37FB8D9827D1EDD400ED9AE2 /* MemoryDataSource.swift */,
+				33F62BCE27E1DD1F00DF592F /* Network */,
+				33F62BCF27E1DD2E00DF592F /* Local */,
 			);
 			path = DataSource;
 			sourceTree = "<group>";
@@ -210,6 +216,40 @@
 				37CC922B27DCB7A3003F1122 /* String+Extension.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		33F62BCB27E1DBC000DF592F /* Firestore */ = {
+			isa = PBXGroup;
+			children = (
+				33F62BCC27E1DC0700DF592F /* FirestoreService.swift */,
+			);
+			path = Firestore;
+			sourceTree = "<group>";
+		};
+		33F62BCE27E1DD1F00DF592F /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				33F62BD127E1DD5F00DF592F /* NetworkService.swift */,
+				33F62BCB27E1DBC000DF592F /* Firestore */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		33F62BCF27E1DD2E00DF592F /* Local */ = {
+			isa = PBXGroup;
+			children = (
+				336E237727D1E7B300C40ECC /* DataSource.swift */,
+				33F62BD027E1DD4400DF592F /* Memory */,
+			);
+			path = Local;
+			sourceTree = "<group>";
+		};
+		33F62BD027E1DD4400DF592F /* Memory */ = {
+			isa = PBXGroup;
+			children = (
+				37FB8D9827D1EDD400ED9AE2 /* MemoryDataSource.swift */,
+			);
+			path = Memory;
 			sourceTree = "<group>";
 		};
 		37CC921927D86FF7003F1122 /* Presentation */ = {
@@ -282,8 +322,8 @@
 		37FB8D9527D1DE1D00ED9AE2 /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
-				37FB8D9627D1DE6100ED9AE2 /* ScheduleUseCase.swift */,
 				37CC926D27E1C046003F1122 /* Protocol */,
+				37FB8D9627D1DE6100ED9AE2 /* ScheduleUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -318,6 +358,7 @@
 				336E237327D1E63800C40ECC /* Data */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
+				33F62BD327E1E12500DF592F /* GoogleService-Info.plist */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
@@ -427,6 +468,7 @@
 			files = (
 				E94F18E927CD0AF100FF6DA1 /* .swiftlint.yml in Resources */,
 				C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */,
+				33F62BD427E1E12500DF592F /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -476,6 +518,7 @@
 				33D15E1627DBA724006407A9 /* UIView+Shadow.swift in Sources */,
 				37CC921827D74D15003F1122 /* ScheduleListCell.swift in Sources */,
 				37CC927127E1C06C003F1122 /* ScheduleItemUseCase.swift in Sources */,
+				33F62BCD27E1DC0700DF592F /* FirestoreService.swift in Sources */,
 				37CC926F27E1C05C003F1122 /* MainUseCase.swift in Sources */,
 				33D15E1227DB47BD006407A9 /* ScheduleListHeaderView.swift in Sources */,
 				336E237827D1E7B300C40ECC /* DataSource.swift in Sources */,
@@ -485,6 +528,7 @@
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				37CC922C27DCB7A3003F1122 /* String+Extension.swift in Sources */,
 				336E237B27D1E7DD00C40ECC /* Repository.swift in Sources */,
+				33F62BD227E1DD5F00DF592F /* NetworkService.swift in Sources */,
 				334BADEC27D8A0980098F448 /* ScheduleItemViewModel.swift in Sources */,
 				37CC921F27D87105003F1122 /* ScheduleItemViewController.swift in Sources */,
 				334BADEE27D8B1BC0098F448 /* MainViewCoordinator.swift in Sources */,
