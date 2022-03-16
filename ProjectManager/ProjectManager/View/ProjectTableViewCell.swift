@@ -53,6 +53,12 @@ class ProjectTableViewCell: UITableViewCell {
         return stackView
     }()
     
+    private var cellContainerView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     // MARK: - Intiailizer
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -60,32 +66,33 @@ class ProjectTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.contentView.addSubview(cellContainerView)
+        self.cellContainerView.addSubview(stackView)
         self.configureCellUI()
         self.configureLayout()
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        self.contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 5,
-                                                                          left: 0,
-                                                                          bottom: 5,
-                                                                          right: 0))
     }
     
     // MARK: - Configure View
     private func configureCellUI() {
         self.backgroundColor = .clear
-        self.contentView.backgroundColor = .white
+        self.contentView.backgroundColor = .clear
+        self.cellContainerView.backgroundColor = .white
     }
     
     private func configureLayout() {
-        self.contentView.addSubview(stackView)
+        NSLayoutConstraint.activate([
+            cellContainerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
+            cellContainerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            cellContainerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            cellContainerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5)
+        ])
+        
         let margin = CGFloat(15)
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: margin),
-            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -margin),
-            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: margin),
-            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -margin)
+            stackView.topAnchor.constraint(equalTo: cellContainerView.topAnchor, constant: margin),
+            stackView.bottomAnchor.constraint(equalTo: cellContainerView.bottomAnchor, constant: -margin),
+            stackView.leadingAnchor.constraint(equalTo: cellContainerView.leadingAnchor, constant: margin),
+            stackView.trailingAnchor.constraint(equalTo: cellContainerView.trailingAnchor, constant: -margin)
         ])
     }
     
