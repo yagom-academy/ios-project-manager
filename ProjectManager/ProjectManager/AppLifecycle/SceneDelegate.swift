@@ -16,7 +16,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let windowSecene = (scene as? UIWindowScene) {
             let repository = TaskRepository()
             let viewModel = TaskViewModel(taskRepository: repository)
-            let contentView = MainScene().environmentObject(viewModel)
+            let contentView = MainScene(taskViewModel: viewModel)
             window = UIWindow(windowScene: windowSecene)
             window?.rootViewController = UIHostingController(rootView: contentView)
             window?.makeKeyAndVisible()

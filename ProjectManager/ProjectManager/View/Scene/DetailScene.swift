@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DetailScene: View {
-    @EnvironmentObject private var taskViewModel: TaskViewModel
+    @ObservedObject var taskViewModel: TaskViewModel
 
     @State private var title: String
     @State private var content: String
@@ -20,12 +20,13 @@ struct DetailScene: View {
     
     private var task: Task
     
-    init(task: Task, showDetailScene: Binding<Bool>) {
+    init(taskViewModel: TaskViewModel, task: Task, showDetailScene: Binding<Bool>) {
+        self.taskViewModel = taskViewModel
+        self.task = task
         _showDetailScene = showDetailScene
         _title = State(initialValue: task.title)
         _content = State(initialValue: task.content)
         _limitDate = State(initialValue: task.limitDate)
-        self.task = task
     }
     
     var body: some View {

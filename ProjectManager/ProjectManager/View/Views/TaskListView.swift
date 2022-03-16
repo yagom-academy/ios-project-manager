@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TaskListView: View {
-    @EnvironmentObject private var taskViewModel: TaskViewModel
+    @ObservedObject var taskViewModel: TaskViewModel
     @State private var isShowDetailScene: Bool = false
     @State private var isShowPopover: Bool = false
     let taskStatus: TaskStatus
@@ -46,7 +46,7 @@ struct TaskListView: View {
                 } label: {
                     TaskCellView(task: task)
                         .sheet(isPresented: $isShowDetailScene, onDismiss: nil) {
-                            DetailScene(task: task, showDetailScene: $isShowDetailScene)
+                            DetailScene(taskViewModel: taskViewModel, task: task, showDetailScene: $isShowDetailScene)
                         }
                         .onLongPressGesture(minimumDuration: 0.5, maximumDistance: 10.0, perform: {
                             isShowPopover.toggle()

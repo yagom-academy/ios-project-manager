@@ -8,22 +8,22 @@
 import SwiftUI
 
 struct MainScene: View {
-    @EnvironmentObject private var taskViewModel: TaskViewModel
+    @ObservedObject var taskViewModel: TaskViewModel
     @State private var isShowAddScene: Bool = false
     
     var body: some View {
         NavigationView {
             HStack {
-                TaskListView(taskStatus: .todo)
-                TaskListView(taskStatus: .doing)
-                TaskListView(taskStatus: .done)
+                TaskListView(taskViewModel: taskViewModel, taskStatus: .todo)
+                TaskListView(taskViewModel: taskViewModel, taskStatus: .doing)
+                TaskListView(taskViewModel: taskViewModel, taskStatus: .done)
             }
             .navigationBarTitle("Project Manager", displayMode: .inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     AddButtonView(show: $isShowAddScene)
                         .sheet(isPresented: $isShowAddScene, onDismiss: nil) {
-                            AddScene(showAddScene: $isShowAddScene)
+                            AddScene(taskViewModel: taskViewModel, showAddScene: $isShowAddScene)
                         }
                 }
             }
@@ -36,8 +36,7 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         let repository = TaskRepository()
         let viewModel = TaskViewModel(taskRepository: repository)
-        MainScene()
-            .environmentObject(viewModel)
+        MainScene(taskViewModel: viewModel)
             .previewDevice(PreviewDevice(rawValue: "iPad Pro (12.9-inch)"))
             .previewDisplayName("iPad Pro (12.9-inch)")
             .previewInterfaceOrientation(.landscapeLeft)
