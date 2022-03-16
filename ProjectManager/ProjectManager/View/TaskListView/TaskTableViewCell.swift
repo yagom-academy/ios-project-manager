@@ -40,8 +40,9 @@ final class TaskTableViewCell: UITableViewCell {
         selectedBackgroundView = backgroundView
     }
     
-    // TaskListViewController에서 처리하면 3개 tableView에 개별 적용해야 하므로 중복코드 발생
-    // 그런데 ViewController도 모르고, ViewModel도 모르는 상황...
+    // LongPress 제스처 처리 
+    // 방법-1 TaskListViewController에서 처리 - 3개 tableView에 개별 적용해야 하므로 중복코드 발생
+    // 방법-2 Cell에서 처리 - Cell은 ViewController 및 ViewModel 둘다 몰라서 ViewControlle에게 받아와야 함
     private func setupLongPressGesture() {
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(didLongPressed))
         longPressRecognizer.numberOfTouchesRequired = 1
