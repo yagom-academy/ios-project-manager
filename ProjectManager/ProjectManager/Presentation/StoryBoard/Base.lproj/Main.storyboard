@@ -192,7 +192,7 @@
         <!--TaskDetailViewController-->
         <scene sceneID="DG8-2F-d0R">
             <objects>
-                <viewControllerPlaceholder storyboardName="TaskDetailViewController" referencedIdentifier="TaskDetailViewController" id="wqS-cd-Fau" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardName="Modal" referencedIdentifier="TaskDetailViewController" id="wqS-cd-Fau" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C9e-qY-7WD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1085" y="-19"/>
