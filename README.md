@@ -9,9 +9,7 @@
 ## 프로젝트 설명
 
 ### ✔️ 구현모습
-
-![](https://i.imgur.com/U7tMJTt.gif)
-
+![Simulator Screen Recording - iPad Pro (12 9-inch) (5th generation) - 2022-03-17 at 01 01 05 (1)](https://user-images.githubusercontent.com/40068674/158636542-f8246f05-bb8a-440c-a623-fc4aac38f09a.gif)
 
 [프로젝트 매니저]
 
