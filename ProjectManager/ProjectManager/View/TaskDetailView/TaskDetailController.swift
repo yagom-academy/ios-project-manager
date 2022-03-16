@@ -14,8 +14,10 @@ class TaskDetailController: UIViewController {
         self.taskListViewModel = taskListViewModel
         self.taskManagerAction = taskManagerAction
         self.taskToEdit = taskToEdit
-        
-//        applyTaskToEditIfExists()
+    }
+    
+    override func viewDidLoad() {
+        applyTaskToEditIfExists()
         setupLeftBarButton()
     }
     
@@ -23,9 +25,9 @@ class TaskDetailController: UIViewController {
         guard taskManagerAction == .edit, let taskToEdit = taskToEdit else { return }
         
         title = taskToEdit.processStatus.description
-//        titleLabel.text = taskToEdit.title // 오류 - nil 발생
-//        datePicker.date = taskToEdit.dueDate
-//        bodyTextView.text = taskToEdit.body
+        titleLabel.text = taskToEdit.title
+        datePicker.date = taskToEdit.dueDate
+        bodyTextView.text = taskToEdit.body
     }
     
     func setupLeftBarButton() {
@@ -52,11 +54,10 @@ class TaskDetailController: UIViewController {
         let newTask = createTaskWithUserInput()
         
         switch taskManagerAction {
-        case .add: // 완료 -> 추가
+        case .add: // 완료 = 추가
             taskListViewModel?.create(task: newTask)
             dismiss(animated: true, completion: nil)
-        case .edit: // 완료 -> 취소? 수정?
-            taskListViewModel?.edit(task: taskToEdit!, newTitle: newTask.title, newBody: newTask.body, newDueDate: newTask.dueDate)
+        case .edit: // 완료 = 수정 취소
             dismiss(animated: true, completion: nil)
         case .none:
             print(TaskManagerError.invalidTaskManagerAction)
