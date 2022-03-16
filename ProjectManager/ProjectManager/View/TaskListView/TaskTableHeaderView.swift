@@ -27,7 +27,7 @@ class TaskTableHeaderView: UITableViewHeaderFooterView {
         return label
     }()
     
-    init(reuseIdentifier: String?, taskCountObservable: Observable<Int>, processStatus: ProcessStatus) { // ViewModel 간 의존성은 어떻게 처리?
+    init(reuseIdentifier: String?, taskCountObservable: Observable<Int>, processStatus: ProcessStatus) { 
         self.taskCountObservable = taskCountObservable
         self.processStatus = processStatus
         super.init(reuseIdentifier: reuseIdentifier)

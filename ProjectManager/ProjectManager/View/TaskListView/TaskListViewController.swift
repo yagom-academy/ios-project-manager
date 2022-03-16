@@ -39,7 +39,7 @@ final class TaskListViewController: UIViewController {
     
     private func setupHeaderViews() {
         let todoTaskHeaderView = TaskTableHeaderView(reuseIdentifier: TaskTableHeaderView.reuseIdentifier,
-                                                     taskCountObservable: taskListViewModel.todoTasksCount,
+                                                     taskCountObservable: taskListViewModel.todoTasksCount, // 기존 ViewModel의 일부 데이터를 생성자 주입으로 전달
                                                      processStatus: .todo)
         let doingTaskHeaderView = TaskTableHeaderView(reuseIdentifier: TaskTableHeaderView.reuseIdentifier,
                                                       taskCountObservable: taskListViewModel.doingTasksCount,

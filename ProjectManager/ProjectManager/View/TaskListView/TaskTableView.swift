@@ -8,5 +8,4 @@ final class TaskTableView: UITableView {
         register(nib, forCellReuseIdentifier: TaskTableViewCell.reuseIdentifier)
         register(TaskTableHeaderView.self, forHeaderFooterViewReuseIdentifier: TaskTableHeaderView.reuseIdentifier)
     }
-    
 }
