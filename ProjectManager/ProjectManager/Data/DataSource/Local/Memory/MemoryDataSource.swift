@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 
-final class MemoryDataSource: DataSource {
+final class MemoryDataSource {
     var storage = [
         Schedule(title: "안녕하세요", body: "메모앱입니다. RxSwift를 곁들인", dueDate: Date(), progress: .todo),
         Schedule(title: "안녕하세요", body: "메모앱입니다. RxSwift를 곁들인", dueDate: Date(), progress: .doing),

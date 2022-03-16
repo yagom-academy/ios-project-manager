@@ -14,12 +14,12 @@
 		334BADF027D8F2690098F448 /* ScheduleItemCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334BADEF27D8F2690098F448 /* ScheduleItemCoordinator.swift */; };
 		336E237227D1DC0000C40ECC /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 336E237127D1DC0000C40ECC /* Schedule.swift */; };
 		336E237627D1E6B200C40ECC /* DataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 336E237527D1E6B200C40ECC /* DataRepository.swift */; };
-		336E237827D1E7B300C40ECC /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 336E237727D1E7B300C40ECC /* DataSource.swift */; };
+		336E237827D1E7B300C40ECC /* LocalDatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 336E237727D1E7B300C40ECC /* LocalDatabaseService.swift */; };
 		336E237B27D1E7DD00C40ECC /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 336E237A27D1E7DD00C40ECC /* Repository.swift */; };
 		33B6320E27D73FC800EB169D /* MainViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33B6320D27D73FC800EB169D /* MainViewModelTests.swift */; };
 		33B6321527D741F400EB169D /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33B6321427D741F400EB169D /* MockData.swift */; };
 		33B6321727D7421E00EB169D /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 336E237127D1DC0000C40ECC /* Schedule.swift */; };
-		33B6321827D7422300EB169D /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 336E237727D1E7B300C40ECC /* DataSource.swift */; };
+		33B6321827D7422300EB169D /* LocalDatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 336E237727D1E7B300C40ECC /* LocalDatabaseService.swift */; };
 		33B6321927D742B300EB169D /* MemoryDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FB8D9827D1EDD400ED9AE2 /* MemoryDataSource.swift */; };
 		33B6321A27D7434400EB169D /* DataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 336E237527D1E6B200C40ECC /* DataRepository.swift */; };
 		33B6321B27D7434900EB169D /* ScheduleUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FB8D9627D1DE6100ED9AE2 /* ScheduleUseCase.swift */; };
@@ -32,6 +32,10 @@
 		33F62BCD27E1DC0700DF592F /* FirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F62BCC27E1DC0700DF592F /* FirestoreService.swift */; };
 		33F62BD227E1DD5F00DF592F /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F62BD127E1DD5F00DF592F /* NetworkService.swift */; };
 		33F62BD427E1E12500DF592F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 33F62BD327E1E12500DF592F /* GoogleService-Info.plist */; };
+		33F62BD627E1FCBE00DF592F /* NetworkCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F62BD527E1FCBE00DF592F /* NetworkCheck.swift */; };
+		33F62BD927E231FD00DF592F /* RealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F62BD827E231FD00DF592F /* RealmService.swift */; };
+		33F62BDA27E2345100DF592F /* RealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F62BD827E231FD00DF592F /* RealmService.swift */; };
+		33F62BDC27E2346E00DF592F /* StorableSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F62BDB27E2346E00DF592F /* StorableSchedule.swift */; };
 		376D6FB527D734950097D31A /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 376D6FB427D734950097D31A /* MainViewModel.swift */; };
 		37CC921827D74D15003F1122 /* ScheduleListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CC921727D74D15003F1122 /* ScheduleListCell.swift */; };
 		37CC921F27D87105003F1122 /* ScheduleItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CC921E27D87105003F1122 /* ScheduleItemViewController.swift */; };
@@ -72,7 +76,7 @@
 		334BADEF27D8F2690098F448 /* ScheduleItemCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleItemCoordinator.swift; sourceTree = "<group>"; };
 		336E237127D1DC0000C40ECC /* Schedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schedule.swift; sourceTree = "<group>"; };
 		336E237527D1E6B200C40ECC /* DataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataRepository.swift; sourceTree = "<group>"; };
-		336E237727D1E7B300C40ECC /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
+		336E237727D1E7B300C40ECC /* LocalDatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDatabaseService.swift; sourceTree = "<group>"; };
 		336E237A27D1E7DD00C40ECC /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		33B6320B27D73FC800EB169D /* ProjectManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProjectManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		33B6320D27D73FC800EB169D /* MainViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModelTests.swift; sourceTree = "<group>"; };
@@ -84,6 +88,9 @@
 		33F62BCC27E1DC0700DF592F /* FirestoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreService.swift; sourceTree = "<group>"; };
 		33F62BD127E1DD5F00DF592F /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		33F62BD327E1E12500DF592F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		33F62BD527E1FCBE00DF592F /* NetworkCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkCheck.swift; sourceTree = "<group>"; };
+		33F62BD827E231FD00DF592F /* RealmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmService.swift; sourceTree = "<group>"; };
+		33F62BDB27E2346E00DF592F /* StorableSchedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorableSchedule.swift; sourceTree = "<group>"; };
 		376D6FB427D734950097D31A /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		37CC921727D74D15003F1122 /* ScheduleListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleListCell.swift; sourceTree = "<group>"; };
 		37CC921E27D87105003F1122 /* ScheduleItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleItemViewController.swift; sourceTree = "<group>"; };
@@ -238,7 +245,8 @@
 		33F62BCF27E1DD2E00DF592F /* Local */ = {
 			isa = PBXGroup;
 			children = (
-				336E237727D1E7B300C40ECC /* DataSource.swift */,
+				336E237727D1E7B300C40ECC /* LocalDatabaseService.swift */,
+				33F62BD727E22F8400DF592F /* Realm */,
 				33F62BD027E1DD4400DF592F /* Memory */,
 			);
 			path = Local;
@@ -250,6 +258,15 @@
 				37FB8D9827D1EDD400ED9AE2 /* MemoryDataSource.swift */,
 			);
 			path = Memory;
+			sourceTree = "<group>";
+		};
+		33F62BD727E22F8400DF592F /* Realm */ = {
+			isa = PBXGroup;
+			children = (
+				33F62BD827E231FD00DF592F /* RealmService.swift */,
+				33F62BDB27E2346E00DF592F /* StorableSchedule.swift */,
+			);
+			path = Realm;
 			sourceTree = "<group>";
 		};
 		37CC921927D86FF7003F1122 /* Presentation */ = {
@@ -351,6 +368,7 @@
 			isa = PBXGroup;
 			children = (
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
+				33F62BD527E1FCBE00DF592F /* NetworkCheck.swift */,
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
 				33B6321F27D7527800EB169D /* Extension */,
 				37CC921927D86FF7003F1122 /* Presentation */,
@@ -503,11 +521,12 @@
 				33B6321B27D7434900EB169D /* ScheduleUseCase.swift in Sources */,
 				33B6321527D741F400EB169D /* MockData.swift in Sources */,
 				33B6321C27D7434B00EB169D /* Repository.swift in Sources */,
-				33B6321827D7422300EB169D /* DataSource.swift in Sources */,
+				33B6321827D7422300EB169D /* LocalDatabaseService.swift in Sources */,
 				33B6321A27D7434400EB169D /* DataRepository.swift in Sources */,
 				33B6320E27D73FC800EB169D /* MainViewModelTests.swift in Sources */,
 				33B6321927D742B300EB169D /* MemoryDataSource.swift in Sources */,
 				33B6321D27D7436800EB169D /* MainViewModel.swift in Sources */,
+				33F62BDA27E2345100DF592F /* RealmService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -521,11 +540,13 @@
 				33F62BCD27E1DC0700DF592F /* FirestoreService.swift in Sources */,
 				37CC926F27E1C05C003F1122 /* MainUseCase.swift in Sources */,
 				33D15E1227DB47BD006407A9 /* ScheduleListHeaderView.swift in Sources */,
-				336E237827D1E7B300C40ECC /* DataSource.swift in Sources */,
+				336E237827D1E7B300C40ECC /* LocalDatabaseService.swift in Sources */,
 				37FB8D9927D1EDD400ED9AE2 /* MemoryDataSource.swift in Sources */,
 				37FB8D9727D1DE6100ED9AE2 /* ScheduleUseCase.swift in Sources */,
+				33F62BD627E1FCBE00DF592F /* NetworkCheck.swift in Sources */,
 				37CC922827DBA84E003F1122 /* Date+Extension.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
+				33F62BDC27E2346E00DF592F /* StorableSchedule.swift in Sources */,
 				37CC922C27DCB7A3003F1122 /* String+Extension.swift in Sources */,
 				336E237B27D1E7DD00C40ECC /* Repository.swift in Sources */,
 				33F62BD227E1DD5F00DF592F /* NetworkService.swift in Sources */,
@@ -537,6 +558,7 @@
 				376D6FB527D734950097D31A /* MainViewModel.swift in Sources */,
 				33B6322127D7528700EB169D /* TableView+Extension.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
+				33F62BD927E231FD00DF592F /* RealmService.swift in Sources */,
 				336E237627D1E6B200C40ECC /* DataRepository.swift in Sources */,
 				336E237227D1DC0000C40ECC /* Schedule.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
@@ -716,13 +738,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = TLS95R65C2;
 				INFOPLIST_FILE = ProjectManager/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = net.yagom.ProjectManager;
+				PRODUCT_BUNDLE_IDENTIFIER = net.yagom.ProjectManager1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
@@ -735,13 +758,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = TLS95R65C2;
 				INFOPLIST_FILE = ProjectManager/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = net.yagom.ProjectManager;
+				PRODUCT_BUNDLE_IDENTIFIER = sjsj.net;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;

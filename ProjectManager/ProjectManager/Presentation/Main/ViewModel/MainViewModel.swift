@@ -73,11 +73,12 @@ final class MainViewModel {
             .disposed(by: disposeBag)
 
         input.popoverBottomButtonDidTap
+            .withUnretained(self)
             .withLatestFrom(input.tableViewLongPressed)
             .compactMap { $0 }
-            .subscribe(onNext: { [weak self] schedule, _, _ in
+            .subscribe(onNext: { schedule, _, _ in
                 let targetProgress = Progress.allCases.filter { $0 != schedule.progress }.last
-                self?.useCase.changeProgress(of: schedule, progress: targetProgress)
+                self.useCase.changeProgress(of: schedule, progress: targetProgress)
             })
             .disposed(by: disposeBag)
 
