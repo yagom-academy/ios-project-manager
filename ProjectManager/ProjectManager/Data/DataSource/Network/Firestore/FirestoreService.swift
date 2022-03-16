@@ -10,40 +10,56 @@ import RxSwift
 import FirebaseFirestore
 
 class FirestoreService: NetworkService {
-
     private let database = Firestore.firestore()
 
-    func create(_ schedule: Schedule) -> Observable<Schedule> {
-        return Observable.create { observable in
-            self.database.collection("schedules").addDocument(data: schedule.makeEntity()) { err in
+    func create(_ schedule: Schedule) -> Completable {
+        return Completable.create { completable in
+            self.database.collection("schedules").document(schedule.id.uuidString).setData(schedule.makeEntity()) { err in
                 if let err = err {
-                    observable.onError(err)
+                    completable(.error(err))
                 } else {
-                    observable.onNext(schedule)
-                    observable.onCompleted()
+                    completable(.completed)
                 }
             }
             return Disposables.create()
         }
     }
 
-    func delete(_ scheduleID: UUID) {
-        print("1")
+    func delete(_ scheduleID: UUID) -> Completable {
+        return Completable.create { completable in
+            let item = self.database.collection("schedules").document(scheduleID.uuidString)
+            item.delete { err in
+                if let err = err {
+                    completable(.error(err))
+                } else {
+                    completable(.completed)
+                }
+            }
+            return Disposables.create()
+        }
     }
 
-    func update(_ schedule: Schedule) {
-        print("1")
+    func update(_ schedule: Schedule) -> Completable {
+        return Completable.create { completable in
+            self.database.collection("schedules").document(schedule.id.uuidString).setData(schedule.makeEntity()) { err in
+                if let err = err {
+                    completable(.error(err))
+                } else {
+                    completable(.completed)
+                }
+            }
+            return Disposables.create()
+        }
     }
 
-    func fetch() -> Observable<[Schedule]> {
-        return Observable.create { observable in
+    func fetch() -> Single<[Schedule]> {
+        return Single.create { single in
             self.database.collection("schedules").getDocuments() { (querySnapshot, err) in
                 if let err = err {
-                    observable.onError(err)
+                    single(.failure(err))
                 } else {
                     let schedules = querySnapshot!.documents.map { Schedule(document: $0.data()) }
-                    observable.onNext(schedules)
-                    observable.onCompleted()
+                    single(.success(schedules))
                     for document in querySnapshot!.documents {
                         print("\(document.documentID) => \(document.data())")
 

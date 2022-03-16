@@ -9,8 +9,8 @@ import Foundation
 import RxSwift
 
 protocol NetworkService {
-    func fetch() -> Observable<[Schedule]>
-    func create(_ schedule: Schedule) -> Observable<Schedule>
-    func delete(_ scheduleID: UUID)
-    func update(_ schedule: Schedule)
+    func fetch() -> Single<[Schedule]>
+    func create(_ schedule: Schedule) -> Completable
+    func delete(_ scheduleID: UUID) -> Completable
+    func update(_ schedule: Schedule) -> Completable
 }

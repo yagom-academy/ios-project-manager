@@ -28,7 +28,7 @@ final class ScheduleUseCase: MainUseCase, ScheduleItemUseCase {
 
     func fetch() {
         self.scheduleProvider.fetch()
-            .subscribe(onNext: { [weak self] event in
+            .subscribe(onSuccess: { [weak self] event in
                 self?.schedules.accept(event)
             })
             .disposed(by: self.bag)
@@ -36,7 +36,7 @@ final class ScheduleUseCase: MainUseCase, ScheduleItemUseCase {
 
     func create(_ schedule: Schedule) {
         self.scheduleProvider.create(schedule)
-            .subscribe(onNext: { [weak schedules] schedule in
+            .subscribe(onCompleted: { [weak schedules] in
                 guard var currentSchedules = schedules?.value else { return }
                 currentSchedules.append(schedule)
 
@@ -47,7 +47,7 @@ final class ScheduleUseCase: MainUseCase, ScheduleItemUseCase {
 
     func delete(_ scheduleID: UUID) {
         self.scheduleProvider.delete(scheduleID)
-            .subscribe(onNext: { [weak schedules] _ in
+            .subscribe(onCompleted: { [weak schedules] in
                 guard let newSchedules = schedules?.value.filter({ schedule in
                     schedule.id != scheduleID
                 }) else { return }
@@ -58,14 +58,14 @@ final class ScheduleUseCase: MainUseCase, ScheduleItemUseCase {
 
     func update(_ schedule: Schedule) {
         self.scheduleProvider.update(schedule)
-            .subscribe(onNext: { [weak schedules] newSchedule in
+            .subscribe(onCompleted: { [weak schedules] in
                 guard var currentSchedules = schedules?.value else { return }
                 guard let index = currentSchedules.enumerated()
-                        .filter({ $0.element.id == newSchedule.id })
+                        .filter({ $0.element.id == schedule.id })
                         .map({ $0.0 }).first
                 else { return }
 
-                currentSchedules[safe: index] = newSchedule
+                currentSchedules[safe: index] = schedule
 
                 schedules?.accept(currentSchedules)
             })

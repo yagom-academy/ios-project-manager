@@ -19,21 +19,20 @@ final class DataRepository: Repository {
         self.remoteDataSource = remoteDataSource
     }
 
-    func fetch() -> Observable<[Schedule]> {
+    func fetch() -> Single<[Schedule]> {
+
         return self.remoteDataSource.fetch()
-//        return self.dataSource.rxFetch()
     }
 
-    func create(_ schedule: Schedule) -> Observable<Schedule> {
+    func create(_ schedule: Schedule) -> Completable {
         return self.remoteDataSource.create(schedule)
-//        return self.dataSource.rxCreate(schedule)
     }
 
-    func delete(_ scheduleID: UUID) -> Observable<Bool> {
-        return self.dataSource.rxDelete(scheduleID)
+    func delete(_ scheduleID: UUID) -> Completable {
+        return self.remoteDataSource.delete(scheduleID)
     }
 
-    func update(_ schedule: Schedule) -> Observable<Schedule> {
-        return self.dataSource.rxUpdate(schedule)
+    func update(_ schedule: Schedule) -> Completable {
+        return self.remoteDataSource.update(schedule)
     }
 }

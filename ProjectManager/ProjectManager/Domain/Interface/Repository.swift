@@ -10,11 +10,11 @@ import RxSwift
 
 protocol Repository {
 
-    func fetch() -> Observable<[Schedule]>
+    func fetch() -> Single<[Schedule]>
 
-    func create(_ schedule: Schedule) -> Observable<Schedule>
+    func create(_ schedule: Schedule) -> Completable
 
-    func delete(_ scheduleID: UUID) -> Observable<Bool>
+    func delete(_ scheduleID: UUID) -> Completable
 
-    func update(_ schedule: Schedule) -> Observable<Schedule>
+    func update(_ schedule: Schedule) -> Completable
 }
