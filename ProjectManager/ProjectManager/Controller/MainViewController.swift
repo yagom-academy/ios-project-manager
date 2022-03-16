@@ -1,13 +1,16 @@
 import UIKit
+import RxSwift
 
 class MainViewController: UIViewController {
+    private let viewModel = ProjectViewModel()
+    private let moveToToDoObserver: PublishSubject<Project> = .init()
+    private let moveToDoingObserver: PublishSubject<Project> = .init()
+    private let moveToDoneObserver: PublishSubject<Project> = .init()
+    private let disposeBag: DisposeBag = .init()
+    
     private let toDoTableView = UITableView()
     private let doingTableView = UITableView()
     private let doneTableView = UITableView()
-    
-    private let toDoDataSource = ToDoDataSource()
-    private let doingDataSource = DoingDataSource()
-    private let doneDataSource = DoneDataSource()
     
     private let toDoHeader = ProjectListHeaderView(title: "TODO")
     private let doingHeader = ProjectListHeaderView(title: "DOING")
@@ -67,13 +70,45 @@ class MainViewController: UIViewController {
         }
     }
     
+    init() {
+        super.init(nibName: nil, bundle: nil)
+        bind()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        bind()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
         setupNavigationBar()
         setupStackViewLayout()
         registerProjectListCell()
-        addLongPressGesture()
+    }
+    
+    func bind() {
+        let input = ProjectViewModel.Input(
+            moveToToDoObserver: self.moveToToDoObserver.asObservable(),
+            moveToDoingObserver: self.moveToDoingObserver.asObservable(),
+            moveToDoneObserver: self.moveToDoneObserver.asObservable()
+        )
+        
+        let output = viewModel.transform(input)
+        
+        output
+            .reloadObserver
+            .subscribe(onNext: {
+                self.reloadTableView()
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    func reloadTableView() {
+        toDoTableView.reloadData()
+        doingTableView.reloadData()
+        doneTableView.reloadData()
     }
     
     private func setupStackViewLayout() {
@@ -99,9 +134,9 @@ class MainViewController: UIViewController {
         toDoTableView.delegate = self
         doingTableView.delegate = self
         doneTableView.delegate = self
-        toDoTableView.dataSource = toDoDataSource
-        doingTableView.dataSource = doingDataSource
-        doneTableView.dataSource = doneDataSource
+        toDoTableView.dataSource = self
+        doingTableView.dataSource = self
+        doneTableView.dataSource = self
     }
     
     private func registerProjectListCell() {
@@ -117,9 +152,47 @@ class MainViewController: UIViewController {
     }
 }
 
-// MARK: - UITableViewDelegate
+// MARK: - UITableViewDelegate, UITableViewDataSource
 
-extension MainViewController: UITableViewDelegate {
+extension MainViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        switch tableView {
+        case toDoTableView:
+            return viewModel.todoProjects.count
+        case doingTableView:
+            return viewModel.doingProjects.count
+        case doneTableView:
+            return viewModel.doneProjects.count
+        default:
+            return 0
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell =  tableView.dequeueReusableCell(ProjectListCell.self, for: indexPath) else {
+            return UITableViewCell()
+        }
+        switch tableView {
+        case toDoTableView:
+            let project = viewModel.todoProjects[indexPath.row]
+            cell.setupCell(with: project)
+            cell.delegate = self
+            return cell
+        case doingTableView:
+            let project = viewModel.doingProjects[indexPath.row]
+            cell.setupCell(with: project)
+            cell.delegate = self
+            return cell
+        case doneTableView:
+            let project = viewModel.doneProjects[indexPath.row]
+            cell.setupCell(with: project)
+            cell.delegate = self
+            return cell
+        default:
+            return cell
+        }
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let viewController = EditProjectViewController()
         viewController.modalPresentationStyle = .formSheet
@@ -136,62 +209,26 @@ extension MainViewController: UITableViewDelegate {
     }
 }
 
-// MARK: - LongPressGesture
+// MARK: - ProjectListCellDelegate
 
-extension MainViewController {
-    private func addLongPressGesture() {
-        let todoLongPressGestrue = UILongPressGestureRecognizer(target: self, action: #selector(presentToDoLongPressMenu(_:)))
-        let doingLongPressGestrue = UILongPressGestureRecognizer(target: self, action: #selector(presentDoingLongPressMenu(_:)))
-        let doneLongPressGestrue = UILongPressGestureRecognizer(target: self, action: #selector(presentDoneLongPressMenu(_:)))
-        toDoTableView.addGestureRecognizer(todoLongPressGestrue)
-        doingTableView.addGestureRecognizer(doingLongPressGestrue)
-        doneTableView.addGestureRecognizer(doneLongPressGestrue)
+extension MainViewController: ProjectListCellDelegate {
+    func didTapTodoAction(_ project: Project?) {
+        guard let project = project else { return }
+        moveToToDoObserver.onNext(project)
     }
     
-    private func makePopoverAlert(with sectionTitles: [String]) -> UIAlertController {
-        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let moveToFirstSectionAction = UIAlertAction(title: sectionTitles[0], style: .default)
-        let moveToSecondSectionAction = UIAlertAction(title: sectionTitles[1], style: .default)
-        alert.addAction(moveToFirstSectionAction)
-        alert.addAction(moveToSecondSectionAction)
-        
-        return alert
+    func didTapDoingAction(_ project: Project?) {
+        guard let project = project else { return }
+        moveToDoingObserver.onNext(project)
     }
-
-    @objc private func presentToDoLongPressMenu(_ longPresss: UILongPressGestureRecognizer) {
-        let sectionTitles = ["Move To DOING", "Move To DONE"]
-        let locationInView = longPresss.location(in: toDoTableView)
-        guard let indexPath = toDoTableView.indexPathForRow(at: locationInView) else { return }
-
-        if longPresss.state == .began {
-            let alert = makePopoverAlert(with: sectionTitles)
-            alert.popoverPresentationController?.sourceView = toDoTableView.cellForRow(at: indexPath)
-            present(alert, animated: true)
-        }
+    
+    func didTapDoneAction(_ project: Project?) {
+        guard let project = project else { return }
+        moveToDoneObserver.onNext(project)
     }
-
-    @objc private func presentDoingLongPressMenu(_ longPresss: UILongPressGestureRecognizer) {
-        let sectionTitles = ["Move To TODO", "Move To DONE"]
-        let locationInView = longPresss.location(in: doingTableView)
-        guard let indexPath = doingTableView.indexPathForRow(at: locationInView) else { return }
-
-        if longPresss.state == .began {
-            let alert = makePopoverAlert(with: sectionTitles)
-            alert.popoverPresentationController?.sourceView = doingTableView.cellForRow(at: indexPath)
-            present(alert, animated: true)
-        }
-    }
-
-    @objc private func presentDoneLongPressMenu(_ longPresss: UILongPressGestureRecognizer) {
-        let sectionTitles = ["Move To TODO", "Move To DOING"]
-        let locationInView = longPresss.location(in: doneTableView)
-        guard let indexPath = doneTableView.indexPathForRow(at: locationInView) else { return }
-
-        if longPresss.state == .began {
-            let alert = makePopoverAlert(with: sectionTitles)
-            alert.popoverPresentationController?.sourceView = doneTableView.cellForRow(at: indexPath)
-            present(alert, animated: true)
-        }
+    
+    func presentPopOver(_ alert: UIAlertController) {
+        present(alert, animated: true)
     }
 }
 

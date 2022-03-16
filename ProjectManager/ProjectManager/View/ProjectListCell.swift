@@ -1,6 +1,16 @@
 import UIKit
 
+protocol ProjectListCellDelegate: AnyObject {
+    func didTapTodoAction(_ project: Project?)
+    func didTapDoingAction(_ project: Project?)
+    func didTapDoneAction(_ project: Project?)
+    func presentPopOver(_ alert: UIAlertController)
+}
+
 class ProjectListCell: UITableViewCell {
+    var delegate: ProjectListCellDelegate?
+    private var project: Project?
+    
     private let containerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -46,6 +56,30 @@ class ProjectListCell: UITableViewCell {
         return stackView
     }()
     
+    private var moveToToDoAction: UIAlertAction {
+        let action = UIAlertAction(title: "MOVE TO TODO", style: .default) { _ in
+            self.delegate?.didTapTodoAction(self.project)
+        }
+        
+        return action
+    }
+    
+    private var moveToDoingAction: UIAlertAction {
+        let action = UIAlertAction(title: "MOVE TO DOING", style: .default) { _ in
+            self.delegate?.didTapDoingAction(self.project)
+        }
+        
+        return action
+    }
+    
+    private var moveToDoneAction: UIAlertAction {
+        let action = UIAlertAction(title: "MOVE TO DONE", style: .default) { _ in
+            self.delegate?.didTapDoneAction(self.project)
+        }
+        
+        return action
+    }
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         commonInit()
@@ -73,16 +107,50 @@ class ProjectListCell: UITableViewCell {
         }
     }
     
-    func setupLabelText(title: String, preview: String, date: String) {
-        titleLabel.text = title
-        previewLabel.text = preview
-        dateLabel.text = date
+    func setupCell(with project: Project) {
+        self.project = project
+        titleLabel.text = project.title
+        previewLabel.text = project.body
+        dateLabel.text = Date(timeIntervalSince1970: project.date).description
     }
-    
+
     private func commonInit() {
         contentView.addSubview(labelStackView)
         setupBackgroundColor()
         setupLabelStackViewLayout()
+        addLongPressGesture()
+    }
+    
+    private func addLongPressGesture() {
+        let longPressGestrue = UILongPressGestureRecognizer(target: self, action: #selector(presentLongPressMenu(_:)))
+        containerView.addGestureRecognizer(longPressGestrue)
+    }
+    
+    private func makePopoverAlert() -> UIAlertController {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        guard let project = project else { return alert }
+        
+        switch project.state {
+        case .todo:
+            alert.addAction(moveToDoingAction)
+            alert.addAction(moveToDoneAction)
+        case .doing:
+            alert.addAction(moveToToDoAction)
+            alert.addAction(moveToDoneAction)
+        case .done:
+            alert.addAction(moveToToDoAction)
+            alert.addAction(moveToDoingAction)
+        }
+        
+        return alert
+    }
+    
+    @objc private func presentLongPressMenu(_ longPresss: UILongPressGestureRecognizer) {
+        if longPresss.state == .began {
+            let alert = makePopoverAlert()
+            alert.popoverPresentationController?.sourceView = containerView
+            delegate?.presentPopOver(alert)
+        }
     }
     
     private func setupBackgroundColor() {

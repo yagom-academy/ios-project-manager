@@ -8,9 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		47F8F60A27CDEA96008919E3 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F8F60927CDEA96008919E3 /* CoreDataManager.swift */; };
-		47F9810727D096DF0046FE9E /* ToDoDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F9810627D096DF0046FE9E /* ToDoDataSource.swift */; };
-		47F9810927D096EC0046FE9E /* DoingDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F9810827D096EC0046FE9E /* DoingDataSource.swift */; };
-		47F9810B27D096FA0046FE9E /* DoneDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F9810A27D096FA0046FE9E /* DoneDataSource.swift */; };
 		47F9812D27D1F6550046FE9E /* ProjectListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F9812C27D1F6550046FE9E /* ProjectListHeaderView.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
@@ -29,6 +26,9 @@
 		FB85DA3C27D1AD430065FD72 /* ProjectListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB85DA3B27D1AD430065FD72 /* ProjectListCell.swift */; };
 		FB85DA3E27D1B2370065FD72 /* CellReusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB85DA3D27D1B2370065FD72 /* CellReusable.swift */; };
 		FB9EDAB127D5FBE300C78BE1 /* EditProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9EDAB027D5FBE300C78BE1 /* EditProjectViewController.swift */; };
+		FB9EDACA27E1C8FD00C78BE1 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9EDAC927E1C8FD00C78BE1 /* Project.swift */; };
+		FB9EDACC27E1C93400C78BE1 /* ProjectState.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9EDACB27E1C93400C78BE1 /* ProjectState.swift */; };
+		FB9EDACE27E1C9A000C78BE1 /* ProjectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9EDACD27E1C9A000C78BE1 /* ProjectViewModel.swift */; };
 		FBD493FB27D2095200BA412F /* ProjectFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD493FA27D2095200BA412F /* ProjectFormView.swift */; };
 		FBDBCF0027CDBAB80018B526 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FBDBCEFF27CDBAB80018B526 /* GoogleService-Info.plist */; };
 		FBDBCF0327CDBC3D0018B526 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = FBDBCF0227CDBC3D0018B526 /* FirebaseAnalytics */; };
@@ -40,9 +40,6 @@
 
 /* Begin PBXFileReference section */
 		47F8F60927CDEA96008919E3 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
-		47F9810627D096DF0046FE9E /* ToDoDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoDataSource.swift; sourceTree = "<group>"; };
-		47F9810827D096EC0046FE9E /* DoingDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoingDataSource.swift; sourceTree = "<group>"; };
-		47F9810A27D096FA0046FE9E /* DoneDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneDataSource.swift; sourceTree = "<group>"; };
 		47F9812C27D1F6550046FE9E /* ProjectListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListHeaderView.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -59,6 +56,9 @@
 		FB85DA3B27D1AD430065FD72 /* ProjectListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListCell.swift; sourceTree = "<group>"; };
 		FB85DA3D27D1B2370065FD72 /* CellReusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellReusable.swift; sourceTree = "<group>"; };
 		FB9EDAB027D5FBE300C78BE1 /* EditProjectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProjectViewController.swift; sourceTree = "<group>"; };
+		FB9EDAC927E1C8FD00C78BE1 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
+		FB9EDACB27E1C93400C78BE1 /* ProjectState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectState.swift; sourceTree = "<group>"; };
+		FB9EDACD27E1C9A000C78BE1 /* ProjectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectViewModel.swift; sourceTree = "<group>"; };
 		FBD493FA27D2095200BA412F /* ProjectFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectFormView.swift; sourceTree = "<group>"; };
 		FBDBCEFF27CDBAB80018B526 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -117,6 +117,8 @@
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
 				47F8F60827CDEA70008919E3 /* CoreData */,
 				FB9EDAB627D62E6200C78BE1 /* Protocol */,
+				FB9EDAC827E1C8E400C78BE1 /* Model */,
+				FB9EDACF27E1C9A700C78BE1 /* ViewModel */,
 				FB9EDAB327D62DFB00C78BE1 /* Controller */,
 				FB9EDAB427D62E0C00C78BE1 /* View */,
 				C7431F0B25F51E1D0094C4CF /* Main.storyboard */,
@@ -134,7 +136,6 @@
 				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
 				FB16501127D2066D00C145D6 /* AddProjectViewController.swift */,
 				FB9EDAB027D5FBE300C78BE1 /* EditProjectViewController.swift */,
-				FB9EDAB527D62E2E00C78BE1 /* TableViewDataSource */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -149,22 +150,29 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		FB9EDAB527D62E2E00C78BE1 /* TableViewDataSource */ = {
-			isa = PBXGroup;
-			children = (
-				47F9810627D096DF0046FE9E /* ToDoDataSource.swift */,
-				47F9810827D096EC0046FE9E /* DoingDataSource.swift */,
-				47F9810A27D096FA0046FE9E /* DoneDataSource.swift */,
-			);
-			path = TableViewDataSource;
-			sourceTree = "<group>";
-		};
 		FB9EDAB627D62E6200C78BE1 /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
 				FB85DA3D27D1B2370065FD72 /* CellReusable.swift */,
 			);
 			path = Protocol;
+			sourceTree = "<group>";
+		};
+		FB9EDAC827E1C8E400C78BE1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				FB9EDAC927E1C8FD00C78BE1 /* Project.swift */,
+				FB9EDACB27E1C93400C78BE1 /* ProjectState.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		FB9EDACF27E1C9A700C78BE1 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				FB9EDACD27E1C9A000C78BE1 /* ProjectViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,16 +265,16 @@
 				47F9812D27D1F6550046FE9E /* ProjectListHeaderView.swift in Sources */,
 				FB85DA3427CDF8970065FD72 /* ToDo.xcdatamodeld in Sources */,
 				FB16501227D2066D00C145D6 /* AddProjectViewController.swift in Sources */,
-				47F9810B27D096FA0046FE9E /* DoneDataSource.swift in Sources */,
+				FB9EDACC27E1C93400C78BE1 /* ProjectState.swift in Sources */,
 				FB9EDAB127D5FBE300C78BE1 /* EditProjectViewController.swift in Sources */,
-				47F9810727D096DF0046FE9E /* ToDoDataSource.swift in Sources */,
 				FBD493FB27D2095200BA412F /* ProjectFormView.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				FB85DA3827CDF91E0065FD72 /* ToDo+CoreDataProperties.swift in Sources */,
 				FB85DA3C27D1AD430065FD72 /* ProjectListCell.swift in Sources */,
 				47F8F60A27CDEA96008919E3 /* CoreDataManager.swift in Sources */,
-				47F9810927D096EC0046FE9E /* DoingDataSource.swift in Sources */,
+				FB9EDACE27E1C9A000C78BE1 /* ProjectViewModel.swift in Sources */,
+				FB9EDACA27E1C8FD00C78BE1 /* Project.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				FB85DA3727CDF91E0065FD72 /* ToDo+CoreDataClass.swift in Sources */,
 			);
