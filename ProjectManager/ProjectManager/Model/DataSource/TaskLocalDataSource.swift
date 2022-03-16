@@ -9,8 +9,13 @@ import Foundation
 
 final class TaskLocalDataSource<Element>: RepositoryDataSource {
     
-    var queryAllRecords: [Element] {
+    var fetchAllRecords: [Element] {
         []
+    }
+    
+    func fetch(_ condition: ((Element) -> Bool)) throws -> [Element] {
+        print(#function)
+        return []
     }
     
     func create(_ object: Element) throws {

@@ -13,7 +13,7 @@ struct TaskRepositoryManager: TaskManager {
     let remoteRepository = TaskRemoteDataSource<Task>()
     
     var todoTasks: [Task] {
-        []
+        localRepository.
     }
     
     var doingTasks: [Task] {
@@ -38,7 +38,7 @@ struct TaskRepositoryManager: TaskManager {
     
     func sync() {
         try? remoteRepository.removeAllRecords()
-        for record in localRepository.queryAllRecords {
+        for record in localRepository.fetchAllRecords {
             try? remoteRepository.create(record)
         }
     }
