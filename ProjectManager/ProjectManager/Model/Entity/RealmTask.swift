@@ -25,4 +25,13 @@ final class RealmTask: Object {
         self.status = status
     }
     
+    init(_ object: Task) {
+        super.init()
+        self.id = object.id
+        self.title = object.title
+        self.taskDescription = object.description
+        self.dueDate = object.dueDate
+        self.status = object.status.rawValue
+    }
+    
 }
