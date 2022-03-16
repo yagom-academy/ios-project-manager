@@ -37,7 +37,7 @@ struct TaskListRowView: View {
             isTaskEditing.toggle()
         }
         .sheet(isPresented: $isTaskEditing) {
-            TaskEditingView(selectedTask: task, isTaskEditingViewShowing: $isTaskEditing)
+            TaskFormingView(selectedTask: task, mode: $isTaskEditing)
         }
         .contextMenu {
             ForEach(TaskStatus.allCases, id: \.self) { status in

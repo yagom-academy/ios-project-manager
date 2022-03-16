@@ -18,8 +18,7 @@
 		C182E7A627CDDBEA00F6218C /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C182E7A527CDDBEA00F6218C /* RealmSwift */; };
 		C182E7BB27CE222B00F6218C /* FirebaseAnalyticsSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = C182E7BA27CE222B00F6218C /* FirebaseAnalyticsSwift-Beta */; };
 		C182E7BD27CE232900F6218C /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = C182E7BC27CE232900F6218C /* FirebaseAnalyticsWithoutAdIdSupport */; };
-		C18B9F1927DE0EF900CF78F4 /* TaskCreatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18B9F1827DE0EF900CF78F4 /* TaskCreatingView.swift */; };
-		C18B9F1B27DE6F4100CF78F4 /* TaskEditingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18B9F1A27DE6F4100CF78F4 /* TaskEditingView.swift */; };
+		C18B9F1B27DE6F4100CF78F4 /* TaskFormingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18B9F1A27DE6F4100CF78F4 /* TaskFormingView.swift */; };
 		C18B9F1D27DF2DC700CF78F4 /* TaskListPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18B9F1C27DF2DC700CF78F4 /* TaskListPlaceholder.swift */; };
 		C18B9F1F27DF2E2400CF78F4 /* TaskListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18B9F1E27DF2E2400CF78F4 /* TaskListHeaderView.swift */; };
 		C1B26D2B27E1005B0092E386 /* TextEditorWithPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B26D2A27E1005B0092E386 /* TextEditorWithPlaceholder.swift */; };
@@ -54,8 +53,7 @@
 		C101D2C727D4DF8E00334F5C /* TaskListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListView.swift; sourceTree = "<group>"; };
 		C182E78327CD0E9D00F6218C /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		C182E7A027CDD57800F6218C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		C18B9F1827DE0EF900CF78F4 /* TaskCreatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCreatingView.swift; sourceTree = "<group>"; };
-		C18B9F1A27DE6F4100CF78F4 /* TaskEditingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskEditingView.swift; sourceTree = "<group>"; };
+		C18B9F1A27DE6F4100CF78F4 /* TaskFormingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskFormingView.swift; sourceTree = "<group>"; };
 		C18B9F1C27DF2DC700CF78F4 /* TaskListPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListPlaceholder.swift; sourceTree = "<group>"; };
 		C18B9F1E27DF2E2400CF78F4 /* TaskListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListHeaderView.swift; sourceTree = "<group>"; };
 		C1B26D2A27E1005B0092E386 /* TextEditorWithPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditorWithPlaceholder.swift; sourceTree = "<group>"; };
@@ -138,8 +136,7 @@
 				C101D2C727D4DF8E00334F5C /* TaskListView.swift */,
 				C18B9F1E27DF2E2400CF78F4 /* TaskListHeaderView.swift */,
 				C101D2C227D4DB2D00334F5C /* TaskListRowView.swift */,
-				C18B9F1827DE0EF900CF78F4 /* TaskCreatingView.swift */,
-				C18B9F1A27DE6F4100CF78F4 /* TaskEditingView.swift */,
+				C18B9F1A27DE6F4100CF78F4 /* TaskFormingView.swift */,
 				C18B9F1C27DF2DC700CF78F4 /* TaskListPlaceholder.swift */,
 				C1B26D2A27E1005B0092E386 /* TextEditorWithPlaceholder.swift */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
@@ -348,9 +345,8 @@
 				C101D2A527D341E200334F5C /* TaskManagerError.swift in Sources */,
 				C101D2C327D4DB2D00334F5C /* TaskListRowView.swift in Sources */,
 				C101D2C827D4DF8E00334F5C /* TaskListView.swift in Sources */,
-				C18B9F1927DE0EF900CF78F4 /* TaskCreatingView.swift in Sources */,
 				C1B26D2B27E1005B0092E386 /* TextEditorWithPlaceholder.swift in Sources */,
-				C18B9F1B27DE6F4100CF78F4 /* TaskEditingView.swift in Sources */,
+				C18B9F1B27DE6F4100CF78F4 /* TaskFormingView.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C182E78427CD0E9D00F6218C /* MainView.swift in Sources */,
 				C1FE9BBB27CFB68600397B90 /* Task.swift in Sources */,
