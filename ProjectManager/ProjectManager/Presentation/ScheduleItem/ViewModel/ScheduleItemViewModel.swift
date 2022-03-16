@@ -27,7 +27,7 @@ class ScheduleItemViewModel {
     // MARK: - Properties
 
     private let bag = DisposeBag()
-    private let useCase: ScheduleUseCase
+    private let useCase: ScheduleItemUseCase
     private let coordinator: ScheduleItemCoordinator
 
     private let mode: BehaviorRelay<Mode>
@@ -37,7 +37,7 @@ class ScheduleItemViewModel {
 
     // MARK: - Initializer
 
-    init(useCase: ScheduleUseCase, coordinator: ScheduleItemCoordinator, mode: Mode) {
+    init(useCase: ScheduleItemUseCase, coordinator: ScheduleItemCoordinator, mode: Mode) {
         self.useCase = useCase
         self.coordinator = coordinator
         self.mode = BehaviorRelay<Mode>(value: mode)

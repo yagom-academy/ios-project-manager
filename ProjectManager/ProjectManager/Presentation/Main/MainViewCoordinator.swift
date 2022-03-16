@@ -32,7 +32,7 @@ class MainViewCoordinator {
     }
 
     func presentScheduleItemViewController(mode: ScheduleItemViewModel.Mode) {
-        guard let useCase = self.mainViewController.viewModel?.useCase else {
+        guard let useCase = self.mainViewController.viewModel?.useCase as? ScheduleItemUseCase else {
             return
         }
 

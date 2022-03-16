@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 import RxRelay
 
-final class ScheduleUseCase {
+final class ScheduleUseCase: MainUseCase, ScheduleItemUseCase {
 
     // MARK: - Properties
 

@@ -18,13 +18,13 @@ final class MainViewModel {
 
     // MARK: - Properties
 
-    let useCase: ScheduleUseCase
+    let useCase: MainUseCase
     private let coordinator: MainViewCoordinator
     private let bag = DisposeBag()
 
     // MARK: - Initializer
 
-    init(coordinator: MainViewCoordinator, useCase: ScheduleUseCase) {
+    init(coordinator: MainViewCoordinator, useCase: MainUseCase) {
         self.coordinator = coordinator
         self.useCase = useCase
     }
