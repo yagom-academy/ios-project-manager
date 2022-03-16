@@ -17,7 +17,7 @@ class TaskTableHeaderView: UITableViewHeaderFooterView {
         return label
     }()
     
-    var countLabel: UILabel = {
+    var taskCountLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontSizeToFitWidth = true
@@ -62,7 +62,7 @@ class TaskTableHeaderView: UITableViewHeaderFooterView {
         ])
         
         stackView.addArrangedSubview(titleLabel)
-        stackView.addArrangedSubview(countLabel)
+        stackView.addArrangedSubview(taskCountLabel)
     }
     
     private func setupFrame() {
@@ -76,7 +76,7 @@ class TaskTableHeaderView: UITableViewHeaderFooterView {
         taskCountObservable
             .map { "\($0)" }
             .asDriver(onErrorJustReturn: "")
-            .drive(countLabel.rx.text)
+            .drive(taskCountLabel.rx.text)
             .disposed(by: disposeBag)
     }
 }

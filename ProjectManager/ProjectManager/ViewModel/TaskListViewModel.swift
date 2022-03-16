@@ -20,6 +20,7 @@ protocol TaskListViewModelProtocol {
 //    func titleForHeaderInSection(for tableView: TaskTableView) -> Observable<String>
     func edit(task: Task, newTitle: String, newBody: String, newDueDate: Date)
     func edit(task: Task, newProcessStatus: ProcessStatus)
+    func didSelectRow(at row: Int, inTableViewOf: ProcessStatus) -> UIViewController
 }
 
 // TODO: MVVM - Input/Output 구분
@@ -108,39 +109,6 @@ final class TaskListViewModel: TaskListViewModelProtocol {
         }
     }
     
-    // MARK: - TaskListView
-//    func numberOfRowsInSection(for tableView: TaskTableView) -> Observable<Int> {  // Int가 아니라 Observable<Int>로 보내는게 맞겠지? 변경사항을 View에 자동 반영하려면...?
-//        switch tableView.processStatus {
-//        case .todo:
-//            return todoTasksCount
-//        case .doing:
-//            return doingTasksCount
-//        case .done:
-//            return doneTasksCount
-//        default:
-//            print(TableViewError.invalidTableView)
-//            return todoTasksCount
-//        }
-//    }
-    
-//    func titleForHeaderInSection(for tableView: TaskTableView) -> Observable<String> {
-//        switch tableView.processStatus {
-//        case .todo:
-//            return todoTasksCount.map { "\(ProcessStatus.todo.description) \($0)" }
-////            return "\(ProcessStatus.todo.description) \(todoTasksCount)" // Observable<Int> 타입
-//
-//            //            let count = todoTasksCount.map { $0.description } // Int -> String 타입으로 꺼내줘야하나?
-////            return "\(ProcessStatus.todo.description) \(count)"
-//        case .doing:
-//            return doingTasksCount.map { "\(ProcessStatus.doing.description) \($0)" }
-//        case .done:
-//            return doneTasksCount.map { "\(ProcessStatus.done.description) \($0)" }
-//        case .none:
-//            print(TableViewError.invalidTableView)
-//            return todoTasksCount.map { "\(ProcessStatus.todo.description) \($0)" }
-//        }
-//    }
-    
     // MARK: - TaskEditView
     // TODO: Popover에서 Title/Body/DueData Edit 기능 구현
     func edit(task: Task, newTitle: String, newBody: String, newDueDate: Date) {
@@ -157,5 +125,23 @@ final class TaskListViewModel: TaskListViewModelProtocol {
         
         let newTask = Task(id: task.id, title: task.title, body: task.body, dueDate: task.dueDate, processStatus: newProcessStatus)
         update(task: task, to: newTask)
+    }
+    
+    func didSelectRow(at row: Int, inTableViewOf: ProcessStatus) -> UIViewController {
+        var taskToEdit: Task!
+        switch inTableViewOf {
+        case .todo:
+            taskToEdit = taskRepository?.todoTasks[row]
+        case .doing:
+            taskToEdit = taskRepository?.doingTasks[row]
+        case .done:
+            taskToEdit = taskRepository?.todoTasks[row]
+        }
+        
+        let taskDetailController = ViewControllerFactory.createViewController(of: .editTaskDetail(viewModel: self,
+                                                                                                  taskToEdit: taskToEdit))
+        taskDetailController.modalPresentationStyle = .popover
+        
+        return taskDetailController
     }
 }

@@ -102,9 +102,24 @@ extension TaskListViewController {
 }
 
 // MARK: - TableView Delegate
-//extension TaskListViewController: UITableViewDelegate { // 쓸 수 있는건가?
-////     TODO: Cell을 탭하면 Popover 표시
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) { // editTaskDetail 띄우기
+extension TaskListViewController: UITableViewDelegate { // 쓸 수 있는건가?
+//     TODO: Cell을 탭하면 Popover 표시
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) { // editTaskDetail 띄우기, tableView.rx.itemSelected 활용하려고 했는데 어려움
+        print(tableView.indexPathsForSelectedRows) // 이게 되나?
+        
+        guard let tableView = tableView as? TaskTableView,
+              let selectedProcessStatus = tableView.processStatus else {
+                  print(TableViewError.invalidTableView.description)
+                  return
+              }
+
+        
+        
+        let taskDetailController = taskListViewModel.didSelectRow(at: indexPath.row, inTableViewOf: selectedProcessStatus) // 이렇게 일을 시키는 형태
+        
+        self.present(UINavigationController(rootViewController: taskDetailController), animated: true)
+    }
+}
 //        self.tableView.rx.modelSelected(Task.self)
 //        .subscribe(onNext: { item in
 //           Observable.just(Reactor.Action.moveToDetail(item))
@@ -114,10 +129,7 @@ extension TaskListViewController {
 //        
 //        
 //        
-//        guard let tableView = tableView as? TaskTableView else {
-//            print(TableViewError.invalidTableView.description)
-//            return
-//        }
+
 //        
 //        
 //        tableView.rx.itemSelected
@@ -127,10 +139,6 @@ extension TaskListViewController {
 //    }
 //    
 //    func presentEditView(with indexPath: IndexPath) {
-//        let taskDetailController = ViewControllerFactory.createViewController(of: .editTaskDetail(viewModel: self.taskListViewModel,
-//                                                                                                  taskToEdit: tableView[indexPath]))
-//        taskDetailController.modalPresentationStyle = UIModalPresentationStyle.popover
-//        
-//        self.present(UINavigationController(rootViewController: taskDetailController), animated: true)
+
 //    }
-//}
+
