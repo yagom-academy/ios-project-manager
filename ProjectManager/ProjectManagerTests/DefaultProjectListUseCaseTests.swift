@@ -76,7 +76,7 @@ class MemoryUseCaseTests: XCTestCase {
         sut?.create(project)
         
         // when
-        let result = try? sut?.delete(project2.id).toBlocking().first()
+        let result = try? sut?.delete(project2).toBlocking().first()
         
         // then
         XCTAssertNotNil(result)
@@ -93,10 +93,36 @@ class MemoryUseCaseTests: XCTestCase {
         let project3 = Project(title: "실패", description: "실패 내용", date: Date())
         
         // when
-        let result = try? sut?.delete(project3.id).toBlocking().first()
+        let result = try? sut?.delete(project3).toBlocking().first()
 
         // then
         XCTAssertNil(result)
         XCTAssertTrue(try! sut?.fetch().toBlocking(timeout: 1).first()?.count == 2)
+    }
+    
+    func test_fetch를하면_정상적인_배열이반환된다() {
+        // given
+        let project = Project(title: "제목", description: "상세 내용", date: Date())
+        sut?.create(project)
+        let project2 = Project(title: "삭제", description: "삭제 내용", date: Date())
+        sut?.create(project2)
+        
+        // when
+        let result = try? sut?.fetch().toBlocking(timeout: 1).first()
+        
+        XCTAssertTrue(result?.count == 2)
+    }
+    
+    func test_UUID로_특정한_프로젝트만_fetch해오기() {
+        // given
+        let project = Project(title: "제목", description: "상세 내용", date: Date())
+        sut?.create(project)
+        let project2 = Project(title: "삭제", description: "삭제 내용", date: Date())
+        sut?.create(project2)
+        
+        // when
+        let result = try? sut?.fetch(id: project2.id).toBlocking(timeout: 1).first()
+        
+        XCTAssertTrue(result?.id == project2.id)
     }
 }
