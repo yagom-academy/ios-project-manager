@@ -22,16 +22,13 @@ class FirebaseTaskListRepository {
             Contant.status: entityTask.progressStatus
         ]
         
-        ref = store
+        store
             .collection(Contant.collectionName)
-            .addDocument(data: createData) { error in
-                if let error = error {
-                    print("Error adding document: \(error)")
-                } else {
-                    print("Document added with ID: \(self.ref!.documentID)")
-                    complition()
-                }
+            .document(entityTask.id)
+            .setData(createData) { error in
+                print("Error adding document: \(String(describing: error))")
             }
+        complition()
     }
     
     func fetchEntityTask(complition: @escaping ([FirebaseEntityTask]) -> Void) {
@@ -41,28 +38,28 @@ class FirebaseTaskListRepository {
             .getDocuments { data, error in
                 if let error = error {
                     print("Error getting documents: \(error)")
-                } else {
-                    guard let data = data else {
-                        return
-                    }
-                    for document in data.documents {
-                        let id = document.data()[Contant.id] as? String ?? ""
-                        let title = document.data()[Contant.title] as? String ?? ""
-                        let description = document.data()[Contant.desc] as? String ?? ""
-                        let deadline = document.data()[Contant.deadline] as? TimeInterval ?? 0
-                        let progressStatus = document.data()[Contant.status] as? String ?? ""
-                        let entityTask = FirebaseEntityTask(
-                            id: id,
-                            title: title,
-                            description: description,
-                            deadline: deadline,
-                            progressStatus: progressStatus
-                        )
-                        print("\(document.documentID) => \(document.data())")
-                        entityTaskList.append(entityTask)
-                    }
-                    complition(entityTaskList)
+                    return
                 }
+                guard let data = data else {
+                    return
+                }
+                data.documents.forEach { document in
+                    let id = document.data()[Contant.id] as? String ?? ""
+                    let title = document.data()[Contant.title] as? String ?? ""
+                    let description = document.data()[Contant.desc] as? String ?? ""
+                    let deadline = document.data()[Contant.deadline] as? TimeInterval ?? 0
+                    let progressStatus = document.data()[Contant.status] as? String ?? ""
+                    let entityTask = FirebaseEntityTask(
+                        id: id,
+                        title: title,
+                        description: description,
+                        deadline: deadline,
+                        progressStatus: progressStatus
+                    )
+                    print("\(document.documentID) => \(document.data())")
+                    entityTaskList.append(entityTask)
+                }
+                complition(entityTaskList)
             }
     }
     
@@ -80,66 +77,61 @@ class FirebaseTaskListRepository {
             
             store
                 .collection(Contant.collectionName)
-                .whereField(Contant.id, isEqualTo: id)
-                .getDocuments { data, error in
+                .document(id)
+                .getDocument { data, error in
                     if let error = error {
                         print("Document error: \(error)")
-                    } else {
-                        if let document = data?.documents.first {
-                            document.reference.setData(updateData, merge: true) { error in
-                                if let error = error {
-                                    print("Error adding document: \(error)")
-                                } else {
-                                    print("Document updated with ID: \(document.documentID)")
-                                    complition()
-                                }
-                            }
-                        }
+                        return
                     }
+                    guard let data = data else {
+                        return
+                    }
+                    data.reference.setData(updateData, merge: true) { error in
+                        print("Error adding document: \(String(describing: error))")
+                    }
+                    complition()
                 }
         }
-    
+
     func updateEntityTaskStatus(id: String, status: String, complition: @escaping () -> Void) {
         let updateStateData = ["status": status]
         
         store
             .collection(Contant.collectionName)
-            .whereField(Contant.id, isEqualTo: id)
-            .getDocuments { data, error in
+            .document(id)
+            .getDocument { data, error in
                 if let error = error {
                     print("Document error: \(error)")
-                } else {
-                    if let document = data?.documents.first {
-                        document.reference.setData(updateStateData, merge: true) { error in
-                            if let error = error {
-                                print("Error adding document: \(error)")
-                            } else {
-                                print("Document updated with ID: \(document.documentID)")
-                                complition()
-                            }
-                        }
-                    }
+                    return
                 }
+                guard let data = data else {
+                    return
+                }
+                data.reference.setData(updateStateData, merge: true) { error in
+                    print("Error adding document: \(String(describing: error))")
+                    return
+                }
+                complition()
             }
     }
     
     func deleteEntityTask(id: String, complition: @escaping () -> Void) {
         store
             .collection(Contant.collectionName)
-            .whereField(Contant.id, isEqualTo: id)
-            .getDocuments { data, error in
+            .document(id)
+            .getDocument { data, error in
                 if let error = error {
                     print("Document error: \(error)")
-                } else {
-                    if let document = data?.documents.first {
-                        document.reference.delete { error in
-                            print("Error adding document: \(String(describing: error))")
-                            return
-                        }
-                        print("Document updated with ID: \(document.documentID)")
-                        complition()
-                    }
+                    return
                 }
+                guard let data = data else {
+                    return
+                }
+                data.reference.delete { error in
+                    print("Error adding document: \(String(describing: error))")
+                    return
+                }
+                complition()
             }
     }
 }
