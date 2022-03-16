@@ -104,6 +104,7 @@
 			children = (
 				25F993EB27D8A1B7007F5975 /* TaskManagable.swift */,
 				2570E6D627D225BB002984D2 /* TaskManager.swift */,
+				2538C38227E1B75C00ECDFF8 /* NetworkCheckManager.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -176,7 +177,6 @@
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
 				2570E6A127CDE284002984D2 /* GoogleService-Info.plist */,
-				2538C38227E1B75C00ECDFF8 /* NetworkCheckManager.swift */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
