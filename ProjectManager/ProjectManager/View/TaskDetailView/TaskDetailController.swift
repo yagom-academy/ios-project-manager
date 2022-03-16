@@ -15,12 +15,24 @@ class TaskDetailController: UIViewController {
         self.taskManagerAction = taskManagerAction
         self.taskToEdit = taskToEdit
         
+//        applyTaskToEditIfExists()
         setupLeftBarButton()
+    }
+    
+    func applyTaskToEditIfExists() {
+        guard taskManagerAction == .edit, let taskToEdit = taskToEdit else { return }
+        
+        title = taskToEdit.processStatus.description
+//        titleLabel.text = taskToEdit.title // 오류 - nil 발생
+//        datePicker.date = taskToEdit.dueDate
+//        bodyTextView.text = taskToEdit.body
     }
     
     func setupLeftBarButton() {
         let leftBarButton = taskManagerAction.leftBarButton
-        self.navigationController?.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: leftBarButton, target: self, action: #selector(touchUpLeftBarButton))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: leftBarButton,
+                                                           target: self,
+                                                           action: #selector(touchUpLeftBarButton))
     }
     
     @objc func touchUpLeftBarButton() {
@@ -28,43 +40,30 @@ class TaskDetailController: UIViewController {
         case .add: // cancle
             dismiss(animated: true, completion: nil)
         case .edit: // edit
-            let newTask = createTask()
-            taskListViewModel?.update(task: taskToEdit!, to: newTask)
+            let newTask = createTaskWithUserInput()
+            taskListViewModel?.edit(task: taskToEdit!, newTitle: newTask.title, newBody: newTask.body, newDueDate: newTask.dueDate)
             dismiss(animated: true, completion: nil)
         case .none:
             print(TaskManagerError.invalidTaskManagerAction)
         }
     }
     
-    func setupRightBarButton() {
-        
-    }
-    
-    @objc func touchUpRightBarButton() {
-        
-    }
-    
-    // dynamic하게 변하는거라 못쓰나보다
-//    @IBAction private func touchUpCancelButton(_ sender: UIBarButtonItem) {
-//        dismiss(animated: true, completion: nil)
-//    }
-    
     @IBAction private func touchUpDoneButton(_ sender: UIBarButtonItem) {
-        let newTask = createTask()
+        let newTask = createTaskWithUserInput()
         
         switch taskManagerAction {
         case .add: // 완료 -> 추가
             taskListViewModel?.create(task: newTask)
             dismiss(animated: true, completion: nil)
         case .edit: // 완료 -> 취소? 수정?
-            taskListViewModel?.update(task: taskToEdit!, to: newTask)
+            taskListViewModel?.edit(task: taskToEdit!, newTitle: newTask.title, newBody: newTask.body, newDueDate: newTask.dueDate)
             dismiss(animated: true, completion: nil)
         case .none:
             print(TaskManagerError.invalidTaskManagerAction)
         }
     }
     
-    private func createTask() -> Task {
+    private func createTaskWithUserInput() -> Task {
         let inputTitle = titleLabel.text ?? ""
         let inputDate = datePicker.date
         let inputBody = bodyTextView.text ?? ""
