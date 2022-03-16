@@ -9,7 +9,11 @@ import SwiftUI
 
 final class ProjectManagerViewModel: ObservableObject {
     
-    @Published private var model = TaskMemoryManager(tasks: projectTasks)
+    @Published private var model: TaskManager
+    
+    init(model: TaskManager) {
+        self.model = model
+    }
     
     private let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
