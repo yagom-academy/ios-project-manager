@@ -24,6 +24,8 @@ final class TaskListViewController: UIViewController {
         setupTableViews()
         setupHeaderViews()
         setupBindings()
+        
+//        setupLongPressGesture()
     }
         
     private func setupTableViews() {
@@ -57,8 +59,8 @@ final class TaskListViewController: UIViewController {
     private func setupBindings() {
         setupTableViewsBinding()
         
-        // TODO: todoTableView.rx.didSelectItem 활용해보기
-        // TODO: todoTableView.rx.tableHeaderView 활용해보기 - 모르겠음
+        // TODO: todoTableView.rx.didSelectItem 활용해보기 -> 어려움
+        // TODO: todoTableView.rx.tableHeaderView 활용해보기 -> 어려움
     }
     
     private func setupTableViewsBinding() {
@@ -66,8 +68,7 @@ final class TaskListViewController: UIViewController {
             .asDriver(onErrorJustReturn: [])
             .drive(todoTableView.rx.items(cellIdentifier: TaskTableViewCell.reuseIdentifier,
                                           cellType: TaskTableViewCell.self)) { _, task, cell in
-                cell.setup()
-                cell.applyDate(with: task)
+                cell.setup(with: task, viewController: self)
              }
              .disposed(by: disposeBag)
         
@@ -75,8 +76,7 @@ final class TaskListViewController: UIViewController {
             .asDriver(onErrorJustReturn: [])
             .drive(doingTableView.rx.items(cellIdentifier: TaskTableViewCell.reuseIdentifier,
                                           cellType: TaskTableViewCell.self)) { _, task, cell in
-                cell.setup()
-                cell.applyDate(with: task)
+                cell.setup(with: task, viewController: self)
              }
              .disposed(by: disposeBag)
 
@@ -84,11 +84,12 @@ final class TaskListViewController: UIViewController {
             .asDriver(onErrorJustReturn: [])
             .drive(doneTableView.rx.items(cellIdentifier: TaskTableViewCell.reuseIdentifier,
                                           cellType: TaskTableViewCell.self)) { _, task, cell in
-                cell.setup()
-                cell.applyDate(with: task)
+                cell.setup(with: task, viewController: self)
              }
              .disposed(by: disposeBag)
     }
+
+
 }
 
 // MARK: - IBAction
@@ -115,6 +116,10 @@ extension TaskListViewController: UITableViewDelegate { // 쓸 수 있는건가?
         
         self.present(UINavigationController(rootViewController: taskDetailController), animated: true)
     }
+    
+//    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+
+//    }
 }
 //        self.tableView.rx.modelSelected(Task.self)
 //        .subscribe(onNext: { item in
