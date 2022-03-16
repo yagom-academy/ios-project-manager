@@ -28,46 +28,46 @@ final class ScheduleUseCase: MainUseCase, ScheduleItemUseCase {
 
     func fetch() {
         self.scheduleProvider.fetch()
-            .subscribe(onNext: { event in
-                self.schedules.accept(event)
+            .subscribe(onNext: { [weak self] event in
+                self?.schedules.accept(event)
             })
             .disposed(by: self.bag)
     }
 
     func create(_ schedule: Schedule) {
         self.scheduleProvider.create(schedule)
-            .subscribe(onNext: { schedule in
-                var schedules = self.schedules.value
-                schedules.append(schedule)
+            .subscribe(onNext: { [weak schedules] schedule in
+                guard var currentSchedules = schedules?.value else { return }
+                currentSchedules.append(schedule)
 
-                self.schedules.accept(schedules)
+                schedules?.accept(currentSchedules)
             })
             .disposed(by: self.bag)
     }
 
     func delete(_ scheduleID: UUID) {
         self.scheduleProvider.delete(scheduleID)
-            .subscribe(onNext: { _ in
-                let schedules = self.schedules.value.filter { schedule in
+            .subscribe(onNext: { [weak schedules] _ in
+                guard let newSchedules = schedules?.value.filter({ schedule in
                     schedule.id != scheduleID
-                }
-                self.schedules.accept(schedules)
+                }) else { return }
+                schedules?.accept(newSchedules)
             })
             .disposed(by: self.bag)
     }
 
     func update(_ schedule: Schedule) {
         self.scheduleProvider.update(schedule)
-            .subscribe(onNext: { newSchedule in
-                var schedules = self.schedules.value
-                guard let index = schedules.enumerated()
+            .subscribe(onNext: { [weak schedules] newSchedule in
+                guard var currentSchedules = schedules?.value else { return }
+                guard let index = currentSchedules.enumerated()
                         .filter({ $0.element.id == newSchedule.id })
                         .map({ $0.0 }).first
                 else { return }
 
-                schedules[safe: index] = newSchedule
+                currentSchedules[safe: index] = newSchedule
 
-                self.schedules.accept(schedules)
+                schedules?.accept(currentSchedules)
             })
             .disposed(by: self.bag)
     }
