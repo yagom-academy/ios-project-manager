@@ -11,8 +11,7 @@ class TaskListViewModel: ObservableObject {
     var cancellables = Set<AnyCancellable>()
     
     init () {
-        //fetch()
-        fetchRealm()
+        fetch()
     }
     
     private func reload() {
