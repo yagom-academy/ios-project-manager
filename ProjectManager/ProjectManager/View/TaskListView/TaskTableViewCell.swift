@@ -13,9 +13,18 @@ final class TaskTableViewCell: UITableViewCell {
     }
     
     func setup() {
+        setupBackgroundView()
+        setupLongPressGesture()
+    }
+    
+    private func setupBackgroundView() {
         let backgroundView = UIView()
         backgroundView.backgroundColor = .systemBlue
         selectedBackgroundView = backgroundView
+    }
+    
+    private func setupLongPressGesture() {
+        
     }
     
     func applyDate(with task: Task?) {
