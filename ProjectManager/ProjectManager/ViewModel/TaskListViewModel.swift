@@ -11,7 +11,7 @@ class TaskListViewModel: ObservableObject {
     var cancellables = Set<AnyCancellable>()
     
     init () {
-        fetch()
+        fetchFirebase()
     }
     
     private func reload() {
@@ -20,7 +20,7 @@ class TaskListViewModel: ObservableObject {
         self.doneTaskList = self.manager.taskList(at: .done)
     }
     
-    func fetch() {
+    func fetchFirebase() {
         manager.fetchFirebaseTaskList()
             .sink { complition in
                 switch complition {
