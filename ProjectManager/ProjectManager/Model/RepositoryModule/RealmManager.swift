@@ -33,13 +33,13 @@ final class RealmManager<Element: Object>: RepositoryManager {
         }
     }
     
-    func fetch(objects type: Element.Type) throws -> [Element] {
-        let results = try database.objects(type)
+    func fetch() throws -> [Element] {
+        let results = try database.objects(Element.self)
         return Array(results)
     }
     
-    func fetch(objects type: Element.Type, queryHandler: ((Element) -> Bool)) throws -> [Element] {
-        let results = try database.objects(type).filter(queryHandler)
+    func fetch(queryHandler: ((Element) -> Bool)) throws -> [Element] {
+        let results = try database.objects(Element.self).filter(queryHandler)
         return Array(results)
     }
     

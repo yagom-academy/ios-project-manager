@@ -42,6 +42,13 @@
 		C13F86E227D71473004070AE /* TaskFormContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13F86E127D71472004070AE /* TaskFormContainerView.swift */; };
 		C13F86E427D73524004070AE /* TaskListContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13F86E327D73524004070AE /* TaskListContainerView.swift */; };
 		C13F86E627D7511E004070AE /* Utilities+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13F86E527D7511E004070AE /* Utilities+Foundation.swift */; };
+		C1568D8527E1F9B50013E96F /* RealmManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1568D8427E1F9B50013E96F /* RealmManagerTests.swift */; };
+		C1568D8627E1F9C90013E96F /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C169A41727E0392B00B82EC0 /* RealmManager.swift */; };
+		C1568D8727E1F9CC0013E96F /* RepositoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C169A41C27E07F2E00B82EC0 /* RepositoryManager.swift */; };
+		C1568D8827E1F9D40013E96F /* TaskRemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C169A41527E0344E00B82EC0 /* TaskRemoteDataSource.swift */; };
+		C1568D8927E1F9D60013E96F /* TaskLocalDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C169A41127E0334200B82EC0 /* TaskLocalDataSource.swift */; };
+		C1568D8A27E1F9D80013E96F /* RepositoryDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C169A41327E033D700B82EC0 /* RepositoryDataSource.swift */; };
+		C1568D8B27E1F9DE0013E96F /* TaskRepositoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C169A40F27E0242500B82EC0 /* TaskRepositoryManager.swift */; };
 		C169A41027E0242600B82EC0 /* TaskRepositoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C169A40F27E0242500B82EC0 /* TaskRepositoryManager.swift */; };
 		C169A41227E0334200B82EC0 /* TaskLocalDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C169A41127E0334200B82EC0 /* TaskLocalDataSource.swift */; };
 		C169A41427E033D700B82EC0 /* RepositoryDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C169A41327E033D700B82EC0 /* RepositoryDataSource.swift */; };
@@ -94,6 +101,7 @@
 		C13F86E127D71472004070AE /* TaskFormContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskFormContainerView.swift; sourceTree = "<group>"; };
 		C13F86E327D73524004070AE /* TaskListContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListContainerView.swift; sourceTree = "<group>"; };
 		C13F86E527D7511E004070AE /* Utilities+Foundation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Utilities+Foundation.swift"; sourceTree = "<group>"; };
+		C1568D8427E1F9B50013E96F /* RealmManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManagerTests.swift; sourceTree = "<group>"; };
 		C169A40F27E0242500B82EC0 /* TaskRepositoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRepositoryManager.swift; sourceTree = "<group>"; };
 		C169A41127E0334200B82EC0 /* TaskLocalDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskLocalDataSource.swift; sourceTree = "<group>"; };
 		C169A41327E033D700B82EC0 /* RepositoryDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryDataSource.swift; sourceTree = "<group>"; };
@@ -235,6 +243,7 @@
 			isa = PBXGroup;
 			children = (
 				C139EF9E27CE5DF7001079B6 /* TaskMemoryManagerTests.swift */,
+				C1568D8427E1F9B50013E96F /* RealmManagerTests.swift */,
 			);
 			path = ProjectManagerTests;
 			sourceTree = "<group>";
@@ -449,12 +458,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1568D8727E1F9CC0013E96F /* RepositoryManager.swift in Sources */,
 				C139EFA827CE5E08001079B6 /* TaskManager.swift in Sources */,
+				C1568D8627E1F9C90013E96F /* RealmManager.swift in Sources */,
 				C139EFA527CE5DFE001079B6 /* Task.swift in Sources */,
+				C1568D8A27E1F9D80013E96F /* RepositoryDataSource.swift in Sources */,
 				C169A41B27E07EB500B82EC0 /* RealmTask.swift in Sources */,
 				C139EFA727CE5E05001079B6 /* TaskMemoryManager.swift in Sources */,
+				C1568D8927E1F9D60013E96F /* TaskLocalDataSource.swift in Sources */,
+				C1568D8527E1F9B50013E96F /* RealmManagerTests.swift in Sources */,
 				C139EF9F27CE5DF7001079B6 /* TaskMemoryManagerTests.swift in Sources */,
+				C1568D8B27E1F9DE0013E96F /* TaskRepositoryManager.swift in Sources */,
 				C139EFA627CE5E02001079B6 /* TaskStatus.swift in Sources */,
+				C1568D8827E1F9D40013E96F /* TaskRemoteDataSource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

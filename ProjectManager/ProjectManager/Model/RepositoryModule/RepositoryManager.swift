@@ -14,9 +14,8 @@ protocol RepositoryManager {
     func create(_ objects: [Element]) throws
     func create(_ object: Element) throws
     
-    func fetch(objects type: Element.Type) throws -> [Element]
-    func fetch(objects type: Element.Type,
-               queryHandler: ((Element) -> Bool)) throws -> [Element]
+    func fetch() throws -> [Element]
+    func fetch(queryHandler: ((Element) -> Bool)) throws -> [Element]
     
     func update(objects: [Element]) throws
     func update(object: Element) throws
