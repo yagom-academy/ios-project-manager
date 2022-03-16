@@ -44,7 +44,7 @@ final class EditProjectDetailViewController: ProjectDetailViewController {
         guard let currentProject = currentProject else {
             return
         }
-        let updatedProject = projectDetailView.updatedViewData(with: currentProject)
+        let updatedProject = self.updatedViewData(with: currentProject)
         viewModel?.update(updatedProject, state: nil)
     }
     

@@ -26,4 +26,22 @@ class ProjectDetailViewController: UIViewController {
             self.projectDetailView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor)
         ])
     }
+    
+    func createViewData() -> Project {
+        return Project(
+            id: UUID(),
+            state: .todo,
+            title: projectDetailView.titleTextField.text ?? "",
+            body: projectDetailView.bodyTextView.text ?? "",
+            date: projectDetailView.datePicker.date)
+    }
+    
+    func updatedViewData(with oldProject: Project) -> Project {
+        return Project(
+            id: oldProject.id,
+            state: oldProject.state,
+            title: projectDetailView.titleTextField.text ?? "",
+            body: projectDetailView.bodyTextView.text ?? "",
+            date: projectDetailView.datePicker.date)
+    }
 }

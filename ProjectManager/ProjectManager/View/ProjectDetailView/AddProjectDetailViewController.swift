@@ -26,7 +26,7 @@ final class AddProjectDetailViewController: ProjectDetailViewController {
     
     @objc private func didTapDoneButton() {
         self.dismiss(animated: true) {
-            let project = self.projectDetailView.createViewData()
+            let project = self.createViewData()
             self.viewModel?.append(project)
         }
     }

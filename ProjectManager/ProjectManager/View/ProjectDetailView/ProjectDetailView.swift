@@ -1,7 +1,7 @@
 import UIKit
 
 final class ProjectDetailView: UIView {
-    private let titleTextField: UITextField = {
+    let titleTextField: UITextField = {
         let textField = UITextField()
         textField.font = .preferredFont(forTextStyle: .title2)
         textField.placeholder = Placeholder.titleTextFieldPlaceholder
@@ -18,7 +18,7 @@ final class ProjectDetailView: UIView {
         return textField
     }()
     
-    private let datePicker: UIDatePicker = {
+    let datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .date
         if #available(iOS 13.4, *) {
@@ -27,7 +27,7 @@ final class ProjectDetailView: UIView {
         return datePicker
     }()
     
-    private let bodyTextView: UITextView = {
+    let bodyTextView: UITextView = {
         let textView = UITextView()
         textView.text = "여기에는 할일 내용 입력하는 곳이지롱 \nㅋㅋ"
         textView.font = .preferredFont(forTextStyle: .title3)
@@ -108,24 +108,6 @@ final class ProjectDetailView: UIView {
         titleTextField.isEnabled = state
         bodyTextView.isEditable = state
         datePicker.isUserInteractionEnabled = state
-    }
-    
-    func createViewData() -> Project {
-        return Project(
-            id: UUID(),
-            state: .todo,
-            title: titleTextField.text ?? "",
-            body: bodyTextView.text ?? "",
-            date: datePicker.date)
-    }
-    
-    func updatedViewData(with oldProject: Project) -> Project {
-        return Project(
-            id: oldProject.id,
-            state: oldProject.state,
-            title: titleTextField.text ?? "",
-            body: bodyTextView.text ?? "",
-            date: datePicker.date)
     }
 }
 
