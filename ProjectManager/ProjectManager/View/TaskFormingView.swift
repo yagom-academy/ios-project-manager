@@ -57,12 +57,7 @@ struct TaskFormingView: View {
                     .onTapGesture {
                         isTextEditorFocused = false
                     }
-                DatePicker("", selection: $taskDueDate, displayedComponents: .date)
-                    .labelsHidden()
-                    .datePickerStyle(.wheel)
-                    .scaleEffect(1.2)
-                    .padding(.vertical, 20)
-                    .environment(\.locale, Locale(identifier: Locale.preferredLanguages.first ?? "en"))
+                CustomDatePicker(taskDueDate: $taskDueDate)
                 TextEditorWithPlaceholder(taskBody: $taskBody)
                     .onTapGesture {
                         isTextEditorFocused = true
