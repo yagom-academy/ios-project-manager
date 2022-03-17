@@ -18,7 +18,7 @@ final class TaskTableViewCell: UITableViewCell {
         task = nil
     }
     
-    func setup(with task: Task?, popoverPresenterDelegate: TaskListViewController, viewModel: TaskListViewModelProtocol) {
+    func update(with task: Task?, popoverPresenterDelegate: TaskListViewController, viewModel: TaskListViewModelProtocol) {
         self.task = task
         self.popoverPresenterDelegate = popoverPresenterDelegate
         self.taskListViewModel = viewModel

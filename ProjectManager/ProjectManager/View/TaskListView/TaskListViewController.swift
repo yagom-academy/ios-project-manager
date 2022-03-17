@@ -58,7 +58,7 @@ final class TaskListViewController: UIViewController {
             .asDriver(onErrorJustReturn: [])
             .drive(todoTableView.rx.items(cellIdentifier: TaskTableViewCell.reuseIdentifier,
                                           cellType: TaskTableViewCell.self)) { [weak self] _, task, cell in
-                cell.setup(with: task, popoverPresenterDelegate: self!, viewModel: self!.taskListViewModel)
+                cell.update(with: task, popoverPresenterDelegate: self!, viewModel: self!.taskListViewModel)
              }
              .disposed(by: disposeBag)
         
@@ -66,7 +66,7 @@ final class TaskListViewController: UIViewController {
             .asDriver(onErrorJustReturn: [])
             .drive(doingTableView.rx.items(cellIdentifier: TaskTableViewCell.reuseIdentifier,
                                            cellType: TaskTableViewCell.self)) { [weak self] _, task, cell in
-                cell.setup(with: task, popoverPresenterDelegate: self!, viewModel: self!.taskListViewModel)
+                cell.update(with: task, popoverPresenterDelegate: self!, viewModel: self!.taskListViewModel)
              }
              .disposed(by: disposeBag)
 
@@ -74,7 +74,7 @@ final class TaskListViewController: UIViewController {
             .asDriver(onErrorJustReturn: [])
             .drive(doneTableView.rx.items(cellIdentifier: TaskTableViewCell.reuseIdentifier,
                                           cellType: TaskTableViewCell.self)) { [weak self] _, task, cell in
-                cell.setup(with: task, popoverPresenterDelegate: self!, viewModel: self!.taskListViewModel)
+                cell.update(with: task, popoverPresenterDelegate: self!, viewModel: self!.taskListViewModel)
              }
              .disposed(by: disposeBag)
     }

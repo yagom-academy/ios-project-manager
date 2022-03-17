@@ -1,5 +1,9 @@
 import UIKit
 
+private enum Design {
+    static let frameHeight: CGFloat = 50
+}
+
 class TaskTableHeaderView: UITableViewHeaderFooterView {
     var processStatus: ProcessStatus
     
@@ -61,8 +65,7 @@ class TaskTableHeaderView: UITableViewHeaderFooterView {
     }
     
     private func setupFrame() {
-        let height = 50.0
-        self.frame = CGRect(x: 0, y: 0, width: contentView.bounds.width, height: height) 
+        self.frame = CGRect(x: 0, y: 0, width: contentView.bounds.width, height: Design.frameHeight)
     }
     
     func setupLabel() {
