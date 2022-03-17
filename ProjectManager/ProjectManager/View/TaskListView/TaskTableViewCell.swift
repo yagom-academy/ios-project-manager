@@ -1,8 +1,12 @@
 import UIKit
 
+protocol PopoverPresenterDelegate: AnyObject {
+    func presentPopover(with alert: UIAlertController)
+}
+
 final class TaskTableViewCell: UITableViewCell {
     private var task: Task?
-    private var popoverPresenter: TaskListViewController!
+    private weak var popoverPresenterDelegate: PopoverPresenterDelegate!
     private var taskListViewModel: TaskListViewModelProtocol!
     
     @IBOutlet private weak var titleLabel: UILabel!
@@ -14,9 +18,9 @@ final class TaskTableViewCell: UITableViewCell {
         task = nil
     }
     
-    func setup(with task: Task?, popoverPresenter: TaskListViewController, viewModel: TaskListViewModelProtocol) {
+    func setup(with task: Task?, popoverPresenterDelegate: TaskListViewController, viewModel: TaskListViewModelProtocol) {
         self.task = task
-        self.popoverPresenter = popoverPresenter
+        self.popoverPresenterDelegate = popoverPresenterDelegate
         self.taskListViewModel = viewModel
         
         setupLabels()
@@ -77,6 +81,7 @@ final class TaskTableViewCell: UITableViewCell {
         let alert = AlertFactory().createAlert(style: .actionSheet, actions: option1Action, option2Action)
         let alertPopover = alert.popoverPresentationController
         alertPopover?.sourceView = self
-        popoverPresenter.present(alert, animated: true)
+//        delegate.present(alert, animated: true)
+        popoverPresenterDelegate.presentPopover(with: alert)
     }
 }

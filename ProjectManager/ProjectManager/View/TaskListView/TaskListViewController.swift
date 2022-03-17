@@ -62,7 +62,7 @@ final class TaskListViewController: UIViewController {
             .asDriver(onErrorJustReturn: [])
             .drive(todoTableView.rx.items(cellIdentifier: TaskTableViewCell.reuseIdentifier,
                                           cellType: TaskTableViewCell.self)) { [weak self] _, task, cell in
-                cell.setup(with: task, popoverPresenter: self!, viewModel: self!.taskListViewModel)
+                cell.setup(with: task, popoverPresenterDelegate: self!, viewModel: self!.taskListViewModel)
              }
              .disposed(by: disposeBag)
         
@@ -70,7 +70,7 @@ final class TaskListViewController: UIViewController {
             .asDriver(onErrorJustReturn: [])
             .drive(doingTableView.rx.items(cellIdentifier: TaskTableViewCell.reuseIdentifier,
                                            cellType: TaskTableViewCell.self)) { [weak self] _, task, cell in
-                cell.setup(with: task, popoverPresenter: self!, viewModel: self!.taskListViewModel)
+                cell.setup(with: task, popoverPresenterDelegate: self!, viewModel: self!.taskListViewModel)
              }
              .disposed(by: disposeBag)
 
@@ -78,7 +78,7 @@ final class TaskListViewController: UIViewController {
             .asDriver(onErrorJustReturn: [])
             .drive(doneTableView.rx.items(cellIdentifier: TaskTableViewCell.reuseIdentifier,
                                           cellType: TaskTableViewCell.self)) { [weak self] _, task, cell in
-                cell.setup(with: task, popoverPresenter: self!, viewModel: self!.taskListViewModel)
+                cell.setup(with: task, popoverPresenterDelegate: self!, viewModel: self!.taskListViewModel)
              }
              .disposed(by: disposeBag)
     }
@@ -104,5 +104,12 @@ extension TaskListViewController: UITableViewDelegate {
 
         let taskDetailController = taskListViewModel.didSelectRow(at: indexPath.row, inTableViewOf: selectedProcessStatus)
         self.present(UINavigationController(rootViewController: taskDetailController), animated: true)
+    }
+}
+
+// MARK: - Popover
+extension TaskListViewController: PopoverPresenterDelegate {
+    func presentPopover(with alert: UIAlertController) {
+        present(alert, animated: true)
     }
 }
