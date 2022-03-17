@@ -14,7 +14,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         if let windowSecene = (scene as? UIWindowScene) {
-            let contentView = ContentView()
+            let repository = TaskRepository()
+            let viewModel = TaskViewModel(taskRepository: repository)
+            let contentView = MainScene(taskViewModel: viewModel)
             window = UIWindow(windowScene: windowSecene)
             window?.rootViewController = UIHostingController(rootView: contentView)
             window?.makeKeyAndVisible()

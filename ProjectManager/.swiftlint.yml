@@ -7,9 +7,11 @@ excluded: # 린트 과정에서 무시할 파일 경로. included보다 우선�
 
 disabled_rules: # 실행에서 제외할 룰 식별자들
   - trailing_whitespace
+  - redundant_optional_initialization
 
 identifier_name:
   min_length:
     error: 2
   excluded:
     - to
+    - id
