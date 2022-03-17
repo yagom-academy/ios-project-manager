@@ -1,11 +1,7 @@
 import UIKit
-import RxSwift
-import RxCocoa
 
 class TaskTableHeaderView: UITableViewHeaderFooterView {
-    var taskCount: Observable<Int>
     var processStatus: ProcessStatus
-    var disposeBag = DisposeBag()
     
     var titleLabel: UILabel = {
         let label = UILabel()
@@ -27,14 +23,13 @@ class TaskTableHeaderView: UITableViewHeaderFooterView {
         return label
     }()
     
-    init(reuseIdentifier: String?, taskCount: Observable<Int>, processStatus: ProcessStatus) { 
-        self.taskCount = taskCount
+    init(reuseIdentifier: String?, processStatus: ProcessStatus) { 
         self.processStatus = processStatus
         super.init(reuseIdentifier: reuseIdentifier)
         
         setupUI()
         setupFrame()
-        setupLabels()
+        setupLabel()
     }
 
     required init?(coder: NSCoder) {
@@ -70,13 +65,7 @@ class TaskTableHeaderView: UITableViewHeaderFooterView {
         self.frame = CGRect(x: 0, y: 0, width: contentView.bounds.width, height: height) 
     }
     
-    func setupLabels() {
+    func setupLabel() {
         titleLabel.text = processStatus.description
-        
-        taskCount
-            .map { "\($0)" }
-            .asDriver(onErrorJustReturn: "")
-            .drive(taskCountLabel.rx.text)
-            .disposed(by: disposeBag)
     }
 }

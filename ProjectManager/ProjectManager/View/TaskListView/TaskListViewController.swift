@@ -7,6 +7,10 @@ final class TaskListViewController: UIViewController {
     private var taskListViewModel: TaskListViewModelProtocol!
     private var disposeBag = DisposeBag()
     
+    private var todoTaskHeaderView: TaskTableHeaderView!
+    private var doingTaskHeaderView: TaskTableHeaderView!
+    private var doneTaskHeaderView: TaskTableHeaderView!
+    
     @IBOutlet private weak var todoTableView: TaskTableView!
     @IBOutlet private weak var doingTableView: TaskTableView!
     @IBOutlet private weak var doneTableView: TaskTableView!
@@ -32,15 +36,12 @@ final class TaskListViewController: UIViewController {
     }
     
     private func setupHeaderViews() {
-        let todoTaskHeaderView = TaskTableHeaderView(reuseIdentifier: TaskTableHeaderView.reuseIdentifier,
-                                                     taskCount: taskListViewModel.todoTasksCount, // 기존 ViewModel의 일부 데이터를 생성자 주입으로 전달
-                                                     processStatus: .todo)
-        let doingTaskHeaderView = TaskTableHeaderView(reuseIdentifier: TaskTableHeaderView.reuseIdentifier,
-                                                      taskCount: taskListViewModel.doingTasksCount,
-                                                      processStatus: .doing)
-        let doneTaskHeaderView = TaskTableHeaderView(reuseIdentifier: TaskTableHeaderView.reuseIdentifier,
-                                                     taskCount: taskListViewModel.doneTasksCount,
-                                                     processStatus: .done)
+        todoTaskHeaderView = TaskTableHeaderView(reuseIdentifier: TaskTableHeaderView.reuseIdentifier,
+                                                 processStatus: .todo)
+        doingTaskHeaderView = TaskTableHeaderView(reuseIdentifier: TaskTableHeaderView.reuseIdentifier,
+                                                  processStatus: .doing)
+        doneTaskHeaderView = TaskTableHeaderView(reuseIdentifier: TaskTableHeaderView.reuseIdentifier,
+                                                 processStatus: .done)
 
         todoTableView.tableHeaderView = todoTaskHeaderView
         doingTableView.tableHeaderView = doingTaskHeaderView
@@ -49,6 +50,7 @@ final class TaskListViewController: UIViewController {
     
     private func setupBindings() {
         setupTableViewsBinding()
+        setupHeaderViewsBinding()
     }
     
     private func setupTableViewsBinding() {
@@ -75,6 +77,26 @@ final class TaskListViewController: UIViewController {
                 cell.setup(with: task, popoverPresenterDelegate: self!, viewModel: self!.taskListViewModel)
              }
              .disposed(by: disposeBag)
+    }
+    
+    private func setupHeaderViewsBinding() {
+        taskListViewModel.todoTasksCount
+            .map { "\($0)" }
+            .asDriver(onErrorJustReturn: "")
+            .drive(todoTaskHeaderView.taskCountLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        taskListViewModel.doingTasksCount
+            .map { "\($0)" }
+            .asDriver(onErrorJustReturn: "")
+            .drive(doingTaskHeaderView.taskCountLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        taskListViewModel.doneTasksCount
+            .map { "\($0)" }
+            .asDriver(onErrorJustReturn: "")
+            .drive(doneTaskHeaderView.taskCountLabel.rx.text)
+            .disposed(by: disposeBag)
     }
 }
 
