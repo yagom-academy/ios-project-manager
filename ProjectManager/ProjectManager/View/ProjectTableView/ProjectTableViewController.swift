@@ -213,18 +213,7 @@ extension ProjectTableViewController: UITableViewDelegate {
             style: .destructive,
             title: Content.swipeDeleteTitle
         ) { [weak self] _, _, _ in
-//            guard let viewModel = self?.viewModel else { return }
-//            guard let list = self?.list else { return }
-//
-//            var selectedWork: Observable<Work?> {
-//                list.map { $0[safe: indexPath.row] }
-//            }
-//
-//            _ = selectedWork.subscribe(onNext: { self?.selectedWork = $0 })
-//
-//            if let work = self?.selectedWork {
-//                viewModel.removeWork(work)
-//            }
+            self?.swipeActionObserver.onNext(indexPath)
         }
         
         return UISwipeActionsConfiguration(actions: [deleteAction])

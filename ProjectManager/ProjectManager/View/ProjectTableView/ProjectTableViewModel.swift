@@ -115,7 +115,7 @@ class ProjectTableViewModel: ViewModelDescribing {
                 guard let list = self?.list else { return }
                 guard let targetWork = try? list.value()[safe: indexPath.row] else {
                     return
-                } // combineLatest 가장 마지막에 들어온 값을 모아둠. -> 이게 정석적인 처리
+                }
                 
                 observer.onNext(targetWork)
             })
@@ -127,12 +127,11 @@ class ProjectTableViewModel: ViewModelDescribing {
             .swipeActionObserver
             .bind(onNext: { [weak self] (indexPath) in
                 guard let list = self?.list else { return }
-                
-                _ = list.map {
-                    guard let targetWork = $0[safe: indexPath.row] else { return }
-                    
-                    self?.removeWork(targetWork)
+                guard let targetWork = try? list.value()[safe: indexPath.row] else {
+                    return
                 }
+
+                self?.removeWork(targetWork)
             })
             .disposed(by: disposeBag)
     }
