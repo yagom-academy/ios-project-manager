@@ -138,21 +138,27 @@ final class ProjectListViewController: UIViewController {
             let touchPoint = sender.location(in: tableView)
 
             if let indexPath = tableView.indexPathForRow(at: touchPoint) {
-                let alert = createAlert(for: tableView, on: indexPath, moveTo: state)
+                guard let alert = createAlert(for: tableView, on: indexPath, moveTo: state) else {
+                    return
+                }
                 present(alert, animated: true)
             }
         }
     }
     
-    private func createAlert(for tableView: UITableView, on indexPath: IndexPath, moveTo newState: [ProjectState]) -> UIAlertController {
-        let oldState = ((tableView as? ProjectListTableView)?.state)!
+    private func createAlert(for tableView: UITableView, on indexPath: IndexPath, moveTo newState: [ProjectState]) -> UIAlertController? {
+        guard let oldState = ((tableView as? ProjectListTableView)?.state),
+                let firstNewState = newState[safe: 0],
+                let secondNewState = newState[safe: 0] else {
+            return nil
+        }
         
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let moveToFirstStateAction = UIAlertAction(title: newState[0].alertActionTitle, style: .default) { _ in
-            self.viewModel?.changeState(from: oldState, to: newState[0], indexPath: indexPath)
+        let moveToFirstStateAction = UIAlertAction(title: firstNewState.alertActionTitle, style: .default) { _ in
+            self.viewModel?.changeState(from: oldState, to: firstNewState, indexPath: indexPath)
         }
-        let moveToSecondStateAction = UIAlertAction(title: newState[1].alertActionTitle, style: .default) { _ in
-            self.viewModel?.changeState(from: oldState, to: newState[1], indexPath: indexPath)
+        let moveToSecondStateAction = UIAlertAction(title: secondNewState.alertActionTitle, style: .default) { _ in
+            self.viewModel?.changeState(from: oldState, to: secondNewState, indexPath: indexPath)
         }
         
         alert.addAction(moveToFirstStateAction)

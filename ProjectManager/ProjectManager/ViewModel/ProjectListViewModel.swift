@@ -131,15 +131,17 @@ extension ProjectListViewModel {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let state = ((tableView as? ProjectListTableView)?.state)!
+        guard let state = ((tableView as? ProjectListTableView)?.state),
+              let project = retrieveSelectedData(indexPath: indexPath, state: state),
+              let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date()) else {
+            return UITableViewCell()
+        }
+
         let cell = tableView.dequeueReusableCell(withClass: ProjectListTableViewCell.self)
-        let project = retrieveSelectedData(indexPath: indexPath, state: state)
-        
-        let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())
-        if (project?.date)! < yesterday! {
-            cell.populateDataWithDate(title: project?.title ?? "", body: project?.body ?? "", date: project?.date ?? Date())
+        if project.date < yesterday {
+            cell.populateDataWithDate(title: project.title, body: project.body, date: project.date)
         } else {
-            cell.populateData(title: project?.title ?? "", body: project?.body ?? "", date: project?.date ?? Date())
+            cell.populateData(title: project.title, body: project.body, date: project.date)
         }
 
         return cell
