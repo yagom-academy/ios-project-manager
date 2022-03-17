@@ -5,6 +5,7 @@ class TaskListViewModel: ObservableObject {
     @Published var todoTaskList = [Task]()
     @Published var doingTaskList = [Task]()
     @Published var doneTaskList = [Task]()
+    @Published var errorAlert: ErrorAlert?
     
     let manager = TaskManager()
 
@@ -69,30 +70,11 @@ class TaskListViewModel: ObservableObject {
     func createTask(_ task: Task) {
         do {
             try manager.createRealmTask(task)
-        } catch let error {
+        } catch {
+            errorAlert = ErrorAlert(message: error.localizedDescription)
             print(error.localizedDescription)
         }
         manager.createFirebaseTask(task)
-            .sink { completion in
-                switch completion {
-                case .failure(let error):
-                    print(error.localizedDescription)
-                case .finished:
-                    return
-                }
-            } receiveValue: { _ in
-                self.reload()
-            }
-            .store(in: &cancellables)
-    }
-    
-    func updateState(id: String, progressStatus: Task.ProgressStatus) {
-        do {
-            try manager.updateRealmTaskState(id: id, progressStatus: progressStatus)
-        } catch {
-            print(error.localizedDescription)
-        }
-        manager.updateFirebaseTaskState(id: id, progressStatus: progressStatus)
             .sink { completion in
                 switch completion {
                 case .failure(let error):
@@ -110,9 +92,31 @@ class TaskListViewModel: ObservableObject {
         do {
             try  manager.updateRealmTask(id: id, title: title, description: description, deadline: deadline)
         } catch {
+            errorAlert = ErrorAlert(message: error.localizedDescription)
             print(error.localizedDescription)
         }
         manager.updateFirebaseTask(id: id, title: title, description: description, deadline: deadline)
+            .sink { completion in
+                switch completion {
+                case .failure(let error):
+                    print(error.localizedDescription)
+                case .finished:
+                    return
+                }
+            } receiveValue: { _ in
+                self.reload()
+            }
+            .store(in: &cancellables)
+    }
+    
+    func updateState(id: String, progressStatus: Task.ProgressStatus) {
+        do {
+            try manager.updateRealmTaskState(id: id, progressStatus: progressStatus)
+        } catch {
+            errorAlert = ErrorAlert(message: error.localizedDescription)
+            print(error.localizedDescription)
+        }
+        manager.updateFirebaseTaskState(id: id, progressStatus: progressStatus)
             .sink { completion in
                 switch completion {
                 case .failure(let error):
@@ -130,6 +134,7 @@ class TaskListViewModel: ObservableObject {
         do {
             try  manager.deleteRealmTask(id)
         } catch {
+            errorAlert = ErrorAlert(message: error.localizedDescription)
             print(error.localizedDescription)
         }
         manager.deleteFirebaseTask(id)

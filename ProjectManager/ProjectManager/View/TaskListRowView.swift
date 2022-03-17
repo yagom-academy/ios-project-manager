@@ -87,5 +87,8 @@ private struct StatusChangePopoverView: View {
                 .padding()
             }
         }
+        .alert(item: $taskListViewModel.errorAlert) { error in
+            Alert(title: Text("Error"), message: Text(error.message))
+        }
     }
 }

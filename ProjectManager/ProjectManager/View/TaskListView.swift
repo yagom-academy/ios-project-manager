@@ -54,6 +54,9 @@ private struct TaskListContentView: View {
             .onDelete { indexSet in
                 taskListViewModel.deleteTask(taskList[indexSet.index].id)
             }
+            .alert(item: $taskListViewModel.errorAlert) { error in
+                Alert(title: Text("Error"), message: Text(error.message))
+            }
         }
     }
 }

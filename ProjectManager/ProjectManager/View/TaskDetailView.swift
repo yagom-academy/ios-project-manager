@@ -102,6 +102,9 @@ private struct TaskDetailTrailingButton: View {
             }
             isShowTaskDetailView = false
         }
+        .alert(item: $taskListViewModel.errorAlert) { error in
+            Alert(title: Text("Error"), message: Text(error.message))
+        }
     }
 }
 
