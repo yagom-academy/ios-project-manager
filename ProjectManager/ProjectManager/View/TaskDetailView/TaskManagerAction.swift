@@ -9,6 +9,15 @@ enum TaskManagerAction {
         case .add:
             return .cancel
         case .edit:
+            return .cancel
+        }
+    }
+    
+    var rightBarButton: UIBarButtonItem.SystemItem {
+        switch self {
+        case .add:
+            return .done
+        case .edit:
             return .edit
         }
     }

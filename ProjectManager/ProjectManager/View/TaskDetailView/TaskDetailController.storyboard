@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--TODO-->
+        <!--Task Detail Controller-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
                 <viewController storyboardIdentifier="TaskDetailController" id="Y6W-OH-hqX" customClass="TaskDetailController" customModule="ProjectManager" customModuleProvider="target" sceneMemberID="viewController">
@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="4nn-dK-L5J">
-                                <rect key="frame" x="15" y="79" width="1164" height="730"/>
+                                <rect key="frame" x="15" y="29" width="1164" height="780"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="252" verticalCompressionResistancePriority="752" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Title" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="htV-8l-uvY">
                                         <rect key="frame" x="0.0" y="0.0" width="1164" height="34"/>
@@ -29,7 +29,7 @@
                                         <rect key="frame" x="0.0" y="44" width="1164" height="216"/>
                                     </datePicker>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="249" horizontalCompressionResistancePriority="751" text="Task 내용을 입력하세요." adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vRw-q9-dUR">
-                                        <rect key="frame" x="0.0" y="270" width="1164" height="460"/>
+                                        <rect key="frame" x="0.0" y="270" width="1164" height="510"/>
                                         <color key="backgroundColor" systemColor="systemGray5Color"/>
                                         <color key="textColor" systemColor="labelColor"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
@@ -47,13 +47,6 @@
                             <constraint firstItem="4nn-dK-L5J" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="5" id="ujc-or-5Cp"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="TODO" id="Aco-tp-zTJ">
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="3ST-lV-HGb">
-                            <connections>
-                                <action selector="touchUpDoneButton:" destination="Y6W-OH-hqX" id="eLZ-oY-1C6"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
                     <connections>
                         <outlet property="bodyTextView" destination="vRw-q9-dUR" id="zkN-Yv-YMs"/>
                         <outlet property="datePicker" destination="Qca-TF-nMf" id="NKq-W7-gyz"/>
@@ -62,25 +55,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1491.9597989949748" y="89.928057553956847"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="7bM-hH-nzk">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="08c-15-VO2" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="7XI-5B-VZf">
-                        <rect key="frame" x="0.0" y="24" width="1194" height="50"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="Y6W-OH-hqX" kind="relationship" relationship="rootViewController" id="9x0-J3-LTS"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="J3P-FK-b86" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="784.4221105527638" y="89.928057553956847"/>
+            <point key="canvasLocation" x="2199.497487437186" y="89.928057553956847"/>
         </scene>
     </scenes>
     <resources>
