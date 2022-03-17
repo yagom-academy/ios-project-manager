@@ -12,6 +12,6 @@ protocol FirebaseTaskManagable {
         description: String,
         deadline: Date
     ) -> AnyPublisher<Bool, FirebaseError>
-    func updateFirebaseTaskStatus(id: String, progressStatus: Task.ProgressStatus) -> AnyPublisher<Bool, FirebaseError>
+    func updateFirebaseTaskStatus(id: String, taskStatus: Task.ProgressStatus) -> AnyPublisher<Bool, FirebaseError>
     func deleteFirebaseTask(_ id: String) -> AnyPublisher<Bool, FirebaseError>
 }

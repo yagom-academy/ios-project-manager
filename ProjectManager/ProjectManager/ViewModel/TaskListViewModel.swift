@@ -109,14 +109,14 @@ class TaskListViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
-    func updateStatus(id: String, progressStatus: Task.ProgressStatus) {
+    func updateStatus(id: String, taskStatus: Task.ProgressStatus) {
         do {
-            try manager.updateRealmTaskStatus(id: id, progressStatus: progressStatus)
+            try manager.updateRealmTaskStatus(id: id, taskStatus: taskStatus)
         } catch {
             errorAlert = ErrorModel(message: error.localizedDescription)
             print(error.localizedDescription)
         }
-        manager.updateFirebaseTaskStatus(id: id, progressStatus: progressStatus)
+        manager.updateFirebaseTaskStatus(id: id, taskStatus: taskStatus)
             .sink { completion in
                 switch completion {
                 case .failure(let error):

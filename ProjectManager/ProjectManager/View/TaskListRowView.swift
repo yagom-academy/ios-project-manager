@@ -9,7 +9,7 @@ struct TaskListRowView: View {
         VStack(alignment: .leading, spacing: 4) {
             TaskListRowTitleView(title: task.title)
             TaskListRowDescriptionView(description: task.description)
-            TaskListRowDeadlineView(deadline: task.deadline, progressStatus: task.progressStatus)
+            TaskListRowDeadlineView(deadline: task.deadline, taskStatus: task.progressStatus)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .contentShape(Rectangle())
@@ -55,13 +55,13 @@ private struct TaskListRowDescriptionView: View {
 
 private struct TaskListRowDeadlineView: View {
     fileprivate let deadline: TimeInterval
-    fileprivate let progressStatus: Task.ProgressStatus
+    fileprivate let taskStatus: Task.ProgressStatus
     
     var body: some View {
         let deadlineText = Text(deadline.formattedDate)
         let currentTime = Date().timeIntervalSince1970
         
-        if progressStatus != .done, deadline < currentTime {
+        if taskStatus != .done, deadline < currentTime {
             return deadlineText
                 .foregroundColor(Color.red)
                 .font(.system(size: 15, weight: .regular, design: .rounded))
@@ -81,7 +81,7 @@ private struct StatusChangePopoverView: View {
         VStack {
             ForEach(taskListViewModel.changeableStatusList(from: task.progressStatus)) { status in
                 Button("Move to \(status.name)") {
-                    taskListViewModel.updateStatus(id: task.id, progressStatus: status)
+                    taskListViewModel.updateStatus(id: task.id, taskStatus: status)
                     self.isShowUpdateTaskStatus = false
                 }
                 .padding()
