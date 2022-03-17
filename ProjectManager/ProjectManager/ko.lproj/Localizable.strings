@@ -8,6 +8,7 @@
 "Edit" = "수정";
 "Cancel" = "취소";
 "Done" = "확인";
+"Histroy" = "변경내역";
 
 // Firebase Error
 "RemoteDB Fetch Failed" = "원격DB 데이터 로드 실패";
@@ -20,3 +21,4 @@
 "LocalDB Create Failed" = "로컬DB 데이터 저장 실패";
 "LocalDB Update Failed" = "로컬DB 데이터 업데이트 실패";
 "LocalDB Delete Failed" = "로컬DB 데이터 삭제 실패";
+

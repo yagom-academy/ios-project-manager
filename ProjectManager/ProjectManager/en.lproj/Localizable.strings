@@ -8,6 +8,7 @@
 "Edit" = "Edit";
 "Cancel" = "Cancel";
 "Done" = "Done";
+"Histroy" = "Histroy";
 
 // Firebase Error
 "RemoteDB Fetch Failed" = "RemoteDB Fetch Failed";

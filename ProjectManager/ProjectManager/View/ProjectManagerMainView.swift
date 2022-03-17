@@ -3,10 +3,14 @@ import SwiftUI
 struct ProjectManagerMainView: View {
     @ObservedObject var networkCheckManager: NetworkCheckManager
     @State private var isShowTaskDetailView = false
+    @State private var isShowTaskHistoryView = false
     
     var body: some View {
         VStack {
-            ProjectManagerMainTitleView(isShowTaskDetailView: $isShowTaskDetailView)
+            ProjectManagerMainTitleView(
+                isShowTaskDetailView: $isShowTaskDetailView,
+                isShowTaskHistoryView: $isShowTaskHistoryView
+            )
             Divider()
             ProjectManagerMainContentView()
         }
@@ -21,9 +25,18 @@ struct ProjectManagerMainView: View {
 
 private struct ProjectManagerMainTitleView: View {
     @Binding var isShowTaskDetailView: Bool
+    @Binding var isShowTaskHistoryView: Bool
     
     var body: some View {
         HStack {
+            Button(action: {
+                isShowTaskDetailView = true
+            }, label: {
+                Text("Histroy".localized())
+                    .popover(isPresented: $isShowTaskDetailView) {
+                        TaskHistoryView()
+                }
+            })
             Spacer()
             Text("Project Manager".localized())
                 .padding(.leading)
@@ -38,6 +51,13 @@ private struct ProjectManagerMainTitleView: View {
             })
         }
         .padding([.horizontal, .top])
+    }
+}
+
+private struct TaskHistoryView: View {
+    
+    var body: some View {
+        Text("History")
     }
 }
 

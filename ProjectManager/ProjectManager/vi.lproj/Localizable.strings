@@ -8,6 +8,7 @@
 "Edit" = "Biên tập";
 "Cancel" = "Hủy bỏ";
 "Done" = "Xong";
+"Histroy" = "chi tiết thay đổi";
 
 // Firebase Error
 "RemoteDB Fetch Failed" = "Không thể lấy được RemoteDB";
