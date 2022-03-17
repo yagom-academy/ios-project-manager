@@ -7,7 +7,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     private var useCase: TaskUseCase { FetchTaskUseCase(repository: repository) }
 
-    private var viewModel: TaskViewModelable { TaskViewModel(useCase: useCase) }
+    private var viewModel: TaskViewModel { DefaultTaskViewModel(useCase: useCase) }
 
     private var navigationController: UINavigationController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)

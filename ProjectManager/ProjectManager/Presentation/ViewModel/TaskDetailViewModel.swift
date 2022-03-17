@@ -1,48 +1,75 @@
-import CoreData
+import Foundation
 
-protocol TaskUseCase {
-    func create(with title: String, completed: @escaping (Bool) -> Void)
-    func read(completed: @escaping ([TaskList]) -> Void)
-    func update(taskList: TaskList, completed: @escaping (Bool) -> Void)
-    func delete(by id: String, completed: @escaping (Bool) -> Void)
-    func createTask(_ task: Task, in taskList: TaskList, completed: @escaping (Bool) -> Void)
-}
-
-final class FetchTaskUseCase: TaskUseCase {
+final class TaskDetailViewModel: TaskViewModel {
     private var repository: TaskRepository
 
-    init(repository: TaskRepository) {
+    init(repository: TaskRepository = TaskDataRepository()) {
         self.repository = repository
+        loadTaskList()
     }
 
-    func create(with title: String, completed: @escaping (Bool) -> Void) {
-        let newTaskListModel = TaskListModel(title: title)
-        repository.create(taskListModel: newTaskListModel, completed: completed)
+    var onUpdated: () -> Void = {}
+
+    var taskLists: [TaskList] = []
+    {
+        didSet {
+            onUpdated()
+        }
     }
 
-    func read(completed: @escaping ([TaskList]) -> Void) {
-        repository.read { entity in
-            let convertedTaskList = self.convertToTaskList(from: entity)
+    var countOfTaskList: Int { taskLists.count }
+
+    func fetchTaskList(at index: Int) -> TaskList? {
+        return taskLists[safe: index] ?? nil
+    }
+
+    func fetchTask(at index: Int, in listTitle: String) -> Task? {
+        guard let listIndex = taskLists.firstIndex(where: { $0.title == listTitle }) else { return nil }
+        return taskLists[listIndex].items[safe: index]
+    }
+
+    func reloadTaskList() {
+        loadTaskList()
+    }
+
+    private func loadTaskList() {
+        repository.read { [weak self] allTaskList in
+            guard let self = self else { return }
+            let convertedTaskList = self.convertToTaskList(from: allTaskList)
             DispatchQueue.main.async {
-                completed(convertedTaskList)
+                self.taskLists = convertedTaskList
             }
         }
     }
 
-    func update(taskList: TaskList, completed: @escaping (Bool) -> Void) {
+    func addNewTaskList(with title: String) {
+        let newTaskListModel = TaskListModel(title: title)
+        repository.create(taskListModel: newTaskListModel) { [weak self] success in
+            guard success, let self = self else { return }
+            self.loadTaskList()
+        }
+    }
+
+    func updateTaskList(_ taskList: TaskList) {
         let convertedTaskListModel = self.convertToTaskListModel(from: taskList)
-        repository.update(taskListModel: convertedTaskListModel, completed: completed)
+        repository.update(taskListModel: convertedTaskListModel) { [weak self] success in
+            guard success, let self = self else { return }
+            self.loadTaskList()
+        }
     }
 
-    func delete(by id: String, completed: @escaping (Bool) -> Void) {
+    func deleteTaskList(by id: String) {
         guard let id = UUID(uuidString: id) else { return }
-        repository.delete(by: id, completed: completed)
+        repository.delete(by: id) { [weak self] success in
+            guard success, let self = self else { return }
+            self.loadTaskList()
+        }
     }
 
-    func createTask(_ task: Task, in taskList: TaskList, completed: @escaping (Bool) -> Void) {
+    func createTask(_ task: Task, in taskList: TaskList) {
         var taskList = taskList
         taskList.items.append(task)
-        update(taskList: taskList, completed: completed)
+        updateTaskList(taskList)
     }
 
     private func convertToTaskList(from taskListModel: [TaskListModel]) -> [TaskList] {
