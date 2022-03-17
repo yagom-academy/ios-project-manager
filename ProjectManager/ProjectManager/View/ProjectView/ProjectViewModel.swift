@@ -72,9 +72,9 @@ final class ProjectViewModel {
 }
 
 extension ProjectViewModel: WorkFormViewControllerDelegate {
+    
     func removeSelectedWork() {
         selectedWork = nil
     }
-    
     
 }

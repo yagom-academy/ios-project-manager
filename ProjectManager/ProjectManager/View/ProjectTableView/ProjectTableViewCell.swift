@@ -3,7 +3,7 @@ import RxSwift
 
 
 protocol ProjectTableViewCellDelegate: AnyObject {
-    func present(alert: UIAlertController)
+    func longpressed(at cell: ProjectTableViewCell)
 }
 
 private enum Content {
@@ -37,21 +37,21 @@ final class ProjectTableViewCell: UITableViewCell {
     @IBOutlet weak private var bodyLabel: UILabel!
     @IBOutlet weak private var dateLabel: UILabel!
         
-    private var title: String?
-    private var viewModel: ProjectViewModel?
     private var work: Work?
     
     private var firstTitle: String {
-        if title == Content.todoTitle {
+        switch work?.category {
+        case .todo:
             return Content.moveDoingTitle
-        } else {
+        default:
             return Content.moveToDoTitle
         }
     }
     private var secondTitle: String {
-        if title == Content.doneTitle {
+        switch work?.category {
+        case .done:
             return Content.moveDoingTitle
-        } else {
+        default:
             return Content.moveDoneTitle
         }
     }
@@ -90,53 +90,24 @@ final class ProjectTableViewCell: UITableViewCell {
         }
     }
     
-    func setupData(title: String?, viewModel: ProjectViewModel?, work: Work?) {
-        self.title = title
-        self.viewModel = viewModel
+    func setupData(work: Work) {
         self.work = work
     }
     
     @objc private func showPopupMenu() {
-        guard let viewModel = viewModel else { return }
-
-        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-
-        let firstAction = UIAlertAction(title: firstTitle, style: .default) { [weak self] _ in
-            if self?.firstTitle == Content.moveToDoTitle {
-                self?.change(category: .todo)
-                viewModel.todoList.onNext(viewModel.workMemoryManager.todoList)
-            } else {
-                self?.change(category: .doing)
-                viewModel.doingList.onNext(viewModel.workMemoryManager.doingList)
-            }
-        }
-        let secondAction = UIAlertAction(title: secondTitle, style: .default) { [weak self] _ in
-            if self?.secondTitle == Content.moveDoingTitle {
-                self?.change(category: .doing)
-                viewModel.doingList.onNext(viewModel.workMemoryManager.doingList)
-            } else {
-                self?.change(category: .done)
-                viewModel.doneList.onNext(viewModel.workMemoryManager.doneList)
-            }
-        }
-
-        alert.addAction(firstAction)
-        alert.addAction(secondAction)
-        alert.popoverPresentationController?.sourceView = self
-        
-        delegate?.present(alert: alert)
+        delegate?.longpressed(at: self)
     }
     
-    private func change(category: Work.Category) {
-        guard let work = work else { return }
-
-        viewModel?.updateWork(
-            work,
-            title: work.title,
-            body: work.body,
-            date: work.dueDate,
-            category: category
-        )
-    }
+//    private func change(category: Work.Category) {
+//        guard let work = work else { return }
+//
+//        viewModel?.updateWork(
+//            work,
+//            title: work.title,
+//            body: work.body,
+//            date: work.dueDate,
+//            category: category
+//        )
+//    }
     
 }

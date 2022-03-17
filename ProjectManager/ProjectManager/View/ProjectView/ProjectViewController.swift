@@ -38,24 +38,25 @@ final class ProjectViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let viewController = segue.destination as? ProjectTableViewController else { return }
-        
-        viewController.setup(viewModel: viewModel)
 
         switch segue.identifier {
         case UIName.todoSegue:
             viewController.setup(
+                viewModel: viewModel,
                 titleText: Content.todoTitle,
                 count: viewModel.todoCount,
                 list: viewModel.todoList
             )
         case UIName.doingSegue:
             viewController.setup(
+                viewModel: viewModel,
                 titleText: Content.doingTitle,
                 count: viewModel.doingCount,
                 list: viewModel.doingList
             )
         case UIName.doneSegue:
             viewController.setup(
+                viewModel: viewModel,
                 titleText: Content.doneTitle,
                 count: viewModel.doneCount,
                 list: viewModel.doneList
