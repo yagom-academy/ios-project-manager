@@ -5,7 +5,6 @@ import RxCocoa
 final class TaskListViewController: UIViewController {
     // MARK: - Properties
     private var taskListViewModel: TaskListViewModelProtocol!
-    private lazy var tableViews = [todoTableView, doingTableView, doneTableView]
     private var disposeBag = DisposeBag()
     
     @IBOutlet private weak var todoTableView: TaskTableView!
@@ -27,11 +26,6 @@ final class TaskListViewController: UIViewController {
     }
         
     private func setupTableViews() {
-        tableViews.forEach { tableView in
-            tableView?.setupTableViewCell()
-            tableView?.delegate = self
-        }
-        
         todoTableView.setup(processStatus: .todo)
         doingTableView.setup(processStatus: .doing)
         doneTableView.setup(processStatus: .done)

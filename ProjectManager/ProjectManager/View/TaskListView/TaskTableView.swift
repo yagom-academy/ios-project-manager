@@ -5,9 +5,10 @@ final class TaskTableView: UITableView {
     
     func setup(processStatus: ProcessStatus) {
         self.processStatus = processStatus
+        setupTableViewCell()
     }
     
-    func setupTableViewCell() {
+    private func setupTableViewCell() {
         let nib = UINib(nibName: TaskTableViewCell.reuseIdentifier, bundle: nil)
         register(nib, forCellReuseIdentifier: TaskTableViewCell.reuseIdentifier)
         register(TaskTableHeaderView.self, forHeaderFooterViewReuseIdentifier: TaskTableHeaderView.reuseIdentifier)
