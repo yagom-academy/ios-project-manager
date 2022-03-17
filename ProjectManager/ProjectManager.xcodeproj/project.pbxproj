@@ -18,6 +18,7 @@
 		369243FE27D26A1E004F0FE4 /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 369243FC27D26A1E004F0FE4 /* TaskTableViewCell.swift */; };
 		369243FF27D26A1E004F0FE4 /* TaskTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 369243FD27D26A1E004F0FE4 /* TaskTableViewCell.xib */; };
 		3692440127D27071004F0FE4 /* TaskListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3692440027D27071004F0FE4 /* TaskListViewModel.swift */; };
+		36BB380C27E36953004A701D /* TaskDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36BB380B27E36953004A701D /* TaskDetailViewModel.swift */; };
 		36C6FC3827D72E5300B3057F /* TableViewError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C6FC3727D72E5300B3057F /* TableViewError.swift */; };
 		36C6FC3D27D73E5100B3057F /* UITableView+ReuseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C6FC3C27D73E5100B3057F /* UITableView+ReuseCell.swift */; };
 		36C6FC3F27D73E8B00B3057F /* UITableViewCell+Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C6FC3E27D73E8B00B3057F /* UITableViewCell+Identifier.swift */; };
@@ -82,6 +83,7 @@
 		369243FC27D26A1E004F0FE4 /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
 		369243FD27D26A1E004F0FE4 /* TaskTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskTableViewCell.xib; sourceTree = "<group>"; };
 		3692440027D27071004F0FE4 /* TaskListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListViewModel.swift; sourceTree = "<group>"; };
+		36BB380B27E36953004A701D /* TaskDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailViewModel.swift; sourceTree = "<group>"; };
 		36C6FC3727D72E5300B3057F /* TableViewError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewError.swift; sourceTree = "<group>"; };
 		36C6FC3C27D73E5100B3057F /* UITableView+ReuseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+ReuseCell.swift"; sourceTree = "<group>"; };
 		36C6FC3E27D73E8B00B3057F /* UITableViewCell+Identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Identifier.swift"; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 			isa = PBXGroup;
 			children = (
 				3692440027D27071004F0FE4 /* TaskListViewModel.swift */,
+				36BB380B27E36953004A701D /* TaskDetailViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -464,6 +467,7 @@
 				36D50A4A27E1CE0000CD61EF /* AlertFactory.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				3692440127D27071004F0FE4 /* TaskListViewModel.swift in Sources */,
+				36BB380C27E36953004A701D /* TaskDetailViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

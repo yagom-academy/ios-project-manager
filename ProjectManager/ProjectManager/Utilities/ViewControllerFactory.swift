@@ -23,7 +23,7 @@ extension TypeOfViewController {
     }
 }
 
-struct ViewControllerFactory {
+enum ViewControllerFactory {
     static func createViewController(of typeOfViewController: TypeOfViewController) -> UIViewController {
         let storyboardInformation = typeOfViewController.fetchStoryboardInformation()
         let storyboard = UIStoryboard(name: storyboardInformation.storyboardName, bundle: storyboardInformation.bundle)

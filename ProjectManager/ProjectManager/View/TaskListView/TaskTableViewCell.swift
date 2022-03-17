@@ -78,7 +78,7 @@ final class TaskTableViewCell: UITableViewCell {
             self?.taskListViewModel.edit(task: (self?.task!)!, newProcessStatus: processStatusChangeOptions[safe: 1]!)
         }
 
-        let alert = AlertFactory().createAlert(style: .actionSheet, actions: option1Action, option2Action)
+        let alert = AlertFactory.createAlert(style: .actionSheet, actions: option1Action, option2Action)
         let alertPopover = alert.popoverPresentationController
         alertPopover?.sourceView = self
         
