@@ -3,10 +3,10 @@ import RxSwift
 import RxCocoa
 
 protocol TaskListViewModelProtocol {
-    var todoTasksObservable: BehaviorSubject<[Task]> { get }
-    var doingTasksObservable: BehaviorSubject<[Task]> { get }
-    var doneTasksObservable: BehaviorSubject<[Task]> { get }
-    var tasksObservables: [BehaviorSubject<[Task]>] { get }
+    var todoTasks: BehaviorSubject<[Task]> { get }
+    var doingTasks: BehaviorSubject<[Task]> { get }
+    var doneTasks: BehaviorSubject<[Task]> { get }
+    var entireTasks: [BehaviorSubject<[Task]>] { get }
     
     var todoTasksCount: Observable<Int> { get }
     var doingTasksCount: Observable<Int> { get }
@@ -26,21 +26,21 @@ protocol TaskListViewModelProtocol {
 final class TaskListViewModel: TaskListViewModelProtocol {
     // MARK: - Properties
     private let taskRepository: TaskRepositoryProtocol
-    let todoTasksObservable: BehaviorSubject<[Task]>
-    let doingTasksObservable: BehaviorSubject<[Task]>
-    let doneTasksObservable: BehaviorSubject<[Task]>
-    lazy var tasksObservables = [todoTasksObservable, doingTasksObservable, doneTasksObservable]
+    let todoTasks: BehaviorSubject<[Task]>
+    let doingTasks: BehaviorSubject<[Task]>
+    let doneTasks: BehaviorSubject<[Task]>
+    lazy var entireTasks = [todoTasks, doingTasks, doneTasks]
     
-    lazy var todoTasksCount: Observable<Int> = todoTasksObservable.map { $0.count }
-    lazy var doingTasksCount: Observable<Int> = doingTasksObservable.map { $0.count }
-    lazy var doneTasksCount: Observable<Int> = doneTasksObservable.map { $0.count }
+    lazy var todoTasksCount: Observable<Int> = todoTasks.map { $0.count }
+    lazy var doingTasksCount: Observable<Int> = doingTasks.map { $0.count }
+    lazy var doneTasksCount: Observable<Int> = doneTasks.map { $0.count }
     
     // MARK: - Initializers
     init(taskRepository: TaskRepositoryProtocol = TaskRepository()) {
         self.taskRepository = taskRepository
-        self.todoTasksObservable = BehaviorSubject<[Task]>(value: taskRepository.todoTasks)
-        self.doingTasksObservable = BehaviorSubject<[Task]>(value: taskRepository.doingTasks)
-        self.doneTasksObservable = BehaviorSubject<[Task]>(value: taskRepository.doneTasks)
+        self.todoTasks = BehaviorSubject<[Task]>(value: taskRepository.todoTasks).asObserver()
+        self.doingTasks = BehaviorSubject<[Task]>(value: taskRepository.doingTasks)
+        self.doneTasks = BehaviorSubject<[Task]>(value: taskRepository.doneTasks)
     }
     
     // MARK: - Methods
@@ -49,11 +49,11 @@ final class TaskListViewModel: TaskListViewModelProtocol {
         
         switch task.processStatus {
         case .todo:
-            todoTasksObservable.onNext(taskRepository.todoTasks)
+            todoTasks.onNext(taskRepository.todoTasks)
         case .doing:
-            doingTasksObservable.onNext(taskRepository.doingTasks)
+            doingTasks.onNext(taskRepository.doingTasks)
         case .done:
-            doneTasksObservable.onNext(taskRepository.doneTasks)
+            doneTasks.onNext(taskRepository.doneTasks)
         }
     }
     
@@ -62,11 +62,11 @@ final class TaskListViewModel: TaskListViewModelProtocol {
         
         switch task.processStatus {
         case .todo:
-            todoTasksObservable.onNext(taskRepository.todoTasks)
+            todoTasks.onNext(taskRepository.todoTasks)
         case .doing:
-            doingTasksObservable.onNext(taskRepository.doingTasks)
+            doingTasks.onNext(taskRepository.doingTasks)
         case .done:
-            doneTasksObservable.onNext(taskRepository.doneTasks)
+            doneTasks.onNext(taskRepository.doneTasks)
         }
     }
     
@@ -80,11 +80,11 @@ final class TaskListViewModel: TaskListViewModelProtocol {
         
         switch task.processStatus {
         case .todo:
-            todoTasksObservable.onNext(taskRepository.todoTasks)
+            todoTasks.onNext(taskRepository.todoTasks)
         case .doing:
-            doingTasksObservable.onNext(taskRepository.doingTasks)
+            doingTasks.onNext(taskRepository.doingTasks)
         case .done:
-            doneTasksObservable.onNext(taskRepository.doneTasks)
+            doneTasks.onNext(taskRepository.doneTasks)
         }
         
         guard task.processStatus != newTask.processStatus else {
@@ -93,11 +93,11 @@ final class TaskListViewModel: TaskListViewModelProtocol {
         
         switch newTask.processStatus {
         case .todo:
-            todoTasksObservable.onNext(taskRepository.todoTasks)
+            todoTasks.onNext(taskRepository.todoTasks)
         case .doing:
-            doingTasksObservable.onNext(taskRepository.doingTasks)
+            doingTasks.onNext(taskRepository.doingTasks)
         case .done:
-            doneTasksObservable.onNext(taskRepository.doneTasks)
+            doneTasks.onNext(taskRepository.doneTasks)
         }
     }
     

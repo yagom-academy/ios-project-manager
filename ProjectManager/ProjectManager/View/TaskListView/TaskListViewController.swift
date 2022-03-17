@@ -39,13 +39,13 @@ final class TaskListViewController: UIViewController {
     
     private func setupHeaderViews() {
         let todoTaskHeaderView = TaskTableHeaderView(reuseIdentifier: TaskTableHeaderView.reuseIdentifier,
-                                                     taskCountObservable: taskListViewModel.todoTasksCount, // 기존 ViewModel의 일부 데이터를 생성자 주입으로 전달
+                                                     taskCount: taskListViewModel.todoTasksCount, // 기존 ViewModel의 일부 데이터를 생성자 주입으로 전달
                                                      processStatus: .todo)
         let doingTaskHeaderView = TaskTableHeaderView(reuseIdentifier: TaskTableHeaderView.reuseIdentifier,
-                                                      taskCountObservable: taskListViewModel.doingTasksCount,
+                                                      taskCount: taskListViewModel.doingTasksCount,
                                                       processStatus: .doing)
         let doneTaskHeaderView = TaskTableHeaderView(reuseIdentifier: TaskTableHeaderView.reuseIdentifier,
-                                                     taskCountObservable: taskListViewModel.doneTasksCount,
+                                                     taskCount: taskListViewModel.doneTasksCount,
                                                      processStatus: .done)
 
         todoTableView.tableHeaderView = todoTaskHeaderView
@@ -58,7 +58,7 @@ final class TaskListViewController: UIViewController {
     }
     
     private func setupTableViewsBinding() {
-        taskListViewModel.todoTasksObservable?
+        taskListViewModel.todoTasks
             .asDriver(onErrorJustReturn: [])
             .drive(todoTableView.rx.items(cellIdentifier: TaskTableViewCell.reuseIdentifier,
                                           cellType: TaskTableViewCell.self)) { [weak self] _, task, cell in
@@ -66,7 +66,7 @@ final class TaskListViewController: UIViewController {
              }
              .disposed(by: disposeBag)
         
-        taskListViewModel.doingTasksObservable?
+        taskListViewModel.doingTasks
             .asDriver(onErrorJustReturn: [])
             .drive(doingTableView.rx.items(cellIdentifier: TaskTableViewCell.reuseIdentifier,
                                            cellType: TaskTableViewCell.self)) { [weak self] _, task, cell in
@@ -74,7 +74,7 @@ final class TaskListViewController: UIViewController {
              }
              .disposed(by: disposeBag)
 
-        taskListViewModel.doneTasksObservable?
+        taskListViewModel.doneTasks
             .asDriver(onErrorJustReturn: [])
             .drive(doneTableView.rx.items(cellIdentifier: TaskTableViewCell.reuseIdentifier,
                                           cellType: TaskTableViewCell.self)) { [weak self] _, task, cell in
