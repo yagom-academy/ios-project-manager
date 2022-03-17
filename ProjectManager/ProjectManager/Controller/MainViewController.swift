@@ -6,7 +6,7 @@
 
 import UIKit
 
-class MainController: UIViewController {
+class MainViewController: UIViewController {
 
 // MARK: - Properties
 
@@ -52,8 +52,8 @@ class MainController: UIViewController {
 
 // MARK: - Modal View Controller
 
-    private var editViewController: EditController = {
-        let controller = EditController()
+    private var editViewController: EditViewController = {
+        let controller = EditViewController()
         controller.modalPresentationStyle = .formSheet
         controller.modalTransitionStyle = .crossDissolve
 
@@ -370,7 +370,7 @@ class MainController: UIViewController {
 }
 
 // MARK: - Table View DataSource
-extension MainController: UITableViewDataSource {
+extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let taskIndex = self.sampleTableView.firstIndex(of: tableView) else {
             return 0
@@ -403,7 +403,7 @@ extension MainController: UITableViewDataSource {
 
 // MARK: - Table View Delegate
 
-extension MainController: UITableViewDelegate {
+extension MainViewController: UITableViewDelegate {
     func tableView(
         _ tableView: UITableView,
         trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
@@ -463,13 +463,13 @@ extension MainController: UITableViewDelegate {
 
 // MARK: - Edit View Controller Delegate Methods
 
-extension MainController: EditEventAvailable {
+extension MainViewController: EditEventAvailable {
 
-    func editViewControllerDidCancel(_ editViewController: EditController) {
+    func editViewControllerDidCancel(_ editViewController: EditViewController) {
         editViewController.dismiss(animated: true, completion: nil)
     }
 
-    func editViewControllerDidFinish(_ editViewController: EditController) {
+    func editViewControllerDidFinish(_ editViewController: EditViewController) {
         self.reloadTableViewData()
 
         editViewController.dismiss(animated: true, completion: nil)

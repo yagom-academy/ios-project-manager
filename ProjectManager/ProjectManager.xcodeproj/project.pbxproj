@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0D1F48A127E06E07006C60B0 /* ViewConfigureError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1F48A027E06E06006C60B0 /* ViewConfigureError.swift */; };
-		0D36ADF927D0F68E00A93720 /* EditController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D36ADF827D0F68E00A93720 /* EditController.swift */; };
+		0D36ADF927D0F68E00A93720 /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D36ADF827D0F68E00A93720 /* EditViewController.swift */; };
 		0D36ADFF27D108AD00A93720 /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D36ADFE27D108AD00A93720 /* UITextField+Extension.swift */; };
 		0D36AE0127D10B9E00A93720 /* UITextView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D36AE0027D10B9E00A93720 /* UITextView+Extension.swift */; };
 		0D5B293927D35C8100F30925 /* MainTableViewHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5B293827D35C8100F30925 /* MainTableViewHeaderView.swift */; };
@@ -34,7 +34,7 @@
 		0DF3233727CE67020062EE14 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 0DF3233627CE67020062EE14 /* FirebaseStorage */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
-		C7431F0A25F51E1D0094C4CF /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* MainController.swift */; };
+		C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* MainViewController.swift */; };
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
 		D964BF4B8D339FB04DE72714 /* Pods_ProjectManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AFC7A98A9A8A090409EAEF6 /* Pods_ProjectManager.framework */; };
 /* End PBXBuildFile section */
@@ -42,7 +42,7 @@
 /* Begin PBXFileReference section */
 		0613041D75E9C7CB38AD9021 /* Pods-ProjectManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.debug.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.debug.xcconfig"; sourceTree = "<group>"; };
 		0D1F48A027E06E06006C60B0 /* ViewConfigureError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewConfigureError.swift; sourceTree = "<group>"; };
-		0D36ADF827D0F68E00A93720 /* EditController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditController.swift; sourceTree = "<group>"; };
+		0D36ADF827D0F68E00A93720 /* EditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
 		0D36ADFE27D108AD00A93720 /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		0D36AE0027D10B9E00A93720 /* UITextView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Extension.swift"; sourceTree = "<group>"; };
 		0D5B293827D35C8100F30925 /* MainTableViewHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewHeaderView.swift; sourceTree = "<group>"; };
@@ -67,7 +67,7 @@
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		C7431F0925F51E1D0094C4CF /* MainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainController.swift; sourceTree = "<group>"; };
+		C7431F0925F51E1D0094C4CF /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		C7431F0E25F51E1E0094C4CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -153,8 +153,8 @@
 		0DC8636427D9C391001E5DD8 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				C7431F0925F51E1D0094C4CF /* MainController.swift */,
-				0D36ADF827D0F68E00A93720 /* EditController.swift */,
+				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
+				0D36ADF827D0F68E00A93720 /* EditViewController.swift */,
 				0D1F48A027E06E06006C60B0 /* ViewConfigureError.swift */,
 				0DC8637227DA5A9E001E5DD8 /* EditControllerProtocol */,
 			);
@@ -386,7 +386,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0D8088CD27CF942600199897 /* TodoList.swift in Sources */,
-				C7431F0A25F51E1D0094C4CF /* MainController.swift in Sources */,
+				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				0DC8637627DA692E001E5DD8 /* EditView.swift in Sources */,
 				0D7A352927D05184007F26F6 /* DataProvider.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
@@ -403,7 +403,7 @@
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				0D7A352D27D075D5007F26F6 /* MainTableViewCell.swift in Sources */,
 				0D36ADFF27D108AD00A93720 /* UITextField+Extension.swift in Sources */,
-				0D36ADF927D0F68E00A93720 /* EditController.swift in Sources */,
+				0D36ADF927D0F68E00A93720 /* EditViewController.swift in Sources */,
 				0DF22DED27D1E81A00CE0BD5 /* DateFormatter+Extension.swift in Sources */,
 				0DF22DE927D1E19F00CE0BD5 /* UIFont+Extension.swift in Sources */,
 				0D8088CA27CF91AA00199897 /* Todo.swift in Sources */,

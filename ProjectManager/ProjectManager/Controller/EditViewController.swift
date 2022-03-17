@@ -7,7 +7,7 @@
 
 import UIKit
 
-class EditController: UIViewController, UIAdaptivePresentationControllerDelegate {
+class EditViewController: UIViewController, UIAdaptivePresentationControllerDelegate {
 
 // MARK: - Properties
 
@@ -186,7 +186,7 @@ class EditController: UIViewController, UIAdaptivePresentationControllerDelegate
 
 // MARK: - TextView Delegate
 
-extension EditController: UITextViewDelegate {
+extension EditViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.textColor == EditControllerColor.placeHolderTextColor {
             textView.text = nil

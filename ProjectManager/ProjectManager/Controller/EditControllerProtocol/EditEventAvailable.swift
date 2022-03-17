@@ -9,6 +9,6 @@ import Foundation
 
 protocol EditEventAvailable: AnyObject {
 
-    func editViewControllerDidCancel(_ editViewController: EditController)
-    func editViewControllerDidFinish(_ editViewController: EditController)
+    func editViewControllerDidCancel(_ editViewController: EditViewController)
+    func editViewControllerDidFinish(_ editViewController: EditViewController)
 }
