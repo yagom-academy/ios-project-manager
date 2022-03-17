@@ -121,7 +121,11 @@ class FirebaseTaskListRepository {
                 }
         }
     
-    func updateEntityTaskStatus(id: String, status: String, complition: @escaping (Result<Bool, FirebaseError>) -> Void) {
+    func updateEntityTaskStatus(
+        id: String,
+        status: String,
+        complition: @escaping (Result<Bool, FirebaseError>) -> Void
+    ) {
         let updateStateData = ["status": status]
         
         store

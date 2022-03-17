@@ -1,6 +1,6 @@
 import Foundation
 
-enum FirebaseError: LocalizedError {
+enum RealmError: LocalizedError {
     case fetchFailed
     case createFailed
     case updateFailed
@@ -9,13 +9,13 @@ enum FirebaseError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .fetchFailed:
-            return "RemoteDB Fetch Failed"
+            return "LocalDB Fetch Failed"
         case .createFailed:
-            return "RemoteDB Create Failed"
+            return "LocalDB Create Failed"
         case .updateFailed:
-            return "RemoteDB Update Failed"
+            return "LocalDB Update Failed"
         case .deleteFailed:
-            return "RemoteDB Delete Failed"
+            return "LocalDB Delete Failed"
         }
     }
 }

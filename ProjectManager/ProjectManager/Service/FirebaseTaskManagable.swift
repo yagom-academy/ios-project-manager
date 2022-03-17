@@ -6,7 +6,12 @@ protocol FirebaseTaskManagable {
     
     func fetchFirebaseTaskList() -> AnyPublisher<[Task], FirebaseError>
     func createFirebaseTask(_ task: Task) -> AnyPublisher<Bool, FirebaseError> 
-    func updateFirebaseTask(id: String, title: String, description: String, deadline: Date) -> AnyPublisher<Bool, FirebaseError>
+    func updateFirebaseTask(
+        id: String,
+        title: String,
+        description: String,
+        deadline: Date
+    ) -> AnyPublisher<Bool, FirebaseError>
     func updateFirebaseTaskState(id: String, progressStatus: Task.ProgressStatus) -> AnyPublisher<Bool, FirebaseError>
     func deleteFirebaseTask(_ id: String) -> AnyPublisher<Bool, FirebaseError>
 }

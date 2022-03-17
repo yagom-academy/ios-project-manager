@@ -3,9 +3,9 @@ import Foundation
 protocol RealmTaskManagable {
     var taskList: [Task] { get set }
     
-    func fetchRealmTaskList()
-    func createRealmTask(_ task: Task)
-    func updateRealmTask(id: String, title: String, description: String, deadline: Date)
-    func updateRealmTaskState(id: String, progressStatus: Task.ProgressStatus)
-    func deleteRealmTask(_ id: String)
+    func fetchRealmTaskList() throws
+    func createRealmTask(_ task: Task) throws
+    func updateRealmTask(id: String, title: String, description: String, deadline: Date) throws
+    func updateRealmTaskState(id: String, progressStatus: Task.ProgressStatus) throws
+    func deleteRealmTask(_ id: String) throws
 }

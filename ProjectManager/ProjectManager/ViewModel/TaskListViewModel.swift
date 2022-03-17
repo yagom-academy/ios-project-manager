@@ -21,7 +21,11 @@ class TaskListViewModel: ObservableObject {
     }
     
     func synchronizeFirebaseWithRealm() {
-        manager.synchronizeRealmToFirebase()
+        do {
+            try manager.synchronizeRealmToFirebase()
+        } catch {
+            print(error.localizedDescription)
+        }
         manager.synchronizeFirebaseToRealm()
             .sink { complition in
                 switch complition {
@@ -54,12 +58,20 @@ class TaskListViewModel: ObservableObject {
     }
     
     func fetchRealm() {
-        manager.fetchRealmTaskList()
+        do {
+            try manager.fetchRealmTaskList()
+        } catch {
+            print(error.localizedDescription)
+        }
         reload()
     }
     
     func createTask(_ task: Task) {
-        manager.createRealmTask(task)
+        do {
+            try manager.createRealmTask(task)
+        } catch let error {
+            print(error.localizedDescription)
+        }
         manager.createFirebaseTask(task)
             .sink { completion in
                 switch completion {
@@ -75,7 +87,11 @@ class TaskListViewModel: ObservableObject {
     }
     
     func updateState(id: String, progressStatus: Task.ProgressStatus) {
-        manager.updateRealmTaskState(id: id, progressStatus: progressStatus)
+        do {
+            try manager.updateRealmTaskState(id: id, progressStatus: progressStatus)
+        } catch {
+            print(error.localizedDescription)
+        }
         manager.updateFirebaseTaskState(id: id, progressStatus: progressStatus)
             .sink { completion in
                 switch completion {
@@ -91,7 +107,11 @@ class TaskListViewModel: ObservableObject {
     }
     
     func updateTask(id: String, title: String, description: String, deadline: Date) {
-        manager.updateRealmTask(id: id, title: title, description: description, deadline: deadline)
+        do {
+            try  manager.updateRealmTask(id: id, title: title, description: description, deadline: deadline)
+        } catch {
+            print(error.localizedDescription)
+        }
         manager.updateFirebaseTask(id: id, title: title, description: description, deadline: deadline)
             .sink { completion in
                 switch completion {
@@ -107,7 +127,11 @@ class TaskListViewModel: ObservableObject {
     }
     
     func deleteTask(_ id: String) {
-        manager.deleteRealmTask(id)
+        do {
+            try  manager.deleteRealmTask(id)
+        } catch {
+            print(error.localizedDescription)
+        }
         manager.deleteFirebaseTask(id)
             .sink { completion in
                 switch completion {

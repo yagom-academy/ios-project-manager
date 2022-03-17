@@ -32,8 +32,8 @@ extension TaskManager {
         .eraseToAnyPublisher()
     }
     
-    func synchronizeRealmToFirebase() {
-        realmTaskListRepository.fetch().forEach { realmTask in
+    func synchronizeRealmToFirebase() throws {
+        try realmTaskListRepository.fetch().forEach { realmTask in
             let task = convertTask(from: realmTask)
             let firebaseTask = convertFirebaseEntityTask(from: task)
             self.firebaseTaskListRepository.syncTask(firebaseTask)
@@ -130,36 +130,56 @@ extension TaskManager: FirebaseTaskManagable {
         .eraseToAnyPublisher()
     }
 }
-    
+
 // MARK: - Realm CRUD Method
 extension TaskManager: RealmTaskManagable {
-    func fetchRealmTaskList() {
-        self.taskList = realmTaskListRepository.fetch()
-            .map { convertTask(from: $0) }
+    func fetchRealmTaskList() throws {
+        do {
+            self.taskList = try realmTaskListRepository.fetch()
+                .map { convertTask(from: $0) }
+        } catch {
+            throw RealmError.fetchFailed
+        }
     }
     
-    func createRealmTask(_ task: Task) {
-        let realmTask = convertRealmEntityTask(from: task)
-        realmTaskListRepository.createEntityTask(task: realmTask)
-        fetchRealmTaskList()
+    func createRealmTask(_ task: Task) throws {
+        do {
+            let realmTask = convertRealmEntityTask(from: task)
+            try realmTaskListRepository.createEntityTask(task: realmTask)
+            try fetchRealmTaskList()
+        } catch {
+            throw RealmError.createFailed
+        }
     }
     
-    func updateRealmTask(id: String, title: String, description: String, deadline: Date) {
-        realmTaskListRepository.updateTask(id: id, title: title, description: description, deadline: deadline)
-        fetchRealmTaskList()
+    func updateRealmTask(id: String, title: String, description: String, deadline: Date) throws {
+        do {
+            try realmTaskListRepository.updateTask(id: id, title: title, description: description, deadline: deadline)
+            try fetchRealmTaskList()
+        } catch {
+            throw RealmError.updateFailed
+        }
     }
     
-    func updateRealmTaskState(id: String, progressStatus: Task.ProgressStatus) {
-        realmTaskListRepository.updateTaskState(
-            id: id,
-            progressStatus: RealmEntityTask.ProgressStatus(rawValue: progressStatus.rawValue) ?? .todo
-        )
-        fetchRealmTaskList()
+    func updateRealmTaskState(id: String, progressStatus: Task.ProgressStatus) throws {
+        do {
+            try realmTaskListRepository.updateTaskState(
+                id: id,
+                progressStatus: RealmEntityTask.ProgressStatus(rawValue: progressStatus.rawValue) ?? .todo
+            )
+            try fetchRealmTaskList()
+        } catch {
+            throw RealmError.updateFailed
+        }
     }
     
-    func deleteRealmTask(_ id: String) {
-        realmTaskListRepository.deleteTask(id: id)
-        fetchRealmTaskList()
+    func deleteRealmTask(_ id: String) throws {
+        do {
+            try realmTaskListRepository.deleteTask(id: id)
+            try fetchRealmTaskList()
+        } catch {
+            throw RealmError.deleteFailed
+        }
     }
 }
 
