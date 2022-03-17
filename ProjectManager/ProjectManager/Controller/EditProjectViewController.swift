@@ -10,6 +10,14 @@ class EditProjectViewController: UIViewController {
         
         return navigationBar
     }()
+    
+    private let navigationTitle: UILabel = {
+       let label = UILabel()
+        label.font = .preferredFont(forTextStyle: .headline)
+        label.textColor = .label
+        
+        return label
+    }()
 
     var actionAfterDismiss = {}
     
@@ -21,13 +29,15 @@ class EditProjectViewController: UIViewController {
     }
     
     func setupEditView(with project: Project) {
+        navigationTitle.text = project.state.title
         editView.setupFormView(with: project)
     }
     
     private func setupNavigationBar() {
-        let navigationItem = UINavigationItem(title: ProjectState.todo.title)
+        let navigationItem = UINavigationItem()
         let cancelItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismissView))
         let editItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(saveEditedProject))
+        navigationItem.titleView = navigationTitle
         navigationItem.leftBarButtonItem = cancelItem
         navigationItem.rightBarButtonItem = editItem
         navigationBar.setItems([navigationItem], animated: false)

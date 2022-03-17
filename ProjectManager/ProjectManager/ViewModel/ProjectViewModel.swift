@@ -37,12 +37,7 @@ class ProjectViewModel: ViewModelDescribing {
     private let disposeBag: DisposeBag = .init()
     
     private var selectedProject: Project?
-    private var projects: [Project] = [
-        Project(title: "1번", body: "프로젝트 1번 입니다", date: Date().timeIntervalSince1970),
-        Project(title: "2번", body: "프로젝트 2번 입니다", date: Date().timeIntervalSince1970),
-        Project(title: "3번", body: "프로젝트 3번 입니다", date: Date().timeIntervalSince1970),
-        Project(title: "4번", body: "프로젝트 4번 입니다", date: Date().timeIntervalSince1970)
-    ]
+    private var projects: [Project] = []
     var todoProjects: [Project] {
         projects.filter { $0.state == .todo }
     }
@@ -77,12 +72,14 @@ class ProjectViewModel: ViewModelDescribing {
                 self.reloadObserver.onNext(())
             })
             .disposed(by: disposeBag)
+        
         input
             .selectObserver
             .subscribe(onNext: { project in
                 self.selectedProject = project
             })
             .disposed(by: disposeBag)
+        
         input
             .deleteObserver
             .subscribe(onNext: { project in

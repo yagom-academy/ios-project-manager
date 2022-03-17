@@ -14,9 +14,9 @@ class MainViewController: UIViewController {
     private let doingTableView = UITableView()
     private let doneTableView = UITableView()
     
-    private let toDoHeader = ProjectListHeaderView(title: "TODO")
-    private let doingHeader = ProjectListHeaderView(title: "DOING")
-    private let doneHeader = ProjectListHeaderView(title: "DONE")
+    private let toDoHeader = ProjectListHeaderView(title: ProjectState.todo.title)
+    private let doingHeader = ProjectListHeaderView(title: ProjectState.doing.title)
+    private let doneHeader = ProjectListHeaderView(title: ProjectState.done.title)
     
     private lazy var toDoStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [toDoHeader, toDoTableView])
@@ -109,10 +109,13 @@ class MainViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
-    func reloadTableView() {
+    private func reloadTableView() {
         toDoTableView.reloadData()
         doingTableView.reloadData()
         doneTableView.reloadData()
+        toDoHeader.updateProjectCount(viewModel.todoProjects.count)
+        doingHeader.updateProjectCount(viewModel.doingProjects.count)
+        doneHeader.updateProjectCount(viewModel.doneProjects.count)
     }
     
     private func setupStackViewLayout() {

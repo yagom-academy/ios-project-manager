@@ -103,7 +103,7 @@ class ProjectListCell: UITableViewCell {
             containerView.backgroundColor = .systemBackground
             titleLabel.textColor = .label
             previewLabel.textColor = .secondaryLabel
-            dateLabel.textColor = .label
+            setupDateLabel(with: project)
         }
     }
     
@@ -111,7 +111,17 @@ class ProjectListCell: UITableViewCell {
         self.project = project
         titleLabel.text = project.title
         previewLabel.text = project.body
-        dateLabel.text = Date(timeIntervalSince1970: project.date).description
+        dateLabel.text = project.formattedDate
+    }
+    
+    private func setupDateLabel(with project: Project?) {
+        guard let project = project else { return }
+        let dateFormatter = DateFormatter.shared
+        if project.formattedDate >= dateFormatter.string(from: Date()) {
+            dateLabel.textColor = .label
+        } else {
+            dateLabel.textColor = .systemRed
+        }
     }
 
     private func commonInit() {
