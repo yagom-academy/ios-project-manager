@@ -121,6 +121,7 @@ final class ProjectViewController: UIViewController {
     }
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         self.configureNavigationBarLayout()
         self.configureStackViewLayout()
         self.configureMode()

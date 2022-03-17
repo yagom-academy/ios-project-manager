@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Status {
+enum Status: String {
     
     case todo
     case doing
