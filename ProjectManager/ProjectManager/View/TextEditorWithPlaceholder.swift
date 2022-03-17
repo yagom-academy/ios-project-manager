@@ -22,6 +22,7 @@ struct TextEditorWithPlaceholder: View {
                 .opacity(taskBody.isEmpty ? 1 : 0)
         }
         .font(.title2)
+        .frame(minHeight: 110)
         .padding(.all, 10)
         .border(.gray, width: 1)
     }

@@ -16,6 +16,23 @@ struct TaskFormingView: View {
     @State private var taskTitle: String
     @State private var taskDueDate: Date
     @State private var taskBody: String
+    @ObservedObject private var keyboardResponder = KeyboardResponder()
+    @State private var isTextEditorFocused: Bool = false
+    private var isRegularKeyboard: Bool {
+        return keyboardResponder.currentHeight > 70
+    }
+    private var keyboardAdjustingPadding: CGFloat {
+        switch (isTextEditorFocused, isRegularKeyboard) {
+        case (true, true):
+            return keyboardResponder.currentHeight
+        case (false, true):
+            return -keyboardResponder.currentHeight
+        case (true, false):
+            return 0
+        case (false, false):
+            return 0
+        }
+    }
     
     init(selectedTask: Task?, mode isModalShowing: Binding<Bool>) {
         self._isModalShowing = isModalShowing
@@ -40,6 +57,9 @@ struct TaskFormingView: View {
                     .font(.title2)
                     .padding(.all, 10)
                     .border(.gray, width: 1)
+                    .onTapGesture {
+                        isTextEditorFocused = false
+                    }
                 DatePicker("", selection: $taskDueDate, displayedComponents: .date)
                     .labelsHidden()
                     .datePickerStyle(.wheel)
@@ -47,8 +67,12 @@ struct TaskFormingView: View {
                     .padding(.vertical, 20)
                     .environment(\.locale, Locale(identifier: Locale.preferredLanguages.first ?? "en"))
                 TextEditorWithPlaceholder(taskBody: $taskBody)
+                    .onTapGesture {
+                        isTextEditorFocused = true
+                    }
             }
             .padding(.all, 20)
+            .padding(.bottom, keyboardAdjustingPadding)
             .navigationTitle(selectedTask?.status.headerTitle ?? TaskStatus.todo.headerTitle)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
