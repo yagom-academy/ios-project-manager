@@ -87,7 +87,6 @@ final class TaskListViewModel: TaskListViewModelProtocol {
         }
         
         guard task.processStatus != newTask.processStatus else {
-            print(TaskManagerError.unchangedProcessStatus)
             return
         }
         

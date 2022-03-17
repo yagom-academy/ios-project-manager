@@ -54,14 +54,14 @@ final class TaskTableViewCell: UITableViewCell {
         contentView.addGestureRecognizer(longPressRecognizer)
     }
     
-    @objc func didLongPressed(_ gestureRecognizer: UILongPressGestureRecognizer) {
+    @objc private func didLongPressed(_ gestureRecognizer: UILongPressGestureRecognizer) {
         if gestureRecognizer.state == .began {
             print("longpressed")
             presentPopoverToChangeProcessStatus()
         }
     }
     
-    func presentPopoverToChangeProcessStatus() {
+    private func presentPopoverToChangeProcessStatus() {
         guard let currentProcessStatus = task?.processStatus else {
             print(TaskManagerError.invalidProcessStatus.description)
             return
@@ -81,7 +81,7 @@ final class TaskTableViewCell: UITableViewCell {
         let alert = AlertFactory().createAlert(style: .actionSheet, actions: option1Action, option2Action)
         let alertPopover = alert.popoverPresentationController
         alertPopover?.sourceView = self
-//        delegate.present(alert, animated: true)
+        
         popoverPresenterDelegate.presentPopover(with: alert)
     }
 }
