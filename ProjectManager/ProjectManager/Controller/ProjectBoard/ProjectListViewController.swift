@@ -91,13 +91,22 @@ final class ProjectListViewController: UIViewController {
         self.longPressGestureRecognizer.delaysTouchesBegan = true
         
         self.projectTableView.addGestureRecognizer(longPressGestureRecognizer)
-        self.longPressGestureRecognizer.addTarget(self, action: #selector(presentStatusModificationPopover))
+        self.longPressGestureRecognizer.addTarget(
+            self,
+            action: #selector(presentStatusModificationPopover)
+        )
     }
     
     // MARK: - TableView Method
     private func configureDataSource() {
-        dataSource = UITableViewDiffableDataSource<Section, Project>(tableView: projectTableView) { (tableView: UITableView, indexPath: IndexPath, project: Project) -> UITableViewCell? in
-            let projectCell = self.projectTableView.dequeueReusableCell(withClass: ProjectTableViewCell.self, for: indexPath)
+        dataSource = UITableViewDiffableDataSource<Section, Project>(
+            tableView: projectTableView
+        ) {
+            (tableView: UITableView, indexPath: IndexPath, project: Project) -> UITableViewCell? in
+            let projectCell = self.projectTableView.dequeueReusableCell(
+                withClass: ProjectTableViewCell.self,
+                for: indexPath
+            )
             projectCell.updateContent(title: project.title,
                                       description: project.description,
                                       deadline: project.deadline?.localeString(),
@@ -127,9 +136,10 @@ final class ProjectListViewController: UIViewController {
     }
     
     func updateHeaderView() {
-        guard let projects = delegate?.readProject(of: projectStatus), let status = self.projectStatus else {
-            return
-        }
+        guard let projects = delegate?.readProject(of: projectStatus),
+              let status = self.projectStatus else {
+                  return
+              }
         
         self.headerView.configureContent(status: String(describing: status),
                                          projectCount: projects.count)
@@ -167,26 +177,34 @@ final class ProjectListViewController: UIViewController {
         return self.dataSource.itemIdentifier(for: indexPath)
     }
     
-    private func firstStatusModificationPopoverUIAlertAction(with identifier: UUID) -> UIAlertAction {
- 
+    private func firstStatusModificationPopoverUIAlertAction(
+        with identifier: UUID
+    ) -> UIAlertAction {
+        
         switch projectStatus {
         case .todo:
-            let fisrtAction = UIAlertAction(title: ProjectBoardScene.statusModification.doing.rawValue,
-                                style: .default) { [weak self] _ in
+            let fisrtAction = UIAlertAction(
+                title: ProjectBoardScene.statusModification.doing.rawValue,
+                style: .default
+            ) { [weak self] _ in
                 self?.delegate?.updateProjectStatus(of: identifier, with: .doing)
                 self?.updateView()
             }
             return fisrtAction
         case .doing:
-            let fisrtAction = UIAlertAction(title: ProjectBoardScene.statusModification.todo.rawValue,
-                                style: .default) { [weak self] _ in
+            let fisrtAction = UIAlertAction(
+                title: ProjectBoardScene.statusModification.todo.rawValue,
+                style: .default
+            ) { [weak self] _ in
                 self?.delegate?.updateProjectStatus(of: identifier, with: .todo)
                 self?.updateView()
             }
             return fisrtAction
         case .done:
-            let fisrtAction = UIAlertAction(title: ProjectBoardScene.statusModification.todo.rawValue,
-                                style: .default) { [weak self] _ in
+            let fisrtAction = UIAlertAction(
+                title: ProjectBoardScene.statusModification.todo.rawValue,
+                style: .default
+            ) { [weak self] _ in
                 self?.delegate?.updateProjectStatus(of: identifier, with: .todo)
                 self?.updateView()
             }
@@ -196,26 +214,34 @@ final class ProjectListViewController: UIViewController {
         }
     }
     
-    private func secondStatusModificationPopoverUIAlertAction(with identifier: UUID) -> UIAlertAction {
- 
+    private func secondStatusModificationPopoverUIAlertAction(
+        with identifier: UUID
+    ) -> UIAlertAction {
+        
         switch projectStatus {
         case .todo:
-            let secondAction = UIAlertAction(title: ProjectBoardScene.statusModification.done.rawValue,
-                                style: .default) { [weak self] _ in
+            let secondAction = UIAlertAction(
+                title: ProjectBoardScene.statusModification.done.rawValue,
+                style: .default
+            ) { [weak self] _ in
                 self?.delegate?.updateProjectStatus(of: identifier, with: .done)
                 self?.updateView()
             }
             return secondAction
         case .doing:
-            let secondAction = UIAlertAction(title: ProjectBoardScene.statusModification.done.rawValue,
-                                style: .default) { [weak self] _ in
+            let secondAction = UIAlertAction(
+                title: ProjectBoardScene.statusModification.done.rawValue,
+                style: .default
+            ) { [weak self] _ in
                 self?.delegate?.updateProjectStatus(of: identifier, with: .done)
                 self?.updateView()
             }
             return secondAction
         case .done:
-            let secondAction = UIAlertAction(title: ProjectBoardScene.statusModification.doing.rawValue,
-                                style: .default) { [weak self] _ in
+            let secondAction = UIAlertAction(
+                title: ProjectBoardScene.statusModification.doing.rawValue,
+                style: .default
+            ) { [weak self] _ in
                 self?.delegate?.updateProjectStatus(of: identifier, with: .doing)
                 self?.updateView()
             }
@@ -243,8 +269,14 @@ extension ProjectListViewController: UITableViewDelegate {
         self.present(detailViewController, animated: false, completion: nil)
     }
     
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteAction = UIContextualAction(style: .destructive, title: nil) {  [weak self] _, _, _ in
+    func tableView(
+        _ tableView: UITableView,
+        trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
+    ) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(
+            style: .destructive,
+            title: nil
+        ) {  [weak self] _, _, _ in
             guard let project = self?.dataSource.itemIdentifier(for: indexPath),
                   let identifier = project.identifier else {
                       return

@@ -71,6 +71,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		635862B527E30C58005E2A2B /* ProjectBoard */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0925F51E1D0094C4CF /* ProjectBoardViewController.swift */,
+				63B96DAE27E067F600144F7C /* ProjectViewController.swift */,
+				63B96DAC27E028CF00144F7C /* ProjectListViewController.swift */,
+				63974A4427D8D5F600523B16 /* ProjectListViewControllerDelegate.swift */,
+			);
+			path = ProjectBoard;
+			sourceTree = "<group>";
+		};
 		63B96DA727E0249000144F7C /* NameSpace */ = {
 			isa = PBXGroup;
 			children = (
@@ -104,10 +115,7 @@
 		63D21E5A27D464D400E35D3B /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				C7431F0925F51E1D0094C4CF /* ProjectBoardViewController.swift */,
-				63B96DAE27E067F600144F7C /* ProjectViewController.swift */,
-				63B96DAC27E028CF00144F7C /* ProjectListViewController.swift */,
-				63974A4427D8D5F600523B16 /* ProjectListViewControllerDelegate.swift */,
+				635862B527E30C58005E2A2B /* ProjectBoard */,
 			);
 			path = Controller;
 			sourceTree = "<group>";

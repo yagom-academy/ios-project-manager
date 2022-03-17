@@ -34,7 +34,10 @@ final class ProjectSource<T: Hashable & CustomStringConvertible>: LocalDataBase 
         return projects.values.filter { project in project.status == status }
     }
     
-    func update<T>(of identifier: T, with content: [String : Any]) where T : Hashable & CustomStringConvertible {
+    func update<T>(
+        of identifier: T,
+        with content: [String : Any]
+    ) where T : Hashable & CustomStringConvertible {
         let identifierString = String(describing: identifier)
         
         guard var updatingProject = projects[identifierString] else {
@@ -45,7 +48,10 @@ final class ProjectSource<T: Hashable & CustomStringConvertible>: LocalDataBase 
         projects.updateValue(updatingProject, forKey: identifierString)
     }
     
-    func update<T>(of identifier: T, with status: Status) where T : Hashable & CustomStringConvertible {
+    func update<T>(
+        of identifier: T,
+        with status: Status
+    ) where T : Hashable & CustomStringConvertible {
         let identifierString = String(describing: identifier)
         guard var updatingProject = projects[identifierString] else {
             return
