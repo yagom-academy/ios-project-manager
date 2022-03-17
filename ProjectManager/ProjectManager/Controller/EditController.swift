@@ -11,8 +11,7 @@ class EditController: UIViewController, UIAdaptivePresentationControllerDelegate
 
 // MARK: - Properties
 
-    var beingEditedTodoUUID: UUID?
-    var beingEditedTodoTask: TodoTasks?
+    private var todo: Todo?
     weak var dataProvider: DataProvider?
     weak var mainViewDelegate: EditEventAvailable?
 
@@ -85,15 +84,8 @@ class EditController: UIViewController, UIAdaptivePresentationControllerDelegate
 // MARK: - SetUp Default Value
 
     func setUpDefaultValue(todo: Todo) {
-        guard let date = todo.deadline?.date else {
-            return
-        }
-
-        self.editView.textField.text = todo.title
-        self.editView.datePicker.date = date
-        self.editView.textView.text = todo.content
-        self.beingEditedTodoTask = todo.task
-        self.beingEditedTodoUUID = todo.uuid
+        self.todo = todo
+        self.applyDefaultValue()
     }
 
     func resetToDefaultValue() {
@@ -101,6 +93,16 @@ class EditController: UIViewController, UIAdaptivePresentationControllerDelegate
         self.editView.datePicker.date = Date()
         self.editView.textView.text = EditControllerScript.textViewPlaceHolder
         self.editView.textView.textColor = EditControllerColor.placeHolderTextColor
+    }
+
+    private func applyDefaultValue() {
+        guard let date = self.todo?.deadline?.date else {
+            return
+        }
+
+        self.editView.textField.text = self.todo?.title
+        self.editView.datePicker.date = date
+        self.editView.textView.text = self.todo?.content
     }
 
 // MARK: - Configure View
@@ -150,14 +152,13 @@ class EditController: UIViewController, UIAdaptivePresentationControllerDelegate
             title: self.editView.textField.text ?? EditControllerScript.untitled,
             content: self.editView.textView.text,
             deadline: self.editView.datePicker.date.double,
-            task: self.beingEditedTodoTask ?? .todo,
-            uuid: self.beingEditedTodoUUID ?? UUID()
+            task: self.todo?.task ?? .todo,
+            uuid: self.todo?.uuid ?? UUID()
         )
 
-        if self.beingEditedTodoUUID != nil, self.beingEditedTodoTask != nil {
+        if self.todo?.uuid != nil, self.todo?.task != nil {
             dataProvider.edit(todo: todo, in: todo.task)
-            self.beingEditedTodoUUID = nil
-            self.beingEditedTodoTask = nil
+            self.todo = nil
         } else {
             dataProvider.update(todo: todo)
         }
