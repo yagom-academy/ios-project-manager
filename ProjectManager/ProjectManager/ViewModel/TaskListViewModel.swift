@@ -126,7 +126,7 @@ final class TaskListViewModel: TaskListViewModelProtocol {
         case .doing:
             taskToEdit = taskRepository?.doingTasks[row]
         case .done:
-            taskToEdit = taskRepository?.todoTasks[row]
+            taskToEdit = taskRepository?.doneTasks[row]
         }
         
         let taskDetailController = ViewControllerFactory.createViewController(of: .editTaskDetail(viewModel: self,
