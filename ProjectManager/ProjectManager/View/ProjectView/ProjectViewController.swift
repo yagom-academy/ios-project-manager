@@ -68,13 +68,18 @@ final class ProjectViewController: UIViewController {
     
     @IBAction private func addNewWork(_ sender: UIBarButtonItem) {
         let storyboard = UIStoryboard(name: UIName.workFormViewStoryboard, bundle: nil)
-        let viewController = storyboard.instantiateViewController(
+        guard let viewController = storyboard.instantiateViewController(
             identifier: String(describing: WorkFormViewController.self)
-        ) { coder in
-            WorkFormViewController(coder: coder, viewModel: self.viewModel)
+        ) as? WorkFormViewController else {
+            return
         }
+        
+        viewController.setup(
+            selectedWork: nil,
+            list: viewModel.todoList,
+            workMemoryManager: viewModel.workMemoryManager
+        )
         viewController.modalPresentationStyle = .formSheet
-        viewController.delegate = viewModel
         
         present(viewController, animated: true, completion: nil)
     }

@@ -67,6 +67,7 @@ final class ProjectTableViewController: UIViewController {
         
         configureSetupPlaceholderObserver(output)
         configureShowPopoverObserver(output)
+        configureDidSelectedObserver(output)
     }
     
     private func configureSetupPlaceholderObserver(_ output: ProjectTableViewModel.Output) {
@@ -120,6 +121,28 @@ final class ProjectTableViewController: UIViewController {
                 alert.popoverPresentationController?.sourceView = self?.selectedCell
                 
                 self?.present(alert, animated: true)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func configureDidSelectedObserver(_ output: ProjectTableViewModel.Output) {
+        output.showWorkFormViewObserver
+            .subscribe(onNext: { [weak self] work in
+                let storyboard = UIStoryboard(name: UIName.workFormViewStoryboard, bundle: nil)
+                guard let viewController = storyboard.instantiateViewController(
+                    identifier: String(describing: WorkFormViewController.self)
+                ) as? WorkFormViewController else {
+                    return
+                }
+                
+                viewController.setup(
+                    selectedWork: work,
+                    list: self?.viewModel.list,
+                    workMemoryManager: self?.viewModel.workMemoryManager
+                )
+                viewController.modalPresentationStyle = .formSheet
+
+                self?.present(viewController, animated: true, completion: nil)
             })
             .disposed(by: disposeBag)
     }
@@ -184,25 +207,7 @@ final class ProjectTableViewController: UIViewController {
 extension ProjectTableViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        guard let viewModel = viewModel else { return }
-//        guard let list = list else { return }
-//
-//        let storyboard = UIStoryboard(name: UIName.workFormViewStoryboard, bundle: nil)
-//        let viewController = storyboard.instantiateViewController(
-//            identifier: String(describing: WorkFormViewController.self)
-//        ) { coder in
-//            WorkFormViewController(coder: coder, viewModel: viewModel)
-//        }
-//
-//        var selectedWork: Observable<Work?> {
-//            list.map { $0[safe: indexPath.row] }
-//        }
-//
-//        viewController.delegate = viewModel
-//        viewController.modalPresentationStyle = .formSheet
-//        viewModel.selectedWork = selectedWork
-//
-//        present(viewController, animated: true, completion: nil)
+        didSelectedObserver.onNext(indexPath)
     }
     
     func tableView(
@@ -227,7 +232,6 @@ extension ProjectTableViewController: ProjectTableViewCellDelegate {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         
         selectedCell = cell
-        
         cellLongPressedObserver.onNext(indexPath)
     }
     

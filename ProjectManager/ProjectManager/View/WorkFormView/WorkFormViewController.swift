@@ -3,17 +3,6 @@ import RxSwift
 import RxCocoa
 
 
-protocol WorkFormViewControllerDelegate: AnyObject {
-    func removeSelectedWork()
-}
-
-private enum Content {
-    static let isEmpty = ""
-    static let EmptyTitle = "제목을 입력해주세요"
-    static let editTitle = "Edit"
-    static let doneTitle = "Done"
-}
-
 private enum Design {
     static let shadowColor: CGColor = UIColor.black.cgColor
     static let shadowOffset = CGSize(width: 0, height: 5)
@@ -26,65 +15,73 @@ private enum Design {
 
 final class WorkFormViewController: UIViewController {
     
-    weak var delegate: WorkFormViewControllerDelegate?
-    
     @IBOutlet weak private var rightBarButtonItem: UIBarButtonItem!
     @IBOutlet weak private var titleTextField: UITextField!
     @IBOutlet weak private var datePicker: UIDatePicker!
     @IBOutlet weak private var bodyTextView: UITextView!
     
+    private let buttonPressObserver: PublishSubject<(String?, Date, String)> = .init()
+    private let viewDidLoadObserver: PublishSubject<Void> = .init()
     private var disposeBag = DisposeBag()
-    private var projectViewModel: ProjectViewModel?
-    private var passedWork: Work?
-    
-    convenience init?(coder: NSCoder, viewModel: ProjectViewModel) {
-        self.init(coder: coder)
-        self.projectViewModel = viewModel
-    }
+    private var viewModel = WorkFormViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupContent()
-        setupRightBarButtonItem()
+        bind()
         setupTextField()
-        setupDatePicker()
         setupTextView()
+        viewDidLoadObserver.onNext(())
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        delegate?.removeSelectedWork()
-    }
-    
-    func setupContent() {
-        guard let selectedWork = projectViewModel?.selectedWork else { return }
+    func setup(selectedWork: Work?, list: BehaviorSubject<[Work]>?, workMemoryManager: WorkMemoryManager?) {
+        guard let list = list,
+              let workMemoryManager = workMemoryManager else {
+                  return
+              }
         
-        _ = selectedWork
-            .subscribe(onNext: { [weak self] in
-                self?.passedWork = $0
+        self.viewModel.setup(
+            selectedWork: selectedWork,
+            list: list,
+            workMemoryManager: workMemoryManager
+        )
+    }
+    
+    private func bind() {
+        let input = WorkFormViewModel.Input(
+            buttonPressObserver: buttonPressObserver.asObservable(),
+            viewDidLoadObserver: viewDidLoadObserver.asObservable()
+        )
+        
+        let output = viewModel.transform(input)
+        
+        configureFillContentObserver(output)
+        configureShowRightBarButtonItemObserver(output)
+    }
+    
+    private func configureFillContentObserver(_ output: WorkFormViewModel.Output) {
+        output
+            .fillContentObserver
+            .subscribe(onNext: { [weak self] (title, date, body) in
+                guard let date = date else { return }
+                
+                self?.titleTextField.text = title
+                self?.datePicker.date = date
+                self?.bodyTextView.text = body
             })
+            .disposed(by: disposeBag)
+    }
+    
+    private func configureShowRightBarButtonItemObserver(_ output: WorkFormViewModel.Output) {
+        output
+            .showRightBarButtonItemObserver
+            .subscribe(onNext: { [weak self] in
+                self?.rightBarButtonItem.title = $0
+            })
+            .disposed(by: disposeBag)
     }
     
     @IBAction private func touchUpRightBarButton(_ sender: UIBarButtonItem) {
-        if rightBarButtonItem.title == Content.doneTitle {
-            if titleTextField.text == Content.isEmpty {
-                titleTextField.text = Content.EmptyTitle
-            }
-            
-            let work = Work(title: titleTextField.text, body: bodyTextView.text, dueDate: datePicker.date)
-            
-            projectViewModel?.addWork(work)
-        } else if rightBarButtonItem.title == Content.editTitle {
-            guard let passedWork = passedWork else { return }
-            
-            projectViewModel?.updateWork(
-                passedWork,
-                title: titleTextField.text,
-                body: bodyTextView.text,
-                date: datePicker.date,
-                category: passedWork.category
-            )
-        }
+        buttonPressObserver.onNext((titleTextField.text, datePicker.date, bodyTextView.text))
         
         dismiss(animated: true, completion: nil)
     }
@@ -92,25 +89,10 @@ final class WorkFormViewController: UIViewController {
     @IBAction private func touchUpCancelButton(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
     }
-
-    private func setupRightBarButtonItem() {
-        if projectViewModel?.selectedWork == nil {
-            rightBarButtonItem.title = Content.doneTitle
-        } else {
-            rightBarButtonItem.title = Content.editTitle
-        }
-    }
     
     private func setupTextField() {
-        configureTextFieldContent()
         configureTextFieldShadow()
         configureTextFieldLeftView()
-    }
-    
-    private func configureTextFieldContent() {
-        if passedWork?.title != nil {
-            titleTextField.text = passedWork?.title
-        }
     }
     
     private func configureTextFieldShadow() {
@@ -129,25 +111,8 @@ final class WorkFormViewController: UIViewController {
         titleTextField.leftViewMode = .always
     }
     
-    private func setupDatePicker() {
-        configureDatePickerContent()
-    }
-    
-    private func configureDatePickerContent() {
-        if let date = passedWork?.dueDate {
-            datePicker.date = date
-        }
-    }
-    
     private func setupTextView() {
-        configureTextViewContent()
         configureTextViewShadow()
-    }
-    
-    private func configureTextViewContent() {
-        if passedWork?.body != nil {
-            bodyTextView.text = passedWork?.body
-        }
     }
     
     private func configureTextViewShadow() {

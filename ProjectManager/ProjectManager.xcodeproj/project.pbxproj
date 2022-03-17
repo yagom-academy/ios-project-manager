@@ -17,6 +17,7 @@
 		DE09D31727DA299A00B6A9F2 /* ProjectHeaderCircleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE09D31627DA299A00B6A9F2 /* ProjectHeaderCircleLabel.swift */; };
 		DE09D31927DA3B4E00B6A9F2 /* ProjectTableViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE09D31827DA3B4E00B6A9F2 /* ProjectTableViewController.storyboard */; };
 		DE09D31B27DA3E7D00B6A9F2 /* ProjectTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE09D31A27DA3E7D00B6A9F2 /* ProjectTableViewController.swift */; };
+		DE12030327E314760091D040 /* WorkFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE12030227E314760091D040 /* WorkFormViewModel.swift */; };
 		DE20A0BA27CDCD95004B93AC /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = DE20A0B927CDCD95004B93AC /* .swiftlint.yml */; };
 		DE20A0BC27CDD385004B93AC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DE20A0BB27CDD385004B93AC /* GoogleService-Info.plist */; };
 		DE44BF8827D4A23F006E9010 /* Array+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE44BF8727D4A23F006E9010 /* Array+extension.swift */; };
@@ -65,6 +66,7 @@
 		DE09D31627DA299A00B6A9F2 /* ProjectHeaderCircleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectHeaderCircleLabel.swift; sourceTree = "<group>"; };
 		DE09D31827DA3B4E00B6A9F2 /* ProjectTableViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ProjectTableViewController.storyboard; sourceTree = "<group>"; };
 		DE09D31A27DA3E7D00B6A9F2 /* ProjectTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTableViewController.swift; sourceTree = "<group>"; };
+		DE12030227E314760091D040 /* WorkFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkFormViewModel.swift; sourceTree = "<group>"; };
 		DE20A0B927CDCD95004B93AC /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		DE20A0BB27CDD385004B93AC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DE44BF8727D4A23F006E9010 /* Array+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+extension.swift"; sourceTree = "<group>"; };
@@ -248,6 +250,7 @@
 			children = (
 				DE9A0AA927D21CE10095BBF9 /* WorkFormView.storyboard */,
 				DE9A0AAB27D228400095BBF9 /* WorkFormViewController.swift */,
+				DE12030227E314760091D040 /* WorkFormViewModel.swift */,
 			);
 			path = WorkFormView;
 			sourceTree = "<group>";
@@ -432,6 +435,7 @@
 				DE843A4C27CE616A00F622E2 /* Work.swift in Sources */,
 				DE09D30F27D9EC3600B6A9F2 /* UITableView+extension.swift in Sources */,
 				DE90D86127E17BD500E6A434 /* ProjectTableViewModel.swift in Sources */,
+				DE12030327E314760091D040 /* WorkFormViewModel.swift in Sources */,
 				DE843A5527CE6EA300F622E2 /* WorkManagable.swift in Sources */,
 				DE09D31727DA299A00B6A9F2 /* ProjectHeaderCircleLabel.swift in Sources */,
 				DE09D31B27DA3E7D00B6A9F2 /* ProjectTableViewController.swift in Sources */,

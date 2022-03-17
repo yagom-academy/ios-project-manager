@@ -40,12 +40,12 @@ class ProjectTableViewModel: ViewModelDescribing {
         
         let setupPlaceholderObserver: Observable<[Work]>
         let showPopoverObserver: Observable<Work>
-        let showWorkFormViewObserver: Observable<Void>
+        let showWorkFormViewObserver: Observable<Work>
         
         init(
             setPlaceholderObserver: Observable<[Work]>,
             showPopoverObserver: Observable<Work>,
-            showWorkFormViewObserver: Observable<Void>
+            showWorkFormViewObserver: Observable<Work>
         ) {
             self.setupPlaceholderObserver = setPlaceholderObserver
             self.showPopoverObserver = showPopoverObserver
@@ -57,9 +57,9 @@ class ProjectTableViewModel: ViewModelDescribing {
     private(set) var titleText: String?
     private(set) var count: Observable<Int>?
     private(set) var list = BehaviorSubject<[Work]>(value: [])
-    private let disposeBag = DisposeBag()
-    private var workMemoryManager: WorkMemoryManager!
+    private(set) var workMemoryManager: WorkMemoryManager!
     private var projectViewModel: ProjectViewModel?
+    private let disposeBag = DisposeBag()
     
     func setup(
         titleText: String,
@@ -78,7 +78,7 @@ class ProjectTableViewModel: ViewModelDescribing {
     func transform(_ input: Input) -> Output {
         let setupPlaceholderObserver = PublishSubject<[Work]>()
         let showPopoverObserver = PublishSubject<Work>()
-        let showWorkFormViewObserver = PublishSubject<Void>()
+        let showWorkFormViewObserver = PublishSubject<Work>()
         
         configureViewDidLoadObserver(by: input, observer: setupPlaceholderObserver)
         configureCellLongPressedObserver(by: input, observer: showPopoverObserver)
@@ -151,11 +151,15 @@ class ProjectTableViewModel: ViewModelDescribing {
         }
     }
     
-    private func configureDidSelectedObserver(by input: Input, observer: PublishSubject<Void>) {
+    private func configureDidSelectedObserver(by input: Input, observer: PublishSubject<Work>) {
         input
             .didSelectedObserver
-            .subscribe(onNext: { _ in
-                observer.onNext(())
+            .subscribe(onNext: { [weak self] indexPath in
+                guard let list = self?.list else { return }
+                guard let targetWork = try? list.value()[safe: indexPath.row] else {
+                    return
+                }
+                observer.onNext(targetWork)
             })
             .disposed(by: disposeBag)
     }
