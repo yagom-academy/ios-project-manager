@@ -1,5 +1,5 @@
 //
-//  ProjectTableViewController.swift
+//  ProjectListViewController.swift
 //  ProjectManager
 //
 //  Created by 1 on 2022/03/15.
@@ -8,8 +8,8 @@
 import UIKit
 
 
-// MARK: - ProjectTableViewController
-final class ProjectTableViewController: UIViewController {
+// MARK: - ProjectListViewController
+final class ProjectListViewController: UIViewController {
     
     // MARK: - DiffableDataSource Identfier
     enum Section {
@@ -24,7 +24,7 @@ final class ProjectTableViewController: UIViewController {
     var projectStatus: Status!
     private var dataSource: UITableViewDiffableDataSource<Section,Project>!
     private let longPressGestureRecognizer = UILongPressGestureRecognizer()
-    weak var delegate: ProjectTableViewControllerDelegate?
+    weak var delegate: ProjectListViewControllerDelegate?
     
     // MARK: - Initializer
     init(status: Status) {
@@ -227,7 +227,7 @@ final class ProjectTableViewController: UIViewController {
 }
 
 // MARK: - UITableViewDelegate
-extension ProjectTableViewController: UITableViewDelegate {
+extension ProjectListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let selectedProject = dataSource.itemIdentifier(for: indexPath) else {
@@ -260,7 +260,7 @@ extension ProjectTableViewController: UITableViewDelegate {
 }
 
 // MARK: - ProjectEditViewControllerDelegate
-extension ProjectTableViewController: ProjectEditDelegate {
+extension ProjectListViewController: ProjectEditDelegate {
     
     func updateProject(of identifier: UUID, with content: [String: Any]) {
         delegate?.updateProject(of: identifier, with: content)

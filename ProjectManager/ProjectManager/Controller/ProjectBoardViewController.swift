@@ -11,9 +11,9 @@ final class ProjectBoardViewController: UIViewController {
     
     // MARK: - Property
     private let projectManager = ProjectManager()
-    private let todoViewController = ProjectTableViewController(status: .todo)
-    private let doingViewController = ProjectTableViewController(status: .doing)
-    private let doneViewController = ProjectTableViewController(status: .done)
+    private let todoViewController = ProjectListViewController(status: .todo)
+    private let doingViewController = ProjectListViewController(status: .doing)
+    private let doneViewController = ProjectListViewController(status: .done)
     
     // MARK: - UI Property
     private var navigationBar: UINavigationBar = {
@@ -125,8 +125,8 @@ extension ProjectBoardViewController: ProjectCreationDelegate {
 
 }
 
-// MARK: - ProjectTableViewControllerDelegate
-extension ProjectBoardViewController: ProjectTableViewControllerDelegate {
+// MARK: - ProjectListViewControllerDelegate
+extension ProjectBoardViewController: ProjectListViewControllerDelegate {
     
     func readProject(of status: Status) -> [Project]? {
         return projectManager.readProject(of: status)

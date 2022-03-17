@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		63974A4527D8D5F600523B16 /* ProjectTableViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63974A4427D8D5F600523B16 /* ProjectTableViewControllerDelegate.swift */; };
+		63974A4527D8D5F600523B16 /* ProjectListViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63974A4427D8D5F600523B16 /* ProjectListViewControllerDelegate.swift */; };
 		63B96DA927E024AF00144F7C /* ProjectBoardScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B96DA827E024AF00144F7C /* ProjectBoardScene.swift */; };
 		63B96DAB27E0262800144F7C /* ProjectDetailScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B96DAA27E0262800144F7C /* ProjectDetailScene.swift */; };
-		63B96DAD27E028CF00144F7C /* ProjectTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B96DAC27E028CF00144F7C /* ProjectTableViewController.swift */; };
+		63B96DAD27E028CF00144F7C /* ProjectListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B96DAC27E028CF00144F7C /* ProjectListViewController.swift */; };
 		63B96DAF27E067F600144F7C /* ProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B96DAE27E067F600144F7C /* ProjectViewController.swift */; };
 		63B96DE527E0BF7300144F7C /* CALayer+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B96DE427E0BF7300144F7C /* CALayer+Extension.swift */; };
 		63D21E5E27D4691700E35D3B /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D21E5D27D4691700E35D3B /* Project.swift */; };
@@ -33,10 +33,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		63974A4427D8D5F600523B16 /* ProjectTableViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTableViewControllerDelegate.swift; sourceTree = "<group>"; };
+		63974A4427D8D5F600523B16 /* ProjectListViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListViewControllerDelegate.swift; sourceTree = "<group>"; };
 		63B96DA827E024AF00144F7C /* ProjectBoardScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectBoardScene.swift; sourceTree = "<group>"; };
 		63B96DAA27E0262800144F7C /* ProjectDetailScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDetailScene.swift; sourceTree = "<group>"; };
-		63B96DAC27E028CF00144F7C /* ProjectTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTableViewController.swift; sourceTree = "<group>"; };
+		63B96DAC27E028CF00144F7C /* ProjectListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListViewController.swift; sourceTree = "<group>"; };
 		63B96DAE27E067F600144F7C /* ProjectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectViewController.swift; sourceTree = "<group>"; };
 		63B96DE427E0BF7300144F7C /* CALayer+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+Extension.swift"; sourceTree = "<group>"; };
 		63D21E5D27D4691700E35D3B /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
@@ -106,8 +106,8 @@
 			children = (
 				C7431F0925F51E1D0094C4CF /* ProjectBoardViewController.swift */,
 				63B96DAE27E067F600144F7C /* ProjectViewController.swift */,
-				63B96DAC27E028CF00144F7C /* ProjectTableViewController.swift */,
-				63974A4427D8D5F600523B16 /* ProjectTableViewControllerDelegate.swift */,
+				63B96DAC27E028CF00144F7C /* ProjectListViewController.swift */,
+				63974A4427D8D5F600523B16 /* ProjectListViewControllerDelegate.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -276,9 +276,9 @@
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				63B96DAF27E067F600144F7C /* ProjectViewController.swift in Sources */,
 				63B96DE527E0BF7300144F7C /* CALayer+Extension.swift in Sources */,
-				63B96DAD27E028CF00144F7C /* ProjectTableViewController.swift in Sources */,
+				63B96DAD27E028CF00144F7C /* ProjectListViewController.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
-				63974A4527D8D5F600523B16 /* ProjectTableViewControllerDelegate.swift in Sources */,
+				63974A4527D8D5F600523B16 /* ProjectListViewControllerDelegate.swift in Sources */,
 				63D21E9927D7618300E35D3B /* Date+Extension.swift in Sources */,
 				63D21E5E27D4691700E35D3B /* Project.swift in Sources */,
 				63B96DAB27E0262800144F7C /* ProjectDetailScene.swift in Sources */,

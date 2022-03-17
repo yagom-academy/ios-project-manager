@@ -1,5 +1,5 @@
 //
-//  ProjectTableViewControllerDelegate.swift
+//  ProjectListViewControllerDelegate.swift
 //  ProjectManager
 //
 //  Created by 1 on 2022/03/09.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol ProjectTableViewControllerDelegate: AnyObject {
+protocol ProjectListViewControllerDelegate: AnyObject {
     
     func readProject(of status: Status) -> [Project]?
     
