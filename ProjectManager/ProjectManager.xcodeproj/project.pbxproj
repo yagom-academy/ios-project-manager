@@ -25,6 +25,7 @@
 		C1F2B93027CE69D200B8FD51 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = C1F2B92F27CE69D100B8FD51 /* .swiftlint.yml */; };
 		C1F2B93227CF4A7700B8FD51 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = C1F2B93127CF4A7700B8FD51 /* FirebaseFirestore */; };
 		C1FD565F27E3360C001FE852 /* KeyboardResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FD565E27E3360C001FE852 /* KeyboardResponder.swift */; };
+		C1FD566127E3C170001FE852 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FD566027E3C170001FE852 /* CustomTextField.swift */; };
 		C1FE9BB927CFB64300397B90 /* TaskStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FE9BB827CFB64300397B90 /* TaskStatus.swift */; };
 		C1FE9BBB27CFB68600397B90 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FE9BBA27CFB68600397B90 /* Task.swift */; };
 		C1FE9BBD27CFBD6300397B90 /* TaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FE9BBC27CFBD6300397B90 /* TaskManager.swift */; };
@@ -60,6 +61,7 @@
 		C1B26D2A27E1005B0092E386 /* TextEditorWithPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditorWithPlaceholder.swift; sourceTree = "<group>"; };
 		C1F2B92F27CE69D100B8FD51 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		C1FD565E27E3360C001FE852 /* KeyboardResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardResponder.swift; sourceTree = "<group>"; };
+		C1FD566027E3C170001FE852 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		C1FE9BB827CFB64300397B90 /* TaskStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskStatus.swift; sourceTree = "<group>"; };
 		C1FE9BBA27CFB68600397B90 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		C1FE9BBC27CFBD6300397B90 /* TaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManager.swift; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 				C101D2C227D4DB2D00334F5C /* TaskListRowView.swift */,
 				C18B9F1A27DE6F4100CF78F4 /* TaskFormingView.swift */,
 				C18B9F1C27DF2DC700CF78F4 /* TaskListPlaceholder.swift */,
+				C1FD566027E3C170001FE852 /* CustomTextField.swift */,
 				C1B26D2A27E1005B0092E386 /* TextEditorWithPlaceholder.swift */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 			);
@@ -352,6 +355,7 @@
 				C1FD565F27E3360C001FE852 /* KeyboardResponder.swift in Sources */,
 				C18B9F1B27DE6F4100CF78F4 /* TaskFormingView.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
+				C1FD566127E3C170001FE852 /* CustomTextField.swift in Sources */,
 				C182E78427CD0E9D00F6218C /* MainView.swift in Sources */,
 				C1FE9BBB27CFB68600397B90 /* Task.swift in Sources */,
 				C1FE9BB927CFB64300397B90 /* TaskStatus.swift in Sources */,

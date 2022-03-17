@@ -53,10 +53,7 @@ struct TaskFormingView: View {
     var body: some View {
         NavigationView {
             VStack {
-                TextField(taskTitle, text: $taskTitle)
-                    .font(.title2)
-                    .padding(.all, 10)
-                    .border(.gray, width: 1)
+                CustomTextField(taskTitle: $taskTitle)
                     .onTapGesture {
                         isTextEditorFocused = false
                     }
