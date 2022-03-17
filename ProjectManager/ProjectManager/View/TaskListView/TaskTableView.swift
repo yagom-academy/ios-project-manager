@@ -1,7 +1,7 @@
 import UIKit
 
 final class TaskTableView: UITableView {
-    private var processStatus: ProcessStatus?
+    private(set) var processStatus: ProcessStatus?
     
     func setup(processStatus: ProcessStatus) {
         self.processStatus = processStatus
