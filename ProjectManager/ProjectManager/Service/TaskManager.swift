@@ -11,8 +11,8 @@ class TaskManager {
     }
 }
 
-// MARK: - Firebase CRUD Method
-extension TaskManager: FirebaseTaskManagable {
+// MARK: - Synchronization Method
+extension TaskManager {
     func synchronizeFirebaseToRealm() -> AnyPublisher<Void, Error> {
         Future<Void, Error> { promise in
             self.firebaseTaskListRepository.fetchEntityTask { entityTaskList in
@@ -26,8 +26,18 @@ extension TaskManager: FirebaseTaskManagable {
         }
         .eraseToAnyPublisher()
     }
-
     
+    func synchronizeRealmToFirebase() {
+        realmTaskListRepository.fetch().forEach { realmTask in
+            let task = convertTask(from: realmTask)
+            let firebaseTask = convertFirebaseEntityTask(from: task)
+            self.firebaseTaskListRepository.syncTask(firebaseTask)
+        }
+    }
+}
+
+// MARK: - Firebase CRUD Method
+extension TaskManager: FirebaseTaskManagable {
     func fetchFirebaseTaskList() -> AnyPublisher<[Task], Error> {
         Future<[Task], Error> { promise in
             self.firebaseTaskListRepository.fetchEntityTask { entityTaskList in
@@ -93,14 +103,6 @@ extension TaskManager: FirebaseTaskManagable {
     
 // MARK: - Realm CRUD Method
 extension TaskManager: RealmTaskManagable {
-    func synchronizeRealmToFirebase() {
-        realmTaskListRepository.fetch().forEach { realmTask in
-            let task = convertTask(from: realmTask)
-            let firebaseTask = convertFirebaseEntityTask(from: task)
-            self.firebaseTaskListRepository.syncTask(firebaseTask)
-        }
-    }
-    
     func fetchRealmTaskList() {
         self.taskList = realmTaskListRepository.fetch()
             .map { convertTask(from: $0) }

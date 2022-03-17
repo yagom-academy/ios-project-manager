@@ -11,7 +11,6 @@
 		2538C38127E04FD600ECDFF8 /* RealmTaskListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2538C38027E04FD600ECDFF8 /* RealmTaskListRepository.swift */; };
 		2538C38327E1B75C00ECDFF8 /* NetworkCheckManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2538C38227E1B75C00ECDFF8 /* NetworkCheckManager.swift */; };
 		2538C38727E217B000ECDFF8 /* RealmTaskManagable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2538C38627E217B000ECDFF8 /* RealmTaskManagable.swift */; };
-		2538C38927E253B200ECDFF8 /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 2538C38827E253B200ECDFF8 /* FirebaseFirestoreSwift-Beta */; };
 		2548212E27DF041300AA1CC4 /* FirebaseTaskListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2548212D27DF041300AA1CC4 /* FirebaseTaskListRepository.swift */; };
 		2548213127DF081F00AA1CC4 /* FirebaseEntityTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2548213027DF081F00AA1CC4 /* FirebaseEntityTask.swift */; };
 		2570E67B27CD48C2002984D2 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 2570E67A27CD48C2002984D2 /* FirebaseAnalytics */; };
@@ -68,7 +67,6 @@
 			files = (
 				25D60D7627CD280800D3D39D /* RealmSwift in Frameworks */,
 				2570E67D27CD48C2002984D2 /* FirebaseFirestore in Frameworks */,
-				2538C38927E253B200ECDFF8 /* FirebaseFirestoreSwift-Beta in Frameworks */,
 				25D60D7427CD280800D3D39D /* Realm in Frameworks */,
 				2570E67B27CD48C2002984D2 /* FirebaseAnalytics in Frameworks */,
 			);
@@ -208,7 +206,6 @@
 				25D60D7527CD280800D3D39D /* RealmSwift */,
 				2570E67A27CD48C2002984D2 /* FirebaseAnalytics */,
 				2570E67C27CD48C2002984D2 /* FirebaseFirestore */,
-				2538C38827E253B200ECDFF8 /* FirebaseFirestoreSwift-Beta */,
 			);
 			productName = ProjectManager;
 			productReference = C7431F0225F51E1D0094C4CF /* ProjectManager.app */;
@@ -511,11 +508,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		2538C38827E253B200ECDFF8 /* FirebaseFirestoreSwift-Beta */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 2570E67927CD48C1002984D2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = "FirebaseFirestoreSwift-Beta";
-		};
 		2570E67A27CD48C2002984D2 /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2570E67927CD48C1002984D2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

@@ -1,5 +1,6 @@
 import Foundation
 import FirebaseFirestore
+import Network
 
 class FirebaseTaskListRepository {
     private enum Contant {
@@ -12,7 +13,6 @@ class FirebaseTaskListRepository {
     }
     var ref: DocumentReference?
     let store = Firestore.firestore()
-    
     
     func syncTask(_ entityTask: FirebaseEntityTask) {
         let createData: [String: Any] = [
@@ -31,24 +31,6 @@ class FirebaseTaskListRepository {
                     print("Error adding document: \(String(describing: error))")
                 }
             }
-    }
-    
-    func createEntityTask(entityTask: FirebaseEntityTask, complition: @escaping () -> Void) {
-        let createData: [String: Any] = [
-            Contant.id: entityTask.id,
-            Contant.title: entityTask.title,
-            Contant.desc: entityTask.description,
-            Contant.deadline: entityTask.deadline,
-            Contant.status: entityTask.progressStatus
-        ]
-        
-        store
-            .collection(Contant.collectionName)
-            .document(entityTask.id)
-            .setData(createData) { error in
-                print("Error adding document: \(String(describing: error))")
-            }
-        complition()
     }
     
     func fetchEntityTask(complition: @escaping ([FirebaseEntityTask]) -> Void) {
@@ -83,6 +65,26 @@ class FirebaseTaskListRepository {
             }
     }
     
+    func createEntityTask(entityTask: FirebaseEntityTask, complition: @escaping () -> Void) {
+        let createData: [String: Any] = [
+            Contant.id: entityTask.id,
+            Contant.title: entityTask.title,
+            Contant.desc: entityTask.description,
+            Contant.deadline: entityTask.deadline,
+            Contant.status: entityTask.progressStatus
+        ]
+        
+        store
+            .collection(Contant.collectionName)
+            .document(entityTask.id)
+            .setData(createData) { error in
+                if let error = error {
+                    print("Error adding document: \(String(describing: error))")
+                }
+            }
+        complition()
+    }
+    
     func updateEntityTask(
         id: String,
         title: String,
@@ -107,12 +109,14 @@ class FirebaseTaskListRepository {
                         return
                     }
                     data.reference.setData(updateData, merge: true) { error in
-                        print("Error adding document: \(String(describing: error))")
+                        if let error = error {
+                            print("Error adding document: \(String(describing: error))")
+                        }
                     }
                     complition()
                 }
         }
-
+    
     func updateEntityTaskStatus(id: String, status: String, complition: @escaping () -> Void) {
         let updateStateData = ["status": status]
         
@@ -128,8 +132,9 @@ class FirebaseTaskListRepository {
                     return
                 }
                 data.reference.setData(updateStateData, merge: true) { error in
-                    print("Error adding document: \(String(describing: error))")
-                    return
+                    if let error = error {
+                        print("Error adding document: \(String(describing: error))")
+                    }
                 }
                 complition()
             }
@@ -148,8 +153,9 @@ class FirebaseTaskListRepository {
                     return
                 }
                 data.reference.delete { error in
-                    print("Error adding document: \(String(describing: error))")
-                    return
+                    if let error = error {
+                        print("Error adding document: \(String(describing: error))")
+                    }
                 }
                 complition()
             }
