@@ -9,13 +9,13 @@ enum FirebaseError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .fetchFailed:
-            return "RemoteDB Fetch Failed"
+            return "RemoteDB Fetch Failed".localized()
         case .createFailed:
-            return "RemoteDB Create Failed"
+            return "RemoteDB Create Failed".localized()
         case .updateFailed:
-            return "RemoteDB Update Failed"
+            return "RemoteDB Update Failed".localized()
         case .deleteFailed:
-            return "RemoteDB Delete Failed"
+            return "RemoteDB Delete Failed".localized()
         }
     }
 }

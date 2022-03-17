@@ -1,0 +1,22 @@
+// NetworkCheck
+"Network is Not Connected" = "Mạng không được kết nối";
+"It looks like you're not connected to the internet" = "Có vẻ như bạn không kết nối được với internet";
+
+// label, button..
+"Project Manager" = "Người quản lý dự án";
+"Error" = "Sai lầm";
+"Edit" = "Biên tập";
+"Cancel" = "Hủy bỏ";
+"Done" = "Xong";
+
+// Firebase Error
+"RemoteDB Fetch Failed" = "Không thể lấy được RemoteDB";
+"RemoteDB Create Failed" = "RemoteDB không thể tạo ra được";
+"RemoteDB Update Failed" = "Cập nhật RemoteDB không thành công";
+"RemoteDB Delete Failed" = "Không thể xóa được RemoteDB";
+
+// Realm Error
+"LocalDB Fetch Failed" = "LocalDB không lấy được.";
+"LocalDB Create Failed" = "LocalDB đã thất bại";
+"LocalDB Update Failed" = "Cập nhật localDB thất bại";
+"LocalDB Delete Failed" = "LocalDB không thể xóa được";

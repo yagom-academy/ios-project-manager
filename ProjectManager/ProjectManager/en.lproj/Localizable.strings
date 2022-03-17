@@ -1,0 +1,22 @@
+// NetworkCheck
+"Network is Not Connected" = "Network is Not Connected";
+"It looks like you're not connected to the internet" = "It looks like you're not connected to the internet";
+
+// label, button..
+"Project Manager" = "Project Manager";
+"Error" = "Error";
+"Edit" = "Edit";
+"Cancel" = "Cancel";
+"Done" = "Done";
+
+// Firebase Error
+"RemoteDB Fetch Failed" = "RemoteDB Fetch Failed";
+"RemoteDB Create Failed" = "RemoteDB Create Failed";
+"RemoteDB Update Failed" = "RemoteDB Update Failed";
+"RemoteDB Delete Failed" = "RemoteDB Delete Failed";
+
+// Realm Error
+"LocalDB Fetch Failed" = "LocalDB Fetch Failed";
+"LocalDB Create Failed" = "LocalDB Create Failed";
+"LocalDB Update Failed" = "LocalDB Update Failed";
+"LocalDB Delete Failed" = "LocalDB Delete Failed";

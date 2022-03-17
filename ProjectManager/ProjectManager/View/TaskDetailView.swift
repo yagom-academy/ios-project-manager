@@ -64,7 +64,7 @@ private struct TaskDetailLeadingButton: View {
                 isShowTaskDetailView = false
             }
         }, label: {
-            taskDetailViewModel.isEditing ? Text("Edit") : Text("Cancel")
+            taskDetailViewModel.isEditing ? Text("Edit".localized()) : Text("Cancel".localized())
         })
     }
 }
@@ -85,7 +85,7 @@ private struct TaskDetailTrailingButton: View {
     @Binding fileprivate var task: Task
     
     var body: some View {
-        Button("Done") {
+        Button("Done".localized()) {
             if taskDetailViewModel.isEditing {
                 taskListViewModel.updateTask(
                     id: task.id,
@@ -103,7 +103,7 @@ private struct TaskDetailTrailingButton: View {
             isShowTaskDetailView = false
         }
         .alert(item: $taskListViewModel.errorAlert) { error in
-            Alert(title: Text("Error"), message: Text(error.message))
+            Alert(title: Text("Error".localized()), message: Text(error.message))
         }
     }
 }

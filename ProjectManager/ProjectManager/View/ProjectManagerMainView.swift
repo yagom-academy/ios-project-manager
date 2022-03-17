@@ -12,9 +12,8 @@ struct ProjectManagerMainView: View {
         }
         .alert(isPresented: $networkCheckManager.isNotConnected) {
             Alert(
-                title: Text("Network is Not Connected"),
-                message: Text("It looks like you're not connected to the internet"),
-                dismissButton: .default(Text("OK"))
+                title: Text("Network is Not Connected".localized()),
+                message: Text("It looks like you're not connected to the internet".localized())
             )
         }
     }
@@ -26,7 +25,7 @@ private struct ProjectManagerMainTitleView: View {
     var body: some View {
         HStack {
             Spacer()
-            Text("Project Manager")
+            Text("Project Manager".localized())
                 .padding(.leading)
             Spacer()
             Button(action: {

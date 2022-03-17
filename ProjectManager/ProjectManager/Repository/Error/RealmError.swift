@@ -9,13 +9,13 @@ enum RealmError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .fetchFailed:
-            return "LocalDB Fetch Failed"
+            return "LocalDB Fetch Failed".localized()
         case .createFailed:
-            return "LocalDB Create Failed"
+            return "LocalDB Create Failed".localized()
         case .updateFailed:
-            return "LocalDB Update Failed"
+            return "LocalDB Update Failed".localized()
         case .deleteFailed:
-            return "LocalDB Delete Failed"
+            return "LocalDB Delete Failed".localized()
         }
     }
 }
