@@ -33,16 +33,17 @@ class FirebaseTaskListRepository {
             }
     }
     
-    func fetchEntityTask(complition: @escaping ([FirebaseEntityTask]) -> Void) {
+    func fetchEntityTask(complition: @escaping (Result<[FirebaseEntityTask], FirebaseError>) -> Void) {
         var entityTaskList = [FirebaseEntityTask]()
         store
             .collection(Contant.collectionName)
             .getDocuments { data, error in
                 if let error = error {
                     print("Error getting documents: \(error)")
-                    return
+                    complition(.failure(.fetchFailed))
                 }
                 guard let data = data else {
+                    complition(.failure(.fetchFailed))
                     return
                 }
                 data.documents.forEach { document in
@@ -61,11 +62,11 @@ class FirebaseTaskListRepository {
                     print("\(document.documentID) => \(document.data())")
                     entityTaskList.append(entityTask)
                 }
-                complition(entityTaskList)
+                complition(.success(entityTaskList))
             }
     }
     
-    func createEntityTask(entityTask: FirebaseEntityTask, complition: @escaping () -> Void) {
+    func createEntityTask(entityTask: FirebaseEntityTask, complition: @escaping (Result<Bool, FirebaseError>) -> Void) {
         let createData: [String: Any] = [
             Contant.id: entityTask.id,
             Contant.title: entityTask.title,
@@ -80,9 +81,10 @@ class FirebaseTaskListRepository {
             .setData(createData) { error in
                 if let error = error {
                     print("Error adding document: \(String(describing: error))")
+                    complition(.failure(.createFailed))
                 }
             }
-        complition()
+        complition(.success(true))
     }
     
     func updateEntityTask(
@@ -90,7 +92,8 @@ class FirebaseTaskListRepository {
         title: String,
         description: String,
         deadline: Date,
-        complition: @escaping () -> Void) {
+        complition: @escaping (Result<Bool, FirebaseError>) -> Void
+    ) {
             let updateData: [String: Any] = [
                 Contant.title: title,
                 Contant.desc: description,
@@ -103,7 +106,7 @@ class FirebaseTaskListRepository {
                 .getDocument { data, error in
                     if let error = error {
                         print("Document error: \(error)")
-                        return
+                        complition(.failure(.updateFailed))
                     }
                     guard let data = data else {
                         return
@@ -111,13 +114,14 @@ class FirebaseTaskListRepository {
                     data.reference.setData(updateData, merge: true) { error in
                         if let error = error {
                             print("Error adding document: \(String(describing: error))")
+                            complition(.failure(.updateFailed))
                         }
                     }
-                    complition()
+                    complition(.success(true))
                 }
         }
     
-    func updateEntityTaskStatus(id: String, status: String, complition: @escaping () -> Void) {
+    func updateEntityTaskStatus(id: String, status: String, complition: @escaping (Result<Bool, FirebaseError>) -> Void) {
         let updateStateData = ["status": status]
         
         store
@@ -126,38 +130,42 @@ class FirebaseTaskListRepository {
             .getDocument { data, error in
                 if let error = error {
                     print("Document error: \(error)")
-                    return
+                    complition(.failure(.updateFailed))
                 }
                 guard let data = data else {
+                    complition(.failure(.updateFailed))
                     return
                 }
                 data.reference.setData(updateStateData, merge: true) { error in
                     if let error = error {
                         print("Error adding document: \(String(describing: error))")
+                        complition(.failure(.updateFailed))
                     }
                 }
-                complition()
+                complition(.success(true))
             }
     }
     
-    func deleteEntityTask(id: String, complition: @escaping () -> Void) {
+    func deleteEntityTask(id: String, complition: @escaping (Result<Bool, FirebaseError>) -> Void) {
         store
             .collection(Contant.collectionName)
             .document(id)
             .getDocument { data, error in
                 if let error = error {
                     print("Document error: \(error)")
-                    return
+                    complition(.failure(.deleteFailed))
                 }
                 guard let data = data else {
+                    complition(.failure(.deleteFailed))
                     return
                 }
                 data.reference.delete { error in
                     if let error = error {
                         print("Error adding document: \(String(describing: error))")
+                        complition(.failure(.deleteFailed))
                     }
                 }
-                complition()
+                complition(.success(true))
             }
     }
 }

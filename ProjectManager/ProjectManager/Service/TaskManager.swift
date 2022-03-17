@@ -13,15 +13,20 @@ class TaskManager {
 
 // MARK: - Synchronization Method
 extension TaskManager {
-    func synchronizeFirebaseToRealm() -> AnyPublisher<Void, Error> {
-        Future<Void, Error> { promise in
-            self.firebaseTaskListRepository.fetchEntityTask { entityTaskList in
-                entityTaskList.forEach { entityTask in
-                    let task = self.convertTask(from: entityTask)
-                    let realmTask = self.convertRealmEntityTask(from: task)
-                    self.realmTaskListRepository.syncTask(realmTask)
+    func synchronizeFirebaseToRealm() -> AnyPublisher<Void, FirebaseError> {
+        Future<Void, FirebaseError> { promise in
+            self.firebaseTaskListRepository.fetchEntityTask { result in
+                switch result {
+                case .success(let entityTaskList):
+                    entityTaskList.forEach { entityTask in
+                        let task = self.convertTask(from: entityTask)
+                        let realmTask = self.convertRealmEntityTask(from: task)
+                        self.realmTaskListRepository.syncTask(realmTask)
+                    }
+                    promise(.success(()))
+                case .failure:
+                    promise(.failure(.fetchFailed))
                 }
-                promise(.success(()))
             }
         }
         .eraseToAnyPublisher()
@@ -38,25 +43,35 @@ extension TaskManager {
 
 // MARK: - Firebase CRUD Method
 extension TaskManager: FirebaseTaskManagable {
-    func fetchFirebaseTaskList() -> AnyPublisher<[Task], Error> {
-        Future<[Task], Error> { promise in
-            self.firebaseTaskListRepository.fetchEntityTask { entityTaskList in
+    func fetchFirebaseTaskList() -> AnyPublisher<[Task], FirebaseError> {
+        Future<[Task], FirebaseError> { promise in
+            self.firebaseTaskListRepository.fetchEntityTask { result in
                 var taskList = [Task]()
-                entityTaskList.forEach { entityTask in
-                    let task = self.convertTask(from: entityTask)
-                    taskList.append(task)
+                switch result {
+                case .success(let entityTaskList):
+                    entityTaskList.forEach { entityTask in
+                        let task = self.convertTask(from: entityTask)
+                        taskList.append(task)
+                    }
+                    promise(.success(taskList))
+                case .failure:
+                    promise(.failure(.fetchFailed))
                 }
-                promise(.success(taskList))
             }
         }
         .eraseToAnyPublisher()
     }
     
-    func createFirebaseTask(_ task: Task) -> AnyPublisher<Void, Error> {
-        Future<Void, Error> { promise in
+    func createFirebaseTask(_ task: Task) -> AnyPublisher<Bool, FirebaseError> {
+        Future<Bool, FirebaseError> { promise in
             let entityTask = self.convertFirebaseEntityTask(from: task)
-            self.firebaseTaskListRepository.createEntityTask(entityTask: entityTask) {
-                promise(.success(()))
+            self.firebaseTaskListRepository.createEntityTask(entityTask: entityTask) { result in
+                switch result {
+                case .success:
+                    promise(.success(true))
+                case .failure:
+                    promise(.failure(.createFailed))
+                }
             }
         }
         .eraseToAnyPublisher()
@@ -67,34 +82,49 @@ extension TaskManager: FirebaseTaskManagable {
         title: String,
         description: String,
         deadline: Date
-    ) -> AnyPublisher<Void, Error> {
-        Future<Void, Error> { promise in
+    ) -> AnyPublisher<Bool, FirebaseError> {
+        Future<Bool, FirebaseError> { promise in
             self.firebaseTaskListRepository.updateEntityTask(
                 id: id,
                 title: title,
                 description: description,
                 deadline: deadline
-            ) {
-                promise(.success(()))
+            ) { result in
+                switch result {
+                case .success:
+                    promise(.success(true))
+                case .failure:
+                    promise(.failure(.updateFailed))
+                }
             }
         }
         .eraseToAnyPublisher()
     }
     
-    func updateFirebaseTaskState(id: String, progressStatus: Task.ProgressStatus) -> AnyPublisher<Void, Error> {
-        Future<Void, Error> { promise in
+    func updateFirebaseTaskState(id: String, progressStatus: Task.ProgressStatus) -> AnyPublisher<Bool, FirebaseError> {
+        Future<Bool, FirebaseError> { promise in
             let entityTaskStatus = progressStatus.rawValue
-            self.firebaseTaskListRepository.updateEntityTaskStatus(id: id, status: entityTaskStatus) {
-                promise(.success(()))
+            self.firebaseTaskListRepository.updateEntityTaskStatus(id: id, status: entityTaskStatus) { result in
+                switch result {
+                case .success:
+                    promise(.success(true))
+                case .failure:
+                    promise(.failure(.updateFailed))
+                }
             }
         }
         .eraseToAnyPublisher()
     }
     
-    func deleteFirebaseTask(_ id: String) -> AnyPublisher<Void, Error> {
-        Future<Void, Error> { promise in
-            self.firebaseTaskListRepository.deleteEntityTask(id: id) {
-                promise(.success(()))
+    func deleteFirebaseTask(_ id: String) -> AnyPublisher<Bool, FirebaseError> {
+        Future<Bool, FirebaseError> { promise in
+            self.firebaseTaskListRepository.deleteEntityTask(id: id) { result in
+                switch result {
+                case .success:
+                    promise(.success(true))
+                case .failure:
+                    promise(.failure(.deleteFailed))
+                }
             }
         }
         .eraseToAnyPublisher()

@@ -26,7 +26,7 @@ class TaskListViewModel: ObservableObject {
             .sink { complition in
                 switch complition {
                 case .failure(let error):
-                    print(error)
+                    print(error.localizedDescription)
                 case .finished:
                     return
                 }
@@ -41,7 +41,7 @@ class TaskListViewModel: ObservableObject {
             .sink { complition in
                 switch complition {
                 case .failure(let error):
-                    print(error)
+                    print(error.localizedDescription)
                 case .finished:
                     return
                 }
@@ -64,11 +64,11 @@ class TaskListViewModel: ObservableObject {
             .sink { completion in
                 switch completion {
                 case .failure(let error):
-                    print(error)
+                    print(error.localizedDescription)
                 case .finished:
                     return
                 }
-            } receiveValue: {
+            } receiveValue: { _ in
                 self.reload()
             }
             .store(in: &cancellables)
@@ -80,11 +80,11 @@ class TaskListViewModel: ObservableObject {
             .sink { completion in
                 switch completion {
                 case .failure(let error):
-                    print(error)
+                    print(error.localizedDescription)
                 case .finished:
                     return
                 }
-            } receiveValue: {
+            } receiveValue: { _ in
                 self.reload()
             }
             .store(in: &cancellables)
@@ -96,11 +96,11 @@ class TaskListViewModel: ObservableObject {
             .sink { completion in
                 switch completion {
                 case .failure(let error):
-                    print(error)
+                    print(error.localizedDescription)
                 case .finished:
                     return
                 }
-            } receiveValue: {
+            } receiveValue: { _ in
                 self.reload()
             }
             .store(in: &cancellables)
@@ -112,11 +112,11 @@ class TaskListViewModel: ObservableObject {
             .sink { completion in
                 switch completion {
                 case .failure(let error):
-                    print(error)
+                    print(error.localizedDescription)
                 case .finished:
                     return
                 }
-            } receiveValue: {
+            } receiveValue: { _ in
                 self.reload()
             }
             .store(in: &cancellables)

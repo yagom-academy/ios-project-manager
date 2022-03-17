@@ -13,6 +13,7 @@
 		2538C38727E217B000ECDFF8 /* RealmTaskManagable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2538C38627E217B000ECDFF8 /* RealmTaskManagable.swift */; };
 		2548212E27DF041300AA1CC4 /* FirebaseTaskListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2548212D27DF041300AA1CC4 /* FirebaseTaskListRepository.swift */; };
 		2548213127DF081F00AA1CC4 /* FirebaseEntityTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2548213027DF081F00AA1CC4 /* FirebaseEntityTask.swift */; };
+		254AC6C027E318ED00496688 /* FirebaseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254AC6BF27E318ED00496688 /* FirebaseError.swift */; };
 		2570E67B27CD48C2002984D2 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 2570E67A27CD48C2002984D2 /* FirebaseAnalytics */; };
 		2570E67D27CD48C2002984D2 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 2570E67C27CD48C2002984D2 /* FirebaseFirestore */; };
 		2570E6A227CDE284002984D2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2570E6A127CDE284002984D2 /* GoogleService-Info.plist */; };
@@ -41,6 +42,7 @@
 		2538C38627E217B000ECDFF8 /* RealmTaskManagable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmTaskManagable.swift; sourceTree = "<group>"; };
 		2548212D27DF041300AA1CC4 /* FirebaseTaskListRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseTaskListRepository.swift; sourceTree = "<group>"; };
 		2548213027DF081F00AA1CC4 /* FirebaseEntityTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseEntityTask.swift; sourceTree = "<group>"; };
+		254AC6BF27E318ED00496688 /* FirebaseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseError.swift; sourceTree = "<group>"; };
 		2570E6A127CDE284002984D2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2570E6D027D224D4002984D2 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		2570E6D627D225BB002984D2 /* TaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManager.swift; sourceTree = "<group>"; };
@@ -78,6 +80,7 @@
 		2548212C27DF03B000AA1CC4 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
+				254AC6BE27E318D800496688 /* Error */,
 				2548212D27DF041300AA1CC4 /* FirebaseTaskListRepository.swift */,
 				2538C38027E04FD600ECDFF8 /* RealmTaskListRepository.swift */,
 			);
@@ -91,6 +94,14 @@
 				2538C37B27E04CDD00ECDFF8 /* RealmEntityTask.swift */,
 			);
 			path = Entity;
+			sourceTree = "<group>";
+		};
+		254AC6BE27E318D800496688 /* Error */ = {
+			isa = PBXGroup;
+			children = (
+				254AC6BF27E318ED00496688 /* FirebaseError.swift */,
+			);
+			path = Error;
 			sourceTree = "<group>";
 		};
 		2570E6DA27D2264C002984D2 /* Model */ = {
@@ -293,6 +304,7 @@
 				25F993F227D8A3ED007F5975 /* TaskListRowView.swift in Sources */,
 				25F993EE27D8A31C007F5975 /* TaskListView.swift in Sources */,
 				25F993E627D6F7A9007F5975 /* TimeInterval+extension.swift in Sources */,
+				254AC6C027E318ED00496688 /* FirebaseError.swift in Sources */,
 				257E7D6727DDAD79009C4E9C /* TaskDetailViewModel.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				2570E6D727D225BB002984D2 /* TaskManager.swift in Sources */,
