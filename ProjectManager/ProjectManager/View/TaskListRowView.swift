@@ -2,7 +2,7 @@ import SwiftUI
 
 struct TaskListRowView: View {
     @State private var isShowTaskDetailView = false
-    @State private var isShowUpdateTaskState = false
+    @State private var isShowUpdateTaskStatus = false
     var task: Task
     
     var body: some View {
@@ -14,18 +14,18 @@ struct TaskListRowView: View {
         .frame(maxWidth: .infinity, alignment: .leading)
         .contentShape(Rectangle())
         .onTapGesture {
-            self.isShowUpdateTaskState = false
+            self.isShowUpdateTaskStatus = false
             self.isShowTaskDetailView = true
         }
         .sheet(isPresented: $isShowTaskDetailView, onDismiss: nil) {
             TaskDetailView(isShowTaskDetailView: $isShowTaskDetailView, task: task)
         }
         .onLongPressGesture {
-            self.isShowUpdateTaskState = true
+            self.isShowUpdateTaskStatus = true
         }
-        .popover(isPresented: $isShowUpdateTaskState) {
+        .popover(isPresented: $isShowUpdateTaskStatus) {
             StatusChangePopoverView(
-                isShowUpdateTaskState: $isShowUpdateTaskState,
+                isShowUpdateTaskStatus: $isShowUpdateTaskStatus,
                 task: task
             )
         }
@@ -74,15 +74,15 @@ private struct TaskListRowDeadlineView: View {
 
 private struct StatusChangePopoverView: View {
     @EnvironmentObject private var taskListViewModel: TaskListViewModel
-    @Binding var isShowUpdateTaskState: Bool
+    @Binding var isShowUpdateTaskStatus: Bool
     let task: Task
     
     var body: some View {
         VStack {
             ForEach(taskListViewModel.changeableStatusList(from: task.progressStatus)) { status in
                 Button("Move to \(status.name)") {
-                    taskListViewModel.updateState(id: task.id, progressStatus: status)
-                    self.isShowUpdateTaskState = false
+                    taskListViewModel.updateStatus(id: task.id, progressStatus: status)
+                    self.isShowUpdateTaskStatus = false
                 }
                 .padding()
             }

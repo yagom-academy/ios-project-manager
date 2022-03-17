@@ -101,7 +101,7 @@ extension TaskManager: FirebaseTaskManagable {
         .eraseToAnyPublisher()
     }
     
-    func updateFirebaseTaskState(id: String, progressStatus: Task.ProgressStatus) -> AnyPublisher<Bool, FirebaseError> {
+    func updateFirebaseTaskStatus(id: String, progressStatus: Task.ProgressStatus) -> AnyPublisher<Bool, FirebaseError> {
         Future<Bool, FirebaseError> { promise in
             let entityTaskStatus = progressStatus.rawValue
             self.firebaseTaskListRepository.updateEntityTaskStatus(id: id, status: entityTaskStatus) { result in
@@ -161,9 +161,9 @@ extension TaskManager: RealmTaskManagable {
         }
     }
     
-    func updateRealmTaskState(id: String, progressStatus: Task.ProgressStatus) throws {
+    func updateRealmTaskStatus(id: String, progressStatus: Task.ProgressStatus) throws {
         do {
-            try realmTaskListRepository.updateTaskState(
+            try realmTaskListRepository.updateTaskStatus(
                 id: id,
                 progressStatus: RealmEntityTask.ProgressStatus(rawValue: progressStatus.rawValue) ?? .todo
             )

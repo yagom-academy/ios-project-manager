@@ -126,7 +126,7 @@ class FirebaseTaskListRepository {
         status: String,
         complition: @escaping (Result<Bool, FirebaseError>) -> Void
     ) {
-        let updateStateData = ["status": status]
+        let updateStatusData = ["status": status]
         
         store
             .collection(Contant.collectionName)
@@ -140,7 +140,7 @@ class FirebaseTaskListRepository {
                     complition(.failure(.updateFailed))
                     return
                 }
-                data.reference.setData(updateStateData, merge: true) { error in
+                data.reference.setData(updateStatusData, merge: true) { error in
                     if let error = error {
                         print("Error adding document: \(String(describing: error))")
                         complition(.failure(.updateFailed))
