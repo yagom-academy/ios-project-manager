@@ -5,7 +5,7 @@ class TaskListViewModel: ObservableObject {
     @Published var todoTaskList = [Task]()
     @Published var doingTaskList = [Task]()
     @Published var doneTaskList = [Task]()
-    @Published var errorAlert: ErrorAlert?
+    @Published var errorAlert: ErrorModel?
     
     let manager = TaskManager()
 
@@ -71,7 +71,7 @@ class TaskListViewModel: ObservableObject {
         do {
             try manager.createRealmTask(task)
         } catch {
-            errorAlert = ErrorAlert(message: error.localizedDescription)
+            errorAlert = ErrorModel(message: error.localizedDescription)
             print(error.localizedDescription)
         }
         manager.createFirebaseTask(task)
@@ -92,7 +92,7 @@ class TaskListViewModel: ObservableObject {
         do {
             try  manager.updateRealmTask(id: id, title: title, description: description, deadline: deadline)
         } catch {
-            errorAlert = ErrorAlert(message: error.localizedDescription)
+            errorAlert = ErrorModel(message: error.localizedDescription)
             print(error.localizedDescription)
         }
         manager.updateFirebaseTask(id: id, title: title, description: description, deadline: deadline)
@@ -113,7 +113,7 @@ class TaskListViewModel: ObservableObject {
         do {
             try manager.updateRealmTaskState(id: id, progressStatus: progressStatus)
         } catch {
-            errorAlert = ErrorAlert(message: error.localizedDescription)
+            errorAlert = ErrorModel(message: error.localizedDescription)
             print(error.localizedDescription)
         }
         manager.updateFirebaseTaskState(id: id, progressStatus: progressStatus)
@@ -134,7 +134,7 @@ class TaskListViewModel: ObservableObject {
         do {
             try  manager.deleteRealmTask(id)
         } catch {
-            errorAlert = ErrorAlert(message: error.localizedDescription)
+            errorAlert = ErrorModel(message: error.localizedDescription)
             print(error.localizedDescription)
         }
         manager.deleteFirebaseTask(id)

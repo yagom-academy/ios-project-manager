@@ -1,6 +1,6 @@
 import Foundation
 
-struct ErrorAlert: Identifiable {
+struct ErrorModel: Identifiable {
     var id = UUID()
     var message: String
 }

@@ -15,7 +15,7 @@
 		2548213127DF081F00AA1CC4 /* FirebaseEntityTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2548213027DF081F00AA1CC4 /* FirebaseEntityTask.swift */; };
 		254AC6C027E318ED00496688 /* FirebaseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254AC6BF27E318ED00496688 /* FirebaseError.swift */; };
 		254AC6C227E32D7600496688 /* RealmError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254AC6C127E32D7600496688 /* RealmError.swift */; };
-		254AC6C427E33C9C00496688 /* ErrorAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254AC6C327E33C9C00496688 /* ErrorAlert.swift */; };
+		254AC6C427E33C9C00496688 /* ErrorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254AC6C327E33C9C00496688 /* ErrorModel.swift */; };
 		2570E67B27CD48C2002984D2 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 2570E67A27CD48C2002984D2 /* FirebaseAnalytics */; };
 		2570E67D27CD48C2002984D2 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 2570E67C27CD48C2002984D2 /* FirebaseFirestore */; };
 		2570E6A227CDE284002984D2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2570E6A127CDE284002984D2 /* GoogleService-Info.plist */; };
@@ -46,7 +46,7 @@
 		2548213027DF081F00AA1CC4 /* FirebaseEntityTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseEntityTask.swift; sourceTree = "<group>"; };
 		254AC6BF27E318ED00496688 /* FirebaseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseError.swift; sourceTree = "<group>"; };
 		254AC6C127E32D7600496688 /* RealmError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmError.swift; sourceTree = "<group>"; };
-		254AC6C327E33C9C00496688 /* ErrorAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorAlert.swift; sourceTree = "<group>"; };
+		254AC6C327E33C9C00496688 /* ErrorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorModel.swift; sourceTree = "<group>"; };
 		2570E6A127CDE284002984D2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2570E6D027D224D4002984D2 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		2570E6D627D225BB002984D2 /* TaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManager.swift; sourceTree = "<group>"; };
@@ -113,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				2570E6D027D224D4002984D2 /* Task.swift */,
+				254AC6C327E33C9C00496688 /* ErrorModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -184,7 +185,6 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
-				254AC6C327E33C9C00496688 /* ErrorAlert.swift */,
 				25F993E427D6F78F007F5975 /* Extension */,
 				2570E6DD27D22685002984D2 /* View */,
 				2570E6DC27D22676002984D2 /* ViewModel */,
@@ -305,7 +305,7 @@
 				2548213127DF081F00AA1CC4 /* FirebaseEntityTask.swift in Sources */,
 				25F993EC27D8A1B7007F5975 /* FirebaseTaskManagable.swift in Sources */,
 				2538C37C27E04CDD00ECDFF8 /* RealmEntityTask.swift in Sources */,
-				254AC6C427E33C9C00496688 /* ErrorAlert.swift in Sources */,
+				254AC6C427E33C9C00496688 /* ErrorModel.swift in Sources */,
 				2548212E27DF041300AA1CC4 /* FirebaseTaskListRepository.swift in Sources */,
 				2538C38127E04FD600ECDFF8 /* RealmTaskListRepository.swift in Sources */,
 				25F993F227D8A3ED007F5975 /* TaskListRowView.swift in Sources */,
