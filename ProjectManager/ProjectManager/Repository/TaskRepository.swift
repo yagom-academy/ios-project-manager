@@ -15,13 +15,13 @@ final class TaskRepository: TaskRepositoryProtocol {
     var entireTasks: [Task] = []
     
     var todoTasks: [Task] {
-        return entireTasks.filter { $0.processStatus == .todo }
+        return entireTasks.filter { $0.processStatus == .todo }.sorted { $0.dueDate < $1.dueDate }
     }
     var doingTasks: [Task] {
-        return entireTasks.filter { $0.processStatus == .doing }
+        return entireTasks.filter { $0.processStatus == .doing }.sorted { $0.dueDate < $1.dueDate }
     }
     var doneTasks: [Task] {
-        return entireTasks.filter { $0.processStatus == .done }
+        return entireTasks.filter { $0.processStatus == .done }.sorted { $0.dueDate < $1.dueDate }
     }
     
     init(entireTasks: [Task] = []) {
@@ -29,10 +29,10 @@ final class TaskRepository: TaskRepositoryProtocol {
         
         // Dummy Data
         self.entireTasks = [
-                                Task(title: "TODO-1", body: "Rx를 곁들인", dueDate: Date()),
-                                Task(title: "TODO-2", body: "RxSwift", dueDate: Date()),
-                                Task(title: "DOING-1", body: "RxCocoa", dueDate: Date(), processStatus: .doing),
-                                Task(title: "DONE-1", body: "MVVM", dueDate: Date(), processStatus: .done),
+                            Task(title: "TODO-1", body: "Rx를 곁들인", dueDate: Date()),
+                            Task(title: "TODO-2", body: "RxSwift", dueDate: Date()),
+                            Task(title: "DOING-1", body: "RxCocoa", dueDate: Date(), processStatus: .doing),
+                            Task(title: "DONE-1", body: "MVVM", dueDate: Date(), processStatus: .done)
                             ]
     }
     

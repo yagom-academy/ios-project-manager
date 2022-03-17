@@ -30,15 +30,9 @@ final class TaskListViewModel: TaskListViewModelProtocol {
     let doneTasksObservable: BehaviorSubject<[Task]>?
     lazy var tasksObservables = [todoTasksObservable, doingTasksObservable, doneTasksObservable]
     
-    lazy var todoTasksCount: Observable<Int> = todoTasksObservable!.map {
-        $0.count
-    }
-    lazy var doingTasksCount: Observable<Int> = doingTasksObservable!.map {
-        $0.count
-    }
-    lazy var doneTasksCount: Observable<Int> = doneTasksObservable!.map {
-        $0.count
-    }
+    lazy var todoTasksCount: Observable<Int> = todoTasksObservable!.map { $0.count }
+    lazy var doingTasksCount: Observable<Int> = doingTasksObservable!.map { $0.count }
+    lazy var doneTasksCount: Observable<Int> = doneTasksObservable!.map { $0.count }
     
     // MARK: - Initializers
     init(taskRepository: TaskRepositoryProtocol = TaskRepository()) {
