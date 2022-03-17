@@ -55,7 +55,6 @@ private struct ProjectManagerMainTitleView: View {
 }
 
 private struct TaskHistoryView: View {
-    
     var body: some View {
         Text("History")
     }

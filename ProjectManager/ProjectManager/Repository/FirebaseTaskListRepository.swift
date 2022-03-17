@@ -123,10 +123,10 @@ class FirebaseTaskListRepository {
     
     func updateEntityTaskStatus(
         id: String,
-        status: String,
+        taskStatus: String,
         complition: @escaping (Result<Bool, FirebaseError>) -> Void
     ) {
-        let updateStatusData = ["status": status]
+        let updateStatusData = ["status": taskStatus]
         
         store
             .collection(Contant.collectionName)

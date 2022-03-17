@@ -52,7 +52,8 @@ private struct TaskListContentView: View {
                 TaskListRowView(task: task)
             }
             .onDelete { indexSet in
-                taskListViewModel.deleteTask(taskList[indexSet.index].id)
+                let task = taskList[indexSet.index]
+                taskListViewModel.deleteTask(id: task.id, title: task.title, taskStatus: task.progressStatus)
             }
             .alert(item: $taskListViewModel.errorAlert) { error in
                 Alert(title: Text("Error"), message: Text(error.message))
