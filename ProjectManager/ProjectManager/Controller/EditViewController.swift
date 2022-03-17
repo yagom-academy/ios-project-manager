@@ -140,29 +140,13 @@ class EditViewController: UIViewController, UIAdaptivePresentationControllerDele
 
     @objc
     private func doneButtonDidTap() {
-        guard let dataProvider = self.dataProvider else {
-            return
-        }
-
         if self.editView.textView.text == EditControllerScript.textViewPlaceHolder {
             self.editView.textView.text = EditControllerScript.emptyText
         }
 
-        let todo = Todo(
-            title: self.editView.textField.text ?? EditControllerScript.untitled,
-            content: self.editView.textView.text,
-            deadline: self.editView.datePicker.date.double,
-            task: self.todo?.task ?? .todo,
-            uuid: self.todo?.uuid ?? UUID()
-        )
+        let todo = self.convertToTodo()
 
-        if self.todo?.uuid != nil, self.todo?.task != nil {
-            dataProvider.edit(todo: todo, in: todo.task)
-            self.todo = nil
-        } else {
-            dataProvider.update(todo: todo)
-        }
-
+        self.branchWithOrWithoutDefaultValue(newTodo: todo)
         self.mainViewDelegate?.editViewControllerDidFinish(self)
     }
 
@@ -180,6 +164,33 @@ class EditViewController: UIViewController, UIAdaptivePresentationControllerDele
             self.doneButton.isEnabled = true
             self.isModalInPresentation = true
             self.doneButton.customView?.alpha = 1.0
+        }
+    }
+
+// MARK: - Communication Processing Method
+
+    private func convertToTodo() -> Todo {
+        let todo = Todo(
+            title: self.editView.textField.text ?? EditControllerScript.untitled,
+            content: self.editView.textView.text,
+            deadline: self.editView.datePicker.date.double,
+            task: self.todo?.task ?? .todo,
+            uuid: self.todo?.uuid ?? UUID()
+        )
+
+        return todo
+    }
+
+    private func branchWithOrWithoutDefaultValue(newTodo: Todo) {
+        guard let dataProvider = self.dataProvider else {
+            return
+        }
+
+        if self.todo?.uuid != nil, self.todo?.task != nil {
+            dataProvider.edit(todo: newTodo, in: newTodo.task)
+            self.todo = nil
+        } else {
+            dataProvider.update(todo: newTodo)
         }
     }
 }
