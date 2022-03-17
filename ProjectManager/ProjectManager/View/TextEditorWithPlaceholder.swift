@@ -14,16 +14,19 @@ struct TextEditorWithPlaceholder: View {
     
     var body: some View {
         ZStack(alignment: .topLeading) {
-            TextEditor(text: $taskBody)
-            Text(taskBodyPlaceholder)
-                .foregroundColor(.secondary)
-                .padding(.horizontal, 6)
-                .padding(.vertical, 8)
-                .opacity(taskBody.isEmpty ? 1 : 0)
+            Color(UIColor.systemBackground)
+                .shadow(color: Color.primary.opacity(0.2), radius: 5, x: 0, y: 5)
+            Group {
+                TextEditor(text: $taskBody)
+                Text(taskBodyPlaceholder)
+                    .foregroundColor(.secondary)
+                    .padding(.horizontal, 6)
+                    .padding(.vertical, 8)
+                    .opacity(taskBody.isEmpty ? 1 : 0)
+            }
+            .padding(.all, 10)
         }
         .font(.title2)
         .frame(minHeight: 110)
-        .padding(.all, 10)
-        .border(.gray, width: 1)
     }
 }
