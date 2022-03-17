@@ -36,7 +36,6 @@ final class ProjectTableViewController: UIViewController {
     private let popoverActionObserver: PublishSubject<(String, Work)> = .init()
 
     private var disposeBag = DisposeBag()
-    
     private var selectedCell: ProjectTableViewCell?
     
     override func viewDidLoad() {
@@ -72,6 +71,7 @@ final class ProjectTableViewController: UIViewController {
     
     private func configureSetupPlaceholderObserver(_ output: ProjectTableViewModel.Output) {
         let placeholder = UILabel(frame: tableView.bounds)
+        
         configurePlaceHolder(for: placeholder)
         
         output.setupPlaceholderObserver

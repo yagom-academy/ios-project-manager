@@ -3,14 +3,12 @@ import RxSwift
 
 
 protocol ProjectTableViewCellDelegate: AnyObject {
+    
     func longpressed(at cell: ProjectTableViewCell)
+    
 }
 
 private enum Content {
-    
-    static let todoTitle = "TODO"
-    static let doingTitle = "DOING"
-    static let doneTitle = "DONE"
     
     static let moveToDoTitle = "Move to TODO"
     static let moveDoingTitle = "Move to DOING"
@@ -89,7 +87,7 @@ final class ProjectTableViewCell: UITableViewCell {
             dateLabel.textColor = Design.expiredDateColor
         }
     }
-    
+
     func setupData(work: Work) {
         self.work = work
     }
@@ -97,17 +95,5 @@ final class ProjectTableViewCell: UITableViewCell {
     @objc private func showPopupMenu() {
         delegate?.longpressed(at: self)
     }
-    
-//    private func change(category: Work.Category) {
-//        guard let work = work else { return }
-//
-//        viewModel?.updateWork(
-//            work,
-//            title: work.title,
-//            body: work.body,
-//            date: work.dueDate,
-//            category: category
-//        )
-//    }
     
 }
