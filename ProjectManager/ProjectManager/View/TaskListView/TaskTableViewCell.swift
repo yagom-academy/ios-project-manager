@@ -79,8 +79,7 @@ final class TaskTableViewCell: UITableViewCell {
         }
 
         let alert = AlertFactory.createAlert(style: .actionSheet, actions: option1Action, option2Action)
-        let alertPopover = alert.popoverPresentationController
-        alertPopover?.sourceView = self
+        alert.popoverPresentationController?.sourceView = self
         
         popoverPresenterDelegate.presentPopover(with: alert)
     }

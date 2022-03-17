@@ -118,7 +118,7 @@ extension TaskListViewController: UITableViewDelegate {
                   return
               }
 
-        let taskDetailController = taskListViewModel.didSelectRow(at: indexPath.row, inTableViewOf: selectedProcessStatus)
+        let taskDetailController = taskListViewModel.createViewControllerWithSelectedRow(at: indexPath.row, inTableViewOf: selectedProcessStatus)
         self.present(UINavigationController(rootViewController: taskDetailController), animated: true)
     }
     

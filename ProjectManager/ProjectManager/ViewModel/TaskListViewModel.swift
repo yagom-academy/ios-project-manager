@@ -18,7 +18,7 @@ protocol TaskListViewModelProtocol {
     
     func edit(task: Task, newTitle: String, newBody: String, newDueDate: Date)
     func edit(task: Task, newProcessStatus: ProcessStatus)
-    func didSelectRow(at row: Int, inTableViewOf: ProcessStatus) -> UIViewController
+    func createViewControllerWithSelectedRow(at row: Int, inTableViewOf: ProcessStatus) -> UIViewController
     func didSwipeDeleteAction(at row: Int, inTableViewOf: ProcessStatus)
 }
 
@@ -118,7 +118,7 @@ final class TaskListViewModel: TaskListViewModelProtocol {
         update(task: task, to: newTask)
     }
     
-    func didSelectRow(at row: Int, inTableViewOf: ProcessStatus) -> UIViewController {
+    func createViewControllerWithSelectedRow(at row: Int, inTableViewOf: ProcessStatus) -> UIViewController {
         var taskToEdit: Task!
         switch inTableViewOf {
         case .todo:
