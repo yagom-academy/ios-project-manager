@@ -93,11 +93,11 @@ final class ProjectListViewController: UIViewController {
     private func configureBind() {
         viewModel?.fetchAll()
         
-        viewModel?.onCellSelected = { [weak self] index, project in
+        viewModel?.onCellSelected = { [weak self] indexPath, project in
             guard let self = self, let viewModel = self.viewModel else {
                 return
             }
-            let editProjectDetailViewModel = viewModel.createEditDetailViewModel()
+            let editProjectDetailViewModel = viewModel.createEditDetailViewModel(indexPath: indexPath, state: project.state)
             let editViewController = EditProjectDetailViewController(viewModel: editProjectDetailViewModel, delegate: self)
             let destinationViewController = UINavigationController(rootViewController: editViewController)
             destinationViewController.modalPresentationStyle = .formSheet
@@ -232,3 +232,4 @@ extension ProjectListViewController: ProjectDetailViewControllerDelegate {
         viewModel?.append(project)
     }
 }
+

@@ -1,7 +1,7 @@
 import UIKit
 
 protocol ProjectListViewModelProtocol: UITableViewDataSource {
-    var onCellSelected: ((Int, Project) -> Void)? { get set }
+    var onCellSelected: ((IndexPath, Project) -> Void)? { get set }
     var onUpdated: (() -> Void)? { get set }
     
     func didSelectRow(indexPath: IndexPath, state: ProjectState)
@@ -11,15 +11,14 @@ protocol ProjectListViewModelProtocol: UITableViewDataSource {
     func update(_ project: Project, state: ProjectState?)
     func delete(indexPath: IndexPath, state: ProjectState)
     func changeState(from oldState: ProjectState, to newState: ProjectState, indexPath: IndexPath)
-    func createEditDetailViewModel() -> EditProjectDetailViewModel
+    func createEditDetailViewModel(indexPath: IndexPath, state: ProjectState) -> EditProjectDetailViewModel
     func createAddDetailViewModel() -> AddProjectDetailViewModel
 }
 
 final class ProjectListViewModel: NSObject, ProjectListViewModelProtocol {
     let useCase: ProjectUseCaseProtocol
-    var selectedProject: Project?
     
-    var onCellSelected: ((Int, Project) -> Void)?
+    var onCellSelected: ((IndexPath, Project) -> Void)?
     var onUpdated: (() -> Void)?
     
     init(useCase: ProjectUseCaseProtocol) {
@@ -54,7 +53,7 @@ final class ProjectListViewModel: NSObject, ProjectListViewModelProtocol {
         case .done:
             selectedProject = doneProjects[indexPath.row]
         }
-        self.selectedProject = selectedProject
+        
         return selectedProject
     }
     
@@ -62,7 +61,7 @@ final class ProjectListViewModel: NSObject, ProjectListViewModelProtocol {
         guard let selectedProject = retrieveSelectedData(indexPath: indexPath, state: state) else {
             return
         }
-        onCellSelected?(indexPath.row, selectedProject)
+        onCellSelected?(indexPath, selectedProject)
     }
     
     func numberOfProjects(state: ProjectState) -> Int {
@@ -105,14 +104,13 @@ final class ProjectListViewModel: NSObject, ProjectListViewModelProtocol {
         self.update(project, state: newState)
     }
     
-    func createEditDetailViewModel() -> EditProjectDetailViewModel {
-        let project = selectedProject ?? Project(id: UUID(), state: .todo, title: "", body: "", date: Date())
+    func createEditDetailViewModel(indexPath: IndexPath, state: ProjectState) -> EditProjectDetailViewModel {
+        let project = retrieveSelectedData(indexPath: indexPath, state: state) ?? Project(id: UUID(), state: .todo, title: "", body: "", date: Date())
         return EditProjectDetailViewModel(currentProject: project)
     }
     
     func createAddDetailViewModel() -> AddProjectDetailViewModel {
-        let project = selectedProject ?? Project(id: UUID(), state: .todo, title: "", body: "", date: Date())
-        return AddProjectDetailViewModel(currentProject: project)
+        return AddProjectDetailViewModel()
     }
 }
 
