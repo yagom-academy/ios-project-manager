@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4726657D27E30DF700AC4BC3 /* ProjectListCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4726657C27E30DF700AC4BC3 /* ProjectListCellDelegate.swift */; };
 		47F8F60A27CDEA96008919E3 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F8F60927CDEA96008919E3 /* CoreDataManager.swift */; };
 		47F9812D27D1F6550046FE9E /* ProjectListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F9812C27D1F6550046FE9E /* ProjectListHeaderView.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
@@ -40,6 +41,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4726657C27E30DF700AC4BC3 /* ProjectListCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListCellDelegate.swift; sourceTree = "<group>"; };
 		47F8F60927CDEA96008919E3 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		47F9812C27D1F6550046FE9E /* ProjectListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListHeaderView.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -85,6 +87,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4726657E27E30E2800AC4BC3 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				FB1FC05D27E22DB6002A5791 /* DateFormatter+Extension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		47F8F60827CDEA70008919E3 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
@@ -119,6 +129,7 @@
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
 				47F8F60827CDEA70008919E3 /* CoreData */,
 				FB9EDAB627D62E6200C78BE1 /* Protocol */,
+				4726657E27E30E2800AC4BC3 /* Extension */,
 				FB9EDAC827E1C8E400C78BE1 /* Model */,
 				FB9EDACF27E1C9A700C78BE1 /* ViewModel */,
 				FB9EDAB327D62DFB00C78BE1 /* Controller */,
@@ -128,7 +139,6 @@
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
 				FBDBCEFF27CDBAB80018B526 /* GoogleService-Info.plist */,
-				FB1FC05D27E22DB6002A5791 /* DateFormatter+Extension.swift */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
@@ -157,6 +167,7 @@
 			isa = PBXGroup;
 			children = (
 				FB85DA3D27D1B2370065FD72 /* CellReusable.swift */,
+				4726657C27E30DF700AC4BC3 /* ProjectListCellDelegate.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -280,6 +291,7 @@
 				FB9EDACA27E1C8FD00C78BE1 /* Project.swift in Sources */,
 				FB1FC05E27E22DB6002A5791 /* DateFormatter+Extension.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
+				4726657D27E30DF700AC4BC3 /* ProjectListCellDelegate.swift in Sources */,
 				FB85DA3727CDF91E0065FD72 /* ToDo+CoreDataClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -103,8 +103,8 @@ class MainViewController: UIViewController {
         
         output
             .reloadObserver
-            .subscribe(onNext: {
-                self.reloadTableView()
+            .subscribe(onNext: { [weak self] in
+                self?.reloadTableView()
             })
             .disposed(by: disposeBag)
     }
@@ -242,7 +242,7 @@ extension MainViewController: ProjectListCellDelegate {
         moveToDoneObserver.onNext(project)
     }
     
-    func presentPopOver(_ alert: UIAlertController) {
+    func presentPopover(_ alert: UIAlertController) {
         present(alert, animated: true)
     }
 }

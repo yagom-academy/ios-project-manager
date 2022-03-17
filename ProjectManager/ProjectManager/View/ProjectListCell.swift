@@ -1,12 +1,5 @@
 import UIKit
 
-protocol ProjectListCellDelegate: AnyObject {
-    func didTapTodoAction(_ project: Project?)
-    func didTapDoingAction(_ project: Project?)
-    func didTapDoneAction(_ project: Project?)
-    func presentPopOver(_ alert: UIAlertController)
-}
-
 class ProjectListCell: UITableViewCell {
     var delegate: ProjectListCellDelegate?
     var project: Project?
@@ -116,11 +109,10 @@ class ProjectListCell: UITableViewCell {
     
     private func setupDateLabel(with project: Project?) {
         guard let project = project else { return }
-        let dateFormatter = DateFormatter.shared
-        if project.formattedDate >= dateFormatter.string(from: Date()) {
-            dateLabel.textColor = .label
-        } else {
+        if project.isExpired {
             dateLabel.textColor = .systemRed
+        } else {
+            dateLabel.textColor = .label
         }
     }
 
@@ -159,7 +151,7 @@ class ProjectListCell: UITableViewCell {
         if longPresss.state == .began {
             let alert = makePopoverAlert()
             alert.popoverPresentationController?.sourceView = containerView
-            delegate?.presentPopOver(alert)
+            delegate?.presentPopover(alert)
         }
     }
     

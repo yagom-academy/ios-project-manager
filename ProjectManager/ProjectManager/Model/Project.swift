@@ -21,4 +21,9 @@ struct Project: Equatable {
         
         return dateFormatter.string(from: currentDate)
     }
+    
+    var isExpired: Bool {
+        let dateFormatter = DateFormatter.shared
+        return formattedDate < dateFormatter.string(from: Date())
+    }
 }

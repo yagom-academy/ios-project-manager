@@ -51,39 +51,39 @@ class ProjectViewModel: ViewModelDescribing {
     func transform(_ input: Input) -> Output {
         input
             .moveToToDoObserver
-            .subscribe(onNext: { project in
-                self.changeState(of: project, to: .todo)
-                self.reloadObserver.onNext(())
+            .subscribe(onNext: { [weak self] project in
+                self?.changeState(of: project, to: .todo)
+                self?.reloadObserver.onNext(())
             })
             .disposed(by: disposeBag)
         
         input
             .moveToDoingObserver
-            .subscribe(onNext: { project in
-                self.changeState(of: project, to: .doing)
-                self.reloadObserver.onNext(())
+            .subscribe(onNext: { [weak self] project in
+                self?.changeState(of: project, to: .doing)
+                self?.reloadObserver.onNext(())
             })
             .disposed(by: disposeBag)
         
         input
             .moveToDoneObserver
-            .subscribe(onNext: { project in
-                self.changeState(of: project, to: .done)
-                self.reloadObserver.onNext(())
+            .subscribe(onNext: { [weak self] project in
+                self?.changeState(of: project, to: .done)
+                self?.reloadObserver.onNext(())
             })
             .disposed(by: disposeBag)
         
         input
             .selectObserver
-            .subscribe(onNext: { project in
-                self.selectedProject = project
+            .subscribe(onNext: { [weak self] project in
+                self?.selectedProject = project
             })
             .disposed(by: disposeBag)
         
         input
             .deleteObserver
-            .subscribe(onNext: { project in
-                self.deleteProject(project)
+            .subscribe(onNext: { [weak self] project in
+                self?.deleteProject(project)
             })
             .disposed(by: disposeBag)
         
