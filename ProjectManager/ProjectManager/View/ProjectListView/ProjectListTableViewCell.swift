@@ -1,10 +1,9 @@
 import UIKit
 
-class ProjectTableViewCell: UITableViewCell {
+final class ProjectListTableViewCell: UITableViewCell {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .title3)
-        label.text = "책상정리"
         label.textAlignment = .left
         return label
     }()
@@ -12,7 +11,6 @@ class ProjectTableViewCell: UITableViewCell {
     private let bodyLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .body)
-        label.text = "집중이 안될 땐 역시나 책상정리"
         label.numberOfLines = 3
         label.textColor = .gray
         label.textAlignment = .left
@@ -22,7 +20,6 @@ class ProjectTableViewCell: UITableViewCell {
     private let dateLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .subheadline)
-        label.text = "2021.11.5."
         label.textAlignment = .left
         return label
     }()
@@ -42,7 +39,7 @@ class ProjectTableViewCell: UITableViewCell {
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
     }
     
     override func layoutSubviews() {
@@ -72,11 +69,25 @@ class ProjectTableViewCell: UITableViewCell {
             self.entireStackView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: LayoutConstant.entireStackViewLeadingMargin)
         ])
     }
+    
+    func populateData(title: String, body: String, date: Date) {
+        self.titleLabel.text = title
+        self.bodyLabel.text = body
+        self.dateLabel.text = date.formattedDate
+        self.dateLabel.textColor = .black
+    }
+    
+    func populateDataWithDate(title: String, body: String, date: Date) {
+        self.titleLabel.text = title
+        self.bodyLabel.text = body
+        self.dateLabel.text = date.formattedDate
+        self.dateLabel.textColor = .red
+    }
 }
 
 //MARK: - Constants
 
-private extension ProjectTableViewCell {
+private extension ProjectListTableViewCell {
     enum LayoutConstant {
         static let entireStackViewTopMargin: CGFloat = 15
         static let entireStackViewTrailingMargin: CGFloat = -15
@@ -85,7 +96,7 @@ private extension ProjectTableViewCell {
     }
 
     enum Design {
-        static let entireStackViewSpacing: CGFloat = 10
+        static let entireStackViewSpacing: CGFloat = 5
         static let cellContentViewFrameInset: UIEdgeInsets = UIEdgeInsets(top: 3.5, left: 0, bottom: 3.5, right: 0)
     }
 }

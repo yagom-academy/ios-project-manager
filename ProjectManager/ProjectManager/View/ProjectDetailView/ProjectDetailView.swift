@@ -1,7 +1,7 @@
 import UIKit
 
-class ProjectDetailViewController: UIViewController {
-    private let titleTextField: UITextField = {
+final class ProjectDetailView: UIView {
+    let titleTextField: UITextField = {
         let textField = UITextField()
         textField.font = .preferredFont(forTextStyle: .title2)
         textField.placeholder = Placeholder.titleTextFieldPlaceholder
@@ -18,7 +18,7 @@ class ProjectDetailViewController: UIViewController {
         return textField
     }()
     
-    private let datePicker: UIDatePicker = {
+    let datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .date
         if #available(iOS 13.4, *) {
@@ -27,7 +27,7 @@ class ProjectDetailViewController: UIViewController {
         return datePicker
     }()
     
-    private let bodyTextView: UITextView = {
+    let bodyTextView: UITextView = {
         let textView = UITextView()
         textView.text = "여기에는 할일 내용 입력하는 곳이지롱 \nㅋㅋ"
         textView.font = .preferredFont(forTextStyle: .title3)
@@ -57,18 +57,21 @@ class ProjectDetailViewController: UIViewController {
         return scrollView
     }()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         configureUI()
     }
     
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
     private func configureUI() {
-        view.backgroundColor = .white
-        self.view.addSubview(entireScrollView)
+        backgroundColor = .white
+        addSubview(entireScrollView)
         entireScrollView.addSubview(entireStackView)
         configureEntireStackView()
         configureLayout()
-        configureNavigationBar()
     }
     
     private func configureEntireStackView() {
@@ -76,13 +79,13 @@ class ProjectDetailViewController: UIViewController {
             entireStackView.addArrangedSubview($0)
         }
     }
-
+    
     private func configureLayout() {
         NSLayoutConstraint.activate([
-            self.entireScrollView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
-            self.entireScrollView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: LayoutConstant.entireScrollViewTrailingMargin),
-            self.entireScrollView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: LayoutConstant.entireScrollViewBottomMargin),
-            self.entireScrollView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: LayoutConstant.entireScrollViewLeadingMargin),
+            self.entireScrollView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
+            self.entireScrollView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: LayoutConstant.entireScrollViewTrailingMargin),
+            self.entireScrollView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: LayoutConstant.entireScrollViewBottomMargin),
+            self.entireScrollView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: LayoutConstant.entireScrollViewLeadingMargin),
             self.entireStackView.topAnchor.constraint(equalTo: self.entireScrollView.contentLayoutGuide.topAnchor, constant: LayoutConstant.entireStackViewTopMargin),
             self.entireStackView.trailingAnchor.constraint(equalTo: self.entireScrollView.contentLayoutGuide.trailingAnchor),
             self.entireStackView.bottomAnchor.constraint(equalTo: self.entireScrollView.contentLayoutGuide.bottomAnchor),
@@ -92,31 +95,27 @@ class ProjectDetailViewController: UIViewController {
         ])
     }
     
-    private func configureNavigationBar() {
-        self.navigationItem.title = TitleText.navigationBarTitle
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(didTapDoneButton))
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(didTapDoneButton))
-        navigationController?.navigationBar.backgroundColor = .systemGray6
+    func populateData(with data: Project?) {
+        guard let date = data?.date else {
+            return
+        }
+        titleTextField.text = data?.title
+        bodyTextView.text = data?.body
+        datePicker.setDate(date, animated: true)
     }
     
-    @objc private func didTapDoneButton() {
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    @objc private func didTapCancelButton() {
-        self.dismiss(animated: true, completion: nil)
+    func setEditingMode(to state: Bool) {
+        titleTextField.isEnabled = state
+        bodyTextView.isEditable = state
+        datePicker.isUserInteractionEnabled = state
     }
 }
 
 //MARK: - Constants
 
-private extension ProjectDetailViewController {
+private extension ProjectDetailView {
     enum Placeholder {
         static let titleTextFieldPlaceholder = "Title"
-    }
-
-    enum TitleText {
-        static let navigationBarTitle = "TODO"
     }
 
     enum LayoutConstant {

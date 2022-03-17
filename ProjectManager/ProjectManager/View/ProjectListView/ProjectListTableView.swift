@@ -1,19 +1,22 @@
 import UIKit
 
-class ProjectListTableView: UITableView {
-    override init(frame: CGRect, style: UITableView.Style) {
-        super.init(frame: frame, style: style)
+final class ProjectListTableView: UITableView {
+    var state: ProjectState?
+
+    init(state: ProjectState) {
+        self.state = state
+        super.init(frame: .zero, style: .plain)
         configureUI()
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
     }
     
     private func configureUI() {
         self.backgroundColor = .systemGray6
         self.translatesAutoresizingMaskIntoConstraints = false
-        self.registerCell(withClass: ProjectTableViewCell.self)
+        self.registerCell(withClass: ProjectListTableViewCell.self)
         self.registerHeaderFooterView(withClass: ProjectListTableHeaderView.self)
     }
 }
