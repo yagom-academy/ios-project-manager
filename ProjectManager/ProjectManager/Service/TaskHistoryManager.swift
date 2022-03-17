@@ -1,7 +1,7 @@
 import Foundation
 
 class TaskHistoryManager {
-    var taskHistory = [String]()
+    var taskHistory = [TaskHistory]()
     
     enum TaskHandleType {
         case create(title: String)
@@ -10,13 +10,21 @@ class TaskHistoryManager {
     }
     
     func appendHistory(taskHandleType: TaskHandleType) {
+        let date = Date().timeIntervalSince1970
+        
         switch taskHandleType {
         case .create(let title):
-            self.taskHistory.append("create: `\(title)`")
+            let description = "Added: `\(title)`"
+            let history = TaskHistory(description: description, date: date)
+            self.taskHistory.append(history)
         case .move(let title, let prevStatus, let nextStatus):
-            self.taskHistory.append("create: `\(title)` from \(prevStatus) to \(nextStatus)")
+            let description = "Moved: `\(title)` from \(prevStatus.name) to \(nextStatus.name)"
+            let history = TaskHistory(description: description, date: date)
+            self.taskHistory.append(history)
         case .delete(let title, let status):
-            self.taskHistory.append("create: `\(title)` from \(status)")
+            let description = "Removed: `\(title)` from \(status.name)"
+            let history = TaskHistory(description: description, date: date)
+            self.taskHistory.append(history)
         }
     }
 }

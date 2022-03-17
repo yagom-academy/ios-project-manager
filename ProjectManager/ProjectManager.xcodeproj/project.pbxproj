@@ -19,6 +19,8 @@
 		254AC6C727E3754200496688 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 254AC6C927E3754200496688 /* Localizable.strings */; };
 		254AC6CD27E375BF00496688 /* String+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254AC6CC27E375BF00496688 /* String+extension.swift */; };
 		254AC6CF27E38CBB00496688 /* TaskHistoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254AC6CE27E38CBB00496688 /* TaskHistoryManager.swift */; };
+		254AC6D127E3995200496688 /* Collection+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254AC6D027E3995200496688 /* Collection+extension.swift */; };
+		254AC6D327E3A0B900496688 /* TaskHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254AC6D227E3A0B900496688 /* TaskHistory.swift */; };
 		2570E67B27CD48C2002984D2 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 2570E67A27CD48C2002984D2 /* FirebaseAnalytics */; };
 		2570E67D27CD48C2002984D2 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 2570E67C27CD48C2002984D2 /* FirebaseFirestore */; };
 		2570E6A227CDE284002984D2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2570E6A127CDE284002984D2 /* GoogleService-Info.plist */; };
@@ -55,6 +57,8 @@
 		254AC6CB27E3758100496688 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/Localizable.strings; sourceTree = "<group>"; };
 		254AC6CC27E375BF00496688 /* String+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+extension.swift"; sourceTree = "<group>"; };
 		254AC6CE27E38CBB00496688 /* TaskHistoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskHistoryManager.swift; sourceTree = "<group>"; };
+		254AC6D027E3995200496688 /* Collection+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+extension.swift"; sourceTree = "<group>"; };
+		254AC6D227E3A0B900496688 /* TaskHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskHistory.swift; sourceTree = "<group>"; };
 		2570E6A127CDE284002984D2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2570E6D027D224D4002984D2 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		2570E6D627D225BB002984D2 /* TaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManager.swift; sourceTree = "<group>"; };
@@ -121,6 +125,7 @@
 			isa = PBXGroup;
 			children = (
 				2570E6D027D224D4002984D2 /* Task.swift */,
+				254AC6D227E3A0B900496688 /* TaskHistory.swift */,
 				254AC6C327E33C9C00496688 /* ErrorModel.swift */,
 			);
 			path = Model;
@@ -130,10 +135,10 @@
 			isa = PBXGroup;
 			children = (
 				2570E6D627D225BB002984D2 /* TaskManager.swift */,
+				254AC6CE27E38CBB00496688 /* TaskHistoryManager.swift */,
 				2538C38227E1B75C00ECDFF8 /* NetworkCheckManager.swift */,
 				25F993EB27D8A1B7007F5975 /* FirebaseTaskManagable.swift */,
 				2538C38627E217B000ECDFF8 /* RealmTaskManagable.swift */,
-				254AC6CE27E38CBB00496688 /* TaskHistoryManager.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -171,6 +176,7 @@
 				25F993E527D6F7A9007F5975 /* TimeInterval+extension.swift */,
 				25F993F527D8AB43007F5975 /* IndexSet+extension.swift */,
 				254AC6CC27E375BF00496688 /* String+extension.swift */,
+				254AC6D027E3995200496688 /* Collection+extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -325,6 +331,7 @@
 				25F993F227D8A3ED007F5975 /* TaskListRowView.swift in Sources */,
 				25F993EE27D8A31C007F5975 /* TaskListView.swift in Sources */,
 				25F993E627D6F7A9007F5975 /* TimeInterval+extension.swift in Sources */,
+				254AC6D327E3A0B900496688 /* TaskHistory.swift in Sources */,
 				254AC6CD27E375BF00496688 /* String+extension.swift in Sources */,
 				254AC6C027E318ED00496688 /* FirebaseError.swift in Sources */,
 				257E7D6727DDAD79009C4E9C /* TaskDetailViewModel.swift in Sources */,
@@ -333,6 +340,7 @@
 				25F993F427D8A6A7007F5975 /* TaskDetailView.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				25D60D7F27CD2D8000D3D39D /* ProjectManagerMainView.swift in Sources */,
+				254AC6D127E3995200496688 /* Collection+extension.swift in Sources */,
 				2538C38727E217B000ECDFF8 /* RealmTaskManagable.swift in Sources */,
 				254AC6CF27E38CBB00496688 /* TaskHistoryManager.swift in Sources */,
 				2570E6D927D225F6002984D2 /* TaskListViewModel.swift in Sources */,

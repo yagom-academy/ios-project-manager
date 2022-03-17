@@ -5,6 +5,7 @@ class TaskListViewModel: ObservableObject {
     @Published var todoTaskList = [Task]()
     @Published var doingTaskList = [Task]()
     @Published var doneTaskList = [Task]()
+    @Published var taskHistory = [TaskHistory]()
     @Published var errorAlert: ErrorModel?
     
     let taskListManager = TaskManager()
@@ -20,6 +21,7 @@ class TaskListViewModel: ObservableObject {
         self.todoTaskList = self.taskListManager.taskList(at: .todo)
         self.doingTaskList = self.taskListManager.taskList(at: .doing)
         self.doneTaskList = self.taskListManager.taskList(at: .done)
+        self.taskHistory = self.historyManager.taskHistory
     }
     
     func synchronizeFirebaseWithRealm() {

@@ -8,8 +8,8 @@ struct ProjectManagerMainView: View {
     var body: some View {
         VStack {
             ProjectManagerMainTitleView(
-                isShowTaskDetailView: $isShowTaskDetailView,
-                isShowTaskHistoryView: $isShowTaskHistoryView
+                isShowTaskHistoryView: $isShowTaskHistoryView,
+                isShowTaskDetailView: $isShowTaskDetailView
             )
             Divider()
             ProjectManagerMainContentView()
@@ -24,16 +24,16 @@ struct ProjectManagerMainView: View {
 }
 
 private struct ProjectManagerMainTitleView: View {
-    @Binding var isShowTaskDetailView: Bool
     @Binding var isShowTaskHistoryView: Bool
+    @Binding var isShowTaskDetailView: Bool
     
     var body: some View {
         HStack {
             Button(action: {
-                isShowTaskDetailView = true
+                isShowTaskHistoryView = true
             }, label: {
                 Text("Histroy".localized())
-                    .popover(isPresented: $isShowTaskDetailView) {
+                    .popover(isPresented: $isShowTaskHistoryView) {
                         TaskHistoryView()
                 }
             })
@@ -55,8 +55,22 @@ private struct ProjectManagerMainTitleView: View {
 }
 
 private struct TaskHistoryView: View {
+    @EnvironmentObject private var taskListViewModel: TaskListViewModel
+    
     var body: some View {
-        Text("History")
+        List {
+            ForEach(taskListViewModel.taskHistory) { taskHistory in
+                VStack(alignment: .leading) {
+                    Text(taskHistory.description)
+                        .font(.title2)
+                        .foregroundColor(.black)
+                    Text(taskHistory.date.formatString(dateStyle: .short, timeStyle: .short))
+                        .font(.body)
+                        .foregroundColor(.gray)
+                }
+            }
+        }
+        .frame(width: 500, height: 500, alignment: .leading)
     }
 }
 
