@@ -105,6 +105,25 @@ extension TaskListViewController: UITableViewDelegate {
         let taskDetailController = taskListViewModel.didSelectRow(at: indexPath.row, inTableViewOf: selectedProcessStatus)
         self.present(UINavigationController(rootViewController: taskDetailController), animated: true)
     }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        guard let tableView = tableView as? TaskTableView,
+              let selectedProcessStatus = tableView.processStatus else {
+                  print(TableViewError.invalidTableView.description)
+                  return UISwipeActionsConfiguration()
+              }
+        
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] _, _, handler in
+            self?.taskListViewModel.didSwipeDeleteAction(at: indexPath.row, inTableViewOf: selectedProcessStatus)
+            handler(true)  
+        }
+        deleteAction.image = UIImage(systemName: "xmark.bin.fill")
+        
+        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+        configuration.performsFirstActionWithFullSwipe = true
+        
+        return configuration
+    }
 }
 
 // MARK: - Popover
