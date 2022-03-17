@@ -3,10 +3,10 @@ import RxSwift
 import RxCocoa
 
 protocol TaskListViewModelProtocol {
-    var todoTasksObservable: BehaviorSubject<[Task]>? { get }
-    var doingTasksObservable: BehaviorSubject<[Task]>? { get }
-    var doneTasksObservable: BehaviorSubject<[Task]>? { get }
-    var tasksObservables: [BehaviorSubject<[Task]>?] { get }
+    var todoTasksObservable: BehaviorSubject<[Task]> { get }
+    var doingTasksObservable: BehaviorSubject<[Task]> { get }
+    var doneTasksObservable: BehaviorSubject<[Task]> { get }
+    var tasksObservables: [BehaviorSubject<[Task]>] { get }
     
     var todoTasksCount: Observable<Int> { get }
     var doingTasksCount: Observable<Int> { get }
@@ -25,15 +25,15 @@ protocol TaskListViewModelProtocol {
 // TODO: MVVM - Input/Output 구분
 final class TaskListViewModel: TaskListViewModelProtocol {
     // MARK: - Properties
-    private let taskRepository: TaskRepositoryProtocol?
-    let todoTasksObservable: BehaviorSubject<[Task]>?
-    let doingTasksObservable: BehaviorSubject<[Task]>?
-    let doneTasksObservable: BehaviorSubject<[Task]>?
+    private let taskRepository: TaskRepositoryProtocol
+    let todoTasksObservable: BehaviorSubject<[Task]>
+    let doingTasksObservable: BehaviorSubject<[Task]>
+    let doneTasksObservable: BehaviorSubject<[Task]>
     lazy var tasksObservables = [todoTasksObservable, doingTasksObservable, doneTasksObservable]
     
-    lazy var todoTasksCount: Observable<Int> = todoTasksObservable!.map { $0.count }
-    lazy var doingTasksCount: Observable<Int> = doingTasksObservable!.map { $0.count }
-    lazy var doneTasksCount: Observable<Int> = doneTasksObservable!.map { $0.count }
+    lazy var todoTasksCount: Observable<Int> = todoTasksObservable.map { $0.count }
+    lazy var doingTasksCount: Observable<Int> = doingTasksObservable.map { $0.count }
+    lazy var doneTasksCount: Observable<Int> = doneTasksObservable.map { $0.count }
     
     // MARK: - Initializers
     init(taskRepository: TaskRepositoryProtocol = TaskRepository()) {
@@ -45,28 +45,28 @@ final class TaskListViewModel: TaskListViewModelProtocol {
     
     // MARK: - Methods
     func create(task: Task) {
-        taskRepository?.create(task: task)
+        taskRepository.create(task: task)
         
         switch task.processStatus {
         case .todo:
-            todoTasksObservable?.onNext(taskRepository!.todoTasks)
+            todoTasksObservable.onNext(taskRepository.todoTasks)
         case .doing:
-            doingTasksObservable?.onNext(taskRepository!.doingTasks)
+            doingTasksObservable.onNext(taskRepository.doingTasks)
         case .done:
-            doneTasksObservable?.onNext(taskRepository!.doneTasks)
+            doneTasksObservable.onNext(taskRepository.doneTasks)
         }
     }
     
     func delete(task: Task) {
-        taskRepository?.delete(task: task)
+        taskRepository.delete(task: task)
         
         switch task.processStatus {
         case .todo:
-            todoTasksObservable?.onNext(taskRepository!.todoTasks)
+            todoTasksObservable.onNext(taskRepository.todoTasks)
         case .doing:
-            doingTasksObservable?.onNext(taskRepository!.doingTasks)
+            doingTasksObservable.onNext(taskRepository.doingTasks)
         case .done:
-            doneTasksObservable?.onNext(taskRepository!.doneTasks)
+            doneTasksObservable.onNext(taskRepository.doneTasks)
         }
     }
     
@@ -76,15 +76,15 @@ final class TaskListViewModel: TaskListViewModelProtocol {
             return
         }
         
-        taskRepository?.update(task: task, to: newTask)
+        taskRepository.update(task: task, to: newTask)
         
         switch task.processStatus {
         case .todo:
-            todoTasksObservable?.onNext(taskRepository!.todoTasks)
+            todoTasksObservable.onNext(taskRepository.todoTasks)
         case .doing:
-            doingTasksObservable?.onNext(taskRepository!.doingTasks)
+            doingTasksObservable.onNext(taskRepository.doingTasks)
         case .done:
-            doneTasksObservable?.onNext(taskRepository!.doneTasks)
+            doneTasksObservable.onNext(taskRepository.doneTasks)
         }
         
         guard task.processStatus != newTask.processStatus else {
@@ -93,11 +93,11 @@ final class TaskListViewModel: TaskListViewModelProtocol {
         
         switch newTask.processStatus {
         case .todo:
-            todoTasksObservable?.onNext(taskRepository!.todoTasks)
+            todoTasksObservable.onNext(taskRepository.todoTasks)
         case .doing:
-            doingTasksObservable?.onNext(taskRepository!.doingTasks)
+            doingTasksObservable.onNext(taskRepository.doingTasks)
         case .done:
-            doneTasksObservable?.onNext(taskRepository!.doneTasks)
+            doneTasksObservable.onNext(taskRepository.doneTasks)
         }
     }
     
@@ -122,11 +122,11 @@ final class TaskListViewModel: TaskListViewModelProtocol {
         var taskToEdit: Task!
         switch inTableViewOf {
         case .todo:
-            taskToEdit = taskRepository?.todoTasks[row]
+            taskToEdit = taskRepository.todoTasks[row]
         case .doing:
-            taskToEdit = taskRepository?.doingTasks[row]
+            taskToEdit = taskRepository.doingTasks[row]
         case .done:
-            taskToEdit = taskRepository?.doneTasks[row]
+            taskToEdit = taskRepository.doneTasks[row]
         }
         
         let taskDetailController = ViewControllerFactory.createViewController(of: .editTaskDetail(viewModel: self,
@@ -140,11 +140,11 @@ final class TaskListViewModel: TaskListViewModelProtocol {
         var taskToDelete: Task!
         switch inTableViewOf {
         case .todo:
-            taskToDelete = taskRepository?.todoTasks[row]
+            taskToDelete = taskRepository.todoTasks[row]
         case .doing:
-            taskToDelete = taskRepository?.doingTasks[row]
+            taskToDelete = taskRepository.doingTasks[row]
         case .done:
-            taskToDelete = taskRepository?.doneTasks[row]
+            taskToDelete = taskRepository.doneTasks[row]
         }
         
         delete(task: taskToDelete)
