@@ -1,9 +1,9 @@
 import UIKit
 
 final class TaskTableViewCell: UITableViewCell {
-    var task: Task?
-    var popoverPresenter: TaskListViewController!
-    var taskListViewModel: TaskListViewModelProtocol!
+    private var task: Task?
+    private var popoverPresenter: TaskListViewController!
+    private var taskListViewModel: TaskListViewModelProtocol!
     
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var bodyLabel: UILabel!

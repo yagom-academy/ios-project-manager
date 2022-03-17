@@ -2,8 +2,8 @@ import UIKit
 
 class TaskDetailController: UIViewController {
     private var taskListViewModel: TaskListViewModelProtocol?
-    var taskManagerAction: TaskManagerAction!
-    var taskToEdit: Task?
+    private var taskManagerAction: TaskManagerAction!
+    private var taskToEdit: Task?
     
     @IBOutlet private weak var titleLabel: UITextField!
     @IBOutlet private weak var datePicker: UIDatePicker!
