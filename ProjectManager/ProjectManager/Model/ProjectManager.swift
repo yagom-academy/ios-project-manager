@@ -10,7 +10,7 @@ import Foundation
 final class ProjectManager {
     
     // MARK: - Property
-    private let projectSource = ProjectSource<UUID>()
+    private let projectSource = ProjectCoreDataBase()
     
     // MARK: - Method
     func create(with content: [String: Any]) {

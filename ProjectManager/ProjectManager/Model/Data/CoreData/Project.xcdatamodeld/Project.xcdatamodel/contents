@@ -3,7 +3,7 @@
     <entity name="CDProject" representedClassName="CDProject" syncable="YES" codeGenerationType="category">
         <attribute name="deadline" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="descriptions" optional="YES" attributeType="String"/>
-        <attribute name="identifier" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="identifier" optional="YES" attributeType="String"/>
         <attribute name="statusString" optional="YES" attributeType="String"/>
         <attribute name="title" optional="YES" attributeType="String"/>
     </entity>

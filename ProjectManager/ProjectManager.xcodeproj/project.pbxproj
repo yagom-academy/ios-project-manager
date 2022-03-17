@@ -8,7 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		635862B827E32546005E2A2B /* Project.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 635862B627E32546005E2A2B /* Project.xcdatamodeld */; };
-		635862CB27E356AC005E2A2B /* CDProject+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635862C927E356AC005E2A2B /* CDProject+CoreDataClass.swift */; };
+		635862CE27E35D84005E2A2B /* ProjectCoreDataBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635862CD27E35D84005E2A2B /* ProjectCoreDataBase.swift */; };
+		635862D127E392DB005E2A2B /* CDProject+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635862CF27E392DB005E2A2B /* CDProject+CoreDataClass.swift */; };
 		63974A4527D8D5F600523B16 /* ProjectListViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63974A4427D8D5F600523B16 /* ProjectListViewControllerDelegate.swift */; };
 		63B96DA927E024AF00144F7C /* ProjectBoardScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B96DA827E024AF00144F7C /* ProjectBoardScene.swift */; };
 		63B96DAB27E0262800144F7C /* ProjectDetailScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B96DAA27E0262800144F7C /* ProjectDetailScene.swift */; };
@@ -36,7 +37,8 @@
 
 /* Begin PBXFileReference section */
 		635862B727E32546005E2A2B /* Project.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Project.xcdatamodel; sourceTree = "<group>"; };
-		635862C927E356AC005E2A2B /* CDProject+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDProject+CoreDataClass.swift"; sourceTree = "<group>"; };
+		635862CD27E35D84005E2A2B /* ProjectCoreDataBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectCoreDataBase.swift; sourceTree = "<group>"; };
+		635862CF27E392DB005E2A2B /* CDProject+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDProject+CoreDataClass.swift"; sourceTree = "<group>"; };
 		63974A4427D8D5F600523B16 /* ProjectListViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListViewControllerDelegate.swift; sourceTree = "<group>"; };
 		63B96DA827E024AF00144F7C /* ProjectBoardScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectBoardScene.swift; sourceTree = "<group>"; };
 		63B96DAA27E0262800144F7C /* ProjectDetailScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDetailScene.swift; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 			isa = PBXGroup;
 			children = (
 				63D21E6127D4B3A600E35D3B /* LocalDataBase.swift */,
+				635862CD27E35D84005E2A2B /* ProjectCoreDataBase.swift */,
 				63D21E6327D4B61F00E35D3B /* ProjectSource.swift */,
 			);
 			path = Local;
@@ -116,7 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				635862B627E32546005E2A2B /* Project.xcdatamodeld */,
-				635862C927E356AC005E2A2B /* CDProject+CoreDataClass.swift */,
+				635862CF27E392DB005E2A2B /* CDProject+CoreDataClass.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -314,9 +317,9 @@
 				63D21E6727D4F9B900E35D3B /* ProjectManager.swift in Sources */,
 				63D21E9327D6604500E35D3B /* UITableVeiwCell+Extension.swift in Sources */,
 				63D21E6027D4AC2E00E35D3B /* Status.swift in Sources */,
+				635862D127E392DB005E2A2B /* CDProject+CoreDataClass.swift in Sources */,
 				63D21E6427D4B61F00E35D3B /* ProjectSource.swift in Sources */,
 				635862B827E32546005E2A2B /* Project.xcdatamodeld in Sources */,
-				635862CB27E356AC005E2A2B /* CDProject+CoreDataClass.swift in Sources */,
 				63D21E6227D4B3A600E35D3B /* LocalDataBase.swift in Sources */,
 				63B96DA927E024AF00144F7C /* ProjectBoardScene.swift in Sources */,
 				63D21E9527D73CD200E35D3B /* ProjectTableViewHeaderView.swift in Sources */,
@@ -326,6 +329,7 @@
 				63B96DE527E0BF7300144F7C /* CALayer+Extension.swift in Sources */,
 				63B96DAD27E028CF00144F7C /* ProjectListViewController.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
+				635862CE27E35D84005E2A2B /* ProjectCoreDataBase.swift in Sources */,
 				63974A4527D8D5F600523B16 /* ProjectListViewControllerDelegate.swift in Sources */,
 				63D21E9927D7618300E35D3B /* Date+Extension.swift in Sources */,
 				63D21E5E27D4691700E35D3B /* Project.swift in Sources */,

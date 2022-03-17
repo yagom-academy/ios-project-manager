@@ -244,6 +244,7 @@ final class ProjectViewController: UIViewController {
         content.updateValue(titleTextField.text as Any, forKey: "title")
         content.updateValue(datePicker.date as Any, forKey: "deadline")
         content.updateValue(descriptionTextView.text as Any, forKey: "description")
+        content.updateValue(project?.status as Any, forKey: "status")
         guard let projectTableViewController = presentingViewController as?
                 ProjectEditDelegate,
               let identifier = self.project?.identifier else {
