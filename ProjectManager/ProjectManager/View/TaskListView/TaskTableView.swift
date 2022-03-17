@@ -1,7 +1,11 @@
 import UIKit
 
 final class TaskTableView: UITableView {
-    var processStatus: ProcessStatus?
+    private var processStatus: ProcessStatus?
+    
+    func setup(processStatus: ProcessStatus) {
+        self.processStatus = processStatus
+    }
     
     func setupTableViewCell() {
         let nib = UINib(nibName: TaskTableViewCell.reuseIdentifier, bundle: nil)

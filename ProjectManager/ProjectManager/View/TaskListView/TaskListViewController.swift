@@ -32,9 +32,9 @@ final class TaskListViewController: UIViewController {
             tableView?.delegate = self
         }
         
-        todoTableView.processStatus = .todo
-        doingTableView.processStatus = .doing
-        doneTableView.processStatus = .done
+        todoTableView.setup(processStatus: .todo)
+        doingTableView.setup(processStatus: .doing)
+        doneTableView.setup(processStatus: .done)
     }
     
     private func setupHeaderViews() {
