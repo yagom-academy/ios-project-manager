@@ -310,9 +310,9 @@
 		37CC921D27D870DB003F1122 /* ScheduleItem */ = {
 			isa = PBXGroup;
 			children = (
+				334BADEF27D8F2690098F448 /* ScheduleItemCoordinator.swift */,
 				334BADE927D89F0A0098F448 /* View */,
 				334BADEA27D89F130098F448 /* ViewModel */,
-				334BADEF27D8F2690098F448 /* ScheduleItemCoordinator.swift */,
 			);
 			path = ScheduleItem;
 			sourceTree = "<group>";

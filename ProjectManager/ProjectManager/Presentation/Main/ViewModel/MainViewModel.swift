@@ -8,7 +8,6 @@
 import Foundation
 import RxSwift
 import RxRelay
-//import RxCocoa
 
 private enum Name {
     static let progressText = "Move to "
@@ -102,7 +101,7 @@ private extension MainViewModel {
 
     func onCellDidTap(_ input: Observable<Schedule>) -> Disposable {
         return input
-            .do(onNext: { [weak self] _ in
+            .do(afterNext: { [weak self] _ in
                 self?.coordinator.presentScheduleItemViewController(mode: .detail) })
             .bind(to: self.useCase.currentSchedule)
     }
