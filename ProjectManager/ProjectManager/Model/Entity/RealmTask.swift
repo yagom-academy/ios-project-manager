@@ -16,6 +16,15 @@ final class RealmTask: Object {
     @Persisted var dueDate: Date
     @Persisted var status: Int
     
+    override init() {
+        super.init()
+        self.id = UUID()
+        self.title = String()
+        self.taskDescription = String()
+        self.dueDate = Date()
+        self.status = 0
+    }
+    
     init(id: UUID, title: String, description: String, dueDate: Date, status: Int) {
         super.init()
         self.id = id
