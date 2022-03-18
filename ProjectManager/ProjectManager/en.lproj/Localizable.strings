@@ -21,3 +21,8 @@
 "LocalDB Create Failed" = "LocalDB Create Failed";
 "LocalDB Update Failed" = "LocalDB Update Failed";
 "LocalDB Delete Failed" = "LocalDB Delete Failed";
+
+// History
+"Addd `%@`." = "Added `%@`.";
+"Moved `%@` from %@ to %@." = "Moved `%@` from %@ to %@.";
+"Removed `%@` from %@." = "Removed `%@` from %@.";

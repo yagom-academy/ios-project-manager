@@ -34,7 +34,7 @@ private struct ProjectManagerMainTitleView: View {
             }, label: {
                 Text("Histroy".localized())
                     .popover(isPresented: $isShowTaskHistoryView) {
-                        TaskHistoryView()
+                        TaskHistoryListView()
                 }
             })
             Spacer()
@@ -54,23 +54,32 @@ private struct ProjectManagerMainTitleView: View {
     }
 }
 
-private struct TaskHistoryView: View {
+private struct TaskHistoryListView: View {
     @EnvironmentObject private var taskListViewModel: TaskListViewModel
     
     var body: some View {
         List {
             ForEach(taskListViewModel.taskHistory) { taskHistory in
-                VStack(alignment: .leading) {
-                    Text(taskHistory.description)
-                        .font(.title2)
-                        .foregroundColor(.black)
-                    Text(taskHistory.date.formatString(dateStyle: .short, timeStyle: .short))
-                        .font(.body)
-                        .foregroundColor(.gray)
-                }
+                TaskHistoryRowView(taskHistory: taskHistory)
             }
         }
         .frame(width: 500, height: 500, alignment: .leading)
+    }
+}
+
+private struct TaskHistoryRowView: View {
+    let taskHistory: TaskHistory
+    
+    var body: some View {
+        VStack(alignment: .leading) {
+            Text(taskHistory.description)
+                .font(.title3)
+                .foregroundColor(.black)
+                .lineLimit(2)
+            Text(taskHistory.date.formatString(dateStyle: .short, timeStyle: .short))
+                .font(.body)
+                .foregroundColor(.gray)
+        }
     }
 }
 

@@ -21,3 +21,8 @@
 "LocalDB Create Failed" = "LocalDB đã thất bại";
 "LocalDB Update Failed" = "Cập nhật localDB thất bại";
 "LocalDB Delete Failed" = "LocalDB không thể xóa được";
+
+// History
+"Addd `%@`." = "[sự bổ sung] tiêu đề: %@";
+"Moved `%@` from %@ to %@." = "[sự thay đổi] tiêu đề: %@, nội dung: %@ -> %@";
+"Removed `%@` from %@." = "[sự xoá bỏ] tiêu đề: %@, trạng thái: %@";
