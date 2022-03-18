@@ -129,8 +129,8 @@ final class TaskListViewModel: TaskListViewModelProtocol {
             taskToEdit = taskRepository.doneTasks[row]
         }
         
-        let taskDetailController = ViewControllerFactory.createViewController(of: .editTaskDetail(viewModel: self,
-                                                                                                  taskToEdit: taskToEdit))
+        let taskDetailViewModel = TaskDetailViewModel()
+        let taskDetailController = ViewControllerFactory.createViewController(of: .editTaskDetail(taskListViewModel: self, taskDetailViewModel: taskDetailViewModel, taskToEdit: taskToEdit))
         taskDetailController.modalPresentationStyle = .popover
         
         return taskDetailController

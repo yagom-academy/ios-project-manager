@@ -5,7 +5,7 @@ protocol TaskDetailViewModelProtocol {
     func rightBarButton(of taskManagerAction: TaskManagerAction) -> UIBarButtonItem.SystemItem
 }
 
-final class TaskDetailViewModel {
+final class TaskDetailViewModel: TaskDetailViewModelProtocol {
     func leftBarButton(of taskManagerAction: TaskManagerAction) -> UIBarButtonItem.SystemItem {
         switch taskManagerAction {
         case .add:

@@ -103,7 +103,8 @@ final class TaskListViewController: UIViewController {
 // MARK: - IBAction
 extension TaskListViewController {
     @IBAction private func touchUpAddButton(_ sender: UIBarButtonItem) {
-        let taskDetailController = ViewControllerFactory.createViewController(of: .newTaskDetail(viewModel: self.taskListViewModel))
+        let taskDetailViewModel = TaskDetailViewModel()
+        let taskDetailController = ViewControllerFactory.createViewController(of: .newTaskDetail(taskListViewModel: self.taskListViewModel, taskDetailViewModel: taskDetailViewModel))
         taskDetailController.modalPresentationStyle = .popover
         self.present(UINavigationController(rootViewController: taskDetailController), animated: true)
     }
