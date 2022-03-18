@@ -32,7 +32,7 @@ class ScheduleItemViewModel {
 
     private let mode: BehaviorRelay<Mode>
     private let currentTitleText = BehaviorRelay<String>(value: .empty)
-    private let currentDate = BehaviorRelay<Date>(value: Date())
+    private let currentDate: BehaviorRelay<Date>
     private let currentBodyText = BehaviorRelay<String>(value: .empty)
 
     // MARK: - Initializer
@@ -41,6 +41,11 @@ class ScheduleItemViewModel {
         self.useCase = useCase
         self.coordinator = coordinator
         self.mode = BehaviorRelay<Mode>(value: mode)
+        guard let current = self.useCase.currentSchedule.value else {
+            self.currentDate = BehaviorRelay<Date>(value: Date())
+            return
+        }
+        self.currentDate = BehaviorRelay<Date>(value: current.dueDate)
     }
 
     // MARK: - Input/Output
@@ -139,7 +144,9 @@ private extension ScheduleItemViewModel {
             title: self.currentTitleText.value,
             body: self.currentBodyText.value,
             dueDate: self.currentDate.value,
-            progress: schedule.progress)
+            progress: schedule.progress,
+            lastUpdated: Date()
+        )
 
         self.useCase.update(newSchedule)
         self.coordinator.dismiss()
@@ -163,6 +170,7 @@ private extension ScheduleItemViewModel {
 
     func onScheduleDateDidChange(_ input: Observable<Date>) -> Disposable {
         return input
+            .skip(2)
             .bind(to: self.currentDate)
     }
 
