@@ -17,7 +17,8 @@ protocol TaskListViewModelProtocol {
     
     func edit(task: Task, newProcessStatus: ProcessStatus)
     func edit(task: Task, newTitle: String, newBody: String, newDueDate: Date)
-    func createViewControllerWithSelectedRow(at row: Int, inTableViewOf: ProcessStatus) -> UIViewController
+    func createViewControllerForTaskAdd() -> UIViewController
+    func createViewControllerForSelectedRow(at row: Int, inTableViewOf: ProcessStatus) -> UIViewController
     func didSwipeDeleteAction(at row: Int, inTableViewOf: ProcessStatus)
 }
 
@@ -116,9 +117,17 @@ final class TaskListViewModel: TaskListViewModelProtocol {
         let newTask = Task(id: task.id, title: newTitle, body: newBody, dueDate: newDueDate, processStatus: task.processStatus)
         update(task: task, to: newTask)
     }
+    
+    func createViewControllerForTaskAdd() -> UIViewController {
+        let taskDetailViewModel = TaskDetailViewModel()
+        let taskDetailController = ViewControllerFactory.createViewController(of: .newTaskDetail(taskListViewModel: self, taskDetailViewModel: taskDetailViewModel))
+        taskDetailController.modalPresentationStyle = .popover
+        
+        return taskDetailController
+    }
  
     // MARK: - TableView Delegate
-    func createViewControllerWithSelectedRow(at row: Int, inTableViewOf: ProcessStatus) -> UIViewController {
+    func createViewControllerForSelectedRow(at row: Int, inTableViewOf: ProcessStatus) -> UIViewController {
         var taskToEdit: Task!
         switch inTableViewOf {
         case .todo:

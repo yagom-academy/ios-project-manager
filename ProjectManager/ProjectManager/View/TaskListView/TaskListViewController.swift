@@ -103,9 +103,7 @@ final class TaskListViewController: UIViewController {
 // MARK: - IBAction
 extension TaskListViewController {
     @IBAction private func touchUpAddButton(_ sender: UIBarButtonItem) {
-        let taskDetailViewModel = TaskDetailViewModel()
-        let taskDetailController = ViewControllerFactory.createViewController(of: .newTaskDetail(taskListViewModel: self.taskListViewModel, taskDetailViewModel: taskDetailViewModel))
-        taskDetailController.modalPresentationStyle = .popover
+        let taskDetailController = taskListViewModel.createViewControllerForTaskAdd()
         self.present(UINavigationController(rootViewController: taskDetailController), animated: true)
     }
 }
@@ -119,7 +117,7 @@ extension TaskListViewController: UITableViewDelegate {
                   return
               }
 
-        let taskDetailController = taskListViewModel.createViewControllerWithSelectedRow(at: indexPath.row, inTableViewOf: selectedProcessStatus)
+        let taskDetailController = taskListViewModel.createViewControllerForSelectedRow(at: indexPath.row, inTableViewOf: selectedProcessStatus)
         self.present(UINavigationController(rootViewController: taskDetailController), animated: true)
     }
     
