@@ -10,7 +10,7 @@ class TaskDetailController: UIViewController {
     @IBOutlet private weak var datePicker: UIDatePicker!
     @IBOutlet private weak var bodyTextView: UITextView!
     
-    convenience init?(coder: NSCoder, taskListViewModel: TaskListViewModelProtocol?, taskDetailViewModel: TaskDetailViewModelProtocol, taskManagerAction: TaskManagerAction, taskToEdit: Task?) {
+    convenience init?(coder: NSCoder, taskListViewModel: TaskListViewModelProtocol, taskDetailViewModel: TaskDetailViewModelProtocol?, taskManagerAction: TaskManagerAction, taskToEdit: Task?) {
         self.init(coder: coder)
         self.taskListViewModel = taskListViewModel
         self.taskDetailViewModel = taskDetailViewModel
