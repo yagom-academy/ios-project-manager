@@ -26,7 +26,10 @@ final class TaskLocalDataSource: TaskRepositoryDataSource {
     }
     
     func delete(_ object: Task) throws {
-        try databaseModel.create(RealmTask(object))
+        let target = try databaseModel.fetch { task in
+            task.id == object.id
+        }
+        try databaseModel.remove(target)
     }
     
     func update(_ object: Task) throws {
