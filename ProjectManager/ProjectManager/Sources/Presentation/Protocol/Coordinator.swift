@@ -1,7 +1,7 @@
 import UIKit
 
 protocol Coordinator {
-    var parentCoordinateor: Coordinator? { get set }
+    var parentCoordinator: Coordinator? { get set }
     var childCoordinators: [Coordinator] { get set }
     var navigationController: UINavigationController { get set }
     var type: CoordinatorType { get set }
@@ -9,5 +9,5 @@ protocol Coordinator {
 
 enum CoordinatorType {
     case main
-    case datil
+    case detail
 }

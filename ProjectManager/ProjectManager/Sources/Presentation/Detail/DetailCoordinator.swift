@@ -6,17 +6,17 @@ final class DetailCoordinator: Coordinator {
         static let storyboardID = "DetailViewController"
     }
     
-    var parentCoordinateor: Coordinator?
+    var parentCoordinator: Coordinator?
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
-    var type: CoordinatorType = .datil
+    var type: CoordinatorType = .detail
     
     init(
         _ navigationController: UINavigationController = UINavigationController(),
-        parentCoordinateor: Coordinator
+        parentCoordinator: Coordinator
     ) {
         self.navigationController = navigationController
-        self.parentCoordinateor = parentCoordinateor
+        self.parentCoordinator = parentCoordinator
     }
     
     func start(_ project: Project, useCase: ProjectListUseCase, mode: DetailViewModel.ViewMode) {
@@ -33,7 +33,7 @@ final class DetailCoordinator: Coordinator {
     
     func dismiss() {
         navigationController.dismiss(animated: true, completion: nil)
-        let main = parentCoordinateor as? MainCoordinator
+        let main = parentCoordinator as? MainCoordinator
         main?.remove(childCoordinator: self)
     }
 }

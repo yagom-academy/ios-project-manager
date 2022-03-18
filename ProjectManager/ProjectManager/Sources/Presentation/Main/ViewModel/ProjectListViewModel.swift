@@ -17,7 +17,7 @@ final class ProjectListViewModel {
         let didTapProjectCell: [Observable<Int>]
         let didTapAddButton: Observable<Void>
         let didTapCellLongPress: [Observable<(UITableViewCell, Project)?>]
-        let didSwapeToTapDeleteButton: [Observable<Project>]
+        let didSwipeToTapDeleteButton: [Observable<Project>]
     }
     
     struct Output {
@@ -68,7 +68,7 @@ final class ProjectListViewModel {
             }).disposed(by: disposeBag)
         }
         
-        input.didSwapeToTapDeleteButton
+        input.didSwipeToTapDeleteButton
             .forEach({ observable in
                 observable
                     .withUnretained(self).subscribe(onNext: { owner, project in

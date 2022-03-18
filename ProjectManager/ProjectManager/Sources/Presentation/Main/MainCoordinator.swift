@@ -14,7 +14,7 @@ final class MainCoordinator: Coordinator {
         static let actionTitle = "Move to "
     }
     
-    var parentCoordinateor: Coordinator?
+    var parentCoordinator: Coordinator?
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
     var type: CoordinatorType = .main
@@ -35,7 +35,7 @@ final class MainCoordinator: Coordinator {
         useCase: ProjectListUseCase,
         mode: DetailViewModel.ViewMode
     ) {
-        let detailCoordinator = DetailCoordinator(parentCoordinateor: self)
+        let detailCoordinator = DetailCoordinator(parentCoordinator: self)
         childCoordinators.append(detailCoordinator)
         detailCoordinator.start(project, useCase: useCase, mode: mode)
         navigationController.topViewController?.present(

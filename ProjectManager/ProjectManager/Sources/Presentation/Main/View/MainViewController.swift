@@ -67,7 +67,7 @@ class MainViewController: UIViewController, StoryboardCreatable {
                         return nil
                     }.asObservable()
             },
-            didSwapeToTapDeleteButton: tableViews.map { $0.rx.modelDeleted(Project.self).asObservable() }
+            didSwipeToTapDeleteButton: tableViews.map { $0.rx.modelDeleted(Project.self).asObservable() }
         )
         let output = viewModel?.transform(input: input, disposeBag: disposeBag)
         
