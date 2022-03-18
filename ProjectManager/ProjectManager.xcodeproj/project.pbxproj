@@ -121,6 +121,14 @@
 			path = Error;
 			sourceTree = "<group>";
 		};
+		254AC6D427E48E6000496688 /* Localization */ = {
+			isa = PBXGroup;
+			children = (
+				254AC6C927E3754200496688 /* Localizable.strings */,
+			);
+			path = Localization;
+			sourceTree = "<group>";
+		};
 		2570E6DA27D2264C002984D2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -201,7 +209,7 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
-				254AC6C927E3754200496688 /* Localizable.strings */,
+				254AC6D427E48E6000496688 /* Localization */,
 				25F993E427D6F78F007F5975 /* Extension */,
 				2570E6DD27D22685002984D2 /* View */,
 				2570E6DC27D22676002984D2 /* ViewModel */,

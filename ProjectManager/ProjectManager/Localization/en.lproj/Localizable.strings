@@ -23,6 +23,6 @@
 "LocalDB Delete Failed" = "LocalDB Delete Failed";
 
 // History
-"Addd `%@`." = "Added `%@`.";
+"Added `%@`." = "Added `%@`.";
 "Moved `%@` from %@ to %@." = "Moved `%@` from %@ to %@.";
 "Removed `%@` from %@." = "Removed `%@` from %@.";
