@@ -18,7 +18,7 @@ final class TaskTableViewCell: UITableViewCell {
         task = nil
     }
     
-    func update(with task: Task?, popoverPresenterDelegate: TaskListViewController, viewModel: TaskListViewModelProtocol) {
+    func update(with task: Task, popoverPresenterDelegate: TaskListViewController, viewModel: TaskListViewModelProtocol) {
         self.task = task
         self.popoverPresenterDelegate = popoverPresenterDelegate
         self.taskListViewModel = viewModel
@@ -66,15 +66,14 @@ final class TaskTableViewCell: UITableViewCell {
             return
         }
 
-        let processStatusChangeOptions = currentProcessStatus.processStatusChangeOption
-        let titleOfOptions = processStatusChangeOptions
-            .map { "Move To \($0.description)"  }
+        let processStatusChangeOptions = taskListViewModel.processStatusChangeOptions(of: currentProcessStatus)
+        let titleOfOptions = taskListViewModel.title(of: processStatusChangeOptions)
         
         let option1Action = UIAlertAction(title: titleOfOptions[safe: 0], style: .default) { [weak self] _ in
-            self?.taskListViewModel.edit(task: (self?.task!)!, newProcessStatus: processStatusChangeOptions[safe: 0]!)
+            self?.taskListViewModel.edit(task: self!.task!, newProcessStatus: processStatusChangeOptions[safe: 0]!)
         }
         let option2Action = UIAlertAction(title: titleOfOptions[safe: 1], style: .default) { [weak self] _ in
-            self?.taskListViewModel.edit(task: (self?.task!)!, newProcessStatus: processStatusChangeOptions[safe: 1]!)
+            self?.taskListViewModel.edit(task: self!.task!, newProcessStatus: processStatusChangeOptions[safe: 1]!)
         }
 
         let alert = AlertFactory.createAlert(style: .actionSheet, actions: option1Action, option2Action)

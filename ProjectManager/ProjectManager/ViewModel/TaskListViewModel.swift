@@ -15,6 +15,8 @@ protocol TaskListViewModelProtocol {
     func delete(task: Task)
     func update(task: Task, to newTask: Task)
     
+    func processStatusChangeOptions(of currentProcessStatus: ProcessStatus) -> [ProcessStatus]
+    func title(of changeOptions: [ProcessStatus]) -> [String]
     func edit(task: Task, newProcessStatus: ProcessStatus)
     func edit(task: Task, newTitle: String, newBody: String, newDueDate: Date)
     func createViewControllerForTaskAdd() -> UIViewController
@@ -102,6 +104,14 @@ final class TaskListViewModel: TaskListViewModelProtocol {
     }
     
     // MARK: - Popover
+    func processStatusChangeOptions(of currentProcessStatus: ProcessStatus) -> [ProcessStatus] {
+        return ProcessStatus.allCases.filter { $0 != currentProcessStatus }
+    }
+    
+    func title(of changeOptions: [ProcessStatus]) -> [String] {
+        return changeOptions.map { "Move To \($0.description)"  }
+    }
+    
     func edit(task: Task, newProcessStatus: ProcessStatus) {
         guard task.processStatus != newProcessStatus else {
             print(TaskManagerError.unchangedProcessStatus)

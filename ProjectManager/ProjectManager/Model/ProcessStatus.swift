@@ -8,8 +8,4 @@ enum ProcessStatus: String, Codable, CustomStringConvertible, CaseIterable {
     var description: String {
         return rawValue
     }
-    
-    var processStatusChangeOption: [Self] {
-        return ProcessStatus.allCases.filter { $0 != self }
-    }
 }
