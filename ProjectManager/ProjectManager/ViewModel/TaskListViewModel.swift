@@ -7,7 +7,6 @@ protocol TaskListViewModelProtocol {
     var doingTasks: BehaviorSubject<[Task]> { get }
     var doneTasks: BehaviorSubject<[Task]> { get }
     var entireTasks: [BehaviorSubject<[Task]>] { get }
-    
     var todoTasksCount: Observable<Int> { get }
     var doingTasksCount: Observable<Int> { get }
     var doneTasksCount: Observable<Int> { get }
@@ -16,8 +15,8 @@ protocol TaskListViewModelProtocol {
     func delete(task: Task)
     func update(task: Task, to newTask: Task)
     
-    func edit(task: Task, newTitle: String, newBody: String, newDueDate: Date)
     func edit(task: Task, newProcessStatus: ProcessStatus)
+    func edit(task: Task, newTitle: String, newBody: String, newDueDate: Date)
     func createViewControllerWithSelectedRow(at row: Int, inTableViewOf: ProcessStatus) -> UIViewController
     func didSwipeDeleteAction(at row: Int, inTableViewOf: ProcessStatus)
 }
@@ -31,14 +30,14 @@ final class TaskListViewModel: TaskListViewModelProtocol {
     let doneTasks: BehaviorSubject<[Task]>
     lazy var entireTasks = [todoTasks, doingTasks, doneTasks]
     
-    lazy var todoTasksCount: Observable<Int> = todoTasks.map { $0.count }
-    lazy var doingTasksCount: Observable<Int> = doingTasks.map { $0.count }
-    lazy var doneTasksCount: Observable<Int> = doneTasks.map { $0.count }
+    lazy var todoTasksCount: Observable<Int> = todoTasks.asObservable().map { $0.count }
+    lazy var doingTasksCount: Observable<Int> = doingTasks.asObservable().map { $0.count }
+    lazy var doneTasksCount: Observable<Int> = doneTasks.asObservable().map { $0.count }
     
     // MARK: - Initializers
     init(taskRepository: TaskRepositoryProtocol = TaskRepository()) {
         self.taskRepository = taskRepository
-        self.todoTasks = BehaviorSubject<[Task]>(value: taskRepository.todoTasks).asObserver()
+        self.todoTasks = BehaviorSubject<[Task]>(value: taskRepository.todoTasks)
         self.doingTasks = BehaviorSubject<[Task]>(value: taskRepository.doingTasks)
         self.doneTasks = BehaviorSubject<[Task]>(value: taskRepository.doneTasks)
     }
@@ -101,12 +100,6 @@ final class TaskListViewModel: TaskListViewModelProtocol {
         }
     }
     
-    // MARK: - TaskDetailView
-    func edit(task: Task, newTitle: String, newBody: String, newDueDate: Date) {
-        let newTask = Task(id: task.id, title: newTitle, body: newBody, dueDate: newDueDate, processStatus: task.processStatus)
-        update(task: task, to: newTask)
-    }
-    
     // MARK: - Popover
     func edit(task: Task, newProcessStatus: ProcessStatus) {
         guard task.processStatus != newProcessStatus else {
@@ -118,6 +111,13 @@ final class TaskListViewModel: TaskListViewModelProtocol {
         update(task: task, to: newTask)
     }
     
+    // MARK: - TaskDetailView
+    func edit(task: Task, newTitle: String, newBody: String, newDueDate: Date) {
+        let newTask = Task(id: task.id, title: newTitle, body: newBody, dueDate: newDueDate, processStatus: task.processStatus)
+        update(task: task, to: newTask)
+    }
+ 
+    // MARK: - TableView Delegate
     func createViewControllerWithSelectedRow(at row: Int, inTableViewOf: ProcessStatus) -> UIViewController {
         var taskToEdit: Task!
         switch inTableViewOf {
