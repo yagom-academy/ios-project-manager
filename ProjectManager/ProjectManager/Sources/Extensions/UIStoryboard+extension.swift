@@ -10,7 +10,6 @@ enum Storyboard: String {
     }
 }
 
-
 /// Storyboard 타입의 프로퍼티와 associatedtype 타입의 ViewModel을  정의하고 있는 프로토콜
 protocol StoryboardCreatable {
     associatedtype ViewModel
