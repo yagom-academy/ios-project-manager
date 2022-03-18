@@ -16,10 +16,6 @@ class ProjectCell: UITableViewCell {
     }
     
     private func changedDateColor(_ date: Date) {
-        if date.isPastDeadline {
-            dateLabel.textColor = .systemRed
-        } else {
-            dateLabel.textColor = .black
-        }
+        dateLabel.textColor = date.isPastDeadline ? .systemRed : .black
     }
 }
