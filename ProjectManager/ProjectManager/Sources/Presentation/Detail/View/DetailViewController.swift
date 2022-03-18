@@ -7,7 +7,9 @@ enum Placeholder {
     static let body = "1000 character limit"
 }
 
-class DetailViewController: UIViewController {
+class DetailViewController: UIViewController, StoryboardCreatable {
+    static var storyboard: Storyboard = .detail
+
     @IBOutlet private weak var titleTextField: UITextField!
     @IBOutlet private weak var datePicker: UIDatePicker!
     @IBOutlet private weak var descriptionTextView: UITextView!

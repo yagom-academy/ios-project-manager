@@ -24,14 +24,10 @@ final class MainCoordinator: Coordinator {
     }
     
     func storyboardStart() {
-        let storyboard = UIStoryboard(name: Constant.storyboardName, bundle: nil)
-        guard let main = storyboard.instantiateViewController(
-            withIdentifier: Constant.storyboardID
-        ) as? MainViewController else {
-            return
-        }
-        main.viewModel = ProjectListViewModel(coordinator: self)
-        navigationController.pushViewController(main, animated: false)
+        let viewModel = ProjectListViewModel(coordinator: self)
+        let mainViewController = MainViewController.createFromStoryboard(viewModel: viewModel)
+        
+        navigationController.pushViewController(mainViewController, animated: false)
     }
     
     func presentDetailViewController(

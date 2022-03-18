@@ -2,7 +2,9 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class MainViewController: UIViewController {
+class MainViewController: UIViewController, StoryboardCreatable {
+    static var storyboard: Storyboard = .main
+    
     enum Constant {
         static let navigationTitle = "Project Manager"
         static let headerViewHeight: CGFloat = 45

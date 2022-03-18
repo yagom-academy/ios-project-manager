@@ -20,18 +20,13 @@ final class DetailCoordinator: Coordinator {
     }
     
     func start(_ project: Project, useCase: ProjectListUseCase, mode: DetailViewModel.ViewMode) {
-        let storyboard = UIStoryboard(name: Constant.storyboardName, bundle: .main)
-        guard let detailViewController = storyboard.instantiateViewController(
-            withIdentifier: Constant.storyboardID
-        ) as? DetailViewController else {
-            return
-        }
-        detailViewController.viewModel = DetailViewModel(
+        let viewModel = DetailViewModel(
             useCase: useCase,
             coordinator: self,
             project: project,
             mode: mode
         )
+        let detailViewController = DetailViewController.createFromStoryboard(viewModel: viewModel)
         detailViewController.modalPresentationStyle = .currentContext
         navigationController.pushViewController(detailViewController, animated: true)
     }
