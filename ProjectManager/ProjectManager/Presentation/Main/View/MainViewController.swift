@@ -10,6 +10,7 @@ import RxCocoa
 
 private enum Design {
     static let stackViewSpacing = 8.0
+    static let historyBarButtonTitle = "History"
     static let addBarButtonImage = UIImage(systemName: "plus")
     static let navigationBarTitle = "Project Manager"
     static let stackViewBottomAnchorConstant = -30.0
@@ -17,6 +18,9 @@ private enum Design {
     static let stackViewBackgroundColor = UIColor.systemGray4
     static let viewBackgroundColor = UIColor.systemGray5
     static let tableViewBackgroundColor = UIColor.systemGray6
+    static let networkBarButtonImage = UIImage(systemName: "wifi.slash")
+    static let undoBarButtonTitle = "Undo"
+    static let redoBarButtonTitle = "Redo"
 }
 
 final class MainViewController: UIViewController {
@@ -36,6 +40,12 @@ final class MainViewController: UIViewController {
         return stackView
     }()
 
+    private let historyBarButton: UIBarButtonItem = {
+        let barButton = UIBarButtonItem()
+        barButton.title = Design.historyBarButtonTitle
+        return barButton
+    }()
+
     private let addBarButton: UIBarButtonItem = {
         let barButton = UIBarButtonItem()
         barButton.image = Design.addBarButtonImage
@@ -53,12 +63,37 @@ final class MainViewController: UIViewController {
     private let longPressGestureRecognizers: [UILongPressGestureRecognizer] = Progress.allCases
         .map { _ in UILongPressGestureRecognizer() }
 
+    private var networkStatusBarButton: UIBarButtonItem {
+        let barButton = UIBarButtonItem()
+        let imageButton = UIButton()
+        imageButton.setImage(Design.networkBarButtonImage, for: .normal)
+        imageButton.tintColor = .systemRed
+        UIView.animate(withDuration: 2, delay: 0, options: .repeat) {
+            imageButton.alpha = 0
+        }
+        barButton.customView = imageButton
+        return barButton
+    }
+
+    private let undoBarButton: UIBarButtonItem = {
+        let barButton = UIBarButtonItem()
+        barButton.title = Design.undoBarButtonTitle
+        return barButton
+    }()
+
+    private let redoBarButton: UIBarButtonItem = {
+        let barButton = UIBarButtonItem()
+        barButton.title = Design.redoBarButtonTitle
+        return barButton
+    }()
+
     // MARK: - Methods
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.configure()
+
     }
 }
 
@@ -86,7 +121,27 @@ private extension MainViewController {
 
     func configureNavigationBar() {
         self.title = Design.navigationBarTitle
+        self.navigationItem.leftBarButtonItem = self.historyBarButton
         self.navigationItem.rightBarButtonItem = self.addBarButton
+
+        self.navigationController?.setToolbarHidden(false, animated: true)
+        let flexibleItem = UIBarButtonItem(
+            barButtonSystemItem: .flexibleSpace,
+            target: self,
+            action: nil
+        )
+
+        self.setToolbarItems([
+            self.networkStatusBarButton,
+            flexibleItem,
+            self.undoBarButton,
+            self.redoBarButton
+        ], animated: true)
+
+        NetworkCheck.shared.isConnected
+            .debug()
+            .bind(to: self.toolbarItems!.first!.customView!.rx.isHidden)
+            .disposed(by: self.bag)
     }
 
     func configureConstraint() {
@@ -97,8 +152,7 @@ private extension MainViewController {
             self.stackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
             self.stackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             self.stackView.bottomAnchor.constraint(
-                equalTo: safeAreaLayoutGuide.bottomAnchor,
-                constant: Design.stackViewBottomAnchorConstant
+                equalTo: safeAreaLayoutGuide.bottomAnchor
             )
         ])
     }
