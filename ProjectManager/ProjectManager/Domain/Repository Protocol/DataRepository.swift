@@ -1,4 +1,5 @@
 import Foundation
+import RxSwift
 
 protocol DataRepository {
     
@@ -15,5 +16,7 @@ protocol DataRepository {
     
     func fetch()
     
-    func extractAll() -> [Listable] 
+    func extractAll() -> [Listable]
+    
+    func extractRxAll() -> Observable<[Listable]>
 }

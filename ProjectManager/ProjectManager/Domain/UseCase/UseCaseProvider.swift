@@ -1,10 +1,13 @@
 import Foundation
 import RxSwift
+import RxRelay
 
-protocol ProjectManagingUseCase {
+protocol UseCaseProvider {
     
     var repository: DataRepository? { get set }
     var differenceHistories: [(state: ManageState, identifier: String, object: Listable)] { get set }
+    var rxLists: BehaviorRelay<[Listable]> { get set }
+    
     func createProject(object: Listable)
     
     func readProject(identifier: String) -> Listable?
@@ -19,12 +22,7 @@ protocol ProjectManagingUseCase {
     func sortProjectProgressState(state: ProgressState) -> Observable<[Listable]>
     
     func saveDifference(method: ManageState, identifier: String, object: Listable)
+    
+    func fetch()
 }
 
-
-enum ManageState {
-    case create
-    case read
-    case delete
-    case update
-}

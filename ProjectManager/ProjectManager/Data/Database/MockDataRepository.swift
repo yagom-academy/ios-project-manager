@@ -3,15 +3,10 @@ import RxSwift
 
 class MockDataRepository: DataRepository {
     
-    private var dataBase = [Listable]()
+    var dataBase = [Listable]()
     
     func create(object: Listable) {
-        guard let projectMock = self.extractMockList()
-        else {
-            return
-        }
-        
-        self.dataBase.append(projectMock)
+        self.dataBase.append(object)
     }
     
     func read(identifier: String) -> Listable? {
@@ -34,6 +29,14 @@ class MockDataRepository: DataRepository {
 
     func extractAll() -> [Listable] {
         return self.dataBase
+    }
+    
+    func extractRxAll() -> Observable<[Listable]> {
+        return Observable.create { emitter in
+            let list = self.extractAll()
+            emitter.onNext(list)
+        return Disposables.create()
+        }
     }
     
     private func extractMockList() -> Listable? {

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1828FF6A27E09521008C23EE /* ManageState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1828FF6927E09521008C23EE /* ManageState.swift */; };
+		182C21F427E30D7200694364 /* TableViewHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182C21F327E30D7200694364 /* TableViewHeaderView.swift */; };
+		182C21F627E313C900694364 /* DetailAddViewModelState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182C21F527E313C900694364 /* DetailAddViewModelState.swift */; };
 		18688D5227DA4160001A7C7A /* ProjectUITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18688D5127DA4160001A7C7A /* ProjectUITableViewCell.swift */; };
 		18688D5527DAF5B2001A7C7A /* DetailAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18688D5427DAF5B2001A7C7A /* DetailAddViewController.swift */; };
 		18688D5927DC9189001A7C7A /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18688D5827DC9188001A7C7A /* MainCoordinator.swift */; };
@@ -30,7 +33,7 @@
 		189DD50F27D1110D00395CF4 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189DD50E27D1110D00395CF4 /* MainViewModel.swift */; };
 		189DD51227D1F7D400395CF4 /* CDProject.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 189DD51027D1F7D400395CF4 /* CDProject.xcdatamodeld */; };
 		189DD55327D571D100395CF4 /* ProjectManagerUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189DD55227D571D100395CF4 /* ProjectManagerUseCase.swift */; };
-		189DD55527D5720300395CF4 /* ProjectManagingUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189DD55427D5720300395CF4 /* ProjectManagingUseCase.swift */; };
+		189DD55527D5720300395CF4 /* UseCaseProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189DD55427D5720300395CF4 /* UseCaseProvider.swift */; };
 		189DD57C27D6995900395CF4 /* Encodable + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189DD57B27D6995900395CF4 /* Encodable + Extensions.swift */; };
 		189DD58D27D6FF8400395CF4 /* CDProject+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189DD58B27D6FF8400395CF4 /* CDProject+CoreDataClass.swift */; };
 		189DD58E27D6FF8400395CF4 /* CDProject+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189DD58C27D6FF8400395CF4 /* CDProject+CoreDataProperties.swift */; };
@@ -49,6 +52,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1828FF6927E09521008C23EE /* ManageState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageState.swift; sourceTree = "<group>"; };
+		182C21F327E30D7200694364 /* TableViewHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewHeaderView.swift; sourceTree = "<group>"; };
+		182C21F527E313C900694364 /* DetailAddViewModelState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailAddViewModelState.swift; sourceTree = "<group>"; };
 		18688D5127DA4160001A7C7A /* ProjectUITableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectUITableViewCell.swift; sourceTree = "<group>"; };
 		18688D5427DAF5B2001A7C7A /* DetailAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailAddViewController.swift; sourceTree = "<group>"; };
 		18688D5827DC9188001A7C7A /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
@@ -67,7 +73,7 @@
 		189DD50E27D1110D00395CF4 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		189DD51127D1F7D400395CF4 /* CDProject.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CDProject.xcdatamodel; sourceTree = "<group>"; };
 		189DD55227D571D100395CF4 /* ProjectManagerUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerUseCase.swift; sourceTree = "<group>"; };
-		189DD55427D5720300395CF4 /* ProjectManagingUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagingUseCase.swift; sourceTree = "<group>"; };
+		189DD55427D5720300395CF4 /* UseCaseProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseCaseProvider.swift; sourceTree = "<group>"; };
 		189DD57B27D6995900395CF4 /* Encodable + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable + Extensions.swift"; sourceTree = "<group>"; };
 		189DD58B27D6FF8400395CF4 /* CDProject+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDProject+CoreDataClass.swift"; sourceTree = "<group>"; };
 		189DD58C27D6FF8400395CF4 /* CDProject+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDProject+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -103,6 +109,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		182C21F727E4711600694364 /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+				189DD55427D5720300395CF4 /* UseCaseProvider.swift */,
+				189DD55227D571D100395CF4 /* ProjectManagerUseCase.swift */,
+			);
+			path = UseCase;
+			sourceTree = "<group>";
+		};
+		182C21F827E4712000694364 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				189DD4F527D0FF7F00395CF4 /* Project.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		182C21F927E4715C00694364 /* Repository Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				189DD4F927D1015C00395CF4 /* DataRepository.swift */,
+			);
+			path = "Repository Protocol";
+			sourceTree = "<group>";
+		};
 		18688D5327DAF560001A7C7A /* DetailAddView */ = {
 			isa = PBXGroup;
 			children = (
@@ -117,6 +148,7 @@
 			children = (
 				18688D5427DAF5B2001A7C7A /* DetailAddViewController.swift */,
 				18688D6227DD15ED001A7C7A /* ProjectDetailUIView.swift */,
+				182C21F327E30D7200694364 /* TableViewHeaderView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -125,6 +157,7 @@
 			isa = PBXGroup;
 			children = (
 				18D8A13927DF03DB0002351F /* DetailAddViewModel.swift */,
+				182C21F527E313C900694364 /* DetailAddViewModelState.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -165,10 +198,10 @@
 			isa = PBXGroup;
 			children = (
 				18688D5F27DD1569001A7C7A /* Coordinator */,
-				18D8A13227DF003B0002351F /* Protocol */,
 				189DD54F27D56FBA00395CF4 /* MainView */,
 				18688D5327DAF560001A7C7A /* DetailAddView */,
 				18688D5A27DD14B5001A7C7A /* DetailUpdateView */,
+				18D8A13227DF003B0002351F /* Protocol */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -185,7 +218,6 @@
 		189DD4F327D0FF1100395CF4 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				189DD4F527D0FF7F00395CF4 /* Project.swift */,
 				189DD58B27D6FF8400395CF4 /* CDProject+CoreDataClass.swift */,
 				189DD58C27D6FF8400395CF4 /* CDProject+CoreDataProperties.swift */,
 				189DD50D27D10DAA00395CF4 /* Database */,
@@ -207,7 +239,6 @@
 			isa = PBXGroup;
 			children = (
 				189DD4F727D1010400395CF4 /* Listable.swift */,
-				189DD4F927D1015C00395CF4 /* DataRepository.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -247,8 +278,9 @@
 		189DD55127D571B700395CF4 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
-				189DD55227D571D100395CF4 /* ProjectManagerUseCase.swift */,
-				189DD55427D5720300395CF4 /* ProjectManagingUseCase.swift */,
+				182C21F727E4711600694364 /* UseCase */,
+				182C21F927E4715C00694364 /* Repository Protocol */,
+				182C21F827E4712000694364 /* Entity */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -257,6 +289,7 @@
 			isa = PBXGroup;
 			children = (
 				189DD59027D7004F00395CF4 /* ProgressState.swift */,
+				1828FF6927E09521008C23EE /* ManageState.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -399,6 +432,7 @@
 				189DD58E27D6FF8400395CF4 /* CDProject+CoreDataProperties.swift in Sources */,
 				18688D5527DAF5B2001A7C7A /* DetailAddViewController.swift in Sources */,
 				189DD50F27D1110D00395CF4 /* MainViewModel.swift in Sources */,
+				182C21F627E313C900694364 /* DetailAddViewModelState.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				18688D5927DC9189001A7C7A /* MainCoordinator.swift in Sources */,
 				18688D6327DD15ED001A7C7A /* ProjectDetailUIView.swift in Sources */,
@@ -407,7 +441,8 @@
 				189DD4FA27D1015C00395CF4 /* DataRepository.swift in Sources */,
 				189DD59127D7004F00395CF4 /* ProgressState.swift in Sources */,
 				18D8A16427DFD6B90002351F /* Collection + Extension.swift in Sources */,
-				189DD55527D5720300395CF4 /* ProjectManagingUseCase.swift in Sources */,
+				182C21F427E30D7200694364 /* TableViewHeaderView.swift in Sources */,
+				189DD55527D5720300395CF4 /* UseCaseProvider.swift in Sources */,
 				18688D5E27DD155B001A7C7A /* DetailUpdateViewController.swift in Sources */,
 				18688D6727DD1D19001A7C7A /* MainUIView.swift in Sources */,
 				189DD4F827D1010400395CF4 /* Listable.swift in Sources */,
@@ -416,6 +451,7 @@
 				18D8A16227DFC9C70002351F /* Dateformatter + Extension.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				189DD50327D106FA00395CF4 /* RepositoryChecker.swift in Sources */,
+				1828FF6A27E09521008C23EE /* ManageState.swift in Sources */,
 				189DD50127D1050500395CF4 /* RepositoryType.swift in Sources */,
 				189DD4F627D0FF8000395CF4 /* Project.swift in Sources */,
 				18D8A13827DF02260002351F /* ViewModel.swift in Sources */,

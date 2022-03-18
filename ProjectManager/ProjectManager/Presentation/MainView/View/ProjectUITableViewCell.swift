@@ -4,8 +4,7 @@ class ProjectUITableViewCell: UITableViewCell {
     
     private let nameLabel: UILabel = {
         let label = UILabel()
-        label.font = .preferredFont(forTextStyle: .title1)
-        label.text = "name"
+        label.font = .preferredFont(forTextStyle: .caption1)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -13,16 +12,14 @@ class ProjectUITableViewCell: UITableViewCell {
     private let detailLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 3
-        label.font = .preferredFont(forTextStyle: .body)
-        label.text = "detail"
+        label.font = .preferredFont(forTextStyle: .caption1)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private let deadLineLabel: UILabel = {
         let label = UILabel()
-        label.font = .preferredFont(forTextStyle: .body)
-        label.text = "deadline"
+        label.font = .preferredFont(forTextStyle: .caption1)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -38,7 +35,7 @@ class ProjectUITableViewCell: UITableViewCell {
         stackView.axis = .vertical
         stackView.distribution = .equalSpacing
         stackView.spacing = 5.0
-        stackView.alignment = .leading
+        stackView.alignment = .center
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView
@@ -50,9 +47,14 @@ class ProjectUITableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.backgroundColor = .red
         addViews()
         configureLayout()
+    }
+    
+    func configureCellUI(data: Listable) {
+        self.nameLabel.text = data.name
+        self.deadLineLabel.text = data.deadline.description
+        self.detailLabel.text = data.detail
     }
     
     private func addViews() {

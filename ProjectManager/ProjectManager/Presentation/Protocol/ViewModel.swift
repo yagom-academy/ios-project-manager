@@ -1,7 +1,8 @@
 import UIKit
+import RxRelay
 
 protocol ViewModel {
     
-    var useCase: ProjectManagingUseCase { get set }
+    var useCase: UseCaseProvider { get set }
     var coordinator: Coordinator? { get set }
 }

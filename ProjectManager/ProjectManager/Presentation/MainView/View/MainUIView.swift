@@ -2,47 +2,41 @@ import UIKit
 
 class MainUIView: UIView {
 
-    private let todoTableView: UITableView = {
+    let todoTableView: UITableView = {
         let tableview = UITableView(frame: .zero)
         tableview.register(
             ProjectUITableViewCell.self,
-            forCellReuseIdentifier: String(describing: ProjectUITableViewCell())
+            forCellReuseIdentifier: String(describing: ProjectUITableViewCell.self)
         )
         tableview.translatesAutoresizingMaskIntoConstraints = false
         return tableview
     }()
     
-    private let doingTableView: UITableView = {
-        let tableview = UITableView()
+    let doingTableView: UITableView = {
+        let tableview = UITableView(frame: .zero)
         tableview.register(
             ProjectUITableViewCell.self,
-            forCellReuseIdentifier: String(describing: ProjectUITableViewCell())
+            forCellReuseIdentifier: String(describing: ProjectUITableViewCell.self)
         )
         tableview.translatesAutoresizingMaskIntoConstraints = false
         return tableview
     }()
     
-    private let doneTableView: UITableView = {
-        let tableview = UITableView()
+    let doneTableView: UITableView = {
+        let tableview = UITableView(frame: .zero)
         tableview.register(
             ProjectUITableViewCell.self,
-            forCellReuseIdentifier: String(describing: ProjectUITableViewCell())
+            forCellReuseIdentifier: String(describing: ProjectUITableViewCell.self)
         )
         tableview.translatesAutoresizingMaskIntoConstraints = false
         return tableview
     }()
     
-    private lazy var stackView: UIStackView = {
-        let stackView = UIStackView(
-            arrangedSubviews: [
-                self.todoTableView,
-                self.doingTableView,
-                self.doneTableView
-            ]
-        )
+    private var stackView: UIStackView = {
+        let stackView = UIStackView()
         stackView.axis = .horizontal
-        stackView.distribution = .equalSpacing
-        stackView.spacing = 10.0
+        stackView.distribution = .fillEqually
+        stackView.alignment = .fill
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView
@@ -63,10 +57,14 @@ class MainUIView: UIView {
     }
     
     private func configureLayout() {
+        let tableviews = [todoTableView,doingTableView,doneTableView]
+        tableviews.forEach{ stackView.addArrangedSubview($0) }
+        
         NSLayoutConstraint.activate([
             stackView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor),
             stackView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor),
-            stackView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 10)
+            stackView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 10),
+            stackView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
 }

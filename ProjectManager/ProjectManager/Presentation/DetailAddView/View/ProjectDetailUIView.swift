@@ -2,42 +2,39 @@ import UIKit
 
 class ProjectDetailUIView: UIView {
     
-    private let textfield: UITextField = {
+    let textfield: UITextField = {
         let textfield = UITextField(frame: .zero)
         textfield.placeholder = "Title"
         textfield.layer.borderColor = UIColor.gray.cgColor
         textfield.layer.borderWidth = 0.5
         textfield.translatesAutoresizingMaskIntoConstraints = false
+        
         return textfield
     }()
     
-    private let datePicker: UIDatePicker = {
+    let datePicker: UIDatePicker = {
            let datePicker = UIDatePicker()
            datePicker.datePickerMode = .date
            if #available(iOS 13.5, *) {
                datePicker.preferredDatePickerStyle = .wheels
                }
+        
            return datePicker
        }()
     
-    private let textView: UITextView = {
+    let textView: UITextView = {
         let textView = UITextView()
         textView.layer.borderWidth = 1.0
         textView.layer.borderColor = UIColor.gray.cgColor
         textView.font = .preferredFont(forTextStyle: .body)
         textView.insertText("Body")
         textView.translatesAutoresizingMaskIntoConstraints = false
+        
         return textView
     }()
     
-    private lazy var stackView: UIStackView = {
-        let stackView = UIStackView(
-            arrangedSubviews: [
-                self.textfield,
-                self.datePicker,
-                self.textView
-            ]
-        )
+     let stackView: UIStackView = {
+        let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.distribution = .fill
         stackView.alignment = .center
@@ -61,6 +58,11 @@ class ProjectDetailUIView: UIView {
     }
     
     private func configureLayout() {
+        
+        let viewComponents = [textfield, datePicker, textView]
+        viewComponents.forEach { component in
+            stackView.addArrangedSubview(component)
+        }
         
         NSLayoutConstraint.activate([
             self.textfield.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, multiplier: 0.9),

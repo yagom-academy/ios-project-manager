@@ -1,17 +1,23 @@
 import Foundation
 import RxSwift
+import RxRelay
 
 final class ProjectManagerUseCase: ProjectManagingUseCase {
     
     var differenceHistories: [(state: ManageState, identifier: String, object: Listable)] = [] 
     var repository: DataRepository?
-
+    var rxLists = BehaviorRelay<[Listable]>(value: []) 
+    let disposeBag = DisposeBag()
+    
     init(repository: DataRepository) {
         self.repository = repository
     }
    
     func createProject(object: Listable) {
         self.repository?.create(object: object)
+        var current = rxLists.value
+        current.append(object)
+        self.rxLists.accept(current)
     }
     
     func readProject(identifier: String) -> Listable? {
@@ -35,8 +41,14 @@ final class ProjectManagerUseCase: ProjectManagingUseCase {
         return Observable.of(filteredList)
     }
     
+    func fetch() {
+        repository?.extractRxAll()
+        .subscribe( onNext: { project in
+            self.rxLists.accept(project)
+        }).disposed(by: self.disposeBag)
+    }
+    
     func saveDifference(method: ManageState, identifier: String, object: Listable) {
         differenceHistories.append((state: method, identifier: identifier, object: object))
     }
-    
 }

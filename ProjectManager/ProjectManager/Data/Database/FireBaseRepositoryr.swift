@@ -1,6 +1,7 @@
 import Foundation
 import Firebase
 import FirebaseFirestore
+import RxSwift
 
 final class FireStoreRepository: DataRepository {
     
@@ -57,11 +58,21 @@ final class FireStoreRepository: DataRepository {
         return list
     }
     
-    private func convertListToAttributes(from list: Listable) -> [String: Any] {
-        guard let attributes = try? list.toJson()
-        else {
-            return [:]
+    func extractRxAll() -> Observable<[Listable]> {
+        return Observable.create { emitter in
+            let lists = self.extractAll()
+            emitter.onNext(lists)
+            return Disposables.create()
         }
+    }
+    
+    private func convertListToAttributes(from list: Listable) -> [String: Any] {
+        var attributes = [String: Any]()
+        attributes.updateValue(list.name, forKey: "name")
+        attributes.updateValue(list.detail, forKey: "detail")
+        attributes.updateValue(list.identifier, forKey: "identifier")
+        attributes.updateValue(list.progressState, forKey: "progressState")
+        attributes.updateValue(list.deadline, forKey: "deadline")
         return attributes
     }
     
