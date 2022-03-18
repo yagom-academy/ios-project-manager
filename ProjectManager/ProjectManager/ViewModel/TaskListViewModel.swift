@@ -19,7 +19,7 @@ protocol TaskListViewModelProtocol {
     func edit(task: Task, newTitle: String, newBody: String, newDueDate: Date)
     func createViewControllerForTaskAdd() -> UIViewController
     func createViewControllerForSelectedRow(at row: Int, inTableViewOf: ProcessStatus) -> UIViewController
-    func didSwipeDeleteAction(at row: Int, inTableViewOf: ProcessStatus)
+    func didSwipeDeleteAction(for row: Int, inTableViewOf: ProcessStatus)
 }
 
 // TODO: MVVM - Input/Output 구분
@@ -145,7 +145,7 @@ final class TaskListViewModel: TaskListViewModelProtocol {
         return taskDetailController
     }
     
-    func didSwipeDeleteAction(at row: Int, inTableViewOf: ProcessStatus) {
+    func didSwipeDeleteAction(for row: Int, inTableViewOf: ProcessStatus) {
         var taskToDelete: Task!
         switch inTableViewOf {
         case .todo:

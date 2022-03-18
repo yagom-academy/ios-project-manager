@@ -2,6 +2,11 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+private enum Design {
+    static let swipeDeleteTitle = "Delete"
+    static let swipeDeleteImageName = "xmark.bin.fill"
+}
+
 final class TaskListViewController: UIViewController {
     // MARK: - Properties
     private var taskListViewModel: TaskListViewModelProtocol!
@@ -136,11 +141,11 @@ extension TaskListViewController: UITableViewDelegate {
     }
     
     func createSwipeDeleteAction(for taskAtRow: Int, ofProcessStatus: ProcessStatus) -> UIContextualAction {
-        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] _, _, handler in
-            self?.taskListViewModel.didSwipeDeleteAction(at: taskAtRow, inTableViewOf: ofProcessStatus)
+        let deleteAction = UIContextualAction(style: .destructive, title: Design.swipeDeleteTitle) { [weak self] _, _, handler in
+            self?.taskListViewModel.didSwipeDeleteAction(for: taskAtRow, inTableViewOf: ofProcessStatus)
             handler(true)
         }
-        deleteAction.image = UIImage(systemName: "xmark.bin.fill")
+        deleteAction.image = UIImage(systemName: Design.swipeDeleteImageName)
         
         return deleteAction
     }

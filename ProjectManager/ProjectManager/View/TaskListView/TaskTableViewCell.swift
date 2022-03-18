@@ -56,7 +56,6 @@ final class TaskTableViewCell: UITableViewCell {
     
     @objc private func didLongPressed(_ gestureRecognizer: UILongPressGestureRecognizer) {
         if gestureRecognizer.state == .began {
-            print("longpressed")
             presentPopoverToChangeProcessStatus()
         }
     }
