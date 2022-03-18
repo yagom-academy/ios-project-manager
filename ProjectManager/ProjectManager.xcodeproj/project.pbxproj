@@ -326,6 +326,14 @@
 			path = Protocol;
 			sourceTree = "<group>";
 		};
+		37CC927227E44B21003F1122 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				33F62BD527E1FCBE00DF592F /* NetworkCheck.swift */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
 		37FB8D9427D1DDF400ED9AE2 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
@@ -368,8 +376,8 @@
 			isa = PBXGroup;
 			children = (
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
-				33F62BD527E1FCBE00DF592F /* NetworkCheck.swift */,
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
+				37CC927227E44B21003F1122 /* Utility */,
 				33B6321F27D7527800EB169D /* Extension */,
 				37CC921927D86FF7003F1122 /* Presentation */,
 				37FB8D9427D1DDF400ED9AE2 /* Domain */,
