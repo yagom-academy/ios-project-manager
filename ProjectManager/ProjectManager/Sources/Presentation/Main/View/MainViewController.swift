@@ -93,18 +93,18 @@ extension MainViewController: UITableViewDelegate {
         switch tableView {
         case todoTableView:
             headerView.configure(
-                title: ProjectState.todo.rawValue,
-                count: viewModel?.projectList[ProjectState.todo.index].count ?? .zero
+                title: ProjectState.todo.description,
+                count: viewModel?.projectList[ProjectState.todo.rawValue].count ?? .zero
             )
         case doingTableView:
             headerView.configure(
-                title: ProjectState.doing.rawValue,
-                count: viewModel?.projectList[ProjectState.doing.index].count ?? .zero
+                title: ProjectState.doing.description,
+                count: viewModel?.projectList[ProjectState.doing.rawValue].count ?? .zero
             )
         case doneTableView:
             headerView.configure(
-                title: ProjectState.done.rawValue,
-                count: viewModel?.projectList[ProjectState.done.index].count ?? .zero
+                title: ProjectState.done.description,
+                count: viewModel?.projectList[ProjectState.done.rawValue].count ?? .zero
             )
         default:
             break

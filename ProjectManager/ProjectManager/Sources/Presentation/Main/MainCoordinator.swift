@@ -53,7 +53,7 @@ final class MainCoordinator: Coordinator {
             let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
             for index in 0..<ActionType.allCases.count {
                 let action = UIAlertAction(title: "\(Constant.actionTitle)\(titles[index])", style: .default) { _ in
-                    observer.onNext(ProjectState(rawValue: titles[index]) ?? ProjectState.todo)
+                    observer.onNext(ProjectState.uppercased(titles[index]))
                     observer.onCompleted()
                 }
                 alert.addAction(action)

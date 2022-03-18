@@ -35,8 +35,8 @@ final class ProjectListViewModel {
             self.allProjects = newProjects.sorted { $0.date < $1.date }
             ProjectState.allCases.forEach { state in
                 let filteredData = self.allProjects.filter { $0.status == state }
-                self.projectList[state.index] = filteredData
-                projectList[state.index].onNext(filteredData)
+                self.projectList[state.rawValue] = filteredData
+                projectList[state.rawValue].onNext(filteredData)
             }
         }).disposed(by: disposeBag)
         

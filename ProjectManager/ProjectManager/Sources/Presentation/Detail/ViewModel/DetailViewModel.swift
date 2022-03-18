@@ -106,7 +106,7 @@ final class DetailViewModel {
             projectDescription: Observable.just(project.description == "" ? Placeholder.body : project.description),
             isEditable: isEditable.asObservable(),
             leftBarButtonText: mode == .add ? Observable.just("Cancel") : Observable.just("Edit"),
-            navigationTitle: Observable.just(project.status.rawValue),
+            navigationTitle: Observable.just(project.status.description),
             isDescriptionTextValid: isDescriptionTextValid.asObservable()
         )
         
