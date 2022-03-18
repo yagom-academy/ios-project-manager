@@ -27,7 +27,7 @@ class ProjectCoreDataBase {
     func read(of status: Status) -> [Project]? {
         let results = self.fetch(of: status)
         let projects = results?.compactMap({ project in
-            return Project(identifier: UUID(uuidString: project.identifier ?? " "),
+            return Project(identifier: project.identifier ,
                     title: project.title,
                     deadline: project.deadline,
                     description: project.descriptions,
@@ -90,7 +90,7 @@ extension ProjectCoreDataBase: LocalDataBase {
     
     func create(with content: [String : Any]) {
         let project = CDProject(context: context)
-        project.identifier = UUID().uuidString
+        project.identifier = content["identifier"] as? String
         project.title = content["title"] as? String
         project.descriptions = content["description"] as? String
         project.deadline = content["deadline"] as? Date
@@ -101,7 +101,7 @@ extension ProjectCoreDataBase: LocalDataBase {
     
     func read<T>(of identifier: T) -> Project? where T : CustomStringConvertible, T : Hashable {
         let result = self.fetch(of: identifier)
-        let project = Project(identifier: UUID(uuidString: result?.identifier ?? " "),
+        let project = Project(identifier: result?.identifier,
                               title: result?.title,
                               deadline: result?.deadline,
                               description: result?.descriptions,

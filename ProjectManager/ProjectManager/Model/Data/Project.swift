@@ -10,7 +10,7 @@ import Foundation
 struct Project: Hashable {
     
     // MARK: - Property
-    let identifier: UUID?
+    let identifier: String?
     private (set) var title: String?
     private (set) var deadline: Date?
     private (set) var description: String?

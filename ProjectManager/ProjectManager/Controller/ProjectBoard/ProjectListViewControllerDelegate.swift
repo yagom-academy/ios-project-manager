@@ -11,9 +11,9 @@ protocol ProjectListViewControllerDelegate: AnyObject {
     
     func readProject(of status: Status) -> [Project]?
     
-    func updateProject(of identifier: UUID, with content: [String: Any])
+    func updateProject(of identifier: String, with content: [String: Any])
     
-    func updateProjectStatus(of identifier: UUID, with status: Status)
+    func updateProjectStatus(of identifier: String, with status: Status)
     
-    func deleteProject(of identifier: UUID)
+    func deleteProject(of identifier: String)
 }

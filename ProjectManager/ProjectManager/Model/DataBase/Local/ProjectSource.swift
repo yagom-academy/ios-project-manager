@@ -16,13 +16,15 @@ final class ProjectSource<T: Hashable & CustomStringConvertible>: LocalDataBase 
     
     // MARK: - Method
     func create(with content: [String: Any]) {
-        let identifier = UUID()
+        guard let identifier = content["identifier"] as? String else {
+            return
+        }
         let newProject = Project(identifier: identifier,
                                  title: content["title"] as? String,
                                  deadline: content["deadline"] as? Date,
                                  description: content["description"] as? String,
                                  status: content["status"] as? Status)
-        projects.updateValue(newProject, forKey: identifier.uuidString)
+        projects.updateValue(newProject, forKey: identifier)
     }
     
     func read<T>(of identifier: T) -> Project? where T : Hashable & CustomStringConvertible {

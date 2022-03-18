@@ -178,7 +178,7 @@ final class ProjectListViewController: UIViewController {
     }
     
     private func firstStatusModificationPopoverUIAlertAction(
-        with identifier: UUID
+        with identifier: String
     ) -> UIAlertAction {
         
         switch projectStatus {
@@ -215,7 +215,7 @@ final class ProjectListViewController: UIViewController {
     }
     
     private func secondStatusModificationPopoverUIAlertAction(
-        with identifier: UUID
+        with identifier: String
     ) -> UIAlertAction {
         
         switch projectStatus {
@@ -294,7 +294,7 @@ extension ProjectListViewController: UITableViewDelegate {
 // MARK: - ProjectEditViewControllerDelegate
 extension ProjectListViewController: ProjectEditDelegate {
     
-    func updateProject(of identifier: UUID, with content: [String: Any]) {
+    func updateProject(of identifier: String, with content: [String: Any]) {
         delegate?.updateProject(of: identifier, with: content)
     }
 }

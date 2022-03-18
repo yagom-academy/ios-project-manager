@@ -16,7 +16,7 @@ protocol ProjectCreationDelegate: AnyObject {
 // MARK: - ProjectEditDelegate
 protocol ProjectEditDelegate: AnyObject {
     
-    func updateProject(of identifier: UUID, with content: [String: Any])
+    func updateProject(of identifier: String, with content: [String: Any])
 }
 
 // MARK: - ProjectViewController
@@ -210,6 +210,7 @@ final class ProjectViewController: UIViewController {
     
     @objc func dismissWithCreation() {
         var content: [String: Any] = [:]
+        content.updateValue(UUID().uuidString as Any, forKey: "identifier")
         content.updateValue(titleTextField.text as Any, forKey: "title")
         content.updateValue(datePicker.date as Any, forKey: "deadline")
         content.updateValue(descriptionTextView.text as Any, forKey: "description")

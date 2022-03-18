@@ -17,7 +17,7 @@ final class ProjectManager {
         projectSource.create(with: content)
     }
     
-    func readProject(of identifier: UUID) -> Project? {
+    func readProject(of identifier: String) -> Project? {
         return projectSource.read(of: identifier)
     }
     
@@ -25,15 +25,15 @@ final class ProjectManager {
         return projectSource.read(of: status)
     }
     
-    func updateProjectContent(of identifier: UUID, with content: [String: Any]) {
+    func updateProjectContent(of identifier: String, with content: [String: Any]) {
         projectSource.update(of: identifier, with: content)
     }
     
-    func updateProjectStatus(of identifier: UUID, with status: Status) {
+    func updateProjectStatus(of identifier: String, with status: Status) {
         projectSource.update(of: identifier, with: status)
     }
     
-    func delete(of identifier: UUID) {
+    func delete(of identifier: String) {
         projectSource.delete(of: identifier)
     }
 }
