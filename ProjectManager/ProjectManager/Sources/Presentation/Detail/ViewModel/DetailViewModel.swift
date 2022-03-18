@@ -59,11 +59,8 @@ final class DetailViewModel {
         input.didChangeDescription
             .withUnretained(self).subscribe(onNext: { owner, text in
                 currentDescription.accept(text)
-                if owner.useCase.isNotValidate(text) {
-                    isDescriptionTextValid.accept(false)
-                } else {
-                    isDescriptionTextValid.accept(true)
-                }
+                let isValidText = !owner.useCase.isNotValidate(text)
+                isDescriptionTextValid.accept(isValidText)
             }).disposed(by: disposeBag)
         
         input.didTapRightBarButton
