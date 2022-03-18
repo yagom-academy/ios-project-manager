@@ -99,11 +99,16 @@ private extension Schedule {
         self.title = storableSchedule.title
         self.body = storableSchedule.body
         switch storableSchedule.progress {
-        case "TODO":  self.progress = Progress.todo
-        case "DOING":  self.progress = Progress.doing
-        case "DONE":  self.progress = Progress.done
-        default:  self.progress = Progress.todo
+        case "TODO":
+            self.progress = Progress.todo
+        case "DOING":
+            self.progress = Progress.doing
+        case "DONE":
+            self.progress = Progress.done
+        default:
+            self.progress = Progress.todo
         }
         self.dueDate = storableSchedule.dueDate
+        self.lastUpdated = storableSchedule.lastUpdated
     }
 }
