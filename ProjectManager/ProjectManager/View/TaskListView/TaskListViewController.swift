@@ -128,16 +128,21 @@ extension TaskListViewController: UITableViewDelegate {
                   return UISwipeActionsConfiguration()
               }
         
-        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] _, _, handler in
-            self?.taskListViewModel.didSwipeDeleteAction(at: indexPath.row, inTableViewOf: selectedProcessStatus)
-            handler(true)  
-        }
-        deleteAction.image = UIImage(systemName: "xmark.bin.fill")
-        
+        let deleteAction = createSwipeDeleteAction(for: indexPath.row, ofProcessStatus: selectedProcessStatus)
         let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
         configuration.performsFirstActionWithFullSwipe = true
         
         return configuration
+    }
+    
+    func createSwipeDeleteAction(for taskAtRow: Int, ofProcessStatus: ProcessStatus) -> UIContextualAction {
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] _, _, handler in
+            self?.taskListViewModel.didSwipeDeleteAction(at: taskAtRow, inTableViewOf: ofProcessStatus)
+            handler(true)
+        }
+        deleteAction.image = UIImage(systemName: "xmark.bin.fill")
+        
+        return deleteAction
     }
 }
 
