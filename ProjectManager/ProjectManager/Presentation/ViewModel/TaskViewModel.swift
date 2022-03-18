@@ -8,6 +8,7 @@ protocol TaskViewModel {
     var countOfTaskList: Int { get }
 
     func fetchTaskList(at index: Int) -> TaskList?
+    func fetchTaskList(by listName: String) -> TaskList?
     func fetchTask(at index: Int, in listTitle: String) -> Task?
 
     func reloadTaskList()

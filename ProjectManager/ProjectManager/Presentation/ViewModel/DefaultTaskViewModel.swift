@@ -23,9 +23,13 @@ final class DefaultTaskViewModel: TaskViewModel {
         return taskLists[safe: index] ?? nil
     }
 
-    func fetchTask(at index: Int, in listTitle: String) -> Task? {
-        guard let listIndex = taskLists.firstIndex(where: { $0.title == listTitle }) else { return nil }
-        return taskLists[listIndex].items[safe: index]
+    func fetchTaskList(by listName: String) -> TaskList? {
+        guard let listIndex = taskLists.firstIndex(where: { $0.title == listName }) else { return nil }
+        return taskLists[listIndex]
+    }
+
+    func fetchTask(at index: Int, in listName: String) -> Task? {
+        return fetchTaskList(by: listName)?.items[safe: index]
     }
 
     func reloadTaskList() {
@@ -36,9 +40,7 @@ final class DefaultTaskViewModel: TaskViewModel {
         repository.read { [weak self] allTaskList in
             guard let self = self else { return }
             let convertedTaskList = self.convertToTaskList(from: allTaskList)
-            DispatchQueue.main.async {
-                self.taskLists = convertedTaskList
-            }
+            self.taskLists = convertedTaskList
         }
     }
 

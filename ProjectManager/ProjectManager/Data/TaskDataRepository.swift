@@ -1,7 +1,7 @@
 import CoreData
 
 protocol TaskRepository {
-    func saveContext()
+    func saveContext(completed: @escaping (Bool) -> Void)
 
     func create(taskListModel: TaskListModel, completed: @escaping (Bool) -> Void)
     func read(completed: @escaping ([TaskListModel]) -> Void)
@@ -38,16 +38,7 @@ final class TaskDataRepository: TaskRepository {
         try? controller.performFetch()
     }
 
-    func save(completed: @escaping (Bool) -> Void) {
-        DispatchQueue.global().async {
-            self.saveContext()
-            DispatchQueue.main.async {
-                completed(true)
-            }
-        }
-    }
-
-    func saveContext() {
+    func saveContext(completed: @escaping (Bool) -> Void) {
         let context = self.persistentContainer.viewContext
         if context.hasChanges {
             do {
@@ -59,23 +50,21 @@ final class TaskDataRepository: TaskRepository {
                 #endif
             }
         }
+        completed(true)
     }
 
     func create(taskListModel: TaskListModel, completed: @escaping (Bool) -> Void) {
-        let taskListModel = TaskListModel(title: taskListModel.title, items: taskListModel.items)
-        let fetchedRequest = TaskDataModel.fetchTaskRequest(with: taskListModel.id)
-        guard fetchedRequest.isNotInclude(input: taskListModel.id) else {
+        guard let entity = NSEntityDescription.entity(forEntityName: "TaskDataModel", in: context) else {
             completed(false)
             return
         }
-
-        guard let entity = NSEntityDescription.entity(forEntityName: "TaskDataModel", in: context) else { return }
         let managedObject = NSManagedObject(entity: entity, insertInto: context)
         setValue(to: managedObject, with: taskListModel)
-        save(completed: completed)
+        saveContext(completed: completed)
     }
 
     func read(completed: @escaping ([TaskListModel]) -> Void) {
+        try? controller.performFetch()
         let convertedEntity = fetchedObjects.compactMap { dataModel in convertToEntity(from: dataModel) }
         completed(convertedEntity)
     }
@@ -90,7 +79,7 @@ final class TaskDataRepository: TaskRepository {
         guard let entity = NSEntityDescription.entity(forEntityName: "TaskDataModel", in: context) else { return }
         let managedObject = NSManagedObject(entity: entity, insertInto: context)
         setValue(to: managedObject, with: taskListModel)
-        save(completed: completed)
+        saveContext(completed: completed)
     }
 
     func delete(by id: UUID, completed: @escaping (Bool) -> Void) {
@@ -108,7 +97,7 @@ final class TaskDataRepository: TaskRepository {
             completed(false)
             return
         }
-        save(completed: completed)
+        saveContext(completed: completed)
     }
 
     private func setValue(to object: NSManagedObject, with taskListModel: TaskListModel) {
@@ -116,7 +105,8 @@ final class TaskDataRepository: TaskRepository {
         [
             "id": taskListModel.id,
             "title": taskListModel.title,
-            "items": taskListModel.items
+            "items": taskListModel.items,
+            "lastModifiedDate": taskListModel.lastModifiedDate
         ].forEach { key, value in
             managedObject.setValue(value, forKey: key)
         }
