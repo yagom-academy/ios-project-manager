@@ -11,6 +11,11 @@
     - [🔸 DateFormatter의 Extension을 통한 Static 구현](#-dateformatter의-extension을-통한-static-구현)
     - [🔸 TableView의 Cell 간 간격 부여](#-tableview의-cell-간-간격-부여)
     - [🔸 반복적으로 사용되는 UI의 경우 따로 분리하여 재사용할 수 있도록 구현](#-반복적으로-사용되는-ui의-경우-따로-분리하여-재사용할-수-있도록-구현)
+    - [🔹 Create](#-create)
+    - [🔹 Update](#-update)
+    - [🔹 Delete](#-delete)
+- [🔫 Trouble Shooting](#-trouble-shooting)
+    - [🔸 MVVM에 맞는 View와 ViewModel 설계](#-mvvm에-맞는-view와-viewmodel-설계) 
 
 ## 🛠 사용한 기술 스택
 |UI 및 비동기 처리|코딩 컨벤션|서버 DB|로컬 DB|
@@ -95,6 +100,15 @@ guard let viewController = segue.destination as? ProjectTableViewController else
 
 기본적인 구조의 경우 MVVM으로 설계를 했습니다. 또한 종속된 View가 아닌 경우 각각의 View마다 ViewModel을 가질 수 있도록 구현했습니다. 
 
+**<MVVM을 사용한 이유>**
+관련 블로깅 작성 내용 [링크](https://ho8487.tistory.com/62)
+- ViewModel에 UI 관련 코드가 없어 테스트가 용이하다
+- ViewController가 비대해지는 문제를 해결할 수 있다
+- View와 ViewModel의 역할이 명확해진다
+
+**MVVM 설계를 위한 기준**
+- View: 비즈니스 로직을 갖지 않는다. (ex: 어떤 버튼을 눌렀을 때 어떤 화면을 내보낼 지, 어떤 상황에서 버튼의 타이틀을 변경할 지)
+- ViewModel: UI 관련 코드를 갖지 않는다. (UI 관련 라이브러리와 프레임워크를 import하지 않는다)
 
 <br>
 
@@ -325,3 +339,193 @@ func tableView(
     return UISwipeActionsConfiguration(actions: [deleteAction])
 }
 ```
+
+## 🔫 Trouble Shooting
+### 🔸 MVVM에 맞는 View와 ViewModel 설계
+MVVM의 설계를 위한 기준에 맞춰 View와 ViewModel을 만들고 싶었으나 기존에는 View가 Model의 타입을 직접 알고 있었고, View가 ViewModel의 메서드를 직접 알고 있는 문제가 있었습니다.
+따라서 MVVM에 보다 적합한 설계를 위해 [tailec/ios-architecture](https://github.com/tailec/ios-architecture/tree/master/mvvm-rxswift-pure)를 참고하여 설계를 수정했습니다. 
+    
+또한 ViewModel은 View를 추상화했다고 판단했고 추상화가 다르다면 ViewModel을 따로 두는 방식을 선택했습니다. 이를 통해 각 View에 해당하는 ViewModel이 불필요한 데이터나 메서드를 가지고 있지 않을 수 있도록 구현했습니다.
+
+#### 🔹 ViewModel의 설계
+일단 추상화가 다를 경우 ViewModel이 여러 개 생기게 되기 때문에 ViewModel을 프로토콜을 통해 추상화를 해놓았습니다.
+
+```swift
+protocol ViewModelDescribing {
+    
+    associatedtype Input
+    associatedtype Output
+    
+    func transform(_ input: Input) -> Output
+    
+}
+```
+
+이를 통해 일단 ViewModel을 설계했습니다.
+일단 Input과 Output을 ViewModel 클래스 내부에 정의를 해줬습니다.
+
+- Input의 경우 어떤 Action이 발생했는지 인식하는 역할을 수행하며 만약 ViewModel에서 처리할 때 필요한 데이터가 있다면 Input을 통해 받을 수 있도록 Observable 타입으로 선언했습니다.
+- Output의 경우 추후 View에서 띄워야 하는 UI가 있거나 하는 경우 사용할 수 있도록 구현했습니다.
+ 
+
+이를 통해 View가 직접 비즈니스 로직을 갖고 있지 않더라도, ViewModel이 구조화되어 액션에 대한 처리를 할 수 있도록 했습니다.
+
+하지만 여기서 MVVM의 단점도 찾을 수 있었습니다. 모든 Action에 대한 비즈니스 로직을 ViewModel이 처리를 해야하다 보니 ViewModel이 비대해질 수 있고, 너무 많은 Input과 Output이 생길 수 있다는 점에선 분명 단점이라고 생각했습니다. 
+
+(예시를 위해 코드는 일부 생략했습니다)
+```swift
+private enum Content {
+    
+    static let editTitle = "Edit"
+    static let doneTitle = "Done"
+    
+}
+
+class WorkFormViewModel: ViewModelDescribing {
+    
+    final class Input {
+        
+        let viewDidLoadObserver: Observable<Void>
+        
+        init(viewDidLoadObserver: Observable<Void>) {
+            self.viewDidLoadObserver = viewDidLoadObserver
+        }
+        
+    }
+    
+    final class Output {
+    
+        let showRightBarButtonItemObserver: Observable<String>
+        
+        init(showRightBarButtonItemObserver: Observable<String>) {
+            self.showRightBarButtonItemObserver = showRightBarButtonItemObserver
+        }
+        
+    }
+    
+    private(set) var selectedWork: Work?
+    private(set) var workMemoryManager: WorkMemoryManager!
+    private var list = BehaviorSubject<[Work]>(value: [])
+    private let disposeBag = DisposeBag()
+    
+    func setup(selectedWork: Work?, list: BehaviorSubject<[Work]>, workMemoryManager: WorkMemoryManager) {
+        self.selectedWork = selectedWork
+        self.list = list
+        self.workMemoryManager = workMemoryManager
+    }
+    
+    func transform(_ input: Input) -> Output {
+        let showRightBarButtonItemObserver = PublishSubject<String>()
+        
+        configureViewDidLoadObserver(by: input, observer: showRightBarButtonItemObserver)
+        
+        let output = Output(
+            showRightBarButtonItemObserver: showRightBarButtonItemObserver
+        )
+        
+        return output
+    }
+    
+    private func configureViewDidLoadObserver(by input: Input, observer: PublishSubject<String>) {
+        input
+            .viewDidLoadObserver
+            .bind(onNext: { [weak self] in
+                if self?.selectedWork == nil {
+                    observer.onNext(Content.doneTitle)
+                } else {
+                    observer.onNext(Content.editTitle)
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+    
+}
+```
+
+코드에서 `ViewDidLoad` 시점에 선택된 셀(작업)이 없을 경우 `RightBarButton`을 `Done`으로 두고, 선택된 셀이 있을 경우 `Edit`으로 바꿔야 하는 로직 역시 비즈니스 로직이라 판단했습니다.
+따라서 일단 `ViewDidLoad`가 되었는지를 `ViewModel`이 알아야 하기 때문에, Input으로 `viewDidLoadObserver`를 두었습니다.
+
+이땐 단순히 viewDidload가 되었다는 것만 알면 되기 때문에 `Observable<Void>`로 어떤 값도 받아오지 않았지만, 만약 Input에 데이터를 받아와서 해당 데이터를 처리해야 한다면 `Observable<받아야하는 데이터의 타입>`이렇게 작성해주고 View에서 데이터를 받을 수 있도록 구현했습니다.
+
+    
+또한 이에 대한 output으로 화면에 바뀐 Title의 `RightBarButton`을 보여줘야 하기 때문에 `showRightBarButtonObserver`를 두었고, 이땐 String을 데이터로 내보내야 하기 때문에 `Observable<String>`으로 타입을 작성해주었습니다.
+
+##### ❓왜 Input과 Output을 Observable로 선언했을까?
+`PublishSubject`나 `BehaviorSubject`같은 `Subject` 타입을 사용하면 값을 외부에서 넣을 수 있기 때문입니다. 따라서 외부에서 ViewModel의 값을 마음대로 변경할 수 없도록 하기 위해, Notification을 받을 순 있지만 외부에서 값을 주입받을 수는 없는 `Observable` 타입을 사용했습니다.
+    
+내부에서 값을 전달해줄 때에는 `PublishSubject`를 사용했고 Input과 Output을 생성할 때에는 `asObservable()` 메서드를 통해 Observable 타입으로 변경해주었습니다.
+
+ 
+이렇게 설계한 ViewModel과 View를 상호작용할 수 있도록 하는 메서드를 `transform(input:) -> Output`으로 정의했습니다.
+```swift
+func transform(_ input: Input) -> Output {
+    let showRightBarButtonItemObserver = PublishSubject<String>()
+
+    configureViewDidLoadObserver(by: input, observer: showRightBarButtonItemObserver)
+
+    let output = Output(
+        showRightBarButtonItemObserver: showRightBarButtonItemObserver
+    )
+
+    return output
+}
+``` 
+    
+여기서 configureViewDidLoadObserver 메서드에서 외부에서 input을 받아 처리를 해주고, output이 있다면 output에 해당하는 observer에 데이터를 넣어서 output을 정의하고 이 output을 return하는 구조로 설계를 했습니다.
+
+ 
+#### 🔹 그럼 View에서 어떻게 input에 값을 넣어주고 output을 사용할까?
+```swift
+final class WorkFormViewController: UIViewController {
+    
+    @IBOutlet weak private var rightBarButtonItem: UIBarButtonItem!
+    
+    private let viewDidLoadObserver: PublishSubject<Void> = .init()
+    private var disposeBag = DisposeBag()
+    private var viewModel = WorkFormViewModel()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        viewDidLoadObserver.onNext(())
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        bind()
+    }
+    
+    private func bind() {
+        let input = WorkFormViewModel.Input(
+            viewDidLoadObserver: viewDidLoadObserver.asObservable()
+        )
+        
+        let output = viewModel.transform(input)
+        
+        configureShowRightBarButtonItemObserver(output)
+    }
+    
+    private func configureShowRightBarButtonItemObserver(_ output: WorkFormViewModel.Output) {
+        output
+            .showRightBarButtonItemObserver
+            .subscribe(onNext: { [weak self] in
+                self?.rightBarButtonItem.title = $0
+            })
+            .disposed(by: disposeBag)
+    }
+}
+```
+    
+**bind 메서드**
+
+이는 viewModel로 넘겨줄 input의 인스턴스를 생성하고, viewModel의 transform 메서드를 사용해 input에 대한 처리를 ViewModel에 맡기고 output을 통해 View에 보여줄 데이터를 받기 위한 메서드입니다. 
+
+일단 View가 init되는 시점에서 bind를 해주어야 하기 때문에, required init(coder:)에서 bind 메서드를 사용했습니다.
+이렇게 bind를 해주고 추후 ViewModel에 작성한 비즈니스로직이 필요한 Action을 했을 때 정의해놓은 input 프로퍼티에 값을 전달하여 ViewModel에서 이를 캐치하고 동작할 수 있도록 설계했습니다. 
+
+
+해당 설계를 도식화해서 살펴보면 다음과 같습니다. 
+
+<img width="900" alt="스크린샷 2022-03-18 오후 4 56 01" src="https://user-images.githubusercontent.com/90880660/158966760-ca461121-1876-4cd5-be1e-7f486e686ad9.png">
+
+
+이렇게 구현을 할 경우 ViewModel에는 UI 관련 코드가 없기 때문에 테스트가 용이해지며, ViewModel은 비즈니스 로직 / View는 UI만 다루게 되어 역할도 명확하게 분리가 된다는 장점이 생긴다고 판단했습니다.
