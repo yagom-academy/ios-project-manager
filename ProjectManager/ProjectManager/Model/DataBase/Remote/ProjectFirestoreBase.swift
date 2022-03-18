@@ -8,8 +8,14 @@
 import Foundation
 import Firebase
 
+enum FirestoreError: Error {
+    
+    case doucmentNotExist
+}
+
 class ProjectFirestoreBase {
     
+    // MARK: - FirestorePath Namespace
     struct FirestorePath {
         static let collection = "projects"
     }
@@ -31,43 +37,53 @@ class ProjectFirestoreBase {
     }
     
     // 읽기
-    func read(with identifier: String) {
+    func read(with identifier: String, completion: @escaping (Result<[String: Any]?, FirestoreError>) -> Void) {
         let docRef = db.collection(FirestorePath.collection).document(identifier)
 
         docRef.getDocument { (document, error) in
             if let document = document, document.exists {
-                let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
-                print("Document data: \(dataDescription)")
+                let data = document.data()
+                print("Document data: \(String(describing: data))")
+                completion(.success(data))
                 return
             } else {
                 print("Document does not exist")
+                completion(.failure(.doucmentNotExist))
             }
         }
     }
     
     // 일괄 읽기 (status)
-    func read(of status: Status) {
+    func read(of status: Status, completion: @escaping (Result<[[String: Any]?], FirestoreError>) -> Void) {
         db.collection(FirestorePath.collection).whereField("status", isEqualTo: status)
             .getDocuments() { (querySnapshot, err) in
                 if let err = err {
                     print("Error getting documents: \(err)")
+                    completion(.failure(.doucmentNotExist))
                 } else {
+                    var datas: [[String: Any]] = []
                     for document in querySnapshot!.documents {
                         print("\(document.documentID) => \(document.data())")
+                        datas.append(document.data())
                     }
+                    completion(.success(datas))
                 }
         }
     }
     
     // 일괄 읽기
-    func readAll() {
+    func readAll(completion: @escaping (Result<[[String: Any]?], FirestoreError>) -> Void) {
         db.collection(FirestorePath.collection).getDocuments() { (querySnapshot, err) in
             if let err = err {
                 print("Error getting documents: \(err)")
+                completion(.failure(.doucmentNotExist))
             } else {
+                var datas: [[String: Any]] = []
                 for document in querySnapshot!.documents {
                     print("\(document.documentID) => \(document.data())")
+                    datas.append(document.data())
                 }
+                completion(.success(datas))
             }
         }
     }
