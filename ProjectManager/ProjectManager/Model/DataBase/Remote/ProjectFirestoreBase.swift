@@ -1,0 +1,117 @@
+//
+//  ProjectFirestoreBase.swift
+//  ProjectManager
+//
+//  Created by 1 on 2022/03/18.
+//
+
+import Foundation
+import Firebase
+
+class ProjectFirestoreBase {
+    
+    struct FirestorePath {
+        static let collection = "projects"
+    }
+    
+    let db = Firestore.firestore()
+    
+    // 추가
+    func create(with content: [String: Any]) {
+        guard let identifeir = content["identifier"] as? String else {
+            return
+        }
+        db.collection(FirestorePath.collection).document(identifeir).setData(content) { err in
+            if let err = err {
+                    print("Error writing document: \(err)")
+                } else {
+                    print("Document successfully written!")
+                }
+        }
+    }
+    
+    // 읽기
+    func read(with identifier: String) {
+        let docRef = db.collection(FirestorePath.collection).document(identifier)
+
+        docRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
+                print("Document data: \(dataDescription)")
+                return
+            } else {
+                print("Document does not exist")
+            }
+        }
+    }
+    
+    // 일괄 읽기 (status)
+    func read(of status: Status) {
+        db.collection(FirestorePath.collection).whereField("status", isEqualTo: status)
+            .getDocuments() { (querySnapshot, err) in
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    for document in querySnapshot!.documents {
+                        print("\(document.documentID) => \(document.data())")
+                    }
+                }
+        }
+    }
+    
+    // 일괄 읽기
+    func readAll() {
+        db.collection(FirestorePath.collection).getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                for document in querySnapshot!.documents {
+                    print("\(document.documentID) => \(document.data())")
+                }
+            }
+        }
+    }
+    
+    // 선택 쓰기
+    func update(of identifier: String, with content: [String: Any]) {
+        let projectRef = db.collection(FirestorePath.collection).document(identifier)
+
+        projectRef.updateData(content) { err in
+            if let err = err {
+                print("Error updating document: \(err)")
+            } else {
+                print("Document successfully updated")
+            }
+        }
+
+    }
+    
+    // 전체 일괄 쓰기
+    func update(with projects: [[String: Any]]) {
+        projects.forEach { project in
+            guard let identifier = project["identifier"] as? String else {
+                return
+            }
+            let projectRef = db.collection(FirestorePath.collection).document(identifier)
+            
+            projectRef.updateData(project) { err in
+                if let err = err {
+                    print("Error updating document: \(err)")
+                } else {
+                    print("Document successfully updated")
+                }
+            }
+        }
+    }
+    
+    // 삭제
+    func delete(of identifier: String) {
+        db.collection(FirestorePath.collection).document(identifier).delete() { err in
+            if let err = err {
+                print("Error removing document: \(err)")
+            } else {
+                print("Document successfully removed!")
+            }
+        }
+    }
+}
