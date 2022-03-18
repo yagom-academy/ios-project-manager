@@ -50,16 +50,17 @@ class WorkMemoryManager: WorkManagable {
         workList.append(data)
     }
     
-    func delete(_ data: Work) throws {
+    func delete(_ data: Work) {
         guard let index = workList.firstIndex(where: { $0.id == data.id }) else { return }
         workList.remove(at: index)
     }
     
-    func update(_ data: Work, title: String?, body: String?, date: Date?) {
+    func update(_ data: Work, title: String?, body: String?, date: Date?, category: Work.Category) {
         guard let index = workList.firstIndex(where: { $0.id == data.id }) else { return }
         workList[index].title = title
         workList[index].body = body
         workList[index].dueDate = date
+        workList[index].category = category
     }
     
 }

@@ -17,6 +17,7 @@
 		DE09D31727DA299A00B6A9F2 /* ProjectHeaderCircleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE09D31627DA299A00B6A9F2 /* ProjectHeaderCircleLabel.swift */; };
 		DE09D31927DA3B4E00B6A9F2 /* ProjectTableViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE09D31827DA3B4E00B6A9F2 /* ProjectTableViewController.storyboard */; };
 		DE09D31B27DA3E7D00B6A9F2 /* ProjectTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE09D31A27DA3E7D00B6A9F2 /* ProjectTableViewController.swift */; };
+		DE12030327E314760091D040 /* WorkFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE12030227E314760091D040 /* WorkFormViewModel.swift */; };
 		DE20A0BA27CDCD95004B93AC /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = DE20A0B927CDCD95004B93AC /* .swiftlint.yml */; };
 		DE20A0BC27CDD385004B93AC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DE20A0BB27CDD385004B93AC /* GoogleService-Info.plist */; };
 		DE44BF8827D4A23F006E9010 /* Array+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE44BF8727D4A23F006E9010 /* Array+extension.swift */; };
@@ -32,9 +33,10 @@
 		DE8587B727CF407900D4F4B7 /* DateFormatter+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE843A4E27CE641900F622E2 /* DateFormatter+extension.swift */; };
 		DE8587BF27CF562200D4F4B7 /* ProjectTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DE8587BE27CF562200D4F4B7 /* ProjectTableViewCell.xib */; };
 		DE8587C127CF571E00D4F4B7 /* ProjectTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8587C027CF571E00D4F4B7 /* ProjectTableViewCell.swift */; };
+		DE90D86127E17BD500E6A434 /* ProjectTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE90D86027E17BD500E6A434 /* ProjectTableViewModel.swift */; };
+		DE90D86327E187AB00E6A434 /* ViewModelDescribing.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE90D86227E187AB00E6A434 /* ViewModelDescribing.swift */; };
 		DE9A0AAA27D21CE10095BBF9 /* WorkFormView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE9A0AA927D21CE10095BBF9 /* WorkFormView.storyboard */; };
 		DE9A0AAC27D228400095BBF9 /* WorkFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9A0AAB27D228400095BBF9 /* WorkFormViewController.swift */; };
-		DEBE44FC27D8AB1F00D080B4 /* WorkFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEBE44FB27D8AB1F00D080B4 /* WorkFormViewModel.swift */; };
 		DEE3C45327D5EFC4002D014B /* Array+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE44BF8727D4A23F006E9010 /* Array+extension.swift */; };
 		F30B76FC5BC81A5381504B03 /* Pods_ProjectManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 204B28057D7E57350830FB9D /* Pods_ProjectManager.framework */; };
 /* End PBXBuildFile section */
@@ -64,6 +66,7 @@
 		DE09D31627DA299A00B6A9F2 /* ProjectHeaderCircleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectHeaderCircleLabel.swift; sourceTree = "<group>"; };
 		DE09D31827DA3B4E00B6A9F2 /* ProjectTableViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ProjectTableViewController.storyboard; sourceTree = "<group>"; };
 		DE09D31A27DA3E7D00B6A9F2 /* ProjectTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTableViewController.swift; sourceTree = "<group>"; };
+		DE12030227E314760091D040 /* WorkFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkFormViewModel.swift; sourceTree = "<group>"; };
 		DE20A0B927CDCD95004B93AC /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		DE20A0BB27CDD385004B93AC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DE44BF8727D4A23F006E9010 /* Array+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+extension.swift"; sourceTree = "<group>"; };
@@ -77,9 +80,10 @@
 		DE8587BE27CF562200D4F4B7 /* ProjectTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProjectTableViewCell.xib; sourceTree = "<group>"; };
 		DE8587C027CF571E00D4F4B7 /* ProjectTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTableViewCell.swift; sourceTree = "<group>"; };
 		DE90137C33C61E09FB585FB1 /* Pods-ProjectManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.debug.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.debug.xcconfig"; sourceTree = "<group>"; };
+		DE90D86027E17BD500E6A434 /* ProjectTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTableViewModel.swift; sourceTree = "<group>"; };
+		DE90D86227E187AB00E6A434 /* ViewModelDescribing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelDescribing.swift; sourceTree = "<group>"; };
 		DE9A0AA927D21CE10095BBF9 /* WorkFormView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = WorkFormView.storyboard; sourceTree = "<group>"; };
 		DE9A0AAB27D228400095BBF9 /* WorkFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkFormViewController.swift; sourceTree = "<group>"; };
-		DEBE44FB27D8AB1F00D080B4 /* WorkFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkFormViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,14 +146,13 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
+				DE5359F027D09A4100FD7953 /* Apps */,
 				DE843A4D27CE640500F622E2 /* Extension */,
 				DE843A5327CE6E9500F622E2 /* Protocol */,
 				DE843A5027CE67FF00F622E2 /* Model */,
 				DE9A0AA427D1C2C70095BBF9 /* Domain */,
 				DE5359F127D09A5200FD7953 /* Assets */,
-				DE5359F027D09A4100FD7953 /* Apps */,
 				DE843A4927CE60F200F622E2 /* View */,
-				DE843A4A27CE612000F622E2 /* ViewModel */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
 				DE20A0BB27CDD385004B93AC /* GoogleService-Info.plist */,
 			);
@@ -169,10 +172,6 @@
 			isa = PBXGroup;
 			children = (
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
-				C7431F0B25F51E1D0094C4CF /* Main.storyboard */,
-				DE09D31827DA3B4E00B6A9F2 /* ProjectTableViewController.storyboard */,
-				DE8587BE27CF562200D4F4B7 /* ProjectTableViewCell.xib */,
-				DE9A0AA927D21CE10095BBF9 /* WorkFormView.storyboard */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 			);
 			path = Assets;
@@ -181,22 +180,11 @@
 		DE843A4927CE60F200F622E2 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				C7431F0925F51E1D0094C4CF /* ProjectViewController.swift */,
-				DE09D31A27DA3E7D00B6A9F2 /* ProjectTableViewController.swift */,
-				DE09D31627DA299A00B6A9F2 /* ProjectHeaderCircleLabel.swift */,
-				DE8587C027CF571E00D4F4B7 /* ProjectTableViewCell.swift */,
-				DE9A0AAB27D228400095BBF9 /* WorkFormViewController.swift */,
+				DE90D85C27E1795900E6A434 /* ProjectView */,
+				DE90D85E27E1798E00E6A434 /* ProjectTableView */,
+				DE90D85F27E179D600E6A434 /* WorkFormView */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		DE843A4A27CE612000F622E2 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				DE5359EE27D097BF00FD7953 /* ProjectViewModel.swift */,
-				DEBE44FB27D8AB1F00D080B4 /* WorkFormViewModel.swift */,
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		DE843A4D27CE640500F622E2 /* Extension */ = {
@@ -221,6 +209,7 @@
 			isa = PBXGroup;
 			children = (
 				DE843A5427CE6EA300F622E2 /* WorkManagable.swift */,
+				DE90D86227E187AB00E6A434 /* ViewModelDescribing.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -231,6 +220,39 @@
 				DE8587AB27CF064200D4F4B7 /* ProjectManagerModelTests.swift */,
 			);
 			path = ProjectManagerTests;
+			sourceTree = "<group>";
+		};
+		DE90D85C27E1795900E6A434 /* ProjectView */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0B25F51E1D0094C4CF /* Main.storyboard */,
+				C7431F0925F51E1D0094C4CF /* ProjectViewController.swift */,
+				DE5359EE27D097BF00FD7953 /* ProjectViewModel.swift */,
+			);
+			path = ProjectView;
+			sourceTree = "<group>";
+		};
+		DE90D85E27E1798E00E6A434 /* ProjectTableView */ = {
+			isa = PBXGroup;
+			children = (
+				DE09D31827DA3B4E00B6A9F2 /* ProjectTableViewController.storyboard */,
+				DE8587BE27CF562200D4F4B7 /* ProjectTableViewCell.xib */,
+				DE09D31A27DA3E7D00B6A9F2 /* ProjectTableViewController.swift */,
+				DE90D86027E17BD500E6A434 /* ProjectTableViewModel.swift */,
+				DE8587C027CF571E00D4F4B7 /* ProjectTableViewCell.swift */,
+				DE09D31627DA299A00B6A9F2 /* ProjectHeaderCircleLabel.swift */,
+			);
+			path = ProjectTableView;
+			sourceTree = "<group>";
+		};
+		DE90D85F27E179D600E6A434 /* WorkFormView */ = {
+			isa = PBXGroup;
+			children = (
+				DE9A0AA927D21CE10095BBF9 /* WorkFormView.storyboard */,
+				DE9A0AAB27D228400095BBF9 /* WorkFormViewController.swift */,
+				DE12030227E314760091D040 /* WorkFormViewModel.swift */,
+			);
+			path = WorkFormView;
 			sourceTree = "<group>";
 		};
 		DE9A0AA427D1C2C70095BBF9 /* Domain */ = {
@@ -412,15 +434,17 @@
 				DE843A5227CE6DD200F622E2 /* WorkMemoryManager.swift in Sources */,
 				DE843A4C27CE616A00F622E2 /* Work.swift in Sources */,
 				DE09D30F27D9EC3600B6A9F2 /* UITableView+extension.swift in Sources */,
+				DE90D86127E17BD500E6A434 /* ProjectTableViewModel.swift in Sources */,
+				DE12030327E314760091D040 /* WorkFormViewModel.swift in Sources */,
 				DE843A5527CE6EA300F622E2 /* WorkManagable.swift in Sources */,
 				DE09D31727DA299A00B6A9F2 /* ProjectHeaderCircleLabel.swift in Sources */,
 				DE09D31B27DA3E7D00B6A9F2 /* ProjectTableViewController.swift in Sources */,
 				DE9A0AAC27D228400095BBF9 /* WorkFormViewController.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* ProjectViewController.swift in Sources */,
+				DE90D86327E187AB00E6A434 /* ViewModelDescribing.swift in Sources */,
 				DE8587C127CF571E00D4F4B7 /* ProjectTableViewCell.swift in Sources */,
 				DE843A4F27CE641900F622E2 /* DateFormatter+extension.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
-				DEBE44FC27D8AB1F00D080B4 /* WorkFormViewModel.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				DE44BF8827D4A23F006E9010 /* Array+extension.swift in Sources */,
 			);

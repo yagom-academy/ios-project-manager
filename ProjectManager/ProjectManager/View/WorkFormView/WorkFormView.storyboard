@@ -26,9 +26,9 @@
                                                 <action selector="touchUpCancelButton:" destination="08C-19-pPa" id="FVy-3S-dde"/>
                                             </connections>
                                         </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="rHS-q6-TNR">
+                                        <barButtonItem key="rightBarButtonItem" title="Done" id="Iav-rP-zI8">
                                             <connections>
-                                                <action selector="touchUpDoneButton:" destination="08C-19-pPa" id="N7h-Uc-XZe"/>
+                                                <action selector="touchUpRightBarButton:" destination="08C-19-pPa" id="HeB-vV-g4z"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -75,6 +75,7 @@
                     <connections>
                         <outlet property="bodyTextView" destination="bgO-94-4or" id="Lqm-Ed-2BG"/>
                         <outlet property="datePicker" destination="SRd-Kq-6qP" id="AiJ-Vg-D09"/>
+                        <outlet property="rightBarButtonItem" destination="Iav-rP-zI8" id="g3J-g6-ONe"/>
                         <outlet property="titleTextField" destination="5TF-tq-Spq" id="lhD-gl-om2"/>
                     </connections>
                 </viewController>

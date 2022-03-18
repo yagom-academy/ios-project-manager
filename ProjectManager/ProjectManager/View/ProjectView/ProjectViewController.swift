@@ -1,31 +1,35 @@
 import UIKit
 import RxSwift
-import RxCocoa
 
 
 private enum UIName {
+    
     static let workFormViewStoryboard = "WorkFormView"
     static let todoSegue = "todoSegue"
     static let doingSegue = "doingSegue"
     static let doneSegue = "doneSegue"
+    
 }
 
 private enum Content {
+    
     static let todoTitle = "TODO"
     static let doingTitle = "DOING"
     static let doneTitle = "DONE"
+    
 }
 
 private enum Design {
+    
     static let tableViewBackgroundColor: UIColor = .systemGray5
     static let viewBackgroundColor: UIColor = .systemGray6
+    
 }
 
 final class ProjectViewController: UIViewController {
     
     private let viewModel = ProjectViewModel()
     private var disposeBag = DisposeBag()
-    private let formSheetViewStorboardName = UIName.workFormViewStoryboard
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,33 +37,48 @@ final class ProjectViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let test = segue.destination as? ProjectTableViewController else { return }
+        guard let viewController = segue.destination as? ProjectTableViewController else { return }
 
         switch segue.identifier {
         case UIName.todoSegue:
-            test.titleText = Content.todoTitle
-            test.count = viewModel.todoCount
-            test.list = viewModel.todoList
+            viewController.setup(
+                viewModel: viewModel,
+                titleText: Content.todoTitle,
+                count: viewModel.todoCount,
+                list: viewModel.todoList
+            )
         case UIName.doingSegue:
-            test.titleText = Content.doingTitle
-            test.count = viewModel.doingCount
-            test.list = viewModel.doingList
+            viewController.setup(
+                viewModel: viewModel,
+                titleText: Content.doingTitle,
+                count: viewModel.doingCount,
+                list: viewModel.doingList
+            )
         case UIName.doneSegue:
-            test.titleText = Content.doneTitle
-            test.count = viewModel.doneCount
-            test.list = viewModel.doneList
+            viewController.setup(
+                viewModel: viewModel,
+                titleText: Content.doneTitle,
+                count: viewModel.doneCount,
+                list: viewModel.doneList
+            )
         default:
             break
         }
     }
     
     @IBAction private func addNewWork(_ sender: UIBarButtonItem) {
-        let storyboard = UIStoryboard(name: formSheetViewStorboardName, bundle: nil)
-        let viewController = storyboard.instantiateViewController(
+        let storyboard = UIStoryboard(name: UIName.workFormViewStoryboard, bundle: nil)
+        guard let viewController = storyboard.instantiateViewController(
             identifier: String(describing: WorkFormViewController.self)
-        ) { coder in
-            WorkFormViewController(coder: coder, viewModel: self.viewModel)
+        ) as? WorkFormViewController else {
+            return
         }
+        
+        viewController.setup(
+            selectedWork: nil,
+            list: viewModel.todoList,
+            workMemoryManager: viewModel.workMemoryManager
+        )
         viewController.modalPresentationStyle = .formSheet
         
         present(viewController, animated: true, completion: nil)
