@@ -35,17 +35,18 @@ class DetailViewController: UIViewController, StoryboardCreatable {
         titleTextField.placeholder = Placeholder.title
         
         descriptionTextView.rx.didEndEditing
-            .withUnretained(self).subscribe(onNext: { owner, _ in
-                if owner.descriptionTextView.text.isEmpty {
-                    owner.descriptionTextView.text = Placeholder.body
-                }
-            }).disposed(by: disposeBag)
+            .withLatestFrom(descriptionTextView.rx.text.orEmpty)
+            .filter(\.isEmpty)
+            .map { _ in Placeholder.body }
+            .bind(to: descriptionTextView.rx.text)
+            .disposed(by: disposeBag)
+        
         descriptionTextView.rx.didBeginEditing
-            .withUnretained(self).subscribe(onNext: { owner, _ in
-                if owner.descriptionTextView.text == Placeholder.body {
-                    owner.descriptionTextView.text = nil
-                }
-            }).disposed(by: disposeBag)
+            .withLatestFrom(descriptionTextView.rx.text.orEmpty)
+            .filter { $0 == Placeholder.body }
+            .map { _ in nil }
+            .bind(to: descriptionTextView.rx.text)
+            .disposed(by: disposeBag)
     }
     
     private func setUpBindings() {
