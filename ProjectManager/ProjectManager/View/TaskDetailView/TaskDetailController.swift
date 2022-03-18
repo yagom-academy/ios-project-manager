@@ -2,6 +2,7 @@ import UIKit
 
 class TaskDetailController: UIViewController {
     private var taskListViewModel: TaskListViewModelProtocol?
+    private var taskDetailViewModel: TaskDetailViewModelProtocol?
     private var taskManagerAction: TaskManagerAction!
     private var taskToEdit: Task?
     
@@ -9,9 +10,10 @@ class TaskDetailController: UIViewController {
     @IBOutlet private weak var datePicker: UIDatePicker!
     @IBOutlet private weak var bodyTextView: UITextView!
     
-    convenience init?(coder: NSCoder, taskListViewModel: TaskListViewModelProtocol, taskManagerAction: TaskManagerAction, taskToEdit: Task?) {
+    convenience init?(coder: NSCoder, taskListViewModel: TaskListViewModelProtocol?, taskDetailViewModel: TaskDetailViewModelProtocol, taskManagerAction: TaskManagerAction, taskToEdit: Task?) {
         self.init(coder: coder)
         self.taskListViewModel = taskListViewModel
+        self.taskDetailViewModel = taskDetailViewModel
         self.taskManagerAction = taskManagerAction
         self.taskToEdit = taskToEdit
     }
@@ -37,7 +39,10 @@ class TaskDetailController: UIViewController {
     }
     
     private func setupLeftBarButton() {
-        let leftBarCancelButton = taskManagerAction.leftBarButton
+        guard let leftBarCancelButton = taskDetailViewModel?.leftBarButton(of: taskManagerAction) else {
+            return
+        }
+        
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: leftBarCancelButton,
                                                            target: self,
                                                            action: #selector(touchUpLeftBarCancelButton))
@@ -55,7 +60,10 @@ class TaskDetailController: UIViewController {
     }
     
     private func setupRightBarButton() {
-        let rightBarButton = taskManagerAction.rightBarButton
+        guard let rightBarButton = taskDetailViewModel?.rightBarButton(of: taskManagerAction) else {
+            return
+        }
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: rightBarButton,
                                                            target: self,
                                                            action: #selector(touchUpRightBarButton))

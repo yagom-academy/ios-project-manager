@@ -9,7 +9,7 @@ struct StoryboardInformation {
 enum TypeOfViewController {
     case taskList(viewModel: TaskListViewModelProtocol)
     case newTaskDetail(viewModel: TaskListViewModelProtocol)
-    case editTaskDetail(viewModel: TaskListViewModelProtocol, taskToEdit: Task)
+    case editTaskDetail(taskListViewModel: TaskListViewModelProtocol, taskDetailViewModel: TaskDetailViewModel, taskToEdit: Task)
 }
 
 extension TypeOfViewController {
@@ -34,14 +34,14 @@ enum ViewControllerFactory {
                 return TaskListViewController(coder: coder, taskListViewModel: viewModel)
             }
             return taskListViewController
-        case .newTaskDetail(let viewModel):
+        case .newTaskDetail(let taskListViewModel):
             let taskDetailController = storyboard.instantiateViewController(identifier: storyboardInformation.storyboardId) { coder in
-                return TaskDetailController(coder: coder, taskListViewModel: viewModel, taskManagerAction: .add, taskToEdit: nil)
+                return TaskDetailController(coder: coder, taskListViewModel: taskListViewModel, taskDetailViewModel: nil, taskManagerAction: .add, taskToEdit: nil)
             }
             return taskDetailController
-        case .editTaskDetail(let viewModel, let taskToEdit):
+        case .editTaskDetail(let taskListViewModel, let taskDetailViewModel, let taskToEdit):
             let taskDetailController = storyboard.instantiateViewController(identifier: storyboardInformation.storyboardId) { coder in
-                return TaskDetailController(coder: coder, taskListViewModel: viewModel, taskManagerAction: .edit, taskToEdit: taskToEdit)
+                return TaskDetailController(coder: coder, taskListViewModel: taskListViewModel, taskDetailViewModel: taskDetailViewModel taskManagerAction: .edit, taskToEdit: taskToEdit)
             }
             return taskDetailController
         }

@@ -160,6 +160,7 @@
 			children = (
 				3692440027D27071004F0FE4 /* TaskListViewModel.swift */,
 				36BB380B27E36953004A701D /* TaskDetailViewModel.swift */,
+				36D50A4727E14D3700CD61EF /* TaskManagerAction.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -221,7 +222,6 @@
 			children = (
 				36C6FC4327D7531C00B3057F /* TaskDetailController.swift */,
 				36C6FC4727D7560800B3057F /* TaskDetailController.storyboard */,
-				36D50A4727E14D3700CD61EF /* TaskManagerAction.swift */,
 			);
 			path = TaskDetailView;
 			sourceTree = "<group>";
