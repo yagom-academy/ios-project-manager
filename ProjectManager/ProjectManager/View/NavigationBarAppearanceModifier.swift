@@ -13,7 +13,7 @@ struct NavigationBarAppearanceModifier: ViewModifier {
         let navigationBarAppearance = UINavigationBarAppearance()
         navigationBarAppearance.titleTextAttributes = [
             .font: UIFont.preferredFont(forTextStyle: font),
-            .foregroundColor: UIColor.label
+            .foregroundColor: foregroundColor
         ]
         if hideSeparator {
             navigationBarAppearance.shadowColor = .clear

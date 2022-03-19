@@ -28,7 +28,6 @@ struct MainView: View {
                 } label: {
                     Image(systemName: "plus")
                         .font(.title2)
-                        .foregroundColor(.blue)
                 }
                 .sheet(isPresented: $isTaskCreating) {
                     TaskFormingView(selectedTask: nil, mode: $isTaskCreating)
