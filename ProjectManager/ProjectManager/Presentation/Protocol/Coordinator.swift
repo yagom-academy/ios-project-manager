@@ -6,5 +6,7 @@ protocol Coordinator: AnyObject {
     
     func start()
     
-    func occuredEvent(with type: Event)
+    func occuredViewEvent(with type: Event.View)
+    
+    func occuredRepositoryChangeEvent(with type: Event.NetWork)
 }

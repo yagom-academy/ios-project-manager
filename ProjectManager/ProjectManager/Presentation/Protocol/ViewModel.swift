@@ -3,6 +3,6 @@ import RxRelay
 
 protocol ViewModel {
     
-    var useCase: UseCaseProvider { get set }
+    var useCase: ControlUseCase { get set }
     var coordinator: Coordinator? { get set }
 }

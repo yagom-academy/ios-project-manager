@@ -44,8 +44,8 @@ class MainUIView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        configureTableView()
-        configureLayout()
+        self.configureTableView()
+        self.configureLayout()
     }
     
     required init?(coder: NSCoder) {
@@ -57,14 +57,14 @@ class MainUIView: UIView {
     }
     
     private func configureLayout() {
-        let tableviews = [todoTableView,doingTableView,doneTableView]
-        tableviews.forEach{ stackView.addArrangedSubview($0) }
+        let tableviews = [self.todoTableView,self.doingTableView,self.doneTableView]
+        tableviews.forEach{ self.stackView.addArrangedSubview($0) }
         
         NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor),
-            stackView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 10),
-            stackView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor)
+            self.stackView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor),
+            self.stackView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor),
+            self.stackView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 10),
+            self.stackView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
 }

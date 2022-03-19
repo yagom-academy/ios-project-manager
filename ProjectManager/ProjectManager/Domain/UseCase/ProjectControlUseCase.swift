@@ -2,9 +2,8 @@ import Foundation
 import RxSwift
 import RxRelay
 
-final class ProjectManagerUseCase: ProjectManagingUseCase {
+final class ProjectControlUseCase: ControlUseCase { 
     
-    var differenceHistories: [(state: ManageState, identifier: String, object: Listable)] = [] 
     var repository: DataRepository?
     var rxLists = BehaviorRelay<[Listable]>(value: []) 
     let disposeBag = DisposeBag()
@@ -29,10 +28,12 @@ final class ProjectManagerUseCase: ProjectManagingUseCase {
         how object: Listable
     )  {
         self.repository?.update(identifier: identifier, how: object)
+        fetch()
     }
     
     func deleteProject(identifier: String) {
         self.repository?.delete(identifier: identifier)
+        fetch()
     }
     
     func sortProjectProgressState(state: ProgressState) -> Observable<[Listable]> {
@@ -46,9 +47,5 @@ final class ProjectManagerUseCase: ProjectManagingUseCase {
         .subscribe( onNext: { project in
             self.rxLists.accept(project)
         }).disposed(by: self.disposeBag)
-    }
-    
-    func saveDifference(method: ManageState, identifier: String, object: Listable) {
-        differenceHistories.append((state: method, identifier: identifier, object: object))
     }
 }

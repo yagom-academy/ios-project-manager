@@ -1,6 +1,6 @@
 import Foundation
 
-enum ProgressState: CustomStringConvertible {
+enum ProgressState: CustomStringConvertible, CaseIterable {
     
     case todo
     case doing

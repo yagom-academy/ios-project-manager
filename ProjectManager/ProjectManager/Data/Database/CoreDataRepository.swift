@@ -2,7 +2,7 @@ import Foundation
 import CoreData
 import RxSwift
 
-final class CoredataRepository: DataRepository {
+final class CoredataRepository: DataRepository { 
     
     private let context: NSManagedObjectContext
     private var list = [Listable]()
@@ -107,9 +107,7 @@ final class CoredataRepository: DataRepository {
             do {
                 try context.save()
             } catch {
-                #if DEBUG
-                print("error")
-                #endif
+        
             }
         }
     }

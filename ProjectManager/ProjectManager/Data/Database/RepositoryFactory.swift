@@ -3,23 +3,23 @@ import FirebaseFirestore
 import CoreData
 import UIKit
 
-final class RepositoryFactory {
+enum RepositoryFactory {
     
-    private let defaultCoreDataContext = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
-    private let defaultFireStore = Firestore.firestore()
-    
-     func assignRepository(repository: RepositoryType) throws -> DataRepository {
+     static func assignRepository(repository: RepositoryType) -> DataRepository {
+         
+          let defaultCoreDataContext = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
+          let defaultFireStore = Firestore.firestore()
          
          guard let context = defaultCoreDataContext
          else {
-             throw DatabaseError.notFoundContext
+             return MockDataRepository()
          }
         
         switch repository {
         case .coreData:
             return CoredataRepository(context: context)
         case .fireStore:
-            return FireStoreRepository(database: self.defaultFireStore)
+            return FireStoreRepository(database: defaultFireStore)
         case .mock:
             return MockDataRepository()
         }

@@ -16,6 +16,9 @@
 		18688D5E27DD155B001A7C7A /* DetailUpdateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18688D5D27DD155B001A7C7A /* DetailUpdateViewController.swift */; };
 		18688D6327DD15ED001A7C7A /* ProjectDetailUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18688D6227DD15ED001A7C7A /* ProjectDetailUIView.swift */; };
 		18688D6727DD1D19001A7C7A /* MainUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18688D6627DD1D19001A7C7A /* MainUIView.swift */; };
+		1897A42A27E65437009EDED4 /* DetailUpdateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1897A42927E65437009EDED4 /* DetailUpdateViewModel.swift */; };
+		1897A42C27E654BE009EDED4 /* ProjectHistoryCheckUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1897A42B27E654BE009EDED4 /* ProjectHistoryCheckUseCase.swift */; };
+		1897A42E27E657C9009EDED4 /* HistoryUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1897A42D27E657C9009EDED4 /* HistoryUseCase.swift */; };
 		189DD4E427CDF7F700395CF4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 189DD4E327CDF7F700395CF4 /* GoogleService-Info.plist */; };
 		189DD4E727CDF93A00395CF4 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 189DD4E627CDF93A00395CF4 /* FirebaseFirestore */; };
 		189DD4E927CDF93A00395CF4 /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 189DD4E827CDF93A00395CF4 /* FirebaseFirestoreSwift-Beta */; };
@@ -29,11 +32,11 @@
 		189DD50327D106FA00395CF4 /* RepositoryChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189DD50227D106FA00395CF4 /* RepositoryChecker.swift */; };
 		189DD50827D10B6200395CF4 /* RepositoryFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189DD50727D10B6200395CF4 /* RepositoryFactory.swift */; };
 		189DD50A27D10C2900395CF4 /* CoreDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189DD50927D10C2900395CF4 /* CoreDataRepository.swift */; };
-		189DD50C27D10C3600395CF4 /* FireBaseRepositoryr.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189DD50B27D10C3600395CF4 /* FireBaseRepositoryr.swift */; };
+		189DD50C27D10C3600395CF4 /* FireStroreRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189DD50B27D10C3600395CF4 /* FireStroreRepository.swift */; };
 		189DD50F27D1110D00395CF4 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189DD50E27D1110D00395CF4 /* MainViewModel.swift */; };
 		189DD51227D1F7D400395CF4 /* CDProject.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 189DD51027D1F7D400395CF4 /* CDProject.xcdatamodeld */; };
-		189DD55327D571D100395CF4 /* ProjectManagerUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189DD55227D571D100395CF4 /* ProjectManagerUseCase.swift */; };
-		189DD55527D5720300395CF4 /* UseCaseProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189DD55427D5720300395CF4 /* UseCaseProvider.swift */; };
+		189DD55327D571D100395CF4 /* ProjectControlUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189DD55227D571D100395CF4 /* ProjectControlUseCase.swift */; };
+		189DD55527D5720300395CF4 /* ControlUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189DD55427D5720300395CF4 /* ControlUseCase.swift */; };
 		189DD57C27D6995900395CF4 /* Encodable + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189DD57B27D6995900395CF4 /* Encodable + Extensions.swift */; };
 		189DD58D27D6FF8400395CF4 /* CDProject+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189DD58B27D6FF8400395CF4 /* CDProject+CoreDataClass.swift */; };
 		189DD58E27D6FF8400395CF4 /* CDProject+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189DD58C27D6FF8400395CF4 /* CDProject+CoreDataProperties.swift */; };
@@ -61,6 +64,9 @@
 		18688D5D27DD155B001A7C7A /* DetailUpdateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailUpdateViewController.swift; sourceTree = "<group>"; };
 		18688D6227DD15ED001A7C7A /* ProjectDetailUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDetailUIView.swift; sourceTree = "<group>"; };
 		18688D6627DD1D19001A7C7A /* MainUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainUIView.swift; sourceTree = "<group>"; };
+		1897A42927E65437009EDED4 /* DetailUpdateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailUpdateViewModel.swift; sourceTree = "<group>"; };
+		1897A42B27E654BE009EDED4 /* ProjectHistoryCheckUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectHistoryCheckUseCase.swift; sourceTree = "<group>"; };
+		1897A42D27E657C9009EDED4 /* HistoryUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryUseCase.swift; sourceTree = "<group>"; };
 		189DD4E327CDF7F700395CF4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		189DD4F527D0FF7F00395CF4 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		189DD4F727D1010400395CF4 /* Listable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Listable.swift; sourceTree = "<group>"; };
@@ -69,11 +75,11 @@
 		189DD50227D106FA00395CF4 /* RepositoryChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryChecker.swift; sourceTree = "<group>"; };
 		189DD50727D10B6200395CF4 /* RepositoryFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryFactory.swift; sourceTree = "<group>"; };
 		189DD50927D10C2900395CF4 /* CoreDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataRepository.swift; sourceTree = "<group>"; };
-		189DD50B27D10C3600395CF4 /* FireBaseRepositoryr.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireBaseRepositoryr.swift; sourceTree = "<group>"; };
+		189DD50B27D10C3600395CF4 /* FireStroreRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStroreRepository.swift; sourceTree = "<group>"; };
 		189DD50E27D1110D00395CF4 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		189DD51127D1F7D400395CF4 /* CDProject.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CDProject.xcdatamodel; sourceTree = "<group>"; };
-		189DD55227D571D100395CF4 /* ProjectManagerUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerUseCase.swift; sourceTree = "<group>"; };
-		189DD55427D5720300395CF4 /* UseCaseProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseCaseProvider.swift; sourceTree = "<group>"; };
+		189DD55227D571D100395CF4 /* ProjectControlUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectControlUseCase.swift; sourceTree = "<group>"; };
+		189DD55427D5720300395CF4 /* ControlUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlUseCase.swift; sourceTree = "<group>"; };
 		189DD57B27D6995900395CF4 /* Encodable + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable + Extensions.swift"; sourceTree = "<group>"; };
 		189DD58B27D6FF8400395CF4 /* CDProject+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDProject+CoreDataClass.swift"; sourceTree = "<group>"; };
 		189DD58C27D6FF8400395CF4 /* CDProject+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDProject+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -112,8 +118,10 @@
 		182C21F727E4711600694364 /* UseCase */ = {
 			isa = PBXGroup;
 			children = (
-				189DD55427D5720300395CF4 /* UseCaseProvider.swift */,
-				189DD55227D571D100395CF4 /* ProjectManagerUseCase.swift */,
+				189DD55427D5720300395CF4 /* ControlUseCase.swift */,
+				189DD55227D571D100395CF4 /* ProjectControlUseCase.swift */,
+				1897A42D27E657C9009EDED4 /* HistoryUseCase.swift */,
+				1897A42B27E654BE009EDED4 /* ProjectHistoryCheckUseCase.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -182,6 +190,7 @@
 		18688D5C27DD152C001A7C7A /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				1897A42927E65437009EDED4 /* DetailUpdateViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -247,11 +256,11 @@
 			isa = PBXGroup;
 			children = (
 				189DD50927D10C2900395CF4 /* CoreDataRepository.swift */,
-				189DD50B27D10C3600395CF4 /* FireBaseRepositoryr.swift */,
+				189DD50B27D10C3600395CF4 /* FireStroreRepository.swift */,
 				18D8A13B27DF19D70002351F /* MockDataRepository.swift */,
+				189DD50027D1050500395CF4 /* RepositoryType.swift */,
 				189DD50227D106FA00395CF4 /* RepositoryChecker.swift */,
 				189DD50727D10B6200395CF4 /* RepositoryFactory.swift */,
-				189DD50027D1050500395CF4 /* RepositoryType.swift */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -428,7 +437,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				189DD50A27D10C2900395CF4 /* CoreDataRepository.swift in Sources */,
-				189DD50C27D10C3600395CF4 /* FireBaseRepositoryr.swift in Sources */,
+				189DD50C27D10C3600395CF4 /* FireStroreRepository.swift in Sources */,
 				189DD58E27D6FF8400395CF4 /* CDProject+CoreDataProperties.swift in Sources */,
 				18688D5527DAF5B2001A7C7A /* DetailAddViewController.swift in Sources */,
 				189DD50F27D1110D00395CF4 /* MainViewModel.swift in Sources */,
@@ -442,8 +451,9 @@
 				189DD59127D7004F00395CF4 /* ProgressState.swift in Sources */,
 				18D8A16427DFD6B90002351F /* Collection + Extension.swift in Sources */,
 				182C21F427E30D7200694364 /* TableViewHeaderView.swift in Sources */,
-				189DD55527D5720300395CF4 /* UseCaseProvider.swift in Sources */,
+				189DD55527D5720300395CF4 /* ControlUseCase.swift in Sources */,
 				18688D5E27DD155B001A7C7A /* DetailUpdateViewController.swift in Sources */,
+				1897A42C27E654BE009EDED4 /* ProjectHistoryCheckUseCase.swift in Sources */,
 				18688D6727DD1D19001A7C7A /* MainUIView.swift in Sources */,
 				189DD4F827D1010400395CF4 /* Listable.swift in Sources */,
 				189DD51227D1F7D400395CF4 /* CDProject.xcdatamodeld in Sources */,
@@ -452,11 +462,13 @@
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				189DD50327D106FA00395CF4 /* RepositoryChecker.swift in Sources */,
 				1828FF6A27E09521008C23EE /* ManageState.swift in Sources */,
+				1897A42A27E65437009EDED4 /* DetailUpdateViewModel.swift in Sources */,
 				189DD50127D1050500395CF4 /* RepositoryType.swift in Sources */,
 				189DD4F627D0FF8000395CF4 /* Project.swift in Sources */,
 				18D8A13827DF02260002351F /* ViewModel.swift in Sources */,
+				1897A42E27E657C9009EDED4 /* HistoryUseCase.swift in Sources */,
 				189DD50827D10B6200395CF4 /* RepositoryFactory.swift in Sources */,
-				189DD55327D571D100395CF4 /* ProjectManagerUseCase.swift in Sources */,
+				189DD55327D571D100395CF4 /* ProjectControlUseCase.swift in Sources */,
 				189DD57C27D6995900395CF4 /* Encodable + Extensions.swift in Sources */,
 				189DD58D27D6FF8400395CF4 /* CDProject+CoreDataClass.swift in Sources */,
 				18D8A13C27DF19D70002351F /* MockDataRepository.swift in Sources */,

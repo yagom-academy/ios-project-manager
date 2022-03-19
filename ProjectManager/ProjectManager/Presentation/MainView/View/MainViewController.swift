@@ -3,18 +3,22 @@ import RxSwift
 import RxCocoa
 
 final class MainViewController: UIViewController {
+    
     // MARK: - properties
     var viewModel: MainViewModel?
     private var shareView = MainUIView()
     let disposeBag = DisposeBag()
+    
     // MARK: - lifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureMainView()
         self.configureLayout()
         self.configureNavigationItems()
-        self.bind()
+        let input = self.configureInput()
+        self.configureOutput(input: input)
     }
+    
   // MARK: - methods
     private func configureMainView() {
         view.addSubview(shareView)
@@ -40,27 +44,51 @@ final class MainViewController: UIViewController {
             shareView.bottomAnchor.constraint(equalTo:  self.view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
         ])
     }
+    
     // MARK: - bind UI w/ RxSwift 
-    private func bind() {
+    private func configureInput() -> MainViewModel.Input {
+        
+        let rightBarButton = self.extractRightBarButtonItem()
+        
+        let input = MainViewModel
+            .Input(
+                viewWillAppearEvent: self.rx.methodInvoked(#selector(UIViewController.viewWillAppear(_:))).map { _ in },
+                projectAddButtonTapped: rightBarButton.rx.tap.asObservable(), projectDeleteEvent: shareView.todoTableView.rx.modelDeleted(Project.self).map { $0.identifier }, projectDidtappedEvent: shareView.todoTableView.rx.modelSelected(Project.self).map { $0.identifier }
+            )
+        
+        return input
+    }
+        
+    private func configureOutput(input: MainViewModel.Input) {
+        let output = self.viewModel?.transform(input: input, disposeBag: self.disposeBag)
+        let stateWithTableViews = self.zipStateWithTableViews()
+        stateWithTableViews.forEach { zip in
+            output?.baseProjects.map({ lists in
+                lists.filter { $0.progressState.description == zip.key }
+            })
+            .asDriver(onErrorJustReturn: [])
+            .drive(zip.value.rx.items(cellIdentifier: String(describing: ProjectUITableViewCell.self), cellType: ProjectUITableViewCell.self)) { index, item , cell in
+                cell.configureCellUI(data: item)
+            }.disposed(by: disposeBag)
+        }
+    }
+    
+    private func extractRightBarButtonItem() -> UIBarButtonItem {
         
         guard let rightBarButton = self.navigationItem.rightBarButtonItem
         else {
-            return
+            return UIBarButtonItem()
         }
         
-        let input = MainViewModel
-            .Input(viewWillAppearEvent: self.rx.methodInvoked(#selector(UIViewController.viewWillAppear(_:))).map { _ in },
-                   addActionTappedEvent: rightBarButton.rx.tap.asObservable()
-            )
+        return rightBarButton
+    }
+    
+    private func zipStateWithTableViews() -> [String: UITableView] {
+        let zip = Dictionary(
+            uniqueKeysWithValues: zip([ProgressState.todo.description,ProgressState.doing.description,ProgressState.done.description], [shareView.todoTableView,shareView.doingTableView,shareView.doneTableView])
+        )
         
-        let output = viewModel?.transform(input: input, disposeBag: self.disposeBag)
-  
-        output?.intialListables
-            .asDriver(onErrorJustReturn: [])
-            .drive(shareView.todoTableView.rx.items(cellIdentifier: String(describing: ProjectUITableViewCell.self), cellType: ProjectUITableViewCell.self)) { index, item , cell in
-                cell.configureCellUI(data: item)
-            }.disposed(by: disposeBag)
-}
-
+        return zip
+    }
 }
 
