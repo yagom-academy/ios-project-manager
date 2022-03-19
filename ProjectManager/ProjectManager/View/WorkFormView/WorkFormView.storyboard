@@ -34,49 +34,65 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="E0j-bH-Sdk">
-                                <rect key="frame" x="10" y="80" width="1346" height="924"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kVf-xE-Ppf">
+                                <rect key="frame" x="0.0" y="70" width="1366" height="954"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="title" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="5TF-tq-Spq">
-                                        <rect key="frame" x="0.0" y="0.0" width="1346" height="92.5"/>
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="SRd-Kq-6qP">
-                                        <rect key="frame" x="0.0" y="112.5" width="1346" height="277"/>
-                                    </datePicker>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="여기는 할일 내용 입력하는 곳이지롱  입력 가능한 글자수는 1000자로 제한합니다." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="bgO-94-4or">
-                                        <rect key="frame" x="0.0" y="409.5" width="1346" height="514.5"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <color key="textColor" systemColor="labelColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                    </textView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="XZj-nD-MBK">
+                                        <rect key="frame" x="10" y="10" width="1346" height="539"/>
+                                        <subviews>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rv0-Rl-rCd">
+                                                <rect key="frame" x="0.0" y="0.0" width="1346" height="54"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="DxY-9r-Z4L">
+                                                <rect key="frame" x="0.0" y="74" width="1346" height="216"/>
+                                            </datePicker>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="여기 할일 입력하는 곳이지롱 입력가능한 글자수는 1000자로 제한합니다." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="teS-0R-ejv">
+                                                <rect key="frame" x="0.0" y="310" width="1346" height="229"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <color key="textColor" systemColor="labelColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="rv0-Rl-rCd" firstAttribute="height" secondItem="XZj-nD-MBK" secondAttribute="height" multiplier="0.1" id="59v-we-WGp"/>
+                                            <constraint firstItem="DxY-9r-Z4L" firstAttribute="height" secondItem="XZj-nD-MBK" secondAttribute="height" multiplier="0.4" constant="0.40000000000000002" id="8Zl-nh-Srx"/>
+                                        </constraints>
+                                    </stackView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="5TF-tq-Spq" firstAttribute="height" secondItem="E0j-bH-Sdk" secondAttribute="height" multiplier="0.1" id="7wQ-Ys-Vho"/>
-                                    <constraint firstItem="SRd-Kq-6qP" firstAttribute="height" secondItem="E0j-bH-Sdk" secondAttribute="height" multiplier="0.3" id="LcH-JN-9A9"/>
+                                    <constraint firstItem="XZj-nD-MBK" firstAttribute="leading" secondItem="3zr-iW-Wbt" secondAttribute="leading" constant="10" id="J6M-qg-uqh"/>
+                                    <constraint firstItem="3zr-iW-Wbt" firstAttribute="trailing" secondItem="XZj-nD-MBK" secondAttribute="trailing" constant="10" id="QhP-ds-4oK"/>
+                                    <constraint firstItem="3zr-iW-Wbt" firstAttribute="bottom" secondItem="XZj-nD-MBK" secondAttribute="bottom" constant="20" id="qnX-12-L8t"/>
+                                    <constraint firstItem="XZj-nD-MBK" firstAttribute="top" secondItem="3zr-iW-Wbt" secondAttribute="top" constant="10" id="zOz-Mp-9pK"/>
                                 </constraints>
-                            </stackView>
+                                <viewLayoutGuide key="contentLayoutGuide" id="3zr-iW-Wbt"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="NTx-9N-VBM"/>
+                            </scrollView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="GMh-sL-qA1"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="GMh-sL-qA1" firstAttribute="trailing" secondItem="of5-sZ-Gt4" secondAttribute="trailing" id="6mu-PD-klp"/>
-                            <constraint firstItem="E0j-bH-Sdk" firstAttribute="top" secondItem="of5-sZ-Gt4" secondAttribute="bottom" constant="10" id="DAm-kg-OEM"/>
-                            <constraint firstItem="GMh-sL-qA1" firstAttribute="bottom" secondItem="E0j-bH-Sdk" secondAttribute="bottom" constant="20" id="RFd-cW-R4d"/>
-                            <constraint firstItem="GMh-sL-qA1" firstAttribute="trailing" secondItem="E0j-bH-Sdk" secondAttribute="trailing" constant="10" id="TJf-gU-hs2"/>
-                            <constraint firstItem="E0j-bH-Sdk" firstAttribute="leading" secondItem="GMh-sL-qA1" secondAttribute="leading" constant="10" id="cod-D1-CZz"/>
+                            <constraint firstAttribute="bottom" secondItem="kVf-xE-Ppf" secondAttribute="bottom" id="96Y-Sy-NLM"/>
                             <constraint firstItem="GMh-sL-qA1" firstAttribute="top" secondItem="of5-sZ-Gt4" secondAttribute="top" id="fQH-eF-I4t"/>
+                            <constraint firstItem="kVf-xE-Ppf" firstAttribute="width" secondItem="YRT-33-jns" secondAttribute="width" id="iOd-Ts-J2D"/>
+                            <constraint firstItem="kVf-xE-Ppf" firstAttribute="top" secondItem="of5-sZ-Gt4" secondAttribute="bottom" id="k9S-fA-X9a"/>
+                            <constraint firstItem="kVf-xE-Ppf" firstAttribute="leading" secondItem="YRT-33-jns" secondAttribute="leading" id="l7D-d5-cbO"/>
+                            <constraint firstItem="3zr-iW-Wbt" firstAttribute="width" secondItem="of5-sZ-Gt4" secondAttribute="width" id="pZ7-lf-1oZ"/>
                             <constraint firstItem="of5-sZ-Gt4" firstAttribute="leading" secondItem="GMh-sL-qA1" secondAttribute="leading" id="wR3-1h-Cm5"/>
+                            <constraint firstAttribute="trailing" secondItem="kVf-xE-Ppf" secondAttribute="trailing" id="xNR-Ah-qRG"/>
                         </constraints>
                     </view>
                     <size key="freeformSize" width="1366" height="1024"/>
                     <connections>
-                        <outlet property="bodyTextView" destination="bgO-94-4or" id="Lqm-Ed-2BG"/>
-                        <outlet property="datePicker" destination="SRd-Kq-6qP" id="AiJ-Vg-D09"/>
+                        <outlet property="bodyTextView" destination="teS-0R-ejv" id="kUf-91-ytc"/>
+                        <outlet property="contentScrollView" destination="kVf-xE-Ppf" id="g5A-8i-a9a"/>
+                        <outlet property="datePicker" destination="DxY-9r-Z4L" id="9fn-oO-Krf"/>
                         <outlet property="rightBarButtonItem" destination="Iav-rP-zI8" id="g3J-g6-ONe"/>
-                        <outlet property="titleTextField" destination="5TF-tq-Spq" id="lhD-gl-om2"/>
+                        <outlet property="titleTextField" destination="rv0-Rl-rCd" id="D7X-ta-VJC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Ut-KO-AyT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

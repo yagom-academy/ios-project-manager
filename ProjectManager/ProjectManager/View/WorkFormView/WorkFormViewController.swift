@@ -15,6 +15,7 @@ private enum Design {
 final class WorkFormViewController: UIViewController {
     
     @IBOutlet weak private var rightBarButtonItem: UIBarButtonItem!
+    @IBOutlet weak var contentScrollView: UIScrollView!
     @IBOutlet weak private var titleTextField: UITextField!
     @IBOutlet weak private var datePicker: UIDatePicker!
     @IBOutlet weak private var bodyTextView: UITextView!
@@ -26,6 +27,7 @@ final class WorkFormViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupKeyboardObserver()
         setupTextField()
         setupTextView()
         viewDidLoadObserver.onNext(())
@@ -91,6 +93,36 @@ final class WorkFormViewController: UIViewController {
     
     @IBAction private func touchUpCancelButton(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
+    }
+    
+    private func setupKeyboardObserver() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShow(_:)),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil
+        )
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillHide(_:)),
+            name: UIResponder.keyboardDidHideNotification,
+            object: nil
+        )
+    }
+    
+    @objc private func keyboardWillShow(_ sender: Notification) {
+        guard let keyboardFrame = sender.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {
+            return
+        }
+        
+        let bottomContentInset = keyboardFrame.cgRectValue.height
+        
+        contentScrollView.contentInset.bottom = bottomContentInset
+    }
+    
+    @objc private func keyboardWillHide(_ sender: Notification) {
+        contentScrollView.contentInset.bottom = .zero
     }
     
     private func setupTextField() {
