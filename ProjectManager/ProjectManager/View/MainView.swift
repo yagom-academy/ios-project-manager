@@ -36,5 +36,6 @@ struct MainView: View {
             }
         }
         .navigationViewStyle(.stack)
+        .navigationBarAppearance(font: .headline, foregroundColor: .label, hideSeparator: true)
     }
 }

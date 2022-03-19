@@ -11,6 +11,7 @@
 		C101D2C327D4DB2D00334F5C /* TaskListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C101D2C227D4DB2D00334F5C /* TaskListRowView.swift */; };
 		C101D2C627D4DC4600334F5C /* Date+formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C101D2C527D4DC4600334F5C /* Date+formatter.swift */; };
 		C101D2C827D4DF8E00334F5C /* TaskListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C101D2C727D4DF8E00334F5C /* TaskListView.swift */; };
+		C161020627E641E1001F6102 /* NavigationBarAppearanceModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C161020527E641E1001F6102 /* NavigationBarAppearanceModifier.swift */; };
 		C182E78427CD0E9D00F6218C /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C182E78327CD0E9D00F6218C /* MainView.swift */; };
 		C182E78727CD43DE00F6218C /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = C182E78627CD43DE00F6218C /* FirebaseAnalytics */; };
 		C182E7A127CDD57800F6218C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C182E7A027CDD57800F6218C /* GoogleService-Info.plist */; };
@@ -54,6 +55,7 @@
 		C101D2C227D4DB2D00334F5C /* TaskListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListRowView.swift; sourceTree = "<group>"; };
 		C101D2C527D4DC4600334F5C /* Date+formatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+formatter.swift"; sourceTree = "<group>"; };
 		C101D2C727D4DF8E00334F5C /* TaskListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListView.swift; sourceTree = "<group>"; };
+		C161020527E641E1001F6102 /* NavigationBarAppearanceModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarAppearanceModifier.swift; sourceTree = "<group>"; };
 		C182E78327CD0E9D00F6218C /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		C182E7A027CDD57800F6218C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C18B9F1A27DE6F4100CF78F4 /* TaskFormingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskFormingView.swift; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 				C1FD566027E3C170001FE852 /* CustomTextField.swift */,
 				C1FD566227E3CA9D001FE852 /* CustomDatePicker.swift */,
 				C1B26D2A27E1005B0092E386 /* TextEditorWithPlaceholder.swift */,
+				C161020527E641E1001F6102 /* NavigationBarAppearanceModifier.swift */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 			);
 			path = View;
@@ -365,6 +368,7 @@
 				C1FE9BB927CFB64300397B90 /* TaskStatus.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				C101D2C627D4DC4600334F5C /* Date+formatter.swift in Sources */,
+				C161020627E641E1001F6102 /* NavigationBarAppearanceModifier.swift in Sources */,
 				C18B9F1D27DF2DC700CF78F4 /* TaskListPlaceholder.swift in Sources */,
 				C18B9F1F27DF2E2400CF78F4 /* TaskListHeaderView.swift in Sources */,
 				C1FE9BC127CFCD3500397B90 /* TaskManageable.swift in Sources */,
