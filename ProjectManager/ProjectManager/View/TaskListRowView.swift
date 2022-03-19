@@ -43,7 +43,6 @@ struct TaskListRowView: View {
         .onLongPressGesture(perform: {
             isTaskStatusChanging.toggle()
         })
-        // FIXME: popover 버튼이 눌리면, 모달이 즉시 사라지도록 만들어야 함. 애니메이션이 지속되는 동안 버튼이 여러 번 눌릴 수 있음.
         .popover(isPresented: $isTaskStatusChanging, content: {
             ZStack {
                 Color(UIColor.quaternarySystemFill)
@@ -55,6 +54,7 @@ struct TaskListRowView: View {
                                 withAnimation {
                                     taskManager.objectWillChange.send()
                                     try? taskManager.changeTaskStatus(target: task, to: status)
+                                    isTaskStatusChanging.toggle()
                                 }
                             } label: {
                                 Text("Move to \(status.headerTitle)")
