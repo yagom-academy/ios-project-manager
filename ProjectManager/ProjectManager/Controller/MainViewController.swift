@@ -302,7 +302,9 @@ class MainViewController: UIViewController {
     private func presentTaskChangeActionSheet(
         at touchPoint: CGPoint, in tableView: UITableView
     ) {
-        guard let indexPath = tableView.indexPathForRow(at: touchPoint), let taskIndex = self.sampleTableView.firstIndex(of: tableView) else {
+        guard let indexPath = tableView.indexPathForRow(at: touchPoint),
+              let taskIndex = self.sampleTableView.firstIndex(of: tableView)
+        else {
             return
         }
 
@@ -478,38 +480,41 @@ extension MainViewController: EditEventAvailable {
 
 // MARK: - Magic Numbers
 
-private enum MainControllerColor {
+private extension MainViewController {
 
-    static let stackViewSpaceColor: UIColor = .systemGray4
-    static let backgroundColor: UIColor = .systemGray6
-    static let tableViewBackgroundColor: UIColor = .white
-}
+    private enum MainControllerColor {
 
-private enum MainControllerScript {
+        static let stackViewSpaceColor: UIColor = .systemGray4
+        static let backgroundColor: UIColor = .systemGray6
+        static let tableViewBackgroundColor: UIColor = .white
+    }
 
-    static let title = "Project Manager"
-    static let deleteConfirmMessage = "정말 삭제하시나요?"
-    static let cancel = "취소"
-    static let delete = "삭제"
-    static let confirm = "확인"
-    static let failureMessage = "요청하신 작업을 실패하였습니다"
-    static let moveTo = "Move to "
-}
+    private enum MainControllerScript {
 
-private enum MainControllerConstraint {
+        static let title = "Project Manager"
+        static let deleteConfirmMessage = "정말 삭제하시나요?"
+        static let cancel = "취소"
+        static let delete = "삭제"
+        static let confirm = "확인"
+        static let failureMessage = "요청하신 작업을 실패하였습니다"
+        static let moveTo = "Move to "
+    }
 
-    static let stackViewSpace: CGFloat = 10
-    static let estimatedCellHeight: CGFloat = 100
-    static let headerHeight: CGFloat = 33
-}
+    private enum MainControllerConstraint {
 
-private enum MainControllerImageName {
+        static let stackViewSpace: CGFloat = 10
+        static let estimatedCellHeight: CGFloat = 100
+        static let headerHeight: CGFloat = 33
+    }
 
-    static let plusButtonImage = "plus"
-    static let deleteImage = "trash.circle"
-}
+    private enum MainControllerImageName {
 
-private enum MainVCMagicNumber {
+        static let plusButtonImage = "plus"
+        static let deleteImage = "trash.circle"
+    }
 
-    static let minimumPressDuration: TimeInterval = 2
+    private enum MainVCMagicNumber {
+
+        static let minimumPressDuration: TimeInterval = 2
+    }
 }

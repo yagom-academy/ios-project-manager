@@ -117,17 +117,22 @@ class MainTableViewHeaderView: UITableViewHeaderFooterView {
     }
 }
 
-private enum HeaderViewConstraints {
+// MARK: - Magic Numbers
 
-    static let circleWidth: CGFloat = 20
-    static let spacing: CGFloat = 8
-    static let defaultCount = 0
-    static let stackViewPadding: CGFloat = 4
-    static let stackViewLeadingPadding: CGFloat = 10
-}
+extension MainTableViewHeaderView {
 
-private enum HeaderViewFont {
+    private enum HeaderViewConstraints {
 
-    static let taskLabel = UIFont.preferredFont(for: .title3, weight: .regular)
-    static let todoCountLabel = UIFont.preferredFont(for: .body, weight: .light)
+        static let circleWidth: CGFloat = 20
+        static let spacing: CGFloat = 8
+        static let defaultCount = 0
+        static let stackViewPadding: CGFloat = 4
+        static let stackViewLeadingPadding: CGFloat = 10
+    }
+
+    private enum HeaderViewFont {
+
+        static let taskLabel = UIFont.preferredFont(for: .title3, weight: .regular)
+        static let todoCountLabel = UIFont.preferredFont(for: .body, weight: .light)
+    }
 }

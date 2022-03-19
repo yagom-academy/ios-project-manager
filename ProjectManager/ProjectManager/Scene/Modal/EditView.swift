@@ -100,21 +100,26 @@ class EditView: UIView {
     }
 }
 
-private enum EditViewScript {
+// MARK: - Magic Numbers
 
-    static let textFieldPlaceHolder = "Title"
-}
+extension EditView {
 
-private enum EditViewConstraint {
+    private enum EditViewScript {
 
-    static let spacing: CGFloat = 10
-    static let stackViewPadding: CGFloat = 10
-    static let stackViewBottomPadding: CGFloat = 20
-    static let textFieldHeight: CGFloat = 36
-}
+        static let textFieldPlaceHolder = "Title"
+    }
 
-private enum EditViewFont {
+    private enum EditViewConstraint {
 
-    static let textField: UIFont = UIFont.preferredFont(for: .body, weight: .regular)
-    static let textView: UIFont = UIFont.preferredFont(for: .body, weight: .thin)
+        static let spacing: CGFloat = 10
+        static let stackViewPadding: CGFloat = 10
+        static let stackViewBottomPadding: CGFloat = 20
+        static let textFieldHeight: CGFloat = 36
+    }
+
+    private enum EditViewFont {
+
+        static let textField: UIFont = UIFont.preferredFont(for: .body, weight: .regular)
+        static let textView: UIFont = UIFont.preferredFont(for: .body, weight: .thin)
+    }
 }

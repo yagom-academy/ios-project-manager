@@ -174,28 +174,33 @@ class MainTableViewCell: UITableViewCell {
     }
 }
 
-private enum CellConstraint {
+// MARK: - Magic Numbers
 
-    static let cellStackViewPadding: CGFloat = 15
-    static let spacing: CGFloat = 5
-    static let defaultFontHeight: CGFloat = 20
-}
+extension MainTableViewCell {
 
-private enum CellFont {
+    private enum CellConstraint {
 
-    static let titleSize: UIFont.TextStyle = .headline
-    static let defaultSize: UIFont.TextStyle = .callout
-    static let deadlineSize: UIFont.TextStyle = .subheadline
-}
+        static let cellStackViewPadding: CGFloat = 15
+        static let spacing: CGFloat = 5
+        static let defaultFontHeight: CGFloat = 20
+    }
 
-private enum CellColor {
+    private enum CellFont {
 
-    static let content: UIColor = .systemGray3
-    static let deadlinePassed: UIColor = .systemRed
-    static let deadlineTheVeryDay: UIColor = .systemBlue
-}
+        static let titleSize: UIFont.TextStyle = .headline
+        static let defaultSize: UIFont.TextStyle = .callout
+        static let deadlineSize: UIFont.TextStyle = .subheadline
+    }
 
-private enum CellConstant {
+    private enum CellColor {
 
-    static let numberOfLineForDynamicHeight = 0
+        static let content: UIColor = .systemGray3
+        static let deadlinePassed: UIColor = .systemRed
+        static let deadlineTheVeryDay: UIColor = .systemBlue
+    }
+
+    private enum CellConstant {
+
+        static let numberOfLineForDynamicHeight = 0
+    }
 }

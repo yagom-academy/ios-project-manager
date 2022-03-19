@@ -62,7 +62,9 @@ class EditViewController: UIViewController, UIAdaptivePresentationControllerDele
     }
 
     private func setUpTextField() {
-        self.editView.textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        self.editView.textField.addTarget(
+            self, action: #selector(textFieldDidChange(_:)), for: .editingChanged
+        )
     }
 
     private func setUpTextView() {
@@ -228,25 +230,27 @@ extension EditViewController: UITextViewDelegate {
 }
 
 // MARK: - Magic Numbers
+extension EditViewController {
 
-private enum EditControllerScript {
+    private enum EditControllerScript {
 
-    static let title = "TODO"
-    static let cancel = "Cancel"
-    static let done = "Done"
-    static let textViewPlaceHolder = "1000자 이내로 입력해주세요"
-    static let untitled = "무제"
-    static let emptyText = ""
-}
+        static let title = "TODO"
+        static let cancel = "Cancel"
+        static let done = "Done"
+        static let textViewPlaceHolder = "1000자 이내로 입력해주세요"
+        static let untitled = "무제"
+        static let emptyText = ""
+    }
 
-private enum EditControllerConstraint {
+    private enum EditControllerConstraint {
 
-    static let maximumTextLength = 1000
-}
+        static let maximumTextLength = 1000
+    }
 
-private enum EditControllerColor {
+    private enum EditControllerColor {
 
-    static let background: UIColor = .white
-    static let placeHolderTextColor: UIColor = .lightGray
-    static let defaultTextColor: UIColor = .black
+        static let background: UIColor = .white
+        static let placeHolderTextColor: UIColor = .lightGray
+        static let defaultTextColor: UIColor = .black
+    }
 }
