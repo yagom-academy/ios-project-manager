@@ -26,10 +26,14 @@ final class WorkFormViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        bind()
         setupTextField()
         setupTextView()
         viewDidLoadObserver.onNext(())
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        bind()
     }
     
     func setup(selectedWork: Work?, list: BehaviorSubject<[Work]>?, workMemoryManager: WorkMemoryManager?) {

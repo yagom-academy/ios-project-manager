@@ -41,8 +41,8 @@ class WorkFormViewModel: ViewModelDescribing {
     }
     
     private(set) var selectedWork: Work?
-    private var list = BehaviorSubject<[Work]>(value: [])
     private(set) var workMemoryManager: WorkMemoryManager!
+    private var list = BehaviorSubject<[Work]>(value: [])
     private let disposeBag = DisposeBag()
     
     func setup(selectedWork: Work?, list: BehaviorSubject<[Work]>, workMemoryManager: WorkMemoryManager) {
