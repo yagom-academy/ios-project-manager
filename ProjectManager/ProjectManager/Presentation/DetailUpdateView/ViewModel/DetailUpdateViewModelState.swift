@@ -1,6 +1,6 @@
 import Foundation
 
-enum DetailAddViewModelState {
+enum DetailUpdateViewModelState {
     
     case edit
     case done
