@@ -10,7 +10,7 @@ class MainViewController: UIViewController {
 
 // MARK: - Properties
 
-    private var todoList = [Todo]() {
+    private var todoList = [TodoTasks: [Todo]]() {
         didSet {
             self.reloadTableViewData()
         }
@@ -121,12 +121,12 @@ class MainViewController: UIViewController {
             let taskIndex = self.sampleTableView.firstIndex(of: tableView) else {
                 return
             }
+            let task = TodoTasks.getTask(taskIndex)
+            guard let todosAtCertainTask = self.todoList[task] else {
+                return
+            }
 
-            let deleteTodoInTodos = DataFormatter.filterTodos(
-                by: TodoTasks.getTask(taskIndex), in: self.todoList
-            )
-            let deleteTodo = deleteTodoInTodos[indexPath.row]
-            self.dataProvider.delete(todo: deleteTodo)
+            self.dataProvider.delete(todo: todosAtCertainTask[indexPath.row], at: task)
         }
 
         alert.addAction(cancelAction)
@@ -308,17 +308,17 @@ class MainViewController: UIViewController {
             return
         }
 
-        let selectedTodos = DataFormatter.filterTodos(
-            by: TodoTasks.getTask(taskIndex), in: self.todoList
-        )
-        let selectedTodo = selectedTodos[indexPath.row]
-        let otherTasks = TodoTasks.allCases.filter { task in
-            task != selectedTodo.task
+        let selectedTask = TodoTasks.getTask(taskIndex)
+
+        guard let todosAtSelectedTask = self.todoList[selectedTask] else {
+            return
         }
+
+        let selectedTodo = todosAtSelectedTask[indexPath.row]
         let actionSheet = self.setUpActionSheet(in: indexPath, of: tableView)
 
         self.setUpAlertActionWithOtherTasks(
-            tasks: otherTasks, selectedTodo: selectedTodo, at: actionSheet
+            selectedTask: selectedTask, selectedTodo: selectedTodo, at: actionSheet
         )
 
         self.present(actionSheet, animated: true, completion: nil)
@@ -338,9 +338,13 @@ class MainViewController: UIViewController {
     }
 
     private func setUpAlertActionWithOtherTasks(
-        tasks: [TodoTasks], selectedTodo: Todo, at actionSheet: UIAlertController
+        selectedTask: TodoTasks, selectedTodo: Todo, at actionSheet: UIAlertController
     ) {
-        tasks.forEach { task in
+        let otherTasks = TodoTasks.allCases.filter { task in
+            task != selectedTask
+        }
+
+        otherTasks.forEach { task in
             let action = UIAlertAction(
                 title: MainControllerScript.moveTo + task.rawValue, style: .default
             ) { [weak self] _ in
@@ -348,7 +352,7 @@ class MainViewController: UIViewController {
                     return
                 }
 
-                self.dataProvider.edit(todo: selectedTodo, in: task)
+                self.dataProvider.editTask(todo: selectedTodo, at: task, originalTask: selectedTask)
                 self.reloadTableViewData()
             }
 
@@ -374,13 +378,13 @@ class MainViewController: UIViewController {
 // MARK: - Table View DataSource
 extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let taskIndex = self.sampleTableView.firstIndex(of: tableView) else {
+        guard let taskIndex = self.sampleTableView.firstIndex(of: tableView),
+              let todosAtCertainTask = self.todoList[TodoTasks.getTask(taskIndex)]
+        else {
             return 0
         }
 
-        return DataFormatter.filterTodos(
-            by: TodoTasks.getTask(taskIndex), in: self.todoList
-        ).count
+        return todosAtCertainTask.count
     }
 
     func tableView(
@@ -388,14 +392,13 @@ extension MainViewController: UITableViewDataSource {
     ) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withClass: MainTableViewCell.self)
 
-        guard let taskIndex = self.sampleTableView.firstIndex(of: tableView) else {
+        guard let taskIndex = self.sampleTableView.firstIndex(of: tableView),
+              let todosAtCertainTask = self.todoList[TodoTasks.getTask(taskIndex)]
+        else {
             return cell
         }
 
-        let todos = DataFormatter.filterTodos(
-            by: TodoTasks.getTask(taskIndex), in: self.todoList
-        )
-        let todo = todos[indexPath.row]
+        let todo = todosAtCertainTask[indexPath.row]
 
         cell.configureTodo(for: todo)
 
@@ -427,33 +430,35 @@ extension MainViewController: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let taskIndex = self.sampleTableView.firstIndex(of: tableView) else {
+        guard let taskIndex = self.sampleTableView.firstIndex(of: tableView),
+              let todosAtCertainTask = self.todoList[TodoTasks.getTask(taskIndex)]
+        else {
             return
         }
 
         self.presentNavigationController()
 
-        let todos = DataFormatter.filterTodos(
-            by: TodoTasks.getTask(taskIndex), in: self.todoList
-        )
-        let todo = todos[indexPath.row]
-        self.editViewController.setUpDefaultValue(todo: todo)
+        let todo = todosAtCertainTask[indexPath.row]
+
+        self.editViewController.setUpDefaultValue(todo: todo, at: TodoTasks.getTask(taskIndex))
         tableView.deselectRow(at: indexPath, animated: true)
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let taskIndex = self.sampleTableView.firstIndex(of: tableView) else {
+        guard let taskIndex = self.sampleTableView.firstIndex(of: tableView),
+              let todosAtCertainTask = self.todoList[TodoTasks.getTask(taskIndex)]
+        else {
             return nil
         }
 
-        let task = TodoTasks.getTask(taskIndex)
         let header = tableView.dequeueReusableHeaderFooterView(
             withClass: MainTableViewHeaderView.self
         )
-        let todoInTask = DataFormatter.filterTodos(by: task, in: self.todoList)
-        let todoCount = todoInTask.count
+        let todoCount = todosAtCertainTask.count
 
-        header.configureContents(todoCount: todoCount, withTitle: task.rawValue)
+        header.configureContents(
+            todoCount: todoCount, withTitle: TodoTasks.getTask(taskIndex).rawValue
+        )
 
         return header
     }

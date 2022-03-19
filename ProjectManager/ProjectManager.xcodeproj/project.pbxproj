@@ -22,7 +22,6 @@
 		0D8088D627CFA0E500199897 /* Double+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8088D527CFA0E500199897 /* Double+Extension.swift */; };
 		0D8088E327CFC35E00199897 /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8088E227CFC35E00199897 /* UITableView+Extension.swift */; };
 		0DAF17B927CE6BBF0052968B /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 0DAF17B827CE6BBF0052968B /* .swiftlint.yml */; };
-		0DC8636327D747B9001E5DD8 /* DataFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC8636227D747B9001E5DD8 /* DataFormatter.swift */; };
 		0DC8637627DA692E001E5DD8 /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC8637527DA692E001E5DD8 /* EditView.swift */; };
 		0DF22DE927D1E19F00CE0BD5 /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF22DE827D1E19F00CE0BD5 /* UIFont+Extension.swift */; };
 		0DF22DED27D1E81A00CE0BD5 /* DateFormatter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF22DEC27D1E81A00CE0BD5 /* DateFormatter+Extension.swift */; };
@@ -56,7 +55,6 @@
 		0D8088D527CFA0E500199897 /* Double+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extension.swift"; sourceTree = "<group>"; };
 		0D8088E227CFC35E00199897 /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
 		0DAF17B827CE6BBF0052968B /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
-		0DC8636227D747B9001E5DD8 /* DataFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataFormatter.swift; sourceTree = "<group>"; };
 		0DC8637527DA692E001E5DD8 /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
 		0DF22DE827D1E19F00CE0BD5 /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		0DF22DEC27D1E81A00CE0BD5 /* DateFormatter+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Extension.swift"; sourceTree = "<group>"; };
@@ -108,7 +106,6 @@
 		0D7A352727D0514D007F26F6 /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				0DC8636227D747B9001E5DD8 /* DataFormatter.swift */,
 				0D7A352827D05184007F26F6 /* DataProvider.swift */,
 			);
 			path = Service;
@@ -397,7 +394,6 @@
 				0D8088D627CFA0E500199897 /* Double+Extension.swift in Sources */,
 				0D5B293B27D35DEF00F30925 /* UILabel+Extension.swift in Sources */,
 				0D8088D427CFA0DB00199897 /* Date+Extension.swift in Sources */,
-				0DC8636327D747B9001E5DD8 /* DataFormatter.swift in Sources */,
 				0D36AE0127D10B9E00A93720 /* UITextView+Extension.swift in Sources */,
 				0D8088E327CFC35E00199897 /* UITableView+Extension.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,

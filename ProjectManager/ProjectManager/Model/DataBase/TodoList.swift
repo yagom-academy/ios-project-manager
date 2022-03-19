@@ -9,44 +9,49 @@ import Foundation
 
 class TodoList {
 
-    private var todoList = [Todo]()
-
-    func remove(at todo: Todo) {
-        let deleteNoteIndex = self.todoList.firstIndex { someTodo in
-            someTodo.uuid == todo.uuid
+    private var todoList: [TodoTasks: [Todo]] = {
+        var todoList = [TodoTasks: [Todo]]()
+        TodoTasks.allCases.forEach { task in
+            todoList.updateValue([Todo](), forKey: task)
         }
 
-        guard let deleteNoteIndex = deleteNoteIndex else {
+        return todoList
+    }()
+
+    func remove(todo: Todo, at task: TodoTasks) {
+        guard let deleteTodoIndex = self.searchIndex(of: todo, at: task) else {
             return
         }
 
-        self.todoList.remove(at: deleteNoteIndex)
+        self.todoList[task]?.remove(at: deleteTodoIndex)
     }
 
-    func add(todo: Todo) {
-        self.todoList.append(todo)
-        let dummyTodo = self.todoList.filter { someTodo in
-            someTodo.task == todo.task && someTodo.deadline == nil
-        }
-
-        if let dummy = dummyTodo.first {
-            self.remove(at: dummy)
-        }
+    func add(todo: Todo, at task: TodoTasks) {
+        self.todoList[task]?.append(todo)
     }
 
-    func edit(todo: Todo, in task: TodoTasks) {
-        let beingEditedTodoIndex = self.todoList.firstIndex { someTodo in
+    func editTask(todo: Todo, at newTask: TodoTasks, originalTask: TodoTasks) {
+        self.remove(todo: todo, at: originalTask)
+        self.add(todo: todo, at: newTask)
+    }
+
+    func update(todo: Todo, at task: TodoTasks, originalTodo: Todo) {
+        guard let index = self.searchIndex(of: originalTodo, at: task) else {
+            return
+        }
+
+        self.todoList[task]?[index] = todo
+    }
+
+    func fetch(completionHandler: @escaping ([TodoTasks: [Todo]]) -> Void) {
+        completionHandler(self.todoList)
+    }
+
+    private func searchIndex(of todo: Todo, at task: TodoTasks) -> Int? {
+        let todoIndex = self.todoList[task]?.firstIndex { someTodo in
             someTodo.uuid == todo.uuid
         }
-        var editedTodo = todo
-        editedTodo.task = task
 
-        if let index = beingEditedTodoIndex {
-            self.todoList[index] = editedTodo
-        }
-    }
-
-    func fetch(completionHandler: @escaping ([Todo]) -> Void) {
-        completionHandler(self.todoList)
+        return todoIndex
     }
 }

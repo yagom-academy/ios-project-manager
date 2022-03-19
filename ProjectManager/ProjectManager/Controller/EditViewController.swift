@@ -12,6 +12,7 @@ class EditViewController: UIViewController, UIAdaptivePresentationControllerDele
 // MARK: - Properties
 
     private var todo: Todo?
+    private var beingEditedTodoTask: TodoTasks?
     weak var dataProvider: DataProvider?
     weak var mainViewDelegate: EditEventAvailable?
 
@@ -85,8 +86,9 @@ class EditViewController: UIViewController, UIAdaptivePresentationControllerDele
 
 // MARK: - SetUp Default Value
 
-    func setUpDefaultValue(todo: Todo) {
+    func setUpDefaultValue(todo: Todo, at task: TodoTasks) {
         self.todo = todo
+        self.beingEditedTodoTask = task
         self.applyDefaultValue()
     }
 
@@ -176,7 +178,6 @@ class EditViewController: UIViewController, UIAdaptivePresentationControllerDele
             title: self.editView.textField.text ?? EditControllerScript.untitled,
             content: self.editView.textView.text,
             deadline: self.editView.datePicker.date.double,
-            task: self.todo?.task ?? .todo,
             uuid: self.todo?.uuid ?? UUID()
         )
 
@@ -184,15 +185,12 @@ class EditViewController: UIViewController, UIAdaptivePresentationControllerDele
     }
 
     private func branchWithOrWithoutDefaultValue(newTodo: Todo) {
-        guard let dataProvider = self.dataProvider else {
-            return
-        }
-
-        if self.todo?.uuid != nil, self.todo?.task != nil {
-            dataProvider.edit(todo: newTodo, in: newTodo.task)
+        if let task = self.beingEditedTodoTask,
+           let originalTodo = self.todo {
+            self.dataProvider?.update(todo: newTodo, at: task, originalTodo: originalTodo)
             self.todo = nil
         } else {
-            dataProvider.update(todo: newTodo)
+            self.dataProvider?.add(todo: newTodo, at: .todo)
         }
     }
 }

@@ -10,7 +10,7 @@ import Foundation
 class DataProvider {
 
     var updated: () -> Void = {}
-    private var updatedTodoList = [Todo]() {
+    private var updatedTodoList = [TodoTasks: [Todo]]() {
         didSet {
             updated()
         }
@@ -26,22 +26,27 @@ class DataProvider {
         }
     }
 
-    func updatedList() -> [Todo] {
+    func updatedList() -> [TodoTasks: [Todo]] {
         self.updatedTodoList
     }
 
-    func update(todo: Todo) {
-        self.todoList.add(todo: todo)
+    func add(todo: Todo, at task: TodoTasks) {
+        self.todoList.add(todo: todo, at: task)
         self.reload()
     }
 
-    func delete(todo: Todo) {
-        self.todoList.remove(at: todo)
+    func delete(todo: Todo, at task: TodoTasks) {
+        self.todoList.remove(todo: todo, at: task)
         self.reload()
     }
 
-    func edit(todo: Todo, in task: TodoTasks) {
-        self.todoList.edit(todo: todo, in: task)
+    func editTask(todo: Todo, at task: TodoTasks, originalTask: TodoTasks) {
+        self.todoList.editTask(todo: todo, at: task, originalTask: originalTask)
+        self.reload()
+    }
+
+    func update(todo: Todo, at task: TodoTasks, originalTodo: Todo) {
+        self.todoList.update(todo: todo, at: task, originalTodo: originalTodo)
         self.reload()
     }
 }
