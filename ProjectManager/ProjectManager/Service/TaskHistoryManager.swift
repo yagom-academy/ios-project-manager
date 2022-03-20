@@ -11,8 +11,8 @@ class TaskHistoryManager {
     
     enum TaskHandleType {
         case create(title: String)
-        case move(title: String, prevStatus: Task.ProgressStatus, nextStatus: Task.ProgressStatus)
-        case delete(title: String, status: Task.ProgressStatus)
+        case move(title: String, prevStatus: TaskStatus, nextStatus: TaskStatus)
+        case delete(title: String, status: TaskStatus)
     }
     
     func appendHistory(taskHandleType: TaskHandleType) {

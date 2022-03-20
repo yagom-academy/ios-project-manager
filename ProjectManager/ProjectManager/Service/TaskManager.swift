@@ -6,7 +6,7 @@ class TaskManager {
     let realmTaskListRepository = RealmTaskListRepository()
     var taskList = [Task]()
     
-    func taskList(at status: Task.ProgressStatus) -> [Task] {
+    func taskList(at status: TaskStatus) -> [Task] {
         return taskList.filter { $0.progressStatus == status }
     }
 }
@@ -101,7 +101,7 @@ extension TaskManager: FirebaseTaskManagable {
         .eraseToAnyPublisher()
     }
     
-    func updateFirebaseTaskStatus(id: String, taskStatus: Task.ProgressStatus) -> AnyPublisher<Bool, FirebaseError> {
+    func updateFirebaseTaskStatus(id: String, taskStatus: TaskStatus) -> AnyPublisher<Bool, FirebaseError> {
         Future<Bool, FirebaseError> { promise in
             let entityTaskStatus = taskStatus.rawValue
             self.firebaseTaskListRepository.updateEntityTaskStatus(id: id, taskStatus: entityTaskStatus) { result in
@@ -161,11 +161,11 @@ extension TaskManager: RealmTaskManagable {
         }
     }
     
-    func updateRealmTaskStatus(id: String, taskStatus: Task.ProgressStatus) throws {
+    func updateRealmTaskStatus(id: String, taskStatus: TaskStatus) throws {
         do {
             try realmTaskListRepository.updateTaskStatus(
                 id: id,
-                taskStatus: RealmEntityTask.ProgressStatus(rawValue: taskStatus.rawValue) ?? .todo
+                taskStatus: TaskStatus(rawValue: taskStatus.rawValue) ?? .todo
             )
             try fetchRealmTaskList()
         } catch {
@@ -191,7 +191,7 @@ extension TaskManager {
             title: task.title,
             description: task.desc,
             deadline: task.deadline,
-            progressStatus: Task.ProgressStatus(rawValue: task.progressStatus) ?? .todo
+            progressStatus: TaskStatus(rawValue: task.progressStatus) ?? .todo
         )
     }
     
@@ -222,7 +222,7 @@ extension TaskManager {
             title: entityTask.title,
             description: entityTask.description,
             deadline: entityTask.deadline,
-            progressStatus: Task.ProgressStatus(rawValue: entityTask.progressStatus) ?? .todo
+            progressStatus: TaskStatus(rawValue: entityTask.progressStatus) ?? .todo
         )
     }
 }

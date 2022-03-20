@@ -55,7 +55,7 @@ private struct TaskListRowDescriptionView: View {
 
 private struct TaskListRowDeadlineView: View {
     fileprivate let deadline: TimeInterval
-    fileprivate let taskStatus: Task.ProgressStatus
+    fileprivate let taskStatus: TaskStatus
     
     var body: some View {
         let deadlineText = Text(deadline.formatString(dateStyle: .short))

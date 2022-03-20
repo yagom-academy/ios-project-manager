@@ -1,30 +1,11 @@
 import Foundation
 
-struct Task: Identifiable {
-    enum ProgressStatus: String, CaseIterable, Identifiable {
-        case todo
-        case doing
-        case done
-        
-        var id: UUID { UUID() }
-        
-        var name: String {
-            switch self {
-            case .todo:
-                return "Todo"
-            case .doing:
-                return "Doing"
-            case .done:
-                return "Done"
-            }
-        }
-    }
-    
+struct Task: Identifiable {    
     var id: String
     var title: String
     var description: String
     var deadline: TimeInterval
-    var progressStatus: ProgressStatus
+    var progressStatus: TaskStatus
     
     init(title: String, description: String, deadline: Date) {
         self.id = UUID().uuidString
@@ -34,7 +15,7 @@ struct Task: Identifiable {
         self.progressStatus = .todo
     }
     
-    init(id: String, title: String, description: String, deadline: TimeInterval, progressStatus: ProgressStatus) {
+    init(id: String, title: String, description: String, deadline: TimeInterval, progressStatus: TaskStatus) {
         self.id = id
         self.title = title
         self.description = description

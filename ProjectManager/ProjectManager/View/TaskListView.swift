@@ -2,7 +2,7 @@ import SwiftUI
 
 struct TaskListView: View {
     @EnvironmentObject private var taskListViewModel: TaskListViewModel
-    let taskStatus: Task.ProgressStatus
+    let taskStatus: TaskStatus
     
     fileprivate var taskList: [Task] {
         switch taskStatus {
@@ -24,7 +24,7 @@ struct TaskListView: View {
 }
 
 private struct TaskListTitleView: View {
-    fileprivate let taskStatus: Task.ProgressStatus
+    fileprivate let taskStatus: TaskStatus
     fileprivate let taskList: [Task]
     
     var body: some View {

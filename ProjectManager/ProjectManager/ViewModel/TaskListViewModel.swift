@@ -114,7 +114,7 @@ class TaskListViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
-    func updateStatus(id: String, title: String, prevStatus:Task.ProgressStatus, nextStatus: Task.ProgressStatus) {
+    func updateStatus(id: String, title: String, prevStatus: TaskStatus, nextStatus: TaskStatus) {
         do {
             try taskListManager.updateRealmTaskStatus(id: id, taskStatus: nextStatus)
             historyManager.appendHistory(
@@ -142,7 +142,7 @@ class TaskListViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
-    func deleteTask(id: String, title: String, taskStatus: Task.ProgressStatus) {
+    func deleteTask(id: String, title: String, taskStatus: TaskStatus) {
         do {
             try  taskListManager.deleteRealmTask(id)
             historyManager.appendHistory(taskHandleType: .delete(title: title, status: taskStatus))
@@ -164,7 +164,7 @@ class TaskListViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
-    func changeableStatusList(from status: Task.ProgressStatus) -> [Task.ProgressStatus] {
-        return Task.ProgressStatus.allCases.filter { $0 != status }
+    func changeableStatusList(from status: TaskStatus) -> [TaskStatus] {
+        return TaskStatus.allCases.filter { $0 != status }
     }
 }

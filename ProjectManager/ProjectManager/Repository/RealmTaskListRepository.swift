@@ -44,7 +44,7 @@ class RealmTaskListRepository {
         }
     }
     
-    func updateTaskStatus(id: String, taskStatus: RealmEntityTask.ProgressStatus) throws {
+    func updateTaskStatus(id: String, taskStatus: TaskStatus) throws {
         let realm = try Realm()
         let task = realm.objects(RealmEntityTask.self)
             .filter { $0.id == id }

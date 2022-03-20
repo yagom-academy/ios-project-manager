@@ -86,7 +86,7 @@ private struct TaskHistoryRowView: View {
 private struct ProjectManagerMainContentView: View {
     var body: some View {
         HStack {
-            ForEach(Task.ProgressStatus.allCases) { status in
+            ForEach(TaskStatus.allCases) { status in
                 TaskListView(taskStatus: status)
                 if status != .done {
                     Divider()
