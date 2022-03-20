@@ -48,6 +48,10 @@ struct TaskListView: View {
                         .sheet(isPresented: $isShowDetailScene, onDismiss: nil) {
                             DetailScene(taskViewModel: taskViewModel, task: task, showDetailScene: $isShowDetailScene)
                         }
+                        .onTapGesture {
+                            isShowDetailScene.toggle()
+                            DetailScene(taskViewModel: taskViewModel, task: task, showDetailScene: $isShowDetailScene)
+                        }
                         .onLongPressGesture(minimumDuration: 0.5, maximumDistance: 10.0, perform: {
                             isShowPopover.toggle()
                         }, onPressingChanged: nil)

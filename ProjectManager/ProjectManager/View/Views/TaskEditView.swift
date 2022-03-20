@@ -41,7 +41,7 @@ struct TaskEditView: View {
     }
     
     func limitText(_ stringvar: inout String, _ limit: Int) {
-        if (stringvar.count > limit) {
+        if stringvar.count > limit {
             stringvar = String(stringvar.prefix(limit))
         }
     }
