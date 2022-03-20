@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Status: String {
+enum Status: String, Codable {
     
     case todo
     case doing

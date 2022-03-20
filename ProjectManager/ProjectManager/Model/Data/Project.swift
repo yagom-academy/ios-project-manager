@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Project: Hashable {
+struct Project {
     
     // MARK: - Property
     let identifier: String?
@@ -25,10 +25,6 @@ struct Project: Hashable {
     }
     
     // MARK: - Method
-    static func == (lhs: Project, rhs: Project) -> Bool {
-        return lhs.identifier == rhs.identifier
-    }
-    
     mutating func updateContent(with input: [String: Any]) {
         self.title = input["title"] as? String
         self.deadline = input["deadline"] as? Date
@@ -37,5 +33,21 @@ struct Project: Hashable {
     
     mutating func updateStatus(with status: Status) {
         self.status = status
+    }
+}
+
+// MARK: - Hashable
+extension Project: Hashable {
+    
+    static func == (lhs: Project, rhs: Project) -> Bool {
+        return lhs.identifier == rhs.identifier
+    }
+}
+
+// MARK: - Codable
+extension Project: Codable {
+    
+    enum CodingKeys: String, CodingKey {
+        case identifier, title, description, deadline, status
     }
 }
