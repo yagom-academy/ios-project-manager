@@ -24,23 +24,6 @@ final class ProjectFirestoreManager {
     let db = Firestore.firestore()
     
     // MARK: - Method
-    func read(of status: Status, completion: @escaping (Result<[[String: Any]], FirestoreError>) -> Void) {
-        db.collection(FirestorePath.collection).whereField("status", isEqualTo: status)
-            .getDocuments() { (querySnapshot, err) in
-                if let err = err {
-                    print("Error getting documents: \(err)")
-                    completion(.failure(.doucmentNotExist))
-                } else {
-                    var datas: [[String: Any]] = []
-                    for document in querySnapshot!.documents {
-                        print("\(document.documentID) => \(document.data())")
-                        datas.append(document.data())
-                    }
-                    completion(.success(datas))
-                }
-        }
-    }
-    
     func readAll(completion: @escaping (Result<[[String: Any]?], FirestoreError>) -> Void) {
         db.collection(FirestorePath.collection).getDocuments() { (querySnapshot, err) in
             if let err = err {
@@ -77,9 +60,11 @@ final class ProjectFirestoreManager {
 
 // MARK: - RemoteDataManagable
 extension ProjectFirestoreManager: RemoteDataManagable {
-    
+   
     typealias Item = Project
+    typealias Group = Status
     
+    // MARK: - Method
     func create(with content: [String : Any]) {
         guard let identifeir = content["identifier"] as? String,
               let deadline = content["deadline"] as? Date else {
@@ -97,7 +82,7 @@ extension ProjectFirestoreManager: RemoteDataManagable {
                 }
         }
     }
-    
+   
     func read(of identifier: String, completion: @escaping (Result<[String : Any], FirestoreError>) -> Void) {
         let docRef = db.collection(FirestorePath.collection).document(identifier)
 
@@ -112,6 +97,23 @@ extension ProjectFirestoreManager: RemoteDataManagable {
                 print("Document does not exist")
                 completion(.failure(.doucmentNotExist))
             }
+        }
+    }
+    
+    func read(of group: Status, completion: @escaping (Result<[[String : Any]], FirestoreError>) -> Void) {
+        db.collection(FirestorePath.collection).whereField("status", isEqualTo: group)
+            .getDocuments() { (querySnapshot, err) in
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                    completion(.failure(.doucmentNotExist))
+                } else {
+                    var datas: [[String: Any]] = []
+                    for document in querySnapshot!.documents {
+                        print("\(document.documentID) => \(document.data())")
+                        datas.append(document.data())
+                    }
+                    completion(.success(datas))
+                }
         }
     }
     

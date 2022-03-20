@@ -10,13 +10,20 @@ import Foundation
 protocol RemoteDataManagable: AnyObject {
     
     associatedtype Item
+    associatedtype Group
 
     func create(with content: [String: Any])
         
     func read(
         of identifier: String,
-        completion: @escaping (Result<[String: Any], FirestoreError>) -> Void)
-        
+        completion: @escaping (Result<[String: Any], FirestoreError>) -> Void
+    )
+    
+    func read(
+        of group: Group,
+        completion: @escaping (Result<[[String: Any]], FirestoreError>) -> Void
+    )
+    
     func update(of identifier: String, with content: [String: Any])
         
     func delete(of identifier: String)
