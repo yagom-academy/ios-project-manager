@@ -40,7 +40,7 @@ class MainViewController: UIViewController {
         return stackView
     }()
 
-    private let sampleTableView: [UITableView] = TodoTasks.allCases.map { _ in
+    private let tableViews: [UITableView] = TodoTasks.allCases.map { _ in
         let tableView = UITableView()
         tableView.backgroundColor = MainControllerColor.tableViewBackgroundColor
         tableView.estimatedRowHeight = MainControllerConstraint.estimatedCellHeight
@@ -94,7 +94,7 @@ class MainViewController: UIViewController {
 // MARK: - Reload View
 
     func reloadTableViewData() {
-        self.sampleTableView.forEach { tableView in
+        self.tableViews.forEach { tableView in
             tableView.reloadData()
         }
     }
@@ -118,7 +118,7 @@ class MainViewController: UIViewController {
             title: MainControllerScript.delete, style: .destructive
         ) { [weak self] _ in
             guard let self = self,
-            let taskIndex = self.sampleTableView.firstIndex(of: tableView) else {
+            let taskIndex = self.tableViews.firstIndex(of: tableView) else {
                 return
             }
             let task = TodoTasks.getTask(taskIndex)
@@ -174,18 +174,18 @@ class MainViewController: UIViewController {
     private func configureStackView() {
         self.view.addSubview(self.stackView)
         self.addTableViewsToStackView()
-        self.setStackViewConstraints()
+        self.setUpStackViewConstraints()
     }
 
     private func addTableViewsToStackView() {
-        self.sampleTableView.forEach { tableView in
+        self.tableViews.forEach { tableView in
             self.stackView.addArrangedSubview(tableView)
         }
     }
 
 // MARK: - Configure View Constraints
 
-    private func setStackViewConstraints() {
+    private func setUpStackViewConstraints() {
         NSLayoutConstraint.activate([
             self.stackView.topAnchor.constraint(
                 equalTo: self.view.safeAreaLayoutGuide.topAnchor
@@ -215,29 +215,38 @@ class MainViewController: UIViewController {
     private func setUpTableView() {
         self.registerTableViewHeader()
         self.registerTableViewCell()
+        self.setUpSectionHeaderConstraints()
 
-        self.sampleTableView.forEach { tableView in
+        self.tableViews.forEach { tableView in
             tableView.dataSource = self
             tableView.delegate = self
         }
     }
 
     private func registerTableViewHeader() {
-        self.sampleTableView.forEach { tableView in
+        self.tableViews.forEach { tableView in
             tableView.register(headerFooterViewClassWith: MainTableViewHeaderView.self)
         }
     }
 
     private func registerTableViewCell() {
-        self.sampleTableView.forEach { tableView in
+        self.tableViews.forEach { tableView in
             tableView.register(cellWithClass: MainTableViewCell.self)
+        }
+    }
+
+    private func setUpSectionHeaderConstraints() {
+        if #available(iOS 15, *) {
+            self.tableViews.forEach { tableView in
+                tableView.sectionHeaderTopPadding = MainControllerConstraint.headerTopPadding
+            }
         }
     }
 
 // MARK: - SetUp TableView LongPressGesture
 
     private func setUpTableViewGesture() {
-        self.sampleTableView.enumerated().forEach { (index, tableView) in
+        self.tableViews.enumerated().forEach { (index, tableView) in
             switch TodoTasks.getTask(index) {
             case .todo:
                 self.addLongPressGestureRecognizer(
@@ -303,7 +312,7 @@ class MainViewController: UIViewController {
         at touchPoint: CGPoint, in tableView: UITableView
     ) {
         guard let indexPath = tableView.indexPathForRow(at: touchPoint),
-              let taskIndex = self.sampleTableView.firstIndex(of: tableView)
+              let taskIndex = self.tableViews.firstIndex(of: tableView)
         else {
             return
         }
@@ -363,7 +372,7 @@ class MainViewController: UIViewController {
 // MARK: - Match TableView to certain Task
 
     private func matchTableView(to task: TodoTasks) throws -> UITableView {
-        let tableView = self.sampleTableView.enumerated().filter { (index, _) in
+        let tableView = self.tableViews.enumerated().filter { (index, _) in
             TodoTasks.getTask(index) == task
         }
 
@@ -378,7 +387,7 @@ class MainViewController: UIViewController {
 // MARK: - Table View DataSource
 extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let taskIndex = self.sampleTableView.firstIndex(of: tableView),
+        guard let taskIndex = self.tableViews.firstIndex(of: tableView),
               let todosAtCertainTask = self.todoList[TodoTasks.getTask(taskIndex)]
         else {
             return 0
@@ -392,7 +401,7 @@ extension MainViewController: UITableViewDataSource {
     ) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withClass: MainTableViewCell.self)
 
-        guard let taskIndex = self.sampleTableView.firstIndex(of: tableView),
+        guard let taskIndex = self.tableViews.firstIndex(of: tableView),
               let todosAtCertainTask = self.todoList[TodoTasks.getTask(taskIndex)]
         else {
             return cell
@@ -430,7 +439,7 @@ extension MainViewController: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let taskIndex = self.sampleTableView.firstIndex(of: tableView),
+        guard let taskIndex = self.tableViews.firstIndex(of: tableView),
               let todosAtCertainTask = self.todoList[TodoTasks.getTask(taskIndex)]
         else {
             return
@@ -445,7 +454,7 @@ extension MainViewController: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let taskIndex = self.sampleTableView.firstIndex(of: tableView),
+        guard let taskIndex = self.tableViews.firstIndex(of: tableView),
               let todosAtCertainTask = self.todoList[TodoTasks.getTask(taskIndex)]
         else {
             return nil
@@ -509,7 +518,8 @@ private extension MainViewController {
 
         static let stackViewSpace: CGFloat = 10
         static let estimatedCellHeight: CGFloat = 100
-        static let headerHeight: CGFloat = 33
+        static let headerHeight: CGFloat = 40
+        static let headerTopPadding: CGFloat = 0
     }
 
     private enum MainControllerImageName {
