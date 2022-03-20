@@ -20,15 +20,15 @@ class TaskHistoryManager {
         
         switch taskHandleType {
         case .create(let title):
-            let description = Message.add.localized(with: title)
+            let description = Message.add.localized(with: [title])
             let history = TaskHistory(description: description, date: date)
             self.taskHistory.append(history)
         case .move(let title, let prevStatus, let nextStatus):
-            let description = Message.move.localized(with: title, prevStatus.name, nextStatus.name)
+            let description = Message.move.localized(with: [title, prevStatus.name, nextStatus.name])
             let history = TaskHistory(description: description, date: date)
             self.taskHistory.append(history)
         case .delete(let title, let status):
-            let description = Message.delete.localized(with: title, status.name)
+            let description = Message.delete.localized(with: [title, status.name])
             let history = TaskHistory(description: description, date: date)
             self.taskHistory.append(history)
         }

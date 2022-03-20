@@ -5,8 +5,7 @@ extension String {
         return NSLocalizedString(self, comment: comment)
     }
     
-    func localized(with arguments: CVarArg...) -> String {
-        let localizedValue = self.localized()
-        return String(format: localizedValue, arguments: arguments)
+    func localized(with arguments: [CVarArg] = [], comment: String = "") -> String {
+        return String(format: self.localized(comment: comment), arguments: arguments)
     }
 }
