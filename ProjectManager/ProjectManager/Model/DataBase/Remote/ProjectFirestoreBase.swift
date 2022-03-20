@@ -27,6 +27,14 @@ class ProjectFirestoreBase {
         guard let identifeir = content["identifier"] as? String else {
             return
         }
+        var contentForFirestore = content
+        guard let deadline = content["deadline"] as? Date,
+            let status = content["status"] as? Status else {
+            return
+        }
+        contentForFirestore.updateValue(Timestamp(date: deadline), forKey: "deadline")
+        contentForFirestore.updateValue(status.rawValue, forKey: "statusString")
+        
         db.collection(FirestorePath.collection).document(identifeir).setData(content) { err in
             if let err = err {
                     print("Error writing document: \(err)")
@@ -37,15 +45,16 @@ class ProjectFirestoreBase {
     }
     
     // 읽기
-    func read(with identifier: String, completion: @escaping (Result<[String: Any]?, FirestoreError>) -> Void) {
+    func read(with identifier: String, completion: @escaping (Result<[String: Any], FirestoreError>) -> Void) {
         let docRef = db.collection(FirestorePath.collection).document(identifier)
 
         docRef.getDocument { (document, error) in
             if let document = document, document.exists {
-                let data = document.data()
-                print("Document data: \(String(describing: data))")
-                completion(.success(data))
-                return
+                if let data = document.data() {
+                    print("Document data: \(String(describing: data))")
+                    completion(.success(data))
+                    return
+                }
             } else {
                 print("Document does not exist")
                 completion(.failure(.doucmentNotExist))
@@ -54,7 +63,7 @@ class ProjectFirestoreBase {
     }
     
     // 일괄 읽기 (status)
-    func read(of status: Status, completion: @escaping (Result<[[String: Any]?], FirestoreError>) -> Void) {
+    func read(of status: Status, completion: @escaping (Result<[[String: Any]], FirestoreError>) -> Void) {
         db.collection(FirestorePath.collection).whereField("status", isEqualTo: status)
             .getDocuments() { (querySnapshot, err) in
                 if let err = err {

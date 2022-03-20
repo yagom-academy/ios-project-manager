@@ -93,6 +93,7 @@
 		635862B927E34D96005E2A2B /* Local */ = {
 			isa = PBXGroup;
 			children = (
+				635862BC27E34E0A005E2A2B /* CoreData */,
 				63D21E6127D4B3A600E35D3B /* LocalDataBase.swift */,
 				635862CD27E35D84005E2A2B /* ProjectCoreDataBase.swift */,
 				63D21E6327D4B61F00E35D3B /* ProjectSource.swift */,
@@ -114,7 +115,6 @@
 				63D21E6627D4F9B900E35D3B /* ProjectManager.swift */,
 				63D21E5D27D4691700E35D3B /* Project.swift */,
 				63D21E5F27D4AC2E00E35D3B /* Status.swift */,
-				635862BC27E34E0A005E2A2B /* CoreData */,
 			);
 			path = Data;
 			sourceTree = "<group>";
