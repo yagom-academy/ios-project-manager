@@ -16,7 +16,7 @@ struct TaskFormingView: View {
     @State private var taskTitle: String
     @State private var taskDueDate: Date
     @State private var taskBody: String
-    @ObservedObject private var keyboardResponder = KeyboardResponder()
+    @StateObject private var keyboardResponder = KeyboardResponder()
     @State private var isTextEditorFocused: Bool = false
     private var isRegularKeyboard: Bool {
         return keyboardResponder.currentHeight > 70
