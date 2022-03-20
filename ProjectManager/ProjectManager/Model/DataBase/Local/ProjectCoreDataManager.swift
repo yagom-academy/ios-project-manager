@@ -1,5 +1,5 @@
 //
-//  ProjectLocalDataBase.swift
+//  ProjectCoreDataManager.swift
 //  ProjectManager
 //
 //  Created by 1 on 2022/03/17.
@@ -8,7 +8,7 @@
 import CoreData
 import UIKit
 
-class ProjectCoreDataBase {
+class ProjectCoreDataManager {
     
     typealias Item = Project
     
@@ -86,7 +86,7 @@ class ProjectCoreDataBase {
     }
 }
 
-extension ProjectCoreDataBase: LocalDataBase {
+extension ProjectCoreDataManager: LocalDataManagable {
     
     func create(with content: [String : Any]) {
         let project = CDProject(context: context)

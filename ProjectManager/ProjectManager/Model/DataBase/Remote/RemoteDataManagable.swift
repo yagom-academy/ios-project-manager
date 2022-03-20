@@ -1,5 +1,5 @@
 //
-//  RemoteDataBase.swift
+//  RemoteDataManagable.swift
 //  ProjectManager
 //
 //  Created by 1 on 2022/03/20.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol RemoteDataBase: AnyObject {
+protocol RemoteDataManagable: AnyObject {
     
     associatedtype Item
 

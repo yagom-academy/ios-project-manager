@@ -1,5 +1,5 @@
 //
-//  ProjectFirestoreBase.swift
+//  ProjectFirestoreManager.swift
 //  ProjectManager
 //
 //  Created by 1 on 2022/03/18.
@@ -13,7 +13,7 @@ enum FirestoreError: Error {
     case doucmentNotExist
 }
 
-final class ProjectFirestoreBase {
+final class ProjectFirestoreManager {
     
     // MARK: - FirestorePath Namespace
     struct FirestorePath {
@@ -75,8 +75,8 @@ final class ProjectFirestoreBase {
     }
 }
 
-// MARK: - RemoteDataBase
-extension ProjectFirestoreBase: RemoteDataBase {
+// MARK: - RemoteDataManagable
+extension ProjectFirestoreManager: RemoteDataManagable {
     
     typealias Item = Project
     

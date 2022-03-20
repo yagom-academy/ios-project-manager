@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol LocalDataBase {
+protocol LocalDataManagable {
     
     associatedtype Item
 

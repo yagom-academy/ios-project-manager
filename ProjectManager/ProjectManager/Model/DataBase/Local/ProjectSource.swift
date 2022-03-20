@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class ProjectSource<T: Hashable & CustomStringConvertible>: LocalDataBase {
+final class ProjectSource<T: Hashable & CustomStringConvertible>: LocalDataManagable {
     
     typealias Item = Project
     
