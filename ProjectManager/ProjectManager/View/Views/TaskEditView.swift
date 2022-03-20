@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 struct TaskEditView: View {
     @Binding var title: String
@@ -35,6 +36,13 @@ struct TaskEditView: View {
     
     var contentEditor: some View {
         TextEditor(text: $content)
+            .onReceive(Just(content)) { _ in limitText(&content, 100) }
             .shadow(radius: 5)
+    }
+    
+    func limitText(_ stringvar: inout String, _ limit: Int) {
+        if (stringvar.count > limit) {
+            stringvar = String(stringvar.prefix(limit))
+        }
     }
 }
