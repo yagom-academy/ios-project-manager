@@ -1,6 +1,6 @@
 // NetworkCheck
 "Network is Not Connected" = "네트워크에 연결되지 않음";
-"It looks like you're not connected to the internet" = "인터넷에 연결되어 있지 않은 것 같습니다.";
+"It looks like you're not connected to the internet" = "iPhone이 인터넷에 연결되어 있지 않습니다.";
 
 // label, button..
 "Project Manager" = "프로젝트 매니저";

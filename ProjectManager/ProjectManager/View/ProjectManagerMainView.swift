@@ -35,7 +35,7 @@ private struct ProjectManagerMainTitleView: View {
                 Text("Histroy".localized())
                     .popover(isPresented: $isShowTaskHistoryView) {
                         TaskHistoryListView()
-                }
+                    }
             })
             Spacer()
             Text("Project Manager".localized())
@@ -47,7 +47,7 @@ private struct ProjectManagerMainTitleView: View {
                 Image(systemName: "plus")
                     .sheet(isPresented: $isShowTaskDetailView) {
                         TaskDetailView(isShowTaskDetailView: $isShowTaskDetailView)
-                }
+                    }
             })
         }
         .padding([.horizontal, .top])
@@ -63,7 +63,7 @@ private struct TaskHistoryListView: View {
                 TaskHistoryRowView(taskHistory: taskHistory)
             }
         }
-        .frame(width: 500, height: 500, alignment: .leading)
+        .frame(width: 500, height: 300, alignment: .leading)
     }
 }
 
