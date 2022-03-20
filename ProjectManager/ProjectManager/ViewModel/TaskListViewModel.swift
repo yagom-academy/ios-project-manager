@@ -65,6 +65,7 @@ class TaskListViewModel: ObservableObject {
         do {
             try taskListManager.fetchRealmTaskList()
         } catch {
+            errorAlert = ErrorModel(message: error.localizedDescription)
             print(error.localizedDescription)
         }
         reload()

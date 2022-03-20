@@ -58,7 +58,7 @@ private struct TaskListRowDeadlineView: View {
     fileprivate let taskStatus: Task.ProgressStatus
     
     var body: some View {
-        let deadlineText = Text(deadline.formattedDate)
+        let deadlineText = Text(deadline.formatString(dateStyle: .short))
         let currentTime = Date().timeIntervalSince1970
         
         if taskStatus != .done, deadline < currentTime {
