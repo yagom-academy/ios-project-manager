@@ -1,12 +1,12 @@
 import UIKit
 
-class MainUIView: UIView {
+class MainListUIView: UIView {
 
     let todoTableView: UITableView = {
         let tableview = UITableView(frame: .zero)
         tableview.register(
-            ProjectUITableViewCell.self,
-            forCellReuseIdentifier: String(describing: ProjectUITableViewCell.self)
+            ListUITableViewCell.self,
+            forCellReuseIdentifier: String(describing: ListUITableViewCell.self)
         )
         tableview.translatesAutoresizingMaskIntoConstraints = false
         return tableview
@@ -15,8 +15,8 @@ class MainUIView: UIView {
     let doingTableView: UITableView = {
         let tableview = UITableView(frame: .zero)
         tableview.register(
-            ProjectUITableViewCell.self,
-            forCellReuseIdentifier: String(describing: ProjectUITableViewCell.self)
+            ListUITableViewCell.self,
+            forCellReuseIdentifier: String(describing: ListUITableViewCell.self)
         )
         tableview.translatesAutoresizingMaskIntoConstraints = false
         return tableview
@@ -25,8 +25,8 @@ class MainUIView: UIView {
     let doneTableView: UITableView = {
         let tableview = UITableView(frame: .zero)
         tableview.register(
-            ProjectUITableViewCell.self,
-            forCellReuseIdentifier: String(describing: ProjectUITableViewCell.self)
+            ListUITableViewCell.self,
+            forCellReuseIdentifier: String(describing: ListUITableViewCell.self)
         )
         tableview.translatesAutoresizingMaskIntoConstraints = false
         return tableview

@@ -1,7 +1,7 @@
 import Foundation
 import RxSwift
 
-final class MainViewModel: ViewModel {
+final class ListViewModel: ViewModel {
     
     let disposeBag = DisposeBag()
     var useCase: ControlUseCase
@@ -31,7 +31,7 @@ final class MainViewModel: ViewModel {
         }.disposed(by: disposeBag)
         
         input.projectAddButtonTapped.subscribe { _ in
-            self.coordinator?.occuredViewEvent(with: .presentProjectAddView)
+            self.coordinator?.occuredViewEvent(with: .presentListAddView)
         }.disposed(by: disposeBag)
         
         input.projectDeleteEvent.subscribe { identifer in
@@ -39,9 +39,8 @@ final class MainViewModel: ViewModel {
         }.disposed(by: disposeBag)
         
         input.projectDidtappedEvent.subscribe { identifier in
+            self.coordinator?.occuredViewEvent(with: .presentListUpdateView(identifier: identifier))
         }.disposed(by: disposeBag)
-        
-    
         
         return output
     }

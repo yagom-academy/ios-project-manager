@@ -1,6 +1,6 @@
 import UIKit
 
-class ProjectUITableViewCell: UITableViewCell {
+class ListUITableViewCell: UITableViewCell {
     
     private let nameLabel: UILabel = {
         let label = UILabel()

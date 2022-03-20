@@ -2,11 +2,11 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-final class MainViewController: UIViewController {
+final class ListViewController: UIViewController {
     
     // MARK: - properties
-    var viewModel: MainViewModel?
-    private var shareView = MainUIView()
+    var viewModel: ListViewModel?
+    private var shareView = MainListUIView()
     let disposeBag = DisposeBag()
     
     // MARK: - lifeCycle
@@ -38,28 +38,28 @@ final class MainViewController: UIViewController {
 
     private func configureLayout() {
         NSLayoutConstraint.activate([
-            shareView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
-            shareView.trailingAnchor.constraint(equalTo:  self.view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
-            shareView.topAnchor.constraint(equalTo:  self.view.safeAreaLayoutGuide.topAnchor, constant: 10),
-            shareView.bottomAnchor.constraint(equalTo:  self.view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
+            self.shareView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
+            self.shareView.trailingAnchor.constraint(equalTo:  self.view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
+            self.shareView.topAnchor.constraint(equalTo:  self.view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            self.shareView.bottomAnchor.constraint(equalTo:  self.view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
         ])
     }
     
     // MARK: - bind UI w/ RxSwift 
-    private func configureInput() -> MainViewModel.Input {
+    private func configureInput() -> ListViewModel.Input {
         
         let rightBarButton = self.extractRightBarButtonItem()
         
-        let input = MainViewModel
+        let input = ListViewModel
             .Input(
                 viewWillAppearEvent: self.rx.methodInvoked(#selector(UIViewController.viewWillAppear(_:))).map { _ in },
-                projectAddButtonTapped: rightBarButton.rx.tap.asObservable(), projectDeleteEvent: shareView.todoTableView.rx.modelDeleted(Project.self).map { $0.identifier }, projectDidtappedEvent: shareView.todoTableView.rx.modelSelected(Project.self).map { $0.identifier }
+                projectAddButtonTapped: rightBarButton.rx.tap.asObservable(), projectDeleteEvent: self.shareView.todoTableView.rx.modelDeleted(Project.self).map { $0.identifier }, projectDidtappedEvent: self.shareView.todoTableView.rx.modelSelected(Project.self).map { $0.identifier }
             )
         
         return input
     }
         
-    private func configureOutput(input: MainViewModel.Input) {
+    private func configureOutput(input: ListViewModel.Input) {
         let output = self.viewModel?.transform(input: input, disposeBag: self.disposeBag)
         let stateWithTableViews = self.zipStateWithTableViews()
         stateWithTableViews.forEach { zip in
@@ -67,7 +67,7 @@ final class MainViewController: UIViewController {
                 lists.filter { $0.progressState.description == zip.key }
             })
             .asDriver(onErrorJustReturn: [])
-            .drive(zip.value.rx.items(cellIdentifier: String(describing: ProjectUITableViewCell.self), cellType: ProjectUITableViewCell.self)) { index, item , cell in
+            .drive(zip.value.rx.items(cellIdentifier: String(describing: ListUITableViewCell.self), cellType: ListUITableViewCell.self)) { index, item , cell in
                 cell.configureCellUI(data: item)
             }.disposed(by: disposeBag)
         }

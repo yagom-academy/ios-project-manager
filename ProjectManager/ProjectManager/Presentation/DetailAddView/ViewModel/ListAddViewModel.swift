@@ -2,12 +2,12 @@ import Foundation
 import RxSwift
 import RxRelay
 
-class DetailAddViewModel: ViewModel {
+class ListAddViewModel: ViewModel {
     
     var useCase: ControlUseCase
     var coordinator: Coordinator?
-    let state = BehaviorRelay<DetailAddViewModelState>(value: .edit)
-    var observableData = PublishSubject<(name: String, detail: String, deadline: Date)>()
+    let state = BehaviorRelay<ListAddViewModelState>(value: .editing)
+    var inputedData = PublishSubject<(name: String, detail: String, deadline: Date)>()
     private let disposeBag = DisposeBag()
     
     init(useCase: ControlUseCase) {
@@ -23,18 +23,18 @@ class DetailAddViewModel: ViewModel {
     func transform(input: Input, disposeBag: DisposeBag) {
         
         input.cancelButtonTappedEvent.subscribe { _ in
-            self.coordinator?.occuredViewEvent(with: .dismissProjectAddView)
+            self.coordinator?.occuredViewEvent(with: .dismissListAddView)
             
         }.disposed(by: disposeBag)
         
         
         input.doneButtonTappedEvent.subscribe { _ in
             self.state.accept(.done)
-            self.coordinator?.occuredViewEvent(with: .dismissProjectAddView)
+            self.coordinator?.occuredViewEvent(with: .dismissListAddView)
         }
         .disposed(by: disposeBag)
 
-        self.observableData.subscribe { name, detail, deadline in
+        self.inputedData.subscribe { name, detail, deadline in
             let project = Project(name: name, detail: detail, deadline: deadline, indentifier: UUID().uuidString, progressState: ProgressState.todo.description)
             self.useCase.createProject(object: project)
         }.disposed(by: disposeBag)

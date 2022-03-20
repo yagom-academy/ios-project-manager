@@ -1,6 +1,6 @@
 import UIKit
 
-class ProjectDetailUIView: UIView {
+class ListDetailUIView: UIView {
     
     let textfield: UITextField = {
         let textfield = UITextField(frame: .zero)

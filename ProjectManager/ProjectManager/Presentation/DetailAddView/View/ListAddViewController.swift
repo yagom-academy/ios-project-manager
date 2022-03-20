@@ -2,10 +2,10 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class DetailAddViewController: UIViewController {
+class ListAddViewController: UIViewController {
     
-    private let shareView = ProjectDetailUIView()
-    var viewModel: DetailAddViewModel?
+    private let shareView = ListDetailUIView()
+    var viewModel: ListAddViewModel?
     let disposeBag = DisposeBag()
     
     override func loadView() {
@@ -27,13 +27,13 @@ class DetailAddViewController: UIViewController {
     }
     
     private func bind() {
-        let input = DetailAddViewModel.Input(cancelButtonTappedEvent: (self.navigationItem.leftBarButtonItem?.rx.tap.asObservable())!, doneButtonTappedEvent: (self.navigationItem.rightBarButtonItem?.rx.tap.asObservable())!)
+        let input = ListAddViewModel.Input(cancelButtonTappedEvent: (self.navigationItem.leftBarButtonItem?.rx.tap.asObservable())!, doneButtonTappedEvent: (self.navigationItem.rightBarButtonItem?.rx.tap.asObservable())!)
         viewModel?.transform(input: input, disposeBag: self.disposeBag)
         
         viewModel?.state
             .filter { $0 == .done }
             .subscribe { _ in
-            self.viewModel?.observableData.onNext(self.createObservableInformation())
+            self.viewModel?.inputedData.onNext(self.createObservableInformation())
         }.disposed(by: disposeBag)
     }
     

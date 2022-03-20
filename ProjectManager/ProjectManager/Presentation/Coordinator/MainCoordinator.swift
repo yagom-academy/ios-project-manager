@@ -12,8 +12,8 @@ final class MainCoordinator: Coordinator {
     }
 
     func start() {
-        let viewController = MainViewController()
-        viewController.viewModel = MainViewModel(useCase: self.controlUseCase, coordinator: self)
+        let viewController = ListViewController()
+        viewController.viewModel = ListViewModel(useCase: self.controlUseCase, coordinator: self)
         self.navigationController?.setViewControllers([viewController], animated: false)
     }
     
@@ -21,14 +21,14 @@ final class MainCoordinator: Coordinator {
         let projectAddView = configureProjectAddView()
         
         switch type {
-        case .presentProjectAddView:
+        case .presentListAddView:
             self.navigationController?.present(projectAddView, animated: false)
-        case .dismissProjectAddView:
+        case .dismissListAddView:
             self.navigationController?.dismiss(animated: false)
-        case .presentProjectUpdateView(let id):
+        case .presentListUpdateView(let id):
             let projectUpdateView = configureProjectUpdateView(identifier: id)
             self.navigationController?.present(projectUpdateView, animated: false)
-        case .dismissProjectUpdateView:
+        case .dismissListUpdateView:
             self.navigationController?.dismiss(animated: false)
         }
     }
@@ -38,8 +38,8 @@ final class MainCoordinator: Coordinator {
     }
     
     private func configureProjectAddView() -> UINavigationController {
-        let viewController = DetailAddViewController()
-        viewController.viewModel = DetailAddViewModel(useCase: self.controlUseCase)
+        let viewController = ListAddViewController()
+        viewController.viewModel = ListAddViewModel(useCase: self.controlUseCase)
         viewController.viewModel?.coordinator = self
         let navigationController = UINavigationController(rootViewController: viewController)
         
@@ -47,8 +47,8 @@ final class MainCoordinator: Coordinator {
     }
     
     private func configureProjectUpdateView(identifier: String) -> UINavigationController {
-        let viewController = DetailUpdateViewController()
-        viewController.viewModel = DetailUpdateViewModel(controlUseCase: self.controlUseCase, historyCheckUseCase: self.historyUseCase, identifier: identifier)
+        let viewController = ListUpdateViewController()
+        viewController.viewModel = ListUpdateViewModel(controlUseCase: self.controlUseCase, historyCheckUseCase: self.historyUseCase, identifier: identifier)
         viewController.viewModel?.coordinator = self
         let navigationController = UINavigationController(rootViewController: viewController)
         
@@ -61,10 +61,10 @@ enum Event {
     
     enum View {
         
-        case presentProjectAddView
-        case dismissProjectAddView
-        case presentProjectUpdateView(identifier: String)
-        case dismissProjectUpdateView
+        case presentListAddView
+        case dismissListAddView
+        case presentListUpdateView(identifier: String)
+        case dismissListUpdateView
     }
     
     enum NetWork {
