@@ -13,56 +13,17 @@ enum FirestoreError: Error {
     case doucmentNotExist
 }
 
-class ProjectFirestoreBase {
+final class ProjectFirestoreBase {
     
     // MARK: - FirestorePath Namespace
     struct FirestorePath {
         static let collection = "projects"
     }
     
+    // MARK: - Property
     let db = Firestore.firestore()
     
-    // 추가
-    func create(with content: [String: Any]) {
-        guard let identifeir = content["identifier"] as? String else {
-            return
-        }
-        var contentForFirestore = content
-        guard let deadline = content["deadline"] as? Date,
-            let status = content["status"] as? Status else {
-            return
-        }
-        contentForFirestore.updateValue(Timestamp(date: deadline), forKey: "deadline")
-        contentForFirestore.updateValue(status.rawValue, forKey: "statusString")
-        
-        db.collection(FirestorePath.collection).document(identifeir).setData(content) { err in
-            if let err = err {
-                    print("Error writing document: \(err)")
-                } else {
-                    print("Document successfully written!")
-                }
-        }
-    }
-    
-    // 읽기
-    func read(with identifier: String, completion: @escaping (Result<[String: Any], FirestoreError>) -> Void) {
-        let docRef = db.collection(FirestorePath.collection).document(identifier)
-
-        docRef.getDocument { (document, error) in
-            if let document = document, document.exists {
-                if let data = document.data() {
-                    print("Document data: \(String(describing: data))")
-                    completion(.success(data))
-                    return
-                }
-            } else {
-                print("Document does not exist")
-                completion(.failure(.doucmentNotExist))
-            }
-        }
-    }
-    
-    // 일괄 읽기 (status)
+    // MARK: - Method
     func read(of status: Status, completion: @escaping (Result<[[String: Any]], FirestoreError>) -> Void) {
         db.collection(FirestorePath.collection).whereField("status", isEqualTo: status)
             .getDocuments() { (querySnapshot, err) in
@@ -80,7 +41,6 @@ class ProjectFirestoreBase {
         }
     }
     
-    // 일괄 읽기
     func readAll(completion: @escaping (Result<[[String: Any]?], FirestoreError>) -> Void) {
         db.collection(FirestorePath.collection).getDocuments() { (querySnapshot, err) in
             if let err = err {
@@ -97,7 +57,64 @@ class ProjectFirestoreBase {
         }
     }
     
-    // 선택 쓰기
+    private func formatToJSONDict(with dict: [String: Any]) -> [String: Any] {
+        let project = Project(identifier: dict["identifier"] as? String,
+                              title: dict["title"] as? String,
+                              deadline: dict["deadline"] as? Date,
+                              description: dict["description"] as? String,
+                              status: dict["status"] as? Status)
+        
+        // TODO: - Util로 구현하기
+        guard let data = try? JSONEncoder().encode(project),
+              let dict = try? JSONSerialization.jsonObject(
+                with: data,
+                options: []) as? [String: Any] else {
+                  return [:]
+              }
+        return dict
+    }
+}
+
+// MARK: - RemoteDataBase
+extension ProjectFirestoreBase: RemoteDataBase {
+    
+    typealias Item = Project
+    
+    func create(with content: [String : Any]) {
+        guard let identifeir = content["identifier"] as? String,
+              let deadline = content["deadline"] as? Date else {
+            return
+        }
+        
+        var dict = self.formatToJSONDict(with: content)
+        dict.updateValue(Timestamp(date: deadline), forKey: "deadline")
+        
+        db.collection(FirestorePath.collection).document(identifeir).setData(content) { err in
+            if let err = err {
+                    print("Error writing document: \(err)")
+                } else {
+                    print("Document successfully written!")
+                }
+        }
+    }
+    
+    func read(of identifier: String, completion: @escaping (Result<[String : Any], FirestoreError>) -> Void) {
+        let docRef = db.collection(FirestorePath.collection).document(identifier)
+
+        docRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                if let data = document.data() {
+                    print("Document data: \(String(describing: data))")
+                    completion(.success(data))
+                    return
+                }
+            } else {
+                print("Document does not exist")
+                completion(.failure(.doucmentNotExist))
+            }
+        }
+    }
+    
     func update(of identifier: String, with content: [String: Any]) {
         let projectRef = db.collection(FirestorePath.collection).document(identifier)
 
@@ -108,28 +125,8 @@ class ProjectFirestoreBase {
                 print("Document successfully updated")
             }
         }
-
     }
     
-    // 전체 일괄 쓰기
-    func update(with projects: [[String: Any]]) {
-        projects.forEach { project in
-            guard let identifier = project["identifier"] as? String else {
-                return
-            }
-            let projectRef = db.collection(FirestorePath.collection).document(identifier)
-            
-            projectRef.updateData(project) { err in
-                if let err = err {
-                    print("Error updating document: \(err)")
-                } else {
-                    print("Document successfully updated")
-                }
-            }
-        }
-    }
-    
-    // 삭제
     func delete(of identifier: String) {
         db.collection(FirestorePath.collection).document(identifier).delete() { err in
             if let err = err {
@@ -139,4 +136,5 @@ class ProjectFirestoreBase {
             }
         }
     }
+    
 }
