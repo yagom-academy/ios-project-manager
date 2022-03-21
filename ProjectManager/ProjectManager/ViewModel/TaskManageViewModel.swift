@@ -11,7 +11,7 @@ final class TaskManageViewModel {
     // MARK: - Output
     var presentErrorAlert: ((Error) -> Void)?
     var dismissWithTaskCreate: ((Task) -> Void)?
-    var dismissWithTaskUpdate: ((TaskManageViewModel) -> Void)?
+    var dismissWithTaskUpdate: ((SelectedTaskViewModel) -> Void)?
     var changeManageTypeToEdit: ((ManageType) -> Void)?
     
     // MARK: - Properties
@@ -21,16 +21,18 @@ final class TaskManageViewModel {
     private(set) var selectedIndex: Int?
     private(set) var selectedTask: Task?
     private(set) var manageType: ManageType
+    private let taskManageUseCase: TaskManageUseCase
     var navigationTitle: String? {
         return selectedTask?.state.title
     }
     
-    init(manageType: ManageType) {
+    init(manageType: ManageType, taskManageUseCase: TaskManageUseCase) {
         self.manageType = manageType
+        self.taskManageUseCase = taskManageUseCase
     }
     
-    convenience init(selectedIndex: Int, selectedTask: Task, manageType: ManageType) {
-        self.init(manageType: manageType)
+    convenience init(selectedIndex: Int, selectedTask: Task, manageType: ManageType, taskManageUseCase: TaskManageUseCase) {
+        self.init(manageType: manageType, taskManageUseCase: taskManageUseCase)
         self.selectedIndex = selectedIndex
         self.selectedTask = selectedTask
         self.taskTitle = selectedTask.title
@@ -38,46 +40,38 @@ final class TaskManageViewModel {
         self.taskDeadline = selectedTask.deadline
     }
     
-    private func checkValidInput() -> Bool {
-        if taskTitle.isEmpty && taskDescription.isEmpty {
-            presentErrorAlert?(TextError.invalidTitleAndDescription)
-            return false
-        } else if taskTitle.isEmpty {
-            presentErrorAlert?(TextError.invalidTitle)
-            return false
-        } else if taskDescription.isEmpty {
-            presentErrorAlert?(TextError.invalidDescription)
-            return false
+    private func dismissWithTask() {
+        guard let selectedIndex = selectedIndex,
+              let selectedTask = selectedTask else {
+            let task = Task(title: taskTitle, description: taskDescription, deadline: taskDeadline)
+            dismissWithTaskCreate?(task)
+            return
         }
         
-        return true
+        let task = Task(id: selectedTask.id, title: taskTitle, description: taskDescription, deadline: taskDeadline, state: selectedTask.state)
+        let selectedTaskViewModel = SelectedTaskViewModel(index: selectedIndex, task: task, manageType: manageType)
+        dismissWithTaskUpdate?(selectedTaskViewModel)
     }
     
     func didTapDoneButton() {
-        if checkValidInput() {
-            guard let selectedIndex = selectedIndex,
-                  let selectedTask = selectedTask else {
-                let task = Task(title: taskTitle, description: taskDescription, deadline: taskDeadline)
-                dismissWithTaskCreate?(task)
-                return
-            }
-            
-            let task = Task(id: selectedTask.id, title: taskTitle, description: taskDescription, deadline: taskDeadline, state: selectedTask.state)
-            let taskManageViewModel = TaskManageViewModel(selectedIndex: selectedIndex, selectedTask: task, manageType: manageType)
-            dismissWithTaskUpdate?(taskManageViewModel)
+        let result = taskManageUseCase.checkValidInput(title: taskTitle, description: taskDescription)
+        
+        switch result {
+        case .success:
+            dismissWithTask()
+        case .failure(let error):
+            presentErrorAlert?(error)            
         }
     }
     
     func checkValidTextLength(with range: NSRange, length: Int) -> Bool {
-        if range.location == length {
+        let isValid = taskManageUseCase.checkValidTextLength(with: range, length: length)
+        
+        if !isValid {
             presentErrorAlert?(TextError.outOfBounds(length))
-            return false
-        }
-        if range.length > .zero {
-            return true
         }
         
-        return range.location < length
+        return isValid
     }
     
     func changeToEditState() {

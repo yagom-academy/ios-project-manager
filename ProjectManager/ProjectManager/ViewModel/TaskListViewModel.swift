@@ -18,11 +18,11 @@ final class TaskListViewModel: TaskViewModel {
     var presentTaskManageView: ((TaskManageViewModel) -> Void)?
     var taskCount: (([(count: Int, state: TaskState)]) -> Void)?
     
-    private let taskManager: TaskMangeable
+    private let taskListUseCase: TaskListUseCase
     private(set) var tasks = [Task]()
     
-    init(taskManager: TaskMangeable) {
-        self.taskManager = taskManager
+    init(taskListUseCase: TaskListUseCase) {
+        self.taskListUseCase = taskListUseCase
     }
     
     func onViewWillAppear() {
@@ -31,37 +31,37 @@ final class TaskListViewModel: TaskViewModel {
     }
     
     private func updateTasks() {
-        tasks = taskManager.fetchAll()
+        tasks = taskListUseCase.fetchAll()
     }
     
     func createTask(with task: Task) {
-        taskManager.create(with: task)
+        taskListUseCase.create(with: task)
         updateTasks()
         reloadTableView?()
         taskCount?([(count(of: .waiting), .waiting)])
     }
     
     func updateTask(at index: Int, task: Task) {
-        taskManager.update(at: index, with: task)
+        taskListUseCase.update(at: index, with: task)
         reloadRows?(index, task.state)
     }
     
     func deleteTask(at index: Int, from state: TaskState) {
-        taskManager.delete(at: index, from: state)
+        taskListUseCase.delete(at: index, from: state)
         updateTasks()
         deleteRows?(index, state)
         taskCount?([(count(of: state), state)])
     }
     
     func moveTask(at index: Int, from oldState: TaskState, to newState: TaskState) {
-        taskManager.changeState(at: index, from: oldState, to: newState)
+        taskListUseCase.changeState(at: index, from: oldState, to: newState)
         updateTasks()
         moveRows?(index, oldState, newState)
         taskCount?([(count(of: oldState), oldState), (count(of: newState), newState)])
     }
     
     func task(at index: Int, from state: TaskState) -> TaskCellViewModel? {
-        guard let fetchedTask = taskManager.fetch(at: index, from: state) else {
+        guard let fetchedTask = taskListUseCase.fetch(at: index, from: state) else {
             presentErrorAlert?(CollectionError.indexOutOfRange)
             return nil
         }
@@ -75,17 +75,19 @@ final class TaskListViewModel: TaskViewModel {
     }
     
     func addTask() {
-        let taskManageViewModel = TaskManageViewModel(manageType: .add)
+        let taskManageUseCase = DefaultTaskManageUseCase()
+        let taskManageViewModel = TaskManageViewModel(manageType: .add, taskManageUseCase: taskManageUseCase)
         presentTaskManageView?(taskManageViewModel)
     }
     
     func selectTask(at index: Int, from state: TaskState) {
-        guard let fetchedTask = taskManager.fetch(at: index, from: state) else {
+        guard let fetchedTask = taskListUseCase.fetch(at: index, from: state) else {
             presentErrorAlert?(CollectionError.indexOutOfRange)
             return
         }
         
-        let taskManageViewModel = TaskManageViewModel(selectedIndex: index, selectedTask: fetchedTask, manageType: .detail)
+        let taskManageUseCase = DefaultTaskManageUseCase()
+        let taskManageViewModel = TaskManageViewModel(selectedIndex: index, selectedTask: fetchedTask, manageType: .detail, taskManageUseCase: taskManageUseCase)
         
         presentTaskManageView?(taskManageViewModel)
     }

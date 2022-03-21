@@ -1,5 +1,5 @@
 //
-//  TaskManager.swift
+//  DefaultTaskListUseCase.swift
 //  ProjectManager
 //
 //  Created by 이차민 on 2022/03/02.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class TaskManager: TaskMangeable {
+final class DefaultTaskListUseCase: TaskListUseCase {
     let taskRepository: TaskRepository
     
     init(taskRepository: TaskRepository) {

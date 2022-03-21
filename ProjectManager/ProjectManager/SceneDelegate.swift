@@ -19,8 +19,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         window?.backgroundColor = .systemBackground
         let taskMemoryRepository = TaskMemoryRepository()
-        let taskManager = TaskManager(taskRepository: taskMemoryRepository)
-        let taskListViewModel = TaskListViewModel(taskManager: taskManager)
+        let taskListUseCase = DefaultTaskListUseCase(taskRepository: taskMemoryRepository)
+        let taskListViewModel = TaskListViewModel(taskListUseCase: taskListUseCase)
         let rootViewController = UINavigationController(rootViewController: MainTaskViewController(taskListViewModel: taskListViewModel))
         window?.rootViewController = rootViewController
         window?.makeKeyAndVisible()

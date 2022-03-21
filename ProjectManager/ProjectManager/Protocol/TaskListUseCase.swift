@@ -1,5 +1,5 @@
 //
-//  TaskMangeable.swift
+//  TaskListUseCase.swift
 //  ProjectManager
 //
 //  Created by 이차민 on 2022/03/02.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol TaskMangeable {
+protocol TaskListUseCase {
     func create(with task: Task)
     func fetchAll() -> [Task]
     func fetch(at index: Int, from state: TaskState) -> Task?
