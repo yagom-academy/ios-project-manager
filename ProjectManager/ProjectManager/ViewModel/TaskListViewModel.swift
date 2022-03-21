@@ -34,16 +34,16 @@ final class TaskListViewModel: TaskViewModel {
         tasks = taskManager.fetchAll()
     }
     
-    func createTask(title: String, description: String, deadline: Date) {
-        taskManager.create(title: title, description: description, deadline: deadline)
+    func createTask(with task: Task) {
+        taskManager.create(with: task)
         updateTasks()
         reloadTableView?()
         taskCount?([(count(of: .waiting), .waiting)])
     }
     
-    func updateTask(at index: Int, title: String, description: String, deadline: Date, from state: TaskState) {
-        taskManager.update(at: index, title: title, description: description, deadline: deadline, from: state)
-        reloadRows?(index, state)
+    func updateTask(at index: Int, task: Task) {
+        taskManager.update(at: index, with: task)
+        reloadRows?(index, task.state)
     }
     
     func deleteTask(at index: Int, from state: TaskState) {

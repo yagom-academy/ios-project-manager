@@ -10,7 +10,8 @@ import Foundation
 final class TaskManageViewModel {
     // MARK: - Output
     var presentErrorAlert: ((Error) -> Void)?
-    var dismissWithTask: ((ManageType) -> Void)?
+    var dismissWithTaskCreate: ((Task) -> Void)?
+    var dismissWithTaskUpdate: ((TaskManageViewModel) -> Void)?
     var changeManageTypeToEdit: ((ManageType) -> Void)?
     
     // MARK: - Properties
@@ -54,7 +55,16 @@ final class TaskManageViewModel {
     
     func didTapDoneButton() {
         if checkValidInput() {
-            dismissWithTask?(manageType)
+            guard let selectedIndex = selectedIndex,
+                  let selectedTask = selectedTask else {
+                let task = Task(title: taskTitle, description: taskDescription, deadline: taskDeadline)
+                dismissWithTaskCreate?(task)
+                return
+            }
+            
+            let task = Task(id: selectedTask.id, title: taskTitle, description: taskDescription, deadline: taskDeadline, state: selectedTask.state)
+            let taskManageViewModel = TaskManageViewModel(selectedIndex: selectedIndex, selectedTask: task, manageType: manageType)
+            dismissWithTaskUpdate?(taskManageViewModel)
         }
     }
     

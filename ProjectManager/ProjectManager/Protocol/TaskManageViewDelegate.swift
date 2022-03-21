@@ -8,6 +8,6 @@
 import Foundation
 
 protocol TaskManageViewDelegate: AnyObject {
-    func taskManageViewDidCreate(title: String, description: String, deadline: Date)
-    func taskManageViewDidUpdate(at index: Int, title: String, description: String, deadline: Date, from state: TaskState)
+    func taskManageViewDidCreate(with task: Task)
+    func taskManageViewDidUpdate(at index: Int, with task: Task)
 }

@@ -18,8 +18,8 @@ protocol TaskViewModel {
     var taskCount: (([(count: Int, state: TaskState)]) -> Void)? { get set }
     
     func onViewWillAppear()
-    func createTask(title: String, description: String, deadline: Date)
-    func updateTask(at index: Int, title: String, description: String, deadline: Date, from state: TaskState)
+    func createTask(with task: Task)
+    func updateTask(at index: Int, task: Task)
     func deleteTask(at index: Int, from state: TaskState)
     func moveTask(at index: Int, from oldState: TaskState, to newState: TaskState)
     func task(at index: Int, from state: TaskState) -> TaskCellViewModel?

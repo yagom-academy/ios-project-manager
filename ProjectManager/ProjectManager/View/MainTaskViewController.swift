@@ -274,11 +274,11 @@ extension MainTaskViewController: UITableViewDelegate {
 }
 
 extension MainTaskViewController: TaskManageViewDelegate {
-    func taskManageViewDidCreate(title: String, description: String, deadline: Date) {
-        taskListViewModel.createTask(title: title, description: description, deadline: deadline)
+    func taskManageViewDidCreate(with task: Task) {
+        taskListViewModel.createTask(with: task)
     }
     
-    func taskManageViewDidUpdate(at index: Int, title: String, description: String, deadline: Date, from state: TaskState) {
-        taskListViewModel.updateTask(at: index, title: title, description: description, deadline: deadline, from: state)
+    func taskManageViewDidUpdate(at index: Int, with task: Task) {
+        taskListViewModel.updateTask(at: index, task: task)
     }
 }

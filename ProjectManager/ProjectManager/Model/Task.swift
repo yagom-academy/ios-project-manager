@@ -13,4 +13,12 @@ struct Task: Identifiable {
     let description: String
     let deadline: Date
     let state: TaskState
+    
+    init(id: UUID = UUID(), title: String, description: String, deadline: Date, state: TaskState = .waiting) {
+        self.id = id
+        self.title = title
+        self.description = description
+        self.deadline = deadline
+        self.state = state
+    }
 }

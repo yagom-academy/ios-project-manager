@@ -78,14 +78,13 @@ final class TaskManageViewController: UIViewController {
     // MARK: - Configure TaskManageViewModel
     
     private func configTaskManageViewModel() {
-        taskManageViewModel.dismissWithTask = { [weak self] manageType in
-            switch manageType {
-            case .add:
-                self?.createTask()
-            case .edit, .detail:
-                self?.updateTask()
-            }
-            
+        taskManageViewModel.dismissWithTaskCreate = { [weak self] task in
+            self?.createTask(with: task)
+            self?.dismiss(animated: true, completion: nil)
+        }
+        
+        taskManageViewModel.dismissWithTaskUpdate = { [weak self] taskManageViewModel in
+            self?.updateTask(with: taskManageViewModel)
             self?.dismiss(animated: true, completion: nil)
         }
         
@@ -190,23 +189,17 @@ final class TaskManageViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(didTapDone))
     }
     
-    private func createTask() {
-        delegate?.taskManageViewDidCreate(title: taskManageViewModel.taskTitle,
-                         description: taskManageViewModel.taskDescription,
-                         deadline: taskManageViewModel.taskDeadline)
+    private func createTask(with task: Task) {
+        delegate?.taskManageViewDidCreate(with: task)
     }
     
-    private func updateTask() {
+    private func updateTask(with taskManageViewModel: TaskManageViewModel) {
         guard let selectedIndex = taskManageViewModel.selectedIndex,
               let selectedTask = taskManageViewModel.selectedTask else {
             return
         }
         
-        delegate?.taskManageViewDidUpdate(at: selectedIndex,
-                         title: taskManageViewModel.taskTitle,
-                         description: taskManageViewModel.taskDescription,
-                         deadline: taskManageViewModel.taskDeadline,
-                         from: selectedTask.state)
+        delegate?.taskManageViewDidUpdate(at: selectedIndex, with: selectedTask)
     }
     
     private func presentAlert(title: String, message: String) {
