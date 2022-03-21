@@ -17,9 +17,7 @@ protocol ControlUseCase {
     )
     
     func deleteProject(identifier: String)
-    
-    func sortProjectProgressState(state: ProgressState) -> Observable<[Listable]>
-        
+            
     func fetch()
 }
 

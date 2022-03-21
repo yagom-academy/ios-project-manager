@@ -17,10 +17,10 @@ final class MainCoordinator: Coordinator {
         self.navigationController?.setViewControllers([viewController], animated: false)
     }
     
-    func occuredViewEvent(with type: Event.View) {
+    func occuredViewEvent(with event: Event.View) {
         let projectAddView = configureProjectAddView()
         
-        switch type {
+        switch event {
         case .presentListAddView:
             self.navigationController?.present(projectAddView, animated: false)
         case .dismissListAddView:

@@ -1,18 +1,19 @@
 import UIKit
 
-class TableViewHeaderUIView: UIView {
+final class TableViewHeaderUIView: UIView {
     
     private let tableViewNamelabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .title1)
         label.text = "name"
         label.translatesAutoresizingMaskIntoConstraints = false
+        
         return label
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        configureLayout()
+        self.configureLayout()
     }
     
     required init?(coder: NSCoder) {
@@ -21,8 +22,8 @@ class TableViewHeaderUIView: UIView {
     
     func configureLayout() {
         NSLayoutConstraint.activate([
-            tableViewNamelabel.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
-            tableViewNamelabel.centerYAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerYAnchor)
+            self.tableViewNamelabel.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
+            self.tableViewNamelabel.centerYAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerYAnchor)
         ])
     }
 }

@@ -36,12 +36,6 @@ final class ProjectControlUseCase: ControlUseCase {
         fetch()
     }
     
-    func sortProjectProgressState(state: ProgressState) -> Observable<[Listable]> {
-        let list = repository?.extractAll()
-        let filteredList = list?.filter{ $0.progressState == state.description } ?? []
-        return Observable.of(filteredList)
-    }
-    
     func fetch() {
         repository?.extractRxAll()
         .subscribe( onNext: { project in

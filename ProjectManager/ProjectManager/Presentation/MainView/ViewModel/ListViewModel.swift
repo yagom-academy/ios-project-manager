@@ -1,7 +1,7 @@
 import Foundation
 import RxSwift
 
-final class ListViewModel: ViewModel {
+final class ListViewModel {
     
     let disposeBag = DisposeBag()
     var useCase: ControlUseCase

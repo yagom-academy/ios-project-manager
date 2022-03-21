@@ -2,7 +2,7 @@ import Foundation
 import RxSwift
 import RxRelay
 
-class ListAddViewModel: ViewModel {
+final class ListAddViewModel: ViewModel {
     
     var useCase: ControlUseCase
     var coordinator: Coordinator?
@@ -21,12 +21,10 @@ class ListAddViewModel: ViewModel {
     }
     
     func transform(input: Input, disposeBag: DisposeBag) {
-        
         input.cancelButtonTappedEvent.subscribe { _ in
             self.coordinator?.occuredViewEvent(with: .dismissListAddView)
             
         }.disposed(by: disposeBag)
-        
         
         input.doneButtonTappedEvent.subscribe { _ in
             self.state.accept(.done)

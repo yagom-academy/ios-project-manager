@@ -6,9 +6,9 @@ final class ListViewController: UIViewController {
     
     // MARK: - properties
     var viewModel: ListViewModel?
+    private let disposeBag = DisposeBag()
     private var shareView = MainListUIView()
-    let disposeBag = DisposeBag()
-    
+
     // MARK: - lifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,13 +17,35 @@ final class ListViewController: UIViewController {
         self.configureNavigationItems()
         let input = self.configureInput()
         self.configureOutput(input: input)
+        self.configureLongPressGesture()
     }
     
   // MARK: - methods
+    private func configureLongPressGesture() {
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress))
+        longPressGesture.minimumPressDuration = 1.0
+        let tableviews = zipStateWithTableViews().values
+        tableviews.forEach { tableview in
+            tableview.addGestureRecognizer(longPressGesture)
+        }
+    }
+    
+    @objc
+    func handleLongPress(_ gestureRecognizer: UILongPressGestureRecognizer) {
+        zipStateWithTableViews().values.forEach { tableview in
+        if gestureRecognizer.state == .began {
+            let touchPoint = gestureRecognizer.location(in: tableview)
+            if tableview.indexPathForRow(at: touchPoint) != nil {
+                
+            }
+          }
+       }
+    }
+
     private func configureMainView() {
         view.addSubview(shareView)
         view.backgroundColor = .white
-        shareView.translatesAutoresizingMaskIntoConstraints = false
+        self.shareView.translatesAutoresizingMaskIntoConstraints = false
     }
     
     private func configureNavigationItems() {
@@ -47,13 +69,13 @@ final class ListViewController: UIViewController {
     
     // MARK: - bind UI w/ RxSwift 
     private func configureInput() -> ListViewModel.Input {
-        
         let rightBarButton = self.extractRightBarButtonItem()
         
         let input = ListViewModel
             .Input(
                 viewWillAppearEvent: self.rx.methodInvoked(#selector(UIViewController.viewWillAppear(_:))).map { _ in },
-                projectAddButtonTapped: rightBarButton.rx.tap.asObservable(), projectDeleteEvent: self.shareView.todoTableView.rx.modelDeleted(Project.self).map { $0.identifier }, projectDidtappedEvent: self.shareView.todoTableView.rx.modelSelected(Project.self).map { $0.identifier }
+                projectAddButtonTapped: rightBarButton.rx.tap.asObservable(), projectDeleteEvent:
+                    self.shareView.todoTableView.rx.modelDeleted(Project.self).map { $0.identifier }, projectDidtappedEvent: self.shareView.todoTableView.rx.modelSelected(Project.self).map { $0.identifier }
             )
         
         return input
@@ -85,7 +107,7 @@ final class ListViewController: UIViewController {
     
     private func zipStateWithTableViews() -> [String: UITableView] {
         let zip = Dictionary(
-            uniqueKeysWithValues: zip([ProgressState.todo.description,ProgressState.doing.description,ProgressState.done.description], [shareView.todoTableView,shareView.doingTableView,shareView.doneTableView])
+            uniqueKeysWithValues: zip([ProgressState.todo.description,ProgressState.doing.description,ProgressState.done.description], self.shareView.extractTableViews())
         )
         
         return zip

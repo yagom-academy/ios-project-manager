@@ -1,6 +1,6 @@
 import UIKit
 
-class ListDetailUIView: UIView {
+final class ListDetailUIView: UIView {
     
     let textfield: UITextField = {
         let textfield = UITextField(frame: .zero)
@@ -51,6 +51,12 @@ class ListDetailUIView: UIView {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+    }
+    
+    func configureUIComponents(name: String, detail: String, deadline: Date) {
+        self.textfield.text = name
+        self.datePicker.date = deadline
+        self.textView.text = detail
     }
     
     private func addViews() {

@@ -1,7 +1,7 @@
 import Foundation
 import RxSwift
 
-class MockDataRepository: DataRepository {
+final class MockDataRepository: DataRepository {
     
     var dataBase = [Listable]()
     

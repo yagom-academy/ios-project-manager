@@ -1,6 +1,7 @@
 import Foundation
 
 extension DateFormatter {
+    
     static let shared: DateFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.timeZone = .autoupdatingCurrent

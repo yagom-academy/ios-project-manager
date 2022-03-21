@@ -7,10 +7,10 @@ final class ListUpdateViewModel {
     let controlUseCase: ControlUseCase
     let historyCheckUseCase: HistoryCheckUseCase
     var coordinator: Coordinator?
-    var listProgressState: String?
     let identifer: String
     let state = BehaviorRelay<ListUpdateViewModelState>(value: .editing)
     var inputedData = PublishSubject<(name: String, detail: String, deadline: Date)>()
+    private var listProgressState: String?
     
     init(controlUseCase: ControlUseCase, historyCheckUseCase: HistoryCheckUseCase, identifier: String) {
         self.controlUseCase = controlUseCase
@@ -19,17 +19,19 @@ final class ListUpdateViewModel {
     }
     
     struct Input {
+        
         var viewWillAppearEvent: Observable<Void>
         var doneEdittingEvent: Observable<Void>
         var cancelButtonTapped: Observable<Void>
     }
     
     struct Output {
+        
         var selectedProjectData: Observable<Listable>
     }
     
     func transform(input: Input, disposeBag: DisposeBag) -> Output {
-        let output = configureDetailViewModelOutput()
+        let output = self.configureDetailViewModelOutput()
         
         input.viewWillAppearEvent.subscribe(onNext: { _ in
             self.controlUseCase.fetch()

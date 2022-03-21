@@ -2,14 +2,14 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class ListAddViewController: UIViewController {
+final class ListAddViewController: UIViewController {
     
     private let shareView = ListDetailUIView()
     var viewModel: ListAddViewModel?
     let disposeBag = DisposeBag()
     
     override func loadView() {
-        view = shareView
+        self.view = shareView
         self.view.backgroundColor = .white
     }
     
@@ -28,9 +28,9 @@ class ListAddViewController: UIViewController {
     
     private func bind() {
         let input = ListAddViewModel.Input(cancelButtonTappedEvent: (self.navigationItem.leftBarButtonItem?.rx.tap.asObservable())!, doneButtonTappedEvent: (self.navigationItem.rightBarButtonItem?.rx.tap.asObservable())!)
-        viewModel?.transform(input: input, disposeBag: self.disposeBag)
+        self.viewModel?.transform(input: input, disposeBag: self.disposeBag)
         
-        viewModel?.state
+        self.viewModel?.state
             .filter { $0 == .done }
             .subscribe { _ in
             self.viewModel?.inputedData.onNext(self.createObservableInformation())

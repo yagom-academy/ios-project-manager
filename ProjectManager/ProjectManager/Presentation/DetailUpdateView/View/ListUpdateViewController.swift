@@ -3,24 +3,28 @@ import RxSwift
 import RxCocoa
 
 final class ListUpdateViewController: UIViewController {
-    
-    let shareView = ListDetailUIView()
+
     var viewModel: ListUpdateViewModel?
-    let disposeBag = DisposeBag()
-    var navigationRightBarButtonItem: UIBarButtonItem?
-    var navigationLeftBarButtonItem: UIBarButtonItem?
+    private let shareView = ListDetailUIView()
+    private let disposeBag = DisposeBag()
+    private var navigationRightBarButtonItem: UIBarButtonItem?
+    private var navigationLeftBarButtonItem: UIBarButtonItem?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.addSubview(shareView)
-        shareView.translatesAutoresizingMaskIntoConstraints = false
-        self.view.backgroundColor = .white
+        self.configureView()
         self.configureNavigationItem()
         self.configureLayout()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         self.bind()
+    }
+    
+    private func configureView() {
+        self.view.addSubview(shareView)
+        shareView.translatesAutoresizingMaskIntoConstraints = false
+        self.view.backgroundColor = .white
     }
     
     private func configureNavigationItem() {
@@ -42,7 +46,12 @@ final class ListUpdateViewController: UIViewController {
     }
   
     private func bind() {
-        let input = ListUpdateViewModel.Input(viewWillAppearEvent: self.rx.methodInvoked(#selector(UIViewController.viewWillAppear(_:))).map { _ in}, doneEdittingEvent: (self.navigationRightBarButtonItem?.rx.tap)!.asObservable(), cancelButtonTapped: (self.navigationLeftBarButtonItem?.rx.tap)!.asObservable())
+        guard let rightTapEvent = self.navigationRightBarButtonItem?.rx.tap, let leftTapEvent = self.navigationLeftBarButtonItem?.rx.tap
+        else {
+            return
+        }
+        
+        let input = ListUpdateViewModel.Input(viewWillAppearEvent: self.rx.methodInvoked(#selector(UIViewController.viewWillAppear(_:))).map { _ in}, doneEdittingEvent: rightTapEvent.asObservable(), cancelButtonTapped: leftTapEvent.asObservable())
         
         let output = viewModel?.transform(input: input, disposeBag: self.disposeBag)
         
@@ -61,6 +70,6 @@ final class ListUpdateViewController: UIViewController {
     }
     
     private func createObservableInformation() -> (name: String, detail: String, deadline: Date) {
-        return ((name: self.shareView.textfield.text!, detail: self.shareView.textView.text, deadline: self.shareView.datePicker.date))
+        return ((name: self.shareView.textfield.text ?? "", detail: self.shareView.textView.text, deadline: self.shareView.datePicker.date))
         }
 }

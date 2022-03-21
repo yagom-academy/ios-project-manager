@@ -1,6 +1,7 @@
 import Foundation
 
 enum ConvertError: Error {
+    
     case missEncoding
     case missDecoding
 }

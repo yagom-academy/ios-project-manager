@@ -1,6 +1,6 @@
 import UIKit
 
-class MainListUIView: UIView {
+final class MainListUIView: UIView {
 
     let todoTableView: UITableView = {
         let tableview = UITableView(frame: .zero)
@@ -52,12 +52,16 @@ class MainListUIView: UIView {
         super.init(coder: coder)
     }
     
+    func extractTableViews() -> [UITableView] {
+        return [self.todoTableView, self.doingTableView, self.doneTableView]
+    }
+    
     private func configureTableView() {
         self.addSubview(stackView)
     }
     
     private func configureLayout() {
-        let tableviews = [self.todoTableView,self.doingTableView,self.doneTableView]
+        let tableviews = self.extractTableViews()
         tableviews.forEach{ self.stackView.addArrangedSubview($0) }
         
         NSLayoutConstraint.activate([
