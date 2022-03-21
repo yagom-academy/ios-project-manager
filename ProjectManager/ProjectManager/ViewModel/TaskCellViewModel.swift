@@ -17,7 +17,15 @@ struct TaskCellViewModel {
         self.title = title
         self.description = description
         self.state = state
-        self.deadline = deadline.dateToNSAttributedString(with: state)
+        self.deadline = Self.dateToNSAttributedString(from: deadline, with: state)
+    }
+    
+    private static func dateToNSAttributedString(from date: Date, with state: TaskState) -> NSAttributedString {
+        if [.waiting, .progress].contains(state) && date < Date() {
+            return NSAttributedString(string: date.dateString, attributes: TextAttribute.overDeadline)
+        } else {
+            return NSAttributedString(string: date.dateString, attributes: TextAttribute.underDeadline)
+        }
     }
 }
 
@@ -31,13 +39,5 @@ private extension Date {
     
     var dateString: String {
         return Self.dateFormatter.string(from: self)
-    }
-    
-    func dateToNSAttributedString(with state: TaskState) -> NSAttributedString {
-        if [.waiting, .progress].contains(state) && self < Date() {
-            return NSAttributedString(string: self.dateString, attributes: TextAttribute.overDeadline)
-        } else {
-            return NSAttributedString(string: self.dateString, attributes: TextAttribute.underDeadline)
-        }
     }
 }
