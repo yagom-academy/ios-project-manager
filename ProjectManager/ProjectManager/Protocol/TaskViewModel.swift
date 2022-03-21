@@ -14,7 +14,7 @@ protocol TaskViewModel {
     var reloadRows: ((Int, TaskState) -> Void)? { get set }
     var moveRows: ((Int, TaskState, TaskState) -> Void)? { get set }
     var reloadTableViews: (() -> Void)? { get set }
-    var didSelectRows: ((Int, Task) -> Void)? { get set }
+    var presentTaskManageView: ((TaskManageViewModel) -> Void)? { get set }
     var taskCount: (([(count: Int, state: TaskState)]) -> Void)? { get set }
     
     func onViewWillAppear()

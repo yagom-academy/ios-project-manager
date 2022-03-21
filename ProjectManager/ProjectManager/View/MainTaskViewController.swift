@@ -81,8 +81,7 @@ final class MainTaskViewController: UIViewController {
             currentTaskTableView?.reloadData()
         }
         
-        taskListViewModel.didSelectRows = { [weak self] (index, selectedTask) in
-            let taskManageViewModel = TaskManageViewModel(selectedIndex: index, selectedTask: selectedTask, manageType: .detail)
+        taskListViewModel.presentTaskManageView = { [weak self] taskManageViewModel in
             self?.presentTaskManageViewController(with: taskManageViewModel)
         }
         
@@ -154,8 +153,7 @@ final class MainTaskViewController: UIViewController {
     }
     
     @objc private func addTask() {
-        let taskManageViewModel = TaskManageViewModel(manageType: .add)
-        presentTaskManageViewController(with: taskManageViewModel)
+        taskListViewModel.addTask()
     }
     
     // MARK: - Long Press Gesture

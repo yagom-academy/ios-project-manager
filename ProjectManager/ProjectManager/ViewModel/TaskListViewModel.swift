@@ -15,7 +15,7 @@ final class TaskListViewModel: TaskViewModel {
     var reloadRows: ((Int, TaskState) -> Void)?
     var moveRows: ((Int, TaskState, TaskState) -> Void)?
     var reloadTableViews: (() -> Void)?
-    var didSelectRows: ((Int, Task) -> Void)?
+    var presentTaskManageView: ((TaskManageViewModel) -> Void)?
     var taskCount: (([(count: Int, state: TaskState)]) -> Void)?
     
     private let taskManager: TaskMangeable
@@ -74,13 +74,20 @@ final class TaskListViewModel: TaskViewModel {
         return taskCellViewModel
     }
     
+    func addTask() {
+        let taskManageViewModel = TaskManageViewModel(manageType: .add)
+        presentTaskManageView?(taskManageViewModel)
+    }
+    
     func selectTask(at index: Int, from state: TaskState) {
         guard let fetchedTask = taskManager.fetch(at: index, from: state) else {
             presentErrorAlert?(CollectionError.indexOutOfRange)
             return
         }
         
-        didSelectRows?(index, fetchedTask)
+        let taskManageViewModel = TaskManageViewModel(selectedIndex: index, selectedTask: fetchedTask, manageType: .detail)
+        
+        presentTaskManageView?(taskManageViewModel)
     }
     
     func count(of state: TaskState) -> Int {
