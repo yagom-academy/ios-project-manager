@@ -33,7 +33,8 @@ final class TaskLocalDataSource: TaskRepositoryDataSource {
     }
     
     func update(_ object: Task) throws {
-        try databaseModel.update(RealmTask(object))
+        try delete(object)
+        try create(object)
     }
     
     func removeAllRecords() throws {
