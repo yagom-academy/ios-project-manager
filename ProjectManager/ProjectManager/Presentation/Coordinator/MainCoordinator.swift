@@ -13,7 +13,7 @@ final class MainCoordinator: Coordinator {
 
     func start() {
         let viewController = ListViewController()
-        viewController.viewModel = ListViewModel(useCase: self.controlUseCase, coordinator: self)
+        viewController.viewModel = ListViewModel(controlUseCase: self.controlUseCase, historyCheckUseCase: self.historyUseCase, coordinator: self)
         self.navigationController?.setViewControllers([viewController], animated: false)
     }
     
@@ -39,8 +39,7 @@ final class MainCoordinator: Coordinator {
     
     private func configureProjectAddView() -> UINavigationController {
         let viewController = ListAddViewController()
-        viewController.viewModel = ListAddViewModel(useCase: self.controlUseCase)
-        viewController.viewModel?.coordinator = self
+        viewController.viewModel = ListAddViewModel(controlUseCase: self.controlUseCase, historyCheckUseCase: self.historyUseCase, coordinator: self)
         let navigationController = UINavigationController(rootViewController: viewController)
         
         return navigationController

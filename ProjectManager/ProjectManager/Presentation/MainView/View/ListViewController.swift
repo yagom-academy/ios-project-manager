@@ -61,21 +61,21 @@ final class ListViewController: UIViewController {
     private func configureLayout() {
         NSLayoutConstraint.activate([
             self.shareView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
-            self.shareView.trailingAnchor.constraint(equalTo:  self.view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
-            self.shareView.topAnchor.constraint(equalTo:  self.view.safeAreaLayoutGuide.topAnchor, constant: 10),
-            self.shareView.bottomAnchor.constraint(equalTo:  self.view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
+            self.shareView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
+            self.shareView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            self.shareView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
         ])
     }
     
     // MARK: - bind UI w/ RxSwift 
     private func configureInput() -> ListViewModel.Input {
+        let tableViews = shareView.extractTableViews()
         let rightBarButton = self.extractRightBarButtonItem()
-        
         let input = ListViewModel
             .Input(
                 viewWillAppearEvent: self.rx.methodInvoked(#selector(UIViewController.viewWillAppear(_:))).map { _ in },
                 projectAddButtonTapped: rightBarButton.rx.tap.asObservable(), projectDeleteEvent:
-                    self.shareView.todoTableView.rx.modelDeleted(Project.self).map { $0.identifier }, projectDidtappedEvent: self.shareView.todoTableView.rx.modelSelected(Project.self).map { $0.identifier }
+                    tableViews.map{ $0.rx.modelDeleted(Project.self).map { $0.identifier }}, projectDidtappedEvent: tableViews.map{ $0.rx.modelSelected(Project.self).map { $0.identifier } }
             )
         
         return input

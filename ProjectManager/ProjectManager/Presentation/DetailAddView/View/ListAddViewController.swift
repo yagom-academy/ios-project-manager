@@ -30,7 +30,7 @@ final class ListAddViewController: UIViewController {
         let input = ListAddViewModel.Input(cancelButtonTappedEvent: (self.navigationItem.leftBarButtonItem?.rx.tap.asObservable())!, doneButtonTappedEvent: (self.navigationItem.rightBarButtonItem?.rx.tap.asObservable())!)
         self.viewModel?.transform(input: input, disposeBag: self.disposeBag)
         
-        self.viewModel?.state
+        self.viewModel?.state 
             .filter { $0 == .done }
             .subscribe { _ in
             self.viewModel?.inputedData.onNext(self.createObservableInformation())

@@ -23,7 +23,7 @@ final class ListUpdateViewController: UIViewController {
     
     private func configureView() {
         self.view.addSubview(shareView)
-        shareView.translatesAutoresizingMaskIntoConstraints = false
+        self.shareView.translatesAutoresizingMaskIntoConstraints = false
         self.view.backgroundColor = .white
     }
     

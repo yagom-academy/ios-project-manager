@@ -2,16 +2,19 @@ import Foundation
 import RxSwift
 import RxRelay
 
-final class ListAddViewModel: ViewModel {
+final class ListAddViewModel {
     
-    var useCase: ControlUseCase
-    var coordinator: Coordinator?
     let state = BehaviorRelay<ListAddViewModelState>(value: .editing)
     var inputedData = PublishSubject<(name: String, detail: String, deadline: Date)>()
     private let disposeBag = DisposeBag()
+    private let controlUseCase: ControlUseCase
+    private let historyCheckUseCase: HistoryCheckUseCase
+    private let coordinator: Coordinator?
     
-    init(useCase: ControlUseCase) {
-        self.useCase = useCase
+    init(controlUseCase: ControlUseCase, historyCheckUseCase: HistoryCheckUseCase, coordinator: Coordinator) {
+        self.controlUseCase = controlUseCase
+        self.historyCheckUseCase = historyCheckUseCase
+        self.coordinator = coordinator
     }
     
     struct Input {
@@ -21,20 +24,20 @@ final class ListAddViewModel: ViewModel {
     }
     
     func transform(input: Input, disposeBag: DisposeBag) {
-        input.cancelButtonTappedEvent.subscribe { _ in
+        input.cancelButtonTappedEvent.withUnretained(self).subscribe { (self, void) in
             self.coordinator?.occuredViewEvent(with: .dismissListAddView)
             
         }.disposed(by: disposeBag)
         
-        input.doneButtonTappedEvent.subscribe { _ in
+        input.doneButtonTappedEvent.withUnretained(self).subscribe { (self, void ) in
             self.state.accept(.done)
-            self.coordinator?.occuredViewEvent(with: .dismissListAddView)
+            self.coordinator?.occuredViewEvent(with: .dismissListAddView) //dismiss 
         }
         .disposed(by: disposeBag)
 
         self.inputedData.subscribe { name, detail, deadline in
             let project = Project(name: name, detail: detail, deadline: deadline, indentifier: UUID().uuidString, progressState: ProgressState.todo.description)
-            self.useCase.createProject(object: project)
+            self.controlUseCase.createProject(object: project)
         }.disposed(by: disposeBag)
     }
 }

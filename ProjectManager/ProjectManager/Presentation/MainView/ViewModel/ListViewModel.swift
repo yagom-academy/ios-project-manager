@@ -3,20 +3,22 @@ import RxSwift
 
 final class ListViewModel {
     
-    let disposeBag = DisposeBag()
-    var useCase: ControlUseCase
-    var coordinator: Coordinator?
+    private let disposeBag = DisposeBag()
+    private let controlUseCase: ControlUseCase
+    private let historyCheckUseCase: HistoryCheckUseCase
+    private var coordinator: Coordinator?
     
-    init(useCase: ControlUseCase, coordinator: Coordinator) {
-        self.useCase = useCase
+    init(controlUseCase: ControlUseCase, historyCheckUseCase: HistoryCheckUseCase ,coordinator: Coordinator) {
+        self.controlUseCase = controlUseCase
+        self.historyCheckUseCase = historyCheckUseCase
         self.coordinator = coordinator
     }
     
     struct Input {
         let viewWillAppearEvent: Observable<Void>
         let projectAddButtonTapped: Observable<Void>
-        let projectDeleteEvent: Observable<String>
-        let projectDidtappedEvent: Observable<String>
+        let projectDeleteEvent: [Observable<String>]
+        let projectDidtappedEvent: [Observable<String>]
     }
 
     struct Output {
@@ -27,26 +29,32 @@ final class ListViewModel {
         let output = self.createViewModelOutput()
         
         input.viewWillAppearEvent.subscribe { [weak self] _ in
-            self?.useCase.fetch()
+            self?.controlUseCase.fetch()
         }.disposed(by: disposeBag)
         
         input.projectAddButtonTapped.subscribe { _ in
             self.coordinator?.occuredViewEvent(with: .presentListAddView)
         }.disposed(by: disposeBag)
         
-        input.projectDeleteEvent.subscribe { identifer in
-            self.useCase.deleteProject(identifier: identifer)
-        }.disposed(by: disposeBag)
+        input.projectDeleteEvent
+            .forEach { $0
+            .subscribe { (identifer: String) in
+            let projectTodeleted = self.controlUseCase.readProject(identifier: identifer)
+            self.controlUseCase.deleteProject(identifier: identifer)
+            self.historyCheckUseCase.saveDifference(method: ManageState.delete, identifier: identifer, object: projectTodeleted!)
+            }.disposed(by: disposeBag)}
         
-        input.projectDidtappedEvent.subscribe { identifier in
+        input.projectDidtappedEvent
+            .forEach { $0
+            .subscribe { identifier in
             self.coordinator?.occuredViewEvent(with: .presentListUpdateView(identifier: identifier))
-        }.disposed(by: disposeBag)
+            }.disposed(by: disposeBag)}
         
         return output
     }
     
     private func createViewModelOutput() -> Output {
-        let initialProjects = useCase.rxLists
+        let initialProjects = controlUseCase.rxLists
             .map { $0 }
             .share(replay: 1)
         
