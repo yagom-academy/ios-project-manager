@@ -154,14 +154,15 @@ final class TaskManageViewController: UIViewController {
     }
     
     private func setupEditingState(from manageType: ManageType) {
-        if manageType == .detail {
-            titleTextField.isUserInteractionEnabled = false
-            deadlineDatePicker.isUserInteractionEnabled = false
-            descriptionTextView.isUserInteractionEnabled = false
-        } else {
+        switch manageType {
+        case .add, .edit:
             titleTextField.isUserInteractionEnabled = true
             deadlineDatePicker.isUserInteractionEnabled = true
             descriptionTextView.isUserInteractionEnabled = true
+        case .detail:
+            titleTextField.isUserInteractionEnabled = false
+            deadlineDatePicker.isUserInteractionEnabled = false
+            descriptionTextView.isUserInteractionEnabled = false
         }
     }
     
