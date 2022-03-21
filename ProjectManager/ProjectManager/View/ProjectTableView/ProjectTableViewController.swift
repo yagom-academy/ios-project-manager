@@ -137,8 +137,8 @@ final class ProjectTableViewController: UIViewController {
                 
                 viewController.setup(
                     selectedWork: work,
-                    list: self?.viewModel.list,
-                    workMemoryManager: self?.viewModel.workMemoryManager
+                    list: self!.viewModel.list,
+                    workMemoryManager: self!.viewModel.workMemoryManager
                 )
                 viewController.modalPresentationStyle = .formSheet
 

@@ -38,17 +38,22 @@ final class WorkFormViewController: UIViewController {
         bind()
     }
     
-    func setup(selectedWork: Work?, list: BehaviorSubject<[Work]>?, workMemoryManager: WorkMemoryManager?) {
-        guard let list = list,
-              let workMemoryManager = workMemoryManager else {
-                  return
-              }
-        
+    func setup(selectedWork: Work?, list: BehaviorSubject<[Work]>, workMemoryManager: WorkMemoryManager) {
         self.viewModel.setup(
             selectedWork: selectedWork,
             list: list,
             workMemoryManager: workMemoryManager
         )
+    }
+    
+    @IBAction private func touchUpRightBarButton(_ sender: UIBarButtonItem) {
+        buttonPressObserver.onNext((titleTextField.text, datePicker.date, bodyTextView.text))
+        
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction private func touchUpCancelButton(_ sender: UIBarButtonItem) {
+        dismiss(animated: true, completion: nil)
     }
     
     private func bind() {
@@ -83,16 +88,6 @@ final class WorkFormViewController: UIViewController {
                 self?.rightBarButtonItem.title = $0
             })
             .disposed(by: disposeBag)
-    }
-    
-    @IBAction private func touchUpRightBarButton(_ sender: UIBarButtonItem) {
-        buttonPressObserver.onNext((titleTextField.text, datePicker.date, bodyTextView.text))
-        
-        dismiss(animated: true, completion: nil)
-    }
-    
-    @IBAction private func touchUpCancelButton(_ sender: UIBarButtonItem) {
-        dismiss(animated: true, completion: nil)
     }
     
     private func setupKeyboardObserver() {
