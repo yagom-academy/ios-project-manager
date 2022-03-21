@@ -10,7 +10,7 @@ import Foundation
 class TaskManageViewModel {
     // MARK: - Output
     var presentErrorAlert: ((Error) -> Void)?
-    var dismiss: ((ManageType) -> Void)?
+    var dismissWithTask: ((ManageType) -> Void)?
     var changeManageTypeToEdit: ((ManageType) -> Void)?
     
     // MARK: - Properties
@@ -51,7 +51,7 @@ class TaskManageViewModel {
     
     func didTapDoneButton() {
         if checkValidInput() {
-            dismiss?(manageType)
+            dismissWithTask?(manageType)
         }
     }
     
