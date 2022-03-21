@@ -18,7 +18,7 @@
 		C9B1BD8327DF0E87009D1A61 /* TaskManageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B1BD8227DF0E87009D1A61 /* TaskManageViewModel.swift */; };
 		C9BABE9C27E0796400F13165 /* TextError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BABE9B27E0796400F13165 /* TextError.swift */; };
 		C9BABE9E27E0798300F13165 /* ManageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BABE9D27E0798300F13165 /* ManageType.swift */; };
-		C9BABEA027E079BB00F13165 /* TaskManageDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BABE9F27E079BB00F13165 /* TaskManageDelegate.swift */; };
+		C9BABEA027E079BB00F13165 /* TaskManageViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BABE9F27E079BB00F13165 /* TaskManageViewDelegate.swift */; };
 		C9BB798127D9CB66005F0D81 /* TaskTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BB798027D9CB66005F0D81 /* TaskTableHeaderView.swift */; };
 		C9C2613727CDE08A002FA9F4 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = C9C2613627CDE08A002FA9F4 /* FirebaseFirestore */; };
 		C9C2613E27CDE1F6002FA9F4 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = C9C2613D27CDE1F6002FA9F4 /* RxCocoa */; };
@@ -66,7 +66,7 @@
 		C9B1BD8227DF0E87009D1A61 /* TaskManageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManageViewModel.swift; sourceTree = "<group>"; };
 		C9BABE9B27E0796400F13165 /* TextError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextError.swift; sourceTree = "<group>"; };
 		C9BABE9D27E0798300F13165 /* ManageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageType.swift; sourceTree = "<group>"; };
-		C9BABE9F27E079BB00F13165 /* TaskManageDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManageDelegate.swift; sourceTree = "<group>"; };
+		C9BABE9F27E079BB00F13165 /* TaskManageViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManageViewDelegate.swift; sourceTree = "<group>"; };
 		C9BB798027D9CB66005F0D81 /* TaskTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableHeaderView.swift; sourceTree = "<group>"; };
 		C9C2614227CDE4CB002FA9F4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C9C2614427CDE68C002FA9F4 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
@@ -182,7 +182,7 @@
 				C9C2615427CF5C69002FA9F4 /* TaskRepository.swift */,
 				C9C2615927CF5FF7002FA9F4 /* TaskMangeable.swift */,
 				C9C2614F27CF3ED0002FA9F4 /* TaskViewModel.swift */,
-				C9BABE9F27E079BB00F13165 /* TaskManageDelegate.swift */,
+				C9BABE9F27E079BB00F13165 /* TaskManageViewDelegate.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -409,7 +409,7 @@
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				C9B1BD8327DF0E87009D1A61 /* TaskManageViewModel.swift in Sources */,
 				C9C2615527CF5C69002FA9F4 /* TaskRepository.swift in Sources */,
-				C9BABEA027E079BB00F13165 /* TaskManageDelegate.swift in Sources */,
+				C9BABEA027E079BB00F13165 /* TaskManageViewDelegate.swift in Sources */,
 				C9ECBF2B27D88E6E00E49ED4 /* UITableView+dequeue.swift in Sources */,
 				C9BABE9E27E0798300F13165 /* ManageType.swift in Sources */,
 				C9BABE9C27E0796400F13165 /* TextError.swift in Sources */,

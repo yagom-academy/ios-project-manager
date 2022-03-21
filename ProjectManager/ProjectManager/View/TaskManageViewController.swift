@@ -53,11 +53,11 @@ final class TaskManageViewController: UIViewController {
     }()
 
     private let taskManageViewModel: TaskManageViewModel
-    private weak var delegate: TaskManageDelegate?
+    private weak var delegate: TaskManageViewDelegate?
     
     // MARK: - Life Cycle
 
-    init(taskManageViewModel: TaskManageViewModel, delegate: TaskManageDelegate) {
+    init(taskManageViewModel: TaskManageViewModel, delegate: TaskManageViewDelegate) {
         self.taskManageViewModel = taskManageViewModel
         self.delegate = delegate
         super.init(nibName: nil, bundle: nil)
@@ -190,7 +190,7 @@ final class TaskManageViewController: UIViewController {
     }
     
     private func createTask() {
-        delegate?.create(title: taskManageViewModel.taskTitle,
+        delegate?.taskManageViewDidCreate(title: taskManageViewModel.taskTitle,
                          description: taskManageViewModel.taskDescription,
                          deadline: taskManageViewModel.taskDeadline)
     }
@@ -201,7 +201,7 @@ final class TaskManageViewController: UIViewController {
             return
         }
         
-        delegate?.update(at: selectedIndex,
+        delegate?.taskManageViewDidUpdate(at: selectedIndex,
                          title: taskManageViewModel.taskTitle,
                          description: taskManageViewModel.taskDescription,
                          deadline: taskManageViewModel.taskDeadline,
