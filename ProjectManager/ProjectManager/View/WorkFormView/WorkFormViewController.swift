@@ -2,6 +2,14 @@ import UIKit
 import RxSwift
 
 
+private enum Content {
+    
+    static let emptyBody = "입력가능한 글자수는 1000자로 제한합니다."
+    static let editTitle = "Edit"
+    static let doneTitle = "Done"
+    
+}
+
 private enum Design {
     static let shadowColor: CGColor = UIColor.black.cgColor
     static let shadowOffset = CGSize(width: 0, height: 5)
@@ -22,6 +30,8 @@ final class WorkFormViewController: UIViewController {
     
     private let buttonPressObserver: PublishSubject<(String?, Date, String)> = .init()
     private let viewDidLoadObserver: PublishSubject<Void> = .init()
+    private let textViewEditObserver: PublishSubject<String> = .init()
+    
     private var disposeBag = DisposeBag()
     private var viewModel = WorkFormViewModel()
     
@@ -59,13 +69,15 @@ final class WorkFormViewController: UIViewController {
     private func bind() {
         let input = WorkFormViewModel.Input(
             buttonPressObserver: buttonPressObserver.asObservable(),
-            viewDidLoadObserver: viewDidLoadObserver.asObservable()
+            viewDidLoadObserver: viewDidLoadObserver.asObservable(),
+            textViewEditObserver: textViewEditObserver.asObservable()
         )
         
         let output = viewModel.transform(input)
         
         configureFillContentObserver(output)
         configureShowRightBarButtonItemObserver(output)
+        configureTextViewPlaceholderObserver(output)
     }
     
     private func configureFillContentObserver(_ output: WorkFormViewModel.Output) {
@@ -86,6 +98,22 @@ final class WorkFormViewController: UIViewController {
             .showRightBarButtonItemObserver
             .subscribe(onNext: { [weak self] in
                 self?.rightBarButtonItem.title = $0
+                
+                if $0 == Content.editTitle {
+                    self?.bodyTextView.textColor = .label
+                } else if $0 == Content.doneTitle {
+                    self?.bodyTextView.textColor = .placeholderText
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func configureTextViewPlaceholderObserver(_ output: WorkFormViewModel.Output) {
+        output
+            .textViewPlaceholderObserver
+            .subscribe(onNext: { [weak self] in
+                self?.bodyTextView.text = Content.emptyBody
+                self?.bodyTextView.textColor = .placeholderText
             })
             .disposed(by: disposeBag)
     }
@@ -142,7 +170,12 @@ final class WorkFormViewController: UIViewController {
     }
     
     private func setupTextView() {
+        configureTextViewDelegate()
         configureTextViewShadow()
+    }
+    
+    private func configureTextViewDelegate() {
+        bodyTextView.delegate = self
     }
     
     private func configureTextViewShadow() {
@@ -156,6 +189,23 @@ final class WorkFormViewController: UIViewController {
         view.layer.shadowOffset = Design.shadowOffset
         view.layer.shadowOpacity = Design.shadowOpacity
         view.layer.shadowRadius = Design.shadowRadius
+    }
+    
+}
+
+extension WorkFormViewController: UITextViewDelegate {
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        let hasOnlyPlaceholder: Bool = textView.textColor == .placeholderText
+        
+        if hasOnlyPlaceholder {
+            textView.text = nil
+            textView.textColor = .label
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        textViewEditObserver.onNext(textView.text)
     }
     
 }
