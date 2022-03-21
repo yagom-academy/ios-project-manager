@@ -178,7 +178,7 @@ final class TaskManageViewController: UIViewController {
     // MARK: - Configure Edit/Cancel/Add
 
     private func configureNavigationBar() {
-        navigationItem.title = taskManageViewModel.selectedTask?.state.title
+        navigationItem.title = taskManageViewModel.navigationTitle
         
         switch taskManageViewModel.manageType {
         case .add, .edit:

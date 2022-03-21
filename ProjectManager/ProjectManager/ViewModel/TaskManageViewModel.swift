@@ -20,6 +20,9 @@ class TaskManageViewModel {
     var selectedIndex: Int?
     var selectedTask: Task?
     var manageType: ManageType
+    var navigationTitle: String? {
+        return selectedTask?.state.title
+    }
     
     init(manageType: ManageType) {
         self.manageType = manageType
