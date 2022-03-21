@@ -10,51 +10,52 @@ import SwiftUI
 struct TaskListRowView: View {
     
     @EnvironmentObject private var taskManager: TaskManager
-    @ObservedObject var task: Task
-    @State private var isTaskEditing: Bool = false
-    @State private var isTaskStatusChanging: Bool = false
+    @StateObject private var taskListRowViewModel: TaskListRowViewModel
+    
+    init(task: Task) {
+        _taskListRowViewModel = StateObject(wrappedValue: TaskListRowViewModel(task: task))
+    }
     
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 5) {
-                Text(task.title)
+                Text(taskListRowViewModel.task.title)
                     .font(.title3)
                     .lineLimit(1)
                     .truncationMode(.tail)
-                Text(task.body)
+                Text(taskListRowViewModel.task.body)
                     .font(.body)
                     .foregroundColor(.secondary)
                     .lineLimit(3)
                     .truncationMode(.tail)
-                Text(task.dueDate.dateString)
+                Text(taskListRowViewModel.task.dueDate.dateString)
                     .font(.callout)
-                    .foregroundColor(task.dueDate.isOverdue ? .red : .primary)
+                    .foregroundColor(taskListRowViewModel.isOverdue ? .red : .primary)
             }
             Spacer()
         }
         .padding(.all, 5)
         .contentShape(Rectangle())
         .onTapGesture {
-            isTaskEditing.toggle()
+            taskListRowViewModel.isTaskEditing.toggle()
         }
-        .sheet(isPresented: $isTaskEditing) {
-            TaskFormingView(selectedTask: task, mode: $isTaskEditing)
+        .sheet(isPresented: $taskListRowViewModel.isTaskEditing) {
+            TaskFormingView(selectedTask: taskListRowViewModel.task, mode: $taskListRowViewModel.isTaskEditing)
         }
         .onLongPressGesture(perform: {
-            isTaskStatusChanging.toggle()
+            taskListRowViewModel.isTaskStatusChanging.toggle()
         })
-        .popover(isPresented: $isTaskStatusChanging, content: {
+        .popover(isPresented: $taskListRowViewModel.isTaskStatusChanging, content: {
             ZStack {
                 Color(UIColor.quaternarySystemFill)
                     .scaleEffect(1.5)
                 VStack(spacing: 6) {
                     ForEach(TaskStatus.allCases, id: \.self) { status in
-                        if status != task.status {
+                        if status != taskListRowViewModel.task.status {
                             Button {
                                 withAnimation {
-                                    taskManager.objectWillChange.send()
-                                    try? taskManager.changeTaskStatus(target: task, to: status)
-                                    isTaskStatusChanging.toggle()
+                                    taskListRowViewModel.changeTaskStatus(to: status, using: taskManager)
+                                    taskListRowViewModel.isTaskStatusChanging.toggle()
                                 }
                             } label: {
                                 Text("Move to \(status.headerTitle)")
@@ -68,5 +69,28 @@ struct TaskListRowView: View {
                 .font(.title2)
             }
         })
+    }
+}
+
+private extension TaskListRowView {
+    
+    final class TaskListRowViewModel: ObservableObject {
+        
+        @Published var task: Task
+        @Published var isTaskEditing: Bool = false
+        @Published var isTaskStatusChanging: Bool = false
+        
+        var isOverdue: Bool {
+            return task.dueDate.isOverdue
+        }
+        
+        init(task: Task) {
+            _task = Published(wrappedValue: task)
+        }
+        
+        func changeTaskStatus(to status: TaskStatus, using taskManager: TaskManager) {
+            taskManager.objectWillChange.send()
+            try? taskManager.changeTaskStatus(target: task, to: status)
+        }
     }
 }

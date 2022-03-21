@@ -9,13 +9,10 @@ import Foundation
 
 protocol TaskManageable: AnyObject {
     
-    var todoTasks: [Task] { get }
-    var doingTasks: [Task] { get }
-    var doneTasks: [Task] { get }
-    
+    func fetchTasks(in status: TaskStatus) -> [Task]
     func validateTask(title: String, body: String) -> Bool
     func createTask(title: String, body: String, dueDate: Date)
     func editTask(target: Task?, title: String, body: String, dueDate: Date) throws
     func changeTaskStatus(target: Task?, to status: TaskStatus) throws
-    func deleteTask(target: Task?) throws
+    func deleteTask(indexSet: IndexSet, in status: TaskStatus) throws
 }

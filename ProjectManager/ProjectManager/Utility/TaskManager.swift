@@ -7,22 +7,12 @@
 
 import Foundation
 
-class TaskManager: ObservableObject, TaskManageable {
+final class TaskManager: ObservableObject, TaskManageable {
     
     @Published private var tasks = [Task]()
     
-    var todoTasks: [Task] {
-        return tasks.filter { $0.status == .todo }.sorted { $0.dueDate < $1.dueDate }
-    }
-    var doingTasks: [Task] {
-        return tasks.filter { $0.status == .doing }.sorted { $0.dueDate < $1.dueDate }
-    }
-    var doneTasks: [Task] {
-        return tasks.filter { $0.status == .done }.sorted { $0.dueDate < $1.dueDate }
-    }
-    
-    init(tasks: [Task]) {
-        self.tasks = tasks
+    func fetchTasks(in status: TaskStatus) -> [Task] {
+        return tasks.filter { $0.status == status }.sorted { $0.dueDate < $1.dueDate }
     }
     
     func validateTask(title: String, body: String) -> Bool {
@@ -52,10 +42,12 @@ class TaskManager: ObservableObject, TaskManageable {
         target.status = status
     }
     
-    func deleteTask(target: Task?) throws {
-        guard let target = target else {
+    func deleteTask(indexSet: IndexSet, in status: TaskStatus) throws {
+        guard let convertedIndex = indexSet.first else {
             throw TaskManagerError.taskIsNil
         }
+        
+        let target = fetchTasks(in: status)[convertedIndex]
         
         guard let targetIndex = tasks.firstIndex(of: target) else {
             throw TaskManagerError.taskIsNil

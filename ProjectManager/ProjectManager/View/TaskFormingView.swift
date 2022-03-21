@@ -9,90 +9,111 @@ import SwiftUI
 
 struct TaskFormingView: View {
     
-    let selectedTask: Task?
-    
     @EnvironmentObject private var taskManager: TaskManager
-    @Binding var isModalShowing: Bool
-    @State private var taskTitle: String
-    @State private var taskDueDate: Date
-    @State private var taskBody: String
+    @StateObject private var taskFormingViewModel: TaskFormingViewModel
     @StateObject private var keyboardResponder = KeyboardResponder()
-    @State private var isTextEditorFocused: Bool = false
-    private var isRegularKeyboard: Bool {
-        return keyboardResponder.currentHeight > 70
-    }
-    private var keyboardAdjustingPadding: CGFloat {
-        switch (isTextEditorFocused, isRegularKeyboard) {
-        case (true, true):
-            return keyboardResponder.currentHeight
-        case (false, true):
-            return -keyboardResponder.currentHeight
-        case (true, false):
-            return 0
-        case (false, false):
-            return 0
-        }
-    }
     
     init(selectedTask: Task?, mode isModalShowing: Binding<Bool>) {
-        self._isModalShowing = isModalShowing
-        
-        if let selectedTask = selectedTask {
-            self.selectedTask = selectedTask
-            _taskTitle = State(wrappedValue: selectedTask.title)
-            _taskDueDate = State(wrappedValue: selectedTask.dueDate)
-            _taskBody = State(wrappedValue: selectedTask.body)
-        } else {
-            self.selectedTask = nil
-            _taskTitle = State(initialValue: "")
-            _taskDueDate = State(initialValue: Date())
-            _taskBody = State(initialValue: "")
-        }
+        _taskFormingViewModel = StateObject(wrappedValue: TaskFormingViewModel(selectedTask: selectedTask, mode: isModalShowing))
     }
     
     var body: some View {
         NavigationView {
             VStack {
-                CustomTextField(taskTitle: $taskTitle)
+                CustomTextField(taskTitle: $taskFormingViewModel.taskTitle)
                     .onTapGesture {
-                        isTextEditorFocused = false
+                        taskFormingViewModel.isTextEditorFocused = false
                     }
-                CustomDatePicker(taskDueDate: $taskDueDate)
-                TextEditorWithPlaceholder(taskBody: $taskBody)
+                CustomDatePicker(taskDueDate: $taskFormingViewModel.taskDueDate)
+                TextEditorWithPlaceholder(taskBody: $taskFormingViewModel.taskBody)
                     .onTapGesture {
-                        isTextEditorFocused = true
+                        taskFormingViewModel.isTextEditorFocused = true
                     }
             }
             .padding(.all, 20)
-            .padding(.bottom, keyboardAdjustingPadding)
-            .navigationTitle(selectedTask?.status.headerTitle ?? TaskStatus.todo.headerTitle)
+            .padding(.bottom, taskFormingViewModel.addKeyboardAdjustingPadding(using: keyboardResponder))
+            .navigationTitle(taskFormingViewModel.selectedTask?.status.headerTitle ?? TaskStatus.todo.headerTitle)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        withAnimation {
-                            if selectedTask == nil {
-                                taskManager.createTask(title: taskTitle, body: taskBody, dueDate: taskDueDate)
-                            } else {
-                                taskManager.objectWillChange.send()
-                                try? taskManager.editTask(target: selectedTask, title: taskTitle, body: taskBody, dueDate: taskDueDate)
-                            }
-                        }
-                        isModalShowing.toggle()
+                        taskFormingViewModel.createOrEditTask(using: taskManager)
                     } label: {
-                        Text(selectedTask == nil ? "Done" : "Edit")
+                        Text(taskFormingViewModel.selectedTask == nil ? "Done" : "Edit")
                     }
-                    .disabled(!taskManager.validateTask(title: taskTitle, body: taskBody))
+                    .disabled(!taskFormingViewModel.validateTask(using: taskManager))
                 }
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button {
-                        isModalShowing.toggle()
+                        taskFormingViewModel.isModalShowing.toggle()
                     } label: {
                         Text("Cancel")
                     }
                 }
             }
             .font(.title3)
+        }
+    }
+}
+
+private extension TaskFormingView {
+    
+    final class TaskFormingViewModel: ObservableObject {
+        
+        @Binding var isModalShowing: Bool
+        @Published var selectedTask: Task?
+        @Published var taskTitle: String
+        @Published var taskDueDate: Date
+        @Published var taskBody: String
+        @Published var isTextEditorFocused: Bool = false
+        
+        init(selectedTask: Task?, mode isModalShowing: Binding<Bool>) {
+            _isModalShowing = isModalShowing
+            
+            if let selectedTask = selectedTask {
+                self.selectedTask = selectedTask
+                _taskTitle = Published(wrappedValue: selectedTask.title)
+                _taskDueDate = Published(wrappedValue: selectedTask.dueDate)
+                _taskBody = Published(wrappedValue: selectedTask.body)
+            } else {
+                self.selectedTask = nil
+                _taskTitle = Published(initialValue: "")
+                _taskDueDate = Published(initialValue: Date())
+                _taskBody = Published(initialValue: "")
+            }
+        }
+        
+        func createOrEditTask(using taskManager: TaskManager) {
+            withAnimation {
+                if selectedTask == nil {
+                    taskManager.createTask(title: taskTitle, body: taskBody, dueDate: taskDueDate)
+                } else {
+                    taskManager.objectWillChange.send()
+                    try? taskManager.editTask(target: selectedTask, title: taskTitle, body: taskBody, dueDate: taskDueDate)
+                }
+            }
+            isModalShowing.toggle()
+        }
+        
+        func validateTask(using taskManager: TaskManager) -> Bool {
+            return taskManager.validateTask(title: taskTitle, body: taskBody)
+        }
+        
+        func addKeyboardAdjustingPadding(using keyboardResponder: KeyboardResponder) -> CGFloat {
+            switch (isTextEditorFocused, isRegularKeyboard(using: keyboardResponder)) {
+            case (true, true):
+                return keyboardResponder.currentHeight
+            case (false, true):
+                return -keyboardResponder.currentHeight
+            case (true, false):
+                return 0
+            case (false, false):
+                return 0
+            }
+        }
+        
+        private func isRegularKeyboard(using keyboardResponder: KeyboardResponder) -> Bool {
+            return keyboardResponder.currentHeight > 70
         }
     }
 }

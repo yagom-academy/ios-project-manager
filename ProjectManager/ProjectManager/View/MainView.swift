@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MainView: View {
     
-    @State private var isTaskCreating: Bool = false
+    @StateObject private var mainViewModel = MainViewModel()
     
     var body: some View {
         NavigationView {
@@ -24,17 +24,25 @@ struct MainView: View {
             .edgesIgnoringSafeArea(.bottom)
             .toolbar {
                 Button {
-                    isTaskCreating.toggle()
+                    mainViewModel.isTaskCreating.toggle()
                 } label: {
                     Image(systemName: "plus")
                         .font(.title2)
                 }
-                .sheet(isPresented: $isTaskCreating) {
-                    TaskFormingView(selectedTask: nil, mode: $isTaskCreating)
+                .sheet(isPresented: $mainViewModel.isTaskCreating) {
+                    TaskFormingView(selectedTask: nil, mode: $mainViewModel.isTaskCreating)
                 }
             }
         }
         .navigationViewStyle(.stack)
         .navigationBarAppearance(font: .headline, foregroundColor: .label, hideSeparator: true)
+    }
+}
+
+private extension MainView {
+    
+    final class MainViewModel: ObservableObject {
+        
+        @Published var isTaskCreating: Bool = false
     }
 }
