@@ -123,7 +123,7 @@ final class TaskManageViewController: UIViewController {
     }
     
     @objc private func updateTaskManageViewModelDeadline(_ sender: UIDatePicker) {
-        taskManageViewModel.taskDeadline = sender.date
+        taskManageViewModel.updateTaskDeadline(with: sender.date)
     }
     
     private func setupTitleTextField() {
@@ -134,7 +134,8 @@ final class TaskManageViewController: UIViewController {
         guard let text = sender.text else {
             return
         }
-        taskManageViewModel.taskTitle = text
+        
+        taskManageViewModel.updateTaskTitle(with: text)
     }
     
     private func configureLayout() {

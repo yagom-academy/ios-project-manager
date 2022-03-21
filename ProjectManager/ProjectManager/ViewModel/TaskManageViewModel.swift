@@ -70,4 +70,12 @@ class TaskManageViewModel {
     func changeToEditState() {
         changeManageTypeToEdit?(.edit)
     }
+    
+    func updateTaskDeadline(with date: Date) {
+        taskDeadline = date
+    }
+    
+    func updateTaskTitle(with title: String) {
+        taskTitle = title
+    }
 }
