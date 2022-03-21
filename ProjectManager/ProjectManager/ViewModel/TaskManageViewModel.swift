@@ -81,4 +81,8 @@ final class TaskManageViewModel {
     func updateTaskTitle(with title: String) {
         taskTitle = title
     }
+    
+    func updateTaskDescription(with description: String) {
+        taskDescription = description
+    }
 }

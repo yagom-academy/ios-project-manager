@@ -232,7 +232,7 @@ final class TaskManageViewController: UIViewController {
 
 extension TaskManageViewController: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        taskManageViewModel.taskDescription = textView.text
+        taskManageViewModel.updateTaskDescription(with: textView.text)
         let isValidText = taskManageViewModel.checkValidTextLength(with: range, length: 1000)
         return isValidText
     }
