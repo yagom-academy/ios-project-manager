@@ -57,7 +57,7 @@ final class TaskManageViewController: UIViewController {
     
     // MARK: - Life Cycle
 
-    init(taskManageViewModel: TaskManageViewModel, delegate: TaskManageViewDelegate) {
+    init(taskManageViewModel: TaskManageViewModel, delegate: TaskManageViewDelegate?) {
         self.taskManageViewModel = taskManageViewModel
         self.delegate = delegate
         super.init(nibName: nil, bundle: nil)
