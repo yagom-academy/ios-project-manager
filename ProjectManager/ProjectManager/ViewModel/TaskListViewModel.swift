@@ -2,15 +2,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-protocol TaskListViewModelProtocol {
-    var todoTasks: BehaviorSubject<[Task]> { get }
-    var doingTasks: BehaviorSubject<[Task]> { get }
-    var doneTasks: BehaviorSubject<[Task]> { get }
-    var entireTasks: [BehaviorSubject<[Task]>] { get }
-    var todoTasksCount: Observable<Int> { get }
-    var doingTasksCount: Observable<Int> { get }
-    var doneTasksCount: Observable<Int> { get }
-    
+protocol TaskListViewModelInputProtocol {
     func create(task: Task)
     func delete(task: Task)
     func update(task: Task, to newTask: Task)
@@ -23,6 +15,18 @@ protocol TaskListViewModelProtocol {
     func createViewControllerForSelectedRow(at row: Int, inTableViewOf: ProcessStatus) -> UIViewController
     func didSwipeDeleteAction(for row: Int, inTableViewOf: ProcessStatus)
 }
+
+protocol TaskListViewModelOutputProtocol {
+    var todoTasks: BehaviorSubject<[Task]> { get }
+    var doingTasks: BehaviorSubject<[Task]> { get }
+    var doneTasks: BehaviorSubject<[Task]> { get }
+    var entireTasks: [BehaviorSubject<[Task]>] { get }
+    var todoTasksCount: Observable<Int> { get }
+    var doingTasksCount: Observable<Int> { get }
+    var doneTasksCount: Observable<Int> { get }
+}
+
+protocol TaskListViewModelProtocol: TaskListViewModelInputProtocol, TaskListViewModelOutputProtocol { }
 
 // TODO: MVVM - Input/Output 구분
 final class TaskListViewModel: TaskListViewModelProtocol {

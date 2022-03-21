@@ -1,9 +1,11 @@
 import UIKit
 
-protocol TaskDetailViewModelProtocol {
+protocol TaskDetailViewModelInputProtocol {
     func leftBarButton(of taskManagerAction: TaskManagerAction) -> UIBarButtonItem.SystemItem
     func rightBarButton(of taskManagerAction: TaskManagerAction) -> UIBarButtonItem.SystemItem
 }
+
+protocol TaskDetailViewModelProtocol: TaskDetailViewModelInputProtocol { }
 
 final class TaskDetailViewModel: TaskDetailViewModelProtocol {
     func leftBarButton(of taskManagerAction: TaskManagerAction) -> UIBarButtonItem.SystemItem {
