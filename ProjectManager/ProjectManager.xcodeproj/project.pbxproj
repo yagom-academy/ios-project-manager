@@ -39,6 +39,7 @@
 		C13F86E627D7511E004070AE /* Utilities+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13F86E527D7511E004070AE /* Utilities+Foundation.swift */; };
 		C1493BDD27E8184700CD8C1E /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1493BDC27E8184700CD8C1E /* FirebaseManager.swift */; };
 		C1493BDF27E81D0000CD8C1E /* FirebaseTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1493BDE27E81D0000CD8C1E /* FirebaseTask.swift */; };
+		C1493BE327E8673700CD8C1E /* RemoteRepositoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1493BE227E8673700CD8C1E /* RemoteRepositoryManager.swift */; };
 		C169A41027E0242600B82EC0 /* TaskRepositoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C169A40F27E0242500B82EC0 /* TaskRepositoryManager.swift */; };
 		C169A41227E0334200B82EC0 /* TaskLocalDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C169A41127E0334200B82EC0 /* TaskLocalDataSource.swift */; };
 		C169A41427E033D700B82EC0 /* TaskRepositoryDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C169A41327E033D700B82EC0 /* TaskRepositoryDataSource.swift */; };
@@ -94,6 +95,7 @@
 		C13F86E527D7511E004070AE /* Utilities+Foundation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Utilities+Foundation.swift"; sourceTree = "<group>"; };
 		C1493BDC27E8184700CD8C1E /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		C1493BDE27E81D0000CD8C1E /* FirebaseTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseTask.swift; sourceTree = "<group>"; };
+		C1493BE227E8673700CD8C1E /* RemoteRepositoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteRepositoryManager.swift; sourceTree = "<group>"; };
 		C1568D8427E1F9B50013E96F /* RealmManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManagerTests.swift; sourceTree = "<group>"; };
 		C169A40F27E0242500B82EC0 /* TaskRepositoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRepositoryManager.swift; sourceTree = "<group>"; };
 		C169A41127E0334200B82EC0 /* TaskLocalDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskLocalDataSource.swift; sourceTree = "<group>"; };
@@ -265,6 +267,7 @@
 			isa = PBXGroup;
 			children = (
 				C169A41C27E07F2E00B82EC0 /* LocalRepositoryManager.swift */,
+				C1493BE227E8673700CD8C1E /* RemoteRepositoryManager.swift */,
 				C169A41727E0392B00B82EC0 /* RealmManager.swift */,
 				C1493BDC27E8184700CD8C1E /* FirebaseManager.swift */,
 			);
@@ -472,6 +475,7 @@
 				C13F86E227D71473004070AE /* TaskFormContainerView.swift in Sources */,
 				C169A41427E033D700B82EC0 /* TaskRepositoryDataSource.swift in Sources */,
 				C12BF48B27D9E52400211C11 /* TaskListContextMenuView.swift in Sources */,
+				C1493BE327E8673700CD8C1E /* RemoteRepositoryManager.swift in Sources */,
 				C13F86E627D7511E004070AE /* Utilities+Foundation.swift in Sources */,
 				C169A41A27E07EAD00B82EC0 /* RealmTask.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,

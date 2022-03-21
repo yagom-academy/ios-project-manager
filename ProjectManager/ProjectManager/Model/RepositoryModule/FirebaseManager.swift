@@ -8,47 +8,34 @@
 import Foundation
 import Firebase
 
-final class FirebaseManager<Element: Codable>: LocalRepositoryManager {
-    
+final class FirebaseManager<Element: Codable>: RemoteRepositoryManager {
+   
     private let database = Firestore.firestore()
     
     private let collectionLink = "tasks"
     private let documentLink = "task"
     
-    func create(_ objects: [Element]) throws {
-       
-            
-    }
-    
-    func create(_ object: Element) throws {
+    func create(_ object: Element, completionHandler: (Result<Data, Error>) -> Void) {
         
     }
     
-    func fetch() throws -> [Element] {
-       
-    }
-    
-    func fetch(queryHandler: ((Element) -> Bool)) throws -> [Element] {
+    func fetch(completionHandler: (Result<[Element], Error>) -> Void) {
         
     }
     
-    func update(_ objects: [Element]) throws {
+    func fetch(queryHandler: (Element) -> Bool, completionHandler: (Result<[Element], Error>) -> Void) {
         
     }
     
-    func update(_ object: Element) throws {
+    func update(_ object: Element, completionHandler: (Result<Data, Error>) -> Void) {
         
     }
     
-    func remove(_ objects: [Element]) throws {
+    func remove(_ object: Element, completionHandler: (Result<Data, Error>) -> Void) {
         
     }
     
-    func remove(_ object: Element) throws {
-        
-    }
-    
-    func removeAll() throws {
+    func removeAll(completionHandler: (Result<Data, Error>) -> Void) {
         
     }
     
