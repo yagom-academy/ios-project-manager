@@ -8,7 +8,7 @@
 import Foundation
 import RealmSwift
 
-final class RealmManager<Element: Object>: RepositoryManager {
+final class RealmManager<Element: Object>: LocalRepositoryManager {
     
     private let localRealm = try? Realm()
     

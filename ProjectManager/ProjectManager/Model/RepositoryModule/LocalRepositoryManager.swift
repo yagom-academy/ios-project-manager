@@ -1,5 +1,5 @@
 //
-//  RepositoryManager.swift
+//  LocalRepositoryManager.swift
 //  ProjectManager
 //
 //  Created by JeongTaek Han on 2022/03/15.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol RepositoryManager {
+protocol LocalRepositoryManager {
     
     associatedtype Element
     
