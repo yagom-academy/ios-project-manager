@@ -7,19 +7,19 @@
 
 import Foundation
 
-class TaskManageViewModel {
+final class TaskManageViewModel {
     // MARK: - Output
     var presentErrorAlert: ((Error) -> Void)?
     var dismissWithTask: ((ManageType) -> Void)?
     var changeManageTypeToEdit: ((ManageType) -> Void)?
     
     // MARK: - Properties
-    var taskTitle = ""
-    var taskDescription = ""
-    var taskDeadline = Date()
-    var selectedIndex: Int?
-    var selectedTask: Task?
-    var manageType: ManageType
+    private(set) var taskTitle = ""
+    private(set) var taskDescription = ""
+    private(set) var taskDeadline = Date()
+    private(set) var selectedIndex: Int?
+    private(set) var selectedTask: Task?
+    private(set) var manageType: ManageType
     var navigationTitle: String? {
         return selectedTask?.state.title
     }
