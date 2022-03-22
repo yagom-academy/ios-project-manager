@@ -1,7 +1,7 @@
 import Foundation
 import Combine
 
-class TaskListViewModel: ObservableObject {
+class TaskListViewModel: ObservableObject, NetWorkManagerDelegate {
     @Published var todoTaskList = [Task]()
     @Published var doingTaskList = [Task]()
     @Published var doneTaskList = [Task]()
@@ -11,11 +11,11 @@ class TaskListViewModel: ObservableObject {
     let taskListManager = TaskManager()
     let historyManager = TaskHistoryManager()
     let networkManager = NetworkCheckManager()
-
+ 
     var cancellables = Set<AnyCancellable>()
     
     init () {
-        synchronizeFirebaseWithRealm()
+        networkManager.delegate = self
     }
     
     private func reload() {
@@ -32,27 +32,37 @@ class TaskListViewModel: ObservableObject {
 
 extension TaskListViewModel {
     func synchronizeFirebaseWithRealm() {
-        synchronizeRealmToFirebase()
+        if networkManager.isConnected {
+            synchronizeRealmToFirebase()
+        }
         synchronizeFirebaseToRealm()
     }
     
     func createTask(_ task: Task) {
-        createTaskOnFirebase(task)
+        if networkManager.isConnected {
+            createTaskOnFirebase(task)
+        }
         createTaskOnRealm(task)
     }
     
     func updateTask(id: String, title: String, description: String, deadline: Date) {
-        updateTaskOnFirebase(id: id, title: title, description: description, deadline: deadline)
+        if networkManager.isConnected {
+            updateTaskOnFirebase(id: id, title: title, description: description, deadline: deadline)
+        }
         updateTaskOnRealm(id: id, title: title, description: description, deadline: deadline)
     }
     
     func updateTaskStatus(id: String, title: String, prevStatus: TaskStatus, nextStatus: TaskStatus) {
-        updateStatusOnFirebase(id: id, title: title, status: nextStatus)
+        if networkManager.isConnected {
+            updateStatusOnFirebase(id: id, title: title, status: nextStatus)
+        }
         updateStatusOnRealm(id: id, title: title, prevStatus: prevStatus, nextStatus: nextStatus)
     }
     
     func deleteTask(id: String, title: String, taskStatus: TaskStatus) {
-        deleteTaskOnFirebase(id: id)
+        if networkManager.isConnected {
+            deleteTaskOnFirebase(id: id)
+        }
         deleteTaskOnRealm(id: id, title: title, taskStatus: taskStatus)
     }
 }

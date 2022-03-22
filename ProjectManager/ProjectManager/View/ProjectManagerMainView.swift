@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct ProjectManagerMainView: View {
-    @ObservedObject var networkCheckManager: NetworkCheckManager
+    @EnvironmentObject private var taskListViewModel: TaskListViewModel
     @State private var isShowTaskDetailView = false
     @State private var isShowTaskHistoryView = false
     
@@ -14,11 +14,8 @@ struct ProjectManagerMainView: View {
             Divider()
             ProjectManagerMainContentView()
         }
-        .alert(isPresented: $networkCheckManager.isNotConnected) {
-            Alert(
-                title: Text("Network is Not Connected".localized()),
-                message: Text("It looks like you're not connected to the internet".localized())
-            )
+        .alert(item: $taskListViewModel.errorAlert) { error in
+            Alert(title: Text("Error".localized()), message: Text(error.message.localized()))
         }
     }
 }
