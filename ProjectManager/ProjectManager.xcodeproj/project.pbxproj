@@ -245,6 +245,14 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
+		33C7AF3227E9FA6200BEFA47 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				33F62BDB27E2346E00DF592F /* StorableSchedule.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
 		33F62BCB27E1DBC000DF592F /* Firestore */ = {
 			isa = PBXGroup;
 			children = (
@@ -283,8 +291,8 @@
 		33F62BD727E22F8400DF592F /* Realm */ = {
 			isa = PBXGroup;
 			children = (
+				33C7AF3227E9FA6200BEFA47 /* Entity */,
 				33F62BD827E231FD00DF592F /* RealmService.swift */,
-				33F62BDB27E2346E00DF592F /* StorableSchedule.swift */,
 			);
 			path = Realm;
 			sourceTree = "<group>";

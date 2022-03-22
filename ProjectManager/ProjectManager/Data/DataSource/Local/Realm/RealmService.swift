@@ -12,8 +12,9 @@ import RxSwift
 class RealmService: LocalDatabaseService {
     let database: Realm
 
-    init() {
-        self.database = try! Realm()
+    init?() {
+        guard let realm = try? Realm() else { return nil }
+        self.database = realm
     }
 
     func fetch() -> Single<[Schedule]> {
@@ -87,6 +88,7 @@ private extension Schedule {
         storableSchedule.body = self.body
         storableSchedule.dueDate = self.dueDate
         storableSchedule.progress = self.progress.description
+
         return storableSchedule
     }
 
@@ -94,21 +96,18 @@ private extension Schedule {
         return self.storableSchedule
     }
 
-    init(_ storableSchedule: StorableSchedule) {
-        self.id = UUID(uuidString: storableSchedule.id)!
+    init?(_ storableSchedule: StorableSchedule) {
+        guard let id = UUID(uuidString: storableSchedule.id),
+              let progress = Progress(rawValue: storableSchedule.progress)
+        else {
+            return nil
+        }
+
+        self.id = id
         self.title = storableSchedule.title
         self.body = storableSchedule.body
-        switch storableSchedule.progress {
-        case "TODO":
-            self.progress = Progress.todo
-        case "DOING":
-            self.progress = Progress.doing
-        case "DONE":
-            self.progress = Progress.done
-        default:
-            self.progress = Progress.todo
-        }
         self.dueDate = storableSchedule.dueDate
         self.lastUpdated = storableSchedule.lastUpdated
+        self.progress = progress
     }
 }

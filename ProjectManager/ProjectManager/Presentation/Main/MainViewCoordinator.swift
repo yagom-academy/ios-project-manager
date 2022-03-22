@@ -18,7 +18,7 @@ class MainViewCoordinator {
     }
 
     func start() {
-        let dataSource = RealmService()
+        guard let dataSource = RealmService() else { return }
         self.mainViewController.viewModel = MainViewModel(
             coordinator: self,
             sceduleUseCase: ScheduleUseCase(

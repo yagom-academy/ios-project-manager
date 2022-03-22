@@ -41,7 +41,9 @@ class FirestoreService: NetworkService {
 
     func update(_ schedule: Schedule) -> Completable {
         return Completable.create { completable in
-            self.database.collection("schedules").document(schedule.id.uuidString).setData(schedule.makeEntity()) { err in
+            self.database.collection("schedules")
+                .document(schedule.id.uuidString)
+                .setData(schedule.makeEntity()) { err in
                 if let err = err {
                     completable(.error(err))
                 } else {
@@ -58,21 +60,19 @@ class FirestoreService: NetworkService {
                 if let err = err {
                     single(.failure(err))
                 } else {
-                    let schedules = querySnapshot!.documents.map { Schedule(document: $0.data()) }
-                    single(.success(schedules))
-                    for document in querySnapshot!.documents {
-                        print("\(document.documentID) => \(document.data())")
-
+                    guard let querySnapshot = querySnapshot else {
+                        single(.success([]))
+                        return
                     }
+                    let schedules = querySnapshot.documents
+                        .compactMap { Schedule(document: $0.data()) }
+                    single(.success(schedules))
+
                 }
             }
             return Disposables.create()
         }
     }
-}
-
-private extension FirestoreService {
-
 }
 
 extension Schedule {
@@ -87,23 +87,24 @@ extension Schedule {
         ]
     }
 
-    init(document: [String: Any]) {
-        self.id = UUID(uuidString: document["id"] as! String)!
-        self.title = document["title"] as! String
-        self.body = document["body"] as! String
-        switch document["progress"] as! String {
-        case "TODO":
-            self.progress = Progress.todo
-        case "DOING":
-            self.progress = Progress.doing
-        case "DONE":
-            self.progress = Progress.done
-        default:
-            self.progress = Progress.todo
+    init?(document: [String: Any]) {
+        guard let idString = document["id"] as? String,
+              let id = UUID(uuidString: idString),
+              let title = document["title"] as? String,
+              let body = document["body"] as? String,
+              let dueDateStamp = document["dueDate"] as? Timestamp,
+              let lastUpdatedStamp = document["lastUpdated"] as? Timestamp,
+              let progressString = document["progress"] as? String,
+              let progress = Progress(rawValue: progressString)
+        else {
+            return nil
         }
-        let dueDateStamp = document["dueDate"] as! Timestamp
+
+        self.id = id
+        self.title = title
+        self.body = body
+        self.progress = progress
         self.dueDate = dueDateStamp.dateValue()
-        let lastUpdatedStamp = document["lastUpdated"] as! Timestamp
         self.lastUpdated = lastUpdatedStamp.dateValue()
     }
 }
