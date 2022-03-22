@@ -53,10 +53,7 @@ struct TaskListRowView: View {
                     ForEach(TaskStatus.allCases, id: \.self) { status in
                         if status != taskListRowViewModel.task.status {
                             Button {
-                                withAnimation {
-                                    taskListRowViewModel.changeTaskStatus(to: status, using: taskManager)
-                                    taskListRowViewModel.isTaskStatusChanging.toggle()
-                                }
+                                taskListRowViewModel.changeTaskStatus(to: status, using: taskManager)
                             } label: {
                                 Text("Move to \(status.headerTitle)")
                                     .frame(width: 250, height: 50)
@@ -89,8 +86,11 @@ private extension TaskListRowView {
         }
         
         func changeTaskStatus(to status: TaskStatus, using taskManager: TaskManager) {
-            taskManager.objectWillChange.send()
-            try? taskManager.changeTaskStatus(target: task, to: status)
+            withAnimation {
+                taskManager.objectWillChange.send()
+                try? taskManager.changeTaskStatus(target: task, to: status)
+                isTaskStatusChanging.toggle()
+            }
         }
     }
 }
