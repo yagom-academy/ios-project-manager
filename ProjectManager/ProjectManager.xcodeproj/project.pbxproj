@@ -26,6 +26,7 @@
 		63D21E9527D73CD200E35D3B /* ProjectTableViewHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D21E9427D73CD200E35D3B /* ProjectTableViewHeaderView.swift */; };
 		63D21E9927D7618300E35D3B /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D21E9827D7618300E35D3B /* Date+Extension.swift */; };
 		63E164B227E99688004E3D2E /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E164B127E99688004E3D2E /* DataSource.swift */; };
+		63E164B427E9AD69004E3D2E /* Encodable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E164B327E9AD69004E3D2E /* Encodable+Extension.swift */; };
 		63E508A527CFAF9400A5A79A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 63E508A427CFAF9400A5A79A /* GoogleService-Info.plist */; };
 		63E508A827CFAFDC00A5A79A /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 63E508A727CFAFDC00A5A79A /* FirebaseAnalytics */; };
 		63E508AA27CFAFDC00A5A79A /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 63E508A927CFAFDC00A5A79A /* FirebaseAuth */; };
@@ -56,6 +57,7 @@
 		63D21E9427D73CD200E35D3B /* ProjectTableViewHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTableViewHeaderView.swift; sourceTree = "<group>"; };
 		63D21E9827D7618300E35D3B /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		63E164B127E99688004E3D2E /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
+		63E164B327E9AD69004E3D2E /* Encodable+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+Extension.swift"; sourceTree = "<group>"; };
 		63E508A427CFAF9400A5A79A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -204,6 +206,7 @@
 				63D21E9227D6604500E35D3B /* UITableVeiwCell+Extension.swift */,
 				63D21E9827D7618300E35D3B /* Date+Extension.swift */,
 				63B96DE427E0BF7300144F7C /* CALayer+Extension.swift */,
+				63E164B327E9AD69004E3D2E /* Encodable+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -317,6 +320,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7431F0A25F51E1D0094C4CF /* ProjectBoardViewController.swift in Sources */,
+				63E164B427E9AD69004E3D2E /* Encodable+Extension.swift in Sources */,
 				63D21E6727D4F9B900E35D3B /* ProjectManager.swift in Sources */,
 				63D21E9327D6604500E35D3B /* UITableVeiwCell+Extension.swift in Sources */,
 				63D21E6027D4AC2E00E35D3B /* Status.swift in Sources */,

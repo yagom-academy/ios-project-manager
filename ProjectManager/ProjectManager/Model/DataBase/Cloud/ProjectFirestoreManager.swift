@@ -48,13 +48,7 @@ final class ProjectFirestoreManager {
                               description: dict["description"] as? String,
                               status: dict["status"] as? Status)
         
-        // TODO: - Util로 구현하기
-        guard let data = try? JSONEncoder().encode(project),
-              let dict = try? JSONSerialization.jsonObject(
-                with: data,
-                options: []) as? [String: Any] else {
-                    return [:]
-                }
+        let dict = project.jsonObjectToDictionary(of: project)
         return dict
     }
 }
