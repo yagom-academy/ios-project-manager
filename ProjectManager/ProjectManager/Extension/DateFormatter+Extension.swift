@@ -18,4 +18,14 @@ extension DateFormatter {
 
         return formatter
     }()
+
+    static let historyDate: DateFormatter = {
+        let formatter = DateFormatter()
+        let locale = Locale.preferredLanguages.first ?? Locale.current.identifier
+        formatter.dateStyle = .long
+        formatter.timeStyle = .medium
+        formatter.locale = Locale(identifier: locale)
+
+        return formatter
+    }()
 }

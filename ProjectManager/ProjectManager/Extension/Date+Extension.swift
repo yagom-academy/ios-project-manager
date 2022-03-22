@@ -12,4 +12,8 @@ extension Date {
     var formattedDateString: String {
         return DateFormatter.dueDate.string(from: self)
     }
+
+    var formattedHistoryDateString: String {
+        return DateFormatter.historyDate.string(from: self)
+    }
 }
