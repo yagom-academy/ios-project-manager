@@ -116,17 +116,21 @@ final class ProjectListViewController: UIViewController {
     }
     
     func applySnapshotToCell() {
-        let projects = delegate?.readProject(of: projectStatus)
-        
-        guard let projects = projects else {
-            return
+        self.delegate?.readProject(of: self.projectStatus) { [weak self] result in
+            switch result {
+            case .success(let projects):
+                DispatchQueue.main.async {
+                    var snapShot = NSDiffableDataSourceSnapshot<Section, Project>()
+                    snapShot.appendSections([.main])
+                    snapShot.appendItems(projects ?? [], toSection: .main)
+                    
+                    self?.dataSource.apply(snapShot, animatingDifferences: true, completion: nil)
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+                // TODO: - 사용자에게 알림 처리
+            }
         }
-        
-        var snapShot = NSDiffableDataSourceSnapshot<Section, Project>()
-        snapShot.appendSections([.main])
-        snapShot.appendItems(projects, toSection: .main)
-        
-        dataSource.apply(snapShot, animatingDifferences: true, completion: nil)
     }
     
     // MARK: - Method
@@ -136,13 +140,20 @@ final class ProjectListViewController: UIViewController {
     }
     
     func updateHeaderView() {
-        guard let projects = delegate?.readProject(of: projectStatus),
-              let status = self.projectStatus else {
-                  return
-              }
-        
-        self.headerView.configureContent(status: String(describing: status),
-                                         projectCount: projects.count)
+        self.delegate?.readProject(of: self.projectStatus) {[weak self] result in
+            switch result {
+            case .success(let projects):
+                DispatchQueue.main.async {
+                    self?.headerView.configureContent(
+                        status: String(describing: self?.projectStatus ?? .todo),
+                        projectCount: projects?.count ?? .zero
+                    )
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+                // TODO: - 사용자에게 알림 처리
+            }
+        }
     }
     
     @objc func presentStatusModificationPopover() {

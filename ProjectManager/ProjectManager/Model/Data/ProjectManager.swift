@@ -10,30 +10,36 @@ import Foundation
 final class ProjectManager {
     
     // MARK: - Property
-    private let projectSource = ProjectCoreDataManager()
+    private var projectSource: DataSource? = ProjectFirestoreManager()
     
     // MARK: - Method
     func create(with content: [String: Any]) {
-        projectSource.create(with: content)
+        self.projectSource?.create(with: content)
     }
     
-    func readProject(of identifier: String) -> Project? {
-        return projectSource.read(of: identifier)
+    func readProject(
+        of identifier: String,
+        completion: @escaping (Result<Project?, Error>
+        ) -> Void) {
+        self.projectSource?.read(of: identifier, completion: completion)
     }
     
-    func readProject(of status: Status) -> [Project]? {
-        return projectSource.read(of: status)
+    func readProject(
+        of status: Status,
+        completion: @escaping (Result<[Project]?, Error>
+    ) -> Void)  {
+        self.projectSource?.read(of: status, completion: completion)
     }
     
     func updateProjectContent(of identifier: String, with content: [String: Any]) {
-        projectSource.update(of: identifier, with: content)
+        self.projectSource?.updateContent(of: identifier, with: content)
     }
     
     func updateProjectStatus(of identifier: String, with status: Status) {
-        projectSource.update(of: identifier, with: status)
+        self.projectSource?.updateStatus(of: identifier, with: status)
     }
     
     func delete(of identifier: String) {
-        projectSource.delete(of: identifier)
+        self.projectSource?.delete(of: identifier)
     }
 }

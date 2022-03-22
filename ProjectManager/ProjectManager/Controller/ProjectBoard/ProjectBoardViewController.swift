@@ -128,8 +128,8 @@ extension ProjectBoardViewController: ProjectCreationDelegate {
 // MARK: - ProjectListViewControllerDelegate
 extension ProjectBoardViewController: ProjectListViewControllerDelegate {
     
-    func readProject(of status: Status) -> [Project]? {
-        return projectManager.readProject(of: status)
+    func readProject(of status: Status, completion: @escaping (Result<[Project]?, Error>) -> Void) {
+        self.projectManager.readProject(of: status, completion: completion)
     }
     
     func updateProjectStatus(of identifier: String, with status: Status) {

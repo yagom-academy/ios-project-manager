@@ -8,11 +8,10 @@
 import CoreData
 import UIKit
 
-class ProjectCoreDataManager {
+final class ProjectCoreDataManager {
     
-    typealias Item = Project
-    
-    let persistentContainer: NSPersistentContainer = {
+    // MARK: - Property
+    private let persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "Project")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
@@ -22,30 +21,9 @@ class ProjectCoreDataManager {
         return container
     }()
     
-    lazy var context = persistentContainer.viewContext
+    private lazy var context = persistentContainer.viewContext
     
-    func read(of status: Status) -> [Project]? {
-        let results = self.fetch(of: status)
-        let projects = results?.compactMap({ project in
-            return Project(identifier: project.identifier ,
-                    title: project.title,
-                    deadline: project.deadline,
-                    description: project.descriptions,
-                    status: project.status)
-        })
-        return projects
-    }
-    
-    func update<T>(
-        of identifier: T,
-        with status: Status
-    ) where T : Hashable & CustomStringConvertible {
-        let project = self.fetch(of: identifier)
-        
-        project?.status = status
-        self.save()
-    }
-    
+    // MARK: - Method
     private func fetch<T>(of identifier: T) -> CDProject? {
         let fetchRequest = CDProject.fetchRequest()
         let identifierString = String(describing: identifier)
@@ -86,7 +64,8 @@ class ProjectCoreDataManager {
     }
 }
 
-extension ProjectCoreDataManager: LocalDataManagable {
+// MARK: - DataSource
+extension ProjectCoreDataManager: DataSource {
     
     func create(with content: [String : Any]) {
         let project = CDProject(context: context)
@@ -99,19 +78,29 @@ extension ProjectCoreDataManager: LocalDataManagable {
         self.save()
     }
     
-    func read<T>(of identifier: T) -> Project? where T : CustomStringConvertible, T : Hashable {
+    func read(of identifier: String, completion: @escaping (Result<Project?, Error>) -> Void) {
         let result = self.fetch(of: identifier)
         let project = Project(identifier: result?.identifier,
                               title: result?.title,
                               deadline: result?.deadline,
                               description: result?.descriptions,
                               status: result?.status)
-        return project
+        completion(.success(project))
     }
     
-    func update<T>(of identifier: T,
-                   with content: [String : Any]
-    ) where T : CustomStringConvertible, T : Hashable {
+    func read(of group: Status, completion: @escaping (Result<[Project]?, Error>) -> Void) {
+        let results = self.fetch(of: group)
+        let projects = results?.compactMap({ project in
+            return Project(identifier: project.identifier ,
+                           title: project.title,
+                           deadline: project.deadline,
+                           description: project.descriptions,
+                           status: project.status)
+        })
+        completion(.success(projects))
+    }
+    
+    func updateContent(of identifier: String, with content: [String: Any]) {
         let project = self.fetch(of: identifier)
         project?.title = content["title"] as? String
         project?.descriptions = content["description"] as? String
@@ -121,7 +110,14 @@ extension ProjectCoreDataManager: LocalDataManagable {
         self.save()
     }
     
-    func delete<T>(of identifier: T) where T : CustomStringConvertible, T : Hashable {
+    func updateStatus(of identifier: String, with status: Status) {
+        let project = self.fetch(of: identifier)
+        
+        project?.status = status
+        self.save()
+    }
+    
+    func delete(of identifier: String) {
         guard let project = self.fetch(of: identifier) else {
             return
         }
