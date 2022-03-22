@@ -11,7 +11,8 @@ struct ProjectManagerMainView: View {
     
     @EnvironmentObject private var viewModel: ProjectManagerViewModel
     
-    @State private var isShowSheet = false
+    @State private var isShowDetailSheet = false
+    @State private var isShowHistoryPopover = false
     @State private var isShowAlert = false
     
     var body: some View {
@@ -25,16 +26,19 @@ struct ProjectManagerMainView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
-                    Button(action: { }) {
+                    Button(action: { isShowHistoryPopover.toggle() }) {
                         Text("History")
+                    }
+                    .popover(isPresented: $isShowHistoryPopover) {
+                        Text("Hello World")
                     }
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: { isShowSheet.toggle() }) {
+                    Button(action: { isShowDetailSheet.toggle() }) {
                         Image(systemName: "plus")
                     }
-                    .sheet(isPresented: $isShowSheet, onDismiss: nil) {
-                        TaskFormCreateSheetView(isShowSheet: $isShowSheet)
+                    .sheet(isPresented: $isShowDetailSheet, onDismiss: nil) {
+                        TaskFormCreateSheetView(isShowSheet: $isShowDetailSheet)
                     }
                 }
             }
