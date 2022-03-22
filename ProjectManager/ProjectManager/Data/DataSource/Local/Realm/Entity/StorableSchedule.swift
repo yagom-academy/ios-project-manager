@@ -8,7 +8,7 @@
 import Foundation
 import RealmSwift
 
-class StorableSchedule: Object {
+final class StorableSchedule: Object {
 
     @objc dynamic var id = ""
     @objc dynamic var title = ""

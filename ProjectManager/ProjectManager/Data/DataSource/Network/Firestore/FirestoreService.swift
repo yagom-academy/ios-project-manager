@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 import FirebaseFirestore
 
-class FirestoreService: NetworkService {
+final class FirestoreService: NetworkService {
     private let database = Firestore.firestore()
 
     func create(_ schedule: Schedule) -> Completable {

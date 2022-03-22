@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 import RxRelay
 
-class DefaultScheduleHistoryRepository: ScheduleHistoryRepository {
+final class DefaultScheduleHistoryRepository: ScheduleHistoryRepository {
 
     private let undoManager = UndoManager()
     private var history = BehaviorRelay<[ScheduleAction]>(value: [])

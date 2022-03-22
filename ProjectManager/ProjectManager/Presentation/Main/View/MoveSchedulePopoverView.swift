@@ -21,7 +21,7 @@ private enum Design {
     static let stackViewBottomAnchorConstant = -8.0
 }
 
-class MoveSchedulePopoverView: UIView {
+final class MoveSchedulePopoverView: UIView {
 
     let stackView: UIStackView = {
         let stackView = UIStackView()

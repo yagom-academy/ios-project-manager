@@ -23,7 +23,7 @@ private enum Design {
     static let bodyTextViewHeightAnchorMultiplier = 0.55
 }
 
-class ScheduleItemViewController: UIViewController {
+final class ScheduleItemViewController: UIViewController {
 
     // MARK: - Properties
 

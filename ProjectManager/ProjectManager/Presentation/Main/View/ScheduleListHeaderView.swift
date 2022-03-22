@@ -18,7 +18,7 @@ private enum Design {
     static let contentViewBackgroundColor = UIColor.systemGray6
 }
 
-class ScheduleListHeaderView: UITableViewHeaderFooterView {
+final class ScheduleListHeaderView: UITableViewHeaderFooterView {
 
 // MARK: - Properties
 

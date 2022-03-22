@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ScheduleItemCoordinator {
+final class ScheduleItemCoordinator {
 
     let navigationController = UINavigationController()
     private let scheduleItemViewController = ScheduleItemViewController()

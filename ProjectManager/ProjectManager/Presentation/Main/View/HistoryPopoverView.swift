@@ -21,7 +21,7 @@ private enum Design {
     static let stackViewBottomAnchorConstant = -8.0
 }
 
-class HistoryPopoverView: UIView {
+final class HistoryPopoverView: UIView {
 
     let tableView = UITableView()
     let statusLabel: UILabel = {

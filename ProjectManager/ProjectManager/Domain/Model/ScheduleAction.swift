@@ -7,7 +7,7 @@
 
 import Foundation
 
-class ScheduleAction {
+final class ScheduleAction {
     var isUndone: Bool
     let execute: () -> Void
     let reverse: () -> Void

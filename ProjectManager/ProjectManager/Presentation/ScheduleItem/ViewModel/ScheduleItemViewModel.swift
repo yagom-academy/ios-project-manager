@@ -16,7 +16,7 @@ private enum Name {
     static let leftBarButtonTitleWhenEditing = "취소"
 }
 
-class ScheduleItemViewModel {
+final class ScheduleItemViewModel {
 
     // MARK: - Nested
 

@@ -9,7 +9,7 @@ import Foundation
 import RealmSwift
 import RxSwift
 
-class RealmService: LocalDatabaseService {
+final class RealmService: LocalDatabaseService {
     let database: Realm
 
     init?() {
