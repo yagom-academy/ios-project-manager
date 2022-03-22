@@ -38,11 +38,17 @@ class ScheduleItemViewModel {
 
     // MARK: - Initializer
 
-    init(useCase: ScheduleItemUseCase, coordinator: ScheduleItemCoordinator, mode: Mode) {
-        self.useCase = useCase
+    init(
+        scheduleUseCase: ScheduleItemUseCase,
+        scheduleHistoryUseCase: ScheduleActionRecodeUseCase,
+        coordinator: ScheduleItemCoordinator,
+        mode: Mode
+    ) {
+        self.scheduleUseCase = scheduleUseCase
         self.coordinator = coordinator
+        self.scheduleHistoryUseCase = scheduleHistoryUseCase
         self.mode = BehaviorRelay<Mode>(value: mode)
-        guard let current = self.useCase.currentSchedule.value else {
+        guard let current = self.scheduleUseCase.currentSchedule.value else {
             self.currentDate = BehaviorRelay<Date>(value: Date())
             return
         }
@@ -111,15 +117,15 @@ private extension ScheduleItemViewModel {
     }
 
     func onLeftBarButtonDidTapWhenDetail() {
-        self.currentTitleText.accept(self.useCase.currentSchedule.value?.title ?? .empty)
+        self.currentTitleText.accept(self.scheduleUseCase.currentSchedule.value?.title ?? .empty)
         self.mode.accept(.edit)
     }
 
     func onLeftBarButtonDidTapWhenCreate() {
-        guard let schedule = self.useCase.currentSchedule.value else {
+        guard let schedule = self.scheduleUseCase.currentSchedule.value else {
             return
         }
-        self.useCase.currentSchedule.accept(schedule)
+        self.scheduleUseCase.currentSchedule.accept(schedule)
         self.mode.accept(.detail)
     }
 
@@ -139,7 +145,7 @@ private extension ScheduleItemViewModel {
     }
 
     func onRightBarButtonDidTapWhenEditMode() {
-        guard let schedule = self.useCase.currentSchedule.value else { return }
+        guard let schedule = self.scheduleUseCase.currentSchedule.value else { return }
         let newSchedule = Schedule(
             id: schedule.id,
             title: self.currentTitleText.value,
@@ -183,7 +189,7 @@ private extension ScheduleItemViewModel {
     func onViewDidDisappear(_ input: Observable<Void>) -> Disposable {
         return input
             .map { nil }
-            .bind(to: self.useCase.currentSchedule)
+            .bind(to: self.scheduleUseCase.currentSchedule)
     }
 
     func bindOutput(disposeBag: DisposeBag) -> Output {
@@ -199,25 +205,25 @@ private extension ScheduleItemViewModel {
     }
 
     func scheduleTitleText() -> Driver<String> {
-        return self.useCase.currentSchedule
+        return self.scheduleUseCase.currentSchedule
             .compactMap { $0?.title }
             .asDriver(onErrorJustReturn: Name.scheduleTitleTextOnError)
     }
 
     func scheduleDate() -> Driver<Date> {
-        return self.useCase.currentSchedule
+        return self.scheduleUseCase.currentSchedule
             .compactMap { $0?.dueDate }
             .asDriver(onErrorJustReturn: Date())
     }
 
     func scheduleBodyText() -> Driver<String> {
-        return self.useCase.currentSchedule
+        return self.scheduleUseCase.currentSchedule
             .compactMap { $0?.body }
             .asDriver(onErrorJustReturn: Name.scheduleBodyTextOnError)
     }
 
     func scheduleProgress() -> Driver<String> {
-        return self.useCase.currentSchedule
+        return self.scheduleUseCase.currentSchedule
             .compactMap { $0?.progress.description }
             .asDriver(onErrorJustReturn: Progress.todo.description)
     }
