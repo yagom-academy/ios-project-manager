@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1366EC08AC994F9DCCF2EE95 /* Pods_ProjectManagerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2BC4EF963D2B452EAEBA8F3 /* Pods_ProjectManagerTests.framework */; };
 		70C75EF4C0698925773860FB /* Pods_ProjectManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13E353B5FABF07E6030E5DDB /* Pods_ProjectManager.framework */; };
+		A615755D27E9651200F9FB62 /* ViewModelDescribing.swift in Sources */ = {isa = PBXBuildFile; fileRef = A615755C27E9651200F9FB62 /* ViewModelDescribing.swift */; };
 		A62BB67D27D1B532009395D8 /* UITableView+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62BB67C27D1B532009395D8 /* UITableView+extension.swift */; };
 		A6541F6D27CF3A3900F576D4 /* ProjectListTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6541F6C27CF3A3900F576D4 /* ProjectListTableView.swift */; };
 		A6541F6F27CF3AC600F576D4 /* ProjectListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6541F6E27CF3AC600F576D4 /* ProjectListTableViewCell.swift */; };
@@ -53,6 +54,7 @@
 		1EFDCFB1981E5910DB11494D /* Pods-ProjectManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.debug.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.debug.xcconfig"; sourceTree = "<group>"; };
 		416D60185AC222D4405EC374 /* Pods-ProjectManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.release.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.release.xcconfig"; sourceTree = "<group>"; };
 		9FF5E0D96C5531AEE7F6FAEF /* Pods-ProjectManagerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManagerTests.release.xcconfig"; path = "Target Support Files/Pods-ProjectManagerTests/Pods-ProjectManagerTests.release.xcconfig"; sourceTree = "<group>"; };
+		A615755C27E9651200F9FB62 /* ViewModelDescribing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelDescribing.swift; sourceTree = "<group>"; };
 		A62BB67C27D1B532009395D8 /* UITableView+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+extension.swift"; sourceTree = "<group>"; };
 		A6541F6C27CF3A3900F576D4 /* ProjectListTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListTableView.swift; sourceTree = "<group>"; };
 		A6541F6E27CF3AC600F576D4 /* ProjectListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListTableViewCell.swift; sourceTree = "<group>"; };
@@ -256,6 +258,7 @@
 				EA4C970227D5EFBF002929B8 /* ProjectListViewModel.swift */,
 				EA03AB5C27E20C1700084E75 /* EditProjectDetailViewModel.swift */,
 				EA03AB5E27E234B200084E75 /* AddProjectDetailViewModel.swift */,
+				A615755C27E9651200F9FB62 /* ViewModelDescribing.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -439,6 +442,7 @@
 			files = (
 				EA4C970327D5EFBF002929B8 /* ProjectListViewModel.swift in Sources */,
 				EA03ABC927E31BCD00084E75 /* Collection+extension.swift in Sources */,
+				A615755D27E9651200F9FB62 /* ViewModelDescribing.swift in Sources */,
 				EA03AB5427E071CD00084E75 /* Date+extension.swift in Sources */,
 				A62BB67D27D1B532009395D8 /* UITableView+extension.swift in Sources */,
 				A6541F6F27CF3AC600F576D4 /* ProjectListTableViewCell.swift in Sources */,

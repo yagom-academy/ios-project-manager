@@ -1,35 +1,72 @@
 import UIKit
+import RxSwift
 
-protocol ProjectListViewModelProtocol: UITableViewDataSource {
-    var onCellSelected: ((IndexPath, Project) -> Void)? { get set }
-    var onUpdated: (() -> Void)? { get set }
+final class ProjectListViewModel: NSObject, ViewModelDescribing {
+    final class Input {
+        let selectCellObservable: Observable<(ProjectState, IndexPath)>
+        let changeStateObservable: Observable<Project>
+        let deleteObservable: Observable<Project>
+        
+        init(selectCellObservable: Observable<(ProjectState, IndexPath)>, changeStateObservable: Observable<Project>, deleteObservable: Observable<Project>) {
+            self.selectCellObservable = selectCellObservable
+            self.changeStateObservable = changeStateObservable
+            self.deleteObservable = deleteObservable
+        }
+    }
     
-    func didSelectRow(indexPath: IndexPath, state: ProjectState)
-    func numberOfProjects(state: ProjectState) -> Int
-    func fetchAll()
-    func append(_ project: Project)
-    func update(_ project: Project, state: ProjectState?)
-    func delete(indexPath: IndexPath, state: ProjectState)
-    func changeState(from oldState: ProjectState, to newState: ProjectState, indexPath: IndexPath)
-    func createEditDetailViewModel(indexPath: IndexPath, state: ProjectState) -> EditProjectDetailViewModel
-    func createAddDetailViewModel() -> AddProjectDetailViewModel
-}
-
-final class ProjectListViewModel: NSObject, ProjectListViewModelProtocol {
+    final class Output {
+        let reloadObservable: Observable<Void>
+        let showsEditViewControllerObservable: Observable<EditProjectDetailViewModel>
+        
+        init(reloadObservable: Observable<Void>, showsEditViewControllerObservable: Observable<EditProjectDetailViewModel>) {
+            self.reloadObservable = reloadObservable
+            self.showsEditViewControllerObservable = showsEditViewControllerObservable
+        }   
+    }
+    
+    private let reloadObservable: PublishSubject<Void> = PublishSubject<Void>()
+    private let showsEditViewControllerObservable: PublishSubject<EditProjectDetailViewModel> = PublishSubject<EditProjectDetailViewModel>()
+    private let disposeBag = DisposeBag()
+    
+    func transform(_ input: Input) -> Output {
+        input
+            .selectCellObservable
+            .subscribe(onNext: { [weak self] (state, indexPath) in
+                guard let selectedProject = self?.retrieveSelectedData(indexPath: indexPath, state: state) else {
+                    return
+                }
+                let viewModel = EditProjectDetailViewModel(currentProject: selectedProject)
+                self?.showsEditViewControllerObservable.onNext(viewModel)
+            }).disposed(by: disposeBag)
+        
+//        input
+//            .changeStateObservable
+//            .subscribe(onNext: {
+//
+//            })
+//
+//        input
+//            .deleteObservable
+//            .subscribe(onNext: {
+//
+//            })
+        
+        let output = Output(
+            reloadObservable: self.reloadObservable.asObservable(),
+            showsEditViewControllerObservable: self.showsEditViewControllerObservable.asObservable()
+        )
+        
+        return output
+    }
+    
     let useCase: ProjectUseCaseProtocol
     
-    var onCellSelected: ((IndexPath, Project) -> Void)?
-    var onUpdated: (() -> Void)?
     
     init(useCase: ProjectUseCaseProtocol) {
         self.useCase = useCase
     }
     
-    private var projects: [Project] = [] {
-        didSet {
-            onUpdated?()
-        }
-    }
+    private var projects: [Project] = [] 
     
     private var todoProjects: [Project] {
         projects.filter { $0.state == .todo }
@@ -55,13 +92,6 @@ final class ProjectListViewModel: NSObject, ProjectListViewModelProtocol {
         }
         
         return selectedProject
-    }
-    
-    func didSelectRow(indexPath: IndexPath, state: ProjectState) {
-        guard let selectedProject = retrieveSelectedData(indexPath: indexPath, state: state) else {
-            return
-        }
-        onCellSelected?(indexPath, selectedProject)
     }
     
     func numberOfProjects(state: ProjectState) -> Int {
@@ -114,7 +144,7 @@ final class ProjectListViewModel: NSObject, ProjectListViewModelProtocol {
     }
 }
 
-extension ProjectListViewModel {
+extension ProjectListViewModel: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let state = (tableView as? ProjectListTableView)?.state else {
             return .zero

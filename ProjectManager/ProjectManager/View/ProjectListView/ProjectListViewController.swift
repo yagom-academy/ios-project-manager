@@ -1,4 +1,6 @@
 import UIKit
+import RxSwift
+import RxCocoa
 
 final class ProjectListViewController: UIViewController {
     // MARK: - Property
@@ -6,8 +8,13 @@ final class ProjectListViewController: UIViewController {
     private let todoTableView = ProjectListTableView(state: .todo)
     private let doingTableView = ProjectListTableView(state: .doing)
     private let doneTableView = ProjectListTableView(state: .done)
-    private var viewModel: ProjectListViewModelProtocol?
+    private var viewModel: ProjectListViewModel?
     private lazy var tableViews = [todoTableView, doingTableView, doneTableView]
+    
+    private let selectCellObservable: PublishSubject<(ProjectState, IndexPath)> = PublishSubject<(ProjectState, IndexPath)>()
+    private let changeStateObservable: PublishSubject<Project> = PublishSubject<Project>()
+    private let deleteObservable: PublishSubject<Project> = PublishSubject<Project>()
+    private let disposeBag = DisposeBag()
     
     private let entireStackView: UIStackView = {
         let stackView = UIStackView()
@@ -19,7 +26,7 @@ final class ProjectListViewController: UIViewController {
         return stackView
     }()
     
-    init(viewModel: ProjectListViewModelProtocol) {
+    init(viewModel: ProjectListViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -93,22 +100,36 @@ final class ProjectListViewController: UIViewController {
     private func configureBind() {
         viewModel?.fetchAll()
         
-        viewModel?.onCellSelected = { [weak self] indexPath, project in
-            guard let self = self, let viewModel = self.viewModel else {
-                return
-            }
-            let editProjectDetailViewModel = viewModel.createEditDetailViewModel(indexPath: indexPath, state: project.state)
-            let editViewController = EditProjectDetailViewController(viewModel: editProjectDetailViewModel, delegate: self)
-            let destinationViewController = UINavigationController(rootViewController: editViewController)
-            destinationViewController.modalPresentationStyle = .formSheet
-            self.present(destinationViewController, animated: true, completion: nil)
+        let input = ProjectListViewModel.Input(
+            selectCellObservable: self.selectCellObservable.asObservable(),
+            changeStateObservable: self.changeStateObservable.asObservable(),
+            deleteObservable: self.deleteObservable.asObservable()
+        )
+        
+        guard let output = viewModel?.transform(input) else {
+            return
         }
         
-        viewModel?.onUpdated = {
-            self.tableViews.forEach {
-                $0.reloadData()
-            }
-        }
+        output
+            .showsEditViewControllerObservable
+            .subscribe(onNext: { [weak self] viewModel in
+                guard let self = self else {
+                    return
+                }
+                
+                let editViewController = EditProjectDetailViewController(viewModel: viewModel, delegate: self)
+                let destinationViewController = UINavigationController(rootViewController: editViewController)
+                destinationViewController.modalPresentationStyle = .formSheet
+                self.present(destinationViewController, animated: true, completion: nil)
+            }).disposed(by: disposeBag)
+        
+        output
+            .reloadObservable
+            .subscribe(onNext: { [weak self] _ in
+                self?.tableViews.forEach {
+                    $0.reloadData()
+                }
+            }).disposed(by: disposeBag)
     }
     
     private func configureLongPressGesture() {
@@ -149,7 +170,7 @@ final class ProjectListViewController: UIViewController {
     private func createAlert(for tableView: UITableView, on indexPath: IndexPath, moveTo newState: [ProjectState]) -> UIAlertController? {
         guard let oldState = ((tableView as? ProjectListTableView)?.state),
                 let firstNewState = newState[safe: 0],
-                let secondNewState = newState[safe: 0] else {
+                let secondNewState = newState[safe: 1] else {
             return nil
         }
         
@@ -211,7 +232,7 @@ extension ProjectListViewController: UITableViewDelegate {
         guard let state = (tableView as? ProjectListTableView)?.state else {
             return
         }
-        viewModel?.didSelectRow(indexPath: indexPath, state: state)
+        self.selectCellObservable.onNext((state, indexPath))
     }
 }
 
