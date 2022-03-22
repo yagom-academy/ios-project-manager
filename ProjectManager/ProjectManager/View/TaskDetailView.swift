@@ -73,7 +73,7 @@ private struct TaskDetailTitleView: View {
     var body: some View {
         Text("TODO")
             .font(.title2)
-            .foregroundColor(.black)
+            .foregroundColor(.primary)
             .bold()
     }
 }
@@ -128,7 +128,7 @@ private struct TaskDetailTitleTextField: View {
         TextField("Title", text: $taskDetailViewModel.title)
             .multilineTextAlignment(.leading)
             .textFieldStyle(RoundedBorderTextFieldStyle())
-            .foregroundColor(.black)
+            .foregroundColor(.primary)
             .disabled(taskDetailViewModel.isDisabled)
     }
 }
@@ -149,7 +149,7 @@ private struct TaskDetailDescriptionTextEditor: View {
     var body: some View {
         TextEditor(text: $taskDetailViewModel.description)
             .multilineTextAlignment(.leading)
-            .shadow(radius: 1)
+            .shadow(color: .primary, radius: 1)
             .disabled(taskDetailViewModel.isDisabled)
     }
 }

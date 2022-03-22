@@ -21,6 +21,7 @@ struct ProjectManagerMainView: View {
 }
 
 private struct ProjectManagerMainTitleView: View {
+    @EnvironmentObject private var taskListViewModel: TaskListViewModel
     @Binding var isShowTaskHistoryView: Bool
     @Binding var isShowTaskDetailView: Bool
     
@@ -34,6 +35,7 @@ private struct ProjectManagerMainTitleView: View {
                         TaskHistoryListView()
                     }
             })
+                .disabled((taskListViewModel.taskHistory.isEmpty))
             Spacer()
             Text("Project Manager".localized())
                 .padding(.leading)
@@ -55,12 +57,17 @@ private struct TaskHistoryListView: View {
     @EnvironmentObject private var taskListViewModel: TaskListViewModel
     
     var body: some View {
-        List {
+        VStack {
             ForEach(taskListViewModel.taskHistory) { taskHistory in
                 TaskHistoryRowView(taskHistory: taskHistory)
+                    .frame(width: 500, alignment: .leading)
+                    .padding(12)
+                    .background(Color(UIColor.systemBackground))
+                    .cornerRadius(12)
             }
         }
-        .frame(width: 500, height: 300, alignment: .leading)
+        .padding(16)
+        .background(Color(UIColor.systemGroupedBackground))
     }
 }
 
@@ -71,7 +78,7 @@ private struct TaskHistoryRowView: View {
         VStack(alignment: .leading) {
             Text(taskHistory.description)
                 .font(.title3)
-                .foregroundColor(.black)
+                .foregroundColor(.primary)
                 .lineLimit(2)
             Text(taskHistory.date.formatString(dateStyle: .short, timeStyle: .short))
                 .font(.body)
