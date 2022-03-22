@@ -55,21 +55,9 @@ final class ProjectListViewController: UIViewController {
     private func configureNavigationBar() {
         self.navigationController?.isToolbarHidden = false
         self.navigationItem.title = TitleText.navigationBarTitle
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAddProjectButton))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: nil)
     }
-    
-    @objc private func didTapAddProjectButton() {
-        guard let viewModel = viewModel else {
-            return
-        }
-        let addProjectDetailViewModel = viewModel.createAddDetailViewModel()
-        let viewController = AddProjectDetailViewController(viewModel: addProjectDetailViewModel, delegate: self)
-        let destinationViewController = UINavigationController(rootViewController: viewController)
 
-        destinationViewController.modalPresentationStyle = .formSheet
-        present(destinationViewController, animated: true, completion: nil)
-    }
-    
     private func configureEntireStackView() {
         self.view.addSubview(entireStackView)
         tableViews.forEach {
@@ -98,6 +86,20 @@ final class ProjectListViewController: UIViewController {
     }
     
     private func configureBind() {
+        navigationItem.rightBarButtonItem?.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self,
+                        let viewModel = self.viewModel else {
+                    return
+                }
+                let addProjectDetailViewModel = viewModel.createAddDetailViewModel()
+                let viewController = AddProjectDetailViewController(viewModel: addProjectDetailViewModel, delegate: self)
+                let destinationViewController = UINavigationController(rootViewController: viewController)
+
+                destinationViewController.modalPresentationStyle = .formSheet
+                self.present(destinationViewController, animated: true, completion: nil)
+            }).disposed(by: disposeBag)
+        
         viewModel?.fetchAll()
         
         let input = ProjectListViewModel.Input(

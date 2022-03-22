@@ -6,7 +6,7 @@ final class AddProjectDetailViewController: ProjectDetailViewController {
     private let didTapDoneButtonObservable = PublishSubject<Project>()
     
     weak var delegate: ProjectDetailViewControllerDelegate?
-    var viewModel: AddProjectDetailViewModel?
+    private var viewModel: AddProjectDetailViewModel?
     
     init(viewModel: AddProjectDetailViewModel, delegate: ProjectDetailViewControllerDelegate) {
         super.init(nibName: nil, bundle: nil)

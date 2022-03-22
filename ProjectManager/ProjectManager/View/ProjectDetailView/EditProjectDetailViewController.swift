@@ -11,7 +11,7 @@ final class EditProjectDetailViewController: ProjectDetailViewController {
     private let disposeBag = DisposeBag()
     private let didTapDoneButtonObservable = PublishSubject<Void>()
     
-    var viewModel: EditProjectDetailViewModel?
+    private var viewModel: EditProjectDetailViewModel?
     weak var delegate: ProjectDetailViewControllerDelegate?
     
     init(viewModel: EditProjectDetailViewModel, delegate: ProjectDetailViewControllerDelegate) {
@@ -39,7 +39,7 @@ final class EditProjectDetailViewController: ProjectDetailViewController {
         navigationController?.navigationBar.backgroundColor = .systemGray6
     }
     
-    func populateView(with data: Project?) {
+    private func populateView(with data: Project?) {
         projectDetailView.populateData(with: data)
     }
     
@@ -67,7 +67,7 @@ final class EditProjectDetailViewController: ProjectDetailViewController {
             }).disposed(by: disposeBag)
     }
     
-    func toggleEditMode() {
+    private func toggleEditMode() {
         if !isEditing {
             projectDetailView.setEditingMode(to: true)
             isEditing = true
@@ -81,7 +81,7 @@ final class EditProjectDetailViewController: ProjectDetailViewController {
         }
     }
     
-    func updateCurrentProject() {
+    private func updateCurrentProject() {
         guard let currentProject = viewModel?.currentProject else {
             return
         }

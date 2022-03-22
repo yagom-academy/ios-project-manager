@@ -31,7 +31,10 @@ class EditProjectDetailViewModel: ViewModelDescribing {
         input
             .didTapDoneButtonObservable
             .subscribe(onNext: { [weak self] _ in
-                self?.updateObservable.onNext(self?.currentProject)
+                guard let self = self else {
+                    return
+                }
+                self.updateObservable.onNext(self.currentProject)
             }).disposed(by: disposeBag)
         
         let output = Output(updateObservable: updateObservable.asObservable())
