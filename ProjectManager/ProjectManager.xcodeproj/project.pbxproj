@@ -228,9 +228,9 @@
 			isa = PBXGroup;
 			children = (
 				C1836B4C27CE43B0008D9F07 /* Task.swift */,
-				C1493BDE27E81D0000CD8C1E /* FirebaseTask.swift */,
 				C139EF9127CE4539001079B6 /* TaskStatus.swift */,
 				C169A41927E07EAD00B82EC0 /* RealmTask.swift */,
+				C1493BDE27E81D0000CD8C1E /* FirebaseTask.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";

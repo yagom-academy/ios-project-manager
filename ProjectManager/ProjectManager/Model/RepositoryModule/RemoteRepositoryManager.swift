@@ -9,10 +9,7 @@ import Foundation
 
 protocol RemoteRepositoryManager {
     
-    func create(_ object: FirebaseTask) async throws
-    func fetch() async throws -> [FirebaseTask]
-    func update(_ object: FirebaseTask) async throws
-    func remove(_ object: FirebaseTask) async throws
-    func removeAll() async throws
+    func create(_ object: FirebaseTask) throws
+    func removeAll() throws
     
 }

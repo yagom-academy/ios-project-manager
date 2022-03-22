@@ -14,9 +14,9 @@ final class FirebaseManager: RemoteRepositoryManager {
     
     private let collectionLink = "tasks"
     
-    func create(_ object: FirebaseTask) async throws {
+    func create(_ object: FirebaseTask) {
         let reference = database.collection(collectionLink).document(object.id.uuidString)
-        try await reference.setData([
+        reference.setData([
             "id": object.id.uuidString,
             "title": object.title,
             "description": object.description,
@@ -25,37 +25,14 @@ final class FirebaseManager: RemoteRepositoryManager {
         ])
     }
     
-    func fetch() async throws -> [FirebaseTask] {
+    func removeAll() {
         let reference = database.collection(collectionLink)
-        let taskDocuments = try await reference.getDocuments()
-        let result = taskDocuments.documents.map { snapshot -> FirebaseTask in
-            let data = snapshot.data()
-            return FirebaseTask(
-                id: UUID(uuidString: (data["id"] as? String) ?? "") ?? UUID(),
-                title: (data["title"] as? String) ?? "",
-                description: (data["description"] as? String) ?? "",
-                dueDate: (data["dueDate"] as? Date) ?? Date(),
-                status: (data["status"] as? Int) ?? Int()
-            )
-        }
-        return result
-    }
-    
-    func update(_ object: FirebaseTask) async throws {
-        try await remove(object)
-        try await create(object)
-    }
-    
-    func remove(_ object: FirebaseTask) async throws {
-        let reference = database.collection(collectionLink).document(object.id.uuidString)
-        try await reference.delete()
-    }
-    
-    func removeAll() async throws {
-        let reference = database.collection(collectionLink)
-        let documents = try await reference.getDocuments()
-        documents.documents.forEach { snapshot in
-            snapshot.reference.delete()
+        reference.getDocuments { snapshot, error in
+            if error == nil {
+                snapshot?.documents.forEach({ taskDocument in
+                    taskDocument.reference.delete()
+                })
+            }
         }
     }
     

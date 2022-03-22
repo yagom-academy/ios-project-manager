@@ -9,8 +9,12 @@ import Foundation
 
 final class TaskRemoteDataSource: TaskRepositoryDataSource {
     
+    private let databaseModel = FirebaseManager()
+    
     var fetchAllRecords: [Task] {
-        []
+        T
+        let result = try await databaseModel.fetch()
+        let
     }
     
     func fetch(_ condition: ((Task) -> Bool)) throws -> [Task] {
