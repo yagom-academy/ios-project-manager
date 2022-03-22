@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 import Network
 
-final class ScheduleRepository: Repository {
+final class DefaultScheduleRepository: ScheduleRepository {
 
     private var localDataSource: LocalDatabaseService
     private var remoteDataSource: NetworkService

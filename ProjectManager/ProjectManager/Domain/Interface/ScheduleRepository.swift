@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 
-protocol Repository {
+protocol ScheduleRepository {
 
     func fetch() -> Single<[Schedule]>
 
