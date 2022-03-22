@@ -25,9 +25,10 @@ extension DefaultProjectStorage: ProjectStorage {
         guard let item = item,
               let index = projects.firstIndex(where: { $0.id == item.id }) else {
             return Single.create { observer in
-            observer(.failure(StorageError.notFound))
-            return Disposables.create()
-        } }
+                observer(.failure(StorageError.notFound))
+                return Disposables.create()
+            }
+        }
         projects[index] = item
         projectStore.onNext(projects)
         return Single.create { observer in
@@ -36,12 +37,14 @@ extension DefaultProjectStorage: ProjectStorage {
         }
     }
     
-    func delete(_ uuid: UUID) -> Single<Project> {
-        guard let index = projects.firstIndex(where: { $0.id == uuid }) else {
+    func delete(_ item: Project?) -> Single<Project> {
+        guard let item = item,
+              let index = projects.firstIndex(where: { $0.id == item.id }) else {
             return Single.create { observer in
-            observer(.failure(StorageError.notFound))
-            return Disposables.create()
-        } }
+                observer(.failure(StorageError.notFound))
+                return Disposables.create()
+            }
+        }
         let deletedProject = projects.remove(at: index)
         projectStore.onNext(projects)
         return Single.create { observer in
@@ -53,6 +56,17 @@ extension DefaultProjectStorage: ProjectStorage {
     
     func fetch() -> BehaviorSubject<[Project]> {
         return projectStore
+    }
+    
+    func fetch(id: UUID) -> Single<Project> {
+        return Single.create { observer in
+            guard let project = self.projects.first(where: { $0.id == id }) else {
+                observer(.failure(StorageError.notFound))
+                return Disposables.create()
+            }
+            observer(.success(project))
+            return Disposables.create()
+        }
     }
 }
 

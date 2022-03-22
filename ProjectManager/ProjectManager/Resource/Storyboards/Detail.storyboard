@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="ipad12_9rounded" orientation="landscape" layout="fullscreen" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Detail View Controller-->
+        <scene sceneID="s0d-6b-0kx">
+            <objects>
+                <viewController storyboardIdentifier="DetailViewController" id="Y6W-OH-hqX" customClass="DetailViewController" customModule="ProjectManager" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
+                        <rect key="frame" x="0.0" y="0.0" width="1366" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wrz-3Q-cZW">
+                                <rect key="frame" x="0.0" y="74" width="1366" height="930"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="zjj-8N-2sV">
+                                        <rect key="frame" x="16" y="8" width="1334" height="914"/>
+                                        <subviews>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mfV-fb-yuq">
+                                                <rect key="frame" x="0.0" y="0.0" width="1334" height="50"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="ppR-Za-3od"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="nnG-2q-7Nn">
+                                                <rect key="frame" x="0.0" y="50" width="1334" height="300"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="300" id="8av-vT-1U4"/>
+                                                </constraints>
+                                            </datePicker>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Oje-cd-I3r">
+                                                <rect key="frame" x="0.0" y="350" width="1334" height="564"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <color key="textColor" systemColor="labelColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="zjj-8N-2sV" firstAttribute="top" secondItem="Wrz-3Q-cZW" secondAttribute="top" constant="8" id="B3p-fh-Sya"/>
+                                    <constraint firstItem="zjj-8N-2sV" firstAttribute="height" relation="greaterThanOrEqual" secondItem="Wrz-3Q-cZW" secondAttribute="height" constant="-16" id="aGB-2f-HwM"/>
+                                    <constraint firstAttribute="bottom" secondItem="zjj-8N-2sV" secondAttribute="bottom" id="jtS-Oj-nId"/>
+                                    <constraint firstItem="zjj-8N-2sV" firstAttribute="leading" secondItem="Wrz-3Q-cZW" secondAttribute="leading" constant="16" id="p40-dO-zfF"/>
+                                    <constraint firstAttribute="trailing" secondItem="zjj-8N-2sV" secondAttribute="trailing" id="rVt-vJ-lnZ"/>
+                                    <constraint firstItem="zjj-8N-2sV" firstAttribute="width" secondItem="Wrz-3Q-cZW" secondAttribute="width" constant="-32" id="wY5-z2-Gck"/>
+                                </constraints>
+                                <viewLayoutGuide key="contentLayoutGuide" id="ed9-IB-q13"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="6Lk-lk-4dD"/>
+                            </scrollView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="Wrz-3Q-cZW" secondAttribute="bottom" id="Ijr-Zy-qtx"/>
+                            <constraint firstItem="Wrz-3Q-cZW" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="Ps6-hK-yRi"/>
+                            <constraint firstItem="Wrz-3Q-cZW" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="dka-DT-3Sp"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="Wrz-3Q-cZW" secondAttribute="trailing" id="mgl-Re-YDR"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="lN2-rp-dAY">
+                        <barButtonItem key="leftBarButtonItem" title="Edit" id="wCz-So-9I6"/>
+                        <barButtonItem key="rightBarButtonItem" title="Done" id="9Kr-9j-2qg"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="datePicker" destination="nnG-2q-7Nn" id="Pcn-Ah-H2G"/>
+                        <outlet property="descriptionTextView" destination="Oje-cd-I3r" id="Z8t-1R-pjo"/>
+                        <outlet property="leftBarButton" destination="wCz-So-9I6" id="1E0-CH-CuK"/>
+                        <outlet property="rightBarButton" destination="9Kr-9j-2qg" id="4Ch-gZ-xnf"/>
+                        <outlet property="titleTextField" destination="mfV-fb-yuq" id="bRk-tE-yOp"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="832.79648609077594" y="137.6953125"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="G05-6w-qnW">
+            <objects>
+                <navigationController storyboardIdentifier="Detail" automaticallyAdjustsScrollViewInsets="NO" id="kpz-IF-FdV" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="OlW-c3-Gwn">
+                        <rect key="frame" x="0.0" y="24" width="1366" height="50"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Y6W-OH-hqX" kind="relationship" relationship="rootViewController" id="1TM-GH-Cvk"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WaD-K0-IbP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="138.79941434846265" y="137.6953125"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
