@@ -56,6 +56,12 @@ final class ProjectFirestoreManager {
 // MARK: - DataSource
 extension ProjectFirestoreManager: DataSource {
     
+    var type: DataSourceType {
+        get {
+            return .firestore
+        }
+    }
+    
     // MARK: - Method
     func create(with content: [String : Any]) {
         guard let identifeir = content["identifier"] as? String,

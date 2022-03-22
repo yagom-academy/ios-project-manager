@@ -17,6 +17,12 @@ final class ProjectInMemoryManager {
 // MARK: - DataSource
 extension ProjectInMemoryManager: DataSource {
     
+    var type: DataSourceType {
+        get {
+            return .inMemory
+        }
+    }
+    
     func create(with content: [String: Any]) {
         guard let identifier = content["identifier"] as? String else {
             return

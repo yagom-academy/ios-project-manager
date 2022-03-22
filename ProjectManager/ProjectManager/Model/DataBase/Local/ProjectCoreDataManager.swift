@@ -67,6 +67,12 @@ final class ProjectCoreDataManager {
 // MARK: - DataSource
 extension ProjectCoreDataManager: DataSource {
     
+    var type: DataSourceType {
+        get {
+            return .coreData
+        }
+    }
+    
     func create(with content: [String : Any]) {
         let project = CDProject(context: context)
         project.identifier = content["identifier"] as? String

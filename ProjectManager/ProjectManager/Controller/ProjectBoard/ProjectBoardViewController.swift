@@ -34,20 +34,31 @@ final class ProjectBoardViewController: UIViewController {
         stackView.spacing = 7
         return stackView
     }()
-
+    
+    private var dataSourceSettingButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        let cloudImage = UIImage(systemName: "cloud.fill",
+                                 withConfiguration: UIImage.SymbolConfiguration(textStyle: .title1))
+        button.setImage(cloudImage, for: .normal)
+        return button
+    }()
+    
     // MARK: - View Life Cycle
     override func loadView() {
         self.configureView()
     }
 
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.configureProjectViewControllerDelegate()
+        self.configureDelegate()
         self.configureSubviews()
-        self.navigationBar.delegate = self
         self.configureNavigationItem()
         self.configureNavigationBarLayout()
         self.configureTableStackViewLayout()
+        self.configureDataSourceSettingButtonLayout()
+        self.projectManager(didChangedDataSource: self.projectManager.projectSourceType ?? .coreData)
     }
      
     // MARK: - Configure View
@@ -60,6 +71,7 @@ final class ProjectBoardViewController: UIViewController {
     private func configureSubviews() {
         self.view.addSubview(navigationBar)
         self.view.addSubview(tableStackView)
+        self.view.addSubview(dataSourceSettingButton)
     }
     
     private func configureNavigationItem() {
@@ -89,11 +101,29 @@ final class ProjectBoardViewController: UIViewController {
         ])
     }
     
+    private func configureDataSourceSettingButtonLayout() {
+        let safeArea = self.view.safeAreaLayoutGuide
+        NSLayoutConstraint.activate([
+            dataSourceSettingButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -20),
+            dataSourceSettingButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: 7)])
+    }
+    
     // MARK: - Configure Controller
-    private func configureProjectViewControllerDelegate() {
+    private func configureDelegate() {
         self.todoViewController.delegate = self
         self.doingViewController.delegate = self
         self.doneViewController.delegate = self
+        
+        self.projectManager.delegate = self
+        self.navigationBar.delegate = self
+    }
+    
+    // MARK: - Method
+    private func updateDataSourceSettingButton(with color: UIColor) {
+        let currentImage = self.dataSourceSettingButton.image(for: .normal)
+        let newImage =  currentImage?.withTintColor(color, renderingMode: .alwaysOriginal)
+
+        self.dataSourceSettingButton.setImage(newImage, for: .normal)
     }
     
     // MARK: - @objc Method
@@ -149,4 +179,24 @@ extension ProjectBoardViewController: ProjectListViewControllerDelegate {
     func deleteProject(of identifier: String) {
         self.projectManager.delete(of: identifier)
     }
+}
+
+// MARK: - ProjectManagerDelegate
+extension ProjectBoardViewController: ProjectManagerDelegate {
+    
+    func projectManager(didChangedDataSource dataSource: DataSourceType) {
+        switch dataSource {
+        case .inMemory:
+            self.updateDataSourceSettingButton(with: .gray)
+        case .coreData:
+            self.updateDataSourceSettingButton(with: .gray)
+        case .firestore:
+            self.updateDataSourceSettingButton(with: .blue)
+        }
+    }
+    
+    func projectManager(didChangedNetworkStatus with: NetworkStatus) {
+        // TODO: - 네트워크 상태 변화에 따른 버튼 이미지 변경
+    }
+    
 }

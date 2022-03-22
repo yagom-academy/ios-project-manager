@@ -8,6 +8,8 @@
 import Foundation
 
 protocol DataSource: AnyObject {
+    
+    var type: DataSourceType { get }
 
     func create(with content: [String: Any])
         

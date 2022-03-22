@@ -7,10 +7,51 @@
 
 import Foundation
 
+// MARK: - DataSourceType
+enum DataSourceType {
+    
+    case inMemory
+    case coreData
+    case firestore
+}
+
+// MARK: - NetworkStatus
+enum NetworkStatus {
+    
+    case online
+    case offline
+    
+}
+
+// MARK: - ProjectManagerDelegate
+protocol ProjectManagerDelegate: AnyObject {
+    
+    func projectManager(didChangedDataSource dataSource: DataSourceType)
+    
+    func projectManager(didChangedNetworkStatus with: NetworkStatus)
+}
+
+// MARK: - ProjectManager
 final class ProjectManager {
     
     // MARK: - Property
-    private var projectSource: DataSource? = ProjectFirestoreManager()
+    weak var delegate: ProjectManagerDelegate?
+    private var projectSource: DataSource? = ProjectCoreDataManager()
+    var projectSourceType: DataSourceType? {
+        get {
+            return self.projectSource?.type
+        }
+        set {
+            switch newValue {
+            case .coreData:
+                self.projectSource = ProjectCoreDataManager()
+            case .firestore:
+                self.projectSource = ProjectFirestoreManager()
+            case .inMemory, .none:
+                self.projectSource = ProjectInMemoryManager()
+            }
+        }
+    }
     
     // MARK: - Method
     func create(with content: [String: Any]) {
@@ -41,5 +82,10 @@ final class ProjectManager {
     
     func delete(of identifier: String) {
         self.projectSource?.delete(of: identifier)
+    }
+    
+    func switchProjectSource(with dataSource: DataSourceType) {
+        self.projectSourceType = dataSource
+        self.delegate?.projectManager(didChangedDataSource: dataSource)
     }
 }
