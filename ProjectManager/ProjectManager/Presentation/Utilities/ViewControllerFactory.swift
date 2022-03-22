@@ -8,8 +8,8 @@ struct StoryboardInformation {
 
 enum TypeOfViewController {
     case taskList(viewModel: TaskListViewModelProtocol)
-    case newTaskDetail(taskListViewModel: TaskListViewModelProtocol, taskDetailViewModel: TaskDetailViewModelProtocol)
-    case editTaskDetail(taskListViewModel: TaskListViewModelProtocol, taskDetailViewModel: TaskDetailViewModelProtocol, taskToEdit: Task)
+    case newTaskDetail(taskDetailViewModel: TaskDetailViewModelProtocol)
+    case editTaskDetail(taskDetailViewModel: TaskDetailViewModelProtocol, taskToEdit: Task)
 }
 
 extension TypeOfViewController {
@@ -34,14 +34,14 @@ enum ViewControllerFactory {
                 return TaskListViewController(coder: coder, taskListViewModel: viewModel)
             }
             return taskListViewController
-        case .newTaskDetail(let taskListViewModel, let taskDetailViewModel):
+        case .newTaskDetail(let taskDetailViewModel):
             let taskDetailController = storyboard.instantiateViewController(identifier: storyboardInformation.storyboardId) { coder in
-                return TaskDetailController(coder: coder, taskListViewModel: taskListViewModel, taskDetailViewModel: taskDetailViewModel, taskManagerAction: .add, taskToEdit: nil)
+                return TaskDetailController(coder: coder, taskDetailViewModel: taskDetailViewModel, taskManagerAction: .add, taskToEdit: nil)
             }
             return taskDetailController
-        case .editTaskDetail(let taskListViewModel, let taskDetailViewModel, let taskToEdit):
+        case .editTaskDetail(let taskDetailViewModel, let taskToEdit):
             let taskDetailController = storyboard.instantiateViewController(identifier: storyboardInformation.storyboardId) { coder in
-                return TaskDetailController(coder: coder, taskListViewModel: taskListViewModel, taskDetailViewModel: taskDetailViewModel, taskManagerAction: .edit, taskToEdit: taskToEdit)
+                return TaskDetailController(coder: coder, taskDetailViewModel: taskDetailViewModel, taskManagerAction: .edit, taskToEdit: taskToEdit)
             }
             return taskDetailController
         }

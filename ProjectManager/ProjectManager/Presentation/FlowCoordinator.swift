@@ -12,10 +12,10 @@ protocol FlowCoordinatorProtocol {
 final class FlowCoordinator: FlowCoordinatorProtocol {
     weak var navigationController: UINavigationController? // TODO: rootViewController: UIViewController로 변경
 
-    var taskListViewModel: TaskListViewModelProtocol!
-    let taskDetailViewModel: TaskDetailViewModelProtocol = TaskDetailViewModel()
-    
-    var taskRepository: TaskRepositoryProtocol!
+    private var taskRepository: TaskRepositoryProtocol!
+    private var useCase: TaskManagerUseCase!
+    private var taskListViewModel: TaskListViewModelProtocol!
+    private var taskDetailViewModel: TaskDetailViewModelProtocol!
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
@@ -25,8 +25,13 @@ final class FlowCoordinator: FlowCoordinatorProtocol {
         let actions = TaskListViewModelActions(showTaskDetailToAddTask: showTaskDetailToAddTask,
                                                showTaskDetailToEditTask: showTaskDetailToEditTask,
                                                presentPopover: presentPopover)
+
         taskRepository = TaskRepository()
-        taskListViewModel = TaskListViewModel(taskRepository: taskRepository, actions: actions)
+        useCase = TaskManagerUseCase(taskRepository: taskRepository)
+        
+        // 2개 ViewModel에 동일한 useCase(Repository)를 할당
+        taskListViewModel = TaskListViewModel(useCase: useCase, actions: actions)
+        taskDetailViewModel = TaskDetailViewModel(useCase: useCase)
         
         guard let taskListViewController = ViewControllerFactory.createViewController(of: .taskList(viewModel: taskListViewModel)) as? TaskListViewController else {
             print(ViewControllerError.invalidViewController.description)
@@ -37,7 +42,7 @@ final class FlowCoordinator: FlowCoordinatorProtocol {
     
     // MARK: - TaskListView -> TaskDetailView 화면 이동
     func showTaskDetailToAddTask() {
-        guard let taskDetailController = ViewControllerFactory.createViewController(of: .newTaskDetail(taskListViewModel: taskListViewModel, taskDetailViewModel: taskDetailViewModel)) as? TaskDetailController else {
+        guard let taskDetailController = ViewControllerFactory.createViewController(of: .newTaskDetail(taskDetailViewModel: taskDetailViewModel)) as? TaskDetailController else {
             print(ViewControllerError.invalidViewController.description)
             return
         }
@@ -45,7 +50,7 @@ final class FlowCoordinator: FlowCoordinatorProtocol {
     }
     
     func showTaskDetailToEditTask(_ task: Task) {
-        guard let taskDetailController = ViewControllerFactory.createViewController(of: .editTaskDetail(taskListViewModel: taskListViewModel, taskDetailViewModel: taskDetailViewModel, taskToEdit: task)) as? TaskDetailController else {
+        guard let taskDetailController = ViewControllerFactory.createViewController(of: .editTaskDetail(taskDetailViewModel: taskDetailViewModel, taskToEdit: task)) as? TaskDetailController else {
             print(ViewControllerError.invalidViewController.description)
             return
         }
