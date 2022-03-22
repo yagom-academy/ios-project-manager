@@ -155,7 +155,13 @@ private extension ScheduleItemViewModel {
             lastUpdated: Date()
         )
 
-        self.useCase.update(newSchedule)
+        self.scheduleUseCase.update(newSchedule)
+        let action = ScheduleAction(
+            type: .update(newSchedule),
+            execute: { self.scheduleUseCase.update(newSchedule) },
+            reverse: { self.scheduleUseCase.update(schedule) }
+        )
+        self.scheduleHistoryUseCase.recode(action: action)
         self.coordinator.dismiss()
     }
 
@@ -166,7 +172,13 @@ private extension ScheduleItemViewModel {
             dueDate: self.currentDate.value,
             progress: .todo)
 
-        self.useCase.create(newSchedule)
+        self.scheduleUseCase.create(newSchedule)
+        let action = ScheduleAction(
+            type: .create(newSchedule),
+            execute: { self.scheduleUseCase.create(newSchedule) },
+            reverse: { self.scheduleUseCase.delete(newSchedule.id) }
+        )
+        self.scheduleHistoryUseCase.recode(action: action)
         self.coordinator.dismiss()
     }
 
