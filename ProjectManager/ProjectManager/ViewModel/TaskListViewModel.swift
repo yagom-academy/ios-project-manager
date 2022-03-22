@@ -8,64 +8,88 @@
 import Foundation
 
 final class TaskListViewModel: TaskViewModel {
-    var taskDidUpdated: (() -> Void)?
-    var didSelectTask: ((Task) -> Void)?
+    // MARK: - Output
+    var presentErrorAlert: ((Error) -> Void)?
+    var reloadTableView: (() -> Void)?
+    var deleteRows: ((Int, TaskState) -> Void)?
+    var reloadRows: ((Int, TaskState) -> Void)?
+    var moveRows: ((Int, TaskState, TaskState) -> Void)?
+    var reloadTableViews: (() -> Void)?
+    var presentTaskManageView: ((TaskManageViewModel) -> Void)?
+    var taskCount: (([(count: Int, state: TaskState)]) -> Void)?
     
-    private let taskManager: TaskMangeable
+    private let taskListUseCase: TaskListUseCase
     private(set) var tasks = [Task]()
     
-    init(taskManager: TaskMangeable) {
-        self.taskManager = taskManager
+    init(taskListUseCase: TaskListUseCase) {
+        self.taskListUseCase = taskListUseCase
     }
     
-    func didLoaded() {
+    func onViewWillAppear() {
         updateTasks()
+        reloadTableViews?()
     }
     
     private func updateTasks() {
-        tasks = taskManager.fetchAll()
-        taskDidUpdated?()
+        tasks = taskListUseCase.fetchAll()
     }
     
-    func createTask(title: String, description: String, deadline: Date) {
-        let newTask = Task(id: UUID(),
-                           title: title,
-                           description: description,
-                           deadline: deadline,
-                           state: .waiting)
-        taskManager.create(with: newTask)
+    func createTask(with task: Task) {
+        taskListUseCase.create(with: task)
         updateTasks()
+        reloadTableView?()
+        taskCount?([(count(of: .waiting), .waiting)])
     }
     
-    func updateRow(with task: Task) {
-        taskManager.update(with: task)
+    func updateTask(at index: Int, task: Task) {
+        taskListUseCase.update(at: index, with: task)
+        reloadRows?(index, task.state)
+    }
+    
+    func deleteTask(at index: Int, from state: TaskState) {
+        taskListUseCase.delete(at: index, from: state)
         updateTasks()
+        deleteRows?(index, state)
+        taskCount?([(count(of: state), state)])
     }
     
-    func deleteRow(with task: Task) {
-        taskManager.delete(with: task)
+    func moveTask(at index: Int, from oldState: TaskState, to newState: TaskState) {
+        taskListUseCase.changeState(at: index, from: oldState, to: newState)
         updateTasks()
+        moveRows?(index, oldState, newState)
+        taskCount?([(count(of: oldState), oldState), (count(of: newState), newState)])
     }
     
-    func move(task: Task, to state: TaskState) {
-        taskManager.changeState(of: task, to: state)
-        updateTasks()
-    }
-    
-    func task(at index: Int, with state: TaskState, completion: (Task) -> Void) {
-        guard let fetchedTask = taskManager.fetch(at: index, with: state) else {
-            return 
+    func task(at index: Int, from state: TaskState) -> TaskCellViewModel? {
+        guard let fetchedTask = taskListUseCase.fetch(at: index, from: state) else {
+            presentErrorAlert?(CollectionError.indexOutOfRange)
+            return nil
         }
         
-        completion(fetchedTask)
+        let taskCellViewModel = TaskCellViewModel(title: fetchedTask.title,
+                                                  description: fetchedTask.description,
+                                                  state: state,
+                                                  deadline: fetchedTask.deadline)
+        
+        return taskCellViewModel
     }
     
-    func didSelectRow(at index: Int, with state: TaskState) {
-        guard let fetchedTask = taskManager.fetch(at: index, with: state) else {
+    func addTask() {
+        let taskManageUseCase = DefaultTaskManageUseCase()
+        let taskManageViewModel = TaskManageViewModel(manageType: .add, taskManageUseCase: taskManageUseCase)
+        presentTaskManageView?(taskManageViewModel)
+    }
+    
+    func selectTask(at index: Int, from state: TaskState) {
+        guard let fetchedTask = taskListUseCase.fetch(at: index, from: state) else {
+            presentErrorAlert?(CollectionError.indexOutOfRange)
             return
         }
         
-        didSelectTask?(fetchedTask)
+        let taskManageUseCase = DefaultTaskManageUseCase()
+        let taskManageViewModel = TaskManageViewModel(selectedIndex: index, selectedTask: fetchedTask, manageType: .detail, taskManageUseCase: taskManageUseCase)
+        
+        presentTaskManageView?(taskManageViewModel)
     }
     
     func count(of state: TaskState) -> Int {

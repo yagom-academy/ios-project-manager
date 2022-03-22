@@ -12,7 +12,7 @@ enum CollectionError: Error {
 }
 
 extension CollectionError: LocalizedError {
-    var description: String {
+    var errorDescription: String? {
         switch self {
         case .indexOutOfRange:
             return "index out of range"
