@@ -57,9 +57,7 @@ final class ListUpdateViewController: UIViewController {
         
         output?.selectedProjectData
             .bind(onNext: { list in
-                self.shareView.textfield.text = list.name
-                self.shareView.textView.text = list.detail
-                self.shareView.datePicker.date = list.deadline
+                self.shareView.configureUIComponents(name: list.name, detail: list.detail, deadline: list.deadline)
             }).disposed(by: self.disposeBag)
         
         self.viewModel?.state
@@ -70,6 +68,6 @@ final class ListUpdateViewController: UIViewController {
     }
     
     private func createObservableInformation() -> (name: String, detail: String, deadline: Date) {
-        return ((name: self.shareView.textfield.text ?? "", detail: self.shareView.textView.text, deadline: self.shareView.datePicker.date))
+        return self.shareView.extractComponentsData()
         }
 }

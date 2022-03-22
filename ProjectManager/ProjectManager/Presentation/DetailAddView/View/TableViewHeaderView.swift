@@ -20,7 +20,7 @@ final class TableViewHeaderUIView: UIView {
         super.init(coder: coder)
     }
     
-    func configureLayout() {
+    private func configureLayout() {
         NSLayoutConstraint.activate([
             self.tableViewNamelabel.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
             self.tableViewNamelabel.centerYAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerYAnchor)

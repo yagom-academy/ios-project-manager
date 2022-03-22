@@ -31,7 +31,7 @@ final class ListAddViewModel {
         
         input.doneButtonTappedEvent.withUnretained(self).subscribe { (self, void ) in
             self.state.accept(.done)
-            self.coordinator?.occuredViewEvent(with: .dismissListAddView) //dismiss 
+            self.coordinator?.occuredViewEvent(with: .dismissListAddView)
         }
         .disposed(by: disposeBag)
 

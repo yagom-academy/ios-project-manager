@@ -38,6 +38,6 @@ final class ListAddViewController: UIViewController {
     }
     
     private func createObservableInformation() -> (name: String, detail: String, deadline: Date) {
-        return ((name: self.shareView.textfield.text!, detail: self.shareView.textView.text, deadline: self.shareView.datePicker.date))
+        return self.shareView.extractComponentsData()
         }
 }

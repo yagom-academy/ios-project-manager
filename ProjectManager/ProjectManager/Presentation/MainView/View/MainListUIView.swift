@@ -2,7 +2,7 @@ import UIKit
 
 final class MainListUIView: UIView {
 
-    let todoTableView: UITableView = {
+    private let todoTableView: UITableView = {
         let tableview = UITableView(frame: .zero)
         tableview.register(
             ListUITableViewCell.self,
@@ -12,7 +12,7 @@ final class MainListUIView: UIView {
         return tableview
     }()
     
-    let doingTableView: UITableView = {
+    private let doingTableView: UITableView = {
         let tableview = UITableView(frame: .zero)
         tableview.register(
             ListUITableViewCell.self,
@@ -22,7 +22,7 @@ final class MainListUIView: UIView {
         return tableview
     }()
     
-    let doneTableView: UITableView = {
+    private let doneTableView: UITableView = {
         let tableview = UITableView(frame: .zero)
         tableview.register(
             ListUITableViewCell.self,

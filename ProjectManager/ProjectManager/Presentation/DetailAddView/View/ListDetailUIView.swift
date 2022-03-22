@@ -2,7 +2,7 @@ import UIKit
 
 final class ListDetailUIView: UIView {
     
-    let textfield: UITextField = {
+    private let textfield: UITextField = {
         let textfield = UITextField(frame: .zero)
         textfield.placeholder = "Title"
         textfield.layer.borderColor = UIColor.gray.cgColor
@@ -12,7 +12,7 @@ final class ListDetailUIView: UIView {
         return textfield
     }()
     
-    let datePicker: UIDatePicker = {
+    private let datePicker: UIDatePicker = {
            let datePicker = UIDatePicker()
            datePicker.datePickerMode = .date
            if #available(iOS 13.5, *) {
@@ -22,7 +22,7 @@ final class ListDetailUIView: UIView {
            return datePicker
        }()
     
-    let textView: UITextView = {
+    private let textView: UITextView = {
         let textView = UITextView()
         textView.layer.borderWidth = 1.0
         textView.layer.borderColor = UIColor.gray.cgColor
@@ -33,7 +33,7 @@ final class ListDetailUIView: UIView {
         return textView
     }()
     
-     let stackView: UIStackView = {
+    private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.distribution = .fill
@@ -53,6 +53,16 @@ final class ListDetailUIView: UIView {
         super.init(coder: coder)
     }
     
+    func extractComponentsData() -> (name: String, detail: String, deadline: Date) {
+        guard let name = self.textfield.text,
+                let detail = self.textView.text
+        else {
+            return (name: "", detail: "", deadline: Date())
+        }
+        
+        return (name: name, detail: detail, deadline: self.datePicker.date)
+    }
+    
     func configureUIComponents(name: String, detail: String, deadline: Date) {
         self.textfield.text = name
         self.datePicker.date = deadline
@@ -67,7 +77,7 @@ final class ListDetailUIView: UIView {
         
         let viewComponents = [textfield, datePicker, textView]
         viewComponents.forEach { component in
-            stackView.addArrangedSubview(component)
+            self.stackView.addArrangedSubview(component)
         }
         
         NSLayoutConstraint.activate([
