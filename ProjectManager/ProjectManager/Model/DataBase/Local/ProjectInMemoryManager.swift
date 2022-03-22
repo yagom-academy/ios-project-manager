@@ -1,5 +1,5 @@
 //
-//  InMemoryDataManager.swift
+//  ProjectInMemoryManager.swift
 //  ProjectManager
 //
 //  Created by 1 on 2022/03/06.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class InMemoryDataManager {
+final class ProjectInMemoryManager {
 
     // MARK: - Property
     private var projects: [String: Project] = [:]
@@ -15,7 +15,7 @@ final class InMemoryDataManager {
 }
 
 // MARK: - DataSource
-extension InMemoryDataManager: DataSource {
+extension ProjectInMemoryManager: DataSource {
     
     func create(with content: [String: Any]) {
         guard let identifier = content["identifier"] as? String else {
