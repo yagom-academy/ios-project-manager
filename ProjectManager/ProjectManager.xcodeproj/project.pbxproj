@@ -21,6 +21,7 @@
 		C105643627CCF6150018ACFE /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = C105643527CCF6150018ACFE /* Realm */; };
 		C105643827CCF6150018ACFE /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C105643727CCF6150018ACFE /* RealmSwift */; };
 		C105643C27CCF9CB0018ACFE /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = C105643B27CCF9CB0018ACFE /* .swiftlint.yml */; };
+		C12067F227EA949800D11DB2 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12067F127EA949800D11DB2 /* NetworkMonitor.swift */; };
 		C122BA3627DA465C00358056 /* TaskFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C122BA3527DA465C00358056 /* TaskFormViewModel.swift */; };
 		C1232DD027DA18CA007EE147 /* TaskFormTitleFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1232DCF27DA18C9007EE147 /* TaskFormTitleFieldView.swift */; };
 		C1232DD227DA19CA007EE147 /* TaskFormDatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1232DD127DA19CA007EE147 /* TaskFormDatePickerView.swift */; };
@@ -75,6 +76,7 @@
 		C105641627CCE5A10018ACFE /* ProjectManagerMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerMainView.swift; sourceTree = "<group>"; };
 		C105642927CCE91C0018ACFE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C105643B27CCF9CB0018ACFE /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		C12067F127EA949800D11DB2 /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 		C122BA3527DA465C00358056 /* TaskFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskFormViewModel.swift; sourceTree = "<group>"; };
 		C1232DCF27DA18C9007EE147 /* TaskFormTitleFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskFormTitleFieldView.swift; sourceTree = "<group>"; };
 		C1232DD127DA19CA007EE147 /* TaskFormDatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskFormDatePickerView.swift; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 			children = (
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
+				C12067F127EA949800D11DB2 /* NetworkMonitor.swift */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 			);
@@ -465,6 +468,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C12067F227EA949800D11DB2 /* NetworkMonitor.swift in Sources */,
 				C1836B4D27CE43B0008D9F07 /* Task.swift in Sources */,
 				C17D656E27D4A53C00C54EC6 /* TaskListRowView.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
