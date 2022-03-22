@@ -9,7 +9,7 @@ final class TaskTableViewCell: UITableViewCell {
     @IBOutlet private weak var dateLabel: UILabel!
     
     override func prepareForReuse() {
-        dateLabel.textColor = .black
+        dateLabel.textColor = .label
         task = nil
     }
     
@@ -29,6 +29,7 @@ final class TaskTableViewCell: UITableViewCell {
         if let dueDate = task?.dueDate {
             let dateText = DateFormatter.convertToString(from: dueDate)
             dateLabel.text = dateText
+            dateLabel.textColor = taskListViewModel.changeDateLabelColorIfExpired(with: dueDate)
         }
     }
     

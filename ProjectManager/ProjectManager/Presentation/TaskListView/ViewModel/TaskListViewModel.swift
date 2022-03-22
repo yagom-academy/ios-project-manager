@@ -25,6 +25,8 @@ protocol TaskListViewModelOutputProtocol {
     var todoTasksCount: Observable<Int> { get }
     var doingTasksCount: Observable<Int> { get }
     var doneTasksCount: Observable<Int> { get }
+    
+    func changeDateLabelColorIfExpired(with: Date) -> UIColor
 }
 
 protocol TaskListViewModelProtocol: TaskListViewModelInputProtocol, TaskListViewModelOutputProtocol { }
@@ -110,6 +112,12 @@ final class TaskListViewModel: TaskListViewModelProtocol {
         case .done:
             doneTasks.onNext(taskRepository.doneTasks)
         }
+    }
+    
+    func changeDateLabelColorIfExpired(with date: Date) -> UIColor {
+        let dayInSeconds: Double = 3600 * 24
+        let yesterday = Date(timeIntervalSinceNow: -dayInSeconds)
+        return date < yesterday ? .systemRed : .label
     }
     
     // MARK: - Popover
