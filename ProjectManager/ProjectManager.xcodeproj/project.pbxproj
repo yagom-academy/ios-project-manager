@@ -8,15 +8,27 @@
 
 /* Begin PBXBuildFile section */
 		C101D2A527D341E200334F5C /* TaskManagerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C101D2A427D341E200334F5C /* TaskManagerError.swift */; };
-		C182E78427CD0E9D00F6218C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C182E78327CD0E9D00F6218C /* ContentView.swift */; };
+		C101D2C327D4DB2D00334F5C /* TaskListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C101D2C227D4DB2D00334F5C /* TaskListRowView.swift */; };
+		C101D2C627D4DC4600334F5C /* Date+formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C101D2C527D4DC4600334F5C /* Date+formatter.swift */; };
+		C101D2C827D4DF8E00334F5C /* TaskListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C101D2C727D4DF8E00334F5C /* TaskListView.swift */; };
+		C161020627E641E1001F6102 /* NavigationBarAppearanceModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C161020527E641E1001F6102 /* NavigationBarAppearanceModifier.swift */; };
+		C182E78427CD0E9D00F6218C /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C182E78327CD0E9D00F6218C /* MainView.swift */; };
 		C182E78727CD43DE00F6218C /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = C182E78627CD43DE00F6218C /* FirebaseAnalytics */; };
 		C182E7A127CDD57800F6218C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C182E7A027CDD57800F6218C /* GoogleService-Info.plist */; };
 		C182E7A427CDDBEA00F6218C /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = C182E7A327CDDBEA00F6218C /* Realm */; };
 		C182E7A627CDDBEA00F6218C /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C182E7A527CDDBEA00F6218C /* RealmSwift */; };
 		C182E7BB27CE222B00F6218C /* FirebaseAnalyticsSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = C182E7BA27CE222B00F6218C /* FirebaseAnalyticsSwift-Beta */; };
 		C182E7BD27CE232900F6218C /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = C182E7BC27CE232900F6218C /* FirebaseAnalyticsWithoutAdIdSupport */; };
+		C18B9F1B27DE6F4100CF78F4 /* TaskFormingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18B9F1A27DE6F4100CF78F4 /* TaskFormingView.swift */; };
+		C18B9F1D27DF2DC700CF78F4 /* TaskListPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18B9F1C27DF2DC700CF78F4 /* TaskListPlaceholder.swift */; };
+		C18B9F1F27DF2E2400CF78F4 /* TaskListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18B9F1E27DF2E2400CF78F4 /* TaskListHeaderView.swift */; };
+		C1A708F527E98EDE0096054A /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A708F427E98EDE0096054A /* AlertManager.swift */; };
+		C1B26D2B27E1005B0092E386 /* TextEditorWithPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1B26D2A27E1005B0092E386 /* TextEditorWithPlaceholder.swift */; };
 		C1F2B93027CE69D200B8FD51 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = C1F2B92F27CE69D100B8FD51 /* .swiftlint.yml */; };
 		C1F2B93227CF4A7700B8FD51 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = C1F2B93127CF4A7700B8FD51 /* FirebaseFirestore */; };
+		C1FD565F27E3360C001FE852 /* KeyboardResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FD565E27E3360C001FE852 /* KeyboardResponder.swift */; };
+		C1FD566127E3C170001FE852 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FD566027E3C170001FE852 /* CustomTextField.swift */; };
+		C1FD566327E3CA9D001FE852 /* CustomDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FD566227E3CA9D001FE852 /* CustomDatePicker.swift */; };
 		C1FE9BB927CFB64300397B90 /* TaskStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FE9BB827CFB64300397B90 /* TaskStatus.swift */; };
 		C1FE9BBB27CFB68600397B90 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FE9BBA27CFB68600397B90 /* Task.swift */; };
 		C1FE9BBD27CFBD6300397B90 /* TaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FE9BBC27CFBD6300397B90 /* TaskManager.swift */; };
@@ -41,9 +53,21 @@
 
 /* Begin PBXFileReference section */
 		C101D2A427D341E200334F5C /* TaskManagerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManagerError.swift; sourceTree = "<group>"; };
-		C182E78327CD0E9D00F6218C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		C101D2C227D4DB2D00334F5C /* TaskListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListRowView.swift; sourceTree = "<group>"; };
+		C101D2C527D4DC4600334F5C /* Date+formatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+formatter.swift"; sourceTree = "<group>"; };
+		C101D2C727D4DF8E00334F5C /* TaskListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListView.swift; sourceTree = "<group>"; };
+		C161020527E641E1001F6102 /* NavigationBarAppearanceModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarAppearanceModifier.swift; sourceTree = "<group>"; };
+		C182E78327CD0E9D00F6218C /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		C182E7A027CDD57800F6218C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C18B9F1A27DE6F4100CF78F4 /* TaskFormingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskFormingView.swift; sourceTree = "<group>"; };
+		C18B9F1C27DF2DC700CF78F4 /* TaskListPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListPlaceholder.swift; sourceTree = "<group>"; };
+		C18B9F1E27DF2E2400CF78F4 /* TaskListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListHeaderView.swift; sourceTree = "<group>"; };
+		C1A708F427E98EDE0096054A /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
+		C1B26D2A27E1005B0092E386 /* TextEditorWithPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditorWithPlaceholder.swift; sourceTree = "<group>"; };
 		C1F2B92F27CE69D100B8FD51 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		C1FD565E27E3360C001FE852 /* KeyboardResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardResponder.swift; sourceTree = "<group>"; };
+		C1FD566027E3C170001FE852 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		C1FD566227E3CA9D001FE852 /* CustomDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDatePicker.swift; sourceTree = "<group>"; };
 		C1FE9BB827CFB64300397B90 /* TaskStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskStatus.swift; sourceTree = "<group>"; };
 		C1FE9BBA27CFB68600397B90 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		C1FE9BBC27CFBD6300397B90 /* TaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManager.swift; sourceTree = "<group>"; };
@@ -83,6 +107,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C101D2C427D4DC1500334F5C /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				C101D2C527D4DC4600334F5C /* Date+formatter.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		C161020727E7974E001F6102 /* UIComponents */ = {
+			isa = PBXGroup;
+			children = (
+				C18B9F1E27DF2E2400CF78F4 /* TaskListHeaderView.swift */,
+				C18B9F1C27DF2DC700CF78F4 /* TaskListPlaceholder.swift */,
+				C1FD566027E3C170001FE852 /* CustomTextField.swift */,
+				C1FD566227E3CA9D001FE852 /* CustomDatePicker.swift */,
+				C1B26D2A27E1005B0092E386 /* TextEditorWithPlaceholder.swift */,
+			);
+			path = UIComponents;
+			sourceTree = "<group>";
+		};
+		C161020827E797BA001F6102 /* CustomModifier */ = {
+			isa = PBXGroup;
+			children = (
+				C161020527E641E1001F6102 /* NavigationBarAppearanceModifier.swift */,
+			);
+			path = CustomModifier;
+			sourceTree = "<group>";
+		};
 		C182E79027CD539900F6218C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -110,8 +162,13 @@
 		C1FE9BBF27CFCCD500397B90 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				C182E78327CD0E9D00F6218C /* ContentView.swift */,
+				C182E78327CD0E9D00F6218C /* MainView.swift */,
+				C101D2C727D4DF8E00334F5C /* TaskListView.swift */,
+				C101D2C227D4DB2D00334F5C /* TaskListRowView.swift */,
+				C18B9F1A27DE6F4100CF78F4 /* TaskFormingView.swift */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
+				C161020727E7974E001F6102 /* UIComponents */,
+				C161020827E797BA001F6102 /* CustomModifier */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -121,6 +178,8 @@
 			children = (
 				C1FE9BBC27CFBD6300397B90 /* TaskManager.swift */,
 				C101D2A427D341E200334F5C /* TaskManagerError.swift */,
+				C1A708F427E98EDE0096054A /* AlertManager.swift */,
+				C1FD565E27E3360C001FE852 /* KeyboardResponder.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -159,6 +218,7 @@
 				C1FE9BB727CFB57500397B90 /* Model */,
 				C1FE9BC427D06D5200397B90 /* Utility */,
 				C1FE9BBE27CFCC3600397B90 /* Protocol */,
+				C101D2C427D4DC1500334F5C /* Extension */,
 				C1FE9BBF27CFCCD500397B90 /* View */,
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
@@ -314,11 +374,23 @@
 			files = (
 				C1FE9BBD27CFBD6300397B90 /* TaskManager.swift in Sources */,
 				C101D2A527D341E200334F5C /* TaskManagerError.swift in Sources */,
+				C101D2C327D4DB2D00334F5C /* TaskListRowView.swift in Sources */,
+				C101D2C827D4DF8E00334F5C /* TaskListView.swift in Sources */,
+				C1B26D2B27E1005B0092E386 /* TextEditorWithPlaceholder.swift in Sources */,
+				C1FD565F27E3360C001FE852 /* KeyboardResponder.swift in Sources */,
+				C18B9F1B27DE6F4100CF78F4 /* TaskFormingView.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
-				C182E78427CD0E9D00F6218C /* ContentView.swift in Sources */,
+				C1FD566327E3CA9D001FE852 /* CustomDatePicker.swift in Sources */,
+				C1FD566127E3C170001FE852 /* CustomTextField.swift in Sources */,
+				C182E78427CD0E9D00F6218C /* MainView.swift in Sources */,
 				C1FE9BBB27CFB68600397B90 /* Task.swift in Sources */,
+				C1A708F527E98EDE0096054A /* AlertManager.swift in Sources */,
 				C1FE9BB927CFB64300397B90 /* TaskStatus.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
+				C101D2C627D4DC4600334F5C /* Date+formatter.swift in Sources */,
+				C161020627E641E1001F6102 /* NavigationBarAppearanceModifier.swift in Sources */,
+				C18B9F1D27DF2DC700CF78F4 /* TaskListPlaceholder.swift in Sources */,
+				C18B9F1F27DF2E2400CF78F4 /* TaskListHeaderView.swift in Sources */,
 				C1FE9BC127CFCD3500397B90 /* TaskManageable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -506,6 +578,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = A5LBYGCGKX;
 				INFOPLIST_FILE = ProjectManager/Info.plist;
@@ -516,6 +589,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tistory.bicycleforthemind.ProjectManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -526,6 +600,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = A5LBYGCGKX;
 				INFOPLIST_FILE = ProjectManager/Info.plist;
@@ -536,6 +611,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tistory.bicycleforthemind.ProjectManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
 			};

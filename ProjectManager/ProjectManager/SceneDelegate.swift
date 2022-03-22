@@ -9,10 +9,19 @@ import SwiftUI
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
+    private var taskManager = TaskManager()
+    
+    private func createSampleTasks() {
+        taskManager.createTask(title: "1달 전 할일", body: "1줄\n2줄\n3줄", dueDate: Date(timeIntervalSinceNow: -86400 * 30))
+        taskManager.createTask(title: "하루 전 할일", body: "1줄\n2줄", dueDate: Date(timeIntervalSinceNow: -86400))
+        taskManager.createTask(title: "하루 후 할일", body: "1줄", dueDate: Date(timeIntervalSinceNow: 86400))
+        taskManager.createTask(title: "1달 후 할일", body: "1줄\n2줄\n3줄\n4줄", dueDate: Date(timeIntervalSinceNow: 86400 * 30))
+    }
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        let hostingVC = UIHostingController(rootView: ContentView())
+        createSampleTasks()
+        let hostingVC = UIHostingController(rootView: MainView().environmentObject(taskManager))
         window = UIWindow(windowScene: windowScene)
         window?.rootViewController = hostingVC
         window?.makeKeyAndVisible()

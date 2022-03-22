@@ -7,9 +7,20 @@
 
 import Foundation
 
-enum TaskStatus {
+enum TaskStatus: CaseIterable {
     
     case todo
     case doing
     case done
+    
+    var headerTitle: String {
+        switch self {
+        case .todo:
+            return "TODO"
+        case .doing:
+            return "DOING"
+        case .done:
+            return "DONE"
+        }
+    }
 }

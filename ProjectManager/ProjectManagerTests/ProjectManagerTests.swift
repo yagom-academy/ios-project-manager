@@ -14,7 +14,7 @@ class ProjectManagerTests: XCTestCase {
 
     override func setUpWithError() throws {
         try super.setUpWithError()
-        taskManager = TaskManager()
+        taskManager = TaskManager(tasks: [])
         taskManager.createTask(title: "0번 할일", body: "할일 내용0", dueDate: Date())
         taskManager.createTask(title: "1번 할일", body: "할일 내용1", dueDate: Date())
         taskManager.createTask(title: "2번 할일", body: "할일 내용2", dueDate: Date())
@@ -43,7 +43,7 @@ class ProjectManagerTests: XCTestCase {
     
     func test_Task_수정_검증() {
         let target = taskManager.todoTasks.first!
-        XCTAssertNoThrow(try taskManager.modifyTask(target: target, title: "제목 변경", body: "내용 변경", dueDate: Date(timeIntervalSince1970: 1646289747.609154)))
+        XCTAssertNoThrow(try taskManager.editTask(target: target, title: "제목 변경", body: "내용 변경", dueDate: Date(timeIntervalSince1970: 1646289747.609154)))
         XCTAssertEqual(target.title, "제목 변경")
         XCTAssertEqual(target.body, "내용 변경")
         XCTAssertEqual(target.dueDate, Date(timeIntervalSince1970: 1646289747.609154))
@@ -52,7 +52,7 @@ class ProjectManagerTests: XCTestCase {
     func test_Task_수정_실패하면_에러throw_검증() {
         weak var target = taskManager.todoTasks.first
         XCTAssertNoThrow(try taskManager.deleteTask(target: target))
-        XCTAssertThrowsError(try taskManager.modifyTask(target: target, title: "제목 변경", body: "내용 변경", dueDate: Date()))
+        XCTAssertThrowsError(try taskManager.editTask(target: target, title: "제목 변경", body: "내용 변경", dueDate: Date()))
     }
 
     func test_Task_status_변경_후_삭제_검증() {

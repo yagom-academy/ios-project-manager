@@ -7,21 +7,16 @@
 
 import Foundation
 
-class TaskManager: TaskManageable {
+final class TaskManager: ObservableObject, TaskManageable {
     
-    private var tasks = [Task]() {
-        didSet {
-            tasks.sort { $0.dueDate < $1.dueDate }
-        }
+    @Published private var tasks = [Task]()
+    
+    func fetchTasks(in status: TaskStatus) -> [Task] {
+        return tasks.filter { $0.status == status }.sorted { $0.dueDate < $1.dueDate }
     }
-    var todoTasks: [Task] {
-        return tasks.filter { $0.status == .todo }
-    }
-    var doingTasks: [Task] {
-        return tasks.filter { $0.status == .doing }
-    }
-    var doneTasks: [Task] {
-        return tasks.filter { $0.status == .done }
+    
+    func validateTask(title: String, body: String) -> Bool {
+        return title.isEmpty == false && body.count <= 1000
     }
     
     func createTask(title: String, body: String, dueDate: Date) {
@@ -29,7 +24,7 @@ class TaskManager: TaskManageable {
         tasks.append(newTask)
     }
     
-    func modifyTask(target: Task?, title: String, body: String, dueDate: Date) throws {
+    func editTask(target: Task?, title: String, body: String, dueDate: Date) throws {
         guard let target = target else {
             throw TaskManagerError.taskIsNil
         }
@@ -47,13 +42,15 @@ class TaskManager: TaskManageable {
         target.status = status
     }
     
-    func deleteTask(target: Task?) throws {
-        guard let target = target else {
+    func deleteTask(indexSet: IndexSet, in status: TaskStatus) throws {
+        guard let convertedIndex = indexSet.first else {
             throw TaskManagerError.taskIsNil
         }
         
+        let target = fetchTasks(in: status)[convertedIndex]
+        
         guard let targetIndex = tasks.firstIndex(of: target) else {
-            throw TaskManagerError.noTaskFound
+            throw TaskManagerError.taskIsNil
         }
         
         tasks.remove(at: targetIndex)
