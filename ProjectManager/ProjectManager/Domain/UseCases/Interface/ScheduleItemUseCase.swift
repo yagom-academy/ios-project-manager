@@ -12,4 +12,5 @@ protocol ScheduleItemUseCase {
     var currentSchedule: BehaviorRelay<Schedule?> { get }
     func create(_ schedule: Schedule)
     func update(_ schedule: Schedule)
+    func delete(_ scheduleID: UUID)
 }
