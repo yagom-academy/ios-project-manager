@@ -29,6 +29,7 @@
 		33B6322327D7554C00EB169D /* DateFormatter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33B6322227D7554C00EB169D /* DateFormatter+Extension.swift */; };
 		33C7AF2127E98C1F00BEFA47 /* ScheduleHistoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C7AF2027E98C1F00BEFA47 /* ScheduleHistoryRepository.swift */; };
 		33C7AF2327E98C2E00BEFA47 /* DefaultScheduleHistoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C7AF2227E98C2E00BEFA47 /* DefaultScheduleHistoryRepository.swift */; };
+		33C7AF2527E98EDB00BEFA47 /* ScheduleAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C7AF2427E98EDB00BEFA47 /* ScheduleAction.swift */; };
 		33D15E1227DB47BD006407A9 /* ScheduleListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33D15E1127DB47BD006407A9 /* ScheduleListHeaderView.swift */; };
 		33D15E1627DBA724006407A9 /* UIView+Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33D15E1527DBA724006407A9 /* UIView+Shadow.swift */; };
 		33F62BCD27E1DC0700DF592F /* FirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F62BCC27E1DC0700DF592F /* FirestoreService.swift */; };
@@ -87,6 +88,7 @@
 		33B6322227D7554C00EB169D /* DateFormatter+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Extension.swift"; sourceTree = "<group>"; };
 		33C7AF2027E98C1F00BEFA47 /* ScheduleHistoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleHistoryRepository.swift; sourceTree = "<group>"; };
 		33C7AF2227E98C2E00BEFA47 /* DefaultScheduleHistoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultScheduleHistoryRepository.swift; sourceTree = "<group>"; };
+		33C7AF2427E98EDB00BEFA47 /* ScheduleAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleAction.swift; sourceTree = "<group>"; };
 		33D15E1127DB47BD006407A9 /* ScheduleListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleListHeaderView.swift; sourceTree = "<group>"; };
 		33D15E1527DBA724006407A9 /* UIView+Shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Shadow.swift"; sourceTree = "<group>"; };
 		33F62BCC27E1DC0700DF592F /* FirestoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreService.swift; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 		336E237027D1DBF300C40ECC /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				33C7AF2627E98EE100BEFA47 /* Protocol */,
 				336E237127D1DC0000C40ECC /* Schedule.swift */,
 			);
 			path = Model;
@@ -174,13 +177,13 @@
 			path = Data;
 			sourceTree = "<group>";
 		};
-		336E237927D1E7C600C40ECC /* Interface */ = {
+		336E237927D1E7C600C40ECC /* RepositoryInterface */ = {
 			isa = PBXGroup;
 			children = (
 				336E237A27D1E7DD00C40ECC /* ScheduleRepository.swift */,
 				33C7AF2027E98C1F00BEFA47 /* ScheduleHistoryRepository.swift */,
 			);
-			path = Interface;
+			path = RepositoryInterface;
 			sourceTree = "<group>";
 		};
 		336E237C27D1E9E300C40ECC /* Repositories */ = {
@@ -229,6 +232,14 @@
 				37CC922B27DCB7A3003F1122 /* String+Extension.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		33C7AF2627E98EE100BEFA47 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				33C7AF2427E98EDB00BEFA47 /* ScheduleAction.swift */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 		33F62BCB27E1DBC000DF592F /* Firestore */ = {
@@ -343,7 +354,7 @@
 		37FB8D9427D1DDF400ED9AE2 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
-				336E237927D1E7C600C40ECC /* Interface */,
+				336E237927D1E7C600C40ECC /* RepositoryInterface */,
 				37FB8D9527D1DE1D00ED9AE2 /* UseCases */,
 				336E237027D1DBF300C40ECC /* Model */,
 			);
@@ -573,6 +584,7 @@
 				37CC922A27DBAB29003F1122 /* Array+Extension.swift in Sources */,
 				376D6FB527D734950097D31A /* MainViewModel.swift in Sources */,
 				33B6322127D7528700EB169D /* TableView+Extension.swift in Sources */,
+				33C7AF2527E98EDB00BEFA47 /* ScheduleAction.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				33F62BD927E231FD00DF592F /* RealmService.swift in Sources */,
 				336E237627D1E6B200C40ECC /* DefaultScheduleRepository.swift in Sources */,

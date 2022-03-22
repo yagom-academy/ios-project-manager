@@ -8,5 +8,7 @@
 import Foundation
 
 protocol ScheduleHistoryRepository {
-    
+    func excuteAndRecode(action: ScheduleAction)
+    func undo()
+    func redo()
 }
