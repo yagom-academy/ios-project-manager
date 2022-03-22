@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 
-final class ScheduleHistoryUseCase {
+final class ScheduleHistoryUseCase: ScheduleHistoryManageUseCase, ScheduleActionRecodeUseCase {
 
     // MARK: - Properties
 
@@ -17,15 +17,26 @@ final class ScheduleHistoryUseCase {
 
     // MARK: - Initializer
 
-    init(historyRepository: ScheduleHistoryRepository ) {
+    init(historyRepository: ScheduleHistoryRepository) {
         self.scheduleHistoryProvider = historyRepository
-//        self.binding()
     }
 
     // MARK: - Methods
 
-    func recodeHistory(action: ScheduleAction) {
-        self.scheduleHistoryProvider.excuteAndRecode(action: action)
+    func fetch() -> Observable<[ScheduleAction]> {
+        return self.scheduleHistoryProvider.fetch()
+    }
+
+    func checkCanUndo() -> Observable<Bool> {
+        return self.scheduleHistoryProvider.checkCanUndo()
+    }
+
+    func checkCanRedo() -> Observable<Bool> {
+        return self.scheduleHistoryProvider.checkCanRedo()
+    }
+
+    func recode(action: ScheduleAction) {
+        self.scheduleHistoryProvider.recode(action: action)
     }
 
     func undo() {
@@ -36,4 +47,3 @@ final class ScheduleHistoryUseCase {
         self.scheduleHistoryProvider.redo()
     }
 }
-
