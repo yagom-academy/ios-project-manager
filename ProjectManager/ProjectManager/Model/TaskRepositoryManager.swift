@@ -37,6 +37,7 @@ struct TaskRepositoryManager: TaskManager {
     }
     
     func sync() throws {
+        print("Hello World")
         try remoteRepository.removeAllRecords()
         for record in localRepository.fetchAllRecords {
             try remoteRepository.create(record)

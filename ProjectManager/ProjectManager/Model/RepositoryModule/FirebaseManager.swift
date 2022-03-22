@@ -10,7 +10,7 @@ import Firebase
 
 final class FirebaseManager: RemoteRepositoryManager {
    
-    private let database = Firestore.firestore()
+    private lazy var database = Firestore.firestore()
     private var datas: [FirebaseTask] = []
     private let collectionLink = "tasks"
     
@@ -54,6 +54,8 @@ final class FirebaseManager: RemoteRepositoryManager {
     }
     
     func removeAll() {
+        print(#function)
+        
         let reference = database.collection(collectionLink)
         reference.getDocuments { snapshot, error in
             if error == nil {
