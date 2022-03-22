@@ -24,6 +24,11 @@ struct ProjectManagerMainView: View {
             .navigationTitle("Project Manager")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: { }) {
+                        Text("History")
+                    }
+                }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: { isShowSheet.toggle() }) {
                         Image(systemName: "plus")
