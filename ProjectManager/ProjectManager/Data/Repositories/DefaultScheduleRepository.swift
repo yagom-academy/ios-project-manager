@@ -23,7 +23,7 @@ final class DefaultScheduleRepository: ScheduleRepository {
     }
 
     private func binding() {
-        NetworkCheck.shared.isConnected
+        NetworkChecker.shared.isConnected
             .subscribe(onNext: { isConnected in
                 self.isConnected = isConnected
             })

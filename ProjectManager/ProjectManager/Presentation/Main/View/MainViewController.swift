@@ -140,7 +140,7 @@ private extension MainViewController {
         ], animated: true)
 
         guard let customView = self.toolbarItems?.first?.customView else { return }
-        NetworkCheck.shared.isConnected
+        NetworkChecker.shared.isConnected
             .bind(to: customView.rx.isHidden)
             .disposed(by: self.bag)
     }

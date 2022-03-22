@@ -9,8 +9,8 @@ import Foundation
 import RxSwift
 import Network
 
-final class NetworkCheck {
-    static let shared = NetworkCheck()
+final class NetworkChecker {
+    static let shared = NetworkChecker()
     private let queue = DispatchQueue.global()
     private let monitor: NWPathMonitor
 

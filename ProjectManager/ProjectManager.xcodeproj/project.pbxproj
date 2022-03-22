@@ -41,7 +41,7 @@
 		33F62BCD27E1DC0700DF592F /* FirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F62BCC27E1DC0700DF592F /* FirestoreService.swift */; };
 		33F62BD227E1DD5F00DF592F /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F62BD127E1DD5F00DF592F /* NetworkService.swift */; };
 		33F62BD427E1E12500DF592F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 33F62BD327E1E12500DF592F /* GoogleService-Info.plist */; };
-		33F62BD627E1FCBE00DF592F /* NetworkCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F62BD527E1FCBE00DF592F /* NetworkCheck.swift */; };
+		33F62BD627E1FCBE00DF592F /* NetworkChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F62BD527E1FCBE00DF592F /* NetworkChecker.swift */; };
 		33F62BD927E231FD00DF592F /* RealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F62BD827E231FD00DF592F /* RealmService.swift */; };
 		33F62BDA27E2345100DF592F /* RealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F62BD827E231FD00DF592F /* RealmService.swift */; };
 		33F62BDC27E2346E00DF592F /* StorableSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F62BDB27E2346E00DF592F /* StorableSchedule.swift */; };
@@ -105,7 +105,7 @@
 		33F62BCC27E1DC0700DF592F /* FirestoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreService.swift; sourceTree = "<group>"; };
 		33F62BD127E1DD5F00DF592F /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		33F62BD327E1E12500DF592F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		33F62BD527E1FCBE00DF592F /* NetworkCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkCheck.swift; sourceTree = "<group>"; };
+		33F62BD527E1FCBE00DF592F /* NetworkChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkChecker.swift; sourceTree = "<group>"; };
 		33F62BD827E231FD00DF592F /* RealmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmService.swift; sourceTree = "<group>"; };
 		33F62BDB27E2346E00DF592F /* StorableSchedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorableSchedule.swift; sourceTree = "<group>"; };
 		376D6FB427D734950097D31A /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
@@ -361,7 +361,7 @@
 		37CC927227E44B21003F1122 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
-				33F62BD527E1FCBE00DF592F /* NetworkCheck.swift */,
+				33F62BD527E1FCBE00DF592F /* NetworkChecker.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -587,7 +587,7 @@
 				336E237827D1E7B300C40ECC /* LocalDatabaseService.swift in Sources */,
 				37FB8D9927D1EDD400ED9AE2 /* MemoryDataSource.swift in Sources */,
 				37FB8D9727D1DE6100ED9AE2 /* ScheduleUseCase.swift in Sources */,
-				33F62BD627E1FCBE00DF592F /* NetworkCheck.swift in Sources */,
+				33F62BD627E1FCBE00DF592F /* NetworkChecker.swift in Sources */,
 				33C7AF3127E9F12100BEFA47 /* ScheduleHistoryManageUseCase.swift in Sources */,
 				33C7AF2827E9943400BEFA47 /* ScheduleHistoryUseCase.swift in Sources */,
 				37CC922827DBA84E003F1122 /* Date+Extension.swift in Sources */,

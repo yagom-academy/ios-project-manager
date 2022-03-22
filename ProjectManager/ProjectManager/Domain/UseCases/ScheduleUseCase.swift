@@ -28,7 +28,7 @@ final class ScheduleUseCase: MainUseCase, ScheduleItemUseCase {
     // MARK: - Methods
 
     private func binding() {
-        NetworkCheck.shared.isConnected
+        NetworkChecker.shared.isConnected
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { isConnected in
                 if isConnected {
