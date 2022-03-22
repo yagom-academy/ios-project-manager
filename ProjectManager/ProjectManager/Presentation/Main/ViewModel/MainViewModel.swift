@@ -51,9 +51,12 @@ final class MainViewModel {
 
     struct Output {
         let scheduleLists: [Observable<[Schedule]>]
+        let scheduleHistory: Observable<[ScheduleAction]>
         let popoverShouldPresent: Observable<(IndexPath, Int)>
         let popoverTopButtonTitle: Observable<String>
         let popoverBottomButtonTitle: Observable<String>
+        let canUndo: Observable<Bool>
+        let canRedo: Observable<Bool>
     }
 
     // MARK: - Methods
@@ -78,10 +81,11 @@ final class MainViewModel {
                 let targetProgress = Progress.allCases.filter { $0 != schedule.progress }.first
                 self?.scheduleUseCase.changeProgress(of: schedule, progress: targetProgress)
                 let action = ScheduleAction(
+                    type: .changeProgress(schedule, targetProgress),
                     execute: { self?.scheduleUseCase.changeProgress(of: schedule, progress: targetProgress) },
                     reverse: { self?.scheduleUseCase.changeProgress(of: schedule, progress: schedule.progress)}
                 )
-                self?.scheduleHistoryUseCase.recodeHistory(action: action)
+                self?.scheduleHistoryUseCase.recode(action: action)
             })
             .disposed(by: disposeBag)
 
@@ -93,10 +97,11 @@ final class MainViewModel {
                 let targetProgress = Progress.allCases.filter { $0 != schedule.progress }.last
                 self.scheduleUseCase.changeProgress(of: schedule, progress: targetProgress)
                 let action = ScheduleAction(
+                    type: .changeProgress(schedule, targetProgress),
                     execute: { self.scheduleUseCase.changeProgress(of: schedule, progress: targetProgress) },
                     reverse: { self.scheduleUseCase.changeProgress(of: schedule, progress: schedule.progress)}
                 )
-                self.scheduleHistoryUseCase.recodeHistory(action: action)
+                self.scheduleHistoryUseCase.recode(action: action)
             })
             .disposed(by: disposeBag)
 
@@ -144,10 +149,11 @@ private extension MainViewModel {
             .subscribe(onNext: { [weak self] schedule in
                 self?.scheduleUseCase.delete(schedule.id)
                 let action = ScheduleAction(
+                    type: .delete(schedule),
                     execute: { self?.scheduleUseCase.delete(schedule.id) },
                     reverse: { self?.scheduleUseCase.create(schedule) }
                 )
-                self?.scheduleHistoryUseCase.recodeHistory(action: action)
+                self?.scheduleHistoryUseCase.recode(action: action)
             })
     }
 
@@ -176,11 +182,19 @@ private extension MainViewModel {
                 return Name.progressText + (targetProgress.last?.description ?? .empty)
             }
 
+        let scheduleHistory = self.scheduleHistoryUseCase.fetch().asObservable()
+
+        let scheduleHistoryShouldPresent = input.historyButtonDidTap
+            .withLatestFrom(scheduleHistory)
+
         return Output(
             scheduleLists: scheduleLists,
+            scheduleHistory: scheduleHistoryShouldPresent,
             popoverShouldPresent: popoverViewEvent,
             popoverTopButtonTitle: popoverTopButtonTitle,
-            popoverBottomButtonTitle: popoverBottomButtonTitle
+            popoverBottomButtonTitle: popoverBottomButtonTitle,
+            canUndo: self.scheduleHistoryUseCase.checkCanUndo(),
+            canRedo: self.scheduleHistoryUseCase.checkCanRedo()
         )
     }
 }
