@@ -77,6 +77,11 @@ final class MainViewModel {
             .subscribe(onNext: { [weak self] schedule, _, _ in
                 let targetProgress = Progress.allCases.filter { $0 != schedule.progress }.first
                 self?.scheduleUseCase.changeProgress(of: schedule, progress: targetProgress)
+                let action = ScheduleAction(
+                    execute: { self?.scheduleUseCase.changeProgress(of: schedule, progress: targetProgress) },
+                    reverse: { self?.scheduleUseCase.changeProgress(of: schedule, progress: schedule.progress)}
+                )
+                self?.scheduleHistoryUseCase.recodeHistory(action: action)
             })
             .disposed(by: disposeBag)
 
@@ -87,6 +92,11 @@ final class MainViewModel {
             .subscribe(onNext: { schedule, _, _ in
                 let targetProgress = Progress.allCases.filter { $0 != schedule.progress }.last
                 self.scheduleUseCase.changeProgress(of: schedule, progress: targetProgress)
+                let action = ScheduleAction(
+                    execute: { self.scheduleUseCase.changeProgress(of: schedule, progress: targetProgress) },
+                    reverse: { self.scheduleUseCase.changeProgress(of: schedule, progress: schedule.progress)}
+                )
+                self.scheduleHistoryUseCase.recodeHistory(action: action)
             })
             .disposed(by: disposeBag)
 

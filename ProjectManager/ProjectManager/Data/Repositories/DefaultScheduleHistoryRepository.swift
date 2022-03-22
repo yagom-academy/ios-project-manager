@@ -50,7 +50,7 @@ class DefaultScheduleHistoryRepository: ScheduleHistoryRepository {
         history = [action] + history
         registerUndoFor(action: action)
 
-        action.execute()
+//        action.execute()
     }
 
 }
