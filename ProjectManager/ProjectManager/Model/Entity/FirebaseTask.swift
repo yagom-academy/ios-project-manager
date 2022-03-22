@@ -9,10 +9,10 @@ import Foundation
 
 struct FirebaseTask: Codable {
     
-    let id: UUID
+    let id: String
     let title: String
     let description: String
-    let dueDate: Date
+    let dueDate: Double
     let status: Int
     
 }

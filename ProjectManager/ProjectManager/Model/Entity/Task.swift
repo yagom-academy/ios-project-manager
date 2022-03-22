@@ -29,4 +29,12 @@ extension Task {
         self.status = TaskStatus(rawValue: object.status) ?? .todo
     }
     
+    init(_ object: FirebaseTask) {
+        self.id = UUID(uuidString: object.id) ?? UUID()
+        self.title = object.title
+        self.description = object.description
+        self.dueDate = Date(timeIntervalSince1970: object.dueDate)
+        self.status = TaskStatus(rawValue: object.status) ?? .todo
+    }
+    
 }

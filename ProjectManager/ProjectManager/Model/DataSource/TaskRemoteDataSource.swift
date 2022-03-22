@@ -12,9 +12,11 @@ final class TaskRemoteDataSource: TaskRepositoryDataSource {
     private let databaseModel = FirebaseManager()
     
     var fetchAllRecords: [Task] {
-        T
-        let result = try await databaseModel.fetch()
-        let
+        databaseModel
+            .fetchAllRecords
+            .map { remoteTask in
+                Task(remoteTask)
+            }
     }
     
     func fetch(_ condition: ((Task) -> Bool)) throws -> [Task] {
