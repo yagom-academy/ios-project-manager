@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - DataSourceType
-enum DataSourceType {
+enum DataSourceType: Int {
     
     case inMemory
     case coreData
@@ -37,11 +37,12 @@ final class ProjectManager {
     // MARK: - Property
     weak var delegate: ProjectManagerDelegate?
     private var projectSource: DataSource? = ProjectCoreDataManager()
-    var projectSourceType: DataSourceType? {
+    private (set) var projectSourceType: DataSourceType? {
         get {
             return self.projectSource?.type
         }
-        set {
+        set
+        {
             switch newValue {
             case .coreData:
                 self.projectSource = ProjectCoreDataManager()

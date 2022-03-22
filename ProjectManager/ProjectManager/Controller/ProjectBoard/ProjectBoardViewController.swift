@@ -35,20 +35,27 @@ final class ProjectBoardViewController: UIViewController {
         return stackView
     }()
     
-    private var dataSourceSettingButton: UIButton = {
+    private lazy var dataSourceSettingButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         let cloudImage = UIImage(systemName: "cloud.fill",
                                  withConfiguration: UIImage.SymbolConfiguration(textStyle: .title1))
         button.setImage(cloudImage, for: .normal)
+        button.addAction(dataSourceSettingButtonAction, for: .touchUpInside)
         return button
+    }()
+    
+    private lazy var dataSourceSettingButtonAction: UIAction = {
+        let action = UIAction { [weak self] _ in
+            self?.presentDataSourceConfigView()
+        }
+        return action
     }()
     
     // MARK: - View Life Cycle
     override func loadView() {
         self.configureView()
     }
-
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -126,6 +133,17 @@ final class ProjectBoardViewController: UIViewController {
         self.dataSourceSettingButton.setImage(newImage, for: .normal)
     }
     
+    private func presentDataSourceConfigView() {
+        let dataSourceConfigAlertVC = DataSourceConfigViewController(model: self.projectManager)
+        dataSourceConfigAlertVC.modalPresentationStyle = .popover
+        
+        if let popoverPresentationController = dataSourceConfigAlertVC.popoverPresentationController {
+            popoverPresentationController.sourceView = self.dataSourceSettingButton
+            popoverPresentationController.sourceRect = self.dataSourceSettingButton.frame(forAlignmentRect: .zero)
+        }
+        self.present(dataSourceConfigAlertVC, animated: false, completion: nil)
+    }
+    
     // MARK: - @objc Method
     @objc func presentProjectCreatorViewController() {
         let creatorViewController = ProjectViewController(mode: .creation,
@@ -193,6 +211,9 @@ extension ProjectBoardViewController: ProjectManagerDelegate {
         case .firestore:
             self.updateDataSourceSettingButton(with: .blue)
         }
+        self.todoViewController.updateView()
+        self.doingViewController.updateView()
+        self.doneViewController.updateView()
     }
     
     func projectManager(didChangedNetworkStatus with: NetworkStatus) {

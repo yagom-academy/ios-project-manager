@@ -27,6 +27,8 @@
 		63D21E9927D7618300E35D3B /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D21E9827D7618300E35D3B /* Date+Extension.swift */; };
 		63E164B227E99688004E3D2E /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E164B127E99688004E3D2E /* DataSource.swift */; };
 		63E164B427E9AD69004E3D2E /* Encodable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E164B327E9AD69004E3D2E /* Encodable+Extension.swift */; };
+		63E164B627E9D45B004E3D2E /* DataSourceConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E164B527E9D45B004E3D2E /* DataSourceConfigViewController.swift */; };
+		63E164B827EA2662004E3D2E /* DataSourceConfigScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E164B727EA2662004E3D2E /* DataSourceConfigScene.swift */; };
 		63E508A527CFAF9400A5A79A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 63E508A427CFAF9400A5A79A /* GoogleService-Info.plist */; };
 		63E508A827CFAFDC00A5A79A /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 63E508A727CFAFDC00A5A79A /* FirebaseAnalytics */; };
 		63E508AA27CFAFDC00A5A79A /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 63E508A927CFAFDC00A5A79A /* FirebaseAuth */; };
@@ -58,6 +60,8 @@
 		63D21E9827D7618300E35D3B /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		63E164B127E99688004E3D2E /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
 		63E164B327E9AD69004E3D2E /* Encodable+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+Extension.swift"; sourceTree = "<group>"; };
+		63E164B527E9D45B004E3D2E /* DataSourceConfigViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSourceConfigViewController.swift; sourceTree = "<group>"; };
+		63E164B727EA2662004E3D2E /* DataSourceConfigScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSourceConfigScene.swift; sourceTree = "<group>"; };
 		63E508A427CFAF9400A5A79A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -88,6 +92,7 @@
 				63B96DAE27E067F600144F7C /* ProjectViewController.swift */,
 				63B96DAC27E028CF00144F7C /* ProjectListViewController.swift */,
 				63974A4427D8D5F600523B16 /* ProjectListViewControllerDelegate.swift */,
+				63E164B527E9D45B004E3D2E /* DataSourceConfigViewController.swift */,
 			);
 			path = ProjectBoard;
 			sourceTree = "<group>";
@@ -134,6 +139,7 @@
 			children = (
 				63B96DA827E024AF00144F7C /* ProjectBoardScene.swift */,
 				63B96DAA27E0262800144F7C /* ProjectDetailScene.swift */,
+				63E164B727EA2662004E3D2E /* DataSourceConfigScene.swift */,
 			);
 			path = NameSpace;
 			sourceTree = "<group>";
@@ -320,12 +326,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7431F0A25F51E1D0094C4CF /* ProjectBoardViewController.swift in Sources */,
+				63E164B827EA2662004E3D2E /* DataSourceConfigScene.swift in Sources */,
 				63E164B427E9AD69004E3D2E /* Encodable+Extension.swift in Sources */,
 				63D21E6727D4F9B900E35D3B /* ProjectManager.swift in Sources */,
 				63D21E9327D6604500E35D3B /* UITableVeiwCell+Extension.swift in Sources */,
 				63D21E6027D4AC2E00E35D3B /* Status.swift in Sources */,
 				635862D127E392DB005E2A2B /* CDProject+CoreDataClass.swift in Sources */,
 				63D21E6427D4B61F00E35D3B /* ProjectInMemoryManager.swift in Sources */,
+				63E164B627E9D45B004E3D2E /* DataSourceConfigViewController.swift in Sources */,
 				635862B827E32546005E2A2B /* Project.xcdatamodeld in Sources */,
 				63B96DA927E024AF00144F7C /* ProjectBoardScene.swift in Sources */,
 				63D21E9527D73CD200E35D3B /* ProjectTableViewHeaderView.swift in Sources */,
