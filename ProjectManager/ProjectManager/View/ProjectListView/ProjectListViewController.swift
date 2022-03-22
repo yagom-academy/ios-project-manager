@@ -11,8 +11,8 @@ final class ProjectListViewController: UIViewController {
     private var viewModel: ProjectListViewModel?
     private lazy var tableViews = [todoTableView, doingTableView, doneTableView]
     
-    private let selectCellObservable: PublishSubject<(ProjectState, IndexPath)> = PublishSubject<(ProjectState, IndexPath)>()
-    private let changeStateObservable: PublishSubject<Project> = PublishSubject<Project>()
+    private let selectCellObservable = PublishSubject<(ProjectState, IndexPath)>()
+    private let changeStateObservable = PublishSubject<(ProjectState, ProjectState, IndexPath)>()
     private let deleteObservable: PublishSubject<Project> = PublishSubject<Project>()
     private let disposeBag = DisposeBag()
     
@@ -176,10 +176,10 @@ final class ProjectListViewController: UIViewController {
         
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let moveToFirstStateAction = UIAlertAction(title: firstNewState.alertActionTitle, style: .default) { _ in
-            self.viewModel?.changeState(from: oldState, to: firstNewState, indexPath: indexPath)
+            self.changeStateObservable.onNext((oldState, firstNewState, indexPath))
         }
         let moveToSecondStateAction = UIAlertAction(title: secondNewState.alertActionTitle, style: .default) { _ in
-            self.viewModel?.changeState(from: oldState, to: secondNewState, indexPath: indexPath)
+            self.changeStateObservable.onNext((oldState, secondNewState, indexPath))
         }
         
         alert.addAction(moveToFirstStateAction)

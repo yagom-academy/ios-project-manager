@@ -4,10 +4,10 @@ import RxSwift
 final class ProjectListViewModel: NSObject, ViewModelDescribing {
     final class Input {
         let selectCellObservable: Observable<(ProjectState, IndexPath)>
-        let changeStateObservable: Observable<Project>
+        let changeStateObservable: Observable<(ProjectState, ProjectState, IndexPath)>
         let deleteObservable: Observable<Project>
         
-        init(selectCellObservable: Observable<(ProjectState, IndexPath)>, changeStateObservable: Observable<Project>, deleteObservable: Observable<Project>) {
+        init(selectCellObservable: Observable<(ProjectState, IndexPath)>, changeStateObservable: Observable<(ProjectState, ProjectState, IndexPath)>, deleteObservable: Observable<Project>) {
             self.selectCellObservable = selectCellObservable
             self.changeStateObservable = changeStateObservable
             self.deleteObservable = deleteObservable
@@ -39,11 +39,12 @@ final class ProjectListViewModel: NSObject, ViewModelDescribing {
                 self?.showsEditViewControllerObservable.onNext(viewModel)
             }).disposed(by: disposeBag)
         
-//        input
-//            .changeStateObservable
-//            .subscribe(onNext: {
-//
-//            })
+        input
+            .changeStateObservable
+            .subscribe(onNext: { [weak self] (oldState, newState, indexPath) in
+                self?.changeState(from: oldState, to: newState, indexPath: indexPath)
+                self?.reloadObservable.onNext(())
+            }).disposed(by: disposeBag)
 //
 //        input
 //            .deleteObservable
@@ -66,7 +67,7 @@ final class ProjectListViewModel: NSObject, ViewModelDescribing {
         self.useCase = useCase
     }
     
-    private var projects: [Project] = [] 
+    private var projects: [Project] = []
     
     private var todoProjects: [Project] {
         projects.filter { $0.state == .todo }
