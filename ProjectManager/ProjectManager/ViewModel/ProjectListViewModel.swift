@@ -51,7 +51,7 @@ final class ProjectListViewModel: NSObject, ViewModelDescribing {
             .subscribe(onNext: { [weak self] (state, indexPath) in
                 self?.delete(indexPath: indexPath, state: state)
                 self?.reloadObservable.onNext(())
-            })
+            }).disposed(by: disposeBag)
         
         let output = Output(
             reloadObservable: self.reloadObservable.asObservable(),
@@ -119,6 +119,7 @@ final class ProjectListViewModel: NSObject, ViewModelDescribing {
     func update(_ project: Project, state: ProjectState?) {
         useCase.update(project, to: state)
         fetchAll()
+        reloadObservable.onNext(())
     }
     
     func delete(indexPath: IndexPath, state: ProjectState) {
