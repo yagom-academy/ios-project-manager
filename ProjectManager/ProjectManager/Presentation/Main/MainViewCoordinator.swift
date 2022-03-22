@@ -22,7 +22,7 @@ class MainViewCoordinator {
         self.mainViewController.viewModel = MainViewModel(
             coordinator: self,
             useCase: ScheduleUseCase(
-                repository: DataRepository(
+                repository: ScheduleRepository(
                     dataSource: dataSource,
                     remoteDataSource: FirestoreService()
                 )
