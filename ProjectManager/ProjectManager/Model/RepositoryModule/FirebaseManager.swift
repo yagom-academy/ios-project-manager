@@ -48,6 +48,11 @@ final class FirebaseManager: RemoteRepositoryManager {
         }
     }
     
+    func remove(_ object: FirebaseTask) {
+        let reference = database.collection(collectionLink).document(object.id)
+        reference.delete()
+    }
+    
     func removeAll() {
         let reference = database.collection(collectionLink)
         reference.getDocuments { snapshot, error in

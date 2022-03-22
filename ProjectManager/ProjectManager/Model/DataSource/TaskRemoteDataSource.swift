@@ -20,24 +20,24 @@ final class TaskRemoteDataSource: TaskRepositoryDataSource {
     }
     
     func fetch(_ condition: ((Task) -> Bool)) throws -> [Task] {
-        print(#function)
-        return []
+        fetchAllRecords.filter(condition)
     }
     
     func create(_ object: Task) throws {
-        print(#function)
+        databaseModel.create(FirebaseTask(object))
     }
     
     func delete(_ object: Task) throws {
-        print(#function)
+        databaseModel.remove(FirebaseTask(object))
     }
     
     func update(_ object: Task) throws {
-        print(#function)
+        databaseModel.remove(FirebaseTask(object))
+        databaseModel.create(FirebaseTask(object))
     }
     
     func removeAllRecords() throws {
-        print(#function)
+        databaseModel.removeAll()
     }
     
 }

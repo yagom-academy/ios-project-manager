@@ -16,3 +16,16 @@ struct FirebaseTask: Codable {
     let status: Int
     
 }
+
+
+extension FirebaseTask {
+    
+    init(_ object: Task) {
+        self.id = object.id.uuidString
+        self.title = object.title
+        self.description = object.description
+        self.dueDate = object.dueDate.timeIntervalSince1970
+        self.status = object.status.rawValue
+    }
+    
+}
