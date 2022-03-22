@@ -17,15 +17,21 @@ final class MainViewModel {
 
     // MARK: - Properties
 
-    let useCase: MainUseCase
+    let scheduleUseCase: MainUseCase
+    let scheduleHistoryUseCase: ScheduleHistoryUseCase
     private let coordinator: MainViewCoordinator
     private let bag = DisposeBag()
 
     // MARK: - Initializer
 
-    init(coordinator: MainViewCoordinator, useCase: MainUseCase) {
+    init(
+        coordinator: MainViewCoordinator,
+        sceduleUseCase: MainUseCase,
+        scheduleHistoryUseCase: ScheduleHistoryUseCase
+    ) {
         self.coordinator = coordinator
-        self.useCase = useCase
+        self.scheduleUseCase = sceduleUseCase
+        self.scheduleHistoryUseCase = scheduleHistoryUseCase
     }
 
     // MARK: - Input/Output
@@ -34,10 +40,13 @@ final class MainViewModel {
         let viewWillAppear: Observable<Void>
         let tableViewLongPressed: Observable<(Schedule, IndexPath, Int)?>
         let cellDidTap: [Observable<Schedule>]
-        let cellDelete: [Observable<UUID>]
+        let cellDelete: [Observable<Schedule>]
         let addButtonDidTap: Observable<Void>
         let popoverTopButtonDidTap: Observable<Void>
         let popoverBottomButtonDidTap: Observable<Void>
+        let historyButtonDidTap: Observable<Void>
+        let undoButtonDidTap: Observable<Void>
+        let redoButtonDidTap: Observable<Void>
     }
 
     struct Output {
@@ -67,7 +76,7 @@ final class MainViewModel {
             .compactMap { $0 }
             .subscribe(onNext: { [weak self] schedule, _, _ in
                 let targetProgress = Progress.allCases.filter { $0 != schedule.progress }.first
-                self?.useCase.changeProgress(of: schedule, progress: targetProgress)
+                self?.scheduleUseCase.changeProgress(of: schedule, progress: targetProgress)
             })
             .disposed(by: disposeBag)
 
@@ -77,7 +86,21 @@ final class MainViewModel {
             .compactMap { $0 }
             .subscribe(onNext: { schedule, _, _ in
                 let targetProgress = Progress.allCases.filter { $0 != schedule.progress }.last
-                self.useCase.changeProgress(of: schedule, progress: targetProgress)
+                self.scheduleUseCase.changeProgress(of: schedule, progress: targetProgress)
+            })
+            .disposed(by: disposeBag)
+
+        input.undoButtonDidTap
+            .withUnretained(self)
+            .subscribe(onNext: { unretained, _ in
+                unretained.scheduleHistoryUseCase.undo()
+            })
+            .disposed(by: disposeBag)
+
+        input.redoButtonDidTap
+            .withUnretained(self)
+            .subscribe(onNext: { unretained, _ in
+                unretained.scheduleHistoryUseCase.redo()
             })
             .disposed(by: disposeBag)
 
@@ -89,7 +112,7 @@ private extension MainViewModel {
 
     func onViewWillAppear(_ input: Observable<Void>) -> Disposable {
         return input
-            .subscribe(onNext: { [weak self] in self?.useCase.fetch() })
+            .subscribe(onNext: { [weak self] in self?.scheduleUseCase.fetch() })
     }
 
     func onAddButtonDidTap(_ input: Observable<Void>) -> Disposable {
@@ -103,18 +126,25 @@ private extension MainViewModel {
         return input
             .do(afterNext: { [weak self] _ in
                 self?.coordinator.presentScheduleItemViewController(mode: .detail) })
-            .bind(to: self.useCase.currentSchedule)
+            .bind(to: self.scheduleUseCase.currentSchedule)
     }
 
-    func onCellDelete(_ input: Observable<UUID>) -> Disposable {
+    func onCellDelete(_ input: Observable<Schedule>) -> Disposable {
         return input
-            .subscribe(onNext: { [weak self] in self?.useCase.delete($0) })
+            .subscribe(onNext: { [weak self] schedule in
+                self?.scheduleUseCase.delete(schedule.id)
+                let action = ScheduleAction(
+                    execute: { self?.scheduleUseCase.delete(schedule.id) },
+                    reverse: { self?.scheduleUseCase.create(schedule) }
+                )
+                self?.scheduleHistoryUseCase.recodeHistory(action: action)
+            })
     }
 
     func bindOutput(input: Input) -> Output {
         let scheduleLists = Progress.allCases
             .compactMap { [weak self] progress in
-                self?.useCase.schedules
+                self?.scheduleUseCase.schedules
                 .map { $0.filter { $0.progress == progress } }
             }
 

@@ -21,11 +21,13 @@ class MainViewCoordinator {
         let dataSource = RealmService()
         self.mainViewController.viewModel = MainViewModel(
             coordinator: self,
-            useCase: ScheduleUseCase(
+            sceduleUseCase: ScheduleUseCase(
                 scheduleRepository: DefaultScheduleRepository(
                     dataSource: dataSource,
                     remoteDataSource: FirestoreService()
-                ),
+                )
+            ),
+            scheduleHistoryUseCase: ScheduleHistoryUseCase(
                 historyRepository: DefaultScheduleHistoryRepository()
             )
         )
@@ -34,7 +36,7 @@ class MainViewCoordinator {
     }
 
     func presentScheduleItemViewController(mode: ScheduleItemViewModel.Mode) {
-        guard let useCase = self.mainViewController.viewModel?.useCase as? ScheduleItemUseCase else {
+        guard let useCase = self.mainViewController.viewModel?.scheduleUseCase as? ScheduleItemUseCase else {
             return
         }
 

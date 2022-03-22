@@ -17,13 +17,11 @@ final class ScheduleUseCase: MainUseCase, ScheduleItemUseCase {
     let currentSchedule = BehaviorRelay<Schedule?>(value: nil)
     private let bag = DisposeBag()
     private let scheduleProvider: ScheduleRepository
-    private let scheduleHistoryProvider: ScheduleHistoryRepository
 
     // MARK: - Initializer
 
-    init(scheduleRepository: ScheduleRepository, historyRepository: ScheduleHistoryRepository ) {
+    init(scheduleRepository: ScheduleRepository) {
         self.scheduleProvider = scheduleRepository
-        self.scheduleHistoryProvider = historyRepository
         self.binding()
     }
 

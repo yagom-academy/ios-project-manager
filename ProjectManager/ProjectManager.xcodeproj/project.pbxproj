@@ -30,6 +30,7 @@
 		33C7AF2127E98C1F00BEFA47 /* ScheduleHistoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C7AF2027E98C1F00BEFA47 /* ScheduleHistoryRepository.swift */; };
 		33C7AF2327E98C2E00BEFA47 /* DefaultScheduleHistoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C7AF2227E98C2E00BEFA47 /* DefaultScheduleHistoryRepository.swift */; };
 		33C7AF2527E98EDB00BEFA47 /* ScheduleAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C7AF2427E98EDB00BEFA47 /* ScheduleAction.swift */; };
+		33C7AF2827E9943400BEFA47 /* ScheduleHistoryUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C7AF2727E9943400BEFA47 /* ScheduleHistoryUseCase.swift */; };
 		33D15E1227DB47BD006407A9 /* ScheduleListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33D15E1127DB47BD006407A9 /* ScheduleListHeaderView.swift */; };
 		33D15E1627DBA724006407A9 /* UIView+Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33D15E1527DBA724006407A9 /* UIView+Shadow.swift */; };
 		33F62BCD27E1DC0700DF592F /* FirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F62BCC27E1DC0700DF592F /* FirestoreService.swift */; };
@@ -89,6 +90,7 @@
 		33C7AF2027E98C1F00BEFA47 /* ScheduleHistoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleHistoryRepository.swift; sourceTree = "<group>"; };
 		33C7AF2227E98C2E00BEFA47 /* DefaultScheduleHistoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultScheduleHistoryRepository.swift; sourceTree = "<group>"; };
 		33C7AF2427E98EDB00BEFA47 /* ScheduleAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleAction.swift; sourceTree = "<group>"; };
+		33C7AF2727E9943400BEFA47 /* ScheduleHistoryUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleHistoryUseCase.swift; sourceTree = "<group>"; };
 		33D15E1127DB47BD006407A9 /* ScheduleListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleListHeaderView.swift; sourceTree = "<group>"; };
 		33D15E1527DBA724006407A9 /* UIView+Shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Shadow.swift"; sourceTree = "<group>"; };
 		33F62BCC27E1DC0700DF592F /* FirestoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreService.swift; sourceTree = "<group>"; };
@@ -354,9 +356,9 @@
 		37FB8D9427D1DDF400ED9AE2 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
-				336E237927D1E7C600C40ECC /* RepositoryInterface */,
 				37FB8D9527D1DE1D00ED9AE2 /* UseCases */,
 				336E237027D1DBF300C40ECC /* Model */,
+				336E237927D1E7C600C40ECC /* RepositoryInterface */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -366,6 +368,7 @@
 			children = (
 				37CC926D27E1C046003F1122 /* Protocol */,
 				37FB8D9627D1DE6100ED9AE2 /* ScheduleUseCase.swift */,
+				33C7AF2727E9943400BEFA47 /* ScheduleHistoryUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -570,6 +573,7 @@
 				37FB8D9927D1EDD400ED9AE2 /* MemoryDataSource.swift in Sources */,
 				37FB8D9727D1DE6100ED9AE2 /* ScheduleUseCase.swift in Sources */,
 				33F62BD627E1FCBE00DF592F /* NetworkCheck.swift in Sources */,
+				33C7AF2827E9943400BEFA47 /* ScheduleHistoryUseCase.swift in Sources */,
 				37CC922827DBA84E003F1122 /* Date+Extension.swift in Sources */,
 				33C7AF2127E98C1F00BEFA47 /* ScheduleHistoryRepository.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
