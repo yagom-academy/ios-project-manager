@@ -100,9 +100,7 @@ final class TaskListViewModel: TaskListViewModelProtocol {
             doneTasks.onNext(taskRepository.doneTasks)
         }
         
-        guard task.processStatus != newTask.processStatus else {
-            return
-        }
+        guard task.processStatus != newTask.processStatus else { return }
         
         switch newTask.processStatus {
         case .todo:
@@ -127,6 +125,10 @@ final class TaskListViewModel: TaskListViewModelProtocol {
     
     func title(of changeOptions: [ProcessStatus]) -> [String] {
         return changeOptions.map { "Move To \($0.description)"  }
+    }
+    
+    func presentPopover(with alert: UIAlertController) {
+        actions?.presentPopover(alert)
     }
     
     func edit(task: Task, newProcessStatus: ProcessStatus) {
@@ -176,10 +178,5 @@ final class TaskListViewModel: TaskListViewModelProtocol {
         }
         
         delete(task: taskToDelete)
-    }
-    
-    // MARK: - Popover
-    func presentPopover(with alert: UIAlertController) {
-        actions?.presentPopover(alert)
     }
 }

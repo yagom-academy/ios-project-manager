@@ -148,10 +148,3 @@ extension TaskListViewController: UITableViewDelegate {
         return deleteAction
     }
 }
-
-// MARK: - Popover
-//extension TaskListViewController: PopoverPresenterDelegate {
-////    func presentPopover(with alert: UIAlertController) {
-////        present(alert, animated: true)
-////    }
-//}

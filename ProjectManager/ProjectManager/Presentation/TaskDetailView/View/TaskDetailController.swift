@@ -34,7 +34,6 @@ class TaskDetailController: UIViewController {
     
     private func setupNavigationBar() {
         title = taskToEdit?.processStatus.description ?? ProcessStatus.todo.description
-        
         setupLeftBarButton()
         setupRightBarButton()
     }
@@ -89,7 +88,6 @@ class TaskDetailController: UIViewController {
         let inputTitle = titleLabel.text ?? ""
         let inputDate = datePicker.date
         let inputBody = bodyTextView.text ?? ""
-        
         return Task(title: inputTitle, body: inputBody, dueDate: inputDate)
     }
 }

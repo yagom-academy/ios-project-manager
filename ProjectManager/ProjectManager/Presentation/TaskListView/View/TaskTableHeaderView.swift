@@ -13,7 +13,6 @@ class TaskTableHeaderView: UITableViewHeaderFooterView {
         label.adjustsFontSizeToFitWidth = true
         label.textAlignment = .center
         label.font = .preferredFont(forTextStyle: .title1)
-        
         return label
     }()
     
@@ -23,14 +22,12 @@ class TaskTableHeaderView: UITableViewHeaderFooterView {
         label.adjustsFontSizeToFitWidth = true
         label.textAlignment = .center
         label.font = .preferredFont(forTextStyle: .title1)
-        
         return label
     }()
     
     init(reuseIdentifier: String?, processStatus: ProcessStatus) { 
         self.processStatus = processStatus
         super.init(reuseIdentifier: reuseIdentifier)
-        
         setupUI()
         setupFrame()
         setupLabel()
