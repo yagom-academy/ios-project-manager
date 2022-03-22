@@ -10,7 +10,6 @@ private enum Design {
 final class TaskListViewController: UIViewController {
     // MARK: - Properties
     private var taskListViewModel: TaskListViewModelProtocol!
-    weak var flowCoordinator: FlowCoordinator?
     private var disposeBag = DisposeBag()
     
     private var todoTaskHeaderView: TaskTableHeaderView!
@@ -64,7 +63,7 @@ final class TaskListViewController: UIViewController {
             .asDriver(onErrorJustReturn: [])
             .drive(todoTableView.rx.items(cellIdentifier: TaskTableViewCell.reuseIdentifier,
                                           cellType: TaskTableViewCell.self)) { [weak self] _, task, cell in
-                cell.update(with: task, popoverPresenterDelegate: self!, viewModel: self!.taskListViewModel)
+                cell.update(with: task, viewModel: self!.taskListViewModel)
              }
              .disposed(by: disposeBag)
         
@@ -72,7 +71,7 @@ final class TaskListViewController: UIViewController {
             .asDriver(onErrorJustReturn: [])
             .drive(doingTableView.rx.items(cellIdentifier: TaskTableViewCell.reuseIdentifier,
                                            cellType: TaskTableViewCell.self)) { [weak self] _, task, cell in
-                cell.update(with: task, popoverPresenterDelegate: self!, viewModel: self!.taskListViewModel)
+                cell.update(with: task, viewModel: self!.taskListViewModel)
              }
              .disposed(by: disposeBag)
 
@@ -80,7 +79,7 @@ final class TaskListViewController: UIViewController {
             .asDriver(onErrorJustReturn: [])
             .drive(doneTableView.rx.items(cellIdentifier: TaskTableViewCell.reuseIdentifier,
                                           cellType: TaskTableViewCell.self)) { [weak self] _, task, cell in
-                cell.update(with: task, popoverPresenterDelegate: self!, viewModel: self!.taskListViewModel)
+                cell.update(with: task, viewModel: self!.taskListViewModel)
              }
              .disposed(by: disposeBag)
     }
@@ -151,8 +150,8 @@ extension TaskListViewController: UITableViewDelegate {
 }
 
 // MARK: - Popover
-extension TaskListViewController: PopoverPresenterDelegate {
-    func presentPopover(with alert: UIAlertController) {
-        present(alert, animated: true)
-    }
-}
+//extension TaskListViewController: PopoverPresenterDelegate {
+////    func presentPopover(with alert: UIAlertController) {
+////        present(alert, animated: true)
+////    }
+//}

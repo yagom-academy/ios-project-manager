@@ -1,12 +1,7 @@
 import UIKit
 
-protocol PopoverPresenterDelegate: AnyObject {
-    func presentPopover(with alert: UIAlertController)
-}
-
 final class TaskTableViewCell: UITableViewCell {
     private var task: Task?
-    private weak var popoverPresenterDelegate: PopoverPresenterDelegate!
     private var taskListViewModel: TaskListViewModelProtocol!
     
     @IBOutlet private weak var titleLabel: UILabel!
@@ -18,9 +13,8 @@ final class TaskTableViewCell: UITableViewCell {
         task = nil
     }
     
-    func update(with task: Task, popoverPresenterDelegate: TaskListViewController, viewModel: TaskListViewModelProtocol) {
+    func update(with task: Task, viewModel: TaskListViewModelProtocol) {
         self.task = task
-        self.popoverPresenterDelegate = popoverPresenterDelegate
         self.taskListViewModel = viewModel
         
         setupLabels()
@@ -46,7 +40,7 @@ final class TaskTableViewCell: UITableViewCell {
     
     // LongPress 제스처 처리 
     // 방법-1 TaskListViewController에서 처리 - 3개 tableView에 개별 적용해야 하므로 중복코드 발생
-    // 방법-2 Cell에서 처리 - Cell은 ViewController 및 ViewModel 둘다 몰라서 ViewControlle에게 받아와야 함
+    // 방법-2 Cell에서 처리 - Cell이 ViewModel을 받아와야 함
     private func setupLongPressGesture() {
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(didLongPressed))
         longPressRecognizer.numberOfTouchesRequired = 1
@@ -79,6 +73,6 @@ final class TaskTableViewCell: UITableViewCell {
         let alert = AlertFactory.createAlert(style: .actionSheet, actions: option1Action, option2Action)
         alert.popoverPresentationController?.sourceView = self
         
-        popoverPresenterDelegate.presentPopover(with: alert)
+        taskListViewModel.presentPopover(with: alert)
     }
 }

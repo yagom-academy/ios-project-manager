@@ -14,6 +14,7 @@ protocol TaskListViewModelInputProtocol {
     func didTouchUpAddButton()
     func didSelectTask(at row: Int, inTableViewOf: ProcessStatus)
     func didSwipeDeleteAction(for row: Int, inTableViewOf: ProcessStatus)
+    func presentPopover(with alert: UIAlertController)
 }
 
 protocol TaskListViewModelOutputProtocol {
@@ -28,7 +29,6 @@ protocol TaskListViewModelOutputProtocol {
 
 protocol TaskListViewModelProtocol: TaskListViewModelInputProtocol, TaskListViewModelOutputProtocol { }
 
-// TODO: MVVM - Input/Output 구분
 final class TaskListViewModel: TaskListViewModelProtocol {
     // MARK: - Properties
     private let taskRepository: TaskRepositoryProtocol
@@ -168,5 +168,10 @@ final class TaskListViewModel: TaskListViewModelProtocol {
         }
         
         delete(task: taskToDelete)
+    }
+    
+    // MARK: - Popover
+    func presentPopover(with alert: UIAlertController) {
+        actions?.presentPopover(alert)
     }
 }
