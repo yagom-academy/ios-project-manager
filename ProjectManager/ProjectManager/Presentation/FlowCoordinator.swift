@@ -15,7 +15,7 @@ final class FlowCoordinator: FlowCoordinatorProtocol {
     var taskListViewModel: TaskListViewModelProtocol!
     let taskDetailViewModel: TaskDetailViewModelProtocol = TaskDetailViewModel()
     
-    var taskRepository: TaskRepositoryProtocol! = TaskRepository()
+    var taskRepository: TaskRepositoryProtocol!
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
