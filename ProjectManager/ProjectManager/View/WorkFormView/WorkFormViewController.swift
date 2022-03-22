@@ -48,11 +48,10 @@ final class WorkFormViewController: UIViewController {
         bind()
     }
     
-    func setup(selectedWork: Work?, list: BehaviorSubject<[Work]>, workMemoryManager: WorkMemoryManager) {
+    func setup(selectedWork: Work?, list: BehaviorSubject<[Work]>) {
         self.viewModel.setup(
             selectedWork: selectedWork,
-            list: list,
-            workMemoryManager: workMemoryManager
+            list: list
         )
     }
     

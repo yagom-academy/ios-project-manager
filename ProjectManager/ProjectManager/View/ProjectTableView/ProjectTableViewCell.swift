@@ -38,16 +38,16 @@ final class ProjectTableViewCell: UITableViewCell {
     private var work: Work?
     
     private var firstTitle: String {
-        switch work?.category {
-        case .todo:
+        switch work?.categoryTag {
+        case Work.Category.todo.tag:
             return Content.moveDoingTitle
         default:
             return Content.moveToDoTitle
         }
     }
     private var secondTitle: String {
-        switch work?.category {
-        case .done:
+        switch work?.categoryTag {
+        case Work.Category.done.tag:
             return Content.moveDoingTitle
         default:
             return Content.moveDoneTitle

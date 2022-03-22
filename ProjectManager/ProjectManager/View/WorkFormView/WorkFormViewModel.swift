@@ -50,14 +50,12 @@ class WorkFormViewModel: ViewModelDescribing {
     }
     
     private(set) var selectedWork: Work?
-    private(set) var workMemoryManager: WorkMemoryManager!
     private var list = BehaviorSubject<[Work]>(value: [])
     private let disposeBag = DisposeBag()
     
-    func setup(selectedWork: Work?, list: BehaviorSubject<[Work]>, workMemoryManager: WorkMemoryManager) {
+    func setup(selectedWork: Work?, list: BehaviorSubject<[Work]>) {
         self.selectedWork = selectedWork
         self.list = list
-        self.workMemoryManager = workMemoryManager
     }
     
     func transform(_ input: Input) -> Output {
@@ -101,24 +99,30 @@ class WorkFormViewModel: ViewModelDescribing {
     }
     
     private func addWork(title: String, dueDate: Date, body: String) {
-        let work = Work(title: title, body: body, dueDate: dueDate, category: .todo)
-        
-        workMemoryManager?.create(work)
-        list.onNext(workMemoryManager.todoList)
+        WorkCoreDataManager.shared.create(title: title, body: body, dueDate: dueDate)
+        list.onNext(WorkCoreDataManager.shared.todoList)
     }
     
     private func updateWork(title: String?, dueDate: Date?, body: String?) {
         guard let selectedWork = selectedWork else { return }
         
-        workMemoryManager.update(selectedWork, title: title, body: body, date: dueDate, category: selectedWork.category)
+        WorkCoreDataManager.shared.update(
+            selectedWork,
+            title: title,
+            body: body,
+            date: dueDate,
+            category: selectedWork.categoryTag
+        )
         
-        switch selectedWork.category {
-        case .todo:
-            list.onNext(workMemoryManager.todoList)
-        case .doing:
-            list.onNext(workMemoryManager.doingList)
-        case .done:
-            list.onNext(workMemoryManager.doneList)
+        switch selectedWork.categoryTag {
+        case Work.Category.todo.tag:
+            list.onNext(WorkCoreDataManager.shared.todoList)
+        case Work.Category.doing.tag:
+            list.onNext(WorkCoreDataManager.shared.doingList)
+        case Work.Category.done.tag:
+            list.onNext(WorkCoreDataManager.shared.doneList)
+        default:
+            break
         }
     }
     

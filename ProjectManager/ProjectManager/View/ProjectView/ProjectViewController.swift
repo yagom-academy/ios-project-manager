@@ -76,8 +76,7 @@ final class ProjectViewController: UIViewController {
         
         viewController.setup(
             selectedWork: nil,
-            list: viewModel.todoList,
-            workMemoryManager: viewModel.workMemoryManager
+            list: viewModel.todoList
         )
         viewController.modalPresentationStyle = .formSheet
         

@@ -48,7 +48,7 @@
                                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="DxY-9r-Z4L">
                                                 <rect key="frame" x="0.0" y="74" width="1346" height="216"/>
                                             </datePicker>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="여기 할일 입력하는 곳이지롱 입력가능한 글자수는 1000자로 제한합니다." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="teS-0R-ejv">
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="입력가능한 글자수는 1000자로 제한합니다." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="teS-0R-ejv">
                                                 <rect key="frame" x="0.0" y="310" width="1346" height="229"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <color key="textColor" systemColor="labelColor"/>

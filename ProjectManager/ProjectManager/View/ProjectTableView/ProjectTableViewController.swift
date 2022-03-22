@@ -49,7 +49,6 @@ final class ProjectTableViewController: UIViewController {
         self.viewModel.setup(
             titleText: titleText,
             count: count, list: list,
-            workMemoryManager: viewModel.workMemoryManager,
             projectViewModel: viewModel
         )
     }
@@ -90,8 +89,8 @@ final class ProjectTableViewController: UIViewController {
         output.showPopoverObserver
             .subscribe(onNext: { [weak self] work in
                 var firstTitle: String {
-                    switch work.category {
-                    case .todo:
+                    switch work.categoryTag {
+                    case Work.Category.todo.tag:
                         return Content.moveDoingTitle
                     default:
                         return Content.moveToDoTitle
@@ -99,8 +98,8 @@ final class ProjectTableViewController: UIViewController {
                 }
                 
                 var secondTitle: String {
-                    switch work.category {
-                    case .done:
+                    switch work.categoryTag {
+                    case Work.Category.done.tag:
                         return Content.moveDoingTitle
                     default:
                         return Content.moveDoneTitle
@@ -137,8 +136,7 @@ final class ProjectTableViewController: UIViewController {
                 
                 viewController.setup(
                     selectedWork: work,
-                    list: self!.viewModel.list,
-                    workMemoryManager: self!.viewModel.workMemoryManager
+                    list: self!.viewModel.list
                 )
                 viewController.modalPresentationStyle = .formSheet
 

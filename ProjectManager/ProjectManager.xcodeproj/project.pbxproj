@@ -22,14 +22,12 @@
 		DE20A0BC27CDD385004B93AC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DE20A0BB27CDD385004B93AC /* GoogleService-Info.plist */; };
 		DE44BF8827D4A23F006E9010 /* Array+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE44BF8727D4A23F006E9010 /* Array+extension.swift */; };
 		DE5359EF27D097BF00FD7953 /* ProjectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5359EE27D097BF00FD7953 /* ProjectViewModel.swift */; };
-		DE843A4C27CE616A00F622E2 /* Work.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE843A4B27CE616A00F622E2 /* Work.swift */; };
+		DE843A4C27CE616A00F622E2 /* WorkInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE843A4B27CE616A00F622E2 /* WorkInformation.swift */; };
 		DE843A4F27CE641900F622E2 /* DateFormatter+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE843A4E27CE641900F622E2 /* DateFormatter+extension.swift */; };
-		DE843A5227CE6DD200F622E2 /* WorkMemoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE843A5127CE6DD200F622E2 /* WorkMemoryManager.swift */; };
 		DE843A5527CE6EA300F622E2 /* WorkManagable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE843A5427CE6EA300F622E2 /* WorkManagable.swift */; };
 		DE8587AC27CF064200D4F4B7 /* ProjectManagerModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8587AB27CF064200D4F4B7 /* ProjectManagerModelTests.swift */; };
-		DE8587B427CF406100D4F4B7 /* WorkMemoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE843A5127CE6DD200F622E2 /* WorkMemoryManager.swift */; };
 		DE8587B527CF406500D4F4B7 /* WorkManagable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE843A5427CE6EA300F622E2 /* WorkManagable.swift */; };
-		DE8587B627CF406900D4F4B7 /* Work.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE843A4B27CE616A00F622E2 /* Work.swift */; };
+		DE8587B627CF406900D4F4B7 /* WorkInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE843A4B27CE616A00F622E2 /* WorkInformation.swift */; };
 		DE8587B727CF407900D4F4B7 /* DateFormatter+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE843A4E27CE641900F622E2 /* DateFormatter+extension.swift */; };
 		DE8587BF27CF562200D4F4B7 /* ProjectTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DE8587BE27CF562200D4F4B7 /* ProjectTableViewCell.xib */; };
 		DE8587C127CF571E00D4F4B7 /* ProjectTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8587C027CF571E00D4F4B7 /* ProjectTableViewCell.swift */; };
@@ -37,6 +35,12 @@
 		DE90D86327E187AB00E6A434 /* ViewModelDescribing.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE90D86227E187AB00E6A434 /* ViewModelDescribing.swift */; };
 		DE9A0AAA27D21CE10095BBF9 /* WorkFormView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE9A0AA927D21CE10095BBF9 /* WorkFormView.storyboard */; };
 		DE9A0AAC27D228400095BBF9 /* WorkFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9A0AAB27D228400095BBF9 /* WorkFormViewController.swift */; };
+		DED9673B27E97074007F03A2 /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DED9673927E97074007F03A2 /* CoreDataModel.xcdatamodeld */; };
+		DED9674627E97393007F03A2 /* Work+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED9674427E97393007F03A2 /* Work+CoreDataClass.swift */; };
+		DED9674727E97393007F03A2 /* Work+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED9674527E97393007F03A2 /* Work+CoreDataProperties.swift */; };
+		DED9674927E97C21007F03A2 /* WorkCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED9674827E97C21007F03A2 /* WorkCoreDataManager.swift */; };
+		DED9674A27E9C0E7007F03A2 /* Work+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED9674527E97393007F03A2 /* Work+CoreDataProperties.swift */; };
+		DED9674B27E9C0E7007F03A2 /* Work+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED9674427E97393007F03A2 /* Work+CoreDataClass.swift */; };
 		DEE3C45327D5EFC4002D014B /* Array+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE44BF8727D4A23F006E9010 /* Array+extension.swift */; };
 		F30B76FC5BC81A5381504B03 /* Pods_ProjectManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 204B28057D7E57350830FB9D /* Pods_ProjectManager.framework */; };
 /* End PBXBuildFile section */
@@ -71,9 +75,8 @@
 		DE20A0BB27CDD385004B93AC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DE44BF8727D4A23F006E9010 /* Array+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+extension.swift"; sourceTree = "<group>"; };
 		DE5359EE27D097BF00FD7953 /* ProjectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectViewModel.swift; sourceTree = "<group>"; };
-		DE843A4B27CE616A00F622E2 /* Work.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Work.swift; sourceTree = "<group>"; };
+		DE843A4B27CE616A00F622E2 /* WorkInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkInformation.swift; sourceTree = "<group>"; };
 		DE843A4E27CE641900F622E2 /* DateFormatter+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+extension.swift"; sourceTree = "<group>"; };
-		DE843A5127CE6DD200F622E2 /* WorkMemoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkMemoryManager.swift; sourceTree = "<group>"; };
 		DE843A5427CE6EA300F622E2 /* WorkManagable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkManagable.swift; sourceTree = "<group>"; };
 		DE8587A927CF064200D4F4B7 /* ProjectManagerModelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProjectManagerModelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE8587AB27CF064200D4F4B7 /* ProjectManagerModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerModelTests.swift; sourceTree = "<group>"; };
@@ -84,6 +87,10 @@
 		DE90D86227E187AB00E6A434 /* ViewModelDescribing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelDescribing.swift; sourceTree = "<group>"; };
 		DE9A0AA927D21CE10095BBF9 /* WorkFormView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = WorkFormView.storyboard; sourceTree = "<group>"; };
 		DE9A0AAB27D228400095BBF9 /* WorkFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkFormViewController.swift; sourceTree = "<group>"; };
+		DED9673A27E97074007F03A2 /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
+		DED9674427E97393007F03A2 /* Work+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Work+CoreDataClass.swift"; sourceTree = "<group>"; };
+		DED9674527E97393007F03A2 /* Work+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Work+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		DED9674827E97C21007F03A2 /* WorkCoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkCoreDataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +162,7 @@
 				DE843A4927CE60F200F622E2 /* View */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
 				DE20A0BB27CDD385004B93AC /* GoogleService-Info.plist */,
+				DED9673927E97074007F03A2 /* CoreDataModel.xcdatamodeld */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
@@ -200,7 +208,9 @@
 		DE843A5027CE67FF00F622E2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				DE843A4B27CE616A00F622E2 /* Work.swift */,
+				DED9674427E97393007F03A2 /* Work+CoreDataClass.swift */,
+				DED9674527E97393007F03A2 /* Work+CoreDataProperties.swift */,
+				DE843A4B27CE616A00F622E2 /* WorkInformation.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -258,7 +268,7 @@
 		DE9A0AA427D1C2C70095BBF9 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
-				DE843A5127CE6DD200F622E2 /* WorkMemoryManager.swift */,
+				DED9674827E97C21007F03A2 /* WorkCoreDataManager.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -430,9 +440,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DED9674927E97C21007F03A2 /* WorkCoreDataManager.swift in Sources */,
 				DE5359EF27D097BF00FD7953 /* ProjectViewModel.swift in Sources */,
-				DE843A5227CE6DD200F622E2 /* WorkMemoryManager.swift in Sources */,
-				DE843A4C27CE616A00F622E2 /* Work.swift in Sources */,
+				DE843A4C27CE616A00F622E2 /* WorkInformation.swift in Sources */,
 				DE09D30F27D9EC3600B6A9F2 /* UITableView+extension.swift in Sources */,
 				DE90D86127E17BD500E6A434 /* ProjectTableViewModel.swift in Sources */,
 				DE12030327E314760091D040 /* WorkFormViewModel.swift in Sources */,
@@ -440,10 +450,13 @@
 				DE09D31727DA299A00B6A9F2 /* ProjectHeaderCircleLabel.swift in Sources */,
 				DE09D31B27DA3E7D00B6A9F2 /* ProjectTableViewController.swift in Sources */,
 				DE9A0AAC27D228400095BBF9 /* WorkFormViewController.swift in Sources */,
+				DED9674727E97393007F03A2 /* Work+CoreDataProperties.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* ProjectViewController.swift in Sources */,
 				DE90D86327E187AB00E6A434 /* ViewModelDescribing.swift in Sources */,
 				DE8587C127CF571E00D4F4B7 /* ProjectTableViewCell.swift in Sources */,
+				DED9674627E97393007F03A2 /* Work+CoreDataClass.swift in Sources */,
 				DE843A4F27CE641900F622E2 /* DateFormatter+extension.swift in Sources */,
+				DED9673B27E97074007F03A2 /* CoreDataModel.xcdatamodeld in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				DE44BF8827D4A23F006E9010 /* Array+extension.swift in Sources */,
@@ -454,11 +467,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DE8587B627CF406900D4F4B7 /* Work.swift in Sources */,
-				DE8587B427CF406100D4F4B7 /* WorkMemoryManager.swift in Sources */,
+				DE8587B627CF406900D4F4B7 /* WorkInformation.swift in Sources */,
+				DED9674B27E9C0E7007F03A2 /* Work+CoreDataClass.swift in Sources */,
 				DE8587B727CF407900D4F4B7 /* DateFormatter+extension.swift in Sources */,
 				DEE3C45327D5EFC4002D014B /* Array+extension.swift in Sources */,
 				DE8587B527CF406500D4F4B7 /* WorkManagable.swift in Sources */,
+				DED9674A27E9C0E7007F03A2 /* Work+CoreDataProperties.swift in Sources */,
 				DE8587AC27CF064200D4F4B7 /* ProjectManagerModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -728,6 +742,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		DED9673927E97074007F03A2 /* CoreDataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				DED9673A27E97074007F03A2 /* CoreDataModel.xcdatamodel */,
+			);
+			currentVersion = DED9673A27E97074007F03A2 /* CoreDataModel.xcdatamodel */;
+			path = CoreDataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = C7431EFA25F51E1D0094C4CF /* Project object */;
 }

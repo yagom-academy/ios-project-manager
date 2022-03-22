@@ -4,8 +4,6 @@ import RxSwift
 
 final class ProjectViewModel {
     
-    let workMemoryManager = WorkMemoryManager()
-    
     let todoList = BehaviorSubject<[Work]>(value: [])
     let doingList = BehaviorSubject<[Work]>(value: [])
     let doneList = BehaviorSubject<[Work]>(value: [])
@@ -21,9 +19,9 @@ final class ProjectViewModel {
     }
     
     init() {
-        todoList.onNext(workMemoryManager.todoList)
-        doingList.onNext(workMemoryManager.doingList)
-        doneList.onNext(workMemoryManager.doneList)
+        todoList.onNext(WorkCoreDataManager.shared.todoList)
+        doingList.onNext(WorkCoreDataManager.shared.doingList)
+        doneList.onNext(WorkCoreDataManager.shared.doneList)
     }
     
 }

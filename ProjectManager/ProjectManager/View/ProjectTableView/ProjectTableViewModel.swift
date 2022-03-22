@@ -57,7 +57,6 @@ class ProjectTableViewModel: ViewModelDescribing {
     private(set) var titleText: String?
     private(set) var count: Observable<Int>?
     private(set) var list = BehaviorSubject<[Work]>(value: [])
-    private(set) var workMemoryManager: WorkMemoryManager!
     private var projectViewModel: ProjectViewModel?
     private let disposeBag = DisposeBag()
     
@@ -65,13 +64,11 @@ class ProjectTableViewModel: ViewModelDescribing {
         titleText: String,
         count: Observable<Int>,
         list: BehaviorSubject<[Work]>,
-        workMemoryManager: WorkMemoryManager,
         projectViewModel: ProjectViewModel
     ) {
         self.titleText = titleText
         self.count = count
         self.list = list
-        self.workMemoryManager = workMemoryManager
         self.projectViewModel = projectViewModel
     }
     
@@ -137,17 +134,17 @@ class ProjectTableViewModel: ViewModelDescribing {
     }
     
     private func removeWork(_ data: Work) {
-        guard let workMemoryManager = workMemoryManager else { return }
+        WorkCoreDataManager.shared.delete(data)
         
-        workMemoryManager.delete(data)
-        
-        switch data.category {
-        case .todo:
-            list.onNext(workMemoryManager.todoList)
-        case .doing:
-            list.onNext(workMemoryManager.doingList)
-        case .done:
-            list.onNext(workMemoryManager.doneList)
+        switch data.categoryTag {
+        case Work.Category.todo.tag:
+            list.onNext(WorkCoreDataManager.shared.todoList)
+        case Work.Category.doing.tag:
+            list.onNext(WorkCoreDataManager.shared.doingList)
+        case Work.Category.done.tag:
+            list.onNext(WorkCoreDataManager.shared.doneList)
+        default:
+            break
         }
     }
     
@@ -170,14 +167,14 @@ class ProjectTableViewModel: ViewModelDescribing {
             .bind(onNext: { (title, work) in
                 switch title {
                 case Content.moveToDoTitle:
-                    self.change(work, category: .todo)
-                    self.projectViewModel?.todoList.onNext(self.workMemoryManager.todoList)
+                    self.change(work, categoryTag: Work.Category.todo.tag)
+                    self.projectViewModel?.todoList.onNext(WorkCoreDataManager.shared.todoList)
                 case Content.moveDoingTitle:
-                    self.change(work, category: .doing)
-                    self.projectViewModel?.doingList.onNext(self.workMemoryManager.doingList)
+                    self.change(work, categoryTag: Work.Category.doing.tag)
+                    self.projectViewModel?.doingList.onNext(WorkCoreDataManager.shared.doingList)
                 case Content.moveDoneTitle:
-                    self.change(work, category: .done)
-                    self.projectViewModel?.doneList.onNext(self.workMemoryManager.doneList)
+                    self.change(work, categoryTag: Work.Category.done.tag)
+                    self.projectViewModel?.doneList.onNext(WorkCoreDataManager.shared.doneList)
                 default:
                     break
                 }
@@ -185,22 +182,26 @@ class ProjectTableViewModel: ViewModelDescribing {
             .disposed(by: disposeBag)
     }
     
-    func change(_ data: Work, category: Work.Category) {
-        workMemoryManager.update(
+    private func change(_ data: Work, categoryTag: Int16) {
+        let originalCategoryTag = data.categoryTag
+        
+        WorkCoreDataManager.shared.update(
             data,
             title: data.title,
             body: data.body,
             date: data.dueDate,
-            category: category
+            category: categoryTag
         )
         
-        switch data.category {
-        case .todo:
-            list.onNext(workMemoryManager.todoList)
-        case .doing:
-            list.onNext(workMemoryManager.doingList)
-        case .done:
-            list.onNext(workMemoryManager.doneList)
+        switch originalCategoryTag {
+        case Work.Category.todo.tag:
+            list.onNext(WorkCoreDataManager.shared.todoList)
+        case Work.Category.doing.tag:
+            list.onNext(WorkCoreDataManager.shared.doingList)
+        case Work.Category.done.tag:
+            list.onNext(WorkCoreDataManager.shared.doneList)
+        default:
+            break
         }
     }
     
