@@ -19,10 +19,10 @@ class TaskListViewModel: ObservableObject {
     }
     
     private func reload() {
-        self.todoTaskList = self.taskListManager.taskList(at: .todo)
-        self.doingTaskList = self.taskListManager.taskList(at: .doing)
-        self.doneTaskList = self.taskListManager.taskList(at: .done)
-        self.taskHistory = self.historyManager.taskHistory
+        todoTaskList = taskListManager.taskList(at: .todo)
+        doingTaskList = taskListManager.taskList(at: .doing)
+        doneTaskList = taskListManager.taskList(at: .done)
+        taskHistory = historyManager.taskHistory
     }
     
     func changeableStatusList(from status: TaskStatus) -> [TaskStatus] {
@@ -33,7 +33,7 @@ class TaskListViewModel: ObservableObject {
 extension TaskListViewModel {
     func synchronizeFirebaseWithRealm() {
         synchronizeRealmToFirebase()
-        synchronizeRealmToFirebase()
+        synchronizeFirebaseToRealm()
     }
     
     func createTask(_ task: Task) {
@@ -165,11 +165,11 @@ extension TaskListViewModel {
     func fetchRealm() {
         do {
             try taskListManager.fetchRealmTaskList()
+            reload()
         } catch {
             errorAlert = ErrorModel(message: error.localizedDescription)
             print(error.localizedDescription)
         }
-        reload()
     }
     
     func createTaskOnRealm(_ task: Task) {

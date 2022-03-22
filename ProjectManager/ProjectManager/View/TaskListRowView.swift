@@ -14,14 +14,14 @@ struct TaskListRowView: View {
         .frame(maxWidth: .infinity, alignment: .leading)
         .contentShape(Rectangle())
         .onTapGesture {
-            self.isShowUpdateTaskStatus = false
-            self.isShowTaskDetailView = true
+            isShowUpdateTaskStatus = false
+            isShowTaskDetailView = true
         }
         .sheet(isPresented: $isShowTaskDetailView, onDismiss: nil) {
             TaskDetailView(isShowTaskDetailView: $isShowTaskDetailView, task: task)
         }
         .onLongPressGesture {
-            self.isShowUpdateTaskStatus = true
+            isShowUpdateTaskStatus = true
         }
         .popover(isPresented: $isShowUpdateTaskStatus) {
             StatusChangePopoverView(
@@ -87,7 +87,7 @@ private struct StatusChangePopoverView: View {
                         prevStatus: task.progressStatus,
                         nextStatus: status
                     )
-                    self.isShowUpdateTaskStatus = false
+                    isShowUpdateTaskStatus = false
                 }
                 .padding()
             }

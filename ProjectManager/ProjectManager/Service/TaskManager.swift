@@ -135,7 +135,7 @@ extension TaskManager: FirebaseTaskManagable {
 extension TaskManager: RealmTaskManagable {
     func fetchRealmTaskList() throws {
         do {
-            self.taskList = try realmTaskListRepository.fetchTask()
+            taskList = try realmTaskListRepository.fetchTask()
                 .map { convertTask(from: $0) }
         } catch {
             throw RealmError.fetchFailed
