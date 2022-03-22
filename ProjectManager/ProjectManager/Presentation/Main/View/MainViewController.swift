@@ -319,6 +319,19 @@ private extension MainViewController {
         self.present(popoverViewController, animated: true)
     }
 
+    func presentHistoryPopover() {
+        let popoverViewController: UIViewController = {
+            let viewController = UIViewController()
+            viewController.view = self.historyPopoverView
+            viewController.modalPresentationStyle = .popover
+            viewController.preferredContentSize = CGSize(width: 450, height: 300)
+            viewController.popoverPresentationController?.barButtonItem = self.historyBarButton
+            return viewController
+        }()
+
+        self.present(popoverViewController, animated: true)
+    }
+
     func dismissPopover() {
         self.presentedViewController?.dismiss(animated: true, completion: nil)
     }
