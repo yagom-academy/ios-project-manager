@@ -13,6 +13,7 @@ protocol MainUseCase {
     var schedules: BehaviorRelay<[Schedule]> { get }
     var currentSchedule: BehaviorRelay<Schedule?> { get }
     func fetch()
+    func create(_ schedule: Schedule)
     func delete(_ scheduleID: UUID)
     func changeProgress(of schedule: Schedule, progress: Progress?)
 }
