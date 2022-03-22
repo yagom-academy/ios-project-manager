@@ -91,7 +91,8 @@ private struct TaskDetailTrailingButton: View {
                     id: task.id,
                     title: taskDetailViewModel.title,
                     description: taskDetailViewModel.description,
-                    deadline: taskDetailViewModel.deadline)
+                    deadline: taskDetailViewModel.deadline
+                )
             } else {
                 let task = Task(
                     title: taskDetailViewModel.title,

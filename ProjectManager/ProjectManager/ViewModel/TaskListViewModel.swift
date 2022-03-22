@@ -43,7 +43,7 @@ extension TaskListViewModel {
     
     func updateTask(id: String, title: String, description: String, deadline: Date) {
         updateTaskOnFirebase(id: id, title: title, description: description, deadline: deadline)
-        updateTaskOnFirebase(id: id, title: title, description: description, deadline: deadline)
+        updateTaskOnRealm(id: id, title: title, description: description, deadline: deadline)
     }
     
     func updateTaskStatus(id: String, title: String, prevStatus: TaskStatus, nextStatus: TaskStatus) {
