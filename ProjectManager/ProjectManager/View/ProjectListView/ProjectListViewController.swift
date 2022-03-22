@@ -13,7 +13,7 @@ final class ProjectListViewController: UIViewController {
     
     private let selectCellObservable = PublishSubject<(ProjectState, IndexPath)>()
     private let changeStateObservable = PublishSubject<(ProjectState, ProjectState, IndexPath)>()
-    private let deleteObservable: PublishSubject<Project> = PublishSubject<Project>()
+    private let deleteObservable = PublishSubject<(ProjectState, IndexPath)>()
     private let disposeBag = DisposeBag()
     
     private let entireStackView: UIStackView = {
@@ -220,7 +220,7 @@ extension ProjectListViewController: UITableViewDelegate {
             guard let state = (tableView as? ProjectListTableView)?.state else {
                 return
             }
-            self.viewModel?.delete(indexPath: indexPath, state: state)
+            self.deleteObservable.onNext((state, indexPath))
         }
         
         deleteAction.image = UIImage(systemName: "trash")

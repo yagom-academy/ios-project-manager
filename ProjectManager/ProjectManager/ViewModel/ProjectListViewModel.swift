@@ -5,9 +5,9 @@ final class ProjectListViewModel: NSObject, ViewModelDescribing {
     final class Input {
         let selectCellObservable: Observable<(ProjectState, IndexPath)>
         let changeStateObservable: Observable<(ProjectState, ProjectState, IndexPath)>
-        let deleteObservable: Observable<Project>
+        let deleteObservable: Observable<(ProjectState, IndexPath)>
         
-        init(selectCellObservable: Observable<(ProjectState, IndexPath)>, changeStateObservable: Observable<(ProjectState, ProjectState, IndexPath)>, deleteObservable: Observable<Project>) {
+        init(selectCellObservable: Observable<(ProjectState, IndexPath)>, changeStateObservable: Observable<(ProjectState, ProjectState, IndexPath)>, deleteObservable: Observable<(ProjectState, IndexPath)>) {
             self.selectCellObservable = selectCellObservable
             self.changeStateObservable = changeStateObservable
             self.deleteObservable = deleteObservable
@@ -45,12 +45,13 @@ final class ProjectListViewModel: NSObject, ViewModelDescribing {
                 self?.changeState(from: oldState, to: newState, indexPath: indexPath)
                 self?.reloadObservable.onNext(())
             }).disposed(by: disposeBag)
-//
-//        input
-//            .deleteObservable
-//            .subscribe(onNext: {
-//
-//            })
+
+        input
+            .deleteObservable
+            .subscribe(onNext: { [weak self] (state, indexPath) in
+                self?.delete(indexPath: indexPath, state: state)
+                self?.reloadObservable.onNext(())
+            })
         
         let output = Output(
             reloadObservable: self.reloadObservable.asObservable(),
