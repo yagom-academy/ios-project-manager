@@ -22,10 +22,11 @@ class MainViewCoordinator {
         self.mainViewController.viewModel = MainViewModel(
             coordinator: self,
             useCase: ScheduleUseCase(
-                repository: DefaultScheduleRepository(
+                scheduleRepository: DefaultScheduleRepository(
                     dataSource: dataSource,
                     remoteDataSource: FirestoreService()
-                )
+                ),
+                historyRepository: DefaultScheduleHistoryRepository()
             )
         )
 

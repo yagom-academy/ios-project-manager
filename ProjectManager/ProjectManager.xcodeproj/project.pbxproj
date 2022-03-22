@@ -27,6 +27,8 @@
 		33B6321D27D7436800EB169D /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 376D6FB427D734950097D31A /* MainViewModel.swift */; };
 		33B6322127D7528700EB169D /* TableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33B6322027D7528700EB169D /* TableView+Extension.swift */; };
 		33B6322327D7554C00EB169D /* DateFormatter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33B6322227D7554C00EB169D /* DateFormatter+Extension.swift */; };
+		33C7AF2127E98C1F00BEFA47 /* ScheduleHistoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C7AF2027E98C1F00BEFA47 /* ScheduleHistoryRepository.swift */; };
+		33C7AF2327E98C2E00BEFA47 /* DefaultScheduleHistoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C7AF2227E98C2E00BEFA47 /* DefaultScheduleHistoryRepository.swift */; };
 		33D15E1227DB47BD006407A9 /* ScheduleListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33D15E1127DB47BD006407A9 /* ScheduleListHeaderView.swift */; };
 		33D15E1627DBA724006407A9 /* UIView+Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33D15E1527DBA724006407A9 /* UIView+Shadow.swift */; };
 		33F62BCD27E1DC0700DF592F /* FirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F62BCC27E1DC0700DF592F /* FirestoreService.swift */; };
@@ -83,6 +85,8 @@
 		33B6321427D741F400EB169D /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
 		33B6322027D7528700EB169D /* TableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TableView+Extension.swift"; sourceTree = "<group>"; };
 		33B6322227D7554C00EB169D /* DateFormatter+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Extension.swift"; sourceTree = "<group>"; };
+		33C7AF2027E98C1F00BEFA47 /* ScheduleHistoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleHistoryRepository.swift; sourceTree = "<group>"; };
+		33C7AF2227E98C2E00BEFA47 /* DefaultScheduleHistoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultScheduleHistoryRepository.swift; sourceTree = "<group>"; };
 		33D15E1127DB47BD006407A9 /* ScheduleListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleListHeaderView.swift; sourceTree = "<group>"; };
 		33D15E1527DBA724006407A9 /* UIView+Shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Shadow.swift"; sourceTree = "<group>"; };
 		33F62BCC27E1DC0700DF592F /* FirestoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreService.swift; sourceTree = "<group>"; };
@@ -174,6 +178,7 @@
 			isa = PBXGroup;
 			children = (
 				336E237A27D1E7DD00C40ECC /* ScheduleRepository.swift */,
+				33C7AF2027E98C1F00BEFA47 /* ScheduleHistoryRepository.swift */,
 			);
 			path = Interface;
 			sourceTree = "<group>";
@@ -182,6 +187,7 @@
 			isa = PBXGroup;
 			children = (
 				336E237527D1E6B200C40ECC /* DefaultScheduleRepository.swift */,
+				33C7AF2227E98C2E00BEFA47 /* DefaultScheduleHistoryRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -547,12 +553,14 @@
 				37CC927127E1C06C003F1122 /* ScheduleItemUseCase.swift in Sources */,
 				33F62BCD27E1DC0700DF592F /* FirestoreService.swift in Sources */,
 				37CC926F27E1C05C003F1122 /* MainUseCase.swift in Sources */,
+				33C7AF2327E98C2E00BEFA47 /* DefaultScheduleHistoryRepository.swift in Sources */,
 				33D15E1227DB47BD006407A9 /* ScheduleListHeaderView.swift in Sources */,
 				336E237827D1E7B300C40ECC /* LocalDatabaseService.swift in Sources */,
 				37FB8D9927D1EDD400ED9AE2 /* MemoryDataSource.swift in Sources */,
 				37FB8D9727D1DE6100ED9AE2 /* ScheduleUseCase.swift in Sources */,
 				33F62BD627E1FCBE00DF592F /* NetworkCheck.swift in Sources */,
 				37CC922827DBA84E003F1122 /* Date+Extension.swift in Sources */,
+				33C7AF2127E98C1F00BEFA47 /* ScheduleHistoryRepository.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				33F62BDC27E2346E00DF592F /* StorableSchedule.swift in Sources */,
 				37CC922C27DCB7A3003F1122 /* String+Extension.swift in Sources */,
