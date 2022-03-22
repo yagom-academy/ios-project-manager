@@ -9,12 +9,8 @@ import Foundation
 import RxSwift
 
 protocol ScheduleRepository {
-
     func fetch() -> Single<[Schedule]>
-
     func create(_ schedule: Schedule) -> Completable
-
     func delete(_ scheduleID: UUID) -> Completable
-
     func update(_ schedule: Schedule) -> Completable
 }

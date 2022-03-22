@@ -24,7 +24,6 @@ final class NetworkCheck {
     func startMonitoring() {
         let connectingObservable = BehaviorSubject<Bool>(value: false)
         self.isConnected = connectingObservable
-
         self.monitor.start(queue: queue)
         self.monitor.pathUpdateHandler = { path in
             connectingObservable.onNext(path.status == .satisfied)
