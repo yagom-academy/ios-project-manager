@@ -4,18 +4,17 @@ import RxRelay
 
 final class ListUpdateViewModel {
     
-    let controlUseCase: ControlUseCase
-    let historyCheckUseCase: HistoryCheckUseCase
-    var coordinator: Coordinator?
-    let identifer: String
-    let state = BehaviorRelay<ListUpdateViewModelState>(value: .editing)
-    var inputedData = PublishSubject<(name: String, detail: String, deadline: Date)>()
+    private let identifer: String
+    private let controlUseCase: ControlUseCase
+    private let historyCheckUseCase: HistoryCheckUseCase
+    private var coordinator: Coordinator?
     private var listProgressState: String?
     
-    init(controlUseCase: ControlUseCase, historyCheckUseCase: HistoryCheckUseCase, identifier: String) {
+    init(controlUseCase: ControlUseCase, historyCheckUseCase: HistoryCheckUseCase, identifier: String, coordinator: Coordinator) {
         self.controlUseCase = controlUseCase
         self.historyCheckUseCase = historyCheckUseCase
         self.identifer = identifier
+        self.coordinator = coordinator
     }
     
     struct Input {
@@ -23,6 +22,7 @@ final class ListUpdateViewModel {
         var viewWillAppearEvent: Observable<Void>
         var doneEdittingEvent: Observable<Void>
         var cancelButtonTapped: Observable<Void>
+        var inputedData: Observable<(name: String, detail: String, deadline: Date)>
     }
     
     struct Output {
@@ -42,11 +42,10 @@ final class ListUpdateViewModel {
         }).disposed(by: disposeBag)
         
         input.doneEdittingEvent.subscribe(onNext: { _ in
-            self.state.accept(.done)
             self.coordinator?.occuredViewEvent(with: .dismissListUpdateView)
         }).disposed(by: disposeBag)
         
-        self.inputedData.subscribe(onNext: { name, detail, date in
+        input.inputedData.subscribe(onNext: { name, detail, date in
             let changedProject = Project(name: name, detail: detail, deadline: date, indentifier: self.identifer, progressState: self.listProgressState ?? "todo")
             self.controlUseCase.updateProject(identifier: changedProject.identifier, how: changedProject)
         }).disposed(by: disposeBag)

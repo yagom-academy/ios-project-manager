@@ -4,8 +4,6 @@ import RxRelay
 
 final class ListAddViewModel {
     
-    let state = BehaviorRelay<ListAddViewModelState>(value: .editing)
-    var inputedData = PublishSubject<(name: String, detail: String, deadline: Date)>()
     private let disposeBag = DisposeBag()
     private let controlUseCase: ControlUseCase
     private let historyCheckUseCase: HistoryCheckUseCase
@@ -21,6 +19,7 @@ final class ListAddViewModel {
         
         let cancelButtonTappedEvent: Observable<Void>
         let doneButtonTappedEvent: Observable<Void>
+        let inputedData: Observable<(name: String, detail: String, deadline: Date)>
     }
     
     func transform(input: Input, disposeBag: DisposeBag) {
@@ -30,13 +29,12 @@ final class ListAddViewModel {
         }.disposed(by: disposeBag)
         
         input.doneButtonTappedEvent.withUnretained(self).subscribe { (self, void ) in
-            self.state.accept(.done)
             self.coordinator?.occuredViewEvent(with: .dismissListAddView)
         }
         .disposed(by: disposeBag)
-
-        self.inputedData.subscribe { name, detail, deadline in
-            let project = Project(name: name, detail: detail, deadline: deadline, indentifier: UUID().uuidString, progressState: ProgressState.todo.description)
+        
+        input.inputedData.withUnretained(self).subscribe { (self, data) in
+            let project = Project(name: data.name, detail: data.detail, deadline: data.deadline, indentifier: UUID().uuidString, progressState: ProgressState.todo.description)
             self.controlUseCase.createProject(object: project)
         }.disposed(by: disposeBag)
     }

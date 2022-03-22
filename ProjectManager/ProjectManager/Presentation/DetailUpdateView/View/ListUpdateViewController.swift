@@ -51,7 +51,19 @@ final class ListUpdateViewController: UIViewController {
             return
         }
         
-        let input = ListUpdateViewModel.Input(viewWillAppearEvent: self.rx.methodInvoked(#selector(UIViewController.viewWillAppear(_:))).map { _ in}, doneEdittingEvent: rightTapEvent.asObservable(), cancelButtonTapped: leftTapEvent.asObservable())
+        let tap = rightTapEvent.asObservable()
+        let data = Observable<(name: String, detail: String, deadline: Date)>.create { emitter in
+            _ = tap.subscribe { _ in
+                emitter.onNext(self.createObservableInformation())
+            }
+            return Disposables.create {
+                
+            }
+        }
+        
+        let k = tap.withLatestFrom(data)
+        
+        let input = ListUpdateViewModel.Input(viewWillAppearEvent: self.rx.methodInvoked(#selector(UIViewController.viewWillAppear(_:))).map { _ in}, doneEdittingEvent: rightTapEvent.asObservable(), cancelButtonTapped: leftTapEvent.asObservable(), inputedData: k)
         
         let output = viewModel?.transform(input: input, disposeBag: self.disposeBag)
         
@@ -59,12 +71,7 @@ final class ListUpdateViewController: UIViewController {
             .bind(onNext: { list in
                 self.shareView.configureUIComponents(name: list.name, detail: list.detail, deadline: list.deadline)
             }).disposed(by: self.disposeBag)
-        
-        self.viewModel?.state
-            .filter { $0 == .done }
-            .subscribe(onNext: { _ in
-                self.viewModel?.inputedData.onNext(self.createObservableInformation())
-            }).disposed(by: self.disposeBag)
+
     }
     
     private func createObservableInformation() -> (name: String, detail: String, deadline: Date) {

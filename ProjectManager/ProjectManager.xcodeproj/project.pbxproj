@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		1828FF6A27E09521008C23EE /* ManageState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1828FF6927E09521008C23EE /* ManageState.swift */; };
 		182C21F427E30D7200694364 /* TableViewHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182C21F327E30D7200694364 /* TableViewHeaderView.swift */; };
-		182C21F627E313C900694364 /* ListAddViewModelState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182C21F527E313C900694364 /* ListAddViewModelState.swift */; };
 		18688D5227DA4160001A7C7A /* ListUITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18688D5127DA4160001A7C7A /* ListUITableViewCell.swift */; };
 		18688D5527DAF5B2001A7C7A /* ListAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18688D5427DAF5B2001A7C7A /* ListAddViewController.swift */; };
 		18688D5927DC9189001A7C7A /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18688D5827DC9188001A7C7A /* MainCoordinator.swift */; };
@@ -19,7 +18,6 @@
 		1897A42A27E65437009EDED4 /* ListUpdateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1897A42927E65437009EDED4 /* ListUpdateViewModel.swift */; };
 		1897A42C27E654BE009EDED4 /* ProjectHistoryCheckUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1897A42B27E654BE009EDED4 /* ProjectHistoryCheckUseCase.swift */; };
 		1897A42E27E657C9009EDED4 /* HistoryUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1897A42D27E657C9009EDED4 /* HistoryUseCase.swift */; };
-		1897A43627E66701009EDED4 /* ListUpdateViewModelState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1897A43527E66701009EDED4 /* ListUpdateViewModelState.swift */; };
 		189DD4E427CDF7F700395CF4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 189DD4E327CDF7F700395CF4 /* GoogleService-Info.plist */; };
 		189DD4E727CDF93A00395CF4 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 189DD4E627CDF93A00395CF4 /* FirebaseFirestore */; };
 		189DD4E927CDF93A00395CF4 /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 189DD4E827CDF93A00395CF4 /* FirebaseFirestoreSwift-Beta */; };
@@ -57,7 +55,6 @@
 /* Begin PBXFileReference section */
 		1828FF6927E09521008C23EE /* ManageState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageState.swift; sourceTree = "<group>"; };
 		182C21F327E30D7200694364 /* TableViewHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewHeaderView.swift; sourceTree = "<group>"; };
-		182C21F527E313C900694364 /* ListAddViewModelState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListAddViewModelState.swift; sourceTree = "<group>"; };
 		18688D5127DA4160001A7C7A /* ListUITableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListUITableViewCell.swift; sourceTree = "<group>"; };
 		18688D5427DAF5B2001A7C7A /* ListAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListAddViewController.swift; sourceTree = "<group>"; };
 		18688D5827DC9188001A7C7A /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
@@ -67,7 +64,6 @@
 		1897A42927E65437009EDED4 /* ListUpdateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListUpdateViewModel.swift; sourceTree = "<group>"; };
 		1897A42B27E654BE009EDED4 /* ProjectHistoryCheckUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectHistoryCheckUseCase.swift; sourceTree = "<group>"; };
 		1897A42D27E657C9009EDED4 /* HistoryUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryUseCase.swift; sourceTree = "<group>"; };
-		1897A43527E66701009EDED4 /* ListUpdateViewModelState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListUpdateViewModelState.swift; sourceTree = "<group>"; };
 		189DD4E327CDF7F700395CF4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		189DD4F527D0FF7F00395CF4 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		189DD4F727D1010400395CF4 /* Listable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Listable.swift; sourceTree = "<group>"; };
@@ -163,7 +159,6 @@
 			isa = PBXGroup;
 			children = (
 				18D8A13927DF03DB0002351F /* ListAddViewModel.swift */,
-				182C21F527E313C900694364 /* ListAddViewModelState.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -189,7 +184,6 @@
 			isa = PBXGroup;
 			children = (
 				1897A42927E65437009EDED4 /* ListUpdateViewModel.swift */,
-				1897A43527E66701009EDED4 /* ListUpdateViewModelState.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -481,7 +475,6 @@
 				189DD58E27D6FF8400395CF4 /* CDProject+CoreDataProperties.swift in Sources */,
 				18688D5527DAF5B2001A7C7A /* ListAddViewController.swift in Sources */,
 				189DD50F27D1110D00395CF4 /* ListViewModel.swift in Sources */,
-				182C21F627E313C900694364 /* ListAddViewModelState.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* ListViewController.swift in Sources */,
 				18688D5927DC9189001A7C7A /* MainCoordinator.swift in Sources */,
 				18688D6327DD15ED001A7C7A /* ListDetailUIView.swift in Sources */,
@@ -511,7 +504,6 @@
 				189DD57C27D6995900395CF4 /* Encodable + Extensions.swift in Sources */,
 				189DD58D27D6FF8400395CF4 /* CDProject+CoreDataClass.swift in Sources */,
 				18D8A13C27DF19D70002351F /* MockDataRepository.swift in Sources */,
-				1897A43627E66701009EDED4 /* ListUpdateViewModelState.swift in Sources */,
 				18688D5227DA4160001A7C7A /* ListUITableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

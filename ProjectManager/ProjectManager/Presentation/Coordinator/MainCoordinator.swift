@@ -47,8 +47,7 @@ final class MainCoordinator: Coordinator {
     
     private func configureProjectUpdateView(identifier: String) -> UINavigationController {
         let viewController = ListUpdateViewController()
-        viewController.viewModel = ListUpdateViewModel(controlUseCase: self.controlUseCase, historyCheckUseCase: self.historyUseCase, identifier: identifier)
-        viewController.viewModel?.coordinator = self
+        viewController.viewModel = ListUpdateViewModel(controlUseCase: self.controlUseCase, historyCheckUseCase: self.historyUseCase, identifier: identifier, coordinator: self)
         let navigationController = UINavigationController(rootViewController: viewController)
         
         return navigationController

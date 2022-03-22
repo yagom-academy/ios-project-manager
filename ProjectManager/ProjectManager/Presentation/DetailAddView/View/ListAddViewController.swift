@@ -3,10 +3,12 @@ import RxSwift
 import RxCocoa
 
 final class ListAddViewController: UIViewController {
-    
-    private let shareView = ListDetailUIView()
+
     var viewModel: ListAddViewModel?
-    let disposeBag = DisposeBag()
+    private let shareView = ListDetailUIView()
+    private let disposeBag = DisposeBag()
+    private var navigationRightBarButton: UIBarButtonItem?
+    private var navigationLeftBarButton: UIBarButtonItem?
     
     override func loadView() {
         self.view = shareView
@@ -23,18 +25,30 @@ final class ListAddViewController: UIViewController {
         self.navigationItem.title = "TODO"
         self.navigationController?.navigationBar.backgroundColor = .white
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: nil)
+        self.navigationRightBarButton = self.navigationItem.rightBarButtonItem
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: nil)
+        self.navigationLeftBarButton = self.navigationItem.leftBarButtonItem
     }
     
     private func bind() {
-        let input = ListAddViewModel.Input(cancelButtonTappedEvent: (self.navigationItem.leftBarButtonItem?.rx.tap.asObservable())!, doneButtonTappedEvent: (self.navigationItem.rightBarButtonItem?.rx.tap.asObservable())!)
-        self.viewModel?.transform(input: input, disposeBag: self.disposeBag)
+        guard let rightTapEvent = self.navigationRightBarButton?.rx.tap,
+              let leftTapEvent = self.navigationLeftBarButton?.rx.tap
+        else {
+            return
+        }
         
-        self.viewModel?.state 
-            .filter { $0 == .done }
-            .subscribe { _ in
-            self.viewModel?.inputedData.onNext(self.createObservableInformation())
-        }.disposed(by: disposeBag)
+        let tap = rightTapEvent.asObservable()
+        let data = Observable<(name: String, detail: String, deadline: Date)>.create { emitter in
+            _ = tap.subscribe { _ in
+                emitter.onNext(self.createObservableInformation())
+            }
+            return Disposables.create {
+                
+            }
+        }
+        
+        let input = ListAddViewModel.Input(cancelButtonTappedEvent: leftTapEvent.asObservable(), doneButtonTappedEvent: rightTapEvent.asObservable(), inputedData: data)
+        self.viewModel?.transform(input: input, disposeBag: self.disposeBag)
     }
     
     private func createObservableInformation() -> (name: String, detail: String, deadline: Date) {
