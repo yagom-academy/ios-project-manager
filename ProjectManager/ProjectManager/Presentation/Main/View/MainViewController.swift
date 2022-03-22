@@ -204,14 +204,17 @@ private extension MainViewController {
             })
             ,
             cellDidTap: self.tableViews.map { $0.rx.modelSelected(Schedule.self).asObservable() },
-            cellDelete: self.tableViews.map { $0.rx.modelDeleted(Schedule.self).map { $0.id } },
+            cellDelete: self.tableViews.map { $0.rx.modelDeleted(Schedule.self).asObservable() },
             addButtonDidTap: self.addBarButton.rx.tap.asObservable(),
             popoverTopButtonDidTap: self.popoverView.topButton.rx.tap.asObservable()
                 .do(onNext: { [weak self] in
                     self?.dismissPopover() }),
             popoverBottomButtonDidTap: self.popoverView.bottomButton.rx.tap.asObservable()
                 .do(onNext: { [weak self] in
-                    self?.dismissPopover() })
+                    self?.dismissPopover() }),
+            historyButtonDidTap: self.historyBarButton.rx.tap.asObservable(),
+            undoButtonDidTap: self.undoBarButton.rx.tap.asObservable(),
+            redoButtonDidTap: self.redoBarButton.rx.tap.asObservable()
         )
     }
 
