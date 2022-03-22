@@ -6,31 +6,66 @@
 //
 
 import Foundation
+import RxSwift
+import RxRelay
 
 class DefaultScheduleHistoryRepository: ScheduleHistoryRepository {
-    let undoManager = UndoManager()
-    var history = [ScheduleAction]()
 
-    var canUndo: Bool {
+    private let undoManager = UndoManager()
+    private var history = BehaviorRelay<[ScheduleAction]>(value: [])
+    private var historyCanUndo = BehaviorRelay<Bool>(value: false)
+    private var historyCanRedo = BehaviorRelay<Bool>(value: false)
+    private var canUndo: Bool {
         self.undoManager.canUndo
     }
 
-    var canRedo: Bool {
+    private var canRedo: Bool {
         self.undoManager.canRedo
     }
 
+    func fetch() -> Observable<[ScheduleAction]> {
+        return self.history.asObservable()
+            .map { $0.filter { !$0.isUndone } }
+    }
+
     func undo() {
-        guard canUndo else { return }
+        guard self.canUndo else { return }
         self.undoManager.undo()
+        self.history.accept(self.history.value)
+        self.historyCanUndo.accept(canUndo)
+        self.historyCanRedo.accept(canRedo)
     }
 
     func redo() {
-        guard canRedo else { return }
+        guard self.canRedo else { return }
         self.undoManager.redo()
+        self.history.accept(self.history.value)
+        self.historyCanUndo.accept(canUndo)
+        self.historyCanRedo.accept(canRedo)
     }
 
+    func recode(action: ScheduleAction) {
+        let currentHistory = self.history.value.filter { !$0.isUndone }
+        let newHistory = [action] + currentHistory
+        self.history.accept(newHistory)
+        self.registerUndoFor(action: action)
+        self.historyCanUndo.accept(canUndo)
+        self.historyCanRedo.accept(canRedo)
+    }
+
+    func checkCanUndo() -> Observable<Bool> {
+        return self.historyCanUndo.asObservable()
+    }
+
+    func checkCanRedo() -> Observable<Bool> {
+        return self.historyCanRedo.asObservable()
+    }
+}
+
+private extension DefaultScheduleHistoryRepository {
+
     func registerUndoFor(action: ScheduleAction) {
-        undoManager.registerUndo(withTarget: self) { target in
+        self.undoManager.registerUndo(withTarget: self) { target in
             action.isUndone = true
             action.reverse()
             target.registerRedoFor(action: action)
@@ -38,19 +73,10 @@ class DefaultScheduleHistoryRepository: ScheduleHistoryRepository {
     }
 
     func registerRedoFor(action: ScheduleAction) {
-        undoManager.registerUndo(withTarget: self) { target in
+        self.undoManager.registerUndo(withTarget: self) { target in
             action.isUndone = false
             action.execute()
             target.registerUndoFor(action: action)
         }
     }
-
-    func excuteAndRecode(action: ScheduleAction) {
-        history = Array(history.drop { $0.isUndone })
-        history = [action] + history
-        registerUndoFor(action: action)
-
-//        action.execute()
-    }
-
 }

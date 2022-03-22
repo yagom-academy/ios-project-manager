@@ -6,9 +6,13 @@
 //
 
 import Foundation
+import RxSwift
 
 protocol ScheduleHistoryRepository {
-    func excuteAndRecode(action: ScheduleAction)
+    func fetch() -> Observable<[ScheduleAction]>
     func undo()
     func redo()
+    func recode(action: ScheduleAction)
+    func checkCanUndo() -> Observable<Bool>
+    func checkCanRedo() -> Observable<Bool>
 }
