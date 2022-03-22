@@ -15,13 +15,13 @@ class TaskManager {
 extension TaskManager {
     func synchronizeFirebaseToRealm() -> AnyPublisher<Void, FirebaseError> {
         Future<Void, FirebaseError> { promise in
-            self.firebaseTaskListRepository.fetchEntityTask { result in
+            self.firebaseTaskListRepository.fetchTask { result in
                 switch result {
                 case .success(let entityTaskList):
                     entityTaskList.forEach { entityTask in
                         let task = self.convertTask(from: entityTask)
                         let realmTask = self.convertRealmEntityTask(from: task)
-                        self.realmTaskListRepository.syncTask(realmTask)
+                        self.realmTaskListRepository.mergeTask(realmTask)
                     }
                     promise(.success(()))
                 case .failure:
@@ -33,10 +33,10 @@ extension TaskManager {
     }
     
     func synchronizeRealmToFirebase() throws {
-        try realmTaskListRepository.fetch().forEach { realmTask in
+        try realmTaskListRepository.fetchTask().forEach { realmTask in
             let task = convertTask(from: realmTask)
             let firebaseTask = convertFirebaseEntityTask(from: task)
-            self.firebaseTaskListRepository.syncTask(firebaseTask)
+            self.firebaseTaskListRepository.mergeTask(firebaseTask)
         }
     }
 }
@@ -45,7 +45,7 @@ extension TaskManager {
 extension TaskManager: FirebaseTaskManagable {
     func fetchFirebaseTaskList() -> AnyPublisher<[Task], FirebaseError> {
         Future<[Task], FirebaseError> { promise in
-            self.firebaseTaskListRepository.fetchEntityTask { result in
+            self.firebaseTaskListRepository.fetchTask { result in
                 var taskList = [Task]()
                 switch result {
                 case .success(let entityTaskList):
@@ -65,7 +65,7 @@ extension TaskManager: FirebaseTaskManagable {
     func createFirebaseTask(_ task: Task) -> AnyPublisher<Bool, FirebaseError> {
         Future<Bool, FirebaseError> { promise in
             let entityTask = self.convertFirebaseEntityTask(from: task)
-            self.firebaseTaskListRepository.createEntityTask(entityTask: entityTask) { result in
+            self.firebaseTaskListRepository.createTask(entityTask: entityTask) { result in
                 switch result {
                 case .success:
                     promise(.success(true))
@@ -84,7 +84,7 @@ extension TaskManager: FirebaseTaskManagable {
         deadline: Date
     ) -> AnyPublisher<Bool, FirebaseError> {
         Future<Bool, FirebaseError> { promise in
-            self.firebaseTaskListRepository.updateEntityTask(
+            self.firebaseTaskListRepository.updateTask(
                 id: id,
                 title: title,
                 description: description,
@@ -104,7 +104,7 @@ extension TaskManager: FirebaseTaskManagable {
     func updateFirebaseTaskStatus(id: String, taskStatus: TaskStatus) -> AnyPublisher<Bool, FirebaseError> {
         Future<Bool, FirebaseError> { promise in
             let entityTaskStatus = taskStatus.rawValue
-            self.firebaseTaskListRepository.updateEntityTaskStatus(id: id, taskStatus: entityTaskStatus) { result in
+            self.firebaseTaskListRepository.updateTaskStatus(id: id, taskStatus: entityTaskStatus) { result in
                 switch result {
                 case .success:
                     promise(.success(true))
@@ -118,7 +118,7 @@ extension TaskManager: FirebaseTaskManagable {
     
     func deleteFirebaseTask(_ id: String) -> AnyPublisher<Bool, FirebaseError> {
         Future<Bool, FirebaseError> { promise in
-            self.firebaseTaskListRepository.deleteEntityTask(id: id) { result in
+            self.firebaseTaskListRepository.deleteTask(id: id) { result in
                 switch result {
                 case .success:
                     promise(.success(true))
@@ -135,7 +135,7 @@ extension TaskManager: FirebaseTaskManagable {
 extension TaskManager: RealmTaskManagable {
     func fetchRealmTaskList() throws {
         do {
-            self.taskList = try realmTaskListRepository.fetch()
+            self.taskList = try realmTaskListRepository.fetchTask()
                 .map { convertTask(from: $0) }
         } catch {
             throw RealmError.fetchFailed
@@ -145,7 +145,7 @@ extension TaskManager: RealmTaskManagable {
     func createRealmTask(_ task: Task) throws {
         do {
             let realmTask = convertRealmEntityTask(from: task)
-            try realmTaskListRepository.createEntityTask(task: realmTask)
+            try realmTaskListRepository.createTask(task: realmTask)
             try fetchRealmTaskList()
         } catch {
             throw RealmError.createFailed

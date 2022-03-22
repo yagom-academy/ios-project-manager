@@ -10,6 +10,7 @@ class TaskListViewModel: ObservableObject {
     
     let taskListManager = TaskManager()
     let historyManager = TaskHistoryManager()
+    let networkManager = NetworkCheckManager()
 
     var cancellables = Set<AnyCancellable>()
     
@@ -24,12 +25,48 @@ class TaskListViewModel: ObservableObject {
         self.taskHistory = self.historyManager.taskHistory
     }
     
+    func changeableStatusList(from status: TaskStatus) -> [TaskStatus] {
+        return TaskStatus.allCases.filter { $0 != status }
+    }
+}
+
+extension TaskListViewModel {
     func synchronizeFirebaseWithRealm() {
+        synchronizeRealmToFirebase()
+        synchronizeRealmToFirebase()
+    }
+    
+    func createTask(_ task: Task) {
+        createTaskOnFirebase(task)
+        createTaskOnRealm(task)
+    }
+    
+    func updateTask(id: String, title: String, description: String, deadline: Date) {
+        updateTaskOnFirebase(id: id, title: title, description: description, deadline: deadline)
+        updateTaskOnFirebase(id: id, title: title, description: description, deadline: deadline)
+    }
+    
+    func updateTaskStatus(id: String, title: String, prevStatus: TaskStatus, nextStatus: TaskStatus) {
+        updateStatusOnFirebase(id: id, title: title, status: nextStatus)
+        updateStatusOnRealm(id: id, title: title, prevStatus: prevStatus, nextStatus: nextStatus)
+    }
+    
+    func deleteTask(id: String, title: String, taskStatus: TaskStatus) {
+        deleteTaskOnFirebase(id: id)
+        deleteTaskOnRealm(id: id, title: title, taskStatus: taskStatus)
+    }
+}
+
+extension TaskListViewModel {
+    func synchronizeRealmToFirebase() {
         do {
             try taskListManager.synchronizeRealmToFirebase()
         } catch {
             print(error.localizedDescription)
         }
+    }
+    
+    func synchronizeFirebaseToRealm() {
         taskListManager.synchronizeFirebaseToRealm()
             .sink { complition in
                 switch complition {
@@ -43,7 +80,9 @@ class TaskListViewModel: ObservableObject {
             }
             .store(in: &cancellables)
     }
-    
+}
+
+extension TaskListViewModel {
     func fetchFirebase() {
         taskListManager.fetchFirebaseTaskList()
             .sink { complition in
@@ -61,24 +100,7 @@ class TaskListViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
-    func fetchRealm() {
-        do {
-            try taskListManager.fetchRealmTaskList()
-        } catch {
-            errorAlert = ErrorModel(message: error.localizedDescription)
-            print(error.localizedDescription)
-        }
-        reload()
-    }
-    
-    func createTask(_ task: Task) {
-        do {
-            try taskListManager.createRealmTask(task)
-            historyManager.appendHistory(taskHandleType: .create(title: task.title))
-        } catch {
-            errorAlert = ErrorModel(message: error.localizedDescription)
-            print(error.localizedDescription)
-        }
+    func createTaskOnFirebase(_ task: Task) {
         taskListManager.createFirebaseTask(task)
             .sink { completion in
                 switch completion {
@@ -93,13 +115,7 @@ class TaskListViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
-    func updateTask(id: String, title: String, description: String, deadline: Date) {
-        do {
-            try  taskListManager.updateRealmTask(id: id, title: title, description: description, deadline: deadline)
-        } catch {
-            errorAlert = ErrorModel(message: error.localizedDescription)
-            print(error.localizedDescription)
-        }
+    func updateTaskOnFirebase(id: String, title: String, description: String, deadline: Date) {
         taskListManager.updateFirebaseTask(id: id, title: title, description: description, deadline: deadline)
             .sink { completion in
                 switch completion {
@@ -114,21 +130,8 @@ class TaskListViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
-    func updateStatus(id: String, title: String, prevStatus: TaskStatus, nextStatus: TaskStatus) {
-        do {
-            try taskListManager.updateRealmTaskStatus(id: id, taskStatus: nextStatus)
-            historyManager.appendHistory(
-                taskHandleType: .move(
-                    title: title,
-                    prevStatus: prevStatus,
-                    nextStatus: nextStatus
-                )
-            )
-        } catch {
-            errorAlert = ErrorModel(message: error.localizedDescription)
-            print(error.localizedDescription)
-        }
-        taskListManager.updateFirebaseTaskStatus(id: id, taskStatus: nextStatus)
+    func updateStatusOnFirebase(id: String, title: String, status: TaskStatus) {
+        taskListManager.updateFirebaseTaskStatus(id: id, taskStatus: status)
             .sink { completion in
                 switch completion {
                 case .failure(let error):
@@ -142,14 +145,7 @@ class TaskListViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
-    func deleteTask(id: String, title: String, taskStatus: TaskStatus) {
-        do {
-            try  taskListManager.deleteRealmTask(id)
-            historyManager.appendHistory(taskHandleType: .delete(title: title, status: taskStatus))
-        } catch {
-            errorAlert = ErrorModel(message: error.localizedDescription)
-            print(error.localizedDescription)
-        }
+    func deleteTaskOnFirebase(id: String) {
         taskListManager.deleteFirebaseTask(id)
             .sink { completion in
                 switch completion {
@@ -163,8 +159,61 @@ class TaskListViewModel: ObservableObject {
             }
             .store(in: &cancellables)
     }
+}
+
+extension TaskListViewModel {
+    func fetchRealm() {
+        do {
+            try taskListManager.fetchRealmTaskList()
+        } catch {
+            errorAlert = ErrorModel(message: error.localizedDescription)
+            print(error.localizedDescription)
+        }
+        reload()
+    }
     
-    func changeableStatusList(from status: TaskStatus) -> [TaskStatus] {
-        return TaskStatus.allCases.filter { $0 != status }
+    func createTaskOnRealm(_ task: Task) {
+        do {
+            try taskListManager.createRealmTask(task)
+            historyManager.appendHistory(taskHandleType: .create(title: task.title))
+        } catch {
+            errorAlert = ErrorModel(message: error.localizedDescription)
+            print(error.localizedDescription)
+        }
+    }
+    
+    func updateTaskOnRealm(id: String, title: String, description: String, deadline: Date) {
+        do {
+            try  taskListManager.updateRealmTask(id: id, title: title, description: description, deadline: deadline)
+        } catch {
+            errorAlert = ErrorModel(message: error.localizedDescription)
+            print(error.localizedDescription)
+        }
+    }
+    
+    func updateStatusOnRealm(id: String, title: String, prevStatus: TaskStatus, nextStatus: TaskStatus) {
+        do {
+            try taskListManager.updateRealmTaskStatus(id: id, taskStatus: nextStatus)
+            historyManager.appendHistory(
+                taskHandleType: .move(
+                    title: title,
+                    prevStatus: prevStatus,
+                    nextStatus: nextStatus
+                )
+            )
+        } catch {
+            errorAlert = ErrorModel(message: error.localizedDescription)
+            print(error.localizedDescription)
+        }
+    }
+    
+    func deleteTaskOnRealm(id: String, title: String, taskStatus: TaskStatus) {
+        do {
+            try  taskListManager.deleteRealmTask(id)
+            historyManager.appendHistory(taskHandleType: .delete(title: title, status: taskStatus))
+        } catch {
+            errorAlert = ErrorModel(message: error.localizedDescription)
+            print(error.localizedDescription)
+        }
     }
 }

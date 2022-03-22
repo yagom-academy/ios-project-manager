@@ -81,7 +81,7 @@ private struct StatusChangePopoverView: View {
         VStack {
             ForEach(taskListViewModel.changeableStatusList(from: task.progressStatus)) { status in
                 Button("Move to \(status.name)") {
-                    taskListViewModel.updateStatus(
+                    taskListViewModel.updateTaskStatus(
                         id: task.id,
                         title: task.title,
                         prevStatus: task.progressStatus,

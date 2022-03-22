@@ -2,8 +2,7 @@ import Foundation
 import RealmSwift
 
 class RealmTaskListRepository {
-    
-    func syncTask(_ task: RealmEntityTask) {
+    func mergeTask(_ task: RealmEntityTask) {
         do {
             let realm = try Realm()
             try realm.write {
@@ -14,7 +13,7 @@ class RealmTaskListRepository {
         }
     }
     
-    func fetch() throws -> [RealmEntityTask] {
+    func fetchTask() throws -> [RealmEntityTask] {
         var realmEntityTaskList = [RealmEntityTask]()
         let realm = try Realm()
         let fetchDataList = realm.objects(RealmEntityTask.self)
@@ -26,7 +25,7 @@ class RealmTaskListRepository {
         return realmEntityTaskList
     }
     
-    func createEntityTask(task: RealmEntityTask) throws {
+    func createTask(task: RealmEntityTask) throws {
         let realm = try Realm()
         try realm.write {
             realm.add(task)

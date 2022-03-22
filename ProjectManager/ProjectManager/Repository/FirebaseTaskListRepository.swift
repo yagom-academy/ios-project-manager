@@ -11,10 +11,11 @@ class FirebaseTaskListRepository {
         static let deadline = "deadline"
         static let status = "status"
     }
+    
     var ref: DocumentReference?
     let store = Firestore.firestore()
     
-    func syncTask(_ entityTask: FirebaseEntityTask) {
+    func mergeTask(_ entityTask: FirebaseEntityTask) {
         let createData: [String: Any] = [
             Contant.id: entityTask.id,
             Contant.title: entityTask.title,
@@ -33,7 +34,7 @@ class FirebaseTaskListRepository {
             }
     }
     
-    func fetchEntityTask(complition: @escaping (Result<[FirebaseEntityTask], FirebaseError>) -> Void) {
+    func fetchTask(complition: @escaping (Result<[FirebaseEntityTask], FirebaseError>) -> Void) {
         var entityTaskList = [FirebaseEntityTask]()
         store
             .collection(Contant.collectionName)
@@ -66,7 +67,7 @@ class FirebaseTaskListRepository {
             }
     }
     
-    func createEntityTask(entityTask: FirebaseEntityTask, complition: @escaping (Result<Bool, FirebaseError>) -> Void) {
+    func createTask(entityTask: FirebaseEntityTask, complition: @escaping (Result<Bool, FirebaseError>) -> Void) {
         let createData: [String: Any] = [
             Contant.id: entityTask.id,
             Contant.title: entityTask.title,
@@ -87,7 +88,7 @@ class FirebaseTaskListRepository {
         complition(.success(true))
     }
     
-    func updateEntityTask(
+    func updateTask(
         id: String,
         title: String,
         description: String,
@@ -121,7 +122,7 @@ class FirebaseTaskListRepository {
                 }
         }
     
-    func updateEntityTaskStatus(
+    func updateTaskStatus(
         id: String,
         taskStatus: String,
         complition: @escaping (Result<Bool, FirebaseError>) -> Void
@@ -150,7 +151,7 @@ class FirebaseTaskListRepository {
             }
     }
     
-    func deleteEntityTask(id: String, complition: @escaping (Result<Bool, FirebaseError>) -> Void) {
+    func deleteTask(id: String, complition: @escaping (Result<Bool, FirebaseError>) -> Void) {
         store
             .collection(Contant.collectionName)
             .document(id)
