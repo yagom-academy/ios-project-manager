@@ -59,7 +59,8 @@ final class MainViewController: UIViewController {
         return headerView
     }
 
-    private let popoverView = PopoverView()
+    private let popoverView = MoveSchedulePopoverView()
+    private let historyPopoverView = HistoryPopoverView()
     private let longPressGestureRecognizers: [UILongPressGestureRecognizer] = Progress.allCases
         .map { _ in UILongPressGestureRecognizer() }
 

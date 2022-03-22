@@ -18,7 +18,7 @@ final class MainViewModel {
     // MARK: - Properties
 
     let scheduleUseCase: MainUseCase
-    let scheduleHistoryUseCase: ScheduleHistoryUseCase
+    let scheduleHistoryUseCase: ScheduleHistoryManageUseCase & ScheduleActionRecodeUseCase
     private let coordinator: MainViewCoordinator
     private let bag = DisposeBag()
 

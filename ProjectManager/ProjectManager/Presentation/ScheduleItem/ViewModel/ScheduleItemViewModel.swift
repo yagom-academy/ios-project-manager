@@ -27,7 +27,8 @@ class ScheduleItemViewModel {
     // MARK: - Properties
 
     private let bag = DisposeBag()
-    private let useCase: ScheduleItemUseCase
+    private let scheduleUseCase: ScheduleItemUseCase
+    private let scheduleHistoryUseCase: ScheduleActionRecodeUseCase
     private let coordinator: ScheduleItemCoordinator
 
     private let mode: BehaviorRelay<Mode>

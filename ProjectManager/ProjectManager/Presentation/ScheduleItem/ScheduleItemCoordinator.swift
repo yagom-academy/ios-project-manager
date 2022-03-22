@@ -12,9 +12,14 @@ class ScheduleItemCoordinator {
     let navigationController = UINavigationController()
     private let scheduleItemViewController = ScheduleItemViewController()
 
-    func start(with useCase: ScheduleItemUseCase, mode: ScheduleItemViewModel.Mode) {
+    func start(
+        with scheduleUseCase: ScheduleItemUseCase,
+        scheduleHistoryUseCase: ScheduleActionRecodeUseCase,
+        mode: ScheduleItemViewModel.Mode
+    ) {
         self.scheduleItemViewController.viewModel = ScheduleItemViewModel(
-            useCase: useCase,
+            scheduleUseCase: scheduleUseCase,
+            scheduleHistoryUseCase: scheduleHistoryUseCase,
             coordinator: self,
             mode: mode
         )

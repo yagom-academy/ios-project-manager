@@ -40,8 +40,16 @@ class MainViewCoordinator {
             return
         }
 
+        guard let historyUseCase = self.mainViewController.viewModel?.scheduleHistoryUseCase else {
+            return
+        }
+
         let scheduleDetailCoordinator = ScheduleItemCoordinator()
-        scheduleDetailCoordinator.start(with: useCase, mode: mode)
+        scheduleDetailCoordinator.start(
+            with: useCase,
+            scheduleHistoryUseCase: historyUseCase,
+            mode: mode
+        )
 
         self.present(scheduleDetailCoordinator.navigationController)
     }
