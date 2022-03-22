@@ -10,6 +10,7 @@ private enum Design {
 final class TaskListViewController: UIViewController {
     // MARK: - Properties
     private var taskListViewModel: TaskListViewModelProtocol!
+    weak var flowCoordinator: FlowCoordinator?
     private var disposeBag = DisposeBag()
     
     private var todoTaskHeaderView: TaskTableHeaderView!
@@ -21,7 +22,7 @@ final class TaskListViewController: UIViewController {
     @IBOutlet private weak var doneTableView: TaskTableView!
     
     // MARK: - Initializers
-    convenience init?(coder: NSCoder, taskListViewModel: TaskListViewModelProtocol = TaskListViewModel()) {
+    convenience init?(coder: NSCoder, taskListViewModel: TaskListViewModelProtocol) {
         self.init(coder: coder)
         self.taskListViewModel = taskListViewModel
     }
@@ -108,8 +109,7 @@ final class TaskListViewController: UIViewController {
 // MARK: - IBAction
 extension TaskListViewController {
     @IBAction private func touchUpAddButton(_ sender: UIBarButtonItem) {
-        let taskDetailController = taskListViewModel.createViewControllerForTaskAdd()
-        self.present(UINavigationController(rootViewController: taskDetailController), animated: true)
+        taskListViewModel.didTouchUpAddButton()
     }
 }
 
@@ -122,8 +122,7 @@ extension TaskListViewController: UITableViewDelegate {
                   return
               }
 
-        let taskDetailController = taskListViewModel.createViewControllerForSelectedRow(at: indexPath.row, inTableViewOf: selectedProcessStatus)
-        self.present(UINavigationController(rootViewController: taskDetailController), animated: true)
+        taskListViewModel.didSelectTask(at: indexPath.row, inTableViewOf: selectedProcessStatus)
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {

@@ -11,8 +11,8 @@ protocol TaskListViewModelInputProtocol {
     func title(of changeOptions: [ProcessStatus]) -> [String]
     func edit(task: Task, newProcessStatus: ProcessStatus)
     func edit(task: Task, newTitle: String, newBody: String, newDueDate: Date)
-    func createViewControllerForTaskAdd() -> UIViewController
-    func createViewControllerForSelectedRow(at row: Int, inTableViewOf: ProcessStatus) -> UIViewController
+    func didTouchUpAddButton()
+    func didSelectTask(at row: Int, inTableViewOf: ProcessStatus)
     func didSwipeDeleteAction(for row: Int, inTableViewOf: ProcessStatus)
 }
 
@@ -41,12 +41,17 @@ final class TaskListViewModel: TaskListViewModelProtocol {
     lazy var doingTasksCount: Observable<Int> = doingTasks.asObservable().map { $0.count }
     lazy var doneTasksCount: Observable<Int> = doneTasks.asObservable().map { $0.count }
     
+    // TODO: UseCase 추가
+    let actions: TaskListViewModelActions?
+    
     // MARK: - Initializers
-    init(taskRepository: TaskRepositoryProtocol = TaskRepository()) {
+    init(taskRepository: TaskRepositoryProtocol = TaskRepository(), actions: TaskListViewModelActions) {
         self.taskRepository = taskRepository
         self.todoTasks = BehaviorSubject<[Task]>(value: taskRepository.todoTasks)
         self.doingTasks = BehaviorSubject<[Task]>(value: taskRepository.doingTasks)
         self.doneTasks = BehaviorSubject<[Task]>(value: taskRepository.doneTasks)
+        
+        self.actions = actions
     }
     
     // MARK: - Methods
@@ -132,16 +137,12 @@ final class TaskListViewModel: TaskListViewModelProtocol {
         update(task: task, to: newTask)
     }
     
-    func createViewControllerForTaskAdd() -> UIViewController {
-        let taskDetailViewModel = TaskDetailViewModel()
-        let taskDetailController = ViewControllerFactory.createViewController(of: .newTaskDetail(taskListViewModel: self, taskDetailViewModel: taskDetailViewModel))
-        taskDetailController.modalPresentationStyle = .popover
-        
-        return taskDetailController
+    func didTouchUpAddButton() {
+        actions?.showTaskDetailToAddTask()
     }
  
     // MARK: - TableView Delegate
-    func createViewControllerForSelectedRow(at row: Int, inTableViewOf: ProcessStatus) -> UIViewController {
+    func didSelectTask(at row: Int, inTableViewOf: ProcessStatus) {
         var taskToEdit: Task!
         switch inTableViewOf {
         case .todo:
@@ -152,11 +153,7 @@ final class TaskListViewModel: TaskListViewModelProtocol {
             taskToEdit = taskRepository.doneTasks[row]
         }
         
-        let taskDetailViewModel = TaskDetailViewModel()
-        let taskDetailController = ViewControllerFactory.createViewController(of: .editTaskDetail(taskListViewModel: self, taskDetailViewModel: taskDetailViewModel, taskToEdit: taskToEdit))
-        taskDetailController.modalPresentationStyle = .popover
-        
-        return taskDetailController
+        actions?.showTaskDetailToEditTask(taskToEdit)
     }
     
     func didSwipeDeleteAction(for row: Int, inTableViewOf: ProcessStatus) {

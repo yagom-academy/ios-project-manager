@@ -19,6 +19,9 @@
 		369243FF27D26A1E004F0FE4 /* TaskTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 369243FD27D26A1E004F0FE4 /* TaskTableViewCell.xib */; };
 		3692440127D27071004F0FE4 /* TaskListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3692440027D27071004F0FE4 /* TaskListViewModel.swift */; };
 		36BB380C27E36953004A701D /* TaskDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36BB380B27E36953004A701D /* TaskDetailViewModel.swift */; };
+		36BB381227E892C5004A701D /* FlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36BB381127E892C5004A701D /* FlowCoordinator.swift */; };
+		36BB381727E9A560004A701D /* ViewControllerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36BB381627E9A560004A701D /* ViewControllerError.swift */; };
+		36BB381927E9B2BC004A701D /* TaskListViewModelActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36BB381827E9B2BB004A701D /* TaskListViewModelActions.swift */; };
 		36C6FC3827D72E5300B3057F /* TableViewError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C6FC3727D72E5300B3057F /* TableViewError.swift */; };
 		36C6FC3D27D73E5100B3057F /* UITableView+ReuseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C6FC3C27D73E5100B3057F /* UITableView+ReuseCell.swift */; };
 		36C6FC3F27D73E8B00B3057F /* UITableViewCell+Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C6FC3E27D73E8B00B3057F /* UITableViewCell+Identifier.swift */; };
@@ -84,6 +87,9 @@
 		369243FD27D26A1E004F0FE4 /* TaskTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskTableViewCell.xib; sourceTree = "<group>"; };
 		3692440027D27071004F0FE4 /* TaskListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListViewModel.swift; sourceTree = "<group>"; };
 		36BB380B27E36953004A701D /* TaskDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailViewModel.swift; sourceTree = "<group>"; };
+		36BB381127E892C5004A701D /* FlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowCoordinator.swift; sourceTree = "<group>"; };
+		36BB381627E9A560004A701D /* ViewControllerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerError.swift; sourceTree = "<group>"; };
+		36BB381827E9B2BB004A701D /* TaskListViewModelActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListViewModelActions.swift; sourceTree = "<group>"; };
 		36C6FC3727D72E5300B3057F /* TableViewError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewError.swift; sourceTree = "<group>"; };
 		36C6FC3C27D73E5100B3057F /* UITableView+ReuseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+ReuseCell.swift"; sourceTree = "<group>"; };
 		36C6FC3E27D73E8B00B3057F /* UITableViewCell+Identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Identifier.swift"; sourceTree = "<group>"; };
@@ -146,21 +152,11 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		369243F527D2677D004F0FE4 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				36C6FC3227D7274000B3057F /* TaskListView */,
-				36C6FC4027D74F7F00B3057F /* TaskDetailView */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		369243F627D26781004F0FE4 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
 				3692440027D27071004F0FE4 /* TaskListViewModel.swift */,
-				36BB380B27E36953004A701D /* TaskDetailViewModel.swift */,
-				36D50A4727E14D3700CD61EF /* TaskManagerAction.swift */,
+				36BB381827E9B2BB004A701D /* TaskListViewModelActions.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -174,7 +170,45 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		36C6FC3227D7274000B3057F /* TaskListView */ = {
+		36BB380D27E891B2004A701D /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				36C6FC4B27D7869A00B3057F /* Repository */,
+				369243F427D26777004F0FE4 /* Model */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		36BB380E27E891E2004A701D /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		36BB380F27E891E9004A701D /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				36BB381127E892C5004A701D /* FlowCoordinator.swift */,
+				36C6FC3227D7274000B3057F /* TaskListView */,
+				36C6FC4027D74F7F00B3057F /* TaskDetailView */,
+				36C6FC3327D72B2300B3057F /* Utilities */,
+				36C6FC3B27D73E3300B3057F /* Extensions */,
+				36C6FC3627D72E3600B3057F /* Errors */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		36BB381327E893BC004A701D /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				36BB380B27E36953004A701D /* TaskDetailViewModel.swift */,
+				36D50A4727E14D3700CD61EF /* TaskManagerAction.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		36BB381427E893DB004A701D /* View */ = {
 			isa = PBXGroup;
 			children = (
 				C7431F0925F51E1D0094C4CF /* TaskListViewController.swift */,
@@ -183,6 +217,24 @@
 				369243FD27D26A1E004F0FE4 /* TaskTableViewCell.xib */,
 				36C6FC6927D9FD1500B3057F /* TaskTableView.swift */,
 				36D50A3E27E0F90A00CD61EF /* TaskTableHeaderView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		36BB381527E893E0004A701D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				36C6FC4327D7531C00B3057F /* TaskDetailController.swift */,
+				36C6FC4727D7560800B3057F /* TaskDetailController.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		36C6FC3227D7274000B3057F /* TaskListView */ = {
+			isa = PBXGroup;
+			children = (
+				369243F627D26781004F0FE4 /* ViewModel */,
+				36BB381427E893DB004A701D /* View */,
 			);
 			path = TaskListView;
 			sourceTree = "<group>";
@@ -201,6 +253,7 @@
 			children = (
 				36C6FC3727D72E5300B3057F /* TableViewError.swift */,
 				36C6FC5D27D7ACE900B3057F /* TaskManagerError.swift */,
+				36BB381627E9A560004A701D /* ViewControllerError.swift */,
 			);
 			path = Errors;
 			sourceTree = "<group>";
@@ -220,8 +273,8 @@
 		36C6FC4027D74F7F00B3057F /* TaskDetailView */ = {
 			isa = PBXGroup;
 			children = (
-				36C6FC4327D7531C00B3057F /* TaskDetailController.swift */,
-				36C6FC4727D7560800B3057F /* TaskDetailController.storyboard */,
+				36BB381327E893BC004A701D /* ViewModel */,
+				36BB381527E893E0004A701D /* View */,
 			);
 			path = TaskDetailView;
 			sourceTree = "<group>";
@@ -267,13 +320,9 @@
 			children = (
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
-				369243F427D26777004F0FE4 /* Model */,
-				36C6FC4B27D7869A00B3057F /* Repository */,
-				369243F627D26781004F0FE4 /* ViewModel */,
-				369243F527D2677D004F0FE4 /* View */,
-				36C6FC3327D72B2300B3057F /* Utilities */,
-				36C6FC3B27D73E3300B3057F /* Extensions */,
-				36C6FC3627D72E3600B3057F /* Errors */,
+				36BB380D27E891B2004A701D /* Data */,
+				36BB380E27E891E2004A701D /* Domain */,
+				36BB380F27E891E9004A701D /* Presentation */,
 				369243F727D26788004F0FE4 /* Resources */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
 				3692433927CE095C004F0FE4 /* GoogleService-Info.plist */,
@@ -450,11 +499,13 @@
 				36C6FC4427D7531C00B3057F /* TaskDetailController.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* TaskListViewController.swift in Sources */,
 				36C6FC3F27D73E8B00B3057F /* UITableViewCell+Identifier.swift in Sources */,
+				36BB381927E9B2BC004A701D /* TaskListViewModelActions.swift in Sources */,
 				36D50A4227E10B0200CD61EF /* UITableViewHeaderFooterView+Identifier.swift in Sources */,
 				36C6FC6D27DA47C500B3057F /* ViewControllerFactory.swift in Sources */,
 				36D50A3F27E0F90A00CD61EF /* TaskTableHeaderView.swift in Sources */,
 				369243F927D26960004F0FE4 /* ProcessStatus.swift in Sources */,
 				36C6FC4F27D78BB500B3057F /* StorageProtocol.swift in Sources */,
+				36BB381727E9A560004A701D /* ViewControllerError.swift in Sources */,
 				36C6FC6527D7C64100B3057F /* Array+SafeSubscript.swift in Sources */,
 				36C6FC4D27D786B200B3057F /* TaskRepository.swift in Sources */,
 				36C6FC5E27D7ACE900B3057F /* TaskManagerError.swift in Sources */,
@@ -465,6 +516,7 @@
 				36C6FC3D27D73E5100B3057F /* UITableView+ReuseCell.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				36D50A4A27E1CE0000CD61EF /* AlertFactory.swift in Sources */,
+				36BB381227E892C5004A701D /* FlowCoordinator.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				3692440127D27071004F0FE4 /* TaskListViewModel.swift in Sources */,
 				36BB380C27E36953004A701D /* TaskDetailViewModel.swift in Sources */,

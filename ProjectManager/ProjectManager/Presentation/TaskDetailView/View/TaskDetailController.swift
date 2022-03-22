@@ -3,6 +3,8 @@ import UIKit
 class TaskDetailController: UIViewController {
     private var taskListViewModel: TaskListViewModelProtocol?
     private var taskDetailViewModel: TaskDetailViewModelProtocol?
+    weak var flowCoordinator: FlowCoordinator?
+    
     private var taskManagerAction: TaskManagerAction!
     private var taskToEdit: Task?
     

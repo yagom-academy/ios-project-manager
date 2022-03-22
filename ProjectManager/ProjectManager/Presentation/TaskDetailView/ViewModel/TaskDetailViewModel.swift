@@ -5,9 +5,12 @@ protocol TaskDetailViewModelInputProtocol {
     func rightBarButton(of taskManagerAction: TaskManagerAction) -> UIBarButtonItem.SystemItem
 }
 
-protocol TaskDetailViewModelProtocol: TaskDetailViewModelInputProtocol { }
+protocol TaskDetailViewModelOutputProtocol { }
+
+protocol TaskDetailViewModelProtocol: TaskDetailViewModelInputProtocol, TaskDetailViewModelOutputProtocol { }
 
 final class TaskDetailViewModel: TaskDetailViewModelProtocol {
+    // TODO: UseCase 추가
     func leftBarButton(of taskManagerAction: TaskManagerAction) -> UIBarButtonItem.SystemItem {
         switch taskManagerAction {
         case .add:
