@@ -3,9 +3,23 @@ import CoreData
 
 
 private enum Tag {
+    
     static let todo: Int16 = 0
     static let doing: Int16 = 1
     static let done: Int16 = 2
+    
+}
+
+private enum Name {
+    
+    static let entity = "Work"
+    
+}
+
+private enum Content {
+    
+    static let emptyString = ""
+    
 }
 
 extension Work {
@@ -28,7 +42,7 @@ extension Work {
     }
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Work> {
-        return NSFetchRequest<Work>(entityName: "Work")
+        return NSFetchRequest<Work>(entityName: Name.entity)
     }
 
     @NSManaged public var id: UUID?
@@ -38,7 +52,7 @@ extension Work {
     @NSManaged public var categoryTag: Int16
     
     var convertedDate: String {
-        guard let dueDate = dueDate else { return "" }
+        guard let dueDate = dueDate else { return Content.emptyString }
         let dateFormatter = DateFormatter.shared
         
         return dateFormatter.string(from: dueDate)

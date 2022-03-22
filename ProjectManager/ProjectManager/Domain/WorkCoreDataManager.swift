@@ -50,6 +50,7 @@ class WorkCoreDataManager: WorkManagable {
     func create(title: String, body: String, dueDate: Date) {
         let newWork = Work(context: context)
         
+        newWork.id = UUID()
         newWork.title = title
         newWork.body = body
         newWork.dueDate = dueDate
