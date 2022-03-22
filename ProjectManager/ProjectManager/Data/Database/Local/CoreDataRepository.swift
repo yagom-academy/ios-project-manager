@@ -1,9 +1,11 @@
 import Foundation
 import CoreData
 import RxSwift
+import RxRelay
 
-final class CoredataRepository: DataRepository { 
+final class CoredataRepository: DataRepository {
     
+    var rxLists = BehaviorRelay<[Listable]>(value: [])
     private let context: NSManagedObjectContext
     private var list = [Listable]()
     
@@ -56,6 +58,7 @@ final class CoredataRepository: DataRepository {
         }
         
         self.list = data
+        self.rxLists.accept(extractAll())
         self.saveContext()
     }
     

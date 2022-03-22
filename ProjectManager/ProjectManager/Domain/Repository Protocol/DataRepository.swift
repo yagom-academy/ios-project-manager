@@ -1,7 +1,10 @@
 import Foundation
 import RxSwift
+import RxRelay
 
 protocol DataRepository {
+    
+    var rxLists: BehaviorRelay<[Listable]> { get set }
     
     func create(object: Listable)
     

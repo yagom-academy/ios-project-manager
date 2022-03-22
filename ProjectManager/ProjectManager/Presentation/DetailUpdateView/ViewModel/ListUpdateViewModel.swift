@@ -4,13 +4,15 @@ import RxRelay
 
 final class ListUpdateViewModel {
     
+    typealias UseCase = ListUpdateUseCase & ListReadUseCase
+    
     private let identifer: String
-    private let controlUseCase: ControlUseCase
+    private let controlUseCase: UseCase
     private let historyCheckUseCase: HistoryCheckUseCase
     private var coordinator: Coordinator?
     private var listProgressState: String?
     
-    init(controlUseCase: ControlUseCase, historyCheckUseCase: HistoryCheckUseCase, identifier: String, coordinator: Coordinator) {
+    init(controlUseCase: UseCase, historyCheckUseCase: HistoryCheckUseCase, identifier: String, coordinator: Coordinator) {
         self.controlUseCase = controlUseCase
         self.historyCheckUseCase = historyCheckUseCase
         self.identifer = identifier

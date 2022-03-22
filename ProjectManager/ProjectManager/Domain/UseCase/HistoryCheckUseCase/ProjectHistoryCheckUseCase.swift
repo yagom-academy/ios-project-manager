@@ -2,10 +2,12 @@ import Foundation
 import RxRelay
 import RxSwift
 
-final class ProjectHistoryCheckUseCase: HistoryCheckUseCase { // model을 holding하는 Layer가 아니다
+final class ProjectHistoryCheckUseCase: HistoryCheckUseCase {
+    //TODO: - model을 holding하는 Layer 만들기
     
     var rxChangeHistories = BehaviorRelay<[(state: ManageState, identifier: String, object: Listable)]>(value: [])
-    var chageHistory = [(state: ManageState, identifier: String, object: Listable)]() // repository <model>
+    var chageHistory = [(state: ManageState, identifier: String, object: Listable)]()
+    //TODO: - repository <model>로 분리 
     
     func fetchHistory() -> Observable<[(state: ManageState, identifier: String, object: Listable)]>{
         return Observable.create { emitter in

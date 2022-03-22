@@ -1,30 +1,36 @@
 import Foundation
 import RxSwift
+import RxRelay
 
 final class MockDataRepository: DataRepository {
-    
+  
+    var rxLists = BehaviorRelay<[Listable]>(value: [])
     var dataBase = [Listable]()
     
     func create(object: Listable) {
         self.dataBase.append(object)
+        fetch()
     }
     
     func read(identifier: String) -> Listable? {
-        (self.dataBase.filter{ $0.identifier == identifier }).first
+        fetch()
+        return (self.dataBase.filter{ $0.identifier == identifier }).first
     }
     
     func update(identifier: String, how object: Listable) {
         let listToUpdatedIndex = self.dataBase.enumerated().filter{ $0.element.identifier == identifier }.map { $0.offset }.first
         self.dataBase[listToUpdatedIndex ?? .zero] = object
+        fetch()
     }
     
     func delete(identifier: String) {
         let listToDeleteIndex = self.dataBase.enumerated().filter{ $0.element.identifier == identifier }.map { $0.offset }.first
         self.dataBase.remove(at: listToDeleteIndex ?? .zero)
+        fetch()
     }
     
     func fetch() {
-        
+        self.rxLists.accept(extractAll())
     }
 
     func extractAll() -> [Listable] {

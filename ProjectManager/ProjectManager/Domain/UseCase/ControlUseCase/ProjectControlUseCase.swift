@@ -2,11 +2,10 @@ import Foundation
 import RxSwift
 import RxRelay
 
-final class ProjectControlUseCase: ControlUseCase { 
+final class ProjectControlUseCase: ListCreateUseCase, ListReadUseCase, ListUpdateUseCase, ListDeleteUseCase {
     
-    var repository: DataRepository?
-    var rxLists = BehaviorRelay<[Listable]>(value: []) 
-    let disposeBag = DisposeBag()
+    private var repository: DataRepository?
+    private let disposeBag = DisposeBag()
     
     init(repository: DataRepository) {
         self.repository = repository
@@ -14,13 +13,11 @@ final class ProjectControlUseCase: ControlUseCase {
    
     func createProject(object: Listable) {
         self.repository?.create(object: object)
-        var current = rxLists.value
-        current.append(object)
-        self.rxLists.accept(current)
     }
     
     func readProject(identifier: String) -> Listable? {
-        self.repository?.read(identifier: identifier)
+        self.repository?.fetch()
+        return self.repository?.read(identifier: identifier)
     }
     
     func updateProject(
@@ -37,9 +34,13 @@ final class ProjectControlUseCase: ControlUseCase {
     }
     
     func fetch() {
-        repository?.extractRxAll()
-        .subscribe( onNext: { project in
-            self.rxLists.accept(project)
+        self.repository?.extractRxAll()
+        .subscribe(onNext: { project in
+            self.repository?.rxLists.accept(project)
         }).disposed(by: self.disposeBag)
+    }
+    
+    func extractAll() -> BehaviorRelay<[Listable]> {
+        return self.repository!.rxLists
     }
 }

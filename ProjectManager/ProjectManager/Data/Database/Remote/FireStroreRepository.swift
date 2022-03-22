@@ -2,9 +2,11 @@ import Foundation
 import Firebase
 import FirebaseFirestore
 import RxSwift
+import RxRelay
 
 final class FireStoreRepository: DataRepository {
     
+    var rxLists = BehaviorRelay<[Listable]>(value: [])
     private let dataBase: Firestore?
     private var list = [Listable]()
     private let sampleList = Project(name: "", detail: "", deadline: Date(), indentifier: "123", progressState: ProgressState.doing.description)
@@ -51,6 +53,7 @@ final class FireStoreRepository: DataRepository {
             }
         }
         self.list = lists
+        self.rxLists.accept(extractAll())
     }
     
     func extractAll() -> [Listable] {

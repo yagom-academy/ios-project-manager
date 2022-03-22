@@ -84,6 +84,7 @@ final class ListViewController: UIViewController {
     private func configureOutput(input: ListViewModel.Input) {
         let output = self.viewModel?.transform(input: input, disposeBag: self.disposeBag)
         let stateWithTableViews = self.zipStateWithTableViews()
+        
         stateWithTableViews.forEach { zip in
             output?.baseProjects.map({ lists in
                 lists.filter { $0.progressState.description == zip.key }

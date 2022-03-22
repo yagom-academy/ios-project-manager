@@ -5,11 +5,11 @@ import RxRelay
 final class ListAddViewModel {
     
     private let disposeBag = DisposeBag()
-    private let controlUseCase: ControlUseCase
+    private let controlUseCase: ListCreateUseCase
     private let historyCheckUseCase: HistoryCheckUseCase
     private let coordinator: Coordinator?
     
-    init(controlUseCase: ControlUseCase, historyCheckUseCase: HistoryCheckUseCase, coordinator: Coordinator) {
+    init(controlUseCase: ListCreateUseCase, historyCheckUseCase: HistoryCheckUseCase, coordinator: Coordinator) {
         self.controlUseCase = controlUseCase
         self.historyCheckUseCase = historyCheckUseCase
         self.coordinator = coordinator

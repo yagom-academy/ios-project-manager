@@ -3,12 +3,14 @@ import RxSwift
 
 final class ListViewModel {
     
+    typealias UseCase = ListReadUseCase & ListDeleteUseCase
+    
     private let disposeBag = DisposeBag()
-    private let controlUseCase: ControlUseCase
+    private let controlUseCase: UseCase
     private let historyCheckUseCase: HistoryCheckUseCase
     private var coordinator: Coordinator?
     
-    init(controlUseCase: ControlUseCase, historyCheckUseCase: HistoryCheckUseCase ,coordinator: Coordinator) {
+    init(controlUseCase: UseCase, historyCheckUseCase: HistoryCheckUseCase ,coordinator: Coordinator) {
         self.controlUseCase = controlUseCase
         self.historyCheckUseCase = historyCheckUseCase
         self.coordinator = coordinator
@@ -54,10 +56,14 @@ final class ListViewModel {
     }
     
     private func createViewModelOutput() -> Output {
-        let initialProjects = controlUseCase.rxLists
+//        let initialProjects = controlUseCase.rxLists
+//            .map { $0 }
+//            .share(replay: 1)
+//
+        let k = controlUseCase.extractAll()
             .map { $0 }
             .share(replay: 1)
         
-        return Output(baseProjects: initialProjects)
+        return Output(baseProjects: k)
     }
 }
