@@ -25,20 +25,20 @@ final class ScheduleAction {
 
 extension ScheduleAction {
     enum ActionType: CustomStringConvertible {
-        case create(Schedule)
+        case add(Schedule)
         case delete(Schedule)
-        case update(Schedule)
-        case changeProgress(Schedule, Progress?)
+        case modify(Schedule)
+        case move(Schedule, Progress?)
 
         var description: String {
             switch self {
-            case .create(let schedule):
+            case .add(let schedule):
                 return "Created \(schedule.title)"
             case .delete(let schedule):
                 return "Removed \(schedule.title)"
-            case .update(let schedule):
+            case .modify(let schedule):
                 return "Modified \(schedule.title)"
-            case .changeProgress(let schedule, let progress):
+            case .move(let schedule, let progress):
                 guard let progress = progress else {
                     return "Moved \(schedule.title)"
                 }

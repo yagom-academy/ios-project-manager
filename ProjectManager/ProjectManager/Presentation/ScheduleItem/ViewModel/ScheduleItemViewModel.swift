@@ -157,7 +157,7 @@ private extension ScheduleItemViewModel {
 
         self.scheduleUseCase.update(newSchedule)
         let action = ScheduleAction(
-            type: .update(newSchedule),
+            type: .modify(newSchedule),
             execute: { self.scheduleUseCase.update(newSchedule) },
             reverse: { self.scheduleUseCase.update(schedule) }
         )
@@ -174,7 +174,7 @@ private extension ScheduleItemViewModel {
 
         self.scheduleUseCase.create(newSchedule)
         let action = ScheduleAction(
-            type: .create(newSchedule),
+            type: .add(newSchedule),
             execute: { self.scheduleUseCase.create(newSchedule) },
             reverse: { self.scheduleUseCase.delete(newSchedule.id) }
         )

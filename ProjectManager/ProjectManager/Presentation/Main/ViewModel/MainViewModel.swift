@@ -81,7 +81,7 @@ final class MainViewModel {
                 let targetProgress = Progress.allCases.filter { $0 != schedule.progress }.first
                 self?.scheduleUseCase.changeProgress(of: schedule, progress: targetProgress)
                 let action = ScheduleAction(
-                    type: .changeProgress(schedule, targetProgress),
+                    type: .move(schedule, targetProgress),
                     execute: { self?.scheduleUseCase.changeProgress(of: schedule, progress: targetProgress) },
                     reverse: { self?.scheduleUseCase.changeProgress(of: schedule, progress: schedule.progress)}
                 )
@@ -97,7 +97,7 @@ final class MainViewModel {
                 let targetProgress = Progress.allCases.filter { $0 != schedule.progress }.last
                 self.scheduleUseCase.changeProgress(of: schedule, progress: targetProgress)
                 let action = ScheduleAction(
-                    type: .changeProgress(schedule, targetProgress),
+                    type: .move(schedule, targetProgress),
                     execute: { self.scheduleUseCase.changeProgress(of: schedule, progress: targetProgress) },
                     reverse: { self.scheduleUseCase.changeProgress(of: schedule, progress: schedule.progress)}
                 )
