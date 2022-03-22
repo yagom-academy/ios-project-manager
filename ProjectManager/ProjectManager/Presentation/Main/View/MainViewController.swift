@@ -254,9 +254,35 @@ private extension MainViewController {
 
         output.popoverBottomButtonTitle
             .asDriver(onErrorJustReturn: .empty)
-                .drive(self.popoverView.bottomButton.rx.title())
-                .disposed(by: self.bag)
+            .drive(self.popoverView.bottomButton.rx.title())
+            .disposed(by: self.bag)
 
+        output.scheduleHistory
+            .asDriver(onErrorJustReturn: [])
+            .do(onNext: { _ in self.presentHistoryPopover() })
+            .drive(self.historyPopoverView.tableView.rx.items(
+                cellIdentifier: String(describing: HistoryListCell.self),
+                cellType: HistoryListCell.self
+            )) { _, item, cell in
+                cell.configureContent(with: item)
+            }
+            .disposed(by: self.bag)
+
+        output.scheduleHistory
+            .map { $0.count != 0 }
+            .asDriver(onErrorJustReturn: false)
+            .drive(self.historyPopoverView.statusLabel.rx.isHidden)
+            .disposed(by: self.bag)
+
+        output.canUndo
+            .asDriver(onErrorJustReturn: false)
+            .drive(self.undoBarButton.rx.isEnabled)
+            .disposed(by: self.bag)
+
+        output.canRedo
+            .asDriver(onErrorJustReturn: false)
+            .drive(self.redoBarButton.rx.isEnabled)
+            .disposed(by: self.bag)
     }
 
     func setHeaderViewButtonTitle(for number: Int, at index: Int) {
