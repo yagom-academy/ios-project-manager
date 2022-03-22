@@ -139,9 +139,9 @@ private extension MainViewController {
             self.redoBarButton
         ], animated: true)
 
+        guard let customView = self.toolbarItems?.first?.customView else { return }
         NetworkCheck.shared.isConnected
-            .debug()
-            .bind(to: self.toolbarItems!.first!.customView!.rx.isHidden)
+            .bind(to: customView.rx.isHidden)
             .disposed(by: self.bag)
     }
 
