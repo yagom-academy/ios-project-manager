@@ -20,35 +20,29 @@ protocol TaskDetailViewModelOutputProtocol {
 protocol TaskDetailViewModelProtocol: TaskDetailViewModelInputProtocol, TaskDetailViewModelOutputProtocol { }
 
 final class TaskDetailViewModel: TaskDetailViewModelProtocol {
-//    private let taskRepository: TaskRepositoryProtocol
-    private let useCase: TaskManagerUseCase
+    private let taskRepository: TaskRepositoryProtocol
     let todoTasks: BehaviorSubject<[Task]>
     let doingTasks: BehaviorSubject<[Task]>
     let doneTasks: BehaviorSubject<[Task]>
     
-    init(useCase: TaskManagerUseCase) {
-        self.useCase = useCase
-//        self.taskRepository = taskRepository
-        self.todoTasks = BehaviorSubject<[Task]>(value: useCase.taskRepository.todoTasks)
-        self.doingTasks = BehaviorSubject<[Task]>(value: useCase.taskRepository.doingTasks)
-        self.doneTasks = BehaviorSubject<[Task]>(value: useCase.taskRepository.doneTasks)
+    init(taskRepository: TaskRepositoryProtocol) {
+        self.taskRepository = taskRepository
+        self.todoTasks = BehaviorSubject<[Task]>(value: taskRepository.todoTasks)
+        self.doingTasks = BehaviorSubject<[Task]>(value: taskRepository.doingTasks)
+        self.doneTasks = BehaviorSubject<[Task]>(value: taskRepository.doneTasks)
     }
     
     // MARK: - Methods
     func create(task: Task) {
-        useCase.create(task: task)
-//        taskRepository.create(task: task)
+        taskRepository.create(task: task)
         
         switch task.processStatus {
         case .todo:
-            todoTasks.onNext(useCase.taskRepository.todoTasks)
-//            todoTasks.onNext(taskRepository.todoTasks)
+            todoTasks.onNext(taskRepository.todoTasks)
         case .doing:
-            doingTasks.onNext(useCase.taskRepository.doingTasks)
-//            doingTasks.onNext(taskRepository.doingTasks)
+            doingTasks.onNext(taskRepository.doingTasks)
         case .done:
-            doneTasks.onNext(useCase.taskRepository.doneTasks)
-//            doneTasks.onNext(taskRepository.doneTasks)
+            doneTasks.onNext(taskRepository.doneTasks)
         }
     }
     
@@ -58,26 +52,26 @@ final class TaskDetailViewModel: TaskDetailViewModelProtocol {
             return
         }
         
-        useCase.taskRepository.update(task: task, to: newTask)
+        taskRepository.update(task: task, to: newTask)
         
         switch task.processStatus {
         case .todo:
-            todoTasks.onNext(useCase.taskRepository.todoTasks)
+            todoTasks.onNext(taskRepository.todoTasks)
         case .doing:
-            doingTasks.onNext(useCase.taskRepository.doingTasks)
+            doingTasks.onNext(taskRepository.doingTasks)
         case .done:
-            doneTasks.onNext(useCase.taskRepository.doneTasks)
+            doneTasks.onNext(taskRepository.doneTasks)
         }
         
         guard task.processStatus != newTask.processStatus else { return }
         
         switch newTask.processStatus {
         case .todo:
-            todoTasks.onNext(useCase.taskRepository.todoTasks)
+            todoTasks.onNext(taskRepository.todoTasks)
         case .doing:
-            doingTasks.onNext(useCase.taskRepository.doingTasks)
+            doingTasks.onNext(taskRepository.doingTasks)
         case .done:
-            doneTasks.onNext(useCase.taskRepository.doneTasks)
+            doneTasks.onNext(taskRepository.doneTasks)
         }
     }
     
@@ -86,7 +80,6 @@ final class TaskDetailViewModel: TaskDetailViewModelProtocol {
         update(task: task, to: newTask)
     }
     
-    // TODO: UseCase 추가
     func leftBarButton(of taskManagerAction: TaskManagerAction) -> UIBarButtonItem.SystemItem {
         switch taskManagerAction {
         case .add:

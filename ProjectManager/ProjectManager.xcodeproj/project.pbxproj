@@ -22,7 +22,6 @@
 		36BB381227E892C5004A701D /* FlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36BB381127E892C5004A701D /* FlowCoordinator.swift */; };
 		36BB381727E9A560004A701D /* ViewControllerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36BB381627E9A560004A701D /* ViewControllerError.swift */; };
 		36BB381927E9B2BC004A701D /* TaskListViewModelActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36BB381827E9B2BB004A701D /* TaskListViewModelActions.swift */; };
-		36BB381D27E9F387004A701D /* TaskManagerUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36BB381C27E9F387004A701D /* TaskManagerUseCase.swift */; };
 		36C6FC3827D72E5300B3057F /* TableViewError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C6FC3727D72E5300B3057F /* TableViewError.swift */; };
 		36C6FC3D27D73E5100B3057F /* UITableView+ReuseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C6FC3C27D73E5100B3057F /* UITableView+ReuseCell.swift */; };
 		36C6FC3F27D73E8B00B3057F /* UITableViewCell+Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C6FC3E27D73E8B00B3057F /* UITableViewCell+Identifier.swift */; };
@@ -91,7 +90,6 @@
 		36BB381127E892C5004A701D /* FlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowCoordinator.swift; sourceTree = "<group>"; };
 		36BB381627E9A560004A701D /* ViewControllerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerError.swift; sourceTree = "<group>"; };
 		36BB381827E9B2BB004A701D /* TaskListViewModelActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListViewModelActions.swift; sourceTree = "<group>"; };
-		36BB381C27E9F387004A701D /* TaskManagerUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManagerUseCase.swift; sourceTree = "<group>"; };
 		36C6FC3727D72E5300B3057F /* TableViewError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewError.swift; sourceTree = "<group>"; };
 		36C6FC3C27D73E5100B3057F /* UITableView+ReuseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+ReuseCell.swift"; sourceTree = "<group>"; };
 		36C6FC3E27D73E8B00B3057F /* UITableViewCell+Identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Identifier.swift"; sourceTree = "<group>"; };
@@ -184,7 +182,6 @@
 		36BB380E27E891E2004A701D /* Domain */ = {
 			isa = PBXGroup;
 			children = (
-				36BB381C27E9F387004A701D /* TaskManagerUseCase.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -497,7 +494,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				36BB381D27E9F387004A701D /* TaskManagerUseCase.swift in Sources */,
 				36C6FC4A27D780BA00B3057F /* DateFormatter+Format.swift in Sources */,
 				36C6FC3827D72E5300B3057F /* TableViewError.swift in Sources */,
 				36C6FC4427D7531C00B3057F /* TaskDetailController.swift in Sources */,

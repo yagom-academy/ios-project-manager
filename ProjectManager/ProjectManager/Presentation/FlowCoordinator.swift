@@ -13,7 +13,6 @@ final class FlowCoordinator: FlowCoordinatorProtocol {
     weak var navigationController: UINavigationController? // TODO: rootViewController: UIViewController로 변경
 
     private var taskRepository: TaskRepositoryProtocol!
-    private var useCase: TaskManagerUseCase!
     private var taskListViewModel: TaskListViewModelProtocol!
     private var taskDetailViewModel: TaskDetailViewModelProtocol!
     
@@ -25,13 +24,11 @@ final class FlowCoordinator: FlowCoordinatorProtocol {
         let actions = TaskListViewModelActions(showTaskDetailToAddTask: showTaskDetailToAddTask,
                                                showTaskDetailToEditTask: showTaskDetailToEditTask,
                                                presentPopover: presentPopover)
-
-        taskRepository = TaskRepository()
-        useCase = TaskManagerUseCase(taskRepository: taskRepository)
         
-        // 2개 ViewModel에 동일한 useCase(Repository)를 할당
-        taskListViewModel = TaskListViewModel(useCase: useCase, actions: actions)
-        taskDetailViewModel = TaskDetailViewModel(useCase: useCase)
+        // 2개 ViewModel에 동일한 Repository를 할당
+        taskRepository = TaskRepository()
+        taskListViewModel = TaskListViewModel(taskRepository: taskRepository, actions: actions)
+        taskDetailViewModel = TaskDetailViewModel(taskRepository: taskRepository)
         
         guard let taskListViewController = ViewControllerFactory.createViewController(of: .taskList(viewModel: taskListViewModel)) as? TaskListViewController else {
             print(ViewControllerError.invalidViewController.description)

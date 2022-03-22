@@ -33,8 +33,8 @@ protocol TaskListViewModelProtocol: TaskListViewModelInputProtocol, TaskListView
 
 final class TaskListViewModel: TaskListViewModelProtocol {
     // MARK: - Properties
-//    private let taskRepository: TaskRepositoryProtocol
-    private let useCase: TaskManagerUseCase
+    private let taskRepository: TaskRepositoryProtocol
+//    private let useCase: TaskManagerUseCase
     let todoTasks: BehaviorSubject<[Task]>
     let doingTasks: BehaviorSubject<[Task]>
     let doneTasks: BehaviorSubject<[Task]>
@@ -47,11 +47,11 @@ final class TaskListViewModel: TaskListViewModelProtocol {
     let actions: TaskListViewModelActions?
     
     // MARK: - Initializers
-    init(useCase: TaskManagerUseCase, actions: TaskListViewModelActions) {
-        self.useCase = useCase
-        self.todoTasks = BehaviorSubject<[Task]>(value: useCase.taskRepository.todoTasks)
-        self.doingTasks = BehaviorSubject<[Task]>(value: useCase.taskRepository.doingTasks)
-        self.doneTasks = BehaviorSubject<[Task]>(value: useCase.taskRepository.doneTasks)
+    init(taskRepository: TaskRepositoryProtocol, actions: TaskListViewModelActions) {
+        self.taskRepository = taskRepository
+        self.todoTasks = BehaviorSubject<[Task]>(value: taskRepository.todoTasks)
+        self.doingTasks = BehaviorSubject<[Task]>(value: taskRepository.doingTasks)
+        self.doneTasks = BehaviorSubject<[Task]>(value: taskRepository.doneTasks)
         
         self.actions = actions
     }
@@ -72,15 +72,15 @@ final class TaskListViewModel: TaskListViewModelProtocol {
 //    }
     
     func delete(task: Task) {
-        useCase.taskRepository.delete(task: task)
+        taskRepository.delete(task: task)
 
         switch task.processStatus {
         case .todo:
-            todoTasks.onNext(useCase.taskRepository.todoTasks)
+            todoTasks.onNext(taskRepository.todoTasks)
         case .doing:
-            doingTasks.onNext(useCase.taskRepository.doingTasks)
+            doingTasks.onNext(taskRepository.doingTasks)
         case .done:
-            doneTasks.onNext(useCase.taskRepository.doneTasks)
+            doneTasks.onNext(taskRepository.doneTasks)
         }
     }
 
@@ -90,26 +90,26 @@ final class TaskListViewModel: TaskListViewModelProtocol {
             return
         }
 
-        useCase.taskRepository.update(task: task, to: newTask)
+        taskRepository.update(task: task, to: newTask)
 
         switch task.processStatus {
         case .todo:
-            todoTasks.onNext(useCase.taskRepository.todoTasks)
+            todoTasks.onNext(taskRepository.todoTasks)
         case .doing:
-            doingTasks.onNext(useCase.taskRepository.doingTasks)
+            doingTasks.onNext(taskRepository.doingTasks)
         case .done:
-            doneTasks.onNext(useCase.taskRepository.doneTasks)
+            doneTasks.onNext(taskRepository.doneTasks)
         }
 
         guard task.processStatus != newTask.processStatus else { return }
 
         switch newTask.processStatus {
         case .todo:
-            todoTasks.onNext(useCase.taskRepository.todoTasks)
+            todoTasks.onNext(taskRepository.todoTasks)
         case .doing:
-            doingTasks.onNext(useCase.taskRepository.doingTasks)
+            doingTasks.onNext(taskRepository.doingTasks)
         case .done:
-            doneTasks.onNext(useCase.taskRepository.doneTasks)
+            doneTasks.onNext(taskRepository.doneTasks)
         }
     }
 
@@ -157,11 +157,11 @@ final class TaskListViewModel: TaskListViewModelProtocol {
         var taskToEdit: Task!
         switch inTableViewOf {
         case .todo:
-            taskToEdit = useCase.taskRepository.todoTasks[row]
+            taskToEdit = taskRepository.todoTasks[row]
         case .doing:
-            taskToEdit = useCase.taskRepository.doingTasks[row]
+            taskToEdit = taskRepository.doingTasks[row]
         case .done:
-            taskToEdit = useCase.taskRepository.doneTasks[row]
+            taskToEdit = taskRepository.doneTasks[row]
         }
 
         actions?.showTaskDetailToEditTask(taskToEdit)
@@ -171,11 +171,11 @@ final class TaskListViewModel: TaskListViewModelProtocol {
         var taskToDelete: Task!
         switch inTableViewOf {
         case .todo:
-            taskToDelete = useCase.taskRepository.todoTasks[row]
+            taskToDelete = taskRepository.todoTasks[row]
         case .doing:
-            taskToDelete = useCase.taskRepository.doingTasks[row]
+            taskToDelete = taskRepository.doingTasks[row]
         case .done:
-            taskToDelete = useCase.taskRepository.doneTasks[row]
+            taskToDelete = taskRepository.doneTasks[row]
         }
 
         delete(task: taskToDelete)
