@@ -34,6 +34,9 @@ struct TaskListView: View {
             }
         }
         .background(Color(UIColor.systemGray6))
+        .alert(isPresented: $taskListViewModel.isErrorOccurred) {
+            AlertManager.errorAlert
+        }
     }
 }
 
@@ -42,6 +45,7 @@ private extension TaskListView {
     final class TaskListViewModel: ObservableObject {
         
         let taskStatus: TaskStatus
+        @Published var isErrorOccurred: Bool = false
         
         init(taskStatus: TaskStatus) {
             self.taskStatus = taskStatus
@@ -62,7 +66,11 @@ private extension TaskListView {
         }
         
         func deleteTask(indexSet: IndexSet, using taskManager: TaskManager) {
-            try? taskManager.deleteTask(indexSet: indexSet, in: taskStatus)
+            do {
+                try taskManager.deleteTask(indexSet: indexSet, in: taskStatus)
+            } catch {
+                isErrorOccurred.toggle()
+            }
         }
     }
 }

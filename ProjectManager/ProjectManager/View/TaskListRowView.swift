@@ -66,6 +66,9 @@ struct TaskListRowView: View {
                 .font(.title2)
             }
         })
+        .alert(isPresented: $taskListRowViewModel.isErrorOccurred) {
+            AlertManager.errorAlert
+        }
     }
 }
 
@@ -76,6 +79,7 @@ private extension TaskListRowView {
         @Published var task: Task
         @Published var isTaskEditing: Bool = false
         @Published var isTaskStatusChanging: Bool = false
+        @Published var isErrorOccurred: Bool = false
         
         var isOverdue: Bool {
             return task.dueDate.isOverdue
@@ -88,7 +92,11 @@ private extension TaskListRowView {
         func changeTaskStatus(to status: TaskStatus, using taskManager: TaskManager) {
             withAnimation {
                 taskManager.objectWillChange.send()
-                try? taskManager.changeTaskStatus(target: task, to: status)
+                do {
+                    try taskManager.changeTaskStatus(target: task, to: status)
+                } catch {
+                    isErrorOccurred.toggle()
+                }
                 isTaskStatusChanging.toggle()
             }
         }

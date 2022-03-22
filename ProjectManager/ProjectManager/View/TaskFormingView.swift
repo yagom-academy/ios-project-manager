@@ -52,6 +52,9 @@ struct TaskFormingView: View {
                 }
             }
             .font(.title3)
+            .alert(isPresented: $taskFormingViewModel.isErrorOccurred) {
+                AlertManager.errorAlert
+            }
         }
     }
 }
@@ -66,6 +69,7 @@ private extension TaskFormingView {
         @Published var taskDueDate: Date
         @Published var taskBody: String
         @Published var isTextEditorFocused: Bool = false
+        @Published var isErrorOccurred: Bool = false
         
         init(selectedTask: Task?, mode isModalShowing: Binding<Bool>) {
             _isModalShowing = isModalShowing
@@ -89,7 +93,11 @@ private extension TaskFormingView {
                     taskManager.createTask(title: taskTitle, body: taskBody, dueDate: taskDueDate)
                 } else {
                     taskManager.objectWillChange.send()
-                    try? taskManager.editTask(target: selectedTask, title: taskTitle, body: taskBody, dueDate: taskDueDate)
+                    do {
+                        try taskManager.editTask(target: selectedTask, title: taskTitle, body: taskBody, dueDate: taskDueDate)
+                    } catch {
+                        isErrorOccurred.toggle()
+                    }
                 }
             }
             isModalShowing.toggle()
