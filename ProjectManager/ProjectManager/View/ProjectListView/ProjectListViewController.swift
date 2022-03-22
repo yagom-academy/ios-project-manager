@@ -1,10 +1,8 @@
 import UIKit
-import RxCocoa
-import RxSwift
 
 final class ProjectListViewController: UIViewController {
     // MARK: - Property
-    let disposeBag = DisposeBag()
+    
     private let todoTableView = ProjectListTableView(state: .todo)
     private let doingTableView = ProjectListTableView(state: .doing)
     private let doneTableView = ProjectListTableView(state: .done)
@@ -84,7 +82,7 @@ final class ProjectListViewController: UIViewController {
     private func configureTableView() {
         tableViews.forEach {
             $0.delegate = self
-//            $0.dataSource = viewModel
+            $0.dataSource = viewModel
             
             if #available(iOS 15, *) {
                 $0.sectionHeaderTopPadding = Design.tableViewSectionHeaderTopPadding
@@ -111,51 +109,6 @@ final class ProjectListViewController: UIViewController {
                 $0.reloadData()
             }
         }
-        
-        viewModel?.todoProjects.bind(to: todoTableView.rx.items) { tableView, index, element in
-            guard let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date()) else {
-                return UITableViewCell()
-            }
-
-            let cell = tableView.dequeueReusableCell(withClass: ProjectListTableViewCell.self)
-            if element.date < yesterday {
-                cell.populateDataWithDate(title: element.title, body: element.body, date: element.date)
-            } else {
-                cell.populateData(title: element.title, body: element.body, date: element.date)
-            }
-
-            return cell
-        }.disposed(by: disposeBag)
-        
-        viewModel?.doingProjects.bind(to: doingTableView.rx.items) { tableView, index, element in
-            guard let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date()) else {
-                return UITableViewCell()
-            }
-
-            let cell = tableView.dequeueReusableCell(withClass: ProjectListTableViewCell.self)
-            if element.date < yesterday {
-                cell.populateDataWithDate(title: element.title, body: element.body, date: element.date)
-            } else {
-                cell.populateData(title: element.title, body: element.body, date: element.date)
-            }
-
-            return cell
-        }.disposed(by: disposeBag)
-        
-        viewModel?.doneProjects.bind(to: doneTableView.rx.items) { tableView, index, element in
-            guard let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date()) else {
-                return UITableViewCell()
-            }
-
-            let cell = tableView.dequeueReusableCell(withClass: ProjectListTableViewCell.self)
-            if element.date < yesterday {
-                cell.populateDataWithDate(title: element.title, body: element.body, date: element.date)
-            } else {
-                cell.populateData(title: element.title, body: element.body, date: element.date)
-            }
-
-            return cell
-        }.disposed(by: disposeBag)
     }
     
     private func configureLongPressGesture() {
@@ -285,3 +238,4 @@ extension ProjectListViewController: ProjectDetailViewControllerDelegate {
         viewModel?.append(project)
     }
 }
+

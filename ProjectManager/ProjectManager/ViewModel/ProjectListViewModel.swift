@@ -1,13 +1,8 @@
-import Foundation
-import RxSwift
-import RxCocoa
+import UIKit
 
-protocol ProjectListViewModelProtocol {
+protocol ProjectListViewModelProtocol: UITableViewDataSource {
     var onCellSelected: ((IndexPath, Project) -> Void)? { get set }
     var onUpdated: (() -> Void)? { get set }
-    var todoProjects: Observable<[Project]> { get }
-    var doingProjects: Observable<[Project]> { get }
-    var doneProjects: Observable<[Project]> { get }
     
     func didSelectRow(indexPath: IndexPath, state: ProjectState)
     func numberOfProjects(state: ProjectState) -> Int
@@ -32,40 +27,32 @@ final class ProjectListViewModel: NSObject, ProjectListViewModelProtocol {
     
     private var projects: [Project] = [] {
         didSet {
-            projectsObservable.accept(projects)
+            onUpdated?()
         }
     }
     
-    private var projectsObservable = BehaviorRelay<[Project]>(value: [])
-    
-    var todoProjects: Observable<[Project]> {
-        projectsObservable.map {
-            $0.filter { $0.state == .todo }
-        }
+    private var todoProjects: [Project] {
+        projects.filter { $0.state == .todo }
     }
     
-    var doingProjects: Observable<[Project]> {
-        projectsObservable.map {
-            $0.filter { $0.state == .doing }
-        }
+    private var doingProjects: [Project] {
+        projects.filter { $0.state == .doing }
     }
     
-    var doneProjects: Observable<[Project]> {
-        projectsObservable.map {
-            $0.filter { $0.state == .done }
-        }
+    private var doneProjects: [Project] {
+        projects.filter { $0.state == .done }
     }
     
     private func retrieveSelectedData(indexPath: IndexPath, state: ProjectState) -> Project? {
         var selectedProject: Project?
-//        switch state {
-//        case .todo:
-//            selectedProject = todoProjects[indexPath.row]
-//        case .doing:
-//            selectedProject = doingProjects[indexPath.row]
-//        case .done:
-//            selectedProject = doneProjects[indexPath.row]
-//        }
+        switch state {
+        case .todo:
+            selectedProject = todoProjects[indexPath.row]
+        case .doing:
+            selectedProject = doingProjects[indexPath.row]
+        case .done:
+            selectedProject = doneProjects[indexPath.row]
+        }
         
         return selectedProject
     }
@@ -78,15 +65,14 @@ final class ProjectListViewModel: NSObject, ProjectListViewModelProtocol {
     }
     
     func numberOfProjects(state: ProjectState) -> Int {
-//        switch state {
-//        case .todo:
-//            return todoProjects.count
-//        case .doing:
-//            return doingProjects.count
-//        case .done:
-//            return doneProjects.count
-//        }
-            return 3
+        switch state {
+        case .todo:
+            return todoProjects.count
+        case .doing:
+            return doingProjects.count
+        case .done:
+            return doneProjects.count
+        }
     }
     
     func fetchAll() {
@@ -125,5 +111,39 @@ final class ProjectListViewModel: NSObject, ProjectListViewModelProtocol {
     
     func createAddDetailViewModel() -> AddProjectDetailViewModel {
         return AddProjectDetailViewModel()
+    }
+}
+
+extension ProjectListViewModel {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let state = (tableView as? ProjectListTableView)?.state else {
+            return .zero
+        }
+    
+        switch state {
+        case .todo:
+            return todoProjects.count
+        case .doing:
+            return doingProjects.count
+        case .done:
+            return doneProjects.count
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let state = ((tableView as? ProjectListTableView)?.state),
+              let project = retrieveSelectedData(indexPath: indexPath, state: state),
+              let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date()) else {
+            return UITableViewCell()
+        }
+
+        let cell = tableView.dequeueReusableCell(withClass: ProjectListTableViewCell.self)
+        if project.date < yesterday {
+            cell.populateDataWithDate(title: project.title, body: project.body, date: project.date)
+        } else {
+            cell.populateData(title: project.title, body: project.body, date: project.date)
+        }
+
+        return cell
     }
 }
