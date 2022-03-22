@@ -9,9 +9,10 @@ protocol ProjectDetailViewControllerDelegate: AnyObject {
 
 final class EditProjectDetailViewController: ProjectDetailViewController {
     private let disposeBag = DisposeBag()
-    private let didTapButtonObserver = PublishSubject<Void>.init()
-    weak var delegate: ProjectDetailViewControllerDelegate?
+    private let didTapDoneButtonObservable = PublishSubject<Void>()
+    
     var viewModel: EditProjectDetailViewModel?
+    weak var delegate: ProjectDetailViewControllerDelegate?
     
     init(viewModel: EditProjectDetailViewModel, delegate: ProjectDetailViewControllerDelegate) {
         super.init(nibName: nil, bundle: nil)
@@ -28,19 +29,14 @@ final class EditProjectDetailViewController: ProjectDetailViewController {
         populateView(with: viewModel?.currentProject)
         configureNavigationBar()
         projectDetailView.setEditingMode(to: false)
-    
         configureBind()
     }
     
     private func configureNavigationBar() {
         self.navigationItem.title = TitleText.navigationBarTitle
         navigationItem.rightBarButtonItem = editButtonItem
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(didTapCancelButton))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: nil)
         navigationController?.navigationBar.backgroundColor = .systemGray6
-    }
-    
-    @objc private func didTapCancelButton() {
-        self.dismiss(animated: true, completion: nil)
     }
     
     func populateView(with data: Project?) {
@@ -49,19 +45,25 @@ final class EditProjectDetailViewController: ProjectDetailViewController {
     
     private func configureBind() {
         editButtonItem.rx.tap
-            .subscribe(onNext: { [weak self] in
+            .subscribe(onNext: { [weak self] _ in
                 self?.toggleEditMode()
             }).disposed(by: disposeBag)
         
-        let input = EditProjectDetailViewModel.Input(didTapButtonObserver: self.didTapButtonObserver.asObservable())
+        navigationItem.leftBarButtonItem?.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.dismiss(animated: true, completion: nil)
+            }).disposed(by: disposeBag)
+        
+        let input = EditProjectDetailViewModel.Input(didTapDoneButtonObservable: self.didTapDoneButtonObservable.asObservable())
         
         guard let output = viewModel?.transform(input) else {
             return
         }
+        
         output
-            .showsFormObserver
-            .subscribe(onNext: { project in
-                self.delegate?.didUpdateProject(project)
+            .updateObservable
+            .subscribe(onNext: { [weak self] project in
+                self?.delegate?.didUpdateProject(project)
             }).disposed(by: disposeBag)
     }
     
@@ -74,7 +76,7 @@ final class EditProjectDetailViewController: ProjectDetailViewController {
             isEditing = false
             self.updateCurrentProject()
             self.dismiss(animated: true) {
-                self.didTapButtonObserver.onNext(())
+                self.didTapDoneButtonObservable.onNext(())
             }
         }
     }

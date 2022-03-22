@@ -3,42 +3,38 @@ import RxSwift
 
 class EditProjectDetailViewModel: ViewModelDescribing {
     final class Input {
-        let didTapButtonObserver: Observable<Void>
+        let didTapDoneButtonObservable: Observable<Void>
         
-        init(didTapButtonObserver: Observable<Void>) {
-            self.didTapButtonObserver = didTapButtonObserver
+        init(didTapDoneButtonObservable: Observable<Void>) {
+            self.didTapDoneButtonObservable = didTapDoneButtonObservable
         }
     }
     
     final class Output {
-        let showsFormObserver: Observable<Project>
+        let updateObservable: Observable<Project>
 
-        init(showsFormObserver: Observable<Project>) {
-            self.showsFormObserver = showsFormObserver
+        init(updateObservable: Observable<Project>) {
+            self.updateObservable = updateObservable
         }
     }
     
-    let disposeBag = DisposeBag()
-    let showsFormObserver: PublishSubject<Project> = .init()
     var currentProject: Project
-    var onUpdated: ((Project) -> Void)?
     
     init(currentProject: Project) {
         self.currentProject = currentProject
     }
     
-    func didTapDoneButton(_ project: Project) {
-//        onUpdated?(project)
-    }
+    private let disposeBag = DisposeBag()
+    private let updateObservable: PublishSubject<Project> = .init()
     
     func transform(_ input: Input) -> Output {
         input
-            .didTapButtonObserver
-            .subscribe(onNext: { _ in
-                self.showsFormObserver.onNext(self.currentProject)
+            .didTapDoneButtonObservable
+            .subscribe(onNext: { [weak self] _ in
+                self?.updateObservable.onNext(self?.currentProject)
             }).disposed(by: disposeBag)
         
-        let output = Output(showsFormObserver: showsFormObserver.asObservable())
+        let output = Output(updateObservable: updateObservable.asObservable())
         return output
     }
 }

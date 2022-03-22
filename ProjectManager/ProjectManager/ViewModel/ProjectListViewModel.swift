@@ -63,7 +63,6 @@ final class ProjectListViewModel: NSObject, ViewModelDescribing {
     
     let useCase: ProjectUseCaseProtocol
     
-    
     init(useCase: ProjectUseCaseProtocol) {
         self.useCase = useCase
     }
@@ -114,6 +113,7 @@ final class ProjectListViewModel: NSObject, ViewModelDescribing {
     func append(_ project: Project) {
         useCase.append(project)
         fetchAll()
+        reloadObservable.onNext(())
     }
     
     func update(_ project: Project, state: ProjectState?) {
