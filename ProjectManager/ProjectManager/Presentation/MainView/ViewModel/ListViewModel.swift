@@ -30,10 +30,6 @@ final class ListViewModel {
     func transform(input: Input, disposeBag: DisposeBag) -> Output {
         let output = self.createViewModelOutput()
         
-        input.viewWillAppearEvent.subscribe { [weak self] _ in
-            self?.controlUseCase.fetch()
-        }.disposed(by: disposeBag)
-        
         input.projectAddButtonTapped.subscribe { _ in
             self.coordinator?.occuredViewEvent(with: .presentListAddView)
         }.disposed(by: disposeBag)
@@ -56,11 +52,7 @@ final class ListViewModel {
     }
     
     private func createViewModelOutput() -> Output {
-//        let initialProjects = controlUseCase.rxLists
-//            .map { $0 }
-//            .share(replay: 1)
-//
-        let k = controlUseCase.extractAll()
+        let k = controlUseCase.extractDataSourceRelay()
             .map { $0 }
             .share(replay: 1)
         

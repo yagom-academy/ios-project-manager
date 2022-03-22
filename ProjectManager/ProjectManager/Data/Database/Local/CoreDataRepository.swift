@@ -58,13 +58,13 @@ final class CoredataRepository: DataRepository {
         }
         
         self.list = data
-        self.rxLists.accept(extractAll())
+        self.rxLists.accept(self.list)
         self.saveContext()
     }
     
     func extractAll() -> [Listable] {
         self.fetch()
-        return list
+        return self.list
     }
     
     func extractRxAll() -> Observable<[Listable]> {
@@ -74,8 +74,6 @@ final class CoredataRepository: DataRepository {
             return Disposables.create()
         }
     }
-    
-
     
     private func convertListToAttributes(from list: Listable) -> [String: Any] {
         var attributes = [String: Any]()

@@ -6,18 +6,14 @@ protocol ListCreateUseCase {
     
     func createProject(object: Listable)
     
-    func extractAll() -> BehaviorRelay<[Listable]>
-    
-    func fetch()
+    func extractDataSourceRelay() -> BehaviorRelay<[Listable]>
 }
 
 protocol ListReadUseCase {
     
     func readProject(identifier: String) -> Listable?
     
-    func extractAll() -> BehaviorRelay<[Listable]>
-    
-    func fetch()
+    func extractDataSourceRelay() -> BehaviorRelay<[Listable]>
 }
 
 protocol ListUpdateUseCase {
@@ -27,16 +23,12 @@ protocol ListUpdateUseCase {
         how object: Listable
     )
     
-    func extractAll() -> BehaviorRelay<[Listable]>
-    
-    func fetch()
+    func extractDataSourceRelay() -> BehaviorRelay<[Listable]>
 }
 
 protocol ListDeleteUseCase {
     
     func deleteProject(identifier: String)
     
-    func extractAll() -> BehaviorRelay<[Listable]>
-    
-    func fetch()
+    func extractDataSourceRelay() -> BehaviorRelay<[Listable]>
 }

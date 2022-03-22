@@ -35,10 +35,6 @@ final class ListUpdateViewModel {
     func transform(input: Input, disposeBag: DisposeBag) -> Output {
         let output = self.configureDetailViewModelOutput()
         
-        input.viewWillAppearEvent.subscribe(onNext: { _ in
-            self.controlUseCase.fetch()
-        }).disposed(by: disposeBag)
-        
         input.cancelButtonTapped.subscribe(onNext: { _ in
             self.coordinator?.occuredViewEvent(with: .dismissListUpdateView)
         }).disposed(by: disposeBag)

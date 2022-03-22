@@ -20,6 +20,4 @@ protocol DataRepository {
     func fetch()
     
     func extractAll() -> [Listable]
-    
-    func extractRxAll() -> Observable<[Listable]>
 }
