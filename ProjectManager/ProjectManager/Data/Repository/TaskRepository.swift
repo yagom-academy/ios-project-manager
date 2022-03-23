@@ -16,20 +16,16 @@ protocol TaskRepositoryProtocol {
 final class TaskRepository: TaskRepositoryProtocol {
     let entireTasks: BehaviorRelay<[Task]>
     
-    var todoTasks: Observable<[Task]> {
-        return entireTasks.map { tasks in
-            tasks.filter { $0.processStatus == .todo }
-        }
+    lazy var todoTasks: Observable<[Task]> = entireTasks.map { tasks in
+        tasks.filter { $0.processStatus == .todo }
     }
-    var doingTasks: Observable<[Task]> {
-        return entireTasks.map { tasks in
-            tasks.filter { $0.processStatus == .doing }
-        }
+    
+    lazy var doingTasks: Observable<[Task]> = entireTasks.map { tasks in
+        tasks.filter { $0.processStatus == .doing }
     }
-    var doneTasks: Observable<[Task]> {
-        return entireTasks.map { tasks in
-            tasks.filter { $0.processStatus == .doing }
-        }
+    
+    lazy var doneTasks: Observable<[Task]> = entireTasks.map { tasks in
+        tasks.filter { $0.processStatus == .done }
     }
     
     init(tasks: [Task] = []) {

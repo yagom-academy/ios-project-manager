@@ -59,7 +59,7 @@ final class TaskListViewController: UIViewController {
     }
     
     private func setupTableViewsBinding() {
-        taskListViewModel.taskRepository.todoTasks
+        taskListViewModel.todoTasks
             .asDriver(onErrorJustReturn: [])
             .drive(todoTableView.rx.items(cellIdentifier: TaskTableViewCell.reuseIdentifier,
                                           cellType: TaskTableViewCell.self)) { [weak self] _, task, cell in
