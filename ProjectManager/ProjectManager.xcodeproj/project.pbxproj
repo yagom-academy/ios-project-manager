@@ -135,14 +135,14 @@
 			path = CoreData;
 			sourceTree = "<group>";
 		};
-		63B96DA727E0249000144F7C /* NameSpace */ = {
+		63B96DA727E0249000144F7C /* ViewNameSpace */ = {
 			isa = PBXGroup;
 			children = (
 				63B96DA827E024AF00144F7C /* ProjectBoardScene.swift */,
 				63B96DAA27E0262800144F7C /* ProjectDetailScene.swift */,
 				63E164B727EA2662004E3D2E /* DataSourceConfigScene.swift */,
 			);
-			path = NameSpace;
+			path = ViewNameSpace;
 			sourceTree = "<group>";
 		};
 		63D21E5827D461DD00E35D3B /* App Life Cycle */ = {
@@ -158,7 +158,7 @@
 			isa = PBXGroup;
 			children = (
 				63D21E6627D4F9B900E35D3B /* ProjectManager.swift */,
-				63B96DA727E0249000144F7C /* NameSpace */,
+				63B96DA727E0249000144F7C /* ViewNameSpace */,
 				635862BB27E34DEF005E2A2B /* Data */,
 				63D21E6527D4C4FB00E35D3B /* DataBase */,
 			);
