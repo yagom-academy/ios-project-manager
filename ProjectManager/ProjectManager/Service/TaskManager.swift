@@ -2,8 +2,8 @@ import Foundation
 import Combine
 
 class TaskManager {
-    let firebaseTaskListRepository = FirebaseTaskListRepository()
-    let realmTaskListRepository = RealmTaskListRepository()
+    private let firebaseTaskListRepository = FirebaseTaskListRepository()
+    private let realmTaskListRepository = RealmTaskListRepository()
     var taskList = [Task]()
     
     func taskList(at status: TaskStatus) -> [Task] {

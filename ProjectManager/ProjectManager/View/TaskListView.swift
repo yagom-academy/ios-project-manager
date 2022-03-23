@@ -56,7 +56,7 @@ private struct TaskListContentView: View {
                 taskListViewModel.deleteTask(id: task.id, title: task.title, taskStatus: task.progressStatus)
             }
             .alert(item: $taskListViewModel.errorAlert) { error in
-                Alert(title: Text("Error"), message: Text(error.message))
+                Alert(title: Text("Error".localized()), message: Text(error.message))
             }
         }
     }

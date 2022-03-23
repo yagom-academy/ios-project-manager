@@ -28,6 +28,11 @@ class TaskListViewModel: ObservableObject {
         }
     }
     
+    private func synchronizeFirebaseWithRealm() {
+        synchronizeRealmToFirebase()
+        synchronizeFirebaseToRealm()
+    }
+    
     private func reload() {
         todoTaskList = taskListManager.taskList(at: .todo)
         doingTaskList = taskListManager.taskList(at: .doing)
@@ -40,14 +45,8 @@ class TaskListViewModel: ObservableObject {
     }
 }
 
+// MARK: - Method used by View
 extension TaskListViewModel {
-    func synchronizeFirebaseWithRealm() {
-        if networkManager.isConnected {
-            synchronizeRealmToFirebase()
-        }
-        synchronizeFirebaseToRealm()
-    }
-    
     func createTask(_ task: Task) {
         if networkManager.isConnected {
             createTaskOnFirebase(task)
@@ -78,7 +77,7 @@ extension TaskListViewModel {
 }
 
 extension TaskListViewModel {
-    func synchronizeRealmToFirebase() {
+    private func synchronizeRealmToFirebase() {
         do {
             try taskListManager.synchronizeRealmToFirebase()
         } catch {
@@ -86,11 +85,12 @@ extension TaskListViewModel {
         }
     }
     
-    func synchronizeFirebaseToRealm() {
+    private func synchronizeFirebaseToRealm() {
         taskListManager.synchronizeFirebaseToRealm()
             .sink { complition in
                 switch complition {
                 case .failure(let error):
+                    self.errorAlert = ErrorModel(message: error.localizedDescription)
                     print(error.localizedDescription)
                 case .finished:
                     return
@@ -102,8 +102,9 @@ extension TaskListViewModel {
     }
 }
 
+// MARK: - Firebase CRUD Method
 extension TaskListViewModel {
-    func fetchFirebase() {
+    private func fetchFirebase() {
         taskListManager.fetchFirebaseTaskList()
             .sink { complition in
                 switch complition {
@@ -121,7 +122,7 @@ extension TaskListViewModel {
             .store(in: &cancellables)
     }
     
-    func createTaskOnFirebase(_ task: Task) {
+    private func createTaskOnFirebase(_ task: Task) {
         taskListManager.createFirebaseTask(task)
             .sink { completion in
                 switch completion {
@@ -137,7 +138,7 @@ extension TaskListViewModel {
             .store(in: &cancellables)
     }
     
-    func updateTaskOnFirebase(id: String, title: String, description: String, deadline: Date) {
+    private func updateTaskOnFirebase(id: String, title: String, description: String, deadline: Date) {
         taskListManager.updateFirebaseTask(id: id, title: title, description: description, deadline: deadline)
             .sink { completion in
                 switch completion {
@@ -153,7 +154,7 @@ extension TaskListViewModel {
             .store(in: &cancellables)
     }
     
-    func updateStatusOnFirebase(id: String, title: String, status: TaskStatus) {
+    private func updateStatusOnFirebase(id: String, title: String, status: TaskStatus) {
         taskListManager.updateFirebaseTaskStatus(id: id, taskStatus: status)
             .sink { completion in
                 switch completion {
@@ -169,7 +170,7 @@ extension TaskListViewModel {
             .store(in: &cancellables)
     }
     
-    func deleteTaskOnFirebase(id: String) {
+    private func deleteTaskOnFirebase(id: String) {
         taskListManager.deleteFirebaseTask(id)
             .sink { completion in
                 switch completion {
@@ -186,8 +187,9 @@ extension TaskListViewModel {
     }
 }
 
+// MARK: - Realm CRUD Method
 extension TaskListViewModel {
-    func fetchRealm() {
+    private func fetchRealm() {
         do {
             try taskListManager.fetchRealmTaskList()
             reload()
@@ -197,7 +199,7 @@ extension TaskListViewModel {
         }
     }
     
-    func createTaskOnRealm(_ task: Task) {
+    private func createTaskOnRealm(_ task: Task) {
         do {
             try taskListManager.createRealmTask(task)
             historyManager.appendHistory(taskHandleType: .create(title: task.title))
@@ -207,7 +209,7 @@ extension TaskListViewModel {
         }
     }
     
-    func updateTaskOnRealm(id: String, title: String, description: String, deadline: Date) {
+    private func updateTaskOnRealm(id: String, title: String, description: String, deadline: Date) {
         do {
             try  taskListManager.updateRealmTask(id: id, title: title, description: description, deadline: deadline)
         } catch {
@@ -216,7 +218,7 @@ extension TaskListViewModel {
         }
     }
     
-    func updateStatusOnRealm(id: String, title: String, prevStatus: TaskStatus, nextStatus: TaskStatus) {
+    private func updateStatusOnRealm(id: String, title: String, prevStatus: TaskStatus, nextStatus: TaskStatus) {
         do {
             try taskListManager.updateRealmTaskStatus(id: id, taskStatus: nextStatus)
             historyManager.appendHistory(
@@ -232,7 +234,7 @@ extension TaskListViewModel {
         }
     }
     
-    func deleteTaskOnRealm(id: String, title: String, taskStatus: TaskStatus) {
+    private func deleteTaskOnRealm(id: String, title: String, taskStatus: TaskStatus) {
         do {
             try  taskListManager.deleteRealmTask(id)
             historyManager.appendHistory(taskHandleType: .delete(title: title, status: taskStatus))

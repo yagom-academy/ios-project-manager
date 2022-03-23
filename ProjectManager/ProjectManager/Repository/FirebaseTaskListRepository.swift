@@ -11,8 +11,8 @@ class FirebaseTaskListRepository {
         static let status = "status"
     }
     
-    var ref: DocumentReference?
-    let store = Firestore.firestore()
+    private var ref: DocumentReference?
+    private let store = Firestore.firestore()
     
     func mergeTask(_ entityTask: FirebaseEntityTask) {
         let createData: [String: Any] = [
@@ -59,7 +59,6 @@ class FirebaseTaskListRepository {
                         deadline: deadline,
                         progressStatus: progressStatus
                     )
-                    print("\(document.documentID) => \(document.data())")
                     entityTaskList.append(entityTask)
                 }
                 complition(.success(entityTaskList))

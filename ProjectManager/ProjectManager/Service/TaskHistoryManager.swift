@@ -3,7 +3,7 @@ import Foundation
 class TaskHistoryManager {
     var taskHistory = [TaskHistory]()
     
-    enum Message {
+    private enum Message {
         static let add = "Added `%@`."
         static let move = "Moved `%@` from %@ to %@."
         static let delete = "Removed `%@` from %@."

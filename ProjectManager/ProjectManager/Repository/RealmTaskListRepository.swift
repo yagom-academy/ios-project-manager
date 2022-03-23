@@ -8,7 +8,7 @@ class RealmTaskListRepository {
             try realm.write {
                 realm.add(task, update: .modified)
             }
-        } catch let error {
+        } catch {
             print(error)
         }
     }

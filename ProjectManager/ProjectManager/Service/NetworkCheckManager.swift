@@ -3,8 +3,8 @@ import Network
 
 class NetworkCheckManager: ObservableObject {
     var isConnected: Bool = true
-    let monitor: NWPathMonitor
-    let queue = DispatchQueue(label: "monitor")
+    private let monitor: NWPathMonitor
+    private let queue = DispatchQueue(label: "monitor")
     
     init() {
         monitor = NWPathMonitor()
