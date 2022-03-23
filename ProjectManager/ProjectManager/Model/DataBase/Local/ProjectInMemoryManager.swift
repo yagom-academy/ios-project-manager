@@ -24,14 +24,14 @@ extension ProjectInMemoryManager: DataSource {
     }
     
     func create(with content: [String: Any]) {
-        guard let identifier = content["identifier"] as? String else {
+        guard let identifier = content[ProjectKey.identifier.rawValue] as? String else {
             return
         }
         let newProject = Project(identifier: identifier,
-                                 title: content["title"] as? String,
-                                 deadline: content["deadline"] as? Date,
-                                 description: content["description"] as? String,
-                                 status: content["status"] as? Status)
+                                 title: content[ProjectKey.title.rawValue] as? String,
+                                 deadline: content[ProjectKey.deadline.rawValue] as? Date,
+                                 description: content[ProjectKey.description.rawValue] as? String,
+                                 status: content[ProjectKey.status.rawValue] as? Status)
         projects.updateValue(newProject, forKey: identifier)
     }
     

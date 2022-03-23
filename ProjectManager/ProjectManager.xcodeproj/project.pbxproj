@@ -118,7 +118,6 @@
 		635862BB27E34DEF005E2A2B /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				63D21E6627D4F9B900E35D3B /* ProjectManager.swift */,
 				63D21E5D27D4691700E35D3B /* Project.swift */,
 				63D21E5F27D4AC2E00E35D3B /* Status.swift */,
 			);
@@ -156,6 +155,7 @@
 		63D21E5927D464C300E35D3B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				63D21E6627D4F9B900E35D3B /* ProjectManager.swift */,
 				63B96DA727E0249000144F7C /* NameSpace */,
 				635862BB27E34DEF005E2A2B /* Data */,
 				63D21E6527D4C4FB00E35D3B /* DataBase */,

@@ -7,6 +7,11 @@
 
 import Foundation
 
+enum ProjectKey: String {
+    
+    case identifier, title, description, deadline, status
+}
+
 struct Project {
     
     // MARK: - Property

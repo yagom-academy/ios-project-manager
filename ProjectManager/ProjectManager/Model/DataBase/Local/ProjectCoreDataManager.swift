@@ -27,7 +27,7 @@ final class ProjectCoreDataManager {
     private func fetch<T>(of identifier: T) -> CDProject? {
         let fetchRequest = CDProject.fetchRequest()
         let identifierString = String(describing: identifier)
-        let predicate = NSPredicate(format: "identifier = %@", identifierString)
+        let predicate = NSPredicate(format: "\(ProjectKey.identifier.rawValue) = %@", identifierString)
         fetchRequest.predicate = predicate
         
         do {
@@ -40,7 +40,7 @@ final class ProjectCoreDataManager {
     
     private func fetch(of status: Status) -> [CDProject]? {
         let fetchRequest = CDProject.fetchRequest()
-        let sortDescriptor = NSSortDescriptor(key: "deadline", ascending: true)
+        let sortDescriptor = NSSortDescriptor(key: ProjectKey.deadline.rawValue, ascending: true)
         let predicate = NSPredicate(format: "statusString = %@", status.rawValue)
         fetchRequest.sortDescriptors = [sortDescriptor]
         fetchRequest.predicate = predicate
@@ -75,11 +75,11 @@ extension ProjectCoreDataManager: DataSource {
     
     func create(with content: [String : Any]) {
         let project = CDProject(context: context)
-        project.identifier = content["identifier"] as? String
-        project.title = content["title"] as? String
-        project.descriptions = content["description"] as? String
-        project.deadline = content["deadline"] as? Date
-        project.status = content["status"] as? Status
+        project.identifier = content[ProjectKey.identifier.rawValue] as? String
+        project.title = content[ProjectKey.title.rawValue] as? String
+        project.descriptions = content[ProjectKey.description.rawValue] as? String
+        project.deadline = content[ProjectKey.deadline.rawValue] as? Date
+        project.status = content[ProjectKey.status.rawValue] as? Status
         
         self.save()
     }
@@ -108,10 +108,10 @@ extension ProjectCoreDataManager: DataSource {
     
     func updateContent(of identifier: String, with content: [String: Any]) {
         let project = self.fetch(of: identifier)
-        project?.title = content["title"] as? String
-        project?.descriptions = content["description"] as? String
-        project?.deadline = content["deadline"] as? Date
-        project?.status = content["status"] as? Status
+        project?.title = content[ProjectKey.title.rawValue] as? String
+        project?.descriptions = content[ProjectKey.description.rawValue] as? String
+        project?.deadline = content[ProjectKey.deadline.rawValue] as? Date
+        project?.status = content[ProjectKey.status.rawValue] as? Status
         
         self.save()
     }

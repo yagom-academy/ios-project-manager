@@ -210,11 +210,11 @@ final class ProjectViewController: UIViewController {
     
     @objc func dismissWithCreation() {
         var content: [String: Any] = [:]
-        content.updateValue(UUID().uuidString as Any, forKey: "identifier")
-        content.updateValue(titleTextField.text as Any, forKey: "title")
-        content.updateValue(datePicker.date as Any, forKey: "deadline")
-        content.updateValue(descriptionTextView.text as Any, forKey: "description")
-        content.updateValue(Status.todo, forKey: "status")
+        content.updateValue(UUID().uuidString as Any, forKey: ProjectKey.identifier.rawValue)
+        content.updateValue(titleTextField.text as Any, forKey: ProjectKey.title.rawValue)
+        content.updateValue(datePicker.date as Any, forKey: ProjectKey.deadline.rawValue)
+        content.updateValue(descriptionTextView.text as Any, forKey: ProjectKey.description.rawValue)
+        content.updateValue(Status.todo, forKey: ProjectKey.status.rawValue)
         projectCreationDelegate?.createProject(with: content)
         dismiss(animated: false, completion: nil)
     }
@@ -242,10 +242,10 @@ final class ProjectViewController: UIViewController {
     
     @objc func dismissWithUpdate() {
         var content: [String: Any] = [:]
-        content.updateValue(titleTextField.text as Any, forKey: "title")
-        content.updateValue(datePicker.date as Any, forKey: "deadline")
-        content.updateValue(descriptionTextView.text as Any, forKey: "description")
-        content.updateValue(project?.status as Any, forKey: "status")
+        content.updateValue(titleTextField.text as Any, forKey: ProjectKey.title.rawValue)
+        content.updateValue(datePicker.date as Any, forKey: ProjectKey.deadline.rawValue)
+        content.updateValue(descriptionTextView.text as Any, forKey: ProjectKey.description.rawValue)
+        content.updateValue(project?.status as Any, forKey: ProjectKey.status.rawValue)
         guard let projectTableViewController = presentingViewController as?
                 ProjectEditDelegate,
               let identifier = self.project?.identifier else {

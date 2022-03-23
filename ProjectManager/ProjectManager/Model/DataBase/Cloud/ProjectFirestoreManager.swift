@@ -42,11 +42,11 @@ final class ProjectFirestoreManager {
     }
     
     private func formatProjectToJSONDict(with dict: [String: Any]) -> [String: Any] {
-        let project = Project(identifier: dict["identifier"] as? String,
-                              title: dict["title"] as? String,
-                              deadline: dict["deadline"] as? Date,
-                              description: dict["description"] as? String,
-                              status: dict["status"] as? Status)
+        let project = Project(identifier: dict[ProjectKey.identifier.rawValue] as? String,
+                              title: dict[ProjectKey.title.rawValue] as? String,
+                              deadline: dict[ProjectKey.deadline.rawValue] as? Date,
+                              description: dict[ProjectKey.description.rawValue] as? String,
+                              status: dict[ProjectKey.status.rawValue] as? Status)
         
         let dict = project.jsonObjectToDictionary(of: project)
         return dict
@@ -64,17 +64,17 @@ extension ProjectFirestoreManager: DataSource {
     
     // MARK: - Method
     func create(with content: [String : Any]) {
-        guard let identifeir = content["identifier"] as? String,
-              let deadline = content["deadline"] as? Date else {
+        guard let identifeir = content[ProjectKey.identifier.rawValue] as? String,
+              let deadline = content[ProjectKey.deadline.rawValue] as? Date else {
                   return
               }
         
         var dict = self.formatProjectToJSONDict(with: content)
-        dict.updateValue(Timestamp(date: deadline), forKey: "deadline")
+        dict.updateValue(Timestamp(date: deadline), forKey: ProjectKey.deadline.rawValue)
         
         db.collection(FirestorePath.collection).document(identifeir).setData(dict) { err in
             if let err = err {
-                print("Error writing document: \(err)")
+                print("☠️Error writing document: \(err)")
             } else {
                 print("Document successfully written!")
             }
@@ -87,20 +87,21 @@ extension ProjectFirestoreManager: DataSource {
         docRef.getDocument { (document, error) in
             if let document = document, document.exists {
                 if let dict = document.data() {
-                    guard let deadline = dict["deadline"] as? Timestamp else {
+                    guard let deadline = dict[ProjectKey.deadline.rawValue] as? Timestamp else {
                         completion(.failure(FirestoreError.invalidDeadline))
                         return
                     }
                     
                     let deadlineDate = Date(timeIntervalSince1970: TimeInterval(deadline.seconds))
-                    let project = Project(identifier: dict["identifier"] as? String,
-                                          title: dict["title"] as? String,
+                    let project = Project(identifier: dict[ProjectKey.identifier.rawValue] as? String,
+                                          title: dict[ProjectKey.title.rawValue] as? String,
                                           deadline: deadlineDate,
-                                          description: dict["description"] as? String,
-                                          status: dict["status"] as? Status)
+                                          description: dict[ProjectKey.description.rawValue] as? String,
+                                          status: dict[ProjectKey.status.rawValue] as? Status)
                     completion(.success(project))
                 }
-            } else {
+            } else if let err = error {
+                print("☠️\(err.localizedDescription)")
                 print("Document does not exist")
                 completion(.failure(FirestoreError.readFail))
             }
@@ -108,10 +109,10 @@ extension ProjectFirestoreManager: DataSource {
     }
     
     func read(of group: Status, completion: @escaping (Result<[Project]?, Error>) -> Void) {
-        db.collection(FirestorePath.collection).whereField("status", isEqualTo: group.rawValue)
+        db.collection(FirestorePath.collection).whereField(ProjectKey.status.rawValue, isEqualTo: group.rawValue)
             .getDocuments() { (querySnapshot, err) in
                 if let err = err {
-                    print("Error getting documents: \(err)")
+                    print("☠️Error getting documents: \(err)")
                     completion(.failure(FirestoreError.readFail))
                 } else {
                     var dicts: [[String: Any]] = []
@@ -119,17 +120,17 @@ extension ProjectFirestoreManager: DataSource {
                         dicts.append(document.data())
                     }
                     let projects = dicts.compactMap { (dict: [String: Any]) -> Project? in
-                        guard let deadline = dict["deadline"] as? Timestamp else {
+                        guard let deadline = dict[ProjectKey.deadline.rawValue] as? Timestamp else {
                             completion(.failure(FirestoreError.invalidDeadline))
                             return nil
                         }
                         
                         let deadlineDate = Date(timeIntervalSince1970: TimeInterval(deadline.seconds))
-                        return Project(identifier: dict["identifier"] as? String,
-                                       title: dict["title"] as? String,
+                        return Project(identifier: dict[ProjectKey.identifier.rawValue] as? String,
+                                       title: dict[ProjectKey.title.rawValue] as? String,
                                        deadline: deadlineDate,
-                                       description: dict["description"] as? String,
-                                       status: dict["status"] as? Status)
+                                       description: dict[ProjectKey.description.rawValue] as? String,
+                                       status: dict[ProjectKey.status.rawValue] as? Status)
                     }
                     completion(.success(projects))
                 }
@@ -139,12 +140,12 @@ extension ProjectFirestoreManager: DataSource {
     func updateContent(of identifier: String, with content: [String : Any]) {
         let projectRef = db.collection(FirestorePath.collection).document(identifier)
         
-        guard let deadlineDate = content["deadline"] as? Date else {
+        guard let deadlineDate = content[ProjectKey.deadline.rawValue] as? Date else {
             return
         }
         
         var updatingContent = content
-        updatingContent.updateValue(Timestamp(date: deadlineDate), forKey: "deadline")
+        updatingContent.updateValue(Timestamp(date: deadlineDate), forKey: ProjectKey.deadline.rawValue)
         
         projectRef.updateData(updatingContent) { err in
             if let err = err {
@@ -159,7 +160,7 @@ extension ProjectFirestoreManager: DataSource {
         let projectRef = db.collection(FirestorePath.collection).document(identifier)
         
         var updatingContent: [String: Any] = [:]
-        updatingContent.updateValue(status.rawValue, forKey: "status")
+        updatingContent.updateValue(status.rawValue, forKey: ProjectKey.status.rawValue)
         
         projectRef.updateData(updatingContent) { err in
             if let err = err {
