@@ -12,7 +12,8 @@ final class NetworkMonitor: ObservableObject {
     
     static let shared = NetworkMonitor()
     
-    private let queue = DispatchQueue.global(qos: .background)
+    private let queue = DispatchQueue.main
+    
     private let monitor: NWPathMonitor
     
     @Published private(set) var isConnected = false

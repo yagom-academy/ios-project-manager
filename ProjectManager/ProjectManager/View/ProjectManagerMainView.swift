@@ -10,6 +10,7 @@ import SwiftUI
 struct ProjectManagerMainView: View {
     
     @EnvironmentObject private var viewModel: ProjectManagerViewModel
+    @ObservedObject private var networkModel = NetworkMonitor.shared
     
     @State private var isShowDetailSheet = false
     @State private var isShowHistoryPopover = false
