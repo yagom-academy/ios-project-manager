@@ -58,12 +58,14 @@ private struct TaskHistoryListView: View {
     
     var body: some View {
         VStack {
-            ForEach(taskListViewModel.taskHistory) { taskHistory in
-                TaskHistoryRowView(taskHistory: taskHistory)
-                    .frame(width: 500, alignment: .leading)
-                    .padding(12)
-                    .background(Color(UIColor.systemBackground))
-                    .cornerRadius(12)
+            ScrollView {
+                ForEach(taskListViewModel.taskHistory) { taskHistory in
+                    TaskHistoryRowView(taskHistory: taskHistory)
+                        .frame(width: 500, alignment: .leading)
+                        .padding(12)
+                        .background(Color(UIColor.systemBackground))
+                        .cornerRadius(12)
+                }
             }
         }
         .padding(16)
