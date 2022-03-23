@@ -38,6 +38,7 @@ final class TaskDetailViewModel: TaskDetailViewModelProtocol {
         
         switch task.processStatus {
         case .todo:
+//            taskRepository.todoTasks
             todoTasks.onNext(taskRepository.todoTasks)
         case .doing:
             doingTasks.onNext(taskRepository.doingTasks)

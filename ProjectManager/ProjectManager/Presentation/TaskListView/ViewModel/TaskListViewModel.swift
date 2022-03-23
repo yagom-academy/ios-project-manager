@@ -18,6 +18,7 @@ protocol TaskListViewModelInputProtocol {
 }
 
 protocol TaskListViewModelOutputProtocol {
+    var taskRepository: TaskRepositoryProtocol { get }
     var todoTasks: BehaviorSubject<[Task]> { get }
     var doingTasks: BehaviorSubject<[Task]> { get }
     var doneTasks: BehaviorSubject<[Task]> { get }
@@ -33,8 +34,7 @@ protocol TaskListViewModelProtocol: TaskListViewModelInputProtocol, TaskListView
 
 final class TaskListViewModel: TaskListViewModelProtocol {
     // MARK: - Properties
-    private let taskRepository: TaskRepositoryProtocol
-//    private let useCase: TaskManagerUseCase
+    let taskRepository: TaskRepositoryProtocol
     let todoTasks: BehaviorSubject<[Task]>
     let doingTasks: BehaviorSubject<[Task]>
     let doneTasks: BehaviorSubject<[Task]>
@@ -49,6 +49,7 @@ final class TaskListViewModel: TaskListViewModelProtocol {
     // MARK: - Initializers
     init(taskRepository: TaskRepositoryProtocol, actions: TaskListViewModelActions) {
         self.taskRepository = taskRepository
+        
         self.todoTasks = BehaviorSubject<[Task]>(value: taskRepository.todoTasks)
         self.doingTasks = BehaviorSubject<[Task]>(value: taskRepository.doingTasks)
         self.doneTasks = BehaviorSubject<[Task]>(value: taskRepository.doneTasks)

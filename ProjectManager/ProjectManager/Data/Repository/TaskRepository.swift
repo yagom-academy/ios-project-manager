@@ -1,60 +1,75 @@
 import Foundation
+import RxSwift
+import RxRelay
 
 protocol TaskRepositoryProtocol {
-    var entireTasks: [Task] { get }
-    var todoTasks: [Task] { get }
-    var doingTasks: [Task] { get }
-    var doneTasks: [Task] { get }
-    
+    var entireTasks: BehaviorRelay<[Task]> { get }
+    var todoTasks: Observable<[Task]> { get }
+    var doingTasks: Observable<[Task]> { get }
+    var doneTasks: Observable<[Task]> { get }
+
     func create(task: Task)
     func delete(task: Task)
     func update(task: Task, to newTask: Task)
 }
 
 final class TaskRepository: TaskRepositoryProtocol {
-    var entireTasks: [Task] = []
+    let entireTasks: BehaviorRelay<[Task]>
     
-    var todoTasks: [Task] {
-        return entireTasks.filter { $0.processStatus == .todo }.sorted { $0.dueDate < $1.dueDate }
+    var todoTasks: Observable<[Task]> {
+        return entireTasks.map { tasks in
+            tasks.filter { $0.processStatus == .todo }
+        }
     }
-    var doingTasks: [Task] {
-        return entireTasks.filter { $0.processStatus == .doing }.sorted { $0.dueDate < $1.dueDate }
+    var doingTasks: Observable<[Task]> {
+        return entireTasks.map { tasks in
+            tasks.filter { $0.processStatus == .doing }
+        }
     }
-    var doneTasks: [Task] {
-        return entireTasks.filter { $0.processStatus == .done }.sorted { $0.dueDate < $1.dueDate }
+    var doneTasks: Observable<[Task]> {
+        return entireTasks.map { tasks in
+            tasks.filter { $0.processStatus == .doing }
+        }
     }
     
-    init(entireTasks: [Task] = []) {
-//        self.entireTasks = entireTasks
+    init(tasks: [Task] = []) {
+//        self.entireTasks = BehaviorRelay<[Task]>(value: tasks)
         
         // Dummy Data
-        self.entireTasks = [
-                            Task(title: "TODO-1", body: "Rx를 곁들인", dueDate: Date()),
-                            Task(title: "TODO-2", body: "RxSwift", dueDate: Date(timeIntervalSinceReferenceDate: 0)),
-                            Task(title: "TODO-3", body: "마감기한이 빠른 순으로 정렬", dueDate: Date(timeIntervalSinceReferenceDate: 157680000)),
-                            Task(title: "DOING-1", body: "RxCocoa", dueDate: Date(), processStatus: .doing),
-                            Task(title: "DONE-1", body: "MVVM", dueDate: Date(), processStatus: .done)
-                            ]
+        self.entireTasks = BehaviorRelay<[Task]>(value: [
+                                Task(title: "TODO-1", body: "Rx를 곁들인", dueDate: Date()),
+                                Task(title: "TODO-2", body: "RxSwift", dueDate: Date(timeIntervalSinceReferenceDate: 0)),
+                                Task(title: "TODO-3", body: "마감기한이 빠른 순으로 정렬", dueDate: Date(timeIntervalSinceReferenceDate: 157680000)),
+                                Task(title: "DOING-1", body: "RxCocoa", dueDate: Date(), processStatus: .doing),
+                                Task(title: "DONE-1", body: "MVVM", dueDate: Date(), processStatus: .done)
+                            ])
     }
     
     func create(task: Task) {
-        entireTasks.append(task)
+        var currentTasks = entireTasks.value
+        currentTasks.append(task)
+        entireTasks.accept(currentTasks)
     }
     
     func delete(task: Task) {
+        var currentTasks = entireTasks.value
         if let index = findIndex(with: task.id) {
-            entireTasks.remove(at: index)
+            currentTasks.remove(at: index)
         }
+        entireTasks.accept(currentTasks)
     }
     
     func update(task: Task, to newTask: Task) {
+        var currentTasks = entireTasks.value
         if let index = findIndex(with: task.id) {
-            entireTasks[index] = newTask
+            currentTasks[index] = newTask
         }
+        entireTasks.accept(currentTasks)
     }
     
     func findIndex(with id: UUID) -> Int? {
-        guard let index = entireTasks.firstIndex(where: { $0.id == id }) else {
+        let currentTasks = entireTasks.value
+        guard let index = currentTasks.firstIndex(where: { $0.id == id }) else {
             print(TaskManagerError.taskNotFound.description)
             return nil
         }
