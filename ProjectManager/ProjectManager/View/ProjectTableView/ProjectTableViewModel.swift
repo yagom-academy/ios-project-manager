@@ -134,9 +134,11 @@ class ProjectTableViewModel: ViewModelDescribing {
     }
     
     private func removeWork(_ data: Work) {
+        let originCategoryTag = data.categoryTag
+        
         WorkCoreDataManager.shared.delete(data)
         
-        switch data.categoryTag {
+        switch originCategoryTag {
         case Work.Category.todo.tag:
             list.onNext(WorkCoreDataManager.shared.todoList)
         case Work.Category.doing.tag:
