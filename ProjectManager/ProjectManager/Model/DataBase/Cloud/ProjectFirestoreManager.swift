@@ -120,7 +120,8 @@ extension ProjectFirestoreManager: DataSource {
                         dicts.append(document.data())
                     }
                     let projects = dicts.compactMap { (dict: [String: Any]) -> Project? in
-                        guard let deadline = dict[ProjectKey.deadline.rawValue] as? Timestamp else {
+                        guard let deadline = dict[ProjectKey.deadline.rawValue] as? Timestamp,
+                              let status = dict[ProjectKey.status.rawValue] as? String else {
                             completion(.failure(FirestoreError.invalidDeadline))
                             return nil
                         }
@@ -130,7 +131,7 @@ extension ProjectFirestoreManager: DataSource {
                                        title: dict[ProjectKey.title.rawValue] as? String,
                                        deadline: deadlineDate,
                                        description: dict[ProjectKey.description.rawValue] as? String,
-                                       status: dict[ProjectKey.status.rawValue] as? Status)
+                                       status: Status(rawValue: status))
                     }
                     completion(.success(projects))
                 }
@@ -140,12 +141,14 @@ extension ProjectFirestoreManager: DataSource {
     func updateContent(of identifier: String, with content: [String : Any]) {
         let projectRef = db.collection(FirestorePath.collection).document(identifier)
         
-        guard let deadlineDate = content[ProjectKey.deadline.rawValue] as? Date else {
+        guard let deadlineDate = content[ProjectKey.deadline.rawValue] as? Date,
+              let status = content[ProjectKey.status.rawValue] as? Status else {
             return
         }
         
         var updatingContent = content
         updatingContent.updateValue(Timestamp(date: deadlineDate), forKey: ProjectKey.deadline.rawValue)
+        updatingContent.updateValue(status.rawValue, forKey: ProjectKey.status.rawValue)
         
         projectRef.updateData(updatingContent) { err in
             if let err = err {

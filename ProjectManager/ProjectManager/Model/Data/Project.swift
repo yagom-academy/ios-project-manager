@@ -47,6 +47,10 @@ extension Project: Hashable {
     static func == (lhs: Project, rhs: Project) -> Bool {
         return lhs.identifier == rhs.identifier
     }
+    
+    func hash(into hasher: inout Hasher) {
+           hasher.combine(identifier)
+       }
 }
 
 // MARK: - Codable
