@@ -17,9 +17,16 @@ struct ProjectManagerMainView: View {
     
     var body: some View {
         NavigationView {
-            HStack {
-                ForEach(TaskStatus.allCases) { status in
-                    TaskListContainerView(taskType: status, isShowAlert: $isShowAlert)
+            VStack {
+                HStack {
+                    ForEach(TaskStatus.allCases) { status in
+                        TaskListContainerView(taskType: status, isShowAlert: $isShowAlert)
+                    }
+                }
+                if viewModel.isLostConnection {
+                    Text("Network Connection Lost")
+                        .foregroundColor(.red)
+                        .padding()
                 }
             }
             .navigationTitle("Project Manager")

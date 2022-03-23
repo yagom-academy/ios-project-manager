@@ -8,18 +8,23 @@
 import Foundation
 import Network
 
-final class NetworkMonitor {
+final class NetworkMonitor: ObservableObject {
     
     static let shared = NetworkMonitor()
     
-    private let queue = DispatchQueue.global()
+    private let queue = DispatchQueue.global(qos: .background)
     private let monitor: NWPathMonitor
     
-    private(set) var isConnected = false
+    @Published private(set) var isConnected = false
     private(set) var connectionType: ConnectionType = .unknown
     
     private init() {
         monitor = NWPathMonitor()
+        startMonitoring()
+    }
+    
+    deinit {
+        stopMonitoring()
     }
     
     enum ConnectionType {

@@ -10,6 +10,7 @@ import SwiftUI
 final class ProjectManagerViewModel: ObservableObject {
     
     @Published private var model: TaskManager
+    @Published private var networkModel = NetworkMonitor.shared
     
     init(model: TaskManager) {
         self.model = model
@@ -21,6 +22,10 @@ final class ProjectManagerViewModel: ObservableObject {
         formatter.locale = Locale.current
         return formatter
     }()
+    
+    var isLostConnection: Bool {
+        !networkModel.isConnected
+    }
     
     var todoTasks: [Task] {
         model.todoTasks
@@ -92,16 +97,5 @@ final class ProjectManagerViewModel: ObservableObject {
         )
         try model.update(task, to: newTask)
     }
-    
-}
-
-extension ProjectManagerViewModel {
-    
-    static let projectTasks = [
-        Task(id: UUID(), title: "Hello", description: "World", dueDate: Date(), status: .todo),
-        Task(id: UUID(), title: "My Name Is", description: "New Task", dueDate: Date(), status: .doing),
-        Task(id: UUID(), title: "Nice to", description: "Meet You", dueDate: Date(), status: .done),
-        Task(id: UUID(), title: "I Love", description: "Camel Case", dueDate: Date(), status: .todo)
-    ]
     
 }
