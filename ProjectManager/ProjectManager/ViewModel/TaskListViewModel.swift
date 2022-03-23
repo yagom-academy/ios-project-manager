@@ -1,7 +1,7 @@
 import Foundation
 import Combine
 
-class TaskListViewModel: ObservableObject, NetWorkManagerDelegate {
+class TaskListViewModel: ObservableObject {
     @Published var todoTaskList = [Task]()
     @Published var doingTaskList = [Task]()
     @Published var doneTaskList = [Task]()
@@ -14,8 +14,18 @@ class TaskListViewModel: ObservableObject, NetWorkManagerDelegate {
  
     var cancellables = Set<AnyCancellable>()
     
-    init () {
-        networkManager.delegate = self
+    init() {
+        startMonitoring()
+    }
+    
+    private func startMonitoring() {
+        networkManager.startMonitoring { isConnected in
+            if isConnected {
+                self.synchronizeFirebaseWithRealm()
+            } else {
+                self.errorAlert = ErrorModel(message: "Network is Not Connected".localized())
+            }
+        }
     }
     
     private func reload() {
@@ -98,6 +108,7 @@ extension TaskListViewModel {
             .sink { complition in
                 switch complition {
                 case .failure(let error):
+                    self.errorAlert = ErrorModel(message: error.localizedDescription)
                     print(error.localizedDescription)
                 case .finished:
                     return
@@ -115,6 +126,7 @@ extension TaskListViewModel {
             .sink { completion in
                 switch completion {
                 case .failure(let error):
+                    self.errorAlert = ErrorModel(message: error.localizedDescription)
                     print(error.localizedDescription)
                 case .finished:
                     return
@@ -130,6 +142,7 @@ extension TaskListViewModel {
             .sink { completion in
                 switch completion {
                 case .failure(let error):
+                    self.errorAlert = ErrorModel(message: error.localizedDescription)
                     print(error.localizedDescription)
                 case .finished:
                     return
@@ -145,6 +158,7 @@ extension TaskListViewModel {
             .sink { completion in
                 switch completion {
                 case .failure(let error):
+                    self.errorAlert = ErrorModel(message: error.localizedDescription)
                     print(error.localizedDescription)
                 case .finished:
                     return
@@ -160,6 +174,7 @@ extension TaskListViewModel {
             .sink { completion in
                 switch completion {
                 case .failure(let error):
+                    self.errorAlert = ErrorModel(message: error.localizedDescription)
                     print(error.localizedDescription)
                 case .finished:
                     return
