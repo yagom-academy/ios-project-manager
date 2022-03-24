@@ -82,7 +82,7 @@ final class ProjectListViewController: UIViewController {
     private func configureTableView() {
         tableViews.forEach {
             $0.delegate = self
-            $0.dataSource = viewModel
+            $0.dataSource = self
             
             if #available(iOS 15, *) {
                 $0.sectionHeaderTopPadding = Design.tableViewSectionHeaderTopPadding
@@ -149,7 +149,7 @@ final class ProjectListViewController: UIViewController {
     private func createAlert(for tableView: UITableView, on indexPath: IndexPath, moveTo newState: [ProjectState]) -> UIAlertController? {
         guard let oldState = ((tableView as? ProjectListTableView)?.state),
                 let firstNewState = newState[safe: 0],
-                let secondNewState = newState[safe: 0] else {
+                let secondNewState = newState[safe: 1] else {
             return nil
         }
         
@@ -212,6 +212,40 @@ extension ProjectListViewController: UITableViewDelegate {
             return
         }
         viewModel?.didSelectRow(indexPath: indexPath, state: state)
+    }
+}
+
+extension ProjectListViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let state = (tableView as? ProjectListTableView)?.state else {
+            return .zero
+        }
+    
+        switch state {
+        case .todo:
+            return viewModel?.todoProjects.count ?? 0
+        case .doing:
+            return viewModel?.doingProjects.count ?? 0
+        case .done:
+            return viewModel?.doneProjects.count ?? 0
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let state = ((tableView as? ProjectListTableView)?.state),
+              let project = viewModel?.retrieveSelectedData(indexPath: indexPath, state: state),
+              let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date()) else {
+            return UITableViewCell()
+        }
+
+        let cell = tableView.dequeueReusableCell(withClass: ProjectListTableViewCell.self)
+        if project.date < yesterday {
+            cell.populateDataWithDate(title: project.title, body: project.body, date: project.date)
+        } else {
+            cell.populateData(title: project.title, body: project.body, date: project.date)
+        }
+
+        return cell
     }
 }
 
