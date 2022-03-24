@@ -5,11 +5,11 @@ protocol TaskListViewModelInputProtocol {
 //    func create(task: Task) // DetailView로 분리 (TODO: UseCase별 Protocol로 구분)
     func delete(task: Task)
     func update(task: Task, to newTask: Task)
-    
+    func edit(task: Task, newProcessStatus: ProcessStatus)
+    //    func edit(task: Task, newTitle: String, newBody: String, newDueDate: Date) // DetailView로 분리
+
     func processStatusChangeOptions(of currentProcessStatus: ProcessStatus) -> [ProcessStatus]
     func title(of changeOptions: [ProcessStatus]) -> [String]
-    func edit(task: Task, newProcessStatus: ProcessStatus)
-//    func edit(task: Task, newTitle: String, newBody: String, newDueDate: Date) // DetailView로 분리
     func didTouchUpAddButton()
     func presentPopover(with alert: UIAlertController)
 }
@@ -99,12 +99,7 @@ final class TaskListViewModel: TaskListViewModelProtocol {
         update(task: task, to: newTask)
     }
     
-    // MARK: - TaskDetailView
-    func edit(task: Task, newTitle: String, newBody: String, newDueDate: Date) {
-        let newTask = Task(id: task.id, title: newTitle, body: newBody, dueDate: newDueDate, processStatus: task.processStatus)
-        update(task: task, to: newTask)
-    }
-    
+    // MARK: - Add Task
     func didTouchUpAddButton() {
         actions?.showTaskDetailToAddTask()
     }
