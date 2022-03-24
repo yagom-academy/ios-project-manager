@@ -1,26 +1,18 @@
 import UIKit
 
-protocol ProjectListViewModelProtocol {
-    var onCellSelected: ((IndexPath, Project) -> Void)? { get set }
-    var onUpdated: (() -> Void)? { get set }
+final class ProjectListViewModel: ViewModelType {
+    final class Input {
+//        let doneButton
+    }
     
-    var todoProjects: [Project] { get }
-    var doingProjects: [Project] { get }
-    var doneProjects: [Project] { get }
+    final class Output {
+        
+    }
     
-    func retrieveSelectedData(indexPath: IndexPath, state: ProjectState) -> Project?
-    func didSelectRow(indexPath: IndexPath, state: ProjectState)
-    func numberOfProjects(state: ProjectState) -> Int
-    func fetchAll()
-    func append(_ project: Project)
-    func update(_ project: Project, state: ProjectState?)
-    func delete(indexPath: IndexPath, state: ProjectState)
-    func changeState(from oldState: ProjectState, to newState: ProjectState, indexPath: IndexPath)
-    func createEditDetailViewModel(indexPath: IndexPath, state: ProjectState) -> EditProjectDetailViewModel
-    func createAddDetailViewModel() -> AddProjectDetailViewModel
-}
-
-final class ProjectListViewModel: NSObject, ProjectListViewModelProtocol {
+    func transform(input: Input) -> Output {
+        return Output()
+    }
+    
     let useCase: ProjectUseCaseProtocol
     
     var onCellSelected: ((IndexPath, Project) -> Void)?
@@ -115,6 +107,6 @@ final class ProjectListViewModel: NSObject, ProjectListViewModelProtocol {
     }
     
     func createAddDetailViewModel() -> AddProjectDetailViewModel {
-        return AddProjectDetailViewModel()
+        return AddProjectDetailViewModel(useCase: useCase)
     }
 }

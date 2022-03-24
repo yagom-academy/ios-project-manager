@@ -21,6 +21,7 @@ final class ProjectRepository: ProjectRepositoryProtocol {
     
     func append(_ project: Project) {
         projects[project.id] = project
+        print(project.title)
     }
     
     func update(_ project: Project) {

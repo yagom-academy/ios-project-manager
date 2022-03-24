@@ -6,7 +6,7 @@ final class ProjectListViewController: UIViewController {
     private let todoTableView = ProjectListTableView()
     private let doingTableView = ProjectListTableView()
     private let doneTableView = ProjectListTableView()
-    private var viewModel: ProjectListViewModelProtocol?
+    private var viewModel: ProjectListViewModel?
     private lazy var tableViews = [todoTableView, doingTableView, doneTableView]
     
     private let entireStackView: UIStackView = {
@@ -19,7 +19,7 @@ final class ProjectListViewController: UIViewController {
         return stackView
     }()
     
-    init(viewModel: ProjectListViewModelProtocol) {
+    init(viewModel: ProjectListViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
