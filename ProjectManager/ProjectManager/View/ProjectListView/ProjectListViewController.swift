@@ -3,9 +3,9 @@ import UIKit
 final class ProjectListViewController: UIViewController {
     // MARK: - Property
     
-    private let todoTableView = ProjectListTableView(state: .todo)
-    private let doingTableView = ProjectListTableView(state: .doing)
-    private let doneTableView = ProjectListTableView(state: .done)
+    private let todoTableView = ProjectListTableView()
+    private let doingTableView = ProjectListTableView()
+    private let doneTableView = ProjectListTableView()
     private var viewModel: ProjectListViewModelProtocol?
     private lazy var tableViews = [todoTableView, doingTableView, doneTableView]
     
@@ -146,8 +146,24 @@ final class ProjectListViewController: UIViewController {
         }
     }
     
+    func state(of tableView: UITableView) -> ProjectState? {
+        var state: ProjectState?
+        switch tableView {
+        case todoTableView:
+            state = .todo
+        case doingTableView:
+            state = .doing
+        case doneTableView:
+            state = .done
+        default:
+            break
+        }
+        
+        return state
+    }
+    
     private func createAlert(for tableView: UITableView, on indexPath: IndexPath, moveTo newState: [ProjectState]) -> UIAlertController? {
-        guard let oldState = ((tableView as? ProjectListTableView)?.state),
+        guard let oldState = state(of: tableView),
                 let firstNewState = newState[safe: 0],
                 let secondNewState = newState[safe: 1] else {
             return nil
@@ -183,8 +199,8 @@ extension ProjectListViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let state = (tableView as? ProjectListTableView)?.state else {
-            return UIView()
+        guard let state = state(of: tableView) else {
+            return nil
         }
         let numberOfProjects = viewModel?.numberOfProjects(state: state)
         
@@ -196,7 +212,7 @@ extension ProjectListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: nil) { _, _, _ in
-            guard let state = (tableView as? ProjectListTableView)?.state else {
+            guard let state = self.state(of: tableView) else {
                 return
             }
             self.viewModel?.delete(indexPath: indexPath, state: state)
@@ -208,7 +224,7 @@ extension ProjectListViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let state = (tableView as? ProjectListTableView)?.state else {
+        guard let state = state(of: tableView) else {
             return
         }
         viewModel?.didSelectRow(indexPath: indexPath, state: state)
@@ -217,7 +233,7 @@ extension ProjectListViewController: UITableViewDelegate {
 
 extension ProjectListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let state = (tableView as? ProjectListTableView)?.state else {
+        guard let state = state(of: tableView) else {
             return .zero
         }
     
@@ -232,7 +248,7 @@ extension ProjectListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let state = ((tableView as? ProjectListTableView)?.state),
+        guard let state = state(of: tableView),
               let project = viewModel?.retrieveSelectedData(indexPath: indexPath, state: state),
               let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date()) else {
             return UITableViewCell()

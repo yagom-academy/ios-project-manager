@@ -1,10 +1,7 @@
 import UIKit
 
 final class ProjectListTableView: UITableView {
-    var state: ProjectState?
-
-    init(state: ProjectState) {
-        self.state = state
+    init() {
         super.init(frame: .zero, style: .plain)
         configureUI()
     }
