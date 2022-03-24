@@ -60,7 +60,6 @@ class TaskDetailController: UIViewController {
         guard let rightBarButton = taskDetailViewModel?.rightBarButton(of: taskManagerAction) else {
             return
         }
-        
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: rightBarButton,
                                                            target: self,
                                                            action: #selector(touchUpRightBarButton))

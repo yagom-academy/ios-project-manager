@@ -40,7 +40,7 @@ final class FlowCoordinator: FlowCoordinatorProtocol {
     
     // MARK: - TaskListView -> TaskDetailView 화면 이동
     func showTaskDetailToAddTask() {
-        guard let taskDetailController = ViewControllerFactory.createViewController(of: .newTaskDetail(taskDetailViewModel: taskDetailViewModel)) as? TaskDetailController else {
+        guard let taskDetailController = ViewControllerFactory.createViewController(of: .addTaskDetail(taskDetailViewModel: taskDetailViewModel)) as? TaskDetailController else {
             print(ViewControllerError.invalidViewController.description)
             return
         }
