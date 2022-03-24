@@ -2,7 +2,7 @@ import UIKit
 
 class EditProjectViewController: UIViewController {
     private let editView = ProjectFormView()
-    weak var viewModel: ProjectViewModel?
+    weak var viewModel: MainViewModel?
     
     private let navigationBar: UINavigationBar = {
         let navigationBar = UINavigationBar(frame: .zero)

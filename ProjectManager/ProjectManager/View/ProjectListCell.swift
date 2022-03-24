@@ -1,7 +1,7 @@
 import UIKit
 
 class ProjectListCell: UITableViewCell {
-    var delegate: ProjectListCellDelegate?
+    weak var delegate: ProjectListCellDelegate?
     var project: Project?
     
     private let containerView: UIView = {

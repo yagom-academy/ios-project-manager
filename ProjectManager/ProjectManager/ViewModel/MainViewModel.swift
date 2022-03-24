@@ -8,7 +8,7 @@ protocol ViewModelDescribing {
     func transform(_ input: Input) -> Output
 }
 
-class ProjectViewModel: ViewModelDescribing {
+class MainViewModel: ViewModelDescribing {
     final class Input {
         let moveToToDoObserver: Observable<Project>
         let moveToDoingObserver: Observable<Project>

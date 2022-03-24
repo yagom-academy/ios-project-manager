@@ -2,12 +2,12 @@ import UIKit
 import RxSwift
 
 class MainViewController: UIViewController {
-    private let viewModel = ProjectViewModel()
+    private let viewModel = MainViewModel()
     private let moveToToDoObserver: PublishSubject<Project> = .init()
     private let moveToDoingObserver: PublishSubject<Project> = .init()
     private let moveToDoneObserver: PublishSubject<Project> = .init()
-    private let selectObserver = PublishSubject<Project>.init()
-    private let deleteObserver = PublishSubject<Project>.init()
+    private let selectObserver: PublishSubject<Project> = .init()
+    private let deleteObserver: PublishSubject<Project> = .init()
     private let disposeBag: DisposeBag = .init()
     
     private let toDoTableView = UITableView()
@@ -91,7 +91,7 @@ class MainViewController: UIViewController {
     }
     
     func bind() {
-        let input = ProjectViewModel.Input(
+        let input = MainViewModel.Input(
             moveToToDoObserver: moveToToDoObserver.asObservable(),
             moveToDoingObserver: moveToDoingObserver.asObservable(),
             moveToDoneObserver: moveToDoneObserver.asObservable(),
@@ -163,42 +163,32 @@ class MainViewController: UIViewController {
 // MARK: - UITableViewDelegate, UITableViewDataSource
 
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func projects(for tableView: UITableView) ->[Project] {
         switch tableView {
         case toDoTableView:
-            return viewModel.todoProjects.count
+            return viewModel.todoProjects
         case doingTableView:
-            return viewModel.doingProjects.count
+            return viewModel.doingProjects
         case doneTableView:
-            return viewModel.doneProjects.count
+            return viewModel.doneProjects
         default:
-            return 0
+            return []
         }
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return projects(for: tableView).count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell =  tableView.dequeueReusableCell(ProjectListCell.self, for: indexPath) else {
             return UITableViewCell()
         }
-        switch tableView {
-        case toDoTableView:
-            let project = viewModel.todoProjects[indexPath.row]
-            cell.setupCell(with: project)
-            cell.delegate = self
-            return cell
-        case doingTableView:
-            let project = viewModel.doingProjects[indexPath.row]
-            cell.setupCell(with: project)
-            cell.delegate = self
-            return cell
-        case doneTableView:
-            let project = viewModel.doneProjects[indexPath.row]
-            cell.setupCell(with: project)
-            cell.delegate = self
-            return cell
-        default:
-            return cell
-        }
+        let projects = projects(for: tableView)
+        cell.setupCell(with: projects[indexPath.row])
+        cell.delegate = self
+        
+        return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

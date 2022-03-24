@@ -5,7 +5,7 @@ struct Project: Equatable {
     var body: String?
     var date: TimeInterval
     var state: ProjectState
-    var id: UUID?
+    let id: UUID
     
     init(title: String?, body: String?, date: TimeInterval) {
         self.title = title
