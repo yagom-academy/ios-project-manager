@@ -1,31 +1,28 @@
 import UIKit
 import RxSwift
-//import RxCocoa
 
 protocol TaskListViewModelInputProtocol {
-//    func create(task: Task) // Detail로 이동
+//    func create(task: Task) // DetailView로 분리 (TODO: UseCase별 Protocol로 구분)
     func delete(task: Task)
     func update(task: Task, to newTask: Task)
     
     func processStatusChangeOptions(of currentProcessStatus: ProcessStatus) -> [ProcessStatus]
     func title(of changeOptions: [ProcessStatus]) -> [String]
     func edit(task: Task, newProcessStatus: ProcessStatus)
-//    func edit(task: Task, newTitle: String, newBody: String, newDueDate: Date) // Detail로 이동
+//    func edit(task: Task, newTitle: String, newBody: String, newDueDate: Date) // DetailView로 분리
     func didTouchUpAddButton()
-    func didSelectTask(at row: Int, inTableViewOf: ProcessStatus)
-    func didSwipeDeleteAction(for row: Int, inTableViewOf: ProcessStatus)
     func presentPopover(with alert: UIAlertController)
 }
 
 protocol TaskListViewModelOutputProtocol {
     var taskRepository: TaskRepositoryProtocol { get }
-    var todoTasks: BehaviorSubject<[Task]> { get }
-    var doingTasks: BehaviorSubject<[Task]> { get }
-    var doneTasks: BehaviorSubject<[Task]> { get }
-    var entireTasks: [BehaviorSubject<[Task]>] { get }
+    var todoTasks: Observable<[Task]> { get }
+    var doingTasks: Observable<[Task]> { get }
+    var doneTasks: Observable<[Task]> { get }
     var todoTasksCount: Observable<Int> { get }
     var doingTasksCount: Observable<Int> { get }
     var doneTasksCount: Observable<Int> { get }
+    var actions: TaskListViewModelActions? { get }
     
     func changeDateLabelColorIfExpired(with: Date) -> UIColor
 }
@@ -35,69 +32,33 @@ protocol TaskListViewModelProtocol: TaskListViewModelInputProtocol, TaskListView
 final class TaskListViewModel: TaskListViewModelProtocol {
     // MARK: - Properties
     let taskRepository: TaskRepositoryProtocol
-    var todoTasks: BehaviorSubject<[Task]> // 왜 let은 안되지?
-    var doingTasks: BehaviorSubject<[Task]>
-    var doneTasks: BehaviorSubject<[Task]>
-    lazy var entireTasks = [todoTasks, doingTasks, doneTasks]
-    private var disposeBag = DisposeBag()
     
+    // Repository의 BehaviorRelay를 map으로 받아서 Observable로 만들어줌
+    lazy var todoTasks: Observable<[Task]> = taskRepository.entireTasks.map { tasks in
+        tasks.filter { $0.processStatus == .todo }
+    }
+    lazy var doingTasks: Observable<[Task]> = taskRepository.entireTasks.map { tasks in
+        tasks.filter { $0.processStatus == .doing }
+    }
+    lazy var doneTasks: Observable<[Task]> = taskRepository.entireTasks.map { tasks in
+        tasks.filter { $0.processStatus == .done }
+    }
     lazy var todoTasksCount: Observable<Int> = todoTasks.asObservable().map { $0.count }
     lazy var doingTasksCount: Observable<Int> = doingTasks.asObservable().map { $0.count }
     lazy var doneTasksCount: Observable<Int> = doneTasks.asObservable().map { $0.count }
     
     let actions: TaskListViewModelActions?
+    private var disposeBag = DisposeBag()
     
     // MARK: - Initializers
     init(taskRepository: TaskRepositoryProtocol, actions: TaskListViewModelActions) {
         self.taskRepository = taskRepository
-        
-        taskRepository.todoTasks
-            .bind(onNext: { [weak self] tasks in
-                self?.todoTasks = BehaviorSubject<[Task]>(value: tasks)
-            })
-            .disposed(by: disposeBag)
-        
-        taskRepository.doingTasks
-            .bind(onNext: { [weak self] tasks in
-                self?.doingTasks = BehaviorSubject<[Task]>(value: tasks)
-            })
-            .disposed(by: disposeBag)
-        
-        taskRepository.doneTasks
-            .bind(onNext: { [weak self] tasks in
-                self?.doneTasks = BehaviorSubject<[Task]>(value: tasks)
-            })
-            .disposed(by: disposeBag)
-
         self.actions = actions
     }
     
     // MARK: - Methods
-    // DetailViewModel로 이동
-//    func create(task: Task) {
-//        taskRepository.create(task: task)
-//        
-//        switch task.processStatus {
-//        case .todo:
-//            todoTasks.onNext(taskRepository.todoTasks)
-//        case .doing:
-//            doingTasks.onNext(taskRepository.doingTasks)
-//        case .done:
-//            doneTasks.onNext(taskRepository.doneTasks)
-//        }
-//    }
-    
     func delete(task: Task) {
         taskRepository.delete(task: task)
-
-//        switch task.processStatus {
-//        case .todo:
-//            todoTasks.onNext(taskRepository.todoTasks) // Repository의 Task에 변동사항이 있으면 자동으로 onNext로 전달됨
-//        case .doing:
-//            doingTasks.onNext(taskRepository.doingTasks)
-//        case .done:
-//            doneTasks.onNext(taskRepository.doneTasks)
-//        }
     }
 
     func update(task: Task, to newTask: Task) {
@@ -107,26 +68,6 @@ final class TaskListViewModel: TaskListViewModelProtocol {
         }
 
         taskRepository.update(task: task, to: newTask)
-
-//        switch task.processStatus {
-//        case .todo:
-//            todoTasks.onNext(taskRepository.todoTasks)
-//        case .doing:
-//            doingTasks.onNext(taskRepository.doingTasks)
-//        case .done:
-//            doneTasks.onNext(taskRepository.doneTasks)
-//        }
-//
-//        guard task.processStatus != newTask.processStatus else { return }
-//
-//        switch newTask.processStatus {
-//        case .todo:
-//            todoTasks.onNext(taskRepository.todoTasks)
-//        case .doing:
-//            doingTasks.onNext(taskRepository.doingTasks)
-//        case .done:
-//            doneTasks.onNext(taskRepository.doneTasks)
-//        }
     }
 
     func changeDateLabelColorIfExpired(with date: Date) -> UIColor {
@@ -158,7 +99,7 @@ final class TaskListViewModel: TaskListViewModelProtocol {
         update(task: task, to: newTask)
     }
     
-//     MARK: - TaskDetailView
+    // MARK: - TaskDetailView
     func edit(task: Task, newTitle: String, newBody: String, newDueDate: Date) {
         let newTask = Task(id: task.id, title: newTitle, body: newBody, dueDate: newDueDate, processStatus: task.processStatus)
         update(task: task, to: newTask)
@@ -166,34 +107,5 @@ final class TaskListViewModel: TaskListViewModelProtocol {
     
     func didTouchUpAddButton() {
         actions?.showTaskDetailToAddTask()
-    }
- 
-    // MARK: - TableView Delegate
-    func didSelectTask(at row: Int, inTableViewOf: ProcessStatus) {
-        var taskToEdit: Task!
-        switch inTableViewOf {
-        case .todo:
-            taskToEdit = taskRepository.todoTasks. [row]
-        case .doing:
-            taskToEdit = taskRepository.doingTasks[row]
-        case .done:
-            taskToEdit = taskRepository.doneTasks[row]
-        }
-
-        actions?.showTaskDetailToEditTask(taskToEdit)
-    }
-
-    func didSwipeDeleteAction(for row: Int, inTableViewOf: ProcessStatus) {
-        var taskToDelete: Task!
-        switch inTableViewOf {
-        case .todo:
-            taskToDelete = taskRepository.todoTasks[row]
-        case .doing:
-            taskToDelete = taskRepository.doingTasks[row]
-        case .done:
-            taskToDelete = taskRepository.doneTasks[row]
-        }
-
-        delete(task: taskToDelete)
     }
 }

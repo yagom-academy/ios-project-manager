@@ -10,7 +10,8 @@ protocol FlowCoordinatorProtocol {
 }
 
 final class FlowCoordinator: FlowCoordinatorProtocol {
-    weak var navigationController: UINavigationController? // TODO: rootViewController: UIViewController로 변경
+    // TODO: rootViewController: UIViewController로 변경
+    weak var navigationController: UINavigationController?
 
     private var taskRepository: TaskRepositoryProtocol!
     private var taskListViewModel: TaskListViewModelProtocol!

@@ -1,12 +1,8 @@
 import Foundation
-import RxSwift
 import RxRelay
 
 protocol TaskRepositoryProtocol {
     var entireTasks: BehaviorRelay<[Task]> { get }
-    var todoTasks: Observable<[Task]> { get }
-    var doingTasks: Observable<[Task]> { get }
-    var doneTasks: Observable<[Task]> { get }
 
     func create(task: Task)
     func delete(task: Task)
@@ -15,18 +11,6 @@ protocol TaskRepositoryProtocol {
 
 final class TaskRepository: TaskRepositoryProtocol {
     let entireTasks: BehaviorRelay<[Task]>
-    
-    lazy var todoTasks: Observable<[Task]> = entireTasks.map { tasks in
-        tasks.filter { $0.processStatus == .todo }
-    }
-    
-    lazy var doingTasks: Observable<[Task]> = entireTasks.map { tasks in
-        tasks.filter { $0.processStatus == .doing }
-    }
-    
-    lazy var doneTasks: Observable<[Task]> = entireTasks.map { tasks in
-        tasks.filter { $0.processStatus == .done }
-    }
     
     init(tasks: [Task] = []) {
 //        self.entireTasks = BehaviorRelay<[Task]>(value: tasks)

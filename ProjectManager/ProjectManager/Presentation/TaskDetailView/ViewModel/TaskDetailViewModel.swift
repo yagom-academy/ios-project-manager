@@ -4,7 +4,6 @@ import RxSwift
 protocol TaskDetailViewModelInputProtocol {
     func create(task: Task)
     func update(task: Task, to newTask: Task)
-    
     func edit(task: Task, newTitle: String, newBody: String, newDueDate: Date)
     
     func leftBarButton(of taskManagerAction: TaskManagerAction) -> UIBarButtonItem.SystemItem
@@ -12,39 +11,38 @@ protocol TaskDetailViewModelInputProtocol {
 }
 
 protocol TaskDetailViewModelOutputProtocol {
-    var todoTasks: BehaviorSubject<[Task]> { get }
-    var doingTasks: BehaviorSubject<[Task]> { get }
-    var doneTasks: BehaviorSubject<[Task]> { get }
+    var taskRepository: TaskRepositoryProtocol { get }
+    var todoTasks: Observable<[Task]> { get }
+    var doingTasks: Observable<[Task]> { get }
+    var doneTasks: Observable<[Task]> { get }
 }
 
 protocol TaskDetailViewModelProtocol: TaskDetailViewModelInputProtocol, TaskDetailViewModelOutputProtocol { }
 
 final class TaskDetailViewModel: TaskDetailViewModelProtocol {
-    private let taskRepository: TaskRepositoryProtocol
-    let todoTasks: BehaviorSubject<[Task]>
-    let doingTasks: BehaviorSubject<[Task]>
-    let doneTasks: BehaviorSubject<[Task]>
+    // MARK: - Properties
+    let taskRepository: TaskRepositoryProtocol
     
+    lazy var todoTasks: Observable<[Task]> = taskRepository.entireTasks.map { tasks in
+        tasks.filter { $0.processStatus == .todo }
+    }
+    lazy var doingTasks: Observable<[Task]> = taskRepository.entireTasks.map { tasks in
+        tasks.filter { $0.processStatus == .doing }
+    }
+    lazy var doneTasks: Observable<[Task]> = taskRepository.entireTasks.map { tasks in
+        tasks.filter { $0.processStatus == .done }
+    }
+    
+    private var disposeBag = DisposeBag()
+    
+    // MARK: - Initializers
     init(taskRepository: TaskRepositoryProtocol) {
         self.taskRepository = taskRepository
-        self.todoTasks = BehaviorSubject<[Task]>(value: taskRepository.todoTasks)
-        self.doingTasks = BehaviorSubject<[Task]>(value: taskRepository.doingTasks)
-        self.doneTasks = BehaviorSubject<[Task]>(value: taskRepository.doneTasks)
     }
     
     // MARK: - Methods
     func create(task: Task) {
         taskRepository.create(task: task)
-        
-        switch task.processStatus {
-        case .todo:
-//            taskRepository.todoTasks
-            todoTasks.onNext(taskRepository.todoTasks)
-        case .doing:
-            doingTasks.onNext(taskRepository.doingTasks)
-        case .done:
-            doneTasks.onNext(taskRepository.doneTasks)
-        }
     }
     
     func update(task: Task, to newTask: Task) {
@@ -52,28 +50,8 @@ final class TaskDetailViewModel: TaskDetailViewModelProtocol {
             print(TaskManagerError.updateNotFound.description)
             return
         }
-        
+
         taskRepository.update(task: task, to: newTask)
-        
-        switch task.processStatus {
-        case .todo:
-            todoTasks.onNext(taskRepository.todoTasks)
-        case .doing:
-            doingTasks.onNext(taskRepository.doingTasks)
-        case .done:
-            doneTasks.onNext(taskRepository.doneTasks)
-        }
-        
-        guard task.processStatus != newTask.processStatus else { return }
-        
-        switch newTask.processStatus {
-        case .todo:
-            todoTasks.onNext(taskRepository.todoTasks)
-        case .doing:
-            doingTasks.onNext(taskRepository.doingTasks)
-        case .done:
-            doneTasks.onNext(taskRepository.doneTasks)
-        }
     }
     
     func edit(task: Task, newTitle: String, newBody: String, newDueDate: Date) {

@@ -82,6 +82,32 @@ final class TaskListViewController: UIViewController {
                 cell.update(with: task, viewModel: self!.taskListViewModel)
              }
              .disposed(by: disposeBag)
+        
+        // 기존 TableView Delegate의 didSelectTask 메서드를 대체
+        todoTableView.rx.modelSelected(Task.self)
+            .bind(onNext: { self.taskListViewModel.actions?.showTaskDetailToEditTask($0) })
+            .disposed(by: disposeBag)
+        
+        doingTableView.rx.modelSelected(Task.self)
+            .bind(onNext: { self.taskListViewModel.actions?.showTaskDetailToEditTask($0) })
+            .disposed(by: disposeBag)
+        
+        doneTableView.rx.modelSelected(Task.self)
+            .bind(onNext: { self.taskListViewModel.actions?.showTaskDetailToEditTask($0) })
+            .disposed(by: disposeBag)
+        
+        // trailingSwipeActionsConfigurationForRowAt 메서드를 대체
+        todoTableView.rx.modelDeleted(Task.self)
+            .bind(onNext: { self.taskListViewModel.delete(task: $0) })
+            .disposed(by: disposeBag)
+        
+        doingTableView.rx.modelDeleted(Task.self)
+            .bind(onNext: { self.taskListViewModel.delete(task: $0) })
+            .disposed(by: disposeBag)
+        
+        doneTableView.rx.modelDeleted(Task.self)
+            .bind(onNext: { self.taskListViewModel.delete(task: $0) })
+            .disposed(by: disposeBag)
     }
     
     private func setupHeaderViewsBinding() {
@@ -109,42 +135,5 @@ final class TaskListViewController: UIViewController {
 extension TaskListViewController {
     @IBAction private func touchUpAddButton(_ sender: UIBarButtonItem) {
         taskListViewModel.didTouchUpAddButton()
-    }
-}
-
-// MARK: - TableView Delegate
-extension TaskListViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let tableView = tableView as? TaskTableView,
-              let selectedProcessStatus = tableView.processStatus else {
-                  print(TableViewError.invalidTableView.description)
-                  return
-              }
-
-        taskListViewModel.didSelectTask(at: indexPath.row, inTableViewOf: selectedProcessStatus)
-    }
-    
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        guard let tableView = tableView as? TaskTableView,
-              let selectedProcessStatus = tableView.processStatus else {
-                  print(TableViewError.invalidTableView.description)
-                  return UISwipeActionsConfiguration()
-              }
-        
-        let deleteAction = createSwipeDeleteAction(for: indexPath.row, ofProcessStatus: selectedProcessStatus)
-        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
-        configuration.performsFirstActionWithFullSwipe = true
-        
-        return configuration
-    }
-    
-    func createSwipeDeleteAction(for taskAtRow: Int, ofProcessStatus: ProcessStatus) -> UIContextualAction {
-        let deleteAction = UIContextualAction(style: .destructive, title: Design.swipeDeleteTitle) { [weak self] _, _, handler in
-            self?.taskListViewModel.didSwipeDeleteAction(for: taskAtRow, inTableViewOf: ofProcessStatus)
-            handler(true)
-        }
-        deleteAction.image = UIImage(systemName: Design.swipeDeleteImageName)
-        
-        return deleteAction
     }
 }
