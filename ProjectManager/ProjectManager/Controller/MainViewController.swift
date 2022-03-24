@@ -3,9 +3,9 @@ import RxSwift
 
 class MainViewController: UIViewController {
     private let viewModel = MainViewModel()
-    private let moveToToDoObserver: PublishSubject<Project> = .init()
-    private let moveToDoingObserver: PublishSubject<Project> = .init()
-    private let moveToDoneObserver: PublishSubject<Project> = .init()
+    private let moveToToDoObserver: PublishSubject<CellInformation> = .init()
+    private let moveToDoingObserver: PublishSubject<CellInformation> = .init()
+    private let moveToDoneObserver: PublishSubject<CellInformation> = .init()
     private let selectObserver: PublishSubject<Project> = .init()
     private let deleteObserver: PublishSubject<Project> = .init()
     private let disposeBag: DisposeBag = .init()
@@ -153,9 +153,9 @@ class MainViewController: UIViewController {
     }
     
     @objc private func showAddProjectView() {
-        let viewController = AddProjectViewController()
+        let viewModel = viewModel.makeAddProjectViewModel()
+        let viewController = AddProjectViewController(viewModel: viewModel)
         viewController.modalPresentationStyle = .formSheet
-        viewController.viewModel = viewModel
         present(viewController, animated: true, completion: nil)
     }
 }
@@ -185,27 +185,25 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
         let projects = projects(for: tableView)
-        cell.setupCell(with: projects[indexPath.row])
+        cell.setupCell(of: indexPath, with: projects[indexPath.row])
         cell.delegate = self
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let cell = tableView.cellForRow(at: indexPath) as? ProjectListCell,
-        let selectedProject = cell.project else { return }
+        let selectedProject = projects(for: tableView)[indexPath.row]
         selectObserver.onNext(selectedProject)
-        let viewController = EditProjectViewController()
+        let viewModel = viewModel.makeEditProjectViewModel()
+        let viewController = EditProjectViewController(viewModel: viewModel)
         viewController.modalPresentationStyle = .formSheet
-        viewController.viewModel = viewModel
         viewController.setupEditView(with: selectedProject)
         viewController.actionAfterDismiss = deselectCell
         present(viewController, animated: true, completion: nil)
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        guard let cell = tableView.cellForRow(at: indexPath) as? ProjectListCell,
-        let selectedProject = cell.project else { return nil }
+        let selectedProject = projects(for: tableView)[indexPath.row]
         let deleteAction = UIContextualAction(style: .destructive, title: Text.deleteActionTitle) { _, _, _  in
             self.deleteObserver.onNext(selectedProject)
         }
@@ -217,19 +215,25 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
 // MARK: - ProjectListCellDelegate
 
 extension MainViewController: ProjectListCellDelegate {
-    func didTapTodoAction(_ project: Project?) {
-        guard let project = project else { return }
-        moveToToDoObserver.onNext(project)
+    func didTapTodoAction(_ state: ProjectState?, indexPath: IndexPath?) {
+        guard let state = state,
+              let indexPath = indexPath else { return }
+        let cellInformation = (state, indexPath)
+        moveToToDoObserver.onNext(cellInformation)
     }
     
-    func didTapDoingAction(_ project: Project?) {
-        guard let project = project else { return }
-        moveToDoingObserver.onNext(project)
+    func didTapDoingAction(_ state: ProjectState?, indexPath: IndexPath?) {
+        guard let state = state,
+              let indexPath = indexPath else { return }
+        let cellInformation = (state, indexPath)
+        moveToDoingObserver.onNext(cellInformation)
     }
     
-    func didTapDoneAction(_ project: Project?) {
-        guard let project = project else { return }
-        moveToDoneObserver.onNext(project)
+    func didTapDoneAction(_ state: ProjectState?, indexPath: IndexPath?) {
+        guard let state = state,
+              let indexPath = indexPath else { return }
+        let cellInformation = (state, indexPath)
+        moveToDoneObserver.onNext(cellInformation)
     }
     
     func presentPopover(_ alert: UIAlertController) {

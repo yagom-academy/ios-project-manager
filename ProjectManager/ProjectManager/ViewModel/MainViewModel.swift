@@ -10,13 +10,13 @@ protocol ViewModelDescribing {
 
 class MainViewModel: ViewModelDescribing {
     final class Input {
-        let moveToToDoObserver: Observable<Project>
-        let moveToDoingObserver: Observable<Project>
-        let moveToDoneObserver: Observable<Project>
+        let moveToToDoObserver: Observable<CellInformation>
+        let moveToDoingObserver: Observable<CellInformation>
+        let moveToDoneObserver: Observable<CellInformation>
         let selectObserver: Observable<Project>
         let deleteObserver: Observable<Project>
         
-        init(moveToToDoObserver: Observable<Project>, moveToDoingObserver: Observable<Project>, moveToDoneObserver: Observable<Project>, selectObserver: Observable<Project>, deleteObserver: Observable<Project>) {
+        init(moveToToDoObserver: Observable<CellInformation>, moveToDoingObserver: Observable<CellInformation>, moveToDoneObserver: Observable<CellInformation>, selectObserver: Observable<Project>, deleteObserver: Observable<Project>) {
             self.moveToToDoObserver = moveToToDoObserver
             self.moveToDoingObserver = moveToDoingObserver
             self.moveToDoneObserver = moveToDoneObserver
@@ -33,25 +33,31 @@ class MainViewModel: ViewModelDescribing {
         }
     }
     
+    private let repository = ProjectRepository()
     private let reloadObserver: PublishSubject<Void> = .init()
     private let disposeBag: DisposeBag = .init()
     
     private var selectedProject: Project?
     private var projects: [Project] = []
     var todoProjects: [Project] {
-        projects.filter { $0.state == .todo }
+        repository.todoProjects
     }
     var doingProjects: [Project] {
-        projects.filter { $0.state == .doing }
+        repository.doingProjects
     }
     var doneProjects: [Project] {
-        projects.filter { $0.state == .done }
+        repository.doneProjects
     }
 
+    init() {
+        repository.delegate = self
+    }
+    
     func transform(_ input: Input) -> Output {
         input
             .moveToToDoObserver
-            .subscribe(onNext: { [weak self] project in
+            .subscribe(onNext: { [weak self] cellInformation in
+                let project = self?.findProjectNeedChange(from: cellInformation.state, with: cellInformation.indexPath)
                 self?.changeState(of: project, to: .todo)
                 self?.reloadObserver.onNext(())
             })
@@ -59,7 +65,8 @@ class MainViewModel: ViewModelDescribing {
         
         input
             .moveToDoingObserver
-            .subscribe(onNext: { [weak self] project in
+            .subscribe(onNext: { [weak self] cellInformation in
+                let project = self?.findProjectNeedChange(from: cellInformation.state, with: cellInformation.indexPath)
                 self?.changeState(of: project, to: .doing)
                 self?.reloadObserver.onNext(())
             })
@@ -67,7 +74,8 @@ class MainViewModel: ViewModelDescribing {
         
         input
             .moveToDoneObserver
-            .subscribe(onNext: { [weak self] project in
+            .subscribe(onNext: { [weak self] cellInformation in
+                let project = self?.findProjectNeedChange(from: cellInformation.state, with: cellInformation.indexPath)
                 self?.changeState(of: project, to: .done)
                 self?.reloadObserver.onNext(())
             })
@@ -76,7 +84,7 @@ class MainViewModel: ViewModelDescribing {
         input
             .selectObserver
             .subscribe(onNext: { [weak self] project in
-                self?.selectedProject = project
+                self?.repository.setSelectedProject(with: project)
             })
             .disposed(by: disposeBag)
         
@@ -92,36 +100,37 @@ class MainViewModel: ViewModelDescribing {
         return output
     }
     
-    func addProject(title: String?, body: String?, date: TimeInterval) {
-        let newProject = Project(title: title, body: body, date: date)
-        projects.append(newProject)
-        reloadObserver.onNext(())
+    func makeAddProjectViewModel() -> AddProjectViewModel {
+        return AddProjectViewModel(repository: repository)
     }
     
-    func editProject(title: String?, body: String?, date: TimeInterval) {
-        guard let selectedProject = selectedProject,
-              let index = projects.firstIndex(where: { $0 == selectedProject }) else { return }
-        projects[index].title = title
-        projects[index].body = body
-        projects[index].date = date
-        reloadObserver.onNext(())
+    func makeEditProjectViewModel() -> EditProjectViewModel {
+        return EditProjectViewModel(repository: repository)
     }
     
-    private func changeState(of project: Project, to state: ProjectState) {
-        guard let index = projects.firstIndex(where: { $0 == project }) else { return }
+    private func changeState(of project: Project?, to state: ProjectState) {
+        repository.changeState(of: project, to: state)
+    }
+    
+    private func findProjectNeedChange(from state: ProjectState, with indexPath: IndexPath) -> Project {
         switch state {
         case .todo:
-            projects[index].state = .todo
+            return todoProjects[indexPath.row]
         case .doing:
-            projects[index].state = .doing
+            return doingProjects[indexPath.row]
         case .done:
-            projects[index].state = .done
+            return doneProjects[indexPath.row]
         }
     }
     
     private func deleteProject(_ project: Project) {
-        guard let index = projects.firstIndex(where: { $0 == project }) else { return }
-        projects.remove(at: index)
+        repository.deleteProject(project)
+    }
+}
+
+extension MainViewModel: ProjectRepositoryDelegate {
+    func didChangeProject() {
         reloadObserver.onNext(())
     }
 }
+

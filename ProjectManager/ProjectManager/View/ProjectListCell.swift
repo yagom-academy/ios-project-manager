@@ -2,7 +2,9 @@ import UIKit
 
 class ProjectListCell: UITableViewCell {
     weak var delegate: ProjectListCellDelegate?
-    var project: Project?
+    private var indexPath: IndexPath?
+    private var state: ProjectState?
+    private var dateLabelColor = UIColor.label
     
     private let containerView: UIView = {
         let view = UIView()
@@ -51,7 +53,7 @@ class ProjectListCell: UITableViewCell {
     
     private var moveToToDoAction: UIAlertAction {
         let action = UIAlertAction(title: "MOVE TO TODO", style: .default) { _ in
-            self.delegate?.didTapTodoAction(self.project)
+            self.delegate?.didTapTodoAction(self.state, indexPath: self.indexPath)
         }
         
         return action
@@ -59,7 +61,7 @@ class ProjectListCell: UITableViewCell {
     
     private var moveToDoingAction: UIAlertAction {
         let action = UIAlertAction(title: "MOVE TO DOING", style: .default) { _ in
-            self.delegate?.didTapDoingAction(self.project)
+            self.delegate?.didTapDoingAction(self.state, indexPath: self.indexPath)
         }
         
         return action
@@ -67,7 +69,7 @@ class ProjectListCell: UITableViewCell {
     
     private var moveToDoneAction: UIAlertAction {
         let action = UIAlertAction(title: "MOVE TO DONE", style: .default) { _ in
-            self.delegate?.didTapDoneAction(self.project)
+            self.delegate?.didTapDoneAction(self.state, indexPath: self.indexPath)
         }
         
         return action
@@ -96,23 +98,33 @@ class ProjectListCell: UITableViewCell {
             containerView.backgroundColor = .systemBackground
             titleLabel.textColor = .label
             previewLabel.textColor = .secondaryLabel
-            setupDateLabel(with: project)
+            dateLabel.textColor = dateLabelColor
         }
     }
     
-    func setupCell(with project: Project) {
-        self.project = project
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        titleLabel.text = nil
+        dateLabel.text = nil
+        previewLabel.text = nil
+        state = nil
+        indexPath = nil
+    }
+    
+    func setupCell(of indexPath: IndexPath, with project: Project) {
+        self.indexPath = indexPath
+        self.state = project.state
         titleLabel.text = project.title
         previewLabel.text = project.body
         dateLabel.text = project.formattedDate
+        setupDateLabel(with: project)
     }
     
-    private func setupDateLabel(with project: Project?) {
-        guard let project = project else { return }
+    private func setupDateLabel(with project: Project) {
         if project.isExpired {
-            dateLabel.textColor = .systemRed
+            dateLabelColor = .systemRed
         } else {
-            dateLabel.textColor = .label
+            dateLabelColor = .label
         }
     }
 
@@ -130,9 +142,7 @@ class ProjectListCell: UITableViewCell {
     
     private func makePopoverAlert() -> UIAlertController {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        guard let project = project else { return alert }
-        
-        switch project.state {
+        switch state {
         case .todo:
             alert.addAction(moveToDoingAction)
             alert.addAction(moveToDoneAction)
@@ -142,6 +152,8 @@ class ProjectListCell: UITableViewCell {
         case .done:
             alert.addAction(moveToToDoAction)
             alert.addAction(moveToDoingAction)
+        case .none:
+            break
         }
         
         return alert

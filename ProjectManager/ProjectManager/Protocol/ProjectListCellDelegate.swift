@@ -1,8 +1,8 @@
 import UIKit
 
 protocol ProjectListCellDelegate: AnyObject {
-    func didTapTodoAction(_ project: Project?)
-    func didTapDoingAction(_ project: Project?)
-    func didTapDoneAction(_ project: Project?)
+    func didTapTodoAction(_ projectState: ProjectState?, indexPath: IndexPath?)
+    func didTapDoingAction(_ projectState: ProjectState?, indexPath: IndexPath?)
+    func didTapDoneAction(_ projectState: ProjectState?, indexPath: IndexPath?)
     func presentPopover(_ alert: UIAlertController)
 }

@@ -2,7 +2,7 @@ import UIKit
 
 class AddProjectViewController: UIViewController {
     private let addView = ProjectFormView()
-    weak var viewModel: MainViewModel?
+    private let viewModel: AddProjectViewModel
     
     private let navigationBar: UINavigationBar = {
         let navigationBar = UINavigationBar(frame: .zero)
@@ -10,7 +10,17 @@ class AddProjectViewController: UIViewController {
         
         return navigationBar
     }()
-
+    
+    init(viewModel: AddProjectViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
@@ -52,7 +62,8 @@ class AddProjectViewController: UIViewController {
     }
     
     @objc private func addProject() {
-        viewModel?.addProject(title: addView.title, body: addView.body, date: addView.date)
+        let projectInput: ProjectInput = (addView.title, addView.body, addView.date)
+        viewModel.addProject(with: projectInput)
         dismiss(animated: true)
     }
 

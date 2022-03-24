@@ -2,7 +2,7 @@ import UIKit
 
 class EditProjectViewController: UIViewController {
     private let editView = ProjectFormView()
-    weak var viewModel: MainViewModel?
+    private let viewModel: EditProjectViewModel
     
     private let navigationBar: UINavigationBar = {
         let navigationBar = UINavigationBar(frame: .zero)
@@ -21,6 +21,16 @@ class EditProjectViewController: UIViewController {
 
     var actionAfterDismiss = {}
     
+    init(viewModel: EditProjectViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
@@ -69,7 +79,8 @@ class EditProjectViewController: UIViewController {
     }
     
     @objc private func saveEditedProject() {
-        viewModel?.editProject(title: editView.title, body: editView.body, date: editView.date)
+        let projectInput = (editView.title, editView.body, editView.date)
+        viewModel.editProject(with: projectInput)
         dismiss(animated: true)
     }
 }
