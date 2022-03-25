@@ -1,4 +1,6 @@
 import UIKit
+import RxCocoa
+import RxSwift
 
 final class ProjectListViewController: UIViewController {
     // MARK: - Property
@@ -7,7 +9,10 @@ final class ProjectListViewController: UIViewController {
     private let doingTableView = ProjectListTableView()
     private let doneTableView = ProjectListTableView()
     private var viewModel: ProjectListViewModel?
-    private lazy var tableViews = [todoTableView, doingTableView, doneTableView]
+    private lazy var tableViews: [ProjectListTableView] = [todoTableView, doingTableView, doneTableView]
+    private let headerViews = [ProjectListTableHeaderView(), ProjectListTableHeaderView(), ProjectListTableHeaderView()]
+    
+    private let disposeBag = DisposeBag()
     
     private let entireStackView: UIStackView = {
         let stackView = UIStackView()
@@ -51,6 +56,67 @@ final class ProjectListViewController: UIViewController {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAddProjectButton))
     }
     
+    private func configureBind() {
+        let input = ProjectListViewModel.Input()
+        
+        let output = self.viewModel?.transform(input: input)
+        
+        output?.todoProjects
+            .do(onNext: { [weak self] in
+                (self?.todoTableView.tableHeaderView as? ProjectListTableHeaderView)?.populateData(title: $0.first?.state.title ?? "",  count: $0.count)
+            })
+            .asDriver(onErrorJustReturn: [])
+            .drive(
+                todoTableView.rx.items(
+                    cellIdentifier: String(describing: ProjectListTableViewCell.self),
+                    cellType: ProjectListTableViewCell.self)
+            ) { _, item, cell in
+                guard let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date()) else { return }
+                if item.date < yesterday {
+                    cell.populateDataWithDate(title: item.title, body: item.body, date: item.date)
+                } else {
+                    cell.populateData(title: item.title, body: item.body, date: item.date)
+                }
+            }.disposed(by: disposeBag)
+
+        output?.doingProjects
+            .do(onNext: { [weak self] in
+                (self?.doingTableView.tableHeaderView as? ProjectListTableHeaderView)?.populateData(title: $0.first?.state.title ?? "", count: $0.count)
+            })
+            .asDriver(onErrorJustReturn: [])
+            .drive(
+                doingTableView.rx.items(
+                    cellIdentifier: String(describing: ProjectListTableViewCell.self),
+                    cellType: ProjectListTableViewCell.self)
+            ) { _, item, cell in
+                guard let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date()) else { return }
+                if item.date < yesterday {
+                    cell.populateDataWithDate(title: item.title, body: item.body, date: item.date)
+                } else {
+                    cell.populateData(title: item.title, body: item.body, date: item.date)
+                }
+            }.disposed(by: disposeBag)
+
+        output?.doneProjects
+            .do(onNext: { [weak self] in
+                (self?.doneTableView.tableHeaderView as? ProjectListTableHeaderView)?.populateData(title: $0.first?.state.title ?? "", count: $0.count)
+            })
+            .asDriver(onErrorJustReturn: [])
+            .drive(
+                doneTableView.rx.items(
+                    cellIdentifier: String(describing: ProjectListTableViewCell.self),
+                    cellType: ProjectListTableViewCell.self)
+            ) { _, item, cell in
+                guard let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date()) else { return }
+                if item.date < yesterday {
+                    cell.populateDataWithDate(title: item.title, body: item.body, date: item.date)
+                } else {
+                    cell.populateData(title: item.title, body: item.body, date: item.date)
+                }
+            }.disposed(by: disposeBag)
+
+    }
+    
     @objc private func didTapAddProjectButton() {
         guard let viewModel = viewModel else {
             return
@@ -80,33 +146,11 @@ final class ProjectListViewController: UIViewController {
     }
     
     private func configureTableView() {
-        tableViews.forEach {
-            $0.delegate = self
-            $0.dataSource = self
-            
+        tableViews.enumerated().forEach { index, tableView in
+            tableView.tableHeaderView = headerViews[safe: index]
+            tableView.tableHeaderView?.frame.size.height = Design.tableViewHeightForHeaderInSection
             if #available(iOS 15, *) {
-                $0.sectionHeaderTopPadding = Design.tableViewSectionHeaderTopPadding
-            }
-        }
-    }
-    
-    private func configureBind() {
-        viewModel?.fetchAll()
-        
-        viewModel?.onCellSelected = { [weak self] indexPath, project in
-            guard let self = self, let viewModel = self.viewModel else {
-                return
-            }
-            let editProjectDetailViewModel = viewModel.createEditDetailViewModel(indexPath: indexPath, state: project.state)
-            let editViewController = EditProjectDetailViewController(viewModel: editProjectDetailViewModel, delegate: self)
-            let destinationViewController = UINavigationController(rootViewController: editViewController)
-            destinationViewController.modalPresentationStyle = .formSheet
-            self.present(destinationViewController, animated: true, completion: nil)
-        }
-        
-        viewModel?.onUpdated = {
-            self.tableViews.forEach {
-                $0.reloadData()
+                tableView.sectionHeaderTopPadding = Design.tableViewSectionHeaderTopPadding
             }
         }
     }
@@ -185,84 +229,6 @@ final class ProjectListViewController: UIViewController {
         
         return alert
     }
-    
-}
-// MARK: - UITableViewDelegate
-
-extension ProjectListViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return Design.tableViewHeightForHeaderInSection
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let state = state(of: tableView) else {
-            return nil
-        }
-        let numberOfProjects = viewModel?.numberOfProjects(state: state)
-        
-        let headerView = tableView.dequeueReusableHeaderFooterView(withClass: ProjectListTableHeaderView.self)
-        headerView.populateData(title: state.title, count: numberOfProjects ?? .zero)
-        
-        return headerView
-    }
-    
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteAction = UIContextualAction(style: .destructive, title: nil) { _, _, _ in
-            guard let state = self.state(of: tableView) else {
-                return
-            }
-            self.viewModel?.delete(indexPath: indexPath, state: state)
-        }
-        
-        deleteAction.image = UIImage(systemName: "trash")
-        
-        return UISwipeActionsConfiguration(actions: [deleteAction])
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let state = state(of: tableView) else {
-            return
-        }
-        viewModel?.didSelectRow(indexPath: indexPath, state: state)
-    }
-}
-
-extension ProjectListViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let state = state(of: tableView) else {
-            return .zero
-        }
-    
-        switch state {
-        case .todo:
-            return viewModel?.todoProjects.count ?? 0
-        case .doing:
-            return viewModel?.doingProjects.count ?? 0
-        case .done:
-            return viewModel?.doneProjects.count ?? 0
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let state = state(of: tableView),
-              let project = viewModel?.retrieveSelectedData(indexPath: indexPath, state: state),
-              let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date()) else {
-            return UITableViewCell()
-        }
-
-        let cell = tableView.dequeueReusableCell(withClass: ProjectListTableViewCell.self)
-        if project.date < yesterday {
-            cell.populateDataWithDate(title: project.title, body: project.body, date: project.date)
-        } else {
-            cell.populateData(title: project.title, body: project.body, date: project.date)
-        }
-
-        return cell
-    }
 }
 
 //MARK: - Constants
@@ -288,4 +254,3 @@ extension ProjectListViewController: ProjectDetailViewControllerDelegate {
         viewModel?.append(project)
     }
 }
-
