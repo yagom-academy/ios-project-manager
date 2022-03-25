@@ -9,7 +9,7 @@ private enum Design {
 
 final class TaskListViewController: UIViewController {
     // MARK: - Properties
-    private var taskListViewModel: TaskListViewModelProtocol!
+    private var taskListViewModel: TaskListViewModelProtocol?
     private var disposeBag = DisposeBag()
     
     private var todoTaskHeaderView: TaskTableHeaderView!
@@ -61,7 +61,7 @@ final class TaskListViewController: UIViewController {
     }
     
     private func setupTableViewsCellBinding() {
-        taskListViewModel.todoTasks
+        taskListViewModel?.todoTasks
             .asDriver(onErrorJustReturn: [])
             .drive(todoTableView.rx.items(cellIdentifier: TaskTableViewCell.reuseIdentifier,
                                           cellType: TaskTableViewCell.self)) { [weak self] _, task, cell in
@@ -69,7 +69,7 @@ final class TaskListViewController: UIViewController {
              }
              .disposed(by: disposeBag)
         
-        taskListViewModel.doingTasks
+        taskListViewModel?.doingTasks
             .asDriver(onErrorJustReturn: [])
             .drive(doingTableView.rx.items(cellIdentifier: TaskTableViewCell.reuseIdentifier,
                                            cellType: TaskTableViewCell.self)) { [weak self] _, task, cell in
@@ -77,7 +77,7 @@ final class TaskListViewController: UIViewController {
              }
              .disposed(by: disposeBag)
 
-        taskListViewModel.doneTasks
+        taskListViewModel?.doneTasks
             .asDriver(onErrorJustReturn: [])
             .drive(doneTableView.rx.items(cellIdentifier: TaskTableViewCell.reuseIdentifier,
                                           cellType: TaskTableViewCell.self)) { [weak self] _, task, cell in
@@ -88,46 +88,52 @@ final class TaskListViewController: UIViewController {
     
     private func setupTableViewsDidSelectCellBinding() {
         todoTableView.rx.modelSelected(Task.self)
-            .bind(onNext: { self.taskListViewModel.actions?.showTaskDetailToEditTask($0) })
+            .bind(onNext: { [weak self] in
+                self?.taskListViewModel?.actions?.showTaskDetailToEditTask($0) })
             .disposed(by: disposeBag)
         
         doingTableView.rx.modelSelected(Task.self)
-            .bind(onNext: { self.taskListViewModel.actions?.showTaskDetailToEditTask($0) })
+            .bind(onNext: { [weak self] in
+                self?.taskListViewModel?.actions?.showTaskDetailToEditTask($0) })
             .disposed(by: disposeBag)
         
         doneTableView.rx.modelSelected(Task.self)
-            .bind(onNext: { self.taskListViewModel.actions?.showTaskDetailToEditTask($0) })
+            .bind(onNext: { [weak self] in
+                self?.taskListViewModel?.actions?.showTaskDetailToEditTask($0) })
             .disposed(by: disposeBag)
     }
      
     private func setupTableViewsTrailingSwipeActionBinding() {
         todoTableView.rx.modelDeleted(Task.self)
-            .bind(onNext: { self.taskListViewModel.delete(task: $0) })
+            .bind(onNext: { [weak self] in
+                self?.taskListViewModel?.delete(task: $0) })
             .disposed(by: disposeBag)
         
         doingTableView.rx.modelDeleted(Task.self)
-            .bind(onNext: { self.taskListViewModel.delete(task: $0) })
+            .bind(onNext: { [weak self] in
+                self?.taskListViewModel?.delete(task: $0) })
             .disposed(by: disposeBag)
         
         doneTableView.rx.modelDeleted(Task.self)
-            .bind(onNext: { self.taskListViewModel.delete(task: $0) })
+            .bind(onNext: { [weak self] in
+                self?.taskListViewModel?.delete(task: $0) })
             .disposed(by: disposeBag)
     }
     
     private func setupHeaderViewsBinding() {
-        taskListViewModel.todoTasksCount
+        taskListViewModel?.todoTasksCount
             .map { "\($0)" }
             .asDriver(onErrorJustReturn: "")
             .drive(todoTaskHeaderView.taskCountLabel.rx.text)
             .disposed(by: disposeBag)
         
-        taskListViewModel.doingTasksCount
+        taskListViewModel?.doingTasksCount
             .map { "\($0)" }
             .asDriver(onErrorJustReturn: "")
             .drive(doingTaskHeaderView.taskCountLabel.rx.text)
             .disposed(by: disposeBag)
         
-        taskListViewModel.doneTasksCount
+        taskListViewModel?.doneTasksCount
             .map { "\($0)" }
             .asDriver(onErrorJustReturn: "")
             .drive(doneTaskHeaderView.taskCountLabel.rx.text)
@@ -138,6 +144,6 @@ final class TaskListViewController: UIViewController {
 // MARK: - IBAction
 extension TaskListViewController {
     @IBAction private func touchUpAddButton(_ sender: UIBarButtonItem) {
-        taskListViewModel.didTouchUpAddButton()
+        taskListViewModel?.didTouchUpAddButton()
     }
 }
