@@ -23,15 +23,9 @@ final class TaskDetailViewModel: TaskDetailViewModelProtocol {
     // MARK: - Properties
     let taskRepository: TaskRepositoryProtocol
     
-    lazy var todoTasks: Observable<[Task]> = taskRepository.entireTasks.map { tasks in
-        tasks.filter { $0.processStatus == .todo }
-    }
-    lazy var doingTasks: Observable<[Task]> = taskRepository.entireTasks.map { tasks in
-        tasks.filter { $0.processStatus == .doing }
-    }
-    lazy var doneTasks: Observable<[Task]> = taskRepository.entireTasks.map { tasks in
-        tasks.filter { $0.processStatus == .done }
-    }
+    lazy var todoTasks: Observable<[Task]> = taskRepository.todoTasks
+    lazy var doingTasks: Observable<[Task]> = taskRepository.doingTasks
+    lazy var doneTasks: Observable<[Task]> = taskRepository.doneTasks
     
     private var disposeBag = DisposeBag()
     

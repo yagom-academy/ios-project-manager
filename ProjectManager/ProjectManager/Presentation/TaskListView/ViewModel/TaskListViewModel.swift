@@ -6,7 +6,7 @@ protocol TaskListViewModelInputProtocol {
     func delete(task: Task)
     func update(task: Task, to newTask: Task)
     func edit(task: Task, newProcessStatus: ProcessStatus)
-    //    func edit(task: Task, newTitle: String, newBody: String, newDueDate: Date) // DetailView로 분리
+//    func edit(task: Task, newTitle: String, newBody: String, newDueDate: Date) // DetailView로 분리
 
     func processStatusChangeOptions(of currentProcessStatus: ProcessStatus) -> [ProcessStatus]
     func title(of changeOptions: [ProcessStatus]) -> [String]
@@ -33,16 +33,9 @@ final class TaskListViewModel: TaskListViewModelProtocol {
     // MARK: - Properties
     let taskRepository: TaskRepositoryProtocol
     
-    // Repository의 BehaviorRelay를 map으로 받아서 Observable로 만들어줌
-    lazy var todoTasks: Observable<[Task]> = taskRepository.entireTasks.map { tasks in
-        tasks.filter { $0.processStatus == .todo }
-    }
-    lazy var doingTasks: Observable<[Task]> = taskRepository.entireTasks.map { tasks in
-        tasks.filter { $0.processStatus == .doing }
-    }
-    lazy var doneTasks: Observable<[Task]> = taskRepository.entireTasks.map { tasks in
-        tasks.filter { $0.processStatus == .done }
-    }
+    lazy var todoTasks: Observable<[Task]> = taskRepository.todoTasks
+    lazy var doingTasks: Observable<[Task]> = taskRepository.doingTasks
+    lazy var doneTasks: Observable<[Task]> = taskRepository.doneTasks
     lazy var todoTasksCount: Observable<Int> = todoTasks.asObservable().map { $0.count }
     lazy var doingTasksCount: Observable<Int> = doingTasks.asObservable().map { $0.count }
     lazy var doneTasksCount: Observable<Int> = doneTasks.asObservable().map { $0.count }

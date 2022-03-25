@@ -54,16 +54,18 @@ final class TaskListViewController: UIViewController {
     }
     
     private func setupBindings() {
-        setupTableViewsBinding()
+        setupTableViewsCellBinding()
+        setupTableViewsDidSelectCellBinding()
+        setupTableViewsTrailingSwipeActionBinding()
         setupHeaderViewsBinding()
     }
     
-    private func setupTableViewsBinding() {
+    private func setupTableViewsCellBinding() {
         taskListViewModel.todoTasks
             .asDriver(onErrorJustReturn: [])
             .drive(todoTableView.rx.items(cellIdentifier: TaskTableViewCell.reuseIdentifier,
                                           cellType: TaskTableViewCell.self)) { [weak self] _, task, cell in
-                cell.update(with: task, viewModel: self!.taskListViewModel)
+                cell.update(with: task, viewModel: self?.taskListViewModel)
              }
              .disposed(by: disposeBag)
         
@@ -71,7 +73,7 @@ final class TaskListViewController: UIViewController {
             .asDriver(onErrorJustReturn: [])
             .drive(doingTableView.rx.items(cellIdentifier: TaskTableViewCell.reuseIdentifier,
                                            cellType: TaskTableViewCell.self)) { [weak self] _, task, cell in
-                cell.update(with: task, viewModel: self!.taskListViewModel)
+                cell.update(with: task, viewModel: self?.taskListViewModel)
              }
              .disposed(by: disposeBag)
 
@@ -82,8 +84,9 @@ final class TaskListViewController: UIViewController {
                 cell.update(with: task, viewModel: self!.taskListViewModel)
              }
              .disposed(by: disposeBag)
-        
-        // 기존 TableView Delegate의 didSelectTask 메서드를 대체
+    }
+    
+    private func setupTableViewsDidSelectCellBinding() {
         todoTableView.rx.modelSelected(Task.self)
             .bind(onNext: { self.taskListViewModel.actions?.showTaskDetailToEditTask($0) })
             .disposed(by: disposeBag)
@@ -95,8 +98,9 @@ final class TaskListViewController: UIViewController {
         doneTableView.rx.modelSelected(Task.self)
             .bind(onNext: { self.taskListViewModel.actions?.showTaskDetailToEditTask($0) })
             .disposed(by: disposeBag)
-        
-        // trailingSwipeActionsConfigurationForRowAt 메서드를 대체
+    }
+     
+    private func setupTableViewsTrailingSwipeActionBinding() {
         todoTableView.rx.modelDeleted(Task.self)
             .bind(onNext: { self.taskListViewModel.delete(task: $0) })
             .disposed(by: disposeBag)

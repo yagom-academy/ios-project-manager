@@ -13,7 +13,7 @@ final class TaskTableViewCell: UITableViewCell {
         task = nil
     }
     
-    func update(with task: Task, viewModel: TaskListViewModelProtocol) {
+    func update(with task: Task, viewModel: TaskListViewModelProtocol?) {
         self.task = task
         self.taskListViewModel = viewModel
         
