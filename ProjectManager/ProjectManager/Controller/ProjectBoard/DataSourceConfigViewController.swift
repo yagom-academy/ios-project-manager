@@ -61,14 +61,9 @@ final class DataSourceConfigViewController: UIViewController {
     }
     
     // MARK: - View Life Cycle
-    override func loadView() {
-        self.view = .init()
-        self.view.translatesAutoresizingMaskIntoConstraints = false
-        self.view.backgroundColor = .white
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.configureView()
         self.configureViewHeirachry()
         self.configureContent()
         self.configureLayout()
@@ -80,6 +75,11 @@ final class DataSourceConfigViewController: UIViewController {
     }
     
     // MARK: - Method
+    private func configureView() {
+        self.view.translatesAutoresizingMaskIntoConstraints = false
+        self.view.backgroundColor = .white
+    }
+    
     private func configureViewHeirachry() {
         self.view.addSubview(contentStackView)
     }

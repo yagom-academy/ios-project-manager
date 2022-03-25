@@ -37,12 +37,9 @@ final class ProjectListViewController: UIViewController {
     }
     
     // MARK: - View Life Cycle
-    override func loadView() {
-        self.configureView()
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.configureView()
         self.configureView()
         self.configureTableView()
         self.configureLayout()
@@ -53,7 +50,6 @@ final class ProjectListViewController: UIViewController {
     
     // MARK: - Configure View
     private func configureView() {
-        self.view = .init()
         self.view.backgroundColor = .systemGray5
         self.view.translatesAutoresizingMaskIntoConstraints = false
     }

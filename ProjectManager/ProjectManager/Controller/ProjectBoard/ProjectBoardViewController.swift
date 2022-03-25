@@ -53,12 +53,9 @@ final class ProjectBoardViewController: UIViewController {
     }()
     
     // MARK: - View Life Cycle
-    override func loadView() {
-        self.configureView()
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.configureView()
         self.configureDelegate()
         self.configureSubviews()
         self.configureNavigationItem()
@@ -70,7 +67,6 @@ final class ProjectBoardViewController: UIViewController {
      
     // MARK: - Configure View
     private func configureView() {
-        self.view = .init()
         self.view.translatesAutoresizingMaskIntoConstraints = false
         self.view.backgroundColor = .systemGray6
     }

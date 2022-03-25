@@ -115,19 +115,19 @@ final class ProjectViewController: UIViewController {
     }
     
     // MARK: - View Life Cycle
-    override func loadView() {
-        self.view = .init()
-        self.view.backgroundColor = .white
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.configureView()
         self.configureNavigationBarLayout()
         self.configureStackViewLayout()
         self.configureMode()
     }
     
     // MARK: - Configure View
+    private func configureView() {
+        self.view.backgroundColor = .white
+    }
+    
     private func configureNavigationBarLayout() {
         self.view.addSubview(navigationBar)
         let safeArea = self.view.safeAreaLayoutGuide
