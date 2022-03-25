@@ -100,7 +100,11 @@ final class DataSourceConfigViewController: UIViewController {
     }
 
     private func configureContent() {
-        self.sourceSegmentedControl.selectedSegmentIndex = projectManager?.projectSourceType?.rawValue ?? .zero
+        guard let currentSourceType = projectManager?.projectSourceType,
+              let index = dataSourceTypes.firstIndex(of: currentSourceType) else {
+                  return
+              }
+        self.sourceSegmentedControl.selectedSegmentIndex = index
     }
     
     private func switchDataSource() {
