@@ -20,7 +20,7 @@ struct FireBaseWork {
     var dueDate: Double
     var category: Int
     
-    var data: [String: Any] {
+    var parsed: [String: Any] {
         return [
             Content.id: id,
             Content.title: title,

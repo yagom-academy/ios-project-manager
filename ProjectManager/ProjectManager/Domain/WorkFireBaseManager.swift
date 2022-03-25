@@ -4,6 +4,7 @@ import FirebaseDatabase
 
 private enum Data {
     
+    static let empty = ""
     static let pathName = "Works"
     static let id = "id"
     static let title = "title"
@@ -49,18 +50,26 @@ class WorkFireBaseManager {
         }
     }
 
-    func addData(title: String, body: String, dueDate: Date) {
-        let work = ParsedWork(id: UUID(), title: title, body: body, dueDate: dueDate, categoryTag: 0)
+    func addData(id: UUID?, title: String, body: String, dueDate: Date) {
+        let work = ParsedWork(id: id ?? UUID(), title: title, body: body, dueDate: dueDate, categoryTag: 0)
         let firebaseData = FireBaseWork(work)
-        database.child(Data.pathName).child(work.id.uuidString).setValue(firebaseData.data)
+        database.child(Data.pathName).child(work.id.uuidString).setValue(firebaseData.parsed)
     }
                         
     func deletedData() {
     
     }
                         
-    func updateData() {
-        
+    func updateData(id: UUID, title: String?, body: String?, date: Date?, category: Int16) {
+        let work = ParsedWork(
+            id: id,
+            title: title ?? Data.empty,
+            body: body ?? Data.empty,
+            dueDate: date ?? Date(),
+            categoryTag: category
+        )
+        let firebaseData = FireBaseWork(work)
+        database.child(Data.pathName).updateChildValues([id.uuidString: firebaseData.parsed])
     }
                         
 }

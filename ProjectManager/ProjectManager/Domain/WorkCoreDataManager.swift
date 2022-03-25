@@ -32,6 +32,7 @@ class WorkCoreDataManager: WorkManagable {
     private var context: NSManagedObjectContext {
         return persistentContainer.viewContext
     }
+    private(set) var id: UUID?
     
     var todoList: [Work] {
         sort(for: Work.Category.todo.tag)
@@ -51,6 +52,7 @@ class WorkCoreDataManager: WorkManagable {
         let newWork = Work(context: context)
         
         newWork.id = UUID()
+        id = newWork.id
         newWork.title = title
         newWork.body = body
         newWork.dueDate = dueDate
