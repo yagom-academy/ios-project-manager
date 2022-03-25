@@ -194,6 +194,12 @@ class ProjectTableViewModel: ViewModelDescribing {
             date: data.dueDate,
             category: categoryTag
         )
+        WorkFireBaseManager.shared.updateData(
+            id: data.id ?? UUID(),
+            title: data.title,
+            body: data.body,
+            date: data.dueDate,
+            category: categoryTag)
         
         switch originalCategoryTag {
         case Work.Category.todo.tag:
