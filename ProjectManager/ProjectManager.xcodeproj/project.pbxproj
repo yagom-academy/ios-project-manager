@@ -19,9 +19,9 @@
 		DE09D31B27DA3E7D00B6A9F2 /* ProjectTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE09D31A27DA3E7D00B6A9F2 /* ProjectTableViewController.swift */; };
 		DE12030327E314760091D040 /* WorkFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE12030227E314760091D040 /* WorkFormViewModel.swift */; };
 		DE20A0BA27CDCD95004B93AC /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = DE20A0B927CDCD95004B93AC /* .swiftlint.yml */; };
-		DE20A0BC27CDD385004B93AC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DE20A0BB27CDD385004B93AC /* GoogleService-Info.plist */; };
 		DE44BF8827D4A23F006E9010 /* Array+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE44BF8727D4A23F006E9010 /* Array+extension.swift */; };
 		DE5359EF27D097BF00FD7953 /* ProjectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5359EE27D097BF00FD7953 /* ProjectViewModel.swift */; };
+		DE6E42FA27EDFA22007D1B50 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DE6E42F927EDFA22007D1B50 /* GoogleService-Info.plist */; };
 		DE75DC8C27ECC9FC00CA1177 /* ParsedWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE75DC8B27ECC9FC00CA1177 /* ParsedWork.swift */; };
 		DE843A4C27CE616A00F622E2 /* FireBaseWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE843A4B27CE616A00F622E2 /* FireBaseWork.swift */; };
 		DE843A4F27CE641900F622E2 /* DateFormatter+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE843A4E27CE641900F622E2 /* DateFormatter+extension.swift */; };
@@ -74,9 +74,9 @@
 		DE09D31A27DA3E7D00B6A9F2 /* ProjectTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTableViewController.swift; sourceTree = "<group>"; };
 		DE12030227E314760091D040 /* WorkFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkFormViewModel.swift; sourceTree = "<group>"; };
 		DE20A0B927CDCD95004B93AC /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
-		DE20A0BB27CDD385004B93AC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DE44BF8727D4A23F006E9010 /* Array+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+extension.swift"; sourceTree = "<group>"; };
 		DE5359EE27D097BF00FD7953 /* ProjectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectViewModel.swift; sourceTree = "<group>"; };
+		DE6E42F927EDFA22007D1B50 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DE75DC8B27ECC9FC00CA1177 /* ParsedWork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParsedWork.swift; sourceTree = "<group>"; };
 		DE843A4B27CE616A00F622E2 /* FireBaseWork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireBaseWork.swift; sourceTree = "<group>"; };
 		DE843A4E27CE641900F622E2 /* DateFormatter+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+extension.swift"; sourceTree = "<group>"; };
@@ -138,6 +138,7 @@
 			children = (
 				DE20A0B927CDCD95004B93AC /* .swiftlint.yml */,
 				C7431F0425F51E1D0094C4CF /* ProjectManager */,
+				DE6E42F927EDFA22007D1B50 /* GoogleService-Info.plist */,
 				DE8587AA27CF064200D4F4B7 /* ProjectManagerTests */,
 				C7431F0325F51E1D0094C4CF /* Products */,
 				9F6E49B96E03625328C22965 /* Pods */,
@@ -157,27 +158,25 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
-				DE5359F027D09A4100FD7953 /* Apps */,
-				DE843A4D27CE640500F622E2 /* Extension */,
-				DE843A5327CE6E9500F622E2 /* Protocol */,
+				DE5359F027D09A4100FD7953 /* App */,
+				DE843A4927CE60F200F622E2 /* Scene */,
 				DE843A5027CE67FF00F622E2 /* Model */,
 				DE9A0AA427D1C2C70095BBF9 /* Domain */,
+				DE843A5327CE6E9500F622E2 /* Protocol */,
+				DE843A4D27CE640500F622E2 /* Extension */,
 				DE5359F127D09A5200FD7953 /* Assets */,
-				DE843A4927CE60F200F622E2 /* View */,
-				C7431F1325F51E1E0094C4CF /* Info.plist */,
-				DE20A0BB27CDD385004B93AC /* GoogleService-Info.plist */,
-				DED9673927E97074007F03A2 /* CoreDataModel.xcdatamodeld */,
+				DE9EEDCA27EDF0BD0029C0DD /* SupportingFile */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
 		};
-		DE5359F027D09A4100FD7953 /* Apps */ = {
+		DE5359F027D09A4100FD7953 /* App */ = {
 			isa = PBXGroup;
 			children = (
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
 			);
-			path = Apps;
+			path = App;
 			sourceTree = "<group>";
 		};
 		DE5359F127D09A5200FD7953 /* Assets */ = {
@@ -189,14 +188,14 @@
 			path = Assets;
 			sourceTree = "<group>";
 		};
-		DE843A4927CE60F200F622E2 /* View */ = {
+		DE843A4927CE60F200F622E2 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
 				DE90D85C27E1795900E6A434 /* ProjectView */,
 				DE90D85E27E1798E00E6A434 /* ProjectTableView */,
 				DE90D85F27E179D600E6A434 /* WorkFormView */,
 			);
-			path = View;
+			path = Scene;
 			sourceTree = "<group>";
 		};
 		DE843A4D27CE640500F622E2 /* Extension */ = {
@@ -212,10 +211,9 @@
 		DE843A5027CE67FF00F622E2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				DED9674427E97393007F03A2 /* Work+CoreDataClass.swift */,
-				DED9674527E97393007F03A2 /* Work+CoreDataProperties.swift */,
-				DE843A4B27CE616A00F622E2 /* FireBaseWork.swift */,
 				DE75DC8B27ECC9FC00CA1177 /* ParsedWork.swift */,
+				DE9EEDCD27EDF2350029C0DD /* Firebase */,
+				DE9EEDCC27EDF2160029C0DD /* CoreData */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -253,9 +251,9 @@
 				DE09D31827DA3B4E00B6A9F2 /* ProjectTableViewController.storyboard */,
 				DE8587BE27CF562200D4F4B7 /* ProjectTableViewCell.xib */,
 				DE09D31A27DA3E7D00B6A9F2 /* ProjectTableViewController.swift */,
+				DE09D31627DA299A00B6A9F2 /* ProjectHeaderCircleLabel.swift */,
 				DE90D86027E17BD500E6A434 /* ProjectTableViewModel.swift */,
 				DE8587C027CF571E00D4F4B7 /* ProjectTableViewCell.swift */,
-				DE09D31627DA299A00B6A9F2 /* ProjectHeaderCircleLabel.swift */,
 			);
 			path = ProjectTableView;
 			sourceTree = "<group>";
@@ -277,6 +275,32 @@
 				DE924CEB27EC52FD00D5F2BA /* WorkFireBaseManager.swift */,
 			);
 			path = Domain;
+			sourceTree = "<group>";
+		};
+		DE9EEDCA27EDF0BD0029C0DD /* SupportingFile */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F1325F51E1E0094C4CF /* Info.plist */,
+			);
+			path = SupportingFile;
+			sourceTree = "<group>";
+		};
+		DE9EEDCC27EDF2160029C0DD /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				DED9673927E97074007F03A2 /* CoreDataModel.xcdatamodeld */,
+				DED9674427E97393007F03A2 /* Work+CoreDataClass.swift */,
+				DED9674527E97393007F03A2 /* Work+CoreDataProperties.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		DE9EEDCD27EDF2350029C0DD /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+				DE843A4B27CE616A00F622E2 /* FireBaseWork.swift */,
+			);
+			path = Firebase;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -363,10 +387,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				DE20A0BA27CDCD95004B93AC /* .swiftlint.yml in Resources */,
+				DE6E42FA27EDFA22007D1B50 /* GoogleService-Info.plist in Resources */,
 				DE8587BF27CF562200D4F4B7 /* ProjectTableViewCell.xib in Resources */,
 				DE09D31927DA3B4E00B6A9F2 /* ProjectTableViewController.storyboard in Resources */,
 				C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */,
-				DE20A0BC27CDD385004B93AC /* GoogleService-Info.plist in Resources */,
 				DE9A0AAA27D21CE10095BBF9 /* WorkFormView.storyboard in Resources */,
 				C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */,
 				C7431F0D25F51E1D0094C4CF /* Main.storyboard in Resources */,
@@ -638,7 +662,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = ProjectManager/Info.plist;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = ProjectManager/SupportingFiles/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -658,7 +683,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = ProjectManager/Info.plist;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = ProjectManager/SupportingFiles/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

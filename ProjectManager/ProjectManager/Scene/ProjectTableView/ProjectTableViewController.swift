@@ -69,7 +69,7 @@ final class ProjectTableViewController: UIViewController {
     }
     
     private func configureSetupPlaceholderObserver(_ output: ProjectTableViewModel.Output) {
-        let placeholder = UILabel(frame: tableView.bounds)
+        let placeholder = UILabel(frame: tableView.bounds) // 주인은 없고 사용하는 곳에서 들고 있는 형태 그냥 스토리보드에 만드는 것도 나아보인다. ARC 개념
         
         configurePlaceHolder(for: placeholder)
         
@@ -85,17 +85,17 @@ final class ProjectTableViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
-    private func configureShowPopoverObserver(_ output: ProjectTableViewModel.Output) {
+    private func configureShowPopoverObserver(_ output: ProjectTableViewModel.Output) { // 왠만하면 최대한 함수를 쪼개는 것이 좋다. 최대한 짧게 정리를 해보자.
         output.showPopoverObserver
             .subscribe(onNext: { [weak self] work in
-                var firstTitle: String {
+                let firstTitle: String = {
                     switch work.categoryTag {
                     case Work.Category.todo.tag:
                         return Content.moveDoingTitle
                     default:
                         return Content.moveToDoTitle
                     }
-                }
+                }() // 이렇게 변경할 수 있다. var를 경계하자.
                 
                 var secondTitle: String {
                     switch work.categoryTag {
@@ -127,7 +127,7 @@ final class ProjectTableViewController: UIViewController {
     private func configureDidSelectedObserver(_ output: ProjectTableViewModel.Output) {
         output.showWorkFormViewObserver
             .subscribe(onNext: { [weak self] work in
-                let storyboard = UIStoryboard(name: UIName.workFormViewStoryboard, bundle: nil)
+                let storyboard = UIStoryboard(name: UIName.workFormViewStoryboard, bundle: nil) // 스토리보드를 쓰면 이 과정을 반복해야 한다. 
                 guard let viewController = storyboard.instantiateViewController(
                     identifier: String(describing: WorkFormViewController.self)
                 ) as? WorkFormViewController else {

@@ -49,14 +49,14 @@ class WorkCoreDataManager: WorkManagable {
     private init() { }
     
     func create(title: String, body: String, dueDate: Date) {
-        let newWork = Work(context: context)
+        let localData = Work(context: context)
         
-        newWork.id = UUID()
-        id = newWork.id
-        newWork.title = title
-        newWork.body = body
-        newWork.dueDate = dueDate
-        newWork.categoryTag = Work.Category.todo.tag
+        localData.id = UUID()
+        id = localData.id
+        localData.title = title
+        localData.body = body
+        localData.dueDate = dueDate
+        localData.categoryTag = Work.Category.todo.tag
         
         do {
             try context.save()
@@ -94,6 +94,10 @@ class WorkCoreDataManager: WorkManagable {
         request.predicate = predicate
         
         let searchedWorks = try? context.fetch(request)
+        
+//        searchedWorks?.forEach({ work in
+//            ParsedWork(id: work.id, title: work.title, body: work.body, dueDate: work.dueDate, categoryTag: work.categoryTag)
+//        })
         
         return searchedWorks ?? []
     }
