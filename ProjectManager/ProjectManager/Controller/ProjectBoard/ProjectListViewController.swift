@@ -110,7 +110,7 @@ final class ProjectListViewController: UIViewController {
             projectCell.updateContent(title: project.title,
                                       description: project.description,
                                       deadline: project.deadline?.localeString(),
-                                      with: project.isExpired ? .red : .black)
+                                      with: project.deadlineColor)
             return projectCell
         }
     }

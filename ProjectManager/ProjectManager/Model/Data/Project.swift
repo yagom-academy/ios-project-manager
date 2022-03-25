@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 enum ProjectKey: String {
     
@@ -27,6 +28,19 @@ struct Project {
            return false
         }
         return deadline < currentDate
+    }
+    
+    var deadlineColor: UIColor {
+        get {
+            if status == .done {
+                return .black
+            }
+            if isExpired == true {
+                return .red
+            } else {
+                return .black
+            }
+        }
     }
     
     // MARK: - Method
