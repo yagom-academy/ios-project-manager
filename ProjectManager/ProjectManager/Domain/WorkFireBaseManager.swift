@@ -56,8 +56,8 @@ class WorkFireBaseManager {
         database.child(Data.pathName).child(work.id.uuidString).setValue(firebaseData.parsed)
     }
                         
-    func deletedData() {
-    
+    func deletedData(id: UUID) {
+        database.child(Data.pathName).child(id.uuidString).removeValue()
     }
                         
     func updateData(id: UUID, title: String?, body: String?, date: Date?, category: Int16) {

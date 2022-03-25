@@ -135,8 +135,10 @@ class ProjectTableViewModel: ViewModelDescribing {
     
     private func removeWork(_ data: Work) {
         let originCategoryTag = data.categoryTag
+        let id = data.id
         
         WorkCoreDataManager.shared.delete(data)
+        WorkFireBaseManager.shared.deletedData(id: id ?? UUID())
         
         switch originCategoryTag {
         case Work.Category.todo.tag:
