@@ -8,11 +8,22 @@
 import Foundation
 
 // MARK: - DataSourceType
-enum DataSourceType: Int {
+enum DataSourceType {
     
     case inMemory
     case coreData
     case firestore
+    
+    var userDescription: String {
+        switch self {
+        case .inMemory:
+            return "휘발성"
+        case .coreData:
+            return "앱"
+        case .firestore:
+            return "Cloud"
+        }
+    }
 }
 
 // MARK: - NetworkStatus

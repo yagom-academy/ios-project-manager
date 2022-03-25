@@ -12,6 +12,7 @@ final class DataSourceConfigViewController: UIViewController {
     
     // MARK: - Property
     weak var projectManager: ProjectManager?
+    let dataSourceTypes: [DataSourceType] = [.inMemory, .coreData, .firestore]
     
     // MARK: - UIProperty
     private var titleLabel: UILabel = {
@@ -23,9 +24,10 @@ final class DataSourceConfigViewController: UIViewController {
     }()
     
     private lazy var sourceSegmentedControl: UISegmentedControl = {
-        let segmentedControl = UISegmentedControl(items: [DataSourceConfigScene.inMemory.rawValue,
-                                                          DataSourceConfigScene.coredata.rawValue,
-                                                          DataSourceConfigScene.firestore.rawValue])
+        let dataSourceTypeDescriptions = dataSourceTypes.map { dataSource in
+            return dataSource.userDescription
+        }
+        let segmentedControl = UISegmentedControl(items: dataSourceTypeDescriptions)
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         segmentedControl.selectedSegmentTintColor = .black
         segmentedControl.setTitleTextAttributes(
@@ -103,6 +105,6 @@ final class DataSourceConfigViewController: UIViewController {
     
     private func switchDataSource() {
         let selectedIndex = self.sourceSegmentedControl.selectedSegmentIndex
-        self.projectManager?.switchProjectSource(with: DataSourceType(rawValue:selectedIndex) ?? .coreData)
+        self.projectManager?.switchProjectSource(with: dataSourceTypes[selectedIndex])
     }
 }
