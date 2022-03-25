@@ -14,6 +14,7 @@ final class FlowCoordinator: FlowCoordinatorProtocol {
     weak var navigationController: UINavigationController?
 
     private var taskRepository: TaskRepositoryProtocol!
+    private var taskViewModel: TaskViewModelProtocol!
     private var taskListViewModel: TaskListViewModelProtocol!
     private var taskDetailViewModel: TaskDetailViewModelProtocol!
     
@@ -28,10 +29,11 @@ final class FlowCoordinator: FlowCoordinatorProtocol {
         
         // 2개 ViewModel에 동일한 Repository를 할당
         taskRepository = TaskRepository()
+        taskViewModel = TaskViewModel()
         taskListViewModel = TaskListViewModel(taskRepository: taskRepository, actions: actions)
         taskDetailViewModel = TaskDetailViewModel(taskRepository: taskRepository)
         
-        guard let taskListViewController = ViewControllerFactory.createViewController(of: .taskList(viewModel: taskListViewModel)) as? TaskListViewController else {
+        guard let taskListViewController = ViewControllerFactory.createViewController(of: .taskList(taskViewModel: taskViewModel, taskListViewModel: taskListViewModel)) as? TaskListViewController else {
             print(ViewControllerError.invalidViewController.description)
             return
         }

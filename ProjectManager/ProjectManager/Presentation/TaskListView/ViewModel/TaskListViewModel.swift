@@ -9,7 +9,7 @@ protocol TaskListViewModelInputProtocol {
 //    func edit(task: Task, newTitle: String, newBody: String, newDueDate: Date) // DetailView로 분리
 
     func processStatusChangeOptions(of currentProcessStatus: ProcessStatus) -> [ProcessStatus]
-    func title(of changeOptions: [ProcessStatus]) -> [String]
+    func popoverTitle(of changeOptions: [ProcessStatus]) -> [String]
     func didTouchUpAddButton()
     func presentPopover(with alert: UIAlertController)
 }
@@ -24,7 +24,7 @@ protocol TaskListViewModelOutputProtocol {
     var doneTasksCount: Observable<Int> { get }
     var actions: TaskListViewModelActions? { get }
     
-    func changeDateLabelColorIfExpired(with: Date) -> UIColor
+//    func changeDateLabelColorIfExpired(with: Date) -> UIColor // TaskViewModel로 분리
 }
 
 protocol TaskListViewModelProtocol: TaskListViewModelInputProtocol, TaskListViewModelOutputProtocol { }
@@ -63,18 +63,12 @@ final class TaskListViewModel: TaskListViewModelProtocol {
         taskRepository.update(task: task, to: newTask)
     }
 
-    func changeDateLabelColorIfExpired(with date: Date) -> UIColor {
-        let dayInSeconds: Double = 3600 * 24
-        let yesterday = Date(timeIntervalSinceNow: -dayInSeconds)
-        return date < yesterday ? .systemRed : .label
-    }
-
     // MARK: - Popover
     func processStatusChangeOptions(of currentProcessStatus: ProcessStatus) -> [ProcessStatus] {
         return ProcessStatus.allCases.filter { $0 != currentProcessStatus }
     }
 
-    func title(of changeOptions: [ProcessStatus]) -> [String] {
+    func popoverTitle(of changeOptions: [ProcessStatus]) -> [String] {
         return changeOptions.map { "Move To \($0.description)"  }
     }
 

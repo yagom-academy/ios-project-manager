@@ -6,6 +6,7 @@ enum TaskManagerError: Error {
     case updateNotFound
     case invalidTaskManagerAction
     case invalidProcessStatus
+    case invalidViewModel
     
     var description: String {
         switch self {
@@ -19,6 +20,8 @@ enum TaskManagerError: Error {
             return "유효하지 않은 TaskManagerAction입니다."
         case .invalidProcessStatus:
             return "Task의 ProcessStatus가 유효하지 않습니다."
+        case .invalidViewModel:
+            return "ViewModel이 유효하지 않습니다."
         }
     }
 }

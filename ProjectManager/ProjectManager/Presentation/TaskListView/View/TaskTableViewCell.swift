@@ -2,7 +2,8 @@ import UIKit
 
 final class TaskTableViewCell: UITableViewCell {
     private var task: Task?
-    private var taskListViewModel: TaskListViewModelProtocol!
+    private var taskViewModel: TaskViewModelProtocol?
+    private var taskListViewModel: TaskListViewModelProtocol?
     
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var bodyLabel: UILabel!
@@ -13,9 +14,10 @@ final class TaskTableViewCell: UITableViewCell {
         task = nil
     }
     
-    func update(with task: Task, viewModel: TaskListViewModelProtocol?) {
+    func update(with task: Task, taskViewModel: TaskViewModelProtocol?, taskListViewModel: TaskListViewModelProtocol?) {
         self.task = task
-        self.taskListViewModel = viewModel
+        self.taskViewModel = taskViewModel
+        self.taskListViewModel = taskListViewModel
         
         setupLabels()
         setupBackgroundView()
@@ -29,7 +31,7 @@ final class TaskTableViewCell: UITableViewCell {
         if let dueDate = task?.dueDate {
             let dateText = DateFormatter.convertToString(from: dueDate)
             dateLabel.text = dateText
-            dateLabel.textColor = taskListViewModel.changeDateLabelColorIfExpired(with: dueDate)
+            dateLabel.textColor = taskViewModel?.changeDateLabelColorIfExpired(with: dueDate)
         }
     }
     
@@ -57,20 +59,25 @@ final class TaskTableViewCell: UITableViewCell {
             print(TaskManagerError.invalidProcessStatus.description)
             return
         }
-
-        let processStatusChangeOptions = taskListViewModel.processStatusChangeOptions(of: currentProcessStatus)
-        let titleOfOptions = taskListViewModel.title(of: processStatusChangeOptions)
+        guard let processStatusChangeOptions = taskListViewModel?.processStatusChangeOptions(of: currentProcessStatus) else {
+            print(TaskManagerError.invalidViewModel.description)
+            return
+        }
+        guard let titleOfOptions = taskListViewModel?.popoverTitle(of: processStatusChangeOptions) else {
+            print(TaskManagerError.invalidViewModel.description)
+            return
+        }
         
         let option1Action = UIAlertAction(title: titleOfOptions[safe: 0], style: .default) { [weak self] _ in
-            self?.taskListViewModel.edit(task: self!.task!, newProcessStatus: processStatusChangeOptions[safe: 0]!)
+            self?.taskListViewModel?.edit(task: self!.task!, newProcessStatus: processStatusChangeOptions[safe: 0]!)
         }
         let option2Action = UIAlertAction(title: titleOfOptions[safe: 1], style: .default) { [weak self] _ in
-            self?.taskListViewModel.edit(task: self!.task!, newProcessStatus: processStatusChangeOptions[safe: 1]!)
+            self?.taskListViewModel?.edit(task: self!.task!, newProcessStatus: processStatusChangeOptions[safe: 1]!)
         }
 
         let alert = AlertFactory.createAlert(style: .actionSheet, actions: option1Action, option2Action)
         alert.popoverPresentationController?.sourceView = self
         
-        taskListViewModel.presentPopover(with: alert)
+        taskListViewModel?.presentPopover(with: alert)
     }
 }

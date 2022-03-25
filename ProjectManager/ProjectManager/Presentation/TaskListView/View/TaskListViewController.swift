@@ -9,6 +9,7 @@ private enum Design {
 
 final class TaskListViewController: UIViewController {
     // MARK: - Properties
+    private var taskViewModel: TaskViewModelProtocol?
     private var taskListViewModel: TaskListViewModelProtocol?
     private var disposeBag = DisposeBag()
     
@@ -21,8 +22,9 @@ final class TaskListViewController: UIViewController {
     @IBOutlet private weak var doneTableView: TaskTableView!
     
     // MARK: - Initializers
-    convenience init?(coder: NSCoder, taskListViewModel: TaskListViewModelProtocol) {
+    convenience init?(coder: NSCoder, taskViewModel: TaskViewModelProtocol, taskListViewModel: TaskListViewModelProtocol) {
         self.init(coder: coder)
+        self.taskViewModel = taskViewModel
         self.taskListViewModel = taskListViewModel
     }
 
@@ -65,7 +67,7 @@ final class TaskListViewController: UIViewController {
             .asDriver(onErrorJustReturn: [])
             .drive(todoTableView.rx.items(cellIdentifier: TaskTableViewCell.reuseIdentifier,
                                           cellType: TaskTableViewCell.self)) { [weak self] _, task, cell in
-                cell.update(with: task, viewModel: self?.taskListViewModel)
+                cell.update(with: task, taskViewModel: self?.taskViewModel, taskListViewModel: self?.taskListViewModel)
              }
              .disposed(by: disposeBag)
         
@@ -73,7 +75,7 @@ final class TaskListViewController: UIViewController {
             .asDriver(onErrorJustReturn: [])
             .drive(doingTableView.rx.items(cellIdentifier: TaskTableViewCell.reuseIdentifier,
                                            cellType: TaskTableViewCell.self)) { [weak self] _, task, cell in
-                cell.update(with: task, viewModel: self?.taskListViewModel)
+                cell.update(with: task, taskViewModel: self?.taskViewModel, taskListViewModel: self?.taskListViewModel)
              }
              .disposed(by: disposeBag)
 
@@ -81,7 +83,7 @@ final class TaskListViewController: UIViewController {
             .asDriver(onErrorJustReturn: [])
             .drive(doneTableView.rx.items(cellIdentifier: TaskTableViewCell.reuseIdentifier,
                                           cellType: TaskTableViewCell.self)) { [weak self] _, task, cell in
-                cell.update(with: task, viewModel: self!.taskListViewModel)
+                cell.update(with: task, taskViewModel: self?.taskViewModel, taskListViewModel: self?.taskListViewModel)
              }
              .disposed(by: disposeBag)
     }
