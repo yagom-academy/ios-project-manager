@@ -99,6 +99,7 @@ class WorkFormViewModel: ViewModelDescribing {
     }
     
     private func addWork(title: String, dueDate: Date, body: String) {
+        WorkFireBaseManager.shared.addData(title: title, body: body, dueDate: dueDate)
         WorkCoreDataManager.shared.create(title: title, body: body, dueDate: dueDate)
         list.onNext(WorkCoreDataManager.shared.todoList)
     }
