@@ -65,7 +65,6 @@ final class DataSourceConfigViewController: UIViewController {
         self.view = .init()
         self.view.translatesAutoresizingMaskIntoConstraints = false
         self.view.backgroundColor = .white
-        self.view.isOpaque = true
     }
     
     override func viewDidLoad() {
@@ -76,9 +75,8 @@ final class DataSourceConfigViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.preferredContentSize = self.view.systemLayoutSizeFitting(
-            UIView.layoutFittingExpandedSize
-        )
+        super.viewWillAppear(animated)
+        self.preferredContentSize = CGSize(width: 300, height: 150)
     }
     
     // MARK: - Method
@@ -87,15 +85,11 @@ final class DataSourceConfigViewController: UIViewController {
     }
     
     private func configureLayout() {
-        // FIXME: - 제약 충돌 해결
         NSLayoutConstraint.activate([
-            contentStackView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 10),
+            contentStackView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 30),
             contentStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             contentStackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            contentStackView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -10),
-            self.view.heightAnchor.constraint(equalToConstant: 150),
-            self.view.widthAnchor.constraint(equalToConstant: 300)
-           
+            contentStackView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -30)
         ])
     }
 
