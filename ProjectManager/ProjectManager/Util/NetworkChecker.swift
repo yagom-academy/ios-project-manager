@@ -16,7 +16,7 @@ public enum ConnectionType {
     case unknown
 }
 
-class NetworkChecker {
+final class NetworkChecker {
     
     static public let shared = NetworkChecker()
     private var monitor: NWPathMonitor

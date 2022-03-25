@@ -8,7 +8,7 @@
 import UIKit
 import CoreData
 
-class DataSourceConfigViewController: UIViewController {
+final class DataSourceConfigViewController: UIViewController {
     
     // MARK: - Property
     weak var projectManager: ProjectManager?
