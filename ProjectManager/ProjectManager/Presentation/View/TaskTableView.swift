@@ -3,9 +3,9 @@ import UIKit
 final class TaskTableView: UITableView {}
 
 final class TaskTableViewCell: UITableViewCell, Reusable {
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var bodyLabel: UILabel!
-    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak private var titleLabel: UILabel!
+    @IBOutlet weak private var bodyLabel: UILabel!
+    @IBOutlet weak private var dateLabel: UILabel!
 
     override func prepareForReuse() {
         super.prepareForReuse()
