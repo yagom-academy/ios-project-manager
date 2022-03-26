@@ -150,8 +150,6 @@
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <outlet property="addTaskButton" destination="972-D6-Dxo" id="GbA-5E-KWC"/>
-                                    <outlet property="headerStackView" destination="HfB-IW-hYL" id="MFC-Q2-Se3"/>
-                                    <outlet property="headerView" destination="i32-Me-chr" id="7W0-Jn-nbY"/>
                                     <outlet property="tableView" destination="DEB-nv-Jut" id="yLs-ug-pVh"/>
                                     <outlet property="taskListCountImageView" destination="7tH-Pz-UF5" id="bWx-vS-K2X"/>
                                     <outlet property="taskListTitleLabel" destination="DgA-HJ-ASN" id="9mi-MW-VWH"/>
