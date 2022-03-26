@@ -16,7 +16,7 @@ protocol ProjectCreationDelegate: AnyObject {
 // MARK: - ProjectEditDelegate
 protocol ProjectEditDelegate: AnyObject {
     
-    func updateProject(of identifier: UUID, with content: [String: Any])
+    func updateProject(of identifier: String, with content: [String: Any])
 }
 
 // MARK: - ProjectViewController
@@ -115,18 +115,19 @@ final class ProjectViewController: UIViewController {
     }
     
     // MARK: - View Life Cycle
-    override func loadView() {
-        self.view = .init()
-        self.view.backgroundColor = .white
-    }
-    
     override func viewDidLoad() {
+        super.viewDidLoad()
+        self.configureView()
         self.configureNavigationBarLayout()
         self.configureStackViewLayout()
         self.configureMode()
     }
     
     // MARK: - Configure View
+    private func configureView() {
+        self.view.backgroundColor = .white
+    }
+    
     private func configureNavigationBarLayout() {
         self.view.addSubview(navigationBar)
         let safeArea = self.view.safeAreaLayoutGuide
@@ -209,10 +210,11 @@ final class ProjectViewController: UIViewController {
     
     @objc func dismissWithCreation() {
         var content: [String: Any] = [:]
-        content.updateValue(titleTextField.text as Any, forKey: "title")
-        content.updateValue(datePicker.date as Any, forKey: "deadline")
-        content.updateValue(descriptionTextView.text as Any, forKey: "description")
-        content.updateValue(Status.todo, forKey: "status")
+        content.updateValue(UUID().uuidString as Any, forKey: ProjectKey.identifier.rawValue)
+        content.updateValue(titleTextField.text as Any, forKey: ProjectKey.title.rawValue)
+        content.updateValue(datePicker.date as Any, forKey: ProjectKey.deadline.rawValue)
+        content.updateValue(descriptionTextView.text as Any, forKey: ProjectKey.description.rawValue)
+        content.updateValue(Status.todo, forKey: ProjectKey.status.rawValue)
         projectCreationDelegate?.createProject(with: content)
         dismiss(animated: false, completion: nil)
     }
@@ -240,9 +242,10 @@ final class ProjectViewController: UIViewController {
     
     @objc func dismissWithUpdate() {
         var content: [String: Any] = [:]
-        content.updateValue(titleTextField.text as Any, forKey: "title")
-        content.updateValue(datePicker.date as Any, forKey: "deadline")
-        content.updateValue(descriptionTextView.text as Any, forKey: "description")
+        content.updateValue(titleTextField.text as Any, forKey: ProjectKey.title.rawValue)
+        content.updateValue(datePicker.date as Any, forKey: ProjectKey.deadline.rawValue)
+        content.updateValue(descriptionTextView.text as Any, forKey: ProjectKey.description.rawValue)
+        content.updateValue(project?.status as Any, forKey: ProjectKey.status.rawValue)
         guard let projectTableViewController = presentingViewController as?
                 ProjectEditDelegate,
               let identifier = self.project?.identifier else {

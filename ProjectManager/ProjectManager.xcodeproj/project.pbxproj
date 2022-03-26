@@ -7,21 +7,29 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		63974A4527D8D5F600523B16 /* ProjectTableViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63974A4427D8D5F600523B16 /* ProjectTableViewControllerDelegate.swift */; };
+		634A508F27E457310097303B /* ProjectFirestoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634A508E27E457310097303B /* ProjectFirestoreManager.swift */; };
+		635862B827E32546005E2A2B /* Project.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 635862B627E32546005E2A2B /* Project.xcdatamodeld */; };
+		635862CE27E35D84005E2A2B /* ProjectCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635862CD27E35D84005E2A2B /* ProjectCoreDataManager.swift */; };
+		635862D127E392DB005E2A2B /* CDProject+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635862CF27E392DB005E2A2B /* CDProject+CoreDataClass.swift */; };
+		636B231227EB770F00478751 /* NetworkChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636B231127EB770F00478751 /* NetworkChecker.swift */; };
+		63974A4527D8D5F600523B16 /* ProjectListViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63974A4427D8D5F600523B16 /* ProjectListViewControllerDelegate.swift */; };
 		63B96DA927E024AF00144F7C /* ProjectBoardScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B96DA827E024AF00144F7C /* ProjectBoardScene.swift */; };
 		63B96DAB27E0262800144F7C /* ProjectDetailScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B96DAA27E0262800144F7C /* ProjectDetailScene.swift */; };
-		63B96DAD27E028CF00144F7C /* ProjectTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B96DAC27E028CF00144F7C /* ProjectTableViewController.swift */; };
+		63B96DAD27E028CF00144F7C /* ProjectListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B96DAC27E028CF00144F7C /* ProjectListViewController.swift */; };
 		63B96DAF27E067F600144F7C /* ProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B96DAE27E067F600144F7C /* ProjectViewController.swift */; };
 		63B96DE527E0BF7300144F7C /* CALayer+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B96DE427E0BF7300144F7C /* CALayer+Extension.swift */; };
 		63D21E5E27D4691700E35D3B /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D21E5D27D4691700E35D3B /* Project.swift */; };
 		63D21E6027D4AC2E00E35D3B /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D21E5F27D4AC2E00E35D3B /* Status.swift */; };
-		63D21E6227D4B3A600E35D3B /* LocalDataBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D21E6127D4B3A600E35D3B /* LocalDataBase.swift */; };
-		63D21E6427D4B61F00E35D3B /* ProjectSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D21E6327D4B61F00E35D3B /* ProjectSource.swift */; };
+		63D21E6427D4B61F00E35D3B /* ProjectInMemoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D21E6327D4B61F00E35D3B /* ProjectInMemoryManager.swift */; };
 		63D21E6727D4F9B900E35D3B /* ProjectManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D21E6627D4F9B900E35D3B /* ProjectManager.swift */; };
 		63D21E8B27D634FD00E35D3B /* ProjectTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D21E8A27D634FD00E35D3B /* ProjectTableViewCell.swift */; };
 		63D21E9327D6604500E35D3B /* UITableVeiwCell+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D21E9227D6604500E35D3B /* UITableVeiwCell+Extension.swift */; };
 		63D21E9527D73CD200E35D3B /* ProjectTableViewHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D21E9427D73CD200E35D3B /* ProjectTableViewHeaderView.swift */; };
 		63D21E9927D7618300E35D3B /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D21E9827D7618300E35D3B /* Date+Extension.swift */; };
+		63E164B227E99688004E3D2E /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E164B127E99688004E3D2E /* DataSource.swift */; };
+		63E164B427E9AD69004E3D2E /* Encodable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E164B327E9AD69004E3D2E /* Encodable+Extension.swift */; };
+		63E164B627E9D45B004E3D2E /* DataSourceConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E164B527E9D45B004E3D2E /* DataSourceConfigViewController.swift */; };
+		63E164B827EA2662004E3D2E /* DataSourceConfigScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E164B727EA2662004E3D2E /* DataSourceConfigScene.swift */; };
 		63E508A527CFAF9400A5A79A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 63E508A427CFAF9400A5A79A /* GoogleService-Info.plist */; };
 		63E508A827CFAFDC00A5A79A /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 63E508A727CFAFDC00A5A79A /* FirebaseAnalytics */; };
 		63E508AA27CFAFDC00A5A79A /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 63E508A927CFAFDC00A5A79A /* FirebaseAuth */; };
@@ -33,21 +41,29 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		63974A4427D8D5F600523B16 /* ProjectTableViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTableViewControllerDelegate.swift; sourceTree = "<group>"; };
+		634A508E27E457310097303B /* ProjectFirestoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectFirestoreManager.swift; sourceTree = "<group>"; };
+		635862B727E32546005E2A2B /* Project.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Project.xcdatamodel; sourceTree = "<group>"; };
+		635862CD27E35D84005E2A2B /* ProjectCoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectCoreDataManager.swift; sourceTree = "<group>"; };
+		635862CF27E392DB005E2A2B /* CDProject+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDProject+CoreDataClass.swift"; sourceTree = "<group>"; };
+		636B231127EB770F00478751 /* NetworkChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkChecker.swift; sourceTree = "<group>"; };
+		63974A4427D8D5F600523B16 /* ProjectListViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListViewControllerDelegate.swift; sourceTree = "<group>"; };
 		63B96DA827E024AF00144F7C /* ProjectBoardScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectBoardScene.swift; sourceTree = "<group>"; };
 		63B96DAA27E0262800144F7C /* ProjectDetailScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDetailScene.swift; sourceTree = "<group>"; };
-		63B96DAC27E028CF00144F7C /* ProjectTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTableViewController.swift; sourceTree = "<group>"; };
+		63B96DAC27E028CF00144F7C /* ProjectListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListViewController.swift; sourceTree = "<group>"; };
 		63B96DAE27E067F600144F7C /* ProjectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectViewController.swift; sourceTree = "<group>"; };
 		63B96DE427E0BF7300144F7C /* CALayer+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+Extension.swift"; sourceTree = "<group>"; };
 		63D21E5D27D4691700E35D3B /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		63D21E5F27D4AC2E00E35D3B /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
-		63D21E6127D4B3A600E35D3B /* LocalDataBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDataBase.swift; sourceTree = "<group>"; };
-		63D21E6327D4B61F00E35D3B /* ProjectSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectSource.swift; sourceTree = "<group>"; };
+		63D21E6327D4B61F00E35D3B /* ProjectInMemoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectInMemoryManager.swift; sourceTree = "<group>"; };
 		63D21E6627D4F9B900E35D3B /* ProjectManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManager.swift; sourceTree = "<group>"; };
 		63D21E8A27D634FD00E35D3B /* ProjectTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTableViewCell.swift; sourceTree = "<group>"; };
 		63D21E9227D6604500E35D3B /* UITableVeiwCell+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableVeiwCell+Extension.swift"; sourceTree = "<group>"; };
 		63D21E9427D73CD200E35D3B /* ProjectTableViewHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTableViewHeaderView.swift; sourceTree = "<group>"; };
 		63D21E9827D7618300E35D3B /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
+		63E164B127E99688004E3D2E /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
+		63E164B327E9AD69004E3D2E /* Encodable+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+Extension.swift"; sourceTree = "<group>"; };
+		63E164B527E9D45B004E3D2E /* DataSourceConfigViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSourceConfigViewController.swift; sourceTree = "<group>"; };
+		63E164B727EA2662004E3D2E /* DataSourceConfigScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSourceConfigScene.swift; sourceTree = "<group>"; };
 		63E508A427CFAF9400A5A79A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -71,13 +87,62 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		63B96DA727E0249000144F7C /* NameSpace */ = {
+		635862B527E30C58005E2A2B /* ProjectBoard */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0925F51E1D0094C4CF /* ProjectBoardViewController.swift */,
+				63B96DAE27E067F600144F7C /* ProjectViewController.swift */,
+				63B96DAC27E028CF00144F7C /* ProjectListViewController.swift */,
+				63974A4427D8D5F600523B16 /* ProjectListViewControllerDelegate.swift */,
+				63E164B527E9D45B004E3D2E /* DataSourceConfigViewController.swift */,
+			);
+			path = ProjectBoard;
+			sourceTree = "<group>";
+		};
+		635862B927E34D96005E2A2B /* Local */ = {
+			isa = PBXGroup;
+			children = (
+				63D21E6327D4B61F00E35D3B /* ProjectInMemoryManager.swift */,
+				635862BC27E34E0A005E2A2B /* CoreData */,
+				635862CD27E35D84005E2A2B /* ProjectCoreDataManager.swift */,
+			);
+			path = Local;
+			sourceTree = "<group>";
+		};
+		635862BA27E34DA6005E2A2B /* Cloud */ = {
+			isa = PBXGroup;
+			children = (
+				634A508E27E457310097303B /* ProjectFirestoreManager.swift */,
+			);
+			path = Cloud;
+			sourceTree = "<group>";
+		};
+		635862BB27E34DEF005E2A2B /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				63D21E5D27D4691700E35D3B /* Project.swift */,
+				63D21E5F27D4AC2E00E35D3B /* Status.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		635862BC27E34E0A005E2A2B /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				635862B627E32546005E2A2B /* Project.xcdatamodeld */,
+				635862CF27E392DB005E2A2B /* CDProject+CoreDataClass.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		63B96DA727E0249000144F7C /* ViewNameSpace */ = {
 			isa = PBXGroup;
 			children = (
 				63B96DA827E024AF00144F7C /* ProjectBoardScene.swift */,
 				63B96DAA27E0262800144F7C /* ProjectDetailScene.swift */,
+				63E164B727EA2662004E3D2E /* DataSourceConfigScene.swift */,
 			);
-			path = NameSpace;
+			path = ViewNameSpace;
 			sourceTree = "<group>";
 		};
 		63D21E5827D461DD00E35D3B /* App Life Cycle */ = {
@@ -92,10 +157,9 @@
 		63D21E5927D464C300E35D3B /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				63B96DA727E0249000144F7C /* NameSpace */,
 				63D21E6627D4F9B900E35D3B /* ProjectManager.swift */,
-				63D21E5D27D4691700E35D3B /* Project.swift */,
-				63D21E5F27D4AC2E00E35D3B /* Status.swift */,
+				63B96DA727E0249000144F7C /* ViewNameSpace */,
+				635862BB27E34DEF005E2A2B /* Data */,
 				63D21E6527D4C4FB00E35D3B /* DataBase */,
 			);
 			path = Model;
@@ -104,10 +168,7 @@
 		63D21E5A27D464D400E35D3B /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				C7431F0925F51E1D0094C4CF /* ProjectBoardViewController.swift */,
-				63B96DAE27E067F600144F7C /* ProjectViewController.swift */,
-				63B96DAC27E028CF00144F7C /* ProjectTableViewController.swift */,
-				63974A4427D8D5F600523B16 /* ProjectTableViewControllerDelegate.swift */,
+				635862B527E30C58005E2A2B /* ProjectBoard */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -132,8 +193,9 @@
 		63D21E6527D4C4FB00E35D3B /* DataBase */ = {
 			isa = PBXGroup;
 			children = (
-				63D21E6127D4B3A600E35D3B /* LocalDataBase.swift */,
-				63D21E6327D4B61F00E35D3B /* ProjectSource.swift */,
+				63E164B127E99688004E3D2E /* DataSource.swift */,
+				635862B927E34D96005E2A2B /* Local */,
+				635862BA27E34DA6005E2A2B /* Cloud */,
 			);
 			path = DataBase;
 			sourceTree = "<group>";
@@ -142,6 +204,7 @@
 			isa = PBXGroup;
 			children = (
 				63D21E9127D6602C00E35D3B /* Extension */,
+				636B231127EB770F00478751 /* NetworkChecker.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -152,6 +215,7 @@
 				63D21E9227D6604500E35D3B /* UITableVeiwCell+Extension.swift */,
 				63D21E9827D7618300E35D3B /* Date+Extension.swift */,
 				63B96DE427E0BF7300144F7C /* CALayer+Extension.swift */,
+				63E164B327E9AD69004E3D2E /* Encodable+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -265,20 +329,28 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7431F0A25F51E1D0094C4CF /* ProjectBoardViewController.swift in Sources */,
+				63E164B827EA2662004E3D2E /* DataSourceConfigScene.swift in Sources */,
+				63E164B427E9AD69004E3D2E /* Encodable+Extension.swift in Sources */,
 				63D21E6727D4F9B900E35D3B /* ProjectManager.swift in Sources */,
 				63D21E9327D6604500E35D3B /* UITableVeiwCell+Extension.swift in Sources */,
 				63D21E6027D4AC2E00E35D3B /* Status.swift in Sources */,
-				63D21E6427D4B61F00E35D3B /* ProjectSource.swift in Sources */,
-				63D21E6227D4B3A600E35D3B /* LocalDataBase.swift in Sources */,
+				635862D127E392DB005E2A2B /* CDProject+CoreDataClass.swift in Sources */,
+				63D21E6427D4B61F00E35D3B /* ProjectInMemoryManager.swift in Sources */,
+				63E164B627E9D45B004E3D2E /* DataSourceConfigViewController.swift in Sources */,
+				635862B827E32546005E2A2B /* Project.xcdatamodeld in Sources */,
 				63B96DA927E024AF00144F7C /* ProjectBoardScene.swift in Sources */,
 				63D21E9527D73CD200E35D3B /* ProjectTableViewHeaderView.swift in Sources */,
 				63D21E8B27D634FD00E35D3B /* ProjectTableViewCell.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				63B96DAF27E067F600144F7C /* ProjectViewController.swift in Sources */,
 				63B96DE527E0BF7300144F7C /* CALayer+Extension.swift in Sources */,
-				63B96DAD27E028CF00144F7C /* ProjectTableViewController.swift in Sources */,
+				636B231227EB770F00478751 /* NetworkChecker.swift in Sources */,
+				634A508F27E457310097303B /* ProjectFirestoreManager.swift in Sources */,
+				63E164B227E99688004E3D2E /* DataSource.swift in Sources */,
+				63B96DAD27E028CF00144F7C /* ProjectListViewController.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
-				63974A4527D8D5F600523B16 /* ProjectTableViewControllerDelegate.swift in Sources */,
+				635862CE27E35D84005E2A2B /* ProjectCoreDataManager.swift in Sources */,
+				63974A4527D8D5F600523B16 /* ProjectListViewControllerDelegate.swift in Sources */,
 				63D21E9927D7618300E35D3B /* Date+Extension.swift in Sources */,
 				63D21E5E27D4691700E35D3B /* Project.swift in Sources */,
 				63B96DAB27E0262800144F7C /* ProjectDetailScene.swift in Sources */,
@@ -495,6 +567,19 @@
 			productName = FirebaseFirestore;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		635862B627E32546005E2A2B /* Project.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				635862B727E32546005E2A2B /* Project.xcdatamodel */,
+			);
+			currentVersion = 635862B727E32546005E2A2B /* Project.xcdatamodel */;
+			path = Project.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = C7431EFA25F51E1D0094C4CF /* Project object */;
 }

@@ -28,6 +28,7 @@ class ProjectTableViewCell: UITableViewCell {
         label.textAlignment = .left
         label.numberOfLines = 3
         label.lineBreakMode = .byWordWrapping
+        label.lineBreakMode = .byTruncatingTail
         return label
     }()
     

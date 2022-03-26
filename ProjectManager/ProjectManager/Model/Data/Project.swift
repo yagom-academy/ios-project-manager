@@ -6,11 +6,17 @@
 //
 
 import Foundation
+import UIKit
 
-struct Project: Hashable {
+enum ProjectKey: String {
+    
+    case identifier, title, description, deadline, status
+}
+
+struct Project {
     
     // MARK: - Property
-    let identifier: UUID?
+    let identifier: String?
     private (set) var title: String?
     private (set) var deadline: Date?
     private (set) var description: String?
@@ -24,11 +30,20 @@ struct Project: Hashable {
         return deadline < currentDate
     }
     
-    // MARK: - Method
-    static func == (lhs: Project, rhs: Project) -> Bool {
-        return lhs.identifier == rhs.identifier
+    var deadlineColor: UIColor {
+        get {
+            if status == .done {
+                return .black
+            }
+            if isExpired == true {
+                return .red
+            } else {
+                return .black
+            }
+        }
     }
     
+    // MARK: - Method
     mutating func updateContent(with input: [String: Any]) {
         self.title = input["title"] as? String
         self.deadline = input["deadline"] as? Date
@@ -37,5 +52,21 @@ struct Project: Hashable {
     
     mutating func updateStatus(with status: Status) {
         self.status = status
+    }
+}
+
+// MARK: - Hashable
+extension Project: Hashable {
+    
+    func hash(into hasher: inout Hasher) {
+           hasher.combine(identifier)
+       }
+}
+
+// MARK: - Codable
+extension Project: Codable {
+    
+    enum CodingKeys: String, CodingKey {
+        case identifier, title, description, deadline, status
     }
 }

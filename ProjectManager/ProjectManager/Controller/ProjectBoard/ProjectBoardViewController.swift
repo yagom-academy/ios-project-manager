@@ -11,9 +11,9 @@ final class ProjectBoardViewController: UIViewController {
     
     // MARK: - Property
     private let projectManager = ProjectManager()
-    private let todoViewController = ProjectTableViewController(status: .todo)
-    private let doingViewController = ProjectTableViewController(status: .doing)
-    private let doneViewController = ProjectTableViewController(status: .done)
+    private let todoViewController = ProjectListViewController(status: .todo)
+    private let doingViewController = ProjectListViewController(status: .doing)
+    private let doneViewController = ProjectListViewController(status: .done)
     
     // MARK: - UI Property
     private var navigationBar: UINavigationBar = {
@@ -34,25 +34,39 @@ final class ProjectBoardViewController: UIViewController {
         stackView.spacing = 7
         return stackView
     }()
-
+    
+    private lazy var dataSourceSettingButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        let cloudImage = UIImage(systemName: "cloud.fill",
+                                 withConfiguration: UIImage.SymbolConfiguration(textStyle: .title1))
+        button.setImage(cloudImage, for: .normal)
+        button.addAction(dataSourceSettingButtonAction, for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var dataSourceSettingButtonAction: UIAction = {
+        let action = UIAction { [weak self] _ in
+            self?.presentDataSourceConfigView()
+        }
+        return action
+    }()
+    
     // MARK: - View Life Cycle
-    override func loadView() {
-        self.configureView()
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.configureProjectViewControllerDelegate()
+        self.configureView()
+        self.configureDelegate()
         self.configureSubviews()
-        self.navigationBar.delegate = self
         self.configureNavigationItem()
         self.configureNavigationBarLayout()
         self.configureTableStackViewLayout()
+        self.configureDataSourceSettingButtonLayout()
+        self.projectManager(didChangedDataSource: self.projectManager.projectSourceType ?? .coreData)
     }
      
     // MARK: - Configure View
     private func configureView() {
-        self.view = .init()
         self.view.translatesAutoresizingMaskIntoConstraints = false
         self.view.backgroundColor = .systemGray6
     }
@@ -60,6 +74,7 @@ final class ProjectBoardViewController: UIViewController {
     private func configureSubviews() {
         self.view.addSubview(navigationBar)
         self.view.addSubview(tableStackView)
+        self.view.addSubview(dataSourceSettingButton)
     }
     
     private func configureNavigationItem() {
@@ -89,11 +104,40 @@ final class ProjectBoardViewController: UIViewController {
         ])
     }
     
+    private func configureDataSourceSettingButtonLayout() {
+        let safeArea = self.view.safeAreaLayoutGuide
+        NSLayoutConstraint.activate([
+            dataSourceSettingButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -20),
+            dataSourceSettingButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: 7)])
+    }
+    
     // MARK: - Configure Controller
-    private func configureProjectViewControllerDelegate() {
+    private func configureDelegate() {
         self.todoViewController.delegate = self
         self.doingViewController.delegate = self
         self.doneViewController.delegate = self
+        
+        self.projectManager.delegate = self
+        self.navigationBar.delegate = self
+    }
+    
+    // MARK: - Method
+    private func updateDataSourceSettingButton(with color: UIColor) {
+        let currentImage = self.dataSourceSettingButton.image(for: .normal)
+        let newImage =  currentImage?.withTintColor(color, renderingMode: .alwaysOriginal)
+
+        self.dataSourceSettingButton.setImage(newImage, for: .normal)
+    }
+    
+    private func presentDataSourceConfigView() {
+        let dataSourceConfigAlertVC = DataSourceConfigViewController(model: self.projectManager)
+        dataSourceConfigAlertVC.modalPresentationStyle = .popover
+        
+        if let popoverPresentationController = dataSourceConfigAlertVC.popoverPresentationController {
+            popoverPresentationController.sourceView = self.dataSourceSettingButton
+            popoverPresentationController.sourceRect = self.dataSourceSettingButton.frame(forAlignmentRect: .zero)
+        }
+        self.present(dataSourceConfigAlertVC, animated: false, completion: nil)
     }
     
     // MARK: - @objc Method
@@ -125,28 +169,51 @@ extension ProjectBoardViewController: ProjectCreationDelegate {
 
 }
 
-// MARK: - ProjectTableViewControllerDelegate
-extension ProjectBoardViewController: ProjectTableViewControllerDelegate {
+// MARK: - ProjectListViewControllerDelegate
+extension ProjectBoardViewController: ProjectListViewControllerDelegate {
     
-    func readProject(of status: Status) -> [Project]? {
-        return projectManager.readProject(of: status)
+    func readProject(of status: Status, completion: @escaping (Result<[Project]?, Error>) -> Void) {
+        self.projectManager.readProject(of: status, completion: completion)
     }
     
-    func updateProjectStatus(of identifier: UUID, with status: Status) {
+    func updateProjectStatus(of identifier: String, with status: Status) {
         self.projectManager.updateProjectStatus(of: identifier, with: status)
         self.todoViewController.updateView()
         self.doingViewController.updateView()
         self.doneViewController.updateView()
     }
     
-    func updateProject(of identifier: UUID, with content: [String : Any]) {
+    func updateProject(of identifier: String, with content: [String : Any]) {
         self.projectManager.updateProjectContent(of: identifier, with: content)
         self.todoViewController.updateView()
         self.doingViewController.updateView()
         self.doneViewController.updateView()
     }
     
-    func deleteProject(of identifier: UUID) {
+    func deleteProject(of identifier: String) {
         self.projectManager.delete(of: identifier)
     }
+}
+
+// MARK: - ProjectManagerDelegate
+extension ProjectBoardViewController: ProjectManagerDelegate {
+    
+    func projectManager(didChangedDataSource dataSource: DataSourceType) {
+        switch dataSource {
+        case .inMemory:
+            self.updateDataSourceSettingButton(with: .gray)
+        case .coreData:
+            self.updateDataSourceSettingButton(with: .gray)
+        case .firestore:
+            self.updateDataSourceSettingButton(with: .blue)
+        }
+        self.todoViewController.updateView()
+        self.doingViewController.updateView()
+        self.doneViewController.updateView()
+    }
+    
+    func projectManager(didChangedNetworkStatus with: NetworkStatus) {
+        // TODO: - 네트워크 상태 변화에 따른 버튼 이미지 변경
+    }
+    
 }
