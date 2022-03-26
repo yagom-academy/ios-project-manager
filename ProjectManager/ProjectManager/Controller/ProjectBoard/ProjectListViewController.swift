@@ -89,7 +89,7 @@ final class ProjectListViewController: UIViewController {
         self.projectTableView.addGestureRecognizer(longPressGestureRecognizer)
         self.longPressGestureRecognizer.addTarget(
             self,
-            action: #selector(presentStatusModificationPopover)
+            action: #selector(presentStatusMovePopover)
         )
     }
     
@@ -152,7 +152,7 @@ final class ProjectListViewController: UIViewController {
         }
     }
     
-    @objc func presentStatusModificationPopover() {
+    @objc func presentStatusMovePopover() {
         let location = longPressGestureRecognizer.location(in: projectTableView)
         guard let project = longPressedProject(at: location),
               let identifier = project.identifier else {
@@ -162,10 +162,12 @@ final class ProjectListViewController: UIViewController {
         let actionSheetController = UIAlertController(title: nil,
                                                       message: nil,
                                                       preferredStyle: .actionSheet)
-        let firstAction = firstStatusModificationPopoverUIAlertAction(with: identifier)
-        let secondAction = secondStatusModificationPopoverUIAlertAction(with: identifier)
-        actionSheetController.addAction(firstAction)
-        actionSheetController.addAction(secondAction)
+        let actions = projectStatusMoveUIAlertActionsForCurrentStatus(
+            currentStatus: self.projectStatus,
+            identifier: identifier)
+        for action in actions {
+            actionSheetController.addAction(action)
+        }
         
         if let popoverController = actionSheetController.popoverPresentationController {
             popoverController.sourceView = self.projectTableView
@@ -184,78 +186,63 @@ final class ProjectListViewController: UIViewController {
         return self.dataSource.itemIdentifier(for: indexPath)
     }
     
-    private func firstStatusModificationPopoverUIAlertAction(
-        with identifier: String
-    ) -> UIAlertAction {
-        
-        switch projectStatus {
+    private func projectStatusMoveUIAlertActionsForCurrentStatus(
+        currentStatus: Status,
+        identifier: String
+    ) -> [UIAlertAction] {
+        switch currentStatus {
         case .todo:
-            let fisrtAction = UIAlertAction(
+            let firstAction = projectStatusMoveUIAlertAction(
+                identifier: identifier,
                 title: ProjectBoardScene.statusModification.doing.rawValue,
-                style: .default
-            ) { [weak self] _ in
-                self?.delegate?.updateProjectStatus(of: identifier, with: .doing)
-                self?.updateView()
-            }
-            return fisrtAction
+                targetStatus: .doing,
+                viewController: self)
+            let secondAction = projectStatusMoveUIAlertAction(
+                identifier: identifier,
+                title: ProjectBoardScene.statusModification.done.rawValue,
+                targetStatus: .done,
+                viewController: self)
+            return [firstAction, secondAction]
         case .doing:
-            let fisrtAction = UIAlertAction(
+            let firstAction = projectStatusMoveUIAlertAction(
+                identifier: identifier,
                 title: ProjectBoardScene.statusModification.todo.rawValue,
-                style: .default
-            ) { [weak self] _ in
-                self?.delegate?.updateProjectStatus(of: identifier, with: .todo)
-                self?.updateView()
-            }
-            return fisrtAction
+                targetStatus: .todo,
+                viewController: self)
+            let secondAction = projectStatusMoveUIAlertAction(
+                identifier: identifier,
+                title: ProjectBoardScene.statusModification.done.rawValue,
+                targetStatus: .done,
+                viewController: self)
+            return [firstAction, secondAction]
         case .done:
-            let fisrtAction = UIAlertAction(
+            let firstAction = projectStatusMoveUIAlertAction(
+                identifier: identifier,
                 title: ProjectBoardScene.statusModification.todo.rawValue,
-                style: .default
-            ) { [weak self] _ in
-                self?.delegate?.updateProjectStatus(of: identifier, with: .todo)
-                self?.updateView()
-            }
-            return fisrtAction
-        case .none:
-            return UIAlertAction()
+                targetStatus: .todo,
+                viewController: self)
+            let secondAction = projectStatusMoveUIAlertAction(
+                identifier: identifier,
+                title: ProjectBoardScene.statusModification.doing.rawValue,
+                targetStatus: .doing,
+                viewController: self)
+            return [firstAction, secondAction]
         }
     }
     
-    private func secondStatusModificationPopoverUIAlertAction(
-        with identifier: String
+    private func projectStatusMoveUIAlertAction(
+        identifier: String,
+        title: String,
+        targetStatus: Status,
+        viewController: ProjectListViewController
     ) -> UIAlertAction {
-        
-        switch projectStatus {
-        case .todo:
-            let secondAction = UIAlertAction(
-                title: ProjectBoardScene.statusModification.done.rawValue,
-                style: .default
-            ) { [weak self] _ in
-                self?.delegate?.updateProjectStatus(of: identifier, with: .done)
-                self?.updateView()
+        let action = UIAlertAction(
+            title: title,
+            style: .default) { [weak viewController] _ in
+                viewController?.delegate?.updateProjectStatus(of: identifier, with: targetStatus)
+                viewController?.updateView()
             }
-            return secondAction
-        case .doing:
-            let secondAction = UIAlertAction(
-                title: ProjectBoardScene.statusModification.done.rawValue,
-                style: .default
-            ) { [weak self] _ in
-                self?.delegate?.updateProjectStatus(of: identifier, with: .done)
-                self?.updateView()
-            }
-            return secondAction
-        case .done:
-            let secondAction = UIAlertAction(
-                title: ProjectBoardScene.statusModification.doing.rawValue,
-                style: .default
-            ) { [weak self] _ in
-                self?.delegate?.updateProjectStatus(of: identifier, with: .doing)
-                self?.updateView()
-            }
-            return secondAction
-        case .none:
-            return UIAlertAction()
-        }
+        return action
     }
 }
 
