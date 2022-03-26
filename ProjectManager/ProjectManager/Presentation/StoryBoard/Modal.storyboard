@@ -22,13 +22,12 @@
                                     <navigationItem title="Title" leftItemsSupplementBackButton="YES" id="FvH-Sy-3fQ">
                                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="OR3-rV-giM">
                                             <connections>
-                                                <action selector="cancelButtonDidTap:" destination="4Nm-Ro-htY" id="uhO-EE-EZ9"/>
-                                                <segue destination="4Nm-Ro-htY" kind="unwind" unwindAction="unwind:" id="zcK-Y3-GU3"/>
+                                                <action selector="performCancel:" destination="eo5-aN-2hk" id="9w9-BQ-WBx"/>
                                             </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="Gru-1X-Pag">
                                             <connections>
-                                                <action selector="doneButtonDidTap:" destination="eo5-aN-2hk" id="yNK-lW-pCJ"/>
+                                                <action selector="performDone:" destination="eo5-aN-2hk" id="XKy-l3-igT"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -83,7 +82,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TCC-tG-idr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <exit id="4Nm-Ro-htY" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1340.9956076134699" y="-19.3359375"/>
         </scene>
