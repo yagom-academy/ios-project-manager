@@ -32,13 +32,6 @@ final class ProjectListViewModel: ViewModelType {
         self.useCase = useCase
     }
     
-    func retrieveSelectedData(indexPath: IndexPath, state: ProjectState) -> Project? {
-        return nil
-    }
-    
-    func didSelectRow(indexPath: IndexPath, state: ProjectState) {
-    }
-    
     func append(_ project: Project) {
         useCase.append(project)
     }
@@ -47,7 +40,8 @@ final class ProjectListViewModel: ViewModelType {
         useCase.update(project, to: state)
     }
     
-    func delete(indexPath: IndexPath, state: ProjectState) {
+    func delete(project: Project) {
+        useCase.delete(project)
     }
     
     func changeState(from oldState: ProjectState, to newState: ProjectState, indexPath: IndexPath) {

@@ -3,7 +3,7 @@ import RxSwift
 
 class EditProjectDetailViewModel: ViewModelType {
     struct Input {
-        let didTapDoneButton: Observable<Void>
+        let didTapDoneButton: Observable<Bool>
     }
     
     struct Output {
@@ -21,8 +21,11 @@ class EditProjectDetailViewModel: ViewModelType {
     
     func transform(input: Input) -> Output {
         input.didTapDoneButton
-            .subscribe(onNext: { [weak self] in
-                self?.usecase.update(self?.currentProject ?? Project(id: UUID(), state: .todo, title: "", body: "", date: Date()), to: nil)
+            .subscribe(onNext: { [weak self] value in
+                if value == false {
+                    self?.usecase.update(self?.currentProject ?? Project(id: UUID(), state: .todo, title: "", body: "", date: Date()), to: nil)
+                }
+                
             }).disposed(by: disposeBag)
         
         let output = Output()

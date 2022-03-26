@@ -3,7 +3,6 @@ import RxSwift
 import RxCocoa
 
 final class AddProjectDetailViewController: ProjectDetailViewController {
-    weak var delegate: ProjectDetailViewControllerDelegate?
     var viewModel: AddProjectDetailViewModel?
     private let disposeBag = DisposeBag()
     

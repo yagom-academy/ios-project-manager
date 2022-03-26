@@ -2,12 +2,6 @@ import Foundation
 import RxSwift
 
 final class AddProjectDetailViewModel: ViewModelType {
-    private let useCase: ProjectUseCaseProtocol?
-    private let disposeBag = DisposeBag()
-    init(useCase: ProjectUseCaseProtocol) {
-        self.useCase = useCase
-    }
-    
     struct Input {
         let didTapdoneButton: Observable<Void>
         let projectTitle: Observable<String>
@@ -17,6 +11,13 @@ final class AddProjectDetailViewModel: ViewModelType {
     
     struct Output {}
     
+    private let useCase: ProjectUseCaseProtocol?
+    private let disposeBag = DisposeBag()
+    
+    init(useCase: ProjectUseCaseProtocol) {
+        self.useCase = useCase
+    }
+
     func transform(input: Input) -> Output {
         let projectDetail = Observable.combineLatest(input.projectTitle, input.projectBody, input.projectDate)
         

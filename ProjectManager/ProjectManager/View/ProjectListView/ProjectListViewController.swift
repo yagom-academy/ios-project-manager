@@ -70,7 +70,7 @@ final class ProjectListViewController: UIViewController {
         
         output?.todoProjects
             .do(onNext: { [weak self] in
-                (self?.todoTableView.tableHeaderView as? ProjectListTableHeaderView)?.populateData(title: $0.first?.state.title ?? "",  count: $0.count)
+                (self?.todoTableView.tableHeaderView as? ProjectListTableHeaderView)?.populateData(title: $0.first?.state.title ?? "TODO",  count: $0.count)
             })
             .asDriver(onErrorJustReturn: [])
             .drive(
@@ -88,7 +88,7 @@ final class ProjectListViewController: UIViewController {
 
         output?.doingProjects
             .do(onNext: { [weak self] in
-                (self?.doingTableView.tableHeaderView as? ProjectListTableHeaderView)?.populateData(title: $0.first?.state.title ?? "", count: $0.count)
+                (self?.doingTableView.tableHeaderView as? ProjectListTableHeaderView)?.populateData(title: $0.first?.state.title ?? "DOING", count: $0.count)
             })
             .asDriver(onErrorJustReturn: [])
             .drive(
@@ -106,7 +106,7 @@ final class ProjectListViewController: UIViewController {
 
         output?.doneProjects
             .do(onNext: { [weak self] in
-                (self?.doneTableView.tableHeaderView as? ProjectListTableHeaderView)?.populateData(title: $0.first?.state.title ?? "", count: $0.count)
+                (self?.doneTableView.tableHeaderView as? ProjectListTableHeaderView)?.populateData(title: $0.first?.state.title ?? "DONE", count: $0.count)
             })
             .asDriver(onErrorJustReturn: [])
             .drive(
@@ -151,6 +151,13 @@ final class ProjectListViewController: UIViewController {
                     
                     destinationViewController.modalPresentationStyle = .formSheet
                     self?.present(destinationViewController, animated: true, completion: nil)
+                }).disposed(by: disposeBag)
+        }
+        
+        tableViews.forEach {
+            $0.rx.modelDeleted(Project.self)
+                .subscribe(onNext: { [weak self] project in
+                    self?.viewModel?.delete(project: project)
                 }).disposed(by: disposeBag)
         }
     }
@@ -271,12 +278,3 @@ private extension ProjectListViewController {
     }
 }
 
-extension ProjectListViewController: ProjectDetailViewControllerDelegate {
-    func didUpdateProject(_ project: Project) {
-        viewModel?.update(project, state: nil)
-    }
-    
-    func didAppendProject(_ project: Project) {
-        viewModel?.append(project)
-    }
-}

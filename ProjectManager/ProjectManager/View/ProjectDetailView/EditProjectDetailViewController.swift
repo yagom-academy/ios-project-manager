@@ -1,11 +1,6 @@
 import UIKit
 import RxSwift
 
-protocol ProjectDetailViewControllerDelegate: AnyObject {
-    func didUpdateProject(_ project: Project)
-    func didAppendProject(_ project: Project)
-}
-
 final class EditProjectDetailViewController: ProjectDetailViewController {
     private let disposeBag = DisposeBag()
     var viewModel: EditProjectDetailViewModel?
@@ -29,7 +24,6 @@ final class EditProjectDetailViewController: ProjectDetailViewController {
         populateView(with: viewModel?.currentProject)
         configureNavigationBar()
         projectDetailView.setEditingMode(to: false)
-    
         configureBind()
     }
     
@@ -43,10 +37,10 @@ final class EditProjectDetailViewController: ProjectDetailViewController {
     private func configureBind() {
         let didTapButtonObservable = editButtonItem.rx.tap
             .do(onNext: { [weak self] in self?.toggleEditMode() })
-                .asObservable()
-//            .subscribe(onNext: { [weak self] in
-//                self?.toggleEditMode()
-//            }).disposed(by: disposeBag)
+            .scan(false) { lastState, _ in
+                !lastState
+            }
+            .asObservable()
         
         cancelButton.rx.tap
             .subscribe(onNext: { [weak self] in
