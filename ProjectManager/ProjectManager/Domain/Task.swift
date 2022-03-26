@@ -5,5 +5,5 @@ struct Task: Identifiable {
     var title: String
     var body: String = ""
     var dueDate: String = Date().formatToString()
-    var lastModifiedDate: String = Date().formatToString()
+    var creationDate: Date = Date()
 }
