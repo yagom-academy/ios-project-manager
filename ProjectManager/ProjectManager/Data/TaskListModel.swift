@@ -5,4 +5,5 @@ struct TaskListModel: Identifiable {
     var title: String
     var items: [TaskModel] = []
     var lastModifiedDate: Date = Date()
+    var creationDate: Date
 }

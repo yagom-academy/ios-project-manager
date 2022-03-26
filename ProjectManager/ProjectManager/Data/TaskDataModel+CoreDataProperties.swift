@@ -3,7 +3,7 @@ import CoreData
 extension TaskDataModel {
     @nonobjc public class func fetchTaskRequest() -> NSFetchRequest<TaskDataModel> {
         let fetchRequest = NSFetchRequest<TaskDataModel>(entityName: "TaskDataModel")
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "lastModifiedDate", ascending: false)]
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
         return fetchRequest
     }
 
@@ -17,4 +17,5 @@ extension TaskDataModel {
     @NSManaged public var items: [TaskModel]
     @NSManaged public var title: String
     @NSManaged public var lastModifiedDate: Date
+    @NSManaged public var creationDate: Date
 }
