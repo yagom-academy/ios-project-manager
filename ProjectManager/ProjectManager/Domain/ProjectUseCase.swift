@@ -3,7 +3,7 @@ import RxSwift
 import RxRelay
 
 protocol ProjectUseCaseProtocol {
-    func fetch(with id: UUID) -> Project
+    func fetch(with id: UUID) -> Project?
     func bindProjects() -> Observable<[Project]>
     func append(_ project: Project)
     func update(_ project: Project, to state: ProjectState?)
@@ -26,8 +26,8 @@ final class ProjectUseCase: ProjectUseCaseProtocol {
             }
     }
     
-    func fetch(with id: UUID) -> Project {
-        return Project(id: id, state: .todo, title: "aa", body: "aa", date: Date()) //임시
+    func fetch(with id: UUID) -> Project? {
+        return projectRepository.bindProjects().value[id]
     }
     
     func append(_ project: Project) {
@@ -35,7 +35,9 @@ final class ProjectUseCase: ProjectUseCaseProtocol {
     }
     
     func update(_ project: Project, to state: ProjectState?) {
-        let oldProject = fetch(with: project.id)
+        guard let oldProject = fetch(with: project.id) else {
+            return
+        }
         var newProject = oldProject
         
         if let updatedState = state {

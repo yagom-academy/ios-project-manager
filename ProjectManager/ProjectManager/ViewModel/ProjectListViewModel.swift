@@ -44,7 +44,8 @@ final class ProjectListViewModel: ViewModelType {
         useCase.delete(project)
     }
     
-    func changeState(from oldState: ProjectState, to newState: ProjectState, indexPath: IndexPath) {
+    func changeState(from project: Project, to newState: ProjectState) {
+        useCase.update(project, to: newState)
     }
     
     func createEditDetailViewModel(with selectedProject: Project) -> EditProjectDetailViewModel {

@@ -8,11 +8,15 @@ final class ProjectListViewController: UIViewController {
     private let todoTableView = ProjectListTableView()
     private let doingTableView = ProjectListTableView()
     private let doneTableView = ProjectListTableView()
-    private var viewModel: ProjectListViewModel?
     private lazy var tableViews: [ProjectListTableView] = [todoTableView, doingTableView, doneTableView]
     private let headerViews = [ProjectListTableHeaderView(), ProjectListTableHeaderView(), ProjectListTableHeaderView()]
+    private let longPressGestureRecognizers = [UILongPressGestureRecognizer(target: ProjectListViewController.self, action: nil),
+                                               UILongPressGestureRecognizer(target: ProjectListViewController.self, action: nil),
+                                               UILongPressGestureRecognizer(target: ProjectListViewController.self, action: nil)]
+    private let changeStateList: [[ProjectState]] = [[.doing, .done], [.todo, .done], [.todo, .doing]]
     
     private let disposeBag = DisposeBag()
+    private var viewModel: ProjectListViewModel?
     
     private let entireStackView: UIStackView = {
         let stackView = UIStackView()
@@ -44,10 +48,11 @@ final class ProjectListViewController: UIViewController {
         super.viewDidLoad()
         configureUI()
         configureTableView()
+        configureLongPressGesture()
         configureBind()
         cofigureNavigationItemBind()
         configureTableViewBind()
-        configureLongPressGesture()
+        configureGestureBind()
     }
     
     private func configureUI() {
@@ -162,6 +167,18 @@ final class ProjectListViewController: UIViewController {
         }
     }
     
+    private func configureGestureBind() {
+        longPressGestureRecognizers.enumerated().forEach { index, gesture in
+            gesture.rx.event
+                .subscribe(onNext: { [weak self] event in
+                    guard let stateToChange = self?.changeStateList[safe: index] else{
+                        return
+                    }
+                    self?.handleLongPressGesture(event, moveTo: stateToChange)
+                }).disposed(by: disposeBag)
+        }
+    }
+    
     private func configureEntireStackView() {
         self.view.addSubview(entireStackView)
         tableViews.forEach {
@@ -189,69 +206,52 @@ final class ProjectListViewController: UIViewController {
     }
     
     private func configureLongPressGesture() {
-        let todoLongPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(handleTodoLongPressGesture))
-        let doingLongPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(handleDoingLongPressGesture))
-        let doneLongPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(handleDoneLongPressGesture))
-
-        todoTableView.addGestureRecognizer(todoLongPressRecognizer)
-        doingTableView.addGestureRecognizer(doingLongPressRecognizer)
-        doneTableView.addGestureRecognizer(doneLongPressRecognizer)
-    }
-    
-    @objc private func handleTodoLongPressGesture(sender: UILongPressGestureRecognizer) {
-        handleLongPressGesture(sender, tableView: todoTableView, moveTo: [.doing, .done])
-    }
-    
-    @objc private func handleDoingLongPressGesture(sender: UILongPressGestureRecognizer) {
-        handleLongPressGesture(sender, tableView: doingTableView, moveTo: [.todo, .done])
-    }
-    
-    @objc private func handleDoneLongPressGesture(sender: UILongPressGestureRecognizer) {
-        handleLongPressGesture(sender, tableView: doneTableView, moveTo: [.todo, .doing])
-    }
-    
-    private func handleLongPressGesture(_ sender: UILongPressGestureRecognizer, tableView: UITableView, moveTo state: [ProjectState]) {
-        if sender.state == .began {
-            let touchPoint = sender.location(in: tableView)
-
-            if let indexPath = tableView.indexPathForRow(at: touchPoint) {
-                guard let alert = createAlert(for: tableView, on: indexPath, moveTo: state) else {
-                    return
-                }
-                present(alert, animated: true)
+        tableViews.enumerated().forEach { index, tableView in
+            guard let gesture = longPressGestureRecognizers[safe: index] else {
+                return
             }
+            tableView.addGestureRecognizer(gesture)
         }
     }
     
-    func state(of tableView: UITableView) -> ProjectState? {
-        var state: ProjectState?
-        switch tableView {
-        case todoTableView:
-            state = .todo
-        case doingTableView:
-            state = .doing
-        case doneTableView:
-            state = .done
-        default:
-            break
+    private func handleLongPressGesture(_ sender: UILongPressGestureRecognizer, moveTo state: [ProjectState]) {
+        guard let (selectedProject, tableView, indexPath) = self.retrieveLongPressCell(gestureRecognizer: sender),
+              let selectedProject = selectedProject else {
+            return
         }
         
-        return state
+        guard let alert = createAlert(project: selectedProject,tableView: tableView, on: indexPath, moveTo: state) else {
+            return
+        }
+        present(alert, animated: true)
     }
     
-    private func createAlert(for tableView: UITableView, on indexPath: IndexPath, moveTo newState: [ProjectState]) -> UIAlertController? {
-        guard let oldState = state(of: tableView),
-                let firstNewState = newState[safe: 0],
+    private func retrieveLongPressCell(gestureRecognizer: UILongPressGestureRecognizer) -> (Project?, UITableView, IndexPath)? {
+        guard let tableView = gestureRecognizer.view as? UITableView else {
+            return nil
+        }
+        
+        if gestureRecognizer.state == .began {
+            let touchPoint = gestureRecognizer.location(in: tableView)
+            if let indexPath = tableView.indexPathForRow(at: touchPoint) {
+                return (try? tableView.rx.model(at: indexPath), tableView, indexPath)
+            }
+        }
+        return nil
+    }
+    
+    private func createAlert(project: Project, tableView: UITableView, on indexPath: IndexPath, moveTo newState: [ProjectState]) -> UIAlertController? {
+        guard let firstNewState = newState[safe: 0],
                 let secondNewState = newState[safe: 1] else {
             return nil
         }
         
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let moveToFirstStateAction = UIAlertAction(title: firstNewState.alertActionTitle, style: .default) { _ in
-            self.viewModel?.changeState(from: oldState, to: firstNewState, indexPath: indexPath)
+            self.viewModel?.changeState(from: project, to: firstNewState)
         }
         let moveToSecondStateAction = UIAlertAction(title: secondNewState.alertActionTitle, style: .default) { _ in
-            self.viewModel?.changeState(from: oldState, to: secondNewState, indexPath: indexPath)
+            self.viewModel?.changeState(from: project, to: secondNewState)
         }
         
         alert.addAction(moveToFirstStateAction)
