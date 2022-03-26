@@ -15,14 +15,12 @@ final class AddProjectDetailViewModel: ViewModelType {
         let projectDate: Observable<Date>
     }
     
-    struct Output {
-        
-    }
+    struct Output {}
     
     func transform(input: Input) -> Output {
         let projectDetail = Observable.combineLatest(input.projectTitle, input.projectBody, input.projectDate)
         
-        let create = input.didTapdoneButton.withLatestFrom(projectDetail)
+        input.didTapdoneButton.withLatestFrom(projectDetail)
             .map { (title, body, date) in
                 return Project(id: UUID(), state: .todo, title: title, body: body, date: date)
             }
@@ -32,11 +30,5 @@ final class AddProjectDetailViewModel: ViewModelType {
             }).disposed(by: disposeBag)
         
         return Output()
-    }
-    
-    var onAppended: ((Project) -> Void)?
-    
-    func didTapDoneButton(_ project: Project) {
-        onAppended?(project)
     }
 }

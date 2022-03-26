@@ -3,7 +3,6 @@ import RxSwift
 
 final class ProjectListViewModel: ViewModelType {
     struct Input {
-
     }
     
     struct Output {
@@ -54,9 +53,8 @@ final class ProjectListViewModel: ViewModelType {
     func changeState(from oldState: ProjectState, to newState: ProjectState, indexPath: IndexPath) {
     }
     
-    func createEditDetailViewModel(indexPath: IndexPath, state: ProjectState) -> EditProjectDetailViewModel {
-        let project = Project(id: UUID(), state: .todo, title: "", body: "", date: Date())
-        return EditProjectDetailViewModel(currentProject: project)
+    func createEditDetailViewModel(with selectedProject: Project) -> EditProjectDetailViewModel {
+        return EditProjectDetailViewModel(usecase: useCase, currentProject: selectedProject)
     }
     
     func createAddDetailViewModel() -> AddProjectDetailViewModel {

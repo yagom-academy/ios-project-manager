@@ -5,6 +5,8 @@ import RxCocoa
 final class AddProjectDetailViewController: ProjectDetailViewController {
     weak var delegate: ProjectDetailViewControllerDelegate?
     var viewModel: AddProjectDetailViewModel?
+    private let disposeBag = DisposeBag()
+    
     
     private let doneButton: UIBarButtonItem = {
         let button = UIBarButtonItem(barButtonSystemItem: .done, target: AddProjectDetailViewController.self, action: nil)
@@ -16,10 +18,9 @@ final class AddProjectDetailViewController: ProjectDetailViewController {
         return button
     }()
     
-    init(viewModel: AddProjectDetailViewModel, delegate: ProjectDetailViewControllerDelegate) {
+    init(viewModel: AddProjectDetailViewModel) {
         super.init(nibName: nil, bundle: nil)
         self.viewModel = viewModel
-        self.delegate = delegate
     }
     
     required init?(coder: NSCoder) {
@@ -29,10 +30,8 @@ final class AddProjectDetailViewController: ProjectDetailViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavigationBar()
-        bind()
-//        viewModel?.onAppended = { project in
-//            self.delegate?.didAppendProject(project)
-//        }
+        cofigureBind()
+        cofigureNavigationItemBind()
     }
     
     private func configureNavigationBar() {
@@ -42,25 +41,26 @@ final class AddProjectDetailViewController: ProjectDetailViewController {
         navigationController?.navigationBar.backgroundColor = .systemGray6
     }
     
-    func bind() {
+    func cofigureBind() {
         let input = AddProjectDetailViewModel.Input(didTapdoneButton: doneButton.rx.tap.asObservable(),
                                                     projectTitle: projectDetailView.titleTextField.rx.text.orEmpty.asObservable(),
                                                     projectBody: projectDetailView.bodyTextView.rx.text.orEmpty.asObservable(),
                                                     projectDate: projectDetailView.datePicker.rx.date.asObservable())
         
-        let output = viewModel?.transform(input: input)
+        _ = viewModel?.transform(input: input)
     }
-//
-//    @objc private func didTapDoneButton() {
-//        self.dismiss(animated: true) {
-//            let project = self.createViewData()
-//            self.viewModel?.didTapDoneButton(project)
-//        }
-//    }
-//
-//    @objc private func didTapCancelButton() {
-//        self.dismiss(animated: true, completion: nil)
-//    }
+    
+    func cofigureNavigationItemBind() {
+        doneButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                self?.dismiss(animated: true)
+            }).disposed(by: disposeBag)
+        
+        cancelButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                self?.dismiss(animated: true)
+            }).disposed(by: disposeBag)
+    }
 }
 
 //MARK: - Constants

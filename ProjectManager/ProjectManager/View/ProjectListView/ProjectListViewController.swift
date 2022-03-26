@@ -24,6 +24,11 @@ final class ProjectListViewController: UIViewController {
         return stackView
     }()
     
+    private let addButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(barButtonSystemItem: .add, target: ProjectListViewController.self, action: nil)
+        return button
+    }()
+    
     init(viewModel: ProjectListViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -40,6 +45,8 @@ final class ProjectListViewController: UIViewController {
         configureUI()
         configureTableView()
         configureBind()
+        cofigureNavigationItemBind()
+        configureTableViewBind()
         configureLongPressGesture()
     }
     
@@ -53,7 +60,7 @@ final class ProjectListViewController: UIViewController {
     private func configureNavigationBar() {
         self.navigationController?.isToolbarHidden = false
         self.navigationItem.title = TitleText.navigationBarTitle
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAddProjectButton))
+        self.navigationItem.rightBarButtonItem = addButton
     }
     
     private func configureBind() {
@@ -114,19 +121,38 @@ final class ProjectListViewController: UIViewController {
                     cell.populateData(title: item.title, body: item.body, date: item.date)
                 }
             }.disposed(by: disposeBag)
-
     }
     
-    @objc private func didTapAddProjectButton() {
-        guard let viewModel = viewModel else {
-            return
-        }
-        let addProjectDetailViewModel = viewModel.createAddDetailViewModel()
-        let viewController = AddProjectDetailViewController(viewModel: addProjectDetailViewModel, delegate: self)
-        let destinationViewController = UINavigationController(rootViewController: viewController)
+    private func cofigureNavigationItemBind() {
+        addButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                guard let viewModel = self?.viewModel else {
+                    return
+                }
+                let addProjectDetailViewModel = viewModel.createAddDetailViewModel()
+                let viewController = AddProjectDetailViewController(viewModel: addProjectDetailViewModel)
+                let destinationViewController = UINavigationController(rootViewController: viewController)
 
-        destinationViewController.modalPresentationStyle = .formSheet
-        present(destinationViewController, animated: true, completion: nil)
+                destinationViewController.modalPresentationStyle = .formSheet
+                self?.present(destinationViewController, animated: true, completion: nil)
+            }).disposed(by: disposeBag)
+    }
+    
+    private func configureTableViewBind() {
+        tableViews.forEach {
+            $0.rx.modelSelected(Project.self)
+                .subscribe(onNext: { [weak self] project in
+                    guard let viewModel = self?.viewModel else {
+                        return
+                    }
+                    let editProjectDetailViewModel = viewModel.createEditDetailViewModel(with: project)
+                    let viewController = EditProjectDetailViewController(viewModel: editProjectDetailViewModel)
+                    let destinationViewController = UINavigationController(rootViewController: viewController)
+                    
+                    destinationViewController.modalPresentationStyle = .formSheet
+                    self?.present(destinationViewController, animated: true, completion: nil)
+                }).disposed(by: disposeBag)
+        }
     }
     
     private func configureEntireStackView() {
