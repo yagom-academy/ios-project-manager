@@ -1,8 +1,13 @@
 import UIKit
+import RxSwift
 
 class AddProjectViewController: UIViewController {
     private let addView = ProjectFormView()
     private let viewModel: AddProjectViewModel
+    
+    private let tapAddProjectObserver: PublishSubject<ProjectInput> = .init()
+    private let tapCancelButtonObserver: PublishSubject<Void> = .init()
+    private let disposeBag: DisposeBag = .init()
     
     private let navigationBar: UINavigationBar = {
         let navigationBar = UINavigationBar(frame: .zero)
@@ -14,6 +19,7 @@ class AddProjectViewController: UIViewController {
     init(viewModel: AddProjectViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+        self.bind()
     }
     
     @available(*, unavailable)
@@ -26,6 +32,18 @@ class AddProjectViewController: UIViewController {
         setupNavigationBar()
         setupNavigationBarLayout()
         setupAddFormViewLayout()
+    }
+    
+    private func bind() {
+        let input = AddProjectViewModel.Input(tapAddProjectObserver: tapAddProjectObserver.asObservable(), tapCancelButtonObserver: tapCancelButtonObserver.asObservable())
+        
+        let output = viewModel.transform(input)
+        
+        output.viewDismissObserver
+            .subscribe(onNext: { [weak self] in
+                self?.dismiss(animated: true)
+            })
+            .disposed(by: disposeBag)
     }
     
     private func setupNavigationBar() {
@@ -58,13 +76,11 @@ class AddProjectViewController: UIViewController {
     }
     
     @objc private func dismissView() {
-        dismiss(animated: true)
+        tapCancelButtonObserver.onNext(())
     }
     
     @objc private func addProject() {
         let projectInput: ProjectInput = (addView.title, addView.body, addView.date)
-        viewModel.addProject(with: projectInput)
-        dismiss(animated: true)
+        tapAddProjectObserver.onNext(projectInput)
     }
-
 }
