@@ -2,48 +2,42 @@ import Foundation
 import RxSwift
 import RxRelay
 
-final class MockDataRepository: DataRepository {
-  
-    var rxLists = BehaviorRelay<[Listable]>(value: [])
-    var dataBase = [Listable]()
+final class MemoryDataBase: DataRepository {
+    
+    var storage = BehaviorRelay<[Listable]>(value: [])
     
     func create(object: Listable) {
-        self.dataBase.append(object)
-        fetch()
+        var lists = [Listable]()
+        lists = self.storage.value
+        lists.append(object)
+        self.storage.accept(lists)
     }
     
     func read(identifier: String) -> Listable? {
-        fetch()
-        return (self.dataBase.filter{ $0.identifier == identifier }).first
+        let lists = self.storage.value
+        let filteredLists = lists.filter { $0.identifier == identifier }
+        return filteredLists.first
     }
     
     func update(identifier: String, how object: Listable) {
-        let listToUpdatedIndex = self.dataBase.enumerated().filter{ $0.element.identifier == identifier }.map { $0.offset }.first
-        self.dataBase[listToUpdatedIndex ?? .zero] = object
-        fetch()
+        var lists = self.storage.value
+        var indexToUpdate: Int = .zero
+        
+        lists.enumerated().forEach { index, lists in
+            indexToUpdate = lists.identifier == identifier ? index : .zero
+        }
+        lists[indexToUpdate] = object
+        storage.accept(lists)
     }
     
     func delete(identifier: String) {
-        let listToDeleteIndex = self.dataBase.enumerated().filter{ $0.element.identifier == identifier }.map { $0.offset }.first
-        self.dataBase.remove(at: listToDeleteIndex ?? .zero)
-        fetch()
+        let lists = self.storage.value
+        let deletedLists = lists.filter { $0.identifier != identifier }
+        self.storage.accept(deletedLists)
     }
+}
     
-    func fetch() {
-        self.rxLists.accept(extractAll())
-    }
-
-    func extractAll() -> [Listable] {
-        return self.dataBase
-    }
-    
-    func extractRxAll() -> Observable<[Listable]> {
-        return Observable.create { emitter in
-            let list = self.extractAll()
-            emitter.onNext(list)
-        return Disposables.create()
-        }
-    }
+private extension MemoryDataBase {
     
     private func extractMockList() -> Listable? {
         let uuid = UUID().uuidString
@@ -56,4 +50,5 @@ final class MockDataRepository: DataRepository {
         return projectMock
     }
 }
+
 

@@ -1,37 +1,21 @@
 import UIKit
 
 final class MainListUIView: UIView {
+    
+    var todoTableView: UITableView?
+    var doingTableView: UITableView?
+    var doneTableView: UITableView?
+    
+    private func tableViewFactory() -> UITableView {
+        let tableview = UITableView(frame: .zero)
+        tableview.register(
+            ListUITableViewCell.self,
+            forCellReuseIdentifier: String(describing: ListUITableViewCell.self)
+        )
+        tableview.translatesAutoresizingMaskIntoConstraints = false
+        return tableview
+    }
 
-    private let todoTableView: UITableView = {
-        let tableview = UITableView(frame: .zero)
-        tableview.register(
-            ListUITableViewCell.self,
-            forCellReuseIdentifier: String(describing: ListUITableViewCell.self)
-        )
-        tableview.translatesAutoresizingMaskIntoConstraints = false
-        return tableview
-    }()
-    
-    private let doingTableView: UITableView = {
-        let tableview = UITableView(frame: .zero)
-        tableview.register(
-            ListUITableViewCell.self,
-            forCellReuseIdentifier: String(describing: ListUITableViewCell.self)
-        )
-        tableview.translatesAutoresizingMaskIntoConstraints = false
-        return tableview
-    }()
-    
-    private let doneTableView: UITableView = {
-        let tableview = UITableView(frame: .zero)
-        tableview.register(
-            ListUITableViewCell.self,
-            forCellReuseIdentifier: String(describing: ListUITableViewCell.self)
-        )
-        tableview.translatesAutoresizingMaskIntoConstraints = false
-        return tableview
-    }()
-    
     private var stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -44,7 +28,8 @@ final class MainListUIView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.configureTableView()
+        self.configureTableViews()
+        self.addViews()
         self.configureLayout()
     }
     
@@ -53,11 +38,17 @@ final class MainListUIView: UIView {
     }
     
     func extractTableViews() -> [UITableView] {
-        return [self.todoTableView, self.doingTableView, self.doneTableView]
+        return [self.todoTableView, self.doingTableView, self.doneTableView].compactMap{ $0 }
     }
     
-    private func configureTableView() {
+    private func addViews() {
         self.addSubview(stackView)
+    }
+    
+    private func configureTableViews() {
+        self.todoTableView = self.tableViewFactory()
+        self.doingTableView = self.tableViewFactory()
+        self.doneTableView = self.tableViewFactory()
     }
     
     private func configureLayout() {

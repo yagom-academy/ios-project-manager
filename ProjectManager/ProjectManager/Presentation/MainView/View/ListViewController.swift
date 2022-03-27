@@ -7,7 +7,7 @@ final class ListViewController: UIViewController {
     // MARK: - properties
     var viewModel: ListViewModel?
     private let disposeBag = DisposeBag()
-    private var shareView = MainListUIView()
+    private var customView = MainListUIView()
 
     // MARK: - lifeCycle
     override func viewDidLoad() {
@@ -43,9 +43,9 @@ final class ListViewController: UIViewController {
     }
 
     private func configureMainView() {
-        view.addSubview(shareView)
+        view.addSubview(customView)
         view.backgroundColor = .white
-        self.shareView.translatesAutoresizingMaskIntoConstraints = false
+        self.customView.translatesAutoresizingMaskIntoConstraints = false
     }
     
     private func configureNavigationItems() {
@@ -60,16 +60,16 @@ final class ListViewController: UIViewController {
 
     private func configureLayout() {
         NSLayoutConstraint.activate([
-            self.shareView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
-            self.shareView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
-            self.shareView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 10),
-            self.shareView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
+            self.customView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
+            self.customView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
+            self.customView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            self.customView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
         ])
     }
     
     // MARK: - bind UI w/ RxSwift 
     private func configureInput() -> ListViewModel.Input {
-        let tableViews = shareView.extractTableViews()
+        let tableViews = customView.extractTableViews()
         let rightBarButton = self.extractRightBarButtonItem()
         let input = ListViewModel
             .Input(
@@ -108,7 +108,7 @@ final class ListViewController: UIViewController {
     
     private func zipStateWithTableViews() -> [String: UITableView] {
         let zip = Dictionary(
-            uniqueKeysWithValues: zip([ProgressState.todo.description,ProgressState.doing.description,ProgressState.done.description], self.shareView.extractTableViews())
+            uniqueKeysWithValues: zip([ProgressState.todo.description,ProgressState.doing.description,ProgressState.done.description], self.customView.extractTableViews())
         )
         
         return zip

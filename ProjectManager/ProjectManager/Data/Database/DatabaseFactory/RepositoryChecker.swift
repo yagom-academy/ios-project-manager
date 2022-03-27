@@ -2,7 +2,7 @@ import Foundation
 
 final class RepositoryChecker {
     
-    static var currentRepository: RepositoryType = .mock
+    static var currentRepository: RepositoryType = .memory
     
     private init() {
         

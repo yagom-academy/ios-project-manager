@@ -4,7 +4,7 @@ import RxRelay
 
 protocol DataRepository {
     
-    var rxLists: BehaviorRelay<[Listable]> { get set }
+    var storage: BehaviorRelay<[Listable]> { get set }
     
     func create(object: Listable)
     
@@ -16,8 +16,4 @@ protocol DataRepository {
     ) 
     
     func delete(identifier: String)
-    
-    func fetch()
-    
-    func extractAll() -> [Listable]
 }

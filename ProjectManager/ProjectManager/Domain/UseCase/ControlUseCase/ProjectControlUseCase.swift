@@ -16,7 +16,6 @@ final class ProjectControlUseCase: ListCreateUseCase, ListReadUseCase, ListUpdat
     }
     
     func readProject(identifier: String) -> Listable? {
-        self.repository.fetch()
         return self.repository.read(identifier: identifier)
     }
     
@@ -25,15 +24,13 @@ final class ProjectControlUseCase: ListCreateUseCase, ListReadUseCase, ListUpdat
         how object: Listable
     )  {
         self.repository.update(identifier: identifier, how: object)
-        self.repository.fetch()
     }
     
     func deleteProject(identifier: String) {
         self.repository.delete(identifier: identifier)
-        self.repository.fetch()
     }
     
     func extractDataSourceRelay() -> BehaviorRelay<[Listable]> {
-        return self.repository.rxLists
+        return self.repository.storage
     }
 }

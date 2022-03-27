@@ -5,13 +5,13 @@ import RxCocoa
 final class ListAddViewController: UIViewController {
 
     var viewModel: ListAddViewModel?
-    private let shareView = ListDetailUIView()
+    private let customView = ListDetailUIView()
     private let disposeBag = DisposeBag()
     private var navigationRightBarButton: UIBarButtonItem?
     private var navigationLeftBarButton: UIBarButtonItem?
     
     override func loadView() {
-        self.view = shareView
+        self.view = customView
         self.view.backgroundColor = .white
     }
     
@@ -52,6 +52,6 @@ final class ListAddViewController: UIViewController {
     }
     
     private func createObservableInformation() -> (name: String, detail: String, deadline: Date) {
-        return self.shareView.extractComponentsData()
+        return self.customView.extractComponentsData()
         }
 }

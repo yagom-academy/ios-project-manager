@@ -4,5 +4,5 @@ enum RepositoryType {
     
     case coreData
     case fireStore
-    case mock
+    case memory
 }

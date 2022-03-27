@@ -4,8 +4,8 @@ final class MainCoordinator: Coordinator {
    
     var navigationController: UINavigationController?
     let currentRepository = RepositoryFactory.assignRepository(repository: RepositoryChecker.currentRepository)
-    lazy var controlUseCase = ProjectControlUseCase(repository: self.currentRepository)
-    lazy var historyUseCase = ProjectHistoryCheckUseCase()
+    private lazy var controlUseCase = ProjectControlUseCase(repository: self.currentRepository)
+    private lazy var historyUseCase = ProjectHistoryCheckUseCase()
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
