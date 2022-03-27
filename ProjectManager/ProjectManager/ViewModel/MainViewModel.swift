@@ -15,26 +15,34 @@ class MainViewModel: ViewModelDescribing {
         let moveToDoneObserver: Observable<CellInformation>
         let selectObserver: Observable<Project>
         let deleteObserver: Observable<Project>
+        let tapAddProjectButtonObserver: Observable<Void>
         
-        init(moveToToDoObserver: Observable<CellInformation>, moveToDoingObserver: Observable<CellInformation>, moveToDoneObserver: Observable<CellInformation>, selectObserver: Observable<Project>, deleteObserver: Observable<Project>) {
+        init(moveToToDoObserver: Observable<CellInformation>, moveToDoingObserver: Observable<CellInformation>, moveToDoneObserver: Observable<CellInformation>, selectObserver: Observable<Project>, deleteObserver: Observable<Project>, tapAddProjectButtonObserver: Observable<Void>) {
             self.moveToToDoObserver = moveToToDoObserver
             self.moveToDoingObserver = moveToDoingObserver
             self.moveToDoneObserver = moveToDoneObserver
             self.selectObserver = selectObserver
             self.deleteObserver = deleteObserver
+            self.tapAddProjectButtonObserver = tapAddProjectButtonObserver
         }
     }
     
     final class Output {
         let reloadObserver: Observable<Void>
+        let showAddProjectViewObserver: Observable<Void>
+        let showEditProjectViewObserver: Observable<Project>
         
-        init(reloadObserver: Observable<Void>) {
+        init(reloadObserver: Observable<Void>, showAddProjectViewObserver: Observable<Void>, showEditProjectViewObserver: Observable<Project>) {
             self.reloadObserver = reloadObserver
+            self.showAddProjectViewObserver = showAddProjectViewObserver
+            self.showEditProjectViewObserver = showEditProjectViewObserver
         }
     }
     
     private let repository = ProjectRepository()
     private let reloadObserver: PublishSubject<Void> = .init()
+    private let showAddProjectViewObserver: PublishSubject<Void> = .init()
+    private let showEditProjectViewObserver: PublishSubject<Project> = .init()
     private let disposeBag: DisposeBag = .init()
     
     private var selectedProject: Project?
@@ -85,6 +93,7 @@ class MainViewModel: ViewModelDescribing {
             .selectObserver
             .subscribe(onNext: { [weak self] project in
                 self?.repository.setSelectedProject(with: project)
+                self?.showEditProjectViewObserver.onNext(project)
             })
             .disposed(by: disposeBag)
         
@@ -95,7 +104,14 @@ class MainViewModel: ViewModelDescribing {
             })
             .disposed(by: disposeBag)
         
-        let output = Output(reloadObserver: self.reloadObserver.asObservable())
+        input
+            .tapAddProjectButtonObserver
+            .subscribe(onNext: { [weak self] in
+                self?.showAddProjectViewObserver.onNext(())
+            })
+            .disposed(by: disposeBag)
+        
+        let output = Output(reloadObserver: self.reloadObserver.asObservable(), showAddProjectViewObserver: self.showAddProjectViewObserver.asObservable(), showEditProjectViewObserver: self.showEditProjectViewObserver.asObservable())
         
         return output
     }

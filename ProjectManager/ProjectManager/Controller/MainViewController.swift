@@ -8,6 +8,7 @@ class MainViewController: UIViewController {
     private let moveToDoneObserver: PublishSubject<CellInformation> = .init()
     private let selectObserver: PublishSubject<Project> = .init()
     private let deleteObserver: PublishSubject<Project> = .init()
+    private let tapAddProjectButtonObserver: PublishSubject<Void> = .init()
     private let disposeBag: DisposeBag = .init()
     
     private let toDoTableView = UITableView()
@@ -90,13 +91,14 @@ class MainViewController: UIViewController {
         registerProjectListCell()
     }
     
-    func bind() {
+    private func bind() {
         let input = MainViewModel.Input(
             moveToToDoObserver: moveToToDoObserver.asObservable(),
             moveToDoingObserver: moveToDoingObserver.asObservable(),
             moveToDoneObserver: moveToDoneObserver.asObservable(),
             selectObserver: selectObserver.asObservable(),
-            deleteObserver: deleteObserver.asObservable()
+            deleteObserver: deleteObserver.asObservable(),
+            tapAddProjectButtonObserver: tapAddProjectButtonObserver.asObservable()
         )
         
         let output = viewModel.transform(input)
@@ -105,6 +107,20 @@ class MainViewController: UIViewController {
             .reloadObserver
             .subscribe(onNext: { [weak self] in
                 self?.reloadTableView()
+            })
+            .disposed(by: disposeBag)
+        
+        output
+            .showAddProjectViewObserver
+            .subscribe(onNext: { [weak self] in
+                self?.showAddProjectView()
+            })
+            .disposed(by: disposeBag)
+        
+        output
+            .showEditProjectViewObserver
+            .subscribe(onNext: { [weak self] project in
+                self?.showEditProjectView(with: project)
             })
             .disposed(by: disposeBag)
     }
@@ -132,7 +148,7 @@ class MainViewController: UIViewController {
     }
     
     private func setupNavigationBar() {
-        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showAddProjectView))
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(tapAddProjectButton))
         navigationItem.title = Text.navigationTitle
         navigationItem.rightBarButtonItem = addButton
     }
@@ -152,11 +168,24 @@ class MainViewController: UIViewController {
         doneTableView.register(ProjectListCell.self)
     }
     
-    @objc private func showAddProjectView() {
+    private func showAddProjectView() {
         let viewModel = viewModel.makeAddProjectViewModel()
         let viewController = AddProjectViewController(viewModel: viewModel)
         viewController.modalPresentationStyle = .formSheet
         present(viewController, animated: true, completion: nil)
+    }
+    
+    private func showEditProjectView(with selectedProject: Project) {
+        let viewModel = viewModel.makeEditProjectViewModel()
+        let viewController = EditProjectViewController(viewModel: viewModel)
+        viewController.modalPresentationStyle = .formSheet
+        viewController.setupEditView(with: selectedProject)
+        viewController.actionAfterDismiss = deselectCell
+        present(viewController, animated: true, completion: nil)
+    }
+    
+    @objc private func tapAddProjectButton() {
+        tapAddProjectButtonObserver.onNext(())
     }
 }
 
@@ -194,12 +223,6 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedProject = projects(for: tableView)[indexPath.row]
         selectObserver.onNext(selectedProject)
-        let viewModel = viewModel.makeEditProjectViewModel()
-        let viewController = EditProjectViewController(viewModel: viewModel)
-        viewController.modalPresentationStyle = .formSheet
-        viewController.setupEditView(with: selectedProject)
-        viewController.actionAfterDismiss = deselectCell
-        present(viewController, animated: true, completion: nil)
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
