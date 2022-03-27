@@ -1,8 +1,13 @@
 import UIKit
+import RxSwift
 
 class EditProjectViewController: UIViewController {
     private let editView = ProjectFormView()
     private let viewModel: EditProjectViewModel
+    
+    private let tapEditProjectObserver: PublishSubject<ProjectInput> = .init()
+    private let tapCancelButtonObserver: PublishSubject<Void> = .init()
+    private let disposeBag: DisposeBag = .init()
     
     private let navigationBar: UINavigationBar = {
         let navigationBar = UINavigationBar(frame: .zero)
@@ -24,6 +29,7 @@ class EditProjectViewController: UIViewController {
     init(viewModel: EditProjectViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+        self.bind()
     }
     
     @available(*, unavailable)
@@ -41,6 +47,19 @@ class EditProjectViewController: UIViewController {
     func setupEditView(with project: Project) {
         navigationTitle.text = project.state.title
         editView.setupFormView(with: project)
+    }
+    
+    private func bind() {
+        let input = EditProjectViewModel.Input(tapEditProjectObserver: tapEditProjectObserver.asObservable(), tapCancelButtonObserver: tapCancelButtonObserver.asObservable())
+        
+        let output = viewModel.transform(input)
+        
+        output.viewDismissObserver
+            .subscribe(onNext: { [weak self] in
+                self?.dismiss(animated: true)
+                self?.actionAfterDismiss()
+            })
+            .disposed(by: disposeBag)
     }
     
     private func setupNavigationBar() {
@@ -74,13 +93,11 @@ class EditProjectViewController: UIViewController {
     }
 
     @objc private func dismissView() {
-        dismiss(animated: true)
-        actionAfterDismiss()
+        tapCancelButtonObserver.onNext(())
     }
     
     @objc private func saveEditedProject() {
         let projectInput = (editView.title, editView.body, editView.date)
-        viewModel.editProject(with: projectInput)
-        dismiss(animated: true)
+        tapEditProjectObserver.onNext(projectInput)
     }
 }
