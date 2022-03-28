@@ -2,6 +2,7 @@ import Foundation
 import RxSwift
 
 
+// MARK: - Namespace
 private enum Content {
     
     static let emptyString = ""
@@ -14,6 +15,7 @@ private enum Content {
 
 class WorkFormViewModel: ViewModelDescribing {
     
+    // MARK: - Nested Type
     final class Input {
         
         let buttonPressObserver: Observable<(String?, Date, String)>
@@ -49,10 +51,12 @@ class WorkFormViewModel: ViewModelDescribing {
         }
     }
     
+    // MARK: - Properties
     private(set) var selectedWork: Work?
     private var list = BehaviorSubject<[Work]>(value: [])
     private let disposeBag = DisposeBag()
     
+    // MARK: - Methods
     func setup(selectedWork: Work?, list: BehaviorSubject<[Work]>) {
         self.selectedWork = selectedWork
         self.list = list

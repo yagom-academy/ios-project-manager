@@ -2,6 +2,7 @@ import Foundation
 import CoreData
 
 
+// MARK: - Namespace
 private enum Tag {
     
     static let todo: Int16 = 0
@@ -24,6 +25,7 @@ private enum Content {
 
 extension Work {
     
+    // MARK: Nested Type
     enum Category {
         case todo
         case doing
@@ -40,17 +42,15 @@ extension Work {
             }
         }
     }
-
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<Work> {
-        return NSFetchRequest<Work>(entityName: Name.entity)
-    }
-
+    
+    // MARK: - NSManaged Properties
     @NSManaged public var id: UUID?
     @NSManaged public var title: String?
     @NSManaged public var body: String?
     @NSManaged public var dueDate: Date?
     @NSManaged public var categoryTag: Int16
     
+    // MARK: - Properties
     var convertedDate: String {
         guard let dueDate = dueDate else { return Content.emptyString }
         let dateFormatter = DateFormatter.shared
@@ -64,6 +64,11 @@ extension Work {
             return true
         }
         return false
+    }
+    
+    // MARK: - Method
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<Work> {
+        return NSFetchRequest<Work>(entityName: Name.entity)
     }
     
 }

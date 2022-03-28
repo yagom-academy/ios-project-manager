@@ -2,6 +2,7 @@ import Foundation
 import FirebaseDatabase
 
 
+// MARK: - Namespace
 private enum Data {
     
     static let empty = ""
@@ -16,13 +17,16 @@ private enum Data {
 
 class WorkFireBaseManager {
     
+    // MARK: - Properties
     static let shared = WorkFireBaseManager()
     
     private (set) var works = [ParsedWork]()
     private let database = Database.database().reference()
     
+    // MARK: - Initializer
     private init() { }
     
+    // MARK: - Methods
     func fetchAllData() {
         database.child(Data.pathName).observe(.value) { [weak self] snapshot in
             if let works = snapshot.value as? [String: Any] {

@@ -2,6 +2,7 @@ import Foundation
 import RxSwift
 
 
+// MARK: - Namespace
 private enum Content {
 
     static let moveToDoTitle = "Move to TODO"
@@ -12,6 +13,7 @@ private enum Content {
 
 class ProjectTableViewModel: ViewModelDescribing {
     
+    // MARK: - NestedType
     final class Input {
         
         let viewDidLoadObserver: Observable<Void>
@@ -54,12 +56,14 @@ class ProjectTableViewModel: ViewModelDescribing {
         
     }
     
+    // MARK: - Properties
     private(set) var titleText: String?
     private(set) var count: Observable<Int>?
     private(set) var list = BehaviorSubject<[Work]>(value: [])
     private var projectViewModel: ProjectViewModel?
     private let disposeBag = DisposeBag()
     
+    // MARK: - Methods
     func setup(
         titleText: String,
         count: Observable<Int>,

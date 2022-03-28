@@ -3,6 +3,7 @@ import RxSwift
 import FirebaseDatabase
 
 
+// MARK: - Namespace
 private enum UIName {
     
     static let workFormViewStoryboard = "WorkFormView"
@@ -29,9 +30,11 @@ private enum Design {
 
 final class ProjectViewController: UIViewController {
     
+    // MARK: - Properties
     private let viewModel = ProjectViewModel()
     private var disposeBag = DisposeBag()
     
+    // MARK: - Override Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
@@ -67,6 +70,7 @@ final class ProjectViewController: UIViewController {
         }
     }
     
+    // MARK: - Methods
     @IBAction private func addNewWork(_ sender: UIBarButtonItem) {
         let storyboard = UIStoryboard(name: UIName.workFormViewStoryboard, bundle: nil)
         guard let viewController = storyboard.instantiateViewController(

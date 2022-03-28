@@ -2,12 +2,14 @@ import UIKit
 import RxSwift
 
 
+// MARK: - DelegateProtocol
 protocol ProjectTableViewCellDelegate: AnyObject {
     
     func longpressed(at cell: ProjectTableViewCell)
     
 }
 
+// MARK: - Namespace
 private enum Content {
     
     static let moveToDoTitle = "Move to TODO"
@@ -29,12 +31,13 @@ private enum Design {
 
 final class ProjectTableViewCell: UITableViewCell {
     
-    weak var delegate: ProjectTableViewCellDelegate?
-    
+    // MARK: - IBOutlet
     @IBOutlet weak private var titleLabel: UILabel!
     @IBOutlet weak private var bodyLabel: UILabel!
     @IBOutlet weak private var dateLabel: UILabel!
-        
+    
+    // MARK: - properties
+    weak var delegate: ProjectTableViewCellDelegate?
     private var work: Work?
     
     private var firstTitle: String {
@@ -54,6 +57,7 @@ final class ProjectTableViewCell: UITableViewCell {
         }
     }
     
+    // MARK: - Override Methods
     override func awakeFromNib() {
         addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(showPopupMenu)))
     }
@@ -78,6 +82,8 @@ final class ProjectTableViewCell: UITableViewCell {
         self.backgroundColor = Design.tableViewBackgroundColor
     }
     
+    
+    // MARK: - Methods
     func configureCellContent(for item: Work) {
         titleLabel.text = item.title
         bodyLabel.text = item.body

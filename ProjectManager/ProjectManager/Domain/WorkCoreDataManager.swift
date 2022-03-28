@@ -3,6 +3,7 @@ import CoreData
 import RxSwift
 
 
+// MARK: - Namespace
 private enum Name {
     static let conatainer = "CoreDataModel"
     static let entity = "Work"
@@ -15,6 +16,7 @@ private enum Content {
 
 class WorkCoreDataManager: WorkManagable {
     
+    // MARK: - Properties
     static let shared = WorkCoreDataManager()
     
     private let persistentContainer: NSPersistentContainer = {
@@ -46,8 +48,10 @@ class WorkCoreDataManager: WorkManagable {
         sort(for: Work.Category.done.tag)
     }
     
+    // MARK: - Intializer
     private init() { }
     
+    // MARK: - Methods
     func create(title: String, body: String, dueDate: Date) {
         let localData = Work(context: context)
         
@@ -94,10 +98,6 @@ class WorkCoreDataManager: WorkManagable {
         request.predicate = predicate
         
         let searchedWorks = try? context.fetch(request)
-        
-//        searchedWorks?.forEach({ work in
-//            ParsedWork(id: work.id, title: work.title, body: work.body, dueDate: work.dueDate, categoryTag: work.categoryTag)
-//        })
         
         return searchedWorks ?? []
     }

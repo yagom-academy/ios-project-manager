@@ -3,6 +3,7 @@ import RxSwift
 import RxCocoa
 
 
+// MARK: - Namespace
 private enum UIName {
     
     static let workFormViewStoryboard = "WorkFormView"
@@ -23,10 +24,12 @@ private enum Content {
 
 final class ProjectTableViewController: UIViewController {
     
+    // MARK: - IBOutlet
     @IBOutlet weak private var titleLabel: UILabel!
     @IBOutlet weak private var countLabel: ProjectHeaderCircleLabel!
     @IBOutlet weak private var tableView: UITableView!
     
+    // MARK: - Properties
     private let viewModel = ProjectTableViewModel()
     
     private let viewDidLoadObserver: PublishSubject<Void> = .init()
@@ -38,6 +41,7 @@ final class ProjectTableViewController: UIViewController {
     private var disposeBag = DisposeBag()
     private var selectedCell: ProjectTableViewCell?
     
+    // MARK: - Override Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
@@ -45,6 +49,7 @@ final class ProjectTableViewController: UIViewController {
         viewDidLoadObserver.onNext(())
     }
     
+    // MARK: - Methods
     func setup(viewModel: ProjectViewModel, titleText: String, count: Observable<Int>, list: BehaviorSubject<[Work]>) {
         self.viewModel.setup(
             titleText: titleText,
@@ -202,6 +207,7 @@ final class ProjectTableViewController: UIViewController {
 
 }
 
+// MARK: - TableViewDelegate
 extension ProjectTableViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -224,6 +230,7 @@ extension ProjectTableViewController: UITableViewDelegate {
     
 }
 
+// MARK: - ProjectTableViewCellDelegate
 extension ProjectTableViewController: ProjectTableViewCellDelegate {
     
     func longpressed(at cell: ProjectTableViewCell) {

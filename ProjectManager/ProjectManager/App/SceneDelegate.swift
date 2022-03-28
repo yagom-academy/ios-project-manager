@@ -1,6 +1,7 @@
 import UIKit
 
 
+// MARK: - Namespace
 private enum UIName {
     
     static let mainStoryboard = "Main"
@@ -9,8 +10,10 @@ private enum UIName {
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
+    // MARK: - Property
     var window: UIWindow?
 
+    // MARK: - Method
     func scene(
         _ scene: UIScene,
         willConnectTo session: UISceneSession,

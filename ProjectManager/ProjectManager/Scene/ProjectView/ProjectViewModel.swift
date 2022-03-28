@@ -4,6 +4,7 @@ import RxSwift
 
 final class ProjectViewModel {
     
+    // MARK: - Properties
     let todoList = BehaviorSubject<[Work]>(value: [])
     let doingList = BehaviorSubject<[Work]>(value: [])
     let doneList = BehaviorSubject<[Work]>(value: [])
@@ -18,6 +19,7 @@ final class ProjectViewModel {
         doneList.map { $0.count }
     }
     
+    // MARK: - Initializer
     init() {
         todoList.onNext(WorkCoreDataManager.shared.todoList)
         doingList.onNext(WorkCoreDataManager.shared.doingList)

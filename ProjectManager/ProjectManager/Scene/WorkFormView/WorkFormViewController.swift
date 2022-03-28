@@ -2,6 +2,7 @@ import UIKit
 import RxSwift
 
 
+// MARK: - Namespace
 private enum Content {
     
     static let emptyBody = "입력가능한 글자수는 1000자로 제한합니다."
@@ -11,6 +12,7 @@ private enum Content {
 }
 
 private enum Design {
+    
     static let shadowColor: CGColor = UIColor.black.cgColor
     static let shadowOffset = CGSize(width: 0, height: 5)
     static let shadowOpacity: Float = 0.3
@@ -18,16 +20,19 @@ private enum Design {
     
     static let textInputBackgroundColor = UIColor.white.cgColor
     static let textFieldLeftPadding: CGFloat = 10
+    
 }
 
 final class WorkFormViewController: UIViewController {
     
+    // MARK: - IBOutlet
     @IBOutlet weak private var rightBarButtonItem: UIBarButtonItem!
     @IBOutlet weak var contentScrollView: UIScrollView!
     @IBOutlet weak private var titleTextField: UITextField!
     @IBOutlet weak private var datePicker: UIDatePicker!
     @IBOutlet weak private var bodyTextView: UITextView!
     
+    // MARK: - Properties
     private let buttonPressObserver: PublishSubject<(String?, Date, String)> = .init()
     private let viewDidLoadObserver: PublishSubject<Void> = .init()
     private let textViewEditObserver: PublishSubject<String> = .init()
@@ -35,6 +40,7 @@ final class WorkFormViewController: UIViewController {
     private var disposeBag = DisposeBag()
     private var viewModel = WorkFormViewModel()
     
+    // MARK: - Override Method
     override func viewDidLoad() {
         super.viewDidLoad()
         setupKeyboardObserver()
@@ -43,11 +49,13 @@ final class WorkFormViewController: UIViewController {
         viewDidLoadObserver.onNext(())
     }
     
+    // MARK: - Initializer
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         bind()
     }
     
+    // MARK: - Methods
     func setup(selectedWork: Work?, list: BehaviorSubject<[Work]>) {
         self.viewModel.setup(
             selectedWork: selectedWork,
@@ -192,6 +200,7 @@ final class WorkFormViewController: UIViewController {
     
 }
 
+// MARK: - TextViewDelegate
 extension WorkFormViewController: UITextViewDelegate {
     
     func textViewDidBeginEditing(_ textView: UITextView) {
