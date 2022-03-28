@@ -33,13 +33,12 @@ final class ProjectTableViewController: UIViewController {
     private let viewModel = ProjectTableViewModel()
     
     private let viewDidLoadObserver: PublishSubject<Void> = .init()
-    private let cellLongPressedObserver: PublishSubject<IndexPath> = .init()
+    private let cellLongPressedObserver: PublishSubject<(IndexPath, UITableViewCell)> = .init()
     private let swipeActionObserver: PublishSubject<IndexPath> = .init()
     private let didSelectedObserver: PublishSubject<IndexPath> = .init()
     private let popoverActionObserver: PublishSubject<(String, Work)> = .init()
 
     private var disposeBag = DisposeBag()
-    private var selectedCell: ProjectTableViewCell?
     
     // MARK: - Override Methods
     override func viewDidLoad() {
@@ -92,7 +91,7 @@ final class ProjectTableViewController: UIViewController {
     
     private func configureShowPopoverObserver(_ output: ProjectTableViewModel.Output) { // 왠만하면 최대한 함수를 쪼개는 것이 좋다. 최대한 짧게 정리를 해보자.
         output.showPopoverObserver
-            .subscribe(onNext: { [weak self] work in
+            .subscribe(onNext: { [weak self] (cell, work) in
                 let firstTitle: String = {
                     switch work.categoryTag {
                     case Work.Category.todo.tag:
@@ -122,7 +121,7 @@ final class ProjectTableViewController: UIViewController {
 
                 alert.addAction(firstAction)
                 alert.addAction(secondAction)
-                alert.popoverPresentationController?.sourceView = self?.selectedCell
+                alert.popoverPresentationController?.sourceView = cell
                 
                 self?.present(alert, animated: true)
             })
@@ -236,8 +235,7 @@ extension ProjectTableViewController: ProjectTableViewCellDelegate {
     func longpressed(at cell: ProjectTableViewCell) {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         
-        selectedCell = cell
-        cellLongPressedObserver.onNext(indexPath)
+        cellLongPressedObserver.onNext((indexPath, cell))
     }
     
 }

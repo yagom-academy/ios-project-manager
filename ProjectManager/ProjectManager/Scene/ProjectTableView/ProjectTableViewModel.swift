@@ -17,14 +17,14 @@ class ProjectTableViewModel: ViewModelDescribing {
     final class Input {
         
         let viewDidLoadObserver: Observable<Void>
-        let cellLongPressedObserver: Observable<IndexPath>
+        let cellLongPressedObserver: Observable<(IndexPath, UITableViewCell)>
         let swipeActionObserver: Observable<IndexPath>
         let didSelectedObserver: Observable<IndexPath>
         let popoverActionObserver: Observable<(String, Work)>
         
         init(
             viewDidLoadObserver: Observable<Void>,
-            cellLongPressedObserver: Observable<IndexPath>,
+            cellLongPressedObserver: Observable<(IndexPath, UITableViewCell)>,
             swipeActionObserver: Observable<IndexPath>,
             didSelectedObserver: Observable<IndexPath>,
             popoverActionObserver: Observable<(String, Work)>
@@ -41,12 +41,12 @@ class ProjectTableViewModel: ViewModelDescribing {
     final class Output {
         
         let setupPlaceholderObserver: Observable<[Work]>
-        let showPopoverObserver: Observable<Work>
+        let showPopoverObserver: Observable<(UITableViewCell, Work)>
         let showWorkFormViewObserver: Observable<Work>
         
         init(
             setPlaceholderObserver: Observable<[Work]>,
-            showPopoverObserver: Observable<Work>,
+            showPopoverObserver: Observable<(UITableViewCell, Work)>,
             showWorkFormViewObserver: Observable<Work>
         ) {
             self.setupPlaceholderObserver = setPlaceholderObserver
@@ -78,7 +78,7 @@ class ProjectTableViewModel: ViewModelDescribing {
     
     func transform(_ input: Input) -> Output {
         let setupPlaceholderObserver = PublishSubject<[Work]>()
-        let showPopoverObserver = PublishSubject<Work>()
+        let showPopoverObserver = PublishSubject<(UITableViewCell, Work)>()
         let showWorkFormViewObserver = PublishSubject<Work>()
         
         configureViewDidLoadObserver(by: input, observer: setupPlaceholderObserver)
@@ -109,16 +109,16 @@ class ProjectTableViewModel: ViewModelDescribing {
             .disposed(by: disposeBag)
     }
     
-    private func configureCellLongPressedObserver(by input: Input, observer: PublishSubject<Work>) {
+    private func configureCellLongPressedObserver(by input: Input, observer: PublishSubject<(UITableViewCell, Work)>) {
         input
             .cellLongPressedObserver
-            .bind(onNext: { [weak self] (indexPath) in
+            .bind(onNext: { [weak self] (indexPath, cell) in
                 guard let list = self?.list else { return }
                 guard let targetWork = try? list.value()[safe: indexPath.row] else {
                     return
                 }
                 
-                observer.onNext(targetWork)
+                observer.onNext((cell, targetWork))
             })
             .disposed(by: disposeBag)
     }
