@@ -55,6 +55,10 @@ final class WorkFormViewController: UIViewController {
         bind()
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     // MARK: - Methods
     func setup(selectedWork: Work?, list: BehaviorSubject<[Work]>) {
         self.viewModel.setup(
