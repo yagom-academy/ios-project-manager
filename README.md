@@ -22,7 +22,7 @@
 - `Undo`
 - `Local Notification`
 
-
+<br>
 <br>
 
 ## 구현 내용
@@ -49,6 +49,12 @@
 # STEP1 프로젝트 적용기술 선정
 
 ## 고민한 점
+### 구현 내용
+1. Realm, Firebase를 연동하여 데이터를 관리
+
+<br>
+
+## STEP1 프로젝트 적용기술 선정
 
 ### 1. LocalDB 비교   
 
