@@ -25,13 +25,13 @@ Uikit에선 UI Components와 Datasource를 바인딩할 때 delegate 패턴을 �
 
 이전 프로젝트에서 DropBox를 사용해보았는데 레퍼런스가 없어 문제 해결을 못하는 일이 변변치않게 발생하였는데, Realm, Firebase는 문제 발생시 해결에 도움이 되는 레퍼런스가 많다는 이유 하나만으로도 충분히 사용할 이유가 된다고 생각했습니다.
 
-## 🍎 사용한 기술 스택에 대한 고민
+## 🐈 사용한 기술 스택에 대한 고민
 
 ### 1. 하위 버전 호환성에는 문제가 없는가?
 
 |Firebase|Realm|
 |:--:|:--:|
-|![Untitled](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/d3a7b9bc-3760-4f24-a35d-df0139e6b8f5/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220301%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220301T082931Z&X-Amz-Expires=86400&X-Amz-Signature=408c193fefe3b153b05b9196ddaf39f4362d08d69d1467050ce3f3c61d9eba82&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject)|![Untitled](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/1b1cdd84-2320-451b-8058-6f3b137247c0/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220301%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220301T083002Z&X-Amz-Expires=86400&X-Amz-Signature=36e306b636db0bc3c4a65637ad317b3af9726dfd30641974466c7b9619a42b9a&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject)|
+|<img width="352" alt="image" src="https://user-images.githubusercontent.com/70251136/158818812-8921c3c1-d11c-4773-88eb-fa264ad3fd5a.png">|<img width="276" alt="image" src="https://user-images.githubusercontent.com/70251136/158818870-b553e6c9-6421-42e4-82e7-5d34ec275616.png">|
 
 Firebase는 iOS 10, Realm은 iOS 9부터 지원하기 때문에 저희 프로젝트 최소 타깃인 iOS 13을 커버하기에 무리가 없다고 판단하였습니다.
 
@@ -66,7 +66,7 @@ Firebase와 Realm이 지원하는 의존성 관리도구에는 아래 세가지�
 - 로컬에 저장 - Realm
 - 서버에 저장 및 동기화 - Firebase
 
-## 🍎 객체지향 프로그래밍 vs 함수형프로그래밍
+## 🐈 객체지향 프로그래밍 vs 함수형프로그래밍
 
 객체지향은 객체 안에 상태를 저장하고 상태를 조정하기 위해 다양한 기능을 사용하는 반면에
 
@@ -127,7 +127,7 @@ console.log( add(10 , 5) );    // 출력값 15
 
 인풋값으로 a와 b를 받는데 함수 안에 변수 c가 존재한다면 c의 값에 따라 아웃풋이 달라지기 때문에 순수함수가 아닙니다.
 
-## 🍎 디자인 패턴에 대한 고민
+## 🐈 디자인 패턴에 대한 고민
 
 ### MVVM vs MVC
 
@@ -191,7 +191,7 @@ Model + View + ViewModel로 이루어진 패턴으로 각각 다음과 같은 �
 
 <br>
 
-## 🍎 Rest API는 무엇이고, 왜 중요한가?
+## 🐈 Rest API는 무엇이고, 왜 중요한가?
 
 ### **Rest란?** 
 
@@ -205,7 +205,7 @@ Rest를 기반으로 제작된 API입니다.
 
 <br>
 
-## 🍎 알아두면 좋을 것들
+## 🐈 알아두면 좋을 것들
 
 - 뷰는 테스트를 왜 하기 어렵고 뷰모델은 왜 테스트하기 쉬울까?
 - 뷰모델은 프로퍼티로 모델을 가지고 있습니다.
@@ -223,7 +223,7 @@ Rest를 기반으로 제작된 API입니다.
 
 ![Simulator Screen Recording - iPad (9th generation) - 2022-03-07 at 22 31 45](https://user-images.githubusercontent.com/70251136/157047799-add8dfc1-8e0f-4fe9-ba23-e3119d0797cf.gif)
 
-## 🍎 Lazy 키워드 사용에 대한 고민
+## 🐈 Lazy 키워드 사용에 대한 고민
 
 ```swift
 private lazy var entireStackView: UIStackView = {
@@ -279,7 +279,7 @@ private let entireStackView: UIStackView = {
 
 참고 링크: [https://www.avanderlee.com/swift/lazy-var-property/](https://www.avanderlee.com/swift/lazy-var-property/)
 
-## 🍎 View 부분 문제 해결
+## 🐈 View 부분 문제 해결
 
 ### sectionHeaderTopPadding
 
@@ -366,7 +366,7 @@ let spacerView: UIView = {
 
 레이블의 텍스트를 길게 적어도 숫자 레이블이 안깨지는 모습을 볼 수 있다.
 
-## 🍎 View 부분 추가 구현 사항
+## 🐈 View 부분 추가 구현 사항
 
 ### label 동그랗게 만드는 방법
 
@@ -404,7 +404,7 @@ extension UIView {
 textField.borderStyle = .roundedRect
 ```
 
-## 🍎 오토레이아웃 알게된 부분
+## 🐈 오토레이아웃 알게된 부분
 
 ### **Constraint Priorites**
 
@@ -419,3 +419,309 @@ textField.borderStyle = .roundedRect
 
 참고 링크: 
 [https://stackoverflow.com/questions/36924093/what-are-the-default-auto-layout-content-hugging-and-content-compression-resista](https://stackoverflow.com/questions/36924093/what-are-the-default-auto-layout-content-hugging-and-content-compression-resista)
+
+# STEP 2-2
+
+STEP 2-2에서는 UIKit를 사용하여 MVVM 구조로 구현하였습니다.
+
+클로저와 데이터 바인딩을 사용하여 데이터 전달을 구현했고, 다음 스텝에서는 RxSwift로 프로젝트를 리팩토링할 예정입니다.  
+
+# 🐈 앱의 주요 기능
+
+- CRUD
+    - 서버에서 저장된 데이터 불러오기 (구현 예정)
+    - 네비게이션바의 + 버튼 터치시 새로운 할일 추가
+    - 셀 터치시 상세화면으로 이동하여 할일 내용 수정
+    - 셀 왼쪽으로 스와이프시 삭제
+- 셀 길게 터치시 팝오버 메뉴 표시하여 할일을 다른 테이블뷰로 이동
+- 날짜를 사용자의 지역, 언어에 맞게 표현
+- Date Picker을 이용한 날짜 입력
+
+# 🐈 MVVM + Clean Architecture 구조
+
+![image](https://user-images.githubusercontent.com/70251136/158818142-da74dc3e-1981-4268-8b2a-e8a44e44b18f.png)
+
+![image](https://user-images.githubusercontent.com/70251136/158818189-7d3a496e-0c84-4817-951f-bcf8cf31d5a7.png)
+
+## 🐈 Model
+
+- Project가 가진 정보를 가지고 있는 모델입니다.
+- 테스트를 위해 Equatable을 채택해주었습니다.
+
+## 🐈 View
+
+- ListVC는 테이블뷰를 가지고 있는 VC입니다.
+- AddDetailVC, EditDetailVC는 DetailVC를 상속받고 있습니다. DetailVC를 둔 이유는 두 VC의 공통된 부분을 하나로 관리하기 위해서입니다.
+- ~~하나의 ViewModel을 사용하기 위해 ListVC, AddDetailVC, EditDetailVC에 생성자 주입을 해주었습니다.~~
+    
+    → 각 VC는 하나의 ViewModel만 가져야 한다는 피드백을 받고 ListVC, AddDetailVC, EditDetailVC가 각각 ListVM, AddDetailVM, EditDetailVM을 가지도록 수정해주었습니다.
+    
+## 🐈 ViewModel
+
+### ListViewModel
+
+- project 배열을 가지고 있습니다.
+- UseCase를 가지고 있으며 UseCase가 Repository를 통해 가져온 데이터를 View에 보여줄 데이터로 변환해주는 역할을 합니다.
+- 바인딩을 위해 클로저를 가지고 있으며 View에서 요청이 들어오면 서버단의 데이터까지 업데이트한 후 클로저에 정의한 작업을 수행하게 하였습니다.
+- tableViewDataSource를 채택하고 있습니다. 가지고 있는 데이터를 통해 tableView에 데이터를 뿌려줍니다.
+- AddDetailViewModel, EditDetailViewModel을 생성하는 메서드를 가지고 있습니다.
+
+### EditDetailViewModel
+
+- 수정할 project만 가지고 있습니다.
+- 바인딩을 위한 클로저를 가지며 Done버튼 터치시 클로저에 정의한 데이터를 업데이트하는 작업을 수행합니다.
+- UseCase를 가지고 있지 않으며 서버에 업데이트할때는 ListViewModel을 거쳐서 전달됩니다.
+
+### AddDetailViewModel
+
+- 바인딩을 위한 클로저를 가지며 Done버튼 터치시 클로저에 정의한 데이터를 추가(업데이트)하는 작업을 수행합니다.
+- UseCase를 가지고 있지 않으며 서버에 업데이트할때는 ListViewModel을 거쳐서 전달됩니다.
+
+## 🐈 UseCase
+
+- 비즈니스 로직이 구현되어 있는 곳입니다.
+- Repository를 가지고 있으며 viewModel과 연관이 없어 테스트하기 용이하고, 실제로 해당 UseCase 테스트를 진행하였습니다.
+
+## 🐈 Repository
+
+- Repository는 Key로 ID, Value로 Project타입을 가진 딕셔너리를 가지고 있습니다. (Entity)
+- Local, Remote 저장소에 특정 작업을 요청하는 곳이며, 현재는 변수에 저장하는 식으로 구현이 되어있습니다. (구현 예정)
+- 해당 클래스를 추상화하고 Mock을 만들어 변수에 가짜 데이터를 넘겨주고, 비즈니스 로직을 테스트할 수 있도록 하였습니다. (네트워킹을 하지 않는 테스트)
+
+## 🐈 Unidirectional Data Flow
+
+크게 세가지의 데이터 전달 로직을 구현하였습니다.
+
+1. 테이블 뷰 셀 터치시 상세화면 모달로 이동 
+    - ListVC에서 테이블 뷰 셀 클릭시 DetailVC로 데이터 전달: 클로저 활용
+        - ListVC에서 ListVM이 가진 onCellSelected 클로저 정의
+        - 셀이 선택되면 호출되는 didSelectRowAt 메서드에서 파라미터로 선택된 인덱스와, 테이블뷰를 받는 viewModel의 didselectRow메서드를 호출
+        - didSelectRow 메서드에서는 tableView가 가진 State를 통해 분기 처리, 이후 분기하여 나온 데이터 집합을 파라미터로 받은 인덱스를 통해 특정 데이터를 꺼내주고, 해당 데이터와 인덱스를 onCellSelected의 파라미터로 넣어준 뒤 호출
+        - 호출시 이전에 정의해놓은 작업(DetailVC Present)이 실행
+        
+        <코드>
+        
+        - ViewModel
+        
+        ```swift
+        var onCellSelected: ((Int, Project) -> Void)? // 선언부
+        
+        private func retrieveSelectedData(indexPath: IndexPath, state: ProjectState) -> Project? {
+            var selectedProject: Project?
+            switch state {
+            case .todo:
+                selectedProject = todoProjects[indexPath.row]
+            case .doing:
+                selectedProject = doingProjects[indexPath.row]
+            case .done:
+                selectedProject = doneProjects[indexPath.row]
+            }
+            
+            return selectedProject
+        }
+        
+        func didSelectRow(index: IndexPath, tableView: UITableView) {
+            guard let selectedProject = retrieveSelectedData(index: index, tableView: tableView) else {
+                return
+            }
+            onCellSelected?(indexPath, selectedProject) //실행부
+        }
+        ```
+        
+        - ListVC
+        
+        configureBind 메서드에서 셀이 선택될때 EditVC에 선택된 모델을 전달하며 화면을 present하는 로직 정의 
+        
+        ```swift
+        // 정의부
+        func configureBind() {
+            viewModel.tableViews = tableViews
+            viewModel.fetchAll()
+            
+            viewModel?.onCellSelected = { [weak self] indexPath, project in
+                guard let self = self, let viewModel = self.viewModel else {
+                    return
+                }
+                let editProjectDetailViewModel = viewModel.createEditDetailViewModel(indexPath: indexPath, state: project.state)
+                let editViewController = EditProjectDetailViewController(viewModel: editProjectDetailViewModel, delegate: self)
+                let destinationViewController = UINavigationController(rootViewController: editViewController)
+                destinationViewController.modalPresentationStyle = .formSheet
+                self.present(destinationViewController, animated: true, completion: nil)
+            }
+            
+            viewModel.onUpdated = {
+                self.tableViews.forEach {
+                    $0.reloadData()
+                }
+            }
+        }
+        
+        // didSelectRowAt
+        func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+            viewModel.didSelectRow(index: indexPath, tableView: tableView)
+        }
+        ```
+        
+2. 상세화면에서 수정 완료시 서버에 업데이트
+3. 상세화면이 dismiss되면 서버에서 데이터를 다시 가져와서 테이블 뷰에 데이터 업데이트
+    - EditDetailVC에서 Done 버튼 클릭시 ListVC를 업데이트: 클로저 활용
+        - DetailViewController에서 Project를 수정한 후 Done이 눌리면 뷰가 dismiss되며 EditDetailViewModel에 주입된 Project를 수정했습니다.
+        
+        ```swift
+        self.dismiss(animated: true) {
+            self.updateListView()
+        }
+        
+        private func updateListView() {
+            guard let currentProject = viewModel?.currentProject else {
+                return
+            }
+            let updatedProject = self.updatedViewData(with: currentProject)
+            viewModel?.didTapDoneButton(updatedProject)
+        }
+        
+        func updatedViewData(with oldProject: Project) -> Project {
+            return Project(
+                id: oldProject.id,
+                state: oldProject.state,
+                title: projectDetailView.titleTextField.text ?? "",
+                body: projectDetailView.bodyTextView.text ?? "",
+                date: projectDetailView.datePicker.date)
+        }
+        ```
+        
+        - 수정된 Project를 EditDetailViewModel의 didTapDoneButton 메서드에 넣어준 뒤 해당Project를 이용해 클로저 호출했습니다.
+        
+        ```swift
+        func didTapDoneButton(_ project: Project) { 
+            onUpdated?(project) // 클로저 호출부
+        }
+        
+        viewModel?.onUpdated = { project in // 클로저 구현부
+            self.delegate?.didUpdateProject(project)
+        }
+        ```
+        
+        - delegate 패턴을 활용하여 ListViewController의 delegate 메서드 호출했습니다.
+        
+        ```swift
+        func didUpdateProject(_ project: Project) {
+            viewModel?.update(project, state: nil)
+        }
+        ```
+        
+        - ListViewModel이 가진 모델 업데이트시 서버의 데이터까지 업데이트 후 refatch 됩니다.
+        
+
+AddDetailVC, EditDetailVC 에서 할일 추가나 수정이 될때 ListVC에 바로 데이터를 전달하는 것이 아니라
+
+ViewModel → UseCase → Repository → Server 에 업데이트하고 
+
+ListVC는 Server에 업데이트된 정보를 다시 가져와서 뷰에 보여주는 방식으로 구조를 설계했습니다. 
+
+## 🐈 의존성 역전
+
+- repository, useCase, viewModel 의존성 주입 SceneDelegate에서 처리
+- viewModel에게 tableViews를 주입해주는 작업은 ListVC에서 처리
+- ListVC에서 ListVC가 가진 ListVM을 통해 AddDetailVC, EditDetailVC에 각각의 viewModel을 주입해주는 작업 처리
+
+# 🐈 고민했던 부분
+
+### View에서 화면의 데이터를 반환하는 메서드를 정의하여도 괜찮을까?
+
+크게 문제는 없어 보이지만, 뷰의 역할은 화면을 그리는 역할이기때문에 화면 뷰 요소에 담긴 데이터를 모델 형식으로 반환하는 메서드를 ProjectDetailView → ProjectDetailViewController로 위치 이동
+
+```swift
+func createViewData() -> Project {
+    return Project(
+        id: UUID(),
+        state: .todo,
+        title: projectDetailView.titleTextField.text ?? "",
+        body: projectDetailView.bodyTextView.text ?? "",
+        date: projectDetailView.datePicker.date)
+}
+
+func updatedViewData(with oldProject: Project) -> Project {
+    return Project(
+        id: oldProject.id,
+        state: oldProject.state,
+        title: projectDetailView.titleTextField.text ?? "",
+        body: projectDetailView.bodyTextView.text ?? "",
+        date: projectDetailView.datePicker.date)
+}
+```
+
+### ViewModel에 뷰 요소가 있어도 될까?
+
+기존에는 UITableViewDataSource를 채택하고있는 viewModel이 특정 tableView를 업데이트하거나, 삭제하는 작업을 할 때 어떤 tableView에서 업데이트, 삭제하는지 분기처리를 해줘야하기때문에 viewModel에 tableView를 프로퍼티 주입을 해주었습니다.
+
+그러나 뷰모델이 최대한 뷰요소를 알지 못하게 하는 것이 나은 방향이라고 생각하여 tableView의 State만 주입해주는 방식으로 변경했습니다.  
+
+```swift
+class ProjectListTableView: UITableView {
+    var state: State
+
+    init(state: State) {
+        self.state = state
+        super.init(frame: .zero, style: .plain)
+        configureUI()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+```
+
+### required init fatal error 제거
+
+`fatalError`가 발생하는 코드블럭이 당장 실행될 일이 없어도, 향후 코드를 쌓다보면 `fatalError`가 많아질 수 있고, 그로 인해 큰 파장을 갖고올 수 있기때문에 절대 옳지않다라고 판단
+
+그래서 이를 해결하기위해 이니셜라이저로 받는 프로퍼티를 옵셔널로 둬 required init에서 다시 초기화해야되는 상황을 막고, `fatalError`를 `super.init(coder: coder)` 으로 변경
+
+```swift
+class ProjectListViewController: UIViewController {
+    private var viewModel: ProjectViewModelProtocol
+
+    init(viewModel: ProjectViewModelProtocol) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+
+		required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+```
+
+```swift
+class ProjectListViewController: UIViewController {
+    private var viewModel: ProjectViewModelProtocol?
+
+    init(viewModel: ProjectViewModelProtocol) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+}
+```
+
+### ViewModel이 여러 ViewController에게 공유되어도 될까?
+
+원래는 할일 목록을 가진 ListVC와 할일 상세화면을 가진 AddVC, EditVC는 모두 하나의 뷰모델을 공유하고 있도록 구현하였습니다. 그 이유는 세 뷰컨 모두 보여주는 데이터가 크게 다르지 않다고 생각해서였습니다.
+
+그러나, 뷰모델이 공유되면 안되는 이유로는 예상치 못한 부수효과가 생길수도 있고, 나중에 코드를 보는 사람이 뷰모델이 어느 뷰컨에 해당하는지 혼란이 올 수도 있다고 생각했습니다.
+
+각 VC는 하나의 ViewModel만 가져야 한다는 피드백을 받고 ListVC, AddDetailVC, EditDetailVC가 각각 ListVM, AddDetailVM, EditDetailVM을 가지도록 수정해주었습니다.
+
+# 우리의 고민 흔적들...🐈 🐈 🐈 🐈 
+
+![image](https://user-images.githubusercontent.com/70251136/158818261-3bf0c1c0-8cf2-4a35-ace3-5d91b1a07afa.png)
+
+![image](https://user-images.githubusercontent.com/70251136/158818301-b5c3d1bb-4e1f-4f6a-aaa0-4fd4b9725a29.png)
+
+![image](https://user-images.githubusercontent.com/70251136/158818339-24f1cb6d-6ff6-474b-bafe-a1dd53cc5370.png)
+

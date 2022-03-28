@@ -1,32 +1,33 @@
 import Foundation
+import RxSwift
+import RxRelay
 
 protocol ProjectUseCaseProtocol {
-    func fetch(with id: UUID) -> Project
-    func fetchAll() -> [Project]
+    func fetch(with id: UUID) -> Project?
+    func bindProjects() -> Observable<[Project]>
     func append(_ project: Project)
     func update(_ project: Project, to state: ProjectState?)
     func delete(_ project: Project)
 }
 
 final class ProjectUseCase: ProjectUseCaseProtocol {
+    let disposeBag = DisposeBag()
     let projectRepository: ProjectRepositoryProtocol
     
     init(repository: ProjectRepositoryProtocol) {
         self.projectRepository = repository
     }
 
-    func fetchAll() -> [Project] {
-        return projectRepository.fetchAll()
-            .map { $0.value }
-            .sorted { $0.date > $1.date }
+    func bindProjects() -> Observable<[Project]> {
+        return projectRepository.bindProjects()
+            .map {
+                $0.map { $0.value }
+                .sorted { $0.date > $1.date }
+            }
     }
     
-    func fetch(with id: UUID) -> Project {
-        let fetchedData = projectRepository.fetchAll()
-        
-        return fetchedData
-            .map { $0.value }
-            .filter{ $0.id == id }.first!
+    func fetch(with id: UUID) -> Project? {
+        return projectRepository.bindProjects().value[id]
     }
     
     func append(_ project: Project) {
@@ -34,7 +35,9 @@ final class ProjectUseCase: ProjectUseCaseProtocol {
     }
     
     func update(_ project: Project, to state: ProjectState?) {
-        let oldProject = fetch(with: project.id)
+        guard let oldProject = fetch(with: project.id) else {
+            return
+        }
         var newProject = oldProject
         
         if let updatedState = state {

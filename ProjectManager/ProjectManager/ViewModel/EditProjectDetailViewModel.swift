@@ -1,14 +1,34 @@
 import Foundation
+import RxSwift
 
-class EditProjectDetailViewModel {
-    var currentProject: Project
-    var onUpdated: ((Project) -> Void)?
+class EditProjectDetailViewModel: ViewModelType {
+    struct Input {
+        let didTapDoneButton: Observable<Bool>
+    }
     
-    init(currentProject: Project) {
+    struct Output {
+    
+    }
+    
+    let usecase: ProjectUseCaseProtocol
+    let disposeBag = DisposeBag()
+    var currentProject: Project
+    
+    init(usecase: ProjectUseCaseProtocol, currentProject: Project) {
+        self.usecase = usecase
         self.currentProject = currentProject
     }
     
-    func didTapDoneButton(_ project: Project) {
-        onUpdated?(project)
+    func transform(input: Input) -> Output {
+        input.didTapDoneButton
+            .subscribe(onNext: { [weak self] value in
+                if value == false {
+                    self?.usecase.update(self?.currentProject ?? Project(id: UUID(), state: .todo, title: "", body: "", date: Date()), to: nil)
+                }
+                
+            }).disposed(by: disposeBag)
+        
+        let output = Output()
+        return output
     }
 }

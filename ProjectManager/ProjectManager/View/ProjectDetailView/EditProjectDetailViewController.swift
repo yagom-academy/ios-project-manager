@@ -1,18 +1,18 @@
 import UIKit
-
-protocol ProjectDetailViewControllerDelegate: AnyObject {
-    func didUpdateProject(_ project: Project)
-    func didAppendProject(_ project: Project)
-}
+import RxSwift
 
 final class EditProjectDetailViewController: ProjectDetailViewController {
-    weak var delegate: ProjectDetailViewControllerDelegate?
+    private let disposeBag = DisposeBag()
     var viewModel: EditProjectDetailViewModel?
-
-    init(viewModel: EditProjectDetailViewModel, delegate: ProjectDetailViewControllerDelegate) {
+    
+    private let cancelButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(barButtonSystemItem: .cancel, target: EditProjectDetailViewController.self, action: nil)
+        return button
+    }()
+    
+    init(viewModel: EditProjectDetailViewModel) {
         super.init(nibName: nil, bundle: nil)
         self.viewModel = viewModel
-        self.delegate = delegate
     }
     
     required init?(coder: NSCoder) {
@@ -24,45 +24,56 @@ final class EditProjectDetailViewController: ProjectDetailViewController {
         populateView(with: viewModel?.currentProject)
         configureNavigationBar()
         projectDetailView.setEditingMode(to: false)
-        
-        viewModel?.onUpdated = { project in
-            self.delegate?.didUpdateProject(project)
-        }
+        configureBind()
     }
     
     private func configureNavigationBar() {
         self.navigationItem.title = TitleText.navigationBarTitle
         navigationItem.rightBarButtonItem = editButtonItem
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(didTapCancelButton))
+        navigationItem.leftBarButtonItem = cancelButton
         navigationController?.navigationBar.backgroundColor = .systemGray6
     }
     
-    override func setEditing(_ editing: Bool, animated: Bool) {
-        super.setEditing(editing, animated: animated)
-        if editing {
+    private func configureBind() {
+        let didTapButtonObservable = editButtonItem.rx.tap
+            .do(onNext: { [weak self] in self?.toggleEditMode() })
+            .scan(false) { lastState, _ in
+                !lastState
+            }
+            .asObservable()
+        
+        cancelButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                self?.dismiss(animated: true)
+            }).disposed(by: disposeBag)
+        
+        let input = EditProjectDetailViewModel.Input(didTapDoneButton: didTapButtonObservable)
+        
+        _ = viewModel?.transform(input: input)
+    }
+    
+    private func toggleEditMode() {
+        if !isEditing {
             projectDetailView.setEditingMode(to: true)
+            isEditing = true
         } else {
             projectDetailView.setEditingMode(to: false)
-            self.dismiss(animated: true) {
-                self.updateListView()
-            }
+            isEditing = false
+            self.updateCurrentProject()
+            self.dismiss(animated: true)
         }
     }
     
-    private func updateListView() {
+    private func populateView(with data: Project?) {
+        projectDetailView.populateData(with: data)
+    }
+    
+    private func updateCurrentProject() {
         guard let currentProject = viewModel?.currentProject else {
             return
         }
         let updatedProject = self.updatedViewData(with: currentProject)
-        viewModel?.didTapDoneButton(updatedProject)
-    }
-    
-    @objc private func didTapCancelButton() {
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    func populateView(with data: Project?) {
-        projectDetailView.populateData(with: data)
+        viewModel?.currentProject = updatedProject
     }
 }
 
@@ -73,3 +84,4 @@ private extension EditProjectDetailViewController {
         static let navigationBarTitle = "TODO"
     }
 }
+

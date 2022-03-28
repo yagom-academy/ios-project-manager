@@ -1,13 +1,22 @@
 import UIKit
+import RxCocoa
+import RxSwift
 
 final class ProjectListViewController: UIViewController {
     // MARK: - Property
     
-    private let todoTableView = ProjectListTableView(state: .todo)
-    private let doingTableView = ProjectListTableView(state: .doing)
-    private let doneTableView = ProjectListTableView(state: .done)
-    private var viewModel: ProjectListViewModelProtocol?
-    private lazy var tableViews = [todoTableView, doingTableView, doneTableView]
+    private let todoTableView = ProjectListTableView()
+    private let doingTableView = ProjectListTableView()
+    private let doneTableView = ProjectListTableView()
+    private lazy var tableViews: [ProjectListTableView] = [todoTableView, doingTableView, doneTableView]
+    private let headerViews = [ProjectListTableHeaderView(), ProjectListTableHeaderView(), ProjectListTableHeaderView()]
+    private let longPressGestureRecognizers = [UILongPressGestureRecognizer(target: ProjectListViewController.self, action: nil),
+                                               UILongPressGestureRecognizer(target: ProjectListViewController.self, action: nil),
+                                               UILongPressGestureRecognizer(target: ProjectListViewController.self, action: nil)]
+    private let changeStateList: [[ProjectState]] = [[.doing, .done], [.todo, .done], [.todo, .doing]]
+    
+    private let disposeBag = DisposeBag()
+    private var viewModel: ProjectListViewModel?
     
     private let entireStackView: UIStackView = {
         let stackView = UIStackView()
@@ -19,7 +28,12 @@ final class ProjectListViewController: UIViewController {
         return stackView
     }()
     
-    init(viewModel: ProjectListViewModelProtocol) {
+    private let addButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(barButtonSystemItem: .add, target: ProjectListViewController.self, action: nil)
+        return button
+    }()
+    
+    init(viewModel: ProjectListViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -34,8 +48,11 @@ final class ProjectListViewController: UIViewController {
         super.viewDidLoad()
         configureUI()
         configureTableView()
-        configureBind()
         configureLongPressGesture()
+        configureBind()
+        cofigureNavigationItemBind()
+        configureTableViewBind()
+        configureGestureBind()
     }
     
     private func configureUI() {
@@ -48,19 +65,118 @@ final class ProjectListViewController: UIViewController {
     private func configureNavigationBar() {
         self.navigationController?.isToolbarHidden = false
         self.navigationItem.title = TitleText.navigationBarTitle
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAddProjectButton))
+        self.navigationItem.rightBarButtonItem = addButton
     }
     
-    @objc private func didTapAddProjectButton() {
-        guard let viewModel = viewModel else {
-            return
-        }
-        let addProjectDetailViewModel = viewModel.createAddDetailViewModel()
-        let viewController = AddProjectDetailViewController(viewModel: addProjectDetailViewModel, delegate: self)
-        let destinationViewController = UINavigationController(rootViewController: viewController)
+    private func configureBind() {
+        let input = ProjectListViewModel.Input()
+        
+        let output = self.viewModel?.transform(input: input)
+        
+        output?.todoProjects
+            .do(onNext: { [weak self] in
+                (self?.todoTableView.tableHeaderView as? ProjectListTableHeaderView)?.populateData(title: $0.first?.state.title ?? "TODO",  count: $0.count)
+            })
+            .asDriver(onErrorJustReturn: [])
+            .drive(
+                todoTableView.rx.items(
+                    cellIdentifier: String(describing: ProjectListTableViewCell.self),
+                    cellType: ProjectListTableViewCell.self)
+            ) { _, item, cell in
+                guard let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date()) else { return }
+                if item.date < yesterday {
+                    cell.populateDataWithDate(title: item.title, body: item.body, date: item.date)
+                } else {
+                    cell.populateData(title: item.title, body: item.body, date: item.date)
+                }
+            }.disposed(by: disposeBag)
 
-        destinationViewController.modalPresentationStyle = .formSheet
-        present(destinationViewController, animated: true, completion: nil)
+        output?.doingProjects
+            .do(onNext: { [weak self] in
+                (self?.doingTableView.tableHeaderView as? ProjectListTableHeaderView)?.populateData(title: $0.first?.state.title ?? "DOING", count: $0.count)
+            })
+            .asDriver(onErrorJustReturn: [])
+            .drive(
+                doingTableView.rx.items(
+                    cellIdentifier: String(describing: ProjectListTableViewCell.self),
+                    cellType: ProjectListTableViewCell.self)
+            ) { _, item, cell in
+                guard let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date()) else { return }
+                if item.date < yesterday {
+                    cell.populateDataWithDate(title: item.title, body: item.body, date: item.date)
+                } else {
+                    cell.populateData(title: item.title, body: item.body, date: item.date)
+                }
+            }.disposed(by: disposeBag)
+
+        output?.doneProjects
+            .do(onNext: { [weak self] in
+                (self?.doneTableView.tableHeaderView as? ProjectListTableHeaderView)?.populateData(title: $0.first?.state.title ?? "DONE", count: $0.count)
+            })
+            .asDriver(onErrorJustReturn: [])
+            .drive(
+                doneTableView.rx.items(
+                    cellIdentifier: String(describing: ProjectListTableViewCell.self),
+                    cellType: ProjectListTableViewCell.self)
+            ) { _, item, cell in
+                guard let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date()) else { return }
+                if item.date < yesterday {
+                    cell.populateDataWithDate(title: item.title, body: item.body, date: item.date)
+                } else {
+                    cell.populateData(title: item.title, body: item.body, date: item.date)
+                }
+            }.disposed(by: disposeBag)
+    }
+    
+    private func cofigureNavigationItemBind() {
+        addButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                guard let viewModel = self?.viewModel else {
+                    return
+                }
+                let addProjectDetailViewModel = viewModel.createAddDetailViewModel()
+                let viewController = AddProjectDetailViewController(viewModel: addProjectDetailViewModel)
+                let destinationViewController = UINavigationController(rootViewController: viewController)
+
+                destinationViewController.modalPresentationStyle = .formSheet
+                self?.present(destinationViewController, animated: true, completion: nil)
+            }).disposed(by: disposeBag)
+    }
+    
+    private func configureTableViewBind() {
+        tableViews.forEach {
+            $0.rx.modelSelected(Project.self)
+                .subscribe(onNext: { [weak self] project in
+                    guard let viewModel = self?.viewModel else {
+                        return
+                    }
+                    let editProjectDetailViewModel = viewModel.createEditDetailViewModel(with: project)
+                    let viewController = EditProjectDetailViewController(viewModel: editProjectDetailViewModel)
+                    let destinationViewController = UINavigationController(rootViewController: viewController)
+                    
+                    destinationViewController.modalPresentationStyle = .formSheet
+                    self?.present(destinationViewController, animated: true, completion: nil)
+                }).disposed(by: disposeBag)
+        }
+        
+        tableViews.forEach {
+            $0.rx.modelDeleted(Project.self)
+                .subscribe(onNext: { [weak self] project in
+                    self?.viewModel?.delete(project: project)
+                }).disposed(by: disposeBag)
+        }
+    }
+    
+    private func configureGestureBind() {
+        longPressGestureRecognizers.enumerated().forEach { index, gesture in
+            gesture.rx.event
+                .subscribe(onNext: { [weak self] event in
+                    guard let stateToChange = self?.changeStateList[safe: index] else{
+                        return
+                    }
+                    self?.handleLongPressGesture(event, moveTo: stateToChange)
+                }).disposed(by: disposeBag)
+        }
     }
     
     private func configureEntireStackView() {
@@ -80,85 +196,62 @@ final class ProjectListViewController: UIViewController {
     }
     
     private func configureTableView() {
-        tableViews.forEach {
-            $0.delegate = self
-            $0.dataSource = viewModel
-            
+        tableViews.enumerated().forEach { index, tableView in
+            tableView.tableHeaderView = headerViews[safe: index]
+            tableView.tableHeaderView?.frame.size.height = Design.tableViewHeightForHeaderInSection
             if #available(iOS 15, *) {
-                $0.sectionHeaderTopPadding = Design.tableViewSectionHeaderTopPadding
-            }
-        }
-    }
-    
-    private func configureBind() {
-        viewModel?.fetchAll()
-        
-        viewModel?.onCellSelected = { [weak self] indexPath, project in
-            guard let self = self, let viewModel = self.viewModel else {
-                return
-            }
-            let editProjectDetailViewModel = viewModel.createEditDetailViewModel(indexPath: indexPath, state: project.state)
-            let editViewController = EditProjectDetailViewController(viewModel: editProjectDetailViewModel, delegate: self)
-            let destinationViewController = UINavigationController(rootViewController: editViewController)
-            destinationViewController.modalPresentationStyle = .formSheet
-            self.present(destinationViewController, animated: true, completion: nil)
-        }
-        
-        viewModel?.onUpdated = {
-            self.tableViews.forEach {
-                $0.reloadData()
+                tableView.sectionHeaderTopPadding = Design.tableViewSectionHeaderTopPadding
             }
         }
     }
     
     private func configureLongPressGesture() {
-        let todoLongPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(handleTodoLongPressGesture))
-        let doingLongPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(handleDoingLongPressGesture))
-        let doneLongPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(handleDoneLongPressGesture))
-
-        todoTableView.addGestureRecognizer(todoLongPressRecognizer)
-        doingTableView.addGestureRecognizer(doingLongPressRecognizer)
-        doneTableView.addGestureRecognizer(doneLongPressRecognizer)
-    }
-    
-    @objc private func handleTodoLongPressGesture(sender: UILongPressGestureRecognizer) {
-        handleLongPressGesture(sender, tableView: todoTableView, moveTo: [.doing, .done])
-    }
-    
-    @objc private func handleDoingLongPressGesture(sender: UILongPressGestureRecognizer) {
-        handleLongPressGesture(sender, tableView: doingTableView, moveTo: [.todo, .done])
-    }
-    
-    @objc private func handleDoneLongPressGesture(sender: UILongPressGestureRecognizer) {
-        handleLongPressGesture(sender, tableView: doneTableView, moveTo: [.todo, .doing])
-    }
-    
-    private func handleLongPressGesture(_ sender: UILongPressGestureRecognizer, tableView: UITableView, moveTo state: [ProjectState]) {
-        if sender.state == .began {
-            let touchPoint = sender.location(in: tableView)
-
-            if let indexPath = tableView.indexPathForRow(at: touchPoint) {
-                guard let alert = createAlert(for: tableView, on: indexPath, moveTo: state) else {
-                    return
-                }
-                present(alert, animated: true)
+        tableViews.enumerated().forEach { index, tableView in
+            guard let gesture = longPressGestureRecognizers[safe: index] else {
+                return
             }
+            tableView.addGestureRecognizer(gesture)
         }
     }
     
-    private func createAlert(for tableView: UITableView, on indexPath: IndexPath, moveTo newState: [ProjectState]) -> UIAlertController? {
-        guard let oldState = ((tableView as? ProjectListTableView)?.state),
-                let firstNewState = newState[safe: 0],
-                let secondNewState = newState[safe: 0] else {
+    private func handleLongPressGesture(_ sender: UILongPressGestureRecognizer, moveTo state: [ProjectState]) {
+        guard let (selectedProject, tableView, indexPath) = self.retrieveLongPressCell(gestureRecognizer: sender),
+              let selectedProject = selectedProject else {
+            return
+        }
+        
+        guard let alert = createAlert(project: selectedProject,tableView: tableView, on: indexPath, moveTo: state) else {
+            return
+        }
+        present(alert, animated: true)
+    }
+    
+    private func retrieveLongPressCell(gestureRecognizer: UILongPressGestureRecognizer) -> (Project?, UITableView, IndexPath)? {
+        guard let tableView = gestureRecognizer.view as? UITableView else {
+            return nil
+        }
+        
+        if gestureRecognizer.state == .began {
+            let touchPoint = gestureRecognizer.location(in: tableView)
+            if let indexPath = tableView.indexPathForRow(at: touchPoint) {
+                return (try? tableView.rx.model(at: indexPath), tableView, indexPath)
+            }
+        }
+        return nil
+    }
+    
+    private func createAlert(project: Project, tableView: UITableView, on indexPath: IndexPath, moveTo newState: [ProjectState]) -> UIAlertController? {
+        guard let firstNewState = newState[safe: 0],
+                let secondNewState = newState[safe: 1] else {
             return nil
         }
         
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let moveToFirstStateAction = UIAlertAction(title: firstNewState.alertActionTitle, style: .default) { _ in
-            self.viewModel?.changeState(from: oldState, to: firstNewState, indexPath: indexPath)
+            self.viewModel?.changeState(from: project, to: firstNewState)
         }
         let moveToSecondStateAction = UIAlertAction(title: secondNewState.alertActionTitle, style: .default) { _ in
-            self.viewModel?.changeState(from: oldState, to: secondNewState, indexPath: indexPath)
+            self.viewModel?.changeState(from: project, to: secondNewState)
         }
         
         alert.addAction(moveToFirstStateAction)
@@ -168,50 +261,6 @@ final class ProjectListViewController: UIViewController {
         alert.popoverPresentationController?.permittedArrowDirections = .up
         
         return alert
-    }
-    
-}
-// MARK: - UITableViewDelegate
-
-extension ProjectListViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return Design.tableViewHeightForHeaderInSection
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let state = (tableView as? ProjectListTableView)?.state else {
-            return UIView()
-        }
-        let numberOfProjects = viewModel?.numberOfProjects(state: state)
-        
-        let headerView = tableView.dequeueReusableHeaderFooterView(withClass: ProjectListTableHeaderView.self)
-        headerView.populateData(title: state.title, count: numberOfProjects ?? .zero)
-        
-        return headerView
-    }
-    
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteAction = UIContextualAction(style: .destructive, title: nil) { _, _, _ in
-            guard let state = (tableView as? ProjectListTableView)?.state else {
-                return
-            }
-            self.viewModel?.delete(indexPath: indexPath, state: state)
-        }
-        
-        deleteAction.image = UIImage(systemName: "trash")
-        
-        return UISwipeActionsConfiguration(actions: [deleteAction])
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let state = (tableView as? ProjectListTableView)?.state else {
-            return
-        }
-        viewModel?.didSelectRow(indexPath: indexPath, state: state)
     }
 }
 
@@ -226,16 +275,6 @@ private extension ProjectListViewController {
         static let entireStackViewSpacing: CGFloat = 8
         static let tableViewSectionHeaderTopPadding: CGFloat = 1
         static let tableViewHeightForHeaderInSection: CGFloat = 50
-    }
-}
-
-extension ProjectListViewController: ProjectDetailViewControllerDelegate {
-    func didUpdateProject(_ project: Project) {
-        viewModel?.update(project, state: nil)
-    }
-    
-    func didAppendProject(_ project: Project) {
-        viewModel?.append(project)
     }
 }
 
