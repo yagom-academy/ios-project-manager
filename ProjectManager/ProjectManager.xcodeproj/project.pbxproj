@@ -21,7 +21,7 @@
 		DE20A0BA27CDCD95004B93AC /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = DE20A0B927CDCD95004B93AC /* .swiftlint.yml */; };
 		DE44BF8827D4A23F006E9010 /* Array+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE44BF8727D4A23F006E9010 /* Array+extension.swift */; };
 		DE5359EF27D097BF00FD7953 /* ProjectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5359EE27D097BF00FD7953 /* ProjectViewModel.swift */; };
-		DE6E42FA27EDFA22007D1B50 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DE6E42F927EDFA22007D1B50 /* GoogleService-Info.plist */; };
+		DE6E42FC27EDFBE1007D1B50 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DE6E42FB27EDFBE1007D1B50 /* GoogleService-Info.plist */; };
 		DE75DC8C27ECC9FC00CA1177 /* ParsedWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE75DC8B27ECC9FC00CA1177 /* ParsedWork.swift */; };
 		DE843A4C27CE616A00F622E2 /* FireBaseWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE843A4B27CE616A00F622E2 /* FireBaseWork.swift */; };
 		DE843A4F27CE641900F622E2 /* DateFormatter+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE843A4E27CE641900F622E2 /* DateFormatter+extension.swift */; };
@@ -76,7 +76,7 @@
 		DE20A0B927CDCD95004B93AC /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		DE44BF8727D4A23F006E9010 /* Array+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+extension.swift"; sourceTree = "<group>"; };
 		DE5359EE27D097BF00FD7953 /* ProjectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectViewModel.swift; sourceTree = "<group>"; };
-		DE6E42F927EDFA22007D1B50 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		DE6E42FB27EDFBE1007D1B50 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DE75DC8B27ECC9FC00CA1177 /* ParsedWork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParsedWork.swift; sourceTree = "<group>"; };
 		DE843A4B27CE616A00F622E2 /* FireBaseWork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireBaseWork.swift; sourceTree = "<group>"; };
 		DE843A4E27CE641900F622E2 /* DateFormatter+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+extension.swift"; sourceTree = "<group>"; };
@@ -138,7 +138,6 @@
 			children = (
 				DE20A0B927CDCD95004B93AC /* .swiftlint.yml */,
 				C7431F0425F51E1D0094C4CF /* ProjectManager */,
-				DE6E42F927EDFA22007D1B50 /* GoogleService-Info.plist */,
 				DE8587AA27CF064200D4F4B7 /* ProjectManagerTests */,
 				C7431F0325F51E1D0094C4CF /* Products */,
 				9F6E49B96E03625328C22965 /* Pods */,
@@ -165,7 +164,7 @@
 				DE843A5327CE6E9500F622E2 /* Protocol */,
 				DE843A4D27CE640500F622E2 /* Extension */,
 				DE5359F127D09A5200FD7953 /* Assets */,
-				DE9EEDCA27EDF0BD0029C0DD /* SupportingFile */,
+				DE9EEDCA27EDF0BD0029C0DD /* SupportingFiles */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
@@ -277,12 +276,13 @@
 			path = Domain;
 			sourceTree = "<group>";
 		};
-		DE9EEDCA27EDF0BD0029C0DD /* SupportingFile */ = {
+		DE9EEDCA27EDF0BD0029C0DD /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
+				DE6E42FB27EDFBE1007D1B50 /* GoogleService-Info.plist */,
 			);
-			path = SupportingFile;
+			path = SupportingFiles;
 			sourceTree = "<group>";
 		};
 		DE9EEDCC27EDF2160029C0DD /* CoreData */ = {
@@ -387,7 +387,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DE20A0BA27CDCD95004B93AC /* .swiftlint.yml in Resources */,
-				DE6E42FA27EDFA22007D1B50 /* GoogleService-Info.plist in Resources */,
+				DE6E42FC27EDFBE1007D1B50 /* GoogleService-Info.plist in Resources */,
 				DE8587BF27CF562200D4F4B7 /* ProjectTableViewCell.xib in Resources */,
 				DE09D31927DA3B4E00B6A9F2 /* ProjectTableViewController.storyboard in Resources */,
 				C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */,

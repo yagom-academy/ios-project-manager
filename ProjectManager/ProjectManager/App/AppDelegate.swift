@@ -11,10 +11,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
-        FirebaseApp.configure()
-        WorkFireBaseManager.shared.fetchAllData()
+        configureFirebase()
         
         return true
+    }
+    
+    private func configureFirebase() {
+        FirebaseApp.configure()
+        WorkFireBaseManager.shared.fetchAllData()
     }
 
     // MARK: UISceneSession Lifecycle
@@ -25,9 +29,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         options: UIScene.ConnectionOptions
     ) -> UISceneConfiguration {
         return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
-    }
-
-    func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
     }
     
 }

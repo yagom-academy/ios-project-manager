@@ -69,7 +69,7 @@ final class ProjectTableViewController: UIViewController {
     }
     
     private func configureSetupPlaceholderObserver(_ output: ProjectTableViewModel.Output) {
-        let placeholder = UILabel(frame: tableView.bounds) // 주인은 없고 사용하는 곳에서 들고 있는 형태 그냥 스토리보드에 만드는 것도 나아보인다. ARC 개념
+        let placeholder = UILabel(frame: tableView.frame) // 주인은 없고 사용하는 곳에서 들고 있는 형태 그냥 스토리보드에 만드는 것도 나아보인다. ARC 개념
         
         configurePlaceHolder(for: placeholder)
         
