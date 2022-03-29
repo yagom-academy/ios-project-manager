@@ -1,7 +1,12 @@
 import CoreData
 
+protocol TaskRepositoryDelegate {
+    func didChangeData(updatedData: [TaskListModel])
+}
+
 protocol TaskRepository {
-    func saveContext()
+    var delegate: TaskRepositoryDelegate? { get set }
+    func saveContext(completed: @escaping (Bool) -> Void)
 
     func create(taskListModel: TaskListModel, completed: @escaping (Bool) -> Void)
     func read(completed: @escaping ([TaskListModel]) -> Void)
@@ -9,7 +14,9 @@ protocol TaskRepository {
     func delete(by id: UUID, completed: @escaping (Bool) -> Void)
 }
 
-final class TaskDataRepository: TaskRepository {
+final class TaskDataRepository: NSObject, TaskRepository, NSFetchedResultsControllerDelegate {
+    var delegate: TaskRepositoryDelegate?
+
     private lazy var persistentContainer: NSPersistentCloudKitContainer = {
         let container = NSPersistentCloudKitContainer(name: "TaskDataModel")
         container.loadPersistentStores(completionHandler: { _, error in
@@ -26,28 +33,18 @@ final class TaskDataRepository: TaskRepository {
         return persistentContainer.viewContext
     }
 
-    private(set) lazy var controller = NSFetchedResultsController(
-        fetchRequest: TaskDataModel.fetchTaskRequest(),
-        managedObjectContext: self.context,
-        sectionNameKeyPath: nil,
-        cacheName: nil)
+    private(set) lazy var controller: NSFetchedResultsController<TaskDataModel> = {
+        let controller = NSFetchedResultsController(fetchRequest: TaskDataModel.fetchTaskRequest(),
+                                                    managedObjectContext: self.context,
+                                                    sectionNameKeyPath: nil,
+                                                    cacheName: nil)
+        controller.delegate = self
+        return controller
+    }()
 
-    var fetchedObjects: [TaskDataModel] { controller.fetchedObjects ?? [] }
+    private var fetchedObjects: [TaskDataModel] { controller.fetchedObjects ?? [] }
 
-    init() {
-        try? controller.performFetch()
-    }
-
-    func save(completed: @escaping (Bool) -> Void) {
-        DispatchQueue.global().async {
-            self.saveContext()
-            DispatchQueue.main.async {
-                completed(true)
-            }
-        }
-    }
-
-    func saveContext() {
+    func saveContext(completed: @escaping (Bool) -> Void) {
         let context = self.persistentContainer.viewContext
         if context.hasChanges {
             do {
@@ -59,38 +56,31 @@ final class TaskDataRepository: TaskRepository {
                 #endif
             }
         }
+        completed(true)
     }
 
     func create(taskListModel: TaskListModel, completed: @escaping (Bool) -> Void) {
-        let taskListModel = TaskListModel(title: taskListModel.title, items: taskListModel.items)
-        let fetchedRequest = TaskDataModel.fetchTaskRequest(with: taskListModel.id)
-        guard fetchedRequest.isNotInclude(input: taskListModel.id) else {
+        guard let entity = NSEntityDescription.entity(forEntityName: "TaskDataModel", in: context) else {
             completed(false)
             return
         }
-
-        guard let entity = NSEntityDescription.entity(forEntityName: "TaskDataModel", in: context) else { return }
         let managedObject = NSManagedObject(entity: entity, insertInto: context)
         setValue(to: managedObject, with: taskListModel)
-        save(completed: completed)
+        saveContext(completed: completed)
     }
 
     func read(completed: @escaping ([TaskListModel]) -> Void) {
-        let convertedEntity = fetchedObjects.compactMap { dataModel in convertToEntity(from: dataModel) }
+        try? controller.performFetch()
+        let convertedEntity = convertToEntities(from: fetchedObjects)
         completed(convertedEntity)
     }
 
     func update(taskListModel: TaskListModel, completed: @escaping (Bool) -> Void) {
         let fetchedRequest = TaskDataModel.fetchTaskRequest(with: taskListModel.id)
-        guard fetchedRequest.isNotInclude(input: taskListModel.id) else {
-            completed(false)
-            return
-        }
-
-        guard let entity = NSEntityDescription.entity(forEntityName: "TaskDataModel", in: context) else { return }
-        let managedObject = NSManagedObject(entity: entity, insertInto: context)
-        setValue(to: managedObject, with: taskListModel)
-        save(completed: completed)
+        let filteredResults = try? context.fetch(fetchedRequest)
+        guard let filteredResult = filteredResults?.first else { return }
+        setValue(to: filteredResult, with: taskListModel)
+        saveContext(completed: completed)
     }
 
     func delete(by id: UUID, completed: @escaping (Bool) -> Void) {
@@ -99,7 +89,6 @@ final class TaskDataRepository: TaskRepository {
             completed(false)
             return
         }
-
         do {
             let filteredResults = try context.fetch(fetchedRequest)
             guard let filteredResult = filteredResults.first else { return }
@@ -108,7 +97,7 @@ final class TaskDataRepository: TaskRepository {
             completed(false)
             return
         }
-        save(completed: completed)
+        saveContext(completed: completed)
     }
 
     private func setValue(to object: NSManagedObject, with taskListModel: TaskListModel) {
@@ -116,7 +105,9 @@ final class TaskDataRepository: TaskRepository {
         [
             "id": taskListModel.id,
             "title": taskListModel.title,
-            "items": taskListModel.items
+            "items": taskListModel.items,
+            "lastModifiedDate": taskListModel.lastModifiedDate,
+            "creationDate": taskListModel.creationDate
         ].forEach { key, value in
             managedObject.setValue(value, forKey: key)
         }
@@ -128,8 +119,21 @@ final class TaskDataRepository: TaskRepository {
             convertedItems.append(TaskModel(title: item.title,
                                             body: item.body,
                                             dueDate: item.dueDate,
-                                            lastModifiedDate: item.lastModifiedDate))
-        }
-        return TaskListModel(id: dataModel.id, title: dataModel.title, items: convertedItems)
+                                            lastModifiedDate: item.lastModifiedDate,
+                                            creationDate: item.creationDate))}
+        return TaskListModel(id: dataModel.id,
+                             title: dataModel.title,
+                             items: convertedItems,
+                             creationDate: dataModel.creationDate)
+    }
+
+    private func convertToEntities(from dataModelArray: [TaskDataModel]) -> [TaskListModel] {
+        return dataModelArray.compactMap { dataModel in convertToEntity(from: dataModel) }
+    }
+}
+
+extension TaskDataRepository {
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        self.delegate?.didChangeData(updatedData: convertToEntities(from: fetchedObjects))
     }
 }
