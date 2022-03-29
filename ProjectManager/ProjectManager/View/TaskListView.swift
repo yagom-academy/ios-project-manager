@@ -2,10 +2,10 @@ import SwiftUI
 
 struct TaskListView: View {
     @EnvironmentObject private var taskListViewModel: TaskListViewModel
-    let progressStatus: Task.ProgressStatus
+    let taskStatus: TaskStatus
     
     fileprivate var taskList: [Task] {
-        switch progressStatus {
+        switch taskStatus {
         case .todo:
             return taskListViewModel.todoTaskList
         case .doing:
@@ -17,19 +17,19 @@ struct TaskListView: View {
     
     var body: some View {
         VStack {
-            TaskListTitleView(progressStatus: progressStatus, taskList: taskList)
+            TaskListTitleView(taskStatus: taskStatus, taskList: taskList)
             TaskListContentView(taskList: taskList)
         }
     }
 }
 
 private struct TaskListTitleView: View {
-    fileprivate let progressStatus: Task.ProgressStatus
+    fileprivate let taskStatus: TaskStatus
     fileprivate let taskList: [Task]
     
     var body: some View {
         HStack {
-            Text("\(progressStatus.name)")
+            Text("\(taskStatus.name)")
                 .font(.title2)
                 .padding(.leading)
             Spacer()
@@ -52,7 +52,11 @@ private struct TaskListContentView: View {
                 TaskListRowView(task: task)
             }
             .onDelete { indexSet in
-                taskListViewModel.deleteTask(taskList[indexSet.index])
+                let task = taskList[indexSet.index]
+                taskListViewModel.deleteTask(id: task.id, title: task.title, taskStatus: task.progressStatus)
+            }
+            .alert(item: $taskListViewModel.errorAlert) { error in
+                Alert(title: Text("Error".localized()), message: Text(error.message))
             }
         }
     }

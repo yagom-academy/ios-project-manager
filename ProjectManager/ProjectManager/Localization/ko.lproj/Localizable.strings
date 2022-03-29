@@ -1,0 +1,28 @@
+// NetworkCheck
+"Network is Not Connected" = "네트워크에 연결되지 않음";
+"It looks like you're not connected to the internet" = "iPhone이 인터넷에 연결되어 있지 않습니다.";
+
+// label, button..
+"Project Manager" = "프로젝트 매니저";
+"Error" = "오류";
+"Edit" = "수정";
+"Cancel" = "취소";
+"Done" = "확인";
+"Histroy" = "변경내역";
+
+// Firebase Error
+"RemoteDB Fetch Failed" = "원격DB 데이터 로드 실패";
+"RemoteDB Create Failed" = "원격DB 데이터 저장 실패";
+"RemoteDB Update Failed" = "원격DB 데이터 업데이트 실패";
+"RemoteDB Delete Failed" = "원격DB 데이터 삭제 실패";
+
+// Realm Error
+"LocalDB Fetch Failed" = "로컬DB 데이터 로드 실패";
+"LocalDB Create Failed" = "로컬DB 데이터 저장 실패";
+"LocalDB Update Failed" = "로컬DB 데이터 업데이트 실패";
+"LocalDB Delete Failed" = "로컬DB 데이터 삭제 실패";
+
+// History
+"Added `%@`." = "[추가] 제목: %@";
+"Moved `%@` from %@ to %@." = "[상태변경] 제목: %@, 변경된내용: %@ -> %@";
+"Removed `%@` from %@." = "[삭제] 제목: %@, 상태: %@";

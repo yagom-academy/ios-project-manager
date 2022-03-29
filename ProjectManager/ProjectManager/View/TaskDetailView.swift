@@ -64,7 +64,7 @@ private struct TaskDetailLeadingButton: View {
                 isShowTaskDetailView = false
             }
         }, label: {
-            taskDetailViewModel.isEditing ? Text("Edit") : Text("Cancel")
+            taskDetailViewModel.isEditing ? Text("Edit".localized()) : Text("Cancel".localized())
         })
     }
 }
@@ -73,7 +73,7 @@ private struct TaskDetailTitleView: View {
     var body: some View {
         Text("TODO")
             .font(.title2)
-            .foregroundColor(.black)
+            .foregroundColor(.primary)
             .bold()
     }
 }
@@ -85,13 +85,14 @@ private struct TaskDetailTrailingButton: View {
     @Binding fileprivate var task: Task
     
     var body: some View {
-        Button("Done") {
+        Button("Done".localized()) {
             if taskDetailViewModel.isEditing {
                 taskListViewModel.updateTask(
                     id: task.id,
                     title: taskDetailViewModel.title,
                     description: taskDetailViewModel.description,
-                    deadline: taskDetailViewModel.deadline)
+                    deadline: taskDetailViewModel.deadline
+                )
             } else {
                 let task = Task(
                     title: taskDetailViewModel.title,
@@ -101,6 +102,9 @@ private struct TaskDetailTrailingButton: View {
                 taskListViewModel.createTask(task)
             }
             isShowTaskDetailView = false
+        }
+        .alert(item: $taskListViewModel.errorAlert) { error in
+            Alert(title: Text("Error".localized()), message: Text(error.message))
         }
     }
 }
@@ -124,7 +128,7 @@ private struct TaskDetailTitleTextField: View {
         TextField("Title", text: $taskDetailViewModel.title)
             .multilineTextAlignment(.leading)
             .textFieldStyle(RoundedBorderTextFieldStyle())
-            .foregroundColor(.black)
+            .foregroundColor(.primary)
             .disabled(taskDetailViewModel.isDisabled)
     }
 }
@@ -145,7 +149,7 @@ private struct TaskDetailDescriptionTextEditor: View {
     var body: some View {
         TextEditor(text: $taskDetailViewModel.description)
             .multilineTextAlignment(.leading)
-            .shadow(radius: 1)
+            .shadow(color: .primary, radius: 1)
             .disabled(taskDetailViewModel.isDisabled)
     }
 }

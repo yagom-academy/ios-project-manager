@@ -1,9 +1,10 @@
 import Foundation
 
 extension TimeInterval {
-    var formattedDate: String {
+    func formatString(dateStyle: DateFormatter.Style = .none, timeStyle: DateFormatter.Style = .none) -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .short
+        dateFormatter.dateStyle = dateStyle
+        dateFormatter.timeStyle = timeStyle
         let localeID = Locale.preferredLanguages.first
         let deviceLocale = Locale(identifier: localeID ?? "ko-kr").languageCode
         dateFormatter.locale = Locale(identifier: deviceLocale ?? "ko-kr")
