@@ -3,7 +3,7 @@ import UIKit
 final class MainCoordinator: Coordinator {
    
     var navigationController: UINavigationController?
-    let currentRepository = RepositoryFactory.assignRepository(repository: RepositoryChecker.currentRepository)
+    let currentRepository = RepositoryFactory.createRepository(repository: RepositoryChecker.currentRepository)
     private lazy var controlUseCase = ProjectControlUseCase(repository: self.currentRepository)
     private lazy var historyUseCase = ProjectHistoryCheckUseCase()
     

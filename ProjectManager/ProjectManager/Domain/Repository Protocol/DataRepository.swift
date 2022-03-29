@@ -4,15 +4,15 @@ import RxRelay
 
 protocol DataRepository {
     
-    var storage: BehaviorRelay<[Listable]> { get set }
+    var storage: BehaviorRelay<[Listable]> { get }
     
     func create(object: Listable)
     
     func read(identifier: String) -> Listable?
     
-    func update(
+    func update(from
         identifier: String,
-        how object: Listable
+        to object: Listable
     ) 
     
     func delete(identifier: String)

@@ -23,7 +23,7 @@ final class ProjectControlUseCase: ListCreateUseCase, ListReadUseCase, ListUpdat
         identifier: String,
         how object: Listable
     )  {
-        self.repository.update(identifier: identifier, how: object)
+        self.repository.update(from: identifier, to: object)
     }
     
     func deleteProject(identifier: String) {

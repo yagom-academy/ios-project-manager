@@ -4,7 +4,7 @@ import RxRelay
 
 protocol HistoryCheckUseCase {
     
-    var rxChangeHistories: BehaviorRelay<[(state: ManageState, identifier: String, object: Listable)]> { get set }
+    var changedHistory: BehaviorRelay<[(state: ManageState, identifier: String, object: Listable)]> { get }
     
     func saveDifference(method: ManageState, identifier: String, object: Listable)
 }

@@ -23,7 +23,7 @@ final class CoredataRepository: DataRepository {
         (list.filter { $0.identifier == identifier }).first
     }
     
-    func update(identifier: String, how object: Listable) {
+    func update(from identifier: String, to object: Listable) {
         let projectToUpdate = (list.filter { $0.identifier == identifier }).first
         
         guard let project = projectToUpdate as? NSManagedObject

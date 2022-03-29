@@ -4,8 +4,7 @@ import UIKit
 
 enum RepositoryFactory {
     
-    static func assignRepository(repository: RepositoryType) -> DataRepository {
-        
+    static func createRepository(repository: RepositoryType) -> DataRepository {
         let defaultCoreDataContext = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
         let defaultFireStore = Firestore.firestore()
         

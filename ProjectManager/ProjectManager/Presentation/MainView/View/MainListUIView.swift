@@ -2,9 +2,24 @@ import UIKit
 
 final class MainListUIView: UIView {
     
-    var todoTableView: UITableView?
-    var doingTableView: UITableView?
-    var doneTableView: UITableView?
+    private var todoTableView: UITableView?
+    private var doingTableView: UITableView?
+    private var doneTableView: UITableView?
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.configureTableViews()
+        self.addViews()
+        self.configureLayout()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
+    func extractTableViews() -> [UITableView] {
+        return [self.todoTableView, self.doingTableView, self.doneTableView].compactMap{ $0 }
+    }
     
     private func tableViewFactory() -> UITableView {
         let tableview = UITableView(frame: .zero)
@@ -25,21 +40,6 @@ final class MainListUIView: UIView {
         
         return stackView
     }()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.configureTableViews()
-        self.addViews()
-        self.configureLayout()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
-    
-    func extractTableViews() -> [UITableView] {
-        return [self.todoTableView, self.doingTableView, self.doneTableView].compactMap{ $0 }
-    }
     
     private func addViews() {
         self.addSubview(stackView)

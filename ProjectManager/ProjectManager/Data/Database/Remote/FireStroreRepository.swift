@@ -28,7 +28,7 @@ final class FireStoreDataBase: DataRepository {
         self.list.filter { $0.identifier == identifier }.first
     }
     
-    func update(identifier: String, how object: Listable)  {
+    func update(from identifier: String, to object: Listable)  {
         let attributes = convertListToAttributes(from: object)
         reference().document(identifier).updateData(attributes) { error in
             if let error = error {

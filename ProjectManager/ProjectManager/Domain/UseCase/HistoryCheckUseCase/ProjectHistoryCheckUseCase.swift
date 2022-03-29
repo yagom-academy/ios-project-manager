@@ -5,7 +5,7 @@ import RxSwift
 final class ProjectHistoryCheckUseCase: HistoryCheckUseCase {
     //TODO: - model을 holding하는 Layer 만들기
     
-    var rxChangeHistories = BehaviorRelay<[(state: ManageState, identifier: String, object: Listable)]>(value: [])
+    var changedHistory = BehaviorRelay<[(state: ManageState, identifier: String, object: Listable)]>(value: [])
     var chageHistory = [(state: ManageState, identifier: String, object: Listable)]()
     //TODO: - repository <model>로 분리 
     

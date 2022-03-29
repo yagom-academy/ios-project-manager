@@ -19,7 +19,7 @@ final class MemoryDataBase: DataRepository {
         return filteredLists.first
     }
     
-    func update(identifier: String, how object: Listable) {
+    func update(from identifier: String, to object: Listable) {
         var lists = self.storage.value
         var indexToUpdate: Int = .zero
         
