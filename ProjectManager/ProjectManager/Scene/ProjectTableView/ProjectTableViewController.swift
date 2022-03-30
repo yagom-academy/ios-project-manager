@@ -4,12 +4,6 @@ import RxCocoa
 
 
 // MARK: - Namespace
-private enum UIName {
-    
-    static let workFormViewStoryboard = "WorkFormView"
-    
-}
-
 private enum Content {
     
     static let swipeDeleteTitle = "Delete"
@@ -131,20 +125,16 @@ final class ProjectTableViewController: UIViewController {
     private func configureDidSelectedObserver(_ output: ProjectTableViewModel.Output) {
         output.showWorkFormViewObserver
             .subscribe(onNext: { [weak self] work in
-                let storyboard = UIStoryboard(name: UIName.workFormViewStoryboard, bundle: nil) // 스토리보드를 쓰면 이 과정을 반복해야 한다. 
-                guard let viewController = storyboard.instantiateViewController(
-                    identifier: String(describing: WorkFormViewController.self)
-                ) as? WorkFormViewController else {
-                    return
-                }
+                let storyboard = UIStoryboard(name: StoryBoard.workForm.name, bundle: nil)
+                let workformViewController = storyboard.instantiate(WorkFormViewController.self)
                 
-                viewController.setup(
+                workformViewController.setup(
                     selectedWork: work,
                     list: self!.viewModel.list
                 )
-                viewController.modalPresentationStyle = .formSheet
+                workformViewController.modalPresentationStyle = .formSheet
 
-                self?.present(viewController, animated: true, completion: nil)
+                self?.present(workformViewController, animated: true, completion: nil)
             })
             .disposed(by: disposeBag)
     }
@@ -156,9 +146,7 @@ final class ProjectTableViewController: UIViewController {
     }
     
     private func registerTableViewCell() {
-        let nib = UINib(nibName: String(describing: ProjectTableViewCell.self), bundle: nil)
-        
-        tableView.register(nib, cellClass: ProjectTableViewCell.self)
+        tableView.register(cellClass: ProjectTableViewCell.self)
     }
     
     private func configureHeader() {

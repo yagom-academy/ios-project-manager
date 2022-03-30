@@ -29,7 +29,6 @@ class WorkCoreDataManager: WorkManagable {
         
         return container
     }()
-    private let disposeBag = DisposeBag()
     
     private var context: NSManagedObjectContext {
         return persistentContainer.viewContext

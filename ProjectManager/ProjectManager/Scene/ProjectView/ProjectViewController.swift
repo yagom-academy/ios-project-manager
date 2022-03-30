@@ -6,7 +6,6 @@ import FirebaseDatabase
 // MARK: - Namespace
 private enum UIName {
     
-    static let workFormViewStoryboard = "WorkFormView"
     static let todoSegue = "todoSegue"
     static let doingSegue = "doingSegue"
     static let doneSegue = "doneSegue"
@@ -72,12 +71,8 @@ final class ProjectViewController: UIViewController {
     
     // MARK: - Methods
     @IBAction private func addNewWork(_ sender: UIBarButtonItem) {
-        let storyboard = UIStoryboard(name: UIName.workFormViewStoryboard, bundle: nil)
-        guard let viewController = storyboard.instantiateViewController(
-            identifier: String(describing: WorkFormViewController.self)
-        ) as? WorkFormViewController else {
-            return
-        }
+        let storyboard = UIStoryboard(name: StoryBoard.workForm.name, bundle: nil)
+        let viewController = storyboard.instantiate(WorkFormViewController.self)
         
         viewController.setup(
             selectedWork: nil,
