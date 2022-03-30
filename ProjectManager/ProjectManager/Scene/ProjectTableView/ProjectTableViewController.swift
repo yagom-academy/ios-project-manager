@@ -67,7 +67,7 @@ final class ProjectTableViewController: UIViewController {
     }
     
     private func configureSetupPlaceholderObserver(_ output: ProjectTableViewModel.Output) {
-        let placeholder = UILabel(frame: tableView.frame) // 주인은 없고 사용하는 곳에서 들고 있는 형태 그냥 스토리보드에 만드는 것도 나아보인다. ARC 개념
+        let placeholder = UILabel(frame: tableView.frame)
         
         configurePlaceHolder(for: placeholder)
         
@@ -83,60 +83,85 @@ final class ProjectTableViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
-    private func configureShowPopoverObserver(_ output: ProjectTableViewModel.Output) { // 왠만하면 최대한 함수를 쪼개는 것이 좋다. 최대한 짧게 정리를 해보자.
+    private func configureShowPopoverObserver(_ output: ProjectTableViewModel.Output) {
         output.showPopoverObserver
             .subscribe(onNext: { [weak self] (cell, work) in
-                let firstTitle: String = {
-                    switch work.categoryTag {
-                    case Work.Category.todo.tag:
-                        return Content.moveDoingTitle
-                    default:
-                        return Content.moveToDoTitle
-                    }
-                }() // 이렇게 변경할 수 있다. var를 경계하자.
+                guard let self = self else { return }
                 
-                var secondTitle: String {
-                    switch work.categoryTag {
-                    case Work.Category.done.tag:
-                        return Content.moveDoingTitle
-                    default:
-                        return Content.moveDoneTitle
-                    }
-                }
+                let (firstTitle, secondTitle) = self.setActionSheetTitle(from: work)
+                let alert = self.makePopover(at: cell, work: work, firstTitle: firstTitle, secondTitle: secondTitle)
                 
-                let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-                
-                let firstAction = UIAlertAction(title: firstTitle, style: .default) { [weak self] _ in
-                    self?.popoverActionObserver.onNext((firstTitle, work))
-                }
-                let secondAction = UIAlertAction(title: secondTitle, style: .default) { [weak self] _ in
-                    self?.popoverActionObserver.onNext((secondTitle, work))
-                }
-
-                alert.addAction(firstAction)
-                alert.addAction(secondAction)
-                alert.popoverPresentationController?.sourceView = cell
-                
-                self?.present(alert, animated: true)
+                self.present(alert, animated: true)
             })
             .disposed(by: disposeBag)
+    }
+    
+    private func setActionSheetTitle(from work: Work) -> (String, String) {
+        let firstTitle: String = {
+            switch work.categoryTag {
+            case Work.Category.todo.tag:
+                return Content.moveDoingTitle
+            default:
+                return Content.moveToDoTitle
+            }
+        }()
+        let secondTitle: String = {
+            switch work.categoryTag {
+            case Work.Category.done.tag:
+                return Content.moveDoingTitle
+            default:
+                return Content.moveDoneTitle
+            }
+        }()
+        
+        return (firstTitle, secondTitle)
+    }
+    
+    private func makePopover(
+        at cell: UITableViewCell,
+        work: Work,
+        firstTitle: String,
+        secondTitle: String
+    ) -> UIAlertController {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        let firstAction = UIAlertAction(title: firstTitle, style: .default) { [weak self] _ in
+            self?.popoverActionObserver.onNext((firstTitle, work))
+        }
+        let secondAction = UIAlertAction(title: secondTitle, style: .default) { [weak self] _ in
+            self?.popoverActionObserver.onNext((secondTitle, work))
+        }
+
+        alert.addAction(firstAction)
+        alert.addAction(secondAction)
+        alert.popoverPresentationController?.sourceView = cell
+        
+        return alert
     }
     
     private func configureDidSelectedObserver(_ output: ProjectTableViewModel.Output) {
         output.showWorkFormViewObserver
             .subscribe(onNext: { [weak self] work in
-                let storyboard = UIStoryboard(name: StoryBoard.workForm.name, bundle: nil)
-                let workformViewController = storyboard.instantiate(WorkFormViewController.self)
+                guard let self = self else { return }
                 
-                workformViewController.setup(
-                    selectedWork: work,
-                    list: self!.viewModel.list
-                )
-                workformViewController.modalPresentationStyle = .formSheet
+                let workFormViewController = self.makeWorkFormViewController(from: work)
 
-                self?.present(workformViewController, animated: true, completion: nil)
+                self.present(workFormViewController, animated: true, completion: nil)
             })
             .disposed(by: disposeBag)
+    }
+    
+    private func makeWorkFormViewController(from work: Work) -> WorkFormViewController {
+        let storyboard = UIStoryboard(name: StoryBoard.workForm.name, bundle: nil)
+        let workFormViewController = storyboard.instantiate(WorkFormViewController.self)
+        
+        workFormViewController.setup(
+            selectedWork: work,
+            list: viewModel.list
+        )
+        workFormViewController.modalPresentationStyle = .formSheet
+        
+        return workFormViewController
     }
     
     private func setupView() {

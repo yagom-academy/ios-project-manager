@@ -2,7 +2,6 @@ import UIKit
 import Firebase
 
 
-// 하나의 씬을 다루는 코드
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     

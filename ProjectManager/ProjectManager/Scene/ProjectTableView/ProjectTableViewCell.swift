@@ -70,7 +70,7 @@ final class ProjectTableViewCell: UITableViewCell {
         dateLabel.text = nil
     }
     
-    override func layoutSubviews() { // 오토레이아웃이 변경되고 끝나면 불리게 된다. 이는 되게 신중하게 써야 한다. -> 변경과 맞물려있는 동작을 넣어줘야 한다. 변경될 때마다 불려야 하는 것이 들어가는 것이 좋다. 
+    override func layoutSubviews() {
         super.layoutSubviews()
         self.contentView.frame = self.contentView.frame.inset(by: UIEdgeInsets(
             top: Design.verticalInset,
