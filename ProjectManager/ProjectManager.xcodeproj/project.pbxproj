@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1828FF6A27E09521008C23EE /* ManageState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1828FF6927E09521008C23EE /* ManageState.swift */; };
-		182C21F427E30D7200694364 /* TableViewHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182C21F327E30D7200694364 /* TableViewHeaderView.swift */; };
+		182C21F427E30D7200694364 /* TableViewHeaderUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182C21F327E30D7200694364 /* TableViewHeaderUIView.swift */; };
 		18688D5227DA4160001A7C7A /* ListUITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18688D5127DA4160001A7C7A /* ListUITableViewCell.swift */; };
 		18688D5527DAF5B2001A7C7A /* ListAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18688D5427DAF5B2001A7C7A /* ListAddViewController.swift */; };
 		18688D5927DC9189001A7C7A /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18688D5827DC9188001A7C7A /* MainCoordinator.swift */; };
@@ -54,7 +54,7 @@
 
 /* Begin PBXFileReference section */
 		1828FF6927E09521008C23EE /* ManageState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageState.swift; sourceTree = "<group>"; };
-		182C21F327E30D7200694364 /* TableViewHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewHeaderView.swift; sourceTree = "<group>"; };
+		182C21F327E30D7200694364 /* TableViewHeaderUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewHeaderUIView.swift; sourceTree = "<group>"; };
 		18688D5127DA4160001A7C7A /* ListUITableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListUITableViewCell.swift; sourceTree = "<group>"; };
 		18688D5427DAF5B2001A7C7A /* ListAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListAddViewController.swift; sourceTree = "<group>"; };
 		18688D5827DC9188001A7C7A /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
@@ -150,7 +150,7 @@
 			children = (
 				18688D5427DAF5B2001A7C7A /* ListAddViewController.swift */,
 				18688D6227DD15ED001A7C7A /* ListDetailUIView.swift */,
-				182C21F327E30D7200694364 /* TableViewHeaderView.swift */,
+				182C21F327E30D7200694364 /* TableViewHeaderUIView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -483,7 +483,7 @@
 				189DD4FA27D1015C00395CF4 /* DataRepository.swift in Sources */,
 				189DD59127D7004F00395CF4 /* ProgressState.swift in Sources */,
 				18D8A16427DFD6B90002351F /* Collection + Extension.swift in Sources */,
-				182C21F427E30D7200694364 /* TableViewHeaderView.swift in Sources */,
+				182C21F427E30D7200694364 /* TableViewHeaderUIView.swift in Sources */,
 				189DD55527D5720300395CF4 /* ControlUseCase.swift in Sources */,
 				18688D5E27DD155B001A7C7A /* ListUpdateViewController.swift in Sources */,
 				1897A42C27E654BE009EDED4 /* ProjectHistoryCheckUseCase.swift in Sources */,

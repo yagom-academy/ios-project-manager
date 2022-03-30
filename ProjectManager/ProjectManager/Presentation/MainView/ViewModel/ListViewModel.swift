@@ -24,7 +24,12 @@ final class ListViewModel {
     }
 
     struct Output {
-        let baseProjects: Observable<[Listable]>
+        let todoProjects: Observable<[Listable]>
+        let doingProjects: Observable<[Listable]>
+        let doneProjects: Observable<[Listable]>
+        let todoCounts: Observable<Int>
+        let doingCounts: Observable<Int>
+        let doneCounts: Observable<Int>
     }
 
     func transform(input: Input, disposeBag: DisposeBag) -> Output {
@@ -52,10 +57,28 @@ final class ListViewModel {
     }
     
     private func createViewModelOutput() -> Output {
-        let k = controlUseCase.extractDataSourceRelay()
-            .map { $0 }
-            .share(replay: 1)
+        let todoProjects = self.controlUseCase.extractDataSourceRelay()
+            .map { lists in
+                lists.filter { $0.progressState == "todo" }
+            }
+        let doingProjects = self.controlUseCase.extractDataSourceRelay()
+            .map { lists in
+                lists.filter { $0.progressState == "doing" }
+            }
+        let doneProjects = self.controlUseCase.extractDataSourceRelay()
+            .map { lists in
+                lists.filter { $0.progressState == "done" }
+            }
+        let todoCounts = todoProjects.map { lists -> Int in
+            lists.count
+        }
+        let doingCounts = doingProjects.map { lists -> Int in
+            lists.count
+        }
+        let doneCounts = doneProjects.map { lists -> Int in
+            lists.count
+        }
         
-        return Output(baseProjects: k)
+        return Output(todoProjects: todoProjects, doingProjects: doingProjects, doneProjects: doneProjects, todoCounts: todoCounts, doingCounts: doingCounts, doneCounts: doneCounts)
     }
 }

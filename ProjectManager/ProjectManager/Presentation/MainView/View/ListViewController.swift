@@ -83,17 +83,36 @@ final class ListViewController: UIViewController {
         
     private func configureOutput(input: ListViewModel.Input) {
         let output = self.viewModel?.transform(input: input, disposeBag: self.disposeBag)
-        let stateWithTableViews = self.zipStateWithTableViews()
+        let tableViews = self.customView.extractTableViews()
+        let listsOutputs = [output?.todoProjects, output?.doingProjects, output?.doneProjects]
+        let numberOutputs = [output?.todoCounts, output?.doingCounts, output?.doneCounts]
+        let listZip = Dictionary(uniqueKeysWithValues: zip(tableViews, listsOutputs))
+        let countZip = Dictionary(uniqueKeysWithValues: zip(tableViews, numberOutputs))
         
-        stateWithTableViews.forEach { zip in
-            output?.baseProjects.map({ lists in
-                lists.filter { $0.progressState.description == zip.key }
-            })
-            .asDriver(onErrorJustReturn: [])
-            .drive(zip.value.rx.items(cellIdentifier: String(describing: ListUITableViewCell.self), cellType: ListUITableViewCell.self)) { index, item , cell in
+        listZip.forEach { tableview, output in
+            output?.asDriver(onErrorJustReturn: [])
+            .drive(tableview.rx.items(cellIdentifier: String(describing: ListUITableViewCell.self), cellType: ListUITableViewCell.self)) { index, item, cell in
                 cell.configureCellUI(data: item)
-            }.disposed(by: disposeBag)
+            }.disposed(by: self.disposeBag)
         }
+        
+        countZip.forEach { tableview, output in
+            output?.subscribe(onNext: { number in
+                tableview.rx.setUpHeaderView()
+                    .onNext(number)
+            }).disposed(by: disposeBag)
+        }
+        
+        
+//        stateWithTableViews.forEach { zip in
+//            output?.baseProjects.map({ lists in
+//                lists.filter { $0.progressState.description == zip.key }
+//            })
+//            .asDriver(onErrorJustReturn: [])
+//            .drive(zip.value.rx.items(cellIdentifier: String(describing: ListUITableViewCell.self), cellType: ListUITableViewCell.self)) { index, item , cell in
+//                cell.configureCellUI(data: item)
+//            }.disposed(by: disposeBag)
+//        }
     }
     
     private func extractRightBarButtonItem() -> UIBarButtonItem {
@@ -115,3 +134,11 @@ final class ListViewController: UIViewController {
     }
 }
 
+private extension Reactive where Base: UITableView {
+    
+    func setUpHeaderView() -> Binder<Int> {
+        return Binder(self.base) { tableview, Int in
+            (tableview.tableHeaderView as! TableViewHeaderUIView).configureCount(Int)
+        }
+    }
+}

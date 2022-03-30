@@ -11,6 +11,7 @@ final class MainListUIView: UIView {
         self.configureTableViews()
         self.addViews()
         self.configureLayout()
+        self.setUpHeaderView()
     }
     
     required init?(coder: NSCoder) {
@@ -61,5 +62,14 @@ final class MainListUIView: UIView {
             self.stackView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 10),
             self.stackView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor)
         ])
+    }
+    
+    private func setUpHeaderView() {
+        let tableViews = self.extractTableViews()
+        tableViews.forEach { tableview in
+            let headerView = TableViewHeaderUIView(frame: CGRect(x: 0, y: 0, width: tableview.frame.width - 10, height: 60))
+            headerView.backgroundColor = .brown
+            tableview.tableHeaderView = headerView
+        }
     }
 }
