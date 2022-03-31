@@ -8,7 +8,7 @@ final class ListViewController: UIViewController {
     var viewModel: ListViewModel?
     private let disposeBag = DisposeBag()
     private var customView = MainListUIView()
-
+    private let popoverView = popoverUIView()
     // MARK: - lifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,22 +24,39 @@ final class ListViewController: UIViewController {
     private func configureLongPressGesture() {
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress))
         longPressGesture.minimumPressDuration = 1.0
-        let tableviews = zipStateWithTableViews().values
+        let tableviews = customView.extractTableViews()
         tableviews.forEach { tableview in
             tableview.addGestureRecognizer(longPressGesture)
         }
     }
     
     @objc
-    func handleLongPress(_ gestureRecognizer: UILongPressGestureRecognizer) {
-        zipStateWithTableViews().values.forEach { tableview in
+    func handleLongPress(_ gestureRecognizer: UILongPressGestureRecognizer) { // 팝오버를 띄워줄 위치 , 정보를 받는다. 
+        guard let tableView = gestureRecognizer.view as? UITableView
+        else {
+            return
+        }
+       
         if gestureRecognizer.state == .began {
-            let touchPoint = gestureRecognizer.location(in: tableview)
-            if tableview.indexPathForRow(at: touchPoint) != nil {
-                
-            }
-          }
-       }
+            let touchPoint = gestureRecognizer.location(in: tableView)
+            
+        }
+       
+    }
+
+    private func presentPopOver(at view: UIView) {
+        let popoverViewController: UIViewController = {
+            let popOver = UIViewController()
+            popOver.view = self.popoverView
+            popOver.modalPresentationStyle = .popover
+            popOver.preferredContentSize = CGSize(width: 200, height: 100)
+            popOver.popoverPresentationController?.permittedArrowDirections = [.up, .down]
+            popOver.popoverPresentationController?.sourceView = view
+            
+            return popOver
+        }()
+        
+        self.present(popoverViewController, animated: false)
     }
 
     private func configureMainView() {
@@ -69,13 +86,15 @@ final class ListViewController: UIViewController {
     
     // MARK: - bind UI w/ RxSwift 
     private func configureInput() -> ListViewModel.Input {
-        let tableViews = customView.extractTableViews()
+        let tableViews = self.customView.extractTableViews()
         let rightBarButton = self.extractRightBarButtonItem()
         let input = ListViewModel
-            .Input(
-                viewWillAppearEvent: self.rx.methodInvoked(#selector(UIViewController.viewWillAppear(_:))).map { _ in },
-                projectAddButtonTapped: rightBarButton.rx.tap.asObservable(), projectDeleteEvent:
-                    tableViews.map{ $0.rx.modelDeleted(Project.self).map { $0.identifier }}, projectDidtappedEvent: tableViews.map{ $0.rx.modelSelected(Project.self).map { $0.identifier } }
+            .Input(viewWillAppearEvent: self.rx.methodInvoked(#selector(UIViewController.viewWillAppear(_:))).map { _ in },
+             projectAddButtonTapped:
+                rightBarButton.rx.tap.asObservable(),
+            projectDeleteEvent:
+                tableViews.map{ $0.rx.modelDeleted(Project.self).map { $0.identifier }}, projectDidtappedEvent:
+                    tableViews.map{ $0.rx.modelSelected(Project.self).map { $0.identifier } }
             )
         
         return input
@@ -102,17 +121,6 @@ final class ListViewController: UIViewController {
                     .onNext(number)
             }).disposed(by: disposeBag)
         }
-        
-        
-//        stateWithTableViews.forEach { zip in
-//            output?.baseProjects.map({ lists in
-//                lists.filter { $0.progressState.description == zip.key }
-//            })
-//            .asDriver(onErrorJustReturn: [])
-//            .drive(zip.value.rx.items(cellIdentifier: String(describing: ListUITableViewCell.self), cellType: ListUITableViewCell.self)) { index, item , cell in
-//                cell.configureCellUI(data: item)
-//            }.disposed(by: disposeBag)
-//        }
     }
     
     private func extractRightBarButtonItem() -> UIBarButtonItem {
