@@ -22,6 +22,7 @@ struct TaskEditView: View {
     var titleTextField: some View {
         TextField("Title", text: $title)
             .textFieldStyle(.roundedBorder)
+            .foregroundColor(.black)
     }
     
     var limitDatePicker: some View {

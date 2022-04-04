@@ -11,6 +11,7 @@
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
+		F310850327E8911900E3517D /* extension+Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = F310850227E8911900E3517D /* extension+Date.swift */; };
 		F371220C27E0721300875EF3 /* TextLimiter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F371220B27E0721300875EF3 /* TextLimiter.swift */; };
 		F374A11627CDD3930083CC73 /* MainScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F374A11527CDD3930083CC73 /* MainScene.swift */; };
 		F374A11D27CDE1A40083CC73 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = F374A11C27CDE1A40083CC73 /* FirebaseAnalytics */; };
@@ -54,6 +55,7 @@
 		C7431F0E25F51E1E0094C4CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C7431F1125F51E1E0094C4CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F310850227E8911900E3517D /* extension+Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "extension+Date.swift"; sourceTree = "<group>"; };
 		F371220B27E0721300875EF3 /* TextLimiter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextLimiter.swift; sourceTree = "<group>"; };
 		F374A11527CDD3930083CC73 /* MainScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScene.swift; sourceTree = "<group>"; };
 		F376E0D027D85F3E00C04734 /* TaskPopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskPopoverView.swift; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
+				F310850427E8912800E3517D /* Extension */,
 				F374A11827CDD50E0083CC73 /* View */,
 				F3C53F7B27D521CC00D7CE4E /* ViewModel */,
 				F3C53F4B27D10AC600D7CE4E /* Model */,
@@ -131,6 +134,14 @@
 				F3C53F4627D0892400D7CE4E /* GoogleService-Info.plist */,
 			);
 			path = ProjectManager;
+			sourceTree = "<group>";
+		};
+		F310850427E8912800E3517D /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				F310850227E8911900E3517D /* extension+Date.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		F374A11727CDD4AE0083CC73 /* AppLifecycle */ = {
@@ -347,6 +358,7 @@
 			files = (
 				F3C5400C27D7908600D7CE4E /* DoneButtonView.swift in Sources */,
 				F3C5401027D7A07900D7CE4E /* TaskEditView.swift in Sources */,
+				F310850327E8911900E3517D /* extension+Date.swift in Sources */,
 				F3C5400627D75EEC00D7CE4E /* TaskCellView.swift in Sources */,
 				F3C53FF627D725E600D7CE4E /* Task.swift in Sources */,
 				F3C53F4D27D10AEA00D7CE4E /* TaskEntity.swift in Sources */,

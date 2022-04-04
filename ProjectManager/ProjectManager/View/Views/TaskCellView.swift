@@ -10,12 +10,13 @@ import SwiftUI
 struct TaskCellView: View {
     private let taskLimitDateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .long
-        dateFormatter.locale = Locale(identifier: "Ko_Kr")
+        dateFormatter.dateFormat = "yyyy. MM. dd"
+        dateFormatter.locale = Locale(identifier: Locale.current.regionCode!)
         return dateFormatter
     }()
     
     var task: Task
+    @State var isLastDay = false
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -29,7 +30,20 @@ struct TaskCellView: View {
                 .lineLimit(3)
             Text(task.limitDate, formatter: taskLimitDateFormatter)
                 .font(.body)
-                .foregroundColor(.black)
+                .onAppear {
+                    if task.limitDate.isLastDay() {
+                        isLastDay.toggle()
+                    }
+                }
+        }
+    }
+    
+    func isLastDay(color: Color) {
+        let startOfDay = Calendar.current.startOfDay(for: Date())
+        if self > startOfDay {
+            return true
+        } else {
+            return false
         }
     }
 }
