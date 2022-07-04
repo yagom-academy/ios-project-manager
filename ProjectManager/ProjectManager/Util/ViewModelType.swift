@@ -5,4 +5,9 @@
 //  Created by Lingo on 2022/07/05.
 //
 
-import Foundation
+protocol ViewModelType {
+  associatedtype Input
+  associatedtype Output
+  
+  func transform(input: Input) -> Output
+}
