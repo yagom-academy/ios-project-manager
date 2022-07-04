@@ -13,6 +13,8 @@ final class CardListViewController: UIViewController {
   private let todoTableView = UITableView()
   private let doingTableView = UITableView()
   private let doneTableView = UITableView()
+
+  private let viewModel = CardListViewModel()
   
   init() {
     super.init(nibName: nil, bundle: nil)

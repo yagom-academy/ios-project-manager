@@ -6,3 +6,16 @@
 //
 
 import Foundation
+
+final class CardListViewModel: ViewModelType {
+  struct Input {
+    
+  }
+  struct Output {
+    
+  }
+  
+  func transform(input: Input) -> Output {
+    return Output()
+  }
+}
