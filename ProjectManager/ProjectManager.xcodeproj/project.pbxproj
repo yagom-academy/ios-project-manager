@@ -66,12 +66,12 @@
 			path = Resource;
 			sourceTree = "<group>";
 		};
-		B001067128729AC30080ACC7 /* Controller */ = {
+		B001067128729AC30080ACC7 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
 				C7431F0925F51E1D0094C4CF /* CardListViewController.swift */,
 			);
-			path = Controller;
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 		B01DCDC728732AC000AFF91A /* Model */ = {
@@ -88,6 +88,14 @@
 				B01DCDCE2873475500AFF91A /* ViewModelType.swift */,
 			);
 			path = Util;
+			sourceTree = "<group>";
+		};
+		B01DCDD0287347DE00AFF91A /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				B001067128729AC30080ACC7 /* ViewController */,
+			);
+			path = Scene;
 			sourceTree = "<group>";
 		};
 		C7431EF925F51E1D0094C4CF = {
@@ -111,7 +119,7 @@
 			children = (
 				B001066F287298D30080ACC7 /* Application */,
 				B01DCDC728732AC000AFF91A /* Model */,
-				B001067128729AC30080ACC7 /* Controller */,
+				B01DCDD0287347DE00AFF91A /* Scene */,
 				B01DCDCD2873474200AFF91A /* Util */,
 				B0010670287298DC0080ACC7 /* Resource */,
 			);
