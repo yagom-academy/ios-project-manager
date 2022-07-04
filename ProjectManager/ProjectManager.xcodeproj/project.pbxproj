@@ -52,7 +52,6 @@
 			isa = PBXGroup;
 			children = (
 				03AB73D8287328B500B0C980 /* View */,
-				03AB73D9287328D800B0C980 /* ViewModel */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -65,13 +64,6 @@
 				03AB73E0287331BB00B0C980 /* ProjectTableView.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		03AB73D9287328D800B0C980 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		0ED5C2BB2873236A00B8DD67 /* Presentation */ = {
