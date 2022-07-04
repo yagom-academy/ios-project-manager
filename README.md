@@ -10,7 +10,7 @@
 - Clean Architecture
 
 ### 의존성 관리 도구
-- SPM
+- CocoaPod
 
 ### Local DB 기술 선정
 #### SQLite
