@@ -18,6 +18,7 @@ final class ProjectCell: UITableViewCell {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .body)
         label.textColor = .systemGray
+        label.numberOfLines = 3
         return label
     }()
     
