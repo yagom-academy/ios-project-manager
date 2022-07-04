@@ -13,6 +13,7 @@
 		B01DCDC928732AC900AFF91A /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01DCDC828732AC900AFF91A /* Card.swift */; };
 		B01DCDCC28732D8B00AFF91A /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = B01DCDCB28732D8B00AFF91A /* Then */; };
 		B01DCDCF2873475500AFF91A /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01DCDCE2873475500AFF91A /* ViewModelType.swift */; };
+		B01DCDD32873485000AFF91A /* CardListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01DCDD22873485000AFF91A /* CardListViewModel.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* CardListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* CardListViewController.swift */; };
@@ -23,6 +24,7 @@
 /* Begin PBXFileReference section */
 		B01DCDC828732AC900AFF91A /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		B01DCDCE2873475500AFF91A /* ViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
+		B01DCDD22873485000AFF91A /* CardListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListViewModel.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -93,9 +95,18 @@
 		B01DCDD0287347DE00AFF91A /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				B01DCDD12873483F00AFF91A /* ViewModel */,
 				B001067128729AC30080ACC7 /* ViewController */,
 			);
 			path = Scene;
+			sourceTree = "<group>";
+		};
+		B01DCDD12873483F00AFF91A /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				B01DCDD22873485000AFF91A /* CardListViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		C7431EF925F51E1D0094C4CF = {
@@ -209,6 +220,7 @@
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				B01DCDCF2873475500AFF91A /* ViewModelType.swift in Sources */,
+				B01DCDD32873485000AFF91A /* CardListViewModel.swift in Sources */,
 				B01DCDC928732AC900AFF91A /* Card.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
