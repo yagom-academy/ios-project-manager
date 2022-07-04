@@ -10,6 +10,7 @@ import UIKit
 final class ProjectTableView: UITableView {
     init() {
         super.init(frame: .zero, style: .grouped)
+        
         setUpAttribute()
     }
     

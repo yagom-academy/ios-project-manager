@@ -8,6 +8,10 @@
 import UIKit
 
 final class MainView: UIView {
+    private let toDoTableView = ProjectTableView()
+    private let doingTableView = ProjectTableView()
+    private let doneTableView = ProjectTableView()
+    
     private let baseStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -15,12 +19,10 @@ final class MainView: UIView {
         stackView.distribution = .fillEqually
         return stackView
     }()
-    private let toDoTableView = ProjectTableView()
-    private let doingTableView = ProjectTableView()
-    private let doneTableView = ProjectTableView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
         setUpTableViews()
         setUpLayout()
     }
