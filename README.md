@@ -46,33 +46,39 @@
 ## Local DB
 ||장점|단점|
 |:---:|:---:|:---:|
-|CoreData|저장된 기록을 SQLite보다 빠르게 가져온다|SQLite 보다 많은 메모리를 사용하고,더 많은 저장공간이 필요하다|
-|Realm| CoreData보다 빠르고, 훨씬 간단하게 사용가능 | 서드파티 라이브러리|
+|CoreData|firstParty, 저장된 기록을 SQLite보다 빠르게 가져온다|SQLite 보다 더 많은 메모리를 사용하고,더 많은 저장공간이 필요하다. iOS환경에서만 사용가능 |
+|Realm|빠르고, CoreData보다 훨씬 간단하게 사용가능, 크로스 플랫폼 지원|thirdParty 라이브러리리|
+
+- https://cocoacasts.com/core-data-or-realm
+- https://realm.io/best-ios-database/#faq
+
+> Realm is a fast, reactive, and scalable alternative to SQLite that makes storing, syncing, and querying data simple for modern mobile applications.
+>
+> Realm is an open source, fast, scalable alternative to CoreData and SQLite that makes storing, syncing, and querying data simple for modern iOS applications.
 
 ## Remote DB
 
-||장점|단점|
-|:---:|:---:|:---:|
-|Firebase| DB 뿐만아니라 Firebase Authentication, Google Analytics 등 다양한 기능을 제공함|서버가 해외에 있기 때문에 상대적으로 느릴 수 있음|
+FireBase 문서에서 RealTime DB와 Cloud Firestore을 선택하는 기준이 있어서 확인해봤습니다.
+이번 프로젝트는 다음과 같습니다
+- 고급 쿼리, 정렬, 트랜잭션이 필요하지 않습니다
+- 소규모 업데이트 스트림을 보냅니다 
+- 간단한 JSON 데이터를 저장합니다
 
-## 기타
+그래서 `RealTime DB`를 선택하기로 결정했습니다
 
-### SnapKit
+## 기타 라이브러리
 
-- translatesAutoresizingMaskIntoConstraints = false 를 신경쓰지 않아도 됨
-- 편의성을 위해 사용
-
-### CombineCocoa
-
-- UIKit과 Combine을 쓸때, CombineCocoa가 없다면, 코드가 깔끔하게 작성되지 않음
-- 편의성을 위해 사용
-
+|SnapKit|CombineCocoa|
+|:---:|:---:|
+| AutoLayout을 설정할때, 기존에는 작성해야하는 코드양이 꽤 많았는데, SnapKit을 사용하면 Constraints들을 한번에 묶어서 설정할 수 있어서 코드양을 줄일수 있음 | UIKit의 UI들은 publisher가 아니기 때문에 이벤트들을 방출하지 않음. CombineCocoa를 사용하면, UI요소들에 Publisher들을 추가해서 이벤트를 구독할 수 있음|
 
 ## 적용기술 선정 및 근거
+
 ### 적용 기술 선정
-| Local DB | Remote DB | UI | 비동기 이벤트 처리 | Layout | Convention | 의존성 관리 도구 |
-|---|---|---|---|---|---|---|
-| Realm | Firebase | CombineCocoa | Combine | SnapKit | SwiftLint | CocoaPod |
+
+|LocalDB|RemoteDB|UI|비동기이벤트처리|Layout|Convention|의존성관리도구|
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+|Realm|RealTimeDB|CombineCocoa|Combine|SnapKit|SwiftLint|CocoaPod|
 
 ### 적용기술 선정 근거
 
@@ -97,15 +103,17 @@
 
 - Firebase: 구글이 지원
 - Realm: 최근 MongoDB가 인수하면서 지속가능성이 늘어남
+- Combine: 애플이 공식지원하고, 앞으로 많이 쓰일일만 남음
+- CombineCocoa: UIKit + Combine 자체가 드물고, UIKit -> SwiftUI 바뀌기 때문에 나중에는 거의 사용하지 않을것 같다
 
 #### 4. 리스크를 최소화 할 수 있는가? 알고있는 리스크는 무엇인가?
 
 - Firebase: 프로젝트가 커졌을 경우 프로젝트관리 / 과금 정책등 불편할 수 있음
-- Realm: 유료화가 진행될 수 있다
+- Realm: 사용해보지 않았기 때문에 학습을 해야함 / 추후 유료화가 진행될 수 있다
+- Combine: 없음
+- CombineCocoa: 커뮤니티가 작고, RxCocoa에 비해서 부실함
 
 #### 5. 어떤 의존성 관리도구를 사용하여 관리할 수 있는가?
 
-- Firebase: CocoaPods, Swift Package Manager
-- Realm: CocoaPods, Carthage, Swift Package Manager
-- CombineCocoa: CocoaPods, Swift Package Manager
-- SnapKit: CocoaPods, Swift Package Manager
+사용하는 모든 라이브러리가 CocoaPods을 지원함
+SwiftLint가 SPM를 지원하지 않기때문에 무조건 `CocoaPods`을 써야함
