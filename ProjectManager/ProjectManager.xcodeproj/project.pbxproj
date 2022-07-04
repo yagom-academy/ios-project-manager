@@ -11,6 +11,7 @@
 		B01DCDC1287329B800AFF91A /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = B01DCDC0287329B800AFF91A /* RxRelay */; };
 		B01DCDC3287329B800AFF91A /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B01DCDC2287329B800AFF91A /* RxSwift */; };
 		B01DCDC928732AC900AFF91A /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01DCDC828732AC900AFF91A /* Card.swift */; };
+		B01DCDCC28732D8B00AFF91A /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = B01DCDCB28732D8B00AFF91A /* Then */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* CardListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* CardListViewController.swift */; };
@@ -37,6 +38,7 @@
 				B01DCDC3287329B800AFF91A /* RxSwift in Frameworks */,
 				B01DCDC1287329B800AFF91A /* RxRelay in Frameworks */,
 				B01DCDBF287329B800AFF91A /* RxCocoa in Frameworks */,
+				B01DCDCC28732D8B00AFF91A /* Then in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -125,6 +127,7 @@
 				B01DCDBE287329B800AFF91A /* RxCocoa */,
 				B01DCDC0287329B800AFF91A /* RxRelay */,
 				B01DCDC2287329B800AFF91A /* RxSwift */,
+				B01DCDCB28732D8B00AFF91A /* Then */,
 			);
 			productName = ProjectManager;
 			productReference = C7431F0225F51E1D0094C4CF /* ProjectManager.app */;
@@ -155,6 +158,7 @@
 			mainGroup = C7431EF925F51E1D0094C4CF;
 			packageReferences = (
 				B01DCDBD287329B800AFF91A /* XCRemoteSwiftPackageReference "RxSwift" */,
+				B01DCDCA28732D8B00AFF91A /* XCRemoteSwiftPackageReference "Then" */,
 			);
 			productRefGroup = C7431F0325F51E1D0094C4CF /* Products */;
 			projectDirPath = "";
@@ -389,6 +393,14 @@
 				minimumVersion = 6.0.0;
 			};
 		};
+		B01DCDCA28732D8B00AFF91A /* XCRemoteSwiftPackageReference "Then" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/devxoul/Then";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -406,6 +418,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B01DCDBD287329B800AFF91A /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxSwift;
+		};
+		B01DCDCB28732D8B00AFF91A /* Then */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B01DCDCA28732D8B00AFF91A /* XCRemoteSwiftPackageReference "Then" */;
+			productName = Then;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
