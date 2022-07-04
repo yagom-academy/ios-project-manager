@@ -43,6 +43,42 @@
 ## [STEP 1]
 # 프로젝트 적용기술 선정
 
+## App 구조
+
+MVVM-C + CleanArchtiecture 구조
+
+![](https://i.imgur.com/YKB5Zen.png)
+
+### Layer
+![](https://i.imgur.com/6Z11rjm.png)
+
+#### Domain Layer
+- 비즈니스 로직을 포함하는 계층으로 Entity, UseCase, Repository Interface를 포함.
+
+#### Presentation Layer
+- UI를 포함하는 계층으로 View와 ViewModel을 포함
+
+#### Data Layer
+- Data Source를 포함하는 계층으로 Repository와 API, DB등을 포함
+
+#### DIContainer
+
+의존성 주입을 책임짐
+
+#### Coordinator
+
+화면전환을 책임짐
+
+#### Data Flow
+![](https://i.imgur.com/KNPgzYL.png)
+
+
+#### 참고링크
+- [Medium: Clean Architecture and MVVM on iOS](https://tech.olx.com/clean-architecture-and-mvvm-on-ios-c9d167d9f5b3)
+- [GitHub: iOS-Clean-Architecture-MVVM](https://github.com/kudoleh/iOS-Clean-Architecture-MVVM)
+- [Clean Code](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
+
+
 ## Local DB
 ||장점|단점|
 |:---:|:---:|:---:|
