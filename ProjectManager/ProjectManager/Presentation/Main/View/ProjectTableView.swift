@@ -9,12 +9,14 @@ import UIKit
 
 final class ProjectTableView: UITableView {
     private let headerView: UIView = {
-        let view = UIView()
+        let view = UIView(frame: .zero)
+        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
     private let listTitleLabel: UILabel = {
         let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .largeTitle)
         label.sizeToFit()
         return label
@@ -22,18 +24,20 @@ final class ProjectTableView: UITableView {
     
     private let countLabel: UILabel = {
         let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
         label.layer.masksToBounds = true
-        label.layer.cornerRadius = label.bounds.height / 2
+        label.layer.cornerRadius = 20
         label.backgroundColor = .black
         label.textColor = .white
+        label.text = "0"
+        label.textAlignment = .center
+        label.font = .preferredFont(forTextStyle: .title1)
         return label
     }()
     
     init(title: String) {
         super.init(frame: .zero, style: .grouped)
-        
         setUpLayout()
-        setUpHeader()
         setUpTitle(title: title)
     }
     
@@ -42,6 +46,7 @@ final class ProjectTableView: UITableView {
     }
     
     private func setUpLayout() {
+        addSubview(headerView)
         headerView.addSubview(listTitleLabel)
         headerView.addSubview(countLabel)
         
@@ -57,10 +62,13 @@ final class ProjectTableView: UITableView {
             countLabel.leadingAnchor.constraint(equalTo: listTitleLabel.trailingAnchor, constant: 10),
             countLabel.widthAnchor.constraint(equalTo: countLabel.heightAnchor)
         ])
-    }
-    
-    private func setUpHeader() {
-        tableHeaderView = headerView
+        
+        NSLayoutConstraint.activate([
+            headerView.topAnchor.constraint(equalTo: topAnchor),
+            headerView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            headerView.widthAnchor.constraint(equalTo: widthAnchor),
+            headerView.heightAnchor.constraint(equalToConstant: 50)
+        ])
     }
     
     private func setUpTitle(title: String) {
