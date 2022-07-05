@@ -35,6 +35,7 @@ final class CardListHeaderView: UIView {
   }
   
   private func configureUI() {
+    backgroundColor = .systemGray6
     let labels = [cardTitleLabel, cardCountLabel]
     let containerStackView = UIStackView(arrangedSubviews: labels)
     containerStackView.alignment = .center
