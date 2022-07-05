@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D1DF3F70B13D1F93AD4E39F /* Pods_ProjectManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9E1EE52A77CD8A59090782B /* Pods_ProjectManager.framework */; };
 		B39F102A2873DDC100475AE4 /* ProjectManagerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39F10292873DDC100475AE4 /* ProjectManagerApp.swift */; };
 		B39F102C2873DDC100475AE4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39F102B2873DDC100475AE4 /* ContentView.swift */; };
 		B39F102E2873DDC300475AE4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B39F102D2873DDC300475AE4 /* Assets.xcassets */; };
@@ -14,11 +15,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1D72654DC4BFA807FB52648D /* Pods-ProjectManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.release.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.release.xcconfig"; sourceTree = "<group>"; };
+		36BFEBDB78A6B9082D6BEADA /* Pods-ProjectManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.debug.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.debug.xcconfig"; sourceTree = "<group>"; };
 		B39F10262873DDC100475AE4 /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B39F10292873DDC100475AE4 /* ProjectManagerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerApp.swift; sourceTree = "<group>"; };
 		B39F102B2873DDC100475AE4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		B39F102D2873DDC300475AE4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B39F10302873DDC300475AE4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		B9E1EE52A77CD8A59090782B /* Pods_ProjectManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -26,17 +30,38 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D1DF3F70B13D1F93AD4E39F /* Pods_ProjectManager.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		21EA22F88D38E8D520DC792E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B9E1EE52A77CD8A59090782B /* Pods_ProjectManager.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		323FAC110681348030142BF6 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				36BFEBDB78A6B9082D6BEADA /* Pods-ProjectManager.debug.xcconfig */,
+				1D72654DC4BFA807FB52648D /* Pods-ProjectManager.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		B39F101D2873DDC100475AE4 = {
 			isa = PBXGroup;
 			children = (
 				B39F10282873DDC100475AE4 /* ProjectManager */,
 				B39F10272873DDC100475AE4 /* Products */,
+				323FAC110681348030142BF6 /* Pods */,
+				21EA22F88D38E8D520DC792E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -74,6 +99,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B39F10342873DDC300475AE4 /* Build configuration list for PBXNativeTarget "ProjectManager" */;
 			buildPhases = (
+				CFACFD496F04BF6B319EB2A2 /* [CP] Check Pods Manifest.lock */,
 				B39F10222873DDC100475AE4 /* Sources */,
 				B39F10232873DDC100475AE4 /* Frameworks */,
 				B39F10242873DDC100475AE4 /* Resources */,
@@ -131,6 +157,31 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		CFACFD496F04BF6B319EB2A2 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ProjectManager-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		B39F10222873DDC100475AE4 /* Sources */ = {
@@ -263,6 +314,7 @@
 		};
 		B39F10352873DDC300475AE4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 36BFEBDB78A6B9082D6BEADA /* Pods-ProjectManager.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -291,6 +343,7 @@
 		};
 		B39F10362873DDC300475AE4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1D72654DC4BFA807FB52648D /* Pods-ProjectManager.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
