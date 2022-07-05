@@ -5,12 +5,22 @@
 // 
 
 import UIKit
+import SnapKit
 
 class TodoListViewController: UIViewController {
-
+    let mainView: UIView = TodoListView()
+  
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        self.title = "Project Manager"
+        configureView()
+    }
+    
+    func configureView() {
+        self.view.addSubview(mainView)
+        mainView.snp.makeConstraints { make in
+            make.top.bottom.trailing.leading.equalToSuperview()
+        }
     }
 
 
