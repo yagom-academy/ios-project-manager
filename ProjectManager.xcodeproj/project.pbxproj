@@ -12,6 +12,7 @@
 		B39F102C2873DDC100475AE4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39F102B2873DDC100475AE4 /* ContentView.swift */; };
 		B39F102E2873DDC300475AE4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B39F102D2873DDC300475AE4 /* Assets.xcassets */; };
 		B39F10312873DDC300475AE4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B39F10302873DDC300475AE4 /* Preview Assets.xcassets */; };
+		B3EA5F12287481F6000713F7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B3EA5F11287481F6000713F7 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		B39F102B2873DDC100475AE4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		B39F102D2873DDC300475AE4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B39F10302873DDC300475AE4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		B3EA5F11287481F6000713F7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B9E1EE52A77CD8A59090782B /* Pods_ProjectManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -78,6 +80,7 @@
 				B39F10292873DDC100475AE4 /* ProjectManagerApp.swift */,
 				B39F102B2873DDC100475AE4 /* ContentView.swift */,
 				B39F102D2873DDC300475AE4 /* Assets.xcassets */,
+				B3EA5F11287481F6000713F7 /* GoogleService-Info.plist */,
 				B39F102F2873DDC300475AE4 /* Preview Content */,
 			);
 			path = ProjectManager;
@@ -102,6 +105,7 @@
 				B39F10222873DDC100475AE4 /* Sources */,
 				B39F10232873DDC100475AE4 /* Frameworks */,
 				B39F10242873DDC100475AE4 /* Resources */,
+				33CE25325CF7BC5DB18BCD74 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -152,12 +156,30 @@
 			files = (
 				B39F10312873DDC300475AE4 /* Preview Assets.xcassets in Resources */,
 				B39F102E2873DDC300475AE4 /* Assets.xcassets in Resources */,
+				B3EA5F12287481F6000713F7 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		33CE25325CF7BC5DB18BCD74 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ProjectManager/Pods-ProjectManager-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ProjectManager/Pods-ProjectManager-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ProjectManager/Pods-ProjectManager-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		CFACFD496F04BF6B319EB2A2 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -246,7 +268,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -301,7 +323,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -349,6 +371,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ProjectManager/Preview Content\"";
+				DEVELOPMENT_TEAM = 3PT6ZHQG99;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
