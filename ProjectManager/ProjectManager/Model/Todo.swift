@@ -8,8 +8,8 @@
 import Foundation
 
 struct Todo {
-    let identifier: UUID
+    let identifier: UUID = UUID()
     let title: String
     let description: String
-    let date: Date
+    let date: String
 }
