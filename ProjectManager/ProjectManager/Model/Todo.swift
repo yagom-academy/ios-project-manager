@@ -8,7 +8,8 @@
 import Foundation
 
 struct Todo {
+    let identifier: UUID
     let title: String
-    let body: String
+    let description: String
     let date: Date
 }
