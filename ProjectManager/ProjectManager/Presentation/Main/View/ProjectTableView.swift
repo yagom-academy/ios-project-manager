@@ -22,16 +22,27 @@ final class ProjectTableView: UITableView {
         return label
     }()
     
-    private let countLabel: UILabel = {
+    private lazy var countLabel: UILabel = {
         let label = UILabel()
+        
+        func round() {
+            label.layer.masksToBounds = true
+            label.layer.cornerRadius = 15
+        }
+        
+        func text() {
+            label.textColor = .white
+            label.text = "0"
+            label.textAlignment = .center
+            label.font = .preferredFont(forTextStyle: .body)
+        }
+        
+        round()
+        text()
+        
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.layer.masksToBounds = true
-        label.layer.cornerRadius = 20
         label.backgroundColor = .black
-        label.textColor = .white
-        label.text = "0"
-        label.textAlignment = .center
-        label.font = .preferredFont(forTextStyle: .title1)
+        
         return label
     }()
     
