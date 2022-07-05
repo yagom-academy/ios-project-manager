@@ -73,12 +73,14 @@ class TodoListView: UIView {
     }()
     
     private lazy var todoStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [HeaderView(title: "TODO"), todoTableView])
+        let stackView = UIStackView(arrangedSubviews: [todoHeaderView, todoTableView])
         stackView.axis = .vertical
         stackView.spacing = 1
         
         return stackView
     }()
+    
+    let todoHeaderView = HeaderView(title: "TODO")
    
     let todoTableView: UITableView = {
         let tableView = UITableView()
@@ -88,12 +90,14 @@ class TodoListView: UIView {
     }()
     
     private lazy var doingStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [HeaderView(title: "DOING"), doingTableView])
+        let stackView = UIStackView(arrangedSubviews: [doingHeaderView, doingTableView])
         stackView.axis = .vertical
         stackView.spacing = 1
         
         return stackView
     }()
+    
+    let doingHeaderView = HeaderView(title: "DOING")
     
     let doingTableView: UITableView = {
         let tableView = UITableView()
@@ -103,12 +107,14 @@ class TodoListView: UIView {
     }()
     
     private lazy var doneStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [HeaderView(title: "DONE"), doneTableView])
+        let stackView = UIStackView(arrangedSubviews: [doneHeaderView, doneTableView])
         stackView.axis = .vertical
         stackView.spacing = 1
         
         return stackView
     }()
+    
+    let doneHeaderView = HeaderView(title: "DONE")
     
     let doneTableView: UITableView = {
         let tableView = UITableView()

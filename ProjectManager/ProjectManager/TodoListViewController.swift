@@ -22,7 +22,5 @@ class TodoListViewController: UIViewController {
             make.top.bottom.trailing.leading.equalToSuperview()
         }
     }
-
-
 }
 
