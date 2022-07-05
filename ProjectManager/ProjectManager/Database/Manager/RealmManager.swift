@@ -8,37 +8,45 @@
 import Foundation
 import RealmSwift
 
-final class ProjectManager {
+protocol RealmManagerable {
+    func create<T: Object>(project: T) throws
+    func read<T: Object>(predicate: NSPredicate) -> T?
+    func readAll<T: Object>() -> [T]
+    func update<T: Object>(project: T) throws
+    func delete<T: Object>(project: T) throws
+}
+
+final class RealmManager: RealmManagerable {
     private let realm: Realm
     
     init(realm: Realm) {
         self.realm = realm
     }
     
-    func create(project: Project) throws {
+    func create<T: Object>(project: T) throws {
         try realm.write {
             realm.add(project)
         }
     }
     
-    func read(id: String) -> Project? {
-        let predicate = NSPredicate(format: "id = %@", id)
-        return realm.objects(Project.self)
+    func read<T: Object>(predicate: NSPredicate) -> T? {
+        return realm.objects(T.self)
                     .filter(predicate)
                     .first
     }
     
-    func readAll() -> Results<Project> {
-        return realm.objects(Project.self)
+    func readAll<T: Object>() -> [T] {
+        let data = realm.objects(T.self)
+        return Array(data)
     }
     
-    func update(project: Project) throws {
+    func update<T: Object>(project: T) throws {
         try realm.write({
             realm.add(project, update: .modified)
         })
     }
     
-    func delete(project: Project) throws {
+    func delete<T: Object>(project: T) throws {
         try realm.write({
             realm.delete(project)
         })
