@@ -14,6 +14,7 @@ protocol RealmManagerable {
     func readAll<T: Object>() -> [T]
     func update<T: Object>(project: T) throws
     func delete<T: Object>(project: T) throws
+    func deleteAll() throws
 }
 
 final class RealmManager: RealmManagerable {
@@ -51,4 +52,20 @@ final class RealmManager: RealmManagerable {
             realm.delete(project)
         })
     }
+    
+    func deleteAll() throws {
+        try realm.write({
+            realm.deleteAll()
+        })
+    }
 }
+
+#if DEBUG
+// 테스트 파일에서 Realm() 을사용하는것이 안되서 다음과 같이 테스트용 init을 만들었습니다.
+extension RealmManager {
+    convenience init() {
+        let realm = try! Realm()
+        self.init(realm: realm)
+    }
+}
+#endif

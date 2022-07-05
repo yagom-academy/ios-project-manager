@@ -8,30 +8,34 @@
 import Foundation
 
 final class ProjectManager {
-    private let realm: RealmManagerable
+    private let realmManager: RealmManagerable
     
-    init(realm: RealmManager) {
-        self.realm = realm
+    init(realmManager: RealmManager) {
+        self.realmManager = realmManager
     }
     
     func create(project: Project) throws {
-        try realm.create(project: project)
+        try realmManager.create(project: project)
     }
     
     func read(id: String) -> Project? {
         let predicate = NSPredicate(format: "id = %@", id)
-        return realm.read(predicate: predicate)
+        return realmManager.read(predicate: predicate)
     }
     
     func readAll() -> [Project] {
-        return realm.readAll()
+        return realmManager.readAll()
     }
     
     func update(project: Project) throws {
-        try realm.update(project: project)
+        try realmManager.update(project: project)
     }
     
     func delete(project: Project) throws {
-        try realm.delete(project: project)
+        try realmManager.delete(project: project)
+    }
+    
+    func deleteAll() throws {
+        try realmManager.deleteAll()
     }
 }

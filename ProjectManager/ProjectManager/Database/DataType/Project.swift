@@ -12,10 +12,10 @@ class Project: Object {
     @Persisted var title: String?
     @Persisted var date: Date
     @Persisted var body: String?
-    
-    init(title: String?, date: Date, body: String?) {
-        super.init()
-        self.id = UUID().uuidString
+
+    convenience init(id: String = UUID().uuidString, title: String?, date: Date, body: String?) {
+        self.init()
+        self.id = id
         self.title = title
         self.date = date
         self.body = body
