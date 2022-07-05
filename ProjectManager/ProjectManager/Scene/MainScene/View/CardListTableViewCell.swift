@@ -9,6 +9,10 @@ import UIKit
 import Then
 
 final class CardListTableViewCell: UITableViewCell {
+  private enum UISettings {
+    static let intervalConstant = 16.0
+  }
+  
   static let identifier = "CardListTableViewCell"
   
   private let titleLabel = UILabel().then {
@@ -60,7 +64,11 @@ final class CardListTableViewCell: UITableViewCell {
   private func isOverdue(card: Card) -> Bool {
     return (card.cardType == .todo || card.cardType == .doing) && Date() >= card.deadlineDate
   }
-  
+}
+
+// MARK: - UI Configuration
+
+extension CardListTableViewCell {
   private func configureUI() {
     let labels = [titleLabel, descriptionLabel, deadlineDateLabel]
     let containerStackView = UIStackView(arrangedSubviews: labels)
@@ -87,13 +95,5 @@ final class CardListTableViewCell: UITableViewCell {
         constant: -UISettings.intervalConstant
       ),
     ])
-  }
-}
-
-// MARK: - UISettings Constant
-
-extension CardListTableViewCell {
-  private enum UISettings {
-    static let intervalConstant = 16.0
   }
 }

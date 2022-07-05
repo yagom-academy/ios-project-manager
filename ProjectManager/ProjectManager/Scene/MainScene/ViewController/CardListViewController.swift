@@ -10,13 +10,18 @@ import RxSwift
 import RxCocoa
 
 final class CardListViewController: UIViewController {
+  private enum UISettings {
+    static let intervalBetweenTableViews = 20.0
+    static let navigationTitle = "Project Manager"
+  }
+  
   private let todoTableView = UITableView()
   private let doingTableView = UITableView()
   private let doneTableView = UITableView()
   
-  private let todoHeaderView = CardListHeaderView(cardTitle: "TODO")
-  private let doingHeaderView = CardListHeaderView(cardTitle: "DOING")
-  private let doneHeaderView = CardListHeaderView(cardTitle: "DONE")
+  private let todoHeaderView = CardListHeaderView(cardType: .todo)
+  private let doingHeaderView = CardListHeaderView(cardType: .doing)
+  private let doneHeaderView = CardListHeaderView(cardType: .done)
 
   private let viewModel = CardListViewModel()
   private let disposeBag = DisposeBag()
@@ -54,11 +59,6 @@ final class CardListViewController: UIViewController {
       }
       .disposed(by: disposeBag)
     
-    todos
-      .map { "\($0.count)" }
-      .drive(todoHeaderView.cardCountLabel.rx.text)
-      .disposed(by: disposeBag)
-    
     doings
       .drive(doingTableView.rx.items(
         cellIdentifier: CardListTableViewCell.identifier,
@@ -68,11 +68,6 @@ final class CardListViewController: UIViewController {
       }
       .disposed(by: disposeBag)
     
-    doings
-      .map { "\($0.count)" }
-      .drive(doingHeaderView.cardCountLabel.rx.text)
-      .disposed(by: disposeBag)
-    
     dones
       .drive(doneTableView.rx.items(
         cellIdentifier: CardListTableViewCell.identifier,
@@ -80,6 +75,16 @@ final class CardListViewController: UIViewController {
       )) { index, card, cell in
         cell.setup(card: card)
       }
+      .disposed(by: disposeBag)
+    
+    todos
+      .map { "\($0.count)" }
+      .drive(todoHeaderView.cardCountLabel.rx.text)
+      .disposed(by: disposeBag)
+    
+    doings
+      .map { "\($0.count)" }
+      .drive(doingHeaderView.cardCountLabel.rx.text)
       .disposed(by: disposeBag)
     
     dones
@@ -108,7 +113,11 @@ final class CardListViewController: UIViewController {
       })
       .disposed(by: disposeBag)
   }
-  
+}
+
+// MARK: - UI Configuration
+
+extension CardListViewController {
   private func configureNavigationBar() {
     title = UISettings.navigationTitle
   }
@@ -146,14 +155,5 @@ final class CardListViewController: UIViewController {
       containerStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
       containerStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
     ])
-  }
-}
-
-// MARK: - UISettings Constant
-
-extension CardListViewController {
-  private enum UISettings {
-    static let intervalBetweenTableViews = 20.0
-    static let navigationTitle = "Project Manager"
   }
 }
