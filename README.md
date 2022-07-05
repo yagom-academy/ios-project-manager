@@ -5,7 +5,7 @@
 리뷰어: [엘림]()
  
 ## 🛠 개발환경 및 라이브러리
-[![swift](https://img.shields.io/badge/swift-5.6-orange)]() [![xcode](https://img.shields.io/badge/Xcode-13.4.1-blue)]() [![iOS](https://img.shields.io/badge/iOS-14.0-red)]()
+[![swift](https://img.shields.io/badge/swift-5.6-orange)]() [![xcode](https://img.shields.io/badge/Xcode-13.4.1-blue)]() [![iOS](https://img.shields.io/badge/iOS-15.0-red)]()
  
 ## 👨‍🔧 기술스택 
 - UIKit, SwiftUI + MVVM
