@@ -17,6 +17,6 @@ struct Card {
   let id = UUID().uuidString
   var title: String
   var description: String
-  var durationDate: Date
+  var deadlineDate: Date
   var cardType: CardType = .todo
 }
