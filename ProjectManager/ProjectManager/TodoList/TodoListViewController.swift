@@ -1,18 +1,18 @@
 //
-//  ProjectManager - ViewController.swift
+//  ProjectManager - TodoListViewController.swift
 //  Created by yagom. 
 //  Copyright © yagom. All rights reserved.
 // 
 
 import UIKit
 
-final class ViewController: UIViewController {
+final class TodoListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        setup()
+        setUpNavigation()
     }
     
-    private func setup() {
+    private func setUpNavigation() {
         self.view.backgroundColor = .systemBackground
         self.title = "Project Manager"
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(
