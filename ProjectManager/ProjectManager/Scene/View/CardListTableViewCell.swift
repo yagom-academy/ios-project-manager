@@ -45,7 +45,18 @@ final class CardListTableViewCell: UITableViewCell {
   func setup(card: Card) {
     titleLabel.text = card.title
     descriptionLabel.text = card.description
-    deadlineDateLabel.text = "\(card.deadlineDate)"
+    deadlineDateLabel.text = setDeadlineDateToString(card.deadlineDate)
+    deadlineDateLabel.textColor = isOverdue(card: card) ? .systemRed : .label
+  }
+  
+  private func setDeadlineDateToString(_ date: Date) -> String {
+    let formatter = DateFormatter()
+    formatter.dateStyle = .full
+    return formatter.string(from: date)
+  }
+
+  private func isOverdue(card: Card) -> Bool {
+    return (card.cardType == .todo || card.cardType == .doing) && Date() <= card.deadlineDate
   }
   
   private func configureUI() {
