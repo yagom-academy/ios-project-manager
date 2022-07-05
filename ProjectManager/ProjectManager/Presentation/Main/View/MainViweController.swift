@@ -32,6 +32,10 @@ final class MainViweController: UIViewController {
     }
     
     @objc func presentDetailView() {
+        let next = UINavigationController(rootViewController: DetailViewController())
         
+        next.modalPresentationStyle = .formSheet
+        
+        present(next, animated: true)
     }
 }
