@@ -8,7 +8,6 @@
 import UIKit
 
 final class ProjectTableView: UITableView {
-    init() {
     private let headerView: UIView = {
         let view = UIView()
         return view
@@ -29,8 +28,13 @@ final class ProjectTableView: UITableView {
         label.textColor = .white
         return label
     }()
+    
+    init(title: String) {
         super.init(frame: .zero, style: .grouped)
         
+        setUpLayout()
+        setUpHeader()
+        setUpTitle(title: title)
     }
     
     required init?(coder: NSCoder) {
