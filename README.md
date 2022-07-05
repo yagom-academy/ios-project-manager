@@ -2,7 +2,7 @@
 
 > 프로젝트 기간: 2022.07.04 ~ 2022.07.15 <br>
 > 팀원: [마이노](https://github.com/Mino777), [두두](https://github.com/FirstDo)
-> 리뷰어: [스티븐](https://github.com/stevenkim18)
+> 리뷰어: [올라프](https://github.com/1Consumption)
 
 # 📋 목차
 - [프로젝트 목표](#-프로젝트-소개)
@@ -102,19 +102,17 @@ FireBase 문서에서 RealTime DB와 Cloud Firestore을 선택하는 기준이 �
 
 그래서 `RealTime DB`를 선택하기로 결정했습니다
 
-## 기타 라이브러리
+## SnapKit
 
-|SnapKit|CombineCocoa|
-|:---:|:---:|
-| AutoLayout을 설정할때, 기존에는 작성해야하는 코드양이 꽤 많았는데, SnapKit을 사용하면 Constraints들을 한번에 묶어서 설정할 수 있어서 코드양을 줄일수 있음 | UIKit의 UI들은 publisher가 아니기 때문에 이벤트들을 방출하지 않음. CombineCocoa를 사용하면, UI요소들에 Publisher들을 추가해서 이벤트를 구독할 수 있음|
+- AutoLayout을 설정할때, 기존에는 작성해야하는 코드양이 꽤 많았는데, SnapKit을 사용하면 Constraints들을 한번에 묶어서 설정할 수 있어서 코드양을 줄일수 있음
 
 ## 적용기술 선정 및 근거
 
 ### 적용 기술 선정
 
-|LocalDB|RemoteDB|UI|비동기이벤트처리|Layout|Convention|의존성관리도구|
-|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-|Realm|RealTimeDB|CombineCocoa|Combine|SnapKit|SwiftLint|CocoaPod|
+|LocalDB|RemoteDB|비동기이벤트처리|Layout|Convention|의존성관리도구|
+|:---:|:---:|:---:|:---:|:---:|:---:|
+|Realm|RealTimeDB|Combine|SnapKit|SwiftLint|CocoaPod|
 
 ### 적용기술 선정 근거
 
@@ -123,7 +121,6 @@ FireBase 문서에서 RealTime DB와 Cloud Firestore을 선택하는 기준이 �
 - Firebase: iOS 10 이상
 - Realm: iOS 8 이상
 - Combine: iOS 13 이상
-- CombineCocoa: iOS 13 이상
 
 지난 4년 동안 도입된 기기의 89%가 iOS 15를 사용하고 있음
 프로젝트의 타겟을 iOS14 이상으로 설정할 것이므로 문제가 없음
@@ -133,21 +130,18 @@ FireBase 문서에서 RealTime DB와 Cloud Firestore을 선택하는 기준이 �
 - Firebase: 구글에서 운영, 대중적이기에 레퍼런스가 많음
 - Realm: 작업 속도가 빠르고, Realm Studio(GUI) 등의 편의성, MongoDB가 운영
 - Combine: 애플이 공식지원하는 라이브러리
-- CombineCocoa: 메인스트림인 CombineCommunity 에서 운영
 
 #### 3. 미래 지속가능성이 있는가?
 
 - Firebase: 구글이 지원
 - Realm: 최근 MongoDB가 인수하면서 지속가능성이 늘어남
 - Combine: 애플이 공식지원하고, 앞으로 많이 쓰일일만 남음
-- CombineCocoa: UIKit + Combine 자체가 드물고, UIKit -> SwiftUI 바뀌기 때문에 나중에는 거의 사용하지 않을것 같다
 
 #### 4. 리스크를 최소화 할 수 있는가? 알고있는 리스크는 무엇인가?
 
 - Firebase: 프로젝트가 커졌을 경우 프로젝트관리 / 과금 정책등 불편할 수 있음
 - Realm: 사용해보지 않았기 때문에 학습을 해야함 / 추후 유료화가 진행될 수 있다
 - Combine: 없음
-- CombineCocoa: 커뮤니티가 작고, RxCocoa에 비해서 부실함
 
 #### 5. 어떤 의존성 관리도구를 사용하여 관리할 수 있는가?
 
