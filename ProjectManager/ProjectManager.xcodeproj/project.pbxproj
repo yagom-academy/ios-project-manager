@@ -12,6 +12,7 @@
 		643719A62872B0DF00F78AAA /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 643719A52872B0DF00F78AAA /* RxSwift */; };
 		643719D32873CC1500F78AAA /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 643719D22873CC1500F78AAA /* RealmSwift */; };
 		643719D62873CD6E00F78AAA /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = 643719D52873CD6E00F78AAA /* RxDataSources */; };
+		643719D92873D10A00F78AAA /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 643719D82873D10A00F78AAA /* FirebaseDatabaseSwift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* ViewController.swift */; };
@@ -36,6 +37,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				643719D92873D10A00F78AAA /* FirebaseDatabaseSwift in Frameworks */,
 				643719D32873CC1500F78AAA /* RealmSwift in Frameworks */,
 				643719A62872B0DF00F78AAA /* RxSwift in Frameworks */,
 				643719A42872B0DF00F78AAA /* RxRelay in Frameworks */,
@@ -99,6 +101,7 @@
 				643719A52872B0DF00F78AAA /* RxSwift */,
 				643719D22873CC1500F78AAA /* RealmSwift */,
 				643719D52873CD6E00F78AAA /* RxDataSources */,
+				643719D82873D10A00F78AAA /* FirebaseDatabaseSwift */,
 			);
 			productName = ProjectManager;
 			productReference = C7431F0225F51E1D0094C4CF /* ProjectManager.app */;
@@ -131,6 +134,7 @@
 				643719A02872B0DF00F78AAA /* XCRemoteSwiftPackageReference "RxSwift" */,
 				643719D12873CC1500F78AAA /* XCRemoteSwiftPackageReference "realm-swift" */,
 				643719D42873CD6E00F78AAA /* XCRemoteSwiftPackageReference "RxDataSources" */,
+				643719D72873D10A00F78AAA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = C7431F0325F51E1D0094C4CF /* Products */;
 			projectDirPath = "";
@@ -389,6 +393,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		643719D72873D10A00F78AAA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -416,6 +428,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 643719D42873CD6E00F78AAA /* XCRemoteSwiftPackageReference "RxDataSources" */;
 			productName = RxDataSources;
+		};
+		643719D82873D10A00F78AAA /* FirebaseDatabaseSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 643719D72873D10A00F78AAA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabaseSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
