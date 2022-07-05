@@ -8,7 +8,12 @@
 import UIKit
 
 final class DetailViewController: UIViewController {
+    private let detailView = DetailView(frame: .zero)
+
+    override func loadView() {
+        view = detailView
+    }
+    
     override func viewDidLoad() {
-        view.backgroundColor = .systemBackground
     }
 }
