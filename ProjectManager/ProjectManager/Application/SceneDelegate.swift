@@ -15,9 +15,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     willConnectTo session: UISceneSession,
     options connectionOptions: UIScene.ConnectionOptions
   ) {
+    AppAppearance.configureNavigationBar()
     guard let windowScene = (scene as? UIWindowScene) else { return }
     window = UIWindow(windowScene: windowScene)
-    window?.rootViewController = CardListViewController()
+    window?.rootViewController = UINavigationController(rootViewController: CardListViewController())
     window?.makeKeyAndVisible()
   }
 }

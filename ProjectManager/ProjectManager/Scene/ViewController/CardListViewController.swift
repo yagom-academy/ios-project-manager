@@ -23,6 +23,8 @@ final class CardListViewController: UIViewController {
   
   init() {
     super.init(nibName: nil, bundle: nil)
+    configureNavigationBar()
+    configureTableView()
     configureUI()
   }
   
@@ -32,7 +34,6 @@ final class CardListViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    configureTableView()
     bindUI()
   }
   
@@ -87,12 +88,13 @@ final class CardListViewController: UIViewController {
       .disposed(by: disposeBag)
   }
   
+  private func configureNavigationBar() {
+    title = "Project Manager"
+  }
+  
   private func configureTableView() {
     [todoTableView, doingTableView, doneTableView].forEach {
-      $0.register(
-        CardListTableViewCell.self,
-        forCellReuseIdentifier: CardListTableViewCell.identifier
-      )
+      $0.register(CardListTableViewCell.self, forCellReuseIdentifier: CardListTableViewCell.identifier)
     }
   }
   
@@ -103,13 +105,13 @@ final class CardListViewController: UIViewController {
     
     let todoContainerStackView = UIStackView(arrangedSubviews: [todoHeaderView, todoTableView])
     todoContainerStackView.axis = .vertical
-    todoContainerStackView.spacing = 8.0
+    todoContainerStackView.spacing = 2.0
     let doingContainerStackView = UIStackView(arrangedSubviews: [doingHeaderView, doingTableView])
     doingContainerStackView.axis = .vertical
-    doingContainerStackView.spacing = 8.0
+    doingContainerStackView.spacing = 2.0
     let doneContainerStackView = UIStackView(arrangedSubviews: [doneHeaderView, doneTableView])
     doneContainerStackView.axis = .vertical
-    doneContainerStackView.spacing = 8.0
+    doneContainerStackView.spacing = 2.0
     
     let subContainers = [todoContainerStackView, doingContainerStackView, doneContainerStackView]
     
