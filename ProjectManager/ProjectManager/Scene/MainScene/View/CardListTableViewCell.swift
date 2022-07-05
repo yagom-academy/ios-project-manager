@@ -65,15 +65,35 @@ final class CardListTableViewCell: UITableViewCell {
     let labels = [titleLabel, descriptionLabel, deadlineDateLabel]
     let containerStackView = UIStackView(arrangedSubviews: labels)
     containerStackView.axis = .vertical
-    containerStackView.spacing = 8
+    containerStackView.spacing = UISettings.intervalConstant
     containerStackView.translatesAutoresizingMaskIntoConstraints = false
     contentView.addSubview(containerStackView)
     
     NSLayoutConstraint.activate([
-      containerStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16.0),
-      containerStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16.0),
-      containerStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16.0),
-      containerStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16.0),
+      containerStackView.topAnchor.constraint(
+        equalTo: contentView.topAnchor,
+        constant: UISettings.intervalConstant
+      ),
+      containerStackView.bottomAnchor.constraint(
+        equalTo: contentView.bottomAnchor,
+        constant: -UISettings.intervalConstant
+      ),
+      containerStackView.leadingAnchor.constraint(
+        equalTo: contentView.leadingAnchor,
+        constant: UISettings.intervalConstant
+      ),
+      containerStackView.trailingAnchor.constraint(
+        equalTo: contentView.trailingAnchor,
+        constant: -UISettings.intervalConstant
+      ),
     ])
+  }
+}
+
+// MARK: - UISettings Constant
+
+extension CardListTableViewCell {
+  private enum UISettings {
+    static let intervalConstant = 16.0
   }
 }
