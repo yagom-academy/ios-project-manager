@@ -14,6 +14,7 @@ final class MainView: UIView {
     
     private let baseStackView: UIStackView = {
         let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.alignment = .fill
         stackView.distribution = .fillEqually
@@ -23,6 +24,7 @@ final class MainView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        setUpBackgroundColor()
         setUpTableViews()
         setUpLayout()
     }
@@ -31,7 +33,13 @@ final class MainView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    private func setUpBackgroundColor() {
+        backgroundColor = .systemBackground
+    }
+    
     private func setUpTableViews() {
+        addSubview(baseStackView)
+        
         baseStackView.addArrangedSubview(toDoTableView)
         baseStackView.addArrangedSubview(doingTableView)
         baseStackView.addArrangedSubview(doneTableView)
