@@ -14,6 +14,7 @@ final class CardListTableViewCell: UITableViewCell {
   private let titleLabel = UILabel().then {
     $0.textColor = .label
     $0.lineBreakMode = .byTruncatingTail
+    $0.setContentHuggingPriority(.defaultHigh, for: .vertical)
     $0.font = .preferredFont(forTextStyle: .title3)
   }
   private let descriptionLabel = UILabel().then {
@@ -23,6 +24,7 @@ final class CardListTableViewCell: UITableViewCell {
   }
   private let deadlineDateLabel = UILabel().then {
     $0.textColor = .label
+    $0.setContentHuggingPriority(.defaultHigh, for: .vertical)
     $0.font = .preferredFont(forTextStyle: .body)
   }
   
