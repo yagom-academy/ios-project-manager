@@ -37,6 +37,33 @@ final class ProjectTableView: UITableView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    private func setUpLayout() {
+        headerView.addSubview(listTitleLabel)
+        headerView.addSubview(countLabel)
         
+        NSLayoutConstraint.activate([
+            listTitleLabel.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 10),
+            listTitleLabel.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: -10),
+            listTitleLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 10)
+        ])
+        
+        NSLayoutConstraint.activate([
+            countLabel.topAnchor.constraint(equalTo: listTitleLabel.topAnchor),
+            countLabel.bottomAnchor.constraint(equalTo: listTitleLabel.bottomAnchor),
+            countLabel.leadingAnchor.constraint(equalTo: listTitleLabel.trailingAnchor, constant: 10),
+            countLabel.widthAnchor.constraint(equalTo: countLabel.heightAnchor)
+        ])
+    }
+    
+    private func setUpHeader() {
+        tableHeaderView = headerView
+    }
+    
+    private func setUpTitle(title: String) {
+        listTitleLabel.text = title
+    }
+    
+    func setUpCountLabel(count: Int) {
+        countLabel.text = String(count)
     }
 }
