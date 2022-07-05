@@ -1,5 +1,5 @@
 //
-//  DetailView.swift
+//  ModalView.swift
 //  ProjectManager
 //
 //  Created by Tiana, mmim on 2022/07/05.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class DetailView: UIView {
+final class ModalView: UIView {
     private lazy var titleTextField: UITextField = {
         let textField = UITextField()
         drawShadow(view: textField, color: .systemGray3)
