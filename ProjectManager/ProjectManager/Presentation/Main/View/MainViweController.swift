@@ -32,7 +32,7 @@ final class MainViweController: UIViewController {
     }
     
     @objc func presentDetailView() {
-        let next = UINavigationController(rootViewController: DetailViewController())
+        let next = UINavigationController(rootViewController: RegistrationViewController())
         
         next.modalPresentationStyle = .formSheet
         
