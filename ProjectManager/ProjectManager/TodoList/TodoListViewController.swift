@@ -9,7 +9,7 @@ import UIKit
 final class TodoListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpNavigation()
+        self.setUpNavigation()
     }
     
     private func setUpNavigation() {

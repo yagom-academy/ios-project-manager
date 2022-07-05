@@ -19,8 +19,8 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let mainViewController = TodoListViewController()
         let navigationController = UINavigationController(rootViewController: mainViewController)
         
-        window = UIWindow(windowScene: windowScene)
-        window?.rootViewController = navigationController
-        window?.makeKeyAndVisible()
+        self.window = UIWindow(windowScene: windowScene)
+        self.window?.rootViewController = navigationController
+        self.window?.makeKeyAndVisible()
     }
 }
