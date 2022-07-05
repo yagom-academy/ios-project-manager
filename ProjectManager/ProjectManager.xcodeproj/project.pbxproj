@@ -11,6 +11,7 @@
 		643719A42872B0DF00F78AAA /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 643719A32872B0DF00F78AAA /* RxRelay */; };
 		643719A62872B0DF00F78AAA /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 643719A52872B0DF00F78AAA /* RxSwift */; };
 		643719D32873CC1500F78AAA /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 643719D22873CC1500F78AAA /* RealmSwift */; };
+		643719D62873CD6E00F78AAA /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = 643719D52873CD6E00F78AAA /* RxDataSources */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* ViewController.swift */; };
@@ -38,6 +39,7 @@
 				643719D32873CC1500F78AAA /* RealmSwift in Frameworks */,
 				643719A62872B0DF00F78AAA /* RxSwift in Frameworks */,
 				643719A42872B0DF00F78AAA /* RxRelay in Frameworks */,
+				643719D62873CD6E00F78AAA /* RxDataSources in Frameworks */,
 				643719A22872B0DF00F78AAA /* RxCocoa in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -96,6 +98,7 @@
 				643719A32872B0DF00F78AAA /* RxRelay */,
 				643719A52872B0DF00F78AAA /* RxSwift */,
 				643719D22873CC1500F78AAA /* RealmSwift */,
+				643719D52873CD6E00F78AAA /* RxDataSources */,
 			);
 			productName = ProjectManager;
 			productReference = C7431F0225F51E1D0094C4CF /* ProjectManager.app */;
@@ -127,6 +130,7 @@
 			packageReferences = (
 				643719A02872B0DF00F78AAA /* XCRemoteSwiftPackageReference "RxSwift" */,
 				643719D12873CC1500F78AAA /* XCRemoteSwiftPackageReference "realm-swift" */,
+				643719D42873CD6E00F78AAA /* XCRemoteSwiftPackageReference "RxDataSources" */,
 			);
 			productRefGroup = C7431F0325F51E1D0094C4CF /* Products */;
 			projectDirPath = "";
@@ -377,6 +381,14 @@
 				kind = branch;
 			};
 		};
+		643719D42873CD6E00F78AAA /* XCRemoteSwiftPackageReference "RxDataSources" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RxSwiftCommunity/RxDataSources.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -399,6 +411,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 643719D12873CC1500F78AAA /* XCRemoteSwiftPackageReference "realm-swift" */;
 			productName = RealmSwift;
+		};
+		643719D52873CD6E00F78AAA /* RxDataSources */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 643719D42873CD6E00F78AAA /* XCRemoteSwiftPackageReference "RxDataSources" */;
+			productName = RxDataSources;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
