@@ -62,7 +62,6 @@ final class CardListTableViewCell: UITableViewCell {
   }
   
   private func configureUI() {
-    contentView.backgroundColor = .systemBackground
     let labels = [titleLabel, descriptionLabel, deadlineDateLabel]
     let containerStackView = UIStackView(arrangedSubviews: labels)
     containerStackView.axis = .vertical

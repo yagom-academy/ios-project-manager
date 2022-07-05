@@ -86,6 +86,27 @@ final class CardListViewController: UIViewController {
       .map { "\($0.count)" }
       .drive(doneHeaderView.cardCountLabel.rx.text)
       .disposed(by: disposeBag)
+    
+    todoTableView.rx.itemSelected
+      .withUnretained(self)
+      .bind(onNext: { (wself, indexPath) in
+        wself.todoTableView.deselectRow(at: indexPath, animated: true)
+      })
+      .disposed(by: disposeBag)
+    
+    doingTableView.rx.itemSelected
+      .withUnretained(self)
+      .bind(onNext: { (wself, indexPath) in
+        wself.doingTableView.deselectRow(at: indexPath, animated: true)
+      })
+      .disposed(by: disposeBag)
+    
+    doneTableView.rx.itemSelected
+      .withUnretained(self)
+      .bind(onNext: { (wself, indexPath) in
+        wself.doneTableView.deselectRow(at: indexPath, animated: true)
+      })
+      .disposed(by: disposeBag)
   }
   
   private func configureNavigationBar() {
