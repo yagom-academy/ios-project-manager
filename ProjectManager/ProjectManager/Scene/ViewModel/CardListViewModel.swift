@@ -6,16 +6,19 @@
 //
 
 import Foundation
+import RxCocoa
 
 final class CardListViewModel: ViewModelType {
   struct Input {
     
   }
   struct Output {
-    
+    let cards: Driver<[Card]>
   }
   
   func transform(input: Input) -> Output {
-    return Output()
+    let cards = BehaviorRelay<[Card]>(value: Card.sample).asDriver()
+    
+    return Output(cards: cards)
   }
 }

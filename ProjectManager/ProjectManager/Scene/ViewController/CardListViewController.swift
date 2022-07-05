@@ -15,6 +15,7 @@ final class CardListViewController: UIViewController {
   private let doneTableView = UITableView()
 
   private let viewModel = CardListViewModel()
+  private let disposeBag = DisposeBag()
   
   init() {
     super.init(nibName: nil, bundle: nil)
@@ -27,6 +28,49 @@ final class CardListViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    configureTableView()
+    bindUI()
+  }
+  
+  private func bindUI() {
+    let input = CardListViewModel.Input()
+    let output = viewModel.transform(input: input)
+    
+    output.cards
+      .map { $0.filter { $0.cardType == .todo } }
+      .drive(todoTableView.rx.items(
+        cellIdentifier: CardListTableViewCell.identifier,
+        cellType: CardListTableViewCell.self
+      )) { index, card, cell in
+        cell.setup(card: card)
+      }
+      .disposed(by: disposeBag)
+    
+    output.cards
+      .map { $0.filter { $0.cardType == .doing } }
+      .drive(doingTableView.rx.items(
+        cellIdentifier: CardListTableViewCell.identifier,
+        cellType: CardListTableViewCell.self
+      )) { index, card, cell in
+        cell.setup(card: card)
+      }
+      .disposed(by: disposeBag)
+    
+    output.cards
+      .map { $0.filter { $0.cardType == .done } }
+      .drive(doneTableView.rx.items(
+        cellIdentifier: CardListTableViewCell.identifier,
+        cellType: CardListTableViewCell.self
+      )) { index, card, cell in
+        cell.setup(card: card)
+      }
+      .disposed(by: disposeBag)
+  }
+  
+  private func configureTableView() {
+    todoTableView.register(CardListTableViewCell.self, forCellReuseIdentifier: CardListTableViewCell.identifier)
+    doingTableView.register(CardListTableViewCell.self, forCellReuseIdentifier: CardListTableViewCell.identifier)
+    doneTableView.register(CardListTableViewCell.self, forCellReuseIdentifier: CardListTableViewCell.identifier)
   }
   
   private func configureUI() {
