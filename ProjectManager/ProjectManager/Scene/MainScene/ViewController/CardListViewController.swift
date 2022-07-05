@@ -110,7 +110,7 @@ final class CardListViewController: UIViewController {
   }
   
   private func configureNavigationBar() {
-    title = "Project Manager"
+    title = UISettings.navigationTitle
   }
   
   private func configureTableView() {
@@ -126,19 +126,16 @@ final class CardListViewController: UIViewController {
     
     let todoContainerStackView = UIStackView(arrangedSubviews: [todoHeaderView, todoTableView])
     todoContainerStackView.axis = .vertical
-    todoContainerStackView.spacing = 2.0
     let doingContainerStackView = UIStackView(arrangedSubviews: [doingHeaderView, doingTableView])
     doingContainerStackView.axis = .vertical
-    doingContainerStackView.spacing = 2.0
     let doneContainerStackView = UIStackView(arrangedSubviews: [doneHeaderView, doneTableView])
     doneContainerStackView.axis = .vertical
-    doneContainerStackView.spacing = 2.0
     
     let subContainers = [todoContainerStackView, doingContainerStackView, doneContainerStackView]
     
     let containerStackView = UIStackView(arrangedSubviews: subContainers)
     containerStackView.axis = .horizontal
-    containerStackView.spacing = 20.0
+    containerStackView.spacing = UISettings.intervalBetweenTableViews
     containerStackView.distribution = .fillEqually
     containerStackView.translatesAutoresizingMaskIntoConstraints = false
     
@@ -149,5 +146,14 @@ final class CardListViewController: UIViewController {
       containerStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
       containerStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
     ])
+  }
+}
+
+// MARK: - UISettings Constant
+
+extension CardListViewController {
+  private enum UISettings {
+    static let intervalBetweenTableViews = 20.0
+    static let navigationTitle = "Project Manager"
   }
 }
