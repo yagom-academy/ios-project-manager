@@ -13,6 +13,10 @@ final class CardListViewController: UIViewController {
   private let todoTableView = UITableView()
   private let doingTableView = UITableView()
   private let doneTableView = UITableView()
+  
+  private let todoHeaderView = CardListHeaderView(cardTitle: "TODO")
+  private let doingHeaderView = CardListHeaderView(cardTitle: "DOING")
+  private let doneHeaderView = CardListHeaderView(cardTitle: "DONE")
 
   private let viewModel = CardListViewModel()
   private let disposeBag = DisposeBag()
@@ -36,8 +40,11 @@ final class CardListViewController: UIViewController {
     let input = CardListViewModel.Input()
     let output = viewModel.transform(input: input)
     
-    output.cards
-      .map { $0.filter { $0.cardType == .todo } }
+    let todos = output.cards.map { $0.filter { $0.cardType == .todo } }
+    let doings = output.cards.map { $0.filter { $0.cardType == .doing } }
+    let dones = output.cards.map { $0.filter { $0.cardType == .done } }
+    
+    todos
       .drive(todoTableView.rx.items(
         cellIdentifier: CardListTableViewCell.identifier,
         cellType: CardListTableViewCell.self
@@ -46,8 +53,12 @@ final class CardListViewController: UIViewController {
       }
       .disposed(by: disposeBag)
     
-    output.cards
-      .map { $0.filter { $0.cardType == .doing } }
+    todos
+      .map { "\($0.count)" }
+      .drive(todoHeaderView.cardCountLabel.rx.text)
+      .disposed(by: disposeBag)
+    
+    doings
       .drive(doingTableView.rx.items(
         cellIdentifier: CardListTableViewCell.identifier,
         cellType: CardListTableViewCell.self
@@ -56,8 +67,12 @@ final class CardListViewController: UIViewController {
       }
       .disposed(by: disposeBag)
     
-    output.cards
-      .map { $0.filter { $0.cardType == .done } }
+    doings
+      .map { "\($0.count)" }
+      .drive(doingHeaderView.cardCountLabel.rx.text)
+      .disposed(by: disposeBag)
+    
+    dones
       .drive(doneTableView.rx.items(
         cellIdentifier: CardListTableViewCell.identifier,
         cellType: CardListTableViewCell.self
@@ -65,20 +80,40 @@ final class CardListViewController: UIViewController {
         cell.setup(card: card)
       }
       .disposed(by: disposeBag)
+    
+    dones
+      .map { "\($0.count)" }
+      .drive(doneHeaderView.cardCountLabel.rx.text)
+      .disposed(by: disposeBag)
   }
   
   private func configureTableView() {
-    todoTableView.register(CardListTableViewCell.self, forCellReuseIdentifier: CardListTableViewCell.identifier)
-    doingTableView.register(CardListTableViewCell.self, forCellReuseIdentifier: CardListTableViewCell.identifier)
-    doneTableView.register(CardListTableViewCell.self, forCellReuseIdentifier: CardListTableViewCell.identifier)
+    [todoTableView, doingTableView, doneTableView].forEach {
+      $0.register(
+        CardListTableViewCell.self,
+        forCellReuseIdentifier: CardListTableViewCell.identifier
+      )
+    }
   }
   
   private func configureUI() {
-    view.backgroundColor = .systemGray4
+    view.backgroundColor = .systemGray5
     let tableViews = [todoTableView, doingTableView, doneTableView]
-    tableViews.forEach { $0.backgroundColor = .systemGray5 }
+    tableViews.forEach { $0.backgroundColor = .systemGray6 }
     
-    let containerStackView = UIStackView(arrangedSubviews: tableViews)
+    let todoContainerStackView = UIStackView(arrangedSubviews: [todoHeaderView, todoTableView])
+    todoContainerStackView.axis = .vertical
+    todoContainerStackView.spacing = 8.0
+    let doingContainerStackView = UIStackView(arrangedSubviews: [doingHeaderView, doingTableView])
+    doingContainerStackView.axis = .vertical
+    doingContainerStackView.spacing = 8.0
+    let doneContainerStackView = UIStackView(arrangedSubviews: [doneHeaderView, doneTableView])
+    doneContainerStackView.axis = .vertical
+    doneContainerStackView.spacing = 8.0
+    
+    let subContainers = [todoContainerStackView, doingContainerStackView, doneContainerStackView]
+    
+    let containerStackView = UIStackView(arrangedSubviews: subContainers)
     containerStackView.axis = .horizontal
     containerStackView.spacing = 20.0
     containerStackView.distribution = .fillEqually
