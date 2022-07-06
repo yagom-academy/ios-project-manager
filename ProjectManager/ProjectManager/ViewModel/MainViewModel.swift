@@ -1,0 +1,41 @@
+//
+//  MainViewModel.swift
+//  ProjectManager
+//
+//  Created by 두기 on 2022/07/06.
+//
+
+import Foundation
+import RxSwift
+
+final class MainViewModel {
+    var todoObservable = BehaviorSubject<[List]>(value: [])
+    var doingObservable = BehaviorSubject<[List]>(value: [])
+    var doneObservable = BehaviorSubject<[List]>(value: [])
+
+    init() {
+        addDummyData()
+    }
+    
+    private func addDummyData() {
+        let todoDummy: [List] = [
+            List(title: "안녕이요", body: "네 저는 안녕이에요?", deadline: Date()),
+            List(title: "안녕", body: "네 저는 안니근데 이렇게 죽ㅈ길게 써볼라는데 너는 뭐야!라이에요?", deadline: Date()),
+            List(title: "그래맞아", body: "네 \n저는 \n그래그래에요? \n그러면 말입니다", deadline: Date())
+        ]
+        
+        let doingDummy: [List] = [
+            List(title: "나는 두잉이야", body: "ㅋㄷㅋㄷ 나 알아? 난 너 몰라", deadline: Date()),
+            List(title: "안녕 나는 세잉이야", body: "모 \n 어쩔건데!! \n ㅋㄷㅋㄷ", deadline: Date())
+        ]
+        
+        let doneDummy: [List] = [
+            List(title: "나는 던이야", body: "노래는 못불러", deadline: Date()),
+            List(title: "안녕 똥이야!", body: "모 \n 어쩔건데!! \n ㅋㄷㅋㄷ", deadline: Date())
+        ]
+        
+        todoObservable.onNext(todoDummy)
+        doingObservable.onNext(doingDummy)
+        doneObservable.onNext(doneDummy)
+    }
+}
