@@ -43,7 +43,11 @@ struct RegisterElementsView: View {
                        maxWidth: .infinity,
                        minHeight: 0,
                        maxHeight: 200)
-                .border(Color.yellow, width: 1)
+                .padding(.all)
+                .border(Color(UIColor.separator), width: 1)
+                .padding(.leading)
+                .padding(.trailing)
+                
         }
     }
 }
