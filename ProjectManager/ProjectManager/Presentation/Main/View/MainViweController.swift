@@ -11,7 +11,7 @@ import RxCocoa
 
 final class MainViweController: UIViewController {
     private let mainView = MainView(frame: .zero)
-    
+
     private let disposeBag = DisposeBag()
     private let viewModel = MainViewModel()
     
@@ -47,16 +47,19 @@ final class MainViweController: UIViewController {
     }
     
     private func bind() {
-        guard let saveButton = navigationItem.rightBarButtonItem else {
+        guard let addButton = navigationItem.rightBarButtonItem else {
             return
         }
         
         let input = MainViewModel
             .Input(
-                saveButtonTapEvent: saveButton.rx.tap.asObservable(),
                 cellTapEvent: mainView.toDoTableView.rx.itemSelected.asObservable()
             )
         
+        addButton.rx.tap.asObservable()
+            .subscribe(onNext: { [weak self] _ in
+                self?.presentDetailView()
+            }).disposed(by: disposeBag)
         let output = viewModel.transform(input: input)
     }
 }
