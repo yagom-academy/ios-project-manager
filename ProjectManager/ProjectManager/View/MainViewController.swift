@@ -24,7 +24,12 @@ final class MainViewController: UIViewController {
     
     private func setNavigationBar() {
         self.title = "Project Manger"
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: nil)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(presentDetailView))
+    }
+    
+    @objc private func presentDetailView() {
+        let detailVC = DetailViewController()
+        self.present(detailVC, animated: true, completion: nil)
     }
     
     private func setInitailView() {
