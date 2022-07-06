@@ -10,6 +10,16 @@
 		7A9055A912E33B4613880AF2 /* Pods_ProjectManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1673874DE1DE010FA1D08261 /* Pods_ProjectManager.framework */; };
 		940B64B328745830001D3FD9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 940B64B228745830001D3FD9 /* GoogleService-Info.plist */; };
 		940B64B728745ABD001D3FD9 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 940B64B628745ABD001D3FD9 /* .swiftlint.yml */; };
+		940B64BE28754FC5001D3FD9 /* AppDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940B64BD28754FC5001D3FD9 /* AppDIContainer.swift */; };
+		940B64C028754FDB001D3FD9 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940B64BF28754FDB001D3FD9 /* AppCoordinator.swift */; };
+		940B64C328755072001D3FD9 /* MemoryStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940B64C228755072001D3FD9 /* MemoryStorage.swift */; };
+		940B64C7287551BC001D3FD9 /* TodoListSceneDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940B64C6287551BC001D3FD9 /* TodoListSceneDIContainer.swift */; };
+		940B64CA287552CE001D3FD9 /* TodoListSceneCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940B64C9287552CE001D3FD9 /* TodoListSceneCoordinator.swift */; };
+		940B64CC28755358001D3FD9 /* TodoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940B64CB28755358001D3FD9 /* TodoListViewController.swift */; };
+		940B64D2287553A3001D3FD9 /* TodoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940B64D1287553A3001D3FD9 /* TodoListViewModel.swift */; };
+		940B64D72875553A001D3FD9 /* TodoListUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940B64D62875553A001D3FD9 /* TodoListUseCase.swift */; };
+		940B64D928755591001D3FD9 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940B64D828755591001D3FD9 /* Repository.swift */; };
+		940B64DC287555E8001D3FD9 /* TodoListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940B64DB287555E8001D3FD9 /* TodoListRepository.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
@@ -21,6 +31,16 @@
 		6E67BA8F7B3CC0946C84E6F3 /* Pods-ProjectManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.debug.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.debug.xcconfig"; sourceTree = "<group>"; };
 		940B64B228745830001D3FD9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		940B64B628745ABD001D3FD9 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		940B64BD28754FC5001D3FD9 /* AppDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDIContainer.swift; sourceTree = "<group>"; };
+		940B64BF28754FDB001D3FD9 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		940B64C228755072001D3FD9 /* MemoryStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryStorage.swift; sourceTree = "<group>"; };
+		940B64C6287551BC001D3FD9 /* TodoListSceneDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListSceneDIContainer.swift; sourceTree = "<group>"; };
+		940B64C9287552CE001D3FD9 /* TodoListSceneCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListSceneCoordinator.swift; sourceTree = "<group>"; };
+		940B64CB28755358001D3FD9 /* TodoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListViewController.swift; sourceTree = "<group>"; };
+		940B64D1287553A3001D3FD9 /* TodoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListViewModel.swift; sourceTree = "<group>"; };
+		940B64D62875553A001D3FD9 /* TodoListUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListUseCase.swift; sourceTree = "<group>"; };
+		940B64D828755591001D3FD9 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
+		940B64DB287555E8001D3FD9 /* TodoListRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListRepository.swift; sourceTree = "<group>"; };
 		AE6331070A3F5FC57909C9BB /* Pods-ProjectManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.release.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.release.xcconfig"; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -60,6 +80,134 @@
 			path = Resource;
 			sourceTree = "<group>";
 		};
+		940B64B928754F86001D3FD9 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				940B64C8287552B2001D3FD9 /* Coordinators */,
+				940B64CF28755387001D3FD9 /* Scenes */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		940B64BA28754F95001D3FD9 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				940B64D3287554E3001D3FD9 /* Entity */,
+				940B64D4287554F0001D3FD9 /* Usecase */,
+				940B64D5287554F4001D3FD9 /* RepositoryInterface */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		940B64BB28754F9A001D3FD9 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				940B64DA287555AE001D3FD9 /* Repository */,
+				940B64C128755050001D3FD9 /* Storages */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		940B64BC28754F9F001D3FD9 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
+				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
+				940B64BF28754FDB001D3FD9 /* AppCoordinator.swift */,
+				940B64C5287551A1001D3FD9 /* DIContainer */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		940B64C128755050001D3FD9 /* Storages */ = {
+			isa = PBXGroup;
+			children = (
+				940B64C228755072001D3FD9 /* MemoryStorage.swift */,
+			);
+			path = Storages;
+			sourceTree = "<group>";
+		};
+		940B64C5287551A1001D3FD9 /* DIContainer */ = {
+			isa = PBXGroup;
+			children = (
+				940B64BD28754FC5001D3FD9 /* AppDIContainer.swift */,
+				940B64C6287551BC001D3FD9 /* TodoListSceneDIContainer.swift */,
+			);
+			path = DIContainer;
+			sourceTree = "<group>";
+		};
+		940B64C8287552B2001D3FD9 /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				940B64C9287552CE001D3FD9 /* TodoListSceneCoordinator.swift */,
+			);
+			path = Coordinators;
+			sourceTree = "<group>";
+		};
+		940B64CD28755377001D3FD9 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				940B64D1287553A3001D3FD9 /* TodoListViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		940B64CE2875537E001D3FD9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				940B64CB28755358001D3FD9 /* TodoListViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		940B64CF28755387001D3FD9 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				940B64D02875538F001D3FD9 /* TodoList */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		940B64D02875538F001D3FD9 /* TodoList */ = {
+			isa = PBXGroup;
+			children = (
+				940B64CE2875537E001D3FD9 /* View */,
+				940B64CD28755377001D3FD9 /* ViewModel */,
+			);
+			path = TodoList;
+			sourceTree = "<group>";
+		};
+		940B64D3287554E3001D3FD9 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		940B64D4287554F0001D3FD9 /* Usecase */ = {
+			isa = PBXGroup;
+			children = (
+				940B64D62875553A001D3FD9 /* TodoListUseCase.swift */,
+			);
+			path = Usecase;
+			sourceTree = "<group>";
+		};
+		940B64D5287554F4001D3FD9 /* RepositoryInterface */ = {
+			isa = PBXGroup;
+			children = (
+				940B64D828755591001D3FD9 /* Repository.swift */,
+			);
+			path = RepositoryInterface;
+			sourceTree = "<group>";
+		};
+		940B64DA287555AE001D3FD9 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				940B64DB287555E8001D3FD9 /* TodoListRepository.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
 		C7431EF925F51E1D0094C4CF = {
 			isa = PBXGroup;
 			children = (
@@ -82,9 +230,11 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
+				940B64BC28754F9F001D3FD9 /* Application */,
+				940B64B928754F86001D3FD9 /* Presentation */,
+				940B64BA28754F95001D3FD9 /* Domain */,
+				940B64BB28754F9A001D3FD9 /* Data */,
 				940B64B528745AA0001D3FD9 /* Resource */,
-				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
-				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 			);
 			path = ProjectManager;
@@ -232,8 +382,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				940B64CC28755358001D3FD9 /* TodoListViewController.swift in Sources */,
+				940B64DC287555E8001D3FD9 /* TodoListRepository.swift in Sources */,
+				940B64D72875553A001D3FD9 /* TodoListUseCase.swift in Sources */,
+				940B64C028754FDB001D3FD9 /* AppCoordinator.swift in Sources */,
+				940B64CA287552CE001D3FD9 /* TodoListSceneCoordinator.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
+				940B64D928755591001D3FD9 /* Repository.swift in Sources */,
+				940B64D2287553A3001D3FD9 /* TodoListViewModel.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
+				940B64BE28754FC5001D3FD9 /* AppDIContainer.swift in Sources */,
+				940B64C328755072001D3FD9 /* MemoryStorage.swift in Sources */,
+				940B64C7287551BC001D3FD9 /* TodoListSceneDIContainer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
