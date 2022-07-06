@@ -48,7 +48,7 @@ final class ViewController: UIViewController {
         
         mainView.todoTableView.delegate = self
         mainView.todoTableView.dataSource = self
-        todoTableView.register(CustomTableViewCell.self, forCellReuseIdentifier: CustomTableViewCell.identifier)
+        todoTableView.register(WorkTableViewCell.self, forCellReuseIdentifier: WorkTableViewCell.identifier)
         
         fetchToDo()
         mainView.setupSubViews()
@@ -86,9 +86,9 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         cellForRowAt indexPath: IndexPath
     ) -> UITableViewCell {
         guard let todoCell = todoTableView.dequeueReusableCell(
-            withIdentifier: CustomTableViewCell.identifier,
+            withIdentifier: WorkTableViewCell.identifier,
             for: indexPath
-        ) as? CustomTableViewCell else {
+        ) as? WorkTableViewCell else {
             return UITableViewCell()
         }
         

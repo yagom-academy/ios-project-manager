@@ -8,9 +8,9 @@
 import UIKit
 
 final class MainView: UIView {
-    let todoHeaderView = CustomHeader(workType: .todo)
-    let doingHeaderView = CustomHeader(workType: .doing)
-    let doneHeaderView = CustomHeader(workType: .done)
+    let todoHeaderView = WorkHeaderView(workType: .todo)
+    let doingHeaderView = WorkHeaderView(workType: .doing)
+    let doneHeaderView = WorkHeaderView(workType: .done)
     private lazy var baseStackView = UIStackView(
         arrangedSubviews: [
             todoStackView,

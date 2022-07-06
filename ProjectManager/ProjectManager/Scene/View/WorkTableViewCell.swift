@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class CustomTableViewCell: UITableViewCell {
+final class WorkTableViewCell: UITableViewCell {
     
     static var identifier: String {
         return String(describing: self)

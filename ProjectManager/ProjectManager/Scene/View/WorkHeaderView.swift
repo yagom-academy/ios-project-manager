@@ -7,14 +7,13 @@
 
 import UIKit
 
-final class CustomHeader: UIView {
+final class WorkHeaderView: UIView {
 
     lazy var titleLabel = UILabel().then {
         $0.font = .preferredFont(forTextStyle: .title1)
         $0.textColor = .black
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.setContentHuggingPriority(.defaultHigh, for: .vertical)
-        //$0.setContentCompressionResistancePriority(.required, for: .horizontal)
     }
     
     lazy var workCountLabel = UILabel().then {
@@ -52,13 +51,9 @@ final class CustomHeader: UIView {
     
     private func setupUILayout() {
         baseStackView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.top.bottom.equalToSuperview()
+            $0.leading.equalToSuperview().offset(20)
         }
-        
-        NSLayoutConstraint.activate([
-            baseStackView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.4),
-
-        ])
         
         NSLayoutConstraint.activate([
             workCountLabel.widthAnchor.constraint(equalToConstant: 25),
