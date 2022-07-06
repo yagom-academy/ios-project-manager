@@ -62,10 +62,6 @@
 			children = (
 				C7431F0925F51E1D0094C4CF /* TodoListViewController.swift */,
 				30B02F8B2873E3F40029579F /* TodoListViewModel.swift */,
-		30B02F8D287457860029579F /* TodoList */ = {
-			isa = PBXGroup;
-			children = (
-				C7431F0925F51E1D0094C4CF /* TodoListViewController.swift */,
 				30B02F8F28747FF40029579F /* TodoListCell.swift */,
 			);
 			path = TodoList;
@@ -228,7 +224,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				30B02F8C2873E3F40029579F /* TodoListViewModel.swift in Sources */,
-				C7431F0A25F51E1D0094C4CF /* TodoListViewController.swift in Sources */,
 				30B02F9028747FF40029579F /* TodoListCell.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* TodoListViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
