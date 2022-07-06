@@ -3,22 +3,40 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B01DCDBF287329B800AFF91A /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = B01DCDBE287329B800AFF91A /* RxCocoa */; };
+		B01DCDC1287329B800AFF91A /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = B01DCDC0287329B800AFF91A /* RxRelay */; };
+		B01DCDC3287329B800AFF91A /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B01DCDC2287329B800AFF91A /* RxSwift */; };
+		B01DCDC928732AC900AFF91A /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01DCDC828732AC900AFF91A /* Card.swift */; };
+		B01DCDCC28732D8B00AFF91A /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = B01DCDCB28732D8B00AFF91A /* Then */; };
+		B01DCDCF2873475500AFF91A /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01DCDCE2873475500AFF91A /* ViewModelType.swift */; };
+		B01DCDD32873485000AFF91A /* CardListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01DCDD22873485000AFF91A /* CardListViewModel.swift */; };
+		B032CDA32873BFB20087383E /* CardListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B032CDA22873BFB20087383E /* CardListTableViewCell.swift */; };
+		B032CDA62873DAC00087383E /* CardListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B032CDA52873DAC00087383E /* CardListHeaderView.swift */; };
+		B032CDA82873F3610087383E /* AppAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = B032CDA72873F3610087383E /* AppAppearance.swift */; };
+		B0EF5B18287522E000A503A9 /* CardSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF5B17287522E000A503A9 /* CardSectionView.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
-		C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* ViewController.swift */; };
+		C7431F0A25F51E1D0094C4CF /* CardListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* CardListViewController.swift */; };
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B01DCDC828732AC900AFF91A /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		B01DCDCE2873475500AFF91A /* ViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
+		B01DCDD22873485000AFF91A /* CardListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListViewModel.swift; sourceTree = "<group>"; };
+		B032CDA22873BFB20087383E /* CardListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListTableViewCell.swift; sourceTree = "<group>"; };
+		B032CDA52873DAC00087383E /* CardListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListHeaderView.swift; sourceTree = "<group>"; };
+		B032CDA72873F3610087383E /* AppAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAppearance.swift; sourceTree = "<group>"; };
+		B0EF5B17287522E000A503A9 /* CardSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardSectionView.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		C7431F0925F51E1D0094C4CF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		C7431F0925F51E1D0094C4CF /* CardListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListViewController.swift; sourceTree = "<group>"; };
 		C7431F0E25F51E1E0094C4CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C7431F1125F51E1E0094C4CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -29,6 +47,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B01DCDC3287329B800AFF91A /* RxSwift in Frameworks */,
+				B01DCDC1287329B800AFF91A /* RxRelay in Frameworks */,
+				B01DCDBF287329B800AFF91A /* RxCocoa in Frameworks */,
+				B01DCDCC28732D8B00AFF91A /* Then in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -39,6 +61,7 @@
 			isa = PBXGroup;
 			children = (
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
+				B032CDA72873F3610087383E /* AppAppearance.swift */,
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
 			);
 			path = Application;
@@ -54,12 +77,64 @@
 			path = Resource;
 			sourceTree = "<group>";
 		};
-		B001067128729AC30080ACC7 /* Controller */ = {
+		B001067128729AC30080ACC7 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				C7431F0925F51E1D0094C4CF /* ViewController.swift */,
+				C7431F0925F51E1D0094C4CF /* CardListViewController.swift */,
 			);
-			path = Controller;
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		B01DCDC728732AC000AFF91A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B01DCDC828732AC900AFF91A /* Card.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		B01DCDCD2873474200AFF91A /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				B01DCDCE2873475500AFF91A /* ViewModelType.swift */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
+		B01DCDD0287347DE00AFF91A /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				B032CDA92873F49F0087383E /* MainScene */,
+			);
+			path = Scene;
+			sourceTree = "<group>";
+		};
+		B01DCDD12873483F00AFF91A /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				B01DCDD22873485000AFF91A /* CardListViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		B032CDA12873BF7C0087383E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B032CDA52873DAC00087383E /* CardListHeaderView.swift */,
+				B032CDA22873BFB20087383E /* CardListTableViewCell.swift */,
+				B0EF5B17287522E000A503A9 /* CardSectionView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		B032CDA92873F49F0087383E /* MainScene */ = {
+			isa = PBXGroup;
+			children = (
+				B032CDA12873BF7C0087383E /* View */,
+				B001067128729AC30080ACC7 /* ViewController */,
+				B01DCDD12873483F00AFF91A /* ViewModel */,
+			);
+			path = MainScene;
 			sourceTree = "<group>";
 		};
 		C7431EF925F51E1D0094C4CF = {
@@ -82,7 +157,9 @@
 			isa = PBXGroup;
 			children = (
 				B001066F287298D30080ACC7 /* Application */,
-				B001067128729AC30080ACC7 /* Controller */,
+				B01DCDC728732AC000AFF91A /* Model */,
+				B01DCDD0287347DE00AFF91A /* Scene */,
+				B01DCDCD2873474200AFF91A /* Util */,
 				B0010670287298DC0080ACC7 /* Resource */,
 			);
 			path = ProjectManager;
@@ -104,6 +181,12 @@
 			dependencies = (
 			);
 			name = ProjectManager;
+			packageProductDependencies = (
+				B01DCDBE287329B800AFF91A /* RxCocoa */,
+				B01DCDC0287329B800AFF91A /* RxRelay */,
+				B01DCDC2287329B800AFF91A /* RxSwift */,
+				B01DCDCB28732D8B00AFF91A /* Then */,
+			);
 			productName = ProjectManager;
 			productReference = C7431F0225F51E1D0094C4CF /* ProjectManager.app */;
 			productType = "com.apple.product-type.application";
@@ -131,6 +214,10 @@
 				Base,
 			);
 			mainGroup = C7431EF925F51E1D0094C4CF;
+			packageReferences = (
+				B01DCDBD287329B800AFF91A /* XCRemoteSwiftPackageReference "RxSwift" */,
+				B01DCDCA28732D8B00AFF91A /* XCRemoteSwiftPackageReference "Then" */,
+			);
 			productRefGroup = C7431F0325F51E1D0094C4CF /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -157,9 +244,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */,
+				B032CDA32873BFB20087383E /* CardListTableViewCell.swift in Sources */,
+				C7431F0A25F51E1D0094C4CF /* CardListViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
+				B032CDA82873F3610087383E /* AppAppearance.swift in Sources */,
+				B0EF5B18287522E000A503A9 /* CardSectionView.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
+				B01DCDCF2873475500AFF91A /* ViewModelType.swift in Sources */,
+				B032CDA62873DAC00087383E /* CardListHeaderView.swift in Sources */,
+				B01DCDD32873485000AFF91A /* CardListViewModel.swift in Sources */,
+				B01DCDC928732AC900AFF91A /* Card.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -353,6 +447,48 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		B01DCDBD287329B800AFF91A /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
+			};
+		};
+		B01DCDCA28732D8B00AFF91A /* XCRemoteSwiftPackageReference "Then" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/devxoul/Then";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B01DCDBE287329B800AFF91A /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B01DCDBD287329B800AFF91A /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		B01DCDC0287329B800AFF91A /* RxRelay */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B01DCDBD287329B800AFF91A /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxRelay;
+		};
+		B01DCDC2287329B800AFF91A /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B01DCDBD287329B800AFF91A /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
+		B01DCDCB28732D8B00AFF91A /* Then */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B01DCDCA28732D8B00AFF91A /* XCRemoteSwiftPackageReference "Then" */;
+			productName = Then;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C7431EFA25F51E1D0094C4CF /* Project object */;
 }
