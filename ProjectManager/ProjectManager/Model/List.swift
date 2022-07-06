@@ -11,11 +11,11 @@ struct List {
     var title: String
     var body: String
     var deadline: Date
-    var type: MenuType = .todo
+    var type: ListType = .todo
     let id = UUID().uuidString
 }
 
-enum MenuType {
+enum ListType {
     case todo
     case doing
     case done

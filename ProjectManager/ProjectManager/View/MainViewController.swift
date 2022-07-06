@@ -9,9 +9,9 @@ import RxSwift
 import RxCocoa
 
 final class MainViewController: UIViewController {
-    private let todoHeaderView = HeaderVIew(MenuType.todo)
-    private let doingHeaderView = HeaderVIew(MenuType.doing)
-    private let doneHeaderView = HeaderVIew(MenuType.done)
+    private let todoHeaderView = HeaderVIew(ListType.todo)
+    private let doingHeaderView = HeaderVIew(ListType.doing)
+    private let doneHeaderView = HeaderVIew(ListType.done)
     
     private let mainViewModel = MainViewModel()
     private var disposbag = DisposeBag()
