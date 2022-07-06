@@ -16,6 +16,9 @@
 		4EC2362A2873DCF9006C9D32 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4EC236292873DCF9006C9D32 /* RxSwift */; };
 		9CAB039C2873DE6600895A45 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 9CAB039B2873DE6600895A45 /* Realm */; };
 		9CAB039E2873DE6600895A45 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9CAB039D2873DE6600895A45 /* RealmSwift */; };
+		9CACE12D28755BE20010E4F0 /* Then.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CACE12C28755BE20010E4F0 /* Then.swift */; };
+		9CACE13228755FDF0010E4F0 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CACE13128755FDF0010E4F0 /* CustomTableViewCell.swift */; };
+		9CACE135287566F30010E4F0 /* UIFont+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CACE134287566F30010E4F0 /* UIFont+extension.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* ViewController.swift */; };
@@ -27,6 +30,9 @@
 		23A0A689B6A69796CECE8A71 /* Pods_ProjectManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2411AF63CB028F679D719B89 /* Pods-ProjectManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.release.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.release.xcconfig"; sourceTree = "<group>"; };
 		8186A352743ECE68B4046D56 /* Pods-ProjectManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.debug.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.debug.xcconfig"; sourceTree = "<group>"; };
+		9CACE12C28755BE20010E4F0 /* Then.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Then.swift; sourceTree = "<group>"; };
+		9CACE13128755FDF0010E4F0 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
+		9CACE134287566F30010E4F0 /* UIFont+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+extension.swift"; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -64,6 +70,30 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		9CACE12B28755BCC0010E4F0 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				9CACE12C28755BE20010E4F0 /* Then.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		9CACE12E28755F780010E4F0 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9CACE13128755FDF0010E4F0 /* CustomTableViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		9CACE133287566D40010E4F0 /* extension */ = {
+			isa = PBXGroup;
+			children = (
+				9CACE134287566F30010E4F0 /* UIFont+extension.swift */,
+			);
+			path = extension;
+			sourceTree = "<group>";
+		};
 		AE87CCF57CC7FEFBCF5C38F9 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -94,6 +124,9 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
+				9CACE133287566D40010E4F0 /* extension */,
+				9CACE12E28755F780010E4F0 /* View */,
+				9CACE12B28755BCC0010E4F0 /* Utils */,
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
 				C7431F0925F51E1D0094C4CF /* ViewController.swift */,
@@ -233,8 +266,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9CACE13228755FDF0010E4F0 /* CustomTableViewCell.swift in Sources */,
+				9CACE12D28755BE20010E4F0 /* Then.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
+				9CACE135287566F30010E4F0 /* UIFont+extension.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
