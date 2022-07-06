@@ -48,7 +48,7 @@ final class DetailModalView: UIView {
         return button
     }()
     
-    private var buttonStackView: UIStackView = {
+    private let buttonStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.spacing = 5
@@ -94,7 +94,7 @@ final class DetailModalView: UIView {
         return textView
     }()
     
-    private lazy var stackView: UIStackView = {
+    private let stackView: UIStackView = {
        let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.spacing = 20
