@@ -23,7 +23,7 @@ class ProjectManagerTests: XCTestCase {
 
     func test_Create() throws {
         let project = Task(title: "샘플입니당", date: Date(), body: "바디입니다")
-        try projectManager.create(project: project)
+        try projectManager.create(task: project)
         let result = projectManager.read(id: project.id)
         XCTAssertEqual(project, result)
     }
@@ -32,8 +32,8 @@ class ProjectManagerTests: XCTestCase {
         do {
             let project = Task(title: "삭제 테스트", date: Date(), body: "삭제바디입니다")
             let id = project.id
-            try projectManager.create(project: project)
-            try projectManager.delete(project: project)
+            try projectManager.create(task: project)
+            try projectManager.delete(task: project)
             let data = projectManager.read(id: id)
             XCTAssertNil(data)
         } catch {
@@ -45,11 +45,11 @@ class ProjectManagerTests: XCTestCase {
         do {
             let updateTitle = "업데이트 성공!"
             let project = Task(title: "업데이트", date: Date(), body: "바디바디")
-            try projectManager.create(project: project)
+            try projectManager.create(task: project)
             let updateHandler: ((Task) -> Void) = { project in
                 project.title = updateTitle
             }
-            try projectManager.update(project: project, updateHandler: updateHandler)
+            try projectManager.update(task: project, updateHandler: updateHandler)
             let value = projectManager.read(id: project.id)
             XCTAssertEqual(value?.title, updateTitle)
             XCTAssertEqual(project, value)
