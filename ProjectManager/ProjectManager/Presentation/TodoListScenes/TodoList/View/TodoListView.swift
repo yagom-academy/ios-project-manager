@@ -20,22 +20,25 @@ final class TodoListView: UIView {
     }()
     
     let todoTableView: UITableView = {
-        let tableView = UITableView(frame: .zero, style: .grouped)
+        let tableView = UITableView(frame: .zero, style: .plain)
         tableView.register(TodoTableViewCell.self, forCellReuseIdentifier: TodoTableViewCell.identifier)
+        tableView.backgroundColor = .systemGray6
         
         return tableView
     }()
     
     let doingTableView: UITableView = {
-        let tableView = UITableView(frame: .zero, style: .grouped)
+        let tableView = UITableView(frame: .zero, style: .plain)
         tableView.register(TodoTableViewCell.self, forCellReuseIdentifier: TodoTableViewCell.identifier)
+        tableView.backgroundColor = .systemGray6
         
         return tableView
     }()
     
     let doneTableView: UITableView = {
-        let tableView = UITableView(frame: .zero, style: .grouped)
+        let tableView = UITableView(frame: .zero, style: .plain)
         tableView.register(TodoTableViewCell.self, forCellReuseIdentifier: TodoTableViewCell.identifier)
+        tableView.backgroundColor = .systemGray6
         
         return tableView
     }()
