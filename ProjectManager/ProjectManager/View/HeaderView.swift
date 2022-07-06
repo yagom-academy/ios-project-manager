@@ -6,22 +6,7 @@
 //
 
 import UIKit
-enum MenuType {
-    case todo
-    case doing
-    case done
-    
-    var title: String {
-        switch self {
-        case .todo:
-            return "TODO"
-        case .doing:
-            return "DOING"
-        case .done:
-            return "DONE"
-        }
-    }
-}
+
 final class HeaderVIew: UIView {
     init(_ menuType: MenuType) {
         super.init(frame: .zero)
