@@ -2,7 +2,7 @@
 //  ProjectManagerApp.swift
 //  ProjectManager
 //
-//  Created by 원툴, marisol on 2022/07/05.
+//  Created by OneTool, marisol on 2022/07/05.
 //
 
 import SwiftUI
