@@ -60,6 +60,16 @@ final class MainViweController: UIViewController {
             .subscribe(onNext: { [weak self] _ in
                 self?.presentDetailView()
             }).disposed(by: disposeBag)
+        
+        viewModel.toDoTableProjects
+            .bind(to: mainView.toDoTableView.rx.items(
+                cellIdentifier: "\(ProjectCell.self)",
+                cellType: ProjectCell.self)
+            ) { _, item, cell in
+                cell.onData.onNext( item )
+            }
+            .disposed(by: disposeBag)
+        
         let output = viewModel.transform(input: input)
     }
 }
