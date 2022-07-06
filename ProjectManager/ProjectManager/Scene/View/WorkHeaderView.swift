@@ -9,33 +9,34 @@ import UIKit
 
 final class WorkHeaderView: UIView {
 
-    lazy var titleLabel = UILabel().then {
+    private lazy var titleLabel = UILabel().then {
         $0.font = .preferredFont(forTextStyle: .title1)
         $0.textColor = .black
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.setContentHuggingPriority(.defaultHigh, for: .vertical)
     }
     
-    lazy var workCountLabel = UILabel().then {
+    private lazy var taskCountLabel = UILabel().then {
         $0.textColor = .white
         $0.font = .preferredFont(forTextStyle: .title3)
         $0.backgroundColor = .black
-        $0.text = "0"
-        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.clipsToBounds = true
+        $0.layer.cornerRadius = 15
+        $0.text = "1"
         $0.textAlignment = .center
-        
     }
     
-    lazy var baseStackView = UIStackView(arrangedSubviews: [titleLabel, workCountLabel]).then {
+    private lazy var headerStackView = UIStackView(
+        arrangedSubviews: [
+            titleLabel,
+            taskCountLabel
+        ]).then {
         $0.axis = .horizontal
         $0.alignment = .center
         $0.spacing = 10
-        $0.translatesAutoresizingMaskIntoConstraints = false
     }
     
     init(workType: WorkType) {
         super.init(frame: .zero)
-        backgroundColor = .systemGray5
+        backgroundColor = .systemGray6
         titleLabel.text = workType.value
         setupSubViews()
         setupUILayout()
@@ -46,19 +47,17 @@ final class WorkHeaderView: UIView {
     }
     
     private func setupSubViews() {
-        addSubview(baseStackView)
+        addSubview(headerStackView)
     }
     
     private func setupUILayout() {
-        baseStackView.snp.makeConstraints {
+        headerStackView.snp.makeConstraints {
             $0.top.bottom.equalToSuperview()
-            $0.leading.equalToSuperview().offset(20)
+            $0.leading.equalToSuperview().inset(20)
         }
-        
-        NSLayoutConstraint.activate([
-            workCountLabel.widthAnchor.constraint(equalToConstant: 25),
-            
-            workCountLabel.widthAnchor.constraint(equalTo: workCountLabel.heightAnchor)
-        ])
+        taskCountLabel.snp.makeConstraints {
+            $0.height.equalTo(titleLabel.snp.height)
+            $0.width.equalTo(taskCountLabel.snp.height)
+        }
     }
 }

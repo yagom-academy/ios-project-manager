@@ -9,7 +9,7 @@ import SnapKit
 import RxCocoa
 import RxSwift
 
-final class ViewController: UIViewController {
+final class MainViewController: UIViewController {
     
     private var todos: [Work] = []
     private var doings: [Work] = []
@@ -17,9 +17,13 @@ final class ViewController: UIViewController {
     
     private let mainView = MainView()
     
+    override func loadView() {
+        super.loadView()
+        self.view = mainView
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view = mainView
         configureNavigationItems()
         registerTableViewInfo()
         fetchData()
@@ -43,16 +47,24 @@ final class ViewController: UIViewController {
     private func registerTableViewInfo() {
         mainView.todoTableView.delegate = self
         mainView.todoTableView.dataSource = self
-        mainView.todoTableView.register(WorkTableViewCell.self, forCellReuseIdentifier: WorkTableViewCell.identifier)
-        
+        mainView.todoTableView.register(
+            WorkTableViewCell.self,
+            forCellReuseIdentifier: WorkTableViewCell.identifier
+        )
         mainView.doingTableView.delegate = self
         mainView.doingTableView.dataSource = self
-        mainView.doingTableView.register(WorkTableViewCell.self, forCellReuseIdentifier: WorkTableViewCell.identifier)
-        
+        mainView.doingTableView.register(
+            WorkTableViewCell.self,
+            forCellReuseIdentifier: WorkTableViewCell.identifier
+        )
         mainView.doneTableView.delegate = self
         mainView.doneTableView.dataSource = self
-        mainView.doneTableView.register(WorkTableViewCell.self, forCellReuseIdentifier: WorkTableViewCell.identifier)
+        mainView.doneTableView.register(
+            WorkTableViewCell.self,
+            forCellReuseIdentifier: WorkTableViewCell.identifier
+        )
     }
+    
     private func fetchData() {
         fetchToDo()
         fetchDoing()
@@ -103,7 +115,7 @@ final class ViewController: UIViewController {
 }
 
 // MARK: - TableView Method
-extension ViewController: UITableViewDelegate, UITableViewDataSource {
+extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(
         _ tableView: UITableView,
         numberOfRowsInSection section: Int

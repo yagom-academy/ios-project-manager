@@ -9,21 +9,43 @@ import UIKit
 
 final class NewToDoViewController: UIViewController {
     
-    let newToDoView = NewToDoView()
+    private let newToDoView = NewToDoView()
+    
+    override func loadView() {
+        super.loadView()
+        view = newToDoView
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view = newToDoView
-        configureNavigationItems()
+        configureNavigationBarItems()
     }
     
-    private func configureNavigationItems() {
+    private func configureNavigationBarItems() {
         title = "TODO"
         
-        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: nil)
+        let doneButton = UIBarButtonItem(
+            title: "Done",
+            style: .plain,
+            target: self,
+            action: #selector(doneButtonTapped)
+        )
         navigationItem.rightBarButtonItem = doneButton
         
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: nil)
+        let cancelButton = UIBarButtonItem(
+            title: "Cancel",
+            style: .plain,
+            target: self,
+            action: #selector(cancelButtonTapped)
+        )
         navigationItem.leftBarButtonItem = cancelButton
+    }
+    
+    @objc private func cancelButtonTapped() {
+        dismiss(animated: true)
+    }
+    
+    @objc private func doneButtonTapped() {
+        print("done")
     }
 }
