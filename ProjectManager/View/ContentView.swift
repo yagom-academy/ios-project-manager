@@ -38,6 +38,19 @@ struct ContentView: View {
             .navigationTitle("Project Manager")
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarColor(.systemGray5)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: {
+                        print("plusbutton")
+                        showSheet.toggle()
+                    }) {
+                        Image(systemName: "plus")
+                            .imageScale(.large)
+                    }.sheet(isPresented: $showSheet) {
+                        RegisterView()
+                    }
+                }
+            }
         }
         .navigationViewStyle(.stack)
     }
