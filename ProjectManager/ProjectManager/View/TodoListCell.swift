@@ -17,6 +17,8 @@ struct TodoListCell: View {
     ZStack {
       Rectangle()
         .fill(.white)
+        .shadow(color: .gray, radius: 1, x: 0, y: 1)
+      
       HStack {
         VStack(alignment: .leading) {
             Text(todo.title)
@@ -38,9 +40,3 @@ struct TodoListCell: View {
     }
   }
 }
-
-//struct TodoListCell_Previews: PreviewProvider {
-//  static var previews: some View {
-//    TodoListCell(Todo(title: "제목", content: "본문내용 입니다.", status: .todo))
-//  }
-//}

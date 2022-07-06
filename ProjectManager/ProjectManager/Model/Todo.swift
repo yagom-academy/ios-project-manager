@@ -14,10 +14,10 @@ class Todo: Identifiable, ObservableObject {
   let date: Date
   let status: Status
   
-  enum Status {
-    case todo
-    case doing
-    case done
+  enum Status: String {
+    case todo = "TODO"
+    case doing = "DOING"
+    case done = "DONE"
   }
   
   init(id: UUID = UUID(), title: String, content: String, date: Date = Date(), status: Status) {
