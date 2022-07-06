@@ -114,4 +114,33 @@ final class TodoListViewController: UIViewController {
     }
 }
 
-extension TodoListViewController: UITableViewDelegate {}
+extension TodoListViewController: UITableViewDelegate {
+    func tableView(
+        _ tableView: UITableView,
+        trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
+    ) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] (_, _, completion) in
+            
+            switch tableView {
+            case self?.todoListView.todoTableView:
+                if let item = self?.todoDataSource?.snapshot().itemIdentifiers[indexPath.row] {
+                    self?.viewModel.deleteItem(item)
+                }
+            case self?.todoListView.doingTableView:
+                if let item = self?.doingDataSource?.snapshot().itemIdentifiers[indexPath.row] {
+                    self?.viewModel.deleteItem(item)
+                }
+            case self?.todoListView.doneTableView:
+                if let item = self?.doneDataSource?.snapshot().itemIdentifiers[indexPath.row] {
+                    self?.viewModel.deleteItem(item)
+                }
+            default:
+                break
+            }
+                        
+            completion(true)
+        }
+        
+        return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
+}
