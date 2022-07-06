@@ -10,7 +10,20 @@ import UIKit
 import SnapKit
 
 final class TodoListView: UIView {
-    private let stackView: UIStackView = {
+    private let headerStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.distribution = .fillEqually
+        stackView.spacing = 10
+        stackView.backgroundColor = .systemGray5
+        
+        return stackView
+    }()
+    
+    private let todoHeaderView = TableHeaderView(title: "TODO")
+    private let doingHeaderView = TableHeaderView(title: "DOING")
+    private let doneHeaderView = TableHeaderView(title: "DONE")
+    
+    private let tableStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.distribution = .fillEqually
         stackView.spacing = 10
@@ -64,13 +77,21 @@ final class TodoListView: UIView {
     }
     
     private func addSubviews() {
-        addSubview(stackView)
-        stackView.addArrangeSubviews(todoTableView, doingTableView, doneTableView)
+        addSubview(headerStackView)
+        headerStackView.addArrangeSubviews(todoHeaderView, doingHeaderView, doneHeaderView)
+        addSubview(tableStackView)
+        tableStackView.addArrangeSubviews(todoTableView, doingTableView, doneTableView)
     }
     
     private func setupConstraint() {
-        stackView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+        headerStackView.snp.makeConstraints {
+            $0.leading.trailing.top.equalToSuperview()
+            $0.height.equalTo(50)
+        }
+        
+        tableStackView.snp.makeConstraints {
+            $0.leading.trailing.bottom.equalToSuperview()
+            $0.top.equalTo(headerStackView.snp.bottom)
         }
     }
     
