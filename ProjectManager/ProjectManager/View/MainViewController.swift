@@ -1,5 +1,5 @@
 //
-//  ProjectManager - ViewController.swift
+//  ProjectManager - MainViewController.swift
 //  Created by yagom. 
 //  Copyright © yagom. All rights reserved.
 // 
@@ -7,7 +7,7 @@
 import UIKit
 import SnapKit
 
-final class ViewController: UIViewController {
+final class MainViewController: UIViewController {
     private let todoHeaderView = HeaderVIew(MenuType.todo)
     private let doingHeaderView = HeaderVIew(MenuType.doing)
     private let doneHeaderView = HeaderVIew(MenuType.done)
