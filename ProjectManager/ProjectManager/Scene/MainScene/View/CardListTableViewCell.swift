@@ -79,7 +79,7 @@ final class CardListTableViewCell: UITableViewCell {
   }
 
   private func isOverdue(card: Card) -> Bool {
-    return (card.cardType == .todo || card.cardType == .doing) && Date() >= card.deadlineDate
+    return (card.cardType == .todo || card.cardType == .doing) && Date() > card.deadlineDate
   }
 }
 
