@@ -14,6 +14,7 @@ final class TodoTableViewCell: UITableViewCell {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.alignment = .leading
+        
         return stackView
     }()
     
@@ -46,9 +47,16 @@ final class TodoTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0))
+    }
+    
     private func setup() {
         addSubviews()
         setupConstraint()
+        setupView()
     }
     
     private func addSubviews() {
@@ -58,8 +66,13 @@ final class TodoTableViewCell: UITableViewCell {
     
     private func setupConstraint() {
         todoStackView.snp.makeConstraints {
-            $0.edges.equalToSuperview().inset(10)
+            $0.edges.equalToSuperview().inset(20)
         }
+    }
+    
+    private func setupView() {
+        backgroundColor = .systemGray6
+        contentView.backgroundColor = .systemBackground
     }
     
     func setupData(with data: TodoListModel) {
