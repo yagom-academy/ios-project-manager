@@ -6,10 +6,16 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-
+class MainViewController: UIViewController {
+    private lazy var mainView = MainView()
+    
+    override func loadView() {
+        view = mainView
+        mainView.setUp()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .blue
     }
+    
 }
