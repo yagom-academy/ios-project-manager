@@ -22,7 +22,7 @@ final class ProjectTableView: UITableView {
         return label
     }()
     
-    private lazy var countLabel: UILabel = {
+    lazy var countLabel: UILabel = {
         let label = UILabel()
         
         func round() {
