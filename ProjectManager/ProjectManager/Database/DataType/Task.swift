@@ -7,13 +7,13 @@
 
 import RealmSwift
 
-class Project: Object {
+class Task: Object {
     @Persisted(primaryKey: true) var id: String
     @Persisted var title: String?
     @Persisted var date: Date
     @Persisted var body: String?
 
-    convenience init(id: String = UUID().uuidString, title: String?, date: Date, body: String?) {
+    convenience init(title: String?, date: Date, body: String?) {
         self.init()
         self.id = id
         self.title = title

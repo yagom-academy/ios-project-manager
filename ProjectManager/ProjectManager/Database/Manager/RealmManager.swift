@@ -9,11 +9,11 @@ import Foundation
 import RealmSwift
 
 protocol RealmManagerable {
-    func create<T: Object>(project: T) throws
-    func read<T: Object>(predicate: NSPredicate) -> T?
+    func create<T: Object>(_ data: T) throws
+    func read<T: Object>(_ nsPredicate: NSPredicate) -> T?
     func readAll<T: Object>() -> [T]
-    func update<T: Object>(project: T) throws
-    func delete<T: Object>(project: T) throws
+    func update<T: Object>(data: T, updateHandler: ((T) -> Void)) throws
+    func delete<T: Object>(_ data: T) throws
     func deleteAll() throws
 }
 
@@ -24,15 +24,15 @@ final class RealmManager: RealmManagerable {
         self.realm = realm
     }
     
-    func create<T: Object>(project: T) throws {
+    func create<T: Object>(_ data: T) throws {
         try realm.write {
-            realm.add(project)
+            realm.add(data)
         }
     }
     
-    func read<T: Object>(predicate: NSPredicate) -> T? {
+    func read<T: Object>(_ nsPredicate: NSPredicate) -> T? {
         return realm.objects(T.self)
-                    .filter(predicate)
+                    .filter(nsPredicate)
                     .first
     }
     
@@ -41,15 +41,15 @@ final class RealmManager: RealmManagerable {
         return Array(data)
     }
     
-    func update<T: Object>(project: T) throws {
+    func update<T: Object>(data: T, updateHandler: ((T) -> Void)) throws {
         try realm.write({
-            realm.add(project, update: .modified)
+            updateHandler(data)
         })
     }
     
-    func delete<T: Object>(project: T) throws {
+    func delete<T: Object>(_ data: T) throws {
         try realm.write({
-            realm.delete(project)
+            realm.delete(data)
         })
     }
     
