@@ -57,9 +57,9 @@ final class CardListViewController: UIViewController {
   }
   
   private func bindSections(output: CardListViewModel.Output) {
-    let todos = output.todoCards.asDriver()
-    let doings = output.doingCards.asDriver()
-    let dones = output.doneCards.asDriver()
+    let todos = output.todoCards.asDriver(onErrorJustReturn: [])
+    let doings = output.doingCards.asDriver(onErrorJustReturn: [])
+    let dones = output.doneCards.asDriver(onErrorJustReturn: [])
     
     todos
       .drive(todoSectionView.tableView.rx.items(
