@@ -4,13 +4,17 @@
 //  Copyright © yagom. All rights reserved.
 // 
 
-import UIKit
 import SnapKit
+import RxSwift
+import RxCocoa
 
 final class MainViewController: UIViewController {
     private let todoHeaderView = HeaderVIew(MenuType.todo)
     private let doingHeaderView = HeaderVIew(MenuType.doing)
     private let doneHeaderView = HeaderVIew(MenuType.done)
+    
+    private let mainViewModel = MainViewModel()
+    private var disposbag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,8 +33,33 @@ final class MainViewController: UIViewController {
         mainStackView.snp.makeConstraints {
             $0.edges.equalTo(self.view.safeAreaLayoutGuide)
         }
+        setTableView()
     }
     
+    private func setTableView() {
+        mainViewModel.todoObservable.bind(to: todoTableView.rx.items(cellIdentifier: "\(ListTableViewCell.self)", cellType: ListTableViewCell.self)) { index, item, cell in
+            cell.titleLabel.text = item.title
+            cell.bodyLabel.text = item.body
+            cell.deadlineLabel.text = item.deadline.description
+        }
+        .disposed(by: disposbag)
+        
+        mainViewModel.doingObservable.bind(to: doingTableView.rx.items(cellIdentifier: "\(ListTableViewCell.self)", cellType: ListTableViewCell.self)) { index, item, cell in
+            cell.titleLabel.text = item.title
+            cell.bodyLabel.text = item.body
+            cell.deadlineLabel.text = item.deadline.description
+        }
+        .disposed(by: disposbag)
+        
+        mainViewModel.doneObservable.bind(to: doneTableView.rx.items(cellIdentifier: "\(ListTableViewCell.self)", cellType: ListTableViewCell.self)) { index, item, cell in
+            cell.titleLabel.text = item.title
+            cell.bodyLabel.text = item.body
+            cell.deadlineLabel.text = item.deadline.description
+        }
+        .disposed(by: disposbag)
+    }
+    
+    // MARK: - UI Components
     private lazy var mainStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews:
                                         [todoStackView,
@@ -55,6 +84,9 @@ final class MainViewController: UIViewController {
     private lazy var todoTableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .systemGray6
+        tableView.register(ListTableViewCell.self,
+                           forCellReuseIdentifier: "\(ListTableViewCell.self)")
+        
         return tableView
     }()
     
@@ -70,6 +102,8 @@ final class MainViewController: UIViewController {
     private lazy var doingTableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .systemGray6
+        tableView.register(ListTableViewCell.self,
+                           forCellReuseIdentifier: "\(ListTableViewCell.self)")
         return tableView
     }()
     
@@ -85,7 +119,8 @@ final class MainViewController: UIViewController {
     private lazy var doneTableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .systemGray6
+        tableView.register(ListTableViewCell.self,
+                           forCellReuseIdentifier: "\(ListTableViewCell.self)")
         return tableView
     }()
 }
-
