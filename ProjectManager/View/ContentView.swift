@@ -8,28 +8,28 @@
 import SwiftUI
 
 struct ContentView: View {
-    
+    @State private var showSheet = false
     var body: some View {
         
         NavigationView {
             HStack {
                 VStack(alignment: .leading) {
-                        List {
-                            Section(header: TodoView()) {
+                    List {
+                        Section(header: TodoView()) {
                             ListRowView()
                         }
                     }
                 }
                 VStack(alignment: .leading) {
-                        List {
-                            Section(header: DoingView()) {
+                    List {
+                        Section(header: DoingView()) {
                             ListRowView()
                         }
                     }
                 }
                 VStack(alignment: .leading) {
-                        List {
-                            Section(header: DoneView()) {
+                    List {
+                        Section(header: DoneView()) {
                             ListRowView()
                         }
                     }
@@ -55,11 +55,11 @@ struct ContentView: View {
         .navigationViewStyle(.stack)
     }
 }
-    
-    
-    struct ContentView_Previews: PreviewProvider {
-        static var previews: some View {
-            ContentView()
-                .previewInterfaceOrientation(.landscapeLeft)
-        }
+
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+            .previewInterfaceOrientation(.landscapeLeft)
     }
+}
