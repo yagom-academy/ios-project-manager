@@ -6,12 +6,14 @@
 //
 
 import UIKit
+
 import Then
 
 final class CardListHeaderView: UIView {
   private enum UISettings {
     static let cardCountLabelWidth = 30.0
-    static let intervalConstant = 16.0
+    static let intervalBetweenLabels = 16.0
+    static let intervalFromSuperViews = 16.0
   }
   
   private let cardTitleLabel = UILabel().then {
@@ -28,11 +30,19 @@ final class CardListHeaderView: UIView {
     $0.layer.masksToBounds = true
     $0.translatesAutoresizingMaskIntoConstraints = false
   }
+  private lazy var containerStackView = UIStackView(
+    arrangedSubviews: [cardTitleLabel, cardCountLabel]
+  ).then {
+    $0.alignment = .center
+    $0.spacing = UISettings.intervalBetweenLabels
+    $0.translatesAutoresizingMaskIntoConstraints = false
+  }
   
   init(cardType: CardType) {
     super.init(frame: .zero)
     cardTitleLabel.text = cardType.description
-    configureUI()
+    configureSubViews()
+    configureLayouts()
   }
   
   required init?(coder: NSCoder) {
@@ -43,30 +53,32 @@ final class CardListHeaderView: UIView {
 // MARK: - UI Configuration
 
 extension CardListHeaderView {
-  private func configureUI() {
-    backgroundColor = .systemGray6
-    let labels = [cardTitleLabel, cardCountLabel]
-    let containerStackView = UIStackView(arrangedSubviews: labels)
-    containerStackView.alignment = .center
-    containerStackView.spacing = UISettings.intervalConstant
-    containerStackView.translatesAutoresizingMaskIntoConstraints = false
+  private func configureSubViews() {
     addSubview(containerStackView)
+  }
+  
+  private func configureLayouts() {
+    backgroundColor = .systemGray6
     
     NSLayoutConstraint.activate([
       containerStackView.topAnchor.constraint(
         equalTo: topAnchor,
-        constant: UISettings.intervalConstant
+        constant: UISettings.intervalFromSuperViews
       ),
       containerStackView.bottomAnchor.constraint(
         equalTo: bottomAnchor,
-        constant: -UISettings.intervalConstant * 0.5
+        constant: -UISettings.intervalFromSuperViews * 0.5
       ),
       containerStackView.leadingAnchor.constraint(
         equalTo: leadingAnchor,
-        constant: UISettings.intervalConstant
+        constant: UISettings.intervalFromSuperViews
       ),
-      cardCountLabel.widthAnchor.constraint(equalToConstant: UISettings.cardCountLabelWidth),
-      cardCountLabel.widthAnchor.constraint(equalTo: cardCountLabel.heightAnchor)
+      cardCountLabel.widthAnchor.constraint(
+        equalToConstant: UISettings.cardCountLabelWidth
+      ),
+      cardCountLabel.widthAnchor.constraint(
+        equalTo: cardCountLabel.heightAnchor
+      )
     ])
   }
 }
