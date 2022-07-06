@@ -13,7 +13,10 @@
 		B39F102E2873DDC300475AE4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B39F102D2873DDC300475AE4 /* Assets.xcassets */; };
 		B39F10312873DDC300475AE4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B39F10302873DDC300475AE4 /* Preview Assets.xcassets */; };
 		B3EA5F12287481F6000713F7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B3EA5F11287481F6000713F7 /* GoogleService-Info.plist */; };
+		DA79E41628752ABE000192CC /* TodoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA79E41528752ABE000192CC /* TodoView.swift */; };
 		DA79E41A28755DC6000192CC /* NavigationBarModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA79E41928755DC6000192CC /* NavigationBarModifier.swift */; };
+		DA79E41C28756193000192CC /* DoingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA79E41B28756193000192CC /* DoingView.swift */; };
+		DA79E41E287561A1000192CC /* DoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA79E41D287561A1000192CC /* DoneView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,7 +29,10 @@
 		B39F10302873DDC300475AE4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B3EA5F11287481F6000713F7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B9E1EE52A77CD8A59090782B /* Pods_ProjectManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA79E41528752ABE000192CC /* TodoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoView.swift; sourceTree = "<group>"; };
 		DA79E41928755DC6000192CC /* NavigationBarModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarModifier.swift; sourceTree = "<group>"; };
+		DA79E41B28756193000192CC /* DoingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoingView.swift; sourceTree = "<group>"; };
+		DA79E41D287561A1000192CC /* DoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +89,9 @@
 				B39F102B2873DDC100475AE4 /* ContentView.swift */,
 				B39F102D2873DDC300475AE4 /* Assets.xcassets */,
 				B3EA5F11287481F6000713F7 /* GoogleService-Info.plist */,
+				DA79E41F28756508000192CC /* Model */,
+				DA79E4202875650D000192CC /* View */,
+				DA79E42128756515000192CC /* ViewModel */,
 				B39F102F2873DDC300475AE4 /* Preview Content */,
 			);
 			path = ProjectManager;
@@ -94,6 +103,33 @@
 				B39F10302873DDC300475AE4 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		DA79E41F28756508000192CC /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				DA79E41928755DC6000192CC /* NavigationBarModifier.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		DA79E4202875650D000192CC /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B39F102B2873DDC100475AE4 /* ContentView.swift */,
+				DA79E413287525C3000192CC /* ListRowView.swift */,
+				DA79E41528752ABE000192CC /* TodoView.swift */,
+				DA79E41B28756193000192CC /* DoingView.swift */,
+				DA79E41D287561A1000192CC /* DoneView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		DA79E42128756515000192CC /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -214,6 +250,9 @@
 				DA79E41A28755DC6000192CC /* NavigationBarModifier.swift in Sources */,
 				B39F102C2873DDC100475AE4 /* ContentView.swift in Sources */,
 				B39F102A2873DDC100475AE4 /* ProjectManagerApp.swift in Sources */,
+				DA79E41E287561A1000192CC /* DoneView.swift in Sources */,
+				DA79E41628752ABE000192CC /* TodoView.swift in Sources */,
+				DA79E41C28756193000192CC /* DoingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
