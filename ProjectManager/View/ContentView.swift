@@ -14,27 +14,40 @@ struct ContentView: View {
         NavigationView {
             HStack {
                 VStack(alignment: .leading) {
-                    List {
-                        Section(header: TodoView()) {
-                            ListRowView()
+                        List {
+                            Section(header: TodoView()){
+                                Button {
+                                    showSheet.toggle()
+                                } label: {
+                                    ListRowView()
+                                }
+                                .sheet(isPresented: $showSheet) {
+                                    RegisterView()
+                                }
+                            }
                         }
-                    }
+                        .listStyle(.grouped)
                 }
+                
                 VStack(alignment: .leading) {
                     List {
                         Section(header: DoingView()) {
                             ListRowView()
                         }
                     }
+                    .listStyle(.grouped)
                 }
+                
                 VStack(alignment: .leading) {
                     List {
                         Section(header: DoneView()) {
                             ListRowView()
                         }
                     }
+                    .listStyle(.grouped)
                 }
             }
+            .background(.gray)
             .navigationTitle("Project Manager")
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarColor(.systemGray5)

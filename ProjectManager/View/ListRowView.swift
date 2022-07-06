@@ -9,12 +9,14 @@ import SwiftUI
 
 struct ListRowView: View {
     var body: some View {
-        VStack(alignment: .leading) {
-            Text("책상정리")
-            Text("집중이 안될 때 역시나 책상정리").foregroundColor(.gray)
-            Text("2021. 11. 6.")
-        }
-        .padding()
+            VStack(alignment: .leading) {
+                Text("책상정리")
+                    .foregroundColor(.black)
+                Text("집중이 안될 때 역시나 책상정리")
+                    .foregroundColor(.gray)
+                Text("2021. 11. 6.")
+                    .foregroundColor(.black)
+            }
     }
 }
 
