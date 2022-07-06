@@ -38,6 +38,7 @@ final class ListTableViewCell: UITableViewCell {
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .title2)
+        label.setContentHuggingPriority(.required, for: .vertical)
         
         return label
     }()
@@ -52,7 +53,7 @@ final class ListTableViewCell: UITableViewCell {
     
     lazy var deadlineLabel: UILabel = {
         let label = UILabel()
-        
+        label.setContentHuggingPriority(.required, for: .vertical)
         return label
     }()
     
