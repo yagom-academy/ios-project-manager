@@ -19,6 +19,15 @@ final class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setInitailView()
+    }
+    
+    private func setInitailView() {
+        self.view.backgroundColor = .systemGray5
+        self.view.addSubview(mainStackView)
+        mainStackView.snp.makeConstraints {
+            $0.edges.equalTo(self.view.safeAreaLayoutGuide)
+        }
+        setTableView()
         setNavigationBar()
     }
     
@@ -32,36 +41,43 @@ final class MainViewController: UIViewController {
         self.present(detailVC, animated: true, completion: nil)
     }
     
-    private func setInitailView() {
-        self.view.backgroundColor = .systemGray5
-        self.view.addSubview(mainStackView)
-        mainStackView.snp.makeConstraints {
-            $0.edges.equalTo(self.view.safeAreaLayoutGuide)
-        }
-        setTableView()
+    private func setTableView() {
+        bindTableView(todoTableView,
+                      lists: mainViewModel.todoObservable,
+                      headerView: todoHeaderView)
+        bindTableView(doingTableView,
+                      lists: mainViewModel.doingObservable,
+                      headerView: doingHeaderView)
+        bindTableView(doneTableView,
+                      lists: mainViewModel.doneObservable,
+                      headerView: doneHeaderView)
     }
     
-    private func setTableView() {
-        mainViewModel.todoObservable.bind(to: todoTableView.rx.items(cellIdentifier: "\(ListTableViewCell.self)", cellType: ListTableViewCell.self)) { index, item, cell in
+    private func bindTableView(_ tableView: UITableView, lists: BehaviorSubject<[List]>, headerView: HeaderVIew) {
+        lists.bind(to: tableView.rx.items(cellIdentifier: "\(ListTableViewCell.self)", cellType: ListTableViewCell.self)) { index, item, cell in
             cell.titleLabel.text = item.title
             cell.bodyLabel.text = item.body
             cell.deadlineLabel.text = item.deadline.description
         }
         .disposed(by: disposbag)
         
-        mainViewModel.doingObservable.bind(to: doingTableView.rx.items(cellIdentifier: "\(ListTableViewCell.self)", cellType: ListTableViewCell.self)) { index, item, cell in
-            cell.titleLabel.text = item.title
-            cell.bodyLabel.text = item.body
-            cell.deadlineLabel.text = item.deadline.description
-        }
-        .disposed(by: disposbag)
+        lists
+          .map { "\($0.count)"}
+          .bind(to: headerView.countLabel.rx.text)
+          .disposed(by: disposbag)
         
-        mainViewModel.doneObservable.bind(to: doneTableView.rx.items(cellIdentifier: "\(ListTableViewCell.self)", cellType: ListTableViewCell.self)) { index, item, cell in
-            cell.titleLabel.text = item.title
-            cell.bodyLabel.text = item.body
-            cell.deadlineLabel.text = item.deadline.description
-        }
-        .disposed(by: disposbag)
+        tableView.rx.modelSelected(List.self)
+            .bind(onNext: { [weak self] in
+                print($0.title) //임시코드
+                self?.presentDetailView()
+            })
+            .disposed(by: disposbag)
+        
+        tableView.rx.itemSelected
+            .bind(onNext: { index in
+                tableView.deselectRow(at: index, animated: true)
+            })
+            .disposed(by: disposbag)
     }
     
     // MARK: - UI Components
