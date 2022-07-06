@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 protocol TodoListViewModelInput {
-    
+    func deleteItem(_ item: TodoListModel)
 }
 
 protocol TodoListViewModelOutput {
@@ -40,4 +40,8 @@ final class DefaultTodoListViewModel: TodoListViewModel {
 extension DefaultTodoListViewModel {
     
     // MARK: - Input
+    
+    func deleteItem(_ item: TodoListModel) {
+        useCase.delete(item: item)
+    }
 }

@@ -20,4 +20,8 @@ extension TodoListRepository: Repository {
     func read() -> AnyPublisher<[TodoListModel], Never> {
         return storage.read()
     }
+    
+    func delete(item: TodoListModel) {
+        storage.delete(item: item)
+    }
 }

@@ -10,4 +10,5 @@ import Combine
 
 protocol Repository {
     func read() -> AnyPublisher<[TodoListModel], Never>
+    func delete(item: TodoListModel)
 }

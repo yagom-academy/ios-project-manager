@@ -10,6 +10,7 @@ import Combine
 
 protocol Storage {
     func read() -> AnyPublisher<[TodoListModel], Never>
+    func delete(item: TodoListModel)
 }
 
 final class MemoryStorage: Storage {
@@ -17,5 +18,11 @@ final class MemoryStorage: Storage {
     
     func read() -> AnyPublisher<[TodoListModel], Never> {
         $datas.eraseToAnyPublisher()
+    }
+    
+    func delete(item: TodoListModel) {
+        if let index = datas.firstIndex(of: item) {
+            datas.remove(at: index)
+        }
     }
 }
