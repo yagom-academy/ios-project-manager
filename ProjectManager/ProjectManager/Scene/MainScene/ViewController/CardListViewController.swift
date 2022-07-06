@@ -6,8 +6,10 @@
 //
 
 import UIKit
-import RxSwift
+
 import RxCocoa
+import RxSwift
+import Then
 
 final class CardListViewController: UIViewController {
   private enum UISettings {
@@ -15,22 +17,27 @@ final class CardListViewController: UIViewController {
     static let navigationTitle = "Project Manager"
   }
   
-  private let todoTableView = UITableView()
-  private let doingTableView = UITableView()
-  private let doneTableView = UITableView()
+  private let todoSectionView = CardSectionView(sectionType: .todo)
+  private let doingSectionView = CardSectionView(sectionType: .doing)
+  private let doneSectionView = CardSectionView(sectionType: .done)
+  private lazy var containerStackView = UIStackView(
+    arrangedSubviews: [todoSectionView, doingSectionView, doneSectionView]
+  ).then {
+    $0.axis = .horizontal
+    $0.spacing = UISettings.intervalBetweenTableViews
+    $0.distribution = .fillEqually
+    $0.translatesAutoresizingMaskIntoConstraints = false
+  }
   
-  private let todoHeaderView = CardListHeaderView(cardType: .todo)
-  private let doingHeaderView = CardListHeaderView(cardType: .doing)
-  private let doneHeaderView = CardListHeaderView(cardType: .done)
-
   private let viewModel = CardListViewModel()
   private let disposeBag = DisposeBag()
   
   init() {
     super.init(nibName: nil, bundle: nil)
-    configureNavigationBar()
-    configureTableView()
-    configureUI()
+    configureSubViews()
+    configureLayouts()
+    configureTableViews()
+    configureNavigationItem()
   }
   
   required init?(coder: NSCoder) {
@@ -51,7 +58,7 @@ final class CardListViewController: UIViewController {
     let dones = output.cards.map { $0.filter { $0.cardType == .done } }
     
     todos
-      .drive(todoTableView.rx.items(
+      .drive(todoSectionView.tableView.rx.items(
         cellIdentifier: CardListTableViewCell.identifier,
         cellType: CardListTableViewCell.self
       )) { index, card, cell in
@@ -60,7 +67,7 @@ final class CardListViewController: UIViewController {
       .disposed(by: disposeBag)
     
     doings
-      .drive(doingTableView.rx.items(
+      .drive(doingSectionView.tableView.rx.items(
         cellIdentifier: CardListTableViewCell.identifier,
         cellType: CardListTableViewCell.self
       )) { index, card, cell in
@@ -69,7 +76,7 @@ final class CardListViewController: UIViewController {
       .disposed(by: disposeBag)
     
     dones
-      .drive(doneTableView.rx.items(
+      .drive(doneSectionView.tableView.rx.items(
         cellIdentifier: CardListTableViewCell.identifier,
         cellType: CardListTableViewCell.self
       )) { index, card, cell in
@@ -79,37 +86,37 @@ final class CardListViewController: UIViewController {
     
     todos
       .map { "\($0.count)" }
-      .drive(todoHeaderView.cardCountLabel.rx.text)
+      .drive(todoSectionView.headerView.cardCountLabel.rx.text)
       .disposed(by: disposeBag)
     
     doings
       .map { "\($0.count)" }
-      .drive(doingHeaderView.cardCountLabel.rx.text)
+      .drive(doingSectionView.headerView.cardCountLabel.rx.text)
       .disposed(by: disposeBag)
     
     dones
       .map { "\($0.count)" }
-      .drive(doneHeaderView.cardCountLabel.rx.text)
+      .drive(doneSectionView.headerView.cardCountLabel.rx.text)
       .disposed(by: disposeBag)
     
-    todoTableView.rx.itemSelected
+    todoSectionView.tableView.rx.itemSelected
       .withUnretained(self)
       .bind(onNext: { (wself, indexPath) in
-        wself.todoTableView.deselectRow(at: indexPath, animated: true)
+        wself.todoSectionView.tableView.deselectRow(at: indexPath, animated: true)
       })
       .disposed(by: disposeBag)
     
-    doingTableView.rx.itemSelected
+    doingSectionView.tableView.rx.itemSelected
       .withUnretained(self)
       .bind(onNext: { (wself, indexPath) in
-        wself.doingTableView.deselectRow(at: indexPath, animated: true)
+        wself.doingSectionView.tableView.deselectRow(at: indexPath, animated: true)
       })
       .disposed(by: disposeBag)
     
-    doneTableView.rx.itemSelected
+    doneSectionView.tableView.rx.itemSelected
       .withUnretained(self)
       .bind(onNext: { (wself, indexPath) in
-        wself.doneTableView.deselectRow(at: indexPath, animated: true)
+        wself.doneSectionView.tableView.deselectRow(at: indexPath, animated: true)
       })
       .disposed(by: disposeBag)
   }
@@ -118,37 +125,23 @@ final class CardListViewController: UIViewController {
 // MARK: - UI Configuration
 
 extension CardListViewController {
-  private func configureNavigationBar() {
+  private func configureNavigationItem() {
     title = UISettings.navigationTitle
   }
   
-  private func configureTableView() {
-    [todoTableView, doingTableView, doneTableView].forEach {
+  private func configureTableViews() {
+    [todoSectionView.tableView, doingSectionView.tableView, doneSectionView.tableView].forEach {
       $0.register(CardListTableViewCell.self, forCellReuseIdentifier: CardListTableViewCell.identifier)
     }
   }
   
-  private func configureUI() {
-    view.backgroundColor = .systemGray5
-    let tableViews = [todoTableView, doingTableView, doneTableView]
-    tableViews.forEach { $0.backgroundColor = .systemGray6 }
-    
-    let todoContainerStackView = UIStackView(arrangedSubviews: [todoHeaderView, todoTableView])
-    todoContainerStackView.axis = .vertical
-    let doingContainerStackView = UIStackView(arrangedSubviews: [doingHeaderView, doingTableView])
-    doingContainerStackView.axis = .vertical
-    let doneContainerStackView = UIStackView(arrangedSubviews: [doneHeaderView, doneTableView])
-    doneContainerStackView.axis = .vertical
-    
-    let subContainers = [todoContainerStackView, doingContainerStackView, doneContainerStackView]
-    
-    let containerStackView = UIStackView(arrangedSubviews: subContainers)
-    containerStackView.axis = .horizontal
-    containerStackView.spacing = UISettings.intervalBetweenTableViews
-    containerStackView.distribution = .fillEqually
-    containerStackView.translatesAutoresizingMaskIntoConstraints = false
-    
+  private func configureSubViews() {
     view.addSubview(containerStackView)
+  }
+  
+  private func configureLayouts() {
+    view.backgroundColor = .systemGray5
+    
     NSLayoutConstraint.activate([
       containerStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
       containerStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
