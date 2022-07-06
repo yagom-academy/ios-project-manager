@@ -69,7 +69,13 @@ final class CardListTableViewCell: UITableViewCell {
   private func setDeadlineDateToString(_ date: Date) -> String {
     let formatter = DateFormatter()
     formatter.dateStyle = .full
+    formatter.locale = setPreferredLocale()
     return formatter.string(from: date)
+  }
+  
+  private func setPreferredLocale() -> Locale {
+    guard let preferredID = Locale.preferredLanguages.first else { return Locale.current }
+    return Locale(identifier: preferredID)
   }
 
   private func isOverdue(card: Card) -> Bool {
