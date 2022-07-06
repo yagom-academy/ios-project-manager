@@ -70,6 +70,10 @@ final class MainViweController: UIViewController {
             }
             .disposed(by: disposeBag)
         
+        viewModel.totalCount
+            .bind(to: mainView.toDoTableView.countLabel.rx.text)
+            .disposed(by: disposeBag)
+        
         let output = viewModel.transform(input: input)
     }
 }
