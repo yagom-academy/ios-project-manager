@@ -14,8 +14,7 @@ struct HeaderView: View {
   
   var body: some View {
     VStack {
-      HStack() {
-        
+      HStack {
         Text(title.rawValue)
           .font(.title)
         
@@ -30,6 +29,7 @@ struct HeaderView: View {
         Spacer()
       }
       .padding(.leading, 10)
+      .padding(.top, 20)
       
       Rectangle()
         .frame(height: 1)
