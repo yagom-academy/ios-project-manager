@@ -63,7 +63,7 @@ final class TodoListViewController: UIViewController {
     
     private func setupConstraint() {
         todoListView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.edges.equalTo(view.safeAreaLayoutGuide)
         }
     }
     

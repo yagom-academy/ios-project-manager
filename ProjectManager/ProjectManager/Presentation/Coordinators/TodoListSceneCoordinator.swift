@@ -35,6 +35,9 @@ final class TodoListSceneCoordinator {
     
     private func showDetailView(_ item: TodoListModel?) {
         let todoDetailViewController = dependencies.makeTodoDetailViewContoller(actions: TodoDetailActions())
+        
+        todoDetailViewController.modalPresentationStyle = .formSheet
+        
         self.viewController?.present(todoDetailViewController, animated: true)
         
         self.viewController = todoDetailViewController
