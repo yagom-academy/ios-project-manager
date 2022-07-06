@@ -27,19 +27,16 @@ final class CustomTableViewCell: UITableViewCell {
     
     private lazy var titleLabel = UILabel().then {
         $0.font = .preferredFont(for: .title2, weight: .bold)
-        $0.text = "타이틀레이블"
     }
     
     private lazy var descriptionLabel = UILabel().then {
         $0.font = .preferredFont(for: .title3, weight: .bold)
         $0.numberOfLines = 3
         $0.textColor = .gray
-        $0.text = "데스크립션레이블 데스크립션레이블 데스크립션레이블 데스크립션레이블 데스크립션레이블 데스크립션레이블 데스크립션레이블 데스크립션레이블 데스크립션레이블 데스크립션레이블 데스크립션레이블 데스크립션레이블 데스크립션레이블 데스크립션레이블 데스크립션레이블 데스크립션레이블 데스크립션레이블"
     }
     
     private lazy var dateLabel = UILabel().then {
         $0.font = .preferredFont(for: .headline, weight: .bold)
-        $0.text = "데이트레이블"
     }
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -56,5 +53,11 @@ final class CustomTableViewCell: UITableViewCell {
         baseCellStackView.snp.makeConstraints {
             $0.edges.equalToSuperview().inset(10)
         }
+    }
+    
+    func setupContents(data: Work) {
+        titleLabel.text = data.title
+        descriptionLabel.text = data.description
+        dateLabel.text = data.date
     }
 }

@@ -6,8 +6,13 @@
 
 import UIKit
 import SnapKit
+import RxCocoa
+import RxSwift
 
 final class ViewController: UIViewController {
+    
+    private var todos: [Work] = []
+    private let mainView = MainView()
     
     private lazy var baseStackView = UIStackView(
         arrangedSubviews: [
@@ -24,15 +29,12 @@ final class ViewController: UIViewController {
     private lazy var todoTableView = UITableView()
     private lazy var doingTableView = UITableView()
     private lazy var doneTableView = UITableView()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view = mainView
         
-        todoTableView.delegate = self
-        todoTableView.dataSource = self
-        todoTableView.register(CustomTableViewCell.self, forCellReuseIdentifier: CustomTableViewCell.identifier)
-
-        view.backgroundColor = .systemGray4
+        
         title = "Project Manager"
         let plusButton = UIBarButtonItem(
             image: UIImage(
@@ -40,23 +42,33 @@ final class ViewController: UIViewController {
             ),
             style: .plain,
             target: self,
-            action: nil
+            action: #selector(showAddWindow)
         )
         navigationItem.rightBarButtonItem = plusButton
         
-        setupSubViews()
-        setupUILayout()
+        mainView.todoTableView.delegate = self
+        mainView.todoTableView.dataSource = self
+        todoTableView.register(CustomTableViewCell.self, forCellReuseIdentifier: CustomTableViewCell.identifier)
+        
+        fetchToDo()
+        mainView.setupSubViews()
+        mainView.setupUILayout()
     }
     
-    private func setupSubViews() {
-        view.addSubview(baseStackView)
+    private func fetchToDo() {
+        todos = [
+            Work(title: "타이틀1", description: "1", date: "1"),
+            Work(title: "타이틀1", description: "1", date: "1"),
+            Work(title: "타이틀1", description: "1", date: "1"),
+            Work(title: "타이틀1", description: "1", date: "1"),
+            Work(title: "타이틀1", description: "1", date: "1")
+        ]
     }
     
-    private func setupUILayout() {
-        baseStackView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide)
-            $0.leading.trailing.bottom.equalToSuperview()
-        }
+    @objc private func showAddWindow() {
+        let vc = UINavigationController(rootViewController: NewToDoViewController())
+        vc.modalPresentationStyle = .formSheet
+        present(vc, animated: true)
     }
 }
 
@@ -66,7 +78,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         _ tableView: UITableView,
         numberOfRowsInSection section: Int
     ) -> Int {
-        return 10
+        return todos.count
     }
     
     func tableView(
@@ -79,6 +91,9 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         ) as? CustomTableViewCell else {
             return UITableViewCell()
         }
+        
+        todoCell.setupContents(data: todos[indexPath.row])
+        
         return todoCell
     }
 }
