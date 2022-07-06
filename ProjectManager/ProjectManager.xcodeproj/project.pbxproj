@@ -11,6 +11,7 @@
 		86855C342873C608002090E1 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 86855C332873C608002090E1 /* Realm */; };
 		86855C362873C608002090E1 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 86855C352873C608002090E1 /* RealmSwift */; };
 		86B5211B28758AD5003B83C9 /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B5211A28758AD5003B83C9 /* Todo.swift */; };
+		86B5211E287597E7003B83C9 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B5211D287597E7003B83C9 /* Date+Extension.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
@@ -25,6 +26,7 @@
 /* Begin PBXFileReference section */
 		864DD597287327F500023287 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		86B5211A28758AD5003B83C9 /* Todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
+		86B5211D287597E7003B83C9 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -59,6 +61,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		86B5211C287597B8003B83C9 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				86B5211D287597E7003B83C9 /* Date+Extension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		C7431EF925F51E1D0094C4CF = {
 			isa = PBXGroup;
 			children = (
@@ -78,6 +88,7 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
+				86B5211C287597B8003B83C9 /* Extension */,
 				DA657CDD28758DE2002DB030 /* View */,
 				DA657CDC28758DD9002DB030 /* ViewModel */,
 				86B5211928758A89003B83C9 /* Model */,
@@ -214,6 +225,7 @@
 				DA657CE128758FE5002DB030 /* TodoListCell.swift in Sources */,
 				864DD598287327F500023287 /* ContentView.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
+				86B5211E287597E7003B83C9 /* Date+Extension.swift in Sources */,
 				DA657CDF28758E16002DB030 /* TodoViewModel.swift in Sources */,
 				86B5211B28758AD5003B83C9 /* Todo.swift in Sources */,
 			);
