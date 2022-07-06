@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		983FCAEF828FD3059A3F715C /* Pods_ProjectManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69ED1A6F55518C8A1F17823B /* Pods_ProjectManager.framework */; };
+		ABDB96302875D2A1002D6602 /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDB962F2875D2A1002D6602 /* BaseTableViewController.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* ViewController.swift */; };
@@ -19,6 +20,7 @@
 		29D6594A104AC464E3F0B18F /* Pods-ProjectManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.debug.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.debug.xcconfig"; sourceTree = "<group>"; };
 		69ED1A6F55518C8A1F17823B /* Pods_ProjectManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A0AC1F6351308DEBA229D99 /* Pods-ProjectManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.release.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.release.xcconfig"; sourceTree = "<group>"; };
+		ABDB962F2875D2A1002D6602 /* BaseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
 		ABDC1E982873BB2200091C71 /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABDC1E992873BB8800091C71 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -58,6 +60,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		ABDB962E2875D257002D6602 /* BaseView */ = {
+			isa = PBXGroup;
+			children = (
+				ABDB962F2875D2A1002D6602 /* BaseTableViewController.swift */,
+			);
+			path = BaseView;
+			sourceTree = "<group>";
+		};
 		ABDC1E902873AE8300091C71 /* Application */ = {
 			isa = PBXGroup;
 			children = (
@@ -70,6 +80,7 @@
 		ABDC1E912873AE9300091C71 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				ABDB962E2875D257002D6602 /* BaseView */,
 				C7431F0925F51E1D0094C4CF /* ViewController.swift */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 			);
@@ -257,6 +268,7 @@
 			files = (
 				C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
+				ABDB96302875D2A1002D6602 /* BaseTableViewController.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
