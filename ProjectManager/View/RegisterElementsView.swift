@@ -10,12 +10,12 @@ import SwiftUI
 struct RegisterElementsView: View {
     @State private var title = ""
     @State private var date = Date()
-    @State private var text: String = "Enter Text"
-    @State private var font: UIFont = UIFont()
+    @State private var text: String = ""
     
     var dateRange: ClosedRange<Date> {
-        let min = Calendar.current.date(byAdding: .year, value: -1, to: date)!
-        let max = Calendar.current.date(byAdding: .year, value: 1, to: date)!
+        let min = Calendar.current.date(byAdding: .year, value: -1, to: date) ?? Date()
+        let max = Calendar.current.date(byAdding: .year, value: 1, to: date) ?? Date()
+        
         return min...max
     }
     
