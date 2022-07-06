@@ -29,6 +29,11 @@ final class TodoListSceneCoordinator {
     }
     
     private func makeActions() -> TodoListActions {
-        return TodoListActions()
+        
+        return TodoListActions(showDetailView: showDetailView)
+    }
+    
+    private func showDetailView(_ item: TodoListModel?) {
+        print(#function)
     }
 }

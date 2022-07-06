@@ -69,6 +69,13 @@ final class TodoListViewController: UIViewController {
     
     private func setupView() {
         view.backgroundColor = .systemBackground
+        title = "Project Manager"
+        
+        let addAction = UIAction { [weak self] _ in
+            self?.viewModel.addButtonDidTap(nil)
+        }
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .add, primaryAction: addAction)
     }
     
     private func setupDataSource() {
