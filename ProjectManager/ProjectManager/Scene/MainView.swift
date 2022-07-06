@@ -25,6 +25,7 @@ final class MainView: UIView {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.spacing = 10
         stackView.axis = .horizontal
+        stackView.distribution = .equalSpacing
         return stackView
     }()
     
