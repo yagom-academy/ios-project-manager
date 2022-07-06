@@ -34,7 +34,8 @@ final class HeaderVIew: UIView {
     }
     
     private lazy var mainStackView: UIStackView = {
-        let stackView = UIStackView()
+        let stackView = UIStackView(arrangedSubviews: [titleLabel,
+                                                       countLabel])
         stackView.spacing = 5
         
         return stackView
@@ -62,8 +63,6 @@ final class HeaderVIew: UIView {
     private func setInitailView() {
         self.backgroundColor = .systemGray6
         self.addSubview(mainStackView)
-        mainStackView.addArrangedSubview(titleLabel)
-        mainStackView.addArrangedSubview(countLabel)
         mainStackView.snp.makeConstraints{
             $0.top.leading.bottom.equalToSuperview().inset(10)
         }

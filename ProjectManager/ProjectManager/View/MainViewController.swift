@@ -26,16 +26,16 @@ final class MainViewController: UIViewController {
     private func setInitailView() {
         self.view.backgroundColor = .systemGray5
         self.view.addSubview(mainStackView)
-        mainStackView.addArrangedSubview(todoStackView)
-        mainStackView.addArrangedSubview(doingStackView)
-        mainStackView.addArrangedSubview(doneStackView)
         mainStackView.snp.makeConstraints {
             $0.edges.equalTo(self.view.safeAreaLayoutGuide)
         }
     }
     
     private lazy var mainStackView: UIStackView = {
-        let stackView = UIStackView()
+        let stackView = UIStackView(arrangedSubviews:
+                                        [todoStackView,
+                                         doingStackView,
+                                         doneStackView])
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
         stackView.spacing = 10
@@ -44,11 +44,10 @@ final class MainViewController: UIViewController {
     }()
     
     private lazy var todoStackView: UIStackView = {
-        let stackView = UIStackView()
+        let stackView = UIStackView(arrangedSubviews: [todoHeaderView,
+                                                       todoTableView])
         stackView.axis = .vertical
         stackView.spacing = 1
-        stackView.addArrangedSubview(todoHeaderView)
-        stackView.addArrangedSubview(todoTableView)
         
         return stackView
     }()
@@ -60,11 +59,10 @@ final class MainViewController: UIViewController {
     }()
     
     private lazy var doingStackView: UIStackView = {
-        let stackView = UIStackView()
+        let stackView = UIStackView(arrangedSubviews: [doingHeaderView,
+                                                       doingTableView])
         stackView.axis = .vertical
         stackView.spacing = 1
-        stackView.addArrangedSubview(doingHeaderView)
-        stackView.addArrangedSubview(doingTableView)
         
         return stackView
     }()
@@ -76,11 +74,10 @@ final class MainViewController: UIViewController {
     }()
     
     private lazy var doneStackView: UIStackView = {
-        let stackView = UIStackView()
+        let stackView = UIStackView(arrangedSubviews: [doneHeaderView,
+                                                       doneTableView])
         stackView.axis = .vertical
         stackView.spacing = 1
-        stackView.addArrangedSubview(doneHeaderView)
-        stackView.addArrangedSubview(doneTableView)
         
         return stackView
     }()
