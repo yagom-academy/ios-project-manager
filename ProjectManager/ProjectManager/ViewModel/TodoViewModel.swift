@@ -20,4 +20,8 @@ class TodoViewModel {
     }
     return filteredTodo
   }
+  
+  func creat(todo: Todo) {
+    todoList.insert(Todo(title: todo.title, content: todo.content, status: .todo), at: 0)
+  }
 }
