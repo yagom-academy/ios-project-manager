@@ -8,9 +8,9 @@
 import UIKit
 
 final class MainView: UIView {
-    private let toDoTableView = ProjectTableView(title: "TODO")
-    private let doingTableView = ProjectTableView(title: "DOING")
-    private let doneTableView = ProjectTableView(title: "DONE")
+    let toDoTableView = ProjectTableView(title: "TODO")
+    let doingTableView = ProjectTableView(title: "DOING")
+    let doneTableView = ProjectTableView(title: "DONE")
     
     private let baseStackView: UIStackView = {
         let stackView = UIStackView()
