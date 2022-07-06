@@ -6,7 +6,16 @@
 //
 
 import Foundation
+import Combine
 
-protocol Storage {}
+protocol Storage {
+    func read() -> AnyPublisher<[TodoListModel], Never>
+}
 
-final class MemoryStorage: Storage {}
+final class MemoryStorage: Storage {
+    @Published var datas: [TodoListModel] = TodoListModel.dummyData()
+    
+    func read() -> AnyPublisher<[TodoListModel], Never> {
+        $datas.eraseToAnyPublisher()
+    }
+}

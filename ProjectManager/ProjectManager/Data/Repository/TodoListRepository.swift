@@ -6,11 +6,18 @@
 //
 
 import Foundation
+import Combine
 
-final class TodoListRepository: Repository {
+final class TodoListRepository {
     private let storage: Storage
     
     init(storage: Storage) {
         self.storage = storage
+    }
+}
+
+extension TodoListRepository: Repository {
+    func read() -> AnyPublisher<[TodoListModel], Never> {
+        return storage.read()
     }
 }

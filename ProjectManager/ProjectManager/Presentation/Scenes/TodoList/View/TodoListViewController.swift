@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 import SnapKit
 
@@ -20,6 +21,8 @@ final class TodoListViewController: UIViewController {
     private var doingDataSource: DataSource?
     private var doneDataSource: DataSource?
     
+    private var cancellables = Set<AnyCancellable>()
+    
     init(viewModel: TodoListViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -28,10 +31,23 @@ final class TodoListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+        bind()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func bind() {
+        viewModel.todoItems.sink { [weak self] items in
+            let todoItems = items.filter { $0.processType == .todo }
+            let doingItems = items.filter { $0.processType == .doing }
+            let doneItems = items.filter { $0.processType == .done }
+            
+            self?.applySnapshot(items: todoItems, datasource: self?.todoDataSource)
+            self?.applySnapshot(items: doingItems, datasource: self?.doingDataSource)
+            self?.applySnapshot(items: doneItems, datasource: self?.doneDataSource)
+        }.store(in: &cancellables)
     }
     
     private func setup() {
@@ -39,7 +55,6 @@ final class TodoListViewController: UIViewController {
         setupConstraint()
         setupView()
         setupDataSource()
-        setupSnapshot()
     }
     
     private func addSubviews() {
@@ -91,16 +106,6 @@ final class TodoListViewController: UIViewController {
         }
     }
     
-    private func setupSnapshot() {
-        let todo = TodoListModel.dummyData().filter { $0.processType == .todo }
-        let doing = TodoListModel.dummyData().filter { $0.processType == .doing }
-        let done = TodoListModel.dummyData().filter { $0.processType == .done }
-        
-        applySnapshot(items: todo, datasource: todoDataSource)
-        applySnapshot(items: doing, datasource: doingDataSource)
-        applySnapshot(items: done, datasource: doneDataSource)
-    }
-
     private func applySnapshot(items: [TodoListModel], datasource: DataSource?) {
         var snapshot = Snapshot()
         snapshot.appendSections([0])

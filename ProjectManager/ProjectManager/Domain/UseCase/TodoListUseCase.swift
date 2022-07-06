@@ -6,13 +6,22 @@
 //
 
 import Foundation
+import Combine
 
-protocol UseCase {}
+protocol UseCase {
+    func read() -> AnyPublisher<[TodoListModel], Never>
+}
 
 final class TodoListUseCase: UseCase {
     private let repository: Repository
     
     init(repository: Repository) {
         self.repository = repository
+    }
+}
+
+extension TodoListUseCase {
+    func read() -> AnyPublisher<[TodoListModel], Never> {
+        repository.read()
     }
 }

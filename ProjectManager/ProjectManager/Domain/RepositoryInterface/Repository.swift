@@ -6,5 +6,8 @@
 //
 
 import Foundation
+import Combine
 
-protocol Repository {}
+protocol Repository {
+    func read() -> AnyPublisher<[TodoListModel], Never>
+}

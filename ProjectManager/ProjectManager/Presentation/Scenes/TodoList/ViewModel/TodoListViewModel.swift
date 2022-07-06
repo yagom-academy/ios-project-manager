@@ -6,14 +6,28 @@
 //
 
 import Foundation
+import Combine
 
-protocol TodoListViewModelInput {}
-protocol TodoListViewModelOutput {}
+protocol TodoListViewModelInput {
+    
+}
+
+protocol TodoListViewModelOutput {
+    var todoItems: AnyPublisher<[TodoListModel], Never> { get }
+}
+
 protocol TodoListViewModel: TodoListViewModelInput, TodoListViewModelOutput {}
 
 struct TodoListActions {}
 
 final class DefaultTodoListViewModel: TodoListViewModel {
+        
+    // MARK: - Output
+    
+    var todoItems: AnyPublisher<[TodoListModel], Never> {
+        return useCase.read()
+    }
+    
     private let actions: TodoListActions
     private let useCase: UseCase
     
@@ -21,4 +35,9 @@ final class DefaultTodoListViewModel: TodoListViewModel {
         self.actions = actions
         self.useCase = useCase
     }
+}
+
+extension DefaultTodoListViewModel {
+    
+    // MARK: - Input
 }
