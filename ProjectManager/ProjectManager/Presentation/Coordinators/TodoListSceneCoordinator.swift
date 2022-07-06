@@ -8,13 +8,14 @@
 import UIKit
 
 protocol TodoListSceneCoordinatorDependencies {
-    func makeViewController(actions: TodoListActions) -> TodoListViewController
+    func makeTodoListViewController(actions: TodoListActions) -> TodoListViewController
+    func makeTodoDetailViewContoller(actions: TodoDetailActions) -> TodoDetailViewController
 }
 
 final class TodoListSceneCoordinator {
     private weak var navigationController: UINavigationController?
     private let dependencies: TodoListSceneCoordinatorDependencies
-    private weak var viewController: TodoListViewController?
+    private weak var viewController: UIViewController?
     
     init(navigationController: UINavigationController, dependencies: TodoListSceneCoordinatorDependencies) {
         self.navigationController = navigationController
@@ -22,18 +23,20 @@ final class TodoListSceneCoordinator {
     }
     
     func start() {
-        let viewController = dependencies.makeViewController(actions: makeActions())
-        navigationController?.pushViewController(viewController, animated: true)
+        let todoListViewController = dependencies.makeTodoListViewController(actions: makeTodoListActions())
+        navigationController?.pushViewController(todoListViewController, animated: true)
         
-        self.viewController = viewController
+        self.viewController = todoListViewController
     }
     
-    private func makeActions() -> TodoListActions {
-        
+    private func makeTodoListActions() -> TodoListActions {
         return TodoListActions(showDetailView: showDetailView)
     }
     
     private func showDetailView(_ item: TodoListModel?) {
-        print(#function)
+        let todoDetailViewController = dependencies.makeTodoDetailViewContoller(actions: TodoDetailActions())
+        self.viewController?.present(todoDetailViewController, animated: true)
+        
+        self.viewController = todoDetailViewController
     }
 }

@@ -11,9 +11,11 @@ final class TodoDetailViewController: UIViewController {
     
     private let viewModel: TodoDetailViewModel
 
-    init(_ viewModel: TodoDetailViewModel) {
+    init(viewModel: TodoDetailViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+        
+        view.backgroundColor = .systemBackground
     }
     
     required init?(coder: NSCoder) {
