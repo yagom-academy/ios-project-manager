@@ -131,8 +131,8 @@
 			isa = PBXGroup;
 			children = (
 				B032CDA12873BF7C0087383E /* View */,
-				B01DCDD12873483F00AFF91A /* ViewModel */,
 				B001067128729AC30080ACC7 /* ViewController */,
+				B01DCDD12873483F00AFF91A /* ViewModel */,
 			);
 			path = MainScene;
 			sourceTree = "<group>";
