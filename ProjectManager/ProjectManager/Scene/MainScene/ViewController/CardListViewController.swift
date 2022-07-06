@@ -71,7 +71,7 @@ final class CardListViewController: UIViewController {
       .disposed(by: disposeBag)
     
     todos
-      .map { "\($0.count)"}
+      .map { "\($0.count)" }
       .drive(todoSectionView.headerView.cardCountLabel.rx.text)
       .disposed(by: disposeBag)
     
