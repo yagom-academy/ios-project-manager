@@ -7,8 +7,9 @@
 
 import Foundation
 
-class TodoViewModel {
-  private var todoList: [Todo] = []
+class TodoViewModel: ObservableObject {
+  @Published private var todoList: [Todo] = [Todo(title: "firstTitle", content: "blablabla", status: .todo),
+                                             Todo(title: "secondTitle", content: "heydaybay", status: .todo)]
   
   func read() -> [Todo] {
     return todoList

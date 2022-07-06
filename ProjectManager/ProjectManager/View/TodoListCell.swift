@@ -14,25 +14,33 @@ struct TodoListCell: View {
     self.todo = todo
   }
   var body: some View {
-    VStack(alignment: .leading) {
-      Text(todo.title)
-        .font(.title)
-        .lineLimit(1)
-        .truncationMode(.tail)
-      Text(todo.content)
-        .font(.body)
-        .foregroundColor(.gray)
-        .lineLimit(3)
-        .truncationMode(.tail)
-      Text(todo.date.toString())
-        .font(.body)
-        .lineLimit(1)
+    ZStack {
+      Rectangle()
+        .fill(.white)
+      HStack {
+        VStack(alignment: .leading) {
+            Text(todo.title)
+              .font(.title)
+              .lineLimit(1)
+              .truncationMode(.tail)
+            Text(todo.content)
+              .font(.body)
+              .foregroundColor(.gray)
+              .lineLimit(3)
+              .truncationMode(.tail)
+            Text(todo.date.toString())
+              .font(.body)
+              .lineLimit(1)
+        }
+        .padding()
+        Spacer()
+      }
     }
   }
 }
 
-struct TodoListCell_Previews: PreviewProvider {
-  static var previews: some View {
-    TodoListCell(Todo(title: "제목", content: "본문내용 입니다.", status: .todo))
-  }
-}
+//struct TodoListCell_Previews: PreviewProvider {
+//  static var previews: some View {
+//    TodoListCell(Todo(title: "제목", content: "본문내용 입니다.", status: .todo))
+//  }
+//}

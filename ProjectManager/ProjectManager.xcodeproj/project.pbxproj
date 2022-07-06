@@ -21,6 +21,7 @@
 		DA657CA82873CC62002DB030 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = DA657CA72873CC62002DB030 /* FirebaseMessaging */; };
 		DA657CDF28758E16002DB030 /* TodoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA657CDE28758E16002DB030 /* TodoViewModel.swift */; };
 		DA657CE128758FE5002DB030 /* TodoListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA657CE028758FE5002DB030 /* TodoListCell.swift */; };
+		DA657CE328759BB6002DB030 /* TodoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA657CE228759BB6002DB030 /* TodoListView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		DA657CA12873C95C002DB030 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DA657CDE28758E16002DB030 /* TodoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoViewModel.swift; sourceTree = "<group>"; };
 		DA657CE028758FE5002DB030 /* TodoListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListCell.swift; sourceTree = "<group>"; };
+		DA657CE228759BB6002DB030 /* TodoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				DA657CE028758FE5002DB030 /* TodoListCell.swift */,
+				DA657CE228759BB6002DB030 /* TodoListView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -223,6 +226,7 @@
 			files = (
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				DA657CE128758FE5002DB030 /* TodoListCell.swift in Sources */,
+				DA657CE328759BB6002DB030 /* TodoListView.swift in Sources */,
 				864DD598287327F500023287 /* ContentView.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				86B5211E287597E7003B83C9 /* Date+Extension.swift in Sources */,
@@ -358,7 +362,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LZZV4V63N5;
 				INFOPLIST_FILE = ProjectManager/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -378,7 +382,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LZZV4V63N5;
 				INFOPLIST_FILE = ProjectManager/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
