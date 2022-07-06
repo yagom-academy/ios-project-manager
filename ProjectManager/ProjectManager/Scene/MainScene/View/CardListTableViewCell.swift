@@ -6,11 +6,14 @@
 //
 
 import UIKit
+
 import Then
 
 final class CardListTableViewCell: UITableViewCell {
   private enum UISettings {
-    static let intervalConstant = 16.0
+    static let intervalFromContentView = 16.0
+    static let intervalBetweenLabels = 16.0
+    static let numberOfLinesOfDescriptionLabel = 3
   }
   
   static let identifier = "CardListTableViewCell"
@@ -23,7 +26,7 @@ final class CardListTableViewCell: UITableViewCell {
   }
   private let descriptionLabel = UILabel().then {
     $0.textColor = .secondaryLabel
-    $0.numberOfLines = 3
+    $0.numberOfLines = UISettings.numberOfLinesOfDescriptionLabel
     $0.font = .preferredFont(forTextStyle: .body)
   }
   private let deadlineDateLabel = UILabel().then {
@@ -31,10 +34,18 @@ final class CardListTableViewCell: UITableViewCell {
     $0.setContentHuggingPriority(.defaultHigh, for: .vertical)
     $0.font = .preferredFont(forTextStyle: .body)
   }
+  private lazy var containerStackView = UIStackView(
+    arrangedSubviews: [titleLabel, descriptionLabel, deadlineDateLabel]
+  ).then {
+    $0.axis = .vertical
+    $0.spacing = UISettings.intervalBetweenLabels
+    $0.translatesAutoresizingMaskIntoConstraints = false
+  }
   
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
-    configureUI()
+    configureSubViews()
+    configureLayouts()
   }
   
   required init?(coder: NSCoder) {
@@ -69,30 +80,27 @@ final class CardListTableViewCell: UITableViewCell {
 // MARK: - UI Configuration
 
 extension CardListTableViewCell {
-  private func configureUI() {
-    let labels = [titleLabel, descriptionLabel, deadlineDateLabel]
-    let containerStackView = UIStackView(arrangedSubviews: labels)
-    containerStackView.axis = .vertical
-    containerStackView.spacing = UISettings.intervalConstant
-    containerStackView.translatesAutoresizingMaskIntoConstraints = false
+  private func configureSubViews() {
     contentView.addSubview(containerStackView)
-    
+  }
+  
+  private func configureLayouts() {
     NSLayoutConstraint.activate([
       containerStackView.topAnchor.constraint(
         equalTo: contentView.topAnchor,
-        constant: UISettings.intervalConstant
+        constant: UISettings.intervalFromContentView
       ),
       containerStackView.bottomAnchor.constraint(
         equalTo: contentView.bottomAnchor,
-        constant: -UISettings.intervalConstant
+        constant: -UISettings.intervalFromContentView
       ),
       containerStackView.leadingAnchor.constraint(
         equalTo: contentView.leadingAnchor,
-        constant: UISettings.intervalConstant
+        constant: UISettings.intervalFromContentView
       ),
       containerStackView.trailingAnchor.constraint(
         equalTo: contentView.trailingAnchor,
-        constant: -UISettings.intervalConstant
+        constant: -UISettings.intervalFromContentView
       ),
     ])
   }
