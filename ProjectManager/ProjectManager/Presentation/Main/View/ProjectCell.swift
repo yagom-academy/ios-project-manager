@@ -6,8 +6,12 @@
 //
 
 import UIKit
+import RxSwift
 
 final class ProjectCell: UITableViewCell {
+    let onData: AnyObserver<ProjectContents>
+    let disposeBag = DisposeBag()
+    
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .title2)
@@ -36,7 +40,20 @@ final class ProjectCell: UITableViewCell {
     }()
     
     init() {
+        let data = PublishSubject<ProjectContents>()
+        self.onData = data.asObserver()
+        
         super.init(style: .default, reuseIdentifier: "\(ProjectCell.self)")
+        
+        data.observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] content in
+                self?.compose(
+                    title: content.title,
+                    description: content.description,
+                    date: content.deadline
+                )
+            })
+            .disposed(by: disposeBag)
         
         setUpCell()
         setUpLayout()
@@ -61,7 +78,7 @@ final class ProjectCell: UITableViewCell {
         ])
     }
     
-    func compose(title: String, description: String, date: String) {
+    private func compose(title: String, description: String, date: String) {
         titleLabel.text = title
         descriptionLabel.text = description
         dateLabel.text = date
