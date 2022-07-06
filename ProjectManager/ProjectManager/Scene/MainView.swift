@@ -8,7 +8,16 @@
 import UIKit
 
 final class MainView: UIView {
-
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.setUp()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: UIComponents - StackView
     
     private var tableStackView: UIStackView = {
@@ -41,7 +50,7 @@ final class MainView: UIView {
     
     // MARK: setUp
     
-    func setUp() {
+    private func setUp() {
         backgroundColor = .white
         addSubview(tableStackView)
         tableStackView.addSubViews(todoTableView, doingTableView, doneTableView)

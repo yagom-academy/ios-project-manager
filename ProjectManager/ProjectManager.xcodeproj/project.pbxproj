@@ -21,6 +21,9 @@
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
 		E1C26DCB28746D1500A37983 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C26DCA28746D1500A37983 /* RealmManager.swift */; };
 		E1C26DD32874720200A37983 /* ProjectManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C26DD22874720200A37983 /* ProjectManagerTests.swift */; };
+		E1D0945E28756B380084308A /* TaskLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D0945D28756B380084308A /* TaskLocation.swift */; };
+		E1D0946028756D8A0084308A /* TaskCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D0945F28756D8A0084308A /* TaskCase.swift */; };
+		E1D094632875716A0084308A /* DetailModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D094622875716A0084308A /* DetailModalView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +58,9 @@
 		E1C26DD92874769000A37983 /* RealmSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1C26DDD2874769600A37983 /* Realm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Realm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1C26DE0287476F700A37983 /* Realm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Realm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E1D0945D28756B380084308A /* TaskLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskLocation.swift; sourceTree = "<group>"; };
+		E1D0945F28756D8A0084308A /* TaskCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCase.swift; sourceTree = "<group>"; };
+		E1D094622875716A0084308A /* DetailModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailModalView.swift; sourceTree = "<group>"; };
 		FF3BC791CED2F50C823A6240 /* Pods_ProjectManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -100,6 +106,7 @@
 		672F3C792875583600CA92D4 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				E1D09461287571550084308A /* Detail */,
 				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
 				672F3C7E2875592E00CA92D4 /* MainView.swift */,
 				672F3C842875610900CA92D4 /* TaskCell.swift */,
@@ -173,6 +180,8 @@
 			isa = PBXGroup;
 			children = (
 				67A743AE28746C83004D1A5B /* Task.swift */,
+				E1D0945D28756B380084308A /* TaskLocation.swift */,
+				E1D0945F28756D8A0084308A /* TaskCase.swift */,
 			);
 			path = DataType;
 			sourceTree = "<group>";
@@ -183,6 +192,14 @@
 				E1C26DD22874720200A37983 /* ProjectManagerTests.swift */,
 			);
 			path = ProjectManagerTests;
+			sourceTree = "<group>";
+		};
+		E1D09461287571550084308A /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				E1D094622875716A0084308A /* DetailModalView.swift */,
+			);
+			path = Detail;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -348,11 +365,14 @@
 			files = (
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				672F3C7F2875592E00CA92D4 /* MainView.swift in Sources */,
+				E1D0945E28756B380084308A /* TaskLocation.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				67A743AD28746229004D1A5B /* TaskManager.swift in Sources */,
 				67A743AF28746C83004D1A5B /* Task.swift in Sources */,
 				672F3C872875644C00CA92D4 /* Date+Extension.swift in Sources */,
 				672F3C8328755CA900CA92D4 /* UIStackView+Extension.swift in Sources */,
+				E1D0946028756D8A0084308A /* TaskCase.swift in Sources */,
+				E1D094632875716A0084308A /* DetailModalView.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				672F3C852875610900CA92D4 /* TaskCell.swift in Sources */,
 				E1C26DCB28746D1500A37983 /* RealmManager.swift in Sources */,

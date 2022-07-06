@@ -11,11 +11,9 @@ class MainViewController: UIViewController {
     
     override func loadView() {
         view = mainView
-        mainView.setUp()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-    
 }
