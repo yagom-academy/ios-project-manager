@@ -14,6 +14,7 @@ final class TodoTableViewCell: UITableViewCell {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.alignment = .leading
+        stackView.spacing = 5
         
         return stackView
     }()
@@ -27,7 +28,7 @@ final class TodoTableViewCell: UITableViewCell {
     private let contentLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .body)
-        label.textColor = .systemGray5
+        label.textColor = .secondaryLabel
         label.numberOfLines = 3
         return label
     }()
@@ -66,7 +67,8 @@ final class TodoTableViewCell: UITableViewCell {
     
     private func setupConstraint() {
         todoStackView.snp.makeConstraints {
-            $0.edges.equalToSuperview().inset(20)
+            $0.top.bottom.equalToSuperview().inset(10)
+            $0.leading.trailing.equalToSuperview().inset(20)
         }
     }
     
