@@ -10,9 +10,9 @@ import UIKit
 final class AppAppearance {
   static func configureNavigationBar() {
     let appearance = UINavigationBarAppearance()
-    appearance.configureWithOpaqueBackground()
-    appearance.backgroundColor = .systemBackground
+    appearance.configureWithDefaultBackground()
     UINavigationBar.appearance().standardAppearance = appearance
+    UINavigationBar.appearance().compactAppearance = appearance
     UINavigationBar.appearance().scrollEdgeAppearance = appearance
   }
 }
