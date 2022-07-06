@@ -12,29 +12,22 @@ import RxSwift
 final class ViewController: UIViewController {
     
     private var todos: [Work] = []
+    private var doings: [Work] = []
+    private var dones: [Work] = []
+    
     private let mainView = MainView()
-    
-    private lazy var baseStackView = UIStackView(
-        arrangedSubviews: [
-            todoTableView,
-            doingTableView,
-            doneTableView
-        ]
-    ).then {
-        $0.axis = .horizontal
-        $0.spacing = 15
-        $0.distribution = .fillEqually
-    }
-    
-    private lazy var todoTableView = UITableView()
-    private lazy var doingTableView = UITableView()
-    private lazy var doneTableView = UITableView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view = mainView
-        
-        
+        configureNavigationItems()
+        registerTableViewInfo()
+        fetchData()
+        mainView.setupSubViews()
+        mainView.setupUILayout()
+    }
+    
+    private func configureNavigationItems() {
         title = "Project Manager"
         let plusButton = UIBarButtonItem(
             image: UIImage(
@@ -45,14 +38,25 @@ final class ViewController: UIViewController {
             action: #selector(showAddWindow)
         )
         navigationItem.rightBarButtonItem = plusButton
-        
+    }
+    
+    private func registerTableViewInfo() {
         mainView.todoTableView.delegate = self
         mainView.todoTableView.dataSource = self
-        todoTableView.register(WorkTableViewCell.self, forCellReuseIdentifier: WorkTableViewCell.identifier)
+        mainView.todoTableView.register(WorkTableViewCell.self, forCellReuseIdentifier: WorkTableViewCell.identifier)
         
+        mainView.doingTableView.delegate = self
+        mainView.doingTableView.dataSource = self
+        mainView.doingTableView.register(WorkTableViewCell.self, forCellReuseIdentifier: WorkTableViewCell.identifier)
+        
+        mainView.doneTableView.delegate = self
+        mainView.doneTableView.dataSource = self
+        mainView.doneTableView.register(WorkTableViewCell.self, forCellReuseIdentifier: WorkTableViewCell.identifier)
+    }
+    private func fetchData() {
         fetchToDo()
-        mainView.setupSubViews()
-        mainView.setupUILayout()
+        fetchDoing()
+        fetchDone()
     }
     
     private func fetchToDo() {
@@ -61,7 +65,33 @@ final class ViewController: UIViewController {
             Work(title: "타이틀1", description: "1", date: "1"),
             Work(title: "타이틀1", description: "1", date: "1"),
             Work(title: "타이틀1", description: "1", date: "1"),
+            Work(title: "타이틀1", description: "1", date: "1"),
+            Work(title: "타이틀1", description: "1", date: "1"),
+            Work(title: "타이틀1", description: "1", date: "1"),
+            Work(title: "타이틀1", description: "1", date: "1"),
+            Work(title: "타이틀1", description: "1", date: "1"),
+            Work(title: "타이틀1", description: "1", date: "1"),
+            Work(title: "타이틀1", description: "1", date: "1"),
             Work(title: "타이틀1", description: "1", date: "1")
+        ]
+    }
+    
+    private func fetchDoing() {
+        doings = [
+            Work(title: "타이틀2", description: "2", date: "2"),
+            Work(title: "타이틀2", description: "2", date: "2"),
+            Work(title: "타이틀2", description: "2", date: "2"),
+            Work(title: "타이틀2", description: "2", date: "2"),
+            Work(title: "타이틀2", description: "2", date: "2"),
+            Work(title: "타이틀2", description: "2", date: "2"),
+            Work(title: "타이틀2", description: "2", date: "2")
+        ]
+    }
+    
+    private func fetchDone() {
+        dones = [
+            Work(title: "타이틀3", description: "3", date: "3"),
+            Work(title: "타이틀3", description: "3", date: "3")
         ]
     }
     
@@ -78,14 +108,20 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         _ tableView: UITableView,
         numberOfRowsInSection section: Int
     ) -> Int {
-        return todos.count
+        if tableView == mainView.todoTableView {
+            return todos.count
+        } else if tableView == mainView.doingTableView {
+            return doings.count
+        } else {
+            return dones.count
+        }
     }
     
     func tableView(
         _ tableView: UITableView,
         cellForRowAt indexPath: IndexPath
     ) -> UITableViewCell {
-        guard let todoCell = todoTableView.dequeueReusableCell(
+        guard let todoCell = mainView.todoTableView.dequeueReusableCell(
             withIdentifier: WorkTableViewCell.identifier,
             for: indexPath
         ) as? WorkTableViewCell else {

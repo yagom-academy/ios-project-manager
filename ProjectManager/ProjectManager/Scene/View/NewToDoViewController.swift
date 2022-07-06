@@ -8,13 +8,16 @@
 import UIKit
 
 final class NewToDoViewController: UIViewController {
-    override func loadView() {
-        super.loadView()
-        self.view.backgroundColor = .white
-    }
+    
+    let newToDoView = NewToDoView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view = newToDoView
+        configureNavigationItems()
+    }
+    
+    private func configureNavigationItems() {
         title = "TODO"
         
         let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: nil)
@@ -23,5 +26,4 @@ final class NewToDoViewController: UIViewController {
         let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: nil)
         navigationItem.leftBarButtonItem = cancelButton
     }
-    
 }
