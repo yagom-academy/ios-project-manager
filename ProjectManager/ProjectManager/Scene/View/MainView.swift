@@ -53,7 +53,7 @@ final class MainView: UIView {
 
     func setupSubViews() {
         addSubview(baseStackView)
-        backgroundColor = .systemGray4
+        backgroundColor = .systemGray5
     }
     
     func setupUILayout() {

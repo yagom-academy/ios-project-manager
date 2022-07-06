@@ -39,7 +39,7 @@ final class MainViewController: UIViewController {
             ),
             style: .plain,
             target: self,
-            action: #selector(showAddWindow)
+            action: #selector(showNewTodoView)
         )
         navigationItem.rightBarButtonItem = plusButton
     }
@@ -107,10 +107,12 @@ final class MainViewController: UIViewController {
         ]
     }
     
-    @objc private func showAddWindow() {
-        let vc = UINavigationController(rootViewController: NewToDoViewController())
-        vc.modalPresentationStyle = .formSheet
-        present(vc, animated: true)
+    @objc private func showNewTodoView() {
+        let newTodoViewController = UINavigationController(
+            rootViewController: NewToDoViewController()
+        )
+        newTodoViewController.modalPresentationStyle = .formSheet
+        present(newTodoViewController, animated: true)
     }
 }
 
