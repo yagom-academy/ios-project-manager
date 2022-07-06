@@ -19,21 +19,21 @@ final class TodoListView: UIView {
         return stackView
     }()
     
-    private let todoTableView: UITableView = {
+    let todoTableView: UITableView = {
         let tableView = UITableView()
         tableView.register(TodoTableViewCell.self, forCellReuseIdentifier: TodoTableViewCell.identifier)
         
         return tableView
     }()
     
-    private let doingTableView: UITableView = {
+    let doingTableView: UITableView = {
         let tableView = UITableView()
         tableView.register(TodoTableViewCell.self, forCellReuseIdentifier: TodoTableViewCell.identifier)
         
         return tableView
     }()
     
-    private let doneTableView: UITableView = {
+    let doneTableView: UITableView = {
         let tableView = UITableView()
         tableView.register(TodoTableViewCell.self, forCellReuseIdentifier: TodoTableViewCell.identifier)
         
@@ -42,23 +42,22 @@ final class TodoListView: UIView {
     
     convenience init(frame: CGRect, tableViewDelegate: UITableViewDelegate) {
         self.init(frame: frame)
-        
-        todoTableView.delegate = tableViewDelegate
-        doingTableView.delegate = tableViewDelegate
-        doneTableView.delegate = tableViewDelegate
+        setup(delegate: tableViewDelegate)
     }
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setup() {
+    private func setup(delegate: UITableViewDelegate) {
         addSubviews()
         setupConstraint()
+        setupView()
+        setupTableView(tableViewDelegate: delegate)
     }
     
     private func addSubviews() {
@@ -71,4 +70,15 @@ final class TodoListView: UIView {
             $0.edges.equalToSuperview()
         }
     }
+    
+    private func setupView() {
+        backgroundColor = .systemBackground
+    }
+    
+    private func setupTableView(tableViewDelegate: UITableViewDelegate) {
+        todoTableView.delegate = tableViewDelegate
+        doingTableView.delegate = tableViewDelegate
+        doneTableView.delegate = tableViewDelegate
+    }
+    
 }
