@@ -13,14 +13,15 @@ final class NewToDoView: UIView {
         arrangedSubviews: [
         titleTextField,
         datePicker,
-        descriptionTextView
+        shadowView
         ]).then {
             $0.axis = .vertical
-            $0.spacing = 5
+            $0.spacing = 10
     }
     
     private lazy var titleTextField = UITextField().then {
         $0.placeholder = "Title"
+        $0.backgroundColor = .white
         $0.addLeftPadding()
         setShadow(target: $0)
     }
@@ -30,10 +31,14 @@ final class NewToDoView: UIView {
         $0.datePickerMode = .date
     }
     
+    private lazy var shadowView = UIView().then {
+        $0.backgroundColor = .white
+        setShadow(target: $0)
+    }
+    
     private lazy var descriptionTextView = UITextView().then {
         $0.font = .preferredFont(forTextStyle: .subheadline)
         $0.text = "입력 가능한 글자수는 1000자로 제한합니다."
-        setShadow(target: $0)
     }
     
     override init(frame: CGRect) {
@@ -47,20 +52,25 @@ final class NewToDoView: UIView {
     }
     
     private func setShadow(target: UIView) {
-        target.layer.borderWidth = 1
+        target.layer.borderWidth = 0.5
         target.layer.borderColor = UIColor.gray.cgColor
-        target.layer.shadowOpacity = 1
+        target.layer.shadowOpacity = 0.5
         target.layer.shadowRadius = 5
         target.layer.shadowColor = UIColor.gray.cgColor
         target.layer.shadowOffset = .init(width: 0, height: 3)
     }
     
     private func setupUILayout() {
+        shadowView.addSubview(descriptionTextView)
         addSubview(formSheetStackView)
+        descriptionTextView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        
         formSheetStackView.snp.makeConstraints {
             $0.top.equalTo(safeAreaLayoutGuide).inset(5)
             $0.leading.trailing.equalToSuperview().inset(10)
-            $0.bottom.equalToSuperview().inset(15)
+            $0.bottom.equalToSuperview().inset(30)
         }
         titleTextField.snp.makeConstraints {
             $0.height.equalTo(formSheetStackView.snp.height).multipliedBy(0.1)
