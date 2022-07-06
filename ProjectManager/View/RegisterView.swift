@@ -20,7 +20,7 @@ struct RegisterView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: {
-                        print("Cancelbutton")
+                        dismiss()
                     }) {
                         Text("Cancel")
                     }
