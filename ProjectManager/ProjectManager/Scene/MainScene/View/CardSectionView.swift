@@ -18,6 +18,8 @@ final class CardSectionView: UIStackView {
   init(sectionType: CardType) {
     headerView = CardListHeaderView(cardType: sectionType)
     super.init(frame: .zero)
+    configureSubViews()
+    configureLayouts()
   }
   
   required init(coder: NSCoder) {
