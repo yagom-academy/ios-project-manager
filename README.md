@@ -53,9 +53,9 @@ UIkit | MVVM | Realm | FireBase | SwiftLint |
 # 🗓타임라인
 - 월 - db 종류 비교분석 및 선택
 - 화 - 곰튀김 강의 시청 및 STEP1 PR
-- 수 - 예습 및 STEP2 구상
-- 목 - 
-- 금 - 
+- 수 - MVVM 개념학습 및 STEP2 구상
+- 목 - STEP2-1구현
+- 금 - STEP2-2(MVVM)으로 리펙토링
 
 # 🤔 고민한점 ( Local & Remote DB )
 
@@ -265,19 +265,24 @@ https://medium.com/swift-blondie/cloudkit-vs-firebase-cb23d5e923b7
 
 # 🔥TroubleShooting
 
-## [STEP2]
+## [STEP2-1]
 
-# 📅타임라인
-- 월 - 
-- 화 - 
-- 수 - 
-- 목 - 
-- 금 - 
+# 🤨고민한점
+- [MVVM에 대해서 학습한 자료](https://swiftlim.tistory.com/135)
+
+# 🧨TroubleShooting
+
+## [STEP2-2]
 
 # 🤨고민한점
 
 # 🧨TroubleShooting
 
+## [STEP2-3]
+
+# 🤨고민한점
+
+# 🧨TroubleShooting
 
 
 ## ✅ 그라운드 룰
