@@ -53,40 +53,35 @@ final class CardListViewController: UIViewController {
     let input = CardListViewModel.Input()
     let output = viewModel.transform(input: input)
     
-    let todos = output.cards.map { $0.filter { $0.cardType == .todo } }
-    let doings = output.cards.map { $0.filter { $0.cardType == .doing } }
-    let dones = output.cards.map { $0.filter { $0.cardType == .done } }
+    bindSections(output: output)
+  }
+  
+  private func bindSections(output: CardListViewModel.Output) {
+    let todos = output.todoCards.asDriver()
+    let doings = output.doingCards.asDriver()
+    let dones = output.doneCards.asDriver()
     
     todos
       .drive(todoSectionView.tableView.rx.items(
         cellIdentifier: CardListTableViewCell.identifier,
         cellType: CardListTableViewCell.self
-      )) { index, card, cell in
+      )) { _, card, cell in
         cell.setup(card: card)
       }
+      .disposed(by: disposeBag)
+    
+    todos
+      .map { "\($0.count)"}
+      .drive(todoSectionView.headerView.cardCountLabel.rx.text)
       .disposed(by: disposeBag)
     
     doings
       .drive(doingSectionView.tableView.rx.items(
         cellIdentifier: CardListTableViewCell.identifier,
         cellType: CardListTableViewCell.self
-      )) { index, card, cell in
+      )) { _, card, cell in
         cell.setup(card: card)
       }
-      .disposed(by: disposeBag)
-    
-    dones
-      .drive(doneSectionView.tableView.rx.items(
-        cellIdentifier: CardListTableViewCell.identifier,
-        cellType: CardListTableViewCell.self
-      )) { index, card, cell in
-        cell.setup(card: card)
-      }
-      .disposed(by: disposeBag)
-    
-    todos
-      .map { "\($0.count)" }
-      .drive(todoSectionView.headerView.cardCountLabel.rx.text)
       .disposed(by: disposeBag)
     
     doings
@@ -95,29 +90,17 @@ final class CardListViewController: UIViewController {
       .disposed(by: disposeBag)
     
     dones
+      .drive(doneSectionView.tableView.rx.items(
+        cellIdentifier: CardListTableViewCell.identifier,
+        cellType: CardListTableViewCell.self
+      )) { _, card, cell in
+        cell.setup(card: card)
+      }
+      .disposed(by: disposeBag)
+    
+    dones
       .map { "\($0.count)" }
       .drive(doneSectionView.headerView.cardCountLabel.rx.text)
-      .disposed(by: disposeBag)
-    
-    todoSectionView.tableView.rx.itemSelected
-      .withUnretained(self)
-      .bind(onNext: { (wself, indexPath) in
-        wself.todoSectionView.tableView.deselectRow(at: indexPath, animated: true)
-      })
-      .disposed(by: disposeBag)
-    
-    doingSectionView.tableView.rx.itemSelected
-      .withUnretained(self)
-      .bind(onNext: { (wself, indexPath) in
-        wself.doingSectionView.tableView.deselectRow(at: indexPath, animated: true)
-      })
-      .disposed(by: disposeBag)
-    
-    doneSectionView.tableView.rx.itemSelected
-      .withUnretained(self)
-      .bind(onNext: { (wself, indexPath) in
-        wself.doneSectionView.tableView.deselectRow(at: indexPath, animated: true)
-      })
       .disposed(by: disposeBag)
   }
 }

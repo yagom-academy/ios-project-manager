@@ -5,20 +5,21 @@
 //  Created by Lingo on 2022/07/05.
 //
 
+import Foundation
+
+import RxRelay
 import RxSwift
-import RxCocoa
 
 final class CardListViewModel: ViewModelType {
-  struct Input {
-    
-  }
+  struct Input {}
   struct Output {
-    let cards: Driver<[Card]>
+    let todoCards = BehaviorRelay<[Card]>(value: Card.todoSample)
+    let doingCards = BehaviorRelay<[Card]>(value: Card.doingSample)
+    let doneCards = BehaviorRelay<[Card]>(value: Card.doneSample)
   }
   
   func transform(input: Input) -> Output {
-    let cards = BehaviorSubject<[Card]>(value: Card.sample).asDriver(onErrorJustReturn: [])
-    
-    return Output(cards: cards)
+    let output = Output()
+    return output
   }
 }
