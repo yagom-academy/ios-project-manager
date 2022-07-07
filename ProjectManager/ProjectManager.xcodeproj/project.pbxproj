@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0334E70228767EBB00222EB7 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0334E70128767EBB00222EB7 /* DetailViewModel.swift */; };
 		03AB73D62873043000B0C980 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 03AB73D52873043000B0C980 /* .swiftlint.yml */; };
 		03AB73DB2873290400B0C980 /* MainViweController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AB73DA2873290400B0C980 /* MainViweController.swift */; };
 		03AB73DD2873292900B0C980 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AB73DC2873292900B0C980 /* MainView.swift */; };
@@ -93,6 +94,7 @@
 			isa = PBXGroup;
 			children = (
 				0EA67EBB287476B300E15093 /* RegistrationViewController.swift */,
+				0334E70128767EBB00222EB7 /* DetailViewModel.swift */,
 				0EA67EBD2874789700E15093 /* ModalView.swift */,
 			);
 			path = View;
@@ -338,6 +340,7 @@
 				03AB73DD2873292900B0C980 /* MainView.swift in Sources */,
 				0EA67EC928752A0F00E15093 /* ProjectContent.swift in Sources */,
 				0EA67ED0287674D000E15093 /* ProjectTable.swift in Sources */,
+				0334E70228767EBB00222EB7 /* DetailViewModel.swift in Sources */,
 				03AB73DB2873290400B0C980 /* MainViweController.swift in Sources */,
 				0EA67EC628751ECC00E15093 /* MainViewModel.swift in Sources */,
 				03AB73E1287331BB00B0C980 /* ProjectTableView.swift in Sources */,
