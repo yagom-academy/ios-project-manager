@@ -12,6 +12,7 @@ final class ProjectCell: UITableViewCell {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .title2)
+        label.textAlignment = .left
         return label
     }()
     
@@ -20,12 +21,14 @@ final class ProjectCell: UITableViewCell {
         label.font = UIFont.preferredFont(forTextStyle: .body)
         label.textColor = .systemGray
         label.numberOfLines = 3
+        label.textAlignment = .left
         return label
     }()
     
     private let dateLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .caption1)
+        label.textAlignment = .left
         return label
     }()
     
@@ -33,7 +36,6 @@ final class ProjectCell: UITableViewCell {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
-        stackView.alignment = .leading
         return stackView
     }()
     
