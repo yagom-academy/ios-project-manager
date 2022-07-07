@@ -16,15 +16,12 @@ struct ContentView: View {
         NavigationView {
             HStack {
                 VStack(alignment: .leading) {
-                        List {
-                            Section(header: TodoView()){
-                                Button {
-                                    showSheet.toggle()
-                                } label: {
-                                    ListRowView()
-                                }
-                                .sheet(isPresented: $showSheet) {
-                                    RegisterView()
+                    List {
+                        Section(header: TodoView()){
+                            ListRowView()
+                                .swipeActions(edge: .trailing,
+                                              allowsFullSwipe: true) {
+                                    SwipeButton()
                                 }
                             .simultaneousGesture(LongPressGesture(minimumDuration: 1).onEnded({ _ in
                                 isShowingPopover.toggle()
@@ -94,6 +91,14 @@ struct PopoverButton: View {
                 Text("Move to DONE")
             }
         }.frame(width: 200, height: 200, alignment: .center)
+    }
+}
+
+struct SwipeButton: View {
+    var body: some View {
+        Button(action: { print("Delete") }) {
+            Text("Delete")
+        }
     }
 }
 
