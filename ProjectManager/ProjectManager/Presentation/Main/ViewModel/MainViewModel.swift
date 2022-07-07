@@ -12,30 +12,6 @@ class MainViewModel {
     let toDoTableProjects = BehaviorRelay<[ProjectContent]>(value: [SampleData.one, SampleData.two, SampleData.six])
     let doingTableProjects = BehaviorRelay<[ProjectContent]>(value: [SampleData.three, SampleData.four])
     let doneTableProjects = BehaviorRelay<[ProjectContent]>(value: [SampleData.five])
-    
-    let toDoTotalCount: Observable<String>
-    let doingTotalCount: Observable<String>
-    let doneTotalCount: Observable<String>
-    
-    init() {
-        self.toDoTotalCount = toDoTableProjects
-            .map { projectContents in
-                projectContents.count
-            }
-            .map { String($0) }
-        
-        self.doingTotalCount = doingTableProjects
-            .map { projectContents in
-                projectContents.count
-            }
-            .map { String($0) }
-        
-        self.doneTotalCount = doneTableProjects
-            .map { projectContents in
-                projectContents.count
-            }
-            .map { String($0) }
-    }
 }
 
 // MARK: - Sample Data

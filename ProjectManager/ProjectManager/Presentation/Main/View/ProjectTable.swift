@@ -30,6 +30,10 @@ final class ProjectTable: UIStackView {
         tableView.register(ProjectCell.self, forCellReuseIdentifier: "\(ProjectCell.self)")
         tableView.tableFooterView = UIView()
     }
+    
+    func compose(projectCount: String) {
+        headerView.countLabel.text = projectCount
+    }
 }
 
 final class HeaderView: UIView {

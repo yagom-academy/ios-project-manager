@@ -166,16 +166,28 @@ final class MainViweController: UIViewController {
     }
     
     private func setUpTotalCount() {
-        viewModel.toDoTotalCount
-            .bind(to: mainView.toDoTable.headerView.countLabel.rx.text)
+        viewModel.toDoTableProjects
+            .asDriver()
+            .map { "\($0.count)" }
+            .drive { [weak self] count in
+                self?.mainView.toDoTable.compose(projectCount: count)
+            }
             .disposed(by: disposeBag)
         
-        viewModel.doingTotalCount
-            .bind(to: mainView.doingTable.headerView.countLabel.rx.text)
+        viewModel.doingTableProjects
+            .asDriver()
+            .map { "\($0.count)" }
+            .drive { [weak self] count in
+                self?.mainView.doingTable.compose(projectCount: count)
+            }
             .disposed(by: disposeBag)
         
-        viewModel.doneTotalCount
-            .bind(to: mainView.doneTable.headerView.countLabel.rx.text)
+        viewModel.doneTableProjects
+            .asDriver()
+            .map { "\($0.count)" }
+            .drive { [weak self] count in
+                self?.mainView.doneTable.compose(projectCount: count)
+            }
             .disposed(by: disposeBag)
     }
 }
