@@ -1,5 +1,5 @@
 //
-//  UpdateViewController.swift
+//  RegistrationViewController.swift
 //  ProjectManager
 //
 //  Created by Tiana, mmim on 2022/07/05.
@@ -9,6 +9,16 @@ import UIKit
 
 final class RegistrationViewController: UIViewController {
     private let registrationView = ModalView(frame: .zero)
+    private let viewModel: MainViewModel
+        
+    init(viewModel: MainViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func loadView() {
         view = registrationView
@@ -39,6 +49,12 @@ final class RegistrationViewController: UIViewController {
     }
     
     @objc func saveRegistration() {
+        var array = viewModel.toDoTableProjects.value
+        
+        array.append(ProjectContent(ProjectItem(title: registrationView.titleTextField.text!, deadline: registrationView.datePicker.date, description: registrationView.descriptionTextView.text!)))
+        
+        viewModel.toDoTableProjects.accept(array)
+        
         dismiss(animated: true, completion: nil)
     }
 }
