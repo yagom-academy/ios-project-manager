@@ -56,10 +56,10 @@ final class CardListViewController: UIViewController {
     
     cardAdditionButton.rx.tap
       .bind(onNext: { [weak self] in
-        let cardAdditionViewController = UIViewController()
-        cardAdditionViewController.view.backgroundColor = .systemGray6
+        guard let self = self else { return }
+        let cardAdditionViewController = CardAdditionViewController(viewModel: self.viewModel)
         cardAdditionViewController.modalPresentationStyle = .formSheet
-        self?.present(cardAdditionViewController, animated: true)
+        self.present(cardAdditionViewController, animated: true)
       })
       .disposed(by: disposeBag)
   }
