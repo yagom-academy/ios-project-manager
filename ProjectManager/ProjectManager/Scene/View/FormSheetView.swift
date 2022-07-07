@@ -79,7 +79,7 @@ final class FormSheetView: UIView {
     
     func setUpContents(task: Task) {
         titleTextField.text = task.title
-        datePicker.date = Date.init(timeIntervalSince1970: 0)
+        datePicker.date = Date.init(timeIntervalSince1970: task.date)
         descriptionTextView.text = task.description
     }
 }

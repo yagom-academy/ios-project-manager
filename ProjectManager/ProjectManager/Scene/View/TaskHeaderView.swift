@@ -20,7 +20,7 @@ final class TaskHeaderView: UIView {
         $0.textColor = .black
     }
     
-    private(set) lazy var taskCountLabel = UILabel().then {
+    private lazy var taskCountLabel = UILabel().then {
         $0.textColor = .white
         $0.font = .preferredFont(forTextStyle: .title3)
         $0.backgroundColor = .black

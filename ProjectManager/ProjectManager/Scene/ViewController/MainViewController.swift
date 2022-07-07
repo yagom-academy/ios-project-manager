@@ -227,4 +227,42 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         editFormSheet.modalPresentationStyle = .formSheet
         present(editFormSheet, animated: true)
     }
+    
+    func tableView(
+        _ tableView: UITableView,
+        commit editingStyle: UITableViewCell.EditingStyle,
+        forRowAt indexPath: IndexPath
+    ) {
+        if editingStyle == .delete {
+            if tableView == mainView.todoTableView {
+                todos.remove(at: indexPath.row)
+                deleteCell(
+                    indexPath: indexPath,
+                    at: mainView.todoTableView
+                )
+            } else if tableView == mainView.doingTableView {
+                doings.remove(at: indexPath.row)
+                deleteCell(
+                    indexPath: indexPath,
+                    at: mainView.doingTableView
+                )
+            } else {
+                dones.remove(at: indexPath.row)
+                deleteCell(
+                    indexPath: indexPath,
+                    at: mainView.doneTableView
+                )
+            }
+        }
+    }
+    
+    private func deleteCell(
+        indexPath: IndexPath,
+        at tableView: UITableView
+    ) {
+        tableView.deleteRows(
+            at: [indexPath],
+            with: .fade
+        )
+    }
 }
