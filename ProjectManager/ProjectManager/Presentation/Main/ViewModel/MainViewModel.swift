@@ -7,9 +7,39 @@
 
 import RxSwift
 import RxRelay
+import RxCocoa
 
 class MainViewModel {
-    let toDoTableProjects = BehaviorRelay<[ProjectContent]>(value: [SampleData.one, SampleData.two, SampleData.six])
-    let doingTableProjects = BehaviorRelay<[ProjectContent]>(value: [SampleData.three, SampleData.four])
-    let doneTableProjects = BehaviorRelay<[ProjectContent]>(value: [SampleData.five])
+    let projects = BehaviorRelay<[ProjectContent]>(value: [])
+    
+    var todoProjects: Driver<[ProjectContent]>
+    var doingProjects: Driver<[ProjectContent]>
+    var doneProjects: Driver<[ProjectContent]>
+    
+    init() {
+        let content = MockStorageManager.shared.read()
+            .map {
+            ProjectContent($0)
+        }
+        
+        projects.accept(content)
+        
+        todoProjects = projects
+            .map {
+               $0.filter { $0.status == ProjectStatus.todo }
+            }
+            .asDriver(onErrorJustReturn: [])
+        
+        doingProjects = projects
+            .map {
+               $0.filter { $0.status == ProjectStatus.doing }
+            }
+            .asDriver(onErrorJustReturn: [])
+        
+        doneProjects = projects
+            .map {
+               $0.filter { $0.status == ProjectStatus.done }
+            }
+            .asDriver(onErrorJustReturn: [])
+    }
 }

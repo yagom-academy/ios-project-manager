@@ -51,7 +51,7 @@ final class MainViweController: UIViewController {
     }
     
     private func presentRegistrationView() {
-        let next = UINavigationController(rootViewController: RegistrationViewController(viewModel: viewModel))
+        let next = UINavigationController(rootViewController: RegistrationViewController())
         
         next.modalPresentationStyle = .formSheet
         
@@ -93,9 +93,8 @@ final class MainViweController: UIViewController {
     }
     
     private func setUpTableCellData() {
-        viewModel.toDoTableProjects
-            .observe(on: MainScheduler.instance)
-            .bind(to: mainView.toDoTable.tableView.rx.items(
+        viewModel.todoProjects
+            .drive (mainView.toDoTable.tableView.rx.items(
                 cellIdentifier: "\(ProjectCell.self)",
                 cellType: ProjectCell.self)
             ) { _, item, cell in
@@ -103,9 +102,8 @@ final class MainViweController: UIViewController {
             }
             .disposed(by: disposeBag)
         
-        viewModel.doingTableProjects
-            .observe(on: MainScheduler.instance)
-            .bind(to: mainView.doingTable.tableView.rx.items(
+        viewModel.doingProjects
+            .drive (mainView.doingTable.tableView.rx.items(
                 cellIdentifier: "\(ProjectCell.self)",
                 cellType: ProjectCell.self)
             ) { _, item, cell in
@@ -113,9 +111,8 @@ final class MainViweController: UIViewController {
             }
             .disposed(by: disposeBag)
         
-        viewModel.doneTableProjects
-            .observe(on: MainScheduler.instance)
-            .bind(to: mainView.doneTable.tableView.rx.items(
+        viewModel.doneProjects
+            .drive (mainView.doneTable.tableView.rx.items(
                 cellIdentifier: "\(ProjectCell.self)",
                 cellType: ProjectCell.self)
             ) { _, item, cell in
@@ -165,24 +162,21 @@ final class MainViweController: UIViewController {
     }
     
     private func setUpTotalCount() {
-        viewModel.toDoTableProjects
-            .asDriver()
+        viewModel.todoProjects
             .map { "\($0.count)" }
             .drive { [weak self] count in
                 self?.mainView.toDoTable.compose(projectCount: count)
             }
             .disposed(by: disposeBag)
         
-        viewModel.doingTableProjects
-            .asDriver()
+        viewModel.doingProjects
             .map { "\($0.count)" }
             .drive { [weak self] count in
                 self?.mainView.doingTable.compose(projectCount: count)
             }
             .disposed(by: disposeBag)
         
-        viewModel.doneTableProjects
-            .asDriver()
+        viewModel.doneProjects
             .map { "\($0.count)" }
             .drive { [weak self] count in
                 self?.mainView.doneTable.compose(projectCount: count)
