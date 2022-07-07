@@ -9,11 +9,10 @@ import SwiftUI
 
 struct DetailView: View {
   @ObservedObject var viewModel: TodoViewModel
-  
+  @ObservedObject var todo: Todo
+  @State var nonEditable: Bool = true
   @Binding var isShow: Bool
-  @State var title: String = ""
-  @State var date: Date = Date()
-  @State var content: String = ""
+  
   var body: some View {
     NavigationView {
       VStack {
@@ -22,15 +21,18 @@ struct DetailView: View {
             .fill(.white)
             .shadow(color: .gray, radius: 3, x: 0, y: 1)
             .frame(height: 30)
-          TextField("title", text: $title)
+          TextField("title", text: $todo.title)
             .padding(.leading)
+            .disabled(nonEditable)
         }
         
-        DatePicker("", selection: $date)
+        DatePicker("", selection: $todo.date)
           .datePickerStyle(.wheel)
           .labelsHidden()
-        TextEditor(text: $content)
+          .disabled(nonEditable)
+        TextEditor(text: $todo.content)
           .shadow(color: .gray, radius: 3, x: 0, y: 1)
+          .disabled(nonEditable)
       }
       .padding()
       .navigationTitle("TODO")
@@ -39,15 +41,19 @@ struct DetailView: View {
       .toolbar {
         ToolbarItem(placement: .navigationBarLeading) {
           Button {
-            isShow = false
+            if nonEditable == true {
+              nonEditable = false
+            } else {
+              isShow = false
+            }
           } label: {
-            Text("Edit")
+            nonEditable ? Text("Edit") : Text("Calcel")
           }
         }
         ToolbarItem(placement: .navigationBarTrailing) {
           Button {
             isShow = false
-            viewModel.creat(todo: Todo(title: title, content: content, date: date))
+            viewModel.creat(todo: Todo(title: todo.title, content: todo.content, date: todo.date))
           } label: {
             Text("Done")
           }

@@ -14,11 +14,9 @@ struct ProjectManagerView: View {
   var body: some View {
     NavigationView {
       HStack(spacing: 10) {
-        TodoListView(viewModel: viewModel, status: .todo)
-          
-        TodoListView(viewModel: viewModel, status: .doing)
-        
-        TodoListView(viewModel: viewModel, status: .done)
+        TodoListView(viewModel: viewModel, isShowDetailView: isShowDetailView, status: .todo)
+        TodoListView(viewModel: viewModel, isShowDetailView: isShowDetailView, status: .doing)
+        TodoListView(viewModel: viewModel, isShowDetailView: isShowDetailView, status: .done)
       }
       .background(Color(UIColor.systemGray4))
       .navigationTitle("Project Manager")
@@ -32,9 +30,16 @@ struct ProjectManagerView: View {
         })
       }
       .sheet(isPresented: $isShowDetailView) {
-        DetailView(viewModel: self.viewModel, isShow: $isShowDetailView)
+        DetailView(viewModel: self.viewModel, todo: Todo(title: "", content: ""), nonEditable: false, isShow: $isShowDetailView)
       }
     }
     .navigationViewStyle(.stack)
+  }
+}
+
+struct MyPreviewProvider_Previews: PreviewProvider {
+  static var previews: some View {
+    ProjectManagerView(viewModel: TodoViewModel())
+      .previewInterfaceOrientation(.landscapeLeft)
   }
 }

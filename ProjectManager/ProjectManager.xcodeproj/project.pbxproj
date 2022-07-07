@@ -63,7 +63,7 @@
 			isa = PBXGroup;
 			children = (
 				864DD597287327F500023287 /* ProjectManagerView.swift */,
-				DA657CE028758FE5002DB030 /* TodoListCell.swift */,
+				DA657CE42875C77D002DB030 /* DetailView.swift */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -129,7 +129,7 @@
 		DA657CDD28758DE2002DB030 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				DA657CE42875C77D002DB030 /* DetailView.swift */,
+				DA657CE028758FE5002DB030 /* TodoListCell.swift */,
 				DA657CE228759BB6002DB030 /* TodoList.swift */,
 				86B5211F2875B8DF003B83C9 /* TodoListHeader.swift */,
 			);

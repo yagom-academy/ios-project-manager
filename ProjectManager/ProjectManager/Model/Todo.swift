@@ -9,10 +9,10 @@ import SwiftUI
 
 class Todo: Identifiable, ObservableObject {
   let id: UUID
-  let title: String
-  let content: String
-  let date: Date
-  let status: Status
+  var title: String
+  var content: String
+  var date: Date
+  var status: Status
   
   enum Status: String {
     case todo = "TODO"
