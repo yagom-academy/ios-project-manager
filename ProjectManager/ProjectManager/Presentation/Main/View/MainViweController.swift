@@ -55,9 +55,5 @@ final class MainViweController: UIViewController {
             .subscribe(onNext: { [weak self] _ in
                 self?.presentDetailView()
             }).disposed(by: disposeBag)
-        
-        viewModel.totalCount
-            .bind(to: mainView.toDoTable.headerView.countLabel.rx.text)
-            .disposed(by: disposeBag)
     }
 }
