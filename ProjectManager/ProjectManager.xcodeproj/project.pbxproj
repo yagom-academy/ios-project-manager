@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B01748BB2877141A00EE15B0 /* CardAdditionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01748BA2877141A00EE15B0 /* CardAdditionViewController.swift */; };
 		B01DCDBF287329B800AFF91A /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = B01DCDBE287329B800AFF91A /* RxCocoa */; };
 		B01DCDC1287329B800AFF91A /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = B01DCDC0287329B800AFF91A /* RxRelay */; };
 		B01DCDC3287329B800AFF91A /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B01DCDC2287329B800AFF91A /* RxSwift */; };
@@ -25,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B01748BA2877141A00EE15B0 /* CardAdditionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardAdditionViewController.swift; sourceTree = "<group>"; };
 		B01DCDC828732AC900AFF91A /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		B01DCDD22873485000AFF91A /* CardListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListViewModel.swift; sourceTree = "<group>"; };
 		B032CDA22873BFB20087383E /* CardListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListTableViewCell.swift; sourceTree = "<group>"; };
@@ -78,6 +80,7 @@
 		B001067128729AC30080ACC7 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				B01748BA2877141A00EE15B0 /* CardAdditionViewController.swift */,
 				C7431F0925F51E1D0094C4CF /* CardListViewController.swift */,
 			);
 			path = ViewController;
@@ -235,6 +238,7 @@
 			files = (
 				B032CDA32873BFB20087383E /* CardListTableViewCell.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* CardListViewController.swift in Sources */,
+				B01748BB2877141A00EE15B0 /* CardAdditionViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				B032CDA82873F3610087383E /* AppAppearance.swift in Sources */,
 				B0EF5B18287522E000A503A9 /* CardSectionView.swift in Sources */,
