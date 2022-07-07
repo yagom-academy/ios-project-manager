@@ -11,7 +11,6 @@ final class NewToDoViewController: UIViewController {
     
     private let newToDoView = NewToDoView()
     
-    
     override func loadView() {
         super.loadView()
         view = newToDoView

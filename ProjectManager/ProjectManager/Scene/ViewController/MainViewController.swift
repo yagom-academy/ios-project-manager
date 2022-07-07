@@ -6,8 +6,6 @@
 
 import UIKit
 import SnapKit
-import RxCocoa
-import RxSwift
 
 final class MainViewController: UIViewController {
     

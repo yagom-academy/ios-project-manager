@@ -90,6 +90,7 @@
 		4EB3FFC928757DBC0001DBC0 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				9CA8DE97287702A70002C2F6 /* ViewController */,
 				4EB3FFCA28757DD50001DBC0 /* View */,
 			);
 			path = Scene;
@@ -98,12 +99,10 @@
 		4EB3FFCA28757DD50001DBC0 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				9CACE13128755FDF0010E4F0 /* TaskTableViewCell.swift */,
-				4EB3FFCC28757E1F0001DBC0 /* NewToDoView.swift */,
-				4EB3FFCE287580FD0001DBC0 /* NewToDoViewController.swift */,
-				4EB3FFD0287586200001DBC0 /* TaskHeaderView.swift */,
 				4EB3FFD228758E9F0001DBC0 /* MainView.swift */,
-				4EB2451E2876F589007F4056 /* EditToDoViewController.swift */,
+				4EB3FFD0287586200001DBC0 /* TaskHeaderView.swift */,
+				4EB3FFCC28757E1F0001DBC0 /* NewToDoView.swift */,
+				9CACE13128755FDF0010E4F0 /* TaskTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -116,21 +115,32 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		9CA8DE97287702A70002C2F6 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
+				4EB3FFCE287580FD0001DBC0 /* NewToDoViewController.swift */,
+				4EB2451E2876F589007F4056 /* EditToDoViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
 		9CACE12B28755BCC0010E4F0 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
 				9CACE12C28755BE20010E4F0 /* Then.swift */,
+				9CACE133287566D40010E4F0 /* Extension */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
 		};
-		9CACE133287566D40010E4F0 /* extension */ = {
+		9CACE133287566D40010E4F0 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
 				9CACE134287566F30010E4F0 /* UIFont+extension.swift */,
 				9C9C74A62875CFA900620DEB /* UITextField+extension.swift */,
 			);
-			path = extension;
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		AE87CCF57CC7FEFBCF5C38F9 /* Pods */ = {
@@ -165,11 +175,9 @@
 			children = (
 				4EB3FFC928757DBC0001DBC0 /* Scene */,
 				4EB3FFC028756FC10001DBC0 /* Model */,
-				9CACE133287566D40010E4F0 /* extension */,
 				9CACE12B28755BCC0010E4F0 /* Utils */,
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
-				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,

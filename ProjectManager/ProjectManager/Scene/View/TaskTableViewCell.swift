@@ -19,8 +19,7 @@ final class TaskTableViewCell: UITableViewCell {
             titleLabel,
             descriptionLabel,
             dateLabel
-        ]
-    ).then {
+        ]).then {
         $0.axis = .vertical
         $0.spacing = 5
     }
