@@ -43,9 +43,9 @@ extension TodoListViewController {
     }
     
     private func configureTableViewCell() {
-        mainView.todoTableView.register(TodoListCell.self, forCellReuseIdentifier: TodoListCell.Identifier)
-        mainView.doingTableView.register(TodoListCell.self, forCellReuseIdentifier: TodoListCell.Identifier)
-        mainView.doneTableView.register(TodoListCell.self, forCellReuseIdentifier: TodoListCell.Identifier)
+        mainView.todoTableView.register(TodoListCell.self, forCellReuseIdentifier: TodoListCell.identifier)
+        mainView.doingTableView.register(TodoListCell.self, forCellReuseIdentifier: TodoListCell.identifier)
+        mainView.doneTableView.register(TodoListCell.self, forCellReuseIdentifier: TodoListCell.identifier)
     }
 }
 
@@ -56,7 +56,7 @@ extension TodoListViewController {
             .do(onNext: { [weak self] in
                 self?.mainView.todoHeaderView.countLabel.text = "\($0.count)"
             })
-            .bind(to: mainView.todoTableView.rx.items(cellIdentifier: TodoListCell.Identifier,
+            .bind(to: mainView.todoTableView.rx.items(cellIdentifier: TodoListCell.identifier,
                                                       cellType: TodoListCell.self)) { row, item, cell in
                 cell.titleLabel.text = item.title
                 cell.bodyLabel.text = item.body
@@ -67,7 +67,7 @@ extension TodoListViewController {
             .do(onNext: { [weak self] in
                 self?.mainView.doingHeaderView.countLabel.text = "\($0.count)"
             })
-            .bind(to: mainView.doingTableView.rx.items(cellIdentifier: TodoListCell.Identifier,
+            .bind(to: mainView.doingTableView.rx.items(cellIdentifier: TodoListCell.identifier,
                                                       cellType: TodoListCell.self)) { row, item, cell in
                 cell.titleLabel.text = item.title
                 cell.bodyLabel.text = item.body
@@ -78,7 +78,7 @@ extension TodoListViewController {
             .do(onNext: { [weak self] in
                 self?.mainView.doneHeaderView.countLabel.text = "\($0.count)"
             })
-            .bind(to: mainView.doneTableView.rx.items(cellIdentifier: TodoListCell.Identifier,
+            .bind(to: mainView.doneTableView.rx.items(cellIdentifier: TodoListCell.identifier,
                                                       cellType: TodoListCell.self)) { row, item, cell in
                 cell.titleLabel.text = item.title
                 cell.bodyLabel.text = item.body
