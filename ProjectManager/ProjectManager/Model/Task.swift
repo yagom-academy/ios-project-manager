@@ -10,6 +10,6 @@ import Foundation
 struct Task {
     var title: String
     var description: String
-    var date: String
+    var date: Double
     var taskType: TaskType = .todo
 }

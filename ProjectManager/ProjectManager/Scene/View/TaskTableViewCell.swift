@@ -57,6 +57,6 @@ final class TaskTableViewCell: UITableViewCell {
     func setupContents(task: Task) {
         titleLabel.text = task.title
         descriptionLabel.text = task.description
-        dateLabel.text = task.date
+        dateLabel.text = task.date.formattedString
     }
 }
