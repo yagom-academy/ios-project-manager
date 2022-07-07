@@ -43,6 +43,7 @@ final class MainViweController: UIViewController {
     }
     
     private func bind() {
+        setUpTable()
         guard let addButton = navigationItem.rightBarButtonItem else {
             return
         }
@@ -51,5 +52,106 @@ final class MainViweController: UIViewController {
             .subscribe(onNext: { [weak self] _ in
                 self?.presentDetailView()
             }).disposed(by: disposeBag)
+    }
+    private func setUpTable() {
+        setUpSelection()
+        setUpTableCellData()
+        setUpdModelSelected()
+    }
+    
+    private func setUpSelection() {
+        mainView.toDoTable.tableView.rx
+            .itemSelected
+            .bind { [weak self] indexPath in
+                self?.mainView.toDoTable.tableView.deselectRow(at: indexPath, animated: true)
+            }
+            .disposed(by: disposeBag)
+        
+        mainView.doingTable.tableView.rx
+            .itemSelected
+            .bind { [weak self] indexPath in
+                self?.mainView.doingTable.tableView.deselectRow(at: indexPath, animated: true)
+            }
+            .disposed(by: disposeBag)
+        
+        mainView.doneTable.tableView.rx
+            .itemSelected
+            .bind { [weak self] indexPath in
+                self?.mainView.doneTable.tableView.deselectRow(at: indexPath, animated: true)
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    private func setUpTableCellData() {
+        viewModel.toDoTableProjects
+            .observe(on: MainScheduler.instance)
+            .bind(to: mainView.toDoTable.tableView.rx.items(
+                cellIdentifier: "\(ProjectCell.self)",
+                cellType: ProjectCell.self)
+            ) { _, item, cell in
+                cell.compose(content: item)
+            }
+            .disposed(by: disposeBag)
+        
+        viewModel.doingTableProjects
+            .observe(on: MainScheduler.instance)
+            .bind(to: mainView.doingTable.tableView.rx.items(
+                cellIdentifier: "\(ProjectCell.self)",
+                cellType: ProjectCell.self)
+            ) { _, item, cell in
+                cell.compose(content: item)
+            }
+            .disposed(by: disposeBag)
+        
+        viewModel.doneTableProjects
+            .observe(on: MainScheduler.instance)
+            .bind(to: mainView.doneTable.tableView.rx.items(
+                cellIdentifier: "\(ProjectCell.self)",
+                cellType: ProjectCell.self)
+            ) { _, item, cell in
+                cell.compose(content: item)
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    private func setUpdModelSelected() {
+        mainView.toDoTable.tableView.rx
+            .modelSelected(ProjectContent.self)
+            .bind(onNext: { [weak self] element in
+                let content = Observable.just(element)
+                
+                let next = UINavigationController(rootViewController: DetailViewController(title: "TODO", content: content, viewModel: self!.viewModel))
+                
+                next.modalPresentationStyle = .formSheet
+                
+                self?.present(next, animated: true)
+            })
+            .disposed(by: disposeBag)
+        
+        mainView.doingTable.tableView.rx
+            .modelSelected(ProjectContent.self)
+            .bind(onNext: { [weak self] element in
+                let content = Observable.just(element)
+                
+                let next = UINavigationController(rootViewController: DetailViewController(title: "DOING", content: content, viewModel: self!.viewModel))
+                
+                next.modalPresentationStyle = .formSheet
+                
+                self?.present(next, animated: true)
+            })
+            .disposed(by: disposeBag)
+        
+        mainView.doneTable.tableView.rx
+            .modelSelected(ProjectContent.self)
+            .bind(onNext: { [weak self] element in
+                let content = Observable.just(element)
+                
+                let next = UINavigationController(rootViewController: DetailViewController(title: "DONE", content: content, viewModel: self!.viewModel))
+                
+                next.modalPresentationStyle = .formSheet
+                
+                self?.present(next, animated: true)
+            })
+            .disposed(by: disposeBag)
     }
 }
