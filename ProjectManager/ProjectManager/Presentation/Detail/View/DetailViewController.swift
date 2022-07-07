@@ -39,18 +39,24 @@ final class DetailViewController: UIViewController {
         navigationItem.title = detailTitle
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .edit,
-            target: self,
+            target: nil,
             action: nil
         )
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .done,
-            target: self,
-            action: #selector(saveRegistration)
+            target: nil,
+            action: nil
         )
+        didTapDoneButton()
     }
     
-    @objc func saveRegistration() {
-        dismiss(animated: true, completion: nil)
+    private func didTapDoneButton() {
+        navigationItem.rightBarButtonItem?.rx.tap
+            .asDriver()
+            .drive { [weak self] _ in
+                self?.dismiss(animated: true, completion: nil)
+            }
+            .disposed(by: disposeBag)
     }
     
     private func bind() {
