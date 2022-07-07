@@ -10,7 +10,7 @@ import Foundation
 struct TodoMedel {
     let title: String
     let body: String
-    let createAt: Date
+    let deadlineAt: Date
     var state: State
 }
 
