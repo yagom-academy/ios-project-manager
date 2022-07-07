@@ -8,7 +8,13 @@
 import UIKit
 import SnapKit
 
-final class TodoListCell: UITableViewCell {
+protocol CellIdentifiable {
+    static var Identifier: String { get }
+}
+
+final class TodoListCell: UITableViewCell, CellIdentifiable {
+    static var Identifier = "TodoListCell"
+    
     private lazy var labelStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [titleLabel, bodyLabel, deadlineLabel])
         stackView.axis = .vertical
