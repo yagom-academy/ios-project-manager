@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		864DD598287327F500023287 /* ProjectManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864DD597287327F500023287 /* ProjectManagerView.swift */; };
+		865CFF2A287726BA00C251F3 /* BranchProcessing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865CFF29287726BA00C251F3 /* BranchProcessing.swift */; };
 		86855C342873C608002090E1 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 86855C332873C608002090E1 /* Realm */; };
 		86855C362873C608002090E1 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 86855C352873C608002090E1 /* RealmSwift */; };
 		86B5211B28758AD5003B83C9 /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B5211A28758AD5003B83C9 /* Todo.swift */; };
@@ -28,6 +29,7 @@
 
 /* Begin PBXFileReference section */
 		864DD597287327F500023287 /* ProjectManagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerView.swift; sourceTree = "<group>"; };
+		865CFF29287726BA00C251F3 /* BranchProcessing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BranchProcessing.swift; sourceTree = "<group>"; };
 		86B5211A28758AD5003B83C9 /* Todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
 		86B5211D287597E7003B83C9 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		86B5211F2875B8DF003B83C9 /* TodoListHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListHeader.swift; sourceTree = "<group>"; };
@@ -68,6 +70,14 @@
 			path = Scene;
 			sourceTree = "<group>";
 		};
+		865CFF282877269B00C251F3 /* Enum */ = {
+			isa = PBXGroup;
+			children = (
+				865CFF29287726BA00C251F3 /* BranchProcessing.swift */,
+			);
+			path = Enum;
+			sourceTree = "<group>";
+		};
 		86B5211928758A89003B83C9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -103,6 +113,7 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
+				865CFF282877269B00C251F3 /* Enum */,
 				86B5211C287597B8003B83C9 /* Extension */,
 				865CFF272876F41F00C251F3 /* Scene */,
 				DA657CDD28758DE2002DB030 /* View */,
@@ -243,6 +254,7 @@
 				DA657CE128758FE5002DB030 /* TodoListCell.swift in Sources */,
 				DA657CE328759BB6002DB030 /* TodoList.swift in Sources */,
 				DA657CE52875C77D002DB030 /* DetailView.swift in Sources */,
+				865CFF2A287726BA00C251F3 /* BranchProcessing.swift in Sources */,
 				864DD598287327F500023287 /* ProjectManagerView.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				86B5211E287597E7003B83C9 /* Date+Extension.swift in Sources */,

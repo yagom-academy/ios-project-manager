@@ -12,7 +12,7 @@ struct DetailView: View {
   @ObservedObject var todo: Todo
   @State var nonEditable: Bool = true
   @Binding var isShow: Bool
-  var method: Choose
+  var method: BranchProcessing
   
   var body: some View {
     NavigationView {
@@ -71,10 +71,4 @@ struct DetailView: View {
       }
     }
   }
-}
-
-enum Choose {
-  case creat
-  case update
-  case none
 }
