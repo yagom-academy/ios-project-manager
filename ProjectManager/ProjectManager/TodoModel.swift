@@ -11,4 +11,11 @@ struct TodoMedel {
     let title: String
     let body: String
     let createAt: Date
+    var state: State
+}
+
+enum State {
+    case todo
+    case doing
+    case done
 }
