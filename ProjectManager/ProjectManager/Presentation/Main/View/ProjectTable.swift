@@ -28,6 +28,7 @@ final class ProjectTable: UIStackView {
     
     private func registerCell() {
         tableView.register(ProjectCell.self, forCellReuseIdentifier: "\(ProjectCell.self)")
+        tableView.tableFooterView = UIView()
     }
 }
 
@@ -69,7 +70,6 @@ final class HeaderView: UIView {
         setUpLayout()
         setUpTitle(title: title)
         backgroundColor = .systemGray5
-
     }
     
     required init?(coder: NSCoder) {
