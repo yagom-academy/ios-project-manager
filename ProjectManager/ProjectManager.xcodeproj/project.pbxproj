@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B01748BB2877141A00EE15B0 /* CardAdditionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01748BA2877141A00EE15B0 /* CardAdditionViewController.swift */; };
+		B01748BD287732C300EE15B0 /* CardDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01748BC287732C300EE15B0 /* CardDetailViewController.swift */; };
 		B01DCDBF287329B800AFF91A /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = B01DCDBE287329B800AFF91A /* RxCocoa */; };
 		B01DCDC1287329B800AFF91A /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = B01DCDC0287329B800AFF91A /* RxRelay */; };
 		B01DCDC3287329B800AFF91A /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B01DCDC2287329B800AFF91A /* RxSwift */; };
@@ -27,6 +28,7 @@
 
 /* Begin PBXFileReference section */
 		B01748BA2877141A00EE15B0 /* CardAdditionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardAdditionViewController.swift; sourceTree = "<group>"; };
+		B01748BC287732C300EE15B0 /* CardDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetailViewController.swift; sourceTree = "<group>"; };
 		B01DCDC828732AC900AFF91A /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		B01DCDD22873485000AFF91A /* CardListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListViewModel.swift; sourceTree = "<group>"; };
 		B032CDA22873BFB20087383E /* CardListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListTableViewCell.swift; sourceTree = "<group>"; };
@@ -81,6 +83,7 @@
 			isa = PBXGroup;
 			children = (
 				B01748BA2877141A00EE15B0 /* CardAdditionViewController.swift */,
+				B01748BC287732C300EE15B0 /* CardDetailViewController.swift */,
 				C7431F0925F51E1D0094C4CF /* CardListViewController.swift */,
 			);
 			path = ViewController;
@@ -238,6 +241,7 @@
 			files = (
 				B032CDA32873BFB20087383E /* CardListTableViewCell.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* CardListViewController.swift in Sources */,
+				B01748BD287732C300EE15B0 /* CardDetailViewController.swift in Sources */,
 				B01748BB2877141A00EE15B0 /* CardAdditionViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				B032CDA82873F3610087383E /* AppAppearance.swift in Sources */,
