@@ -8,8 +8,8 @@
 import UIKit
 import SnapKit
 
-class HeaderView: UIView {
-    let title: String
+final class HeaderView: UIView {
+    private let title: String
     
     private lazy var labelStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [titleLabel, countLabel])
@@ -62,7 +62,7 @@ class HeaderView: UIView {
     }
 }
 
-class TodoListView: UIView {
+final class TodoListView: UIView {
     private lazy var tableStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [todoStackView, doingStackView, doneStackView])
         stackView.distribution = .fillEqually

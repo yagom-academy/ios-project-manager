@@ -7,7 +7,7 @@
 import UIKit
 import SnapKit
 
-class TodoListViewController: UIViewController {
+final class TodoListViewController: UIViewController {
     let mainView: UIView = TodoListView()
   
     override func viewDidLoad() {
@@ -16,7 +16,7 @@ class TodoListViewController: UIViewController {
         configureView()
     }
     
-    func configureView() {
+    private func configureView() {
         self.view.addSubview(mainView)
         mainView.snp.makeConstraints { make in
             make.top.bottom.trailing.leading.equalToSuperview()
