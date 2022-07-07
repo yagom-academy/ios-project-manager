@@ -18,6 +18,7 @@ final class TodoListCell: UITableViewCell, CellIdentifiable {
     private lazy var labelStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [titleLabel, bodyLabel, deadlineLabel])
         stackView.axis = .vertical
+        stackView.spacing = 2
         
         return stackView
     }()
@@ -32,6 +33,7 @@ final class TodoListCell: UITableViewCell, CellIdentifiable {
     let bodyLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .title3)
+        label.textColor = .systemGray2
         label.numberOfLines = 3
         
         return label
@@ -56,7 +58,7 @@ final class TodoListCell: UITableViewCell, CellIdentifiable {
     private func configureLayout() {
         self.addSubview(labelStackView)
         labelStackView.snp.makeConstraints { make in
-            make.edges.equalTo(self.safeAreaLayoutGuide)
+            make.edges.equalTo(self.safeAreaLayoutGuide).inset(8)
         }
     }
 }

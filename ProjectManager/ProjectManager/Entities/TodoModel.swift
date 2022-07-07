@@ -7,6 +7,12 @@
 
 import Foundation
 
+enum State {
+    case todo
+    case doing
+    case done
+}
+
 struct TodoMedel {
     let title: String
     let body: String
@@ -31,8 +37,3 @@ extension TodoMedel {
 }
 #endif
 
-enum State {
-    case todo
-    case doing
-    case done
-}

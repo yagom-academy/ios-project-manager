@@ -10,10 +10,10 @@ import RxSwift
 import RxCocoa
 
 final class TodoListViewController: UIViewController {
-    let mainView = TodoListView()
-    let viewModel: TodoListViewModel
+    private let mainView = TodoListView()
+    private let viewModel: TodoListViewModel
     
-    let bag = DisposeBag()
+    private let bag = DisposeBag()
   
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,7 +42,7 @@ extension TodoListViewController {
         }
     }
     
-    func configureTableViewCell() {
+    private func configureTableViewCell() {
         mainView.todoTableView.register(TodoListCell.self, forCellReuseIdentifier: TodoListCell.Identifier)
         mainView.doingTableView.register(TodoListCell.self, forCellReuseIdentifier: TodoListCell.Identifier)
         mainView.doneTableView.register(TodoListCell.self, forCellReuseIdentifier: TodoListCell.Identifier)
