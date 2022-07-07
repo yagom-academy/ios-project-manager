@@ -19,7 +19,7 @@ final class TodoListViewController: UIViewController {
     private func configureView() {
         self.view.addSubview(mainView)
         mainView.snp.makeConstraints { make in
-            make.top.bottom.trailing.leading.equalToSuperview()
+            make.edges.equalToSuperview()
         }
     }
 }

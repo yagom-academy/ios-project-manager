@@ -52,4 +52,5 @@ final class TodoListCell: UITableViewCell {
         labelStackView.snp.makeConstraints { make in
             make.edges.equalTo(self.safeAreaLayoutGuide)
         }
-    }}
+    }
+}
