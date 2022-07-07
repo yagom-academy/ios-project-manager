@@ -30,7 +30,7 @@ struct ProjectManagerView: View {
         })
       }
       .sheet(isPresented: $isShowDetailView) {
-        DetailView(viewModel: self.viewModel, todo: Todo(title: "", content: ""), nonEditable: false, isShow: $isShowDetailView)
+        DetailView(viewModel: self.viewModel, todo: Todo(title: "", content: ""), nonEditable: false, isShow: $isShowDetailView, method: .creat)
       }
     }
     .navigationViewStyle(.stack)

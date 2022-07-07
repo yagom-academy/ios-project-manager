@@ -12,6 +12,7 @@ struct DetailView: View {
   @ObservedObject var todo: Todo
   @State var nonEditable: Bool = true
   @Binding var isShow: Bool
+  var method: choose
   
   var body: some View {
     NavigationView {
@@ -53,7 +54,16 @@ struct DetailView: View {
         ToolbarItem(placement: .navigationBarTrailing) {
           Button {
             isShow = false
-            viewModel.creat(todo: Todo(title: todo.title, content: todo.content, date: todo.date))
+            
+            switch method {
+            case .creat:
+              viewModel.creat(todo: Todo(title: todo.title, content: todo.content, date: todo.date))
+            case .update:
+              viewModel.update(todo: todo)
+            case .none:
+              return
+            }
+            
           } label: {
             Text("Done")
           }
@@ -61,4 +71,11 @@ struct DetailView: View {
       }
     }
   }
+}
+
+
+enum choose {
+  case creat
+  case update
+  case none
 }

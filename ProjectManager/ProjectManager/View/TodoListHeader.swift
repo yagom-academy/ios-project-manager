@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HeaderView: View {
-  @EnvironmentObject var viewModel: TodoViewModel
+  @ObservedObject var viewModel: TodoViewModel
   
   @State var title: Todo.Status
   
