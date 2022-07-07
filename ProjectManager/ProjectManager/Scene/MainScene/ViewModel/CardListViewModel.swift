@@ -10,16 +10,22 @@ import Foundation
 import RxRelay
 import RxSwift
 
-final class CardListViewModel: ViewModelType {
-  struct Input {}
-  struct Output {
-    let todoCards = BehaviorRelay<[Card]>(value: Card.todoSample)
-    let doingCards = BehaviorRelay<[Card]>(value: Card.doingSample)
-    let doneCards = BehaviorRelay<[Card]>(value: Card.doneSample)
-  }
+protocol CardListViewModelInput {}
+protocol CardListViewModelOutput {
+  var cards: BehaviorRelay<[Card]> { get }
+}
+
+protocol CardListViewModelType {
+  var input: CardListViewModelInput { get }
+  var output: CardListViewModelOutput { get }
+}
+
+protocol CardListViewModel: CardListViewModelType, CardListViewModelInput, CardListViewModelOutput {}
+
+final class DefaultCardListViewModel: CardListViewModel {
+  var input: CardListViewModelInput { self }
+  var output: CardListViewModelOutput { self }
   
-  func transform(input: Input) -> Output {
-    let output = Output()
-    return output
-  }
+  // Output
+  let cards = BehaviorRelay<[Card]>(value: Card.sample)
 }

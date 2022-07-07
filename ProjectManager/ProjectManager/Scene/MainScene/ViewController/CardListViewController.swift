@@ -29,10 +29,11 @@ final class CardListViewController: UIViewController {
     $0.translatesAutoresizingMaskIntoConstraints = false
   }
   
-  private let viewModel = CardListViewModel()
+  private let viewModel: CardListViewModel
   private let disposeBag = DisposeBag()
   
-  init() {
+  init(viewModel: CardListViewModel) {
+    self.viewModel = viewModel
     super.init(nibName: nil, bundle: nil)
     configureSubViews()
     configureLayouts()
@@ -50,19 +51,40 @@ final class CardListViewController: UIViewController {
   }
   
   private func bindUI() {
-    let input = CardListViewModel.Input()
-    let output = viewModel.transform(input: input)
-    
-    bindSections(output: output)
+    bindSections(output: viewModel.output)
   }
   
-  private func bindSections(output: CardListViewModel.Output) {
-    let todos = output.todoCards.asDriver(onErrorJustReturn: [])
-    let doings = output.doingCards.asDriver(onErrorJustReturn: [])
-    let dones = output.doneCards.asDriver(onErrorJustReturn: [])
+  private func bindSections(output: CardListViewModelOutput) {
+    let todos = output.cards
+      .map { $0.filter { $0.cardType == .todo } }
+      .asDriver(onErrorJustReturn: [])
+    let doings = output.cards
+      .map { $0.filter { $0.cardType == .doing } }
+      .asDriver(onErrorJustReturn: [])
+    let dones = output.cards
+      .map { $0.filter { $0.cardType == .done } }
+      .asDriver(onErrorJustReturn: [])
     
     todos
       .drive(todoSectionView.tableView.rx.items(
+        cellIdentifier: CardListTableViewCell.identifier,
+        cellType: CardListTableViewCell.self
+      )) { _, card, cell in
+        cell.setup(card: card)
+      }
+      .disposed(by: disposeBag)
+
+    doings
+      .drive(doingSectionView.tableView.rx.items(
+        cellIdentifier: CardListTableViewCell.identifier,
+        cellType: CardListTableViewCell.self
+      )) { _, card, cell in
+        cell.setup(card: card)
+      }
+      .disposed(by: disposeBag)
+    
+    dones
+      .drive(doneSectionView.tableView.rx.items(
         cellIdentifier: CardListTableViewCell.identifier,
         cellType: CardListTableViewCell.self
       )) { _, card, cell in
@@ -76,26 +98,8 @@ final class CardListViewController: UIViewController {
       .disposed(by: disposeBag)
     
     doings
-      .drive(doingSectionView.tableView.rx.items(
-        cellIdentifier: CardListTableViewCell.identifier,
-        cellType: CardListTableViewCell.self
-      )) { _, card, cell in
-        cell.setup(card: card)
-      }
-      .disposed(by: disposeBag)
-    
-    doings
       .map { "\($0.count)" }
       .drive(doingSectionView.headerView.cardCountLabel.rx.text)
-      .disposed(by: disposeBag)
-    
-    dones
-      .drive(doneSectionView.tableView.rx.items(
-        cellIdentifier: CardListTableViewCell.identifier,
-        cellType: CardListTableViewCell.self
-      )) { _, card, cell in
-        cell.setup(card: card)
-      }
       .disposed(by: disposeBag)
     
     dones
