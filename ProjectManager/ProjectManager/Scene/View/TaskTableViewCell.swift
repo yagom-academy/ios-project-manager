@@ -14,6 +14,8 @@ final class TaskTableViewCell: UITableViewCell {
         return String(describing: self)
     }
     
+    private(set) var task: Task?
+    
     private lazy var baseCellStackView = UIStackView(
         arrangedSubviews: [
             titleLabel,
@@ -55,6 +57,8 @@ final class TaskTableViewCell: UITableViewCell {
     }
     
     func setupContents(task: Task) {
+        self.task = task
+
         titleLabel.text = task.title
         descriptionLabel.text = task.description
         dateLabel.text = task.date.formattedString
