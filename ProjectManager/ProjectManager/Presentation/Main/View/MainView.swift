@@ -8,9 +8,9 @@
 import UIKit
 
 final class MainView: UIView {
-    let toDoTableView = ProjectTableView(title: "TODO")
-    let doingTableView = ProjectTableView(title: "DOING")
-    let doneTableView = ProjectTableView(title: "DONE")
+    let toDoTable = ProjectTable(title: "TODO")
+    let doingTable = ProjectTable(title: "DOING")
+    let doneTable = ProjectTable(title: "DONE")
     
     private let baseStackView: UIStackView = {
         let stackView = UIStackView()
@@ -18,12 +18,14 @@ final class MainView: UIView {
         stackView.axis = .horizontal
         stackView.alignment = .fill
         stackView.distribution = .fillEqually
+        stackView.spacing = 5
+        stackView.backgroundColor = .systemGray4
         return stackView
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+
         setUpBackgroundColor()
         setUpTableViews()
         setUpLayout()
@@ -40,14 +42,14 @@ final class MainView: UIView {
     private func setUpTableViews() {
         addSubview(baseStackView)
         
-        baseStackView.addArrangedSubview(toDoTableView)
-        baseStackView.addArrangedSubview(doingTableView)
-        baseStackView.addArrangedSubview(doneTableView)
+        baseStackView.addArrangedSubview(toDoTable)
+        baseStackView.addArrangedSubview(doingTable)
+        baseStackView.addArrangedSubview(doneTable)
     }
     
     private func setUpLayout() {
         NSLayoutConstraint.activate([
-            baseStackView.topAnchor.constraint(equalTo: topAnchor),
+            baseStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             baseStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
             baseStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
             baseStackView.trailingAnchor.constraint(equalTo: trailingAnchor)
