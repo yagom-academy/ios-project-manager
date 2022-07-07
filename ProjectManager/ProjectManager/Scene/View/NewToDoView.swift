@@ -36,7 +36,7 @@ final class NewToDoView: UIView {
         setShadow(target: $0)
     }
     
-    private lazy var descriptionTextView = UITextView().then {
+    private(set) lazy var descriptionTextView = UITextView().then {
         $0.font = .preferredFont(forTextStyle: .subheadline)
         $0.text = "입력 가능한 글자수는 1000자로 제한합니다."
     }
@@ -75,5 +75,11 @@ final class NewToDoView: UIView {
         titleTextField.snp.makeConstraints {
             $0.height.equalTo(formSheetStackView.snp.height).multipliedBy(0.1)
         }
+    }
+    
+    func setUpContents(task: Task) {
+        titleTextField.text = task.title
+        datePicker.date = Date.init(timeIntervalSince1970: 0)
+        descriptionTextView.text = task.description
     }
 }

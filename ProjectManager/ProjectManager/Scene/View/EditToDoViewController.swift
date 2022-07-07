@@ -1,29 +1,30 @@
 //
-//  NewToDoViewController.swift
+//  EditToDoViewController.swift
 //  ProjectManager
 //
-//  Created by Donnie, Grumpy on 2022/07/06.
+//  Created by Donnie, Grumpy on 2022/07/07.
 //
 
 import UIKit
 
-final class NewToDoViewController: UIViewController {
+final class EditToDoViewController: UIViewController {
     
-    private let newToDoView = NewToDoView()
-    
-    
+    private let editToDoView = NewToDoView()
+    var task: Task?
+
     override func loadView() {
         super.loadView()
-        view = newToDoView
+        view = editToDoView
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavigationBarItems()
+        setupContents()
     }
     
     private func configureNavigationBarItems() {
-        title = "TODO"
+        title = task?.taskType.value
         
         let doneButton = UIBarButtonItem(
             title: "Done",
@@ -33,21 +34,27 @@ final class NewToDoViewController: UIViewController {
         )
         navigationItem.rightBarButtonItem = doneButton
         
-        let cancelButton = UIBarButtonItem(
-            title: "Cancel",
+        let editButton = UIBarButtonItem(
+            title: "Edit",
             style: .plain,
             target: self,
-            action: #selector(cancelButtonTapped)
+            action: #selector(editButtonTapped)
         )
-        navigationItem.leftBarButtonItem = cancelButton
+        navigationItem.leftBarButtonItem = editButton
     }
     
-    @objc private func cancelButtonTapped() {
+    @objc private func editButtonTapped() {
+        // 저장 기능
         dismiss(animated: true)
     }
     
     @objc private func doneButtonTapped() {
-        // 저장
-        print("done")
+        dismiss(animated: true)
+    }
+    
+    private func setupContents() {
+        if let task = task {
+            editToDoView.setUpContents(task: task)
+        }
     }
 }

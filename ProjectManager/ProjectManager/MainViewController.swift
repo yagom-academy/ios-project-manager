@@ -147,4 +147,15 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         
         return todoCell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let editViewController = EditToDoViewController()
+        editViewController.task = todos[indexPath.row]
+        let editFormSheet = UINavigationController(
+            rootViewController: editViewController
+        )
+        
+        editFormSheet.modalPresentationStyle = .formSheet
+        present(editFormSheet, animated: true)
+    }
 }
