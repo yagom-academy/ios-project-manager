@@ -15,10 +15,11 @@ final class TodoListCell: UITableViewCell {
     private let contentsStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.distribution = .fill
+        stackView.distribution = .fillProportionally
         stackView.alignment = .fill
+        stackView.spacing = 5
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        
+
         return stackView
     }()
     
@@ -33,7 +34,9 @@ final class TodoListCell: UITableViewCell {
     private let descriptionLabel: UILabel = {
         let label = UILabel()
         
-        label.font = .preferredFont(forTextStyle: .title3)
+        label.numberOfLines = 3
+        label.font = .preferredFont(forTextStyle: .body)
+        label.textColor = .systemGray
         
         return label
     }()
@@ -41,8 +44,7 @@ final class TodoListCell: UITableViewCell {
     private let dateLabel: UILabel = {
         let label = UILabel()
         
-        label.font = .preferredFont(forTextStyle: .title3)
-        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .preferredFont(forTextStyle: .body)
         
         return label
     }()
@@ -57,25 +59,26 @@ final class TodoListCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.contentView.frame = self.contentView.frame.inset(by: UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0))
+    }
+    
     private func setUpCell() {
         self.contentView.addSubview(self.contentsStackView)
-        self.contentView.addSubview(self.dateLabel)
+        
+        self.backgroundColor = .systemGray5
+        self.contentView.backgroundColor = .systemBackground
     }
     
     private func setUpLayout() {
-        self.contentsStackView.addArrangedSubviews(with: [titleLabel, descriptionLabel])
-        
+        self.contentsStackView.addArrangedSubviews(with: [self.titleLabel, self.descriptionLabel, self.dateLabel])
+
         NSLayoutConstraint.activate([
-            self.contentsStackView.topAnchor.constraint(equalTo: self.contentView.topAnchor),
-            self.contentsStackView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor),
+            self.contentsStackView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 10),
+            self.contentsStackView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 10),
             self.contentsStackView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor),
-            self.contentsStackView.bottomAnchor.constraint(equalTo: self.dateLabel.topAnchor, constant: -5)
-        ])
-        
-        NSLayoutConstraint.activate([
-            self.dateLabel.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor),
-            self.dateLabel.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor),
-            self.dateLabel.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor)
+            self.contentsStackView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -5)
         ])
     }
     
