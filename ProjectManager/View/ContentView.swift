@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var showSheet = false
+    @State private var isShowingPopover = false
+    
     var body: some View {
         
         NavigationView {
@@ -24,9 +26,22 @@ struct ContentView: View {
                                 .sheet(isPresented: $showSheet) {
                                     RegisterView()
                                 }
+                            .simultaneousGesture(LongPressGesture(minimumDuration: 1).onEnded({ _ in
+                                isShowingPopover.toggle()
+                            }))
+                            .simultaneousGesture(TapGesture().onEnded({ _ in
+                                showSheet.toggle()
+                            }))
+                            .popover(isPresented: $isShowingPopover,
+                                     arrowEdge: .bottom) {
+                                PopoverButton()
+                            }
+                            .sheet(isPresented: $showSheet) {
+                                RegisterView()
                             }
                         }
-                        .listStyle(.grouped)
+                    }
+                    .listStyle(.grouped)
                 }
                 
                 VStack(alignment: .leading) {
@@ -69,6 +84,18 @@ struct ContentView: View {
     }
 }
 
+struct PopoverButton: View {
+    var body: some View {
+        Form {
+            Button(action: { print("Move to DOING") }) {
+                Text("Move to DOING")
+            }
+            Button(action: { print("Move to DONE") }) {
+                Text("Move to DONE")
+            }
+        }.frame(width: 200, height: 200, alignment: .center)
+    }
+}
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
