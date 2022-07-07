@@ -11,11 +11,11 @@ import RxCocoa
 
 final class RegistrationViewController: UIViewController {
     private let registrationView = ModalView(frame: .zero)
-    private let viewModel: MainViewModel
+    private let viewModel = RegistrationViewModel()
+    
     private let disposeBag = DisposeBag()
     
-    init(viewModel: MainViewModel) {
-        self.viewModel = viewModel
+    init() {
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -83,14 +83,6 @@ final class RegistrationViewController: UIViewController {
               }
         let date = registrationView.datePicker.date
         
-        var array = viewModel.toDoTableProjects.value
-        
-        array.append(ProjectContent(ProjectItem(
-            title: title,
-            deadline: date,
-            description: description))
-        )
-        
-        viewModel.toDoTableProjects.accept(array)
+        viewModel.registerate(title: title, date: date, description: description)
     }
 }
