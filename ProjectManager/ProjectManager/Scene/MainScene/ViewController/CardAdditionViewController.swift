@@ -46,7 +46,7 @@ final class CardAdditionViewController: UIViewController {
     $0.layer.borderColor = UIColor.systemGray4.cgColor
   }
   private let deadlineDatePicker = UIDatePicker().then {
-    $0.datePickerMode = .dateAndTime
+    $0.datePickerMode = .date
     $0.preferredDatePickerStyle = .wheels
     $0.layer.borderWidth = UISettings.formsBorderWidth
     $0.layer.borderColor = UIColor.systemGray4.cgColor
@@ -105,7 +105,7 @@ extension CardAdditionViewController {
     view.addSubview(navigationBar)
     view.addSubview(containerStackView)
     
-    [titleTextField, descriptionTextView, deadlineDatePicker].forEach {
+    [titleTextField, deadlineDatePicker, descriptionTextView].forEach {
       containerStackView.addArrangedSubview($0)
     }
   }
