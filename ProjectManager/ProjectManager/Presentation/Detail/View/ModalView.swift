@@ -83,9 +83,9 @@ final class ModalView: UIView {
         descriptionTextView.text = content.description
     }
     
-    func disableUserInterface() {
-        titleTextField.isUserInteractionEnabled = false
-        datePicker.isUserInteractionEnabled = false
-        descriptionTextView.isUserInteractionEnabled = false
+    func isUserInteractionEnabled(_ isEnable: Bool) {
+        titleTextField.isUserInteractionEnabled = isEnable
+        datePicker.isUserInteractionEnabled = isEnable
+        descriptionTextView.isUserInteractionEnabled = isEnable
     }
 }
