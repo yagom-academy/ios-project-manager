@@ -24,6 +24,23 @@ struct ProjectContent {
         }
         return ProjectItem(title: title, deadline: deadline, description: description)
     }
+    
+    mutating func editContent(title: String? = nil,
+                              deadline: Date? = nil,
+                              description: String? = nil
+    ) {
+        if let title = title {
+            self.title = title
+        }
+        
+        if let deadline = deadline {
+            self.deadline = DateFormatter().formatted(date: deadline)
+        }
+        
+        if let description = description {
+            self.description = description
+        }
+    }
 }
 
 fileprivate extension DateFormatter {
