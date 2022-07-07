@@ -49,7 +49,7 @@ final class MainViewController: UIViewController {
             ),
             style: .plain,
             target: self,
-            action: #selector(showNewTodoView)
+            action: #selector(showNewFormSheetView)
         )
         navigationItem.rightBarButtonItem = plusButton
     }
@@ -117,9 +117,9 @@ final class MainViewController: UIViewController {
         ]
     }
     
-    @objc private func showNewTodoView() {
+    @objc private func showNewFormSheetView() {
         let newTodoFormSheet = UINavigationController(
-            rootViewController: NewToDoViewController()
+            rootViewController: NewFormSheetViewController()
         )
         newTodoFormSheet.modalPresentationStyle = .formSheet
         present(newTodoFormSheet, animated: true)
@@ -152,19 +152,19 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         ) as? TaskTableViewCell else {
             return UITableViewCell()
         }
-        
-        todoCell.setupContents(data: todos[indexPath.row])
-        
+        todoCell.setupContents(task: todos[indexPath.row])
         return todoCell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let editViewController = EditToDoViewController()
+    func tableView(
+        _ tableView: UITableView,
+        didSelectRowAt indexPath: IndexPath
+    ) {
+        let editViewController = EditFormSheetViewController()
         editViewController.task = todos[indexPath.row]
         let editFormSheet = UINavigationController(
             rootViewController: editViewController
         )
-
         editFormSheet.modalPresentationStyle = .formSheet
         present(editFormSheet, animated: true)
     }

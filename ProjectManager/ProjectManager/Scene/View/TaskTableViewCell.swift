@@ -54,9 +54,9 @@ final class TaskTableViewCell: UITableViewCell {
         }
     }
     
-    func setupContents(data: Task) {
-        titleLabel.text = data.title
-        descriptionLabel.text = data.description
-        dateLabel.text = data.date
+    func setupContents(task: Task) {
+        titleLabel.text = task.title
+        descriptionLabel.text = task.description
+        dateLabel.text = task.date
     }
 }

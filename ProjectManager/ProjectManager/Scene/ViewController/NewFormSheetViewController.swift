@@ -1,5 +1,5 @@
 //
-//  NewToDoViewController.swift
+//  NewFormSheetViewController.swift
 //  ProjectManager
 //
 //  Created by Donnie, Grumpy on 2022/07/06.
@@ -7,13 +7,13 @@
 
 import UIKit
 
-final class NewToDoViewController: UIViewController {
+final class NewFormSheetViewController: UIViewController {
     
-    private let newToDoView = NewToDoView()
+    private let newFormSheetView = FormSheetView()
     
     override func loadView() {
         super.loadView()
-        view = newToDoView
+        view = newFormSheetView
     }
     
     override func viewDidLoad() {

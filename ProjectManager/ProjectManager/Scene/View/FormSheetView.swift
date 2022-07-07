@@ -1,5 +1,5 @@
 //
-//  NewToDoView.swift
+//  FormSheetView.swift
 //  ProjectManager
 //
 //  Created by Donnie, Grumpy on 2022/07/06.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class NewToDoView: UIView {
+final class FormSheetView: UIView {
     
     private lazy var formSheetStackView = UIStackView(
         arrangedSubviews: [

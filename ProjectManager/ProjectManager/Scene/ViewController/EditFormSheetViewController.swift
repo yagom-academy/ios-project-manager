@@ -1,5 +1,5 @@
 //
-//  EditToDoViewController.swift
+//  EditFormSheetViewController.swift
 //  ProjectManager
 //
 //  Created by Donnie, Grumpy on 2022/07/07.
@@ -7,14 +7,14 @@
 
 import UIKit
 
-final class EditToDoViewController: UIViewController {
+final class EditFormSheetViewController: UIViewController {
     
-    private let editToDoView = NewToDoView()
+    private let editFormSheetView = FormSheetView()
     var task: Task?
 
     override func loadView() {
         super.loadView()
-        view = editToDoView
+        view = editFormSheetView
     }
     
     override func viewDidLoad() {
@@ -54,7 +54,7 @@ final class EditToDoViewController: UIViewController {
     
     private func setupContents() {
         if let task = task {
-            editToDoView.setUpContents(task: task)
+            editFormSheetView.setUpContents(task: task)
         }
     }
 }
