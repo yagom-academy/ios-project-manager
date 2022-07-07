@@ -151,7 +151,13 @@ final class MainViweController: UIViewController {
     }
     
     private func presentViewController(title: String, content: ProjectContent) {
-        let next = UINavigationController(rootViewController: DetailViewController(title: title, content: content))
+        let next = UINavigationController(
+            rootViewController: DetailViewController(
+                title: title,
+                content: content,
+                mainViewModel: viewModel
+            )
+        )
         
         next.modalPresentationStyle = .formSheet
         
