@@ -134,11 +134,11 @@ final class CardListViewController: UIViewController {
       todoSectionView.tableView.rx.modelSelected(Card.self)
     ) { ($0, $1) }
       .bind(onNext: { [weak self] indexPath, card in
-        self?.todoSectionView.tableView.deselectRow(at: indexPath, animated: true)
-        let vc = UIViewController()
-        vc.view.backgroundColor = .blue
-        vc.modalPresentationStyle = .formSheet
-        self?.present(vc, animated: true)
+        guard let self = self else { return }
+        self.todoSectionView.tableView.deselectRow(at: indexPath, animated: true)
+        let cardDetailViewController = CardDetailViewController(viewModel: self.viewModel, card: card)
+        cardDetailViewController.modalPresentationStyle = .formSheet
+        self.present(cardDetailViewController, animated: true)
       })
       .disposed(by: disposeBag)
     
@@ -147,11 +147,11 @@ final class CardListViewController: UIViewController {
       doingSectionView.tableView.rx.modelSelected(Card.self)
     ) { ($0, $1) }
       .bind(onNext: { [weak self] indexPath, card in
-        self?.doingSectionView.tableView.deselectRow(at: indexPath, animated: true)
-        let vc = UIViewController()
-        vc.view.backgroundColor = .blue
-        vc.modalPresentationStyle = .formSheet
-        self?.present(vc, animated: true)
+        guard let self = self else { return }
+        self.doingSectionView.tableView.deselectRow(at: indexPath, animated: true)
+        let cardDetailViewController = CardDetailViewController(viewModel: self.viewModel, card: card)
+        cardDetailViewController.modalPresentationStyle = .formSheet
+        self.present(cardDetailViewController, animated: true)
       })
       .disposed(by: disposeBag)
     
@@ -160,11 +160,11 @@ final class CardListViewController: UIViewController {
       doneSectionView.tableView.rx.modelSelected(Card.self)
     ) { ($0, $1) }
       .bind(onNext: { [weak self] indexPath, card in
-        self?.doneSectionView.tableView.deselectRow(at: indexPath, animated: true)
-        let vc = UIViewController()
-        vc.view.backgroundColor = .blue
-        vc.modalPresentationStyle = .formSheet
-        self?.present(vc, animated: true)
+        guard let self = self else { return }
+        self.doneSectionView.tableView.deselectRow(at: indexPath, animated: true)
+        let cardDetailViewController = CardDetailViewController(viewModel: self.viewModel, card: card)
+        cardDetailViewController.modalPresentationStyle = .formSheet
+        self.present(cardDetailViewController, animated: true)
       })
       .disposed(by: disposeBag)
   }

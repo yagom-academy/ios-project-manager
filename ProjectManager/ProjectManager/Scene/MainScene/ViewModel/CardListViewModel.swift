@@ -14,6 +14,7 @@ protocol CardListViewModelInput {
   func setDeadlineDateToString(_ date: Date) -> String
   func isOverdue(card: Card) -> Bool
   func createNewCard(title: String?, description: String?, deadlineDate: Date)
+  func updateSelectedCard(_ card: Card, title: String?, description: String?, deadlineDate: Date)
 }
 protocol CardListViewModelOutput {
   var cards: BehaviorRelay<[Card]> { get }
@@ -46,5 +47,16 @@ final class DefaultCardListViewModel: CardListViewModel {
     
     let card = Card(title: title, description: description, deadlineDate: deadlineDate)
     cards.accept(cards.value + [card])
+  }
+  
+  func updateSelectedCard(_ card: Card, title: String?, description: String?, deadlineDate: Date) {
+    guard let title = title, let description = description else { return }
+    
+    let originCards = cards.value.filter { $0.id != card.id }
+    var updatedCard = card
+    updatedCard.title = title
+    updatedCard.description = description
+    updatedCard.deadlineDate = deadlineDate
+    cards.accept(originCards + [updatedCard])
   }
 }
