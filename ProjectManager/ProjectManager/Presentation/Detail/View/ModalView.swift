@@ -8,7 +8,7 @@
 import UIKit
 
 final class ModalView: UIView {
-    private lazy var titleTextField: UITextField = {
+    lazy var titleTextField: UITextField = {
         let textField = UITextField()
         drawShadow(view: textField, color: .systemGray3)
         textField.placeholder = "title"
@@ -16,13 +16,14 @@ final class ModalView: UIView {
         return textField
     }()
     
-    private let datePicker: UIDatePicker = {
+    let datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.preferredDatePickerStyle = .wheels
+        datePicker.datePickerMode = .date
         return datePicker
     }()
     
-    private lazy var descriptionTextView: UITextView = {
+    lazy var descriptionTextView: UITextView = {
         let textView = UITextView()
         drawShadow(view: textView, borderWidth: 5, color: .systemGray3)
         return textView
@@ -74,5 +75,17 @@ final class ModalView: UIView {
             baseStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
             baseStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10)
         ])
+    }
+    
+    func compose(content: ProjectContent) {
+        titleTextField.text = content.title
+        datePicker.date = content.asProjectItem()?.deadline ?? Date()
+        descriptionTextView.text = content.description
+    }
+    
+    func disableUserInterface() {
+        titleTextField.isUserInteractionEnabled = false
+        datePicker.isUserInteractionEnabled = false
+        descriptionTextView.isUserInteractionEnabled = false
     }
 }
