@@ -24,7 +24,7 @@ final class CardDetailViewController: UIViewController {
     static let titleTextField = "Title"
   }
   
-  private let cancelAdditionButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: nil, action: nil)
+  private let toggleEditModeButton = UIBarButtonItem(barButtonSystemItem: .edit, target: nil, action: nil)
   private let doneAdditionButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: nil)
   private lazy var navigationBar = UINavigationBar().then {
     $0.items = [navigationItem]
@@ -37,17 +37,20 @@ final class CardDetailViewController: UIViewController {
     $0.leftViewMode = .always
     $0.font = .preferredFont(forTextStyle: .title3)
     $0.placeholder = Placeholders.titleTextField
+    $0.isUserInteractionEnabled = false
     $0.layer.borderColor = UIColor.systemGray4.cgColor
     $0.layer.borderWidth = UISettings.formsBorderWidth
   }
   private let descriptionTextView = UITextView().then {
     $0.font = .preferredFont(forTextStyle: .body)
     $0.layer.borderWidth = UISettings.formsBorderWidth
+    $0.isEditable = false
     $0.layer.borderColor = UIColor.systemGray4.cgColor
   }
   private let deadlineDatePicker = UIDatePicker().then {
     $0.datePickerMode = .date
     $0.preferredDatePickerStyle = .wheels
+    $0.isUserInteractionEnabled = false
     $0.layer.borderWidth = UISettings.formsBorderWidth
     $0.layer.borderColor = UIColor.systemGray4.cgColor
   }
@@ -84,9 +87,11 @@ final class CardDetailViewController: UIViewController {
   }
   
   private func bindUI() {
-    cancelAdditionButton.rx.tap
+    toggleEditModeButton.rx.tap
       .bind(onNext: { [weak self] in
-        self?.dismiss(animated: true)
+        self?.titleTextField.isUserInteractionEnabled.toggle()
+        self?.descriptionTextView.isEditable.toggle()
+        self?.deadlineDatePicker.isUserInteractionEnabled.toggle()
       })
       .disposed(by: disposeBag)
     
@@ -110,7 +115,7 @@ final class CardDetailViewController: UIViewController {
 extension CardDetailViewController {
   private func configureNavigationItem() {
     title = UISettings.navigationTitle
-    navigationItem.leftBarButtonItem = cancelAdditionButton
+    navigationItem.leftBarButtonItem = toggleEditModeButton
     navigationItem.rightBarButtonItem = doneAdditionButton
   }
   
