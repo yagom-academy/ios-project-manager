@@ -8,9 +8,9 @@
 import UIKit
 
 final class MainView: UIView {
-    private let todoHeaderView = TaskHeaderView(taskType: .todo, count: 0)
-    private let doingHeaderView = TaskHeaderView(taskType: .doing, count: 0)
-    private let doneHeaderView = TaskHeaderView(taskType: .done, count: 0)
+    private let todoHeaderView = TaskHeaderView(taskType: .todo)
+    private let doingHeaderView = TaskHeaderView(taskType: .doing)
+    private let doneHeaderView = TaskHeaderView(taskType: .done)
     
     lazy var todoTableView = UITableView()
     lazy var doingTableView = UITableView()
@@ -74,7 +74,16 @@ final class MainView: UIView {
         }
     }
     
-    func setTaskCount(to count: Int) {
-        todoHeaderView.count = count
+    func setTaskCount(to count: Int, taskType: TaskType) {
+        DispatchQueue.main.async { [weak self] in
+            switch taskType {
+            case .todo:
+                self?.todoHeaderView.count = count
+            case .doing:
+                self?.doingHeaderView.count = count
+            case .done:
+                self?.doneHeaderView.count = count
+            }
+        }
     }
 }

@@ -26,7 +26,6 @@ final class TaskHeaderView: UIView {
         $0.backgroundColor = .black
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 15
-        $0.text = "1"
         $0.textAlignment = .center
     }
     
@@ -40,10 +39,9 @@ final class TaskHeaderView: UIView {
         $0.spacing = 10
     }
     
-    init(taskType: TaskType, count: Int) {
+    init(taskType: TaskType) {
         super.init(frame: .zero)
         backgroundColor = .systemGray6
-        self.count = count
         titleLabel.text = taskType.value
         setupSubViews()
         setupUILayout()

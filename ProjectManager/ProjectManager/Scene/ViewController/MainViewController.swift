@@ -11,13 +11,19 @@ final class MainViewController: UIViewController {
     
     private var todos: [Task] = [] {
         didSet {
-            DispatchQueue.main.async { [weak self] in
-                self?.mainView.setTaskCount(to: self?.todos.count ?? 0)
-            }
+            mainView.setTaskCount(to: todos.count, taskType: .todo)
         }
     }
-    private var doings: [Task] = []
-    private var dones: [Task] = []
+    private var doings: [Task] = [] {
+        didSet {
+            mainView.setTaskCount(to: doings.count, taskType: .doing)
+        }
+    }
+    private var dones: [Task] = [] {
+        didSet {
+            mainView.setTaskCount(to: dones.count, taskType: .done)
+        }
+    }
     
     private let mainView = MainView()
     
