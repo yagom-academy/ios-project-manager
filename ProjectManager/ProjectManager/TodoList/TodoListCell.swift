@@ -19,13 +19,12 @@ final class TodoListCell: UITableViewCell {
         stackView.alignment = .fill
         stackView.spacing = 5
         stackView.translatesAutoresizingMaskIntoConstraints = false
-
+        
         return stackView
     }()
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        
         label.font = .preferredFont(forTextStyle: .title3)
         
         return label
@@ -33,17 +32,16 @@ final class TodoListCell: UITableViewCell {
     
     private let descriptionLabel: UILabel = {
         let label = UILabel()
-        
         label.numberOfLines = 3
         label.font = .preferredFont(forTextStyle: .body)
         label.textColor = .systemGray
+        label.lineBreakMode = .byTruncatingTail
         
         return label
     }()
     
     private let dateLabel: UILabel = {
         let label = UILabel()
-        
         label.font = .preferredFont(forTextStyle: .body)
         
         return label
@@ -65,20 +63,29 @@ final class TodoListCell: UITableViewCell {
     }
     
     private func setUpCell() {
+        self.addSubview(self.contentView)
         self.contentView.addSubview(self.contentsStackView)
+        self.contentsStackView.addArrangedSubviews(with: [self.titleLabel, self.descriptionLabel, self.dateLabel])
         
         self.backgroundColor = .systemGray5
         self.contentView.backgroundColor = .systemBackground
     }
     
     private func setUpLayout() {
-        self.contentsStackView.addArrangedSubviews(with: [self.titleLabel, self.descriptionLabel, self.dateLabel])
-
+        self.contentView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            self.contentView.topAnchor.constraint(equalTo: self.topAnchor),
+            self.contentView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            self.contentView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            self.contentView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+        ])
+        
         NSLayoutConstraint.activate([
             self.contentsStackView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 10),
             self.contentsStackView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 10),
-            self.contentsStackView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor),
-            self.contentsStackView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -5)
+            self.contentsStackView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -10),
+            self.contentsStackView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -20),
         ])
     }
     
