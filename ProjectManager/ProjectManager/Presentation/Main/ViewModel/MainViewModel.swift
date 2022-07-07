@@ -9,7 +9,7 @@ import RxSwift
 import RxRelay
 
 class MainViewModel {
-    let toDoTableProjects = BehaviorRelay<[ProjectContents]>(value: [])
+    let toDoTableProjects = BehaviorRelay<[ProjectContent]>(value: [])
     let totalCount: Observable<String>
     let disposeBag = DisposeBag()
     
@@ -26,12 +26,12 @@ class MainViewModel {
     }
     
     struct Output {
-        let content: Observable<ProjectContents?>
+        let content: Observable<ProjectContent?>
     }
     
     func transform(input: Input) -> Output {
         let content = input.cellTapEvent
-            .map { [weak self] indexPath -> ProjectContents? in
+            .map { [weak self] indexPath -> ProjectContent? in
                 guard let content = self?.toDoTableProjects.value[safe: indexPath.row] else {
                     return nil
                 }

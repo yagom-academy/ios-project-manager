@@ -16,7 +16,7 @@
 		0EA67EBE2874789700E15093 /* ModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA67EBD2874789700E15093 /* ModalView.swift */; };
 		0EA67EC228751D9700E15093 /* ProjectItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA67EC128751D9700E15093 /* ProjectItem.swift */; };
 		0EA67EC628751ECC00E15093 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA67EC528751ECC00E15093 /* MainViewModel.swift */; };
-		0EA67EC928752A0F00E15093 /* ProjectContents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA67EC828752A0F00E15093 /* ProjectContents.swift */; };
+		0EA67EC928752A0F00E15093 /* ProjectContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA67EC828752A0F00E15093 /* ProjectContent.swift */; };
 		0EA67ED0287674D000E15093 /* ProjectTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA67ECF287674D000E15093 /* ProjectTable.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
@@ -35,7 +35,7 @@
 		0EA67EBD2874789700E15093 /* ModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalView.swift; sourceTree = "<group>"; };
 		0EA67EC128751D9700E15093 /* ProjectItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectItem.swift; sourceTree = "<group>"; };
 		0EA67EC528751ECC00E15093 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
-		0EA67EC828752A0F00E15093 /* ProjectContents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectContents.swift; sourceTree = "<group>"; };
+		0EA67EC828752A0F00E15093 /* ProjectContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectContent.swift; sourceTree = "<group>"; };
 		0EA67ECF287674D000E15093 /* ProjectTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTable.swift; sourceTree = "<group>"; };
 		1F70E19F85975BF5AEC875C5 /* Pods_ProjectManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		398DAEAB83EA2395CF261AE9 /* Pods-ProjectManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.release.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.release.xcconfig"; sourceTree = "<group>"; };
@@ -126,7 +126,7 @@
 		0EA67EC7287529F300E15093 /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
-				0EA67EC828752A0F00E15093 /* ProjectContents.swift */,
+				0EA67EC828752A0F00E15093 /* ProjectContent.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -336,7 +336,7 @@
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				0EA67EB82873330100E15093 /* ProjectCell.swift in Sources */,
 				03AB73DD2873292900B0C980 /* MainView.swift in Sources */,
-				0EA67EC928752A0F00E15093 /* ProjectContents.swift in Sources */,
+				0EA67EC928752A0F00E15093 /* ProjectContent.swift in Sources */,
 				0EA67ED0287674D000E15093 /* ProjectTable.swift in Sources */,
 				03AB73DB2873290400B0C980 /* MainViweController.swift in Sources */,
 				0EA67EC628751ECC00E15093 /* MainViewModel.swift in Sources */,

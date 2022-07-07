@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ProjectContents {
+struct ProjectContent {
     var title: String
     var deadline: String
     var description: String
