@@ -94,7 +94,7 @@ final class MainViweController: UIViewController {
     
     private func setUpTableCellData() {
         viewModel.todoProjects
-            .drive (mainView.toDoTable.tableView.rx.items(
+            .drive(mainView.toDoTable.tableView.rx.items(
                 cellIdentifier: "\(ProjectCell.self)",
                 cellType: ProjectCell.self)
             ) { _, item, cell in
@@ -103,7 +103,7 @@ final class MainViweController: UIViewController {
             .disposed(by: disposeBag)
         
         viewModel.doingProjects
-            .drive (mainView.doingTable.tableView.rx.items(
+            .drive(mainView.doingTable.tableView.rx.items(
                 cellIdentifier: "\(ProjectCell.self)",
                 cellType: ProjectCell.self)
             ) { _, item, cell in
@@ -112,7 +112,7 @@ final class MainViweController: UIViewController {
             .disposed(by: disposeBag)
         
         viewModel.doneProjects
-            .drive (mainView.doneTable.tableView.rx.items(
+            .drive(mainView.doneTable.tableView.rx.items(
                 cellIdentifier: "\(ProjectCell.self)",
                 cellType: ProjectCell.self)
             ) { _, item, cell in
