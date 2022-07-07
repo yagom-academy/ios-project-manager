@@ -51,17 +51,17 @@ final class CardListViewController: UIViewController {
   }
   
   private func bindUI() {
-    bindSections(output: viewModel.output)
+    bindSections()
   }
   
-  private func bindSections(output: CardListViewModelOutput) {
-    let todos = output.cards
+  private func bindSections() {
+    let todos = viewModel.cards
       .map { $0.filter { $0.cardType == .todo } }
       .asDriver(onErrorJustReturn: [])
-    let doings = output.cards
+    let doings = viewModel.cards
       .map { $0.filter { $0.cardType == .doing } }
       .asDriver(onErrorJustReturn: [])
-    let dones = output.cards
+    let dones = viewModel.cards
       .map { $0.filter { $0.cardType == .done } }
       .asDriver(onErrorJustReturn: [])
     
@@ -69,8 +69,12 @@ final class CardListViewController: UIViewController {
       .drive(todoSectionView.tableView.rx.items(
         cellIdentifier: CardListTableViewCell.identifier,
         cellType: CardListTableViewCell.self
-      )) { _, card, cell in
-        cell.setup(card: card)
+      )) { [weak self] _, card, cell in
+        guard let self = self else { return }
+        
+        let deadlineString = self.viewModel.setDeadlineDateToString(card.deadlineDate)
+        let isOverdue = self.viewModel.isOverdue(card: card)
+        cell.setup(card: card, deadlineString: deadlineString, isOverdue: isOverdue)
       }
       .disposed(by: disposeBag)
 
@@ -78,8 +82,12 @@ final class CardListViewController: UIViewController {
       .drive(doingSectionView.tableView.rx.items(
         cellIdentifier: CardListTableViewCell.identifier,
         cellType: CardListTableViewCell.self
-      )) { _, card, cell in
-        cell.setup(card: card)
+      )) { [weak self] _, card, cell in
+        guard let self = self else { return }
+        
+        let deadlineString = self.viewModel.setDeadlineDateToString(card.deadlineDate)
+        let isOverdue = self.viewModel.isOverdue(card: card)
+        cell.setup(card: card, deadlineString: deadlineString, isOverdue: isOverdue)
       }
       .disposed(by: disposeBag)
     
@@ -87,8 +95,12 @@ final class CardListViewController: UIViewController {
       .drive(doneSectionView.tableView.rx.items(
         cellIdentifier: CardListTableViewCell.identifier,
         cellType: CardListTableViewCell.self
-      )) { _, card, cell in
-        cell.setup(card: card)
+      )) { [weak self] _, card, cell in
+        guard let self = self else { return }
+        
+        let deadlineString = self.viewModel.setDeadlineDateToString(card.deadlineDate)
+        let isOverdue = self.viewModel.isOverdue(card: card)
+        cell.setup(card: card, deadlineString: deadlineString, isOverdue: isOverdue)
       }
       .disposed(by: disposeBag)
     

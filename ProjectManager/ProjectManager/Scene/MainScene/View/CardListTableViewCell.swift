@@ -59,27 +59,11 @@ final class CardListTableViewCell: UITableViewCell {
     deadlineDateLabel.text = nil
   }
   
-  func setup(card: Card) {
+  func setup(card: Card, deadlineString: String, isOverdue: Bool) {
     titleLabel.text = card.title
     descriptionLabel.text = card.description
-    deadlineDateLabel.text = setDeadlineDateToString(card.deadlineDate)
-    deadlineDateLabel.textColor = isOverdue(card: card) ? .systemRed : .label
-  }
-  
-  private func setDeadlineDateToString(_ date: Date) -> String {
-    let formatter = DateFormatter()
-    formatter.dateStyle = .full
-    formatter.locale = setPreferredLocale()
-    return formatter.string(from: date)
-  }
-  
-  private func setPreferredLocale() -> Locale {
-    guard let preferredID = Locale.preferredLanguages.first else { return Locale.current }
-    return Locale(identifier: preferredID)
-  }
-
-  private func isOverdue(card: Card) -> Bool {
-    return (card.cardType == .todo || card.cardType == .doing) && Date() > card.deadlineDate
+    deadlineDateLabel.text = deadlineString
+    deadlineDateLabel.textColor = isOverdue ? .systemRed : .label
   }
 }
 
