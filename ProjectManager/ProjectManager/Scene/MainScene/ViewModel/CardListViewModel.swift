@@ -15,7 +15,7 @@ protocol CardListViewModelInput {
   func isOverdue(card: Card) -> Bool
   func createNewCard(title: String?, description: String?, deadlineDate: Date)
   func updateSelectedCard(_ card: Card, title: String?, description: String?, deadlineDate: Date)
-  func delete(card: Card)
+  func deleteCard(_ card: Card)
 }
 protocol CardListViewModelOutput {
   var cards: BehaviorRelay<[Card]> { get }
@@ -61,7 +61,7 @@ final class DefaultCardListViewModel: CardListViewModel {
     cards.accept(originCards + [updatedCard])
   }
   
-  func delete(card: Card) {
+  func deleteCard(_ card: Card) {
     cards.accept(cards.value.filter { $0.id != card.id })
   }
 }

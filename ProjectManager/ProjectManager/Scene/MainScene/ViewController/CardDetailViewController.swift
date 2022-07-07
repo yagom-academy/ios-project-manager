@@ -8,58 +8,15 @@
 import UIKit
 
 import RxSwift
-import Then
 
 final class CardDetailViewController: UIViewController {
   private enum UISettings {
     static let navigationTitle = "TODO"
-    static let titleTextFieldHeight = 48.0
-    static let titleTextFieldLeftPadding = 10.0
-    static let intervalFromSuperView = 16.0
-    static let intervalBetweenForms = 16.0
-    static let formsBorderWidth = 1.0
+    static let leftBarButtonTitle = "Edit"
+    static let rightBarButtonTitle = "Done"
   }
   
-  private enum Placeholders {
-    static let titleTextField = "Title"
-  }
-  
-  private let toggleEditModeButton = UIBarButtonItem(barButtonSystemItem: .edit, target: nil, action: nil)
-  private let doneAdditionButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: nil)
-  private lazy var navigationBar = UINavigationBar().then {
-    $0.items = [navigationItem]
-    $0.translatesAutoresizingMaskIntoConstraints = false
-  }
-  
-  private let titleTextField = UITextField().then {
-    let size = CGSize(width: UISettings.titleTextFieldLeftPadding, height: $0.frame.height)
-    $0.leftView = UIView(frame: CGRect(origin: .zero, size: size))
-    $0.leftViewMode = .always
-    $0.font = .preferredFont(forTextStyle: .title3)
-    $0.placeholder = Placeholders.titleTextField
-    $0.isUserInteractionEnabled = false
-    $0.layer.borderColor = UIColor.systemGray4.cgColor
-    $0.layer.borderWidth = UISettings.formsBorderWidth
-  }
-  private let descriptionTextView = UITextView().then {
-    $0.font = .preferredFont(forTextStyle: .body)
-    $0.layer.borderWidth = UISettings.formsBorderWidth
-    $0.isEditable = false
-    $0.layer.borderColor = UIColor.systemGray4.cgColor
-  }
-  private let deadlineDatePicker = UIDatePicker().then {
-    $0.datePickerMode = .date
-    $0.preferredDatePickerStyle = .wheels
-    $0.isUserInteractionEnabled = false
-    $0.layer.borderWidth = UISettings.formsBorderWidth
-    $0.layer.borderColor = UIColor.systemGray4.cgColor
-  }
-  private let containerStackView = UIStackView().then {
-    $0.axis = .vertical
-    $0.spacing = UISettings.intervalBetweenForms
-    $0.translatesAutoresizingMaskIntoConstraints = false
-  }
-  
+  private let cardEditView = CardEditView()
   private let viewModel: CardListViewModel
   private let disposeBag = DisposeBag()
   private let card: Card
@@ -71,6 +28,7 @@ final class CardDetailViewController: UIViewController {
     configureSubViews()
     configureLayouts()
     configureNavigationItem()
+    configureCardEditView()
   }
   
   required init?(coder: NSCoder) {
@@ -80,28 +38,24 @@ final class CardDetailViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     bindUI()
-    
-    titleTextField.text = card.title
-    descriptionTextView.text = card.description
-    deadlineDatePicker.date = card.deadlineDate
   }
   
   private func bindUI() {
-    toggleEditModeButton.rx.tap
+    cardEditView.leftBarButton.rx.tap
       .bind(onNext: { [weak self] in
-        self?.titleTextField.isUserInteractionEnabled.toggle()
-        self?.descriptionTextView.isEditable.toggle()
-        self?.deadlineDatePicker.isUserInteractionEnabled.toggle()
+        self?.cardEditView.titleTextField.isUserInteractionEnabled.toggle()
+        self?.cardEditView.descriptionTextView.isEditable.toggle()
+        self?.cardEditView.deadlineDatePicker.isUserInteractionEnabled.toggle()
       })
       .disposed(by: disposeBag)
     
-    doneAdditionButton.rx.tap
+    cardEditView.rightBarButton.rx.tap
       .bind(onNext: { [weak self] in
         guard let self = self else { return }
         
-        let title = self.titleTextField.text
-        let description = self.descriptionTextView.text
-        let deadlineDate = self.deadlineDatePicker.date
+        let title = self.cardEditView.titleTextField.text
+        let description = self.cardEditView.descriptionTextView.text
+        let deadlineDate = self.cardEditView.deadlineDatePicker.date
         
         self.viewModel.updateSelectedCard(self.card, title: title, description: description, deadlineDate: deadlineDate)
         self.dismiss(animated: true)
@@ -113,46 +67,38 @@ final class CardDetailViewController: UIViewController {
 // MARK: - UI Configuration
 
 extension CardDetailViewController {
+  private func configureCardEditView() {
+    cardEditView.titleTextField.text = card.title
+    cardEditView.descriptionTextView.text = card.description
+    cardEditView.deadlineDatePicker.date = card.deadlineDate
+    cardEditView.titleTextField.isUserInteractionEnabled = false
+    cardEditView.descriptionTextView.isEditable = false
+    cardEditView.deadlineDatePicker.isUserInteractionEnabled = false
+  }
+  
   private func configureNavigationItem() {
     title = UISettings.navigationTitle
-    navigationItem.leftBarButtonItem = toggleEditModeButton
-    navigationItem.rightBarButtonItem = doneAdditionButton
+    navigationItem.leftBarButtonItem = cardEditView.leftBarButton
+    navigationItem.rightBarButtonItem = cardEditView.rightBarButton
+    
+    cardEditView.navigationBar.items = [navigationItem]
+    cardEditView.leftBarButton.title = UISettings.leftBarButtonTitle
+    cardEditView.rightBarButton.title = UISettings.rightBarButtonTitle
+    cardEditView.rightBarButton.style = .done
   }
   
   private func configureSubViews() {
-    view.addSubview(navigationBar)
-    view.addSubview(containerStackView)
-    
-    [titleTextField, deadlineDatePicker, descriptionTextView].forEach {
-      containerStackView.addArrangedSubview($0)
-    }
+    view.addSubview(cardEditView)
   }
   
   private func configureLayouts() {
     view.backgroundColor = .systemBackground
     
     NSLayoutConstraint.activate([
-      navigationBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-      navigationBar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-      navigationBar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-      titleTextField.heightAnchor.constraint(equalToConstant: UISettings.titleTextFieldHeight),
-      containerStackView.topAnchor.constraint(
-        equalTo: navigationBar.bottomAnchor,
-        constant: UISettings.intervalFromSuperView
-      ),
-      containerStackView.bottomAnchor.constraint(
-        equalTo: view.safeAreaLayoutGuide.bottomAnchor,
-        constant: -UISettings.intervalFromSuperView
-      ),
-      containerStackView.leadingAnchor.constraint(
-        equalTo: view.safeAreaLayoutGuide.leadingAnchor,
-        constant: UISettings.intervalFromSuperView
-      ),
-      containerStackView.trailingAnchor.constraint(
-        equalTo: view.safeAreaLayoutGuide.trailingAnchor,
-        constant: -UISettings.intervalFromSuperView
-      ),
+      cardEditView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+      cardEditView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+      cardEditView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+      cardEditView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
     ])
   }
 }
-

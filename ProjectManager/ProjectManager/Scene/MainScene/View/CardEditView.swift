@@ -22,8 +22,11 @@ final class CardEditView: UIView {
     static let titleTextField = "Title"
   }
   
-  let leftBarButton = UIBarButtonItem(barButtonSystemItem: .edit, target: nil, action: nil)
-  let rightBarButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: nil)
+  let leftBarButton = UIBarButtonItem()
+  let rightBarButton = UIBarButtonItem()
+  lazy var navigationBar = UINavigationBar().then {
+    $0.translatesAutoresizingMaskIntoConstraints = false
+  }
   
   let titleTextField = UITextField().then {
     let size = CGSize(width: UISettings.titleTextFieldLeftPadding, height: $0.frame.height)
@@ -62,6 +65,7 @@ final class CardEditView: UIView {
   }
   
   private func configureSubViews() {
+    addSubview(navigationBar)
     addSubview(containerStackView)
     
     [titleTextField, deadlineDatePicker, descriptionTextView].forEach {
@@ -74,11 +78,13 @@ final class CardEditView: UIView {
     translatesAutoresizingMaskIntoConstraints = false
     
     NSLayoutConstraint.activate([
-      titleTextField.heightAnchor.constraint(
-        equalToConstant: UISettings.titleTextFieldHeight
-      ),
+      navigationBar.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+      navigationBar.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
+      navigationBar.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
+      titleTextField.heightAnchor.constraint(equalToConstant: UISettings.titleTextFieldHeight),
+      
       containerStackView.topAnchor.constraint(
-        equalTo: safeAreaLayoutGuide.topAnchor,
+        equalTo: navigationBar.bottomAnchor,
         constant: UISettings.intervalFromSuperView
       ),
       containerStackView.bottomAnchor.constraint(

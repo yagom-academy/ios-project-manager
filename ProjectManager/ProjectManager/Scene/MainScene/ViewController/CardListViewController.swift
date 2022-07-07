@@ -53,6 +53,8 @@ final class CardListViewController: UIViewController {
   
   private func bindUI() {
     bindSections()
+    bindTableViewsItemSelected()
+    bindTableViewsItemDeleted()
     
     cardAdditionButton.rx.tap
       .bind(onNext: { [weak self] in
@@ -67,12 +69,15 @@ final class CardListViewController: UIViewController {
   private func bindSections() {
     let todos = viewModel.cards
       .map { $0.filter { $0.cardType == .todo } }
+      .map { $0.sorted { $0.deadlineDate < $1.deadlineDate }}
       .asDriver(onErrorJustReturn: [])
     let doings = viewModel.cards
       .map { $0.filter { $0.cardType == .doing } }
+      .map { $0.sorted { $0.deadlineDate < $1.deadlineDate }}
       .asDriver(onErrorJustReturn: [])
     let dones = viewModel.cards
       .map { $0.filter { $0.cardType == .done } }
+      .map { $0.sorted { $0.deadlineDate > $1.deadlineDate }}
       .asDriver(onErrorJustReturn: [])
     
     todos
@@ -87,7 +92,7 @@ final class CardListViewController: UIViewController {
         cell.setup(card: card, deadlineString: deadlineString, isOverdue: isOverdue)
       }
       .disposed(by: disposeBag)
-
+    
     doings
       .drive(doingSectionView.tableView.rx.items(
         cellIdentifier: CardListTableViewCell.identifier,
@@ -128,75 +133,79 @@ final class CardListViewController: UIViewController {
       .map { "\($0.count)" }
       .drive(doneSectionView.headerView.cardCountLabel.rx.text)
       .disposed(by: disposeBag)
-    
+  }
+  
+  private func bindTableViewsItemSelected() {
     Observable.zip(
       todoSectionView.tableView.rx.itemSelected,
       todoSectionView.tableView.rx.modelSelected(Card.self)
-    ) { ($0, $1) }
-      .bind(onNext: { [weak self] indexPath, card in
-        guard let self = self else { return }
-        self.todoSectionView.tableView.deselectRow(at: indexPath, animated: true)
-        let cardDetailViewController = CardDetailViewController(viewModel: self.viewModel, card: card)
-        cardDetailViewController.modalPresentationStyle = .formSheet
-        self.present(cardDetailViewController, animated: true)
-      })
-      .disposed(by: disposeBag)
+    )
+    .bind(onNext: { [weak self] indexPath, card in
+      guard let self = self else { return }
+      self.todoSectionView.tableView.deselectRow(at: indexPath, animated: true)
+      let cardDetailViewController = CardDetailViewController(viewModel: self.viewModel, card: card)
+      cardDetailViewController.modalPresentationStyle = .formSheet
+      self.present(cardDetailViewController, animated: true)
+    })
+    .disposed(by: disposeBag)
     
     Observable.zip(
       doingSectionView.tableView.rx.itemSelected,
       doingSectionView.tableView.rx.modelSelected(Card.self)
-    ) { ($0, $1) }
-      .bind(onNext: { [weak self] indexPath, card in
-        guard let self = self else { return }
-        self.doingSectionView.tableView.deselectRow(at: indexPath, animated: true)
-        let cardDetailViewController = CardDetailViewController(viewModel: self.viewModel, card: card)
-        cardDetailViewController.modalPresentationStyle = .formSheet
-        self.present(cardDetailViewController, animated: true)
-      })
-      .disposed(by: disposeBag)
+    )
+    .bind(onNext: { [weak self] indexPath, card in
+      guard let self = self else { return }
+      self.doingSectionView.tableView.deselectRow(at: indexPath, animated: true)
+      let cardDetailViewController = CardDetailViewController(viewModel: self.viewModel, card: card)
+      cardDetailViewController.modalPresentationStyle = .formSheet
+      self.present(cardDetailViewController, animated: true)
+    })
+    .disposed(by: disposeBag)
     
     Observable.zip(
       doneSectionView.tableView.rx.itemSelected,
       doneSectionView.tableView.rx.modelSelected(Card.self)
-    ) { ($0, $1) }
-      .bind(onNext: { [weak self] indexPath, card in
-        guard let self = self else { return }
-        self.doneSectionView.tableView.deselectRow(at: indexPath, animated: true)
-        let cardDetailViewController = CardDetailViewController(viewModel: self.viewModel, card: card)
-        cardDetailViewController.modalPresentationStyle = .formSheet
-        self.present(cardDetailViewController, animated: true)
-      })
-      .disposed(by: disposeBag)
-    
+    )
+    .bind(onNext: { [weak self] indexPath, card in
+      guard let self = self else { return }
+      self.doneSectionView.tableView.deselectRow(at: indexPath, animated: true)
+      let cardDetailViewController = CardDetailViewController(viewModel: self.viewModel, card: card)
+      cardDetailViewController.modalPresentationStyle = .formSheet
+      self.present(cardDetailViewController, animated: true)
+    })
+    .disposed(by: disposeBag)
+  }
+  
+  private func bindTableViewsItemDeleted() {
     Observable.zip(
       todoSectionView.tableView.rx.itemDeleted,
       todoSectionView.tableView.rx.modelDeleted(Card.self)
-    ) { ($0, $1) }
-      .bind(onNext: { [weak self] indexPath, card in
-        guard let self = self else { return }
-        self.viewModel.delete(card: card)
-      })
-      .disposed(by: disposeBag)
+    )
+    .bind(onNext: { [weak self] indexPath, card in
+      guard let self = self else { return }
+      self.viewModel.deleteCard(card)
+    })
+    .disposed(by: disposeBag)
     
     Observable.zip(
       doingSectionView.tableView.rx.itemDeleted,
       doingSectionView.tableView.rx.modelDeleted(Card.self)
-    ) { ($0, $1) }
-      .bind(onNext: { [weak self] indexPath, card in
-        guard let self = self else { return }
-        self.viewModel.delete(card: card)
-      })
-      .disposed(by: disposeBag)
+    )
+    .bind(onNext: { [weak self] indexPath, card in
+      guard let self = self else { return }
+      self.viewModel.deleteCard(card)
+    })
+    .disposed(by: disposeBag)
     
     Observable.zip(
       doneSectionView.tableView.rx.itemDeleted,
       doneSectionView.tableView.rx.modelDeleted(Card.self)
-    ) { ($0, $1) }
-      .bind(onNext: { [weak self] indexPath, card in
-        guard let self = self else { return }
-        self.viewModel.delete(card: card)
-      })
-      .disposed(by: disposeBag)
+    )
+    .bind(onNext: { [weak self] indexPath, card in
+      guard let self = self else { return }
+      self.viewModel.deleteCard(card)
+    })
+    .disposed(by: disposeBag)
   }
 }
 
