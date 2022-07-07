@@ -9,9 +9,6 @@ import UIKit
 import RxSwift
 
 final class ProjectCell: UITableViewCell {
-    let onData: AnyObserver<ProjectContents>
-    let disposeBag = DisposeBag()
-    
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .title2)
@@ -34,27 +31,14 @@ final class ProjectCell: UITableViewCell {
     
     private let baseStackView: UIStackView = {
         let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.alignment = .leading
         return stackView
     }()
     
-    init() {
-        let data = PublishSubject<ProjectContents>()
-        self.onData = data.asObserver()
-        
-        super.init(style: .default, reuseIdentifier: "\(ProjectCell.self)")
-        
-        data.observe(on: MainScheduler.instance)
-            .subscribe(onNext: { [weak self] content in
-                self?.compose(
-                    title: content.title,
-                    description: content.description,
-                    date: content.deadline
-                )
-            })
-            .disposed(by: disposeBag)
-        
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: "\(ProjectCell.self)")
         setUpCell()
         setUpLayout()
     }
@@ -64,6 +48,8 @@ final class ProjectCell: UITableViewCell {
     }
     
     private func setUpCell() {
+        contentView.addSubview(baseStackView)
+        
         baseStackView.addArrangedSubview(titleLabel)
         baseStackView.addArrangedSubview(descriptionLabel)
         baseStackView.addArrangedSubview(dateLabel)
@@ -71,16 +57,24 @@ final class ProjectCell: UITableViewCell {
     
     private func setUpLayout() {
         NSLayoutConstraint.activate([
-            baseStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            baseStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            baseStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            baseStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+            baseStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            baseStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
+            baseStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+            baseStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10)
         ])
     }
     
-    private func compose(title: String, description: String, date: String) {
-        titleLabel.text = title
-        descriptionLabel.text = description
-        dateLabel.text = date
+    func compose(content: ProjectContent) {
+        titleLabel.text = content.title
+        descriptionLabel.text = content.description
+        dateLabel.text = content.deadline
+        
+        guard let deadline = content.asProjectItem()?.deadline else {
+            return
+        }
+        
+        if deadline < Date() {
+            dateLabel.textColor = .red
+        }
     }
 }
