@@ -7,7 +7,7 @@
 import UIKit
 import SnapKit
 
-final class MainViewController: UIViewController {
+final class MainViewController: UIViewController, UIPopoverPresentationControllerDelegate {
     
     private var todos: [Task] = [] {
         didSet {
@@ -181,6 +181,22 @@ extension MainViewController: UIGestureRecognizerDelegate {
         if gestureRecognizer.state == .began {
             if let indexPath = tableView?.indexPathForRow(at: location) {
                 
+                let popoverViewController = PopoverViewController()
+                popoverViewController.preferredContentSize = .init(width: 260, height: 130)
+                popoverViewController.modalPresentationStyle = .popover
+                
+                guard let popoverController = popoverViewController.popoverPresentationController,
+                      let cell = tableView?.cellForRow(at: indexPath) as? TaskTableViewCell,
+                      let taskType = cell.task?.taskType else {
+                    return
+                }
+                
+                popoverController.sourceView = cell
+                popoverController.sourceRect = cell.bounds
+                popoverViewController.setPopoverAction(taskType)
+                popoverController.permittedArrowDirections = .up
+                
+                present(popoverViewController, animated: true)
             }
         } else {
             return
