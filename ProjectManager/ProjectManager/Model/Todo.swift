@@ -8,6 +8,7 @@
 import Foundation
 
 struct Todo {
+    let mode: Mode
     let identifier: UUID = UUID()
     let title: String
     let description: String
