@@ -11,15 +11,13 @@ import RxCocoa
 
 final class DetailViewController: UIViewController {
     private let viewModel: DetailViewModel
-    private let mainViewModel: MainViewModel
     private let disposeBag = DisposeBag()
     private let modalView = ModalView(frame: .zero)
     private let detailTitle: String
     
-    init(title: String, content: Observable<ProjectContent>, viewModel: MainViewModel) {
+    init(title: String, content: ProjectContent) {
         self.detailTitle = title
         self.viewModel = DetailViewModel(content: content)
-        self.mainViewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         
         bind()

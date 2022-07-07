@@ -12,7 +12,7 @@ class DetailViewModel {
     let content: Observable<ProjectContent>
     let disposeBag = DisposeBag()
     
-    init(content: Observable<ProjectContent>) {
-        self.content = content
+    init(content: ProjectContent) {
+        self.content = Observable.just(content)
     }
 }

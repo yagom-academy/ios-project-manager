@@ -127,42 +127,35 @@ final class MainViweController: UIViewController {
     private func setUpdModelSelected() {
         mainView.toDoTable.tableView.rx
             .modelSelected(ProjectContent.self)
-            .bind(onNext: { [weak self] element in
-                let content = Observable.just(element)
-                
-                let next = UINavigationController(rootViewController: DetailViewController(title: "TODO", content: content, viewModel: self!.viewModel))
-                
-                next.modalPresentationStyle = .formSheet
-                
-                self?.present(next, animated: true)
-            })
+            .asDriver()
+            .drive { [weak self] element in
+                self?.presentViewController(title: "TODO", content: element)
+            }
             .disposed(by: disposeBag)
         
         mainView.doingTable.tableView.rx
             .modelSelected(ProjectContent.self)
-            .bind(onNext: { [weak self] element in
-                let content = Observable.just(element)
-                
-                let next = UINavigationController(rootViewController: DetailViewController(title: "DOING", content: content, viewModel: self!.viewModel))
-                
-                next.modalPresentationStyle = .formSheet
-                
-                self?.present(next, animated: true)
-            })
+            .asDriver()
+            .drive { [weak self] element in
+                self?.presentViewController(title: "DOING", content: element)
+            }
             .disposed(by: disposeBag)
         
         mainView.doneTable.tableView.rx
             .modelSelected(ProjectContent.self)
-            .bind(onNext: { [weak self] element in
-                let content = Observable.just(element)
-                
-                let next = UINavigationController(rootViewController: DetailViewController(title: "DONE", content: content, viewModel: self!.viewModel))
-                
-                next.modalPresentationStyle = .formSheet
-                
-                self?.present(next, animated: true)
-            })
+            .asDriver()
+            .drive { [weak self] element in
+                self?.presentViewController(title: "DONE", content: element)
+            }
             .disposed(by: disposeBag)
+    }
+    
+    private func presentViewController(title: String, content: ProjectContent) {
+        let next = UINavigationController(rootViewController: DetailViewController(title: title, content: content))
+        
+        next.modalPresentationStyle = .formSheet
+        
+        self.present(next, animated: true)
     }
     
     private func setUpTotalCount() {
