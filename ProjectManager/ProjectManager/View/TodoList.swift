@@ -22,11 +22,11 @@ struct TodoListView: View {
         List {
           ForEach(viewModel.read(by: status)) { todo in
             DetailViewButton(viewModel: viewModel, todo: todo, isShowDetailView: $isShowDetailView)
+              .listRowSeparator(.hidden)
           }
         }
         .padding(.horizontal, -24)
-        .padding(.top, -30)
-        .listStyle(.sidebar)
+        .listStyle(.inset)
         .onAppear {
           UITableView.appearance().backgroundColor = .clear
         }
@@ -39,7 +39,6 @@ struct DetailViewButton: View {
   @ObservedObject var viewModel: TodoViewModel
   @ObservedObject var todo: Todo
   @Binding var isShowDetailView: Bool
-  //  @State private var nonEditable = true
   
   var body: some View {
     Button {

@@ -11,6 +11,12 @@ struct ProjectManagerView: View {
   @ObservedObject var viewModel: TodoViewModel
   @State private var isShowDetailView = false
   
+  init(viewModel: TodoViewModel) {
+    UINavigationBar.appearance().backgroundColor = UIColor.systemGray6
+
+    self.viewModel = viewModel
+  }
+  
   var body: some View {
     NavigationView {
       HStack(spacing: 10) {
@@ -18,6 +24,7 @@ struct ProjectManagerView: View {
         TodoListView(viewModel: viewModel, isShowDetailView: isShowDetailView, status: .doing)
         TodoListView(viewModel: viewModel, isShowDetailView: isShowDetailView, status: .done)
       }
+      .ignoresSafeArea(.container, edges: .bottom)
       .background(Color(UIColor.systemGray4))
       .navigationTitle("Project Manager")
       .font(.title)
@@ -33,6 +40,7 @@ struct ProjectManagerView: View {
         DetailView(viewModel: self.viewModel, todo: Todo(title: "", content: ""), nonEditable: false, isShow: $isShowDetailView, method: .creat)
       }
     }
+    .edgesIgnoringSafeArea(.top)
     .navigationViewStyle(.stack)
   }
 }

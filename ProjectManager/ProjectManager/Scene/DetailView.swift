@@ -12,7 +12,7 @@ struct DetailView: View {
   @ObservedObject var todo: Todo
   @State var nonEditable: Bool = true
   @Binding var isShow: Bool
-  var method: choose
+  var method: Choose
   
   var body: some View {
     NavigationView {
@@ -73,8 +73,7 @@ struct DetailView: View {
   }
 }
 
-
-enum choose {
+enum Choose {
   case creat
   case update
   case none
