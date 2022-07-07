@@ -8,13 +8,19 @@
 import UIKit
 
 final class TaskHeaderView: UIView {
-
-    private lazy var titleLabel = UILabel().then {
+    
+    var count: Int = 0 {
+        didSet {
+            taskCountLabel.text = String(count)
+        }
+    }
+    
+    private let titleLabel = UILabel().then {
         $0.font = .preferredFont(forTextStyle: .title1)
         $0.textColor = .black
     }
     
-    private lazy var taskCountLabel = UILabel().then {
+    private(set) lazy var taskCountLabel = UILabel().then {
         $0.textColor = .white
         $0.font = .preferredFont(forTextStyle: .title3)
         $0.backgroundColor = .black
@@ -34,9 +40,10 @@ final class TaskHeaderView: UIView {
         $0.spacing = 10
     }
     
-    init(taskType: TaskType) {
+    init(taskType: TaskType, count: Int) {
         super.init(frame: .zero)
         backgroundColor = .systemGray6
+        self.count = count
         titleLabel.text = taskType.value
         setupSubViews()
         setupUILayout()

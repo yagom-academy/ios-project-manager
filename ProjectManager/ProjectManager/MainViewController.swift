@@ -11,7 +11,13 @@ import RxSwift
 
 final class MainViewController: UIViewController {
     
-    private var todos: [Task] = []
+    private var todos: [Task] = [] {
+        didSet {
+            DispatchQueue.main.async { [weak self] in
+                self?.mainView.setTaskCount(to: self?.todos.count ?? 0)
+            }
+        }
+    }
     private var doings: [Task] = []
     private var dones: [Task] = []
     
@@ -154,7 +160,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         let editFormSheet = UINavigationController(
             rootViewController: editViewController
         )
-        
+
         editFormSheet.modalPresentationStyle = .formSheet
         present(editFormSheet, animated: true)
     }

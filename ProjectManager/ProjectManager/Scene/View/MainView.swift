@@ -8,9 +8,9 @@
 import UIKit
 
 final class MainView: UIView {
-    private let todoHeaderView = TaskHeaderView(taskType: .todo)
-    private let doingHeaderView = TaskHeaderView(taskType: .doing)
-    private let doneHeaderView = TaskHeaderView(taskType: .done)
+    private let todoHeaderView = TaskHeaderView(taskType: .todo, count: 0)
+    private let doingHeaderView = TaskHeaderView(taskType: .doing, count: 0)
+    private let doneHeaderView = TaskHeaderView(taskType: .done, count: 0)
     
     lazy var todoTableView = UITableView()
     lazy var doingTableView = UITableView()
@@ -72,5 +72,9 @@ final class MainView: UIView {
         doneHeaderView.snp.makeConstraints {
             $0.height.equalTo(baseStackViewHeight).multipliedBy(0.1)
         }
+    }
+    
+    func setTaskCount(to count: Int) {
+        todoHeaderView.count = count
     }
 }
