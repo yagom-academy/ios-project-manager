@@ -40,21 +40,13 @@ final class DetailViewController: UIViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .edit,
             target: self,
-            action: #selector(editRegistration)
+            action: nil
         )
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .done,
             target: self,
             action: #selector(saveRegistration)
         )
-    }
-    
-    @objc func editRegistration() {
-        let next = UINavigationController(rootViewController: RegistrationViewController(viewModel: mainViewModel))
-        
-        next.modalPresentationStyle = .formSheet
-        
-        present(next, animated: true)
     }
     
     @objc func saveRegistration() {
