@@ -10,36 +10,25 @@ import RxRelay
 import RxCocoa
 
 class MainViewModel {
-    let projects = BehaviorRelay<[ProjectContent]>(value: [])
+    var projects: BehaviorRelay<[ProjectContent]> {
+        return MockStorageManager.shared.projectEntity
+    }
     
-    var todoProjects: Driver<[ProjectContent]>
-    var doingProjects: Driver<[ProjectContent]>
-    var doneProjects: Driver<[ProjectContent]>
+    var todoProjects: Driver<[ProjectContent]> {
+        projects
+            .map { $0.filter { $0.status == .todo } }
+            .asDriver(onErrorJustReturn: [])
+    }
     
-    init() {
-        let content = MockStorageManager.shared.read()
-            .map {
-            ProjectContent($0)
-        }
-        
-        projects.accept(content)
-        
-        todoProjects = projects
-            .map {
-               $0.filter { $0.status == ProjectStatus.todo }
-            }
+    var doingProjects: Driver<[ProjectContent]> {
+        projects
+            .map { $0.filter { $0.status == .doing } }
             .asDriver(onErrorJustReturn: [])
-        
-        doingProjects = projects
-            .map {
-               $0.filter { $0.status == ProjectStatus.doing }
-            }
-            .asDriver(onErrorJustReturn: [])
-        
-        doneProjects = projects
-            .map {
-               $0.filter { $0.status == ProjectStatus.done }
-            }
+    }
+    
+    var doneProjects: Driver<[ProjectContent]> {
+        projects
+            .map { $0.filter { $0.status == .done } }
             .asDriver(onErrorJustReturn: [])
     }
 }

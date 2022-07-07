@@ -6,54 +6,56 @@
 //
 
 import Foundation
+import RxSwift
+import RxRelay
 
 final class MockStorageManager {
     static let shared = MockStorageManager()
     private init() {}
     
-    private var projectEntity: [ProjectItem] = []
-    
+    private var projects: [ProjectContent] = []
+    var projectEntity = BehaviorRelay<[ProjectContent]>(value: [])
 }
 
 extension MockStorageManager {
     func creat(projectContent: ProjectContent) {
-        guard let projectItem = projectContent.asProjectItem() else {
-            return
-        }
+        projects.append(projectContent)
         
-        projectEntity.append(projectItem)
+        projectEntity.accept(projects)
     }
     
-    func read() -> [ProjectItem] {
-        return projectEntity
+    func read() -> [ProjectContent] {
+        return projectEntity.value
     }
     
     func update(projectContent: ProjectContent) {
-        projectEntity.enumerated()
+        projects.enumerated()
             .forEach { (index, project) in
                 if project.id == projectContent.id {
                     changeProjectEntity(index, projectContent)
                 }
             }
+        
+        projectEntity.accept(projects)
     }
     
     private func changeProjectEntity(_ index: Int, _ projectContent: ProjectContent) {
-        guard let newProjectEntity = projectContent.asProjectItem() else {
-            return
-        }
-        projectEntity[index] = newProjectEntity
+        projects[index] = projectContent
     }
     
     func delete(projectContent: ProjectContent) {
-        projectEntity.enumerated()
+        projects.enumerated()
             .forEach { (index, project) in
                 if project.id == projectContent.id {
                     removeProjectEntity(index)
                 }
             }
+        
+        projectEntity.accept(projects)
     }
     
     private func removeProjectEntity(_ index: Int) {
-        projectEntity.remove(at: index)
+        projects.remove(at: index)
+        projectEntity.accept(projects)
     }
 }
