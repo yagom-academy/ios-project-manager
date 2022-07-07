@@ -88,4 +88,15 @@ final class ModalView: UIView {
         datePicker.isUserInteractionEnabled = isEnable
         descriptionTextView.isUserInteractionEnabled = isEnable
     }
+    
+    func change(_ content: ProjectContent) -> ProjectContent {
+        var newContent = content
+        newContent.editContent(
+            title: titleTextField.text,
+            deadline: datePicker.date,
+            description: descriptionTextView.text
+        )
+        
+        return newContent
+    }
 }
