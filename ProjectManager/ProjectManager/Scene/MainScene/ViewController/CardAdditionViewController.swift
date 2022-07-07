@@ -86,7 +86,14 @@ final class CardAdditionViewController: UIViewController {
     
     doneAdditionButton.rx.tap
       .bind(onNext: { [weak self] in
-        self?.dismiss(animated: true)
+        guard let self = self else { return }
+        
+        let title = self.titleTextField.text
+        let description = self.descriptionTextView.text
+        let deadlineDate = self.deadlineDatePicker.date
+        
+        self.viewModel.createNewCard(title: title, description: description, deadlineDate: deadlineDate)
+        self.dismiss(animated: true)
       })
       .disposed(by: disposeBag)
   }

@@ -13,6 +13,7 @@ import RxSwift
 protocol CardListViewModelInput {
   func setDeadlineDateToString(_ date: Date) -> String
   func isOverdue(card: Card) -> Bool
+  func createNewCard(title: String?, description: String?, deadlineDate: Date)
 }
 protocol CardListViewModelOutput {
   var cards: BehaviorRelay<[Card]> { get }
@@ -38,5 +39,12 @@ final class DefaultCardListViewModel: CardListViewModel {
   
   func isOverdue(card: Card) -> Bool {
     return (card.cardType == .todo || card.cardType == .doing) && Date() > card.deadlineDate
+  }
+  
+  func createNewCard(title: String?, description: String?, deadlineDate: Date) {
+    guard let title = title, let description = description else { return }
+    
+    let card = Card(title: title, description: description, deadlineDate: deadlineDate)
+    cards.accept(cards.value + [card])
   }
 }
