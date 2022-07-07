@@ -17,6 +17,7 @@ final class CardListViewController: UIViewController {
     static let navigationTitle = "Project Manager"
   }
   
+  private let cardAdditionButton = UIBarButtonItem(barButtonSystemItem: .add, target: nil, action: nil)
   private let todoSectionView = CardSectionView(sectionType: .todo)
   private let doingSectionView = CardSectionView(sectionType: .doing)
   private let doneSectionView = CardSectionView(sectionType: .done)
@@ -52,6 +53,15 @@ final class CardListViewController: UIViewController {
   
   private func bindUI() {
     bindSections()
+    
+    cardAdditionButton.rx.tap
+      .bind(onNext: { [weak self] in
+        let cardAdditionViewController = UIViewController()
+        cardAdditionViewController.view.backgroundColor = .systemGray6
+        cardAdditionViewController.modalPresentationStyle = .formSheet
+        self?.present(cardAdditionViewController, animated: true)
+      })
+      .disposed(by: disposeBag)
   }
   
   private func bindSections() {
@@ -126,6 +136,7 @@ final class CardListViewController: UIViewController {
 extension CardListViewController {
   private func configureNavigationItem() {
     title = UISettings.navigationTitle
+    navigationItem.rightBarButtonItem = cardAdditionButton
   }
   
   private func configureTableViews() {
