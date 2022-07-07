@@ -33,26 +33,13 @@ final class MainViweController: UIViewController {
         navigationItem.title = "Project Manager"
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .add,
-            target: self,
-            action: #selector(presentRegistrationView)
+            target: nil,
+            action: nil
         )
+        didTapAddButton()
     }
     
-    @objc func presentRegistrationView() {
-        let next = UINavigationController(rootViewController: RegistrationViewController(viewModel: viewModel))
-        
-        next.modalPresentationStyle = .formSheet
-        
-        present(next, animated: true)
-    }
-    
-    private func bind() {
-        setUpAddButton()
-        setUpTable()
-        setUpTotalCount()
-    }
-    
-    private func setUpAddButton() {
+    private func didTapAddButton() {
         guard let addButton = navigationItem.rightBarButtonItem else {
             return
         }
@@ -61,6 +48,19 @@ final class MainViweController: UIViewController {
             .subscribe(onNext: { [weak self] _ in
                 self?.presentRegistrationView()
             }).disposed(by: disposeBag)
+    }
+    
+    private func presentRegistrationView() {
+        let next = UINavigationController(rootViewController: RegistrationViewController(viewModel: viewModel))
+        
+        next.modalPresentationStyle = .formSheet
+        
+        present(next, animated: true)
+    }
+    
+    private func bind() {
+        setUpTable()
+        setUpTotalCount()
     }
     
     private func setUpTable() {
