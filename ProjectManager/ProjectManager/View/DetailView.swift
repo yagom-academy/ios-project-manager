@@ -1,5 +1,5 @@
 //
-//  CreateView.swift
+//  DetailView.swift
 //  ProjectManager
 //
 //  Created by Red and Taeangel on 2022/07/06.
@@ -7,7 +7,8 @@
 
 import SwiftUI
 
-struct CreateView: View {
+struct DetailView: View {
+  @Binding var isShow: Bool
   @State var title: String
   @State var date: Date
   @State var content: String
@@ -32,6 +33,23 @@ struct CreateView: View {
       .padding()
       .navigationTitle("TODO")
       .font(.body)
+      .navigationBarTitleDisplayMode(.inline)
+      .toolbar {
+        ToolbarItem(placement: .navigationBarLeading) {
+          Button {
+            isShow = false
+          } label: {
+            Text("Edit")
+          }
+        }
+        ToolbarItem(placement: .navigationBarTrailing) {
+          Button {
+            isShow = false
+          } label: {
+            Text("Done")
+          }
+        }
+      }
     }
   }
 }

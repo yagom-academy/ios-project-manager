@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ProjectManagerView: View {
-  @State private var showCreatView = false
+  @State private var isShowDetailView = false
   
   var body: some View {
     NavigationView {
@@ -25,15 +25,16 @@ struct ProjectManagerView: View {
       .background(Color(UIColor.systemGray4))
       .navigationTitle("Project Manager")
       .font(.title)
+      .navigationBarTitleDisplayMode(.inline)
       .toolbar {
         Button(action: {
-          showCreatView.toggle()
+          isShowDetailView.toggle()
         }, label: {
           Image(systemName: "plus")
         })
       }
-      .sheet(isPresented: $showCreatView) {
-        CreateView(title: "", date: Date(), content: "")
+      .sheet(isPresented: $isShowDetailView) {
+        DetailView(isShow: $isShowDetailView, title: "", date: Date(), content: "")
       }
     }
     .navigationViewStyle(.stack)
