@@ -33,12 +33,17 @@ final class MainViewController: UIViewController {
     
     private func setNavigationBar() {
         self.title = "Project Manger"
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(presentDetailView))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAddButton))
     }
     
-    @objc private func presentDetailView() {
-        let detailVC = DetailViewController()
-        self.present(detailVC, animated: true, completion: nil)
+    @objc private func didTapAddButton() {
+        let detailVC = DetailViewController(list: nil)
+        self.navigationController?.present(detailVC, animated: true, completion: nil)
+    }
+    
+    private func didtapCell(_ list: List) {
+        let detailVC = DetailViewController(list: list)
+        self.navigationController?.present(detailVC, animated: true, completion: nil)
     }
     
     private func setTableView() {
@@ -68,8 +73,7 @@ final class MainViewController: UIViewController {
         
         tableView.rx.modelSelected(List.self)
             .bind(onNext: { [weak self] in
-                print($0.title) //임시코드
-                self?.presentDetailView()
+                self?.didtapCell($0)
             })
             .disposed(by: disposbag)
         
