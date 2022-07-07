@@ -34,25 +34,35 @@ final class MainViweController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .add,
             target: self,
-            action: #selector(presentDetailView)
+            action: #selector(presentRegistrationView)
         )
     }
     
-    @objc func presentDetailView() {
-       
+    @objc func presentRegistrationView() {
+        let next = UINavigationController(rootViewController: RegistrationViewController(viewModel: viewModel))
+        
+        next.modalPresentationStyle = .formSheet
+        
+        present(next, animated: true)
     }
     
     private func bind() {
+        setUpAddButton()
         setUpTable()
+        setUpTotalCount()
+    }
+    
+    private func setUpAddButton() {
         guard let addButton = navigationItem.rightBarButtonItem else {
             return
         }
         
         addButton.rx.tap.asObservable()
             .subscribe(onNext: { [weak self] _ in
-                self?.presentDetailView()
+                self?.presentRegistrationView()
             }).disposed(by: disposeBag)
     }
+    
     private func setUpTable() {
         setUpSelection()
         setUpTableCellData()
@@ -152,6 +162,20 @@ final class MainViweController: UIViewController {
                 
                 self?.present(next, animated: true)
             })
+            .disposed(by: disposeBag)
+    }
+    
+    private func setUpTotalCount() {
+        viewModel.toDoTotalCount
+            .bind(to: mainView.toDoTable.headerView.countLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        viewModel.doingTotalCount
+            .bind(to: mainView.doingTable.headerView.countLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        viewModel.doneTotalCount
+            .bind(to: mainView.doneTable.headerView.countLabel.rx.text)
             .disposed(by: disposeBag)
     }
 }
