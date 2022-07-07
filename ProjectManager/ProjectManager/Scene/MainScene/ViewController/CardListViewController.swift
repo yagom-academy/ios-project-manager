@@ -167,6 +167,36 @@ final class CardListViewController: UIViewController {
         self.present(cardDetailViewController, animated: true)
       })
       .disposed(by: disposeBag)
+    
+    Observable.zip(
+      todoSectionView.tableView.rx.itemDeleted,
+      todoSectionView.tableView.rx.modelDeleted(Card.self)
+    ) { ($0, $1) }
+      .bind(onNext: { [weak self] indexPath, card in
+        guard let self = self else { return }
+        self.viewModel.delete(card: card)
+      })
+      .disposed(by: disposeBag)
+    
+    Observable.zip(
+      doingSectionView.tableView.rx.itemDeleted,
+      doingSectionView.tableView.rx.modelDeleted(Card.self)
+    ) { ($0, $1) }
+      .bind(onNext: { [weak self] indexPath, card in
+        guard let self = self else { return }
+        self.viewModel.delete(card: card)
+      })
+      .disposed(by: disposeBag)
+    
+    Observable.zip(
+      doneSectionView.tableView.rx.itemDeleted,
+      doneSectionView.tableView.rx.modelDeleted(Card.self)
+    ) { ($0, $1) }
+      .bind(onNext: { [weak self] indexPath, card in
+        guard let self = self else { return }
+        self.viewModel.delete(card: card)
+      })
+      .disposed(by: disposeBag)
   }
 }
 
