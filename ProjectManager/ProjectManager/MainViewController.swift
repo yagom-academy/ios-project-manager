@@ -11,9 +11,9 @@ import RxSwift
 
 final class MainViewController: UIViewController {
     
-    private var todos: [Work] = []
-    private var doings: [Work] = []
-    private var dones: [Work] = []
+    private var todos: [Task] = []
+    private var doings: [Task] = []
+    private var dones: [Task] = []
     
     private let mainView = MainView()
     
@@ -48,20 +48,20 @@ final class MainViewController: UIViewController {
         mainView.todoTableView.delegate = self
         mainView.todoTableView.dataSource = self
         mainView.todoTableView.register(
-            WorkTableViewCell.self,
-            forCellReuseIdentifier: WorkTableViewCell.identifier
+            TaskTableViewCell.self,
+            forCellReuseIdentifier: TaskTableViewCell.identifier
         )
         mainView.doingTableView.delegate = self
         mainView.doingTableView.dataSource = self
         mainView.doingTableView.register(
-            WorkTableViewCell.self,
-            forCellReuseIdentifier: WorkTableViewCell.identifier
+            TaskTableViewCell.self,
+            forCellReuseIdentifier: TaskTableViewCell.identifier
         )
         mainView.doneTableView.delegate = self
         mainView.doneTableView.dataSource = self
         mainView.doneTableView.register(
-            WorkTableViewCell.self,
-            forCellReuseIdentifier: WorkTableViewCell.identifier
+            TaskTableViewCell.self,
+            forCellReuseIdentifier: TaskTableViewCell.identifier
         )
     }
     
@@ -73,50 +73,51 @@ final class MainViewController: UIViewController {
     
     private func fetchToDo() {
         todos = [
-            Work(title: "타이틀1", description: "1", date: "1"),
-            Work(title: "타이틀1", description: "1", date: "1"),
-            Work(title: "타이틀1", description: "1", date: "1"),
-            Work(title: "타이틀1", description: "1", date: "1"),
-            Work(title: "타이틀1", description: "1", date: "1"),
-            Work(title: "타이틀1", description: "1", date: "1"),
-            Work(title: "타이틀1", description: "1", date: "1"),
-            Work(title: "타이틀1", description: "1", date: "1"),
-            Work(title: "타이틀1", description: "1", date: "1"),
-            Work(title: "타이틀1", description: "1", date: "1"),
-            Work(title: "타이틀1", description: "1", date: "1"),
-            Work(title: "타이틀1", description: "1", date: "1")
+            Task(title: "타이틀1", description: "1", date: "1"),
+            Task(title: "타이틀1", description: "1", date: "1"),
+            Task(title: "타이틀1", description: "1", date: "1"),
+            Task(title: "타이틀1", description: "1", date: "1"),
+            Task(title: "타이틀1", description: "1", date: "1"),
+            Task(title: "타이틀1", description: "1", date: "1"),
+            Task(title: "타이틀1", description: "1", date: "1"),
+            Task(title: "타이틀1", description: "1", date: "1"),
+            Task(title: "타이틀1", description: "1", date: "1"),
+            Task(title: "타이틀1", description: "1", date: "1"),
+            Task(title: "타이틀1", description: "1", date: "1"),
+            Task(title: "타이틀1", description: "1", date: "1")
         ]
     }
     
     private func fetchDoing() {
         doings = [
-            Work(title: "타이틀2", description: "2", date: "2"),
-            Work(title: "타이틀2", description: "2", date: "2"),
-            Work(title: "타이틀2", description: "2", date: "2"),
-            Work(title: "타이틀2", description: "2", date: "2"),
-            Work(title: "타이틀2", description: "2", date: "2"),
-            Work(title: "타이틀2", description: "2", date: "2"),
-            Work(title: "타이틀2", description: "2", date: "2")
+            Task(title: "타이틀2", description: "2", date: "2"),
+            Task(title: "타이틀2", description: "2", date: "2"),
+            Task(title: "타이틀2", description: "2", date: "2"),
+            Task(title: "타이틀2", description: "2", date: "2"),
+            Task(title: "타이틀2", description: "2", date: "2"),
+            Task(title: "타이틀2", description: "2", date: "2"),
+            Task(title: "타이틀2", description: "2", date: "2")
         ]
     }
     
     private func fetchDone() {
         dones = [
-            Work(title: "타이틀3", description: "3", date: "3"),
-            Work(title: "타이틀3", description: "3", date: "3")
+            Task(title: "타이틀3", description: "3", date: "3"),
+            Task(title: "타이틀3", description: "3", date: "3")
         ]
     }
     
     @objc private func showNewTodoView() {
-        let newTodoViewController = UINavigationController(
+        let newTodoFormSheet = UINavigationController(
             rootViewController: NewToDoViewController()
         )
-        newTodoViewController.modalPresentationStyle = .formSheet
-        present(newTodoViewController, animated: true)
+        newTodoFormSheet.modalPresentationStyle = .formSheet
+        present(newTodoFormSheet, animated: true)
     }
 }
 
 // MARK: - TableView Method
+
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(
         _ tableView: UITableView,
@@ -136,9 +137,9 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         cellForRowAt indexPath: IndexPath
     ) -> UITableViewCell {
         guard let todoCell = mainView.todoTableView.dequeueReusableCell(
-            withIdentifier: WorkTableViewCell.identifier,
+            withIdentifier: TaskTableViewCell.identifier,
             for: indexPath
-        ) as? WorkTableViewCell else {
+        ) as? TaskTableViewCell else {
             return UITableViewCell()
         }
         

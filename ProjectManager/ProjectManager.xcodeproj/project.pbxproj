@@ -11,11 +11,12 @@
 		4E59B99528746FE000307D6E /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 4E59B99428746FE000307D6E /* FirebaseAnalytics */; };
 		4E59B99728746FE000307D6E /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 4E59B99628746FE000307D6E /* FirebaseDatabase */; };
 		4E89D7262875529E000FD1A6 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4E89D7252875529E000FD1A6 /* SnapKit */; };
-		4EB3FFC228756FDD0001DBC0 /* Work.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB3FFC128756FDD0001DBC0 /* Work.swift */; };
-		4EB3FFC628757C800001DBC0 /* WorkType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB3FFC528757C800001DBC0 /* WorkType.swift */; };
+		4EB2451F2876F589007F4056 /* EditToDoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB2451E2876F589007F4056 /* EditToDoViewController.swift */; };
+		4EB3FFC228756FDD0001DBC0 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB3FFC128756FDD0001DBC0 /* Task.swift */; };
+		4EB3FFC628757C800001DBC0 /* TaskType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB3FFC528757C800001DBC0 /* TaskType.swift */; };
 		4EB3FFCD28757E1F0001DBC0 /* NewToDoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB3FFCC28757E1F0001DBC0 /* NewToDoView.swift */; };
 		4EB3FFCF287580FD0001DBC0 /* NewToDoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB3FFCE287580FD0001DBC0 /* NewToDoViewController.swift */; };
-		4EB3FFD1287586200001DBC0 /* WorkHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB3FFD0287586200001DBC0 /* WorkHeaderView.swift */; };
+		4EB3FFD1287586200001DBC0 /* TaskHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB3FFD0287586200001DBC0 /* TaskHeaderView.swift */; };
 		4EB3FFD328758E9F0001DBC0 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB3FFD228758E9F0001DBC0 /* MainView.swift */; };
 		4EC236262873DCF9006C9D32 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 4EC236252873DCF9006C9D32 /* RxCocoa */; };
 		4EC236282873DCF9006C9D32 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 4EC236272873DCF9006C9D32 /* RxRelay */; };
@@ -24,7 +25,7 @@
 		9CAB039C2873DE6600895A45 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 9CAB039B2873DE6600895A45 /* Realm */; };
 		9CAB039E2873DE6600895A45 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9CAB039D2873DE6600895A45 /* RealmSwift */; };
 		9CACE12D28755BE20010E4F0 /* Then.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CACE12C28755BE20010E4F0 /* Then.swift */; };
-		9CACE13228755FDF0010E4F0 /* WorkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CACE13128755FDF0010E4F0 /* WorkTableViewCell.swift */; };
+		9CACE13228755FDF0010E4F0 /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CACE13128755FDF0010E4F0 /* TaskTableViewCell.swift */; };
 		9CACE135287566F30010E4F0 /* UIFont+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CACE134287566F30010E4F0 /* UIFont+extension.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
@@ -36,16 +37,17 @@
 /* Begin PBXFileReference section */
 		23A0A689B6A69796CECE8A71 /* Pods_ProjectManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2411AF63CB028F679D719B89 /* Pods-ProjectManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.release.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.release.xcconfig"; sourceTree = "<group>"; };
-		4EB3FFC128756FDD0001DBC0 /* Work.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Work.swift; sourceTree = "<group>"; };
-		4EB3FFC528757C800001DBC0 /* WorkType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkType.swift; sourceTree = "<group>"; };
+		4EB2451E2876F589007F4056 /* EditToDoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditToDoViewController.swift; sourceTree = "<group>"; };
+		4EB3FFC128756FDD0001DBC0 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		4EB3FFC528757C800001DBC0 /* TaskType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskType.swift; sourceTree = "<group>"; };
 		4EB3FFCC28757E1F0001DBC0 /* NewToDoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewToDoView.swift; sourceTree = "<group>"; };
 		4EB3FFCE287580FD0001DBC0 /* NewToDoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewToDoViewController.swift; sourceTree = "<group>"; };
-		4EB3FFD0287586200001DBC0 /* WorkHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkHeaderView.swift; sourceTree = "<group>"; };
+		4EB3FFD0287586200001DBC0 /* TaskHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskHeaderView.swift; sourceTree = "<group>"; };
 		4EB3FFD228758E9F0001DBC0 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		8186A352743ECE68B4046D56 /* Pods-ProjectManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.debug.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.debug.xcconfig"; sourceTree = "<group>"; };
 		9C9C74A62875CFA900620DEB /* UITextField+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+extension.swift"; sourceTree = "<group>"; };
 		9CACE12C28755BE20010E4F0 /* Then.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Then.swift; sourceTree = "<group>"; };
-		9CACE13128755FDF0010E4F0 /* WorkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTableViewCell.swift; sourceTree = "<group>"; };
+		9CACE13128755FDF0010E4F0 /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
 		9CACE134287566F30010E4F0 /* UIFont+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+extension.swift"; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -79,8 +81,8 @@
 		4EB3FFC028756FC10001DBC0 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				4EB3FFC128756FDD0001DBC0 /* Work.swift */,
-				4EB3FFC528757C800001DBC0 /* WorkType.swift */,
+				4EB3FFC128756FDD0001DBC0 /* Task.swift */,
+				4EB3FFC528757C800001DBC0 /* TaskType.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -96,11 +98,12 @@
 		4EB3FFCA28757DD50001DBC0 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				9CACE13128755FDF0010E4F0 /* WorkTableViewCell.swift */,
+				9CACE13128755FDF0010E4F0 /* TaskTableViewCell.swift */,
 				4EB3FFCC28757E1F0001DBC0 /* NewToDoView.swift */,
 				4EB3FFCE287580FD0001DBC0 /* NewToDoViewController.swift */,
-				4EB3FFD0287586200001DBC0 /* WorkHeaderView.swift */,
+				4EB3FFD0287586200001DBC0 /* TaskHeaderView.swift */,
 				4EB3FFD228758E9F0001DBC0 /* MainView.swift */,
+				4EB2451E2876F589007F4056 /* EditToDoViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -303,18 +306,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4EB3FFD1287586200001DBC0 /* WorkHeaderView.swift in Sources */,
+				4EB3FFD1287586200001DBC0 /* TaskHeaderView.swift in Sources */,
 				9C9C74A72875CFAA00620DEB /* UITextField+extension.swift in Sources */,
 				4EB3FFD328758E9F0001DBC0 /* MainView.swift in Sources */,
 				4EB3FFCD28757E1F0001DBC0 /* NewToDoView.swift in Sources */,
-				9CACE13228755FDF0010E4F0 /* WorkTableViewCell.swift in Sources */,
-				4EB3FFC228756FDD0001DBC0 /* Work.swift in Sources */,
+				9CACE13228755FDF0010E4F0 /* TaskTableViewCell.swift in Sources */,
+				4EB3FFC228756FDD0001DBC0 /* Task.swift in Sources */,
 				9CACE12D28755BE20010E4F0 /* Then.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				4EB3FFCF287580FD0001DBC0 /* NewToDoViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				9CACE135287566F30010E4F0 /* UIFont+extension.swift in Sources */,
-				4EB3FFC628757C800001DBC0 /* WorkType.swift in Sources */,
+				4EB3FFC628757C800001DBC0 /* TaskType.swift in Sources */,
+				4EB2451F2876F589007F4056 /* EditToDoViewController.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

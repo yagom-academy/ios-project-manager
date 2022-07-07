@@ -1,5 +1,5 @@
 //
-//  WorkType.swift
+//  TaskType.swift
 //  ProjectManager
 //
 //  Created by Donnie, Grumpy on 2022/07/06.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum WorkType {
+enum TaskType {
     case todo
     case doing
     case done

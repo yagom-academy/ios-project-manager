@@ -1,5 +1,5 @@
 //
-//  CustomHeader.swift
+//  TaskHeaderView.swift
 //  ProjectManager
 //
 //  Created by Donnie, Grumpy on 2022/07/06.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class WorkHeaderView: UIView {
+final class TaskHeaderView: UIView {
 
     private lazy var titleLabel = UILabel().then {
         $0.font = .preferredFont(forTextStyle: .title1)
@@ -34,10 +34,10 @@ final class WorkHeaderView: UIView {
         $0.spacing = 10
     }
     
-    init(workType: WorkType) {
+    init(taskType: TaskType) {
         super.init(frame: .zero)
         backgroundColor = .systemGray6
-        titleLabel.text = workType.value
+        titleLabel.text = taskType.value
         setupSubViews()
         setupUILayout()
     }

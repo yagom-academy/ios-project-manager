@@ -8,9 +8,9 @@
 import UIKit
 
 final class MainView: UIView {
-    private let todoHeaderView = WorkHeaderView(workType: .todo)
-    private let doingHeaderView = WorkHeaderView(workType: .doing)
-    private let doneHeaderView = WorkHeaderView(workType: .done)
+    private let todoHeaderView = TaskHeaderView(taskType: .todo)
+    private let doingHeaderView = TaskHeaderView(taskType: .doing)
+    private let doneHeaderView = TaskHeaderView(taskType: .done)
     
     lazy var todoTableView = UITableView()
     lazy var doingTableView = UITableView()

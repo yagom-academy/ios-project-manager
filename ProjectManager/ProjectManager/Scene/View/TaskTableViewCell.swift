@@ -1,5 +1,5 @@
 //
-//  CustomTableViewCell.swift
+//  TaskTableViewCell.swift
 //  ProjectManager
 //
 //  Created by Donnie, Grumpy on 2022/07/06.
@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class WorkTableViewCell: UITableViewCell {
+final class TaskTableViewCell: UITableViewCell {
     
     static var identifier: String {
         return String(describing: self)
@@ -55,7 +55,7 @@ final class WorkTableViewCell: UITableViewCell {
         }
     }
     
-    func setupContents(data: Work) {
+    func setupContents(data: Task) {
         titleLabel.text = data.title
         descriptionLabel.text = data.description
         dateLabel.text = data.date
