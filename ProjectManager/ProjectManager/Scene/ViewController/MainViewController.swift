@@ -39,6 +39,10 @@ final class MainViewController: UIViewController {
         fetchData()
         mainView.setupSubViews()
         mainView.setupUILayout()
+        
+        setupLongPressGesture(at: mainView.todoTableView)
+        setupLongPressGesture(at: mainView.doingTableView)
+        setupLongPressGesture(at: mainView.doneTableView)
     }
     
     private func configureNavigationItems() {
@@ -159,6 +163,28 @@ final class MainViewController: UIViewController {
         )
         newTodoFormSheet.modalPresentationStyle = .formSheet
         present(newTodoFormSheet, animated: true)
+    }
+}
+
+extension MainViewController: UIGestureRecognizerDelegate {
+    private func setupLongPressGesture(at tableView: UITableView) {
+        let longPressedGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress))
+        longPressedGesture.minimumPressDuration = 1.0
+        longPressedGesture.delegate = self
+        longPressedGesture.delaysTouchesBegan = true
+        tableView.addGestureRecognizer(longPressedGesture)
+    }
+    
+    @objc private func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
+        let tableView = gestureRecognizer.view as? UITableView
+        let location = gestureRecognizer.location(in: tableView)
+        if gestureRecognizer.state == .began {
+            if let indexPath = tableView?.indexPathForRow(at: location) {
+                
+            }
+        } else {
+            return
+        }
     }
 }
 
