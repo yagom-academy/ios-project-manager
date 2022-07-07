@@ -12,9 +12,15 @@ final class MainView: UIView {
     private let doingHeaderView = TaskHeaderView(taskType: .doing)
     private let doneHeaderView = TaskHeaderView(taskType: .done)
     
-    lazy var todoTableView = UITableView()
-    lazy var doingTableView = UITableView()
-    lazy var doneTableView = UITableView()
+    private(set) lazy var todoTableView = UITableView().then {
+        $0.backgroundColor = .systemGray6
+    }
+    private(set) lazy var doingTableView = UITableView().then {
+        $0.backgroundColor = .systemGray6
+    }
+    private(set) lazy var doneTableView = UITableView().then {
+        $0.backgroundColor = .systemGray6
+    }
     
     private lazy var baseStackView = UIStackView(
         arrangedSubviews: [
