@@ -7,7 +7,26 @@
 
 import Foundation
 
+enum ProjectStatus {
+    case todo
+    case doing
+    case done
+    
+    var string: String {
+        switch self {
+        case .todo:
+            return "TODO"
+        case .doing:
+            return "DOING"
+        case .done:
+            return "DONE"
+        }
+    }
+}
+
 struct ProjectContent {
+    let id = UUID()
+    var status: ProjectStatus = .todo
     var title: String
     var deadline: String
     var description: String
@@ -22,7 +41,13 @@ struct ProjectContent {
         guard let deadline = DateFormatter().formatted(string: deadline) else {
             return nil
         }
-        return ProjectItem(title: title, deadline: deadline, description: description)
+        return ProjectItem(
+            id: id,
+            status: status.string,
+            title: title,
+            deadline: deadline,
+            description: description
+        )
     }
     
     mutating func editContent(title: String? = nil,
