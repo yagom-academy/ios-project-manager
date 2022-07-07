@@ -81,39 +81,70 @@ final class MainViewController: UIViewController {
         fetchDone()
     }
     
+    let temp: Double = 54236543654
+    
     private func fetchToDo() {
         todos = [
-            Task(title: "타이틀1", description: "1", date: "1"),
-            Task(title: "타이틀1", description: "1", date: "1"),
-            Task(title: "타이틀1", description: "1", date: "1"),
-            Task(title: "타이틀1", description: "1", date: "1"),
-            Task(title: "타이틀1", description: "1", date: "1"),
-            Task(title: "타이틀1", description: "1", date: "1"),
-            Task(title: "타이틀1", description: "1", date: "1"),
-            Task(title: "타이틀1", description: "1", date: "1"),
-            Task(title: "타이틀1", description: "1", date: "1"),
-            Task(title: "타이틀1", description: "1", date: "1"),
-            Task(title: "타이틀1", description: "1", date: "1"),
-            Task(title: "타이틀1", description: "1", date: "1")
+            Task(
+                title: "책상정리",
+                description: "집중이 안될떄 역시나 책상정리",
+                date: temp
+            ),
+            Task(
+                title: "라자냐 재료사러 가기",
+                description: "프로젝트 회고를 작성하면 내가 이번 프로젝트에서 무엇을 놓쳤는지 명확히 알 수 있어요.",
+                date: temp
+            ),
+            Task(
+                title: "일기쓰기",
+                description: "난... ㄱㅏ 끔... 일ㄱㅣ를 쓴 ㄷㅏ...",
+                date: temp
+            ),
+            Task(
+                title: "설거지하기",
+                description: "밥을 먹었으면 응당 해야할 일",
+                date: temp
+            ),
+            Task(
+                title: "빨래하기",
+                description: "그만 쌓아두고...\n근데...\n여전히 하기 싫다.",
+                date: temp
+            )
         ]
     }
     
     private func fetchDoing() {
         doings = [
-            Task(title: "타이틀2", description: "2", date: "2"),
-            Task(title: "타이틀2", description: "2", date: "2"),
-            Task(title: "타이틀2", description: "2", date: "2"),
-            Task(title: "타이틀2", description: "2", date: "2"),
-            Task(title: "타이틀2", description: "2", date: "2"),
-            Task(title: "타이틀2", description: "2", date: "2"),
-            Task(title: "타이틀2", description: "2", date: "2")
+            Task(
+                title: "TIL 작성하기",
+                description: "TIL을 작성하면\n오늘의 상큼한 마무리도 되고\n나중에 포프폴리오 용으로도 좋죠!",
+                date: temp
+            ),
+            Task(
+                title: "프로젝트 회고 작성",
+                description: "프로젝트 회고를 작성하면 내가 이번 프로젝트에서 무엇을 놓쳤는지 명확히 알 수 있어요.",
+                date: temp
+            )
         ]
     }
     
     private func fetchDone() {
         dones = [
-            Task(title: "타이틀3", description: "3", date: "3"),
-            Task(title: "타이틀3", description: "3", date: "3")
+            Task(
+                title: "오늘의 할일 찾기",
+                description: "내가 가는 이길이 어디로 가는지 어디로 날 데려가는지 그 곳은 알 수 없지만 알 수 없지만 알 수 없지만 오늘도 난 걸어가고 있네 사람들은 길이 다 정해져있을까?",
+                date: temp
+            ),
+            Task(
+                title: "프로젝트 회고 작성",
+                description: "노는 게 제일 좋아 친구들 모여라\n언제나 즐거워 개구쟁이 뽀로로\n눈 덮인 숲속 마을 꼬마 펭귄 나가신다.",
+                date: temp
+            ),
+            Task(
+                title: "방정리",
+                description: "눈감고 그댈 그려요 맘속 그댈 찾았죠 나를 밝혀주는 빛이 보여 영원한 행복을 놓칠 순 없죠 그대 나 보이나요 나를 불러줘요 그대 곁에 있을 거야 너를 사랑해 함께해요.",
+                date: temp
+            )
         ]
     }
     
@@ -133,6 +164,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         _ tableView: UITableView,
         numberOfRowsInSection section: Int
     ) -> Int {
+        
         if tableView == mainView.todoTableView {
             return todos.count
         } else if tableView == mainView.doingTableView {
@@ -146,14 +178,41 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         _ tableView: UITableView,
         cellForRowAt indexPath: IndexPath
     ) -> UITableViewCell {
-        guard let todoCell = mainView.todoTableView.dequeueReusableCell(
-            withIdentifier: TaskTableViewCell.identifier,
-            for: indexPath
-        ) as? TaskTableViewCell else {
-            return UITableViewCell()
+        
+        if tableView == mainView.todoTableView {
+            return generateCell(
+                tableView: mainView.todoTableView,
+                indexPath: indexPath,
+                task: todos
+            )
+        } else if tableView == mainView.doingTableView {
+            return generateCell(
+                tableView: mainView.doingTableView,
+                indexPath: indexPath,
+                task: doings
+            )
+        } else {
+            return generateCell(
+                tableView: mainView.doneTableView,
+                indexPath: indexPath,
+                task: dones
+            )
         }
-        todoCell.setupContents(task: todos[indexPath.row])
-        return todoCell
+    }
+    
+    private func generateCell(
+        tableView: UITableView,
+        indexPath: IndexPath,
+        task: [Task]
+    ) -> TaskTableViewCell {
+        
+        if let cell = tableView.dequeueReusableCell(
+            withIdentifier: TaskTableViewCell.identifier
+        ) as? TaskTableViewCell {
+            cell.setupContents(task: task[indexPath.row])
+            return cell
+        }
+        return TaskTableViewCell()
     }
     
     func tableView(
