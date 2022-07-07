@@ -32,18 +32,13 @@ final class DetailViewController: UIViewController {
     }
     
     override func viewDidLoad() {
-        bind()
+        setUpModalView()
         setUpDetailNavigationItem()
     }
     
-    private func bind() {
-        viewModel.content
-            .observe(on: MainScheduler.instance)
-            .subscribe(onNext: { [weak self] content in
-                self?.modalView.compose(content: content)
-                self?.modalView.isUserInteractionEnabled(false)
-            })
-            .disposed(by: disposeBag)
+    private func setUpModalView() {
+        modalView.compose(content: viewModel.content)
+        modalView.isUserInteractionEnabled(false)
     }
     
     private func setUpDetailNavigationItem() {
@@ -92,9 +87,13 @@ final class DetailViewController: UIViewController {
         navigationItem.rightBarButtonItem?.rx.tap
             .asDriver()
             .drive { [weak self] _ in
-                self?.modalView.isUserInteractionEnabled(false)
-                self?.setUpDetailNavigationItem()
-                
+                guard let self = self else {
+                    return
+                }
+                let newContent = self.modalView.change(self.viewModel.content)
+                self.viewModel.update(newContent)
+                self.modalView.isUserInteractionEnabled(false)
+                self.setUpDetailNavigationItem()
             }
             .disposed(by: disposeBag)
     }

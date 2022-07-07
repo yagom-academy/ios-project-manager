@@ -9,10 +9,13 @@ import RxSwift
 import RxRelay
 
 class DetailViewModel {
-    let content: Observable<ProjectContent>
-    let disposeBag = DisposeBag()
+    let content: ProjectContent
     
     init(content: ProjectContent) {
-        self.content = Observable.just(content)
+        self.content = content
+    }
+    
+    func update(_ content: ProjectContent) {
+        MockStorageManager.shared.update(projectContent: content)
     }
 }
