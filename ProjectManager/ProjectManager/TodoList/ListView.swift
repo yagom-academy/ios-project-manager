@@ -10,7 +10,6 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-
 final class ListView: UIViewController {
     private let mode: Mode
     private let tableView: UITableView
@@ -124,15 +123,5 @@ final class ListView: UIViewController {
                 return cell
             }
             .disposed(by: disposeBag)
-        
-//        1. 필터 쓰면 코드 깔끔해질거같음 근데 ListView인스턴스 3개가 필터써야되서 성능저하? 의심됨
-//        2. 뷰모델에서 저장된데이터를 분류 한후 ListView인스턴스의 mode타입에따라 어떤데이터를 가져올지 분기처리해주어야함.(로직이 좀 길어질듯함)
-        
-//        viewModel.tableViewData?
-//            .filter { $0.
-//
-//            }
-//            .bind(to: self.listCountLabel.rx.text)
-//            .disposed(by: disposeBag)
     }
 }
