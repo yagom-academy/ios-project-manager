@@ -7,6 +7,10 @@
 
 import Foundation
 
-protocol CellIdentifiable {
-    static var identifier: String { get }
+protocol CellIdentifiable {}
+
+extension CellIdentifiable {
+    static var identifier: String {
+        return String(describing: self)
+    }
 }
