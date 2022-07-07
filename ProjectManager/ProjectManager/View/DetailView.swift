@@ -8,10 +8,12 @@
 import SwiftUI
 
 struct DetailView: View {
+  @ObservedObject var viewModel: TodoViewModel
+  
   @Binding var isShow: Bool
-  @State var title: String
-  @State var date: Date
-  @State var content: String
+  @State var title: String = ""
+  @State var date: Date = Date()
+  @State var content: String = ""
   var body: some View {
     NavigationView {
       VStack {
@@ -45,6 +47,7 @@ struct DetailView: View {
         ToolbarItem(placement: .navigationBarTrailing) {
           Button {
             isShow = false
+            viewModel.creat(todo: Todo(title: title, content: content, date: date))
           } label: {
             Text("Done")
           }

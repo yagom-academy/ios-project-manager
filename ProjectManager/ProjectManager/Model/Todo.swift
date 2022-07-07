@@ -20,7 +20,7 @@ class Todo: Identifiable, ObservableObject {
     case done = "DONE"
   }
   
-  init(id: UUID = UUID(), title: String, content: String, date: Date = Date(), status: Status) {
+  init(id: UUID = UUID(), title: String, content: String, date: Date = Date(), status: Status = .todo) {
     self.id = id
     self.title = title
     self.content = content
