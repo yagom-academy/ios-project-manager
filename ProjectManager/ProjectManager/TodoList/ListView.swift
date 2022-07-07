@@ -10,7 +10,7 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-final class ListView: UIViewController {
+final class ListView: UIView {
     private let mode: Mode
     private let tableView: UITableView
     private var viewModel: TodoListViewModel
@@ -70,7 +70,7 @@ final class ListView: UIViewController {
         self.mode = mode
         self.tableView = UITableView()
         self.viewModel = TodoListViewModel()
-        super.init(nibName: nil, bundle: nil)
+        super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         self.setUpListView()
         self.setUpHeaderView()
         self.bind()
@@ -83,14 +83,14 @@ final class ListView: UIViewController {
     private func setUpListView() {
         self.tableView.register(TodoListCell.self, forCellReuseIdentifier: TodoListCell.identifier)
         
-        self.view.addSubview(self.todoListStackView)
+        self.addSubview(self.todoListStackView)
         self.todoListStackView.addArrangedSubviews(with: [self.headerView, self.tableView])
         
         NSLayoutConstraint.activate([
-            self.todoListStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            self.todoListStackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            self.todoListStackView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
-            self.todoListStackView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
+            self.todoListStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            self.todoListStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            self.todoListStackView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
+            self.todoListStackView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
     

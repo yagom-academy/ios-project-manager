@@ -15,7 +15,7 @@ final class TodoListCell: UITableViewCell {
     private let contentsStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.distribution = .fillProportionally
+        stackView.distribution = .fill
         stackView.alignment = .fill
         stackView.spacing = 5
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -63,7 +63,6 @@ final class TodoListCell: UITableViewCell {
     }
     
     private func setUpCell() {
-        self.addSubview(self.contentView)
         self.contentView.addSubview(self.contentsStackView)
         self.contentsStackView.addArrangedSubviews(with: [self.titleLabel, self.descriptionLabel, self.dateLabel])
         
@@ -72,20 +71,11 @@ final class TodoListCell: UITableViewCell {
     }
     
     private func setUpLayout() {
-        self.contentView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            self.contentView.topAnchor.constraint(equalTo: self.topAnchor),
-            self.contentView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            self.contentView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            self.contentView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-        ])
-        
         NSLayoutConstraint.activate([
             self.contentsStackView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 10),
             self.contentsStackView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 10),
             self.contentsStackView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -10),
-            self.contentsStackView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -20),
+            self.contentsStackView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -10),
         ])
     }
     

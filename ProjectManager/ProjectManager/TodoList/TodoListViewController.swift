@@ -49,7 +49,7 @@ final class TodoListViewController: UIViewController {
     private func setUpView() {
         self.view.addSubview(self.entireStackView)
 
-        self.entireStackView.addArrangedSubviews(with: [self.todoView.view, self.doingView.view, self.doneView.view])
+        self.entireStackView.addArrangedSubviews(with: [self.todoView, self.doingView, self.doneView])
 
         NSLayoutConstraint.activate([
             self.entireStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
