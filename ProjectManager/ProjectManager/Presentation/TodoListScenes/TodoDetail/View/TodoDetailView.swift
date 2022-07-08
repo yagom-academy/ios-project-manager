@@ -79,4 +79,10 @@ final class TodoDetailView: UIView {
     private func setupView() {
         backgroundColor = .systemBackground
     }
+    
+    func setupUserInteractionEnabled(_ state: Bool) {
+        titleTextField.isUserInteractionEnabled = state
+        datePicker.isUserInteractionEnabled = state
+        contentTextView.isUserInteractionEnabled = state
+    }
 }

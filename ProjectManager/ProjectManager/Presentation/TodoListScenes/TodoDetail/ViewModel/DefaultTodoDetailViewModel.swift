@@ -31,7 +31,7 @@ final class DefaultTodoDetailViewModel: TodoDetailViewModel {
         return Just(todoListModel)
     }
     
-    var isCreate = CurrentValueSubject<Bool, Never>(true)
+    let isCreate = CurrentValueSubject<Bool, Never>(true)
 
     private let todoListModel: TodoListModel?
     private let actions: TodoDetailActions
