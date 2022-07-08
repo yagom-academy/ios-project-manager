@@ -14,4 +14,14 @@ extension Date {
         formatter.dateFormat = "yyyy. M. d."
         return formatter.string(from: self)
     }
+    
+    var endOfTheDay: Date? {
+        let calendar = Calendar.current
+        var components = calendar.dateComponents([.year, .month, .day], from: self)
+        
+        components.hour = 23
+        components.minute = 59
+        
+        return calendar.date(from: components)
+    }
 }

@@ -14,7 +14,7 @@ protocol TodoDetailViewModelInput {
     func editButtonDidTap()
 }
 protocol TodoDetailViewModelOutput {
-    var item: Just<TodoListModel?> { get }
+    var item: Just<TodoListModel> { get }
     var isCreate: CurrentValueSubject<Bool, Never> { get }
 }
 protocol TodoDetailViewModel: TodoDetailViewModelInput, TodoDetailViewModelOutput {}
@@ -27,22 +27,22 @@ final class DefaultTodoDetailViewModel: TodoDetailViewModel {
     
     // MARK: - Output
     
-    var item: Just<TodoListModel?> {
+    var item: Just<TodoListModel> {
         return Just(todoListModel)
     }
     
     let isCreate = CurrentValueSubject<Bool, Never>(true)
 
-    private let todoListModel: TodoListModel?
+    private let todoListModel: TodoListModel
     private let actions: TodoDetailActions
     private let useCase: UseCase
     
-    init(actions: TodoDetailActions, useCase: UseCase, todoListModel: TodoListModel?) {
+    init(actions: TodoDetailActions, useCase: UseCase, todoListModel: TodoListModel) {
         self.actions = actions
         self.useCase = useCase
         self.todoListModel = todoListModel
         
-        if todoListModel?.title == "" && todoListModel?.content == "" {
+        if todoListModel.title == "" && todoListModel.content == "" {
             isCreate.send(true)
         } else {
             isCreate.send(false)
@@ -55,7 +55,7 @@ extension DefaultTodoDetailViewModel {
     // MARK: - Input
     
     func closeButtonDidTap() {
-        if todoListModel?.title == "" && todoListModel?.content == "" {
+        if todoListModel.title == "" && todoListModel.content == "" {
             useCase.deleteLastItem()
         }
         
@@ -67,7 +67,7 @@ extension DefaultTodoDetailViewModel {
             return
         }
         
-        useCase.update(TodoListModel(title: title, content: content, deadLine: deadLine, id: todoListModel!.id))
+        useCase.update(TodoListModel(title: title, content: content, deadLine: deadLine, id: todoListModel.id))
         actions.dismiss()
     }
     

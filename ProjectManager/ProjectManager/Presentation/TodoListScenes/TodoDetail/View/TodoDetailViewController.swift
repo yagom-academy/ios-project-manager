@@ -32,9 +32,9 @@ final class TodoDetailViewController: UIViewController {
     private func bind() {
         viewModel.item
             .sink { [weak self] item in
-                self?.todoDetailView.titleTextField.text = item?.title
-                self?.todoDetailView.datePicker.date = item?.deadLine ?? Date()
-                self?.todoDetailView.contentTextView.text = item?.content
+                self?.todoDetailView.titleTextField.text = item.title
+                self?.todoDetailView.datePicker.date = item.deadLine ?? Date()
+                self?.todoDetailView.contentTextView.text = item.content
             }
             .store(in: &cancellables)
         

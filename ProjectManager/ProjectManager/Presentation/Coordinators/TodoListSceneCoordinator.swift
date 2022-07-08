@@ -11,7 +11,7 @@ protocol TodoListSceneCoordinatorDependencies {
     func makeTodoListViewController(actions: TodoListActions) -> TodoListViewController
     func makeTodoDetailViewContoller(
         actions: TodoDetailActions,
-        todoListModel: TodoListModel?
+        todoListModel: TodoListModel
     ) -> TodoDetailViewController
 }
 
@@ -37,7 +37,7 @@ final class TodoListSceneCoordinator {
         return TodoListActions(showDetailView: showTodoDetailView)
     }
     
-    private func showTodoDetailView(_ item: TodoListModel?) {
+    private func showTodoDetailView(_ item: TodoListModel) {
         let todoDetailViewController = dependencies.makeTodoDetailViewContoller(
             actions: makeTodoDetailActions(),
             todoListModel: item

@@ -27,7 +27,7 @@ struct TodoListModel: Hashable {
 extension TodoListModel {
     static func dummyData() -> [TodoListModel] {
         [
-            TodoListModel(title: "책상정리", content: "집중이 안될땐 역시나 책상정리", deadLine: Date(), processType: .todo),
+            TodoListModel(title: "책상정리", content: "집중이 안될땐 역시나 책상정리", deadLine: Date().addingTimeInterval(-123123123), processType: .todo),
             TodoListModel(title: "라자냐 재료사러 가기", content: "프로젝트 회고를 작성하면 내가 이번 프로젝트에서\n무엇을 놓쳤는지 명확히 알 수 있어요", deadLine: Date(), processType: .done),
             TodoListModel(title: "일기쓰기", content: "난.. ㄱ ㅏ끔...읽ㄱㅣ를 쓴ㄷㅏ...", deadLine: Date(), processType: .todo),
             TodoListModel(title: "설거지하기", content: "밥을 먹었으면 응당 해야할 일", deadLine: Date(), processType: .doing),

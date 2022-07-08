@@ -23,7 +23,7 @@ protocol TodoListViewModelOutput {
 protocol TodoListViewModel: TodoListViewModelInput, TodoListViewModelOutput {}
 
 struct TodoListActions {
-    let showDetailView: (TodoListModel?) -> Void
+    let showDetailView: (TodoListModel) -> Void
 }
 
 final class DefaultTodoListViewModel: TodoListViewModel {
@@ -64,7 +64,7 @@ extension DefaultTodoListViewModel {
     // MARK: - Input
     
     func addButtonDidTap() {
-        let item = TodoListModel(title: "", content: "", deadLine: Date())
+        let item = TodoListModel(title: "", content: "", deadLine: Date().endOfTheDay ?? Date())
         actions.showDetailView(item)
         useCase.create(item)
     }
