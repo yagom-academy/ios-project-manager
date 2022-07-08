@@ -2,10 +2,11 @@
 //  PopoverViewController.swift
 //  ProjectManager
 //
-//  Created by 박세웅 on 2022/07/08.
+//  Created by Donnie, Grumpy on 2022/07/08.
 //
 
 import UIKit
+import RealmSwift
 
 final class PopoverView: UIView {
     private lazy var baseStackView = UIStackView(
@@ -57,6 +58,9 @@ final class PopoverView: UIView {
 
 final class PopoverViewController: UIViewController {
     private let popoverView = PopoverView(frame: .zero)
+    private let realm = try? Realm()
+    weak var delegate: DataReloadable?
+    var task: Task?
     
     override func loadView() {
         super.loadView()
@@ -65,16 +69,59 @@ final class PopoverViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        addTargetButtons()
     }
     
-    func setPopoverAction(_ task: TaskType) {
-        switch task {
+    private func addTargetButtons() {
+        popoverView.moveToToDoButton.addTarget(
+            self,
+            action: #selector(moveToToDo),
+            for: .touchUpInside
+        )
+        popoverView.moveToDoingButton.addTarget(
+            self,
+            action: #selector(moveToDoing),
+            for: .touchUpInside
+        )
+        popoverView.moveToDoneButton.addTarget(
+            self,
+            action: #selector(moveToDone),
+            for: .touchUpInside
+        )
+    }
+    
+    func setPopoverAction() {
+        guard let task = task else { return }
+        switch task.taskType {
         case .todo:
             popoverView.moveToToDoButton.isHidden = true
         case .doing:
             popoverView.moveToDoingButton.isHidden = true
         case .done:
             popoverView.moveToDoneButton.isHidden = true
+        }
+    }
+    
+    @objc private func moveToToDo() {
+        modifiedTaskType(taskType: .todo)
+    }
+    
+    @objc private func moveToDoing() {
+        modifiedTaskType(taskType: .doing)
+    }
+    
+    @objc private func moveToDone() {
+        modifiedTaskType(taskType: .done)
+    }
+    
+    private func modifiedTaskType(taskType: TaskType) {
+        guard let task = task else { return }
+        try? realm?.write {
+            task.taskType = taskType
+            realm?.add(task, update: .modified)
+        }
+        dismiss(animated: true) { [weak self] in
+            self?.delegate?.refreshData()
         }
     }
 }

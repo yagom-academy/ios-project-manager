@@ -144,6 +144,7 @@ extension MainViewController: UIGestureRecognizerDelegate {
                 let popoverHeight = mainView.frame.size.height * 0.15
                 
                 let popoverViewController = PopoverViewController()
+                popoverViewController.delegate = self
                 popoverViewController.preferredContentSize = .init(
                     width: popoverWidth,
                     height: popoverHeight
@@ -151,14 +152,14 @@ extension MainViewController: UIGestureRecognizerDelegate {
                 popoverViewController.modalPresentationStyle = .popover
                 
                 guard let popoverPresentationController = popoverViewController.popoverPresentationController,
-                      let cell = tableView?.cellForRow(at: indexPath) as? TaskTableViewCell,
-                      let taskType = cell.task?.taskType else {
-                    return
-                }
+                      let cell = tableView?.cellForRow(at: indexPath) as? TaskTableViewCell else { return }
                 popoverPresentationController.sourceView = cell
                 popoverPresentationController.sourceRect = cell.bounds
                 popoverPresentationController.permittedArrowDirections = .up
-                popoverViewController.setPopoverAction(taskType)
+                
+                popoverViewController.task = cell.task
+                popoverViewController.setPopoverAction()
+                
                 present(popoverViewController, animated: true)
             }
         } else {
