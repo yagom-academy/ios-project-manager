@@ -17,8 +17,8 @@ final class CardAdditionViewController: UIViewController {
   }
   
   private let cardEditView = CardEditView()
-  private let viewModel: CardListViewModel
   private let disposeBag = DisposeBag()
+  private let viewModel: CardListViewModel
   
   init(viewModel: CardListViewModel) {
     self.viewModel = viewModel
