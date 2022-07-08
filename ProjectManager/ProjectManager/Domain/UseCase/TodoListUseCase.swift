@@ -6,13 +6,14 @@
 //
 
 import Foundation
+import RxSwift
 
 protocol UseCase {
-    func readRepository() -> [TodoModel]
+    func readRepository() -> BehaviorSubject<[TodoModel]>
     func saveRepository(to data: TodoModel)
 }
 
-final class TodoListUseCase {
+final class TodoListUseCase: UseCase {
     private let repository: TodoListRepository
     
     init(repository: TodoListRepository) {
@@ -20,8 +21,9 @@ final class TodoListUseCase {
     }
 }
 
-extension TodoListUseCase: UseCase {
-    func readRepository() -> [TodoModel] {
+extension TodoListUseCase {
+
+    func readRepository() -> BehaviorSubject<[TodoModel]> {
         return repository.read()
     }
     
