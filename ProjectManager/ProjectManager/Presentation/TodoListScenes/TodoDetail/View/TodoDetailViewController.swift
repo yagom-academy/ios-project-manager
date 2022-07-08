@@ -47,7 +47,7 @@ final class TodoDetailViewController: UIViewController {
         title = "TODO"
         
         let cancelAction = UIAction { [weak self] _ in
-            
+            self?.viewModel.closeButtonDidTap()
         }
         
         let doneAction = UIAction { [weak self] _ in

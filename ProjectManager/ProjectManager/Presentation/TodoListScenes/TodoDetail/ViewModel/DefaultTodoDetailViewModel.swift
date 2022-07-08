@@ -7,11 +7,15 @@
 
 import Foundation
 
-protocol TodoDetailViewModelInput {}
+protocol TodoDetailViewModelInput {
+    func closeButtonDidTap()
+}
 protocol TodoDetailViewModelOutput {}
 protocol TodoDetailViewModel: TodoDetailViewModelInput, TodoDetailViewModelOutput {}
 
-struct TodoDetailActions {}
+struct TodoDetailActions {
+    let dismiss: () -> Void
+}
 
 final class DefaultTodoDetailViewModel: TodoDetailViewModel {
     
@@ -21,5 +25,14 @@ final class DefaultTodoDetailViewModel: TodoDetailViewModel {
     init(actions: TodoDetailActions, useCase: UseCase) {
         self.actions = actions
         self.useCase = useCase
+    }
+}
+
+extension DefaultTodoDetailViewModel {
+    
+    // MARK: - Input
+    
+    func closeButtonDidTap() {
+        actions.dismiss()
     }
 }
