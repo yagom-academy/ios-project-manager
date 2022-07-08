@@ -9,13 +9,20 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     let storege = MemoryTodoListStorege()
+    let todoSceneDIContainer = TodoSceneDIContainer()
+    var todoListFlowCoordinator: TodoListFlowCoordinator?
     
     var window: UIWindow?
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-        window?.rootViewController = UINavigationController(rootViewController: TodoListViewController(viewModel: makeTodoListViewModel()))
+        let navigationController = UINavigationController()
+        
+        window?.rootViewController = navigationController
+        todoListFlowCoordinator = TodoListFlowCoordinator(navigationController: navigationController, dependencies: todoSceneDIContainer)
+        
+        todoListFlowCoordinator?.start()
         window?.makeKeyAndVisible()
     }
 
@@ -30,16 +37,3 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneDidEnterBackground(_ scene: UIScene) {}
 }
 
-private extension SceneDelegate {
-    func makeTodoListViewModel() -> DefaultTodoListViewModel {
-        return DefaultTodoListViewModel(useCase: makeTodoListUseCase())
-    }
-    
-    func makeTodoListUseCase() -> TodoListUseCase {
-        return TodoListUseCase(repository: makeTodoListRepository())
-    }
-    
-    func makeTodoListRepository() -> DefaultTodoListRepository {
-        return DefaultTodoListRepository(storege: storege)
-    }
-}
