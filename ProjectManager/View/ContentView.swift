@@ -18,23 +18,24 @@ struct ContentView: View {
                 VStack(alignment: .leading) {
                     List {
                         Section(header: TodoView()){
-                            ListRowView()
-                                .swipeActions(edge: .trailing,
-                                              allowsFullSwipe: true) {
-                                    SwipeButton()
-                                }
-                            .simultaneousGesture(LongPressGesture(minimumDuration: 1).onEnded({ _ in
-                                isShowingPopover.toggle()
-                            }))
-                            .simultaneousGesture(TapGesture().onEnded({ _ in
+                            Button {
                                 showSheet.toggle()
-                            }))
+                            } label: {
+                                ListRowView()
+                            }
+                            .onLongPressGesture(minimumDuration: 1) {
+                                isShowingPopover.toggle()
+                            }
                             .popover(isPresented: $isShowingPopover,
                                      arrowEdge: .bottom) {
                                 PopoverButton()
                             }
                             .sheet(isPresented: $showSheet) {
                                 RegisterView()
+                            }
+                            .swipeActions(edge: .trailing,
+                                          allowsFullSwipe: true) {
+                                SwipeButton()
                             }
                         }
                     }
@@ -90,7 +91,7 @@ struct PopoverButton: View {
             Button(action: { print("Move to DONE") }) {
                 Text("Move to DONE")
             }
-        }.frame(width: 200, height: 200, alignment: .center)
+        }.frame(width: 190, height: 90, alignment: .center)
     }
 }
 
