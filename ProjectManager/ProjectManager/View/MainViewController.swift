@@ -86,9 +86,7 @@ final class MainViewController: UIViewController {
     
     private func separatLists(_ type: ListType) -> Observable<[List]> {
         let list = mainViewModel.listObservable
-            .map{ $0.filter {
-                $0.type == type
-            }}
+            .map{ $0.filter { $0.type == type }}
         return list
     }
     
