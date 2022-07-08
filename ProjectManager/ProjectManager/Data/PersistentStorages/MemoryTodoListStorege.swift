@@ -6,22 +6,26 @@
 //
 
 import Foundation
+import RxSwift
 
 protocol TodoListStorege {
-    func read() -> [TodoModel]
+    func read() -> BehaviorSubject<[TodoModel]>
     func save(to data: TodoModel)
 }
 
 final class MemoryTodoListStorege {
-    private var memoryStorege: [TodoModel] = TodoModel.makeDummy()
+    private var memoryStorege = BehaviorSubject<[TodoModel]>(value: TodoModel.makeDummy())
 }
 
 extension MemoryTodoListStorege: TodoListStorege {
-    func read() -> [TodoModel] {
+    func read() -> BehaviorSubject<[TodoModel]> {
         return memoryStorege
     }
     
     func save(to data: TodoModel) {
-        memoryStorege.insert(data, at: 0)
+        if var items = try? memoryStorege.value() {
+            items.insert(data, at: 0)
+            memoryStorege.onNext(items)
+        }
     }
 }
