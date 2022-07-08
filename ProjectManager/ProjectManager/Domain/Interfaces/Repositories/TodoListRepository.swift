@@ -6,8 +6,9 @@
 //
 
 import Foundation
+import RxSwift
 
 protocol TodoListRepository {
-    func read() -> [TodoModel]
+    func read() -> BehaviorSubject<[TodoModel]>
     func save(to data: TodoModel)
 }

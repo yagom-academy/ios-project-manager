@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RxSwift
 
 final class DefaultTodoListRepository {
     private let storege: TodoListStorege
@@ -16,7 +17,7 @@ final class DefaultTodoListRepository {
 }
 
 extension DefaultTodoListRepository: TodoListRepository {
-    func read() -> [TodoModel] {
+    func read() -> BehaviorSubject<[TodoModel]> {
         return storege.read()
     }
     
