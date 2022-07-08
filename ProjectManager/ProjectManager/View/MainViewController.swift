@@ -59,10 +59,14 @@ final class MainViewController: UIViewController {
     }
     
     private func bindTableView(_ tableView: UITableView, lists: Observable<[List]>, headerView: HeaderVIew) {
-        lists.bind(to: tableView.rx.items(cellIdentifier: "\(ListTableViewCell.self)", cellType: ListTableViewCell.self)) { index, item, cell in
+        lists.bind(to: tableView.rx.items(cellIdentifier: "\(ListTableViewCell.self)", cellType: ListTableViewCell.self)) { [weak self] index, item, cell in
+            guard let self = self else {
+                return
+            }
             cell.titleLabel.text = item.title
             cell.bodyLabel.text = item.body
             cell.deadlineLabel.text = item.deadline.dateToString
+            cell.deadlineLabel.textColor = self.mainViewModel.isOverDeadline(list: item) ? .red : .label
         }
         .disposed(by: disposbag)
         

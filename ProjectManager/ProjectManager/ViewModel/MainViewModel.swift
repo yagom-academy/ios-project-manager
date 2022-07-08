@@ -15,6 +15,10 @@ final class MainViewModel {
         addDummyData()
     }
     
+    func isOverDeadline(list: List) -> Bool {
+        return list.type != .done && list.deadline < Date()
+    }
+    
     // MARK: - for test
     private func addDummyData() {
         let todoDummy: [List] = [
