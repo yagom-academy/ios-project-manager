@@ -13,6 +13,7 @@ final class NewFormSheetViewController: UIViewController {
     private let newFormSheetView = FormSheetView()
     private let realm = try? Realm()
     private let uuid = UUID().uuidString
+    weak var delegate: DataReloadable?
     
     override func loadView() {
         super.loadView()
@@ -68,6 +69,7 @@ final class NewFormSheetViewController: UIViewController {
         } catch {
             print("중복된 내용입니다.")
         }
+        delegate?.refreshData()
         dismiss(animated: true)
     }
 }

@@ -115,8 +115,10 @@ final class MainViewController: UIViewController, UIPopoverPresentationControlle
     }
     
     @objc private func showNewFormSheetView() {
+        let newTodoViewContrtoller = NewFormSheetViewController()
+        newTodoViewContrtoller.delegate = self
         let newTodoFormSheet = UINavigationController(
-            rootViewController: NewFormSheetViewController()
+            rootViewController: newTodoViewContrtoller
         )
         newTodoFormSheet.modalPresentationStyle = .formSheet
         present(newTodoFormSheet, animated: true)
@@ -278,6 +280,12 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    private func deleteTask(_ task: Task) {
+        try? realm?.write {
+            realm?.delete(task)
+        }
+    }
+    
     private func deleteCell(
         indexPath: IndexPath,
         at tableView: UITableView
@@ -287,4 +295,22 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
             with: .fade
         )
     }
+}
+
+extension MainViewController: DataReloadable {
+    func refreshData() {
+        fetchData()
+        
+        DispatchQueue.main.async {
+            self.mainView.todoTableView.reloadData()
+            self.mainView.doingTableView.reloadData()
+            self.mainView.doneTableView.reloadData()
+        }
+    }
+    
+    
+}
+
+protocol DataReloadable: NSObject {
+    func refreshData()
 }
