@@ -8,15 +8,16 @@
 import UIKit
 
 final class PopoverView: UIView {
-    private lazy var baseStackView = UIStackView(arrangedSubviews: [
-        moveToToDoButton,
-        moveToDoingButton,
-        moveToDoneButton
-    ]).then {
-        $0.axis = .vertical
-        $0.distribution = .fillEqually
-        $0.spacing = 10
-    }
+    private lazy var baseStackView = UIStackView(
+        arrangedSubviews: [
+            moveToToDoButton,
+            moveToDoingButton,
+            moveToDoneButton
+        ]).then {
+            $0.axis = .vertical
+            $0.distribution = .fillEqually
+            $0.spacing = 10
+        }
     
     private(set) lazy var moveToToDoButton = generatePopoverButton(title: "Move to TODO")
     private(set) lazy var moveToDoingButton = generatePopoverButton(title: "Move to DOING")
@@ -55,10 +56,15 @@ final class PopoverView: UIView {
 }
 
 final class PopoverViewController: UIViewController {
-    let popoverView = PopoverView(frame: .zero)
+    private let popoverView = PopoverView(frame: .zero)
+    
+    override func loadView() {
+        super.loadView()
+        view = popoverView
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view = popoverView
     }
     
     func setPopoverAction(_ task: TaskType) {

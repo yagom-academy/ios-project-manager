@@ -5,9 +5,9 @@
 //  Created by Donnie, Grumpy on 2022/07/06.
 //
 
-import Foundation
+import RealmSwift
 
-enum TaskType {
+enum TaskType: String, PersistableEnum {
     case todo
     case doing
     case done
