@@ -22,6 +22,7 @@
 		4EC236262873DCF9006C9D32 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 4EC236252873DCF9006C9D32 /* RxCocoa */; };
 		4EC236282873DCF9006C9D32 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 4EC236272873DCF9006C9D32 /* RxRelay */; };
 		4EC2362A2873DCF9006C9D32 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4EC236292873DCF9006C9D32 /* RxSwift */; };
+		4ECA28BA2878213600FE8ECE /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECA28B92878213600FE8ECE /* TestData.swift */; };
 		9C9C74A72875CFAA00620DEB /* UITextField+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C9C74A62875CFA900620DEB /* UITextField+extension.swift */; };
 		9CA8DE9928770C620002C2F6 /* Double+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA8DE9828770C620002C2F6 /* Double+extension.swift */; };
 		9CAB039C2873DE6600895A45 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 9CAB039B2873DE6600895A45 /* Realm */; };
@@ -47,6 +48,7 @@
 		4EB3FFCE287580FD0001DBC0 /* NewFormSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewFormSheetViewController.swift; sourceTree = "<group>"; };
 		4EB3FFD0287586200001DBC0 /* TaskHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskHeaderView.swift; sourceTree = "<group>"; };
 		4EB3FFD228758E9F0001DBC0 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		4ECA28B92878213600FE8ECE /* TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
 		8186A352743ECE68B4046D56 /* Pods-ProjectManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.debug.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.debug.xcconfig"; sourceTree = "<group>"; };
 		9C9C74A62875CFA900620DEB /* UITextField+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+extension.swift"; sourceTree = "<group>"; };
 		9CA8DE9828770C620002C2F6 /* Double+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+extension.swift"; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 			children = (
 				9CACE12C28755BE20010E4F0 /* Then.swift */,
 				9CACE133287566D40010E4F0 /* Extension */,
+				4ECA28B92878213600FE8ECE /* TestData.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -329,6 +332,7 @@
 				4EB3FFC228756FDD0001DBC0 /* Task.swift in Sources */,
 				9CA8DE9928770C620002C2F6 /* Double+extension.swift in Sources */,
 				9CACE12D28755BE20010E4F0 /* Then.swift in Sources */,
+				4ECA28BA2878213600FE8ECE /* TestData.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				4EB3FFCF287580FD0001DBC0 /* NewFormSheetViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
