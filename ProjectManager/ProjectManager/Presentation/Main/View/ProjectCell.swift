@@ -79,4 +79,8 @@ final class ProjectCell: UITableViewCell {
             dateLabel.textColor = .red
         }
     }
+    
+    override func prepareForReuse() {
+        dateLabel.textColor = .black
+    }
 }
