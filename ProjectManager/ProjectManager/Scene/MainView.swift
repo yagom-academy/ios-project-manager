@@ -31,74 +31,146 @@ final class MainView: UIView {
     
     // MARK: UIComponents - TableViewHeader
     
+    private let todoHeaderLabel: UILabel = {
+        let label = UILabel()
+        label.text = "TODO"
+        label.font = .preferredFont(forTextStyle: .title2)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private let doingHeaderLabel: UILabel = {
+        let label = UILabel()
+        label.text = "DOING"
+        label.font = .preferredFont(forTextStyle: .title2)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private let doneHeaderLabel: UILabel = {
+        let label = UILabel()
+        label.text = "DONE"
+        label.font = .preferredFont(forTextStyle: .title2)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private let todoHeaderCounter: CircleLabel = {
+        let label = CircleLabel()
+        label.text = " 112221 "
+        label.font = .preferredFont(forTextStyle: .title2)
+        label.backgroundColor = .black
+        label.textColor = .white
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private let doingHeaderCounter: CircleLabel = {
+        let label = CircleLabel()
+        label.text = " 2 "
+        label.font = .preferredFont(forTextStyle: .title2)
+        label.backgroundColor = .black
+        label.textColor = .white
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private let doneHeaderCounter: CircleLabel = {
+        let label = CircleLabel()
+        label.text = " 3 "
+        label.font = .preferredFont(forTextStyle: .title2)
+        label.backgroundColor = .black
+        label.textColor = .white
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     private let todoHeaderView: UIView = {
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: 150, height: 100))
+        let view = UIView()
         view.backgroundColor = .systemGray6
-        
-        let title = UILabel(frame: view.bounds)
-        title.text = "TODO"
-        title.font = .preferredFont(forTextStyle: .title2)
-        
-        view.addSubview(title)
+        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
     private let doingHeaderView: UIView = {
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: 150, height: 100))
+        let view = UIView()
         view.backgroundColor = .systemGray6
-        
-        let title = UILabel(frame: view.bounds)
-        title.text = "DOING"
-        title.font = .preferredFont(forTextStyle: .title2)
-        
-        view.addSubview(title)
+        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
     private let doneHeaderView: UIView = {
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: 150, height: 100))
+        let view = UIView()
         view.backgroundColor = .systemGray6
-        
-        let title = UILabel(frame: view.bounds)
-        title.text = "DONE"
-        title.font = .preferredFont(forTextStyle: .title2)
-        
-        view.addSubview(title)
+        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
 
     // MARK: UIComponents - TableView
     
     let todoTableView: UITableView = {
-        let tableView = UITableView(frame: .zero, style: .grouped)
+        let tableView = UITableView(frame: .zero)
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.backgroundColor = .systemGray6
         return tableView
     }()
     
     let doingTableView: UITableView = {
-        let tableView = UITableView(frame: .zero, style: .grouped)
+        let tableView = UITableView(frame: .zero)
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.backgroundColor = .systemGray6
         return tableView
     }()
     
     let doneTableView: UITableView = {
-        let tableView = UITableView(frame: .zero, style: .grouped)
+            let tableView = UITableView(frame: .zero)
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.backgroundColor = .systemGray6
         return tableView
+    }()
+    
+    private let todoStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.spacing = 10
+        stackView.axis = .vertical
+        stackView.distribution = .fill
+        return stackView
+    }()
+    
+    private let doingStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.spacing = 10
+        stackView.axis = .vertical
+        stackView.distribution = .fill
+        return stackView
+    }()
+    
+    private let doneStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.spacing = 10
+        stackView.axis = .vertical
+        stackView.distribution = .fill
+        return stackView
     }()
     
     // MARK: setUp
     
     private func setUp() {
+        backgroundColor = .white
         setUpSubView()
-        setTableViewHeader()
         setConstraint()
+        setUpHeader()
     }
     
     private func setUpSubView() {
-        backgroundColor = .white
+        todoStackView.addSubViews(todoHeaderView, todoTableView)
+        doingStackView.addSubViews(doingHeaderView, doingTableView)
+        doneStackView.addSubViews(doneHeaderView, doneTableView)
+        tableStackView.addSubViews(todoStackView, doingStackView, doneStackView)
         addSubview(tableStackView)
-        tableStackView.addSubViews(todoTableView, doingTableView, doneTableView)
     }
     
     private func setConstraint() {
@@ -110,15 +182,42 @@ final class MainView: UIView {
         ])
         
         NSLayoutConstraint.activate([
-            todoTableView.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, multiplier: 0.3),
-            doingTableView.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, multiplier: 0.3),
-            doneTableView.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, multiplier: 0.3)
+            todoStackView.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, multiplier: 0.3),
+            doingStackView.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, multiplier: 0.3),
+            doneStackView.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, multiplier: 0.3),
+            todoTableView.widthAnchor.constraint(equalTo: todoStackView.widthAnchor),
+            doingTableView.widthAnchor.constraint(equalTo: doingTableView.widthAnchor),
+            doneTableView.widthAnchor.constraint(equalTo: doneTableView.widthAnchor),
+            todoHeaderView.widthAnchor.constraint(equalTo: todoTableView.widthAnchor),
+            doingHeaderView.widthAnchor.constraint(equalTo: doingTableView.widthAnchor),
+            doneHeaderView.widthAnchor.constraint(equalTo: doneTableView.widthAnchor),
+            todoHeaderView.heightAnchor.constraint(equalToConstant: 50),
+            doingHeaderView.heightAnchor.constraint(equalToConstant: 50),
+            doneHeaderView.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
     
-    private func setTableViewHeader() {
-        todoTableView.tableHeaderView = todoHeaderView
-        doingTableView.tableHeaderView = doingHeaderView
-        doneTableView.tableHeaderView = doneHeaderView
+    private func setUpHeader() {
+        todoHeaderView.addSubview(todoHeaderLabel)
+        doingHeaderView.addSubview(doingHeaderLabel)
+        doneHeaderView.addSubview(doneHeaderLabel)
+        todoHeaderView.addSubview(todoHeaderCounter)
+        doingHeaderView.addSubview(doingHeaderCounter)
+        doneHeaderView.addSubview(doneHeaderCounter)
+        
+        NSLayoutConstraint.activate([
+            todoHeaderLabel.leadingAnchor.constraint(equalTo: todoHeaderView.leadingAnchor),
+            doingHeaderLabel.leadingAnchor.constraint(equalTo: doingHeaderView.leadingAnchor),
+            doneHeaderLabel.leadingAnchor.constraint(equalTo: doneHeaderView.leadingAnchor),
+            todoHeaderLabel.bottomAnchor.constraint(equalTo: todoHeaderView.bottomAnchor),
+            doingHeaderLabel.bottomAnchor.constraint(equalTo: doingHeaderView.bottomAnchor),
+            doneHeaderLabel.bottomAnchor.constraint(equalTo: doneHeaderView.bottomAnchor),
+            todoHeaderLabel.trailingAnchor.constraint(equalTo: todoHeaderCounter.leadingAnchor),
+            doingHeaderLabel.trailingAnchor.constraint(equalTo: doingHeaderCounter.leadingAnchor),
+            doneHeaderLabel.trailingAnchor.constraint(equalTo: doneHeaderCounter.leadingAnchor),
+            todoHeaderLabel.bottomAnchor.constraint(equalTo: todoHeaderCounter.bottomAnchor),
+            doingHeaderLabel.bottomAnchor.constraint(equalTo: doingHeaderCounter.bottomAnchor),
+            doneHeaderLabel.bottomAnchor.constraint(equalTo: doneHeaderCounter.bottomAnchor)
+        ])
     }
 }
