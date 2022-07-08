@@ -9,19 +9,19 @@ import Foundation
 import RxSwift
 
 final class DefaultTodoListRepository {
-    private let storege: TodoListStorege
+    private let storage: TodoListStorege
     
-    init(storege: TodoListStorege) {
-        self.storege = storege
+    init(storage: TodoListStorege) {
+        self.storage = storage
     }
 }
 
 extension DefaultTodoListRepository: TodoListRepository {
     func read() -> BehaviorSubject<[TodoModel]> {
-        return storege.read()
+        return storage.read()
     }
     
     func save(to data: TodoModel) {
-        storege.save(to: data)
+        storage.save(to: data)
     }
 }
