@@ -26,15 +26,13 @@ final class TodoListSceneCoordinator {
         self.dependencies = dependencies
     }
     
+    // MARK: View Transition
+    
     func start() {
         let todoListViewController = dependencies.makeTodoListViewController(actions: makeTodoListActions())
         navigationController?.pushViewController(todoListViewController, animated: true)
         
         self.todoListViewController = todoListViewController
-    }
-    
-    private func makeTodoListActions() -> TodoListActions {
-        return TodoListActions(showDetailView: showTodoDetailView)
     }
     
     private func showTodoDetailView(_ item: TodoListModel) {
@@ -50,11 +48,17 @@ final class TodoListSceneCoordinator {
         self.todoDetailViewController = todoDetailViewController
     }
     
-    private func makeTodoDetailActions() -> TodoDetailActions {
-        return TodoDetailActions(dismiss: dismissTodoDetailView)
-    }
-    
     private func dismissTodoDetailView() {
         self.todoDetailViewController?.dismiss(animated: true)
+    }
+    
+    // MARK: Action
+    
+    private func makeTodoListActions() -> TodoListActions {
+        return TodoListActions(showDetailView: showTodoDetailView)
+    }
+    
+    private func makeTodoDetailActions() -> TodoDetailActions {
+        return TodoDetailActions(dismiss: dismissTodoDetailView)
     }
 }

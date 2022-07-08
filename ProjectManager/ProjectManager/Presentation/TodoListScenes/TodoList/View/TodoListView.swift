@@ -104,5 +104,4 @@ final class TodoListView: UIView {
         doingTableView.delegate = tableViewDelegate
         doneTableView.delegate = tableViewDelegate
     }
-    
 }

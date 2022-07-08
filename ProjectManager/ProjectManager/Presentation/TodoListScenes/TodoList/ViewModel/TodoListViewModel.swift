@@ -43,9 +43,9 @@ final class DefaultTodoListViewModel: TodoListViewModel {
     }
     
     private let actions: TodoListActions
-    private let useCase: UseCase
+    private let useCase: TodoListUseCase
     
-    init(actions: TodoListActions, useCase: UseCase) {
+    init(actions: TodoListActions, useCase: TodoListUseCase) {
         self.actions = actions
         self.useCase = useCase
     }

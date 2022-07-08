@@ -16,25 +16,25 @@ protocol Storage {
 }
 
 final class MemoryStorage: Storage {
-    @Published var datas: [TodoListModel] = TodoListModel.dummyData()
+    @Published var items: [TodoListModel] = TodoListModel.dummyData()
     
     func create(_ item: TodoListModel) {
-        datas.append(item)
+        items.append(item)
     }
     
     func read() -> AnyPublisher<[TodoListModel], Never> {
-        $datas.eraseToAnyPublisher()
+        $items.eraseToAnyPublisher()
     }
     
     func update(_ item: TodoListModel) {
-        if let targetIndex = datas.firstIndex(where: { $0.id == item.id }) {
-            datas[targetIndex] = item
+        if let targetIndex = items.firstIndex(where: { $0.id == item.id }) {
+            items[targetIndex] = item
         }
     }
     
     func delete(_ item: TodoListModel) {
-        if let index = datas.firstIndex(of: item) {
-            datas.remove(at: index)
+        if let index = items.firstIndex(of: item) {
+            items.remove(at: index)
         }
     }
 }

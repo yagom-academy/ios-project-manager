@@ -1,5 +1,5 @@
 //
-//  TodoListRepository.swift
+//  DefaultTodoListRepository.swift
 //  ProjectManager
 //
 //  Created by 김도연 on 2022/07/06.
@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-final class TodoListRepository {
+final class DefaultTodoListRepository {
     private let storage: Storage
     
     init(storage: Storage) {
@@ -16,7 +16,7 @@ final class TodoListRepository {
     }
 }
 
-extension TodoListRepository: Repository {
+extension DefaultTodoListRepository: TodoListRepository {
     func create(_ item: TodoListModel) {
         storage.create(item)
     }

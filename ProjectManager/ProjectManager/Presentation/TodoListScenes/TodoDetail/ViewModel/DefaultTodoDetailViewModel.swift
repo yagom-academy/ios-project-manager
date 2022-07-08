@@ -13,10 +13,12 @@ protocol TodoDetailViewModelInput {
     func doneButtonDidTap(title: String, content: String, deadLine: Date)
     func editButtonDidTap()
 }
+
 protocol TodoDetailViewModelOutput {
     var item: Just<TodoListModel> { get }
     var isCreate: CurrentValueSubject<Bool, Never> { get }
 }
+
 protocol TodoDetailViewModel: TodoDetailViewModelInput, TodoDetailViewModelOutput {}
 
 struct TodoDetailActions {
@@ -35,9 +37,9 @@ final class DefaultTodoDetailViewModel: TodoDetailViewModel {
 
     private let todoListModel: TodoListModel
     private let actions: TodoDetailActions
-    private let useCase: UseCase
+    private let useCase: TodoListUseCase
     
-    init(actions: TodoDetailActions, useCase: UseCase, todoListModel: TodoListModel) {
+    init(actions: TodoDetailActions, useCase: TodoListUseCase, todoListModel: TodoListModel) {
         self.actions = actions
         self.useCase = useCase
         self.todoListModel = todoListModel
