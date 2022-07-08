@@ -17,6 +17,30 @@
 - [![xcode](https://img.shields.io/badge/SnapKit-5.6-skyblue)]()
 - [![xcode](https://img.shields.io/badge/SwiftLint-red)]()
 
+## 저장소 선택
+아직 구현단계는 아니지만 추후 구현하게 될 저장소에 대해 아래와 같은 고민을 하였음
+
+### 로컬 저장소
+일단 로컬 저장소는 `CoreData`와 `Realm` 둘 사이에서 고민을 하다 `Realm`으로 선택을 하게 되었는데 
+가장 큰 이유는 세 가지임
+1. iOS와 Android를 모두 지원해 두 플랫폼간 호환이 가능하다
+2. Realm이 속도가 더 빠르다
+3. CoreData는 사용을 해봤기에 처음 접해보는 Realm을 사용해 보고 싶음
+
+위와 같은 이유로 로컬 저장소는 `Realm`을 선택
+
+
+### 원격 저장소
+원격 저장소는 가장 많이 알려진 `Firebase`, `iCloud`, `Dropbox` 이 세가지 중에서 고민을 했었는데
+
+로컬저장소와 마찬가지로 Android와의 호환성을 위해 `iCloud`는 제외하였고 `Dropbox`의 경우에는 자료를 찾아보기가 생각보다 힘들어서 `Firebase`를 선택하게 되었음
+
+#### Realtime Database vs  Cloud Firestore
+`Firebase`내에서도 두 가지 데이터 베이스가 존재하였는데 이번 `프로젝트 관리 앱`같은 경우는 대용량 데이터를 주고받을 일이 없기도 하고 일단 `Firebase`홈페이지에
+![](https://i.imgur.com/wjCcxwx.png)
+이런 내용이 있기도 했고 아래 고려사항 체크도 해보니 `Realtime Database`가 더 적합한 것으로 확인되어 선택하게 되었음
+
+
 ## Trouble Shooting
 ### 1. 뷰컨트롤러에 구성 vs 뷰 생성후 뷰컨트롤러에서 사용
 mvvm 패턴을 구현함에 있어 viewcontroller도 뷰의 역할을 하도록 하려고 했는데 지금 
