@@ -63,6 +63,10 @@ extension DefaultTodoDetailViewModel {
     }
     
     func doneButtonDidTap(title: String, content: String, deadLine: Date) {
+        if title.isEmpty && content.isEmpty {
+            return
+        }
+        
         useCase.update(TodoListModel(title: title, content: content, deadLine: deadLine, id: todoListModel!.id))
         actions.dismiss()
     }
