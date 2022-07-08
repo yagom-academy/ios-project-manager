@@ -12,7 +12,9 @@ struct ProjectManagerView: View {
   @State private var isShowDetailView = false
   
   init(viewModel: TodoViewModel) {
-    UINavigationBar.appearance().backgroundColor = UIColor.systemGray6
+    let navigationBarApperance = UINavigationBarAppearance()
+    navigationBarApperance.backgroundColor = UIColor.systemGray6
+    UINavigationBar.appearance().scrollEdgeAppearance = navigationBarApperance
 
     self.viewModel = viewModel
   }
