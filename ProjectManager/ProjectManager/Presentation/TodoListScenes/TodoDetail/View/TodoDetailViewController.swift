@@ -37,6 +37,35 @@ final class TodoDetailViewController: UIViewController {
                 self?.todoDetailView.contentTextView.text = item?.content
             }
             .store(in: &cancellables)
+        
+        viewModel.isCreate
+            .sink { [weak self] state in
+                // TODO: view에 메서드로 빼기
+                self?.todoDetailView.titleTextField.isUserInteractionEnabled = state
+                self?.todoDetailView.datePicker.isUserInteractionEnabled = state
+                self?.todoDetailView.contentTextView.isUserInteractionEnabled = state
+                
+                if state {
+                    let cancelAction = UIAction { [weak self] _ in
+                        self?.viewModel.closeButtonDidTap()
+                    }
+                    
+                    self?.navigationItem.leftBarButtonItem = UIBarButtonItem(
+                        systemItem: .cancel,
+                        primaryAction: cancelAction
+                    )
+                } else {
+                    let editAction = UIAction { [weak self] _ in
+                        self?.viewModel.editButtonDidTap()
+                    }
+                    
+                    self?.navigationItem.leftBarButtonItem = UIBarButtonItem(
+                        systemItem: .edit,
+                        primaryAction: editAction
+                    )
+                }
+            }
+            .store(in: &cancellables)
     }
     
     private func setup() {
@@ -58,11 +87,7 @@ final class TodoDetailViewController: UIViewController {
     private func setupView() {
         view.backgroundColor = .systemBackground
         title = "TODO"
-        
-        let cancelAction = UIAction { [weak self] _ in
-            self?.viewModel.closeButtonDidTap()
-        }
-        
+
         let doneAction = UIAction { [weak self] _ in
             guard let title = self?.todoDetailView.titleTextField.text,
                   let content = self?.todoDetailView.contentTextView.text,
@@ -72,8 +97,6 @@ final class TodoDetailViewController: UIViewController {
             }
             self?.viewModel.doneButtonDidTap(title: title, content: content, deadLine: deadLine)
         }
-        
-        navigationItem.leftBarButtonItem = UIBarButtonItem(systemItem: .cancel, primaryAction: cancelAction)
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .done, primaryAction: doneAction)
     }

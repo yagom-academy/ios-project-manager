@@ -11,9 +11,11 @@ import Combine
 protocol TodoDetailViewModelInput {
     func closeButtonDidTap()
     func doneButtonDidTap(title: String, content: String, deadLine: Date)
+    func editButtonDidTap()
 }
 protocol TodoDetailViewModelOutput {
     var item: Just<TodoListModel?> { get }
+    var isCreate: CurrentValueSubject<Bool, Never> { get }
 }
 protocol TodoDetailViewModel: TodoDetailViewModelInput, TodoDetailViewModelOutput {}
 
@@ -28,6 +30,8 @@ final class DefaultTodoDetailViewModel: TodoDetailViewModel {
     var item: Just<TodoListModel?> {
         return Just(todoListModel)
     }
+    
+    var isCreate = CurrentValueSubject<Bool, Never>(true)
 
     private let todoListModel: TodoListModel?
     private let actions: TodoDetailActions
@@ -37,6 +41,12 @@ final class DefaultTodoDetailViewModel: TodoDetailViewModel {
         self.actions = actions
         self.useCase = useCase
         self.todoListModel = todoListModel
+        
+        if todoListModel == nil {
+            isCreate.send(true)
+        } else {
+            isCreate.send(false)
+        }
     }
 }
 
@@ -51,5 +61,9 @@ extension DefaultTodoDetailViewModel {
     func doneButtonDidTap(title: String, content: String, deadLine: Date) {
         useCase.create(TodoListModel(title: title, content: content, deadLine: deadLine))
         actions.dismiss()
+    }
+    
+    func editButtonDidTap() {
+        isCreate.send(true)
     }
 }
