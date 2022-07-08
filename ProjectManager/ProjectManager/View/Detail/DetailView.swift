@@ -56,6 +56,7 @@ final class DetailView: UIView {
     
     lazy var titleTextField: UITextField = {
         let textField = UITextField()
+        textField.font = UIFont.preferredFont(forTextStyle: .title2)
         textField.borderStyle = .roundedRect
         
         return textField
@@ -71,6 +72,7 @@ final class DetailView: UIView {
     
     lazy var bodyTextView: UITextView = {
         let textView = UITextView()
+        textView.font = UIFont.preferredFont(forTextStyle: .title3)
         textView.layer.borderWidth = 1
         textView.layer.borderColor = UIColor.systemGray2.cgColor
         return textView
