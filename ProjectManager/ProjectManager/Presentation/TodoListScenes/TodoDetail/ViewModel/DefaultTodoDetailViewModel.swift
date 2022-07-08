@@ -69,7 +69,15 @@ extension DefaultTodoDetailViewModel {
             return
         }
         
-        useCase.update(TodoListModel(title: title, content: content, deadLine: deadLine, id: todoListModel.id))
+        useCase.update(
+            TodoListModel(
+                title: title,
+                content: content,
+                deadLine: deadLine,
+                processType: todoListModel.processType,
+                id: todoListModel.id
+            )
+        )
         actions.dismiss()
     }
     
