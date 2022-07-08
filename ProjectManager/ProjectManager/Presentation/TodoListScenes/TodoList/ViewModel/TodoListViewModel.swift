@@ -11,6 +11,7 @@ import Combine
 protocol TodoListViewModelInput {
     func deleteItem(_ item: TodoListModel)
     func addButtonDidTap()
+    func cellDidTap(_ item: TodoListModel)
 }
 
 protocol TodoListViewModelOutput {
@@ -68,5 +69,9 @@ extension DefaultTodoListViewModel {
     
     func deleteItem(_ item: TodoListModel) {
         useCase.delete(item: item)
+    }
+    
+    func cellDidTap(_ item: TodoListModel) {
+        actions.showDetailView(item)
     }
 }
