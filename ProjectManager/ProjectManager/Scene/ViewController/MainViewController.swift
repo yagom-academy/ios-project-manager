@@ -273,6 +273,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         } else {
             showEditFormSheetView(task: dones, indexPath: indexPath)
         }
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     private func showEditFormSheetView(
