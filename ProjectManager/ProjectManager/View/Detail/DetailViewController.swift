@@ -10,7 +10,7 @@ import UIKit
 final class DetailViewController: UIViewController {
     init(list: List?) {
         super.init(nibName: nil, bundle: nil)
-        setInitialView(listType: list?.type)
+        setInitialView(list: list)
     }
     
     required init?(coder: NSCoder) {
@@ -23,9 +23,16 @@ final class DetailViewController: UIViewController {
         super.viewDidLoad()
     }
     
-    private func setInitialView(listType: ListType?) {
-        let title = listType?.title ?? ListType.todo.title
-        detailView.naviItem.title = title
+    private func setInitialView(list: List?) {
         self.view = detailView
+        guard let list = list else {
+            detailView.naviItem.title = ListType.todo.title
+            return
+        }
+        detailView.naviItem.title = list.type.title
+        detailView.cancleButton.title = "Edit"
+        detailView.titleTextField.text = list.title
+        detailView.deadlinePicker.date = list.deadline
+        detailView.bodyTextView.text = list.body
     }
 }
