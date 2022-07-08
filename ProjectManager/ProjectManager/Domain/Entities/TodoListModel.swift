@@ -11,7 +11,7 @@ struct TodoListModel: Hashable {
     let title: String
     let content: String
     let deadLine: Date
-    var processType: ProcessType
+    var processType: ProcessType = .todo
 }
 
 #if DEBUG

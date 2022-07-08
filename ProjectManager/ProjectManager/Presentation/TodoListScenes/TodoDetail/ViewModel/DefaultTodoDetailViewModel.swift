@@ -38,6 +38,7 @@ extension DefaultTodoDetailViewModel {
     }
     
     func doneButtonDidTap(title: String, content: String, deadLine: Date) {
+        useCase.create(TodoListModel(title: title, content: content, deadLine: deadLine))
         actions.dismiss()
     }
 }

@@ -17,11 +17,15 @@ final class TodoListRepository {
 }
 
 extension TodoListRepository: Repository {
+    func create(_ item: TodoListModel) {
+        storage.create(item)
+    }
+    
     func read() -> AnyPublisher<[TodoListModel], Never> {
         return storage.read()
     }
     
     func delete(item: TodoListModel) {
-        storage.delete(item: item)
+        storage.delete(item)
     }
 }

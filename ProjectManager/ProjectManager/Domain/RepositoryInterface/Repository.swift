@@ -9,6 +9,7 @@ import Foundation
 import Combine
 
 protocol Repository {
+    func create(_ item: TodoListModel)
     func read() -> AnyPublisher<[TodoListModel], Never>
     func delete(item: TodoListModel)
 }

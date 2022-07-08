@@ -9,6 +9,7 @@ import Foundation
 import Combine
 
 protocol UseCase {
+    func create(_ item: TodoListModel)
     func read() -> AnyPublisher<[TodoListModel], Never>
     func delete(item: TodoListModel)
 }
@@ -22,8 +23,12 @@ final class TodoListUseCase: UseCase {
 }
 
 extension TodoListUseCase {
+    func create(_ item: TodoListModel) {
+        repository.create(item)
+    }
+    
     func read() -> AnyPublisher<[TodoListModel], Never> {
-        repository.read()
+        return repository.read()
     }
     
     func delete(item: TodoListModel) {

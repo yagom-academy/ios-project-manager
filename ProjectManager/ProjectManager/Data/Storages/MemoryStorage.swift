@@ -9,18 +9,23 @@ import Foundation
 import Combine
 
 protocol Storage {
+    func create(_ item: TodoListModel)
     func read() -> AnyPublisher<[TodoListModel], Never>
-    func delete(item: TodoListModel)
+    func delete(_ item: TodoListModel)
 }
 
 final class MemoryStorage: Storage {
     @Published var datas: [TodoListModel] = TodoListModel.dummyData()
     
+    func create(_ item: TodoListModel) {
+        datas.append(item)
+    }
+    
     func read() -> AnyPublisher<[TodoListModel], Never> {
         $datas.eraseToAnyPublisher()
     }
     
-    func delete(item: TodoListModel) {
+    func delete(_ item: TodoListModel) {
         if let index = datas.firstIndex(of: item) {
             datas.remove(at: index)
         }
