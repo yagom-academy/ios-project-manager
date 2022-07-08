@@ -11,6 +11,7 @@ import Combine
 protocol UseCase {
     func create(_ item: TodoListModel)
     func read() -> AnyPublisher<[TodoListModel], Never>
+    func update(_ item: TodoListModel)
     func delete(item: TodoListModel)
     func deleteLastItem()
 }
@@ -30,6 +31,10 @@ extension TodoListUseCase {
     
     func read() -> AnyPublisher<[TodoListModel], Never> {
         return repository.read()
+    }
+    
+    func update(_ item: TodoListModel) {
+        repository.update(item)
     }
     
     func delete(item: TodoListModel) {

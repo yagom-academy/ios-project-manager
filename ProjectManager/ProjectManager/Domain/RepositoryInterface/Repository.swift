@@ -11,6 +11,7 @@ import Combine
 protocol Repository {
     func create(_ item: TodoListModel)
     func read() -> AnyPublisher<[TodoListModel], Never>
+    func update(_ item: TodoListModel)
     func delete(item: TodoListModel)
     func deleteLastItem()
 }

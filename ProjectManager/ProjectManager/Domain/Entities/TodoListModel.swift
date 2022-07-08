@@ -8,10 +8,19 @@
 import Foundation
 
 struct TodoListModel: Hashable {
+    let id: String
     let title: String
     let content: String
     let deadLine: Date
-    var processType: ProcessType = .todo
+    var processType: ProcessType
+    
+    init(title: String, content: String, deadLine: Date, processType: ProcessType = .todo, id: String = UUID().uuidString) {
+        self.id = id
+        self.title = title
+        self.content = content
+        self.deadLine = deadLine
+        self.processType = processType
+    }
 }
 
 #if DEBUG

@@ -42,7 +42,7 @@ final class DefaultTodoDetailViewModel: TodoDetailViewModel {
         self.useCase = useCase
         self.todoListModel = todoListModel
         
-        if todoListModel == nil {
+        if todoListModel?.title == "" && todoListModel?.content == "" {
             isCreate.send(true)
         } else {
             isCreate.send(false)
@@ -55,7 +55,7 @@ extension DefaultTodoDetailViewModel {
     // MARK: - Input
     
     func closeButtonDidTap() {
-        if todoListModel == nil {
+        if todoListModel?.title == "" && todoListModel?.content == "" {
             useCase.deleteLastItem()
         }
         
@@ -63,7 +63,7 @@ extension DefaultTodoDetailViewModel {
     }
     
     func doneButtonDidTap(title: String, content: String, deadLine: Date) {
-        useCase.create(TodoListModel(title: title, content: content, deadLine: deadLine))
+        useCase.update(TodoListModel(title: title, content: content, deadLine: deadLine, id: todoListModel!.id))
         actions.dismiss()
     }
     

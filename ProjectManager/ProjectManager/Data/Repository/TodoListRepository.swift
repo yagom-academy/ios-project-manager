@@ -25,6 +25,10 @@ extension TodoListRepository: Repository {
         return storage.read()
     }
     
+    func update(_ item: TodoListModel) {
+        storage.update(item)
+    }
+    
     func delete(item: TodoListModel) {
         storage.delete(item)
     }
