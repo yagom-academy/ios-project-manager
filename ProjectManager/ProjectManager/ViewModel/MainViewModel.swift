@@ -17,10 +17,11 @@ final class MainViewModel {
         addDummyData()
     }
     
+    // MARK: - for test
     private func addDummyData() {
         let todoDummy: [List] = [
-            List(title: "안녕이요", body: "네 저는 안녕이에요?", deadline: Date(), type: .todo),
-            List(title: "안녕", body: "네 저는 안니근데 이렇게 죽ㅈ길게 써볼라는데 너는 뭐야!라이에요?", deadline: Date(), type: .todo),
+            List(title: "안녕이요", body: "네 저는 안녕이에요?", deadline: Date(timeIntervalSince1970: 7531235), type: .todo),
+            List(title: "안녕", body: "네 저는 안니근데 이렇게 죽ㅈ길게 써볼라는데 너는 뭐야!라이에요?", deadline: Date(timeIntervalSince1970: 751231235), type: .todo),
             List(title: "그래맞아", body: "네 \n저는 \n그래그래에요? \n그러면 말입니다", deadline: Date(), type: .todo)
         ]
         
