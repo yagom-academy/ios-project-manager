@@ -23,9 +23,8 @@ class TodoListViewModelTests: XCTestCase {
         let expected = 4
         var result: [TodoListModel] = []
         
-        viewModel.addButtonDidTap()
-        
         // when
+        viewModel.addButtonDidTap()
         _ = viewModel.todoItems.sink { items in
             result = items
             expectation.fulfill()
