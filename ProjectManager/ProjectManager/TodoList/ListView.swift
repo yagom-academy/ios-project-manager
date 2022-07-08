@@ -111,6 +111,7 @@ final class ListView: UIView {
     
     private func bind() {
         self.viewModel.tableViewData?
+            .map { $0.filter { $0.mode == self.mode } }
             .bind(to: self.tableView.rx.items) { tabelView, row, element in
                 guard let cell = tabelView.dequeueReusableCell(
                     withIdentifier: TodoListCell.identifier,
@@ -122,6 +123,13 @@ final class ListView: UIView {
                 
                 return cell
             }
+            .disposed(by: disposeBag)
+        
+        self.viewModel.tableViewData?
+            .map { $0.filter { $0.mode == self.mode }}
+            .map { String($0.count) }
+            .observe(on: MainScheduler.instance)
+            .bind(to: self.listCountLabel.rx.text)
             .disposed(by: disposeBag)
     }
 }

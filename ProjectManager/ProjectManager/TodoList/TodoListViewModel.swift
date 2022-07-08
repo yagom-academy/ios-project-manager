@@ -21,6 +21,5 @@ final class TodoListViewModel {
     
     init() {
         self.tableViewData = BehaviorSubject(value: self.mockData)
-        
     }
 }
