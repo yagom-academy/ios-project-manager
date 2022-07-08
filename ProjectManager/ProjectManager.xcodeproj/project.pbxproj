@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B009119828781F44007074E5 /* CardListViewModelItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B009119728781F44007074E5 /* CardListViewModelItem.swift */; };
 		B01748BB2877141A00EE15B0 /* CardAdditionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01748BA2877141A00EE15B0 /* CardAdditionViewController.swift */; };
 		B01748BD287732C300EE15B0 /* CardDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01748BC287732C300EE15B0 /* CardDetailViewController.swift */; };
 		B01748BF287744DF00EE15B0 /* CardEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01748BE287744DF00EE15B0 /* CardEditView.swift */; };
@@ -28,6 +29,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B009119728781F44007074E5 /* CardListViewModelItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListViewModelItem.swift; sourceTree = "<group>"; };
 		B01748BA2877141A00EE15B0 /* CardAdditionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardAdditionViewController.swift; sourceTree = "<group>"; };
 		B01748BC287732C300EE15B0 /* CardDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetailViewController.swift; sourceTree = "<group>"; };
 		B01748BE287744DF00EE15B0 /* CardEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardEditView.swift; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				B01DCDD22873485000AFF91A /* CardListViewModel.swift */,
+				B009119728781F44007074E5 /* CardListViewModelItem.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -248,6 +251,7 @@
 				B01748BB2877141A00EE15B0 /* CardAdditionViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				B032CDA82873F3610087383E /* AppAppearance.swift in Sources */,
+				B009119828781F44007074E5 /* CardListViewModelItem.swift in Sources */,
 				B0EF5B18287522E000A503A9 /* CardSectionView.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				B01748BF287744DF00EE15B0 /* CardEditView.swift in Sources */,
