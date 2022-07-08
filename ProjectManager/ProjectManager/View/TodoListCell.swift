@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TodoListCell: View {
-  let todo: Todo
+  @ObservedObject var todo: Todo
   
   init(_ todo: Todo) {
     self.todo = todo
