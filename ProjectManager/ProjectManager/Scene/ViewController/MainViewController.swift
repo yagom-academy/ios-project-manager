@@ -259,19 +259,22 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     ) {
         if editingStyle == .delete {
             if tableView == mainView.todoTableView {
-                todos.remove(at: indexPath.row)
+                deleteTask(todos[indexPath.row])
+                fetchToDo()
                 deleteCell(
                     indexPath: indexPath,
                     at: mainView.todoTableView
                 )
             } else if tableView == mainView.doingTableView {
-                doings.remove(at: indexPath.row)
+                deleteTask(doings[indexPath.row])
+                fetchDoing()
                 deleteCell(
                     indexPath: indexPath,
                     at: mainView.doingTableView
                 )
             } else {
-                dones.remove(at: indexPath.row)
+                deleteTask(dones[indexPath.row])
+                fetchDone()
                 deleteCell(
                     indexPath: indexPath,
                     at: mainView.doneTableView
