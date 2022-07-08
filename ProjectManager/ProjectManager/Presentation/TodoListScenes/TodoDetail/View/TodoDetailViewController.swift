@@ -51,7 +51,13 @@ final class TodoDetailViewController: UIViewController {
         }
         
         let doneAction = UIAction { [weak self] _ in
-            
+            guard let title = self?.todoDetailView.titleTextField.text,
+                  let content = self?.todoDetailView.contentTextView.text,
+                  let deadLine = self?.todoDetailView.datePicker.date
+            else {
+                return
+            }
+            self?.viewModel.doneButtonDidTap(title: title, content: content, deadLine: deadLine)
         }
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(systemItem: .cancel, primaryAction: cancelAction)

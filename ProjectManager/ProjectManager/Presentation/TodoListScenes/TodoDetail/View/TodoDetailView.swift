@@ -14,7 +14,7 @@ final class TodoDetailView: UIView {
         return stackView
     }()
     
-    private let titleTextField: UITextField = {
+    let titleTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Title"
         textField.borderStyle = .roundedRect
@@ -34,14 +34,14 @@ final class TodoDetailView: UIView {
         return textField
     }()
     
-    private let datePicker: UIDatePicker = {
+    let datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .date
         datePicker.preferredDatePickerStyle = .wheels
         return datePicker
     }()
     
-    private let contentTextView: UITextView = {
+    let contentTextView: UITextView = {
         let textView = UITextView()
         textView.layer.borderColor = UIColor.systemGray5.cgColor
         textView.layer.borderWidth = 1

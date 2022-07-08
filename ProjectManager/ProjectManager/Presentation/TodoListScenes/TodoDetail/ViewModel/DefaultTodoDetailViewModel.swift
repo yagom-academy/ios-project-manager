@@ -9,6 +9,7 @@ import Foundation
 
 protocol TodoDetailViewModelInput {
     func closeButtonDidTap()
+    func doneButtonDidTap(title: String, content: String, deadLine: Date)
 }
 protocol TodoDetailViewModelOutput {}
 protocol TodoDetailViewModel: TodoDetailViewModelInput, TodoDetailViewModelOutput {}
@@ -18,7 +19,7 @@ struct TodoDetailActions {
 }
 
 final class DefaultTodoDetailViewModel: TodoDetailViewModel {
-    
+
     private let actions: TodoDetailActions
     private let useCase: UseCase
     
@@ -33,6 +34,10 @@ extension DefaultTodoDetailViewModel {
     // MARK: - Input
     
     func closeButtonDidTap() {
+        actions.dismiss()
+    }
+    
+    func doneButtonDidTap(title: String, content: String, deadLine: Date) {
         actions.dismiss()
     }
 }
