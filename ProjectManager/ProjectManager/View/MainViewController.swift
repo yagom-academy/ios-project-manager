@@ -62,7 +62,7 @@ final class MainViewController: UIViewController {
         lists.bind(to: tableView.rx.items(cellIdentifier: "\(ListTableViewCell.self)", cellType: ListTableViewCell.self)) { index, item, cell in
             cell.titleLabel.text = item.title
             cell.bodyLabel.text = item.body
-            cell.deadlineLabel.text = item.deadline.description
+            cell.deadlineLabel.text = item.deadline.dateToString
         }
         .disposed(by: disposbag)
         
