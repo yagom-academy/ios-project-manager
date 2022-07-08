@@ -14,24 +14,6 @@ final class TodoDetailView: UIView {
         return stackView
     }()
     
-    private lazy var navigationBar: UINavigationBar = {
-        let navigationBar = UINavigationBar(frame: CGRect(x: .zero, y: .zero, width: bounds.width, height: 50))
-        navigationBar.items = [navigationBarItem]
-        navigationBar.barTintColor = .white
-        navigationBar.shadowImage = UIImage()
-        return navigationBar
-    }()
-    
-    let navigationBarItem: UINavigationItem = {
-        let navigationBarItem = UINavigationItem(title: "")
-        let cancelItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: nil, action: nil)
-        let doneItem = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: nil)
-        
-        navigationBarItem.leftBarButtonItem = cancelItem
-        navigationBarItem.rightBarButtonItem = doneItem
-        return navigationBarItem
-    }()
-    
     private let titleTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Title"
@@ -83,9 +65,8 @@ final class TodoDetailView: UIView {
     }
     
     private func addSubviews() {
-        addSubview(navigationBar)
         addSubview(stackView)
-        stackView.addArrangeSubviews(navigationBar, titleTextField, datePicker, contentTextView)
+        stackView.addArrangeSubviews(titleTextField, datePicker, contentTextView)
     }
     
     private func setupConstraint() {
