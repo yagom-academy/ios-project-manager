@@ -44,6 +44,7 @@ final class TodoListViewController: UIViewController {
         super.viewDidLoad()
         self.setUpView()
         self.setUpNavigation()
+        self.bind()
     }
 
     private func setUpView() {
@@ -67,5 +68,19 @@ final class TodoListViewController: UIViewController {
             style: .plain,
             target: nil,
             action: nil)
+    }
+    
+    private func bind() {
+        self.navigationItem.rightBarButtonItem?.rx.tap.asObservable()
+            .subscribe(onNext: { [weak self] in
+                self?.moveToDetailView() })
+            .disposed(by: disposeBag)
+    }
+    
+    private func moveToDetailView() {
+        let viewController = DetailViewController()
+
+        viewController.modalPresentationStyle = .formSheet
+        self.present(viewController, animated: true)
     }
 }
