@@ -12,6 +12,7 @@ protocol TodoListViewModelInput {
     func deleteItem(_ item: TodoListModel)
     func addButtonDidTap()
     func cellDidTap(_ item: TodoListModel)
+    func cellDidLongPress(_ item: TodoListModel, to processType: ProcessType)
 }
 
 protocol TodoListViewModelOutput {
@@ -27,7 +28,6 @@ struct TodoListActions {
 }
 
 final class DefaultTodoListViewModel: TodoListViewModel {
-        
     // MARK: - Output
     
     var todoItems: AnyPublisher<[TodoListModel], Never> {
@@ -75,5 +75,10 @@ extension DefaultTodoListViewModel {
     
     func cellDidTap(_ item: TodoListModel) {
         actions.showDetailView(item)
+    }
+    
+    func cellDidLongPress(_ item: TodoListModel, to processType: ProcessType) {
+        let item = TodoListModel(title: item.title, content: item.content, deadLine: item.deadLine, processType: processType, id: item.id)
+        useCase.update(item)
     }
 }
