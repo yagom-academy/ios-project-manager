@@ -25,18 +25,21 @@ final class TaskCell: UITableViewCell {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .title3)
+        label.setContentHuggingPriority(.defaultHigh, for: .vertical)
         return label
     }()
     
     private let bodyLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .body)
+        label.setContentHuggingPriority(.defaultHigh+1, for: .vertical)
         return label
     }()
     
     private let dateLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .footnote)
+        label.setContentHuggingPriority(.defaultHigh+2, for: .vertical)
         return label
     }()
     
@@ -68,8 +71,8 @@ final class TaskCell: UITableViewCell {
         NSLayoutConstraint.activate([
             baseStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             baseStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
-            baseStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            baseStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20)
+            baseStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+            baseStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10)
         ])
     }
     
