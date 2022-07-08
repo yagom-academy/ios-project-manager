@@ -41,16 +41,19 @@ final class TodoListViewController: UIViewController {
     private func bind() {
         viewModel.todoItems.sink { [weak self] items in
             self?.applySnapshot(items: items, datasource: self?.todoDataSource)
+            self?.todoListView.setupHeaderTodoCountLabel(with: items.count)
         }
         .store(in: &cancellables)
         
         viewModel.doingItems.sink { [weak self] items in
             self?.applySnapshot(items: items, datasource: self?.doingDataSource)
+            self?.todoListView.setupHeaderDoingCountLabel(with: items.count)
         }
         .store(in: &cancellables)
         
         viewModel.doneItems.sink { [weak self] items in
             self?.applySnapshot(items: items, datasource: self?.doneDataSource)
+            self?.todoListView.setupHeaderDoneCountLabel(with: items.count)
         }
         .store(in: &cancellables)
     }

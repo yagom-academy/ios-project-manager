@@ -104,4 +104,16 @@ final class TodoListView: UIView {
         doingTableView.delegate = tableViewDelegate
         doneTableView.delegate = tableViewDelegate
     }
+    
+    func setupHeaderTodoCountLabel(with count: Int) {
+        todoHeaderView.todoListCountLabel.text = "\(count)"
+    }
+    
+    func setupHeaderDoingCountLabel(with count: Int) {
+        doingHeaderView.todoListCountLabel.text = "\(count)"
+    }
+    
+    func setupHeaderDoneCountLabel(with count: Int) {
+        doneHeaderView.todoListCountLabel.text = "\(count)"
+    }
 }
