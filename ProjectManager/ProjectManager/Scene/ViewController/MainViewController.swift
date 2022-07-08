@@ -181,21 +181,25 @@ extension MainViewController: UIGestureRecognizerDelegate {
         if gestureRecognizer.state == .began {
             if let indexPath = tableView?.indexPathForRow(at: location) {
                 
+                let popoverWidth = mainView.frame.size.width * 0.25
+                let popoverHeight = mainView.frame.size.height * 0.15
+                
                 let popoverViewController = PopoverViewController()
-                popoverViewController.preferredContentSize = .init(width: 260, height: 130)
+                popoverViewController.preferredContentSize = .init(
+                    width: popoverWidth,
+                    height: popoverHeight
+                )
                 popoverViewController.modalPresentationStyle = .popover
                 
-                guard let popoverController = popoverViewController.popoverPresentationController,
+                guard let popoverPresentationController = popoverViewController.popoverPresentationController,
                       let cell = tableView?.cellForRow(at: indexPath) as? TaskTableViewCell,
                       let taskType = cell.task?.taskType else {
                     return
                 }
-                
-                popoverController.sourceView = cell
-                popoverController.sourceRect = cell.bounds
+                popoverPresentationController.sourceView = cell
+                popoverPresentationController.sourceRect = cell.bounds
+                popoverPresentationController.permittedArrowDirections = .up
                 popoverViewController.setPopoverAction(taskType)
-                popoverController.permittedArrowDirections = .up
-                
                 present(popoverViewController, animated: true)
             }
         } else {
