@@ -10,25 +10,25 @@ import RxRelay
 import RxCocoa
 
 class MainViewModel {
-    var projects: BehaviorRelay<[ProjectContent]> {
+    let projects: BehaviorRelay<[ProjectContent]> = {
         return MockStorageManager.shared.projectEntity
-    }
+    }()
     
-    var todoProjects: Driver<[ProjectContent]> {
+    lazy var todoProjects: Driver<[ProjectContent]> = {
         projects
             .map { $0.filter { $0.status == .todo } }
             .asDriver(onErrorJustReturn: [])
-    }
+    }()
     
-    var doingProjects: Driver<[ProjectContent]> {
+    lazy var doingProjects: Driver<[ProjectContent]> = {
         projects
             .map { $0.filter { $0.status == .doing } }
             .asDriver(onErrorJustReturn: [])
-    }
+    }()
     
-    var doneProjects: Driver<[ProjectContent]> {
+    lazy var doneProjects: Driver<[ProjectContent]> = {
         projects
             .map { $0.filter { $0.status == .done } }
             .asDriver(onErrorJustReturn: [])
-    }
+    }()
 }
