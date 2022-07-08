@@ -7,11 +7,10 @@
 
 import Foundation
 import RxSwift
+import RxRelay
 
 final class MainViewModel {
-    var todoObservable = BehaviorSubject<[List]>(value: [])
-    var doingObservable = BehaviorSubject<[List]>(value: [])
-    var doneObservable = BehaviorSubject<[List]>(value: [])
+    var listObservable = BehaviorRelay<[List]>(value: [])
 
     init() {
         addDummyData()
@@ -35,8 +34,6 @@ final class MainViewModel {
             List(title: "안녕 똥이야!", body: "모 \n 어쩔건데!! \n ㅋㄷㅋㄷ", deadline: Date(), type: .done)
         ]
         
-        todoObservable.onNext(todoDummy)
-        doingObservable.onNext(doingDummy)
-        doneObservable.onNext(doneDummy)
+        listObservable.accept(todoDummy + doingDummy + doneDummy)
     }
 }

@@ -48,17 +48,17 @@ final class MainViewController: UIViewController {
     
     private func setTableView() {
         bindTableView(todoTableView,
-                      lists: mainViewModel.todoObservable,
+                      lists: separatLists(.todo),
                       headerView: todoHeaderView)
         bindTableView(doingTableView,
-                      lists: mainViewModel.doingObservable,
+                      lists: separatLists(.doing),
                       headerView: doingHeaderView)
         bindTableView(doneTableView,
-                      lists: mainViewModel.doneObservable,
+                      lists: separatLists(.done),
                       headerView: doneHeaderView)
     }
     
-    private func bindTableView(_ tableView: UITableView, lists: BehaviorSubject<[List]>, headerView: HeaderVIew) {
+    private func bindTableView(_ tableView: UITableView, lists: Observable<[List]>, headerView: HeaderVIew) {
         lists.bind(to: tableView.rx.items(cellIdentifier: "\(ListTableViewCell.self)", cellType: ListTableViewCell.self)) { index, item, cell in
             cell.titleLabel.text = item.title
             cell.bodyLabel.text = item.body
@@ -82,6 +82,14 @@ final class MainViewController: UIViewController {
                 tableView.deselectRow(at: index, animated: true)
             })
             .disposed(by: disposbag)
+    }
+    
+    private func separatLists(_ type: ListType) -> Observable<[List]> {
+        let list = mainViewModel.listObservable
+            .map{ $0.filter {
+                $0.type == type
+            }}
+        return list
     }
     
     // MARK: - UI Components
