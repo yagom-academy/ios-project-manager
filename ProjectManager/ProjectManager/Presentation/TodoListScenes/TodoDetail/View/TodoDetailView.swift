@@ -20,9 +20,14 @@ final class TodoDetailView: UIView {
         textField.placeholder = "Title"
         textField.borderStyle = .roundedRect
         
-        let paddingView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: textField.frame.height))
+        let paddingView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: textField.frame.height))
         textField.leftView = paddingView
         textField.leftViewMode = UITextField.ViewMode.always
+        
+        textField.layer.masksToBounds = false
+        textField.layer.shadowColor = UIColor.black.cgColor
+        textField.layer.shadowOffset = CGSize(width: 0, height: 2)
+        textField.layer.shadowOpacity = 0.5
         
         return textField
     }()
@@ -37,9 +42,14 @@ final class TodoDetailView: UIView {
     
     let contentTextView: UITextView = {
         let textView = UITextView()
+        textView.font = .preferredFont(forTextStyle: .body)
         textView.layer.borderColor = UIColor.systemGray5.cgColor
         textView.layer.borderWidth = 1
-        textView.layer.cornerRadius = 5
+        
+        textView.layer.masksToBounds = false
+        textView.layer.shadowColor = UIColor.black.cgColor
+        textView.layer.shadowOffset = CGSize(width: 0, height: 2)
+        textView.layer.shadowOpacity = 0.5
         
         return textView
     }()
