@@ -6,12 +6,11 @@
 //
 
 import UIKit
-import RealmSwift
 
 final class NewFormSheetViewController: UIViewController {
     
     private let newFormSheetView = FormSheetView()
-    private let realm = try? Realm()
+    private let realmManager = RealmManager()
     private let uuid = UUID().uuidString
     weak var delegate: DataReloadable?
     
@@ -51,7 +50,9 @@ final class NewFormSheetViewController: UIViewController {
     
     @objc private func doneButtonTapped() {
         saveToTempModel()
-        dismiss(animated: true)
+        dismiss(animated: true) { [weak self] in
+            self?.delegate?.refreshData()
+        }
     }
     
     func saveToTempModel() {
@@ -62,14 +63,6 @@ final class NewFormSheetViewController: UIViewController {
             taskType: .todo,
             id: uuid
         )
-        
-        do {
-            try realm?.write {
-                realm?.add(newProject)
-            }
-        } catch {
-            print("중복된 내용입니다.")
-        }
-        delegate?.refreshData()
+        realmManager.create(task: newProject)
     }
 }

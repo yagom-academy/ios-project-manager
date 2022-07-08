@@ -6,7 +6,6 @@
 
 import UIKit
 import SnapKit
-import RealmSwift
 
 final class MainViewController: UIViewController, UIPopoverPresentationControllerDelegate {
     
@@ -27,7 +26,7 @@ final class MainViewController: UIViewController, UIPopoverPresentationControlle
     }
     
     private let mainView = MainView()
-    private let realm = try? Realm()
+    private let realmManager = RealmManager()
     
     override func loadView() {
         super.loadView()
@@ -88,30 +87,18 @@ final class MainViewController: UIViewController, UIPopoverPresentationControlle
     }
         
     private func fetchToDo() {
-        let todoResult = realm?.objects(Task.self).where {
-            $0.taskType == .todo
-        }
-        
-        guard let todos = todoResult else { return }
-        self.todos = todos.filter { $0 == $0 }
+        let todos = realmManager.fetch(taskType: .todo)
+        self.todos = todos
     }
     
     private func fetchDoing() {
-        let doingResult = realm?.objects(Task.self).where {
-            $0.taskType == .doing
-        }
-        
-        guard let doings = doingResult else { return }
-        self.doings = doings.filter { $0 == $0 }
+        let doings = realmManager.fetch(taskType: .doing)
+        self.doings = doings
     }
     
     private func fetchDone() {
-        let doneResult = realm?.objects(Task.self).where {
-            $0.taskType == .done
-        }
-        
-        guard let dones = doneResult else { return }
-        self.dones = dones.filter { $0 == $0 }
+        let dones = realmManager.fetch(taskType: .done)
+        self.dones = dones
     }
     
     @objc private func showNewFormSheetView() {
@@ -261,33 +248,27 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     ) {
         if editingStyle == .delete {
             if tableView == mainView.todoTableView {
-                deleteTask(todos[indexPath.row])
+                realmManager.delete(task: todos[indexPath.row])
                 fetchToDo()
                 deleteCell(
                     indexPath: indexPath,
                     at: mainView.todoTableView
                 )
             } else if tableView == mainView.doingTableView {
-                deleteTask(doings[indexPath.row])
+                realmManager.delete(task: doings[indexPath.row])
                 fetchDoing()
                 deleteCell(
                     indexPath: indexPath,
                     at: mainView.doingTableView
                 )
             } else {
-                deleteTask(dones[indexPath.row])
+                realmManager.delete(task: dones[indexPath.row])
                 fetchDone()
                 deleteCell(
                     indexPath: indexPath,
                     at: mainView.doneTableView
                 )
             }
-        }
-    }
-    
-    private func deleteTask(_ task: Task) {
-        try? realm?.write {
-            realm?.delete(task)
         }
     }
     

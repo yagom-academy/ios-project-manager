@@ -6,59 +6,10 @@
 //
 
 import UIKit
-import RealmSwift
-
-final class PopoverView: UIView {
-    private lazy var baseStackView = UIStackView(
-        arrangedSubviews: [
-            moveToToDoButton,
-            moveToDoingButton,
-            moveToDoneButton
-        ]).then {
-            $0.axis = .vertical
-            $0.distribution = .fillEqually
-            $0.spacing = 10
-        }
-    
-    private(set) lazy var moveToToDoButton = generatePopoverButton(title: "Move to TODO")
-    private(set) lazy var moveToDoingButton = generatePopoverButton(title: "Move to DOING")
-    private(set) lazy var moveToDoneButton = generatePopoverButton(title: "Move to DONE")
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        backgroundColor = .systemGray5
-        setupSubViews()
-        setupUILayout()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func setupSubViews() {
-        addSubview(baseStackView)
-    }
-    
-    private func setupUILayout() {
-        baseStackView.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview().inset(10)
-            $0.top.bottom.equalToSuperview().inset(20)
-        }
-    }
-    
-    private func generatePopoverButton(title: String) -> UIButton {
-        let button = UIButton()
-        button.titleLabel?.font = .preferredFont(forTextStyle: .title3)
-        button.setTitle(title, for: .normal)
-        button.setTitleColor(.systemBlue, for: .normal)
-        button.backgroundColor = .white
-        return button
-    }
-}
 
 final class PopoverViewController: UIViewController {
     private let popoverView = PopoverView(frame: .zero)
-    private let realm = try? Realm()
+    private let realmManager = RealmManager()
     weak var delegate: DataReloadable?
     var task: Task?
     
@@ -116,10 +67,7 @@ final class PopoverViewController: UIViewController {
     
     private func modifiedTaskType(taskType: TaskType) {
         guard let task = task else { return }
-        try? realm?.write {
-            task.taskType = taskType
-            realm?.add(task, update: .modified)
-        }
+        realmManager.convert(task: task, taskType: taskType)
         dismiss(animated: true) { [weak self] in
             self?.delegate?.refreshData()
         }

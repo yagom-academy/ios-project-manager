@@ -6,12 +6,11 @@
 //
 
 import UIKit
-import RealmSwift
 
 final class EditFormSheetViewController: UIViewController {
     
     private let editFormSheetView = FormSheetView()
-    private let realm = try? Realm()
+    private let realmManager = RealmManager()
     weak var delegate: DataReloadable?
     var task: Task?
 
@@ -48,7 +47,9 @@ final class EditFormSheetViewController: UIViewController {
     
     @objc private func editButtonTapped() {
         editToTempModel()
-        dismiss(animated: true)
+        dismiss(animated: true) { [weak self] in
+            self?.delegate?.refreshData()
+        }
     }
     
     @objc private func doneButtonTapped() {
@@ -71,14 +72,6 @@ final class EditFormSheetViewController: UIViewController {
             taskType: task.taskType,
             id: task.id
         )
-        
-        do {
-            try realm?.write {
-                realm?.add(editProject, update: .modified)
-            }
-        } catch {
-            print("업데이트를 실패하였습니다.")
-        }
-        delegate?.refreshData()
+        realmManager.update(task: editProject)
     }
 }
