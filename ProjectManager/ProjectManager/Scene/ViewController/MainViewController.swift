@@ -6,6 +6,7 @@
 
 import UIKit
 import SnapKit
+import RealmSwift
 
 final class MainViewController: UIViewController, UIPopoverPresentationControllerDelegate {
     
@@ -26,6 +27,7 @@ final class MainViewController: UIViewController, UIPopoverPresentationControlle
     }
     
     private let mainView = MainView()
+    private let realm = try? Realm()
     
     override func loadView() {
         super.loadView()
@@ -80,13 +82,21 @@ final class MainViewController: UIViewController, UIPopoverPresentationControlle
     }
     
     private func fetchData() {
-        fetchToDo()
-        fetchDoing()
-        fetchDone()
+        
+        let todoResult = realm?.objects(Task.self).where {
+            $0.taskType == .todo
+        }
+        let doingResult = realm?.objects(Task.self).where {
+            $0.taskType == .doing
+        }
+        guard let todos = todoResult else { return }
+        self.todos = todos.reversed()
+        
+//        fetchToDo()
+//        fetchDoing()
+//        fetchDone()
     }
-    
-    let temp: Double = 1600000000
-    
+        
     private func fetchToDo() {
         todos = [
             Task(

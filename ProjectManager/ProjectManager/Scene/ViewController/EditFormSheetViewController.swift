@@ -6,10 +6,12 @@
 //
 
 import UIKit
+import RealmSwift
 
 final class EditFormSheetViewController: UIViewController {
     
     private let editFormSheetView = FormSheetView()
+    private let realm = try? Realm()
     var task: Task?
 
     override func loadView() {
@@ -44,7 +46,7 @@ final class EditFormSheetViewController: UIViewController {
     }
     
     @objc private func editButtonTapped() {
-        // 저장 기능
+        editToTempModel()
         dismiss(animated: true)
     }
     
@@ -55,6 +57,26 @@ final class EditFormSheetViewController: UIViewController {
     private func setupContents() {
         if let task = task {
             editFormSheetView.setUpContents(task: task)
+        }
+    }
+    
+    func editToTempModel() {
+        guard let task = task else { return }
+        
+        let editProject = Task(
+            title: editFormSheetView.titleTextField.text ?? "",
+            body: editFormSheetView.bodyTextView.text ?? "",
+            date: editFormSheetView.datePicker.date.timeIntervalSince1970,
+            taskType: task.taskType,
+            id: task.id
+        )
+        
+        do {
+            try realm?.write {
+                realm?.add(editProject, update: .modified)
+            }
+        } catch {
+            print("업데이트를 실패하였습니다.")
         }
     }
 }
