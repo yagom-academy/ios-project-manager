@@ -9,8 +9,7 @@ import UIKit
 import FirebaseCore
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-    let appDIContainer = AppDIContainer()
-    var appCoorinator: AppCoordinator?
+    private var appCoorinator: AppCoordinator?
     
     var window: UIWindow?
 
@@ -27,8 +26,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let rootNaivgationController = UINavigationController()
         window?.rootViewController = rootNaivgationController
         window?.makeKeyAndVisible()
-        
-        appCoorinator = AppCoordinator(navigationController: rootNaivgationController, appDIContainer: appDIContainer)
+                
+        appCoorinator = AppCoordinator(navigationController: rootNaivgationController, appDIContainer: AppDIContainer())
         appCoorinator?.start()
     }
     

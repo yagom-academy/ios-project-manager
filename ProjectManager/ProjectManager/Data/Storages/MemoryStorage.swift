@@ -23,7 +23,7 @@ final class MemoryStorage: Storage {
     }
     
     func read() -> AnyPublisher<[TodoListModel], Never> {
-        $items.eraseToAnyPublisher()
+        return $items.eraseToAnyPublisher()
     }
     
     func update(_ item: TodoListModel) {

@@ -82,7 +82,11 @@ final class TodoTableViewCell: UITableViewCell {
         contentLabel.text = data.content
         deadLineLabel.text = data.deadLine.formattedString
         
-        if Date() > data.deadLine {
+        setupDeadLineTextColor(deadLine: data.deadLine)
+    }
+    
+    private func setupDeadLineTextColor(deadLine: Date) {
+        if Date() > deadLine {
             deadLineLabel.textColor = .systemRed
         } else {
             deadLineLabel.textColor = .label

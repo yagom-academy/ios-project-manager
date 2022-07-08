@@ -44,7 +44,7 @@ final class DefaultTodoDetailViewModel: TodoDetailViewModel {
         self.useCase = useCase
         self.todoListModel = todoListModel
         
-        if todoListModel.title == "" && todoListModel.content == "" {
+        if todoListModel.title.isEmpty && todoListModel.content.isEmpty {
             isCreate.send(true)
         } else {
             isCreate.send(false)
@@ -57,7 +57,7 @@ extension DefaultTodoDetailViewModel {
     // MARK: - Input
     
     func closeButtonDidTap() {
-        if todoListModel.title == "" && todoListModel.content == "" {
+        if todoListModel.title.isEmpty && todoListModel.content.isEmpty {
             useCase.deleteLastItem()
         }
         

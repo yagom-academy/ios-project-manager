@@ -21,6 +21,7 @@ final class TableHeaderView: UIView {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .largeTitle)
         label.setContentHuggingPriority(.required, for: .horizontal)
+        
         return label
     }()
     
@@ -33,6 +34,7 @@ final class TableHeaderView: UIView {
         label.clipsToBounds = true
         label.backgroundColor = .label
         label.textColor = .systemBackground
+        
         return label
     }()
     

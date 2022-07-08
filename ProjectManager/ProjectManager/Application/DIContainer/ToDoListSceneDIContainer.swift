@@ -34,28 +34,28 @@ extension TodoListSceneDIContainer: TodoListSceneCoordinatorDependencies {
     // MARK: - ViewModel
     
     private func makeTodoDetailViewModel(actions: TodoDetailActions, todoListModel: TodoListModel) -> TodoDetailViewModel {
-        DefaultTodoDetailViewModel(actions: actions, useCase: makeUseCase(), todoListModel: todoListModel)
+        return DefaultTodoDetailViewModel(actions: actions, useCase: makeTodoListUseCase(), todoListModel: todoListModel)
     }
     
     private func makeTodoListViewModel(actions: TodoListActions) -> TodoListViewModel {
-        DefaultTodoListViewModel(actions: actions, useCase: makeUseCase())
+        return DefaultTodoListViewModel(actions: actions, useCase: makeTodoListUseCase())
     }
     
     // MARK: - UseCase
     
-    private func makeUseCase() -> TodoListUseCase {
-        DefaultTodoListUseCase(repository: makeRepository())
+    private func makeTodoListUseCase() -> TodoListUseCase {
+        return DefaultTodoListUseCase(repository: makeTodoListRepository())
     }
     
     // MARK: - Repository
     
-    private func makeRepository() -> TodoListRepository {
+    private func makeTodoListRepository() -> TodoListRepository {
         return DefaultTodoListRepository(storage: dependencies.storage)
     }
     
     // MARK: - Coordiantor
     
     func makeCoordinator(navigationController: UINavigationController) -> TodoListSceneCoordinator {
-        TodoListSceneCoordinator(navigationController: navigationController, dependencies: self)
+        return TodoListSceneCoordinator(navigationController: navigationController, dependencies: self)
     }
 }

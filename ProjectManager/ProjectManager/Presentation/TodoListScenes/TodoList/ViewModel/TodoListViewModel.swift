@@ -78,7 +78,13 @@ extension DefaultTodoListViewModel {
     }
     
     func cellDidLongPress(_ item: TodoListModel, to processType: ProcessType) {
-        let item = TodoListModel(title: item.title, content: item.content, deadLine: item.deadLine, processType: processType, id: item.id)
+        let item = TodoListModel(
+            title: item.title,
+            content: item.content,
+            deadLine: item.deadLine,
+            processType: processType,
+            id: item.id
+        )
         useCase.update(item)
     }
 }

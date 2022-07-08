@@ -11,6 +11,7 @@ final class TodoDetailView: UIView {
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
+        
         return stackView
     }()
     
@@ -19,15 +20,7 @@ final class TodoDetailView: UIView {
         textField.placeholder = "Title"
         textField.borderStyle = .roundedRect
         
-        let paddingView: UIView = UIView(
-            frame: CGRect(
-                x: 0,
-                y: 0,
-                width: 20,
-                height: textField.frame.height
-            )
-        )
-        
+        let paddingView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: textField.frame.height))
         textField.leftView = paddingView
         textField.leftViewMode = UITextField.ViewMode.always
         
@@ -38,6 +31,7 @@ final class TodoDetailView: UIView {
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .date
         datePicker.preferredDatePickerStyle = .wheels
+        
         return datePicker
     }()
     
@@ -46,6 +40,7 @@ final class TodoDetailView: UIView {
         textView.layer.borderColor = UIColor.systemGray5.cgColor
         textView.layer.borderWidth = 1
         textView.layer.cornerRadius = 5
+        
         return textView
     }()
     
