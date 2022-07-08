@@ -40,14 +40,19 @@ final class TodoListViewController: UIViewController {
     
     private func bind() {
         viewModel.todoItems.sink { [weak self] items in
-            let todoItems = items.filter { $0.processType == .todo }
-            let doingItems = items.filter { $0.processType == .doing }
-            let doneItems = items.filter { $0.processType == .done }
-            
-            self?.applySnapshot(items: todoItems, datasource: self?.todoDataSource)
-            self?.applySnapshot(items: doingItems, datasource: self?.doingDataSource)
-            self?.applySnapshot(items: doneItems, datasource: self?.doneDataSource)
-        }.store(in: &cancellables)
+            self?.applySnapshot(items: items, datasource: self?.todoDataSource)
+        }
+        .store(in: &cancellables)
+        
+        viewModel.doingItems.sink { [weak self] items in
+            self?.applySnapshot(items: items, datasource: self?.doingDataSource)
+        }
+        .store(in: &cancellables)
+        
+        viewModel.doneItems.sink { [weak self] items in
+            self?.applySnapshot(items: items, datasource: self?.doneDataSource)
+        }
+        .store(in: &cancellables)
     }
     
     private func setup() {

@@ -15,12 +15,14 @@ protocol TodoListViewModelInput {
 
 protocol TodoListViewModelOutput {
     var todoItems: AnyPublisher<[TodoListModel], Never> { get }
+    var doingItems: AnyPublisher<[TodoListModel], Never> { get }
+    var doneItems: AnyPublisher<[TodoListModel], Never> { get }
 }
 
 protocol TodoListViewModel: TodoListViewModelInput, TodoListViewModelOutput {}
 
 struct TodoListActions {
-    let showDetailView: (TodoListModel?) -> ()
+    let showDetailView: (TodoListModel?) -> Void
 }
 
 final class DefaultTodoListViewModel: TodoListViewModel {
@@ -28,7 +30,15 @@ final class DefaultTodoListViewModel: TodoListViewModel {
     // MARK: - Output
     
     var todoItems: AnyPublisher<[TodoListModel], Never> {
-        return useCase.read()
+        return filteredItems(with: .todo)
+    }
+    
+    var doingItems: AnyPublisher<[TodoListModel], Never> {
+        return filteredItems(with: .doing)
+    }
+    
+    var doneItems: AnyPublisher<[TodoListModel], Never> {
+        return filteredItems(with: .done)
     }
     
     private let actions: TodoListActions
@@ -37,6 +47,14 @@ final class DefaultTodoListViewModel: TodoListViewModel {
     init(actions: TodoListActions, useCase: UseCase) {
         self.actions = actions
         self.useCase = useCase
+    }
+    
+    private func filteredItems(with type: ProcessType) -> AnyPublisher<[TodoListModel], Never> {
+        return useCase.read()
+            .compactMap { item in
+                return item.filter { $0.processType == type }
+            }
+            .eraseToAnyPublisher()
     }
 }
 
