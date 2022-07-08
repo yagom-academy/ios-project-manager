@@ -8,8 +8,13 @@
 import Foundation
 import RxSwift
 
+struct TodoListViewModelActions {
+    let presentEditViewController: () -> Void
+}
+
 protocol TodoListViewModelInput {
     var listItems: BehaviorSubject<[TodoModel]> { get }
+    var actions: TodoListViewModelActions? { get }
 }
 
 protocol TodoListViewModelOutput {
@@ -31,10 +36,13 @@ final class DefaultTodoListViewModel: TodoListViewModel {
     #else
     let listItems = BehaviorSubject<[TodoModel]>(value: [])
     #endif
+    private(set) var useCase: UseCase
+    let actions: TodoListViewModelActions?
     
     let todoList: Observable<[TodoModel]>
     let doingList: Observable<[TodoModel]>
     let doneList: Observable<[TodoModel]>
+    init(useCase: UseCase, actions: TodoListViewModelActions) {
     let todoListCount: Observable<String>
     let doingListCount: Observable<String>
     let doneListCount: Observable<String>
@@ -45,8 +53,9 @@ final class DefaultTodoListViewModel: TodoListViewModel {
         return dateFormatter
     }()
     
-    init(useCase: UseCase) {
         self.useCase = useCase
+        self.actions = actions
+        
         listItems = useCase.readRepository()
         
         todoList = listItems
@@ -88,3 +97,4 @@ struct TodoCellContent {
     let body: String?
     let deadlineAt: String?
 }
+

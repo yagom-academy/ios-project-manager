@@ -40,7 +40,6 @@ extension TodoEditViewController {
         title = "Todo"
         navigationItem.leftBarButtonItem = cancelButton
         navigationItem.rightBarButtonItem = doneButton
-        
         navigationBar.items = [navigationItem]
     }
 }

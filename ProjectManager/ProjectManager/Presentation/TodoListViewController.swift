@@ -103,8 +103,7 @@ extension TodoListViewController {
         
         plusButton.rx.tap
             .bind {
-                let todoEditViewController = TodoEditViewController()
-                self.present(todoEditViewController, animated: true)
+                self.viewModel.actions?.presentEditViewController()
             }.disposed(by: bag)
         viewModel.doneListCount
             .asDriver(onErrorJustReturn: "0")
