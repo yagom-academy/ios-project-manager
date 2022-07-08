@@ -59,11 +59,11 @@ final class CardListTableViewCell: UITableViewCell {
     deadlineDateLabel.text = nil
   }
   
-  func setup(card: Card, deadlineString: String, isOverdue: Bool) {
+  func setup(card: CardListViewModelItem) {
     titleLabel.text = card.title
     descriptionLabel.text = card.description
-    deadlineDateLabel.text = deadlineString
-    deadlineDateLabel.textColor = isOverdue ? .systemRed : .label
+    deadlineDateLabel.text = card.deadlineDateString
+    deadlineDateLabel.textColor = card.isOverdue ? .systemRed : .label
   }
 }
 
