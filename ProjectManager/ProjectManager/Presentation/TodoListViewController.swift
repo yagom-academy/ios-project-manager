@@ -10,6 +10,8 @@ import RxSwift
 import RxCocoa
 
 final class TodoListViewController: UIViewController {
+    private let plusButton = UIBarButtonItem(barButtonSystemItem: .add, target: nil, action: nil)
+    
     private let mainView = TodoListView()
     private let viewModel: TodoListViewModel
     
@@ -17,8 +19,8 @@ final class TodoListViewController: UIViewController {
   
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Project Manager"
         configureView()
+        configureNavigationBar()
         configureTableViewCell()
         bind()
     }
@@ -44,6 +46,11 @@ extension TodoListViewController {
     
     private func configureTableViewCell() {
         mainView.tableViewsCellRegister()
+    }
+    
+    private func configureNavigationBar() {
+        title = "Project Manager"
+        navigationItem.rightBarButtonItem = plusButton
     }
 }
 
