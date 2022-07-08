@@ -40,6 +40,39 @@ final class TaskCell: UITableViewCell {
         return label
     }()
     
+    // MARK: initializer
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        contentView.addSubview(baseStackView)
+        configureLayout()
+        
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: Cell life cycle
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        titleLabel.text = ""
+        bodyLabel.text = ""
+        dateLabel.text = ""
+    }
+    
+    // MARK: functions
+    
+    private func configureLayout() {
+        NSLayoutConstraint.activate([
+            baseStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            baseStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
+            baseStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            baseStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20)
+        ])
+    }
+    
     func setUpLabel(task: Task) {
         self.titleLabel.text = task.title
         self.bodyLabel.text = task.body

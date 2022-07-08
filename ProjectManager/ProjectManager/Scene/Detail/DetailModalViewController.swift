@@ -7,8 +7,13 @@
 
 import UIKit
 
+protocol DetailViewControllerDelegate: AnyObject {
+    func taskUpdate(task: Task)
+}
+
 class DetailModalViewController: UIViewController {
     let modalView: DetailModalView
+    weak var delegate: DetailViewControllerDelegate?
     
     init(modalView: DetailModalView) {
         self.modalView = modalView
@@ -33,6 +38,8 @@ extension DetailModalViewController: ButtonActionDelegate {
     }
     
     func topRightButtonClicked() {
-        print("right Button click")
+        print("Done: right Button click")
+        delegate?.taskUpdate(task: modalView.task)
+        dismiss(animated: true)
     }
 }

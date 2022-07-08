@@ -27,6 +27,14 @@ final class DetailModalView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    var task: Task {
+        let title = titleTextField.text
+        let body = bodyTextView.text
+        let date = datePicker.date
+        
+        return Task(title: title, date: date, body: body)
+    }
+    
     private let topLeftButton: UIButton = {
         let button = UIButton()
         button.setTitle("Cancel", for: .normal)

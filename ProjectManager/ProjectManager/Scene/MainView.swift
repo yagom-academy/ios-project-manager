@@ -32,10 +32,10 @@ final class MainView: UIView {
     // MARK: UIComponents - TableViewHeader
     
     private let todoHeaderView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .systemGray
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: 150, height: 100))
+        view.backgroundColor = .systemGray6
         
-        let title = UILabel()
+        let title = UILabel(frame: view.bounds)
         title.text = "TODO"
         title.font = .preferredFont(forTextStyle: .title2)
         
@@ -44,10 +44,10 @@ final class MainView: UIView {
     }()
     
     private let doingHeaderView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .systemGray
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: 150, height: 100))
+        view.backgroundColor = .systemGray6
         
-        let title = UILabel()
+        let title = UILabel(frame: view.bounds)
         title.text = "DOING"
         title.font = .preferredFont(forTextStyle: .title2)
         
@@ -56,10 +56,10 @@ final class MainView: UIView {
     }()
     
     private let doneHeaderView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .systemGray
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: 150, height: 100))
+        view.backgroundColor = .systemGray6
         
-        let title = UILabel()
+        let title = UILabel(frame: view.bounds)
         title.text = "DONE"
         title.font = .preferredFont(forTextStyle: .title2)
         
@@ -69,20 +69,20 @@ final class MainView: UIView {
 
     // MARK: UIComponents - TableView
     
-    private let todoTableView: UITableView = {
-        let tableView = UITableView()
+    let todoTableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
     
-    private let doingTableView: UITableView = {
-        let tableView = UITableView()
+    let doingTableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
     
-    private let doneTableView: UITableView = {
-        let tableView = UITableView()
+    let doneTableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
@@ -91,8 +91,8 @@ final class MainView: UIView {
     
     private func setUp() {
         setUpSubView()
-        setConstraint()
         setTableViewHeader()
+        setConstraint()
     }
     
     private func setUpSubView() {
@@ -107,6 +107,12 @@ final class MainView: UIView {
             tableStackView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor),
             tableStackView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
             tableStackView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            todoTableView.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, multiplier: 0.3),
+            doingTableView.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, multiplier: 0.3),
+            doneTableView.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, multiplier: 0.3)
         ])
     }
     

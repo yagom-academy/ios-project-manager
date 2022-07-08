@@ -7,7 +7,16 @@
 import UIKit
 
 class MainViewController: UIViewController {
+    private typealias ToDoTableViewDataSource = UITableViewDiffableDataSource<Int, Task>
+    private typealias Snapshot = NSDiffableDataSourceSnapshot<Int, Task>
+    
     private lazy var mainView = MainView()
+    private var todoDataSource: ToDoTableViewDataSource?
+    private var todoTasks = [Task]() {
+        didSet {
+            applySnapshot()
+        }
+    }
     
     override func loadView() {
         view = mainView
@@ -15,7 +24,35 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setUp()
+    }
+    
+    @objc
+    private func addButtonClick(_ sender: Any) {
+        let detailView = DetailModalView(frame: view.bounds)
+        let detailModalViewController = DetailModalViewController(modalView: detailView)
+        detailModalViewController.delegate = self
+        detailView.setButtonDelegate(detailModalViewController)
+        detailModalViewController.modalPresentationStyle = .formSheet
+        self.present(detailModalViewController, animated: true)
+    }
+}
+
+// MARK: DetailViewControllerDelegate
+
+extension MainViewController: DetailViewControllerDelegate {
+    func taskUpdate(task: Task) {
+        todoTasks.append(task)
+    }
+}
+
+// MARK: SetUp
+
+extension MainViewController {
+    
+    private func setUp() {
         setNavigationBar()
+        setToDoTableView()
     }
     
     private func setNavigationBar() {
@@ -24,13 +61,35 @@ class MainViewController: UIViewController {
                                                             target: self,
                                                             action: #selector(addButtonClick(_:)) )
     }
-    
-    @objc
-    private func addButtonClick(_ sender: Any) {
-        let detailView = DetailModalView(frame: view.bounds)
-        let detailModalViewController = DetailModalViewController(modalView: detailView)
-        detailView.setButtonDelegate(detailModalViewController)
-        detailModalViewController.modalPresentationStyle = .formSheet
-        self.present(detailModalViewController, animated: true)
+}
+
+// MARK: Setup ToDoTableView
+
+extension MainViewController {
+    private func setToDoTableView() {
+        mainView.todoTableView.register(TaskCell.self, forCellReuseIdentifier: TaskCell.identifier)
+        makeToDoDataSource()
+        mainView.todoTableView.dataSource = todoDataSource
+        mainView.todoTableView.reloadData()
     }
+    
+    private func makeToDoDataSource() {
+        todoDataSource = ToDoTableViewDataSource(tableView: mainView.todoTableView,
+                                                 cellProvider: { tableView, indexPath, item in
+            let cell = tableView.dequeueReusableCell(withIdentifier: TaskCell.identifier,
+                                                     for: indexPath) as? TaskCell
+            
+            cell?.setUpLabel(task: item)
+            return cell
+        })
+    }
+    
+    private func applySnapshot() {
+        var snapshot = Snapshot()
+        snapshot.appendSections([0])
+        snapshot.appendItems(todoTasks)
+        
+        todoDataSource?.apply(snapshot)
+    }
+    
 }

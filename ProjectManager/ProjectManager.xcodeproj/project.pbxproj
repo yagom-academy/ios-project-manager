@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		422D9997D8C794C92966E296 /* Pods_ProjectManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF3BC791CED2F50C823A6240 /* Pods_ProjectManager.framework */; };
+		671B238A2877C29D00D0EAB2 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 671B23892877C29D00D0EAB2 /* UIView+Extension.swift */; };
 		672F3C7F2875592E00CA92D4 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672F3C7E2875592E00CA92D4 /* MainView.swift */; };
 		672F3C8328755CA900CA92D4 /* UIStackView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672F3C8228755CA900CA92D4 /* UIStackView+Extension.swift */; };
 		672F3C852875610900CA92D4 /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672F3C842875610900CA92D4 /* TaskCell.swift */; };
@@ -39,6 +40,7 @@
 
 /* Begin PBXFileReference section */
 		471B1804F497F9194646FD8B /* Pods-ProjectManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.debug.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.debug.xcconfig"; sourceTree = "<group>"; };
+		671B23892877C29D00D0EAB2 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		672F3C7E2875592E00CA92D4 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		672F3C8228755CA900CA92D4 /* UIStackView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Extension.swift"; sourceTree = "<group>"; };
 		672F3C842875610900CA92D4 /* TaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 			children = (
 				672F3C8228755CA900CA92D4 /* UIStackView+Extension.swift */,
 				672F3C862875644C00CA92D4 /* Date+Extension.swift */,
+				671B23892877C29D00D0EAB2 /* UIView+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -368,6 +371,7 @@
 			files = (
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				E1D094652875A1C10084308A /* DetailModalViewController.swift in Sources */,
+				671B238A2877C29D00D0EAB2 /* UIView+Extension.swift in Sources */,
 				672F3C7F2875592E00CA92D4 /* MainView.swift in Sources */,
 				E1D0945E28756B380084308A /* TaskLocation.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
