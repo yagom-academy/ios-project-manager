@@ -54,7 +54,8 @@ final class CardListViewController: UIViewController {
   }
   
   private func bindUI() {
-    bindSections()
+    bindSectionsHeader()
+    bindSectionsItems()
     bindSectionsItemSelected()
     bindSectionsItemDeleted()
     
@@ -68,12 +69,25 @@ final class CardListViewController: UIViewController {
       .disposed(by: disposeBag)
   }
   
-  private func bindSections() {
-    let todos = viewModel.todoCards.asDriver(onErrorJustReturn: [])
-    let doings = viewModel.doingCards.asDriver(onErrorJustReturn: [])
-    let dones = viewModel.doneCards.asDriver(onErrorJustReturn: [])
+  private func bindSectionsHeader() {
+    viewModel.todoCards
+      .map { "\($0.count)" }
+      .drive(todoSectionView.headerView.cardCountLabel.rx.text)
+      .disposed(by: disposeBag)
     
-    todos
+    viewModel.doingCards
+      .map { "\($0.count)" }
+      .drive(doingSectionView.headerView.cardCountLabel.rx.text)
+      .disposed(by: disposeBag)
+    
+    viewModel.doneCards
+      .map { "\($0.count)" }
+      .drive(doneSectionView.headerView.cardCountLabel.rx.text)
+      .disposed(by: disposeBag)
+  }
+  
+  private func bindSectionsItems() {
+    viewModel.todoCards
       .drive(todoSectionView.tableView.rx.items(
         cellIdentifier: CardListTableViewCell.identifier,
         cellType: CardListTableViewCell.self
@@ -83,7 +97,7 @@ final class CardListViewController: UIViewController {
       }
       .disposed(by: disposeBag)
     
-    doings
+    viewModel.doingCards
       .drive(doingSectionView.tableView.rx.items(
         cellIdentifier: CardListTableViewCell.identifier,
         cellType: CardListTableViewCell.self
@@ -93,7 +107,7 @@ final class CardListViewController: UIViewController {
       }
       .disposed(by: disposeBag)
     
-    dones
+    viewModel.doneCards
       .drive(doneSectionView.tableView.rx.items(
         cellIdentifier: CardListTableViewCell.identifier,
         cellType: CardListTableViewCell.self
@@ -101,21 +115,6 @@ final class CardListViewController: UIViewController {
         guard let self = self else { return }
         cell.setup(card: self.viewModel.toCardListViewModelItem(card: card))
       }
-      .disposed(by: disposeBag)
-    
-    todos
-      .map { "\($0.count)" }
-      .drive(todoSectionView.headerView.cardCountLabel.rx.text)
-      .disposed(by: disposeBag)
-    
-    doings
-      .map { "\($0.count)" }
-      .drive(doingSectionView.headerView.cardCountLabel.rx.text)
-      .disposed(by: disposeBag)
-    
-    dones
-      .map { "\($0.count)" }
-      .drive(doneSectionView.headerView.cardCountLabel.rx.text)
       .disposed(by: disposeBag)
   }
   

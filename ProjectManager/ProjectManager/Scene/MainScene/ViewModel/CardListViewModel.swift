@@ -7,54 +7,50 @@
 
 import Foundation
 
-import RxRelay
+import RxCocoa
 import RxSwift
 
 protocol CardListViewModelInput {
   func toCardListViewModelItem(card: Card) -> CardListViewModelItem
-  func createNewCard(title: String?, description: String?, deadlineDate: Date)
-  func updateSelectedCard(_ card: Card, title: String?, description: String?, deadlineDate: Date)
+  func createNewCard(_ card: Card)
+  func updateSelectedCard(_ card: Card)
   func deleteSelectedCard(_ card: Card)
 }
+
 protocol CardListViewModelOutput {
-  var todoCards: BehaviorRelay<[Card]> { get }
-  var doingCards: BehaviorRelay<[Card]> { get }
-  var doneCards: BehaviorRelay<[Card]> { get }
+  var todoCards: Driver<[Card]> { get }
+  var doingCards: Driver<[Card]> { get }
+  var doneCards: Driver<[Card]> { get }
 }
 
 protocol CardListViewModel: CardListViewModelInput, CardListViewModelOutput {}
 
 final class DefaultCardListViewModel: CardListViewModel {
-  private let disposeBag = DisposeBag()
-  
   private let cards = BehaviorRelay<[Card]>(value: Card.sample)
   
   // MARK: - Output
   
-  let todoCards = BehaviorRelay<[Card]>(value: [])
-  let doingCards = BehaviorRelay<[Card]>(value: [])
-  let doneCards = BehaviorRelay<[Card]>(value: [])
+  let todoCards: Driver<[Card]>
+  let doingCards: Driver<[Card]>
+  let doneCards: Driver<[Card]>
   
   // MARK: - Init
   
   init() {
-    cards
+    todoCards = cards
       .map { $0.filter { $0.cardType == .todo } }
       .map { $0.sorted { $0.deadlineDate < $1.deadlineDate } }
-      .bind(to: todoCards)
-      .disposed(by: disposeBag)
+      .asDriver(onErrorJustReturn: [])
     
-    cards
+    doingCards = cards
       .map { $0.filter { $0.cardType == .doing } }
       .map { $0.sorted { $0.deadlineDate < $1.deadlineDate } }
-      .bind(to: doingCards)
-      .disposed(by: disposeBag)
+      .asDriver(onErrorJustReturn: [])
     
-    cards
+    doneCards = cards
       .map { $0.filter { $0.cardType == .done } }
       .map { $0.sorted { $0.deadlineDate > $1.deadlineDate } }
-      .bind(to: doneCards)
-      .disposed(by: disposeBag)
+      .asDriver(onErrorJustReturn: [])
   }
   
   // MARK: - Input
@@ -69,22 +65,13 @@ final class DefaultCardListViewModel: CardListViewModel {
     )
   }
   
-  func createNewCard(title: String?, description: String?, deadlineDate: Date) {
-    guard let title = title, let description = description else { return }
-    
-    let card = Card(title: title, description: description, deadlineDate: deadlineDate)
+  func createNewCard(_ card: Card) {
     cards.accept(cards.value + [card])
   }
   
-  func updateSelectedCard(_ card: Card, title: String?, description: String?, deadlineDate: Date) {
-    guard let title = title, let description = description else { return }
-    
+  func updateSelectedCard(_ card: Card) {
     let originCards = cards.value.filter { $0.id != card.id }
-    var updatedCard = card
-    updatedCard.title = title
-    updatedCard.description = description
-    updatedCard.deadlineDate = deadlineDate
-    cards.accept(originCards + [updatedCard])
+    cards.accept(originCards + [card])
   }
   
   func deleteSelectedCard(_ card: Card) {

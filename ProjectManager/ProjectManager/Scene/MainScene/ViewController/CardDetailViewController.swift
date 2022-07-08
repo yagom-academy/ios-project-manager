@@ -12,11 +12,14 @@ import RxSwift
 final class CardDetailViewController: UIViewController {
   private enum UISettings {
     static let navigationTitle = "TODO"
-    static let leftBarButtonTitle = "Edit"
+    static let leftBarButtonEditTitle = "Edit"
+    static let leftBarButtonEditingTitle = "Editing"
     static let rightBarButtonTitle = "Done"
   }
   
   private let cardEditView = CardEditView()
+  private var isEditable = false
+  
   private let disposeBag = DisposeBag()
   private let viewModel: CardListViewModel
   private let card: Card
@@ -43,24 +46,42 @@ final class CardDetailViewController: UIViewController {
   private func bindUI() {
     cardEditView.leftBarButton.rx.tap
       .bind(onNext: { [weak self] in
-        self?.cardEditView.titleTextField.isUserInteractionEnabled.toggle()
-        self?.cardEditView.descriptionTextView.isEditable.toggle()
-        self?.cardEditView.deadlineDatePicker.isUserInteractionEnabled.toggle()
+        self?.toggleEditingMode()
       })
       .disposed(by: disposeBag)
     
     cardEditView.rightBarButton.rx.tap
       .bind(onNext: { [weak self] in
         guard let self = self else { return }
+        guard let card = self.updateSelectedCard() else { return }
         
-        let title = self.cardEditView.titleTextField.text
-        let description = self.cardEditView.descriptionTextView.text
-        let deadlineDate = self.cardEditView.deadlineDatePicker.date
-        
-        self.viewModel.updateSelectedCard(self.card, title: title, description: description, deadlineDate: deadlineDate)
+        self.viewModel.updateSelectedCard(card)
         self.dismiss(animated: true)
       })
       .disposed(by: disposeBag)
+  }
+  
+  private func toggleEditingMode() {
+    isEditable.toggle()
+    cardEditView.titleTextField.isUserInteractionEnabled.toggle()
+    cardEditView.descriptionTextView.isEditable.toggle()
+    cardEditView.deadlineDatePicker.isUserInteractionEnabled.toggle()
+    
+    let title = isEditable ? UISettings.leftBarButtonEditingTitle : UISettings.leftBarButtonEditTitle
+    cardEditView.leftBarButton.title = title
+  }
+  
+  private func updateSelectedCard() -> Card? {
+    guard let title = cardEditView.titleTextField.text,
+          let description = cardEditView.descriptionTextView.text else { return nil }
+    let deadlineDate = cardEditView.deadlineDatePicker.date
+    
+    var card = self.card
+    card.title = title
+    card.description = description
+    card.deadlineDate = deadlineDate
+    
+    return card
   }
 }
 
@@ -82,7 +103,7 @@ extension CardDetailViewController {
     navigationItem.rightBarButtonItem = cardEditView.rightBarButton
     
     cardEditView.navigationBar.items = [navigationItem]
-    cardEditView.leftBarButton.title = UISettings.leftBarButtonTitle
+    cardEditView.leftBarButton.title = UISettings.leftBarButtonEditTitle
     cardEditView.rightBarButton.title = UISettings.rightBarButtonTitle
     cardEditView.rightBarButton.style = .done
   }

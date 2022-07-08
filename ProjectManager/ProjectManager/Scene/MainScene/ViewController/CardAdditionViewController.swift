@@ -47,15 +47,20 @@ final class CardAdditionViewController: UIViewController {
     cardEditView.rightBarButton.rx.tap
       .bind(onNext: { [weak self] in
         guard let self = self else { return }
+        guard let card = self.createNewCard() else { return }
         
-        let title = self.cardEditView.titleTextField.text
-        let description = self.cardEditView.descriptionTextView.text
-        let deadlineDate = self.cardEditView.deadlineDatePicker.date
-        
-        self.viewModel.createNewCard(title: title, description: description, deadlineDate: deadlineDate)
+        self.viewModel.createNewCard(card)
         self.dismiss(animated: true)
       })
       .disposed(by: disposeBag)
+  }
+  
+  private func createNewCard() -> Card? {
+    guard let title = cardEditView.titleTextField.text,
+          let description = cardEditView.descriptionTextView.text else { return nil }
+    let deadlineDate = cardEditView.deadlineDatePicker.date
+    
+    return Card(title: title, description: description, deadlineDate: deadlineDate)
   }
 }
 
