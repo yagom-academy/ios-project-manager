@@ -51,6 +51,7 @@ final class NewFormSheetViewController: UIViewController {
     
     @objc private func doneButtonTapped() {
         saveToTempModel()
+        dismiss(animated: true)
     }
     
     func saveToTempModel() {
@@ -70,6 +71,5 @@ final class NewFormSheetViewController: UIViewController {
             print("중복된 내용입니다.")
         }
         delegate?.refreshData()
-        dismiss(animated: true)
     }
 }

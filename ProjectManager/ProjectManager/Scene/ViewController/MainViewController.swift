@@ -244,6 +244,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         indexPath: IndexPath
     ) {
         let editViewController = EditFormSheetViewController()
+        editViewController.delegate = self
         editViewController.task = task[indexPath.row]
         let editFormSheet = UINavigationController(
             rootViewController: editViewController
@@ -303,15 +304,10 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
 extension MainViewController: DataReloadable {
     func refreshData() {
         fetchData()
-        
-        DispatchQueue.main.async {
-            self.mainView.todoTableView.reloadData()
-            self.mainView.doingTableView.reloadData()
-            self.mainView.doneTableView.reloadData()
-        }
+        mainView.todoTableView.reloadData()
+        mainView.doingTableView.reloadData()
+        mainView.doneTableView.reloadData()
     }
-    
-    
 }
 
 protocol DataReloadable: NSObject {

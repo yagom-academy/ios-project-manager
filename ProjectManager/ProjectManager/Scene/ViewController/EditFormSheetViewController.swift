@@ -12,6 +12,7 @@ final class EditFormSheetViewController: UIViewController {
     
     private let editFormSheetView = FormSheetView()
     private let realm = try? Realm()
+    weak var delegate: DataReloadable?
     var task: Task?
 
     override func loadView() {
@@ -78,5 +79,6 @@ final class EditFormSheetViewController: UIViewController {
         } catch {
             print("업데이트를 실패하였습니다.")
         }
+        delegate?.refreshData()
     }
 }
