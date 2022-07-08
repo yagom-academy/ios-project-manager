@@ -13,25 +13,27 @@ import Then
 
 final class CardListViewController: UIViewController {
   private enum UISettings {
-    static let intervalBetweenTableViews = 20.0
     static let navigationTitle = "Project Manager"
+    static let cardAdditionButtonImage = "plus"
+    static let intervalBetweenTableViews = 20.0
   }
   
-  private let cardAdditionButton = UIBarButtonItem(barButtonSystemItem: .add, target: nil, action: nil)
   private let todoSectionView = CardSectionView(sectionType: .todo)
   private let doingSectionView = CardSectionView(sectionType: .doing)
   private let doneSectionView = CardSectionView(sectionType: .done)
-  private lazy var containerStackView = UIStackView(
-    arrangedSubviews: [todoSectionView, doingSectionView, doneSectionView]
-  ).then {
+  
+  private let cardAdditionButton = UIBarButtonItem().then {
+    $0.image = UIImage(systemName: UISettings.cardAdditionButtonImage)
+  }
+  private let containerStackView = UIStackView().then {
     $0.axis = .horizontal
-    $0.spacing = UISettings.intervalBetweenTableViews
     $0.distribution = .fillEqually
+    $0.spacing = UISettings.intervalBetweenTableViews
     $0.translatesAutoresizingMaskIntoConstraints = false
   }
   
-  private let viewModel: CardListViewModel
   private let disposeBag = DisposeBag()
+  private let viewModel: CardListViewModel
   
   init(viewModel: CardListViewModel) {
     self.viewModel = viewModel
@@ -53,8 +55,8 @@ final class CardListViewController: UIViewController {
   
   private func bindUI() {
     bindSections()
-    bindTableViewsItemSelected()
-    bindTableViewsItemDeleted()
+    bindSectionsItemSelected()
+    bindSectionsItemDeleted()
     
     cardAdditionButton.rx.tap
       .bind(onNext: { [weak self] in
@@ -69,15 +71,15 @@ final class CardListViewController: UIViewController {
   private func bindSections() {
     let todos = viewModel.cards
       .map { $0.filter { $0.cardType == .todo } }
-      .map { $0.sorted { $0.deadlineDate < $1.deadlineDate }}
+      .map { $0.sorted { $0.deadlineDate < $1.deadlineDate } }
       .asDriver(onErrorJustReturn: [])
     let doings = viewModel.cards
       .map { $0.filter { $0.cardType == .doing } }
-      .map { $0.sorted { $0.deadlineDate < $1.deadlineDate }}
+      .map { $0.sorted { $0.deadlineDate < $1.deadlineDate } }
       .asDriver(onErrorJustReturn: [])
     let dones = viewModel.cards
       .map { $0.filter { $0.cardType == .done } }
-      .map { $0.sorted { $0.deadlineDate > $1.deadlineDate }}
+      .map { $0.sorted { $0.deadlineDate > $1.deadlineDate } }
       .asDriver(onErrorJustReturn: [])
     
     todos
@@ -135,7 +137,7 @@ final class CardListViewController: UIViewController {
       .disposed(by: disposeBag)
   }
   
-  private func bindTableViewsItemSelected() {
+  private func bindSectionsItemSelected() {
     Observable.zip(
       todoSectionView.tableView.rx.itemSelected,
       todoSectionView.tableView.rx.modelSelected(Card.self)
@@ -176,7 +178,7 @@ final class CardListViewController: UIViewController {
     .disposed(by: disposeBag)
   }
   
-  private func bindTableViewsItemDeleted() {
+  private func bindSectionsItemDeleted() {
     Observable.zip(
       todoSectionView.tableView.rx.itemDeleted,
       todoSectionView.tableView.rx.modelDeleted(Card.self)
@@ -225,6 +227,7 @@ extension CardListViewController {
   
   private func configureSubViews() {
     view.addSubview(containerStackView)
+    [todoSectionView, doingSectionView, doneSectionView].forEach { containerStackView.addArrangedSubview($0) }
   }
   
   private func configureLayouts() {
