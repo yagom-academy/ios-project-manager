@@ -104,7 +104,6 @@
 				30B02F8B2873E3F40029579F /* TodoListViewModel.swift */,
 				30B02F8F28747FF40029579F /* TodoListCell.swift */,
 				3088777B2875CD7800057592 /* ListView.swift */,
-				308FF0BF2878205700301DCF /* DetailViewController.swift */,
 			);
 			path = TodoList;
 			sourceTree = "<group>";
