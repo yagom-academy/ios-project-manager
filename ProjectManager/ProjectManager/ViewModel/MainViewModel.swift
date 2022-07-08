@@ -30,7 +30,7 @@ final class MainViewModel {
         ]
         
         let doneDummy: [List] = [
-            List(title: "나는 던이야", body: "노래는 못불러", deadline: Date(), type: .done),
+            List(title: "나는 던이야", body: "노래는 못불러", deadline: Date(timeIntervalSince1970: 75231235), type: .done),
             List(title: "안녕 똥이야!", body: "모 \n 어쩔건데!! \n ㅋㄷㅋㄷ", deadline: Date(), type: .done)
         ]
         
