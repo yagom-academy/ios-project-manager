@@ -10,7 +10,7 @@ import Combine
 
 protocol TodoListViewModelInput {
     func deleteItem(_ item: TodoListModel)
-    func addButtonDidTap(_ item: TodoListModel?)
+    func addButtonDidTap()
 }
 
 protocol TodoListViewModelOutput {
@@ -62,8 +62,8 @@ extension DefaultTodoListViewModel {
     
     // MARK: - Input
     
-    func addButtonDidTap(_ item: TodoListModel?) {
-        actions.showDetailView(item)
+    func addButtonDidTap() {
+        actions.showDetailView(nil)
     }
     
     func deleteItem(_ item: TodoListModel) {
