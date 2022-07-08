@@ -36,10 +36,10 @@ final class DefaultTodoDetailViewModel: TodoDetailViewModel {
     let isCreate = CurrentValueSubject<Bool, Never>(true)
 
     private let todoListModel: TodoListModel
-    private let actions: TodoDetailActions
+    private let actions: TodoDetailActions?
     private let useCase: TodoListUseCase
     
-    init(actions: TodoDetailActions, useCase: TodoListUseCase, todoListModel: TodoListModel) {
+    init(actions: TodoDetailActions? = nil, useCase: TodoListUseCase, todoListModel: TodoListModel) {
         self.actions = actions
         self.useCase = useCase
         self.todoListModel = todoListModel
@@ -61,7 +61,7 @@ extension DefaultTodoDetailViewModel {
             useCase.deleteLastItem()
         }
         
-        actions.dismiss()
+        actions?.dismiss()
     }
     
     func doneButtonDidTap(title: String, content: String, deadLine: Date) {
@@ -78,7 +78,7 @@ extension DefaultTodoDetailViewModel {
                 id: todoListModel.id
             )
         )
-        actions.dismiss()
+        actions?.dismiss()
     }
     
     func editButtonDidTap() {

@@ -42,10 +42,10 @@ final class DefaultTodoListViewModel: TodoListViewModel {
         return filteredItems(with: .done)
     }
     
-    private let actions: TodoListActions
+    private let actions: TodoListActions?
     private let useCase: TodoListUseCase
     
-    init(actions: TodoListActions, useCase: TodoListUseCase) {
+    init(actions: TodoListActions? = nil, useCase: TodoListUseCase) {
         self.actions = actions
         self.useCase = useCase
     }
@@ -65,7 +65,7 @@ extension DefaultTodoListViewModel {
     
     func addButtonDidTap() {
         let item = TodoListModel(title: "", content: "", deadLine: Date().endOfTheDay ?? Date())
-        actions.showDetailView(item)
+        actions?.showDetailView(item)
         useCase.create(item)
     }
     
@@ -74,7 +74,7 @@ extension DefaultTodoListViewModel {
     }
     
     func cellDidTap(_ item: TodoListModel) {
-        actions.showDetailView(item)
+        actions?.showDetailView(item)
     }
     
     func cellDidLongPress(_ item: TodoListModel, to processType: ProcessType) {

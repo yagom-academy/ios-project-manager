@@ -16,7 +16,7 @@ protocol Storage {
 }
 
 final class MemoryStorage: Storage {
-    @Published var items: [TodoListModel] = TodoListModel.dummyData()
+    @Published private var items: [TodoListModel] = TodoListModel.dummyData()
     
     func create(_ item: TodoListModel) {
         items.append(item)
