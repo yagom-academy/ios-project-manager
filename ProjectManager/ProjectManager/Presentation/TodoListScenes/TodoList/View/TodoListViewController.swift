@@ -127,29 +127,32 @@ final class TodoListViewController: UIViewController {
 }
 
 extension TodoListViewController: UITableViewDelegate {
+    private func tableViewItem(with tableView: UITableView, _ indexPath: IndexPath) -> TodoListModel? {
+        switch tableView {
+        case todoListView.todoTableView:
+            return todoDataSource?.snapshot().itemIdentifiers[indexPath.row]
+        case todoListView.doingTableView:
+            return doingDataSource?.snapshot().itemIdentifiers[indexPath.row]
+        case todoListView.doneTableView:
+            return doneDataSource?.snapshot().itemIdentifiers[indexPath.row]
+        default:
+            return nil
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let item = tableViewItem(with: tableView, indexPath) else { return }
+        viewModel.cellDidTap(item)
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
     func tableView(
         _ tableView: UITableView,
         trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
     ) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] (_, _, completion) in
-            
-            switch tableView {
-            case self?.todoListView.todoTableView:
-                if let item = self?.todoDataSource?.snapshot().itemIdentifiers[indexPath.row] {
-                    self?.viewModel.deleteItem(item)
-                }
-            case self?.todoListView.doingTableView:
-                if let item = self?.doingDataSource?.snapshot().itemIdentifiers[indexPath.row] {
-                    self?.viewModel.deleteItem(item)
-                }
-            case self?.todoListView.doneTableView:
-                if let item = self?.doneDataSource?.snapshot().itemIdentifiers[indexPath.row] {
-                    self?.viewModel.deleteItem(item)
-                }
-            default:
-                break
-            }
-                        
+            guard let item = self?.tableViewItem(with: tableView, indexPath) else { return }
+            self?.viewModel.deleteItem(item)
             completion(true)
         }
         
