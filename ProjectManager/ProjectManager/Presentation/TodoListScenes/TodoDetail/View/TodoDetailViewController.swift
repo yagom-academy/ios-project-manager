@@ -6,9 +6,11 @@
 //
 
 import UIKit
+import Combine
 
 final class TodoDetailViewController: UIViewController {
     
+    private var cancellables = Set<AnyCancellable>()
     private let viewModel: TodoDetailViewModel
     private lazy var todoDetailView = TodoDetailView(frame: self.view.bounds)
 
@@ -24,6 +26,17 @@ final class TodoDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+        bind()
+    }
+    
+    private func bind() {
+        viewModel.item
+            .sink { [weak self] item in
+                self?.todoDetailView.titleTextField.text = item?.title
+                self?.todoDetailView.datePicker.date = item?.deadLine ?? Date()
+                self?.todoDetailView.contentTextView.text = item?.content
+            }
+            .store(in: &cancellables)
     }
     
     private func setup() {

@@ -6,12 +6,15 @@
 //
 
 import Foundation
+import Combine
 
 protocol TodoDetailViewModelInput {
     func closeButtonDidTap()
     func doneButtonDidTap(title: String, content: String, deadLine: Date)
 }
-protocol TodoDetailViewModelOutput {}
+protocol TodoDetailViewModelOutput {
+    var item: Just<TodoListModel?> { get }
+}
 protocol TodoDetailViewModel: TodoDetailViewModelInput, TodoDetailViewModelOutput {}
 
 struct TodoDetailActions {
@@ -19,13 +22,21 @@ struct TodoDetailActions {
 }
 
 final class DefaultTodoDetailViewModel: TodoDetailViewModel {
+    
+    // MARK: - Output
+    
+    var item: Just<TodoListModel?> {
+        return Just(todoListModel)
+    }
 
+    private let todoListModel: TodoListModel?
     private let actions: TodoDetailActions
     private let useCase: UseCase
     
-    init(actions: TodoDetailActions, useCase: UseCase) {
+    init(actions: TodoDetailActions, useCase: UseCase, todoListModel: TodoListModel?) {
         self.actions = actions
         self.useCase = useCase
+        self.todoListModel = todoListModel
     }
 }
 

@@ -20,12 +20,12 @@ final class TodoListSceneDIContainer {
 }
 
 extension TodoListSceneDIContainer: TodoListSceneCoordinatorDependencies {
-    func makeTodoDetailViewContoller(actions: TodoDetailActions) -> TodoDetailViewController {
-        return TodoDetailViewController(viewModel: makeTodoDetailViewModel(actions: actions))
+    func makeTodoDetailViewContoller(actions: TodoDetailActions, todoListModel: TodoListModel?) -> TodoDetailViewController {
+        return TodoDetailViewController(viewModel: makeTodoDetailViewModel(actions: actions, todoListModel: todoListModel))
     }
     
-    private func makeTodoDetailViewModel(actions: TodoDetailActions) -> TodoDetailViewModel {
-        DefaultTodoDetailViewModel(actions: actions, useCase: makeUseCase())
+    private func makeTodoDetailViewModel(actions: TodoDetailActions, todoListModel: TodoListModel?) -> TodoDetailViewModel {
+        DefaultTodoDetailViewModel(actions: actions, useCase: makeUseCase(), todoListModel: todoListModel)
     }
     
     func makeTodoListViewController(actions: TodoListActions) -> TodoListViewController {

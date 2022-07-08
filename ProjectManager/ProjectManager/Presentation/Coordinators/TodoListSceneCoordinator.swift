@@ -9,7 +9,10 @@ import UIKit
 
 protocol TodoListSceneCoordinatorDependencies {
     func makeTodoListViewController(actions: TodoListActions) -> TodoListViewController
-    func makeTodoDetailViewContoller(actions: TodoDetailActions) -> TodoDetailViewController
+    func makeTodoDetailViewContoller(
+        actions: TodoDetailActions,
+        todoListModel: TodoListModel?
+    ) -> TodoDetailViewController
 }
 
 final class TodoListSceneCoordinator {
@@ -35,7 +38,10 @@ final class TodoListSceneCoordinator {
     }
     
     private func showTodoDetailView(_ item: TodoListModel?) {
-        let todoDetailViewController = dependencies.makeTodoDetailViewContoller(actions: makeTodoDetailActions())
+        let todoDetailViewController = dependencies.makeTodoDetailViewContoller(
+            actions: makeTodoDetailActions(),
+            todoListModel: item
+        )
         let todoDetailNavigationController = UINavigationController(rootViewController: todoDetailViewController)
         
         todoDetailNavigationController.modalPresentationStyle = .formSheet
