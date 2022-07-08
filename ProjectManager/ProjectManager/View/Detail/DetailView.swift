@@ -61,13 +61,13 @@ final class DetailView: UIView {
         return textField
     }()
     
-    var deadlinePicker: UIDatePicker {
+    lazy var deadlinePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.preferredDatePickerStyle = .wheels
         datePicker.datePickerMode = .date
         
         return datePicker
-    }
+    }()
     
     lazy var bodyTextView: UITextView = {
         let textView = UITextView()
