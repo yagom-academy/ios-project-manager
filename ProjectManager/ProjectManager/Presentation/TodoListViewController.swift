@@ -101,6 +101,11 @@ extension TodoListViewController {
                 cell.setContent(title: item.title, body: item.body, deadline: item.deadlineAt)
               }.disposed(by: bag)
         
+        plusButton.rx.tap
+            .bind {
+                let todoEditViewController = TodoEditViewController()
+                self.present(todoEditViewController, animated: true)
+            }.disposed(by: bag)
         viewModel.doneListCount
             .asDriver(onErrorJustReturn: "0")
             .drive(mainView.doneHeaderView.setCountText)
