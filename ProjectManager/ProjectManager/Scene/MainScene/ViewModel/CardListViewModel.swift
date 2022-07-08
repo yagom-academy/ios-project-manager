@@ -40,16 +40,19 @@ final class DefaultCardListViewModel: CardListViewModel {
     todoCards = cards
       .map { $0.filter { $0.cardType == .todo } }
       .map { $0.sorted { $0.deadlineDate < $1.deadlineDate } }
+      .distinctUntilChanged { $0 == $1 }
       .asDriver(onErrorJustReturn: [])
     
     doingCards = cards
       .map { $0.filter { $0.cardType == .doing } }
       .map { $0.sorted { $0.deadlineDate < $1.deadlineDate } }
+      .distinctUntilChanged { $0 == $1 }
       .asDriver(onErrorJustReturn: [])
     
     doneCards = cards
       .map { $0.filter { $0.cardType == .done } }
       .map { $0.sorted { $0.deadlineDate > $1.deadlineDate } }
+      .distinctUntilChanged { $0 == $1 }
       .asDriver(onErrorJustReturn: [])
   }
   

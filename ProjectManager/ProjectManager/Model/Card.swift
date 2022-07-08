@@ -21,7 +21,7 @@ enum CardType: CustomStringConvertible {
   }
 }
 
-struct Card {
+struct Card: Equatable {
   let id = UUID().uuidString
   var title: String
   var description: String
