@@ -52,11 +52,11 @@ final class PopoverView: UIView {
     }
     
     private func generatePopoverButton(title: String) -> UIButton {
-        let button = UIButton()
-        button.titleLabel?.font = .preferredFont(forTextStyle: .title3)
-        button.setTitle(title, for: .normal)
-        button.setTitleColor(.systemBlue, for: .normal)
-        button.backgroundColor = .white
-        return button
+        return UIButton().then {
+            $0.titleLabel?.font = .preferredFont(forTextStyle: .title3)
+            $0.setTitle(title, for: .normal)
+            $0.setTitleColor(.systemBlue, for: .normal)
+            $0.backgroundColor = .white
+        }
     }
 }

@@ -51,7 +51,7 @@ final class NewFormSheetViewController: UIViewController {
     @objc private func doneButtonTapped() {
         saveToTempModel()
         dismiss(animated: true) { [weak self] in
-            self?.delegate?.refreshData()
+            self?.delegate?.reloadData()
         }
     }
     

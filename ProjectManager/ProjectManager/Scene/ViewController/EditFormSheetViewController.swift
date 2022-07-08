@@ -48,7 +48,7 @@ final class EditFormSheetViewController: UIViewController {
     @objc private func editButtonTapped() {
         editToTempModel()
         dismiss(animated: true) { [weak self] in
-            self?.delegate?.refreshData()
+            self?.delegate?.reloadData()
         }
     }
     

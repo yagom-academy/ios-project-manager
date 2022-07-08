@@ -48,7 +48,7 @@ struct RealmManager {
         }
     }
     
-    func convert(task: Task, taskType: TaskType) {
+    func change(task: Task, taskType: TaskType) {
         do {
             try realm?.write {
                 task.taskType = taskType

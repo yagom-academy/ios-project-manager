@@ -54,22 +54,22 @@ final class PopoverViewController: UIViewController {
     }
     
     @objc private func moveToToDo() {
-        modifiedTaskType(taskType: .todo)
+        changeTaskType(taskType: .todo)
     }
     
     @objc private func moveToDoing() {
-        modifiedTaskType(taskType: .doing)
+        changeTaskType(taskType: .doing)
     }
     
     @objc private func moveToDone() {
-        modifiedTaskType(taskType: .done)
+        changeTaskType(taskType: .done)
     }
     
-    private func modifiedTaskType(taskType: TaskType) {
+    private func changeTaskType(taskType: TaskType) {
         guard let task = task else { return }
-        realmManager.convert(task: task, taskType: taskType)
+        realmManager.change(task: task, taskType: taskType)
         dismiss(animated: true) { [weak self] in
-            self?.delegate?.refreshData()
+            self?.delegate?.reloadData()
         }
     }
 }

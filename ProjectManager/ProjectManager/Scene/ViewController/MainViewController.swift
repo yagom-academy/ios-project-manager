@@ -38,9 +38,6 @@ final class MainViewController: UIViewController, UIPopoverPresentationControlle
         configureNavigationItems()
         registerTableViewInfo()
         fetchData()
-        mainView.setupSubViews()
-        mainView.setupUILayout()
-        
         setupLongPressGesture(at: mainView.todoTableView)
         setupLongPressGesture(at: mainView.doingTableView)
         setupLongPressGesture(at: mainView.doneTableView)
@@ -112,9 +109,14 @@ final class MainViewController: UIViewController, UIPopoverPresentationControlle
     }
 }
 
+// MARK: - Gesture Recognizer Delegate Method
+
 extension MainViewController: UIGestureRecognizerDelegate {
     private func setupLongPressGesture(at tableView: UITableView) {
-        let longPressedGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress))
+        let longPressedGesture = UILongPressGestureRecognizer(
+            target: self,
+            action: #selector(handleLongPress)
+        )
         longPressedGesture.minimumPressDuration = 1.0
         longPressedGesture.delegate = self
         longPressedGesture.delaysTouchesBegan = true
@@ -126,7 +128,7 @@ extension MainViewController: UIGestureRecognizerDelegate {
         let location = gestureRecognizer.location(in: tableView)
         if gestureRecognizer.state == .began {
             if let indexPath = tableView?.indexPathForRow(at: location) {
-                
+                guard let cell = tableView?.cellForRow(at: indexPath) as? TaskTableViewCell else { return }
                 let popoverWidth = mainView.frame.size.width * 0.25
                 let popoverHeight = mainView.frame.size.height * 0.15
                 
@@ -138,8 +140,9 @@ extension MainViewController: UIGestureRecognizerDelegate {
                 )
                 popoverViewController.modalPresentationStyle = .popover
                 
-                guard let popoverPresentationController = popoverViewController.popoverPresentationController,
-                      let cell = tableView?.cellForRow(at: indexPath) as? TaskTableViewCell else { return }
+                guard let popoverPresentationController = popoverViewController.popoverPresentationController else {
+                    return
+                }
                 popoverPresentationController.sourceView = cell
                 popoverPresentationController.sourceRect = cell.bounds
                 popoverPresentationController.permittedArrowDirections = .up
@@ -252,21 +255,21 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
                 fetchToDo()
                 deleteCell(
                     indexPath: indexPath,
-                    at: mainView.todoTableView
+                    from: mainView.todoTableView
                 )
             } else if tableView == mainView.doingTableView {
                 realmManager.delete(task: doings[indexPath.row])
                 fetchDoing()
                 deleteCell(
                     indexPath: indexPath,
-                    at: mainView.doingTableView
+                    from: mainView.doingTableView
                 )
             } else {
                 realmManager.delete(task: dones[indexPath.row])
                 fetchDone()
                 deleteCell(
                     indexPath: indexPath,
-                    at: mainView.doneTableView
+                    from: mainView.doneTableView
                 )
             }
         }
@@ -274,7 +277,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     
     private func deleteCell(
         indexPath: IndexPath,
-        at tableView: UITableView
+        from tableView: UITableView
     ) {
         tableView.deleteRows(
             at: [indexPath],
@@ -284,7 +287,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension MainViewController: DataReloadable {
-    func refreshData() {
+    func reloadData() {
         fetchData()
         mainView.todoTableView.reloadData()
         mainView.doingTableView.reloadData()
@@ -293,5 +296,5 @@ extension MainViewController: DataReloadable {
 }
 
 protocol DataReloadable: NSObject {
-    func refreshData()
+    func reloadData()
 }
