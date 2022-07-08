@@ -73,14 +73,15 @@ final class TodoListViewController: UIViewController {
     private func bind() {
         self.navigationItem.rightBarButtonItem?.rx.tap.asObservable()
             .subscribe(onNext: { [weak self] in
-                self?.moveToDetailView() })
+                self?.presentDetailView() })
             .disposed(by: disposeBag)
     }
     
-    private func moveToDetailView() {
+    private func presentDetailView() {
         let viewController = DetailViewController()
 
-        viewController.modalPresentationStyle = .formSheet
-        self.present(viewController, animated: true)
+        let navigationController = UINavigationController.init(rootViewController: viewController)
+        navigationController.modalPresentationStyle = .formSheet
+        self.present(navigationController, animated: true)
     }
 }

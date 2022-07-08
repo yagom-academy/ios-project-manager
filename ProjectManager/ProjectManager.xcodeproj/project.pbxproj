@@ -104,7 +104,6 @@
 				30B02F8B2873E3F40029579F /* TodoListViewModel.swift */,
 				30B02F8F28747FF40029579F /* TodoListCell.swift */,
 				3088777B2875CD7800057592 /* ListView.swift */,
-				308FF0BF2878205700301DCF /* DetailViewController.swift */,
 			);
 			path = TodoList;
 			sourceTree = "<group>";
@@ -177,6 +176,14 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		64371A84287847F600F78AAA /* TodoDetail */ = {
+			isa = PBXGroup;
+			children = (
+				308FF0BF2878205700301DCF /* DetailViewController.swift */,
+			);
+			path = TodoDetail;
+			sourceTree = "<group>";
+		};
 		C7431EF925F51E1D0094C4CF = {
 			isa = PBXGroup;
 			children = (
@@ -205,6 +212,7 @@
 				643719DA2873D2BB00F78AAA /* GoogleService-Info.plist */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
 				30B02F8E287464250029579F /* TodoList */,
+				64371A84287847F600F78AAA /* TodoDetail */,
 				643719E12873E07400F78AAA /* Model */,
 			);
 			path = ProjectManager;
