@@ -1,22 +1,20 @@
 //
-//  MemoryStorage.swift
-//  ProjectManager
+//  MemoryStoregeMock.swift
+//  ProjectManagerTests
 //
-//  Created by 김도연 on 2022/07/06.
+//  Created by 조민호 on 2022/07/08.
 //
 
-import Foundation
 import Combine
+import Foundation
+@testable import ProjectManager
 
-protocol Storage {
-    func create(_ item: TodoListModel)
-    func read() -> AnyPublisher<[TodoListModel], Never>
-    func update(_ item: TodoListModel)
-    func delete(_ item: TodoListModel)
-}
-
-final class MemoryStorage: Storage {
-    @Published private var items: [TodoListModel] = TodoListModel.dummyData()
+final class MemoryStorageMock: Storage {
+    @Published private var items: [TodoListModel] = [
+        TodoListModel(title: "1", content: "1", deadLine: Date(), id: "1"),
+        TodoListModel(title: "2", content: "2", deadLine: Date(), id: "2"),
+        TodoListModel(title: "3", content: "3", deadLine: Date(), id: "3")
+    ]
     
     func create(_ item: TodoListModel) {
         items.append(item)
