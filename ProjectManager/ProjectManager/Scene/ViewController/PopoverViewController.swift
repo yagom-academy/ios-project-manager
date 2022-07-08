@@ -18,26 +18,9 @@ final class PopoverView: UIView {
         $0.spacing = 10
     }
     
-    private(set) lazy var moveToToDoButton = UIButton().then {
-        $0.titleLabel?.font = .preferredFont(forTextStyle: .title3)
-        $0.setTitle("Move to TODO", for: .normal)
-        $0.setTitleColor(.systemBlue, for: .normal)
-        $0.backgroundColor = .white
-    }
-    
-    private(set) lazy var moveToDoingButton = UIButton().then {
-        $0.titleLabel?.font = .preferredFont(forTextStyle: .title3)
-        $0.setTitle("Move to DOING", for: .normal)
-        $0.setTitleColor(.systemBlue, for: .normal)
-        $0.backgroundColor = .white
-    }
-    
-    private(set) lazy var moveToDoneButton = UIButton().then {
-        $0.titleLabel?.font = .preferredFont(forTextStyle: .title3)
-        $0.setTitle("Move to DONE", for: .normal)
-        $0.setTitleColor(.systemBlue, for: .normal)
-        $0.backgroundColor = .white
-    }
+    private(set) lazy var moveToToDoButton = generatePopoverButton(title: "Move to TODO")
+    private(set) lazy var moveToDoingButton = generatePopoverButton(title: "Move to DOING")
+    private(set) lazy var moveToDoneButton = generatePopoverButton(title: "Move to DONE")
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -59,6 +42,15 @@ final class PopoverView: UIView {
             $0.leading.trailing.equalToSuperview().inset(10)
             $0.top.bottom.equalToSuperview().inset(20)
         }
+    }
+    
+    private func generatePopoverButton(title: String) -> UIButton {
+        let button = UIButton()
+        button.titleLabel?.font = .preferredFont(forTextStyle: .title3)
+        button.setTitle(title, for: .normal)
+        button.setTitleColor(.systemBlue, for: .normal)
+        button.backgroundColor = .white
+        return button
     }
 }
 
