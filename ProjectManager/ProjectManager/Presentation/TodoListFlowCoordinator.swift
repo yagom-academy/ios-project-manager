@@ -9,7 +9,7 @@ import UIKit
 
 protocol TodoListFlowCoordinatorDependencies {
     func makeTodoListViewController(actions: TodoListViewModelActions) -> TodoListViewController
-    func makeTodoEditViewController() -> TodoEditViewController
+    func makeTodoEditViewController(actions: TodoEditViewModelActions) -> TodoEditViewController
 }
 
 final class TodoListFlowCoordinator {
@@ -35,7 +35,9 @@ extension TodoListFlowCoordinator {
     }
     
     private func presentEditViewController() {
-        let viewController = dependencies.makeTodoEditViewController()
+        let actions = TodoEditViewModelActions(dismiss: dismissEditViewController)
+        
+        let viewController = dependencies.makeTodoEditViewController(actions: actions)
         
         todoListViewController?.present(viewController, animated: true)
         todoEditViewController = viewController

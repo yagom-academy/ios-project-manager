@@ -7,9 +7,13 @@
 
 import UIKit
 import SnapKit
+import RxSwift
+import RxCocoa
 
 class TodoEditViewController: UIViewController {
     private let mainView = TodoEditView()
+    private let viewModel: TodoEditViewModel
+    private let bag = DisposeBag()
     
     private let navigationBar = UINavigationBar()
     private let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: nil, action: nil)
@@ -19,6 +23,16 @@ class TodoEditViewController: UIViewController {
         super.viewDidLoad()
         configureNavigationBar()
         configureView()
+        bind()
+    }
+    
+    init(viewModel: TodoEditViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
 
@@ -41,5 +55,16 @@ extension TodoEditViewController {
         navigationItem.leftBarButtonItem = cancelButton
         navigationItem.rightBarButtonItem = doneButton
         navigationBar.items = [navigationItem]
+    }
+}
+
+//MARK: - ViewModel Bind
+extension TodoEditViewController {
+    private func bind() {
+        cancelButton.rx.tap
+            .bind(onNext: { [weak self] in
+                self?.viewModel.actions?.dismiss()
+            })
+            .disposed(by: bag)
     }
 }
