@@ -45,7 +45,10 @@ final class DefaultTodoListViewModel: TodoListViewModel {
         return dateFormatter
     }()
     
-    init() {
+    init(useCase: UseCase) {
+        self.useCase = useCase
+        listItems = useCase.readRepository()
+        
         todoList = listItems
             .map { items in
                 items.filter { $0.state == .todo }
