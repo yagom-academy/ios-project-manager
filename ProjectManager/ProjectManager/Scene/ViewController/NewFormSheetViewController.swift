@@ -6,10 +6,13 @@
 //
 
 import UIKit
+import RealmSwift
 
 final class NewFormSheetViewController: UIViewController {
     
     private let newFormSheetView = FormSheetView()
+    private let realm = try? Realm()
+    private let uuid = UUID().uuidString
     
     override func loadView() {
         super.loadView()
@@ -46,7 +49,25 @@ final class NewFormSheetViewController: UIViewController {
     }
     
     @objc private func doneButtonTapped() {
-        // 저장
-        print("done")
+        saveToTempModel()
+    }
+    
+    func saveToTempModel() {
+        let newProject = Task(
+            title: newFormSheetView.titleTextField.text ?? "",
+            body: newFormSheetView.bodyTextView.text ?? "",
+            date: newFormSheetView.datePicker.date.timeIntervalSince1970,
+            taskType: .todo,
+            id: uuid
+        )
+        
+        do {
+            try realm?.write {
+                realm?.add(newProject)
+            }
+        } catch {
+            print("중복된 내용입니다.")
+        }
+        dismiss(animated: true)
     }
 }

@@ -19,14 +19,14 @@ final class FormSheetView: UIView {
             $0.spacing = 10
     }
     
-    private lazy var titleTextField = UITextField().then {
+    private(set) lazy var titleTextField = UITextField().then {
         $0.placeholder = "Title"
         $0.backgroundColor = .white
         $0.addLeftPadding()
         setShadow(target: $0)
     }
     
-    private lazy var datePicker = UIDatePicker().then {
+    private(set) lazy var datePicker = UIDatePicker().then {
         $0.preferredDatePickerStyle = .wheels
         $0.datePickerMode = .date
     }
@@ -36,7 +36,7 @@ final class FormSheetView: UIView {
         setShadow(target: $0)
     }
     
-    private(set) lazy var descriptionTextView = UITextView().then {
+    private(set) lazy var bodyTextView = UITextView().then {
         $0.font = .preferredFont(forTextStyle: .subheadline)
         $0.text = "입력 가능한 글자수는 1000자로 제한합니다."
     }
@@ -61,9 +61,9 @@ final class FormSheetView: UIView {
     }
     
     private func setupUILayout() {
-        shadowView.addSubview(descriptionTextView)
+        shadowView.addSubview(bodyTextView)
         addSubview(formSheetStackView)
-        descriptionTextView.snp.makeConstraints {
+        bodyTextView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
         
@@ -80,6 +80,6 @@ final class FormSheetView: UIView {
     func setUpContents(task: Task) {
         titleTextField.text = task.title
         datePicker.date = Date.init(timeIntervalSince1970: task.date)
-        descriptionTextView.text = task.body
+        bodyTextView.text = task.body
     }
 }
