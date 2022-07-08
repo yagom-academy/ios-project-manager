@@ -57,12 +57,22 @@ final class MainView: UIView {
             $0.axis = .vertical
         }
 
-    func setupSubViews() {
-        addSubview(baseStackView)
+    init() {
+        super.init(frame: .zero)
         backgroundColor = .systemGray5
+        setupSubViews()
+        setupUILayout()
     }
     
-    func setupUILayout() {
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupSubViews() {
+        addSubview(baseStackView)
+    }
+    
+    private func setupUILayout() {
         baseStackView.snp.makeConstraints {
             $0.top.equalTo(safeAreaLayoutGuide)
             $0.leading.trailing.bottom.equalToSuperview()
