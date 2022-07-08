@@ -65,6 +65,7 @@ extension DefaultTodoListViewModel {
     
     func addButtonDidTap() {
         actions.showDetailView(nil)
+        useCase.create(TodoListModel(title: "작성중...", content: "", deadLine: Date()))
     }
     
     func deleteItem(_ item: TodoListModel) {

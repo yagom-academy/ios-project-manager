@@ -12,6 +12,7 @@ protocol UseCase {
     func create(_ item: TodoListModel)
     func read() -> AnyPublisher<[TodoListModel], Never>
     func delete(item: TodoListModel)
+    func deleteLastItem()
 }
 
 final class TodoListUseCase: UseCase {
@@ -33,5 +34,9 @@ extension TodoListUseCase {
     
     func delete(item: TodoListModel) {
         repository.delete(item: item)
+    }
+    
+    func deleteLastItem() {
+        repository.deleteLastItem()
     }
 }

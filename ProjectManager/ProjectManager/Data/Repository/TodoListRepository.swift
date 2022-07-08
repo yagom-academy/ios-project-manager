@@ -21,11 +21,20 @@ extension TodoListRepository: Repository {
         storage.create(item)
     }
     
-    func read() -> AnyPublisher<[TodoListModel], Never> {
+    func read() -> AnyPublisher< [TodoListModel], Never> {
         return storage.read()
     }
     
     func delete(item: TodoListModel) {
         storage.delete(item)
+    }
+    
+    func deleteLastItem() {
+        _ = storage.read()
+            .prefix(1)
+            .sink { [weak self] items in
+            guard let lastItem = items.last else { return }
+            self?.storage.delete(lastItem)
+        }
     }
 }

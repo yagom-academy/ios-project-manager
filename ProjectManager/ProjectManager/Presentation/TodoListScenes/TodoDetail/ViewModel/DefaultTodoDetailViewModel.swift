@@ -55,6 +55,10 @@ extension DefaultTodoDetailViewModel {
     // MARK: - Input
     
     func closeButtonDidTap() {
+        if todoListModel == nil {
+            useCase.deleteLastItem()
+        }
+        
         actions.dismiss()
     }
     
