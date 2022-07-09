@@ -13,26 +13,30 @@ import Then
 
 final class CardListViewController: UIViewController {
   private enum UISettings {
-    static let intervalBetweenTableViews = 20.0
     static let navigationTitle = "Project Manager"
+    static let cardAdditionButtonImage = "plus"
+    static let intervalBetweenTableViews = 20.0
   }
   
   private let todoSectionView = CardSectionView(sectionType: .todo)
   private let doingSectionView = CardSectionView(sectionType: .doing)
   private let doneSectionView = CardSectionView(sectionType: .done)
-  private lazy var containerStackView = UIStackView(
-    arrangedSubviews: [todoSectionView, doingSectionView, doneSectionView]
-  ).then {
+  
+  private let cardAdditionButton = UIBarButtonItem().then {
+    $0.image = UIImage(systemName: UISettings.cardAdditionButtonImage)
+  }
+  private let containerStackView = UIStackView().then {
     $0.axis = .horizontal
-    $0.spacing = UISettings.intervalBetweenTableViews
     $0.distribution = .fillEqually
+    $0.spacing = UISettings.intervalBetweenTableViews
     $0.translatesAutoresizingMaskIntoConstraints = false
   }
   
-  private let viewModel = CardListViewModel()
   private let disposeBag = DisposeBag()
+  private let viewModel: CardListViewModel
   
-  init() {
+  init(viewModel: CardListViewModel) {
+    self.viewModel = viewModel
     super.init(nibName: nil, bundle: nil)
     configureSubViews()
     configureLayouts()
@@ -50,58 +54,141 @@ final class CardListViewController: UIViewController {
   }
   
   private func bindUI() {
-    let input = CardListViewModel.Input()
-    let output = viewModel.transform(input: input)
+    bindSectionsHeader()
+    bindSectionsItems()
+    bindSectionsItemSelected()
+    bindSectionsItemDeleted()
     
-    bindSections(output: output)
+    cardAdditionButton.rx.tap
+      .bind(onNext: { [weak self] in
+        guard let self = self else { return }
+        let cardAdditionViewController = CardAdditionViewController(viewModel: self.viewModel)
+        cardAdditionViewController.modalPresentationStyle = .formSheet
+        self.present(cardAdditionViewController, animated: true)
+      })
+      .disposed(by: disposeBag)
   }
   
-  private func bindSections(output: CardListViewModel.Output) {
-    let todos = output.todoCards.asDriver(onErrorJustReturn: [])
-    let doings = output.doingCards.asDriver(onErrorJustReturn: [])
-    let dones = output.doneCards.asDriver(onErrorJustReturn: [])
-    
-    todos
-      .drive(todoSectionView.tableView.rx.items(
-        cellIdentifier: CardListTableViewCell.identifier,
-        cellType: CardListTableViewCell.self
-      )) { _, card, cell in
-        cell.setup(card: card)
-      }
-      .disposed(by: disposeBag)
-    
-    todos
+  private func bindSectionsHeader() {
+    viewModel.todoCards
       .map { "\($0.count)" }
       .drive(todoSectionView.headerView.cardCountLabel.rx.text)
       .disposed(by: disposeBag)
     
-    doings
-      .drive(doingSectionView.tableView.rx.items(
-        cellIdentifier: CardListTableViewCell.identifier,
-        cellType: CardListTableViewCell.self
-      )) { _, card, cell in
-        cell.setup(card: card)
-      }
-      .disposed(by: disposeBag)
-    
-    doings
+    viewModel.doingCards
       .map { "\($0.count)" }
       .drive(doingSectionView.headerView.cardCountLabel.rx.text)
       .disposed(by: disposeBag)
     
-    dones
-      .drive(doneSectionView.tableView.rx.items(
-        cellIdentifier: CardListTableViewCell.identifier,
-        cellType: CardListTableViewCell.self
-      )) { _, card, cell in
-        cell.setup(card: card)
-      }
-      .disposed(by: disposeBag)
-    
-    dones
+    viewModel.doneCards
       .map { "\($0.count)" }
       .drive(doneSectionView.headerView.cardCountLabel.rx.text)
       .disposed(by: disposeBag)
+  }
+  
+  private func bindSectionsItems() {
+    viewModel.todoCards
+      .drive(todoSectionView.tableView.rx.items(
+        cellIdentifier: CardListTableViewCell.identifier,
+        cellType: CardListTableViewCell.self
+      )) { [weak self] _, card, cell in
+        guard let self = self else { return }
+        cell.setup(card: self.viewModel.toCardListViewModelItem(card: card))
+      }
+      .disposed(by: disposeBag)
+    
+    viewModel.doingCards
+      .drive(doingSectionView.tableView.rx.items(
+        cellIdentifier: CardListTableViewCell.identifier,
+        cellType: CardListTableViewCell.self
+      )) { [weak self] _, card, cell in
+        guard let self = self else { return }
+        cell.setup(card: self.viewModel.toCardListViewModelItem(card: card))
+      }
+      .disposed(by: disposeBag)
+    
+    viewModel.doneCards
+      .drive(doneSectionView.tableView.rx.items(
+        cellIdentifier: CardListTableViewCell.identifier,
+        cellType: CardListTableViewCell.self
+      )) { [weak self] _, card, cell in
+        guard let self = self else { return }
+        cell.setup(card: self.viewModel.toCardListViewModelItem(card: card))
+      }
+      .disposed(by: disposeBag)
+  }
+  
+  private func bindSectionsItemSelected() {
+    Observable.zip(
+      todoSectionView.tableView.rx.itemSelected,
+      todoSectionView.tableView.rx.modelSelected(Card.self)
+    )
+    .bind(onNext: { [weak self] indexPath, card in
+      guard let self = self else { return }
+      self.todoSectionView.tableView.deselectRow(at: indexPath, animated: true)
+      let cardDetailViewController = CardDetailViewController(viewModel: self.viewModel, card: card)
+      cardDetailViewController.modalPresentationStyle = .formSheet
+      self.present(cardDetailViewController, animated: true)
+    })
+    .disposed(by: disposeBag)
+    
+    Observable.zip(
+      doingSectionView.tableView.rx.itemSelected,
+      doingSectionView.tableView.rx.modelSelected(Card.self)
+    )
+    .bind(onNext: { [weak self] indexPath, card in
+      guard let self = self else { return }
+      self.doingSectionView.tableView.deselectRow(at: indexPath, animated: true)
+      let cardDetailViewController = CardDetailViewController(viewModel: self.viewModel, card: card)
+      cardDetailViewController.modalPresentationStyle = .formSheet
+      self.present(cardDetailViewController, animated: true)
+    })
+    .disposed(by: disposeBag)
+    
+    Observable.zip(
+      doneSectionView.tableView.rx.itemSelected,
+      doneSectionView.tableView.rx.modelSelected(Card.self)
+    )
+    .bind(onNext: { [weak self] indexPath, card in
+      guard let self = self else { return }
+      self.doneSectionView.tableView.deselectRow(at: indexPath, animated: true)
+      let cardDetailViewController = CardDetailViewController(viewModel: self.viewModel, card: card)
+      cardDetailViewController.modalPresentationStyle = .formSheet
+      self.present(cardDetailViewController, animated: true)
+    })
+    .disposed(by: disposeBag)
+  }
+  
+  private func bindSectionsItemDeleted() {
+    Observable.zip(
+      todoSectionView.tableView.rx.itemDeleted,
+      todoSectionView.tableView.rx.modelDeleted(Card.self)
+    )
+    .bind(onNext: { [weak self] indexPath, card in
+      guard let self = self else { return }
+      self.viewModel.deleteSelectedCard(card)
+    })
+    .disposed(by: disposeBag)
+    
+    Observable.zip(
+      doingSectionView.tableView.rx.itemDeleted,
+      doingSectionView.tableView.rx.modelDeleted(Card.self)
+    )
+    .bind(onNext: { [weak self] indexPath, card in
+      guard let self = self else { return }
+      self.viewModel.deleteSelectedCard(card)
+    })
+    .disposed(by: disposeBag)
+    
+    Observable.zip(
+      doneSectionView.tableView.rx.itemDeleted,
+      doneSectionView.tableView.rx.modelDeleted(Card.self)
+    )
+    .bind(onNext: { [weak self] indexPath, card in
+      guard let self = self else { return }
+      self.viewModel.deleteSelectedCard(card)
+    })
+    .disposed(by: disposeBag)
   }
 }
 
@@ -110,6 +197,7 @@ final class CardListViewController: UIViewController {
 extension CardListViewController {
   private func configureNavigationItem() {
     title = UISettings.navigationTitle
+    navigationItem.rightBarButtonItem = cardAdditionButton
   }
   
   private func configureTableViews() {
@@ -120,6 +208,7 @@ extension CardListViewController {
   
   private func configureSubViews() {
     view.addSubview(containerStackView)
+    [todoSectionView, doingSectionView, doneSectionView].forEach { containerStackView.addArrangedSubview($0) }
   }
   
   private func configureLayouts() {

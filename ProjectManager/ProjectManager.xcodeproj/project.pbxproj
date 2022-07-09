@@ -7,12 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B009119828781F44007074E5 /* CardListViewModelItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B009119728781F44007074E5 /* CardListViewModelItem.swift */; };
+		B01748BB2877141A00EE15B0 /* CardAdditionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01748BA2877141A00EE15B0 /* CardAdditionViewController.swift */; };
+		B01748BD287732C300EE15B0 /* CardDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01748BC287732C300EE15B0 /* CardDetailViewController.swift */; };
+		B01748BF287744DF00EE15B0 /* CardEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01748BE287744DF00EE15B0 /* CardEditView.swift */; };
 		B01DCDBF287329B800AFF91A /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = B01DCDBE287329B800AFF91A /* RxCocoa */; };
 		B01DCDC1287329B800AFF91A /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = B01DCDC0287329B800AFF91A /* RxRelay */; };
 		B01DCDC3287329B800AFF91A /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B01DCDC2287329B800AFF91A /* RxSwift */; };
 		B01DCDC928732AC900AFF91A /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01DCDC828732AC900AFF91A /* Card.swift */; };
 		B01DCDCC28732D8B00AFF91A /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = B01DCDCB28732D8B00AFF91A /* Then */; };
-		B01DCDCF2873475500AFF91A /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01DCDCE2873475500AFF91A /* ViewModelType.swift */; };
 		B01DCDD32873485000AFF91A /* CardListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01DCDD22873485000AFF91A /* CardListViewModel.swift */; };
 		B032CDA32873BFB20087383E /* CardListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B032CDA22873BFB20087383E /* CardListTableViewCell.swift */; };
 		B032CDA62873DAC00087383E /* CardListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B032CDA52873DAC00087383E /* CardListHeaderView.swift */; };
@@ -26,8 +29,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B009119728781F44007074E5 /* CardListViewModelItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListViewModelItem.swift; sourceTree = "<group>"; };
+		B01748BA2877141A00EE15B0 /* CardAdditionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardAdditionViewController.swift; sourceTree = "<group>"; };
+		B01748BC287732C300EE15B0 /* CardDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetailViewController.swift; sourceTree = "<group>"; };
+		B01748BE287744DF00EE15B0 /* CardEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardEditView.swift; sourceTree = "<group>"; };
 		B01DCDC828732AC900AFF91A /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
-		B01DCDCE2873475500AFF91A /* ViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
 		B01DCDD22873485000AFF91A /* CardListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListViewModel.swift; sourceTree = "<group>"; };
 		B032CDA22873BFB20087383E /* CardListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListTableViewCell.swift; sourceTree = "<group>"; };
 		B032CDA52873DAC00087383E /* CardListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListHeaderView.swift; sourceTree = "<group>"; };
@@ -80,6 +86,8 @@
 		B001067128729AC30080ACC7 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				B01748BA2877141A00EE15B0 /* CardAdditionViewController.swift */,
+				B01748BC287732C300EE15B0 /* CardDetailViewController.swift */,
 				C7431F0925F51E1D0094C4CF /* CardListViewController.swift */,
 			);
 			path = ViewController;
@@ -91,14 +99,6 @@
 				B01DCDC828732AC900AFF91A /* Card.swift */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		B01DCDCD2873474200AFF91A /* Util */ = {
-			isa = PBXGroup;
-			children = (
-				B01DCDCE2873475500AFF91A /* ViewModelType.swift */,
-			);
-			path = Util;
 			sourceTree = "<group>";
 		};
 		B01DCDD0287347DE00AFF91A /* Scene */ = {
@@ -113,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				B01DCDD22873485000AFF91A /* CardListViewModel.swift */,
+				B009119728781F44007074E5 /* CardListViewModelItem.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -120,6 +121,7 @@
 		B032CDA12873BF7C0087383E /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B01748BE287744DF00EE15B0 /* CardEditView.swift */,
 				B032CDA52873DAC00087383E /* CardListHeaderView.swift */,
 				B032CDA22873BFB20087383E /* CardListTableViewCell.swift */,
 				B0EF5B17287522E000A503A9 /* CardSectionView.swift */,
@@ -159,7 +161,6 @@
 				B001066F287298D30080ACC7 /* Application */,
 				B01DCDC728732AC000AFF91A /* Model */,
 				B01DCDD0287347DE00AFF91A /* Scene */,
-				B01DCDCD2873474200AFF91A /* Util */,
 				B0010670287298DC0080ACC7 /* Resource */,
 			);
 			path = ProjectManager;
@@ -246,11 +247,14 @@
 			files = (
 				B032CDA32873BFB20087383E /* CardListTableViewCell.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* CardListViewController.swift in Sources */,
+				B01748BD287732C300EE15B0 /* CardDetailViewController.swift in Sources */,
+				B01748BB2877141A00EE15B0 /* CardAdditionViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				B032CDA82873F3610087383E /* AppAppearance.swift in Sources */,
+				B009119828781F44007074E5 /* CardListViewModelItem.swift in Sources */,
 				B0EF5B18287522E000A503A9 /* CardSectionView.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
-				B01DCDCF2873475500AFF91A /* ViewModelType.swift in Sources */,
+				B01748BF287744DF00EE15B0 /* CardEditView.swift in Sources */,
 				B032CDA62873DAC00087383E /* CardListHeaderView.swift in Sources */,
 				B01DCDD32873485000AFF91A /* CardListViewModel.swift in Sources */,
 				B01DCDC928732AC900AFF91A /* Card.swift in Sources */,

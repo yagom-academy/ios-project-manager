@@ -7,19 +7,97 @@
 
 import Foundation
 
-import RxRelay
+import RxCocoa
 import RxSwift
 
-final class CardListViewModel: ViewModelType {
-  struct Input {}
-  struct Output {
-    let todoCards = BehaviorRelay<[Card]>(value: Card.todoSample)
-    let doingCards = BehaviorRelay<[Card]>(value: Card.doingSample)
-    let doneCards = BehaviorRelay<[Card]>(value: Card.doneSample)
+protocol CardListViewModelInput {
+  func toCardListViewModelItem(card: Card) -> CardListViewModelItem
+  func createNewCard(_ card: Card)
+  func updateSelectedCard(_ card: Card)
+  func deleteSelectedCard(_ card: Card)
+}
+
+protocol CardListViewModelOutput {
+  var todoCards: Driver<[Card]> { get }
+  var doingCards: Driver<[Card]> { get }
+  var doneCards: Driver<[Card]> { get }
+}
+
+protocol CardListViewModel: CardListViewModelInput, CardListViewModelOutput {}
+
+final class DefaultCardListViewModel: CardListViewModel {
+  private let cards = BehaviorRelay<[Card]>(value: Card.sample)
+  
+  // MARK: - Output
+  
+  let todoCards: Driver<[Card]>
+  let doingCards: Driver<[Card]>
+  let doneCards: Driver<[Card]>
+  
+  // MARK: - Init
+  
+  init() {
+    todoCards = cards
+      .map { $0.filter { $0.cardType == .todo } }
+      .map { $0.sorted { $0.deadlineDate < $1.deadlineDate } }
+      .distinctUntilChanged { $0 == $1 }
+      .asDriver(onErrorJustReturn: [])
+    
+    doingCards = cards
+      .map { $0.filter { $0.cardType == .doing } }
+      .map { $0.sorted { $0.deadlineDate < $1.deadlineDate } }
+      .distinctUntilChanged { $0 == $1 }
+      .asDriver(onErrorJustReturn: [])
+    
+    doneCards = cards
+      .map { $0.filter { $0.cardType == .done } }
+      .map { $0.sorted { $0.deadlineDate > $1.deadlineDate } }
+      .distinctUntilChanged { $0 == $1 }
+      .asDriver(onErrorJustReturn: [])
   }
   
-  func transform(input: Input) -> Output {
-    let output = Output()
-    return output
+  // MARK: - Input
+  
+  func toCardListViewModelItem(card: Card) -> CardListViewModelItem {
+    return CardListViewModelItem(
+      id: card.id,
+      title: card.title,
+      description: card.description,
+      deadlineDateString: setDeadlineDateToString(card.deadlineDate),
+      isOverdue: isOverdue(card: card)
+    )
+  }
+  
+  func createNewCard(_ card: Card) {
+    cards.accept(cards.value + [card])
+  }
+  
+  func updateSelectedCard(_ card: Card) {
+    let originCards = cards.value.filter { $0.id != card.id }
+    cards.accept(originCards + [card])
+  }
+  
+  func deleteSelectedCard(_ card: Card) {
+    cards.accept(cards.value.filter { $0.id != card.id })
+  }
+}
+
+// MARK: - Private
+
+extension DefaultCardListViewModel {
+  private func setDeadlineDateToString(_ date: Date) -> String {
+    let formatter = DateFormatter()
+    formatter.dateStyle = .full
+    formatter.locale = setPreferredLocale()
+    return formatter.string(from: date)
+  }
+  
+  private func setPreferredLocale() -> Locale {
+    guard let preferredID = Locale.preferredLanguages.first else { return Locale.current }
+    return Locale(identifier: preferredID)
+  }
+  
+  private func isOverdue(card: Card) -> Bool {
+    return (card.cardType == .todo || card.cardType == .doing) && Date() > card.deadlineDate
   }
 }
