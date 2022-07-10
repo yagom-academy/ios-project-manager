@@ -71,7 +71,8 @@ final class ListView: UIView {
         self.tableView = UITableView()
         self.viewModel = TodoListViewModel()
         super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-        self.setUpListView()
+        self.setUpTableView()
+        self.setUpListStackView()
         self.setUpHeaderView()
         self.bind()
     }
@@ -80,9 +81,11 @@ final class ListView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setUpListView() {
+    private func setUpTableView() {
         self.tableView.register(TodoListCell.self, forCellReuseIdentifier: TodoListCell.identifier)
-        
+    }
+    
+    private func setUpListStackView() {
         self.addSubview(self.todoListStackView)
         self.todoListStackView.addArrangedSubviews(with: [self.headerView, self.tableView])
         
