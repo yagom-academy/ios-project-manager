@@ -111,28 +111,39 @@ final class ListView: UIView {
             self.listCountLabel.widthAnchor.constraint(equalTo: self.listCountLabel.heightAnchor)
         ])
     }
-    
-    private func bind() {
-        self.viewModel.tableViewData?
-            .map { $0.filter { $0.status == self.mode } }
-            .bind(to: self.tableView.rx.items) { tabelView, row, element in
-                guard let cell = tabelView.dequeueReusableCell(
-                    withIdentifier: TodoListCell.identifier,
-                    for: IndexPath(row: row, section: .zero)) as? TodoListCell
-                else {
-                    return UITableViewCell()
-                }
-                cell.configure(element)
-                
-                return cell
-            }
-            .disposed(by: self.disposeBag)
         
-        self.viewModel.tableViewData?
-            .map { $0.filter { $0.status == self.mode }}
-            .map { String($0.count) }
-            .observe(on: MainScheduler.instance)
-            .bind(to: self.listCountLabel.rx.text)
-            .disposed(by: self.disposeBag)
+    private func bind() {
+        Observable.of(
+            (Status.todo, self.viewModel.todoViewData),
+            (Status.doing, self.viewModel.doingViewData),
+            (Status.done, self.viewModel.doneViewData)
+        )
+        .filter { $0.0 == self.mode }
+        .flatMap{ $0.1 }
+        .asDriver(onErrorJustReturn: [])
+        .drive(self.tableView.rx.items) { tabelView, row, element in
+            guard let cell = tabelView.dequeueReusableCell(
+                withIdentifier: TodoListCell.identifier,
+                for: IndexPath(row: row, section: .zero)) as? TodoListCell
+            else {
+                return UITableViewCell()
+            }
+            cell.configure(element)
+
+            return cell
+        }
+        .disposed(by: self.disposeBag)
+        
+        Observable.of(
+            (Status.todo, self.viewModel.todoViewData),
+            (Status.doing, self.viewModel.doingViewData),
+            (Status.done, self.viewModel.doneViewData)
+        )
+        .filter { $0.0 == self.mode }
+        .flatMap{ $0.1 }
+        .map { String($0.count) }
+        .asDriver(onErrorJustReturn: "")
+        .drive(self.listCountLabel.rx.text)
+        .disposed(by: self.disposeBag)
     }
 }
