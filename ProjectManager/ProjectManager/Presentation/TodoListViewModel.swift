@@ -27,18 +27,26 @@ final class DefaultTodoListViewModel: TodoListViewModel {
     let listItems = BehaviorSubject<[TodoModel]>(value: [])
     #endif
     
-    private(set) lazy var todoList = listItems
-        .map { items in
-            items.filter { $0.state == .todo }
-        }
+    let todoList: Observable<[TodoModel]>
     
-    private(set) lazy var doingList = listItems
-        .map { items in
-            items.filter { $0.state == .doing }
-        }
+    let doingList: Observable<[TodoModel]>
     
-    private(set) lazy var doneList = listItems
-        .map { items in
-            items.filter { $0.state == .done }
-        }
+    let doneList: Observable<[TodoModel]>
+    
+    init() {
+        todoList = listItems
+            .map { items in
+                items.filter { $0.state == .todo }
+            }
+        
+        doingList = listItems
+            .map { items in
+                items.filter { $0.state == .doing }
+            }
+        
+        doneList = listItems
+            .map { items in
+                items.filter { $0.state == .done }
+            }
+    }
 }
