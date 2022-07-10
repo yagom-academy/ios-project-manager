@@ -38,12 +38,12 @@ final class MainViewController: UIViewController {
     
     @objc private func didTapAddButton() {
         let detailVC = DetailViewController(list: nil)
-        self.navigationController?.present(detailVC, animated: true, completion: nil)
+        self.present(detailVC, animated: true)
     }
     
     private func didtapCell(_ list: List) {
         let detailVC = DetailViewController(list: list)
-        self.navigationController?.present(detailVC, animated: true, completion: nil)
+        self.present(detailVC, animated: true)
     }
     
     private func setTableView() {
