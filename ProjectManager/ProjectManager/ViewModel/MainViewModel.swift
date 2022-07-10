@@ -19,6 +19,12 @@ final class MainViewModel {
         return list.type != .done && list.deadline < Date()
     }
     
+    func separatLists(_ type: ListType) -> Observable<[List]> {
+        let list = listObservable
+            .map{ $0.filter { $0.type == type }}
+        return list
+    }
+    
     // MARK: - for test
     private func addDummyData() {
         let todoDummy: [List] = [
