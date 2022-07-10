@@ -48,6 +48,7 @@ final class TodoListHeaderView: UIView {
         self.addSubview(labelStackView)
         labelStackView.snp.makeConstraints { make in
             make.top.leading.bottom.equalTo(self).inset(8)
+            make.width.lessThanOrEqualTo(self.snp.width).multipliedBy(0.9)
         }
         
         countLabel.snp.makeConstraints { make in
