@@ -16,6 +16,9 @@ protocol TodoListViewModelOutput {
     var todoList: Observable<[TodoModel]> { get }
     var doingList: Observable<[TodoModel]> { get }
     var doneList: Observable<[TodoModel]> { get }
+    var todoListCount: Observable<String> { get }
+    var doingListCount: Observable<String> { get }
+    var doneListCount: Observable<String> { get }
 }
 
 protocol TodoListViewModel: TodoListViewModelInput, TodoListViewModelOutput {}
@@ -33,20 +36,35 @@ final class DefaultTodoListViewModel: TodoListViewModel {
     
     let doneList: Observable<[TodoModel]>
     
+    let todoListCount: Observable<String>
+    
+    let doingListCount: Observable<String>
+    
+    let doneListCount: Observable<String>
+    
     init() {
         todoList = listItems
             .map { items in
                 items.filter { $0.state == .todo }
             }
         
+        todoListCount = todoList
+            .map({ "\($0.count)" })
+        
         doingList = listItems
             .map { items in
                 items.filter { $0.state == .doing }
             }
         
+        doingListCount = doingList
+            .map({ "\($0.count)" })
+        
         doneList = listItems
             .map { items in
                 items.filter { $0.state == .done }
             }
+        
+        doneListCount = doneList
+            .map({ "\($0.count)" })
     }
 }

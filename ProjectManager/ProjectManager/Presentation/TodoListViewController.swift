@@ -50,32 +50,42 @@ extension TodoListViewController {
 //MARK: - ViewModel Bind
 extension TodoListViewController {
     private func bind() {
+        
+        //MARK: - TodoList
         viewModel.todoList
-            .do(onNext: { [weak self] in
-                self?.mainView.todoHeaderView.setCountText(to: "\($0.count)")
-            })
             .bind(to: mainView.todoTableView.rx.items(cellIdentifier: TodoListCell.identifier,
                                                       cellType: TodoListCell.self)) { row, item, cell in
                 cell.setContent(title: item.title, body: item.body, deadline: item.deadlineAt.toString)
               }.disposed(by: bag)
         
+        viewModel.todoListCount
+            .asDriver(onErrorJustReturn: "0")
+            .drive(mainView.todoHeaderView.setCountText)
+            .disposed(by: bag)
+        
+        //MARK: - DoingList
         viewModel.doingList
-            .do(onNext: { [weak self] in
-                self?.mainView.doingHeaderView.setCountText(to: "\($0.count)")
-            })
             .bind(to: mainView.doingTableView.rx.items(cellIdentifier: TodoListCell.identifier,
                                                       cellType: TodoListCell.self)) { row, item, cell in
                 cell.setContent(title: item.title, body: item.body, deadline: item.deadlineAt.toString)
               }.disposed(by: bag)
         
+        viewModel.doingListCount
+            .asDriver(onErrorJustReturn: "0")
+            .drive(mainView.doingHeaderView.setCountText)
+            .disposed(by: bag)
+        
+        //MARK: - DoneList
         viewModel.doneList
-            .do(onNext: { [weak self] in
-                self?.mainView.doneHeaderView.setCountText(to: "\($0.count)")
-            })
             .bind(to: mainView.doneTableView.rx.items(cellIdentifier: TodoListCell.identifier,
                                                       cellType: TodoListCell.self)) { row, item, cell in
                 cell.setContent(title: item.title, body: item.body, deadline: item.deadlineAt.toString)
               }.disposed(by: bag)
+        
+        viewModel.doneListCount
+            .asDriver(onErrorJustReturn: "0")
+            .drive(mainView.doneHeaderView.setCountText)
+            .disposed(by: bag)
     }
 }
 

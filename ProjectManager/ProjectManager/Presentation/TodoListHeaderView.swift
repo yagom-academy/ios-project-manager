@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 final class TodoListHeaderView: UIView {
     private lazy var labelStackView: UIStackView = {
@@ -59,7 +60,7 @@ final class TodoListHeaderView: UIView {
 }
 
 extension TodoListHeaderView {
-    func setCountText(to count: String) {
-        countLabel.text = count
+    var setCountText: Binder<String?> {
+        return countLabel.rx.text
     }
 }
