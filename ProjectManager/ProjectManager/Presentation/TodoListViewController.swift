@@ -54,7 +54,7 @@ extension TodoListViewController {
     private func bind() {
         viewModel.todoList
             .do(onNext: { [weak self] in
-                self?.mainView.todoHeaderView.countLabel.text = "\($0.count)"
+                self?.mainView.todoHeaderView.setCountText(to: "\($0.count)")
             })
             .bind(to: mainView.todoTableView.rx.items(cellIdentifier: TodoListCell.identifier,
                                                       cellType: TodoListCell.self)) { row, item, cell in
@@ -65,7 +65,7 @@ extension TodoListViewController {
         
         viewModel.doingList
             .do(onNext: { [weak self] in
-                self?.mainView.doingHeaderView.countLabel.text = "\($0.count)"
+                self?.mainView.doingHeaderView.setCountText(to: "\($0.count)")
             })
             .bind(to: mainView.doingTableView.rx.items(cellIdentifier: TodoListCell.identifier,
                                                       cellType: TodoListCell.self)) { row, item, cell in
@@ -76,7 +76,7 @@ extension TodoListViewController {
         
         viewModel.doneList
             .do(onNext: { [weak self] in
-                self?.mainView.doneHeaderView.countLabel.text = "\($0.count)"
+                self?.mainView.doneHeaderView.setCountText(to: "\($0.count)")
             })
             .bind(to: mainView.doneTableView.rx.items(cellIdentifier: TodoListCell.identifier,
                                                       cellType: TodoListCell.self)) { row, item, cell in

@@ -26,13 +26,12 @@ final class HeaderView: UIView {
         return label
     }()
     
-    let countLabel: UILabel = {
+    private let countLabel: UILabel = {
         let label = UILabel()
         label.backgroundColor = .label
         label.textColor = .systemBackground
         label.clipsToBounds = true
         label.layer.cornerRadius = 15
-        label.text = "5"
         label.textAlignment = .center
         
         return label
@@ -59,6 +58,12 @@ final class HeaderView: UIView {
             make.width.equalTo(countLabel.snp.height)
             make.height.equalTo(30)
         }
+    }
+}
+
+extension HeaderView {
+    func setCountText(to count: String) {
+        countLabel.text = count
     }
 }
 

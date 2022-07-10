@@ -9,19 +9,19 @@ import Foundation
 import RxSwift
 
 protocol TodoListViewModelInput {
-    var listItems: BehaviorSubject<[TodoMedel]> { get }
+    var listItems: BehaviorSubject<[TodoModel]> { get }
 }
 
 protocol TodoListViewModelOutput {
-    var todoList: Observable<[TodoMedel]> { get }
-    var doingList: Observable<[TodoMedel]> { get }
-    var doneList: Observable<[TodoMedel]> { get }
+    var todoList: Observable<[TodoModel]> { get }
+    var doingList: Observable<[TodoModel]> { get }
+    var doneList: Observable<[TodoModel]> { get }
 }
 
 protocol TodoListViewModel: TodoListViewModelInput, TodoListViewModelOutput {}
 
 final class DefaultTodoListViewModel: TodoListViewModel {
-    let listItems = BehaviorSubject<[TodoMedel]>(value: TodoMedel.makeDummy())
+    let listItems = BehaviorSubject<[TodoModel]>(value: TodoModel.makeDummy())
     
     private(set) lazy var todoList = listItems
         .map { items in
