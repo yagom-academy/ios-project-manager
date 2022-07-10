@@ -21,10 +21,10 @@ final class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view = detailView
     }
     
     private func setInitialView(list: List?) {
-        self.view = detailView
         guard let list = list else {
             detailView.naviItem.title = ListType.todo.title
             return
