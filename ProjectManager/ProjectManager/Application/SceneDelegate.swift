@@ -7,8 +7,7 @@
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-    
-    let storege = MemoryTodoListStorege()
+
     let todoSceneDIContainer = TodoSceneDIContainer()
     var todoListFlowCoordinator: TodoListFlowCoordinator?
     
