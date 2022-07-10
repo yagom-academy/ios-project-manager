@@ -21,7 +21,11 @@ protocol TodoListViewModelOutput {
 protocol TodoListViewModel: TodoListViewModelInput, TodoListViewModelOutput {}
 
 final class DefaultTodoListViewModel: TodoListViewModel {
+    #if DEBUG
     let listItems = BehaviorSubject<[TodoModel]>(value: TodoModel.makeDummy())
+    #else
+    let listItems = BehaviorSubject<[TodoModel]>(value: [])
+    #endif
     
     private(set) lazy var todoList = listItems
         .map { items in
