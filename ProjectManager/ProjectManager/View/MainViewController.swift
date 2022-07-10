@@ -88,10 +88,12 @@ final class MainViewController: UIViewController {
     
     // MARK: - UI Components
     private lazy var mainStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews:
-                                        [todoStackView,
-                                         doingStackView,
-                                         doneStackView])
+        let stackView = UIStackView(arrangedSubviews:[listsStackView(headerView: todoHeaderView,
+                                                                     tableView: todoTableView),
+                                                      listsStackView(headerView: doingHeaderView,
+                                                                     tableView: doingTableView),
+                                                      listsStackView(headerView: doneHeaderView,
+                                                                     tableView: doneTableView)])
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
         stackView.spacing = 10
@@ -99,14 +101,14 @@ final class MainViewController: UIViewController {
         return stackView
     }()
     
-    private lazy var todoStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [todoHeaderView,
-                                                       todoTableView])
+    private func listsStackView(headerView: HeaderView, tableView: UITableView) -> UIStackView {
+        let stackView = UIStackView(arrangedSubviews: [headerView,
+                                                       tableView])
         stackView.axis = .vertical
         stackView.spacing = 1
         
         return stackView
-    }()
+    }
     
     private lazy var todoTableView: UITableView = {
         let tableView = UITableView()
@@ -117,30 +119,12 @@ final class MainViewController: UIViewController {
         return tableView
     }()
     
-    private lazy var doingStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [doingHeaderView,
-                                                       doingTableView])
-        stackView.axis = .vertical
-        stackView.spacing = 1
-        
-        return stackView
-    }()
-    
     private lazy var doingTableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .systemGray6
         tableView.register(ListTableViewCell.self,
                            forCellReuseIdentifier: "\(ListTableViewCell.self)")
         return tableView
-    }()
-    
-    private lazy var doneStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [doneHeaderView,
-                                                       doneTableView])
-        stackView.axis = .vertical
-        stackView.spacing = 1
-        
-        return stackView
     }()
     
     private lazy var doneTableView: UITableView = {
