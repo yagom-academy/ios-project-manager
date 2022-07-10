@@ -8,65 +8,6 @@
 import UIKit
 import SnapKit
 
-final class HeaderView: UIView {
-    private let title: String
-    
-    private lazy var labelStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [titleLabel, countLabel])
-        stackView.spacing = 8
-        
-        return stackView
-    }()
-    
-    private lazy var titleLabel: UILabel = {
-        let label = UILabel()
-        label.font = .preferredFont(forTextStyle: .largeTitle)
-        label.text = title
-        
-        return label
-    }()
-    
-    private let countLabel: UILabel = {
-        let label = UILabel()
-        label.backgroundColor = .label
-        label.textColor = .systemBackground
-        label.clipsToBounds = true
-        label.layer.cornerRadius = 15
-        label.textAlignment = .center
-        
-        return label
-    }()
-    
-    init(title: String) {
-        self.title = title
-        super.init(frame: .zero)
-        configureLayout()
-        self.backgroundColor = .systemGray6
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func configureLayout() {
-        self.addSubview(labelStackView)
-        labelStackView.snp.makeConstraints { make in
-            make.top.leading.bottom.equalTo(self).inset(8)
-        }
-        
-        countLabel.snp.makeConstraints { make in
-            make.width.equalTo(countLabel.snp.height)
-            make.height.equalTo(30)
-        }
-    }
-}
-
-extension HeaderView {
-    func setCountText(to count: String) {
-        countLabel.text = count
-    }
-}
-
 final class TodoListView: UIView {
     private lazy var tableStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [todoStackView, doingStackView, doneStackView])
@@ -85,7 +26,7 @@ final class TodoListView: UIView {
         return stackView
     }()
     
-    let todoHeaderView = HeaderView(title: "TODO")
+    let todoHeaderView = TodoListHeaderView(title: "TODO")
    
     let todoTableView: UITableView = {
         let tableView = UITableView()
@@ -102,7 +43,7 @@ final class TodoListView: UIView {
         return stackView
     }()
     
-    let doingHeaderView = HeaderView(title: "DOING")
+    let doingHeaderView = TodoListHeaderView(title: "DOING")
     
     let doingTableView: UITableView = {
         let tableView = UITableView()
@@ -119,7 +60,7 @@ final class TodoListView: UIView {
         return stackView
     }()
     
-    let doneHeaderView = HeaderView(title: "DONE")
+    let doneHeaderView = TodoListHeaderView(title: "DONE")
     
     let doneTableView: UITableView = {
         let tableView = UITableView()
