@@ -52,6 +52,7 @@ extension HeaderView {
         self.addSubview(mainStackView)
         mainStackView.snp.makeConstraints{
             $0.top.leading.bottom.equalToSuperview().inset(10)
+            $0.trailing.lessThanOrEqualToSuperview()
         }
         
         countLabel.snp.makeConstraints{
