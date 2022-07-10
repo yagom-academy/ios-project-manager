@@ -166,8 +166,7 @@ final class CardListViewController: UIViewController {
       todoSectionView.tableView.rx.modelDeleted(Card.self)
     )
     .bind(onNext: { [weak self] indexPath, card in
-      guard let self = self else { return }
-      self.viewModel.deleteSelectedCard(card)
+      self?.viewModel.deleteSelectedCard(card)
     })
     .disposed(by: disposeBag)
     
@@ -176,8 +175,7 @@ final class CardListViewController: UIViewController {
       doingSectionView.tableView.rx.modelDeleted(Card.self)
     )
     .bind(onNext: { [weak self] indexPath, card in
-      guard let self = self else { return }
-      self.viewModel.deleteSelectedCard(card)
+      self?.viewModel.deleteSelectedCard(card)
     })
     .disposed(by: disposeBag)
     
@@ -186,8 +184,7 @@ final class CardListViewController: UIViewController {
       doneSectionView.tableView.rx.modelDeleted(Card.self)
     )
     .bind(onNext: { [weak self] indexPath, card in
-      guard let self = self else { return }
-      self.viewModel.deleteSelectedCard(card)
+      self?.viewModel.deleteSelectedCard(card)
     })
     .disposed(by: disposeBag)
   }
