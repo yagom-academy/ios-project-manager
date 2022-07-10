@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class HeaderVIew: UIView {
+final class HeaderView: UIView {
     init(_ menuType: ListType) {
         super.init(frame: .zero)
         titleLabel.text = menuType.title

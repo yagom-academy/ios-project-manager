@@ -9,12 +9,12 @@ import RxSwift
 import RxCocoa
 
 final class MainViewController: UIViewController {
-    private let todoHeaderView = HeaderVIew(ListType.todo)
-    private let doingHeaderView = HeaderVIew(ListType.doing)
-    private let doneHeaderView = HeaderVIew(ListType.done)
+    private let todoHeaderView = HeaderView(ListType.todo)
+    private let doingHeaderView = HeaderView(ListType.doing)
+    private let doneHeaderView = HeaderView(ListType.done)
     
     private let mainViewModel = MainViewModel()
-    private var disposbag = DisposeBag()
+    private var disposebag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,7 +58,7 @@ final class MainViewController: UIViewController {
                       headerView: doneHeaderView)
     }
     
-    private func bindTableView(_ tableView: UITableView, lists: Observable<[List]>, headerView: HeaderVIew) {
+    private func bindTableView(_ tableView: UITableView, lists: Observable<[List]>, headerView: HeaderView) {
         lists.bind(to: tableView.rx.items(cellIdentifier: "\(ListTableViewCell.self)", cellType: ListTableViewCell.self)) { [weak self] index, item, cell in
             guard let self = self else {
                 return
@@ -68,24 +68,24 @@ final class MainViewController: UIViewController {
             cell.deadlineLabel.text = DateConverter.dateToString(item.deadline)
             cell.deadlineLabel.textColor = self.mainViewModel.isOverDeadline(list: item) ? .red : .label
         }
-        .disposed(by: disposbag)
+        .disposed(by: disposebag)
         
         lists
           .map { "\($0.count)"}
           .bind(to: headerView.countLabel.rx.text)
-          .disposed(by: disposbag)
+          .disposed(by: disposebag)
         
         tableView.rx.modelSelected(List.self)
             .bind(onNext: { [weak self] in
                 self?.didtapCell($0)
             })
-            .disposed(by: disposbag)
+            .disposed(by: disposebag)
         
         tableView.rx.itemSelected
             .bind(onNext: { index in
                 tableView.deselectRow(at: index, animated: true)
             })
-            .disposed(by: disposbag)
+            .disposed(by: disposebag)
     }
     
     private func separatLists(_ type: ListType) -> Observable<[List]> {
