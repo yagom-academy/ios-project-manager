@@ -11,7 +11,7 @@ import RxCocoa
 import RxSwift
 
 final class ListView: UIView {
-    private let mode: Mode
+    private let mode: Status
     private let tableView: UITableView
     private var viewModel: TodoListViewModel
     private let disposeBag = DisposeBag()
@@ -66,7 +66,7 @@ final class ListView: UIView {
         return stackView
     }()
     
-    init(mode: Mode) {
+    init(mode: Status) {
         self.mode = mode
         self.tableView = UITableView()
         self.viewModel = TodoListViewModel()
@@ -111,7 +111,7 @@ final class ListView: UIView {
     
     private func bind() {
         self.viewModel.tableViewData?
-            .map { $0.filter { $0.mode == self.mode } }
+            .map { $0.filter { $0.status == self.mode } }
             .bind(to: self.tableView.rx.items) { tabelView, row, element in
                 guard let cell = tabelView.dequeueReusableCell(
                     withIdentifier: TodoListCell.identifier,
@@ -126,7 +126,7 @@ final class ListView: UIView {
             .disposed(by: disposeBag)
         
         self.viewModel.tableViewData?
-            .map { $0.filter { $0.mode == self.mode }}
+            .map { $0.filter { $0.status == self.mode }}
             .map { String($0.count) }
             .observe(on: MainScheduler.instance)
             .bind(to: self.listCountLabel.rx.text)
