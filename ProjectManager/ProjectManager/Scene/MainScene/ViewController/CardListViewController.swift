@@ -197,7 +197,7 @@ final class CardListViewController: UIViewController {
       .withUnretained(self)
       .flatMap { wself, item in wself.showPopover(cell: item.0, card: item.1) }
       .bind(onNext: { [weak self] card, cardType in
-        self?.viewModel.moveToOtherSection(card, cardType: cardType)
+        self?.viewModel.moveDifferentSection(card, to: cardType)
       })
       .disposed(by: disposeBag)
     
@@ -205,7 +205,7 @@ final class CardListViewController: UIViewController {
       .withUnretained(self)
       .flatMap { wself, item in wself.showPopover(cell: item.0, card: item.1) }
       .bind(onNext: { [weak self] card, cardType in
-        self?.viewModel.moveToOtherSection(card, cardType: cardType)
+        self?.viewModel.moveDifferentSection(card, to: cardType)
       })
       .disposed(by: disposeBag)
     
@@ -213,7 +213,7 @@ final class CardListViewController: UIViewController {
       .withUnretained(self)
       .flatMap { wself, item in wself.showPopover(cell: item.0, card: item.1) }
       .bind(onNext: { [weak self] card, cardType in
-        self?.viewModel.moveToOtherSection(card, cardType: cardType)
+        self?.viewModel.moveDifferentSection(card, to: cardType)
       })
       .disposed(by: disposeBag)
   }

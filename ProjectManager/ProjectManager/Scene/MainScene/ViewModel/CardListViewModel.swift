@@ -15,7 +15,7 @@ protocol CardListViewModelInput {
   func createNewCard(_ card: Card)
   func updateSelectedCard(_ card: Card)
   func deleteSelectedCard(_ card: Card)
-  func moveToOtherSection(_ card: Card, cardType: CardType)
+  func moveDifferentSection(_ card: Card, to cardType: CardType)
 }
 
 protocol CardListViewModelOutput {
@@ -82,7 +82,7 @@ final class DefaultCardListViewModel: CardListViewModelable {
     cards.accept(cards.value.filter { $0.id != card.id })
   }
   
-  func moveToOtherSection(_ card: Card, cardType: CardType) {
+  func moveDifferentSection(_ card: Card, to cardType: CardType) {
     var newCard = card
     newCard.cardType = cardType
     self.updateSelectedCard(newCard)
