@@ -19,9 +19,9 @@
 		643719D92873D10A00F78AAA /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 643719D82873D10A00F78AAA /* FirebaseDatabaseSwift */; };
 		643719DB2873D2BB00F78AAA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 643719DA2873D2BB00F78AAA /* GoogleService-Info.plist */; };
 		643719E02873E02F00F78AAA /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643719DF2873E02F00F78AAA /* Todo.swift */; };
-		64371A502874940300F78AAA /* StackView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64371A4F2874940300F78AAA /* StackView+.swift */; };
+		64371A502874940300F78AAA /* StackView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64371A4F2874940300F78AAA /* StackView+Extension.swift */; };
 		64371AC7287B0CFC00F78AAA /* CurrentDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64371AC6287B0CFC00F78AAA /* CurrentDateFormatter.swift */; };
-		64371AC9287B129200F78AAA /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64371AC8287B129200F78AAA /* Date+.swift */; };
+		64371AC9287B129200F78AAA /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64371AC8287B129200F78AAA /* Date+Extension.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* TodoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* TodoListViewController.swift */; };
@@ -36,9 +36,9 @@
 		30B02F8F28747FF40029579F /* TodoListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListCell.swift; sourceTree = "<group>"; };
 		643719DA2873D2BB00F78AAA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		643719DF2873E02F00F78AAA /* Todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
-		64371A4F2874940300F78AAA /* StackView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StackView+.swift"; sourceTree = "<group>"; };
+		64371A4F2874940300F78AAA /* StackView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StackView+Extension.swift"; sourceTree = "<group>"; };
 		64371AC6287B0CFC00F78AAA /* CurrentDateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentDateFormatter.swift; sourceTree = "<group>"; };
-		64371AC8287B129200F78AAA /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
+		64371AC8287B129200F78AAA /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -112,8 +112,8 @@
 		64371A4E287493A900F78AAA /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				64371A4F2874940300F78AAA /* StackView+.swift */,
-				64371AC8287B129200F78AAA /* Date+.swift */,
+				64371A4F2874940300F78AAA /* StackView+Extension.swift */,
+				64371AC8287B129200F78AAA /* Date+Extension.swift */,
 				3088779D2876D0CF00057592 /* Status.swift */,
 				64371AC6287B0CFC00F78AAA /* CurrentDateFormatter.swift */,
 			);
@@ -235,7 +235,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				64371AC9287B129200F78AAA /* Date+.swift in Sources */,
+				64371AC9287B129200F78AAA /* Date+Extension.swift in Sources */,
 				30B02F8C2873E3F40029579F /* TodoListViewModel.swift in Sources */,
 				30B02F9028747FF40029579F /* TodoListCell.swift in Sources */,
 				64371AC7287B0CFC00F78AAA /* CurrentDateFormatter.swift in Sources */,
@@ -243,7 +243,7 @@
 				C7431F0A25F51E1D0094C4CF /* TodoListViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
-				64371A502874940300F78AAA /* StackView+.swift in Sources */,
+				64371A502874940300F78AAA /* StackView+Extension.swift in Sources */,
 				643719E02873E02F00F78AAA /* Todo.swift in Sources */,
 				3088779E2876D0CF00057592 /* Status.swift in Sources */,
 			);
