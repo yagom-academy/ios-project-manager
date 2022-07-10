@@ -8,12 +8,15 @@
 import Foundation
 
 struct CurrentDateFormatter {
-    static let dateFormatter = DateFormatter()
+    static let dateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .long
+        dateFormatter.locale = .autoupdatingCurrent
+        
+        return dateFormatter
+    }()
     
-    private init() {
-        CurrentDateFormatter.dateFormatter.dateStyle = .long
-        CurrentDateFormatter.dateFormatter.locale = .autoupdatingCurrent
-    }
+    private init() {}
 
     static func fetch() -> Date {
         return Date(timeIntervalSinceReferenceDate: Date().timeIntervalSinceReferenceDate)
