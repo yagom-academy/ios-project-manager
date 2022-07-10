@@ -59,7 +59,7 @@ final class TodoListCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.contentView.frame = self.contentView.frame.inset(by: UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0))
+        self.contentView.frame = self.contentView.frame.inset(by: UIEdgeInsets(top: 10))
     }
     
     private func setUpCell() {
@@ -83,5 +83,11 @@ final class TodoListCell: UITableViewCell {
         self.titleLabel.text = todo.title
         self.descriptionLabel.text = todo.description
         self.dateLabel.text = todo.date.convertToString()
+    }
+}
+
+private extension UIEdgeInsets {
+    init(top: CGFloat = .zero) {
+        self.init(top: top, left: .zero, bottom: .zero, right: .zero)
     }
 }
