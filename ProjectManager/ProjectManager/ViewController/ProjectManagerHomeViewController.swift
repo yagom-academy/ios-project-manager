@@ -6,6 +6,10 @@
 import UIKit
 
 final class ProjectManagerHomeViewController: UIViewController {
+  @IBOutlet weak var todoCollectionView: UICollectionView!
+  @IBOutlet weak var doingCollectionView: UICollectionView!
+  @IBOutlet weak var doneCollectionView: UICollectionView!
+
   override func viewDidLoad() {
     super.viewDidLoad()
     self.initializeNavigationBar()
