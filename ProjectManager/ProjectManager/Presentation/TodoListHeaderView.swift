@@ -8,8 +8,6 @@
 import UIKit
 
 final class TodoListHeaderView: UIView {
-    private let title: String
-    
     private lazy var labelStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [titleLabel, countLabel])
         stackView.spacing = 8
@@ -20,7 +18,6 @@ final class TodoListHeaderView: UIView {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .largeTitle)
-        label.text = title
         
         return label
     }()
@@ -37,9 +34,9 @@ final class TodoListHeaderView: UIView {
     }()
     
     init(title: String) {
-        self.title = title
         super.init(frame: .zero)
         configureLayout()
+        titleLabel.text = title
         self.backgroundColor = .systemGray6
     }
     
