@@ -13,7 +13,7 @@ import RxSwift
 final class ListView: UIView {
     private let mode: Status
     private let tableView: UITableView
-    private var viewModel: TodoListViewModel
+    private let viewModel: TodoListViewModel
     private let disposeBag = DisposeBag()
     
     private let headerView: UIView = {
