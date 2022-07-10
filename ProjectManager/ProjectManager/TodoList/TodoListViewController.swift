@@ -10,13 +10,13 @@ import RxCocoa
 import RxSwift
 
 final class TodoListViewController: UIViewController {
-    private var todoView: ListView
-    private var doingView: ListView
-    private var doneView: ListView
+    private let todoView: ListView
+    private let doingView: ListView
+    private let doneView: ListView
     private let viewModel: TodoListViewModel
     private let disposeBag = DisposeBag()
 
-    private let entireStackView: UIStackView = {
+    private let tablesStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.alignment = .fill
@@ -42,20 +42,20 @@ final class TodoListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setUpView()
+        self.setUpTablesStackView()
         self.setUpNavigation()
     }
 
-    private func setUpView() {
-        self.view.addSubview(self.entireStackView)
+    private func setUpTablesStackView() {
+        self.view.addSubview(self.tablesStackView)
 
-        self.entireStackView.addArrangedSubviews(with: [self.todoView, self.doingView, self.doneView])
+        self.tablesStackView.addArrangedSubviews(with: [self.todoView, self.doingView, self.doneView])
 
         NSLayoutConstraint.activate([
-            self.entireStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            self.entireStackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            self.entireStackView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
-            self.entireStackView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
+            self.tablesStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            self.tablesStackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            self.tablesStackView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            self.tablesStackView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
 
