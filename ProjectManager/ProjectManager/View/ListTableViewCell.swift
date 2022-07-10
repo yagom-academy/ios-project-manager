@@ -60,10 +60,10 @@ final class ListTableViewCell: UITableViewCell {
 
 // MARK: - view setting func
 extension ListTableViewCell {
-    func setViewContents(_ list: List, isOver: Bool) {
-        titleLabel.text = list.title
-        bodyLabel.text = list.body
-        deadlineLabel.text = DateConverter.dateToString(list.deadline)
+    func setViewContents(_ listItem: ListItem, isOver: Bool) {
+        titleLabel.text = listItem.title
+        bodyLabel.text = listItem.body
+        deadlineLabel.text = DateConverter.dateToString(listItem.deadline)
         deadlineLabel.textColor = isOver ? .red : .label
     }
     

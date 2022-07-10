@@ -81,16 +81,16 @@ final class DetailView: UIView {
 
 // MARK: - view setting func
 extension DetailView {
-    func setViewContents(_ list: List?) {
-        guard let list = list else {
+    func setViewContents(_ listItem: ListItem?) {
+        guard let listItem = listItem else {
             naviItem.title = ListType.todo.title
             return
         }
-        naviItem.title = list.type.title
+        naviItem.title = listItem.type.title
         cancleButton.title = "Edit"
-        titleTextField.text = list.title
-        deadlinePicker.date = list.deadline
-        bodyTextView.text = list.body
+        titleTextField.text = listItem.title
+        deadlinePicker.date = listItem.deadline
+        bodyTextView.text = listItem.body
     }
     
     private func setViewLayout() {

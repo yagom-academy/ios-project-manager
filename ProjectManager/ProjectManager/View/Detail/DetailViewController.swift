@@ -8,9 +8,9 @@
 import UIKit
 
 final class DetailViewController: UIViewController {
-    init(list: List?) {
+    init(listItem: ListItem?) {
         super.init(nibName: nil, bundle: nil)
-        detailView.setViewContents(list)
+        detailView.setViewContents(listItem)
     }
     
     required init?(coder: NSCoder) {

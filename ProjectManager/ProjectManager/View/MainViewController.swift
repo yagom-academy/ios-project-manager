@@ -37,43 +37,43 @@ final class MainViewController: UIViewController {
     }
     
     @objc private func didTapAddButton() {
-        let detailVC = DetailViewController(list: nil)
+        let detailVC = DetailViewController(listItem: nil)
         self.present(detailVC, animated: true)
     }
     
-    private func didtapCell(_ list: List) {
-        let detailVC = DetailViewController(list: list)
+    private func didtapCell(_ listItem: ListItem) {
+        let detailVC = DetailViewController(listItem: listItem)
         self.present(detailVC, animated: true)
     }
     
     private func setTableView() {
         bindTableView(todoTableView,
-                      lists: mainViewModel.separatLists(.todo),
+                      list: mainViewModel.separatList(.todo),
                       headerView: todoHeaderView)
         bindTableView(doingTableView,
-                      lists: mainViewModel.separatLists(.doing),
+                      list: mainViewModel.separatList(.doing),
                       headerView: doingHeaderView)
         bindTableView(doneTableView,
-                      lists: mainViewModel.separatLists(.done),
+                      list: mainViewModel.separatList(.done),
                       headerView: doneHeaderView)
     }
     
-    private func bindTableView(_ tableView: UITableView, lists: Observable<[List]>, headerView: HeaderView) {
-        lists.bind(to: tableView.rx.items(cellIdentifier: "\(ListTableViewCell.self)", cellType: ListTableViewCell.self)) { [weak self] index, item, cell in
+    private func bindTableView(_ tableView: UITableView, list: Observable<[ListItem]>, headerView: HeaderView) {
+        list.bind(to: tableView.rx.items(cellIdentifier: "\(ListTableViewCell.self)", cellType: ListTableViewCell.self)) { [weak self] index, item, cell in
             guard let self = self else {
                 return
             }
             
-            cell.setViewContents(item, isOver: self.mainViewModel.isOverDeadline(list: item))
+            cell.setViewContents(item, isOver: self.mainViewModel.isOverDeadline(listItem: item))
         }
         .disposed(by: disposebag)
         
-        lists
+        list
           .map { "\($0.count)"}
           .bind(to: headerView.countLabel.rx.text)
           .disposed(by: disposebag)
         
-        tableView.rx.modelSelected(List.self)
+        tableView.rx.modelSelected(ListItem.self)
             .bind(onNext: { [weak self] in
                 self?.didtapCell($0)
             })
@@ -88,11 +88,11 @@ final class MainViewController: UIViewController {
     
     // MARK: - UI Components
     private lazy var mainStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews:[listsStackView(headerView: todoHeaderView,
+        let stackView = UIStackView(arrangedSubviews:[listStackView(headerView: todoHeaderView,
                                                                      tableView: todoTableView),
-                                                      listsStackView(headerView: doingHeaderView,
+                                                      listStackView(headerView: doingHeaderView,
                                                                      tableView: doingTableView),
-                                                      listsStackView(headerView: doneHeaderView,
+                                                      listStackView(headerView: doneHeaderView,
                                                                      tableView: doneTableView)])
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
@@ -101,7 +101,7 @@ final class MainViewController: UIViewController {
         return stackView
     }()
     
-    private func listsStackView(headerView: HeaderView, tableView: UITableView) -> UIStackView {
+    private func listStackView(headerView: HeaderView, tableView: UITableView) -> UIStackView {
         let stackView = UIStackView(arrangedSubviews: [headerView,
                                                        tableView])
         stackView.axis = .vertical
