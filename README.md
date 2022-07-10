@@ -2,14 +2,14 @@
 
 ## 외부 라이브러리
 
-| Local DB | Remote DB | UI | Reactive | Layout | Convention |
-|---|---|---|---|---|---|
-| `Realm` | `Firebase` | `RxCocoa` | `RxSwift` | `SnapKit` | `SwiftLint` |
+| Local DB | Remote DB | UI | Reactive | Layout |
+|---|---|---|---|---|
+| `Realm` | `Firebase` | `RxCocoa` | `RxSwift` | `SnapKit` |
 
 
 ## 의존성 관리도구
 
-| `CocoaPods` |
+| `Swift Package Manager` |
 |---|
 
 ## 구조
@@ -41,9 +41,9 @@ RxSwift와 Conbine중 RxSwift를 선택한 가장 큰 이유는 Conbine은 iOS 1
 
 ### 그외에 기술스택
 
-|| `Firebase` | `SnapKit` | `SwiftLint` |
-|---|---|---|---|
-| 선정 이유 | Firebase는 Remote DB 라이브러리 중 가장 널리 사용되는 라이브러리로 많은 자료가 존재 및 사용이 편리하다.  | SnapKit는 길고, 가독성이 떨어지는 AutoLayout 코드를 간결하고, 가독성을 높이는데 용의할 것이라 생각되어 선정하게 되었다. | SwiftLint의 경우 SwiftLint가 제공하는 룰을 통해 일관성 있는 컨벤션으로 코드를 작성 할 수 있다. |
+|| `Firebase` | `SnapKit` |
+|---|---|---|
+| 선정 이유 | Firebase는 Remote DB 라이브러리 중 가장 널리 사용되는 라이브러리로 많은 자료가 존재 및 사용이 편리하다.  | SnapKit는 길고, 가독성이 떨어지는 AutoLayout 코드를 간결하고, 가독성을 높이는데 용의할 것이라 생각되어 선정하게 되었다. |
 
 
 
