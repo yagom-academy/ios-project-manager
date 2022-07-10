@@ -11,7 +11,7 @@ final class DetailView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .systemBackground
-        setInitaialView()
+        setViewLayout()
     }
     
     required init?(coder: NSCoder) {
@@ -24,21 +24,21 @@ final class DetailView: UIView {
         return navigationBar
     }()
     
-    lazy var naviItem: UINavigationItem = {
+    private lazy var naviItem: UINavigationItem = {
         let navigationItem = UINavigationItem()
         navigationItem.leftBarButtonItem = cancleButton
         navigationItem.rightBarButtonItem = doneButton
         return navigationItem
     }()
     
-    lazy var cancleButton: UIBarButtonItem = {
+    private lazy var cancleButton: UIBarButtonItem = {
         let barButton = UIBarButtonItem()
         barButton.title = "Cancel"
         
         return barButton
     }()
     
-    lazy var doneButton: UIBarButtonItem = {
+    private lazy var doneButton: UIBarButtonItem = {
         let barButton = UIBarButtonItem()
         barButton.title = "Done"
         
@@ -54,7 +54,7 @@ final class DetailView: UIView {
         return stackView
     }()
     
-    lazy var titleTextField: UITextField = {
+    private lazy var titleTextField: UITextField = {
         let textField = UITextField()
         textField.font = UIFont.preferredFont(forTextStyle: .title2)
         textField.borderStyle = .roundedRect
@@ -62,7 +62,7 @@ final class DetailView: UIView {
         return textField
     }()
     
-    lazy var deadlinePicker: UIDatePicker = {
+    private lazy var deadlinePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.preferredDatePickerStyle = .wheels
         datePicker.datePickerMode = .date
@@ -70,15 +70,30 @@ final class DetailView: UIView {
         return datePicker
     }()
     
-    lazy var bodyTextView: UITextView = {
+    private lazy var bodyTextView: UITextView = {
         let textView = UITextView()
         textView.font = UIFont.preferredFont(forTextStyle: .title3)
         textView.layer.borderWidth = 1
         textView.layer.borderColor = UIColor.systemGray2.cgColor
         return textView
     }()
+}
+
+// MARK: - view setting func
+extension DetailView {
+    func setViewContents(_ list: List?) {
+        guard let list = list else {
+            naviItem.title = ListType.todo.title
+            return
+        }
+        naviItem.title = list.type.title
+        cancleButton.title = "Edit"
+        titleTextField.text = list.title
+        deadlinePicker.date = list.deadline
+        bodyTextView.text = list.body
+    }
     
-    private func setInitaialView() {
+    private func setViewLayout() {
         self.addSubview(navigationBar)
         self.addSubview(mainStackView)
         navigationBar.snp.makeConstraints{
