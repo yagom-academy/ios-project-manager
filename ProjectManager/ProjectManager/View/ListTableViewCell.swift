@@ -10,7 +10,7 @@ import UIKit
 final class ListTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setInitailView()
+        setViewLayout()
     }
     
     required init?(coder: NSCoder) {
@@ -35,7 +35,7 @@ final class ListTableViewCell: UITableViewCell {
         return stackView
     }()
     
-    lazy var titleLabel: UILabel = {
+    private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .title2)
         label.setContentHuggingPriority(.required, for: .vertical)
@@ -43,7 +43,7 @@ final class ListTableViewCell: UITableViewCell {
         return label
     }()
     
-    lazy var bodyLabel: UILabel = {
+    private lazy var bodyLabel: UILabel = {
         let label = UILabel()
         label.textColor = .systemGray
         label.numberOfLines = 3
@@ -51,13 +51,23 @@ final class ListTableViewCell: UITableViewCell {
         return label
     }()
     
-    lazy var deadlineLabel: UILabel = {
+    private lazy var deadlineLabel: UILabel = {
         let label = UILabel()
         label.setContentHuggingPriority(.required, for: .vertical)
         return label
     }()
+}
+
+// MARK: - view setting func
+extension ListTableViewCell {
+    func setViewContents(_ list: List, isOver: Bool) {
+        titleLabel.text = list.title
+        bodyLabel.text = list.body
+        deadlineLabel.text = DateConverter.dateToString(list.deadline)
+        deadlineLabel.textColor = isOver ? .red : .label
+    }
     
-    private func setInitailView() {
+    private func setViewLayout() {
         self.addSubview(mainStackView)
         mainStackView.snp.makeConstraints{
             $0.edges.equalToSuperview().inset(15)
