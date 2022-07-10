@@ -113,8 +113,7 @@ final class MainViewController: UIViewController {
     private lazy var todoTableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .systemGray6
-        tableView.register(ListTableViewCell.self,
-                           forCellReuseIdentifier: "\(ListTableViewCell.self)")
+        tableView.register(ListTableViewCell.self)
         
         return tableView
     }()
@@ -122,16 +121,14 @@ final class MainViewController: UIViewController {
     private lazy var doingTableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .systemGray6
-        tableView.register(ListTableViewCell.self,
-                           forCellReuseIdentifier: "\(ListTableViewCell.self)")
+        tableView.register(ListTableViewCell.self)
         return tableView
     }()
     
     private lazy var doneTableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .systemGray6
-        tableView.register(ListTableViewCell.self,
-                           forCellReuseIdentifier: "\(ListTableViewCell.self)")
+        tableView.register(ListTableViewCell.self)
         return tableView
     }()
 }
