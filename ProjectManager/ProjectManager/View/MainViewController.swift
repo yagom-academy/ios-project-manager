@@ -65,7 +65,7 @@ final class MainViewController: UIViewController {
             }
             cell.titleLabel.text = item.title
             cell.bodyLabel.text = item.body
-            cell.deadlineLabel.text = item.deadline.dateToString
+            cell.deadlineLabel.text = DateConverter.dateToString(item.deadline)
             cell.deadlineLabel.textColor = self.mainViewModel.isOverDeadline(list: item) ? .red : .label
         }
         .disposed(by: disposbag)

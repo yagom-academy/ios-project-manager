@@ -7,15 +7,15 @@
 
 import Foundation
 
-extension Date {
-    var dateToString: String {
-        let dateFormatter = DateFormatter()
-        
+struct DateConverter {
+    static let dateFormatter = DateFormatter()
+    
+    static func dateToString(_ date: Date) -> String {
         dateFormatter.locale = .autoupdatingCurrent
         dateFormatter.timeZone = .autoupdatingCurrent
         dateFormatter.dateFormat = "yyyy. M. d."
         
-        let stringDate = dateFormatter.string(from: self)
+        let stringDate = dateFormatter.string(from: date)
         
         return stringDate
     }
