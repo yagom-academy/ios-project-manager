@@ -56,9 +56,7 @@ extension TodoListViewController {
             })
             .bind(to: mainView.todoTableView.rx.items(cellIdentifier: TodoListCell.identifier,
                                                       cellType: TodoListCell.self)) { row, item, cell in
-                cell.titleLabel.text = item.title
-                cell.bodyLabel.text = item.body
-                cell.deadlineLabel.text = item.deadlineAt.toString
+                cell.setContent(title: item.title, body: item.body, deadline: item.deadlineAt.toString)
               }.disposed(by: bag)
         
         viewModel.doingList
@@ -67,9 +65,7 @@ extension TodoListViewController {
             })
             .bind(to: mainView.doingTableView.rx.items(cellIdentifier: TodoListCell.identifier,
                                                       cellType: TodoListCell.self)) { row, item, cell in
-                cell.titleLabel.text = item.title
-                cell.bodyLabel.text = item.body
-                cell.deadlineLabel.text = item.deadlineAt.toString
+                cell.setContent(title: item.title, body: item.body, deadline: item.deadlineAt.toString)
               }.disposed(by: bag)
         
         viewModel.doneList
@@ -78,9 +74,7 @@ extension TodoListViewController {
             })
             .bind(to: mainView.doneTableView.rx.items(cellIdentifier: TodoListCell.identifier,
                                                       cellType: TodoListCell.self)) { row, item, cell in
-                cell.titleLabel.text = item.title
-                cell.bodyLabel.text = item.body
-                cell.deadlineLabel.text = item.deadlineAt.toString
+                cell.setContent(title: item.title, body: item.body, deadline: item.deadlineAt.toString)
               }.disposed(by: bag)
     }
 }

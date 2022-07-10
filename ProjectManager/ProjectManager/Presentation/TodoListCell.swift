@@ -17,14 +17,14 @@ final class TodoListCell: UITableViewCell, CellIdentifiable {
         return stackView
     }()
     
-    let titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .title2)
         
         return label
     }()
     
-    let bodyLabel: UILabel = {
+    private let bodyLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .title3)
         label.textColor = .systemGray2
@@ -33,7 +33,7 @@ final class TodoListCell: UITableViewCell, CellIdentifiable {
         return label
     }()
     
-    let deadlineLabel: UILabel = {
+    private let deadlineLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .body)
         
@@ -54,5 +54,13 @@ final class TodoListCell: UITableViewCell, CellIdentifiable {
         labelStackView.snp.makeConstraints { make in
             make.edges.equalTo(self.safeAreaLayoutGuide).inset(8)
         }
+    }
+}
+
+extension TodoListCell {
+    func setContent(title: String, body: String, deadline: String) {
+        titleLabel.text = title
+        bodyLabel.text = body
+        deadlineLabel.text = deadline
     }
 }
