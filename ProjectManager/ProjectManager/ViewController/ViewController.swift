@@ -5,11 +5,13 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-
+final class ViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
-    // Do any additional setup after loading the view.
+    self.initializeNavigationBar()
   }
 
+  private func initializeNavigationBar() {
+    self.navigationItem.title = "Project Manager"
+  }
 }
