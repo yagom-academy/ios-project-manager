@@ -33,18 +33,20 @@ final class HeaderView: UIView {
         return label
     }()
     
-    lazy var countLabel: UILabel = {
+    private(set) lazy var countLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
         label.backgroundColor = .label
         label.textColor = .systemBackground
         label.layer.cornerRadius = 20
         label.clipsToBounds = true
-        label.text = "999"
         
         return label
     }()
-    
+}
+
+// MARK: - view setting func
+extension HeaderView {
     private func setInitailView() {
         self.backgroundColor = .systemGray6
         self.addSubview(mainStackView)
