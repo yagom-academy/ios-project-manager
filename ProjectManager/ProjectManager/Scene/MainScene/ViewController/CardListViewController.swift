@@ -58,6 +58,7 @@ final class CardListViewController: UIViewController {
     bindSectionsItems()
     bindSectionsItemSelected()
     bindSectionsItemDeleted()
+    bindSectionsLongPressed()
     
     cardAdditionButton.rx.tap
       .bind(onNext: { [weak self] in
@@ -189,6 +190,32 @@ final class CardListViewController: UIViewController {
       self.viewModel.deleteSelectedCard(card)
     })
     .disposed(by: disposeBag)
+  }
+  
+  private func bindSectionsLongPressed() {
+    todoSectionView.tableView.rx.modelLongPressed(Card.self)
+      .withUnretained(self)
+      .flatMap { wself, item in wself.showPopover(cell: item.0, card: item.1) }
+      .bind(onNext: { [weak self] card, cardType in
+        self?.viewModel.moveToOtherSection(card, cardType: cardType)
+      })
+      .disposed(by: disposeBag)
+    
+    doingSectionView.tableView.rx.modelLongPressed(Card.self)
+      .withUnretained(self)
+      .flatMap { wself, item in wself.showPopover(cell: item.0, card: item.1) }
+      .bind(onNext: { [weak self] card, cardType in
+        self?.viewModel.moveToOtherSection(card, cardType: cardType)
+      })
+      .disposed(by: disposeBag)
+    
+    doneSectionView.tableView.rx.modelLongPressed(Card.self)
+      .withUnretained(self)
+      .flatMap { wself, item in wself.showPopover(cell: item.0, card: item.1) }
+      .bind(onNext: { [weak self] card, cardType in
+        self?.viewModel.moveToOtherSection(card, cardType: cardType)
+      })
+      .disposed(by: disposeBag)
   }
 }
 

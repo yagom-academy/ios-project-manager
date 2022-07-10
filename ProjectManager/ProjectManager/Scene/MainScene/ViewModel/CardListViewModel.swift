@@ -15,6 +15,7 @@ protocol CardListViewModelInput {
   func createNewCard(_ card: Card)
   func updateSelectedCard(_ card: Card)
   func deleteSelectedCard(_ card: Card)
+  func moveToOtherSection(_ card: Card, cardType: CardType)
 }
 
 protocol CardListViewModelOutput {
@@ -79,6 +80,16 @@ final class DefaultCardListViewModel: CardListViewModelable {
   
   func deleteSelectedCard(_ card: Card) {
     cards.accept(cards.value.filter { $0.id != card.id })
+  }
+  
+  func moveToOtherSection(_ card: Card, cardType: CardType) {
+    var newCard = card
+    switch cardType {
+    case .todo: newCard.cardType = .todo
+    case .doing: newCard.cardType = .doing
+    case .done: newCard.cardType = .done
+    }
+    self.updateSelectedCard(newCard)
   }
 }
 
