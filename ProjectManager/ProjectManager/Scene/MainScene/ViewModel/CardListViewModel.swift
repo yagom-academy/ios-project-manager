@@ -84,11 +84,7 @@ final class DefaultCardListViewModel: CardListViewModelable {
   
   func moveToOtherSection(_ card: Card, cardType: CardType) {
     var newCard = card
-    switch cardType {
-    case .todo: newCard.cardType = .todo
-    case .doing: newCard.cardType = .doing
-    case .done: newCard.cardType = .done
-    }
+    newCard.cardType = cardType
     self.updateSelectedCard(newCard)
   }
 }
