@@ -222,3 +222,54 @@ extension CardListViewController {
     ])
   }
 }
+
+// MARK: - Alert
+
+extension CardListViewController {
+  private func showPopover(cell: UITableViewCell, card: Card) -> Observable<(Card, CardType)> {
+    return Single<(Card, CardType)>.create { [weak self, weak cell] emitter in
+      guard let self = self, let cell = cell else {
+        emitter(.failure(RxCocoaError.unknown))
+        return Disposables.create()
+      }
+      
+      let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+      alertController.popoverPresentationController?.permittedArrowDirections = .up
+      alertController.popoverPresentationController?.sourceView = cell.superview
+      alertController.popoverPresentationController?.sourceRect = CGRect(origin: cell.center, size: .zero)
+      alertController.modalPresentationStyle = .popover
+      
+      let (firstCardType, secondCardType) = self.distinguishMenuType(of: card)
+      
+      let firstAction = UIAlertAction(
+        title: firstCardType.moveToMenuTitle,
+        style: .default
+      ) { _ in
+        emitter(.success((card, firstCardType)))
+      }
+      
+      let secondAction = UIAlertAction(
+        title: secondCardType.moveToMenuTitle,
+        style: .default
+      ) { _ in
+        emitter(.success((card, secondCardType)))
+      }
+      
+      alertController.addAction(firstAction)
+      alertController.addAction(secondAction)
+      self.present(alertController, animated: true)
+      
+      return Disposables.create {
+        alertController.dismiss(animated: true)
+      }
+    }.asObservable()
+  }
+  
+  private func distinguishMenuType(of card: Card) -> (CardType, CardType) {
+    switch card.cardType {
+    case .todo: return (.doing, .done)
+    case .doing: return (.todo, .done)
+    case .done: return (.todo, .doing)
+    }
+  }
+}
