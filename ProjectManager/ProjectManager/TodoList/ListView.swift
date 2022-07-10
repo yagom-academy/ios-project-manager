@@ -126,13 +126,13 @@ final class ListView: UIView {
                 
                 return cell
             }
-            .disposed(by: disposeBag)
+            .disposed(by: self.disposeBag)
         
         self.viewModel.tableViewData?
             .map { $0.filter { $0.status == self.mode }}
             .map { String($0.count) }
             .observe(on: MainScheduler.instance)
             .bind(to: self.listCountLabel.rx.text)
-            .disposed(by: disposeBag)
+            .disposed(by: self.disposeBag)
     }
 }

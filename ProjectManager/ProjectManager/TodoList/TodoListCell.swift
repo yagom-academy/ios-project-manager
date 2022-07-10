@@ -50,7 +50,7 @@ final class TodoListCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.setUpCell()
-        self.setUpLayout()
+        self.setUpContentsStackView()
     }
     
     required init?(coder: NSCoder) {
@@ -63,14 +63,14 @@ final class TodoListCell: UITableViewCell {
     }
     
     private func setUpCell() {
-        self.contentView.addSubview(self.contentsStackView)
-        self.contentsStackView.addArrangedSubviews(with: [self.titleLabel, self.descriptionLabel, self.dateLabel])
-        
         self.backgroundColor = .systemGray5
         self.contentView.backgroundColor = .systemBackground
     }
     
-    private func setUpLayout() {
+    private func setUpContentsStackView() {
+        self.contentView.addSubview(self.contentsStackView)
+        self.contentsStackView.addArrangedSubviews(with: [self.titleLabel, self.descriptionLabel, self.dateLabel])
+        
         NSLayoutConstraint.activate([
             self.contentsStackView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 10),
             self.contentsStackView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 10),
