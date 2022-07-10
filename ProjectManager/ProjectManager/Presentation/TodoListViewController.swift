@@ -53,9 +53,13 @@ extension TodoListViewController {
         
         //MARK: - TodoList
         viewModel.todoList
+            .withUnretained(self)
+            .map({ (self, items) in
+                self.viewModel.toTodoCellContents(todoModels: items)
+            })
             .bind(to: mainView.todoTableView.rx.items(cellIdentifier: TodoListCell.identifier,
                                                       cellType: TodoListCell.self)) { row, item, cell in
-                cell.setContent(title: item.title, body: item.body, deadline: item.deadlineAt.toString)
+                cell.setContent(title: item.title, body: item.body, deadline: item.deadlineAt)
               }.disposed(by: bag)
         
         viewModel.todoListCount
@@ -65,9 +69,13 @@ extension TodoListViewController {
         
         //MARK: - DoingList
         viewModel.doingList
+            .withUnretained(self)
+            .map({ (self, items) in
+                self.viewModel.toTodoCellContents(todoModels: items)
+            })
             .bind(to: mainView.doingTableView.rx.items(cellIdentifier: TodoListCell.identifier,
                                                       cellType: TodoListCell.self)) { row, item, cell in
-                cell.setContent(title: item.title, body: item.body, deadline: item.deadlineAt.toString)
+                cell.setContent(title: item.title, body: item.body, deadline: item.deadlineAt)
               }.disposed(by: bag)
         
         viewModel.doingListCount
@@ -77,9 +85,13 @@ extension TodoListViewController {
         
         //MARK: - DoneList
         viewModel.doneList
+            .withUnretained(self)
+            .map({ (self, items) in
+                self.viewModel.toTodoCellContents(todoModels: items)
+            })
             .bind(to: mainView.doneTableView.rx.items(cellIdentifier: TodoListCell.identifier,
                                                       cellType: TodoListCell.self)) { row, item, cell in
-                cell.setContent(title: item.title, body: item.body, deadline: item.deadlineAt.toString)
+                cell.setContent(title: item.title, body: item.body, deadline: item.deadlineAt)
               }.disposed(by: bag)
         
         viewModel.doneListCount

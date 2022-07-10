@@ -21,7 +21,9 @@ protocol TodoListViewModelOutput {
     var doneListCount: Observable<String> { get }
 }
 
-protocol TodoListViewModel: TodoListViewModelInput, TodoListViewModelOutput {}
+protocol TodoListViewModel: TodoListViewModelInput, TodoListViewModelOutput {
+    func toTodoCellContents(todoModels: [TodoModel]) -> [TodoCellContent]
+}
 
 final class DefaultTodoListViewModel: TodoListViewModel {
     #if DEBUG
@@ -31,16 +33,17 @@ final class DefaultTodoListViewModel: TodoListViewModel {
     #endif
     
     let todoList: Observable<[TodoModel]>
-    
     let doingList: Observable<[TodoModel]>
-    
     let doneList: Observable<[TodoModel]>
-    
     let todoListCount: Observable<String>
-    
     let doingListCount: Observable<String>
-    
     let doneListCount: Observable<String>
+    
+    private let dateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy. MM. d"
+        return dateFormatter
+    }()
     
     init() {
         todoList = listItems
@@ -67,4 +70,18 @@ final class DefaultTodoListViewModel: TodoListViewModel {
         doneListCount = doneList
             .map({ "\($0.count)" })
     }
+    
+    func toTodoCellContents(todoModels: [TodoModel]) -> [TodoCellContent] {
+        todoModels.map { item in
+            TodoCellContent(title: item.title,
+                            body: item.body,
+                            deadlineAt: item.deadlineAt.toString(dateFormatter))
+        }
+    }
+}
+
+struct TodoCellContent {
+    let title: String?
+    let body: String?
+    let deadlineAt: String?
 }
