@@ -1,11 +1,11 @@
 //
-//  ProjectManager - ViewController.swift
+//  ProjectManager - ProjectManagerHomeViewController.swift
 //  Created by Minseong. 
 // 
 
 import UIKit
 
-final class ViewController: UIViewController {
+final class ProjectManagerHomeViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     self.initializeNavigationBar()
