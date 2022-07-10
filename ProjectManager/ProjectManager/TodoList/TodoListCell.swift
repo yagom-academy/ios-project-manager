@@ -82,6 +82,6 @@ final class TodoListCell: UITableViewCell {
     func configure(_ todo: Todo) {
         self.titleLabel.text = todo.title
         self.descriptionLabel.text = todo.description
-        self.dateLabel.text = todo.date
+        self.dateLabel.text = todo.date.convertToString()
     }
 }
