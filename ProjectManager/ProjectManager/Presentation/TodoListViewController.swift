@@ -43,9 +43,7 @@ extension TodoListViewController {
     }
     
     private func configureTableViewCell() {
-        mainView.todoTableView.register(TodoListCell.self, forCellReuseIdentifier: TodoListCell.identifier)
-        mainView.doingTableView.register(TodoListCell.self, forCellReuseIdentifier: TodoListCell.identifier)
-        mainView.doneTableView.register(TodoListCell.self, forCellReuseIdentifier: TodoListCell.identifier)
+        mainView.tableViewsCellRegister()
     }
 }
 

@@ -86,3 +86,11 @@ final class TodoListView: UIView {
         }
     }
 }
+
+extension TodoListView {
+    func tableViewsCellRegister() {
+        todoTableView.register(TodoListCell.self, forCellReuseIdentifier: TodoListCell.identifier)
+        doingTableView.register(TodoListCell.self, forCellReuseIdentifier: TodoListCell.identifier)
+        doneTableView.register(TodoListCell.self, forCellReuseIdentifier: TodoListCell.identifier)
+    }
+}
