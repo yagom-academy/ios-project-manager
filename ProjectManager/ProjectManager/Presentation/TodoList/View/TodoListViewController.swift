@@ -102,9 +102,10 @@ extension TodoListViewController {
               }.disposed(by: bag)
         
         plusButton.rx.tap
-            .bind {
-                self.viewModel.actions?.presentEditViewController()
+            .bind { [weak self] in
+                self?.viewModel.plusButtonDidTap()
             }.disposed(by: bag)
+        
         viewModel.doneListCount
             .asDriver(onErrorJustReturn: "0")
             .drive(mainView.doneHeaderView.setCountText)

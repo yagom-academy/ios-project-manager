@@ -13,8 +13,7 @@ struct TodoListViewModelActions {
 }
 
 protocol TodoListViewModelInput {
-    var listItems: BehaviorSubject<[TodoModel]> { get }
-    var actions: TodoListViewModelActions? { get }
+    func plusButtonDidTap()
 }
 
 protocol TodoListViewModelOutput {
@@ -31,10 +30,8 @@ protocol TodoListViewModel: TodoListViewModelInput, TodoListViewModelOutput {
 }
 
 final class DefaultTodoListViewModel: TodoListViewModel {
-    let listItems: BehaviorSubject<[TodoModel]>
-    
     private let useCase: UseCase
-    let actions: TodoListViewModelActions?
+    private let actions: TodoListViewModelActions?
     
     let todoList: Observable<[TodoModel]>
     let doingList: Observable<[TodoModel]>
@@ -54,9 +51,9 @@ final class DefaultTodoListViewModel: TodoListViewModel {
         self.useCase = useCase
         self.actions = actions
         
-        listItems = useCase.readRepository()
+        let todoLists = useCase.readRepository()
         
-        todoList = listItems
+        todoList = todoLists
             .map { items in
                 items.filter { $0.state == .todo }
             }
@@ -64,7 +61,7 @@ final class DefaultTodoListViewModel: TodoListViewModel {
         todoListCount = todoList
             .map({ "\($0.count)" })
         
-        doingList = listItems
+        doingList = todoLists
             .map { items in
                 items.filter { $0.state == .doing }
             }
@@ -72,7 +69,7 @@ final class DefaultTodoListViewModel: TodoListViewModel {
         doingListCount = doingList
             .map({ "\($0.count)" })
         
-        doneList = listItems
+        doneList = todoLists
             .map { items in
                 items.filter { $0.state == .done }
             }
@@ -87,6 +84,10 @@ final class DefaultTodoListViewModel: TodoListViewModel {
                             body: item.body,
                             deadlineAt: item.deadlineAt.toString(dateFormatter))
         }
+    }
+    
+    func plusButtonDidTap() {
+        actions?.presentEditViewController()
     }
 }
 
