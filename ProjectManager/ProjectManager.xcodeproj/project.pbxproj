@@ -24,7 +24,7 @@
 		E1C26DCB28746D1500A37983 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C26DCA28746D1500A37983 /* RealmManager.swift */; };
 		E1C26DD32874720200A37983 /* ProjectManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C26DD22874720200A37983 /* ProjectManagerTests.swift */; };
 		E1D0945E28756B380084308A /* TaskLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D0945D28756B380084308A /* TaskLocation.swift */; };
-		E1D0946028756D8A0084308A /* TaskCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D0945F28756D8A0084308A /* TaskCase.swift */; };
+		E1D0946028756D8A0084308A /* TaskType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D0945F28756D8A0084308A /* TaskType.swift */; };
 		E1D094632875716A0084308A /* DetailModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D094622875716A0084308A /* DetailModalView.swift */; };
 		E1D094652875A1C10084308A /* DetailModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D094642875A1C10084308A /* DetailModalViewController.swift */; };
 /* End PBXBuildFile section */
@@ -64,7 +64,7 @@
 		E1C26DDD2874769600A37983 /* Realm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Realm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1C26DE0287476F700A37983 /* Realm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Realm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1D0945D28756B380084308A /* TaskLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskLocation.swift; sourceTree = "<group>"; };
-		E1D0945F28756D8A0084308A /* TaskCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCase.swift; sourceTree = "<group>"; };
+		E1D0945F28756D8A0084308A /* TaskType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskType.swift; sourceTree = "<group>"; };
 		E1D094622875716A0084308A /* DetailModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailModalView.swift; sourceTree = "<group>"; };
 		E1D094642875A1C10084308A /* DetailModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailModalViewController.swift; sourceTree = "<group>"; };
 		FF3BC791CED2F50C823A6240 /* Pods_ProjectManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -189,7 +189,7 @@
 			children = (
 				67A743AE28746C83004D1A5B /* Task.swift */,
 				E1D0945D28756B380084308A /* TaskLocation.swift */,
-				E1D0945F28756D8A0084308A /* TaskCase.swift */,
+				E1D0945F28756D8A0084308A /* TaskType.swift */,
 			);
 			path = DataType;
 			sourceTree = "<group>";
@@ -382,7 +382,7 @@
 				67A743AF28746C83004D1A5B /* Task.swift in Sources */,
 				672F3C872875644C00CA92D4 /* Date+Extension.swift in Sources */,
 				672F3C8328755CA900CA92D4 /* UIStackView+Extension.swift in Sources */,
-				E1D0946028756D8A0084308A /* TaskCase.swift in Sources */,
+				E1D0946028756D8A0084308A /* TaskType.swift in Sources */,
 				E1D094632875716A0084308A /* DetailModalView.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				672F3C852875610900CA92D4 /* TaskCell.swift in Sources */,

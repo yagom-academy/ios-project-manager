@@ -8,15 +8,17 @@
 import UIKit
 
 protocol DetailViewControllerDelegate: AnyObject {
-    func taskUpdate(task: Task)
+    func addTask(_ task: Task)
 }
 
 class DetailModalViewController: UIViewController {
     let modalView: DetailModalView
+    let task: Task?
     weak var delegate: DetailViewControllerDelegate?
     
-    init(modalView: DetailModalView) {
+    init(modalView: DetailModalView, task: Task? = nil) {
         self.modalView = modalView
+        self.task = task
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -25,21 +27,20 @@ class DetailModalViewController: UIViewController {
     }
     
     override func loadView() {
+        if let task = task {
+            modalView.setLabel(task: task)
+        }
         view = modalView
-    }
-    
-    override func viewDidLoad() {
     }
 }
 
 extension DetailModalViewController: ButtonActionDelegate {
-    func topLeftButtonClicked() {
-        print("left Button click")
+    func cancelButtonClicked() {
+        dismiss(animated: true)
     }
     
-    func topRightButtonClicked() {
-        print("Done: right Button click")
-        delegate?.taskUpdate(task: modalView.task)
+    func doneButtonClicked() {
+        delegate?.addTask(modalView.task)
         dismiss(animated: true)
     }
 }

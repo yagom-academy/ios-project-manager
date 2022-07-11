@@ -8,8 +8,8 @@
 import UIKit
 
 protocol ButtonActionDelegate: AnyObject {
-    func topLeftButtonClicked()
-    func topRightButtonClicked()
+    func cancelButtonClicked()
+    func doneButtonClicked()
 }
 
 final class DetailModalView: UIView {
@@ -127,17 +127,17 @@ final class DetailModalView: UIView {
     }
     
     @objc
-    private func topLeftButtonClicked() {
-        buttonDelegate?.topLeftButtonClicked()
+    private func cancelButtonClicked() {
+        buttonDelegate?.cancelButtonClicked()
     }
     @objc
-    private func topRightButtonClicked() {
-        buttonDelegate?.topRightButtonClicked()
+    private func doneButtonClicked() {
+        buttonDelegate?.doneButtonClicked()
     }
     
     private func setButton() {
-        topLeftButton.addTarget(self, action: #selector(topLeftButtonClicked), for: .touchUpInside)
-        topRightButton.addTarget(self, action: #selector(topRightButtonClicked), for: .touchUpInside)
+        topLeftButton.addTarget(self, action: #selector(cancelButtonClicked), for: .touchUpInside)
+        topRightButton.addTarget(self, action: #selector(doneButtonClicked), for: .touchUpInside)
     }
     
     func setButtonDelegate(_ delegate: ButtonActionDelegate) {

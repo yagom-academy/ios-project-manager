@@ -158,8 +158,8 @@ final class MainView: UIView {
     
     // MARK: functions
     
-    func retrieveTableView(taskCase: TaskCase) -> UITableView {
-        switch taskCase {
+    func retrieveTableView(taskType: TaskType) -> UITableView {
+        switch taskType {
         case .todo:
             return todoTableView
         case .doing:
@@ -232,5 +232,18 @@ final class MainView: UIView {
             doingHeaderLabel.bottomAnchor.constraint(equalTo: doingHeaderCounter.bottomAnchor),
             doneHeaderLabel.bottomAnchor.constraint(equalTo: doneHeaderCounter.bottomAnchor)
         ])
+    }
+    
+    func findTableViewType(tableView: UITableView) -> TaskType? {
+        if tableView == todoTableView {
+            return .todo
+        }
+        if tableView == doingTableView {
+            return .doing
+        }
+        if tableView == doneTableView {
+            return .done
+        }
+        return nil
     }
 }
