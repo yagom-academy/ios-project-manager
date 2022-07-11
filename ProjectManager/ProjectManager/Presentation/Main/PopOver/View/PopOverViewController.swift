@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxCocoa
 
 final class PopOverViewController: UIViewController {
     private let popOverView = PopOverView()
@@ -16,6 +17,7 @@ final class PopOverViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         view = popOverView
         setUpAttribute(cell)
+        setUpButtonAction(cell)
         setUpButtonTitle()
     }
     
@@ -43,5 +45,9 @@ final class PopOverViewController: UIViewController {
         }
         
         popOverView.setUpButtonTitle(first: first, second: second)
+    }
+    
+    private func setUpButtonAction(_ cell: ProjectCell) {
+        popOverView.addButtonAction(cell)
     }
 }
