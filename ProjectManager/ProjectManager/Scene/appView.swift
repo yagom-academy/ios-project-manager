@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct appView: View {
+struct AppView: View {
   @ObservedObject var viewModel: TodoViewModel
   @State private var isShowDetailView = false
   
@@ -49,7 +49,7 @@ struct appView: View {
 
 struct MyPreviewProvider_Previews: PreviewProvider {
   static var previews: some View {
-    appView(viewModel: TodoViewModel())
+    AppView(viewModel: TodoViewModel())
       .previewInterfaceOrientation(.landscapeLeft)
   }
 }
