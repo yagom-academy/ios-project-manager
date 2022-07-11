@@ -10,7 +10,7 @@ import UIKit
 final class PopOverViewController: UIViewController {
     let popOverView = PopOverView()
     
-    init(cell: UITableViewCell) {
+    init(cell: ProjectCell) {
         super.init(nibName: nil, bundle: nil)
         view = popOverView
         setUpAttribute(cell)
@@ -20,7 +20,8 @@ final class PopOverViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setUpAttribute(_ cell: UITableViewCell) {
+    func setUpAttribute(_ cell: ProjectCell) {
+        cell.getData()
         modalPresentationStyle = .popover
         popoverPresentationController?.sourceView = cell
         preferredContentSize = .init(width: 300, height: 100)

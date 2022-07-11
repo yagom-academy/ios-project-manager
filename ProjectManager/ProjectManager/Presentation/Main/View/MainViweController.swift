@@ -186,14 +186,50 @@ final class MainViweController: UIViewController {
             .disposed(by: disposeBag)
     }
     
-    func setUpPopOverView() {
-        mainView.toDoTable.tableView.rx
-            .longPressGesture().debug()
+    private func setUpPopOverView() {
+        let toDoTableView = mainView.toDoTable.tableView
+        let doingTableView = mainView.doingTable.tableView
+        let doneTableView = mainView.doneTable.tableView
+        
+        toDoTableView.rx
+            .longPressGesture()
             .when(.began)
             .bind { event in
-                let point = event.location(in: self.mainView.toDoTable.tableView)
-                guard let indexPath = self.mainView.toDoTable.tableView.indexPathForRow(at: point),
-                      let cell = self.mainView.toDoTable.tableView.cellForRow(at: indexPath) as? ProjectCell
+                let point = event.location(in: toDoTableView)
+                guard let indexPath = toDoTableView.indexPathForRow(at: point),
+                      let cell = toDoTableView.cellForRow(at: indexPath) as? ProjectCell
+                else {
+                    return
+                }
+                
+                let popOverViewController = PopOverViewController(cell: cell)
+                self.present(popOverViewController, animated: true, completion: nil)
+            }
+            .disposed(by: disposeBag)
+        
+        doingTableView.rx
+            .longPressGesture()
+            .when(.began)
+            .bind { event in
+                let point = event.location(in: doingTableView)
+                guard let indexPath = doingTableView.indexPathForRow(at: point),
+                      let cell = doingTableView.cellForRow(at: indexPath) as? ProjectCell
+                else {
+                    return
+                }
+                
+                let popOverViewController = PopOverViewController(cell: cell)
+                self.present(popOverViewController, animated: true, completion: nil)
+            }
+            .disposed(by: disposeBag)
+                
+        doneTableView.rx
+            .longPressGesture()
+            .when(.began)
+            .bind { event in
+                let point = event.location(in: doneTableView)
+                guard let indexPath = doneTableView.indexPathForRow(at: point),
+                      let cell = doneTableView.cellForRow(at: indexPath) as? ProjectCell
                 else {
                     return
                 }
@@ -204,4 +240,3 @@ final class MainViweController: UIViewController {
             .disposed(by: disposeBag)
     }
 }
-
