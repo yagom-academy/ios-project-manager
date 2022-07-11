@@ -14,10 +14,17 @@ enum State {
 }
 
 struct TodoModel {
-    let title: String
-    let body: String
+    let title: String?
+    let body: String?
     let deadlineAt: Date
     var state: State
+    
+    init(title: String?, body: String?, deadlineAt: Date, state: State = .todo) {
+        self.title = title
+        self.body = body
+        self.deadlineAt = deadlineAt
+        self.state = state
+    }
 }
 
 #if DEBUG

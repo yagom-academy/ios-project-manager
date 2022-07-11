@@ -62,9 +62,15 @@ extension TodoEditViewController {
 extension TodoEditViewController {
     private func bind() {
         cancelButton.rx.tap
-            .bind(onNext: { [weak self] in
-                self?.viewModel.actions?.dismiss()
-            })
-            .disposed(by: bag)
+            .withUnretained(self)
+            .bind { (self, _) in
+                self.viewModel.cancelButtonDidTap()
+            }.disposed(by: bag)
+        
+        doneButton.rx.tap
+            .withUnretained(self)
+            .bind { (self, _) in
+                self.viewModel.doneButtonDidTap(item: self.mainView.readViewContent())
+            }.disposed(by: bag)
     }
 }

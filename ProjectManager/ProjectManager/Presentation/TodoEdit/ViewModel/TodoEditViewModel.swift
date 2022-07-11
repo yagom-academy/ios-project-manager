@@ -13,8 +13,8 @@ struct TodoEditViewModelActions {
 }
 
 protocol TodoEditViewModelInput {
-    var listItems: BehaviorSubject<[TodoModel]> { get }
-    var actions: TodoEditViewModelActions? { get }
+    func cancelButtonDidTap()
+    func doneButtonDidTap(item: TodoModel)
 }
 
 protocol TodoEditViewModel: TodoEditViewModelInput {}
@@ -22,14 +22,19 @@ protocol TodoEditViewModel: TodoEditViewModelInput {}
 final class DefaultTodoEditViewModel: TodoEditViewModel {
     private let useCase: UseCase
     
-    var listItems: BehaviorSubject<[TodoModel]>
-    
-    var actions: TodoEditViewModelActions?
+    private var actions: TodoEditViewModelActions?
     
     init(useCase: UseCase, actions: TodoEditViewModelActions) {
         self.useCase = useCase
         self.actions = actions
-        
-        listItems = useCase.readRepository()
+    }
+    
+    func cancelButtonDidTap() {
+        actions?.dismiss()
+    }
+    
+    func doneButtonDidTap(item: TodoModel) {
+        useCase.saveRepository(to: item)
+        actions?.dismiss()
     }
 }
