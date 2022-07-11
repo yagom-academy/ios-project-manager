@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum projectCategory {
+enum ProjectCategory {
   case todo
   case doing
   case done
@@ -28,5 +28,5 @@ struct ProjectList {
   let title: String
   let body: String
   let date: Date
-  let projectCategory: projectCategory
+  let projectCategory: ProjectCategory
 }
