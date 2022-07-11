@@ -10,6 +10,7 @@ import UIKit
 final class PopoverViewController: UIViewController {
     private let popoverView = PopoverView(frame: .zero)
     private let realmManager = RealmManager()
+    private let viewModel = PopoverViewModel()
     weak var delegate: DataReloadable?
     var task: Task?
     
