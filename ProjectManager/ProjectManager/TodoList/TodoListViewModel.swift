@@ -20,17 +20,17 @@ final class TodoListViewModel {
     let dataBase: DataBase = TestDataBase()
     
     init() {
-        let data = BehaviorRelay<[Todo]>(value: dataBase.read())
+        let data = BehaviorRelay<[Todo]>(value: self.dataBase.read())
             
-        todoViewData = data
+        self.todoViewData = data
             .map { $0.filter { $0.status == .todo } }
             .asDriver(onErrorJustReturn: [])
         
-        doingViewData = data
+        self.doingViewData = data
             .map { $0.filter { $0.status == .doing } }
             .asDriver(onErrorJustReturn: [])
         
-        doneViewData = data
+        self.doneViewData = data
             .map { $0.filter { $0.status == .done } }
             .asDriver(onErrorJustReturn: [])
     }
@@ -46,17 +46,17 @@ fileprivate struct TestDataBase: DataBase {
     let data3 = MockData().data3
     
     func read() -> [Todo] {
-        let status1 = data1["status"]
-        let title1 = data1["title"]
-        let description1 = data1["description"]
+        let status1 = self.data1["status"]
+        let title1 = self.data1["title"]
+        let description1 = self.data1["description"]
         
-        let status2 = data2["status"]
-        let title2 = data2["title"]
-        let description2 = data2["description"]
+        let status2 = self.data2["status"]
+        let title2 = self.data2["title"]
+        let description2 = self.data2["description"]
         
-        let status3 = data3["status"]
-        let title3 = data3["title"]
-        let description3 = data3["description"]
+        let status3 = self.data3["status"]
+        let title3 = self.data3["title"]
+        let description3 = self.data3["description"]
         
         let data: [Todo] = [
             Todo(status: Status(rawValue: status1!)!, title: title1!, description: description1!, date: Date()),

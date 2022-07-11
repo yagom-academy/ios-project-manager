@@ -15,6 +15,7 @@ final class TodoListViewController: UIViewController {
     private let doneView: ListView
     private let viewModel: TodoListViewModel
     private let disposeBag = DisposeBag()
+    weak private var coordinator: MainCoordinator?
 
     private let tablesStackView: UIStackView = {
         let stackView = UIStackView()
@@ -28,11 +29,12 @@ final class TodoListViewController: UIViewController {
         return stackView
     }()
 
-    init() {
-        self.todoView = ListView(status: .todo)
-        self.doingView = ListView(status: .doing)
-        self.doneView = ListView(status: .done)
-        self.viewModel = TodoListViewModel()
+    init(todoViewModel: TodoListViewModel, coordinator: MainCoordinator) {
+        self.todoView = ListView(status: .todo, viewModel: todoViewModel)
+        self.doingView = ListView(status: .doing, viewModel: todoViewModel)
+        self.doneView = ListView(status: .done, viewModel: todoViewModel)
+        self.viewModel = todoViewModel
+        self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -73,15 +75,7 @@ final class TodoListViewController: UIViewController {
     private func bind() {
         self.navigationItem.rightBarButtonItem?.rx.tap.asObservable()
             .subscribe(onNext: { [weak self] in
-                self?.presentDetailView() })
+                self?.coordinator?.showDetailView() })
             .disposed(by: disposeBag)
-    }
-    
-    private func presentDetailView() {
-        let viewController = DetailViewController()
-
-        let navigationController = UINavigationController.init(rootViewController: viewController)
-        navigationController.modalPresentationStyle = .formSheet
-        self.present(navigationController, animated: true)
     }
 }

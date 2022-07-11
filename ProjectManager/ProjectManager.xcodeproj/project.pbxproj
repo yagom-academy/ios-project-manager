@@ -26,6 +26,7 @@
 		64371A502874940300F78AAA /* StackView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64371A4F2874940300F78AAA /* StackView+Extension.swift */; };
 		64371AC7287B0CFC00F78AAA /* CurrentDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64371AC6287B0CFC00F78AAA /* CurrentDateFormatter.swift */; };
 		64371AC9287B129200F78AAA /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64371AC8287B129200F78AAA /* Date+Extension.swift */; };
+		64371AE9287C570D00F78AAA /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64371AE8287C570C00F78AAA /* MainCoordinator.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* TodoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* TodoListViewController.swift */; };
@@ -70,6 +71,7 @@
 		64371A4F2874940300F78AAA /* StackView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StackView+Extension.swift"; sourceTree = "<group>"; };
 		64371AC6287B0CFC00F78AAA /* CurrentDateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentDateFormatter.swift; sourceTree = "<group>"; };
 		64371AC8287B129200F78AAA /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
+		64371AE8287C570C00F78AAA /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -184,6 +186,14 @@
 			path = TodoDetail;
 			sourceTree = "<group>";
 		};
+		64371AE6287C56C500F78AAA /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				64371AE8287C570C00F78AAA /* MainCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
 		C7431EF925F51E1D0094C4CF = {
 			isa = PBXGroup;
 			children = (
@@ -213,6 +223,7 @@
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
 				30B02F8E287464250029579F /* TodoList */,
 				64371A84287847F600F78AAA /* TodoDetail */,
+				64371AE6287C56C500F78AAA /* Coordinator */,
 				643719E12873E07400F78AAA /* Model */,
 			);
 			path = ProjectManager;
@@ -330,6 +341,7 @@
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				64371A502874940300F78AAA /* StackView+Extension.swift in Sources */,
 				308FF0C02878205700301DCF /* DetailViewController.swift in Sources */,
+				64371AE9287C570D00F78AAA /* MainCoordinator.swift in Sources */,
 				643719E02873E02F00F78AAA /* Todo.swift in Sources */,
 				3088779E2876D0CF00057592 /* Status.swift in Sources */,
 			);
