@@ -31,18 +31,15 @@ protocol TodoListViewModel: TodoListViewModelInput, TodoListViewModelOutput {
 }
 
 final class DefaultTodoListViewModel: TodoListViewModel {
-    #if DEBUG
-    let listItems = BehaviorSubject<[TodoModel]>(value: TodoModel.makeDummy())
-    #else
-    let listItems = BehaviorSubject<[TodoModel]>(value: [])
-    #endif
-    private(set) var useCase: UseCase
+    let listItems: BehaviorSubject<[TodoModel]>
+    
+    private let useCase: UseCase
     let actions: TodoListViewModelActions?
     
     let todoList: Observable<[TodoModel]>
     let doingList: Observable<[TodoModel]>
     let doneList: Observable<[TodoModel]>
-    init(useCase: UseCase, actions: TodoListViewModelActions) {
+    
     let todoListCount: Observable<String>
     let doingListCount: Observable<String>
     let doneListCount: Observable<String>
@@ -53,6 +50,7 @@ final class DefaultTodoListViewModel: TodoListViewModel {
         return dateFormatter
     }()
     
+    init(useCase: UseCase, actions: TodoListViewModelActions) {
         self.useCase = useCase
         self.actions = actions
         
