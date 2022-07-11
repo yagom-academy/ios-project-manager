@@ -86,3 +86,11 @@ fileprivate extension DateFormatter {
         return dateFormatter.string(from: date)
     }
 }
+
+extension ProjectContent {
+    static func == (lhs: ProjectContent, rhs: ProjectContent) -> Bool {
+        return lhs.title == rhs.title &&
+        lhs.deadline == rhs.deadline &&
+        lhs.description == rhs.description
+    }
+}
