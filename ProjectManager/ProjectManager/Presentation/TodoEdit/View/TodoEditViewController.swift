@@ -18,6 +18,7 @@ class TodoEditViewController: UIViewController {
     private let navigationBar = UINavigationBar()
     private let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: nil, action: nil)
     private let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: nil)
+    private let editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: nil, action: nil)
     
     private let todoItme: TodoModel?
     
@@ -56,7 +57,11 @@ extension TodoEditViewController {
     
     private func configureNavigationBar() {
         title = "Todo"
-        navigationItem.leftBarButtonItem = cancelButton
+        if todoItme == nil {
+            navigationItem.leftBarButtonItem = cancelButton
+        } else {
+            navigationItem.leftBarButtonItem = editButton
+        }
         navigationItem.rightBarButtonItem = doneButton
         navigationBar.items = [navigationItem]
     }
