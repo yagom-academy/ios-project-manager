@@ -68,6 +68,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		033294B5287C71C700EE7CBE /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				0EA67ED128772C0200E15093 /* RegistrationViewModel.swift */,
+				0334E70128767EBB00222EB7 /* DetailViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		0334E70428770E1400222EB7 /* Infrastructure */ = {
 			isa = PBXGroup;
 			children = (
@@ -91,8 +100,8 @@
 				03AB73DA2873290400B0C980 /* MainViweController.swift */,
 				03AB73DC2873292900B0C980 /* MainView.swift */,
 				03AB73E0287331BB00B0C980 /* ProjectTableView.swift */,
-				0EA67EB72873330100E15093 /* ProjectCell.swift */,
 				0EA67ECF287674D000E15093 /* ProjectTable.swift */,
+				0EA67EB72873330100E15093 /* ProjectCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -101,6 +110,7 @@
 			isa = PBXGroup;
 			children = (
 				0EA67EBA2874769800E15093 /* View */,
+				033294B5287C71C700EE7CBE /* ViewModel */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -110,9 +120,7 @@
 			children = (
 				0EA67EBB287476B300E15093 /* RegistrationViewController.swift */,
 				0334E6FF28767E7100222EB7 /* DetailViewController.swift */,
-				0334E70128767EBB00222EB7 /* DetailViewModel.swift */,
 				0EA67EBD2874789700E15093 /* ModalView.swift */,
-				0EA67ED128772C0200E15093 /* RegistrationViewModel.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
