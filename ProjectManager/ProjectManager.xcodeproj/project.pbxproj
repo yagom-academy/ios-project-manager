@@ -24,7 +24,7 @@
 		DA657CDF28758E16002DB030 /* TodoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA657CDE28758E16002DB030 /* TodoViewModel.swift */; };
 		DA657CE128758FE5002DB030 /* TodoListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA657CE028758FE5002DB030 /* TodoListCell.swift */; };
 		DA657CE328759BB6002DB030 /* TodoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA657CE228759BB6002DB030 /* TodoList.swift */; };
-		DA657CE52875C77D002DB030 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA657CE42875C77D002DB030 /* DetailView.swift */; };
+		DA657CE52875C77D002DB030 /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA657CE42875C77D002DB030 /* EditView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,7 +43,7 @@
 		DA657CDE28758E16002DB030 /* TodoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoViewModel.swift; sourceTree = "<group>"; };
 		DA657CE028758FE5002DB030 /* TodoListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListCell.swift; sourceTree = "<group>"; };
 		DA657CE228759BB6002DB030 /* TodoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoList.swift; sourceTree = "<group>"; };
-		DA657CE42875C77D002DB030 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		DA657CE42875C77D002DB030 /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,7 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				864DD597287327F500023287 /* AppView.swift */,
-				DA657CE42875C77D002DB030 /* DetailView.swift */,
+				DA657CE42875C77D002DB030 /* EditView.swift */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -253,7 +253,7 @@
 				86B521202875B8DF003B83C9 /* TodoListHeader.swift in Sources */,
 				DA657CE128758FE5002DB030 /* TodoListCell.swift in Sources */,
 				DA657CE328759BB6002DB030 /* TodoList.swift in Sources */,
-				DA657CE52875C77D002DB030 /* DetailView.swift in Sources */,
+				DA657CE52875C77D002DB030 /* EditView.swift in Sources */,
 				865CFF2A287726BA00C251F3 /* BranchProcessing.swift in Sources */,
 				864DD598287327F500023287 /* AppView.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,

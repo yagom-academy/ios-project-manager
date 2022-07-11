@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DetailView: View {
+struct EditView: View {
   @ObservedObject var viewModel: TodoViewModel
   @ObservedObject var todo: Todo
   @State var nonEditable: Bool = true

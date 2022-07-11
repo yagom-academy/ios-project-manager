@@ -39,7 +39,7 @@ struct DetailViewButton: View {
   @ObservedObject var viewModel: TodoViewModel
   @ObservedObject var todo: Todo
   @Binding var isShowDetailView: Bool
-  
+
   var body: some View {
     Button {
       isShowDetailView = true
@@ -47,7 +47,7 @@ struct DetailViewButton: View {
       TodoListCell(todo)
     }
     .sheet(isPresented: $isShowDetailView) {
-      DetailView(viewModel: viewModel, todo: todo, isShow: $isShowDetailView, method: .update)
+      EditView(viewModel: viewModel, todo: todo, isShow: $isShowDetailView, method: .update)
     }
   }
 }
