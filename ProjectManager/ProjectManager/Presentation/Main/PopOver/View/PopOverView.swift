@@ -8,7 +8,7 @@
 import UIKit
 
 final class PopOverView: UIView {
-    let buttonStackView: UIStackView = {
+    private let buttonStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
@@ -16,17 +16,15 @@ final class PopOverView: UIView {
         return stackView
     }()
     
-    let firstButton: UIButton = {
+    private let firstButton: UIButton = {
         let button = UIButton()
         button.setTitleColor(.systemBlue, for: .normal)
-        button.setTitle("MOVING", for: .normal)
         return button
     }()
     
-    let secondButton: UIButton = {
+    private let secondButton: UIButton = {
         let button = UIButton()
         button.setTitleColor(.systemBlue, for: .normal)
-        button.setTitle("MOVING", for: .normal)
         return button
     }()
     
