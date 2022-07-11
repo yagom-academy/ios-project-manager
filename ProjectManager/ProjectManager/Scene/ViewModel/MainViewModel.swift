@@ -10,22 +10,30 @@ import RxRelay
 import RxSwift
 
 protocol MainViewModelInput {
-    
+    func plusButtonTapped()
 }
 
 protocol MainViewModelOutput {
     var todos: BehaviorRelay<[Task]> { get }
     var doings: BehaviorRelay<[Task]> { get }
     var dones: BehaviorRelay<[Task]> { get }
+    var showNewFormSheetView: PublishRelay<Void> { get }
 }
 
 final class MainViewModel: MainViewModelInput, MainViewModelOutput {
     
+    
+    
     var todos: BehaviorRelay<[Task]> = BehaviorRelay(value: [])
     var doings: BehaviorRelay<[Task]> = BehaviorRelay(value: [])
     var dones: BehaviorRelay<[Task]> = BehaviorRelay(value: [])
+    var showNewFormSheetView: PublishRelay<Void> = .init()
     
     private let realmManager = RealmManager()
+    
+    func plusButtonTapped() {
+        showNewFormSheetView.accept(())
+    }
     
     func fetchData() {
         fetchToDo()

@@ -44,12 +44,18 @@ final class MainViewController: UIViewController, UIPopoverPresentationControlle
             ),
             style: .plain,
             target: self,
-            action: #selector(showNewFormSheetView)
+            action: nil
         )
         navigationItem.rightBarButtonItem = plusButton
     }
     
     private func bind() {
+        
+        navigationItem.rightBarButtonItem?.rx.tap
+            .subscribe(onNext: { [weak self] in
+                self?.viewModel.plusButtonTapped()
+            })
+            .disposed(by: disposeBag)
         
         // MARK: - Draw Table View
         
@@ -102,6 +108,10 @@ final class MainViewController: UIViewController, UIPopoverPresentationControlle
             .map { String($0.count) }
             .bind(to: mainView.doneHeaderView.taskCountLabel.rx.text)
             .disposed(by: disposeBag)
+        
+        viewModel.showNewFormSheetView.asObservable()
+            .bind(onNext: showNewFormSheetView)
+            .disposed(by: disposeBag)
     }
     
     private func fetchData() {
@@ -125,7 +135,7 @@ final class MainViewController: UIViewController, UIPopoverPresentationControlle
         self.dones = dones
     }
     
-    @objc private func showNewFormSheetView() {
+    private func showNewFormSheetView() {
         let newTodoViewContrtoller = NewFormSheetViewController()
         newTodoViewContrtoller.delegate = self
         let newTodoFormSheet = UINavigationController(
