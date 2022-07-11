@@ -83,4 +83,14 @@ final class ProjectCell: UITableViewCell {
     override func prepareForReuse() {
         dateLabel.textColor = .black
     }
+    
+    func getData() -> (title: String, date: String, description: String)? {
+        guard let title = titleLabel.text,
+              let date = dateLabel.text,
+              let description = descriptionLabel.text else {
+                  return nil
+              }
+        
+        return (title, date, description)
+    }
 }
