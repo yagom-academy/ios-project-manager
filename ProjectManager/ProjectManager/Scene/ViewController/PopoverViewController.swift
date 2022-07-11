@@ -6,11 +6,14 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 final class PopoverViewController: UIViewController {
     private let popoverView = PopoverView(frame: .zero)
-    private let realmManager = RealmManager()
+    
     private let viewModel = PopoverViewModel()
+    private let disposeBag = DisposeBag()
     weak var delegate: DataReloadable?
     var task: Task?
     
@@ -21,25 +24,41 @@ final class PopoverViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        addTargetButtons()
+        bind()
     }
     
-    private func addTargetButtons() {
-        popoverView.moveToToDoButton.addTarget(
-            self,
-            action: #selector(moveToToDo),
-            for: .touchUpInside
-        )
-        popoverView.moveToDoingButton.addTarget(
-            self,
-            action: #selector(moveToDoing),
-            for: .touchUpInside
-        )
-        popoverView.moveToDoneButton.addTarget(
-            self,
-            action: #selector(moveToDone),
-            for: .touchUpInside
-        )
+    func bind() {
+        guard let task = task else {
+            return
+        }
+
+        popoverView.moveToToDoButton.rx.tap
+            .subscribe { [weak self] _ in
+                self?.viewModel.moveButtonTapped(task, to: .todo)
+            }
+            .disposed(by: disposeBag)
+        
+        popoverView.moveToDoingButton.rx.tap
+            .subscribe { [weak self] _ in
+                self?.viewModel.moveButtonTapped(task, to: .doing)
+            }
+            .disposed(by: disposeBag)
+        
+        popoverView.moveToDoneButton.rx.tap
+            .subscribe { [weak self] _ in
+                self?.viewModel.moveButtonTapped(task, to: .done)
+            }
+            .disposed(by: disposeBag)
+        
+        viewModel.dismiss.asObservable()
+            .bind(onNext: backToMain)
+            .disposed(by: disposeBag)
+    }
+    
+    private func backToMain() {
+        dismiss(animated: true) { [weak self] in
+            self?.delegate?.reloadData()
+        }
     }
     
     func setPopoverAction() {
@@ -54,23 +73,6 @@ final class PopoverViewController: UIViewController {
         }
     }
     
-    @objc private func moveToToDo() {
-        changeTaskType(taskType: .todo)
-    }
     
-    @objc private func moveToDoing() {
-        changeTaskType(taskType: .doing)
-    }
-    
-    @objc private func moveToDone() {
-        changeTaskType(taskType: .done)
-    }
-    
-    private func changeTaskType(taskType: TaskType) {
-        guard let task = task else { return }
-        realmManager.change(task: task, taskType: taskType)
-        dismiss(animated: true) { [weak self] in
-            self?.delegate?.reloadData()
-        }
-    }
+
 }
