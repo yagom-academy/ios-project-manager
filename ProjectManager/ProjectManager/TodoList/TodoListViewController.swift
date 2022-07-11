@@ -52,7 +52,11 @@ final class TodoListViewController: UIViewController {
     private func setUpTablesStackView() {
         self.view.addSubview(self.tablesStackView)
 
-        self.tablesStackView.addArrangedSubviews(with: [self.todoView, self.doingView, self.doneView])
+        self.tablesStackView.addArrangedSubviews(with: [
+            self.todoView,
+            self.doingView,
+            self.doneView
+        ])
 
         NSLayoutConstraint.activate([
             self.tablesStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),

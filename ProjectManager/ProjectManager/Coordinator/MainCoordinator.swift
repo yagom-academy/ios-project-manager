@@ -14,6 +14,7 @@ protocol Coordinator: AnyObject {
 
 final class MainCoordinator: Coordinator {
     var navigationController: UINavigationController
+    private var detailViewController: DetailViewController?
     
     func start() {
         self.showListView()
@@ -25,15 +26,27 @@ final class MainCoordinator: Coordinator {
     
     private func showListView() {
         let viewModel = TodoListViewModel()
-        let viewController = TodoListViewController(todoViewModel: viewModel, coordinator: self)
+        let viewController = TodoListViewController(
+            todoViewModel: viewModel,
+            coordinator: self
+        )
         self.navigationController.pushViewController(viewController, animated: false)
     }
     
     func showDetailView(type: TodoListType, status: Status) {
-        let viewController = DetailViewController(type: type, status: status)
-        viewController.coordinator = self
-        let navigationController = UINavigationController(rootViewController: viewController)
+        let viewModel = TodoListViewModel()
+        self.detailViewController = DetailViewController(
+            type: type,
+            status: status,
+            viewModel: viewModel,
+            coordinator: self
+        )
+        let navigationController = UINavigationController(rootViewController: self.detailViewController!)
         navigationController.modalPresentationStyle = .formSheet
         self.navigationController.present(navigationController, animated: false)
+    }
+    
+    func dismiss() {
+        detailViewController?.dismiss(animated: true)
     }
 }

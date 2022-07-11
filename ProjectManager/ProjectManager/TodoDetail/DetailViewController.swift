@@ -4,8 +4,10 @@
 //
 //  Created by 김동욱 on 2022/07/08.
 //
-
 import UIKit
+
+import RxSwift
+import RxCocoa
 
 enum TodoListType {
     case create
@@ -15,8 +17,10 @@ enum TodoListType {
 final class DetailViewController: UIViewController {
     private let type: TodoListType
     private let status: Status
-    weak var coordinator: MainCoordinator?
-    
+    private let viewModel: TodoListViewModel
+    private let disposeBag = DisposeBag()
+    weak private var coordinator: MainCoordinator?
+
     private let titleTextField: UITextField = {
         let textField = UITextField()
         textField.backgroundColor = .systemBackground
@@ -67,9 +71,16 @@ final class DetailViewController: UIViewController {
         return self.type == .create ? "Cancel" : "Edit"
     }
     
-    init(type: TodoListType, status: Status) {
+    init(
+        type: TodoListType,
+        status: Status,
+        viewModel: TodoListViewModel,
+        coordinator: MainCoordinator
+    ) {
         self.type = type
         self.status = status
+        self.viewModel = viewModel
+        self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -82,18 +93,34 @@ final class DetailViewController: UIViewController {
         self.setNavigationBar()
         self.setUpDetailView()
         self.setUpLayout()
+        self.bind()
     }
     
     private func setNavigationBar() {
         self.navigationItem.title = status.title
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: leftBarButtonTitle, style: .plain, target: nil, action: nil)
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: nil, action: nil)
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(
+            title: leftBarButtonTitle,
+            style: .plain,
+            target: nil,
+            action: nil
+        )
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(
+            title: "Done",
+            style: .plain,
+            target: nil,
+            action: nil
+        )
     }
     
     private func setUpDetailView() {
         self.view.backgroundColor = .systemBackground
         self.view.addSubview(self.detailStackView)
-        self.detailStackView.addArrangedSubviews(with: [self.titleTextField, self.datePicker, self.descriptionTextView])
+        self.detailStackView.addArrangedSubviews(
+            with: [
+                self.titleTextField,
+                self.datePicker,
+                self.descriptionTextView
+            ])
     }
     
     private func setUpLayout() {
@@ -107,5 +134,29 @@ final class DetailViewController: UIViewController {
             self.detailStackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -10),
             self.detailStackView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -20)
         ])
+    }
+    
+    private func bind() {
+        guard let rightBarButton = self.navigationItem.rightBarButtonItem else {
+            return
+        }
+        
+        let input = TodoListViewModel.Input(
+            doneButtonTapEvent: rightBarButton.rx.tap.map({ _ in
+            Todo(
+                status: .todo,
+                title: "ddd",
+                description: "ssss",
+                date: CurrentDateFormatter.fetch()
+            )
+        }))
+            
+        let output = self.viewModel.transform(input: input)
+        
+        output.dismiss
+            .drive(onNext: {
+                self.coordinator?.dismiss()
+            })
+            .disposed(by: self.disposeBag)
     }
 }

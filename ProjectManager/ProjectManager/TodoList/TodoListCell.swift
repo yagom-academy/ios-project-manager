@@ -69,7 +69,11 @@ final class TodoListCell: UITableViewCell {
     
     private func setUpContentsStackView() {
         self.contentView.addSubview(self.contentsStackView)
-        self.contentsStackView.addArrangedSubviews(with: [self.titleLabel, self.descriptionLabel, self.dateLabel])
+        self.contentsStackView.addArrangedSubviews(with: [
+            self.titleLabel,
+            self.descriptionLabel,
+            self.dateLabel
+        ])
         
         NSLayoutConstraint.activate([
             self.contentsStackView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 10),
@@ -88,6 +92,11 @@ final class TodoListCell: UITableViewCell {
 
 private extension UIEdgeInsets {
     init(top: CGFloat = .zero) {
-        self.init(top: top, left: .zero, bottom: .zero, right: .zero)
+        self.init(
+            top: top,
+            left: .zero,
+            bottom: .zero,
+            right: .zero
+        )
     }
 }

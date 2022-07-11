@@ -13,13 +13,22 @@ import RxRelay
 import RxSwift
 
 final class TodoListViewModel {
+    struct Input {
+        let doneButtonTapEvent: Observable<Todo>
+    }
+    
+    struct Output {
+        let dismiss: Driver<Void>
+    }
+    
     let todoViewData: Driver<[Todo]>
     let doingViewData: Driver<[Todo]>
     let doneViewData: Driver<[Todo]>
 
-    let dataBase: DataBase = MockDataBase()
+    private var dataBase: DataBase
     
-    init() {
+    init(dataBase: DataBase = MockDataBase()) {
+        self.dataBase = dataBase
         let data = BehaviorRelay<[Todo]>(value: self.dataBase.read())
             
         self.todoViewData = data
@@ -34,10 +43,20 @@ final class TodoListViewModel {
             .map { $0.filter { $0.status == .done } }
             .asDriver(onErrorJustReturn: [])
     }
+    
+    func transform(input: Input) -> Output {
+        let output = input.doneButtonTapEvent
+            .do { self.dataBase.save(todo: $0) }
+            .map { _ in }
+            .asDriver(onErrorJustReturn: ())
+        
+        return Output(dismiss: output)
+    }
 }
 
 protocol DataBase {
     func read() -> [Todo]
+    mutating func save(todo: Todo)
 }
 
 fileprivate struct MockDataBase: DataBase {
@@ -45,7 +64,13 @@ fileprivate struct MockDataBase: DataBase {
     let data2 = MockData().data2
     let data3 = MockData().data3
     
-    func read() -> [Todo] {
+    private var todoList: [Todo] = []
+    
+    init() {
+        self.createMockData()
+    }
+    
+    private mutating func createMockData() {
         let status1 = self.data1["status"]
         let title1 = self.data1["title"]
         let description1 = self.data1["description"]
@@ -58,11 +83,18 @@ fileprivate struct MockDataBase: DataBase {
         let title3 = self.data3["title"]
         let description3 = self.data3["description"]
         
-        let data: [Todo] = [
+        self.todoList = [
             Todo(status: Status(rawValue: status1!)!, title: title1!, description: description1!, date: Date()),
             Todo(status: Status(rawValue: status2!)!, title: title2!, description: description2!, date: Date()),
             Todo(status: Status(rawValue: status3!)!, title: title3!, description: description3!, date: Date())
         ]
-        return data
+    }
+    
+    func read() -> [Todo] {
+        return todoList
+    }
+    
+    mutating func save(todo: Todo) {
+        self.todoList.append(todo)
     }
 }
