@@ -7,7 +7,6 @@
 
 import Foundation
 
-// status
 enum Status: String {
     case todo = "TODO"
     case doing = "DOING"

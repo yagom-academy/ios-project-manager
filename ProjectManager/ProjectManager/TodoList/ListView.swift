@@ -11,7 +11,7 @@ import RxCocoa
 import RxSwift
 
 final class ListView: UIView {
-    private let mode: Status
+    private let status: Status
     private let tableView: UITableView
     private let viewModel: TodoListViewModel
     private let disposeBag = DisposeBag()
@@ -37,7 +37,7 @@ final class ListView: UIView {
     
     private lazy var headerTitleLabel: UILabel = {
         let label = UILabel()
-        label.text = self.mode.value
+        label.text = self.status.value
         label.font = .preferredFont(forTextStyle: .title1)
         
         return label
@@ -66,8 +66,8 @@ final class ListView: UIView {
         return stackView
     }()
     
-    init(mode: Status) {
-        self.mode = mode
+    init(status: Status) {
+        self.status = status
         self.tableView = UITableView()
         self.viewModel = TodoListViewModel()
         super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
@@ -118,7 +118,7 @@ final class ListView: UIView {
             (Status.doing, self.viewModel.doingViewData),
             (Status.done, self.viewModel.doneViewData)
         )
-        .filter { $0.0 == self.mode }
+        .filter { $0.0 == self.status }
         .flatMap{ $0.1 }
         .asDriver(onErrorJustReturn: [])
         .drive(self.tableView.rx.items) { tabelView, row, element in
@@ -139,7 +139,7 @@ final class ListView: UIView {
             (Status.doing, self.viewModel.doingViewData),
             (Status.done, self.viewModel.doneViewData)
         )
-        .filter { $0.0 == self.mode }
+        .filter { $0.0 == self.status }
         .flatMap{ $0.1 }
         .map { String($0.count) }
         .asDriver(onErrorJustReturn: "")

@@ -29,9 +29,9 @@ final class TodoListViewController: UIViewController {
     }()
 
     init() {
-        self.todoView = ListView(mode: .todo)
-        self.doingView = ListView(mode: .doing)
-        self.doneView = ListView(mode: .done)
+        self.todoView = ListView(status: .todo)
+        self.doingView = ListView(status: .doing)
+        self.doneView = ListView(status: .done)
         self.viewModel = TodoListViewModel()
         super.init(nibName: nil, bundle: nil)
     }
