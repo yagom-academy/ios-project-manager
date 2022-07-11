@@ -10,11 +10,11 @@ import Combine
 @testable import ProjectManager
 
 class TodoListViewModelTests: XCTestCase {
-    var viewModel: DefaultTodoListViewModel!
+    var viewModel: TodoListViewModel!
 
     override func setUpWithError() throws {
         try super.setUpWithError()
-        viewModel = DefaultTodoListViewModel(useCase: TodoListUseCaseMock())
+        viewModel = TodoListViewModel(useCase: TodoListUseCaseMock())
     }
 
     func test_addButtonDidTap하면_todoItems가방출하는배열의원소가하나늘어나야한다() {

@@ -11,12 +11,12 @@ import Combine
 
 class TodoDetailViewModelTests: XCTestCase {
     let useCase = TodoListUseCaseMock()
-    var todoListViewModel: DefaultTodoListViewModel!
+    var todoListViewModel: TodoListViewModel!
     var viewModel: TodoDetailViewModel!
 
     override func setUpWithError() throws {
         try super.setUpWithError()
-        todoListViewModel = DefaultTodoListViewModel(useCase: useCase)
+        todoListViewModel = TodoListViewModel(useCase: useCase)
     }
 
     func test_todoListModel의title과content가비어있는상태에서_closeButtonDidTap하면_마지막아이템이지워진다() {
