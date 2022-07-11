@@ -9,7 +9,7 @@ import UIKit
 
 final class TodoListSceneDIContainer {
     struct Dependencies {
-        let storage: Storage
+        let storage: Storageable
     }
     
     private let dependencies: Dependencies
@@ -33,8 +33,8 @@ extension TodoListSceneDIContainer: TodoListSceneCoordinatorDependencies {
     
     // MARK: - ViewModel
     
-    private func makeTodoDetailViewModel(actions: TodoDetailActions, todoListModel: TodoListModel) -> TodoDetailViewModel {
-        return DefaultTodoDetailViewModel(actions: actions, useCase: makeTodoListUseCase(), todoListModel: todoListModel)
+    private func makeTodoDetailViewModel(actions: TodoDetailActions, todoListModel: TodoListModel) -> TodoDetailViewModelable {
+        return TodoDetailViewModel(actions: actions, useCase: makeTodoListUseCase(), todoListModel: todoListModel)
     }
     
     private func makeTodoListViewModel(actions: TodoListActions) -> TodoListViewModelable {
@@ -43,14 +43,14 @@ extension TodoListSceneDIContainer: TodoListSceneCoordinatorDependencies {
     
     // MARK: - UseCase
     
-    private func makeTodoListUseCase() -> TodoListUseCase {
-        return DefaultTodoListUseCase(repository: makeTodoListRepository())
+    private func makeTodoListUseCase() -> TodoListUseCaseable {
+        return TodoListUseCase(repository: makeTodoListRepository())
     }
     
     // MARK: - Repository
     
-    private func makeTodoListRepository() -> TodoListRepository {
-        return DefaultTodoListRepository(storage: dependencies.storage)
+    private func makeTodoListRepository() -> TodoListRepositorible {
+        return TodoListRepository(storage: dependencies.storage)
     }
     
     // MARK: - Coordiantor

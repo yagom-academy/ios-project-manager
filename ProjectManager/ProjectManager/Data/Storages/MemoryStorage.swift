@@ -8,14 +8,14 @@
 import Foundation
 import Combine
 
-protocol Storage {
+protocol Storageable {
     func create(_ item: TodoListModel)
     func read() -> AnyPublisher<[TodoListModel], Never>
     func update(_ item: TodoListModel)
     func delete(_ item: TodoListModel)
 }
 
-final class MemoryStorage: Storage {
+final class MemoryStorage: Storageable {
     @Published private var items: [TodoListModel] = TodoListModel.dummyData()
     
     func create(_ item: TodoListModel) {

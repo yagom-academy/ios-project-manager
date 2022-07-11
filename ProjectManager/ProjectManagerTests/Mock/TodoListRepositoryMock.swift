@@ -8,8 +8,8 @@
 import Combine
 @testable import ProjectManager
 
-final class TodoListRepositoryMock: TodoListRepository {
-    let storage: Storage = MemoryStorageMock()
+final class TodoListRepositoryMock: TodoListRepositorible {
+    let storage: Storageable = MemoryStorageMock()
     
     func create(_ item: TodoListModel) {
         storage.create(item)

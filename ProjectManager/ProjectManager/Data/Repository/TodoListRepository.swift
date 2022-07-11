@@ -8,15 +8,15 @@
 import Foundation
 import Combine
 
-final class DefaultTodoListRepository {
-    private let storage: Storage
+final class TodoListRepository {
+    private let storage: Storageable
     
-    init(storage: Storage) {
+    init(storage: Storageable) {
         self.storage = storage
     }
 }
 
-extension DefaultTodoListRepository: TodoListRepository {
+extension TodoListRepository: TodoListRepositorible {
     func create(_ item: TodoListModel) {
         storage.create(item)
     }

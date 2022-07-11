@@ -9,7 +9,7 @@ import Combine
 import Foundation
 @testable import ProjectManager
 
-final class MemoryStorageMock: Storage {
+final class MemoryStorageMock: Storageable {
     @Published private var items: [TodoListModel] = [
         TodoListModel(title: "1", content: "1", deadLine: Date(), id: "1"),
         TodoListModel(title: "2", content: "2", deadLine: Date(), id: "2"),

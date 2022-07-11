@@ -17,12 +17,12 @@
 		940B64CA287552CE001D3FD9 /* TodoListSceneCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940B64C9287552CE001D3FD9 /* TodoListSceneCoordinator.swift */; };
 		940B64CC28755358001D3FD9 /* TodoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940B64CB28755358001D3FD9 /* TodoListViewController.swift */; };
 		940B64D2287553A3001D3FD9 /* TodoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940B64D1287553A3001D3FD9 /* TodoListViewModel.swift */; };
-		940B64D72875553A001D3FD9 /* DefaultTodoListUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940B64D62875553A001D3FD9 /* DefaultTodoListUseCase.swift */; };
-		940B64D928755591001D3FD9 /* TodoListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940B64D828755591001D3FD9 /* TodoListRepository.swift */; };
-		940B64DC287555E8001D3FD9 /* DefaultTodoListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940B64DB287555E8001D3FD9 /* DefaultTodoListRepository.swift */; };
+		940B64D72875553A001D3FD9 /* TodoListUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940B64D62875553A001D3FD9 /* TodoListUseCase.swift */; };
+		940B64D928755591001D3FD9 /* TodoListRepositorible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940B64D828755591001D3FD9 /* TodoListRepositorible.swift */; };
+		940B64DC287555E8001D3FD9 /* TodoListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940B64DB287555E8001D3FD9 /* TodoListRepository.swift */; };
 		940B64DE28756ABB001D3FD9 /* TodoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940B64DD28756ABB001D3FD9 /* TodoListView.swift */; };
 		940B64E028756C0A001D3FD9 /* UITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940B64DF28756C0A001D3FD9 /* UITableViewCell.swift */; };
-		9465AF2A2875ACAE002D4352 /* DefaultTodoDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9465AF292875ACAE002D4352 /* DefaultTodoDetailViewModel.swift */; };
+		9465AF2A2875ACAE002D4352 /* TodoDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9465AF292875ACAE002D4352 /* TodoDetailViewModel.swift */; };
 		9465AF2C2875AD81002D4352 /* TodoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9465AF2B2875AD81002D4352 /* TodoDetailViewController.swift */; };
 		947C3F382875CD4600223403 /* TableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947C3F372875CD4600223403 /* TableHeaderView.swift */; };
 		A184970428755D1100C82AA0 /* TodoListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A184970328755D1100C82AA0 /* TodoListModel.swift */; };
@@ -65,12 +65,12 @@
 		940B64C9287552CE001D3FD9 /* TodoListSceneCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListSceneCoordinator.swift; sourceTree = "<group>"; };
 		940B64CB28755358001D3FD9 /* TodoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListViewController.swift; sourceTree = "<group>"; };
 		940B64D1287553A3001D3FD9 /* TodoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListViewModel.swift; sourceTree = "<group>"; };
-		940B64D62875553A001D3FD9 /* DefaultTodoListUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultTodoListUseCase.swift; sourceTree = "<group>"; };
-		940B64D828755591001D3FD9 /* TodoListRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListRepository.swift; sourceTree = "<group>"; };
-		940B64DB287555E8001D3FD9 /* DefaultTodoListRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultTodoListRepository.swift; sourceTree = "<group>"; };
+		940B64D62875553A001D3FD9 /* TodoListUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListUseCase.swift; sourceTree = "<group>"; };
+		940B64D828755591001D3FD9 /* TodoListRepositorible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListRepositorible.swift; sourceTree = "<group>"; };
+		940B64DB287555E8001D3FD9 /* TodoListRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListRepository.swift; sourceTree = "<group>"; };
 		940B64DD28756ABB001D3FD9 /* TodoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListView.swift; sourceTree = "<group>"; };
 		940B64DF28756C0A001D3FD9 /* UITableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewCell.swift; sourceTree = "<group>"; };
-		9465AF292875ACAE002D4352 /* DefaultTodoDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultTodoDetailViewModel.swift; sourceTree = "<group>"; };
+		9465AF292875ACAE002D4352 /* TodoDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDetailViewModel.swift; sourceTree = "<group>"; };
 		9465AF2B2875AD81002D4352 /* TodoDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDetailViewController.swift; sourceTree = "<group>"; };
 		947C3F372875CD4600223403 /* TableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableHeaderView.swift; sourceTree = "<group>"; };
 		A184970328755D1100C82AA0 /* TodoListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListModel.swift; sourceTree = "<group>"; };
@@ -238,7 +238,7 @@
 		940B64D4287554F0001D3FD9 /* UseCase */ = {
 			isa = PBXGroup;
 			children = (
-				940B64D62875553A001D3FD9 /* DefaultTodoListUseCase.swift */,
+				940B64D62875553A001D3FD9 /* TodoListUseCase.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -246,7 +246,7 @@
 		940B64D5287554F4001D3FD9 /* RepositoryInterface */ = {
 			isa = PBXGroup;
 			children = (
-				940B64D828755591001D3FD9 /* TodoListRepository.swift */,
+				940B64D828755591001D3FD9 /* TodoListRepositorible.swift */,
 			);
 			path = RepositoryInterface;
 			sourceTree = "<group>";
@@ -254,7 +254,7 @@
 		940B64DA287555AE001D3FD9 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
-				940B64DB287555E8001D3FD9 /* DefaultTodoListRepository.swift */,
+				940B64DB287555E8001D3FD9 /* TodoListRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -280,7 +280,7 @@
 		9465AF282875AC8D002D4352 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				9465AF292875ACAE002D4352 /* DefaultTodoDetailViewModel.swift */,
+				9465AF292875ACAE002D4352 /* TodoDetailViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -568,8 +568,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				940B64CC28755358001D3FD9 /* TodoListViewController.swift in Sources */,
-				940B64DC287555E8001D3FD9 /* DefaultTodoListRepository.swift in Sources */,
-				940B64D72875553A001D3FD9 /* DefaultTodoListUseCase.swift in Sources */,
+				940B64DC287555E8001D3FD9 /* TodoListRepository.swift in Sources */,
+				940B64D72875553A001D3FD9 /* TodoListUseCase.swift in Sources */,
 				940B64C028754FDB001D3FD9 /* AppCoordinator.swift in Sources */,
 				A1C7A3FB287BB40700E0B32B /* TodoListTableViewDataSource.swift in Sources */,
 				940B64CA287552CE001D3FD9 /* TodoListSceneCoordinator.swift in Sources */,
@@ -577,9 +577,9 @@
 				9465AF2C2875AD81002D4352 /* TodoDetailViewController.swift in Sources */,
 				A184970428755D1100C82AA0 /* TodoListModel.swift in Sources */,
 				A184970B287563F700C82AA0 /* UIStackView.swift in Sources */,
-				9465AF2A2875ACAE002D4352 /* DefaultTodoDetailViewModel.swift in Sources */,
+				9465AF2A2875ACAE002D4352 /* TodoDetailViewModel.swift in Sources */,
 				A1849707287561CE00C82AA0 /* TodoTableViewCell.swift in Sources */,
-				940B64D928755591001D3FD9 /* TodoListRepository.swift in Sources */,
+				940B64D928755591001D3FD9 /* TodoListRepositorible.swift in Sources */,
 				A1C7A3F9287BB3ED00E0B32B /* TodoListTableViewDelegate.swift in Sources */,
 				947C3F382875CD4600223403 /* TableHeaderView.swift in Sources */,
 				940B64DE28756ABB001D3FD9 /* TodoListView.swift in Sources */,

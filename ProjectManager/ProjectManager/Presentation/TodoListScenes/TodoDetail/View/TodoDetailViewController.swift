@@ -11,10 +11,10 @@ import Combine
 final class TodoDetailViewController: UIViewController {
     
     private var cancellables = Set<AnyCancellable>()
-    private let viewModel: TodoDetailViewModel
+    private let viewModel: TodoDetailViewModelable
     private lazy var todoDetailView = TodoDetailView(frame: self.view.bounds)
 
-    init(viewModel: TodoDetailViewModel) {
+    init(viewModel: TodoDetailViewModelable) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }

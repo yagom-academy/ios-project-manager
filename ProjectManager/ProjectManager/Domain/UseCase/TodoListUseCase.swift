@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-protocol TodoListUseCase {
+protocol TodoListUseCaseable {
     func create(_ item: TodoListModel)
     func read() -> AnyPublisher<[TodoListModel], Never>
     func update(_ item: TodoListModel)
@@ -16,15 +16,15 @@ protocol TodoListUseCase {
     func deleteLastItem()
 }
 
-final class DefaultTodoListUseCase: TodoListUseCase {
-    private let repository: TodoListRepository
+final class TodoListUseCase: TodoListUseCaseable {
+    private let repository: TodoListRepositorible
     
-    init(repository: TodoListRepository) {
+    init(repository: TodoListRepositorible) {
         self.repository = repository
     }
 }
 
-extension DefaultTodoListUseCase {
+extension TodoListUseCase {
     func create(_ item: TodoListModel) {
         repository.create(item)
     }

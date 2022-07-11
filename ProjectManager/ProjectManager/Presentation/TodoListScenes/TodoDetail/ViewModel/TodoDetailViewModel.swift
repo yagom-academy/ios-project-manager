@@ -19,13 +19,13 @@ protocol TodoDetailViewModelOutput {
     var isCreate: CurrentValueSubject<Bool, Never> { get }
 }
 
-protocol TodoDetailViewModel: TodoDetailViewModelInput, TodoDetailViewModelOutput {}
+protocol TodoDetailViewModelable: TodoDetailViewModelInput, TodoDetailViewModelOutput {}
 
 struct TodoDetailActions {
     let dismiss: () -> Void
 }
 
-final class DefaultTodoDetailViewModel: TodoDetailViewModel {
+final class TodoDetailViewModel: TodoDetailViewModelable {
     
     // MARK: - Output
     
@@ -37,9 +37,9 @@ final class DefaultTodoDetailViewModel: TodoDetailViewModel {
 
     private let todoListModel: TodoListModel
     private let actions: TodoDetailActions?
-    private let useCase: TodoListUseCase
+    private let useCase: TodoListUseCaseable
     
-    init(actions: TodoDetailActions? = nil, useCase: TodoListUseCase, todoListModel: TodoListModel) {
+    init(actions: TodoDetailActions? = nil, useCase: TodoListUseCaseable, todoListModel: TodoListModel) {
         self.actions = actions
         self.useCase = useCase
         self.todoListModel = todoListModel
@@ -52,7 +52,7 @@ final class DefaultTodoDetailViewModel: TodoDetailViewModel {
     }
 }
 
-extension DefaultTodoDetailViewModel {
+extension TodoDetailViewModel {
     
     // MARK: - Input
     

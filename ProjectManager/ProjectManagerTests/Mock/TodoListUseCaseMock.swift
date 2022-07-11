@@ -8,8 +8,8 @@
 import Combine
 @testable import ProjectManager
 
-final class TodoListUseCaseMock: TodoListUseCase {
-    let repository: TodoListRepository = TodoListRepositoryMock()
+final class TodoListUseCaseMock: TodoListUseCaseable {
+    let repository: TodoListRepositorible = TodoListRepositoryMock()
     
     func create(_ item: TodoListModel) {
         repository.create(item)
