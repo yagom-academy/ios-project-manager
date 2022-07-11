@@ -73,6 +73,7 @@ final class TodoListView: UIView {
         super.init(frame: frame)
         configureLayout()
         self.backgroundColor = .systemBackground
+        tableViewsCellRegister()
     }
     
     required init?(coder: NSCoder) {
@@ -85,10 +86,8 @@ final class TodoListView: UIView {
             make.edges.equalTo(self.safeAreaLayoutGuide)
         }
     }
-}
-
-extension TodoListView {
-    func tableViewsCellRegister() {
+    
+    private func tableViewsCellRegister() {
         todoTableView.register(TodoListCell.self, forCellReuseIdentifier: TodoListCell.identifier)
         doingTableView.register(TodoListCell.self, forCellReuseIdentifier: TodoListCell.identifier)
         doneTableView.register(TodoListCell.self, forCellReuseIdentifier: TodoListCell.identifier)
