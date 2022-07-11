@@ -7,7 +7,7 @@
 
 import Foundation
 
-class RegistrationViewModel {
+struct RegistrationViewModel {
     func registerate(title: String, date: Date, description: String) {
         MockStorageManager.shared.creat(
             projectContent: ProjectContent(

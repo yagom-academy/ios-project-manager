@@ -9,7 +9,7 @@ import RxSwift
 import RxRelay
 import RxCocoa
 
-class MainViewModel {
+struct MainViewModel {
     let projects: BehaviorRelay<[ProjectContent]> = {
         return MockStorageManager.shared.projectEntity
     }()

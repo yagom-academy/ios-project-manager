@@ -13,7 +13,7 @@ final class MainViweController: UIViewController {
     private let mainView = MainView(frame: .zero)
 
     private let disposeBag = DisposeBag()
-    private let viewModel = MainViewModel()
+    private var viewModel = MainViewModel()
     
     override func loadView() {
         super.loadView()
