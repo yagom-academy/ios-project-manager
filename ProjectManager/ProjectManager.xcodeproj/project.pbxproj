@@ -20,6 +20,7 @@
 		4EB3FFD1287586200001DBC0 /* TaskHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB3FFD0287586200001DBC0 /* TaskHeaderView.swift */; };
 		4EB3FFD328758E9F0001DBC0 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB3FFD228758E9F0001DBC0 /* MainView.swift */; };
 		4EB89251287C68B1008DE9B8 /* PopoverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB89250287C68B1008DE9B8 /* PopoverViewModel.swift */; };
+		4EB89253287C6D2E008DE9B8 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB89252287C6D2E008DE9B8 /* MainViewModel.swift */; };
 		4EC236262873DCF9006C9D32 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 4EC236252873DCF9006C9D32 /* RxCocoa */; };
 		4EC236282873DCF9006C9D32 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 4EC236272873DCF9006C9D32 /* RxRelay */; };
 		4EC2362A2873DCF9006C9D32 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4EC236292873DCF9006C9D32 /* RxSwift */; };
@@ -54,6 +55,7 @@
 		4EB3FFD0287586200001DBC0 /* TaskHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskHeaderView.swift; sourceTree = "<group>"; };
 		4EB3FFD228758E9F0001DBC0 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		4EB89250287C68B1008DE9B8 /* PopoverViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverViewModel.swift; sourceTree = "<group>"; };
+		4EB89252287C6D2E008DE9B8 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		4ECA28B92878213600FE8ECE /* TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
 		8186A352743ECE68B4046D56 /* Pods-ProjectManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.debug.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.debug.xcconfig"; sourceTree = "<group>"; };
 		9C8BC0D828786ECF003EF525 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 				9CAB116F287C439B00C55AB8 /* NewFormSheetViewModel.swift */,
 				9CAB1171287C518600C55AB8 /* EditFormSheetViewModel.swift */,
 				4EB89250287C68B1008DE9B8 /* PopoverViewModel.swift */,
+				4EB89252287C6D2E008DE9B8 /* MainViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -367,6 +370,7 @@
 				4EB3FFC628757C800001DBC0 /* TaskType.swift in Sources */,
 				9CAB1170287C439B00C55AB8 /* NewFormSheetViewModel.swift in Sources */,
 				4EB2451F2876F589007F4056 /* EditFormSheetViewController.swift in Sources */,
+				4EB89253287C6D2E008DE9B8 /* MainViewModel.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

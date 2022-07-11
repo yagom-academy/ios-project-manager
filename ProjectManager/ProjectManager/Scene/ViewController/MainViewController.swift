@@ -6,27 +6,18 @@
 
 import UIKit
 import SnapKit
+import RxSwift
 
 final class MainViewController: UIViewController, UIPopoverPresentationControllerDelegate {
     
-    private var todos: [Task] = [] {
-        didSet {
-            mainView.setTaskCount(to: todos.count, taskType: .todo)
-        }
-    }
-    private var doings: [Task] = [] {
-        didSet {
-            mainView.setTaskCount(to: doings.count, taskType: .doing)
-        }
-    }
-    private var dones: [Task] = [] {
-        didSet {
-            mainView.setTaskCount(to: dones.count, taskType: .done)
-        }
-    }
+    private var todos: [Task] = []
+    private var doings: [Task] = []
+    private var dones: [Task] = []
     
     private let mainView = MainView()
     private let realmManager = RealmManager()
+    private let viewModel = MainViewModel()
+    private let disposeBag = DisposeBag()
     
     override func loadView() {
         super.loadView()
@@ -36,8 +27,10 @@ final class MainViewController: UIViewController, UIPopoverPresentationControlle
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavigationItems()
-        registerTableViewInfo()
         fetchData()
+        
+        bind()
+        viewModel.fetchData()
         setupLongPressGesture(at: mainView.todoTableView)
         setupLongPressGesture(at: mainView.doingTableView)
         setupLongPressGesture(at: mainView.doneTableView)
@@ -56,25 +49,43 @@ final class MainViewController: UIViewController, UIPopoverPresentationControlle
         navigationItem.rightBarButtonItem = plusButton
     }
     
-    private func registerTableViewInfo() {
-        mainView.todoTableView.delegate = self
-        mainView.todoTableView.dataSource = self
-        mainView.todoTableView.register(
-            TaskTableViewCell.self,
-            forCellReuseIdentifier: TaskTableViewCell.identifier
-        )
-        mainView.doingTableView.delegate = self
-        mainView.doingTableView.dataSource = self
-        mainView.doingTableView.register(
-            TaskTableViewCell.self,
-            forCellReuseIdentifier: TaskTableViewCell.identifier
-        )
-        mainView.doneTableView.delegate = self
-        mainView.doneTableView.dataSource = self
-        mainView.doneTableView.register(
-            TaskTableViewCell.self,
-            forCellReuseIdentifier: TaskTableViewCell.identifier
-        )
+    private func bind() {
+        
+        // MARK: - Draw Table View
+        
+        viewModel.todos
+            .bind(to: mainView.todoTableView.rx.items(
+                cellIdentifier: TaskTableViewCell.identifier,
+                cellType: TaskTableViewCell.self)
+            ) { [weak self] (row, _, cell) in
+                if let task = self?.viewModel.todos.value[row] {
+                    cell.setupContents(task: task)
+                }
+        }
+        .disposed(by: disposeBag)
+        
+        viewModel.doings
+            .bind(to: mainView.doingTableView.rx.items(
+                cellIdentifier: TaskTableViewCell.identifier,
+                cellType: TaskTableViewCell.self)
+            ) { [weak self] (row, _, cell) in
+                if let task = self?.viewModel.doings.value[row] {
+                    cell.setupContents(task: task)
+                }
+        }
+        .disposed(by: disposeBag)
+        
+        viewModel.dones
+            .bind(to: mainView.doneTableView.rx.items(
+                cellIdentifier: TaskTableViewCell.identifier,
+                cellType: TaskTableViewCell.self)
+            ) { [weak self] (row, _, cell) in
+                if let task = self?.viewModel.dones.value[row] {
+                    cell.setupContents(task: task)
+                }
+        }
+        .disposed(by: disposeBag)
+        
     }
     
     private func fetchData() {
@@ -288,10 +299,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension MainViewController: DataReloadable {
     func reloadData() {
-        fetchData()
-        mainView.todoTableView.reloadData()
-        mainView.doingTableView.reloadData()
-        mainView.doneTableView.reloadData()
+        viewModel.fetchData()
     }
 }
 

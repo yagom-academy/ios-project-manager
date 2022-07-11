@@ -8,19 +8,13 @@
 import UIKit
 
 final class MainView: UIView {
-    private let todoHeaderView = TaskHeaderView(taskType: .todo)
-    private let doingHeaderView = TaskHeaderView(taskType: .doing)
-    private let doneHeaderView = TaskHeaderView(taskType: .done)
+    private(set) lazy var todoHeaderView = TaskHeaderView(taskType: .todo)
+    private(set) lazy var doingHeaderView = TaskHeaderView(taskType: .doing)
+    private(set) lazy var doneHeaderView = TaskHeaderView(taskType: .done)
     
-    private(set) lazy var todoTableView = UITableView().then {
-        $0.backgroundColor = .systemGray6
-    }
-    private(set) lazy var doingTableView = UITableView().then {
-        $0.backgroundColor = .systemGray6
-    }
-    private(set) lazy var doneTableView = UITableView().then {
-        $0.backgroundColor = .systemGray6
-    }
+    private(set) lazy var todoTableView = generateTableView()
+    private(set) lazy var doingTableView = generateTableView()
+    private(set) lazy var doneTableView = generateTableView()
     
     private lazy var baseStackView = UIStackView(
         arrangedSubviews: [
@@ -100,6 +94,16 @@ final class MainView: UIView {
             case .done:
                 self?.doneHeaderView.count = count
             }
+        }
+    }
+    
+    private func generateTableView() -> UITableView {
+        return UITableView().then {
+            $0.backgroundColor = .systemGray6
+            $0.register(
+                TaskTableViewCell.self,
+                forCellReuseIdentifier: TaskTableViewCell.identifier
+            )
         }
     }
 }
