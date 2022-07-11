@@ -22,7 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     window = UIWindow(windowScene: windowScene)
     window?.rootViewController = navigationController
-    navigationController.viewControllers = [CardListViewController(viewModel: DefaultCardListViewModel())]
+    AppCoordinator(navigationController: navigationController).start()
     window?.makeKeyAndVisible()
   }
 }

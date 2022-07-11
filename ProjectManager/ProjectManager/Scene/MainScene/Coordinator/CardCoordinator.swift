@@ -15,5 +15,9 @@ final class CardCoordinator: Coordinator {
     self.navigationController = navigationController
   }
   
-  func start() {}
+  func start() {
+    let viewModel = DefaultCardListViewModel()
+    let cardListViewController = CardListViewController(viewModel: viewModel)
+    navigationController.pushViewController(cardListViewController, animated: true)
+  }
 }

@@ -74,9 +74,9 @@
 		B001066F287298D30080ACC7 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				B032CDA72873F3610087383E /* AppAppearance.swift */,
 				B0F615AE287C125600672D87 /* AppCoordinator.swift */,
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
-				B032CDA72873F3610087383E /* AppAppearance.swift */,
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
 			);
 			path = Application;
