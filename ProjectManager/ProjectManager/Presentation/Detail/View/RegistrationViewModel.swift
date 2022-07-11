@@ -9,15 +9,16 @@ import Foundation
 
 struct RegistrationViewModel {
     func registerate(title: String, date: Date, description: String) {
-        MockStorageManager.shared.creat(
-            projectContent: ProjectContent(
-                ProjectItem(id: UUID(),
-                            status: ProjectStatus.todo.string,
-                            title: title,
-                            deadline: date,
-                            description: description
-                           )
+        var currentProjects = MockStorageManager.shared.read().value
+        currentProjects
+            .append(
+                ProjectContent(
+                    title: title,
+                    deadline: date,
+                    description: description
+                )
             )
-        )
+        
+        MockStorageManager.shared.create(projectContents: currentProjects)
     }
 }

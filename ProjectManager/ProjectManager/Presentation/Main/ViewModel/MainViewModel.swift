@@ -11,7 +11,7 @@ import RxCocoa
 
 struct MainViewModel {
     let projects: BehaviorRelay<[ProjectContent]> = {
-        return MockStorageManager.shared.projectEntity
+        return MockStorageManager.shared.read()
     }()
     
     lazy var todoProjects: Driver<[ProjectContent]> = {

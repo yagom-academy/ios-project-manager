@@ -13,49 +13,33 @@ final class MockStorageManager {
     static let shared = MockStorageManager()
     private init() {}
     
-    private var projects: [ProjectContent] = []
-    var projectEntity = BehaviorRelay<[ProjectContent]>(value: [])
+    private var projectEntities = BehaviorRelay<[ProjectContent]>(value: [])
 }
 
 extension MockStorageManager {
-    func creat(projectContent: ProjectContent) {
-        projects.append(projectContent)
-        
-        projectEntity.accept(projects)
+    func create(projectContents: [ProjectContent]) {
+        projectEntities.accept(projectContents)
     }
     
-    func read() -> [ProjectContent] {
-        return projectEntity.value
+    func read() -> BehaviorRelay<[ProjectContent]> {
+        return projectEntities
     }
     
     func update(projectContent: ProjectContent) {
-        projects.enumerated()
-            .forEach { (index, project) in
-                if project.id == projectContent.id {
-                    changeProjectEntity(index, projectContent)
-                }
-            }
-        
-        projectEntity.accept(projects)
-    }
-    
-    private func changeProjectEntity(_ index: Int, _ projectContent: ProjectContent) {
-        projects[index] = projectContent
+        let projects = projectEntities.value
+        if let indexToUpdated = projects.firstIndex(where: { $0.id == projectContent.id}) {
+            var projectsToUpdate = projectEntities.value
+            projectsToUpdate[indexToUpdated] = projectContent
+            projectEntities.accept(projectsToUpdate)
+        }
     }
     
     func delete(projectContent: ProjectContent) {
-        projects.enumerated()
-            .forEach { (index, project) in
-                if project.id == projectContent.id {
-                    removeProjectEntity(index)
-                }
-            }
-        
-        projectEntity.accept(projects)
-    }
-    
-    private func removeProjectEntity(_ index: Int) {
-        projects.remove(at: index)
-        projectEntity.accept(projects)
+        let projects = projectEntities.value
+        if let indexToDelete = projects.firstIndex(where: { $0.id == projectContent.id}) {
+            var projectsToDelete = projectEntities.value
+            projectsToDelete.remove(at: indexToDelete)
+            projectEntities.accept(projectsToDelete)
+        }
     }
 }

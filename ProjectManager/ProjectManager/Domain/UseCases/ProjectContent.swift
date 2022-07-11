@@ -31,10 +31,10 @@ struct ProjectContent {
     var deadline: String
     var description: String
     
-    init(_ item: ProjectItem) {
-        self.title = item.title
-        self.deadline = DateFormatter().formatted(date: item.deadline)
-        self.description = item.description
+    init(title: String, deadline: Date, description: String) {
+        self.title = title
+        self.deadline = DateFormatter().formatted(date: deadline)
+        self.description = description
     }
     
     func asProjectItem() -> ProjectItem? {
