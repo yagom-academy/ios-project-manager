@@ -23,6 +23,7 @@ struct HeaderView: View {
             .frame(width: 30, height: 30)
           
           Text("\(viewModel.read(by: title).count)")
+            .font(.title3)
             .foregroundColor(.white)
         }
         Spacer()
