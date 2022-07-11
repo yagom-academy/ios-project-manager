@@ -26,6 +26,7 @@ final class TaskCell: UITableViewCell {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .title3)
         label.setContentHuggingPriority(.defaultHigh, for: .vertical)
+        label.lineBreakMode = .byTruncatingTail
         return label
     }()
     
@@ -33,6 +34,7 @@ final class TaskCell: UITableViewCell {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .body)
         label.setContentHuggingPriority(.defaultHigh+1, for: .vertical)
+        label.numberOfLines = 3
         return label
     }()
     
@@ -49,7 +51,6 @@ final class TaskCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(baseStackView)
         configureLayout()
-        
     }
     
     required init?(coder: NSCoder) {
