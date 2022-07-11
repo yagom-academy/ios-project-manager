@@ -69,10 +69,12 @@ extension TodoListViewController {
             .drive(mainView.todoHeaderView.setCountText)
             .disposed(by: bag)
         
-        mainView.todoTableView.rx.modelSelected(TodoCellContent.self)
-            .bind { [weak self] in
-                self?.viewModel.cellSelected(id: $0.id)
-            }.disposed(by: bag)
+        Observable.combineLatest(mainView.todoTableView.rx.modelSelected(TodoCellContent.self),
+                                 mainView.todoTableView.rx.itemSelected)
+        .bind(onNext: { [weak self] (item, indexPath) in
+            self?.mainView.todoTableView.deselectRow(at: indexPath, animated: true)
+            self?.viewModel.cellSelected(id: item.id)
+        }).disposed(by: bag)
         
         //MARK: - DoingList
         viewModel.doingList
@@ -85,10 +87,12 @@ extension TodoListViewController {
             .drive(mainView.doingHeaderView.setCountText)
             .disposed(by: bag)
         
-        mainView.doingTableView.rx.modelSelected(TodoCellContent.self)
-            .bind { [weak self] in
-                self?.viewModel.cellSelected(id: $0.id)
-            }.disposed(by: bag)
+        Observable.combineLatest(mainView.doingTableView.rx.modelSelected(TodoCellContent.self),
+                                 mainView.doingTableView.rx.itemSelected)
+        .bind(onNext: { [weak self] (item, indexPath) in
+            self?.mainView.doingTableView.deselectRow(at: indexPath, animated: true)
+            self?.viewModel.cellSelected(id: item.id)
+        }).disposed(by: bag)
         
         //MARK: - DoneList
         viewModel.doneList
@@ -101,10 +105,12 @@ extension TodoListViewController {
             .drive(mainView.doneHeaderView.setCountText)
             .disposed(by: bag)
         
-        mainView.doneTableView.rx.modelSelected(TodoCellContent.self)
-            .bind { [weak self] in
-                self?.viewModel.cellSelected(id: $0.id)
-            }.disposed(by: bag)
+        Observable.combineLatest(mainView.doneTableView.rx.modelSelected(TodoCellContent.self),
+                                 mainView.doneTableView.rx.itemSelected)
+        .bind(onNext: { [weak self] (item, indexPath) in
+            self?.mainView.doneTableView.deselectRow(at: indexPath, animated: true)
+            self?.viewModel.cellSelected(id: item.id)
+        }).disposed(by: bag)
         
         //MARK: - Button
         plusButton.rx.tap
