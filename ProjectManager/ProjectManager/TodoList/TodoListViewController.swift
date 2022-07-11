@@ -30,9 +30,9 @@ final class TodoListViewController: UIViewController {
     }()
 
     init(todoViewModel: TodoListViewModel, coordinator: MainCoordinator) {
-        self.todoView = ListView(status: .todo, viewModel: todoViewModel)
-        self.doingView = ListView(status: .doing, viewModel: todoViewModel)
-        self.doneView = ListView(status: .done, viewModel: todoViewModel)
+        self.todoView = ListView(status: .todo, viewModel: todoViewModel, coordinator: coordinator)
+        self.doingView = ListView(status: .doing, viewModel: todoViewModel, coordinator: coordinator)
+        self.doneView = ListView(status: .done, viewModel: todoViewModel, coordinator: coordinator)
         self.viewModel = todoViewModel
         self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
