@@ -78,4 +78,11 @@ extension TodoEditView {
                          body: bodyTextView.text,
                          deadlineAt: datePicker.date)
     }
+    
+    func setupView(by item: TodoModel?) {
+        guard let item = item else { return }
+        titleTaxtField.text = item.title
+        bodyTextView.text = item.body
+        datePicker.date = item.deadlineAt
+    }
 }

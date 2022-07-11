@@ -8,13 +8,15 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import UIKit
 
 struct TodoListViewModelActions {
-    let presentEditViewController: () -> Void
+    let presentEditViewController: (_ item: TodoModel?) -> Void
 }
 
 protocol TodoListViewModelInput {
     func plusButtonDidTap()
+    func cellSelected(id: UUID)
 }
 
 protocol TodoListViewModelOutput {
@@ -39,7 +41,10 @@ final class DefaultTodoListViewModel: TodoListViewModel {
             items.filter { $0.state == .todo }
         }
         .map { items in
-            items.map { TodoCellContent(title: $0.title, body: $0.body, deadlineAt: $0.deadlineAt.toString(self.dateFormatter)) }
+            items.map { TodoCellContent(title: $0.title,
+                                        body: $0.body,
+                                        deadlineAt: $0.deadlineAt.toString(self.dateFormatter),
+                                        id: $0.id) }
         }
     }
     
@@ -48,7 +53,10 @@ final class DefaultTodoListViewModel: TodoListViewModel {
             items.filter { $0.state == .doing }
         }
         .map { items in
-            items.map { TodoCellContent(title: $0.title, body: $0.body, deadlineAt: $0.deadlineAt.toString(self.dateFormatter)) }
+            items.map { TodoCellContent(title: $0.title,
+                                        body: $0.body,
+                                        deadlineAt: $0.deadlineAt.toString(self.dateFormatter),
+                                        id: $0.id) }
         }
     }
     var doneList: Observable<[TodoCellContent]> {
@@ -56,7 +64,10 @@ final class DefaultTodoListViewModel: TodoListViewModel {
             items.filter { $0.state == .done }
         }
         .map { items in
-            items.map { TodoCellContent(title: $0.title, body: $0.body, deadlineAt: $0.deadlineAt.toString(self.dateFormatter)) }
+            items.map { TodoCellContent(title: $0.title,
+                                        body: $0.body,
+                                        deadlineAt: $0.deadlineAt.toString(self.dateFormatter),
+                                        id: $0.id) }
         }
     }
     
@@ -78,7 +89,14 @@ final class DefaultTodoListViewModel: TodoListViewModel {
     
     //MARK: - Input
     func plusButtonDidTap() {
-        actions?.presentEditViewController()
+        actions?.presentEditViewController(nil)
+    }
+    
+    func cellSelected(id: UUID) {
+        let item = try? useCase.readRepository().value()
+            .first { $0.id == id }
+        actions?.presentEditViewController(item)
+        
     }
     
     init(useCase: UseCase, actions: TodoListViewModelActions) {
@@ -98,7 +116,8 @@ final class DefaultTodoListViewModel: TodoListViewModel {
         todoModels.map { item in
             TodoCellContent(title: item.title,
                             body: item.body,
-                            deadlineAt: item.deadlineAt.toString(dateFormatter))
+                            deadlineAt: item.deadlineAt.toString(dateFormatter),
+                            id: item.id)
         }
     }
 }
@@ -106,5 +125,6 @@ final class DefaultTodoListViewModel: TodoListViewModel {
 struct TodoCellContent {
     let title: String?
     let body: String?
-    let deadlineAt: String?
+    let deadlineAt: String
+    let id: UUID
 }

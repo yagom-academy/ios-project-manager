@@ -19,6 +19,8 @@ class TodoEditViewController: UIViewController {
     private let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: nil, action: nil)
     private let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: nil)
     
+    private let todoItme: TodoModel?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavigationBar()
@@ -26,8 +28,10 @@ class TodoEditViewController: UIViewController {
         bind()
     }
     
-    init(viewModel: TodoEditViewModel) {
+    init(viewModel: TodoEditViewModel, item: TodoModel?) {
         self.viewModel = viewModel
+        self.todoItme = item
+        mainView.setupView(by: todoItme)
         super.init(nibName: nil, bundle: nil)
     }
     

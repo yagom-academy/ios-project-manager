@@ -31,8 +31,9 @@ extension TodoSceneDIContainer: TodoListFlowCoordinatorDependencies {
     func makeTodoListViewController(actions: TodoListViewModelActions) -> TodoListViewController {
         return TodoListViewController(viewModel: makeTodoListViewModel(actions: actions))
     }
-    
-    func makeTodoEditViewController(actions: TodoEditViewModelActions) -> TodoEditViewController {
-        return TodoEditViewController(viewModel: makeTodoEditViewModel(actions: actions))
+
+    func makeTodoEditViewController(actions: TodoEditViewModelActions, item: TodoModel?) -> TodoEditViewController {
+        return TodoEditViewController(viewModel: makeTodoEditViewModel(actions: actions), item: item)
+
     }
 }

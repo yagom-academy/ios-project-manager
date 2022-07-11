@@ -9,7 +9,7 @@ import UIKit
 
 protocol TodoListFlowCoordinatorDependencies {
     func makeTodoListViewController(actions: TodoListViewModelActions) -> TodoListViewController
-    func makeTodoEditViewController(actions: TodoEditViewModelActions) -> TodoEditViewController
+    func makeTodoEditViewController(actions: TodoEditViewModelActions, item: TodoModel?) -> TodoEditViewController
 }
 
 final class TodoListFlowCoordinator {
@@ -34,10 +34,10 @@ extension TodoListFlowCoordinator {
         todoListViewController = viewController
     }
     
-    private func presentEditViewController() {
+    private func presentEditViewController(item: TodoModel?) {
         let actions = TodoEditViewModelActions(dismiss: dismissEditViewController)
         
-        let viewController = dependencies.makeTodoEditViewController(actions: actions)
+        let viewController = dependencies.makeTodoEditViewController(actions: actions, item: item)
         viewController.modalPresentationStyle = .formSheet
         todoListViewController?.present(viewController, animated: true)
         todoEditViewController = viewController

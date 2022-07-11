@@ -69,6 +69,11 @@ extension TodoListViewController {
             .drive(mainView.todoHeaderView.setCountText)
             .disposed(by: bag)
         
+        mainView.todoTableView.rx.modelSelected(TodoCellContent.self)
+            .bind { [weak self] in
+                self?.viewModel.cellSelected(id: $0.id)
+            }.disposed(by: bag)
+        
         //MARK: - DoingList
         viewModel.doingList
             .bind(to: mainView.doingTableView.rx.items(cellIdentifier: TodoListCell.identifier,
@@ -80,6 +85,11 @@ extension TodoListViewController {
             .drive(mainView.doingHeaderView.setCountText)
             .disposed(by: bag)
         
+        mainView.doingTableView.rx.modelSelected(TodoCellContent.self)
+            .bind { [weak self] in
+                self?.viewModel.cellSelected(id: $0.id)
+            }.disposed(by: bag)
+        
         //MARK: - DoneList
         viewModel.doneList
             .bind(to: mainView.doneTableView.rx.items(cellIdentifier: TodoListCell.identifier,
@@ -90,6 +100,11 @@ extension TodoListViewController {
         viewModel.doneListCount
             .drive(mainView.doneHeaderView.setCountText)
             .disposed(by: bag)
+        
+        mainView.doneTableView.rx.modelSelected(TodoCellContent.self)
+            .bind { [weak self] in
+                self?.viewModel.cellSelected(id: $0.id)
+            }.disposed(by: bag)
         
         //MARK: - Button
         plusButton.rx.tap
