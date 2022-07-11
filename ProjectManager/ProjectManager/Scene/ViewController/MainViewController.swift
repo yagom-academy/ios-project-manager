@@ -112,6 +112,55 @@ final class MainViewController: UIViewController, UIPopoverPresentationControlle
         viewModel.showNewFormSheetView.asObservable()
             .bind(onNext: showNewFormSheetView)
             .disposed(by: disposeBag)
+        
+        // MARK: - Table itemSelected
+        
+        mainView.todoTableView.rx.itemSelected
+            .subscribe(onNext: { [weak self] indexPath in
+                self?.mainView.todoTableView.deselectRow(
+                    at: indexPath,
+                    animated: true
+                )
+                if let task = self?.viewModel.todos.value[indexPath.row] {
+                    self?.showEditFormSheetView(task: task)
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        mainView.doingTableView.rx.itemSelected
+            .subscribe(onNext: { [weak self] indexPath in
+                self?.mainView.doingTableView.deselectRow(
+                    at: indexPath,
+                    animated: true
+                )
+                if let task = self?.viewModel.doings.value[indexPath.row] {
+                    self?.showEditFormSheetView(task: task)
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        mainView.doneTableView.rx.itemSelected
+            .subscribe(onNext: { [weak self] indexPath in
+                self?.mainView.doneTableView.deselectRow(
+                    at: indexPath,
+                    animated: true
+                )
+                if let task = self?.viewModel.dones.value[indexPath.row] {
+                    self?.showEditFormSheetView(task: task)
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        // MARK: - Table itemDeleted
+        
+        mainView.todoTableView.rx.itemDeleted
+            .subscribe(onNext: { [weak self] indexPath in
+                if let task = self?.viewModel.todos.value[indexPath.row] {
+                    self?.viewModel.deleteCell(task: task)
+//                    self?.mainView.todoTableView.deleteRows(at: [indexPath], with: .fade)
+                }
+            })
+            .disposed(by: disposeBag)
     }
     
     private func fetchData() {
@@ -253,73 +302,17 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         return TaskTableViewCell()
     }
     
-    func tableView(
-        _ tableView: UITableView,
-        didSelectRowAt indexPath: IndexPath
-    ) {
-        if tableView == mainView.todoTableView {
-            showEditFormSheetView(task: todos, indexPath: indexPath)
-        } else if tableView == mainView.doingTableView {
-            showEditFormSheetView(task: doings, indexPath: indexPath)
-        } else {
-            showEditFormSheetView(task: dones, indexPath: indexPath)
-        }
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
-    
     private func showEditFormSheetView(
-        task: [Task],
-        indexPath: IndexPath
+        task: Task
     ) {
         let editViewController = EditFormSheetViewController()
         editViewController.delegate = self
-        editViewController.task = task[indexPath.row]
+        editViewController.task = task
         let editFormSheet = UINavigationController(
             rootViewController: editViewController
         )
         editFormSheet.modalPresentationStyle = .formSheet
         present(editFormSheet, animated: true)
-    }
-    
-    func tableView(
-        _ tableView: UITableView,
-        commit editingStyle: UITableViewCell.EditingStyle,
-        forRowAt indexPath: IndexPath
-    ) {
-        if editingStyle == .delete {
-            if tableView == mainView.todoTableView {
-                realmManager.delete(task: todos[indexPath.row])
-                fetchToDo()
-                deleteCell(
-                    indexPath: indexPath,
-                    from: mainView.todoTableView
-                )
-            } else if tableView == mainView.doingTableView {
-                realmManager.delete(task: doings[indexPath.row])
-                fetchDoing()
-                deleteCell(
-                    indexPath: indexPath,
-                    from: mainView.doingTableView
-                )
-            } else {
-                realmManager.delete(task: dones[indexPath.row])
-                fetchDone()
-                deleteCell(
-                    indexPath: indexPath,
-                    from: mainView.doneTableView
-                )
-            }
-        }
-    }
-    
-    private func deleteCell(
-        indexPath: IndexPath,
-        from tableView: UITableView
-    ) {
-        tableView.deleteRows(
-            at: [indexPath],
-            with: .fade
-        )
     }
 }
 

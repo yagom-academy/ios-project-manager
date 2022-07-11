@@ -22,8 +22,6 @@ protocol MainViewModelOutput {
 
 final class MainViewModel: MainViewModelInput, MainViewModelOutput {
     
-    
-    
     var todos: BehaviorRelay<[Task]> = BehaviorRelay(value: [])
     var doings: BehaviorRelay<[Task]> = BehaviorRelay(value: [])
     var dones: BehaviorRelay<[Task]> = BehaviorRelay(value: [])
@@ -40,6 +38,12 @@ final class MainViewModel: MainViewModelInput, MainViewModelOutput {
         fetchDoing()
         fetchDone()
     }
+    
+    func deleteCell(task: Task) {
+        realmManager.delete(task: task)
+        
+//        fetchData()
+    }
         
     private func fetchToDo() {
         let todos = realmManager.fetch(taskType: .todo)
@@ -55,5 +59,4 @@ final class MainViewModel: MainViewModelInput, MainViewModelOutput {
         let dones = realmManager.fetch(taskType: .done)
         self.dones.accept(dones)
     }
-    
 }
