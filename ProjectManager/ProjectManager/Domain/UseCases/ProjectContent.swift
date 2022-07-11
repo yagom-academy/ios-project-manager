@@ -97,6 +97,16 @@ struct ProjectContent {
         
         return project.first?.status ?? .todo
     }
+    
+    func updateStatus(_ status: ProjectStatus) {
+        let projects = MockStorageManager.shared.read().value
+        let matchedProject = projects.filter { $0 == self }
+        guard var project = matchedProject.first else {
+            return
+        }
+        project.status = status
+        MockStorageManager.shared.update(projectContent: project)
+    }
 }
 
 extension ProjectContent {
