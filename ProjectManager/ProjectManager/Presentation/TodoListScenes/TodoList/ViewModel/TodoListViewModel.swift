@@ -21,13 +21,13 @@ protocol TodoListViewModelOutput {
     var doneItems: AnyPublisher<[TodoListModel], Never> { get }
 }
 
-protocol TodoListViewModel: TodoListViewModelInput, TodoListViewModelOutput {}
+protocol TodoListViewModelable: TodoListViewModelInput, TodoListViewModelOutput {}
 
 struct TodoListActions {
     let showDetailView: (TodoListModel) -> Void
 }
 
-final class DefaultTodoListViewModel: TodoListViewModel {
+final class TodoListViewModel: TodoListViewModelable {
     // MARK: - Output
     
     var todoItems: AnyPublisher<[TodoListModel], Never> {
@@ -59,7 +59,7 @@ final class DefaultTodoListViewModel: TodoListViewModel {
     }
 }
 
-extension DefaultTodoListViewModel {
+extension TodoListViewModel {
     
     // MARK: - Input
     

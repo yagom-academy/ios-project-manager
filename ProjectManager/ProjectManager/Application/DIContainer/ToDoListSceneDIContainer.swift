@@ -37,8 +37,8 @@ extension TodoListSceneDIContainer: TodoListSceneCoordinatorDependencies {
         return DefaultTodoDetailViewModel(actions: actions, useCase: makeTodoListUseCase(), todoListModel: todoListModel)
     }
     
-    private func makeTodoListViewModel(actions: TodoListActions) -> TodoListViewModel {
-        return DefaultTodoListViewModel(actions: actions, useCase: makeTodoListUseCase())
+    private func makeTodoListViewModel(actions: TodoListActions) -> TodoListViewModelable {
+        return TodoListViewModel(actions: actions, useCase: makeTodoListUseCase())
     }
     
     // MARK: - UseCase
