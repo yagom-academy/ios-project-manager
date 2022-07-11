@@ -86,6 +86,22 @@ final class MainViewController: UIViewController, UIPopoverPresentationControlle
         }
         .disposed(by: disposeBag)
         
+        // MARK: - Table Header Count
+        
+        viewModel.todos
+            .map { String($0.count) }
+            .bind(to: mainView.todoHeaderView.taskCountLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        viewModel.doings
+            .map { String($0.count) }
+            .bind(to: mainView.doingHeaderView.taskCountLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        viewModel.dones
+            .map { String($0.count) }
+            .bind(to: mainView.doneHeaderView.taskCountLabel.rx.text)
+            .disposed(by: disposeBag)
     }
     
     private func fetchData() {
