@@ -16,7 +16,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     if let windowSecene = (scene as? UIWindowScene) {
       let viewModel = TodoViewModel()
-      let contentView = ProjectManagerView(viewModel: viewModel)
+      let contentView = appView(viewModel: viewModel)
       window = UIWindow(windowScene: windowSecene)
       window?.rootViewController = UIHostingController(rootView: contentView)
       window?.makeKeyAndVisible()

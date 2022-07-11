@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		864DD598287327F500023287 /* ProjectManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864DD597287327F500023287 /* ProjectManagerView.swift */; };
+		864DD598287327F500023287 /* appView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864DD597287327F500023287 /* appView.swift */; };
 		865CFF2A287726BA00C251F3 /* BranchProcessing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865CFF29287726BA00C251F3 /* BranchProcessing.swift */; };
 		86855C342873C608002090E1 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 86855C332873C608002090E1 /* Realm */; };
 		86855C362873C608002090E1 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 86855C352873C608002090E1 /* RealmSwift */; };
@@ -28,7 +28,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		864DD597287327F500023287 /* ProjectManagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerView.swift; sourceTree = "<group>"; };
+		864DD597287327F500023287 /* appView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = appView.swift; sourceTree = "<group>"; };
 		865CFF29287726BA00C251F3 /* BranchProcessing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BranchProcessing.swift; sourceTree = "<group>"; };
 		86B5211A28758AD5003B83C9 /* Todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
 		86B5211D287597E7003B83C9 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
@@ -64,7 +64,7 @@
 		865CFF272876F41F00C251F3 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
-				864DD597287327F500023287 /* ProjectManagerView.swift */,
+				864DD597287327F500023287 /* appView.swift */,
 				DA657CE42875C77D002DB030 /* DetailView.swift */,
 			);
 			path = Scene;
@@ -255,7 +255,7 @@
 				DA657CE328759BB6002DB030 /* TodoList.swift in Sources */,
 				DA657CE52875C77D002DB030 /* DetailView.swift in Sources */,
 				865CFF2A287726BA00C251F3 /* BranchProcessing.swift in Sources */,
-				864DD598287327F500023287 /* ProjectManagerView.swift in Sources */,
+				864DD598287327F500023287 /* appView.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				86B5211E287597E7003B83C9 /* Date+Extension.swift in Sources */,
 				DA657CDF28758E16002DB030 /* TodoViewModel.swift in Sources */,
