@@ -81,7 +81,7 @@ extension MainViewController: DetailViewControllerDelegate {
         let dataSource = findDataSource(type: locationInfo.type)
         if let snapshot = dataSource?.snapshot() {
             var copySnapshot = snapshot
-            guard let beforeTask = copySnapshot.itemIdentifiers(inSection: locationInfo.indexPath.row).first else { return }
+            guard let beforeTask = dataSource?.itemIdentifier(for: locationInfo.indexPath) else { return }
             copySnapshot.insertItems([task], afterItem: beforeTask)
             copySnapshot.deleteItems([beforeTask])
             dataSource?.apply(copySnapshot)
