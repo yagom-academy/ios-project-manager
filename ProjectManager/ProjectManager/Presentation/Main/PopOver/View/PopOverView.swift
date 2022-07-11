@@ -6,8 +6,12 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 final class PopOverView: UIView {
+    private let viewDisposeBag = DisposeBag()
+    
     private let buttonStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -51,8 +55,30 @@ final class PopOverView: UIView {
         ])
     }
     
-    func setUpButtonTitle(first: String, second: String) {
-        firstButton.setTitle("Move to " + first, for: .normal)
-        secondButton.setTitle("Move to " + second, for: .normal)
+    func setUpButtonTitle(first: ProjectStatus, second: ProjectStatus) {
+        firstButton.setTitle(first.title, for: .normal)
+        secondButton.setTitle(second.title, for: .normal)
+    }
+    
+    func addButtonAction(_ cell: ProjectCell) {
+        firstButton.rx.tap
+            .asDriver()
+            .drive { [weak self] _ in
+                guard let status = ProjectStatus.convert(self?.firstButton.titleLabel?.text) else {
+                    return
+                }
+                cell.getData()?.updateStatus(status)
+            }
+            .disposed(by: viewDisposeBag)
+        
+        secondButton.rx.tap
+            .asDriver()
+            .drive { [weak self] _ in
+                guard let status = ProjectStatus.convert(self?.secondButton.titleLabel?.text) else {
+                    return
+                }
+                cell.getData()?.updateStatus(status)
+            }
+            .disposed(by: viewDisposeBag)
     }
 }
