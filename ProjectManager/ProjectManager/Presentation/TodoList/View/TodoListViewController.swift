@@ -21,7 +21,6 @@ final class TodoListViewController: UIViewController {
         super.viewDidLoad()
         configureView()
         configureNavigationBar()
-        configureTableViewCell()
         bind()
     }
     
@@ -44,10 +43,6 @@ extension TodoListViewController {
         }
     }
     
-    private func configureTableViewCell() {
-        mainView.tableViewsCellRegister()
-    }
-    
     private func configureNavigationBar() {
         title = "Project Manager"
         navigationItem.rightBarButtonItem = plusButton
@@ -62,7 +57,7 @@ extension TodoListViewController {
         viewModel.todoList
             .bind(to: mainView.todoTableView.rx.items(cellIdentifier: TodoListCell.identifier,
                                                       cellType: TodoListCell.self)) { row, item, cell in
-                cell.setContent(title: item.title, body: item.body, deadline: item.deadlineAt)
+                cell.setContent(item: item)
               }.disposed(by: bag)
         
         viewModel.todoListCount
@@ -80,7 +75,7 @@ extension TodoListViewController {
         viewModel.doingList
             .bind(to: mainView.doingTableView.rx.items(cellIdentifier: TodoListCell.identifier,
                                                       cellType: TodoListCell.self)) { row, item, cell in
-                cell.setContent(title: item.title, body: item.body, deadline: item.deadlineAt)
+                cell.setContent(item: item)
               }.disposed(by: bag)
         
         viewModel.doingListCount
@@ -98,7 +93,7 @@ extension TodoListViewController {
         viewModel.doneList
             .bind(to: mainView.doneTableView.rx.items(cellIdentifier: TodoListCell.identifier,
                                                       cellType: TodoListCell.self)) { row, item, cell in
-                cell.setContent(title: item.title, body: item.body, deadline: item.deadlineAt)
+                cell.setContent(item: item)
               }.disposed(by: bag)
 
         viewModel.doneListCount
