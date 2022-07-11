@@ -6,6 +6,11 @@
 
 import UIKit
 
+struct LocationInfo {
+    let type: TaskType
+    let indexPath: IndexPath
+}
+
 class MainViewController: UIViewController {
     private typealias TableViewDataSource = UITableViewDiffableDataSource<Int, Task>
     private typealias Snapshot = NSDiffableDataSourceSnapshot<Int, Task>
@@ -39,11 +44,16 @@ class MainViewController: UIViewController {
 
 extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let tableType = mainView.findTableViewType(tableView: tableView)
-        let dataSource = getDataSource(type: tableType)
+        guard let tableType = mainView.findTableViewType(tableView: tableView) else {
+            return
+        }
+        let dataSource = findDataSource(type: tableType)
         let task = dataSource?.itemIdentifier(for: indexPath)
         let detailView = DetailModalView(frame: view.bounds)
-        let detailModalViewController = DetailModalViewController(modalView: detailView, task: task)
+        let locationInfo = LocationInfo(type: tableType, indexPath: indexPath)
+        let detailModalViewController = DetailModalViewController(modalView: detailView,
+                                                                  task: task,
+                                                                  locationInfo: locationInfo)
         detailModalViewController.delegate = self
         detailView.setButtonDelegate(detailModalViewController)
         detailModalViewController.modalPresentationStyle = .formSheet
@@ -64,6 +74,17 @@ extension MainViewController: DetailViewControllerDelegate {
             snapshot.appendSections([0])
             snapshot.appendItems([task])
             todoDataSource?.apply(snapshot)
+        }
+    }
+    
+    func editTask(task: Task, locationInfo: LocationInfo) {
+        let dataSource = findDataSource(type: locationInfo.type)
+        if let snapshot = dataSource?.snapshot() {
+            var copySnapshot = snapshot
+            guard let beforeTask = copySnapshot.itemIdentifiers(inSection: locationInfo.indexPath.row).first else { return }
+            copySnapshot.insertItems([task], afterItem: beforeTask)
+            copySnapshot.deleteItems([beforeTask])
+            dataSource?.apply(copySnapshot)
         }
     }
 }
@@ -108,7 +129,7 @@ extension MainViewController {
         })
     }
     
-    private func getDataSource(type: TaskType?) -> TableViewDataSource? {
+    private func findDataSource(type: TaskType?) -> TableViewDataSource? {
         switch type {
         case .todo:
             return todoDataSource

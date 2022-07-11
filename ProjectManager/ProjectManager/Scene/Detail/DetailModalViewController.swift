@@ -9,16 +9,26 @@ import UIKit
 
 protocol DetailViewControllerDelegate: AnyObject {
     func addTask(_ task: Task)
+    func editTask(task: Task, locationInfo: LocationInfo)
 }
 
 class DetailModalViewController: UIViewController {
-    let modalView: DetailModalView
-    let task: Task?
+    private enum State {
+        case add
+        case edit
+    }
+    
+    private let modalView: DetailModalView
+    private let task: Task?
+    private var state: State
+    private let locationInfo: LocationInfo?
     weak var delegate: DetailViewControllerDelegate?
     
-    init(modalView: DetailModalView, task: Task? = nil) {
+    init(modalView: DetailModalView, task: Task? = nil, locationInfo: LocationInfo? = nil) {
         self.modalView = modalView
         self.task = task
+        self.locationInfo = locationInfo
+        state = task == nil ? .add : .edit
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -40,7 +50,15 @@ extension DetailModalViewController: ButtonActionDelegate {
     }
     
     func doneButtonClicked() {
-        delegate?.addTask(modalView.task)
+        switch state {
+        case .edit:
+            guard let locationInfo = locationInfo else {
+                return
+            }
+            delegate?.editTask(task: modalView.task, locationInfo: locationInfo)
+        case .add:
+            delegate?.addTask(modalView.task)
+        }
         dismiss(animated: true)
     }
 }
