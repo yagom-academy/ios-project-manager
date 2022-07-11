@@ -108,21 +108,21 @@ final class MainView: UIView {
 
     // MARK: UIComponents - TableView
     
-    let todoTableView: UITableView = {
+    private let todoTableView: UITableView = {
         let tableView = UITableView(frame: .zero)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = .systemGray6
         return tableView
     }()
     
-    let doingTableView: UITableView = {
+    private let doingTableView: UITableView = {
         let tableView = UITableView(frame: .zero)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = .systemGray6
         return tableView
     }()
     
-    let doneTableView: UITableView = {
+    private let doneTableView: UITableView = {
             let tableView = UITableView(frame: .zero)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = .systemGray6
@@ -155,6 +155,19 @@ final class MainView: UIView {
         stackView.distribution = .fill
         return stackView
     }()
+    
+    // MARK: functions
+    
+    func retrieveTableView(taskCase: TaskCase) -> UITableView {
+        switch taskCase {
+        case .todo:
+            return todoTableView
+        case .doing:
+            return doingTableView
+        case .done:
+            return doneTableView
+        }
+    }
     
     // MARK: setUp
     

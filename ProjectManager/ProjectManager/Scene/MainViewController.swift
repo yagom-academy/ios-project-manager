@@ -67,14 +67,15 @@ extension MainViewController {
 
 extension MainViewController {
     private func setToDoTableView() {
-        mainView.todoTableView.register(TaskCell.self, forCellReuseIdentifier: TaskCell.identifier)
+        let todoTableView = mainView.retrieveTableView(taskCase: .todo)
+        todoTableView.register(TaskCell.self, forCellReuseIdentifier: TaskCell.identifier)
         makeToDoDataSource()
-        mainView.todoTableView.dataSource = todoDataSource
-        mainView.todoTableView.reloadData()
+        todoTableView.dataSource = todoDataSource
+        todoTableView.reloadData()
     }
     
     private func makeToDoDataSource() {
-        todoDataSource = ToDoTableViewDataSource(tableView: mainView.todoTableView,
+        todoDataSource = ToDoTableViewDataSource(tableView: mainView.retrieveTableView(taskCase: .todo),
                                                  cellProvider: { tableView, indexPath, item in
             let cell = tableView.dequeueReusableCell(withIdentifier: TaskCell.identifier,
                                                      for: indexPath) as? TaskCell
