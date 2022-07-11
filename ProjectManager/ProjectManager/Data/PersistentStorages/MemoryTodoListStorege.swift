@@ -23,7 +23,11 @@ extension MemoryTodoListStorege: TodoListStorege {
     }
     
     func save(to data: TodoModel) {
-        if var items = try? memoryStorege.value() {
+        guard var items = try? memoryStorege.value() else { return }
+        if let index = items.firstIndex(where: { $0.id == data.id }) {
+            items[index] = data
+            memoryStorege.onNext(items)
+        } else {
             items.insert(data, at: 0)
             memoryStorege.onNext(items)
         }

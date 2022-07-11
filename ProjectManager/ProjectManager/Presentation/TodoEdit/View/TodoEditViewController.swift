@@ -79,7 +79,8 @@ extension TodoEditViewController {
         doneButton.rx.tap
             .withUnretained(self)
             .bind { (self, _) in
-                self.viewModel.doneButtonDidTap(item: self.mainView.readViewContent())
+                let newItem = self.mainView.readViewContent(id: self.todoItme?.id)
+                self.viewModel.doneButtonDidTap(item: newItem)
             }.disposed(by: bag)
     }
 }

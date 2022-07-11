@@ -69,7 +69,7 @@ extension TodoListViewController {
             .drive(mainView.todoHeaderView.setCountText)
             .disposed(by: bag)
         
-        Observable.combineLatest(mainView.todoTableView.rx.modelSelected(TodoCellContent.self),
+        Observable.zip(mainView.todoTableView.rx.modelSelected(TodoCellContent.self),
                                  mainView.todoTableView.rx.itemSelected)
         .bind(onNext: { [weak self] (item, indexPath) in
             self?.mainView.todoTableView.deselectRow(at: indexPath, animated: true)
@@ -87,7 +87,7 @@ extension TodoListViewController {
             .drive(mainView.doingHeaderView.setCountText)
             .disposed(by: bag)
         
-        Observable.combineLatest(mainView.doingTableView.rx.modelSelected(TodoCellContent.self),
+        Observable.zip(mainView.doingTableView.rx.modelSelected(TodoCellContent.self),
                                  mainView.doingTableView.rx.itemSelected)
         .bind(onNext: { [weak self] (item, indexPath) in
             self?.mainView.doingTableView.deselectRow(at: indexPath, animated: true)
@@ -105,7 +105,7 @@ extension TodoListViewController {
             .drive(mainView.doneHeaderView.setCountText)
             .disposed(by: bag)
         
-        Observable.combineLatest(mainView.doneTableView.rx.modelSelected(TodoCellContent.self),
+        Observable.zip(mainView.doneTableView.rx.modelSelected(TodoCellContent.self),
                                  mainView.doneTableView.rx.itemSelected)
         .bind(onNext: { [weak self] (item, indexPath) in
             self?.mainView.doneTableView.deselectRow(at: indexPath, animated: true)
