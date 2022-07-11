@@ -16,6 +16,8 @@
 		03AB73DB2873290400B0C980 /* MainViweController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AB73DA2873290400B0C980 /* MainViweController.swift */; };
 		03AB73DD2873292900B0C980 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AB73DC2873292900B0C980 /* MainView.swift */; };
 		03AB73E1287331BB00B0C980 /* ProjectTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AB73E0287331BB00B0C980 /* ProjectTableView.swift */; };
+		0E34F04C287C7C5600438285 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E34F04B287C7C5600438285 /* DateFormatter.swift */; };
+		0E34F04F287C815300438285 /* PopOverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E34F04E287C815300438285 /* PopOverViewModel.swift */; };
 		0EA67EB82873330100E15093 /* ProjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA67EB72873330100E15093 /* ProjectCell.swift */; };
 		0EA67EBC287476B300E15093 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA67EBB287476B300E15093 /* RegistrationViewController.swift */; };
 		0EA67EBE2874789700E15093 /* ModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA67EBD2874789700E15093 /* ModalView.swift */; };
@@ -41,6 +43,8 @@
 		03AB73DA2873290400B0C980 /* MainViweController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViweController.swift; sourceTree = "<group>"; };
 		03AB73DC2873292900B0C980 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		03AB73E0287331BB00B0C980 /* ProjectTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTableView.swift; sourceTree = "<group>"; };
+		0E34F04B287C7C5600438285 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
+		0E34F04E287C815300438285 /* PopOverViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopOverViewModel.swift; sourceTree = "<group>"; };
 		0EA67EB72873330100E15093 /* ProjectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectCell.swift; sourceTree = "<group>"; };
 		0EA67EBB287476B300E15093 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		0EA67EBD2874789700E15093 /* ModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalView.swift; sourceTree = "<group>"; };
@@ -84,6 +88,7 @@
 		033294B6287C720700EE7CBE /* PopOver */ = {
 			isa = PBXGroup;
 			children = (
+				0E34F04D287C814100438285 /* ViewModel */,
 				033294B7287C721500EE7CBE /* View */,
 			);
 			path = PopOver;
@@ -126,6 +131,30 @@
 				0EA67EB72873330100E15093 /* ProjectCell.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		0E34F047287C7C0800438285 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				0E34F04A287C7C2000438285 /* Extension */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		0E34F04A287C7C2000438285 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				0E34F04B287C7C5600438285 /* DateFormatter.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		0E34F04D287C814100438285 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				0E34F04E287C815300438285 /* PopOverViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		0EA67EB92874768500E15093 /* Detail */ = {
@@ -238,6 +267,7 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
+				0E34F047287C7C0800438285 /* Common */,
 				0ED5C2BC2873239600B8DD67 /* Application */,
 				0334E70428770E1400222EB7 /* Infrastructure */,
 				0EA67EC328751DE600E15093 /* Domain */,
@@ -385,6 +415,7 @@
 				0EA67EC228751D9700E15093 /* ProjectItem.swift in Sources */,
 				0EA67EBE2874789700E15093 /* ModalView.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
+				0E34F04C287C7C5600438285 /* DateFormatter.swift in Sources */,
 				0EA67EB82873330100E15093 /* ProjectCell.swift in Sources */,
 				03AB73DD2873292900B0C980 /* MainView.swift in Sources */,
 				0EA67EC928752A0F00E15093 /* ProjectContent.swift in Sources */,
@@ -395,6 +426,7 @@
 				03AB73DB2873290400B0C980 /* MainViweController.swift in Sources */,
 				0EA67EC628751ECC00E15093 /* MainViewModel.swift in Sources */,
 				033294B4287C717700EE7CBE /* PopOverView.swift in Sources */,
+				0E34F04F287C815300438285 /* PopOverViewModel.swift in Sources */,
 				0EA67ED228772C0200E15093 /* RegistrationViewModel.swift in Sources */,
 				03AB73E1287331BB00B0C980 /* ProjectTableView.swift in Sources */,
 				0EA67EBC287476B300E15093 /* RegistrationViewController.swift in Sources */,
