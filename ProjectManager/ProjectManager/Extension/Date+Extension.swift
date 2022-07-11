@@ -8,7 +8,7 @@
 import Foundation
 
 extension Date {
-  func toString() -> String{
+  func toString() -> String {
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "yyyy. M. d."
     dateFormatter.locale = Locale.current
