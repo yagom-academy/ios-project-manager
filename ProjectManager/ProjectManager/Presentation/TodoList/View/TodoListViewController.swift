@@ -60,56 +60,42 @@ extension TodoListViewController {
         
         //MARK: - TodoList
         viewModel.todoList
-            .withUnretained(self)
-            .map({ (self, items) in
-                self.viewModel.toTodoCellContents(todoModels: items)
-            })
             .bind(to: mainView.todoTableView.rx.items(cellIdentifier: TodoListCell.identifier,
                                                       cellType: TodoListCell.self)) { row, item, cell in
                 cell.setContent(title: item.title, body: item.body, deadline: item.deadlineAt)
               }.disposed(by: bag)
         
         viewModel.todoListCount
-            .asDriver(onErrorJustReturn: "0")
             .drive(mainView.todoHeaderView.setCountText)
             .disposed(by: bag)
         
         //MARK: - DoingList
         viewModel.doingList
-            .withUnretained(self)
-            .map({ (self, items) in
-                self.viewModel.toTodoCellContents(todoModels: items)
-            })
             .bind(to: mainView.doingTableView.rx.items(cellIdentifier: TodoListCell.identifier,
                                                       cellType: TodoListCell.self)) { row, item, cell in
                 cell.setContent(title: item.title, body: item.body, deadline: item.deadlineAt)
               }.disposed(by: bag)
         
         viewModel.doingListCount
-            .asDriver(onErrorJustReturn: "0")
             .drive(mainView.doingHeaderView.setCountText)
             .disposed(by: bag)
         
         //MARK: - DoneList
         viewModel.doneList
-            .withUnretained(self)
-            .map({ (self, items) in
-                self.viewModel.toTodoCellContents(todoModels: items)
-            })
             .bind(to: mainView.doneTableView.rx.items(cellIdentifier: TodoListCell.identifier,
                                                       cellType: TodoListCell.self)) { row, item, cell in
                 cell.setContent(title: item.title, body: item.body, deadline: item.deadlineAt)
               }.disposed(by: bag)
+
+        viewModel.doneListCount
+            .drive(mainView.doneHeaderView.setCountText)
+            .disposed(by: bag)
         
+        //MARK: - Button
         plusButton.rx.tap
             .bind { [weak self] in
                 self?.viewModel.plusButtonDidTap()
             }.disposed(by: bag)
-        
-        viewModel.doneListCount
-            .asDriver(onErrorJustReturn: "0")
-            .drive(mainView.doneHeaderView.setCountText)
-            .disposed(by: bag)
     }
 }
 

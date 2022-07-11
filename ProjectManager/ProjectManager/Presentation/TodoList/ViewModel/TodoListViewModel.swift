@@ -7,6 +7,7 @@
 
 import Foundation
 import RxSwift
+import RxCocoa
 
 struct TodoListViewModelActions {
     let presentEditViewController: () -> Void
@@ -17,29 +18,75 @@ protocol TodoListViewModelInput {
 }
 
 protocol TodoListViewModelOutput {
-    var todoList: Observable<[TodoModel]> { get }
-    var doingList: Observable<[TodoModel]> { get }
-    var doneList: Observable<[TodoModel]> { get }
-    var todoListCount: Observable<String> { get }
-    var doingListCount: Observable<String> { get }
-    var doneListCount: Observable<String> { get }
+    var todoList: Observable<[TodoCellContent]> { get }
+    var doingList: Observable<[TodoCellContent]> { get }
+    var doneList: Observable<[TodoCellContent]> { get }
+    var todoListCount: Driver<String> { get }
+    var doingListCount: Driver<String> { get }
+    var doneListCount: Driver<String> { get }
 }
 
-protocol TodoListViewModel: TodoListViewModelInput, TodoListViewModelOutput {
-    func toTodoCellContents(todoModels: [TodoModel]) -> [TodoCellContent]
-}
+protocol TodoListViewModel: TodoListViewModelInput, TodoListViewModelOutput {}
 
 final class DefaultTodoListViewModel: TodoListViewModel {
     private let useCase: UseCase
     private let actions: TodoListViewModelActions?
+    private let todoLists: BehaviorSubject<[TodoModel]>
     
-    let todoList: Observable<[TodoModel]>
-    let doingList: Observable<[TodoModel]>
-    let doneList: Observable<[TodoModel]>
+    //MARK: - Output
+    var todoList: Observable<[TodoCellContent]> {
+        todoLists.map { items in
+            items.filter { $0.state == .todo }
+        }
+        .map { items in
+            items.map { TodoCellContent(title: $0.title, body: $0.body, deadlineAt: $0.deadlineAt.toString(self.dateFormatter)) }
+        }
+    }
     
-    let todoListCount: Observable<String>
-    let doingListCount: Observable<String>
-    let doneListCount: Observable<String>
+    var doingList: Observable<[TodoCellContent]> {
+        todoLists.map { items in
+            items.filter { $0.state == .doing }
+        }
+        .map { items in
+            items.map { TodoCellContent(title: $0.title, body: $0.body, deadlineAt: $0.deadlineAt.toString(self.dateFormatter)) }
+        }
+    }
+    var doneList: Observable<[TodoCellContent]> {
+        todoLists.map { items in
+            items.filter { $0.state == .done }
+        }
+        .map { items in
+            items.map { TodoCellContent(title: $0.title, body: $0.body, deadlineAt: $0.deadlineAt.toString(self.dateFormatter)) }
+        }
+    }
+    
+    var todoListCount: Driver<String> {
+        todoList
+            .map { "\($0.count)" }
+            .asDriver(onErrorJustReturn: "0")
+    }
+    var doingListCount: Driver<String> {
+        doingList
+            .map { "\($0.count)" }
+            .asDriver(onErrorJustReturn: "0")
+    }
+    var doneListCount: Driver<String> {
+        doneList
+            .map { "\($0.count)" }
+            .asDriver(onErrorJustReturn: "0")
+    }
+    
+    //MARK: - Input
+    func plusButtonDidTap() {
+        actions?.presentEditViewController()
+    }
+    
+    init(useCase: UseCase, actions: TodoListViewModelActions) {
+        self.useCase = useCase
+        self.actions = actions
+        
+        todoLists = useCase.readRepository()
+    }
     
     private let dateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
@@ -47,47 +94,12 @@ final class DefaultTodoListViewModel: TodoListViewModel {
         return dateFormatter
     }()
     
-    init(useCase: UseCase, actions: TodoListViewModelActions) {
-        self.useCase = useCase
-        self.actions = actions
-        
-        let todoLists = useCase.readRepository()
-        
-        todoList = todoLists
-            .map { items in
-                items.filter { $0.state == .todo }
-            }
-        
-        todoListCount = todoList
-            .map({ "\($0.count)" })
-        
-        doingList = todoLists
-            .map { items in
-                items.filter { $0.state == .doing }
-            }
-        
-        doingListCount = doingList
-            .map({ "\($0.count)" })
-        
-        doneList = todoLists
-            .map { items in
-                items.filter { $0.state == .done }
-            }
-        
-        doneListCount = doneList
-            .map({ "\($0.count)" })
-    }
-    
-    func toTodoCellContents(todoModels: [TodoModel]) -> [TodoCellContent] {
+    private func toTodoCellContents(todoModels: [TodoModel]) -> [TodoCellContent] {
         todoModels.map { item in
             TodoCellContent(title: item.title,
                             body: item.body,
                             deadlineAt: item.deadlineAt.toString(dateFormatter))
         }
-    }
-    
-    func plusButtonDidTap() {
-        actions?.presentEditViewController()
     }
 }
 
@@ -96,4 +108,3 @@ struct TodoCellContent {
     let body: String?
     let deadlineAt: String?
 }
-
