@@ -15,6 +15,7 @@ final class TodoTableViewCell: UITableViewCell {
         stackView.axis = .vertical
         stackView.alignment = .leading
         stackView.spacing = 5
+        stackView.distribution = .equalCentering
         
         return stackView
     }()
