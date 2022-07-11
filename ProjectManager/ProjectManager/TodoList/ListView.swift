@@ -66,10 +66,10 @@ final class ListView: UIView {
         return stackView
     }()
     
-    init(status: Status) {
+    init(status: Status, viewModel: TodoListViewModel) {
         self.status = status
         self.tableView = UITableView()
-        self.viewModel = TodoListViewModel()
+        self.viewModel = viewModel
         super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         self.setUpTableView()
         self.setUpListStackView()

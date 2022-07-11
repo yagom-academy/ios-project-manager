@@ -8,6 +8,7 @@
 import UIKit
 
 final class DetailViewController: UIViewController {
+    weak var coordinator: MainCoordinator?
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setNavigationBar()
