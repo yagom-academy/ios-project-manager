@@ -51,7 +51,7 @@
                                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                 </collectionViewFlowLayout>
                                                 <cells>
-                                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="projectManagerCell" id="5pB-1N-Qd5">
+                                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="projectManagerCell" id="5pB-1N-Qd5" customClass="ProjectManagerCollectionViewCell" customModule="ProjectManager" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="41.5" height="61.5"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="FKa-IQ-Ay2">
@@ -89,6 +89,11 @@
                                                                 <constraint firstAttribute="trailing" secondItem="ue9-Dh-NBX" secondAttribute="trailing" id="pzo-ET-aM9"/>
                                                             </constraints>
                                                         </collectionViewCellContentView>
+                                                        <connections>
+                                                            <outlet property="bodyLabel" destination="ODN-fT-Job" id="Kk7-T5-MQZ"/>
+                                                            <outlet property="dateLabel" destination="gt8-L9-1JI" id="us2-GI-neR"/>
+                                                            <outlet property="titleLabel" destination="Oau-mh-Xdl" id="bWc-xg-5cp"/>
+                                                        </connections>
                                                     </collectionViewCell>
                                                 </cells>
                                             </collectionView>
@@ -127,7 +132,7 @@
                                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                 </collectionViewFlowLayout>
                                                 <cells>
-                                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="projectManagerCell" id="joT-1C-I66">
+                                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="projectManagerCell" id="joT-1C-I66" customClass="ProjectManagerCollectionViewCell" customModule="ProjectManager" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="41.5" height="61.5"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="5rV-qK-J4w">
@@ -165,6 +170,11 @@
                                                                 <constraint firstAttribute="bottom" secondItem="6vO-5K-rCH" secondAttribute="bottom" id="u7P-xJ-JIW"/>
                                                             </constraints>
                                                         </collectionViewCellContentView>
+                                                        <connections>
+                                                            <outlet property="bodyLabel" destination="tCv-MD-iLH" id="qqA-Hl-miR"/>
+                                                            <outlet property="dateLabel" destination="AGg-Ch-Xc3" id="qfE-30-DcV"/>
+                                                            <outlet property="titleLabel" destination="EEb-Aa-ThN" id="0jF-hs-kw0"/>
+                                                        </connections>
                                                     </collectionViewCell>
                                                 </cells>
                                             </collectionView>
@@ -203,7 +213,7 @@
                                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                 </collectionViewFlowLayout>
                                                 <cells>
-                                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="projectManagerCell" id="oXh-eo-AVF">
+                                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="projectManagerCell" id="oXh-eo-AVF" customClass="ProjectManagerCollectionViewCell" customModule="ProjectManager" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="41.5" height="61.5"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="jQF-1K-0Dx">
@@ -241,6 +251,11 @@
                                                                 <constraint firstItem="k0K-fp-tsv" firstAttribute="leading" secondItem="jQF-1K-0Dx" secondAttribute="leading" id="qee-KZ-Itk"/>
                                                             </constraints>
                                                         </collectionViewCellContentView>
+                                                        <connections>
+                                                            <outlet property="bodyLabel" destination="KT5-Vp-jRY" id="prg-8Y-Jd0"/>
+                                                            <outlet property="dateLabel" destination="Uqs-2O-TXl" id="1Gq-Le-C62"/>
+                                                            <outlet property="titleLabel" destination="gIC-Un-Us4" id="Ll7-kJ-UyE"/>
+                                                        </connections>
                                                     </collectionViewCell>
                                                 </cells>
                                             </collectionView>
