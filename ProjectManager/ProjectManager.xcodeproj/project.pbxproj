@@ -29,6 +29,7 @@
 		9CA8DE9928770C620002C2F6 /* Double+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA8DE9828770C620002C2F6 /* Double+extension.swift */; };
 		9CAB039C2873DE6600895A45 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 9CAB039B2873DE6600895A45 /* Realm */; };
 		9CAB039E2873DE6600895A45 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9CAB039D2873DE6600895A45 /* RealmSwift */; };
+		9CAB1170287C439B00C55AB8 /* NewFormSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAB116F287C439B00C55AB8 /* NewFormSheetViewModel.swift */; };
 		9CACE12D28755BE20010E4F0 /* Then.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CACE12C28755BE20010E4F0 /* Then.swift */; };
 		9CACE13228755FDF0010E4F0 /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CACE13128755FDF0010E4F0 /* TaskTableViewCell.swift */; };
 		9CACE135287566F30010E4F0 /* UIFont+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CACE134287566F30010E4F0 /* UIFont+extension.swift */; };
@@ -56,6 +57,7 @@
 		9C8BC0DA287874F3003EF525 /* PopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverView.swift; sourceTree = "<group>"; };
 		9C9C74A62875CFA900620DEB /* UITextField+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+extension.swift"; sourceTree = "<group>"; };
 		9CA8DE9828770C620002C2F6 /* Double+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+extension.swift"; sourceTree = "<group>"; };
+		9CAB116F287C439B00C55AB8 /* NewFormSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewFormSheetViewModel.swift; sourceTree = "<group>"; };
 		9CACE12C28755BE20010E4F0 /* Then.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Then.swift; sourceTree = "<group>"; };
 		9CACE13128755FDF0010E4F0 /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
 		9CACE134287566F30010E4F0 /* UIFont+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+extension.swift"; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 		4EB3FFC928757DBC0001DBC0 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				9CAB116E287C436E00C55AB8 /* ViewModel */,
 				9CA8DE97287702A70002C2F6 /* ViewController */,
 				4EB3FFCA28757DD50001DBC0 /* View */,
 			);
@@ -135,6 +138,14 @@
 				4EB2452228773F24007F4056 /* PopoverViewController.swift */,
 			);
 			path = ViewController;
+			sourceTree = "<group>";
+		};
+		9CAB116E287C436E00C55AB8 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				9CAB116F287C439B00C55AB8 /* NewFormSheetViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		9CACE12B28755BCC0010E4F0 /* Utils */ = {
@@ -346,6 +357,7 @@
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				9CACE135287566F30010E4F0 /* UIFont+extension.swift in Sources */,
 				4EB3FFC628757C800001DBC0 /* TaskType.swift in Sources */,
+				9CAB1170287C439B00C55AB8 /* NewFormSheetViewModel.swift in Sources */,
 				4EB2451F2876F589007F4056 /* EditFormSheetViewController.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 			);

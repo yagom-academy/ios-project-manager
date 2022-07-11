@@ -6,12 +6,14 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 final class NewFormSheetViewController: UIViewController {
     
     private let newFormSheetView = FormSheetView()
-    private let realmManager = RealmManager()
-    private let uuid = UUID().uuidString
+    private let viewModel = NewFormSheetViewModel()
+    private let disposeBag = DisposeBag()
     weak var delegate: DataReloadable?
     
     override func loadView() {
@@ -22,6 +24,7 @@ final class NewFormSheetViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavigationBarItems()
+        bind()
     }
     
     private func configureNavigationBarItems() {
@@ -31,7 +34,7 @@ final class NewFormSheetViewController: UIViewController {
             title: "Done",
             style: .plain,
             target: self,
-            action: #selector(doneButtonTapped)
+            action: nil
         )
         navigationItem.rightBarButtonItem = doneButton
         
@@ -44,25 +47,38 @@ final class NewFormSheetViewController: UIViewController {
         navigationItem.leftBarButtonItem = cancelButton
     }
     
-    @objc private func cancelButtonTapped() {
-        dismiss(animated: true)
+    private func bind() {
+        newFormSheetView.titleTextField.rx.text.orEmpty
+            .bind(to: viewModel.title)
+            .disposed(by: disposeBag)
+        
+        newFormSheetView.bodyTextView.rx.text.orEmpty
+            .bind(to: viewModel.body)
+            .disposed(by: disposeBag)
+        
+        newFormSheetView.datePicker.rx.date
+            .map { $0.timeIntervalSince1970 }
+            .bind(to: viewModel.date)
+            .disposed(by: disposeBag)
+        
+        navigationItem.rightBarButtonItem?.rx.tap
+            .subscribe { [weak self] _ in
+                self?.viewModel.doneButtonTapped()
+            }
+            .disposed(by: disposeBag)
+        
+        viewModel.dismiss.asObservable()
+            .bind(onNext: backToMain)
+            .disposed(by: disposeBag)
     }
     
-    @objc private func doneButtonTapped() {
-        saveToTempModel()
+    private func backToMain() {
         dismiss(animated: true) { [weak self] in
             self?.delegate?.reloadData()
         }
     }
     
-    func saveToTempModel() {
-        let newProject = Task(
-            title: newFormSheetView.titleTextField.text ?? "",
-            body: newFormSheetView.bodyTextView.text ?? "",
-            date: newFormSheetView.datePicker.date.timeIntervalSince1970,
-            taskType: .todo,
-            id: uuid
-        )
-        realmManager.create(task: newProject)
+    @objc private func cancelButtonTapped() {
+        dismiss(animated: true)
     }
 }
