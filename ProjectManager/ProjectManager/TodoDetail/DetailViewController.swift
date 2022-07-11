@@ -7,20 +7,15 @@
 
 import UIKit
 
+enum TodoListType {
+    case create
+    case edit
+}
+
 final class DetailViewController: UIViewController {
+    private let type: TodoListType
+    private let status: Status
     weak var coordinator: MainCoordinator?
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.setNavigationBar()
-        self.setUpDetailView()
-        self.setUpLayout()
-    }
-    
-    private func setNavigationBar() {
-        self.navigationItem.title = "TODO"
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: nil, action: nil)
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: nil, action: nil)
-    }
     
     private let titleTextField: UITextField = {
         let textField = UITextField()
@@ -67,6 +62,33 @@ final class DetailViewController: UIViewController {
         
         return stackView
     }()
+    
+    private var leftBarButtonTitle: String {
+        return self.type == .create ? "Cancel" : "Edit"
+    }
+    
+    init(type: TodoListType, status: Status) {
+        self.type = type
+        self.status = status
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.setNavigationBar()
+        self.setUpDetailView()
+        self.setUpLayout()
+    }
+    
+    private func setNavigationBar() {
+        self.navigationItem.title = status.title
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: leftBarButtonTitle, style: .plain, target: nil, action: nil)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: nil, action: nil)
+    }
     
     private func setUpDetailView() {
         self.view.backgroundColor = .systemBackground

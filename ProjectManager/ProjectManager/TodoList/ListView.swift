@@ -38,7 +38,7 @@ final class ListView: UIView {
     
     private lazy var headerTitleLabel: UILabel = {
         let label = UILabel()
-        label.text = self.status.value
+        label.text = self.status.title
         label.font = .preferredFont(forTextStyle: .title1)
         
         return label
@@ -138,7 +138,10 @@ final class ListView: UIView {
         
         self.tableView.rx.itemSelected
             .subscribe(onNext: { [weak self] _ in
-                self?.coordinator?.showDetailView()
+                guard let status = self?.status else {
+                    return
+                }
+                self?.coordinator?.showDetailView(type: .edit, status: status)
             })
             .disposed(by: self.disposeBag)
         
