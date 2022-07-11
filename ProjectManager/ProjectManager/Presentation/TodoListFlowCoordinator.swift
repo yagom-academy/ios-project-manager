@@ -38,7 +38,7 @@ extension TodoListFlowCoordinator {
         let actions = TodoEditViewModelActions(dismiss: dismissEditViewController)
         
         let viewController = dependencies.makeTodoEditViewController(actions: actions)
-        
+        viewController.modalPresentationStyle = .formSheet
         todoListViewController?.present(viewController, animated: true)
         todoEditViewController = viewController
     }
