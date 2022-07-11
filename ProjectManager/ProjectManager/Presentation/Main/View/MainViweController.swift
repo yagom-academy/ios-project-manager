@@ -8,6 +8,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import RxGesture
 
 final class MainViweController: UIViewController {
     private let mainView = MainView(frame: .zero)
@@ -61,6 +62,7 @@ final class MainViweController: UIViewController {
     private func bind() {
         setUpTable()
         setUpTotalCount()
+        setUpPopOverView()
     }
     
     private func setUpTable() {
@@ -183,4 +185,23 @@ final class MainViweController: UIViewController {
             }
             .disposed(by: disposeBag)
     }
+    
+    func setUpPopOverView() {
+        mainView.toDoTable.tableView.rx
+            .longPressGesture().debug()
+            .when(.began)
+            .bind { event in
+                let point = event.location(in: self.mainView.toDoTable.tableView)
+                guard let indexPath = self.mainView.toDoTable.tableView.indexPathForRow(at: point),
+                      let cell = self.mainView.toDoTable.tableView.cellForRow(at: indexPath) as? ProjectCell
+                else {
+                    return
+                }
+                
+                let popOverViewController = PopOverViewController(cell: cell)
+                self.present(popOverViewController, animated: true, completion: nil)
+            }
+            .disposed(by: disposeBag)
+    }
 }
+
