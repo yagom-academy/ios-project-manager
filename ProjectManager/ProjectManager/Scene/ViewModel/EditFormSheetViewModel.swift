@@ -1,5 +1,5 @@
 //
-//  NewFormSheetViewModel.swift
+//  EditFormSheetViewModel.swift
 //  ProjectManager
 //
 //  Created by Donnie, Grumpy on 2022/07/11.
@@ -9,18 +9,18 @@ import Foundation
 import RxSwift
 import RxRelay
 
-protocol NewFormSheetViewModelInput {
-    func doneButtonTapped()
+protocol EditFormSheetViewModelInput {
+    func editButtonTapped(task: Task)
 }
 
-protocol NewFormSheetViewModelOutput {
+protocol EditFormSheetViewModelOutput {
     var title: BehaviorRelay<String> { get }
     var body: BehaviorRelay<String> { get }
     var date: BehaviorRelay<Double> { get }
     var dismiss: PublishRelay<Void> { get }
 }
 
-final class NewFormSheetViewModel: NewFormSheetViewModelInput, NewFormSheetViewModelOutput {
+final class EditFormSheetViewModel: EditFormSheetViewModelInput, EditFormSheetViewModelOutput {
     
     var title: BehaviorRelay<String> = BehaviorRelay(value: "")
     var body: BehaviorRelay<String> = BehaviorRelay(value: "")
@@ -28,21 +28,20 @@ final class NewFormSheetViewModel: NewFormSheetViewModelInput, NewFormSheetViewM
     var dismiss: PublishRelay<Void> = .init()
     
     private let realmManager = RealmManager()
-    private let uuid = UUID().uuidString
-    
-    func doneButtonTapped() {
-        saveToTempModel()
+
+    func editButtonTapped(task: Task) {
+        editToTempModel(task: task)
         dismiss.accept(())
     }
     
-    private func saveToTempModel() {
-        let newProject = Task(
+    func editToTempModel(task: Task) {
+        let editProject = Task(
             title: title.value,
             body: body.value,
             date: date.value,
-            taskType: .todo,
-            id: uuid
+            taskType: task.taskType,
+            id: task.id
         )
-        realmManager.create(task: newProject)
+        realmManager.update(task: editProject)
     }
 }

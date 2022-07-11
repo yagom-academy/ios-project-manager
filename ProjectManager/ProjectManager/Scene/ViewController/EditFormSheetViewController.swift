@@ -6,14 +6,16 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 final class EditFormSheetViewController: UIViewController {
-    
+    private let viewModel = EditFormSheetViewModel()
     private let editFormSheetView = FormSheetView()
-    private let realmManager = RealmManager()
+    private let disposeBag = DisposeBag()
     weak var delegate: DataReloadable?
     var task: Task?
-
+    
     override func loadView() {
         super.loadView()
         view = editFormSheetView
@@ -23,6 +25,7 @@ final class EditFormSheetViewController: UIViewController {
         super.viewDidLoad()
         configureNavigationBarItems()
         setupContents()
+        bind()
     }
     
     private func configureNavigationBarItems() {
@@ -40,20 +43,9 @@ final class EditFormSheetViewController: UIViewController {
             title: "Edit",
             style: .plain,
             target: self,
-            action: #selector(editButtonTapped)
+            action: nil
         )
         navigationItem.leftBarButtonItem = editButton
-    }
-    
-    @objc private func editButtonTapped() {
-        editToTempModel()
-        dismiss(animated: true) { [weak self] in
-            self?.delegate?.reloadData()
-        }
-    }
-    
-    @objc private func doneButtonTapped() {
-        dismiss(animated: true)
     }
     
     private func setupContents() {
@@ -62,16 +54,39 @@ final class EditFormSheetViewController: UIViewController {
         }
     }
     
-    func editToTempModel() {
-        guard let task = task else { return }
+    private func bind() {
+        editFormSheetView.titleTextField.rx.text.orEmpty
+            .bind(to: viewModel.title)
+            .disposed(by: disposeBag)
         
-        let editProject = Task(
-            title: editFormSheetView.titleTextField.text ?? "",
-            body: editFormSheetView.bodyTextView.text ?? "",
-            date: editFormSheetView.datePicker.date.timeIntervalSince1970,
-            taskType: task.taskType,
-            id: task.id
-        )
-        realmManager.update(task: editProject)
+        editFormSheetView.bodyTextView.rx.text.orEmpty
+            .bind(to: viewModel.body)
+            .disposed(by: disposeBag)
+        
+        editFormSheetView.datePicker.rx.date
+            .map { $0.timeIntervalSince1970 }
+            .bind(to: viewModel.date)
+            .disposed(by: disposeBag)
+        
+        navigationItem.leftBarButtonItem?.rx.tap
+            .subscribe { [weak self] _ in
+                guard let task = self?.task else { return }
+                self?.viewModel.editButtonTapped(task: task)
+            }
+            .disposed(by: disposeBag)
+        
+        viewModel.dismiss.asObservable()
+            .bind(onNext: backToMain)
+            .disposed(by: disposeBag)
+    }
+    
+    private func backToMain() {
+        dismiss(animated: true) { [weak self] in
+            self?.delegate?.reloadData()
+        }
+    }
+    
+    @objc private func doneButtonTapped() {
+        dismiss(animated: true)
     }
 }
