@@ -13,6 +13,10 @@ final class MainViewController: UIViewController {
     private let doingHeaderView = HeaderView(ListType.doing)
     private let doneHeaderView = HeaderView(ListType.done)
     
+    private lazy var todoTableView = listTableView()
+    private lazy var  doingTableView = listTableView()
+    private lazy var  doneTableView = listTableView()
+    
     private let mainViewModel = MainViewModel()
     private var disposebag = DisposeBag()
     
@@ -110,25 +114,11 @@ final class MainViewController: UIViewController {
         return stackView
     }
     
-    private lazy var todoTableView: UITableView = {
+    private func listTableView() -> UITableView {
         let tableView = UITableView()
         tableView.backgroundColor = .systemGray6
         tableView.register(ListTableViewCell.self)
         
         return tableView
-    }()
-    
-    private lazy var doingTableView: UITableView = {
-        let tableView = UITableView()
-        tableView.backgroundColor = .systemGray6
-        tableView.register(ListTableViewCell.self)
-        return tableView
-    }()
-    
-    private lazy var doneTableView: UITableView = {
-        let tableView = UITableView()
-        tableView.backgroundColor = .systemGray6
-        tableView.register(ListTableViewCell.self)
-        return tableView
-    }()
+    }
 }
