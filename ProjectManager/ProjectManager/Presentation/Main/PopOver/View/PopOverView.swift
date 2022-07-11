@@ -50,4 +50,9 @@ final class PopOverView: UIView {
             buttonStackView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
     }
+    
+    func setUpButtonTitle(first: String, second: String) {
+        firstButton.setTitle("Move to " + first, for: .normal)
+        secondButton.setTitle("Move to " + second, for: .normal)
+    }
 }

@@ -84,13 +84,18 @@ final class ProjectCell: UITableViewCell {
         dateLabel.textColor = .black
     }
     
-    func getData() -> (title: String, date: String, description: String)? {
+    func getData() -> ProjectContent? {
         guard let title = titleLabel.text,
               let date = dateLabel.text,
+              let formattedDate = DateFormatter().formatted(string: date),
               let description = descriptionLabel.text else {
-                  return nil
-              }
+            return nil
+        }
         
-        return (title, date, description)
+        return ProjectContent(
+            title: title,
+            deadline: formattedDate,
+            description: description
+        )
     }
 }
