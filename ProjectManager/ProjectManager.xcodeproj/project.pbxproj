@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		033294B2287C713800EE7CBE /* PopOverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033294B1287C713800EE7CBE /* PopOverViewController.swift */; };
+		033294B4287C717700EE7CBE /* PopOverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033294B3287C717700EE7CBE /* PopOverView.swift */; };
 		0334E70028767E7100222EB7 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0334E6FF28767E7100222EB7 /* DetailViewController.swift */; };
 		0334E70228767EBB00222EB7 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0334E70128767EBB00222EB7 /* DetailViewModel.swift */; };
 		0334E70628770E3D00222EB7 /* MockStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0334E70528770E3D00222EB7 /* MockStorageManager.swift */; };
@@ -30,6 +32,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		033294B1287C713800EE7CBE /* PopOverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopOverViewController.swift; sourceTree = "<group>"; };
+		033294B3287C717700EE7CBE /* PopOverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopOverView.swift; sourceTree = "<group>"; };
 		0334E6FF28767E7100222EB7 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		0334E70128767EBB00222EB7 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		0334E70528770E3D00222EB7 /* MockStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockStorageManager.swift; sourceTree = "<group>"; };
@@ -77,6 +81,23 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		033294B6287C720700EE7CBE /* PopOver */ = {
+			isa = PBXGroup;
+			children = (
+				033294B7287C721500EE7CBE /* View */,
+			);
+			path = PopOver;
+			sourceTree = "<group>";
+		};
+		033294B7287C721500EE7CBE /* View */ = {
+			isa = PBXGroup;
+			children = (
+				033294B1287C713800EE7CBE /* PopOverViewController.swift */,
+				033294B3287C717700EE7CBE /* PopOverView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		0334E70428770E1400222EB7 /* Infrastructure */ = {
 			isa = PBXGroup;
 			children = (
@@ -90,6 +111,7 @@
 			children = (
 				03AB73D8287328B500B0C980 /* View */,
 				0EA67EBF28751D5B00E15093 /* ViewModel */,
+				033294B6287C720700EE7CBE /* PopOver */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -367,10 +389,12 @@
 				03AB73DD2873292900B0C980 /* MainView.swift in Sources */,
 				0EA67EC928752A0F00E15093 /* ProjectContent.swift in Sources */,
 				0EA67ED0287674D000E15093 /* ProjectTable.swift in Sources */,
+				033294B2287C713800EE7CBE /* PopOverViewController.swift in Sources */,
 				0334E70228767EBB00222EB7 /* DetailViewModel.swift in Sources */,
 				0334E70628770E3D00222EB7 /* MockStorageManager.swift in Sources */,
 				03AB73DB2873290400B0C980 /* MainViweController.swift in Sources */,
 				0EA67EC628751ECC00E15093 /* MainViewModel.swift in Sources */,
+				033294B4287C717700EE7CBE /* PopOverView.swift in Sources */,
 				0EA67ED228772C0200E15093 /* RegistrationViewModel.swift in Sources */,
 				03AB73E1287331BB00B0C980 /* ProjectTableView.swift in Sources */,
 				0EA67EBC287476B300E15093 /* RegistrationViewController.swift in Sources */,
