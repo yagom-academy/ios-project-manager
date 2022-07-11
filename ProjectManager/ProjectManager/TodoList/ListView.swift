@@ -15,6 +15,7 @@ final class ListView: UIView {
     private let tableView: UITableView
     private let viewModel: TodoListViewModel
     private let disposeBag = DisposeBag()
+    weak private var coordinator: MainCoordinator?
     
     private let headerView: UIView = {
         let view = UIView()
@@ -66,10 +67,11 @@ final class ListView: UIView {
         return stackView
     }()
     
-    init(status: Status, viewModel: TodoListViewModel) {
+    init(status: Status, viewModel: TodoListViewModel, coordinator: MainCoordinator) {
         self.status = status
         self.tableView = UITableView()
         self.viewModel = viewModel
+        self.coordinator = coordinator
         super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         self.setUpTableView()
         self.setUpListStackView()
@@ -129,10 +131,16 @@ final class ListView: UIView {
                 return UITableViewCell()
             }
             cell.configure(element)
-
+            
             return cell
         }
         .disposed(by: self.disposeBag)
+        
+        self.tableView.rx.itemSelected
+            .subscribe(onNext: { [weak self] _ in
+                self?.coordinator?.showDetailView()
+            })
+            .disposed(by: self.disposeBag)
         
         Observable.of(
             (Status.todo, self.viewModel.todoViewData),
