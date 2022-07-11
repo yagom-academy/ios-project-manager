@@ -22,6 +22,30 @@ enum ProjectStatus {
             return "DONE"
         }
     }
+    
+    var title: String {
+        switch self {
+        case .todo:
+            return "Move to TODO"
+        case .doing:
+            return "Move to DOING"
+        case .done:
+            return "Move to DONE"
+        }
+    }
+    
+    static func convert(_ titleText: String?) -> ProjectStatus? {
+        switch titleText {
+        case ProjectStatus.todo.title:
+            return .todo
+        case ProjectStatus.doing.title:
+            return .doing
+        case ProjectStatus.done.title:
+            return .done
+        default:
+            return nil
+        }
+    }
 }
 
 struct ProjectContent {
