@@ -88,8 +88,8 @@
 		033294B6287C720700EE7CBE /* PopOver */ = {
 			isa = PBXGroup;
 			children = (
-				0E34F04D287C814100438285 /* ViewModel */,
 				033294B7287C721500EE7CBE /* View */,
+				0E34F04D287C814100438285 /* ViewModel */,
 			);
 			path = PopOver;
 			sourceTree = "<group>";
