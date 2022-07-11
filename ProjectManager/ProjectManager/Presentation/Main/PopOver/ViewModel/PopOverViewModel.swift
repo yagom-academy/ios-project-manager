@@ -12,7 +12,7 @@ struct PopOverViewModel {
         self.cell = cell
     }
     
-    func getStatus() -> (first: String, second: String)? {
+    func getStatus() -> (first: ProjectStatus, second: ProjectStatus)? {
         guard let cellData = cell.getData() else {
             return nil
         }
@@ -21,14 +21,14 @@ struct PopOverViewModel {
         return convertProcess(by: status)
     }
     
-    private func convertProcess(by status: ProjectStatus) -> (first: String, second: String) {
+    private func convertProcess(by status: ProjectStatus) -> (first: ProjectStatus, second: ProjectStatus) {
         switch status {
         case .todo:
-            return (ProjectStatus.doing.string, ProjectStatus.done.string)
+            return (ProjectStatus.doing, ProjectStatus.done)
         case .doing:
-            return (ProjectStatus.todo.string, ProjectStatus.done.string)
+            return (ProjectStatus.todo, ProjectStatus.done)
         case .done:
-            return (ProjectStatus.todo.string, ProjectStatus.doing.string)
+            return (ProjectStatus.todo, ProjectStatus.doing)
         }
     }
 }
