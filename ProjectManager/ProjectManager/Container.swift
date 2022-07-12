@@ -17,6 +17,14 @@ final class Container {
         return MainViewModel(storage: storage)
     }
     
+    func makeAddViewController() -> AddViewController {
+        return AddViewController(viewModel: makeDetailViewModel())
+    }
+    
+    private func makeDetailViewModel() -> DetailViewModel {
+        return DetailViewModel(storage: storage)
+    }
+    
     private init(storage: Storegeable) {
         self.storage = storage
     }
