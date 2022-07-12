@@ -15,7 +15,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
              options connectionOptions: UIScene.ConnectionOptions) {
     
     if let windowSecene = (scene as? UIWindowScene) {
-      let contentView = ContentView()
+      let todoService = TodoService()
+      let viewModel = AppViewModel(todoService: todoService)
+      let contentView = AppView(viewModel: viewModel)
       window = UIWindow(windowScene: windowSecene)
       window?.rootViewController = UIHostingController(rootView: contentView)
       window?.makeKeyAndVisible()
