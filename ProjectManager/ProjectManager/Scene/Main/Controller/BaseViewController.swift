@@ -209,39 +209,92 @@ extension BaseViewController: SwipeCollectionViewCellDelegate {
 // MARK: UILongPressGestureDelagate & Move Todo Method
 extension BaseViewController {
   @objc func showMovingTodoSheet(_ gesture: UILongPressGestureRecognizer) {
-    var indexPathRow = Int()
-    if gesture.state == UIGestureRecognizer.State.began {
-      let touchPoint = gesture.location(in: todoView.todoCollectionView)
-      if let index = todoView.todoCollectionView.indexPathForItem(at: touchPoint) {
-        indexPathRow = index.row
-      }
-    }
+    let pressedPoint = gesture.location(ofTouch: 0, in: nil)
+    let pressedState = filterState(from: pressedPoint.x)
+    let collectionView = filterCollectionView(from: pressedState)
+    let touchPoint = gesture.location(in: collectionView)
     
-    let pressedPoint: CGPoint = gesture.location(ofTouch: 0, in: nil)
+    guard let indexPath = collectionView.indexPathForItem(at: touchPoint) else {
+      return
+    }
     
     let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+    let alertActions = createAlertActions(from: pressedState, indexPathRow: indexPath.row)
     
-    let moveToDoingAction = UIAlertAction(title: "Move To DOING", style: .default) { _ in
-      self.moveTodoTo(state: .doing, and: indexPathRow)
-    }
-    let moveToDoneAction = UIAlertAction(title: "Move To DONE", style: .default) { _ in
-      self.moveTodoTo(state: .done, and: indexPathRow)
-    }
-    
-    alert.addAction(moveToDoingAction)
-    alert.addAction(moveToDoneAction)
+    alertActions.forEach { alert.addAction($0) }
     
     let popover = alert.popoverPresentationController
+    
     popover?.sourceView = view
     popover?.sourceRect = CGRect(x: pressedPoint.x, y: pressedPoint.y, width: 64, height: 64)
     
     present(alert, animated: true)
   }
   
-  private func moveTodoTo(state: State, and indexPathRow: Int) {
-    let todoItems = self.todoList.filter { $0.state == .todo }
+  private func createAlertActions(from state: State, indexPathRow: Int) -> [UIAlertAction] {
+    var actions = [UIAlertAction]()
+    
+    let moveToTodoAction = UIAlertAction(title: "Move To TODO", style: .default) { _ in
+      self.moveTodoTo(pressdState: state, to: .todo, and: indexPathRow)
+    }
+    
+    let moveToDoingAction = UIAlertAction(title: "Move To DOING", style: .default) { _ in
+      self.moveTodoTo(pressdState: state, to: .doing, and: indexPathRow)
+    }
+    let moveToDoneAction = UIAlertAction(title: "Move To DONE", style: .default) { _ in
+      self.moveTodoTo(pressdState: state, to: .done, and: indexPathRow)
+    }
+    
+    if state == .todo {
+      actions.append(moveToDoingAction)
+      actions.append(moveToDoneAction)
+      
+      return actions
+    }
+    
+    if state == .doing {
+      actions.append(moveToTodoAction)
+      actions.append(moveToDoneAction)
+      
+      return actions
+    }
+    
+    actions.append(moveToTodoAction)
+    actions.append(moveToDoingAction)
+    return actions
+  }
+  
+  private func moveTodoTo(pressdState: State, to state: State, and indexPathRow: Int) {
+    let todoItems = self.todoList.filter { $0.state == pressdState }
     let item = todoItems[indexPathRow]
     guard let index = self.todoList.firstIndex(of: item) else { return }
     self.todoList[index].state = state
+  }
+  
+  private func filterState(from touchedLocationX: CGFloat) -> State {
+    let todoViewZone = view.bounds.width * 0.3
+    let doingViewZone = (view.bounds.width * 0.3)...(view.bounds.width * 0.6)
+
+    if touchedLocationX < todoViewZone {
+      return .todo
+    }
+    
+    if doingViewZone.contains(touchedLocationX) {
+      return .doing
+    }
+    
+    return .done
+  }
+  
+  private func filterCollectionView(from state: State) -> UICollectionView {
+    if state == .todo {
+      return todoView.todoCollectionView
+    }
+    
+    if state == .doing {
+      return doingView.todoCollectionView
+    }
+    
+    return doneView.todoCollectionView
   }
 }
