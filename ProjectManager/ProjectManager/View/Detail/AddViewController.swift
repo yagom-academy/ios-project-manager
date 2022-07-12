@@ -1,5 +1,5 @@
 //
-//  DetailViewController.swift
+//  AddViewController.swift
 //  ProjectManager
 //
 //  Created by 두기 on 2022/07/06.
@@ -8,13 +8,11 @@
 import RxSwift
 import RxCocoa
 
-final class DetailViewController: UIViewController {
+final class AddViewController: UIViewController {
     private let viewModel: MainViewModelInOut
-    private let listItem: ListItem?
     
-    init(viewModel:MainViewModelInOut ,listItem: ListItem?) {
+    init(viewModel:MainViewModelInOut) {
         self.viewModel = viewModel
-        self.listItem = listItem
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -32,55 +30,29 @@ final class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        detailView.setViewContents(listItem)
+        detailView.setAddView()
         bindButton()
     }
     
     private func bindButton() {
         detailView.doneButton.rx.tap
             .bind(onNext: { [weak self] in
-                if self?.listItem == nil {
-                    self?.createNewList()
-                } else {
-                    self?.editList()
-                }
-                
+                self?.createList()
                 self?.dismiss(animated: true)
             })
             .disposed(by: disposebag)
         
         detailView.leftButton.rx.tap
             .bind(onNext: { [weak self] in
-                self?.tapLeftButton()
+                self?.dismiss(animated: true)
             })
             .disposed(by: disposebag)
     }
     
-    private func createNewList() {
+    private func createList() {
         let listItem = ListItem(title: detailView.titleTextField.text ?? "",
                                 body: detailView.bodyTextView.text ?? "",
                                 deadline: detailView.deadlinePicker.date)
         viewModel.creatList(listItem: listItem)
-    }
-    
-    private func editList() {
-        guard var listItem = listItem else {
-            return
-        }
-
-        listItem.title = detailView.titleTextField.text ?? ""
-        listItem.body = detailView.bodyTextView.text ?? ""
-        listItem.deadline = detailView.deadlinePicker.date
-        
-        viewModel.updateList(listItem: listItem)
-    }
-    
-    private func tapLeftButton() {
-        if detailView.leftButton.title == "Cancel" {
-            self.dismiss(animated: true)
-        }
-        
-        detailView.leftButton.title = "Cancel"
-        detailView.changeEditable()
     }
 }

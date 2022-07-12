@@ -87,11 +87,11 @@ final class DetailView: UIView {
 
 // MARK: - view setting func
 extension DetailView {
-    func setViewContents(_ listItem: ListItem?) {
-        guard let listItem = listItem else {
-            naviItem.title = ListType.todo.title
-            return
-        }
+    func setAddView() {
+        naviItem.title = ListType.todo.title
+    }
+    
+    func setEditView(_ listItem: ListItem) {
         naviItem.title = listItem.type.title
         leftButton.title = "Edit"
         titleTextField.text = listItem.title
@@ -101,6 +101,7 @@ extension DetailView {
     }
     
     func changeEditable() {
+        leftButton.title = "Cancel"
         titleTextField.isEnabled = !titleTextField.isEnabled
         deadlinePicker.isEnabled = !deadlinePicker.isEnabled
         bodyTextView.isEditable = !bodyTextView.isEditable

@@ -50,12 +50,12 @@ final class MainViewController: UIViewController {
     }
     
     @objc private func didTapAddButton() {
-        let detailVC = DetailViewController(viewModel: viewModel ,listItem: nil)
+        let detailVC = AddViewController(viewModel: viewModel)
         self.present(detailVC, animated: true)
     }
     
     private func didtapCell(_ listItem: ListItem) {
-        let detailVC = DetailViewController(viewModel: viewModel, listItem: listItem)
+        let detailVC = EditlViewController(viewModel: viewModel, listItem: listItem)
         self.present(detailVC, animated: true)
     }
     
