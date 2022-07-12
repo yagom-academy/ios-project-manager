@@ -17,8 +17,17 @@ final class MainViewController: UIViewController {
     private lazy var  doingTableView = listTableView()
     private lazy var  doneTableView = listTableView()
     
-    private let mainViewModel = MainViewModel()
+    private let viewModel: MainViewModelInOut
     private var disposebag = DisposeBag()
+    
+    init(viewModel: MainViewModelInOut) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,26 +50,26 @@ final class MainViewController: UIViewController {
     }
     
     @objc private func didTapAddButton() {
-        let detailVC = DetailViewController(viewModel: mainViewModel ,listItem: nil)
+        let detailVC = DetailViewController(viewModel: viewModel ,listItem: nil)
         self.present(detailVC, animated: true)
     }
     
     private func didtapCell(_ listItem: ListItem) {
-        let detailVC = DetailViewController(viewModel: mainViewModel, listItem: listItem)
+        let detailVC = DetailViewController(viewModel: viewModel, listItem: listItem)
         self.present(detailVC, animated: true)
     }
     
     private func setTableView() {
         bindTableView(todoTableView,
-                      list: mainViewModel.todoList,
+                      list: viewModel.todoList,
                       headerView: todoHeaderView,
                       type: .todo)
         bindTableView(doingTableView,
-                      list: mainViewModel.doingList,
+                      list: viewModel.doingList,
                       headerView: doingHeaderView,
                       type: .doing)
         bindTableView(doneTableView,
-                      list: mainViewModel.doneList,
+                      list: viewModel.doneList,
                       headerView: doneHeaderView,
                       type: .done)
     }
@@ -72,7 +81,7 @@ final class MainViewController: UIViewController {
                     return
                 }
                 
-                cell.setViewContents(item, isOver: self.mainViewModel.isOverDeadline(listItem: item))
+                cell.setViewContents(item, isOver: self.viewModel.isOverDeadline(listItem: item))
             }
             .disposed(by: disposebag)
         
@@ -84,7 +93,7 @@ final class MainViewController: UIViewController {
         tableView.rx.itemSelected
             .bind(onNext: { index in
                 
-                self.mainViewModel.peekList(index: index.row, type: type) {
+                self.viewModel.peekList(index: index.row, type: type) {
                     self.didtapCell($0)
                 }
                 tableView.deselectRow(at: index, animated: true)
@@ -93,7 +102,7 @@ final class MainViewController: UIViewController {
         
         tableView.rx.itemDeleted
             .bind(onNext: {
-                self.mainViewModel.deleteList(index: $0.row, type: type)
+                self.viewModel.deleteList(index: $0.row, type: type)
             })
             .disposed(by: disposebag)
     }

@@ -10,10 +10,10 @@ import RxSwift
 import RxCocoa
 
 final class DetailViewController: UIViewController {
-    private let viewModel: MainViewModel
+    private let viewModel: MainViewModelInOut
     private let listItem: ListItem?
     
-    init(viewModel:MainViewModel ,listItem: ListItem?) {
+    init(viewModel:MainViewModelInOut ,listItem: ListItem?) {
         self.viewModel = viewModel
         self.listItem = listItem
         super.init(nibName: nil, bundle: nil)

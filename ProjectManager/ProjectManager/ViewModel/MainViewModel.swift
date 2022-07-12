@@ -27,13 +27,16 @@ protocol MainViewModelInput {
 }
 
 final class MainViewModel: MainViewModelInOut {
+    private var storage: Storege
 
 //MARK: - output
     let todoList: Driver<[ListItem]>
     let doingList: Driver<[ListItem]>
     let doneList: Driver<[ListItem]>
     
-    init() {
+    init(storage: Storege) {
+        self.storage = storage
+        
         todoList = storage.list
             .map{ $0.filter { $0.type == .todo }}
             .asDriver(onErrorJustReturn: [])
