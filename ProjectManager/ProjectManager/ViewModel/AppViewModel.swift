@@ -24,18 +24,4 @@ class AppViewModel: ObservableObject {
     }
     return filteredTodo
   }
-  
-  func creat(todo: Todo) {
-    todoService.todoList.insert(Todo(title: todo.title, content: todo.content, status: .todo), at: 0)
-  }
-  
-  func update(todo: Todo) {
-    let willChangeTodo = todoService.todoList.filter { filteredTodo in
-      todo.id == filteredTodo.id
-    }
-    
-    willChangeTodo.first?.content = todo.content
-    willChangeTodo.first?.title = todo.title
-    willChangeTodo.first?.date  = todo.date
-  }
 }

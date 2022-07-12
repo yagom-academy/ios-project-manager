@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CreateView: View {
-  @ObservedObject var viewModel: AppViewModel
+  @ObservedObject var viewModel: CreateViewModel
   @ObservedObject var todo = Todo(title: "", content: "")
   @Binding var isShow: Bool
   

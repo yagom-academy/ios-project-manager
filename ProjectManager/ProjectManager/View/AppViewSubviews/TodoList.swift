@@ -47,7 +47,7 @@ struct DetailViewButton: View {
       TodoListCell(todo)
     }
     .sheet(isPresented: $isShowDetailView) {
-      EditView(viewModel: viewModel, todo: todo, isShow: $isShowDetailView)
+      EditView(viewModel: EditViewModel(todoService: viewModel.todoService), todo: todo, isShow: $isShowDetailView)
     }
   }
 }

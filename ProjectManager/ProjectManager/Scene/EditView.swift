@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct EditView: View {
-  @ObservedObject var viewModel: AppViewModel
+  @ObservedObject var viewModel: EditViewModel
   @ObservedObject var todo = Todo(title: "", content: "")
   @Binding var isShow: Bool
   @State var nonEditable: Bool = true

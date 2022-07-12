@@ -37,7 +37,7 @@ struct AppView: View {
         })
       }
       .sheet(isPresented: $isShowDetailView) {
-        CreateView(viewModel: viewModel, isShow: $isShowDetailView)
+        CreateView(viewModel: CreateViewModel(todoService: viewModel.todoService), isShow: $isShowDetailView)
       }
     }
     .navigationViewStyle(.stack)
