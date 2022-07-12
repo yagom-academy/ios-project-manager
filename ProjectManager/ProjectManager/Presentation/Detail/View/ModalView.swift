@@ -75,6 +75,10 @@ final class ModalView: UIView {
             baseStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
             baseStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10)
         ])
+        
+        NSLayoutConstraint.activate([
+            datePicker.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.25)
+        ])
     }
     
     func compose(content: ProjectContent) {
