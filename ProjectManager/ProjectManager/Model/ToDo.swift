@@ -7,12 +7,6 @@
 import Foundation
 import RealmSwift
 
-enum State {
-  case todo
-  case doing
-  case done
-}
-
 struct Todo: Hashable {
   var title: String = ""
   var content: String = ""
@@ -37,17 +31,5 @@ struct Todo: Hashable {
       Todo(title: "test13", content: "쿼카 하이!", date: Date().addingTimeInterval(3600 * 12), state: .todo),
       Todo(title: "test14", content: "쿼카 하이!", date: Date().addingTimeInterval(3600 * 48), state: .todo)
       ]
-  }
-  
-  var readTodoCount: [Todo] {
-    return readList.filter { $0.state == .todo }
-  }
-  
-  var readDoingCount: [Todo] {
-    return readList.filter { $0.state == .doing }
-  }
-  
-  var readDoneCount: [Todo] {
-    return readList.filter { $0.state == .done }
   }
 }
