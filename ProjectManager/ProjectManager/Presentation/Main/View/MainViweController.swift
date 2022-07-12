@@ -72,24 +72,16 @@ final class MainViweController: UIViewController {
     }
     
     private func setUpSelection() {
-        mainView.toDoTable.tableView.rx
+        bindItemSelected(to: mainView.toDoTable.tableView)
+        bindItemSelected(to: mainView.doingTable.tableView)
+        bindItemSelected(to: mainView.doneTable.tableView)
+    }
+    
+    private func bindItemSelected(to tableView: UITableView) {
+        tableView.rx
             .itemSelected
-            .bind { [weak self] indexPath in
-                self?.mainView.toDoTable.tableView.deselectRow(at: indexPath, animated: true)
-            }
-            .disposed(by: disposeBag)
-        
-        mainView.doingTable.tableView.rx
-            .itemSelected
-            .bind { [weak self] indexPath in
-                self?.mainView.doingTable.tableView.deselectRow(at: indexPath, animated: true)
-            }
-            .disposed(by: disposeBag)
-        
-        mainView.doneTable.tableView.rx
-            .itemSelected
-            .bind { [weak self] indexPath in
-                self?.mainView.doneTable.tableView.deselectRow(at: indexPath, animated: true)
+            .bind { indexPath in
+                tableView.deselectRow(at: indexPath, animated: true)
             }
             .disposed(by: disposeBag)
     }
