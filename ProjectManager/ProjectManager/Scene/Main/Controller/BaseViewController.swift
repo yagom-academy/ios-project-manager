@@ -169,3 +169,42 @@ extension BaseViewController: TodoDelegate {
     todoList[index] = todo
   }
 }
+// MARK: UILongPressGestureDelagate & Move Todo Method
+extension BaseViewController {
+  @objc func showMovingTodoSheet(_ gesture: UILongPressGestureRecognizer) {
+    var indexPathRow = Int()
+    if gesture.state == UIGestureRecognizer.State.began {
+      let touchPoint = gesture.location(in: todoView.todoCollectionView)
+      if let index = todoView.todoCollectionView.indexPathForItem(at: touchPoint) {
+        indexPathRow = index.row
+      }
+    }
+    
+    let pressedPoint: CGPoint = gesture.location(ofTouch: 0, in: nil)
+    
+    let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+    
+    let moveToDoingAction = UIAlertAction(title: "Move To DOING", style: .default) { _ in
+      self.moveTodoTo(state: .doing, and: indexPathRow)
+    }
+    let moveToDoneAction = UIAlertAction(title: "Move To DONE", style: .default) { _ in
+      self.moveTodoTo(state: .done, and: indexPathRow)
+    }
+    
+    alert.addAction(moveToDoingAction)
+    alert.addAction(moveToDoneAction)
+    
+    let popover = alert.popoverPresentationController
+    popover?.sourceView = view
+    popover?.sourceRect = CGRect(x: pressedPoint.x, y: pressedPoint.y, width: 64, height: 64)
+    
+    present(alert, animated: true)
+  }
+  
+  private func moveTodoTo(state: State, and indexPathRow: Int) {
+    let todoItems = self.todoList.filter { $0.state == .todo }
+    let item = todoItems[indexPathRow]
+    guard let index = self.todoList.firstIndex(of: item) else { return }
+    self.todoList[index].state = state
+  }
+}
