@@ -21,6 +21,10 @@ final class Container {
         return AddViewController(viewModel: makeDetailViewModel())
     }
     
+    func makeEditViewController(_ list: ListItem) -> EditlViewController {
+        return EditlViewController(viewModel: makeDetailViewModel(), listItem: list)
+    }
+    
     private func makeDetailViewModel() -> DetailViewModel {
         return DetailViewModel(storage: storage)
     }
