@@ -23,22 +23,22 @@ extension TodoListSceneDIContainer: TodoListSceneCoordinatorDependencies {
     
     // MARK: ViewController
     
-    func makeTodoDetailViewContoller(actions: TodoDetailActions, todoListModel: TodoListModel) -> TodoDetailViewController {
-        return TodoDetailViewController(viewModel: makeTodoDetailViewModel(actions: actions, todoListModel: todoListModel))
+    func makeTodoDetailViewContoller(todoListModel: TodoListModel) -> TodoDetailViewController {
+        return TodoDetailViewController(viewModel: makeTodoDetailViewModel(todoListModel: todoListModel))
     }
     
-    func makeTodoListViewController(actions: TodoListActions) -> TodoListViewController {
-        return TodoListViewController(viewModel: makeTodoListViewModel(actions: actions))
+    func makeTodoListViewController() -> TodoListViewController {
+        return TodoListViewController(viewModel: makeTodoListViewModel())
     }
     
     // MARK: - ViewModel
     
-    private func makeTodoDetailViewModel(actions: TodoDetailActions, todoListModel: TodoListModel) -> TodoDetailViewModelable {
-        return TodoDetailViewModel(actions: actions, useCase: makeTodoListUseCase(), todoListModel: todoListModel)
+    private func makeTodoDetailViewModel(todoListModel: TodoListModel) -> TodoDetailViewModelable {
+        return TodoDetailViewModel(useCase: makeTodoListUseCase(), todoListModel: todoListModel)
     }
     
-    private func makeTodoListViewModel(actions: TodoListActions) -> TodoListViewModelable {
-        return TodoListViewModel(actions: actions, useCase: makeTodoListUseCase())
+    private func makeTodoListViewModel() -> TodoListViewModelable {
+        return TodoListViewModel(useCase: makeTodoListUseCase())
     }
     
     // MARK: - UseCase

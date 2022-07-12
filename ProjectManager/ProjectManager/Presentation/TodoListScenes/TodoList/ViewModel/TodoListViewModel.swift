@@ -23,10 +23,6 @@ protocol TodoListViewModelOutput {
 
 protocol TodoListViewModelable: TodoListViewModelInput, TodoListViewModelOutput {}
 
-struct TodoListActions {
-    let showDetailView: (TodoListModel) -> Void
-}
-
 final class TodoListViewModel: TodoListViewModelable {
     // MARK: - Output
     
@@ -42,11 +38,9 @@ final class TodoListViewModel: TodoListViewModelable {
         return filteredItems(with: .done)
     }
     
-    private let actions: TodoListActions?
     private let useCase: TodoListUseCaseable
     
-    init(actions: TodoListActions? = nil, useCase: TodoListUseCaseable) {
-        self.actions = actions
+    init(useCase: TodoListUseCaseable) {
         self.useCase = useCase
     }
     
@@ -65,7 +59,6 @@ extension TodoListViewModel {
     
     func addButtonDidTap() {
         let item = TodoListModel(title: "", content: "", deadLine: Date().endOfTheDay ?? Date())
-        actions?.showDetailView(item)
         useCase.create(item)
     }
     
@@ -74,7 +67,6 @@ extension TodoListViewModel {
     }
     
     func cellDidTap(_ item: TodoListModel) {
-        actions?.showDetailView(item)
     }
     
     func cellDidLongPress(_ item: TodoListModel, to processType: ProcessType) {

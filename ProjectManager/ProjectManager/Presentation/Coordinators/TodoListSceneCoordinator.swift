@@ -8,11 +8,8 @@
 import UIKit
 
 protocol TodoListSceneCoordinatorDependencies {
-    func makeTodoListViewController(actions: TodoListActions) -> TodoListViewController
-    func makeTodoDetailViewContoller(
-        actions: TodoDetailActions,
-        todoListModel: TodoListModel
-    ) -> TodoDetailViewController
+    func makeTodoListViewController() -> TodoListViewController
+    func makeTodoDetailViewContoller(todoListModel: TodoListModel) -> TodoDetailViewController
 }
 
 final class TodoListSceneCoordinator {
@@ -29,17 +26,14 @@ final class TodoListSceneCoordinator {
     // MARK: View Transition
     
     func start() {
-        let todoListViewController = dependencies.makeTodoListViewController(actions: makeTodoListActions())
+        let todoListViewController = dependencies.makeTodoListViewController()
         navigationController?.pushViewController(todoListViewController, animated: true)
         
         self.todoListViewController = todoListViewController
     }
     
     private func showTodoDetailView(_ item: TodoListModel) {
-        let todoDetailViewController = dependencies.makeTodoDetailViewContoller(
-            actions: makeTodoDetailActions(),
-            todoListModel: item
-        )
+        let todoDetailViewController = dependencies.makeTodoDetailViewContoller(todoListModel: item)
         let todoDetailNavigationController = UINavigationController(rootViewController: todoDetailViewController)
         
         todoDetailNavigationController.modalPresentationStyle = .formSheet
@@ -50,15 +44,5 @@ final class TodoListSceneCoordinator {
     
     private func dismissTodoDetailView() {
         self.todoDetailViewController?.dismiss(animated: true)
-    }
-    
-    // MARK: Action
-    
-    private func makeTodoListActions() -> TodoListActions {
-        return TodoListActions(showDetailView: showTodoDetailView)
-    }
-    
-    private func makeTodoDetailActions() -> TodoDetailActions {
-        return TodoDetailActions(dismiss: dismissTodoDetailView)
     }
 }
