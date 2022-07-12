@@ -25,9 +25,9 @@ final class TodoListViewModel {
     let doingViewData: Driver<[Todo]>
     let doneViewData: Driver<[Todo]>
 
-    let dataBase: DataBase = TestDataBase()
+    private var dataBase: DataBase
     
-    init(dataBase: DataBase = MockDataBase()) {
+    init(dataBase: DataBase = TestDataBase()) {
         self.dataBase = dataBase
         let data = BehaviorRelay<[Todo]>(value: self.dataBase.read())
             
