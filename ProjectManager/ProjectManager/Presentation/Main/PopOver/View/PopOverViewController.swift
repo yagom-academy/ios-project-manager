@@ -8,18 +8,7 @@
 import UIKit
 import RxCocoa
 
-protocol PopOverDelegate: AnyObject {
-    func dismiss()
-}
-
-extension PopOverViewController: PopOverDelegate {
-    func dismiss() {
-        dismiss(animated: true)
-    }
-}
-
 final class PopOverViewController: UIViewController {
-    private lazy var popOverView = PopOverView(delegate: self)
     private let viewModel: PopOverViewModel
     
     init(cell: ProjectCell) {
