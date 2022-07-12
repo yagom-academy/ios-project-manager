@@ -19,8 +19,8 @@ final class DetailViewController: UIViewController {
     
     private let detailView = DetailView()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func loadView() {
+        super.loadView()
         self.view = detailView
     }
 }
