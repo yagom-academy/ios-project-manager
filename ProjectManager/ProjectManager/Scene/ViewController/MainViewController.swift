@@ -173,16 +173,61 @@ final class MainViewController: UIViewController, UIPopoverPresentationControlle
     private func fetchToDo() {
         let todos = realmManager.fetch(taskType: .todo)
         self.todos = todos
+        // MARK: - Handle Long Press Gesture
+        
+        mainView.todoTableView.rx.longPressGesture()
+            .when(.began)
+            .map { $0.location(in: self.mainView.todoTableView) }
+            .subscribe(onNext: { [weak self] in
+                guard let self = self else {
+                    return
+                }
+                guard let cell = self.cell(at: $0, from: self.mainView.todoTableView) else {
+                    return
+                }
+                self.showPopoverView(at: cell)
+            })
+            .disposed(by: disposeBag)
     }
     
     private func fetchDoing() {
         let doings = realmManager.fetch(taskType: .doing)
         self.doings = doings
+    
+    private func cell(at location: CGPoint, from tableView: UITableView) -> TaskTableViewCell? {
+        if let indexPath = tableView.indexPathForRow(at: location) {
+            return tableView.cellForRow(at: indexPath) as? TaskTableViewCell
+        } else {
+            return nil
+        }
     }
     
     private func fetchDone() {
         let dones = realmManager.fetch(taskType: .done)
         self.dones = dones
+    private func showPopoverView(at cell: TaskTableViewCell) {
+        let popoverWidth = mainView.frame.size.width * 0.25
+        let popoverHeight = mainView.frame.size.height * 0.15
+        
+        let popoverViewController = PopoverViewController()
+        popoverViewController.task = cell.task
+        popoverViewController.setPopoverAction()
+        popoverViewController.delegate = self
+        popoverViewController.preferredContentSize = .init(
+            width: popoverWidth,
+            height: popoverHeight
+        )
+        popoverViewController.modalPresentationStyle = .popover
+        
+        guard let popoverPresentationController = popoverViewController.popoverPresentationController else {
+            return
+        }
+        
+        popoverPresentationController.sourceView = cell
+        popoverPresentationController.sourceRect = cell.bounds
+        popoverPresentationController.permittedArrowDirections = .up
+        
+        present(popoverViewController, animated: true)
     }
     
     private func showNewFormSheetView() {
