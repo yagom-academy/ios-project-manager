@@ -37,7 +37,7 @@ struct AppView: View {
         })
       }
       .sheet(isPresented: $isShowDetailView) {
-        EditView(viewModel: self.viewModel, todo: Todo(title: "", content: ""), nonEditable: false, isShow: $isShowDetailView, method: .creat)
+        CreateView(viewModel: viewModel, isShow: $isShowDetailView)
       }
     }
     .navigationViewStyle(.stack)

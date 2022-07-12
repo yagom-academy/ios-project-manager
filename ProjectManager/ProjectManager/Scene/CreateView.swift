@@ -1,38 +1,30 @@
 //
-//  DetailView.swift
+//  CreateView.swift
 //  ProjectManager
 //
-//  Created by Red and Taeangel on 2022/07/06.
+//  Created by Red and Taeangel on 2022/07/12.
 //
 
 import SwiftUI
 
-struct EditView: View {
+struct CreateView: View {
   @ObservedObject var viewModel: TodoViewModel
   @ObservedObject var todo = Todo(title: "", content: "")
   @Binding var isShow: Bool
-  @State var nonEditable: Bool = true
   
   var body: some View {
     NavigationView {
       DetailView(todo: todo)
-        .disabled(nonEditable)
         .toolbar {
           ToolbarItem(placement: .navigationBarLeading) {
-            Button {
-              if nonEditable == true {
-                nonEditable = false
-              } else {
-                isShow = false
-              }
-            } label: {
-              nonEditable ? Text("Edit") : Text("Calcel")
+            Button("Calcel") {
+              isShow = false
             }
           }
           ToolbarItem(placement: .navigationBarTrailing) {
             Button("Done") {
+              viewModel.creat(todo: todo)
               isShow = false
-              viewModel.update(todo: todo)
             }
           }
         }
