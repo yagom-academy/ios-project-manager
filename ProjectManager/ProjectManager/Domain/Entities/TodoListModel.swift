@@ -14,7 +14,11 @@ struct TodoListModel: Hashable {
     let deadLine: Date
     var processType: ProcessType
     
-    static let empty: Self = .init(title: "", content: "", deadLine: Date().endOfTheDay ?? Date())
+    static let empty: Self = .init(
+        title: "",
+        content: "",
+        deadLine: DateManager.shared.endOfTheDay(for: Date()) ?? Date()
+    )
     
     init(
         title: String,

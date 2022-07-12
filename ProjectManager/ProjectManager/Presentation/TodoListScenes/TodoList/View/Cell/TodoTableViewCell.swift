@@ -81,7 +81,7 @@ final class TodoTableViewCell: UITableViewCell {
     func setupData(with data: TodoListModel) {
         titleLabel.text = data.title
         contentLabel.text = data.content
-        deadLineLabel.text = data.deadLine.formattedString
+        deadLineLabel.text = DateManager.shared.formattedString(data.deadLine)
         
         setupDeadLineTextColor(deadLine: data.deadLine)
     }

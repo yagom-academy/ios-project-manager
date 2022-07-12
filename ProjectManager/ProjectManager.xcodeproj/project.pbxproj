@@ -26,12 +26,12 @@
 		9465AF2C2875AD81002D4352 /* TodoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9465AF2B2875AD81002D4352 /* TodoDetailViewController.swift */; };
 		947C3F382875CD4600223403 /* TableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947C3F372875CD4600223403 /* TableHeaderView.swift */; };
 		947EEF31287D4691009746C9 /* TodoDetailViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947EEF30287D4691009746C9 /* TodoDetailViewCoordinator.swift */; };
+		947EEF34287D5EFB009746C9 /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947EEF33287D5EFB009746C9 /* DateManager.swift */; };
 		A10EA52F287D59E500F3F9B5 /* ViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10EA52E287D59E500F3F9B5 /* ViewControllerFactory.swift */; };
 		A184970428755D1100C82AA0 /* TodoListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A184970328755D1100C82AA0 /* TodoListModel.swift */; };
 		A1849707287561CE00C82AA0 /* TodoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1849706287561CE00C82AA0 /* TodoTableViewCell.swift */; };
 		A184970B287563F700C82AA0 /* UIStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A184970A287563F700C82AA0 /* UIStackView.swift */; };
 		A1BBD2A92875B7230075BB38 /* TodoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BBD2A82875B7230075BB38 /* TodoDetailView.swift */; };
-		A1C5495B287800A900E10A0B /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C5495A287800A900E10A0B /* Date.swift */; };
 		A1C7A3F9287BB3ED00E0B32B /* TodoListTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C7A3F8287BB3ED00E0B32B /* TodoListTableViewDelegate.swift */; };
 		A1C7A3FB287BB40700E0B32B /* TodoListTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C7A3FA287BB40700E0B32B /* TodoListTableViewDataSource.swift */; };
 		A1FCB06C287850FF00A2FBD6 /* TodoListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FCB06B287850FF00A2FBD6 /* TodoListViewModelTests.swift */; };
@@ -76,12 +76,12 @@
 		9465AF2B2875AD81002D4352 /* TodoDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDetailViewController.swift; sourceTree = "<group>"; };
 		947C3F372875CD4600223403 /* TableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableHeaderView.swift; sourceTree = "<group>"; };
 		947EEF30287D4691009746C9 /* TodoDetailViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDetailViewCoordinator.swift; sourceTree = "<group>"; };
+		947EEF33287D5EFB009746C9 /* DateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
 		A10EA52E287D59E500F3F9B5 /* ViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerFactory.swift; sourceTree = "<group>"; };
 		A184970328755D1100C82AA0 /* TodoListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListModel.swift; sourceTree = "<group>"; };
 		A1849706287561CE00C82AA0 /* TodoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoTableViewCell.swift; sourceTree = "<group>"; };
 		A184970A287563F700C82AA0 /* UIStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStackView.swift; sourceTree = "<group>"; };
 		A1BBD2A82875B7230075BB38 /* TodoDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDetailView.swift; sourceTree = "<group>"; };
-		A1C5495A287800A900E10A0B /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		A1C7A3F8287BB3ED00E0B32B /* TodoListTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListTableViewDelegate.swift; sourceTree = "<group>"; };
 		A1C7A3FA287BB40700E0B32B /* TodoListTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListTableViewDataSource.swift; sourceTree = "<group>"; };
 		A1FCB0612878508C00A2FBD6 /* ProjectManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProjectManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -291,6 +291,14 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		947EEF32287D5ECB009746C9 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				947EEF33287D5EFB009746C9 /* DateManager.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		A10EA52D287D59D000F3F9B5 /* ViewControllerFactory */ = {
 			isa = PBXGroup;
 			children = (
@@ -318,6 +326,7 @@
 		A1849708287563E300C82AA0 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				947EEF32287D5ECB009746C9 /* Utils */,
 				A1849709287563EA00C82AA0 /* Extension */,
 			);
 			path = Common;
@@ -328,7 +337,6 @@
 			children = (
 				A184970A287563F700C82AA0 /* UIStackView.swift */,
 				940B64DF28756C0A001D3FD9 /* UITableViewCell.swift */,
-				A1C5495A287800A900E10A0B /* Date.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -600,11 +608,11 @@
 				947C3F382875CD4600223403 /* TableHeaderView.swift in Sources */,
 				940B64DE28756ABB001D3FD9 /* TodoListView.swift in Sources */,
 				940B64D2287553A3001D3FD9 /* TodoListViewModel.swift in Sources */,
+				947EEF34287D5EFB009746C9 /* DateManager.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				A1BBD2A92875B7230075BB38 /* TodoDetailView.swift in Sources */,
 				940B64BE28754FC5001D3FD9 /* AppDIContainer.swift in Sources */,
 				940B64C328755072001D3FD9 /* MemoryStorage.swift in Sources */,
-				A1C5495B287800A900E10A0B /* Date.swift in Sources */,
 				940B64C7287551BC001D3FD9 /* TodoListSceneDIContainer.swift in Sources */,
 				940B64E028756C0A001D3FD9 /* UITableViewCell.swift in Sources */,
 			);
