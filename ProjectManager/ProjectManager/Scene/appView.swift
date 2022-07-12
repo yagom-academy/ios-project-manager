@@ -22,13 +22,14 @@ struct AppView: View {
   var body: some View {
     NavigationView {
       HStack(spacing: 10) {
-        TodoListView(status: .todo) { status in
+        TodoListView(todoService: viewModel.todoService, status: .todo) { status in
           viewModel.read(by: status)
         }
-        TodoListView(status: .doing) { status in
+                
+        TodoListView(todoService: viewModel.todoService, status: .doing) { status in
           viewModel.read(by: status)
         }
-        TodoListView(status: .done) { status in
+        TodoListView(todoService: viewModel.todoService, status: .done) { status in
           viewModel.read(by: status)
         }
       }
