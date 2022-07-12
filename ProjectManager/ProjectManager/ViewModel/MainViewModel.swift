@@ -20,8 +20,6 @@ protocol MainViewModelOutput {
 protocol MainViewModelInput {
     func isOverDeadline(listItem: ListItem) -> Bool
     func peekList(index: Int, type: ListType, completion: @escaping ((ListItem) -> Void))
-    func creatList(listItem: ListItem)
-    func updateList(listItem: ListItem)
     func deleteList(index: Int, type: ListType)
     func changeListType(listItem: ListItem, type: ListType)
 }
@@ -75,14 +73,6 @@ extension MainViewModel {
             })
             .dispose()
         }
-    }
-    
-    func creatList(listItem: ListItem) {
-        storage.creatList(listItem: listItem)
-    }
-    
-    func updateList(listItem: ListItem) {
-        storage.updateList(listItem: listItem)
     }
     
     func deleteList(index: Int, type: ListType) {
