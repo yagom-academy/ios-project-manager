@@ -134,6 +134,3 @@ override func layoutSubviews() {
 ```
 
 <img src="https://i.imgur.com/hKzYFSw.png" width="500">
-
-
-
