@@ -12,7 +12,7 @@ import RxGesture
 
 final class MainViweController: UIViewController {
     private let mainView = MainView(frame: .zero)
-
+    
     private let disposeBag = DisposeBag()
     private var viewModel = MainViewModel()
     
@@ -24,7 +24,7 @@ final class MainViweController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setUpNavigationItem()
         
         bind()
@@ -69,6 +69,7 @@ final class MainViweController: UIViewController {
         setUpSelection()
         setUpTableCellData()
         setUpdModelSelected()
+        deleteProject()
     }
     
     private func setUpSelection() {
@@ -222,7 +223,7 @@ final class MainViweController: UIViewController {
                 self.present(popOverViewController, animated: true, completion: nil)
             }
             .disposed(by: disposeBag)
-                
+        
         doneTableView.rx
             .longPressGesture()
             .when(.began)
@@ -238,5 +239,61 @@ final class MainViweController: UIViewController {
                 self.present(popOverViewController, animated: true, completion: nil)
             }
             .disposed(by: disposeBag)
+    }
+    
+    private func deleteProject() {
+        let toDoTableView = mainView.toDoTable.tableView
+        let doingTableView = mainView.doingTable.tableView
+        let doneTableView = mainView.doneTable.tableView
+        
+        toDoTableView.delegate = self
+        doingTableView.delegate = self
+        doneTableView.delegate = self
+        
+        toDoTableView.rx
+            .itemDeleted
+            .asDriver()
+            .drive { [weak self] indexPath in
+                guard let cell = toDoTableView.cellForRow(at: indexPath) as? ProjectCell else {
+                    return
+                }
+                self?.viewModel.deleteProject(cell.contentID)
+            }
+            .disposed(by: disposeBag)
+        
+        doingTableView.rx
+            .itemDeleted
+            .asDriver()
+            .drive { [weak self] indexPath in
+                guard let cell = doingTableView.cellForRow(at: indexPath) as? ProjectCell else {
+                    return
+                }
+                self?.viewModel.deleteProject(cell.contentID)
+            }
+            .disposed(by: disposeBag)
+        
+        doneTableView.rx
+            .itemDeleted
+            .asDriver()
+            .drive { [weak self] indexPath in
+                guard let cell = doneTableView.cellForRow(at: indexPath) as? ProjectCell else {
+                    return
+                }
+                self?.viewModel.deleteProject(cell.contentID)
+            }
+            .disposed(by: disposeBag)
+    }
+}
+
+extension MainViweController: UITableViewDelegate {
+    func tableView(
+        _ tableView: UITableView,
+        leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath
+    ) -> UISwipeActionsConfiguration? {
+        let delete = UIContextualAction(style: .destructive, title: "DELETE") { _, _, completion in
+            completion(true)
+        }
+        
+        return UISwipeActionsConfiguration(actions: [delete])
     }
 }

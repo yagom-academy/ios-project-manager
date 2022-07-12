@@ -31,4 +31,8 @@ struct MainViewModel {
             .map { $0.filter { $0.status == .done } }
             .asDriver(onErrorJustReturn: [])
     }()
+    
+    func deleteProject(_ id: UUID?) {
+        MockStorageManager.shared.delete(projectContentID: id)
+    }
 }

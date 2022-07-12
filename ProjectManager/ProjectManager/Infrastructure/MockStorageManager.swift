@@ -38,9 +38,9 @@ extension MockStorageManager {
         }
     }
     
-    func delete(projectContent: ProjectContent) {
+    func delete(projectContentID: UUID?) {
         let projects = projectEntities.value
-        if let indexToDelete = projects.firstIndex(where: { $0.id == projectContent.id}) {
+        if let indexToDelete = projects.firstIndex(where: { $0.id == projectContentID}) {
             var projectsToDelete = projectEntities.value
             projectsToDelete.remove(at: indexToDelete)
             projectEntities.accept(projectsToDelete)
