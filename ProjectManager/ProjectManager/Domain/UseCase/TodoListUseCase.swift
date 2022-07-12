@@ -22,9 +22,7 @@ final class TodoListUseCase: TodoListUseCaseable {
     init(repository: TodoListRepositorible) {
         self.repository = repository
     }
-}
-
-extension TodoListUseCase {
+    
     func create(_ item: TodoListModel) {
         repository.create(item)
     }
