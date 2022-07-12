@@ -19,8 +19,8 @@ protocol MainViewModelInput {
     func isOverDeadline(listItem: ListItem) -> Bool
     func peekList(index: Int, type: ListType, completion: @escaping ((ListItem) -> Void))
     func creatList(listItem: ListItem)
-    func updateList(listItem: ListItem)
-    func deleteList(listItem: ListItem)
+    func updateList(index: Int, type: ListType)
+    func deleteList(index: Int, type: ListType)
     func changeListType(listItem: ListItem, type: ListType)
 }
 
@@ -74,12 +74,29 @@ extension MainViewModel: MainViewModelInput {
         
     }
     
-    func updateList(listItem: ListItem) {
+    func updateList(index: Int, type: ListType) {
         
     }
     
-    func deleteList(listItem: ListItem) {
-        
+    func deleteList(index: Int, type: ListType) {
+        switch type {
+        case .todo:
+            _ = todoList.drive(onNext: {
+                self.storage.deleteList(listItem: $0[index])
+            })
+            .dispose()
+        case .doing:
+            _ = doingList.drive(onNext: {
+                self.storage.deleteList(listItem: $0[index])
+            })
+            .dispose()
+        case .done:
+            _ = doneList.drive(onNext: {
+                self.storage.deleteList(listItem: $0[index])
+            })
+            .dispose()
+        }
+
     }
     
     func changeListType(listItem: ListItem, type: ListType) {

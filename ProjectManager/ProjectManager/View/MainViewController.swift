@@ -90,6 +90,12 @@ final class MainViewController: UIViewController {
                 tableView.deselectRow(at: index, animated: true)
             })
             .disposed(by: disposebag)
+        
+        tableView.rx.itemDeleted
+            .bind(onNext: {
+                self.mainViewModel.deleteList(index: $0.row, type: type)
+            })
+            .disposed(by: disposebag)
     }
     
     // MARK: - UI Components
