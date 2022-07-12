@@ -173,7 +173,7 @@
 				B39F10222873DDC100475AE4 /* Sources */,
 				B39F10232873DDC100475AE4 /* Frameworks */,
 				B39F10242873DDC100475AE4 /* Resources */,
-				33CE25325CF7BC5DB18BCD74 /* [CP] Embed Pods Frameworks */,
+				B7E9BEFD7883ADB918572557 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -231,21 +231,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		33CE25325CF7BC5DB18BCD74 /* [CP] Embed Pods Frameworks */ = {
+		B7E9BEFD7883ADB918572557 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ProjectManager/Pods-ProjectManager-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-ProjectManager/Pods-ProjectManager-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Embed Pods Frameworks";
+			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ProjectManager/Pods-ProjectManager-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-ProjectManager/Pods-ProjectManager-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ProjectManager/Pods-ProjectManager-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ProjectManager/Pods-ProjectManager-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		CFACFD496F04BF6B319EB2A2 /* [CP] Check Pods Manifest.lock */ = {
