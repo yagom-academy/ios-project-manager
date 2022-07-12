@@ -190,29 +190,33 @@ final class CardListViewController: UIViewController {
   }
   
   private func bindSectionsLongPressed() {
-    todoSectionView.tableView.rx.modelLongPressed(Card.self)
-      .withUnretained(self)
-      .flatMap { wself, item in wself.showPopover(cell: item.0, card: item.1) }
-      .bind(onNext: { [weak self] card, cardType in
-        self?.viewModel.moveDifferentSection(card, to: cardType)
-      })
-      .disposed(by: disposeBag)
-    
-    doingSectionView.tableView.rx.modelLongPressed(Card.self)
-      .withUnretained(self)
-      .flatMap { wself, item in wself.showPopover(cell: item.0, card: item.1) }
-      .bind(onNext: { [weak self] card, cardType in
-        self?.viewModel.moveDifferentSection(card, to: cardType)
-      })
-      .disposed(by: disposeBag)
-    
-    doneSectionView.tableView.rx.modelLongPressed(Card.self)
-      .withUnretained(self)
-      .flatMap { wself, item in wself.showPopover(cell: item.0, card: item.1) }
-      .bind(onNext: { [weak self] card, cardType in
-        self?.viewModel.moveDifferentSection(card, to: cardType)
-      })
-      .disposed(by: disposeBag)
+    Observable.of(
+      todoSectionView.tableView.rx.modelLongPressed(Card.self),
+      doingSectionView.tableView.rx.modelLongPressed(Card.self),
+      doneSectionView.tableView.rx.modelLongPressed(Card.self)
+    )
+    .merge()
+    .flatMap { cell, card -> Observable<(Int, Card, [CardType])> in
+      let (first, second) = self.distinguishMenuType(of: card)
+      let popover = self.showPopover(
+        sourceView: cell,
+        firstTitle: first.moveToMenuTitle,
+        secondTitle: second.moveToMenuTitle
+      )
+      
+      return Observable.zip(
+        popover,
+        Observable.just(card),
+        Observable.just([first, second])
+      )
+    }
+    .map { index, card, cardTypes in
+      return (card, cardTypes[index])
+    }
+    .bind(onNext: { [weak self] card, cardType in
+      self?.viewModel.moveDifferentSection(card, to: cardType)
+    })
+    .disposed(by: disposeBag)
   }
 }
 
@@ -250,41 +254,35 @@ extension CardListViewController {
 // MARK: - Alert
 
 extension CardListViewController {
-  private func showPopover(cell: UITableViewCell, card: Card) -> Observable<(Card, CardType)> {
-    return Single<(Card, CardType)>.create { [weak self, weak cell] emitter in
-      guard let self = self, let cell = cell else {
+  private func showPopover(
+    sourceView: UIView,
+    firstTitle: String,
+    secondTitle: String
+  ) -> Observable<Int> {
+    return Single<Int>.create { [weak self] emitter in
+      guard let self = self else {
         emitter(.failure(RxCocoaError.unknown))
         return Disposables.create()
       }
       
-      let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-      alertController.popoverPresentationController?.permittedArrowDirections = .up
-      alertController.popoverPresentationController?.sourceView = cell.superview
-      alertController.popoverPresentationController?.sourceRect = CGRect(origin: cell.center, size: .zero)
-      alertController.modalPresentationStyle = .popover
+      let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+      alert.modalPresentationStyle = .popover
+      alert.popoverPresentationController?.permittedArrowDirections = .up
+      alert.popoverPresentationController?.sourceView = sourceView.superview
+      alert.popoverPresentationController?.sourceRect = CGRect(origin: sourceView.center, size: .zero)
       
-      let (firstCardType, secondCardType) = self.distinguishMenuType(of: card)
-      
-      let firstAction = UIAlertAction(
-        title: firstCardType.moveToMenuTitle,
-        style: .default
-      ) { _ in
-        emitter(.success((card, firstCardType)))
+      let firstAction = UIAlertAction(title: firstTitle, style: .default) { action in
+        emitter(.success(0))
       }
-      
-      let secondAction = UIAlertAction(
-        title: secondCardType.moveToMenuTitle,
-        style: .default
-      ) { _ in
-        emitter(.success((card, secondCardType)))
+      let secondAction = UIAlertAction(title: secondTitle, style: .default) { action in
+        emitter(.success(1))
       }
-      
-      alertController.addAction(firstAction)
-      alertController.addAction(secondAction)
-      self.present(alertController, animated: true)
+      alert.addAction(firstAction)
+      alert.addAction(secondAction)
+      self.present(alert, animated: true)
       
       return Disposables.create {
-        alertController.dismiss(animated: true)
+        alert.dismiss(animated: true)
       }
     }.asObservable()
   }
