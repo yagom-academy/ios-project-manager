@@ -165,22 +165,18 @@ final class CardListViewController: UIViewController {
       doneSectionView.tableView.rx.modelLongPressed(Card.self)
     )
     .merge()
-    .flatMap { cell, card -> Observable<(Int, Card, [CardType])> in
-      let (first, second) = self.distinguishMenuType(of: card)
-      let popover = self.showPopover(
-        sourceView: cell,
+    .withUnretained(self)
+    .flatMap { wself, item -> Observable<(Card, CardType)> in
+      let (first, second) = wself.distinguishMenuType(of: item.1)
+      let popover = wself.showPopover(
+        sourceView: item.0,
         firstTitle: first.moveToMenuTitle,
         secondTitle: second.moveToMenuTitle
       )
-      
       return Observable.zip(
-        popover,
-        Observable.just(card),
-        Observable.just([first, second])
+        Observable.just(item.1),
+        popover.map { [first, second][$0] }
       )
-    }
-    .map { index, card, cardTypes in
-      return (card, cardTypes[index])
     }
     .bind(onNext: { [weak self] card, cardType in
       self?.viewModel.moveDifferentSection(card, to: cardType)
