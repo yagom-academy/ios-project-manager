@@ -120,24 +120,39 @@ final class CardListViewController: UIViewController {
   }
   
   private func bindSectionsItemSelected() {
-    Observable.of(
-      Observable.zip(
-        todoSectionView.tableView.rx.itemSelected,
-        todoSectionView.tableView.rx.modelSelected(Card.self)
-      ),
-      Observable.zip(
-        doingSectionView.tableView.rx.itemSelected,
-        doingSectionView.tableView.rx.modelSelected(Card.self)
-      ),
-      Observable.zip(
-        doneSectionView.tableView.rx.itemSelected,
-        doneSectionView.tableView.rx.modelSelected(Card.self)
-      )
+    Observable.zip(
+      todoSectionView.tableView.rx.itemSelected,
+      todoSectionView.tableView.rx.modelSelected(Card.self)
     )
-    .merge()
     .bind(onNext: { [weak self] indexPath, card in
       guard let self = self else { return }
       self.todoSectionView.tableView.deselectRow(at: indexPath, animated: true)
+      let cardDetailViewController = CardDetailViewController(viewModel: self.viewModel, card: card)
+      cardDetailViewController.modalPresentationStyle = .formSheet
+      self.present(cardDetailViewController, animated: true)
+    })
+    .disposed(by: disposeBag)
+    
+    Observable.zip(
+      doingSectionView.tableView.rx.itemSelected,
+      doingSectionView.tableView.rx.modelSelected(Card.self)
+    )
+    .bind(onNext: { [weak self] indexPath, card in
+      guard let self = self else { return }
+      self.doingSectionView.tableView.deselectRow(at: indexPath, animated: true)
+      let cardDetailViewController = CardDetailViewController(viewModel: self.viewModel, card: card)
+      cardDetailViewController.modalPresentationStyle = .formSheet
+      self.present(cardDetailViewController, animated: true)
+    })
+    .disposed(by: disposeBag)
+    
+    Observable.zip(
+      doneSectionView.tableView.rx.itemSelected,
+      doneSectionView.tableView.rx.modelSelected(Card.self)
+    )
+    .bind(onNext: { [weak self] indexPath, card in
+      guard let self = self else { return }
+      self.doneSectionView.tableView.deselectRow(at: indexPath, animated: true)
       let cardDetailViewController = CardDetailViewController(viewModel: self.viewModel, card: card)
       cardDetailViewController.modalPresentationStyle = .formSheet
       self.present(cardDetailViewController, animated: true)
