@@ -28,7 +28,7 @@ final class PopOverViewController: UIViewController {
     private func setUpAttribute(_ cell: ProjectCell) {
         modalPresentationStyle = .popover
         popoverPresentationController?.sourceView = cell
-        preferredContentSize = .init(width: 300, height: 100)
+        preferredContentSize = CGSize(width: 300, height: 100)
         popoverPresentationController?.permittedArrowDirections = .up
         popoverPresentationController?
             .sourceRect = CGRect(
