@@ -205,37 +205,19 @@ final class MainViweController: UIViewController {
         let doingTableView = mainView.doingTable.tableView
         let doneTableView = mainView.doneTable.tableView
         
-        toDoTableView.delegate = self
-        doingTableView.delegate = self
-        doneTableView.delegate = self
+        bindItemDeleted(to: toDoTableView)
+        bindItemDeleted(to: doingTableView)
+        bindItemDeleted(to: doneTableView)
+    }
+    
+    private func bindItemDeleted(to tableView: UITableView) {
+        tableView.delegate = self
         
-        toDoTableView.rx
+        tableView.rx
             .itemDeleted
             .asDriver()
             .drive { [weak self] indexPath in
-                guard let cell = toDoTableView.cellForRow(at: indexPath) as? ProjectCell else {
-                    return
-                }
-                self?.viewModel.deleteProject(cell.contentID)
-            }
-            .disposed(by: disposeBag)
-        
-        doingTableView.rx
-            .itemDeleted
-            .asDriver()
-            .drive { [weak self] indexPath in
-                guard let cell = doingTableView.cellForRow(at: indexPath) as? ProjectCell else {
-                    return
-                }
-                self?.viewModel.deleteProject(cell.contentID)
-            }
-            .disposed(by: disposeBag)
-        
-        doneTableView.rx
-            .itemDeleted
-            .asDriver()
-            .drive { [weak self] indexPath in
-                guard let cell = doneTableView.cellForRow(at: indexPath) as? ProjectCell else {
+                guard let cell = tableView.cellForRow(at: indexPath) as? ProjectCell else {
                     return
                 }
                 self?.viewModel.deleteProject(cell.contentID)
