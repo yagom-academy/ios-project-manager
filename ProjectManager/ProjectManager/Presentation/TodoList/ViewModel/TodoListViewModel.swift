@@ -8,7 +8,6 @@
 import Foundation
 import RxSwift
 import RxCocoa
-import UIKit
 
 struct TodoListViewModelActions {
     let presentEditViewController: (_ item: TodoModel?) -> Void
