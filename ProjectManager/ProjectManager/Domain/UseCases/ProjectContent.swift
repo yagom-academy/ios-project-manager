@@ -49,13 +49,14 @@ enum ProjectStatus {
 }
 
 struct ProjectContent {
-    let id = UUID()
+    let id: UUID
     var status: ProjectStatus = .todo
     var title: String
     var deadline: String
     var description: String
     
-    init(title: String, deadline: Date, description: String) {
+    init(id: UUID = UUID(), title: String, deadline: Date, description: String) {
+        self.id = id
         self.title = title
         self.deadline = DateFormatter().formatted(date: deadline)
         self.description = description
