@@ -167,7 +167,7 @@ final class MainViweController: UIViewController {
     private func presentPopOver(_ cell: ProjectCell) {
         let popOverViewController = PopOverViewController(cell: cell)
         
-        present(popOverViewController, animated: true, completion: nil)
+        present(popOverViewController, animated: true)
     }
     
     private func deleteProject() {
