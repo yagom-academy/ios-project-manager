@@ -22,6 +22,7 @@ struct PopOverViewModel {
     }
     func getStatus() -> (first: ProjectStatus, second: ProjectStatus)? {
         guard let cellData = cell.getData() else {
+        guard let id = cell.contentID,
             return nil
         }
         

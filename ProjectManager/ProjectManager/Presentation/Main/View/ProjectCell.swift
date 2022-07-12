@@ -9,6 +9,8 @@ import UIKit
 import RxSwift
 
 final class ProjectCell: UITableViewCell {
+    var contentID: UUID?
+    
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .title2)
@@ -67,6 +69,8 @@ final class ProjectCell: UITableViewCell {
     }
     
     func compose(content: ProjectContent) {
+        contentID = content.id
+        
         titleLabel.text = content.title
         descriptionLabel.text = content.description
         dateLabel.text = content.deadline
@@ -97,5 +101,6 @@ final class ProjectCell: UITableViewCell {
             deadline: formattedDate,
             description: description
         )
+        contentID = nil
     }
 }
