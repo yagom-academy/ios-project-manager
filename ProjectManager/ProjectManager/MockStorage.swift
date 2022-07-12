@@ -6,14 +6,14 @@
 //
 
 import RxRelay
-protocol Storege {
+protocol Storegeable {
     var list: BehaviorRelay<[ListItem]> { get }
     func creatList(listItem: ListItem)
     func updateList(listItem: ListItem)
     func deleteList(listItem: ListItem)
 }
 
-class MockStorage: Storege {
+class MockStorage: Storegeable {
     private var dummyList: [ListItem] = [
         ListItem(title: "안녕이요", body: "네 저는 안녕이에요?", deadline: Date(timeIntervalSince1970: 16537259728), type: .todo),
         ListItem(title: "안녕", body: "네 저는 안니근데 이렇게 죽ㅈ길게 써볼라는데 너는 뭐야!라이에요?", deadline: Date(timeIntervalSince1970: 751231235), type: .todo),

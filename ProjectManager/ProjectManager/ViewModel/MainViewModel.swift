@@ -27,14 +27,14 @@ protocol MainViewModelInput {
 }
 
 final class MainViewModel: MainViewModelInOut {
-    private var storage: Storege
+    private var storage: Storegeable
 
 //MARK: - output
     let todoList: Driver<[ListItem]>
     let doingList: Driver<[ListItem]>
     let doneList: Driver<[ListItem]>
     
-    init(storage: Storege) {
+    init(storage: Storegeable) {
         self.storage = storage
         
         todoList = storage.list

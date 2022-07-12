@@ -6,7 +6,7 @@
 //
 
 final class Container {
-    private let storage: Storege
+    private let storage: Storegeable
     
     func makeMainViewController() -> MainViewController {
         return MainViewController(viewModel: makeMainViewModel())
@@ -16,7 +16,7 @@ final class Container {
         return MainViewModel(storage: storage)
     }
     
-    init(storage: Storege) {
+    init(storage: Storegeable) {
         self.storage = storage
     }
 }
