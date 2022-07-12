@@ -9,6 +9,8 @@ import RxSwift
 import RxRelay
 import RxCocoa
 
+protocol MainViewModelInOut: MainViewModelInput, MainViewModelOutput {}
+
 protocol MainViewModelOutput {
     var todoList: Driver<[ListItem]> { get }
     var doingList: Driver<[ListItem]> { get }
@@ -24,8 +26,7 @@ protocol MainViewModelInput {
     func changeListType(listItem: ListItem, type: ListType)
 }
 
-final class MainViewModel: MainViewModelOutput {
-    private var storage = MockStorage()
+final class MainViewModel: MainViewModelInOut {
 
 //MARK: - output
     let todoList: Driver<[ListItem]>
@@ -48,7 +49,7 @@ final class MainViewModel: MainViewModelOutput {
 }
 
 //MARK: - input
-extension MainViewModel: MainViewModelInput {
+extension MainViewModel {
     func isOverDeadline(listItem: ListItem) -> Bool {
         return listItem.type != .done && listItem.deadline < Date()
     }
