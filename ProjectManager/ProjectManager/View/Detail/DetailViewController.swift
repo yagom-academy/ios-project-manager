@@ -8,9 +8,13 @@
 import UIKit
 
 final class DetailViewController: UIViewController {
-    init(listItem: ListItem?) {
+    private let viewModel: MainViewModel
+    private var listItem: ListItem?
+    
+    init(viewModel:MainViewModel ,listItem: ListItem?) {
+        self.viewModel = viewModel
+        self.listItem = listItem
         super.init(nibName: nil, bundle: nil)
-        detailView.setViewContents(listItem)
     }
     
     required init?(coder: NSCoder) {
@@ -22,5 +26,10 @@ final class DetailViewController: UIViewController {
     override func loadView() {
         super.loadView()
         self.view = detailView
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        detailView.setViewContents(listItem)
     }
 }
