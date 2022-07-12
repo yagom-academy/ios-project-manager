@@ -10,14 +10,13 @@ import RxRelay
 import RxSwift
 
 protocol MainViewModelInput {
-    func plusButtonTapped()
+    func cellItemDeleted(at indexPath: IndexPath, taskType: TaskType)
 }
 
 protocol MainViewModelOutput {
     var todos: BehaviorRelay<[Task]> { get }
     var doings: BehaviorRelay<[Task]> { get }
     var dones: BehaviorRelay<[Task]> { get }
-    var showNewFormSheetView: PublishRelay<Void> { get }
 }
 
 final class MainViewModel: MainViewModelInput, MainViewModelOutput {
@@ -25,12 +24,21 @@ final class MainViewModel: MainViewModelInput, MainViewModelOutput {
     var todos: BehaviorRelay<[Task]> = BehaviorRelay(value: [])
     var doings: BehaviorRelay<[Task]> = BehaviorRelay(value: [])
     var dones: BehaviorRelay<[Task]> = BehaviorRelay(value: [])
-    var showNewFormSheetView: PublishRelay<Void> = .init()
     
     private let realmManager = RealmManager()
     
-    func plusButtonTapped() {
-        showNewFormSheetView.accept(())
+    func cellItemDeleted(at indexPath: IndexPath, taskType: TaskType) {
+        let task: Task
+        switch taskType {
+        case .todo:
+            task = todos.value[indexPath.row]
+        case .doing:
+            task = doings.value[indexPath.row]
+        case .done:
+            task = dones.value[indexPath.row]
+        }
+        
+        deleteData(task: task)
     }
     
     func viewDidLoad() {
@@ -43,7 +51,7 @@ final class MainViewModel: MainViewModelInput, MainViewModelOutput {
         fetchDone()
     }
     
-    func deleteCell(task: Task) {
+    func deleteData(task: Task) {
         realmManager.delete(task: task)
         fetchData()
     }

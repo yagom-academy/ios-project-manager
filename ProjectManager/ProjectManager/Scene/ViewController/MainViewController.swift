@@ -46,10 +46,45 @@ final class MainViewController: UIViewController, UIPopoverPresentationControlle
     }
     
     private func bind() {
+        bindcellItems()
+        bindHeaderViewLabels()
+        bindItemsSelected()
+        bindItemsDeleted()
+        bindLongPressGestures()
+    }
+    
+    private func cell(at location: CGPoint, from tableView: UITableView) -> TaskTableViewCell? {
+        if let indexPath = tableView.indexPathForRow(at: location) {
+            return tableView.cellForRow(at: indexPath) as? TaskTableViewCell
+        } else {
+            return nil
+        }
+    }
+    
+    private func showPopoverView(at cell: TaskTableViewCell) {
+        let popoverWidth = mainView.frame.size.width * 0.25
+        let popoverHeight = mainView.frame.size.height * 0.15
         
+        let popoverViewController = PopoverViewController()
+        popoverViewController.task = cell.task
+        popoverViewController.setPopoverAction()
+        popoverViewController.delegate = self
+        popoverViewController.preferredContentSize = .init(
+            width: popoverWidth,
+            height: popoverHeight
+        )
+        popoverViewController.modalPresentationStyle = .popover
         
-        // MARK: - Draw Table View
+        guard let popoverPresentationController = popoverViewController.popoverPresentationController else {
+            return
+        }
         
+        popoverPresentationController.sourceView = cell
+        popoverPresentationController.sourceRect = cell.bounds
+        popoverPresentationController.permittedArrowDirections = .up
+        
+        present(popoverViewController, animated: true)
+    }
     
     @objc private func showNewFormSheetView() {
         let newTodoViewContrtoller = NewFormSheetViewController()
@@ -60,6 +95,26 @@ final class MainViewController: UIViewController, UIPopoverPresentationControlle
         newTodoFormSheet.modalPresentationStyle = .formSheet
         present(newTodoFormSheet, animated: true)
     }
+    
+    private func showEditFormSheetView(
+        task: Task
+    ) {
+        let editViewController = EditFormSheetViewController()
+        editViewController.delegate = self
+        editViewController.task = task
+        let editFormSheet = UINavigationController(
+            rootViewController: editViewController
+        )
+        editFormSheet.modalPresentationStyle = .formSheet
+        present(editFormSheet, animated: true)
+    }
+}
+
+// MARK: - bind Funciton
+
+extension MainViewController {
+    
+    private func bindcellItems() {
         viewModel.todos
             .bind(to: mainView.todoTableView.rx.items(
                 cellIdentifier: TaskTableViewCell.identifier,
@@ -92,9 +147,9 @@ final class MainViewController: UIViewController, UIPopoverPresentationControlle
                 }
         }
         .disposed(by: disposeBag)
-        
-        // MARK: - Table Header Count
-        
+    }
+    
+    private func bindHeaderViewLabels() {
         viewModel.todos
             .map { String($0.count) }
             .bind(to: mainView.todoHeaderView.taskCountLabel.rx.text)
@@ -109,9 +164,9 @@ final class MainViewController: UIViewController, UIPopoverPresentationControlle
             .map { String($0.count) }
             .bind(to: mainView.doneHeaderView.taskCountLabel.rx.text)
             .disposed(by: disposeBag)
-        
-        // MARK: - Table itemSelected
-        
+    }
+    
+    private func bindItemsSelected() {
         mainView.todoTableView.rx.itemSelected
             .subscribe(onNext: { [weak self] indexPath in
                 self?.mainView.todoTableView.deselectRow(
@@ -147,19 +202,29 @@ final class MainViewController: UIViewController, UIPopoverPresentationControlle
                 }
             })
             .disposed(by: disposeBag)
-        
-        // MARK: - Table itemDeleted
-        
+    }
+    
+    private func bindItemsDeleted() {
         mainView.todoTableView.rx.itemDeleted
             .subscribe(onNext: { [weak self] indexPath in
-                if let task = self?.viewModel.todos.value[indexPath.row] {
-                    self?.viewModel.deleteCell(task: task)
-                }
+                self?.viewModel.cellItemDeleted(at: indexPath, taskType: .todo)
             })
             .disposed(by: disposeBag)
         
-        // MARK: - Handle Long Press Gesture
+        mainView.doingTableView.rx.itemDeleted
+            .subscribe(onNext: { [weak self] indexPath in
+                self?.viewModel.cellItemDeleted(at: indexPath, taskType: .doing)
+            })
+            .disposed(by: disposeBag)
         
+        mainView.doneTableView.rx.itemDeleted
+            .subscribe(onNext: { [weak self] indexPath in
+                self?.viewModel.cellItemDeleted(at: indexPath, taskType: .done)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func bindLongPressGestures() {
         mainView.todoTableView.rx.longPressGesture()
             .when(.began)
             .map { $0.location(in: self.mainView.todoTableView) }
@@ -173,103 +238,34 @@ final class MainViewController: UIViewController, UIPopoverPresentationControlle
                 self.showPopoverView(at: cell)
             })
             .disposed(by: disposeBag)
-    }
-    
-    
-    private func cell(at location: CGPoint, from tableView: UITableView) -> TaskTableViewCell? {
-        if let indexPath = tableView.indexPathForRow(at: location) {
-            return tableView.cellForRow(at: indexPath) as? TaskTableViewCell
-        } else {
-            return nil
-        }
-    }
-    
-    private func showPopoverView(at cell: TaskTableViewCell) {
-        let popoverWidth = mainView.frame.size.width * 0.25
-        let popoverHeight = mainView.frame.size.height * 0.15
         
-        let popoverViewController = PopoverViewController()
-        popoverViewController.task = cell.task
-        popoverViewController.setPopoverAction()
-        popoverViewController.delegate = self
-        popoverViewController.preferredContentSize = .init(
-            width: popoverWidth,
-            height: popoverHeight
-        )
-        popoverViewController.modalPresentationStyle = .popover
-        
-        guard let popoverPresentationController = popoverViewController.popoverPresentationController else {
-            return
-        }
-        
-        popoverPresentationController.sourceView = cell
-        popoverPresentationController.sourceRect = cell.bounds
-        popoverPresentationController.permittedArrowDirections = .up
-        
-        present(popoverViewController, animated: true)
-    }
-    
-    
-    private func showEditFormSheetView(
-        task: Task
-    ) {
-        let editViewController = EditFormSheetViewController()
-        editViewController.delegate = self
-        editViewController.task = task
-        let editFormSheet = UINavigationController(
-            rootViewController: editViewController
-        )
-        editFormSheet.modalPresentationStyle = .formSheet
-        present(editFormSheet, animated: true)
-    }
-}
-
-// MARK: - Gesture Recognizer Delegate Method
-
-extension MainViewController: UIGestureRecognizerDelegate {
-    private func setupLongPressGesture(at tableView: UITableView) {
-        let longPressedGesture = UILongPressGestureRecognizer(
-            target: self,
-            action: #selector(handleLongPress)
-        )
-        longPressedGesture.minimumPressDuration = 1.0
-        longPressedGesture.delegate = self
-        longPressedGesture.delaysTouchesBegan = true
-        tableView.addGestureRecognizer(longPressedGesture)
-    }
-    
-    @objc private func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
-        let tableView = gestureRecognizer.view as? UITableView
-        let location = gestureRecognizer.location(in: tableView)
-        if gestureRecognizer.state == .began {
-            if let indexPath = tableView?.indexPathForRow(at: location) {
-                guard let cell = tableView?.cellForRow(at: indexPath) as? TaskTableViewCell else { return }
-                let popoverWidth = mainView.frame.size.width * 0.25
-                let popoverHeight = mainView.frame.size.height * 0.15
-                
-                let popoverViewController = PopoverViewController()
-                popoverViewController.delegate = self
-                popoverViewController.preferredContentSize = .init(
-                    width: popoverWidth,
-                    height: popoverHeight
-                )
-                popoverViewController.modalPresentationStyle = .popover
-                
-                guard let popoverPresentationController = popoverViewController.popoverPresentationController else {
+        mainView.doingTableView.rx.longPressGesture()
+            .when(.began)
+            .map { $0.location(in: self.mainView.doingTableView) }
+            .subscribe(onNext: { [weak self] in
+                guard let self = self else {
                     return
                 }
-                popoverPresentationController.sourceView = cell
-                popoverPresentationController.sourceRect = cell.bounds
-                popoverPresentationController.permittedArrowDirections = .up
-                
-                popoverViewController.task = cell.task
-                popoverViewController.setPopoverAction()
-                
-                present(popoverViewController, animated: true)
-            }
-        } else {
-            return
-        }
+                guard let cell = self.cell(at: $0, from: self.mainView.doingTableView) else {
+                    return
+                }
+                self.showPopoverView(at: cell)
+            })
+            .disposed(by: disposeBag)
+        
+        mainView.doneTableView.rx.longPressGesture()
+            .when(.began)
+            .map { $0.location(in: self.mainView.doneTableView) }
+            .subscribe(onNext: { [weak self] in
+                guard let self = self else {
+                    return
+                }
+                guard let cell = self.cell(at: $0, from: self.mainView.doneTableView) else {
+                    return
+                }
+                self.showPopoverView(at: cell)
+            })
+            .disposed(by: disposeBag)
     }
 }
 
