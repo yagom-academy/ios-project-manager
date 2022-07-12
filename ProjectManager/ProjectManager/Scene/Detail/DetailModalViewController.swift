@@ -9,7 +9,7 @@ import UIKit
 
 protocol DetailViewControllerDelegate: AnyObject {
     func addTask(_ task: Task)
-    func editTask(task: Task, locationInfo: LocationInfo)
+    func updateTask(by taskInfo: TaskInfo)
 }
 
 class DetailModalViewController: UIViewController {
@@ -19,16 +19,14 @@ class DetailModalViewController: UIViewController {
     }
     
     private let modalView: DetailModalView
-    private let task: Task?
     private var state: State
-    private let locationInfo: LocationInfo?
+    private let taskInfo: TaskInfo?
     weak var delegate: DetailViewControllerDelegate?
     
-    init(modalView: DetailModalView, task: Task? = nil, locationInfo: LocationInfo? = nil) {
+    init(modalView: DetailModalView, taskInfo: TaskInfo? = nil) {
         self.modalView = modalView
-        self.task = task
-        self.locationInfo = locationInfo
-        state = task == nil ? .add : .edit
+        self.taskInfo = taskInfo
+        state = taskInfo == nil ? .add : .edit
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -37,7 +35,7 @@ class DetailModalViewController: UIViewController {
     }
     
     override func loadView() {
-        if let task = task {
+        if let task = taskInfo?.task {
             modalView.setLabel(task: task)
         }
         view = modalView
@@ -52,10 +50,10 @@ extension DetailModalViewController: ButtonActionDelegate {
     func doneButtonClicked() {
         switch state {
         case .edit:
-            guard let locationInfo = locationInfo else {
+            guard let taskInfo = taskInfo else {
                 return
             }
-            delegate?.editTask(task: modalView.task, locationInfo: locationInfo)
+            delegate?.updateTask(by: TaskInfo(task: modalView.task, type: taskInfo.type, indexPath: taskInfo.indexPath))
         case .add:
             delegate?.addTask(modalView.task)
         }

@@ -55,6 +55,19 @@ final class PopoverView: UIView {
         return button
     }()
     
+    // MARK: functions
+    
+    func findButton(taskType: TaskType) -> UIButton {
+        switch taskType {
+        case .todo:
+            return moveToDoneButton
+        case .doing:
+            return moveToDoingButton
+        case .done:
+            return moveToDoneButton
+        }
+    }
+    
     // MARK: setUp
     
     private func setUp() {

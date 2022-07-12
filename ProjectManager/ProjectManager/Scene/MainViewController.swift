@@ -6,7 +6,8 @@
 
 import UIKit
 
-struct LocationInfo {
+struct TaskInfo {
+    let task: Task
     let type: TaskType
     let indexPath: IndexPath
 }
@@ -48,12 +49,11 @@ extension MainViewController: UITableViewDelegate {
             return
         }
         let dataSource = findDataSource(type: tableType)
-        let task = dataSource?.itemIdentifier(for: indexPath)
+        guard let task = dataSource?.itemIdentifier(for: indexPath) else { return }
         let detailView = DetailModalView(frame: view.bounds)
-        let locationInfo = LocationInfo(type: tableType, indexPath: indexPath)
+        let taskInfo = TaskInfo(task: task, type: tableType, indexPath: indexPath)
         let detailModalViewController = DetailModalViewController(modalView: detailView,
-                                                                  task: task,
-                                                                  locationInfo: locationInfo)
+                                                                  taskInfo: taskInfo)
         detailModalViewController.delegate = self
         detailView.setButtonDelegate(detailModalViewController)
         detailModalViewController.modalPresentationStyle = .formSheet
@@ -77,16 +77,61 @@ extension MainViewController: DetailViewControllerDelegate {
         }
     }
     
-    func editTask(task: Task, locationInfo: LocationInfo) {
-        let dataSource = findDataSource(type: locationInfo.type)
+    func updateTask(by taskInfo: TaskInfo) {
+        let dataSource = findDataSource(type: taskInfo.type)
         if let snapshot = dataSource?.snapshot() {
             var copySnapshot = snapshot
-            guard let beforeTask = dataSource?.itemIdentifier(for: locationInfo.indexPath) else { return }
+            guard let beforeTask = dataSource?.itemIdentifier(for: taskInfo.indexPath) else { return }
+            let task = taskInfo.task
             copySnapshot.insertItems([task], afterItem: beforeTask)
             copySnapshot.deleteItems([beforeTask])
             dataSource?.apply(copySnapshot)
         }
     }
+}
+
+// MARK: PopoverViewControllerDelegate
+
+extension MainViewController: PopoverViewControllerDelegate {
+    func moveToToDo(taskInfo: TaskInfo) {
+        deleteData(taskInfo: taskInfo)
+        addData(task: taskInfo.task, type: .todo)
+    }
+    
+    func moveToDoing(taskInfo: TaskInfo) {
+        deleteData(taskInfo: taskInfo)
+        addData(task: taskInfo.task, type: .doing)
+    }
+    
+    func moveToDone(taskInfo: TaskInfo) {
+        deleteData(taskInfo: taskInfo)
+        addData(task: taskInfo.task, type: .done)
+    }
+    
+    func deleteData(taskInfo: TaskInfo) {
+        let dataSource = findDataSource(type: taskInfo.type)
+        if let snapshot = dataSource?.snapshot() {
+            var copySnapshot = snapshot
+            guard let beforeTask = dataSource?.itemIdentifier(for: taskInfo.indexPath) else { return }
+            copySnapshot.deleteItems([beforeTask])
+            dataSource?.apply(copySnapshot)
+        }
+    }
+    
+    func addData(task: Task, type: TaskType) {
+        let dataSource = findDataSource(type: type)
+        if let snapshot = dataSource?.snapshot(), snapshot.numberOfSections > 0 {
+            var copySnapshot = snapshot
+            copySnapshot.appendItems([task])
+            dataSource?.apply(copySnapshot)
+        } else {
+            var snapshot = Snapshot()
+            snapshot.appendSections([0])
+            snapshot.appendItems([task])
+            dataSource?.apply(snapshot)
+        }
+    }
+    
 }
 
 // MARK: SetUp
@@ -115,10 +160,11 @@ extension MainViewController {
         guard let tableViewType = mainView.findTableViewType(tableView: tableView) else { return }
         let point = sender.location(in: self.mainView.retrieveTableView(taskType: tableViewType))
         if let indexPath = tableView.indexPathForRow(at: point) {
-            if let cell = tableView.cellForRow(at: indexPath) {
+            if let task = findDataSource(type: tableViewType)?.itemIdentifier(for: indexPath) {
                 switch sender.state {
                 case .began:
-                    makePopover(taskType: .todo, point: point)
+                    let taskInfo = TaskInfo(task: task, type: tableViewType, indexPath: indexPath)
+                    makePopover(taskInfo: taskInfo, point: point)
                 default:
                     return
                 }
@@ -126,19 +172,15 @@ extension MainViewController {
         }
     }
     
-    func makePopover(taskType: TaskType, point: CGPoint) {
-        let popoverController = PopoverViewController()
+    func makePopover(taskInfo: TaskInfo, point: CGPoint) {
+        let popoverController = PopoverViewController(taskInfo: taskInfo)
+        popoverController.delegate = self
         popoverController.modalPresentationStyle = .popover
         popoverController.preferredContentSize = CGSize(width: 200, height: 100)
         
         let popover = popoverController.popoverPresentationController
-
-        // popover를 띄울 뷰
-        popover?.sourceView = mainView.retrieveTableView(taskType: taskType)
-        
-        // 설정한 뷰에서 해당 pop을 띄울 위치
+        popover?.sourceView = mainView.retrieveTableView(taskType: taskInfo.type)
         popover?.sourceRect = CGRect(x: point.x, y: point.y, width: 0, height: 0)
-        
         popover?.permittedArrowDirections = .up
         
         present(popoverController, animated: true)
@@ -150,15 +192,29 @@ extension MainViewController {
 extension MainViewController {
     private func setToDoTableView() {
         let todoTableView = mainView.retrieveTableView(taskType: .todo)
+        let doingTableView = mainView.retrieveTableView(taskType: .doing)
+        let doneTableView = mainView.retrieveTableView(taskType: .done)
+        
         todoTableView.register(TaskCell.self, forCellReuseIdentifier: TaskCell.identifier)
+        doingTableView.register(TaskCell.self, forCellReuseIdentifier: TaskCell.identifier)
+        doneTableView.register(TaskCell.self, forCellReuseIdentifier: TaskCell.identifier)
         
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPressGesture(sender:)))
         todoTableView.addGestureRecognizer(longPress)
     
         makeToDoDataSource()
+        
         todoTableView.dataSource = todoDataSource
         todoTableView.delegate = self
         todoTableView.reloadData()
+        
+        doingTableView.dataSource = doingDataSource
+        doingTableView.delegate = self
+        doingTableView.reloadData()
+        
+        doneTableView.dataSource = doneDataSource
+        doneTableView.delegate = self
+        doneTableView.reloadData()
     }
     
     private func makeToDoDataSource() {
@@ -170,6 +226,23 @@ extension MainViewController {
             cell?.setUpLabel(task: item)
             return cell
         })
+        
+        doingDataSource = TableViewDataSource(tableView: mainView.retrieveTableView(taskType: .doing), cellProvider: { tableView, indexPath, item in
+            let cell = tableView.dequeueReusableCell(withIdentifier: TaskCell.identifier,
+                                                     for: indexPath) as? TaskCell
+            
+            cell?.setUpLabel(task: item)
+            return cell
+        })
+        
+        doneDataSource = TableViewDataSource(tableView: mainView.retrieveTableView(taskType: .done), cellProvider: { tableView, indexPath, item in
+            let cell = tableView.dequeueReusableCell(withIdentifier: TaskCell.identifier,
+                                                     for: indexPath) as? TaskCell
+            
+            cell?.setUpLabel(task: item)
+            return cell
+        })
+        
     }
     
     private func findDataSource(type: TaskType?) -> TableViewDataSource? {
