@@ -17,7 +17,13 @@ final class DetailView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+    //    tempView.layer.shadowOpacity = 0.7
+    //
+    //    tempView.layer.shadowOffset = CGSize(width: -20, height: 0)
+    //
+    //    tempView.layer.shadowRadius = 10
+    //
+    //    tempView.layer.masksToBounds = false
     private lazy var navigationBar: UINavigationBar = {
         let navigationBar = UINavigationBar()
         navigationBar.setItems([naviItem], animated: true)
@@ -58,6 +64,8 @@ final class DetailView: UIView {
         let textField = UITextField()
         textField.font = UIFont.preferredFont(forTextStyle: .title2)
         textField.borderStyle = .roundedRect
+        textField.layer.shadowOpacity = 0.4
+        textField.layer.shadowOffset = CGSize(width: 0, height: 3)
         
         return textField
     }()
@@ -75,6 +83,10 @@ final class DetailView: UIView {
         textView.font = UIFont.preferredFont(forTextStyle: .title3)
         textView.layer.borderWidth = 1
         textView.layer.borderColor = UIColor.systemGray2.cgColor
+        textView.layer.shadowOpacity = 0.4
+        textView.layer.shadowOffset = CGSize(width: 0, height: 3)
+        textView.layer.masksToBounds = false
+        
         return textView
     }()
 }
