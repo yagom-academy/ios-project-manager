@@ -13,9 +13,11 @@ final class TodoListSceneDIContainer {
     }
     
     private let dependencies: Dependencies
+    private let viewControllerFactory: ViewControllerFactory
     
     init(dependencies: Dependencies) {
         self.dependencies = dependencies
+        self.viewControllerFactory = ViewControllerFactory(storage: dependencies.storage)
     }
 }
 
@@ -24,33 +26,11 @@ extension TodoListSceneDIContainer {
     // MARK: ViewController
     
     func makeTodoDetailViewContoller(todoListModel: TodoListModel, coordinator: TodoDetailViewCoordinator) -> TodoDetailViewController {
-        return TodoDetailViewController(viewModel: makeTodoDetailViewModel(todoListModel: todoListModel, coordinator: coordinator))
+        return viewControllerFactory.makeTodoDetailViewContoller(todoListModel: todoListModel, coordinator: coordinator)
     }
     
     func makeTodoListViewController(coordinator: TodoListViewCoordinator) -> TodoListViewController {
-        return TodoListViewController(viewModel: makeTodoListViewModel(coordinator: coordinator))
-    }
-    
-    // MARK: - ViewModel
-    
-    private func makeTodoDetailViewModel(todoListModel: TodoListModel, coordinator: TodoDetailViewCoordinator) -> TodoDetailViewModelable {
-        return TodoDetailViewModel(useCase: makeTodoListUseCase(), todoListModel: todoListModel, coordinator: coordinator)
-    }
-    
-    private func makeTodoListViewModel(coordinator: TodoListViewCoordinator) -> TodoListViewModelable {
-        return TodoListViewModel(coordinator: coordinator, useCase: makeTodoListUseCase())
-    }
-    
-    // MARK: - UseCase
-    
-    private func makeTodoListUseCase() -> TodoListUseCaseable {
-        return TodoListUseCase(repository: makeTodoListRepository())
-    }
-    
-    // MARK: - Repository
-    
-    private func makeTodoListRepository() -> TodoListRepositorible {
-        return TodoListRepository(storage: dependencies.storage)
+        return viewControllerFactory.makeTodoListViewController(coordinator: coordinator)
     }
     
     // MARK: - Coordiantor
