@@ -5,8 +5,6 @@
 //  Created by Tiana, mmim on 2022/07/11.
 //
 
-import UIKit
-import RxSwift
 import RxCocoa
 
 final class PopOverView: UIView {

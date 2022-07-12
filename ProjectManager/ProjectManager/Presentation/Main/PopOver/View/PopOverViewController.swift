@@ -5,8 +5,6 @@
 //  Created by Tiana, mmim on 2022/07/11.
 //
 
-import UIKit
-import RxCocoa
 import RxSwift
 
 final class PopOverViewController: UIViewController {

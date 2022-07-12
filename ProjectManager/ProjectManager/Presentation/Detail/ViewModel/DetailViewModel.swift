@@ -6,7 +6,6 @@
 //
 
 import RxSwift
-import RxRelay
 
 class DetailViewModel {
     let content: ProjectContent

@@ -5,7 +5,6 @@
 //  Created by Tiana, mmim on 2022/07/07.
 //
 
-import UIKit
 import RxSwift
 import RxCocoa
 import RxKeyboard
