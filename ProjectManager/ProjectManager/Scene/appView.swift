@@ -15,7 +15,7 @@ struct AppView: View {
     let navigationBarApperance = UINavigationBarAppearance()
     navigationBarApperance.backgroundColor = UIColor.systemGray6
     UINavigationBar.appearance().scrollEdgeAppearance = navigationBarApperance
-
+  
     self.viewModel = viewModel
   }
   

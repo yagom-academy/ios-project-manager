@@ -38,8 +38,8 @@ class TodoViewModel: ObservableObject {
   }
   
   func update(todo: Todo) {
-    let willChangeTodo = todoList.filter { todo in
-      todo.id == todo.id
+    let willChangeTodo = todoList.filter { filteredTodo in
+      todo.id == filteredTodo.id
     }
     
     willChangeTodo.first?.content = todo.content
