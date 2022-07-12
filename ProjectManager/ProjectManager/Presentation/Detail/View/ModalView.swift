@@ -78,7 +78,7 @@ final class ModalView: UIView {
     }
     
     func compose(content: ProjectContent) {
-        guard let formattedDate = DateFormatter().date(from: content.deadline) else {
+        guard let formattedDate = DateFormatter().formatted(string: content.deadline) else {
             return
         }
         titleTextField.text = content.title
