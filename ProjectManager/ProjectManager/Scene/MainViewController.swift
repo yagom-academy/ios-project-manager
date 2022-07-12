@@ -118,16 +118,30 @@ extension MainViewController {
             if let cell = tableView.cellForRow(at: indexPath) {
                 switch sender.state {
                 case .began:
-                    makePopover(taskType: tableViewType)
-                    print("")
+                    makePopover(taskType: .todo, point: point)
                 default:
-                    print("")
+                    return
                 }
             }
         }
     }
     
-    func makePopover(taskType: TaskType) {
+    func makePopover(taskType: TaskType, point: CGPoint) {
+        let popoverController = PopoverViewController()
+        popoverController.modalPresentationStyle = .popover
+        popoverController.preferredContentSize = CGSize(width: 200, height: 100)
+        
+        let popover = popoverController.popoverPresentationController
+
+        // popover를 띄울 뷰
+        popover?.sourceView = mainView.retrieveTableView(taskType: taskType)
+        
+        // 설정한 뷰에서 해당 pop을 띄울 위치
+        popover?.sourceRect = CGRect(x: point.x, y: point.y, width: 0, height: 0)
+        
+        popover?.permittedArrowDirections = .up
+        
+        present(popoverController, animated: true)
     }
 }
 

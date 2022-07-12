@@ -7,8 +7,14 @@
 
 import UIKit
 
-class PopoverViewController: UIPopoverPresentationController {
+class PopoverViewController: UIViewController {
+    private lazy var mainView = PopoverView()
     
+    override func loadView() {
+        view = mainView
+    }
     
-    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
 }
