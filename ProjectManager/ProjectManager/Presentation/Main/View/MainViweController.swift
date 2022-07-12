@@ -62,13 +62,12 @@ final class MainViweController: UIViewController {
     private func bind() {
         setUpTable()
         setUpTotalCount()
-        setUpPopOverView()
+        setUpGesture()
     }
     
     private func setUpTable() {
         setUpSelection()
         setUpTableCellData()
-        setUpdModelSelected()
         deleteProject()
     }
     
@@ -124,36 +123,14 @@ final class MainViweController: UIViewController {
             .disposed(by: disposeBag)
     }
     
-    private func setUpdModelSelected() {
-        mainView.toDoTable.tableView.rx
-            .modelSelected(ProjectContent.self)
-            .asDriver()
-            .drive { [weak self] element in
-                self?.presentViewController(title: "TODO", content: element)
-            }
-            .disposed(by: disposeBag)
+    private func presentViewController(status: ProjectStatus, cell: ProjectCell) {
+        guard let content = viewModel.readProject(cell.contentID) else {
+            return
+        }
         
-        mainView.doingTable.tableView.rx
-            .modelSelected(ProjectContent.self)
-            .asDriver()
-            .drive { [weak self] element in
-                self?.presentViewController(title: "DOING", content: element)
-            }
-            .disposed(by: disposeBag)
-        
-        mainView.doneTable.tableView.rx
-            .modelSelected(ProjectContent.self)
-            .asDriver()
-            .drive { [weak self] element in
-                self?.presentViewController(title: "DONE", content: element)
-            }
-            .disposed(by: disposeBag)
-    }
-    
-    private func presentViewController(title: String, content: ProjectContent) {
         let next = UINavigationController(
             rootViewController: DetailViewController(
-                title: title,
+                title: status.title,
                 content: content,
                 mainViewModel: viewModel
             )
@@ -187,58 +164,40 @@ final class MainViweController: UIViewController {
             .disposed(by: disposeBag)
     }
     
-    private func setUpPopOverView() {
+    private func setUpGesture() {
         let toDoTableView = mainView.toDoTable.tableView
         let doingTableView = mainView.doingTable.tableView
         let doneTableView = mainView.doneTable.tableView
         
-        toDoTableView.rx
-            .longPressGesture()
-            .when(.began)
-            .bind { event in
-                let point = event.location(in: toDoTableView)
-                guard let indexPath = toDoTableView.indexPathForRow(at: point),
-                      let cell = toDoTableView.cellForRow(at: indexPath) as? ProjectCell
-                else {
+        bindGesture(to: toDoTableView, status: .todo)
+        bindGesture(to: doingTableView, status: .doing)
+        bindGesture(to: doneTableView, status: .done)
+    }
+    
+    private func bindGesture(to tableView: UITableView, status: ProjectStatus) {
+        tableView.rx
+            .anyGesture(
+                (.tap(), when: .recognized),
+                (.longPress(), when: .began)
+            )
+            .asObservable()
+            .bind { [weak self] event in
+                guard let cell = self?.viewModel.findCell(by: event, in: tableView) else {
                     return
                 }
                 
-                let popOverViewController = PopOverViewController(cell: cell)
-                self.present(popOverViewController, animated: true, completion: nil)
-            }
-            .disposed(by: disposeBag)
+                if event.state == .began {
+                    self?.presentPopOver(cell)
+                    return
+                }
+                self?.presentViewController(status: status, cell: cell)
+            }.disposed(by: disposeBag)
+    }
+    
+    private func presentPopOver(_ cell: ProjectCell) {
+        let popOverViewController = PopOverViewController(cell: cell)
         
-        doingTableView.rx
-            .longPressGesture()
-            .when(.began)
-            .bind { event in
-                let point = event.location(in: doingTableView)
-                guard let indexPath = doingTableView.indexPathForRow(at: point),
-                      let cell = doingTableView.cellForRow(at: indexPath) as? ProjectCell
-                else {
-                    return
-                }
-                
-                let popOverViewController = PopOverViewController(cell: cell)
-                self.present(popOverViewController, animated: true, completion: nil)
-            }
-            .disposed(by: disposeBag)
-        
-        doneTableView.rx
-            .longPressGesture()
-            .when(.began)
-            .bind { event in
-                let point = event.location(in: doneTableView)
-                guard let indexPath = doneTableView.indexPathForRow(at: point),
-                      let cell = doneTableView.cellForRow(at: indexPath) as? ProjectCell
-                else {
-                    return
-                }
-                
-                let popOverViewController = PopOverViewController(cell: cell)
-                self.present(popOverViewController, animated: true, completion: nil)
-            }
-            .disposed(by: disposeBag)
+        present(popOverViewController, animated: true, completion: nil)
     }
     
     private func deleteProject() {

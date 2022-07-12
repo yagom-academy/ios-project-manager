@@ -12,7 +12,7 @@ import RxRelay
 protocol Storagable {
     func create(projectContents: [ProjectContent])
     func read() -> BehaviorRelay<[ProjectContent]>
-    func read(id: UUID) -> ProjectContent?
+    func read(id: UUID?) -> ProjectContent?
     func update(projectContent: ProjectContent)
     func delete(projectContentID: UUID?)
 }
@@ -34,7 +34,7 @@ extension ProjectRepository {
         return storageManager.read()
     }
     
-    func read(id: UUID) -> ProjectContent? {
+    func read(id: UUID?) -> ProjectContent? {
         return storageManager.read(id: id)
     }
     

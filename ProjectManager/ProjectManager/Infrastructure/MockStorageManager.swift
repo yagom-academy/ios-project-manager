@@ -25,7 +25,7 @@ extension MockStorageManager: Storagable {
         return projectEntities
     }
     
-    func read(id: UUID) -> ProjectContent? {
+    func read(id: UUID?) -> ProjectContent? {
         return projectEntities.value.filter { $0.id == id }.first
     }
     

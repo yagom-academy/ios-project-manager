@@ -5,9 +5,11 @@
 //  Created by Tiana, mmim on 2022/07/06.
 //
 
+import UIKit
 import RxSwift
 import RxRelay
 import RxCocoa
+import RxGesture
 
 struct MainViewModel {
     let projects: BehaviorRelay<[ProjectContent]> = {
@@ -34,5 +36,20 @@ struct MainViewModel {
     
     func deleteProject(_ id: UUID?) {
         ProjectUseCase().repository.delete(projectContentID: id)
+    }
+    
+    func readProject(_ id: UUID?) -> ProjectContent? {
+        return ProjectUseCase().repository.read(id: id)
+    }
+    
+    func findCell(by event: RxGestureRecognizer, in tableView: UITableView) -> ProjectCell? {
+        let point = event.location(in: tableView)
+        
+        guard let indexPath = tableView.indexPathForRow(at: point),
+              let cell = tableView.cellForRow(at: indexPath) as? ProjectCell else {
+            return nil
+        }
+        
+        return cell
     }
 }
