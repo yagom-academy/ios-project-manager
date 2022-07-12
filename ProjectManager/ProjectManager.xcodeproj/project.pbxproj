@@ -30,6 +30,7 @@
 		DAA805B1287D1154001CF270 /* CreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA805B0287D1154001CF270 /* CreateView.swift */; };
 		DAA805B3287D2222001CF270 /* EditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA805B2287D2222001CF270 /* EditViewModel.swift */; };
 		DAA805B5287D2555001CF270 /* CreateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA805B4287D2555001CF270 /* CreateViewModel.swift */; };
+		DAA805BA287D6D08001CF270 /* TodoListPopOver.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA805B9287D6D08001CF270 /* TodoListPopOver.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,7 @@
 		DAA805B0287D1154001CF270 /* CreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateView.swift; sourceTree = "<group>"; };
 		DAA805B2287D2222001CF270 /* EditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewModel.swift; sourceTree = "<group>"; };
 		DAA805B4287D2555001CF270 /* CreateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateViewModel.swift; sourceTree = "<group>"; };
+		DAA805B9287D6D08001CF270 /* TodoListPopOver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListPopOver.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,6 +174,7 @@
 			isa = PBXGroup;
 			children = (
 				DA657CE228759BB6002DB030 /* TodoList.swift */,
+				DAA805B9287D6D08001CF270 /* TodoListPopOver.swift */,
 				DA657CE028758FE5002DB030 /* TodoListCell.swift */,
 				86B5211F2875B8DF003B83C9 /* TodoListHeader.swift */,
 			);
@@ -300,6 +303,7 @@
 				865CFF2A287726BA00C251F3 /* BranchProcessing.swift in Sources */,
 				864DD598287327F500023287 /* AppView.swift in Sources */,
 				DAA805B1287D1154001CF270 /* CreateView.swift in Sources */,
+				DAA805BA287D6D08001CF270 /* TodoListPopOver.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				86B5211E287597E7003B83C9 /* Date+Extension.swift in Sources */,
 				DA657CDF28758E16002DB030 /* AppViewModel.swift in Sources */,

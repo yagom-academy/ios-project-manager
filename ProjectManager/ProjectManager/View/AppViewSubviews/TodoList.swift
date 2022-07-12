@@ -46,10 +46,13 @@ struct EditViewButton: View {
   @ObservedObject var todo: Todo
   let todoService: TodoService
   @Binding var isShowEditView: Bool
-
+  @State var isLongPressing = false
+  
   var body: some View {
     Button {
-      isShowEditView = true
+      if isLongPressing {
+        isLongPressing = false
+      }
     } label: {
       TodoListCell(todo)
     }
@@ -59,5 +62,15 @@ struct EditViewButton: View {
         todo: Todo(id: todo.id, title: todo.title, content: todo.content, date: todo.date, status: todo.status),
         isShow: $isShowEditView)
     }
+    .popover(isPresented: $isLongPressing) {
+        TodoListPopOver()
+    }
+    .simultaneousGesture(TapGesture().onEnded {
+      isShowEditView = true
+    })
+    .simultaneousGesture(LongPressGesture(minimumDuration: 1).onEnded({ _ in
+      print("long")
+      self.isLongPressing = true
+    }))
   }
 }
