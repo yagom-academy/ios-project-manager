@@ -11,7 +11,7 @@ import RxCocoa
 import RxSwift
 
 final class ListView: UIView {
-    private let status: Status
+    private let status: TodoListItemStatus
     private let tableView: UITableView
     private let viewModel: TodoListViewModel
     private let disposeBag = DisposeBag()
@@ -67,7 +67,7 @@ final class ListView: UIView {
         return stackView
     }()
     
-    init(status: Status, viewModel: TodoListViewModel, coordinator: MainCoordinator) {
+    init(status: TodoListItemStatus, viewModel: TodoListViewModel, coordinator: MainCoordinator) {
         self.status = status
         self.tableView = UITableView()
         self.viewModel = viewModel
@@ -116,9 +116,9 @@ final class ListView: UIView {
         
     private func bind() {
         Observable.of(
-            (Status.todo, self.viewModel.todoViewData),
-            (Status.doing, self.viewModel.doingViewData),
-            (Status.done, self.viewModel.doneViewData)
+            (TodoListItemStatus.todo, self.viewModel.todoViewData),
+            (TodoListItemStatus.doing, self.viewModel.doingViewData),
+            (TodoListItemStatus.done, self.viewModel.doneViewData)
         )
         .filter { $0.0 == self.status }
         .flatMap{ $0.1 }
@@ -146,9 +146,9 @@ final class ListView: UIView {
             .disposed(by: self.disposeBag)
         
         Observable.of(
-            (Status.todo, self.viewModel.todoViewData),
-            (Status.doing, self.viewModel.doingViewData),
-            (Status.done, self.viewModel.doneViewData)
+            (TodoListItemStatus.todo, self.viewModel.todoViewData),
+            (TodoListItemStatus.doing, self.viewModel.doingViewData),
+            (TodoListItemStatus.done, self.viewModel.doneViewData)
         )
         .filter { $0.0 == self.status }
         .flatMap{ $0.1 }

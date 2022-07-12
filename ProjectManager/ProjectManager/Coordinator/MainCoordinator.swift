@@ -34,7 +34,7 @@ final class MainCoordinator: Coordinator {
         self.navigationController.pushViewController(viewController, animated: false)
     }
     
-    func showDetailView(type: TodoListType, status: Status) {
+    func showDetailView(type: TodoListType, status: TodoListItemStatus) {
         let viewModel = DetailViewModel(dataBase: self.dataBase)
         self.detailViewController = DetailViewController(
             type: type,

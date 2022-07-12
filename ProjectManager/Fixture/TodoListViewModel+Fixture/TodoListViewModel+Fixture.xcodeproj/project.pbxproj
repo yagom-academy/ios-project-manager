@@ -8,13 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		30BAC3EB287C0AD30073298F /* TodoListViewModel_Fixture.h in Headers */ = {isa = PBXBuildFile; fileRef = 30BAC3EA287C0AD30073298F /* TodoListViewModel_Fixture.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		30BAC3FD287C0C160073298F /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BAC3FC287C0C160073298F /* MockData.swift */; };
+		30BAC3FD287C0C160073298F /* TempData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BAC3FC287C0C160073298F /* TempData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		30BAC3E7287C0AD30073298F /* TodoListViewModel_Fixture.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TodoListViewModel_Fixture.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		30BAC3E7287C0AD30073298F /* TodoListViewModel_Temp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TodoListViewModel_Temp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		30BAC3EA287C0AD30073298F /* TodoListViewModel_Fixture.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TodoListViewModel_Fixture.h; sourceTree = "<group>"; };
-		30BAC3FC287C0C160073298F /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
+		30BAC3FC287C0C160073298F /* TempData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,7 +48,7 @@
 			isa = PBXGroup;
 			children = (
 				30BAC3EA287C0AD30073298F /* TodoListViewModel_Fixture.h */,
-				30BAC3FC287C0C160073298F /* MockData.swift */,
+				30BAC3FC287C0C160073298F /* TempData.swift */,
 			);
 			path = "TodoListViewModel+Fixture";
 			sourceTree = "<group>";
@@ -133,7 +133,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				30BAC3FD287C0C160073298F /* MockData.swift in Sources */,
+				30BAC3FD287C0C160073298F /* TempData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,6 +9,6 @@ import Foundation
 
 extension Date {
     func convertToString() -> String? {
-        return CurrentDateFormatter.dateFormatter.string(for: self)
+        return Formatter.date.string(for: self)
     }
 }
