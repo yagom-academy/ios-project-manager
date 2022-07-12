@@ -17,7 +17,7 @@ final class PopOverViewController: UIViewController {
     init(cell: ProjectCell) {
         viewModel = PopOverViewModel(cell: cell)
         super.init(nibName: nil, bundle: nil)
-        view = popOverView
+        
         setUpAttribute(cell)
         setUpButtonAction(cell)
         setUpButtonTitle()
@@ -25,6 +25,10 @@ final class PopOverViewController: UIViewController {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func loadView() {
+        view = popOverView
     }
     
     private func setUpAttribute(_ cell: ProjectCell) {
