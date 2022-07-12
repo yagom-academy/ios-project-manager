@@ -59,14 +59,17 @@ extension MainViewModel: MainViewModelInput {
             _ = todoList.drive(onNext: {
                 completion($0[index])
             })
+            .dispose()
         case .doing:
             _ = doingList.drive(onNext: {
                 completion($0[index])
             })
+            .dispose()
         case .done:
             _ = doneList.drive(onNext: {
                 completion($0[index])
             })
+            .dispose()
         }
     }
     
