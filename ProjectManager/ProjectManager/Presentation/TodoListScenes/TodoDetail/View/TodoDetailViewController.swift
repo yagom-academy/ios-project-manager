@@ -78,13 +78,11 @@ final class TodoDetailViewController: UIViewController {
         view.backgroundColor = .systemBackground
         
         let doneAction = UIAction { [weak self] _ in
-            guard let title = self?.todoDetailView.titleTextField.text,
-                  let content = self?.todoDetailView.contentTextView.text,
-                  let deadLine = self?.todoDetailView.datePicker.date
-            else {
-                return
-            }
-            self?.viewModel.doneButtonDidTap(title: title, content: content, deadLine: deadLine)
+            self?.viewModel.doneButtonDidTap(
+                title: self?.todoDetailView.titleTextField.text,
+                content: self?.todoDetailView.contentTextView.text,
+                deadLine: self?.todoDetailView.datePicker.date
+            )
         }
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .done, primaryAction: doneAction)

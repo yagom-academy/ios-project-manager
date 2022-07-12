@@ -10,7 +10,7 @@ import Combine
 
 protocol TodoDetailViewModelInput {
     func closeButtonDidTap()
-    func doneButtonDidTap(title: String, content: String, deadLine: Date)
+    func doneButtonDidTap(title: String?, content: String?, deadLine: Date?)
     func editButtonDidTap()
     func viewDidDisapper()
 }
@@ -63,7 +63,14 @@ extension TodoDetailViewModel {
         viewDidDisapper()
     }
     
-    func doneButtonDidTap(title: String, content: String, deadLine: Date) {
+    func doneButtonDidTap(title: String?, content: String?, deadLine: Date?) {
+        guard let title = title,
+              let content = content,
+              let deadLine = deadLine
+        else {
+            return
+        }
+        
         if title.isEmpty && content.isEmpty {
             return
         }
