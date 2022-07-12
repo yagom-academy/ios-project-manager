@@ -57,11 +57,6 @@ final class TodoListCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        self.contentView.frame = self.contentView.frame.inset(by: UIEdgeInsets(top: 10))
-    }
-    
     private func setUpCell() {
         self.backgroundColor = .systemGray5
         self.contentView.backgroundColor = .systemBackground

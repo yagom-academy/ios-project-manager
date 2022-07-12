@@ -6,18 +6,13 @@
 //
 import UIKit
 
-import RxSwift
 import RxCocoa
-
-enum TodoListType {
-    case create
-    case edit
-}
+import RxSwift
 
 final class DetailViewController: UIViewController {
-    private let type: TodoListType
-    private let status: TodoListItemStatus
-    private let viewModel: DetailViewModel
+    private let detailViewType: DetailViewType
+    private let todoListItemStatus: TodoListItemStatus
+    private let detailViewModel: DetailViewModel
     private let disposeBag = DisposeBag()
     weak private var coordinator: MainCoordinator?
 
@@ -68,18 +63,18 @@ final class DetailViewController: UIViewController {
     }()
     
     private var leftBarButtonTitle: String {
-        return self.type == .create ? "Cancel" : "Edit"
+        return self.detailViewType == .create ? "Cancel" : "Edit"
     }
     
     init(
-        type: TodoListType,
-        status: TodoListItemStatus,
-        viewModel: DetailViewModel,
+        detailViewType: DetailViewType,
+        todoListItemStatus: TodoListItemStatus,
+        detailViewModel: DetailViewModel,
         coordinator: MainCoordinator
     ) {
-        self.type = type
-        self.status = status
-        self.viewModel = viewModel
+        self.detailViewType = detailViewType
+        self.todoListItemStatus = todoListItemStatus
+        self.detailViewModel = detailViewModel
         self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
     }
@@ -90,16 +85,16 @@ final class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setNavigationBar()
-        self.setUpDetailView()
-        self.setUpLayout()
+        self.setUpNavigationBar()
+        self.setUpDetailStackView()
+        self.setUpTitleTextField()
         self.bind()
     }
     
-    private func setNavigationBar() {
-        self.navigationItem.title = status.title
+    private func setUpNavigationBar() {
+        self.navigationItem.title = self.todoListItemStatus.title
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(
-            title: leftBarButtonTitle,
+            title: self.leftBarButtonTitle,
             style: .plain,
             target: nil,
             action: nil
@@ -112,7 +107,7 @@ final class DetailViewController: UIViewController {
         )
     }
     
-    private func setUpDetailView() {
+    private func setUpDetailStackView() {
         self.view.backgroundColor = .systemBackground
         self.view.addSubview(self.detailStackView)
         self.detailStackView.addArrangedSubviews(
@@ -121,18 +116,18 @@ final class DetailViewController: UIViewController {
                 self.datePicker,
                 self.descriptionTextView
             ])
-    }
-    
-    private func setUpLayout() {
-        NSLayoutConstraint.activate([
-            self.titleTextField.heightAnchor.constraint(equalToConstant: 40),
-        ])
         
         NSLayoutConstraint.activate([
             self.detailStackView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
             self.detailStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 10),
             self.detailStackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -10),
             self.detailStackView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -20)
+        ])
+    }
+    
+    private func setUpTitleTextField() {
+        NSLayoutConstraint.activate([
+            self.titleTextField.heightAnchor.constraint(equalToConstant: 40),
         ])
     }
     
@@ -151,7 +146,7 @@ final class DetailViewController: UIViewController {
             )
         }))
             
-        let output = self.viewModel.transform(input: input)
+        let output = self.detailViewModel.transform(input: input)
         
         output.dismiss
             .drive(onNext: {

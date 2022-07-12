@@ -34,15 +34,21 @@ final class MainCoordinator: Coordinator {
         self.navigationController.pushViewController(viewController, animated: false)
     }
     
-    func showDetailView(type: TodoListType, status: TodoListItemStatus) {
+    func showDetailView(type: DetailViewType, status: TodoListItemStatus?) {
         let viewModel = DetailViewModel(dataBase: self.dataBase)
+        guard let status = status else {
+            return
+        }
         self.detailViewController = DetailViewController(
-            type: type,
-            status: status,
-            viewModel: viewModel,
+            detailViewType: type,
+            todoListItemStatus: status,
+            detailViewModel: viewModel,
             coordinator: self
         )
-        let navigationController = UINavigationController(rootViewController: self.detailViewController!)
+        guard let detailViewController = detailViewController else {
+            return
+        }
+        let navigationController = UINavigationController(rootViewController: detailViewController)
         navigationController.modalPresentationStyle = .formSheet
         self.navigationController.present(navigationController, animated: false)
     }

@@ -30,9 +30,9 @@ final class TodoListViewController: UIViewController {
     }()
 
     init(todoViewModel: TodoListViewModel, coordinator: MainCoordinator) {
-        self.todoView = ListView(status: .todo, viewModel: todoViewModel, coordinator: coordinator)
-        self.doingView = ListView(status: .doing, viewModel: todoViewModel, coordinator: coordinator)
-        self.doneView = ListView(status: .done, viewModel: todoViewModel, coordinator: coordinator)
+        self.todoView = ListView(todoListItemStatus: .todo, listViewModel: todoViewModel, coordinator: coordinator)
+        self.doingView = ListView(todoListItemStatus: .doing, listViewModel: todoViewModel, coordinator: coordinator)
+        self.doneView = ListView(todoListItemStatus: .done, listViewModel: todoViewModel, coordinator: coordinator)
         self.viewModel = todoViewModel
         self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
@@ -80,6 +80,6 @@ final class TodoListViewController: UIViewController {
         self.navigationItem.rightBarButtonItem?.rx.tap.asObservable()
             .subscribe(onNext: { [weak self] in
                 self?.coordinator?.showDetailView(type: .create, status: .todo) })
-            .disposed(by: disposeBag)
+            .disposed(by: self.disposeBag)
     }
 }

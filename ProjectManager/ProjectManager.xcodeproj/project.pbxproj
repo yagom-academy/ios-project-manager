@@ -23,16 +23,27 @@
 		643719D92873D10A00F78AAA /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 643719D82873D10A00F78AAA /* FirebaseDatabaseSwift */; };
 		643719DB2873D2BB00F78AAA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 643719DA2873D2BB00F78AAA /* GoogleService-Info.plist */; };
 		643719E02873E02F00F78AAA /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643719DF2873E02F00F78AAA /* Todo.swift */; };
-		64371A502874940300F78AAA /* StackView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64371A4F2874940300F78AAA /* StackView+Extension.swift */; };
+		64371A502874940300F78AAA /* StackView+Sugar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64371A4F2874940300F78AAA /* StackView+Sugar.swift */; };
 		64371AC7287B0CFC00F78AAA /* Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64371AC6287B0CFC00F78AAA /* Formatter.swift */; };
-		64371AC9287B129200F78AAA /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64371AC8287B129200F78AAA /* Date+Extension.swift */; };
+		64371AC9287B129200F78AAA /* Date+Sugar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64371AC8287B129200F78AAA /* Date+Sugar.swift */; };
 		64371AE9287C570D00F78AAA /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64371AE8287C570C00F78AAA /* MainCoordinator.swift */; };
+		64371AFB287DC2A500F78AAA /* DetailViewType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64371AFA287DC2A500F78AAA /* DetailViewType.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* TodoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* TodoListViewController.swift */; };
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		64371AF8287DBF8200F78AAA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 30BAC3F1287C0AD30073298F /* TodoListViewModel+Temp.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 30BAC3E7287C0AD30073298F;
+			remoteInfo = "TodoListViewModel+Temp";
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		30BAC3FA287C0B620073298F /* Embed Frameworks */ = {
@@ -59,10 +70,11 @@
 		30BAC3F1287C0AD30073298F /* TodoListViewModel+Temp.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "TodoListViewModel+Temp.xcodeproj"; path = "TodoListViewModel+Fixture/TodoListViewModel+Temp.xcodeproj"; sourceTree = "<group>"; };
 		643719DA2873D2BB00F78AAA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		643719DF2873E02F00F78AAA /* Todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
-		64371A4F2874940300F78AAA /* StackView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StackView+Extension.swift"; sourceTree = "<group>"; };
+		64371A4F2874940300F78AAA /* StackView+Sugar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StackView+Sugar.swift"; sourceTree = "<group>"; };
 		64371AC6287B0CFC00F78AAA /* Formatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatter.swift; sourceTree = "<group>"; };
-		64371AC8287B129200F78AAA /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
+		64371AC8287B129200F78AAA /* Date+Sugar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Sugar.swift"; sourceTree = "<group>"; };
 		64371AE8287C570C00F78AAA /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
+		64371AFA287DC2A500F78AAA /* DetailViewType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewType.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -159,9 +171,10 @@
 		64371A4E287493A900F78AAA /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				64371A4F2874940300F78AAA /* StackView+Extension.swift */,
-				64371AC8287B129200F78AAA /* Date+Extension.swift */,
+				64371A4F2874940300F78AAA /* StackView+Sugar.swift */,
+				64371AC8287B129200F78AAA /* Date+Sugar.swift */,
 				3088779D2876D0CF00057592 /* TodoListItemStatus.swift */,
+				64371AFA287DC2A500F78AAA /* DetailViewType.swift */,
 				64371AC6287B0CFC00F78AAA /* Formatter.swift */,
 				3000D70B287D3E7E00EA7A03 /* UIEdgeInsets+Sugar.swift */,
 			);
@@ -183,6 +196,14 @@
 				64371AE8287C570C00F78AAA /* MainCoordinator.swift */,
 			);
 			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		64371AF5287DBF8200F78AAA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				64371AF9287DBF8200F78AAA /* TodoListViewModel_Temp.framework */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		C7431EF925F51E1D0094C4CF = {
@@ -281,12 +302,28 @@
 			);
 			productRefGroup = C7431F0325F51E1D0094C4CF /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 64371AF5287DBF8200F78AAA /* Products */;
+					ProjectRef = 30BAC3F1287C0AD30073298F /* TodoListViewModel+Temp.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				C7431F0125F51E1D0094C4CF /* ProjectManager */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		64371AF9287DBF8200F78AAA /* TodoListViewModel_Temp.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = TodoListViewModel_Temp.framework;
+			remoteRef = 64371AF8287DBF8200F78AAA /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		C7431F0025F51E1D0094C4CF /* Resources */ = {
@@ -307,15 +344,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				3000D70C287D3E7E00EA7A03 /* UIEdgeInsets+Sugar.swift in Sources */,
-				64371AC9287B129200F78AAA /* Date+Extension.swift in Sources */,
+				64371AC9287B129200F78AAA /* Date+Sugar.swift in Sources */,
 				30B02F8C2873E3F40029579F /* TodoListViewModel.swift in Sources */,
+				64371AFB287DC2A500F78AAA /* DetailViewType.swift in Sources */,
 				30B02F9028747FF40029579F /* TodoListCell.swift in Sources */,
 				64371AC7287B0CFC00F78AAA /* Formatter.swift in Sources */,
 				3088777C2875CD7800057592 /* ListView.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* TodoListViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
-				64371A502874940300F78AAA /* StackView+Extension.swift in Sources */,
+				64371A502874940300F78AAA /* StackView+Sugar.swift in Sources */,
 				308FF0C02878205700301DCF /* DetailViewController.swift in Sources */,
 				64371AE9287C570D00F78AAA /* MainCoordinator.swift in Sources */,
 				643719E02873E02F00F78AAA /* Todo.swift in Sources */,
