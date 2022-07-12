@@ -106,12 +106,41 @@ extension MainViewController {
     }
 }
 
+// MARK: functions
+
+extension MainViewController {
+    @objc
+    func longPressGesture(sender: UILongPressGestureRecognizer) {
+        guard let tableView = sender.view as? UITableView else { return }
+        guard let tableViewType = mainView.findTableViewType(tableView: tableView) else { return }
+        let point = sender.location(in: self.mainView.retrieveTableView(taskType: tableViewType))
+        if let indexPath = tableView.indexPathForRow(at: point) {
+            if let cell = tableView.cellForRow(at: indexPath) {
+                switch sender.state {
+                case .began:
+                    makePopover(taskType: tableViewType)
+                    print("")
+                default:
+                    print("")
+                }
+            }
+        }
+    }
+    
+    func makePopover(taskType: TaskType) {
+    }
+}
+
 // MARK: Setup ToDoTableView
 
 extension MainViewController {
     private func setToDoTableView() {
         let todoTableView = mainView.retrieveTableView(taskType: .todo)
         todoTableView.register(TaskCell.self, forCellReuseIdentifier: TaskCell.identifier)
+        
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPressGesture(sender:)))
+        todoTableView.addGestureRecognizer(longPress)
+    
         makeToDoDataSource()
         todoTableView.dataSource = todoDataSource
         todoTableView.delegate = self
