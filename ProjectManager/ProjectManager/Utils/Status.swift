@@ -12,7 +12,7 @@ enum Status: String {
     case doing = "DOING"
     case done = "DONE"
     
-    var value: String {
+    var title: String {
         return self.rawValue
     }
 }
