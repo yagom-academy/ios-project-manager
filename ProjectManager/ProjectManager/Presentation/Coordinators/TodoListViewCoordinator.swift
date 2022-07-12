@@ -8,7 +8,7 @@
 import UIKit
 
 final class TodoListViewCoordinator: Coordinator {
-    var navigationController: UINavigationController
+    weak var navigationController: UINavigationController?
     weak var parentCoordinator: Coordinator?
     var childCoordinators: [Coordinator] = []
     
@@ -23,10 +23,14 @@ final class TodoListViewCoordinator: Coordinator {
     
     func start() {
         let todoListViewController = dependencies.makeTodoListViewController(coordinator: self)
-        self.navigationController.pushViewController(todoListViewController, animated: true)
+        self.navigationController?.pushViewController(todoListViewController, animated: true)
     }
     
     func showDetailViewController(_ item: TodoListModel) {
+        guard let navigationController = navigationController else {
+            return
+        }
+
         let sceneCoordinator = dependencies.makeDetailViewCoordinator(navigationController: navigationController)
         
         childCoordinators.append(sceneCoordinator)

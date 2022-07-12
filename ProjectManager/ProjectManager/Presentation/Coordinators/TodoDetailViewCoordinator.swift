@@ -8,7 +8,7 @@
 import UIKit
 
 final class TodoDetailViewCoordinator: Coordinator {
-    var navigationController: UINavigationController
+    weak var navigationController: UINavigationController?
     weak var parentCoordinator: Coordinator?
     var childCoordinators: [Coordinator] = []
     
@@ -20,8 +20,11 @@ final class TodoDetailViewCoordinator: Coordinator {
     }
 
     func start(_ item: TodoListModel) {
+        guard let navigationController = navigationController else {
+            return
+        }
+
         let todoDetailViewController = dependencies.makeTodoDetailViewContoller(todoListModel: item, coordinator: self)
-        
         let todoDetailNavigationController = UINavigationController(rootViewController: todoDetailViewController)
         todoDetailNavigationController.modalPresentationStyle = .formSheet
         
@@ -31,7 +34,7 @@ final class TodoDetailViewCoordinator: Coordinator {
     }
     
     func dismiss() {
-        navigationController.dismiss(animated: true)
+        navigationController?.dismiss(animated: true)
         
         parentCoordinator?.childCoordinators.removeAll { $0 === self }
     }

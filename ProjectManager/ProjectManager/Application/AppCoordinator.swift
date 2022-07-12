@@ -8,13 +8,13 @@
 import UIKit
 
 protocol Coordinator: AnyObject {
-    var navigationController: UINavigationController { get set }
+    var navigationController: UINavigationController? { get set }
     var parentCoordinator: Coordinator? { get set }
     var childCoordinators: [Coordinator] { get set }
 }
 
 final class AppCoordinator: Coordinator {
-    var navigationController: UINavigationController
+    weak var navigationController: UINavigationController?
     weak var parentCoordinator: Coordinator?
     var childCoordinators: [Coordinator] = []
     
@@ -26,6 +26,10 @@ final class AppCoordinator: Coordinator {
     }
     
     func start() {
+        guard let navigationController = navigationController else {
+            return
+        }
+
         let sceneDIContainer = appDIContainer.makeTodoListSceneDIContainer()
         let sceneCoordinator = sceneDIContainer.makeCoordinator(navigationController: navigationController)
         
