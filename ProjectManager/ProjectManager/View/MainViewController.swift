@@ -124,6 +124,7 @@ final class MainViewController: UIViewController {
     
     private func listTableView() -> UITableView {
         let tableView = UITableView()
+        tableView.separatorInset = UIEdgeInsets(top: 0, left: -20, bottom: 0, right: 0)
         tableView.backgroundColor = .systemGray6
         tableView.register(ListTableViewCell.self)
         
