@@ -7,6 +7,7 @@
 
 import RxRelay
 protocol Storege {
+    var list: BehaviorRelay<[ListItem]> { get }
     func creatList(listItem: ListItem)
     func updateList(listItem: ListItem)
     func deleteList(listItem: ListItem)
