@@ -93,6 +93,22 @@ final class BaseViewController: UIViewController {
     doneView.todoCollectionView.delegate = self
   }
   
+  private func moveWriteTodo() {
+    let writeVC = WriteViewController()
+    writeVC.view.layer.cornerRadius = 20
+    let writeNC = UINavigationController(rootViewController: writeVC)
+    writeNC.modalPresentationStyle = .pageSheet
+    writeVC.todoDelegate = self
+    present(writeNC, animated: true)
+  }
+  
+  private func setNavigationBar() {
+    navigationItem.rightBarButtonItem = UIBarButtonItem(
+      systemItem: .add,
+      primaryAction: UIAction(handler: { _ in
+        self.moveWriteTodo()
+      }))
+  }
   
   private func configureUI() {
     setNavigationBar()
