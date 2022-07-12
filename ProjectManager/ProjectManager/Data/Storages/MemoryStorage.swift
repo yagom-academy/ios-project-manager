@@ -33,8 +33,6 @@ final class MemoryStorage: Storageable {
     }
     
     func delete(_ item: TodoListModel) {
-        if let targetIndex = items.firstIndex(where: { $0.id == item.id }) {
-            items.remove(at: targetIndex)
-        }
+        items.removeAll { $0.id == item.id }
     }
 }
