@@ -22,17 +22,20 @@ struct AppView: View {
   var body: some View {
     NavigationView {
       HStack(spacing: 10) {
-        TodoListView(todoService: viewModel.todoService, status: .todo) { status in
-          viewModel.read(by: status)
-        }
-                
-        TodoListView(todoService: viewModel.todoService, status: .doing) { status in
-          viewModel.read(by: status)
-        }
-        TodoListView(todoService: viewModel.todoService, status: .done) { status in
-          viewModel.read(by: status)
-        }
+       
+        TodoListView(todoService: viewModel.todoService, status: .todo,
+                     readList: { viewModel.read(by: $0) },
+                     updata: { viewModel.changeStatus(status: $0, todo: $1) })
+        
+        TodoListView(todoService: viewModel.todoService, status: .doing,
+                     readList: { viewModel.read(by: $0) },
+                     updata: { viewModel.changeStatus(status: $0, todo: $1) })
+        
+        TodoListView(todoService: viewModel.todoService, status: .done,
+                     readList: { viewModel.read(by: $0) },
+                     updata: { viewModel.changeStatus(status: $0, todo: $1) })
       }
+      
       .background(Color(UIColor.systemGray4))
       .navigationTitle("Project Manager")
       .navigationBarTitleDisplayMode(.inline)

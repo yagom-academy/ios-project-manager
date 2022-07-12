@@ -24,4 +24,8 @@ class AppViewModel: ObservableObject {
     }
     return filteredTodo
   }
+  
+  func changeStatus(status: Todo.Status, todo: Todo) {
+    todo.status = status
+  }
 }

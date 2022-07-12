@@ -11,12 +11,18 @@ struct TodoListView: View {
   @State var isShowEditView: Bool = false
   private let status: Todo.Status
   private let readList: (Todo.Status) -> [Todo]
+  private let updata: (Todo.Status, Todo) -> Void
+  
   let todoService: TodoService
   
-  init(todoService: TodoService, status: Todo.Status, readList: @escaping (Todo.Status) -> [Todo]) {
+  init(todoService: TodoService,
+       status: Todo.Status,
+       readList: @escaping (Todo.Status) -> [Todo],
+       updata: @escaping  (Todo.Status, Todo) -> Void) {
     self.todoService = todoService
     self.status = status
     self.readList = readList
+    self.updata = updata
   }
   
   var body: some View {
@@ -28,7 +34,7 @@ struct TodoListView: View {
         Color(UIColor.systemGray5)
         List {
           ForEach(readList(status)) { todo in
-            EditViewButton(todo: todo, todoService: todoService, isShowEditView: $isShowEditView)
+            EditViewButton(todo: todo, todoService: todoService, isShowEditView: $isShowEditView, updata: updata)
               .listRowSeparator(.hidden)
           }
         }
@@ -47,6 +53,14 @@ struct EditViewButton: View {
   let todoService: TodoService
   @Binding var isShowEditView: Bool
   @State var isLongPressing = false
+  private let updata: (Todo.Status, Todo) -> Void
+  
+  init(todo: Todo, todoService: TodoService, isShowEditView: Binding<Bool>, updata: @escaping (Todo.Status, Todo) -> Void) {
+    self.todo = todo
+    self.todoService = todoService
+    self._isShowEditView = isShowEditView
+    self.updata = updata
+  }
   
   var body: some View {
     Button {
@@ -63,7 +77,7 @@ struct EditViewButton: View {
         isShow: $isShowEditView)
     }
     .popover(isPresented: $isLongPressing) {
-        TodoListPopOver()
+        TodoListPopOver(todo: todo, updata: updata)
     }
     .simultaneousGesture(TapGesture().onEnded {
       isShowEditView = true
