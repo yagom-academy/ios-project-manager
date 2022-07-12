@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		3000D70C287D3E7E00EA7A03 /* UIEdgeInsets+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3000D70B287D3E7E00EA7A03 /* UIEdgeInsets+Extension.swift */; };
+		3000D717287D56B400EA7A03 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3000D716287D56B400EA7A03 /* DetailViewModel.swift */; };
+		3000D71B287D593A00EA7A03 /* DataBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3000D71A287D593A00EA7A03 /* DataBase.swift */; };
 		3088777C2875CD7800057592 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3088777B2875CD7800057592 /* ListView.swift */; };
 		3088779E2876D0CF00057592 /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3088779D2876D0CF00057592 /* Status.swift */; };
 		308FF0C02878205700301DCF /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308FF0BF2878205700301DCF /* DetailViewController.swift */; };
@@ -60,6 +62,8 @@
 
 /* Begin PBXFileReference section */
 		3000D70B287D3E7E00EA7A03 /* UIEdgeInsets+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIEdgeInsets+Extension.swift"; sourceTree = "<group>"; };
+		3000D716287D56B400EA7A03 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
+		3000D71A287D593A00EA7A03 /* DataBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBase.swift; sourceTree = "<group>"; };
 		3088777B2875CD7800057592 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		3088779D2876D0CF00057592 /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
 		308FF0BF2878205700301DCF /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
@@ -99,6 +103,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3000D719287D591400EA7A03 /* DataStorage */ = {
+			isa = PBXGroup;
+			children = (
+				3000D71A287D593A00EA7A03 /* DataBase.swift */,
+			);
+			path = DataStorage;
+			sourceTree = "<group>";
+		};
 		30B02F8E287464250029579F /* TodoList */ = {
 			isa = PBXGroup;
 			children = (
@@ -182,6 +194,7 @@
 			isa = PBXGroup;
 			children = (
 				308FF0BF2878205700301DCF /* DetailViewController.swift */,
+				3000D716287D56B400EA7A03 /* DetailViewModel.swift */,
 			);
 			path = TodoDetail;
 			sourceTree = "<group>";
@@ -225,6 +238,7 @@
 				64371A84287847F600F78AAA /* TodoDetail */,
 				64371AE6287C56C500F78AAA /* Coordinator */,
 				643719E12873E07400F78AAA /* Model */,
+				3000D719287D591400EA7A03 /* DataStorage */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
@@ -343,6 +357,8 @@
 				308FF0C02878205700301DCF /* DetailViewController.swift in Sources */,
 				64371AE9287C570D00F78AAA /* MainCoordinator.swift in Sources */,
 				643719E02873E02F00F78AAA /* Todo.swift in Sources */,
+				3000D717287D56B400EA7A03 /* DetailViewModel.swift in Sources */,
+				3000D71B287D593A00EA7A03 /* DataBase.swift in Sources */,
 				3088779E2876D0CF00057592 /* Status.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

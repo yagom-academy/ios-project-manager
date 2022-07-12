@@ -17,7 +17,7 @@ enum TodoListType {
 final class DetailViewController: UIViewController {
     private let type: TodoListType
     private let status: Status
-    private let viewModel: TodoListViewModel
+    private let viewModel: DetailViewModel
     private let disposeBag = DisposeBag()
     weak private var coordinator: MainCoordinator?
 
@@ -74,7 +74,7 @@ final class DetailViewController: UIViewController {
     init(
         type: TodoListType,
         status: Status,
-        viewModel: TodoListViewModel,
+        viewModel: DetailViewModel,
         coordinator: MainCoordinator
     ) {
         self.type = type
@@ -141,13 +141,13 @@ final class DetailViewController: UIViewController {
             return
         }
         
-        let input = TodoListViewModel.Input(
-            doneButtonTapEvent: rightBarButton.rx.tap.map({ _ in
+        let input = DetailViewModel.Input(
+            doneButtonTapEvent: rightBarButton.rx.tap.map({ [weak self] _ in
             Todo(
                 status: .todo,
-                title: "ddd",
-                description: "ssss",
-                date: CurrentDateFormatter.fetch()
+                title: self?.titleTextField.text ?? "",
+                description: self?.descriptionTextView.text ?? "",
+                date: self?.datePicker.date ?? CurrentDateFormatter.fetch()
             )
         }))
             

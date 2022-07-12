@@ -15,6 +15,7 @@ protocol Coordinator: AnyObject {
 final class MainCoordinator: Coordinator {
     var navigationController: UINavigationController
     private var detailViewController: DetailViewController?
+    private let dataBase = TempDataBase()
     
     func start() {
         self.showListView()
@@ -25,7 +26,7 @@ final class MainCoordinator: Coordinator {
     }
     
     private func showListView() {
-        let viewModel = TodoListViewModel()
+        let viewModel = TodoListViewModel(dataBase: self.dataBase)
         let viewController = TodoListViewController(
             todoViewModel: viewModel,
             coordinator: self
@@ -34,7 +35,7 @@ final class MainCoordinator: Coordinator {
     }
     
     func showDetailView(type: TodoListType, status: Status) {
-        let viewModel = TodoListViewModel()
+        let viewModel = DetailViewModel(dataBase: self.dataBase)
         self.detailViewController = DetailViewController(
             type: type,
             status: status,
@@ -47,6 +48,6 @@ final class MainCoordinator: Coordinator {
     }
     
     func dismiss() {
-        detailViewController?.dismiss(animated: true)
+        self.detailViewController?.dismiss(animated: true)
     }
 }
