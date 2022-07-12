@@ -7,6 +7,7 @@
 import UIKit
 import SnapKit
 import RxSwift
+import RxGesture
 
 final class MainViewController: UIViewController, UIPopoverPresentationControllerDelegate {
     
