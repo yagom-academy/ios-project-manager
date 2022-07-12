@@ -61,7 +61,7 @@ extension TodoListViewController {
               }.disposed(by: bag)
         
         viewModel.todoListCount
-            .drive(mainView.todoHeaderView.setCountText)
+            .drive(mainView.todoHeaderView.rx.countText)
             .disposed(by: bag)
         
         Observable.zip(mainView.todoTableView.rx.modelSelected(TodoCellContent.self),
@@ -79,7 +79,7 @@ extension TodoListViewController {
               }.disposed(by: bag)
         
         viewModel.doingListCount
-            .drive(mainView.doingHeaderView.setCountText)
+            .drive(mainView.doingHeaderView.rx.countText)
             .disposed(by: bag)
         
         Observable.zip(mainView.doingTableView.rx.modelSelected(TodoCellContent.self),
@@ -97,7 +97,7 @@ extension TodoListViewController {
               }.disposed(by: bag)
 
         viewModel.doneListCount
-            .drive(mainView.doneHeaderView.setCountText)
+            .drive(mainView.doneHeaderView.rx.countText)
             .disposed(by: bag)
         
         Observable.zip(mainView.doneTableView.rx.modelSelected(TodoCellContent.self),
