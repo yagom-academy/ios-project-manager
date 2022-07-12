@@ -26,12 +26,12 @@ final class DetailView: UIView {
     
     private lazy var naviItem: UINavigationItem = {
         let navigationItem = UINavigationItem()
-        navigationItem.leftBarButtonItem = cancleButton
+        navigationItem.leftBarButtonItem = leftButton
         navigationItem.rightBarButtonItem = doneButton
         return navigationItem
     }()
     
-    private lazy var cancleButton: UIBarButtonItem = {
+    private(set) lazy var leftButton: UIBarButtonItem = {
         let barButton = UIBarButtonItem()
         barButton.title = "Cancel"
         
@@ -87,10 +87,17 @@ extension DetailView {
             return
         }
         naviItem.title = listItem.type.title
-        cancleButton.title = "Edit"
+        leftButton.title = "Edit"
         titleTextField.text = listItem.title
         deadlinePicker.date = listItem.deadline
         bodyTextView.text = listItem.body
+        changeEditable()
+    }
+    
+    func changeEditable() {
+        titleTextField.isEnabled = !titleTextField.isEnabled
+        deadlinePicker.isEnabled = !deadlinePicker.isEnabled
+        bodyTextView.isEditable = !bodyTextView.isEditable
     }
     
     private func setViewLayout() {

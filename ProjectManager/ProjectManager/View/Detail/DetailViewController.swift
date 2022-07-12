@@ -49,6 +49,12 @@ final class DetailViewController: UIViewController {
                 self?.dismiss(animated: true)
             })
             .disposed(by: disposebag)
+        
+        detailView.leftButton.rx.tap
+            .bind(onNext: { [weak self] in
+                self?.tapLeftButton()
+            })
+            .disposed(by: disposebag)
     }
     
     private func createNewList() {
@@ -68,5 +74,14 @@ final class DetailViewController: UIViewController {
         listItem.deadline = detailView.deadlinePicker.date
         
         viewModel.updateList(listItem: listItem)
+    }
+    
+    private func tapLeftButton() {
+        if detailView.leftButton.title == "Cancel" {
+            self.dismiss(animated: true)
+        }
+        
+        detailView.leftButton.title = "Cancel"
+        detailView.changeEditable()
     }
 }
