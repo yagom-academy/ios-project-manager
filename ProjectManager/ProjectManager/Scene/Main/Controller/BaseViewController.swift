@@ -125,3 +125,19 @@ final class BaseViewController: UIViewController {
     ])
   }
 }
+
+  
+  private func createTodoData(from collectionView: UICollectionView, indexPath row: Int) -> Todo {
+    let collectionViewState = self.findState(about: collectionView)
+    let todoItems = self.todoList.filter { $0.state == collectionViewState }
+    let todo = todoItems[row]
+    
+    return todo
+  }
+// MARK: Delegate
+
+extension BaseViewController: TodoDelegate {
+  func createData(_ todo: Todo) {
+    todoList.append(todo)
+  }
+  
