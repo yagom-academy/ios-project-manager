@@ -46,13 +46,33 @@ final class ProjectManagerHomeViewController: UIViewController {
 
     return layout
   }
+
+  private func fetchItemCount(_ projectCategory: ProjectCategory) -> Int {
+     let todoList = ProjectListMockData.sample.filter {
+       $0.projectCategory == projectCategory
+     }
+
+     return todoList.count
+   }
 }
 
 // MARK: - UICollectionViewDataSource
 
 extension ProjectManagerHomeViewController: UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return 1
+    if collectionView == todoCollectionView {
+      return fetchItemCount(.todo)
+    }
+
+    if collectionView == doingCollectionView {
+      return fetchItemCount(.doing)
+    }
+
+    if collectionView == doneCollectionView {
+      return fetchItemCount(.done)
+    }
+
+    return 0
   }
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
