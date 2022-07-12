@@ -69,17 +69,16 @@ final class ProjectCell: UITableViewCell {
     }
     
     func compose(content: ProjectContent) {
+        guard let formattedDate = DateFormatter().date(from: content.deadline) else {
+            return
+        }
         contentID = content.id
         
         titleLabel.text = content.title
         descriptionLabel.text = content.description
         dateLabel.text = content.deadline
         
-        guard let deadline = content.asProjectItem()?.deadline else {
-            return
-        }
-        
-        if deadline < Date() {
+        if formattedDate < Date() {
             dateLabel.textColor = .red
         }
     }

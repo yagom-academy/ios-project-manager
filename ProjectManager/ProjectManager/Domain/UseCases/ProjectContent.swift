@@ -62,19 +62,6 @@ struct ProjectContent {
         self.description = description
     }
     
-    func asProjectItem() -> ProjectItem? {
-        guard let deadline = DateFormatter().formatted(string: deadline) else {
-            return nil
-        }
-        return ProjectItem(
-            id: id,
-            status: status.string,
-            title: title,
-            deadline: deadline,
-            description: description
-        )
-    }
-    
     mutating func editContent(title: String? = nil,
                               deadline: Date? = nil,
                               description: String? = nil
