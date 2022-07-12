@@ -12,7 +12,7 @@ final class TodoDetailViewController: UIViewController {
     
     private var cancellables = Set<AnyCancellable>()
     private let viewModel: TodoDetailViewModelable
-    private lazy var todoDetailView = TodoDetailView(frame: self.view.bounds)
+    private let todoDetailView = TodoDetailView()
 
     init(viewModel: TodoDetailViewModelable) {
         self.viewModel = viewModel

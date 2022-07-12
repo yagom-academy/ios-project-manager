@@ -54,7 +54,7 @@ final class TodoDetailView: UIView {
         return textView
     }()
     
-    override init(frame: CGRect) {
+    init() {
         super.init(frame: .zero)
         setup()
     }
