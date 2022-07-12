@@ -29,7 +29,7 @@ final class ProjectManagerHomeViewController: UIViewController {
     self.doneCollectionView.collectionViewLayout = listCompositionLayout()
   }
 
-  private func fetchItemCount(_ projectCategory: ProjectCategory) -> Int {
+  private func fetchItemCount(from projectCategory: ProjectCategory) -> Int {
     let todoList = ProjectListMockData.sample.filter {
       $0.projectCategory == projectCategory
     }
@@ -84,15 +84,15 @@ extension ProjectManagerHomeViewController: UICollectionViewDataSource {
     numberOfItemsInSection section: Int
   ) -> Int {
     if collectionView == todoCollectionView {
-      return fetchItemCount(.todo)
+      return fetchItemCount(from: .todo)
     }
 
     if collectionView == doingCollectionView {
-      return fetchItemCount(.doing)
+      return fetchItemCount(from: .doing)
     }
 
     if collectionView == doneCollectionView {
-      return fetchItemCount(.done)
+      return fetchItemCount(from: .done)
     }
 
     return 0
