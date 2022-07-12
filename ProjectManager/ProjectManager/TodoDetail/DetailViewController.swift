@@ -16,7 +16,7 @@ enum TodoListType {
 
 final class DetailViewController: UIViewController {
     private let type: TodoListType
-    private let status: Status
+    private let status: TodoListItemStatus
     private let viewModel: DetailViewModel
     private let disposeBag = DisposeBag()
     weak private var coordinator: MainCoordinator?
@@ -73,7 +73,7 @@ final class DetailViewController: UIViewController {
     
     init(
         type: TodoListType,
-        status: Status,
+        status: TodoListItemStatus,
         viewModel: DetailViewModel,
         coordinator: MainCoordinator
     ) {
@@ -147,7 +147,7 @@ final class DetailViewController: UIViewController {
                 status: .todo,
                 title: self?.titleTextField.text ?? "",
                 description: self?.descriptionTextView.text ?? "",
-                date: self?.datePicker.date ?? CurrentDateFormatter.fetch()
+                date: self?.datePicker.date ?? Formatter.fetch()
             )
         }))
             

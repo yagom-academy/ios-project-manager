@@ -8,7 +8,7 @@
 import Foundation
 
 struct Todo {
-    let status: Status
+    let status: TodoListItemStatus
     let identifier: UUID = UUID()
     let title: String
     let description: String
