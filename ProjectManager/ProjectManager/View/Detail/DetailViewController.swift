@@ -11,7 +11,7 @@ import RxCocoa
 
 final class DetailViewController: UIViewController {
     private let viewModel: MainViewModel
-    private var listItem: ListItem?
+    private let listItem: ListItem?
     
     init(viewModel:MainViewModel ,listItem: ListItem?) {
         self.viewModel = viewModel
@@ -40,17 +40,33 @@ final class DetailViewController: UIViewController {
     private func bindButton() {
         detailView.doneButton.rx.tap
             .bind(onNext: { [weak self] in
-                guard let self = self else {
-                    return
+                if self?.listItem == nil {
+                    self?.createNewList()
+                } else {
+                    self?.editList()
                 }
-                if self.listItem == nil {
-                    self.viewModel.creatList(listItem: ListItem(title: self.detailView.titleTextField.text ?? "",
-                                                                body: self.detailView.bodyTextView.text ?? "",
-                                                                deadline: self.detailView.deadlinePicker.date))
-                }
-
-                self.dismiss(animated: true)
+                
+                self?.dismiss(animated: true)
             })
             .disposed(by: disposebag)
+    }
+    
+    private func createNewList() {
+        let listItem = ListItem(title: detailView.titleTextField.text ?? "",
+                                body: detailView.bodyTextView.text ?? "",
+                                deadline: detailView.deadlinePicker.date)
+        viewModel.creatList(listItem: listItem)
+    }
+    
+    private func editList() {
+        guard var listItem = listItem else {
+            return
+        }
+
+        listItem.title = detailView.titleTextField.text ?? ""
+        listItem.body = detailView.bodyTextView.text ?? ""
+        listItem.deadline = detailView.deadlinePicker.date
+        
+        viewModel.updateList(listItem: listItem)
     }
 }
