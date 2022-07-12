@@ -25,6 +25,10 @@ extension MockStorageManager {
         return projectEntities
     }
     
+    func read(id: UUID) -> ProjectContent? {
+        return projectEntities.value.filter { $0.id == id }.first
+    }
+    
     func update(projectContent: ProjectContent) {
         let projects = projectEntities.value
         if let indexToUpdated = projects.firstIndex(where: { $0.id == projectContent.id}) {
