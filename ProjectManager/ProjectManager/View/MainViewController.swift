@@ -52,19 +52,18 @@ final class MainViewController: UIViewController {
     
     private func setTableView() {
         bindTableView(todoTableView,
-                      list: mainViewModel.separatList(.todo),
-                      headerView: todoHeaderView)
+                      list: mainViewModel.todoList,
+                      headerView: todoHeaderView,
         bindTableView(doingTableView,
-                      list: mainViewModel.separatList(.doing),
-                      headerView: doingHeaderView)
+                      list: mainViewModel.doingList,
+                      headerView: doingHeaderView,
         bindTableView(doneTableView,
-                      list: mainViewModel.separatList(.done),
-                      headerView: doneHeaderView)
+                      list: mainViewModel.doneList,
+                      headerView: doneHeaderView,
     }
     
-    private func bindTableView(_ tableView: UITableView, list: Observable<[ListItem]>, headerView: HeaderView) {
+    private func bindTableView(_ tableView: UITableView, list: Driver<[ListItem]>, headerView: HeaderView) {
         list
-            .asDriver(onErrorJustReturn: [])
             .drive(tableView.rx.items(cellIdentifier: "\(ListTableViewCell.self)", cellType: ListTableViewCell.self)) { [weak self] index, item, cell in
                 guard let self = self else {
                     return
@@ -76,7 +75,6 @@ final class MainViewController: UIViewController {
         
         list
           .map { "\($0.count)"}
-          .asDriver(onErrorJustReturn: "")
           .drive(headerView.countLabel.rx.text)
           .disposed(by: disposebag)
         
