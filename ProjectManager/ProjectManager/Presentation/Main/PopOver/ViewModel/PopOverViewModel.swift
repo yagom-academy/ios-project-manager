@@ -12,6 +12,14 @@ struct PopOverViewModel {
         self.cell = cell
     }
     
+    func changeConent(status: ProjectStatus) {
+        guard let id = cell.contentID,
+              var project = MockStorageManager.shared.read(id: id) else {
+            return
+        }
+        
+        project.updateStatus(status)
+    }
     func getStatus() -> (first: ProjectStatus, second: ProjectStatus)? {
         guard let cellData = cell.getData() else {
             return nil

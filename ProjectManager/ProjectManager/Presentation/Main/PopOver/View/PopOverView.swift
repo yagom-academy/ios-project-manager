@@ -67,7 +67,6 @@ final class PopOverView: UIView {
                 guard let status = ProjectStatus.convert(self?.firstButton.titleLabel?.text) else {
                     return
                 }
-                cell.getData()?.updateStatus(status)
             }
             .disposed(by: viewDisposeBag)
         
