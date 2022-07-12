@@ -169,6 +169,42 @@ extension BaseViewController: TodoDelegate {
     todoList[index] = todo
   }
 }
+
+// MARK: SwipeCollectionViewCellDelegate
+
+extension BaseViewController: SwipeCollectionViewCellDelegate {
+  func collectionView(_ collectionView: UICollectionView, editActionsForItemAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
+    guard orientation == .right else { return nil }
+    
+    let deleteAction = SwipeAction(style: .destructive, title: "삭제") { _, _ in
+      let collectionViewState = self.findState(about: collectionView)
+      let todoItems = self.todoList.filter { $0.state == collectionViewState }
+      let item = todoItems[indexPath.row]
+      let index = self.todoList.firstIndex(of: item)
+      self.todoList.remove(at: index!)
+    }
+
+    deleteAction.image = UIImage(named: "delete")
+    
+    return [deleteAction]
+  }
+  
+  private func findState(about collectionView: UICollectionView) -> State {
+    switch collectionView {
+    case todoView.todoCollectionView:
+      return .todo
+    case doingView.todoCollectionView:
+      return .doing
+    case doneView.todoCollectionView:
+      return .done
+    default:
+      break
+    }
+    
+    return .done
+  }
+}
+
 // MARK: UILongPressGestureDelagate & Move Todo Method
 extension BaseViewController {
   @objc func showMovingTodoSheet(_ gesture: UILongPressGestureRecognizer) {
