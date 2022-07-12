@@ -7,7 +7,11 @@
 
 import Foundation
 
-final class AppDIContainer {
+protocol AppDIContainerable {
+    func makeTodoListSceneDIContainer() -> TodoListSceneDIContainer
+}
+
+final class AppDIContainer: AppDIContainerable {
     private let storage = MemoryStorage()
     
     func makeTodoListSceneDIContainer() -> TodoListSceneDIContainer {

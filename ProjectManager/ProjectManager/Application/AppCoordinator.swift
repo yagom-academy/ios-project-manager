@@ -18,9 +18,9 @@ final class AppCoordinator: Coordinator {
     weak var parentCoordinator: Coordinator?
     var childCoordinators: [Coordinator] = []
     
-    private let appDIContainer: AppDIContainer
+    private let appDIContainer: AppDIContainerable
     
-    init(navigationController: UINavigationController, appDIContainer: AppDIContainer) {
+    init(navigationController: UINavigationController, appDIContainer: AppDIContainerable) {
         self.navigationController = navigationController
         self.appDIContainer = appDIContainer
     }
