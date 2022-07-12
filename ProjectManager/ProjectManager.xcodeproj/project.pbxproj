@@ -8,10 +8,21 @@
 
 /* Begin PBXBuildFile section */
 		983FCAEF828FD3059A3F715C /* Pods_ProjectManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69ED1A6F55518C8A1F17823B /* Pods_ProjectManager.framework */; };
-		ABDB96302875D2A1002D6602 /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDB962F2875D2A1002D6602 /* BaseTableViewController.swift */; };
+		AB2E845428764B78002E4593 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2E845328764B78002E4593 /* BaseViewController.swift */; };
+		AB2E845728765291002E4593 /* ToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2E845628765291002E4593 /* ToDo.swift */; };
+		AB2E845C2876587F002E4593 /* DoingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2E845B2876587F002E4593 /* DoingCollectionViewCell.swift */; };
+		AB2E845E28765893002E4593 /* DoneCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2E845D28765893002E4593 /* DoneCollectionViewCell.swift */; };
+		AB8FA539287C5D7B00C99110 /* WriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8FA538287C5D7B00C99110 /* WriteView.swift */; };
+		ABAECADC287ABB87009DA449 /* Todoable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAECADB287ABB87009DA449 /* Todoable.swift */; };
+		ABAECAE1287AE864009DA449 /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAECAE0287AE864009DA449 /* EditViewController.swift */; };
+		ABDB96332875DC7B002D6602 /* StringOptional.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDB96322875DC7B002D6602 /* StringOptional.swift */; };
+		ABDB96372875E477002D6602 /* TodoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDB96362875E477002D6602 /* TodoCollectionViewCell.swift */; };
+		ABDB96392875E6C3002D6602 /* UIStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDB96382875E6C3002D6602 /* UIStackView.swift */; };
+		ABE5D6B228797F350065F216 /* TodoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE5D6B128797F350065F216 /* TodoView.swift */; };
+		ABE5D6B62879C1310065F216 /* Realmable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE5D6B52879C1310065F216 /* Realmable.swift */; };
+		ABE5D6BC2879D9BB0065F216 /* WriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE5D6BB2879D9BB0065F216 /* WriteViewController.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
-		C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* ViewController.swift */; };
 		C7431F0F25F51E1E0094C4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7431F0E25F51E1E0094C4CF /* Assets.xcassets */; };
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -20,12 +31,23 @@
 		29D6594A104AC464E3F0B18F /* Pods-ProjectManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.debug.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.debug.xcconfig"; sourceTree = "<group>"; };
 		69ED1A6F55518C8A1F17823B /* Pods_ProjectManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A0AC1F6351308DEBA229D99 /* Pods-ProjectManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.release.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.release.xcconfig"; sourceTree = "<group>"; };
-		ABDB962F2875D2A1002D6602 /* BaseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
+		AB2E845328764B78002E4593 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		AB2E845628765291002E4593 /* ToDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDo.swift; sourceTree = "<group>"; };
+		AB2E845B2876587F002E4593 /* DoingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoingCollectionViewCell.swift; sourceTree = "<group>"; };
+		AB2E845D28765893002E4593 /* DoneCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneCollectionViewCell.swift; sourceTree = "<group>"; };
+		AB8FA538287C5D7B00C99110 /* WriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteView.swift; sourceTree = "<group>"; };
+		ABAECADB287ABB87009DA449 /* Todoable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todoable.swift; sourceTree = "<group>"; };
+		ABAECAE0287AE864009DA449 /* EditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
+		ABDB96322875DC7B002D6602 /* StringOptional.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringOptional.swift; sourceTree = "<group>"; };
+		ABDB96362875E477002D6602 /* TodoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoCollectionViewCell.swift; sourceTree = "<group>"; };
+		ABDB96382875E6C3002D6602 /* UIStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStackView.swift; sourceTree = "<group>"; };
 		ABDC1E982873BB2200091C71 /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABDC1E992873BB8800091C71 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		ABE5D6B128797F350065F216 /* TodoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoView.swift; sourceTree = "<group>"; };
+		ABE5D6B52879C1310065F216 /* Realmable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Realmable.swift; sourceTree = "<group>"; };
+		ABE5D6BB2879D9BB0065F216 /* WriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteViewController.swift; sourceTree = "<group>"; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		C7431F0925F51E1D0094C4CF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		C7431F0E25F51E1E0094C4CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C7431F1125F51E1E0094C4CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -60,12 +82,81 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		ABDB962E2875D257002D6602 /* BaseView */ = {
+		AB2E8455287650B2002E4593 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				ABDB962F2875D2A1002D6602 /* BaseTableViewController.swift */,
+				AB2E845628765291002E4593 /* ToDo.swift */,
 			);
-			path = BaseView;
+			path = Model;
+			sourceTree = "<group>";
+		};
+		AB8FA537287C5D7200C99110 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				AB8FA538287C5D7B00C99110 /* WriteView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		ABAECADD287AE7F2009DA449 /* Edit */ = {
+			isa = PBXGroup;
+			children = (
+				ABAECADF287AE84E009DA449 /* Controller */,
+			);
+			path = Edit;
+			sourceTree = "<group>";
+		};
+		ABAECADE287AE814009DA449 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				ABAECADB287ABB87009DA449 /* Todoable.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		ABAECADF287AE84E009DA449 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				ABAECAE0287AE864009DA449 /* EditViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		ABDB962E2875D257002D6602 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				ABDB96352875E45D002D6602 /* Cell */,
+				ABE5D6B028797F190065F216 /* View */,
+				ABDB96342875E449002D6602 /* Controller */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		ABDB96312875DC48002D6602 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				ABDB96322875DC7B002D6602 /* StringOptional.swift */,
+				ABDB96382875E6C3002D6602 /* UIStackView.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		ABDB96342875E449002D6602 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				AB2E845328764B78002E4593 /* BaseViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		ABDB96352875E45D002D6602 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				ABDB96362875E477002D6602 /* TodoCollectionViewCell.swift */,
+				AB2E845B2876587F002E4593 /* DoingCollectionViewCell.swift */,
+				AB2E845D28765893002E4593 /* DoneCollectionViewCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		ABDC1E902873AE8300091C71 /* Application */ = {
@@ -80,8 +171,10 @@
 		ABDC1E912873AE9300091C71 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
-				ABDB962E2875D257002D6602 /* BaseView */,
-				C7431F0925F51E1D0094C4CF /* ViewController.swift */,
+				ABDB962E2875D257002D6602 /* Main */,
+				ABAECADE287AE814009DA449 /* Protocol */,
+				ABE5D6B92879D9400065F216 /* Write */,
+				ABAECADD287AE7F2009DA449 /* Edit */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
 			);
 			path = Scene;
@@ -96,11 +189,52 @@
 			path = Resource;
 			sourceTree = "<group>";
 		};
+		ABE5D6B028797F190065F216 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				ABE5D6B128797F350065F216 /* TodoView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		ABE5D6B32879C1030065F216 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		ABE5D6B42879C10D0065F216 /* DB */ = {
+			isa = PBXGroup;
+			children = (
+				ABE5D6B52879C1310065F216 /* Realmable.swift */,
+			);
+			path = DB;
+			sourceTree = "<group>";
+		};
+		ABE5D6B92879D9400065F216 /* Write */ = {
+			isa = PBXGroup;
+			children = (
+				AB8FA537287C5D7200C99110 /* View */,
+				ABE5D6BA2879D95D0065F216 /* Controller */,
+			);
+			path = Write;
+			sourceTree = "<group>";
+		};
+		ABE5D6BA2879D95D0065F216 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				ABE5D6BB2879D9BB0065F216 /* WriteViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		C7431EF925F51E1D0094C4CF = {
 			isa = PBXGroup;
 			children = (
 				ABDC1E992873BB8800091C71 /* .swiftlint.yml */,
 				C7431F0425F51E1D0094C4CF /* ProjectManager */,
+				AB2E8455287650B2002E4593 /* Model */,
 				76017317D5776B91890C837A /* Pods */,
 				A5FF9446A8A943FA1ACE820B /* Frameworks */,
 				ABDC1E982873BB2200091C71 /* ProjectManager.app */,
@@ -110,6 +244,9 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
+				ABE5D6B42879C10D0065F216 /* DB */,
+				ABE5D6B32879C1030065F216 /* Utils */,
+				ABDB96312875DC48002D6602 /* Extension */,
 				ABDC1E922873AE9E00091C71 /* Resource */,
 				ABDC1E902873AE8300091C71 /* Application */,
 				ABDC1E912873AE9300091C71 /* Scene */,
@@ -266,10 +403,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C7431F0A25F51E1D0094C4CF /* ViewController.swift in Sources */,
+				AB8FA539287C5D7B00C99110 /* WriteView.swift in Sources */,
+				ABDB96392875E6C3002D6602 /* UIStackView.swift in Sources */,
+				AB2E845728765291002E4593 /* ToDo.swift in Sources */,
+				ABE5D6B228797F350065F216 /* TodoView.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
-				ABDB96302875D2A1002D6602 /* BaseTableViewController.swift in Sources */,
+				ABDB96332875DC7B002D6602 /* StringOptional.swift in Sources */,
+				ABDB96372875E477002D6602 /* TodoCollectionViewCell.swift in Sources */,
+				ABAECAE1287AE864009DA449 /* EditViewController.swift in Sources */,
+				ABE5D6BC2879D9BB0065F216 /* WriteViewController.swift in Sources */,
+				AB2E845428764B78002E4593 /* BaseViewController.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
+				ABAECADC287ABB87009DA449 /* Todoable.swift in Sources */,
+				AB2E845E28765893002E4593 /* DoneCollectionViewCell.swift in Sources */,
+				ABE5D6B62879C1310065F216 /* Realmable.swift in Sources */,
+				AB2E845C2876587F002E4593 /* DoingCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
