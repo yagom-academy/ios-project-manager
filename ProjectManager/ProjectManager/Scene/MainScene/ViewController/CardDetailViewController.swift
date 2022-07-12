@@ -21,10 +21,10 @@ final class CardDetailViewController: UIViewController {
   private var isEditable = false
   
   private let disposeBag = DisposeBag()
-  private let viewModel: CardListViewModel
+  private let viewModel: CardListViewModelable
   private let card: Card
   
-  init(viewModel: CardListViewModel, card: Card) {
+  init(viewModel: CardListViewModelable, card: Card) {
     self.viewModel = viewModel
     self.card = card
     super.init(nibName: nil, bundle: nil)

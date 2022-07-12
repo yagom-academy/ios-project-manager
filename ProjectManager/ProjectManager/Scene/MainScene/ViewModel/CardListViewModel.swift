@@ -15,6 +15,7 @@ protocol CardListViewModelInput {
   func createNewCard(_ card: Card)
   func updateSelectedCard(_ card: Card)
   func deleteSelectedCard(_ card: Card)
+  func moveDifferentSection(_ card: Card, to cardType: CardType)
 }
 
 protocol CardListViewModelOutput {
@@ -23,9 +24,9 @@ protocol CardListViewModelOutput {
   var doneCards: Driver<[Card]> { get }
 }
 
-protocol CardListViewModel: CardListViewModelInput, CardListViewModelOutput {}
+protocol CardListViewModelable: CardListViewModelInput, CardListViewModelOutput {}
 
-final class DefaultCardListViewModel: CardListViewModel {
+final class DefaultCardListViewModel: CardListViewModelable {
   private let cards = BehaviorRelay<[Card]>(value: Card.sample)
   
   // MARK: - Output
@@ -79,6 +80,12 @@ final class DefaultCardListViewModel: CardListViewModel {
   
   func deleteSelectedCard(_ card: Card) {
     cards.accept(cards.value.filter { $0.id != card.id })
+  }
+  
+  func moveDifferentSection(_ card: Card, to cardType: CardType) {
+    var newCard = card
+    newCard.cardType = cardType
+    self.updateSelectedCard(newCard)
   }
 }
 
