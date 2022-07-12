@@ -54,8 +54,7 @@ final class MainViewController: UIViewController {
     }
     
     private func didtapCell(_ listItem: ListItem) {
-        let detailVC = EditlViewController(viewModel: viewModel, listItem: listItem)
-        self.present(detailVC, animated: true)
+        self.present(Container.shared.makeEditViewController(listItem), animated: true)
     }
     
     private func setTableView() {

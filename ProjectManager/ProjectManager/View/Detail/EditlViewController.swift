@@ -9,10 +9,10 @@ import RxSwift
 import RxCocoa
 
 final class EditlViewController: UIViewController {
-    private let viewModel: MainViewModelInOut
+    private let viewModel: DetailViewModel
     private var listItem: ListItem
     
-    init(viewModel:MainViewModelInOut ,listItem: ListItem) {
+    init(viewModel:DetailViewModel ,listItem: ListItem) {
         self.viewModel = viewModel
         self.listItem = listItem
         super.init(nibName: nil, bundle: nil)
