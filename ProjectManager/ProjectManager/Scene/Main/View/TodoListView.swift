@@ -6,7 +6,7 @@
 
 import UIKit
 
-final class TodoView: UIView {
+final class TodoListView: UIView {
   private let headerName: String
   private let listCount: Int
   

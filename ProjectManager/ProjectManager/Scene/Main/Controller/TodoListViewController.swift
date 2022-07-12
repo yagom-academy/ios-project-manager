@@ -8,7 +8,7 @@
 import UIKit
 import SwipeCellKit
 
-final class BaseViewController: UIViewController {
+final class TodoListViewController: UIViewController {
   // MARK: DiffableDataSource
   typealias DataSource = UICollectionViewDiffableDataSource<Int, Todo>
   typealias SnapShot = NSDiffableDataSourceSnapshot<Int, Todo>
@@ -50,9 +50,9 @@ final class BaseViewController: UIViewController {
   }
   
   // MARK: View Properties
-  lazy var todoView = TodoView(headerName: "TODO", listCount: findListCount(.todo))
-  lazy var doingView = TodoView(headerName: "DOING", listCount: findListCount(.doing))
-  lazy var doneView = TodoView(headerName: "DONE", listCount: findListCount(.done))
+  lazy var todoView = TodoListView(headerName: "TODO", listCount: findListCount(.todo))
+  lazy var doingView = TodoListView(headerName: "DOING", listCount: findListCount(.doing))
+  lazy var doneView = TodoListView(headerName: "DONE", listCount: findListCount(.done))
   
   private let mainStackView: UIStackView = {
     let stackView = UIStackView()
@@ -95,7 +95,7 @@ final class BaseViewController: UIViewController {
   }
   
   private func moveWriteTodo() {
-    let writeVC = WriteViewController()
+    let writeVC = WriteTodoViewController()
     writeVC.view.layer.cornerRadius = 20
     let writeNC = UINavigationController(rootViewController: writeVC)
     writeNC.modalPresentationStyle = .pageSheet
@@ -129,7 +129,7 @@ final class BaseViewController: UIViewController {
 
 // MARK: UICollectionViewDelegate
 
-extension BaseViewController: UICollectionViewDelegate {
+extension TodoListViewController: UICollectionViewDelegate {
   // MARK: Move EditViewController
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     let todo = createTodoData(from: collectionView, indexPath: indexPath.row)
@@ -138,7 +138,7 @@ extension BaseViewController: UICollectionViewDelegate {
   }
   
   private func createEditViewController(with todo: Todo) -> UINavigationController {
-    let editVC = EditViewController(todo: todo)
+    let editVC = EditTodoViewController(todo: todo)
     editVC.delegate = self
     let editNC = UINavigationController(rootViewController: editVC)
     editNC.modalPresentationStyle = .pageSheet
@@ -157,7 +157,7 @@ extension BaseViewController: UICollectionViewDelegate {
 
 // MARK: Delegate
 
-extension BaseViewController: TodoDelegate {
+extension TodoListViewController: TodoDelegate {
   func createData(_ todo: Todo) {
     todoList.append(todo)
   }
@@ -173,7 +173,7 @@ extension BaseViewController: TodoDelegate {
 
 // MARK: SwipeCollectionViewCellDelegate
 
-extension BaseViewController: SwipeCollectionViewCellDelegate {
+extension TodoListViewController: SwipeCollectionViewCellDelegate {
   func collectionView(_ collectionView: UICollectionView, editActionsForItemAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
     guard orientation == .right else { return nil }
     
@@ -207,7 +207,7 @@ extension BaseViewController: SwipeCollectionViewCellDelegate {
 }
 
 // MARK: UILongPressGestureDelagate & Move Todo Method
-extension BaseViewController {
+extension TodoListViewController {
   @objc func showMovingTodoSheet(_ gesture: UILongPressGestureRecognizer) {
     let pressedPoint = gesture.location(ofTouch: 0, in: nil)
     let pressedState = filterState(from: pressedPoint.x)

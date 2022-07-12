@@ -6,9 +6,9 @@
 
 import UIKit
 
-class WriteViewController: UIViewController {
+class WriteTodoViewController: UIViewController {
   weak var todoDelegate: TodoDelegate?
-  lazy var writeView = WriteView(frame: view.frame)
+  lazy var writeView = WriteTodoView(frame: view.frame)
   
   override func loadView() {
     super.loadView()

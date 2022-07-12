@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class WriteView: UIView {
+final class WriteTodoView: UIView {
   private let mainStackView: UIStackView = {
     let stackView = UIStackView()
     stackView.axis = .vertical

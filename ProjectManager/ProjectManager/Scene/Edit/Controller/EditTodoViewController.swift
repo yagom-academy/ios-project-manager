@@ -7,10 +7,10 @@
 
 import UIKit
 
-final class EditViewController: UIViewController {
+final class EditTodoViewController: UIViewController {
   let todo: Todo
   weak var delegate: TodoDelegate?
-  lazy var editView = WriteView(frame: view.frame)
+  lazy var editView = WriteTodoView(frame: view.frame)
   
   init(todo: Todo = Todo()) {
     self.todo = todo
