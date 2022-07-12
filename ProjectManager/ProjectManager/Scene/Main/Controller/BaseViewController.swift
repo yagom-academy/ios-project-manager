@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwipeCellKit
 
 final class BaseViewController: UIViewController {
   // MARK: DiffableDataSource
