@@ -17,13 +17,7 @@ final class DetailView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    //    tempView.layer.shadowOpacity = 0.7
-    //
-    //    tempView.layer.shadowOffset = CGSize(width: -20, height: 0)
-    //
-    //    tempView.layer.shadowRadius = 10
-    //
-    //    tempView.layer.masksToBounds = false
+    
     private lazy var navigationBar: UINavigationBar = {
         let navigationBar = UINavigationBar()
         navigationBar.setItems([naviItem], animated: true)
