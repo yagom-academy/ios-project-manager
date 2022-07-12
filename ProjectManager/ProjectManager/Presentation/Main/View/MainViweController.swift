@@ -142,24 +142,16 @@ final class MainViweController: UIViewController {
     }
     
     private func setUpTotalCount() {
-        viewModel.todoProjects
+        bindCountLabel(of: mainView.toDoTable, to: viewModel.todoProjects)
+        bindCountLabel(of: mainView.doingTable, to: viewModel.doingProjects)
+        bindCountLabel(of: mainView.doneTable, to: viewModel.doneProjects)
+    }
+    
+    private func bindCountLabel(of tableView: ProjectTable, to projects: Driver<[ProjectContent]>) {
+        projects
             .map { "\($0.count)" }
-            .drive { [weak self] count in
-                self?.mainView.toDoTable.compose(projectCount: count)
-            }
-            .disposed(by: disposeBag)
-        
-        viewModel.doingProjects
-            .map { "\($0.count)" }
-            .drive { [weak self] count in
-                self?.mainView.doingTable.compose(projectCount: count)
-            }
-            .disposed(by: disposeBag)
-        
-        viewModel.doneProjects
-            .map { "\($0.count)" }
-            .drive { [weak self] count in
-                self?.mainView.doneTable.compose(projectCount: count)
+            .drive { count in
+                tableView.compose(projectCount: count)
             }
             .disposed(by: disposeBag)
     }
