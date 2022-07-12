@@ -22,15 +22,15 @@ final class TodoListViewModel {
         self.dataBase = dataBase
         
         self.todoViewData = dataBase.data
-            .map { $0.filter { $0.status == .todo } }
+            .map { $0.filter { $0.todoListItemStatus == .todo } }
             .asDriver(onErrorJustReturn: [])
         
         self.doingViewData = dataBase.data
-            .map { $0.filter { $0.status == .doing } }
+            .map { $0.filter { $0.todoListItemStatus == .doing } }
             .asDriver(onErrorJustReturn: [])
         
         self.doneViewData = dataBase.data
-            .map { $0.filter { $0.status == .done } }
+            .map { $0.filter { $0.todoListItemStatus == .done } }
             .asDriver(onErrorJustReturn: [])
     }
 }

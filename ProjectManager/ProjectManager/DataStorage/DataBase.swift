@@ -40,9 +40,9 @@ final class TempDataBase: DataBase {
             let tempDoingDescription = self.tempDoingData["description"]
 
             let tempTodoData = [
-                Todo(status: TodoListItemStatus(rawValue: tempTodoStatus!)!, title: tempTodoTitle!, description: tempTodoDescription!, date: Date()),
-                Todo(status: TodoListItemStatus(rawValue: tempDoneStatus!)!, title: tempDoneTitle!, description: tempDoneDescription!, date: Date()),
-                Todo(status: TodoListItemStatus(rawValue: tempDoingStatus!)!, title: tempDoingTitle!, description: tempDoingDescription!, date: Date())
+                Todo(todoListItemStatus: TodoListItemStatus(rawValue: tempTodoStatus!)!, title: tempTodoTitle!, description: tempTodoDescription!, date: Date()),
+                Todo(todoListItemStatus: TodoListItemStatus(rawValue: tempDoneStatus!)!, title: tempDoneTitle!, description: tempDoneDescription!, date: Date()),
+                Todo(todoListItemStatus: TodoListItemStatus(rawValue: tempDoingStatus!)!, title: tempDoingTitle!, description: tempDoingDescription!, date: Date())
             ]
             
             return tempTodoData

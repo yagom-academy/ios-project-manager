@@ -139,7 +139,7 @@ final class DetailViewController: UIViewController {
         let input = DetailViewModel.Input(
             doneButtonTapEvent: rightBarButton.rx.tap.map({ [weak self] _ in
             Todo(
-                status: .todo,
+                todoListItemStatus: .todo,
                 title: self?.titleTextField.text ?? "",
                 description: self?.descriptionTextView.text ?? "",
                 date: self?.datePicker.date ?? Formatter.fetch()
