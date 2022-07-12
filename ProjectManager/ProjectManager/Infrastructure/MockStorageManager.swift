@@ -16,7 +16,7 @@ final class MockStorageManager {
     private var projectEntities = BehaviorRelay<[ProjectContent]>(value: [])
 }
 
-extension MockStorageManager {
+extension MockStorageManager: Storagable {
     func create(projectContents: [ProjectContent]) {
         projectEntities.accept(projectContents)
     }
