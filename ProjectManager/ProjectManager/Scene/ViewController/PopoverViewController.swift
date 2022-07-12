@@ -10,8 +10,8 @@ import RxSwift
 import RxCocoa
 
 final class PopoverViewController: UIViewController {
-    private let popoverView = PopoverView(frame: .zero)
     
+    private let popoverView = PopoverView(frame: .zero)
     private let viewModel = PopoverViewModel()
     private let disposeBag = DisposeBag()
     weak var delegate: DataReloadable?

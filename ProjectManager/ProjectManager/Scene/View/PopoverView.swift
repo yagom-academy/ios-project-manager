@@ -19,15 +19,9 @@ final class PopoverView: UIView {
             $0.spacing = 10
         }
     
-    private(set) lazy var moveToToDoButton = generatePopoverButton(
-        title: "Move to TODO"
-    )
-    private(set) lazy var moveToDoingButton = generatePopoverButton(
-        title: "Move to DOING"
-    )
-    private(set) lazy var moveToDoneButton = generatePopoverButton(
-        title: "Move to DONE"
-    )
+    private(set) lazy var moveToToDoButton = generatePopoverButton(title: "Move to TODO")
+    private(set) lazy var moveToDoingButton = generatePopoverButton(title: "Move to DOING")
+    private(set) lazy var moveToDoneButton = generatePopoverButton(title: "Move to DONE")
     
     override init(frame: CGRect) {
         super.init(frame: frame)

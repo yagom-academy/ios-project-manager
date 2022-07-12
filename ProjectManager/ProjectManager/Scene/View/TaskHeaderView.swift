@@ -9,12 +9,6 @@ import UIKit
 
 final class TaskHeaderView: UIView {
     
-    var count: Int = 0 {
-        didSet {
-            taskCountLabel.text = String(count)
-        }
-    }
-    
     private let titleLabel = UILabel().then {
         $0.font = .preferredFont(forTextStyle: .title1)
         $0.textColor = .black

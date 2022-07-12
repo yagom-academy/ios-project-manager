@@ -65,7 +65,7 @@ final class TaskTableViewCell: UITableViewCell {
         titleLabel.text = task.title
         descriptionLabel.text = task.body
         dateLabel.text = task.date.formattedString
-        let now = Date(timeIntervalSinceNow: 0).timeIntervalSince1970
+        let now = Calendar.current.startOfDay(for: Date()).timeIntervalSince1970
         if now > task.date {
             dateLabel.textColor = .systemRed
         } else {
