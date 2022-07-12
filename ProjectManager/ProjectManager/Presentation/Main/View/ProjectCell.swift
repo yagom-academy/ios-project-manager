@@ -43,6 +43,7 @@ final class ProjectCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: "\(ProjectCell.self)")
+        
         setUpCell()
         setUpLayout()
     }
@@ -72,8 +73,8 @@ final class ProjectCell: UITableViewCell {
         guard let formattedDate = DateFormatter().formatted(string: content.deadline) else {
             return
         }
-        contentID = content.id
         
+        contentID = content.id
         titleLabel.text = content.title
         descriptionLabel.text = content.description
         deadlineLabel.text = content.deadline

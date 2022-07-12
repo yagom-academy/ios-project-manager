@@ -13,7 +13,6 @@ import RxKeyboard
 final class RegistrationViewController: UIViewController {
     private let modalView = ModalView(frame: .zero)
     private let viewModel = RegistrationViewModel()
-    
     private let disposeBag = DisposeBag()
     
     init() {
@@ -48,6 +47,7 @@ final class RegistrationViewController: UIViewController {
             target: nil,
             action: nil
         )
+        
         didTapCancelButton()
         didTapSaveButton()
     }

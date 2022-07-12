@@ -28,6 +28,7 @@ final class ProjectListView: UIStackView {
         addArrangedSubview(headerView)
         addArrangedSubview(tableView)
     }
+    
     private func registerCell() {
         tableView.register(ProjectCell.self, forCellReuseIdentifier: "\(ProjectCell.self)")
         tableView.tableFooterView = UIView()
@@ -73,6 +74,7 @@ final class HeaderView: UIView {
     
     init(title: String) {
         super.init(frame: .zero)
+        
         setUpLayout()
         setUpTitle(title: title)
         backgroundColor = .systemGray5

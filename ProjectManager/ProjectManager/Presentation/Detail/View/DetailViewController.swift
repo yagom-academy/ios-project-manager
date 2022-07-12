@@ -12,8 +12,8 @@ import RxKeyboard
 
 final class DetailViewController: UIViewController {
     private let viewModel: DetailViewModel
-    private let disposeBag = DisposeBag()
     private let modalView = ModalView(frame: .zero)
+    private let disposeBag = DisposeBag()
     
     init(content: ProjectContent) {
         self.viewModel = DetailViewModel(content: content)
@@ -52,6 +52,7 @@ final class DetailViewController: UIViewController {
             target: nil,
             action: nil
         )
+        
         didTapEditButton()
         didTapDoneButton()
     }
@@ -69,6 +70,7 @@ final class DetailViewController: UIViewController {
             target: nil,
             action: nil
         )
+        
         didTapEditButton()
         didTapSaveButton()
     }

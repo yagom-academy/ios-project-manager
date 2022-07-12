@@ -48,6 +48,7 @@ final class ProjectTableView: UITableView {
     
     init(title: String) {
         super.init(frame: .zero, style: .grouped)
+        
         setUpLayout()
         setUpTitle(title: title)
     }

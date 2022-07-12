@@ -12,9 +12,8 @@ import RxGesture
 
 final class MainViweController: UIViewController {
     private let mainView = MainView(frame: .zero)
-    
-    private let disposeBag = DisposeBag()
     private var viewModel = MainViewModel()
+    private let disposeBag = DisposeBag()
     
     override func loadView() {
         super.loadView()
@@ -25,9 +24,14 @@ final class MainViweController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setUpNavigationItem()
-        
         bind()
+    }
+    
+    private func bind() {
+        setUpNavigationItem()
+        setUpTable()
+        setUpTotalCount()
+        setUpGesture()
     }
     
     private func setUpNavigationItem() {
@@ -45,10 +49,12 @@ final class MainViweController: UIViewController {
             return
         }
         
-        addButton.rx.tap.asObservable()
+        addButton.rx.tap
+            .asObservable()
             .subscribe(onNext: { [weak self] _ in
                 self?.presentRegistrationView()
-            }).disposed(by: disposeBag)
+            })
+            .disposed(by: disposeBag)
     }
     
     private func presentRegistrationView() {
@@ -57,12 +63,6 @@ final class MainViweController: UIViewController {
         next.modalPresentationStyle = .formSheet
         
         present(next, animated: true)
-    }
-    
-    private func bind() {
-        setUpTable()
-        setUpTotalCount()
-        setUpGesture()
     }
     
     private func setUpTable() {
@@ -103,20 +103,29 @@ final class MainViweController: UIViewController {
             .disposed(by: disposeBag)
     }
     
-    private func presentViewController(status: ProjectStatus, cell: ProjectCell) {
-        guard let content = viewModel.readProject(cell.contentID) else {
-            return
-        }
+    private func deleteProject() {
+        let toDoTableView = mainView.toDoTable.tableView
+        let doingTableView = mainView.doingTable.tableView
+        let doneTableView = mainView.doneTable.tableView
         
-        let next = UINavigationController(
-            rootViewController: DetailViewController(
-                content: content
-            )
-        )
+        bindItemDeleted(to: toDoTableView)
+        bindItemDeleted(to: doingTableView)
+        bindItemDeleted(to: doneTableView)
+    }
+    
+    private func bindItemDeleted(to tableView: UITableView) {
+        tableView.delegate = self
         
-        next.modalPresentationStyle = .formSheet
-        
-        self.present(next, animated: true)
+        tableView.rx
+            .itemDeleted
+            .asDriver()
+            .drive { [weak self] indexPath in
+                guard let cell = tableView.cellForRow(at: indexPath) as? ProjectCell else {
+                    return
+                }
+                self?.viewModel.deleteProject(cell.contentID)
+            }
+            .disposed(by: disposeBag)
     }
     
     private func setUpTotalCount() {
@@ -161,7 +170,8 @@ final class MainViweController: UIViewController {
                     return
                 }
                 self?.presentViewController(status: status, cell: cell)
-            }.disposed(by: disposeBag)
+            }
+            .disposed(by: disposeBag)
     }
     
     private func presentPopOver(_ cell: ProjectCell) {
@@ -170,29 +180,18 @@ final class MainViweController: UIViewController {
         present(popOverViewController, animated: true)
     }
     
-    private func deleteProject() {
-        let toDoTableView = mainView.toDoTable.tableView
-        let doingTableView = mainView.doingTable.tableView
-        let doneTableView = mainView.doneTable.tableView
+    private func presentViewController(status: ProjectStatus, cell: ProjectCell) {
+        guard let content = viewModel.readProject(cell.contentID) else {
+            return
+        }
         
-        bindItemDeleted(to: toDoTableView)
-        bindItemDeleted(to: doingTableView)
-        bindItemDeleted(to: doneTableView)
-    }
-    
-    private func bindItemDeleted(to tableView: UITableView) {
-        tableView.delegate = self
+        let next = UINavigationController(
+            rootViewController: DetailViewController(content: content)
+        )
         
-        tableView.rx
-            .itemDeleted
-            .asDriver()
-            .drive { [weak self] indexPath in
-                guard let cell = tableView.cellForRow(at: indexPath) as? ProjectCell else {
-                    return
-                }
-                self?.viewModel.deleteProject(cell.contentID)
-            }
-            .disposed(by: disposeBag)
+        next.modalPresentationStyle = .formSheet
+        
+        self.present(next, animated: true)
     }
 }
 

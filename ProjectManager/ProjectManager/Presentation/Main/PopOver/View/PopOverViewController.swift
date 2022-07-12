@@ -36,13 +36,13 @@ final class PopOverViewController: UIViewController {
         popoverPresentationController?.sourceView = cell
         preferredContentSize = CGSize(width: 300, height: 100)
         popoverPresentationController?.permittedArrowDirections = .up
-        popoverPresentationController?
-            .sourceRect = CGRect(
-                x: cell.bounds.width * 0.5,
-                y: cell.bounds.minY,
-                width: 30,
-                height: 50
-            )
+        
+        popoverPresentationController?.sourceRect = CGRect(
+            x: cell.bounds.width * 0.5,
+            y: cell.bounds.minY,
+            width: 30,
+            height: 50
+        )
     }
     
     private func setUpButtonTitle() {
@@ -79,6 +79,5 @@ final class PopOverViewController: UIViewController {
                 self?.dismiss(animated: true)
             }
             .disposed(by: disposeBag)
-        
     }
 }
