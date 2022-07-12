@@ -8,7 +8,7 @@
 import Foundation
 
 struct RegistrationViewModel {
-    func registerate(title: String, date: Date, description: String) {
+    func registrate(title: String, date: Date, description: String) {
         var currentProjects = ProjectUseCase().repository.read().value
         currentProjects
             .append(

@@ -86,7 +86,7 @@ final class RegistrationViewController: UIViewController {
               }
         let date = modalView.datePicker.date
         
-        viewModel.registerate(title: title, date: date, description: description)
+        viewModel.registrate(title: title, date: date, description: description)
     }
     
     private func adjustViewLayoutByKeyboard() {
