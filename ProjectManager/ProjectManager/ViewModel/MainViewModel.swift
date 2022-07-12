@@ -74,7 +74,7 @@ extension MainViewModel: MainViewModelInput {
     }
     
     func creatList(listItem: ListItem) {
-        
+        storage.creatList(listItem: listItem)
     }
     
     func updateList(index: Int, type: ListType) {

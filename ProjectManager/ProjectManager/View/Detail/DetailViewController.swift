@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 final class DetailViewController: UIViewController {
     private let viewModel: MainViewModel
@@ -22,6 +24,7 @@ final class DetailViewController: UIViewController {
     }
     
     private let detailView = DetailView()
+    private var disposebag = DisposeBag()
     
     override func loadView() {
         super.loadView()
@@ -31,5 +34,23 @@ final class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         detailView.setViewContents(listItem)
+        bindButton()
+    }
+    
+    private func bindButton() {
+        detailView.doneButton.rx.tap
+            .bind(onNext: { [weak self] in
+                guard let self = self else {
+                    return
+                }
+                if self.listItem == nil {
+                    self.viewModel.creatList(listItem: ListItem(title: self.detailView.titleTextField.text ?? "",
+                                                                body: self.detailView.bodyTextView.text ?? "",
+                                                                deadline: self.detailView.deadlinePicker.date))
+                }
+
+                self.dismiss(animated: true)
+            })
+            .disposed(by: disposebag)
     }
 }
