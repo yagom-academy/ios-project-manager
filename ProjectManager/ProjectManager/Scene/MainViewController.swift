@@ -75,6 +75,7 @@ extension MainViewController: DetailViewControllerDelegate {
             snapshot.appendItems([task])
             todoDataSource?.apply(snapshot)
         }
+        mainView.refreshCount()
     }
     
     func updateTask(by taskInfo: TaskInfo) {
@@ -96,16 +97,19 @@ extension MainViewController: PopoverViewControllerDelegate {
     func moveToToDo(taskInfo: TaskInfo) {
         deleteData(taskInfo: taskInfo)
         addData(task: taskInfo.task, type: .todo)
+        mainView.refreshCount()
     }
     
     func moveToDoing(taskInfo: TaskInfo) {
         deleteData(taskInfo: taskInfo)
         addData(task: taskInfo.task, type: .doing)
+        mainView.refreshCount()
     }
     
     func moveToDone(taskInfo: TaskInfo) {
         deleteData(taskInfo: taskInfo)
         addData(task: taskInfo.task, type: .done)
+        mainView.refreshCount()
     }
     
     func deleteData(taskInfo: TaskInfo) {

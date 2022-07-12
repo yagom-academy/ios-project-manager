@@ -57,7 +57,7 @@ final class MainView: UIView {
     
     private let todoHeaderCounter: CircleLabel = {
         let label = CircleLabel()
-        label.text = " 112221 "
+        label.text = " 0 "
         label.font = .preferredFont(forTextStyle: .title2)
         label.backgroundColor = .black
         label.textColor = .white
@@ -67,7 +67,7 @@ final class MainView: UIView {
     
     private let doingHeaderCounter: CircleLabel = {
         let label = CircleLabel()
-        label.text = " 2 "
+        label.text = " 0 "
         label.font = .preferredFont(forTextStyle: .title2)
         label.backgroundColor = .black
         label.textColor = .white
@@ -77,7 +77,7 @@ final class MainView: UIView {
     
     private let doneHeaderCounter: CircleLabel = {
         let label = CircleLabel()
-        label.text = " 3 "
+        label.text = " 0 "
         label.font = .preferredFont(forTextStyle: .title2)
         label.backgroundColor = .black
         label.textColor = .white
@@ -167,6 +167,12 @@ final class MainView: UIView {
         case .done:
             return doneTableView
         }
+    }
+    
+    func refreshCount() {
+        todoHeaderCounter.text = " \(todoTableView.numberOfoneSectionRows) "
+        doingHeaderCounter.text = " \(doingTableView.numberOfoneSectionRows ) "
+        doneHeaderCounter.text = " \(doneTableView.numberOfoneSectionRows ) "
     }
     
     // MARK: setUp
