@@ -11,15 +11,11 @@ import RxCocoa
 import RxKeyboard
 
 final class DetailViewController: UIViewController {
-    private let mainViewModel: MainViewModel
     private let viewModel: DetailViewModel
     private let disposeBag = DisposeBag()
     private let modalView = ModalView(frame: .zero)
-    private let detailTitle: String
     
-    init(title: String, content: ProjectContent, mainViewModel: MainViewModel) {
-        self.mainViewModel = mainViewModel
-        self.detailTitle = title
+    init(content: ProjectContent) {
         self.viewModel = DetailViewModel(content: content)
         super.init(nibName: nil, bundle: nil)
     }
@@ -44,7 +40,8 @@ final class DetailViewController: UIViewController {
     }
     
     private func setUpDetailNavigationItem() {
-        navigationItem.title = detailTitle
+        navigationController?.navigationBar.backgroundColor = .systemGray6
+        navigationItem.title = viewModel.content.status.string
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .edit,
             target: nil,
@@ -60,7 +57,8 @@ final class DetailViewController: UIViewController {
     }
     
     private func setUpEditNavigationItem() {
-        navigationItem.title = detailTitle
+        navigationController?.navigationBar.backgroundColor = .systemGray6
+        navigationItem.title = viewModel.content.status.string
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .cancel,
             target: nil,

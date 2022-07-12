@@ -36,7 +36,8 @@ final class RegistrationViewController: UIViewController {
     }
     
     private func setUpNavigationItem() {
-        navigationItem.title = "TODO"
+        navigationController?.navigationBar.backgroundColor = .systemGray6
+        navigationItem.title = ProjectStatus.todo.string
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .cancel,
             target: nil,

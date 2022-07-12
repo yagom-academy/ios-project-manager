@@ -110,9 +110,7 @@ final class MainViweController: UIViewController {
         
         let next = UINavigationController(
             rootViewController: DetailViewController(
-                title: status.title,
-                content: content,
-                mainViewModel: viewModel
+                content: content
             )
         )
         
