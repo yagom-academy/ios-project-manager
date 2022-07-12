@@ -112,8 +112,6 @@ struct ProjectContent {
 
 extension ProjectContent {
     static func == (lhs: ProjectContent, rhs: ProjectContent) -> Bool {
-        return lhs.title == rhs.title &&
-        lhs.deadline == rhs.deadline &&
-        lhs.description == rhs.description
+        return lhs.id == rhs.id
     }
 }
