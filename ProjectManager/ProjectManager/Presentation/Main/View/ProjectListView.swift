@@ -15,10 +15,7 @@ final class ProjectListView: UIStackView {
         self.headerView = HeaderView(title: title)
         super.init(frame: .zero)
         
-        axis = .vertical
-        addArrangedSubview(headerView)
-        addArrangedSubview(tableView)
-        
+        layout()
         registerCell()
     }
     
@@ -26,6 +23,11 @@ final class ProjectListView: UIStackView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    private func layout() {
+        axis = .vertical
+        addArrangedSubview(headerView)
+        addArrangedSubview(tableView)
+    }
     private func registerCell() {
         tableView.register(ProjectCell.self, forCellReuseIdentifier: "\(ProjectCell.self)")
         tableView.tableFooterView = UIView()
