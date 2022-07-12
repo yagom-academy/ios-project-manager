@@ -127,7 +127,7 @@ final class MainViweController: UIViewController {
         bindCountLabel(of: mainView.doneTable, to: viewModel.doneProjects)
     }
     
-    private func bindCountLabel(of tableView: ProjectTable, to projects: Driver<[ProjectContent]>) {
+    private func bindCountLabel(of tableView: ProjectListView, to projects: Driver<[ProjectContent]>) {
         projects
             .map { "\($0.count)" }
             .drive { count in

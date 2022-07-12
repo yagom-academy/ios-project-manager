@@ -1,5 +1,5 @@
 //
-//  ProjectTable.swift
+//  ProjectListView.swift
 //  ProjectManager
 //
 //  Created by Tiana, mmim on 2022/07/07.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ProjectTable: UIStackView {
+final class ProjectListView: UIStackView {
     let headerView: HeaderView
     let tableView = UITableView()
     
