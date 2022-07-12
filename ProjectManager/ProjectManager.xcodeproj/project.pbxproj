@@ -77,9 +77,7 @@
 		AC54B79D2875458400092D83 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
-				ACD9CB2C28749F6400B0A6CF /* HeaderView.swift */,
-				AC54B7A1287549F800092D83 /* ListTableViewCell.swift */,
+				ACA39AD6287DF77800AE4964 /* Main */,
 				AC15AB942876E80E004B5E8A /* Detail */,
 			);
 			path = View;
@@ -89,7 +87,6 @@
 			isa = PBXGroup;
 			children = (
 				AC54B79F2875478700092D83 /* ListItem.swift */,
-				ACCBF0EF2877CACA00FEC0F3 /* DateConverter.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -109,6 +106,25 @@
 				AC9C57C2287A8CC100BA7F7D /* UITableView + Extension.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		ACA39AD6287DF77800AE4964 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
+				ACD9CB2C28749F6400B0A6CF /* HeaderView.swift */,
+				AC54B7A1287549F800092D83 /* ListTableViewCell.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		ACA39AD7287DF79900AE4964 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				AC9C57C0287A8CA700BA7F7D /* Extension */,
+				ACCBF0EF2877CACA00FEC0F3 /* DateConverter.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		AD292BB59AC61129A810B952 /* Pods */ = {
@@ -144,7 +160,7 @@
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
 				ACA39ACC287DE05200AE4964 /* Container.swift */,
-				AC9C57C0287A8CA700BA7F7D /* Extension */,
+				ACA39AD7287DF79900AE4964 /* Utils */,
 				AC54B79E2875463700092D83 /* Model */,
 				AC54B79D2875458400092D83 /* View */,
 				AC54B7A32875568600092D83 /* ViewModel */,
