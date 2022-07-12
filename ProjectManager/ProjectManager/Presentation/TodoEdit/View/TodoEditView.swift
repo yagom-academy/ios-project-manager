@@ -73,10 +73,11 @@ final class TodoEditView: UIView {
 }
 
 extension TodoEditView {
-    func readViewContent(id: UUID?) -> TodoModel {
+    func readViewContent(id: UUID?, state: State?) -> TodoModel {
         return TodoModel(title: titleTaxtField.text,
                          body: bodyTextView.text,
                          deadlineAt: datePicker.date,
+                         state: state ?? .todo,
                          id: id ?? UUID())
     }
     

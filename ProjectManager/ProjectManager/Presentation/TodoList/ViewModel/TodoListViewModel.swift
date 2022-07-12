@@ -41,36 +41,31 @@ final class DefaultTodoListViewModel: TodoListViewModel {
             items.filter { $0.state == .todo }
         }
         .distinctUntilChanged { $0 == $1 }
-        .map { items in
-            items.map { TodoCellContent(title: $0.title,
-                                        body: $0.body,
-                                        deadlineAt: $0.deadlineAt.toString(self.dateFormatter),
-                                        id: $0.id) }
+        .withUnretained(self)
+        .map { (self, items) in
+            self.toTodoCellContents(todoModels: items)
         }
     }
-    
+
     var doingList: Observable<[TodoCellContent]> {
         todoLists.map { items in
             items.filter { $0.state == .doing }
         }
         .distinctUntilChanged { $0 == $1 }
-        .map { items in
-            items.map { TodoCellContent(title: $0.title,
-                                        body: $0.body,
-                                        deadlineAt: $0.deadlineAt.toString(self.dateFormatter),
-                                        id: $0.id) }
+        .withUnretained(self)
+        .map { (self, items) in
+            self.toTodoCellContents(todoModels: items)
         }
     }
+    
     var doneList: Observable<[TodoCellContent]> {
         todoLists.map { items in
             items.filter { $0.state == .done }
         }
         .distinctUntilChanged { $0 == $1 }
-        .map { items in
-            items.map { TodoCellContent(title: $0.title,
-                                        body: $0.body,
-                                        deadlineAt: $0.deadlineAt.toString(self.dateFormatter),
-                                        id: $0.id) }
+        .withUnretained(self)
+        .map { (self, items) in
+            self.toTodoCellContents(todoModels: items)
         }
     }
     
@@ -109,18 +104,9 @@ final class DefaultTodoListViewModel: TodoListViewModel {
         todoLists = useCase.readRepository()
     }
     
-    private let dateFormatter: DateFormatter = {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy. MM. d"
-        return dateFormatter
-    }()
-    
     private func toTodoCellContents(todoModels: [TodoModel]) -> [TodoCellContent] {
         todoModels.map { item in
-            TodoCellContent(title: item.title,
-                            body: item.body,
-                            deadlineAt: item.deadlineAt.toString(dateFormatter),
-                            id: item.id)
+            TodoCellContent(entity: item)
         }
     }
 }
@@ -130,4 +116,17 @@ struct TodoCellContent {
     let body: String?
     let deadlineAt: String
     let id: UUID
+    
+    private let dateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy. MM. d"
+        return dateFormatter
+    }()
+    
+    init(entity: TodoModel) {
+        self.title = entity.title
+        self.body = entity.body
+        self.deadlineAt = entity.deadlineAt.toString(dateFormatter)
+        self.id = entity.id
+    }
 }
