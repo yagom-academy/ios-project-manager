@@ -15,6 +15,7 @@
 		B39F102E2873DDC300475AE4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B39F102D2873DDC300475AE4 /* Assets.xcassets */; };
 		B39F10312873DDC300475AE4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B39F10302873DDC300475AE4 /* Preview Assets.xcassets */; };
 		B3B28F4328756B1000A3CB57 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B28F4228756B1000A3CB57 /* RegisterView.swift */; };
+		B3CA0B7E287D0FE90047E1D1 /* Date+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CA0B7D287D0FE90047E1D1 /* Date+extension.swift */; };
 		B3EA5F12287481F6000713F7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B3EA5F11287481F6000713F7 /* GoogleService-Info.plist */; };
 		DA79E414287525C3000192CC /* ListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA79E413287525C3000192CC /* ListRowView.swift */; };
 		DA79E41628752ABE000192CC /* TodoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA79E41528752ABE000192CC /* TodoView.swift */; };
@@ -34,6 +35,7 @@
 		B39F102D2873DDC300475AE4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B39F10302873DDC300475AE4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B3B28F4228756B1000A3CB57 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
+		B3CA0B7D287D0FE90047E1D1 /* Date+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+extension.swift"; sourceTree = "<group>"; };
 		B3EA5F11287481F6000713F7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B9E1EE52A77CD8A59090782B /* Pods_ProjectManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA79E413287525C3000192CC /* ListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRowView.swift; sourceTree = "<group>"; };
@@ -118,6 +120,14 @@
 				B39F10302873DDC300475AE4 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		B3CA0B7C287D0FD60047E1D1 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				B3CA0B7D287D0FE90047E1D1 /* Date+extension.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		DA79E41F28756508000192CC /* Model */ = {
@@ -257,6 +267,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3CA0B7E287D0FE90047E1D1 /* Date+extension.swift in Sources */,
 				DA79E41A28755DC6000192CC /* NavigationBarModifier.swift in Sources */,
 				B39F102C2873DDC100475AE4 /* ContentView.swift in Sources */,
 				B39F102A2873DDC100475AE4 /* ProjectManagerApp.swift in Sources */,
