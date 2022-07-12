@@ -27,13 +27,13 @@ class MockStorage: Storege {
     
     func creatList(listItem: ListItem) {
         dummyList.append(listItem)
-        list.accept(dummyList)
+        list.accept(dummyList.sorted(by: { $0.deadline < $1.deadline}))
     }
     
     func updateList(listItem: ListItem) {
         dummyList = dummyList.filter { listItem.id != $0.id }
         dummyList.append(listItem)
-        list.accept(dummyList)
+        list.accept(dummyList.sorted(by: { $0.deadline < $1.deadline}))
     }
     
     func deleteList(listItem: ListItem) {
