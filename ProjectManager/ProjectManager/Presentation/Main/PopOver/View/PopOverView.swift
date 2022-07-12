@@ -10,6 +10,7 @@ import RxSwift
 import RxCocoa
 
 final class PopOverView: UIView {
+    private weak var delegate: PopOverDelegate?
     private let viewDisposeBag = DisposeBag()
     
     private let buttonStackView: UIStackView = {
@@ -32,9 +33,10 @@ final class PopOverView: UIView {
         return button
     }()
     
-    init() {
+    init(delegate: PopOverDelegate) {
         super.init(frame: .zero)
         
+        self.delegate = delegate
         setUpLayout()
     }
     
@@ -68,6 +70,7 @@ final class PopOverView: UIView {
                     return
                 }
                 cell.getData()?.updateStatus(status)
+                self?.delegate?.dismiss()
             }
             .disposed(by: viewDisposeBag)
         
@@ -78,6 +81,7 @@ final class PopOverView: UIView {
                     return
                 }
                 cell.getData()?.updateStatus(status)
+                self?.delegate?.dismiss()
             }
             .disposed(by: viewDisposeBag)
     }
