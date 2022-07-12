@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct HeaderView: View {
-  @ObservedObject var viewModel: AppViewModel
   @State var title: Todo.Status
+  var listCount: Int
   
   var body: some View {
     VStack {
@@ -22,7 +22,7 @@ struct HeaderView: View {
             .fill(.black)
             .frame(width: 30, height: 30)
           
-          Text("\(viewModel.read(by: title).count)")
+          Text("\(listCount)")
             .font(.title3)
             .foregroundColor(.white)
         }

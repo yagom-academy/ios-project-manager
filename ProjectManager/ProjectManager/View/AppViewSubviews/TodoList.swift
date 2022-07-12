@@ -8,20 +8,25 @@
 import SwiftUI
 
 struct TodoListView: View {
-  @ObservedObject var viewModel: AppViewModel
-  @State var isShowDetailView: Bool
-  let status: Todo.Status
+  @State var isShowEditView: Bool = false
+  private let status: Todo.Status
+  private let readList: (Todo.Status) -> [Todo]
+  
+  init(status: Todo.Status, readList: @escaping (Todo.Status) -> [Todo]) {
+    self.status = status
+    self.readList = readList
+  }
   
   var body: some View {
     
     VStack(spacing: 0) {
-      HeaderView(viewModel: viewModel, title: status)
+      HeaderView(title: status, listCount: readList(status).count)
       
       ZStack {
         Color(UIColor.systemGray5)
         List {
-          ForEach(viewModel.read(by: status)) { todo in
-            DetailViewButton(viewModel: viewModel, todo: todo, isShowDetailView: $isShowDetailView)
+          ForEach(readList(status)) { todo in
+            EditViewButton(todo: todo, isShowEditView: $isShowEditView)
               .listRowSeparator(.hidden)
           }
         }
@@ -35,19 +40,18 @@ struct TodoListView: View {
   }
 }
 
-struct DetailViewButton: View {
-  @ObservedObject var viewModel: AppViewModel
+struct EditViewButton: View {
   @ObservedObject var todo: Todo
-  @Binding var isShowDetailView: Bool
+  @Binding var isShowEditView: Bool
 
   var body: some View {
     Button {
-      isShowDetailView = true
+      isShowEditView = true
     } label: {
       TodoListCell(todo)
     }
-    .sheet(isPresented: $isShowDetailView) {
-      EditView(viewModel: EditViewModel(todoService: viewModel.todoService), todo: todo, isShow: $isShowDetailView)
+    .sheet(isPresented: $isShowEditView) {
+      EditView(viewModel: EditViewModel(todoService: TodoService()), todo: todo, isShow: $isShowEditView)
     }
   }
 }

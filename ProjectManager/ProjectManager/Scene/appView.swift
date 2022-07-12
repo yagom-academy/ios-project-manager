@@ -22,9 +22,15 @@ struct AppView: View {
   var body: some View {
     NavigationView {
       HStack(spacing: 10) {
-        TodoListView(viewModel: viewModel, isShowDetailView: isShowDetailView, status: .todo)
-        TodoListView(viewModel: viewModel, isShowDetailView: isShowDetailView, status: .doing)
-        TodoListView(viewModel: viewModel, isShowDetailView: isShowDetailView, status: .done)
+        TodoListView(status: .todo) { status in
+          viewModel.read(by: status)
+        }
+        TodoListView(status: .doing) { status in
+          viewModel.read(by: status)
+        }
+        TodoListView(status: .done) { status in
+          viewModel.read(by: status)
+        }
       }
       .background(Color(UIColor.systemGray4))
       .navigationTitle("Project Manager")
