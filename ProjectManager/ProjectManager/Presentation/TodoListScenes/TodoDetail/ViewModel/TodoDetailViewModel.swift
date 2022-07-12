@@ -18,6 +18,7 @@ protocol TodoDetailViewModelInput {
 protocol TodoDetailViewModelOutput {
     var item: Just<TodoListModel> { get }
     var isCreate: CurrentValueSubject<Bool, Never> { get }
+    var title: CurrentValueSubject<String, Never> { get }
 }
 
 protocol TodoDetailViewModelable: TodoDetailViewModelInput, TodoDetailViewModelOutput {}
@@ -31,6 +32,7 @@ final class TodoDetailViewModel: TodoDetailViewModelable {
     }
     
     let isCreate = CurrentValueSubject<Bool, Never>(true)
+    let title = CurrentValueSubject<String, Never>("TODO")
 
     private weak var coordinator: TodoDetailViewCoordinator?
     private let todoListModel: TodoListModel

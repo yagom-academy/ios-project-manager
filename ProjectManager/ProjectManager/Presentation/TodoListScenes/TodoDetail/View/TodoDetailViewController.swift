@@ -50,6 +50,12 @@ final class TodoDetailViewController: UIViewController {
                 self?.setupNavigationLeftBarButtonItem(state)
             }
             .store(in: &cancellables)
+        
+        viewModel.title
+            .sink { [weak self] title in
+                self?.title = title
+            }
+            .store(in: &cancellables)
     }
     
     private func setup() {
@@ -70,8 +76,7 @@ final class TodoDetailViewController: UIViewController {
     
     private func setupView() {
         view.backgroundColor = .systemBackground
-        title = "TODO"
-
+        
         let doneAction = UIAction { [weak self] _ in
             guard let title = self?.todoDetailView.titleTextField.text,
                   let content = self?.todoDetailView.contentTextView.text,
