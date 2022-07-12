@@ -16,6 +16,6 @@ class DetailViewModel {
     }
     
     func update(_ content: ProjectContent) {
-        MockStorageManager.shared.update(projectContent: content)
+        ProjectUseCase().repository.update(projectContent: content)
     }
 }

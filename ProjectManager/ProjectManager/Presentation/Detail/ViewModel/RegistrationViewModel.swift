@@ -9,7 +9,7 @@ import Foundation
 
 struct RegistrationViewModel {
     func registerate(title: String, date: Date, description: String) {
-        var currentProjects = MockStorageManager.shared.read().value
+        var currentProjects = ProjectUseCase().repository.read().value
         currentProjects
             .append(
                 ProjectContent(
@@ -19,6 +19,6 @@ struct RegistrationViewModel {
                 )
             )
         
-        MockStorageManager.shared.create(projectContents: currentProjects)
+        ProjectUseCase().repository.create(projectContents: currentProjects)
     }
 }

@@ -11,7 +11,7 @@ import RxCocoa
 
 struct MainViewModel {
     let projects: BehaviorRelay<[ProjectContent]> = {
-        return MockStorageManager.shared.read()
+        return ProjectUseCase().repository.read()
     }()
     
     lazy var todoProjects: Driver<[ProjectContent]> = {
@@ -33,6 +33,6 @@ struct MainViewModel {
     }()
     
     func deleteProject(_ id: UUID?) {
-        MockStorageManager.shared.delete(projectContentID: id)
+        ProjectUseCase().repository.delete(projectContentID: id)
     }
 }
