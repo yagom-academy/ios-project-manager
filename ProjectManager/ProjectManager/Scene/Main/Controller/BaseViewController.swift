@@ -47,3 +47,65 @@ final class BaseViewController: UIViewController {
       updateListCountlabel()
     }
   }
+  
+  // MARK: View Properties
+  lazy var todoView = TodoView(headerName: "TODO", listCount: findListCount(.todo))
+  lazy var doingView = TodoView(headerName: "DOING", listCount: findListCount(.doing))
+  lazy var doneView = TodoView(headerName: "DONE", listCount: findListCount(.done))
+  
+  private let mainStackView: UIStackView = {
+    let stackView = UIStackView()
+    stackView.translatesAutoresizingMaskIntoConstraints = false
+    stackView.backgroundColor = .systemGray
+    stackView.axis = .horizontal
+    stackView.distribution = .fillEqually
+    stackView.spacing = 10
+    return stackView
+  }()
+  
+  private func updateListCountlabel() {
+    todoView.listCountLabel.text = findListCount(.todo).description
+    doingView.listCountLabel.text = findListCount(.doing).description
+    doneView.listCountLabel.text = findListCount(.done).description
+  }
+  
+  private func findListCount(_ todoState: State) -> Int {
+    return todoList.filter { $0.state == todoState }.count
+  }
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    setUpDelegate()
+    configureUI()
+    setDataSource()
+    reloadDataSource()
+  }
+  
+  private func reloadDataSource() {
+    applySnapShot(todoList.filter { $0.state == .todo }, dataSource: todoDataSource)
+    applySnapShot(todoList.filter { $0.state == .doing }, dataSource: doingDataSource)
+    applySnapShot(todoList.filter { $0.state == .done }, dataSource: doneDataSource)
+  }
+  
+  private func setUpDelegate() {
+    todoView.todoCollectionView.delegate = self
+    doingView.todoCollectionView.delegate = self
+    doneView.todoCollectionView.delegate = self
+  }
+  
+  
+  private func configureUI() {
+    setNavigationBar()
+    
+    view.backgroundColor = .systemGray5
+    view.addSubview(mainStackView)
+    mainStackView.addArrangedSubviews([todoView, doingView, doneView])
+    
+    NSLayoutConstraint.activate([
+      mainStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+      mainStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+      mainStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+      mainStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
+    ])
+  }
+}
