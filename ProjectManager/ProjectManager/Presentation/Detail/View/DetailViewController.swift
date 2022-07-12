@@ -8,6 +8,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import RxKeyboard
 
 final class DetailViewController: UIViewController {
     private let mainViewModel: MainViewModel
@@ -34,6 +35,7 @@ final class DetailViewController: UIViewController {
     override func viewDidLoad() {
         setUpModalView()
         setUpDetailNavigationItem()
+        adjustViewLayoutByKeyboard()
     }
     
     private func setUpModalView() {
@@ -104,6 +106,16 @@ final class DetailViewController: UIViewController {
             .drive { [weak self] _ in
                 self?.dismiss(animated: true, completion: nil)
             }
+            .disposed(by: disposeBag)
+    }
+    
+    private func adjustViewLayoutByKeyboard() {
+        RxKeyboard.instance
+            .visibleHeight
+            .drive(onNext: { keyboardVisibleHeight in
+                let height = keyboardVisibleHeight > 0 ? -keyboardVisibleHeight / 3 : 0
+                self.modalView.frame.origin.y = height
+            })
             .disposed(by: disposeBag)
     }
 }

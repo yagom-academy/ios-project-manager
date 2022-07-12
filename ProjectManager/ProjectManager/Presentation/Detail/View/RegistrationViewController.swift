@@ -8,6 +8,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import RxKeyboard
 
 final class RegistrationViewController: UIViewController {
     private let registrationView = ModalView(frame: .zero)
@@ -31,6 +32,7 @@ final class RegistrationViewController: UIViewController {
         super.viewDidLoad()
         
         setUpNavigationItem()
+        adjustViewLayoutByKeyboard()
     }
     
     private func setUpNavigationItem() {
@@ -84,5 +86,15 @@ final class RegistrationViewController: UIViewController {
         let date = registrationView.datePicker.date
         
         viewModel.registerate(title: title, date: date, description: description)
+    }
+    
+    private func adjustViewLayoutByKeyboard() {
+        RxKeyboard.instance
+            .visibleHeight
+            .drive(onNext: { keyboardVisibleHeight in
+                let height = keyboardVisibleHeight > 0 ? -keyboardVisibleHeight / 3 : 0
+                self.registrationView.frame.origin.y = height
+            })
+            .disposed(by: disposeBag)
     }
 }
