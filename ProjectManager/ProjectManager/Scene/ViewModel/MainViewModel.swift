@@ -33,6 +33,10 @@ final class MainViewModel: MainViewModelInput, MainViewModelOutput {
         showNewFormSheetView.accept(())
     }
     
+    func viewDidLoad() {
+        fetchData()
+    }
+    
     func fetchData() {
         fetchToDo()
         fetchDoing()
@@ -41,8 +45,7 @@ final class MainViewModel: MainViewModelInput, MainViewModelOutput {
     
     func deleteCell(task: Task) {
         realmManager.delete(task: task)
-        
-//        fetchData()
+        fetchData()
     }
         
     private func fetchToDo() {

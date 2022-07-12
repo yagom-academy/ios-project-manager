@@ -28,13 +28,8 @@ final class MainViewController: UIViewController, UIPopoverPresentationControlle
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavigationItems()
-        fetchData()
-        
         bind()
-        viewModel.fetchData()
-        setupLongPressGesture(at: mainView.todoTableView)
-        setupLongPressGesture(at: mainView.doingTableView)
-        setupLongPressGesture(at: mainView.doneTableView)
+        viewModel.viewDidLoad()
     }
     
     private func configureNavigationItems() {
@@ -158,21 +153,10 @@ final class MainViewController: UIViewController, UIPopoverPresentationControlle
             .subscribe(onNext: { [weak self] indexPath in
                 if let task = self?.viewModel.todos.value[indexPath.row] {
                     self?.viewModel.deleteCell(task: task)
-//                    self?.mainView.todoTableView.deleteRows(at: [indexPath], with: .fade)
                 }
             })
             .disposed(by: disposeBag)
-    }
-    
-    private func fetchData() {
-        fetchToDo()
-        fetchDoing()
-        fetchDone()
-    }
         
-    private func fetchToDo() {
-        let todos = realmManager.fetch(taskType: .todo)
-        self.todos = todos
         // MARK: - Handle Long Press Gesture
         
         mainView.todoTableView.rx.longPressGesture()
@@ -190,9 +174,6 @@ final class MainViewController: UIViewController, UIPopoverPresentationControlle
             .disposed(by: disposeBag)
     }
     
-    private func fetchDoing() {
-        let doings = realmManager.fetch(taskType: .doing)
-        self.doings = doings
     
     private func cell(at location: CGPoint, from tableView: UITableView) -> TaskTableViewCell? {
         if let indexPath = tableView.indexPathForRow(at: location) {
@@ -202,9 +183,6 @@ final class MainViewController: UIViewController, UIPopoverPresentationControlle
         }
     }
     
-    private func fetchDone() {
-        let dones = realmManager.fetch(taskType: .done)
-        self.dones = dones
     private func showPopoverView(at cell: TaskTableViewCell) {
         let popoverWidth = mainView.frame.size.width * 0.25
         let popoverHeight = mainView.frame.size.height * 0.15
@@ -238,6 +216,19 @@ final class MainViewController: UIViewController, UIPopoverPresentationControlle
         )
         newTodoFormSheet.modalPresentationStyle = .formSheet
         present(newTodoFormSheet, animated: true)
+    }
+    
+    private func showEditFormSheetView(
+        task: Task
+    ) {
+        let editViewController = EditFormSheetViewController()
+        editViewController.delegate = self
+        editViewController.task = task
+        let editFormSheet = UINavigationController(
+            rootViewController: editViewController
+        )
+        editFormSheet.modalPresentationStyle = .formSheet
+        present(editFormSheet, animated: true)
     }
 }
 
@@ -287,78 +278,6 @@ extension MainViewController: UIGestureRecognizerDelegate {
         } else {
             return
         }
-    }
-}
-
-// MARK: - TableView Method
-
-extension MainViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(
-        _ tableView: UITableView,
-        numberOfRowsInSection section: Int
-    ) -> Int {
-        
-        if tableView == mainView.todoTableView {
-            return todos.count
-        } else if tableView == mainView.doingTableView {
-            return doings.count
-        } else {
-            return dones.count
-        }
-    }
-    
-    func tableView(
-        _ tableView: UITableView,
-        cellForRowAt indexPath: IndexPath
-    ) -> UITableViewCell {
-        
-        if tableView == mainView.todoTableView {
-            return generateCell(
-                tableView: mainView.todoTableView,
-                indexPath: indexPath,
-                task: todos
-            )
-        } else if tableView == mainView.doingTableView {
-            return generateCell(
-                tableView: mainView.doingTableView,
-                indexPath: indexPath,
-                task: doings
-            )
-        } else {
-            return generateCell(
-                tableView: mainView.doneTableView,
-                indexPath: indexPath,
-                task: dones
-            )
-        }
-    }
-    
-    private func generateCell(
-        tableView: UITableView,
-        indexPath: IndexPath,
-        task: [Task]
-    ) -> TaskTableViewCell {
-        
-        if let cell = tableView.dequeueReusableCell(
-            withIdentifier: TaskTableViewCell.identifier
-        ) as? TaskTableViewCell {
-            cell.setupContents(task: task[indexPath.row])
-            return cell
-        }
-        return TaskTableViewCell()
-    }
-    
-    private func showEditFormSheetView(
-        task: Task
-    ) {
-        let editViewController = EditFormSheetViewController()
-        editViewController.delegate = self
-        editViewController.task = task
-        let editFormSheet = UINavigationController(
-            rootViewController: editViewController
-        )
-        editFormSheet.modalPresentationStyle = .formSheet
-        present(editFormSheet, animated: true)
     }
 }
 
