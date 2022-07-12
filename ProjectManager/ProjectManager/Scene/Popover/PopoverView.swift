@@ -18,8 +18,6 @@ final class PopoverView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    weak var delegate: PopoverDelegate?
-    
     private let baseStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
