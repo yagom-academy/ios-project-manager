@@ -38,7 +38,7 @@ final class DetailView: UIView {
         return barButton
     }()
     
-    private lazy var doneButton: UIBarButtonItem = {
+    private(set) lazy var doneButton: UIBarButtonItem = {
         let barButton = UIBarButtonItem()
         barButton.title = "Done"
         
@@ -54,7 +54,7 @@ final class DetailView: UIView {
         return stackView
     }()
     
-    private lazy var titleTextField: UITextField = {
+    private(set) lazy var titleTextField: UITextField = {
         let textField = UITextField()
         textField.font = UIFont.preferredFont(forTextStyle: .title2)
         textField.borderStyle = .roundedRect
@@ -62,7 +62,7 @@ final class DetailView: UIView {
         return textField
     }()
     
-    private lazy var deadlinePicker: UIDatePicker = {
+    private(set) lazy var deadlinePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.preferredDatePickerStyle = .wheels
         datePicker.datePickerMode = .date
@@ -70,7 +70,7 @@ final class DetailView: UIView {
         return datePicker
     }()
     
-    private lazy var bodyTextView: UITextView = {
+    private(set) lazy var bodyTextView: UITextView = {
         let textView = UITextView()
         textView.font = UIFont.preferredFont(forTextStyle: .title3)
         textView.layer.borderWidth = 1
