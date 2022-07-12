@@ -29,10 +29,38 @@ final class ProjectManagerHomeViewController: UIViewController {
     self.doneCollectionView.collectionViewLayout = listCompositionLayout()
   }
 
+  private func fetchItemCount(_ projectCategory: ProjectCategory) -> Int {
+    let todoList = ProjectListMockData.sample.filter {
+      $0.projectCategory == projectCategory
+    }
+
+    return todoList.count
+  }
+
+  private func allocate(
+    to cell: ProjectManagerCollectionViewCell,
+    projectCatergory: ProjectCategory,
+    indexPath: IndexPath
+  ) {
+    let todolist = ProjectListMockData.sample.filter {
+      $0.projectCategory == projectCatergory
+    }
+
+    cell.configure(
+      title: todolist[indexPath.row].title,
+      body: todolist[indexPath.row].body,
+      date: todolist[indexPath.row].date
+    )
+  }
+}
+
+// MARK: - UICollectionViewCompositionalLayout
+
+extension ProjectManagerHomeViewController {
   private func listCompositionLayout() -> UICollectionViewCompositionalLayout {
     let itemSize = NSCollectionLayoutSize(
-       widthDimension: NSCollectionLayoutDimension.fractionalWidth(1),
-       heightDimension: NSCollectionLayoutDimension.estimated(1)
+      widthDimension: NSCollectionLayoutDimension.fractionalWidth(1),
+      heightDimension: NSCollectionLayoutDimension.estimated(1)
     )
     let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
@@ -46,20 +74,15 @@ final class ProjectManagerHomeViewController: UIViewController {
 
     return layout
   }
-
-  private func fetchItemCount(_ projectCategory: ProjectCategory) -> Int {
-     let todoList = ProjectListMockData.sample.filter {
-       $0.projectCategory == projectCategory
-     }
-
-     return todoList.count
-   }
 }
 
 // MARK: - UICollectionViewDataSource
 
 extension ProjectManagerHomeViewController: UICollectionViewDataSource {
-  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+  func collectionView(
+    _ collectionView: UICollectionView,
+    numberOfItemsInSection section: Int
+  ) -> Int {
     if collectionView == todoCollectionView {
       return fetchItemCount(.todo)
     }
@@ -75,12 +98,27 @@ extension ProjectManagerHomeViewController: UICollectionViewDataSource {
     return 0
   }
 
-  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+  func collectionView(
+    _ collectionView: UICollectionView,
+    cellForItemAt indexPath: IndexPath
+  ) -> UICollectionViewCell {
     guard let cell = collectionView.dequeueReusableCell(
       withReuseIdentifier: "projectManagerCell",
       for: indexPath
     ) as? ProjectManagerCollectionViewCell else {
       return UICollectionViewCell()
+    }
+
+    if collectionView == todoCollectionView {
+      self.allocate(to: cell, projectCatergory: .todo, indexPath: indexPath)
+    }
+
+    if collectionView == doingCollectionView {
+      self.allocate(to: cell, projectCatergory: .doing, indexPath: indexPath)
+    }
+
+    if collectionView == doneCollectionView {
+      self.allocate(to: cell, projectCatergory: .done, indexPath: indexPath)
     }
 
     return cell

@@ -7,8 +7,14 @@
 
 import UIKit
 
-class ProjectManagerCollectionViewCell: UICollectionViewCell {
-  @IBOutlet weak var titleLabel: UILabel!
-  @IBOutlet weak var bodyLabel: UILabel!
-  @IBOutlet weak var dateLabel: UILabel!
+final class ProjectManagerCollectionViewCell: UICollectionViewCell {
+  @IBOutlet private weak var titleLabel: UILabel!
+  @IBOutlet private weak var bodyLabel: UILabel!
+  @IBOutlet private weak var dateLabel: UILabel!
+
+  func configure(title: String, body: String, date: Date) {
+    self.titleLabel.text = title
+    self.bodyLabel.text = body
+    self.dateLabel.text = date.description
+  }
 }
