@@ -56,9 +56,7 @@ extension TodoDetailViewModel {
     // MARK: - Input
     
     func didTapCloseButton() {
-        if todoListModel.title.isEmpty && todoListModel.content.isEmpty {
-            useCase.deleteLastItem()
-        }
+        useCase.deleteLastItem(title: todoListModel.title, content: todoListModel.content)
         
         viewDidDisapper()
     }

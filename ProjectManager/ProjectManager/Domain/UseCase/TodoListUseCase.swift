@@ -13,7 +13,7 @@ protocol TodoListUseCaseable {
     func read() -> AnyPublisher<[TodoListModel], Never>
     func update(_ item: TodoListModel)
     func delete(item: TodoListModel)
-    func deleteLastItem()
+    func deleteLastItem(title: String, content: String)
 }
 
 final class TodoListUseCase: TodoListUseCaseable {
@@ -39,7 +39,9 @@ final class TodoListUseCase: TodoListUseCaseable {
         repository.delete(item: item)
     }
     
-    func deleteLastItem() {
-        repository.deleteLastItem()
+    func deleteLastItem(title: String, content: String) {
+        if title.isEmpty && content.isEmpty {
+            repository.deleteLastItem()
+        }
     }
 }
