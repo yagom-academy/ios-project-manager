@@ -27,7 +27,7 @@ final class ProjectCell: UITableViewCell {
         return label
     }()
     
-    private let dateLabel: UILabel = {
+    private let deadlineLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .caption1)
         label.textAlignment = .left
@@ -56,7 +56,7 @@ final class ProjectCell: UITableViewCell {
         
         baseStackView.addArrangedSubview(titleLabel)
         baseStackView.addArrangedSubview(descriptionLabel)
-        baseStackView.addArrangedSubview(dateLabel)
+        baseStackView.addArrangedSubview(deadlineLabel)
     }
     
     private func setUpLayout() {
@@ -76,15 +76,15 @@ final class ProjectCell: UITableViewCell {
         
         titleLabel.text = content.title
         descriptionLabel.text = content.description
-        dateLabel.text = content.deadline
+        deadlineLabel.text = content.deadline
         
         if formattedDate < Date() {
-            dateLabel.textColor = .red
+            deadlineLabel.textColor = .red
         }
     }
     
     override func prepareForReuse() {
-        dateLabel.textColor = .black
+        deadlineLabel.textColor = .black
         contentID = nil
     }
 }
