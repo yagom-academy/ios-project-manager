@@ -23,7 +23,7 @@ enum ProjectStatus {
         }
     }
     
-    var title: String {
+    var buttonTitle: String {
         switch self {
         case .todo:
             return "Move to TODO"
@@ -36,11 +36,11 @@ enum ProjectStatus {
     
     static func convert(_ titleText: String?) -> ProjectStatus? {
         switch titleText {
-        case ProjectStatus.todo.title:
+        case ProjectStatus.todo.buttonTitle:
             return .todo
-        case ProjectStatus.doing.title:
+        case ProjectStatus.doing.buttonTitle:
             return .doing
-        case ProjectStatus.done.title:
+        case ProjectStatus.done.buttonTitle:
             return .done
         default:
             return nil

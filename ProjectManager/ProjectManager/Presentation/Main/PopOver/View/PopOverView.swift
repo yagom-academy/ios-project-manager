@@ -54,7 +54,7 @@ final class PopOverView: UIView {
     }
     
     func setUpButtonTitle(first: ProjectStatus, second: ProjectStatus) {
-        firstButton.setTitle(first.title, for: .normal)
-        secondButton.setTitle(second.title, for: .normal)
+        firstButton.setTitle(first.buttonTitle, for: .normal)
+        secondButton.setTitle(second.buttonTitle, for: .normal)
     }
 }
