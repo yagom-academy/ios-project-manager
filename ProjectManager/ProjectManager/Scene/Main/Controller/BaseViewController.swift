@@ -126,6 +126,24 @@ final class BaseViewController: UIViewController {
   }
 }
 
+// MARK: UICollectionViewDelegate
+
+extension BaseViewController: UICollectionViewDelegate {
+  // MARK: Move EditViewController
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    let todo = createTodoData(from: collectionView, indexPath: indexPath.row)
+    let editVC = createEditViewController(with: todo)
+    present(editVC, animated: true)
+  }
+  
+  private func createEditViewController(with todo: Todo) -> UINavigationController {
+    let editVC = EditViewController(todo: todo)
+    editVC.delegate = self
+    let editNC = UINavigationController(rootViewController: editVC)
+    editNC.modalPresentationStyle = .pageSheet
+    
+    return editNC
+  }
   
   private func createTodoData(from collectionView: UICollectionView, indexPath row: Int) -> Todo {
     let collectionViewState = self.findState(about: collectionView)
@@ -134,6 +152,8 @@ final class BaseViewController: UIViewController {
     
     return todo
   }
+}
+
 // MARK: Delegate
 
 extension BaseViewController: TodoDelegate {
@@ -141,3 +161,11 @@ extension BaseViewController: TodoDelegate {
     todoList.append(todo)
   }
   
+  func updateData(_ todo: Todo) {
+    guard let index = todoList.firstIndex(where: { $0.identifier == todo.identifier }) else {
+      return
+    }
+    
+    todoList[index] = todo
+  }
+}
