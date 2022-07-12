@@ -38,10 +38,12 @@ final class TodoListViewModel: TodoListViewModelable {
         return filteredItems(with: .done)
     }
     
+    private weak var coordinator: TodoListViewCoordinator?
     private let useCase: TodoListUseCaseable
     
-    init(useCase: TodoListUseCaseable) {
+    init(coordinator: TodoListViewCoordinator, useCase: TodoListUseCaseable) {
         self.useCase = useCase
+        self.coordinator = coordinator
     }
     
     private func filteredItems(with type: ProcessType) -> AnyPublisher<[TodoListModel], Never> {
@@ -60,6 +62,7 @@ extension TodoListViewModel {
     func addButtonDidTap() {
         let item = TodoListModel(title: "", content: "", deadLine: Date().endOfTheDay ?? Date())
         useCase.create(item)
+        coordinator?.showDetailViewController(item)
     }
     
     func deleteItem(_ item: TodoListModel) {
@@ -67,6 +70,7 @@ extension TodoListViewModel {
     }
     
     func cellDidTap(_ item: TodoListModel) {
+        coordinator?.showDetailViewController(item)
     }
     
     func cellDidLongPress(_ item: TodoListModel, to processType: ProcessType) {

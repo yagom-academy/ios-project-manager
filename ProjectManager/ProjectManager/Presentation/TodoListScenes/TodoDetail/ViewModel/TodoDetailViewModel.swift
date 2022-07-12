@@ -12,6 +12,7 @@ protocol TodoDetailViewModelInput {
     func closeButtonDidTap()
     func doneButtonDidTap(title: String, content: String, deadLine: Date)
     func editButtonDidTap()
+    func viewDidDisapper()
 }
 
 protocol TodoDetailViewModelOutput {
@@ -31,12 +32,14 @@ final class TodoDetailViewModel: TodoDetailViewModelable {
     
     let isCreate = CurrentValueSubject<Bool, Never>(true)
 
+    private weak var coordinator: TodoDetailViewCoordinator?
     private let todoListModel: TodoListModel
     private let useCase: TodoListUseCaseable
     
-    init(useCase: TodoListUseCaseable, todoListModel: TodoListModel) {
+    init(useCase: TodoListUseCaseable, todoListModel: TodoListModel, coordinator: TodoDetailViewCoordinator?) {
         self.useCase = useCase
         self.todoListModel = todoListModel
+        self.coordinator = coordinator
         
         if todoListModel.title.isEmpty && todoListModel.content.isEmpty {
             isCreate.send(true)
@@ -46,7 +49,6 @@ final class TodoDetailViewModel: TodoDetailViewModelable {
     }
 }
 
-
 extension TodoDetailViewModel {
     
     // MARK: - Input
@@ -55,6 +57,8 @@ extension TodoDetailViewModel {
         if todoListModel.title.isEmpty && todoListModel.content.isEmpty {
             useCase.deleteLastItem()
         }
+        
+        viewDidDisapper()
     }
     
     func doneButtonDidTap(title: String, content: String, deadLine: Date) {
@@ -71,9 +75,15 @@ extension TodoDetailViewModel {
                 id: todoListModel.id
             )
         )
+        
+        viewDidDisapper()
     }
     
     func editButtonDidTap() {
         isCreate.send(true)
+    }
+    
+    func viewDidDisapper() {
+        coordinator?.dismiss()
     }
 }

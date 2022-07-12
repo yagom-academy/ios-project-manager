@@ -7,8 +7,17 @@
 
 import UIKit
 
-final class AppCoordinator {
-    private let navigationController: UINavigationController
+protocol Coordinator: AnyObject {
+    var navigationController: UINavigationController { get set }
+    var parentCoordinator: Coordinator? { get set }
+    var childCoordinators: [Coordinator] { get set }
+}
+
+final class AppCoordinator: Coordinator {
+    var navigationController: UINavigationController
+    weak var parentCoordinator: Coordinator?
+    var childCoordinators: [Coordinator] = []
+    
     private let appDIContainer: AppDIContainer
     
     init(navigationController: UINavigationController, appDIContainer: AppDIContainer) {
@@ -19,6 +28,9 @@ final class AppCoordinator {
     func start() {
         let sceneDIContainer = appDIContainer.makeTodoListSceneDIContainer()
         let sceneCoordinator = sceneDIContainer.makeCoordinator(navigationController: navigationController)
+        
+        childCoordinators.append(sceneCoordinator)
+        sceneCoordinator.parentCoordinator = self
         
         sceneCoordinator.start()
     }

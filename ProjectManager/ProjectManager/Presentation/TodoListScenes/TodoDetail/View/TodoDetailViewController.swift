@@ -29,6 +29,12 @@ final class TodoDetailViewController: UIViewController {
         bind()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        viewModel.viewDidDisapper()
+    }
+    
     private func bind() {
         viewModel.item
             .sink { [weak self] item in

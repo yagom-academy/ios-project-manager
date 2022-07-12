@@ -19,26 +19,26 @@ final class TodoListSceneDIContainer {
     }
 }
 
-extension TodoListSceneDIContainer: TodoListSceneCoordinatorDependencies {
+extension TodoListSceneDIContainer {
     
     // MARK: ViewController
     
-    func makeTodoDetailViewContoller(todoListModel: TodoListModel) -> TodoDetailViewController {
-        return TodoDetailViewController(viewModel: makeTodoDetailViewModel(todoListModel: todoListModel))
+    func makeTodoDetailViewContoller(todoListModel: TodoListModel, coordinator: TodoDetailViewCoordinator) -> TodoDetailViewController {
+        return TodoDetailViewController(viewModel: makeTodoDetailViewModel(todoListModel: todoListModel, coordinator: coordinator))
     }
     
-    func makeTodoListViewController() -> TodoListViewController {
-        return TodoListViewController(viewModel: makeTodoListViewModel())
+    func makeTodoListViewController(coordinator: TodoListViewCoordinator) -> TodoListViewController {
+        return TodoListViewController(viewModel: makeTodoListViewModel(coordinator: coordinator))
     }
     
     // MARK: - ViewModel
     
-    private func makeTodoDetailViewModel(todoListModel: TodoListModel) -> TodoDetailViewModelable {
-        return TodoDetailViewModel(useCase: makeTodoListUseCase(), todoListModel: todoListModel)
+    private func makeTodoDetailViewModel(todoListModel: TodoListModel, coordinator: TodoDetailViewCoordinator) -> TodoDetailViewModelable {
+        return TodoDetailViewModel(useCase: makeTodoListUseCase(), todoListModel: todoListModel, coordinator: coordinator)
     }
     
-    private func makeTodoListViewModel() -> TodoListViewModelable {
-        return TodoListViewModel(useCase: makeTodoListUseCase())
+    private func makeTodoListViewModel(coordinator: TodoListViewCoordinator) -> TodoListViewModelable {
+        return TodoListViewModel(coordinator: coordinator, useCase: makeTodoListUseCase())
     }
     
     // MARK: - UseCase
@@ -55,7 +55,11 @@ extension TodoListSceneDIContainer: TodoListSceneCoordinatorDependencies {
     
     // MARK: - Coordiantor
     
-    func makeCoordinator(navigationController: UINavigationController) -> TodoListSceneCoordinator {
-        return TodoListSceneCoordinator(navigationController: navigationController, dependencies: self)
+    func makeCoordinator(navigationController: UINavigationController) -> TodoListViewCoordinator {
+        return TodoListViewCoordinator(navigationController: navigationController, dependencies: self)
+    }
+    
+    func makeDetailViewCoordinator(navigationController: UINavigationController) -> TodoDetailViewCoordinator {
+        return TodoDetailViewCoordinator(navigationController: navigationController, dependencies: self)
     }
 }
