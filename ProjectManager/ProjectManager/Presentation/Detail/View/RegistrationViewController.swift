@@ -11,7 +11,7 @@ import RxCocoa
 import RxKeyboard
 
 final class RegistrationViewController: UIViewController {
-    private let registrationView = ModalView(frame: .zero)
+    private let modalView = ModalView(frame: .zero)
     private let viewModel = RegistrationViewModel()
     
     private let disposeBag = DisposeBag()
@@ -25,7 +25,7 @@ final class RegistrationViewController: UIViewController {
     }
     
     override func loadView() {
-        view = registrationView
+        view = modalView
     }
     
     override func viewDidLoad() {
@@ -80,11 +80,11 @@ final class RegistrationViewController: UIViewController {
     }
     
     private func saveProjectContent() {
-        guard let title = registrationView.titleTextField.text,
-              let description = registrationView.descriptionTextView.text else {
+        guard let title = modalView.titleTextField.text,
+              let description = modalView.descriptionTextView.text else {
                   return
               }
-        let date = registrationView.datePicker.date
+        let date = modalView.datePicker.date
         
         viewModel.registerate(title: title, date: date, description: description)
     }
@@ -94,7 +94,7 @@ final class RegistrationViewController: UIViewController {
             .visibleHeight
             .drive(onNext: { keyboardVisibleHeight in
                 let height = keyboardVisibleHeight > 0 ? -keyboardVisibleHeight / 3 : 0
-                self.registrationView.frame.origin.y = height
+                self.modalView.frame.origin.y = height
             })
             .disposed(by: disposeBag)
     }
