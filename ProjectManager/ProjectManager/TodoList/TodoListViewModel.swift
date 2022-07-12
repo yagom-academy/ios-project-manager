@@ -17,7 +17,7 @@ final class TodoListViewModel {
     let doingViewData: Driver<[Todo]>
     let doneViewData: Driver<[Todo]>
 
-    let dataBase: DataBase = MockDataBase()
+    let dataBase: DataBase = TestDataBase()
     
     init() {
         let data = BehaviorRelay<[Todo]>(value: dataBase.read())
@@ -40,7 +40,7 @@ protocol DataBase {
     func read() -> [Todo]
 }
 
-fileprivate struct MockDataBase: DataBase {
+fileprivate struct TestDataBase: DataBase {
     let data1 = MockData().data
     let data2 = MockData().data2
     let data3 = MockData().data3
