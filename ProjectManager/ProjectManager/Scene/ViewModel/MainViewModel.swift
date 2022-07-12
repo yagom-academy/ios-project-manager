@@ -37,7 +37,6 @@ final class MainViewModel: MainViewModelInput, MainViewModelOutput {
         case .done:
             task = dones.value[indexPath.row]
         }
-        
         deleteData(task: task)
     }
     
@@ -51,7 +50,7 @@ final class MainViewModel: MainViewModelInput, MainViewModelOutput {
         fetchDone()
     }
     
-    func deleteData(task: Task) {
+    private func deleteData(task: Task) {
         realmManager.delete(task: task)
         fetchData()
     }

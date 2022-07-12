@@ -28,9 +28,7 @@ final class PopoverViewController: UIViewController {
     }
     
     func bind() {
-        guard let task = task else {
-            return
-        }
+        guard let task = task else { return }
 
         popoverView.moveToToDoButton.rx.tap
             .subscribe { [weak self] _ in
@@ -72,7 +70,4 @@ final class PopoverViewController: UIViewController {
             popoverView.moveToDoneButton.isHidden = true
         }
     }
-    
-    
-
 }

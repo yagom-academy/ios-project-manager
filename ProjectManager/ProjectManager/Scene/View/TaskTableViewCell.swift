@@ -27,17 +27,20 @@ final class TaskTableViewCell: UITableViewCell {
     }
     
     private lazy var titleLabel = UILabel().then {
-        $0.font = .preferredFont(for: .title2, weight: .bold)
+        $0.font = .preferredFont(for: .title2, weight: .medium)
+        $0.setContentHuggingPriority(.defaultHigh, for: .vertical)
     }
     
     private lazy var descriptionLabel = UILabel().then {
-        $0.font = .preferredFont(for: .title3, weight: .bold)
+        $0.font = .preferredFont(for: .title3, weight: .medium)
         $0.numberOfLines = 3
         $0.textColor = .gray
+        $0.setContentHuggingPriority(.defaultLow, for: .vertical)
     }
     
     private lazy var dateLabel = UILabel().then {
-        $0.font = .preferredFont(for: .headline, weight: .bold)
+        $0.font = .preferredFont(for: .headline, weight: .medium)
+        $0.setContentHuggingPriority(.defaultHigh, for: .vertical)
     }
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

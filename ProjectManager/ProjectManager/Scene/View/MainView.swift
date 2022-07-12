@@ -84,19 +84,6 @@ final class MainView: UIView {
         }
     }
     
-    func setTaskCount(to count: Int, taskType: TaskType) {
-        DispatchQueue.main.async { [weak self] in
-            switch taskType {
-            case .todo:
-                self?.todoHeaderView.count = count
-            case .doing:
-                self?.doingHeaderView.count = count
-            case .done:
-                self?.doneHeaderView.count = count
-            }
-        }
-    }
-    
     private func generateTableView() -> UITableView {
         return UITableView().then {
             $0.backgroundColor = .systemGray6

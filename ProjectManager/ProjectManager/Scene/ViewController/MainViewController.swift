@@ -11,10 +11,6 @@ import RxGesture
 
 final class MainViewController: UIViewController, UIPopoverPresentationControllerDelegate {
     
-    private var todos: [Task] = []
-    private var doings: [Task] = []
-    private var dones: [Task] = []
-    
     private let mainView = MainView()
     private let realmManager = RealmManager()
     private let viewModel = MainViewModel()
@@ -35,9 +31,7 @@ final class MainViewController: UIViewController, UIPopoverPresentationControlle
     private func configureNavigationItems() {
         title = "Project Manager"
         let plusButton = UIBarButtonItem(
-            image: UIImage(
-                systemName: "plus"
-            ),
+            image: UIImage(systemName: "plus"),
             style: .plain,
             target: self,
             action: #selector(showNewFormSheetView)
@@ -53,7 +47,10 @@ final class MainViewController: UIViewController, UIPopoverPresentationControlle
         bindLongPressGestures()
     }
     
-    private func cell(at location: CGPoint, from tableView: UITableView) -> TaskTableViewCell? {
+    private func cell(
+        at location: CGPoint,
+        from tableView: UITableView
+    ) -> TaskTableViewCell? {
         if let indexPath = tableView.indexPathForRow(at: location) {
             return tableView.cellForRow(at: indexPath) as? TaskTableViewCell
         } else {
@@ -96,9 +93,7 @@ final class MainViewController: UIViewController, UIPopoverPresentationControlle
         present(newTodoFormSheet, animated: true)
     }
     
-    private func showEditFormSheetView(
-        task: Task
-    ) {
+    private func showEditFormSheetView(task: Task) {
         let editViewController = EditFormSheetViewController()
         editViewController.delegate = self
         editViewController.task = task
