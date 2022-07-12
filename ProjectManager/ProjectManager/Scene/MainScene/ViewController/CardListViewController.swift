@@ -120,10 +120,21 @@ final class CardListViewController: UIViewController {
   }
   
   private func bindSectionsItemSelected() {
-    Observable.zip(
-      todoSectionView.tableView.rx.itemSelected,
-      todoSectionView.tableView.rx.modelSelected(Card.self)
+    Observable.of(
+      Observable.zip(
+        todoSectionView.tableView.rx.itemSelected,
+        todoSectionView.tableView.rx.modelSelected(Card.self)
+      ),
+      Observable.zip(
+        doingSectionView.tableView.rx.itemSelected,
+        doingSectionView.tableView.rx.modelSelected(Card.self)
+      ),
+      Observable.zip(
+        doneSectionView.tableView.rx.itemSelected,
+        doneSectionView.tableView.rx.modelSelected(Card.self)
+      )
     )
+    .merge()
     .bind(onNext: { [weak self] indexPath, card in
       guard let self = self else { return }
       self.todoSectionView.tableView.deselectRow(at: indexPath, animated: true)
@@ -132,58 +143,16 @@ final class CardListViewController: UIViewController {
       self.present(cardDetailViewController, animated: true)
     })
     .disposed(by: disposeBag)
-    
-    Observable.zip(
-      doingSectionView.tableView.rx.itemSelected,
-      doingSectionView.tableView.rx.modelSelected(Card.self)
-    )
-    .bind(onNext: { [weak self] indexPath, card in
-      guard let self = self else { return }
-      self.doingSectionView.tableView.deselectRow(at: indexPath, animated: true)
-      let cardDetailViewController = CardDetailViewController(viewModel: self.viewModel, card: card)
-      cardDetailViewController.modalPresentationStyle = .formSheet
-      self.present(cardDetailViewController, animated: true)
-    })
-    .disposed(by: disposeBag)
-    
-    Observable.zip(
-      doneSectionView.tableView.rx.itemSelected,
-      doneSectionView.tableView.rx.modelSelected(Card.self)
-    )
-    .bind(onNext: { [weak self] indexPath, card in
-      guard let self = self else { return }
-      self.doneSectionView.tableView.deselectRow(at: indexPath, animated: true)
-      let cardDetailViewController = CardDetailViewController(viewModel: self.viewModel, card: card)
-      cardDetailViewController.modalPresentationStyle = .formSheet
-      self.present(cardDetailViewController, animated: true)
-    })
-    .disposed(by: disposeBag)
   }
   
   private func bindSectionsItemDeleted() {
-    Observable.zip(
-      todoSectionView.tableView.rx.itemDeleted,
-      todoSectionView.tableView.rx.modelDeleted(Card.self)
-    )
-    .bind(onNext: { [weak self] indexPath, card in
-      self?.viewModel.deleteSelectedCard(card)
-    })
-    .disposed(by: disposeBag)
-    
-    Observable.zip(
-      doingSectionView.tableView.rx.itemDeleted,
-      doingSectionView.tableView.rx.modelDeleted(Card.self)
-    )
-    .bind(onNext: { [weak self] indexPath, card in
-      self?.viewModel.deleteSelectedCard(card)
-    })
-    .disposed(by: disposeBag)
-    
-    Observable.zip(
-      doneSectionView.tableView.rx.itemDeleted,
+    Observable.of(
+      todoSectionView.tableView.rx.modelDeleted(Card.self),
+      doingSectionView.tableView.rx.modelDeleted(Card.self),
       doneSectionView.tableView.rx.modelDeleted(Card.self)
     )
-    .bind(onNext: { [weak self] indexPath, card in
+    .merge()
+    .bind(onNext: { [weak self] card in
       self?.viewModel.deleteSelectedCard(card)
     })
     .disposed(by: disposeBag)
