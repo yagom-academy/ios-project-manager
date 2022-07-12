@@ -16,6 +16,7 @@
 		C7431F1225F51E1E0094C4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */; };
 		E582B9D5287C953C00F13416 /* ProjectList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E582B9D4287C953C00F13416 /* ProjectList.swift */; };
 		E582B9D7287C9A5500F13416 /* ProjectListMockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E582B9D6287C9A5500F13416 /* ProjectListMockData.swift */; };
+		E582B9DA287DC67700F13416 /* Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E582B9D9287DC67700F13416 /* Formatter.swift */; };
 		E5D91966287B46C4000379C6 /* ProjectManagerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D91965287B46C4000379C6 /* ProjectManagerCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +34,7 @@
 		C7431F1325F51E1E0094C4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E582B9D4287C953C00F13416 /* ProjectList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectList.swift; sourceTree = "<group>"; };
 		E582B9D6287C9A5500F13416 /* ProjectListMockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListMockData.swift; sourceTree = "<group>"; };
+		E582B9D9287DC67700F13416 /* Formatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatter.swift; sourceTree = "<group>"; };
 		E5D91965287B46C4000379C6 /* ProjectManagerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -87,9 +89,10 @@
 			isa = PBXGroup;
 			children = (
 				E582B9D3287C94D600F13416 /* Model */,
-				E5E8F0E0287284C600249E9B /* Resource */,
 				E5E8F0DF287284AC00249E9B /* View */,
 				E5E8F0DE287284A100249E9B /* ViewController */,
+				E582B9D8287DC61900F13416 /* Util */,
+				E5E8F0E0287284C600249E9B /* Resource */,
 				E5E8F0DD2872849400249E9B /* Application */,
 			);
 			path = ProjectManager;
@@ -102,6 +105,14 @@
 				E582B9D6287C9A5500F13416 /* ProjectListMockData.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		E582B9D8287DC61900F13416 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				E582B9D9287DC67700F13416 /* Formatter.swift */,
+			);
+			path = Util;
 			sourceTree = "<group>";
 		};
 		E5E8F0DD2872849400249E9B /* Application */ = {
@@ -275,6 +286,7 @@
 				E582B9D5287C953C00F13416 /* ProjectList.swift in Sources */,
 				E582B9D7287C9A5500F13416 /* ProjectListMockData.swift in Sources */,
 				E5D91966287B46C4000379C6 /* ProjectManagerCollectionViewCell.swift in Sources */,
+				E582B9DA287DC67700F13416 /* Formatter.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* ProjectManagerHomeViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
