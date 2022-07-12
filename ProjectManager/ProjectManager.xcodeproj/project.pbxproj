@@ -21,7 +21,6 @@
 		0EA67EB82873330100E15093 /* ProjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA67EB72873330100E15093 /* ProjectCell.swift */; };
 		0EA67EBC287476B300E15093 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA67EBB287476B300E15093 /* RegistrationViewController.swift */; };
 		0EA67EBE2874789700E15093 /* ModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA67EBD2874789700E15093 /* ModalView.swift */; };
-		0EA67EC228751D9700E15093 /* ProjectItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA67EC128751D9700E15093 /* ProjectItem.swift */; };
 		0EA67EC628751ECC00E15093 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA67EC528751ECC00E15093 /* MainViewModel.swift */; };
 		0EA67EC928752A0F00E15093 /* ProjectContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA67EC828752A0F00E15093 /* ProjectContent.swift */; };
 		0EA67ED0287674D000E15093 /* ProjectTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA67ECF287674D000E15093 /* ProjectTable.swift */; };
@@ -48,7 +47,6 @@
 		0EA67EB72873330100E15093 /* ProjectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectCell.swift; sourceTree = "<group>"; };
 		0EA67EBB287476B300E15093 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		0EA67EBD2874789700E15093 /* ModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalView.swift; sourceTree = "<group>"; };
-		0EA67EC128751D9700E15093 /* ProjectItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectItem.swift; sourceTree = "<group>"; };
 		0EA67EC528751ECC00E15093 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		0EA67EC828752A0F00E15093 /* ProjectContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectContent.swift; sourceTree = "<group>"; };
 		0EA67ECF287674D000E15093 /* ProjectTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTable.swift; sourceTree = "<group>"; };
@@ -196,7 +194,6 @@
 		0EA67EC428751DF900E15093 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
-				0EA67EC128751D9700E15093 /* ProjectItem.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -412,7 +409,6 @@
 			files = (
 				0334E70028767E7100222EB7 /* DetailViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
-				0EA67EC228751D9700E15093 /* ProjectItem.swift in Sources */,
 				0EA67EBE2874789700E15093 /* ModalView.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				0E34F04C287C7C5600438285 /* DateFormatter.swift in Sources */,
