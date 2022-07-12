@@ -7,9 +7,12 @@
 
 import UIKit
 import RxCocoa
+import RxSwift
 
 final class PopOverViewController: UIViewController {
+    private let popOverView = PopOverView()
     private let viewModel: PopOverViewModel
+    private let disposeBag = DisposeBag()
     
     init(cell: ProjectCell) {
         viewModel = PopOverViewModel(cell: cell)
@@ -47,6 +50,31 @@ final class PopOverViewController: UIViewController {
     }
     
     private func setUpButtonAction(_ cell: ProjectCell) {
-        popOverView.addButtonAction(cell)
+        let firstButton = popOverView.firstButton
+        let secondButton = popOverView.secondButton
+        
+        firstButton.rx.tap
+            .asDriver()
+            .drive { [weak self] _ in
+                guard let status = ProjectStatus.convert(firstButton.titleLabel?.text) else {
+                    return
+                }
+                
+                self?.viewModel.changeConent(status: status)
+                self?.dismiss(animated: true)
+            }
+            .disposed(by: disposeBag)
+        
+        secondButton.rx.tap
+            .asDriver()
+            .drive { [weak self] _ in
+                guard let status = ProjectStatus.convert(secondButton.titleLabel?.text) else {
+                    return
+                }
+                self?.viewModel.changeConent(status: status)
+                self?.dismiss(animated: true)
+            }
+            .disposed(by: disposeBag)
+        
     }
 }

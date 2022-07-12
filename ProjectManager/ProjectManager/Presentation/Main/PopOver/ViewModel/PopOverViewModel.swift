@@ -20,13 +20,14 @@ struct PopOverViewModel {
         
         project.updateStatus(status)
     }
+    
     func getStatus() -> (first: ProjectStatus, second: ProjectStatus)? {
-        guard let cellData = cell.getData() else {
         guard let id = cell.contentID,
+              let project = MockStorageManager.shared.read(id: id),
+              let status = project.getStatus() else {
             return nil
         }
         
-        let status = cellData.getStatus()
         return convertProcess(by: status)
     }
     

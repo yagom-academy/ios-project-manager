@@ -92,11 +92,8 @@ struct ProjectContent {
         }
     }
     
-    func getStatus() -> ProjectStatus {
-        let projects = MockStorageManager.shared.read().value
-        let project = projects.filter { $0 == self }
-        
-        return project.first?.status ?? .todo
+    func getStatus() -> ProjectStatus? {
+        return MockStorageManager.shared.read(id: id)?.status
     }
     
     mutating func updateStatus(_ status: ProjectStatus) {
