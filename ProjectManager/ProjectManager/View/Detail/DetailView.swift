@@ -101,7 +101,6 @@ extension DetailView {
     }
     
     func changeEditable() {
-        leftButton.title = "Cancel"
         titleTextField.isEnabled = !titleTextField.isEnabled
         deadlinePicker.isEnabled = !deadlinePicker.isEnabled
         bodyTextView.isEditable = !bodyTextView.isEditable

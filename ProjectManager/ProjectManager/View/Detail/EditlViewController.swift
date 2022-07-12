@@ -64,6 +64,7 @@ final class EditlViewController: UIViewController {
         if detailView.leftButton.title == "Cancel" {
             self.dismiss(animated: true)
         }
+        detailView.leftButton.title = "Cancel"
         detailView.changeEditable()
     }
 }
