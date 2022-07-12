@@ -95,26 +95,14 @@ final class MainViweController: UIViewController {
     }
     
     private func setUpTableCellData() {
-        viewModel.todoProjects
-            .drive(mainView.toDoTable.tableView.rx.items(
-                cellIdentifier: "\(ProjectCell.self)",
-                cellType: ProjectCell.self)
-            ) { _, item, cell in
-                cell.compose(content: item)
-            }
-            .disposed(by: disposeBag)
-        
-        viewModel.doingProjects
-            .drive(mainView.doingTable.tableView.rx.items(
-                cellIdentifier: "\(ProjectCell.self)",
-                cellType: ProjectCell.self)
-            ) { _, item, cell in
-                cell.compose(content: item)
-            }
-            .disposed(by: disposeBag)
-        
-        viewModel.doneProjects
-            .drive(mainView.doneTable.tableView.rx.items(
+        bind(projects: viewModel.todoProjects, tableView: mainView.toDoTable.tableView)
+        bind(projects: viewModel.doingProjects, tableView: mainView.doingTable.tableView)
+        bind(projects: viewModel.doneProjects, tableView: mainView.doneTable.tableView)
+    }
+    
+    private func bind(projects: Driver<[ProjectContent]>, tableView: UITableView) {
+        projects
+            .drive(tableView.rx.items(
                 cellIdentifier: "\(ProjectCell.self)",
                 cellType: ProjectCell.self)
             ) { _, item, cell in
