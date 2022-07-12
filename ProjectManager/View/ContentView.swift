@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var showSheet = false
-    @State private var isShowingPopover = false
+    @ObservedObject var contentViewModel: ContentViewModel
     
     var body: some View {
         
@@ -18,25 +18,10 @@ struct ContentView: View {
                 VStack(alignment: .leading) {
                     List {
                         Section(header: TodoView()){
-                            Button {
-                                showSheet.toggle()
-                            } label: {
-                                ListRowView()
+                            ForEach(contentViewModel.todoTasks) { _ in
+                                CellView(contentViewModel: contentViewModel)
                             }
-                            .onLongPressGesture(minimumDuration: 1) {
-                                isShowingPopover.toggle()
-                            }
-                            .popover(isPresented: $isShowingPopover,
-                                     arrowEdge: .bottom) {
-                                PopoverButton()
-                            }
-                            .sheet(isPresented: $showSheet) {
-                                RegisterView()
-                            }
-                            .swipeActions(edge: .trailing,
-                                          allowsFullSwipe: true) {
-                                SwipeButton()
-                            }
+                            .onDelete(perform: delete)
                         }
                     }
                     .listStyle(.grouped)
@@ -45,7 +30,10 @@ struct ContentView: View {
                 VStack(alignment: .leading) {
                     List {
                         Section(header: DoingView()) {
-                            ListRowView()
+                            ForEach(contentViewModel.doingTasks) { _ in
+                                CellView(contentViewModel: contentViewModel)
+                            }
+                            .onDelete(perform: delete)
                         }
                     }
                     .listStyle(.grouped)
@@ -54,7 +42,10 @@ struct ContentView: View {
                 VStack(alignment: .leading) {
                     List {
                         Section(header: DoneView()) {
-                            ListRowView()
+                            ForEach(contentViewModel.doneTasks) { _ in
+                                CellView(contentViewModel: contentViewModel)
+                            }
+                            .onDelete(perform: delete)
                         }
                     }
                     .listStyle(.grouped)
@@ -73,39 +64,22 @@ struct ContentView: View {
                         Image(systemName: "plus")
                             .imageScale(.large)
                     }.sheet(isPresented: $showSheet) {
-                        RegisterView()
+                        RegisterView(contentViewModel: contentViewModel)
                     }
                 }
             }
         }
         .navigationViewStyle(.stack)
     }
-}
-
-struct PopoverButton: View {
-    var body: some View {
-        Form {
-            Button(action: { print("Move to DOING") }) {
-                Text("Move to DOING")
-            }
-            Button(action: { print("Move to DONE") }) {
-                Text("Move to DONE")
-            }
-        }.frame(width: 190, height: 90, alignment: .center)
-    }
-}
-
-struct SwipeButton: View {
-    var body: some View {
-        Button(action: { print("Delete") }) {
-            Text("Delete")
-        }
+    
+    func delete(at offset: IndexSet) {
+        contentViewModel.todoTasks.remove(atOffsets: offset)
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(contentViewModel: ContentViewModel())
             .previewInterfaceOrientation(.landscapeLeft)
     }
 }

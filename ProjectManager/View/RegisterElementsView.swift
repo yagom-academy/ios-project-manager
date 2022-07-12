@@ -8,20 +8,18 @@
 import SwiftUI
 
 struct RegisterElementsView: View {
-    @State private var title = ""
-    @State private var date = Date()
-    @State private var text: String = ""
+    @State var contentViewModel: ContentViewModel
     
     var dateRange: ClosedRange<Date> {
-        let min = Calendar.current.date(byAdding: .year, value: -1, to: date) ?? Date()
-        let max = Calendar.current.date(byAdding: .year, value: 1, to: date) ?? Date()
+        let min = Calendar.current.date(byAdding: .year, value: -1, to: Date()) ?? Date()
+        let max = Calendar.current.date(byAdding: .year, value: 1, to: Date().addingTimeInterval(60*60*24*365)) ?? Date()
         
         return min...max
     }
     
     var body: some View {
         VStack {
-            TextField("Title", text: $title)
+            TextField("Title", text: $contentViewModel.data.title)
                 .foregroundColor(Color.gray)
                 .padding(.all)
                 .border(Color(UIColor.separator))
@@ -30,13 +28,13 @@ struct RegisterElementsView: View {
                 .font(.title2)
                 
             DatePicker("",
-                       selection: $date,
+                       selection: $contentViewModel.data.dueDate,
                        in: dateRange,
                        displayedComponents: [.date])
                 .datePickerStyle(.wheel)
                 .labelsHidden()
             
-            TextEditor(text: $text)
+            TextEditor(text: $contentViewModel.data.body)
                 .foregroundColor(Color.gray)
                 .lineSpacing(5)
                 .frame(minWidth: 0,
@@ -54,7 +52,7 @@ struct RegisterElementsView: View {
 
 struct RegisterElementsView_Previews: PreviewProvider {
     static var previews: some View {
-        RegisterElementsView()
+        RegisterElementsView(contentViewModel: ContentViewModel())
 .previewInterfaceOrientation(.landscapeLeft)
     }
 }

@@ -9,11 +9,11 @@ import SwiftUI
 
 struct RegisterView: View {
     @Environment(\.dismiss) var dismiss
-    
+    var contentViewModel: ContentViewModel
     
     var body: some View {
         NavigationView {
-            RegisterElementsView()
+            RegisterElementsView(contentViewModel: contentViewModel)
             .navigationTitle("TODO")
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarColor(.systemGray5)
@@ -27,7 +27,11 @@ struct RegisterView: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                        print("Donebutton")
+                        print("\(self.contentViewModel.data.title)")
+                        print("\(self.contentViewModel.data.dueDate.convertDateToString)")
+                        print("\(self.contentViewModel.data.body)")
+                        contentViewModel.appendData()
+                        dismiss()
                     }) {
                         Text("Done")
                     }
@@ -40,7 +44,7 @@ struct RegisterView: View {
 
 struct RegisterView_Previews: PreviewProvider {
     static var previews: some View {
-        RegisterView()
+        RegisterView(contentViewModel: ContentViewModel())
 .previewInterfaceOrientation(.landscapeLeft)
     }
 }
