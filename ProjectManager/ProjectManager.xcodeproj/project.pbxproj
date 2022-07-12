@@ -10,8 +10,6 @@
 		983FCAEF828FD3059A3F715C /* Pods_ProjectManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69ED1A6F55518C8A1F17823B /* Pods_ProjectManager.framework */; };
 		AB2E845428764B78002E4593 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2E845328764B78002E4593 /* BaseViewController.swift */; };
 		AB2E845728765291002E4593 /* ToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2E845628765291002E4593 /* ToDo.swift */; };
-		AB2E845C2876587F002E4593 /* DoingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2E845B2876587F002E4593 /* DoingCollectionViewCell.swift */; };
-		AB2E845E28765893002E4593 /* DoneCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2E845D28765893002E4593 /* DoneCollectionViewCell.swift */; };
 		AB8FA539287C5D7B00C99110 /* WriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8FA538287C5D7B00C99110 /* WriteView.swift */; };
 		ABAECADC287ABB87009DA449 /* Todoable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAECADB287ABB87009DA449 /* Todoable.swift */; };
 		ABAECAE1287AE864009DA449 /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAECAE0287AE864009DA449 /* EditViewController.swift */; };
@@ -33,8 +31,6 @@
 		9A0AC1F6351308DEBA229D99 /* Pods-ProjectManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.release.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.release.xcconfig"; sourceTree = "<group>"; };
 		AB2E845328764B78002E4593 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		AB2E845628765291002E4593 /* ToDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDo.swift; sourceTree = "<group>"; };
-		AB2E845B2876587F002E4593 /* DoingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoingCollectionViewCell.swift; sourceTree = "<group>"; };
-		AB2E845D28765893002E4593 /* DoneCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneCollectionViewCell.swift; sourceTree = "<group>"; };
 		AB8FA538287C5D7B00C99110 /* WriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteView.swift; sourceTree = "<group>"; };
 		ABAECADB287ABB87009DA449 /* Todoable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todoable.swift; sourceTree = "<group>"; };
 		ABAECAE0287AE864009DA449 /* EditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
@@ -153,8 +149,6 @@
 			isa = PBXGroup;
 			children = (
 				ABDB96362875E477002D6602 /* TodoCollectionViewCell.swift */,
-				AB2E845B2876587F002E4593 /* DoingCollectionViewCell.swift */,
-				AB2E845D28765893002E4593 /* DoneCollectionViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -415,9 +409,7 @@
 				AB2E845428764B78002E4593 /* BaseViewController.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				ABAECADC287ABB87009DA449 /* Todoable.swift in Sources */,
-				AB2E845E28765893002E4593 /* DoneCollectionViewCell.swift in Sources */,
 				ABE5D6B62879C1310065F216 /* Realmable.swift in Sources */,
-				AB2E845C2876587F002E4593 /* DoingCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
