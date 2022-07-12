@@ -93,7 +93,7 @@ final class ModalView: UIView {
     func isUserInteractionEnabled(_ isEnable: Bool) {
         titleTextField.isUserInteractionEnabled = isEnable
         datePicker.isUserInteractionEnabled = isEnable
-        descriptionTextView.isUserInteractionEnabled = isEnable
+        descriptionTextView.isEditable = false
     }
     
     func change(_ content: ProjectContent) -> ProjectContent {
