@@ -34,7 +34,7 @@ final class CardListViewController: UIViewController {
   
   private let disposeBag = DisposeBag()
   private let viewModel: CardListViewModelable
-  private let coordinator: CardCoordinator
+  private weak var coordinator: CardCoordinator?
   
   init(viewModel: CardListViewModelable, coordinator: CardCoordinator) {
     self.viewModel = viewModel
@@ -65,7 +65,7 @@ final class CardListViewController: UIViewController {
     cardAdditionButton.rx.tap
       .bind(onNext: { [weak self] in
         guard let self = self else { return }
-        self.coordinator.toAddition()
+        self.coordinator?.toAddition()
       })
       .disposed(by: disposeBag)
   }
@@ -127,7 +127,7 @@ final class CardListViewController: UIViewController {
     .bind(onNext: { [weak self] indexPath, card in
       guard let self = self else { return }
       self.todoSectionView.tableView.deselectRow(at: indexPath, animated: true)
-      self.coordinator.toDetail(of: card)
+      self.coordinator?.toDetail(of: card)
     })
     .disposed(by: disposeBag)
     
@@ -138,7 +138,7 @@ final class CardListViewController: UIViewController {
     .bind(onNext: { [weak self] indexPath, card in
       guard let self = self else { return }
       self.doingSectionView.tableView.deselectRow(at: indexPath, animated: true)
-      self.coordinator.toDetail(of: card)
+      self.coordinator?.toDetail(of: card)
     })
     .disposed(by: disposeBag)
     
@@ -149,7 +149,7 @@ final class CardListViewController: UIViewController {
     .bind(onNext: { [weak self] indexPath, card in
       guard let self = self else { return }
       self.doneSectionView.tableView.deselectRow(at: indexPath, animated: true)
-      self.coordinator.toDetail(of: card)
+      self.coordinator?.toDetail(of: card)
     })
     .disposed(by: disposeBag)
   }
