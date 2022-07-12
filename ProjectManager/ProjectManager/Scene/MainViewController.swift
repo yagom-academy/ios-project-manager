@@ -140,7 +140,7 @@ extension MainViewController {
     
     private func setUp() {
         setNavigationBar()
-        setToDoTableView()
+        setTableView()
     }
     
     private func setNavigationBar() {
@@ -190,59 +190,35 @@ extension MainViewController {
 // MARK: Setup ToDoTableView
 
 extension MainViewController {
-    private func setToDoTableView() {
-        let todoTableView = mainView.retrieveTableView(taskType: .todo)
-        let doingTableView = mainView.retrieveTableView(taskType: .doing)
-        let doneTableView = mainView.retrieveTableView(taskType: .done)
-        
-        todoTableView.register(TaskCell.self, forCellReuseIdentifier: TaskCell.identifier)
-        doingTableView.register(TaskCell.self, forCellReuseIdentifier: TaskCell.identifier)
-        doneTableView.register(TaskCell.self, forCellReuseIdentifier: TaskCell.identifier)
-        
-        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPressGesture(sender:)))
-        todoTableView.addGestureRecognizer(longPress)
-    
-        makeToDoDataSource()
-        
-        todoTableView.dataSource = todoDataSource
-        todoTableView.delegate = self
-        todoTableView.reloadData()
-        
-        doingTableView.dataSource = doingDataSource
-        doingTableView.delegate = self
-        doingTableView.reloadData()
-        
-        doneTableView.dataSource = doneDataSource
-        doneTableView.delegate = self
-        doneTableView.reloadData()
+    private func setTableView() {
+        setUpDataSource()
+        TaskType.allCases.forEach { setUpTableView(type: $0) }
     }
     
-    private func makeToDoDataSource() {
-        todoDataSource = TableViewDataSource(tableView: mainView.retrieveTableView(taskType: .todo),
-                                                 cellProvider: { tableView, indexPath, item in
+    private func setUpDataSource() {
+        todoDataSource = makeDataSource(type: .todo)
+        doingDataSource = makeDataSource(type: .doing)
+        doneDataSource = makeDataSource(type: .done)
+    }
+    
+    private func setUpTableView(type: TaskType) {
+        let tableView = mainView.retrieveTableView(taskType: type)
+        tableView.register(TaskCell.self, forCellReuseIdentifier: TaskCell.identifier)
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPressGesture(sender:)))
+        tableView.addGestureRecognizer(longPress)
+        tableView.dataSource = findDataSource(type: type)
+        tableView.delegate = self
+        tableView.reloadData()
+    }
+    
+    private func makeDataSource(type: TaskType) -> TableViewDataSource {
+        return TableViewDataSource(tableView: mainView.retrieveTableView(taskType: type),
+                                   cellProvider: { tableView, indexPath, item in
             let cell = tableView.dequeueReusableCell(withIdentifier: TaskCell.identifier,
                                                      for: indexPath) as? TaskCell
-            
             cell?.setUpLabel(task: item)
             return cell
         })
-        
-        doingDataSource = TableViewDataSource(tableView: mainView.retrieveTableView(taskType: .doing), cellProvider: { tableView, indexPath, item in
-            let cell = tableView.dequeueReusableCell(withIdentifier: TaskCell.identifier,
-                                                     for: indexPath) as? TaskCell
-            
-            cell?.setUpLabel(task: item)
-            return cell
-        })
-        
-        doneDataSource = TableViewDataSource(tableView: mainView.retrieveTableView(taskType: .done), cellProvider: { tableView, indexPath, item in
-            let cell = tableView.dequeueReusableCell(withIdentifier: TaskCell.identifier,
-                                                     for: indexPath) as? TaskCell
-            
-            cell?.setUpLabel(task: item)
-            return cell
-        })
-        
     }
     
     private func findDataSource(type: TaskType?) -> TableViewDataSource? {

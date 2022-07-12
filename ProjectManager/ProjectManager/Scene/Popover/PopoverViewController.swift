@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SwiftUI
 
 protocol PopoverViewControllerDelegate: AnyObject {
     func moveToToDo(taskInfo: TaskInfo)
@@ -21,6 +20,7 @@ class PopoverViewController: UIViewController {
     
     init(taskInfo: TaskInfo) {
         self.taskInfo = taskInfo
+        mainView.hideButton(taskType: taskInfo.type)
         super.init(nibName: nil, bundle: nil)
     }
     
