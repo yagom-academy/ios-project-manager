@@ -85,9 +85,3 @@ final class TodoListCell: UITableViewCell {
         self.dateLabel.text = todo.date.convertToString()
     }
 }
-
-private extension UIEdgeInsets {
-    init(top: CGFloat = .zero) {
-        self.init(top: top, left: .zero, bottom: .zero, right: .zero)
-    }
-}
