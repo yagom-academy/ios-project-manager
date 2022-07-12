@@ -54,15 +54,18 @@ final class MainViewController: UIViewController {
         bindTableView(todoTableView,
                       list: mainViewModel.todoList,
                       headerView: todoHeaderView,
+                      type: .todo)
         bindTableView(doingTableView,
                       list: mainViewModel.doingList,
                       headerView: doingHeaderView,
+                      type: .doing)
         bindTableView(doneTableView,
                       list: mainViewModel.doneList,
                       headerView: doneHeaderView,
+                      type: .done)
     }
     
-    private func bindTableView(_ tableView: UITableView, list: Driver<[ListItem]>, headerView: HeaderView) {
+    private func bindTableView(_ tableView: UITableView, list: Driver<[ListItem]>, headerView: HeaderView, type: ListType) {
         list
             .drive(tableView.rx.items(cellIdentifier: "\(ListTableViewCell.self)", cellType: ListTableViewCell.self)) { [weak self] index, item, cell in
                 guard let self = self else {
@@ -78,14 +81,12 @@ final class MainViewController: UIViewController {
           .drive(headerView.countLabel.rx.text)
           .disposed(by: disposebag)
         
-        tableView.rx.modelSelected(ListItem.self)
-            .bind(onNext: { [weak self] in
-                self?.didtapCell($0)
-            })
-            .disposed(by: disposebag)
-        
         tableView.rx.itemSelected
             .bind(onNext: { index in
+                
+                self.mainViewModel.peekList(index: index.row, type: type) {
+                    self.didtapCell($0)
+                }
                 tableView.deselectRow(at: index, animated: true)
             })
             .disposed(by: disposebag)
