@@ -60,7 +60,7 @@ extension TodoListViewModel {
     // MARK: - Input
     
     func addButtonDidTap() {
-        let item = TodoListModel(title: "", content: "", deadLine: Date().endOfTheDay ?? Date())
+        let item = TodoListModel.empty
         useCase.create(item)
         coordinator?.showDetailViewController(item)
     }
