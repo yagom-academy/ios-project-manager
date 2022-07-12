@@ -34,9 +34,11 @@ final class CardListViewController: UIViewController {
   
   private let disposeBag = DisposeBag()
   private let viewModel: CardListViewModelable
+  private let coordinator: CardCoordinator
   
-  init(viewModel: CardListViewModelable) {
+  init(viewModel: CardListViewModelable, coordinator: CardCoordinator) {
     self.viewModel = viewModel
+    self.coordinator = coordinator
     super.init(nibName: nil, bundle: nil)
     configureSubViews()
     configureLayouts()
@@ -63,9 +65,7 @@ final class CardListViewController: UIViewController {
     cardAdditionButton.rx.tap
       .bind(onNext: { [weak self] in
         guard let self = self else { return }
-        let cardAdditionViewController = CardAdditionViewController(viewModel: self.viewModel)
-        cardAdditionViewController.modalPresentationStyle = .formSheet
-        self.present(cardAdditionViewController, animated: true)
+        self.coordinator.toAddition()
       })
       .disposed(by: disposeBag)
   }
@@ -127,9 +127,7 @@ final class CardListViewController: UIViewController {
     .bind(onNext: { [weak self] indexPath, card in
       guard let self = self else { return }
       self.todoSectionView.tableView.deselectRow(at: indexPath, animated: true)
-      let cardDetailViewController = CardDetailViewController(viewModel: self.viewModel, card: card)
-      cardDetailViewController.modalPresentationStyle = .formSheet
-      self.present(cardDetailViewController, animated: true)
+      self.coordinator.toDetail(of: card)
     })
     .disposed(by: disposeBag)
     
@@ -140,9 +138,7 @@ final class CardListViewController: UIViewController {
     .bind(onNext: { [weak self] indexPath, card in
       guard let self = self else { return }
       self.doingSectionView.tableView.deselectRow(at: indexPath, animated: true)
-      let cardDetailViewController = CardDetailViewController(viewModel: self.viewModel, card: card)
-      cardDetailViewController.modalPresentationStyle = .formSheet
-      self.present(cardDetailViewController, animated: true)
+      self.coordinator.toDetail(of: card)
     })
     .disposed(by: disposeBag)
     
@@ -153,9 +149,7 @@ final class CardListViewController: UIViewController {
     .bind(onNext: { [weak self] indexPath, card in
       guard let self = self else { return }
       self.doneSectionView.tableView.deselectRow(at: indexPath, animated: true)
-      let cardDetailViewController = CardDetailViewController(viewModel: self.viewModel, card: card)
-      cardDetailViewController.modalPresentationStyle = .formSheet
-      self.present(cardDetailViewController, animated: true)
+      self.coordinator.toDetail(of: card)
     })
     .disposed(by: disposeBag)
   }

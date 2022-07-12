@@ -16,7 +16,7 @@ final class AppCoordinator: Coordinator {
   }
   
   func start() {
-    let cardCoordinator = CardCoordinator(navigationController: navigationController)
+    let cardCoordinator = DefaultCardCoordinator(navigationController: navigationController)
     childCoordinators.append(cardCoordinator)
     cardCoordinator.start()
   }
