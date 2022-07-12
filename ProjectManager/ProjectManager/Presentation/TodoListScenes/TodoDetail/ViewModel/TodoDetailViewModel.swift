@@ -9,9 +9,9 @@ import Foundation
 import Combine
 
 protocol TodoDetailViewModelInput {
-    func closeButtonDidTap()
-    func doneButtonDidTap(title: String?, content: String?, deadLine: Date?)
-    func editButtonDidTap()
+    func didTapCloseButton()
+    func didTapDoneButton(title: String?, content: String?, deadLine: Date?)
+    func didTapEditButton()
     func viewDidDisapper()
 }
 
@@ -55,7 +55,7 @@ extension TodoDetailViewModel {
     
     // MARK: - Input
     
-    func closeButtonDidTap() {
+    func didTapCloseButton() {
         if todoListModel.title.isEmpty && todoListModel.content.isEmpty {
             useCase.deleteLastItem()
         }
@@ -63,7 +63,7 @@ extension TodoDetailViewModel {
         viewDidDisapper()
     }
     
-    func doneButtonDidTap(title: String?, content: String?, deadLine: Date?) {
+    func didTapDoneButton(title: String?, content: String?, deadLine: Date?) {
         guard let title = title,
               let content = content,
               let deadLine = deadLine
@@ -88,7 +88,7 @@ extension TodoDetailViewModel {
         viewDidDisapper()
     }
     
-    func editButtonDidTap() {
+    func didTapEditButton() {
         isCreate.send(true)
     }
     

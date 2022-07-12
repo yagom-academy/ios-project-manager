@@ -77,7 +77,7 @@ final class TodoListViewController: UIViewController {
         title = "Project Manager"
         
         let addAction = UIAction { [weak self] _ in
-            self?.viewModel.addButtonDidTap()
+            self?.viewModel.didTapAddButton()
         }
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .add, primaryAction: addAction)

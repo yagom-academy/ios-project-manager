@@ -17,7 +17,7 @@ extension TodoListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let item = makeTableViewItem(with: tableView, indexPath) else { return }
-        getViewModel().cellDidTap(item)
+        getViewModel().didTapCell(item)
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
@@ -91,11 +91,11 @@ extension TodoListViewController: UITableViewDelegate {
         guard let menuType = makeTableViewMenuType(tableView) else { return UIMenu() }
         
         let firstMoveAction = UIAction(title: menuType.firstTitle) { _ in
-            self.getViewModel().cellDidLongPress(item, to: menuType.firstProcessType)
+            self.getViewModel().didLongPressCell(item, to: menuType.firstProcessType)
         }
         
         let secondMoveAction = UIAction(title: menuType.secondTitle) { _ in
-            self.getViewModel().cellDidLongPress(item, to: menuType.secondProcessType)
+            self.getViewModel().didLongPressCell(item, to: menuType.secondProcessType)
         }
         
         return UIMenu(title: "", children: [firstMoveAction, secondMoveAction])

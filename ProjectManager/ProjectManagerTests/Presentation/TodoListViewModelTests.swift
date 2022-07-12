@@ -24,7 +24,7 @@ class TodoListViewModelTests: XCTestCase {
         var result: [TodoListModel] = []
         
         // when
-        viewModel.addButtonDidTap()
+        viewModel.didTapAddButton()
         _ = viewModel.todoItems.sink { items in
             result = items
             expectation.fulfill()
@@ -44,7 +44,7 @@ class TodoListViewModelTests: XCTestCase {
         var result: TodoListModel = TodoListModel(title: "Mock", content: "Mock", deadLine: deadLine)
 
         // when
-        viewModel.cellDidLongPress(mockTodoListModel, to: .doing)
+        viewModel.didLongPressCell(mockTodoListModel, to: .doing)
         _ = viewModel.doingItems.sink { items in
             result = items.first(where: { $0.id == "1" })!
             expectation.fulfill()

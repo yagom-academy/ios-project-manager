@@ -28,7 +28,7 @@ class TodoDetailViewModelTests: XCTestCase {
         var result = 0
         
         // when
-        viewModel.closeButtonDidTap()
+        viewModel.didTapCloseButton()
         _ = todoListViewModel.todoItems.sink { items in
             result = items.count
             expectation.fulfill()

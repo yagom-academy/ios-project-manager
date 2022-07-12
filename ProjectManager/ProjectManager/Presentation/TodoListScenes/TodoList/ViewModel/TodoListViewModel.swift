@@ -10,9 +10,9 @@ import Combine
 
 protocol TodoListViewModelInput {
     func deleteItem(_ item: TodoListModel)
-    func addButtonDidTap()
-    func cellDidTap(_ item: TodoListModel)
-    func cellDidLongPress(_ item: TodoListModel, to processType: ProcessType)
+    func didTapAddButton()
+    func didTapCell(_ item: TodoListModel)
+    func didLongPressCell(_ item: TodoListModel, to processType: ProcessType)
 }
 
 protocol TodoListViewModelOutput {
@@ -59,7 +59,7 @@ extension TodoListViewModel {
     
     // MARK: - Input
     
-    func addButtonDidTap() {
+    func didTapAddButton() {
         let item = TodoListModel.empty
         useCase.create(item)
         coordinator?.showDetailViewController(item)
@@ -69,11 +69,11 @@ extension TodoListViewModel {
         useCase.delete(item: item)
     }
     
-    func cellDidTap(_ item: TodoListModel) {
+    func didTapCell(_ item: TodoListModel) {
         coordinator?.showDetailViewController(item)
     }
     
-    func cellDidLongPress(_ item: TodoListModel, to processType: ProcessType) {
+    func didLongPressCell(_ item: TodoListModel, to processType: ProcessType) {
         let item = TodoListModel(
             title: item.title,
             content: item.content,

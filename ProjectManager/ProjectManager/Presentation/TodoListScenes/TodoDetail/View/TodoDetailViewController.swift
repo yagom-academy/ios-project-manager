@@ -78,7 +78,7 @@ final class TodoDetailViewController: UIViewController {
         view.backgroundColor = .systemBackground
         
         let doneAction = UIAction { [weak self] _ in
-            self?.viewModel.doneButtonDidTap(
+            self?.viewModel.didTapDoneButton(
                 title: self?.todoDetailView.titleTextField.text,
                 content: self?.todoDetailView.contentTextView.text,
                 deadLine: self?.todoDetailView.datePicker.date
@@ -91,7 +91,7 @@ final class TodoDetailViewController: UIViewController {
     private func setupNavigationLeftBarButtonItem(_ state: Bool) {
         if state {
             let cancelAction = UIAction { [weak self] _ in
-                self?.viewModel.closeButtonDidTap()
+                self?.viewModel.didTapCloseButton()
             }
             
             navigationItem.leftBarButtonItem = UIBarButtonItem(
@@ -100,7 +100,7 @@ final class TodoDetailViewController: UIViewController {
             )
         } else {
             let editAction = UIAction { [weak self] _ in
-                self?.viewModel.editButtonDidTap()
+                self?.viewModel.didTapEditButton()
             }
             
             navigationItem.leftBarButtonItem = UIBarButtonItem(
