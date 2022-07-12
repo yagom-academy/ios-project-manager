@@ -13,7 +13,7 @@ enum State {
     case done
 }
 
-struct TodoModel {
+struct TodoModel: Equatable {
     let title: String?
     let body: String?
     let deadlineAt: Date

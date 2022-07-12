@@ -40,6 +40,7 @@ final class DefaultTodoListViewModel: TodoListViewModel {
         todoLists.map { items in
             items.filter { $0.state == .todo }
         }
+        .distinctUntilChanged { $0 == $1 }
         .map { items in
             items.map { TodoCellContent(title: $0.title,
                                         body: $0.body,
@@ -52,6 +53,7 @@ final class DefaultTodoListViewModel: TodoListViewModel {
         todoLists.map { items in
             items.filter { $0.state == .doing }
         }
+        .distinctUntilChanged { $0 == $1 }
         .map { items in
             items.map { TodoCellContent(title: $0.title,
                                         body: $0.body,
@@ -63,6 +65,7 @@ final class DefaultTodoListViewModel: TodoListViewModel {
         todoLists.map { items in
             items.filter { $0.state == .done }
         }
+        .distinctUntilChanged { $0 == $1 }
         .map { items in
             items.map { TodoCellContent(title: $0.title,
                                         body: $0.body,
