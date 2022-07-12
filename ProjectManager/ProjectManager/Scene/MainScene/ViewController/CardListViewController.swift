@@ -155,12 +155,11 @@ final class CardListViewController: UIViewController {
   }
   
   private func bindSectionsItemDeleted() {
-    Observable.of(
-      todoSectionView.tableView.rx.modelDeleted(Card.self),
-      doingSectionView.tableView.rx.modelDeleted(Card.self),
-      doneSectionView.tableView.rx.modelDeleted(Card.self)
+    Observable.merge(
+      todoSectionView.tableView.rx.modelDeleted(Card.self).asObservable(),
+      doingSectionView.tableView.rx.modelDeleted(Card.self).asObservable(),
+      doneSectionView.tableView.rx.modelDeleted(Card.self).asObservable()
     )
-    .merge()
     .bind(onNext: { [weak self] card in
       self?.viewModel.deleteSelectedCard(card)
     })
@@ -168,12 +167,11 @@ final class CardListViewController: UIViewController {
   }
   
   private func bindSectionsLongPressed() {
-    Observable.of(
-      todoSectionView.tableView.rx.modelLongPressed(Card.self),
-      doingSectionView.tableView.rx.modelLongPressed(Card.self),
-      doneSectionView.tableView.rx.modelLongPressed(Card.self)
+    Observable.merge(
+      todoSectionView.tableView.rx.modelLongPressed(Card.self).asObservable(),
+      doingSectionView.tableView.rx.modelLongPressed(Card.self).asObservable(),
+      doneSectionView.tableView.rx.modelLongPressed(Card.self).asObservable()
     )
-    .merge()
     .withUnretained(self)
     .flatMap { wself, item -> Observable<(Card, CardType)> in
       let (first, second) = wself.distinguishMenuType(of: item.1)
