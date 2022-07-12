@@ -40,21 +40,26 @@ final class MainViewController: UIViewController, UIPopoverPresentationControlle
             ),
             style: .plain,
             target: self,
-            action: nil
+            action: #selector(showNewFormSheetView)
         )
         navigationItem.rightBarButtonItem = plusButton
     }
     
     private func bind() {
         
-        navigationItem.rightBarButtonItem?.rx.tap
-            .subscribe(onNext: { [weak self] in
-                self?.viewModel.plusButtonTapped()
-            })
-            .disposed(by: disposeBag)
         
         // MARK: - Draw Table View
         
+    
+    @objc private func showNewFormSheetView() {
+        let newTodoViewContrtoller = NewFormSheetViewController()
+        newTodoViewContrtoller.delegate = self
+        let newTodoFormSheet = UINavigationController(
+            rootViewController: newTodoViewContrtoller
+        )
+        newTodoFormSheet.modalPresentationStyle = .formSheet
+        present(newTodoFormSheet, animated: true)
+    }
         viewModel.todos
             .bind(to: mainView.todoTableView.rx.items(
                 cellIdentifier: TaskTableViewCell.identifier,
@@ -103,10 +108,6 @@ final class MainViewController: UIViewController, UIPopoverPresentationControlle
         viewModel.dones
             .map { String($0.count) }
             .bind(to: mainView.doneHeaderView.taskCountLabel.rx.text)
-            .disposed(by: disposeBag)
-        
-        viewModel.showNewFormSheetView.asObservable()
-            .bind(onNext: showNewFormSheetView)
             .disposed(by: disposeBag)
         
         // MARK: - Table itemSelected
@@ -208,15 +209,6 @@ final class MainViewController: UIViewController, UIPopoverPresentationControlle
         present(popoverViewController, animated: true)
     }
     
-    private func showNewFormSheetView() {
-        let newTodoViewContrtoller = NewFormSheetViewController()
-        newTodoViewContrtoller.delegate = self
-        let newTodoFormSheet = UINavigationController(
-            rootViewController: newTodoViewContrtoller
-        )
-        newTodoFormSheet.modalPresentationStyle = .formSheet
-        present(newTodoFormSheet, animated: true)
-    }
     
     private func showEditFormSheetView(
         task: Task
