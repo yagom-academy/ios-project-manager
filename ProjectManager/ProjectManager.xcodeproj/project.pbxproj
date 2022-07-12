@@ -194,6 +194,7 @@
 		0EA67EC428751DF900E15093 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
+				0EA67EC828752A0F00E15093 /* ProjectContent.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -201,7 +202,6 @@
 		0EA67EC7287529F300E15093 /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
-				0EA67EC828752A0F00E15093 /* ProjectContent.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
