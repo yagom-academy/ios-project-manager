@@ -63,18 +63,21 @@ final class MainViewController: UIViewController {
     }
     
     private func bindTableView(_ tableView: UITableView, list: Observable<[ListItem]>, headerView: HeaderView) {
-        list.bind(to: tableView.rx.items(cellIdentifier: "\(ListTableViewCell.self)", cellType: ListTableViewCell.self)) { [weak self] index, item, cell in
-            guard let self = self else {
-                return
+        list
+            .asDriver(onErrorJustReturn: [])
+            .drive(tableView.rx.items(cellIdentifier: "\(ListTableViewCell.self)", cellType: ListTableViewCell.self)) { [weak self] index, item, cell in
+                guard let self = self else {
+                    return
+                }
+                
+                cell.setViewContents(item, isOver: self.mainViewModel.isOverDeadline(listItem: item))
             }
-            
-            cell.setViewContents(item, isOver: self.mainViewModel.isOverDeadline(listItem: item))
-        }
-        .disposed(by: disposebag)
+            .disposed(by: disposebag)
         
         list
           .map { "\($0.count)"}
-          .bind(to: headerView.countLabel.rx.text)
+          .asDriver(onErrorJustReturn: "")
+          .drive(headerView.countLabel.rx.text)
           .disposed(by: disposebag)
         
         tableView.rx.modelSelected(ListItem.self)
