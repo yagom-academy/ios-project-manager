@@ -22,9 +22,9 @@ protocol EditFormSheetViewModelOutput {
 
 final class EditFormSheetViewModel: EditFormSheetViewModelInput, EditFormSheetViewModelOutput {
     
-    var title: BehaviorRelay<String> = BehaviorRelay(value: "")
-    var body: BehaviorRelay<String> = BehaviorRelay(value: "")
-    var date: BehaviorRelay<Double> = BehaviorRelay(value: .zero)
+    var title: BehaviorRelay<String> = BehaviorRelay(value: AppConstants.defaultStringValue)
+    var body: BehaviorRelay<String> = BehaviorRelay(value: AppConstants.defaultStringValue)
+    var date: BehaviorRelay<Double> = BehaviorRelay(value: AppConstants.defaultDoubleValue)
     var dismiss: PublishRelay<Void> = .init()
     
     private let realmManager = RealmManager()

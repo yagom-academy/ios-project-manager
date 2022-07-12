@@ -21,9 +21,9 @@ protocol MainViewModelOutput {
 
 final class MainViewModel: MainViewModelInput, MainViewModelOutput {
     
-    var todos: BehaviorRelay<[Task]> = BehaviorRelay(value: [])
-    var doings: BehaviorRelay<[Task]> = BehaviorRelay(value: [])
-    var dones: BehaviorRelay<[Task]> = BehaviorRelay(value: [])
+    var todos: BehaviorRelay<[Task]> = BehaviorRelay(value: AppConstants.defaultTaskArrayValue)
+    var doings: BehaviorRelay<[Task]> = BehaviorRelay(value: AppConstants.defaultTaskArrayValue)
+    var dones: BehaviorRelay<[Task]> = BehaviorRelay(value: AppConstants.defaultTaskArrayValue)
     
     private let realmManager = RealmManager()
     

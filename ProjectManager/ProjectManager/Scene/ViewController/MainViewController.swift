@@ -10,6 +10,12 @@ import RxSwift
 import RxGesture
 
 final class MainViewController: UIViewController, UIPopoverPresentationControllerDelegate {
+    fileprivate enum Constants {
+        static let title: String = "Project Manager"
+        static let plus: String = "plus"
+        static let popoverWidthRatio: Double = 0.25
+        static let popoverHeightRatio: Double = 0.15
+    }
     
     private let mainView = MainView()
     private let realmManager = RealmManager()
@@ -29,9 +35,9 @@ final class MainViewController: UIViewController, UIPopoverPresentationControlle
     }
     
     private func configureNavigationItems() {
-        title = "Project Manager"
+        title = Constants.title
         let plusButton = UIBarButtonItem(
-            image: UIImage(systemName: "plus"),
+            image: UIImage(systemName: Constants.plus),
             style: .plain,
             target: self,
             action: #selector(showNewFormSheetView)
@@ -59,8 +65,8 @@ final class MainViewController: UIViewController, UIPopoverPresentationControlle
     }
     
     private func showPopoverView(at cell: TaskTableViewCell) {
-        let popoverWidth = mainView.frame.size.width * 0.25
-        let popoverHeight = mainView.frame.size.height * 0.15
+        let popoverWidth = mainView.frame.size.width * Constants.popoverWidthRatio
+        let popoverHeight = mainView.frame.size.height * Constants.popoverHeightRatio
         
         let popoverViewController = PopoverViewController()
         popoverViewController.task = cell.task

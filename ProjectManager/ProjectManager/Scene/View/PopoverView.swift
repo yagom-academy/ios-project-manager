@@ -8,6 +8,11 @@
 import UIKit
 
 final class PopoverView: UIView {
+    fileprivate enum Constants {
+        static let moveToToDoTitle: String = "Move to TODO"
+        static let moveToDoingTitle: String = "Move to Doing"
+        static let moveToDoneTitle: String = "Move to Done"
+    }
     private lazy var baseStackView = UIStackView(
         arrangedSubviews: [
             moveToToDoButton,
@@ -19,9 +24,9 @@ final class PopoverView: UIView {
             $0.spacing = 10
         }
     
-    private(set) lazy var moveToToDoButton = generatePopoverButton(title: "Move to TODO")
-    private(set) lazy var moveToDoingButton = generatePopoverButton(title: "Move to DOING")
-    private(set) lazy var moveToDoneButton = generatePopoverButton(title: "Move to DONE")
+    private(set) lazy var moveToToDoButton = generatePopoverButton(title: Constants.moveToToDoTitle)
+    private(set) lazy var moveToDoingButton = generatePopoverButton(title: Constants.moveToDoingTitle)
+    private(set) lazy var moveToDoneButton = generatePopoverButton(title: Constants.moveToDoneTitle)
     
     override init(frame: CGRect) {
         super.init(frame: frame)

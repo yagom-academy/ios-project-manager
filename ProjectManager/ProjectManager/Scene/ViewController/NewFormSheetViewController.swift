@@ -10,6 +10,11 @@ import RxSwift
 import RxCocoa
 
 final class NewFormSheetViewController: UIViewController {
+    fileprivate enum Constants {
+        static let title: String = "TODO"
+        static let done: String = "Done"
+        static let cancel: String = "Cancel"
+    }
     
     private let newFormSheetView = FormSheetView()
     private let viewModel = NewFormSheetViewModel()
@@ -28,10 +33,10 @@ final class NewFormSheetViewController: UIViewController {
     }
     
     private func configureNavigationBarItems() {
-        title = "TODO"
+        title = Constants.title
         
         let doneButton = UIBarButtonItem(
-            title: "Done",
+            title: Constants.done,
             style: .plain,
             target: self,
             action: nil
@@ -39,7 +44,7 @@ final class NewFormSheetViewController: UIViewController {
         navigationItem.rightBarButtonItem = doneButton
         
         let cancelButton = UIBarButtonItem(
-            title: "Cancel",
+            title: Constants.cancel,
             style: .plain,
             target: self,
             action: #selector(cancelButtonTapped)

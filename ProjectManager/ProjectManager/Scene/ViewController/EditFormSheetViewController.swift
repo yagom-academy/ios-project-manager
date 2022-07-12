@@ -10,6 +10,11 @@ import RxSwift
 import RxCocoa
 
 final class EditFormSheetViewController: UIViewController {
+    fileprivate enum Constants {
+        static let done: String = "Done"
+        static let edit: String = "Edit"
+    }
+    
     private let viewModel = EditFormSheetViewModel()
     private let editFormSheetView = FormSheetView()
     private let disposeBag = DisposeBag()
@@ -32,7 +37,7 @@ final class EditFormSheetViewController: UIViewController {
         title = task?.taskType.value
         
         let doneButton = UIBarButtonItem(
-            title: "Done",
+            title: Constants.done,
             style: .plain,
             target: self,
             action: #selector(doneButtonTapped)
@@ -40,7 +45,7 @@ final class EditFormSheetViewController: UIViewController {
         navigationItem.rightBarButtonItem = doneButton
         
         let editButton = UIBarButtonItem(
-            title: "Edit",
+            title: Constants.edit,
             style: .plain,
             target: self,
             action: nil

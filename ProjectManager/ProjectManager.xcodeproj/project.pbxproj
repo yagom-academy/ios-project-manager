@@ -19,6 +19,7 @@
 		4EB3FFCF287580FD0001DBC0 /* NewFormSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB3FFCE287580FD0001DBC0 /* NewFormSheetViewController.swift */; };
 		4EB3FFD1287586200001DBC0 /* TaskHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB3FFD0287586200001DBC0 /* TaskHeaderView.swift */; };
 		4EB3FFD328758E9F0001DBC0 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB3FFD228758E9F0001DBC0 /* MainView.swift */; };
+		4EB595F3287D543D006C8303 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB595F2287D543D006C8303 /* AppConstants.swift */; };
 		4EB89251287C68B1008DE9B8 /* PopoverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB89250287C68B1008DE9B8 /* PopoverViewModel.swift */; };
 		4EB89253287C6D2E008DE9B8 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB89252287C6D2E008DE9B8 /* MainViewModel.swift */; };
 		4EB89256287C99C1008DE9B8 /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = 4EB89255287C99C1008DE9B8 /* RxGesture */; };
@@ -55,6 +56,7 @@
 		4EB3FFCE287580FD0001DBC0 /* NewFormSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewFormSheetViewController.swift; sourceTree = "<group>"; };
 		4EB3FFD0287586200001DBC0 /* TaskHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskHeaderView.swift; sourceTree = "<group>"; };
 		4EB3FFD228758E9F0001DBC0 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		4EB595F2287D543D006C8303 /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
 		4EB89250287C68B1008DE9B8 /* PopoverViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverViewModel.swift; sourceTree = "<group>"; };
 		4EB89252287C6D2E008DE9B8 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		4ECA28B92878213600FE8ECE /* TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 		9CACE12B28755BCC0010E4F0 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				4EB595F2287D543D006C8303 /* AppConstants.swift */,
 				9C8BC0D828786ECF003EF525 /* RealmManager.swift */,
 				9CACE12C28755BE20010E4F0 /* Then.swift */,
 				4ECA28B92878213600FE8ECE /* TestData.swift */,
@@ -372,6 +375,7 @@
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				9CACE135287566F30010E4F0 /* UIFont+extension.swift in Sources */,
 				4EB3FFC628757C800001DBC0 /* TaskType.swift in Sources */,
+				4EB595F3287D543D006C8303 /* AppConstants.swift in Sources */,
 				9CAB1170287C439B00C55AB8 /* NewFormSheetViewModel.swift in Sources */,
 				4EB2451F2876F589007F4056 /* EditFormSheetViewController.swift in Sources */,
 				4EB89253287C6D2E008DE9B8 /* MainViewModel.swift in Sources */,

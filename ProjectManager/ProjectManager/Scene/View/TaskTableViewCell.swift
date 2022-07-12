@@ -9,7 +9,9 @@ import UIKit
 import SnapKit
 
 final class TaskTableViewCell: UITableViewCell {
-    
+    fileprivate enum Constants {
+        static let numberOfLines = 3
+    }
     static var identifier: String {
         return String(describing: self)
     }
@@ -33,7 +35,7 @@ final class TaskTableViewCell: UITableViewCell {
     
     private lazy var descriptionLabel = UILabel().then {
         $0.font = .preferredFont(for: .title3, weight: .medium)
-        $0.numberOfLines = 3
+        $0.numberOfLines = Constants.numberOfLines
         $0.textColor = .gray
         $0.setContentHuggingPriority(.defaultLow, for: .vertical)
     }

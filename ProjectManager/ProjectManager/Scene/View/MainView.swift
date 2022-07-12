@@ -8,6 +8,7 @@
 import UIKit
 
 final class MainView: UIView {
+    
     private(set) lazy var todoHeaderView = TaskHeaderView(taskType: .todo)
     private(set) lazy var doingHeaderView = TaskHeaderView(taskType: .doing)
     private(set) lazy var doneHeaderView = TaskHeaderView(taskType: .done)
