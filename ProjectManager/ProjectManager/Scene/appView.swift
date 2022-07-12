@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct AppView: View {
-  @ObservedObject var viewModel: TodoViewModel
+  @ObservedObject var viewModel: AppViewModel
   @State private var isShowDetailView = false
   
-  init(viewModel: TodoViewModel) {
+  init(viewModel: AppViewModel) {
     let navigationBarApperance = UINavigationBarAppearance()
     navigationBarApperance.backgroundColor = UIColor.systemGray6
     UINavigationBar.appearance().scrollEdgeAppearance = navigationBarApperance
-  
+    
     self.viewModel = viewModel
   }
   
@@ -41,12 +41,5 @@ struct AppView: View {
       }
     }
     .navigationViewStyle(.stack)
-  }
-}
-
-struct MyPreviewProvider_Previews: PreviewProvider {
-  static var previews: some View {
-    AppView(viewModel: TodoViewModel())
-      .previewInterfaceOrientation(.landscapeLeft)
   }
 }

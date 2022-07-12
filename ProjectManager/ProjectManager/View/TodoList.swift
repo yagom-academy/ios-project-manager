@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TodoListView: View {
-  @ObservedObject var viewModel: TodoViewModel
+  @ObservedObject var viewModel: AppViewModel
   @State var isShowDetailView: Bool
   let status: Todo.Status
   
@@ -36,7 +36,7 @@ struct TodoListView: View {
 }
 
 struct DetailViewButton: View {
-  @ObservedObject var viewModel: TodoViewModel
+  @ObservedObject var viewModel: AppViewModel
   @ObservedObject var todo: Todo
   @Binding var isShowDetailView: Bool
 
