@@ -9,9 +9,11 @@ import SwiftUI
 
 struct TodoListPopOver: View {
   @ObservedObject var todo: Todo
+  @Binding var isShow: Bool
   private let updata: (Todo.Status, Todo) -> Void
   
-  init(todo: Todo, updata: @escaping (Todo.Status, Todo) -> Void) {
+  init(isShow: Binding<Bool>, todo: Todo, updata: @escaping (Todo.Status, Todo) -> Void) {
+    self._isShow = isShow
     self.todo = todo
     self.updata = updata
   }
@@ -20,14 +22,14 @@ struct TodoListPopOver: View {
     VStack {
       switch todo.status {
       case .todo:
-        MoveButton(todo: todo, status: .doing, updata: updata)
-        MoveButton(todo: todo, status: .done, updata: updata)
+        MoveButton(isShow: $isShow, todo: todo, status: .doing, updata: updata)
+        MoveButton(isShow: $isShow, todo: todo, status: .done, updata: updata)
       case .doing:
-        MoveButton(todo: todo, status: .todo, updata: updata)
-        MoveButton(todo: todo, status: .done, updata: updata)
+        MoveButton(isShow: $isShow, todo: todo, status: .todo, updata: updata)
+        MoveButton(isShow: $isShow, todo: todo, status: .done, updata: updata)
       case .done:
-        MoveButton(todo: todo, status: .todo, updata: updata)
-        MoveButton(todo: todo, status: .done, updata: updata)
+        MoveButton(isShow: $isShow, todo: todo, status: .todo, updata: updata)
+        MoveButton(isShow: $isShow, todo: todo, status: .done, updata: updata)
       }
     }
     .padding()
@@ -35,11 +37,13 @@ struct TodoListPopOver: View {
 }
 
 struct MoveButton: View {
+  @Binding var isShow: Bool
   private let updata: (Todo.Status, Todo) -> Void
   @ObservedObject var todo: Todo
   let status: Todo.Status
   
-  init(todo: Todo, status: Todo.Status, updata: @escaping (Todo.Status, Todo) -> Void) {
+  init(isShow: Binding<Bool>, todo: Todo, status: Todo.Status, updata: @escaping (Todo.Status, Todo) -> Void) {
+    self._isShow = isShow
     self.todo = todo
     self.status = status
     self.updata = updata
@@ -48,6 +52,7 @@ struct MoveButton: View {
   var body: some View {
     Button("MOVE to \(status.rawValue)") {
       updata(status, todo)
+      isShow = false
     }
     .buttonStyle(GrayBasicButtonStyle())
   }

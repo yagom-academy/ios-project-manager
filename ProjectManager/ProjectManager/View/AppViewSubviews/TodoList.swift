@@ -73,7 +73,7 @@ struct EditViewButton: View {
         isShow: $isShowEditView)
     }
     .popover(isPresented: $isLongPressing) {
-        TodoListPopOver(todo: todo, updata: updata)
+        TodoListPopOver(isShow: $isLongPressing, todo: todo, updata: updata)
     }
     .simultaneousGesture(TapGesture().onEnded {
       isShowEditView = true

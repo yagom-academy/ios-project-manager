@@ -47,6 +47,7 @@ class TodoService: ObservableObject {
     willChangeTodo.first?.content = todo.content
     willChangeTodo.first?.title = todo.title
     willChangeTodo.first?.date  = todo.date
+    willChangeTodo.first?.status = todo.status
   }
   
   func delete(todo: Todo) {

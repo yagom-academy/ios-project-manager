@@ -24,5 +24,6 @@ class AppViewModel: ObservableObject {
   
   func changeStatus(status: Todo.Status, todo: Todo) {
     todo.status = status
+    todoService.update(todo: todo)
   }
 }
