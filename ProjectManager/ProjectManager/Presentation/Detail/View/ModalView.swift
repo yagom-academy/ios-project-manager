@@ -61,8 +61,10 @@ final class ModalView: UIView {
     
     private func drawBorder(view: UIView, borderWidth: CGFloat = 2, color: UIColor) {
         view.layer.borderWidth = borderWidth
-        view.layer.cornerRadius = 5.0
         view.layer.borderColor = color.cgColor
+        view.layer.shadowOpacity = 1
+        view.layer.shadowColor = color.cgColor
+        view.layer.shadowOffset = CGSize(width: 1, height: 1)
     }
     
     private func setUpBackgroundColor() {

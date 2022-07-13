@@ -5,8 +5,6 @@
 //  Created by Tiana, mmim on 2022/07/07.
 //
 
-import RxSwift
-
 class DetailViewModel {
     let content: ProjectContent
     

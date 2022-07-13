@@ -5,7 +5,7 @@
 //  Created by Tiana, mmim on 2022/07/04.
 //
 
-import RxSwift
+import UIKit
 
 final class ProjectCell: UITableViewCell {
     var contentID: UUID?

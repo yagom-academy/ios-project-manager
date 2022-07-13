@@ -5,7 +5,7 @@
 //  Created by Tiana, mmim on 2022/07/11.
 //
 
-import RxCocoa
+import UIKit
 
 final class PopOverView: UIView {
     private let buttonStackView: UIStackView = {
