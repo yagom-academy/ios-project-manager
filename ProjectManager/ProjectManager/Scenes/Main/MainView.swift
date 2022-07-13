@@ -8,7 +8,6 @@
 import UIKit
 
 final class MainView: UIView {
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setUp()
@@ -29,7 +28,7 @@ final class MainView: UIView {
         return stackView
     }()
     
-    // MARK: UIComponents - TableViewHeader
+    // MARK: UIComponents - UILabel
     
     private let todoHeaderLabel: UILabel = {
         let label = UILabel()
@@ -54,6 +53,8 @@ final class MainView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
+    // MARK: UIComponents - CircleLabel
     
     private let todoHeaderCounter: CircleLabel = {
         let label = CircleLabel()
@@ -85,6 +86,8 @@ final class MainView: UIView {
         return label
     }()
     
+    // MARK: UIComponents - UIView
+    
     private let todoHeaderView: UIView = {
         let view = UIView()
         view.backgroundColor = .systemGray6
@@ -105,7 +108,7 @@ final class MainView: UIView {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-
+    
     // MARK: UIComponents - TableView
     
     private let todoTableView: UITableView = {
@@ -123,11 +126,13 @@ final class MainView: UIView {
     }()
     
     private let doneTableView: UITableView = {
-            let tableView = UITableView(frame: .zero)
+        let tableView = UITableView(frame: .zero)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = .systemGray6
         return tableView
     }()
+    
+    // MARK: UIComponents - UIStackView
     
     private let todoStackView: UIStackView = {
         let stackView = UIStackView()
@@ -155,9 +160,11 @@ final class MainView: UIView {
         stackView.distribution = .fill
         return stackView
     }()
-    
-    // MARK: functions
-    
+}
+
+// MARK: Functions
+
+extension MainView {
     func retrieveTableView(taskType: TaskType) -> UITableView {
         switch taskType {
         case .todo:
@@ -175,8 +182,23 @@ final class MainView: UIView {
         doneHeaderCounter.text = " \(doneTableView.numberOfoneSectionRows ) "
     }
     
-    // MARK: setUp
-    
+    func findTableViewType(tableView: UITableView) -> TaskType? {
+        if tableView == todoTableView {
+            return .todo
+        }
+        if tableView == doingTableView {
+            return .doing
+        }
+        if tableView == doneTableView {
+            return .done
+        }
+        return nil
+    }
+}
+
+// MARK: setUp
+
+extension MainView {
     private func setUp() {
         backgroundColor = .white
         setUpSubView()
@@ -238,18 +260,5 @@ final class MainView: UIView {
             doingHeaderLabel.bottomAnchor.constraint(equalTo: doingHeaderCounter.bottomAnchor),
             doneHeaderLabel.bottomAnchor.constraint(equalTo: doneHeaderCounter.bottomAnchor)
         ])
-    }
-    
-    func findTableViewType(tableView: UITableView) -> TaskType? {
-        if tableView == todoTableView {
-            return .todo
-        }
-        if tableView == doingTableView {
-            return .doing
-        }
-        if tableView == doneTableView {
-            return .done
-        }
-        return nil
     }
 }

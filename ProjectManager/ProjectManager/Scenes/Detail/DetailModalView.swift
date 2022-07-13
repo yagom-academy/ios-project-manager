@@ -41,6 +41,8 @@ final class DetailModalView: UIView {
         return Task(title: title, date: date, body: body)
     }
     
+    // MARK: UIComponents - UIButton
+    
     private let topLeftButton: UIButton = {
         let button = UIButton()
         button.setTitle("Cancel", for: .normal)
@@ -62,6 +64,8 @@ final class DetailModalView: UIView {
         return button
     }()
     
+    // MARK: UIComponents - StackView
+    
     private let buttonStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -71,6 +75,8 @@ final class DetailModalView: UIView {
         stackView.axis = .horizontal
         return stackView
     }()
+    
+    // MARK: UIComponents - UITextField
     
     private let titleTextField: UITextField = {
         let textField = UITextField()
@@ -85,9 +91,11 @@ final class DetailModalView: UIView {
         textField.layer.shadowOpacity = 0.3
         textField.leftView = UIView(frame: CGRect(origin: .zero, size: CGSize(width: 10, height: 0)))
         textField.leftViewMode = .always
-                                
+        
         return textField
     }()
+    
+    // MARK: UIComponents - UIDatePicker
     
     private let datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
@@ -95,6 +103,8 @@ final class DetailModalView: UIView {
         datePicker.preferredDatePickerStyle = .wheels
         return datePicker
     }()
+    
+    // MARK: UIComponents - UITextView
     
     private let bodyTextView: UITextView = {
         let textView = UITextView()
@@ -108,30 +118,20 @@ final class DetailModalView: UIView {
         return textView
     }()
     
+    // MARK: UIComponents - UIStackView
+    
     private let stackView: UIStackView = {
-       let stackView = UIStackView()
+        let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.spacing = 20
         stackView.axis = .vertical
         return stackView
     }()
-    
-    private func setConsantrait() {
-        backgroundColor = Constant.viewBackgroundColor
-        addSubview(stackView)
-        NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
-            stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
-            stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
-            stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20)
-        ])
-    }
-    
-    private func setUpStackView() {
-        stackView.addSubViews(buttonStackView, titleTextField, datePicker, bodyTextView)
-        buttonStackView.addSubViews(topLeftButton, topTitleLabel, topRightButton)
-    }
-    
+}
+
+// MARK: Functions
+
+extension DetailModalView {
     @objc
     private func cancelButtonClicked() {
         buttonDelegate?.cancelButtonClicked()
@@ -139,6 +139,26 @@ final class DetailModalView: UIView {
     @objc
     private func doneButtonClicked() {
         buttonDelegate?.doneButtonClicked()
+    }
+}
+
+// MARK: setUp
+
+extension DetailModalView {
+    private func setUpStackView() {
+        buttonStackView.addSubViews(topLeftButton, topTitleLabel, topRightButton)
+        stackView.addSubViews(buttonStackView, titleTextField, datePicker, bodyTextView)
+        addSubview(stackView)
+    }
+    
+    private func setConsantrait() {
+        backgroundColor = Constant.viewBackgroundColor
+        NSLayoutConstraint.activate([
+            stackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
+            stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
+            stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
+            stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20)
+        ])
     }
     
     private func setButton() {
