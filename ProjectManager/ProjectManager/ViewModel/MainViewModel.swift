@@ -21,7 +21,7 @@ protocol MainViewModelInput {
     func isOverDeadline(listItem: ListItem) -> Bool
     func peekList(index: Int, type: ListType, completion: @escaping ((ListItem) -> Void))
     func deleteList(index: Int, type: ListType)
-    func changeListType(index: Int, type: ListType)
+    func changeListType(index: Int, type: ListType, to: ListType)
 }
 
 final class MainViewModel: MainViewModelInOut {
@@ -84,5 +84,6 @@ extension MainViewModel {
     func changeListType(listItem: ListItem, type: ListType) {
         
     func changeListType(index: Int, type: ListType) {
+    func changeListType(index: Int, type: ListType, to: ListType) {
     }
 }
