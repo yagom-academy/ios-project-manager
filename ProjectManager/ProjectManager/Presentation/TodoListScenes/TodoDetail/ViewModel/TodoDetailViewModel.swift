@@ -43,11 +43,7 @@ final class TodoDetailViewModel: TodoDetailViewModelable {
         self.todoListModel = todoListModel
         self.coordinator = coordinator
         
-        if todoListModel.title.isEmpty && todoListModel.content.isEmpty {
-            isCreate.send(true)
-        } else {
-            isCreate.send(false)
-        }
+        isCreate.send(todoListModel.title.isEmpty && todoListModel.content.isEmpty)
     }
 }
 
