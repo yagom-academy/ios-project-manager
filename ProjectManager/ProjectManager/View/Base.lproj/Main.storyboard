@@ -318,16 +318,16 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="uc9-eK-jPd">
                                 <rect key="frame" x="10" y="60" width="1113" height="644"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="O8u-58-oid">
-                                        <rect key="frame" x="0.0" y="0.0" width="1113" height="161"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Title" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="O8u-58-oid">
+                                        <rect key="frame" x="0.0" y="0.0" width="1113" height="32"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <datePicker contentMode="scaleToFill" horizontalHuggingPriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="Hup-tG-Rdu">
-                                        <rect key="frame" x="0.0" y="169" width="1113" height="216"/>
+                                        <rect key="frame" x="0.0" y="40" width="1113" height="216"/>
                                     </datePicker>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="vkb-FF-LOH">
-                                        <rect key="frame" x="0.0" y="393" width="1113" height="251"/>
+                                        <rect key="frame" x="0.0" y="264" width="1113" height="380"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <color key="textColor" systemColor="labelColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -348,6 +348,11 @@
                             <constraint firstItem="uc9-eK-jPd" firstAttribute="top" secondItem="EQB-FC-dat" secondAttribute="bottom" constant="10" id="xaX-cO-Pbt"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="addProjectTitleTextField" destination="O8u-58-oid" id="W15-2j-Nxw"/>
+                        <outlet property="bodyTextView" destination="vkb-FF-LOH" id="yXw-RL-nmt"/>
+                        <outlet property="datePicker" destination="Hup-tG-Rdu" id="Qwk-YG-xp9"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYm-e2-1SB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
