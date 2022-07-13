@@ -98,9 +98,9 @@ extension DetailView {
     }
     
     func changeEditable() {
-        titleTextField.isEnabled = !titleTextField.isEnabled
-        deadlinePicker.isEnabled = !deadlinePicker.isEnabled
-        bodyTextView.isEditable = !bodyTextView.isEditable
+        titleTextField.isEnabled.toggle()
+        deadlinePicker.isUserInteractionEnabled.toggle()
+        bodyTextView.isEditable.toggle()
     }
     
     private func setViewLayout() {
