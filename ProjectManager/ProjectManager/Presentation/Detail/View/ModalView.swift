@@ -10,7 +10,7 @@ import UIKit
 final class ModalView: UIView {
     lazy var titleTextField: UITextField = {
         let textField = UITextField()
-        drawShadow(view: textField, color: .systemGray3)
+        drawBorder(view: textField, color: .systemGray3)
         textField.placeholder = "title"
         return textField
     }()
@@ -54,12 +54,10 @@ final class ModalView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func drawShadow(view: UIView, borderWidth: CGFloat = 1, color: UIColor) {
+    private func drawBorder(view: UIView, borderWidth: CGFloat = 2, color: UIColor) {
         view.layer.borderWidth = borderWidth
+        view.layer.cornerRadius = 5.0
         view.layer.borderColor = color.cgColor
-        view.layer.shadowOpacity = 1
-        view.layer.shadowColor = color.cgColor
-        view.layer.shadowOffset = CGSize(width: 1, height: 1)
     }
     
     private func setUpBackgroundColor() {
