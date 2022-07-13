@@ -120,12 +120,12 @@
 			path = TodoList;
 			sourceTree = "<group>";
 		};
-		30BAC3DC287C0AA00073298F /* Fixture */ = {
+		30BAC3DC287C0AA00073298F /* Temp */ = {
 			isa = PBXGroup;
 			children = (
 				30BAC3F1287C0AD30073298F /* TodoListViewModel+Temp.xcodeproj */,
 			);
-			path = Fixture;
+			path = Temp;
 			sourceTree = "<group>";
 		};
 		30BAC3F7287C0B620073298F /* Frameworks */ = {
@@ -209,7 +209,7 @@
 		C7431EF925F51E1D0094C4CF = {
 			isa = PBXGroup;
 			children = (
-				30BAC3DC287C0AA00073298F /* Fixture */,
+				30BAC3DC287C0AA00073298F /* Temp */,
 				C7431F0425F51E1D0094C4CF /* ProjectManager */,
 				C7431F0325F51E1D0094C4CF /* Products */,
 				30BAC3F7287C0B620073298F /* Frameworks */,

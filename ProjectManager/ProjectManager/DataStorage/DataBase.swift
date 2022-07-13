@@ -27,15 +27,15 @@ final class TempDataBase: DataBase {
     }
     
     private func fetch() -> [Todo] {
-            let tempTodoStatus = self.tempTodoData["status"]
+            let tempTodoStatus = self.tempTodoData["todoListItemStatus"]
             let tempTodoTitle = self.tempTodoData["title"]
             let tempTodoDescription = self.tempTodoData["description"]
 
-            let tempDoneStatus = self.tempDoneData["status"]
+            let tempDoneStatus = self.tempDoneData["todoListItemStatus"]
             let tempDoneTitle = self.tempDoneData["title"]
             let tempDoneDescription = self.tempDoneData["description"]
 
-            let tempDoingStatus = self.tempDoingData["status"]
+            let tempDoingStatus = self.tempDoingData["todoListItemStatus"]
             let tempDoingTitle = self.tempDoingData["title"]
             let tempDoingDescription = self.tempDoingData["description"]
 

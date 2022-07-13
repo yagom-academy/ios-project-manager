@@ -138,7 +138,7 @@ final class ListView: UIView {
         
         self.tableView.rx.itemSelected
             .subscribe(onNext: { [weak self] _ in
-                self?.coordinator?.showDetailView(type: .edit, status: self?.todoListItemstatus)
+                self?.coordinator?.showDetailView(type: .edit, todoListItemStatus: self?.todoListItemstatus)
             })
             .disposed(by: self.disposeBag)
         
