@@ -42,6 +42,17 @@ enum ListType {
         }
     }
     
+    var firstDirection: ListType {
+        switch self {
+        case .todo:
+            return .doing
+        case .doing:
+            return .todo
+        case .done:
+            return .todo
+        }
+    }
+    
     var secondAlertTitle: String {
         switch self {
         case .todo:
@@ -50,6 +61,17 @@ enum ListType {
             return "Move to Done"
         case .done:
             return "Move to Doing"
+        }
+    }
+    
+    var secondDirection: ListType {
+        switch self {
+        case .todo:
+            return .done
+        case .doing:
+            return .done
+        case .done:
+            return .doing
         }
     }
 }
