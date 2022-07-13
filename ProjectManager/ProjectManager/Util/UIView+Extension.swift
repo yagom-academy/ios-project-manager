@@ -5,4 +5,21 @@
 //  Created by Minseong on 2022/07/13.
 //
 
-import Foundation
+import UIKit
+
+extension UIView {
+  func shadow(
+    borderWidth: CGFloat,
+    borderColor: CGColor,
+    shadowColor: CGColor,
+    shadowOffset: CGSize,
+    shadowOpacity: Float
+  ) {
+    self.layer.masksToBounds = false
+    self.layer.borderWidth = borderWidth
+    self.layer.borderColor = borderColor
+    self.layer.shadowColor = shadowColor
+    self.layer.shadowOffset = shadowOffset
+    self.layer.shadowOpacity = shadowOpacity
+  }
+}
