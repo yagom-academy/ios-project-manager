@@ -24,15 +24,15 @@ struct AppView: View {
       HStack(spacing: 10) {
         TodoListView(todoService: viewModel.todoService, status: .todo,
                      updata: { viewModel.changeStatus(status: $0, todo: $1) },
-                     delete: { viewModel.delete(set: $0) })
+                     delete: { viewModel.delete(set: $0, status: $1) })
         
         TodoListView(todoService: viewModel.todoService, status: .doing,
                      updata: { viewModel.changeStatus(status: $0, todo: $1) },
-                     delete: { viewModel.delete(set: $0) })
+                     delete: { viewModel.delete(set: $0, status: $1) })
         
         TodoListView(todoService: viewModel.todoService, status: .done,
                      updata: { viewModel.changeStatus(status: $0, todo: $1) },
-                     delete: { viewModel.delete(set: $0) })
+                     delete: { viewModel.delete(set: $0, status: $1) })
       }
       
       .background(Color(UIColor.systemGray4))

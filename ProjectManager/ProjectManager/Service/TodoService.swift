@@ -50,9 +50,9 @@ class TodoService: ObservableObject {
     willChangeTodo.first?.status = todo.status
   }
   
-  func delete(set: IndexSet) {
-    for index in set {
-      todoList.remove(at: index)
+  func delete(id: UUID) {
+    todoList.removeAll { todo in
+      todo.id == id
     }
   }
 }

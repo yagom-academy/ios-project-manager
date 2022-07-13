@@ -12,12 +12,12 @@ struct TodoListView: View {
   @ObservedObject var todoService: TodoService
   private let status: Todo.Status
   private let updata: (Todo.Status, Todo) -> Void
-  private let delete: (IndexSet) -> Void
+  private let delete: (IndexSet, Todo.Status) -> Void
   
   init(todoService: TodoService,
        status: Todo.Status,
        updata: @escaping (Todo.Status, Todo) -> Void,
-       delete: @escaping (IndexSet) -> Void
+       delete: @escaping (IndexSet, Todo.Status) -> Void
   ) {
     self.todoService = todoService
     self.status = status
@@ -37,7 +37,9 @@ struct TodoListView: View {
             EditViewButton(todo: todo, todoService: todoService, isShowEditView: $isShowEditView, updata: updata)
               .listRowSeparator(.hidden)
           }
-          .onDelete(perform: delete)
+          .onDelete { index in
+            delete(index, status)
+          }
         }
         .padding(.horizontal, -24)
         .listStyle(.inset)
