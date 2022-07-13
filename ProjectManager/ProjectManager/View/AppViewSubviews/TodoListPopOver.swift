@@ -38,8 +38,8 @@ struct TodoListPopOver: View {
 
 struct MoveButton: View {
   @Binding var isShow: Bool
-  private let updata: (Todo.Status, Todo) -> Void
   @ObservedObject var todo: Todo
+  private let updata: (Todo.Status, Todo) -> Void
   let status: Todo.Status
   
   init(isShow: Binding<Bool>, todo: Todo, status: Todo.Status, updata: @escaping (Todo.Status, Todo) -> Void) {

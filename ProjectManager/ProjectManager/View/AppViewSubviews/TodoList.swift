@@ -12,13 +12,17 @@ struct TodoListView: View {
   @ObservedObject var todoService: TodoService
   private let status: Todo.Status
   private let updata: (Todo.Status, Todo) -> Void
+  private let delete: (IndexSet) -> Void
   
   init(todoService: TodoService,
        status: Todo.Status,
-       updata: @escaping  (Todo.Status, Todo) -> Void) {
+       updata: @escaping (Todo.Status, Todo) -> Void,
+       delete: @escaping (IndexSet) -> Void
+  ) {
     self.todoService = todoService
     self.status = status
     self.updata = updata
+    self.delete = delete
   }
   
   var body: some View {
@@ -33,6 +37,7 @@ struct TodoListView: View {
             EditViewButton(todo: todo, todoService: todoService, isShowEditView: $isShowEditView, updata: updata)
               .listRowSeparator(.hidden)
           }
+          .onDelete(perform: delete)
         }
         .padding(.horizontal, -24)
         .listStyle(.inset)
@@ -60,27 +65,23 @@ struct EditViewButton: View {
   
   var body: some View {
     Button {
-      if isLongPressing {
-        isLongPressing = false
-      }
     } label: {
       TodoListCell(todo)
     }
     .sheet(isPresented: $isShowEditView) {
       EditView(
+        isShow: $isShowEditView,
         viewModel: EditViewModel(todoService: todoService),
-        todo: Todo(id: todo.id, title: todo.title, content: todo.content, date: todo.date, status: todo.status),
-        isShow: $isShowEditView)
+        todo: Todo(id: todo.id, title: todo.title, content: todo.content, date: todo.date, status: todo.status))
     }
     .popover(isPresented: $isLongPressing) {
         TodoListPopOver(isShow: $isLongPressing, todo: todo, updata: updata)
     }
-    .simultaneousGesture(TapGesture().onEnded {
+    .onTapGesture(perform: {
       isShowEditView = true
     })
-    .simultaneousGesture(LongPressGesture(minimumDuration: 1).onEnded({ _ in
-      print("long")
+    .onLongPressGesture(perform: {
       self.isLongPressing = true
-    }))
+    })
   }
 }

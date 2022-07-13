@@ -26,4 +26,8 @@ class AppViewModel: ObservableObject {
     todo.status = status
     todoService.update(todo: todo)
   }
+  
+  func delete(set: IndexSet) {
+    todoService.delete(set: set)
+  }
 }
