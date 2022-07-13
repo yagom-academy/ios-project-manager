@@ -8,7 +8,7 @@
 import Foundation
 
 class TodoService: ObservableObject {
-  @Published var todoList: [Todo] = [
+  @Published private var todoList: [Todo] = [
     Todo(title: "1Title", content: "blablabla", status: .todo),
     Todo(title: "2Title", content: "blablabla", status: .doing),
     Todo(title: "3Title", content: "blablabla", status: .doing),
@@ -23,4 +23,28 @@ class TodoService: ObservableObject {
     Todo(title: "12Title", content: "blablabla", status: .todo),
     Todo(title: "13Title", content: "heydaybay", status: .done)
   ]
+  
+  func creat(todo: Todo) {
+    todoList.insert(Todo(title: todo.title, content: todo.content, status: .todo), at: 0)
+  }
+  
+  func read() -> [Todo] {
+    return todoList
+  }
+  
+  func update(todo: Todo) {
+    let willChangeTodo = todoList.filter { filteredTodo in
+      todo.id == filteredTodo.id
+    }
+    
+    willChangeTodo.first?.content = todo.content
+    willChangeTodo.first?.title = todo.title
+    willChangeTodo.first?.date  = todo.date
+  }
+  
+  func delete(todo: Todo) {
+    todoList.removeAll { list in
+      list.id == todo.id
+    }
+  }
 }

@@ -15,11 +15,11 @@ class AppViewModel: ObservableObject {
   }
   
   func read() -> [Todo] {
-    return todoService.todoList
+    return todoService.read()
   }
   
   func read(by status: Todo.Status) -> [Todo] {
-    let filteredTodo = todoService.todoList.filter { todo in
+    let filteredTodo = todoService.read().filter { todo in
       todo.status == status
     }
     return filteredTodo

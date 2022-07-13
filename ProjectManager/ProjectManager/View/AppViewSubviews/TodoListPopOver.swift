@@ -10,6 +10,12 @@ import SwiftUI
 struct TodoListPopOver: View {
   @ObservedObject var todo: Todo
   private let updata: (Todo.Status, Todo) -> Void
+  
+  init(todo: Todo, updata: @escaping (Todo.Status, Todo) -> Void) {
+    self.todo = todo
+    self.updata = updata
+  }
+  
   var body: some View {
     VStack {
       switch todo.status {

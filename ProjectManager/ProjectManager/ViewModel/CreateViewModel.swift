@@ -15,6 +15,6 @@ class CreateViewModel: ObservableObject {
   }
   
   func creat(todo: Todo) {
-    todoService.todoList.insert(Todo(title: todo.title, content: todo.content, status: .todo), at: 0)
+    todoService.creat(todo: todo)
   }
 }
