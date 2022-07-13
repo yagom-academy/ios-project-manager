@@ -5,6 +5,6 @@
 //  Created by Tiana, mmim on 2022/07/12.
 //
 
-class ProjectUseCase {
+struct ProjectUseCase {
     let repository = ProjectRepository(storageManager: MockStorageManager.shared)
 }

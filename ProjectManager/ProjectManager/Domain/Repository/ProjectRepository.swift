@@ -16,7 +16,7 @@ protocol Storagable {
     func delete(projectContentID: UUID?)
 }
 
-class ProjectRepository {
+struct ProjectRepository {
     let storageManager: Storagable
 
     init(storageManager: Storagable) {
