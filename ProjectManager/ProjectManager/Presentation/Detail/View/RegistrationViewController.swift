@@ -7,7 +7,6 @@
 
 import RxSwift
 import RxCocoa
-import RxKeyboard
 
 final class RegistrationViewController: UIViewController {
     private let modalView = ModalView(frame: .zero)

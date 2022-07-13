@@ -7,7 +7,6 @@
 
 import RxSwift
 import RxCocoa
-import RxKeyboard
 
 final class DetailViewController: UIViewController {
     private let viewModel: DetailViewModel
