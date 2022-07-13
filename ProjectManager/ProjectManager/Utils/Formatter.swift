@@ -17,8 +17,4 @@ struct Formatter {
     }()
     
     private init() {}
-
-    static func fetch() -> Date {
-        return Date(timeIntervalSinceReferenceDate: Date().timeIntervalSinceReferenceDate)
-    }
 }
