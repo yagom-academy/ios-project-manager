@@ -115,17 +115,14 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		672F3C792875583600CA92D4 /* Scene */ = {
+		672F3C792875583600CA92D4 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				67FF0F14287E9735001DD1F3 /* Main */,
 				67FF0F0C287D4314001DD1F3 /* Popover */,
 				E1D09461287571550084308A /* Detail */,
-				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
-				E17E7E542878535000BD1CCA /* CircleLabel.swift */,
-				672F3C7E2875592E00CA92D4 /* MainView.swift */,
-				672F3C842875610900CA92D4 /* TaskCell.swift */,
 			);
-			path = Scene;
+			path = Scenes;
 			sourceTree = "<group>";
 		};
 		672F3C8128755C7800CA92D4 /* Extension */ = {
@@ -166,6 +163,17 @@
 			path = Popover;
 			sourceTree = "<group>";
 		};
+		67FF0F14287E9735001DD1F3 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
+				672F3C7E2875592E00CA92D4 /* MainView.swift */,
+				672F3C842875610900CA92D4 /* TaskCell.swift */,
+				E17E7E542878535000BD1CCA /* CircleLabel.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
 		C7431EF925F51E1D0094C4CF = {
 			isa = PBXGroup;
 			children = (
@@ -189,7 +197,7 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
-				672F3C792875583600CA92D4 /* Scene */,
+				672F3C792875583600CA92D4 /* Scenes */,
 				67A743AA287461D7004D1A5B /* Database */,
 				672F3C8128755C7800CA92D4 /* Extension */,
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
