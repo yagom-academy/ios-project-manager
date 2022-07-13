@@ -26,8 +26,6 @@ final class LocalDB: DBable {
   }
   
   func read(by id: String) -> Todo {
-    let todo = realm?.objects(TodoModel.self)
-    
     return Todo()
   }
   
@@ -40,14 +38,6 @@ final class LocalDB: DBable {
   }
   
   func delete(id: String) {
-    
-  }
-  
-  func deleteAll() {
-    realm?.deleteAll()
-  }
-  
-  func mapplingData(_ todo: Element) {
     
   }
 }
