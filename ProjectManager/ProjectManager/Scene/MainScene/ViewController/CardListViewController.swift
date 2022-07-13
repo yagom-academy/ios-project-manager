@@ -172,23 +172,36 @@ final class CardListViewController: UIViewController {
       doingSectionView.tableView.rx.modelLongPressed(Card.self).asObservable(),
       doneSectionView.tableView.rx.modelLongPressed(Card.self).asObservable()
     )
-    .withUnretained(self)
-    .flatMap { wself, item -> Observable<(Card, CardType)> in
-      let (first, second) = wself.distinguishMenuType(of: item.1)
-      let popover = wself.showPopover(
-        sourceView: item.0,
-        firstTitle: first.moveToMenuTitle,
-        secondTitle: second.moveToMenuTitle
-      )
-      return Observable.zip(
-        Observable.just(item.1),
-        popover.map { [first, second][$0] }
-      )
+    .flatMap { [weak self] cell, card -> Observable<(Card, CardType)> in
+      guard let self = self else { return Observable.empty() }
+      
+      let menuTypes = self.distinguishMenuType(of: card)
+      let actions = menuTypes
+        .map { $0.moveToMenuTitle }
+        .map { UIAlertController.AlertAction(title: $0) }
+      
+      let actionDidTapEvent = UIAlertController.present(self, actions: actions) { alert in
+        let sourceRect = CGRect(x: cell.bounds.midX, y: cell.bounds.midY, width: .zero, height: .zero)
+        alert.modalPresentationStyle = .popover
+        alert.popoverPresentationController?.permittedArrowDirections = .up
+        alert.popoverPresentationController?.sourceView = cell
+        alert.popoverPresentationController?.sourceRect = sourceRect
+      }.map { menuTypes[$0] }
+      
+      return Observable.zip(Observable.just(card), actionDidTapEvent)
     }
     .bind(onNext: { [weak self] card, cardType in
       self?.viewModel.moveDifferentSection(card, to: cardType)
     })
     .disposed(by: disposeBag)
+  }
+  
+  private func distinguishMenuType(of card: Card) -> [CardType] {
+    switch card.cardType {
+    case .todo: return [.doing, .done]
+    case .doing: return [.todo, .done]
+    case .done: return [.todo, .doing]
+    }
   }
 }
 
@@ -220,50 +233,5 @@ extension CardListViewController {
       containerStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
       containerStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
     ])
-  }
-}
-
-// MARK: - Alert
-
-extension CardListViewController {
-  private func showPopover(
-    sourceView: UIView,
-    firstTitle: String,
-    secondTitle: String
-  ) -> Observable<Int> {
-    return Single<Int>.create { [weak self] emitter in
-      guard let self = self else {
-        emitter(.failure(RxCocoaError.unknown))
-        return Disposables.create()
-      }
-      
-      let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-      alert.modalPresentationStyle = .popover
-      alert.popoverPresentationController?.permittedArrowDirections = .up
-      alert.popoverPresentationController?.sourceView = sourceView.superview
-      alert.popoverPresentationController?.sourceRect = CGRect(origin: sourceView.center, size: .zero)
-      
-      let firstAction = UIAlertAction(title: firstTitle, style: .default) { action in
-        emitter(.success(0))
-      }
-      let secondAction = UIAlertAction(title: secondTitle, style: .default) { action in
-        emitter(.success(1))
-      }
-      alert.addAction(firstAction)
-      alert.addAction(secondAction)
-      self.present(alert, animated: true)
-      
-      return Disposables.create {
-        alert.dismiss(animated: true)
-      }
-    }.asObservable()
-  }
-  
-  private func distinguishMenuType(of card: Card) -> (CardType, CardType) {
-    switch card.cardType {
-    case .todo: return (.doing, .done)
-    case .doing: return (.todo, .done)
-    case .done: return (.todo, .doing)
-    }
   }
 }
