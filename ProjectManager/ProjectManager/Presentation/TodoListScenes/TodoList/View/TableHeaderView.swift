@@ -73,4 +73,8 @@ final class TableHeaderView: UIView {
     private func setupView() {
         backgroundColor = .systemGray6
     }
+    
+    func setupHeaderTodoCountLabel(with count: Int) {
+        todoListCountLabel.text = "\(count)"
+    }
 }

@@ -11,12 +11,8 @@ import Combine
 import SnapKit
 
 final class TodoListViewController: UIViewController {
-    private lazy var todoListView = TodoListView(frame: self.view.bounds, tableViewDelegate: self)
+    private lazy var todoListView = TodoListView()
     private let viewModel: TodoListViewModelable
-    
-    private var todoDataSource: TodoListTableViewDataSource?
-    private var doingDataSource: TodoListTableViewDataSource?
-    private var doneDataSource: TodoListTableViewDataSource?
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -36,30 +32,29 @@ final class TodoListViewController: UIViewController {
     }
     
     private func bind() {
-        viewModel.todoItems.sink { [weak self] items in
-            self?.todoDataSource?.applySnapshot(items: items, datasource: self?.todoDataSource)
-            self?.todoListView.setupHeaderTodoCountLabel(with: items.count)
-        }
-        .store(in: &cancellables)
-        
-        viewModel.doingItems.sink { [weak self] items in
-            self?.doingDataSource?.applySnapshot(items: items, datasource: self?.doingDataSource)
-            self?.todoListView.setupHeaderDoingCountLabel(with: items.count)
-        }
-        .store(in: &cancellables)
-        
-        viewModel.doneItems.sink { [weak self] items in
-            self?.doneDataSource?.applySnapshot(items: items, datasource: self?.doneDataSource)
-            self?.todoListView.setupHeaderDoneCountLabel(with: items.count)
-        }
-        .store(in: &cancellables)
+//        viewModel.todoItems.sink { [weak self] items in
+//            self?.todoDataSource?.applySnapshot(items: items, datasource: self?.todoDataSource)
+//            self?.todoListView.setupHeaderTodoCountLabel(with: items.count)
+//        }
+//        .store(in: &cancellables)
+//
+//        viewModel.doingItems.sink { [weak self] items in
+//            self?.doingDataSource?.applySnapshot(items: items, datasource: self?.doingDataSource)
+//            self?.todoListView.setupHeaderDoingCountLabel(with: items.count)
+//        }
+//        .store(in: &cancellables)
+//
+//        viewModel.doneItems.sink { [weak self] items in
+//            self?.doneDataSource?.applySnapshot(items: items, datasource: self?.doneDataSource)
+//            self?.todoListView.setupHeaderDoneCountLabel(with: items.count)
+//        }
+//        .store(in: &cancellables)
     }
     
     private func setup() {
         addSubviews()
         setupConstraint()
         setupView()
-        setupDataSource()
     }
     
     private func addSubviews() {
@@ -81,33 +76,5 @@ final class TodoListViewController: UIViewController {
         }
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .add, primaryAction: addAction)
-    }
-    
-    private func setupDataSource() {
-        todoDataSource = TodoListTableViewDataSource(todoListView.todoTableView)
-        doingDataSource = TodoListTableViewDataSource(todoListView.doingTableView)
-        doneDataSource = TodoListTableViewDataSource(todoListView.doneTableView)
-    }
-}
-
-extension TodoListViewController {
-    func getViewModel() -> TodoListViewModelable {
-        return viewModel
-    }
-    
-    func getTodoListView() -> TodoListView {
-        return todoListView
-    }
-    
-    func getTodoDataSource() -> TodoListTableViewDataSource? {
-        return todoDataSource
-    }
-    
-    func getDoingDataSource() -> TodoListTableViewDataSource? {
-        return doingDataSource
-    }
-    
-    func getDoneDataSource() -> TodoListTableViewDataSource? {
-        return doneDataSource
     }
 }
