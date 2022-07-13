@@ -30,4 +30,26 @@ enum ListType {
             return "DONE"
         }
     }
+    
+    var firstAlertTitle: String {
+        switch self {
+        case .todo:
+            return "Move to Doing"
+        case .doing:
+            return "Move to Todo"
+        case .done:
+            return "Move to Todo"
+        }
+    }
+    
+    var secondAlertTitle: String {
+        switch self {
+        case .todo:
+            return "Move to Done"
+        case .doing:
+            return "Move to Done"
+        case .done:
+            return "Move to Doing"
+        }
+    }
 }
