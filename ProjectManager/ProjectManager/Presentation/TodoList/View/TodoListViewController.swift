@@ -10,6 +10,10 @@ import RxSwift
 import RxCocoa
 
 final class TodoListViewController: UIViewController {
+    private enum Constant {
+        static let navigationBarTitle = "Project Manager"
+    }
+    
     private let plusButton = UIBarButtonItem(barButtonSystemItem: .add, target: nil, action: nil)
     
     private let mainView = TodoListView()
@@ -44,7 +48,7 @@ extension TodoListViewController {
     }
     
     private func configureNavigationBar() {
-        title = "Project Manager"
+        title = Constant.navigationBarTitle
         navigationItem.rightBarButtonItem = plusButton
     }
 }

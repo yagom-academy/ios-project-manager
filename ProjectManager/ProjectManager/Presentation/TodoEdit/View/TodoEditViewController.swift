@@ -10,7 +10,15 @@ import SnapKit
 import RxSwift
 import RxCocoa
 
-class TodoEditViewController: UIViewController {
+
+
+final class TodoEditViewController: UIViewController {
+    private enum Constant {
+        static let edit = "Edit"
+        static let eidting = "Editing"
+        static let navigationBarTitle = "Todo"
+    }
+    
     private let mainView = TodoEditView()
     private let viewModel: TodoEditViewModel
     private let bag = DisposeBag()
@@ -18,7 +26,7 @@ class TodoEditViewController: UIViewController {
     private let navigationBar = UINavigationBar()
     private let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: nil, action: nil)
     private let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: nil)
-    private let editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: nil, action: nil)
+    private let editButton = UIBarButtonItem()
     
     private let todoItme: TodoModel?
     
@@ -27,6 +35,7 @@ class TodoEditViewController: UIViewController {
         configureNavigationBar()
         configureView()
         bind()
+        configureIsEnabled()
     }
     
     init(viewModel: TodoEditViewModel, item: TodoModel?) {
@@ -56,14 +65,21 @@ extension TodoEditViewController {
     }
     
     private func configureNavigationBar() {
-        title = "Todo"
+        title = Constant.navigationBarTitle
         if todoItme == nil {
             navigationItem.leftBarButtonItem = cancelButton
         } else {
+            editButton.title = Constant.edit
             navigationItem.leftBarButtonItem = editButton
         }
         navigationItem.rightBarButtonItem = doneButton
         navigationBar.items = [navigationItem]
+    }
+    
+    private func configureIsEnabled() {
+        if todoItme != nil {
+            mainView.changeEnabled(false)
+        }
     }
 }
 
@@ -82,6 +98,15 @@ extension TodoEditViewController {
                 let newItem = self.mainView.readViewContent(id: self.todoItme?.id,
                                                             state: self.todoItme?.state)
                 self.viewModel.doneButtonDidTap(item: newItem)
+            }.disposed(by: bag)
+        
+        editButton.rx.tap
+            .withUnretained(self)
+            .map { (self, _) in
+                self.editButton.title == Constant.edit
+            }.bind {
+                self.mainView.changeEnabled($0)
+                self.editButton.title = $0 ? Constant.eidting : Constant.edit
             }.disposed(by: bag)
     }
 }

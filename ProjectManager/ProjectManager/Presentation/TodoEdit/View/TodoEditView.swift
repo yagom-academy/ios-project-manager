@@ -17,7 +17,7 @@ final class TodoEditView: UIView {
         return stackView
     }()
     
-    let titleTaxtField: UITextField = {
+    private let titleTaxtField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Title"
         textField.font = .preferredFont(forTextStyle: .title2)
@@ -31,7 +31,7 @@ final class TodoEditView: UIView {
         return textField
     }()
     
-    let datePicker: UIDatePicker = {
+    private let datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.preferredDatePickerStyle = .wheels
         datePicker.datePickerMode = .date
@@ -39,7 +39,7 @@ final class TodoEditView: UIView {
         return datePicker
     }()
     
-    let bodyTextView: UITextView = {
+    private let bodyTextView: UITextView = {
         let textView = UITextView()
         textView.layer.masksToBounds = false
         textView.backgroundColor = .systemBackground
@@ -86,5 +86,11 @@ extension TodoEditView {
         titleTaxtField.text = item.title
         bodyTextView.text = item.body
         datePicker.date = item.deadlineAt
+    }
+    
+    func changeEnabled(_ value: Bool) {
+        titleTaxtField.isEnabled = value
+        datePicker.isEnabled = value
+        bodyTextView.isEditable = value
     }
 }
