@@ -27,6 +27,7 @@ final class TodoDetailViewController: UIViewController {
         super.viewDidLoad()
         setup()
         bind()
+        viewModel.viewDidLoad()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -49,7 +50,13 @@ final class TodoDetailViewController: UIViewController {
         viewModel.isCreated
             .sink { [weak self] state in
                 self?.todoDetailView.setupUserInteractionEnabled(state)
-                self?.setupNavigationLeftBarButtonItem(state)
+                self?.setupNavigationLeftBarButtonItem()
+            }
+            .store(in: &cancellables)
+        
+        viewModel.isEdited
+            .sink { [weak self] state in
+                self?.todoDetailView.setupUserInteractionEnabled(state)
             }
             .store(in: &cancellables)
         
@@ -79,6 +86,10 @@ final class TodoDetailViewController: UIViewController {
     private func setupView() {
         view.backgroundColor = .systemBackground
         
+        let editAction = UIAction { [weak self] _ in
+            self?.viewModel.didTapEditButton()
+        }
+                
         let doneAction = UIAction { [weak self] _ in
             self?.viewModel.didTapDoneButton(
                 title: self?.todoDetailView.titleTextField.text,
@@ -87,28 +98,22 @@ final class TodoDetailViewController: UIViewController {
             )
         }
         
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            systemItem: .edit,
+            primaryAction: editAction
+        )
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .done, primaryAction: doneAction)
     }
     
-    private func setupNavigationLeftBarButtonItem(_ state: Bool) {
-        if state {
-            let cancelAction = UIAction { [weak self] _ in
-                self?.viewModel.didTapCloseButton()
-            }
-            
-            navigationItem.leftBarButtonItem = UIBarButtonItem(
-                systemItem: .cancel,
-                primaryAction: cancelAction
-            )
-        } else {
-            let editAction = UIAction { [weak self] _ in
-                self?.viewModel.didTapEditButton()
-            }
-            
-            navigationItem.leftBarButtonItem = UIBarButtonItem(
-                systemItem: .edit,
-                primaryAction: editAction
-            )
+    private func setupNavigationLeftBarButtonItem() {
+        let cancelAction = UIAction { [weak self] _ in
+            self?.viewModel.didTapCloseButton()
         }
+        
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(
+            systemItem: .cancel,
+            primaryAction: cancelAction
+        )
     }
 }

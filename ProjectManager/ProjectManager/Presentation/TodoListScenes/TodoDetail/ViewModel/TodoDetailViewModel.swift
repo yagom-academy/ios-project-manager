@@ -9,6 +9,7 @@ import Foundation
 import Combine
 
 protocol TodoDetailViewModelInput {
+    func viewDidLoad()
     func didTapCloseButton()
     func didTapDoneButton(title: String?, content: String?, deadLine: Date?)
     func didTapEditButton()
@@ -17,7 +18,8 @@ protocol TodoDetailViewModelInput {
 
 protocol TodoDetailViewModelOutput {
     var item: Just<TodoListModel> { get }
-    var isCreated: CurrentValueSubject<Bool, Never> { get }
+    var isEdited: PassthroughSubject<Bool, Never> { get }
+    var isCreated: PassthroughSubject<Bool, Never> { get }
     var title: CurrentValueSubject<String, Never> { get }
 }
 
@@ -31,7 +33,8 @@ final class TodoDetailViewModel: TodoDetailViewModelable {
         return Just(todoListModel)
     }
     
-    let isCreated = CurrentValueSubject<Bool, Never>(true)
+    let isEdited = PassthroughSubject<Bool, Never>()
+    let isCreated = PassthroughSubject<Bool, Never>()
     let title = CurrentValueSubject<String, Never>("TODO")
 
     private weak var coordinator: TodoDetailViewCoordinator?
@@ -42,14 +45,20 @@ final class TodoDetailViewModel: TodoDetailViewModelable {
         self.useCase = useCase
         self.todoListModel = todoListModel
         self.coordinator = coordinator
-        
-        isCreated.send(todoListModel.title.isEmpty && todoListModel.content.isEmpty)
     }
 }
 
 extension TodoDetailViewModel {
     
     // MARK: - Input
+    
+    func viewDidLoad() {
+        if todoListModel.title.isEmpty && todoListModel.content.isEmpty {
+            isCreated.send(true)
+        } else {
+            isEdited.send(false)
+        }
+    }
     
     func didTapCloseButton() {
         coordinator?.dismiss()
