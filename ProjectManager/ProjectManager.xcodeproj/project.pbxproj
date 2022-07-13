@@ -17,6 +17,7 @@
 		67A743AF28746C83004D1A5B /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A743AE28746C83004D1A5B /* Task.swift */; };
 		67FF0F0E287D4700001DD1F3 /* PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FF0F0D287D4700001DD1F3 /* PopoverViewController.swift */; };
 		67FF0F10287D472B001DD1F3 /* PopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FF0F0F287D472B001DD1F3 /* PopoverView.swift */; };
+		67FF0F17287E9B89001DD1F3 /* ContextualActionBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FF0F16287E9B89001DD1F3 /* ContextualActionBuilder.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
 		C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */; };
 		C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0925F51E1D0094C4CF /* MainViewController.swift */; };
@@ -53,6 +54,7 @@
 		67A743AE28746C83004D1A5B /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		67FF0F0D287D4700001DD1F3 /* PopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverViewController.swift; sourceTree = "<group>"; };
 		67FF0F0F287D472B001DD1F3 /* PopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverView.swift; sourceTree = "<group>"; };
+		67FF0F16287E9B89001DD1F3 /* ContextualActionBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextualActionBuilder.swift; sourceTree = "<group>"; };
 		9EC7FFDFB9FDA36BDBAE4D9C /* Pods-ProjectManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.release.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.release.xcconfig"; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7431F0525F51E1D0094C4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -169,9 +171,17 @@
 				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
 				672F3C7E2875592E00CA92D4 /* MainView.swift */,
 				672F3C842875610900CA92D4 /* TaskCell.swift */,
-				E17E7E542878535000BD1CCA /* CircleLabel.swift */,
 			);
 			path = Main;
+			sourceTree = "<group>";
+		};
+		67FF0F15287E9B58001DD1F3 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				E17E7E542878535000BD1CCA /* CircleLabel.swift */,
+				67FF0F16287E9B89001DD1F3 /* ContextualActionBuilder.swift */,
+			);
+			path = Util;
 			sourceTree = "<group>";
 		};
 		C7431EF925F51E1D0094C4CF = {
@@ -197,6 +207,7 @@
 		C7431F0425F51E1D0094C4CF /* ProjectManager */ = {
 			isa = PBXGroup;
 			children = (
+				67FF0F15287E9B58001DD1F3 /* Util */,
 				672F3C792875583600CA92D4 /* Scenes */,
 				67A743AA287461D7004D1A5B /* Database */,
 				672F3C8128755C7800CA92D4 /* Extension */,
@@ -413,6 +424,7 @@
 				E1D0946028756D8A0084308A /* TaskType.swift in Sources */,
 				E1D094632875716A0084308A /* DetailModalView.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
+				67FF0F17287E9B89001DD1F3 /* ContextualActionBuilder.swift in Sources */,
 				672F3C852875610900CA92D4 /* TaskCell.swift in Sources */,
 				E17E7E552878535000BD1CCA /* CircleLabel.swift in Sources */,
 				E1C26DCB28746D1500A37983 /* RealmManager.swift in Sources */,

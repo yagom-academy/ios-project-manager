@@ -46,13 +46,8 @@ class MainViewController: UIViewController {
 
 extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let tableType = mainView.findTableViewType(tableView: tableView) else {
-            return
-        }
-        let dataSource = findDataSource(type: tableType)
-        guard let task = dataSource?.itemIdentifier(for: indexPath) else { return }
+        let taskInfo = makeTaskInfo(tableView: tableView, indexPath: indexPath)
         let detailView = DetailModalView(frame: view.bounds)
-        let taskInfo = TaskInfo(task: task, type: tableType, indexPath: indexPath)
         let detailModalViewController = DetailModalViewController(modalView: detailView,
                                                                   taskInfo: taskInfo)
         detailModalViewController.delegate = self
@@ -60,6 +55,23 @@ extension MainViewController: UITableViewDelegate {
         detailModalViewController.modalPresentationStyle = .formSheet
         self.present(detailModalViewController, animated: true)
     }
+    
+    func tableView(
+        _ tableView: UITableView,
+        trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
+    ) -> UISwipeActionsConfiguration? {
+        return ContextualActionBuilder()
+            .addAction(
+                title: "Delete",
+                backgroundColor: .systemPink,
+                style: .destructive,
+                action: {
+                    guard let taskInfo = self.makeTaskInfo(tableView: tableView, indexPath: indexPath) else { return }
+                    self.deleteData(taskInfo: taskInfo)
+                })
+            .build()
+    }
+    
 }
 
 // MARK: DetailViewControllerDelegate
@@ -158,7 +170,7 @@ extension MainViewController {
 
 extension MainViewController {
     @objc
-    func longPressGesture(sender: UILongPressGestureRecognizer) {
+    private func longPressGesture(sender: UILongPressGestureRecognizer) {
         guard let tableView = sender.view as? UITableView else { return }
         guard let tableViewType = mainView.findTableViewType(tableView: tableView) else { return }
         let point = sender.location(in: self.mainView.retrieveTableView(taskType: tableViewType))
@@ -175,7 +187,7 @@ extension MainViewController {
         }
     }
     
-    func makePopover(taskInfo: TaskInfo, point: CGPoint) {
+    private func makePopover(taskInfo: TaskInfo, point: CGPoint) {
         let popoverController = PopoverViewController(taskInfo: taskInfo)
         popoverController.delegate = self
         popoverController.modalPresentationStyle = .popover
@@ -187,6 +199,15 @@ extension MainViewController {
         popover?.permittedArrowDirections = .up
         
         present(popoverController, animated: true)
+    }
+    
+    private func makeTaskInfo(tableView: UITableView, indexPath: IndexPath) -> TaskInfo? {
+        guard let tableType = mainView.findTableViewType(tableView: tableView) else { return nil }
+        let dataSource = findDataSource(type: tableType)
+        guard let task = dataSource?.itemIdentifier(for: indexPath) else { return nil }
+        let taskInfo = TaskInfo(task: task, type: tableType, indexPath: indexPath)
+        
+        return taskInfo
     }
 }
 

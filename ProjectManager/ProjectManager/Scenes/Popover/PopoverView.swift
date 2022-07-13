@@ -54,7 +54,7 @@ final class PopoverView: UIView {
     private let moveToDoneButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Move to Done", for: .normal)
+        button.setTitle("Move to DONE", for: .normal)
         button.backgroundColor = Constant.buttonBackgroundColor
         button.setTitleColor(Constant.buttonTitleColor, for: .normal)
         return button
