@@ -22,23 +22,19 @@ class MockStorage: Storegeable {
         ListItem(title: "안녕 나는 세잉이야", body: "모 \n 어쩔건데!! \n ㅋㄷㅋㄷ", deadline: Date(timeIntervalSince1970: 751231235), type: .doing),
         ListItem(title: "나는 던이야", body: "노래는 못불러", deadline: Date(timeIntervalSince1970: 1677269760), type: .done),
         ListItem(title: "안녕 똥이야!", body: "모 \n 어쩔건데!! \n ㅋㄷㅋㄷ", deadline: Date(timeIntervalSince1970: 751231235), type: .done)
-    ].sorted(by: { $0.deadline < $1.deadline})
+    ]
     
     lazy var list = BehaviorRelay<[ListItem]>(value: dummyList)
     
     func creatList(listItem: ListItem) {
-        dummyList.append(listItem)
-        list.accept(dummyList.sorted(by: { $0.deadline < $1.deadline}))
+        list.accept(list.value + [listItem])
     }
     
     func updateList(listItem: ListItem) {
-        dummyList = dummyList.filter { listItem.id != $0.id }
-        dummyList.append(listItem)
-        list.accept(dummyList.sorted(by: { $0.deadline < $1.deadline}))
+        list.accept(list.value.filter { listItem.id != $0.id } + [listItem])
     }
     
     func deleteList(listItem: ListItem) {
-        dummyList = dummyList.filter { listItem.id != $0.id }
-        list.accept(dummyList)
+        list.accept(list.value.filter { listItem.id != $0.id })
     }
 }

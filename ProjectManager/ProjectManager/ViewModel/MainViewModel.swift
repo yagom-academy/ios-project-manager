@@ -37,14 +37,17 @@ final class MainViewModel: MainViewModelInOut {
         
         todoList = storage.list
             .map{ $0.filter { $0.type == .todo }}
+            .map{ $0.sorted(by: { $0.deadline < $1.deadline}) }
             .asDriver(onErrorJustReturn: [])
         
         doingList = storage.list
             .map{ $0.filter { $0.type == .doing }}
+            .map{ $0.sorted(by: { $0.deadline < $1.deadline}) }
             .asDriver(onErrorJustReturn: [])
         
         doneList = storage.list
             .map{ $0.filter { $0.type == .done }}
+            .map{ $0.sorted(by: { $0.deadline < $1.deadline}) }
             .asDriver(onErrorJustReturn: [])
     }
 }
