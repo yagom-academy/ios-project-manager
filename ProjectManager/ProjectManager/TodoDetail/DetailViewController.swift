@@ -131,26 +131,25 @@ final class DetailViewController: UIViewController {
         ])
     }
     
+    private func createTodo() -> Todo? {
+        return Todo(
+            todoListItemStatus: .todo,
+            title: self.titleTextField.text ?? "",
+            description: self.descriptionTextView.text ?? "",
+            date: self.datePicker.date
+        )
+    }
+    
     private func bind() {
         guard let rightBarButton = self.navigationItem.rightBarButtonItem else {
             return
         }
         
-        let input = DetailViewModel.Input(
-            doneButtonTapEvent: rightBarButton.rx.tap.map({ [weak self] _ in
-            Todo(
-                todoListItemStatus: .todo,
-                title: self?.titleTextField.text ?? "",
-                description: self?.descriptionTextView.text ?? "",
-                date: self?.datePicker.date ?? Formatter.fetch()
-            )
-        }))
-            
-        let output = self.detailViewModel.transform(input: input)
-        
-        output.dismiss
-            .drive(onNext: {
-                self.coordinator?.dismiss()
+        rightBarButton.rx.tap.asObservable()
+            .subscribe(onNext: { [weak self] in
+                self?.detailViewModel.doneButtonTapEvent(todo: self?.createTodo(), completion: {
+                    self?.coordinator?.dismiss()
+                })
             })
             .disposed(by: self.disposeBag)
     }

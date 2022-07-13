@@ -11,26 +11,18 @@ import RxCocoa
 import RxSwift
 
 final class DetailViewModel {
-    struct Input {
-        let doneButtonTapEvent: Observable<Todo>
-    }
-    
-    struct Output {
-        let dismiss: Driver<Void>
-    }
-    
     private var dataBase: DataBase
     
     init(dataBase: DataBase) {
         self.dataBase = dataBase
     }
-    
-    func transform(input: Input) -> Output {
-        let output = input.doneButtonTapEvent
-            .do { self.dataBase.save(todoListData: [$0]) }
-            .map { _ in }
-            .asDriver(onErrorJustReturn: ())
-        
-        return Output(dismiss: output)
+
+    func doneButtonTapEvent(todo: Todo?, completion: @escaping () -> Void) {
+        guard let todo = todo else {
+            return
+        }
+
+        self.dataBase.save(todoListData: [todo])
+        completion()
     }
 }
