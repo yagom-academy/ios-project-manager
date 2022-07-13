@@ -7,13 +7,18 @@
 
 import UIKit
 
+import Combine
+
 final class TodoView: UIView {
     typealias DataSource = UITableViewDiffableDataSource<Int, TodoListModel>
     typealias Snapshot = NSDiffableDataSourceSnapshot<Int, TodoListModel>
     
-    private let processType: ProcessType
-    private let headerView = TableHeaderView(title: "Todo")
+    private let viewModel: TodoViewModelable
+    
+    private lazy var headerView = TableHeaderView(title: viewModel.headerTitle())
     private var dataSource: DataSource?
+    
+    private var cancellables = Set<AnyCancellable>()
         
     let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -29,8 +34,8 @@ final class TodoView: UIView {
         return tableView
     }()
     
-    init(processType: ProcessType) {
-        self.processType = processType
+    init(viewModel: TodoViewModelable) {
+        self.viewModel = viewModel
         super.init(frame: .zero)
         setup()
     }
@@ -49,7 +54,12 @@ final class TodoView: UIView {
     }
     
     private func bind() {
-        
+        viewModel.items
+            .sink { [weak self] items in
+                self?.applySnapshot(items: items)
+                self?.headerView.setupHeaderTodoCountLabel(with: items.count)
+            }
+            .store(in: &cancellables)
     }
     
     private func addSubviews() {
@@ -92,17 +102,10 @@ final class TodoView: UIView {
     }
 }
 
-extension TodoView: UITableViewDelegate {
-    private struct MenuType {
-        let firstTitle: String
-        let secondTitle: String
-        let firstProcessType: ProcessType
-        let secondProcessType: ProcessType
-    }
-    
+extension TodoView: UITableViewDelegate {    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let item = dataSource?.snapshot().itemIdentifiers[indexPath.row] else { return }
-//        getViewModel().didTapCell(item)
+        viewModel.didTapCell(item)
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
@@ -112,7 +115,7 @@ extension TodoView: UITableViewDelegate {
     ) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] (_, _, completion) in
             guard let item = self?.dataSource?.snapshot().itemIdentifiers[indexPath.row] else { return }
-//            self?.getViewModel().deleteItem(item)
+            self?.viewModel.deleteItem(item)
             completion(true)
         }
         
@@ -130,48 +133,18 @@ extension TodoView: UITableViewDelegate {
             return self?.makeUIMenu(tableView, item: item)
         }
     }
-        
-    private func makeTableViewMenuType(_ tableView: UITableView) -> MenuType? {
-        
-//        switch tableView {
-//        case getTodoListView().todoTableView:
-//            return MenuType(
-//                firstTitle: "Move to DOING",
-//                secondTitle: "Move to DONE",
-//                firstProcessType: .doing,
-//                secondProcessType: .done
-//            )
-//        case getTodoListView().doingTableView:
-//            return MenuType(
-//                firstTitle: "Move to TODO",
-//                secondTitle: "Move to DONE",
-//                firstProcessType: .todo,
-//                secondProcessType: .done
-//            )
-//        case getTodoListView().doneTableView:
-//            return MenuType(
-//                firstTitle: "Move to TODO",
-//                secondTitle: "Move to DOING",
-//                firstProcessType: .todo,
-//                secondProcessType: .doing
-//            )
-//        default:
-//            return nil
-//        }
-        return nil
-    }
     
     private func makeUIMenu(_ tableView: UITableView, item: TodoListModel) -> UIMenu {
-        guard let menuType = makeTableViewMenuType(tableView) else { return UIMenu() }
+        let menuType = viewModel.menuType()
         
-//        let firstMoveAction = UIAction(title: menuType.firstTitle) { _ in
-//            self.getViewModel().didLongPressCell(item, to: menuType.firstProcessType)
-//        }
-//
-//        let secondMoveAction = UIAction(title: menuType.secondTitle) { _ in
-//            self.getViewModel().didLongPressCell(item, to: menuType.secondProcessType)
-//        }
+        let firstMoveAction = UIAction(title: menuType.firstTitle) { _ in
+            self.viewModel.didTapFirstContextMenu(item)
+        }
+
+        let secondMoveAction = UIAction(title: menuType.secondTitle) { _ in
+            self.viewModel.didTapSecondContextMenu(item)
+        }
         
-        return UIMenu(title: "", children: [])
+        return UIMenu(title: "", children: [firstMoveAction, secondMoveAction])
     }
 }

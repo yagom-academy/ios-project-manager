@@ -77,7 +77,7 @@ final class TodoTableViewCell: UITableViewCell {
         backgroundColor = .systemGray6
         contentView.backgroundColor = .systemBackground
     }
-    
+        
     func setupData(with data: TodoListModel) {
         titleLabel.text = data.title
         contentLabel.text = data.content

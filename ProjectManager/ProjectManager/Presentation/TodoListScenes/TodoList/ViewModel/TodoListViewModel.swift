@@ -9,16 +9,12 @@ import Foundation
 import Combine
 
 protocol TodoListViewModelInput {
-    func deleteItem(_ item: TodoListModel)
     func didTapAddButton()
-    func didTapCell(_ item: TodoListModel)
-    func didLongPressCell(_ item: TodoListModel, to processType: ProcessType)
 }
 
 protocol TodoListViewModelOutput {
-    var todoItems: AnyPublisher<[TodoListModel], Never> { get }
-    var doingItems: AnyPublisher<[TodoListModel], Never> { get }
-    var doneItems: AnyPublisher<[TodoListModel], Never> { get }
+    var items: AnyPublisher<[TodoListModel], Never> { get }
+    var title: Just<String> { get }
 }
 
 protocol TodoListViewModelable: TodoListViewModelInput, TodoListViewModelOutput {}
@@ -26,16 +22,12 @@ protocol TodoListViewModelable: TodoListViewModelInput, TodoListViewModelOutput 
 final class TodoListViewModel: TodoListViewModelable {
     // MARK: - Output
     
-    var todoItems: AnyPublisher<[TodoListModel], Never> {
-        return filteredItems(with: .todo)
+    var items: AnyPublisher<[TodoListModel], Never> {
+        return useCase.read().eraseToAnyPublisher()
     }
     
-    var doingItems: AnyPublisher<[TodoListModel], Never> {
-        return filteredItems(with: .doing)
-    }
-    
-    var doneItems: AnyPublisher<[TodoListModel], Never> {
-        return filteredItems(with: .done)
+    var title: Just<String> {
+        return Just("Project Manager")
     }
     
     private weak var coordinator: TodoListViewCoordinator?
@@ -44,14 +36,6 @@ final class TodoListViewModel: TodoListViewModelable {
     init(coordinator: TodoListViewCoordinator, useCase: TodoListUseCaseable) {
         self.useCase = useCase
         self.coordinator = coordinator
-    }
-    
-    private func filteredItems(with type: ProcessType) -> AnyPublisher<[TodoListModel], Never> {
-        return useCase.read()
-            .compactMap { item in
-                return item.filter { $0.processType == type }
-            }
-            .eraseToAnyPublisher()
     }
 }
 
@@ -63,8 +47,10 @@ extension TodoListViewModel {
         let item = TodoListModel.empty
         useCase.create(item)
         coordinator?.showDetailViewController(item)
-    }
-    
+    }    
+}
+
+extension TodoListViewModel: TodoViewModelInput {
     func deleteItem(_ item: TodoListModel) {
         useCase.delete(item: item)
     }
@@ -73,14 +59,11 @@ extension TodoListViewModel {
         coordinator?.showDetailViewController(item)
     }
     
-    func didLongPressCell(_ item: TodoListModel, to processType: ProcessType) {
-        let item = TodoListModel(
-            title: item.title,
-            content: item.content,
-            deadLine: item.deadLine,
-            processType: processType,
-            id: item.id
-        )
+    func didTapFirstContextMenu(_ item: TodoListModel) {
+        useCase.update(item)
+    }
+    
+    func didTapSecondContextMenu(_ item: TodoListModel) {
         useCase.update(item)
     }
 }

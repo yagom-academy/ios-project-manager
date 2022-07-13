@@ -11,50 +11,40 @@ import Combine
 import SnapKit
 
 final class TodoListViewController: UIViewController {
-    private lazy var todoListView = TodoListView()
+    private lazy var todoListView = factory.makeTodoListView()
     private let viewModel: TodoListViewModelable
+    private unowned let factory: ViewControllerFactory
     
     private var cancellables = Set<AnyCancellable>()
     
-    init(viewModel: TodoListViewModelable) {
+    init(viewModel: TodoListViewModelable, factory: ViewControllerFactory) {
         self.viewModel = viewModel
+        self.factory = factory
         super.init(nibName: nil, bundle: nil)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        bind()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func bind() {
-//        viewModel.todoItems.sink { [weak self] items in
-//            self?.todoDataSource?.applySnapshot(items: items, datasource: self?.todoDataSource)
-//            self?.todoListView.setupHeaderTodoCountLabel(with: items.count)
-//        }
-//        .store(in: &cancellables)
-//
-//        viewModel.doingItems.sink { [weak self] items in
-//            self?.doingDataSource?.applySnapshot(items: items, datasource: self?.doingDataSource)
-//            self?.todoListView.setupHeaderDoingCountLabel(with: items.count)
-//        }
-//        .store(in: &cancellables)
-//
-//        viewModel.doneItems.sink { [weak self] items in
-//            self?.doneDataSource?.applySnapshot(items: items, datasource: self?.doneDataSource)
-//            self?.todoListView.setupHeaderDoneCountLabel(with: items.count)
-//        }
-//        .store(in: &cancellables)
-    }
-    
     private func setup() {
         addSubviews()
         setupConstraint()
         setupView()
+        bind()
+    }
+    
+    private func bind() {
+        viewModel.title
+            .sink { [weak self] title in
+                self?.title = title
+            }
+            .store(in: &cancellables)
     }
     
     private func addSubviews() {
@@ -69,7 +59,6 @@ final class TodoListViewController: UIViewController {
     
     private func setupView() {
         view.backgroundColor = .systemBackground
-        title = "Project Manager"
         
         let addAction = UIAction { [weak self] _ in
             self?.viewModel.didTapAddButton()

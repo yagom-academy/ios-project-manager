@@ -10,6 +10,12 @@ import UIKit
 import SnapKit
 
 final class TodoListView: UIView {
+    private unowned let factory: ViewControllerFactory
+    
+    private let todoView: TodoView
+    private let doingView: TodoView
+    private let doneView: TodoView
+    
     private let tableStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.distribution = .fillEqually
@@ -19,11 +25,11 @@ final class TodoListView: UIView {
         return stackView
     }()
     
-    private let todoView = TodoView(processType: .todo)
-    private let doingView = TodoView(processType: .doing)
-    private let doneView = TodoView(processType: .done)
-    
-    init() {
+    init(factory: ViewControllerFactory) {
+        self.factory = factory
+        self.todoView = factory.makeTodoView(processType: .todo)
+        self.doingView = factory.makeTodoView(processType: .doing)
+        self.doneView = factory.makeTodoView(processType: .done)
         super.init(frame: .zero)
         setup()
     }

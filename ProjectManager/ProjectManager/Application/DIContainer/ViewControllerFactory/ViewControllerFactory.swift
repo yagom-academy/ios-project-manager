@@ -7,6 +7,7 @@
 
 final class ViewControllerFactory {
     private let storage: Storageable
+    private var parentViewModel: TodoListViewModel?
     
     init(storage: Storageable) {
         self.storage = storage
@@ -27,10 +28,27 @@ final class ViewControllerFactory {
     }
     
     func makeTodoListViewController(coordinator: TodoListViewCoordinator) -> TodoListViewController {
-        return TodoListViewController(viewModel: makeTodoListViewModel(coordinator: coordinator))
+        return TodoListViewController(viewModel: makeTodoListViewModel(coordinator: coordinator), factory: self)
+    }
+    
+    // MARK: - View
+    
+    func makeTodoListView() -> TodoListView {
+        return TodoListView(factory: self)
+    }
+    
+    func makeTodoView(processType: ProcessType) -> TodoView {
+        return TodoView(viewModel: makeTodoViewModel(processType: processType))
     }
     
     // MARK: - ViewModel
+    
+    private func makeTodoViewModel(processType: ProcessType) -> TodoViewModel {
+        let viewModel = TodoViewModel(processType: processType, items: parentViewModel!.items)
+        viewModel.delegate = parentViewModel
+        
+        return viewModel
+    }
     
     private func makeTodoDetailViewModel(
         todoListModel: TodoListModel,
@@ -44,7 +62,9 @@ final class ViewControllerFactory {
     }
     
     private func makeTodoListViewModel(coordinator: TodoListViewCoordinator) -> TodoListViewModelable {
-        return TodoListViewModel(coordinator: coordinator, useCase: makeTodoListUseCase())
+        let viewModel = TodoListViewModel(coordinator: coordinator, useCase: makeTodoListUseCase())
+        self.parentViewModel = viewModel
+        return viewModel
     }
     
     // MARK: - UseCase
