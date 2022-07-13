@@ -11,6 +11,8 @@ import Combine
 final class TodoListRepository {
     private unowned let storage: Storageable
     
+    var bag = Set<AnyCancellable>()
+    
     init(storage: Storageable) {
         self.storage = storage
     }

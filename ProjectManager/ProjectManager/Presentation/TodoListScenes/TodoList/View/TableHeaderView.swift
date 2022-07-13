@@ -17,7 +17,7 @@ final class TableHeaderView: UIView {
         return stackView
     }()
     
-    let titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .largeTitle)
         label.setContentHuggingPriority(.required, for: .horizontal)
@@ -25,7 +25,7 @@ final class TableHeaderView: UIView {
         return label
     }()
     
-    let todoListCountLabel: UILabel = {
+    private let todoListCountLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .body)
         label.text = "0"

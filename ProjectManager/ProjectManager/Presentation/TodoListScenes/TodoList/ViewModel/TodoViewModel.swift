@@ -24,8 +24,8 @@ protocol TodoViewModelInput: AnyObject {
 
 protocol TodoViewModelOutput {
     var items: AnyPublisher<[TodoListModel], Never> { get set }
-    func menuType() -> MenuType
-    func headerTitle() -> String
+    var menuType: MenuType { get }
+    var headerTitle: String { get }
 }
 
 protocol TodoViewModelable: TodoViewModelInput, TodoViewModelOutput {}
@@ -34,29 +34,8 @@ final class TodoViewModel: TodoViewModelable {
     // MARK: - Output
     
     var items: AnyPublisher<[TodoListModel], Never>
-
-    private let processType: ProcessType
     
-    weak var delegate: TodoViewModelInput?
-    
-    init(processType: ProcessType, items: AnyPublisher<[TodoListModel], Never>) {
-        self.processType = processType
-        self.items = items
-        self.items = filteredItems(with: processType, items: items)
-    }
-    
-    private func filteredItems(
-        with type: ProcessType,
-        items: AnyPublisher<[TodoListModel], Never>
-    ) -> AnyPublisher<[TodoListModel], Never> {
-        return items
-            .compactMap { item in
-                return item.filter { $0.processType == type }
-            }
-            .eraseToAnyPublisher()
-    }
-    
-    func menuType() -> MenuType {
+    var menuType: MenuType {
         switch processType {
         case .todo:
             return MenuType(
@@ -82,7 +61,7 @@ final class TodoViewModel: TodoViewModelable {
         }
     }
     
-    func headerTitle() -> String {
+    var headerTitle: String {
         switch processType {
         case .todo:
             return "TODO"
@@ -91,6 +70,27 @@ final class TodoViewModel: TodoViewModelable {
         case .done:
             return "DONE"
         }
+    }
+
+    private let processType: ProcessType
+    
+    weak var delegate: TodoViewModelInput?
+    
+    init(processType: ProcessType, items: AnyPublisher<[TodoListModel], Never>) {
+        self.processType = processType
+        self.items = items
+        self.items = filteredItems(with: processType, items: items)
+    }
+    
+    private func filteredItems(
+        with type: ProcessType,
+        items: AnyPublisher<[TodoListModel], Never>
+    ) -> AnyPublisher<[TodoListModel], Never> {
+        return items
+            .compactMap { item in
+                return item.filter { $0.processType == type }
+            }
+            .eraseToAnyPublisher()
     }
 }
 
@@ -111,7 +111,7 @@ extension TodoViewModel {
             title: item.title,
             content: item.content,
             deadLine: item.deadLine,
-            processType: menuType().firstProcessType,
+            processType: menuType.firstProcessType,
             id: item.id
         )
         delegate?.didTapFirstContextMenu(item)
@@ -122,7 +122,7 @@ extension TodoViewModel {
             title: item.title,
             content: item.content,
             deadLine: item.deadLine,
-            processType: menuType().secondProcessType,
+            processType: menuType.secondProcessType,
             id: item.id
         )
         delegate?.didTapSecondContextMenu(item)

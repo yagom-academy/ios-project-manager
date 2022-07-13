@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 protocol TodoCellViewModelInput {
-    func setDateLabelColor()
+    func cellDidBind()
 }
 
 protocol TodoCellViewModelOutput {
@@ -23,6 +23,8 @@ protocol TodoCellViewModelable: TodoCellViewModelInput, TodoCellViewModelOutput 
 final class TodoCellViewModel: TodoCellViewModelable {
     private let model: TodoListModel
     
+    // MARK: - Output
+    
     var item: Just<TodoListModel> {
         return Just(model)
     }
@@ -32,14 +34,21 @@ final class TodoCellViewModel: TodoCellViewModelable {
     
     init(_ model: TodoListModel) {
         self.model = model
-        setDateLabelColor()
     }
     
-    func setDateLabelColor() {
+    private func setDateLabelColor() {
         if Date() > model.deadLine {
             expired.send(())
         } else {
             notExpired.send(())
         }
+    }
+}
+
+extension TodoCellViewModel {
+    // MARK: - Input
+    
+    func cellDidBind() {
+        setDateLabelColor()
     }
 }

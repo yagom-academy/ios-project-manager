@@ -25,17 +25,17 @@ extension TodoListSceneDIContainer {
     
     // MARK: ViewController
     
-    func makeTodoDetailViewContoller(todoListModel: TodoListModel, coordinator: TodoDetailViewCoordinator) -> TodoDetailViewController {
-        return viewControllerFactory.makeTodoDetailViewContoller(todoListModel: todoListModel, coordinator: coordinator)
-    }
-    
     func makeTodoListViewController(coordinator: TodoListViewCoordinator) -> TodoListViewController {
         return viewControllerFactory.makeTodoListViewController(coordinator: coordinator)
     }
     
+    func makeTodoDetailViewContoller(todoListModel: TodoListModel, coordinator: TodoDetailViewCoordinator) -> TodoDetailViewController {
+        return viewControllerFactory.makeTodoDetailViewContoller(todoListModel: todoListModel, coordinator: coordinator)
+    }
+    
     // MARK: - Coordiantor
     
-    func makeCoordinator(navigationController: UINavigationController) -> TodoListViewCoordinator {
+    func makeListViewCoordinator(navigationController: UINavigationController) -> TodoListViewCoordinator {
         return TodoListViewCoordinator(navigationController: navigationController, dependencies: self)
     }
     

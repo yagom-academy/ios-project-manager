@@ -16,6 +16,10 @@ final class ViewControllerFactory {
     
     // MARK: ViewController
     
+    func makeTodoListViewController(coordinator: TodoListViewCoordinator) -> TodoListViewController {
+        return TodoListViewController(viewModel: makeTodoListViewModel(coordinator: coordinator), factory: self)
+    }
+    
     func makeTodoDetailViewContoller(
         todoListModel: TodoListModel,
         coordinator: TodoDetailViewCoordinator
@@ -26,10 +30,6 @@ final class ViewControllerFactory {
                 coordinator: coordinator
             )
         )
-    }
-    
-    func makeTodoListViewController(coordinator: TodoListViewCoordinator) -> TodoListViewController {
-        return TodoListViewController(viewModel: makeTodoListViewModel(coordinator: coordinator), factory: self)
     }
     
     // MARK: - View
@@ -44,10 +44,9 @@ final class ViewControllerFactory {
     
     // MARK: - ViewModel
     
-    private func makeTodoViewModel(processType: ProcessType) -> TodoViewModel {
-        let viewModel = TodoViewModel(processType: processType, items: parentViewModel!.items)
-        viewModel.delegate = parentViewModel
-        
+    private func makeTodoListViewModel(coordinator: TodoListViewCoordinator) -> TodoListViewModelable {
+        let viewModel = TodoListViewModel(coordinator: coordinator, useCase: makeTodoListUseCase())
+        self.parentViewModel = viewModel
         return viewModel
     }
     
@@ -62,9 +61,10 @@ final class ViewControllerFactory {
         )
     }
     
-    private func makeTodoListViewModel(coordinator: TodoListViewCoordinator) -> TodoListViewModelable {
-        let viewModel = TodoListViewModel(coordinator: coordinator, useCase: makeTodoListUseCase())
-        self.parentViewModel = viewModel
+    private func makeTodoViewModel(processType: ProcessType) -> TodoViewModel {
+        let viewModel = TodoViewModel(processType: processType, items: parentViewModel!.items)
+        viewModel.delegate = parentViewModel
+        
         return viewModel
     }
     

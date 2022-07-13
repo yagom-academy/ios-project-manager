@@ -15,18 +15,18 @@ final class TodoView: UIView {
     
     private let viewModel: TodoViewModelable
     
-    private lazy var headerView = TableHeaderView(title: viewModel.headerTitle())
+    private lazy var headerView = TableHeaderView(title: viewModel.headerTitle)
     private var dataSource: DataSource?
     
     private var cancellables = Set<AnyCancellable>()
         
-    let stackView: UIStackView = {
+    private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         return stackView
     }()
     
-    let tableView: UITableView = {
+    private let tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(TodoTableViewCell.self, forCellReuseIdentifier: TodoTableViewCell.identifier)
         tableView.backgroundColor = .systemGray6
@@ -95,7 +95,7 @@ final class TodoView: UIView {
         }
     }
     
-    func applySnapshot(items: [TodoListModel]) {
+    private func applySnapshot(items: [TodoListModel]) {
         var snapshot = Snapshot()
         snapshot.appendSections([0])
         snapshot.appendItems(items)
@@ -136,7 +136,7 @@ extension TodoView: UITableViewDelegate {
     }
     
     private func makeUIMenu(_ tableView: UITableView, item: TodoListModel) -> UIMenu {
-        let menuType = viewModel.menuType()
+        let menuType = viewModel.menuType
         
         let firstMoveAction = UIAction(title: menuType.firstTitle) { _ in
             self.viewModel.didTapFirstContextMenu(item)

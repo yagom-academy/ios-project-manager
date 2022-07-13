@@ -26,12 +26,10 @@ final class AppCoordinator: Coordinator {
     }
     
     func start() {
-        guard let navigationController = navigationController else {
-            return
-        }
+        guard let navigationController = navigationController else { return }
 
         let sceneDIContainer = appDIContainer.makeTodoListSceneDIContainer()
-        let sceneCoordinator = sceneDIContainer.makeCoordinator(navigationController: navigationController)
+        let sceneCoordinator = sceneDIContainer.makeListViewCoordinator(navigationController: navigationController)
         
         childCoordinators.append(sceneCoordinator)
         sceneCoordinator.parentCoordinator = self

@@ -82,7 +82,7 @@ final class TodoTableViewCell: UITableViewCell {
             }
             .store(in: &cancellables)
         
-        viewModel.setDateLabelColor()
+        viewModel.cellDidBind()
     }
     
     private func setup() {
@@ -106,13 +106,5 @@ final class TodoTableViewCell: UITableViewCell {
     private func setupView() {
         backgroundColor = .systemGray6
         contentView.backgroundColor = .systemBackground
-    }
-
-    private func setupDeadLineTextColor(deadLine: Date) {
-        if Date() > deadLine {
-            deadLineLabel.textColor = .systemRed
-        } else {
-            deadLineLabel.textColor = .label
-        }
     }
 }

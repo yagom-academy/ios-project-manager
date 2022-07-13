@@ -10,8 +10,6 @@ import UIKit
 import SnapKit
 
 final class TodoListView: UIView {
-    private unowned let factory: ViewControllerFactory
-    
     private let todoView: TodoView
     private let doingView: TodoView
     private let doneView: TodoView
@@ -26,7 +24,6 @@ final class TodoListView: UIView {
     }()
     
     init(factory: ViewControllerFactory) {
-        self.factory = factory
         self.todoView = factory.makeTodoView(processType: .todo)
         self.doingView = factory.makeTodoView(processType: .doing)
         self.doneView = factory.makeTodoView(processType: .done)

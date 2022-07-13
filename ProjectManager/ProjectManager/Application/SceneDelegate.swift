@@ -18,14 +18,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         willConnectTo session: UISceneSession,
         options connectionOptions: UIScene.ConnectionOptions
     ) {
-        setupLibrary()
-        
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         
         let rootNaivgationController = UINavigationController()
         window?.rootViewController = rootNaivgationController
         window?.makeKeyAndVisible()
+        
+        setupLibrary()
                 
         appCoorinator = AppCoordinator(navigationController: rootNaivgationController, appDIContainer: AppDIContainer())
         appCoorinator?.start()

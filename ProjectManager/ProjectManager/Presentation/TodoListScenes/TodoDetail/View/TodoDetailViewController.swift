@@ -9,7 +9,6 @@ import UIKit
 import Combine
 
 final class TodoDetailViewController: UIViewController {
-    
     private var cancellables = Set<AnyCancellable>()
     private let viewModel: TodoDetailViewModelable
     private let todoDetailView = TodoDetailView()
@@ -35,6 +34,7 @@ final class TodoDetailViewController: UIViewController {
             title: todoDetailView.titleTextField.text,
             content: todoDetailView.contentTextView.text
         )
+        
         super.viewDidDisappear(animated)
     }
     
