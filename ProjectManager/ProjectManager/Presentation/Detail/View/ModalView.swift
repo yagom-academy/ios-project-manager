@@ -11,6 +11,9 @@ final class ModalView: UIView {
     lazy var titleTextField: UITextField = {
         let textField = UITextField()
         drawBorder(view: textField, color: .systemGray3)
+        textField.font = .preferredFont(forTextStyle: .title3)
+        textField.leftView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 10.0, height: 10.0))
+        textField.leftViewMode = .always
         textField.placeholder = "title"
         return textField
     }()
@@ -24,7 +27,9 @@ final class ModalView: UIView {
     
     lazy var descriptionTextView: UITextView = {
         let textView = UITextView()
-        drawShadow(view: textView, borderWidth: 5, color: .systemGray3)
+        drawBorder(view: textView, color: .systemGray3)
+        textView.font = .preferredFont(forTextStyle: .title3)
+        textView.textContainerInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 0)
         textView.isScrollEnabled = false
         return textView
     }()
