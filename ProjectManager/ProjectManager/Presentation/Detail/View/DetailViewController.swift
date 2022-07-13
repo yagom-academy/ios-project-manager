@@ -28,9 +28,11 @@ final class DetailViewController: UIViewController {
     }
     
     override func viewDidLoad() {
+        super.viewDidLoad()
+        
         setUpModalView()
         setUpDetailNavigationItem()
-        adjustViewLayoutByKeyboard()
+        modalView.descriptionTextView.delegate = self
     }
     
     private func setUpModalView() {
@@ -107,14 +109,18 @@ final class DetailViewController: UIViewController {
             }
             .disposed(by: disposeBag)
     }
+}
+
+extension DetailViewController: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if self.view.frame.origin.y == 0 {
+            self.view.frame.origin.y -= 170
+        }
+    }
     
-    private func adjustViewLayoutByKeyboard() {
-        RxKeyboard.instance
-            .visibleHeight
-            .drive(onNext: { keyboardVisibleHeight in
-                let height = keyboardVisibleHeight > 0 ? -keyboardVisibleHeight / 3 : 0
-                self.modalView.frame.origin.y = height
-            })
-            .disposed(by: disposeBag)
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
+        }
     }
 }

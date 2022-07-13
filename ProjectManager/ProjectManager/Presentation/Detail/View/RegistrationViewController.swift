@@ -30,7 +30,7 @@ final class RegistrationViewController: UIViewController {
         super.viewDidLoad()
         
         setUpNavigationItem()
-        adjustViewLayoutByKeyboard()
+        modalView.descriptionTextView.delegate = self
     }
     
     private func setUpNavigationItem() {
@@ -87,14 +87,18 @@ final class RegistrationViewController: UIViewController {
         
         viewModel.registrate(title: title, date: date, description: description)
     }
+}
+
+extension RegistrationViewController: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if self.view.frame.origin.y == 0 {
+            self.view.frame.origin.y -= 170
+        }
+    }
     
-    private func adjustViewLayoutByKeyboard() {
-        RxKeyboard.instance
-            .visibleHeight
-            .drive(onNext: { keyboardVisibleHeight in
-                let height = keyboardVisibleHeight > 0 ? -keyboardVisibleHeight / 3 : 0
-                self.modalView.frame.origin.y = height
-            })
-            .disposed(by: disposeBag)
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
+        }
     }
 }
