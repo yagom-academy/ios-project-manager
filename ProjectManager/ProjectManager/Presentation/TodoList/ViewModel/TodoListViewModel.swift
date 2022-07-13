@@ -105,7 +105,7 @@ final class DefaultTodoListViewModel: TodoListViewModel {
     
     private func toTodoCellContents(todoModels: [TodoModel]) -> [TodoCellContent] {
         todoModels.map { item in
-            TodoCellContent(entity: item)
+            TodoCellContent(entity: item, isPast: useCase.checkDeadline(time: item.deadlineAt))
         }
     }
 }
@@ -115,6 +115,7 @@ struct TodoCellContent {
     let body: String?
     let deadlineAt: String
     let id: UUID
+    let isPast: Bool
     
     private let dateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
@@ -122,10 +123,11 @@ struct TodoCellContent {
         return dateFormatter
     }()
     
-    init(entity: TodoModel) {
+    init(entity: TodoModel, isPast: Bool) {
         self.title = entity.title
         self.body = entity.body
         self.deadlineAt = entity.deadlineAt.toString(dateFormatter)
         self.id = entity.id
+        self.isPast = isPast
     }
 }

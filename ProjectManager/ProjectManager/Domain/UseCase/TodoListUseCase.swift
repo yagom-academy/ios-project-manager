@@ -11,6 +11,7 @@ import RxSwift
 protocol UseCase {
     func readRepository() -> BehaviorSubject<[TodoModel]>
     func saveRepository(to data: TodoModel)
+    func checkDeadline(time: Date) -> Bool
 }
 
 final class TodoListUseCase: UseCase {
@@ -29,5 +30,9 @@ extension TodoListUseCase {
     
     func saveRepository(to data: TodoModel) {
         repository.save(to: data)
+    }
+    
+    func checkDeadline(time: Date) -> Bool {
+        return time + 24 * 60 * 60 < Date()
     }
 }

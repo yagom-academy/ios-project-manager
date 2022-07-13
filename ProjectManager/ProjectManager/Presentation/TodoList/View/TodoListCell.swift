@@ -62,5 +62,6 @@ extension TodoListCell {
         titleLabel.text = item.title
         bodyLabel.text = item.body
         deadlineLabel.text = item.deadlineAt
+        deadlineLabel.textColor = item.isPast ? .systemRed : .label
     }
 }
