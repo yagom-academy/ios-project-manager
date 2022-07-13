@@ -5,7 +5,7 @@
 //  Created by Tiana, mmim on 2022/07/07.
 //
 
-class DetailViewModel {
+struct DetailViewModel {
     let content: ProjectContent
     
     init(content: ProjectContent) {
