@@ -81,9 +81,11 @@ extension MainViewModel {
         }
     }
     
-    func changeListType(listItem: ListItem, type: ListType) {
-        
-    func changeListType(index: Int, type: ListType) {
     func changeListType(index: Int, type: ListType, to: ListType) {
+        peekList(index: index, type: type) {
+            var listItem = $0
+            listItem.type = to
+            self.storage.updateList(listItem: listItem)
+        }
     }
 }
