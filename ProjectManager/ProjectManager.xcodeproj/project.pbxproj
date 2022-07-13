@@ -26,7 +26,7 @@
 		64371A502874940300F78AAA /* StackView+Sugar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64371A4F2874940300F78AAA /* StackView+Sugar.swift */; };
 		64371AC7287B0CFC00F78AAA /* Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64371AC6287B0CFC00F78AAA /* Formatter.swift */; };
 		64371AC9287B129200F78AAA /* Date+Sugar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64371AC8287B129200F78AAA /* Date+Sugar.swift */; };
-		64371AE9287C570D00F78AAA /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64371AE8287C570C00F78AAA /* MainCoordinator.swift */; };
+		64371AE9287C570D00F78AAA /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64371AE8287C570C00F78AAA /* AppCoordinator.swift */; };
 		64371AFB287DC2A500F78AAA /* DetailViewType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64371AFA287DC2A500F78AAA /* DetailViewType.swift */; };
 		64371B03287EEB1500F78AAA /* TempData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64371B02287EEB1500F78AAA /* TempData.swift */; };
 		C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7431F0525F51E1D0094C4CF /* AppDelegate.swift */; };
@@ -63,7 +63,7 @@
 		64371A4F2874940300F78AAA /* StackView+Sugar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StackView+Sugar.swift"; sourceTree = "<group>"; };
 		64371AC6287B0CFC00F78AAA /* Formatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatter.swift; sourceTree = "<group>"; };
 		64371AC8287B129200F78AAA /* Date+Sugar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Sugar.swift"; sourceTree = "<group>"; };
-		64371AE8287C570C00F78AAA /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
+		64371AE8287C570C00F78AAA /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		64371AFA287DC2A500F78AAA /* DetailViewType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewType.swift; sourceTree = "<group>"; };
 		64371B02287EEB1500F78AAA /* TempData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempData.swift; sourceTree = "<group>"; };
 		C7431F0225F51E1D0094C4CF /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -177,7 +177,7 @@
 		64371AE6287C56C500F78AAA /* Coordinator */ = {
 			isa = PBXGroup;
 			children = (
-				64371AE8287C570C00F78AAA /* MainCoordinator.swift */,
+				64371AE8287C570C00F78AAA /* AppCoordinator.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -315,7 +315,7 @@
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				64371A502874940300F78AAA /* StackView+Sugar.swift in Sources */,
 				308FF0C02878205700301DCF /* DetailViewController.swift in Sources */,
-				64371AE9287C570D00F78AAA /* MainCoordinator.swift in Sources */,
+				64371AE9287C570D00F78AAA /* AppCoordinator.swift in Sources */,
 				643719E02873E02F00F78AAA /* Todo.swift in Sources */,
 				3000D717287D56B400EA7A03 /* DetailViewModel.swift in Sources */,
 				3000D71B287D593A00EA7A03 /* DataBase.swift in Sources */,

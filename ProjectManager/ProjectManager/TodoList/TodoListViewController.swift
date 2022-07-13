@@ -15,7 +15,7 @@ final class TodoListViewController: UIViewController {
     private let doneView: ListView
     private let viewModel: TodoListViewModel
     private let disposeBag = DisposeBag()
-    weak private var coordinator: MainCoordinator?
+    weak private var coordinator: AppCoordinator?
 
     private let tablesStackView: UIStackView = {
         let stackView = UIStackView()
@@ -29,7 +29,7 @@ final class TodoListViewController: UIViewController {
         return stackView
     }()
 
-    init(todoViewModel: TodoListViewModel, coordinator: MainCoordinator) {
+    init(todoViewModel: TodoListViewModel, coordinator: AppCoordinator) {
         self.todoView = ListView(todoListItemStatus: .todo, listViewModel: todoViewModel, coordinator: coordinator)
         self.doingView = ListView(todoListItemStatus: .doing, listViewModel: todoViewModel, coordinator: coordinator)
         self.doneView = ListView(todoListItemStatus: .done, listViewModel: todoViewModel, coordinator: coordinator)

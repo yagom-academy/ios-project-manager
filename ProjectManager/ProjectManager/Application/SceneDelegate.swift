@@ -8,7 +8,7 @@ import UIKit
 
 final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
-    var coordinator: MainCoordinator?
+    var coordinator: AppCoordinator?
     
     func scene(
         _ scene: UIScene,
@@ -22,7 +22,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let navigationController = UINavigationController()
         
         self.window?.rootViewController = navigationController
-        coordinator = MainCoordinator(navigationController: navigationController)
+        coordinator = AppCoordinator(navigationController: navigationController)
         coordinator?.start()
         self.window?.makeKeyAndVisible()
     }

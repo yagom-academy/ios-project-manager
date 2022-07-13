@@ -14,8 +14,8 @@ final class DetailViewController: UIViewController {
     private let todoListItemStatus: TodoListItemStatus
     private let detailViewModel: DetailViewModel
     private let disposeBag = DisposeBag()
-    weak private var coordinator: MainCoordinator?
-
+    weak private var coordinator: AppCoordinator?
+    
     private let titleTextField: UITextField = {
         let textField = UITextField()
         textField.backgroundColor = .systemBackground
@@ -47,7 +47,7 @@ final class DetailViewController: UIViewController {
         textView.layer.shadowOffset = CGSize(width: 3, height: 3)
         textView.layer.shadowOpacity = 0.3
         textView.layer.shadowRadius = 5
-
+        
         return textView
     }()
     
@@ -70,7 +70,7 @@ final class DetailViewController: UIViewController {
         detailViewType: DetailViewType,
         todoListItemStatus: TodoListItemStatus,
         detailViewModel: DetailViewModel,
-        coordinator: MainCoordinator
+        coordinator: AppCoordinator
     ) {
         self.detailViewType = detailViewType
         self.todoListItemStatus = todoListItemStatus

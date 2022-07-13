@@ -15,7 +15,7 @@ final class ListView: UIView {
     private let tableView: UITableView
     private let listViewModel: TodoListViewModel
     private let disposeBag = DisposeBag()
-    weak private var coordinator: MainCoordinator?
+    weak private var coordinator: AppCoordinator?
     
     private let headerView: UIView = {
         let view = UIView()
@@ -67,7 +67,7 @@ final class ListView: UIView {
         return stackView
     }()
     
-    init(todoListItemStatus: TodoListItemStatus, listViewModel: TodoListViewModel, coordinator: MainCoordinator) {
+    init(todoListItemStatus: TodoListItemStatus, listViewModel: TodoListViewModel, coordinator: AppCoordinator) {
         self.todoListItemstatus = todoListItemStatus
         self.tableView = UITableView()
         self.listViewModel = listViewModel
