@@ -77,9 +77,6 @@ final class DetailView: UIView {
         textView.font = UIFont.preferredFont(forTextStyle: .title3)
         textView.layer.borderWidth = 1
         textView.layer.borderColor = UIColor.systemGray2.cgColor
-        textView.layer.shadowOpacity = 0.4
-        textView.layer.shadowOffset = CGSize(width: 0, height: 3)
-        textView.layer.masksToBounds = false
         
         return textView
     }()
