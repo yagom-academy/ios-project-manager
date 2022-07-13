@@ -28,6 +28,7 @@ class DetailModalViewController: UIViewController {
         self.taskInfo = taskInfo
         state = taskInfo == nil ? .add : .edit
         super.init(nibName: nil, bundle: nil)
+        modalView.setTextFieldDelegate(self)
     }
     
     required init?(coder: NSCoder) {
@@ -60,5 +61,15 @@ extension DetailModalViewController: ButtonActionDelegate {
             delegate?.addTask(modalView.task)
         }
         dismiss(animated: true)
+    }
+}
+
+extension DetailModalViewController: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        modalView.setLayoutTextViewDidBeginEditing()
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        modalView.setLayoutTextViewDidEndEditing()
     }
 }

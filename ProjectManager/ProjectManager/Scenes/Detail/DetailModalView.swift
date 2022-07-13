@@ -19,6 +19,7 @@ final class DetailModalView: UIView {
         static let viewBackgroundColor: UIColor = .white
         static let textFieldShadowColor: CGColor = UIColor.black.cgColor
     }
+    private lazy var bottomConstraint = stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20)
     
     weak var buttonDelegate: ButtonActionDelegate?
     
@@ -136,9 +137,22 @@ extension DetailModalView {
     private func cancelButtonClicked() {
         buttonDelegate?.cancelButtonClicked()
     }
+    
     @objc
     private func doneButtonClicked() {
         buttonDelegate?.doneButtonClicked()
+    }
+    
+    func setLayoutTextViewDidBeginEditing() {
+        titleTextField.isHidden = true
+        datePicker.isHidden = true
+        bottomConstraint = stackView.bottomAnchor.constraint(equalTo: keyboardLayoutGuide.topAnchor)
+    }
+    
+    func setLayoutTextViewDidEndEditing() {
+        titleTextField.isHidden = false
+        datePicker.isHidden = false
+        bottomConstraint = stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20)
     }
 }
 
@@ -157,7 +171,7 @@ extension DetailModalView {
             stackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
             stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
             stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
-            stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20)
+            bottomConstraint
         ])
     }
     
@@ -168,6 +182,10 @@ extension DetailModalView {
     
     func setButtonDelegate(_ delegate: ButtonActionDelegate) {
         buttonDelegate = delegate
+    }
+    
+    func setTextFieldDelegate(_ delegate: UITextViewDelegate) {
+        bodyTextView.delegate = delegate
     }
     
     func setLabel(task: Task) {
