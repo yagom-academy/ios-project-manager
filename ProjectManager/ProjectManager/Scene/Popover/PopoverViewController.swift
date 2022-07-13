@@ -30,16 +30,17 @@ class PopoverViewController: UIViewController {
     
     override func loadView() {
         view = mainView
-        setButtonTarget()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setButtonTarget()
     }
 }
 
+// MARK: Functions
+
 extension PopoverViewController {
-    
     func setButtonTarget() {
         mainView.findButton(taskType: .todo)
                 .addTarget(self, action: #selector(moveToToDoButtonClicked), for: .touchUpInside)

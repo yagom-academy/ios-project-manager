@@ -8,6 +8,11 @@
 import UIKit
 
 final class PopoverView: UIView {
+    private enum Constant {
+        static let buttonTitleColor: UIColor = .systemBlue
+        static let buttonBackgroundColor: UIColor = .white
+        static let viewBackgroundColor: UIColor = .systemGray6
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -32,8 +37,8 @@ final class PopoverView: UIView {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Move to TODO", for: .normal)
-        button.backgroundColor = .white
-        button.setTitleColor(UIColor.systemBlue, for: .normal)
+        button.backgroundColor = Constant.buttonBackgroundColor
+        button.setTitleColor(Constant.buttonTitleColor, for: .normal)
         return button
     }()
     
@@ -41,8 +46,8 @@ final class PopoverView: UIView {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Move to DOING", for: .normal)
-        button.backgroundColor = .white
-        button.setTitleColor(UIColor.systemBlue, for: .normal)
+        button.backgroundColor = Constant.buttonBackgroundColor
+        button.setTitleColor(Constant.buttonTitleColor, for: .normal)
         return button
     }()
     
@@ -50,13 +55,14 @@ final class PopoverView: UIView {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Move to Done", for: .normal)
-        button.backgroundColor = .white
-        button.setTitleColor(UIColor.systemBlue, for: .normal)
+        button.backgroundColor = Constant.buttonBackgroundColor
+        button.setTitleColor(Constant.buttonTitleColor, for: .normal)
         return button
     }()
-    
-    // MARK: functions
-    
+}
+
+// MARK: Functions
+extension PopoverView {
     func findButton(taskType: TaskType) -> UIButton {
         switch taskType {
         case .todo:
@@ -71,11 +77,12 @@ final class PopoverView: UIView {
     func hideButton(taskType: TaskType) {
         findButton(taskType: taskType).isHidden = true
     }
+}
     
-    // MARK: setUp
-    
+// MARK: setUp
+extension PopoverView {
     private func setUp() {
-        backgroundColor = .systemGray6
+        backgroundColor = Constant.viewBackgroundColor
         setUpSubView()
         setConstraint()
     }

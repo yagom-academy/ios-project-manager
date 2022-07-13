@@ -34,6 +34,7 @@ class MainViewController: UIViewController {
     private func addButtonClick(_ sender: Any) {
         let detailView = DetailModalView(frame: view.bounds)
         let detailModalViewController = DetailModalViewController(modalView: detailView)
+        
         detailModalViewController.delegate = self
         detailView.setButtonDelegate(detailModalViewController)
         detailModalViewController.modalPresentationStyle = .formSheet
@@ -135,13 +136,11 @@ extension MainViewController: PopoverViewControllerDelegate {
             dataSource?.apply(snapshot)
         }
     }
-    
 }
 
 // MARK: SetUp
 
 extension MainViewController {
-    
     private func setUp() {
         setNavigationBar()
         setTableView()

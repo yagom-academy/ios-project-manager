@@ -13,6 +13,12 @@ protocol ButtonActionDelegate: AnyObject {
 }
 
 final class DetailModalView: UIView {
+    private enum Constant {
+        static let buttonTitleColor: UIColor = .systemBlue
+        static let textFieldBackgroundColor: UIColor = .white
+        static let viewBackgroundColor: UIColor = .white
+        static let textFieldShadowColor: CGColor = UIColor.black.cgColor
+    }
     
     weak var buttonDelegate: ButtonActionDelegate?
     
@@ -38,7 +44,7 @@ final class DetailModalView: UIView {
     private let topLeftButton: UIButton = {
         let button = UIButton()
         button.setTitle("Cancel", for: .normal)
-        button.setTitleColor(UIColor.systemBlue, for: .normal)
+        button.setTitleColor(Constant.buttonTitleColor, for: .normal)
         return button
     }()
     
@@ -52,7 +58,7 @@ final class DetailModalView: UIView {
     private let topRightButton: UIButton = {
         let button = UIButton()
         button.setTitle("Done", for: .normal)
-        button.setTitleColor(UIColor.systemBlue, for: .normal)
+        button.setTitleColor(Constant.buttonTitleColor, for: .normal)
         return button
     }()
     
@@ -72,8 +78,8 @@ final class DetailModalView: UIView {
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.font = .preferredFont(forTextStyle: .title2)
         textField.borderStyle = .none
-        textField.backgroundColor = .white
-        textField.layer.shadowColor = UIColor.black.cgColor
+        textField.backgroundColor = Constant.textFieldBackgroundColor
+        textField.layer.shadowColor = Constant.textFieldShadowColor
         textField.layer.shadowOffset = CGSize(width: 0, height: 4)
         textField.layer.shadowRadius = 5
         textField.layer.shadowOpacity = 0.3
@@ -93,8 +99,8 @@ final class DetailModalView: UIView {
     private let bodyTextView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.backgroundColor = .white
-        textView.layer.shadowColor = UIColor.black.cgColor
+        textView.backgroundColor = Constant.textFieldBackgroundColor
+        textView.layer.shadowColor = Constant.textFieldShadowColor
         textView.layer.shadowOffset = CGSize(width: 0, height: 4)
         textView.layer.shadowRadius = 5
         textView.layer.shadowOpacity = 0.3
@@ -111,7 +117,7 @@ final class DetailModalView: UIView {
     }()
     
     private func setConsantrait() {
-        backgroundColor = .white
+        backgroundColor = Constant.viewBackgroundColor
         addSubview(stackView)
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
