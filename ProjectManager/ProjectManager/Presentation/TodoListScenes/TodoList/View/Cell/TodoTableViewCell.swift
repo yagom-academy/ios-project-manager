@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 import SnapKit
 
@@ -40,6 +41,9 @@ final class TodoTableViewCell: UITableViewCell {
         return label
     }()
     
+    private var viewModel: TodoCellViewModelable?
+    private var cancellables = Set<AnyCancellable>()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setup()
@@ -53,6 +57,32 @@ final class TodoTableViewCell: UITableViewCell {
         super.layoutSubviews()
 
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0))
+    }
+    
+    func bind(_ viewModel: TodoCellViewModelable) {
+        self.viewModel = viewModel
+        
+        viewModel.item
+            .sink { [weak self] item in
+                self?.titleLabel.text = item.title
+                self?.contentLabel.text = item.content
+                self?.deadLineLabel.text = DateManager.shared.formattedString(item.deadLine)
+            }
+            .store(in: &cancellables)
+        
+        viewModel.expired
+            .sink { [weak self] _ in
+                self?.deadLineLabel.textColor = .systemRed
+            }
+            .store(in: &cancellables)
+        
+        viewModel.notExpired
+            .sink { [weak self] _ in
+                self?.deadLineLabel.textColor = .label
+            }
+            .store(in: &cancellables)
+        
+        viewModel.setDateLabelColor()
     }
     
     private func setup() {
@@ -77,15 +107,7 @@ final class TodoTableViewCell: UITableViewCell {
         backgroundColor = .systemGray6
         contentView.backgroundColor = .systemBackground
     }
-        
-    func setupData(with data: TodoListModel) {
-        titleLabel.text = data.title
-        contentLabel.text = data.content
-        deadLineLabel.text = DateManager.shared.formattedString(data.deadLine)
-        
-        setupDeadLineTextColor(deadLine: data.deadLine)
-    }
-    
+
     private func setupDeadLineTextColor(deadLine: Date) {
         if Date() > deadLine {
             deadLineLabel.textColor = .systemRed

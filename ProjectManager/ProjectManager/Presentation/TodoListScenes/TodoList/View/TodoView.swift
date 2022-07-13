@@ -88,7 +88,8 @@ final class TodoView: UIView {
                 for: indexPath
             ) as? TodoTableViewCell
             
-            cell?.setupData(with: itemIdentifier)
+            let viewModel = TodoCellViewModel(itemIdentifier)
+            cell?.bind(viewModel)
             
             return cell
         }
