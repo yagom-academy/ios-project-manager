@@ -9,31 +9,27 @@ import SwiftUI
 
 struct TodoListView: View {
   @State var isShowEditView: Bool = false
+  @ObservedObject var todoService: TodoService
   private let status: Todo.Status
-  private let readList: (Todo.Status) -> [Todo]
   private let updata: (Todo.Status, Todo) -> Void
-  
-  let todoService: TodoService
   
   init(todoService: TodoService,
        status: Todo.Status,
-       readList: @escaping (Todo.Status) -> [Todo],
        updata: @escaping  (Todo.Status, Todo) -> Void) {
     self.todoService = todoService
     self.status = status
-    self.readList = readList
     self.updata = updata
   }
   
   var body: some View {
     
     VStack(spacing: 0) {
-      HeaderView(title: status, listCount: readList(status).count)
+      HeaderView(title: status, listCount: todoService.read(by: status).count)
       
       ZStack {
         Color(UIColor.systemGray5)
         List {
-          ForEach(readList(status)) { todo in
+          ForEach(todoService.read(by: status)) { todo in
             EditViewButton(todo: todo, todoService: todoService, isShowEditView: $isShowEditView, updata: updata)
               .listRowSeparator(.hidden)
           }
@@ -49,10 +45,10 @@ struct TodoListView: View {
 }
 
 struct EditViewButton: View {
-  @ObservedObject var todo: Todo
-  let todoService: TodoService
-  @Binding var isShowEditView: Bool
   @State var isLongPressing = false
+  @Binding var isShowEditView: Bool
+  @ObservedObject var todo: Todo
+  @ObservedObject var todoService: TodoService
   private let updata: (Todo.Status, Todo) -> Void
   
   init(todo: Todo, todoService: TodoService, isShowEditView: Binding<Bool>, updata: @escaping (Todo.Status, Todo) -> Void) {

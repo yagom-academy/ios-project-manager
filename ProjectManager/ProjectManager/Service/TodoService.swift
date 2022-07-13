@@ -32,6 +32,13 @@ class TodoService: ObservableObject {
     return todoList
   }
   
+  func read(by status: Todo.Status) -> [Todo] {
+    let filteredTodo = read().filter { todo in
+      todo.status == status
+    }
+    return filteredTodo
+  }
+  
   func update(todo: Todo) {
     let willChangeTodo = todoList.filter { filteredTodo in
       todo.id == filteredTodo.id

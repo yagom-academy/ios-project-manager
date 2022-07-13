@@ -128,10 +128,10 @@
 			children = (
 				865CFF282877269B00C251F3 /* Enum */,
 				86B5211C287597B8003B83C9 /* Extension */,
-				DAA805B6287D266C001CF270 /* Service */,
 				865CFF272876F41F00C251F3 /* Scene */,
 				DA657CDD28758DE2002DB030 /* View */,
 				DA657CDC28758DD9002DB030 /* ViewModel */,
+				DAA805B6287D266C001CF270 /* Service */,
 				86B5211928758A89003B83C9 /* Model */,
 				C7431F0725F51E1D0094C4CF /* SceneDelegate.swift */,
 				C7431F0525F51E1D0094C4CF /* AppDelegate.swift */,
@@ -174,9 +174,9 @@
 			isa = PBXGroup;
 			children = (
 				DA657CE228759BB6002DB030 /* TodoList.swift */,
-				DAA805B9287D6D08001CF270 /* TodoListPopOver.swift */,
 				DA657CE028758FE5002DB030 /* TodoListCell.swift */,
 				86B5211F2875B8DF003B83C9 /* TodoListHeader.swift */,
+				DAA805B9287D6D08001CF270 /* TodoListPopOver.swift */,
 			);
 			path = AppViewSubviews;
 			sourceTree = "<group>";
