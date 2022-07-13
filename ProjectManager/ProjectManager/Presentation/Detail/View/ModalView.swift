@@ -12,7 +12,6 @@ final class ModalView: UIView {
         let textField = UITextField()
         drawShadow(view: textField, color: .systemGray3)
         textField.placeholder = "title"
-        textField.setContentCompressionResistancePriority(.required, for: .vertical)
         return textField
     }()
     
@@ -26,6 +25,7 @@ final class ModalView: UIView {
     lazy var descriptionTextView: UITextView = {
         let textView = UITextView()
         drawShadow(view: textView, borderWidth: 5, color: .systemGray3)
+        textView.isScrollEnabled = false
         return textView
     }()
     
@@ -34,6 +34,12 @@ final class ModalView: UIView {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         return stackView
+    }()
+    
+    let scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
     }()
     
     override init(frame: CGRect) {
@@ -61,7 +67,9 @@ final class ModalView: UIView {
     }
     
     private func setUpContents() {
-        addSubview(baseStackView)
+        addSubview(scrollView)
+        
+        scrollView.addSubview(baseStackView)
         
         baseStackView.addArrangedSubview(titleTextField)
         baseStackView.addArrangedSubview(datePicker)
@@ -70,14 +78,26 @@ final class ModalView: UIView {
     
     private func setUpLayout() {
         NSLayoutConstraint.activate([
-            baseStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 10),
-            baseStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
-            baseStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
-            baseStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10)
+            scrollView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 10),
+            scrollView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -10),
+            scrollView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 10),
+            scrollView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -10)
+        ])
+
+        NSLayoutConstraint.activate([
+            baseStackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            baseStackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            baseStackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            baseStackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            baseStackView.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor)
         ])
         
         NSLayoutConstraint.activate([
             datePicker.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.25)
+        ])
+        
+        NSLayoutConstraint.activate([
+            descriptionTextView.heightAnchor.constraint(greaterThanOrEqualTo: heightAnchor, multiplier: 0.57)
         ])
     }
     
