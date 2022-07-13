@@ -113,12 +113,12 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		0334E70428770E1400222EB7 /* Infrastructure */ = {
+		0334E70428770E1400222EB7 /* Data */ = {
 			isa = PBXGroup;
 			children = (
 				0334E70528770E3D00222EB7 /* MockStorageManager.swift */,
 			);
-			path = Infrastructure;
+			path = Data;
 			sourceTree = "<group>";
 		};
 		03AB73D72873289000B0C980 /* Main */ = {
@@ -280,7 +280,7 @@
 			children = (
 				0E34F047287C7C0800438285 /* Common */,
 				0ED5C2BC2873239600B8DD67 /* Application */,
-				0334E70428770E1400222EB7 /* Infrastructure */,
+				0334E70428770E1400222EB7 /* Data */,
 				0EA67EC328751DE600E15093 /* Domain */,
 				0ED5C2BB2873236A00B8DD67 /* Presentation */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
