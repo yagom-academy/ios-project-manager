@@ -30,9 +30,11 @@ final class TodoDetailViewController: UIViewController {
     }
     
     override func viewDidDisappear(_ animated: Bool) {
+        viewModel.viewDidDisapper(
+            title: todoDetailView.titleTextField.text,
+            content: todoDetailView.contentTextView.text
+        )
         super.viewDidDisappear(animated)
-        
-        viewModel.viewDidDisapper()
     }
     
     private func bind() {

@@ -12,7 +12,7 @@ protocol TodoDetailViewModelInput {
     func didTapCloseButton()
     func didTapDoneButton(title: String?, content: String?, deadLine: Date?)
     func didTapEditButton()
-    func viewDidDisapper()
+    func viewDidDisapper(title: String?, content: String?)
 }
 
 protocol TodoDetailViewModelOutput {
@@ -56,9 +56,7 @@ extension TodoDetailViewModel {
     // MARK: - Input
     
     func didTapCloseButton() {
-        useCase.deleteLastItem(title: todoListModel.title, content: todoListModel.content)
-        
-        viewDidDisapper()
+        coordinator?.dismiss()
     }
     
     func didTapDoneButton(title: String?, content: String?, deadLine: Date?) {
@@ -83,14 +81,15 @@ extension TodoDetailViewModel {
             )
         )
         
-        viewDidDisapper()
+        coordinator?.dismiss()
     }
     
     func didTapEditButton() {
         isCreate.send(true)
     }
     
-    func viewDidDisapper() {
+    func viewDidDisapper(title: String?, content: String?) {
+        useCase.deleteLastItem(title: title, content: content)
         coordinator?.dismiss()
     }
 }
