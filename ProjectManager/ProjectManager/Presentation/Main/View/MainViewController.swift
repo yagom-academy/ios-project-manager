@@ -9,7 +9,7 @@ import RxSwift
 import RxCocoa
 import RxGesture
 
-final class MainViweController: UIViewController {
+final class MainViewController: UIViewController {
     private let mainView = MainView(frame: .zero)
     private var viewModel = MainViewModel()
     private let disposeBag = DisposeBag()
@@ -194,7 +194,7 @@ final class MainViweController: UIViewController {
     }
 }
 
-extension MainViweController: UITableViewDelegate {
+extension MainViewController: UITableViewDelegate {
     func tableView(
         _ tableView: UITableView,
         leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath

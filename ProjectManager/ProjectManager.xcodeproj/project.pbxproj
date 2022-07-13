@@ -15,7 +15,7 @@
 		0334E70228767EBB00222EB7 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0334E70128767EBB00222EB7 /* DetailViewModel.swift */; };
 		0334E70628770E3D00222EB7 /* MockStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0334E70528770E3D00222EB7 /* MockStorageManager.swift */; };
 		03AB73D62873043000B0C980 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 03AB73D52873043000B0C980 /* .swiftlint.yml */; };
-		03AB73DB2873290400B0C980 /* MainViweController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AB73DA2873290400B0C980 /* MainViweController.swift */; };
+		03AB73DB2873290400B0C980 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AB73DA2873290400B0C980 /* MainViewController.swift */; };
 		03AB73DD2873292900B0C980 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AB73DC2873292900B0C980 /* MainView.swift */; };
 		03AB73E1287331BB00B0C980 /* ProjectTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AB73E0287331BB00B0C980 /* ProjectTableView.swift */; };
 		0E34F04C287C7C5600438285 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E34F04B287C7C5600438285 /* DateFormatter.swift */; };
@@ -43,7 +43,7 @@
 		0334E70128767EBB00222EB7 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		0334E70528770E3D00222EB7 /* MockStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockStorageManager.swift; sourceTree = "<group>"; };
 		03AB73D52873043000B0C980 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
-		03AB73DA2873290400B0C980 /* MainViweController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViweController.swift; sourceTree = "<group>"; };
+		03AB73DA2873290400B0C980 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		03AB73DC2873292900B0C980 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		03AB73E0287331BB00B0C980 /* ProjectTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectTableView.swift; sourceTree = "<group>"; };
 		0E34F04B287C7C5600438285 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
@@ -134,7 +134,7 @@
 		03AB73D8287328B500B0C980 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				03AB73DA2873290400B0C980 /* MainViweController.swift */,
+				03AB73DA2873290400B0C980 /* MainViewController.swift */,
 				03AB73DC2873292900B0C980 /* MainView.swift */,
 				03AB73E0287331BB00B0C980 /* ProjectTableView.swift */,
 				0EA67ECF287674D000E15093 /* ProjectListView.swift */,
@@ -433,7 +433,7 @@
 				033294B2287C713800EE7CBE /* PopOverViewController.swift in Sources */,
 				0334E70228767EBB00222EB7 /* DetailViewModel.swift in Sources */,
 				0334E70628770E3D00222EB7 /* MockStorageManager.swift in Sources */,
-				03AB73DB2873290400B0C980 /* MainViweController.swift in Sources */,
+				03AB73DB2873290400B0C980 /* MainViewController.swift in Sources */,
 				0EA67EC628751ECC00E15093 /* MainViewModel.swift in Sources */,
 				032D3D14287D64EB00A32E57 /* ProjectRepository.swift in Sources */,
 				033294B4287C717700EE7CBE /* PopOverView.swift in Sources */,
