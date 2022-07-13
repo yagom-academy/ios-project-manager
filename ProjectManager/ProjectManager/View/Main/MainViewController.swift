@@ -7,6 +7,7 @@
 import SnapKit
 import RxSwift
 import RxCocoa
+import RxGesture
 
 final class MainViewController: UIViewController {
     private let todoHeaderView = HeaderView(ListType.todo)
@@ -103,6 +104,68 @@ final class MainViewController: UIViewController {
                 self.viewModel.deleteList(index: $0.row, type: type)
             })
             .disposed(by: disposebag)
+        
+        tableView.rx.longPressGesture()
+            .when(.began)
+            .bind(onNext: { [weak self] in
+                let location = $0.location(in: tableView)
+                
+                self?.showAlert(location: location, tableView: tableView, type: type)
+            })
+            .disposed(by: disposebag)
+    }
+    
+    private func makeAlert(index: Int, type: ListType) -> UIAlertController {
+        let alert = UIAlertController(title: nil,
+                                      message: nil,
+                                      preferredStyle: .actionSheet)
+        
+        let firstAction = UIAlertAction(title: type.firstAlertTitle,
+                                        style: .default) { [weak self] _ in
+            self?.viewModel.changeListType(index: index,
+                                           type: type,
+                                           to: type.firstDirection)
+        }
+        
+        let secondAction = UIAlertAction(title: type.secondAlertTitle,
+                                         style: .default) { [weak self] _ in
+            self?.viewModel.changeListType(index: index,
+                                           type: type,
+                                           to: type.secondDirection)
+        }
+        alert.addAction(firstAction)
+        alert.addAction(secondAction)
+        
+        return alert
+    }
+    
+    private func showAlert(location: CGPoint, tableView: UITableView, type: ListType) {
+        guard let indexPath = tableView.indexPathForRow(at: location) else {
+            return
+        }
+        
+        guard let cell = tableView.cellForRow(at: indexPath) else {
+            return
+        }
+        
+        let alert = makeAlert(index: indexPath.row, type: type)
+
+        guard let popovecon = alert.popoverPresentationController else {
+            return
+        }
+
+        popovecon.sourceView = cell
+        
+        let checkLoation = location.y < UIScreen.main.bounds.height * 3 / 5
+        let yPosition = cell.bounds.height / 2
+        
+        popovecon.sourceRect = CGRect(x: 0,
+                                      y: checkLoation ? -yPosition : yPosition,
+                                      width: cell.bounds.width,
+                                      height: cell.bounds.height)
+        popovecon.permittedArrowDirections = checkLoation ? .up : .down
+        
+        self.present(alert, animated: true)
     }
     
     // MARK: - UI Components
