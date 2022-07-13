@@ -12,7 +12,7 @@ final class TodoDetailViewCoordinator: Coordinator {
     weak var parentCoordinator: Coordinator?
     var childCoordinators: [Coordinator] = []
     
-    private let dependencies: TodoListSceneDIContainer
+    private unowned let dependencies: TodoListSceneDIContainer
 
     init(navigationController: UINavigationController, dependencies: TodoListSceneDIContainer) {
         self.navigationController = navigationController
@@ -29,13 +29,11 @@ final class TodoDetailViewCoordinator: Coordinator {
         todoDetailNavigationController.modalPresentationStyle = .formSheet
         
         navigationController.topViewController?.present(todoDetailNavigationController, animated: true)
-        
         self.navigationController = todoDetailNavigationController
     }
     
     func dismiss() {
         navigationController?.dismiss(animated: true)
-        
         parentCoordinator?.childCoordinators.removeAll { $0 === self }
     }
 }

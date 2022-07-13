@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 final class TodoListRepository {
-    private let storage: Storageable
+    private unowned let storage: Storageable
     
     init(storage: Storageable) {
         self.storage = storage

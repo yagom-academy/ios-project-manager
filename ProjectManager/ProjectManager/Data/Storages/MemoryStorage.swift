@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-protocol Storageable {
+protocol Storageable: AnyObject {
     func create(_ item: TodoListModel)
     func read() -> AnyPublisher<[TodoListModel], Never>
     func update(_ item: TodoListModel)

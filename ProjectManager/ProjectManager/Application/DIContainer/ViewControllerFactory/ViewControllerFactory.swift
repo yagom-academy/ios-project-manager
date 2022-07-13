@@ -4,10 +4,11 @@
 //
 //  Created by 조민호 on 2022/07/12.
 //
+import Foundation
 
 final class ViewControllerFactory {
-    private let storage: Storageable
-    private var parentViewModel: TodoListViewModel?
+    private unowned let storage: Storageable
+    private unowned var parentViewModel: TodoListViewModel?
     
     init(storage: Storageable) {
         self.storage = storage

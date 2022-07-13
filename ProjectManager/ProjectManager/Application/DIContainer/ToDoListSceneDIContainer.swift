@@ -9,7 +9,7 @@ import UIKit
 
 final class TodoListSceneDIContainer {
     struct Dependencies {
-        let storage: Storageable
+        unowned let storage: Storageable
     }
     
     private let dependencies: Dependencies
