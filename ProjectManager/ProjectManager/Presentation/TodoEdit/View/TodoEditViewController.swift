@@ -104,9 +104,9 @@ extension TodoEditViewController {
             .withUnretained(self)
             .map { (self, _) in
                 self.editButton.title == Constant.edit
-            }.bind {
-                self.mainView.changeEnabled($0)
-                self.editButton.title = $0 ? Constant.eidting : Constant.edit
+            }.bind { [weak self] in
+                self?.mainView.changeEnabled($0)
+                self?.editButton.title = $0 ? Constant.eidting : Constant.edit
             }.disposed(by: bag)
     }
 }
