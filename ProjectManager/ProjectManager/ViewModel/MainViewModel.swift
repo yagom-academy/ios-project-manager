@@ -76,22 +76,8 @@ extension MainViewModel {
     }
     
     func deleteList(index: Int, type: ListType) {
-        switch type {
-        case .todo:
-            todoList.drive(onNext: {
-                self.storage.deleteList(listItem: $0[index])
-            })
-            .dispose()
-        case .doing:
-            doingList.drive(onNext: {
-                self.storage.deleteList(listItem: $0[index])
-            })
-            .dispose()
-        case .done:
-            doneList.drive(onNext: {
-                self.storage.deleteList(listItem: $0[index])
-            })
-            .dispose()
+        peekList(index: index, type: type) {
+            self.storage.deleteList(listItem: $0)
         }
     }
     
