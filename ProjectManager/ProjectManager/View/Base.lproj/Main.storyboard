@@ -281,7 +281,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Vdj-uY-kTo">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="vnx-wS-2Sk"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="vnx-wS-2Sk">
+                            <connections>
+                                <action selector="addProjectButton:" destination="BYZ-38-t0r" id="8VK-VZ-bDU"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="doingCollectionView" destination="Jbm-4V-DQk" id="rdZ-UN-Rxb"/>
@@ -293,10 +297,10 @@
             </objects>
             <point key="canvasLocation" x="733.18623124448368" y="83.870967741935488"/>
         </scene>
-        <!--View Controller-->
+        <!--Project Add View Controller-->
         <scene sceneID="Kga-rV-dYG">
             <objects>
-                <viewController id="IMI-5b-wRC" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ProjectAddViewController" id="IMI-5b-wRC" customClass="ProjectAddViewController" customModule="ProjectManager" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bAX-6d-PlS">
                         <rect key="frame" x="0.0" y="0.0" width="1133" height="744"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

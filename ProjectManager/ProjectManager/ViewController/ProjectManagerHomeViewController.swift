@@ -52,6 +52,14 @@ final class ProjectManagerHomeViewController: UIViewController {
       date: todolist[indexPath.row].date
     )
   }
+
+  @IBAction func addProjectButton(_ sender: UIBarButtonItem) {
+    guard let projectAddVC = storyboard?.instantiateViewController(
+      withIdentifier: "\(ProjectAddViewController.self)"
+    ) as? ProjectAddViewController else { return }
+
+    navigationController?.present(projectAddVC, animated: true)
+  }
 }
 
 // MARK: - UICollectionViewCompositionalLayout
