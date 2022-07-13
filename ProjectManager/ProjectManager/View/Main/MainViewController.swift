@@ -19,10 +19,12 @@ final class MainViewController: UIViewController {
     private lazy var  doneTableView = listTableView()
     
     private let viewModel: MainViewModelInOut
+    private let container: Container
     private var disposebag = DisposeBag()
     
-    init(viewModel: MainViewModelInOut) {
+    init(viewModel: MainViewModelInOut, container: Container) {
         self.viewModel = viewModel
+        self.container = container
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -51,11 +53,11 @@ final class MainViewController: UIViewController {
     }
     
     @objc private func didTapAddButton() {
-        self.present(Container.shared.makeAddViewController(), animated: true)
+        self.present(container.makeAddViewController(), animated: true)
     }
     
     private func didtapCell(_ listItem: ListItem) {
-        self.present(Container.shared.makeEditViewController(listItem), animated: true)
+        self.present(container.makeEditViewController(listItem), animated: true)
     }
     
     private func setTableView() {

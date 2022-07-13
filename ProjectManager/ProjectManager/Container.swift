@@ -6,11 +6,10 @@
 //
 
 final class Container {
-    static let shared = Container(storage: MockStorage())
     private let storage: Storegeable
     
     func makeMainViewController() -> MainViewController {
-        return MainViewController(viewModel: makeMainViewModel())
+        return MainViewController(viewModel: makeMainViewModel(), container: self)
     }
     
     private func makeMainViewModel() -> MainViewModelInOut {
@@ -29,7 +28,7 @@ final class Container {
         return DetailViewModel(storage: storage)
     }
     
-    private init(storage: Storegeable) {
+    init(storage: Storegeable) {
         self.storage = storage
     }
 }
