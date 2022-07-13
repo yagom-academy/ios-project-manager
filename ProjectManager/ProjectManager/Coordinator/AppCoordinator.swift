@@ -12,7 +12,7 @@ protocol Coordinator: AnyObject {
     func start()
 }
 
-final class MainCoordinator: Coordinator {
+final class AppCoordinator: Coordinator {
     var navigationController: UINavigationController
     private var detailViewController: DetailViewController?
     private let dataBase = TempDataBase()

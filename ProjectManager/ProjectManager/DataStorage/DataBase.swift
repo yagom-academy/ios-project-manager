@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import TodoListViewModel_Fixture
 
 import RxRelay
 
@@ -27,25 +26,31 @@ final class TempDataBase: DataBase {
     }
     
     private func fetch() -> [Todo] {
-            let tempTodoStatus = self.tempTodoData["status"]
-            let tempTodoTitle = self.tempTodoData["title"]
-            let tempTodoDescription = self.tempTodoData["description"]
-
-            let tempDoneStatus = self.tempDoneData["status"]
-            let tempDoneTitle = self.tempDoneData["title"]
-            let tempDoneDescription = self.tempDoneData["description"]
-
-            let tempDoingStatus = self.tempDoingData["status"]
-            let tempDoingTitle = self.tempDoingData["title"]
-            let tempDoingDescription = self.tempDoingData["description"]
-
-            let tempTodoData = [
-                Todo(todoListItemStatus: TodoListItemStatus(rawValue: tempTodoStatus!)!, title: tempTodoTitle!, description: tempTodoDescription!, date: Date()),
-                Todo(todoListItemStatus: TodoListItemStatus(rawValue: tempDoneStatus!)!, title: tempDoneTitle!, description: tempDoneDescription!, date: Date()),
-                Todo(todoListItemStatus: TodoListItemStatus(rawValue: tempDoingStatus!)!, title: tempDoingTitle!, description: tempDoingDescription!, date: Date())
-            ]
-            
-            return tempTodoData
+        guard let tempTodoStatus = self.tempTodoData["todoListItemStatus"],
+              let tempTodoTitle = self.tempTodoData["title"],
+              let tempTodoDescription = self.tempTodoData["description"] else {
+            return [Todo(todoListItemStatus: .todo, title: "", description: "", date: Date())]
+        }
+        
+        guard let tempDoneStatus = self.tempDoneData["todoListItemStatus"],
+              let tempDoneTitle = self.tempDoneData["title"],
+              let tempDoneDescription = self.tempDoneData["description"] else {
+            return [Todo(todoListItemStatus: .done, title: "", description: "", date: Date())]
+        }
+        
+        guard let tempDoingStatus = self.tempDoingData["todoListItemStatus"],
+              let tempDoingTitle = self.tempDoingData["title"],
+              let tempDoingDescription = self.tempDoingData["description"] else {
+            return [Todo(todoListItemStatus: .doing, title: "", description: "", date: Date())]
+        }
+        
+        let tempTodoData = [
+            Todo(todoListItemStatus: TodoListItemStatus(rawValue: tempTodoStatus) ?? TodoListItemStatus.todo, title: tempTodoTitle, description: tempTodoDescription, date: Date()),
+            Todo(todoListItemStatus: TodoListItemStatus(rawValue: tempDoneStatus) ?? TodoListItemStatus.done, title: tempDoneTitle, description: tempDoneDescription, date: Date()),
+            Todo(todoListItemStatus: TodoListItemStatus(rawValue: tempDoingStatus) ?? TodoListItemStatus.doing, title: tempDoingTitle, description: tempDoingDescription, date: Date())
+        ]
+        
+        return tempTodoData
     }
     
     func save(todoListData: [Todo]) {
