@@ -6,12 +6,6 @@
 
 import UIKit
 
-struct TaskInfo {
-    let task: Task
-    let type: TaskType
-    let indexPath: IndexPath
-}
-
 class MainViewController: UIViewController {
     private typealias TableViewDataSource = UITableViewDiffableDataSource<Int, Task>
     private typealias Snapshot = NSDiffableDataSourceSnapshot<Int, Task>
