@@ -58,17 +58,17 @@ extension MainViewModel {
     func peekList(index: Int, type: ListType, completion: @escaping ((ListItem) -> Void)) {
         switch type {
         case .todo:
-            _ = todoList.drive(onNext: {
+            todoList.drive(onNext: {
                 completion($0[index])
             })
             .dispose()
         case .doing:
-            _ = doingList.drive(onNext: {
+            doingList.drive(onNext: {
                 completion($0[index])
             })
             .dispose()
         case .done:
-            _ = doneList.drive(onNext: {
+            doneList.drive(onNext: {
                 completion($0[index])
             })
             .dispose()
@@ -78,22 +78,21 @@ extension MainViewModel {
     func deleteList(index: Int, type: ListType) {
         switch type {
         case .todo:
-            _ = todoList.drive(onNext: {
+            todoList.drive(onNext: {
                 self.storage.deleteList(listItem: $0[index])
             })
             .dispose()
         case .doing:
-            _ = doingList.drive(onNext: {
+            doingList.drive(onNext: {
                 self.storage.deleteList(listItem: $0[index])
             })
             .dispose()
         case .done:
-            _ = doneList.drive(onNext: {
+            doneList.drive(onNext: {
                 self.storage.deleteList(listItem: $0[index])
             })
             .dispose()
         }
-
     }
     
     func changeListType(listItem: ListItem, type: ListType) {
