@@ -33,7 +33,7 @@ final class TodoListViewModel: TodoListViewModelable {
     private weak var coordinator: TodoListViewCoordinator?
     private let useCase: TodoListUseCaseable
     
-    init(coordinator: TodoListViewCoordinator, useCase: TodoListUseCaseable) {
+    init(coordinator: TodoListViewCoordinator? = nil, useCase: TodoListUseCaseable) {
         self.useCase = useCase
         self.coordinator = coordinator
     }

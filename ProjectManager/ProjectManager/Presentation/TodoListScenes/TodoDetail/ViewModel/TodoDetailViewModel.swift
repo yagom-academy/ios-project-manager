@@ -41,7 +41,7 @@ final class TodoDetailViewModel: TodoDetailViewModelable {
     private let todoListModel: TodoListModel
     private let useCase: TodoListUseCaseable
     
-    init(useCase: TodoListUseCaseable, todoListModel: TodoListModel, coordinator: TodoDetailViewCoordinator?) {
+    init(useCase: TodoListUseCaseable, todoListModel: TodoListModel, coordinator: TodoDetailViewCoordinator? = nil) {
         self.useCase = useCase
         self.todoListModel = todoListModel
         self.coordinator = coordinator

@@ -45,7 +45,10 @@ final class TodoViewModel: TodoViewModelable {
         self.items = filteredItems(with: processType, items: items)
     }
     
-    private func filteredItems(with type: ProcessType, items: AnyPublisher<[TodoListModel], Never>) -> AnyPublisher<[TodoListModel], Never> {
+    private func filteredItems(
+        with type: ProcessType,
+        items: AnyPublisher<[TodoListModel], Never>
+    ) -> AnyPublisher<[TodoListModel], Never> {
         return items
             .compactMap { item in
                 return item.filter { $0.processType == type }

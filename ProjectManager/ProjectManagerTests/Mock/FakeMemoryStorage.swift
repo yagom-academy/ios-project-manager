@@ -1,5 +1,5 @@
 //
-//  MemoryStoregeMock.swift
+//  FakeMemoryStorage.swift
 //  ProjectManagerTests
 //
 //  Created by 조민호 on 2022/07/08.
@@ -9,7 +9,7 @@ import Combine
 import Foundation
 @testable import ProjectManager
 
-final class MemoryStorageMock: Storageable {
+final class FakeMemoryStorage: Storageable {
     @Published private var items: [TodoListModel] = [
         TodoListModel(title: "1", content: "1", deadLine: Date(), id: "1"),
         TodoListModel(title: "2", content: "2", deadLine: Date(), id: "2"),
@@ -31,8 +31,6 @@ final class MemoryStorageMock: Storageable {
     }
     
     func delete(_ item: TodoListModel) {
-        if let targetIndex = items.firstIndex(where: { $0.id == item.id }) {
-            items.remove(at: targetIndex)
-        }
+        items.removeAll { $0.id == item.id }
     }
 }

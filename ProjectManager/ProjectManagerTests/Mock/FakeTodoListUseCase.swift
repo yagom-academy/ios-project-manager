@@ -8,8 +8,8 @@
 import Combine
 @testable import ProjectManager
 
-final class TodoListUseCaseMock: TodoListUseCaseable {
-    let repository: TodoListRepositorible = TodoListRepositoryMock()
+final class FakeTodoListUseCase: TodoListUseCaseable {
+    let repository: TodoListRepositorible = FakeTodoListRepository()
     
     func create(_ item: TodoListModel) {
         repository.create(item)
@@ -27,7 +27,7 @@ final class TodoListUseCaseMock: TodoListUseCaseable {
         repository.delete(item: item)
     }
     
-    func deleteLastItem() {
+    func deleteLastItem(title: String?, content: String?) {
         repository.deleteLastItem()
     }
 }

@@ -10,7 +10,7 @@ import Combine
 @testable import ProjectManager
 
 class TodoDetailViewModelTests: XCTestCase {
-    let useCase = TodoListUseCaseMock()
+    let useCase = FakeTodoListUseCase()
     var todoListViewModel: TodoListViewModel!
     var viewModel: TodoDetailViewModel!
 
@@ -19,7 +19,7 @@ class TodoDetailViewModelTests: XCTestCase {
         todoListViewModel = TodoListViewModel(useCase: useCase)
     }
 
-    func test_todoListModel의title과content가비어있는상태에서_closeButtonDidTap하면_마지막아이템이지워진다() {
+    func test_todoListModel의title과content가비어있는상태에서_viewDidDisppear하면_마지막아이템이지워진다() {
         // given
         viewModel = TodoDetailViewModel(useCase: useCase, todoListModel: TodoListModel(title: "", content: "", deadLine: Date()))
         
@@ -28,8 +28,8 @@ class TodoDetailViewModelTests: XCTestCase {
         var result = 0
         
         // when
-        viewModel.didTapCloseButton()
-        _ = todoListViewModel.todoItems.sink { items in
+        viewModel.viewDidDisapper(title: "", content: "")
+        _ = todoListViewModel.items.sink { items in
             result = items.count
             expectation.fulfill()
         }
@@ -48,8 +48,8 @@ class TodoDetailViewModelTests: XCTestCase {
         var result: (title: String, content: String) = ("", "")
 
         // when
-        viewModel.doneButtonDidTap(title: expected, content: expected, deadLine: Date())
-        _ = todoListViewModel.todoItems.sink { items in
+        viewModel.didTapDoneButton(title: expected, content: expected, deadLine: Date())
+        _ = todoListViewModel.items.sink { items in
             let item = items.first(where: { $0.id == "3" })!
             result = (item.title, item.content)
             expectation.fulfill()
