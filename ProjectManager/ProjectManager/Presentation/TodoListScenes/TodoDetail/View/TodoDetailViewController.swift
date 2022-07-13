@@ -46,7 +46,7 @@ final class TodoDetailViewController: UIViewController {
             }
             .store(in: &cancellables)
         
-        viewModel.isCreate
+        viewModel.isCreated
             .sink { [weak self] state in
                 self?.todoDetailView.setupUserInteractionEnabled(state)
                 self?.setupNavigationLeftBarButtonItem(state)

@@ -17,7 +17,7 @@ protocol TodoDetailViewModelInput {
 
 protocol TodoDetailViewModelOutput {
     var item: Just<TodoListModel> { get }
-    var isCreate: CurrentValueSubject<Bool, Never> { get }
+    var isCreated: CurrentValueSubject<Bool, Never> { get }
     var title: CurrentValueSubject<String, Never> { get }
 }
 
@@ -31,7 +31,7 @@ final class TodoDetailViewModel: TodoDetailViewModelable {
         return Just(todoListModel)
     }
     
-    let isCreate = CurrentValueSubject<Bool, Never>(true)
+    let isCreated = CurrentValueSubject<Bool, Never>(true)
     let title = CurrentValueSubject<String, Never>("TODO")
 
     private weak var coordinator: TodoDetailViewCoordinator?
@@ -43,7 +43,7 @@ final class TodoDetailViewModel: TodoDetailViewModelable {
         self.todoListModel = todoListModel
         self.coordinator = coordinator
         
-        isCreate.send(todoListModel.title.isEmpty && todoListModel.content.isEmpty)
+        isCreated.send(todoListModel.title.isEmpty && todoListModel.content.isEmpty)
     }
 }
 
@@ -81,7 +81,7 @@ extension TodoDetailViewModel {
     }
     
     func didTapEditButton() {
-        isCreate.send(true)
+        isCreated.send(true)
     }
     
     func viewDidDisapper(title: String?, content: String?) {
