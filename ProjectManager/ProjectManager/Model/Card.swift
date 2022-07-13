@@ -30,6 +30,14 @@ enum CardType: CustomStringConvertible {
       return "MOVE TO DONE"
     }
   }
+  
+  var distinguishMenuType: [CardType] {
+    switch self {
+    case .todo: return [.doing, .done]
+    case .doing: return [.todo, .done]
+    case .done: return [.todo, .doing]
+    }
+  }
 }
 
 struct Card: Equatable {

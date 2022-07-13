@@ -7,37 +7,39 @@
 
 import UIKit
 
-import RxSwift
-
-extension UIAlertController {
+extension UIAlertController: PopOverable {
   struct AlertAction {
     let title: String
     let style: UIAlertAction.Style = .default
   }
   
-  static func present(
-    _ presenter: UIViewController,
-    title: String? = nil,
-    message: String? = nil,
-    preferredStyle: UIAlertController.Style = .actionSheet,
-    actions: [AlertAction],
-    _ block: ((UIAlertController) -> Void)? = nil
-  ) -> Observable<Int> {
-    return Single.create { observer in
-      let alert = UIAlertController(title: title, message: message, preferredStyle: preferredStyle)
-      block?(alert)
-      
-      actions.enumerated().forEach { index, action in
-        let action = UIAlertAction(title: action.title, style: action.style) { _ in
-          observer(.success(index))
-        }
-        alert.addAction(action)
-      }
-      presenter.present(alert, animated: true)
-      
-      return Disposables.create {
-        alert.dismiss(animated: true)
-      }
-    }.asObservable()
+  struct AlertConfiguration {
+    let title: String?
+    let message: String?
+    let preferredStyle: UIAlertController.Style
+    let actions: [AlertAction]
+    
+    init(
+      title: String? = nil,
+      message: String? = nil,
+      preferredStyle: UIAlertController.Style = .actionSheet,
+      actions: [AlertAction]
+    ) {
+      self.title = title
+      self.message = message
+      self.preferredStyle = preferredStyle
+      self.actions = actions
+    }
+  }
+}
+
+// MARK: - Extensions
+
+extension UIAlertController.AlertConfiguration {
+  init(card: Card) {
+    let actions = card.cardType.distinguishMenuType
+      .map { $0.moveToMenuTitle }
+      .map { UIAlertController.AlertAction(title: $0) }
+    self.init(actions: actions)
   }
 }

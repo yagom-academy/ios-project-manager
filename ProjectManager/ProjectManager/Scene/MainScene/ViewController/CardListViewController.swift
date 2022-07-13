@@ -172,36 +172,16 @@ final class CardListViewController: UIViewController {
       doingSectionView.tableView.rx.modelLongPressed(Card.self).asObservable(),
       doneSectionView.tableView.rx.modelLongPressed(Card.self).asObservable()
     )
-    .flatMap { [weak self] cell, card -> Observable<(Card, CardType)> in
-      guard let self = self else { return Observable.empty() }
-      
-      let menuTypes = self.distinguishMenuType(of: card)
-      let actions = menuTypes
-        .map { $0.moveToMenuTitle }
-        .map { UIAlertController.AlertAction(title: $0) }
-      
-      let actionDidTapEvent = UIAlertController.present(self, actions: actions) { alert in
-        let sourceRect = CGRect(x: cell.bounds.midX, y: cell.bounds.midY, width: .zero, height: .zero)
-        alert.modalPresentationStyle = .popover
-        alert.popoverPresentationController?.permittedArrowDirections = .up
-        alert.popoverPresentationController?.sourceView = cell
-        alert.popoverPresentationController?.sourceRect = sourceRect
-      }.map { menuTypes[$0] }
-      
-      return Observable.zip(Observable.just(card), actionDidTapEvent)
+    .flatMap { [weak self] cell, card in
+      Observable.zip(
+        Observable.just(card),
+        UIAlertController.presentPopOver(self, with: .init(card: card), on: cell)
+      )
     }
-    .bind(onNext: { [weak self] card, cardType in
-      self?.viewModel.moveDifferentSection(card, to: cardType)
+    .bind(onNext: { [weak self] card, index in
+      self?.viewModel.moveDifferentSection(card, to: index)
     })
     .disposed(by: disposeBag)
-  }
-  
-  private func distinguishMenuType(of card: Card) -> [CardType] {
-    switch card.cardType {
-    case .todo: return [.doing, .done]
-    case .doing: return [.todo, .done]
-    case .done: return [.todo, .doing]
-    }
   }
 }
 

@@ -15,7 +15,7 @@ protocol CardListViewModelInput {
   func createNewCard(_ card: Card)
   func updateSelectedCard(_ card: Card)
   func deleteSelectedCard(_ card: Card)
-  func moveDifferentSection(_ card: Card, to cardType: CardType)
+  func moveDifferentSection(_ card: Card, to index: Int)
 }
 
 protocol CardListViewModelOutput {
@@ -82,9 +82,9 @@ final class DefaultCardListViewModel: CardListViewModelable {
     cards.accept(cards.value.filter { $0.id != card.id })
   }
   
-  func moveDifferentSection(_ card: Card, to cardType: CardType) {
+  func moveDifferentSection(_ card: Card, to index: Int) {
     var newCard = card
-    newCard.cardType = cardType
+    newCard.cardType = card.cardType.distinguishMenuType[index]
     self.updateSelectedCard(newCard)
   }
 }
