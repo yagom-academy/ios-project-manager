@@ -7,9 +7,11 @@
 import UIKit
 import SnapKit
 import RxSwift
+import RxRelay
 import RxGesture
 
 final class MainViewController: UIViewController, UIPopoverPresentationControllerDelegate {
+    
     fileprivate enum Constants {
         static let title: String = "Project Manager"
         static let plus: String = "plus"
@@ -117,7 +119,7 @@ extension MainViewController {
     
     private func bindcellItems() {
         viewModel.todos
-            .bind(to: mainView.todoTableView.rx.items(
+            .bind(to: mainView.todoView.taskTableView.rx.items(
                 cellIdentifier: TaskTableViewCell.identifier,
                 cellType: TaskTableViewCell.self)
             ) { [weak self] (row, _, cell) in
@@ -128,7 +130,7 @@ extension MainViewController {
         .disposed(by: disposeBag)
         
         viewModel.doings
-            .bind(to: mainView.doingTableView.rx.items(
+            .bind(to: mainView.doingView.taskTableView.rx.items(
                 cellIdentifier: TaskTableViewCell.identifier,
                 cellType: TaskTableViewCell.self)
             ) { [weak self] (row, _, cell) in
@@ -139,7 +141,7 @@ extension MainViewController {
         .disposed(by: disposeBag)
         
         viewModel.dones
-            .bind(to: mainView.doneTableView.rx.items(
+            .bind(to: mainView.doneView.taskTableView.rx.items(
                 cellIdentifier: TaskTableViewCell.identifier,
                 cellType: TaskTableViewCell.self)
             ) { [weak self] (row, _, cell) in
@@ -150,123 +152,76 @@ extension MainViewController {
         .disposed(by: disposeBag)
     }
     
+    private func matchTaskType(taskType: TaskType) -> BehaviorRelay<[Task]> {
+        switch taskType {
+        case .todo:
+            return self.viewModel.todos
+        case .doing:
+            return self.viewModel.doings
+        case .done:
+            return self.viewModel.dones
+        }
+    }
+    
     private func bindHeaderViewLabels() {
         viewModel.todos
             .map { String($0.count) }
-            .bind(to: mainView.todoHeaderView.taskCountLabel.rx.text)
+            .bind(to: mainView.todoView.taskHeaderView.taskCountLabel.rx.text)
             .disposed(by: disposeBag)
         
         viewModel.doings
             .map { String($0.count) }
-            .bind(to: mainView.doingHeaderView.taskCountLabel.rx.text)
+            .bind(to: mainView.doingView.taskHeaderView.taskCountLabel.rx.text)
             .disposed(by: disposeBag)
         
         viewModel.dones
             .map { String($0.count) }
-            .bind(to: mainView.doneHeaderView.taskCountLabel.rx.text)
+            .bind(to: mainView.doneView.taskHeaderView.taskCountLabel.rx.text)
             .disposed(by: disposeBag)
     }
     
     private func bindItemsSelected() {
-        mainView.todoTableView.rx.itemSelected
-            .subscribe(onNext: { [weak self] indexPath in
-                self?.mainView.todoTableView.deselectRow(
-                    at: indexPath,
-                    animated: true
-                )
-                if let task = self?.viewModel.todos.value[indexPath.row] {
-                    self?.showEditFormSheetView(task: task)
-                }
-            })
-            .disposed(by: disposeBag)
-        
-        mainView.doingTableView.rx.itemSelected
-            .subscribe(onNext: { [weak self] indexPath in
-                self?.mainView.doingTableView.deselectRow(
-                    at: indexPath,
-                    animated: true
-                )
-                if let task = self?.viewModel.doings.value[indexPath.row] {
-                    self?.showEditFormSheetView(task: task)
-                }
-            })
-            .disposed(by: disposeBag)
-        
-        mainView.doneTableView.rx.itemSelected
-            .subscribe(onNext: { [weak self] indexPath in
-                self?.mainView.doneTableView.deselectRow(
-                    at: indexPath,
-                    animated: true
-                )
-                if let task = self?.viewModel.dones.value[indexPath.row] {
-                    self?.showEditFormSheetView(task: task)
-                }
-            })
-            .disposed(by: disposeBag)
+        [mainView.todoView, mainView.doingView, mainView.doneView].forEach {
+            let section = $0
+            let tableView = $0.taskTableView
+            tableView.rx.itemSelected
+                .subscribe(onNext: { [weak self] indexPath in
+                    tableView.deselectRow(at: indexPath, animated: true)
+                    if let task = self?.matchTaskType(
+                        taskType: section.taskType
+                    ).value[indexPath.row] {
+                        self?.showEditFormSheetView(task: task)
+                    }
+                })
+                .disposed(by: disposeBag)
+        }
     }
     
     private func bindItemsDeleted() {
-        mainView.todoTableView.rx.itemDeleted
-            .subscribe(onNext: { [weak self] indexPath in
-                self?.viewModel.cellItemDeleted(at: indexPath, taskType: .todo)
-            })
-            .disposed(by: disposeBag)
-        
-        mainView.doingTableView.rx.itemDeleted
-            .subscribe(onNext: { [weak self] indexPath in
-                self?.viewModel.cellItemDeleted(at: indexPath, taskType: .doing)
-            })
-            .disposed(by: disposeBag)
-        
-        mainView.doneTableView.rx.itemDeleted
-            .subscribe(onNext: { [weak self] indexPath in
-                self?.viewModel.cellItemDeleted(at: indexPath, taskType: .done)
-            })
-            .disposed(by: disposeBag)
+        [mainView.todoView, mainView.doingView, mainView.doneView].forEach {
+            let section = $0
+            let tableView = $0.taskTableView
+            tableView.rx.itemDeleted
+                .subscribe(onNext: { [weak self] indexPath in
+                    self?.viewModel.cellItemDeleted(at: indexPath, taskType: section.taskType)
+                })
+                .disposed(by: disposeBag)
+        }
     }
     
     private func bindLongPressGestures() {
-        mainView.todoTableView.rx.longPressGesture()
-            .when(.began)
-            .map { $0.location(in: self.mainView.todoTableView) }
-            .subscribe(onNext: { [weak self] in
-                guard let self = self else {
-                    return
-                }
-                guard let cell = self.cell(at: $0, from: self.mainView.todoTableView) else {
-                    return
-                }
-                self.showPopoverView(at: cell)
-            })
-            .disposed(by: disposeBag)
-        
-        mainView.doingTableView.rx.longPressGesture()
-            .when(.began)
-            .map { $0.location(in: self.mainView.doingTableView) }
-            .subscribe(onNext: { [weak self] in
-                guard let self = self else {
-                    return
-                }
-                guard let cell = self.cell(at: $0, from: self.mainView.doingTableView) else {
-                    return
-                }
-                self.showPopoverView(at: cell)
-            })
-            .disposed(by: disposeBag)
-        
-        mainView.doneTableView.rx.longPressGesture()
-            .when(.began)
-            .map { $0.location(in: self.mainView.doneTableView) }
-            .subscribe(onNext: { [weak self] in
-                guard let self = self else {
-                    return
-                }
-                guard let cell = self.cell(at: $0, from: self.mainView.doneTableView) else {
-                    return
-                }
-                self.showPopoverView(at: cell)
-            })
-            .disposed(by: disposeBag)
+        [mainView.todoView, mainView.doingView, mainView.doneView].forEach {
+            let tableView = $0.taskTableView
+            tableView.rx.longPressGesture()
+                .when(.began)
+                .map { $0.location(in: tableView) }
+                .subscribe(onNext: { [weak self] in
+                    guard let self = self else { return }
+                    guard let cell = self.cell(at: $0, from: tableView) else { return }
+                    self.showPopoverView(at: cell)
+                })
+                .disposed(by: disposeBag)
+        }
     }
 }
 

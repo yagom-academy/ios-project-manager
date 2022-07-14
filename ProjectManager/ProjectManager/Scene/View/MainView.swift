@@ -9,29 +9,13 @@ import UIKit
 
 final class MainView: UIView {
     
-    private(set) lazy var todoHeaderView = TaskHeaderView(taskType: .todo)
-    private(set) lazy var doingHeaderView = TaskHeaderView(taskType: .doing)
-    private(set) lazy var doneHeaderView = TaskHeaderView(taskType: .done)
-    
-    private(set) lazy var todoTableView = generateTableView()
-    private(set) lazy var doingTableView = generateTableView()
-    private(set) lazy var doneTableView = generateTableView()
-    
+    private(set) lazy var todoView = TaskSectionView(taskType: .todo)
+    private(set) lazy var doingView = TaskSectionView(taskType: .doing)
+    private(set) lazy var doneView = TaskSectionView(taskType: .done)
+
     private let baseStackView = UIStackView().then {
         $0.spacing = 15
         $0.distribution = .fillEqually
-    }
-    
-    private let todoStackView = UIStackView().then {
-        $0.axis = .vertical
-    }
-    
-    private let doingStackView = UIStackView().then {
-        $0.axis = .vertical
-    }
-    
-    private let doneStackView = UIStackView().then {
-        $0.axis = .vertical
     }
 
     init() {
@@ -48,45 +32,15 @@ final class MainView: UIView {
     private func setupSubViews() {
         addSubview(baseStackView)
         
-        baseStackView.addArrangedSubview(todoStackView)
-        baseStackView.addArrangedSubview(doingStackView)
-        baseStackView.addArrangedSubview(doneStackView)
-    
-        todoStackView.addArrangedSubview(todoHeaderView)
-        todoStackView.addArrangedSubview(todoTableView)
-
-        doingStackView.addArrangedSubview(doingHeaderView)
-        doingStackView.addArrangedSubview(doingTableView)
-
-        doneStackView.addArrangedSubview(doneHeaderView)
-        doneStackView.addArrangedSubview(doneTableView)
+        baseStackView.addArrangedSubview(todoView)
+        baseStackView.addArrangedSubview(doingView)
+        baseStackView.addArrangedSubview(doneView)
     }
     
     private func setupUILayout() {
         baseStackView.snp.makeConstraints {
             $0.top.equalTo(safeAreaLayoutGuide)
             $0.leading.trailing.bottom.equalToSuperview()
-        }
-        
-        let baseStackViewHeight = baseStackView.snp.height
-        todoHeaderView.snp.makeConstraints {
-            $0.height.equalTo(baseStackViewHeight).multipliedBy(0.1)
-        }
-        doingHeaderView.snp.makeConstraints {
-            $0.height.equalTo(baseStackViewHeight).multipliedBy(0.1)
-        }
-        doneHeaderView.snp.makeConstraints {
-            $0.height.equalTo(baseStackViewHeight).multipliedBy(0.1)
-        }
-    }
-    
-    private func generateTableView() -> UITableView {
-        return UITableView().then {
-            $0.backgroundColor = .systemGray6
-            $0.register(
-                TaskTableViewCell.self,
-                forCellReuseIdentifier: TaskTableViewCell.identifier
-            )
         }
     }
 }

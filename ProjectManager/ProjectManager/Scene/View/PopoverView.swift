@@ -8,10 +8,11 @@
 import UIKit
 
 final class PopoverView: UIView {
+    
     fileprivate enum Constants {
         static let moveToToDoTitle: String = "Move to TODO"
-        static let moveToDoingTitle: String = "Move to Doing"
-        static let moveToDoneTitle: String = "Move to Done"
+        static let moveToDoingTitle: String = "Move to DOING"
+        static let moveToDoneTitle: String = "Move to DONE"
     }
     
     private let baseStackView = UIStackView().then {
