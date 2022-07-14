@@ -20,9 +20,9 @@ struct RealmManager {
         }
     }
     
-    func fetch(taskType: TaskType) -> [Task] {
+    func fetchTasks(type: TaskType) -> [Task] {
         let result = realm?.objects(Task.self).where {
-            $0.taskType == taskType
+            $0.taskType == type
         }
         guard let tasks = result else { return [] }
         return tasks.filter { $0 == $0 }
@@ -48,10 +48,10 @@ struct RealmManager {
         }
     }
     
-    func change(task: Task, taskType: TaskType) {
+    func change(task: Task, targetType: TaskType) {
         do {
             try realm?.write {
-                task.taskType = taskType
+                task.taskType = targetType
                 realm?.add(task, update: .modified)
             }
         } catch {

@@ -30,18 +30,18 @@ final class EditFormSheetViewModel: EditFormSheetViewModelInput, EditFormSheetVi
     private let realmManager = RealmManager()
 
     func editButtonTapped(task: Task) {
-        editToTempModel(task: task)
+        modifyEditableTask(task: task)
         dismiss.accept(())
     }
     
-    func editToTempModel(task: Task) {
-        let editProject = Task(
+    func modifyEditableTask(task: Task) {
+        let editableTask = Task(
             title: title.value,
             body: body.value,
             date: date.value,
             taskType: task.taskType,
             id: task.id
         )
-        realmManager.update(task: editProject)
+        realmManager.update(task: editableTask)
     }
 }

@@ -56,17 +56,17 @@ final class MainViewModel: MainViewModelInput, MainViewModelOutput {
     }
         
     private func fetchToDo() {
-        let todos = realmManager.fetch(taskType: .todo)
+        let todos = realmManager.fetchTasks(type: .todo)
         self.todos.accept(todos)
     }
     
     private func fetchDoing() {
-        let doings = realmManager.fetch(taskType: .doing)
+        let doings = realmManager.fetchTasks(type: .doing)
         self.doings.accept(doings)
     }
     
     private func fetchDone() {
-        let dones = realmManager.fetch(taskType: .done)
+        let dones = realmManager.fetchTasks(type: .done)
         self.dones.accept(dones)
     }
 }

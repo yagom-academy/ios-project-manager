@@ -28,6 +28,6 @@ final class PopoverViewModel: PopoverViewModelInput, PopoverViewModelOutput {
     }
 
     private func changeTaskType(_ task: Task, taskType: TaskType) {
-        realmManager.change(task: task, taskType: taskType)
+        realmManager.change(task: task, targetType: taskType)
     }
 }

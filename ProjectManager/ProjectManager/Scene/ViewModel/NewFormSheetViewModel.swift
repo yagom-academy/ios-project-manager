@@ -31,18 +31,18 @@ final class NewFormSheetViewModel: NewFormSheetViewModelInput, NewFormSheetViewM
     private let uuid = UUID().uuidString
     
     func doneButtonTapped() {
-        saveToTempModel()
+        registerNewTask()
         dismiss.accept(())
     }
     
-    private func saveToTempModel() {
-        let newProject = Task(
+    private func registerNewTask() {
+        let newTask = Task(
             title: title.value,
             body: body.value,
             date: date.value,
             taskType: .todo,
             id: uuid
         )
-        realmManager.create(task: newProject)
+        realmManager.create(task: newTask)
     }
 }
