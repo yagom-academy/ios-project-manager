@@ -5,7 +5,7 @@
 //  Created by 김동욱 on 2022/07/05.
 //
 
-import Foundation
+import UIKit
 
 import RxCocoa
 import RxRelay
@@ -63,5 +63,24 @@ final class TodoListViewModel {
     
     func cellDeleteEvent(selectedTodo: Todo) {
         self.dataBase.delete(todoID: selectedTodo.identifier)
+    }
+    
+    func distinguishMenuType(of todo: Todo) -> (TodoListItemStatus, TodoListItemStatus) {
+        switch todo.todoListItemStatus {
+        case .todo: return (.doing, .done)
+        case .doing: return (.todo, .done)
+        case .done: return (.todo, .doing)
+        }
+    }
+    
+    func moveDifferentSection(to: TodoListItemStatus, selectedCell: Todo) {
+        var selectedTodo = selectedCell
+        
+        guard let newStatus = TodoListItemStatus(rawValue: to.rawValue) else {
+            return
+        }
+        
+        selectedTodo.todoListItemStatus = newStatus
+        self.dataBase.update(todo: selectedTodo)
     }
 }
