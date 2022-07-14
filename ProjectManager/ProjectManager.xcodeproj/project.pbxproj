@@ -22,6 +22,7 @@
 		E5B4720C287EF51300640EC4 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B4720B287EF51300640EC4 /* UIView+Extension.swift */; };
 		E5B4720E287F03AC00640EC4 /* ProjectCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B4720D287F03AC00640EC4 /* ProjectCategory.swift */; };
 		E5B47211287F397E00640EC4 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B47210287F397E00640EC4 /* Project.swift */; };
+		E5B47213288041B300640EC4 /* RealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B47212288041B300640EC4 /* RealmService.swift */; };
 		E5D91966287B46C4000379C6 /* ProjectManagerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D91965287B46C4000379C6 /* ProjectManagerCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +46,7 @@
 		E5B4720B287EF51300640EC4 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		E5B4720D287F03AC00640EC4 /* ProjectCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectCategory.swift; sourceTree = "<group>"; };
 		E5B47210287F397E00640EC4 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
+		E5B47212288041B300640EC4 /* RealmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmService.swift; sourceTree = "<group>"; };
 		E5D91965287B46C4000379C6 /* ProjectManagerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -133,6 +135,7 @@
 			isa = PBXGroup;
 			children = (
 				E5B47210287F397E00640EC4 /* Project.swift */,
+				E5B47212288041B300640EC4 /* RealmService.swift */,
 			);
 			path = Realm;
 			sourceTree = "<group>";
@@ -315,6 +318,7 @@
 				E582B9E1287EAFA200F13416 /* ProjectAddViewController.swift in Sources */,
 				E5B4720E287F03AC00640EC4 /* ProjectCategory.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
+				E5B47213288041B300640EC4 /* RealmService.swift in Sources */,
 				E5B4720C287EF51300640EC4 /* UIView+Extension.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				E5B47211287F397E00640EC4 /* Project.swift in Sources */,
