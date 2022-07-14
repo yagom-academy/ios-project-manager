@@ -34,6 +34,6 @@ final class TodoDetailViewCoordinator: Coordinator {
     
     func dismiss() {
         navigationController?.dismiss(animated: true)
-        parentCoordinator?.childCoordinators.removeAll { $0 === self }
+        parentCoordinator?.removeChild(self)
     }
 }

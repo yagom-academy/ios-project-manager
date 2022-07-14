@@ -13,6 +13,12 @@ protocol Coordinator: AnyObject {
     var childCoordinators: [Coordinator] { get set }
 }
 
+extension Coordinator {
+    func removeChild(_ coordinator: Coordinator) {
+        childCoordinators.removeAll(where: { $0 === coordinator })
+    }
+}
+
 final class AppCoordinator: Coordinator {
     weak var navigationController: UINavigationController?
     weak var parentCoordinator: Coordinator?
