@@ -51,8 +51,16 @@ final class MainViewModel: MainViewModelInput, MainViewModelOutput {
     }
     
     private func deleteData(task: Task) {
+        let type = task.taskType
         realmManager.delete(task: task)
-        fetchData()
+        switch type {
+        case .todo:
+            fetchToDo()
+        case .doing:
+            fetchDoing()
+        case .done:
+            fetchDone()
+        }
     }
         
     private func fetchToDo() {
