@@ -7,37 +7,70 @@
 import Foundation
 import RealmSwift
 
-final class LocalDB: DBable {
-  let shared = LocalDB()
-  private init() {}
+final class RealmService: Realmable {
+  private var realm: Realm
   
-  typealias Element = Todo
-  var realm = try? Realm()
-  
-  func create(_ todo: Todo) {
-    let realmTodo = TodoModel(value: todo)
+  init() {
     do {
-      try realm?.write({
-        realm?.add(realmTodo)
-      })
+      realm = try Realm()
     } catch {
-      
+      print(error)
+    }
+    realm = try! Realm()
+  }
+
+  func create<T: Object>(_ object: T) {
+    do {
+      try realm.write {
+        realm.add(object)
+      }
+    } catch {
+      post(error)
     }
   }
   
-  func read(by id: String) -> Todo {
-    return Todo()
-  }
-  
-  func readAll() -> [Todo] {
-    return [Todo]()
-  }
-  
-  func update(_ todo: Todo) {
+  func readAll<T: Object>() -> [T] {
+    let data = realm.objects(T.self)
     
+    return Array(data)
   }
   
-  func delete(id: String) {
-    
+  func update<T: Object>(_ object: T, with dictionary: [String: Any?]) {
+    do {
+      try realm.write {
+        for (key, value) in dictionary {
+          object.setValue(value, forKey: key)
+        }
+      }
+    } catch {
+      post(error)
+    }
+  }
+  
+  func delete<T: Object>(_ object: T) {
+    do {
+      try realm.write {
+        realm.delete(object)
+      }
+    } catch {
+      post(error)
+    }
+  }
+  
+  func post(_ error: Error) {
+    NotificationCenter.default.post(name: Notification.Name("RealmError"), object: error)
+  }
+  
+  func observeRealmErrors(in vc: UIViewController, completion: @escaping (Error?) -> Void) {
+    NotificationCenter.default.addObserver(
+      forName: Notification.Name("RealmError"),
+      object: nil,
+      queue: nil) { notification in
+        completion(notification.object as? Error)
+      }
+  }
+  
+  func stopObservingErrors(in vc: UIViewController) {
+    NotificationCenter.default.removeObserver(vc, name: Notification.Name("RealmError"), object: nil)
   }
 }

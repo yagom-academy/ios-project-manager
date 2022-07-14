@@ -6,13 +6,11 @@
 //
 
 import UIKit
+import RealmSwift
 
-protocol DBable {
-  associatedtype Element
-  
-  func create(_ todo: Element)
-  func read(by id: String) -> Element
-  func readAll() -> [Element]
-  func update(_ todo: Element)
-  func delete(id: String)
+protocol Realmable {
+  func create<T: Object>(_ object: T)
+  func readAll<T: Object>() -> [T]
+  func update<T: Object>(_ object: T, with dictionary: [String: Any?])
+  func delete<T: Object>(_ object: T)
 }
