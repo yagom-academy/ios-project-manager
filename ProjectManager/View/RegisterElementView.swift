@@ -1,14 +1,14 @@
 //
-//  EditElementsView.swift
+//  RegisterElementView.swift
 //  ProjectManager
 //
-//  Created by marisol on 2022/07/14.
+//  Created by OneTool, marisol on 2022/07/14.
 //
 
 import SwiftUI
 
 struct RegisterElementView: View {
-    @ObservedObject var taskViewModel: TaskViewModel
+   @ObservedObject var taskViewModel: TaskViewModel
     
     var dateRange: ClosedRange<Date> {
         let min = Calendar.current.date(byAdding: .year, value: -1, to: Date()) ?? Date()
@@ -28,7 +28,7 @@ struct RegisterElementView: View {
                 .font(.title2)
                 
             DatePicker("",
-                       selection: $taskViewModel.dueDate,
+                       selection: $taskViewModel.date,
                        in: dateRange,
                        displayedComponents: [.date])
                 .datePickerStyle(.wheel)
@@ -46,6 +46,10 @@ struct RegisterElementView: View {
                 .padding(.leading)
                 .padding(.trailing)
                 
+        }.onDisappear {
+            taskViewModel.title = ""
+            taskViewModel.date = Date()
+            taskViewModel.body = ""
         }
     }
 }

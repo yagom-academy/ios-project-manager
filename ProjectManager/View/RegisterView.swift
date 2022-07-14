@@ -2,7 +2,7 @@
 //  RegisterView.swift
 //  ProjectManager
 //
-//  Created by marisol on 2022/07/14.
+//  Created by OneTool, marisol on 2022/07/14.
 //
 
 import SwiftUI
