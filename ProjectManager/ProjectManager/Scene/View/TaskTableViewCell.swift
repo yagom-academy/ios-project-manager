@@ -69,7 +69,7 @@ final class TaskTableViewCell: UITableViewCell {
         
         titleLabel.text = task.title
         descriptionLabel.text = task.body
-        dateLabel.text = task.date.formattedString
+        dateLabel.text = formattedString(date: task.date)
         guard task.taskType != .done else {
             return
         }
@@ -80,5 +80,17 @@ final class TaskTableViewCell: UITableViewCell {
         } else {
             dateLabel.textColor = .black
         }
+    }
+    
+    private func formattedString(date: Double) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .short
+        dateFormatter.timeZone = TimeZone(identifier: TimeZone.current.identifier)
+        dateFormatter.locale = Locale(
+            identifier:
+                Locale.current.identifier
+        )
+        
+        return dateFormatter.string(from: Date(timeIntervalSince1970: date))
     }
 }
