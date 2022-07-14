@@ -8,54 +8,54 @@
 import RealmSwift
 
 struct RealmManager {
-    private let realm = try? Realm()
+    private let realmInstance = try? Realm()
     
-    func create(task: Task) {
+    func create(task: Task) throws {
         do {
-            try realm?.write {
-                realm?.add(task)
+            try realmInstance?.write {
+                realmInstance?.add(task)
             }
         } catch {
-            print("중복된 내용입니다.")
+            throw DatabaseError.createError
         }
     }
     
     func fetchTasks(type: TaskType) -> [Task] {
-        let result = realm?.objects(Task.self).where {
+        let result = realmInstance?.objects(Task.self).where {
             $0.taskType == type
         }
         guard let tasks = result else { return [] }
         return tasks.filter { $0 == $0 }
     }
     
-    func update(task: Task) {
+    func update(task: Task) throws {
         do {
-            try realm?.write {
-                realm?.add(task, update: .modified)
+            try realmInstance?.write {
+                realmInstance?.add(task, update: .modified)
             }
         } catch {
-            print("업데이트를 실패하였습니다")
+            throw DatabaseError.updateError
         }
     }
     
-    func delete(task: Task) {
+    func delete(task: Task) throws {
         do {
-            try realm?.write {
-                realm?.delete(task)
+            try realmInstance?.write {
+                realmInstance?.delete(task)
             }
         } catch {
-            print("삭제에 실패했어요")
+            throw DatabaseError.deleteError
         }
     }
     
-    func change(task: Task, targetType: TaskType) {
+    func change(task: Task, targetType: TaskType) throws {
         do {
-            try realm?.write {
+            try realmInstance?.write {
                 task.taskType = targetType
-                realm?.add(task, update: .modified)
+                realmInstance?.add(task, update: .modified)
             }
         } catch {
-            print("타입변환을 실패하였습니다")
+            throw DatabaseError.changeError
         }
     }
 }

@@ -20,12 +20,13 @@ protocol NewFormSheetViewModelOutput {
     var dismiss: PublishRelay<Void> { get }
 }
 
-final class NewFormSheetViewModel: NewFormSheetViewModelInput, NewFormSheetViewModelOutput {
+final class NewFormSheetViewModel: NewFormSheetViewModelInput, NewFormSheetViewModelOutput, ErrorObservable {
     
     var title: BehaviorRelay<String> = BehaviorRelay(value: AppConstants.defaultStringValue)
     var body: BehaviorRelay<String> = BehaviorRelay(value: AppConstants.defaultStringValue)
     var date: BehaviorRelay<Double> = BehaviorRelay(value: AppConstants.defaultDoubleValue)
     var dismiss: PublishRelay<Void> = .init()
+    var error: Observable<DatabaseError> = .empty()
     
     private let realmManager = RealmManager()
     private let uuid = UUID().uuidString
@@ -43,6 +44,12 @@ final class NewFormSheetViewModel: NewFormSheetViewModelInput, NewFormSheetViewM
             taskType: .todo,
             id: uuid
         )
-        realmManager.create(task: newTask)
+        
+        do {
+            //try realmManager.create(task: newTask)
+            throw DatabaseError.createError
+        } catch {
+            self.error.bind(onNext: (DatabaseError.createError -> Void))
+        }
     }
 }

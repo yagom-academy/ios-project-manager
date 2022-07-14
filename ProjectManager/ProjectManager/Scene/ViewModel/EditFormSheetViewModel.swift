@@ -42,6 +42,6 @@ final class EditFormSheetViewModel: EditFormSheetViewModelInput, EditFormSheetVi
             taskType: task.taskType,
             id: task.id
         )
-        realmManager.update(task: editableTask)
+        try? realmManager.update(task: editableTask)
     }
 }

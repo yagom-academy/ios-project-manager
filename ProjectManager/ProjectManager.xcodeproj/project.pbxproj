@@ -14,6 +14,7 @@
 		4EA80EE7287FA5EE0054737E /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 4EA80EE6287FA5EE0054737E /* Realm */; };
 		4EA80EE9287FA5EE0054737E /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4EA80EE8287FA5EE0054737E /* RealmSwift */; };
 		4EA80EEC287FA63D0054737E /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = 4EA80EEB287FA63D0054737E /* RxGesture */; };
+		4EA80EF028802F020054737E /* DatabaseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA80EEF28802F020054737E /* DatabaseError.swift */; };
 		4EB2451F2876F589007F4056 /* EditFormSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB2451E2876F589007F4056 /* EditFormSheetViewController.swift */; };
 		4EB2452328773F24007F4056 /* PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB2452228773F24007F4056 /* PopoverViewController.swift */; };
 		4EB3FFC228756FDD0001DBC0 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB3FFC128756FDD0001DBC0 /* Task.swift */; };
@@ -47,6 +48,7 @@
 /* Begin PBXFileReference section */
 		23A0A689B6A69796CECE8A71 /* Pods_ProjectManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ProjectManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2411AF63CB028F679D719B89 /* Pods-ProjectManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.release.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.release.xcconfig"; sourceTree = "<group>"; };
+		4EA80EEF28802F020054737E /* DatabaseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseError.swift; sourceTree = "<group>"; };
 		4EB2451E2876F589007F4056 /* EditFormSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFormSheetViewController.swift; sourceTree = "<group>"; };
 		4EB2452228773F24007F4056 /* PopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverViewController.swift; sourceTree = "<group>"; };
 		4EB3FFC128756FDD0001DBC0 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 			children = (
 				4EB3FFC128756FDD0001DBC0 /* Task.swift */,
 				4EB3FFC528757C800001DBC0 /* TaskType.swift */,
+				4EA80EEF28802F020054737E /* DatabaseError.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -358,6 +361,7 @@
 				9CAB1172287C518600C55AB8 /* EditFormSheetViewModel.swift in Sources */,
 				9C9C74A72875CFAA00620DEB /* UITextField+extension.swift in Sources */,
 				4EB3FFD328758E9F0001DBC0 /* MainView.swift in Sources */,
+				4EA80EF028802F020054737E /* DatabaseError.swift in Sources */,
 				4EB3FFCD28757E1F0001DBC0 /* FormSheetView.swift in Sources */,
 				9CACA2BC287FECB50024E923 /* TaskSectionView.swift in Sources */,
 				9C8BC0DB287874F3003EF525 /* PopoverView.swift in Sources */,
