@@ -7,8 +7,12 @@
 
 import SwiftUI
 
-struct RegisterElementsView: View {
-    @State var contentViewModel: ContentViewModel
+struct EditElementView: View {
+    @ObservedObject var contentViewModel: ContentViewModel
+    
+    init(contentViewModel: ContentViewModel) {
+        self.contentViewModel = contentViewModel
+    }
     
     var dateRange: ClosedRange<Date> {
         let min = Calendar.current.date(byAdding: .year, value: -1, to: Date()) ?? Date()
@@ -52,7 +56,7 @@ struct RegisterElementsView: View {
 
 struct RegisterElementsView_Previews: PreviewProvider {
     static var previews: some View {
-        RegisterElementsView(contentViewModel: ContentViewModel())
+        EditElementView(contentViewModel: ContentViewModel())
 .previewInterfaceOrientation(.landscapeLeft)
     }
 }

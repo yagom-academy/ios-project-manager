@@ -2,18 +2,18 @@
 //  RegisterView.swift
 //  ProjectManager
 //
-//  Created by marisol on 2022/07/14.
+//  Created by OneTool, marisol on 2022/07/06.
 //
 
 import SwiftUI
 
-struct RegisterView: View {
+struct EditView: View {
     @Environment(\.dismiss) var dismiss
     var contentViewModel: ContentViewModel
     
     var body: some View {
         NavigationView {
-            RegisterElementView(taskViewModel: contentViewModel.data)
+            EditElementView(contentViewModel: contentViewModel)
             .navigationTitle("TODO")
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarColor(.systemGray5)
@@ -39,9 +39,9 @@ struct RegisterView: View {
     }
 }
 
-struct RegisterView_Previews: PreviewProvider {
+struct EditView_Previews: PreviewProvider {
     static var previews: some View {
-        RegisterView(contentViewModel: ContentViewModel())
-            .previewInterfaceOrientation(.landscapeLeft)
+        EditView(contentViewModel: ContentViewModel())
+.previewInterfaceOrientation(.landscapeLeft)
     }
 }
