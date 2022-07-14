@@ -10,12 +10,12 @@ import SnapKit
 import RxSwift
 
 final class TodoMoveViewController: UIViewController {
-    let item: TodoModel
+    private let item: TodoModel
     
-    let viewModel: TodoMoveViewModel
-    let bag = DisposeBag()
+    private let viewModel: TodoMoveViewModel
+    private let bag = DisposeBag()
     
-    let firstButton: UIButton = {
+    private let firstButton: UIButton = {
         let button = UIButton()
         button.titleLabel?.font = .preferredFont(forTextStyle: .title2)
         button.backgroundColor = .systemBackground
@@ -23,7 +23,7 @@ final class TodoMoveViewController: UIViewController {
         return button
     }()
     
-    let secondButton: UIButton = {
+    private let secondButton: UIButton = {
         let button = UIButton()
         button.titleLabel?.font = .preferredFont(forTextStyle: .title2)
         button.backgroundColor = .systemBackground
@@ -53,10 +53,9 @@ final class TodoMoveViewController: UIViewController {
         super.viewDidLoad()
         configureView()
         bind()
-        viewModel.setbuttonTitle(state: item.state)
     }
     
-    func configureView() {
+    private func configureView() {
         view.backgroundColor = .systemGray5
         view.addSubview(buttomStackView)
         buttomStackView.snp.makeConstraints { make in
@@ -67,10 +66,22 @@ final class TodoMoveViewController: UIViewController {
 
 extension TodoMoveViewController {
     private func bind() {
+        viewModel.setbuttonTitle(state: item.state)
+        
         viewModel.buttonTitle
             .bind { [weak self] (firstTitle, secondTitle) in
                 self?.firstButton.setTitle(firstTitle, for: .normal)
                 self?.secondButton.setTitle(secondTitle, for: .normal)
+            }.disposed(by: bag)
+        
+        firstButton.rx.tap
+            .bind { [weak self] in
+                self?.viewModel.firstButtonDidTap()
+            }.disposed(by: bag)
+        
+        secondButton.rx.tap
+            .bind { [weak self] in
+                self?.viewModel.secondButtonDidTap()
             }.disposed(by: bag)
     }
 }

@@ -12,6 +12,7 @@ protocol UseCase {
     func readRepository() -> BehaviorSubject<[TodoModel]>
     func saveRepository(to data: TodoModel)
     func checkDeadline(time: Date) -> Bool
+    func changeToTitle(at state: State) -> (String, String)
 }
 
 final class TodoListUseCase: UseCase {
@@ -34,5 +35,16 @@ extension TodoListUseCase {
     
     func checkDeadline(time: Date) -> Bool {
         return time + 24 * 60 * 60 < Date()
+    }
+    
+    func changeToTitle(at state: State) -> (String, String) {
+        switch state {
+        case .todo:
+            return ("Move to DOING", "Move to DONE")
+        case .doing:
+            return ("Move to TODO", "Move to DONE")
+        case .done:
+            return ("Move to TODO", "Move to DOING")
+        }
     }
 }
