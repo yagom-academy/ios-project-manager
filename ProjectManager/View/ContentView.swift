@@ -10,46 +10,15 @@ import SwiftUI
 struct ContentView: View {
     @State private var showSheet = false
     @ObservedObject var contentViewModel: ContentViewModel
+    @State private var isShowingPopover = false
     
     var body: some View {
         
         NavigationView {
             HStack {
-                VStack(alignment: .leading) {
-                    List {
-                        Section(header: TodoView()){
-                            ForEach(contentViewModel.todoTasks) { _ in
-                                CellView(contentViewModel: contentViewModel)
-                            }
-                            .onDelete(perform: delete)
-                        }
-                    }
-                    .listStyle(.grouped)
-                }
-                
-                VStack(alignment: .leading) {
-                    List {
-                        Section(header: DoingView()) {
-                            ForEach(contentViewModel.doingTasks) { _ in
-                                CellView(contentViewModel: contentViewModel)
-                            }
-                            .onDelete(perform: delete)
-                        }
-                    }
-                    .listStyle(.grouped)
-                }
-                
-                VStack(alignment: .leading) {
-                    List {
-                        Section(header: DoneView()) {
-                            ForEach(contentViewModel.doneTasks) { _ in
-                                CellView(contentViewModel: contentViewModel)
-                            }
-                            .onDelete(perform: delete)
-                        }
-                    }
-                    .listStyle(.grouped)
-                }
+                TodoView(contentViewModel: contentViewModel)
+                DoingView(contentViewModel: contentViewModel)
+                DoneView(contentViewModel: contentViewModel)
             }
             .background(.gray)
             .navigationTitle("Project Manager")
@@ -58,7 +27,6 @@ struct ContentView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                        print("plusbutton")
                         showSheet.toggle()
                     }) {
                         Image(systemName: "plus")
@@ -70,10 +38,6 @@ struct ContentView: View {
             }
         }
         .navigationViewStyle(.stack)
-    }
-    
-    func delete(at offset: IndexSet) {
-        contentViewModel.todoTasks.remove(atOffsets: offset)
     }
 }
 

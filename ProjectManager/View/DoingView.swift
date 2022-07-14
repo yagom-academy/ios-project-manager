@@ -8,24 +8,46 @@
 import SwiftUI
 
 struct DoingView: View {
+    @ObservedObject var contentViewModel: ContentViewModel
+    
     var body: some View {
+        VStack(alignment: .leading) {
+            List {
+                Section(header: headerView) {
+                    ForEach(contentViewModel.doingTasks) { task in
+                        if let index = contentViewModel.doingTasks.firstIndex(of: task) {
+                            CellView(contentViewModel: contentViewModel, cellIndex: index)
+                        }
+                    }
+                    .onDelete(perform: delete)
+                }
+            }
+            .listStyle(.grouped)
+        }
+    }
+    
+    var headerView: some View {
         HStack {
-            Text("DOING")
+            Text(TaskType.doing.title)
                 .font(.largeTitle)
                 .foregroundColor(.black)
             ZStack {
             Circle()
                 .frame(width: 25, height: 25)
-                Text("5")
+                Text(String($contentViewModel.doingTasks.count))
                     .foregroundColor(.white)
                     .font(.title2)
             }
         }.foregroundColor(.black)
     }
+    
+    func delete(at offset: IndexSet) {
+        contentViewModel.doingTasks.remove(atOffsets: offset)
+    }
 }
 
 struct DoingView_Previews: PreviewProvider {
     static var previews: some View {
-        DoingView()
+        DoingView(contentViewModel: ContentViewModel())
     }
 }
