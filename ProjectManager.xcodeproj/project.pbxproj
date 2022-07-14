@@ -155,15 +155,15 @@
 			isa = PBXGroup;
 			children = (
 				B39F102B2873DDC100475AE4 /* ContentView.swift */,
-				B3CA0B7F287D48AF0047E1D1 /* CellView.swift */,
-				B3B28F4228756B1000A3CB57 /* EditView.swift */,
-				B3BDBB50287FA82E0072933E /* RegisterView.swift */,
-				B3BDBB4E287FA64C0072933E /* RegisterElementView.swift */,
-				B335136A287579DF00BF3495 /* EditElementView.swift */,
-				DA79E413287525C3000192CC /* ListRowView.swift */,
 				DA79E41528752ABE000192CC /* TodoView.swift */,
 				DA79E41B28756193000192CC /* DoingView.swift */,
 				DA79E41D287561A1000192CC /* DoneView.swift */,
+				B3CA0B7F287D48AF0047E1D1 /* CellView.swift */,
+				DA79E413287525C3000192CC /* ListRowView.swift */,
+				B3BDBB50287FA82E0072933E /* RegisterView.swift */,
+				B3BDBB4E287FA64C0072933E /* RegisterElementView.swift */,
+				B3B28F4228756B1000A3CB57 /* EditView.swift */,
+				B335136A287579DF00BF3495 /* EditElementView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";

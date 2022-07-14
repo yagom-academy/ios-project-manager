@@ -8,16 +8,17 @@
 import SwiftUI
 
 struct ListRowView: View {
-    var contentViewModel: ContentViewModel
+    var taskArray: [Task]
     var cellIndex: Int
+    
     
     var body: some View {
             VStack(alignment: .leading) {
-                Text(contentViewModel.data.taskArray[cellIndex].title)
+                Text(taskArray[cellIndex].title)
                     .foregroundColor(.black)
-                Text(contentViewModel.data.taskArray[cellIndex].body)
+                Text(taskArray[cellIndex].body)
                     .foregroundColor(.gray)
-                Text(contentViewModel.data.taskArray[cellIndex].date.convertDateToString)
+                Text(taskArray[cellIndex].date.convertDateToString)
                     .foregroundColor(.black)
             }
     }
@@ -25,6 +26,6 @@ struct ListRowView: View {
 
 struct ListRowView_Previews: PreviewProvider {
     static var previews: some View {
-        ListRowView(contentViewModel: ContentViewModel(), cellIndex: 0).previewLayout(.sizeThatFits)
+        ListRowView(taskArray: ContentViewModel().todoTasks, cellIndex: 0).previewLayout(.sizeThatFits)
     }
 }
