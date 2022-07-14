@@ -16,7 +16,7 @@ final class DetailViewController: UIViewController {
     private let disposeBag = DisposeBag()
     weak private var coordinator: AppCoordinator?
     
-    private let titleTextField: UITextField = {
+    private lazy var titleTextField: UITextField = {
         let textField = UITextField()
         textField.backgroundColor = .systemBackground
         textField.placeholder = "Title"
@@ -149,15 +149,6 @@ final class DetailViewController: UIViewController {
         }
     }
     
-    private func createTodo() -> Todo? {
-        return Todo(
-            todoListItemStatus: .todo,
-            title: self.titleTextField.text ?? "",
-            description: self.descriptionTextView.text ?? "",
-            date: self.datePicker.date
-        )
-    }
-    
     private func bind() {
         rightBarButton.rx.tap.asObservable()
             .subscribe(onNext: { [weak self] in
@@ -170,11 +161,6 @@ final class DetailViewController: UIViewController {
             })
             .disposed(by: self.disposeBag)
         
-        rightBarButton.rx.tap.asObservable()
-            .subscribe(onNext: { [weak self] in
-                self?.detailViewModel.doneButtonTapEvent(todo: self?.createTodo(), completion: {
-                    self?.coordinator?.dismiss()
-                })
         leftBarButton.rx.tap.asObservable()
             .subscribe(onNext: { [weak self] in
                 self?.selectedData == nil ? self?.coordinator?.dismiss() : self?.changeEditable()
@@ -182,7 +168,8 @@ final class DetailViewController: UIViewController {
             .disposed(by: self.disposeBag)
     }
     
-    private func createTodo() -> Todo? {
+    
+    private func createTodo() -> Todo {
         if let selectedData = self.selectedData {
             return Todo(
                 todoListItemStatus: selectedData.todoListItemStatus,
