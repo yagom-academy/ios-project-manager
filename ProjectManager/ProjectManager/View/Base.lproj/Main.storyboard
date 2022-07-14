@@ -310,7 +310,11 @@
                                 <rect key="frame" x="0.0" y="0.0" width="1133" height="50"/>
                                 <items>
                                     <navigationItem title="TODO" id="ifK-is-oRL">
-                                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="CG9-Y8-C1J"/>
+                                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="CG9-Y8-C1J">
+                                            <connections>
+                                                <action selector="cancelButton:" destination="IMI-5b-wRC" id="e6p-GA-n82"/>
+                                            </connections>
+                                        </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" title="Done" id="v5G-J8-iVO">
                                             <connections>
                                                 <action selector="doneButton:" destination="IMI-5b-wRC" id="bai-1L-XM2"/>

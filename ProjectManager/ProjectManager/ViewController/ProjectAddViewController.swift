@@ -51,6 +51,10 @@ final class ProjectAddViewController: UIViewController {
     )
   }
 
+  @IBAction func cancelButton(_ sender: UIBarButtonItem) {
+    self.dismiss(animated: true)
+  }
+
   @IBAction func doneButton(_ sender: UIBarButtonItem) {
     if addProjectTitleTextField.text?.isEmpty == true { return }
 
