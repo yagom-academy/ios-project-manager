@@ -33,8 +33,8 @@ class WriteTodoViewController: UIViewController {
       primaryAction: UIAction(handler: { [weak self] _ in
         guard let writedTodoData = self?.writeView.createTodoData(state: .todo) else { return }
         
-        let realmTodo = TodoManager.shared.mappingTodoModel(from: writedTodoData)
-        TodoManager.shared.create(realmTodo)
+        let realmTodo = DBManager.shared.mappingTodoModel(from: writedTodoData)
+        DBManager.shared.create(realmTodo)
         
         self?.todoDelegate?.createData(writedTodoData)
         self?.dismiss(animated: true)

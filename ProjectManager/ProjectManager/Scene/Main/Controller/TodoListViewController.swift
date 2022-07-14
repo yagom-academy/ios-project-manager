@@ -42,7 +42,6 @@ final class TodoListViewController: UIViewController {
         return cell
       }
   }
-  private let todoManager = TodoManager.shared
   private let viewModel = TodoViewModel()
   
   lazy var todoList = viewModel.readList {
@@ -77,7 +76,7 @@ final class TodoListViewController: UIViewController {
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-    let todoModels = todoManager.readAll()
+    let todoModels = DBManager.shared.readAll()
     viewModel.mappingTodo(from: todoModels)
   }
   

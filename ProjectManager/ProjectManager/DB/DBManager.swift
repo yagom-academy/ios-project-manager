@@ -7,8 +7,8 @@
 
 import Foundation
 
-final class TodoManager {
-  static let shared = TodoManager(realmManager: RealmService())
+final class DBManager {
+  static let shared = DBManager(realmManager: RealmService())
   private let realmManager: RealmService
   
   init(realmManager: RealmService) {
