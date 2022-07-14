@@ -5,13 +5,20 @@
 
 import UIKit
 
+import RealmSwift
+
 final class ProjectManagerHomeViewController: UIViewController {
   @IBOutlet weak var todoCollectionView: UICollectionView!
   @IBOutlet weak var doingCollectionView: UICollectionView!
   @IBOutlet weak var doneCollectionView: UICollectionView!
 
+  private let realmService = RealmService()
+  private var projects: Results<Project>?
+  private var notificationToken: NotificationToken?
+
   override func viewDidLoad() {
     super.viewDidLoad()
+    self.projects = realmService.read(projectType: Project.self)
     self.initializeNavigationBar()
     self.initializeCollectionView()
   }
@@ -94,40 +101,43 @@ extension ProjectManagerHomeViewController: UICollectionViewDataSource {
     }
 
     if collectionView == todoCollectionView {
-      self.allocate(to: cell, projectCatergory: .todo, indexPath: indexPath)
+      self.allocate(to: cell, projectCategory: .todo, indexPath: indexPath)
     }
 
     if collectionView == doingCollectionView {
-      self.allocate(to: cell, projectCatergory: .doing, indexPath: indexPath)
+      self.allocate(to: cell, projectCategory: .doing, indexPath: indexPath)
     }
 
     if collectionView == doneCollectionView {
-      self.allocate(to: cell, projectCatergory: .done, indexPath: indexPath)
+      self.allocate(to: cell, projectCategory: .done, indexPath: indexPath)
     }
 
     return cell
   }
-  
-  private func fetchItemCount(from projectCategory: ProjectCategory) -> Int {
-    let todoList = ProjectListMockData.sample.filter {
-      $0.projectCategory == projectCategory
-    }
 
-    return todoList.count
+  private func fetchItemCount(from projectCategory: ProjectCategory) -> Int {
+    let todoList = projects?.filter {
+      $0.projectCategory == projectCategory.description
+    }
+    guard let itemCount = todoList?.count else { return .zero }
+
+    return itemCount
   }
 
   private func allocate(
     to cell: ProjectManagerCollectionViewCell,
-    projectCatergory: ProjectCategory,
+    projectCategory: ProjectCategory,
     indexPath: IndexPath
   ) {
-    let todolist = ProjectListMockData.sample.filter {
-      $0.projectCategory == projectCatergory
+    let todolist = projects?.filter {
+      $0.projectCategory == projectCategory.description
     }
+
+    guard let todolist = todolist else { return }
 
     cell.configure(
       title: todolist[indexPath.row].title,
-      body: todolist[indexPath.row].body,
+      body: todolist[indexPath.row].body ?? "",
       date: todolist[indexPath.row].date
     )
   }
