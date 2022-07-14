@@ -7,6 +7,7 @@
 
 import UIKit
 import SwipeCellKit
+import RealmSwift
 
 final class TodoListViewController: UIViewController {
   // MARK: DiffableDataSource
@@ -41,7 +42,8 @@ final class TodoListViewController: UIViewController {
         return cell
       }
   }
-  let viewModel = TodoViewModel()
+  private let todoManager = TodoManager.shared
+  private let viewModel = TodoViewModel()
   
   lazy var todoList = viewModel.readList {
     didSet {
@@ -71,6 +73,12 @@ final class TodoListViewController: UIViewController {
     configureUI()
     setDataSource()
     reloadDataSource()
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    let todoModels = todoManager.readAll()
+    viewModel.mappingTodo(from: todoModels)
   }
   
   func updateListCountlabel() {
