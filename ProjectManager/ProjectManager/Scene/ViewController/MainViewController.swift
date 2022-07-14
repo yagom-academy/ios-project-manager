@@ -53,6 +53,7 @@ final class MainViewController: UIViewController, UIPopoverPresentationControlle
         bindItemsSelected()
         bindItemsDeleted()
         bindLongPressGestures()
+        bindErrorAlert()
     }
     
     private func cell(
@@ -150,6 +151,14 @@ extension MainViewController {
                 }
         }
         .disposed(by: disposeBag)
+    }
+    
+    private func bindErrorAlert() {
+        viewModel.error
+            .subscribe(onNext: { [weak self] error in
+                self?.showAlert(message: error.errorDescription)
+            })
+            .disposed(by: disposeBag)
     }
     
     private func matchTaskType(taskType: TaskType) -> BehaviorRelay<[Task]> {

@@ -35,6 +35,7 @@
 		9CAB1170287C439B00C55AB8 /* NewFormSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAB116F287C439B00C55AB8 /* NewFormSheetViewModel.swift */; };
 		9CAB1172287C518600C55AB8 /* EditFormSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAB1171287C518600C55AB8 /* EditFormSheetViewModel.swift */; };
 		9CACA2BC287FECB50024E923 /* TaskSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CACA2BB287FECB50024E923 /* TaskSectionView.swift */; };
+		9CACA2BE28804CEB0024E923 /* UIViewController+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CACA2BD28804CEB0024E923 /* UIViewController+extension.swift */; };
 		9CACE12D28755BE20010E4F0 /* Then.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CACE12C28755BE20010E4F0 /* Then.swift */; };
 		9CACE13228755FDF0010E4F0 /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CACE13128755FDF0010E4F0 /* TaskTableViewCell.swift */; };
 		9CACE135287566F30010E4F0 /* UIFont+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CACE134287566F30010E4F0 /* UIFont+extension.swift */; };
@@ -67,6 +68,7 @@
 		9CAB116F287C439B00C55AB8 /* NewFormSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewFormSheetViewModel.swift; sourceTree = "<group>"; };
 		9CAB1171287C518600C55AB8 /* EditFormSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFormSheetViewModel.swift; sourceTree = "<group>"; };
 		9CACA2BB287FECB50024E923 /* TaskSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskSectionView.swift; sourceTree = "<group>"; };
+		9CACA2BD28804CEB0024E923 /* UIViewController+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+extension.swift"; sourceTree = "<group>"; };
 		9CACE12C28755BE20010E4F0 /* Then.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Then.swift; sourceTree = "<group>"; };
 		9CACE13128755FDF0010E4F0 /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
 		9CACE134287566F30010E4F0 /* UIFont+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+extension.swift"; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 			children = (
 				9CACE134287566F30010E4F0 /* UIFont+extension.swift */,
 				9C9C74A62875CFA900620DEB /* UITextField+extension.swift */,
+				9CACA2BD28804CEB0024E923 /* UIViewController+extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -368,6 +371,7 @@
 				9C8BC0D928786ED0003EF525 /* RealmManager.swift in Sources */,
 				9CACE13228755FDF0010E4F0 /* TaskTableViewCell.swift in Sources */,
 				4EB3FFC228756FDD0001DBC0 /* Task.swift in Sources */,
+				9CACA2BE28804CEB0024E923 /* UIViewController+extension.swift in Sources */,
 				9CACE12D28755BE20010E4F0 /* Then.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				4EB89251287C68B1008DE9B8 /* PopoverViewModel.swift in Sources */,

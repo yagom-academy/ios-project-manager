@@ -19,11 +19,12 @@ protocol MainViewModelOutput {
     var dones: BehaviorRelay<[Task]> { get }
 }
 
-final class MainViewModel: MainViewModelInput, MainViewModelOutput {
+final class MainViewModel: MainViewModelInput, MainViewModelOutput, ErrorObservable {
     
     var todos: BehaviorRelay<[Task]> = BehaviorRelay(value: AppConstants.defaultTaskArrayValue)
     var doings: BehaviorRelay<[Task]> = BehaviorRelay(value: AppConstants.defaultTaskArrayValue)
     var dones: BehaviorRelay<[Task]> = BehaviorRelay(value: AppConstants.defaultTaskArrayValue)
+    var error: PublishRelay<DatabaseError> = .init()
     
     private let realmManager = RealmManager()
     
@@ -52,11 +53,12 @@ final class MainViewModel: MainViewModelInput, MainViewModelOutput {
     
     private func deleteData(task: Task) {
         let type = task.taskType
+        
         do {
             try realmManager.delete(task: task)
         } catch {
+            self.error.accept(DatabaseError.deleteError)
         }
-        
         
         switch type {
         case .todo:

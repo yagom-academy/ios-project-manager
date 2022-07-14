@@ -17,13 +17,13 @@ enum DatabaseError: LocalizedError {
     var errorDescription: String {
         switch self {
         case .createError:
-            return "데이터 생성을 실패하였습니다."
+            return "프로젝트 생성을 실패하였습니다."
         case .deleteError:
-            return "데이터 삭제를 실패하였습니다."
+            return "프로젝트 삭제를 실패하였습니다."
         case .updateError:
             return "업데이트를 실패하였습니다."
         case .changeError:
-            return "타입변환을 실패하였습니다."
+            return "프로젝트 이동을 실패하였습니다."
         }
     }
 }

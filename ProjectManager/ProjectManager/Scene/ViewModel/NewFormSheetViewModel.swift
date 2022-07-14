@@ -33,7 +33,6 @@ final class NewFormSheetViewModel: NewFormSheetViewModelInput, NewFormSheetViewM
     
     func doneButtonTapped() {
         registerNewTask()
-        //dismiss.accept(())
     }
     
     private func registerNewTask() {
@@ -47,7 +46,6 @@ final class NewFormSheetViewModel: NewFormSheetViewModelInput, NewFormSheetViewM
         
         do {
             try realmManager.create(task: newTask)
-            //throw DatabaseError.createError
             dismiss.accept(())
         } catch {
             self.error.accept(DatabaseError.createError)

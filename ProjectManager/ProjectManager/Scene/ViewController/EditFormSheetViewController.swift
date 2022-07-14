@@ -83,6 +83,12 @@ final class EditFormSheetViewController: UIViewController {
         viewModel.dismiss.asObservable()
             .bind(onNext: backToMain)
             .disposed(by: disposeBag)
+        
+        viewModel.error.asObservable()
+            .subscribe(onNext: { [weak self] error in
+                self?.showAlert(message: error.errorDescription)
+            })
+            .disposed(by: disposeBag)
     }
     
     private func backToMain() {

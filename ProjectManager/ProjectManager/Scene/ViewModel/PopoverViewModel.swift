@@ -16,18 +16,23 @@ protocol PopoverViewModelOutput {
     var dismiss: PublishRelay<Void> { get }
 }
 
-final class PopoverViewModel: PopoverViewModelInput, PopoverViewModelOutput {
+final class PopoverViewModel: PopoverViewModelInput, PopoverViewModelOutput, ErrorObservable {
     
     var dismiss: PublishRelay<Void> = .init()
+    var error: PublishRelay<DatabaseError> = .init()
     
     private let realmManager = RealmManager()
     
     func moveButtonTapped(_ task: Task, to taskType: TaskType) {
         changeTaskType(task, taskType: taskType)
-        dismiss.accept(())
     }
 
     private func changeTaskType(_ task: Task, taskType: TaskType) {
-        try? realmManager.change(task: task, targetType: taskType)
+        do {
+            try realmManager.change(task: task, targetType: taskType)
+            dismiss.accept(())
+        } catch {
+            self.error.accept(DatabaseError.changeError)
+        }
     }
 }

@@ -20,18 +20,18 @@ protocol EditFormSheetViewModelOutput {
     var dismiss: PublishRelay<Void> { get }
 }
 
-final class EditFormSheetViewModel: EditFormSheetViewModelInput, EditFormSheetViewModelOutput {
+final class EditFormSheetViewModel: EditFormSheetViewModelInput, EditFormSheetViewModelOutput, ErrorObservable {
     
     var title: BehaviorRelay<String> = BehaviorRelay(value: AppConstants.defaultStringValue)
     var body: BehaviorRelay<String> = BehaviorRelay(value: AppConstants.defaultStringValue)
     var date: BehaviorRelay<Double> = BehaviorRelay(value: AppConstants.defaultDoubleValue)
     var dismiss: PublishRelay<Void> = .init()
+    var error: PublishRelay<DatabaseError> = .init()
     
     private let realmManager = RealmManager()
 
     func editButtonTapped(task: Task) {
         modifyEditableTask(task: task)
-        dismiss.accept(())
     }
     
     func modifyEditableTask(task: Task) {
@@ -42,6 +42,12 @@ final class EditFormSheetViewModel: EditFormSheetViewModelInput, EditFormSheetVi
             taskType: task.taskType,
             id: task.id
         )
-        try? realmManager.update(task: editableTask)
+        
+        do {
+            try realmManager.update(task: editableTask)
+            dismiss.accept(())
+        } catch {
+            self.error.accept(DatabaseError.updateError)
+        }
     }
 }

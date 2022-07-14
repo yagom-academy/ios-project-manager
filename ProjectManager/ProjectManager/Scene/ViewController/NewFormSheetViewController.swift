@@ -77,8 +77,8 @@ final class NewFormSheetViewController: UIViewController {
             .disposed(by: disposeBag)
         
         viewModel.error.asObservable()
-            .subscribe(onNext: { error in
-                self.showAlert(message: error.errorDescription)
+            .subscribe(onNext: { [weak self] error in
+                self?.showAlert(message: error.errorDescription)
             })
         .disposed(by: disposeBag)
     }
@@ -92,12 +92,4 @@ final class NewFormSheetViewController: UIViewController {
     @objc private func cancelButtonTapped() {
         dismiss(animated: true)
     }
-    
-    func showAlert(message: String) {
-        let alertController = UIAlertController(title: "오류", message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "확인", style: .default)
-        alertController.addAction(okAction)
-        self.present(alertController, animated: true)
-    }
 }
-
