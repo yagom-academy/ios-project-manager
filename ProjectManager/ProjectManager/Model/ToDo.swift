@@ -14,22 +14,22 @@ struct Todo: Hashable {
   var state: State = .done
   var identifier: String = UUID().uuidString
   
-  var readList: [Todo] {
-    return [
-      Todo(title: "test1", content: "쿼카 하이!쿼카 하이!쿼카 하이!쿼카 하이!쿼카 하이!쿼카 하이!쿼카 하이!쿼카 하이!쿼카 하이!쿼카 하이!쿼카 하이!쿼카 하이!쿼카 하이!쿼카 하이!쿼카 하이!쿼카 하이!쿼카 하이!쿼카 하이!쿼카 하이!쿼카 하이!쿼카 하이!쿼카 하이!쿼카 하이!쿼카 하이!쿼카 하이!쿼카 하이!쿼카 하이!쿼카 하이!쿼카 하이!쿼카 하이!쿼카 하이!쿼카 하이!쿼카 하이!쿼카 하이!쿼카 하이!쿼카 하이!쿼카 하이!쿼카 하이!쿼카 하이!", date: Date().addingTimeInterval(3600 * -24), state: .todo),
-      Todo(title: "test2", content: "쿼카 하이!쿼카 하이!쿼카 하이!쿼카 하이!쿼카 하이!쿼카 하이!쿼카 하이!", date: Date(), state: .doing),
-      Todo(title: "test3", content: "쿼카 하이!", date: Date().addingTimeInterval(3600 * -48), state: .done),
-      Todo(title: "test4", content: "쿼카 하이!", date: Date(), state: .todo),
-      Todo(title: "test5", content: "쿼카 하이!", date: Date().addingTimeInterval(3600 * 72), state: .done),
-      Todo(title: "test6", content: "쿼카 하이!", date: Date(), state: .doing),
-      Todo(title: "test7", content: "쿼카 하이!쿼카 하이!쿼카 하이!쿼카 하이!쿼카 하이!쿼카 하이!", date: Date(), state: .todo),
-      Todo(title: "test8", content: "쿼카 하이!", date: Date().addingTimeInterval(3600 * -96), state: .todo),
-      Todo(title: "test9", content: "쿼카 하이!쿼카 하이!쿼카 하이!쿼카 하이!쿼카 하이!쿼카 하이!쿼카 하이!", date: Date(), state: .todo),
-      Todo(title: "test10", content: "쿼카 하이!쿼카 하이!쿼카 하이!", date: Date().addingTimeInterval(3600 * 96), state: .todo),
-      Todo(title: "test11", content: "쿼카 하이!", date: Date().addingTimeInterval(3600 * 24), state: .todo),
-      Todo(title: "test12", content: "쿼카 하이!", date: Date().addingTimeInterval(3600 * 12), state: .todo),
-      Todo(title: "test13", content: "쿼카 하이!", date: Date().addingTimeInterval(3600 * 12), state: .todo),
-      Todo(title: "test14", content: "쿼카 하이!", date: Date().addingTimeInterval(3600 * 48), state: .todo)
-      ]
+  var readList = [Todo]()
+  
+  mutating func mappingTodo(from todoModels: [TodoModel]) {
+    let todoList = todoModels.map { todoModel -> Todo in
+      guard let state = State(rawValue: todoModel.state) else {
+        return Todo()
+      }
+      
+      return Todo(
+        title: todoModel.title,
+        content: todoModel.content,
+        date: todoModel.date,
+        state: state,
+        identifier: todoModel.identifier)
+    }
+    
+    readList = todoList
   }
 }
