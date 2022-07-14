@@ -29,30 +29,6 @@ final class ProjectManagerHomeViewController: UIViewController {
     self.doneCollectionView.collectionViewLayout = listCompositionLayout()
   }
 
-  private func fetchItemCount(from projectCategory: ProjectCategory) -> Int {
-    let todoList = ProjectListMockData.sample.filter {
-      $0.projectCategory == projectCategory
-    }
-
-    return todoList.count
-  }
-
-  private func allocate(
-    to cell: ProjectManagerCollectionViewCell,
-    projectCatergory: ProjectCategory,
-    indexPath: IndexPath
-  ) {
-    let todolist = ProjectListMockData.sample.filter {
-      $0.projectCategory == projectCatergory
-    }
-
-    cell.configure(
-      title: todolist[indexPath.row].title,
-      body: todolist[indexPath.row].body,
-      date: todolist[indexPath.row].date
-    )
-  }
-
   @IBAction func addProjectButton(_ sender: UIBarButtonItem) {
     guard let projectAddVC = storyboard?.instantiateViewController(
       withIdentifier: "\(ProjectAddViewController.self)"
@@ -130,5 +106,29 @@ extension ProjectManagerHomeViewController: UICollectionViewDataSource {
     }
 
     return cell
+  }
+  
+  private func fetchItemCount(from projectCategory: ProjectCategory) -> Int {
+    let todoList = ProjectListMockData.sample.filter {
+      $0.projectCategory == projectCategory
+    }
+
+    return todoList.count
+  }
+
+  private func allocate(
+    to cell: ProjectManagerCollectionViewCell,
+    projectCatergory: ProjectCategory,
+    indexPath: IndexPath
+  ) {
+    let todolist = ProjectListMockData.sample.filter {
+      $0.projectCategory == projectCatergory
+    }
+
+    cell.configure(
+      title: todolist[indexPath.row].title,
+      body: todolist[indexPath.row].body,
+      date: todolist[indexPath.row].date
+    )
   }
 }

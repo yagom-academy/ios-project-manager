@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ProjectAddViewController: UIViewController {
+final class ProjectAddViewController: UIViewController {
   @IBOutlet weak var addProjectTitleTextField: UITextField!
   @IBOutlet weak var datePicker: UIDatePicker!
   @IBOutlet weak var bodyTextView: UITextView!
