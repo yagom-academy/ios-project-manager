@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import RxSwift
+import RxRelay
 
 enum DatabaseError: LocalizedError {
     case createError
@@ -29,5 +29,5 @@ enum DatabaseError: LocalizedError {
 }
 
 protocol ErrorObservable {
-    var error: Observable<DatabaseError> { get }
+    var error: PublishRelay<DatabaseError> { get }
 }

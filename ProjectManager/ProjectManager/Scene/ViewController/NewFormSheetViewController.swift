@@ -77,11 +77,10 @@ final class NewFormSheetViewController: UIViewController {
             .disposed(by: disposeBag)
         
         viewModel.error.asObservable()
-            .subscribe(onCompleted: { [weak self] in
-                self?.dismiss(animated: true, completion: nil)
-                _ = self?.navigationController?.popViewController(animated: true)
+            .subscribe(onNext: { error in
+                self.showAlert(message: error.errorDescription)
             })
-            .disposed(by: disposeBag)
+        .disposed(by: disposeBag)
     }
     
     private func backToMain() {
@@ -94,21 +93,11 @@ final class NewFormSheetViewController: UIViewController {
         dismiss(animated: true)
     }
     
-    func showAlert(title : String, message: String? = nil) -> Observable<ActionType> {
-        
-        return Observable.create { [weak self] observer in
-            let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "확인", style: .default) { _ in
-                // event 전달
-                observer.onNext(.ok)
-                observer.onCompleted()
-            }
-            alertController.addAction(okAction)
-            
-            self?.present(alertController, animated: true, completion: nil)
-            
-            return Disposables.create {
-                alertController.dismiss(animated: true, completion: nil)
-            }
-        }
+    func showAlert(message: String) {
+        let alertController = UIAlertController(title: "오류", message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "확인", style: .default)
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true)
     }
+}
+

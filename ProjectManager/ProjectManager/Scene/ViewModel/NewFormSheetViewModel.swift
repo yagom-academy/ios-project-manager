@@ -26,14 +26,14 @@ final class NewFormSheetViewModel: NewFormSheetViewModelInput, NewFormSheetViewM
     var body: BehaviorRelay<String> = BehaviorRelay(value: AppConstants.defaultStringValue)
     var date: BehaviorRelay<Double> = BehaviorRelay(value: AppConstants.defaultDoubleValue)
     var dismiss: PublishRelay<Void> = .init()
-    var error: Observable<DatabaseError> = .empty()
+    var error: PublishRelay<DatabaseError> = .init()
     
     private let realmManager = RealmManager()
     private let uuid = UUID().uuidString
     
     func doneButtonTapped() {
         registerNewTask()
-        dismiss.accept(())
+        //dismiss.accept(())
     }
     
     private func registerNewTask() {
@@ -46,10 +46,11 @@ final class NewFormSheetViewModel: NewFormSheetViewModelInput, NewFormSheetViewM
         )
         
         do {
-            //try realmManager.create(task: newTask)
-            throw DatabaseError.createError
+            try realmManager.create(task: newTask)
+            //throw DatabaseError.createError
+            dismiss.accept(())
         } catch {
-            self.error.bind(onNext: (DatabaseError.createError -> Void))
+            self.error.accept(DatabaseError.createError)
         }
     }
 }
