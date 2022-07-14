@@ -311,7 +311,11 @@
                                 <items>
                                     <navigationItem title="TODO" id="ifK-is-oRL">
                                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="CG9-Y8-C1J"/>
-                                        <barButtonItem key="rightBarButtonItem" title="Done" id="v5G-J8-iVO"/>
+                                        <barButtonItem key="rightBarButtonItem" title="Done" id="v5G-J8-iVO">
+                                            <connections>
+                                                <action selector="doneButton:" destination="IMI-5b-wRC" id="bai-1L-XM2"/>
+                                            </connections>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>

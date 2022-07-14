@@ -15,13 +15,14 @@ final class Project: Object {
   @objc dynamic var projectCategory: String = ""
 
   convenience init(
-    uuid: String = UUID().uuidString,
+    uuid: String,
     title: String,
     body: String?,
     date: Date,
     projectCategory: String
   ) {
     self.init()
+    self.uuid = uuid
     self.title = title
     self.body = body
     self.date = date

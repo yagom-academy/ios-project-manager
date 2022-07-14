@@ -50,4 +50,17 @@ final class ProjectAddViewController: UIViewController {
       shadowOpacity: 0.3
     )
   }
+
+  @IBAction func doneButton(_ sender: UIBarButtonItem) {
+    let project = Project(
+      uuid: UUID().uuidString,
+      title: addProjectTitleTextField.text ?? "",
+      body: bodyTextView.text,
+      date: datePicker.date,
+      projectCategory: ProjectCategory.todo.description
+    )
+
+    self.realmService?.create(project: project)
+    self.dismiss(animated: true)
+  }
 }
