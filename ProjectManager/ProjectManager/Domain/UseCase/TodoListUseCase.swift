@@ -13,6 +13,7 @@ protocol UseCase {
     func saveRepository(to data: TodoModel)
     func checkDeadline(time: Date) -> Bool
     func changeToTitle(at state: State) -> (String, String)
+    func moveState(from state: State) -> (first: State, second: State)
 }
 
 final class TodoListUseCase: UseCase {
@@ -45,6 +46,17 @@ extension TodoListUseCase {
             return ("Move to TODO", "Move to DONE")
         case .done:
             return ("Move to TODO", "Move to DOING")
+        }
+    }
+    
+    func moveState(from state: State) -> (first: State, second: State) {
+        switch state {
+        case .todo:
+            return (.doing, .done)
+        case .doing:
+            return (.todo, .done)
+        case .done:
+            return (.todo, .doing)
         }
     }
 }

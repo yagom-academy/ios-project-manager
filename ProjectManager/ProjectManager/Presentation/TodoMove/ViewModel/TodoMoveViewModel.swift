@@ -15,8 +15,8 @@ struct TodoMoveViewModelActions {
 
 protocol TodoMoveViewModelInput {
     func setbuttonTitle(state: State)
-    func firstButtonDidTap()
-    func secondButtonDidTap()
+    func firstButtonDidTap(item: TodoModel)
+    func secondButtonDidTap(item: TodoModel)
 }
 
 protocol TodoMoveViewModelOutput {
@@ -50,11 +50,17 @@ final class DefaultTodoMoveViewModel: TodoMoveViewModel {
             }
     }
     
-    func firstButtonDidTap() {
+    func firstButtonDidTap(item: TodoModel) {
+        var newItem = item
+        newItem.state = useCase.moveState(from: item.state).first
+        useCase.saveRepository(to: newItem)
         actions?.dismiss()
     }
     
-    func secondButtonDidTap() {
+    func secondButtonDidTap(item: TodoModel) {
+        var newItem = item
+        newItem.state = useCase.moveState(from: item.state).second
+        useCase.saveRepository(to: newItem)
         actions?.dismiss()
     }
 }

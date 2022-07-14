@@ -79,13 +79,15 @@ extension TodoMoveViewController {
             }.disposed(by: bag)
         
         firstButton.rx.tap
-            .bind { [weak self] in
-                self?.viewModel.firstButtonDidTap()
+            .withUnretained(self)
+            .bind { (self, _) in
+                self.viewModel.firstButtonDidTap(item: self.item)
             }.disposed(by: bag)
-        
+
         secondButton.rx.tap
-            .bind { [weak self] in
-                self?.viewModel.secondButtonDidTap()
+            .withUnretained(self)
+            .bind { (self, _) in
+                self.viewModel.secondButtonDidTap(item: self.item)
             }.disposed(by: bag)
     }
 }
