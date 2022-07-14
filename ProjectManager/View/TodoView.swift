@@ -11,13 +11,12 @@ struct TodoView: View {
     @ObservedObject var contentViewModel: ContentViewModel
     
     var body: some View {
-        
         VStack(alignment: .leading) {
             List {
                 Section(header: headerView){
                     ForEach(contentViewModel.todoTasks) { task in
                         if let index = contentViewModel.todoTasks.firstIndex(of: task) {
-                            CellView(contentViewModel: contentViewModel, cellIndex: index)
+                            CellView(contentViewModel: contentViewModel, cellIndex: index, taskType: .todo)
                         }
                     }
                     .onDelete(perform: delete)

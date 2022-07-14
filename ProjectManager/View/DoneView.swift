@@ -16,7 +16,7 @@ struct DoneView: View {
                 Section(header: headerView) {
                     ForEach(contentViewModel.doneTasks) { task in
                         if let index = contentViewModel.doneTasks.firstIndex(of: task) {
-                            CellView(contentViewModel: contentViewModel, cellIndex: index)
+                            CellView(contentViewModel: contentViewModel, cellIndex: index, taskType: .done)
                         }
                     }
                     .onDelete(perform: delete)
