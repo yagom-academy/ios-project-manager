@@ -15,8 +15,11 @@ extension Reactive where Base: UITableView {
         base.addGestureRecognizer(longPressGesture)
         let event = longPressGesture.rx.event
             .filter { $0.state == .began }
-            .map { base.indexPathForRow(at: $0.location(in: base)) }
-            .flatMap { indexPath -> Observable<(UITableViewCell, T)> in
+            .map { [weak base] in
+                base?.indexPathForRow(at: $0.location(in: base))
+            }
+            .withUnretained(base)
+            .flatMap { (base, indexPath) -> Observable<(UITableViewCell, T)> in
                 guard let indexPath = indexPath,
                       let cell = base.cellForRow(at: indexPath) else {
                     return Observable.empty()
