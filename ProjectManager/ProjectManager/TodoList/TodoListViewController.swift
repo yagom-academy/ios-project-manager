@@ -15,6 +15,7 @@ final class TodoListViewController: UIViewController {
     private let doneView: ListView
     private let viewModel: TodoListViewModel
     private let disposeBag = DisposeBag()
+    weak private var coordinator: AppCoordinator?
 
     private let tablesStackView: UIStackView = {
         let stackView = UIStackView()
@@ -28,11 +29,12 @@ final class TodoListViewController: UIViewController {
         return stackView
     }()
 
-    init() {
-        self.todoView = ListView(status: .todo)
-        self.doingView = ListView(status: .doing)
-        self.doneView = ListView(status: .done)
-        self.viewModel = TodoListViewModel()
+    init(todoViewModel: TodoListViewModel, coordinator: AppCoordinator) {
+        self.todoView = ListView(todoListItemStatus: .todo, listViewModel: todoViewModel, coordinator: coordinator)
+        self.doingView = ListView(todoListItemStatus: .doing, listViewModel: todoViewModel, coordinator: coordinator)
+        self.doneView = ListView(todoListItemStatus: .done, listViewModel: todoViewModel, coordinator: coordinator)
+        self.viewModel = todoViewModel
+        self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -44,12 +46,17 @@ final class TodoListViewController: UIViewController {
         super.viewDidLoad()
         self.setUpTablesStackView()
         self.setUpNavigation()
+        self.bind()
     }
 
     private func setUpTablesStackView() {
         self.view.addSubview(self.tablesStackView)
 
-        self.tablesStackView.addArrangedSubviews(with: [self.todoView, self.doingView, self.doneView])
+        self.tablesStackView.addArrangedSubviews(with: [
+            self.todoView,
+            self.doingView,
+            self.doneView
+        ])
 
         NSLayoutConstraint.activate([
             self.tablesStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
@@ -67,5 +74,12 @@ final class TodoListViewController: UIViewController {
             style: .plain,
             target: nil,
             action: nil)
+    }
+    
+    private func bind() {
+        self.navigationItem.rightBarButtonItem?.rx.tap.asObservable()
+            .subscribe(onNext: { [weak self] in
+                self?.coordinator?.showDetailView(type: .create, todoListItemStatus: .todo) })
+            .disposed(by: self.disposeBag)
     }
 }

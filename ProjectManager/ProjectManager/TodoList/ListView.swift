@@ -11,10 +11,11 @@ import RxCocoa
 import RxSwift
 
 final class ListView: UIView {
-    private let status: Status
+    private let todoListItemstatus: TodoListItemStatus
     private let tableView: UITableView
-    private let viewModel: TodoListViewModel
+    private let listViewModel: TodoListViewModel
     private let disposeBag = DisposeBag()
+    weak private var coordinator: AppCoordinator?
     
     private let headerView: UIView = {
         let view = UIView()
@@ -37,7 +38,7 @@ final class ListView: UIView {
     
     private lazy var headerTitleLabel: UILabel = {
         let label = UILabel()
-        label.text = self.status.value
+        label.text = self.todoListItemstatus.title
         label.font = .preferredFont(forTextStyle: .title1)
         
         return label
@@ -66,10 +67,11 @@ final class ListView: UIView {
         return stackView
     }()
     
-    init(status: Status) {
-        self.status = status
+    init(todoListItemStatus: TodoListItemStatus, listViewModel: TodoListViewModel, coordinator: AppCoordinator) {
+        self.todoListItemstatus = todoListItemStatus
         self.tableView = UITableView()
-        self.viewModel = TodoListViewModel()
+        self.listViewModel = listViewModel
+        self.coordinator = coordinator
         super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         self.setUpTableView()
         self.setUpListStackView()
@@ -114,11 +116,11 @@ final class ListView: UIView {
         
     private func bind() {
         Observable.of(
-            (Status.todo, self.viewModel.todoViewData),
-            (Status.doing, self.viewModel.doingViewData),
-            (Status.done, self.viewModel.doneViewData)
+            (TodoListItemStatus.todo, self.listViewModel.todoViewData),
+            (TodoListItemStatus.doing, self.listViewModel.doingViewData),
+            (TodoListItemStatus.done, self.listViewModel.doneViewData)
         )
-        .filter { $0.0 == self.status }
+        .filter { $0.0 == self.todoListItemstatus }
         .flatMap{ $0.1 }
         .asDriver(onErrorJustReturn: [])
         .drive(self.tableView.rx.items) { tabelView, row, element in
@@ -129,17 +131,23 @@ final class ListView: UIView {
                 return UITableViewCell()
             }
             cell.configure(element)
-
+            
             return cell
         }
         .disposed(by: self.disposeBag)
         
+        self.tableView.rx.itemSelected
+            .subscribe(onNext: { [weak self] _ in
+                self?.coordinator?.showDetailView(type: .edit, todoListItemStatus: self?.todoListItemstatus)
+            })
+            .disposed(by: self.disposeBag)
+        
         Observable.of(
-            (Status.todo, self.viewModel.todoViewData),
-            (Status.doing, self.viewModel.doingViewData),
-            (Status.done, self.viewModel.doneViewData)
+            (TodoListItemStatus.todo, self.listViewModel.todoViewData),
+            (TodoListItemStatus.doing, self.listViewModel.doingViewData),
+            (TodoListItemStatus.done, self.listViewModel.doneViewData)
         )
-        .filter { $0.0 == self.status }
+        .filter { $0.0 == self.todoListItemstatus }
         .flatMap{ $0.1 }
         .map { String($0.count) }
         .asDriver(onErrorJustReturn: "")
