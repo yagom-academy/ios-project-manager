@@ -99,13 +99,54 @@
 			path = DataStorage;
 			sourceTree = "<group>";
 		};
-		30B02F8E287464250029579F /* TodoList */ = {
+		307DFCCE288018E60030873F /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				30B02F8E287464250029579F /* TodoList */,
+				64371A84287847F600F78AAA /* TodoDetail */,
+			);
+			path = Scene;
+			sourceTree = "<group>";
+		};
+		307DFCCF288019280030873F /* View */ = {
 			isa = PBXGroup;
 			children = (
 				C7431F0925F51E1D0094C4CF /* TodoListViewController.swift */,
-				30B02F8B2873E3F40029579F /* TodoListViewModel.swift */,
-				30B02F8F28747FF40029579F /* TodoListCell.swift */,
 				3088777B2875CD7800057592 /* ListView.swift */,
+				30B02F8F28747FF40029579F /* TodoListCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		307DFCD1288019370030873F /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				30B02F8B2873E3F40029579F /* TodoListViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		307DFCD22880195D0030873F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				308FF0BF2878205700301DCF /* DetailViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		307DFCD3288019620030873F /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				3000D716287D56B400EA7A03 /* DetailViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		30B02F8E287464250029579F /* TodoList */ = {
+			isa = PBXGroup;
+			children = (
+				307DFCD1288019370030873F /* ViewModel */,
+				307DFCCF288019280030873F /* View */,
 			);
 			path = TodoList;
 			sourceTree = "<group>";
@@ -165,8 +206,8 @@
 		64371A84287847F600F78AAA /* TodoDetail */ = {
 			isa = PBXGroup;
 			children = (
-				308FF0BF2878205700301DCF /* DetailViewController.swift */,
-				3000D716287D56B400EA7A03 /* DetailViewModel.swift */,
+				307DFCD3288019620030873F /* ViewModel */,
+				307DFCD22880195D0030873F /* View */,
 			);
 			path = TodoDetail;
 			sourceTree = "<group>";
@@ -205,8 +246,7 @@
 				643719DE2873D61600F78AAA /* SupportingFiles */,
 				643719DA2873D2BB00F78AAA /* GoogleService-Info.plist */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
-				30B02F8E287464250029579F /* TodoList */,
-				64371A84287847F600F78AAA /* TodoDetail */,
+				307DFCCE288018E60030873F /* Scene */,
 				64371AE6287C56C500F78AAA /* Coordinator */,
 				643719E12873E07400F78AAA /* Model */,
 				3000D719287D591400EA7A03 /* DataStorage */,
