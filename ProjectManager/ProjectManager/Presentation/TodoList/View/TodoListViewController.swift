@@ -116,6 +116,14 @@ extension TodoListViewController {
             .bind { [weak self] in
                 self?.viewModel.plusButtonDidTap()
             }.disposed(by: bag)
+        
+        Observable
+            .of(mainView.todoTableView.rx.listLongPress(TodoCellContent.self),
+                mainView.doingTableView.rx.listLongPress(TodoCellContent.self),
+                mainView.doneTableView.rx.listLongPress(TodoCellContent.self))
+            .merge()
+            .bind { (cell, model) in
+                print(model)
+            }.disposed(by: bag)
     }
 }
-
