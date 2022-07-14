@@ -29,7 +29,7 @@ struct TodoListPopOver: View {
         MoveButton(isShow: $isShow, todo: todo, status: .done, updata: updata)
       case .done:
         MoveButton(isShow: $isShow, todo: todo, status: .todo, updata: updata)
-        MoveButton(isShow: $isShow, todo: todo, status: .done, updata: updata)
+        MoveButton(isShow: $isShow, todo: todo, status: .doing, updata: updata)
       }
     }
     .padding()

@@ -28,6 +28,10 @@ class TodoService: ObservableObject {
     todoList.insert(Todo(title: todo.title, content: todo.content, status: .todo), at: 0)
   }
   
+  func insert(todo: Todo) {
+    todoList.insert(todo, at: 0)
+  }
+  
   func read() -> [Todo] {
     return todoList
   }

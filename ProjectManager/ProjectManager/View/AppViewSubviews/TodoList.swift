@@ -10,16 +10,19 @@ import SwiftUI
 struct TodoListView: View {
   @State var isShowEditView: Bool = false
   @ObservedObject var todoService: TodoService
+  @ObservedObject var viewModel: AppViewModel
   private let status: Todo.Status
   private let updata: (Todo.Status, Todo) -> Void
   private let delete: (IndexSet, Todo.Status) -> Void
   
   init(todoService: TodoService,
+       viewModel: AppViewModel,
        status: Todo.Status,
        updata: @escaping (Todo.Status, Todo) -> Void,
        delete: @escaping (IndexSet, Todo.Status) -> Void
   ) {
     self.todoService = todoService
+    self.viewModel = viewModel
     self.status = status
     self.updata = updata
     self.delete = delete
@@ -40,6 +43,9 @@ struct TodoListView: View {
           .onDelete { index in
             delete(index, status)
           }
+        }
+        .refreshable {
+          
         }
         .padding(.horizontal, -24)
         .listStyle(.inset)

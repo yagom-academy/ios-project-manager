@@ -22,15 +22,21 @@ struct AppView: View {
   var body: some View {
     NavigationView {
       HStack(spacing: 10) {
-        TodoListView(todoService: viewModel.todoService, status: .todo,
+        TodoListView(todoService: viewModel.todoService,
+                     viewModel: viewModel,
+                     status: .todo,
                      updata: { viewModel.changeStatus(status: $0, todo: $1) },
                      delete: { viewModel.delete(set: $0, status: $1) })
         
-        TodoListView(todoService: viewModel.todoService, status: .doing,
+        TodoListView(todoService: viewModel.todoService,
+                     viewModel: viewModel,
+                     status: .doing,
                      updata: { viewModel.changeStatus(status: $0, todo: $1) },
                      delete: { viewModel.delete(set: $0, status: $1) })
         
-        TodoListView(todoService: viewModel.todoService, status: .done,
+        TodoListView(todoService: viewModel.todoService,
+                     viewModel: viewModel,
+                     status: .done,
                      updata: { viewModel.changeStatus(status: $0, todo: $1) },
                      delete: { viewModel.delete(set: $0, status: $1) })
       }

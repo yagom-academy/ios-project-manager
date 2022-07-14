@@ -14,6 +14,10 @@ class AppViewModel: ObservableObject {
     self.todoService = todoService
   }
   
+  private func create(todo: Todo) {
+    todoService.creat(todo: todo)
+  }
+  
   func read() -> [Todo] {
     return todoService.read()
   }
@@ -23,8 +27,9 @@ class AppViewModel: ObservableObject {
   }
   
   func changeStatus(status: Todo.Status, todo: Todo) {
+    todoService.delete(id: todo.id)
     todo.status = status
-    todoService.update(todo: todo)
+    self.todoService.insert(todo: todo)
   }
   
   func delete(set: IndexSet, status: Todo.Status) {
