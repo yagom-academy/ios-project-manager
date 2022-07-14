@@ -11,6 +11,9 @@
 		4E59B99528746FE000307D6E /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 4E59B99428746FE000307D6E /* FirebaseAnalytics */; };
 		4E59B99728746FE000307D6E /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 4E59B99628746FE000307D6E /* FirebaseDatabase */; };
 		4E89D7262875529E000FD1A6 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4E89D7252875529E000FD1A6 /* SnapKit */; };
+		4EA80EE7287FA5EE0054737E /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 4EA80EE6287FA5EE0054737E /* Realm */; };
+		4EA80EE9287FA5EE0054737E /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4EA80EE8287FA5EE0054737E /* RealmSwift */; };
+		4EA80EEC287FA63D0054737E /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = 4EA80EEB287FA63D0054737E /* RxGesture */; };
 		4EB2451F2876F589007F4056 /* EditFormSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB2451E2876F589007F4056 /* EditFormSheetViewController.swift */; };
 		4EB2452328773F24007F4056 /* PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB2452228773F24007F4056 /* PopoverViewController.swift */; };
 		4EB3FFC228756FDD0001DBC0 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB3FFC128756FDD0001DBC0 /* Task.swift */; };
@@ -22,7 +25,6 @@
 		4EB595F3287D543D006C8303 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB595F2287D543D006C8303 /* AppConstants.swift */; };
 		4EB89251287C68B1008DE9B8 /* PopoverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB89250287C68B1008DE9B8 /* PopoverViewModel.swift */; };
 		4EB89253287C6D2E008DE9B8 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB89252287C6D2E008DE9B8 /* MainViewModel.swift */; };
-		4EB89256287C99C1008DE9B8 /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = 4EB89255287C99C1008DE9B8 /* RxGesture */; };
 		4EC236262873DCF9006C9D32 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 4EC236252873DCF9006C9D32 /* RxCocoa */; };
 		4EC236282873DCF9006C9D32 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 4EC236272873DCF9006C9D32 /* RxRelay */; };
 		4EC2362A2873DCF9006C9D32 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4EC236292873DCF9006C9D32 /* RxSwift */; };
@@ -31,8 +33,6 @@
 		9C8BC0DB287874F3003EF525 /* PopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C8BC0DA287874F3003EF525 /* PopoverView.swift */; };
 		9C9C74A72875CFAA00620DEB /* UITextField+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C9C74A62875CFA900620DEB /* UITextField+extension.swift */; };
 		9CA8DE9928770C620002C2F6 /* Double+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA8DE9828770C620002C2F6 /* Double+extension.swift */; };
-		9CAB039C2873DE6600895A45 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 9CAB039B2873DE6600895A45 /* Realm */; };
-		9CAB039E2873DE6600895A45 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9CAB039D2873DE6600895A45 /* RealmSwift */; };
 		9CAB1170287C439B00C55AB8 /* NewFormSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAB116F287C439B00C55AB8 /* NewFormSheetViewModel.swift */; };
 		9CAB1172287C518600C55AB8 /* EditFormSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAB1171287C518600C55AB8 /* EditFormSheetViewModel.swift */; };
 		9CACE12D28755BE20010E4F0 /* Then.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CACE12C28755BE20010E4F0 /* Then.swift */; };
@@ -85,14 +85,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				4E59B99728746FE000307D6E /* FirebaseDatabase in Frameworks */,
-				9CAB039E2873DE6600895A45 /* RealmSwift in Frameworks */,
-				4EB89256287C99C1008DE9B8 /* RxGesture in Frameworks */,
 				4EC236282873DCF9006C9D32 /* RxRelay in Frameworks */,
+				4EA80EEC287FA63D0054737E /* RxGesture in Frameworks */,
 				4EC236262873DCF9006C9D32 /* RxCocoa in Frameworks */,
 				4EC2362A2873DCF9006C9D32 /* RxSwift in Frameworks */,
 				018E063A5FE76D5832BED408 /* Pods_ProjectManager.framework in Frameworks */,
+				4EA80EE7287FA5EE0054737E /* Realm in Frameworks */,
 				4E89D7262875529E000FD1A6 /* SnapKit in Frameworks */,
-				9CAB039C2873DE6600895A45 /* Realm in Frameworks */,
+				4EA80EE9287FA5EE0054737E /* RealmSwift in Frameworks */,
 				4E59B99528746FE000307D6E /* FirebaseAnalytics in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -247,12 +247,12 @@
 				4EC236252873DCF9006C9D32 /* RxCocoa */,
 				4EC236272873DCF9006C9D32 /* RxRelay */,
 				4EC236292873DCF9006C9D32 /* RxSwift */,
-				9CAB039B2873DE6600895A45 /* Realm */,
-				9CAB039D2873DE6600895A45 /* RealmSwift */,
 				4E59B99428746FE000307D6E /* FirebaseAnalytics */,
 				4E59B99628746FE000307D6E /* FirebaseDatabase */,
 				4E89D7252875529E000FD1A6 /* SnapKit */,
-				4EB89255287C99C1008DE9B8 /* RxGesture */,
+				4EA80EE6287FA5EE0054737E /* Realm */,
+				4EA80EE8287FA5EE0054737E /* RealmSwift */,
+				4EA80EEB287FA63D0054737E /* RxGesture */,
 			);
 			productName = ProjectManager;
 			productReference = C7431F0225F51E1D0094C4CF /* ProjectManager.app */;
@@ -283,10 +283,10 @@
 			mainGroup = C7431EF925F51E1D0094C4CF;
 			packageReferences = (
 				4EC236242873DCF9006C9D32 /* XCRemoteSwiftPackageReference "RxSwift" */,
-				9CAB039A2873DE6600895A45 /* XCRemoteSwiftPackageReference "realm-cocoa" */,
 				4E59B99328746FE000307D6E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				4E89D7242875529E000FD1A6 /* XCRemoteSwiftPackageReference "SnapKit" */,
-				4EB89254287C99C1008DE9B8 /* XCRemoteSwiftPackageReference "RxGesture" */,
+				4EA80EE5287FA5EE0054737E /* XCRemoteSwiftPackageReference "realm-cocoa" */,
+				4EA80EEA287FA63D0054737E /* XCRemoteSwiftPackageReference "RxGesture" */,
 			);
 			productRefGroup = C7431F0325F51E1D0094C4CF /* Products */;
 			projectDirPath = "";
@@ -581,40 +581,40 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
 			requirement = {
-				branch = master;
-				kind = branch;
+				kind = exactVersion;
+				version = 9.2.0;
 			};
 		};
 		4E89D7242875529E000FD1A6 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit";
 			requirement = {
-				branch = develop;
-				kind = branch;
+				kind = exactVersion;
+				version = 5.6.0;
 			};
 		};
-		4EB89254287C99C1008DE9B8 /* XCRemoteSwiftPackageReference "RxGesture" */ = {
+		4EA80EE5287FA5EE0054737E /* XCRemoteSwiftPackageReference "realm-cocoa" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-cocoa.git";
+			requirement = {
+				kind = exactVersion;
+				version = 10.28.2;
+			};
+		};
+		4EA80EEA287FA63D0054737E /* XCRemoteSwiftPackageReference "RxGesture" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/RxSwiftCommunity/RxGesture";
 			requirement = {
-				branch = main;
-				kind = branch;
+				kind = exactVersion;
+				version = 4.0.4;
 			};
 		};
 		4EC236242873DCF9006C9D32 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ReactiveX/RxSwift";
 			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
-		9CAB039A2873DE6600895A45 /* XCRemoteSwiftPackageReference "realm-cocoa" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/realm/realm-cocoa.git";
-			requirement = {
-				branch = master;
-				kind = branch;
+				kind = exactVersion;
+				version = 6.5.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -635,9 +635,19 @@
 			package = 4E89D7242875529E000FD1A6 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
 		};
-		4EB89255287C99C1008DE9B8 /* RxGesture */ = {
+		4EA80EE6287FA5EE0054737E /* Realm */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4EB89254287C99C1008DE9B8 /* XCRemoteSwiftPackageReference "RxGesture" */;
+			package = 4EA80EE5287FA5EE0054737E /* XCRemoteSwiftPackageReference "realm-cocoa" */;
+			productName = Realm;
+		};
+		4EA80EE8287FA5EE0054737E /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4EA80EE5287FA5EE0054737E /* XCRemoteSwiftPackageReference "realm-cocoa" */;
+			productName = RealmSwift;
+		};
+		4EA80EEB287FA63D0054737E /* RxGesture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4EA80EEA287FA63D0054737E /* XCRemoteSwiftPackageReference "RxGesture" */;
 			productName = RxGesture;
 		};
 		4EC236252873DCF9006C9D32 /* RxCocoa */ = {
@@ -654,16 +664,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4EC236242873DCF9006C9D32 /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxSwift;
-		};
-		9CAB039B2873DE6600895A45 /* Realm */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 9CAB039A2873DE6600895A45 /* XCRemoteSwiftPackageReference "realm-cocoa" */;
-			productName = Realm;
-		};
-		9CAB039D2873DE6600895A45 /* RealmSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 9CAB039A2873DE6600895A45 /* XCRemoteSwiftPackageReference "realm-cocoa" */;
-			productName = RealmSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
