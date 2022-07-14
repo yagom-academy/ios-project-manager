@@ -59,4 +59,36 @@ final class AppCoordinator: Coordinator {
     func dismiss() {
         self.detailViewController?.dismiss(animated: true)
     }
+    
+    func showPopOver(
+        sourceView: UIView,
+        firstTitle: String,
+        secondTitle: String,
+        firstAction: @escaping ()-> Void,
+        secondAction: @escaping ()-> Void
+    ) {
+        let alert: UIAlertController = {
+            let alertController = UIAlertController(
+                title: nil,
+                message: nil,
+                preferredStyle: .actionSheet
+            )
+            alertController.modalPresentationStyle = .popover
+            alertController.popoverPresentationController?.permittedArrowDirections = .up
+            alertController.popoverPresentationController?.sourceView = sourceView.superview
+            alertController.popoverPresentationController?.sourceRect = CGRect(origin: sourceView.center, size: .zero)
+            
+            return alertController
+        }()
+        
+        let firstAction = UIAlertAction(title: firstTitle, style: .default) { action in
+            firstAction()
+        }
+        let secondAction = UIAlertAction(title: secondTitle, style: .default) { action in
+            secondAction()
+        }
+        alert.addAction(firstAction)
+        alert.addAction(secondAction)
+        self.navigationController.present(alert, animated: true)
+    }
 }
