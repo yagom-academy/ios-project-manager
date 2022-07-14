@@ -6,7 +6,7 @@
 import Foundation
 
 final class TodoViewModel: NSObject {
-  private let todo = Todo()
+  private var todo = Todo()
   private var todoList: [Todo]
   
   override init() {
@@ -35,5 +35,9 @@ final class TodoViewModel: NSObject {
   
   func filterList(by state: State) -> [Todo] {
     return todoList.filter { $0.state == state }
+  }
+  
+  func mappingTodo(from todoModels: [TodoModel]) {
+    todo.mappingTodo(from: todoModels)
   }
 }
