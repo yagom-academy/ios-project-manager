@@ -9,49 +9,102 @@ import SwiftUI
 
 struct CellView: View {
     var contentViewModel: ContentViewModel
+    var cellIndex: Int
+    
     @State private var showSheet = false
-    @State private var isShowingPopover = false
+    @State var isShowingPopover = false
     
     var body: some View {
         Button {
             showSheet.toggle()
         } label: {
-            ListRowView(contentViewModel: contentViewModel)
+            ListRowView(contentViewModel: contentViewModel, cellIndex: cellIndex)
         }
         .onLongPressGesture(minimumDuration: 1) {
             isShowingPopover.toggle()
         }
         .popover(isPresented: $isShowingPopover,
                  arrowEdge: .bottom) {
-            PopoverButton(contentViewModel: contentViewModel)
+            PopoverButton(contentViewModel: contentViewModel,
+                          currentTaskType: contentViewModel.data.task!.type,
+                          cellIndex: cellIndex)
         }
                  .sheet(isPresented: $showSheet) {
-                     RegisterView(contentViewModel: contentViewModel)
+                     EditView(contentViewModel: contentViewModel)
                  }
     }
 }
 
 struct PopoverButton: View {
     var contentViewModel: ContentViewModel
+    var currentTaskType: TaskType
+    var cellIndex: Int
     
     var body: some View {
-        Form {
-            Button(action: {
-                contentViewModel.moveData(contentViewModel.data.task!, from: .todo, to: .doing)
-            }) {
-                Text("Move to DOING")
-            }
-            Button(action: {
-                contentViewModel.moveData(contentViewModel.data.task!, from: .todo, to: .done)
-            }) {
-                Text("Move to DONE")
-            }
-        }.frame(width: 190, height: 90, alignment: .center)
+        switch currentTaskType {
+        case .todo:
+            Form {
+                Button(action: {
+                    contentViewModel.moveData(contentViewModel.todoTasks[cellIndex],
+                                              from: currentTaskType,
+                                              to: .doing)
+                    contentViewModel.data.task?.type = .doing
+                }) {
+                    Text("Move to DOING")
+                }
+                Button(action: {
+                    contentViewModel.moveData(contentViewModel.todoTasks[cellIndex],
+                                              from: currentTaskType,
+                                              to: .done)
+                    contentViewModel.data.task?.type = .done
+                }) {
+                    Text("Move to DONE")
+                }
+            }.frame(width: 190, height: 90, alignment: .center)
+        case .doing:
+            Form {
+                Button(action: {
+                    contentViewModel.moveData(contentViewModel.doingTasks[cellIndex],
+                                              from: currentTaskType,
+                                              to: .todo)
+                    contentViewModel.data.task?.type = .todo
+                }) {
+                    Text("Move to TODO")
+                }
+                Button(action: {
+                    contentViewModel.moveData(contentViewModel.doingTasks[cellIndex],
+                                              from: currentTaskType,
+                                              to: .done)
+                    contentViewModel.data.task?.type = .done
+                }) {
+                    Text("Move to DONE")
+                }
+            }.frame(width: 190, height: 90, alignment: .center)
+        case .done:
+            Form {
+                Button(action: {
+                    contentViewModel.moveData(contentViewModel.doneTasks[cellIndex],
+                                              from: currentTaskType,
+                                              to: .todo)
+                    contentViewModel.data.task?.type = .todo
+                }) {
+                    Text("Move to TODO")
+                }
+                Button(action: {
+                    contentViewModel.moveData(contentViewModel.doneTasks[cellIndex],
+                                              from: currentTaskType,
+                                              to: .doing)
+                    contentViewModel.data.task?.type = .doing
+                }) {
+                    Text("Move to DOING")
+                }
+            }.frame(width: 190, height: 90, alignment: .center)
+        }
     }
 }
 
 struct CellView_Previews: PreviewProvider {
     static var previews: some View {
-        CellView(contentViewModel: ContentViewModel())
+        CellView(contentViewModel: ContentViewModel(), cellIndex: 0)
     }
 }

@@ -16,7 +16,7 @@ class ContentViewModel: ObservableObject {
     
     func appendData() {
         data.addTask()
-        if let task = data.task {
+        if let task = data.taskArray.last {
             todoTasks.append(task)
         }
     }

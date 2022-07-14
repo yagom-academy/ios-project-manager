@@ -9,11 +9,15 @@ import Foundation
 
 class TaskViewModel: ObservableObject {
     var task: Task?
+    var taskArray: [Task] = []
     @Published var title: String = ""
     @Published var dueDate: Date = Date()
     @Published var body: String = ""
     
     func addTask() {
         task = Task(title: self.title, date: self.dueDate, body: self.body, type: .todo)
+        if let finalTask = task {
+            taskArray.append(finalTask)
+        }
     }
 }
