@@ -112,7 +112,7 @@ final class DetailViewController: UIViewController {
     }
     
     private func setUpNavigationBar() {
-        self.navigationItem.title = self.todoListItemStatus.title
+        self.navigationItem.title = self.todoListItemStatus.value
         self.navigationItem.leftBarButtonItem = self.leftBarButton
         self.navigationItem.rightBarButtonItem = self.rightBarButton
     }

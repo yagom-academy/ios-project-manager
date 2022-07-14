@@ -10,6 +10,7 @@
 		3000D70C287D3E7E00EA7A03 /* UIEdgeInsets+Sugar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3000D70B287D3E7E00EA7A03 /* UIEdgeInsets+Sugar.swift */; };
 		3000D717287D56B400EA7A03 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3000D716287D56B400EA7A03 /* DetailViewModel.swift */; };
 		3000D71B287D593A00EA7A03 /* DataBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3000D71A287D593A00EA7A03 /* DataBase.swift */; };
+		307DFCDA288059120030873F /* Reactive+Sugar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307DFCD9288059120030873F /* Reactive+Sugar.swift */; };
 		3088777C2875CD7800057592 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3088777B2875CD7800057592 /* ListView.swift */; };
 		3088779E2876D0CF00057592 /* TodoListItemStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3088779D2876D0CF00057592 /* TodoListItemStatus.swift */; };
 		308FF0C02878205700301DCF /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308FF0BF2878205700301DCF /* DetailViewController.swift */; };
@@ -19,7 +20,6 @@
 		643719A42872B0DF00F78AAA /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 643719A32872B0DF00F78AAA /* RxRelay */; };
 		643719A62872B0DF00F78AAA /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 643719A52872B0DF00F78AAA /* RxSwift */; };
 		643719D32873CC1500F78AAA /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 643719D22873CC1500F78AAA /* RealmSwift */; };
-		643719D62873CD6E00F78AAA /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = 643719D52873CD6E00F78AAA /* RxDataSources */; };
 		643719D92873D10A00F78AAA /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 643719D82873D10A00F78AAA /* FirebaseDatabaseSwift */; };
 		643719DB2873D2BB00F78AAA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 643719DA2873D2BB00F78AAA /* GoogleService-Info.plist */; };
 		643719E02873E02F00F78AAA /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643719DF2873E02F00F78AAA /* Todo.swift */; };
@@ -52,6 +52,7 @@
 		3000D70B287D3E7E00EA7A03 /* UIEdgeInsets+Sugar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIEdgeInsets+Sugar.swift"; sourceTree = "<group>"; };
 		3000D716287D56B400EA7A03 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		3000D71A287D593A00EA7A03 /* DataBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBase.swift; sourceTree = "<group>"; };
+		307DFCD9288059120030873F /* Reactive+Sugar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reactive+Sugar.swift"; sourceTree = "<group>"; };
 		3088777B2875CD7800057592 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		3088779D2876D0CF00057592 /* TodoListItemStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListItemStatus.swift; sourceTree = "<group>"; };
 		308FF0BF2878205700301DCF /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
@@ -82,7 +83,6 @@
 				643719D32873CC1500F78AAA /* RealmSwift in Frameworks */,
 				643719A62872B0DF00F78AAA /* RxSwift in Frameworks */,
 				643719A42872B0DF00F78AAA /* RxRelay in Frameworks */,
-				643719D62873CD6E00F78AAA /* RxDataSources in Frameworks */,
 				643719A22872B0DF00F78AAA /* RxCocoa in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -199,6 +199,7 @@
 				3088779D2876D0CF00057592 /* TodoListItemStatus.swift */,
 				64371AC6287B0CFC00F78AAA /* Formatter.swift */,
 				3000D70B287D3E7E00EA7A03 /* UIEdgeInsets+Sugar.swift */,
+				307DFCD9288059120030873F /* Reactive+Sugar.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -276,7 +277,6 @@
 				643719A32872B0DF00F78AAA /* RxRelay */,
 				643719A52872B0DF00F78AAA /* RxSwift */,
 				643719D22873CC1500F78AAA /* RealmSwift */,
-				643719D52873CD6E00F78AAA /* RxDataSources */,
 				643719D82873D10A00F78AAA /* FirebaseDatabaseSwift */,
 			);
 			productName = ProjectManager;
@@ -309,7 +309,6 @@
 			packageReferences = (
 				643719A02872B0DF00F78AAA /* XCRemoteSwiftPackageReference "RxSwift" */,
 				643719D12873CC1500F78AAA /* XCRemoteSwiftPackageReference "realm-swift" */,
-				643719D42873CD6E00F78AAA /* XCRemoteSwiftPackageReference "RxDataSources" */,
 				643719D72873D10A00F78AAA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = C7431F0325F51E1D0094C4CF /* Products */;
@@ -356,6 +355,7 @@
 				3000D717287D56B400EA7A03 /* DetailViewModel.swift in Sources */,
 				3000D71B287D593A00EA7A03 /* DataBase.swift in Sources */,
 				3088779E2876D0CF00057592 /* TodoListItemStatus.swift in Sources */,
+				307DFCDA288059120030873F /* Reactive+Sugar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -567,14 +567,6 @@
 				kind = branch;
 			};
 		};
-		643719D42873CD6E00F78AAA /* XCRemoteSwiftPackageReference "RxDataSources" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/RxSwiftCommunity/RxDataSources.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.0;
-			};
-		};
 		643719D72873D10A00F78AAA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -605,11 +597,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 643719D12873CC1500F78AAA /* XCRemoteSwiftPackageReference "realm-swift" */;
 			productName = RealmSwift;
-		};
-		643719D52873CD6E00F78AAA /* RxDataSources */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 643719D42873CD6E00F78AAA /* XCRemoteSwiftPackageReference "RxDataSources" */;
-			productName = RxDataSources;
 		};
 		643719D82873D10A00F78AAA /* FirebaseDatabaseSwift */ = {
 			isa = XCSwiftPackageProductDependency;
