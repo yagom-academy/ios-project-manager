@@ -14,6 +14,20 @@ final class Project: Object {
   @objc dynamic var date: Date = Date()
   @objc dynamic var projectCategory: String = ""
 
+  convenience init(
+    uuid: String = UUID().uuidString,
+    title: String,
+    body: String?,
+    date: Date,
+    projectCategory: String
+  ) {
+    self.init()
+    self.title = title
+    self.body = body
+    self.date = date
+    self.projectCategory = projectCategory
+  }
+
   override static func primaryKey() -> String? {
     return "uuid"
   }
