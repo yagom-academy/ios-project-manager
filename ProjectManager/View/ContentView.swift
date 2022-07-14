@@ -8,12 +8,11 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var showSheet = false
     @ObservedObject var contentViewModel: ContentViewModel
+    @State private var isShowingSheet = false
     @State private var isShowingPopover = false
     
     var body: some View {
-        
         NavigationView {
             HStack {
                 TodoView(contentViewModel: contentViewModel)
@@ -27,11 +26,11 @@ struct ContentView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                        showSheet.toggle()
+                        isShowingSheet.toggle()
                     }) {
                         Image(systemName: "plus")
                             .imageScale(.large)
-                    }.sheet(isPresented: $showSheet) {
+                    }.sheet(isPresented: $isShowingSheet) {
                         RegisterView(contentViewModel: contentViewModel)
                     }
                 }
