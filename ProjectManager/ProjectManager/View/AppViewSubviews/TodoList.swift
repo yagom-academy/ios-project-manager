@@ -37,15 +37,12 @@ struct TodoListView: View {
         Color(UIColor.systemGray5)
         List {
           ForEach(todoService.read(by: status)) { todo in
-            EditViewButton(todo: todo, todoService: todoService, isShowEditView: $isShowEditView, updata: updata)
+            EditViewButton(todo: todo, todoService: todoService, updata: updata)
               .listRowSeparator(.hidden)
           }
           .onDelete { index in
             delete(index, status)
           }
-        }
-        .refreshable {
-          
         }
         .padding(.horizontal, -24)
         .listStyle(.inset)
@@ -59,23 +56,25 @@ struct TodoListView: View {
 
 struct EditViewButton: View {
   @State var isLongPressing = false
-  @Binding var isShowEditView: Bool
+  @State var isShowEditView = false
   @ObservedObject var todo: Todo
   @ObservedObject var todoService: TodoService
   private let updata: (Todo.Status, Todo) -> Void
   
-  init(todo: Todo, todoService: TodoService, isShowEditView: Binding<Bool>, updata: @escaping (Todo.Status, Todo) -> Void) {
+  init(todo: Todo, todoService: TodoService, updata: @escaping (Todo.Status, Todo) -> Void) {
     self.todo = todo
     self.todoService = todoService
-    self._isShowEditView = isShowEditView
     self.updata = updata
   }
   
   var body: some View {
-    Button {
-    } label: {
-      TodoListCell(todo)
-    }
+    TodoListCell(todo)
+    .onTapGesture(perform: {
+      isShowEditView = true
+    })
+    .onLongPressGesture(perform: {
+      self.isLongPressing = true
+    })
     .sheet(isPresented: $isShowEditView) {
       EditView(
         isShow: $isShowEditView,
@@ -85,11 +84,5 @@ struct EditViewButton: View {
     .popover(isPresented: $isLongPressing) {
         TodoListPopOver(isShow: $isLongPressing, todo: todo, updata: updata)
     }
-    .onTapGesture(perform: {
-      isShowEditView = true
-    })
-    .onLongPressGesture(perform: {
-      self.isLongPressing = true
-    })
   }
 }
