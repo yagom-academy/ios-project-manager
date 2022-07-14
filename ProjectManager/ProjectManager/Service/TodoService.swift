@@ -44,14 +44,11 @@ class TodoService: ObservableObject {
   }
   
   func update(todo: Todo) {
-    let willChangeTodo = todoList.filter { filteredTodo in
-      todo.id == filteredTodo.id
-    }
-    
-    willChangeTodo.first?.content = todo.content
-    willChangeTodo.first?.title = todo.title
-    willChangeTodo.first?.date  = todo.date
-    willChangeTodo.first?.status = todo.status
+    guard let index = todoList.firstIndex(where: { $0.id == todo.id }) else { return }
+    todoList[index].content = todo.content
+    todoList[index].title = todo.title
+    todoList[index].date  = todo.date
+    todoList[index].status = todo.status
   }
   
   func delete(id: UUID) {

@@ -57,7 +57,7 @@ struct TodoListView: View {
 struct EditViewButton: View {
   @State var isLongPressing = false
   @State var isShowEditView = false
-  @ObservedObject var todo: Todo
+  var todo: Todo
   @ObservedObject var todoService: TodoService
   private let updata: (Todo.Status, Todo) -> Void
   

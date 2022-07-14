@@ -11,11 +11,11 @@ struct EditView: View {
   @State var nonEditable: Bool = true
   @Binding var isShow: Bool
   @ObservedObject var viewModel: EditViewModel
-  var todo = Todo(title: "", content: "")
+  @State var todo = Todo(title: "", content: "")
   
   var body: some View {
     NavigationView {
-      DetailView(todo: todo)
+      DetailView(todo: $todo)
         .disabled(nonEditable)
         .toolbar {
           ToolbarItem(placement: .navigationBarLeading) {

@@ -27,9 +27,8 @@ class AppViewModel: ObservableObject {
   }
   
   func changeStatus(status: Todo.Status, todo: Todo) {
-    todoService.delete(id: todo.id)
-    todo.status = status
-    self.todoService.insert(todo: todo)
+    let updateTodo = Todo(id: todo.id, title: todo.title, content: todo.content, date: todo.date, status: status)
+    todoService.update(todo: updateTodo)
   }
   
   func delete(set: IndexSet, status: Todo.Status) {

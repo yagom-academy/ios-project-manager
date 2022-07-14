@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TodoListPopOver: View {
-  @ObservedObject var todo: Todo
+  var todo: Todo
   @Binding var isShow: Bool
   private let updata: (Todo.Status, Todo) -> Void
   
@@ -38,7 +38,7 @@ struct TodoListPopOver: View {
 
 struct MoveButton: View {
   @Binding var isShow: Bool
-  @ObservedObject var todo: Todo
+  var todo: Todo
   private let updata: (Todo.Status, Todo) -> Void
   let status: Todo.Status
   
