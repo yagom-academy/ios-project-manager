@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct TodoListView: View {
-  @State var isShowEditView: Bool = false
   @ObservedObject var todoService: TodoService
   @ObservedObject var viewModel: AppViewModel
   private let status: Todo.Status
@@ -37,7 +36,7 @@ struct TodoListView: View {
         Color(UIColor.systemGray5)
         List {
           ForEach(todoService.read(by: status)) { todo in
-            EditViewButton(todo: todo, todoService: todoService, updata: updata)
+            ListCellView(todo: todo, todoService: todoService, updata: updata)
               .listRowSeparator(.hidden)
           }
           .onDelete { index in
@@ -54,11 +53,11 @@ struct TodoListView: View {
   }
 }
 
-struct EditViewButton: View {
+struct ListCellView: View {
   @State var isLongPressing = false
   @State var isShowEditView = false
-  var todo: Todo
   @ObservedObject var todoService: TodoService
+  let todo: Todo
   private let updata: (Todo.Status, Todo) -> Void
   
   init(todo: Todo, todoService: TodoService, updata: @escaping (Todo.Status, Todo) -> Void) {
@@ -69,20 +68,20 @@ struct EditViewButton: View {
   
   var body: some View {
     TodoListCell(todo)
-    .onTapGesture(perform: {
-      isShowEditView = true
-    })
-    .onLongPressGesture(perform: {
-      self.isLongPressing = true
-    })
-    .sheet(isPresented: $isShowEditView) {
-      EditView(
-        todo: Todo(id: todo.id, title: todo.title, content: todo.content, date: todo.date, status: todo.status),
-        isShow: $isShowEditView,
-        viewModel: EditViewModel(todoService: todoService))
-    }
-    .popover(isPresented: $isLongPressing) {
+      .onTapGesture(perform: {
+        isShowEditView = true
+      })
+      .onLongPressGesture(perform: {
+        self.isLongPressing = true
+      })
+      .sheet(isPresented: $isShowEditView) {
+        EditView(
+          todo: Todo(id: todo.id, title: todo.title, content: todo.content, date: todo.date, status: todo.status),
+          isShow: $isShowEditView,
+          viewModel: EditViewModel(todoService: todoService))
+      }
+      .popover(isPresented: $isLongPressing) {
         TodoListPopOver(isShow: $isLongPressing, todo: todo, updata: updata)
-    }
+      }
   }
 }
