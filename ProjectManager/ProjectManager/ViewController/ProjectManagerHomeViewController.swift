@@ -57,7 +57,7 @@ final class ProjectManagerHomeViewController: UIViewController {
       creator: { coder in ProjectAddViewController(realmService: self.realmService, coder: coder) }
     ) else { return }
 
-    navigationController?.present(projectAddVC, animated: true)
+    self.present(projectAddVC, animated: true)
   }
 }
 
@@ -110,7 +110,7 @@ extension ProjectManagerHomeViewController: UICollectionViewDataSource {
     cellForItemAt indexPath: IndexPath
   ) -> UICollectionViewCell {
     guard let cell = collectionView.dequeueReusableCell(
-      withReuseIdentifier: "projectManagerCell",
+      withReuseIdentifier: "\(ProjectManagerCollectionViewCell.self)",
       for: indexPath
     ) as? ProjectManagerCollectionViewCell else {
       return UICollectionViewCell()
