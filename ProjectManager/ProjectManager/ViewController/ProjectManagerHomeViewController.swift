@@ -53,8 +53,9 @@ final class ProjectManagerHomeViewController: UIViewController {
 
   @IBAction func addProjectButton(_ sender: UIBarButtonItem) {
     guard let projectAddVC = storyboard?.instantiateViewController(
-      withIdentifier: "\(ProjectAddViewController.self)"
-    ) as? ProjectAddViewController else { return }
+      identifier: "\(ProjectAddViewController.self)",
+      creator: { coder in ProjectAddViewController(realmService: self.realmService, coder: coder) }
+    ) else { return }
 
     navigationController?.present(projectAddVC, animated: true)
   }

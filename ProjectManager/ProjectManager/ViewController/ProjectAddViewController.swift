@@ -7,15 +7,27 @@
 
 import UIKit
 
+import RealmSwift
+
 final class ProjectAddViewController: UIViewController {
   @IBOutlet weak var addProjectTitleTextField: UITextField!
   @IBOutlet weak var datePicker: UIDatePicker!
   @IBOutlet weak var bodyTextView: UITextView!
 
+  private let realmService: RealmService?
+
+  init?(realmService: RealmService, coder: NSCoder) {
+    self.realmService = realmService
+    super.init(coder: coder)
+  }
+
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+
   override func viewDidLoad() {
     super.viewDidLoad()
     self.initializeUI()
-
   }
 
   private func initializeUI() {
