@@ -10,6 +10,12 @@ import UIKit
 import RxCocoa
 
 extension Reactive where Base: UITableView {
+    func listItemSelected<T>(_ itemType: T.Type) -> ControlEvent<(IndexPath, T)> {
+        let event = Observable.zip(base.rx.itemSelected.asObservable(),
+                                   base.rx.modelSelected(T.self).asObservable())
+        return ControlEvent(events: event)
+    }
+    
     func listLongPress<T>(_ type: T.Type) -> ControlEvent<(UITableViewCell, T)> {
         let longPressGesture = UILongPressGestureRecognizer()
         base.addGestureRecognizer(longPressGesture)
