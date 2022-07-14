@@ -101,8 +101,8 @@ extension TodoListViewController {
                 mainView.doingTableView.rx.listLongPress(TodoCellContent.self),
                 mainView.doneTableView.rx.listLongPress(TodoCellContent.self))
             .merge()
-            .bind { (cell, model) in
-                print(model)
+            .bind { [weak self] (cell, item) in
+                self?.viewModel.cellLongPress(cell: cell as? TodoListCell, id: item.id)
             }.disposed(by: bag)
         
         Observable

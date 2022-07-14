@@ -10,8 +10,6 @@ import SnapKit
 import RxSwift
 import RxCocoa
 
-
-
 final class TodoEditViewController: UIViewController {
     private enum Constant {
         static let edit = "Edit"

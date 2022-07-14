@@ -11,11 +11,13 @@ import RxCocoa
 
 struct TodoListViewModelActions {
     let presentEditViewController: (_ item: TodoModel?) -> Void
+    let popoverMoveViewController: (_ cell: TodoListCell?, _ item: TodoModel) -> Void
 }
 
 protocol TodoListViewModelInput {
     func plusButtonDidTap()
     func cellSelected(id: UUID)
+    func cellLongPress(cell: TodoListCell?, id: UUID)
 }
 
 protocol TodoListViewModelOutput {
@@ -90,10 +92,17 @@ final class DefaultTodoListViewModel: TodoListViewModel {
     }
     
     func cellSelected(id: UUID) {
-        let item = try? useCase.readRepository().value()
+        let item = try? todoLists.value()
             .first { $0.id == id }
         actions?.presentEditViewController(item)
         
+    }
+    
+    func cellLongPress(cell: TodoListCell?, id: UUID) {
+        if let item = try? todoLists.value()
+            .first(where: { $0.id == id }) {
+                actions?.popoverMoveViewController(cell, item)
+            }
     }
     
     init(useCase: UseCase, actions: TodoListViewModelActions) {
