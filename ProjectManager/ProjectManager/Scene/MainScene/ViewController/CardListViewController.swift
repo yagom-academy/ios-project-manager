@@ -33,7 +33,7 @@ final class CardListViewController: UIViewController {
   }
   
   private let disposeBag = DisposeBag()
-  private let viewModel: CardListViewModelable
+  private weak var viewModel: CardListViewModelable?
   private weak var coordinator: CardCoordinator?
   
   init(viewModel: CardListViewModelable, coordinator: CardCoordinator) {
@@ -71,50 +71,50 @@ final class CardListViewController: UIViewController {
   }
   
   private func bindSectionsHeader() {
-    viewModel.todoCards
+    viewModel?.todoCards
       .map { "\($0.count)" }
       .drive(todoSectionView.headerView.cardCountLabel.rx.text)
       .disposed(by: disposeBag)
     
-    viewModel.doingCards
+    viewModel?.doingCards
       .map { "\($0.count)" }
       .drive(doingSectionView.headerView.cardCountLabel.rx.text)
       .disposed(by: disposeBag)
     
-    viewModel.doneCards
+    viewModel?.doneCards
       .map { "\($0.count)" }
       .drive(doneSectionView.headerView.cardCountLabel.rx.text)
       .disposed(by: disposeBag)
   }
   
   private func bindSectionsItems() {
-    viewModel.todoCards
+    viewModel?.todoCards
       .drive(todoSectionView.tableView.rx.items(
         cellIdentifier: CardListTableViewCell.identifier,
         cellType: CardListTableViewCell.self
       )) { [weak self] _, card, cell in
         guard let self = self else { return }
-        cell.setup(card: self.viewModel.toCardListViewModelItem(card: card))
+        cell.setup(card: self.viewModel?.toCardListViewModelItem(card: card))
       }
       .disposed(by: disposeBag)
     
-    viewModel.doingCards
+    viewModel?.doingCards
       .drive(doingSectionView.tableView.rx.items(
         cellIdentifier: CardListTableViewCell.identifier,
         cellType: CardListTableViewCell.self
       )) { [weak self] _, card, cell in
         guard let self = self else { return }
-        cell.setup(card: self.viewModel.toCardListViewModelItem(card: card))
+        cell.setup(card: self.viewModel?.toCardListViewModelItem(card: card))
       }
       .disposed(by: disposeBag)
     
-    viewModel.doneCards
+    viewModel?.doneCards
       .drive(doneSectionView.tableView.rx.items(
         cellIdentifier: CardListTableViewCell.identifier,
         cellType: CardListTableViewCell.self
       )) { [weak self] _, card, cell in
         guard let self = self else { return }
-        cell.setup(card: self.viewModel.toCardListViewModelItem(card: card))
+        cell.setup(card: self.viewModel?.toCardListViewModelItem(card: card))
       }
       .disposed(by: disposeBag)
   }
@@ -161,7 +161,7 @@ final class CardListViewController: UIViewController {
       doneSectionView.tableView.rx.modelDeleted(Card.self).asObservable()
     )
     .bind(onNext: { [weak self] card in
-      self?.viewModel.deleteSelectedCard(card)
+      self?.viewModel?.deleteSelectedCard(card)
     })
     .disposed(by: disposeBag)
   }
@@ -179,7 +179,7 @@ final class CardListViewController: UIViewController {
       )
     }
     .bind(onNext: { [weak self] card, index in
-      self?.viewModel.moveDifferentSection(card, to: index)
+      self?.viewModel?.moveDifferentSection(card, to: index)
     })
     .disposed(by: disposeBag)
   }

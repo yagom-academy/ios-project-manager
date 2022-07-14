@@ -18,7 +18,7 @@ final class CardAdditionViewController: UIViewController {
   
   private let cardEditView = CardEditView()
   private let disposeBag = DisposeBag()
-  private let viewModel: CardListViewModelable
+  private weak var viewModel: CardListViewModelable?
   
   init(viewModel: CardListViewModelable) {
     self.viewModel = viewModel
@@ -49,7 +49,7 @@ final class CardAdditionViewController: UIViewController {
         guard let self = self else { return }
         guard let card = self.createNewCard() else { return }
         
-        self.viewModel.createNewCard(card)
+        self.viewModel?.createNewCard(card)
         self.dismiss(animated: true)
       })
       .disposed(by: disposeBag)

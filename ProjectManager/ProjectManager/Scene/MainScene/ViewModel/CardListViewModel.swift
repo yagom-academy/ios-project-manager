@@ -24,7 +24,7 @@ protocol CardListViewModelOutput {
   var doneCards: Driver<[Card]> { get }
 }
 
-protocol CardListViewModelable: CardListViewModelInput, CardListViewModelOutput {}
+protocol CardListViewModelable: CardListViewModelInput, CardListViewModelOutput, AnyObject {}
 
 final class DefaultCardListViewModel: CardListViewModelable {
   private let cards = BehaviorRelay<[Card]>(value: Card.sample)

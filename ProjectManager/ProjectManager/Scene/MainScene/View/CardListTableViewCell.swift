@@ -59,7 +59,9 @@ final class CardListTableViewCell: UITableViewCell {
     deadlineDateLabel.text = nil
   }
   
-  func setup(card: CardListViewModelItem) {
+  func setup(card: CardListViewModelItem?) {
+    guard let card = card else { return }
+    
     titleLabel.text = card.title
     descriptionLabel.text = card.description
     deadlineDateLabel.text = card.deadlineDateString

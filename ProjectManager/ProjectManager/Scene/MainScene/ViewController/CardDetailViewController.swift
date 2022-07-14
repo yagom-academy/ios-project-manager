@@ -21,7 +21,7 @@ final class CardDetailViewController: UIViewController {
   private var isEditable = false
   
   private let disposeBag = DisposeBag()
-  private let viewModel: CardListViewModelable
+  private weak var viewModel: CardListViewModelable?
   private let card: Card
   
   init(viewModel: CardListViewModelable, card: Card) {
@@ -55,7 +55,7 @@ final class CardDetailViewController: UIViewController {
         guard let self = self else { return }
         guard let card = self.updateSelectedCard() else { return }
         
-        self.viewModel.updateSelectedCard(card)
+        self.viewModel?.updateSelectedCard(card)
         self.dismiss(animated: true)
       })
       .disposed(by: disposeBag)
