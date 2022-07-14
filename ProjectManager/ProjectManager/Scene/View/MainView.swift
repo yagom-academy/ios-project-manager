@@ -17,40 +17,22 @@ final class MainView: UIView {
     private(set) lazy var doingTableView = generateTableView()
     private(set) lazy var doneTableView = generateTableView()
     
-    private lazy var baseStackView = UIStackView(
-        arrangedSubviews: [
-            todoStackView,
-            doingStackView,
-            doneStackView
-        ]).then {
-            $0.axis = .horizontal
-            $0.spacing = 15
-            $0.distribution = .fillEqually
-        }
+    private let baseStackView = UIStackView().then {
+        $0.spacing = 15
+        $0.distribution = .fillEqually
+    }
     
-    private lazy var todoStackView = UIStackView(
-        arrangedSubviews: [
-            todoHeaderView,
-            todoTableView
-        ]).then {
-            $0.axis = .vertical
-        }
+    private let todoStackView = UIStackView().then {
+        $0.axis = .vertical
+    }
     
-    private lazy var doingStackView = UIStackView(
-        arrangedSubviews: [
-            doingHeaderView,
-            doingTableView
-        ]).then {
-            $0.axis = .vertical
-        }
+    private let doingStackView = UIStackView().then {
+        $0.axis = .vertical
+    }
     
-    private lazy var doneStackView = UIStackView(
-        arrangedSubviews: [
-            doneHeaderView,
-            doneTableView
-        ]).then {
-            $0.axis = .vertical
-        }
+    private let doneStackView = UIStackView().then {
+        $0.axis = .vertical
+    }
 
     init() {
         super.init(frame: .zero)
@@ -65,6 +47,19 @@ final class MainView: UIView {
     
     private func setupSubViews() {
         addSubview(baseStackView)
+        
+        baseStackView.addArrangedSubview(todoStackView)
+        baseStackView.addArrangedSubview(doingStackView)
+        baseStackView.addArrangedSubview(doneStackView)
+    
+        todoStackView.addArrangedSubview(todoHeaderView)
+        todoStackView.addArrangedSubview(todoTableView)
+
+        doingStackView.addArrangedSubview(doingHeaderView)
+        doingStackView.addArrangedSubview(doingTableView)
+
+        doneStackView.addArrangedSubview(doneHeaderView)
+        doneStackView.addArrangedSubview(doneTableView)
     }
     
     private func setupUILayout() {

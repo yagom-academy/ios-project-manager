@@ -18,35 +18,31 @@ final class TaskTableViewCell: UITableViewCell {
     
     private(set) var task: Task?
     
-    private lazy var baseCellStackView = UIStackView(
-        arrangedSubviews: [
-            titleLabel,
-            descriptionLabel,
-            dateLabel
-        ]).then {
+    private let baseCellStackView = UIStackView().then {
         $0.axis = .vertical
         $0.spacing = 5
     }
     
-    private lazy var titleLabel = UILabel().then {
+    private let titleLabel = UILabel().then {
         $0.font = .preferredFont(for: .title2, weight: .medium)
         $0.setContentHuggingPriority(.defaultHigh, for: .vertical)
     }
     
-    private lazy var descriptionLabel = UILabel().then {
+    private let descriptionLabel = UILabel().then {
         $0.font = .preferredFont(for: .title3, weight: .medium)
         $0.numberOfLines = Constants.numberOfLines
         $0.textColor = .gray
         $0.setContentHuggingPriority(.defaultLow, for: .vertical)
     }
     
-    private lazy var dateLabel = UILabel().then {
+    private let dateLabel = UILabel().then {
         $0.font = .preferredFont(for: .headline, weight: .medium)
         $0.setContentHuggingPriority(.defaultHigh, for: .vertical)
     }
-
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setupSubViews()
         setupUILayout()
     }
     
@@ -54,8 +50,15 @@ final class TaskTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupUILayout() {
+    private func setupSubViews() {
         contentView.addSubview(baseCellStackView)
+        
+        baseCellStackView.addArrangedSubview(titleLabel)
+        baseCellStackView.addArrangedSubview(descriptionLabel)
+        baseCellStackView.addArrangedSubview(dateLabel)
+    }
+    
+    private func setupUILayout() {
         baseCellStackView.snp.makeConstraints {
             $0.edges.equalToSuperview().inset(10)
         }
@@ -63,7 +66,7 @@ final class TaskTableViewCell: UITableViewCell {
     
     func setupContents(task: Task) {
         self.task = task
-
+        
         titleLabel.text = task.title
         descriptionLabel.text = task.body
         dateLabel.text = task.date.formattedString

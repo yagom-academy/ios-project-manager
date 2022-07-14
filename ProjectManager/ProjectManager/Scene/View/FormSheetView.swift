@@ -9,14 +9,9 @@ import UIKit
 
 final class FormSheetView: UIView {
     
-    private lazy var formSheetStackView = UIStackView(
-        arrangedSubviews: [
-        titleTextField,
-        datePicker,
-        shadowView
-        ]).then {
-            $0.axis = .vertical
-            $0.spacing = 10
+    private lazy var formSheetStackView = UIStackView().then {
+        $0.axis = .vertical
+        $0.spacing = 10
     }
     
     private(set) lazy var titleTextField = UITextField().then {
@@ -44,6 +39,7 @@ final class FormSheetView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .white
+        setupSubViews()
         setupUILayout()
     }
     
@@ -60,9 +56,18 @@ final class FormSheetView: UIView {
         target.layer.shadowOffset = .init(width: 0, height: 3)
     }
     
-    private func setupUILayout() {
-        shadowView.addSubview(bodyTextView)
+    private func setupSubViews() {
         addSubview(formSheetStackView)
+        
+        formSheetStackView.addArrangedSubview(titleTextField)
+        formSheetStackView.addArrangedSubview(datePicker)
+        formSheetStackView.addArrangedSubview(shadowView)
+        
+        shadowView.addSubview(bodyTextView)
+    }
+    
+    private func setupUILayout() {
+        
         bodyTextView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }

@@ -13,16 +13,12 @@ final class PopoverView: UIView {
         static let moveToDoingTitle: String = "Move to Doing"
         static let moveToDoneTitle: String = "Move to Done"
     }
-    private lazy var baseStackView = UIStackView(
-        arrangedSubviews: [
-            moveToToDoButton,
-            moveToDoingButton,
-            moveToDoneButton
-        ]).then {
-            $0.axis = .vertical
-            $0.distribution = .fillEqually
-            $0.spacing = 10
-        }
+    
+    private let baseStackView = UIStackView().then {
+        $0.axis = .vertical
+        $0.distribution = .fillEqually
+        $0.spacing = 10
+    }
     
     private(set) lazy var moveToToDoButton = generatePopoverButton(title: Constants.moveToToDoTitle)
     private(set) lazy var moveToDoingButton = generatePopoverButton(title: Constants.moveToDoingTitle)
@@ -41,6 +37,10 @@ final class PopoverView: UIView {
     
     private func setupSubViews() {
         addSubview(baseStackView)
+        
+        baseStackView.addArrangedSubview(moveToToDoButton)
+        baseStackView.addArrangedSubview(moveToDoingButton)
+        baseStackView.addArrangedSubview(moveToDoneButton)
     }
     
     private func setupUILayout() {

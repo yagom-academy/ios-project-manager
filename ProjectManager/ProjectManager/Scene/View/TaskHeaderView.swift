@@ -23,12 +23,7 @@ final class TaskHeaderView: UIView {
         $0.textAlignment = .center
     }
     
-    private lazy var headerStackView = UIStackView(
-        arrangedSubviews: [
-            titleLabel,
-            taskCountLabel
-        ]).then {
-        $0.axis = .horizontal
+    private let headerStackView = UIStackView().then {
         $0.alignment = .center
         $0.spacing = 10
     }
@@ -47,6 +42,9 @@ final class TaskHeaderView: UIView {
     
     private func setupSubViews() {
         addSubview(headerStackView)
+        
+        headerStackView.addArrangedSubview(titleLabel)
+        headerStackView.addArrangedSubview(taskCountLabel)
     }
     
     private func setupUILayout() {
