@@ -42,7 +42,7 @@ final class TodoDetailViewController: UIViewController {
         viewModel.item
             .sink { [weak self] item in
                 self?.todoDetailView.titleTextField.text = item.title
-                self?.todoDetailView.datePicker.date = item.deadLine
+                self?.todoDetailView.datePicker.date = item.deadline
                 self?.todoDetailView.contentTextView.text = item.content
             }
             .store(in: &cancellables)
@@ -94,7 +94,7 @@ final class TodoDetailViewController: UIViewController {
             self?.viewModel.didTapDoneButton(
                 title: self?.todoDetailView.titleTextField.text,
                 content: self?.todoDetailView.contentTextView.text,
-                deadLine: self?.todoDetailView.datePicker.date
+                deadline: self?.todoDetailView.datePicker.date
             )
         }
         

@@ -110,7 +110,7 @@ extension TodoViewModel {
         let item = TodoListModel(
             title: item.title,
             content: item.content,
-            deadLine: item.deadLine,
+            deadline: item.deadline,
             processType: menuType.firstProcessType,
             id: item.id
         )
@@ -121,7 +121,7 @@ extension TodoViewModel {
         let item = TodoListModel(
             title: item.title,
             content: item.content,
-            deadLine: item.deadLine,
+            deadline: item.deadline,
             processType: menuType.secondProcessType,
             id: item.id
         )

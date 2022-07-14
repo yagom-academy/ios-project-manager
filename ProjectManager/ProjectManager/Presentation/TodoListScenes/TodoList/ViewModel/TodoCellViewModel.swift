@@ -13,7 +13,10 @@ protocol TodoCellViewModelInput {
 }
 
 protocol TodoCellViewModelOutput {
-    var item: Just<TodoListModel> { get }
+    var todoTitle: Just<String> { get }
+    var todoContent: Just<String> { get }
+    var todoDeadline: Just<String> { get }
+    
     var expired: PassthroughSubject<Void, Never> { get }
     var notExpired: PassthroughSubject<Void, Never> { get }
 }
@@ -22,11 +25,20 @@ protocol TodoCellViewModelable: TodoCellViewModelInput, TodoCellViewModelOutput 
 
 final class TodoCellViewModel: TodoCellViewModelable {
     private let model: TodoListModel
+    private let dateformatter = DateFormatter()
     
     // MARK: - Output
     
-    var item: Just<TodoListModel> {
-        return Just(model)
+    var todoTitle: Just<String> {
+        return Just(model.title)
+    }
+    
+    var todoContent: Just<String> {
+        return Just(model.content)
+    }
+    
+    var todoDeadline: Just<String> {
+        return Just(formattedString(model.deadline))
     }
     
     let expired = PassthroughSubject<Void, Never>()
@@ -37,11 +49,27 @@ final class TodoCellViewModel: TodoCellViewModelable {
     }
     
     private func setDateLabelColor() {
-        if Date() > model.deadLine {
+        if Date() > endOfTheDay(for: model.deadline) ?? Date() {
             expired.send(())
         } else {
             notExpired.send(())
         }
+    }
+    
+    private func formattedString(_ date: Date) -> String {
+        dateformatter.locale = .current
+        dateformatter.dateFormat = "yyyy. M. d."
+        return dateformatter.string(from: date)
+    }
+
+    private func endOfTheDay(for date: Date) -> Date? {
+        let calendar = Calendar.current
+        var components = calendar.dateComponents([.year, .month, .day], from: date)
+        
+        components.hour = 23
+        components.minute = 59
+        
+        return calendar.date(from: components)
     }
 }
 

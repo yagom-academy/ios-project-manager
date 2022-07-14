@@ -35,7 +35,7 @@ final class TodoTableViewCell: UITableViewCell {
         return label
     }()
     
-    private let deadLineLabel: UILabel = {
+    private let deadlineLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .footnote)
         return label
@@ -62,23 +62,33 @@ final class TodoTableViewCell: UITableViewCell {
     func bind(_ viewModel: TodoCellViewModelable) {
         self.viewModel = viewModel
         
-        viewModel.item
-            .sink { [weak self] item in
-                self?.titleLabel.text = item.title
-                self?.contentLabel.text = item.content
-                self?.deadLineLabel.text = DateManager.shared.formattedString(item.deadLine)
+        viewModel.todoTitle
+            .sink { [weak self] title in
+                self?.titleLabel.text = title
+            }
+            .store(in: &cancellables)
+        
+        viewModel.todoContent
+            .sink { [weak self] content in
+                self?.contentLabel.text = content
+            }
+            .store(in: &cancellables)
+        
+        viewModel.todoDeadline
+            .sink { [weak self] deadline in
+                self?.deadlineLabel.text = deadline
             }
             .store(in: &cancellables)
         
         viewModel.expired
             .sink { [weak self] _ in
-                self?.deadLineLabel.textColor = .systemRed
+                self?.deadlineLabel.textColor = .systemRed
             }
             .store(in: &cancellables)
         
         viewModel.notExpired
             .sink { [weak self] _ in
-                self?.deadLineLabel.textColor = .label
+                self?.deadlineLabel.textColor = .label
             }
             .store(in: &cancellables)
         
@@ -93,7 +103,7 @@ final class TodoTableViewCell: UITableViewCell {
     
     private func addSubviews() {
         contentView.addSubview(todoStackView)
-        todoStackView.addArrangeSubviews(titleLabel, contentLabel, deadLineLabel)
+        todoStackView.addArrangeSubviews(titleLabel, contentLabel, deadlineLabel)
     }
     
     private func setupConstraint() {

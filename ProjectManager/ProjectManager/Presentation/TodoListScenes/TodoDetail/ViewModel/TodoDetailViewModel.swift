@@ -11,7 +11,7 @@ import Combine
 protocol TodoDetailViewModelInput {
     func viewDidLoad()
     func didTapCloseButton()
-    func didTapDoneButton(title: String?, content: String?, deadLine: Date?)
+    func didTapDoneButton(title: String?, content: String?, deadline: Date?)
     func didTapEditButton()
     func viewDidDisapper(title: String?, content: String?)
 }
@@ -64,10 +64,10 @@ extension TodoDetailViewModel {
         coordinator?.dismiss()
     }
     
-    func didTapDoneButton(title: String?, content: String?, deadLine: Date?) {
+    func didTapDoneButton(title: String?, content: String?, deadline: Date?) {
         guard let title = title,
               let content = content,
-              let deadLine = deadLine
+              let deadline = deadline
         else {
             return
         }
@@ -80,7 +80,7 @@ extension TodoDetailViewModel {
             TodoListModel(
                 title: title,
                 content: content,
-                deadLine: deadLine,
+                deadline: deadline,
                 processType: todoListModel.processType,
                 id: todoListModel.id
             )
