@@ -12,7 +12,6 @@ struct Task: Identifiable, Equatable {
     var title: String
     var date: Date
     var body: String
-    var type: TaskType
 }
 
 enum TaskType {
