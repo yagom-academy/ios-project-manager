@@ -168,7 +168,6 @@ final class DetailViewController: UIViewController {
             .disposed(by: self.disposeBag)
     }
     
-    
     private func createTodo() -> Todo {
         if let selectedData = self.selectedData {
             return Todo(
