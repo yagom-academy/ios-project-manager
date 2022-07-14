@@ -54,7 +54,10 @@ final class TodoMoveViewController: UIViewController {
         configureView()
         bind()
     }
-    
+}
+
+//MARK: - View Setting
+extension TodoMoveViewController {
     private func configureView() {
         view.backgroundColor = .systemGray5
         view.addSubview(buttomStackView)
@@ -64,6 +67,7 @@ final class TodoMoveViewController: UIViewController {
     }
 }
 
+//MARK: - ViewModel Bind
 extension TodoMoveViewController {
     private func bind() {
         viewModel.setbuttonTitle(state: item.state)

@@ -90,7 +90,7 @@ extension TodoListViewController {
             .drive(mainView.doneHeaderView.rx.countText)
             .disposed(by: bag)
         
-        //MARK: - Button
+        //MARK: - Event
         plusButton.rx.tap
             .bind { [weak self] in
                 self?.viewModel.plusButtonDidTap()
@@ -111,7 +111,7 @@ extension TodoListViewController {
                 mainView.doneTableView.rx.listItemSelected(TodoCellContent.self))
             .merge()
             .bind { [weak self] (indexPath, item) in
-                self?.mainView.doingTableView.deselectRow(at: indexPath, animated: true)
+                self?.mainView.TableViewdeselectRow(indexPath: indexPath)
                 self?.viewModel.cellSelected(id: item.id)
             }.disposed(by: bag)
     }

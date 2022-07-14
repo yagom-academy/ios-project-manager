@@ -93,3 +93,11 @@ final class TodoListView: UIView {
         doneTableView.register(TodoListCell.self, forCellReuseIdentifier: TodoListCell.identifier)
     }
 }
+
+extension TodoListView {
+    func TableViewdeselectRow(indexPath: IndexPath) {
+        todoTableView.deselectRow(at: indexPath, animated: true)
+        doingTableView.deselectRow(at: indexPath, animated: true)
+        doneTableView.deselectRow(at: indexPath, animated: true)
+    }
+}
