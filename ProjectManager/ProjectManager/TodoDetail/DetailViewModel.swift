@@ -16,13 +16,22 @@ final class DetailViewModel {
     init(dataBase: DataBase) {
         self.dataBase = dataBase
     }
-
-    func doneButtonTapEvent(todo: Todo?, completion: @escaping () -> Void) {
+    
+    func doneButtonTapEvent(
+        todo: Todo?,
+        selectedData: Todo? = nil,
+        completion: @escaping () -> Void
+    ) {
         guard let todo = todo else {
             return
         }
-
-        self.dataBase.save(todoListData: [todo])
-        completion()
+        
+        if let _ = selectedData {
+            self.dataBase.update(todo: todo)
+            completion()
+        } else {
+            self.dataBase.create(todoListData: [todo])
+            completion()
+        }
     }
 }

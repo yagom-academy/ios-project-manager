@@ -10,8 +10,11 @@ import Foundation
 import RxRelay
 
 protocol DataBase {
-    func save(todoListData: [Todo])
     var data: BehaviorRelay<[Todo]> { get set }
+    func create(todoListData: [Todo])
+    func read(identifier: UUID) -> Todo?
+    func update(todo: Todo)
+    func delete(identifier: UUID)
 }
 
 final class TempDataBase: DataBase {
@@ -20,7 +23,7 @@ final class TempDataBase: DataBase {
     let tempDoingData = TempData().doingData
     
     var data = BehaviorRelay<[Todo]>(value: [])
-    
+        
     init() {
         self.data.accept(self.fetch())
     }
@@ -53,7 +56,23 @@ final class TempDataBase: DataBase {
         return tempTodoData
     }
     
-    func save(todoListData: [Todo]) {
+    func create(todoListData: [Todo]) {
         self.data.accept(self.data.value + todoListData)
+    }
+    
+    func read(identifier: UUID) -> Todo? {
+        let item = self.data.value.filter { $0.identifier == identifier }
+        return item.first
+    }
+    
+    func update(todo: Todo) {
+        let items = self.data.value.filter { $0.identifier != todo.identifier }
+        self.data.accept(items + [todo])
+    }
+    
+    func delete(identifier: UUID) {
+        let item = self.read(identifier: identifier)
+        let items = self.data.value.filter { $0.identifier != item?.identifier }
+        self.data.accept(items)
     }
 }

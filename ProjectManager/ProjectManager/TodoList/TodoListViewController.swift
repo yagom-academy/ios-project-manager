@@ -28,6 +28,16 @@ final class TodoListViewController: UIViewController {
 
         return stackView
     }()
+    
+    private let rightBarButton: UIBarButtonItem = {
+        let barButton = UIBarButtonItem(
+            image: UIImage(systemName: "plus"),
+            style: .plain,
+            target: nil,
+            action: nil
+        )
+        return barButton
+    }()
 
     init(todoViewModel: TodoListViewModel, coordinator: AppCoordinator) {
         self.todoView = ListView(todoListItemStatus: .todo, listViewModel: todoViewModel, coordinator: coordinator)
@@ -69,17 +79,13 @@ final class TodoListViewController: UIViewController {
     private func setUpNavigation() {
         self.view.backgroundColor = .systemBackground
         self.title = "Project Manager"
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(
-            image: UIImage(systemName: "plus"),
-            style: .plain,
-            target: nil,
-            action: nil)
+        self.navigationItem.rightBarButtonItem = self.rightBarButton
     }
     
     private func bind() {
-        self.navigationItem.rightBarButtonItem?.rx.tap.asObservable()
+        self.rightBarButton.rx.tap.asObservable()
             .subscribe(onNext: { [weak self] in
-                self?.coordinator?.showDetailView(type: .create, todoListItemStatus: .todo) })
+                self?.coordinator?.showDetailView() })
             .disposed(by: self.disposeBag)
     }
 }

@@ -137,8 +137,16 @@ final class ListView: UIView {
         .disposed(by: self.disposeBag)
         
         self.tableView.rx.itemSelected
-            .subscribe(onNext: { [weak self] _ in
-                self?.coordinator?.showDetailView(type: .edit, todoListItemStatus: self?.todoListItemstatus)
+            .subscribe(onNext: { [weak self] indexPath in
+                self?.listViewModel.cellSelectEvent(indexPathRow: indexPath.row, todoListItemStatus: self?.todoListItemstatus, completion: { selectedData in
+                    self?.coordinator?.showDetailView(todoListItemStatus: self?.todoListItemstatus, selectedData: selectedData)
+                })
+            })
+            .disposed(by: self.disposeBag)
+        
+        self.tableView.rx.modelDeleted(Todo.self)
+            .subscribe(onNext: { [weak self] selectedData in
+                self?.listViewModel.cellDeleteEvent(selectedData: selectedData)
             })
             .disposed(by: self.disposeBag)
         
