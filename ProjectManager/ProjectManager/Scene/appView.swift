@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct AppView: View {
-  @ObservedObject var viewModel: AppViewModel
   @State private var isShowDetailView = false
+  @ObservedObject var viewModel: AppViewModel
   
   init(viewModel: AppViewModel) {
     let navigationBarApperance = UINavigationBarAppearance()
@@ -52,7 +52,7 @@ struct AppView: View {
         })
       }
       .sheet(isPresented: $isShowDetailView) {
-        CreateView(viewModel: CreateViewModel(todoService: viewModel.todoService), isShow: $isShowDetailView)
+        CreateView(isShow: $isShowDetailView, viewModel: CreateViewModel(todoService: viewModel.todoService))
       }
     }
     .navigationViewStyle(.stack)

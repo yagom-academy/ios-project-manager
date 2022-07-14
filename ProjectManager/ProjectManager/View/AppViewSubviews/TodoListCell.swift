@@ -8,11 +8,13 @@
 import SwiftUI
 
 struct TodoListCell: View {
-  var todo: Todo
+  @State var isOverDate = false
+  let todo: Todo
   
   init(_ todo: Todo) {
     self.todo = todo
   }
+  
   var body: some View {
     ZStack {
       Rectangle()
@@ -33,10 +35,17 @@ struct TodoListCell: View {
             Text(todo.date.toString())
               .font(.body)
               .lineLimit(1)
+              .foregroundColor(isOverDate ? .red : .black )
         }
         .padding()
+        .onAppear {
+          configure()
+        }
         Spacer()
       }
     }
+  }
+  private func configure() {
+    isOverDate = todo.date < Date() && todo.status != .done
   }
 }

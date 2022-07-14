@@ -9,9 +9,9 @@ import SwiftUI
 
 struct EditView: View {
   @State var nonEditable: Bool = true
+  @State var todo = Todo(title: "", content: "")
   @Binding var isShow: Bool
   @ObservedObject var viewModel: EditViewModel
-  @State var todo = Todo(title: "", content: "")
   
   var body: some View {
     NavigationView {

@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct CreateView: View {
-  @ObservedObject var viewModel: CreateViewModel
   @State var todo = Todo(title: "", content: "")
   @Binding var isShow: Bool
+  @ObservedObject var viewModel: CreateViewModel
   
   var body: some View {
     NavigationView {

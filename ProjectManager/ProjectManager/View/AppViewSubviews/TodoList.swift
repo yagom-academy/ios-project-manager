@@ -77,9 +77,9 @@ struct EditViewButton: View {
     })
     .sheet(isPresented: $isShowEditView) {
       EditView(
+        todo: Todo(id: todo.id, title: todo.title, content: todo.content, date: todo.date, status: todo.status),
         isShow: $isShowEditView,
-        viewModel: EditViewModel(todoService: todoService),
-        todo: Todo(id: todo.id, title: todo.title, content: todo.content, date: todo.date, status: todo.status))
+        viewModel: EditViewModel(todoService: todoService))
     }
     .popover(isPresented: $isLongPressing) {
         TodoListPopOver(isShow: $isLongPressing, todo: todo, updata: updata)
