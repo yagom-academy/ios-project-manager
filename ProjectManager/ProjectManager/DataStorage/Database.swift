@@ -24,7 +24,7 @@ final class TempDataBase: Database {
     let tempDoingData = TempData().doingData
     
     var todoListBehaviorRelay = BehaviorRelay<[Todo]>(value: [])
-        
+    
     init() {
         self.todoListBehaviorRelay.accept(self.fetch())
     }
