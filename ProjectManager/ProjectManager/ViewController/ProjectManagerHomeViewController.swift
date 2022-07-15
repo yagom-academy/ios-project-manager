@@ -18,7 +18,7 @@ final class ProjectManagerHomeViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    self.projects = realmService.read(projectType: Project.self)
+    self.projects = realmService.readAll(projectType: Project.self)
     self.initializeNavigationBar()
     self.initializeCollectionView()
     self.reloadDataWhenChangedRealmData()
@@ -36,6 +36,9 @@ final class ProjectManagerHomeViewController: UIViewController {
     self.todoCollectionView.dataSource = self
     self.doingCollectionView.dataSource = self
     self.doneCollectionView.dataSource = self
+    self.todoCollectionView.delegate = self
+    self.doingCollectionView.delegate = self
+    self.doneCollectionView.delegate = self
     self.todoCollectionView.collectionViewLayout = listCompositionLayout()
     self.doingCollectionView.collectionViewLayout = listCompositionLayout()
     self.doneCollectionView.collectionViewLayout = listCompositionLayout()
@@ -156,5 +159,39 @@ extension ProjectManagerHomeViewController: UICollectionViewDataSource {
       body: todolist[indexPath.row].body ?? "",
       date: todolist[indexPath.row].date
     )
+  }
+}
+
+// MARK: - UICollectionViewDelegate
+
+extension ProjectManagerHomeViewController: UICollectionViewDelegate {
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    if collectionView == todoCollectionView {
+      presentProjectEditView(projectCategory: .todo, indexPath: indexPath)
+    }
+
+    if collectionView == doingCollectionView {
+      presentProjectEditView(projectCategory: .doing, indexPath: indexPath)
+    }
+
+    if collectionView == doneCollectionView {
+      presentProjectEditView(projectCategory: .done, indexPath: indexPath)
+    }
+  }
+
+  func presentProjectEditView(projectCategory: ProjectCategory, indexPath: IndexPath) {
+    let todolist = projects?.filter { $0.projectCategory == projectCategory.description }
+    guard let todolist = todolist else { return }
+
+    guard let projectAddViewController = storyboard?.instantiateViewController(
+      identifier: "\(ProjectAddViewController.self)",
+      creator: { coder in ProjectAddViewController(
+        realmService: self.realmService,
+        uuid: todolist[indexPath.row].uuid,
+        coder: coder
+      ) }
+    ) else { return }
+
+    navigationController?.present(projectAddViewController, animated: true)
   }
 }

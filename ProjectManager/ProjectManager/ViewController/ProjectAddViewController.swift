@@ -15,9 +15,11 @@ final class ProjectAddViewController: UIViewController {
   @IBOutlet private weak var projectBodyTextView: UITextView!
 
   private let realmService: RealmService?
+  private let uuid: String?
 
-  init?(realmService: RealmService, coder: NSCoder) {
+  init?(realmService: RealmService?, uuid: String? = nil, coder: NSCoder) {
     self.realmService = realmService
+    self.uuid = uuid
     super.init(coder: coder)
   }
 
@@ -28,6 +30,7 @@ final class ProjectAddViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     self.initializeUI()
+    self.configureEditView(uuid: uuid)
   }
 
   private func initializeUI() {
@@ -49,6 +52,15 @@ final class ProjectAddViewController: UIViewController {
       shadowOffset: CGSize(width: -1, height: 4),
       shadowOpacity: 0.3
     )
+  }
+
+  private func configureEditView(uuid: String?) {
+    guard let uuid = uuid else { return }
+    guard let project = realmService?.readTarget(uuid: uuid, projectType: Project.self) else { return }
+    self.projectLeftBarButtonItem.title = "Edit"
+    self.projectTitleTextField.text = project.title
+    self.projectDatePicker.date = project.date
+    self.projectBodyTextView.text = project.body
   }
 
   @IBAction func cancelButton(_ sender: UIBarButtonItem) {

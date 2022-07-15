@@ -20,8 +20,15 @@ final class RealmService {
     }
   }
 
-  func read<T: Object>(projectType: T.Type) -> Results<T>? {
+  func readAll<T: Object>(projectType: T.Type) -> Results<T>? {
     return realm?.objects(projectType)
+  }
+
+  func readTarget<T: Object>(uuid: String, projectType: T.Type) -> T? {
+    let predicate = NSPredicate(format: "uuid == %@", uuid)
+    let project = realm?.objects(projectType).filter(predicate).first
+
+    return project
   }
 
   func update(uuid: String, title: String, body: String, date: Date) {
