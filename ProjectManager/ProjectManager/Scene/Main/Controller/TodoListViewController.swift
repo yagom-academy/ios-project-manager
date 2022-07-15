@@ -84,9 +84,11 @@ final class TodoListViewController: UIViewController {
   }
   
   func updateListCountlabel() {
-    todoView.listCountLabel.text = viewModel.findListCount(.todo).description
-    doingView.listCountLabel.text = viewModel.findListCount(.doing).description
-    doneView.listCountLabel.text = viewModel.findListCount(.done).description
+    todoListViews.forEach { view in
+      State.allCases.forEach { state in
+        view.listCountLabel.text = viewModel.findListCount(state).description
+      }
+    }
   }
   
   private func reloadDataSource() {
