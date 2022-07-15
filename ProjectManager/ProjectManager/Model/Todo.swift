@@ -13,4 +13,18 @@ struct Todo {
     let title: String
     let description: String
     let date: Date
+    
+    init(
+        todoListItemStatus: TodoListItemStatus = .todo,
+        identifier: UUID = UUID(),
+        title: String = "",
+        description: String = "",
+        date: Date = Date()
+    ) {
+        self.todoListItemStatus = todoListItemStatus
+        self.identifier = identifier
+        self.title = title
+        self.description = description
+        self.date = date
+    }
 }

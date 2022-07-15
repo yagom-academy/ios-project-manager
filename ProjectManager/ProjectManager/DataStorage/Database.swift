@@ -33,25 +33,25 @@ final class TempDataBase: Database {
         guard let tempTodoStatus = self.tempTodoData["todoListItemStatus"],
               let tempTodoTitle = self.tempTodoData["title"],
               let tempTodoDescription = self.tempTodoData["description"] else {
-            return [Todo(todoListItemStatus: .todo, identifier: UUID(), title: "", description: "", date: Date())]
+            return [Todo(todoListItemStatus: .todo)]
         }
         
         guard let tempDoneStatus = self.tempDoneData["todoListItemStatus"],
               let tempDoneTitle = self.tempDoneData["title"],
               let tempDoneDescription = self.tempDoneData["description"] else {
-            return [Todo(todoListItemStatus: .done, identifier: UUID(), title: "", description: "", date: Date())]
+            return [Todo(todoListItemStatus: .done)]
         }
         
         guard let tempDoingStatus = self.tempDoingData["todoListItemStatus"],
               let tempDoingTitle = self.tempDoingData["title"],
               let tempDoingDescription = self.tempDoingData["description"] else {
-            return [Todo(todoListItemStatus: .doing, identifier: UUID(), title: "", description: "", date: Date())]
+            return [Todo(todoListItemStatus: .doing)]
         }
         
         let tempTodoData = [
-            Todo(todoListItemStatus: TodoListItemStatus(rawValue: tempTodoStatus) ?? TodoListItemStatus.todo, identifier: UUID(), title: tempTodoTitle, description: tempTodoDescription, date: Date()),
-            Todo(todoListItemStatus: TodoListItemStatus(rawValue: tempDoneStatus) ?? TodoListItemStatus.done, identifier: UUID(), title: tempDoneTitle, description: tempDoneDescription, date: Date()),
-            Todo(todoListItemStatus: TodoListItemStatus(rawValue: tempDoingStatus) ?? TodoListItemStatus.doing, identifier: UUID(), title: tempDoingTitle, description: tempDoingDescription, date: Date())
+            Todo(todoListItemStatus: TodoListItemStatus(rawValue: tempTodoStatus) ?? TodoListItemStatus.todo, title: tempTodoTitle, description: tempTodoDescription),
+            Todo(todoListItemStatus: TodoListItemStatus(rawValue: tempDoneStatus) ?? TodoListItemStatus.done, title: tempDoneTitle, description: tempDoneDescription),
+            Todo(todoListItemStatus: TodoListItemStatus(rawValue: tempDoingStatus) ?? TodoListItemStatus.doing, title: tempDoingTitle, description: tempDoingDescription)
         ]
         
         return tempTodoData
