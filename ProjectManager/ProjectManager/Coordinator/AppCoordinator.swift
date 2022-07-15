@@ -9,13 +9,14 @@ import UIKit
 
 protocol Coordinator: AnyObject {
     var navigationController: UINavigationController { get set }
+    
     func start()
 }
 
 final class AppCoordinator: Coordinator {
     var navigationController: UINavigationController
     private var detailViewController: DetailViewController?
-    private let dataBase = TempDataBase()
+    private let database = TempDatabase()
     
     func start() {
         self.showListView()
@@ -26,12 +27,12 @@ final class AppCoordinator: Coordinator {
     }
     
     private func showListView() {
-        let viewModel = TodoListViewModel(dataBase: self.dataBase)
-        let viewController = TodoListViewController(
-            todoViewModel: viewModel,
+        let listViewModel = TodoListViewModel(dataBase: self.database)
+        let todoListViewController = TodoListViewController(
+            todoViewModel: listViewModel,
             coordinator: self
         )
-        self.navigationController.pushViewController(viewController, animated: false)
+        self.navigationController.pushViewController(todoListViewController, animated: false)
     }
     
     func showDetailView(todoListItemStatus: TodoListItemStatus? = .todo, selectedTodo: Todo? = nil) {
@@ -39,7 +40,7 @@ final class AppCoordinator: Coordinator {
             return
         }
         
-        let detailViewModel = DetailViewModel(dataBase: self.dataBase)
+        let detailViewModel = DetailViewModel(database: self.database)
         self.detailViewController = DetailViewController(
             selectedTodo: selectedTodo,
             todoListItemStatus: todoListItemStatus,
@@ -60,14 +61,14 @@ final class AppCoordinator: Coordinator {
         self.detailViewController?.dismiss(animated: true)
     }
     
-    func showPopOver(
+    func showPopover(
         sourceView: UIView,
         firstTitle: String,
         secondTitle: String,
         firstAction: @escaping ()-> Void,
         secondAction: @escaping ()-> Void
     ) {
-        let alert: UIAlertController = {
+        let popover: UIAlertController = {
             let alertController = UIAlertController(
                 title: nil,
                 message: nil,
@@ -87,8 +88,8 @@ final class AppCoordinator: Coordinator {
         let secondAction = UIAlertAction(title: secondTitle, style: .default) { action in
             secondAction()
         }
-        alert.addAction(firstAction)
-        alert.addAction(secondAction)
-        self.navigationController.present(alert, animated: true)
+        popover.addAction(firstAction)
+        popover.addAction(secondAction)
+        self.navigationController.present(popover, animated: true)
     }
 }

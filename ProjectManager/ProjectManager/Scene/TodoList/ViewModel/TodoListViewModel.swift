@@ -37,7 +37,11 @@ final class TodoListViewModel {
             .asDriver(onErrorJustReturn: [])
     }
     
-    func cellSelectEvent(indexPathRow: Int, todoListItemStatus: TodoListItemStatus?, completion: @escaping (Todo) -> Void ) {
+    func cellSelectEvent(
+        indexPathRow: Int,
+        todoListItemStatus: TodoListItemStatus?,
+        completion: @escaping (Todo) -> Void
+    ) {
         guard let todoListItemStatus = todoListItemStatus else {
             return
         }
@@ -81,7 +85,7 @@ final class TodoListViewModel {
         }
         
         selectedTodo.todoListItemStatus = newStatus
-        self.dataBase.update(todo: selectedTodo)
+        self.dataBase.update(selectedTodo: selectedTodo)
     }
     
     func changeDateColor(cell: TodoListCell, todoData: Todo) {

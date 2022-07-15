@@ -18,7 +18,7 @@ protocol Database {
     func delete(todoID: UUID)
 }
 
-final class TempDataBase: Database {
+final class TempDatabase: Database {
     let tempTodoData = TempData().todoData
     let tempDoneData = TempData().doneData
     let tempDoingData = TempData().doingData

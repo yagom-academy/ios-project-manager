@@ -169,7 +169,7 @@ final class ListView: UIView {
                     return
                 }
                                 
-                self?.coordinator?.showPopOver(
+                self?.coordinator?.showPopover(
                     sourceView: selectedCell,
                     firstTitle: "Move To \(firstStatus.value)",
                     secondTitle: "Move To \(secondStatus.value)",
