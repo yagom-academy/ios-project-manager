@@ -8,10 +8,9 @@
 import SwiftUI
 
 struct NavigationBarModifier: ViewModifier {
-        
     var backgroundColor: UIColor?
     
-    init( backgroundColor: UIColor?) {
+    init(backgroundColor: UIColor?) {
         self.backgroundColor = backgroundColor
         let coloredAppearance = UINavigationBarAppearance()
         coloredAppearance.configureWithTransparentBackground()
@@ -23,7 +22,6 @@ struct NavigationBarModifier: ViewModifier {
         UINavigationBar.appearance().compactAppearance = coloredAppearance
         UINavigationBar.appearance().scrollEdgeAppearance = coloredAppearance
         UINavigationBar.appearance().tintColor = .systemBlue
-
     }
     
     func body(content: Content) -> some View {

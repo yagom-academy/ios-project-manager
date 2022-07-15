@@ -45,7 +45,6 @@ struct RegisterElementView: View {
                 .border(Color(UIColor.separator), width: 1)
                 .padding(.leading)
                 .padding(.trailing)
-                
         }.onDisappear {
             taskViewModel.title = ""
             taskViewModel.date = Date()
