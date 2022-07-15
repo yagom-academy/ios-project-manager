@@ -14,7 +14,11 @@ protocol TodoListStorege {
 }
 
 final class MemoryTodoListStorege {
+    #if DEBUG
     private var memoryStorege = BehaviorSubject<[TodoModel]>(value: TodoModel.makeDummy())
+    #else
+    private var memoryStorege = BehaviorSubject<[TodoModel]>(value: [])
+    #endif
 }
 
 extension MemoryTodoListStorege: TodoListStorege {
