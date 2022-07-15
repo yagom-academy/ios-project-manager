@@ -19,13 +19,12 @@ struct CellView: View {
         Button {
             showSheet.toggle()
         } label: {
-            if taskType == .todo {
+            switch taskType {
+            case .todo:
                 ListRowView(taskArray: contentViewModel.todoTasks, cellIndex: cellIndex, taskType: .todo)
-            }
-            if taskType == .doing {
+            case .doing:
                 ListRowView(taskArray: contentViewModel.doingTasks, cellIndex: cellIndex, taskType: .doing)
-            }
-            if taskType == .done {
+            case .done:
                 ListRowView(taskArray: contentViewModel.doneTasks, cellIndex: cellIndex, taskType: .done)
             }
         }
