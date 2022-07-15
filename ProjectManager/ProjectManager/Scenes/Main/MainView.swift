@@ -152,9 +152,12 @@ final class MainView: UIView {
         return stackView
     }()
     
+    private var tableViews: [TaskType: UITableView]
+    
     // MARK: initialization
     
     override init(frame: CGRect) {
+        tableViews = [TaskType.todo: todoTableView, TaskType.doing: doingTableView, TaskType.done: doneTableView]
         super.init(frame: frame)
         self.setUp()
     }
@@ -167,15 +170,8 @@ final class MainView: UIView {
 // MARK: Functions
 
 extension MainView {
-    func retrieveTableView(taskType: TaskType) -> UITableView {
-        switch taskType {
-        case .todo:
-            return todoTableView
-        case .doing:
-            return doingTableView
-        case .done:
-            return doneTableView
-        }
+    func retrieveTableView(taskType: TaskType) -> UITableView? {
+        return tableViews[taskType]
     }
     
     func refreshCount() {
@@ -185,16 +181,9 @@ extension MainView {
     }
     
     func findTableViewType(tableView: UITableView) -> TaskType? {
-        if tableView == todoTableView {
-            return .todo
-        }
-        if tableView == doingTableView {
-            return .doing
-        }
-        if tableView == doneTableView {
-            return .done
-        }
-        return nil
+        return tableViews.filter { $0.value == tableView }
+                         .first?
+                         .key
     }
 }
 

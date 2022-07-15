@@ -7,13 +7,11 @@
 import UIKit
 
 class MainViewController: UIViewController {
-    private typealias TableViewDataSource = UITableViewDiffableDataSource<Int, Task>
+    private typealias DataSource = UITableViewDiffableDataSource<Int, Task>
     private typealias Snapshot = NSDiffableDataSourceSnapshot<Int, Task>
     
-    private var mainView = MainView()
-    private var todoDataSource: TableViewDataSource?
-    private var doingDataSource: TableViewDataSource?
-    private var doneDataSource: TableViewDataSource?
+    private let mainView = MainView()
+    private var dataSources: [TaskType: DataSource] = [:]
     
     override func loadView() {
         view = mainView
@@ -72,21 +70,21 @@ extension MainViewController: UITableViewDelegate {
 
 extension MainViewController: DetailViewControllerDelegate {
     func addTask(_ task: Task) {
-        if let snapshot = todoDataSource?.snapshot(), snapshot.numberOfSections > 0 {
+        if let snapshot = dataSources[.todo]?.snapshot(), snapshot.numberOfSections > 0 {
             var copySnapshot = snapshot
             copySnapshot.appendItems([task])
-            todoDataSource?.apply(copySnapshot)
+            dataSources[.todo]?.apply(copySnapshot)
         } else {
             var snapshot = Snapshot()
             snapshot.appendSections([0])
             snapshot.appendItems([task])
-            todoDataSource?.apply(snapshot)
+            dataSources[.todo]?.apply(snapshot)
         }
         mainView.refreshCount()
     }
     
     func updateTask(by taskInfo: TaskInfo) {
-        let dataSource = findDataSource(type: taskInfo.type)
+        let dataSource = dataSources[taskInfo.type]
         if let snapshot = dataSource?.snapshot() {
             var copySnapshot = snapshot
             guard let beforeTask = dataSource?.itemIdentifier(for: taskInfo.indexPath) else { return }
@@ -120,7 +118,7 @@ extension MainViewController: PopoverViewControllerDelegate {
     }
     
     func deleteData(taskInfo: TaskInfo) {
-        let dataSource = findDataSource(type: taskInfo.type)
+        let dataSource = dataSources[taskInfo.type]
         if let snapshot = dataSource?.snapshot() {
             var copySnapshot = snapshot
             guard let beforeTask = dataSource?.itemIdentifier(for: taskInfo.indexPath) else { return }
@@ -130,7 +128,7 @@ extension MainViewController: PopoverViewControllerDelegate {
     }
     
     func addData(task: Task, type: TaskType) {
-        let dataSource = findDataSource(type: type)
+        let dataSource = dataSources[type]
         if let snapshot = dataSource?.snapshot(), snapshot.numberOfSections > 0 {
             var copySnapshot = snapshot
             copySnapshot.appendItems([task])
@@ -166,13 +164,13 @@ extension MainViewController {
     @objc
     private func longPressGesture(sender: UILongPressGestureRecognizer) {
         guard let tableView = sender.view as? UITableView else { return }
-        guard let tableViewType = mainView.findTableViewType(tableView: tableView) else { return }
-        let point = sender.location(in: self.mainView.retrieveTableView(taskType: tableViewType))
+        guard let type = mainView.findTableViewType(tableView: tableView) else { return }
+        let point = sender.location(in: self.mainView.retrieveTableView(taskType: type))
         if let indexPath = tableView.indexPathForRow(at: point) {
-            if let task = findDataSource(type: tableViewType)?.itemIdentifier(for: indexPath) {
+            if let task = dataSources[type]?.itemIdentifier(for: indexPath) {
                 switch sender.state {
                 case .began:
-                    let taskInfo = TaskInfo(task: task, type: tableViewType, indexPath: indexPath)
+                    let taskInfo = TaskInfo(task: task, type: type, indexPath: indexPath)
                     makePopover(taskInfo: taskInfo, point: point)
                 default:
                     return
@@ -196,10 +194,10 @@ extension MainViewController {
     }
     
     private func makeTaskInfo(tableView: UITableView, indexPath: IndexPath) -> TaskInfo? {
-        guard let tableType = mainView.findTableViewType(tableView: tableView) else { return nil }
-        let dataSource = findDataSource(type: tableType)
+        guard let type = mainView.findTableViewType(tableView: tableView) else { return nil }
+        let dataSource = dataSources[type]
         guard let task = dataSource?.itemIdentifier(for: indexPath) else { return nil }
-        let taskInfo = TaskInfo(task: task, type: tableType, indexPath: indexPath)
+        let taskInfo = TaskInfo(task: task, type: type, indexPath: indexPath)
         
         return taskInfo
     }
@@ -214,41 +212,28 @@ extension MainViewController {
     }
     
     private func setUpDataSource() {
-        todoDataSource = makeDataSource(type: .todo)
-        doingDataSource = makeDataSource(type: .doing)
-        doneDataSource = makeDataSource(type: .done)
+        TaskType.allCases.forEach { taskType in
+            dataSources[taskType] = makeDataSource(type: taskType)
+        }
     }
     
     private func setUpTableView(type: TaskType) {
         let tableView = mainView.retrieveTableView(taskType: type)
-        tableView.register(TaskCell.self, forCellReuseIdentifier: TaskCell.identifier)
+        tableView?.register(TaskCell.self, forCellReuseIdentifier: TaskCell.identifier)
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPressGesture(sender:)))
-        tableView.addGestureRecognizer(longPress)
-        tableView.dataSource = findDataSource(type: type)
-        tableView.delegate = self
-        tableView.reloadData()
+        tableView?.addGestureRecognizer(longPress)
+        tableView?.dataSource = dataSources[type]
+        tableView?.delegate = self
+        tableView?.reloadData()
     }
     
-    private func makeDataSource(type: TaskType) -> TableViewDataSource {
-        return TableViewDataSource(tableView: mainView.retrieveTableView(taskType: type),
-                                   cellProvider: { tableView, indexPath, item in
+    private func makeDataSource(type: TaskType) -> DataSource? {
+        guard let tableView = mainView.retrieveTableView(taskType: type) else { return nil }
+        return DataSource(tableView: tableView, cellProvider: { tableView, indexPath, item in
             let cell = tableView.dequeueReusableCell(withIdentifier: TaskCell.identifier,
                                                      for: indexPath) as? TaskCell
             cell?.setUpLabel(task: item)
             return cell
         })
-    }
-    
-    private func findDataSource(type: TaskType?) -> TableViewDataSource? {
-        switch type {
-        case .todo:
-            return todoDataSource
-        case .doing:
-            return doingDataSource
-        case .done:
-            return doneDataSource
-        case .none:
-            return nil
-        }
     }
 }
