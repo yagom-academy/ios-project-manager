@@ -29,13 +29,13 @@ struct EditElementView: View {
                 .font(.title2)
                 
             DatePicker("",
-                       selection:  $taskViewModel.taskArray[cellIndex].date,
+                       selection: $taskViewModel.taskArray[cellIndex].date,
                        in: dateRange,
                        displayedComponents: [.date])
                 .datePickerStyle(.wheel)
                 .labelsHidden()
             
-            TextEditor(text:  $taskViewModel.taskArray[cellIndex].body)
+            TextEditor(text: $taskViewModel.taskArray[cellIndex].body)
                 .foregroundColor(Color.gray)
                 .lineSpacing(5)
                 .frame(minWidth: 0,
