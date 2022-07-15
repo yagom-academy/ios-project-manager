@@ -19,6 +19,7 @@
 		ABC54F8D287D873200280F43 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC54F8C287D873200280F43 /* State.swift */; };
 		ABC54F90287D87AB00280F43 /* TodoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC54F8F287D87AB00280F43 /* TodoViewModel.swift */; };
 		ABCEA1B128810484009C32DC /* EditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCEA1B028810484009C32DC /* EditViewModel.swift */; };
+		ABCEA1B3288139E5009C32DC /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCEA1B2288139E5009C32DC /* Identifiable.swift */; };
 		ABDB96332875DC7B002D6602 /* StringOptional.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDB96322875DC7B002D6602 /* StringOptional.swift */; };
 		ABDB96372875E477002D6602 /* TodoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDB96362875E477002D6602 /* TodoCollectionViewCell.swift */; };
 		ABDB96392875E6C3002D6602 /* UIStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDB96382875E6C3002D6602 /* UIStackView.swift */; };
@@ -46,6 +47,7 @@
 		ABC54F8C287D873200280F43 /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
 		ABC54F8F287D87AB00280F43 /* TodoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoViewModel.swift; sourceTree = "<group>"; };
 		ABCEA1B028810484009C32DC /* EditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewModel.swift; sourceTree = "<group>"; };
+		ABCEA1B2288139E5009C32DC /* Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifiable.swift; sourceTree = "<group>"; };
 		ABDB96322875DC7B002D6602 /* StringOptional.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringOptional.swift; sourceTree = "<group>"; };
 		ABDB96362875E477002D6602 /* TodoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoCollectionViewCell.swift; sourceTree = "<group>"; };
 		ABDB96382875E6C3002D6602 /* UIStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStackView.swift; sourceTree = "<group>"; };
@@ -164,6 +166,7 @@
 			children = (
 				ABDB96322875DC7B002D6602 /* StringOptional.swift */,
 				ABDB96382875E6C3002D6602 /* UIStackView.swift */,
+				ABCEA1B2288139E5009C32DC /* Identifiable.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -436,6 +439,7 @@
 				ABC54F90287D87AB00280F43 /* TodoViewModel.swift in Sources */,
 				ABE5D6BC2879D9BB0065F216 /* WriteTodoViewController.swift in Sources */,
 				AB2E845428764B78002E4593 /* TodoListViewController.swift in Sources */,
+				ABCEA1B3288139E5009C32DC /* Identifiable.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				ABAECADC287ABB87009DA449 /* Todoable.swift in Sources */,
 				ABE5D6B62879C1310065F216 /* Realmable.swift in Sources */,

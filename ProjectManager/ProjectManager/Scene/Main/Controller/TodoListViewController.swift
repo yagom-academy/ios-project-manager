@@ -34,7 +34,7 @@ final class TodoListViewController: UIViewController {
     return DataSource(
       collectionView: collectionView) { collectionView, indexPath, item in
         let cell = collectionView.dequeueReusableCell(
-          withReuseIdentifier: "TodoCollectionViewCell",
+          withReuseIdentifier: TodoCollectionViewCell.identifier,
           for: indexPath) as? TodoCollectionViewCell
         cell?.updatePropertiesValue(item)
         cell?.delegate = self
