@@ -10,14 +10,14 @@ import SnapKit
 
 final class TodoEditView: UIView {
     private lazy var contentStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [titleTaxtField, datePicker, bodyTextView])
+        let stackView = UIStackView(arrangedSubviews: [titleTextField, datePicker, bodyTextView])
         stackView.axis = .vertical
         stackView.spacing = 8
         
         return stackView
     }()
     
-    private let titleTaxtField: UITextField = {
+    private let titleTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Title"
         textField.font = .preferredFont(forTextStyle: .title2)
@@ -66,7 +66,7 @@ final class TodoEditView: UIView {
             make.edges.equalTo(self.safeAreaLayoutGuide).inset(20)
         }
         
-        titleTaxtField.snp.makeConstraints { make in
+        titleTextField.snp.makeConstraints { make in
             make.height.equalTo(self).multipliedBy(0.08)
         }
     }
@@ -74,7 +74,7 @@ final class TodoEditView: UIView {
 
 extension TodoEditView {
     func readViewContent(id: UUID?, state: State?) -> TodoModel {
-        return TodoModel(title: titleTaxtField.text,
+        return TodoModel(title: titleTextField.text,
                          body: bodyTextView.text,
                          deadlineAt: datePicker.date,
                          state: state ?? .todo,
@@ -83,13 +83,13 @@ extension TodoEditView {
     
     func setupView(by item: TodoModel?) {
         guard let item = item else { return }
-        titleTaxtField.text = item.title
+        titleTextField.text = item.title
         bodyTextView.text = item.body
         datePicker.date = item.deadlineAt
     }
     
     func changeEnabled(_ value: Bool) {
-        titleTaxtField.isEnabled = value
+        titleTextField.isEnabled = value
         datePicker.isEnabled = value
         bodyTextView.isEditable = value
     }
