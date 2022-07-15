@@ -59,35 +59,35 @@ extension TodoListViewController {
         
         //MARK: - TodoList
         viewModel.todoList
-            .bind(to: mainView.todoTableView.rx.items(cellIdentifier: TodoListCell.identifier,
+            .bind(to: mainView.todo.tableView.rx.items(cellIdentifier: TodoListCell.identifier,
                                                       cellType: TodoListCell.self)) { row, item, cell in
                 cell.setContent(item: item)
               }.disposed(by: bag)
         
         viewModel.todoListCount
-            .drive(mainView.todoHeaderView.rx.countText)
+            .drive(mainView.todo.headerView.rx.countText)
             .disposed(by: bag)
         
         //MARK: - DoingList
         viewModel.doingList
-            .bind(to: mainView.doingTableView.rx.items(cellIdentifier: TodoListCell.identifier,
+            .bind(to: mainView.doing.tableView.rx.items(cellIdentifier: TodoListCell.identifier,
                                                       cellType: TodoListCell.self)) { row, item, cell in
                 cell.setContent(item: item)
               }.disposed(by: bag)
         
         viewModel.doingListCount
-            .drive(mainView.doingHeaderView.rx.countText)
+            .drive(mainView.doing.headerView.rx.countText)
             .disposed(by: bag)
     
         //MARK: - DoneList
         viewModel.doneList
-            .bind(to: mainView.doneTableView.rx.items(cellIdentifier: TodoListCell.identifier,
+            .bind(to: mainView.done.tableView.rx.items(cellIdentifier: TodoListCell.identifier,
                                                       cellType: TodoListCell.self)) { row, item, cell in
                 cell.setContent(item: item)
               }.disposed(by: bag)
 
         viewModel.doneListCount
-            .drive(mainView.doneHeaderView.rx.countText)
+            .drive(mainView.done.headerView.rx.countText)
             .disposed(by: bag)
         
         //MARK: - Event
