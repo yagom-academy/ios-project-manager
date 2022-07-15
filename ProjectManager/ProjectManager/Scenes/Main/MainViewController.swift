@@ -158,16 +158,10 @@ extension MainViewController {
     
     private func addData(task: Task, type: TaskType) {
         let dataSource = dataSources[type]
-        if let snapshot = dataSource?.snapshot(), snapshot.numberOfSections > 0 {
-            var copySnapshot = snapshot
-            copySnapshot.appendItems([task])
-            dataSource?.apply(copySnapshot)
-        } else {
-            var snapshot = Snapshot()
-            snapshot.appendSections([0])
-            snapshot.appendItems([task])
-            dataSource?.apply(snapshot)
-        }
+        guard let snapshot = dataSource?.snapshot(), snapshot.numberOfSections > 0 else { return }
+        var copySnapshot = snapshot
+        copySnapshot.appendItems([task])
+        dataSource?.apply(copySnapshot)
     }
     
     private func makePopover(taskInfo: TaskInfo, point: CGPoint) {
@@ -220,11 +214,15 @@ extension MainViewController {
     
     private func makeDataSource(type: TaskType) -> DataSource? {
         guard let tableView = mainView.retrieveTableView(taskType: type) else { return nil }
-        return DataSource(tableView: tableView, cellProvider: { tableView, indexPath, item in
+        let dataSource = DataSource(tableView: tableView, cellProvider: { tableView, indexPath, item in
             let cell = tableView.dequeueReusableCell(withIdentifier: TaskCell.identifier,
                                                      for: indexPath) as? TaskCell
             cell?.setUpLabel(task: item)
             return cell
         })
+        var snapshot = Snapshot()
+        snapshot.appendSections([0])
+        dataSource.apply(snapshot)
+        return dataSource
     }
 }
