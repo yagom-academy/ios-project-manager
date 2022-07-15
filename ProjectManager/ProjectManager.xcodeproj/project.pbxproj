@@ -115,24 +115,118 @@
 		4EB3FFC928757DBC0001DBC0 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
-				9CAB116E287C436E00C55AB8 /* ViewModel */,
-				9CA8DE97287702A70002C2F6 /* ViewController */,
-				4EB3FFCA28757DD50001DBC0 /* View */,
+				4EC919FD2881464C00EEC18E /* Main */,
+				4EC91A002881467400EEC18E /* Popover */,
+				4EC919FF2881466700EEC18E /* FormSheet */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
 		};
-		4EB3FFCA28757DD50001DBC0 /* View */ = {
+		4EC919FD2881464C00EEC18E /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				4EC91A012881468800EEC18E /* View */,
+				4EC91A09288146B900EEC18E /* ViewController */,
+				4EC91A022881468D00EEC18E /* ViewModel */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		4EC919FF2881466700EEC18E /* FormSheet */ = {
+			isa = PBXGroup;
+			children = (
+				4EC91A08288146AD00EEC18E /* View */,
+				4EC91A0C288146CF00EEC18E /* ViewController */,
+				4EC91A07288146A900EEC18E /* ViewModel */,
+			);
+			path = FormSheet;
+			sourceTree = "<group>";
+		};
+		4EC91A002881467400EEC18E /* Popover */ = {
+			isa = PBXGroup;
+			children = (
+				4EC91A06288146A500EEC18E /* View */,
+				4EC91A0B288146C700EEC18E /* ViewController */,
+				4EC91A05288146A100EEC18E /* ViewModel */,
+			);
+			path = Popover;
+			sourceTree = "<group>";
+		};
+		4EC91A012881468800EEC18E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9CACE13128755FDF0010E4F0 /* TaskTableViewCell.swift */,
 				4EB3FFD228758E9F0001DBC0 /* MainView.swift */,
 				4EB3FFD0287586200001DBC0 /* TaskHeaderView.swift */,
-				4EB3FFCC28757E1F0001DBC0 /* FormSheetView.swift */,
-				9C8BC0DA287874F3003EF525 /* PopoverView.swift */,
-				9CACE13128755FDF0010E4F0 /* TaskTableViewCell.swift */,
 				9CACA2BB287FECB50024E923 /* TaskSectionView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		4EC91A022881468D00EEC18E /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				4EB89252287C6D2E008DE9B8 /* MainViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		4EC91A05288146A100EEC18E /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				4EB89250287C68B1008DE9B8 /* PopoverViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		4EC91A06288146A500EEC18E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9C8BC0DA287874F3003EF525 /* PopoverView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		4EC91A07288146A900EEC18E /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				9CAB116F287C439B00C55AB8 /* NewFormSheetViewModel.swift */,
+				9CAB1171287C518600C55AB8 /* EditFormSheetViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		4EC91A08288146AD00EEC18E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				4EB3FFCC28757E1F0001DBC0 /* FormSheetView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		4EC91A09288146B900EEC18E /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		4EC91A0B288146C700EEC18E /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4EB2452228773F24007F4056 /* PopoverViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		4EC91A0C288146CF00EEC18E /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4EB3FFCE287580FD0001DBC0 /* NewFormSheetViewController.swift */,
+				4EB2451E2876F589007F4056 /* EditFormSheetViewController.swift */,
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 		754B6EFDB9D820B2CECA678D /* Frameworks */ = {
@@ -141,28 +235,6 @@
 				23A0A689B6A69796CECE8A71 /* Pods_ProjectManager.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		9CA8DE97287702A70002C2F6 /* ViewController */ = {
-			isa = PBXGroup;
-			children = (
-				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
-				4EB3FFCE287580FD0001DBC0 /* NewFormSheetViewController.swift */,
-				4EB2451E2876F589007F4056 /* EditFormSheetViewController.swift */,
-				4EB2452228773F24007F4056 /* PopoverViewController.swift */,
-			);
-			path = ViewController;
-			sourceTree = "<group>";
-		};
-		9CAB116E287C436E00C55AB8 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				9CAB116F287C439B00C55AB8 /* NewFormSheetViewModel.swift */,
-				9CAB1171287C518600C55AB8 /* EditFormSheetViewModel.swift */,
-				4EB89250287C68B1008DE9B8 /* PopoverViewModel.swift */,
-				4EB89252287C6D2E008DE9B8 /* MainViewModel.swift */,
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		9CACE12B28755BCC0010E4F0 /* Utils */ = {
