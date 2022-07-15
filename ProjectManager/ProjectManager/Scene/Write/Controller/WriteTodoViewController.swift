@@ -24,20 +24,29 @@ final class WriteTodoViewController: UIViewController {
     navigationItem.title = "TODO"
     navigationController?.navigationBar.barTintColor = UIColor.systemGray
     navigationItem.leftBarButtonItem = UIBarButtonItem(
-      systemItem: .cancel, primaryAction: UIAction(handler: { _ in
-        self.dismiss(animated: true)
-      }))
-
+      systemItem: .cancel,
+      primaryAction: UIAction(
+        handler: { _ in
+          self.dismiss(animated: true)
+        })
+    )
+    
     navigationItem.rightBarButtonItem = UIBarButtonItem(
       systemItem: .done,
-      primaryAction: UIAction(handler: { [weak self] _ in
-        guard let writedTodoData = self?.writeView.createTodoData(state: .todo) else { return }
-        
-        let realmTodo = DBManager.shared.mappingTodoModel(from: writedTodoData)
-        DBManager.shared.create(realmTodo)
-        
-        self?.todoDelegate?.createData(writedTodoData)
-        self?.dismiss(animated: true)
-      }))
+      primaryAction: UIAction(
+        handler: { [weak self] _ in
+          self?.createTodo()
+          self?.dismiss(animated: true)
+        })
+    )
+  }
+  
+  private func createTodo() {
+    let writedTodoData = writeView.createTodoData(state: .todo)
+    
+    let realmTodo = DBManager.shared.mappingTodoModel(from: writedTodoData)
+    DBManager.shared.create(realmTodo)
+    
+    self.todoDelegate?.createData(writedTodoData)
   }
 }
