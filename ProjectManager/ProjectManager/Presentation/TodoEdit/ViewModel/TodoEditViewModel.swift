@@ -20,11 +20,11 @@ protocol TodoEditViewModelInput {
 protocol TodoEditViewModel: TodoEditViewModelInput {}
 
 final class DefaultTodoEditViewModel: TodoEditViewModel {
-    private let useCase: UseCase
+    private let useCase: TodoListUseCase
     
     private var actions: TodoEditViewModelActions?
     
-    init(useCase: UseCase, actions: TodoEditViewModelActions) {
+    init(useCase: TodoListUseCase, actions: TodoEditViewModelActions) {
         self.useCase = useCase
         self.actions = actions
     }
@@ -34,7 +34,7 @@ final class DefaultTodoEditViewModel: TodoEditViewModel {
     }
     
     func doneButtonDidTap(item: TodoModel) {
-        useCase.saveRepository(to: item)
+        useCase.saveItem(to: item)
         actions?.dismiss()
     }
 }

@@ -30,7 +30,7 @@ protocol TodoListViewModelOutput {
 protocol TodoListViewModel: TodoListViewModelInput, TodoListViewModelOutput {}
 
 final class DefaultTodoListViewModel: TodoListViewModel {
-    private let useCase: UseCase
+    private let useCase: TodoListUseCase
     private let actions: TodoListViewModelActions?
     private let todoLists: BehaviorSubject<[TodoModel]>
     
@@ -90,17 +90,17 @@ final class DefaultTodoListViewModel: TodoListViewModel {
     }
     
     func cellSelected(id: UUID) {
-        let item = try? useCase.readRepository().value()
+        let item = try? useCase.readItems().value()
             .first { $0.id == id }
         actions?.presentEditViewController(item)
         
     }
     
-    init(useCase: UseCase, actions: TodoListViewModelActions) {
+    init(useCase: TodoListUseCase, actions: TodoListViewModelActions) {
         self.useCase = useCase
         self.actions = actions
         
-        todoLists = useCase.readRepository()
+        todoLists = useCase.readItems()
     }
     
     private func toTodoCellContents(todoModels: [TodoModel]) -> [TodoCellContent] {

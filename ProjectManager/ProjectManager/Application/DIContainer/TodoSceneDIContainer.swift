@@ -18,8 +18,8 @@ final class TodoSceneDIContainer {
         return DefaultTodoEditViewModel(useCase: makeTodoListUseCase(), actions: actions)
     }
     
-    private func makeTodoListUseCase() -> TodoListUseCase {
-        return TodoListUseCase(repository: makeTodoListRepository())
+    private func makeTodoListUseCase() -> DefaultTodoListUseCase {
+        return DefaultTodoListUseCase(repository: makeTodoListRepository())
     }
     
     private func makeTodoListRepository() -> DefaultTodoListRepository {
