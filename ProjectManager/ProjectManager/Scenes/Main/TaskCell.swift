@@ -82,8 +82,8 @@ final class TaskCell: UITableViewCell {
         setDateLabelColor(date: task.date)
     }
     
-    func setDateLabelColor(date: Date) {
-        let result = date.compare(Date())
+    private func setDateLabelColor(date: Date) {
+        let result = date.compare(Date.today)
         switch result {
         case .orderedAscending:
             dateLabel.textColor = .red

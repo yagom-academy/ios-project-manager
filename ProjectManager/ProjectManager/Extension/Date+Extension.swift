@@ -14,4 +14,5 @@ extension Date {
         dateFormatter.locale = .current
         return dateFormatter.string(from: self)
     }
+    static let today = Date()
 }
