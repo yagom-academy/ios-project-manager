@@ -41,12 +41,11 @@ final class DefaultTodoEditViewModel: TodoEditViewModel {
     }
     
     var setUpView: Observable<TodoModel?> {
-        guard let item = item else {
-            item = TodoModel(title: nil, body: nil, deadlineAt: Date())
+        if let item = item {
+            return Observable.just(item)
+        } else {
             return Observable.just(nil)
         }
-        
-        return Observable.just(item)
     }
     
     var isItemNil: Observable<Bool> {
@@ -64,12 +63,17 @@ final class DefaultTodoEditViewModel: TodoEditViewModel {
     }
     
     func doneButtonDidTap() {
-        guard let item = item else { return }
+        guard let item = item else {
+            actions?.dismiss()
+            return
+        }
         useCase.saveItem(to: item)
         actions?.dismiss()
     }
     
     func inputitle(title: String?) {
+        if title?.isEmpty == true { return }
+        makeEmptyTodoItem()
         item?.title = title
     }
     
@@ -78,6 +82,13 @@ final class DefaultTodoEditViewModel: TodoEditViewModel {
     }
     
     func inputBody(body: String?) {
+        if body?.isEmpty == true { return }
+        makeEmptyTodoItem()
         item?.body = body
+    }
+    
+    private func makeEmptyTodoItem() {
+        guard item == nil else { return }
+        item = TodoModel(title: nil, body: nil, deadlineAt: Date())
     }
 }
