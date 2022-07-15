@@ -92,9 +92,15 @@ final class TodoListViewController: UIViewController {
   }
   
   private func reloadDataSource() {
-    applySnapShot(todoList.filter { $0.state == .todo }, dataSource: todoDataSource)
-    applySnapShot(todoList.filter { $0.state == .doing }, dataSource: doingDataSource)
-    applySnapShot(todoList.filter { $0.state == .done }, dataSource: doneDataSource)
+    let dictionary: [State: DataSource] = [
+      .todo: todoDataSource,
+      .doing: doingDataSource,
+      .done: doneDataSource
+    ]
+    
+    dictionary.forEach { (state, dataSource) in
+      applySnapShot(todoList.filter { $0.state == state }, dataSource: dataSource)
+    }
   }
   
   private func setUpDelegate() {
