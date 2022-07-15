@@ -16,7 +16,7 @@ final class DetailViewController: UIViewController {
     private let disposeBag = DisposeBag()
     weak private var coordinator: AppCoordinator?
     
-    private lazy var titleTextField: UITextField = {
+    private let titleTextField: UITextField = {
         let textField = UITextField()
         textField.backgroundColor = .systemBackground
         textField.placeholder = "Title"
@@ -26,21 +26,19 @@ final class DetailViewController: UIViewController {
         textField.layer.shadowOffset = CGSize(width: 3, height: 3)
         textField.layer.shadowOpacity = 0.3
         textField.layer.shadowRadius = 5
-        textField.isEnabled = self.selectedTodo == nil ? true : false
         
         return textField
     }()
     
-    private lazy var datePicker: UIDatePicker = {
+    private let datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.preferredDatePickerStyle = .wheels
         datePicker.setContentHuggingPriority(.required, for: .vertical)
-        datePicker.isEnabled = self.selectedTodo == nil ? true : false
         
         return datePicker
     }()
     
-    private lazy var descriptionTextView: UITextView = {
+    private let descriptionTextView: UITextView = {
         let textView = UITextView()
         textView.backgroundColor = .systemBackground
         textView.clipsToBounds = false
@@ -49,7 +47,6 @@ final class DetailViewController: UIViewController {
         textView.layer.shadowOffset = CGSize(width: 3, height: 3)
         textView.layer.shadowOpacity = 0.3
         textView.layer.shadowRadius = 5
-        textView.isEditable = self.selectedTodo == nil ? true : false
         
         return textView
     }()
@@ -65,25 +62,19 @@ final class DetailViewController: UIViewController {
         return stackView
     }()
     
-    private lazy var leftBarButton: UIBarButtonItem = {
-        let barButton = UIBarButtonItem(
-            title: self.selectedTodo == nil ? "Cancle" : "Edit",
-            style: .plain,
-            target: nil,
-            action: nil
-        )
-        return barButton
-    }()
+    private let leftBarButton = UIBarButtonItem(
+        title: "Cancel",
+        style: .plain,
+        target: nil,
+        action: nil
+    )
     
-    private let rightBarButton: UIBarButtonItem = {
-        let barButton = UIBarButtonItem(
-            title: "Done",
-            style: .plain,
-            target: nil,
-            action: nil
-        )
-        return barButton
-    }()
+    private let rightBarButton = UIBarButtonItem(
+        title: "Done",
+        style: .plain,
+        target: nil,
+        action: nil
+    )
     
     init(
         selectedTodo: Todo?,
@@ -107,6 +98,7 @@ final class DetailViewController: UIViewController {
         self.setUpNavigationBar()
         self.setUpDetailStackView()
         self.setUpTitleTextField()
+        self.setUpAttribute()
         self.setUpEditView()
         self.bind()
     }
@@ -141,6 +133,13 @@ final class DetailViewController: UIViewController {
         ])
     }
     
+    private func setUpAttribute() {
+        self.titleTextField.isEnabled = self.selectedTodo == nil ? true : false
+        self.datePicker.isEnabled = self.selectedTodo == nil ? true : false
+        self.descriptionTextView.isEditable = self.selectedTodo == nil ? true : false
+        self.leftBarButton.title = self.selectedTodo == nil ? "Cancle" : "Edit"
+    }
+    
     private func setUpEditView() {
         if let selectedTodo = self.selectedTodo {
             self.titleTextField.text = selectedTodo.title
@@ -150,7 +149,7 @@ final class DetailViewController: UIViewController {
     }
     
     private func bind() {
-        rightBarButton.rx.tap.asObservable()
+        rightBarButton.rx.tap
             .subscribe(onNext: { [weak self] in
                 self?.detailViewModel.doneButtonTapEvent(
                     todo: self?.createTodo(),
@@ -161,9 +160,13 @@ final class DetailViewController: UIViewController {
             })
             .disposed(by: self.disposeBag)
         
-        leftBarButton.rx.tap.asObservable()
+        leftBarButton.rx.tap
             .subscribe(onNext: { [weak self] in
-                self?.selectedTodo == nil ? self?.coordinator?.dismiss() : self?.changeEditable()
+                if self?.selectedTodo == nil {
+                    self?.coordinator?.dismiss()
+                } else {
+                    self?.changeAttribute()
+                }
             })
             .disposed(by: self.disposeBag)
     }
@@ -181,14 +184,13 @@ final class DetailViewController: UIViewController {
         
         return Todo(
             todoListItemStatus: .todo,
-            identifier: UUID(),
             title: self.titleTextField.text ?? "",
             description: self.descriptionTextView.text ?? "",
             date: self.datePicker.date
         )
     }
     
-    private func changeEditable() {
+    private func changeAttribute() {
         self.leftBarButton.title = self.leftBarButton.title == "Edit" ? "Cancle" : "Edit"
         self.titleTextField.isEnabled = !self.titleTextField.isEnabled
         self.datePicker.isEnabled = !self.datePicker.isEnabled

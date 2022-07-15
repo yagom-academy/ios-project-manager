@@ -29,15 +29,12 @@ final class TodoListViewController: UIViewController {
         return stackView
     }()
     
-    private let rightBarButton: UIBarButtonItem = {
-        let barButton = UIBarButtonItem(
-            image: UIImage(systemName: "plus"),
-            style: .plain,
-            target: nil,
-            action: nil
-        )
-        return barButton
-    }()
+    private let rightBarButton = UIBarButtonItem(
+        image: UIImage(systemName: "plus"),
+        style: .plain,
+        target: nil,
+        action: nil
+    )
 
     init(todoViewModel: TodoListViewModel, coordinator: AppCoordinator) {
         self.todoView = ListView(todoListItemStatus: .todo, listViewModel: todoViewModel, coordinator: coordinator)
