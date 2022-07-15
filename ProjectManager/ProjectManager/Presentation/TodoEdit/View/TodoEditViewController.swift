@@ -28,20 +28,15 @@ final class TodoEditViewController: UIViewController {
     private let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: nil)
     private let editButton = UIBarButtonItem()
     
-    private let todoItem: TodoModel?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureNavigationBar()
+        configureRightBarButtonItem()
         configureView()
         bind()
-        configureIsEnabled()
     }
     
-    init(viewModel: TodoEditViewModel, item: TodoModel?) {
+    init(viewModel: TodoEditViewModel) {
         self.viewModel = viewModel
-        self.todoItem = item
-        mainView.setupView(by: todoItem)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -64,21 +59,18 @@ extension TodoEditViewController {
         }
     }
     
-    private func configureNavigationBar() {
+    private func configureRightBarButtonItem() {
         title = Constant.navigationBarTitle
-        if todoItem == nil {
-            navigationItem.leftBarButtonItem = cancelButton
-        } else {
-            editButton.title = Constant.edit
-            navigationItem.leftBarButtonItem = editButton
-        }
         navigationItem.rightBarButtonItem = doneButton
         navigationBar.items = [navigationItem]
     }
     
-    private func configureIsEnabled() {
-        if todoItem != nil {
-            mainView.changeEnabled(false)
+    private func configureLeftBarButtonItem(createMode: Bool) {
+        if createMode {
+            navigationItem.leftBarButtonItem = cancelButton
+        } else {
+            navigationItem.leftBarButtonItem = editButton
+            editButton.title = Constant.edit
         }
     }
 }
@@ -86,6 +78,17 @@ extension TodoEditViewController {
 //MARK: - ViewModel Bind
 extension TodoEditViewController {
     private func bind() {
+        viewModel.setUpView
+            .bind { [weak self] in
+                self?.mainView.setupView(by: $0)
+            }.disposed(by: bag)
+        
+        viewModel.isItemNil
+            .bind { [weak self] in
+                self?.mainView.changeEnabled($0)
+                self?.configureLeftBarButtonItem(createMode: $0)
+            }.disposed(by: bag)
+        
         cancelButton.rx.tap
             .withUnretained(self)
             .bind { (self, _) in
@@ -95,9 +98,7 @@ extension TodoEditViewController {
         doneButton.rx.tap
             .withUnretained(self)
             .bind { (self, _) in
-                let newItem = self.mainView.readViewContent(id: self.todoItem?.id,
-                                                            state: self.todoItem?.state)
-                self.viewModel.doneButtonDidTap(item: newItem)
+                self.viewModel.doneButtonDidTap()
             }.disposed(by: bag)
         
         editButton.rx.tap
@@ -107,6 +108,21 @@ extension TodoEditViewController {
             }.bind { [weak self] in
                 self?.mainView.changeEnabled($0)
                 self?.editButton.title = $0 ? Constant.eidting : Constant.edit
+            }.disposed(by: bag)
+        
+        mainView.rx.titleText
+            .bind { [weak self] in
+                self?.viewModel.inputitle(title: $0)
+            }.disposed(by: bag)
+        
+        mainView.rx.datePicker
+            .bind { [weak self] in
+                self?.viewModel.inputDeadline(deadline: $0)
+            }.disposed(by: bag)
+        
+        mainView.rx.bodyText
+            .bind { [weak self] in
+                self?.viewModel.inputBody(body: $0)
             }.disposed(by: bag)
     }
 }

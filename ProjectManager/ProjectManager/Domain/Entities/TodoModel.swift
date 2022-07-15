@@ -14,9 +14,9 @@ enum State {
 }
 
 struct TodoModel: Equatable {
-    let title: String?
-    let body: String?
-    let deadlineAt: Date
+    var title: String?
+    var body: String?
+    var deadlineAt: Date
     var state: State
     let id: UUID
     

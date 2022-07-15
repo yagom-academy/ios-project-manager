@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import RxSwift
 
 final class TodoEditView: UIView {
     private lazy var contentStackView: UIStackView = {
@@ -17,7 +18,7 @@ final class TodoEditView: UIView {
         return stackView
     }()
     
-    private let titleTextField: UITextField = {
+    fileprivate let titleTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Title"
         textField.font = .preferredFont(forTextStyle: .title2)
@@ -31,7 +32,7 @@ final class TodoEditView: UIView {
         return textField
     }()
     
-    private let datePicker: UIDatePicker = {
+    fileprivate let datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.preferredDatePickerStyle = .wheels
         datePicker.datePickerMode = .date
@@ -39,7 +40,7 @@ final class TodoEditView: UIView {
         return datePicker
     }()
     
-    private let bodyTextView: UITextView = {
+    fileprivate let bodyTextView: UITextView = {
         let textView = UITextView()
         textView.layer.masksToBounds = false
         textView.backgroundColor = .systemBackground
@@ -92,5 +93,19 @@ extension TodoEditView {
         titleTextField.isEnabled = value
         datePicker.isEnabled = value
         bodyTextView.isEditable = value
+    }
+}
+
+extension Reactive where Base == TodoEditView {
+    var titleText: Observable<String?> {
+        return base.titleTextField.rx.text.asObservable()
+    }
+    
+    var datePicker: Observable<Date> {
+        return base.datePicker.rx.date.asObservable()
+    }
+    
+    var bodyText: Observable<String?> {
+        return base.bodyTextView.rx.text.asObservable()
     }
 }
