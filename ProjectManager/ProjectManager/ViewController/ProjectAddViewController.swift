@@ -10,9 +10,9 @@ import UIKit
 import RealmSwift
 
 final class ProjectAddViewController: UIViewController {
-  @IBOutlet weak var addProjectTitleTextField: UITextField!
-  @IBOutlet weak var datePicker: UIDatePicker!
-  @IBOutlet weak var bodyTextView: UITextView!
+  @IBOutlet private weak var projectTitleTextField: UITextField!
+  @IBOutlet private weak var projectDatePicker: UIDatePicker!
+  @IBOutlet private weak var projectBodyTextView: UITextView!
 
   private let realmService: RealmService?
 
@@ -31,18 +31,18 @@ final class ProjectAddViewController: UIViewController {
   }
 
   private func initializeUI() {
-    self.addProjectTitleTextField.leftView = UIView(
+    self.projectTitleTextField.leftView = UIView(
       frame: CGRect(x: 0.0, y: 0.0, width: 16.0, height: 0.0)
     )
-    self.addProjectTitleTextField.leftViewMode = .always
-    self.addProjectTitleTextField.shadow(
+    self.projectTitleTextField.leftViewMode = .always
+    self.projectTitleTextField.shadow(
       borderWidth: 1,
       borderColor: UIColor.systemGray5.cgColor,
       shadowColor: UIColor.black.cgColor,
       shadowOffset: CGSize(width: -1, height: 4),
       shadowOpacity: 0.3
     )
-    self.bodyTextView.shadow(
+    self.projectBodyTextView.shadow(
       borderWidth: 1,
       borderColor: UIColor.systemGray5.cgColor,
       shadowColor: UIColor.black.cgColor,
@@ -56,13 +56,13 @@ final class ProjectAddViewController: UIViewController {
   }
 
   @IBAction func doneButton(_ sender: UIBarButtonItem) {
-    if addProjectTitleTextField.text?.isEmpty == true { return }
+    if projectTitleTextField.text?.isEmpty == true { return }
 
     let project = Project(
       uuid: UUID().uuidString,
-      title: addProjectTitleTextField.text ?? "",
-      body: bodyTextView.text,
-      date: datePicker.date,
+      title: projectTitleTextField.text ?? "",
+      body: projectBodyTextView.text,
+      date: projectDatePicker.date,
       projectCategory: ProjectCategory.todo.description
     )
 

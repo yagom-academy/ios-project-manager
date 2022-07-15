@@ -8,9 +8,9 @@ import UIKit
 import RealmSwift
 
 final class ProjectManagerHomeViewController: UIViewController {
-  @IBOutlet weak var todoCollectionView: UICollectionView!
-  @IBOutlet weak var doingCollectionView: UICollectionView!
-  @IBOutlet weak var doneCollectionView: UICollectionView!
+  @IBOutlet private weak var todoCollectionView: UICollectionView!
+  @IBOutlet private weak var doingCollectionView: UICollectionView!
+  @IBOutlet private weak var doneCollectionView: UICollectionView!
 
   private let realmService = RealmService()
   private var projects: Results<Project>?

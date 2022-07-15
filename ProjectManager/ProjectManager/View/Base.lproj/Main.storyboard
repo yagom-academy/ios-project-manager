@@ -358,9 +358,9 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="addProjectTitleTextField" destination="O8u-58-oid" id="W15-2j-Nxw"/>
-                        <outlet property="bodyTextView" destination="vkb-FF-LOH" id="yXw-RL-nmt"/>
-                        <outlet property="datePicker" destination="Hup-tG-Rdu" id="Qwk-YG-xp9"/>
+                        <outlet property="projectBodyTextView" destination="vkb-FF-LOH" id="yXw-RL-nmt"/>
+                        <outlet property="projectDatePicker" destination="Hup-tG-Rdu" id="Qwk-YG-xp9"/>
+                        <outlet property="projectTitleTextField" destination="O8u-58-oid" id="W15-2j-Nxw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYm-e2-1SB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
