@@ -77,12 +77,12 @@ protocol ViewModelType {
 
 <img width="600" src="https://i.imgur.com/uwQDMXg.png"/> <br/>
 
-위와 같이 구조로 변경하여 ViewModel를 사용하는 곳에서는 ViewModel 프로토콜을 바라보고 있기 때문에 교체가 용이하게되어 테스트하기 쉽고 
+위와 같이 구조로 변경하여 ViewModel를 사용하는 곳에서는 ViewModel 프로토콜을 바라보고 있기 때문에 
+ViewModel과 ViewController간의 의존성을 낮추게 되어 교체가 용이하게되고 테스트하기 좋은 구조로 변경했습니다.
 
 <img width="350" src="https://i.imgur.com/nmAAIT8.png"/> <br/>
 
 `transform` 메서드만으로 전달되는 구조가 아니기 때문에 유연하게 데이터를 전달할 수 있게 되었습니다.
-
 
 **화면 전환에 대한 고민**
 기능 개발이 이뤄지면서 띄워야하는 장면이 증가하고 `present/dismiss` 또는 `push/pop`을 호출해야하는 상황에서 새로운 ViewController를 생성하여 화면 전환을 하게 되는데 
@@ -96,6 +96,22 @@ protocol ViewModelType {
 프로젝트 코드에서 CardListViewController, CardAdditionViewController, CardDetailViewController가 하나의 CardListViewModel 객체를 주입 받는 형태로 구현되어 있고 이렇게 구현된 이유로는 Card를 저장하는 배열을 각각의 ViewController에서 공유해야하기 때문에 1:1이 아닌 1:N의 구조가 되었다고 생각합니다.
 
 하나의 ViewModel를 여러 ViewController이 사용하도록 구현되어 있다면 CardListViewController에서 사용하지 않는 로직이 CardListViewModel에 구현되어 있는 문제가 있다고 생각했습니다. 하지만 공유하지 않고 분리하게 된다면 데이터 공유 문제와 중복 로직이 발생할 가능성이 있을 것이며 이를 해결하기 위해 `DataManager`로 공유가 필요한 데이터를 관리하는 계층을 더 추가하는 것도 데이터 공유 문제를 해결할 수 있는 좋은 방법이라고 생각했습니다.
+
+**Long Press 이벤트에 대한 처리**
+
+길게 터치하는 이벤트가 전달되기 위해 `UILongPressGestureRecognizer`를 사용하였습니다. 해당 이벤트가 발생하고 팝오버 메뉴를 표시하기 위해 처음에는 UIKit스럽게 Target-Action 방식으로 구현을 시도했었습니다. 하지만, Rx를 제대로 활용하지 못한다고 생각했고 아래 코드와 같이 기능을 확장하여 구현했습니다.
+ 
+<img width="800" src="https://i.imgur.com/GOR0539.png"/> <br/>
+
+`modelLongPressed`라는 메서드를 정의하고 Long 제스처를 Base가 되는 TableView에 추가한 후 제스처 이벤트가 발생하면 아래의 과정으로 데이터를 처리한 후 Cell과 데이터를 방출하도록 설계했습니다.
+
+![](https://i.imgur.com/T6tIfJ6.png)
+
+
+<img width="600" src="https://i.imgur.com/hCNOJni.png"/> <br/>
+
+구현된 `modelLongPressed`를 ViewController에서 사용하여 길게 터치하는 이벤트에 대한 처리를 ViewModel에서 처리하도록 로직을 분리했습니다.
+
 
 ## DB 선택 과정
 
