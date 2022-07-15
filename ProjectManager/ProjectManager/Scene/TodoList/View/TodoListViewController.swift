@@ -85,7 +85,8 @@ final class TodoListViewController: UIViewController {
     private func bind() {
         self.rightBarButton.rx.tap.asObservable()
             .subscribe(onNext: { [weak self] in
-                self?.coordinator?.showDetailView() })
+                self?.coordinator?.showDetailView()
+            })
             .disposed(by: self.disposeBag)
     }
 }

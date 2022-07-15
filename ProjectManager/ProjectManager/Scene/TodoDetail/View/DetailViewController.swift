@@ -154,8 +154,8 @@ final class DetailViewController: UIViewController {
             .subscribe(onNext: { [weak self] in
                 self?.detailViewModel.doneButtonTapEvent(
                     todo: self?.createTodo(),
-                            selectedTodo: self?.selectedTodo,
-                    completion: {
+                    selectedTodo: self?.selectedTodo,
+                    completion: { [weak self] in
                         self?.coordinator?.dismiss()
                     })
             })

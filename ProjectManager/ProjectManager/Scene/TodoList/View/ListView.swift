@@ -138,7 +138,7 @@ final class ListView: UIView {
         
         self.tableView.rx.itemSelected
             .subscribe(onNext: { [weak self] indexPath in
-                self?.listViewModel.cellSelectEvent(indexPathRow: indexPath.row, todoListItemStatus: self?.todoListItemstatus, completion: { selectedTodo in
+                self?.listViewModel.cellSelectEvent(indexPathRow: indexPath.row, todoListItemStatus: self?.todoListItemstatus, completion: { [weak self] selectedTodo in
                     self?.coordinator?.showDetailView(todoListItemStatus: self?.todoListItemstatus, selectedTodo: selectedTodo)
                 })
             })
