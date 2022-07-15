@@ -14,8 +14,10 @@ final class TodoSceneDIContainer {
         return DefaultTodoListViewModel(useCase: makeTodoListUseCase(), actions: actions)
     }
     
-    private func makeTodoEditViewModel(actions: TodoEditViewModelActions) -> DefaultTodoEditViewModel {
-        return DefaultTodoEditViewModel(useCase: makeTodoListUseCase(), actions: actions)
+    private func makeTodoEditViewModel(actions: TodoEditViewModelActions, item: TodoModel?) -> DefaultTodoEditViewModel {
+        return DefaultTodoEditViewModel(useCase: makeTodoListUseCase(),
+                                        actions: actions,
+                                        item: item)
     }
     
     private func makeTodoListUseCase() -> DefaultTodoListUseCase {
@@ -40,6 +42,7 @@ extension TodoSceneDIContainer: TodoListFlowCoordinatorDependencies {
     }
 
     func makeTodoEditViewController(actions: TodoEditViewModelActions, item: TodoModel?) -> TodoEditViewController {
-        return TodoEditViewController(viewModel: makeTodoEditViewModel(actions: actions), item: item)
+        return TodoEditViewController(viewModel: makeTodoEditViewModel(actions: actions, item: item))
+
     }
 }
