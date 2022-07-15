@@ -10,7 +10,7 @@ import RxCocoa
 import RxSwift
 
 final class DetailViewController: UIViewController {
-    private let detailViewType: DetailViewType
+    private let selectedTodo: Todo?
     private let todoListItemStatus: TodoListItemStatus
     private let detailViewModel: DetailViewModel
     private let disposeBag = DisposeBag()
@@ -62,17 +62,27 @@ final class DetailViewController: UIViewController {
         return stackView
     }()
     
-    private var leftBarButtonTitle: String {
-        return self.detailViewType == .create ? "Cancel" : "Edit"
-    }
+    private let leftBarButton = UIBarButtonItem(
+        title: "Cancel",
+        style: .plain,
+        target: nil,
+        action: nil
+    )
+    
+    private let rightBarButton = UIBarButtonItem(
+        title: "Done",
+        style: .plain,
+        target: nil,
+        action: nil
+    )
     
     init(
-        detailViewType: DetailViewType,
+        selectedTodo: Todo?,
         todoListItemStatus: TodoListItemStatus,
         detailViewModel: DetailViewModel,
         coordinator: AppCoordinator
     ) {
-        self.detailViewType = detailViewType
+        self.selectedTodo = selectedTodo
         self.todoListItemStatus = todoListItemStatus
         self.detailViewModel = detailViewModel
         self.coordinator = coordinator
@@ -88,23 +98,15 @@ final class DetailViewController: UIViewController {
         self.setUpNavigationBar()
         self.setUpDetailStackView()
         self.setUpTitleTextField()
+        self.setUpAttribute()
+        self.setUpEditView()
         self.bind()
     }
     
     private func setUpNavigationBar() {
         self.navigationItem.title = self.todoListItemStatus.title
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(
-            title: self.leftBarButtonTitle,
-            style: .plain,
-            target: nil,
-            action: nil
-        )
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(
-            title: "Done",
-            style: .plain,
-            target: nil,
-            action: nil
-        )
+        self.navigationItem.leftBarButtonItem = self.leftBarButton
+        self.navigationItem.rightBarButtonItem = self.rightBarButton
     }
     
     private func setUpDetailStackView() {
@@ -131,7 +133,55 @@ final class DetailViewController: UIViewController {
         ])
     }
     
-    private func createTodo() -> Todo? {
+    private func setUpAttribute() {
+        self.titleTextField.isEnabled = self.selectedTodo == nil ? true : false
+        self.datePicker.isEnabled = self.selectedTodo == nil ? true : false
+        self.descriptionTextView.isEditable = self.selectedTodo == nil ? true : false
+        self.leftBarButton.title = self.selectedTodo == nil ? "Cancle" : "Edit"
+    }
+    
+    private func setUpEditView() {
+        if let selectedTodo = self.selectedTodo {
+            self.titleTextField.text = selectedTodo.title
+            self.datePicker.date = selectedTodo.date
+            self.descriptionTextView.text = selectedTodo.description
+        }
+    }
+    
+    private func bind() {
+        rightBarButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                self?.detailViewModel.doneButtonTapEvent(
+                    todo: self?.createTodo(),
+                    selectedTodo: self?.selectedTodo,
+                    completion: { [weak self] in
+                        self?.coordinator?.dismiss()
+                    })
+            })
+            .disposed(by: self.disposeBag)
+        
+        leftBarButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                if self?.selectedTodo == nil {
+                    self?.coordinator?.dismiss()
+                } else {
+                    self?.changeAttribute()
+                }
+            })
+            .disposed(by: self.disposeBag)
+    }
+    
+    private func createTodo() -> Todo {
+        if let selectedTodo = self.selectedTodo {
+            return Todo(
+                todoListItemStatus: selectedTodo.todoListItemStatus,
+                identifier: selectedTodo.identifier,
+                title: self.titleTextField.text ?? "",
+                description: self.descriptionTextView.text ?? "",
+                date: self.datePicker.date
+            )
+        }
+        
         return Todo(
             todoListItemStatus: .todo,
             title: self.titleTextField.text ?? "",
@@ -140,17 +190,10 @@ final class DetailViewController: UIViewController {
         )
     }
     
-    private func bind() {
-        guard let rightBarButton = self.navigationItem.rightBarButtonItem else {
-            return
-        }
-        
-        rightBarButton.rx.tap.asObservable()
-            .subscribe(onNext: { [weak self] in
-                self?.detailViewModel.doneButtonTapEvent(todo: self?.createTodo(), completion: {
-                    self?.coordinator?.dismiss()
-                })
-            })
-            .disposed(by: self.disposeBag)
+    private func changeAttribute() {
+        self.leftBarButton.title = self.leftBarButton.title == "Edit" ? "Cancle" : "Edit"
+        self.titleTextField.isEnabled = !self.titleTextField.isEnabled
+        self.datePicker.isEnabled = !self.datePicker.isEnabled
+        self.descriptionTextView.isEditable = !self.descriptionTextView.isEditable
     }
 }
