@@ -8,8 +8,8 @@ import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
-    let todoSceneDIContainer = TodoSceneDIContainer()
-    var todoListFlowCoordinator: TodoListFlowCoordinator?
+    private let todoSceneDIContainer = TodoSceneDIContainer()
+    private var todoListFlowCoordinator: TodoListFlowCoordinator?
     
     var window: UIWindow?
     
