@@ -9,18 +9,18 @@ import Foundation
 import RxSwift
 import RxRelay
 
-protocol NewFormSheetViewModelInput {
+protocol NewFormSheetViewModelEvent {
     func doneButtonTapped()
 }
 
-protocol NewFormSheetViewModelOutput {
+protocol NewFormSheetViewModelState {
     var title: BehaviorRelay<String> { get }
     var body: BehaviorRelay<String> { get }
     var date: BehaviorRelay<Double> { get }
     var dismiss: PublishRelay<Void> { get }
 }
 
-final class NewFormSheetViewModel: NewFormSheetViewModelInput, NewFormSheetViewModelOutput, ErrorObservable {
+final class NewFormSheetViewModel: NewFormSheetViewModelEvent, NewFormSheetViewModelState, ErrorObservable {
     
     var title: BehaviorRelay<String> = BehaviorRelay(value: AppConstants.defaultStringValue)
     var body: BehaviorRelay<String> = BehaviorRelay(value: AppConstants.defaultStringValue)

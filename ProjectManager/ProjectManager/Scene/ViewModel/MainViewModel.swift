@@ -9,17 +9,17 @@ import Foundation
 import RxRelay
 import RxSwift
 
-protocol MainViewModelInput {
+protocol MainViewModelEvent {
     func cellItemDeleted(at indexPath: IndexPath, taskType: TaskType)
 }
 
-protocol MainViewModelOutput {
+protocol MainViewModelState {
     var todos: BehaviorRelay<[Task]> { get }
     var doings: BehaviorRelay<[Task]> { get }
     var dones: BehaviorRelay<[Task]> { get }
 }
 
-final class MainViewModel: MainViewModelInput, MainViewModelOutput, ErrorObservable {
+final class MainViewModel: MainViewModelEvent, MainViewModelState, ErrorObservable {
     
     var todos: BehaviorRelay<[Task]> = BehaviorRelay(value: AppConstants.defaultTaskArrayValue)
     var doings: BehaviorRelay<[Task]> = BehaviorRelay(value: AppConstants.defaultTaskArrayValue)

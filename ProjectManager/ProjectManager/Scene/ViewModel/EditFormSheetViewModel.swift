@@ -9,18 +9,18 @@ import Foundation
 import RxSwift
 import RxRelay
 
-protocol EditFormSheetViewModelInput {
+protocol EditFormSheetViewModelEvent {
     func editButtonTapped(task: Task)
 }
 
-protocol EditFormSheetViewModelOutput {
+protocol EditFormSheetViewModelState {
     var title: BehaviorRelay<String> { get }
     var body: BehaviorRelay<String> { get }
     var date: BehaviorRelay<Double> { get }
     var dismiss: PublishRelay<Void> { get }
 }
 
-final class EditFormSheetViewModel: EditFormSheetViewModelInput, EditFormSheetViewModelOutput, ErrorObservable {
+final class EditFormSheetViewModel: EditFormSheetViewModelEvent, EditFormSheetViewModelState, ErrorObservable {
     
     var title: BehaviorRelay<String> = BehaviorRelay(value: AppConstants.defaultStringValue)
     var body: BehaviorRelay<String> = BehaviorRelay(value: AppConstants.defaultStringValue)

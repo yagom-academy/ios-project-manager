@@ -8,15 +8,15 @@
 import Foundation
 import RxRelay
 
-protocol PopoverViewModelInput {
+protocol PopoverViewModelEvent {
     func moveButtonTapped(_ task: Task, to taskType: TaskType)
 }
 
-protocol PopoverViewModelOutput {
+protocol PopoverViewModelState {
     var dismiss: PublishRelay<Void> { get }
 }
 
-final class PopoverViewModel: PopoverViewModelInput, PopoverViewModelOutput, ErrorObservable {
+final class PopoverViewModel: PopoverViewModelEvent, PopoverViewModelState, ErrorObservable {
     
     var dismiss: PublishRelay<Void> = .init()
     var error: PublishRelay<DatabaseError> = .init()
