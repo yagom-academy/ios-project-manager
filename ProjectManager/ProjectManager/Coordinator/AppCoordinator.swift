@@ -9,13 +9,14 @@ import UIKit
 
 protocol Coordinator: AnyObject {
     var navigationController: UINavigationController { get set }
+    
     func start()
 }
 
 final class AppCoordinator: Coordinator {
     var navigationController: UINavigationController
     private var detailViewController: DetailViewController?
-    private let dataBase = TempDataBase()
+    private let database = TempDatabase()
     
     func start() {
         self.showListView()
@@ -26,12 +27,12 @@ final class AppCoordinator: Coordinator {
     }
     
     private func showListView() {
-        let viewModel = TodoListViewModel(dataBase: self.dataBase)
-        let viewController = TodoListViewController(
-            todoViewModel: viewModel,
+        let listViewModel = TodoListViewModel(dataBase: self.database)
+        let todoListViewController = TodoListViewController(
+            todoViewModel: listViewModel,
             coordinator: self
         )
-        self.navigationController.pushViewController(viewController, animated: false)
+        self.navigationController.pushViewController(todoListViewController, animated: false)
     }
     
     func showDetailView(todoListItemStatus: TodoListItemStatus? = .todo, selectedTodo: Todo? = nil) {
@@ -39,7 +40,7 @@ final class AppCoordinator: Coordinator {
             return
         }
         
-        let detailViewModel = DetailViewModel(dataBase: self.dataBase)
+        let detailViewModel = DetailViewModel(database: self.database)
         self.detailViewController = DetailViewController(
             selectedTodo: selectedTodo,
             todoListItemStatus: todoListItemStatus,
@@ -58,5 +59,37 @@ final class AppCoordinator: Coordinator {
     
     func dismiss() {
         self.detailViewController?.dismiss(animated: true)
+    }
+    
+    func showPopover(
+        sourceView: UIView,
+        firstTitle: String,
+        secondTitle: String,
+        firstAction: @escaping ()-> Void,
+        secondAction: @escaping ()-> Void
+    ) {
+        let popover: UIAlertController = {
+            let alertController = UIAlertController(
+                title: nil,
+                message: nil,
+                preferredStyle: .actionSheet
+            )
+            alertController.modalPresentationStyle = .popover
+            alertController.popoverPresentationController?.permittedArrowDirections = .up
+            alertController.popoverPresentationController?.sourceView = sourceView.superview
+            alertController.popoverPresentationController?.sourceRect = CGRect(origin: sourceView.center, size: .zero)
+            
+            return alertController
+        }()
+        
+        let firstAction = UIAlertAction(title: firstTitle, style: .default) { action in
+            firstAction()
+        }
+        let secondAction = UIAlertAction(title: secondTitle, style: .default) { action in
+            secondAction()
+        }
+        popover.addAction(firstAction)
+        popover.addAction(secondAction)
+        self.navigationController.present(popover, animated: true)
     }
 }

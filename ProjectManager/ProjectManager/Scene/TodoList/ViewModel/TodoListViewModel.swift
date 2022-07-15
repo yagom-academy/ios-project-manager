@@ -5,7 +5,7 @@
 //  Created by 김동욱 on 2022/07/05.
 //
 
-import Foundation
+import UIKit
 
 import RxCocoa
 import RxRelay
@@ -37,7 +37,11 @@ final class TodoListViewModel {
             .asDriver(onErrorJustReturn: [])
     }
     
-    func cellSelectEvent(indexPathRow: Int, todoListItemStatus: TodoListItemStatus?, completion: @escaping (Todo) -> Void ) {
+    func cellSelectEvent(
+        indexPathRow: Int,
+        todoListItemStatus: TodoListItemStatus?,
+        completion: @escaping (Todo) -> Void
+    ) {
         guard let todoListItemStatus = todoListItemStatus else {
             return
         }
@@ -45,23 +49,50 @@ final class TodoListViewModel {
         switch todoListItemStatus {
         case .todo:
             self.todoViewData.drive(onNext: {
-                    completion($0[indexPathRow])
-                })
-                .dispose()
+                completion($0[indexPathRow])
+            })
+            .dispose()
         case .doing:
             self.doingViewData.drive(onNext: {
-                    completion($0[indexPathRow])
-                })
-                .dispose()
+                completion($0[indexPathRow])
+            })
+            .dispose()
         case .done:
             self.doneViewData.drive(onNext: {
-                    completion($0[indexPathRow])
-                })
-                .dispose()
+                completion($0[indexPathRow])
+            })
+            .dispose()
         }
     }
     
     func cellDeleteEvent(selectedTodo: Todo) {
         self.dataBase.delete(todoID: selectedTodo.identifier)
+    }
+    
+    func distinguishMenuType(of todo: Todo) -> (TodoListItemStatus, TodoListItemStatus) {
+        switch todo.todoListItemStatus {
+        case .todo: return (.doing, .done)
+        case .doing: return (.todo, .done)
+        case .done: return (.todo, .doing)
+        }
+    }
+    
+    func moveDifferentSection(to: TodoListItemStatus, selectedCell: Todo) {
+        var selectedTodo = selectedCell
+        
+        guard let newStatus = TodoListItemStatus(rawValue: to.rawValue) else {
+            return
+        }
+        
+        selectedTodo.todoListItemStatus = newStatus
+        self.dataBase.update(selectedTodo: selectedTodo)
+    }
+    
+    func changeDateColor(cell: TodoListCell, todoData: Todo) {
+        if todoData.date > Formatter.date.fetchCurrentDate() && todoData.todoListItemStatus != .done {
+            cell.changeDateLabelColor(to: .red)
+        } else {
+            cell.changeDateLabelColor(to: .black)
+        }
     }
 }

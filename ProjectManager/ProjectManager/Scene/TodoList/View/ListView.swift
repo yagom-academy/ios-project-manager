@@ -38,7 +38,7 @@ final class ListView: UIView {
     
     private lazy var headerTitleLabel: UILabel = {
         let label = UILabel()
-        label.text = self.todoListItemstatus.title
+        label.text = self.todoListItemstatus.value
         label.font = .preferredFont(forTextStyle: .title1)
         
         return label
@@ -122,6 +122,18 @@ final class ListView: UIView {
         )
         .filter { $0.0 == self.todoListItemstatus }
         .flatMap{ $0.1 }
+        .map { String($0.count) }
+        .asDriver(onErrorJustReturn: "")
+        .drive(self.listCountLabel.rx.text)
+        .disposed(by: self.disposeBag)
+        
+        Observable.of(
+            (TodoListItemStatus.todo, self.listViewModel.todoViewData),
+            (TodoListItemStatus.doing, self.listViewModel.doingViewData),
+            (TodoListItemStatus.done, self.listViewModel.doneViewData)
+        )
+        .filter { $0.0 == self.todoListItemstatus }
+        .flatMap{ $0.1 }
         .asDriver(onErrorJustReturn: [])
         .drive(self.tableView.rx.items) { tabelView, row, element in
             guard let cell = tabelView.dequeueReusableCell(
@@ -131,6 +143,7 @@ final class ListView: UIView {
                 return UITableViewCell()
             }
             cell.configure(element)
+            self.listViewModel.changeDateColor(cell: cell, todoData: element)
             
             return cell
         }
@@ -150,16 +163,23 @@ final class ListView: UIView {
             })
             .disposed(by: self.disposeBag)
         
-        Observable.of(
-            (TodoListItemStatus.todo, self.listViewModel.todoViewData),
-            (TodoListItemStatus.doing, self.listViewModel.doingViewData),
-            (TodoListItemStatus.done, self.listViewModel.doneViewData)
-        )
-        .filter { $0.0 == self.todoListItemstatus }
-        .flatMap{ $0.1 }
-        .map { String($0.count) }
-        .asDriver(onErrorJustReturn: "")
-        .drive(self.listCountLabel.rx.text)
-        .disposed(by: self.disposeBag)
+        self.tableView.rx.modelLongPressed(Todo.self)
+            .subscribe(onNext: { [weak self] selectedCell, selectedData in
+                guard let (firstStatus, secondStatus) = self?.listViewModel.distinguishMenuType(of: selectedData) else {
+                    return
+                }
+                                
+                self?.coordinator?.showPopover(
+                    sourceView: selectedCell,
+                    firstTitle: "Move To \(firstStatus.value)",
+                    secondTitle: "Move To \(secondStatus.value)",
+                    firstAction: {
+                        self?.listViewModel.moveDifferentSection(to: firstStatus, selectedCell: selectedData)
+                    },
+                    secondAction: {
+                        self?.listViewModel.moveDifferentSection(to: secondStatus, selectedCell: selectedData)
+                    })
+            })
+            .disposed(by: self.disposeBag)
     }
 }
