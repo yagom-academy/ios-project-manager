@@ -81,6 +81,7 @@ final class TodoListView: UIView {
     let todoItemSize = NSCollectionLayoutSize(
       widthDimension: .fractionalWidth(1),
       heightDimension: .estimated(1))
+    
     let outerGroupSize = NSCollectionLayoutSize(
       widthDimension: .fractionalWidth(1),
       heightDimension: .fractionalHeight(1))
@@ -90,14 +91,15 @@ final class TodoListView: UIView {
       top: 10,
       leading: 0,
       bottom: 10,
-      trailing: 0)
+      trailing: 0
+    )
     
     let outerGroup = NSCollectionLayoutGroup.vertical(
       layoutSize: outerGroupSize,
-      subitems: [doItem])
+      subitems: [doItem]
+    )
     
     let section = NSCollectionLayoutSection(group: outerGroup)
-
     let layout = UICollectionViewCompositionalLayout(section: section)
     
     return layout
