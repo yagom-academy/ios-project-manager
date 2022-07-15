@@ -1,4 +1,4 @@
-# ✍️ 프로젝트매니저 저장소
+# ✅ 프로젝트매니저 저장소
  
 > 프로젝트 기간 2022.07.04 ~ 2022.07.15 </br> 
 팀원: [Quokkaaa](https://github.com/Quokkaaa)
@@ -27,11 +27,10 @@ UIkit | MVVM | Realm | FireBase | SwiftLint |
 단, 리뷰어와 먼저 상의 후 적용해야합니다
 - 메서드 내부의 들여쓰기는 한 번으로 제한합니다 
 
-## 👨‍🔧 PR
+## ✍️ PR
 [STEP1](https://github.com/yagom-academy/ios-project-manager/pull/128) |
 -- |
 [STEP2](https://github.com/yagom-academy/ios-project-manager/pull/145) |
--- |
 
 ## 목차
 
