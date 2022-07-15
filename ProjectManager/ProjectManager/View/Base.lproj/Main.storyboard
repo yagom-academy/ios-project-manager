@@ -360,6 +360,7 @@
                     <connections>
                         <outlet property="projectBodyTextView" destination="vkb-FF-LOH" id="yXw-RL-nmt"/>
                         <outlet property="projectDatePicker" destination="Hup-tG-Rdu" id="Qwk-YG-xp9"/>
+                        <outlet property="projectLeftBarButtonItem" destination="CG9-Y8-C1J" id="Qwf-2e-xFB"/>
                         <outlet property="projectTitleTextField" destination="O8u-58-oid" id="W15-2j-Nxw"/>
                     </connections>
                 </viewController>

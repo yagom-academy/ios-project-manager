@@ -13,6 +13,7 @@ final class ProjectAddViewController: UIViewController {
   @IBOutlet private weak var projectTitleTextField: UITextField!
   @IBOutlet private weak var projectDatePicker: UIDatePicker!
   @IBOutlet private weak var projectBodyTextView: UITextView!
+  @IBOutlet private weak var projectLeftBarButtonItem: UIBarButtonItem!
 
   private let realmService: RealmService?
   private let uuid: String?
@@ -64,6 +65,16 @@ final class ProjectAddViewController: UIViewController {
   }
 
   @IBAction func cancelButton(_ sender: UIBarButtonItem) {
+    guard let uuid = uuid else { return }
+    if self.projectLeftBarButtonItem.title == "Edit" {
+      realmService?.update(
+        uuid: uuid,
+        title: projectTitleTextField.text ?? "",
+        body: projectBodyTextView.text,
+        date: projectDatePicker.date
+      )
+    }
+
     self.dismiss(animated: true)
   }
 
