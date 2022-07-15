@@ -8,9 +8,9 @@
 import UIKit
 
 final class EditTodoViewController: UIViewController {
-  let viewModel: EditViewModel
+  private let viewModel: EditViewModel
   weak var delegate: TodoDelegate?
-  lazy var editView = WriteTodoView(frame: view.frame)
+  private lazy var editView = WriteTodoView(frame: view.frame)
   
   init(todo: Todo) {
     self.viewModel = EditViewModel(todo: todo)
@@ -73,7 +73,7 @@ final class EditTodoViewController: UIViewController {
     self.delegate?.updateData(editedTodoData)
   }
   
-  func mappingDictionary(from Todo: Todo) -> [String: Any?] {
+  private func mappingDictionary(from Todo: Todo) -> [String: Any?] {
     var dictionary = [String: Any?]()
     
     dictionary["title"] = viewModel.todo.title

@@ -12,21 +12,25 @@ import RealmSwift
 final class TodoListViewController: UIViewController {
   typealias DataSource = UICollectionViewDiffableDataSource<Int, Todo>
   typealias SnapShot = NSDiffableDataSourceSnapshot<Int, Todo>
-  var todoDataSource: DataSource!
-  var doingDataSource: DataSource!
-  var doneDataSource: DataSource!
+  private var todoDataSource: DataSource!
+  private var doingDataSource: DataSource!
+  private var doneDataSource: DataSource!
   
-  lazy var todoView = TodoListView(headerName: "TODO", listCount: viewModel.findListCount(.todo))
-  lazy var doingView = TodoListView(headerName: "DOING", listCount: viewModel.findListCount(.doing))
-  lazy var doneView = TodoListView(headerName: "DONE", listCount: viewModel.findListCount(.done))
+  private lazy var todoView = TodoListView(headerName: "TODO", listCount: viewModel.findListCount(.todo))
+  private lazy var doingView = TodoListView(headerName: "DOING", listCount: viewModel.findListCount(.doing))
+  private lazy var doneView = TodoListView(headerName: "DONE", listCount: viewModel.findListCount(.done))
   
   private let viewModel = TodoViewModel()
   
-  lazy var todoList = viewModel.readList {
+  private lazy var todoList = viewModel.readList {
     didSet {
       reloadDataSource()
       updateListCountlabel()
     }
+  }
+  
+  private var todoListViews: [TodoListView] {
+    return [todoView, doingView, doneView]
   }
 
   private let mainStackView: UIStackView = {
@@ -92,9 +96,7 @@ final class TodoListViewController: UIViewController {
   }
   
   private func setUpDelegate() {
-    todoView.todoCollectionView.delegate = self
-    doingView.todoCollectionView.delegate = self
-    doneView.todoCollectionView.delegate = self
+    todoListViews.forEach { $0.todoCollectionView.delegate = self }
   }
   
   private func moveWriteTodo() {

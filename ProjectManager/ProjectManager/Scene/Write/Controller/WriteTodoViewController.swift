@@ -6,9 +6,9 @@
 
 import UIKit
 
-class WriteTodoViewController: UIViewController {
+final class WriteTodoViewController: UIViewController {
   weak var todoDelegate: TodoDelegate?
-  lazy var writeView = WriteTodoView(frame: view.frame)
+  private lazy var writeView = WriteTodoView(frame: view.frame)
   
   override func loadView() {
     super.loadView()
@@ -17,10 +17,10 @@ class WriteTodoViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    setTitle()
+    setUpNavigation()
   }
   
-  func setTitle() {
+  private func setUpNavigation() {
     navigationItem.title = "TODO"
     navigationController?.navigationBar.barTintColor = UIColor.systemGray
     navigationItem.leftBarButtonItem = UIBarButtonItem(
