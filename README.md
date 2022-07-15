@@ -6,57 +6,69 @@
 
 # 📋 목차
 - [프로젝트 목표](#-프로젝트-소개)
-- [팀원](#-팀원)
 - [프로젝트 실행화면](#-프로젝트-실행화면)
-- [UML](#uml)
-- [타임라인](#-타임라인)
 - [PR](#-pr)
 - [STEP 1](#step-1)
     + [고민한 점](#고민한-점)
     + [질문사항](#질문사항)
 
 ## 🔎 프로젝트 소개
-
-## 👨‍👦‍👦 팀원
-
+해야할 일을 TODO, DOING, DONE으로 관리하는 프로젝트 매니저입니다.
 
 ## 📺 프로젝트 실행화면
+|생성|편집|이동|
+|--|--|--|
+|<img src="https://i.imgur.com/kkaGsEA.gif" width="400">|<img src="https://i.imgur.com/ww6Mp69.gif" width="400">|<img src="https://i.imgur.com/So8EgG1.gif" width="400">|
 
-
-## ⏱ 타임라인
-|날짜|내용|
-|--|--|
-
-    
 ## 👀 PR
-
+- [STEP 1](https://github.com/yagom-academy/ios-project-manager/pull/123)
+- [STEP 2](https://github.com/yagom-academy/ios-project-manager/pull/138)
 
 ## 🛠 개발환경 및 라이브러리
 - [![swift](https://img.shields.io/badge/swift-5.6-orange)]()
 - [![xcode](https://img.shields.io/badge/Xcode-13.4.1-blue)]()
-- [![iOS](https://img.shields.io/badge/iOS-14.1-red)]()
+- [![iOS](https://img.shields.io/badge/iOS-14.4-red)]()
+- [![Combine](https://img.shields.io/badge/Combine--red)]()
+- [![Snapkit](https://img.shields.io/badge/Snapkit-5.6-red)]()
 
 ## 🔑 키워드
+- `iPad`
+- `DIContainer`
+- `Dependency Injection`
+- `Clean Architecture`
+- `MVVM`
+- `Coordinator`
+- `Reactive Programming`
+- `Combine`
+- `ARC`
+- `Parent, Child ViewModel`
+- `Test Double`
 
 ---
 
-## [STEP 1]
-# 프로젝트 적용기술 선정
+### [STEP 1]
 
 ## App 구조
 
-MVVM-C + CleanArchtiecture 구조
+### DIContainer, Coordinator
+<img src="https://i.imgur.com/fiGtIdn.png" width="400">
 
-![](https://i.imgur.com/YKB5Zen.png)
+### MVVM, CleanArchitecture
+<img src="https://i.imgur.com/rAVuZ8Y.png" width="600">
+
+#### 선택한 이유
+- 기존 MVVM의 경우 MVC보다는 계층이 분리되고, 객체들의 관심사가 분리되지만 그럼에도 ViewModel의 역할이 커지는 문제가 발생
+- CleanArchitecture를 통해 Layer를 한층 더 나누어 주면서 계층별로 관심사가 나누어지게 되고, 자연스럽게 각각의 객체들의 역할이 분명하게 나누어짐
+- 이로 인해 객체들의 결합도가 낮아지고, 응집도는 높아지면서 문제가 발생했을 때 쉽게 찾을 수 있고 해당 부분만 수정이 가능해지면서 유지보수적인 측면에서 상당한 이점을 갖을 수 있음
+- DIContainer를 통한 의존성 주입으로 ViewModel, UseCase, Repository, Storage에 대한 테스트가 용이해짐
 
 ### Layer
-![](https://i.imgur.com/6Z11rjm.png)
-
-#### Domain Layer
-- 비즈니스 로직을 포함하는 계층으로 Entity, UseCase, Repository Interface를 포함.
 
 #### Presentation Layer
 - UI를 포함하는 계층으로 View와 ViewModel을 포함
+
+#### Domain Layer
+- 비즈니스 로직을 포함하는 계층으로 Entity, UseCase, Repository Interface를 포함.
 
 #### Data Layer
 - Data Source를 포함하는 계층으로 Repository와 API, DB등을 포함
@@ -72,12 +84,10 @@ MVVM-C + CleanArchtiecture 구조
 #### Data Flow
 ![](https://i.imgur.com/KNPgzYL.png)
 
-
 #### 참고링크
 - [Medium: Clean Architecture and MVVM on iOS](https://tech.olx.com/clean-architecture-and-mvvm-on-ios-c9d167d9f5b3)
 - [GitHub: iOS-Clean-Architecture-MVVM](https://github.com/kudoleh/iOS-Clean-Architecture-MVVM)
 - [Clean Code](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
-
 
 ## Local DB
 ||장점|단점|
@@ -147,3 +157,55 @@ FireBase 문서에서 RealTime DB와 Cloud Firestore을 선택하는 기준이 �
 
 사용하는 모든 라이브러리가 CocoaPods을 지원함
 SwiftLint가 SPM를 지원하지 않기때문에 무조건 `CocoaPods`을 써야함
+
+## [STEP2]
+
+### 인스턴스의 RC관리
+
+최상위 AppDIContainer에서 모든 의존성(현재는 Storage)을 관리하고, 하위에 주입해주는 방법을 사용했다
+클래스를 전달하다보니, 전달할때마다 RC가 늘어나는 문제가 있었다
+외부에서 주입받은 의존성의 경우 unowned를 붙여서 불필요한 RC를 늘리지 않고 의존성을 주입해주었다
+
+### ViewModel 간의 통신
+
+하나의 ViewController에서 View가 여러개 있을때 ViewModel 또한 여러개 있을 수 있다
+이때 하위 viewModel에서 일어나는 일을 상위 viewModel에 이벤트만 전달하여 상위 viewModel에서 비즈니스 로직/ 화면전환 등을 처리하게 해야했다
+ViewModel간에 delegate를 설정해서 하위 viewModel은 상위 viewModel에게 이벤트를 전달하도록 구현하였다
+
+### ViewModel Test
+
+ViewModel은 UseCase가 필요하다
+UseCae는 Repository가 필요하다
+Repository는 Storage가 필요하다
+
+그리고 UseCase, Repository, Storage는 모두 프로토콜로 추상화되어 있다.
+Fake Storage -> Fake Repository -> Fake UseCase를 만들어서 ViewModel에 주입한 후
+ViewModel의 Input, Output을 테스트하였다
+
+### Mock과 Stub의 차이
+
+테스트를 위해 객체를 만들때 TestDouble이라는 이름으로 만들게 된다
+
+#### Mock은 행위검증
+이 행동이 일어났는가? (즉 이 매서드가 호출되었는가) 를 검증
+
+#### Stub은 상태검증
+Stub의 경우에는 이미 반환해야될 결과값이 정해져 있다
+예를들어 네트워크 없이 네트워크를 테스트를 할때 정해진 response를 반환하는 MockURLSession을 
+
+현재 테스트를 위해 만드는 Storage, UseCase, Repository는 실제 객체와 동일하게 동작하도록 만들었기 때문에 Fake로 만들었음
+
+### @Published, CurrentValueSubject, PassthroughSubject의 차이
+
+CurrentValueSubject는 초기값이 있고, 가장 최근 값에 대한 버퍼를 유지
+그래서 새로운 subscriber가 구독했을때 무조건 가장 최근 값을 방출
+
+반면에 PassthroughSubject는 초기값이 없고, 가장 최근 값에 대한 버퍼를 유지하지 않음
+새로운 subscriber가 해당 subject를 구독했다면, 그 이전의 이벤트는 전달되지 않음
+오직 구독 후에 발생하는 이벤트만 subscriber에게 전달 됨
+
+@Published와 CurrentValueSubject는 비슷하다고 생각
+다만 @Published property wrapper는 프로퍼티에 해당property wrapper를 붙이면 publisher처럼 쓸 수 있게 지원
+
+- class에만 쓸 수 있음
+- 에러를 방출하지 않는다 (Never 타입)
