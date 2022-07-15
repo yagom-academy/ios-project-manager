@@ -8,12 +8,12 @@
 import UIKit
 
 final class EditTodoViewController: UIViewController {
-  let todo: Todo
+  let viewModel: EditViewModel
   weak var delegate: TodoDelegate?
   lazy var editView = WriteTodoView(frame: view.frame)
   
-  init(todo: Todo = Todo()) {
-    self.todo = todo
+  init(todo: Todo) {
+    self.viewModel = EditViewModel(todo: todo)
     super.init(nibName: nil, bundle: nil)
   }
   
@@ -24,8 +24,8 @@ final class EditTodoViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    setTitle()
-    editView.updateTodoData(todo)
+    setUpNavigation()
+    editView.updateTodoData(viewModel.todo)
     editView.setUserInteractionEnableViews(false)
   }
   
@@ -35,12 +35,12 @@ final class EditTodoViewController: UIViewController {
   
   private func makeFormTodoDate(state: State) -> Todo {
     var editedTodoDate = editView.createTodoData(state: state)
-    editedTodoDate.id = todo.id
+    editedTodoDate.id = viewModel.todo.id
     
     return editedTodoDate
   }
   
-  private func setTitle() {
+  private func setUpNavigation() {
     navigationItem.title = "TODO"
     navigationController?.navigationBar.barTintColor = UIColor.systemGray
     navigationItem.leftBarButtonItem = UIBarButtonItem(
@@ -51,13 +51,12 @@ final class EditTodoViewController: UIViewController {
     navigationItem.rightBarButtonItem = UIBarButtonItem(
       systemItem: .done,
       primaryAction: UIAction(handler: { [weak self] _ in
-        guard let state = self?.todo.state,
+        guard let state = self?.viewModel.todo.state,
               var editedTodoData = self?.makeFormTodoDate(state: state) else { return }
-        editedTodoData.id = self!.todo.id
+        editedTodoData.id = self!.viewModel.todo.id
         
         let todoModel = DBManager.shared.mappingTodoModel(from: editedTodoData)
         guard let todoDictionary = self?.mappingDictionary(from: editedTodoData) else { return }
-        DBManager.shared.update(todoModel, with: todoDictionary)
         
         self?.delegate?.updateData(editedTodoData)
         self?.dismiss(animated: true)
@@ -67,11 +66,11 @@ final class EditTodoViewController: UIViewController {
   func mappingDictionary(from Todo: Todo) -> [String: Any?] {
     var dictionary = [String: Any?]()
     
-    dictionary["title"] = todo.title
-    dictionary["content"] = todo.content
-    dictionary["date"] = todo.date
-    dictionary["state"] = todo.state
-    dictionary["identifier"] = todo.id
+    dictionary["title"] = viewModel.todo.title
+    dictionary["content"] = viewModel.todo.content
+    dictionary["date"] = viewModel.todo.date
+    dictionary["state"] = viewModel.todo.state
+    dictionary["identifier"] = viewModel.todo.id
     
     return dictionary
   }
