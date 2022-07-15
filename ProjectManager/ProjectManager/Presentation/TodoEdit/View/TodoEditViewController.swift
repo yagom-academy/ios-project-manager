@@ -28,7 +28,7 @@ final class TodoEditViewController: UIViewController {
     private let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: nil)
     private let editButton = UIBarButtonItem()
     
-    private let todoItme: TodoModel?
+    private let todoItem: TodoModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,8 +40,8 @@ final class TodoEditViewController: UIViewController {
     
     init(viewModel: TodoEditViewModel, item: TodoModel?) {
         self.viewModel = viewModel
-        self.todoItme = item
-        mainView.setupView(by: todoItme)
+        self.todoItem = item
+        mainView.setupView(by: todoItem)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -66,7 +66,7 @@ extension TodoEditViewController {
     
     private func configureNavigationBar() {
         title = Constant.navigationBarTitle
-        if todoItme == nil {
+        if todoItem == nil {
             navigationItem.leftBarButtonItem = cancelButton
         } else {
             editButton.title = Constant.edit
@@ -77,7 +77,7 @@ extension TodoEditViewController {
     }
     
     private func configureIsEnabled() {
-        if todoItme != nil {
+        if todoItem != nil {
             mainView.changeEnabled(false)
         }
     }
@@ -95,8 +95,8 @@ extension TodoEditViewController {
         doneButton.rx.tap
             .withUnretained(self)
             .bind { (self, _) in
-                let newItem = self.mainView.readViewContent(id: self.todoItme?.id,
-                                                            state: self.todoItme?.state)
+                let newItem = self.mainView.readViewContent(id: self.todoItem?.id,
+                                                            state: self.todoItem?.state)
                 self.viewModel.doneButtonDidTap(item: newItem)
             }.disposed(by: bag)
         
