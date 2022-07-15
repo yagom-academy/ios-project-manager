@@ -14,15 +14,6 @@ final class PopoverView: UIView {
         static let viewBackgroundColor: UIColor = .systemGray6
     }
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setUp()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     private let baseStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -59,6 +50,17 @@ final class PopoverView: UIView {
         button.setTitleColor(Constant.buttonTitleColor, for: .normal)
         return button
     }()
+    
+    // MARK: initialization
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setUp()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }
 
 // MARK: Functions

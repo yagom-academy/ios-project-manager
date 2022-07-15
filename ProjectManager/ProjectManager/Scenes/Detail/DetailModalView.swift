@@ -20,20 +20,7 @@ final class DetailModalView: UIView {
         static let textFieldShadowColor: CGColor = UIColor.black.cgColor
     }
     private lazy var bottomConstraint = stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20)
-    
     weak var buttonDelegate: ButtonActionDelegate?
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setUpStackView()
-        setConsantrait()
-        setButton()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     var task: Task {
         let title = titleTextField.text
         let body = bodyTextView.text
@@ -128,6 +115,19 @@ final class DetailModalView: UIView {
         stackView.axis = .vertical
         return stackView
     }()
+    
+    // MARK: initialization
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setUpStackView()
+        setConsantrait()
+        setButton()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }
 
 // MARK: Functions
