@@ -45,19 +45,19 @@ final class TodoListViewModel {
         switch todoListItemStatus {
         case .todo:
             self.todoViewData.drive(onNext: {
-                    completion($0[indexPathRow])
-                })
-                .dispose()
+                completion($0[indexPathRow])
+            })
+            .dispose()
         case .doing:
             self.doingViewData.drive(onNext: {
-                    completion($0[indexPathRow])
-                })
-                .dispose()
+                completion($0[indexPathRow])
+            })
+            .dispose()
         case .done:
             self.doneViewData.drive(onNext: {
-                    completion($0[indexPathRow])
-                })
-                .dispose()
+                completion($0[indexPathRow])
+            })
+            .dispose()
         }
     }
     
@@ -82,5 +82,13 @@ final class TodoListViewModel {
         
         selectedTodo.todoListItemStatus = newStatus
         self.dataBase.update(todo: selectedTodo)
+    }
+    
+    func changeDateColor(cell: TodoListCell, todoData: Todo) {
+        if todoData.date > Formatter.date.fetchCurrentDate() && todoData.todoListItemStatus != .done {
+            cell.changeDateLabelColor(to: .red)
+        } else {
+            cell.changeDateLabelColor(to: .black)
+        }
     }
 }

@@ -143,6 +143,7 @@ final class ListView: UIView {
                 return UITableViewCell()
             }
             cell.configure(element)
+            self.listViewModel.changeDateColor(cell: cell, todoData: element)
             
             return cell
         }
