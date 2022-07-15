@@ -10,12 +10,48 @@ import SwipeCellKit
 import RealmSwift
 
 final class TodoListViewController: UIViewController {
-  // MARK: DiffableDataSource
   typealias DataSource = UICollectionViewDiffableDataSource<Int, Todo>
   typealias SnapShot = NSDiffableDataSourceSnapshot<Int, Todo>
   var todoDataSource: DataSource!
   var doingDataSource: DataSource!
   var doneDataSource: DataSource!
+  
+  lazy var todoView = TodoListView(headerName: "TODO", listCount: viewModel.findListCount(.todo))
+  lazy var doingView = TodoListView(headerName: "DOING", listCount: viewModel.findListCount(.doing))
+  lazy var doneView = TodoListView(headerName: "DONE", listCount: viewModel.findListCount(.done))
+  
+  private let viewModel = TodoViewModel()
+  
+  lazy var todoList = viewModel.readList {
+    didSet {
+      reloadDataSource()
+      updateListCountlabel()
+    }
+  }
+
+  private let mainStackView: UIStackView = {
+    let stackView = UIStackView()
+    stackView.translatesAutoresizingMaskIntoConstraints = false
+    stackView.backgroundColor = .systemGray
+    stackView.axis = .horizontal
+    stackView.distribution = .fillEqually
+    stackView.spacing = 10
+    return stackView
+  }()
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    setUpDelegate()
+    configureUI()
+    setDataSource()
+    reloadDataSource()
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    let todoModels = DBManager.shared.readAll()
+    viewModel.mappingTodo(from: todoModels)
+  }
   
   private func setDataSource() {
     todoDataSource = makeDataSource(todoView.todoCollectionView)
@@ -41,43 +77,6 @@ final class TodoListViewController: UIViewController {
         cell?.longPress.addTarget(self, action: #selector(self.showMovingTodoSheet))
         return cell
       }
-  }
-  private let viewModel = TodoViewModel()
-  
-  lazy var todoList = viewModel.readList {
-    didSet {
-      reloadDataSource()
-      updateListCountlabel()
-    }
-  }
-  
-  // MARK: View Properties
-  lazy var todoView = TodoListView(headerName: "TODO", listCount: viewModel.findListCount(.todo))
-  lazy var doingView = TodoListView(headerName: "DOING", listCount: viewModel.findListCount(.doing))
-  lazy var doneView = TodoListView(headerName: "DONE", listCount: viewModel.findListCount(.done))
-  
-  private let mainStackView: UIStackView = {
-    let stackView = UIStackView()
-    stackView.translatesAutoresizingMaskIntoConstraints = false
-    stackView.backgroundColor = .systemGray
-    stackView.axis = .horizontal
-    stackView.distribution = .fillEqually
-    stackView.spacing = 10
-    return stackView
-  }()
-  
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    setUpDelegate()
-    configureUI()
-    setDataSource()
-    reloadDataSource()
-  }
-  
-  override func viewWillAppear(_ animated: Bool) {
-    super.viewWillAppear(animated)
-    let todoModels = DBManager.shared.readAll()
-    viewModel.mappingTodo(from: todoModels)
   }
   
   func updateListCountlabel() {
