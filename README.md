@@ -11,7 +11,7 @@
 기술스택 | Design Pattern | LocalDB | Remote DB | Convention | 
 -- | -- | -- | -- | -- |
 UIkit | MVVM | Realm | FireBase | SwiftLint | 
- 
+
 ## ✅ 프로젝트 중 핵심경험
 - [ ] UIKit / SwiftUI / RxCocoa 등 선택한 기술을 통한 UI 구현
 - [ ] 다양한 기술 중 목적에 맞는 기술선택
@@ -26,31 +26,34 @@ UIkit | MVVM | Realm | FireBase | SwiftLint |
 - 아키텍쳐 및 외부 라이브러리 활용은 자율로합니다
 단, 리뷰어와 먼저 상의 후 적용해야합니다
 - 메서드 내부의 들여쓰기는 한 번으로 제한합니다 
- 
+
+## 👨‍🔧 PR
+[STEP1](https://github.com/yagom-academy/ios-project-manager/pull/128) |
+-- |
+[STEP2](https://github.com/yagom-academy/ios-project-manager/pull/145) |
+-- |
+
 ## 목차
- 
-- [프로젝트 소개](#프로젝트-소개) 
- 
+
 - [STEP1](#STEP1)
-    + [타임라인](#타임라인_1) 
-    + [고민한점](#고민한점_1) 
-    + [트러블슈팅](#TroubleShooting_1) 
+    + [타임라인]
+    + [고민한점] 
+    + [트러블슈팅]
 
 - [STEP2-1](#STEP2-1)
-    + [타임라인](#타임라인_2-1) 
-    + [고민한점](#고민한점_2-1) 
-    + [트러블슈팅](#TroubleShooting_2-1) 
+    + [타임라인]
+    + [고민한점]
+    + [트러블슈팅]
 
   [STEP2-2](#STEP2-2)
-    + [타임라인](#타임라인_2-2) 
-    + [고민한점](#고민한점_2-2) 
-    + [트러블슈팅](#TroubleShooting_2-2) 
+    + [타임라인]
+    + [고민한점]
+    + [트러블슈팅]
 
 - [그라운드 룰](#✅ 그라운드 룰)
     + [코딩 컨벤션](#코딩 컨벤션)
 
 ---
-
 
 
 ## [STEP1]
