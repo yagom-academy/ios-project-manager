@@ -179,7 +179,7 @@ extension ProjectManagerHomeViewController: UICollectionViewDelegate {
     }
   }
 
-  func presentProjectEditView(projectCategory: ProjectCategory, indexPath: IndexPath) {
+  private func presentProjectEditView(projectCategory: ProjectCategory, indexPath: IndexPath) {
     let todolist = projects?.filter { $0.projectCategory == projectCategory.description }
     guard let todolist = todolist else { return }
 
