@@ -65,7 +65,7 @@ final class TodoCollectionViewCell: SwipeCollectionViewCell {
   
   private func confitureUI() {
     contentView.addSubview(mainStackView)
-    self.mainStackView.addArrangedSubviews([titleLabel, contentLabel, dateLabel])
+    mainStackView.addArrangedSubviews([titleLabel, contentLabel, dateLabel])
     NSLayoutConstraint.activate([
       mainStackView.topAnchor.constraint(equalTo: topAnchor, constant: 5),
       mainStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5),
@@ -84,15 +84,5 @@ final class TodoCollectionViewCell: SwipeCollectionViewCell {
       dateLabel.textColor = .systemRed
     }
     dateLabel.text = .nowDate(todo.date)
-  }
-  
-  private func isLineNumberLessThanThree(from label: UILabel) -> Bool {
-    var lineCount = 0
-    let textSize = CGSize(width: label.frame.size.width, height: label.frame.size.height)
-    let height = label.sizeThatFits(textSize).height
-    let fontHeight = label.font.lineHeight
-    lineCount = Int(height / fontHeight)
-    
-    return lineCount <= 3 ? true : false
   }
 }
