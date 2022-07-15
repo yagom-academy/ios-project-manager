@@ -22,20 +22,17 @@ struct AppView: View {
   var body: some View {
     NavigationView {
       HStack(spacing: 10) {
-        TodoListView(todoService: viewModel.todoService,
-                     viewModel: viewModel,
+        TodoListView(viewModel: viewModel.listViewModel,
                      status: .todo,
                      updata: { viewModel.changeStatus(status: $0, todo: $1) },
-                     delete: { viewModel.delete(set: $0, status: $1) })
+                     delete: { viewModel.delete(set: $0, status: $1) } )
         
-        TodoListView(todoService: viewModel.todoService,
-                     viewModel: viewModel,
+        TodoListView(viewModel: viewModel.listViewModel,
                      status: .doing,
                      updata: { viewModel.changeStatus(status: $0, todo: $1) },
                      delete: { viewModel.delete(set: $0, status: $1) })
         
-        TodoListView(todoService: viewModel.todoService,
-                     viewModel: viewModel,
+        TodoListView(viewModel: viewModel.listViewModel,
                      status: .done,
                      updata: { viewModel.changeStatus(status: $0, todo: $1) },
                      delete: { viewModel.delete(set: $0, status: $1) })
@@ -52,7 +49,7 @@ struct AppView: View {
         })
       }
       .sheet(isPresented: $isShowDetailView) {
-        CreateView(isShow: $isShowDetailView, viewModel: CreateViewModel(todoService: viewModel.todoService))
+        CreateView(isShow: $isShowDetailView, viewModel: viewModel.createViewModel)
       }
     }
     .navigationViewStyle(.stack)

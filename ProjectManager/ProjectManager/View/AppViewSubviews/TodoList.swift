@@ -3,24 +3,20 @@
 //  ProjectManager
 //
 //  Created by Red and Taeangel on 2022/07/06.
-//
 
 import SwiftUI
 
 struct TodoListView: View {
-  @ObservedObject var todoService: TodoService
-  @ObservedObject var viewModel: AppViewModel
+  @ObservedObject var viewModel: ListViewModel
   private let status: Todo.Status
   private let updata: (Todo.Status, Todo) -> Void
   private let delete: (IndexSet, Todo.Status) -> Void
   
-  init(todoService: TodoService,
-       viewModel: AppViewModel,
+  init(viewModel: ListViewModel,
        status: Todo.Status,
        updata: @escaping (Todo.Status, Todo) -> Void,
        delete: @escaping (IndexSet, Todo.Status) -> Void
   ) {
-    self.todoService = todoService
     self.viewModel = viewModel
     self.status = status
     self.updata = updata
@@ -30,13 +26,13 @@ struct TodoListView: View {
   var body: some View {
     
     VStack(spacing: 0) {
-      HeaderView(title: status, listCount: todoService.read(by: status).count)
+      HeaderView(title: status, listCount: viewModel.read(by: status).count)
       
       ZStack {
         Color(UIColor.systemGray5)
         List {
-          ForEach(todoService.read(by: status)) { todo in
-            ListCellView(todo: todo, todoService: todoService, updata: updata)
+          ForEach(viewModel.read(by: status)) { todo in
+            ListCellView(todo: todo, viewModel: viewModel, updata: updata)
               .listRowSeparator(.hidden)
           }
           .onDelete { index in
@@ -56,14 +52,17 @@ struct TodoListView: View {
 struct ListCellView: View {
   @State var isLongPressing = false
   @State var isShowEditView = false
-  @ObservedObject var todoService: TodoService
+//  @ObservedObject var todoService: TodoService
+  @ObservedObject var viewModel: ListViewModel
+  // 뷰 모델이 필요함. 셀 만을 위한 MV 가 필요한가?
+  // 뷰 모델이
   let todo: Todo
   private let updata: (Todo.Status, Todo) -> Void
   
-  init(todo: Todo, todoService: TodoService, updata: @escaping (Todo.Status, Todo) -> Void) {
+  init(todo: Todo, viewModel: ListViewModel, updata: @escaping (Todo.Status, Todo) -> Void) {
     self.todo = todo
-    self.todoService = todoService
     self.updata = updata
+    self.viewModel = viewModel
   }
   
   var body: some View {
@@ -78,7 +77,7 @@ struct ListCellView: View {
         EditView(
           todo: Todo(id: todo.id, title: todo.title, content: todo.content, date: todo.date, status: todo.status),
           isShow: $isShowEditView,
-          viewModel: EditViewModel(todoService: todoService))
+          viewModel: EditViewModel(todoService: viewModel.todoService))
       }
       .popover(isPresented: $isLongPressing) {
         TodoListPopOver(isShow: $isLongPressing, todo: todo, updata: updata)

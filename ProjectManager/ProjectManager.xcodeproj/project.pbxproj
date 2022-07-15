@@ -30,6 +30,7 @@
 		DAA805B3287D2222001CF270 /* EditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA805B2287D2222001CF270 /* EditViewModel.swift */; };
 		DAA805B5287D2555001CF270 /* CreateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA805B4287D2555001CF270 /* CreateViewModel.swift */; };
 		DAA805BA287D6D08001CF270 /* TodoListPopOver.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA805B9287D6D08001CF270 /* TodoListPopOver.swift */; };
+		DAE17E7128813CFF0021F54B /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE17E7028813CFE0021F54B /* ListViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,7 @@
 		DAA805B2287D2222001CF270 /* EditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewModel.swift; sourceTree = "<group>"; };
 		DAA805B4287D2555001CF270 /* CreateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateViewModel.swift; sourceTree = "<group>"; };
 		DAA805B9287D6D08001CF270 /* TodoListPopOver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListPopOver.swift; sourceTree = "<group>"; };
+		DAE17E7028813CFE0021F54B /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +138,7 @@
 			isa = PBXGroup;
 			children = (
 				DA657CDE28758E16002DB030 /* AppViewModel.swift */,
+				DAE17E7028813CFE0021F54B /* ListViewModel.swift */,
 				DAA805B2287D2222001CF270 /* EditViewModel.swift */,
 				DAA805B4287D2555001CF270 /* CreateViewModel.swift */,
 			);
@@ -296,6 +299,7 @@
 				86B5211E287597E7003B83C9 /* Date+Extension.swift in Sources */,
 				DA657CDF28758E16002DB030 /* AppViewModel.swift in Sources */,
 				86B5211B28758AD5003B83C9 /* Todo.swift in Sources */,
+				DAE17E7128813CFF0021F54B /* ListViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

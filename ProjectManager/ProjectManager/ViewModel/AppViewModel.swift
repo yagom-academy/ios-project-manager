@@ -8,7 +8,10 @@
 import Foundation
 
 class AppViewModel: ObservableObject {
-  @Published var todoService: TodoService
+  @Published var todoService: TodoService = TodoService()
+  
+  lazy var listViewModel = ListViewModel(todoService: todoService)
+  lazy var createViewModel = CreateViewModel(todoService: todoService)
   
   init(todoService: TodoService) {
     self.todoService = todoService
