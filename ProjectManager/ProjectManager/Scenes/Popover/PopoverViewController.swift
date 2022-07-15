@@ -8,9 +8,7 @@
 import UIKit
 
 protocol PopoverViewControllerDelegate: AnyObject {
-    func moveToToDo(taskInfo: TaskInfo)
-    func moveToDoing(taskInfo: TaskInfo)
-    func moveToDone(taskInfo: TaskInfo)
+    func move(from: TaskInfo, to: TaskType)
 }
 
 class PopoverViewController: UIViewController {
@@ -51,17 +49,17 @@ extension PopoverViewController {
     }
     
     @objc func moveToToDoButtonClicked() {
-        delegate?.moveToToDo(taskInfo: taskInfo)
+        delegate?.move(from: taskInfo, to: .todo)
         dismiss(animated: true)
     }
     
     @objc func moveToDoingButtonClicked() {
-        delegate?.moveToDoing(taskInfo: taskInfo)
+        delegate?.move(from: taskInfo, to: .doing)
         dismiss(animated: true)
     }
     
     @objc func moveToDoneButtonClicked() {
-        delegate?.moveToDone(taskInfo: taskInfo)
+        delegate?.move(from: taskInfo, to: .done)
         dismiss(animated: true)
     }
 }

@@ -79,21 +79,9 @@ extension MainViewController: DetailViewControllerDelegate {
 // MARK: PopoverViewControllerDelegate
 
 extension MainViewController: PopoverViewControllerDelegate {
-    func moveToToDo(taskInfo: TaskInfo) {
+    func move(from taskInfo: TaskInfo, to type: TaskType) {
         deleteData(taskInfo: taskInfo)
-        addData(task: taskInfo.task, type: .todo)
-        mainView.refreshCount()
-    }
-    
-    func moveToDoing(taskInfo: TaskInfo) {
-        deleteData(taskInfo: taskInfo)
-        addData(task: taskInfo.task, type: .doing)
-        mainView.refreshCount()
-    }
-    
-    func moveToDone(taskInfo: TaskInfo) {
-        deleteData(taskInfo: taskInfo)
-        addData(task: taskInfo.task, type: .done)
+        addData(task: taskInfo.task, type: type)
         mainView.refreshCount()
     }
 }
