@@ -21,17 +21,6 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         setUp()
     }
-    
-    @objc
-    private func addButtonClick(_ sender: Any) {
-        let detailView = DetailModalView(frame: view.bounds)
-        let detailModalViewController = DetailModalViewController(modalView: detailView)
-        
-        detailModalViewController.delegate = self
-        detailView.setButtonDelegate(detailModalViewController)
-        detailModalViewController.modalPresentationStyle = .formSheet
-        self.present(detailModalViewController, animated: true)
-    }
 }
 
 // MARK: TableViewDelegate
@@ -70,16 +59,7 @@ extension MainViewController: UITableViewDelegate {
 
 extension MainViewController: DetailViewControllerDelegate {
     func addTask(_ task: Task) {
-        if let snapshot = dataSources[.todo]?.snapshot(), snapshot.numberOfSections > 0 {
-            var copySnapshot = snapshot
-            copySnapshot.appendItems([task])
-            dataSources[.todo]?.apply(copySnapshot)
-        } else {
-            var snapshot = Snapshot()
-            snapshot.appendSections([0])
-            snapshot.appendItems([task])
-            dataSources[.todo]?.apply(snapshot)
-        }
+        addData(task: task, type: .todo)
         mainView.refreshCount()
     }
     
@@ -116,30 +96,6 @@ extension MainViewController: PopoverViewControllerDelegate {
         addData(task: taskInfo.task, type: .done)
         mainView.refreshCount()
     }
-    
-    func deleteData(taskInfo: TaskInfo) {
-        let dataSource = dataSources[taskInfo.type]
-        if let snapshot = dataSource?.snapshot() {
-            var copySnapshot = snapshot
-            guard let beforeTask = dataSource?.itemIdentifier(for: taskInfo.indexPath) else { return }
-            copySnapshot.deleteItems([beforeTask])
-            dataSource?.apply(copySnapshot)
-        }
-    }
-    
-    func addData(task: Task, type: TaskType) {
-        let dataSource = dataSources[type]
-        if let snapshot = dataSource?.snapshot(), snapshot.numberOfSections > 0 {
-            var copySnapshot = snapshot
-            copySnapshot.appendItems([task])
-            dataSource?.apply(copySnapshot)
-        } else {
-            var snapshot = Snapshot()
-            snapshot.appendSections([0])
-            snapshot.appendItems([task])
-            dataSource?.apply(snapshot)
-        }
-    }
 }
 
 // MARK: SetUp
@@ -162,6 +118,17 @@ extension MainViewController {
 
 extension MainViewController {
     @objc
+    private func addButtonClick(_ sender: Any) {
+        let detailView = DetailModalView(frame: view.bounds)
+        let detailModalViewController = DetailModalViewController(modalView: detailView)
+        
+        detailModalViewController.delegate = self
+        detailView.setButtonDelegate(detailModalViewController)
+        detailModalViewController.modalPresentationStyle = .formSheet
+        self.present(detailModalViewController, animated: true)
+    }
+    
+    @objc
     private func longPressGesture(sender: UILongPressGestureRecognizer) {
         guard let tableView = sender.view as? UITableView else { return }
         guard let type = mainView.findTableViewType(tableView: tableView) else { return }
@@ -176,6 +143,30 @@ extension MainViewController {
                     return
                 }
             }
+        }
+    }
+    
+    private func deleteData(taskInfo: TaskInfo) {
+        let dataSource = dataSources[taskInfo.type]
+        if let snapshot = dataSource?.snapshot() {
+            var copySnapshot = snapshot
+            guard let beforeTask = dataSource?.itemIdentifier(for: taskInfo.indexPath) else { return }
+            copySnapshot.deleteItems([beforeTask])
+            dataSource?.apply(copySnapshot)
+        }
+    }
+    
+    private func addData(task: Task, type: TaskType) {
+        let dataSource = dataSources[type]
+        if let snapshot = dataSource?.snapshot(), snapshot.numberOfSections > 0 {
+            var copySnapshot = snapshot
+            copySnapshot.appendItems([task])
+            dataSource?.apply(copySnapshot)
+        } else {
+            var snapshot = Snapshot()
+            snapshot.appendSections([0])
+            snapshot.appendItems([task])
+            dataSource?.apply(snapshot)
         }
     }
     
