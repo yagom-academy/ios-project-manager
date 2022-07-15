@@ -67,8 +67,12 @@ final class TempDataBase: Database {
     }
     
     func update(selectedTodo: Todo) {
-        let items = self.todoListBehaviorRelay.value.filter { $0.identifier != selectedTodo.identifier }
-        self.todoListBehaviorRelay.accept([selectedTodo] + items)
+        var todoArray = self.todoListBehaviorRelay.value
+        if let index = todoArray.firstIndex(where: { $0.identifier == selectedTodo.identifier }) {
+            todoArray[index] = selectedTodo
+        }
+        
+        self.todoListBehaviorRelay.accept(todoArray)
     }
     
     func delete(todoID: UUID) {
