@@ -16,6 +16,7 @@ final class TaskCell: UITableViewCell {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.spacing = 5
         stackView.axis = .vertical
+        stackView.distribution = .fillProportionally
         
         return stackView
     }()
@@ -25,7 +26,6 @@ final class TaskCell: UITableViewCell {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .title3)
-        label.setContentHuggingPriority(.defaultHigh, for: .vertical)
         label.lineBreakMode = .byTruncatingTail
         return label
     }()
@@ -33,7 +33,6 @@ final class TaskCell: UITableViewCell {
     private let bodyLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .body)
-        label.setContentHuggingPriority(.defaultHigh+1, for: .vertical)
         label.numberOfLines = 3
         return label
     }()
@@ -41,7 +40,6 @@ final class TaskCell: UITableViewCell {
     private let dateLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .footnote)
-        label.setContentHuggingPriority(.defaultHigh+2, for: .vertical)
         return label
     }()
     
