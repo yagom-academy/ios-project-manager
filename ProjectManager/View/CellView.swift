@@ -20,13 +20,13 @@ struct CellView: View {
             showSheet.toggle()
         } label: {
             if taskType == .todo {
-                ListRowView(taskArray: contentViewModel.todoTasks, cellIndex: cellIndex)
+                ListRowView(taskArray: contentViewModel.todoTasks, cellIndex: cellIndex, taskType: .todo)
             }
             if taskType == .doing {
-                ListRowView(taskArray: contentViewModel.doingTasks, cellIndex: cellIndex)
+                ListRowView(taskArray: contentViewModel.doingTasks, cellIndex: cellIndex, taskType: .doing)
             }
             if taskType == .done {
-                ListRowView(taskArray: contentViewModel.doneTasks, cellIndex: cellIndex)
+                ListRowView(taskArray: contentViewModel.doneTasks, cellIndex: cellIndex, taskType: .done)
             }
         }
         .onLongPressGesture(minimumDuration: 1) {
