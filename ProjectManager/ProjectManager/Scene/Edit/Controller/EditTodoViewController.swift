@@ -44,23 +44,33 @@ final class EditTodoViewController: UIViewController {
     navigationItem.title = "TODO"
     navigationController?.navigationBar.barTintColor = UIColor.systemGray
     navigationItem.leftBarButtonItem = UIBarButtonItem(
-      systemItem: .edit, primaryAction: UIAction(handler: { [weak self] _ in
+      systemItem: .edit, primaryAction: UIAction(
+        handler: { [weak self] _ in
         self?.editView.setUserInteractionEnableViews(true)
-      }))
+      })
+    )
 
     navigationItem.rightBarButtonItem = UIBarButtonItem(
       systemItem: .done,
       primaryAction: UIAction(handler: { [weak self] _ in
-        guard let state = self?.viewModel.todo.state,
-              var editedTodoData = self?.makeFormTodoDate(state: state) else { return }
-        editedTodoData.id = self!.viewModel.todo.id
-        
-        let todoModel = DBManager.shared.mappingTodoModel(from: editedTodoData)
-        guard let todoDictionary = self?.mappingDictionary(from: editedTodoData) else { return }
-        
-        self?.delegate?.updateData(editedTodoData)
+        self?.saveUpdatedTodo()
         self?.dismiss(animated: true)
-      }))
+      })
+    )
+  }
+  
+  private func saveUpdatedTodo() {
+    let state = viewModel.todo.state
+    var editedTodoData = makeFormTodoDate(state: state)
+    let id = viewModel.todo.id
+    
+    editedTodoData.id = id
+    
+    let todoModel = DBManager.shared.mappingTodoModel(from: editedTodoData)
+    let todoDictionary = mappingDictionary(from: editedTodoData)
+    // 에러발생
+    // DBManager.shared.update(todoModel, with: todoDictionary)
+    self.delegate?.updateData(editedTodoData)
   }
   
   func mappingDictionary(from Todo: Todo) -> [String: Any?] {
