@@ -19,6 +19,7 @@ final class DetailModalView: UIView {
         static let viewBackgroundColor: UIColor = .white
         static let textFieldShadowColor: CGColor = UIColor.black.cgColor
     }
+    
     private lazy var bottomConstraint = stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20)
     weak var buttonDelegate: ButtonActionDelegate?
     var task: Task {

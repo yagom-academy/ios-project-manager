@@ -10,7 +10,7 @@ class MainViewController: UIViewController {
     private typealias TableViewDataSource = UITableViewDiffableDataSource<Int, Task>
     private typealias Snapshot = NSDiffableDataSourceSnapshot<Int, Task>
     
-    private lazy var mainView = MainView()
+    private var mainView = MainView()
     private var todoDataSource: TableViewDataSource?
     private var doingDataSource: TableViewDataSource?
     private var doneDataSource: TableViewDataSource?
