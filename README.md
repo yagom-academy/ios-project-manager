@@ -52,7 +52,7 @@ UIkit | MVVM | Realm | FireBase | SwiftLint |
 
 
 
-## [STEP 1]
+## [STEP1]
 
 # 🗓타임라인_1
 - 월 - db 종류 비교분석 및 선택
