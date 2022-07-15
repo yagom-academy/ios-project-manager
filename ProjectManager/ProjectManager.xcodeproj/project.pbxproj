@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		3000D70C287D3E7E00EA7A03 /* UIEdgeInsets+Sugar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3000D70B287D3E7E00EA7A03 /* UIEdgeInsets+Sugar.swift */; };
 		3000D717287D56B400EA7A03 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3000D716287D56B400EA7A03 /* DetailViewModel.swift */; };
-		3000D71B287D593A00EA7A03 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3000D71A287D593A00EA7A03 /* Database.swift */; };
+		3043996128810EE800D154C7 /* ColorPalete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3043996028810EE800D154C7 /* ColorPalete.swift */; };
 		307DFCDA288059120030873F /* Reactive+Sugar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307DFCD9288059120030873F /* Reactive+Sugar.swift */; };
 		3088777C2875CD7800057592 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3088777B2875CD7800057592 /* ListView.swift */; };
 		3088779E2876D0CF00057592 /* TodoListItemStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3088779D2876D0CF00057592 /* TodoListItemStatus.swift */; };
@@ -52,6 +52,7 @@
 		3000D70B287D3E7E00EA7A03 /* UIEdgeInsets+Sugar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIEdgeInsets+Sugar.swift"; sourceTree = "<group>"; };
 		3000D716287D56B400EA7A03 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		3000D71A287D593A00EA7A03 /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
+		3043996028810EE800D154C7 /* ColorPalete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPalete.swift; sourceTree = "<group>"; };
 		307DFCD9288059120030873F /* Reactive+Sugar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reactive+Sugar.swift"; sourceTree = "<group>"; };
 		3088777B2875CD7800057592 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		3088779D2876D0CF00057592 /* TodoListItemStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListItemStatus.swift; sourceTree = "<group>"; };
@@ -200,6 +201,7 @@
 				64371AC6287B0CFC00F78AAA /* Formatter.swift */,
 				3000D70B287D3E7E00EA7A03 /* UIEdgeInsets+Sugar.swift */,
 				307DFCD9288059120030873F /* Reactive+Sugar.swift */,
+				3043996028810EE800D154C7 /* ColorPalete.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -340,6 +342,7 @@
 			files = (
 				3000D70C287D3E7E00EA7A03 /* UIEdgeInsets+Sugar.swift in Sources */,
 				64371AC9287B129200F78AAA /* Date+Sugar.swift in Sources */,
+				3043996128810EE800D154C7 /* ColorPalete.swift in Sources */,
 				30B02F8C2873E3F40029579F /* TodoListViewModel.swift in Sources */,
 				30B02F9028747FF40029579F /* TodoListCell.swift in Sources */,
 				64371AC7287B0CFC00F78AAA /* Formatter.swift in Sources */,
