@@ -16,7 +16,7 @@ final class RealmService: Realmable {
         realm?.add(object)
       }
     } catch {
-      print(error)
+      print(object)
     }
   }
   
