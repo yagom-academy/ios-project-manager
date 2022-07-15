@@ -166,7 +166,7 @@ extension TodoListViewController: TodoDelegate {
   }
   
   func updateData(_ todo: Todo) {
-    guard let index = todoList.firstIndex(where: { $0.identifier == todo.identifier }) else {
+    guard let index = todoList.firstIndex(where: { $0.id == todo.id }) else {
       return
     }
     

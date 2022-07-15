@@ -35,7 +35,7 @@ final class EditTodoViewController: UIViewController {
   
   private func makeFormTodoDate(state: State) -> Todo {
     var editedTodoDate = editView.createTodoData(state: state)
-    editedTodoDate.identifier = todo.identifier
+    editedTodoDate.id = todo.id
     
     return editedTodoDate
   }
@@ -53,7 +53,7 @@ final class EditTodoViewController: UIViewController {
       primaryAction: UIAction(handler: { [weak self] _ in
         guard let state = self?.todo.state,
               var editedTodoData = self?.makeFormTodoDate(state: state) else { return }
-        editedTodoData.identifier = self!.todo.identifier
+        editedTodoData.id = self!.todo.id
         
         let todoModel = DBManager.shared.mappingTodoModel(from: editedTodoData)
         guard let todoDictionary = self?.mappingDictionary(from: editedTodoData) else { return }
@@ -71,7 +71,7 @@ final class EditTodoViewController: UIViewController {
     dictionary["content"] = todo.content
     dictionary["date"] = todo.date
     dictionary["state"] = todo.state
-    dictionary["identifier"] = todo.identifier
+    dictionary["identifier"] = todo.id
     
     return dictionary
   }

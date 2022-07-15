@@ -7,12 +7,12 @@
 import Foundation
 import RealmSwift
 
-struct Todo: Hashable {
+struct Todo: Hashable, Identifiable {
+  var id: String = UUID().uuidString
   var title: String = ""
   var content: String = ""
   var date: Date = Date.now
   var state: State = .done
-  var identifier: String = UUID().uuidString
   
   var readList = [Todo]()
   
@@ -23,11 +23,11 @@ struct Todo: Hashable {
       }
       
       return Todo(
+        id: todoModel.identifier,
         title: todoModel.title,
         content: todoModel.content,
         date: todoModel.date,
-        state: state,
-        identifier: todoModel.identifier)
+        state: state)
     }
     
     readList = todoList
