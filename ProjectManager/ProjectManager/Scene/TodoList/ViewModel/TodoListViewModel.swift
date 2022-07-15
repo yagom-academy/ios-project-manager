@@ -95,31 +95,4 @@ final class TodoListViewModel {
             cell.changeDateLabelColor(to: .black)
         }
     }
-    
-    func distinguishMenuType(of todo: Todo) -> (TodoListItemStatus, TodoListItemStatus) {
-        switch todo.todoListItemStatus {
-        case .todo: return (.doing, .done)
-        case .doing: return (.todo, .done)
-        case .done: return (.todo, .doing)
-        }
-    }
-    
-    func moveDifferentSection(to: TodoListItemStatus, selectedCell: Todo) {
-        var selectedTodo = selectedCell
-        
-        guard let newStatus = TodoListItemStatus(rawValue: to.rawValue) else {
-            return
-        }
-        
-        selectedTodo.todoListItemStatus = newStatus
-        self.dataBase.update(todo: selectedTodo)
-    }
-    
-    func changeDateColor(cell: TodoListCell, todoData: Todo) {
-        if todoData.date > Formatter.date.fetchCurrentDate() && todoData.todoListItemStatus != .done {
-            cell.changeDateLabelColor(to: .red)
-        } else {
-            cell.changeDateLabelColor(to: .black)
-        }
-    }
 }
