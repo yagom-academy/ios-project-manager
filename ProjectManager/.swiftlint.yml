@@ -3,6 +3,7 @@ disabled_rules:
 - trailing_whitespace
 - redundant_discardable_let
 - force_try
+- identifier_name
 
 excluded:
 - Pods

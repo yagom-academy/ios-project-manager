@@ -54,8 +54,25 @@ final class EditTodoViewController: UIViewController {
         guard let state = self?.todo.state,
               var editedTodoData = self?.makeFormTodoDate(state: state) else { return }
         editedTodoData.identifier = self!.todo.identifier
+        
+        let todoModel = DBManager.shared.mappingTodoModel(from: editedTodoData)
+        guard let todoDictionary = self?.mappingDictionary(from: editedTodoData) else { return }
+        DBManager.shared.update(todoModel, with: todoDictionary)
+        
         self?.delegate?.updateData(editedTodoData)
         self?.dismiss(animated: true)
       }))
+  }
+  
+  func mappingDictionary(from Todo: Todo) -> [String: Any?] {
+    var dictionary = [String: Any?]()
+    
+    dictionary["title"] = todo.title
+    dictionary["content"] = todo.content
+    dictionary["date"] = todo.date
+    dictionary["state"] = todo.state
+    dictionary["identifier"] = todo.identifier
+    
+    return dictionary
   }
 }
