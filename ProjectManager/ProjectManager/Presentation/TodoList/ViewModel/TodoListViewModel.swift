@@ -41,7 +41,7 @@ final class DefaultTodoListViewModel: TodoListViewModel {
         todoLists.map { items in
             items.filter { $0.state == .todo }
         }
-        .distinctUntilChanged { $0 == $1 }
+        .distinctUntilChanged()
         .withUnretained(self)
         .map { (self, items) in
             self.toTodoCellContents(todoModels: items)
@@ -52,7 +52,7 @@ final class DefaultTodoListViewModel: TodoListViewModel {
         todoLists.map { items in
             items.filter { $0.state == .doing }
         }
-        .distinctUntilChanged { $0 == $1 }
+        .distinctUntilChanged()
         .withUnretained(self)
         .map { (self, items) in
             self.toTodoCellContents(todoModels: items)
@@ -63,7 +63,7 @@ final class DefaultTodoListViewModel: TodoListViewModel {
         todoLists.map { items in
             items.filter { $0.state == .done }
         }
-        .distinctUntilChanged { $0 == $1 }
+        .distinctUntilChanged()
         .withUnretained(self)
         .map { (self, items) in
             self.toTodoCellContents(todoModels: items)
