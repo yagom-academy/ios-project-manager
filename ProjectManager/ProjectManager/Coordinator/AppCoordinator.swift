@@ -34,14 +34,14 @@ final class AppCoordinator: Coordinator {
         self.navigationController.pushViewController(viewController, animated: false)
     }
     
-    func showDetailView(todoListItemStatus: TodoListItemStatus? = .todo, selectedData: Todo? = nil) {
+    func showDetailView(todoListItemStatus: TodoListItemStatus? = .todo, selectedTodo: Todo? = nil) {
         guard let todoListItemStatus = todoListItemStatus else {
             return
         }
         
         let detailViewModel = DetailViewModel(dataBase: self.dataBase)
         self.detailViewController = DetailViewController(
-            selectedData: selectedData,
+            selectedTodo: selectedTodo,
             todoListItemStatus: todoListItemStatus,
             detailViewModel: detailViewModel,
             coordinator: self

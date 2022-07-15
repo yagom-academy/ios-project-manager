@@ -11,26 +11,26 @@ import RxCocoa
 import RxSwift
 
 final class DetailViewModel {
-    private var dataBase: DataBase
+    private var dataBase: Database
     
-    init(dataBase: DataBase) {
+    init(dataBase: Database) {
         self.dataBase = dataBase
     }
     
     func doneButtonTapEvent(
         todo: Todo?,
-        selectedData: Todo? = nil,
+        selectedTodo: Todo? = nil,
         completion: @escaping () -> Void
     ) {
         guard let todo = todo else {
             return
         }
         
-        if let _ = selectedData {
-            self.dataBase.update(todo: todo)
+        if let _ =         selectedTodo {
+            self.dataBase.update(selectedTodo: todo)
             completion()
         } else {
-            self.dataBase.create(todoListData: [todo])
+            self.dataBase.create(todoList: [todo])
             completion()
         }
     }

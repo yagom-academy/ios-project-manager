@@ -1,5 +1,5 @@
 //
-//  DataBase.swift
+//  TempDataBase.swift
 //  ProjectManager
 //
 //  Created by 김동욱 on 2022/07/12.
@@ -9,23 +9,24 @@ import Foundation
 
 import RxRelay
 
-protocol DataBase {
-    var data: BehaviorRelay<[Todo]> { get set }
-    func create(todoListData: [Todo])
-    func read(identifier: UUID) -> Todo?
-    func update(todo: Todo)
-    func delete(identifier: UUID)
+protocol Database {
+    var todoListBehaviorRelay: BehaviorRelay<[Todo]> { get set }
+    
+    func create(todoList: [Todo])
+    func read(todoID: UUID) -> Todo?
+    func update(selectedTodo: Todo)
+    func delete(todoID: UUID)
 }
 
-final class TempDataBase: DataBase {
+final class TempDataBase: Database {
     let tempTodoData = TempData().todoData
     let tempDoneData = TempData().doneData
     let tempDoingData = TempData().doingData
     
-    var data = BehaviorRelay<[Todo]>(value: [])
+    var todoListBehaviorRelay = BehaviorRelay<[Todo]>(value: [])
         
     init() {
-        self.data.accept(self.fetch())
+        self.todoListBehaviorRelay.accept(self.fetch())
     }
     
     private func fetch() -> [Todo] {
@@ -56,23 +57,22 @@ final class TempDataBase: DataBase {
         return tempTodoData
     }
     
-    func create(todoListData: [Todo]) {
-        self.data.accept(self.data.value + todoListData)
+    func create(todoList: [Todo]) {
+        self.todoListBehaviorRelay.accept(self.todoListBehaviorRelay.value + todoList)
     }
     
-    func read(identifier: UUID) -> Todo? {
-        let item = self.data.value.filter { $0.identifier == identifier }
+    func read(todoID: UUID) -> Todo? {
+        let item = self.todoListBehaviorRelay.value.filter { $0.identifier == todoID }
         return item.first
     }
     
-    func update(todo: Todo) {
-        let items = self.data.value.filter { $0.identifier != todo.identifier }
-        self.data.accept(items + [todo])
+    func update(selectedTodo: Todo) {
+        let items = self.todoListBehaviorRelay.value.filter { $0.identifier != selectedTodo.identifier }
+        self.todoListBehaviorRelay.accept([selectedTodo] + items)
     }
     
-    func delete(identifier: UUID) {
-        let item = self.read(identifier: identifier)
-        let items = self.data.value.filter { $0.identifier != item?.identifier }
-        self.data.accept(items)
+    func delete(todoID: UUID) {
+        let items = self.todoListBehaviorRelay.value.filter { $0.identifier != todoID }
+        self.todoListBehaviorRelay.accept(items)
     }
 }

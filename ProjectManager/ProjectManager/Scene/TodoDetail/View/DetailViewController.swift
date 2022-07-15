@@ -10,7 +10,7 @@ import RxCocoa
 import RxSwift
 
 final class DetailViewController: UIViewController {
-    private let selectedData: Todo?
+    private let selectedTodo: Todo?
     private let todoListItemStatus: TodoListItemStatus
     private let detailViewModel: DetailViewModel
     private let disposeBag = DisposeBag()
@@ -26,7 +26,7 @@ final class DetailViewController: UIViewController {
         textField.layer.shadowOffset = CGSize(width: 3, height: 3)
         textField.layer.shadowOpacity = 0.3
         textField.layer.shadowRadius = 5
-        textField.isEnabled = self.selectedData == nil ? true : false
+        textField.isEnabled = self.selectedTodo == nil ? true : false
         
         return textField
     }()
@@ -35,7 +35,7 @@ final class DetailViewController: UIViewController {
         let datePicker = UIDatePicker()
         datePicker.preferredDatePickerStyle = .wheels
         datePicker.setContentHuggingPriority(.required, for: .vertical)
-        datePicker.isEnabled = self.selectedData == nil ? true : false
+        datePicker.isEnabled = self.selectedTodo == nil ? true : false
         
         return datePicker
     }()
@@ -49,7 +49,7 @@ final class DetailViewController: UIViewController {
         textView.layer.shadowOffset = CGSize(width: 3, height: 3)
         textView.layer.shadowOpacity = 0.3
         textView.layer.shadowRadius = 5
-        textView.isEditable = self.selectedData == nil ? true : false
+        textView.isEditable = self.selectedTodo == nil ? true : false
         
         return textView
     }()
@@ -67,7 +67,7 @@ final class DetailViewController: UIViewController {
     
     private lazy var leftBarButton: UIBarButtonItem = {
         let barButton = UIBarButtonItem(
-            title: self.selectedData == nil ? "Cancle" : "Edit",
+            title: self.selectedTodo == nil ? "Cancle" : "Edit",
             style: .plain,
             target: nil,
             action: nil
@@ -86,12 +86,12 @@ final class DetailViewController: UIViewController {
     }()
     
     init(
-        selectedData: Todo?,
+        selectedTodo: Todo?,
         todoListItemStatus: TodoListItemStatus,
         detailViewModel: DetailViewModel,
         coordinator: AppCoordinator
     ) {
-        self.selectedData = selectedData
+        self.selectedTodo = selectedTodo
         self.todoListItemStatus = todoListItemStatus
         self.detailViewModel = detailViewModel
         self.coordinator = coordinator
@@ -142,10 +142,10 @@ final class DetailViewController: UIViewController {
     }
     
     private func setUpEditView() {
-        if let selectedData = self.selectedData {
-            self.titleTextField.text = selectedData.title
-            self.datePicker.date = selectedData.date
-            self.descriptionTextView.text = selectedData.description
+        if let selectedTodo = self.selectedTodo {
+            self.titleTextField.text = selectedTodo.title
+            self.datePicker.date = selectedTodo.date
+            self.descriptionTextView.text = selectedTodo.description
         }
     }
     
@@ -154,7 +154,7 @@ final class DetailViewController: UIViewController {
             .subscribe(onNext: { [weak self] in
                 self?.detailViewModel.doneButtonTapEvent(
                     todo: self?.createTodo(),
-                    selectedData: self?.selectedData,
+                            selectedTodo: self?.selectedTodo,
                     completion: {
                         self?.coordinator?.dismiss()
                     })
@@ -163,16 +163,16 @@ final class DetailViewController: UIViewController {
         
         leftBarButton.rx.tap.asObservable()
             .subscribe(onNext: { [weak self] in
-                self?.selectedData == nil ? self?.coordinator?.dismiss() : self?.changeEditable()
+                self?.selectedTodo == nil ? self?.coordinator?.dismiss() : self?.changeEditable()
             })
             .disposed(by: self.disposeBag)
     }
     
     private func createTodo() -> Todo {
-        if let selectedData = self.selectedData {
+        if let selectedTodo = self.selectedTodo {
             return Todo(
-                todoListItemStatus: selectedData.todoListItemStatus,
-                identifier: selectedData.identifier,
+                todoListItemStatus: selectedTodo.todoListItemStatus,
+                identifier: selectedTodo.identifier,
                 title: self.titleTextField.text ?? "",
                 description: self.descriptionTextView.text ?? "",
                 date: self.datePicker.date

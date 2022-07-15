@@ -16,22 +16,22 @@ final class TodoListViewModel {
     let doingViewData: Driver<[Todo]>
     let doneViewData: Driver<[Todo]>
     
-    private var dataBase: DataBase
+    private var dataBase: Database
     
-    init(dataBase: DataBase) {
+    init(dataBase: Database) {
         self.dataBase = dataBase
         
-        self.todoViewData = dataBase.data
+        self.todoViewData = dataBase.todoListBehaviorRelay
             .map { $0.filter { $0.todoListItemStatus == .todo } }
             .map { $0.sorted{ $0.date < $1.date } }
             .asDriver(onErrorJustReturn: [])
         
-        self.doingViewData = dataBase.data
+        self.doingViewData = dataBase.todoListBehaviorRelay
             .map { $0.filter { $0.todoListItemStatus == .doing } }
             .map { $0.sorted{ $0.date < $1.date } }
             .asDriver(onErrorJustReturn: [])
         
-        self.doneViewData = dataBase.data
+        self.doneViewData = dataBase.todoListBehaviorRelay
             .map { $0.filter { $0.todoListItemStatus == .done } }
             .map { $0.sorted{ $0.date < $1.date } }
             .asDriver(onErrorJustReturn: [])
@@ -61,7 +61,7 @@ final class TodoListViewModel {
         }
     }
     
-    func cellDeleteEvent(selectedData: Todo) {
-        self.dataBase.delete(identifier: selectedData.identifier)
+    func cellDeleteEvent(selectedTodo: Todo) {
+        self.dataBase.delete(todoID: selectedTodo.identifier)
     }
 }
