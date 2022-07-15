@@ -59,55 +59,55 @@ extension TodoListViewController {
         
         //MARK: - TodoList
         viewModel.todoList
-            .bind(to: mainView.todoTableView.rx.items(cellIdentifier: TodoListCell.identifier,
+            .bind(to: mainView.todo.tableView.rx.items(cellIdentifier: TodoListCell.identifier,
                                                       cellType: TodoListCell.self)) { row, item, cell in
                 cell.setContent(item: item)
               }.disposed(by: bag)
         
         viewModel.todoListCount
-            .drive(mainView.todoHeaderView.rx.countText)
+            .drive(mainView.todo.headerView.rx.countText)
             .disposed(by: bag)
         
-        Observable.zip(mainView.todoTableView.rx.modelSelected(TodoCellContent.self),
-                                 mainView.todoTableView.rx.itemSelected)
+        Observable.zip(mainView.todo.tableView.rx.modelSelected(TodoCellContent.self),
+                                 mainView.todo.tableView.rx.itemSelected)
         .bind(onNext: { [weak self] (item, indexPath) in
-            self?.mainView.todoTableView.deselectRow(at: indexPath, animated: true)
+            self?.mainView.todo.tableView.deselectRow(at: indexPath, animated: true)
             self?.viewModel.cellSelected(id: item.id)
         }).disposed(by: bag)
         
         //MARK: - DoingList
         viewModel.doingList
-            .bind(to: mainView.doingTableView.rx.items(cellIdentifier: TodoListCell.identifier,
+            .bind(to: mainView.doing.tableView.rx.items(cellIdentifier: TodoListCell.identifier,
                                                       cellType: TodoListCell.self)) { row, item, cell in
                 cell.setContent(item: item)
               }.disposed(by: bag)
         
         viewModel.doingListCount
-            .drive(mainView.doingHeaderView.rx.countText)
+            .drive(mainView.doing.headerView.rx.countText)
             .disposed(by: bag)
         
-        Observable.zip(mainView.doingTableView.rx.modelSelected(TodoCellContent.self),
-                                 mainView.doingTableView.rx.itemSelected)
+        Observable.zip(mainView.doing.tableView.rx.modelSelected(TodoCellContent.self),
+                                 mainView.doing.tableView.rx.itemSelected)
         .bind(onNext: { [weak self] (item, indexPath) in
-            self?.mainView.doingTableView.deselectRow(at: indexPath, animated: true)
+            self?.mainView.doing.tableView.deselectRow(at: indexPath, animated: true)
             self?.viewModel.cellSelected(id: item.id)
         }).disposed(by: bag)
         
         //MARK: - DoneList
         viewModel.doneList
-            .bind(to: mainView.doneTableView.rx.items(cellIdentifier: TodoListCell.identifier,
+            .bind(to: mainView.done.tableView.rx.items(cellIdentifier: TodoListCell.identifier,
                                                       cellType: TodoListCell.self)) { row, item, cell in
                 cell.setContent(item: item)
               }.disposed(by: bag)
 
         viewModel.doneListCount
-            .drive(mainView.doneHeaderView.rx.countText)
+            .drive(mainView.done.headerView.rx.countText)
             .disposed(by: bag)
         
-        Observable.zip(mainView.doneTableView.rx.modelSelected(TodoCellContent.self),
-                                 mainView.doneTableView.rx.itemSelected)
+        Observable.zip(mainView.done.tableView.rx.modelSelected(TodoCellContent.self),
+                                 mainView.done.tableView.rx.itemSelected)
         .bind(onNext: { [weak self] (item, indexPath) in
-            self?.mainView.doneTableView.deselectRow(at: indexPath, animated: true)
+            self?.mainView.done.tableView.deselectRow(at: indexPath, animated: true)
             self?.viewModel.cellSelected(id: item.id)
         }).disposed(by: bag)
         

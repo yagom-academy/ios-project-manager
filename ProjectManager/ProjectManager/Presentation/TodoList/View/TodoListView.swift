@@ -10,70 +10,24 @@ import SnapKit
 
 final class TodoListView: UIView {
     private lazy var tableStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [todoStackView, doingStackView, doneStackView])
+        let stackView = UIStackView(arrangedSubviews: [todo, doing, done])
         stackView.distribution = .fillEqually
         stackView.backgroundColor = .systemGray3
         stackView.spacing = 8
         
         return stackView
     }()
+
+    let todo = TodoListTableView(title: "TODO")
     
-    private lazy var todoStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [todoHeaderView, todoTableView])
-        stackView.axis = .vertical
-        stackView.spacing = 1
-        
-        return stackView
-    }()
+    let doing = TodoListTableView(title: "DOING")
     
-    let todoHeaderView = TodoListHeaderView(title: "TODO")
-   
-    let todoTableView: UITableView = {
-        let tableView = UITableView()
-        tableView.backgroundColor = .systemGray6
-        
-        return tableView
-    }()
-    
-    private lazy var doingStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [doingHeaderView, doingTableView])
-        stackView.axis = .vertical
-        stackView.spacing = 1
-        
-        return stackView
-    }()
-    
-    let doingHeaderView = TodoListHeaderView(title: "DOING")
-    
-    let doingTableView: UITableView = {
-        let tableView = UITableView()
-        tableView.backgroundColor = .systemGray6
-        
-        return tableView
-    }()
-    
-    private lazy var doneStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [doneHeaderView, doneTableView])
-        stackView.axis = .vertical
-        stackView.spacing = 1
-        
-        return stackView
-    }()
-    
-    let doneHeaderView = TodoListHeaderView(title: "DONE")
-    
-    let doneTableView: UITableView = {
-        let tableView = UITableView()
-        tableView.backgroundColor = .systemGray6
-        
-        return tableView
-    }()
+    let done = TodoListTableView(title: "DONE")
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureLayout()
         self.backgroundColor = .systemBackground
-        tableViewsCellRegister()
     }
     
     required init?(coder: NSCoder) {
@@ -85,11 +39,5 @@ final class TodoListView: UIView {
         tableStackView.snp.makeConstraints { make in
             make.edges.equalTo(self.safeAreaLayoutGuide)
         }
-    }
-    
-    private func tableViewsCellRegister() {
-        todoTableView.register(TodoListCell.self, forCellReuseIdentifier: TodoListCell.identifier)
-        doingTableView.register(TodoListCell.self, forCellReuseIdentifier: TodoListCell.identifier)
-        doneTableView.register(TodoListCell.self, forCellReuseIdentifier: TodoListCell.identifier)
     }
 }
