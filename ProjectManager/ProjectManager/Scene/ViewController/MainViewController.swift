@@ -194,7 +194,8 @@ extension MainViewController {
             let section = $0
             let tableView = $0.taskTableView
             tableView.rx.itemSelected
-                .subscribe(onNext: { [weak self] indexPath in
+                .subscribe(onNext: { [weak self, weak section, weak tableView] indexPath in
+                    guard let section = section, let tableView = tableView else { return }
                     tableView.deselectRow(at: indexPath, animated: true)
                     if let task = self?.matchTaskType(
                         taskType: section.taskType
@@ -211,7 +212,8 @@ extension MainViewController {
             let section = $0
             let tableView = $0.taskTableView
             tableView.rx.itemDeleted
-                .subscribe(onNext: { [weak self] indexPath in
+                .subscribe(onNext: { [weak self, weak section] indexPath in
+                    guard let section = section else { return }
                     self?.viewModel.cellItemDeleted(at: indexPath, taskType: section.taskType)
                 })
                 .disposed(by: disposeBag)
@@ -224,8 +226,8 @@ extension MainViewController {
             tableView.rx.longPressGesture()
                 .when(.began)
                 .map { $0.location(in: tableView) }
-                .subscribe(onNext: { [weak self] in
-                    guard let self = self else { return }
+                .subscribe(onNext: { [weak self, weak tableView] in
+                    guard let self = self, let tableView = tableView else { return }
                     guard let cell = self.cell(at: $0, from: tableView) else { return }
                     self.showPopoverView(at: cell)
                 })
