@@ -9,9 +9,9 @@ import RxSwift
 import RxCocoa
 
 final class AddViewController: UIViewController {
-    private let viewModel: DetailViewModel
+    private let viewModel: AddViewModel
     
-    init(viewModel: DetailViewModel) {
+    init(viewModel: AddViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -58,7 +58,7 @@ final class AddViewController: UIViewController {
         
         detailView.doneButton.rx.tap
             .bind(onNext: { [weak self] in
-                self?.viewModel.creatList()
+                self?.viewModel.touchDoneButton()
                 self?.dismiss(animated: true)
             })
             .disposed(by: disposebag)

@@ -1,27 +1,13 @@
 //
-//  DetailViewModel.swift
+//  EditViewModel.swift
 //  ProjectManager
 //
-//  Created by 두기 on 2022/07/13.
+//  Created by 최최성균 on 2022/07/16.
 //
 
 import Foundation
 
-protocol DetailViewModelable: DetailViewModelOutput, DetailViewModelInput{}
-
-protocol DetailViewModelOutput {
-    var list: ListItem { get }
-}
-
-protocol DetailViewModelInput {
-    func changeTitle(_ text: String?)
-    func changeDaedLine(_ date: Date?)
-    func changeBody(_ text: String?)
-    func creatList()
-    func updateList()
-}
-
-final class DetailViewModel: DetailViewModelable {
+final class EditViewModel: DetailViewModelable {
     private let storage: Storegeable
     var list: ListItem
     
@@ -42,11 +28,7 @@ final class DetailViewModel: DetailViewModelable {
         list.body = text ?? ""
     }
     
-    func creatList() {
-        storage.creatList(listItem: list)
-    }
-    
-    func updateList() {
+    func touchDoneButton() {
         storage.updateList(listItem: list)
     }
 }

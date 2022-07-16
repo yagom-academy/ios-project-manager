@@ -9,9 +9,9 @@ import RxSwift
 import RxCocoa
 
 final class EditlViewController: UIViewController {
-    private let viewModel: DetailViewModel
+    private let viewModel: EditViewModel
     
-    init(viewModel:DetailViewModel) {
+    init(viewModel: EditViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -58,7 +58,7 @@ final class EditlViewController: UIViewController {
         
         detailView.doneButton.rx.tap
             .bind(onNext: { [weak self] in
-                self?.viewModel.updateList()
+                self?.viewModel.touchDoneButton()
                 self?.dismiss(animated: true)
             })
             .disposed(by: disposebag)

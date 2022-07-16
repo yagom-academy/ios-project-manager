@@ -17,19 +17,23 @@ final class Container {
     }
     
     func makeAddViewController() -> AddViewController {
-        let addVC = AddViewController(viewModel: makeDetailViewModel(nil))
+        let addVC = AddViewController(viewModel: makeAddViewModel(nil))
         addVC.modalPresentationStyle = .formSheet
         return addVC
     }
     
+    private func makeAddViewModel(_ list: ListItem?) -> AddViewModel {
+        return AddViewModel(storage: storage, list: list)
+    }
+    
     func makeEditViewController(_ list: ListItem) -> EditlViewController {
-        let editVC = EditlViewController(viewModel: makeDetailViewModel(list))
+        let editVC = EditlViewController(viewModel: makeEditViewModel(list))
         editVC.modalPresentationStyle = .formSheet
         return editVC
     }
-    
-    private func makeDetailViewModel(_ list: ListItem?) -> DetailViewModel {
-        return DetailViewModel(storage: storage, list: list)
+
+    private func makeEditViewModel(_ list: ListItem?) -> EditViewModel {
+        return EditViewModel(storage: storage, list: list)
     }
     
     init(storage: Storegeable) {
