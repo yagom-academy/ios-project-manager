@@ -31,13 +31,34 @@ final class AddViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         detailView.setAddView()
-        bindButton()
+        bindView()
     }
     
-    private func bindButton() {
+    private func bindView() {
+        detailView.titleTextField.rx
+            .text.changed
+            .bind(onNext: { [weak self] in
+                self?.viewModel.changeTitle($0)
+            })
+            .disposed(by: disposebag)
+        
+        detailView.deadlinePicker.rx
+            .date.changed
+            .bind(onNext: { [weak self] in
+                self?.viewModel.changeDaedLine($0)
+            })
+            .disposed(by: disposebag)
+        
+        detailView.bodyTextView.rx
+            .text.changed
+            .bind(onNext: { [weak self] in
+                self?.viewModel.changeBody($0)
+            })
+            .disposed(by: disposebag)
+        
         detailView.doneButton.rx.tap
             .bind(onNext: { [weak self] in
-                self?.createList()
+                self?.viewModel.creatList()
                 self?.dismiss(animated: true)
             })
             .disposed(by: disposebag)
@@ -47,12 +68,5 @@ final class AddViewController: UIViewController {
                 self?.dismiss(animated: true)
             })
             .disposed(by: disposebag)
-    }
-    
-    private func createList() {
-        let listItem = ListItem(title: detailView.titleTextField.text ?? "",
-                                body: detailView.bodyTextView.text ?? "",
-                                deadline: detailView.deadlinePicker.date)
-        viewModel.creatList(listItem: listItem)
     }
 }

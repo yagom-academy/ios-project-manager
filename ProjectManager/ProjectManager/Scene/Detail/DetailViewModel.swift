@@ -17,8 +17,8 @@ protocol DetailViewModelInput {
     func changeTitle(_ text: String?)
     func changeDaedLine(_ date: Date?)
     func changeBody(_ text: String?)
-    func creatList(listItem: ListItem)
-    func updateList(listItem: ListItem)
+    func creatList()
+    func updateList()
 }
 
 final class DetailViewModel: DetailViewModelable {
@@ -31,22 +31,22 @@ final class DetailViewModel: DetailViewModelable {
     }
     
     func changeTitle(_ text: String?) {
-        
+        list.title = text ?? ""
     }
     
     func changeDaedLine(_ date: Date?) {
-        
+        list.deadline = date ?? Date()
     }
     
     func changeBody(_ text: String?) {
-        
+        list.body = text ?? ""
     }
     
-    func creatList(listItem: ListItem) {
-        storage.creatList(listItem: listItem)
+    func creatList() {
+        storage.creatList(listItem: list)
     }
     
-    func updateList(listItem: ListItem) {
-        storage.updateList(listItem: listItem)
+    func updateList() {
+        storage.updateList(listItem: list)
     }
 }

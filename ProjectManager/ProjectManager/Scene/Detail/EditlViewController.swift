@@ -31,13 +31,34 @@ final class EditlViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         detailView.setEditView(viewModel.list)
-        bindButton()
+        bindView()
     }
     
-    private func bindButton() {
+    private func bindView() {
+        detailView.titleTextField.rx
+            .text.changed
+            .bind(onNext: { [weak self] in
+                self?.viewModel.changeTitle($0)
+            })
+            .disposed(by: disposebag)
+        
+        detailView.deadlinePicker.rx
+            .date.changed
+            .bind(onNext: { [weak self] in
+                self?.viewModel.changeDaedLine($0)
+            })
+            .disposed(by: disposebag)
+        
+        detailView.bodyTextView.rx
+            .text.changed
+            .bind(onNext: { [weak self] in
+                self?.viewModel.changeBody($0)
+            })
+            .disposed(by: disposebag)
+        
         detailView.doneButton.rx.tap
             .bind(onNext: { [weak self] in
-                self?.updateList()
+                self?.viewModel.updateList()
                 self?.dismiss(animated: true)
             })
             .disposed(by: disposebag)
@@ -47,15 +68,6 @@ final class EditlViewController: UIViewController {
                 self?.tapLeftButton()
             })
             .disposed(by: disposebag)
-    }
-    
-    
-    private func updateList() {
-        viewModel.list.title = detailView.titleTextField.text ?? ""
-        viewModel.list.body = detailView.bodyTextView.text ?? ""
-        viewModel.list.deadline = detailView.deadlinePicker.date
-        
-        viewModel.updateList(listItem: viewModel.list)
     }
     
     private func tapLeftButton() {
