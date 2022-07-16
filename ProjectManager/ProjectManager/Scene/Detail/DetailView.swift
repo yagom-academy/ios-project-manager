@@ -90,13 +90,6 @@ extension DetailView {
         titleTextField.text = listItem.title
         deadlinePicker.date = listItem.deadline
         bodyTextView.text = listItem.body
-        changeEditable()
-    }
-    
-    func changeEditable() {
-        titleTextField.isEnabled.toggle()
-        deadlinePicker.isUserInteractionEnabled.toggle()
-        bodyTextView.isEditable.toggle()
     }
     
     private func setViewLayout() {

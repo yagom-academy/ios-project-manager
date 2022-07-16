@@ -6,8 +6,9 @@
 //
 
 import Foundation
+import RxRelay
 protocol EditViewModelable: EditViewModelOutput, EditViewModelInput {
-    var isEditable: Bool { get }
+    var isEditable: BehaviorRelay<Bool> { get }
 }
 
 protocol EditViewModelOutput {
@@ -24,12 +25,11 @@ protocol EditViewModelInput {
 final class EditViewModel: EditViewModelable {
     private let storage: Storegeable
     var list: ListItem
-    var isEditable: Bool
+    var isEditable = BehaviorRelay<Bool>(value: false)
     
     init(storage: Storegeable, list: ListItem?) {
         self.storage = storage
         self.list = list ?? ListItem(title: "", body: "", deadline: Date())
-        self.isEditable = false
     }
     
     func changeTitle(_ text: String?) {
@@ -45,11 +45,11 @@ final class EditViewModel: EditViewModelable {
     }
     
     func touchLeftButton(_ vc: EditViewController) -> String? {
-        if isEditable {
+        if isEditable.value {
             vc.dismiss(animated: true)
             return nil
         } else {
-            self.isEditable = true
+            self.isEditable.accept(true)
             return "Cancel"
         }
     }
