@@ -86,10 +86,9 @@ final class MainViewController: UIViewController {
             }
             .disposed(by: disposebag)
         
-        list
-          .map { "\($0.count)"}
-          .drive(headerView.countLabel.rx.text)
-          .disposed(by: disposebag)
+        viewModel.listCount(type)
+        .drive(headerView.countLabel.rx.text)
+        .disposed(by: disposebag)
         
         tableView.rx.itemSelected
             .bind(onNext: { index in

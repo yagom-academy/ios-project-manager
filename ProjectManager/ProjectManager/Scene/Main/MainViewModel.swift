@@ -15,6 +15,7 @@ protocol MainViewModelOutput {
     var todoList: Driver<[ListItem]> { get }
     var doingList: Driver<[ListItem]> { get }
     var doneList: Driver<[ListItem]> { get }
+    func listCount(_ type: ListType) -> Driver<String>
 }
 
 protocol MainViewModelInput {
@@ -49,6 +50,17 @@ final class MainViewModel: MainViewModelInOut {
             .map{ $0.filter { $0.type == .done }}
             .map{ $0.sorted(by: { $0.deadline < $1.deadline}) }
             .asDriver(onErrorJustReturn: [])
+    }
+    
+    func listCount(_ type: ListType) -> Driver<String> {
+        switch type {
+        case .todo:
+            return todoList.map{ "\($0.count)"}
+        case .doing:
+            return doingList.map{ "\($0.count)"}
+        case .done:
+            return doneList.map{ "\($0.count)"}
+        }
     }
 }
 
