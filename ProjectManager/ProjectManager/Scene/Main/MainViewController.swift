@@ -15,8 +15,8 @@ final class MainViewController: UIViewController {
     private let doneHeaderView = HeaderView(ListType.done)
     
     private lazy var todoTableView = listTableView()
-    private lazy var  doingTableView = listTableView()
-    private lazy var  doneTableView = listTableView()
+    private lazy var doingTableView = listTableView()
+    private lazy var doneTableView = listTableView()
     
     private let viewModel: MainViewModelInOut
     private let container: Container
