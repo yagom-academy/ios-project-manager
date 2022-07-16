@@ -10,11 +10,9 @@ import RxCocoa
 
 final class EditlViewController: UIViewController {
     private let viewModel: DetailViewModel
-    private var listItem: ListItem
     
-    init(viewModel:DetailViewModel ,listItem: ListItem) {
+    init(viewModel:DetailViewModel) {
         self.viewModel = viewModel
-        self.listItem = listItem
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -32,7 +30,7 @@ final class EditlViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        detailView.setEditView(listItem)
+        detailView.setEditView(viewModel.list)
         bindButton()
     }
     
@@ -53,11 +51,11 @@ final class EditlViewController: UIViewController {
     
     
     private func updateList() {
-        listItem.title = detailView.titleTextField.text ?? ""
-        listItem.body = detailView.bodyTextView.text ?? ""
-        listItem.deadline = detailView.deadlinePicker.date
+        viewModel.list.title = detailView.titleTextField.text ?? ""
+        viewModel.list.body = detailView.bodyTextView.text ?? ""
+        viewModel.list.deadline = detailView.deadlinePicker.date
         
-        viewModel.updateList(listItem: listItem)
+        viewModel.updateList(listItem: viewModel.list)
     }
     
     private func tapLeftButton() {

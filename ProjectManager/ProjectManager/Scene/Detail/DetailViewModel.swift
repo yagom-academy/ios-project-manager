@@ -9,9 +9,11 @@ import Foundation
 
 class DetailViewModel {
     private let storage: Storegeable
+    var list: ListItem
     
-    init(storage: Storegeable) {
+    init(storage: Storegeable, list: ListItem?) {
         self.storage = storage
+        self.list = list ?? ListItem(title: "", body: "", deadline: Date())
     }
     
     func creatList(listItem: ListItem) {
