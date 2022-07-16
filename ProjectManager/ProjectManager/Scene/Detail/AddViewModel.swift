@@ -7,13 +7,13 @@
 
 import Foundation
 
-protocol DetailViewModelable: DetailViewModelOutput, DetailViewModelInput {}
+protocol DetailViewModelable: AddViewModelOutput, AddViewModelInput {}
 
-protocol DetailViewModelOutput {
+protocol AddViewModelOutput {
     var list: ListItem { get }
 }
 
-protocol DetailViewModelInput {
+protocol AddViewModelInput {
     func changeTitle(_ text: String?)
     func changeDaedLine(_ date: Date?)
     func changeBody(_ text: String?)
