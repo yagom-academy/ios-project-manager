@@ -56,7 +56,7 @@ final class MainViewController: UIViewController {
         self.present(container.makeAddViewController(), animated: true)
     }
     
-    private func didtapCell(_ listItem: ListItem) {
+    private func moveToEditViewController(_ listItem: ListItem) {
         self.present(container.makeEditViewController(listItem), animated: true)
     }
     
@@ -95,7 +95,7 @@ final class MainViewController: UIViewController {
             .bind(onNext: { index in
                 
                 self.viewModel.peekList(index: index.row, type: type) {
-                    self.didtapCell($0)
+                    self.moveToEditViewController($0)
                 }
                 tableView.deselectRow(at: index, animated: true)
             })
