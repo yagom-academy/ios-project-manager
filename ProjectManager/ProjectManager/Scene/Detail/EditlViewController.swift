@@ -65,16 +65,12 @@ final class EditlViewController: UIViewController {
         
         detailView.leftButton.rx.tap
             .bind(onNext: { [weak self] in
-                self?.tapLeftButton()
+                guard let self = self else {
+                    return
+                }
+                let title = self.viewModel.touchLeftButton(self)
+                self.detailView.leftButton.title = title
             })
             .disposed(by: disposebag)
-    }
-    
-    private func tapLeftButton() {
-        if detailView.leftButton.title == "Cancel" {
-            self.dismiss(animated: true)
-        }
-        detailView.leftButton.title = "Cancel"
-        detailView.changeEditable()
     }
 }

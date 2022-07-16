@@ -6,14 +6,30 @@
 //
 
 import Foundation
+protocol EditViewModelable: EditViewModelOutput, EditViewModelInput {
+    var isEditable: Bool { get }
+}
 
-final class EditViewModel: DetailViewModelable {
+protocol EditViewModelOutput {
+    var list: ListItem { get }
+}
+
+protocol EditViewModelInput {
+    func changeTitle(_ text: String?)
+    func changeDaedLine(_ date: Date?)
+    func changeBody(_ text: String?)
+    func touchDoneButton()
+}
+
+final class EditViewModel: EditViewModelable {
     private let storage: Storegeable
     var list: ListItem
+    var isEditable: Bool
     
     init(storage: Storegeable, list: ListItem?) {
         self.storage = storage
         self.list = list ?? ListItem(title: "", body: "", deadline: Date())
+        self.isEditable = false
     }
     
     func changeTitle(_ text: String?) {
@@ -26,6 +42,16 @@ final class EditViewModel: DetailViewModelable {
     
     func changeBody(_ text: String?) {
         list.body = text ?? ""
+    }
+    
+    func touchLeftButton(_ vc: EditlViewController) -> String? {
+        if isEditable {
+            vc.dismiss(animated: true)
+            return nil
+        } else {
+            self.isEditable = true
+            return "Cancel"
+        }
     }
     
     func touchDoneButton() {
