@@ -32,10 +32,25 @@ final class MockStorage: Storegeable {
     }
     
     func updateList(listItem: ListItem) {
-        list.accept(list.value.filter { listItem.id != $0.id } + [listItem])
+        delete(listItem)
+        
+        list.accept(listArray + [listItem])
     }
     
     func deleteList(listItem: ListItem) {
-        list.accept(list.value.filter { listItem.id != $0.id })
+        delete(listItem)
+        list.accept(listArray)
+    }
+    
+    private func delete(_ listItem: ListItem) {
+        let index = listArray.firstIndex {
+            $0.id == listItem.id
+        }
+        
+        guard let index = index else {
+            return
+        }
+
+        listArray.remove(at: index)
     }
 }
