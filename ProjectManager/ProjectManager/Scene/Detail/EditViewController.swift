@@ -36,7 +36,6 @@ final class EditViewController: UIViewController {
     
     private func bindView() {
         viewModel.isEditable.bind(onNext: { [weak self] in
-            print($0)
             self?.detailView.titleTextField.isEnabled = $0
             self?.detailView.deadlinePicker.isUserInteractionEnabled = $0
             self?.detailView.bodyTextView.isEditable = $0
