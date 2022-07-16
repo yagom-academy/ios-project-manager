@@ -1,5 +1,5 @@
 //
-//  EditlViewController.swift
+//  EditViewController.swift
 //  ProjectManager
 //
 //  Created by 두기 on 2022/07/13.
@@ -8,7 +8,7 @@
 import RxSwift
 import RxCocoa
 
-final class EditlViewController: UIViewController {
+final class EditViewController: UIViewController {
     private let viewModel: EditViewModel
     
     init(viewModel: EditViewModel) {

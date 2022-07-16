@@ -44,7 +44,7 @@ final class EditViewModel: EditViewModelable {
         list.body = text ?? ""
     }
     
-    func touchLeftButton(_ vc: EditlViewController) -> String? {
+    func touchLeftButton(_ vc: EditViewController) -> String? {
         if isEditable {
             vc.dismiss(animated: true)
             return nil

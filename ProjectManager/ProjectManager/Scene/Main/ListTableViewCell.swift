@@ -16,7 +16,7 @@ final class ListTableViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    private lazy var viewview: UIView = {
+    private lazy var sectionView: UIView = {
         let view = UIView()
         view.backgroundColor = .systemBackground
         
@@ -74,12 +74,12 @@ extension ListTableViewCell {
     }
     
     private func setViewLayout() {
-        self.addSubview(viewview)
-        viewview.snp.makeConstraints{
+        self.addSubview(sectionView)
+        sectionView.snp.makeConstraints{
             $0.top.equalToSuperview().inset(10)
             $0.leading.trailing.bottom.equalToSuperview()
         }
-        viewview.addSubview(mainStackView)
+        sectionView.addSubview(mainStackView)
         mainStackView.snp.makeConstraints{
             $0.edges.equalToSuperview().inset(15)
         }

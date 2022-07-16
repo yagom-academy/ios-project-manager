@@ -34,10 +34,10 @@ final class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setInitailView()
+        setInitialView()
     }
     
-    private func setInitailView() {
+    private func setInitialView() {
         self.view.backgroundColor = .systemGray5
         self.view.addSubview(mainStackView)
         mainStackView.snp.makeConstraints {
@@ -152,20 +152,20 @@ final class MainViewController: UIViewController {
         
         let alert = makeAlert(index: indexPath.row, type: type)
 
-        guard let popovecon = alert.popoverPresentationController else {
+        guard let popoverPresentationController = alert.popoverPresentationController else {
             return
         }
 
-        popovecon.sourceView = cell
+        popoverPresentationController.sourceView = cell
         
         let checkLoation = location.y < UIScreen.main.bounds.height * 3 / 5
         let yPosition = cell.bounds.height / 2
         
-        popovecon.sourceRect = CGRect(x: 0,
+        popoverPresentationController.sourceRect = CGRect(x: 0,
                                       y: checkLoation ? -yPosition : yPosition,
                                       width: cell.bounds.width,
                                       height: cell.bounds.height)
-        popovecon.permittedArrowDirections = checkLoation ? .up : .down
+        popoverPresentationController.permittedArrowDirections = checkLoation ? .up : .down
         
         self.present(alert, animated: true)
     }

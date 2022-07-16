@@ -26,8 +26,8 @@ final class Container {
         return AddViewModel(storage: storage, list: list)
     }
     
-    func makeEditViewController(_ list: ListItem) -> EditlViewController {
-        let editVC = EditlViewController(viewModel: makeEditViewModel(list))
+    func makeEditViewController(_ list: ListItem) -> EditViewController {
+        let editVC = EditViewController(viewModel: makeEditViewModel(list))
         editVC.modalPresentationStyle = .formSheet
         return editVC
     }
