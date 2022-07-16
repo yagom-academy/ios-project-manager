@@ -70,17 +70,18 @@
 				AC54B7A6287563D900092D83 /* AddViewController.swift */,
 				ACA39AD0287DE50200AE4964 /* EditlViewController.swift */,
 				AC15AB922876E2BC004B5E8A /* DetailView.swift */,
+				ACA39AD4287DEC1700AE4964 /* DetailViewModel.swift */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
 		};
-		AC54B79D2875458400092D83 /* View */ = {
+		AC54B79D2875458400092D83 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
 				ACA39AD6287DF77800AE4964 /* Main */,
 				AC15AB942876E80E004B5E8A /* Detail */,
 			);
-			path = View;
+			path = Scene;
 			sourceTree = "<group>";
 		};
 		AC54B79E2875463700092D83 /* Model */ = {
@@ -89,15 +90,6 @@
 				AC54B79F2875478700092D83 /* ListItem.swift */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		AC54B7A32875568600092D83 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				AC54B7A4287557BF00092D83 /* MainViewModel.swift */,
-				ACA39AD4287DEC1700AE4964 /* DetailViewModel.swift */,
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		AC9C57C0287A8CA700BA7F7D /* Extension */ = {
@@ -114,6 +106,7 @@
 				C7431F0925F51E1D0094C4CF /* MainViewController.swift */,
 				ACD9CB2C28749F6400B0A6CF /* HeaderView.swift */,
 				AC54B7A1287549F800092D83 /* ListTableViewCell.swift */,
+				AC54B7A4287557BF00092D83 /* MainViewModel.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -162,8 +155,7 @@
 				ACA39ACC287DE05200AE4964 /* Container.swift */,
 				ACA39AD7287DF79900AE4964 /* Utils */,
 				AC54B79E2875463700092D83 /* Model */,
-				AC54B79D2875458400092D83 /* View */,
-				AC54B7A32875568600092D83 /* ViewModel */,
+				AC54B79D2875458400092D83 /* Scene */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				AC594C1B287D69E100868E2C /* MockStorage.swift */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
