@@ -30,7 +30,7 @@ final class AddViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        detailView.setAddView()
+        detailView.setDetilView(viewModel.list)
         bindView()
     }
     

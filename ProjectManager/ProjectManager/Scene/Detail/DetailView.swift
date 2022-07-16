@@ -84,11 +84,7 @@ final class DetailView: UIView {
 
 // MARK: - view setting func
 extension DetailView {
-    func setAddView() {
-        naviItem.title = ListType.todo.title
-    }
-    
-    func setEditView(_ listItem: ListItem) {
+    func setDetilView(_ listItem: ListItem) {
         naviItem.title = listItem.type.title
         leftButton.title = "Edit"
         titleTextField.text = listItem.title

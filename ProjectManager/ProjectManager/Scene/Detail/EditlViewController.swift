@@ -30,7 +30,7 @@ final class EditlViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        detailView.setEditView(viewModel.list)
+        detailView.setDetilView(viewModel.list)
         bindView()
     }
     
