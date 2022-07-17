@@ -10,6 +10,11 @@ import UIKit
 import RxCocoa
 import RxSwift
 
+private enum Const {
+    static let empty = "plus"
+    static let moveTo = "Move To"
+}
+
 final class ListView: UIView {
     private let todoListItemstatus: TodoListItemStatus
     private let tableView: UITableView
@@ -48,7 +53,6 @@ final class ListView: UIView {
         let label = UILabel()
         label.textColor = .systemBackground
         label.backgroundColor = .label
-        label.text = "5"
         label.textAlignment = .center
         label.clipsToBounds = true
         label.layer.cornerRadius = 18
@@ -123,7 +127,7 @@ final class ListView: UIView {
         .filter { $0.0 == self.todoListItemstatus }
         .flatMap { $0.1 }
         .map { String($0.count) }
-        .asDriver(onErrorJustReturn: "")
+        .asDriver(onErrorJustReturn: Const.empty)
         .drive(self.listCountLabel.rx.text)
         .disposed(by: self.disposeBag)
         
@@ -171,8 +175,8 @@ final class ListView: UIView {
                                 
                 self?.coordinator?.showPopover(
                     sourceView: selectedCell,
-                    firstTitle: "Move To \(firstStatus.displayName)",
-                    secondTitle: "Move To \(secondStatus.displayName)",
+                    firstTitle: "\(Const.moveTo) \(firstStatus.displayName)",
+                    secondTitle: "\(Const.moveTo) \(secondStatus.displayName)",
                     firstAction: {
                         self?.listViewModel.changeTodoListItemStatus(to: firstStatus, from: selectedData)
                     },
