@@ -9,27 +9,14 @@ import RealmSwift
 
 struct Todo: Hashable, Identifiable {
   var id: String = UUID().uuidString
-  var title: String = ""
-  var content: String = ""
-  var date: Date = Date.now
-  var state: State = .done
+  var title: String
+  var content: String
+  var date: Date
+  var state: State = .todo
   
-  var readList = [Todo]()
-  
-  mutating func mappingTodo(from todoModels: [TodoModel]) {
-    let todoList = todoModels.map { todoModel -> Todo in
-      guard let state = State(rawValue: todoModel.state) else {
-        return Todo()
-      }
-      
-      return Todo(
-        id: todoModel.identifier,
-        title: todoModel.title,
-        content: todoModel.content,
-        date: todoModel.date,
-        state: state)
-    }
-    
-    readList = todoList
-  }
+  static let dummy = [
+    Todo(title: "1234", content: "12341234", date: .now, state: .todo),
+    Todo(title: "542321", content: "412353", date: .now, state: .doing),
+    Todo(title: "0987678", content: "09886", date: .now, state: .done)
+  ]
 }
