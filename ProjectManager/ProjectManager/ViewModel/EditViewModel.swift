@@ -8,9 +8,11 @@
 import Foundation
 
 final class EditViewModel: NSObject {
-  let todo: Todo
+  private let storage: StorageType
+  private let item: Todo
   
-  init(todo: Todo) {
-    self.todo = todo
+  init(storage: StorageType = MemoryStorage.shared, item: Todo) {
+    self.storage = storage
+    self.item = item
   }
 }

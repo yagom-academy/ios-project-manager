@@ -12,6 +12,7 @@ final class WriteTodoView: UIView {
     let stackView = UIStackView()
     stackView.axis = .vertical
     stackView.distribution = .fill
+    //stackView.alignment = .center
     stackView.backgroundColor = .systemBackground
     stackView.translatesAutoresizingMaskIntoConstraints = false
     return stackView
@@ -68,9 +69,10 @@ final class WriteTodoView: UIView {
     addSubview(mainStackView)
     mainStackView.addArrangedSubviews([titleTextField, datePicker, contentTextView])
     NSLayoutConstraint.activate([
-      mainStackView.widthAnchor.constraint(equalToConstant: bounds.width),
-      mainStackView.heightAnchor.constraint(equalToConstant: bounds.height * 0.72),
-      mainStackView.centerYAnchor.constraint(equalTo: centerYAnchor)
+      mainStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+      mainStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
+      mainStackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
+      mainStackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor)
     ])
   }
   

@@ -13,6 +13,7 @@
 		AB4FEA06288027E5001D4B7F /* DBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4FEA05288027E5001D4B7F /* DBManager.swift */; };
 		AB8FA539287C5D7B00C99110 /* WriteTodoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8FA538287C5D7B00C99110 /* WriteTodoView.swift */; };
 		AB9AE8B828839F510050EA99 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9AE8B728839F510050EA99 /* Storage.swift */; };
+		AB9AE8BB2883DAE00050EA99 /* WriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9AE8BA2883DAE00050EA99 /* WriteViewModel.swift */; };
 		ABAECADC287ABB87009DA449 /* Todoable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAECADB287ABB87009DA449 /* Todoable.swift */; };
 		ABAECAE1287AE864009DA449 /* EditTodoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAECAE0287AE864009DA449 /* EditTodoViewController.swift */; };
 		ABC54F87287D637900280F43 /* LocalDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC54F86287D637900280F43 /* LocalDB.swift */; };
@@ -44,6 +45,7 @@
 		AB4FEA05288027E5001D4B7F /* DBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBManager.swift; sourceTree = "<group>"; };
 		AB8FA538287C5D7B00C99110 /* WriteTodoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteTodoView.swift; sourceTree = "<group>"; };
 		AB9AE8B728839F510050EA99 /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
+		AB9AE8BA2883DAE00050EA99 /* WriteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteViewModel.swift; sourceTree = "<group>"; };
 		ABAECADB287ABB87009DA449 /* Todoable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todoable.swift; sourceTree = "<group>"; };
 		ABAECAE0287AE864009DA449 /* EditTodoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTodoViewController.swift; sourceTree = "<group>"; };
 		ABC54F86287D637900280F43 /* LocalDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDB.swift; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 			children = (
 				ABC54F8F287D87AB00280F43 /* TodoViewModel.swift */,
 				ABCEA1B028810484009C32DC /* EditViewModel.swift */,
+				AB9AE8BA2883DAE00050EA99 /* WriteViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -449,6 +452,7 @@
 				ABE5D6B228797F350065F216 /* TodoListView.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				ABDB96332875DC7B002D6602 /* StringOptional.swift in Sources */,
+				AB9AE8BB2883DAE00050EA99 /* WriteViewModel.swift in Sources */,
 				ABDB96372875E477002D6602 /* TodoCollectionViewCell.swift in Sources */,
 				AB4FEA06288027E5001D4B7F /* DBManager.swift in Sources */,
 				ABC54F8D287D873200280F43 /* State.swift in Sources */,

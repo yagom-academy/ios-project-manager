@@ -141,29 +141,30 @@ final class TodoListViewController: UIViewController {
 // MARK: UICollectionViewDelegate
 
 extension TodoListViewController: UICollectionViewDelegate {
-//  // MARK: Move EditViewController
-//  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//    let todo = createTodoData(from: collectionView, indexPath: indexPath.row)
-//    let editViewController = createEditViewController(with: todo)
-//    present(editViewController, animated: true)
-//  }
-//
-//  private func createEditViewController(with todo: Todo) -> UINavigationController {
-//    let editViewController = EditTodoViewController(todo: todo)
-//    editViewController.delegate = self
-//    let editNavigationController = UINavigationController(rootViewController: editViewController)
-//    editNavigationController.modalPresentationStyle = .pageSheet
-//
-//    return editNavigationController
-//  }
+  // MARK: Move EditViewController
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    guard let todo = createTodoData(from: collectionView, indexPath: indexPath) else {
+      return
+    }
+    
+    let editViewController = createEditViewController(with: todo)
+    present(editViewController, animated: true)
+  }
+
+  private func createEditViewController(with todo: Todo) -> UINavigationController {
+    let editViewController = EditTodoViewController(viewModel: EditViewModel(item: todo))
+    let editNavigationController = UINavigationController(rootViewController: editViewController)
+    editNavigationController.modalPresentationStyle = .pageSheet
+
+    return editNavigationController
+  }
   
-//  private func createTodoData(from collectionView: UICollectionView, indexPath row: Int) -> Todo {
-//    let collectionViewState = findState(about: collectionView)
-//    let todoItems = todoList.filter { $0.state == collectionViewState }
-//    let todo = todoItems[row]
-//
-//    return todo
-//  }
+  private func createTodoData(from collectionView: UICollectionView, indexPath: IndexPath) -> Todo? {
+    let dataSource = collectionView.dataSource as? DataSource
+    let item = dataSource?.itemIdentifier(for: indexPath)
+    
+    return item
+  }
 }
 
 // MARK: Delegate
@@ -294,8 +295,6 @@ private extension TodoListViewController {
     actionsStorage.append(moveToDoingAction)
 
     return actionsStorage
-    
-    // todo,
   }
 
   func filterCollectionView(from state: State) -> UICollectionView {

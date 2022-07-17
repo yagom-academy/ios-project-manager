@@ -12,8 +12,8 @@ final class EditTodoViewController: UIViewController {
   weak var delegate: TodoDelegate?
   private lazy var editView = WriteTodoView(frame: view.frame)
   
-  init(todo: Todo) {
-    self.viewModel = EditViewModel(todo: todo)
+  init(viewModel: EditViewModel) {
+    self.viewModel = viewModel
     super.init(nibName: nil, bundle: nil)
   }
   
@@ -25,7 +25,7 @@ final class EditTodoViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     setUpNavigation()
-    editView.updateTodoData(viewModel.todo)
+//    editView.updateTodoData(viewModel.todo)
     editView.setUserInteractionEnableViews(false)
   }
   
@@ -35,7 +35,7 @@ final class EditTodoViewController: UIViewController {
   
   private func makeFormTodoDate(state: State) -> Todo {
     var editedTodoDate = editView.createTodoData(state: state)
-    editedTodoDate.id = viewModel.todo.id
+//    editedTodoDate.id = viewModel.todo.id
     
     return editedTodoDate
   }
@@ -53,35 +53,35 @@ final class EditTodoViewController: UIViewController {
     navigationItem.rightBarButtonItem = UIBarButtonItem(
       systemItem: .done,
       primaryAction: UIAction(handler: { [weak self] _ in
-        self?.saveUpdatedTodo()
+//        self?.saveUpdatedTodo()
         self?.dismiss(animated: true)
       })
     )
   }
   
-  private func saveUpdatedTodo() {
-    let state = viewModel.todo.state
-    var editedTodoData = makeFormTodoDate(state: state)
-    let id = viewModel.todo.id
-    
-    editedTodoData.id = id
-    
-    let todoModel = DBManager.shared.mappingTodoModel(from: editedTodoData)
-    let todoDictionary = mappingDictionary(from: editedTodoData)
-    // 에러발생
-    // DBManager.shared.update(todoModel, with: todoDictionary)
-    self.delegate?.updateData(editedTodoData)
-  }
+//  private func saveUpdatedTodo() {
+////    let state = viewModel.todo.state
+////    var editedTodoData = makeFormTodoDate(state: state)
+////    let id = viewModel.todo.id
+//
+//    editedTodoData.id = id
+//
+//    let todoModel = DBManager.shared.mappingTodoModel(from: editedTodoData)
+////    let todoDictionary = mappingDictionary(from: editedTodoData)
+//    // 에러발생
+//    // DBManager.shared.update(todoModel, with: todoDictionary)
+//    self.delegate?.updateData(editedTodoData)
+//  }
   
-  private func mappingDictionary(from Todo: Todo) -> [String: Any?] {
-    var dictionary = [String: Any?]()
-    
-    dictionary["title"] = viewModel.todo.title
-    dictionary["content"] = viewModel.todo.content
-    dictionary["date"] = viewModel.todo.date
-    dictionary["state"] = viewModel.todo.state
-    dictionary["identifier"] = viewModel.todo.id
-    
-    return dictionary
-  }
+//  private func mappingDictionary(from Todo: Todo) -> [String: Any?] {
+//    var dictionary = [String: Any?]()
+//
+//    dictionary["title"] = viewModel.todo.title
+//    dictionary["content"] = viewModel.todo.content
+//    dictionary["date"] = viewModel.todo.date
+//    dictionary["state"] = viewModel.todo.state
+//    dictionary["identifier"] = viewModel.todo.id
+//
+//    return dictionary
+//  }
 }
