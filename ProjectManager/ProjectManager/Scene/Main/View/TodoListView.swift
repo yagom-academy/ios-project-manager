@@ -7,9 +7,6 @@
 import UIKit
 
 final class TodoListView: UIView {
-  private let headerName: String
-  private let listCount: Int
-  
   private let containerStackView: UIStackView = {
     let stackView = UIStackView()
     stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -18,7 +15,7 @@ final class TodoListView: UIView {
     return stackView
   }()
   
-  private lazy var infoStackView: UIStackView = {
+  private let infoStackView: UIStackView = {
     let stackView = UIStackView()
     stackView.axis = .horizontal
     stackView.alignment = .center
@@ -27,10 +24,9 @@ final class TodoListView: UIView {
     return stackView
   }()
   
-  private lazy var titleLabel: UILabel = {
+  private let titleLabel: UILabel = {
     let label = UILabel()
     label.translatesAutoresizingMaskIntoConstraints = false
-    label.text = self.headerName
     label.textAlignment = .left
     label.font = .preferredFont(forTextStyle: .largeTitle)
     
@@ -38,10 +34,9 @@ final class TodoListView: UIView {
     return label
   }()
   
-  lazy var listCountLabel: UILabel = {
+  private let listCountLabel: UILabel = {
     let label = UILabel()
     label.translatesAutoresizingMaskIntoConstraints = false
-    label.text = "\(self.listCount)"
     label.textColor = .systemBackground
     label.textAlignment = .center
     label.font = .preferredFont(forTextStyle: .title3)
@@ -65,12 +60,11 @@ final class TodoListView: UIView {
     return collectionView
   }()
   
-  init(headerName: String, listCount: Int) {
-    self.headerName = headerName
-    self.listCount = listCount
+  init(headerName: String) {
     super.init(frame: .zero)
     registerCells()
     configureUI()
+    titleLabel.text = headerName
   }
   
   required init?(coder: NSCoder) {
@@ -107,6 +101,10 @@ final class TodoListView: UIView {
   
   private func registerCells() {
     todoCollectionView.register(TodoCollectionViewCell.self, forCellWithReuseIdentifier: TodoCollectionViewCell.identifier)
+  }
+  
+  func updateListCount(_ count: Int) {
+    listCountLabel.text = count.description
   }
   
   private func configureUI() {
