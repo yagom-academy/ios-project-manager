@@ -5,48 +5,30 @@
 //  Created by LIMGAUI on 2022/07/12
 
 import Foundation
+import Combine
 import RealmSwift
 
-final class RealmService: Realmable {
+final class RealmService: StorageType {
   private var realm = try? Realm()
-
-  func create<T: Object>(_ object: T) {
-    do {
-      try realm?.write {
-        realm?.add(object)
-      }
-    } catch {
-      print(object)
-    }
-  }
+  private let items = CurrentValueSubject<[Todo], Never>([])
   
-  func readAll<T: Object>() -> [T] {
-    guard let data = realm?.objects(T.self) else {
-      return [T]()
-    }
+  func create(_ todo: Todo) {
+    let todoModel = TodoModel(title: todo.title, content: todo.content, state: todo.state)
     
-    return Array(data)
-  }
-  
-  func update<T: Object>(_ object: T, with dictionary: [String: Any?]) {
     do {
       try realm?.write {
-        for (key, value) in dictionary {
-          object.setValue(value, forKey: key)
-        }
+        realm?.add(todoModel)
       }
     } catch {
-      print(object)
+      print(error)
     }
   }
   
-  func delete<T: Object>(_ object: T) {
-    do {
-      try realm?.write {
-        realm?.delete(object)
-      }
-    } catch {
-      print(object)
-    }
+  func read() -> AnyPublisher<[Todo], Never> {
+    return items.eraseToAnyPublisher()
   }
+  
+  func update(_ todo: Todo) {}
+  
+  func delete(_ todo: Todo) {}
 }
