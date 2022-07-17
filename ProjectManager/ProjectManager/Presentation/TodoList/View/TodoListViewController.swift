@@ -97,21 +97,21 @@ extension TodoListViewController {
             }.disposed(by: bag)
         
         Observable
-            .of(mainView.todoTableView.rx.listLongPress(TodoCellContent.self),
-                mainView.doingTableView.rx.listLongPress(TodoCellContent.self),
-                mainView.doneTableView.rx.listLongPress(TodoCellContent.self))
+            .of(mainView.todo.tableView.rx.listLongPress(TodoCellContent.self),
+                mainView.doing.tableView.rx.listLongPress(TodoCellContent.self),
+                mainView.done.tableView.rx.listLongPress(TodoCellContent.self))
             .merge()
             .bind { [weak self] (cell, item) in
                 self?.viewModel.cellLongPress(cell: cell as? TodoListCell, id: item.id)
             }.disposed(by: bag)
         
         Observable
-            .of(mainView.todoTableView.rx.listItemSelected(TodoCellContent.self),
-                mainView.doingTableView.rx.listItemSelected(TodoCellContent.self),
-                mainView.doneTableView.rx.listItemSelected(TodoCellContent.self))
+            .of(mainView.todo.tableView.rx.listItemSelected(TodoCellContent.self),
+                mainView.doing.tableView.rx.listItemSelected(TodoCellContent.self),
+                mainView.done.tableView.rx.listItemSelected(TodoCellContent.self))
             .merge()
             .bind { [weak self] (indexPath, item) in
-                self?.mainView.TableViewdeselectRow(indexPath: indexPath)
+                self?.mainView.tableViewdeselectRow(indexPath: indexPath)
                 self?.viewModel.cellSelected(id: item.id)
             }.disposed(by: bag)
     }

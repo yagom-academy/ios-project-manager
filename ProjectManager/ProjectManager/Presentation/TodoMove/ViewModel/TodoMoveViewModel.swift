@@ -26,11 +26,11 @@ protocol TodoMoveViewModelOutput {
 protocol TodoMoveViewModel: TodoMoveViewModelInput, TodoMoveViewModelOutput {}
 
 final class DefaultTodoMoveViewModel: TodoMoveViewModel {
-    private let useCase: UseCase
+    private let useCase: TodoListUseCase
     
     private var actions: TodoMoveViewModelActions?
     
-    init(useCase: UseCase, actions: TodoMoveViewModelActions) {
+    init(useCase: TodoListUseCase, actions: TodoMoveViewModelActions) {
         self.useCase = useCase
         self.actions = actions
     }
@@ -53,14 +53,14 @@ final class DefaultTodoMoveViewModel: TodoMoveViewModel {
     func firstButtonDidTap(item: TodoModel) {
         var newItem = item
         newItem.state = useCase.moveState(from: item.state).first
-        useCase.saveRepository(to: newItem)
+        useCase.saveItem(to: newItem)
         actions?.dismiss()
     }
     
     func secondButtonDidTap(item: TodoModel) {
         var newItem = item
         newItem.state = useCase.moveState(from: item.state).second
-        useCase.saveRepository(to: newItem)
+        useCase.saveItem(to: newItem)
         actions?.dismiss()
     }
 }

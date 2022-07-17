@@ -40,12 +40,10 @@ final class TodoListView: UIView {
             make.edges.equalTo(self.safeAreaLayoutGuide)
         }
     }
-}
-
-extension TodoListView {
-    func TableViewdeselectRow(indexPath: IndexPath) {
-        todoTableView.deselectRow(at: indexPath, animated: true)
-        doingTableView.deselectRow(at: indexPath, animated: true)
-        doneTableView.deselectRow(at: indexPath, animated: true)
+    
+    func tableViewdeselectRow(indexPath: IndexPath) {
+        todo.tableView.deselectRow(at: indexPath, animated: true)
+        doing.tableView.deselectRow(at: indexPath, animated: true)
+        done.tableView.deselectRow(at: indexPath, animated: true)
     }
 }

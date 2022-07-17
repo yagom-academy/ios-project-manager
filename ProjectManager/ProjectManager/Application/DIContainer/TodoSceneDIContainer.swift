@@ -22,9 +22,11 @@ final class TodoSceneDIContainer {
     
     private func makeTodoListUseCase() -> DefaultTodoListUseCase {
         return DefaultTodoListUseCase(repository: makeTodoListRepository())
+
+    }
+    
     private func makeTodoMoveViewModel(actions: TodoMoveViewModelActions) -> TodoMoveViewModel {
         return DefaultTodoMoveViewModel(useCase: makeTodoListUseCase(), actions: actions)
-    }
     }
     
     private func makeTodoListRepository() -> DefaultTodoListRepository {

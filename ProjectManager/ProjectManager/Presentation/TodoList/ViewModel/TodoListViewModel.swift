@@ -32,6 +32,8 @@ protocol TodoListViewModelOutput {
 protocol TodoListViewModel: TodoListViewModelInput, TodoListViewModelOutput {}
 
 final class DefaultTodoListViewModel: TodoListViewModel {
+
+    
     private let useCase: TodoListUseCase
     private let actions: TodoListViewModelActions?
     private let todoLists: BehaviorSubject<[TodoModel]>
@@ -98,13 +100,14 @@ final class DefaultTodoListViewModel: TodoListViewModel {
         
     }
     
-    init(useCase: TodoListUseCase, actions: TodoListViewModelActions) {
     func cellLongPress(cell: TodoListCell?, id: UUID) {
         if let item = try? todoLists.value()
             .first(where: { $0.id == id }) {
                 actions?.popoverMoveViewController(cell, item)
             }
     }
+    
+    init(useCase: TodoListUseCase, actions: TodoListViewModelActions) {
         self.useCase = useCase
         self.actions = actions
         
