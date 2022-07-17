@@ -29,7 +29,7 @@ final class TodoListViewController: UIViewController {
   private let doneView = TodoListView(headerName: HeaderName.done)
   
   private let viewModel = TodoViewModel(storage: MemoryStorage.shared)
-
+  
   private let mainStackView: UIStackView = {
     let stackView = UIStackView()
     stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -62,7 +62,7 @@ final class TodoListViewController: UIViewController {
         self?.doingView.updateListCount(items.count)
       }
       .store(in: &bag)
-
+    
     viewModel.doneList
       .sink { [weak self] items in
         self?.applySnapShot(items, dataSource: self!.doneDataSource)
@@ -76,7 +76,7 @@ final class TodoListViewController: UIViewController {
     doingDataSource = makeDataSource(doingView.todoCollectionView)
     doneDataSource = makeDataSource(doneView.todoCollectionView)
   }
-
+  
   private func applySnapShot(_ items: [Todo], dataSource: DataSource) {
     var snapshot = SnapShot()
     snapshot.appendSections([0])
@@ -98,9 +98,7 @@ final class TodoListViewController: UIViewController {
   }
   
   private func setUpDelegate() {
-    todoView.todoCollectionView.delegate = self
-    doingView.todoCollectionView.delegate = self
-    doneView.todoCollectionView.delegate = self
+    [todoView, doingView, doneView].forEach { $0.todoCollectionView.delegate = self }
   }
   
   private func moveWriteTodo() {
@@ -147,12 +145,12 @@ extension TodoListViewController: UICollectionViewDelegate {
     let editViewController = createEditViewController(with: todo)
     present(editViewController, animated: true)
   }
-
+  
   private func createEditViewController(with todo: Todo) -> UINavigationController {
     let editViewController = EditTodoViewController(viewModel: EditViewModel(item: todo))
     let editNavigationController = UINavigationController(rootViewController: editViewController)
     editNavigationController.modalPresentationStyle = .pageSheet
-
+    
     return editNavigationController
   }
   
@@ -182,9 +180,9 @@ extension TodoListViewController: SwipeCollectionViewCellDelegate {
     let deleteAction = SwipeAction(style: .destructive, title: Const.delete) { [weak self] _, _ in
       self?.viewModel.deleActionDidTap(item)
     }
-
+    
     deleteAction.image = UIImage(named: Const.deleteImage)
-
+    
     return [deleteAction]
   }
 }
@@ -198,7 +196,7 @@ private extension TodoListViewController {
     let collectionView = filterCollectionView(from: pressedState)
     
     let collectionViewPressedPoint = gesture.location(in: collectionView)
-
+    
     guard let indexPath = collectionView.indexPathForItem(at: collectionViewPressedPoint) else {
       return
     }
@@ -207,102 +205,105 @@ private extension TodoListViewController {
     guard let item = dataSource?.snapshot().itemIdentifiers[indexPath.row] else {
       return
     }
-
+    
     let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
     let alertActions = createAlertActions(from: pressedState, item: item)
-
+    
     alertActions.forEach { alert.addAction($0) }
-
+    
     let popover = alert.popoverPresentationController
-
+    
     popover?.sourceView = view
     popover?.sourceRect = CGRect(x: pressedPoint.x, y: pressedPoint.y, width: 64, height: 64)
-
+    
     present(alert, animated: true)
   }
-
+  
   func filterState(from touchedLocationX: Double, by viewWidth: Double) -> State {
     let todoViewZone = viewWidth * 0.3
     let doingViewZone = (viewWidth * 0.3)...(viewWidth * 0.6)
-
+    
     if touchedLocationX < todoViewZone {
       return .todo
     }
-
+    
     if doingViewZone.contains(touchedLocationX) {
       return .doing
     }
-
+    
     return .done
   }
-
+  
   func filterAlertActions(exceptState: State, by actions: [UIAlertAction]) -> [UIAlertAction] {
+    guard let moveTodo = actions[safe: 0] ,
+          let moveDoing = actions[safe: 1],
+          let moveDone = actions[safe: 2] else {
+      return [UIAlertAction]()
+    }
+    
     var actionsStorage = [UIAlertAction]()
-
-    if exceptState == .todo {
-      actionsStorage.append(actions[1])
-      actionsStorage.append(actions[2])
-
+    
+    switch exceptState {
+    case .todo:
+      actionsStorage.append(moveTodo)
+      actionsStorage.append(moveDoing)
+      
+      return actionsStorage
+    case .doing:
+      actionsStorage.append(moveTodo)
+      actionsStorage.append(moveDone)
+      
+      return actionsStorage
+    case .done:
+      actionsStorage.append(moveTodo)
+      actionsStorage.append(moveDoing)
+      
       return actionsStorage
     }
-
-    if exceptState == .doing {
-      actionsStorage.append(actions[0])
-      actionsStorage.append(actions[2])
-
-      return actionsStorage
-    }
-
-    actionsStorage.append(actions[0])
-    actionsStorage.append(actions[1])
-
-    return actionsStorage
   }
-
+  
   func createAlertActions(from state: State, item: Todo) -> [UIAlertAction] {
     let moveToTodoAction = UIAlertAction(title: State.todo.moveMessage, style: .default) { [weak self] _ in
       self?.viewModel.popoverButtonDidTap(item, to: .todo)
     }
-
+    
     let moveToDoingAction = UIAlertAction(title: State.doing.moveMessage, style: .default) { [weak self] _ in
       self?.viewModel.popoverButtonDidTap(item, to: .doing)
     }
-
+    
     let moveToDoneAction = UIAlertAction(title: State.done.moveMessage, style: .default) { [weak self] _ in
       self?.viewModel.popoverButtonDidTap(item, to: .done)
     }
-
+    
     var actionsStorage = [UIAlertAction]()
     
-    if state == .todo {
+    switch state {
+    case .todo:
       actionsStorage.append(moveToDoingAction)
       actionsStorage.append(moveToDoneAction)
-
+      
       return actionsStorage
-    }
-
-    if state == .doing {
+    case .doing:
       actionsStorage.append(moveToTodoAction)
       actionsStorage.append(moveToDoneAction)
-
+      
+      return actionsStorage
+    case .done:
+      actionsStorage.append(moveToTodoAction)
+      actionsStorage.append(moveToDoingAction)
+      
       return actionsStorage
     }
-
-    actionsStorage.append(moveToTodoAction)
-    actionsStorage.append(moveToDoingAction)
-
-    return actionsStorage
   }
-
+  
   func filterCollectionView(from state: State) -> UICollectionView {
-    if state == .todo {
+    switch state {
+    case .todo:
       return todoView.todoCollectionView
-    }
-
-    if state == .doing {
+    case .doing:
       return doingView.todoCollectionView
+    case .done:
+      return doneView.todoCollectionView
     }
-
-    return doneView.todoCollectionView
   }
 }
