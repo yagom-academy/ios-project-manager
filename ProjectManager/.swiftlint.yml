@@ -4,6 +4,7 @@ disabled_rules:
 - redundant_discardable_let
 - force_try
 - identifier_name
+- private_over_fileprivate
 
 excluded:
 - Pods

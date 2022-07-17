@@ -7,25 +7,55 @@
 
 import UIKit
 import SwipeCellKit
-import RealmSwift
+import Combine
+
+fileprivate enum Const {
+  static let delete = "삭제"
+  static let deleteImage = "delete"
+}
 
 final class TodoListViewController: UIViewController {
   typealias DataSource = UICollectionViewDiffableDataSource<Int, Todo>
   typealias SnapShot = NSDiffableDataSourceSnapshot<Int, Todo>
+  
   private var todoDataSource: DataSource!
   private var doingDataSource: DataSource!
   private var doneDataSource: DataSource!
   
-  private lazy var todoView = TodoListView(headerName: "TODO", listCount: viewModel.findListCount(.todo))
-  private lazy var doingView = TodoListView(headerName: "DOING", listCount: viewModel.findListCount(.doing))
-  private lazy var doneView = TodoListView(headerName: "DONE", listCount: viewModel.findListCount(.done))
+  private lazy var todoView = TodoListView(
+    headerName: HeaderName.todo,
+    listCount: viewModel.findListCount(.todo)
+  )
+  private lazy var doingView = TodoListView(
+    headerName: HeaderName.doing,
+    listCount: viewModel.findListCount(.doing)
+  )
+  private lazy var doneView = TodoListView(
+    headerName: HeaderName.done,
+    listCount: viewModel.findListCount(.done)
+  )
   
   private let viewModel = TodoViewModel()
+  private let dummy = Todo.dummy
   
-  private lazy var todoList = viewModel.readList {
+  private lazy var todoList = viewModel.toList {
     didSet {
-      reloadDataSource()
-      updateListCountlabel()
+      todoView.listCountLabel.text = todoList.count.description
+      applySnapShot(todoList, dataSource: todoDataSource)
+    }
+  }
+  
+  private lazy var doingList = viewModel.doingList {
+    didSet {
+      doingView.listCountLabel.text = doingList.count.description
+      applySnapShot(doingList, dataSource: doingDataSource)
+    }
+  }
+  
+  private lazy var doneList = viewModel.doneList {
+    didSet {
+      doneView.listCountLabel.text = doneList.count.description
+      applySnapShot(doneList, dataSource: doneDataSource)
     }
   }
   
@@ -48,14 +78,12 @@ final class TodoListViewController: UIViewController {
     setUpDelegate()
     configureUI()
     setDataSource()
-    reloadDataSource()
   }
   
-  override func viewWillAppear(_ animated: Bool) {
-    super.viewWillAppear(animated)
-    let todoModels = DBManager.shared.readAll()
-    viewModel.mappingTodo(from: todoModels)
-  }
+//  override func viewWillAppear(_ animated: Bool) {
+//    super.viewWillAppear(animated)
+//    let todoModels = DBManager.shared.readAll()
+//  }
   
   private func setDataSource() {
     todoDataSource = makeDataSource(todoView.todoCollectionView)
@@ -83,36 +111,36 @@ final class TodoListViewController: UIViewController {
       }
   }
   
-  func updateListCountlabel() {
-    todoListViews.forEach { view in
-      State.allCases.forEach { state in
-        view.listCountLabel.text = viewModel.findListCount(state).description
-      }
-    }
-  }
+//  func updateListCountlabel() {
+//    todoListViews.forEach { view in
+//      State.allCases.forEach { state in
+//        view.listCountLabel.text = viewModel.findListCount(state).description
+//      }
+//    }
+//  }
   
-  private func reloadDataSource() {
-    let dictionary: [State: DataSource] = [
-      .todo: todoDataSource,
-      .doing: doingDataSource,
-      .done: doneDataSource
-    ]
-    
-    dictionary.forEach { (state, dataSource) in
-      applySnapShot(todoList.filter { $0.state == state }, dataSource: dataSource)
-    }
-  }
+//  private func reloadDataSource() {
+//    let dictionary: [State: DataSource] = [
+//      .todo: todoDataSource,
+//      .doing: doingDataSource,
+//      .done: doneDataSource
+//    ]
+//
+//    dictionary.forEach { (state, dataSource) in
+//      applySnapShot(todoList.filter { $0.state == state }, dataSource: dataSource)
+//    }
+//  }
   
   private func setUpDelegate() {
     todoListViews.forEach { $0.todoCollectionView.delegate = self }
   }
   
   private func moveWriteTodo() {
-    let writeVC = WriteTodoViewController()
-    let writeNC = UINavigationController(rootViewController: writeVC)
-    writeNC.modalPresentationStyle = .pageSheet
-    writeVC.todoDelegate = self
-    present(writeNC, animated: true)
+    let writeViewController = WriteTodoViewController()
+    let writeNavigationController = UINavigationController(rootViewController: writeViewController)
+    writeNavigationController.modalPresentationStyle = .pageSheet
+    writeViewController.todoDelegate = self
+    present(writeNavigationController, animated: true)
   }
   
   private func setNavigationBar() {
@@ -145,22 +173,22 @@ extension TodoListViewController: UICollectionViewDelegate {
   // MARK: Move EditViewController
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     let todo = createTodoData(from: collectionView, indexPath: indexPath.row)
-    let editVC = createEditViewController(with: todo)
-    present(editVC, animated: true)
+    let editViewController = createEditViewController(with: todo)
+    present(editViewController, animated: true)
   }
   
   private func createEditViewController(with todo: Todo) -> UINavigationController {
-    let editVC = EditTodoViewController(todo: todo)
-    editVC.delegate = self
-    let editNC = UINavigationController(rootViewController: editVC)
-    editNC.modalPresentationStyle = .pageSheet
+    let editViewController = EditTodoViewController(todo: todo)
+    editViewController.delegate = self
+    let editNavigationController = UINavigationController(rootViewController: editViewController)
+    editNavigationController.modalPresentationStyle = .pageSheet
     
-    return editNC
+    return editNavigationController
   }
   
   private func createTodoData(from collectionView: UICollectionView, indexPath row: Int) -> Todo {
-    let collectionViewState = self.findState(about: collectionView)
-    let todoItems = self.todoList.filter { $0.state == collectionViewState }
+    let collectionViewState = findState(about: collectionView)
+    let todoItems = todoList.filter { $0.state == collectionViewState }
     let todo = todoItems[row]
     
     return todo
@@ -189,25 +217,25 @@ extension TodoListViewController: SwipeCollectionViewCellDelegate {
   func collectionView(_ collectionView: UICollectionView, editActionsForItemAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
     guard orientation == .right else { return nil }
     
-    let deleteAction = SwipeAction(style: .destructive, title: "삭제") { _, _ in
+    let deleteAction = SwipeAction(style: .destructive, title: Const.delete) { _, _ in
       let collectionViewState = self.findState(about: collectionView)
       self.removeTodoDidTapDelete(collectionViewState, at: indexPath.row)
     }
 
-    deleteAction.image = UIImage(named: "delete")
+    deleteAction.image = UIImage(named: Const.deleteImage)
     
     return [deleteAction]
   }
   
   private func removeTodoDidTapDelete(_ state: State, at index: Int) {
-    let todoItems = self.todoList.filter { $0.state == state }
+    let todoItems = todoList.filter { $0.state == state }
     let item = todoItems[index]
     
-    guard let index = self.todoList.firstIndex(of: item) else {
+    guard let index = todoList.firstIndex(of: item) else {
       return
     }
     
-    self.todoList.remove(at: index)
+    todoList.remove(at: index)
   }
 
   private func findState(about collectionView: UICollectionView) -> State {
@@ -328,6 +356,7 @@ private extension TodoListViewController {
     let todoItems = todoList.filter { $0.state == pressdState }
     let item = todoItems[index]
     guard let index = todoList.firstIndex(of: item) else { return }
+    
     todoList[index].state = state
   }
   

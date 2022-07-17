@@ -12,6 +12,7 @@
 		AB2E845728765291002E4593 /* ToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2E845628765291002E4593 /* ToDo.swift */; };
 		AB4FEA06288027E5001D4B7F /* DBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4FEA05288027E5001D4B7F /* DBManager.swift */; };
 		AB8FA539287C5D7B00C99110 /* WriteTodoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8FA538287C5D7B00C99110 /* WriteTodoView.swift */; };
+		AB9AE8B828839F510050EA99 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9AE8B728839F510050EA99 /* Storage.swift */; };
 		ABAECADC287ABB87009DA449 /* Todoable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAECADB287ABB87009DA449 /* Todoable.swift */; };
 		ABAECAE1287AE864009DA449 /* EditTodoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAECAE0287AE864009DA449 /* EditTodoViewController.swift */; };
 		ABC54F87287D637900280F43 /* LocalDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC54F86287D637900280F43 /* LocalDB.swift */; };
@@ -20,6 +21,8 @@
 		ABC54F90287D87AB00280F43 /* TodoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC54F8F287D87AB00280F43 /* TodoViewModel.swift */; };
 		ABCEA1B128810484009C32DC /* EditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCEA1B028810484009C32DC /* EditViewModel.swift */; };
 		ABCEA1B3288139E5009C32DC /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCEA1B2288139E5009C32DC /* Identifiable.swift */; };
+		ABCEA1B528814DD4009C32DC /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCEA1B428814DD4009C32DC /* Collection.swift */; };
+		ABCEA1B72881662C009C32DC /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCEA1B62881662C009C32DC /* Constant.swift */; };
 		ABDB96332875DC7B002D6602 /* StringOptional.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDB96322875DC7B002D6602 /* StringOptional.swift */; };
 		ABDB96372875E477002D6602 /* TodoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDB96362875E477002D6602 /* TodoCollectionViewCell.swift */; };
 		ABDB96392875E6C3002D6602 /* UIStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDB96382875E6C3002D6602 /* UIStackView.swift */; };
@@ -40,6 +43,7 @@
 		AB2E845628765291002E4593 /* ToDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDo.swift; sourceTree = "<group>"; };
 		AB4FEA05288027E5001D4B7F /* DBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBManager.swift; sourceTree = "<group>"; };
 		AB8FA538287C5D7B00C99110 /* WriteTodoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteTodoView.swift; sourceTree = "<group>"; };
+		AB9AE8B728839F510050EA99 /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		ABAECADB287ABB87009DA449 /* Todoable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todoable.swift; sourceTree = "<group>"; };
 		ABAECAE0287AE864009DA449 /* EditTodoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTodoViewController.swift; sourceTree = "<group>"; };
 		ABC54F86287D637900280F43 /* LocalDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDB.swift; sourceTree = "<group>"; };
@@ -48,6 +52,8 @@
 		ABC54F8F287D87AB00280F43 /* TodoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoViewModel.swift; sourceTree = "<group>"; };
 		ABCEA1B028810484009C32DC /* EditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewModel.swift; sourceTree = "<group>"; };
 		ABCEA1B2288139E5009C32DC /* Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifiable.swift; sourceTree = "<group>"; };
+		ABCEA1B428814DD4009C32DC /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
+		ABCEA1B62881662C009C32DC /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		ABDB96322875DC7B002D6602 /* StringOptional.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringOptional.swift; sourceTree = "<group>"; };
 		ABDB96362875E477002D6602 /* TodoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoCollectionViewCell.swift; sourceTree = "<group>"; };
 		ABDB96382875E6C3002D6602 /* UIStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStackView.swift; sourceTree = "<group>"; };
@@ -109,6 +115,17 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		AB9AE8B92883A0B80050EA99 /* Realm */ = {
+			isa = PBXGroup;
+			children = (
+				ABE5D6B52879C1310065F216 /* Realmable.swift */,
+				ABC54F86287D637900280F43 /* LocalDB.swift */,
+				ABC54F8A287D654200280F43 /* TodoModel.swift */,
+				AB4FEA05288027E5001D4B7F /* DBManager.swift */,
+			);
+			path = Realm;
+			sourceTree = "<group>";
+		};
 		ABAECADD287AE7F2009DA449 /* Edit */ = {
 			isa = PBXGroup;
 			children = (
@@ -138,6 +155,7 @@
 			children = (
 				ABDB96312875DC48002D6602 /* Extension */,
 				ABAECADE287AE814009DA449 /* Protocol */,
+				ABCEA1B62881662C009C32DC /* Constant.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -167,6 +185,7 @@
 				ABDB96322875DC7B002D6602 /* StringOptional.swift */,
 				ABDB96382875E6C3002D6602 /* UIStackView.swift */,
 				ABCEA1B2288139E5009C32DC /* Identifiable.swift */,
+				ABCEA1B428814DD4009C32DC /* Collection.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -227,10 +246,8 @@
 		ABE5D6B42879C10D0065F216 /* DB */ = {
 			isa = PBXGroup;
 			children = (
-				ABE5D6B52879C1310065F216 /* Realmable.swift */,
-				ABC54F86287D637900280F43 /* LocalDB.swift */,
-				ABC54F8A287D654200280F43 /* TodoModel.swift */,
-				AB4FEA05288027E5001D4B7F /* DBManager.swift */,
+				AB9AE8B92883A0B80050EA99 /* Realm */,
+				AB9AE8B728839F510050EA99 /* Storage.swift */,
 			);
 			path = DB;
 			sourceTree = "<group>";
@@ -438,12 +455,15 @@
 				ABAECAE1287AE864009DA449 /* EditTodoViewController.swift in Sources */,
 				ABC54F90287D87AB00280F43 /* TodoViewModel.swift in Sources */,
 				ABE5D6BC2879D9BB0065F216 /* WriteTodoViewController.swift in Sources */,
+				ABCEA1B528814DD4009C32DC /* Collection.swift in Sources */,
 				AB2E845428764B78002E4593 /* TodoListViewController.swift in Sources */,
 				ABCEA1B3288139E5009C32DC /* Identifiable.swift in Sources */,
+				AB9AE8B828839F510050EA99 /* Storage.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				ABAECADC287ABB87009DA449 /* Todoable.swift in Sources */,
 				ABE5D6B62879C1310065F216 /* Realmable.swift in Sources */,
 				ABCEA1B128810484009C32DC /* EditViewModel.swift in Sources */,
+				ABCEA1B72881662C009C32DC /* Constant.swift in Sources */,
 				ABC54F8B287D654200280F43 /* TodoModel.swift in Sources */,
 				ABC54F87287D637900280F43 /* LocalDB.swift in Sources */,
 			);

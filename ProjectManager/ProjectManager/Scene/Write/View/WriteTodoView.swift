@@ -76,7 +76,7 @@ final class WriteTodoView: UIView {
   
   func createTodoData(state: State) -> Todo {
     guard let title = titleTextField.text,
-          let content = contentTextView.text else { return Todo() }
+          let content = contentTextView.text else { return Todo(title: "", content: "", date: .now) }
     let date = datePicker.date
     
     let todo = Todo(title: title, content: content, date: date, state: state)

@@ -5,39 +5,44 @@
 
 import Foundation
 
-final class TodoViewModel: NSObject {
-  private var todo = Todo()
-  private var todoList: [Todo]
+final class TodoViewModel {
+  private var items: [Todo] = []
   
-  override init() {
-    todoList = todo.readList
+  init() {
+    DispatchQueue.main.asyncAfter(wallDeadline: .now()+1) {
+      self.items.append(contentsOf: Todo.dummy)
+    }
+  }
+
+  var toList: [Todo] {
+    return filterList(by: .todo)
   }
   
-  var readList: [Todo] {
-    return todoList
+  var doingList: [Todo] {
+    return filterList(by: .doing)
+  }
+  
+  var doneList: [Todo] {
+    return filterList(by: .done)
   }
   
   func append(_ todo: Todo) {
-    todoList.append(todo)
+    items.append(todo)
   }
   
   func update(by index: Int, todo: Todo) {
-    todoList[index] = todo
+    items[index] = todo
   }
   
   func update(to state: State, by index: Int) {
-    todoList[index].state = state
+    items[index].state = state
   }
   
   func findListCount(_ todoState: State) -> Int {
-    return todoList.filter { $0.state == todoState }.count
+    return items.filter { $0.state == todoState }.count
   }
   
   func filterList(by state: State) -> [Todo] {
-    return todoList.filter { $0.state == state }
-  }
-  
-  func mappingTodo(from todoModels: [TodoModel]) {
-    todo.mappingTodo(from: todoModels)
+    return items.filter { $0.state == state }
   }
 }

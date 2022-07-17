@@ -41,7 +41,7 @@ final class EditTodoViewController: UIViewController {
   }
   
   private func setUpNavigation() {
-    navigationItem.title = "TODO"
+    navigationItem.title = HeaderName.todo
     navigationController?.navigationBar.barTintColor = UIColor.systemGray
     navigationItem.leftBarButtonItem = UIBarButtonItem(
       systemItem: .edit, primaryAction: UIAction(

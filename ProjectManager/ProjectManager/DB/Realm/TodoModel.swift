@@ -22,4 +22,13 @@ final class TodoModel: Object {
     self.state = state.rawValue
     self.identifier = UUID().uuidString
   }
+  
+  func mappingTodo() -> Todo {
+    return Todo(
+      id: identifier,
+      title: title,
+      content: content,
+      date: date,
+      state: State(rawValue: state) ?? .todo)
+  }
 }

@@ -106,7 +106,7 @@ final class TodoListView: UIView {
   }
   
   private func registerCells() {
-    todoCollectionView.register(TodoCollectionViewCell.self, forCellWithReuseIdentifier: "TodoCollectionViewCell")
+    todoCollectionView.register(TodoCollectionViewCell.self, forCellWithReuseIdentifier: TodoCollectionViewCell.identifier)
   }
   
   private func configureUI() {
