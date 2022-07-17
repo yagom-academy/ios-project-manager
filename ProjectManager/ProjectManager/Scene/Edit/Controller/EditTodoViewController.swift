@@ -25,8 +25,8 @@ final class EditTodoViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     setUpNavigation()
-//    editView.updateTodoData(viewModel.todo)
     editView.setUserInteractionEnableViews(false)
+    editView.updateTodoData(viewModel.item)
   }
   
   required init?(coder: NSCoder) {
@@ -46,8 +46,12 @@ final class EditTodoViewController: UIViewController {
     navigationItem.rightBarButtonItem = UIBarButtonItem(
       systemItem: .done,
       primaryAction: UIAction(handler: { [weak self] _ in
-//        self?.saveUpdatedTodo()
-        self?.dismiss(animated: true)
+        guard let self = self else { return }
+        
+        self.viewModel.doneButtonDidTap(
+          title: self.editView.titleTextField.text,
+          content: self.editView.contentTextView.text, date: self.editView.datePicker.date)
+        self.dismiss(animated: true)
       })
     )
   }
