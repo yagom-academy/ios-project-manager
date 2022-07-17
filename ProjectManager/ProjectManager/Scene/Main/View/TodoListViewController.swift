@@ -170,10 +170,7 @@ extension TodoListViewController: SwipeCollectionViewCellDelegate {
   func collectionView(_ collectionView: UICollectionView, editActionsForItemAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
     guard orientation == .right else { return nil }
     
-    guard let dataSource = collectionView.dataSource as? DataSource else {
-      return nil
-    }
-    guard let item = dataSource.snapshot().itemIdentifiers[safe: indexPath.row] else {
+    guard let item = findItem(from: collectionView, with: indexPath.row) else {
       return nil
     }
     
@@ -184,6 +181,17 @@ extension TodoListViewController: SwipeCollectionViewCellDelegate {
     deleteAction.image = UIImage(named: Const.deleteImage)
     
     return [deleteAction]
+  }
+  
+  private func findItem(from collectionView: UICollectionView, with indexPathRow: Int) -> Todo? {
+    guard let dataSource = collectionView.dataSource as? DataSource else {
+      return nil
+    }
+    guard let item = dataSource.snapshot().itemIdentifiers[safe: indexPathRow] else {
+      return nil
+    }
+    
+    return item
   }
 }
 
