@@ -12,7 +12,6 @@ final class WriteTodoView: UIView {
     let stackView = UIStackView()
     stackView.axis = .vertical
     stackView.distribution = .fill
-    //stackView.alignment = .center
     stackView.backgroundColor = .systemBackground
     stackView.translatesAutoresizingMaskIntoConstraints = false
     return stackView

@@ -3,7 +3,6 @@
 //  ProjectManager
 //
 //  Created by LIMGAUI on 2022/07/10.
-//
 
 import UIKit
 
@@ -39,10 +38,11 @@ final class EditTodoViewController: UIViewController {
     navigationItem.leftBarButtonItem = UIBarButtonItem(
       systemItem: .edit, primaryAction: UIAction(
         handler: { [weak self] _ in
-        self?.editView.setUserInteractionEnableViews(true)
-      })
+          self?.changeNavigationLeftBar()
+          self?.editView.setUserInteractionEnableViews(true)
+        })
     )
-
+    
     navigationItem.rightBarButtonItem = UIBarButtonItem(
       systemItem: .done,
       primaryAction: UIAction(handler: { [weak self] _ in
@@ -56,29 +56,12 @@ final class EditTodoViewController: UIViewController {
     )
   }
   
-//  private func saveUpdatedTodo() {
-////    let state = viewModel.todo.state
-////    var editedTodoData = makeFormTodoDate(state: state)
-////    let id = viewModel.todo.id
-//
-//    editedTodoData.id = id
-//
-//    let todoModel = DBManager.shared.mappingTodoModel(from: editedTodoData)
-////    let todoDictionary = mappingDictionary(from: editedTodoData)
-//    // 에러발생
-//    // DBManager.shared.update(todoModel, with: todoDictionary)
-//    self.delegate?.updateData(editedTodoData)
-//  }
-  
-//  private func mappingDictionary(from Todo: Todo) -> [String: Any?] {
-//    var dictionary = [String: Any?]()
-//
-//    dictionary["title"] = viewModel.todo.title
-//    dictionary["content"] = viewModel.todo.content
-//    dictionary["date"] = viewModel.todo.date
-//    dictionary["state"] = viewModel.todo.state
-//    dictionary["identifier"] = viewModel.todo.id
-//
-//    return dictionary
-//  }
+  private func changeNavigationLeftBar() {
+    navigationItem.leftBarButtonItem = UIBarButtonItem(
+      systemItem: .cancel,
+      primaryAction: UIAction(handler: { [weak self] _ in
+        self?.dismiss(animated: true)
+      })
+    )
+  }
 }
