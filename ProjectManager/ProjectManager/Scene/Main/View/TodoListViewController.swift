@@ -69,9 +69,6 @@ final class TodoListViewController: UIViewController {
         self?.doneView.updateListCount(items.count)
       }
       .store(in: &bag)
-    // 정상값
-    // 에러
-    // 컴플리셔(에러)
   }
   
   private func setDataSource() {

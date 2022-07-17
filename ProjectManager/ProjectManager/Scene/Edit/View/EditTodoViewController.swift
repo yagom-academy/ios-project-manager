@@ -8,7 +8,6 @@ import UIKit
 
 final class EditTodoViewController: UIViewController {
   private let viewModel: EditViewModel
-  weak var delegate: TodoDelegate?
   private lazy var editView = WriteTodoView(frame: view.frame)
   
   init(viewModel: EditViewModel) {

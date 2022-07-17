@@ -29,8 +29,4 @@ final class EditViewModel: NSObject {
     
     storage.update(todo)
   }
-  
-  func editButtonDidTap() {
-    
-  }
 }

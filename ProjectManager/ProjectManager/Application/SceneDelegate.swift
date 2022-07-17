@@ -13,7 +13,5 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     window = UIWindow(windowScene: windowScene)
     window?.rootViewController = UINavigationController(rootViewController: TodoListViewController())
     window?.makeKeyAndVisible()
-    
-    MemoryStorage.shared
   }
 }

@@ -14,7 +14,6 @@
 		AB8FA539287C5D7B00C99110 /* WriteTodoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8FA538287C5D7B00C99110 /* WriteTodoView.swift */; };
 		AB9AE8B828839F510050EA99 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9AE8B728839F510050EA99 /* Storage.swift */; };
 		AB9AE8BB2883DAE00050EA99 /* WriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9AE8BA2883DAE00050EA99 /* WriteViewModel.swift */; };
-		ABAECADC287ABB87009DA449 /* Todoable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAECADB287ABB87009DA449 /* Todoable.swift */; };
 		ABAECAE1287AE864009DA449 /* EditTodoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAECAE0287AE864009DA449 /* EditTodoViewController.swift */; };
 		ABC54F87287D637900280F43 /* LocalDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC54F86287D637900280F43 /* LocalDB.swift */; };
 		ABC54F8B287D654200280F43 /* TodoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC54F8A287D654200280F43 /* TodoModel.swift */; };
@@ -46,7 +45,6 @@
 		AB8FA538287C5D7B00C99110 /* WriteTodoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteTodoView.swift; sourceTree = "<group>"; };
 		AB9AE8B728839F510050EA99 /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		AB9AE8BA2883DAE00050EA99 /* WriteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteViewModel.swift; sourceTree = "<group>"; };
-		ABAECADB287ABB87009DA449 /* Todoable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todoable.swift; sourceTree = "<group>"; };
 		ABAECAE0287AE864009DA449 /* EditTodoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTodoViewController.swift; sourceTree = "<group>"; };
 		ABC54F86287D637900280F43 /* LocalDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDB.swift; sourceTree = "<group>"; };
 		ABC54F8A287D654200280F43 /* TodoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoModel.swift; sourceTree = "<group>"; };
@@ -113,6 +111,7 @@
 			isa = PBXGroup;
 			children = (
 				AB8FA538287C5D7B00C99110 /* WriteTodoView.swift */,
+				ABE5D6BB2879D9BB0065F216 /* WriteTodoViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -128,56 +127,45 @@
 			path = Realm;
 			sourceTree = "<group>";
 		};
-		ABAECADD287AE7F2009DA449 /* Edit */ = {
-			isa = PBXGroup;
-			children = (
-				ABAECADF287AE84E009DA449 /* Controller */,
-			);
-			path = Edit;
-			sourceTree = "<group>";
-		};
-		ABAECADE287AE814009DA449 /* Protocol */ = {
-			isa = PBXGroup;
-			children = (
-				ABAECADB287ABB87009DA449 /* Todoable.swift */,
-			);
-			path = Protocol;
-			sourceTree = "<group>";
-		};
-		ABAECADF287AE84E009DA449 /* Controller */ = {
+		AB9AE8BC2883EF530050EA99 /* View */ = {
 			isa = PBXGroup;
 			children = (
 				ABAECAE0287AE864009DA449 /* EditTodoViewController.swift */,
 			);
-			path = Controller;
+			path = View;
+			sourceTree = "<group>";
+		};
+		ABAECADD287AE7F2009DA449 /* Edit */ = {
+			isa = PBXGroup;
+			children = (
+				AB9AE8BC2883EF530050EA99 /* View */,
+				ABAECADF287AE84E009DA449 /* ViewModel */,
+			);
+			path = Edit;
+			sourceTree = "<group>";
+		};
+		ABAECADF287AE84E009DA449 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				ABCEA1B028810484009C32DC /* EditViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		ABC54F84287D61DC00280F43 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
 				ABDB96312875DC48002D6602 /* Extension */,
-				ABAECADE287AE814009DA449 /* Protocol */,
 				ABCEA1B62881662C009C32DC /* Constant.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
 		};
-		ABC54F8E287D879D00280F43 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				ABC54F8F287D87AB00280F43 /* TodoViewModel.swift */,
-				ABCEA1B028810484009C32DC /* EditViewModel.swift */,
-				AB9AE8BA2883DAE00050EA99 /* WriteViewModel.swift */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
 		ABDB962E2875D257002D6602 /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				ABDB96352875E45D002D6602 /* Cell */,
 				ABE5D6B028797F190065F216 /* View */,
-				ABDB96342875E449002D6602 /* Controller */,
+				ABDB96342875E449002D6602 /* ViewModel */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -193,12 +181,12 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
-		ABDB96342875E449002D6602 /* Controller */ = {
+		ABDB96342875E449002D6602 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				AB2E845328764B78002E4593 /* TodoListViewController.swift */,
+				ABC54F8F287D87AB00280F43 /* TodoViewModel.swift */,
 			);
-			path = Controller;
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		ABDB96352875E45D002D6602 /* Cell */ = {
@@ -242,6 +230,8 @@
 			isa = PBXGroup;
 			children = (
 				ABE5D6B128797F350065F216 /* TodoListView.swift */,
+				AB2E845328764B78002E4593 /* TodoListViewController.swift */,
+				ABDB96352875E45D002D6602 /* Cell */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -259,17 +249,17 @@
 			isa = PBXGroup;
 			children = (
 				AB8FA537287C5D7200C99110 /* View */,
-				ABE5D6BA2879D95D0065F216 /* Controller */,
+				ABE5D6BA2879D95D0065F216 /* ViewModel */,
 			);
 			path = Write;
 			sourceTree = "<group>";
 		};
-		ABE5D6BA2879D95D0065F216 /* Controller */ = {
+		ABE5D6BA2879D95D0065F216 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				ABE5D6BB2879D9BB0065F216 /* WriteTodoViewController.swift */,
+				AB9AE8BA2883DAE00050EA99 /* WriteViewModel.swift */,
 			);
-			path = Controller;
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		C7431EF925F51E1D0094C4CF = {
@@ -287,12 +277,11 @@
 			isa = PBXGroup;
 			children = (
 				ABDC1E902873AE8300091C71 /* Application */,
-				ABDC1E922873AE9E00091C71 /* Resource */,
 				ABE5D6B42879C10D0065F216 /* DB */,
-				ABC54F84287D61DC00280F43 /* Utils */,
-				ABC54F8E287D879D00280F43 /* ViewModel */,
 				AB2E8455287650B2002E4593 /* Model */,
 				ABDC1E912873AE9300091C71 /* Scene */,
+				ABC54F84287D61DC00280F43 /* Utils */,
+				ABDC1E922873AE9E00091C71 /* Resource */,
 			);
 			path = ProjectManager;
 			sourceTree = "<group>";
@@ -464,7 +453,6 @@
 				ABCEA1B3288139E5009C32DC /* Identifiable.swift in Sources */,
 				AB9AE8B828839F510050EA99 /* Storage.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
-				ABAECADC287ABB87009DA449 /* Todoable.swift in Sources */,
 				ABE5D6B62879C1310065F216 /* Realmable.swift in Sources */,
 				ABCEA1B128810484009C32DC /* EditViewModel.swift in Sources */,
 				ABCEA1B72881662C009C32DC /* Constant.swift in Sources */,

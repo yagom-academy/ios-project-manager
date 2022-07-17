@@ -14,9 +14,7 @@ final class TodoViewModel {
     self.storage = storage
   }
   // MARK: - Input
-  
-  // plus button did tap
-  // cell did swipe delete
+
   func deleActionDidTap(_ todo: Todo) {
     storage.delete(todo)
   }
@@ -57,24 +55,4 @@ final class TodoViewModel {
       }
       .eraseToAnyPublisher()
   }
-  
-//  func append(_ todo: Todo) {
-//    items.append(todo)
-//  }
-//
-//  func update(by index: Int, todo: Todo) {
-//    items[index] = todo
-//  }
-//
-//  func update(to state: State, by index: Int) {
-//    items[index].state = state
-//  }
-//
-//  func findListCount(_ todoState: State) -> Int {
-//    return items.filter { $0.state == todoState }.count
-//  }
-//
-//  func filterList(by state: State) -> [Todo] {
-//    return items.filter { $0.state == state }
-//  }
 }
