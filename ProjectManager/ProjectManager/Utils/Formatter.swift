@@ -20,7 +20,7 @@ struct Formatter {
 }
 
 extension DateFormatter {
-    func fetchCurrentDate() -> Date {
+    func currentDate() -> Date {
         guard let currentDate = Formatter.date.date(from: Date().description) else {
             return Date()
         }

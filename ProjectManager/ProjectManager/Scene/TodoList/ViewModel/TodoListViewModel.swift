@@ -69,7 +69,7 @@ final class TodoListViewModel {
         self.dataBase.delete(todoID: selectedTodo.identifier)
     }
     
-    func distinguishMenuType(of todo: Todo) -> (TodoListItemStatus, TodoListItemStatus) {
+    func extractNotIncludedMenuType(from todo: Todo) -> (TodoListItemStatus, TodoListItemStatus) {
         switch todo.todoListItemStatus {
         case .todo: return (.doing, .done)
         case .doing: return (.todo, .done)
@@ -77,7 +77,7 @@ final class TodoListViewModel {
         }
     }
     
-    func moveDifferentSection(to: TodoListItemStatus, selectedCell: Todo) {
+    func changeTodoListItemStatus(to: TodoListItemStatus, from selectedCell: Todo) {
         var selectedTodo = selectedCell
         
         guard let newStatus = TodoListItemStatus(rawValue: to.rawValue) else {
@@ -88,8 +88,8 @@ final class TodoListViewModel {
         self.dataBase.update(selectedTodo: selectedTodo)
     }
     
-    func changeDateColor(cell: TodoListCell, todoData: Todo) {
-        if todoData.date > Formatter.date.fetchCurrentDate() && todoData.todoListItemStatus != .done {
+    func changeDateLabelColor(in cell: TodoListCell, from todoData: Todo) {
+        if todoData.date > Formatter.date.currentDate() && todoData.todoListItemStatus != .done {
             cell.changeDateLabelColor(to: .red)
         } else {
             cell.changeDateLabelColor(to: .black)

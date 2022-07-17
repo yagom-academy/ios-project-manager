@@ -38,7 +38,7 @@ final class ListView: UIView {
     
     private lazy var headerTitleLabel: UILabel = {
         let label = UILabel()
-        label.text = self.todoListItemstatus.value
+        label.text = self.todoListItemstatus.displayName
         label.font = .preferredFont(forTextStyle: .title1)
         
         return label
@@ -121,7 +121,7 @@ final class ListView: UIView {
             (TodoListItemStatus.done, self.listViewModel.doneViewData)
         )
         .filter { $0.0 == self.todoListItemstatus }
-        .flatMap{ $0.1 }
+        .flatMap { $0.1 }
         .map { String($0.count) }
         .asDriver(onErrorJustReturn: "")
         .drive(self.listCountLabel.rx.text)
@@ -133,7 +133,7 @@ final class ListView: UIView {
             (TodoListItemStatus.done, self.listViewModel.doneViewData)
         )
         .filter { $0.0 == self.todoListItemstatus }
-        .flatMap{ $0.1 }
+        .flatMap { $0.1 }
         .asDriver(onErrorJustReturn: [])
         .drive(self.tableView.rx.items) { tabelView, row, element in
             guard let cell = tabelView.dequeueReusableCell(
@@ -143,7 +143,7 @@ final class ListView: UIView {
                 return UITableViewCell()
             }
             cell.configure(element)
-            self.listViewModel.changeDateColor(cell: cell, todoData: element)
+            self.listViewModel.changeDateLabelColor(in: cell, from: element)
             
             return cell
         }
@@ -165,19 +165,19 @@ final class ListView: UIView {
         
         self.tableView.rx.modelLongPressed(Todo.self)
             .subscribe(onNext: { [weak self] selectedCell, selectedData in
-                guard let (firstStatus, secondStatus) = self?.listViewModel.distinguishMenuType(of: selectedData) else {
+                guard let (firstStatus, secondStatus) = self?.listViewModel.extractNotIncludedMenuType(from: selectedData) else {
                     return
                 }
                                 
                 self?.coordinator?.showPopover(
                     sourceView: selectedCell,
-                    firstTitle: "Move To \(firstStatus.value)",
-                    secondTitle: "Move To \(secondStatus.value)",
+                    firstTitle: "Move To \(firstStatus.displayName)",
+                    secondTitle: "Move To \(secondStatus.displayName)",
                     firstAction: {
-                        self?.listViewModel.moveDifferentSection(to: firstStatus, selectedCell: selectedData)
+                        self?.listViewModel.changeTodoListItemStatus(to: firstStatus, from: selectedData)
                     },
                     secondAction: {
-                        self?.listViewModel.moveDifferentSection(to: secondStatus, selectedCell: selectedData)
+                        self?.listViewModel.changeTodoListItemStatus(to: secondStatus, from: selectedData)
                     })
             })
             .disposed(by: self.disposeBag)
