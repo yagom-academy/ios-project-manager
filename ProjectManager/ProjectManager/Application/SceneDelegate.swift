@@ -8,12 +8,20 @@ import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
+    private let todoSceneDIContainer = TodoSceneDIContainer()
+    private var todoListFlowCoordinator: TodoListFlowCoordinator?
+    
     var window: UIWindow?
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-        window?.rootViewController = UINavigationController(rootViewController: TodoListViewController(viewModel: DefaultTodoListViewModel()))
+        let navigationController = UINavigationController()
+        
+        window?.rootViewController = navigationController
+        todoListFlowCoordinator = TodoListFlowCoordinator(navigationController: navigationController, dependencies: todoSceneDIContainer)
+        
+        todoListFlowCoordinator?.start()
         window?.makeKeyAndVisible()
     }
 
@@ -27,3 +35,4 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func sceneDidEnterBackground(_ scene: UIScene) {}
 }
+

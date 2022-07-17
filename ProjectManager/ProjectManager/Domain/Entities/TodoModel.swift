@@ -13,11 +13,20 @@ enum State {
     case done
 }
 
-struct TodoModel {
-    let title: String
-    let body: String
-    let deadlineAt: Date
+struct TodoModel: Equatable {
+    var title: String?
+    var body: String?
+    var deadlineAt: Date
     var state: State
+    let id: UUID
+    
+    init(title: String?, body: String?, deadlineAt: Date, state: State = .todo, id: UUID = UUID()) {
+        self.title = title
+        self.body = body
+        self.deadlineAt = deadlineAt
+        self.state = state
+        self.id = id
+    }
 }
 
 #if DEBUG

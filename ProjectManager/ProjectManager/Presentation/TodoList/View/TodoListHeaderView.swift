@@ -23,7 +23,7 @@ final class TodoListHeaderView: UIView {
         return label
     }()
     
-    private let countLabel: UILabel = {
+    fileprivate let countLabel: UILabel = {
         let label = UILabel()
         label.backgroundColor = .label
         label.textColor = .systemBackground
@@ -49,7 +49,7 @@ final class TodoListHeaderView: UIView {
         self.addSubview(labelStackView)
         labelStackView.snp.makeConstraints { make in
             make.top.leading.bottom.equalTo(self).inset(8)
-            make.width.lessThanOrEqualTo(self.snp.width).multipliedBy(0.9)
+            make.width.lessThanOrEqualToSuperview().multipliedBy(0.9)
         }
         
         countLabel.snp.makeConstraints { make in
@@ -59,8 +59,8 @@ final class TodoListHeaderView: UIView {
     }
 }
 
-extension TodoListHeaderView {
-    var setCountText: Binder<String?> {
-        return countLabel.rx.text
+extension Reactive where Base == TodoListHeaderView {
+    var countText: Binder<String?> {
+        return base.countLabel.rx.text
     }
 }
