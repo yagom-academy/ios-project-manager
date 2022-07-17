@@ -21,6 +21,17 @@ final class TodoViewModel {
     storage.delete(todo)
   }
   //
+  func popoverButtonDidTap(_ todo: Todo, to state: State) {
+    let todo = Todo(
+      id: todo.id,
+      title: todo.title,
+      content: todo.content,
+      date: todo.date,
+      state: state
+    )
+    
+    storage.update(todo)
+  }
   // MARK: - Output
   
   var toList: AnyPublisher<[Todo], Never> {
