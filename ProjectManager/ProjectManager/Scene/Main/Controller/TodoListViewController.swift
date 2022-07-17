@@ -173,10 +173,16 @@ extension TodoListViewController: UICollectionViewDelegate {
 extension TodoListViewController: SwipeCollectionViewCellDelegate {
   func collectionView(_ collectionView: UICollectionView, editActionsForItemAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
     guard orientation == .right else { return nil }
-
-    let deleteAction = SwipeAction(style: .destructive, title: Const.delete) { _, _ in
-//      let collectionViewState = self.findState(about: collectionView)
-//      self.removeTodoDidTapDelete(collectionViewState, at: indexPath.row)
+    
+    guard let dataSource = collectionView.dataSource as? DataSource else {
+      return nil
+    }
+    guard let item = dataSource.snapshot().itemIdentifiers[safe: indexPath.row] else {
+      return nil
+    }
+    
+    let deleteAction = SwipeAction(style: .destructive, title: Const.delete) { [weak self] _, _ in
+      self?.viewModel.deleActionDidTap(item)
     }
 
     deleteAction.image = UIImage(named: Const.deleteImage)

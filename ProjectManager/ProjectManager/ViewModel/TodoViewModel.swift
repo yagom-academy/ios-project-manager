@@ -17,6 +17,9 @@ final class TodoViewModel {
   
   // plus button did tap
   // cell did swipe delete
+  func deleActionDidTap(_ todo: Todo) {
+    storage.delete(todo)
+  }
   //
   // MARK: - Output
   
