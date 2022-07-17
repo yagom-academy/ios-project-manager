@@ -18,7 +18,7 @@ final class WriteTodoView: UIView {
     return stackView
   }()
   
-  private let titleTextField: UITextField = {
+  let titleTextField: UITextField = {
     let textfield = UITextField()
     textfield.placeholder = "Title"
     textfield.textAlignment = .left
@@ -29,7 +29,7 @@ final class WriteTodoView: UIView {
     return textfield
   }()
   
-  private let datePicker: UIDatePicker = {
+  let datePicker: UIDatePicker = {
     let datePicker = UIDatePicker()
     datePicker.locale = Locale(identifier: "en_US")
     datePicker.datePickerMode = .date
@@ -39,7 +39,7 @@ final class WriteTodoView: UIView {
     return datePicker
   }()
   
-  private let contentTextView: UITextView = {
+  let contentTextView: UITextView = {
     let textView = UITextView()
     textView.font = .preferredFont(forTextStyle: .title1)
     textView.layer.shadowOpacity = 0.5
@@ -74,16 +74,6 @@ final class WriteTodoView: UIView {
       mainStackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
       mainStackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor)
     ])
-  }
-  
-  func createTodoData(state: State) -> Todo {
-    guard let title = titleTextField.text,
-          let content = contentTextView.text else { return Todo(title: "", content: "", date: .now) }
-    let date = datePicker.date
-    
-    let todo = Todo(title: title, content: content, date: date, state: state)
-    
-    return todo
   }
   
   func setUserInteractionEnableViews(_ bool: Bool) {

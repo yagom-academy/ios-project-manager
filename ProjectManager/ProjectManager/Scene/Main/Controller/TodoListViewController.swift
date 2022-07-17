@@ -107,7 +107,7 @@ final class TodoListViewController: UIViewController {
   }
   
   private func moveWriteTodo() {
-    let writeViewController = WriteTodoViewController()
+    let writeViewController = WriteTodoViewController(viewModel: WriteViewModel())
     let writeNavigationController = UINavigationController(rootViewController: writeViewController)
     writeNavigationController.modalPresentationStyle = .pageSheet
     

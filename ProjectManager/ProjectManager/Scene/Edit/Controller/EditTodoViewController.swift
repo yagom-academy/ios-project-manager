@@ -33,13 +33,6 @@ final class EditTodoViewController: UIViewController {
     fatalError("init(coder:) has not been implemented")
   }
   
-  private func makeFormTodoDate(state: State) -> Todo {
-    var editedTodoDate = editView.createTodoData(state: state)
-//    editedTodoDate.id = viewModel.todo.id
-    
-    return editedTodoDate
-  }
-  
   private func setUpNavigation() {
     navigationItem.title = HeaderName.todo
     navigationController?.navigationBar.barTintColor = UIColor.systemGray

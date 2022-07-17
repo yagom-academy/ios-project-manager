@@ -7,8 +7,17 @@
 import UIKit
 
 final class WriteTodoViewController: UIViewController {
-  weak var todoDelegate: TodoDelegate?
   private lazy var writeView = WriteTodoView(frame: view.frame)
+  private let viewModel: WriteViewModel
+  
+  init(viewModel: WriteViewModel) {
+    self.viewModel = viewModel
+    super.init(nibName: nil, bundle: nil)
+  }
+  
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
   
   override func loadView() {
     super.loadView()
@@ -35,18 +44,14 @@ final class WriteTodoViewController: UIViewController {
       systemItem: .done,
       primaryAction: UIAction(
         handler: { [weak self] _ in
-          self?.createTodo()
+          self?.viewModel.doneButtonDidTap(
+            title: self?.writeView.titleTextField.text,
+            content: self?.writeView.contentTextView.text,
+            date: self?.writeView.datePicker.date
+          )
+          
           self?.dismiss(animated: true)
         })
     )
-  }
-  
-  private func createTodo() {
-    let writedTodoData = writeView.createTodoData(state: .todo)
-    
-    let realmTodo = DBManager.shared.mappingTodoModel(from: writedTodoData)
-    DBManager.shared.create(realmTodo)
-    
-    self.todoDelegate?.createData(writedTodoData)
   }
 }

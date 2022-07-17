@@ -13,4 +13,17 @@ final class WriteViewModel {
   init(storage: StorageType = MemoryStorage.shared) {
     self.storage = storage
   }
+  
+  // MARK: - Input
+  func doneButtonDidTap(title: String?, content: String?, date: Date?) {
+    guard let title = title, let content = content, let date = date else {
+      return
+    }
+
+    let todo = Todo(title: title, content: content, date: date)
+    
+    storage.create(todo)
+  }
+  
+  // MARK: - Output
 }
