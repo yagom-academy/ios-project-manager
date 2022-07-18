@@ -17,6 +17,7 @@
 		308FF0C02878205700301DCF /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308FF0BF2878205700301DCF /* DetailViewController.swift */; };
 		30B02F8C2873E3F40029579F /* TodoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B02F8B2873E3F40029579F /* TodoListViewModel.swift */; };
 		30B02F9028747FF40029579F /* TodoListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B02F8F28747FF40029579F /* TodoListCell.swift */; };
+		30FCF72428854C5D007D9557 /* RealmTodo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FCF72328854C5D007D9557 /* RealmTodo.swift */; };
 		643719A22872B0DF00F78AAA /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 643719A12872B0DF00F78AAA /* RxCocoa */; };
 		643719A42872B0DF00F78AAA /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 643719A32872B0DF00F78AAA /* RxRelay */; };
 		643719A62872B0DF00F78AAA /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 643719A52872B0DF00F78AAA /* RxSwift */; };
@@ -60,6 +61,7 @@
 		308FF0BF2878205700301DCF /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		30B02F8B2873E3F40029579F /* TodoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListViewModel.swift; sourceTree = "<group>"; };
 		30B02F8F28747FF40029579F /* TodoListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListCell.swift; sourceTree = "<group>"; };
+		30FCF72328854C5D007D9557 /* RealmTodo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmTodo.swift; sourceTree = "<group>"; };
 		643719DA2873D2BB00F78AAA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		643719DF2873E02F00F78AAA /* Todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
 		64371A4F2874940300F78AAA /* StackView+Sugar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StackView+Sugar.swift"; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 			isa = PBXGroup;
 			children = (
 				643719DF2873E02F00F78AAA /* Todo.swift */,
+				30FCF72328854C5D007D9557 /* RealmTodo.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -352,6 +355,7 @@
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				64371B03287EEB1500F78AAA /* TempData.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
+				30FCF72428854C5D007D9557 /* RealmTodo.swift in Sources */,
 				64371A502874940300F78AAA /* StackView+Sugar.swift in Sources */,
 				308FF0C02878205700301DCF /* DetailViewController.swift in Sources */,
 				64371AE9287C570D00F78AAA /* AppCoordinator.swift in Sources */,
