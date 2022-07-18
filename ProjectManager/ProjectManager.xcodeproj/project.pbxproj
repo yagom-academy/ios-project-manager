@@ -13,8 +13,9 @@
 		AB8FA539287C5D7B00C99110 /* WriteTodoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8FA538287C5D7B00C99110 /* WriteTodoView.swift */; };
 		AB9AE8B828839F510050EA99 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9AE8B728839F510050EA99 /* Storage.swift */; };
 		AB9AE8BB2883DAE00050EA99 /* WriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9AE8BA2883DAE00050EA99 /* WriteViewModel.swift */; };
+		AB9AE8BE28854FE00050EA99 /* RealmError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9AE8BD28854FE00050EA99 /* RealmError.swift */; };
 		ABAECAE1287AE864009DA449 /* EditTodoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAECAE0287AE864009DA449 /* EditTodoViewController.swift */; };
-		ABC54F87287D637900280F43 /* LocalDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC54F86287D637900280F43 /* LocalDB.swift */; };
+		ABC54F87287D637900280F43 /* RealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC54F86287D637900280F43 /* RealmService.swift */; };
 		ABC54F8B287D654200280F43 /* TodoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC54F8A287D654200280F43 /* TodoModel.swift */; };
 		ABC54F8D287D873200280F43 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC54F8C287D873200280F43 /* State.swift */; };
 		ABC54F90287D87AB00280F43 /* TodoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC54F8F287D87AB00280F43 /* TodoViewModel.swift */; };
@@ -42,8 +43,9 @@
 		AB8FA538287C5D7B00C99110 /* WriteTodoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteTodoView.swift; sourceTree = "<group>"; };
 		AB9AE8B728839F510050EA99 /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		AB9AE8BA2883DAE00050EA99 /* WriteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteViewModel.swift; sourceTree = "<group>"; };
+		AB9AE8BD28854FE00050EA99 /* RealmError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmError.swift; sourceTree = "<group>"; };
 		ABAECAE0287AE864009DA449 /* EditTodoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTodoViewController.swift; sourceTree = "<group>"; };
-		ABC54F86287D637900280F43 /* LocalDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDB.swift; sourceTree = "<group>"; };
+		ABC54F86287D637900280F43 /* RealmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmService.swift; sourceTree = "<group>"; };
 		ABC54F8A287D654200280F43 /* TodoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoModel.swift; sourceTree = "<group>"; };
 		ABC54F8C287D873200280F43 /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
 		ABC54F8F287D87AB00280F43 /* TodoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoViewModel.swift; sourceTree = "<group>"; };
@@ -115,8 +117,9 @@
 		AB9AE8B92883A0B80050EA99 /* Realm */ = {
 			isa = PBXGroup;
 			children = (
-				ABC54F86287D637900280F43 /* LocalDB.swift */,
+				ABC54F86287D637900280F43 /* RealmService.swift */,
 				ABC54F8A287D654200280F43 /* TodoModel.swift */,
+				AB9AE8BD28854FE00050EA99 /* RealmError.swift */,
 			);
 			path = Realm;
 			sourceTree = "<group>";
@@ -441,6 +444,7 @@
 				ABAECAE1287AE864009DA449 /* EditTodoViewController.swift in Sources */,
 				ABC54F90287D87AB00280F43 /* TodoViewModel.swift in Sources */,
 				ABE5D6BC2879D9BB0065F216 /* WriteTodoViewController.swift in Sources */,
+				AB9AE8BE28854FE00050EA99 /* RealmError.swift in Sources */,
 				ABCEA1B528814DD4009C32DC /* Collection.swift in Sources */,
 				AB2E845428764B78002E4593 /* TodoListViewController.swift in Sources */,
 				ABCEA1B3288139E5009C32DC /* Identifiable.swift in Sources */,
@@ -449,7 +453,7 @@
 				ABCEA1B128810484009C32DC /* EditViewModel.swift in Sources */,
 				ABCEA1B72881662C009C32DC /* Constant.swift in Sources */,
 				ABC54F8B287D654200280F43 /* TodoModel.swift in Sources */,
-				ABC54F87287D637900280F43 /* LocalDB.swift in Sources */,
+				ABC54F87287D637900280F43 /* RealmService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

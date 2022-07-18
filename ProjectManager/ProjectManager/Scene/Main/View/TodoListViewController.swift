@@ -28,7 +28,7 @@ final class TodoListViewController: UIViewController {
   private let doingView = TodoListView(headerName: HeaderName.doing)
   private let doneView = TodoListView(headerName: HeaderName.done)
   
-  private let viewModel = TodoViewModel(storage: MemoryStorage.shared)
+  private let viewModel = TodoViewModel(storage: RealmService.shared)
   
   private let mainStackView: UIStackView = {
     let stackView = UIStackView()

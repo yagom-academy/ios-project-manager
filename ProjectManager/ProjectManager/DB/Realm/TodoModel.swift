@@ -2,8 +2,7 @@
 //  TodoModel.swift
 //  ProjectManager
 //
-//  Created by LIMGAUI on 2022/07/12.
-//
+//  Created by LIMGAUI on 2022/07/12
 
 import RealmSwift
 
@@ -12,15 +11,15 @@ final class TodoModel: Object {
   @Persisted var content: String
   @Persisted var date: Date
   @Persisted var state: State.RawValue
-  @Persisted var identifier: String
+  @Persisted(primaryKey: true) var identifier: String
   
-  convenience init(title: String, content: String, state: State) {
+  convenience init(title: String, content: String, date: Date, state: State, id: String) {
     self.init()
     self.title = title
     self.content = content
-    self.date = Date.now
+    self.date = date
     self.state = state.rawValue
-    self.identifier = UUID().uuidString
+    self.identifier = id
   }
   
   func mappingTodo() -> Todo {

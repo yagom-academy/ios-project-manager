@@ -10,7 +10,7 @@ import Foundation
 final class WriteViewModel {
   private let storage: StorageType
   
-  init(storage: StorageType = MemoryStorage.shared) {
+  init(storage: StorageType = RealmService.shared) {
     self.storage = storage
   }
   

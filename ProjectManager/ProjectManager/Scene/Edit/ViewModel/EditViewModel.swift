@@ -14,7 +14,7 @@ final class EditViewModel: NSObject {
   // MARK: - Output
   let item: Todo
   
-  init(storage: StorageType = MemoryStorage.shared, item: Todo) {
+  init(storage: StorageType = RealmService.shared, item: Todo) {
     self.storage = storage
     self.item = item
   }
