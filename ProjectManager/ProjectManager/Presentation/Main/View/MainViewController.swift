@@ -149,10 +149,11 @@ final class MainViewController: UIViewController {
                     return
                 }
                 
-                if event.state == .began {
+                guard event.state == .recognized else {
                     self?.presentPopOver(cell)
                     return
                 }
+                
                 self?.presentViewController(status: status, cell: cell)
             }
             .disposed(by: disposeBag)
