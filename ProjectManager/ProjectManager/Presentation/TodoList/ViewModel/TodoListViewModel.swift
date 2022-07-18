@@ -18,6 +18,7 @@ protocol TodoListViewModelInput {
     func plusButtonDidTap()
     func cellSelected(id: UUID)
     func cellLongPress(cell: TodoListCell?, id: UUID)
+    func cellDeleteButtonDidTap(item: TodoCellContent)
 }
 
 protocol TodoListViewModelOutput {
@@ -32,8 +33,6 @@ protocol TodoListViewModelOutput {
 protocol TodoListViewModel: TodoListViewModelInput, TodoListViewModelOutput {}
 
 final class DefaultTodoListViewModel: TodoListViewModel {
-
-    
     private let useCase: TodoListUseCase
     private let actions: TodoListViewModelActions?
     private let todoLists: BehaviorSubject<[TodoModel]>
@@ -105,6 +104,10 @@ final class DefaultTodoListViewModel: TodoListViewModel {
             .first(where: { $0.id == id }) {
                 actions?.popoverMoveViewController(cell, item)
             }
+    }
+    
+    func cellDeleteButtonDidTap(item: TodoCellContent) {
+        useCase.deleteItem(id: item.id)
     }
     
     init(useCase: TodoListUseCase, actions: TodoListViewModelActions) {

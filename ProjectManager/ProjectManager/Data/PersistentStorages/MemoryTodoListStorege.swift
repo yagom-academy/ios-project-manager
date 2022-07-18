@@ -11,6 +11,7 @@ import RxSwift
 protocol TodoListStorege {
     func read() -> BehaviorSubject<[TodoModel]>
     func save(to data: TodoModel)
+    func delete(index: Int)
 }
 
 final class MemoryTodoListStorege {
@@ -35,5 +36,11 @@ extension MemoryTodoListStorege: TodoListStorege {
             items.insert(data, at: 0)
             memoryStorege.onNext(items)
         }
+    }
+    
+    func delete(index: Int) {
+        guard var items = try? memoryStorege.value() else { return }
+        items.remove(at: index)
+        memoryStorege.onNext(items)
     }
 }

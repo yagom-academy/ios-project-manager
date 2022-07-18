@@ -114,5 +114,14 @@ extension TodoListViewController {
                 self?.mainView.tableViewdeselectRow(indexPath: indexPath)
                 self?.viewModel.cellSelected(id: item.id)
             }.disposed(by: bag)
+        
+        Observable
+            .of(mainView.todo.tableView.rx.modelDeleted(TodoCellContent.self),
+                mainView.doing.tableView.rx.modelDeleted(TodoCellContent.self),
+                mainView.done.tableView.rx.modelDeleted(TodoCellContent.self))
+            .merge()
+            .bind { [weak self] item in
+                self?.viewModel.cellDeleteButtonDidTap(item: item)
+            }.disposed(by: bag)
     }
 }
