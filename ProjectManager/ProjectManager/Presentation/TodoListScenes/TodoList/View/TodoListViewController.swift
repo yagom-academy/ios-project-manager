@@ -52,7 +52,7 @@ final class TodoListViewController: UIViewController {
                 case .success(let success):
                     print(success)
                 case .failure(let error):
-                    print(error)
+                    self?.showAlert(title: error.localizedDescription)
                 }
             }
             .store(in: &cancellables)
@@ -76,5 +76,17 @@ final class TodoListViewController: UIViewController {
         }
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .add, primaryAction: addAction)
+    }
+}
+
+extension UIViewController {
+    func showAlert(title: String, message: String? = nil) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let confirmAction = UIAlertAction(title: "Confirm", style: .default) { _ in
+            
+        }
+        alertController.addAction(confirmAction)
+        
+        self.present(alertController, animated: true)
     }
 }
