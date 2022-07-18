@@ -27,9 +27,9 @@ final class EditViewModel: EditViewModelable {
     var list: ListItem
     var isEditable = BehaviorRelay<Bool>(value: false)
     
-    init(storage: Storegeable, list: ListItem?) {
+    init(storage: Storegeable, index: Int, type: ListType) {
         self.storage = storage
-        self.list = list ?? ListItem(title: "", body: "", deadline: Date())
+        self.list = storage.selectList(index: index, type: type)
     }
     
     func changeTitle(_ text: String?) {

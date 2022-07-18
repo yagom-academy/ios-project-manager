@@ -56,8 +56,8 @@ final class MainViewController: UIViewController {
         self.present(container.makeAddViewController(), animated: true)
     }
     
-    private func moveToEditViewController(_ listItem: ListItem) {
-        self.present(container.makeEditViewController(listItem), animated: true)
+    private func moveToEditViewController(index: Int, type: ListType) {
+        self.present(container.makeEditViewController(index: index, type: type), animated: true)
     }
     
     private func setTableView() {
@@ -92,9 +92,7 @@ final class MainViewController: UIViewController {
         
         tableView.rx.itemSelected
             .bind(onNext: { index in
-                
-                let list = self.viewModel.selectList(index: index.row, type: type)
-                self.moveToEditViewController(list)
+                self.moveToEditViewController(index: index.row, type: type)
                 tableView.deselectRow(at: index, animated: true)
             })
             .disposed(by: disposebag)
