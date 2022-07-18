@@ -24,9 +24,9 @@ final class AddViewModel: DetailViewModelable {
     private let storage: Storegeable
     var list: ListItem
     
-    init(storage: Storegeable, list: ListItem?) {
+    init(storage: Storegeable) {
         self.storage = storage
-        self.list = list ?? ListItem(title: "", body: "", deadline: Date())
+        self.list = ListItem(title: "", body: "", deadline: Date())
     }
     
     func changeTitle(_ text: String?) {

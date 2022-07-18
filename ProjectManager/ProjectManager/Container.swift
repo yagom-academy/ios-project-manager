@@ -17,13 +17,13 @@ final class Container {
     }
     
     func makeAddViewController() -> AddViewController {
-        let addVC = AddViewController(viewModel: makeAddViewModel(nil))
+        let addVC = AddViewController(viewModel: makeAddViewModel())
         addVC.modalPresentationStyle = .formSheet
         return addVC
     }
     
-    private func makeAddViewModel(_ list: ListItem?) -> AddViewModel {
-        return AddViewModel(storage: storage, list: list)
+    private func makeAddViewModel() -> AddViewModel {
+        return AddViewModel(storage: storage)
     }
     
     func makeEditViewController(index: Int, type: ListType) -> EditViewController {
