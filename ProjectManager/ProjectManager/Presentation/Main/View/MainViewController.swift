@@ -132,13 +132,9 @@ final class MainViewController: UIViewController {
     }
     
     private func setUpGesture() {
-        let toDoTableView = mainView.toDoTable.tableView
-        let doingTableView = mainView.doingTable.tableView
-        let doneTableView = mainView.doneTable.tableView
-        
-        bindGesture(to: toDoTableView, status: .todo)
-        bindGesture(to: doingTableView, status: .doing)
-        bindGesture(to: doneTableView, status: .done)
+        bindGesture(to: mainView.toDoTable.tableView, status: .todo)
+        bindGesture(to: mainView.doingTable.tableView, status: .doing)
+        bindGesture(to: mainView.doneTable.tableView, status: .done)
     }
     
     private func bindGesture(to tableView: UITableView, status: ProjectStatus) {
