@@ -6,7 +6,7 @@
 //
 
 struct PopOverViewModel {
-    let cell: ProjectCell
+    private let cell: ProjectCell
     
     init(cell: ProjectCell) {
         self.cell = cell

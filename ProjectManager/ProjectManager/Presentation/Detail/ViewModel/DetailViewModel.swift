@@ -6,7 +6,7 @@
 //
 
 struct DetailViewModel {
-    let content: ProjectContent
+    private let content: ProjectContent
     
     init(content: ProjectContent) {
         self.content = content
@@ -14,5 +14,9 @@ struct DetailViewModel {
     
     func update(_ content: ProjectContent) {
         ProjectUseCase().update(projectContent: content)
+    }
+    
+    func asContent() -> ProjectContent {
+        return content
     }
 }

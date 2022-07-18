@@ -84,9 +84,9 @@ final class MainViewController: UIViewController {
     }
     
     private func setUpTableCellData() {
-        bindCell(to: viewModel.todoProjects, at: mainView.toDoTable.tableView)
-        bindCell(to: viewModel.doingProjects, at: mainView.doingTable.tableView)
-        bindCell(to: viewModel.doneProjects, at: mainView.doneTable.tableView)
+        bindCell(to: viewModel.asTodoProjects(), at: mainView.toDoTable.tableView)
+        bindCell(to: viewModel.asDoingProjects(), at: mainView.doingTable.tableView)
+        bindCell(to: viewModel.asDoneProjects(), at: mainView.doneTable.tableView)
     }
     
     private func bindCell(to projects: Driver<[ProjectContent]>, at tableView: UITableView) {
@@ -117,9 +117,9 @@ final class MainViewController: UIViewController {
     }
     
     private func setUpTotalCount() {
-        bindCountLabel(of: mainView.toDoTable, to: viewModel.todoProjects)
-        bindCountLabel(of: mainView.doingTable, to: viewModel.doingProjects)
-        bindCountLabel(of: mainView.doneTable, to: viewModel.doneProjects)
+        bindCountLabel(of: mainView.toDoTable, to: viewModel.asTodoProjects())
+        bindCountLabel(of: mainView.doingTable, to: viewModel.asDoingProjects())
+        bindCountLabel(of: mainView.doneTable, to: viewModel.asDoneProjects())
     }
     
     private func bindCountLabel(of tableView: ProjectListView, to projects: Driver<[ProjectContent]>) {

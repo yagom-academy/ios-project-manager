@@ -13,24 +13,6 @@ struct MainViewModel {
         return ProjectUseCase().read()
     }()
 
-    lazy var todoProjects: Driver<[ProjectContent]> = {
-        projects
-            .map { $0.filter { $0.status == .todo } }
-            .asDriver(onErrorJustReturn: [])
-    }()
-
-    lazy var doingProjects: Driver<[ProjectContent]> = {
-        projects
-            .map { $0.filter { $0.status == .doing } }
-            .asDriver(onErrorJustReturn: [])
-    }()
-
-    lazy var doneProjects: Driver<[ProjectContent]> = {
-        projects
-            .map { $0.filter { $0.status == .done } }
-            .asDriver(onErrorJustReturn: [])
-    }()
-
     func deleteProject(_ content: ProjectContent) {
         ProjectUseCase().delete(projectContentID: content.id)
     }
@@ -48,5 +30,23 @@ struct MainViewModel {
         }
         
         return cell
+    }
+    
+    func asTodoProjects() -> Driver<[ProjectContent]> {
+        return projects
+            .map { $0.filter { $0.status == .todo } }
+            .asDriver(onErrorJustReturn: [])
+    }
+    
+    func asDoingProjects() -> Driver<[ProjectContent]> {
+        return projects
+            .map { $0.filter { $0.status == .doing } }
+            .asDriver(onErrorJustReturn: [])
+    }
+    
+    func asDoneProjects() -> Driver<[ProjectContent]> {
+        return projects
+            .map { $0.filter { $0.status == .done } }
+            .asDriver(onErrorJustReturn: [])
     }
 }

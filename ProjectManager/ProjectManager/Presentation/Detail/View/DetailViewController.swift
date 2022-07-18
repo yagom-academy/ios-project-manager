@@ -35,13 +35,13 @@ final class DetailViewController: UIViewController {
     }
     
     private func setUpModalView() {
-        modalView.compose(content: viewModel.content)
+        modalView.compose(content: viewModel.asContent())
         modalView.isUserInteractionEnabled(false)
     }
     
     private func setUpDetailNavigationItem() {
         navigationController?.navigationBar.backgroundColor = .systemGray6
-        navigationItem.title = viewModel.content.status.string
+        navigationItem.title = viewModel.asContent().status.string
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .edit,
             target: nil,
@@ -59,7 +59,7 @@ final class DetailViewController: UIViewController {
     
     private func setUpEditNavigationItem() {
         navigationController?.navigationBar.backgroundColor = .systemGray6
-        navigationItem.title = viewModel.content.status.string
+        navigationItem.title = viewModel.asContent().status.string
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .cancel,
             target: nil,
@@ -92,7 +92,7 @@ final class DetailViewController: UIViewController {
                 guard let self = self else {
                     return
                 }
-                let newContent = self.modalView.change(self.viewModel.content)
+                let newContent = self.modalView.change(self.viewModel.asContent())
                 self.viewModel.update(newContent)
                 self.modalView.isUserInteractionEnabled(false)
                 self.setUpDetailNavigationItem()
