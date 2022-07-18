@@ -8,7 +8,7 @@
 import UIKit
 
 final class ProjectCell: UITableViewCell {
-    var contentID: UUID?
+    private(set) var contentID: UUID?
     
     private let titleLabel: UILabel = {
         let label = UILabel()
