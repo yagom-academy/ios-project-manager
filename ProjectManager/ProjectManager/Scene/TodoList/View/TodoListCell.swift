@@ -84,7 +84,7 @@ final class TodoListCell: UITableViewCell {
         self.dateLabel.text = todo.date.convertToString()
     }
     
-    func changeDateLabelColor(to: ColorPalette) {
+    func changeDateLabelColor(to: DateLabelColor) {
         self.dateLabel.textColor = to.color
     }
 }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-enum ColorPalette {
+enum DateLabelColor {
     case red
     case black
     
