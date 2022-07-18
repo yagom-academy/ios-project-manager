@@ -93,9 +93,8 @@ final class MainViewController: UIViewController {
         tableView.rx.itemSelected
             .bind(onNext: { index in
                 
-                self.viewModel.peekList(index: index.row, type: type) {
-                    self.moveToEditViewController($0)
-                }
+                let list = self.viewModel.selectList(index: index.row, type: type)
+                self.moveToEditViewController(list)
                 tableView.deselectRow(at: index, animated: true)
             })
             .disposed(by: disposebag)

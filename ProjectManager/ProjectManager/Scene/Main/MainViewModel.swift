@@ -20,7 +20,7 @@ protocol MainViewModelOutput {
 
 protocol MainViewModelInput {
     func isOverDeadline(listItem: ListItem) -> Bool
-    func peekList(index: Int, type: ListType, completion: @escaping ((ListItem) -> Void))
+    func selectList(index: Int, type: ListType) -> ListItem
     func deleteList(index: Int, type: ListType)
     func changeListType(index: Int, type: ListType, to: ListType)
 }
@@ -36,20 +36,9 @@ final class MainViewModel: MainViewModelInOut {
     init(storage: Storegeable) {
         self.storage = storage
         
-        todoList = storage.list
-            .map{ $0.filter { $0.type == .todo }}
-            .map{ $0.sorted(by: { $0.deadline < $1.deadline}) }
-            .asDriver(onErrorJustReturn: [])
-        
-        doingList = storage.list
-            .map{ $0.filter { $0.type == .doing }}
-            .map{ $0.sorted(by: { $0.deadline < $1.deadline}) }
-            .asDriver(onErrorJustReturn: [])
-        
-        doneList = storage.list
-            .map{ $0.filter { $0.type == .done }}
-            .map{ $0.sorted(by: { $0.deadline < $1.deadline}) }
-            .asDriver(onErrorJustReturn: [])
+        todoList = storage.todoList.asDriver(onErrorJustReturn: [])
+        doingList = storage.doingList.asDriver(onErrorJustReturn: [])
+        doneList = storage.doneList.asDriver(onErrorJustReturn: [])
     }
     
     func listCount(_ type: ListType) -> Driver<String> {
@@ -70,37 +59,15 @@ extension MainViewModel {
         return listItem.type != .done && listItem.deadline < Date()
     }
     
-    func peekList(index: Int, type: ListType, completion: @escaping ((ListItem) -> Void)) {
-        switch type {
-        case .todo:
-            todoList.drive(onNext: {
-                completion($0[index])
-            })
-            .dispose()
-        case .doing:
-            doingList.drive(onNext: {
-                completion($0[index])
-            })
-            .dispose()
-        case .done:
-            doneList.drive(onNext: {
-                completion($0[index])
-            })
-            .dispose()
-        }
+    func selectList(index: Int, type: ListType) -> ListItem {
+        return storage.selectList(index: index, type: type)
     }
     
     func deleteList(index: Int, type: ListType) {
-        peekList(index: index, type: type) {
-            self.storage.deleteList(listItem: $0)
-        }
+        storage.deleteList(index: index, type: type)
     }
     
     func changeListType(index: Int, type: ListType, to destination: ListType) {
-        peekList(index: index, type: type) {
-            var listItem = $0
-            listItem.type = destination
-            self.storage.updateList(listItem: listItem)
-        }
+        storage.changeListType(index: index, type: type, destination: destination)
     }
 }
