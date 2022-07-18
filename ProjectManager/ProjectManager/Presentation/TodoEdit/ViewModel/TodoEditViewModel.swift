@@ -41,11 +41,7 @@ final class DefaultTodoEditViewModel: TodoEditViewModel {
     }
     
     var setUpView: Observable<TodoModel?> {
-        if let item = item {
-            return Observable.just(item)
-        } else {
-            return Observable.just(nil)
-        }
+        return Observable.just(item)
     }
     
     var setCreateMode: Observable<Bool> {
@@ -89,6 +85,6 @@ final class DefaultTodoEditViewModel: TodoEditViewModel {
     
     private func makeEmptyTodoItem() {
         guard item == nil else { return }
-        item = TodoModel(title: nil, body: nil, deadlineAt: Date())
+        item = TodoModel()
     }
 }

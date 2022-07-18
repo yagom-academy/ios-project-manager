@@ -27,6 +27,10 @@ struct TodoModel: Equatable {
         self.state = state
         self.id = id
     }
+
+    init() {
+        self.init(title: nil, body: nil, deadlineAt: Date())
+    }
 }
 
 #if DEBUG
