@@ -81,11 +81,13 @@ extension DefaultTodoListViewModel: TodoListViewModel {
             .map { "\($0.count)" }
             .asDriver(onErrorJustReturn: "0")
     }
+    
     var doingListCount: Driver<String> {
         doingList
             .map { "\($0.count)" }
             .asDriver(onErrorJustReturn: "0")
     }
+    
     var doneListCount: Driver<String> {
         doneList
             .map { "\($0.count)" }
