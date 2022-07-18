@@ -52,8 +52,10 @@ extension Todo {
 }
 #endif
 
-enum ProcessType {
-    case todo
-    case doing
-    case done
+import RealmSwift
+
+enum ProcessType: String, PersistableEnum {
+    case todo = "TODO"
+    case doing = "DOING"
+    case done = "DONE"
 }
