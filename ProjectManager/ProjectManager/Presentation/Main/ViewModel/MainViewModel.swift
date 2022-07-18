@@ -31,8 +31,8 @@ struct MainViewModel {
             .asDriver(onErrorJustReturn: [])
     }()
 
-    func deleteProject(_ id: UUID?) {
-        ProjectUseCase().repository.delete(projectContentID: id)
+    func deleteProject(_ content: ProjectContent) {
+        ProjectUseCase().repository.delete(projectContentID: content.id)
     }
     
     func readProject(_ id: UUID?) -> ProjectContent? {
