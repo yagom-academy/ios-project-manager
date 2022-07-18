@@ -12,8 +12,8 @@ import RxRelay
 protocol Database {
     var todoListBehaviorRelay: BehaviorRelay<[Todo]> { get set }
     
-    func create(todoList: [Todo])
-    func read(todoID: UUID) -> Todo?
+    func create(todoData: Todo)
+    func read()
     func update(selectedTodo: Todo)
     func delete(todoID: UUID)
 }
@@ -26,26 +26,30 @@ final class TempDatabase: Database {
     var todoListBehaviorRelay = BehaviorRelay<[Todo]>(value: [])
     
     init() {
-        self.todoListBehaviorRelay.accept(self.fetch())
+        self.read()
     }
     
-    private func fetch() -> [Todo] {
+    func create(todoData: Todo) {
+        self.todoListBehaviorRelay.accept(self.todoListBehaviorRelay.value + [todoData])
+    }
+    
+    func read() {
         guard let tempTodoStatus = self.tempTodoData["todoListItemStatus"],
               let tempTodoTitle = self.tempTodoData["title"],
               let tempTodoDescription = self.tempTodoData["description"] else {
-            return [Todo(todoListItemStatus: .todo)]
+            return
         }
         
         guard let tempDoneStatus = self.tempDoneData["todoListItemStatus"],
               let tempDoneTitle = self.tempDoneData["title"],
               let tempDoneDescription = self.tempDoneData["description"] else {
-            return [Todo(todoListItemStatus: .done)]
+            return
         }
         
         guard let tempDoingStatus = self.tempDoingData["todoListItemStatus"],
               let tempDoingTitle = self.tempDoingData["title"],
               let tempDoingDescription = self.tempDoingData["description"] else {
-            return [Todo(todoListItemStatus: .doing)]
+            return
         }
         
         let tempTodoData = [
@@ -54,16 +58,7 @@ final class TempDatabase: Database {
             Todo(todoListItemStatus: TodoListItemStatus(rawValue: tempDoingStatus) ?? TodoListItemStatus.doing, title: tempDoingTitle, description: tempDoingDescription)
         ]
         
-        return tempTodoData
-    }
-    
-    func create(todoList: [Todo]) {
-        self.todoListBehaviorRelay.accept(self.todoListBehaviorRelay.value + todoList)
-    }
-    
-    func read(todoID: UUID) -> Todo? {
-        let item = self.todoListBehaviorRelay.value.filter { $0.identifier == todoID }
-        return item.first
+        self.todoListBehaviorRelay.accept(tempTodoData)
     }
     
     func update(selectedTodo: Todo) {

@@ -30,7 +30,7 @@ final class DetailViewModel {
             self.database.update(selectedTodo: todo)
             completion()
         } else {
-            self.database.create(todoList: [todo])
+            self.database.create(todoData: todo)
             completion()
         }
     }
