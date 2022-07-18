@@ -14,7 +14,7 @@ struct TodoMoveViewModelActions {
 }
 
 protocol TodoMoveViewModelInput {
-    func setbuttonTitle(state: State)
+    func setbuttonsTitle(state: State)
     func firstButtonDidTap(item: TodoModel)
     func secondButtonDidTap(item: TodoModel)
 }
@@ -25,7 +25,7 @@ protocol TodoMoveViewModelOutput {
 
 protocol TodoMoveViewModel: TodoMoveViewModelInput, TodoMoveViewModelOutput {}
 
-final class DefaultTodoMoveViewModel: TodoMoveViewModel {
+final class DefaultTodoMoveViewModel {
     private let useCase: TodoListUseCase
     
     private var actions: TodoMoveViewModelActions?
@@ -36,11 +36,11 @@ final class DefaultTodoMoveViewModel: TodoMoveViewModel {
     }
     
     private let stateReplayRelay = ReplayRelay<State>.create(bufferSize: 1)
+}
+
+extension DefaultTodoMoveViewModel: TodoMoveViewModel {
     
-    func setbuttonTitle(state: State) {
-        stateReplayRelay.accept(state)
-    }
-    
+    //MARK: - Output
     var buttonTitle: Observable<(String, String)> {
         stateReplayRelay
             .take(1)
@@ -48,6 +48,11 @@ final class DefaultTodoMoveViewModel: TodoMoveViewModel {
             .map { (self, state) in
                 self.useCase.changeToTitle(at: state)
             }
+    }
+    
+    //MARK: - Input
+    func setbuttonsTitle(state: State) {
+        stateReplayRelay.accept(state)
     }
     
     func firstButtonDidTap(item: TodoModel) {

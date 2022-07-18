@@ -70,7 +70,7 @@ extension TodoMoveViewController {
 //MARK: - ViewModel Bind
 extension TodoMoveViewController {
     private func bind() {
-        viewModel.setbuttonTitle(state: item.state)
+        viewModel.setbuttonsTitle(state: item.state)
         
         viewModel.buttonTitle
             .bind { [weak self] (firstTitle, secondTitle) in

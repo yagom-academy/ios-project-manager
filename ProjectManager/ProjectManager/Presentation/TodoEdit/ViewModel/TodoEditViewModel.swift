@@ -28,7 +28,7 @@ protocol TodoEditViewModelOutput {
 
 protocol TodoEditViewModel: TodoEditViewModelInput, TodoEditViewModelOutput {}
 
-final class DefaultTodoEditViewModel: TodoEditViewModel {
+final class DefaultTodoEditViewModel {
     private let useCase: TodoListUseCase
     
     private var actions: TodoEditViewModelActions?
@@ -43,6 +43,15 @@ final class DefaultTodoEditViewModel: TodoEditViewModel {
         self.item = item
     }
     
+    private func makeEmptyTodoItem() {
+        guard item == nil else { return }
+        item = TodoModel()
+    }
+}
+
+extension DefaultTodoEditViewModel: TodoEditViewModel {
+   
+    //MARK: - Output
     var setUpView: Observable<TodoModel?> {
         return Observable.just(item)
     }
@@ -57,6 +66,7 @@ final class DefaultTodoEditViewModel: TodoEditViewModel {
         }
     }
     
+    //MARK: - Input
     func cancelButtonDidTap() {
         actions?.dismiss()
     }
@@ -89,10 +99,5 @@ final class DefaultTodoEditViewModel: TodoEditViewModel {
         if body?.isEmpty == true { return }
         makeEmptyTodoItem()
         item?.body = body
-    }
-    
-    private func makeEmptyTodoItem() {
-        guard item == nil else { return }
-        item = TodoModel()
     }
 }
