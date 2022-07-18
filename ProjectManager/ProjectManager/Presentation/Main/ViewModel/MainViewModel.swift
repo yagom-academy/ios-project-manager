@@ -10,7 +10,7 @@ import RxGesture
 
 struct MainViewModel {
     private let projects: BehaviorRelay<[ProjectContent]> = {
-        return ProjectUseCase().repository.read()
+        return ProjectUseCase().read()
     }()
 
     lazy var todoProjects: Driver<[ProjectContent]> = {
@@ -32,11 +32,11 @@ struct MainViewModel {
     }()
 
     func deleteProject(_ content: ProjectContent) {
-        ProjectUseCase().repository.delete(projectContentID: content.id)
+        ProjectUseCase().delete(projectContentID: content.id)
     }
     
     func readProject(_ id: UUID?) -> ProjectContent? {
-        return ProjectUseCase().repository.read(id: id)
+        return ProjectUseCase().read(id: id)
     }
     
     func findCell(by event: RxGestureRecognizer, in tableView: UITableView) -> ProjectCell? {

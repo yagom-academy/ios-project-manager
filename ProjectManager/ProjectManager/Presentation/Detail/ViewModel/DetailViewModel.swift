@@ -13,6 +13,6 @@ struct DetailViewModel {
     }
     
     func update(_ content: ProjectContent) {
-        ProjectUseCase().repository.update(projectContent: content)
+        ProjectUseCase().update(projectContent: content)
     }
 }

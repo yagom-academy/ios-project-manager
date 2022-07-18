@@ -9,7 +9,7 @@ import Foundation
 
 struct RegistrationViewModel {
     func registrate(title: String, date: Date, description: String) {
-        var currentProjects = ProjectUseCase().repository.read().value
+        var currentProjects = ProjectUseCase().read().value
         currentProjects
             .append(
                 ProjectContent(
@@ -19,6 +19,6 @@ struct RegistrationViewModel {
                 )
             )
         
-        ProjectUseCase().repository.create(projectContents: currentProjects)
+        ProjectUseCase().create(projectContents: currentProjects)
     }
 }
