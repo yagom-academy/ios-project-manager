@@ -42,7 +42,7 @@ final class TodoTableViewCell: UITableViewCell {
     }()
     
     private var viewModel: TodoCellViewModelable?
-    private var cancellables = Set<AnyCancellable>()
+    private var cancelBag = Set<AnyCancellable>()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -66,31 +66,31 @@ final class TodoTableViewCell: UITableViewCell {
             .sink { [weak self] title in
                 self?.titleLabel.text = title
             }
-            .store(in: &cancellables)
+            .store(in: &cancelBag)
         
         viewModel.todoContent
             .sink { [weak self] content in
                 self?.contentLabel.text = content
             }
-            .store(in: &cancellables)
+            .store(in: &cancelBag)
         
         viewModel.todoDeadline
             .sink { [weak self] deadline in
                 self?.deadlineLabel.text = deadline
             }
-            .store(in: &cancellables)
+            .store(in: &cancelBag)
         
         viewModel.expired
             .sink { [weak self] _ in
                 self?.deadlineLabel.textColor = .systemRed
             }
-            .store(in: &cancellables)
+            .store(in: &cancelBag)
         
         viewModel.notExpired
             .sink { [weak self] _ in
                 self?.deadlineLabel.textColor = .label
             }
-            .store(in: &cancellables)
+            .store(in: &cancelBag)
         
         viewModel.cellDidBind()
     }

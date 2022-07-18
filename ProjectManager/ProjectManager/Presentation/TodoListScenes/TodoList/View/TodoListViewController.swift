@@ -15,7 +15,7 @@ final class TodoListViewController: UIViewController {
     private let viewModel: TodoListViewModelable
     private unowned let factory: ViewControllerFactory
     
-    private var cancellables = Set<AnyCancellable>()
+    private var cancelBag = Set<AnyCancellable>()
     
     init(viewModel: TodoListViewModelable, factory: ViewControllerFactory) {
         self.viewModel = viewModel
@@ -44,7 +44,7 @@ final class TodoListViewController: UIViewController {
             .sink { [weak self] title in
                 self?.title = title
             }
-            .store(in: &cancellables)
+            .store(in: &cancelBag)
         
         viewModel.errorOccur
             .sink { [weak self] result in
@@ -55,7 +55,7 @@ final class TodoListViewController: UIViewController {
                     self?.showAlert(title: error.localizedDescription)
                 }
             }
-            .store(in: &cancellables)
+            .store(in: &cancelBag)
     }
     
     private func addSubviews() {

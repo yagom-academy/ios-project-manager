@@ -10,16 +10,14 @@ import Combine
 
 final class TodoListRepository {
     private unowned let storage: Storageable
-    
-    var bag = Set<AnyCancellable>()
-    
+        
     init(storage: Storageable) {
         self.storage = storage
     }
 }
 
 extension TodoListRepository: TodoListRepositorible {
-    func create(_ item: Todo) -> AnyPublisher<Void, RealmError> {
+    func create(_ item: Todo) -> AnyPublisher<Void, StorageError> {
         return storage.create(item)
     }
     
@@ -27,17 +25,17 @@ extension TodoListRepository: TodoListRepositorible {
         return storage.read()
     }
     
-    func update(_ item: Todo) -> AnyPublisher<Void, RealmError> {
+    func update(_ item: Todo) -> AnyPublisher<Void, StorageError> {
         return storage.update(item)
     }
     
-    func delete(item: Todo) -> AnyPublisher<Void, RealmError> {
+    func delete(item: Todo) -> AnyPublisher<Void, StorageError> {
         return storage.delete(item)
     }
     
-    func deleteLastItem() -> AnyPublisher<Void, RealmError> {
+    func deleteLastItem() -> AnyPublisher<Void, StorageError> {
         guard let lastItem = storage.read().value.last else {
-            return Fail<Void, RealmError>(error: .detailFail).eraseToAnyPublisher()
+            return Fail<Void, StorageError>(error: .deleteFail).eraseToAnyPublisher()
         }
         
         return storage.delete(lastItem)

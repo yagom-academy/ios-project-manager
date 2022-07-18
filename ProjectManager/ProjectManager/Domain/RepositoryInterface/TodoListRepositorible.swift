@@ -9,9 +9,9 @@ import Foundation
 import Combine
 
 protocol TodoListRepositorible {
-    func create(_ item: Todo) -> AnyPublisher<Void, RealmError>
+    func create(_ item: Todo) -> AnyPublisher<Void, StorageError>
     func read() -> CurrentValueSubject<[Todo], Never>
-    func update(_ item: Todo) -> AnyPublisher<Void, RealmError>
-    func delete(item: Todo) -> AnyPublisher<Void, RealmError>
-    func deleteLastItem() -> AnyPublisher<Void, RealmError>
+    func update(_ item: Todo) -> AnyPublisher<Void, StorageError>
+    func delete(item: Todo) -> AnyPublisher<Void, StorageError>
+    func deleteLastItem() -> AnyPublisher<Void, StorageError>
 }

@@ -14,7 +14,7 @@ protocol TodoListViewModelInput {
 protocol TodoListViewModelOutput {
     var items: AnyPublisher<[Todo], Never> { get }
     var title: Just<String> { get }
-    var errorOccur: PassthroughSubject<Result<Void, RealmError>, Never> { get }
+    var errorOccur: PassthroughSubject<Result<Void, StorageError>, Never> { get }
 }
 
 protocol TodoListViewModelable: TodoListViewModelInput, TodoListViewModelOutput {}
@@ -30,7 +30,7 @@ final class TodoListViewModel: TodoListViewModelable {
         return Just("Project Manager")
     }
     
-    var errorOccur = PassthroughSubject<Result<Void, RealmError>, Never>()
+    var errorOccur = PassthroughSubject<Result<Void, StorageError>, Never>()
     
     private weak var coordinator: TodoListViewCoordinator?
     private let useCase: TodoListUseCaseable

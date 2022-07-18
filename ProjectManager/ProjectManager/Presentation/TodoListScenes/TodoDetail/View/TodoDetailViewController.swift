@@ -9,7 +9,7 @@ import UIKit
 import Combine
 
 final class TodoDetailViewController: UIViewController {
-    private var cancellables = Set<AnyCancellable>()
+    private var cancelBag = Set<AnyCancellable>()
     private let viewModel: TodoDetailViewModelable
     private let todoDetailView = TodoDetailView()
 
@@ -45,26 +45,26 @@ final class TodoDetailViewController: UIViewController {
                 self?.todoDetailView.datePicker.date = item.deadline
                 self?.todoDetailView.contentTextView.text = item.content
             }
-            .store(in: &cancellables)
+            .store(in: &cancelBag)
         
         viewModel.isCreated
             .sink { [weak self] state in
                 self?.todoDetailView.setupUserInteractionEnabled(state)
                 self?.setupNavigationLeftBarButtonItem()
             }
-            .store(in: &cancellables)
+            .store(in: &cancelBag)
         
         viewModel.isEdited
             .sink { [weak self] state in
                 self?.todoDetailView.setupUserInteractionEnabled(state)
             }
-            .store(in: &cancellables)
+            .store(in: &cancelBag)
         
         viewModel.title
             .sink { [weak self] title in
                 self?.title = title
             }
-            .store(in: &cancellables)
+            .store(in: &cancelBag)
     }
     
     private func setup() {
