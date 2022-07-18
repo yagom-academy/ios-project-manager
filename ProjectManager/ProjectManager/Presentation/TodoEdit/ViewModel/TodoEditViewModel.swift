@@ -22,7 +22,7 @@ protocol TodoEditViewModelInput {
 
 protocol TodoEditViewModelOutput {
     var setUpView: Observable<TodoModel?> { get }
-    var isItemNil: Observable<Bool> { get }
+    var setCreateMode: Observable<Bool> { get }
 }
 
 protocol TodoEditViewModel: TodoEditViewModelInput, TodoEditViewModelOutput {}
@@ -48,7 +48,7 @@ final class DefaultTodoEditViewModel: TodoEditViewModel {
         }
     }
     
-    var isItemNil: Observable<Bool> {
+    var setCreateMode: Observable<Bool> {
         setUpView.map { item in
             if item == nil {
                 return true
