@@ -15,25 +15,29 @@ protocol CardCoordinator: Coordinator {
 final class DefaultCardCoordinator: CardCoordinator {
   var navigationController: UINavigationController
   var childCoordinators: [Coordinator] = []
-  let viewModel = DefaultCardListViewModel()
+  
+  private let useCase = DefaultCardUseCase()
   
   init(navigationController: UINavigationController) {
     self.navigationController = navigationController
   }
   
   func start() {
-    let cardListViewController = CardListViewController(viewModel: viewModel, coordinator: self)
+    let cardListViewModel = DefaultCardListViewModel(useCase: useCase)
+    let cardListViewController = CardListViewController(viewModel: cardListViewModel, coordinator: self)
     navigationController.pushViewController(cardListViewController, animated: true)
   }
   
   func toAddition() {
-    let cardAdditionViewController = CardAdditionViewController(viewModel: viewModel)
+    let cardAdditionViewModel = CardAdditionViewModel(useCase: useCase)
+    let cardAdditionViewController = CardAdditionViewController(viewModel: cardAdditionViewModel)
     cardAdditionViewController.modalPresentationStyle = .formSheet
     navigationController.present(cardAdditionViewController, animated: true)
   }
   
   func toDetail(of card: Card) {
-    let cardDetailViewController = CardDetailViewController(viewModel: viewModel, card: card)
+    let cardDetailViewModel = CardDetailViewModel(useCase: useCase)
+    let cardDetailViewController = CardDetailViewController(viewModel: cardDetailViewModel, card: card)
     cardDetailViewController.modalPresentationStyle = .formSheet
     navigationController.present(cardDetailViewController, animated: true)
   }

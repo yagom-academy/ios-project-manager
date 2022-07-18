@@ -12,8 +12,6 @@ import RxSwift
 
 protocol CardListViewModelInput {
   func toCardListViewModelItem(card: Card) -> CardListViewModelItem
-  func createNewCard(_ card: Card)
-  func updateSelectedCard(_ card: Card)
   func deleteSelectedCard(_ card: Card)
   func moveDifferentSection(_ card: Card, to index: Int)
 }
@@ -27,8 +25,6 @@ protocol CardListViewModelOutput {
 protocol CardListViewModelable: CardListViewModelInput, CardListViewModelOutput, AnyObject {}
 
 final class DefaultCardListViewModel: CardListViewModelable {
-  private let cards = BehaviorRelay<[Card]>(value: Card.sample)
-  
   // MARK: - Output
   
   let todoCards: Driver<[Card]>
@@ -37,20 +33,24 @@ final class DefaultCardListViewModel: CardListViewModelable {
   
   // MARK: - Init
   
-  init() {
-    todoCards = cards
+  private let useCase: CardUseCase
+  
+  init(useCase: CardUseCase) {
+    self.useCase = useCase
+  
+    todoCards = useCase.cards
       .map { $0.filter { $0.cardType == .todo } }
       .map { $0.sorted { $0.deadlineDate < $1.deadlineDate } }
       .distinctUntilChanged { $0 == $1 }
       .asDriver(onErrorJustReturn: [])
     
-    doingCards = cards
+    doingCards = useCase.cards
       .map { $0.filter { $0.cardType == .doing } }
       .map { $0.sorted { $0.deadlineDate < $1.deadlineDate } }
       .distinctUntilChanged { $0 == $1 }
       .asDriver(onErrorJustReturn: [])
     
-    doneCards = cards
+    doneCards = useCase.cards
       .map { $0.filter { $0.cardType == .done } }
       .map { $0.sorted { $0.deadlineDate > $1.deadlineDate } }
       .distinctUntilChanged { $0 == $1 }
@@ -69,23 +69,12 @@ final class DefaultCardListViewModel: CardListViewModelable {
     )
   }
   
-  func createNewCard(_ card: Card) {
-    cards.accept(cards.value + [card])
-  }
-  
-  func updateSelectedCard(_ card: Card) {
-    let originCards = cards.value.filter { $0.id != card.id }
-    cards.accept(originCards + [card])
-  }
-  
   func deleteSelectedCard(_ card: Card) {
-    cards.accept(cards.value.filter { $0.id != card.id })
+    useCase.deleteSelectedCard(card)
   }
   
   func moveDifferentSection(_ card: Card, to index: Int) {
-    var newCard = card
-    newCard.cardType = card.cardType.distinguishMenuType[index]
-    self.updateSelectedCard(newCard)
+    useCase.moveDifferentSection(card, to: index)
   }
 }
 

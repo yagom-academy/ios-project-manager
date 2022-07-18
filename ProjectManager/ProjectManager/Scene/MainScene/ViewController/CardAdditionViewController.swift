@@ -17,10 +17,11 @@ final class CardAdditionViewController: UIViewController {
   }
   
   private let cardEditView = CardEditView()
-  private let disposeBag = DisposeBag()
-  private weak var viewModel: CardListViewModelable?
   
-  init(viewModel: CardListViewModelable) {
+  private let disposeBag = DisposeBag()
+  private let viewModel: CardAdditionViewModelable
+  
+  init(viewModel: CardAdditionViewModelable) {
     self.viewModel = viewModel
     super.init(nibName: nil, bundle: nil)
     configureSubViews()
@@ -49,7 +50,7 @@ final class CardAdditionViewController: UIViewController {
         guard let self = self else { return }
         guard let card = self.createNewCard() else { return }
         
-        self.viewModel?.createNewCard(card)
+        self.viewModel.createNewCard(card)
         self.dismiss(animated: true)
       })
       .disposed(by: disposeBag)

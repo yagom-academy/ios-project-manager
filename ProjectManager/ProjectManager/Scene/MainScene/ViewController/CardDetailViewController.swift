@@ -21,10 +21,10 @@ final class CardDetailViewController: UIViewController {
   private var isEditable = false
   
   private let disposeBag = DisposeBag()
-  private weak var viewModel: CardListViewModelable?
+  private let viewModel: CardDetailViewModelable
   private let card: Card
   
-  init(viewModel: CardListViewModelable, card: Card) {
+  init(viewModel: CardDetailViewModelable, card: Card) {
     self.viewModel = viewModel
     self.card = card
     super.init(nibName: nil, bundle: nil)
@@ -55,7 +55,7 @@ final class CardDetailViewController: UIViewController {
         guard let self = self else { return }
         guard let card = self.updateSelectedCard() else { return }
         
-        self.viewModel?.updateSelectedCard(card)
+        self.viewModel.updateSelectedCard(card)
         self.dismiss(animated: true)
       })
       .disposed(by: disposeBag)
