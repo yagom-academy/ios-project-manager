@@ -18,6 +18,7 @@ protocol TodoEditViewModelInput {
     func inputitle(title: String?)
     func inputDeadline(deadline: Date)
     func inputBody(body: String?)
+    func editButtonDidTap() -> Bool
 }
 
 protocol TodoEditViewModelOutput {
@@ -33,6 +34,8 @@ final class DefaultTodoEditViewModel: TodoEditViewModel {
     private var actions: TodoEditViewModelActions?
     
     private var item: TodoModel?
+    
+    private var isEditMode: Bool = false
     
     init(useCase: TodoListUseCase, actions: TodoEditViewModelActions, item: TodoModel?) {
         self.useCase = useCase
@@ -65,6 +68,11 @@ final class DefaultTodoEditViewModel: TodoEditViewModel {
         }
         useCase.saveItem(to: item)
         actions?.dismiss()
+    }
+    
+    func editButtonDidTap() -> Bool {
+        isEditMode = !isEditMode
+        return isEditMode
     }
     
     func inputitle(title: String?) {

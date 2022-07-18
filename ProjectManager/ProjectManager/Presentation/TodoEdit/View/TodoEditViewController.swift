@@ -102,7 +102,7 @@ extension TodoEditViewController {
         editButton.rx.tap
             .withUnretained(self)
             .map { (self, _) in
-                self.editButton.title == Constant.edit
+                self.viewModel.editButtonDidTap()
             }.bind { [weak self] in
                 self?.mainView.changeEnabled($0)
                 self?.editButton.title = $0 ? Constant.eidting : Constant.edit
