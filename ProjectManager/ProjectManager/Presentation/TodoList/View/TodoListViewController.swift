@@ -78,7 +78,7 @@ extension TodoListViewController {
         viewModel.doingListCount
             .drive(mainView.doing.headerView.rx.countText)
             .disposed(by: bag)
-    
+
         //MARK: - DoneList
         viewModel.doneList
             .bind(to: mainView.done.tableView.rx.items(cellIdentifier: TodoListCell.identifier,

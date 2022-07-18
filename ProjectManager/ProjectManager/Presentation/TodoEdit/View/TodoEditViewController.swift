@@ -63,6 +63,13 @@ extension TodoEditViewController {
         navigationBar.items = [navigationItem]
     }
     
+
+    private func configureRightBarButtonItem() {
+        title = Constant.navigationBarTitle
+        navigationItem.rightBarButtonItem = doneButton
+        navigationBar.items = [navigationItem]
+    }
+    
     private func configureLeftBarButtonItem(isCreateMode: Bool) {
         if isCreateMode {
             navigationItem.leftBarButtonItem = cancelButton

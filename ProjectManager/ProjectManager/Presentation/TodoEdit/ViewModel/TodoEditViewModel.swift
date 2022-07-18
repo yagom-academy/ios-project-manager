@@ -28,6 +28,7 @@ protocol TodoEditViewModelOutput {
 
 protocol TodoEditViewModel: TodoEditViewModelInput, TodoEditViewModelOutput {}
 
+
 final class DefaultTodoEditViewModel {
     private let useCase: TodoListUseCase
     
@@ -80,6 +81,7 @@ extension DefaultTodoEditViewModel: TodoEditViewModel {
         actions?.dismiss()
     }
     
+
     func editButtonDidTap() -> Bool {
         isEditMode = !isEditMode
         return isEditMode
