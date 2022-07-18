@@ -157,14 +157,14 @@ final class MainViewController: UIViewController {
 
         popoverPresentationController.sourceView = cell
         
-        let checkLoation = location.y < UIScreen.main.bounds.height * 3 / 5
+        let shouldShowBelow = location.y < UIScreen.main.bounds.height * 3 / 5
         let yPosition = cell.bounds.height / 2
         
         popoverPresentationController.sourceRect = CGRect(x: 0,
-                                      y: checkLoation ? -yPosition : yPosition,
+                                      y: shouldShowBelow ? -yPosition : yPosition,
                                       width: cell.bounds.width,
                                       height: cell.bounds.height)
-        popoverPresentationController.permittedArrowDirections = checkLoation ? .up : .down
+        popoverPresentationController.permittedArrowDirections = shouldShowBelow ? .up : .down
         
         self.present(alert, animated: true)
     }
