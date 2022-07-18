@@ -28,7 +28,7 @@ final class TodoCollectionViewCell: SwipeCollectionViewCell, Identifiable {
     return label
   }()
   
-  private lazy var contentLabel: UILabel = {
+  private let contentLabel: UILabel = {
     let label = UILabel()
     label.translatesAutoresizingMaskIntoConstraints = false
     label.setContentHuggingPriority(.defaultLow, for: .vertical)
@@ -45,11 +45,10 @@ final class TodoCollectionViewCell: SwipeCollectionViewCell, Identifiable {
     return label
   }()
   
-  lazy var longPress: UILongPressGestureRecognizer = {
+  let longPress: UILongPressGestureRecognizer = {
     let longPress = UILongPressGestureRecognizer()
     longPress.minimumPressDuration = 0.5
     longPress.delaysTouchesBegan = true
-    addGestureRecognizer(longPress)
     return longPress
   }()
   
@@ -65,6 +64,7 @@ final class TodoCollectionViewCell: SwipeCollectionViewCell, Identifiable {
   
   private func confitureUI() {
     contentView.addSubview(mainStackView)
+    addGestureRecognizer(longPress)
     mainStackView.addArrangedSubviews([titleLabel, contentLabel, dateLabel])
     NSLayoutConstraint.activate([
       mainStackView.topAnchor.constraint(equalTo: topAnchor, constant: 5),

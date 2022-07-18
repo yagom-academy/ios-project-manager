@@ -92,7 +92,7 @@ final class TodoListViewController: UIViewController {
           for: indexPath) as? TodoCollectionViewCell
         cell?.updatePropertiesValue(item)
         cell?.delegate = self
-        cell?.longPress.addTarget(self, action: #selector(self.showMovingTodoSheet))
+        cell?.longPress.addTarget(self, action: #selector(self.showPopover))
         return cell
       }
   }
@@ -101,7 +101,7 @@ final class TodoListViewController: UIViewController {
     [todoView, doingView, doneView].forEach { $0.todoCollectionView.delegate = self }
   }
   
-  private func moveWriteTodo() {
+  private func moveWriteViewControllerDidTap() {
     let writeViewController = WriteTodoViewController(viewModel: WriteViewModel())
     let writeNavigationController = UINavigationController(rootViewController: writeViewController)
     writeNavigationController.modalPresentationStyle = .pageSheet
@@ -113,7 +113,7 @@ final class TodoListViewController: UIViewController {
     navigationItem.rightBarButtonItem = UIBarButtonItem(
       systemItem: .add,
       primaryAction: UIAction(handler: { _ in
-        self.moveWriteTodo()
+        self.moveWriteViewControllerDidTap()
       }))
   }
   
@@ -133,7 +133,7 @@ final class TodoListViewController: UIViewController {
   }
 }
 
-// MARK: UICollectionViewDelegate
+// MARK: Move To EditViewController
 
 extension TodoListViewController: UICollectionViewDelegate {
   // MARK: Move EditViewController
@@ -162,9 +162,7 @@ extension TodoListViewController: UICollectionViewDelegate {
   }
 }
 
-// MARK: Delegate
-
-// MARK: SwipeCollectionViewCellDelegate
+// MARK: Swipe Delete
 
 extension TodoListViewController: SwipeCollectionViewCellDelegate {
   func collectionView(_ collectionView: UICollectionView, editActionsForItemAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
@@ -195,11 +193,10 @@ extension TodoListViewController: SwipeCollectionViewCellDelegate {
   }
 }
 
-// MARK: UILongPressGestureDelagate & Move Todo Method
+// MARK: Popover
 private extension TodoListViewController {
-  @objc func showMovingTodoSheet(_ gesture: UILongPressGestureRecognizer) {
+  @objc func showPopover(longPressed gesture: UILongPressGestureRecognizer) {
     let pressedPoint = gesture.location(ofTouch: 0, in: nil)
-    
     let pressedState = filterState(from: pressedPoint.x, by: view.bounds.width)
     let collectionView = filterCollectionView(from: pressedState)
     
@@ -214,7 +211,7 @@ private extension TodoListViewController {
     }
     
     let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-    let alertActions = createAlertActions(from: pressedState, item: item)
+    let alertActions = createPopoverAlertActions(from: pressedState, item: item)
     
     alertActions.forEach { alert.addAction($0) }
     
@@ -269,7 +266,7 @@ private extension TodoListViewController {
     }
   }
   
-  func createAlertActions(from state: State, item: Todo) -> [UIAlertAction] {
+  func createPopoverAlertActions(from state: State, item: Todo) -> [UIAlertAction] {
     let moveToTodoAction = UIAlertAction(title: State.todo.moveMessage, style: .default) { [weak self] _ in
       self?.viewModel.popoverButtonDidTap(item, to: .todo)
     }
