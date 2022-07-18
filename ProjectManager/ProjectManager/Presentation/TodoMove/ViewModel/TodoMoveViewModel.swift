@@ -14,9 +14,8 @@ struct TodoMoveViewModelActions {
 }
 
 protocol TodoMoveViewModelInput {
-    func setbuttonsTitle(state: State)
-    func firstButtonDidTap(item: TodoModel)
-    func secondButtonDidTap(item: TodoModel)
+    func firstButtonDidTap()
+    func secondButtonDidTap()
 }
 
 protocol TodoMoveViewModelOutput {
@@ -30,39 +29,46 @@ final class DefaultTodoMoveViewModel {
     
     private var actions: TodoMoveViewModelActions?
     
-    init(useCase: TodoListUseCase, actions: TodoMoveViewModelActions) {
+    private let item: TodoModel
+    
+    init(useCase: TodoListUseCase, actions: TodoMoveViewModelActions, item: TodoModel) {
         self.useCase = useCase
         self.actions = actions
+        self.item = item
     }
     
-    private let stateReplayRelay = ReplayRelay<State>.create(bufferSize: 1)
+    private func changeToTitle(at state: State) -> String {
+        switch state {
+        case .todo:
+            return "Move to TODO"
+        case .doing:
+            return "Move to DOING"
+        case .done:
+            return "Move to DONE"
+        }
+    }
 }
 
 extension DefaultTodoMoveViewModel: TodoMoveViewModel {
     
     //MARK: - Output
     var buttonTitle: Observable<(String, String)> {
-        stateReplayRelay
-            .take(1)
-            .withUnretained(self)
-            .map { (self, state) in
-                self.useCase.changeToTitle(at: state)
-            }
+        let (firstButtonType, secondButtonType) = useCase.moveState(from: item.state)
+        let firstButtonTitle = changeToTitle(at: firstButtonType)
+        let secondButtonTitle = changeToTitle(at: secondButtonType)
+        
+        return Observable.just((firstButtonTitle, secondButtonTitle))
     }
     
     //MARK: - Input
-    func setbuttonsTitle(state: State) {
-        stateReplayRelay.accept(state)
-    }
-    
-    func firstButtonDidTap(item: TodoModel) {
+    func firstButtonDidTap() {
         var newItem = item
         newItem.state = useCase.moveState(from: item.state).first
         useCase.saveItem(to: newItem)
         actions?.dismiss()
     }
     
-    func secondButtonDidTap(item: TodoModel) {
+    func secondButtonDidTap() {
         var newItem = item
         newItem.state = useCase.moveState(from: item.state).second
         useCase.saveItem(to: newItem)

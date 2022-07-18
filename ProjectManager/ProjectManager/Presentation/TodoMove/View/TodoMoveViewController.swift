@@ -10,8 +10,6 @@ import SnapKit
 import RxSwift
 
 final class TodoMoveViewController: UIViewController {
-    private let item: TodoModel
-    
     private let viewModel: TodoMoveViewModel
     private let bag = DisposeBag()
     
@@ -39,9 +37,8 @@ final class TodoMoveViewController: UIViewController {
         return stackView
     }()
     
-    init(viewModel: TodoMoveViewModel, item: TodoModel) {
+    init(viewModel: TodoMoveViewModel) {
         self.viewModel = viewModel
-        self.item = item
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -70,8 +67,6 @@ extension TodoMoveViewController {
 //MARK: - ViewModel Bind
 extension TodoMoveViewController {
     private func bind() {
-        viewModel.setbuttonsTitle(state: item.state)
-        
         viewModel.buttonTitle
             .bind { [weak self] (firstTitle, secondTitle) in
                 self?.firstButton.setTitle(firstTitle, for: .normal)
@@ -79,15 +74,13 @@ extension TodoMoveViewController {
             }.disposed(by: bag)
         
         firstButton.rx.tap
-            .withUnretained(self)
-            .bind { (self, _) in
-                self.viewModel.firstButtonDidTap(item: self.item)
+            .bind { [weak self] in
+                self?.viewModel.firstButtonDidTap()
             }.disposed(by: bag)
-
+        
         secondButton.rx.tap
-            .withUnretained(self)
-            .bind { (self, _) in
-                self.viewModel.secondButtonDidTap(item: self.item)
+            .bind { [weak self] in
+                self?.viewModel.secondButtonDidTap()
             }.disposed(by: bag)
     }
 }

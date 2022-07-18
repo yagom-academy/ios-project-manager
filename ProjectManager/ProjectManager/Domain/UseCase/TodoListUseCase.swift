@@ -13,7 +13,6 @@ protocol TodoListUseCase {
     func saveItem(to data: TodoModel)
     func deleteItem(id: UUID)
     func checkDeadline(time: Date) -> Bool
-    func changeToTitle(at state: State) -> (String, String)
     func moveState(from state: State) -> (first: State, second: State)
 }
 
@@ -45,18 +44,7 @@ extension DefaultTodoListUseCase {
     func checkDeadline(time: Date) -> Bool {
         return time + 24 * 60 * 60 < Date()
     }
-    
-    func changeToTitle(at state: State) -> (String, String) {
-        switch state {
-        case .todo:
-            return ("Move to DOING", "Move to DONE")
-        case .doing:
-            return ("Move to TODO", "Move to DONE")
-        case .done:
-            return ("Move to TODO", "Move to DOING")
-        }
-    }
-    
+
     func moveState(from state: State) -> (first: State, second: State) {
         switch state {
         case .todo:
