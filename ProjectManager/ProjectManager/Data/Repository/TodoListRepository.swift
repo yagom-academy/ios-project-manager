@@ -19,28 +19,27 @@ final class TodoListRepository {
 }
 
 extension TodoListRepository: TodoListRepositorible {
-    func create(_ item: Todo) {
-        storage.create(item)
+    func create(_ item: Todo) -> AnyPublisher<Void, RealmError> {
+        return storage.create(item)
     }
     
-    func read() -> AnyPublisher< [Todo], Never> {
+    func read() -> CurrentValueSubject< [Todo], Never> {
         return storage.read()
     }
     
-    func update(_ item: Todo) {
-        storage.update(item)
+    func update(_ item: Todo) -> AnyPublisher<Void, RealmError> {
+        return storage.update(item)
     }
     
-    func delete(item: Todo) {
-        storage.delete(item)
+    func delete(item: Todo) -> AnyPublisher<Void, RealmError> {
+        return storage.delete(item)
     }
     
-    func deleteLastItem() {
-        _ = storage.read()
-            .prefix(1)
-            .sink { [weak self] items in
-            guard let lastItem = items.last else { return }
-            self?.storage.delete(lastItem)
+    func deleteLastItem() -> AnyPublisher<Void, RealmError> {
+        guard let lastItem = storage.read().value.last else {
+            return Fail<Void, RealmError>(error: .detailFail).eraseToAnyPublisher()
         }
+        
+        return storage.delete(lastItem)
     }
 }

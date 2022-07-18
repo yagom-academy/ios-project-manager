@@ -14,11 +14,16 @@ struct Todo: Hashable {
     let deadline: Date
     var processType: ProcessType
     
-    static let empty: Self = .init(
-        title: "",
-        content: "",
-        deadline: Date()
-    )
+    static func empty() -> Todo {
+        return Todo(title: "", content: "", deadline: Date())
+    }
+    
+//    static var empty: Self = .init(
+//        title: "",
+//        content: "",
+//        deadline: Date(),
+//        id: UUID().uuidString
+//    )
     
     init(
         title: String,

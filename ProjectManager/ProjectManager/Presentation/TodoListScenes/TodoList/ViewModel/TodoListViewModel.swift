@@ -5,7 +5,6 @@
 //  Created by 김도연 on 2022/07/06.
 //
 
-import Foundation
 import Combine
 
 protocol TodoListViewModelInput {
@@ -15,6 +14,7 @@ protocol TodoListViewModelInput {
 protocol TodoListViewModelOutput {
     var items: AnyPublisher<[Todo], Never> { get }
     var title: Just<String> { get }
+    var errorOccur: PassthroughSubject<Result<Void, RealmError>, Never> { get }
 }
 
 protocol TodoListViewModelable: TodoListViewModelInput, TodoListViewModelOutput {}
@@ -30,8 +30,11 @@ final class TodoListViewModel: TodoListViewModelable {
         return Just("Project Manager")
     }
     
+    var errorOccur = PassthroughSubject<Result<Void, RealmError>, Never>()
+    
     private weak var coordinator: TodoListViewCoordinator?
     private let useCase: TodoListUseCaseable
+    private var cancelBag = Set<AnyCancellable>()
     
     init(coordinator: TodoListViewCoordinator? = nil, useCase: TodoListUseCaseable) {
         self.useCase = useCase
@@ -44,8 +47,22 @@ extension TodoListViewModel {
     // MARK: - Input
     
     func didTapAddButton() {
-        let item = Todo.empty
+        let item = Todo.empty()
+        
         useCase.create(item)
+            .print()
+            .sink { [weak self] completion in
+                switch completion {
+                case .finished:
+                    self?.errorOccur.send(.success(()))
+                case .failure(let error):
+                    self?.errorOccur.send(.failure(error))
+                }
+            } receiveValue: { _ in
+                
+            }
+            .store(in: &cancelBag)
+
         coordinator?.showDetailViewController(item)
     }    
 }
@@ -53,6 +70,17 @@ extension TodoListViewModel {
 extension TodoListViewModel: TodoViewModelInput {
     func deleteItem(_ item: Todo) {
         useCase.delete(item: item)
+            .sink { [weak self] completion in
+                switch completion {
+                case .finished:
+                    self?.errorOccur.send(.success(()))
+                case .failure(let error):
+                    self?.errorOccur.send(.failure(error))
+                }
+            } receiveValue: { _ in
+                
+            }
+            .store(in: &cancelBag)
     }
     
     func didTapCell(_ item: Todo) {
@@ -61,9 +89,31 @@ extension TodoListViewModel: TodoViewModelInput {
     
     func didTapFirstContextMenu(_ item: Todo) {
         useCase.update(item)
+            .sink { [weak self] completion in
+                switch completion {
+                case .finished:
+                    self?.errorOccur.send(.success(()))
+                case .failure(let error):
+                    self?.errorOccur.send(.failure(error))
+                }
+            } receiveValue: { _ in
+                
+            }
+            .store(in: &cancelBag)
     }
     
     func didTapSecondContextMenu(_ item: Todo) {
         useCase.update(item)
+            .sink { [weak self] completion in
+                switch completion {
+                case .finished:
+                    self?.errorOccur.send(.success(()))
+                case .failure(let error):
+                    self?.errorOccur.send(.failure(error))
+                }
+            } receiveValue: { _ in
+                
+            }
+            .store(in: &cancelBag)
     }
 }

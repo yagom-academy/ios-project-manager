@@ -45,6 +45,17 @@ final class TodoListViewController: UIViewController {
                 self?.title = title
             }
             .store(in: &cancellables)
+        
+        viewModel.errorOccur
+            .sink { [weak self] result in
+                switch result {
+                case .success(let success):
+                    print(success)
+                case .failure(let error):
+                    print(error)
+                }
+            }
+            .store(in: &cancellables)
     }
     
     private func addSubviews() {
