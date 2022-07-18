@@ -32,43 +32,48 @@ protocol TodoListViewModelOutput {
 
 protocol TodoListViewModel: TodoListViewModelInput, TodoListViewModelOutput {}
 
-final class DefaultTodoListViewModel: TodoListViewModel {
+final class DefaultTodoListViewModel {
     private let useCase: TodoListUseCase
     private let actions: TodoListViewModelActions?
     private let todoLists: BehaviorSubject<[TodoModel]>
     
-    //MARK: - Output
-    var todoList: Observable<[TodoCellContent]> {
-        todoLists.map { items in
-            items.filter { $0.state == .todo }
-        }
-        .distinctUntilChanged()
-        .withUnretained(self)
-        .map { (self, items) in
-            self.toTodoCellContents(todoModels: items)
-        }
+    init(useCase: TodoListUseCase, actions: TodoListViewModelActions) {
+        self.useCase = useCase
+        self.actions = actions
+        
+        todoLists = useCase.readItems()
     }
-
-    var doingList: Observable<[TodoCellContent]> {
-        todoLists.map { items in
-            items.filter { $0.state == .doing }
-        }
-        .distinctUntilChanged()
-        .withUnretained(self)
-        .map { (self, items) in
-            self.toTodoCellContents(todoModels: items)
+    
+    private func toTodoCellContents(todoModels: [TodoModel]) -> [TodoCellContent] {
+        todoModels.map { item in
+            TodoCellContent(entity: item, isPast: useCase.checkDeadline(time: item.deadlineAt))
         }
     }
     
-    var doneList: Observable<[TodoCellContent]> {
+    private func splitList(by state: State) -> Observable<[TodoCellContent]> {
         todoLists.map { items in
-            items.filter { $0.state == .done }
+            items.filter { $0.state == state }
         }
         .distinctUntilChanged()
         .withUnretained(self)
         .map { (self, items) in
             self.toTodoCellContents(todoModels: items)
         }
+    }
+}
+
+extension DefaultTodoListViewModel: TodoListViewModel {
+    //MARK: - Output
+    var todoList: Observable<[TodoCellContent]> {
+        splitList(by: .todo)
+    }
+
+    var doingList: Observable<[TodoCellContent]> {
+        splitList(by: .doing)
+    }
+    
+    var doneList: Observable<[TodoCellContent]> {
+        splitList(by: .done)
     }
     
     var todoListCount: Driver<String> {
@@ -108,18 +113,5 @@ final class DefaultTodoListViewModel: TodoListViewModel {
     
     func cellDeleteButtonDidTap(item: TodoCellContent) {
         useCase.deleteItem(id: item.id)
-    }
-    
-    init(useCase: TodoListUseCase, actions: TodoListViewModelActions) {
-        self.useCase = useCase
-        self.actions = actions
-        
-        todoLists = useCase.readItems()
-    }
-    
-    private func toTodoCellContents(todoModels: [TodoModel]) -> [TodoCellContent] {
-        todoModels.map { item in
-            TodoCellContent(entity: item, isPast: useCase.checkDeadline(time: item.deadlineAt))
-        }
     }
 }
