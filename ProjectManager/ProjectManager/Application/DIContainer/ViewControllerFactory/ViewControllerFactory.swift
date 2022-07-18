@@ -5,6 +5,7 @@
 //  Created by 조민호 on 2022/07/12.
 //
 import Foundation
+import Combine
 
 final class ViewControllerFactory {
     private unowned let storage: Storageable
@@ -62,7 +63,10 @@ final class ViewControllerFactory {
     }
     
     private func makeTodoViewModel(processType: ProcessType) -> TodoViewModel {
-        let viewModel = TodoViewModel(processType: processType, items: parentViewModel!.items)
+        let viewModel = TodoViewModel(
+            processType: processType,
+            items: parentViewModel?.items ?? Just([Todo]()).eraseToAnyPublisher()
+        )
         viewModel.delegate = parentViewModel
         
         return viewModel

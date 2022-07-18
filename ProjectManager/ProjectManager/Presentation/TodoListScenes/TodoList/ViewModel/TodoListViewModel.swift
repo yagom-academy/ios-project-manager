@@ -12,7 +12,6 @@ protocol TodoListViewModelInput {
 }
 
 protocol TodoListViewModelOutput {
-    var items: AnyPublisher<[Todo], Never> { get }
     var title: Just<String> { get }
     var errorOccur: PassthroughSubject<Result<Void, StorageError>, Never> { get }
 }
