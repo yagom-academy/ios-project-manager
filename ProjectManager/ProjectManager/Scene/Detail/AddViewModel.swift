@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol DetailViewModelable: AddViewModelOutput, AddViewModelInput {}
+protocol AddViewModelable: AddViewModelOutput, AddViewModelInput {}
 
 protocol AddViewModelOutput {
     var list: ListItem { get }
@@ -20,7 +20,7 @@ protocol AddViewModelInput {
     func touchDoneButton()
 }
 
-final class AddViewModel: DetailViewModelable {
+final class AddViewModel: AddViewModelable {
     private let storage: Storegeable
     var list: ListItem
     

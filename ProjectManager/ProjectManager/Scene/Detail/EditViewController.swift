@@ -9,9 +9,9 @@ import RxSwift
 import RxCocoa
 
 final class EditViewController: UIViewController {
-    private let viewModel: EditViewModel
+    private let viewModel: EditViewModelable
     
-    init(viewModel: EditViewModel) {
+    init(viewModel: EditViewModelable) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }

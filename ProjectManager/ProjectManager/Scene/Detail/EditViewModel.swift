@@ -19,6 +19,7 @@ protocol EditViewModelInput {
     func changeTitle(_ text: String?)
     func changeDaedLine(_ date: Date?)
     func changeBody(_ text: String?)
+    func touchLeftButton(_ vc: EditViewController) -> String?
     func touchDoneButton()
 }
 

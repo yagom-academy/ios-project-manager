@@ -22,7 +22,7 @@ final class Container {
         return addVC
     }
     
-    private func makeAddViewModel() -> AddViewModel {
+    private func makeAddViewModel() -> AddViewModelable {
         return AddViewModel(storage: storage)
     }
     
@@ -32,7 +32,7 @@ final class Container {
         return editVC
     }
 
-    private func makeEditViewModel(index: Int, type: ListType) -> EditViewModel {
+    private func makeEditViewModel(index: Int, type: ListType) -> EditViewModelable {
         return EditViewModel(storage: storage, index: index, type: type)
     }
     

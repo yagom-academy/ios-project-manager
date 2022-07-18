@@ -9,9 +9,9 @@ import RxSwift
 import RxCocoa
 
 final class AddViewController: UIViewController {
-    private let viewModel: AddViewModel
+    private let viewModel: AddViewModelable
     
-    init(viewModel: AddViewModel) {
+    init(viewModel: AddViewModelable) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
