@@ -63,8 +63,8 @@ extension TodoEditViewController {
         navigationBar.items = [navigationItem]
     }
     
-    private func configureLeftBarButtonItem(createMode: Bool) {
-        if createMode {
+    private func configureLeftBarButtonItem(isCreateMode: Bool) {
+        if isCreateMode {
             navigationItem.leftBarButtonItem = cancelButton
         } else {
             navigationItem.leftBarButtonItem = editButton
@@ -84,7 +84,7 @@ extension TodoEditViewController {
         viewModel.isItemNil
             .bind { [weak self] in
                 self?.mainView.changeEnabled($0)
-                self?.configureLeftBarButtonItem(createMode: $0)
+                self?.configureLeftBarButtonItem(isCreateMode: $0)
             }.disposed(by: bag)
         
         cancelButton.rx.tap
