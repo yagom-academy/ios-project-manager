@@ -11,7 +11,7 @@ import RxGesture
 
 final class MainViewController: UIViewController {
     private let mainView = MainView(frame: .zero)
-    private var viewModel = MainViewModel()
+    private let viewModel = MainViewModel()
     private let disposeBag = DisposeBag()
     
     override func loadView() {
@@ -138,25 +138,41 @@ final class MainViewController: UIViewController {
     }
     
     private func bindGesture(to tableView: UITableView, status: ProjectStatus) {
-        tableView.rx
+        let gesture = tableView.rx
             .anyGesture(
                 (.tap(), when: .recognized),
                 (.longPress(), when: .began)
             )
             .asObservable()
-            .bind { [weak self] event in
-                guard let cell = self?.viewModel.findCell(by: event, in: tableView) else {
+        
+        gesture.filter { $0.state == .recognized }
+            .bind { [weak self] in
+                guard let cell = self?.findCell(by: $0, in: tableView) else {
                     return
                 }
-                
-                guard event.state == .recognized else {
-                    self?.presentPopOver(cell)
-                    return
-                }
-                
                 self?.presentViewController(status: status, cell: cell)
             }
             .disposed(by: disposeBag)
+        
+        gesture.filter { $0.state == .began }
+            .compactMap { [weak self] in
+                self?.findCell(by: $0, in: tableView)
+            }
+            .bind { [weak self] in
+                self?.presentPopOver($0)
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    private func findCell(by event: RxGestureRecognizer, in tableView: UITableView) -> ProjectCell? {
+        let point = event.location(in: tableView)
+        
+        guard let indexPath = tableView.indexPathForRow(at: point),
+              let cell = tableView.cellForRow(at: indexPath) as? ProjectCell else {
+            return nil
+        }
+        
+        return cell
     }
     
     private func presentPopOver(_ cell: ProjectCell) {

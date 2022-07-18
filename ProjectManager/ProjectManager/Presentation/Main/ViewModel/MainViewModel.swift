@@ -21,17 +21,6 @@ struct MainViewModel {
         return ProjectUseCase().read(id: id)
     }
     
-    func findCell(by event: RxGestureRecognizer, in tableView: UITableView) -> ProjectCell? {
-        let point = event.location(in: tableView)
-        
-        guard let indexPath = tableView.indexPathForRow(at: point),
-              let cell = tableView.cellForRow(at: indexPath) as? ProjectCell else {
-            return nil
-        }
-        
-        return cell
-    }
-    
     func asTodoProjects() -> Driver<[ProjectContent]> {
         return projects
             .map { $0.filter { $0.status == .todo } }
