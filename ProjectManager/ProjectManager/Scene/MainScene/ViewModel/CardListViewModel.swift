@@ -24,7 +24,7 @@ protocol CardListViewModelOutput {
 
 protocol CardListViewModelable: CardListViewModelInput, CardListViewModelOutput, AnyObject {}
 
-final class DefaultCardListViewModel: CardListViewModelable {
+final class CardListViewModel: CardListViewModelable {
   // MARK: - Output
   
   let todoCards: Driver<[Card]>
@@ -80,7 +80,7 @@ final class DefaultCardListViewModel: CardListViewModelable {
 
 // MARK: - Private
 
-extension DefaultCardListViewModel {
+extension CardListViewModel {
   private func setDeadlineDateToString(_ date: Date) -> String {
     let formatter = DateFormatter()
     formatter.dateStyle = .full

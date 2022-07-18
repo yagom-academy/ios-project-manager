@@ -23,7 +23,7 @@ final class DefaultCardCoordinator: CardCoordinator {
   }
   
   func start() {
-    let cardListViewModel = DefaultCardListViewModel(useCase: useCase)
+    let cardListViewModel = CardListViewModel(useCase: useCase)
     let cardListViewController = CardListViewController(viewModel: cardListViewModel, coordinator: self)
     navigationController.pushViewController(cardListViewController, animated: true)
   }
