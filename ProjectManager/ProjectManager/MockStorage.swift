@@ -13,7 +13,7 @@ protocol Storegeable {
     var doneList: BehaviorRelay<[ListItem]> { get }
     func creatList(listItem: ListItem)
     func updateList(listItem: ListItem)
-    func selectList(index: Int, type: ListType) -> ListItem
+    func selectItem(index: Int, type: ListType) -> ListItem
     func deleteList(index: Int, type: ListType)
     func changeListType(index: Int, type: ListType, destination: ListType)
 }
@@ -36,7 +36,7 @@ final class MockStorage: Storegeable {
         }
     }
     
-    func selectList(index: Int, type: ListType) -> ListItem {
+    func selectItem(index: Int, type: ListType) -> ListItem {
         return list(type).value[index]
     }
     
@@ -75,7 +75,7 @@ final class MockStorage: Storegeable {
     }
     
     func changeListType(index: Int, type: ListType, destination: ListType) {
-        var list = selectList(index: index, type: type)
+        var list = selectItem(index: index, type: type)
         list.type = destination
         
         deleteList(index: index, type: type)
