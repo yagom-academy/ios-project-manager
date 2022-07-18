@@ -86,7 +86,7 @@ final class DetailView: UIView {
 extension DetailView {
     func setDetilView(_ listItem: ListItem) {
         naviItem.title = listItem.type.title
-        leftButton.title = "Edit"
+        leftButton.title = "Close"
         titleTextField.text = listItem.title
         deadlinePicker.date = listItem.deadline
         bodyTextView.text = listItem.body
