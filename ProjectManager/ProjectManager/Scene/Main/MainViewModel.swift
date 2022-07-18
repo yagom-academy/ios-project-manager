@@ -20,7 +20,6 @@ protocol MainViewModelOutput {
 
 protocol MainViewModelInput {
     func isOverDeadline(listItem: ListItem) -> Bool
-    func selectList(index: Int, type: ListType) -> ListItem
     func deleteList(index: Int, type: ListType)
     func changeListType(index: Int, type: ListType, to: ListType)
 }
@@ -57,10 +56,6 @@ final class MainViewModel: MainViewModelInOut {
 extension MainViewModel {
     func isOverDeadline(listItem: ListItem) -> Bool {
         return listItem.type != .done && listItem.deadline < Date()
-    }
-    
-    func selectList(index: Int, type: ListType) -> ListItem {
-        return storage.selectList(index: index, type: type)
     }
     
     func deleteList(index: Int, type: ListType) {
