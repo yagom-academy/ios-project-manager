@@ -29,7 +29,7 @@ extension TodoListSceneDIContainer {
         return viewControllerFactory.makeTodoListViewController(coordinator: coordinator)
     }
     
-    func makeTodoDetailViewContoller(todoListModel: TodoListModel, coordinator: TodoDetailViewCoordinator) -> TodoDetailViewController {
+    func makeTodoDetailViewContoller(todoListModel: Todo, coordinator: TodoDetailViewCoordinator) -> TodoDetailViewController {
         return viewControllerFactory.makeTodoDetailViewContoller(todoListModel: todoListModel, coordinator: coordinator)
     }
     

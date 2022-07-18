@@ -24,7 +24,7 @@ protocol TodoCellViewModelOutput {
 protocol TodoCellViewModelable: TodoCellViewModelInput, TodoCellViewModelOutput {}
 
 final class TodoCellViewModel: TodoCellViewModelable {
-    private let model: TodoListModel
+    private let model: Todo
     private let dateformatter = DateFormatter()
     
     // MARK: - Output
@@ -44,7 +44,7 @@ final class TodoCellViewModel: TodoCellViewModelable {
     let expired = PassthroughSubject<Void, Never>()
     let notExpired = PassthroughSubject<Void, Never>()
     
-    init(_ model: TodoListModel) {
+    init(_ model: Todo) {
         self.model = model
     }
     

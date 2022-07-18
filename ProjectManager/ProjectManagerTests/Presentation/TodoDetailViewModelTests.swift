@@ -21,7 +21,7 @@ class TodoDetailViewModelTests: XCTestCase {
 
     func test_todoListModel의title과content가비어있는상태에서_viewDidDisppear하면_마지막아이템이지워진다() {
         // given
-        viewModel = TodoDetailViewModel(useCase: useCase, todoListModel: TodoListModel(title: "", content: "", deadLine: Date()))
+        viewModel = TodoDetailViewModel(useCase: useCase, todoListModel: Todo(title: "", content: "", deadLine: Date()))
         
         let expectation = XCTestExpectation(description: "closeButtonDidTap")
         let expected = 2
@@ -41,7 +41,7 @@ class TodoDetailViewModelTests: XCTestCase {
     
     func test_todoListModel의title과content가비어있지않은상태에서_doneButtonDidTap하면_아이템이업데이트되어야한다() {
         // given
-        viewModel = TodoDetailViewModel(useCase: useCase, todoListModel: TodoListModel(title: "Mock", content: "Mock", deadLine: Date(), id: "3"))
+        viewModel = TodoDetailViewModel(useCase: useCase, todoListModel: Todo(title: "Mock", content: "Mock", deadLine: Date(), id: "3"))
         
         let expectation = XCTestExpectation(description: "doneButtonDidTap")
         let expected = "changed Mock"

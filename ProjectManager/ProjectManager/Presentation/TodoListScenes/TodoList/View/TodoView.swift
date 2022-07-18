@@ -10,8 +10,8 @@ import UIKit
 import Combine
 
 final class TodoView: UIView {
-    typealias DataSource = UITableViewDiffableDataSource<Int, TodoListModel>
-    typealias Snapshot = NSDiffableDataSourceSnapshot<Int, TodoListModel>
+    typealias DataSource = UITableViewDiffableDataSource<Int, Todo>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Int, Todo>
     
     private let viewModel: TodoViewModelable
     
@@ -95,7 +95,7 @@ final class TodoView: UIView {
         }
     }
     
-    private func applySnapshot(items: [TodoListModel]) {
+    private func applySnapshot(items: [Todo]) {
         var snapshot = Snapshot()
         snapshot.appendSections([0])
         snapshot.appendItems(items)
@@ -135,7 +135,7 @@ extension TodoView: UITableViewDelegate {
         }
     }
     
-    private func makeUIMenu(_ tableView: UITableView, item: TodoListModel) -> UIMenu {
+    private func makeUIMenu(_ tableView: UITableView, item: Todo) -> UIMenu {
         let menuType = viewModel.menuType
         
         let firstMoveAction = UIAction(title: menuType.firstTitle) { _ in

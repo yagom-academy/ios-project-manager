@@ -19,19 +19,19 @@ final class TodoListRepository {
 }
 
 extension TodoListRepository: TodoListRepositorible {
-    func create(_ item: TodoListModel) {
+    func create(_ item: Todo) {
         storage.create(item)
     }
     
-    func read() -> AnyPublisher< [TodoListModel], Never> {
+    func read() -> AnyPublisher< [Todo], Never> {
         return storage.read()
     }
     
-    func update(_ item: TodoListModel) {
+    func update(_ item: Todo) {
         storage.update(item)
     }
     
-    func delete(item: TodoListModel) {
+    func delete(item: Todo) {
         storage.delete(item)
     }
     

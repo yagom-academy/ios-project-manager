@@ -21,7 +21,7 @@ final class ViewControllerFactory {
     }
     
     func makeTodoDetailViewContoller(
-        todoListModel: TodoListModel,
+        todoListModel: Todo,
         coordinator: TodoDetailViewCoordinator
     ) -> TodoDetailViewController {
         return TodoDetailViewController(
@@ -51,7 +51,7 @@ final class ViewControllerFactory {
     }
     
     private func makeTodoDetailViewModel(
-        todoListModel: TodoListModel,
+        todoListModel: Todo,
         coordinator: TodoDetailViewCoordinator
     ) -> TodoDetailViewModelable {
         return TodoDetailViewModel(

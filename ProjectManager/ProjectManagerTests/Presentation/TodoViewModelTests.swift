@@ -25,10 +25,10 @@ class TodoViewModelTests: XCTestCase {
         // given
         let deadLine = Date()
         let expectation = XCTestExpectation(description: "cellDidLongPress")
-        let expected1 = TodoListModel(title: "Mock", content: "Mock", deadLine: deadLine, processType: .doing, id: "1")
-        let expected2 = TodoListModel(title: "Mock", content: "Mock", deadLine: deadLine, processType: .done, id: "2")
-        var result1: TodoListModel = TodoListModel.empty
-        var result2: TodoListModel = TodoListModel.empty
+        let expected1 = Todo(title: "Mock", content: "Mock", deadLine: deadLine, processType: .doing, id: "1")
+        let expected2 = Todo(title: "Mock", content: "Mock", deadLine: deadLine, processType: .done, id: "2")
+        var result1: Todo = Todo.empty
+        var result2: Todo = Todo.empty
         
         // when
         viewModel.didTapFirstContextMenu(expected1)
@@ -52,7 +52,7 @@ class TodoViewModelTests: XCTestCase {
     func test_deleteItem하면_todoItems가방출하는배열의원소가하나줄어들어야한다() {
         // given
         let expectation = XCTestExpectation(description: "deleteItem")
-        let mockTodoListModel = TodoListModel(title: "2", content: "2", deadLine: Date(), processType: .todo, id: "2")
+        let mockTodoListModel = Todo(title: "2", content: "2", deadLine: Date(), processType: .todo, id: "2")
         let expected = 2
         var result = 0
 

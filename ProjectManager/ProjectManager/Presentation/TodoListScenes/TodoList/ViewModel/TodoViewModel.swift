@@ -16,14 +16,14 @@ struct MenuType {
 }
 
 protocol TodoViewModelInput: AnyObject {
-    func deleteItem(_ item: TodoListModel)
-    func didTapCell(_ item: TodoListModel)
-    func didTapFirstContextMenu(_ item: TodoListModel)
-    func didTapSecondContextMenu(_ item: TodoListModel)
+    func deleteItem(_ item: Todo)
+    func didTapCell(_ item: Todo)
+    func didTapFirstContextMenu(_ item: Todo)
+    func didTapSecondContextMenu(_ item: Todo)
 }
 
 protocol TodoViewModelOutput {
-    var items: AnyPublisher<[TodoListModel], Never> { get set }
+    var items: AnyPublisher<[Todo], Never> { get set }
     var menuType: MenuType { get }
     var headerTitle: String { get }
 }
@@ -33,7 +33,7 @@ protocol TodoViewModelable: TodoViewModelInput, TodoViewModelOutput {}
 final class TodoViewModel: TodoViewModelable {
     // MARK: - Output
     
-    var items: AnyPublisher<[TodoListModel], Never>
+    var items: AnyPublisher<[Todo], Never>
     
     var menuType: MenuType {
         switch processType {
@@ -76,7 +76,7 @@ final class TodoViewModel: TodoViewModelable {
     
     weak var delegate: TodoViewModelInput?
     
-    init(processType: ProcessType, items: AnyPublisher<[TodoListModel], Never>) {
+    init(processType: ProcessType, items: AnyPublisher<[Todo], Never>) {
         self.processType = processType
         self.items = items
         self.items = filteredItems(with: processType, items: items)
@@ -84,8 +84,8 @@ final class TodoViewModel: TodoViewModelable {
     
     private func filteredItems(
         with type: ProcessType,
-        items: AnyPublisher<[TodoListModel], Never>
-    ) -> AnyPublisher<[TodoListModel], Never> {
+        items: AnyPublisher<[Todo], Never>
+    ) -> AnyPublisher<[Todo], Never> {
         return items
             .compactMap { item in
                 return item.filter { $0.processType == type }
@@ -98,16 +98,16 @@ extension TodoViewModel {
     
     // MARK: - Input
     
-    func deleteItem(_ item: TodoListModel) {
+    func deleteItem(_ item: Todo) {
         delegate?.deleteItem(item)
     }
     
-    func didTapCell(_ item: TodoListModel) {
+    func didTapCell(_ item: Todo) {
         delegate?.didTapCell(item)
     }
     
-    func didTapFirstContextMenu(_ item: TodoListModel) {
-        let item = TodoListModel(
+    func didTapFirstContextMenu(_ item: Todo) {
+        let item = Todo(
             title: item.title,
             content: item.content,
             deadline: item.deadline,
@@ -117,8 +117,8 @@ extension TodoViewModel {
         delegate?.didTapFirstContextMenu(item)
     }
     
-    func didTapSecondContextMenu(_ item: TodoListModel) {
-        let item = TodoListModel(
+    func didTapSecondContextMenu(_ item: Todo) {
+        let item = Todo(
             title: item.title,
             content: item.content,
             deadline: item.deadline,

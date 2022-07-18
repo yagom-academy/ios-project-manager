@@ -21,7 +21,7 @@ class TodoListViewModelTests: XCTestCase {
         // given
         let expectation = XCTestExpectation(description: "addButtonDidTap")
         let expected = 4
-        var result: [TodoListModel] = []
+        var result: [Todo] = []
         
         // when
         viewModel.didTapAddButton()
@@ -39,10 +39,10 @@ class TodoListViewModelTests: XCTestCase {
         // given
         let deadLine = Date()
         let expectation = XCTestExpectation(description: "cellDidLongPress")
-        let expected1 = TodoListModel(title: "Mock", content: "Mock", deadLine: deadLine, processType: .done, id: "1")
-        let expected2 = TodoListModel(title: "Mock", content: "Mock", deadLine: deadLine, processType: .doing, id: "2")
-        var result1: TodoListModel = TodoListModel(title: "Mock", content: "Mock", deadLine: deadLine)
-        var result2: TodoListModel = TodoListModel(title: "Mock", content: "Mock", deadLine: deadLine, processType: .doing)
+        let expected1 = Todo(title: "Mock", content: "Mock", deadLine: deadLine, processType: .done, id: "1")
+        let expected2 = Todo(title: "Mock", content: "Mock", deadLine: deadLine, processType: .doing, id: "2")
+        var result1: Todo = Todo(title: "Mock", content: "Mock", deadLine: deadLine)
+        var result2: Todo = Todo(title: "Mock", content: "Mock", deadLine: deadLine, processType: .doing)
         
         // when
         viewModel.didTapFirstContextMenu(expected1)
@@ -66,7 +66,7 @@ class TodoListViewModelTests: XCTestCase {
     func test_deleteItem하면_todoItems가방출하는배열의원소가하나줄어들어야한다() {
         // given
         let expectation = XCTestExpectation(description: "deleteItem")
-        let mockTodoListModel = TodoListModel(title: "2", content: "2", deadLine: Date(), processType: .todo, id: "2")
+        let mockTodoListModel = Todo(title: "2", content: "2", deadLine: Date(), processType: .todo, id: "2")
         let expected = 2
         var result = 0
         

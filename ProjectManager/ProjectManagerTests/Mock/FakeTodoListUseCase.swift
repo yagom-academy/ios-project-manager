@@ -11,19 +11,19 @@ import Combine
 final class FakeTodoListUseCase: TodoListUseCaseable {
     let repository: TodoListRepositorible = FakeTodoListRepository()
     
-    func create(_ item: TodoListModel) {
+    func create(_ item: Todo) {
         repository.create(item)
     }
     
-    func read() -> AnyPublisher<[TodoListModel], Never> {
+    func read() -> AnyPublisher<[Todo], Never> {
         return repository.read()
     }
     
-    func update(_ item: TodoListModel) {
+    func update(_ item: Todo) {
         repository.update(item)
     }
     
-    func delete(item: TodoListModel) {
+    func delete(item: Todo) {
         repository.delete(item: item)
     }
     

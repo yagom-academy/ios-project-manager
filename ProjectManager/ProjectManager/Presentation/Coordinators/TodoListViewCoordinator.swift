@@ -26,7 +26,7 @@ final class TodoListViewCoordinator: Coordinator {
         self.navigationController?.pushViewController(todoListViewController, animated: true)
     }
     
-    func showDetailViewController(_ item: TodoListModel) {
+    func showDetailViewController(_ item: Todo) {
         guard let navigationController = navigationController else {
             return
         }

@@ -13,7 +13,7 @@ protocol TodoListViewModelInput {
 }
 
 protocol TodoListViewModelOutput {
-    var items: AnyPublisher<[TodoListModel], Never> { get }
+    var items: AnyPublisher<[Todo], Never> { get }
     var title: Just<String> { get }
 }
 
@@ -22,7 +22,7 @@ protocol TodoListViewModelable: TodoListViewModelInput, TodoListViewModelOutput 
 final class TodoListViewModel: TodoListViewModelable {
     // MARK: - Output
     
-    var items: AnyPublisher<[TodoListModel], Never> {
+    var items: AnyPublisher<[Todo], Never> {
         return useCase.read().eraseToAnyPublisher()
     }
     
@@ -44,26 +44,26 @@ extension TodoListViewModel {
     // MARK: - Input
     
     func didTapAddButton() {
-        let item = TodoListModel.empty
+        let item = Todo.empty
         useCase.create(item)
         coordinator?.showDetailViewController(item)
     }    
 }
 
 extension TodoListViewModel: TodoViewModelInput {
-    func deleteItem(_ item: TodoListModel) {
+    func deleteItem(_ item: Todo) {
         useCase.delete(item: item)
     }
     
-    func didTapCell(_ item: TodoListModel) {
+    func didTapCell(_ item: Todo) {
         coordinator?.showDetailViewController(item)
     }
     
-    func didTapFirstContextMenu(_ item: TodoListModel) {
+    func didTapFirstContextMenu(_ item: Todo) {
         useCase.update(item)
     }
     
-    func didTapSecondContextMenu(_ item: TodoListModel) {
+    func didTapSecondContextMenu(_ item: Todo) {
         useCase.update(item)
     }
 }

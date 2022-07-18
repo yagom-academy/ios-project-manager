@@ -9,10 +9,10 @@ import Foundation
 import Combine
 
 protocol TodoListUseCaseable {
-    func create(_ item: TodoListModel)
-    func read() -> AnyPublisher<[TodoListModel], Never>
-    func update(_ item: TodoListModel)
-    func delete(item: TodoListModel)
+    func create(_ item: Todo)
+    func read() -> AnyPublisher<[Todo], Never>
+    func update(_ item: Todo)
+    func delete(item: Todo)
     func deleteLastItem(title: String?, content: String?)
 }
 
@@ -23,19 +23,19 @@ final class TodoListUseCase: TodoListUseCaseable {
         self.repository = repository
     }
     
-    func create(_ item: TodoListModel) {
+    func create(_ item: Todo) {
         repository.create(item)
     }
     
-    func read() -> AnyPublisher<[TodoListModel], Never> {
+    func read() -> AnyPublisher<[Todo], Never> {
         return repository.read()
     }
     
-    func update(_ item: TodoListModel) {
+    func update(_ item: Todo) {
         repository.update(item)
     }
     
-    func delete(item: TodoListModel) {
+    func delete(item: Todo) {
         repository.delete(item: item)
     }
     

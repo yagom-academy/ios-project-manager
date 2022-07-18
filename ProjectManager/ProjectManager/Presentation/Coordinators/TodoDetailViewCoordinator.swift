@@ -19,7 +19,7 @@ final class TodoDetailViewCoordinator: Coordinator {
         self.dependencies = dependencies
     }
 
-    func start(_ item: TodoListModel) {
+    func start(_ item: Todo) {
         guard let navigationController = navigationController else {
             return
         }

@@ -17,7 +17,7 @@ protocol TodoDetailViewModelInput {
 }
 
 protocol TodoDetailViewModelOutput {
-    var item: Just<TodoListModel> { get }
+    var item: Just<Todo> { get }
     var isEdited: PassthroughSubject<Bool, Never> { get }
     var isCreated: PassthroughSubject<Bool, Never> { get }
     var title: CurrentValueSubject<String, Never> { get }
@@ -29,7 +29,7 @@ final class TodoDetailViewModel: TodoDetailViewModelable {
     
     // MARK: - Output
     
-    var item: Just<TodoListModel> {
+    var item: Just<Todo> {
         return Just(todoListModel)
     }
     
@@ -38,10 +38,10 @@ final class TodoDetailViewModel: TodoDetailViewModelable {
     let title = CurrentValueSubject<String, Never>("TODO")
 
     private weak var coordinator: TodoDetailViewCoordinator?
-    private let todoListModel: TodoListModel
+    private let todoListModel: Todo
     private let useCase: TodoListUseCaseable
     
-    init(useCase: TodoListUseCaseable, todoListModel: TodoListModel, coordinator: TodoDetailViewCoordinator? = nil) {
+    init(useCase: TodoListUseCaseable, todoListModel: Todo, coordinator: TodoDetailViewCoordinator? = nil) {
         self.useCase = useCase
         self.todoListModel = todoListModel
         self.coordinator = coordinator
@@ -77,7 +77,7 @@ extension TodoDetailViewModel {
         }
         
         useCase.update(
-            TodoListModel(
+            Todo(
                 title: title,
                 content: content,
                 deadline: deadline,

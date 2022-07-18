@@ -9,30 +9,30 @@ import Foundation
 import Combine
 
 protocol Storageable: AnyObject {
-    func create(_ item: TodoListModel)
-    func read() -> AnyPublisher<[TodoListModel], Never>
-    func update(_ item: TodoListModel)
-    func delete(_ item: TodoListModel)
+    func create(_ item: Todo)
+    func read() -> AnyPublisher<[Todo], Never>
+    func update(_ item: Todo)
+    func delete(_ item: Todo)
 }
 
 final class MemoryStorage: Storageable {
-    @Published private var items: [TodoListModel] = TodoListModel.dummyData()
+    @Published private var items: [Todo] = Todo.dummyData()
     
-    func create(_ item: TodoListModel) {
+    func create(_ item: Todo) {
         items.append(item)
     }
     
-    func read() -> AnyPublisher<[TodoListModel], Never> {
+    func read() -> AnyPublisher<[Todo], Never> {
         return $items.eraseToAnyPublisher()
     }
     
-    func update(_ item: TodoListModel) {
+    func update(_ item: Todo) {
         if let targetIndex = items.firstIndex(where: { $0.id == item.id }) {
             items[targetIndex] = item
         }
     }
     
-    func delete(_ item: TodoListModel) {
+    func delete(_ item: Todo) {
         items.removeAll { $0.id == item.id }
     }
 }
