@@ -59,11 +59,16 @@ final class AddViewController: UIViewController {
         detailView.doneButton.rx.tap
             .bind(onNext: { [weak self] in
                 self?.viewModel.touchDoneButton()
-                self?.dismiss(animated: true)
             })
             .disposed(by: disposebag)
         
         detailView.leftButton.rx.tap
+            .bind(onNext: { [weak self] in
+                self?.viewModel.touchCloseButton()
+            })
+            .disposed(by: disposebag)
+        
+        viewModel.dismiss
             .bind(onNext: { [weak self] in
                 self?.dismiss(animated: true)
             })

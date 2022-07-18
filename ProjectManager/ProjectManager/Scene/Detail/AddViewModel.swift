@@ -6,23 +6,28 @@
 //
 
 import Foundation
+import RxRelay
 
 protocol AddViewModelable: AddViewModelOutput, AddViewModelInput {}
 
 protocol AddViewModelOutput {
     var list: ListItem { get }
+    var dismiss: BehaviorRelay<Void> { get }
 }
 
 protocol AddViewModelInput {
     func changeTitle(_ text: String?)
     func changeDaedLine(_ date: Date?)
     func changeBody(_ text: String?)
+    func touchCloseButton()
     func touchDoneButton()
 }
 
 final class AddViewModel: AddViewModelable {
     private let storage: Storegeable
+    
     var list: ListItem
+    var dismiss = BehaviorRelay<Void>(value: ())
     
     init(storage: Storegeable) {
         self.storage = storage
@@ -41,7 +46,12 @@ final class AddViewModel: AddViewModelable {
         list.body = text ?? ""
     }
     
+    func touchCloseButton() {
+        dismiss.accept(())
+    }
+    
     func touchDoneButton() {
         storage.creatList(listItem: list)
+        dismiss.accept(())
     }
 }
