@@ -101,26 +101,17 @@ final class MainViewController: UIViewController {
     }
     
     private func deleteProject() {
-        let toDoTableView = mainView.toDoTable.tableView
-        let doingTableView = mainView.doingTable.tableView
-        let doneTableView = mainView.doneTable.tableView
-        
-        bindItemDeleted(to: toDoTableView)
-        bindItemDeleted(to: doingTableView)
-        bindItemDeleted(to: doneTableView)
+        bindModelDeleted(at: mainView.toDoTable.tableView)
+        bindModelDeleted(at: mainView.doingTable.tableView)
+        bindModelDeleted(at: mainView.doneTable.tableView)
     }
     
-    private func bindItemDeleted(to tableView: UITableView) {
-        tableView.delegate = self
-        
+    private func bindModelDeleted(at tableView: UITableView) {
         tableView.rx
-            .itemDeleted
+            .modelDeleted(ProjectContent.self)
             .asDriver()
-            .drive { [weak self] indexPath in
-                guard let cell = tableView.cellForRow(at: indexPath) as? ProjectCell else {
-                    return
-                }
-                self?.viewModel.deleteProject(cell.contentID)
+            .drive { [weak self] project in
+                self?.viewModel.deleteProject(project)
             }
             .disposed(by: disposeBag)
     }
@@ -189,18 +180,5 @@ final class MainViewController: UIViewController {
         next.modalPresentationStyle = .formSheet
         
         self.present(next, animated: true)
-    }
-}
-
-extension MainViewController: UITableViewDelegate {
-    func tableView(
-        _ tableView: UITableView,
-        leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath
-    ) -> UISwipeActionsConfiguration? {
-        let delete = UIContextualAction(style: .destructive, title: "DELETE") { _, _, completion in
-            completion(true)
-        }
-        
-        return UISwipeActionsConfiguration(actions: [delete])
     }
 }
