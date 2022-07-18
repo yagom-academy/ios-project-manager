@@ -48,7 +48,7 @@ final class HeaderView: UIView {
         return label
     }()
     
-    lazy var countLabel: UILabel = {
+    let countLabel: UILabel = {
         let label = UILabel()
         
         func round() {
