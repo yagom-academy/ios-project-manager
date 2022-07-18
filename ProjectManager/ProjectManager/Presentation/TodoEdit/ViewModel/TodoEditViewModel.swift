@@ -86,7 +86,10 @@ extension DefaultTodoEditViewModel: TodoEditViewModel {
     }
     
     func inputitle(title: String?) {
-        if title?.isEmpty == true { return }
+        if title?.isEmpty == true {
+            item?.title = title
+            return
+        }
         makeEmptyTodoItem()
         item?.title = title
     }
@@ -96,7 +99,10 @@ extension DefaultTodoEditViewModel: TodoEditViewModel {
     }
     
     func inputBody(body: String?) {
-        if body?.isEmpty == true { return }
+        if body?.isEmpty == true {
+            item?.body = body
+            return
+        }
         makeEmptyTodoItem()
         item?.body = body
     }

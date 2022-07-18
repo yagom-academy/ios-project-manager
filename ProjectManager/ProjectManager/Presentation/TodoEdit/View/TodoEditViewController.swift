@@ -109,6 +109,7 @@ extension TodoEditViewController {
             }.disposed(by: bag)
         
         mainView.rx.titleText
+            .debug()
             .bind { [weak self] in
                 self?.viewModel.inputitle(title: $0)
             }.disposed(by: bag)
