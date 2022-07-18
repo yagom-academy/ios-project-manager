@@ -23,6 +23,7 @@
 		B0640CC4287F17CA00E684E6 /* PopOverable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0640CC3287F17CA00E684E6 /* PopOverable.swift */; };
 		B06FD23428854A96003CED8E /* CardDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06FD23328854A96003CED8E /* CardDetailViewModel.swift */; };
 		B06FD23628854DCB003CED8E /* CardAdditionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06FD23528854DCB003CED8E /* CardAdditionViewModel.swift */; };
+		B06FD23B28854EF8003CED8E /* DefaultCardUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06FD23A28854EF8003CED8E /* DefaultCardUseCase.swift */; };
 		B0713BC8287EA2AB00436F58 /* UIAlertController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0713BC7287EA2AB00436F58 /* UIAlertController+Extension.swift */; };
 		B0DA23EF287AD66700576D5E /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DA23EE287AD66700576D5E /* UITableView+Extension.swift */; };
 		B0EF5B18287522E000A503A9 /* CardSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF5B17287522E000A503A9 /* CardSectionView.swift */; };
@@ -49,6 +50,7 @@
 		B0640CC3287F17CA00E684E6 /* PopOverable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopOverable.swift; sourceTree = "<group>"; };
 		B06FD23328854A96003CED8E /* CardDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetailViewModel.swift; sourceTree = "<group>"; };
 		B06FD23528854DCB003CED8E /* CardAdditionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardAdditionViewModel.swift; sourceTree = "<group>"; };
+		B06FD23A28854EF8003CED8E /* DefaultCardUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCardUseCase.swift; sourceTree = "<group>"; };
 		B0713BC7287EA2AB00436F58 /* UIAlertController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extension.swift"; sourceTree = "<group>"; };
 		B0DA23EE287AD66700576D5E /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
 		B0EF5B17287522E000A503A9 /* CardSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardSectionView.swift; sourceTree = "<group>"; };
@@ -110,12 +112,12 @@
 			path = ViewController;
 			sourceTree = "<group>";
 		};
-		B01DCDC728732AC000AFF91A /* Model */ = {
+		B01DCDC728732AC000AFF91A /* Entity */ = {
 			isa = PBXGroup;
 			children = (
 				B01DCDC828732AC900AFF91A /* Card.swift */,
 			);
-			path = Model;
+			path = Entity;
 			sourceTree = "<group>";
 		};
 		B01DCDD0287347DE00AFF91A /* Scene */ = {
@@ -157,6 +159,23 @@
 				B01DCDD12873483F00AFF91A /* ViewModel */,
 			);
 			path = MainScene;
+			sourceTree = "<group>";
+		};
+		B06FD23728854EB1003CED8E /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				B01DCDC728732AC000AFF91A /* Entity */,
+				B06FD23928854ECA003CED8E /* UseCase */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		B06FD23928854ECA003CED8E /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+				B06FD23A28854EF8003CED8E /* DefaultCardUseCase.swift */,
+			);
+			path = UseCase;
 			sourceTree = "<group>";
 		};
 		B0DA23EC287AD62700576D5E /* Util */ = {
@@ -214,7 +233,7 @@
 			isa = PBXGroup;
 			children = (
 				B001066F287298D30080ACC7 /* Application */,
-				B01DCDC728732AC000AFF91A /* Model */,
+				B06FD23728854EB1003CED8E /* Domain */,
 				B01DCDD0287347DE00AFF91A /* Scene */,
 				B0DA23EC287AD62700576D5E /* Util */,
 				B0010670287298DC0080ACC7 /* Resource */,
@@ -322,6 +341,7 @@
 				B032CDA62873DAC00087383E /* CardListHeaderView.swift in Sources */,
 				B01DCDD32873485000AFF91A /* CardListViewModel.swift in Sources */,
 				B01DCDC928732AC900AFF91A /* Card.swift in Sources */,
+				B06FD23B28854EF8003CED8E /* DefaultCardUseCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
