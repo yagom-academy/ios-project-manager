@@ -9,28 +9,28 @@ import RxCocoa
 import RxGesture
 
 struct MainViewModel {
-    let projects: BehaviorRelay<[ProjectContent]> = {
+    private let projects: BehaviorRelay<[ProjectContent]> = {
         return ProjectUseCase().repository.read()
     }()
-    
+
     lazy var todoProjects: Driver<[ProjectContent]> = {
         projects
             .map { $0.filter { $0.status == .todo } }
             .asDriver(onErrorJustReturn: [])
     }()
-    
+
     lazy var doingProjects: Driver<[ProjectContent]> = {
         projects
             .map { $0.filter { $0.status == .doing } }
             .asDriver(onErrorJustReturn: [])
     }()
-    
+
     lazy var doneProjects: Driver<[ProjectContent]> = {
         projects
             .map { $0.filter { $0.status == .done } }
             .asDriver(onErrorJustReturn: [])
     }()
-    
+
     func deleteProject(_ id: UUID?) {
         ProjectUseCase().repository.delete(projectContentID: id)
     }
