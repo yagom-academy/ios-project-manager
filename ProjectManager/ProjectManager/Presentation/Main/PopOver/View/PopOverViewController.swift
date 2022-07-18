@@ -73,6 +73,7 @@ final class PopOverViewController: UIViewController {
                 guard let status = ProjectStatus.convert(secondButton.titleLabel?.text) else {
                     return
                 }
+                
                 self?.viewModel.changeConent(status: status)
                 self?.dismiss(animated: true)
             }
