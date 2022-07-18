@@ -7,10 +7,10 @@
 
 import Foundation
 
-extension Optional where Wrapped == String {
-  static func nowDate(_ date: Date) -> String {
+extension Date {
+  func nowDate() -> String {
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "YY. MM. dd."
-    return dateFormatter.string(from: date)
+    return dateFormatter.string(from: self)
   }
 }
