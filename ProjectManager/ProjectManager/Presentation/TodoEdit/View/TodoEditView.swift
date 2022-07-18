@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import RxSwift
+import RxCocoa
 
 final class TodoEditView: UIView {
     private lazy var contentStackView: UIStackView = {
@@ -89,15 +90,15 @@ extension TodoEditView {
 }
 
 extension Reactive where Base == TodoEditView {
-    var titleText: Observable<String?> {
-        return base.titleTextField.rx.text.asObservable()
+    var titleText: ControlProperty<String?> {
+        return base.titleTextField.rx.text
     }
     
-    var datePicker: Observable<Date> {
-        return base.datePicker.rx.date.asObservable()
+    var datePicker: ControlProperty<Date> {
+        return base.datePicker.rx.date
     }
     
-    var bodyText: Observable<String?> {
-        return base.bodyTextView.rx.text.asObservable()
+    var bodyText: ControlProperty<String?> {
+        return base.bodyTextView.rx.text
     }
 }
