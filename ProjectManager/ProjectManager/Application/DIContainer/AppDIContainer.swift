@@ -12,7 +12,7 @@ protocol AppDIContainerable {
 }
 
 final class AppDIContainer: AppDIContainerable {
-    private let storage = RealmStorage()
+    private let storage = FirebaseStorage()
     
     func makeTodoListSceneDIContainer() -> TodoListSceneDIContainer {
         TodoListSceneDIContainer(dependencies: TodoListSceneDIContainer.Dependencies(storage: storage))

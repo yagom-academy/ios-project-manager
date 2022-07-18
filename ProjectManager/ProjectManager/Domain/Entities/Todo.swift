@@ -7,6 +7,14 @@
 
 import Foundation
 
+import RealmSwift
+
+enum ProcessType: String, PersistableEnum {
+    case todo = "TODO"
+    case doing = "DOING"
+    case done = "DONE"
+}
+
 struct Todo: Hashable {
     let id: String
     let title: String
@@ -17,13 +25,6 @@ struct Todo: Hashable {
     static func empty() -> Todo {
         return Todo(title: "", content: "", deadline: Date())
     }
-    
-//    static var empty: Self = .init(
-//        title: "",
-//        content: "",
-//        deadline: Date(),
-//        id: UUID().uuidString
-//    )
     
     init(
         title: String,
@@ -37,6 +38,16 @@ struct Todo: Hashable {
         self.content = content
         self.deadline = deadline
         self.processType = processType
+    }
+    
+    func toDictionary() -> NSDictionary {
+        return [
+            "id": self.id,
+            "title": self.title,
+            "content": self.content,
+            "deadline": self.deadline.timeIntervalSinceReferenceDate,
+            "processType": self.processType.rawValue
+        ]
     }
 }
 
@@ -56,11 +67,3 @@ extension Todo {
     }
 }
 #endif
-
-import RealmSwift
-
-enum ProcessType: String, PersistableEnum {
-    case todo = "TODO"
-    case doing = "DOING"
-    case done = "DONE"
-}
