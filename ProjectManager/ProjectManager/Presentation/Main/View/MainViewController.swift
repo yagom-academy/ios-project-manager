@@ -15,8 +15,6 @@ final class MainViewController: UIViewController {
     private let disposeBag = DisposeBag()
     
     override func loadView() {
-        super.loadView()
-        
         view = mainView
     }
     
