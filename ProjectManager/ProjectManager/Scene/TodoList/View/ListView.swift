@@ -127,8 +127,8 @@ final class ListView: UIView {
         .filter { $0.0 == self.todoListItemstatus }
         .flatMap { $0.1 }
         .map { String($0.count) }
-        .asDriver(onErrorJustReturn: Const.empty)
-        .drive(self.listCountLabel.rx.text)
+        .observe(on: MainScheduler.instance)
+        .bind(to: self.listCountLabel.rx.text)
         .disposed(by: self.disposeBag)
         
         Observable.of(
