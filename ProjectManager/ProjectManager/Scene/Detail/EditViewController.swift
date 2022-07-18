@@ -35,12 +35,26 @@ final class EditViewController: UIViewController {
     }
     
     private func bindView() {
-        viewModel.isEditable.bind(onNext: { [weak self] in
+        viewModel.isEditable
+            .bind(onNext: { [weak self] in
             self?.detailView.titleTextField.isEnabled = $0
             self?.detailView.deadlinePicker.isUserInteractionEnabled = $0
             self?.detailView.bodyTextView.isEditable = $0
+            
+            self?.detailView.leftButton.title = $0 ? "Cancel" : "Edit"
         })
         .disposed(by: disposebag)
+        
+        viewModel.dismiss.bind(onNext: { [weak self] in
+            self?.dismiss(animated: true)
+        })
+        .disposed(by: disposebag)
+        
+        detailView.leftButton.rx.tap
+            .bind(onNext: { [weak self] in
+                self?.viewModel.touchLeftButton()
+            })
+            .disposed(by: disposebag)
         
         detailView.titleTextField.rx
             .text.changed
@@ -66,17 +80,6 @@ final class EditViewController: UIViewController {
         detailView.doneButton.rx.tap
             .bind(onNext: { [weak self] in
                 self?.viewModel.touchDoneButton()
-                self?.dismiss(animated: true)
-            })
-            .disposed(by: disposebag)
-        
-        detailView.leftButton.rx.tap
-            .bind(onNext: { [weak self] in
-                guard let self = self else {
-                    return
-                }
-                let title = self.viewModel.touchLeftButton(self)
-                self.detailView.leftButton.title = title
             })
             .disposed(by: disposebag)
     }

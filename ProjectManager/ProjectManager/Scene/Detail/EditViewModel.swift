@@ -7,32 +7,36 @@
 
 import Foundation
 import RxRelay
-protocol EditViewModelable: EditViewModelOutput, EditViewModelInput {
-    var isEditable: BehaviorRelay<Bool> { get }
-}
+protocol EditViewModelable: EditViewModelOutput, EditViewModelInput {}
 
 protocol EditViewModelOutput {
     var list: ListItem { get }
+    var isEditable: BehaviorRelay<Bool> { get }
+    var dismiss: BehaviorRelay<Void> { get }
 }
 
 protocol EditViewModelInput {
     func changeTitle(_ text: String?)
     func changeDaedLine(_ date: Date?)
     func changeBody(_ text: String?)
-    func touchLeftButton(_ vc: EditViewController) -> String?
+    func touchLeftButton()
     func touchDoneButton()
 }
 
 final class EditViewModel: EditViewModelable {
     private let storage: Storegeable
+    
+    //out
     var list: ListItem
     var isEditable = BehaviorRelay<Bool>(value: false)
+    var dismiss = BehaviorRelay<Void>(value: ())
     
     init(storage: Storegeable, index: Int, type: ListType) {
         self.storage = storage
         self.list = storage.selectItem(index: index, type: type)
     }
     
+    //in
     func changeTitle(_ text: String?) {
         list.title = text ?? ""
     }
@@ -45,17 +49,16 @@ final class EditViewModel: EditViewModelable {
         list.body = text ?? ""
     }
     
-    func touchLeftButton(_ vc: EditViewController) -> String? {
+    func touchLeftButton() {
         if isEditable.value {
-            vc.dismiss(animated: true)
-            return nil
+            self.dismiss.accept(())
         } else {
             self.isEditable.accept(true)
-            return "Cancel"
         }
     }
     
     func touchDoneButton() {
         storage.updateList(listItem: list)
+        dismiss.accept(())
     }
 }
