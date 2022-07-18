@@ -32,28 +32,27 @@ final class RealmStorage: Storageable {
     
     func create(_ item: Todo) -> AnyPublisher<Void, StorageError> {
         return write(.createFail) {
-            
-            let realmModel = TodoRealm(title: item.title, content: item.content, deadline: item.deadline, processType: item.processType, id: item.id)
-            realm.add(realmModel)
+            realm.add(transferToTodoRealm(with: item))
             realmSubject.send(self.readAll())
         }
     }
-    
+        
     func read() -> CurrentValueSubject<[Todo], Never> {
         return realmSubject
     }
     
     func update(_ item: Todo) -> AnyPublisher<Void, StorageError> {
         return write(.updateFail) {
-            let realmModel = TodoRealm(title: item.title, content: item.content, deadline: item.deadline, processType: item.processType, id: item.id)
-            realm.add(realmModel, update: .modified)
+            realm.add(transferToTodoRealm(with: item), update: .modified)
             realmSubject.send(readAll())
         }
     }
     
     func delete(_ item: Todo) -> AnyPublisher<Void, StorageError> {
         return write(.deleteFail) {
-            let realmModel = realm.object(ofType: TodoRealm.self, forPrimaryKey: item.id)!
+            guard let realmModel = realm.object(ofType: TodoRealm.self, forPrimaryKey: item.id) else {
+                return
+            }
             realm.delete(realmModel)
             realmSubject.send(readAll())
         }
@@ -69,11 +68,26 @@ final class RealmStorage: Storageable {
     }
     
     private func readAll() -> [Todo] {
-        let todoRealms = realm.objects(TodoRealm.self)
-        
-        return todoRealms.map { realmModel in
-            Todo(title: realmModel.title, content: realmModel.content
-                 , deadline: realmModel.deadline, processType: realmModel.processType, id: realmModel.id)
-        }
+        return realm.objects(TodoRealm.self).map(transferToTodo)
+    }
+    
+    private func transferToTodoRealm(with item: Todo) -> TodoRealm {
+        return TodoRealm(
+            title: item.title,
+            content: item.content,
+            deadline: item.deadline,
+            processType: item.processType,
+            id: item.id
+        )
+    }
+    
+    private func transferToTodo(with item: TodoRealm) -> Todo {
+        return Todo(
+            title: item.title,
+            content: item.content,
+            deadline: item.deadline,
+            processType: item.processType,
+            id: item.id
+        )
     }
 }
