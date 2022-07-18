@@ -209,8 +209,7 @@ private extension TodoListViewController {
       return
     }
     
-    let dataSource = collectionView.dataSource as? DataSource
-    guard let item = dataSource?.snapshot().itemIdentifiers[indexPath.row] else {
+    guard let item = findItem(from: collectionView, with: indexPath.row) else {
       return
     }
     
