@@ -84,12 +84,12 @@ final class MainViewController: UIViewController {
     }
     
     private func setUpTableCellData() {
-        bind(projects: viewModel.todoProjects, tableView: mainView.toDoTable.tableView)
-        bind(projects: viewModel.doingProjects, tableView: mainView.doingTable.tableView)
-        bind(projects: viewModel.doneProjects, tableView: mainView.doneTable.tableView)
+        bindCell(to: viewModel.todoProjects, at: mainView.toDoTable.tableView)
+        bindCell(to: viewModel.doingProjects, at: mainView.doingTable.tableView)
+        bindCell(to: viewModel.doneProjects, at: mainView.doneTable.tableView)
     }
     
-    private func bind(projects: Driver<[ProjectContent]>, tableView: UITableView) {
+    private func bindCell(to projects: Driver<[ProjectContent]>, at tableView: UITableView) {
         projects
             .drive(tableView.rx.items(
                 cellIdentifier: "\(ProjectCell.self)",
