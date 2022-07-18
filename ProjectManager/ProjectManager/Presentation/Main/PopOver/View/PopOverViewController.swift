@@ -58,23 +58,15 @@ final class PopOverViewController: UIViewController {
         firstButton.rx.tap
             .asDriver()
             .drive { [weak self] _ in
-                guard let status = ProjectStatus.convert(firstButton.titleLabel?.text) else {
-                    return
-                }
-                
-                self?.viewModel.changeConent(status: status)
+                self?.viewModel.moveCell(by: firstButton.titleLabel?.text)
                 self?.dismiss(animated: true)
             }
             .disposed(by: disposeBag)
-        
+
         secondButton.rx.tap
             .asDriver()
             .drive { [weak self] _ in
-                guard let status = ProjectStatus.convert(secondButton.titleLabel?.text) else {
-                    return
-                }
-                
-                self?.viewModel.changeConent(status: status)
+                self?.viewModel.moveCell(by: secondButton.titleLabel?.text)
                 self?.dismiss(animated: true)
             }
             .disposed(by: disposeBag)

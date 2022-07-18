@@ -12,7 +12,14 @@ struct PopOverViewModel {
         self.cell = cell
     }
     
-    func changeConent(status: ProjectStatus) {
+    func moveCell(by text: String?) {
+        guard let status = ProjectStatus.convert(text) else {
+            return
+        }
+        changeContent(status: status)
+    }
+    
+    private func changeContent(status: ProjectStatus) {
         guard let id = cell.contentID,
               var project = ProjectUseCase().read(id: id) else {
             return
