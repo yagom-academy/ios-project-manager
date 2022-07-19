@@ -11,11 +11,6 @@ import CoreData
 import OSLog
 
 final class PersistentManager {
-    static let shared = PersistentManager()
-    
-    private init() { }
-    
-    private let projectEntities = BehaviorRelay<[ProjectContent]>(value: [])
     private lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "Project")
         container.loadPersistentStores { _, error in
@@ -30,52 +25,95 @@ final class PersistentManager {
     }
 }
 
-extension PersistentManager: Storagable {
-    func create(projectContent: ProjectContent) {
-        guard let _ = try? saveToContext(projectContent) else {
+extension PersistentManager {
+    func create(project: Project) {
+        saveToContext(project)
+    }
+    
+    func read() -> [Project] {
+        guard let projects = fetchProjects() else {
+            return []
+        }
+        return projects
+    }
+    
+    func read(id: UUID?) -> Project? {
+        guard let project = fetchProject(id: id?.uuidString) else {
+            return nil
+        }
+        return project
+    }
+
+    func update(project: Project) {
+        let oldProject = fetchProject(id: project.id?.uuidString)
+        
+        oldProject?.setValue(project.title, forKey: "title")
+        oldProject?.setValue(project.status, forKey: "status")
+        oldProject?.setValue(project.deadline, forKey: "deadline")
+        oldProject?.setValue(project.body, forKey: "body")
+        
+        guard let _ = try? context.save() else {
             return
         }
-        var currentProject = read().value
-        currentProject.append(projectContent)
-        projectEntities.accept(currentProject)
     }
-    
-    func read() -> BehaviorRelay<[ProjectContent]> {
-        return projectEntities
-    }
-    
-    func read(id: UUID?) -> ProjectContent? {
-        return projectEntities.value.filter { $0.id == id }.first
-    }
-    
-    func update(projectContent: ProjectContent) {
-        let projects = projectEntities.value
-        
-        if let indexToUpdated = projects.firstIndex(where: { $0.id == projectContent.id}) {
-            var projectsToUpdate = projectEntities.value
-            
-            projectsToUpdate[indexToUpdated] = projectContent
-            projectEntities.accept(projectsToUpdate)
-        }
-    }
-    
+
     func delete(projectContentID: UUID?) {
-        let projects = projectEntities.value
+        guard let projectToDelete = fetchProject(id: projectContentID?.uuidString) else {
+            return
+        }
         
-        if let indexToDelete = projects.firstIndex(where: { $0.id == projectContentID}) {
-            var projectsToDelete = projectEntities.value
-            
-            projectsToDelete.remove(at: indexToDelete)
-            projectEntities.accept(projectsToDelete)
+        context.delete(projectToDelete)
+        
+        guard let _ = try? context.save() else {
+            return
         }
     }
-    
-    private func saveToContext(_ projectContent: ProjectContent) throws {
+}
+
+extension PersistentManager {
+    private func saveToContext(_ project: Project) {
         guard let entity = NSEntityDescription.entity(forEntityName: "Project", in: context) else {
             return
         }
+        
         let managedObject = NSManagedObject(entity: entity, insertInto: context)
-        try context.save()
+        
+        managedObject.setValue(project.id, forKey: "id")
+        managedObject.setValue(project.title, forKey: "title")
+        managedObject.setValue(project.status, forKey: "status")
+        managedObject.setValue(project.deadline, forKey: "deadline")
+        managedObject.setValue(project.body, forKey: "body")
+        
+        guard let _ = try? context.save() else {
+            return
+        }
+    }
+
+    private func fetchProjects() -> [Project]? {
+        guard let fetchedProjects = try? context.fetch(makeRequest()) else {
+            return nil
+        }
+        
+        return fetchedProjects
+    }
+    
+    private func fetchProject(id: String?) -> Project? {
+        guard let fetchedProject = try? context.fetch(makeRequest(by: id)) else {
+            return nil
+        }
+        
+        return fetchedProject.first
+    }
+    
+    private func makeRequest(by id: String? = nil) -> NSFetchRequest<Project> {
+        let request: NSFetchRequest<Project> = Project.fetchRequest()
+        
+        if let id = id {
+            let predicate = NSPredicate(format: "id == %@", id)
+            request.predicate = predicate
+        }
+        
+        return request
     }
 }
 
