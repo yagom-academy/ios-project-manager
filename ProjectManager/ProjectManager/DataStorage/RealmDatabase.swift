@@ -35,13 +35,17 @@ final class RealmDatabase: Database {
     
     func update(selectedTodo: Todo) {
         let realm = try? Realm()
-        var item = realm?.objects(RealmTodo.self)
+        let item = realm?.objects(RealmTodo.self)
             .filter({ $0.identifier == selectedTodo.identifier })
             .first
         
         if item != nil {
             try? realm?.write({
-                item = selectedTodo.convertRealmTodo()
+                item?.todoListItemStatus = selectedTodo.todoListItemStatus.displayName
+                item?.title = selectedTodo.title
+                item?.body = selectedTodo.description
+                item?.date = selectedTodo.date
+                item?.identifier = selectedTodo.identifier
             })
         }
         
