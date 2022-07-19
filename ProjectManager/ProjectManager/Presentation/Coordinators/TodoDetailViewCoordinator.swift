@@ -25,6 +25,8 @@ final class TodoDetailViewCoordinator: Coordinator {
         }
 
         let todoDetailViewController = dependencies.makeTodoDetailViewContoller(todoListModel: item, coordinator: self)
+        todoDetailViewController.coordiantor = self
+        
         let todoDetailNavigationController = UINavigationController(rootViewController: todoDetailViewController)
         todoDetailNavigationController.modalPresentationStyle = .formSheet
         

@@ -16,6 +16,7 @@ final class TodoListViewController: UIViewController {
     private unowned let factory: TodoSceneFactory
     
     private var cancelBag = Set<AnyCancellable>()
+    weak var coordinator: TodoListViewCoordinator?
     
     init(viewModel: TodoListViewModelable, factory: TodoSceneFactory) {
         self.viewModel = viewModel
@@ -63,6 +64,18 @@ final class TodoListViewController: UIViewController {
                 self?.todoListView.networkStatusImageView.image = UIImage(systemName: status)
             }
             .store(in: &cancelBag)
+        
+        viewModel.showDetailView
+            .sink { [weak self] item in
+                self?.coordinator?.showDetailViewController(item)
+            }
+            .store(in: &cancelBag)
+        
+        viewModel.showHistoryView
+            .sink { [weak self] _ in
+                self?.coordinator?.showHistoryViewController(sourceView: self!.navigationItem.leftBarButtonItem!)
+            }
+            .store(in: &cancelBag)
     }
     
     private func addSubviews() {
@@ -79,7 +92,7 @@ final class TodoListViewController: UIViewController {
         view.backgroundColor = .systemBackground
         
         let showHistory = UIAction { [weak self] _ in
-            self?.viewModel.didTapHistoryButton(sourceView: self!.navigationItem.leftBarButtonItem!)
+            self?.viewModel.didTapHistoryButton()
         }
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "History", image: nil, primaryAction: showHistory)

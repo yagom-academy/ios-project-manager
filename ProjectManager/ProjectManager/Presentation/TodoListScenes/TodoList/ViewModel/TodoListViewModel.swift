@@ -5,18 +5,21 @@
 //  Created by 김도연 on 2022/07/06.
 //
 
+import Foundation
 import Combine
-import UIKit
 
 protocol TodoListViewModelInput {
     func didTapAddButton()
-    func didTapHistoryButton(sourceView: UIBarButtonItem)
+    func didTapHistoryButton()
 }
 
 protocol TodoListViewModelOutput {
     var isNetworkConnected: AnyPublisher<String, Never> { get }
     var title: Just<String> { get }
     var errorOccur: PassthroughSubject<Result<Void, StorageError>, Never> { get }
+    
+    var showDetailView: PassthroughSubject<Todo, Never> { get }
+    var showHistoryView: PassthroughSubject<Void, Never> { get }
 }
 
 protocol TodoListViewModelable: TodoListViewModelInput, TodoListViewModelOutput {}
@@ -48,18 +51,16 @@ final class TodoListViewModel: TodoListViewModelable {
         return Just("Project Manager")
     }
     
-    var errorOccur = PassthroughSubject<Result<Void, StorageError>, Never>()
+    let errorOccur = PassthroughSubject<Result<Void, StorageError>, Never>()
     
-    private weak var coordinator: TodoListViewCoordinator?
+    let showDetailView = PassthroughSubject<Todo, Never>()
+    let showHistoryView = PassthroughSubject<Void, Never>()
+    
     private let todoUseCase: TodoListUseCaseable
     private let historyUseCase: TodoHistoryUseCaseable
     private var cancelBag = Set<AnyCancellable>()
     
-    init(coordinator: TodoListViewCoordinator? = nil,
-         todoUseCase: TodoListUseCaseable,
-         historyUseCase: TodoHistoryUseCaseable
-    ) {
-        self.coordinator = coordinator
+    init(todoUseCase: TodoListUseCaseable, historyUseCase: TodoHistoryUseCaseable) {
         self.todoUseCase = todoUseCase
         self.historyUseCase = historyUseCase
     }
@@ -89,11 +90,7 @@ extension TodoListViewModel {
         let historyItem = TodoHistory(title: "[생성] \(item.title)", createdAt: Date())
         _ = historyUseCase.create(historyItem)
 
-        coordinator?.showDetailViewController(item)
-    }
-    
-    func didTapHistoryButton(sourceView: UIBarButtonItem) {
-        coordinator?.showHistoryViewController(sourceView: sourceView)
+        showDetailView.send(item)
     }
 }
 
@@ -116,8 +113,12 @@ extension TodoListViewModel: TodoViewModelInput {
         _ = historyUseCase.create(historyItem)
     }
     
+    func didTapHistoryButton() {
+        showHistoryView.send(())
+    }
+    
     func didTapCell(_ item: Todo) {
-        coordinator?.showDetailViewController(item)
+        showDetailView.send(item)
     }
     
     func didTapFirstContextMenu(_ item: Todo) {

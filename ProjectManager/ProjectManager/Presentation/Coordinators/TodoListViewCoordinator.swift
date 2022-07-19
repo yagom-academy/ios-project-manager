@@ -24,6 +24,7 @@ final class TodoListViewCoordinator: Coordinator {
     
     func start() {
         let todoListViewController = dependencies.makeTodoListViewController(coordinator: self)
+        todoListViewController.coordinator = self
         self.navigationController?.pushViewController(todoListViewController, animated: true)
     }
     

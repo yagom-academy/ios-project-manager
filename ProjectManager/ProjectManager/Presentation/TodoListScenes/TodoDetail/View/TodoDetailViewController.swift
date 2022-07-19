@@ -12,6 +12,8 @@ final class TodoDetailViewController: UIViewController {
     private var cancelBag = Set<AnyCancellable>()
     private let viewModel: TodoDetailViewModelable
     private let todoDetailView = TodoDetailView()
+    
+    weak var coordiantor: TodoDetailViewCoordinator?
 
     init(viewModel: TodoDetailViewModelable) {
         self.viewModel = viewModel
@@ -34,6 +36,8 @@ final class TodoDetailViewController: UIViewController {
             title: todoDetailView.titleTextField.text,
             content: todoDetailView.contentTextView.text
         )
+        
+        self.coordiantor?.dismiss()
         
         super.viewDidDisappear(animated)
     }
@@ -63,6 +67,12 @@ final class TodoDetailViewController: UIViewController {
         viewModel.title
             .sink { [weak self] title in
                 self?.title = title
+            }
+            .store(in: &cancelBag)
+        
+        viewModel.dismissView
+            .sink { [weak self] _  in
+                self?.coordiantor?.dismiss()
             }
             .store(in: &cancelBag)
     }
@@ -96,6 +106,8 @@ final class TodoDetailViewController: UIViewController {
                 content: self?.todoDetailView.contentTextView.text,
                 deadline: self?.todoDetailView.datePicker.date
             )
+            
+            self?.coordiantor?.dismiss()
         }
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(
@@ -108,7 +120,7 @@ final class TodoDetailViewController: UIViewController {
     
     private func setupNavigationLeftBarButtonItem() {
         let cancelAction = UIAction { [weak self] _ in
-            self?.viewModel.didTapCloseButton()
+            self?.coordiantor?.dismiss()
         }
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(

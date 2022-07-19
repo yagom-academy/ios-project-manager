@@ -52,11 +52,7 @@ final class TodoSceneFactory {
     // MARK: - ViewModel
     
     private func makeTodoListViewModel(coordinator: TodoListViewCoordinator) -> TodoListViewModelable {
-        let viewModel = TodoListViewModel(
-            coordinator: coordinator,
-            todoUseCase: makeTodoListUseCase(),
-            historyUseCase: makeTodoHistoryUseCase()
-        )
+        let viewModel = TodoListViewModel(todoUseCase: makeTodoListUseCase(), historyUseCase: makeTodoHistoryUseCase())
         self.parentViewModel = viewModel
         return viewModel
     }
@@ -68,8 +64,7 @@ final class TodoSceneFactory {
         return TodoDetailViewModel(
             todoUseCase: makeTodoListUseCase(),
             historyUseCase: makeTodoHistoryUseCase(),
-            todoListModel: todoListModel,
-            coordinator: coordinator
+            todoListModel: todoListModel
         )
     }
     

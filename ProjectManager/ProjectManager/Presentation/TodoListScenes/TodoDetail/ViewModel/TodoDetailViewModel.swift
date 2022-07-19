@@ -10,7 +10,6 @@ import Combine
 
 protocol TodoDetailViewModelInput {
     func viewDidLoad()
-    func didTapCloseButton()
     func didTapDoneButton(title: String?, content: String?, deadline: Date?)
     func didTapEditButton()
     func viewDidDisapper(title: String?, content: String?)
@@ -21,6 +20,7 @@ protocol TodoDetailViewModelOutput {
     var isEdited: PassthroughSubject<Bool, Never> { get }
     var isCreated: PassthroughSubject<Bool, Never> { get }
     var title: CurrentValueSubject<String, Never> { get }
+    var dismissView: PassthroughSubject<Void, Never> { get }
 }
 
 protocol TodoDetailViewModelable: TodoDetailViewModelInput, TodoDetailViewModelOutput {}
@@ -36,17 +36,16 @@ final class TodoDetailViewModel: TodoDetailViewModelable {
     let isEdited = PassthroughSubject<Bool, Never>()
     let isCreated = PassthroughSubject<Bool, Never>()
     let title = CurrentValueSubject<String, Never>("TODO")
+    let dismissView = PassthroughSubject<Void, Never>()
 
-    private weak var coordinator: TodoDetailViewCoordinator?
     private let todoListModel: Todo
     private let todoUseCase: TodoListUseCaseable
     private let historyUseCase: TodoHistoryUseCaseable
     
-    init(todoUseCase: TodoListUseCaseable, historyUseCase: TodoHistoryUseCaseable,todoListModel: Todo, coordinator: TodoDetailViewCoordinator? = nil) {
+    init(todoUseCase: TodoListUseCaseable, historyUseCase: TodoHistoryUseCaseable, todoListModel: Todo) {
         self.todoUseCase = todoUseCase
         self.historyUseCase = historyUseCase
         self.todoListModel = todoListModel
-        self.coordinator = coordinator
     }
 }
 
@@ -60,10 +59,6 @@ extension TodoDetailViewModel {
         } else {
             isEdited.send(false)
         }
-    }
-    
-    func didTapCloseButton() {
-        coordinator?.dismiss()
     }
     
     func didTapDoneButton(title: String?, content: String?, deadline: Date?) {
@@ -92,7 +87,7 @@ extension TodoDetailViewModel {
         
         _ = historyUseCase.create(historyItem)
         
-        coordinator?.dismiss()
+        dismissView.send(())
     }
     
     func didTapEditButton() {
@@ -101,6 +96,5 @@ extension TodoDetailViewModel {
     
     func viewDidDisapper(title: String?, content: String?) {
         _ = todoUseCase.deleteLastItem(title: title, content: content)
-        coordinator?.dismiss()
     }
 }
