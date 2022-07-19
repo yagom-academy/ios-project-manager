@@ -8,7 +8,11 @@
 import RxRelay
 
 struct ProjectUseCase {
-    private let repository = ProjectRepository(storageManager: MockStorageManager.shared)
+    #if DEBUG
+        private let repository = ProjectRepository(storageManager: MockStorageManager.shared)
+    #else
+        private let repository = ProjectRepository(storageManager: PersistentStorageManager.shared)
+    #endif
     
     func create(projectContent: ProjectContent) {
         repository.create(projectContent: projectContent)
