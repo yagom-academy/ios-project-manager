@@ -27,6 +27,7 @@
 		0E8130EC2886A1F3003EC6C7 /* Project+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E8130EA2886A1F3003EC6C7 /* Project+CoreDataClass.swift */; };
 		0E8130ED2886A1F3003EC6C7 /* Project+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E8130EB2886A1F3003EC6C7 /* Project+CoreDataProperties.swift */; };
 		0E8130EF2886E2E5003EC6C7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0E8130EE2886E2E5003EC6C7 /* GoogleService-Info.plist */; };
+		0E8130F22886F8A8003EC6C7 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E8130F12886F8A8003EC6C7 /* NetworkManager.swift */; };
 		0EA67EB82873330100E15093 /* ProjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA67EB72873330100E15093 /* ProjectCell.swift */; };
 		0EA67EBC287476B300E15093 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA67EBB287476B300E15093 /* RegistrationViewController.swift */; };
 		0EA67EBE2874789700E15093 /* ModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA67EBD2874789700E15093 /* ModalView.swift */; };
@@ -62,6 +63,7 @@
 		0E8130EA2886A1F3003EC6C7 /* Project+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataClass.swift"; sourceTree = "<group>"; };
 		0E8130EB2886A1F3003EC6C7 /* Project+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		0E8130EE2886E2E5003EC6C7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		0E8130F12886F8A8003EC6C7 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		0EA67EB72873330100E15093 /* ProjectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectCell.swift; sourceTree = "<group>"; };
 		0EA67EBB287476B300E15093 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		0EA67EBD2874789700E15093 /* ModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalView.swift; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 		0334E70428770E1400222EB7 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				0E8130F02886F791003EC6C7 /* NetworkStorage */,
 				03498B712886760600D8CB3F /* PersistentStorage */,
 				0E8130E728869383003EC6C7 /* Repository */,
 			);
@@ -201,6 +204,14 @@
 				03498B752886DF3A00D8CB3F /* ProjectDTO.swift */,
 			);
 			path = Repository;
+			sourceTree = "<group>";
+		};
+		0E8130F02886F791003EC6C7 /* NetworkStorage */ = {
+			isa = PBXGroup;
+			children = (
+				0E8130F12886F8A8003EC6C7 /* NetworkManager.swift */,
+			);
+			path = NetworkStorage;
 			sourceTree = "<group>";
 		};
 		0EA67EB92874768500E15093 /* Detail */ = {
@@ -483,6 +494,7 @@
 				0EA67ED228772C0200E15093 /* RegistrationViewModel.swift in Sources */,
 				03498B73288676B500D8CB3F /* PersistentManager.swift in Sources */,
 				032D3D11287D629800A32E57 /* ProjectUseCase.swift in Sources */,
+				0E8130F22886F8A8003EC6C7 /* NetworkManager.swift in Sources */,
 				03AB73E1287331BB00B0C980 /* ProjectTableView.swift in Sources */,
 				0EA67EBC287476B300E15093 /* RegistrationViewController.swift in Sources */,
 				0E8130EC2886A1F3003EC6C7 /* Project+CoreDataClass.swift in Sources */,
