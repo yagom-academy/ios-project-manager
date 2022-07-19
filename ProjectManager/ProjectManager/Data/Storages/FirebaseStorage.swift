@@ -51,7 +51,7 @@ final class FirebaseStorage: RemoteStorageable {
             }
             
             let value = snapshot?.value as? [String: Any]
-            let items = value?.compactMap { item -> Todo in
+            let items = value?.map { item -> Todo in
                 let value = item.value as? [String: Any]
                 return Todo(
                     title: value?["title"] as! String,
@@ -62,10 +62,7 @@ final class FirebaseStorage: RemoteStorageable {
                 )
             }
             
-            self.firebaseSubject.send(items!)
-            print(snapshot)
-            print("items", items)
-            
+            self.firebaseSubject.send(items ?? [])
         }
     }
     
@@ -73,12 +70,12 @@ final class FirebaseStorage: RemoteStorageable {
         return Future<Void, StorageError> { [weak self] observer in
             self?.databaseReference
                 .child("todos")
-                .removeValue(completionBlock: { error, reference in
+                .removeValue { error, _ in
                     guard error == nil else {
                         return observer(.failure(.deleteFail))
                     }
                     return observer(.success(()))
-                })
+                }
         }.eraseToAnyPublisher()
     }
 }

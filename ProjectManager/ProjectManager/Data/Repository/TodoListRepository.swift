@@ -11,7 +11,8 @@ import Combine
 final class TodoListRepository {
     private unowned let todoLocalStorage: LocalStorageable
     private unowned let todoRemoteStorage: RemoteStorageable
-        
+    private var cancelBag = Set<AnyCancellable>()
+    
     init(todoLocalStorage: LocalStorageable, todoRemoteStorage: RemoteStorageable) {
         self.todoLocalStorage = todoLocalStorage
         self.todoRemoteStorage = todoRemoteStorage
@@ -36,12 +37,20 @@ extension TodoListRepository: TodoListRepositorible {
     }
     
     func synchronize() {
-        if true {
-            todoRemoteStorage.read().value.forEach {
-                todoLocalStorage.create($0)
-            }
-        } else {
+        if let value = UserDefaults.standard.object(forKey: "user") {
             todoRemoteStorage.backup(todoLocalStorage.read().value)
+        } else {
+            todoRemoteStorage.read()
+                .sink { completion in
+                    
+                } receiveValue: { [weak self] items in
+                    items.forEach { item in
+                        self?.todoLocalStorage.create(item)
+                    }
+                }
+                .store(in: &cancelBag)
         }
+        
+        UserDefaults.standard.set(true, forKey: "user")
     }
 }
