@@ -9,9 +9,9 @@ import RxRelay
 import RealmSwift
 
 class ListModel: Object {
-    let todoList = List<ListItemModel>()
-    let doingList = List<ListItemModel>()
-    let doneList = List<ListItemModel>()
+    private let todoList = List<ListItemModel>()
+    private let doingList = List<ListItemModel>()
+    private let doneList = List<ListItemModel>()
     
     private func selectListModel(_ type: ListType) -> List<ListItemModel>? {
         guard let realm = try? Realm() else {
