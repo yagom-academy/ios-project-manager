@@ -62,6 +62,20 @@ class ListModel: Object {
             }
         }
     }
+    
+    func updateItem(_ item: ListItem) {
+        guard let realm = try? Realm() else {
+            return
+        }
+        let itemModel = selectListModel(item.type)?.filter(NSPredicate(format: "id = %@", item.id)).first
+        try? realm.write {
+            itemModel?.title = item.title
+            itemModel?.deadline = item.deadline
+            itemModel?.body = item.body
+            itemModel?.type = item.type.rawValue
+        }
+        
+    }
 }
 
 class ListItemModel: Object {
@@ -113,7 +127,10 @@ final class Storage: Storegeable {
     }
     
     func updateItem(listItem: ListItem) {
+        listModel.updateItem(listItem)
         
+        let newList = listModel.readList(listItem.type)
+        selectList(listItem.type).accept(newList)
     }
     
     func deleteItem(index: Int, type: ListType) {
