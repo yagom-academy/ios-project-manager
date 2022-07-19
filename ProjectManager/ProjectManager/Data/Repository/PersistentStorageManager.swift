@@ -24,6 +24,7 @@ extension PersistentStorageManager: Storagable {
     }
     
     func read() -> BehaviorRelay<[ProjectContent]> {
+        projectEntities.accept(readCoreDate())
         return projectEntities
     }
     
@@ -57,6 +58,13 @@ extension PersistentStorageManager {
         
         projectContents.append(newProjectContent)
         projectEntities.accept(projectContents)
+    }
+    
+    private func readCoreDate() -> [ProjectContent] {
+        let currentProjects = persistentManager.read()
+        let contents = currentProjects.compactMap { parse(from: $0) }
+        
+        return contents
     }
     
     private func updateCoreDate(newProjectContent: ProjectContent) {
