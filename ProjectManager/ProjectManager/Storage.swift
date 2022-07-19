@@ -57,8 +57,7 @@ class ListModel: Object {
             }
         } else {
             try? realm.write {
-                let listModel = realm.objects(ListModel.self)
-                listModel.first?.todoList.append(item)
+                selectListModel(.todo)?.append(item)
             }
         }
     }
