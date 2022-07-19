@@ -11,7 +11,6 @@ import Combine
 protocol TodoHistoryUseCaseable {
     func create(_ item: TodoHistory) -> AnyPublisher<Void, StorageError>
     func read() -> CurrentValueSubject<[TodoHistory], Never>
-    func update(_ item: TodoHistory) -> AnyPublisher<Void, StorageError>
     func delete(item: TodoHistory) -> AnyPublisher<Void, StorageError>
 }
 
@@ -28,10 +27,6 @@ final class TodoHistoryUseCase: TodoHistoryUseCaseable {
     
     func read() -> CurrentValueSubject<[TodoHistory], Never> {
         return repository.read()
-    }
-    
-    func update(_ item: TodoHistory) -> AnyPublisher<Void, StorageError> {
-        return repository.update(item)
     }
     
     func delete(item: TodoHistory) -> AnyPublisher<Void, StorageError> {

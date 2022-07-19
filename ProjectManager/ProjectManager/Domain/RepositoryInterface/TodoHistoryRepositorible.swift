@@ -11,6 +11,5 @@ import Combine
 protocol TodoHistoryRepositorible {
     func create(_ item: TodoHistory) -> AnyPublisher<Void, StorageError>
     func read() -> CurrentValueSubject<[TodoHistory], Never>
-    func update(_ item: TodoHistory) -> AnyPublisher<Void, StorageError>
     func delete(item: TodoHistory) -> AnyPublisher<Void, StorageError>
 }

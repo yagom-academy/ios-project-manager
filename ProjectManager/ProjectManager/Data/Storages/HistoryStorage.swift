@@ -12,7 +12,6 @@ import RealmSwift
 protocol HistoryStorageable: AnyObject {
     func create(_ item: TodoHistory) -> AnyPublisher<Void, StorageError>
     func read() -> CurrentValueSubject<[TodoHistory], Never>
-    func update(_ item: TodoHistory) -> AnyPublisher<Void, StorageError>
     func delete(_ item: TodoHistory) -> AnyPublisher<Void, StorageError>
 }
 
@@ -33,13 +32,6 @@ final class HistoryStorage: HistoryStorageable {
         
     func read() -> CurrentValueSubject<[TodoHistory], Never> {
         return realmSubject
-    }
-    
-    func update(_ item: TodoHistory) -> AnyPublisher<Void, StorageError> {
-        return write(.updateFail) {
-            realm.add(transferToTodoRealm(with: item), update: .modified)
-            realmSubject.send(readAll())
-        }
     }
     
     func delete(_ item: TodoHistory) -> AnyPublisher<Void, StorageError> {
