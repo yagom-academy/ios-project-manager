@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TodoHistory {
+struct TodoHistory: Hashable {
     let id: String
     let title: String
     let createdAt: Date
