@@ -31,11 +31,13 @@ final class PersistentManager {
 }
 
 extension PersistentManager: Storagable {
-    func create(projectContents: [ProjectContent]) {
-        guard let _ = try? saveToContext(projectContents) else {
+    func create(projectContent: ProjectContent) {
+        guard let _ = try? saveToContext(projectContent) else {
             return
         }
-        projectEntities.accept(projectContents)
+        var currentProject = read().value
+        currentProject.append(projectContent)
+        projectEntities.accept(currentProject)
     }
     
     func read() -> BehaviorRelay<[ProjectContent]> {
@@ -68,7 +70,7 @@ extension PersistentManager: Storagable {
         }
     }
     
-    private func saveToContext(_ projectContents: [ProjectContent]) throws {
+    private func saveToContext(_ projectContent: ProjectContent) throws {
         guard let entity = NSEntityDescription.entity(forEntityName: "Project", in: context) else {
             return
         }

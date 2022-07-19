@@ -17,8 +17,10 @@ final class MockStorageManager {
 }
 
 extension MockStorageManager: Storagable {
-    func create(projectContents: [ProjectContent]) {
-        projectEntities.accept(projectContents)
+    func create(projectContent: ProjectContent) {
+        var currentProject = read().value
+        currentProject.append(projectContent)
+        projectEntities.accept(currentProject)
     }
     
     func read() -> BehaviorRelay<[ProjectContent]> {

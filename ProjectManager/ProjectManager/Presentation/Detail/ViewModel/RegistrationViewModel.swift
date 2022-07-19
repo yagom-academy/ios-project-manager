@@ -9,16 +9,12 @@ import Foundation
 
 struct RegistrationViewModel {
     func registrate(title: String, date: Date, body: String) {
-        var currentProjects = ProjectUseCase().read().value
-        currentProjects
-            .append(
-                ProjectContent(
-                    title: title,
-                    deadline: date,
-                    body: body
-                )
-            )
+        let newProject = ProjectContent(
+            title: title,
+            deadline: date,
+            body: body
+        )
         
-        ProjectUseCase().create(projectContents: currentProjects)
+        ProjectUseCase().create(projectContent: newProject)
     }
 }

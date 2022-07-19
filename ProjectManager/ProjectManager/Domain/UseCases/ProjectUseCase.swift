@@ -10,8 +10,8 @@ import RxRelay
 struct ProjectUseCase {
     private let repository = ProjectRepository(storageManager: MockStorageManager.shared)
     
-    func create(projectContents: [ProjectContent]) {
-        repository.create(projectContents: projectContents)
+    func create(projectContent: ProjectContent) {
+        repository.create(projectContent: projectContent)
     }
     
     func read() -> BehaviorRelay<[ProjectContent]> {
