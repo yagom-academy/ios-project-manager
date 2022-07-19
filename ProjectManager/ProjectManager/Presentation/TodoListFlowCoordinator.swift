@@ -29,7 +29,8 @@ final class TodoListFlowCoordinator {
 extension TodoListFlowCoordinator {
     func start() {
         let actions = TodoListViewModelActions(presentEditViewController: presentEditViewController,
-                                               popoverMoveViewController: popoverMoveViewController)
+                                               popoverMoveViewController: popoverMoveViewController,
+                                               showErrorAlert: showErrorAlert)
         
         let viewController = dependencies.makeTodoListViewController(actions: actions)
         
@@ -38,7 +39,8 @@ extension TodoListFlowCoordinator {
     }
     
     private func presentEditViewController(item: TodoModel?) {
-        let actions = TodoEditViewModelActions(dismiss: dismissEditViewController)
+        let actions = TodoEditViewModelActions(dismiss: dismissEditViewController,
+                                               showErrorAlert: showErrorAlert)
         
         let viewController = dependencies.makeTodoEditViewController(actions: actions, item: item)
         viewController.modalPresentationStyle = .formSheet
@@ -51,7 +53,8 @@ extension TodoListFlowCoordinator {
     }
     
     private func popoverMoveViewController(cell: UITableViewCell?, item: TodoModel) {
-        let actions = TodoMoveViewModelActions(dismiss: dismissMoveViewController)
+        let actions = TodoMoveViewModelActions(dismiss: dismissMoveViewController,
+                                               showErrorAlert: showErrorAlert)
         
         let viewController = dependencies.makeTodoMoveViewController(actions: actions, item: item)
         viewController.modalPresentationStyle = .popover
@@ -66,5 +69,11 @@ extension TodoListFlowCoordinator {
     
     private func dismissMoveViewController() {
         todoMoveViewController?.dismiss(animated: true)
+    }
+    
+    private func showErrorAlert(message: String) {
+        let alertController = UIAlertController(title: "에러", message: message, preferredStyle: .alert)
+        alertController.addAction(.init(title: "확인", style: .default))
+        todoListViewController?.present(alertController, animated: true, completion: nil)
     }
 }

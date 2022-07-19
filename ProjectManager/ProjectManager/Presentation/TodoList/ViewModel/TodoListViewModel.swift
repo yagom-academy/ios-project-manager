@@ -12,6 +12,7 @@ import RxCocoa
 struct TodoListViewModelActions {
     let presentEditViewController: (_ item: TodoModel?) -> Void
     let popoverMoveViewController: (_ cell: TodoListCell?, _ item: TodoModel) -> Void
+    let showErrorAlert: (_ message: String) -> Void
 }
 
 protocol TodoListViewModelInput {
@@ -116,8 +117,8 @@ extension DefaultTodoListViewModel: TodoListViewModel {
     
     func cellDeleteButtonDidTap(item: TodoCellContent) {
         useCase.deleteItem(id: item.id)
-            .subscribe(onError: {
-                print($0)
+            .subscribe(onError: { [weak self] _ in
+                self?.actions?.showErrorAlert("삭제 오류")
             }).disposed(by: bag)
     }
 }

@@ -10,6 +10,7 @@ import RxSwift
 
 struct TodoEditViewModelActions {
     let dismiss: () -> Void
+    let showErrorAlert: (_ message: String) -> Void
 }
 
 protocol TodoEditViewModelInput {
@@ -76,14 +77,14 @@ extension DefaultTodoEditViewModel: TodoEditViewModel {
             return
         }
         useCase.saveItem(to: item)
-            .subscribe(onError: {
-                print($0)
-            }).disposed(by: bag)
-
-        actions?.dismiss()
+            .subscribe { [weak self] in
+                self?.actions?.dismiss()
+            } onError: { [weak self] _ in
+                self?.actions?.dismiss()
+                self?.actions?.showErrorAlert("저장 오류")
+            }.disposed(by: bag)
     }
     
-
     func editButtonDidTap() -> Bool {
         isEditMode = !isEditMode
         return isEditMode
