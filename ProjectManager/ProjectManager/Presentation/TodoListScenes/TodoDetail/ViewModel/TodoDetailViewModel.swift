@@ -39,10 +39,12 @@ final class TodoDetailViewModel: TodoDetailViewModelable {
 
     private weak var coordinator: TodoDetailViewCoordinator?
     private let todoListModel: Todo
-    private let useCase: TodoListUseCaseable
+    private let todoUseCase: TodoListUseCaseable
+    private let historyUseCase: TodoHistoryUseCaseable
     
-    init(useCase: TodoListUseCaseable, todoListModel: Todo, coordinator: TodoDetailViewCoordinator? = nil) {
-        self.useCase = useCase
+    init(todoUseCase: TodoListUseCaseable, historyUseCase: TodoHistoryUseCaseable,todoListModel: Todo, coordinator: TodoDetailViewCoordinator? = nil) {
+        self.todoUseCase = todoUseCase
+        self.historyUseCase = historyUseCase
         self.todoListModel = todoListModel
         self.coordinator = coordinator
     }
@@ -76,7 +78,7 @@ extension TodoDetailViewModel {
             return
         }
         
-        useCase.update(
+        _ = todoUseCase.update(
             Todo(
                 title: title,
                 content: content,
@@ -86,6 +88,10 @@ extension TodoDetailViewModel {
             )
         )
         
+        let historyItem = TodoHistory(title: "[수정] \(title)", createdAt: Date())
+        
+        _ = historyUseCase.create(historyItem)
+        
         coordinator?.dismiss()
     }
     
@@ -94,7 +100,7 @@ extension TodoDetailViewModel {
     }
     
     func viewDidDisapper(title: String?, content: String?) {
-        useCase.deleteLastItem(title: title, content: content)
+        _ = todoUseCase.deleteLastItem(title: title, content: content)
         coordinator?.dismiss()
     }
 }

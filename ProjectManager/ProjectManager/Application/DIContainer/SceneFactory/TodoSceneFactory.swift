@@ -66,7 +66,8 @@ final class TodoSceneFactory {
         coordinator: TodoDetailViewCoordinator
     ) -> TodoDetailViewModelable {
         return TodoDetailViewModel(
-            useCase: makeTodoListUseCase(),
+            todoUseCase: makeTodoListUseCase(),
+            historyUseCase: makeTodoHistoryUseCase(),
             todoListModel: todoListModel,
             coordinator: coordinator
         )
