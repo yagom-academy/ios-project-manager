@@ -66,7 +66,9 @@ final class ListModel: Object {
             return
         }
         
-        let itemModel = selectListModel(item.type)?.filter(NSPredicate(format: "id = %@", item.id)).first
+        let itemModel = selectListModel(item.type)?
+            .filter(NSPredicate(format: "id = %@", item.id)).first
+        
         try? realm.write {
             itemModel?.title = item.title
             itemModel?.deadline = item.deadline
