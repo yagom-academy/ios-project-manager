@@ -12,6 +12,36 @@ class ListModel: Object {
     let todoList = List<ListItemModel>()
     let doingList = List<ListItemModel>()
     let doneList = List<ListItemModel>()
+    
+    private func selectListModel(_ type: ListType) -> List<ListItemModel>? {
+        guard let realm = try? Realm() else {
+            return nil
+        }
+        
+        guard let listModel = realm.objects(ListModel.self).first else {
+            return nil
+        }
+        
+        switch type {
+        case .todo:
+            return listModel.todoList
+        case .doing:
+            return listModel.doingList
+        case .done:
+            return listModel.doneList
+        }
+    }
+    
+    func readList(_ type: ListType) -> [ListItem] {
+        guard let listModel = ListModel().selectListModel(type) else {
+            return []
+        }
+        
+        let list: [ListItem] = listModel
+            .compactMap { $0.changedItem }
+            .sorted { $0.deadline < $1.deadline }
+        return list
+    }
 }
 
 class ListItemModel: Object {
@@ -36,40 +66,12 @@ class ListItemModel: Object {
 
 
 final class Storage: Storegeable {
-    lazy var todoList = BehaviorRelay<[ListItem]>(value: readList(.todo))
-    lazy var doingList = BehaviorRelay<[ListItem]>(value: readList(.doing))
-    lazy var doneList = BehaviorRelay<[ListItem]>(value: readList(.done))
+    private let listModel = ListModel()
     
-    private func selectListModel(_ type: ListType) -> List<ListItemModel>? {
-        guard let realm = try? Realm() else {
-            return nil
-        }
-        
-        guard let listModel = realm.objects(ListModel.self).first else {
-            return nil
-        }
-        
-        switch type {
-        case .todo:
-            return listModel.todoList
-        case .doing:
-            return listModel.doingList
-        case .done:
-            return listModel.doneList
-        }
-    }
-    
-    private func readList(_ type: ListType) -> [ListItem] {
-        guard let listModel = selectListModel(type) else {
-            return []
-        }
-        
-        let list: [ListItem] = listModel
-            .compactMap { $0.changedItem }
-            .sorted { $0.deadline < $1.deadline }
-        return list
-    }
-    
+    lazy var todoList = BehaviorRelay<[ListItem]>(value: listModel.readList(.todo))
+    lazy var doingList = BehaviorRelay<[ListItem]>(value: listModel.readList(.doing))
+    lazy var doneList = BehaviorRelay<[ListItem]>(value: listModel.readList(.done))
+
     func creatItem(listItem: ListItem) {
         guard let realm = try? Realm() else {
             return
@@ -89,7 +91,7 @@ final class Storage: Storegeable {
             }
         }
         
-        todoList.accept(readList(.todo))
+        todoList.accept(listModel.readList(.todo))
     }
     
     func selectItem(index: Int, type: ListType) -> ListItem {
