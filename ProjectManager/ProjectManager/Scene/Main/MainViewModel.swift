@@ -15,6 +15,7 @@ protocol MainViewModelOutput {
     var todoList: Driver<[ListItem]> { get }
     var doingList: Driver<[ListItem]> { get }
     var doneList: Driver<[ListItem]> { get }
+    func isOverDeadline(listItem: ListItem) -> Bool
     func listCount(_ type: ListType) -> Driver<String>
     
     var showAddView: PublishRelay<Void> { get }
@@ -22,7 +23,6 @@ protocol MainViewModelOutput {
 }
 
 protocol MainViewModelInput {
-    func isOverDeadline(listItem: ListItem) -> Bool
     func touchAddButton()
     func touchCell(index: Int, type: ListType)
     func deleteCell(index: Int, type: ListType)
