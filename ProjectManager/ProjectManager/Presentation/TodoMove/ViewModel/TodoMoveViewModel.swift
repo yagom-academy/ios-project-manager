@@ -26,11 +26,8 @@ protocol TodoMoveViewModel: TodoMoveViewModelInput, TodoMoveViewModelOutput {}
 
 final class DefaultTodoMoveViewModel {
     private let useCase: TodoListUseCase
-    
-    private var actions: TodoMoveViewModelActions?
-    
+    private let actions: TodoMoveViewModelActions?
     private let item: TodoModel
-    
     private let bag = DisposeBag()
     
     init(useCase: TodoListUseCase, actions: TodoMoveViewModelActions, item: TodoModel) {

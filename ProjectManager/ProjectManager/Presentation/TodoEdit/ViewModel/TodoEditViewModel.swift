@@ -31,13 +31,9 @@ protocol TodoEditViewModel: TodoEditViewModelInput, TodoEditViewModelOutput {}
 
 final class DefaultTodoEditViewModel {
     private let useCase: TodoListUseCase
-    
-    private var actions: TodoEditViewModelActions?
-    
+    private let actions: TodoEditViewModelActions?
     private var item: TodoModel?
-    
     private var isEditMode: Bool = false
-    
     private let bag = DisposeBag()
     
     init(useCase: TodoListUseCase, actions: TodoEditViewModelActions, item: TodoModel?) {
