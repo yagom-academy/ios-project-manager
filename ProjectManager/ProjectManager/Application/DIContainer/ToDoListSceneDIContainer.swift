@@ -13,11 +13,11 @@ final class TodoListSceneDIContainer {
     }
     
     private let dependencies: Dependencies
-    private let viewControllerFactory: ViewControllerFactory
+    private let viewControllerFactory: TodoListSceneFactory
     
     init(dependencies: Dependencies) {
         self.dependencies = dependencies
-        self.viewControllerFactory = ViewControllerFactory(storage: dependencies.storage)
+        self.viewControllerFactory = TodoListSceneFactory(storage: dependencies.storage)
     }
 }
 

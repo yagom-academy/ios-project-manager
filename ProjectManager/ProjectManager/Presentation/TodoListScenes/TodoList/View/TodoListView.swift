@@ -29,7 +29,7 @@ final class TodoListView: UIView {
         return stackView
     }()
     
-    init(factory: ViewControllerFactory) {
+    init(factory: TodoListSceneFactory) {
         self.todoView = factory.makeTodoView(processType: .todo)
         self.doingView = factory.makeTodoView(processType: .doing)
         self.doneView = factory.makeTodoView(processType: .done)

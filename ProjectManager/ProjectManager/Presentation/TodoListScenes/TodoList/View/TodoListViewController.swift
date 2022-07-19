@@ -13,11 +13,11 @@ import SnapKit
 final class TodoListViewController: UIViewController {
     private lazy var todoListView = factory.makeTodoListView()
     private let viewModel: TodoListViewModelable
-    private unowned let factory: ViewControllerFactory
+    private unowned let factory: TodoListSceneFactory
     
     private var cancelBag = Set<AnyCancellable>()
     
-    init(viewModel: TodoListViewModelable, factory: ViewControllerFactory) {
+    init(viewModel: TodoListViewModelable, factory: TodoListSceneFactory) {
         self.viewModel = viewModel
         self.factory = factory
         super.init(nibName: nil, bundle: nil)

@@ -1,5 +1,5 @@
 //
-//  ViewControllerFactory.swift
+//  TodoListSceneFactory.swift
 //  ProjectManager
 //
 //  Created by 조민호 on 2022/07/12.
@@ -7,7 +7,7 @@
 import Foundation
 import Combine
 
-final class ViewControllerFactory {
+final class TodoListSceneFactory {
     private unowned let storage: Storageable
     private unowned var parentViewModel: TodoListViewModel?
     
