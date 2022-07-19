@@ -8,6 +8,12 @@
 import RxRelay
 import RealmSwift
 
+class ListModel: Object {
+    let todoList = List<ListItemModel>()
+    let doingList = List<ListItemModel>()
+    let doneList = List<ListItemModel>()
+}
+
 class ListItemModel: Object {
     @objc dynamic var title: String = ""
     @objc dynamic var body: String = ""
@@ -45,7 +51,7 @@ final class Storage: Storegeable {
     }
     
     func selectItem(index: Int, type: ListType) -> ListItem {
-    return ListItem(title: "", body: "", deadline: Date(), id: "")
+        return ListItem(title: "", body: "", deadline: Date(), id: "")
     }
     
     func deleteList(index: Int, type: ListType) {
