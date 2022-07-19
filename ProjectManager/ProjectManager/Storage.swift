@@ -42,6 +42,26 @@ class ListModel: Object {
             .sorted { $0.deadline < $1.deadline }
         return list
     }
+    
+    func createItem(_ item: ListItemModel) {
+        guard let realm = try? Realm() else {
+            return
+        }
+        
+        if realm.objects(ListModel.self).isEmpty {
+            let listModel = ListModel()
+            listModel.todoList.append(item)
+            
+            try! realm.write {
+                realm.add(listModel)
+            }
+        } else {
+            try! realm.write {
+                let listModel = realm.objects(ListModel.self)
+                listModel.first?.todoList.append(item)
+            }
+        }
+    }
 }
 
 class ListItemModel: Object {
@@ -84,24 +104,7 @@ final class Storage: Storegeable {
     }
     
     func creatItem(listItem: ListItem) {
-        guard let realm = try? Realm() else {
-            return
-        }
-        
-        if realm.objects(ListModel.self).isEmpty {
-            let listModel = ListModel()
-            listModel.todoList.append(listItem.changedItem)
-            
-            try! realm.write {
-                realm.add(listModel)
-            }
-        } else {
-            try! realm.write {
-                let listModel = realm.objects(ListModel.self)
-                listModel.first?.todoList.append(listItem.changedItem)
-            }
-        }
-        
+        listModel.createItem(listItem.changedItem)
         todoList.accept(listModel.readList(.todo))
     }
     
