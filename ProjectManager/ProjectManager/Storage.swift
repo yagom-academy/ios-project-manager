@@ -8,6 +8,17 @@
 import RxRelay
 import RealmSwift
 
+protocol Storegeable {
+    var todoList: BehaviorRelay<[ListItem]> { get }
+    var doingList: BehaviorRelay<[ListItem]> { get }
+    var doneList: BehaviorRelay<[ListItem]> { get }
+    func creatItem(listItem: ListItem)
+    func updateItem(listItem: ListItem)
+    func selectItem(index: Int, type: ListType) -> ListItem
+    func deleteItem(index: Int, type: ListType)
+    func changeItemType(index: Int, type: ListType, destination: ListType)
+}
+
 final class Storage: Storegeable {
     private let listModel = ListModel()
     
