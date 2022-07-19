@@ -12,12 +12,12 @@ import RealmSwift
 final class TodoHistoryRealm: Object {
     @Persisted(primaryKey: true) var id: String
     @Persisted var title: String
-    @Persisted var date: Date
+    @Persisted var createdAt: Date
     
-    convenience init(id: String, title: String, date: Date) {
+    convenience init(id: String, title: String, createdAt: Date) {
         self.init()
         self.id = id
         self.title = title
-        self.date = date
+        self.createdAt = createdAt
     }
 }

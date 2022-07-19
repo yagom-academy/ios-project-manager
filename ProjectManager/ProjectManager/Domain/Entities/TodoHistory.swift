@@ -10,5 +10,5 @@ import Foundation
 struct TodoHistory {
     let id: String
     let title: String
-    let deadline: Date
+    let createdAt: Date
 }
