@@ -111,14 +111,14 @@ extension PersistentStorageManager {
         )
     }
     
-    func parse(from projectContent: ProjectContent) -> Project? {
+    func parse(from projectContent: ProjectContent) -> ProjectDTO? {
         guard let deadline = DateFormatter().formatted(string: projectContent.deadline) else {
             return nil
         }
         
-        return Project(
+        return ProjectDTO(
             id: projectContent.id,
-            status: projectContent.status,
+            status: projectContent.status.string,
             title: projectContent.title,
             deadline: deadline,
             body: projectContent.body
@@ -126,13 +126,10 @@ extension PersistentStorageManager {
     }
 }
 
-extension Project {
-    convenience init(id: UUID, status: ProjectStatus, title: String, deadline: Date, body: String) {
-        self.init()
-        self.id = id
-        self.status = status.string
-        self.title = title
-        self.deadline = deadline
-        self.body = body
-    }
+struct ProjectDTO {
+    let id: UUID
+    let status: String
+    let title: String
+    let deadline: Date
+    let body: String
 }

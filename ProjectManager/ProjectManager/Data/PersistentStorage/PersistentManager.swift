@@ -26,7 +26,7 @@ final class PersistentManager {
 }
 
 extension PersistentManager {
-    func create(project: Project) {
+    func create(project: ProjectDTO) {
         saveToContext(project)
     }
     
@@ -44,8 +44,8 @@ extension PersistentManager {
         return project
     }
 
-    func update(project: Project) {
-        let oldProject = fetchProject(id: project.id?.uuidString)
+    func update(project: ProjectDTO) {
+        let oldProject = fetchProject(id: project.id.uuidString)
         
         oldProject?.setValue(project.title, forKey: "title")
         oldProject?.setValue(project.status, forKey: "status")
@@ -71,7 +71,7 @@ extension PersistentManager {
 }
 
 extension PersistentManager {
-    private func saveToContext(_ project: Project) {
+    private func saveToContext(_ project: ProjectDTO) {
         guard let entity = NSEntityDescription.entity(forEntityName: "Project", in: context) else {
             return
         }
