@@ -63,11 +63,10 @@ extension RealmTodoListStorege: TodoListStorege {
                     self?.storege.onNext(items.map { $0.toTodoModel() })
                 })
                 completable(.completed)
-                return Disposables.create()
             } catch {
                 completable(.error(error))
-                return Disposables.create()
             }
+            return Disposables.create()
         }
     }
 }
