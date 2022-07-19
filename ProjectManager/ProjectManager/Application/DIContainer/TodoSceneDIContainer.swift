@@ -30,7 +30,7 @@ extension TodoSceneDIContainer {
         return sceneFactory.makeTodoListViewController(coordinator: coordinator)
     }
     
-    func makeTodoDetailViewContoller(todoListModel: Todo, coordinator: TodoDetailViewCoordinator) -> TodoDetailViewController {
+    func makeTodoDetailViewContoller(todoListModel: Todo, coordinator: TodoDetailViewCoordinator) -> TodoEditViewController {
         return sceneFactory.makeTodoDetailViewContoller(todoListModel: todoListModel, coordinator: coordinator)
     }
     

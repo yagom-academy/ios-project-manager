@@ -8,24 +8,22 @@
 import Foundation
 import Combine
 
-protocol TodoDetailViewModelInput {
-    func viewDidLoad()
+protocol TodoEditViewModelInput {
     func didTapDoneButton(title: String?, content: String?, deadline: Date?)
     func didTapEditButton()
     func viewDidDisapper(title: String?, content: String?)
 }
 
-protocol TodoDetailViewModelOutput {
+protocol TodoEditViewModelOutput {
     var item: Just<Todo> { get }
-    var isEdited: PassthroughSubject<Bool, Never> { get }
-    var isCreated: PassthroughSubject<Bool, Never> { get }
+    var isEdited: PassthroughSubject<Void, Never> { get }
     var title: CurrentValueSubject<String, Never> { get }
     var dismissView: PassthroughSubject<Void, Never> { get }
 }
 
-protocol TodoDetailViewModelable: TodoDetailViewModelInput, TodoDetailViewModelOutput {}
+protocol TodoEditViewModelable: TodoEditViewModelInput, TodoEditViewModelOutput {}
 
-final class TodoDetailViewModel: TodoDetailViewModelable {
+final class TodoEditViewModel: TodoEditViewModelable {
     
     // MARK: - Output
     
@@ -33,8 +31,7 @@ final class TodoDetailViewModel: TodoDetailViewModelable {
         return Just(todoListModel)
     }
     
-    let isEdited = PassthroughSubject<Bool, Never>()
-    let isCreated = PassthroughSubject<Bool, Never>()
+    let isEdited = PassthroughSubject<Void, Never>()
     let title = CurrentValueSubject<String, Never>("TODO")
     let dismissView = PassthroughSubject<Void, Never>()
 
@@ -49,17 +46,9 @@ final class TodoDetailViewModel: TodoDetailViewModelable {
     }
 }
 
-extension TodoDetailViewModel {
+extension TodoEditViewModel {
     
     // MARK: - Input
-    
-    func viewDidLoad() {
-        if todoListModel.title.isEmpty && todoListModel.content.isEmpty {
-            isCreated.send(true)
-        } else {
-            isEdited.send(false)
-        }
-    }
     
     func didTapDoneButton(title: String?, content: String?, deadline: Date?) {
         guard let title = title,
@@ -91,7 +80,7 @@ extension TodoDetailViewModel {
     }
     
     func didTapEditButton() {
-        isCreated.send(true)
+        isEdited.send(())
     }
     
     func viewDidDisapper(title: String?, content: String?) {

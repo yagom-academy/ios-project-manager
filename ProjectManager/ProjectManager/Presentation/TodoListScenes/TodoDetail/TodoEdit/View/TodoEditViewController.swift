@@ -1,5 +1,5 @@
 //
-//  TodoDetailViewController.swift
+//  TodoEditViewController.swift
 //  ProjectManager
 //
 //  Created by 김도연 on 2022/07/06.
@@ -8,14 +8,14 @@
 import UIKit
 import Combine
 
-final class TodoDetailViewController: UIViewController {
+final class TodoEditViewController: UIViewController {
     private var cancelBag = Set<AnyCancellable>()
-    private let viewModel: TodoDetailViewModelable
+    private let viewModel: TodoEditViewModelable
     private let todoDetailView = TodoDetailView()
     
     weak var coordiantor: TodoDetailViewCoordinator?
 
-    init(viewModel: TodoDetailViewModelable) {
+    init(viewModel: TodoEditViewModelable) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -28,7 +28,6 @@ final class TodoDetailViewController: UIViewController {
         super.viewDidLoad()
         setup()
         bind()
-        viewModel.viewDidLoad()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -51,19 +50,6 @@ final class TodoDetailViewController: UIViewController {
             }
             .store(in: &cancelBag)
         
-        viewModel.isCreated
-            .sink { [weak self] state in
-                self?.todoDetailView.setupUserInteractionEnabled(state)
-                self?.setupNavigationLeftBarButtonItem()
-            }
-            .store(in: &cancelBag)
-        
-        viewModel.isEdited
-            .sink { [weak self] state in
-                self?.todoDetailView.setupUserInteractionEnabled(state)
-            }
-            .store(in: &cancelBag)
-        
         viewModel.title
             .sink { [weak self] title in
                 self?.title = title
@@ -73,6 +59,13 @@ final class TodoDetailViewController: UIViewController {
         viewModel.dismissView
             .sink { [weak self] _  in
                 self?.coordiantor?.dismiss()
+            }
+            .store(in: &cancelBag)
+        
+        viewModel.isEdited
+            .sink { [weak self] _ in
+                self?.setupNavigationLeftBarButtonItem()
+                self?.todoDetailView.setupUserInteractionEnabled(true)
             }
             .store(in: &cancelBag)
     }

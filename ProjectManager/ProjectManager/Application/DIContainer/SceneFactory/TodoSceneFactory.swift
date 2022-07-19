@@ -26,8 +26,8 @@ final class TodoSceneFactory {
     func makeTodoDetailViewContoller(
         todoListModel: Todo,
         coordinator: TodoDetailViewCoordinator
-    ) -> TodoDetailViewController {
-        return TodoDetailViewController(
+    ) -> TodoEditViewController {
+        return TodoEditViewController(
             viewModel: makeTodoDetailViewModel(
                 todoListModel: todoListModel,
                 coordinator: coordinator
@@ -60,8 +60,8 @@ final class TodoSceneFactory {
     private func makeTodoDetailViewModel(
         todoListModel: Todo,
         coordinator: TodoDetailViewCoordinator
-    ) -> TodoDetailViewModelable {
-        return TodoDetailViewModel(
+    ) -> TodoEditViewModelable {
+        return TodoEditViewModel(
             todoUseCase: makeTodoListUseCase(),
             historyUseCase: makeTodoHistoryUseCase(),
             todoListModel: todoListModel
