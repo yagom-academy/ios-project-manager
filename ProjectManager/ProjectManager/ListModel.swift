@@ -12,13 +12,13 @@ final class ListModel: Object {
     private let doingList = List<ListItemModel>()
     private let doneList = List<ListItemModel>()
     
-    private func selectListModel(_ type: ListType) -> List<ListItemModel>? {
+    private func selectListModel(_ type: ListType) -> List<ListItemModel> {
         guard let realm = try? Realm() else {
-            return nil
+            return List<ListItemModel>()
         }
         
         guard let listModel = realm.objects(ListModel.self).first else {
-            return nil
+            return List<ListItemModel>()
         }
         
         switch type {
@@ -32,11 +32,8 @@ final class ListModel: Object {
     }
     
     func readList(_ type: ListType) -> [ListItem] {
-        guard let listModel = ListModel().selectListModel(type) else {
-            return []
-        }
         
-        let list: [ListItem] = listModel
+        let list: [ListItem] = selectListModel(type)
             .compactMap { $0.changedItem }
             .sorted { $0.deadline < $1.deadline }
         return list
@@ -56,7 +53,7 @@ final class ListModel: Object {
             }
         } else {
             try? realm.write {
-                selectListModel(.todo)?.append(item)
+                selectListModel(.todo).append(item)
             }
         }
     }
@@ -66,7 +63,7 @@ final class ListModel: Object {
             return
         }
         
-        let itemModel = selectListModel(item.type)?
+        let itemModel = selectListModel(item.type)
             .filter(NSPredicate(format: "id = %@", item.id)).first
         
         try? realm.write {
@@ -81,7 +78,7 @@ final class ListModel: Object {
             return
         }
         
-        guard let itemModel = selectListModel(item.type)?
+        guard let itemModel = selectListModel(item.type)
             .filter(NSPredicate(format: "id = %@", item.id)).first else {
             return
         }
