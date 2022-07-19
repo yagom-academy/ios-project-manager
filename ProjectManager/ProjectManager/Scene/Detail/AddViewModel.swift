@@ -31,7 +31,7 @@ final class AddViewModel: AddViewModelable {
     
     init(storage: Storegeable) {
         self.storage = storage
-        self.list = ListItem(title: "", body: "", deadline: Date())
+        self.list = ListItem(title: "", body: "", deadline: Date(), id: UUID().uuidString)
     }
     
     func changeTitle(_ text: String?) {

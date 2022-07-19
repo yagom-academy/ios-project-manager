@@ -12,7 +12,7 @@ struct ListItem {
     var body: String
     var deadline: Date
     var type: ListType = .todo
-    let id = UUID().uuidString
+    let id: String
 }
 
 enum ListType {
