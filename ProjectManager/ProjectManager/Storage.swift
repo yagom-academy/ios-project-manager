@@ -59,7 +59,6 @@ final class Storage: Storegeable {
         }
     }
     
-    func creatList(listItem: ListItem) {
     private func readList(_ type: ListType) -> BehaviorRelay<[ListItem]> {
         guard let listModel = selectListModel(type) else {
             return BehaviorRelay<[ListItem]>(value: [])
@@ -71,12 +70,16 @@ final class Storage: Storegeable {
         return BehaviorRelay<[ListItem]>(value: list)
     }
     
-    func updateList(listItem: ListItem) {
+    func creatList(listItem: ListItem) {
         
     }
     
     func selectItem(index: Int, type: ListType) -> ListItem {
-        return ListItem(title: "", body: "", deadline: Date(), id: "")
+        return readList(type).value[index]
+    }
+    
+    func updateList(listItem: ListItem) {
+        
     }
     
     func deleteList(index: Int, type: ListType) {
