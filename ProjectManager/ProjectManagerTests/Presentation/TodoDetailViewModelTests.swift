@@ -29,7 +29,7 @@ class TodoDetailViewModelTests: XCTestCase {
         
         // when
         viewModel.viewDidDisapper(title: "", content: "")
-        _ = todoListViewModel.items.sink { items in
+        _ = todoListViewModel.todoItems.sink { items in
             result = items.count
             expectation.fulfill()
         }
@@ -49,7 +49,7 @@ class TodoDetailViewModelTests: XCTestCase {
 
         // when
         viewModel.didTapDoneButton(title: expected, content: expected, deadLine: Date())
-        _ = todoListViewModel.items.sink { items in
+        _ = todoListViewModel.todoItems.sink { items in
             let item = items.first(where: { $0.id == "3" })!
             result = (item.title, item.content)
             expectation.fulfill()

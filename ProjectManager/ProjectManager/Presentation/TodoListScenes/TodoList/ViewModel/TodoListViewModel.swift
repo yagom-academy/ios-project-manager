@@ -36,8 +36,12 @@ final class TodoListViewModel: TodoListViewModelable {
             .eraseToAnyPublisher()
     }
     
-    var items: AnyPublisher<[Todo], Never> {
-        return useCase.read().eraseToAnyPublisher()
+    var todoItems: AnyPublisher<[Todo], Never> {
+        return todoUseCase.read().eraseToAnyPublisher()
+    }
+    
+    var historyItems: AnyPublisher<[TodoHistory], Never> {
+        return historyUseCase.read().eraseToAnyPublisher()
     }
     
     var title: Just<String> {
@@ -47,12 +51,17 @@ final class TodoListViewModel: TodoListViewModelable {
     var errorOccur = PassthroughSubject<Result<Void, StorageError>, Never>()
     
     private weak var coordinator: TodoListViewCoordinator?
-    private let useCase: TodoListUseCaseable
+    private let todoUseCase: TodoListUseCaseable
+    private let historyUseCase: TodoHistoryUseCaseable
     private var cancelBag = Set<AnyCancellable>()
     
-    init(coordinator: TodoListViewCoordinator? = nil, useCase: TodoListUseCaseable) {
-        self.useCase = useCase
+    init(coordinator: TodoListViewCoordinator? = nil,
+         todoUseCase: TodoListUseCaseable,
+         historyUseCase: TodoHistoryUseCaseable
+    ) {
         self.coordinator = coordinator
+        self.todoUseCase = todoUseCase
+        self.historyUseCase = historyUseCase
     }
 }
 
@@ -63,7 +72,7 @@ extension TodoListViewModel {
     func didTapAddButton() {
         let item = Todo.empty()
         
-        useCase.create(item)
+        todoUseCase.create(item)
             .print()
             .sink { [weak self] completion in
                 switch completion {
@@ -87,7 +96,7 @@ extension TodoListViewModel {
 
 extension TodoListViewModel: TodoViewModelInput {
     func deleteItem(_ item: Todo) {
-        useCase.delete(item: item)
+        todoUseCase.delete(item: item)
             .sink { [weak self] completion in
                 switch completion {
                 case .finished:
@@ -106,7 +115,7 @@ extension TodoListViewModel: TodoViewModelInput {
     }
     
     func didTapFirstContextMenu(_ item: Todo) {
-        useCase.update(item)
+        todoUseCase.update(item)
             .sink { [weak self] completion in
                 switch completion {
                 case .finished:
@@ -121,7 +130,7 @@ extension TodoListViewModel: TodoViewModelInput {
     }
     
     func didTapSecondContextMenu(_ item: Todo) {
-        useCase.update(item)
+        todoUseCase.update(item)
             .sink { [weak self] completion in
                 switch completion {
                 case .finished:

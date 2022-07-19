@@ -25,7 +25,7 @@ class TodoListViewModelTests: XCTestCase {
         
         // when
         viewModel.didTapAddButton()
-        _ = viewModel.items.sink { items in
+        _ = viewModel.todoItems.sink { items in
             result = items
             expectation.fulfill()
         }
@@ -46,13 +46,13 @@ class TodoListViewModelTests: XCTestCase {
         
         // when
         viewModel.didTapFirstContextMenu(expected1)
-        _ = viewModel.items.sink { items in
+        _ = viewModel.todoItems.sink { items in
             result1 = items.first(where: { $0.id == "1" })!
             expectation.fulfill()
         }
         
         viewModel.didTapSecondContextMenu(expected2)
-        _ = viewModel.items.sink { items in
+        _ = viewModel.todoItems.sink { items in
             result2 = items.first(where: { $0.id == "2" })!
             expectation.fulfill()
         }
@@ -72,7 +72,7 @@ class TodoListViewModelTests: XCTestCase {
         
         // when
         viewModel.deleteItem(mockTodoListModel)
-        _ = viewModel.items.sink { items in
+        _ = viewModel.todoItems.sink { items in
             result = items.count
             expectation.fulfill()
         }

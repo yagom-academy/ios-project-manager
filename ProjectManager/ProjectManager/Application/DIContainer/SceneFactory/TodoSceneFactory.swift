@@ -52,7 +52,11 @@ final class TodoSceneFactory {
     // MARK: - ViewModel
     
     private func makeTodoListViewModel(coordinator: TodoListViewCoordinator) -> TodoListViewModelable {
-        let viewModel = TodoListViewModel(coordinator: coordinator, useCase: makeTodoListUseCase())
+        let viewModel = TodoListViewModel(
+            coordinator: coordinator,
+            todoUseCase: makeTodoListUseCase(),
+            historyUseCase: makeTodoHistoryUseCase()
+        )
         self.parentViewModel = viewModel
         return viewModel
     }
@@ -71,7 +75,7 @@ final class TodoSceneFactory {
     private func makeTodoViewModel(processType: ProcessType) -> TodoViewModel {
         let viewModel = TodoViewModel(
             processType: processType,
-            items: parentViewModel?.items ?? Just([Todo]()).eraseToAnyPublisher()
+            items: parentViewModel?.todoItems ?? Just([Todo]()).eraseToAnyPublisher()
         )
         viewModel.delegate = parentViewModel
         
@@ -79,7 +83,9 @@ final class TodoSceneFactory {
     }
     
     private func makeTodoHistoryViewModel() -> TodoHistoryTableViewModelable {
-        return TodoHistoryTableViewModel(useCase: makeTodoHistoryUseCase())
+        return TodoHistoryTableViewModel(
+            items: parentViewModel?.historyItems ?? Just([TodoHistory]()).eraseToAnyPublisher()
+        )
     }
     
     // MARK: - UseCase

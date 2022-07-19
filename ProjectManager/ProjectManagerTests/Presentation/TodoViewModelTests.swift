@@ -17,7 +17,7 @@ class TodoViewModelTests: XCTestCase {
         try super.setUpWithError()
         
         parentViewModel = TodoListViewModel(useCase: FakeTodoListUseCase())
-        viewModel = TodoViewModel(processType: .todo, items: parentViewModel.items)
+        viewModel = TodoViewModel(processType: .todo, items: parentViewModel.todoItems)
         viewModel.delegate = parentViewModel
     }
     
@@ -32,13 +32,13 @@ class TodoViewModelTests: XCTestCase {
         
         // when
         viewModel.didTapFirstContextMenu(expected1)
-        _ = parentViewModel.items.sink { items in
+        _ = parentViewModel.todoItems.sink { items in
             result1 = items.first(where: { $0.id == "1" })!
             expectation.fulfill()
         }
         
         viewModel.didTapSecondContextMenu(expected2)
-        _ = parentViewModel.items.sink { items in
+        _ = parentViewModel.todoItems.sink { items in
             result2 = items.first(where: { $0.id == "2" })!
             expectation.fulfill()
         }
@@ -58,7 +58,7 @@ class TodoViewModelTests: XCTestCase {
 
         // when
         viewModel.deleteItem(mockTodoListModel)
-        _ = parentViewModel.items.sink { items in
+        _ = parentViewModel.todoItems.sink { items in
             result = items.count
             expectation.fulfill()
         }
