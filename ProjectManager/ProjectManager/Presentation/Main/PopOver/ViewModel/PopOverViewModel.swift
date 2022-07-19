@@ -13,7 +13,7 @@ struct PopOverViewModel {
     }
     
     func moveCell(by text: String?) {
-        guard let status = ProjectStatus.convert(text) else {
+        guard let status = ProjectStatus.convert(titleText: text) else {
             return
         }
         changeContent(status: status)
@@ -25,17 +25,18 @@ struct PopOverViewModel {
             return
         }
         
-        project.updateStatus(status)
+        project.status = status
+        
+        ProjectUseCase().update(projectContent: project)
     }
     
     func getStatus() -> (first: ProjectStatus, second: ProjectStatus)? {
         guard let id = cell.contentID,
-              let project = ProjectUseCase().read(id: id),
-              let status = project.getStatus() else {
+              let project = ProjectUseCase().read(id: id) else {
             return nil
         }
         
-        return convertProcess(by: status)
+        return convertProcess(by: project.status)
     }
     
     private func convertProcess(by status: ProjectStatus) -> (first: ProjectStatus, second: ProjectStatus) {

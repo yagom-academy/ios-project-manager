@@ -34,7 +34,7 @@ enum ProjectStatus {
         }
     }
     
-    static func convert(_ titleText: String?) -> ProjectStatus? {
+    static func convert(titleText: String?) -> ProjectStatus? {
         switch titleText {
         case ProjectStatus.todo.buttonTitle:
             return .todo
@@ -46,17 +46,31 @@ enum ProjectStatus {
             return nil
         }
     }
+    
+    static func convert(statusString: String?) -> ProjectStatus? {
+        switch statusString {
+        case ProjectStatus.todo.string:
+            return .todo
+        case ProjectStatus.doing.string:
+            return .doing
+        case ProjectStatus.done.string:
+            return .done
+        default:
+            return nil
+        }
+    }
 }
 
 struct ProjectContent {
     let id: UUID
-    var status: ProjectStatus = .todo
+    var status: ProjectStatus
     var title: String
     var deadline: String
     var body: String
     
-    init(id: UUID = UUID(), title: String, deadline: Date, body: String) {
+    init(id: UUID = UUID(), status: ProjectStatus = .todo, title: String, deadline: Date, body: String) {
         self.id = id
+        self.status = status
         self.title = title
         self.deadline = DateFormatter().formatted(date: deadline)
         self.body = body
@@ -77,15 +91,6 @@ struct ProjectContent {
         if let body = body {
             self.body = body
         }
-    }
-    
-    func getStatus() -> ProjectStatus? {
-        return MockStorageManager.shared.read(id: id)?.status
-    }
-    
-    mutating func updateStatus(_ status: ProjectStatus) {
-        self.status = status
-        MockStorageManager.shared.update(projectContent: self)
     }
 }
 

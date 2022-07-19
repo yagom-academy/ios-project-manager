@@ -14,7 +14,14 @@ final class PersistentStorageManager {
     
     private init() { }
     
-    private var projectEntities = BehaviorRelay<[ProjectContent]>(value: [])
+    private lazy var projectEntities = BehaviorRelay<[ProjectContent]>(value: fetchCoreDate())
+    
+    private func fetchCoreDate() -> [ProjectContent] {
+        let currentProjects = persistentManager.read()
+        let contents = currentProjects.compactMap { parse(from: $0) }
+        
+        return contents
+    }
 }
 
 extension PersistentStorageManager: Storagable {
@@ -24,7 +31,6 @@ extension PersistentStorageManager: Storagable {
     }
     
     func read() -> BehaviorRelay<[ProjectContent]> {
-        projectEntities.accept(readCoreDate())
         return projectEntities
     }
     
@@ -53,18 +59,10 @@ extension PersistentStorageManager {
     }
     
     private func createProjectEntities(newProjectContent: ProjectContent) {
-        let currentProject = persistentManager.read()
-        var projectContents = currentProject.compactMap { parse(from: $0) }
+        var projectContents = projectEntities.value
         
         projectContents.append(newProjectContent)
         projectEntities.accept(projectContents)
-    }
-    
-    private func readCoreDate() -> [ProjectContent] {
-        let currentProjects = persistentManager.read()
-        let contents = currentProjects.compactMap { parse(from: $0) }
-        
-        return contents
     }
     
     private func updateCoreDate(newProjectContent: ProjectContent) {
@@ -105,6 +103,7 @@ extension PersistentStorageManager {
 extension PersistentStorageManager {
     func parse(from project: Project) -> ProjectContent? {
         guard let id = project.id,
+              let status = ProjectStatus.convert(statusString: project.status),
               let title = project.title,
               let deadline = project.deadline,
               let body = project.body else {
@@ -113,6 +112,7 @@ extension PersistentStorageManager {
         
         return ProjectContent(
             id: id,
+            status: status,
             title: title,
             deadline: deadline,
             body: body
@@ -132,12 +132,4 @@ extension PersistentStorageManager {
             body: projectContent.body
         )
     }
-}
-
-struct ProjectDTO {
-    let id: UUID
-    let status: String
-    let title: String
-    let deadline: Date
-    let body: String
 }
