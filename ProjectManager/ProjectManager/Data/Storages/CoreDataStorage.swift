@@ -7,6 +7,8 @@
 
 import CoreData
 
+import RxCocoa
+
 final class CoreDataStorage {
   private enum Settings {
     static let localDataBaseName = "LocalDB"
@@ -22,7 +24,7 @@ final class CoreDataStorage {
     return container
   }()
   
-  private var context: NSManagedObjectContext { container.viewContext }
+  var context: NSManagedObjectContext { container.viewContext }
   
   private init() {}
   
