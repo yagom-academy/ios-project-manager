@@ -11,11 +11,11 @@ protocol Storegeable {
     var todoList: BehaviorRelay<[ListItem]> { get }
     var doingList: BehaviorRelay<[ListItem]> { get }
     var doneList: BehaviorRelay<[ListItem]> { get }
-    func creatList(listItem: ListItem)
-    func updateList(listItem: ListItem)
+    func creatItem(listItem: ListItem)
+    func updateItem(listItem: ListItem)
     func selectItem(index: Int, type: ListType) -> ListItem
-    func deleteList(index: Int, type: ListType)
-    func changeListType(index: Int, type: ListType, destination: ListType)
+    func deleteItem(index: Int, type: ListType)
+    func changeItemType(index: Int, type: ListType, destination: ListType)
 }
 
 final class MockStorage: Storegeable {
@@ -40,7 +40,7 @@ final class MockStorage: Storegeable {
         return list(type).value[index]
     }
     
-    func creatList(listItem: ListItem) {
+    func creatItem(listItem: ListItem) {
         let type = listItem.type
         let oldList = list(type).value
         let newList = oldList + [listItem]
@@ -48,7 +48,7 @@ final class MockStorage: Storegeable {
         list(type).accept(newList.sorted { $0.deadline < $1.deadline })
     }
     
-    func updateList(listItem: ListItem) {
+    func updateItem(listItem: ListItem) {
         let type = listItem.type
         var oldList = list(type).value
         
@@ -67,19 +67,19 @@ final class MockStorage: Storegeable {
         list(type).accept(newList.sorted { $0.deadline < $1.deadline })
     }
     
-    func deleteList(index: Int, type: ListType) {
+    func deleteItem(index: Int, type: ListType) {
         var oldList = list(type).value
         oldList.remove(at: index)
         
         list(type).accept(oldList)
     }
     
-    func changeListType(index: Int, type: ListType, destination: ListType) {
+    func changeItemType(index: Int, type: ListType, destination: ListType) {
         var list = selectItem(index: index, type: type)
         list.type = destination
         
-        deleteList(index: index, type: type)
-        creatList(listItem: list)
+        deleteItem(index: index, type: type)
+        creatItem(listItem: list)
     }
 }
 

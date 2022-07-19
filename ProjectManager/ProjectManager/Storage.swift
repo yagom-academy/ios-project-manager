@@ -70,7 +70,7 @@ final class Storage: Storegeable {
         return list
     }
     
-    func creatList(listItem: ListItem) {
+    func creatItem(listItem: ListItem) {
         guard let realm = try? Realm() else {
             return
         }
@@ -103,15 +103,15 @@ final class Storage: Storegeable {
         }
     }
     
-    func updateList(listItem: ListItem) {
+    func updateItem(listItem: ListItem) {
         
     }
     
-    func deleteList(index: Int, type: ListType) {
+    func deleteItem(index: Int, type: ListType) {
         
     }
     
-    func changeListType(index: Int, type: ListType, destination: ListType) {
+    func changeItemType(index: Int, type: ListType, destination: ListType) {
         
     }
 }

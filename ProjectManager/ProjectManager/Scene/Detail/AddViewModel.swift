@@ -51,7 +51,7 @@ final class AddViewModel: AddViewModelable {
     }
     
     func touchDoneButton() {
-        storage.creatList(listItem: list)
+        storage.creatItem(listItem: list)
         dismiss.accept(())
     }
 }

@@ -26,7 +26,7 @@ protocol MainViewModelInput {
     func touchAddButton()
     func touchCell(index: Int, type: ListType)
     func deleteCell(index: Int, type: ListType)
-    func changeListType(index: Int, type: ListType, to: ListType)
+    func changeItemType(index: Int, type: ListType, to: ListType)
 }
 
 final class MainViewModel: MainViewModelInOut {
@@ -76,10 +76,10 @@ extension MainViewModel {
     }
     
     func deleteCell(index: Int, type: ListType) {
-        storage.deleteList(index: index, type: type)
+        storage.deleteItem(index: index, type: type)
     }
     
-    func changeListType(index: Int, type: ListType, to destination: ListType) {
-        storage.changeListType(index: index, type: type, destination: destination)
+    func changeItemType(index: Int, type: ListType, to destination: ListType) {
+        storage.changeItemType(index: index, type: type, destination: destination)
     }
 }

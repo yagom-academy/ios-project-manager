@@ -141,14 +141,14 @@ final class MainViewController: UIViewController {
         
         let firstAction = UIAlertAction(title: type.firstDirection.title,
                                         style: .default) { [weak self] _ in
-            self?.viewModel.changeListType(index: index,
+            self?.viewModel.changeItemType(index: index,
                                            type: type,
                                            to: type.firstDirection.type)
         }
         
         let secondAction = UIAlertAction(title: type.secondDirection.title,
                                          style: .default) { [weak self] _ in
-            self?.viewModel.changeListType(index: index,
+            self?.viewModel.changeItemType(index: index,
                                            type: type,
                                            to: type.secondDirection.type)
         }

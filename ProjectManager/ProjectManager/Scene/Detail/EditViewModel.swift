@@ -58,7 +58,7 @@ final class EditViewModel: EditViewModelable {
     }
     
     func touchDoneButton() {
-        storage.updateList(listItem: list)
+        storage.updateItem(listItem: list)
         dismiss.accept(())
     }
 }
