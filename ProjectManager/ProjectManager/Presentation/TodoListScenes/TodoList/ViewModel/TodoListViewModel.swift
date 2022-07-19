@@ -9,6 +9,7 @@ import Foundation
 import Combine
 
 protocol TodoListViewModelInput {
+    func viewDidLoad()
     func didTapAddButton()
     func didTapHistoryButton()
 }
@@ -71,6 +72,10 @@ final class TodoListViewModel: TodoListViewModelable {
 extension TodoListViewModel {
     
     // MARK: - Input
+    
+    func viewDidLoad() {
+        todoUseCase.synchronize()
+    }
     
     func didTapAddButton() {
         showCreateView.send()

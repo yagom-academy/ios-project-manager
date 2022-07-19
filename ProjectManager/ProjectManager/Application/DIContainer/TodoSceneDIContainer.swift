@@ -9,7 +9,8 @@ import UIKit
 
 final class TodoSceneDIContainer {
     struct Dependencies {
-        unowned let todoStorage: Storageable
+        unowned let todoStorage: LocalStorageable
+        unowned let remoteStorage: RemoteStorageable
         unowned let historyStorage: HistoryStorageable
     }
     

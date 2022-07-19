@@ -27,6 +27,7 @@ final class TodoListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+        viewModel.viewDidLoad()
     }
     
     required init?(coder: NSCoder) {

@@ -24,9 +24,7 @@ final class NetworkMonitor {
                 self?.isConnected = true
             case .unsatisfied:
                 self?.isConnected = false
-            case .requiresConnection:
-                self?.isConnected = false
-            @unknown default:
+            default:
                 break
             }
         }

@@ -9,7 +9,7 @@ import Combine
 @testable import ProjectManager
 
 final class FakeTodoListRepository: TodoListRepositorible {
-    let storage: Storageable = FakeMemoryStorage()
+    let storage: LocalStorageable = FakeMemoryStorage()
     
     func create(_ item: Todo) {
         storage.create(item)

@@ -13,16 +13,17 @@ enum StorageError: Error {
     case createFail
     case updateFail
     case deleteFail
+    case readFail
 }
 
-protocol Storageable: AnyObject {
+protocol LocalStorageable: AnyObject {
     func create(_ item: Todo) -> AnyPublisher<Void, StorageError>
     func read() -> CurrentValueSubject<[Todo], Never>
     func update(_ item: Todo) -> AnyPublisher<Void, StorageError>
     func delete(_ item: Todo) -> AnyPublisher<Void, StorageError>
 }
 
-final class RealmStorage: Storageable {
+final class RealmStorage: LocalStorageable {
     private let realm = try! Realm()
     private let realmSubject = CurrentValueSubject<[Todo], Never>([])
     

@@ -13,6 +13,7 @@ protocol TodoListUseCaseable {
     func read() -> CurrentValueSubject<[Todo], Never>
     func update(_ item: Todo) -> AnyPublisher<Void, StorageError>
     func delete(item: Todo) -> AnyPublisher<Void, StorageError>
+    func synchronize()
 }
 
 final class TodoListUseCase: TodoListUseCaseable {
@@ -36,5 +37,9 @@ final class TodoListUseCase: TodoListUseCaseable {
     
     func delete(item: Todo) -> AnyPublisher<Void, StorageError> {
         return repository.delete(item: item)
+    }
+    
+    func synchronize() {
+        repository.synchronize()
     }
 }

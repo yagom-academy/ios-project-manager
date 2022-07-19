@@ -9,72 +9,49 @@ import Combine
 
 import RealmSwift
 import FirebaseDatabase
-import SwiftUI
 
-final class FirebaseStorage: Storageable {
+protocol RemoteStorageable: AnyObject {
+    func backup(_ items: [Todo])
+    func read() -> CurrentValueSubject<[Todo], StorageError>
+}
+
+final class FirebaseStorage: RemoteStorageable {
     private let databaseURL = "https://projectmanager-42e08-default-rtdb.asia-southeast1.firebasedatabase.app"
     private lazy var databaseReference = Database.database(url: databaseURL).reference()
-    private let firebaseSubject = CurrentValueSubject<[Todo], Never>([])
+    private let firebaseSubject = CurrentValueSubject<[Todo], StorageError>([])
+    private var cancelBag = Set<AnyCancellable>()
     
     init() {
-        registerFirebaseDatabaseObserver()
+        readAll()
     }
     
-    func create(_ item: Todo) -> AnyPublisher<Void, StorageError> {
-        return Future<Void, StorageError> { [weak self] observer in
-            self?.databaseReference
-                .child("todos")
-                .child(item.id)
-                .setValue(item.toDictionary() as NSDictionary) { (error: Error?, _: DatabaseReference) in
-                    guard error == nil else {
-                        return observer(.failure(.createFail))
-                    }
-                    
-                    return observer(.success(()))
-                }
-        }.eraseToAnyPublisher()
+    func backup(_ items: [Todo]) {
+        deleteAll().sink { completion in
+            
+        } receiveValue: { _ in
+            items.forEach {
+                self.databaseReference
+                    .child("todos")
+                    .child($0.id)
+                    .setValue($0.toDictionary() as NSDictionary)
+            }
+        }
+        .store(in: &cancelBag)
     }
     
-    func read() -> CurrentValueSubject<[Todo], Never> {
+    func read() -> CurrentValueSubject<[Todo], StorageError> {
         return firebaseSubject
     }
     
-    func update(_ item: Todo) -> AnyPublisher<Void, StorageError> {
-        return Future<Void, StorageError> { [weak self] observer in
-            guard let key = self?.databaseReference.child("todos").child(item.id).key else {
-                return observer(.failure(.updateFail))
+    private func readAll() {
+        self.databaseReference.child("todos").getData { error, snapshot in
+            guard error == nil else {
+                self.firebaseSubject.send(completion: .failure(.readFail))
+                return
             }
             
-            let childUpdates = ["/todos/\(key)": item.toDictionary()]
-            self?.databaseReference.updateChildValues(childUpdates) { (error: Error?, _: DatabaseReference) in
-                guard error == nil else {
-                    return observer(.failure(.updateFail))
-                }
-                
-                return observer(.success(()))
-            }
-        }.eraseToAnyPublisher()
-    }
-    
-    func delete(_ item: Todo) -> AnyPublisher<Void, StorageError> {
-        return Future<Void, StorageError> { [weak self] observer in
-            self?.databaseReference
-                .child("todos")
-                .child(item.id)
-                .removeValue { (error: Error?, _: DatabaseReference) in
-                guard error == nil else {
-                    return observer(.failure(.deleteFail))
-                }
-                
-                return observer(.success(()))
-            }
-        }.eraseToAnyPublisher()
-    }
-
-    private func registerFirebaseDatabaseObserver() {
-        self.databaseReference.child("todos").observe(.value, with: { snapshot in
-            let value = snapshot.value as? [String: Any]
-            let items = value?.map { item -> Todo in
+            let value = snapshot?.value as? [String: Any]
+            let items = value?.compactMap { item -> Todo in
                 let value = item.value as? [String: Any]
                 return Todo(
                     title: value?["title"] as! String,
@@ -83,11 +60,25 @@ final class FirebaseStorage: Storageable {
                     processType: .todo,
                     id: value?["id"] as! String
                 )
-            }.sorted { $0.deadline < $1.deadline }
+            }
             
-            self.firebaseSubject.send(items ?? [])
-        }, withCancel: { error in
-            print(error.localizedDescription)
-        })
+            self.firebaseSubject.send(items!)
+            print(snapshot)
+            print("items", items)
+            
+        }
+    }
+    
+    private func deleteAll() -> AnyPublisher<Void, StorageError> {
+        return Future<Void, StorageError> { [weak self] observer in
+            self?.databaseReference
+                .child("todos")
+                .removeValue(completionBlock: { error, reference in
+                    guard error == nil else {
+                        return observer(.failure(.deleteFail))
+                    }
+                    return observer(.success(()))
+                })
+        }.eraseToAnyPublisher()
     }
 }

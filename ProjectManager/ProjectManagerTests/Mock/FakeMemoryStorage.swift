@@ -9,7 +9,7 @@ import Combine
 import Foundation
 @testable import ProjectManager
 
-final class FakeMemoryStorage: Storageable {
+final class FakeMemoryStorage: LocalStorageable {
     @Published private var items: [Todo] = [
         Todo(title: "1", content: "1", deadLine: Date(), id: "1"),
         Todo(title: "2", content: "2", deadLine: Date(), id: "2"),

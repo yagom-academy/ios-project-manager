@@ -8,13 +8,15 @@ import Foundation
 import Combine
 
 final class TodoSceneFactory {
-    private unowned let todoStorage: Storageable
+    private unowned let todoStorage: LocalStorageable
+    private unowned let remoteStorage: RemoteStorageable
     private unowned let historyStorage: HistoryStorageable
     private unowned var parentViewModel: TodoListViewModel?
     
     init(dependency: TodoSceneDIContainer.Dependencies) {
-        self.historyStorage = dependency.historyStorage
         self.todoStorage = dependency.todoStorage
+        self.remoteStorage = dependency.remoteStorage
+        self.historyStorage = dependency.historyStorage
     }
     
     // MARK: ViewController
@@ -94,7 +96,7 @@ final class TodoSceneFactory {
     // MARK: - Repository
     
     private func makeTodoListRepository() -> TodoListRepositorible {
-        return TodoListRepository(storage: todoStorage)
+        return TodoListRepository(todoLocalStorage: todoStorage, todoRemoteStorage: remoteStorage)
     }
     
     private func makeTodoHistoryRepository() -> TodoHistoryRepositorible {
