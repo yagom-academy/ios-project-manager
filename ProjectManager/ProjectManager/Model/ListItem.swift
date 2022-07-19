@@ -30,4 +30,31 @@ enum ListType {
             return "DONE"
         }
     }
+    
+    struct Direction {
+        let title: String
+        let type: ListType
+    }
+    
+    var firstDirection: Direction {
+        switch self {
+        case .todo:
+            return Direction(title: "Move to Doing", type: .doing)
+        case .doing:
+            return Direction(title: "Move to Todo", type: .todo)
+        case .done:
+            return Direction(title: "Move to Todo", type: .todo)
+        }
+    }
+    
+    var secondDirection: Direction {
+        switch self {
+        case .todo:
+            return Direction(title: "Move to Done", type: .done)
+        case .doing:
+            return Direction(title: "Move to Done", type: .done)
+        case .done:
+            return Direction(title: "Move to Doing", type: .doing)
+        }
+    }
 }

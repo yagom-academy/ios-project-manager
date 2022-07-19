@@ -8,6 +8,7 @@ pod 'SwiftLint'
 pod 'RxSwift'
 pod 'RxCocoa'
 pod 'SnapKit'
+pod 'RxGesture'
   # Pods for ProjectManager
 
 end

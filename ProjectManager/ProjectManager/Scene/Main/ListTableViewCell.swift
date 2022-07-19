@@ -16,7 +16,12 @@ final class ListTableViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+    private lazy var sectionView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .systemBackground
+        
+        return view
+    }()
     private lazy var mainStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [topStackView,
                                                        deadlineLabel])
@@ -61,6 +66,7 @@ final class ListTableViewCell: UITableViewCell {
 // MARK: - view setting func
 extension ListTableViewCell {
     func setViewContents(_ listItem: ListItem, isOver: Bool) {
+        self.backgroundColor = .systemGray6
         titleLabel.text = listItem.title
         bodyLabel.text = listItem.body
         deadlineLabel.text = DateConverter.dateToString(listItem.deadline)
@@ -68,7 +74,12 @@ extension ListTableViewCell {
     }
     
     private func setViewLayout() {
-        self.addSubview(mainStackView)
+        self.addSubview(sectionView)
+        sectionView.snp.makeConstraints{
+            $0.top.equalToSuperview().inset(10)
+            $0.leading.trailing.bottom.equalToSuperview()
+        }
+        sectionView.addSubview(mainStackView)
         mainStackView.snp.makeConstraints{
             $0.edges.equalToSuperview().inset(15)
         }

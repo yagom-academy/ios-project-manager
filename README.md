@@ -1,3 +1,5 @@
+# 프로젝트 관리 앱 README
+
 # 🗒프로젝트 관리 앱(To Do List)
 > 프로젝트 기간 2022-07-04 ~ 2022-07-15
 
@@ -5,7 +7,13 @@
 리뷰어 : [TTOzzi](https://github.com/TTOzzi)
 
 ## 실행화면
-![](https://i.imgur.com/URI5yiS.gif)
+
+|생성|수정|
+|:-:|:-:|
+|<img src="https://i.imgur.com/WhqnkEB.gif" width="350" height="230"/>|<img src="https://i.imgur.com/6rnvT2M.gif" width="350" height="230"/>|
+|이동|삭제|
+|<img src="https://i.imgur.com/QmVBxdd.gif" width="350" height="230"/>|<img src="https://i.imgur.com/y2HHGq2.gif" width="350" height="230"/>|
+
 
 ## 기능 구현
 - Rx를 이용해 데이터 화면에 표시
@@ -50,12 +58,31 @@ mvvm 패턴을 구현함에 있어 viewcontroller도 뷰의 역할을 하도록 
 
 이 부분을 가장 고민을 많이 했는데 아직 어떤게 더 좋을 지 기준이 서지 않아 해결 필요
 
-### 2. 뷰의 입체성(?)
-|내가 구성한 뷰|요구서의 뷰|
-|:-:|:-:|
-|![image](https://user-images.githubusercontent.com/82325822/177760552-1793f8f0-2445-429c-83f0-3a0648ab83f4.png)|![image](https://user-images.githubusercontent.com/82325822/177760740-5f5709c8-8d5e-43e7-b86c-d232860c2a17.png)|
+### MockStorage
+![](https://i.imgur.com/adnJzRz.png)
+아직은 로컬 및 원격 저장소를 구현하기 전이기에 Storageable이라는 프로토콜을 만들어 해당 프로토콜을 준수하는 객체가 저장소가 될 수 있도록(실제 저장소가 생기면 바꿔치기만 할 수 있도록) 구현
 
-위 뷰 요소들을 스토리보드에서 옵션 하나하나 살펴봐도 이렇게 입체성을 나타내는 옵션을 찾지 못했으며 이 부분도 해결 필요 
+### 저장소 공유
+MainViewController에서는 read, delete를 DetailViewController에서는 create, update를 하기에 저장소는 공유가 되어야 하는데 세가지 방법 중 고민함
+
+1. detailview를 present할 때 MainViewModel을 주입시킨다
+2. storage를 싱글톤으로 구현한다
+3. DI Container를 만들어 SceneDelegate에서 MainViewcontroller에 storage를 주입해서 단계별로 주입을 한다
+
+1번같은경우는 detailview또한 viewmodel을 만들어 역할 분리를 하는 것이 맞다고 생각해 제외
+2번같은 경우는 저장소를 싱글톤으로 공유하게 된다면 의도치 않은 곳에서 접근할 가능성이 있기에 제외하였으며 3번의 방법을 선택
+(물론 이번에 처음 알게된 개념이라 완전한 구현은 어려워 개념은 가져가고 storage주입을 목적으로 약간 따라하는 식으로만 구현)
+
+![](https://i.imgur.com/rz7mZOU.png)
+
+### input/ output
+
+![](https://i.imgur.com/9mieDDw.png)
+
+input은 viewmodel이 이벤트를 받아 해야할 행동
+output은 viewmodel이 view로 전달하는 데이터 
+정도로 이해를 하고 사용함(추후 더 공부 필요)
+
 
 ## 배운 개념
 - RxSwift

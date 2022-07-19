@@ -26,19 +26,19 @@ final class DetailView: UIView {
     
     private lazy var naviItem: UINavigationItem = {
         let navigationItem = UINavigationItem()
-        navigationItem.leftBarButtonItem = cancleButton
+        navigationItem.leftBarButtonItem = leftButton
         navigationItem.rightBarButtonItem = doneButton
         return navigationItem
     }()
     
-    private lazy var cancleButton: UIBarButtonItem = {
+    private(set) lazy var leftButton: UIBarButtonItem = {
         let barButton = UIBarButtonItem()
         barButton.title = "Cancel"
         
         return barButton
     }()
     
-    private lazy var doneButton: UIBarButtonItem = {
+    private(set) lazy var doneButton: UIBarButtonItem = {
         let barButton = UIBarButtonItem()
         barButton.title = "Done"
         
@@ -54,15 +54,17 @@ final class DetailView: UIView {
         return stackView
     }()
     
-    private lazy var titleTextField: UITextField = {
+    private(set) lazy var titleTextField: UITextField = {
         let textField = UITextField()
         textField.font = UIFont.preferredFont(forTextStyle: .title2)
         textField.borderStyle = .roundedRect
+        textField.layer.shadowOpacity = 0.4
+        textField.layer.shadowOffset = CGSize(width: 0, height: 3)
         
         return textField
     }()
     
-    private lazy var deadlinePicker: UIDatePicker = {
+    private(set) lazy var deadlinePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.preferredDatePickerStyle = .wheels
         datePicker.datePickerMode = .date
@@ -70,24 +72,21 @@ final class DetailView: UIView {
         return datePicker
     }()
     
-    private lazy var bodyTextView: UITextView = {
+    private(set) lazy var bodyTextView: UITextView = {
         let textView = UITextView()
         textView.font = UIFont.preferredFont(forTextStyle: .title3)
         textView.layer.borderWidth = 1
         textView.layer.borderColor = UIColor.systemGray2.cgColor
+        
         return textView
     }()
 }
 
 // MARK: - view setting func
 extension DetailView {
-    func setViewContents(_ listItem: ListItem?) {
-        guard let listItem = listItem else {
-            naviItem.title = ListType.todo.title
-            return
-        }
+    func setDetilView(_ listItem: ListItem) {
         naviItem.title = listItem.type.title
-        cancleButton.title = "Edit"
+        leftButton.title = "Close"
         titleTextField.text = listItem.title
         deadlinePicker.date = listItem.deadline
         bodyTextView.text = listItem.body
