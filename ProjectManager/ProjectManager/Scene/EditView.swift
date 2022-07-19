@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct EditView: View {
-  @ObservedObject var viewModel: EditViewModel
-  var todo = Todo(title: "", content: "")
-  @Binding var isShow: Bool
   @State var nonEditable: Bool = true
+  @State var todo = Todo(title: "", content: "")
+  @Binding var isShow: Bool
+  @ObservedObject var viewModel: EditViewModel
   
   var body: some View {
     NavigationView {
-      DetailView(todo: todo)
+      DetailView(todo: $todo)
         .disabled(nonEditable)
         .toolbar {
           ToolbarItem(placement: .navigationBarLeading) {
@@ -31,8 +31,8 @@ struct EditView: View {
           }
           ToolbarItem(placement: .navigationBarTrailing) {
             Button("Done") {
-              isShow = false
               viewModel.update(todo: todo)
+              isShow = false
             }
           }
         }

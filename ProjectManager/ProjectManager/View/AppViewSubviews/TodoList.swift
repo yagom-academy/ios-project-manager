@@ -3,33 +3,40 @@
 //  ProjectManager
 //
 //  Created by Red and Taeangel on 2022/07/06.
-//
 
 import SwiftUI
 
 struct TodoListView: View {
-  @State var isShowEditView: Bool = false
+  @ObservedObject var viewModel: ListViewModel
+  @ObservedObject var todoSerVice: TodoService
   private let status: Todo.Status
-  private let readList: (Todo.Status) -> [Todo]
-  let todoService: TodoService
-  
-  init(todoService: TodoService, status: Todo.Status, readList: @escaping (Todo.Status) -> [Todo]) {
-    self.todoService = todoService
+  private let updata: (Todo.Status, Todo) -> Void
+
+  init(viewModel: ListViewModel,
+       todoService: TodoService,
+       status: Todo.Status,
+       updata: @escaping (Todo.Status, Todo) -> Void
+  ) {
+    self.viewModel = viewModel
+    self.todoSerVice = todoService
     self.status = status
-    self.readList = readList
+    self.updata = updata
   }
   
   var body: some View {
     
     VStack(spacing: 0) {
-      HeaderView(title: status, listCount: readList(status).count)
+      HeaderView(title: status, listCount: viewModel.read(by: status).count)
       
       ZStack {
         Color(UIColor.systemGray5)
         List {
-          ForEach(readList(status)) { todo in
-            EditViewButton(todo: todo, todoService: todoService, isShowEditView: $isShowEditView)
+          ForEach(viewModel.read(by: status)) { todo in
+            ListCellView(todo: todo, viewModel: viewModel, updata: updata)
               .listRowSeparator(.hidden)
+          }
+          .onDelete { index in
+            viewModel.delete(set: index, status: status)
           }
         }
         .padding(.horizontal, -24)
@@ -42,22 +49,38 @@ struct TodoListView: View {
   }
 }
 
-struct EditViewButton: View {
-  @ObservedObject var todo: Todo
-  let todoService: TodoService
-  @Binding var isShowEditView: Bool
-
+struct ListCellView: View {
+  @State var isLongPressing = false
+  @State var isShowEditView = false
+//  @ObservedObject var todoService: TodoService
+  @ObservedObject var viewModel: ListViewModel
+  // 뷰 모델이 필요함. 셀 만을 위한 MV 가 필요한가?
+  // 뷰 모델이
+  let todo: Todo
+  private let updata: (Todo.Status, Todo) -> Void
+  
+  init(todo: Todo, viewModel: ListViewModel, updata: @escaping (Todo.Status, Todo) -> Void) {
+    self.todo = todo
+    self.updata = updata
+    self.viewModel = viewModel
+  }
+  
   var body: some View {
-    Button {
-      isShowEditView = true
-    } label: {
-      TodoListCell(todo)
-    }
-    .sheet(isPresented: $isShowEditView) {
-      EditView(
-        viewModel: EditViewModel(todoService: todoService),
-        todo: Todo(id: todo.id, title: todo.title, content: todo.content, date: todo.date, status: todo.status),
-        isShow: $isShowEditView)
-    }
+    TodoListCell(todo)
+      .onTapGesture(perform: {
+        isShowEditView = true
+      })
+      .onLongPressGesture(perform: {
+        self.isLongPressing = true
+      })
+      .sheet(isPresented: $isShowEditView) {
+        EditView(
+          todo: Todo(id: todo.id, title: todo.title, content: todo.content, date: todo.date, status: todo.status),
+          isShow: $isShowEditView,
+          viewModel: EditViewModel(todoService: viewModel.todoService))
+      }
+      .popover(isPresented: $isLongPressing) {
+        TodoListPopOver(isShow: $isLongPressing, todo: todo, updata: updata)
+      }
   }
 }

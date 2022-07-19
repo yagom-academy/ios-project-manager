@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DetailView: View {
-  @ObservedObject var todo: Todo
+  @Binding var todo: Todo
   
   var body: some View {
     VStack {

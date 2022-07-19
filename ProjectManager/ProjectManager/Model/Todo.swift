@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-class Todo: Identifiable, ObservableObject {
+struct Todo: Identifiable {
   let id: UUID
-  @Published var title: String
-  @Published var content: String
-  @Published var date: Date
-  @Published var status: Status
+  var title: String
+  var content: String
+  var date: Date
+  var status: Status
   
   enum Status: String {
     case todo = "TODO"

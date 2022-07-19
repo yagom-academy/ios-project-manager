@@ -15,12 +15,6 @@ class EditViewModel: ObservableObject {
   }
   
   func update(todo: Todo) {
-    let willChangeTodo = todoService.todoList.filter { filteredTodo in
-      todo.id == filteredTodo.id
-    }
-    
-    willChangeTodo.first?.content = todo.content
-    willChangeTodo.first?.title = todo.title
-    willChangeTodo.first?.date  = todo.date
+    todoService.update(todo: todo)
   }
 }

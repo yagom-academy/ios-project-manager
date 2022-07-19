@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct CreateView: View {
-  @ObservedObject var viewModel: CreateViewModel
-  @ObservedObject var todo = Todo(title: "", content: "")
+  @State var todo = Todo(title: "", content: "")
   @Binding var isShow: Bool
+  @ObservedObject var viewModel: CreateViewModel
   
   var body: some View {
     NavigationView {
-      DetailView(todo: todo)
+      DetailView(todo: $todo)
         .toolbar {
           ToolbarItem(placement: .navigationBarLeading) {
             Button("Calcel") {
