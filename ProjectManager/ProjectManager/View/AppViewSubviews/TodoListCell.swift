@@ -36,6 +36,8 @@ struct TodoListCell: View {
               .font(.body)
               .lineLimit(1)
               .foregroundColor(isOverDate ? .red : .black )
+            Text(todo.status.rawValue)
+          
         }
         .padding()
         .onAppear {
