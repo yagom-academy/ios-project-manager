@@ -7,7 +7,7 @@
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-    private let container = Container(storage: MockStorage())
+    private let container = Container(storage: Storage())
     var window: UIWindow?
 
 
