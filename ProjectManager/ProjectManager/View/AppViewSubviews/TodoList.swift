@@ -8,19 +8,19 @@ import SwiftUI
 
 struct TodoListView: View {
   @ObservedObject var viewModel: ListViewModel
+  @ObservedObject var todoSerVice: TodoService
   private let status: Todo.Status
   private let updata: (Todo.Status, Todo) -> Void
-  private let delete: (IndexSet, Todo.Status) -> Void
-  
+
   init(viewModel: ListViewModel,
+       todoService: TodoService,
        status: Todo.Status,
-       updata: @escaping (Todo.Status, Todo) -> Void,
-       delete: @escaping (IndexSet, Todo.Status) -> Void
+       updata: @escaping (Todo.Status, Todo) -> Void
   ) {
     self.viewModel = viewModel
+    self.todoSerVice = todoService
     self.status = status
     self.updata = updata
-    self.delete = delete
   }
   
   var body: some View {
@@ -36,7 +36,7 @@ struct TodoListView: View {
               .listRowSeparator(.hidden)
           }
           .onDelete { index in
-            delete(index, status)
+            viewModel.delete(set: index, status: status)
           }
         }
         .padding(.horizontal, -24)

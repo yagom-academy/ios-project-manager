@@ -33,15 +33,4 @@ class AppViewModel: ObservableObject {
     let updateTodo = Todo(id: todo.id, title: todo.title, content: todo.content, date: todo.date, status: status)
     todoService.update(todo: updateTodo)
   }
-  
-  func delete(set: IndexSet, status: Todo.Status) {
-    let filteredtodoList = self.read(by: status)
-
-    guard let index = set.first else { return }
-    
-    let id = filteredtodoList[index].id
-    
-    todoService.delete(id: id)
-  }
-
 }
