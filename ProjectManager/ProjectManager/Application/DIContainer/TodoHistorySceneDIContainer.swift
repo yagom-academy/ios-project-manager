@@ -13,8 +13,21 @@ final class TodoHistorySceneDIContainer {
     }
     
     private let dependencies: Dependencies
+    private let sceneFactory: TodoHistorySceneFactory
     
     init(dependencies: Dependencies) {
         self.dependencies = dependencies
+        self.sceneFactory = TodoHistorySceneFactory(dependency: dependencies)
     }
+}
+
+extension TodoHistorySceneDIContainer {
+    
+    // MARK: - ViewController
+    
+    func makeTodoHistoryTableViewController() -> TodoHistoryTableViewController {
+        return sceneFactory.makeViewController()
+    }
+    
+    // MARK: - Coordinator
 }

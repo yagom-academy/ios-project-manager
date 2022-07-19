@@ -20,6 +20,8 @@ final class AppDIContainer: AppDIContainerable {
     }
     
     func makeTodoHistorySceneDIContainer() -> TodoHistorySceneDIContainer {
-        return TodoHistorySceneDIContainer(dependencies: TodoHistorySceneDIContainer.Dependencies(storage: historyStorage))
+        return TodoHistorySceneDIContainer(
+            dependencies: TodoHistorySceneDIContainer.Dependencies(storage: historyStorage)
+        )
     }
 }
