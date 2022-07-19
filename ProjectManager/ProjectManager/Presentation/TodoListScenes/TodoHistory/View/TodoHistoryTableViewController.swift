@@ -9,7 +9,6 @@ import UIKit
 import Combine
 
 final class TodoHistoryTableViewController: UITableViewController {
-
     private let viewModel: TodoHistoryTableViewModelable
     
     init(_ viewModel: TodoHistoryTableViewModelable) {
