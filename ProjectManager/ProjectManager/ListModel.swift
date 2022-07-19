@@ -53,7 +53,7 @@ final class ListModel: Object {
             }
         } else {
             try? realm.write {
-                selectListModel(.todo).append(item)
+                selectListModel(ListType(rawValue: item.type) ?? .todo).append(item)
             }
         }
     }
