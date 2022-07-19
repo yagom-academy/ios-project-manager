@@ -125,7 +125,7 @@
 			isa = PBXGroup;
 			children = (
 				03498B712886760600D8CB3F /* PersistentStorage */,
-				0334E70528770E3D00222EB7 /* MockStorageManager.swift */,
+				0E8130E728869383003EC6C7 /* Repository */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -185,6 +185,14 @@
 				0E34F04E287C815300438285 /* PopOverViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		0E8130E728869383003EC6C7 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				0334E70528770E3D00222EB7 /* MockStorageManager.swift */,
+			);
+			path = Repository;
 			sourceTree = "<group>";
 		};
 		0EA67EB92874768500E15093 /* Detail */ = {
