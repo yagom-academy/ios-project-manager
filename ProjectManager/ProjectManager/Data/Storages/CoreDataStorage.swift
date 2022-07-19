@@ -7,8 +7,6 @@
 
 import CoreData
 
-import RxCocoa
-
 final class CoreDataStorage {
   private enum Settings {
     static let localDataBaseName = "LocalDB"
