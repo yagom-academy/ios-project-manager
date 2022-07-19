@@ -56,6 +56,12 @@ final class TodoListViewController: UIViewController {
                 }
             }
             .store(in: &cancelBag)
+        
+        viewModel.isNetworkConnected
+            .sink { [weak self] isConnected in
+                print(isConnected)
+            }
+            .store(in: &cancelBag)
     }
     
     private func addSubviews() {

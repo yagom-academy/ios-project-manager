@@ -29,6 +29,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 
         appCoorinator = AppCoordinator(navigationController: rootNaivgationController, appDIContainer: AppDIContainer())
         appCoorinator?.start()
+        
+        NetworkMonitor.shared.start()
     }
     
     private func setupLibrary() {
