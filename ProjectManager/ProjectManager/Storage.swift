@@ -71,7 +71,25 @@ final class Storage: Storegeable {
     }
     
     func creatList(listItem: ListItem) {
+        guard let realm = try? Realm() else {
+            return
+        }
         
+        if realm.objects(ListModel.self).isEmpty {
+            let listModel = ListModel()
+            listModel.todoList.append(listItem.changedItem)
+            
+            try! realm.write {
+                realm.add(listModel)
+            }
+        } else {
+            try! realm.write {
+                let listModel = realm.objects(ListModel.self)
+                listModel.first?.todoList.append(listItem.changedItem)
+            }
+        }
+        
+        todoList.accept(readList(.todo))
     }
     
     func selectItem(index: Int, type: ListType) -> ListItem {
