@@ -1,13 +1,13 @@
 //
-//  TodoDetailViewCoordinator.swift
+//  TodoCreateViewCoordinator.swift
 //  ProjectManager
 //
-//  Created by 김도연 on 2022/07/12.
+//  Created by 김도연 on 2022/07/19.
 //
 
 import UIKit
 
-final class TodoDetailViewCoordinator: Coordinator {
+final class TodoCreateViewCoordinator: Coordinator {
     weak var navigationController: UINavigationController?
     weak var parentCoordinator: Coordinator?
     var childCoordinators: [Coordinator] = []
@@ -19,19 +19,19 @@ final class TodoDetailViewCoordinator: Coordinator {
         self.dependencies = dependencies
     }
 
-    func start(_ item: Todo) {
+    func start() {
         guard let navigationController = navigationController else {
             return
         }
 
-        let todoDetailViewController = dependencies.makeTodoDetailViewContoller(todoListModel: item, coordinator: self)
-        todoDetailViewController.coordiantor = self
+        let todoCreateViewController = dependencies.makeTodoCreateViewContoller()
+        todoCreateViewController.coordinator = self
         
-        let todoDetailNavigationController = UINavigationController(rootViewController: todoDetailViewController)
-        todoDetailNavigationController.modalPresentationStyle = .formSheet
+        let todoCreateNavigationController = UINavigationController(rootViewController: todoCreateViewController)
+        todoCreateNavigationController.modalPresentationStyle = .formSheet
         
-        navigationController.topViewController?.present(todoDetailNavigationController, animated: true)
-        self.navigationController = todoDetailNavigationController
+        navigationController.topViewController?.present(todoCreateNavigationController, animated: true)
+        self.navigationController = todoCreateNavigationController
     }
     
     func dismiss() {

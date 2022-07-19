@@ -65,7 +65,13 @@ final class TodoListViewController: UIViewController {
             }
             .store(in: &cancelBag)
         
-        viewModel.showDetailView
+        viewModel.showCreateView
+            .sink { [weak self] _ in
+                self?.coordinator?.showCreateViewController()
+            }
+            .store(in: &cancelBag)
+        
+        viewModel.showEditView
             .sink { [weak self] item in
                 self?.coordinator?.showDetailViewController(item)
             }

@@ -19,20 +19,16 @@ final class TodoSceneFactory {
     
     // MARK: ViewController
     
-    func makeTodoListViewController(coordinator: TodoListViewCoordinator) -> TodoListViewController {
-        return TodoListViewController(viewModel: makeTodoListViewModel(coordinator: coordinator), factory: self)
+    func makeTodoListViewController() -> TodoListViewController {
+        return TodoListViewController(viewModel: makeTodoListViewModel(), factory: self)
     }
     
-    func makeTodoDetailViewContoller(
-        todoListModel: Todo,
-        coordinator: TodoDetailViewCoordinator
-    ) -> TodoEditViewController {
-        return TodoEditViewController(
-            viewModel: makeTodoDetailViewModel(
-                todoListModel: todoListModel,
-                coordinator: coordinator
-            )
-        )
+    func makeTodoCreateViewContoller() -> TodoCreateViewController {
+        return TodoCreateViewController(viewModel: makeTodoCreateViewModel())
+    }
+    
+    func makeTodoEditViewContoller(todoListModel: Todo) -> TodoEditViewController {
+        return TodoEditViewController(viewModel: makeTodoEditViewModel(todoListModel: todoListModel))
     }
     
     func makeTodoHistoryViewController() -> TodoHistoryTableViewController {
@@ -51,16 +47,17 @@ final class TodoSceneFactory {
     
     // MARK: - ViewModel
     
-    private func makeTodoListViewModel(coordinator: TodoListViewCoordinator) -> TodoListViewModelable {
+    private func makeTodoListViewModel() -> TodoListViewModelable {
         let viewModel = TodoListViewModel(todoUseCase: makeTodoListUseCase(), historyUseCase: makeTodoHistoryUseCase())
         self.parentViewModel = viewModel
         return viewModel
     }
+                                      
+    private func makeTodoCreateViewModel() -> TodoCreateViewModelable {
+        return TodoCreateViewModel(todoUseCase: makeTodoListUseCase(), historyUseCase: makeTodoHistoryUseCase())
+    }
     
-    private func makeTodoDetailViewModel(
-        todoListModel: Todo,
-        coordinator: TodoDetailViewCoordinator
-    ) -> TodoEditViewModelable {
+    private func makeTodoEditViewModel(todoListModel: Todo) -> TodoEditViewModelable {
         return TodoEditViewModel(
             todoUseCase: makeTodoListUseCase(),
             historyUseCase: makeTodoHistoryUseCase(),

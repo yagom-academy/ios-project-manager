@@ -23,9 +23,22 @@ final class TodoListViewCoordinator: Coordinator {
     // MARK: View Transition
     
     func start() {
-        let todoListViewController = dependencies.makeTodoListViewController(coordinator: self)
+        let todoListViewController = dependencies.makeTodoListViewController()
         todoListViewController.coordinator = self
         self.navigationController?.pushViewController(todoListViewController, animated: true)
+    }
+    
+    func showCreateViewController() {
+        guard let navigationController = navigationController else {
+            return
+        }
+
+        let sceneCoordinator = dependencies.makeCreateViewCoordinator(navigationController: navigationController)
+        
+        childCoordinators.append(sceneCoordinator)
+        sceneCoordinator.parentCoordinator = self
+        
+        sceneCoordinator.start()
     }
     
     func showDetailViewController(_ item: Todo) {
@@ -33,7 +46,7 @@ final class TodoListViewCoordinator: Coordinator {
             return
         }
 
-        let sceneCoordinator = dependencies.makeDetailViewCoordinator(navigationController: navigationController)
+        let sceneCoordinator = dependencies.makeEditViewCoordinator(navigationController: navigationController)
         
         childCoordinators.append(sceneCoordinator)
         sceneCoordinator.parentCoordinator = self

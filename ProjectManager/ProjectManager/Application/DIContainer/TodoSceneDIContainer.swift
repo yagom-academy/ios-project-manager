@@ -26,12 +26,16 @@ extension TodoSceneDIContainer {
     
     // MARK: ViewController
     
-    func makeTodoListViewController(coordinator: TodoListViewCoordinator) -> TodoListViewController {
-        return sceneFactory.makeTodoListViewController(coordinator: coordinator)
+    func makeTodoListViewController() -> TodoListViewController {
+        return sceneFactory.makeTodoListViewController()
     }
     
-    func makeTodoDetailViewContoller(todoListModel: Todo, coordinator: TodoDetailViewCoordinator) -> TodoEditViewController {
-        return sceneFactory.makeTodoDetailViewContoller(todoListModel: todoListModel, coordinator: coordinator)
+    func makeTodoCreateViewContoller() -> TodoCreateViewController {
+        return sceneFactory.makeTodoCreateViewContoller()
+    }
+    
+    func makeTodoEditViewContoller(todoListModel: Todo) -> TodoEditViewController {
+        return sceneFactory.makeTodoEditViewContoller(todoListModel: todoListModel)
     }
     
     func makeTodoHistoryTableViewController() -> TodoHistoryTableViewController {
@@ -44,8 +48,12 @@ extension TodoSceneDIContainer {
         return TodoListViewCoordinator(navigationController: navigationController, dependencies: self)
     }
     
-    func makeDetailViewCoordinator(navigationController: UINavigationController) -> TodoDetailViewCoordinator {
-        return TodoDetailViewCoordinator(navigationController: navigationController, dependencies: self)
+    func makeCreateViewCoordinator(navigationController: UINavigationController) -> TodoCreateViewCoordinator {
+        return TodoCreateViewCoordinator(navigationController: navigationController, dependencies: self)
+    }
+    
+    func makeEditViewCoordinator(navigationController: UINavigationController) -> TodoEditViewCoordinator {
+        return TodoEditViewCoordinator(navigationController: navigationController, dependencies: self)
     }
     
     func makeHistoryViewCoordinator(navigationController: UINavigationController) -> TodoHistoryViewCoordinator {

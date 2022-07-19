@@ -18,7 +18,8 @@ protocol TodoListViewModelOutput {
     var title: Just<String> { get }
     var errorOccur: PassthroughSubject<Result<Void, StorageError>, Never> { get }
     
-    var showDetailView: PassthroughSubject<Todo, Never> { get }
+    var showCreateView: PassthroughSubject<Void, Never> { get }
+    var showEditView: PassthroughSubject<Todo, Never> { get }
     var showHistoryView: PassthroughSubject<Void, Never> { get }
 }
 
@@ -53,8 +54,9 @@ final class TodoListViewModel: TodoListViewModelable {
     
     let errorOccur = PassthroughSubject<Result<Void, StorageError>, Never>()
     
-    let showDetailView = PassthroughSubject<Todo, Never>()
+    let showEditView = PassthroughSubject<Todo, Never>()
     let showHistoryView = PassthroughSubject<Void, Never>()
+    let showCreateView = PassthroughSubject<Void, Never>()
     
     private let todoUseCase: TodoListUseCaseable
     private let historyUseCase: TodoHistoryUseCaseable
@@ -71,26 +73,7 @@ extension TodoListViewModel {
     // MARK: - Input
     
     func didTapAddButton() {
-        let item = Todo.empty()
-        
-        todoUseCase.create(item)
-            .print()
-            .sink { [weak self] completion in
-                switch completion {
-                case .finished:
-                    self?.errorOccur.send(.success(()))
-                case .failure(let error):
-                    self?.errorOccur.send(.failure(error))
-                }
-            } receiveValue: { _ in
-                
-            }
-            .store(in: &cancelBag)
-        
-        let historyItem = TodoHistory(title: "[생성] \(item.title)", createdAt: Date())
-        _ = historyUseCase.create(historyItem)
-
-        showDetailView.send(item)
+        showCreateView.send()
     }
 }
 
@@ -118,7 +101,7 @@ extension TodoListViewModel: TodoViewModelInput {
     }
     
     func didTapCell(_ item: Todo) {
-        showDetailView.send(item)
+        showEditView.send(item)
     }
     
     func didTapFirstContextMenu(_ item: Todo) {

@@ -13,7 +13,7 @@ final class TodoEditViewController: UIViewController {
     private let viewModel: TodoEditViewModelable
     private let todoDetailView = TodoDetailView()
     
-    weak var coordiantor: TodoDetailViewCoordinator?
+    weak var coordiantor: TodoEditViewCoordinator?
 
     init(viewModel: TodoEditViewModelable) {
         self.viewModel = viewModel
