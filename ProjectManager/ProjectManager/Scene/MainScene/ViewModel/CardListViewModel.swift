@@ -22,7 +22,7 @@ protocol CardListViewModelOutput {
   var doneCards: Driver<[Card]> { get }
 }
 
-protocol CardListViewModelable: CardListViewModelInput, CardListViewModelOutput, AnyObject {}
+protocol CardListViewModelable: CardListViewModelInput, CardListViewModelOutput {}
 
 final class CardListViewModel: CardListViewModelable {
   // MARK: - Output
