@@ -27,6 +27,7 @@
 		B0713BC8287EA2AB00436F58 /* UIAlertController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0713BC7287EA2AB00436F58 /* UIAlertController+Extension.swift */; };
 		B0DA23EF287AD66700576D5E /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DA23EE287AD66700576D5E /* UITableView+Extension.swift */; };
 		B0DC541C28869BA3004F74CD /* LocalDB.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B0DC541A28869BA3004F74CD /* LocalDB.xcdatamodeld */; };
+		B0DC54212886A00D004F74CD /* CoreDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DC54202886A00D004F74CD /* CoreDataStorage.swift */; };
 		B0EF5B18287522E000A503A9 /* CardSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF5B17287522E000A503A9 /* CardSectionView.swift */; };
 		B0F615AC287C11B300672D87 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F615AB287C11B300672D87 /* Coordinator.swift */; };
 		B0F615AF287C125600672D87 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F615AE287C125600672D87 /* AppCoordinator.swift */; };
@@ -55,6 +56,7 @@
 		B0713BC7287EA2AB00436F58 /* UIAlertController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extension.swift"; sourceTree = "<group>"; };
 		B0DA23EE287AD66700576D5E /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
 		B0DC541B28869BA3004F74CD /* LocalDB.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LocalDB.xcdatamodel; sourceTree = "<group>"; };
+		B0DC54202886A00D004F74CD /* CoreDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStorage.swift; sourceTree = "<group>"; };
 		B0EF5B17287522E000A503A9 /* CardSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardSectionView.swift; sourceTree = "<group>"; };
 		B0F615AB287C11B300672D87 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		B0F615AE287C125600672D87 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
@@ -207,6 +209,22 @@
 			path = Local;
 			sourceTree = "<group>";
 		};
+		B0DC541D28869F36004F74CD /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				B0DC541F28869FE9004F74CD /* Storages */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		B0DC541F28869FE9004F74CD /* Storages */ = {
+			isa = PBXGroup;
+			children = (
+				B0DC54202886A00D004F74CD /* CoreDataStorage.swift */,
+			);
+			path = Storages;
+			sourceTree = "<group>";
+		};
 		B0F615AA287C11A700672D87 /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
@@ -244,6 +262,7 @@
 			isa = PBXGroup;
 			children = (
 				B001066F287298D30080ACC7 /* Application */,
+				B0DC541D28869F36004F74CD /* Data */,
 				B06FD23728854EB1003CED8E /* Domain */,
 				B01DCDD0287347DE00AFF91A /* Presentation */,
 				B0DA23EC287AD62700576D5E /* Util */,
@@ -331,6 +350,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0DC54212886A00D004F74CD /* CoreDataStorage.swift in Sources */,
 				B0713BC8287EA2AB00436F58 /* UIAlertController+Extension.swift in Sources */,
 				B0F615B2287C12E300672D87 /* DefaultCardCoordinator.swift in Sources */,
 				B032CDA32873BFB20087383E /* CardListTableViewCell.swift in Sources */,
