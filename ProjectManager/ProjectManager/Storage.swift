@@ -66,14 +66,13 @@ class ListModel: Object {
         guard let realm = try? Realm() else {
             return
         }
+        
         let itemModel = selectListModel(item.type)?.filter(NSPredicate(format: "id = %@", item.id)).first
         try? realm.write {
             itemModel?.title = item.title
             itemModel?.deadline = item.deadline
             itemModel?.body = item.body
-            itemModel?.type = item.type.rawValue
         }
-        
     }
 }
 
