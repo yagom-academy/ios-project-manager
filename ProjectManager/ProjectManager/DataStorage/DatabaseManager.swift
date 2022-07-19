@@ -22,6 +22,7 @@ final class DatabaseManager: DatabaseManagerProtocol {
     var todoListBehaviorRelay = BehaviorRelay<[Todo]>(value: [])
 
     let realm = RealmDatabase()
+    let firebase = FirebaseDatabase()
     
     init() {
         self.read()
@@ -29,6 +30,7 @@ final class DatabaseManager: DatabaseManagerProtocol {
     
     func create(todoData: Todo) {
         self.realm.create(todoData: todoData)
+        self.firebase.create(todoData: todoData)
         
         self.todoListBehaviorRelay.accept(self.todoListBehaviorRelay.value + [todoData])
     }

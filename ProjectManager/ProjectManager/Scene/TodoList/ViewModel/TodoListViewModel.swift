@@ -15,7 +15,6 @@ final class TodoListViewModel {
     let todoViewData: Driver<[Todo]>
     let doingViewData: Driver<[Todo]>
     let doneViewData: Driver<[Todo]>
-    
     private var dataBase: DatabaseManagerProtocol
     
     init(dataBase: DatabaseManagerProtocol) {

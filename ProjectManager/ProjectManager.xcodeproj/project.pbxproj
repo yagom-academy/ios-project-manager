@@ -17,6 +17,8 @@
 		308FF0C02878205700301DCF /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308FF0BF2878205700301DCF /* DetailViewController.swift */; };
 		30B02F8C2873E3F40029579F /* TodoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B02F8B2873E3F40029579F /* TodoListViewModel.swift */; };
 		30B02F9028747FF40029579F /* TodoListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B02F8F28747FF40029579F /* TodoListCell.swift */; };
+		30B2D14428866D1400792807 /* FirebaseDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B2D14328866D1400792807 /* FirebaseDatabase.swift */; };
+		30B2D14628867B8000792807 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B2D14528867B8000792807 /* DatabaseManager.swift */; };
 		30FCF72228854AE2007D9557 /* RealmDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FCF72128854AE2007D9557 /* RealmDatabase.swift */; };
 		30FCF72428854C5D007D9557 /* TodoDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FCF72328854C5D007D9557 /* TodoDTO.swift */; };
 		643719A22872B0DF00F78AAA /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 643719A12872B0DF00F78AAA /* RxCocoa */; };
@@ -63,6 +65,8 @@
 		308FF0BF2878205700301DCF /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		30B02F8B2873E3F40029579F /* TodoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListViewModel.swift; sourceTree = "<group>"; };
 		30B02F8F28747FF40029579F /* TodoListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListCell.swift; sourceTree = "<group>"; };
+		30B2D14328866D1400792807 /* FirebaseDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDatabase.swift; sourceTree = "<group>"; };
+		30B2D14528867B8000792807 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		30FCF72128854AE2007D9557 /* RealmDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmDatabase.swift; sourceTree = "<group>"; };
 		30FCF72328854C5D007D9557 /* TodoDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDTO.swift; sourceTree = "<group>"; };
 		643719DA2873D2BB00F78AAA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -104,7 +108,8 @@
 				64371B02287EEB1500F78AAA /* TempData.swift */,
 				300D1E4428818AAA0051DBB0 /* TempDatabase.swift */,
 				30FCF72128854AE2007D9557 /* RealmDatabase.swift */,
-				6458E17D288943DE0077CD07 /* DatabaseManager.swift */,
+				30B2D14328866D1400792807 /* FirebaseDatabase.swift */,
+				30B2D14528867B8000792807 /* DatabaseManager.swift */,
 			);
 			path = DataStorage;
 			sourceTree = "<group>";
@@ -352,8 +357,10 @@
 			files = (
 				30FCF72228854AE2007D9557 /* RealmDatabase.swift in Sources */,
 				3000D70C287D3E7E00EA7A03 /* UIEdgeInsets+Sugar.swift in Sources */,
+				30B2D14428866D1400792807 /* FirebaseDatabase.swift in Sources */,
 				64371AC9287B129200F78AAA /* Date+Sugar.swift in Sources */,
 				3043996128810EE800D154C7 /* ColorPalete.swift in Sources */,
+				30B2D14628867B8000792807 /* DatabaseManager.swift in Sources */,
 				30B02F8C2873E3F40029579F /* TodoListViewModel.swift in Sources */,
 				30B02F9028747FF40029579F /* TodoListCell.swift in Sources */,
 				64371AC7287B0CFC00F78AAA /* Formatter.swift in Sources */,
