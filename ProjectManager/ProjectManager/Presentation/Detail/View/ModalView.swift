@@ -112,7 +112,7 @@ final class ModalView: UIView {
         }
         titleTextField.text = content.title
         datePicker.date = formattedDate
-        descriptionTextView.text = content.description
+        descriptionTextView.text = content.body
     }
     
     func isUserInteractionEnabled(_ isEnable: Bool) {
@@ -126,7 +126,7 @@ final class ModalView: UIView {
         newContent.editContent(
             title: titleTextField.text,
             deadline: datePicker.date,
-            description: descriptionTextView.text
+            body: descriptionTextView.text
         )
         
         return newContent

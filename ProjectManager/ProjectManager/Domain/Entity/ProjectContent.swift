@@ -53,18 +53,18 @@ struct ProjectContent {
     var status: ProjectStatus = .todo
     var title: String
     var deadline: String
-    var description: String
+    var body: String
     
-    init(id: UUID = UUID(), title: String, deadline: Date, description: String) {
+    init(id: UUID = UUID(), title: String, deadline: Date, body: String) {
         self.id = id
         self.title = title
         self.deadline = DateFormatter().formatted(date: deadline)
-        self.description = description
+        self.body = body
     }
     
     mutating func editContent(title: String? = nil,
                               deadline: Date? = nil,
-                              description: String? = nil
+                              body: String? = nil
     ) {
         if let title = title {
             self.title = title
@@ -74,8 +74,8 @@ struct ProjectContent {
             self.deadline = DateFormatter().formatted(date: deadline)
         }
         
-        if let description = description {
-            self.description = description
+        if let body = body {
+            self.body = body
         }
     }
     

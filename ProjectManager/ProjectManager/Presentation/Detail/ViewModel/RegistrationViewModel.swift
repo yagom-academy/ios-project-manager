@@ -8,14 +8,14 @@
 import Foundation
 
 struct RegistrationViewModel {
-    func registrate(title: String, date: Date, description: String) {
+    func registrate(title: String, date: Date, body: String) {
         var currentProjects = ProjectUseCase().read().value
         currentProjects
             .append(
                 ProjectContent(
                     title: title,
                     deadline: date,
-                    description: description
+                    body: body
                 )
             )
         

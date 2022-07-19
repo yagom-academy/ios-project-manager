@@ -75,7 +75,7 @@ final class ProjectCell: UITableViewCell {
         
         contentID = content.id
         titleLabel.text = content.title
-        descriptionLabel.text = content.description
+        descriptionLabel.text = content.body
         deadlineLabel.text = content.deadline
         
         if formattedDate < Date() {

@@ -79,12 +79,12 @@ final class RegistrationViewController: UIViewController {
     
     private func saveProjectContent() {
         guard let title = modalView.titleTextField.text,
-              let description = modalView.descriptionTextView.text else {
+              let body = modalView.descriptionTextView.text else {
                   return
               }
         let date = modalView.datePicker.date
         
-        viewModel.registrate(title: title, date: date, description: description)
+        viewModel.registrate(title: title, date: date, body: body)
     }
 }
 
