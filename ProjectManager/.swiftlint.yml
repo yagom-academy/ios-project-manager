@@ -1,6 +1,10 @@
 disabled_rules:
 - line_length
-
+- trailing_whitespace
+- redundant_discardable_let
+- force_try
+- identifier_name
+- private_over_fileprivate
 
 excluded:
 - Pods

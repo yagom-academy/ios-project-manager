@@ -1,4 +1,4 @@
-# ✍️ 프로젝트매니저 저장소
+# ✅ 프로젝트매니저 저장소
  
 > 프로젝트 기간 2022.07.04 ~ 2022.07.15 </br> 
 팀원: [Quokkaaa](https://github.com/Quokkaaa)
@@ -11,7 +11,7 @@
 기술스택 | Design Pattern | LocalDB | Remote DB | Convention | 
 -- | -- | -- | -- | -- |
 UIkit | MVVM | Realm | FireBase | SwiftLint | 
- 
+
 ## ✅ 프로젝트 중 핵심경험
 - [ ] UIKit / SwiftUI / RxCocoa 등 선택한 기술을 통한 UI 구현
 - [ ] 다양한 기술 중 목적에 맞는 기술선택
@@ -26,38 +26,45 @@ UIkit | MVVM | Realm | FireBase | SwiftLint |
 - 아키텍쳐 및 외부 라이브러리 활용은 자율로합니다
 단, 리뷰어와 먼저 상의 후 적용해야합니다
 - 메서드 내부의 들여쓰기는 한 번으로 제한합니다 
- 
-## 목차
- 
-- [프로젝트 소개](#프로젝트-소개) 
- 
-- [STEP1](#STEP1)
-    + [타임라인](#🗓타임라인) 
-    + [고민한점](#🤔고민한점) 
-    + [트러블슈팅](#🔥TroubleShooting) 
-- [STEP2](#STEP2)
-    + [타임라인](#📅타임라인) 
-    + [고민한점](#🤨고민한점) 
-    + [트러블슈팅](#🧨TroubleShooting) 
 
-- [그라운드 룰](#그라운드-룰)
-    + [활동 시간](#활동-시간)
-    + [코딩 컨벤션](#코딩-컨벤션)
+## ✍️ PR
+[STEP1](https://github.com/yagom-academy/ios-project-manager/pull/128) |
+-- |
+[STEP2](https://github.com/yagom-academy/ios-project-manager/pull/145) |
+
+## 목차
+
+- [STEP1](#STEP1)
+    + [타임라인]
+    + [고민한점] 
+    + [트러블슈팅]
+
+- [STEP2-1](#STEP2-1)
+    + [타임라인]
+    + [고민한점]
+    + [트러블슈팅]
+
+  [STEP2-2](#STEP2-2)
+    + [타임라인]
+    + [고민한점]
+    + [트러블슈팅]
+
+- [그라운드 룰](#✅ 그라운드 룰)
+    + [코딩 컨벤션](#코딩 컨벤션)
 
 ---
 
 
+## [STEP1]
 
-## [STEP 1]
-
-# 🗓타임라인
+# 🗓 타임라인_1
 - 월 - db 종류 비교분석 및 선택
 - 화 - 곰튀김 강의 시청 및 STEP1 PR
-- 수 - 예습 및 STEP2 구상
-- 목 - 
-- 금 - 
+- 수 - MVVM 개념학습 및 STEP2 구상
+- 목 - STEP2-1구현
+- 금 - STEP2-2(MVVM)으로 리펙토링
 
-# 🤔 고민한점 ( Local & Remote DB )
+# 🤔 고민한점_1 ( Local & Remote DB )
 
 - LocalDB
 > **Realm** 를 선택했습니다. 이유는 sql과 coreData보다 성능이 좋다는 그래프를 확인했습니다. 그래프 수치상으로는 약 2배정도 빨랏는데요. 얼만큼 차이가 있을진 모르겠으나 이게 데이터를 많이 오고가고 해야할 상황이라면 데이터가져오고 가는게 빠르면빠를 수 록  사용자입장에선 조금이나 더(?) 빠르게 느낄 수 도 있지않을까 판단했습니다.
@@ -261,23 +268,97 @@ UIkit | MVVM | Realm | FireBase | SwiftLint |
 ## reference
 https://medium.com/swift-blondie/cloudkit-vs-firebase-cb23d5e923b7
 
+## [STEP2-1]
+
+# 🤨 고민한점_2-1
+- [MVVM에 대해서 학습한 자료](https://swiftlim.tistory.com/135)
+- TableView or CollectionView 둘 중 무엇을 사용할 것인가 ?
+  - TableView
+    - 장점
+      - CollectionView에 비해 단순하며 구현이 쉽다.
+      - Swipe기능을 지원한다.
+    - 단점
+      - Cell 사이 간격을 View를 넣어서 구현해줘야하는 비용이 발생한다.
+      - CollectionView에 비해 기능이 유연하지 않다.
+  -  CollectionView
+      - 장점
+        - TableView에 비해 기능이 유연하다.
+        - Apple의 기능 업데이트 지원을 계속 받고 있다(안전성).
+        - Cell 사이간격을 View를 넣지않고 띄울 수 있다.
+    - 단점
+        - Swipe기능을 지원하지 않는다.
+        - TableView에 비해 복잡(?) 할 수 있고 구현이 어렵(?)다.
+
+> 이러한 점을 봤을때 향후 
+> CollectionView에 기능이 유연하다는 점이 사용자에게 더 많은 기능을 지원해줄 수 있다.(기능추가에 유연함)
+> Apple의 기능 업데이트 지원이 계속되기때문에 안정감과 기대감이 있다.
+> View를 Cell사이에 삽입하지 않아도 된다
+> 라는 점들 때문에 CollectionView를 선택하였습니다.
+
+- UI를 어떻게 구성할 것인가 ?
+
+![](https://i.imgur.com/X70RaXO.png)
 
 
-# 🔥TroubleShooting
+> CollectionView로 Section 3개를 나눠서 구현해볼 수 있지않을까 ? 라는 생각으로 시도를 했습니다.  처음에는 section별 horizontal scroll기능이 지원되기때문에 vertical로 지원이 되겠지 싶어서 시작했는데 지원을 하지않는 것 같더라구요.. 😭 그래서 단순하게 CollectionView를 담은 View 3개를 horizontal StackView에 쌓는 구조로 구현하였습니다.
 
-## [STEP2]
+- CollectionView에는 serction별 scroll기능이 vertical은 지원이 안되는것일까 ?
+> 사용자가 휴대폰을 사용할때 세로로 스크롤하는 거리보다 가로로 스크롤하는 거리가 더 짧고 엄지손가락을 많이사용하기때문에 ? 사용자 입장에서 편하게 구현되도록? 굳이 section별로 vertical로 스크롤을 지원을 안한것같다고 생각했어요 왜냐하면 사용자가 vertical기능을 사용해야한다고하면 apple이 지원하지않을 것같아 보이진않았습니다!
 
-# 📅타임라인
-- 월 - 
-- 화 - 
-- 수 - 
-- 목 - 
-- 금 - 
+- DataSource or DiffableDataSource 둘 중 무엇을 사용할 것인가 ?
+	- DiffableDataSource의 이점
+		- 내부의 데이터 값이 변경될때(추가, 삭제, 수정)마다 자동으로 View를 업로드 해준다.
+		- 데이터 동기화를 자동으로 해준다.
+		- 코드양 축소
 
-# 🤨고민한점
+> DataSource를 사용했을때 기본적으로 값을 변경하고 view에 할당한 후 reloadData메서드를 계속 실행 해줬어야 했는데 이런 수동적인 관리를 하지않아도된다는 점에서 바로 사용했던것같습니다(약간..이걸 왜 이제알았을까 싶은 ㅜㅜ)
 
-# 🧨TroubleShooting
+- CollectionView의 swipe기능을 어떻게 처리할 것인지 ?
+> 제가 확인해본 바로는 CollectionView의 Swipe기능을 [지원하지않는](https://stackoverflow.com/questions/63655267/how-to-swipe-left-to-delete-a-collectioncell) 걸로 알고있습니다.
+그래서 이를 직접 구현할지 또는 'SwipeCellKit' 라이브러리를 사용할지 두 가지선택지에서 직접구현하면 너무좋겠지만 시간도 빠듯했다보니 그냥 라이브러리를 사용했습니다.
 
+# 🧨 TroubleShooting_2-1
+- cell swipe 시 나오는 view가 cell 뒤에 가려지는 현상 발생 -> cell view에 add하지말고 contentView에 add하면 됨
+
+## [STEP2-2]
+
+# 🤨 고민한점_2-2
+- Model, View, ViewModel, ViewController의 역할을 어떻게 구분할 것인가?
+
+- **ViewModel의 역할**
+	- view한테 input으로 이벤트를 받고 이에 맞게 데이터 값을 가공하여 ouput을 뱉는다.
+- **ViewController의 역할**
+	- view에서 발생한 이벤트를 viewModel에 알려준다.
+	- viewModel이 뱉은 output값을 view에 전달해준다.
+	- view의 UI Layout을 잡아준다.
+	- 화면 전환을 해준다.
+	- Model 값을 변경하는 과정에서 UI값을 사용해야할 때가 있는데 이럴떄는 viewModel이 이역할을 대신 할 순 없으니 VC가 해준다.(ex) view.width를 받아서 이값으로 어떤 값을 뱉어야할때)
+- **View의 역할**
+	- 이벤트를 받아서 VC에게 전달해준다.
+	- viewModel의 변경된 output값을 받아 view에 보여준다.
+- **Model의 역할**
+	- 네트워크, json, 비즈니스 로직 등 데이터를 캡슐화한다.
+
+
+- viewModel은 꼭 class여여만하는가? struct를 사용하면 안되는것인가 ?
+> 구글링하여 MVVM관련글을 보면 대부분 viewModel을 class로 구현하였는데 구조체는 안되는걸까 궁금했습니다.
+
+- 저는 UIKit을 사용했기때문에 크게 상관은 없었지만 Comnine이나 Rx를 사용한다고하면 기본적으로 @ObservedObject @EnvironmentObject, @StateObject등을 사용하게되는데 이가 class에만 사용할 수 있다는 점
+
+- 추가로 viewModel에 있는 Model 값이 변경이될텐데 이때 구조체일 경우 mutating/recreated가 이루어 져야하고 이럴 경우에는 기본 Model 값이 변경될때마다 viewModel을 다시할당할 필요가 없기에 class로 구현하는게 합리적일 수 있다는 점
+
+- viewModel은 UIKit이 import되지 않아야한다 ?
+	- MVVM이 탄생한 배경이 view와의 의존성을 없애고자 만들어졌는데 viewModel에서 view를 사용하게되면 의존성이 생겨 viewModel의 재사용성에 영향을 줄 수 있다는 점
+	- UI코드와 독립적인 테스트가 불가합니다.
+
+
+# 🧨 TroubleShooting_2-2
+
+## [STEP2-3]
+
+# 🤨 고민한점
+
+# 🧨 TroubleShooting
 
 
 ## ✅ 그라운드 룰
