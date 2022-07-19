@@ -9,6 +9,7 @@ import Combine
 
 protocol TodoListViewModelInput {
     func didTapAddButton()
+    func didTapHistoryButton()
 }
 
 protocol TodoListViewModelOutput {
@@ -76,7 +77,11 @@ extension TodoListViewModel {
             .store(in: &cancelBag)
 
         coordinator?.showDetailViewController(item)
-    }    
+    }
+    
+    func didTapHistoryButton() {
+        // TODO: 화면전환
+    }
 }
 
 extension TodoListViewModel: TodoViewModelInput {

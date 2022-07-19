@@ -78,6 +78,12 @@ final class TodoListViewController: UIViewController {
     private func setupView() {
         view.backgroundColor = .systemBackground
         
+        let showHistory = UIAction { [weak self] _ in
+            
+        }
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "History", image: nil, primaryAction: showHistory)
+        
         let addAction = UIAction { [weak self] _ in
             self?.viewModel.didTapAddButton()
         }
