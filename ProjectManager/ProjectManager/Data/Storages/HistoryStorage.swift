@@ -54,7 +54,7 @@ final class HistoryStorage: HistoryStorageable {
     }
     
     private func readAll() -> [TodoHistory] {
-        return realm.objects(TodoHistoryRealm.self).map(transferToTodo)
+        return realm.objects(TodoHistoryRealm.self).map(transferToTodo).sorted { $0.createdAt > $1.createdAt }
     }
     
     private func transferToTodoRealm(with item: TodoHistory) -> TodoHistoryRealm {
@@ -62,6 +62,6 @@ final class HistoryStorage: HistoryStorageable {
     }
     
     private func transferToTodo(with item: TodoHistoryRealm) -> TodoHistory {
-        return TodoHistory(id: item.id, title: item.title, createdAt: item.createdAt)
+        return TodoHistory(title: item.title, createdAt: item.createdAt)
     }
 }

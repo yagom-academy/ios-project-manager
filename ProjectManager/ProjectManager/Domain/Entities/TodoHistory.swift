@@ -8,7 +8,7 @@
 import Foundation
 
 struct TodoHistory: Hashable {
-    let id: String
+    let id: String = UUID().uuidString
     let title: String
     let createdAt: Date
 }

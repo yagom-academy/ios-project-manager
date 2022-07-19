@@ -85,6 +85,9 @@ extension TodoListViewModel {
                 
             }
             .store(in: &cancelBag)
+        
+        let historyItem = TodoHistory(title: "[생성] \(item.title)", createdAt: Date())
+        _ = historyUseCase.create(historyItem)
 
         coordinator?.showDetailViewController(item)
     }
@@ -108,6 +111,9 @@ extension TodoListViewModel: TodoViewModelInput {
                 
             }
             .store(in: &cancelBag)
+        
+        let historyItem = TodoHistory(title: "[삭제] \(item.title)", createdAt: Date())
+        _ = historyUseCase.create(historyItem)
     }
     
     func didTapCell(_ item: Todo) {
@@ -127,6 +133,9 @@ extension TodoListViewModel: TodoViewModelInput {
                 
             }
             .store(in: &cancelBag)
+        
+        let historyItem = TodoHistory(title: "[수정] \(item.title)", createdAt: Date())
+        _ = historyUseCase.create(historyItem)
     }
     
     func didTapSecondContextMenu(_ item: Todo) {
@@ -142,5 +151,8 @@ extension TodoListViewModel: TodoViewModelInput {
                 
             }
             .store(in: &cancelBag)
+        
+        let historyItem = TodoHistory(title: "[수정] \(item.title)", createdAt: Date())
+        _ = historyUseCase.create(historyItem)
     }
 }

@@ -23,7 +23,6 @@ final class TodoHistoryViewCoordinator: Coordinator {
         let todoHistoryViewController = dependencies.makeTodoHistoryTableViewController()
         todoHistoryViewController.coordinator = self
         todoHistoryViewController.modalPresentationStyle = .popover
-        
         let popoverViewController = todoHistoryViewController.popoverPresentationController
 
         popoverViewController?.barButtonItem = sourceView
