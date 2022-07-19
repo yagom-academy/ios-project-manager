@@ -7,8 +7,12 @@
 
 import Foundation
 
+private enum Const {
+    static let empty = ""
+}
+
 struct Todo {
-    let todoListItemStatus: TodoListItemStatus
+    var todoListItemStatus: TodoListItemStatus
     let identifier: UUID
     let title: String
     let description: String
@@ -17,8 +21,8 @@ struct Todo {
     init(
         todoListItemStatus: TodoListItemStatus = .todo,
         identifier: UUID = UUID(),
-        title: String = "",
-        description: String = "",
+        title: String = Const.empty,
+        description: String = Const.empty,
         date: Date = Date()
     ) {
         self.todoListItemStatus = todoListItemStatus

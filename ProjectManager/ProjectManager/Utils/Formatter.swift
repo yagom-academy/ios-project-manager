@@ -18,3 +18,12 @@ struct Formatter {
     
     private init() {}
 }
+
+extension DateFormatter {
+    func currentDate() -> Date {
+        guard let currentDate = Formatter.date.date(from: Date().description) else {
+            return Date()
+        }
+        return currentDate
+    }
+}

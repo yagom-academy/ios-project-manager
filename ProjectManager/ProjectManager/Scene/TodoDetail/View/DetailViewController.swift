@@ -9,6 +9,14 @@ import UIKit
 import RxCocoa
 import RxSwift
 
+private enum Const {
+    static let title = "Title"
+    static let cancel = "Cancel"
+    static let done = "Done"
+    static let edit = "Edit"
+    static let empty = ""
+}
+
 final class DetailViewController: UIViewController {
     private let selectedTodo: Todo?
     private let todoListItemStatus: TodoListItemStatus
@@ -19,7 +27,7 @@ final class DetailViewController: UIViewController {
     private let titleTextField: UITextField = {
         let textField = UITextField()
         textField.backgroundColor = .systemBackground
-        textField.placeholder = "Title"
+        textField.placeholder = Const.title
         textField.font = UIFont.preferredFont(forTextStyle: .title3)
         textField.setContentHuggingPriority(.required, for: .vertical)
         textField.layer.cornerRadius = 10
@@ -63,14 +71,14 @@ final class DetailViewController: UIViewController {
     }()
     
     private let leftBarButton = UIBarButtonItem(
-        title: "Cancel",
+        title: Const.cancel,
         style: .plain,
         target: nil,
         action: nil
     )
     
     private let rightBarButton = UIBarButtonItem(
-        title: "Done",
+        title: Const.done,
         style: .plain,
         target: nil,
         action: nil
@@ -104,7 +112,7 @@ final class DetailViewController: UIViewController {
     }
     
     private func setUpNavigationBar() {
-        self.navigationItem.title = self.todoListItemStatus.title
+        self.navigationItem.title = self.todoListItemStatus.displayName
         self.navigationItem.leftBarButtonItem = self.leftBarButton
         self.navigationItem.rightBarButtonItem = self.rightBarButton
     }
@@ -137,7 +145,7 @@ final class DetailViewController: UIViewController {
         self.titleTextField.isEnabled = self.selectedTodo == nil ? true : false
         self.datePicker.isEnabled = self.selectedTodo == nil ? true : false
         self.descriptionTextView.isEditable = self.selectedTodo == nil ? true : false
-        self.leftBarButton.title = self.selectedTodo == nil ? "Cancle" : "Edit"
+        self.leftBarButton.title = self.selectedTodo == nil ? Const.cancel : Const.edit
     }
     
     private func setUpEditView() {
@@ -176,22 +184,22 @@ final class DetailViewController: UIViewController {
             return Todo(
                 todoListItemStatus: selectedTodo.todoListItemStatus,
                 identifier: selectedTodo.identifier,
-                title: self.titleTextField.text ?? "",
-                description: self.descriptionTextView.text ?? "",
+                title: self.titleTextField.text ?? Const.empty,
+                description: self.descriptionTextView.text ?? Const.empty,
                 date: self.datePicker.date
             )
         }
         
         return Todo(
             todoListItemStatus: .todo,
-            title: self.titleTextField.text ?? "",
-            description: self.descriptionTextView.text ?? "",
+            title: self.titleTextField.text ?? Const.empty,
+            description: self.descriptionTextView.text ?? Const.empty,
             date: self.datePicker.date
         )
     }
     
     private func changeAttribute() {
-        self.leftBarButton.title = self.leftBarButton.title == "Edit" ? "Cancle" : "Edit"
+        self.leftBarButton.title = self.leftBarButton.title == Const.edit ? Const.cancel : Const.edit
         self.titleTextField.isEnabled = !self.titleTextField.isEnabled
         self.datePicker.isEnabled = !self.datePicker.isEnabled
         self.descriptionTextView.isEditable = !self.descriptionTextView.isEditable

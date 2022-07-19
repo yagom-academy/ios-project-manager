@@ -10,6 +10,11 @@ import UIKit
 import RxCocoa
 import RxSwift
 
+private enum Const {
+    static let empty = "plus"
+    static let moveTo = "Move To"
+}
+
 final class ListView: UIView {
     private let todoListItemstatus: TodoListItemStatus
     private let tableView: UITableView
@@ -38,7 +43,7 @@ final class ListView: UIView {
     
     private lazy var headerTitleLabel: UILabel = {
         let label = UILabel()
-        label.text = self.todoListItemstatus.title
+        label.text = self.todoListItemstatus.displayName
         label.font = .preferredFont(forTextStyle: .title1)
         
         return label
@@ -48,7 +53,6 @@ final class ListView: UIView {
         let label = UILabel()
         label.textColor = .systemBackground
         label.backgroundColor = .label
-        label.text = "5"
         label.textAlignment = .center
         label.clipsToBounds = true
         label.layer.cornerRadius = 18
@@ -121,7 +125,19 @@ final class ListView: UIView {
             (TodoListItemStatus.done, self.listViewModel.doneViewData)
         )
         .filter { $0.0 == self.todoListItemstatus }
-        .flatMap{ $0.1 }
+        .flatMap { $0.1 }
+        .map { String($0.count) }
+        .observe(on: MainScheduler.instance)
+        .bind(to: self.listCountLabel.rx.text)
+        .disposed(by: self.disposeBag)
+        
+        Observable.of(
+            (TodoListItemStatus.todo, self.listViewModel.todoViewData),
+            (TodoListItemStatus.doing, self.listViewModel.doingViewData),
+            (TodoListItemStatus.done, self.listViewModel.doneViewData)
+        )
+        .filter { $0.0 == self.todoListItemstatus }
+        .flatMap { $0.1 }
         .asDriver(onErrorJustReturn: [])
         .drive(self.tableView.rx.items) { tabelView, row, element in
             guard let cell = tabelView.dequeueReusableCell(
@@ -131,6 +147,7 @@ final class ListView: UIView {
                 return UITableViewCell()
             }
             cell.configure(element)
+            self.listViewModel.changeDateLabelColor(in: cell, from: element)
             
             return cell
         }
@@ -150,16 +167,23 @@ final class ListView: UIView {
             })
             .disposed(by: self.disposeBag)
         
-        Observable.of(
-            (TodoListItemStatus.todo, self.listViewModel.todoViewData),
-            (TodoListItemStatus.doing, self.listViewModel.doingViewData),
-            (TodoListItemStatus.done, self.listViewModel.doneViewData)
-        )
-        .filter { $0.0 == self.todoListItemstatus }
-        .flatMap{ $0.1 }
-        .map { String($0.count) }
-        .asDriver(onErrorJustReturn: "")
-        .drive(self.listCountLabel.rx.text)
-        .disposed(by: self.disposeBag)
+        self.tableView.rx.modelLongPressed(Todo.self)
+            .subscribe(onNext: { [weak self] selectedCell, selectedData in
+                guard let (firstStatus, secondStatus) = self?.listViewModel.extractNotIncludedMenuType(from: selectedData) else {
+                    return
+                }
+                                
+                self?.coordinator?.showPopover(
+                    sourceView: selectedCell,
+                    firstTitle: "\(Const.moveTo) \(firstStatus.displayName)",
+                    secondTitle: "\(Const.moveTo) \(secondStatus.displayName)",
+                    firstAction: {
+                        self?.listViewModel.changeTodoListItemStatus(to: firstStatus, from: selectedData)
+                    },
+                    secondAction: {
+                        self?.listViewModel.changeTodoListItemStatus(to: secondStatus, from: selectedData)
+                    })
+            })
+            .disposed(by: self.disposeBag)
     }
 }

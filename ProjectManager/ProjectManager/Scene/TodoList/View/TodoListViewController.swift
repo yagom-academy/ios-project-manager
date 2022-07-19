@@ -9,6 +9,11 @@ import UIKit
 import RxCocoa
 import RxSwift
 
+private enum Const {
+    static let plus = "plus"
+    static let projectManager = "Project Manager"
+}
+
 final class TodoListViewController: UIViewController {
     private let todoView: ListView
     private let doingView: ListView
@@ -30,7 +35,7 @@ final class TodoListViewController: UIViewController {
     }()
     
     private let rightBarButton = UIBarButtonItem(
-        image: UIImage(systemName: "plus"),
+        image: UIImage(systemName: Const.plus),
         style: .plain,
         target: nil,
         action: nil
@@ -75,7 +80,7 @@ final class TodoListViewController: UIViewController {
 
     private func setUpNavigation() {
         self.view.backgroundColor = .systemBackground
-        self.title = "Project Manager"
+        self.title = Const.projectManager
         self.navigationItem.rightBarButtonItem = self.rightBarButton
     }
     
