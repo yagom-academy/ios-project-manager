@@ -46,6 +46,7 @@ final class TodoListViewController: UIViewController {
     configureUI()
     setDataSource()
     bind()
+    setUpNotification()
   }
   
   private func bind() {
@@ -130,6 +131,10 @@ final class TodoListViewController: UIViewController {
       mainStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
       mainStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
     ])
+  }
+  
+  deinit {
+    RealmError.removeObserver(vc: self)
   }
 }
 
@@ -309,5 +314,29 @@ private extension TodoListViewController {
     case .done:
       return doneView.todoCollectionView
     }
+  }
+}
+
+private extension TodoListViewController {
+  func setUpNotification() {
+    RealmError.addObserver(selector: #selector(showErrorAlert), vc: self)
+  }
+  
+  @objc func showErrorAlert(_ notification: Notification) {
+    guard let error = notification.object as? Error else {
+      return
+    }
+    
+    let alertViewController = UIAlertController(
+      title: "RealmError",
+      message: "\(error) \nTodo를 등록하세요. \n(우측상단에 + 버튼을 클릭)",
+      preferredStyle: .alert
+    )
+    
+    let checkAction = UIAlertAction(title: "확인", style: .default)
+    
+    alertViewController.addAction(checkAction)
+    
+    present(alertViewController, animated: true)
   }
 }

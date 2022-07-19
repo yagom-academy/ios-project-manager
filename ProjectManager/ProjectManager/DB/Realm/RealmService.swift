@@ -25,7 +25,7 @@ final class RealmService: StorageType {
         readRealm()
       }
     } catch {
-      print(error)
+      postNotification(error)
     }
   }
   
@@ -46,7 +46,7 @@ final class RealmService: StorageType {
         readRealm()
       }
     } catch {
-      print(error)
+      postNotification(error)
     }
   }
   
@@ -61,7 +61,7 @@ final class RealmService: StorageType {
         readRealm()
       }
     } catch {
-      print(error)
+      postNotification(error)
     }
   }
 
@@ -79,5 +79,11 @@ final class RealmService: StorageType {
              state: State(rawValue: $0.state) ?? .todo)
       }
     items.send(Array(todoList))
+  }
+  
+  private func postNotification(_ error: Error) {
+    NotificationCenter.default.post(
+      name: Notification.Name(rawValue: "RealmError"), object: error
+    )
   }
 }

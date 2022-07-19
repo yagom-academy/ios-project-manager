@@ -27,6 +27,7 @@ final class WriteTodoViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     setUpNavigation()
+    setUpNotification()
   }
   
   private func setUpNavigation() {
@@ -53,5 +54,33 @@ final class WriteTodoViewController: UIViewController {
           self?.dismiss(animated: true)
         })
     )
+  }
+  
+  deinit {
+    RealmError.removeObserver(vc: self)
+  }
+}
+
+private extension WriteTodoViewController {
+  func setUpNotification() {
+    RealmError.addObserver(selector: #selector(showErrorAlert), vc: self)
+  }
+  
+  @objc func showErrorAlert(_ notification: Notification) {
+    guard let error = notification.object as? Error else {
+      return
+    }
+    
+    let alertViewController = UIAlertController(
+      title: "RealmError",
+      message: "\(error) \nTodo를 등록하세요. \n(우측상단에 + 버튼을 클릭)",
+      preferredStyle: .alert
+    )
+    
+    let checkAction = UIAlertAction(title: "확인", style: .default)
+    
+    alertViewController.addAction(checkAction)
+    
+    present(alertViewController, animated: true)
   }
 }
