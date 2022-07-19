@@ -36,6 +36,7 @@ final class DefaultTodoListViewModel {
     private let useCase: TodoListUseCase
     private let actions: TodoListViewModelActions?
     private let todoLists: BehaviorSubject<[TodoModel]>
+    private let bag = DisposeBag()
     
     init(useCase: TodoListUseCase, actions: TodoListViewModelActions) {
         self.useCase = useCase
@@ -115,5 +116,8 @@ extension DefaultTodoListViewModel: TodoListViewModel {
     
     func cellDeleteButtonDidTap(item: TodoCellContent) {
         useCase.deleteItem(id: item.id)
+            .subscribe(onError: {
+                print($0)
+            }).disposed(by: bag)
     }
 }

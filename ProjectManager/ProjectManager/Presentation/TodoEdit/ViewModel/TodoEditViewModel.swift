@@ -38,6 +38,8 @@ final class DefaultTodoEditViewModel {
     
     private var isEditMode: Bool = false
     
+    private let bag = DisposeBag()
+    
     init(useCase: TodoListUseCase, actions: TodoEditViewModelActions, item: TodoModel?) {
         self.useCase = useCase
         self.actions = actions
@@ -78,6 +80,10 @@ extension DefaultTodoEditViewModel: TodoEditViewModel {
             return
         }
         useCase.saveItem(to: item)
+            .subscribe(onError: {
+                print($0)
+            }).disposed(by: bag)
+
         actions?.dismiss()
     }
     

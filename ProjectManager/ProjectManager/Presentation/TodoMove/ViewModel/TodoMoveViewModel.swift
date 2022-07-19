@@ -31,6 +31,8 @@ final class DefaultTodoMoveViewModel {
     
     private let item: TodoModel
     
+    private let bag = DisposeBag()
+    
     init(useCase: TodoListUseCase, actions: TodoMoveViewModelActions, item: TodoModel) {
         self.useCase = useCase
         self.actions = actions
@@ -65,6 +67,9 @@ extension DefaultTodoMoveViewModel: TodoMoveViewModel {
         var newItem = item
         newItem.state = useCase.moveState(from: item.state).first
         useCase.saveItem(to: newItem)
+            .subscribe(onError: {
+                print($0)
+            }).disposed(by: bag)
         actions?.dismiss()
     }
     
@@ -72,6 +77,9 @@ extension DefaultTodoMoveViewModel: TodoMoveViewModel {
         var newItem = item
         newItem.state = useCase.moveState(from: item.state).second
         useCase.saveItem(to: newItem)
+            .subscribe(onError: {
+                print($0)
+            }).disposed(by: bag)
         actions?.dismiss()
     }
 }

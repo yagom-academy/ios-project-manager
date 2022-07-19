@@ -10,6 +10,6 @@ import RxSwift
 
 protocol TodoListRepository {
     func read() -> BehaviorSubject<[TodoModel]>
-    func save(to data: TodoModel)
-    func delete(index: Int)
+    func save(to data: TodoModel) -> Completable
+    func delete(index: Int) -> Completable
 }

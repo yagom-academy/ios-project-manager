@@ -10,8 +10,8 @@ import RxSwift
 
 protocol TodoListUseCase {
     func readItems() -> BehaviorSubject<[TodoModel]>
-    func saveItem(to data: TodoModel)
-    func deleteItem(id: UUID)
+    func saveItem(to data: TodoModel) -> Completable
+    func deleteItem(id: UUID) -> Completable
     func checkDeadline(time: Date) -> Bool
     func moveState(from state: State) -> (first: State, second: State)
 }
@@ -30,15 +30,16 @@ extension DefaultTodoListUseCase {
         return repository.read()
     }
     
-    func saveItem(to data: TodoModel) {
-        repository.save(to: data)
+    func saveItem(to data: TodoModel) -> Completable {
+        return repository.save(to: data)
     }
     
-    func deleteItem(id: UUID) {
+    func deleteItem(id: UUID) -> Completable {
         guard let index = try? repository.read().value()
-            .firstIndex(where: { $0.id == id }) else { return }
+            .firstIndex(where: { $0.id == id }) else {
+            return Completable.empty() }
         
-        repository.delete(index: index)
+        return repository.delete(index: index)
     }
     
     func checkDeadline(time: Date) -> Bool {

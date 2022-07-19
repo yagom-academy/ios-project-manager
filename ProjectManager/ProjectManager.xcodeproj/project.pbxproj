@@ -12,7 +12,6 @@
 		9B170C67287AAC74000D061F /* TodoListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B170C66287AAC74000D061F /* TodoListHeaderView.swift */; };
 		9B2D9BCD2877F3EE0062C81A /* TodoEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B2D9BCC2877F3EE0062C81A /* TodoEditView.swift */; };
 		9B2D9BCF28780B350062C81A /* TodoEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B2D9BCE28780B350062C81A /* TodoEditViewController.swift */; };
-		9B2D9BD628782BFD0062C81A /* MemoryTodoListStorege.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B2D9BD528782BFD0062C81A /* MemoryTodoListStorege.swift */; };
 		9B2D9BD828783D5F0062C81A /* DefaultTodoListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B2D9BD728783D5F0062C81A /* DefaultTodoListRepository.swift */; };
 		9B2D9BDC28783E660062C81A /* TodoListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B2D9BDB28783E660062C81A /* TodoListRepository.swift */; };
 		9B2D9BDE28783F580062C81A /* TodoListUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B2D9BDD28783F580062C81A /* TodoListUseCase.swift */; };
@@ -48,7 +47,6 @@
 		9B170C66287AAC74000D061F /* TodoListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListHeaderView.swift; sourceTree = "<group>"; };
 		9B2D9BCC2877F3EE0062C81A /* TodoEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoEditView.swift; sourceTree = "<group>"; };
 		9B2D9BCE28780B350062C81A /* TodoEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoEditViewController.swift; sourceTree = "<group>"; };
-		9B2D9BD528782BFD0062C81A /* MemoryTodoListStorege.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryTodoListStorege.swift; sourceTree = "<group>"; };
 		9B2D9BD728783D5F0062C81A /* DefaultTodoListRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultTodoListRepository.swift; sourceTree = "<group>"; };
 		9B2D9BDB28783E660062C81A /* TodoListRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListRepository.swift; sourceTree = "<group>"; };
 		9B2D9BDD28783F580062C81A /* TodoListUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListUseCase.swift; sourceTree = "<group>"; };
@@ -128,7 +126,6 @@
 		9B2D9BD22878299B0062C81A /* PersistentStorages */ = {
 			isa = PBXGroup;
 			children = (
-				9B2D9BD528782BFD0062C81A /* MemoryTodoListStorege.swift */,
 				9BF8557828869E2D0098441C /* RealmTodoListStorege.swift */,
 			);
 			path = PersistentStorages;
@@ -438,7 +435,6 @@
 				9B2D9BCD2877F3EE0062C81A /* TodoEditView.swift in Sources */,
 				9BA95C702876EE6400927C63 /* TodoListViewModel.swift in Sources */,
 				9B2D9BE128787CCD0062C81A /* TodoSceneDIContainer.swift in Sources */,
-				9B2D9BD628782BFD0062C81A /* MemoryTodoListStorege.swift in Sources */,
 				9B15AF30287EECEE002F0D01 /* TodoMoveViewController.swift in Sources */,
 				9BF85574288657AE0098441C /* TodoEntity+Realm.swift in Sources */,
 				9B7A8CF9287FCC62009938C8 /* Reactive+ItemSelected.swift in Sources */,
