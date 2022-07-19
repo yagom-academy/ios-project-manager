@@ -26,6 +26,7 @@
 		B06FD23B28854EF8003CED8E /* DefaultCardUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06FD23A28854EF8003CED8E /* DefaultCardUseCase.swift */; };
 		B0713BC8287EA2AB00436F58 /* UIAlertController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0713BC7287EA2AB00436F58 /* UIAlertController+Extension.swift */; };
 		B0DA23EF287AD66700576D5E /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DA23EE287AD66700576D5E /* UITableView+Extension.swift */; };
+		B0DC541C28869BA3004F74CD /* LocalDB.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B0DC541A28869BA3004F74CD /* LocalDB.xcdatamodeld */; };
 		B0EF5B18287522E000A503A9 /* CardSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF5B17287522E000A503A9 /* CardSectionView.swift */; };
 		B0F615AC287C11B300672D87 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F615AB287C11B300672D87 /* Coordinator.swift */; };
 		B0F615AF287C125600672D87 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F615AE287C125600672D87 /* AppCoordinator.swift */; };
@@ -53,6 +54,7 @@
 		B06FD23A28854EF8003CED8E /* DefaultCardUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCardUseCase.swift; sourceTree = "<group>"; };
 		B0713BC7287EA2AB00436F58 /* UIAlertController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extension.swift"; sourceTree = "<group>"; };
 		B0DA23EE287AD66700576D5E /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
+		B0DC541B28869BA3004F74CD /* LocalDB.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LocalDB.xcdatamodel; sourceTree = "<group>"; };
 		B0EF5B17287522E000A503A9 /* CardSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardSectionView.swift; sourceTree = "<group>"; };
 		B0F615AB287C11B300672D87 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		B0F615AE287C125600672D87 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 		B0010670287298DC0080ACC7 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				B0DC541928869B34004F74CD /* Local */,
 				C7431F0E25F51E1E0094C4CF /* Assets.xcassets */,
 				C7431F1325F51E1E0094C4CF /* Info.plist */,
 				C7431F1025F51E1E0094C4CF /* LaunchScreen.storyboard */,
@@ -194,6 +197,14 @@
 				B0713BC7287EA2AB00436F58 /* UIAlertController+Extension.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		B0DC541928869B34004F74CD /* Local */ = {
+			isa = PBXGroup;
+			children = (
+				B0DC541A28869BA3004F74CD /* LocalDB.xcdatamodeld */,
+			);
+			path = Local;
 			sourceTree = "<group>";
 		};
 		B0F615AA287C11A700672D87 /* Protocol */ = {
@@ -323,6 +334,7 @@
 				B0713BC8287EA2AB00436F58 /* UIAlertController+Extension.swift in Sources */,
 				B0F615B2287C12E300672D87 /* DefaultCardCoordinator.swift in Sources */,
 				B032CDA32873BFB20087383E /* CardListTableViewCell.swift in Sources */,
+				B0DC541C28869BA3004F74CD /* LocalDB.xcdatamodeld in Sources */,
 				C7431F0A25F51E1D0094C4CF /* CardListViewController.swift in Sources */,
 				B0F615AC287C11B300672D87 /* Coordinator.swift in Sources */,
 				B01748BD287732C300EE15B0 /* CardDetailViewController.swift in Sources */,
@@ -577,6 +589,19 @@
 			productName = Then;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		B0DC541A28869BA3004F74CD /* LocalDB.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				B0DC541B28869BA3004F74CD /* LocalDB.xcdatamodel */,
+			);
+			currentVersion = B0DC541B28869BA3004F74CD /* LocalDB.xcdatamodel */;
+			path = LocalDB.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = C7431EFA25F51E1D0094C4CF /* Project object */;
 }
