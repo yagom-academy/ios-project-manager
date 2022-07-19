@@ -58,8 +58,9 @@ final class TodoListViewController: UIViewController {
             .store(in: &cancelBag)
         
         viewModel.isNetworkConnected
-            .sink { [weak self] isConnected in
-                print(isConnected)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] status in
+                self?.todoListView.networkStatusImageView.image = UIImage(systemName: status)
             }
             .store(in: &cancelBag)
     }
@@ -80,7 +81,7 @@ final class TodoListViewController: UIViewController {
         let addAction = UIAction { [weak self] _ in
             self?.viewModel.didTapAddButton()
         }
-        
+
         navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .add, primaryAction: addAction)
     }
 }

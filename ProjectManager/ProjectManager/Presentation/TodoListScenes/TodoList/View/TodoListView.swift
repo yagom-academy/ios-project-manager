@@ -13,6 +13,12 @@ final class TodoListView: UIView {
     private let todoView: TodoView
     private let doingView: TodoView
     private let doneView: TodoView
+    let networkStatusImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        
+        return imageView
+    }()
     
     private let tableStackView: UIStackView = {
         let stackView = UIStackView()
@@ -44,6 +50,12 @@ final class TodoListView: UIView {
     private func addSubviews() {
         addSubview(tableStackView)
         tableStackView.addArrangeSubviews(todoView, doingView, doneView)
+        
+        addSubview(networkStatusImageView)
+        networkStatusImageView.snp.makeConstraints {
+            $0.width.height.equalTo(30)
+            $0.top.trailing.equalTo(safeAreaLayoutGuide).inset(15)
+        }
     }
     
     private func setupConstraint() {

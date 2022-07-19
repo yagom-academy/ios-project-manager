@@ -12,7 +12,7 @@ protocol TodoListViewModelInput {
 }
 
 protocol TodoListViewModelOutput {
-    var isNetworkConnected: AnyPublisher<Bool, Never> { get }
+    var isNetworkConnected: AnyPublisher<String, Never> { get }
     var title: Just<String> { get }
     var errorOccur: PassthroughSubject<Result<Void, StorageError>, Never> { get }
 }
@@ -22,8 +22,16 @@ protocol TodoListViewModelable: TodoListViewModelInput, TodoListViewModelOutput 
 final class TodoListViewModel: TodoListViewModelable {
     // MARK: - Output
     
-    var isNetworkConnected: AnyPublisher<Bool, Never> {
-        return NetworkMonitor.shared.$isConnected.eraseToAnyPublisher()
+    var isNetworkConnected: AnyPublisher<String, Never> {
+        return NetworkMonitor.shared.$isConnected
+            .map { isConnect in
+                if isConnect {
+                    return "wifi"
+                } else {
+                    return "wifi.slash"
+                }
+            }
+            .eraseToAnyPublisher()
     }
     
     var items: AnyPublisher<[Todo], Never> {
