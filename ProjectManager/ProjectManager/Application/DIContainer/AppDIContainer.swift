@@ -8,20 +8,19 @@
 import Foundation
 
 protocol AppDIContainerable {
-    func makeTodoListSceneDIContainer() -> TodoListSceneDIContainer
+    func makeTodoListSceneDIContainer() -> TodoSceneDIContainer
 }
 
 final class AppDIContainer: AppDIContainerable {
-    private let storage = RealmStorage()
+    private let todoStorage = RealmStorage()
     private let historyStorage = HistoryStorage()
     
-    func makeTodoListSceneDIContainer() -> TodoListSceneDIContainer {
-        return TodoListSceneDIContainer(dependencies: TodoListSceneDIContainer.Dependencies(storage: storage))
-    }
-    
-    func makeTodoHistorySceneDIContainer() -> TodoHistorySceneDIContainer {
-        return TodoHistorySceneDIContainer(
-            dependencies: TodoHistorySceneDIContainer.Dependencies(storage: historyStorage)
+    func makeTodoListSceneDIContainer() -> TodoSceneDIContainer {
+        return TodoSceneDIContainer(
+            dependencies: TodoSceneDIContainer.Dependencies(
+                todoStorage: todoStorage,
+                historyStorage: historyStorage
+            )
         )
     }
 }

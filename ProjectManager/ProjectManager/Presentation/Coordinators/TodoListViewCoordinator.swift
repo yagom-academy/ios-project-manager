@@ -12,9 +12,10 @@ final class TodoListViewCoordinator: Coordinator {
     weak var parentCoordinator: Coordinator?
     var childCoordinators: [Coordinator] = []
     
-    private let dependencies: TodoListSceneDIContainer
+    private let dependencies: TodoSceneDIContainer
+    private weak var viewController: TodoListViewController?
     
-    init(navigationController: UINavigationController, dependencies: TodoListSceneDIContainer) {
+    init(navigationController: UINavigationController, dependencies: TodoSceneDIContainer) {
         self.navigationController = navigationController
         self.dependencies = dependencies
     }
@@ -39,9 +40,16 @@ final class TodoListViewCoordinator: Coordinator {
         sceneCoordinator.start(item)
     }
     
-    func showHistoryViewController() {
+    func showHistoryViewController(sourceView: UIBarButtonItem) {
         guard let navigationController = navigationController else {
             return
         }
+        
+        let sceneCoordinator = dependencies.makeHistoryViewCoordinator(navigationController: navigationController)
+        
+        childCoordinators.append(sceneCoordinator)
+        sceneCoordinator.parentCoordinator = self
+        
+        sceneCoordinator.start(sourceView: sourceView)
     }
 }

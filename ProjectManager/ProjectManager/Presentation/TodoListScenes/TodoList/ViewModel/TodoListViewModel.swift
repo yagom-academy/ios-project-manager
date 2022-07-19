@@ -6,10 +6,11 @@
 //
 
 import Combine
+import UIKit
 
 protocol TodoListViewModelInput {
     func didTapAddButton()
-    func didTapHistoryButton()
+    func didTapHistoryButton(sourceView: UIBarButtonItem)
 }
 
 protocol TodoListViewModelOutput {
@@ -79,8 +80,8 @@ extension TodoListViewModel {
         coordinator?.showDetailViewController(item)
     }
     
-    func didTapHistoryButton() {
-        // TODO: 화면전환
+    func didTapHistoryButton(sourceView: UIBarButtonItem) {
+        coordinator?.showHistoryViewController(sourceView: sourceView)
     }
 }
 

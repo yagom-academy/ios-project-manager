@@ -7,12 +7,14 @@
 import Foundation
 import Combine
 
-final class TodoListSceneFactory {
-    private unowned let storage: Storageable
+final class TodoSceneFactory {
+    private unowned let todoStorage: Storageable
+    private unowned let historyStorage: HistoryStorageable
     private unowned var parentViewModel: TodoListViewModel?
     
-    init(storage: Storageable) {
-        self.storage = storage
+    init(dependency: TodoSceneDIContainer.Dependencies) {
+        self.historyStorage = dependency.historyStorage
+        self.todoStorage = dependency.todoStorage
     }
     
     // MARK: ViewController
@@ -31,6 +33,10 @@ final class TodoListSceneFactory {
                 coordinator: coordinator
             )
         )
+    }
+    
+    func makeTodoHistoryViewController() -> TodoHistoryTableViewController {
+        return TodoHistoryTableViewController(makeTodoHistoryViewModel())
     }
     
     // MARK: - View
@@ -72,15 +78,27 @@ final class TodoListSceneFactory {
         return viewModel
     }
     
+    private func makeTodoHistoryViewModel() -> TodoHistoryTableViewModelable {
+        return TodoHistoryTableViewModel(useCase: makeTodoHistoryUseCase())
+    }
+    
     // MARK: - UseCase
     
     private func makeTodoListUseCase() -> TodoListUseCaseable {
         return TodoListUseCase(repository: makeTodoListRepository())
     }
     
+    private func makeTodoHistoryUseCase() -> TodoHistoryUseCaseable {
+        return TodoHistoryUseCase(repository: makeTodoHistoryRepository())
+    }
+    
     // MARK: - Repository
     
     private func makeTodoListRepository() -> TodoListRepositorible {
-        return TodoListRepository(storage: storage)
+        return TodoListRepository(storage: todoStorage)
+    }
+    
+    private func makeTodoHistoryRepository() -> TodoHistoryRepositorible {
+        return TodoHistoryRepository(storage: historyStorage)
     }
 }

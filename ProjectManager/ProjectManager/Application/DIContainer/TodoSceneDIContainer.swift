@@ -1,5 +1,5 @@
 //
-//  TodoListSceneDIContainer.swift
+//  TodoSceneDIContainer.swift
 //  ProjectManager
 //
 //  Created by 김도연 on 2022/07/06.
@@ -7,30 +7,35 @@
 
 import UIKit
 
-final class TodoListSceneDIContainer {
+final class TodoSceneDIContainer {
     struct Dependencies {
-        unowned let storage: Storageable
+        unowned let todoStorage: Storageable
+        unowned let historyStorage: HistoryStorageable
     }
     
     private let dependencies: Dependencies
-    private let viewControllerFactory: TodoListSceneFactory
+    private let sceneFactory: TodoSceneFactory
     
     init(dependencies: Dependencies) {
         self.dependencies = dependencies
-        self.viewControllerFactory = TodoListSceneFactory(storage: dependencies.storage)
+        self.sceneFactory = TodoSceneFactory(dependency: dependencies)
     }
 }
 
-extension TodoListSceneDIContainer {
+extension TodoSceneDIContainer {
     
     // MARK: ViewController
     
     func makeTodoListViewController(coordinator: TodoListViewCoordinator) -> TodoListViewController {
-        return viewControllerFactory.makeTodoListViewController(coordinator: coordinator)
+        return sceneFactory.makeTodoListViewController(coordinator: coordinator)
     }
     
     func makeTodoDetailViewContoller(todoListModel: Todo, coordinator: TodoDetailViewCoordinator) -> TodoDetailViewController {
-        return viewControllerFactory.makeTodoDetailViewContoller(todoListModel: todoListModel, coordinator: coordinator)
+        return sceneFactory.makeTodoDetailViewContoller(todoListModel: todoListModel, coordinator: coordinator)
+    }
+    
+    func makeTodoHistoryTableViewController() -> TodoHistoryTableViewController {
+        return sceneFactory.makeTodoHistoryViewController()
     }
     
     // MARK: - Coordiantor
@@ -41,5 +46,9 @@ extension TodoListSceneDIContainer {
     
     func makeDetailViewCoordinator(navigationController: UINavigationController) -> TodoDetailViewCoordinator {
         return TodoDetailViewCoordinator(navigationController: navigationController, dependencies: self)
+    }
+    
+    func makeHistoryViewCoordinator(navigationController: UINavigationController) -> TodoHistoryViewCoordinator {
+        return TodoHistoryViewCoordinator(navigationController: navigationController, dependencies: self)
     }
 }

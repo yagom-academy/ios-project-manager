@@ -13,11 +13,11 @@ import SnapKit
 final class TodoListViewController: UIViewController {
     private lazy var todoListView = factory.makeTodoListView()
     private let viewModel: TodoListViewModelable
-    private unowned let factory: TodoListSceneFactory
+    private unowned let factory: TodoSceneFactory
     
     private var cancelBag = Set<AnyCancellable>()
     
-    init(viewModel: TodoListViewModelable, factory: TodoListSceneFactory) {
+    init(viewModel: TodoListViewModelable, factory: TodoSceneFactory) {
         self.viewModel = viewModel
         self.factory = factory
         super.init(nibName: nil, bundle: nil)
@@ -79,7 +79,7 @@ final class TodoListViewController: UIViewController {
         view.backgroundColor = .systemBackground
         
         let showHistory = UIAction { [weak self] _ in
-            
+            self?.viewModel.didTapHistoryButton(sourceView: self!.navigationItem.leftBarButtonItem!)
         }
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "History", image: nil, primaryAction: showHistory)
