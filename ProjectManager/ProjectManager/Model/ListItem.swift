@@ -13,9 +13,20 @@ struct ListItem {
     var deadline: Date
     var type: ListType = .todo
     let id: String
+    
+    var changedItem: ListItemModel {
+        let itemModel = ListItemModel()
+        itemModel.title = self.title
+        itemModel.body = self.body
+        itemModel.deadline = self.deadline
+        itemModel.type = self.type.rawValue
+        itemModel.id = self.id
+        
+        return itemModel
+    }
 }
 
-enum ListType {
+enum ListType: String {
     case todo
     case doing
     case done
