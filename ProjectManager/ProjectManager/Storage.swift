@@ -71,7 +71,18 @@ final class Storage: Storegeable {
     lazy var todoList = BehaviorRelay<[ListItem]>(value: listModel.readList(.todo))
     lazy var doingList = BehaviorRelay<[ListItem]>(value: listModel.readList(.doing))
     lazy var doneList = BehaviorRelay<[ListItem]>(value: listModel.readList(.done))
-
+    
+    private func selectList(_ type: ListType) -> BehaviorRelay<[ListItem]> {
+        switch type {
+        case .todo:
+            return todoList
+        case .doing:
+            return doingList
+        case .done:
+            return doneList
+        }
+    }
+    
     func creatItem(listItem: ListItem) {
         guard let realm = try? Realm() else {
             return
@@ -95,14 +106,7 @@ final class Storage: Storegeable {
     }
     
     func selectItem(index: Int, type: ListType) -> ListItem {
-        switch type {
-        case .todo:
-            return todoList.value[index]
-        case .doing:
-            return doingList.value[index]
-        case .done:
-            return doneList.value[index]
-        }
+        return selectList(type).value[index]
     }
     
     func updateItem(listItem: ListItem) {
