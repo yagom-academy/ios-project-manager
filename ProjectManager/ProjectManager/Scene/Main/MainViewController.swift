@@ -105,7 +105,6 @@ final class MainViewController: UIViewController {
             .bind(onNext: { [weak self] in
                 self?.viewModel.touchCell(index: $0.row, type: type)
                 tableView.deselectRow(at: $0, animated: true)
-                print(type)
             })
             .disposed(by: disposebag)
         
