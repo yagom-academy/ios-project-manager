@@ -13,7 +13,6 @@ protocol TodoListUseCaseable {
     func read() -> CurrentValueSubject<[Todo], Never>
     func update(_ item: Todo) -> AnyPublisher<Void, StorageError>
     func delete(item: Todo) -> AnyPublisher<Void, StorageError>
-    func deleteLastItem(title: String?, content: String?) -> AnyPublisher<Void, StorageError>
 }
 
 final class TodoListUseCase: TodoListUseCaseable {
@@ -37,13 +36,5 @@ final class TodoListUseCase: TodoListUseCaseable {
     
     func delete(item: Todo) -> AnyPublisher<Void, StorageError> {
         return repository.delete(item: item)
-    }
-    
-    func deleteLastItem(title: String?, content: String?) -> AnyPublisher<Void, StorageError> {
-        guard title?.isEmpty == true && content?.isEmpty == true else {
-            return Empty<Void, StorageError>().eraseToAnyPublisher()
-        }
-        
-        return repository.deleteLastItem()
     }
 }

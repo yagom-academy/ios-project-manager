@@ -32,12 +32,4 @@ extension TodoListRepository: TodoListRepositorible {
     func delete(item: Todo) -> AnyPublisher<Void, StorageError> {
         return storage.delete(item)
     }
-    
-    func deleteLastItem() -> AnyPublisher<Void, StorageError> {
-        guard let lastItem = storage.read().value.last else {
-            return Fail<Void, StorageError>(error: .deleteFail).eraseToAnyPublisher()
-        }
-        
-        return storage.delete(lastItem)
-    }
 }

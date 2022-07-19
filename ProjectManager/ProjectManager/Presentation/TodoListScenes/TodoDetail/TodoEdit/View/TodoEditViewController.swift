@@ -31,14 +31,8 @@ final class TodoEditViewController: UIViewController {
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        viewModel.viewDidDisapper(
-            title: todoDetailView.titleTextField.text,
-            content: todoDetailView.contentTextView.text
-        )
-        
-        self.coordiantor?.dismiss()
-        
         super.viewDidDisappear(animated)
+        self.coordiantor?.dismiss()
     }
     
     private func bind() {
@@ -87,6 +81,8 @@ final class TodoEditViewController: UIViewController {
     }
     
     private func setupView() {
+        todoDetailView.setupUserInteractionEnabled(false)
+        
         view.backgroundColor = .systemBackground
         
         let editAction = UIAction { [weak self] _ in

@@ -11,7 +11,6 @@ import Combine
 protocol TodoEditViewModelInput {
     func didTapDoneButton(title: String?, content: String?, deadline: Date?)
     func didTapEditButton()
-    func viewDidDisapper(title: String?, content: String?)
 }
 
 protocol TodoEditViewModelOutput {
@@ -81,9 +80,5 @@ extension TodoEditViewModel {
     
     func didTapEditButton() {
         isEdited.send(())
-    }
-    
-    func viewDidDisapper(title: String?, content: String?) {
-        _ = todoUseCase.deleteLastItem(title: title, content: content)
     }
 }
