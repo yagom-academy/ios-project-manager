@@ -21,6 +21,7 @@ final class TodoHistoryViewCoordinator: Coordinator {
     
     func start(sourceView: UIBarButtonItem) {
         let todoHistoryViewController = dependencies.makeTodoHistoryTableViewController()
+        todoHistoryViewController.coordinator = self
         todoHistoryViewController.modalPresentationStyle = .popover
         
         let popoverViewController = todoHistoryViewController.popoverPresentationController

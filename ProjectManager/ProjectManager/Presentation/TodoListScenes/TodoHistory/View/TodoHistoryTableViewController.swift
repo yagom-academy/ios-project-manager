@@ -16,10 +16,11 @@ final class TodoHistoryTableViewController: UITableViewController {
     private var cancelBag = Set<AnyCancellable>()
     
     private let viewModel: TodoHistoryTableViewModelable
+    weak var coordinator: TodoHistoryViewCoordinator?
     
     init(_ viewModel: TodoHistoryTableViewModelable) {
         self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
+        super.init(style: .insetGrouped)
     }
     
     required init?(coder: NSCoder) {
@@ -30,6 +31,20 @@ final class TodoHistoryTableViewController: UITableViewController {
         super.viewDidLoad()
         makeDataSource()
         registerTableViewCell()
+        bind()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        coordinator?.dismiss()
+    }
+    
+    private func bind() {
+        viewModel.items
+            .sink { [weak self] items in
+                self?.applySnapshot(items)
+            }
+            .store(in: &cancelBag)
     }
     
     private func registerTableViewCell() {

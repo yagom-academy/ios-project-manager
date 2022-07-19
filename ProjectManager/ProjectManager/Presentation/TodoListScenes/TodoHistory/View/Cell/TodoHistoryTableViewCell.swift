@@ -17,14 +17,14 @@ final class TodoHistoryTableViewCell: UITableViewCell {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = .preferredFont(forTextStyle: .title1)
+        label.font = .preferredFont(forTextStyle: .title2)
         return label
     }()
     
     private let createAtLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .body)
-        label.textColor = .systemGray4
+        label.textColor = .systemGray2
         return label
     }()
     
