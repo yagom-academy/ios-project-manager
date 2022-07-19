@@ -52,11 +52,11 @@ class ListModel: Object {
             let listModel = ListModel()
             listModel.todoList.append(item)
             
-            try! realm.write {
+            try? realm.write {
                 realm.add(listModel)
             }
         } else {
-            try! realm.write {
+            try? realm.write {
                 let listModel = realm.objects(ListModel.self)
                 listModel.first?.todoList.append(item)
             }
