@@ -14,6 +14,10 @@
 		0334E70028767E7100222EB7 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0334E6FF28767E7100222EB7 /* DetailViewController.swift */; };
 		0334E70228767EBB00222EB7 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0334E70128767EBB00222EB7 /* DetailViewModel.swift */; };
 		0334E70628770E3D00222EB7 /* MockStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0334E70528770E3D00222EB7 /* MockStorageManager.swift */; };
+		03498B682886737300D8CB3F /* Project.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 03498B662886737300D8CB3F /* Project.xcdatamodeld */; };
+		03498B6F2886752500D8CB3F /* Project+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03498B6D2886752500D8CB3F /* Project+CoreDataClass.swift */; };
+		03498B702886752500D8CB3F /* Project+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03498B6E2886752500D8CB3F /* Project+CoreDataProperties.swift */; };
+		03498B73288676B500D8CB3F /* PersistentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03498B72288676B500D8CB3F /* PersistentManager.swift */; };
 		03AB73D62873043000B0C980 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 03AB73D52873043000B0C980 /* .swiftlint.yml */; };
 		03AB73DB2873290400B0C980 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AB73DA2873290400B0C980 /* MainViewController.swift */; };
 		03AB73DD2873292900B0C980 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AB73DC2873292900B0C980 /* MainView.swift */; };
@@ -42,6 +46,10 @@
 		0334E6FF28767E7100222EB7 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		0334E70128767EBB00222EB7 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		0334E70528770E3D00222EB7 /* MockStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockStorageManager.swift; sourceTree = "<group>"; };
+		03498B672886737300D8CB3F /* Project.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Project.xcdatamodel; sourceTree = "<group>"; };
+		03498B6D2886752500D8CB3F /* Project+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataClass.swift"; sourceTree = "<group>"; };
+		03498B6E2886752500D8CB3F /* Project+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		03498B72288676B500D8CB3F /* PersistentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentManager.swift; sourceTree = "<group>"; };
 		03AB73D52873043000B0C980 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		03AB73DA2873290400B0C980 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		03AB73DC2873292900B0C980 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -116,9 +124,21 @@
 		0334E70428770E1400222EB7 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				03498B712886760600D8CB3F /* PersistentStorage */,
 				0334E70528770E3D00222EB7 /* MockStorageManager.swift */,
 			);
 			path = Data;
+			sourceTree = "<group>";
+		};
+		03498B712886760600D8CB3F /* PersistentStorage */ = {
+			isa = PBXGroup;
+			children = (
+				03498B72288676B500D8CB3F /* PersistentManager.swift */,
+				03498B6D2886752500D8CB3F /* Project+CoreDataClass.swift */,
+				03498B6E2886752500D8CB3F /* Project+CoreDataProperties.swift */,
+				03498B662886737300D8CB3F /* Project.xcdatamodeld */,
+			);
+			path = PersistentStorage;
 			sourceTree = "<group>";
 		};
 		03AB73D72873289000B0C980 /* Main */ = {
@@ -422,11 +442,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				0334E70028767E7100222EB7 /* DetailViewController.swift in Sources */,
+				03498B682886737300D8CB3F /* Project.xcdatamodeld in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
 				0EA67EBE2874789700E15093 /* ModalView.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
 				0E34F04C287C7C5600438285 /* DateFormatter.swift in Sources */,
 				0EA67EB82873330100E15093 /* ProjectCell.swift in Sources */,
+				03498B6F2886752500D8CB3F /* Project+CoreDataClass.swift in Sources */,
 				03AB73DD2873292900B0C980 /* MainView.swift in Sources */,
 				0EA67EC928752A0F00E15093 /* ProjectContent.swift in Sources */,
 				0EA67ED0287674D000E15093 /* ProjectListView.swift in Sources */,
@@ -437,8 +459,10 @@
 				0EA67EC628751ECC00E15093 /* MainViewModel.swift in Sources */,
 				032D3D14287D64EB00A32E57 /* ProjectRepository.swift in Sources */,
 				033294B4287C717700EE7CBE /* PopOverView.swift in Sources */,
+				03498B702886752500D8CB3F /* Project+CoreDataProperties.swift in Sources */,
 				0E34F04F287C815300438285 /* PopOverViewModel.swift in Sources */,
 				0EA67ED228772C0200E15093 /* RegistrationViewModel.swift in Sources */,
+				03498B73288676B500D8CB3F /* PersistentManager.swift in Sources */,
 				032D3D11287D629800A32E57 /* ProjectUseCase.swift in Sources */,
 				03AB73E1287331BB00B0C980 /* ProjectTableView.swift in Sources */,
 				0EA67EBC287476B300E15093 /* RegistrationViewController.swift in Sources */,
@@ -637,6 +661,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		03498B662886737300D8CB3F /* Project.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				03498B672886737300D8CB3F /* Project.xcdatamodel */,
+			);
+			currentVersion = 03498B672886737300D8CB3F /* Project.xcdatamodel */;
+			path = Project.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = C7431EFA25F51E1D0094C4CF /* Project object */;
 }
