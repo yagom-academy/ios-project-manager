@@ -26,14 +26,14 @@ final class Container {
         return AddViewModel(storage: storage)
     }
     
-    func makeEditViewController(index: Int, type: ListType) -> EditViewController {
-        let editVC = EditViewController(viewModel: makeEditViewModel(index: index, type: type))
+    func makeEditViewController(_ listItem: ListItem) -> EditViewController {
+        let editVC = EditViewController(viewModel: makeEditViewModel(listItem))
         editVC.modalPresentationStyle = .formSheet
         return editVC
     }
 
-    private func makeEditViewModel(index: Int, type: ListType) -> EditViewModelable {
-        return EditViewModel(storage: storage, index: index, type: type)
+    private func makeEditViewModel(_ listItem: ListItem) -> EditViewModelable {
+        return EditViewModel(storage: storage, item: listItem)
     }
     
     init(storage: Storegeable) {

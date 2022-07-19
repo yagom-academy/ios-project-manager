@@ -39,28 +39,39 @@ final class MainViewController: UIViewController {
     
     private func setInitialView() {
         self.view.backgroundColor = .systemGray5
+        self.navigationItem.rightBarButtonItem = addButton
         self.view.addSubview(mainStackView)
         mainStackView.snp.makeConstraints {
             $0.edges.equalTo(self.view.safeAreaLayoutGuide)
         }
-        setTableView()
         setNavigationBar()
+        bindView()
     }
     
     private func setNavigationBar() {
         self.title = "Project Manger"
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAddButton))
     }
     
-    @objc private func didTapAddButton() {
-        self.present(container.makeAddViewController(), animated: true)
+    private func bindView() {
+        bindTableView()
+        
+        addButton.rx.tap
+            .bind(onNext: { [weak self] in
+                self?.viewModel.touchAddButton()
+            })
+            .disposed(by: disposebag)
+        
+        viewModel.showAddView.bind(onNext: { [weak self] in
+            guard let self = self else {
+                return
+            }
+            
+            self.present(self.container.makeAddViewController(), animated: true)
+        })
+        .disposed(by: disposebag)
     }
     
-    private func moveToEditViewController(index: Int, type: ListType) {
-        self.present(container.makeEditViewController(index: index, type: type), animated: true)
-    }
-    
-    private func setTableView() {
+    private func bindTableView() {
         bindTableView(todoTableView,
                       list: viewModel.todoList,
                       headerView: todoHeaderView,
@@ -87,19 +98,30 @@ final class MainViewController: UIViewController {
             .disposed(by: disposebag)
         
         viewModel.listCount(type)
-        .drive(headerView.countLabel.rx.text)
-        .disposed(by: disposebag)
+            .drive(headerView.countLabel.rx.text)
+            .disposed(by: disposebag)
         
         tableView.rx.itemSelected
-            .bind(onNext: { index in
-                self.moveToEditViewController(index: index.row, type: type)
-                tableView.deselectRow(at: index, animated: true)
+            .bind(onNext: { [weak self] in
+                self?.viewModel.touchCell(index: $0.row, type: type)
+                tableView.deselectRow(at: $0, animated: true)
+                print(type)
+            })
+            .disposed(by: disposebag)
+        
+        viewModel.showEditView
+            .bind(onNext: { [weak self] in
+                guard let self = self else {
+                    return
+                }
+                
+                self.present(self.container.makeEditViewController($0), animated: true)
             })
             .disposed(by: disposebag)
         
         tableView.rx.itemDeleted
             .bind(onNext: {
-                self.viewModel.deleteList(index: $0.row, type: type)
+                self.viewModel.deleteCell(index: $0.row, type: type)
             })
             .disposed(by: disposebag)
         
@@ -147,33 +169,35 @@ final class MainViewController: UIViewController {
         }
         
         let alert = makeAlert(index: indexPath.row, type: type)
-
+        
         guard let popoverPresentationController = alert.popoverPresentationController else {
             return
         }
-
+        
         popoverPresentationController.sourceView = cell
         
         let shouldShowBelow = location.y < UIScreen.main.bounds.height * 3 / 5
         let yPosition = cell.bounds.height / 2
         
         popoverPresentationController.sourceRect = CGRect(x: 0,
-                                      y: shouldShowBelow ? -yPosition : yPosition,
-                                      width: cell.bounds.width,
-                                      height: cell.bounds.height)
+                                                          y: shouldShowBelow ? -yPosition : yPosition,
+                                                          width: cell.bounds.width,
+                                                          height: cell.bounds.height)
         popoverPresentationController.permittedArrowDirections = shouldShowBelow ? .up : .down
         
         self.present(alert, animated: true)
     }
     
     // MARK: - UI Components
+    private lazy var addButton = UIBarButtonItem(systemItem: .add)
+    
     private lazy var mainStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews:[listStackView(headerView: todoHeaderView,
-                                                                     tableView: todoTableView),
+                                                                    tableView: todoTableView),
                                                       listStackView(headerView: doingHeaderView,
-                                                                     tableView: doingTableView),
+                                                                    tableView: doingTableView),
                                                       listStackView(headerView: doneHeaderView,
-                                                                     tableView: doneTableView)])
+                                                                    tableView: doneTableView)])
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
         stackView.spacing = 10

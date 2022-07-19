@@ -31,9 +31,9 @@ final class EditViewModel: EditViewModelable {
     var isEditable = BehaviorRelay<Bool>(value: false)
     var dismiss = BehaviorRelay<Void>(value: ())
     
-    init(storage: Storegeable, index: Int, type: ListType) {
+    init(storage: Storegeable, item: ListItem) {
         self.storage = storage
-        self.list = storage.selectItem(index: index, type: type)
+        self.list = item
     }
     
     //in

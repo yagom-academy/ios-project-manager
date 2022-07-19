@@ -16,11 +16,16 @@ protocol MainViewModelOutput {
     var doingList: Driver<[ListItem]> { get }
     var doneList: Driver<[ListItem]> { get }
     func listCount(_ type: ListType) -> Driver<String>
+    
+    var showAddView: PublishRelay<Void> { get }
+    var showEditView: PublishRelay<ListItem> { get }
 }
 
 protocol MainViewModelInput {
     func isOverDeadline(listItem: ListItem) -> Bool
-    func deleteList(index: Int, type: ListType)
+    func touchAddButton()
+    func touchCell(index: Int, type: ListType)
+    func deleteCell(index: Int, type: ListType)
     func changeListType(index: Int, type: ListType, to: ListType)
 }
 
@@ -50,6 +55,9 @@ final class MainViewModel: MainViewModelInOut {
             return doneList.map{ "\($0.count)"}
         }
     }
+    
+    var showAddView = PublishRelay<Void>()
+    var showEditView = PublishRelay<ListItem>()
 }
 
 //MARK: - input
@@ -58,7 +66,16 @@ extension MainViewModel {
         return listItem.type != .done && listItem.deadline < Date()
     }
     
-    func deleteList(index: Int, type: ListType) {
+    func touchAddButton() {
+        showAddView.accept(())
+    }
+    
+    func touchCell(index: Int, type: ListType) {
+        let item = storage.selectItem(index: index, type: type)
+        showEditView.accept(item)
+    }
+    
+    func deleteCell(index: Int, type: ListType) {
         storage.deleteList(index: index, type: type)
     }
     
