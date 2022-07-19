@@ -8,7 +8,7 @@
 import UIKit
 
 final class TodoSceneDIContainer {
-    private let storage = MemoryTodoListStorege()
+    private let storage = RealmTodoListStorege()
 
     private func makeTodoListViewModel(actions: TodoListViewModelActions) -> DefaultTodoListViewModel {
         return DefaultTodoListViewModel(useCase: makeTodoListUseCase(), actions: actions)

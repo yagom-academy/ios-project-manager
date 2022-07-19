@@ -6,11 +6,12 @@
 //
 
 import Foundation
+import RealmSwift
 
-enum State {
-    case todo
-    case doing
-    case done
+enum State: String {
+    case todo = "todo"
+    case doing = "doing"
+    case done = "done"
 }
 
 struct TodoModel: Equatable {
