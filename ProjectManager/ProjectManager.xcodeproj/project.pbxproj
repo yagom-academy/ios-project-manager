@@ -32,6 +32,7 @@
 		942729EC2886734D0010BC10 /* TodoHistoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942729EB2886734C0010BC10 /* TodoHistoryRepository.swift */; };
 		942729EE288673E30010BC10 /* TodoHistoryUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942729ED288673E30010BC10 /* TodoHistoryUseCase.swift */; };
 		942729F3288674B80010BC10 /* TodoHistoryTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942729F2288674B80010BC10 /* TodoHistoryTableViewModel.swift */; };
+		942729F52886780C0010BC10 /* TodoHistorySceneDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942729F42886780C0010BC10 /* TodoHistorySceneDIContainer.swift */; };
 		9465AF2A2875ACAE002D4352 /* TodoDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9465AF292875ACAE002D4352 /* TodoDetailViewModel.swift */; };
 		9465AF2C2875AD81002D4352 /* TodoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9465AF2B2875AD81002D4352 /* TodoDetailViewController.swift */; };
 		947C3F382875CD4600223403 /* TableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947C3F372875CD4600223403 /* TableHeaderView.swift */; };
@@ -94,6 +95,7 @@
 		942729EB2886734C0010BC10 /* TodoHistoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoHistoryRepository.swift; sourceTree = "<group>"; };
 		942729ED288673E30010BC10 /* TodoHistoryUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoHistoryUseCase.swift; sourceTree = "<group>"; };
 		942729F2288674B80010BC10 /* TodoHistoryTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoHistoryTableViewModel.swift; sourceTree = "<group>"; };
+		942729F42886780C0010BC10 /* TodoHistorySceneDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoHistorySceneDIContainer.swift; sourceTree = "<group>"; };
 		9465AF292875ACAE002D4352 /* TodoDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDetailViewModel.swift; sourceTree = "<group>"; };
 		9465AF2B2875AD81002D4352 /* TodoDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDetailViewController.swift; sourceTree = "<group>"; };
 		947C3F372875CD4600223403 /* TableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableHeaderView.swift; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 				A10EA52D287D59D000F3F9B5 /* ViewControllerFactory */,
 				940B64BD28754FC5001D3FD9 /* AppDIContainer.swift */,
 				940B64C6287551BC001D3FD9 /* TodoListSceneDIContainer.swift */,
+				942729F42886780C0010BC10 /* TodoHistorySceneDIContainer.swift */,
 			);
 			path = DIContainer;
 			sourceTree = "<group>";
@@ -684,6 +687,7 @@
 				940B64D928755591001D3FD9 /* TodoListRepositorible.swift in Sources */,
 				947C3F382875CD4600223403 /* TableHeaderView.swift in Sources */,
 				947EEF63287EA106009746C9 /* TodoCellViewModel.swift in Sources */,
+				942729F52886780C0010BC10 /* TodoHistorySceneDIContainer.swift in Sources */,
 				942729F3288674B80010BC10 /* TodoHistoryTableViewModel.swift in Sources */,
 				A1A9F54B2885943D00BDEA1D /* FirebaseStorage.swift in Sources */,
 				940B64DE28756ABB001D3FD9 /* TodoListView.swift in Sources */,

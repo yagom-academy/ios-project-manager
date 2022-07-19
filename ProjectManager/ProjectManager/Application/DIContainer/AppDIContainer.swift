@@ -13,8 +13,13 @@ protocol AppDIContainerable {
 
 final class AppDIContainer: AppDIContainerable {
     private let storage = RealmStorage()
+    private let historyStorage = HistoryStorage()
     
     func makeTodoListSceneDIContainer() -> TodoListSceneDIContainer {
-        TodoListSceneDIContainer(dependencies: TodoListSceneDIContainer.Dependencies(storage: storage))
+        return TodoListSceneDIContainer(dependencies: TodoListSceneDIContainer.Dependencies(storage: storage))
+    }
+    
+    func makeTodoHistorySceneDIContainer() -> TodoHistorySceneDIContainer {
+        return TodoHistorySceneDIContainer(dependencies: TodoHistorySceneDIContainer.Dependencies(storage: historyStorage))
     }
 }
