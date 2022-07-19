@@ -28,7 +28,10 @@
 		B0DA23EF287AD66700576D5E /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DA23EE287AD66700576D5E /* UITableView+Extension.swift */; };
 		B0DC541C28869BA3004F74CD /* LocalDB.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B0DC541A28869BA3004F74CD /* LocalDB.xcdatamodeld */; };
 		B0DC54212886A00D004F74CD /* CoreDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DC54202886A00D004F74CD /* CoreDataStorage.swift */; };
-		B0DC54232886A7DD004F74CD /* CardCoreDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DC54222886A7DD004F74CD /* CardCoreDataStorage.swift */; };
+		B0DC54232886A7DD004F74CD /* DefaultCardCoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DC54222886A7DD004F74CD /* DefaultCardCoreDataService.swift */; };
+		B0DC54282886C186004F74CD /* CardRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DC54272886C186004F74CD /* CardRepository.swift */; };
+		B0DC542A2886C190004F74CD /* DefaultCardRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DC54292886C190004F74CD /* DefaultCardRepository.swift */; };
+		B0DC542D2886C68D004F74CD /* CardEntity+Mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DC542C2886C68D004F74CD /* CardEntity+Mapping.swift */; };
 		B0EF5B18287522E000A503A9 /* CardSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EF5B17287522E000A503A9 /* CardSectionView.swift */; };
 		B0F615AC287C11B300672D87 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F615AB287C11B300672D87 /* Coordinator.swift */; };
 		B0F615AF287C125600672D87 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F615AE287C125600672D87 /* AppCoordinator.swift */; };
@@ -58,7 +61,10 @@
 		B0DA23EE287AD66700576D5E /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
 		B0DC541B28869BA3004F74CD /* LocalDB.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LocalDB.xcdatamodel; sourceTree = "<group>"; };
 		B0DC54202886A00D004F74CD /* CoreDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStorage.swift; sourceTree = "<group>"; };
-		B0DC54222886A7DD004F74CD /* CardCoreDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCoreDataStorage.swift; sourceTree = "<group>"; };
+		B0DC54222886A7DD004F74CD /* DefaultCardCoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCardCoreDataService.swift; sourceTree = "<group>"; };
+		B0DC54272886C186004F74CD /* CardRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardRepository.swift; sourceTree = "<group>"; };
+		B0DC54292886C190004F74CD /* DefaultCardRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCardRepository.swift; sourceTree = "<group>"; };
+		B0DC542C2886C68D004F74CD /* CardEntity+Mapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CardEntity+Mapping.swift"; sourceTree = "<group>"; };
 		B0EF5B17287522E000A503A9 /* CardSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardSectionView.swift; sourceTree = "<group>"; };
 		B0F615AB287C11B300672D87 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		B0F615AE287C125600672D87 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
@@ -171,6 +177,7 @@
 		B06FD23728854EB1003CED8E /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				B0DC54262886C117004F74CD /* Interface */,
 				B01DCDC728732AC000AFF91A /* Entity */,
 				B06FD23928854ECA003CED8E /* UseCase */,
 			);
@@ -214,6 +221,7 @@
 		B0DC541D28869F36004F74CD /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				B0DC54252886C0D6004F74CD /* Repository */,
 				B0DC541F28869FE9004F74CD /* Storages */,
 			);
 			path = Data;
@@ -222,10 +230,35 @@
 		B0DC541F28869FE9004F74CD /* Storages */ = {
 			isa = PBXGroup;
 			children = (
+				B0DC542B2886C66B004F74CD /* Mapping */,
 				B0DC54202886A00D004F74CD /* CoreDataStorage.swift */,
-				B0DC54222886A7DD004F74CD /* CardCoreDataStorage.swift */,
+				B0DC54222886A7DD004F74CD /* DefaultCardCoreDataService.swift */,
 			);
 			path = Storages;
+			sourceTree = "<group>";
+		};
+		B0DC54252886C0D6004F74CD /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				B0DC54292886C190004F74CD /* DefaultCardRepository.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		B0DC54262886C117004F74CD /* Interface */ = {
+			isa = PBXGroup;
+			children = (
+				B0DC54272886C186004F74CD /* CardRepository.swift */,
+			);
+			path = Interface;
+			sourceTree = "<group>";
+		};
+		B0DC542B2886C66B004F74CD /* Mapping */ = {
+			isa = PBXGroup;
+			children = (
+				B0DC542C2886C68D004F74CD /* CardEntity+Mapping.swift */,
+			);
+			path = Mapping;
 			sourceTree = "<group>";
 		};
 		B0F615AA287C11A700672D87 /* Protocol */ = {
@@ -361,7 +394,9 @@
 				C7431F0A25F51E1D0094C4CF /* CardListViewController.swift in Sources */,
 				B0F615AC287C11B300672D87 /* Coordinator.swift in Sources */,
 				B01748BD287732C300EE15B0 /* CardDetailViewController.swift in Sources */,
-				B0DC54232886A7DD004F74CD /* CardCoreDataStorage.swift in Sources */,
+				B0DC54232886A7DD004F74CD /* DefaultCardCoreDataService.swift in Sources */,
+				B0DC542D2886C68D004F74CD /* CardEntity+Mapping.swift in Sources */,
+				B0DC54282886C186004F74CD /* CardRepository.swift in Sources */,
 				B0F615AF287C125600672D87 /* AppCoordinator.swift in Sources */,
 				B01748BB2877141A00EE15B0 /* CardAdditionViewController.swift in Sources */,
 				B06FD23628854DCB003CED8E /* CardAdditionViewModel.swift in Sources */,
@@ -372,6 +407,7 @@
 				B0EF5B18287522E000A503A9 /* CardSectionView.swift in Sources */,
 				B06FD23428854A96003CED8E /* CardDetailViewModel.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
+				B0DC542A2886C190004F74CD /* DefaultCardRepository.swift in Sources */,
 				B0DA23EF287AD66700576D5E /* UITableView+Extension.swift in Sources */,
 				B01748BF287744DF00EE15B0 /* CardEditView.swift in Sources */,
 				B032CDA62873DAC00087383E /* CardListHeaderView.swift in Sources */,

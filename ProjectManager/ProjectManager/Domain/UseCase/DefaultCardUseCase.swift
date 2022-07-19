@@ -19,7 +19,13 @@ protocol CardUseCase {
 }
 
 final class DefaultCardUseCase: CardUseCase {
+  private let repository: CardRepository
+  
   let cards = BehaviorRelay<[Card]>(value: Card.sample)
+  
+  init(repository: CardRepository) {
+    self.repository = repository
+  }
   
   func createNewCard(_ card: Card) {
     cards.accept(cards.value + [card])

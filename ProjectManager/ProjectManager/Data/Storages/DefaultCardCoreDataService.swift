@@ -1,5 +1,5 @@
 //
-//  CardCoreDataStorage.swift
+//  DefaultCardCoreDataService.swift
 //  ProjectManager
 //
 //  Created by Lingo on 2022/07/19.
@@ -7,17 +7,18 @@
 
 import CoreData
 
-protocol CardCoreDataStoragable {
+protocol CardCoreDataService {
   func create(card: Card)
-  func fetchOne(id: String) -> Card?
-  func fetchAll() -> [Card]
+  func fetchOne(id: String) -> CardEntity?
+  func fetchAll() -> [CardEntity]
   func update(card: Card)
   func delete(id: String)
 }
 
-final class CardCoreDataStorage: CardCoreDataStoragable {
+final class DefaultCardCoreDataService: CardCoreDataService {
   private enum Settings {
     static let CardEntityName = "CardEntity"
+    static let deleteAllFailureMessage = "전체 삭제에 실패했습니다."
   }
   
   private let storage: CoreDataStorage
@@ -41,30 +42,21 @@ final class CardCoreDataStorage: CardCoreDataStoragable {
     storage.saveContext()
   }
   
-  private func _fetch(id: String) -> CardEntity? {
+  func fetchOne(id: String) -> CardEntity? {
     let request = CardEntity.fetchRequest()
     request.predicate = NSPredicate(format: "id = %@", id)
     
-    if let entity = try? storage.context.fetch(request).first {
-      return entity
-    }
-    return nil
+    guard let object = try? storage.context.fetch(request).first else { return nil }
+    return object
   }
   
-  func fetchOne(id: String) -> Card? {
-    guard let object = _fetch(id: id) else { return nil }
-    
-    return object.toDomain()
-  }
-  
-  func fetchAll() -> [Card] {
+  func fetchAll() -> [CardEntity] {
     guard let objects = try? storage.context.fetch(CardEntity.fetchRequest()) else { return [] }
-    
-    return objects.map { $0.toDomain() }
+    return objects
   }
   
   func update(card: Card) {
-    guard let object = _fetch(id: card.id) else { return }
+    guard let object = fetchOne(id: card.id) else { return }
     
     object.setValue(card.title, forKey: "title")
     object.setValue(card.description, forKey: "body")
@@ -75,23 +67,22 @@ final class CardCoreDataStorage: CardCoreDataStoragable {
   }
   
   func delete(id: String) {
-    guard let entity = _fetch(id: id) else { return }
+    guard let entity = fetchOne(id: id) else { return }
     
     storage.context.delete(entity)
     storage.saveContext()
   }
-}
-
-// MARK: - Mapping
-
-extension CardEntity {
-  func toDomain() -> Card {
-    return Card(
-      id: id ?? UUID().uuidString,
-      title: title ?? "",
-      description: body ?? "",
-      deadlineDate: deadlineDate ?? Date(),
-      cardType: CardType(rawValue: cardType) ?? .todo
-    )
+  
+  func deleteAll() {
+    let deleteRequest = NSBatchDeleteRequest(fetchRequest: CardEntity.fetchRequest())
+    do {
+      try storage.context.execute(deleteRequest)
+    } catch {
+      assertionFailure(Settings.deleteAllFailureMessage)
+    }
+  }
+  
+  func count() -> Int {
+    return fetchAll().count
   }
 }
