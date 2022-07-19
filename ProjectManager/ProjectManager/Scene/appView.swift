@@ -6,10 +6,12 @@
 //
 
 import SwiftUI
+import RealmSwift
 
 struct AppView: View {
   @State private var isShowDetailView = false
   @ObservedObject var viewModel: AppViewModel
+  var todoRealm = TodoRealm()
   
   init(viewModel: AppViewModel) {
     let navigationBarApperance = UINavigationBarAppearance()
@@ -57,5 +59,9 @@ struct AppView: View {
       }
     }
     .navigationViewStyle(.stack)
+    .onAppear {
+      guard let realm = try? Realm() else { return }
+      print(Realm.Configuration.defaultConfiguration.fileURL)
+    }
   }
 }
