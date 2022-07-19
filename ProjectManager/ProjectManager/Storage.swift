@@ -43,7 +43,12 @@ final class Storage: Storegeable {
     }
     
     func deleteItem(index: Int, type: ListType) {
+        let item = selectItem(index: index, type: type)
+        listModel.deleteItem(item)
         
+        let newList = listModel.readList(type)
+        
+        selectList(type).accept(newList)
     }
     
     func changeItemType(index: Int, type: ListType, destination: ListType) {

@@ -73,4 +73,19 @@ final class ListModel: Object {
             itemModel?.body = item.body
         }
     }
+    
+    func deleteItem(_ item: ListItem) {
+        guard let realm = try? Realm() else {
+            return
+        }
+        
+        guard let itemModel = selectListModel(item.type)?
+            .filter(NSPredicate(format: "id = %@", item.id)).first else {
+            return
+        }
+        
+        try? realm.write {
+            realm.delete(itemModel)
+        }
+    }
 }
