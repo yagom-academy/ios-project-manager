@@ -8,8 +8,9 @@
 import UIKit
 import SwipeCellKit
 import Combine
+import Firebase
 
-fileprivate enum Const {
+private enum Constant {
   static let delete = "삭제"
   static let deleteImage = "delete"
 }
@@ -177,11 +178,11 @@ extension TodoListViewController: SwipeCollectionViewCellDelegate {
       return nil
     }
     
-    let deleteAction = SwipeAction(style: .destructive, title: Const.delete) { [weak self] _, _ in
+    let deleteAction = SwipeAction(style: .destructive, title: Constant.delete) { [weak self] _, _ in
       self?.viewModel.deleActionDidTap(item)
     }
     
-    deleteAction.image = UIImage(named: Const.deleteImage)
+    deleteAction.image = UIImage(named: Constant.deleteImage)
     
     return [deleteAction]
   }

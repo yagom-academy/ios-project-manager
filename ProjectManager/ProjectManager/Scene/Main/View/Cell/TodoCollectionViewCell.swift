@@ -85,4 +85,11 @@ final class TodoCollectionViewCell: SwipeCollectionViewCell, Identifiable {
     }
     dateLabel.text = todo.date.nowDate()
   }
+  
+  override func prepareForReuse() {
+    super.prepareForReuse()
+    titleLabel.text = nil
+    contentLabel.text = nil
+    dateLabel.text = nil
+  }
 }
