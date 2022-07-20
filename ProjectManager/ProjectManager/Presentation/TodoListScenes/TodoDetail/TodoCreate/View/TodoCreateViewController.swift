@@ -38,6 +38,12 @@ final class TodoCreateViewController: UIViewController {
                 self?.coordinator?.dismiss()
             }
             .store(in: &cancelBag)
+        
+        viewModel.showErrorAlert
+            .sink { [weak self] errorMessage in
+                self?.showAlert(title: errorMessage)
+            }
+            .store(in: &cancelBag)
     }
     
     private func setup() {

@@ -15,17 +15,21 @@ protocol TodoCreateViewModelInput {
 
 protocol TodoCreateViewModelOutput {
     var dismissView: PassthroughSubject<Void, Never> { get }
+    var showErrorAlert: PassthroughSubject<String, Never> { get }
 }
 
 protocol TodoCreateViewModelable: TodoCreateViewModelInput, TodoCreateViewModelOutput {}
 
 final class TodoCreateViewModel: TodoCreateViewModelable {
-    private let todoUseCase: TodoListUseCaseable
-    private let historyUseCase: TodoHistoryUseCaseable
     
     // MARK: - Output
     
     let dismissView = PassthroughSubject<Void, Never>()
+    let showErrorAlert = PassthroughSubject<String, Never>()
+    
+    private let todoUseCase: TodoListUseCaseable
+    private let historyUseCase: TodoHistoryUseCaseable
+    private var cancelBag = Set<AnyCancellable>()
     
     init(todoUseCase: TodoListUseCaseable, historyUseCase: TodoHistoryUseCaseable) {
         self.todoUseCase = todoUseCase
@@ -47,10 +51,24 @@ extension TodoCreateViewModel {
         }
         
         let todoItem = Todo(title: title, content: content, deadline: deadline)
-        _ = todoUseCase.create(todoItem)
+        todoUseCase.create(todoItem)
+            .sink(
+                receiveCompletion: {
+                    guard case .failure(let error) = $0 else { return}
+                    self.showErrorAlert.send(error.localizedDescription)
+                }, receiveValue: {}
+            )
+            .store(in: &cancelBag)
         
         let historyItem = TodoHistory(title: "[생성] \(todoItem.title)", createdAt: Date())
-        _ = historyUseCase.create(historyItem)
+        historyUseCase.create(historyItem)
+            .sink(
+                receiveCompletion: {
+                    guard case .failure(let error) = $0 else { return}
+                    self.showErrorAlert.send(error.localizedDescription)
+                }, receiveValue: {}
+            )
+            .store(in: &cancelBag)
         
         dismissView.send(())
     }

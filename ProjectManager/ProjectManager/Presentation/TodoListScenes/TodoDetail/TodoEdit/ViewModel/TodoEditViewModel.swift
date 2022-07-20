@@ -18,6 +18,7 @@ protocol TodoEditViewModelOutput {
     var isEdited: PassthroughSubject<Void, Never> { get }
     var title: CurrentValueSubject<String, Never> { get }
     var dismissView: PassthroughSubject<Void, Never> { get }
+    var showErrorAlert: PassthroughSubject<String, Never> { get }
 }
 
 protocol TodoEditViewModelable: TodoEditViewModelInput, TodoEditViewModelOutput {}
@@ -33,10 +34,12 @@ final class TodoEditViewModel: TodoEditViewModelable {
     let isEdited = PassthroughSubject<Void, Never>()
     let title = CurrentValueSubject<String, Never>("TODO")
     let dismissView = PassthroughSubject<Void, Never>()
-
+    let showErrorAlert = PassthroughSubject<String, Never>()
+    
     private let todoListModel: Todo
     private let todoUseCase: TodoListUseCaseable
     private let historyUseCase: TodoHistoryUseCaseable
+    private var cancelBag = Set<AnyCancellable>()
     
     init(todoUseCase: TodoListUseCaseable, historyUseCase: TodoHistoryUseCaseable, todoListModel: Todo) {
         self.todoUseCase = todoUseCase
@@ -61,7 +64,7 @@ extension TodoEditViewModel {
             return
         }
         
-        _ = todoUseCase.update(
+        todoUseCase.update(
             Todo(
                 title: title,
                 content: content,
@@ -70,10 +73,24 @@ extension TodoEditViewModel {
                 id: todoListModel.id
             )
         )
+        .sink(
+            receiveCompletion: {
+                guard case .failure(let error) = $0 else { return}
+                self.showErrorAlert.send(error.localizedDescription)
+            }, receiveValue: {}
+        )
+        .store(in: &cancelBag)
         
         let historyItem = TodoHistory(title: "[수정] \(title)", createdAt: Date())
         
-        _ = historyUseCase.create(historyItem)
+        historyUseCase.create(historyItem)
+            .sink(
+                receiveCompletion: {
+                    guard case .failure(let error) = $0 else { return}
+                    self.showErrorAlert.send(error.localizedDescription)
+                }, receiveValue: {}
+            )
+            .store(in: &cancelBag)
         
         dismissView.send(())
     }

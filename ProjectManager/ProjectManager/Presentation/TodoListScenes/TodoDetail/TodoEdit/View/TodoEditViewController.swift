@@ -62,6 +62,12 @@ final class TodoEditViewController: UIViewController {
                 self?.todoDetailView.setupUserInteractionEnabled(true)
             }
             .store(in: &cancelBag)
+        
+        viewModel.showErrorAlert
+            .sink { [weak self] errorMessage in
+                self?.showAlert(title: errorMessage)
+            }
+            .store(in: &cancelBag)
     }
     
     private func setup() {

@@ -48,14 +48,9 @@ final class TodoListViewController: UIViewController {
             }
             .store(in: &cancelBag)
         
-        viewModel.errorOccur
-            .sink { [weak self] result in
-                switch result {
-                case .success(let success):
-                    print(success)
-                case .failure(let error):
-                    self?.showAlert(title: error.localizedDescription)
-                }
+        viewModel.showErrorAlert
+            .sink { [weak self] errorMessage in
+                self?.showAlert(title: errorMessage)
             }
             .store(in: &cancelBag)
         
