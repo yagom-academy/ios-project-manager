@@ -10,14 +10,14 @@ import Foundation
 extension Date {
     var convertDateToString: String {
         let dateFormatter = DateFormatter()
-                
-                dateFormatter.locale = .autoupdatingCurrent
-                dateFormatter.timeZone = .autoupdatingCurrent
-                dateFormatter.dateFormat = "yyyy. MM. dd."
-                
-                let stringDate = dateFormatter.string(from: self)
-                
-                return stringDate
-
+        
+        dateFormatter.locale = .autoupdatingCurrent
+        dateFormatter.timeZone = .autoupdatingCurrent
+        dateFormatter.dateFormat = "yyyy. MM. dd."
+        
+        let stringDate = dateFormatter.string(from: self)
+        
+        return stringDate
+        
     }
 }
