@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RegisterElementView: View {
-   @ObservedObject var taskViewModel: TaskViewModel
+    @State var registerViewModel: RegisterViewModel
     
     var dateRange: ClosedRange<Date> {
         let min = Calendar.current.date(byAdding: .year, value: -1, to: Date()) ?? Date()
@@ -19,7 +19,7 @@ struct RegisterElementView: View {
     
     var body: some View {
         VStack {
-            TextField("Title", text: $taskViewModel.title)
+            TextField("Title", text: $registerViewModel.taskManagementService.taskViewModel.title)
                 .foregroundColor(Color.gray)
                 .padding(.all)
                 .border(Color(UIColor.separator))
@@ -28,13 +28,13 @@ struct RegisterElementView: View {
                 .font(.title2)
                 
             DatePicker("",
-                       selection: $taskViewModel.date,
+                       selection: $registerViewModel.taskManagementService.taskViewModel.date,
                        in: dateRange,
                        displayedComponents: [.date])
                 .datePickerStyle(.wheel)
                 .labelsHidden()
             
-            TextEditor(text: $taskViewModel.body)
+            TextEditor(text: $registerViewModel.taskManagementService.taskViewModel.body)
                 .foregroundColor(Color.gray)
                 .lineSpacing(5)
                 .frame(minWidth: 0,
@@ -46,16 +46,16 @@ struct RegisterElementView: View {
                 .padding(.leading)
                 .padding(.trailing)
         }.onDisappear {
-            taskViewModel.title = ""
-            taskViewModel.date = Date()
-            taskViewModel.body = ""
+            registerViewModel.taskManagementService.taskViewModel.title = ""
+            registerViewModel.taskManagementService.taskViewModel.date = Date()
+            registerViewModel.taskManagementService.taskViewModel.body = ""
         }
     }
 }
 
-struct RegisterElementView_Previews: PreviewProvider {
-    static var previews: some View {
-        RegisterElementView(taskViewModel: TaskViewModel())
-.previewInterfaceOrientation(.landscapeLeft)
-    }
-}
+//struct RegisterElementView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        RegisterElementView(taskViewModel: TaskViewModel())
+//.previewInterfaceOrientation(.landscapeLeft)
+//    }
+//}

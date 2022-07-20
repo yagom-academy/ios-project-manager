@@ -9,11 +9,11 @@ import SwiftUI
 
 struct RegisterView: View {
     @Environment(\.dismiss) var dismiss
-    var contentViewModel: ContentViewModel
+    @ObservedObject var registerViewModel = RegisterViewModel()
     
     var body: some View {
         NavigationView {
-            RegisterElementView(taskViewModel: contentViewModel.data)
+            RegisterElementView(registerViewModel: registerViewModel)
             .navigationTitle("TODO")
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarColor(.systemGray5)
@@ -27,7 +27,7 @@ struct RegisterView: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                        contentViewModel.appendData()
+                        registerViewModel.appendTask()
                         dismiss()
                     }) {
                         Text("Done")
@@ -39,9 +39,9 @@ struct RegisterView: View {
     }
 }
 
-struct RegisterView_Previews: PreviewProvider {
-    static var previews: some View {
-        RegisterView(contentViewModel: ContentViewModel())
-            .previewInterfaceOrientation(.landscapeLeft)
-    }
-}
+//struct RegisterView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        RegisterView(contentViewModel: SomeViewModel())
+//            .previewInterfaceOrientation(.landscapeLeft)
+//    }
+//}

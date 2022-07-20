@@ -8,6 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		4D1DF3F70B13D1F93AD4E39F /* Pods_ProjectManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9E1EE52A77CD8A59090782B /* Pods_ProjectManager.framework */; };
+		B32142B92887D7F300F8CBE9 /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32142B82887D7F300F8CBE9 /* ContentViewModel.swift */; };
+		B32142BB2887DAF200F8CBE9 /* AllListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32142BA2887DAF200F8CBE9 /* AllListView.swift */; };
+		B32142BD2887DCBB00F8CBE9 /* AllListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32142BC2887DCBB00F8CBE9 /* AllListViewModel.swift */; };
+		B32142BF2887DECF00F8CBE9 /* CellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32142BE2887DECF00F8CBE9 /* CellViewModel.swift */; };
+		B32142C12887E04E00F8CBE9 /* PopoverButtonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32142C02887E04E00F8CBE9 /* PopoverButtonViewModel.swift */; };
+		B32142C32887E18900F8CBE9 /* EditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32142C22887E18900F8CBE9 /* EditViewModel.swift */; };
+		B32142C52887E6EB00F8CBE9 /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32142C42887E6EB00F8CBE9 /* RegisterViewModel.swift */; };
 		B335136B287579DF00BF3495 /* EditElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B335136A287579DF00BF3495 /* EditElementView.swift */; };
 		B397C23528770473003E2FEC /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B397C23428770473003E2FEC /* TaskViewModel.swift */; };
 		B39F102A2873DDC100475AE4 /* ProjectManagerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39F10292873DDC100475AE4 /* ProjectManagerApp.swift */; };
@@ -17,7 +24,7 @@
 		B3B28F4328756B1000A3CB57 /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B28F4228756B1000A3CB57 /* EditView.swift */; };
 		B3BDBB4F287FA64C0072933E /* RegisterElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BDBB4E287FA64C0072933E /* RegisterElementView.swift */; };
 		B3BDBB51287FA82E0072933E /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BDBB50287FA82E0072933E /* RegisterView.swift */; };
-		B3CA0B79287D09ED0047E1D1 /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CA0B78287D09ED0047E1D1 /* ContentViewModel.swift */; };
+		B3CA0B79287D09ED0047E1D1 /* TaskManagementService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CA0B78287D09ED0047E1D1 /* TaskManagementService.swift */; };
 		B3CA0B7B287D0A620047E1D1 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CA0B7A287D0A620047E1D1 /* Task.swift */; };
 		B3CA0B7E287D0FE90047E1D1 /* Date+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CA0B7D287D0FE90047E1D1 /* Date+extension.swift */; };
 		B3CA0B80287D48AF0047E1D1 /* CellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CA0B7F287D48AF0047E1D1 /* CellView.swift */; };
@@ -32,6 +39,13 @@
 /* Begin PBXFileReference section */
 		1D72654DC4BFA807FB52648D /* Pods-ProjectManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.release.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.release.xcconfig"; sourceTree = "<group>"; };
 		36BFEBDB78A6B9082D6BEADA /* Pods-ProjectManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectManager.debug.xcconfig"; path = "Target Support Files/Pods-ProjectManager/Pods-ProjectManager.debug.xcconfig"; sourceTree = "<group>"; };
+		B32142B82887D7F300F8CBE9 /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
+		B32142BA2887DAF200F8CBE9 /* AllListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllListView.swift; sourceTree = "<group>"; };
+		B32142BC2887DCBB00F8CBE9 /* AllListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllListViewModel.swift; sourceTree = "<group>"; };
+		B32142BE2887DECF00F8CBE9 /* CellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellViewModel.swift; sourceTree = "<group>"; };
+		B32142C02887E04E00F8CBE9 /* PopoverButtonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverButtonViewModel.swift; sourceTree = "<group>"; };
+		B32142C22887E18900F8CBE9 /* EditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewModel.swift; sourceTree = "<group>"; };
+		B32142C42887E6EB00F8CBE9 /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		B335136A287579DF00BF3495 /* EditElementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditElementView.swift; sourceTree = "<group>"; };
 		B397C23428770473003E2FEC /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
 		B39F10262873DDC100475AE4 /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -42,7 +56,7 @@
 		B3B28F4228756B1000A3CB57 /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
 		B3BDBB4E287FA64C0072933E /* RegisterElementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterElementView.swift; sourceTree = "<group>"; };
 		B3BDBB50287FA82E0072933E /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
-		B3CA0B78287D09ED0047E1D1 /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
+		B3CA0B78287D09ED0047E1D1 /* TaskManagementService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManagementService.swift; sourceTree = "<group>"; };
 		B3CA0B7A287D0A620047E1D1 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		B3CA0B7D287D0FE90047E1D1 /* Date+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+extension.swift"; sourceTree = "<group>"; };
 		B3CA0B7F287D48AF0047E1D1 /* CellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellView.swift; sourceTree = "<group>"; };
@@ -88,7 +102,13 @@
 			isa = PBXGroup;
 			children = (
 				B397C23428770473003E2FEC /* TaskViewModel.swift */,
-				B3CA0B78287D09ED0047E1D1 /* ContentViewModel.swift */,
+				B3CA0B78287D09ED0047E1D1 /* TaskManagementService.swift */,
+				B32142B82887D7F300F8CBE9 /* ContentViewModel.swift */,
+				B32142BC2887DCBB00F8CBE9 /* AllListViewModel.swift */,
+				B32142BE2887DECF00F8CBE9 /* CellViewModel.swift */,
+				B32142C02887E04E00F8CBE9 /* PopoverButtonViewModel.swift */,
+				B32142C42887E6EB00F8CBE9 /* RegisterViewModel.swift */,
+				B32142C22887E18900F8CBE9 /* EditViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -155,6 +175,7 @@
 			isa = PBXGroup;
 			children = (
 				B39F102B2873DDC100475AE4 /* ContentView.swift */,
+				B32142BA2887DAF200F8CBE9 /* AllListView.swift */,
 				DA79E41528752ABE000192CC /* TodoView.swift */,
 				DA79E41B28756193000192CC /* DoingView.swift */,
 				DA79E41D287561A1000192CC /* DoneView.swift */,
@@ -283,22 +304,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B32142BB2887DAF200F8CBE9 /* AllListView.swift in Sources */,
+				B32142C12887E04E00F8CBE9 /* PopoverButtonViewModel.swift in Sources */,
 				B3CA0B7E287D0FE90047E1D1 /* Date+extension.swift in Sources */,
 				DA79E41A28755DC6000192CC /* NavigationBarModifier.swift in Sources */,
 				B39F102C2873DDC100475AE4 /* ContentView.swift in Sources */,
+				B32142B92887D7F300F8CBE9 /* ContentViewModel.swift in Sources */,
 				B39F102A2873DDC100475AE4 /* ProjectManagerApp.swift in Sources */,
+				B32142BD2887DCBB00F8CBE9 /* AllListViewModel.swift in Sources */,
+				B32142C32887E18900F8CBE9 /* EditViewModel.swift in Sources */,
 				DA79E41E287561A1000192CC /* DoneView.swift in Sources */,
 				B3CA0B7B287D0A620047E1D1 /* Task.swift in Sources */,
 				B3CA0B80287D48AF0047E1D1 /* CellView.swift in Sources */,
+				B32142BF2887DECF00F8CBE9 /* CellViewModel.swift in Sources */,
 				B397C23528770473003E2FEC /* TaskViewModel.swift in Sources */,
 				DA79E41628752ABE000192CC /* TodoView.swift in Sources */,
 				B3B28F4328756B1000A3CB57 /* EditView.swift in Sources */,
-				B3CA0B79287D09ED0047E1D1 /* ContentViewModel.swift in Sources */,
+				B3CA0B79287D09ED0047E1D1 /* TaskManagementService.swift in Sources */,
 				B3BDBB4F287FA64C0072933E /* RegisterElementView.swift in Sources */,
 				DA79E41C28756193000192CC /* DoingView.swift in Sources */,
 				B3BDBB51287FA82E0072933E /* RegisterView.swift in Sources */,
 				B335136B287579DF00BF3495 /* EditElementView.swift in Sources */,
 				DA79E414287525C3000192CC /* ListRowView.swift in Sources */,
+				B32142C52887E6EB00F8CBE9 /* RegisterViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,12 +9,12 @@ import SwiftUI
 
 struct EditView: View {
     @Environment(\.dismiss) var dismiss
-    var contentViewModel: ContentViewModel
+    @ObservedObject var editViewModel = EditViewModel()
     var cellIndex: Int
     
     var body: some View {
         NavigationView {
-            EditElementView(taskViewModel: contentViewModel.data, cellIndex: cellIndex)
+            EditElementView(editViewModel: editViewModel, cellIndex: cellIndex)
             .navigationTitle("TODO")
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarColor(.systemGray5)
@@ -28,7 +28,7 @@ struct EditView: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                        contentViewModel.appendData()
+                        editViewModel.appendTask()
                         dismiss()
                     }) {
                         Text("Done")
@@ -40,9 +40,9 @@ struct EditView: View {
     }
 }
 
-struct EditView_Previews: PreviewProvider {
-    static var previews: some View {
-        EditView(contentViewModel: ContentViewModel(), cellIndex: 0)
-.previewInterfaceOrientation(.landscapeLeft)
-    }
-}
+//struct EditView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        EditView(contentViewModel: SomeViewModel(), cellIndex: 0)
+//.previewInterfaceOrientation(.landscapeLeft)
+//    }
+//}

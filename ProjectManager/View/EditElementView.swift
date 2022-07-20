@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct EditElementView: View {
-    @ObservedObject var taskViewModel: TaskViewModel
+    @State var editViewModel: EditViewModel
     var cellIndex: Int
 
     var dateRange: ClosedRange<Date> {
@@ -20,7 +20,7 @@ struct EditElementView: View {
     
     var body: some View {
         VStack {
-            TextField("Title", text: $taskViewModel.taskArray[cellIndex].title)
+            TextField("Title", text: $editViewModel.taskManagementService.taskViewModel.taskArray[cellIndex].title)
                 .foregroundColor(Color.gray)
                 .padding(.all)
                 .border(Color(UIColor.separator))
@@ -29,13 +29,13 @@ struct EditElementView: View {
                 .font(.title2)
                 
             DatePicker("",
-                       selection: $taskViewModel.taskArray[cellIndex].date,
+                       selection: $editViewModel.taskManagementService.taskViewModel.taskArray[cellIndex].date,
                        in: dateRange,
                        displayedComponents: [.date])
                 .datePickerStyle(.wheel)
                 .labelsHidden()
             
-            TextEditor(text: $taskViewModel.taskArray[cellIndex].body)
+            TextEditor(text: $editViewModel.taskManagementService.taskViewModel.taskArray[cellIndex].body)
                 .foregroundColor(Color.gray)
                 .lineSpacing(5)
                 .frame(minWidth: 0,
@@ -50,9 +50,9 @@ struct EditElementView: View {
     }
 }
 
-struct RegisterElementsView_Previews: PreviewProvider {
-    static var previews: some View {
-        EditElementView(taskViewModel: TaskViewModel(), cellIndex: 0)
-.previewInterfaceOrientation(.landscapeLeft)
-    }
-}
+//struct RegisterElementsView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        EditElementView(taskViewModel: TaskViewModel(), cellIndex: 0)
+//.previewInterfaceOrientation(.landscapeLeft)
+//    }
+//}

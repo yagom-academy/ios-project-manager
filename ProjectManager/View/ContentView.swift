@@ -9,16 +9,10 @@ import SwiftUI
 
 struct ContentView: View {
     @ObservedObject var contentViewModel: ContentViewModel
-    @State private var isShowingSheet = false
-    @State private var isShowingPopover = false
     
     var body: some View {
         NavigationView {
-            HStack {
-                TodoView(contentViewModel: contentViewModel)
-                DoingView(contentViewModel: contentViewModel)
-                DoneView(contentViewModel: contentViewModel)
-            }
+            AllListView()
             .background(.gray)
             .navigationTitle("Project Manager")
             .navigationBarTitleDisplayMode(.inline)
@@ -26,12 +20,12 @@ struct ContentView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                        isShowingSheet.toggle()
+                        contentViewModel.toggleShowingSheet()
                     }) {
                         Image(systemName: "plus")
                             .imageScale(.large)
-                    }.sheet(isPresented: $isShowingSheet) {
-                        RegisterView(contentViewModel: contentViewModel)
+                    }.sheet(isPresented: $contentViewModel.isShowingSheet) {
+                        RegisterView()
                     }
                 }
             }
@@ -40,9 +34,9 @@ struct ContentView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView(contentViewModel: ContentViewModel())
-            .previewInterfaceOrientation(.landscapeLeft)
-    }
-}
+//struct ContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ContentView(contentViewModel: SomeViewModel())
+//            .previewInterfaceOrientation(.landscapeLeft)
+//    }
+//}

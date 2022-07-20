@@ -33,8 +33,8 @@ struct ListRowView: View {
     }
 }
 
-struct ListRowView_Previews: PreviewProvider {
-    static var previews: some View {
-        ListRowView(taskArray: ContentViewModel().todoTasks, cellIndex: 0, taskType: .todo).previewLayout(.sizeThatFits)
-    }
-}
+//struct ListRowView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ListRowView(taskArray: SomeViewModel().todoTasks, cellIndex: 0, taskType: .todo).previewLayout(.sizeThatFits)
+//    }
+//}
