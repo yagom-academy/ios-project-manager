@@ -1,5 +1,5 @@
 //
-//  ListItemModel.swift
+//  ListItemDTO.swift
 //  ProjectManager
 //
 //  Created by 두기 on 2022/07/20.
@@ -7,7 +7,7 @@
 
 import RealmSwift
 
-final class ListItemModel: Object {
+final class ListItemDTO: Object {
     @objc dynamic var title: String = ""
     @objc dynamic var body: String = ""
     @objc dynamic var deadline: Date = Date()

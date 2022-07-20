@@ -14,8 +14,8 @@ struct ListItem {
     var type: ListType = .todo
     let id: String
     
-    var convertedItem: ListItemModel {
-        let itemModel = ListItemModel()
+    var convertedItem: ListItemDTO {
+        let itemModel = ListItemDTO()
         itemModel.title = self.title
         itemModel.body = self.body
         itemModel.deadline = self.deadline

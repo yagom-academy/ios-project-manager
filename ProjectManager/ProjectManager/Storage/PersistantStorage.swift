@@ -8,17 +8,17 @@
 import RealmSwift
 
 final class PersistantStorage: Object {
-    private let todoList = List<ListItemModel>()
-    private let doingList = List<ListItemModel>()
-    private let doneList = List<ListItemModel>()
+    private let todoList = List<ListItemDTO>()
+    private let doingList = List<ListItemDTO>()
+    private let doneList = List<ListItemDTO>()
     
-    private func selectListModel(_ type: ListType) -> List<ListItemModel> {
+    private func selectListModel(_ type: ListType) -> List<ListItemDTO> {
         guard let realm = try? Realm() else {
-            return List<ListItemModel>()
+            return List<ListItemDTO>()
         }
         
         guard let listModel = realm.objects(PersistantStorage.self).first else {
-            return List<ListItemModel>()
+            return List<ListItemDTO>()
         }
         
         switch type {
@@ -39,7 +39,7 @@ final class PersistantStorage: Object {
         return list
     }
     
-    func createItem(_ item: ListItemModel) {
+    func createItem(_ item: ListItemDTO) {
         guard let realm = try? Realm() else {
             return
         }
