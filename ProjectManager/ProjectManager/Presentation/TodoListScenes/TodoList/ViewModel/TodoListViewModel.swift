@@ -80,6 +80,10 @@ extension TodoListViewModel {
     func didTapAddButton() {
         showCreateView.send()
     }
+    
+    func didTapHistoryButton() {
+        showHistoryView.send(())
+    }
 }
 
 extension TodoListViewModel: TodoViewModelInput {
@@ -102,10 +106,6 @@ extension TodoListViewModel: TodoViewModelInput {
                 }, receiveValue: {}
             )
             .store(in: &cancelBag)
-    }
-    
-    func didTapHistoryButton() {
-        showHistoryView.send(())
     }
     
     func didTapCell(_ item: Todo) {

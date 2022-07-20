@@ -11,68 +11,33 @@ import Combine
 
 class TodoListViewModelTests: XCTestCase {
     var viewModel: TodoListViewModel!
+    
+    var historyUseCase: StubTodoHistoryUseCase!
+    var todoUseCase: StubTodoUseCase!
 
     override func setUpWithError() throws {
         try super.setUpWithError()
-        viewModel = TodoListViewModel(useCase: FakeTodoListUseCase())
-    }
-
-    func test_addButtonDidTap하면_todoItems가방출하는배열의원소가하나늘어나야한다() {
-        // given
-        let expectation = XCTestExpectation(description: "addButtonDidTap")
-        let expected = 4
-        var result: [Todo] = []
         
-        // when
-        viewModel.didTapAddButton()
-        _ = viewModel.todoItems.sink { items in
-            result = items
-            expectation.fulfill()
-        }
+        historyUseCase = StubTodoHistoryUseCase()
+        todoUseCase = StubTodoUseCase()
         
-        // then
-        wait(for: [expectation], timeout: 5)
-        XCTAssertEqual(result.count, expected)
-    }
-    
-    func test_didTapContextMenu하면_업데이트한processType으로바뀌어야한다() {
-        // given
-        let deadLine = Date()
-        let expectation = XCTestExpectation(description: "cellDidLongPress")
-        let expected1 = Todo(title: "Mock", content: "Mock", deadLine: deadLine, processType: .done, id: "1")
-        let expected2 = Todo(title: "Mock", content: "Mock", deadLine: deadLine, processType: .doing, id: "2")
-        var result1: Todo = Todo(title: "Mock", content: "Mock", deadLine: deadLine)
-        var result2: Todo = Todo(title: "Mock", content: "Mock", deadLine: deadLine, processType: .doing)
-        
-        // when
-        viewModel.didTapFirstContextMenu(expected1)
-        _ = viewModel.todoItems.sink { items in
-            result1 = items.first(where: { $0.id == "1" })!
-            expectation.fulfill()
-        }
-        
-        viewModel.didTapSecondContextMenu(expected2)
-        _ = viewModel.todoItems.sink { items in
-            result2 = items.first(where: { $0.id == "2" })!
-            expectation.fulfill()
-        }
-                    
-        // then
-        wait(for: [expectation], timeout: 5)
-        XCTAssertEqual(result1, expected1)
-        XCTAssertEqual(result2, expected2)
+        viewModel = TodoListViewModel(todoUseCase: todoUseCase, historyUseCase: historyUseCase)
     }
     
     func test_deleteItem하면_todoItems가방출하는배열의원소가하나줄어들어야한다() {
         // given
         let expectation = XCTestExpectation(description: "deleteItem")
-        let mockTodoListModel = Todo(title: "2", content: "2", deadLine: Date(), processType: .todo, id: "2")
-        let expected = 2
+        let mockTodoListModel = todoUseCase.items.value.last!
+        let expected = todoUseCase.items.value.count - 1
         var result = 0
         
         // when
         viewModel.deleteItem(mockTodoListModel)
+        
+        print(mockTodoListModel)
+        
         _ = viewModel.todoItems.sink { items in
+            print(items)
             result = items.count
             expectation.fulfill()
         }
@@ -80,5 +45,77 @@ class TodoListViewModelTests: XCTestCase {
         // then
         wait(for: [expectation], timeout: 5)
         XCTAssertEqual(result, expected)
+    }
+    
+    func test_deleteItem하면_historyUseCase의배열에원소가하나추가되야한다() {
+        // given
+        let expectation = XCTestExpectation(description: "deleteItem")
+        let mockTodoListModel = Todo.dummyData().last!
+        let expected = 1
+        var result = 0
+        
+        // when
+        viewModel.deleteItem(mockTodoListModel)
+        
+        _ = viewModel.historyItems.sink { items in
+            result = items.count
+            expectation.fulfill()
+        }
+        
+        // then
+        wait(for: [expectation], timeout: 5)
+        XCTAssertEqual(result, expected)
+    }
+    
+    func test_didTapContextMenu하면_업데이트한processType으로바뀌어야한다() {
+        // given
+        let expectation = XCTestExpectation(description: "cellDidLongPress")
+        
+        let firstModel = todoUseCase.items.value.first!
+        let secondModel = todoUseCase.items.value.last!
+        
+        var firstResult = Todo.empty()
+        var secondResult = Todo.empty()
+
+        // when
+        viewModel.didTapFirstContextMenu(firstModel)
+        
+        _ = viewModel.todoItems.sink { items in
+            firstResult = items.first { $0.id == firstModel.id }!
+            expectation.fulfill()
+        }
+
+        viewModel.didTapSecondContextMenu(secondModel)
+        
+        _ = viewModel.todoItems.sink { items in
+            secondResult = items.first { $0.id == secondModel.id }!
+            expectation.fulfill()
+        }
+
+        // then
+        wait(for: [expectation], timeout: 5)
+        XCTAssertEqual(firstModel, firstResult)
+        XCTAssertEqual(secondModel, secondResult)
+    }
+    
+    func test_didTapContextMenu하면_historyUseCase의배열에원소가하나추가되야한다() {
+        // given
+        let expectation = XCTestExpectation(description: "cellDidLongPress")
+        let mockTodoListModel = todoUseCase.items.value.first!
+        
+        let expected = 1
+        var result = 0
+        
+        // when
+        viewModel.didTapFirstContextMenu(mockTodoListModel)
+        
+        _ = viewModel.historyItems.sink { items in
+            result += 1
+            expectation.fulfill()
+        }
+
+        // then
+        wait(for: [expectation], timeout: 5)
+        XCTAssertEqual(expected, result)
     }
 }
