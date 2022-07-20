@@ -10,7 +10,7 @@ import Combine
 
 import SnapKit
 
-final class TodoCreateViewController: UIViewController {
+final class TodoCreateViewController: UIViewController, Alertable {
     private let viewModel: TodoCreateViewModelable
     private var cancelBag = Set<AnyCancellable>()
     private let todoCreateView = TodoDetailView()
@@ -41,7 +41,7 @@ final class TodoCreateViewController: UIViewController {
         
         viewModel.showErrorAlert
             .sink { [weak self] errorMessage in
-                self?.showAlert(title: errorMessage)
+                self?.showErrorAlertWithConfirmButton(errorMessage)
             }
             .store(in: &cancelBag)
     }

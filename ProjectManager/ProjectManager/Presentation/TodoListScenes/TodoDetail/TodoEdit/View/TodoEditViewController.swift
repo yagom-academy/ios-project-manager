@@ -8,7 +8,7 @@
 import UIKit
 import Combine
 
-final class TodoEditViewController: UIViewController {
+final class TodoEditViewController: UIViewController, Alertable {
     private var cancelBag = Set<AnyCancellable>()
     private let viewModel: TodoEditViewModelable
     private let todoDetailView = TodoDetailView()
@@ -65,7 +65,7 @@ final class TodoEditViewController: UIViewController {
         
         viewModel.showErrorAlert
             .sink { [weak self] errorMessage in
-                self?.showAlert(title: errorMessage)
+                self?.showErrorAlertWithConfirmButton(errorMessage)
             }
             .store(in: &cancelBag)
     }
