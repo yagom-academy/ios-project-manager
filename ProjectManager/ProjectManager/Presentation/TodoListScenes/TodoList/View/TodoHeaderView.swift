@@ -9,7 +9,7 @@ import UIKit
 
 import SnapKit
 
-final class TableHeaderView: UIView {
+final class TodoHeaderView: UIView {
     private let titleStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.spacing = 10

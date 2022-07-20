@@ -9,12 +9,12 @@ import UIKit
 import Combine
 
 final class TodoEditViewController: UIViewController, Alertable {
-    private var cancelBag = Set<AnyCancellable>()
-    private let viewModel: TodoEditViewModelable
-    private let todoDetailView = TodoDetailView()
-    
     weak var coordiantor: TodoEditViewCoordinator?
-
+    private let todoDetailView = TodoDetailView()
+    private let viewModel: TodoEditViewModelable
+    
+    private var cancelBag = Set<AnyCancellable>()
+    
     init(viewModel: TodoEditViewModelable) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)

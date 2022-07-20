@@ -17,8 +17,8 @@ protocol TodoListViewModelInput {
 protocol TodoListViewModelOutput {
     var isNetworkConnected: AnyPublisher<String, Never> { get }
     var title: Just<String> { get }
-    var showErrorAlert: PassthroughSubject<String, Never> { get }
     
+    var showErrorAlert: PassthroughSubject<String, Never> { get }
     var showCreateView: PassthroughSubject<Void, Never> { get }
     var showEditView: PassthroughSubject<Todo, Never> { get }
     var showHistoryView: PassthroughSubject<Void, Never> { get }
@@ -27,6 +27,7 @@ protocol TodoListViewModelOutput {
 protocol TodoListViewModelable: TodoListViewModelInput, TodoListViewModelOutput {}
 
 final class TodoListViewModel: TodoListViewModelable {
+    
     // MARK: - Output
     
     var isNetworkConnected: AnyPublisher<String, Never> {
@@ -54,7 +55,6 @@ final class TodoListViewModel: TodoListViewModelable {
     }
     
     let showErrorAlert = PassthroughSubject<String, Never>()
-    
     let showEditView = PassthroughSubject<Todo, Never>()
     let showHistoryView = PassthroughSubject<Void, Never>()
     let showCreateView = PassthroughSubject<Void, Never>()

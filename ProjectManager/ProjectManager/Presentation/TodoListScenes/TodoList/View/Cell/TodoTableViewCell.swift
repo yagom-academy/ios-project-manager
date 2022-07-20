@@ -11,6 +11,9 @@ import Combine
 import SnapKit
 
 final class TodoTableViewCell: UITableViewCell {
+    private var viewModel: TodoCellViewModelable?
+    private var cancelBag = Set<AnyCancellable>()
+    
     private let todoStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -41,9 +44,6 @@ final class TodoTableViewCell: UITableViewCell {
         return label
     }()
     
-    private var viewModel: TodoCellViewModelable?
-    private var cancelBag = Set<AnyCancellable>()
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setup()
@@ -55,7 +55,6 @@ final class TodoTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0))
     }
     

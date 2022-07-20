@@ -11,11 +11,11 @@ import Combine
 import SnapKit
 
 final class TodoCreateViewController: UIViewController, Alertable {
-    private let viewModel: TodoCreateViewModelable
-    private var cancelBag = Set<AnyCancellable>()
-    private let todoCreateView = TodoDetailView()
-    
     weak var coordinator: TodoCreateViewCoordinator?
+    private let todoCreateView = TodoDetailView()
+    private let viewModel: TodoCreateViewModelable
+
+    private var cancelBag = Set<AnyCancellable>()
     
     init(viewModel: TodoCreateViewModelable) {
         self.viewModel = viewModel

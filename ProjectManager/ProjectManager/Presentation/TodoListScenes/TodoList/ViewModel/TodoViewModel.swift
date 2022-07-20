@@ -31,6 +31,7 @@ protocol TodoViewModelOutput {
 protocol TodoViewModelable: TodoViewModelInput, TodoViewModelOutput {}
 
 final class TodoViewModel: TodoViewModelable {
+    
     // MARK: - Output
     
     var items: AnyPublisher<[Todo], Never>

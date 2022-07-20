@@ -13,6 +13,7 @@ final class TodoListView: UIView {
     private let todoView: TodoView
     private let doingView: TodoView
     private let doneView: TodoView
+    
     let networkStatusImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit

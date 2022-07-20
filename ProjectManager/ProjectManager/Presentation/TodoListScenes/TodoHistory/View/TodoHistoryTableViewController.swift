@@ -12,11 +12,11 @@ final class TodoHistoryTableViewController: UITableViewController {
     private typealias DataSource = UITableViewDiffableDataSource<Int, TodoHistory>
     private typealias Snapshot = NSDiffableDataSourceSnapshot<Int, TodoHistory>
     
-    private var dataSource: DataSource?
-    private var cancelBag = Set<AnyCancellable>()
-    
-    private let viewModel: TodoHistoryTableViewModelable
     weak var coordinator: TodoHistoryViewCoordinator?
+    private let viewModel: TodoHistoryTableViewModelable
+    
+    private var cancelBag = Set<AnyCancellable>()
+    private var dataSource: DataSource?
     
     init(_ viewModel: TodoHistoryTableViewModelable) {
         self.viewModel = viewModel
@@ -57,7 +57,9 @@ final class TodoHistoryTableViewController: UITableViewController {
                 withIdentifier: TodoHistoryTableViewCell.identifier,
                 for: indexPath
             ) as? TodoHistoryTableViewCell
+            
             cell?.setupData(with: item)
+            
             return cell
         }
     }

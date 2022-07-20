@@ -11,12 +11,12 @@ import Combine
 import SnapKit
 
 final class TodoListViewController: UIViewController, Alertable {
+    private unowned let factory: TodoSceneFactory
+    weak var coordinator: TodoListViewCoordinator?
     private lazy var todoListView = factory.makeTodoListView()
     private let viewModel: TodoListViewModelable
-    private unowned let factory: TodoSceneFactory
     
     private var cancelBag = Set<AnyCancellable>()
-    weak var coordinator: TodoListViewCoordinator?
     
     init(viewModel: TodoListViewModelable, factory: TodoSceneFactory) {
         self.viewModel = viewModel

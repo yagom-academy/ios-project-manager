@@ -24,8 +24,6 @@ protocol TodoCellViewModelOutput {
 protocol TodoCellViewModelable: TodoCellViewModelInput, TodoCellViewModelOutput {}
 
 final class TodoCellViewModel: TodoCellViewModelable {
-    private let model: Todo
-    private let dateformatter = DateFormatter()
     
     // MARK: - Output
     
@@ -38,11 +36,19 @@ final class TodoCellViewModel: TodoCellViewModelable {
     }
     
     var todoDeadline: Just<String> {
-        return Just(formattedString(model.deadline))
+        return Just(dateformatter.string(from: model.deadline))
     }
     
     let expired = PassthroughSubject<Void, Never>()
     let notExpired = PassthroughSubject<Void, Never>()
+    
+    private let model: Todo
+    private let dateformatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.locale = .current
+        formatter.dateFormat = "yyyy. M. d."
+        return formatter
+    }()
     
     init(_ model: Todo) {
         self.model = model
@@ -56,12 +62,6 @@ final class TodoCellViewModel: TodoCellViewModelable {
         }
     }
     
-    private func formattedString(_ date: Date) -> String {
-        dateformatter.locale = .current
-        dateformatter.dateFormat = "yyyy. M. d."
-        return dateformatter.string(from: date)
-    }
-
     private func endOfTheDay(for date: Date) -> Date? {
         let calendar = Calendar.current
         var components = calendar.dateComponents([.year, .month, .day], from: date)
@@ -74,6 +74,7 @@ final class TodoCellViewModel: TodoCellViewModelable {
 }
 
 extension TodoCellViewModel {
+    
     // MARK: - Input
     
     func cellDidBind() {

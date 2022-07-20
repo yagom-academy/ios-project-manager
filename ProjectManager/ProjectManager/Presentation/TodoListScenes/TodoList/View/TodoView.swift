@@ -10,15 +10,14 @@ import UIKit
 import Combine
 
 final class TodoView: UIView {
-    typealias DataSource = UITableViewDiffableDataSource<Int, Todo>
-    typealias Snapshot = NSDiffableDataSourceSnapshot<Int, Todo>
+    private typealias DataSource = UITableViewDiffableDataSource<Int, Todo>
+    private typealias Snapshot = NSDiffableDataSourceSnapshot<Int, Todo>
     
+    private let headerView: TodoHeaderView
     private let viewModel: TodoViewModelable
     
-    private lazy var headerView = TableHeaderView(title: viewModel.headerTitle)
-    private var dataSource: DataSource?
-    
     private var cancelBag = Set<AnyCancellable>()
+    private var dataSource: DataSource?
         
     private let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -36,6 +35,7 @@ final class TodoView: UIView {
     
     init(viewModel: TodoViewModelable) {
         self.viewModel = viewModel
+        self.headerView = TodoHeaderView(title: viewModel.headerTitle)
         super.init(frame: .zero)
         setup()
     }

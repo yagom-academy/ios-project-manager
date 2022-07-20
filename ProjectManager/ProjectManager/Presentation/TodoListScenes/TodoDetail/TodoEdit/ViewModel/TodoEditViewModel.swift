@@ -17,6 +17,7 @@ protocol TodoEditViewModelOutput {
     var item: Just<Todo> { get }
     var isEdited: PassthroughSubject<Void, Never> { get }
     var title: CurrentValueSubject<String, Never> { get }
+    
     var dismissView: PassthroughSubject<Void, Never> { get }
     var showErrorAlert: PassthroughSubject<String, Never> { get }
 }

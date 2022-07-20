@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 protocol TodoHistoryTableViewModelInput {
-    
+    // empty
 }
 
 protocol TodoHistoryTableViewModelOutput {
