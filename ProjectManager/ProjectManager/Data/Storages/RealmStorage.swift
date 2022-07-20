@@ -34,7 +34,7 @@ final class RealmStorage: LocalStorageable {
     func create(_ item: Todo) -> AnyPublisher<Void, StorageError> {
         return write(.createFail) {
             realm.add(transferToTodoRealm(with: item))
-            realmSubject.send(self.readAll())
+            realmSubject.send(readAll())
         }
     }
         
